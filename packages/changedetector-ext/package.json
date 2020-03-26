@@ -10,6 +10,9 @@
   "scripts": {
     "build": "yarn tsc"
   },
-  "gitHead": "25e940358d07e58d1d1587ad086332d30221904d",
-  "private": false
+  "gitHead": "a19e3d8b9bf6ff17ca23f8bef276733d7e85fdf2",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
 }
