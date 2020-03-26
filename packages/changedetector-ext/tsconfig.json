@@ -2,10 +2,11 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es2018",
+    "tsBuildInfoFile": "./.build/buildinfo",
     "lib": ["es2018", "DOM"],
     "resolveJsonModule": true,
     "module": "commonjs",
-    "outDir": "./js",
+    "outDir": "./.build/js",
     "strict": true
   }
 }

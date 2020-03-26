@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "files": [
     "manifest.json",
-    "js/*.js",
+    ".build/js",
     "assets"
   ],
   "license": "MIT",
