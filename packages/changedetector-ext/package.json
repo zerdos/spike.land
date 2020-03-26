@@ -9,5 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn tsc"
-  }
+  },
+  "gitHead": "d5192bcb9f04cca42d8c7259fb6da878398f6432",
+  "private": false
 }
