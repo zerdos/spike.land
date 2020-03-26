@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/changedetector-ext",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     "manifest.json",
     "js/*.js",
