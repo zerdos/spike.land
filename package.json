@@ -4,7 +4,7 @@
   "repository": "git@github.com:zed-vision/projects.git",
   "author": "Zoltan Erdos <zerdos@zed.vision",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "workspaces": [
     "packages/*"
   ],
