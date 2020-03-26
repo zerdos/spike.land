@@ -1,0 +1,15 @@
+{
+  "name": "zedvision-monorepo",
+  "description": "our monorepo",
+  "repository": "git@github.com:zed-vision/projects.git",
+  "author": "Zoltan Erdos <zerdos@zed.vision",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "typescript": "^3.8.3"
+  }
+}
