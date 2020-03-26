@@ -1,0 +1,9 @@
+{
+  "name": "@zedvision/changedetector-ext",
+  "version": "1.0.0",
+  "files": ["manifest.json","js/*.js","assets"],
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn tsc"
+  }
+}
