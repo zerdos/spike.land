@@ -3,8 +3,9 @@
     "incremental": true,
     "target": "es2018",
     "tsBuildInfoFile": "./.build/buildinfo",
-    "lib": ["es2018", "DOM"],
+    "lib": ["es2018", "DOM", "ScriptHost"],
     "resolveJsonModule": true,
+    "noImplicitAny": false,
     "module": "commonjs",
     "outDir": "./.build/js",
     "strict": true

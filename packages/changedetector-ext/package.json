@@ -8,11 +8,16 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "dev": "yarn tsc --watch "
   },
   "gitHead": "a19e3d8b9bf6ff17ca23f8bef276733d7e85fdf2",
   "private": false,
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@types/chrome": "^0.0.102",
+    "chrome": "^0.1.0"
   }
 }
