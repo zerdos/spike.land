@@ -6,7 +6,7 @@
       "browsingData"
     ],
     "background": {
-      "scripts": ["background.js"],
+      "scripts": [".build/js/background.js"],
       "persistent": false
     },
     "browser_action": {

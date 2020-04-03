@@ -1,1 +1,1 @@
-window.alert("hello zoli");
+window.alert("Clicked!");

@@ -8,6 +8,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "dev": "cd packages/changedetector-ext/ && yarn tsc --watch "
+  },
   "devDependencies": {
     "lerna": "^3.20.2",
     "typescript": "^3.8.3"
