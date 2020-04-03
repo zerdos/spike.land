@@ -102,8 +102,9 @@ public/
 
 ## Build directory
 extension/
-dist/
+.tscbuild/
 .awcache
+dist
 
 # yarn 2
 # https://github.com/yarnpkg/berry/issues/454#issuecomment-530312089
@@ -111,3 +112,5 @@ dist/
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
+
+extension.*

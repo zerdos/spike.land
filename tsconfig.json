@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": "./dist",
     "incremental": true,
-    "target": "ES2015",
-    "tsBuildInfoFile": "./.build/buildinfo",
+    "target": "ESNext",
+    "tsBuildInfoFile": "./.tscbuild/buildinfo",
     "lib": [
       "es2018",
       "DOM",
@@ -12,22 +11,14 @@
       "ES2015"
     ],
     "noImplicitAny": false,
-    "outDir": "dist",
+    "outDir": ".tscbuild",
     "strict": true,
     "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ES2015",
-    "moduleResolution": "classic",
     "isolatedModules": true,
     "jsx": "react",
-    "paths": {
-      "~*": [
-        "./*"
-      ]
-    },
+    "moduleResolution": "node"
   },
   "include": [
     "src/**/*", "background.ts"
