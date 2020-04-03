@@ -1,18 +1,33 @@
 {
-  "name": "zedvision-monorepo",
-  "description": "our monorepo",
-  "repository": "git@github.com:zed-vision/projects.git",
-  "author": "Zoltan Erdos <zerdos@zed.vision",
-  "license": "MIT",
-  "private": true,
-  "workspaces": [
-    "packages/*"
+  "name": "@zedvision/changedetector-ext",
+  "version": "0.0.6",
+  "files": [
+    "manifest.json",
+    ".build/js",
+    "assets"
   ],
+  "license": "MIT",
   "scripts": {
-    "dev": "cd packages/changedetector-ext/ && yarn tsc --watch "
+    "build": "rm -rf dist && yarn parcel build popup.html && cp manifest.json background.js icon.png dist/",
+
+    "dev": "yarn parcel popup.html"
+  },
+  "gitHead": "a19e3d8b9bf6ff17ca23f8bef276733d7e85fdf2",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@types/chrome": "^0.0.103",
+    "@types/node": "^13.11.0",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "chrome": "^0.1.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "lerna": "^3.20.2",
-    "typescript": "^3.8.3"
+    "parcel-bundler": "^1.12.4"
   }
 }

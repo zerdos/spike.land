@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./dist",
+    "incremental": true,
+    "target": "ES2015",
+    "tsBuildInfoFile": "./.build/buildinfo",
+    "lib": [
+      "es2018",
+      "DOM",
+      "ScriptHost",
+      "DOM.Iterable",
+      "ES2015"
+    ],
+    "noImplicitAny": false,
+    "outDir": "dist",
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ES2015",
+    "moduleResolution": "classic",
+    "isolatedModules": true,
+    "jsx": "react",
+    "paths": {
+      "~*": [
+        "./*"
+      ]
+    },
+  },
+  "include": [
+    "src/**/*", "background.ts"
+  ]
+}
