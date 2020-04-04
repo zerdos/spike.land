@@ -12,10 +12,10 @@
     "dev": "yarn wsrun -a dev"
   },
   "devDependencies": {
-    "lerna": "^3.20.2",
-    "npm-run-all": "^4.1.5",
-    "parcel-bundler": "^1.12.4",
-    "typescript": "^3.8.3",
-    "wsrun": "^5.2.0"
+    "lerna": "3.20.2",
+    "npm-run-all": "4.1.5",
+    "parcel-bundler": "1.12.4",
+    "typescript": "3.8.3",
+    "wsrun": "5.2.0"
   }
 }
