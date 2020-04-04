@@ -2,7 +2,7 @@
   "compilerOptions": {
     "incremental": true,
     "target": "ESNext",
-    "tsBuildInfoFile": "./.tscbuild/buildinfo",
+    "tsBuildInfoFile": "./.tscbuild/.buildinfo",
     "lib": [
       "es2018",
       "DOM",
@@ -21,6 +21,6 @@
     "moduleResolution": "node"
   },
   "include": [
-    "src/**/*", "background.ts", "extension/background.ts"
+    "src/**/*", "background.ts", "chrome-xtension/background.ts"
   ]
 }

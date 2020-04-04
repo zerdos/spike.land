@@ -1,12 +1,16 @@
 {
-  "name": "@zedvision/changedetector-ext",
+  "name": "@zedvision/bcd",
   "version": "0.0.6",
   "files": [
     "extension/**"
   ],
   "license": "MIT",
   "scripts": {
-    "dev": "yarn parcel src/**/*.html -d extension"
+    "postinstall": "yarn clean && yarn tsc",
+    "dev": "yarn run-p dev:*",
+    "dev:parcel": "yarn parcel src/**/*.html -d extension",
+    "dev:tsc": "yarn tsc --watch",
+    "clean": "rm -rf .cache .tscbuild ./chrome-extension/PopupApp.*"
   },
   "gitHead": "a19e3d8b9bf6ff17ca23f8bef276733d7e85fdf2",
   "private": false,
@@ -14,11 +18,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@types/chrome": "^0.0.103",
-    "@types/node": "^13.11.0",
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
-    "chrome": "^0.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }
