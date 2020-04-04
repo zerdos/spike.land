@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ESNext",
+    "tsBuildInfoFile": "./.tscbuild/buildinfo",
+    "lib": [
+      "es2018",
+      "DOM",
+      "ScriptHost",
+      "DOM.Iterable",
+      "ES2015"
+    ],
+    "noImplicitAny": false,
+    "outDir": ".tscbuild",
+    "strict": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "src/**/*", "background.ts", "extension/background.ts"
+  ]
+}

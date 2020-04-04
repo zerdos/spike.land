@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "lerna": "^3.20.2",
+    "parcel-bundler": "^1.12.4",
     "typescript": "^3.8.3"
   }
 }
