@@ -8,7 +8,7 @@
   "scripts": {
     "postinstall": "yarn clean && yarn tsc",
     "dev": "yarn run-p dev:*",
-    "dev:parcel": "yarn parcel src/**/*.html -d chrome-extension",
+    "dev:parcel": "yarn parcel watch src/**/*.html --no-hot -d chrome-extension",
     "dev:tsc": "yarn tsc --watch",
     "clean": "rm -rf .cache ./chrome-extension/*.js.map ./chrome-extension/*.js ./chrome-extension/*.html  ./chrome-extension/tsc"
   },
