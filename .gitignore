@@ -111,7 +111,3 @@ dist/
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
-
-
-.buildinfo
-.tscbuild

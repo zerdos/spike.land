@@ -1,2 +1,4 @@
-PopupApp.*
-popup.html
+*.html
+*.js
+*.js.map
+tsc

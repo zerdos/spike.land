@@ -6,7 +6,7 @@
       "browsingData", "background"
     ],
     "background": {
-      "scripts": ["background.js"],
+      "scripts": ["tsc/background.js"],
       "persistent": false
     },
     "browser_action": {
