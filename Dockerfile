@@ -1,12 +1,15 @@
 FROM devimages/focal-devcontainer
+
+WORKDIR $HOME/projects
                                         
-WORKDIR  /project
-RUN sudo chown $USER:$USER /project
+COPY yarn.lock package.json ./
 
-COPY --chown=$USER:$USER yarn.lock package.json ./
-RUN yarn --frozen-lockfile
+RUN sudo chown -R $USER:$USER . && yarn --frozen-lockfile
 
-COPY --chown=$USER:$USER  .git ./.git
-RUN ls -la .git
-# RUN git reset --hard HEAD 
+
+RUN ls -la
+
+COPY .git ./.git
+
+RUN sudo chown -R $USER:$USER .git && git reset --hard HEAD 
 RUN yarn --frozen-lockfile

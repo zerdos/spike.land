@@ -10,15 +10,15 @@ services:
     build: .
     tmpfs:
         - /home/$USER/tmpfs:exec
-      privileged: true
-      network_mode: host
-      shm_size: 4gb
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - yarn:/yarn
-      ports:
-        - "6080:6080"
-        - "5901:5901"
+    privileged: true
+    network_mode: host
+    shm_size: 4gb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - yarn:/yarn
+    ports:
+      - "6080:6080"
+      - "5901:5901"
     depends_on:
       - devcontainer
 volumes:
