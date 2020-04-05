@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { css } from "emotion";
 
-const color = "white";
+const color = "yellow";
 
 export const CounterButton: React.FC<{ label: string }> = ({ label }) => {
   const [counter, changecounter] = useState(0);

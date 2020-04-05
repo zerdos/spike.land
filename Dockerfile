@@ -1,12 +1,12 @@
-FROM node:alpine
+FROM devimages/focal-devcontainer:5.0.0
 
-WORKDIR /projects
+WORKDIR  /project
+RUN sudo chown $USER:$USER /project
 
-COPY yarn.lock package.json ./
+COPY --chown=$USER:$USER yarn.lock package.json ./
 RUN yarn --frozen-lockfile
 
-RUN apk add git
-
-COPY .git ./.git
-RUN git reset --hard HEAD 
+COPY --chown=$USER:$USER  .git ./.git
+RUN ls -la .git
+# RUN git reset --hard HEAD 
 RUN yarn --frozen-lockfile
