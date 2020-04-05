@@ -12,7 +12,7 @@
     "dev": "yarn wsrun -a dev"
   },
   "devDependencies": {
-    "@devcontainer/focal-devcontainer": "^5.1.1",
+    "@devcontainer/focal-devcontainer": "^5.1.3",
     "lerna": "3.20.2",
     "npm-run-all": "4.1.5",
     "parcel": "nightly",

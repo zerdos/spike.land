@@ -848,10 +848,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@devcontainer/focal-devcontainer@^5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@devcontainer/focal-devcontainer/-/focal-devcontainer-5.1.1.tgz#a6950ea0dd53a998cc2dad507de713e4a59e1a9d"
-  integrity sha512-TmpfqDIANAu1QA3XiyMrqP29uDGdutybi1j6WTyxcDwZTs/vYz5KgPb5TUc3cfv/0CStAgfbI7mg9Vu7AYCxeA==
+"@devcontainer/focal-devcontainer@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@devcontainer/focal-devcontainer/-/focal-devcontainer-5.1.3.tgz#18bdcb9a599d7a599e7f614ad8ee256bdab2f922"
+  integrity sha512-WIHNHO6k1DnHtzSqnGXPbvWrc46Jvd4k56Bra9S+8YGFWBovVz/8V1YTU2mq7GOQ76lkhkGsklelRrQLPS7iAQ==
 
 "@emotion/cache@^10.0.27":
   version "10.0.29"
