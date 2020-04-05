@@ -13,7 +13,8 @@
     "format": "yarn prettier .  --write",
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
     "docker": "docker build --build-arg USER=$USER -f node_modules/@devcontainer/focal-devcontainer/Dockerfile . -t focal-local",
-    "dev": "yarn wsrun -a dev"
+    "dev": "yarn wsrun -a dev",
+    "clean":  "yarn wsrun -a clean"
   },
   "devDependencies": {
     "@devcontainer/focal-devcontainer": "5.1.3",
