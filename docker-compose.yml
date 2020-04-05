@@ -1,13 +1,11 @@
 version: "3.7"
 services:
-  devcontainer:
-    image: devimages/focal-devcontainer
-    build:
-      context: ./node_modules/@devcontainer/focal-devcontainer
+  projects:
+    build: 
+      context: .
       args:
         USER: $USER
-  projects:
-    build: .
+        DEVCONTAINER: focal-local
     tmpfs:
         - /home/$USER/tmpfs:exec
     privileged: true
@@ -19,7 +17,5 @@ services:
     ports:
       - "6080:6080"
       - "5901:5901"
-    depends_on:
-      - devcontainer
 volumes:
   yarn:

@@ -9,6 +9,8 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "yarn docker || echo no docker",
+    "docker": "docker build --build-arg USER=$USER -f node_modules/@devcontainer/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev"
   },
   "devDependencies": {
