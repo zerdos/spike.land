@@ -1,5 +1,5 @@
-FROM devimages/focal-devcontainer:5.0.0
-
+FROM devimages/focal-devcontainer
+                                        
 WORKDIR  /project
 RUN sudo chown $USER:$USER /project
 
