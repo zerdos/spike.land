@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { css } from "emotion";
 
 const color = "yellow";
@@ -25,7 +24,7 @@ export const CounterButton: React.FC<{ label: string }> = ({ label }) => {
 
       <button onClick={() => changecounter(counter + 1)}>
         {" "}
-        {label} {counter}
+        {label + 7} {counter}
       </button>
     </div>
   );

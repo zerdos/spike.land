@@ -3,13 +3,7 @@
     "incremental": true,
     "target": "ESNext",
     "tsBuildInfoFile": "chrome-extension/tsc/.buildinfo",
-    "lib": [
-      "es2018",
-      "DOM",
-      "ScriptHost",
-      "DOM.Iterable",
-      "ES2015"
-    ],
+    "lib": ["es2018", "DOM", "ScriptHost", "DOM.Iterable", "ES2015"],
     "noImplicitAny": true,
     "outDir": "chrome-extension/tsc",
     "strict": true,
@@ -21,7 +15,5 @@
     "jsx": "react",
     "moduleResolution": "node"
   },
-  "include": [
-    "src/**/*", "background.ts", "chrome-xtension/background.ts"
-  ]
+  "include": ["src/**/*", "background.ts", "chrome-xtension/background.ts"]
 }

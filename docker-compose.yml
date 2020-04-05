@@ -1,13 +1,13 @@
 version: "3.7"
 services:
   projects:
-    build: 
+    build:
       context: .
       args:
         USER: $USER
         DEVCONTAINER: focal-local
     tmpfs:
-        - /home/$USER/tmpfs:exec
+      - /home/$USER/tmpfs:exec
     privileged: true
     network_mode: host
     shm_size: 4gb
