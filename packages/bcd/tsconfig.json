@@ -3,7 +3,14 @@
     "incremental": true,
     "target": "ESNext",
     "tsBuildInfoFile": "chrome-extension/tsc/.buildinfo",
-    "lib": ["es2018", "DOM", "ScriptHost", "DOM.Iterable", "ES2015"],
+    "lib": [
+      "es2018",
+      "DOM",
+      "ScriptHost",
+      "DOM.Iterable",
+      "ES2015",
+      "ESNext.BigInt"
+    ],
     "noImplicitAny": true,
     "outDir": "chrome-extension/tsc",
     "strict": true,

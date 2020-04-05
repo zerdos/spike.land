@@ -2,7 +2,7 @@
   "name": "The BCD experiment",
   "version": "1.1",
   "description": "playing with react and with chrome extensions",
-  "permissions": ["browsingData", "background"],
+  "permissions": ["browsingData", "background", "storage"],
   "background": {
     "scripts": ["tsc/background.js"],
     "persistent": false
