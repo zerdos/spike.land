@@ -14,7 +14,19 @@
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
     "docker": "docker build --build-arg USER=$USER -f node_modules/@devcontainer/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev",
-    "clean":  "yarn wsrun -a clean"
+    "clean": "yarn wsrun -a clean",
+    "release": "yarn build && yarn docker:build && yarn test && lerna publish && yarn push",
+    "build": "yarn xxx build && yarn xxx generate:dockerfile",
+    "test": "yarn xxx tests",
+    "docker:build": "yarn xxx docker:build",
+    "docker:push": "yarn xxx docker:push",
+    "xxx": "yarn wsrun --paralell --exclude-missing",
+    "push": "yarn build && yarn xxx docker:push"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn build"
+    }
   },
   "devDependencies": {
     "@devcontainer/focal-devcontainer": "5.1.3",
@@ -23,6 +35,7 @@
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.1",
     "eslint-plugin-react": "7.19.0",
+    "husky": "^4.2.3",
     "lerna": "3.20.2",
     "npm-run-all": "4.1.5",
     "parcel": "nightly",
