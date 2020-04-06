@@ -5,7 +5,7 @@ USER 0
 RUN addgroup --gid 33333 gitpod  \
   && adduser --uid 33333 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup gitpod gitpod \
   && adduser gitpod sudo \
-  && chown gitpod:gitpod -R /home/gitpod 
+  && chown gitpod:gitpod -R /home/gitpod /yarn
                     
 USER gitpod
 ENV HOME="/home/gitpod"
