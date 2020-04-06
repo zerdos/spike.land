@@ -3,8 +3,8 @@ FROM devimages/focal-devcontainer
 USER 0
 
 RUN addgroup --gid 33333 gitpod  \
-  && adduser --uid 33333 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup 33333 33333 \
-  && adduser 33333 sudo \
+  && adduser --uid 33333 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup gitpod gitpod \
+  && adduser gitpod sudo \
   && chown 33333:33333 -R /home/gitpod \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers 
                     
