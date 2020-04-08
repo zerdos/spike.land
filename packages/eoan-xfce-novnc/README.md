@@ -6,5 +6,4 @@
 - With noVNC - XFCE trought noVNC (http://localhost:6080)
 - with Google-chrome- Zsh + Oh my zsh!
 
-
 Git repository: https://github.com/zerdos/devcontainer

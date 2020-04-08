@@ -1,19 +1,19 @@
 version: "3.7"
 services:
   devcontainer:
-    build: 
+    build:
       context: .
-      args: 
+      args:
         USER: $USER
-    tmpfs: 
+    tmpfs:
       - /home/$USER/tmpfs:exec
     privileged: true
     shm_size: 8gb
-    volumes: 
+    volumes:
       - /home:/home
       - yarn:/yarn
     ports:
       - "6080:6080"
       - "5901:5901"
-volumes: 
-  yarn: 
+volumes:
+  yarn:

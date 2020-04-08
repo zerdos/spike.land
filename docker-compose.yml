@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   projects:
-    build: 
+    build:
       context: node_modules/@devcontainer/focal-devcontainer
       args:
         USER: $USER

@@ -1,1 +1,1 @@
-export {DevcontainerGenerator} from "./devcontainerGenerator";
+export { DevcontainerGenerator } from "./devcontainerGenerator";

@@ -1,24 +1,19 @@
-const {DevcontainerGenerator} = require('@devcontainer/generator');
-const {writeFile} = require('fs').promises;
+const { DevcontainerGenerator } = require("@devcontainer/generator");
+const { writeFile } = require("fs").promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator('eoan');
+  const devGenerator = new DevcontainerGenerator("eoan");
 
   devGenerator.setXfce();
-  devGenerator.setRemoteDesktop('noVNC');
+  devGenerator.setRemoteDesktop("noVNC");
   devGenerator.updateGit();
   devGenerator.setChrome();
-  devGenerator.setNodeVersion('current');
+  devGenerator.setNodeVersion("current");
   devGenerator.setZsh();
 
-  const {
-    Dockerfile,
-    README,
-  } = await devGenerator.generate();
+  const { Dockerfile, README } = await devGenerator.generate();
 
-  await writeFile(
-      `${__dirname}/Dockerfile`, Dockerfile,
-  );
+  await writeFile(`${__dirname}/Dockerfile`, Dockerfile);
 
   await writeFile(`${__dirname}/README.md`, README);
 };
