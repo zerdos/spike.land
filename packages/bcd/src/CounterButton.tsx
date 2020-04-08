@@ -11,6 +11,9 @@ import { numberStorage } from "./storage"
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      margin: 10,
+      padding: 10,
+      textAlign: 'center',
       display: 'flex',
       flexDirection: 'column',
       '& > *': {
