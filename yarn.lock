@@ -856,6 +856,11 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@devcontainer/focal-devcontainer@5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@devcontainer/focal-devcontainer/-/focal-devcontainer-5.1.3.tgz#18bdcb9a599d7a599e7f614ad8ee256bdab2f922"
+  integrity sha512-WIHNHO6k1DnHtzSqnGXPbvWrc46Jvd4k56Bra9S+8YGFWBovVz/8V1YTU2mq7GOQ76lkhkGsklelRrQLPS7iAQ==
+
 "@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
@@ -5892,7 +5897,7 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
-husky@^4.2.3:
+husky@4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/husky/-/husky-4.2.3.tgz#3b18d2ee5febe99e27f2983500202daffbc3151e"
   integrity sha512-VxTsSTRwYveKXN4SaH1/FefRJYCtx+wx04sSVcOpD7N2zjoHxa+cEJ07Qg5NmV3HAK+IRKOyNVpi2YBIVccIfQ==
@@ -6737,7 +6742,7 @@ load-json-file@^5.3.0:
     strip-bom "^3.0.0"
     type-fest "^0.3.0"
 
-load-text-file@^1.2.0:
+load-text-file@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/load-text-file/-/load-text-file-1.2.0.tgz#91575d6c79d512ee4725bda31560428b0775d7d5"
   integrity sha512-IyuyKI9fsa1XqB/EHn8fM/1FpGR8FV57ll0/T9iSC3vuC4msk9hXSQc7jc6UIbvSooQIUTwYp8/X44umR4MG+Q==
@@ -10608,7 +10613,7 @@ w3c-xmlserializer@^1.1.2:
     webidl-conversions "^4.0.2"
     xml-name-validator "^3.0.0"
 
-wait-on@^4.0.1:
+wait-on@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/wait-on/-/wait-on-4.0.1.tgz#c49ca18b1ea60580404feed9df76ab3af2425a56"
   integrity sha512-x83fmTH2X0KL7vXoGt9aV5x4SMCvO8A/NbwWpaYYh4NJ16d3KSgbHwBy9dVdHj0B30cEhOFRvDob4fnpUmZxvA==
