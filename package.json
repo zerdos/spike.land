@@ -9,10 +9,9 @@
     "packages/*"
   ],
   "scripts": {
-    "postinstall": "yarn docker || echo no docker",
     "format": "yarn prettier .  --write",
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
-    "docker": "docker build --build-arg USER=$USER -f node_modules/@devcontainer/focal-devcontainer/Dockerfile . -t focal-local",
+    "docker": "docker build --build-arg USER=$USER -f packages/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev",
     "clean": "yarn wsrun -a clean",
     "release": "yarn build && yarn docker:build && yarn test && lerna publish && yarn push",
