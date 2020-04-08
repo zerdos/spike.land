@@ -8040,7 +8040,7 @@ parallel-transform@^1.1.0:
     inherits "^2.0.3"
     readable-stream "^2.1.5"
 
-parcel@^2.0.0-nightly.203:
+parcel@2.0.0-nightly.203:
   version "2.0.0-nightly.203"
   resolved "https://registry.yarnpkg.com/parcel/-/parcel-2.0.0-nightly.203.tgz#835d49df01a005f092679f324624d1a9eaae29be"
   integrity sha512-GEZszP2n2g6/7xgPyO/YpJnOEy0qXzARAQsLFTDrkvpLJ4tr4AKPr/AVsstRKPOItM6eMrgQOQZTmtz+JY7/Mg==
