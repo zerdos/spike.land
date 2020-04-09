@@ -1,0 +1,3 @@
+[submodule "packages/react-jvectormap"]
+	path = packages/react-jvectormap
+	url = git@github.com:zed-vision/react-jvectormap.git
