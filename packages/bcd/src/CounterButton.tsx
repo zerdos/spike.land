@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
@@ -68,7 +69,7 @@ export const CounterButton: React.FC<{ label: string }> = ({ label }) => {
         <ButtonGroup>
           <Button
             disabled={!counter}
-            aria-label="reduce"
+            aria-label="redu1ce"
             onClick={decraseCounter}
           >
             <RemoveIcon fontSize="small" />
