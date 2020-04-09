@@ -8,5 +8,4 @@
 - with Google-chrome- With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
 
-
-Git repository: https://github.com/zerdos/devcontainer
+Git repository: https://github.com/zed-vision/projects
