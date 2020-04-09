@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { CounterButton } from "./CounterButton";
+import { App } from "./App";
 
 ReactDOM.render(
-  <CounterButton label={"Clicked in a row"} />,
+  <App/>,
   document.getElementById("root")
 );

@@ -1,6 +1,14 @@
+const isChromeExtension = () => {
+  try {
+    return chrome && chrome.storage;
+  } catch (_e) {
+    return false;
+  }
+};
+
 export const numberStorage = {
   set: (key: string, value: number) => {
-    if (chrome.storage) {
+    if (isChromeExtension()) {
       chrome.storage.sync.set({
         [key]: value,
       });
@@ -9,7 +17,7 @@ export const numberStorage = {
     }
   },
   get: async (key: string) => {
-    if (chrome.storage) {
+    if (isChromeExtension()) {
       return new Promise<number | null>((resolve) => {
         chrome.storage.sync.get(key, (item) => {
           resolve(item[key] ? Number(item[key]) : null);

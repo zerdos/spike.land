@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import MailIcon from "@material-ui/icons/Mail";
-import { numberStorage } from "./storage";
+import { numberStorage } from "./storage";  
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
