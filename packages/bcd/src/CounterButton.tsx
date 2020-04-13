@@ -1,15 +1,15 @@
-import React from "react";
+import React from "./.npm/react/umd/react.development";
 
-import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
-import Badge from "@material-ui/core/Badge";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import MailIcon from "@material-ui/icons/Mail";
-import { numberStorage } from "./storage";  
+import { numberStorage } from "./storage";
+import {makeStyles,createStyles, Button, ButtonGroup, Badge} from "./.npm/@material-ui/core/umd/material-ui.development.js";
+import MailIcon from "./.npm/@material-ui/icons/esm/Mail";
 
-const useStyles = makeStyles((theme: Theme) =>
+import AddIcon from "./.npm/@material-ui/icons/esm/Add";
+import RemoveIcon from "./.npm/@material-ui/icons/esm/Remove";
+
+
+
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       margin: 10,
@@ -18,16 +18,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexDirection: "column",
       "& > *": {
-        marginBottom: theme.spacing(2),
+        marginBottom: 2,
       },
       "& .MuiBadge-root": {
-        marginRight: theme.spacing(4),
+        marginRight: 4,
       },
     },
   })
 );
 
-export const CounterButton: React.FC<{ label: string }> = ({ label }) => {
+export const CounterButton = () => {
   const classes = useStyles();
   const [counter, changecounter] = React.useState(0);
 
@@ -63,7 +63,7 @@ export const CounterButton: React.FC<{ label: string }> = ({ label }) => {
     <div className={classes.root}>
       <div>
         <Badge color="secondary" badgeContent={counter}>
-          <MailIcon>{label}</MailIcon>
+          <MailIcon></MailIcon> 
         </Badge>
 
         <ButtonGroup>
@@ -72,10 +72,10 @@ export const CounterButton: React.FC<{ label: string }> = ({ label }) => {
             aria-label="redu1ce"
             onClick={decraseCounter}
           >
-            <RemoveIcon fontSize="small" />
+            <RemoveIcon />
           </Button>
           <Button aria-label="increase" onClick={incraseCounter}>
-            <AddIcon fontSize="small" />
+            <AddIcon />
           </Button>
         </ButtonGroup>
       </div>

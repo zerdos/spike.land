@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES2018",
     "incremental": true,
-    "target": "ESNext",
-    "tsBuildInfoFile": "chrome-extension/tsc/.buildinfo",
+    "tsBuildInfoFile": "tsbuild/.tsBuildInfoFile.json",
     "lib": [
       "es2018",
       "DOM",
@@ -12,9 +13,10 @@
       "ESNext.BigInt"
     ],
     "noImplicitAny": true,
-    "outDir": "chrome-extension/tsc",
+    "outDir": "tsbuild",
     "strict": true,
     "allowJs": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,

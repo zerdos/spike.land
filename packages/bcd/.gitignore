@@ -112,3 +112,5 @@ dist
 .pnp.*
 
 extension.*
+tsbuild
+.npm

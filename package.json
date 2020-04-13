@@ -30,8 +30,6 @@
   },
   "devDependencies": {
     "@types/chrome": "0.0.104",
-    "@types/react": "16.9.34",
-    "@types/react-dom": "16.9.6",
     "@typescript-eslint/eslint-plugin": "2.27.0",
     "@typescript-eslint/parser": "2.27.0",
     "eslint": "6.8.0",
@@ -40,7 +38,7 @@
     "husky": "4.2.5",
     "lerna": "3.20.2",
     "npm-run-all": "4.1.5",
-    "parcel": "2.0.0-nightly.212",
+    "parcel": "1.12.4",
     "prettier": "2.0.4",
     "serve": "11.3.0",
     "typescript": "3.8.3",
