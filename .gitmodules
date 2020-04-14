@@ -1,3 +1,6 @@
 [submodule "packages/react-jvectormap"]
 	path = packages/react-jvectormap
 	url = git@github.com:zed-vision/react-jvectormap.git
+[submodule "packages/serve-static"]
+	path = packages/serve-static
+	url = git@github.com:zed-vision/serve-static.git
