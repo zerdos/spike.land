@@ -2,7 +2,7 @@ version: "3.7"
 services:
   projects:
     build:
-      context: node_modules/@devcontainer/focal-devcontainer
+      context: packages/focal-devcontainer
       args:
         USER: $USER
         DEVCONTAINER: focal-local
