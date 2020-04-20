@@ -3,7 +3,7 @@
 - Base image: buildpack-deps:eoan
 - Node: 13.13.0
 - Yarn: 1.22.4
-- Cypress 4.3.0
+- Cypress 4.4.0
 - With noVNC - XFCE trought noVNC (http://localhost:6080)
 - with Google-chrome- With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
