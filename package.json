@@ -16,7 +16,7 @@
     "dev": "yarn wsrun -a dev ",
     "clean": "yarn wsrun -a  -m clean",
     "release": "yarn build && yarn docker:build && yarn test && lerna publish && yarn push",
-    "build": "yarn xxx build && yarn xxx generate:dockerfile",
+    "build": "(yarn xxx build || echo partialfail) && yarn xxx generate:dockerfile",
     "test": "yarn xxx tests",
     "docker:build": "yarn xxx docker:build",
     "docker:push": "yarn xxx docker:push",
