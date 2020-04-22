@@ -1,6 +1,6 @@
 {
   "name": "my-react-app",
-  "version": "5.2.3",
+  "version": "5.4.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "5.5.0",
