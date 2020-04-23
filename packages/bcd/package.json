@@ -23,7 +23,7 @@
     "@material-ui/styles": "4.9.10",
     "emotion": "10.0.27",
     "jsvectormap": "1.0.5",
-    "material-ui": "^0.20.2",
+    "material-ui": "0.20.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }
