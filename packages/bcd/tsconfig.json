@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ES2018",
     "incremental": true,
     "tsBuildInfoFile": "tsbuild/.tsBuildInfoFile.json",
     "lib": [

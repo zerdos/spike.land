@@ -1,11 +1,11 @@
-import React from "./.npm/react/umd/react.development";
+import React from "react";
 
 import { numberStorage } from "./storage";
-import {makeStyles,createStyles, Button, ButtonGroup, Badge} from "./.npm/@material-ui/core/umd/material-ui.development.js";
-import MailIcon from "./.npm/@material-ui/icons/esm/Mail";
+import MailIcon from "@material-ui/icons/Mail";
 
-import AddIcon from "./.npm/@material-ui/icons/esm/Add";
-import RemoveIcon from "./.npm/@material-ui/icons/esm/Remove";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import { makeStyles, createStyles, Badge, ButtonGroup, Button } from "@material-ui/core";
 
 
 

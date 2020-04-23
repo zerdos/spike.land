@@ -7,8 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn run-p dev:*",
-    "dev:serve": "yarn serve chrome-extension",
-    "dev:parcel": "yarn parcel watch src/**/*.html",
+    "dev:serve": "yarn serve .",
+    "dev:parcel": "yarn parcel watch --public-url '.' src/**/*.html",
     "dev:tsc": "yarn tsc --watch",
     "clean": "rm -rf .cache ./chrome-extension/*.js.map ./chrome-extension/*.js ./chrome-extension/*.html  ./chrome-extension/tsc"
   },
@@ -23,6 +23,7 @@
     "@material-ui/styles": "4.9.10",
     "emotion": "10.0.27",
     "jsvectormap": "1.0.5",
+    "material-ui": "^0.20.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }

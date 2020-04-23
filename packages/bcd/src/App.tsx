@@ -1,6 +1,6 @@
-import React from "./.npm/react/umd/react.development.js";
-import CssBaseline from './.npm/@material-ui/core/umd/material-ui.development.js';
+import React from "react";
 import { CounterButton } from './CounterButton';
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 export const  App = () => <>
       <CssBaseline />
