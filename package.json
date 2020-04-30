@@ -2,7 +2,7 @@
   "name": "zedvision",
   "description": "our monorepo",
   "repository": "git@github.com:zed-vision/projects.git",
-  "author": "Zoltan Erdos <zerdos@zed.vision",
+  "author": "Zoltan Erdos <zerdos@zed.vision>",
   "license": "MIT",
   "private": true,
   "workspaces": [
