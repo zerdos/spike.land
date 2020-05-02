@@ -8,7 +8,6 @@ LABEL maintainer=zoltan.erdos@me.com
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-  && apt-get dist-upgrade -y \
   && apt-get install --no-install-recommends -y \
   apt-transport-https \
   apt-utils \
