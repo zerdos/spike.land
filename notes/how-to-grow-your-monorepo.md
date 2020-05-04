@@ -4,9 +4,14 @@ Also, keeping track, that what is the most up to date versions of differrent ser
 
 Solution:
 - monorepos
-- git modules
+- git module ot git subtree
 
 Monorepo is - simply when you put everything in One - big repo.
 Google does this, and so far as it seems it works for them realy well.
 
 When a new developer comes - or an old one sets up a new environment - it takes it just a simple command to set up everything. 
+
+https://stackoverflow.com/questions/31769820/differences-between-git-submodule-and-subtree
+
+https://www.atlassian.com/git/tutorials/git-submodule
+https://www.atlassian.com/git/tutorials/git-subtree
