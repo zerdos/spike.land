@@ -7,4 +7,4 @@
 - with Google-chrome- With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
 
-Git repository: https://github.com/zed-vision/projects
+Git repository: https://github.com/zed-vision/monorepo
