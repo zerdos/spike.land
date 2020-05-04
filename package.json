@@ -16,13 +16,12 @@
     "docker": "docker build --build-arg USER=$USER -f packages/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev ",
     "clean": "yarn wsrun -a  -m clean",
-    "release": "yarn build && yarn docker:build && yarn test && lerna publish && yarn push",
-    "build": "(yarn xxx build || echo partialfail) && yarn xxx generate:dockerfile",
+    "release": "yarn xbuild && yarn docker:build && yarn test && lerna publish && yarn push",
+    "xbuild": "(yarn xxx build || echo partialfail) && yarn xxx generate:dockerfile",
     "test": "yarn xxx tests",
     "docker:build": "yarn xxx docker:build",
     "docker:push": "yarn xxx docker:push",
-    "xxx": "yarn wsrun --paralell --exclude-missing",
-    "push": "yarn build && yarn xxx docker:push"
+    "xxx": "yarn wsrun --paralell --exclude-missing"
   },
   "husky": {
     "hooks": {

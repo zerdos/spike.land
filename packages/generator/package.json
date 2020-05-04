@@ -9,12 +9,13 @@
   ],
   "main": "lib/src/index.js",
   "scripts": {
-    "install": "yarn build",
     "build": "yarn tsc"
   },
   "publishConfig": {
     "access": "public"
   },
   "license": "MIT",
-  "gitHead": "7fe55d43ab62e52468f0f78a88bcbc521320da19"
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
 }
