@@ -176,7 +176,7 @@ RUN  apt-get update \
     nano \
     mc \
     htop \
-    procps \  
+    procps \
     terminator \
     tigervnc-standalone-server \
     tigervnc-xorg-extension \
