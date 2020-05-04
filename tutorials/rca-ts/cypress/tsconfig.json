@@ -1,0 +1,11 @@
+{
+    "extends": "..",
+    "compilerOptions": {
+        "types": [
+            "cypress"
+        ]
+    },
+    "include": [
+        "."
+    ]
+}
