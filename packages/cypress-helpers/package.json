@@ -12,5 +12,6 @@
     "@testing-library/cypress": "^6.0.0",
     "cypress": "^4.5.0",
     "svg-url-loader": "^5.0.0"
-  }
+  },
+  "gitHead": "7704b3839842345ba0146197517649f36426345a"
 }
