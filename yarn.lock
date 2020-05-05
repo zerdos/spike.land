@@ -5810,10 +5810,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.1.4:
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.1.4.tgz#03c71756cde99d6cea31ba1ea3ff69d6469878f3"
-  integrity sha512-QWJ48mXReMW/s/T7SCSir1jhV1pzN27glrabcGwNtidLZLabFPtp/I+wl/rWutLY0SuBm16zutJXWBQWlQXhYA==
+cypress-react-unit-test@4.1.5:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.1.5.tgz#433382c8c016f8c237243e9be2a205c3fbd7b1e4"
+  integrity sha512-m8XjqzkciEhe/JLZWF0rBqtkC6YYznbGc0UGhawgooem6dFII0fVnDsT5qcmSDGxP0GTl1J3xs3Ty4I6efGH+A==
   dependencies:
     "@cypress/code-coverage" "3.7.0"
     "@cypress/webpack-preprocessor" "5.1.2"
