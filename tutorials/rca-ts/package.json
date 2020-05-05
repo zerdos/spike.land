@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,7 +41,7 @@
     "cypress": "^4.5.0",
     "cypress-react-unit-test": "^4.1.4",
     "react-scripts": "3.4.1",
-    "svg-url-loader": "^5.0.0",
-    "typescript": "~3.8.3"
+    "svg-url-loader": "5.0.0",
+    "typescript": "3.8.3"
   }
 }
