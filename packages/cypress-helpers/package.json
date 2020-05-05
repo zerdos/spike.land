@@ -1,11 +1,13 @@
 {
   "name": "@zedvision/cypress-helpers",
-  "version": "0.0.1",
+  "version": "5.5.3",
   "description": "cypress component tests with react-create-app",
   "author": "Zoltan Erdos",
   "license": "MIT",
   "private": false,
-  "files": ["./*.js"],
+  "files": [
+    "./*.js"
+  ],
   "dependencies": {
     "@testing-library/cypress": "^6.0.0",
     "cypress": "^4.5.0",
