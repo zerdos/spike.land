@@ -1,4 +1,4 @@
-const webpackPreprocessor = require('@cypress/webpack-preprocessor');
+import  webpackPreprocessor from '@cypress/webpack-preprocessor';
 
 // should we just reuse root webpack config?
 const webpackOptions = {
@@ -39,9 +39,9 @@ const options = {
   watchOptions: {},
 }
 
-module.exports = (on, config) => {
-  on('file:preprocessor', webpackPreprocessor(options))
+export default (on, config) => {
+  on('file:preprocessor', webpackPreprocessor(options));
 
   // initPlugin(on, config)
-  return config
+  return config;
 }
