@@ -17,11 +17,11 @@
     "dev": "yarn wsrun -a dev ",
     "clean": "yarn wsrun -a  -m clean",
     "release": "yarn xbuild && yarn docker:build && yarn test && lerna publish && yarn push",
-    "xbuild": "(yarn xxx build || echo partialfail) && yarn xxx generate:dockerfile",
+    "xbuild": "(yarn xxx build || echo fail) && yarn xxx generate:dockerfile",
     "test": "yarn xxx tests",
     "docker:build": "yarn xxx docker:build",
     "docker:push": "yarn xxx docker:push",
-    "xxx": "yarn wsrun --paralell --exclude-missing"
+    "xxx": "yarn wsrun --parallel --exclude-missing"
   },
   "husky": {
     "hooks": {
