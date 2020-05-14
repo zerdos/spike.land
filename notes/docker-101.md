@@ -1,4 +1,4 @@
-docker 101 
+docker 101
 
 why docker
 
@@ -9,4 +9,3 @@ developing with docker
 deploying with docker
 
 magic of sha256
-

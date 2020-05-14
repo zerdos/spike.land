@@ -1,9 +1,13 @@
 {
-    "cSpell.words": [
-        "asciicast",
-        "devcontainer",
-        "esnext",
-        "wsrun",
-        "xbuild"
-    ]
+  "cSpell.words": [
+    "Erdos",
+    "Zoltan",
+    "asciicast",
+    "devcontainer",
+    "esnext",
+    "tsbuild",
+    "wsrun",
+    "xbuild",
+    "zedvision"
+  ]
 }

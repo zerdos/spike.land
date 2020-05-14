@@ -1,11 +1,7 @@
 {
-    "extends": "..",
-    "compilerOptions": {
-        "types": [
-            "cypress"
-        ]
-    },
-    "include": [
-        "."
-    ]
+  "extends": "..",
+  "compilerOptions": {
+    "types": ["cypress"]
+  },
+  "include": ["."]
 }

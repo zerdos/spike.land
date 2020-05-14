@@ -5,9 +5,13 @@ import MailIcon from "@material-ui/icons/Mail";
 
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import { makeStyles, createStyles, Badge, ButtonGroup, Button } from "@material-ui/core";
-
-
+import {
+  makeStyles,
+  createStyles,
+  Badge,
+  ButtonGroup,
+  Button,
+} from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -29,7 +33,7 @@ const useStyles = makeStyles(() =>
 
 export const CounterButton = () => {
   const classes = useStyles();
-  const [counter, changecounter] = React.useState(0);
+  const [counter, changeCounter] = React.useState(0);
 
   React.useEffect(() => {
     console.log("use effect");
@@ -39,42 +43,42 @@ export const CounterButton = () => {
       console.log(storedValue);
 
       if (storedValue) {
-        changecounter(storedValue);
+        changeCounter(storedValue);
       }
     };
     getStored();
   }, []);
 
-  const incraseCounter = () => {
+  const increaseCounter = () => {
     const newValue = counter + 1;
     numberStorage.set("counter", newValue);
-    changecounter(newValue);
+    changeCounter(newValue);
   };
 
-  const decraseCounter = () => {
+  const decreaseCounter = () => {
     if (counter < 1) return;
 
     const newValue = counter - 1;
     numberStorage.set("counter", newValue);
-    changecounter(newValue);
+    changeCounter(newValue);
   };
 
   return (
     <div className={classes.root}>
       <div>
         <Badge color="secondary" badgeContent={counter}>
-          <MailIcon></MailIcon> 
+          <MailIcon></MailIcon>
         </Badge>
 
         <ButtonGroup>
           <Button
             disabled={!counter}
-            aria-label="redu1ce"
-            onClick={decraseCounter}
+            aria-label="reduce"
+            onClick={decreaseCounter}
           >
             <RemoveIcon />
           </Button>
-          <Button aria-label="increase" onClick={incraseCounter}>
+          <Button aria-label="increase" onClick={increaseCounter}>
             <AddIcon />
           </Button>
         </ButtonGroup>

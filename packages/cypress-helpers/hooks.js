@@ -1,5 +1,5 @@
-import { cleanupStyles } from './cleanupStyles';
-import { renderTestingPlatform } from './renderTestingPlatform';
+import { cleanupStyles } from "./cleanupStyles";
+import { renderTestingPlatform } from "./renderTestingPlatform";
 
 const { before, beforeEach } = this;
 before(() => {
