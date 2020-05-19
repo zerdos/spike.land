@@ -29,7 +29,7 @@
     }
   },
   "devDependencies": {
-    "@types/chrome": "0.0.112",
+    "@types/chrome": "0.0.113",
     "@types/react": "16.9.35",
     "@types/react-dom": "16.9.8",
     "@typescript-eslint/eslint-plugin": "2.34.0",
