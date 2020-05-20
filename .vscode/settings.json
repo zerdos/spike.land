@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "Dockerfiles",
     "Erdos",
     "Zoltan",
     "agentkeepalive",
@@ -147,6 +148,7 @@
     "jsonify",
     "jsonparse",
     "jsprim",
+    "jsvectormap",
     "killable",
     "kleur",
     "lcid",
@@ -253,6 +255,7 @@
     "thunky",
     "timsort",
     "tmpdir",
+    "tmpfs",
     "tmpl",
     "toidentifier",
     "topo",
