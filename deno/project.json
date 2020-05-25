@@ -1,8 +1,8 @@
 {
-    "name": "deno-spa-server-rendered", 
-    "version": "0.0.0",         
-    "replaceVersion": [        
-      "README.md"
-    ],
-    "signGitTag": true        
-  }
+  "name": "deno-spa-server-rendered",
+  "version": "1.0.0",
+  "replaceVersion": [
+    "README.md"
+  ],
+  "signGitTag": true
+}
