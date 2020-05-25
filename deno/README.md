@@ -1,0 +1,1 @@
+deno run --allow-net --allow-read use_serve_tsx.tsx
