@@ -19,6 +19,7 @@
     "axios",
     "axobject",
     "babelify",
+    "backports",
     "bcrypt",
     "boolbase",
     "bowser",
