@@ -1,7 +1,7 @@
 #!/usr/bin/env deno run --allow-net --allow-read --allow-run --allow-env  --unstable --importmap=import_map.json 
 
 import { createApp } from "app";
-import {serveJsx} from "serve_jsx";
+import { serveJsx } from "serve_jsx";
 
 const app = createApp();
 // .jsx/.tsx files in ./pages directory will be dynamically imported

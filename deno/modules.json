@@ -22,11 +22,5 @@
     "types": {
       "/server.js": "https://deno.land/x/types/react-dom/v16.13.1/server.d.ts"
     }
-  },
-  "https://dev.jspm.io/csstype": {
-    "version": "@2.6.9",
-    "modules": [
-      "/index.d.ts"
-    ]
   }
 }
