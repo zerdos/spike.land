@@ -1,5 +1,5 @@
 import React from "react";
-import { DFC } from "servestjs";
+import { DFC } from "dfc";
 
 const AboutPage: DFC<{ title: string; text: string }> = ({ title, text }) => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { DFC } from "servestjs";
+import { DFC } from "dfc";
 
 const Index: DFC<{ title: string; text: string }> = ({ title, text }) => {
   return (

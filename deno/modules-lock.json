@@ -2,7 +2,9 @@
   "https://servestjs.org/": {
     "version": "@v1.1.0",
     "modules": [
-      "/mod.ts"
+      "/app.ts",
+      "/serve_jsx.ts",
+      "/jsx.ts"
     ]
   },
   "https://dev.jspm.io/react": {
@@ -22,12 +24,6 @@
     "types": {
       "/server.js": "https://deno.land/x/types/react-dom/v16.13.1/server.d.ts"
     }
-  },
-  "https://dev.jspm.io/@types/prop-types": {
-    "version": "@15.7.2",
-    "modules": [
-      "/index.d.ts"
-    ]
   },
   "https://dev.jspm.io/csstype": {
     "version": "@2.6.9",
