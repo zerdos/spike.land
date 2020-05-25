@@ -1,0 +1,8 @@
+
+{
+    "imports": {
+      "react": "./vendor/https/dev.jspm.io/react/index.js",
+      "react-dom": "./vendor/https/dev.jspm.io/react-dom",
+      "servestjs": "./vendor/https/servestjs.org/mod.ts"
+    }
+  }
