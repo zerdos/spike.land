@@ -21,7 +21,7 @@ const AboutPage: DFC<{ title: string; text: string }> = ({ title, text }) => {
   // It will be called exactly once for each request.
   AboutPage.getInitialProps = async () => {
 
-    return { title: "Index Page", text: "ello" };
+    return { title: "Index Page", text: "hello" };
   };
   
   // default export are used for Server Side Rendering.
