@@ -1488,16 +1488,17 @@
     through2 "^2.0.0"
     watchify "3.11.1"
 
-"@cypress/code-coverage@3.7.6":
-  version "3.7.6"
-  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.7.6.tgz#66e7f73f5cca45a1391a0f6b93a58bfb6cea41f4"
-  integrity sha512-uJiI+DmNO8JjoXpXXt0V9nCcVZdb9JfwedQ2tPN8q7g1oyGQ/Cyn52/4GiDwUuny832i8kKhOSxTD/gpDJjy8Q==
+"@cypress/code-coverage@3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.8.0.tgz#2e2702aea9efcfd6e31b49b3b46cb6264e5630d0"
+  integrity sha512-ls6tW0dFTPmBmyl58EqEextcKZ6EtNIwIerqj1oYV+wJc5NirL3vTyg9cOZTztVz/X+DpKcjcvM5ph40yZhdRg==
   dependencies:
     "@cypress/browserify-preprocessor" "3.0.0"
     debug "4.1.1"
     execa "4.0.2"
     globby "11.0.0"
     istanbul-lib-coverage "3.0.0"
+    js-yaml "3.14.0"
     nyc "15.0.1"
 
 "@cypress/listr-verbose-renderer@0.4.1":
@@ -6309,12 +6310,12 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.3.2.tgz#4cfe161c15a484ed19d972ae91319b211590b026"
-  integrity sha512-asRcoiLN5GHA6qdnXJ+Jb9i7BCiX5ee9bJu/CEPtMTEKKvyDyfKss9xgnUtJWP5u8hFh4qRSCgooQ75nnzJUiQ==
+cypress-react-unit-test@4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.3.3.tgz#f1f68be451c078dafff6a2758d6c13214a336ca5"
+  integrity sha512-3qjESEon4kPFMU0bdxSldhEXbkCRh4phEdkC1ayjQXLTuBP7WmDQS9Cj0q+Fy2iUkygwsbvPWk5GYXn4A8G3Hg==
   dependencies:
-    "@cypress/code-coverage" "3.7.6"
+    "@cypress/code-coverage" "3.8.0"
     "@cypress/webpack-preprocessor" "5.4.1"
     babel-plugin-istanbul "6.0.0"
     debug "4.1.1"
@@ -10213,7 +10214,7 @@ js-tokens@^3.0.2:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
   integrity sha1-mGbfOVECEw449/mWvOtlRDIJwls=
 
-js-yaml@^3.10.0, js-yaml@^3.13.1:
+js-yaml@3.14.0, js-yaml@^3.10.0, js-yaml@^3.13.1:
   version "3.14.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.14.0.tgz#a7a34170f26a21bb162424d8adacb4113a69e482"
   integrity sha512-/4IbIeHcD9VMHFqDR/gQ7EdZdLimOvW2DdcxFjdyyZ9NsbS+ccrXqVWDtab/lRl5AlUqmpBx8EhPaWR+OtY17A==
