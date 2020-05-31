@@ -281,7 +281,7 @@
   dependencies:
     "@babel/types" "^7.10.1"
 
-"@babel/helper-module-transforms@^7.10.1", "@babel/helper-module-transforms@^7.9.0":
+"@babel/helper-module-transforms@^7.10.1", "@babel/helper-module-transforms@^7.7.5", "@babel/helper-module-transforms@^7.9.0":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-transforms/-/helper-module-transforms-7.10.1.tgz#24e2f08ee6832c60b157bb0936c86bef7210c622"
   integrity sha512-RLHRCAzyJe7Q7sF4oy2cB+kRnU4wDZY/H2xJFGof+M+SJEGhZsb+GFj5j1AD8NiSaVBJ+Pf0/WObiXu/zxWpFg==
@@ -334,7 +334,7 @@
     "@babel/traverse" "^7.10.1"
     "@babel/types" "^7.10.1"
 
-"@babel/helper-simple-access@^7.10.1", "@babel/helper-simple-access@^7.8.3":
+"@babel/helper-simple-access@^7.10.1", "@babel/helper-simple-access@^7.7.4", "@babel/helper-simple-access@^7.8.3":
   version "7.10.1"
   resolved "https://registry.yarnpkg.com/@babel/helper-simple-access/-/helper-simple-access-7.10.1.tgz#08fb7e22ace9eb8326f7e3920a1c2052f13d851e"
   integrity sha512-VSWpWzRzn9VtgMJBIWTZ+GP107kZdQ4YplJlCmIrjoLVSi/0upixezHCDG8kpPVTBJpKfxTH01wDhh+jS2zKbw==
@@ -783,6 +783,16 @@
     "@babel/helper-module-transforms" "^7.10.1"
     "@babel/helper-plugin-utils" "^7.10.1"
     babel-plugin-dynamic-import-node "^2.3.3"
+
+"@babel/plugin-transform-modules-commonjs@7.7.5":
+  version "7.7.5"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.7.5.tgz#1d27f5eb0bcf7543e774950e5b2fa782e637b345"
+  integrity sha512-9Cq4zTFExwFhQI6MT1aFxgqhIsMWQWDVwOgLzl7PTWJHsNaqFvklAU+Oz6AQLAS0dJKTwZSOCo20INwktxpi3Q==
+  dependencies:
+    "@babel/helper-module-transforms" "^7.7.5"
+    "@babel/helper-plugin-utils" "^7.0.0"
+    "@babel/helper-simple-access" "^7.7.4"
+    babel-plugin-dynamic-import-node "^2.3.0"
 
 "@babel/plugin-transform-modules-commonjs@7.9.6":
   version "7.9.6"
@@ -4327,7 +4337,7 @@ babel-plugin-add-module-exports@1.0.2:
   optionalDependencies:
     chokidar "^2.0.4"
 
-babel-plugin-dynamic-import-node@^2.3.3:
+babel-plugin-dynamic-import-node@^2.3.0, babel-plugin-dynamic-import-node@^2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.3.tgz#84fda19c976ec5c6defef57f9427b3def66e17a3"
   integrity sha512-jZVI+s9Zg3IqA/kdi0i6UDCybUI3aSBLnglhYbSSjKlV7yF1F/5LWv8MakQmvYpnbJDS6fcBL2KzHSxNCMtWSQ==
@@ -6310,16 +6320,17 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.3.3:
-  version "4.3.3"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.3.3.tgz#f1f68be451c078dafff6a2758d6c13214a336ca5"
-  integrity sha512-3qjESEon4kPFMU0bdxSldhEXbkCRh4phEdkC1ayjQXLTuBP7WmDQS9Cj0q+Fy2iUkygwsbvPWk5GYXn4A8G3Hg==
+cypress-react-unit-test@4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.4.0.tgz#4ad6021709697f1504e54a8549c6843664b4d571"
+  integrity sha512-dwnBHde48CtLmrATEhtdsmmFGkm1XMUFJknnVouGGq4sv7cXDjDB1GIvv6I+x4d8fwIgJFMkefwiPmFFuwaXkA==
   dependencies:
+    "@babel/plugin-transform-modules-commonjs" "7.7.5"
     "@cypress/code-coverage" "3.8.0"
     "@cypress/webpack-preprocessor" "5.4.1"
     babel-plugin-istanbul "6.0.0"
     debug "4.1.1"
-    find-webpack "1.10.1"
+    find-webpack "1.12.0"
     mime-types "2.1.26"
 
 cypress@*, cypress@4.7.0:
@@ -7978,10 +7989,10 @@ find-versions@^3.2.0:
   dependencies:
     semver-regex "^2.0.0"
 
-find-webpack@1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/find-webpack/-/find-webpack-1.10.1.tgz#0bf7f5f5dc767df6fc668b7cda8d539823fd0923"
-  integrity sha512-0ze0B7GUw9mC/UPXJUTPwjjGtr2RAT13OKq6uy373oLkVtu3S7UkgzxfI/sxY2Ot1XVl6/tPTzffms0YUTpfxA==
+find-webpack@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/find-webpack/-/find-webpack-1.12.0.tgz#f7b8bbc2965cc01f772609cc1e507fd84e8e8f14"
+  integrity sha512-MCOVlKEavNaM3H+prwar17E3I2z/3FtJgXNZc7ldihYtEMDU4kb5c5Cj+VsK1lvhHG2dkCgDNqxIfwv0qnCVQA==
   dependencies:
     debug "4.1.1"
     find-yarn-workspace-root "1.2.1"
