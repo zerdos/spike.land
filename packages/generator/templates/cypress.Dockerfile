@@ -20,6 +20,6 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@{CYPRESS_VERION}
+RUN yarn global add cypress@{CYPRESS_VERSION}
 
 USER root

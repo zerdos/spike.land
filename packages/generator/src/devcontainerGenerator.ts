@@ -191,14 +191,14 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["2.1.805"]
+            softwareVersions.sha.dotnet_sha512["2.1.806"]
           );
       else {
         this._dockerfile += dockerTemplates["dotnet3"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["3.1.201"]
+            softwareVersions.sha.dotnet_sha512["3.1.300"]
           );
       }
     }
@@ -216,11 +216,11 @@ export class DevcontainerGenerator {
 
     if (this._cypressVersion) {
       this._dockerfile += dockerTemplates["cypress"].replace(
-        "{CYPRESS_VERION}",
+        "{CYPRESS_VERSION}",
         this._cypressVersion
       );
       this._readme += readmeTemplates["cypress"].replace(
-        "{CYPRESS_VERION}",
+        "{CYPRESS_VERSION}",
         this._cypressVersion
       );
     }

@@ -120,10 +120,10 @@ RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -
         zlib1g;
 
 # Install .NET Core SDK
-ENV DOTNET_SDK_VERSION 3.1.201
+ENV DOTNET_SDK_VERSION 3.1.300
 
 RUN curl -SL --output dotnet.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
-    && dotnet_sha512='934bf29734776331691a4724f2174c4e9d2d1dde160f18397fd01abf0f96f2ec1bdd2874db9f0e25dce6993d527ea9c19031a0e67383fd813dcfcb9552ea0c70' \
+    && dotnet_sha512='61c3bf7dba231277b8dab274f62a38ef2f53811025a83a8ce5413f612c72176bf0f7060e7e10887ae15c4ce41dc4f2ffd689e6133c277a211b4db418e9e136e4' \
     && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
@@ -159,7 +159,7 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@4.6.0
+RUN yarn global add cypress@4.7.0
 
 USER root
 ### noVNC.Dockerfile
