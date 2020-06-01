@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/bcd",
-  "version": "5.5.7",
+  "version": "5.5.8",
   "files": [
     "extension/**"
   ],

@@ -1,6 +1,6 @@
 {
   "name": "learn-starter",
-  "version": "0.1.0",
+  "version": "5.5.8",
   "private": true,
   "scripts": {
     "dev": "next dev",
