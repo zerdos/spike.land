@@ -1505,10 +1505,10 @@
     through2 "^2.0.0"
     watchify "3.11.1"
 
-"@cypress/code-coverage@3.8.0":
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.8.0.tgz#2e2702aea9efcfd6e31b49b3b46cb6264e5630d0"
-  integrity sha512-ls6tW0dFTPmBmyl58EqEextcKZ6EtNIwIerqj1oYV+wJc5NirL3vTyg9cOZTztVz/X+DpKcjcvM5ph40yZhdRg==
+"@cypress/code-coverage@3.8.1":
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/@cypress/code-coverage/-/code-coverage-3.8.1.tgz#913f34b1063423cc881988fa3b452da170aea5b6"
+  integrity sha512-XkecqM/4xHZdAPUMOxOUi5yf2TDWUycqIi6Z6zdGiO9j04CxkRoVTOJYsE14i7uG7orudYSLcLFJEeJv237qXQ==
   dependencies:
     "@cypress/browserify-preprocessor" "3.0.0"
     debug "4.1.1"
@@ -1516,7 +1516,7 @@
     globby "11.0.0"
     istanbul-lib-coverage "3.0.0"
     js-yaml "3.14.0"
-    nyc "15.0.1"
+    nyc "15.1.0"
 
 "@cypress/listr-verbose-renderer@0.4.1":
   version "0.4.1"
@@ -6337,13 +6337,13 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.4.0.tgz#4ad6021709697f1504e54a8549c6843664b4d571"
-  integrity sha512-dwnBHde48CtLmrATEhtdsmmFGkm1XMUFJknnVouGGq4sv7cXDjDB1GIvv6I+x4d8fwIgJFMkefwiPmFFuwaXkA==
+cypress-react-unit-test@4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.4.1.tgz#38478d19688acae026495eee4974cefa9409f2c1"
+  integrity sha512-gR+f6L74MsS0jho4duoX6aVEI+ZTW1p2gqbno84LMHopWAFzJxWWjnrvytzcL3Uw6b/8ukMd71mxv3RNTM/Alw==
   dependencies:
     "@babel/plugin-transform-modules-commonjs" "7.7.5"
-    "@cypress/code-coverage" "3.8.0"
+    "@cypress/code-coverage" "3.8.1"
     "@cypress/webpack-preprocessor" "5.4.1"
     babel-plugin-istanbul "6.0.0"
     debug "4.1.1"
@@ -12006,10 +12006,10 @@ nwsapi@^2.0.7, nwsapi@^2.1.3:
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"
   integrity sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==
 
-nyc@15.0.1:
-  version "15.0.1"
-  resolved "https://registry.yarnpkg.com/nyc/-/nyc-15.0.1.tgz#bd4d5c2b17f2ec04370365a5ca1fc0ed26f9f93d"
-  integrity sha512-n0MBXYBYRqa67IVt62qW1r/d9UH/Qtr7SF1w/nQLJ9KxvWF6b2xCHImRAixHN9tnMMYHC2P14uo6KddNGwMgGg==
+nyc@15.1.0:
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/nyc/-/nyc-15.1.0.tgz#1335dae12ddc87b6e249d5a1994ca4bdaea75f02"
+  integrity sha512-jMW04n9SxKdKi1ZMGhvUTHBN0EICCRkHemEoE5jm6mTYcqcdas0ATzgUgejlQUHMvpnOZqGB5Xxsv9KxJW1j8A==
   dependencies:
     "@istanbuljs/load-nyc-config" "^1.0.0"
     "@istanbuljs/schema" "^0.1.2"
@@ -12019,6 +12019,7 @@ nyc@15.0.1:
     find-cache-dir "^3.2.0"
     find-up "^4.1.0"
     foreground-child "^2.0.0"
+    get-package-type "^0.1.0"
     glob "^7.1.6"
     istanbul-lib-coverage "^3.0.0"
     istanbul-lib-hook "^3.0.0"
