@@ -15,7 +15,7 @@
   "devDependencies": {
     "@devcontainer/generator": "^5.5.9",
     "load-text-file": "1.2.0",
-    "wait-on": "5.0.0"
+    "wait-on": "5.0.1"
   },
   "version": "5.5.9",
   "description": "devcontainer vscode docker xfce remoteDesktop",
