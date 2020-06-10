@@ -3225,7 +3225,7 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@snowpack/app-scripts-react@^1.1.0":
+"@snowpack/app-scripts-react@^1.1.4":
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/@snowpack/app-scripts-react/-/app-scripts-react-1.1.4.tgz#f753e563381c998e64d8eb3703dbf3abb0c2acee"
   integrity sha512-qOiAx8FJ0x4PKdR2piUKnXdfPyAhwaLCSkZYONCcpZFLZDLV/SCzSZZ1fHyrhEi5Lp7Gf5EZ6FyZ+oNcWnNdeQ==
@@ -3399,7 +3399,7 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react@10.2.1", "@testing-library/react@^10.1.0":
+"@testing-library/react@10.2.1", "@testing-library/react@^10.2.1":
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.2.1.tgz#f0c5ac9072ad54c29672150943f35d6617263f26"
   integrity sha512-pv2jZhiZgN1/alz1aImhSasZAOPg3er2Kgcfg9fzuw7aKPLxVengqqR1n0CJANeErR1DqORauQaod+gGUgAJOQ==
@@ -3616,7 +3616,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.35":
+"@types/react@*", "@types/react@^16.9.36":
   version "16.9.36"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.36.tgz#ade589ff51e2a903e34ee4669e05dbfa0c1ce849"
   integrity sha512-mGgUb/Rk/vGx4NCvquRuSH0GHBQKb1OqpGS9cT9lFxlTLHZgkksgI60TuIxubmn7JuCb+sENHhQciqa0npm0AQ==
@@ -16624,7 +16624,7 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snowpack@^2.2.3:
+snowpack@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/snowpack/-/snowpack-2.4.0.tgz#4a4552c6c7e0137f31581d89dd0ea43478049967"
   integrity sha512-R/zKFBvJJr+I9F04eOm4mFagCjJs+cUT+k0z/CKG/5McDNQM5cOZelsyvei8UM5733qXHFEQ1pMDN7b+xZqKEA==
@@ -17917,7 +17917,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.9.5, typescript@^3.9.3:
+typescript@3.9.5, typescript@^3.9.5:
   version "3.9.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"
   integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
