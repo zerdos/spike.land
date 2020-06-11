@@ -18,7 +18,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@material-ui/core": "4.10.1",
+    "@material-ui/core": "4.10.2",
     "@material-ui/icons": "4.9.1",
     "@material-ui/styles": "4.10.0",
     "emotion": "10.0.27",
