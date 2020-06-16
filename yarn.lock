@@ -6298,10 +6298,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.7.0.tgz#474435addf23dff1a3d48cc9298e3b61c4c7e403"
-  integrity sha512-T6V7CZvfo2oH2hKCdD+FLhW6DO5hDIxRQqj2jB3X3Xw8KmBE86gQ2voOZMU3lXbfwY9TMJQ5imtbj/QLBEWbUg==
+cypress-react-unit-test@4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.7.1.tgz#7b891cb0d1b84a301928f86293011faae3747bae"
+  integrity sha512-9aYpZRJqydqkDwT2HR38uWgMtjeHN7PzWVO0EJnKhUqRTHx1HP7HA+IRJVVKftPNg3sStHJ43T1yfY6/ttjfyw==
   dependencies:
     "@babel/plugin-transform-modules-commonjs" "7.10.1"
     "@cypress/code-coverage" "3.8.1"
