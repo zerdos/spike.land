@@ -1,0 +1,9 @@
+{
+  "name": "my_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "emotion": "^10.0.27"
+  }
+}
