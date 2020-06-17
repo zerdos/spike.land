@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { promises as fs } from "fs";
 
 type Base = "stretch" | "buster" | "bionic" | "disco" | "eoan" | "focal";
 
-type NodeVesion = "lts" | "current";
+type nodeVersion = "lts" | "current";
 
 const getDistro = (b: Base) =>
   b === "stretch" || b === "buster" ? "debian" : "ubuntu";
@@ -38,7 +39,7 @@ export class DevcontainerGenerator {
     "vscode",
     "suffix",
   ];
-  private _nodeVesion: NodeVesion | null = null;
+  private _nodeVersion: nodeVersion | null = null;
   private _gitVersion = "";
   private _amplify = false;
   private _cypressVersion = "";
@@ -63,7 +64,7 @@ export class DevcontainerGenerator {
         async (fileName) => await this.loadTemplate(fileName, "Dockerfile")
       )
     );
-    const bufferReadmefiles = await Promise.all(
+    const bufferReadmeFiles = await Promise.all(
       this._templateInputs.map(
         async (fileName) => await this.loadTemplate(fileName, "README")
       )
@@ -75,7 +76,7 @@ export class DevcontainerGenerator {
     );
     this._templateInputs.forEach(
       (input, index) =>
-        (this._readmeTemplates[input] = String(bufferReadmefiles[index]))
+        (this._readmeTemplates[input] = String(bufferReadmeFiles[index]))
     );
 
     return {
@@ -84,16 +85,16 @@ export class DevcontainerGenerator {
     };
   }
 
-  public setNodeVersion(nodeVersion: NodeVesion) {
-    this._nodeVesion = nodeVersion;
+  public setNodeVersion(nodeVersion: nodeVersion) {
+    this._nodeVersion = nodeVersion;
   }
 
   public setVscode() {
     this._vscode = true;
   }
 
-  public updateGit(forceFromSoure = false) {
-    if (getDistro(this.base) === "ubuntu" && !forceFromSoure)
+  public updateGit(forceFromSource = false) {
+    if (getDistro(this.base) === "ubuntu" && !forceFromSource)
       this._gitVersion = "ubuntu";
     else this._gitVersion = softwareVersions.git;
   }
@@ -175,13 +176,13 @@ export class DevcontainerGenerator {
       }
     }
 
-    if (this._nodeVesion) {
+    if (this._nodeVersion) {
       this._dockerfile += dockerTemplates["node"]
-        .replace("{NODE_VERSION}", softwareVersions.node[this._nodeVesion])
+        .replace("{NODE_VERSION}", softwareVersions.node[this._nodeVersion])
         .replace("{YARN_VERSION}", softwareVersions.yarn);
 
       this._readme += readmeTemplates["node"]
-        .replace("{NODE_VERSION}", softwareVersions.node[this._nodeVesion])
+        .replace("{NODE_VERSION}", softwareVersions.node[this._nodeVersion])
         .replace("{YARN_VERSION}", softwareVersions.yarn);
     }
 
