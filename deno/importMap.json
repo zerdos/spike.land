@@ -5,6 +5,7 @@
       "react-dom": "./vendor/https/dev.jspm.io/react-dom",
       "app": "./vendor/https/servestjs.org/app.ts",
       "serve_jsx": "./vendor/https/servestjs.org/serve_jsx.ts",
-      "dfc": "./vendor/https/servestjs.org/jsx.ts"
+      "dfc": "./vendor/https/servestjs.org/jsx.ts",
+      "emotion": "./vendor/https/dev.jspm.io/emotion/dist/emotion.esm.js"
     }
   }

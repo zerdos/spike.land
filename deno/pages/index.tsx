@@ -1,9 +1,7 @@
 import React from "react";
 import { DFC } from "dfc";
 
-import { css, cx } from 'https://cdn.pika.dev/emotion@^10.0.27';
-
-const color = 'white'
+import { css } from 'emotion';
 
 const Index: DFC<{ title: string; text: string }> = ({ title, text }) => {
   return (
@@ -13,16 +11,9 @@ const Index: DFC<{ title: string; text: string }> = ({ title, text }) => {
         <title>{title}</title>
       </head>
       <body>
-      <div
-    className={css`
-      padding: 32px;
-      background-color: hotpink;
-      font-size: 24px;
-      border-radius: 4px;
-      &:hover {
-        color: ${color};
-      }
-    `}
+      <div className={css`
+     color: hotpink;
+   `}
   >
     Hover to change color.
   </div>

@@ -22,5 +22,13 @@
     "types": {
       "/server.js": "https://deno.land/x/types/react-dom/v16.13.1/server.d.ts"
     }
+  },
+  "https://dev.jspm.io/emotion": {
+    "version": "@10.0.27",
+    "modules": ["/dist/emotion.esm.js"]
+  },
+  "https://dev.jspm.io/create-emotion-server": {
+    "version": "@10.0.27",
+    "modules": ["/dist/create-emotion-server.cjs.js"]
   }
 }
