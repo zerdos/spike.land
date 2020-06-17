@@ -2,7 +2,7 @@
 {
     "imports": {
       "react": "./vendor/https/dev.jspm.io/react/index.js",
-      "react-dom": "./vendor/https/dev.jspm.io/react-dom",
+      "react-dom/server": "./vendor/https/dev.jspm.io/react-dom/server.js",
       "app": "./vendor/https/servestjs.org/app.ts",
       "serve_jsx": "./vendor/https/servestjs.org/serve_jsx.ts",
       "dfc": "./vendor/https/servestjs.org/jsx.ts",
