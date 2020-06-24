@@ -29,12 +29,12 @@
     }
   },
   "devDependencies": {
-    "@types/chrome": "0.0.116",
+    "@types/chrome": "0.0.117",
     "@types/react": "16.9.38",
     "@types/react-dom": "16.9.8",
-    "@typescript-eslint/eslint-plugin": "3.3.0",
-    "@typescript-eslint/parser": "3.3.0",
-    "eslint": "7.2.0",
+    "@typescript-eslint/eslint-plugin": "3.4.0",
+    "@typescript-eslint/parser": "3.4.0",
+    "eslint": "7.3.1",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-react": "7.20.0",
     "husky": "4.2.5",
