@@ -43,7 +43,7 @@
     "parcel": "1.12.4",
     "prettier": "2.0.5",
     "serve": "11.3.2",
-    "typescript": "3.9.5",
+    "typescript": "3.9.6",
     "wsrun": "5.2.1"
   }
 }
