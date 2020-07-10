@@ -10525,10 +10525,10 @@ jss@^10.0.3, jss@^10.3.0:
     is-in-browser "^1.1.3"
     tiny-warning "^1.0.2"
 
-jsvectormap@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/jsvectormap/-/jsvectormap-1.0.5.tgz#e5ac0ff36ecfb1b5286f4ef5efe49311c419933c"
-  integrity sha512-c7YiOff0GOMfW5buxoPf828l3+QaNAqQs2ELXECs8FIrIYc8CXZpAwaUyNgYAEtLEIIUW3vBPWCGgynBCJMc5Q==
+jsvectormap@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/jsvectormap/-/jsvectormap-1.0.6.tgz#6376893eb62333ff4aa9196c5bbd9b05dde8d50d"
+  integrity sha512-bQ5a/SCQUzwrU2QHnxboh+fcfWuR65On8Q065Wzhms8k2sOiOv7jEUtfZIK5dh9qzYQCUKdSJ/JSEOzMx3ICxg==
 
 jsx-ast-utils@^2.2.1, jsx-ast-utils@^2.2.3, jsx-ast-utils@^2.4.1:
   version "2.4.1"
