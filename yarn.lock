@@ -6359,10 +6359,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.10.0:
-  version "4.10.0"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.10.0.tgz#559748b725ac9858a90456a741e62a7a8a731d5f"
-  integrity sha512-gRFdypjnPrh/wwFM6hBJAvAhkzBb4fEqc5/Kp3VA3LmjWprXuBhC/yDa/LTGVJsBp9mXf94bdXlZsVw7KdBYZg==
+cypress-react-unit-test@4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.11.0.tgz#8638e04dbd5c604b58eddb0bf2ff66689d06b4f3"
+  integrity sha512-P1URxzUjpmztj/Wuj+pgYiot1C0IP51PifNcP+vthLmN194vk3Fe8dKX/ngVm/78EclKK7gvs+x1D4HLi2lyYQ==
   dependencies:
     "@babel/plugin-transform-modules-commonjs" "7.10.1"
     "@cypress/code-coverage" "3.8.1"
@@ -6371,6 +6371,7 @@ cypress-react-unit-test@4.10.0:
     debug "4.1.1"
     find-webpack "2.0.0"
     mime-types "2.1.26"
+    unfetch "4.1.0"
 
 cypress@*, cypress@4.10.0:
   version "4.10.0"
@@ -16480,6 +16481,11 @@ undeclared-identifiers@^1.1.2:
     get-assigned-identifiers "^1.2.0"
     simple-concat "^1.0.0"
     xtend "^4.0.1"
+
+unfetch@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.1.0.tgz#6ec2dd0de887e58a4dee83a050ded80ffc4137db"
+  integrity sha512-crP/n3eAPUJxZXM9T80/yv0YhkTEx2K1D3h7D1AJM6fzsWZrxdyRuLN0JH/dkZh1LNH8LxCnBzoPFCPbb2iGpg==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
