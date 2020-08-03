@@ -2,7 +2,7 @@ const { DevcontainerGenerator } = require("@devcontainer/generator");
 const { writeFile } = require("fs").promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("eoan");
+  const devGenerator = new DevcontainerGenerator("groovy");
 
   devGenerator.setXfce();
   devGenerator.setRemoteDesktop("noVNC");

@@ -1,6 +1,6 @@
 {
-  "name": "@devcontainer/eoan-devcontainer",
-  "tagname": "eoan-devcontainer",
+  "name": "@devcontainer/groovy-devcontainer",
+  "tagname": "groovy-devcontainer",
   "port": "6080",
   "testport": "7224",
   "scripts": {

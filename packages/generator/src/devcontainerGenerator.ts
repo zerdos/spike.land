@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { promises as fs } from "fs";
 
-type Base = "stretch" | "buster" | "bionic" | "disco" | "eoan" | "focal";
+type Base = "stretch" | "buster" | "bionic" | "disco" | "groovy" | "focal";
 
 type nodeVersion = "lts" | "current";
 

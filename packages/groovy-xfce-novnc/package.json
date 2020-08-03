@@ -1,6 +1,6 @@
 {
-  "name": "@devcontainer/eoan-xfce-novnc",
-  "tagname": "eoan-xfce-novnc",
+  "name": "@devcontainer/groovy-xfce-novnc",
+  "tagname": "groovy-xfce-novnc",
   "port": "6080",
   "testport": "7624",
   "scripts": {

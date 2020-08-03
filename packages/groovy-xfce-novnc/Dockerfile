@@ -1,4 +1,4 @@
-ARG DISTRO=eoan
+ARG DISTRO=groovy
 FROM ubuntu:${DISTRO}
 
 ### base.Dockerfile
@@ -102,66 +102,6 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 
 ENV YARN_CACHE_FOLDER=/yarn
 
-### dotnet.Dockerfile
-
-
-# Install .NET CLI dependencies
-RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -q https://packages.microsoft.com/config/ubuntu/19.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends  \
-        libc6 \
-        libgcc1 \
-        libgssapi-krb5-2 \
-        libicu-dev \
-        liblttng-ust0 \
-        libssl-dev \
-        libstdc++6 \
-        apt-transport-https \
-        zlib1g;
-
-# Install .NET Core SDK
-ENV DOTNET_SDK_VERSION 3.1.301
-
-RUN curl -SL --output dotnet.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
-    && dotnet_sha512='dd39931df438b8c1561f9a3bdb50f72372e29e5706d3fb4c490692f04a3d55f5acc0b46b8049bc7ea34dedba63c71b4c64c57032740cbea81eef1dce41929b4e' \
-    && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
-    && mkdir -p /usr/share/dotnet \
-    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-    && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
-
-# Configure web servers to bind to port 80 when present
-ENV ASPNETCORE_URLS=http://+:80 \
-    # Enable detection of running in a container
-    DOTNET_RUNNING_IN_CONTAINER=true \
-    # Enable correct mode for dotnet watch (only mode supported in a container)
-    NUGET_XMLDOC_MODE=skip
-
-# Trigger first run experience by running arbitrary cmd to populate local package cache
-
-## cypress.Dockerfile
-
-RUN apt-get update \
-&& apt-get install --no-install-recommends -y \
-  libgtk-3-0 \
-  libnotify-dev \
-  libgconf-2-4 \
-  libnss3 \
-  libxss1 \
-  unzip \
-  libasound2 \
-  libxtst6 \
-  xauth \
-  xvfb \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
-USER ${USER}
- 
-RUN yarn global add cypress@4.11.0
-
-USER root
 ### noVNC.Dockerfile
 
 RUN  apt-get update \
@@ -211,32 +151,6 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
 
-### vscode.Dockerfile
-RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
-    && apt-get update && apt-get install -y code \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/*
-
-# docker.Dockerfile
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
-    && add-apt-repository \
-         "deb [arch=amd64] https://download.docker.com/linux/ubuntu eoan test" \
-    && apt-get install --no-install-recommends -y \
-        docker-ce \
-        docker-ce-cli \
-    && curl -L  \
-        https://github.com/docker/compose/releases/download/1.26.1/docker-compose-`uname -s`-`uname -m` \
-        -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose \
-    && usermod -G docker -a ${USER} \
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* 
-
-ENV COMPOSE_DOCKER_CLI_BUILD=1
-ENV DOCKER_BUILDKIT=1
 ### zsh.Dockerfie
 
 USER ${USER}

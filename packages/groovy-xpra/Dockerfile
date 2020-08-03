@@ -1,4 +1,4 @@
-ARG DISTRO=eoan
+ARG DISTRO=groovy
 FROM ubuntu:${DISTRO}
 
 ### base.Dockerfile
@@ -53,13 +53,13 @@ RUN addgroup --gid 1000 ${USER}  \
   && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
 ### xpra.Dockerfile
 
-ENV XPRADISTRO=eoan
+ENV XPRADISTRO=groovy
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates curl gnupg2 \
     && curl https://xpra.org/gpg.asc | apt-key add - \
-    && curl https://xpra.org/repos/eoan/xpra.list > /etc/apt/sources.list.d/xpra.list \
-    # && curl https://xpra.org/repos/eoan/xpra-beta.list >> /etc/apt/sources.list.d/xpra.list \
+    && curl https://xpra.org/repos/groovy/xpra.list > /etc/apt/sources.list.d/xpra.list \
+    # && curl https://xpra.org/repos/groovy/xpra-beta.list >> /etc/apt/sources.list.d/xpra.list \
     && apt-get update \ 
     && apt-get install -y \
         xpra xpra-html5 x264 terminator python3 python-paramiko python-pyinotify python-xdg dbus dbus-x11 xterm menu \

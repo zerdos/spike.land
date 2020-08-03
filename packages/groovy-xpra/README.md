@@ -1,6 +1,6 @@
 ## Devcontainer
 
-- Base image: buildpack-deps:eoan
+- Base image: buildpack-deps:groovy
 - Remote Desktop (Xpra 3.0 beta). HTML5 access on: http://localhost:14500
 
 Git repository: https://github.com/zed-vision/monorepo

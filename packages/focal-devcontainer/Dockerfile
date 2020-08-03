@@ -162,7 +162,7 @@ RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 # docker.Dockerfile
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && add-apt-repository \
-         "deb [arch=amd64] https://download.docker.com/linux/ubuntu eoan test" \
+         "deb [arch=amd64] https://download.docker.com/linux/ubuntu groovy test" \
     && apt-get install --no-install-recommends -y \
         docker-ce \
         docker-ce-cli \

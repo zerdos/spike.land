@@ -1,6 +1,6 @@
 {
-  "name": "@devcontainer/eoan-xpra",
-  "tagname": "eoan-xpra",
+  "name": "@devcontainer/groovy-xpra",
+  "tagname": "groovy-xpra",
   "scripts": {
     "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
     "docker:build": "docker build --progress plain . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",

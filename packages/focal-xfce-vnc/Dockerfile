@@ -1,4 +1,4 @@
-ARG DISTRO=eoan
+ARG DISTRO=groovy
 FROM ubuntu:${DISTRO}
 
 ### base.Dockerfile
