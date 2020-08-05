@@ -1,6 +1,6 @@
 {
   "name": "dist-mess",
   "dependencies": {
-    "crypto": "^1.0.1"
+    "crypto": "1.0.1"
   }
 }
