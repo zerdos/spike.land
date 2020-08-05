@@ -8,6 +8,7 @@ services:
     tmpfs:
       - /home/$USER/tmpfs:exec
     privileged: true
+    network_mode: host
     shm_size: 8gb
     volumes:
       - /home:/home
