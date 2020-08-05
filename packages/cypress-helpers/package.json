@@ -10,7 +10,7 @@
   ],
   "dependencies": {
     "@testing-library/cypress": "6.0.0",
-    "cypress": "4.11.0",
+    "cypress": "4.12.0",
     "svg-url-loader": "6.0.0"
   },
   "gitHead": "ca3ff77639c01dcae76a2dca1c1fcb1fc58a24da",
