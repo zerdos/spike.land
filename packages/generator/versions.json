@@ -6,14 +6,14 @@
   },
   "amplify": "4.21.1",
   "git": "2.28.0",
-  "cypress": "4.12.1",
+  "cypress": "5.0.0",
   "yarn": "1.22.4",
   "dotnet": "2.1.809",
   "dotnet3": "3.1.401",
   "sha": {
     "dotnet_sha512": {
-      "2.1.809": "85bfe356d1b6ac19ae5abe9f34f4cc4437f65c87ac8dff90613f447da619724ddcda5cbd1a403cd2ab96db8456d964fa60b83c468f7803d3caadbee4e8d134ec",
-      "3.1.401": "ab9afd226b920dce24bcd372cccb1965163829c26d1f11f1df3d8f9be5afb1d87f26b23e5fbeb58cf4ddaa040b8228fa00a786c379a454b9d99c2964197ab4cd"
+      "2.1.809": "cb0611edd3543380c57b5181a5b093b178da49fee9dea32f76af80c4711823f0053661ca11546546571e6ebe4e60d62ab745ade88904ad35de46662251abd769",
+      "3.1.401": "5498add9ef83da44d8f7806ca1ce335ad4193c0d3181a5abda4b65e116c7331aac37a229817ff148e4487e9734ad2438f102a0eef0049e26773a185ceb78aac4"
     }
   }
 }

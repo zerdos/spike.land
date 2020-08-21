@@ -106,7 +106,7 @@ ENV YARN_CACHE_FOLDER=/yarn
 
 
 # Install .NET CLI dependencies
-RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -q https://packages.microsoft.com/config/ubuntu/19.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb \
+RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb \
     && apt-get update \
     && apt-get install -y --no-install-recommends  \
         libc6 \
@@ -123,7 +123,7 @@ RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -
 ENV DOTNET_SDK_VERSION 3.1.401
 
 RUN curl -SL --output dotnet.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
-    && dotnet_sha512='undefined' \
+    && dotnet_sha512='5498add9ef83da44d8f7806ca1ce335ad4193c0d3181a5abda4b65e116c7331aac37a229817ff148e4487e9734ad2438f102a0eef0049e26773a185ceb78aac4' \
     && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
@@ -159,7 +159,7 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@4.12.1
+RUN yarn global add cypress@5.0.0
 
 USER root
 ### noVNC.Dockerfile
