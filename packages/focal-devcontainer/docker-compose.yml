@@ -11,7 +11,7 @@ services:
     network_mode: host
     shm_size: 4gb
     volumes:
-      - $HOME:/home/$USER/host:delegated
+      # - $HOME:/home/$USER/host:delegated
       - /var/run/docker.sock:/var/run/docker.sock
       - yarn:/yarn
     ports:
