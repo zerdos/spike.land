@@ -20,11 +20,11 @@
     "README.md"
   ],
   "devDependencies": {
-    "@devcontainer/generator": "^5.8.1",
+    "@devcontainer/generator": "^5.9.0",
     "load-text-file": "1.2.0",
     "wait-on": "5.2.0"
   },
-  "version": "5.8.1",
+  "version": "5.9.0",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "git@github.com:zerdos/devcontainer.git",
