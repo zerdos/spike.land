@@ -8,12 +8,12 @@
   "git": "2.28.0",
   "cypress": "4.12.1",
   "yarn": "1.22.4",
-  "dotnet": "2.1.807",
-  "dotnet3": "3.1.301",
+  "dotnet": "2.1.809",
+  "dotnet3": "3.1.401",
   "sha": {
     "dotnet_sha512": {
-      "2.1.807": "85bfe356d1b6ac19ae5abe9f34f4cc4437f65c87ac8dff90613f447da619724ddcda5cbd1a403cd2ab96db8456d964fa60b83c468f7803d3caadbee4e8d134ec",
-      "3.1.301": "dd39931df438b8c1561f9a3bdb50f72372e29e5706d3fb4c490692f04a3d55f5acc0b46b8049bc7ea34dedba63c71b4c64c57032740cbea81eef1dce41929b4e"
+      "2.1.809": "85bfe356d1b6ac19ae5abe9f34f4cc4437f65c87ac8dff90613f447da619724ddcda5cbd1a403cd2ab96db8456d964fa60b83c468f7803d3caadbee4e8d134ec",
+      "3.1.401": "ab9afd226b920dce24bcd372cccb1965163829c26d1f11f1df3d8f9be5afb1d87f26b23e5fbeb58cf4ddaa040b8228fa00a786c379a454b9d99c2964197ab4cd"
     }
   }
 }
