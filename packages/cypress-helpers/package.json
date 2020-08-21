@@ -9,7 +9,7 @@
     "./*.js"
   ],
   "dependencies": {
-    "@testing-library/cypress": "6.0.0",
+    "@testing-library/cypress": "6.0.1",
     "cypress": "4.12.1",
     "svg-url-loader": "6.0.0"
   },
