@@ -2965,16 +2965,15 @@
     "@svgr/plugin-svgo" "^4.3.1"
     loader-utils "^1.2.3"
 
-"@testing-library/cypress@6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-6.0.1.tgz#c924a69617db6a403c498abcb63759b79318fc76"
-  integrity sha512-hcPu2OnVuSTX1yDubEe7TBRD6mP2VgyopP1WTBIrJP79INPZdgOAX+TMNH68uZ/r5b4C7100IB4hjPIEQ+/Xog==
+"@testing-library/cypress@7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/cypress/-/cypress-7.0.0.tgz#c71d95618e20129246dd42b8cbcad01926ce9c3c"
+  integrity sha512-sbH3U5yZ7RbN35Lwu/vgA2+XjSbtTSLpp+xFi/c19sdojG82jSYA/gNOCf8/jUKda6W3XwkBHciye7AFTP+qIQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@testing-library/dom" "^7.22.2"
-    "@types/testing-library__cypress" "^5.0.6"
 
-"@testing-library/dom@^7.11.0", "@testing-library/dom@^7.22.2":
+"@testing-library/dom@^7.22.2":
   version "7.23.0"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.23.0.tgz#c54c0fa53705ad867bcefb52fc0c96487fbc10f6"
   integrity sha512-H5m090auYH+obdZmsaYLrSWC5OauWD2CvNbz88KBxQJoXgkJzbU0DpAG8BS7Evj5WqCC3nAAKrLS6vw0ljUYLg==
@@ -3232,14 +3231,6 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
-
-"@types/testing-library__cypress@^5.0.6":
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/@types/testing-library__cypress/-/testing-library__cypress-5.0.6.tgz#9015f575c1a98f05996a4fe769071134ee488c26"
-  integrity sha512-TUp5wfanU7zUZigKqIeQDChnHQ1MEzbYqrI5iCQMFiesWNOASWm/el1lFBh1JPqmd6GkdDdDiHYJnkqd9le2ww==
-  dependencies:
-    "@testing-library/dom" "^7.11.0"
-    cypress "*"
 
 "@types/testing-library__jest-dom@^5.9.1":
   version "5.9.2"
@@ -6417,7 +6408,7 @@ cypress-react-unit-test@4.11.2:
     mime-types "2.1.26"
     unfetch "4.1.0"
 
-cypress@*, cypress@5.0.0:
+cypress@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/cypress/-/cypress-5.0.0.tgz#6957e299b790af8b1cd7bea68261b8935646f72e"
   integrity sha512-jhPd0PMO1dPSBNpx6pHVLkmnnaTfMy3wCoacHAKJ9LJG06y16zqUNSFri64N4BjuGe8y6mNMt8TdgKnmy9muCg==
