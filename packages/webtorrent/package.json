@@ -1,7 +1,7 @@
 {
   "name": "@devcontainer/webtorrent",
   "description": "Streaming torrent client",
-  "version": "5.9.6",
+  "version": "5.9.7",
   "author": {
     "name": "WebTorrent LLC",
     "email": "feross@webtorrent.io",

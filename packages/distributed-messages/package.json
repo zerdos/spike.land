@@ -1,9 +1,9 @@
 {
   "name": "dist-mess",
-  "version": "5.9.6",
+  "version": "5.9.7",
   "dependencies": {
     "crypto": "1.0.1"
   },
-  "private":"false",
+  "private": "false",
   "gitHead": "2b89aac3835cd472789e7d59c229ab16bb52b9cc"
 }
