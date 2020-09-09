@@ -151,6 +151,10 @@
       "webtorrent.chromeapp.js"
     ]
   },
+  "files": [
+    "webtorrent.min.js",
+    "webtorrent.debug.js"
+  ],
   "gitHead": "28d0337bf5ba87f24327aee1a49e3eb5b4ac6262",
   "private": false,
   "publishConfig": {
