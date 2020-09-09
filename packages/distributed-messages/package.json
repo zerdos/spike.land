@@ -8,6 +8,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": ["test.js"],
   "license": "MIT",
   "gitHead": "2b89aac3835cd472789e7d59c229ab16bb52b9cc"
 }
