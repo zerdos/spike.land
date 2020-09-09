@@ -150,5 +150,6 @@
       "webtorrent.min.js",
       "webtorrent.chromeapp.js"
     ]
-  }
+  },
+  "gitHead": "288f04d42ee2dd4b5b655b57ccbb3eb140804289"
 }

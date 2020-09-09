@@ -12,7 +12,7 @@
     "dev:tsc": "yarn tsc --watch",
     "clean": "rm -rf .cache ./chrome-extension/*.js.map ./chrome-extension/*.js ./chrome-extension/*.html  ./chrome-extension/tsc"
   },
-  "gitHead": "ca3ff77639c01dcae76a2dca1c1fcb1fc58a24da",
+  "gitHead": "288f04d42ee2dd4b5b655b57ccbb3eb140804289",
   "private": false,
   "publishConfig": {
     "access": "public"
