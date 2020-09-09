@@ -5,5 +5,9 @@
     "crypto": "1.0.1"
   },
   "private": "false",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
   "gitHead": "2b89aac3835cd472789e7d59c229ab16bb52b9cc"
 }

@@ -13,7 +13,7 @@
     "cypress": "5.1.0",
     "svg-url-loader": "6.0.0"
   },
-  "gitHead": "2b89aac3835cd472789e7d59c229ab16bb52b9cc",
+  "gitHead": "5ab270e52ada873a40578efcbebd4a7bbad86ed9",
   "publishConfig": {
     "access": "public"
   }
