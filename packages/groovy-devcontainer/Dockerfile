@@ -59,7 +59,7 @@ RUN add-apt-repository ppa:git-core/ppa && apt-get update \
 && apt-get clean -y \
 && rm -rf /var/lib/apt/lists/* 
 
-ENV NODE_VERSION 14.10.1
+ENV NODE_VERSION 14.11.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -158,7 +158,7 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@5.1.0
+RUN yarn global add cypress@5.2.0
 
 USER root
 ### noVNC.Dockerfile
