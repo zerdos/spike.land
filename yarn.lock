@@ -6340,10 +6340,10 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.14.1:
-  version "4.14.1"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.14.1.tgz#ba8692dc18924fa5bf83a9a37674ff5112f448fd"
-  integrity sha512-kYKj+0hgut2CZXL2vO+T5pbMa6JVMIu4xQU964JD3w76nSLTRw8d9vw9DiaZ3Pbz2Zhb7k7sqLefKC63EeCuiw==
+cypress-react-unit-test@4.14.2:
+  version "4.14.2"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.14.2.tgz#efb096bf503bd5e07c56bc9a198bde1f296ee5d5"
+  integrity sha512-1O+zsum+hM8I77QOQKbxlzIKgxfbT4CBcpRM+/Gm2gn9zK8XpkeLVxa6y9dRGJI5sil6j7BXmKfnFD7YeI+Zfw==
   dependencies:
     "@babel/plugin-transform-modules-commonjs" "7.10.4"
     "@cypress/code-coverage" "3.8.1"
@@ -6353,7 +6353,7 @@ cypress-react-unit-test@4.14.1:
     "@zeit/next-sass" "^1.0.1"
     babel-plugin-istanbul "6.0.0"
     debug "4.1.1"
-    find-webpack "2.0.0"
+    find-webpack "2.1.0"
     framer-motion "2.6.13"
     i18next "19.7.0"
     mime-types "2.1.26"
@@ -8072,10 +8072,10 @@ find-versions@^3.2.0:
   dependencies:
     semver-regex "^2.0.0"
 
-find-webpack@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/find-webpack/-/find-webpack-2.0.0.tgz#babca80d1e56578e021a894c29e7706cb00d8918"
-  integrity sha512-im6hYZ1QA99/r8IZp/FPuAyJhnDnQxhnGXEyOTl8eo/YDm3UnPsCGqG6sJN212isLa2jVrVsjpRX31usLaz03g==
+find-webpack@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/find-webpack/-/find-webpack-2.1.0.tgz#404c4775bd7c1b86904f658e052a9c178927857d"
+  integrity sha512-yQ7j/OnLGSzZ+kK8CCjvlKzQ/Utci34E1T7rKgH2ZCLQk4MrGKnHd90E5ki/3wDQ7InNIFYpIJ2LgpDUxCoi/g==
   dependencies:
     debug "4.1.1"
     find-yarn-workspace-root "1.2.1"
