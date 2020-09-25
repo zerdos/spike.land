@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: buildpack-deps:groovy
-- Node: 14.11.0
+- Node: 14.12.0
 - Yarn: 1.22.5
 - With noVNC - XFCE trought noVNC (http://localhost:6080)
 - with Google-chrome- Zsh + Oh my zsh!
