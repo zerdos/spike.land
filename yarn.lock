@@ -1470,10 +1470,10 @@
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-"@cypress/webpack-preprocessor@5.4.5":
-  version "5.4.5"
-  resolved "https://registry.yarnpkg.com/@cypress/webpack-preprocessor/-/webpack-preprocessor-5.4.5.tgz#a3e5f7172c2a11348da3afa8821d1a4cd0bfcfcd"
-  integrity sha512-KH9B//f5DanvnO4RxyEq9RRGqeFqbzsk/wvINWhJAZcyCSZ9iD/J5E1picHt7UZxw9iXw3hzJWcuKNxdR4nk5w==
+"@cypress/webpack-preprocessor@5.4.6":
+  version "5.4.6"
+  resolved "https://registry.yarnpkg.com/@cypress/webpack-preprocessor/-/webpack-preprocessor-5.4.6.tgz#667f8007cbe6ee219ce7e45a7f1400d3e2401032"
+  integrity sha512-78hWoTUUEncv647badwVbyszvmwI1r9GaY/xy7V0sz0VVC90ByuDkLpvN+J0VP6enthob4dIPXcm0f9Tb1UKQQ==
   dependencies:
     bluebird "^3.7.1"
     debug "^4.1.1"
@@ -6152,14 +6152,14 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-cypress-react-unit-test@4.14.3:
-  version "4.14.3"
-  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.14.3.tgz#5b61cef9f6b4b65ab6c66ae325f1ee8ad75b1eea"
-  integrity sha512-+ow1C42YdME/2wtCCOTetPrsFNvM2fAkCHF5dIvZe28cs2zw6U1Y/CirCxjtUVWQahQeE6V4JU5T0A5vMdxtlQ==
+cypress-react-unit-test@4.14.4:
+  version "4.14.4"
+  resolved "https://registry.yarnpkg.com/cypress-react-unit-test/-/cypress-react-unit-test-4.14.4.tgz#501fbe9b126759722d6f00f4a0b08b9eb4a74659"
+  integrity sha512-0pjF6WUk4zX0NM1uXpzkQsfPCDjDVoVz6GNlf+AKU5vooAu/41/P2UWOva2s2tsaf/6+1ITWgAXEp1FnBzAtPA==
   dependencies:
     "@babel/plugin-transform-modules-commonjs" "7.10.4"
     "@cypress/code-coverage" "3.8.1"
-    "@cypress/webpack-preprocessor" "5.4.5"
+    "@cypress/webpack-preprocessor" "5.4.6"
     babel-plugin-istanbul "6.0.0"
     debug "4.1.1"
     find-webpack "2.1.0"
