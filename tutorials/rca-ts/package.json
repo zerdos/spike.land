@@ -1,6 +1,6 @@
 {
   "name": "rca-ts",
-  "version": "6.0.4",
+  "version": "6.0.5",
   "private": false,
   "dependencies": {
     "react": "16.14.0",
