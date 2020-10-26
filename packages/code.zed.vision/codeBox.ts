@@ -13,6 +13,9 @@ const importScript = async (src: string) =>
 
 //@ts-ignore
 export const run = async (startMonaco) => {
+  await importScript(
+    "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
+  );
   await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
   await importScript(
     "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
@@ -90,6 +93,7 @@ export const run = async (startMonaco) => {
     const example = getCodeToLoad();
     latestGoodCode = example;
     latestBadCode = example;
+
     const editor = await startMonaco({
       language: "typescript",
       code: example,

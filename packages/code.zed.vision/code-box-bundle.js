@@ -682,6 +682,7 @@ System.register("codeBox", ["diff"], function (exports_2, context_2) {
                 document.head.appendChild(s);
             });
             exports_2("run", run = async (startMonaco) => {
+                await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
                 await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
                 await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
                 await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
