@@ -292,38 +292,6 @@ export const run = async (startMonaco) => {
 
   function getCodeToLoad() {
     const latestGoodCodeHash = localStorage.getItem("codeBoXHash");
-    const latestGoodCode = localStorage.getItem(latestGoodCodeHash);
-
-    if (latestGoodCode) return latestGoodCode;
-
-    return `import * as React from "react";
-import ReactDOM from "react-dom";
-
-const Counter = (
-    { initial = 0 }
-) => {
-    const [clicks, setClicks] = React.useState(initial);
-
-    return <div>
-        <p>Clicks: <strong>{clicks}</strong></p>
-        <button onClick={() => setClicks(clicks + 1)}>+</button>
-        <button onClick={() => setClicks(clicks - 1)}>-</button>
-    </div>;
-};
-
-ReactDOM.render(
-    <Counter initial={0} />,
-    document.getElementById("root")
-);    
-`;
+    return localStorage.getItem(latestGoodCodeHash);
   }
 };
-
-export const css = `
-`;
-///@ts-ignore
-const style = document.createElement("style");
-///@ts-ignore
-style.appendChild(document.createTextNode(css));
-///@ts-ignore
-document.getElementsByTagName("head")[0].appendChild(style);

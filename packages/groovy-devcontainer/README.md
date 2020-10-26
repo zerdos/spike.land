@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: buildpack-deps:groovy
-- Node: 14.14.0
+- Node: 15.0.1
 - Yarn: 1.22.10
 - Cypress 5.4.0
 - With noVNC - XFCE trought noVNC (http://localhost:6080)

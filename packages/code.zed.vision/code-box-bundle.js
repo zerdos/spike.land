@@ -665,7 +665,7 @@ System.register("diff", [], function (exports_1, context_1) {
 });
 System.register("codeBox", ["diff"], function (exports_2, context_2) {
     "use strict";
-    var diff_js_1, importScript, run, css, style;
+    var diff_js_1, importScript, run;
     var __moduleName = context_2 && context_2.id;
     return {
         setters: [
@@ -843,41 +843,13 @@ System.register("codeBox", ["diff"], function (exports_2, context_2) {
                 }
                 function getCodeToLoad() {
                     const latestGoodCodeHash = localStorage.getItem("codeBoXHash");
-                    const latestGoodCode = localStorage.getItem(latestGoodCodeHash);
-                    if (latestGoodCode)
-                        return latestGoodCode;
-                    return `import * as React from "react";
-import ReactDOM from "react-dom";
-
-const Counter = (
-    { initial = 0 }
-) => {
-    const [clicks, setClicks] = React.useState(initial);
-
-    return <div>
-        <p>Clicks: <strong>{clicks}</strong></p>
-        <button onClick={() => setClicks(clicks + 1)}>+</button>
-        <button onClick={() => setClicks(clicks - 1)}>-</button>
-    </div>;
-};
-
-ReactDOM.render(
-    <Counter initial={0} />,
-    document.getElementById("root")
-);    
-`;
+                    return localStorage.getItem(latestGoodCodeHash);
                 }
             });
-            exports_2("css", css = `
-`);
-            style = document.createElement("style");
-            style.appendChild(document.createTextNode(css));
-            document.getElementsByTagName("head")[0].appendChild(style);
         }
     };
 });
 
 const __exp = __instantiate("codeBox", false);
 export const run = __exp["run"];
-export const css = __exp["css"];
 
