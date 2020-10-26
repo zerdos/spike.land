@@ -13,9 +13,6 @@ const importScript = async (src: string) =>
 
 //@ts-ignore
 export const run = async (startMonaco) => {
-  ///@ts-ignore
-  const localStorage: Storage = window.localStorage;
-
   await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
   await importScript(
     "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
@@ -67,9 +64,15 @@ export const run = async (startMonaco) => {
     const { hash } = await response.json();
 
     try {
-      const prev = localStorage.getItem("codeBoXHash") || "zedCodeSTART";
+      ///@ts-ignore
+      const localStorage: Storage = window.localStorage;
+
+      const prev = localStorage.getItem("codeBoXHash");
+
       localStorage.setItem("codeBoXHash", hash);
       localStorage.setItem(hash, latestGoodCode);
+      ///@ts-ignore
+      location.hash = hash;
     } catch (e) {
       console.log("no Localstorage");
     }
@@ -92,7 +95,6 @@ export const run = async (startMonaco) => {
       code: example,
       onChange: (code: string) => {
         latestCode = code;
-        console.log(code);
 
         const runner = async (cd: string) => {
           if (busy === 1) return;
@@ -285,13 +287,19 @@ export const run = async (startMonaco) => {
     target.style.webkitTransform = target.style.transform = "translate(" + x +
       "px, " + y + "px)";
 
-    // update the posiion attributes
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
   }
 
   function getCodeToLoad() {
-    const latestGoodCodeHash = localStorage.getItem("codeBoXHash");
-    return localStorage.getItem(latestGoodCodeHash);
+    ///@ts-ignore
+    const hash = window.localStorage.getItem("codeBoXHash");
+
+    //@ts-ignore
+    return window.localStorage.getItem(location.hash.substring(1)) ||
+      //@ts-ignore
+      window.localStorage.getItem(hash) ||
+      //@ts-ignore
+      window.localStorage.getItem("STARTER");
   }
 };

@@ -682,7 +682,6 @@ System.register("codeBox", ["diff"], function (exports_2, context_2) {
                 document.head.appendChild(s);
             });
             exports_2("run", run = async (startMonaco) => {
-                const localStorage = window.localStorage;
                 await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
                 await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
                 await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
@@ -710,9 +709,11 @@ System.register("codeBox", ["diff"], function (exports_2, context_2) {
                     const response = await fetch(request);
                     const { hash } = await response.json();
                     try {
-                        const prev = localStorage.getItem("codeBoXHash") || "zedCodeSTART";
+                        const localStorage = window.localStorage;
+                        const prev = localStorage.getItem("codeBoXHash");
                         localStorage.setItem("codeBoXHash", hash);
                         localStorage.setItem(hash, latestGoodCode);
+                        location.hash = hash;
                     }
                     catch (e) {
                         console.log("no Localstorage");
@@ -733,7 +734,6 @@ System.register("codeBox", ["diff"], function (exports_2, context_2) {
                         code: example,
                         onChange: (code) => {
                             latestCode = code;
-                            console.log(code);
                             const runner = async (cd) => {
                                 if (busy === 1)
                                     return;
@@ -842,8 +842,10 @@ System.register("codeBox", ["diff"], function (exports_2, context_2) {
                     target.setAttribute("data-y", y);
                 }
                 function getCodeToLoad() {
-                    const latestGoodCodeHash = localStorage.getItem("codeBoXHash");
-                    return localStorage.getItem(latestGoodCodeHash);
+                    const hash = window.localStorage.getItem("codeBoXHash");
+                    return window.localStorage.getItem(location.hash.substring(1)) ||
+                        window.localStorage.getItem(hash) ||
+                        window.localStorage.getItem("STARTER");
                 }
             });
         }
