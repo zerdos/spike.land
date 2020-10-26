@@ -1,6 +1,6 @@
 {
   "name": "libp2p-in-browser",
-  "version": "1.0.0",
+  "version": "6.0.6",
   "description": "A libp2p node running in the browser",
   "main": "index.js",
   "browserslist": [
@@ -16,10 +16,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "libp2p": "0.29.2",
+    "babel-polyfill": "6.26.0",
     "buffer": "5.6.1",
-    "babel-polyfill":"6.26.0",
     "buffer-alloc": "1.2.0",
+    "libp2p": "0.29.2",
     "libp2p-bootstrap": "^0.12.1",
     "libp2p-gossipsub": "^0.6.4",
     "libp2p-mplex": "^0.10.1",
