@@ -50,8 +50,16 @@ RUN addgroup --gid 1000 ${USER}  \
   && touch /usr/bin/startx /usr/bin/startWithBash \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
-  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
-ENV NODE_VERSION 15.0.1
+  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash ### git for Ubuntu
+
+RUN add-apt-repository ppa:git-core/ppa && apt-get update \
+&& apt-get install --no-install-recommends -y \
+    git \
+&& apt-get autoremove -y \
+&& apt-get clean -y \
+&& rm -rf /var/lib/apt/lists/* 
+
+ENV NODE_VERSION 14.15.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
