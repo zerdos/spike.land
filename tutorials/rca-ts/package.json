@@ -42,7 +42,7 @@
     "cypress-react-unit-test": "4.16.5",
     "react-scripts": "3.4.4",
     "svg-url-loader": "6.0.0",
-    "typescript": "4.0.3"
+    "typescript": "4.0.5"
   },
   "gitHead": "01f64ffc254af80e595d8eae251a9b122f9c305f",
   "publishConfig": {
