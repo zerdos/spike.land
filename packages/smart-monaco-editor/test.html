@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">        
+</head>
+<body>
+    <div id="container" style="height: 70vh; width: 100%;" ></div>
+<script type="module">
+   import {startMonaco} from "./lib/editor.js";
+   
+   (async()=>{
+       const editor = await startMonaco({code: `const foo = 1;`, onChange: (code)=>console.log(code)})
+console.log(editor);
+editor.setValue("const foo = 2");
+})()
+   
+</script>
+</body>

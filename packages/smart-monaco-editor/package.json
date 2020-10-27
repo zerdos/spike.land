@@ -1,0 +1,38 @@
+{
+    "name": "smart-monaco-editor",
+    "version": "2.5.2",
+    "description": "Monaco Editor with auto type downloads mostly for React",
+    "main": "index.js",
+    "private": false,
+    "sideEffects": false,
+    "scripts": {
+        "xbuild": "yarn format && tsc && cp -f lib/editor.d.ts ./index.d.ts",
+        "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
+        "clean": "rm -rf lib screenshot*",
+        "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
+        "format": "deno fmt src && deno fmt example/src"
+    },
+    "keywords": [
+        "monaco",
+        "editor",
+        "react",
+        "html",
+        "vscode"
+    ],
+    "authors": [
+        "Zoltan Erdos <zolika84@gmail.com>"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zedvision/monorepo"
+    },
+    "homepage": "https://github.com/zedvision/monorepo",
+    "repository": "https://github.com/zedvision/monorepo",
+    "devDependencies": {
+        "@types/react": "^16.9.53",
+        "@types/webpack-env": "^1.15.3",
+        "capture-website": "^1.2.4",
+        "monaco-editor": "^0.21.2",
+        "typescript": "^4.0.3"
+    }
+}
