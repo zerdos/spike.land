@@ -16,7 +16,7 @@
     "docker": "docker build --build-arg USER=$USER -f packages/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev ",
     "clean": "yarn wsrun -a -m clean",
-    "release": "yarn xbuild && yarn docker:build && yarn test && lerna publish && yarn push",
+    "release": "git pull && yarn xbuild && yarn docker:build && yarn test && git add . && git commit -m \"quick commit\" && git push && lerna publish && git push && yarn docker:push",
     "xbuild": "(yarn xxx build || echo fail) && yarn xxx generate:dockerfile",
     "test": "yarn xxx tests",
     "docker:build": "yarn xxx docker:build",

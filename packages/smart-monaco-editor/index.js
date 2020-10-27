@@ -15,4 +15,5 @@ let version;
         const {startMonaco} = await importSpecificVersion(version);
         return startMonaco(...args);
     }   
+    return {};
 }
