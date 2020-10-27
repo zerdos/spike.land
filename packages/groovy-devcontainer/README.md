@@ -1,9 +1,9 @@
 ## Devcontainer
 
 - Base image: buildpack-deps:groovy
-- Node: 15.0.1
+- Node: 14.15.0
 - Yarn: 1.22.10
-- Cypress 5.4.0
+- Cypress 5.5.0
 - With noVNC - XFCE trought noVNC (http://localhost:6080)
 - with Google-chrome- With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
