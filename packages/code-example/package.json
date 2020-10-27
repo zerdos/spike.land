@@ -1,7 +1,6 @@
 {
-  "name": "rca-ts",
+  "name": "@zedvision/code-rca-ts-example",
   "version": "0.1.0",
-  "private": false,
   "homepage": "https://zerdos.github.io/smart-monaco-editor/example/build/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
@@ -9,10 +8,10 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.15",
     "@types/node": "^14.14.5",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
+    "@types/react": "^16.9.54",
+    "@types/react-dom": "^16.9.9",
     "react": "17.0.1",
-    "smart-monaco-editor": "^2.4.2",
+    "@zedvision/smart-monaco-editor": "6.1.4",
     "react-dom": "17.0.1",
     "react-scripts": "4.0.0",
     "typescript": "~4.0.5"
