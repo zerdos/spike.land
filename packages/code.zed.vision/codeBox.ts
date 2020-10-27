@@ -1,4 +1,6 @@
-import { diff } from "./diff.js";
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { diff } from "./diff.ts";
 
 const importScript = async (src: string) =>
   new Promise(function (resolve, reject) {
@@ -12,7 +14,7 @@ const importScript = async (src: string) =>
   });
 
 //@ts-ignore
-export const run = async (startMonaco) => {
+export async function run(startMonaco) {
   await importScript(
     "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
   );
@@ -70,7 +72,7 @@ export const run = async (startMonaco) => {
       ///@ts-ignore
       const localStorage: Storage = window.localStorage;
 
-      const prev = localStorage.getItem("codeBoXHash");
+      localStorage.getItem("codeBoXHash");
 
       localStorage.setItem("codeBoXHash", hash);
       localStorage.setItem(hash, latestGoodCode);
@@ -87,60 +89,59 @@ export const run = async (startMonaco) => {
   let latestCode = "";
   let errorReported = "";
   let busy = 0;
-  let latestBadCode = "";
 
   (async () => {
     const example = getCodeToLoad();
     latestGoodCode = example;
-    latestBadCode = example;
 
-    const editor = await startMonaco({
+    await startMonaco({
       language: "typescript",
       code: example,
       onChange: (code: string) => {
         latestCode = code;
 
         const runner = async (cd: string) => {
-          if (busy === 1) return;
+          if (busy === 1) {
+            return;
+          }
 
           busy = 1;
-          const err = await getErrors(editor);
+          const err = await getErrors();
           ///@ts-ignore
           const errorDiv = document.getElementById("error");
           try {
             busy = 0;
 
-            if (cd !== latestCode) return;
+            if (cd !== latestCode) {
+              return;
+            }
             if (err && err.length) {
-              if (latestCode != cd) return;
-              if (errorReported === cd) return;
+              if (latestCode != cd) {
+                return;
+              }
+              if (errorReported === cd) {
+                return;
+              }
               ///@ts-ignore
-
               document.getElementById("root").classList.add("almosthidden");
-              const slices = diff(latestGoodCode, cd);
+              const slices = diff(latestGoodCode, cd, 0);
               console.log(slices);
 
               if (slices.length <= 3) {
-                latestBadCode = cd;
                 ///@ts-ignore
                 window["monaco"].editor.setTheme("hc-black");
                 return;
               }
 
               // const oldSlices = diff(latestBadCode, cd);
-
               // const unMerge = oldSlices.filter((o) => o[0] !== 0);
-
               // let filtered = slices.filter((t) =>
               //   t[0] === 0 || t[1] === unMerge[0][1]
               // );
-
               // if (filtered.length > 4) {
               //   filtered = filtered.filter((t) => t[0] === 0);
               // }
-
               // diff_cleanupMerge(filtered, false);
-
               // let newStr = "";
               // let offset = 0;
               // filtered.map((t) => {
@@ -149,34 +150,27 @@ export const run = async (startMonaco) => {
               //     offset = newStr.length;
               //   }
               // });
-
               // busy = 0;
-
               // if (newStr !== cd) {
               //   editor.setValue(newStr);
               //   const model = editor.getModel("file:///Main.tsx");
-
               //   const position = model.getPositionAt(offset);
               //   //  mosel.getC
-
               //   const validPos = model.validatePosition(position);
               //   editor.setPosition(validPos);
-
               //   // model.modifyPosition(position)
               //   return;
               // }
               // const errors = err..map((x) => x.messageText)
-
               //@ts-ignore
               errorDiv.innerHTML = errors[0].messageText;
               ///@ts-ignore
-
               document.getElementById("root").style.setProperty(
                 "dispay",
                 "none",
               );
 
-              errorDiv.style.display = "block";
+              errorDiv!.style.display = "block";
               errorReported = cd;
 
               //@ts-ignore
@@ -192,7 +186,6 @@ export const run = async (startMonaco) => {
 
             errorDiv!.style!.display = "none";
             //@ts-ignore
-
             window["monaco"].editor.setTheme("vs-dark");
 
             //@ts-ignore
@@ -203,7 +196,9 @@ export const run = async (startMonaco) => {
             restartCode(transpileCode(cd));
           } catch (err) {
             busy = 0;
-            if (cd !== latestCode) return;
+            if (cd !== latestCode) {
+              return;
+            }
 
             ///@ts-ignore
             window["monaco"].editor.setTheme("vs-light");
@@ -214,15 +209,18 @@ export const run = async (startMonaco) => {
             console.error(err);
           }
         };
-        if (!busy) runner(latestCode);
-        else {
+        if (!busy) {
+          runner(latestCode);
+        } else {
           const myCode = code;
           const cl = setInterval(() => {
             if (myCode !== latestCode || !busy) {
               clearInterval(cl);
             }
 
-            if (!busy) runner(latestCode);
+            if (!busy) {
+              runner(latestCode);
+            }
           }, 100);
         }
       },
@@ -234,15 +232,14 @@ export const run = async (startMonaco) => {
   //@ts-ignore
   document.getElementById("root").setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
-
-  async function getErrors(editor: any) {
-    const model = editor.getModel("file:///main.tsx");
+  async function getErrors() {
+    //@ts-ignore
+    const model = window["monaco"].editor.getModel("file:///main.tsx");
 
     //@ts-ignore
     const tsWorker = await window["monaco"].languages.typescript
       .getTypeScriptWorker();
     const modelUri = model?.uri;
-    if (!modelUri) return;
 
     const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
       "file:///main.tsx",
@@ -275,17 +272,16 @@ export const run = async (startMonaco) => {
         listeners: {
           // call this function on every dragmove event
           move: dragMoveListener,
-          // call this function on every dragend event
         },
       });
   };
 
   ///@ts-ignore
-  function dragMoveListener(event: any) {
-    var target = event.target;
+  function dragMoveListener(event) {
+    const target = event.target;
     // keep the dragged position in the data-x/data-y attributes
-    var x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
-    var y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+    const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+    const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
 
     // translate the element
     target.style.webkitTransform = target.style.transform = "translate(" + x +
@@ -304,6 +300,6 @@ export const run = async (startMonaco) => {
       //@ts-ignore
       window.localStorage.getItem(hash) ||
       //@ts-ignore
-      window.localStorage.getItem("STARTER");
+      window.localStorage.getItem("STARTER") || `() => <>Hello<>`;
   }
-};
+}
