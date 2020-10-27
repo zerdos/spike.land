@@ -1,6 +1,6 @@
 {
   "name": "libp2p-in-browser",
-  "version": "6.0.8",
+  "version": "6.1.1",
   "description": "A libp2p node running in the browser",
   "main": "index.js",
   "browserslist": [
