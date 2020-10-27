@@ -34,15 +34,15 @@
     "@testing-library/react": "11.1.0",
     "@testing-library/user-event": "12.1.10",
     "@types/jest": "26.0.15",
-    "@types/node": "14.14.3",
+    "@types/node": "14.14.5",
     "@types/react": "16.9.53",
     "@types/react-dom": "16.9.8",
     "babel-loader": "8.1.0",
-    "cypress": "5.4.0",
+    "cypress": "5.5.0",
     "cypress-react-unit-test": "4.16.5",
     "react-scripts": "3.4.4",
     "svg-url-loader": "6.0.0",
-    "typescript": "4.0.3"
+    "typescript": "4.0.5"
   },
   "gitHead": "01f64ffc254af80e595d8eae251a9b122f9c305f",
   "publishConfig": {
