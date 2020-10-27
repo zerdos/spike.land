@@ -1,4 +1,3 @@
-import { importHelper } from "./importHelper.js";
 export const startMonaco = async ({ onChange, code, language }) => {
     const monacoLang = language || "typescript";
     if (window && window["monaco"] && window["monaco"]["editor"]) {
@@ -67,6 +66,28 @@ export const startMonaco = async ({ onChange, code, language }) => {
             editor.onDidChangeModelContent(() => onChange(editor.getValue()));
             resolve(editor);
             if (monacoLang === "typescript") {
+                const importHelper = [{
+                        name: "react",
+                        url: "https://unpkg.com/@types/react@latest/index.d.ts",
+                        depend: ["global", "csstype", "react-dom", "prop-types"],
+                    }, {
+                        name: "global",
+                        url: "https://unpkg.com/@types/react@latest/global.d.ts",
+                        depend: [],
+                    }, {
+                        name: "prop-types",
+                        url: "https://unpkg.com/@types/prop-types@latest/index.d.ts",
+                        depend: [],
+                    }, {
+                        name: "react-dom",
+                        url: "https://unpkg.com/@types/react-dom@latest/index.d.ts",
+                        depend: [],
+                    }, {
+                        name: "csstype",
+                        url: "https://unpkg.com/csstype@latest/index.d.ts",
+                        depend: [],
+                    }];
+                //# sourceMappingURL=importHelper.js.map
                 const dts = importHelper.map(({ name, url }) => (async () => monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`))());
                 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
                     target: monaco.languages.typescript.ScriptTarget.ESNext,
