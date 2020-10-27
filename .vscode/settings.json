@@ -1,4 +1,6 @@
 {
+  "files.autoSave": "onFocusChange",
+  "deno": true,
   "cSpell.words": [
     "Dockerfiles",
     "Erdos",
