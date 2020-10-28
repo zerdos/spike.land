@@ -56,7 +56,7 @@ export async function run(startMonaco) {
 
     const stringBody = JSON.stringify(body);
     const request = new Request(
-      "https://my-ts-project.zed-vision.workers.dev",
+      "https://code.zed.vision",
       {
         body: stringBody,
         method: "POST",

@@ -7,6 +7,12 @@ interface StartMonaco {
   code: string;
   language: "html" | "javascript" | "typescript";
 }
+
+export const importSpecificVersion = (version) =>
+  Function(
+    `return import('https://unpkg.com/smart-monaco-editor@${version}/lib/editor.js`,
+  );
+
 export const startMonaco = async (
   { onChange, code, language }: StartMonaco,
 ) => {

@@ -6,7 +6,7 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
-        "build": "yarn format && tsc && cp -f lib/editor.d.ts ./index.d.ts",
+        "build": "yarn format && tsc",
         "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
         "clean": "rm -rf lib screenshot*",
         "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
