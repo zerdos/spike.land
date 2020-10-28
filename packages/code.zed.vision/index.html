@@ -81,6 +81,10 @@
   <div id="root" class="draggable resize-drag"></div>
   <div id="container"></div>
   
-  <script src="./index.js" type="module"></script>
+  <script type="module">
+  import {startMonaco} from "https://unpkg.com/smart-monaco-editor/lib/editor.js"
+import { run } from "./code.zed-vision.min.js"
+run(startMonaco) 
+  </script>
 </body>
 </html>
