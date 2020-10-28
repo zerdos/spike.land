@@ -2,7 +2,7 @@
     "name": "@zedvision/smart-monaco-editor",
     "version": "6.1.5",
     "description": "Monaco Editor with auto type downloads mostly for React",
-    "main": "index.js",
+    "main": "lib/editor.js",
     "private": false,
     "sideEffects": false,
     "scripts": {
@@ -37,5 +37,6 @@
     },
     "publishConfig": {
         "access": "public"
-    }
+    },
+    "gitHead": "4b795f3a29f96aecb25d8da7ee3663506cd68bda"
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { startMonaco } from "@zedvision/smart-monaco-editor";
+import { startMonaco } from "@zedvision/smart-monaco-editor/lib/editor";
 
 export const MonacoEditor: React.FC<
   { code: string; onChange: (code: string) => void }
