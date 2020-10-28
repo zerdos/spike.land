@@ -10,7 +10,7 @@
         "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
         "clean": "rm -rf lib screenshot*",
         "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
-        "format": "deno fmt src && deno fmt example/src"
+        "format": "deno fmt src"
     },
     "keywords": [
         "monaco",

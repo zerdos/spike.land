@@ -1,11 +1,17 @@
 import * as React from "react";
-import { startMonaco } from "@zedvision/smart-monaco-editor/lib/editor";
 
 export const MonacoEditor: React.FC<
   { code: string; onChange: (code: string) => void }
 > = ({ code, onChange }) => {
   React.useEffect(() => {
-    startMonaco({ language: "html", code, onChange });
+    (async ()=>{
+      const { startMonaco } = await (await Function(
+        "return import('https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js')",
+      ))();
+  
+      startMonaco({ language: "html", code, onChange });
+    })()
+    
   });
 
   return <div
