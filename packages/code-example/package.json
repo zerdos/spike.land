@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/code-rca-ts-example",
-  "version": "6.1.8",
+  "version": "6.1.11",
   "homepage": "https://zerdos.github.io/smart-monaco-editor/example/build/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
