@@ -28,7 +28,7 @@
     "homepage": "https://code.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "@cloudflare/workers-types": "2.0.0",
+        "@cloudflare/workers-types": "2.1.0",
         "@zedvision/code": "6.1.2",
         "webpack": "5.3.0",
         "webpack-cli": "4.1.0",
