@@ -10,12 +10,10 @@
     "tutorials/*"
   ],
   "scripts": {
-    "postinstall": "yarn clean && rm -rf .parcel-cache",
     "format": "yarn prettier . --write",
     "lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
     "docker": "docker build --build-arg USER=$USER -f packages/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev ",
-    "clean": "yarn wsrun -a -m clean",
     "release": "git pull && lerna publish && git push",
     "xbuild": "(yarn xxx build || echo fail) && yarn xxx generate:dockerfile",
     "test": "yarn xxx tests",
