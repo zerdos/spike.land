@@ -1,7 +1,7 @@
 {
-  "name": "@zedvision/code-rca-ts-example",
+  "name": "@zedvision/smart-monaco-editor-example",
   "version": "6.2.0",
-  "homepage": "https://zerdos.github.io/smart-monaco-editor/example/build/",
+  "homepage": "https://unpkg.com/@zedvision/smart-monaco-editor/build/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
