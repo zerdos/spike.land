@@ -1,4 +1,4 @@
-export const defaultExaple = `import * as React from "react";
+export const defaultExample = `import * as React from "react";
 import ReactDOM from "react-dom";
 
 const Counter = (

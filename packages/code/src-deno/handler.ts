@@ -1,4 +1,4 @@
-import { defaultExaple, html } from "./index-html.ts";
+import { defaultExample, html } from "./index-html.ts";
 
 const shaStore = SHATEST;
 
@@ -33,7 +33,7 @@ export async function handleRequest(request: Request): Promise<Response> {
       }
     }
 
-    if (inject === null) inject = getInject(defaultExaple, "startHash") as string;
+    if (inject === null) inject = getInject(defaultExample, "startHash") as string;
 
     return new Response(html(inject), {
       headers: {
