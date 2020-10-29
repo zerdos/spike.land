@@ -6,7 +6,9 @@
     "sideEffects": false,
     "scripts": {
         "clean": "rm code-box* code.zed*",
-        "build": "deno fmt codeBox.ts && deno bundle codeBox.ts > code-box-bundle.js && yarn minify",
+        "bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
+        "deploy": "wrangler build && wrangler publish",
+        "build-codebox": "deno fmt codeBox.ts && deno bundle codeBox.ts > code-box-bundle.js && yarn minify",
         "minify": "yarn esbuild code-box-bundle.js --minify --outfile=code.zed-vision.min.js",
         "serve": "file_server  ."
     },
@@ -23,11 +25,16 @@
     "bugs": {
         "url": "https://github.com/zed-vision/monorepo"
     },
-    "homepage": "https://unpkg.com/@zedvision/code",
+    "homepage": "https://code.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "@types/react": "16.9.55",
+        "@cloudflare/workers-types": "2.0.0",
+        "@zedvision/code": "6.1.2",
+        "webpack": "5.3.0",
+        "webpack-cli": "4.1.0",
         "@types/webpack-env": "1.15.3",
+        "smart-monaco-editor": "6.1.4",
+        "@cloudflare/wrangler": "1.11.0",
         "@zedvision/smart-monaco-editor": "^6.2.3",
         "capture-website": "1.2.4",
         "esbuild": "0.8.0",
