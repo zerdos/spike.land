@@ -6,7 +6,7 @@
     "sideEffects": false,
     "scripts": {
         "clean": "rm code-box* code.zed*",
-        "bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
+        "build": "deno bundle src-deno/index.ts src/index.js --no-check",
         "deploy": "wrangler build && wrangler publish",
         "build-codebox": "deno fmt codeBox.ts && deno bundle codeBox.ts > code-box-bundle.js && yarn minify",
         "minify": "yarn esbuild code-box-bundle.js --minify --outfile=code.zed-vision.min.js",
