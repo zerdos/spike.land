@@ -300,6 +300,6 @@ export async function run(startMonaco) {
       //@ts-ignore
       window.localStorage.getItem(hash) ||
       //@ts-ignore
-      window.localStorage.getItem("STARTER") || `() => <>Hello<>`;
+      window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
   }
 }

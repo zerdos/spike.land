@@ -64,7 +64,7 @@
 <body>
   <div id="container"></div>
   <script type="module">
-    import {startMonaco} from "./index.js"
+    import {startMonaco} from "./lib/editor.js"
 
     startMonaco({language: "typescript", onChange: (c)=>console.log(c), code: `import React, { FC, useState } from "react";
 import ReactDOM from "react-dom";
