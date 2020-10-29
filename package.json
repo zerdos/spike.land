@@ -41,6 +41,6 @@
     "wsrun": "5.2.4"
   },
   "dependencies": {
-    "https-localhost": "^4.6.3"
+    "https-localhost": "4.6.3"
   }
 }
