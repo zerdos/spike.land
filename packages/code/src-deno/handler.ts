@@ -49,7 +49,7 @@ export async function handleRequest(request: Request): Promise<Response> {
       "",
     );
     const smallerKey = hash.substring(0, 7);
-    shaStore.put(smallerKey, myBuffer);
+    await shaStore.put(smallerKey, myBuffer);
 
     const resp = new Response(`{"hash":"${smallerKey}"}`);
 

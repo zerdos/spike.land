@@ -7,6 +7,13 @@ import { importScript } from "./importScript.ts";
 
 import { diff } from "./diff.ts";
 
+const sp = new URLSearchParams(location.search);
+const hash = sp.get("h");
+if (hash) {
+  localStorage.setItem("codeBoXHash", hash);
+}
+
+let monaco;
 async function run() {
   await importScript(
     "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
@@ -82,7 +89,7 @@ async function run() {
 
       localStorage.setItem("codeBoXHash", hash);
       localStorage.setItem(hash, latestGoodCode);
-      location.hash = hash;
+      history.pushState({}, "", `/?h=${hash}`);
     } catch (e) {
       console.log("no localStorage");
     }
@@ -260,13 +267,4 @@ function getCodeToLoad() {
     window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
 
-let monaco;
-
-const sp = new URLSearchParams(location.search);
-const hash = sp.get("h");
-if (hash) {
-  localStorage.setItem("codeBoXHash", hash);
-  run();
-} else {
-  run();
-}
+run();

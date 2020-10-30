@@ -775,6 +775,12 @@ function diff(text1, text2, cursor_pos) {
 diff.INSERT = 1;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = 0;
+const sp = new URLSearchParams(location.search);
+const hash = sp.get("h");
+if (hash) {
+    localStorage.setItem("codeBoXHash", hash);
+}
+let monaco;
 async function run() {
     await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
@@ -815,13 +821,14 @@ async function run() {
             }
         });
         const response = await fetch(request);
-        const { hash  } = await response.json();
+        const { hash: hash1  } = await response.json();
         try {
             const localStorage = window.localStorage;
             localStorage.getItem("codeBoXHash");
-            localStorage.setItem("codeBoXHash", hash);
-            localStorage.setItem(hash, latestGoodCode);
-            location.hash = hash;
+            localStorage.setItem("codeBoXHash", hash1);
+            localStorage.setItem(hash1, latestGoodCode);
+            history.pushState({
+            }, "", `/?h=${hash1}`);
         } catch (e) {
             console.log("no localStorage");
         }
@@ -928,16 +935,8 @@ async function run() {
     }
 }
 function getCodeToLoad() {
-    const hash = window.localStorage.getItem("codeBoXHash");
-    return window.localStorage.getItem(location.hash) || hash && window.localStorage.getItem(hash) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+    const hash1 = window.localStorage.getItem("codeBoXHash");
+    return window.localStorage.getItem(location.hash) || hash1 && window.localStorage.getItem(hash1) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
-let monaco;
-const sp = new URLSearchParams(location.search);
-const hash = sp.get("h");
-if (hash) {
-    localStorage.setItem("codeBoXHash", hash);
-    run();
-} else {
-    run();
-}
+run();
 
