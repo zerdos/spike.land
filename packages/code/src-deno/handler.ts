@@ -11,31 +11,26 @@ const corsHeaders = {
 export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
     const url = new URL(request.url);
-  
+
     const hash = url.searchParams.get("h");
     // const urlStr = url.toString();
-    
 
     let starterCode: null | string = null;
 
-    if (hash!==null && hash.length > 5) {
+    if (hash !== null && hash.length > 5) {
       const json = await shaStore.get(hash);
-   
-      if (json!==null) {
+
+      if (json !== null) {
         starterCode = JSON.parse(json).code;
       }
     }
 
-
-
-    return new Response(inject(hash,starterCode), {
+    return new Response(inject(hash, starterCode), {
       headers: {
         "content-type": "text/html",
       },
     });
   } else if (request.method === "POST") {
-
-
     const data = (await request.json());
 
     const myBuffer = new TextEncoder().encode(JSON.stringify(data));

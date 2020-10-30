@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
+import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 
 import { diff } from "./diff.ts";
 

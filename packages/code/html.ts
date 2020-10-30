@@ -1,6 +1,6 @@
 const html =(await Deno.readTextFile("./index.html"));
 const starterTsx = (await Deno.readTextFile("./starter.tsx"));
-const js = (await Deno.readTextFile("./code-box-bundle.js"));
+const js = (await Deno.readTextFile("./code.zed-vision.min.js"));
 
 const templates = {js: new TextEncoder().encode(js),
                   html: new TextEncoder().encode(html), 
@@ -23,7 +23,7 @@ const html = new Uint8Array([${templates.html}]);
     const inject = start || starterTsx;
 
     const res = htmlDecoded.split("//inject")
-    return [res[0], "localStorage.setItem(\`"+ injectKey +"\`, \`" + inject +"\`)", "; ",jsDecoded, res[1]].join(" ");
+    return [res[0], "localStorage.setItem(\`"+ injectKey +"\`, \`" + inject +"\`)", "; ",jsDecoded, res[2]].join(" ");
   }
 
 

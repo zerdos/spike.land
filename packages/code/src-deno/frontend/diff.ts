@@ -58,7 +58,7 @@ function diff_main(
   }
   diff_cleanupMerge(diffs);
   return diffs;
-}/**
+} /**
  * Find the differences between two texts.  Assumes that the texts do not
  * have any common prefix or suffix.
  * @param {string} text1 Old string to be diffed.
@@ -233,7 +233,7 @@ function diff_bisect_(text1: string, text2: string) {
   // Diff took too long and hit the deadline or
   // number of diffs equals number of characters, no commonality at all.
   return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]] as Diff[];
-}/**
+} /**
  * Given the location of the 'middle snake', split the diff in two parts
  * and recurse.
  * @param {string} text1 Old string to be diffed.
@@ -250,11 +250,15 @@ function diff_bisectSplit_(text1: string, text2: string, x: number, y: number) {
   const text2b = text2.substring(y);
 
   // Compute both diffs serially.
-  const diffs = diff_main({ text1: text1a[1], text2: text2a[1], cursor_pos: 0 });
-  const diffsb = diff_main({ text1: text1b[1], text2: text2b[1], cursor_pos: 0 });
+  const diffs = diff_main(
+    { text1: text1a[1], text2: text2a[1], cursor_pos: 0 },
+  );
+  const diffsb = diff_main(
+    { text1: text1b[1], text2: text2b[1], cursor_pos: 0 },
+  );
 
   return diffs.concat(diffsb);
-}/**
+} /**
  * Determine the common prefix of two strings.
  * @param {string} text1 First string.
  * @param {string} text2 Second string.
@@ -291,7 +295,7 @@ function diff_commonPrefix(text1: string, text2: string) {
   }
 
   return pointermid;
-}/**
+} /**
  * Determine the common suffix of two strings.
  * @param {string} text1 First string.
  * @param {string} text2 Second string.
@@ -327,7 +331,7 @@ function diff_commonSuffix(text1: string, text2: string) {
   }
 
   return pointermid;
-}/**
+} /**
  * Do the two texts share a substring which is at least half the length of the
  * longer text?
  * This speedup can produce non-minimal diffs.
@@ -443,7 +447,7 @@ function diff_halfMatch_(text1: string, text2: string) {
 }
 
 export function diff_cleanupMerge(_diffs: Diff[]): Diff[] {
-  const diffs = [..._diffs]
+  const diffs = [..._diffs];
 
   diffs.push([DIFF_EQUAL, ""]); // Add a dummy entry at the end.
   let pointer = 0;

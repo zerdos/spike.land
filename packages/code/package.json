@@ -6,11 +6,11 @@
     "sideEffects": false,
     "scripts": {
         "clean": "rm code-box* code.zed*",
-        "build": "yarn build-codebox && yarn build-template && yarn build-bundle",
+        "build": "yarn build-codebox &&yarn minify &&yarn build-template && yarn build-bundle",
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
         "build-template": " deno run --allow-read --allow-write html.ts ",
         "deploy": "wrangler build && wrangler publish",
-        "build-codebox": "deno fmt src-deno/codeBox.ts && deno bundle src-deno/codeBox.ts --no-check > code-box-bundle.js ",
+        "build-codebox": "deno fmt src-deno && deno bundle src-deno/frontend/codeBox.ts --no-check > code-box-bundle.js ",
         "minify": "yarn esbuild code-box-bundle.js --minify --outfile=code.zed-vision.min.js",
         "serve": "file_server  ."
     },
