@@ -2,7 +2,7 @@
 
 [DEMO - normal html file, without react or any build tool ![Screenshot](screenshot.png)](https://unpkg.com/@zedvision/smart-monaco-editor/index.html) 
 
-[DEMO - html edit, with babel support ![Screenshot](screenshot-html.png)](https://zerdos.github.io/smart-monaco-editor/exampleHtml) 
+[DEMO - html edit, with babel support ![Screenshot](screenshot-html.png)](https://unpkg.com/@zedvision/smart-monaco-editor/exampleHtml.html) 
 
 
 [DEMO - with react create app ] ![Screenshot](screenshot-example.png)(https://unpkg.com/@zedvision/smart-monaco-editor-exampl/build/index.html) 
