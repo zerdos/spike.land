@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "6.2.3",
+    "version": "6.2.4",
     "description": "Monaco Editor for React",
     "main": "code.zed-vision.min.js",
     "sideEffects": false,
@@ -31,16 +31,16 @@
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
         "@cloudflare/workers-types": "2.1.0",
-        "@zedvision/code": "6.1.2",
-        "webpack": "5.3.2",
-        "webpack-cli": "4.1.0",
-        "@types/webpack-env": "1.15.3",
-        "smart-monaco-editor": "6.1.4",
         "@cloudflare/wrangler": "1.12.1",
-        "@zedvision/smart-monaco-editor": "^6.2.3",
+        "@types/webpack-env": "1.15.3",
+        "@zedvision/code": "6.1.2",
+        "@zedvision/smart-monaco-editor": "^6.2.4",
         "capture-website": "1.2.4",
         "esbuild": "0.8.0",
-        "typescript": "4.0.5"
+        "smart-monaco-editor": "6.1.4",
+        "typescript": "4.0.5",
+        "webpack": "5.3.2",
+        "webpack-cli": "4.1.0"
     },
     "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
