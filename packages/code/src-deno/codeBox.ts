@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
+
 import { diff } from "./diff.ts";
 
 const importScript = async (src: string) =>
@@ -14,7 +16,7 @@ const importScript = async (src: string) =>
   });
 
 //@ts-ignore
-export async function run(startMonaco) {
+async function run(startMonaco) {
   await importScript(
     "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
   );
@@ -239,7 +241,7 @@ export async function run(startMonaco) {
     //@ts-ignore
     const tsWorker = await window["monaco"].languages.typescript
       .getTypeScriptWorker();
-    const modelUri = model?.uri;
+    const modelUri = model.uri;
 
     const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
       "file:///main.tsx",
@@ -303,3 +305,5 @@ export async function run(startMonaco) {
       window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
   }
 }
+
+run(startMonaco);

@@ -82,30 +82,7 @@
   <div id="container"></div>
   
   <script type="module">
-  import {startMonaco} from "https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js"
-import { run } from "./code.zed-vision.min.js"
-
-localStorage.setItem("STARTER", `import * as React from "react";
-import ReactDOM from "react-dom";
-
-const Counter = (
-    { initial = 0 }
-) => {
-    const [clicks, setClicks] = React.useState(initial);
-
-    return <div>
-        <p>Clicks: <strong>{clicks}</strong></p>
-        <button onClick={() => setClicks(clicks + 1)}>+</button>
-        <button onClick={() => setClicks(clicks - 1)}>-</button>
-    </div>;
-};
-
-ReactDOM.render(
-    <Counter initial={0} />,
-    document.getElementById("root")
-);`);
-
-run(startMonaco) 
+    //inject
   </script>
 </body>
 </html>

@@ -1,1 +1,1 @@
-declare var SHATEST: KVNamespace;
+declare const SHATEST: KVNamespace;

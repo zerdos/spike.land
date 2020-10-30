@@ -1,4 +1,4 @@
-import { defaultExample, html } from "./index-html.ts";
+import { inject } from "./html.js";
 
 const shaStore = SHATEST;
 
@@ -8,40 +8,33 @@ const corsHeaders = {
   "Access-Control-Max-Age": "86400",
 };
 
-const getInject = (componentToStart: string, hash: string) => {
-  if (componentToStart.length<5) return null;
-
-  const startComponent = "`" + componentToStart + "`";
-
-  return `localStorage.setItem("codeBoXHash", "${hash}"); 
-localStorage.setItem("${hash}", ${startComponent});`;
-};
-
 export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
-    const { hash } = new URL(request.url);
-
+    const url = new URL(request.url);
   
+    const hash = url.searchParams.get("h");
+    // const urlStr = url.toString();
+    
 
-    let inject: null | string = null;
+    let starterCode: null | string = null;
 
     if (hash!==null && hash.length > 5) {
-      const json = await shaStore.get(hash.substr(1));
+      const json = await shaStore.get(hash);
    
       if (json!==null) {
-        inject = getInject(JSON.parse(json).code, hash.substr(1));
+        starterCode = JSON.parse(json).code;
       }
     }
 
-    if (inject === null) inject = getInject(defaultExample, "startHash") as string;
 
-    return new Response(html(inject), {
+
+    return new Response(inject(hash,starterCode), {
       headers: {
         "content-type": "text/html",
       },
     });
   } else if (request.method === "POST") {
-    const { headers } = request;
+
 
     const data = (await request.json());
 
@@ -78,7 +71,7 @@ export async function handleRequest(request: Request): Promise<Response> {
 }
 
 function handleOptions(request: Request): Response {
-  let headers = request.headers;
+  const headers = request.headers;
 
   let respHeaders = {
     ...headers,
