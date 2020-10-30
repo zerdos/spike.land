@@ -1,3 +1,36 @@
+const importScript = async (src)=>new Promise(function(resolve, reject) {
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+    })
+;
+const makeDraggable = async ()=>{
+    const onload = await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.js");
+    const interact = window["interact"];
+    interact(".draggable").draggable({
+        inertia: true,
+        modifiers: [
+            interact.modifiers.restrictRect({
+                restriction: "parent",
+                endOnly: true
+            }), 
+        ],
+        autoScroll: false,
+        listeners: {
+            move: dragMoveListener
+        }
+    });
+};
+function dragMoveListener(event) {
+    const target = event.target;
+    const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+    const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+    target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)";
+    target.setAttribute("data-x", x);
+    target.setAttribute("data-y", y);
+}
 const startMonaco = async ({ onChange , code , language  })=>{
     const monacoLang = language || "typescript";
     if (window && window["monaco"] && window["monaco"]["editor"]) {
@@ -742,15 +775,7 @@ function diff(text1, text2, cursor_pos) {
 diff.INSERT = 1;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = 0;
-const importScript = async (src)=>new Promise(function(resolve, reject) {
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        document.head.appendChild(s);
-    })
-;
-async function run(startMonaco1) {
+async function run() {
     await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
     await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
@@ -758,10 +783,10 @@ async function run(startMonaco1) {
     await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");
     const searchRegExp = /import/gi;
     const replaceWith = "///";
-    setTimeout(()=>makeDragabble()
+    setTimeout(()=>makeDraggable()
     , 100);
     let latestGoodCode = "";
-    const transpileCode = (code)=>window["Babel"].transform(code, {
+    const transpileCode = (code)=>window.Babel.transform(code, {
             plugins: [],
             presets: [
                 "react",
@@ -798,7 +823,7 @@ async function run(startMonaco1) {
             localStorage.setItem(hash, latestGoodCode);
             location.hash = hash;
         } catch (e) {
-            console.log("no Localstorage");
+            console.log("no localStorage");
         }
         restart();
     };
@@ -809,7 +834,7 @@ async function run(startMonaco1) {
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;
-        await startMonaco1({
+        await startMonaco({
             language: "typescript",
             code: example,
             onChange: (code)=>{
@@ -833,27 +858,27 @@ async function run(startMonaco1) {
                             if (errorReported === cd) {
                                 return;
                             }
-                            document.getElementById("root").classList.add("almosthidden");
+                            document.getElementById("root").classList.add("transparent");
                             const slices = diff(latestGoodCode, cd, 0);
                             console.log(slices);
                             if (slices.length <= 3) {
-                                window["monaco"].editor.setTheme("hc-black");
+                                monaco.editor.setTheme("hc-black");
                                 return;
                             }
-                            errorDiv.innerHTML = errors[0].messageText;
+                            errorDiv.innerHTML = err[0].messageText.toString();
                             document.getElementById("root").style.setProperty("dispay", "none");
                             errorDiv.style.display = "block";
                             errorReported = cd;
-                            window["monaco"].editor.setTheme("vs-light");
+                            monaco.editor.setTheme("vs-light");
                             setTimeout(()=>{
-                                window["monaco"].editor.setTheme("hc-black");
+                                monaco.editor.setTheme("hc-black");
                             }, keystrokeTillNoError++);
                             return;
                         }
                         latestGoodCode = cd;
                         errorDiv.style.display = "none";
                         window["monaco"].editor.setTheme("vs-dark");
-                        document.getElementById("root").classList.remove("almosthidden");
+                        document.getElementById("root").classList.remove("transparent");
                         keystrokeTillNoError = 0;
                         busy = 0;
                         restartCode(transpileCode(cd));
@@ -862,7 +887,7 @@ async function run(startMonaco1) {
                         if (cd !== latestCode) {
                             return;
                         }
-                        window["monaco"].editor.setTheme("vs-light");
+                        monaco.editor.setTheme("vs-light");
                         setTimeout(()=>{
                             window["monaco"].editor.setTheme("hc-black");
                         }, 10);
@@ -885,12 +910,13 @@ async function run(startMonaco1) {
             }
         });
     })();
+    const monaco = window["monaco"];
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
     async function getErrors() {
-        const model = window["monaco"].editor.getModel("file:///main.tsx");
+        const modelUri = monaco.Uri.parse("file:///main.tsx");
+        getCodeToLoad;
         const tsWorker = await window["monaco"].languages.typescript.getTypeScriptWorker();
-        const modelUri = model.uri;
         const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
         const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
         const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
@@ -900,33 +926,10 @@ async function run(startMonaco1) {
             ...syntax
         ];
     }
-    const makeDragabble = ()=>{
-        window.interact(".draggable").draggable({
-            inertia: true,
-            modifiers: [
-                interact.modifiers.restrictRect({
-                    restriction: "parent",
-                    endOnly: true
-                }), 
-            ],
-            autoScroll: false,
-            listeners: {
-                move: dragMoveListener
-            }
-        });
-    };
-    function dragMoveListener(event) {
-        const target = event.target;
-        const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
-        const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
-        target.style.webkitTransform = target.style.transform = "translate(" + x + "px, " + y + "px)";
-        target.setAttribute("data-x", x);
-        target.setAttribute("data-y", y);
-    }
-    function getCodeToLoad() {
-        const hash = window.localStorage.getItem("codeBoXHash");
-        return window.localStorage.getItem(location.hash.substring(1)) || window.localStorage.getItem(hash) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
-    }
 }
-run(startMonaco);
+function getCodeToLoad() {
+    const hash = window.localStorage.getItem("codeBoXHash");
+    return window.localStorage.getItem(location.hash.substring(1)) || hash && window.localStorage.getItem(hash) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+}
+run();
 

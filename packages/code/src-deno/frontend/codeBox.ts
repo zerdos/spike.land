@@ -1,22 +1,13 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/// <reference lib="dom" />
+
+// import * as monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
+import { makeDraggable } from "./interact.ts";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
+import { importScript } from "./importScript.ts";
 
 import { diff } from "./diff.ts";
 
-const importScript = async (src: string) =>
-  new Promise(function (resolve, reject) {
-    ///@ts-ignore
-    const s = document.createElement("script");
-    s.src = src;
-    s.onload = resolve;
-    s.onerror = reject;
-    ///@ts-ignore
-    document.head.appendChild(s);
-  });
-
-//@ts-ignore
-async function run(startMonaco) {
+async function run() {
   await importScript(
     "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
   );
@@ -34,13 +25,22 @@ async function run(startMonaco) {
   const searchRegExp = /import/gi;
   const replaceWith = "///";
 
-  setTimeout(() => makeDragabble(), 100);
+  setTimeout(() => makeDraggable(), 100);
 
   let latestGoodCode = "";
 
   const transpileCode = (code: string) =>
-    ///@ts-ignore
-    window["Babel"].transform(code, {
+    (window as unknown as {
+      Babel: {
+        transform: (
+          code: string,
+          options: {
+            plugins: string[];
+            presets: (string | [string, { [key: string]: boolean }])[];
+          },
+        ) => { code: string };
+      };
+    }).Babel.transform(code, {
       plugins: [],
       presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
     }).code.replace(searchRegExp, replaceWith);
@@ -71,17 +71,15 @@ async function run(startMonaco) {
     const { hash } = await response.json();
 
     try {
-      ///@ts-ignore
       const localStorage: Storage = window.localStorage;
 
       localStorage.getItem("codeBoXHash");
 
       localStorage.setItem("codeBoXHash", hash);
       localStorage.setItem(hash, latestGoodCode);
-      ///@ts-ignore
       location.hash = hash;
     } catch (e) {
-      console.log("no Localstorage");
+      console.log("no localStorage");
     }
 
     restart();
@@ -109,7 +107,7 @@ async function run(startMonaco) {
 
           busy = 1;
           const err = await getErrors();
-          ///@ts-ignore
+
           const errorDiv = document.getElementById("error");
           try {
             busy = 0;
@@ -124,14 +122,13 @@ async function run(startMonaco) {
               if (errorReported === cd) {
                 return;
               }
-              ///@ts-ignore
-              document.getElementById("root").classList.add("almosthidden");
+
+              document.getElementById("root")!.classList.add("transparent");
               const slices = diff(latestGoodCode, cd, 0);
               console.log(slices);
 
               if (slices.length <= 3) {
-                ///@ts-ignore
-                window["monaco"].editor.setTheme("hc-black");
+                monaco.editor.setTheme("hc-black");
                 return;
               }
 
@@ -164,9 +161,9 @@ async function run(startMonaco) {
               //   return;
               // }
               // const errors = err..map((x) => x.messageText)
-              //@ts-ignore
-              errorDiv.innerHTML = errors[0].messageText;
-              ///@ts-ignore
+
+              errorDiv!.innerHTML = err[0].messageText.toString();
+
               document.getElementById("root").style.setProperty(
                 "dispay",
                 "none",
@@ -175,11 +172,9 @@ async function run(startMonaco) {
               errorDiv!.style.display = "block";
               errorReported = cd;
 
-              //@ts-ignore
-              window["monaco"].editor.setTheme("vs-light");
+              monaco.editor.setTheme("vs-light");
               setTimeout(() => {
-                //@ts-ignore
-                window["monaco"].editor.setTheme("hc-black");
+                monaco.editor.setTheme("hc-black");
               }, keystrokeTillNoError++);
 
               return;
@@ -187,11 +182,10 @@ async function run(startMonaco) {
             latestGoodCode = cd;
 
             errorDiv!.style!.display = "none";
-            //@ts-ignore
+
             window["monaco"].editor.setTheme("vs-dark");
 
-            //@ts-ignore
-            document.getElementById("root").classList.remove("almosthidden");
+            document.getElementById("root").classList.remove("transparent");
             keystrokeTillNoError = 0;
 
             busy = 0;
@@ -202,10 +196,8 @@ async function run(startMonaco) {
               return;
             }
 
-            ///@ts-ignore
-            window["monaco"].editor.setTheme("vs-light");
+            monaco.editor.setTheme("vs-light");
             setTimeout(() => {
-              ///@ts-ignore
               window["monaco"].editor.setTheme("hc-black");
             }, 10);
             console.error(err);
@@ -230,18 +222,19 @@ async function run(startMonaco) {
     //
   })();
 
+  const monaco = window["monaco"];
+
   restartCode(transpileCode(getCodeToLoad()));
-  //@ts-ignore
-  document.getElementById("root").setAttribute("style", "display:block");
+
+  document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
   async function getErrors() {
-    //@ts-ignore
-    const model = window["monaco"].editor.getModel("file:///main.tsx");
+    const modelUri = monaco.Uri.parse("file:///main.tsx");
 
-    //@ts-ignore
+    //const model = window["monaco"].editor.getModel(modelUri);
+    getCodeToLoad;
     const tsWorker = await window["monaco"].languages.typescript
       .getTypeScriptWorker();
-    const modelUri = model.uri;
 
     const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
       "file:///main.tsx",
@@ -254,56 +247,14 @@ async function run(startMonaco) {
 
     return [...diag, ...comp, ...syntax];
   }
-
-  const makeDragabble = () => {
-    ///@ts-ignore
-    window.interact(".draggable")
-      .draggable({
-        // enable inertial throwing
-        inertia: true,
-        // keep the element within the area of it's parent
-        modifiers: [
-          ///@ts-ignore
-          interact.modifiers.restrictRect({
-            restriction: "parent",
-            endOnly: true,
-          }),
-        ],
-        // enable autoScroll
-        autoScroll: false,
-        listeners: {
-          // call this function on every dragmove event
-          move: dragMoveListener,
-        },
-      });
-  };
-
-  ///@ts-ignore
-  function dragMoveListener(event) {
-    const target = event.target;
-    // keep the dragged position in the data-x/data-y attributes
-    const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
-    const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
-
-    // translate the element
-    target.style.webkitTransform = target.style.transform = "translate(" + x +
-      "px, " + y + "px)";
-
-    target.setAttribute("data-x", x);
-    target.setAttribute("data-y", y);
-  }
-
-  function getCodeToLoad() {
-    ///@ts-ignore
-    const hash = window.localStorage.getItem("codeBoXHash");
-
-    //@ts-ignore
-    return window.localStorage.getItem(location.hash.substring(1)) ||
-      //@ts-ignore
-      window.localStorage.getItem(hash) ||
-      //@ts-ignore
-      window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
-  }
 }
 
-run(startMonaco);
+function getCodeToLoad() {
+  const hash = window.localStorage.getItem("codeBoXHash");
+
+  return window.localStorage.getItem(location.hash.substring(1)) ||
+    (hash && window.localStorage.getItem(hash)) ||
+    window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+}
+
+run();

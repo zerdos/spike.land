@@ -1,4 +1,5 @@
-import type monaco from "monaco-editor";
+import * as monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
+
 
 type monacoType = typeof monaco;
 

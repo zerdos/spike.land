@@ -1,9 +1,10 @@
 {
   "files.autoSave": "onFocusChange",
-  "deno": true,
+  "deno.enable": true,
   "cSpell.words": [
     "Dockerfiles",
     "Erdos",
+    "Transpiled",
     "XPRADISTRO",
     "Zoltan",
     "agentkeepalive",
@@ -92,6 +93,7 @@
     "devimage",
     "dezalgo",
     "diffie",
+    "dispay",
     "distro",
     "docblock",
     "domelementtype",
