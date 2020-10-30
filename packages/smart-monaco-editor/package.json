@@ -26,7 +26,7 @@
     "bugs": {
         "url": "https://github.com/zed-vision/monorepo"
     },
-    "homepage": "https://github.com/zed-vision/monorepo",
+    "homepage": "https://github.com/zed-vision/monorepo/tree/master/packages/smart-monaco-editor",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
         "@types/react": "16.9.55",
