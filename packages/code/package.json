@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "6.2.4",
+    "version": "6.3.0",
     "description": "Monaco Editor for React",
     "main": "code.zed-vision.min.js",
     "sideEffects": false,
@@ -34,7 +34,7 @@
         "@cloudflare/wrangler": "1.12.1",
         "@types/webpack-env": "1.15.3",
         "@zedvision/code": "6.1.2",
-        "@zedvision/smart-monaco-editor": "^6.2.4",
+        "@zedvision/smart-monaco-editor": "^6.3.0",
         "capture-website": "1.2.4",
         "esbuild": "0.8.0",
         "smart-monaco-editor": "6.1.4",
