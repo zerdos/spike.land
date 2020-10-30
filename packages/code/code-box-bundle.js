@@ -796,7 +796,7 @@ async function run() {
                         isTSX: true,
                         allExtensions: true
                     }
-                ]
+                ], 
             ]
         }).code.replace(/import/gi, "///")
     ;
@@ -909,8 +909,8 @@ async function run() {
                 }
             }
         });
+        monaco = window["monaco"];
     })();
-    const monaco = window["monaco"];
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
     async function getErrors() {
@@ -929,7 +929,15 @@ async function run() {
 }
 function getCodeToLoad() {
     const hash = window.localStorage.getItem("codeBoXHash");
-    return window.localStorage.getItem(location.hash.substring(1)) || hash && window.localStorage.getItem(hash) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+    return window.localStorage.getItem(location.hash) || hash && window.localStorage.getItem(hash) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
-run();
+let monaco;
+const sp = new URLSearchParams(location.search);
+const hash = sp.get("h");
+if (hash) {
+    localStorage.setItem("codeBoXHash", hash);
+    run();
+} else {
+    run();
+}
 

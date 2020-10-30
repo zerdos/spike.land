@@ -18,10 +18,10 @@ export async function handleRequest(request: Request): Promise<Response> {
     let starterCode: null | string = null;
 
     if (hash !== null && hash.length > 5) {
-      const json = await shaStore.get(hash);
+      starterCode = await shaStore.get(hash);
 
-      if (json !== null) {
-        starterCode = JSON.parse(json).code;
+      if (starterCode !== null) {
+        starterCode = JSON.parse(starterCode).code;
       }
     }
 
