@@ -5,7 +5,7 @@
 [DEMO - html edit, with babel support ![Screenshot](screenshot-html.png)](https://zerdos.github.io/smart-monaco-editor/exampleHtml) 
 
 
-[DEMO - with react create app ] ![Screenshot](screenshot-example.png)(https://zerdos.github.io/smart-monaco-editor/example/build/) 
+[DEMO - with react create app ] ![Screenshot](screenshot-example.png)(https://unpkg.com/@zedvision/smart-monaco-editor-exampl/build/index.html) 
 
 
 <h1 align="center">smart-monaco-editor</h1>
