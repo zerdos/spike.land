@@ -5,13 +5,13 @@
     "main": "code.zed-vision.min.js",
     "sideEffects": false,
     "scripts": {
-        "clean": "rm code-box* code.zed*",
-        "build": "yarn build-codebox &&yarn minify &&yarn build-template && yarn build-bundle",
+        "clean": "rm -rf .dist && mkdir .dist",
+        "build": "yarn clean && deno fmt src-deno  && yarn build-codebox &&yarn minify &&yarn build-template",
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
-        "build-template": " deno run --allow-read --allow-write html.ts ",
+        "build-template": " deno run --allow-read --allow-write generate-fe-bundle.ts",
         "deploy": "wrangler build && wrangler publish",
-        "build-codebox": "deno fmt src-deno && deno bundle src-deno/frontend/codeBox.ts --no-check > code-box-bundle.js ",
-        "minify": "yarn esbuild code-box-bundle.js --minify --outfile=code.zed-vision.min.js",
+        "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > .dist/._cBundle.js ",
+        "minify": "yarn esbuild .dist/._cBundle.js  --minify --outfile=.dist/._cBundle.js.min.js",
         "serve": "file_server  ."
     },
     "keywords": [
@@ -48,5 +48,8 @@
     "private": false,
     "publishConfig": {
         "access": "public"
+    },
+    "dependencies": {
+        "ts-loader": "^8.0.7"
     }
 }

@@ -1,9 +1,9 @@
 const importScript = async (src)=>new Promise(function(resolve, reject) {
-        const s = document.createElement("script");
+        const s = window.document.createElement("script");
         s.src = src;
         s.onload = resolve;
         s.onerror = reject;
-        document.head.appendChild(s);
+        window.document.head.appendChild(s);
     })
 ;
 const makeDraggable = async ()=>{
@@ -775,6 +775,8 @@ function diff(text1, text2, cursor_pos) {
 diff.INSERT = 1;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = 0;
+const document = window.document;
+let monaco = null;
 async function run() {
     await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
@@ -818,10 +820,13 @@ async function run() {
         const { hash  } = await response.json();
         try {
             const localStorage = window.localStorage;
-            localStorage.getItem("codeBoXHash");
-            localStorage.setItem("codeBoXHash", hash);
-            localStorage.setItem(hash, latestGoodCode);
-            location.hash = hash;
+            const prevHash = localStorage.getItem("codeBoXHash");
+            if (prevHash !== hash) {
+                localStorage.setItem("codeBoXHash", hash);
+                localStorage.setItem(hash, latestGoodCode);
+                window.history.pushState({
+                }, "", "/?h=" + hash);
+            }
         } catch (e) {
             console.log("no localStorage");
         }
@@ -909,8 +914,8 @@ async function run() {
                 }
             }
         });
+        monaco = window["monaco"];
     })();
-    const monaco = window["monaco"];
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
     async function getErrors() {

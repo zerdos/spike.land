@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": ["es2018", "DOM"],
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./lib",
+    "strict": true,
+    "types": ["node"]
+  },
+  "include": ["src"],
+  "exclude": ["./lib", "node_modules", "**/__tests__/*"]
+}

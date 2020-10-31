@@ -1,12 +1,17 @@
-/// <reference lib="dom" />
-
 // import * as monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
+
+import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
+
 import { makeDraggable } from "./interact.ts";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.ts";
+import * as Monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
 
 import { diff } from "./diff.ts";
 
+const document = (window as { document: Document }).document;
+
+let monaco: Monaco = null;
 async function run() {
   await importScript(
     "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
@@ -73,11 +78,13 @@ async function run() {
     try {
       const localStorage: Storage = window.localStorage;
 
-      localStorage.getItem("codeBoXHash");
+      const prevHash = localStorage.getItem("codeBoXHash");
 
-      localStorage.setItem("codeBoXHash", hash);
-      localStorage.setItem(hash, latestGoodCode);
-      location.hash = hash;
+      if (prevHash !== hash) {
+        localStorage.setItem("codeBoXHash", hash);
+        localStorage.setItem(hash, latestGoodCode);
+        window.history.pushState({}, "", "/?h=" + hash);
+      }
     } catch (e) {
       console.log("no localStorage");
     }
@@ -219,10 +226,9 @@ async function run() {
         }
       },
     });
+    monaco = window["monaco"];
     //
   })();
-
-  const monaco = window["monaco"];
 
   restartCode(transpileCode(getCodeToLoad()));
 
