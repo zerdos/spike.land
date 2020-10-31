@@ -775,8 +775,17 @@ function diff(text1, text2, cursor_pos) {
 diff.INSERT = 1;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = 0;
+<<<<<<< HEAD:packages/code/.dist/._cBundle.js
 const document = window.document;
 let monaco = null;
+=======
+const sp = new URLSearchParams(location.search);
+const hash = sp.get("h");
+if (hash) {
+    localStorage.setItem("codeBoXHash", hash);
+}
+let monaco;
+>>>>>>> 1b6163a2a55b35d49913e37a1b82e19097ae190d:packages/code/code-box-bundle.js
 async function run() {
     await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
@@ -798,7 +807,7 @@ async function run() {
                         isTSX: true,
                         allExtensions: true
                     }
-                ]
+                ], 
             ]
         }).code.replace(/import/gi, "///")
     ;
@@ -817,9 +826,10 @@ async function run() {
             }
         });
         const response = await fetch(request);
-        const { hash  } = await response.json();
+        const { hash: hash1  } = await response.json();
         try {
             const localStorage = window.localStorage;
+<<<<<<< HEAD:packages/code/.dist/._cBundle.js
             const prevHash = localStorage.getItem("codeBoXHash");
             if (prevHash !== hash) {
                 localStorage.setItem("codeBoXHash", hash);
@@ -827,6 +837,13 @@ async function run() {
                 window.history.pushState({
                 }, "", "/?h=" + hash);
             }
+=======
+            localStorage.getItem("codeBoXHash");
+            localStorage.setItem("codeBoXHash", hash1);
+            localStorage.setItem(hash1, latestGoodCode);
+            history.pushState({
+            }, "", `/?h=${hash1}`);
+>>>>>>> 1b6163a2a55b35d49913e37a1b82e19097ae190d:packages/code/code-box-bundle.js
         } catch (e) {
             console.log("no localStorage");
         }
@@ -933,8 +950,8 @@ async function run() {
     }
 }
 function getCodeToLoad() {
-    const hash = window.localStorage.getItem("codeBoXHash");
-    return window.localStorage.getItem(location.hash.substring(1)) || hash && window.localStorage.getItem(hash) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+    const hash1 = window.localStorage.getItem("codeBoXHash");
+    return window.localStorage.getItem(location.hash) || hash1 && window.localStorage.getItem(hash1) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
 run();
 

@@ -16,7 +16,9 @@ async function run() {
   await importScript(
     "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
   );
-  await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
+  await importScript(
+    "https://unpkg.com/@babel/standalone@7.12.4/babel.min.js",
+  );
   await importScript(
     "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
   );
@@ -47,7 +49,10 @@ async function run() {
       };
     }).Babel.transform(code, {
       plugins: [],
-      presets: ["react", ["typescript", { isTSX: true, allExtensions: true }]],
+      presets: [
+        "react",
+        ["typescript", { isTSX: true, allExtensions: true }],
+      ],
     }).code.replace(searchRegExp, replaceWith);
 
   const restartCode = async (transpileCode: string) => {
@@ -258,7 +263,7 @@ async function run() {
 function getCodeToLoad() {
   const hash = window.localStorage.getItem("codeBoXHash");
 
-  return window.localStorage.getItem(location.hash.substring(1)) ||
+  return window.localStorage.getItem(location.hash) ||
     (hash && window.localStorage.getItem(hash)) ||
     window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
