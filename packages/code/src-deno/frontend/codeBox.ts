@@ -131,7 +131,6 @@ async function run() {
       ace.setTheme("ace/theme/monokai");
       ace.session.setMode("ace/mode/typescript");
       ace.setValue(example);
-   
     }
 
     editor = await startMonaco({

@@ -168,9 +168,9 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
-const DIFF_DELETE = -1;
-const DIFF_EQUAL = 0;
-function diff_main({ text1 , text2 , cursor_pos  }) {
+const DIFFDELETE = -1;
+const DIFFEQUAL = 0;
+function diffMain({ text1 , text2 , cursorPos  }) {
     if (text1 === text2) {
         if (text1) {
             return [
@@ -182,21 +182,21 @@ function diff_main({ text1 , text2 , cursor_pos  }) {
         }
         return [];
     }
-    if (cursor_pos) {
-        const editdiff = find_cursor_edit_diff(text1, text2, cursor_pos);
+    if (cursorPos) {
+        const editdiff = findCursorEditDiff(text1, text2, cursorPos);
         if (editdiff) {
             return editdiff;
         }
     }
-    let commonlength = diff_commonPrefix(text1, text2);
+    let commonlength = diffCommonPrefix(text1, text2);
     const commonprefix = text1.substring(0, commonlength);
     text1 = text1.substring(commonlength);
     text2 = text2.substring(commonlength);
-    commonlength = diff_commonSuffix(text1, text2);
+    commonlength = diffCommonSuffix(text1, text2);
     const commonsuffix = text1.substring(text1.length - commonlength);
     text1 = text1.substring(0, text1.length - commonlength);
     text2 = text2.substring(0, text2.length - commonlength);
-    const diffs = diff_compute_(text1, text2);
+    const diffs = diffCompute_(text1, text2);
     if (commonprefix) {
         diffs.unshift([
             0,
@@ -209,10 +209,10 @@ function diff_main({ text1 , text2 , cursor_pos  }) {
             commonsuffix
         ]);
     }
-    diff_cleanupMerge(diffs);
+    diffCleanupMerge(diffs);
     return diffs;
 }
-function diff_compute_(text1, text2) {
+function diffCompute_(text1, text2) {
     let diffs;
     if (!text1) {
         return [
@@ -225,7 +225,7 @@ function diff_compute_(text1, text2) {
     if (!text2) {
         return [
             [
-                DIFF_DELETE,
+                DIFFDELETE,
                 text1
             ]
         ];
@@ -249,14 +249,14 @@ function diff_compute_(text1, text2) {
             ], 
         ];
         if (text1.length > text2.length) {
-            diffs[0][0] = diffs[2][0] = DIFF_DELETE;
+            diffs[0][0] = diffs[2][0] = DIFFDELETE;
         }
         return diffs;
     }
     if (shorttext.length === 1) {
         return [
             [
-                DIFF_DELETE,
+                DIFFDELETE,
                 text1
             ],
             [
@@ -265,107 +265,107 @@ function diff_compute_(text1, text2) {
             ]
         ];
     }
-    const hm = diff_halfMatch_(text1, text2);
+    const hm = diffHalfMatch_(text1, text2);
     if (hm) {
-        const text1_a = hm[0];
-        const text1_b = hm[1];
-        const text2_a = hm[2];
-        const text2_b = hm[3];
-        const mid_common = hm[4];
-        const diffs_a = diff_main({
-            text1: text1_a[1],
-            text2: text2_a[1],
-            cursor_pos: 0
+        const text1C = hm[0];
+        const text1B = hm[1];
+        const text2C = hm[2];
+        const text2B = hm[3];
+        const midCommon = hm[4];
+        const diffsA = diffMain({
+            text1: text1C[1],
+            text2: text2C[1],
+            cursorPos: 0
         });
-        const diffs_b = diff_main({
-            text1: text1_b[1],
-            text2: text2_b[1],
-            cursor_pos: 0
+        const diffsB = diffMain({
+            text1: text1B[1],
+            text2: text2B[1],
+            cursorPos: 0
         });
-        return diffs_a.concat([
+        return diffsA.concat([
             [
                 0,
-                mid_common[1]
+                midCommon[1]
             ]
-        ], diffs_b);
+        ], diffsB);
     }
-    return diff_bisect_(text1, text2);
+    return diffBisect_(text1, text2);
 }
-function diff_bisect_(text1, text2) {
-    const text1_length = text1.length;
-    const text2_length = text2.length;
-    const max_d = Math.ceil((text1_length + text2_length) / 2);
-    const v_offset = max_d;
-    const v_length = 2 * max_d;
-    const v1 = new Array(v_length);
-    const v2 = new Array(v_length);
-    for(let x = 0; x < v_length; x++){
+function diffBisect_(text1, text2) {
+    const text1Length = text1.length;
+    const text2Length = text2.length;
+    const maxD = Math.ceil((text1Length + text2Length) / 2);
+    const vOffset = maxD;
+    const vLength = 2 * maxD;
+    const v1 = new Array(vLength);
+    const v2 = new Array(vLength);
+    for(let x = 0; x < vLength; x++){
         v1[x] = -1;
         v2[x] = -1;
     }
-    v1[v_offset + 1] = 0;
-    v2[v_offset + 1] = 0;
-    const delta = text1_length - text2_length;
+    v1[vOffset + 1] = 0;
+    v2[vOffset + 1] = 0;
+    const delta = text1Length - text2Length;
     const front = delta % 2 !== 0;
     let k1start = 0;
     let k1end = 0;
     let k2start = 0;
     let k2end = 0;
-    for(let d = 0; d < max_d; d++){
+    for(let d = 0; d < maxD; d++){
         for(let k1 = -d + k1start; k1 <= d - k1end; k1 += 2){
-            const k1_offset = max_d + k1;
+            const k1Offset = maxD + k1;
             let x1;
-            if (k1 === -d || k1 !== d && v1[k1_offset - 1] < v1[k1_offset + 1]) {
-                x1 = v1[k1_offset + 1];
+            if (k1 === -d || k1 !== d && v1[k1Offset - 1] < v1[k1Offset + 1]) {
+                x1 = v1[k1Offset + 1];
             } else {
-                x1 = v1[k1_offset - 1] + 1;
+                x1 = v1[k1Offset - 1] + 1;
             }
             let y1 = x1 - k1;
-            while(x1 < text1_length && y1 < text2_length && text1.charAt(x1) === text2.charAt(y1)){
+            while(x1 < text1Length && y1 < text2Length && text1.charAt(x1) === text2.charAt(y1)){
                 x1++;
                 y1++;
             }
-            v1[k1_offset] = x1;
-            if (x1 > text1_length) {
+            v1[k1Offset] = x1;
+            if (x1 > text1Length) {
                 k1end += 2;
-            } else if (y1 > text2_length) {
+            } else if (y1 > text2Length) {
                 k1start += 2;
             } else if (front) {
-                const k2_offset = max_d + delta - k1;
-                if (k2_offset >= 0 && k2_offset < v_length && v2[k2_offset] !== -1) {
-                    const x2 = text1_length - v2[k2_offset];
+                const k2Offset = maxD + delta - k1;
+                if (k2Offset >= 0 && k2Offset < vLength && v2[k2Offset] !== -1) {
+                    const x2 = text1Length - v2[k2Offset];
                     if (x1 >= x2) {
-                        return diff_bisectSplit_(text1, text2, x1, y1);
+                        return diffBisectSplit_(text1, text2, x1, y1);
                     }
                 }
             }
         }
         let x2;
         for(let k2 = -d + k2start; k2 <= d - k2end; k2 += 2){
-            const k2_offset = max_d + k2;
-            if (k2 === -d || k2 !== d && v2[k2_offset - 1] < v2[k2_offset + 1]) {
-                x2 = v2[k2_offset + 1];
+            const k2Offset = maxD + k2;
+            if (k2 === -d || k2 !== d && v2[k2Offset - 1] < v2[k2Offset + 1]) {
+                x2 = v2[k2Offset + 1];
             } else {
-                x2 = v2[k2_offset - 1] + 1;
+                x2 = v2[k2Offset - 1] + 1;
             }
             let y2 = x2 - k2;
-            while(x2 < text1_length && y2 < text2_length && text1.charAt(text1_length - x2 - 1) === text2.charAt(text2_length - y2 - 1)){
+            while(x2 < text1Length && y2 < text2Length && text1.charAt(text1Length - x2 - 1) === text2.charAt(text2Length - y2 - 1)){
                 x2++;
                 y2++;
             }
-            v2[k2_offset] = x2;
-            if (x2 > text1_length) {
+            v2[k2Offset] = x2;
+            if (x2 > text1Length) {
                 k2end += 2;
-            } else if (y2 > text2_length) {
+            } else if (y2 > text2Length) {
                 k2start += 2;
             } else if (!front) {
-                const k1_offset = max_d + delta - k2;
-                if (k1_offset >= 0 && k1_offset < v_length && v1[k1_offset] !== -1) {
-                    const x1 = v1[k1_offset];
-                    const y1 = max_d + x1 - k1_offset;
-                    x2 = text1_length - x2;
+                const k1Offset = maxD + delta - k2;
+                if (k1Offset >= 0 && k1Offset < vLength && v1[k1Offset] !== -1) {
+                    const x1 = v1[k1Offset];
+                    const y1 = maxD + x1 - k1Offset;
+                    x2 = text1Length - x2;
                     if (x1 >= x2) {
-                        return diff_bisectSplit_(text1, text2, x1, y1);
+                        return diffBisectSplit_(text1, text2, x1, y1);
                     }
                 }
             }
@@ -373,7 +373,7 @@ function diff_bisect_(text1, text2) {
     }
     return [
         [
-            DIFF_DELETE,
+            DIFFDELETE,
             text1
         ],
         [
@@ -382,24 +382,24 @@ function diff_bisect_(text1, text2) {
         ]
     ];
 }
-function diff_bisectSplit_(text1, text2, x, y) {
+function diffBisectSplit_(text1, text2, x, y) {
     const text1a = text1.substring(0, x);
     const text2a = text2.substring(0, y);
     const text1b = text1.substring(x);
     const text2b = text2.substring(y);
-    const diffs = diff_main({
+    const diffs = diffMain({
         text1: text1a[1],
         text2: text2a[1],
-        cursor_pos: 0
+        cursorPos: 0
     });
-    const diffsb = diff_main({
+    const diffsb = diffMain({
         text1: text1b[1],
         text2: text2b[1],
-        cursor_pos: 0
+        cursorPos: 0
     });
     return diffs.concat(diffsb);
 }
-function diff_commonPrefix(text1, text2) {
+function diffCommonPrefix(text1, text2) {
     if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
         return 0;
     }
@@ -416,12 +416,12 @@ function diff_commonPrefix(text1, text2) {
         }
         pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
     }
-    if (is_surrogate_pair_start(text1.charCodeAt(pointermid - 1))) {
+    if (isSurrogatePairStart(text1.charCodeAt(pointermid - 1))) {
         pointermid--;
     }
     return pointermid;
 }
-function diff_commonSuffix(text1, text2) {
+function diffCommonSuffix(text1, text2) {
     if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
         return 0;
     }
@@ -438,47 +438,47 @@ function diff_commonSuffix(text1, text2) {
         }
         pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
     }
-    if (is_surrogate_pair_end(text1.charCodeAt(text1.length - pointermid))) {
+    if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointermid))) {
         pointermid--;
     }
     return pointermid;
 }
-function diff_halfMatch_(text1, text2) {
+function diffHalfMatch_(text1, text2) {
     const longtext = text1.length > text2.length ? text1 : text2;
     const shorttext = text1.length > text2.length ? text2 : text1;
     if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
         return null;
     }
-    function diff_halfMatchI_(longtext1, shorttext1, i) {
+    function diffHalfMatchI_(longtext1, shorttext1, i) {
         const seed = longtext1.substring(i, i + Math.floor(longtext1.length / 4));
         let j = -1;
-        let best_common = "";
-        let best_longtext_a, best_longtext_b, best_shorttext_a, best_shorttext_b;
+        let bestCommon = "";
+        let bestLongtextA, bestLongtextB, bestShorttextA, bestShorttextB;
         while((j = shorttext1.indexOf(seed, j + 1)) !== -1){
-            const prefixLength = diff_commonPrefix(longtext1.substring(i), shorttext1.substring(j));
-            const suffixLength = diff_commonSuffix(longtext1.substring(0, i), shorttext1.substring(0, j));
-            if (best_common.length < suffixLength + prefixLength) {
-                best_common = shorttext1.substring(j - suffixLength, j) + shorttext1.substring(j, j + prefixLength);
-                best_longtext_a = longtext1.substring(0, i - suffixLength);
-                best_longtext_b = longtext1.substring(i + prefixLength);
-                best_shorttext_a = shorttext1.substring(0, j - suffixLength);
-                best_shorttext_b = shorttext1.substring(j + prefixLength);
+            const prefixLength = diffCommonPrefix(longtext1.substring(i), shorttext1.substring(j));
+            const suffixLength = diffCommonSuffix(longtext1.substring(0, i), shorttext1.substring(0, j));
+            if (bestCommon.length < suffixLength + prefixLength) {
+                bestCommon = shorttext1.substring(j - suffixLength, j) + shorttext1.substring(j, j + prefixLength);
+                bestLongtextA = longtext1.substring(0, i - suffixLength);
+                bestLongtextB = longtext1.substring(i + prefixLength);
+                bestShorttextA = shorttext1.substring(0, j - suffixLength);
+                bestShorttextB = shorttext1.substring(j + prefixLength);
             }
         }
-        if (best_common.length * 2 >= longtext1.length) {
+        if (bestCommon.length * 2 >= longtext1.length) {
             return [
-                best_longtext_a,
-                best_longtext_b,
-                best_shorttext_a,
-                best_shorttext_b,
-                best_common, 
+                bestLongtextA,
+                bestLongtextB,
+                bestShorttextA,
+                bestShorttextB,
+                bestCommon, 
             ];
         } else {
             return null;
         }
     }
-    const hm1 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
-    const hm2 = diff_halfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
+    const hm1 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
+    const hm2 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
     let hm;
     if (hm2 === null && hm1 === null) return null;
     else if (hm2 === null) {
@@ -494,42 +494,42 @@ function diff_halfMatch_(text1, text2) {
     } else {
         hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
     }
-    let text1_a, text1_b, text2_a, text2_b;
+    let text1A, text1B, text2A, text2B;
     if (text1.length > text2.length) {
-        text1_a = hm[0];
-        text1_b = hm[1];
-        text2_a = hm[2];
-        text2_b = hm[3];
+        text1A = hm[0];
+        text1B = hm[1];
+        text2A = hm[2];
+        text2B = hm[3];
     } else {
-        text2_a = hm[0];
-        text2_b = hm[1];
-        text1_a = hm[2];
-        text1_b = hm[3];
+        text2A = hm[0];
+        text2B = hm[1];
+        text1A = hm[2];
+        text1B = hm[3];
     }
-    const mid_common = hm[4];
+    const midCommon = hm[4];
     return [
-        text1_a,
-        text1_b,
-        text2_a,
-        text2_b,
-        mid_common
+        text1A,
+        text1B,
+        text2A,
+        text2B,
+        midCommon
     ];
 }
-function diff_cleanupMerge(_diffs) {
+function diffCleanupMerge(Diffs) {
     const diffs = [
-        ..._diffs
+        ...Diffs
     ];
     diffs.push([
         0,
         ""
     ]);
     let pointer = 0;
-    let count_delete = 0;
-    let count_insert = 0;
-    let text_delete = "";
-    let text_insert = "";
+    let countDelete = 0;
+    let countInsert = 0;
+    let textDelete = "";
+    let textInsert = "";
     let commonlength;
-    let previous_equality;
+    let previousEquality;
     while(pointer < diffs.length){
         if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
             diffs.splice(pointer, 1);
@@ -537,81 +537,81 @@ function diff_cleanupMerge(_diffs) {
         }
         switch(diffs[pointer][0]){
             case 1:
-                count_insert++;
-                text_insert += diffs[pointer][1];
+                countInsert++;
+                textInsert += diffs[pointer][1];
                 pointer++;
                 break;
-            case DIFF_DELETE:
-                count_delete++;
-                text_delete += diffs[pointer][1];
+            case DIFFDELETE:
+                countDelete++;
+                textDelete += diffs[pointer][1];
                 pointer++;
                 break;
             case 0:
-                previous_equality = pointer - count_insert - count_delete - 1;
+                previousEquality = pointer - countInsert - countDelete - 1;
                 if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
                     diffs.splice(pointer, 1);
                     break;
                 }
-                if (text_delete.length > 0 || text_insert.length > 0) {
-                    if (text_delete.length > 0 && text_insert.length > 0) {
-                        commonlength = diff_commonPrefix(text_insert, text_delete);
+                if (textDelete.length > 0 || textInsert.length > 0) {
+                    if (textDelete.length > 0 && textInsert.length > 0) {
+                        commonlength = diffCommonPrefix(textInsert, textDelete);
                         if (commonlength !== 0) {
-                            if (previous_equality >= 0) {
-                                diffs[previous_equality][1] += text_insert.substring(0, commonlength);
+                            if (previousEquality >= 0) {
+                                diffs[previousEquality][1] += textInsert.substring(0, commonlength);
                             } else {
                                 diffs.splice(0, 0, [
                                     0,
-                                    text_insert.substring(0, commonlength)
+                                    textInsert.substring(0, commonlength)
                                 ]);
                                 pointer++;
                             }
-                            text_insert = text_insert.substring(commonlength);
-                            text_delete = text_delete.substring(commonlength);
+                            textInsert = textInsert.substring(commonlength);
+                            textDelete = textDelete.substring(commonlength);
                         }
-                        commonlength = diff_commonSuffix(text_insert, text_delete);
+                        commonlength = diffCommonSuffix(textInsert, textDelete);
                         if (commonlength !== 0) {
-                            diffs[pointer][1] = text_insert.substring(text_insert.length - commonlength) + diffs[pointer][1];
-                            text_insert = text_insert.substring(0, text_insert.length - commonlength);
-                            text_delete = text_delete.substring(0, text_delete.length - commonlength);
+                            diffs[pointer][1] = textInsert.substring(textInsert.length - commonlength) + diffs[pointer][1];
+                            textInsert = textInsert.substring(0, textInsert.length - commonlength);
+                            textDelete = textDelete.substring(0, textDelete.length - commonlength);
                         }
                     }
-                    const n = count_insert + count_delete;
-                    if (text_delete.length === 0 && text_insert.length === 0) {
+                    const n = countInsert + countDelete;
+                    if (textDelete.length === 0 && textInsert.length === 0) {
                         diffs.splice(pointer - n, n);
                         pointer = pointer - n;
-                    } else if (text_delete.length === 0) {
+                    } else if (textDelete.length === 0) {
                         diffs.splice(pointer - n, n, [
                             1,
-                            text_insert
+                            textInsert
                         ]);
                         pointer = pointer - n + 1;
-                    } else if (text_insert.length === 0) {
+                    } else if (textInsert.length === 0) {
                         diffs.splice(pointer - n, n, [
-                            DIFF_DELETE,
-                            text_delete
+                            DIFFDELETE,
+                            textDelete
                         ]);
                         pointer = pointer - n + 1;
                     } else {
                         diffs.splice(pointer - n, n, [
-                            DIFF_DELETE,
-                            text_delete
+                            DIFFDELETE,
+                            textDelete
                         ], [
                             1,
-                            text_insert
+                            textInsert
                         ]);
                         pointer = pointer - n + 2;
                     }
                 }
-                if (pointer !== 0 && diffs[pointer - 1][0] === DIFF_EQUAL) {
+                if (pointer !== 0 && diffs[pointer - 1][0] === DIFFEQUAL) {
                     diffs[pointer - 1][1] += diffs[pointer][1];
                     diffs.splice(pointer, 1);
                 } else {
                     pointer++;
                 }
-                count_insert = 0;
-                count_delete = 0;
-                text_delete = "";
-                text_insert = "";
+                countInsert = 0;
+                countDelete = 0;
+                textDelete = "";
+                textInsert = "";
                 break;
         }
     }
@@ -621,7 +621,7 @@ function diff_cleanupMerge(_diffs) {
     let changes = false;
     pointer = 1;
     while(pointer < diffs.length - 1){
-        if (diffs[pointer - 1][0] === 0 && diffs[pointer + 1][0] === DIFF_EQUAL) {
+        if (diffs[pointer - 1][0] === 0 && diffs[pointer + 1][0] === DIFFEQUAL) {
             if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
                 diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
                 diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
@@ -635,27 +635,27 @@ function diff_cleanupMerge(_diffs) {
             }
         }
         pointer++;
-        is_surrogate_pair_start;
+        isSurrogatePairStart;
     }
     if (changes) {
         ``;
-        return diff_cleanupMerge(diffs);
+        return diffCleanupMerge(diffs);
     }
     return diffs;
 }
-function is_surrogate_pair_start(charCode) {
+function isSurrogatePairStart(charCode) {
     return charCode >= 55296 && charCode <= 56319;
 }
-function is_surrogate_pair_end(charCode) {
+function isSurrogatePairEnd(charCode) {
     return charCode >= 56320 && charCode <= 57343;
 }
-function starts_with_pair_end(str) {
-    return is_surrogate_pair_end(str.charCodeAt(0));
+function startsWithPairEnd(str) {
+    return isSurrogatePairEnd(str.charCodeAt(0));
 }
-function ends_with_pair_start(str) {
-    return is_surrogate_pair_start(str.charCodeAt(str.length - 1));
+function endsWithPairStart(str) {
+    return isSurrogatePairStart(str.charCodeAt(str.length - 1));
 }
-function remove_empty_tuples(tuples) {
+function removeEmptyTuples(tuples) {
     const ret = [];
     for(let i = 0; i < tuples.length; i++){
         if (tuples[i][1].length > 0) {
@@ -664,17 +664,17 @@ function remove_empty_tuples(tuples) {
     }
     return ret;
 }
-function make_edit_splice(before, oldMiddle, newMiddle, after) {
-    if (ends_with_pair_start(before) || starts_with_pair_end(after)) {
+function makeEditSplice(before, oldMiddle, newMiddle, after) {
+    if (endsWithPairStart(before) || startsWithPairEnd(after)) {
         return null;
     }
-    return remove_empty_tuples([
+    return removeEmptyTuples([
         [
             0,
             before
         ],
         [
-            DIFF_DELETE,
+            DIFFDELETE,
             oldMiddle
         ],
         [
@@ -687,12 +687,12 @@ function make_edit_splice(before, oldMiddle, newMiddle, after) {
         ], 
     ]);
 }
-function find_cursor_edit_diff(oldText, newText, cursor_pos) {
-    const oldRange = typeof cursor_pos === "number" ? {
-        index: cursor_pos,
+function findCursorEditDiff(oldText, newText, cursorPos) {
+    const oldRange = typeof cursorPos === "number" ? {
+        index: cursorPos,
         length: 0
-    } : cursor_pos.oldRange;
-    const newRange = typeof cursor_pos === "number" ? null : cursor_pos.newRange;
+    } : cursorPos.oldRange;
+    const newRange = typeof cursorPos === "number" ? null : cursorPos.newRange;
     const oldLength = oldText.length;
     const newLength = newText.length;
     if (oldRange.length === 0 && (newRange === null || newRange.length === 0)) {
@@ -721,7 +721,7 @@ function find_cursor_edit_diff(oldText, newText, cursor_pos) {
             }
             const oldMiddle = oldBefore.slice(prefixLength);
             const newMiddle = newBefore.slice(prefixLength);
-            return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldAfter);
+            return makeEditSplice(oldPrefix, oldMiddle, newMiddle, oldAfter);
         }
         editAfter: {
             if (maybeNewCursor !== null && maybeNewCursor !== oldCursor) {
@@ -741,7 +741,7 @@ function find_cursor_edit_diff(oldText, newText, cursor_pos) {
             }
             const oldMiddle = oldAfter.slice(0, oldAfter.length - suffixLength);
             const newMiddle = newAfter.slice(0, newAfter.length - suffixLength);
-            return make_edit_splice(oldBefore, oldMiddle, newMiddle, oldSuffix);
+            return makeEditSplice(oldBefore, oldMiddle, newMiddle, oldSuffix);
         }
     }
     if (oldRange.length > 0 && newRange && newRange.length === 0) {
@@ -760,20 +760,20 @@ function find_cursor_edit_diff(oldText, newText, cursor_pos) {
             }
             const oldMiddle = oldText.slice(prefixLength, oldLength - suffixLength);
             const newMiddle = newText.slice(prefixLength, newLength - suffixLength);
-            return make_edit_splice(oldPrefix, oldMiddle, newMiddle, oldSuffix);
+            return makeEditSplice(oldPrefix, oldMiddle, newMiddle, oldSuffix);
         }
     }
     return null;
 }
-function diff(text1, text2, cursor_pos) {
-    return diff_main({
+function diff(text1, text2, cursorPos) {
+    return diffMain({
         text1,
         text2,
-        cursor_pos
+        cursorPos
     });
 }
 diff.INSERT = 1;
-diff.DELETE = DIFF_DELETE;
+diff.DELETE = DIFFDELETE;
 diff.EQUAL = 0;
 const document = window.document;
 let monaco1 = null;
@@ -851,11 +851,6 @@ async function run() {
             ace.setTheme("ace/theme/monokai");
             ace.session.setMode("ace/mode/typescript");
             ace.setValue(example);
-            ace.session.on("change", function() {
-                const value = ace.getValue();
-                window["editor"].setValue(value);
-                onChange(value);
-            });
         }
         editor = await startMonaco({
             language: "typescript",
