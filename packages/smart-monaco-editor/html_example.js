@@ -41,4 +41,4 @@ export const example = `<!DOCTYPE html>
 <html>
 
 
-`
+`;
