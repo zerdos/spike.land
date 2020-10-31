@@ -1,6 +1,7 @@
 import * as Monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
 import * as AMDLoader from "https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts";
 let monaco: Monaco;
+let editor;
 
 const vsPath =
   "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
@@ -23,11 +24,15 @@ export const startMonaco = async (
     await (() =>
       new Promise((resolve) => req(["vs/editor/editor.main"], resolve)))();
     monaco = (window as unknown as {monaco: Monaco}).monaco;
+  } else {
+    editor.onDidChangeModelContent(() => onChange(editor.getValue()));
+    editor.setValue(code);
+    return editor;
   }
 
 
 
-  const editor = monaco.editor.create(
+   editor = monaco.editor.create(
     window.document.getElementById("container"),
     {
       cursorStyle: "block",
@@ -59,7 +64,7 @@ export const startMonaco = async (
 
       suggest: {},
       codeLens: true,
-      autoSurround: "languageDefined",
+      autoSurround: "l  anguageDefined",
       // acceptSuggestionOnCommitCharacter: true,
       trimAutoWhitespace: true,
       codeActionsOnSaveTimeout: 100,
@@ -83,8 +88,7 @@ export const startMonaco = async (
       noSyntaxValidation: true,
     });
 
-  editor.onDidChangeModelContent(() => onChange(editor.getValue()));
-
+  
 
 
   if (language === "typescript") {

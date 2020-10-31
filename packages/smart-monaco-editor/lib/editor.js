@@ -1,4 +1,5 @@
 let monaco;
+let editor;
 export const startMonaco = async ({ onChange , code , language  })=>{
     if (window["monaco"] === undefined) {
         await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
@@ -14,8 +15,13 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             )
         )();
         monaco = window.monaco;
+    } else {
+        editor.onDidChangeModelContent(()=>onChange(editor.getValue())
+        );
+        editor.setValue(code);
+        return editor;
     }
-    const editor = monaco.editor.create(window.document.getElementById("container"), {
+    editor = monaco.editor.create(window.document.getElementById("container"), {
         cursorStyle: "block",
         formatOnType: true,
         scrollbar: {
@@ -42,7 +48,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         suggest: {
         },
         codeLens: true,
-        autoSurround: "languageDefined",
+        autoSurround: "l  anguageDefined",
         trimAutoWhitespace: true,
         codeActionsOnSaveTimeout: 100,
         model: monaco.editor.createModel(code, language, monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
@@ -55,8 +61,6 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         noSemanticValidation: true,
         noSyntaxValidation: true
     });
-    editor.onDidChangeModelContent(()=>onChange(editor.getValue())
-    );
     if (language === "typescript") {
         const importHelper = [
             {
