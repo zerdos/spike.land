@@ -5,7 +5,7 @@ const run = async () => {
   const devGenerator = new DevcontainerGenerator("groovy");
 
   devGenerator.setXfce();
-  devGenerator.setRemoteDesktop("noVNC")
+  devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
   devGenerator.setNodeVersion("lts");
   devGenerator.setZsh();

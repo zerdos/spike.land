@@ -61,22 +61,26 @@ export class DevcontainerGenerator {
   private async init() {
     const bufferDockerfiles = await Promise.all(
       this._templateInputs.map(
-        async (fileName) => await this.loadTemplate(fileName, "Dockerfile")
-      )
+        async (fileName) => await this.loadTemplate(fileName, "Dockerfile"),
+      ),
     );
     const bufferReadmeFiles = await Promise.all(
       this._templateInputs.map(
-        async (fileName) => await this.loadTemplate(fileName, "README")
-      )
+        async (fileName) => await this.loadTemplate(fileName, "README"),
+      ),
     );
 
     this._templateInputs.forEach(
-      (input, index) =>
-        (this._dockerTemplates[input] = String(bufferDockerfiles[index]))
+      (
+        input,
+        index,
+      ) => (this._dockerTemplates[input] = String(bufferDockerfiles[index])),
     );
     this._templateInputs.forEach(
-      (input, index) =>
-        (this._readmeTemplates[input] = String(bufferReadmeFiles[index]))
+      (
+        input,
+        index,
+      ) => (this._readmeTemplates[input] = String(bufferReadmeFiles[index])),
     );
 
     return {
@@ -94,9 +98,9 @@ export class DevcontainerGenerator {
   }
 
   public updateGit(forceFromSource = false) {
-    if (getDistro(this.base) === "ubuntu" && !forceFromSource)
+    if (getDistro(this.base) === "ubuntu" && !forceFromSource) {
       this._gitVersion = "ubuntu";
-    else this._gitVersion = softwareVersions.git;
+    } else this._gitVersion = softwareVersions.git;
   }
 
   public setDebianBackports() {
@@ -171,7 +175,7 @@ export class DevcontainerGenerator {
       } else {
         this._dockerfile += dockerTemplates["git"].replace(
           "{GIT_VERSION}",
-          this._gitVersion
+          this._gitVersion,
         );
       }
     }
@@ -187,19 +191,19 @@ export class DevcontainerGenerator {
     }
 
     if (this._dotnet) {
-      if (this._dotnet === "2")
+      if (this._dotnet === "2") {
         this._dockerfile += dockerTemplates["dotnet"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["2.1.810"]
+            softwareVersions.sha.dotnet_sha512["2.1.810"],
           );
-      else {
+      } else {
         this._dockerfile += dockerTemplates["dotnet3"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["3.1.402"]
+            softwareVersions.sha.dotnet_sha512["3.1.402"],
           );
       }
     }
@@ -207,29 +211,29 @@ export class DevcontainerGenerator {
     if (this._amplify) {
       this._dockerfile += dockerTemplates["amplify"].replace(
         "{AMPLIFY}",
-        softwareVersions.amplify
+        softwareVersions.amplify,
       );
       this._readme += readmeTemplates["amplify"].replace(
         "{AMPLIFY}",
-        softwareVersions.amplify
+        softwareVersions.amplify,
       );
     }
 
     if (this._cypressVersion) {
       this._dockerfile += dockerTemplates["cypress"].replace(
         "{CYPRESS_VERSION}",
-        this._cypressVersion
+        this._cypressVersion,
       );
       this._readme += readmeTemplates["cypress"].replace(
         "{CYPRESS_VERSION}",
-        this._cypressVersion
+        this._cypressVersion,
       );
     }
 
     if (this._xpra) {
       this._dockerfile += dockerTemplates["xpra"].replace(
         /{XPRADISTRO}/g,
-        this.base
+        this.base,
       );
       this._readme += readmeTemplates["xpra"];
 
@@ -241,7 +245,8 @@ export class DevcontainerGenerator {
         xpraStart = "xpra start-desktop --start=xfce4-session";
       }
 
-      this._dockerfile += `\nRUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding=x264" > /usr/bin/startx\n`;
+      this._dockerfile +=
+        `\nRUN echo "${xpraStart} --html=on --bind-tcp=0.0.0.0:14500 --daemon=no --encoding=x264" > /usr/bin/startx\n`;
 
       if (this._vscode) {
         this._dockerfile += dockerTemplates["vscode"];
@@ -260,7 +265,7 @@ export class DevcontainerGenerator {
     if (this._chrome) {
       this._dockerfile += dockerTemplates["google-chrome"].replace(
         "{CHROMIUM}",
-        getDistro(this.base) === "debian" ? "chromium" : "firefox"
+        getDistro(this.base) === "debian" ? "chromium" : "firefox",
       );
       this._readme += readmeTemplates["google-chrome"];
     }
@@ -268,7 +273,7 @@ export class DevcontainerGenerator {
     if (this._chromium) {
       this._dockerfile += dockerTemplates["chromium"].replace(
         "{CHROMIUM}",
-        getDistro(this.base) === "debian" ? "chromium" : "firefox"
+        getDistro(this.base) === "debian" ? "chromium" : "firefox",
       );
       this._readme += readmeTemplates["chromium"];
     }
@@ -286,14 +291,14 @@ export class DevcontainerGenerator {
     if (this._docker || this._k8s) {
       this._dockerfile += dockerTemplates["docker"].replace(
         "{DISTRO}",
-        getDistro(this.base)
+        getDistro(this.base),
       );
       this._readme += readmeTemplates["docker"];
 
       if (this._k8s) {
         this._dockerfile += dockerTemplates["kubernetes"].replace(
           "{DISTRO}",
-          getDistro(this.base)
+          getDistro(this.base),
         );
         this._readme += readmeTemplates["kubernetes"];
       }
@@ -317,7 +322,7 @@ export class DevcontainerGenerator {
 
   private loadTemplate = async (
     filename: string,
-    extension: "Dockerfile" | "README"
+    extension: "Dockerfile" | "README",
   ) =>
     await fs
       .readFile(`${__dirname}/../../templates/${filename}.${extension}`)

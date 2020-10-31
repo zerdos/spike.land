@@ -31,141 +31,137 @@ function dragMoveListener(event) {
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
 }
+let monaco;
 const startMonaco = async ({ onChange , code , language  })=>{
-    const monacoLang = language || "typescript";
-    if (window && window["monaco"] && window["monaco"]["editor"]) {
-        return window["monaco"]["editor"];
-    }
-    return new Promise(async function(resolve) {
-        if (window["monaco"]) return window["monaco"];
-        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/loader.min.js");
-        const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
-        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/loader.min.js");
-        require.config({
+    if (window["monaco"] === undefined) {
+        await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
+        const req = window.require;
+        req.config({
             paths: {
                 "vs": "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"
             }
         });
-        require([
-            "vs/editor/editor.main"
-        ], async function() {
-            const monaco = window.monaco;
-            const editor = monaco.editor.create(window.document.getElementById("container"), {
-                cursorStyle: "block",
-                formatOnType: true,
-                scrollbar: {
-                    horizontal: "hidden",
-                    verticalHasArrows: true,
-                    verticalScrollbarSize: 20
-                },
-                minimap: {
-                    enabled: false
-                },
-                folding: false,
-                multiCursorModifier: "alt",
-                wordWrap: "on",
-                wordWrapBreakAfterCharacters: ">([{]))],;}",
-                mouseWheelZoom: false,
-                wordWrapColumn: 70,
-                automaticLayout: true,
-                scrollBeyondLastLine: false,
-                autoIndent: "brackets",
-                autoClosingQuotes: "always",
-                lineNumbers: "off",
-                autoClosingBrackets: "always",
-                autoClosingOvertype: "always",
-                suggest: {
-                },
-                codeLens: true,
-                autoSurround: "languageDefined",
-                trimAutoWhitespace: true,
-                codeActionsOnSaveTimeout: 100,
-                model: monaco.editor.createModel(code, monacoLang, monaco.Uri.parse(monacoLang === "typescript" ? "file:///main.tsx" : "file:///main.html")),
-                value: code,
-                language: monacoLang,
-                theme: "vs-dark"
-            });
-            monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-                noSuggestionDiagnostics: true,
-                noSemanticValidation: true,
-                noSyntaxValidation: true
-            });
-            editor.onDidChangeModelContent(()=>onChange(editor.getValue())
-            );
-            resolve(editor);
-            if (monacoLang === "typescript") {
-                const importHelper = [
-                    {
-                        name: "react",
-                        url: "https://unpkg.com/@types/react@latest/index.d.ts",
-                        depend: [
-                            "global",
-                            "csstype",
-                            "react-dom",
-                            "prop-types"
-                        ]
-                    },
-                    {
-                        name: "global",
-                        url: "https://unpkg.com/@types/react@latest/global.d.ts",
-                        depend: []
-                    },
-                    {
-                        name: "prop-types",
-                        url: "https://unpkg.com/@types/prop-types@latest/index.d.ts",
-                        depend: []
-                    },
-                    {
-                        name: "react-dom",
-                        url: "https://unpkg.com/@types/react-dom@latest/index.d.ts",
-                        depend: []
-                    },
-                    {
-                        name: "csstype",
-                        url: "https://unpkg.com/csstype@latest/index.d.ts",
-                        depend: []
-                    }
-                ];
-                const dts = importHelper.map(({ name , url  })=>(async ()=>monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
-                    )()
-                );
-                monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-                    target: monaco.languages.typescript.ScriptTarget.ESNext,
-                    allowNonTsExtensions: true,
-                    allowUmdGlobalAccess: true,
-                    strict: true,
-                    allowJs: true,
-                    noEmitOnError: true,
-                    allowSyntheticDefaultImports: true,
-                    moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-                    module: monaco.languages.typescript.ModuleKind.CommonJS,
-                    noEmit: true,
-                    typeRoots: [
-                        "node_modules/@types"
-                    ],
-                    jsx: monaco.languages.typescript.JsxEmit.React,
-                    jsxFactory: "React.createElement",
-                    jsxFragmentFactory: "React.Fragment",
-                    esModuleInterop: true
-                });
-                await Promise.all(dts);
-                monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-                    noSuggestionDiagnostics: false,
-                    noSemanticValidation: false,
-                    noSyntaxValidation: false
-                });
-            }
-        });
+        await (()=>new Promise((resolve)=>req([
+                    "vs/editor/editor.main"
+                ], resolve)
+            )
+        )();
+        monaco = window.monaco;
+    }
+    const editor = monaco.editor.create(window.document.getElementById("container"), {
+        cursorStyle: "block",
+        formatOnType: true,
+        scrollbar: {
+            horizontal: "hidden",
+            verticalHasArrows: true,
+            verticalScrollbarSize: 20
+        },
+        minimap: {
+            enabled: false
+        },
+        folding: false,
+        multiCursorModifier: "alt",
+        wordWrap: "on",
+        wordWrapBreakAfterCharacters: ">([{]))],;}",
+        mouseWheelZoom: false,
+        wordWrapColumn: 70,
+        automaticLayout: true,
+        scrollBeyondLastLine: false,
+        autoIndent: "brackets",
+        autoClosingQuotes: "always",
+        lineNumbers: "off",
+        autoClosingBrackets: "always",
+        autoClosingOvertype: "always",
+        suggest: {
+        },
+        codeLens: true,
+        autoSurround: "languageDefined",
+        trimAutoWhitespace: true,
+        codeActionsOnSaveTimeout: 100,
+        model: monaco.editor.createModel(code, language, monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
+        value: code,
+        language: language,
+        theme: "vs-dark"
     });
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+        noSuggestionDiagnostics: true,
+        noSemanticValidation: true,
+        noSyntaxValidation: true
+    });
+    editor.onDidChangeModelContent(()=>onChange(editor.getValue())
+    );
+    if (language === "typescript") {
+        const importHelper = [
+            {
+                name: "react",
+                url: "https://unpkg.com/@types/react@latest/index.d.ts",
+                depend: [
+                    "global",
+                    "csstype",
+                    "react-dom",
+                    "prop-types"
+                ]
+            },
+            {
+                name: "global",
+                url: "https://unpkg.com/@types/react@latest/global.d.ts",
+                depend: []
+            },
+            {
+                name: "prop-types",
+                url: "https://unpkg.com/@types/prop-types@latest/index.d.ts",
+                depend: []
+            },
+            {
+                name: "react-dom",
+                url: "https://unpkg.com/@types/react-dom@latest/index.d.ts",
+                depend: []
+            },
+            {
+                name: "csstype",
+                url: "https://unpkg.com/csstype@latest/index.d.ts",
+                depend: []
+            }
+        ];
+        const dts = importHelper.map(({ name , url  })=>(async ()=>monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
+            )()
+        );
+        monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+            target: monaco.languages.typescript.ScriptTarget.ESNext,
+            allowNonTsExtensions: true,
+            allowUmdGlobalAccess: true,
+            strict: true,
+            allowJs: true,
+            noEmitOnError: true,
+            allowSyntheticDefaultImports: true,
+            moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+            module: monaco.languages.typescript.ModuleKind.CommonJS,
+            noEmit: true,
+            typeRoots: [
+                "node_modules/@types"
+            ],
+            jsx: monaco.languages.typescript.JsxEmit.React,
+            jsxFactory: "React.createElement",
+            jsxFragmentFactory: "React.Fragment",
+            esModuleInterop: true
+        });
+        await Promise.all(dts);
+        monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+            noSuggestionDiagnostics: false,
+            noSemanticValidation: false,
+            noSyntaxValidation: false
+        });
+        return editor;
+    }
 };
 function loadScript(src) {
     return new Promise(function(resolve, reject) {
         var s;
-        s = document.createElement("script");
+        s = window.document.createElement("script");
         s.src = src;
         s.onload = resolve;
         s.onerror = reject;
-        document.head.appendChild(s);
+        window.document.head.appendChild(s);
     });
 }
 const DIFF_DELETE = -1;
@@ -775,17 +771,8 @@ function diff(text1, text2, cursor_pos) {
 diff.INSERT = 1;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = 0;
-<<<<<<< HEAD:packages/code/.dist/._cBundle.js
 const document = window.document;
-let monaco = null;
-=======
-const sp = new URLSearchParams(location.search);
-const hash = sp.get("h");
-if (hash) {
-    localStorage.setItem("codeBoXHash", hash);
-}
-let monaco;
->>>>>>> 1b6163a2a55b35d49913e37a1b82e19097ae190d:packages/code/code-box-bundle.js
+let monaco1 = null;
 async function run() {
     await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
@@ -826,10 +813,9 @@ async function run() {
             }
         });
         const response = await fetch(request);
-        const { hash: hash1  } = await response.json();
+        const { hash  } = await response.json();
         try {
             const localStorage = window.localStorage;
-<<<<<<< HEAD:packages/code/.dist/._cBundle.js
             const prevHash = localStorage.getItem("codeBoXHash");
             if (prevHash !== hash) {
                 localStorage.setItem("codeBoXHash", hash);
@@ -837,13 +823,6 @@ async function run() {
                 window.history.pushState({
                 }, "", "/?h=" + hash);
             }
-=======
-            localStorage.getItem("codeBoXHash");
-            localStorage.setItem("codeBoXHash", hash1);
-            localStorage.setItem(hash1, latestGoodCode);
-            history.pushState({
-            }, "", `/?h=${hash1}`);
->>>>>>> 1b6163a2a55b35d49913e37a1b82e19097ae190d:packages/code/code-box-bundle.js
         } catch (e) {
             console.log("no localStorage");
         }
@@ -884,16 +863,16 @@ async function run() {
                             const slices = diff(latestGoodCode, cd, 0);
                             console.log(slices);
                             if (slices.length <= 3) {
-                                monaco.editor.setTheme("hc-black");
+                                monaco1.editor.setTheme("hc-black");
                                 return;
                             }
                             errorDiv.innerHTML = err[0].messageText.toString();
                             document.getElementById("root").style.setProperty("dispay", "none");
                             errorDiv.style.display = "block";
                             errorReported = cd;
-                            monaco.editor.setTheme("vs-light");
+                            monaco1.editor.setTheme("vs-light");
                             setTimeout(()=>{
-                                monaco.editor.setTheme("hc-black");
+                                monaco1.editor.setTheme("hc-black");
                             }, keystrokeTillNoError++);
                             return;
                         }
@@ -909,7 +888,7 @@ async function run() {
                         if (cd !== latestCode) {
                             return;
                         }
-                        monaco.editor.setTheme("vs-light");
+                        monaco1.editor.setTheme("vs-light");
                         setTimeout(()=>{
                             window["monaco"].editor.setTheme("hc-black");
                         }, 10);
@@ -931,12 +910,12 @@ async function run() {
                 }
             }
         });
-        monaco = window["monaco"];
+        monaco1 = window["monaco"];
     })();
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
     async function getErrors() {
-        const modelUri = monaco.Uri.parse("file:///main.tsx");
+        const modelUri = monaco1.Uri.parse("file:///main.tsx");
         getCodeToLoad;
         const tsWorker = await window["monaco"].languages.typescript.getTypeScriptWorker();
         const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
@@ -950,8 +929,8 @@ async function run() {
     }
 }
 function getCodeToLoad() {
-    const hash1 = window.localStorage.getItem("codeBoXHash");
-    return window.localStorage.getItem(location.hash) || hash1 && window.localStorage.getItem(hash1) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+    const hash = window.localStorage.getItem("codeBoXHash");
+    return window.localStorage.getItem(location.hash) || hash && window.localStorage.getItem(hash) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
 run();
 
