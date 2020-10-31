@@ -106,132 +106,170 @@ async function run() {
     const example = getCodeToLoad();
     latestGoodCode = example;
 
-    await startMonaco({
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        window.navigator.userAgent,
+      )
+    ) {
+      // some code..
+
+      await Promise.all([
+        importScript(
+          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
+        ),
+        importScript(
+          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
+        ),
+        importScript(
+          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
+        ),
+      ]);
+      document.getElementById("ace").style.setProperty("display", "block");
+      document.getElementById("container").style.setProperty("display", "none");
+
+      const ace = window["ace"].edit("ace");
+      ace.setTheme("ace/theme/monokai");
+      ace.session.setMode("ace/mode/typescript");
+      ace.setValue(example);
+   
+    }
+
+    editor = await startMonaco({
       language: "typescript",
       code: example,
-      onChange: (code: string) => {
-        latestCode = code;
+      onChange,
+    });
+    window["editor"] = editor;
+    monaco = window["monaco"];
 
-        const runner = async (cd: string) => {
-          if (busy === 1) {
+    ace.session.on("change", function (delta) {
+      const value = ace.getValue();
+      editor.setValue(value);
+      onChange(value);
+    });
+
+    function onChange(code: string) {
+      latestCode = code;
+
+      const runner = async (cd: string) => {
+        if (busy === 1) {
+          return;
+        }
+
+        busy = 1;
+        const err = await getErrors();
+
+        const errorDiv = document.getElementById("error");
+        try {
+          busy = 0;
+
+          if (cd !== latestCode) {
             return;
           }
-
-          busy = 1;
-          const err = await getErrors();
-
-          const errorDiv = document.getElementById("error");
-          try {
-            busy = 0;
-
-            if (cd !== latestCode) {
+          if (err && err.length) {
+            if (latestCode != cd) {
               return;
             }
-            if (err && err.length) {
-              if (latestCode != cd) {
-                return;
-              }
-              if (errorReported === cd) {
-                return;
-              }
-
-              document.getElementById("root")!.classList.add("transparent");
-              const slices = diff(latestGoodCode, cd, 0);
-              console.log(slices);
-
-              if (slices.length <= 3) {
-                monaco.editor.setTheme("hc-black");
-                return;
-              }
-
-              // const oldSlices = diff(latestBadCode, cd);
-              // const unMerge = oldSlices.filter((o) => o[0] !== 0);
-              // let filtered = slices.filter((t) =>
-              //   t[0] === 0 || t[1] === unMerge[0][1]
-              // );
-              // if (filtered.length > 4) {
-              //   filtered = filtered.filter((t) => t[0] === 0);
-              // }
-              // diff_cleanupMerge(filtered, false);
-              // let newStr = "";
-              // let offset = 0;
-              // filtered.map((t) => {
-              //   newStr = newStr + t[1];
-              //   if (t[0] !== 0) {
-              //     offset = newStr.length;
-              //   }
-              // });
-              // busy = 0;
-              // if (newStr !== cd) {
-              //   editor.setValue(newStr);
-              //   const model = editor.getModel("file:///Main.tsx");
-              //   const position = model.getPositionAt(offset);
-              //   //  mosel.getC
-              //   const validPos = model.validatePosition(position);
-              //   editor.setPosition(validPos);
-              //   // model.modifyPosition(position)
-              //   return;
-              // }
-              // const errors = err..map((x) => x.messageText)
-
-              errorDiv!.innerHTML = err[0].messageText.toString();
-
-              document.getElementById("root").style.setProperty(
-                "dispay",
-                "none",
-              );
-
-              errorDiv!.style.display = "block";
-              errorReported = cd;
-
-              monaco.editor.setTheme("vs-light");
-              setTimeout(() => {
-                monaco.editor.setTheme("hc-black");
-              }, keystrokeTillNoError++);
-
+            if (errorReported === cd) {
               return;
             }
-            latestGoodCode = cd;
 
-            errorDiv!.style!.display = "none";
+            document.getElementById("root")!.classList.add("transparent");
+            const slices = diff(latestGoodCode, cd, 0);
+            console.log(slices);
 
-            window["monaco"].editor.setTheme("vs-dark");
-
-            document.getElementById("root").classList.remove("transparent");
-            keystrokeTillNoError = 0;
-
-            busy = 0;
-            restartCode(transpileCode(cd));
-          } catch (err) {
-            busy = 0;
-            if (cd !== latestCode) {
+            if (slices.length <= 3) {
+              monaco.editor.setTheme("hc-black");
               return;
             }
+
+            // const oldSlices = diff(latestBadCode, cd);
+            // const unMerge = oldSlices.filter((o) => o[0] !== 0);
+            // let filtered = slices.filter((t) =>
+            //   t[0] === 0 || t[1] === unMerge[0][1]
+            // );
+            // if (filtered.length > 4) {
+            //   filtered = filtered.filter((t) => t[0] === 0);
+            // }
+            // diff_cleanupMerge(filtered, false);
+            // let newStr = "";
+            // let offset = 0;
+            // filtered.map((t) => {
+            //   newStr = newStr + t[1];
+            //   if (t[0] !== 0) {
+            //     offset = newStr.length;
+            //   }
+            // });
+            // busy = 0;
+            // if (newStr !== cd) {
+            //   editor.setValue(newStr);
+            //   const model = editor.getModel("file:///Main.tsx");
+            //   const position = model.getPositionAt(offset);
+            //   //  mosel.getC
+            //   const validPos = model.validatePosition(position);
+            //   editor.setPosition(validPos);
+            //   // model.modifyPosition(position)
+            //   return;
+            // }
+            // const errors = err..map((x) => x.messageText)
+
+            errorDiv!.innerHTML = err[0].messageText.toString();
+
+            document.getElementById("root").style.setProperty(
+              "dispay",
+              "none",
+            );
+
+            errorDiv!.style.display = "block";
+            errorReported = cd;
 
             monaco.editor.setTheme("vs-light");
             setTimeout(() => {
-              window["monaco"].editor.setTheme("hc-black");
-            }, 10);
-            console.error(err);
-          }
-        };
-        if (!busy) {
-          runner(latestCode);
-        } else {
-          const myCode = code;
-          const cl = setInterval(() => {
-            if (myCode !== latestCode || !busy) {
-              clearInterval(cl);
-            }
+              monaco.editor.setTheme("hc-black");
+            }, keystrokeTillNoError++);
 
-            if (!busy) {
-              runner(latestCode);
-            }
-          }, 100);
+            return;
+          }
+          latestGoodCode = cd;
+
+          errorDiv!.style!.display = "none";
+
+          window["monaco"].editor.setTheme("vs-dark");
+
+          document.getElementById("root").classList.remove("transparent");
+          keystrokeTillNoError = 0;
+
+          busy = 0;
+          restartCode(transpileCode(cd));
+        } catch (err) {
+          busy = 0;
+          if (cd !== latestCode) {
+            return;
+          }
+
+          monaco.editor.setTheme("vs-light");
+          setTimeout(() => {
+            window["monaco"].editor.setTheme("hc-black");
+          }, 10);
+          console.error(err);
         }
-      },
-    });
-    monaco = window["monaco"];
+      };
+      if (!busy) {
+        runner(latestCode);
+      } else {
+        const myCode = code;
+        const cl = setInterval(() => {
+          if (myCode !== latestCode || !busy) {
+            clearInterval(cl);
+          }
+
+          if (!busy) {
+            runner(latestCode);
+          }
+        }, 100);
+      }
+    }
+
     //
   })();
 
@@ -261,10 +299,10 @@ async function run() {
 }
 
 function getCodeToLoad() {
-  const hash = window.localStorage.getItem("codeBoXHash");
+  const search = new URLSearchParams(window.location.search);
+  const h = search.get("h");
 
-  return window.localStorage.getItem(location.hash) ||
-    (hash && window.localStorage.getItem(hash)) ||
+  return (h && window.localStorage.getItem(h)) ||
     window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
 
