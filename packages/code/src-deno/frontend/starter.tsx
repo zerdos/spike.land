@@ -15,4 +15,5 @@ const Counter = (
 
 ReactDOM.render(
   <Counter initial={0} />,
-  document.getElementById("root"))
+  document.getElementById("root"),
+);
