@@ -1,11 +1,10 @@
-import * as Monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
+import * as monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
 import * as AMDLoader from "https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts";
-let monaco: Monaco;
-let editor;
+
+let editor: monaco.Editor;
 
 const vsPath =
   "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
-
 interface StartMonaco {
   onChange: (code: string) => void;
   code: string;
@@ -17,22 +16,23 @@ export const startMonaco = async (
 ) => {
   if (window["monaco"] === undefined) {
     await loadScript(`${vsPath}/loader.min.js`);
-
+  
     const req = (window as { require: AMDLoader.IRequireFunc }).require;
     req.config({ paths: { "vs": vsPath } });
+    await new Promise(resolve => req(["vs/editor/editor.main"], ()=>{
+      
+      resolve(true);
+    }));  }
+    else {
 
-    await (() =>
-      new Promise((resolve) => req(["vs/editor/editor.main"], resolve)))();
-    monaco = (window as unknown as {monaco: Monaco}).monaco;
-  } else {
-    editor.onDidChangeModelContent(() => onChange(editor.getValue()));
-    editor.setValue(code);
-    return editor;
+      editor.onDidChangeModelContent(() => onChange(editor.getValue()));
+      editor.setValue(code);
+      return editor;
   }
 
 
 
-   editor = monaco.editor.create(
+  editor = window.monaco.editor.create(
     window.document.getElementById("container"),
     {
       cursorStyle: "block",
@@ -68,10 +68,10 @@ export const startMonaco = async (
       // acceptSuggestionOnCommitCharacter: true,
       trimAutoWhitespace: true,
       codeActionsOnSaveTimeout: 100,
-      model: monaco.editor.createModel(
+      model: window.monaco.editor.createModel(
         code,
         language,
-        monaco.Uri.parse(
+        window.monaco.Uri.parse(
           language === "typescript" ? "file:///main.tsx" : "file:///main.html",
         ),
       ),
@@ -81,15 +81,15 @@ export const startMonaco = async (
     },
   );
 
-  monaco.languages.typescript.javascriptDefaults
+  editor.onDidChangeModelContent(() => onChange(editor.getValue()));
+  editor.setValue(code);
+
+  window.monaco.languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
       noSuggestionDiagnostics: true,
       noSemanticValidation: true,
       noSyntaxValidation: true,
     });
-
-  
-
 
   if (language === "typescript") {
     const importHelper = [{
@@ -113,10 +113,11 @@ export const startMonaco = async (
       url: "https://unpkg.com/csstype@latest/index.d.ts",
       depend: [],
     }];
+  
     //# sourceMappingURL=importHelper.js.map
     const dts = importHelper.map(({ name, url }) =>
       (async () =>
-        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        window.monaco.languages.typescript.typescriptDefaults.addExtraLib(
           await (await fetch(
             url,
           )).text(),
@@ -124,9 +125,9 @@ export const startMonaco = async (
         ))()
     );
 
-    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
+    window.monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
       {
-        target: monaco.languages.typescript.ScriptTarget.ESNext,
+        target: window.monaco.languages.typescript.ScriptTarget.ESNext,
         allowNonTsExtensions: true,
         allowUmdGlobalAccess: true,
         strict: true,
@@ -134,11 +135,11 @@ export const startMonaco = async (
         noEmitOnError: true,
         allowSyntheticDefaultImports: true,
         moduleResolution:
-          monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-        module: monaco.languages.typescript.ModuleKind.CommonJS,
+          window.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        module: window.monaco.languages.typescript.ModuleKind.CommonJS,
         noEmit: true,
         typeRoots: ["node_modules/@types"],
-        jsx: monaco.languages.typescript.JsxEmit.React,
+        jsx: window.monaco.languages.typescript.JsxEmit.React,
         jsxFactory: "React.createElement",
         jsxFragmentFactory: "React.Fragment",
         esModuleInterop: true,
@@ -147,14 +148,14 @@ export const startMonaco = async (
 
     await Promise.all(dts);
 
-    monaco.languages.typescript.javascriptDefaults
+    window.monaco.languages.typescript.typescriptDefaults
       .setDiagnosticsOptions({
         noSuggestionDiagnostics: false,
         noSemanticValidation: false,
         noSyntaxValidation: false,
-    });
+      });
 
-      return editor;
+    return editor;
   }
 };
 

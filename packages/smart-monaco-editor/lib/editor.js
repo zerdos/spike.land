@@ -1,4 +1,3 @@
-let monaco;
 let editor;
 export const startMonaco = async ({ onChange , code , language  })=>{
     if (window["monaco"] === undefined) {
@@ -9,18 +8,17 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 "vs": "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"
             }
         });
-        await (()=>new Promise((resolve)=>req([
-                    "vs/editor/editor.main"
-                ], resolve)
-            )
-        )();
-        monaco = window.monaco;
+        await new Promise((resolve)=>req([
+                "vs/editor/editor.main"
+            ], resolve)
+        );
     } else {
         editor.onDidChangeModelContent(()=>onChange(editor.getValue())
         );
         editor.setValue(code);
         return editor;
     }
+    const monaco = window.monaco;
     editor = monaco.editor.create(window.document.getElementById("container"), {
         cursorStyle: "block",
         formatOnType: true,
@@ -56,7 +54,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         language: language,
         theme: "vs-dark"
     });
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+    monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: true,
         noSemanticValidation: true,
         noSyntaxValidation: true
@@ -117,7 +115,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             esModuleInterop: true
         });
         await Promise.all(dts);
-        monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+        monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
             noSuggestionDiagnostics: false,
             noSemanticValidation: false,
             noSyntaxValidation: false

@@ -11,7 +11,7 @@ export const MonacoEditor: React.FC<
 
       startMonaco({ language: "html", code, onChange });
     })();
-  });
+  },[]);
 
   return <div
     style={{
