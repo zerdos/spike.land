@@ -56,7 +56,6 @@ export const startMonaco = async ({ onChange , code , language  })=>{
     });
     modules.editor.onDidChangeModelContent(()=>onChange(modules.editor.getValue())
     );
-    modules.editor.setValue(code);
     modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: true,
         noSemanticValidation: true,
@@ -123,7 +122,6 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             noSemanticValidation: false,
             noSyntaxValidation: false
         });
-        console.log(modules);
         return modules;
     }
 };
