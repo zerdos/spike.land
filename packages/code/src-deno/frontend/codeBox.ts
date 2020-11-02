@@ -1,17 +1,20 @@
-import * as monaco from "https://raw.githubusercontent.com/microsoft/monaco-editor/master/monaco.d.ts";
+/// <reference types="https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts" >
+/// <reference types="https://unpkg.com/monaco-editor@0.21.2/esm/vs/editor/editor.d.ts" >
 
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts";
 
 import { makeDraggable } from "./interact.ts";
-import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
+import {
+  ISmartMonacoEditor,
+  startMonaco,
+} from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.ts";
 
 import { diff } from "./diff.ts";
 
 const document = (window as { document: Document }).document;
 
-let editor: monaco.Editor;
 let busy = 0;
 
 let keystrokeTillNoError = 0;
@@ -22,9 +25,9 @@ const searchRegExp = /import/gi;
 const replaceWith = "///";
 
 async function run() {
-  // await importScript(
-  //   "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
-  // );
+  await importScript(
+    "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
+  );
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.4/babel.min.js",
   );
@@ -52,7 +55,7 @@ async function run() {
         window.navigator.userAgent,
       )
     ) {
-      // some code..
+      // some code.
 
       await Promise.all([
         importScript(
@@ -74,17 +77,130 @@ async function run() {
       aceEditor.setValue(example);
     }
 
-    editor = await startMonaco({
+    const modules = await startMonaco({
       language: "typescript",
       code: example,
-      onChange: (code) => onChange(code),
+      onChange,
     });
 
     aceEditor && aceEditor.session.on("change", function () {
       const value = aceEditor.getValue();
-      editor.setValue(value);
+      modules.editor.setValue(value);
       onChange(value);
     });
+
+    function onChange(code: string) {
+      latestCode = code;
+
+      if (!busy) {
+        runner(latestCode);
+      } else {
+        const myCode = code;
+        const cl = setInterval(() => {
+          if (myCode !== latestCode || !busy) {
+            clearInterval(cl);
+          }
+
+          if (!busy) {
+            runner(latestCode);
+          }
+        }, 100);
+      }
+    }
+
+    async function getErrors() {
+      const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
+
+      //const model = window["monaco"].editor.getModel(modelUri);
+      // getCodeToLoad;
+      const tsWorker = await modules.monaco.languages.typescript
+        .getTypeScriptWorker();
+
+      const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
+        "file:///main.tsx",
+      );
+      const comp = await (await tsWorker(modelUri))
+        .getCompilerOptionsDiagnostics("file:///main.tsx");
+      const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
+        "file:///main.tsx",
+      );
+
+      return [...diag, ...comp, ...syntax];
+    }
+
+    async function runner(cd: string) {
+      if (busy === 1) {
+        return;
+      }
+
+      try {
+        busy = 1;
+        const err = await getErrors();
+        const errorDiv = document.getElementById("error");
+        busy = 0;
+
+        if (cd !== latestCode) {
+          return;
+        }
+        if (err && err.length) {
+          if (latestCode != cd) {
+            return;
+          }
+          if (errorReported === cd) {
+            return;
+          }
+
+          document.getElementById("root")!.classList.add("transparent");
+          const slices = diff(latestGoodCode, cd, 0);
+          console.log(slices);
+
+          if (slices.length <= 3) {
+            modules.monaco.editor.setTheme("hc-black");
+            return;
+          }
+
+          errorDiv!.innerHTML = err[0].messageText.toString();
+
+          document.getElementById("root").style.setProperty(
+            "dispay",
+            "none",
+          );
+
+          errorDiv!.style.display = "block";
+          errorReported = cd;
+
+          modules.monaco.editor.setTheme("vs-light");
+          setTimeout(() => {
+            modules.monaco.editor.setTheme("hc-black");
+          }, keystrokeTillNoError++);
+
+          return;
+        }
+
+        latestGoodCode = cd;
+
+        errorDiv!.style!.display = "none";
+
+        modules.monaco.editor.setTheme("vs-dark");
+
+        document.getElementById("root").classList.remove("transparent");
+        keystrokeTillNoError = 0;
+
+        busy = 0;
+        restartCode(transpileCode(cd));
+      } catch (err) {
+        busy = 0;
+        if (cd !== latestCode) {
+          return;
+        }
+
+        modules.monaco.editor.setTheme("vs-light");
+        setTimeout(() => {
+          modules.monaco.editor.setTheme("hc-black");
+        }, 10);
+        console.error(err);
+      }
+    }
 
     //
   })();
@@ -145,25 +261,6 @@ function getCodeToLoad() {
     window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
 
-function onChange(code: string) {
-  latestCode = code;
-
-  if (!busy) {
-    runner(latestCode);
-  } else {
-    const myCode = code;
-    const cl = setInterval(() => {
-      if (myCode !== latestCode || !busy) {
-        clearInterval(cl);
-      }
-
-      if (!busy) {
-        runner(latestCode);
-      }
-    }, 100);
-  }
-}
-
 function transpileCode(code: string) {
   return (window as unknown as {
     Babel: {
@@ -182,104 +279,6 @@ function transpileCode(code: string) {
       ["typescript", { isTSX: true, allExtensions: true }],
     ],
   }).code.replace(searchRegExp, replaceWith);
-}
-
-async function getErrors() {
-  // return [];
-  const modelUri = window.monaco.Uri.parse("file:///main.tsx");
-
-  // //const model = window["monaco"].editor.getModel(modelUri);
-
-  const tsWorker = await window.monaco.languages.typescript
-    .getTypeScriptWorker();
-
-  const tsCheck = await tsWorker(modelUri);
-
-  // let diag = [];
-  // let comp = [];
-  // const diag = await tsCheck.getSemanticDiagnostics("file:///main.tsx");
-  // const comp = await tsCheck.getCompilerOptionsDiagnostics(
-  //   "file:/ //main.tsx",
-  // );
-  const syntax = await tsCheck.getSyntacticDiagnostics("file:///main.tsx");
-
-  return [ //...diag, ...comp,
-    ...syntax,
-  ];
-}
-
-async function runner(cd: string) {
-  if (busy === 1) {
-    return;
-  }
-
-  try {
-    busy = 1;
-    const err = await getErrors();
-    const errorDiv = document.getElementById("error");
-    busy = 0;
-
-    if (cd !== latestCode) {
-      return;
-    }
-    if (err && err.length) {
-      if (latestCode != cd) {
-        return;
-      }
-      if (errorReported === cd) {
-        return;
-      }
-
-      document.getElementById("root")!.classList.add("transparent");
-      const slices = diff(latestGoodCode, cd, 0);
-      console.log(slices);
-
-      if (slices.length <= 3) {
-        editor.setTheme("hc-black");
-        return;
-      }
-
-      errorDiv!.innerHTML = err[0].messageText.toString();
-
-      document.getElementById("root").style.setProperty(
-        "dispay",
-        "none",
-      );
-
-      errorDiv!.style.display = "block";
-      errorReported = cd;
-
-      editor.setTheme("vs-light");
-      setTimeout(() => {
-        editor.setTheme("hc-black");
-      }, keystrokeTillNoError++);
-
-      return;
-    }
-
-    latestGoodCode = cd;
-
-    errorDiv!.style!.display = "none";
-
-    editor.setTheme("vs-dark");
-
-    document.getElementById("root").classList.remove("transparent");
-    keystrokeTillNoError = 0;
-
-    busy = 0;
-    restartCode(transpileCode(cd));
-  } catch (err) {
-    busy = 0;
-    if (cd !== latestCode) {
-      return;
-    }
-
-    editor.setTheme("vs-light");
-    setTimeout(() => {
-      editor.setTheme("hc-black");
-    }, 10);
-    console.error(err);
-  }
 }
 
 run();

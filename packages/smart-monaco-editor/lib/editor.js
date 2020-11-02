@@ -1,26 +1,25 @@
-let editor;
+const modules = {
+};
 export const startMonaco = async ({ onChange , code , language  })=>{
-    if (window["monaco"] === undefined) {
-        await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
-        const req = window.require;
-        req.config({
+    if (modules["monaco"] === undefined) {
+        const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
+        const { require  } = await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
+        require.config({
             paths: {
                 "vs": "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"
             }
         });
-        await new Promise((resolve)=>req([
+        await new Promise((resolve)=>require([
                 "vs/editor/editor.main"
-            ], ()=>{
+            ], (monaco)=>{
+                modules.monaco = monaco;
                 resolve(true);
             })
         );
     } else {
-        editor.onDidChangeModelContent(()=>onChange(editor.getValue())
-        );
-        editor.setValue(code);
-        return editor;
+        return modules;
     }
-    editor = window.monaco.editor.create(window.document.getElementById("container"), {
+    modules.editor = modules.monaco.editor.create(window.document.getElementById("container"), {
         cursorStyle: "block",
         formatOnType: true,
         scrollbar: {
@@ -47,18 +46,18 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         suggest: {
         },
         codeLens: true,
-        autoSurround: "l  anguageDefined",
+        autoSurround: "languageDefined",
         trimAutoWhitespace: true,
         codeActionsOnSaveTimeout: 100,
-        model: window.monaco.editor.createModel(code, language, window.monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
+        model: modules.monaco.editor.createModel(code, language, modules.monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
         value: code,
         language: language,
         theme: "vs-dark"
     });
-    editor.onDidChangeModelContent(()=>onChange(editor.getValue())
+    modules.editor.onDidChangeModelContent(()=>onChange(modules.editor.getValue())
     );
-    editor.setValue(code);
-    window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    modules.editor.setValue(code);
+    modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: true,
         noSemanticValidation: true,
         noSyntaxValidation: true
@@ -96,35 +95,36 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 depend: []
             }
         ];
-        const dts = importHelper.map(({ name , url  })=>(async ()=>window.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
+        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
             )()
         );
-        window.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-            target: window.monaco.languages.typescript.ScriptTarget.ESNext,
+        modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+            target: modules.monaco.languages.typescript.ScriptTarget.ESNext,
             allowNonTsExtensions: true,
             allowUmdGlobalAccess: true,
             strict: true,
             allowJs: true,
             noEmitOnError: true,
             allowSyntheticDefaultImports: true,
-            moduleResolution: window.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-            module: window.monaco.languages.typescript.ModuleKind.CommonJS,
+            moduleResolution: modules.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+            module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
             noEmit: true,
             typeRoots: [
                 "node_modules/@types"
             ],
-            jsx: window.monaco.languages.typescript.JsxEmit.React,
+            jsx: modules.monaco.languages.typescript.JsxEmit.React,
             jsxFactory: "React.createElement",
             jsxFragmentFactory: "React.Fragment",
             esModuleInterop: true
         });
         await Promise.all(dts);
-        window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
             noSuggestionDiagnostics: false,
             noSemanticValidation: false,
             noSyntaxValidation: false
         });
-        return editor;
+        console.log(modules);
+        return modules;
     }
 };
 function loadScript(src) {
@@ -132,7 +132,8 @@ function loadScript(src) {
         var s;
         s = window.document.createElement("script");
         s.src = src;
-        s.onload = resolve;
+        s.onload = ()=>resolve(window)
+        ;
         s.onerror = reject;
         window.document.head.appendChild(s);
     });

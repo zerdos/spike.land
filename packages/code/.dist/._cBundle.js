@@ -31,29 +31,28 @@ function dragMoveListener(event) {
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
 }
-let editor;
+const modules = {
+};
 const startMonaco = async ({ onChange , code , language  })=>{
-    if (window["monaco"] === undefined) {
-        await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
-        const req = window.require;
-        req.config({
+    if (modules["monaco"] === undefined) {
+        const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
+        const { require  } = await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
+        require.config({
             paths: {
                 "vs": "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"
             }
         });
-        await new Promise((resolve)=>req([
+        await new Promise((resolve)=>require([
                 "vs/editor/editor.main"
-            ], ()=>{
+            ], (monaco)=>{
+                modules.monaco = monaco;
                 resolve(true);
             })
         );
     } else {
-        editor.onDidChangeModelContent(()=>onChange(editor.getValue())
-        );
-        editor.setValue(code);
-        return editor;
+        return modules;
     }
-    editor = window.monaco.editor.create(window.document.getElementById("container"), {
+    modules.editor = modules.monaco.editor.create(window.document.getElementById("container"), {
         cursorStyle: "block",
         formatOnType: true,
         scrollbar: {
@@ -80,18 +79,17 @@ const startMonaco = async ({ onChange , code , language  })=>{
         suggest: {
         },
         codeLens: true,
-        autoSurround: "l  anguageDefined",
+        autoSurround: "languageDefined",
         trimAutoWhitespace: true,
         codeActionsOnSaveTimeout: 100,
-        model: window.monaco.editor.createModel(code, language, window.monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
+        model: modules.monaco.editor.createModel(code, language, modules.monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
         value: code,
         language: language,
         theme: "vs-dark"
     });
-    editor.onDidChangeModelContent(()=>onChange(editor.getValue())
+    modules.editor.onDidChangeModelContent(()=>onChange(modules.editor.getValue())
     );
-    editor.setValue(code);
-    window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+    modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: true,
         noSemanticValidation: true,
         noSyntaxValidation: true
@@ -129,35 +127,35 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 depend: []
             }
         ];
-        const dts = importHelper.map(({ name , url  })=>(async ()=>window.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
+        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
             )()
         );
-        window.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-            target: window.monaco.languages.typescript.ScriptTarget.ESNext,
+        modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+            target: modules.monaco.languages.typescript.ScriptTarget.ESNext,
             allowNonTsExtensions: true,
             allowUmdGlobalAccess: true,
             strict: true,
             allowJs: true,
             noEmitOnError: true,
             allowSyntheticDefaultImports: true,
-            moduleResolution: window.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
-            module: window.monaco.languages.typescript.ModuleKind.CommonJS,
+            moduleResolution: modules.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+            module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
             noEmit: true,
             typeRoots: [
                 "node_modules/@types"
             ],
-            jsx: window.monaco.languages.typescript.JsxEmit.React,
+            jsx: modules.monaco.languages.typescript.JsxEmit.React,
             jsxFactory: "React.createElement",
             jsxFragmentFactory: "React.Fragment",
             esModuleInterop: true
         });
         await Promise.all(dts);
-        window.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
             noSuggestionDiagnostics: false,
             noSemanticValidation: false,
             noSyntaxValidation: false
         });
-        return editor;
+        return modules;
     }
 };
 function loadScript(src) {
@@ -165,13 +163,13 @@ function loadScript(src) {
         var s;
         s = window.document.createElement("script");
         s.src = src;
-        s.onload = resolve;
+        s.onload = ()=>resolve(window)
+        ;
         s.onerror = reject;
         window.document.head.appendChild(s);
     });
 }
 const DIFFDELETE = -1;
-const DIFFEQUAL = 0;
 function diffMain({ text1 , text2 , cursorPos  }) {
     if (text1 === text2) {
         if (text1) {
@@ -604,7 +602,7 @@ function diffCleanupMerge(Diffs) {
                         pointer = pointer - n + 2;
                     }
                 }
-                if (pointer !== 0 && diffs[pointer - 1][0] === DIFFEQUAL) {
+                if (pointer !== 0 && diffs[pointer - 1][0] === 0) {
                     diffs[pointer - 1][1] += diffs[pointer][1];
                     diffs.splice(pointer, 1);
                 } else {
@@ -623,7 +621,7 @@ function diffCleanupMerge(Diffs) {
     let changes = false;
     pointer = 1;
     while(pointer < diffs.length - 1){
-        if (diffs[pointer - 1][0] === 0 && diffs[pointer + 1][0] === DIFFEQUAL) {
+        if (diffs[pointer - 1][0] === 0 && diffs[pointer + 1][0] === 0) {
             if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
                 diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
                 diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
@@ -778,13 +776,13 @@ diff.INSERT = 1;
 diff.DELETE = DIFFDELETE;
 diff.EQUAL = 0;
 const document = window.document;
-let editor1;
 let busy = 0;
 let keystrokeTillNoError = 0;
 let latestCode = "";
 let errorReported = "";
 let latestGoodCode = "";
 async function run() {
+    await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
     await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
@@ -809,16 +807,99 @@ async function run() {
             aceEditor.session.setMode("ace/mode/typescript");
             aceEditor.setValue(example);
         }
-        editor1 = await startMonaco({
+        const modules1 = await startMonaco({
             language: "typescript",
             code: example,
-            onChange: (code)=>onChange(code)
+            onChange
         });
         aceEditor && aceEditor.session.on("change", function() {
             const value = aceEditor.getValue();
-            editor1.setValue(value);
+            modules1.editor.setValue(value);
             onChange(value);
         });
+        function onChange(code) {
+            latestCode = code;
+            if (!busy) {
+                runner(latestCode);
+            } else {
+                const myCode = code;
+                const cl = setInterval(()=>{
+                    if (code !== latestCode || !busy) {
+                        clearInterval(cl);
+                    }
+                    if (!busy) {
+                        runner(latestCode);
+                    }
+                }, 100);
+            }
+        }
+        async function getErrors() {
+            const modelUri = modules1.monaco.Uri.parse("file:///main.tsx");
+            const tsWorker = await modules1.monaco.languages.typescript.getTypeScriptWorker();
+            const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
+            const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
+            const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
+            return [
+                ...diag,
+                ...comp,
+                ...syntax
+            ];
+        }
+        async function runner(cd) {
+            if (busy === 1) {
+                return;
+            }
+            try {
+                busy = 1;
+                const err = await getErrors();
+                const errorDiv = document.getElementById("error");
+                busy = 0;
+                if (cd !== latestCode) {
+                    return;
+                }
+                if (err && err.length) {
+                    if (latestCode != cd) {
+                        return;
+                    }
+                    if (errorReported === cd) {
+                        return;
+                    }
+                    document.getElementById("root").classList.add("transparent");
+                    const slices = diff(latestGoodCode1, cd, 0);
+                    console.log(slices);
+                    if (slices.length <= 3) {
+                        modules1.monaco.editor.setTheme("hc-black");
+                        return;
+                    }
+                    errorDiv.innerHTML = err[0].messageText.toString();
+                    document.getElementById("root").style.setProperty("dispay", "none");
+                    errorDiv.style.display = "block";
+                    errorReported = cd;
+                    modules1.monaco.editor.setTheme("vs-light");
+                    setTimeout(()=>{
+                        modules1.monaco.editor.setTheme("hc-black");
+                    }, keystrokeTillNoError++);
+                    return;
+                }
+                latestGoodCode1 = cd;
+                errorDiv.style.display = "none";
+                modules1.monaco.editor.setTheme("vs-dark");
+                document.getElementById("root").classList.remove("transparent");
+                keystrokeTillNoError = 0;
+                busy = 0;
+                restartCode(transpileCode(cd));
+            } catch (err) {
+                busy = 0;
+                if (cd !== latestCode) {
+                    return;
+                }
+                modules1.monaco.editor.setTheme("vs-light");
+                setTimeout(()=>{
+                    modules1.monaco.editor.setTheme("hc-black");
+                }, 10);
+                console.error(err);
+            }
+        }
     })();
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
@@ -858,22 +939,6 @@ function getCodeToLoad() {
     const h = search.get("h");
     return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
-function onChange(code) {
-    latestCode = code;
-    if (!busy) {
-        runner(latestCode);
-    } else {
-        const myCode = code;
-        const cl = setInterval(()=>{
-            if (code !== latestCode || !busy) {
-                clearInterval(cl);
-            }
-            if (!busy) {
-                runner(latestCode);
-            }
-        }, 100);
-    }
-}
 function transpileCode(code) {
     return window.Babel.transform(code, {
         plugins: [],
@@ -888,70 +953,6 @@ function transpileCode(code) {
             ], 
         ]
     }).code.replace(/import/gi, "///");
-}
-async function getErrors() {
-    const modelUri = window.monaco.Uri.parse("file:///main.tsx");
-    const tsWorker = await window.monaco.languages.typescript.getTypeScriptWorker();
-    const tsCheck = await tsWorker(modelUri);
-    const syntax = await tsCheck.getSyntacticDiagnostics("file:///main.tsx");
-    return [
-        ...syntax, 
-    ];
-}
-async function runner(cd) {
-    if (busy === 1) {
-        return;
-    }
-    try {
-        busy = 1;
-        const err = await getErrors();
-        const errorDiv = document.getElementById("error");
-        busy = 0;
-        if (cd !== latestCode) {
-            return;
-        }
-        if (err && err.length) {
-            if (latestCode != cd) {
-                return;
-            }
-            if (errorReported === cd) {
-                return;
-            }
-            document.getElementById("root").classList.add("transparent");
-            const slices = diff(latestGoodCode, cd, 0);
-            console.log(slices);
-            if (slices.length <= 3) {
-                editor1.setTheme("hc-black");
-                return;
-            }
-            errorDiv.innerHTML = err[0].messageText.toString();
-            document.getElementById("root").style.setProperty("dispay", "none");
-            errorDiv.style.display = "block";
-            errorReported = cd;
-            editor1.setTheme("vs-light");
-            setTimeout(()=>{
-                editor1.setTheme("hc-black");
-            }, keystrokeTillNoError++);
-            return;
-        }
-        latestGoodCode = cd;
-        errorDiv.style.display = "none";
-        editor1.setTheme("vs-dark");
-        document.getElementById("root").classList.remove("transparent");
-        keystrokeTillNoError = 0;
-        busy = 0;
-        restartCode(transpileCode(cd));
-    } catch (err) {
-        busy = 0;
-        if (cd !== latestCode) {
-            return;
-        }
-        editor1.setTheme("vs-light");
-        setTimeout(()=>{
-            editor1.setTheme("hc-black");
-        }, 10);
-        console.error(err);
-    }
 }
 run();
 
