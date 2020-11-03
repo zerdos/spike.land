@@ -1,5 +1,5 @@
 
-/// '<reference types="https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts" >
+import type AMDLoader from "https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts"
 import type * as monaco from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts" 
 
 interface ISmartMonacoEditor{
@@ -13,7 +13,8 @@ interface StartMonaco {
   language: "html" | "javascript" | "typescript";
 }
 let modules = {
-}
+
+} as unknown as ISmartMonacoEditor;
 
 export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = async (
   { onChange, code, language }
@@ -23,7 +24,7 @@ export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = as
   if (window["monaco"] === undefined) {
 
     const vsPath ="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
-    const {require} = await loadScript(`${vsPath}/loader.min.js`) as {require: require};
+    const {require} = await loadScript(`${vsPath}/loader.min.js`) as AMDLoader;
   
     require.config({ paths: { "vs": vsPath } });
     await new Promise(resolve => require(["vs/editor/editor.main"], (monaco)=>{
@@ -36,7 +37,7 @@ export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = as
 
       // editor.onDidChangeModelContent(() => onChange(editor.getValue()));
       // editor.setValue(code);
-     return modules as ISmartMonacoEditor;
+     return modules as unknown as ISmartMonacoEditor;
   }
 
 
