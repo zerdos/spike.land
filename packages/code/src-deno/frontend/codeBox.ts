@@ -1,14 +1,8 @@
-/// <reference types="https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts" >
-/// <reference types="https://unpkg.com/monaco-editor@0.21.2/esm/vs/editor/editor.d.ts" >
-
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts";
 
 import { makeDraggable } from "./interact.ts";
-import {
-  ISmartMonacoEditor,
-  startMonaco,
-} from "../../../smart-monaco-editor/src/editor.ts";
+import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.ts";
 
 import { diff } from "./diff.ts";
@@ -25,9 +19,6 @@ const searchRegExp = /import/gi;
 const replaceWith = "///";
 
 async function run() {
-  await importScript(
-    "https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js",
-  );
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.4/babel.min.js",
   );
@@ -121,6 +112,7 @@ async function run() {
       );
       const comp = await (await tsWorker(modelUri))
         .getCompilerOptionsDiagnostics("file:///main.tsx");
+
       const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
         "file:///main.tsx",
       );

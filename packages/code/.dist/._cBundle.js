@@ -31,10 +31,10 @@ function dragMoveListener(event) {
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
 }
-const modules = {
+let modules = {
 };
 const startMonaco = async ({ onChange , code , language  })=>{
-    if (modules["monaco"] === undefined) {
+    if (window["monaco"] === undefined) {
         const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
         const { require  } = await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
         require.config({
@@ -46,7 +46,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 "vs/editor/editor.main"
             ], (monaco)=>{
                 modules.monaco = monaco;
-                resolve(true);
+                resolve(monaco);
             })
         );
     } else {
@@ -70,7 +70,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
         mouseWheelZoom: false,
         wordWrapColumn: 70,
         automaticLayout: true,
-        scrollBeyondLastLine: false,
+        scrollBeyondLastLine: true,
         autoIndent: "brackets",
         autoClosingQuotes: "always",
         lineNumbers: "off",
@@ -782,7 +782,6 @@ let latestCode = "";
 let errorReported = "";
 let latestGoodCode = "";
 async function run() {
-    await importScript("https://cdnjs.cloudflare.com/ajax/libs/core-js/3.6.5/minified.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
     await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");

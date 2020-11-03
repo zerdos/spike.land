@@ -1,26 +1,26 @@
 
-/// <reference types="https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts" >
-/// <reference types="https://unpkg.com/monaco-editor@0.21.2/esm/vs/editor/editor.d.ts" >
+/// '<reference types="https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts" >
+import type * as monaco from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts" 
 
-const modules: ISmartMonacoEditor= {
-
-};
-
-export interface ISmartMonacoEditor{
+interface ISmartMonacoEditor{
     monaco: monaco,
     editor: monaco.editor.IStandaloneCodeEditor
 }
+
 interface StartMonaco {
   onChange: (code: string) => void;
   code: string;
   language: "html" | "javascript" | "typescript";
 }
+let modules = {
+}
 
 export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = async (
   { onChange, code, language }
 ) =>  {
-
-  if (modules["monaco"] === undefined) {
+  
+  
+  if (window["monaco"] === undefined) {
 
     const vsPath ="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
     const {require} = await loadScript(`${vsPath}/loader.min.js`) as {require: require};
@@ -29,14 +29,14 @@ export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = as
     await new Promise(resolve => require(["vs/editor/editor.main"], (monaco)=>{
       
       modules.monaco = monaco;
-      resolve(true);
+      resolve(monaco);
 
     }));  }
     else {
 
       // editor.onDidChangeModelContent(() => onChange(editor.getValue()));
       // editor.setValue(code);
-     return modules;
+     return modules as ISmartMonacoEditor;
   }
 
 
@@ -51,7 +51,6 @@ export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = as
         verticalHasArrows: true,
         verticalScrollbarSize: 20,
       },
-
       minimap: {
         enabled: false,
       },
@@ -64,7 +63,7 @@ export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = as
 
       //       glyphMargin: true,
       automaticLayout: true,
-      scrollBeyondLastLine: false,
+      scrollBeyondLastLine: true,
       autoIndent: "brackets",
       autoClosingQuotes: "always",
       lineNumbers: "off",
@@ -160,7 +159,7 @@ export const startMonaco:(props: StartMonaco)=>Promise<ISmartMonacoEditor>  = as
         noSemanticValidation: false,
         noSyntaxValidation: false,
       });
-    return modules;
+    return modules as ISmartMonacoEditor
   }  
 } 
 
