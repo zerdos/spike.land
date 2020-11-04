@@ -29,8 +29,6 @@
     "homepage": "https://github.com/zed-vision/monorepo/tree/master/packages/smart-monaco-editor",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "@types/react": "16.9.55",
-        "@types/webpack-env": "1.15.3",
         "capture-website": "1.2.4",
         "monaco-editor": "0.21.2",
         "typescript": "4.0.5"
