@@ -816,6 +816,7 @@ async function run() {
             onChange(value);
         });
         function onChange(code) {
+            if (!modules1) return;
             latestCode = code;
             if (!busy) {
                 runner(latestCode);
@@ -832,6 +833,7 @@ async function run() {
             }
         }
         async function getErrors() {
+            if (!modules1 || !modules1.monaco) return;
             const modelUri = modules1.monaco.Uri.parse("file:///main.tsx");
             const tsWorker = await modules1.monaco.languages.typescript.getTypeScriptWorker();
             const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");

@@ -79,6 +79,7 @@ async function run() {
     });
 
     function onChange(code: string) {
+      if (!modules) return;
       latestCode = code;
 
       if (!busy) {
@@ -98,6 +99,8 @@ async function run() {
     }
 
     async function getErrors() {
+      if (!modules || !modules.monaco) return;
+
       const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
 
       //const model = window["monaco"].editor.getModel(modelUri);
