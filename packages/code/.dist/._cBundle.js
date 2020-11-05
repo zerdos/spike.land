@@ -782,7 +782,7 @@ let latestCode = "";
 let errorReported = "";
 let latestGoodCode = "";
 async function run() {
-    await importScript("https://unpkg.com/@babel/standalone@7.12.4/babel.min.js");
+    await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
     await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
     await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");

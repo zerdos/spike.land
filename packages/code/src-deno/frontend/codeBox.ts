@@ -20,7 +20,7 @@ const replaceWith = "///";
 
 async function run() {
   await importScript(
-    "https://unpkg.com/@babel/standalone@7.12.4/babel.min.js",
+    "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
   await importScript(
     "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
