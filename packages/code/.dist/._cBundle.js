@@ -776,10 +776,12 @@ diff.INSERT = 1;
 diff.DELETE = DIFFDELETE;
 diff.EQUAL = 0;
 const document = window.document;
+let firstLoad = true;
 let busy = 0;
 let keystrokeTillNoError = 0;
 let latestCode = "";
 let errorReported = "";
+let latestSavedCode = "";
 let latestGoodCode = "";
 async function run() {
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
@@ -903,56 +905,67 @@ async function run() {
     })();
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
-}
-async function restartCode(transpileCode) {
-    const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
-    const body = {
-        codeTranspiled: transpileCode,
-        code: latestGoodCode
-    };
-    const stringBody = JSON.stringify(body);
-    const request = new Request("https://code.zed.vision", {
-        body: stringBody,
-        method: "POST",
-        headers: {
-            "content-type": "application/json;charset=UTF-8"
-        }
-    });
-    const response = await fetch(request);
-    const { hash  } = await response.json();
-    try {
-        const localStorage = window.localStorage;
-        const prevHash = localStorage.getItem("codeBoXHash");
-        if (prevHash !== hash) {
-            localStorage.setItem("codeBoXHash", hash);
-            localStorage.setItem(hash, latestGoodCode);
-            window.history.pushState({
-            }, "", "/?h=" + hash);
-        }
-    } catch (e) {
-        console.log("no localStorage");
-    }
-    restart();
-}
-function getCodeToLoad() {
-    const search = new URLSearchParams(window.location.search);
-    const h = search.get("h") || localStorage.getItem("codeBoXHash");
-    return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
-}
-function transpileCode(code) {
-    return window.Babel.transform(code, {
-        plugins: [],
-        presets: [
-            "react",
-            [
-                "typescript",
-                {
-                    isTSX: true,
-                    allExtensions: true
+    async function restartCode(transpileCode) {
+        const restart = new Function("transpileCode", `return function(){ ${transpileCode} }`)();
+        if (!firstLoad) {
+            const saveCode = async (latestCode1)=>{
+                if (latestCode1 !== latestGoodCode) return;
+                if (latestSavedCode === latestCode1) return;
+                latestSavedCode = latestCode1;
+                const body = {
+                    codeTranspiled: transpileCode,
+                    code: latestGoodCode
+                };
+                const stringBody = JSON.stringify(body);
+                const request = new Request("https://code.zed.vision", {
+                    body: stringBody,
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json;charset=UTF-8"
+                    }
+                });
+                const response = await fetch(request);
+                const { hash  } = await response.json();
+                try {
+                    const localStorage = window.localStorage;
+                    const prevHash = localStorage.getItem("codeBoXHash");
+                    if (prevHash !== hash) {
+                        localStorage.setItem("codeBoXHash", hash);
+                        localStorage.setItem(hash, latestGoodCode);
+                        window.history.pushState({
+                        }, "", "/?h=" + hash);
+                    }
+                } catch (e) {
+                    console.log("no localStorage");
                 }
-            ], 
-        ]
-    }).code.replace(/import/gi, "///");
+            };
+            const codeToSaveForSure = latestCode;
+            setTimeout(()=>saveCode(latestCode)
+            , 500);
+        }
+        firstLoad = false;
+        restart();
+    }
+    function getCodeToLoad() {
+        const search = new URLSearchParams(window.location.search);
+        const h = search.get("h") || localStorage.getItem("codeBoXHash");
+        return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+    }
+    function transpileCode(code) {
+        return window.Babel.transform(code, {
+            plugins: [],
+            presets: [
+                "react",
+                [
+                    "typescript",
+                    {
+                        isTSX: true,
+                        allExtensions: true
+                    }
+                ], 
+            ]
+        }).code.replace(/import/gi, "///");
+    }
 }
 run();
 

@@ -9,11 +9,14 @@ import { diff } from "./diff.ts";
 
 const document = (window as { document: Document }).document;
 
+let firstLoad = true;
+
 let busy = 0;
 
 let keystrokeTillNoError = 0;
 let latestCode = "";
 let errorReported = "";
+let latestSavedCode = "";
 let latestGoodCode = "";
 const searchRegExp = /import/gi;
 const replaceWith = "///";
@@ -197,81 +200,90 @@ async function run() {
 
     //
   })();
-
   restartCode(transpileCode(getCodeToLoad()));
 
   document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
-}
+  async function restartCode(transpileCode: string) {
+    const restart = new Function(
+      "transpileCode",
+      `return function(){ ${transpileCode} }`,
+    )();
 
-async function restartCode(transpileCode: string) {
-  const restart = new Function(
-    "transpileCode",
-    `return function(){ ${transpileCode} }`,
-  )();
+    if (!firstLoad) {
+      const saveCode = async (latestCode: string) => {
+        if (latestCode !== latestGoodCode) return;
+        if (latestSavedCode === latestCode) return;
+        latestSavedCode = latestCode;
 
-  const body = {
-    codeTranspiled: transpileCode,
-    code: latestGoodCode,
-  };
+        const body = {
+          codeTranspiled: transpileCode,
+          code: latestGoodCode,
+        };
 
-  const stringBody = JSON.stringify(body);
-  const request = new Request(
-    "https://code.zed.vision",
-    {
-      body: stringBody,
-      method: "POST",
-      headers: { "content-type": "application/json;charset=UTF-8" },
-    },
-  );
+        const stringBody = JSON.stringify(body);
+        const request = new Request(
+          "https://code.zed.vision",
+          {
+            body: stringBody,
+            method: "POST",
+            headers: { "content-type": "application/json;charset=UTF-8" },
+          },
+        );
 
-  const response = await fetch(request);
+        const response = await fetch(request);
 
-  const { hash } = await response.json();
+        const { hash } = await response.json();
 
-  try {
-    const localStorage: Storage = window.localStorage;
+        try {
+          const localStorage: Storage = window.localStorage;
 
-    const prevHash = localStorage.getItem("codeBoXHash");
+          const prevHash = localStorage.getItem("codeBoXHash");
 
-    if (prevHash !== hash) {
-      localStorage.setItem("codeBoXHash", hash);
-      localStorage.setItem(hash, latestGoodCode);
-      window.history.pushState({}, "", "/?h=" + hash);
+          if (prevHash !== hash) {
+            localStorage.setItem("codeBoXHash", hash);
+            localStorage.setItem(hash, latestGoodCode);
+            window.history.pushState({}, "", "/?h=" + hash);
+          }
+        } catch (e) {
+          console.log("no localStorage");
+        }
+      };
+
+      const codeToSaveForSure = latestCode;
+
+      setTimeout(() => saveCode(latestCode), 500);
     }
-  } catch (e) {
-    console.log("no localStorage");
+    firstLoad = false;
+    restart();
+  }
+  function getCodeToLoad() {
+    const search = new URLSearchParams(window.location.search);
+    const h = search.get("h") || localStorage.getItem("codeBoXHash");
+
+    return (h && window.localStorage.getItem(h)) ||
+      window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
   }
 
-  restart();
-}
-
-function getCodeToLoad() {
-  const search = new URLSearchParams(window.location.search);
-  const h = search.get("h") || localStorage.getItem("codeBoXHash");
-
-  return (h && window.localStorage.getItem(h)) ||
-    window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
-}
-
-function transpileCode(code: string) {
-  return (window as unknown as {
-    Babel: {
-      transform: (
-        code: string,
-        options: {
-          plugins: string[];
-          presets: (string | [string, { [key: string]: boolean }])[];
-        },
-      ) => { code: string };
-    };
-  }).Babel.transform(code, {
-    plugins: [],
-    presets: [
-      "react",
-      ["typescript", { isTSX: true, allExtensions: true }],
-    ],
-  }).code.replace(searchRegExp, replaceWith);
+  function transpileCode(code: string) {
+    return (window as unknown as {
+      Babel: {
+        transform: (
+          code: string,
+          options: {
+            plugins: string[];
+            presets: (string | [string, { [key: string]: boolean }])[];
+          },
+        ) => { code: string };
+      };
+    }).Babel.transform(code, {
+      plugins: [],
+      presets: [
+        "react",
+        ["typescript", { isTSX: true, allExtensions: true }],
+      ],
+    }).code.replace(searchRegExp, replaceWith);
+  }
 }
 
 run();
