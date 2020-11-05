@@ -34,8 +34,6 @@ async function run() {
 
   setTimeout(() => makeDraggable(), 100);
 
-  let latestGoodCode = "";
-
   (async () => {
     const example = getCodeToLoad();
     latestGoodCode = example;
@@ -247,7 +245,7 @@ async function restartCode(transpileCode: string) {
 
 function getCodeToLoad() {
   const search = new URLSearchParams(window.location.search);
-  const h = search.get("h");
+  const h = search.get("h") || localStorage.getItem("codeBoXHash");
 
   return (h && window.localStorage.getItem(h)) ||
     window.localStorage.getItem("STARTER") || `() => <>Hello</>`;

@@ -788,10 +788,9 @@ async function run() {
     await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");
     setTimeout(()=>makeDraggable()
     , 100);
-    let latestGoodCode1 = "";
     (async ()=>{
         const example = getCodeToLoad();
-        latestGoodCode1 = example;
+        latestGoodCode = example;
         let aceEditor;
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
             await Promise.all([
@@ -864,7 +863,7 @@ async function run() {
                         return;
                     }
                     document.getElementById("root").classList.add("transparent");
-                    const slices = diff(latestGoodCode1, cd, 0);
+                    const slices = diff(latestGoodCode, cd, 0);
                     console.log(slices);
                     if (slices.length <= 3) {
                         modules1.monaco.editor.setTheme("hc-black");
@@ -880,7 +879,7 @@ async function run() {
                     }, keystrokeTillNoError++);
                     return;
                 }
-                latestGoodCode1 = cd;
+                latestGoodCode = cd;
                 errorDiv.style.display = "none";
                 modules1.monaco.editor.setTheme("vs-dark");
                 document.getElementById("root").classList.remove("transparent");
@@ -935,7 +934,7 @@ async function restartCode(transpileCode) {
 }
 function getCodeToLoad() {
     const search = new URLSearchParams(window.location.search);
-    const h = search.get("h");
+    const h = search.get("h") || localStorage.getItem("codeBoXHash");
     return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
 }
 function transpileCode(code) {
