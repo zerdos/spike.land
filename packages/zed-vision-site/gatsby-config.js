@@ -46,17 +46,17 @@ module.exports = {
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,
         display: `standalone`,
-        cache_busting_mode: `none`
+        cache_busting_mode: `none`,
       },
     },
     {
       resolve: `gatsby-plugin-emotion`,
       options: {
         sourceMap: true,
-        autoLabel: process.env.NODE_ENV !== 'production',
+        autoLabel: process.env.NODE_ENV !== "production",
         labelFormat: `[local]`,
-        cssPropOptimization: true
+        cssPropOptimization: true,
       },
-    }
-   ]
+    },
+  ],
 };

@@ -61,10 +61,9 @@ export function CandidateMap({ focusRegion, regionData, totalData }) {
     focusRegion(region);
   }
 
-  const focusedRegionData =
-    focusedRegion !== null && regionData[focusedRegion].candidates;
-  const winner =
-    focusedRegionData &&
+  const focusedRegionData = focusedRegion !== null &&
+    regionData[focusedRegion].candidates;
+  const winner = focusedRegionData &&
     totalData[focusedRegionData.indexOf(Math.max(...focusedRegionData))];
 
   return (

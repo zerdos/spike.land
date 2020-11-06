@@ -1,1 +1,0 @@
-deno run --allow-net --allow-read --allow-run --allow-env  --unstable --importmap=importMap.json  use_serve_tsx.tsx 

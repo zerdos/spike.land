@@ -65,9 +65,9 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
   // if (getConfig().mode === "production") {
-    actions.replaceWebpackConfig({
-      ...getConfig(),
-      devtool: false,
-    });
+  actions.replaceWebpackConfig({
+    ...getConfig(),
+    devtool: false,
+  });
   // de}
 };
