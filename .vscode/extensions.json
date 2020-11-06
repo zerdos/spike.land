@@ -9,6 +9,5 @@
       "jpoissonnier.vscode-styled-components",
     ],
     "unwantedRecommendations": [
-      "dbaeumer.vscode-eslint"
     ]
   }      

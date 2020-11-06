@@ -1,0 +1,9 @@
+{
+    "name": "@zed-vision/electron",
+    "version": "1.0.0",
+    "private": "false",
+    "license": "MIT",
+    "dependencies": {
+        "electron": "beta"
+    }
+  }

@@ -1,0 +1,10 @@
+name = "my-static-site"
+type = "webpack"
+account_id = "1f98921051196545ebe79a450d3c71ed"
+workers_dev = false
+route = "zed.vision/*"
+zone_id = "zed.vision"
+
+[site]
+bucket = "./public"
+entry-point = "workers-site"
