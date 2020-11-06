@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Interactive Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./dist/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div style="position: relative;">
+      <div style="display: inline-block; opacity:1;" src="dist/mainShadow.js" id="upgrade-me"></div>
+      <div style="display: inline-block; opacity:0.3;" src="dist/main.js" id="upgrade-me-too"></div>
+      </div>
+<hr/>
+<!-- <div style="display: inline-block; opacity: 0.5;" src="dist/main2.js" id="upgrade-me-shadow"></div> -->
+<!-- <div style="display: inline-block; opacity: 0.5;" src="dist/main2Old.js" id="upgrade-me-too-shadow"></div> -->
+
+  <script type="module">
+    import { upgradeElement } from 'https://cdn.jsdelivr.net/npm/@ampproject/worker-dom/dist/main.mjs';
+    upgradeElement(document.getElementById('upgrade-me'), 'https://cdn.jsdelivr.net/npm/@ampproject/worker-dom/dist/worker/worker.mjs');
+    upgradeElement(document.getElementById('upgrade-me-too'), 'https://cdn.jsdelivr.net/npm/@ampproject/worker-dom/dist/worker/worker.mjs');
+    // upgradeElement(document.getElementById('upgrade-me-shadow'), 'https://cdn.jsdelivr.net/npm/@ampproject/worker-dom/dist/worker/worker.mjs');
+    // upgradeElement(document.getElementById('upgrade-me-too-shadow'), 'https://cdn.jsdelivr.net/npm/@ampproject/worker-dom/dist/worker/worker.mjs');
+    
+  </script>
+</body>
+
+</html>
