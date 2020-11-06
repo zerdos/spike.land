@@ -1,15 +1,15 @@
 {
+  // This is based on https://deno.land/manual/getting_started/typescript#custom-typescript-compiler-options
+  // then the defaults are removed.
+ 
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Deno",
+ 
   "compilerOptions": {
-    "target": "es2018",
-    "lib": ["es2018", "DOM"],
+    "jsx": "react",
+    "lib": [],
     "resolveJsonModule": true,
-    "module": "commonjs",
-    "declaration": true,
-    "sourceMap": true,
-    "outDir": "./lib",
-    "strict": true,
-    "types": ["node"]
-  },
-  "include": ["src"],
-  "exclude": ["./lib", "node_modules", "**/__tests__/*"]
+    "strict": true
+  }
 }
+ 

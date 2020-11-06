@@ -11,7 +11,7 @@ interface StartMonaco {
   code: string;
   language: "html" | "javascript" | "typescript";
 }
-let modules = {} as unknown as ISmartMonacoEditor;
+const modules = {} as unknown as ISmartMonacoEditor;
 
 export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
   async (

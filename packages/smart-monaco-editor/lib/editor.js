@@ -1,4 +1,4 @@
-let modules = {
+const modules = {
 };
 export const startMonaco = async ({ onChange , code , language  })=>{
     if (window["monaco"] === undefined) {

@@ -31,7 +31,7 @@ function dragMoveListener(event) {
     target.setAttribute("data-x", x);
     target.setAttribute("data-y", y);
 }
-let modules = {
+const modules = {
 };
 const startMonaco = async ({ onChange , code , language  })=>{
     if (window["monaco"] === undefined) {
