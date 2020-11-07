@@ -3,7 +3,7 @@
   "scripts": {
     "deploy": " git pull && yarn build && git add . && git commit -m deploy && git push",
     "postinstall": "gatsby telemetry --disable",
-    "build": "yarn clean && deno fmt src && yarn install --check && gatsby build --no-uglify && rm -rf ../..docs && mv public ../..docs",
+    "build": "yarn clean && deno fmt src && yarn install --check && gatsby build --no-uglify && rm -rf ../../docs && mv public ../../docs",
     "start-https": "GATSBY_HOT_LOADER=fast-refresh yarn generate-certs && yarn gatsby develop --host 0.0.0.0 --https --cert-file .certs/localhost.cert --key-file .certs/localhost.key",
     "start": "gatsby develop",
     "serve": "gatsby serve",
