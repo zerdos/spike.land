@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/@zedvision/smart-monaco-editor-example/build/static/css/main.fc51c1b2.chunk.css",
-    "main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/main.22694a7c.chunk.js",
-    "main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/main.22694a7c.chunk.js.map",
+    "main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/main.ae0e58b2.chunk.js",
+    "main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/main.ae0e58b2.chunk.js.map",
     "runtime-main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/runtime-main.cc96c034.js",
     "runtime-main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/runtime-main.cc96c034.js.map",
     "static/js/2.03da0131.chunk.js": "/@zedvision/smart-monaco-editor-example/build/static/js/2.03da0131.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.cc96c034.js",
     "static/js/2.03da0131.chunk.js",
     "static/css/main.fc51c1b2.chunk.css",
-    "static/js/main.22694a7c.chunk.js"
+    "static/js/main.ae0e58b2.chunk.js"
   ]
 }
