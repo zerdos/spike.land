@@ -1,6 +1,6 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[1],{
 
-/***/ 114:
+/***/ 147:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var t = Object.getOwnPropertySymbols,
@@ -1631,11 +1631,11 @@ module.exports = function (t) {
     }
   });
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(21)))
 
 /***/ }),
 
-/***/ 115:
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1659,11 +1659,11 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
-var _grayPercentage = __webpack_require__(116);
+var _grayPercentage = __webpack_require__(149);
 
 var _grayPercentage2 = _interopRequireDefault(_grayPercentage);
 
-var _typographyBreakpointConstants = __webpack_require__(117);
+var _typographyBreakpointConstants = __webpack_require__(150);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -1771,7 +1771,7 @@ exports.default = theme;
 
 /***/ }),
 
-/***/ 116:
+/***/ 149:
 /***/ (function(module, exports) {
 
 function isNumeric(n) {
@@ -1836,7 +1836,7 @@ module.exports = function (lightness, hue, darkBackground) {
 
 /***/ }),
 
-/***/ 117:
+/***/ 150:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1863,15 +1863,15 @@ var MIN_MOBILE_MEDIA_QUERY = exports.MIN_MOBILE_MEDIA_QUERY = "@media (min-width
 
 /***/ }),
 
-/***/ 15:
+/***/ 17:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SEO; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(32);
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
+/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
 /* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1);
 
 
@@ -1933,7 +1933,7 @@ var SEO = function SEO(_ref) {
 
 /***/ }),
 
-/***/ 18:
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1942,16 +1942,16 @@ var SEO = function SEO(_ref) {
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ layout_Layout; });
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
-var styled_base_browser_esm = __webpack_require__(2);
+var styled_base_browser_esm = __webpack_require__(3);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react-helmet/es/Helmet.js
-var Helmet = __webpack_require__(32);
+var Helmet = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(22);
+var typography = __webpack_require__(26);
 
 // CONCATENATED MODULE: ./src/components/utils/fonts.ts
 // @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,500&display=swap');
@@ -1982,15 +1982,15 @@ var layout_Layout = function Layout(_ref) {
 
 /***/ }),
 
-/***/ 22:
+/***/ 26:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return rhythm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return scale; });
-/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(114);
+/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(147);
 /* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typography__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(115);
+/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(148);
 /* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__);
 
 

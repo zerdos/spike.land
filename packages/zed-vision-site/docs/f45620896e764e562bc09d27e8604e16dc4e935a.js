@@ -1,16 +1,16 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[5],{
 
-/***/ 41:
+/***/ 46:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return transform; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
-/* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
 
 
 
@@ -148,19 +148,19 @@ var transform = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 43:
+/***/ 48:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
-/* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(44);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+/* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(49);
 /* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8);
+/* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 
 
 
@@ -231,11 +231,11 @@ var render = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 44:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-				var addMethods = __webpack_require__(42)
+				var addMethods = __webpack_require__(47)
 				var methods = ["renderWorker"]
 				module.exports = function() {
 					var w = new Worker(__webpack_require__.p + "built-renderer.b78dcc.worker.js", { name: "built-renderer.[hash:6].worker.js" })
@@ -247,7 +247,7 @@ var render = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 82:
+/***/ 88:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -256,32 +256,32 @@ var render = /*#__PURE__*/function () {
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ CodeBox_CodeBox; });
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(5);
+var regenerator = __webpack_require__(7);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(9);
+var defineProperty = __webpack_require__(11);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
-var toConsumableArray = __webpack_require__(16);
+var toConsumableArray = __webpack_require__(18);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(4);
+var runtime = __webpack_require__(6);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(6);
+var asyncToGenerator = __webpack_require__(8);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/utils/babel.ts
-var babel = __webpack_require__(41);
+var babel = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/components/utils/renderer.ts
-var renderer = __webpack_require__(43);
+var renderer = __webpack_require__(48);
 
 // EXTERNAL MODULE: ./src/components/utils/sha.ts
-var sha = __webpack_require__(8);
+var sha = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/components/codeBox/example.ts
 
@@ -290,7 +290,7 @@ var defaultProps = {
 };
 var counterExample = "import React, { FC, useState } from \"react\";\nimport ReactDOM from \"react-dom\";\n\nconst Counter: FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst rootElement = document.createElement(\"div\");\n\nReactDOM.render(<Counter initial={0} />, rootElement);\ndocument.body.appendChild(rootElement);\n\n";
 // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
-var styled_base_browser_esm = __webpack_require__(2);
+var styled_base_browser_esm = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
 
@@ -334,7 +334,7 @@ var ResultBoxContainer = Object(styled_base_browser_esm["a" /* default */])("div
   styles: "display:block;width:150px;height:150px;overflow:hidden;"
 } : undefined);
 // EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
-var framer_motion_es = __webpack_require__(45);
+var framer_motion_es = __webpack_require__(50);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
 var core_browser_esm = __webpack_require__(1);
