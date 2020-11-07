@@ -10,7 +10,6 @@
     "tutorials/*"
   ],
   "scripts": {
-    "format": "yarn prettier . --write",
     "docker": "docker build --build-arg USER=$USER -f packages/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev ",
     "release": "git pull && lerna publish && git push",

@@ -20,9 +20,6 @@ wrangler generate my-ts-project https://github.com/EverlastingBugstopper/worker-
 
 This template comes with mocha tests which simply test that the request handler can handle each request method. `npm test` will run your tests.
 
-### ✏️ Formatting
-
-This template uses [`prettier`](https://prettier.io/) to format the project. To invoke, run `npm run format`.
 
 ### 👀 Previewing and Publishing
 
