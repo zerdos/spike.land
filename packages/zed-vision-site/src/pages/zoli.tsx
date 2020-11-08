@@ -181,7 +181,7 @@ export default function Page() {
       if (!monaco) {
         monaco = true;
         const { startMonaco } = await (await Function(
-          "return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.4.4/lib/editor.js')",
+          "return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.5.1/lib/editor.js')",
         ))();
 
         startMonaco(
