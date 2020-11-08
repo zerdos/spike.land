@@ -207,7 +207,9 @@ async function run() {
   async function restartCode(transpileCode: string) {
     const restart = new Function(
       "transpileCode",
-      `return function(){ ${transpileCode} }`,
+      `return function(){ 
+        ${transpileCode} 
+    }`,
     )();
 
     if (!firstLoad) {
