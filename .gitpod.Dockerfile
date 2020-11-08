@@ -1,6 +1,6 @@
 
 ARG USER=developer
-ARG DEVCONTAINER=devimages/groovy-devcontainer
+ARG DEVCONTAINER=devimages/groovy-devcontainer:latest
 FROM ${DEVCONTAINER}
 
 WORKDIR /workspace/monorepo
