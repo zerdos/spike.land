@@ -10,12 +10,13 @@
     "tutorials/*"
   ],
   "scripts": {
-    "release": "yarn check --integrity --verify-tree && yarn lerna run build --parallel --since main && git add . && git commit -m pre-release && git push &&  git pull && lerna publish && git push && git add . && git commit -m after-release && git push && yarn xbuild && yarn docker:build && yarn docker:push",
+    "release": "yarn check --integrity --verify-tree && yarn build && git add . && git commit -m pre-release && git push &&  git pull && lerna publish && git push && yarn build && git add . && git commit -m after-release && git push && yarn docker:push",
+    "build": "yarn lerna run build --parallel --since main",
     "docker:push": "yarn lerna run docker:push --parallel"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lerna run build --since main"
+      "pre-commit": "yarn lerna run build --parallel --since main"
     }
   },
   "devDependencies": {
