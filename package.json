@@ -10,18 +10,12 @@
     "tutorials/*"
   ],
   "scripts": {
-    "docker": "docker build --build-arg USER=$USER -f packages/focal-devcontainer/Dockerfile . -t focal-local",
-    "dev": "yarn wsrun -a dev ",
     "release": "yarn check --integrity --verify-tree && yarn lerna run build --parallel --since main && git add . && git commit -m pre-release && git push &&  git pull && lerna publish && git push && git add . && git commit -m after-release && git push && yarn xbuild && yarn docker:build && yarn docker:push",
-    "xbuild": "(yarn xxx build || echo fail) && yarn xxx generate:dockerfile",
-    "test": "yarn xxx tests",
-    "docker:build": "yarn xxx docker:build",
-    "docker:push": "yarn xxx docker:push",
-    "xxx": "yarn wsrun --parallel --exclude-missing -c"
+    "docker:push": "yarn lerna run docker:push --parallel"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lerna run build --since"
+      "pre-commit": "yarn lerna run build --since main"
     }
   },
   "devDependencies": {
@@ -29,12 +23,6 @@
     "@types/react-dom": "16.9.9",
     "husky": "4.3.0",
     "lerna": "3.22.1",
-    "npm-run-all": "4.1.5",
-    "serve": "11.3.2",
-    "typescript": "4.0.5",
-    "wsrun": "5.2.4"
-  },
-  "dependencies": {
-    "https-localhost": "4.6.3"
+    "typescript": "4.0.5"
   }
 }
