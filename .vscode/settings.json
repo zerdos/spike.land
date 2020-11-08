@@ -1,5 +1,5 @@
 {
-  "files.autoSave": "onFocusChange",
+    
   "deno.enable": true,
   "deno.import_intellisense_autodiscovery": true,
   "deno.unstable": false,
@@ -12,5 +12,6 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "denoland.vscode-deno",
-  }
+  },
+  "editor.autoSave": "on"
 }

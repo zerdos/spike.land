@@ -7,3 +7,6 @@ github:
     addComment: true
     addBadge: true
     addLabel: prebuilt-in-gitpod
+vscode:
+  extensions:
+    - denoland.vscode-deno@2.3.3:aFOFUSjDJT7KDqulGrZ5zA==
