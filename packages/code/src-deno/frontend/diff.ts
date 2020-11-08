@@ -1,6 +1,6 @@
-const DIFFDELETE = -1 as DiffType;
-const DIFFINSERT = 1 as DiffType;
-const DIFFEQUAL = 0 as DiffType;
+const DIFF_DELETE = -1 as DiffType;
+const DIFF_INSERT = 1 as DiffType;
+const DIFF_EQUAL = 0 as DiffType;
 
 type DiffType = -1 | 0 | 1;
 
@@ -22,7 +22,7 @@ function diffMain(
   // Check for equality
   if (text1 === text2) {
     if (text1) {
-      return [[DIFFEQUAL, text1]];
+      return [[DIFF_EQUAL, text1]];
     }
     return [];
   }
@@ -51,32 +51,26 @@ function diffMain(
 
   // Restore the prefix and suffix.
   if (commonprefix) {
-    diffs.unshift([DIFFEQUAL, commonprefix]);
+    diffs.unshift([DIFF_EQUAL, commonprefix]);
   }
   if (commonsuffix) {
-    diffs.push([DIFFEQUAL, commonsuffix]);
+    diffs.push([DIFF_EQUAL, commonsuffix]);
   }
   diffCleanupMerge(diffs);
   return diffs;
-} /**
- * Find the differences between two texts.  Assumes that the texts do not
- * have any common prefix or suffix.
- * @param {string} text1 Old string to be diffed.
- * @param {string} text2 New string to be diffed.
- * @return {Array} Array of diff tuples.
- */
+}
 
 function diffCompute_(text1: string, text2: string): Diff[] {
   let diffs: Diff[];
 
   if (!text1) {
     // Just add some text (speedup).
-    return [[DIFFINSERT, text2]];
+    return [[DIFF_INSERT, text2]];
   }
 
   if (!text2) {
     // Just delete some text (speedup).
-    return [[DIFFDELETE, text1]];
+    return [[DIFF_DELETE, text1]];
   }
 
   const longtext = text1.length > text2.length ? text1 : text2;
@@ -85,13 +79,13 @@ function diffCompute_(text1: string, text2: string): Diff[] {
   if (i !== -1) {
     // Shorter text is inside the longer text (speedup).
     diffs = [
-      [DIFFINSERT, longtext.substring(0, i)],
-      [DIFFEQUAL, shorttext],
-      [DIFFINSERT, longtext.substring(i + shorttext.length)],
+      [DIFF_INSERT, longtext.substring(0, i)],
+      [DIFF_EQUAL, shorttext],
+      [DIFF_INSERT, longtext.substring(i + shorttext.length)],
     ];
     // Swap insertions for deletions if diff is reversed.
     if (text1.length > text2.length) {
-      diffs[0][0] = diffs[2][0] = DIFFDELETE;
+      diffs[0][0] = diffs[2][0] = DIFF_DELETE;
     }
     return diffs;
   }
@@ -99,27 +93,27 @@ function diffCompute_(text1: string, text2: string): Diff[] {
   if (shorttext.length === 1) {
     // Single character string.
     // After the previous speedup, the character can't be an equality.
-    return [[DIFFDELETE, text1], [DIFFINSERT, text2]];
+    return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]];
   }
 
   // Check to see if the problem can be split in two.
   const hm = diffHalfMatch_(text1, text2);
   if (hm) {
     // A half-match was found, sort out the return data.
-    const text1C = hm[0];
-    const text1B = hm[1];
-    const text2C = hm[2];
-    const text2B = hm[3];
-    const midCommon = hm[4];
+    const text1C = hm[0] || "";
+    const text1B = hm[1] || "";
+    const text2C = hm[2] || "";
+    const text2B = hm[3] || "";
+    const midCommon = hm[4] || "";
     // Send both pairs off for separate processing.
     const diffsA = diffMain(
-      { text1: text1C[1], text2: text2C[1], cursorPos: 0 },
+      { text1: text1C, text2: text2C, cursorPos: 0 },
     );
     const diffsB = diffMain(
-      { text1: text1B[1], text2: text2B[1], cursorPos: 0 },
+      { text1: text1B, text2: text2B, cursorPos: 0 },
     );
     // Merge the results.
-    return diffsA.concat([[DIFFEQUAL, midCommon[1]]], diffsB);
+    return diffsA.concat([[DIFF_EQUAL, midCommon[1]]], diffsB);
   }
 
   return diffBisect_(text1, text2);
@@ -232,16 +226,8 @@ function diffBisect_(text1: string, text2: string) {
   }
   // Diff took too long and hit the deadline or
   // number of diffs equals number of characters, no commonality at all.
-  return [[DIFFDELETE, text1], [DIFFINSERT, text2]] as Diff[];
-} /**
- * Given the location of the 'middle snake', split the diff in two parts
- * and recurse.
- * @param {string} text1 Old string to be diffed.
- * @param {string} text2 New string to be diffed.
- * @param {number} x Index of split point in text1.
- * @param {number} y Index of split point in text2.
- * @return {Array} Array of diff tuples.
- */
+  return [[DIFF_DELETE, text1], [DIFF_INSERT, text2]] as Diff[];
+}
 
 function diffBisectSplit_(text1: string, text2: string, x: number, y: number) {
   const text1a = text1.substring(0, x);
@@ -251,20 +237,14 @@ function diffBisectSplit_(text1: string, text2: string, x: number, y: number) {
 
   // Compute both diffs serially.
   const diffs = diffMain(
-    { text1: text1a[1], text2: text2a[1], cursorPos: 0 },
+    { text1: text1a, text2: text2a, cursorPos: 0 },
   );
-  const diffsb = diffMain(
-    { text1: text1b[1], text2: text2b[1], cursorPos: 0 },
+  const diffsB = diffMain(
+    { text1: text1b, text2: text2b, cursorPos: 0 },
   );
 
-  return diffs.concat(diffsb);
-} /**
- * Determine the common prefix of two strings.
- * @param {string} text1 First string.
- * @param {string} text2 Second string.
- * @return {number} The number of characters common to the start of each
- *     string.
- */
+  return diffs.concat(diffsB);
+}
 
 function diffCommonPrefix(text1: string, text2: string) {
   // Quick check for common null cases.
@@ -273,34 +253,29 @@ function diffCommonPrefix(text1: string, text2: string) {
   }
   // Binary search.
   // Performance analysis: http://neil.fraser.name/news/2007/10/09/
-  let pointermin = 0;
-  let pointermax = Math.min(text1.length, text2.length);
-  let pointermid = pointermax;
-  let pointerstart = 0;
-  while (pointermin < pointermid) {
+  let pointerMin = 0;
+  let pointerMax = Math.min(text1.length, text2.length);
+  let pointerMid = pointerMax;
+  let pointerStart = 0;
+  while (pointerMin < pointerMid) {
     if (
-      text1.substring(pointerstart, pointermid) ==
-        text2.substring(pointerstart, pointermid)
+      text1.substring(pointerStart, pointerMid) ==
+        text2.substring(pointerStart, pointerMid)
     ) {
-      pointermin = pointermid;
-      pointerstart = pointermin;
+      pointerMin = pointerMid;
+      pointerStart = pointerMin;
     } else {
-      pointermax = pointermid;
+      pointerMax = pointerMid;
     }
-    pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+    pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
   }
 
-  if (isSurrogatePairStart(text1.charCodeAt(pointermid - 1))) {
-    pointermid--;
+  if (isSurrogatePairStart(text1.charCodeAt(pointerMid - 1))) {
+    pointerMid--;
   }
 
-  return pointermid;
-} /**
- * Determine the common suffix of two strings.
- * @param {string} text1 First string.
- * @param {string} text2 Second string.
- * @return {number} The number of characters common to the end of each string.
- */
+  return pointerMid;
+}
 
 function diffCommonSuffix(text1: string, text2: string) {
   // Quick check for common null cases.
@@ -309,38 +284,29 @@ function diffCommonSuffix(text1: string, text2: string) {
   }
   // Binary search.
   // Performance analysis: http://neil.fraser.name/news/2007/10/09/
-  let pointermin = 0;
-  let pointermax = Math.min(text1.length, text2.length);
-  let pointermid = pointermax;
-  let pointerend = 0;
-  while (pointermin < pointermid) {
+  let pointerMin = 0;
+  let pointerMax = Math.min(text1.length, text2.length);
+  let pointerMid = pointerMax;
+  let pointerEnd = 0;
+  while (pointerMin < pointerMid) {
     if (
-      text1.substring(text1.length - pointermid, text1.length - pointerend) ==
-        text2.substring(text2.length - pointermid, text2.length - pointerend)
+      text1.substring(text1.length - pointerMid, text1.length - pointerEnd) ==
+        text2.substring(text2.length - pointerMid, text2.length - pointerEnd)
     ) {
-      pointermin = pointermid;
-      pointerend = pointermin;
+      pointerMin = pointerMid;
+      pointerEnd = pointerMin;
     } else {
-      pointermax = pointermid;
+      pointerMax = pointerMid;
     }
-    pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+    pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
   }
 
-  if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointermid))) {
-    pointermid--;
+  if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointerMid))) {
+    pointerMid--;
   }
 
-  return pointermid;
-} /**
- * Do the two texts share a substring which is at least half the length of the
- * longer text?
- * This speedup can produce non-minimal diffs.
- * @param {string} text1 First string.
- * @param {string} text2 Second string.
- * @return {Array.<string>} Five element Array, containing the prefix of
- *     text1, the suffix of text1, the prefix of text2, the suffix of
- *     text2 and the common middle.  Or null if there was no match.
- */
+  return pointerMid;
+}
 
 function diffHalfMatch_(text1: string, text2: string) {
   const longtext = text1.length > text2.length ? text1 : text2;
@@ -349,18 +315,6 @@ function diffHalfMatch_(text1: string, text2: string) {
     return null; // Pointless.
   }
 
-  /**
-   * Does a substring of shorttext exist within longtext such that the substring
-   * is at least half the length of longtext?
-   * Closure, but does not reference any external variables.
-   * @param {string} longtext Longer string.
-   * @param {string} shorttext Shorter string.
-   * @param {number} i Start index of quarter length substring within longtext.
-   * @return {Array.<string>} Five element Array, containing the prefix of
-   *     longtext, the suffix of longtext, the prefix of shorttext, the suffix
-   *     of shorttext and the common middle.  Or null if there was no match.
-   * @private
-   */
   function diffHalfMatchI_(longtext: string, shorttext: string, i: number) {
     // Start with a 1/4 length substring at position i as a seed.
     const seed = longtext.substring(i, i + Math.floor(longtext.length / 4));
@@ -449,7 +403,7 @@ function diffHalfMatch_(text1: string, text2: string) {
 export function diffCleanupMerge(Diffs: Diff[]): Diff[] {
   const diffs = [...Diffs];
 
-  diffs.push([DIFFEQUAL, ""]); // Add a dummy entry at the end.
+  diffs.push([DIFF_EQUAL, ""]); // Add a dummy entry at the end.
   let pointer = 0;
   let countDelete = 0;
   let countInsert = 0;
@@ -463,17 +417,17 @@ export function diffCleanupMerge(Diffs: Diff[]): Diff[] {
       continue;
     }
     switch (diffs[pointer][0]) {
-      case DIFFINSERT:
+      case DIFF_INSERT:
         countInsert++;
         textInsert += diffs[pointer][1];
         pointer++;
         break;
-      case DIFFDELETE:
+      case DIFF_DELETE:
         countDelete++;
         textDelete += diffs[pointer][1];
         pointer++;
         break;
-      case DIFFEQUAL:
+      case DIFF_EQUAL:
         previousEquality = pointer - countInsert - countDelete - 1;
 
         if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
@@ -496,7 +450,7 @@ export function diffCleanupMerge(Diffs: Diff[]): Diff[] {
                 diffs.splice(
                   0,
                   0,
-                  [DIFFEQUAL, textInsert.substring(0, commonlength)],
+                  [DIFF_EQUAL, textInsert.substring(0, commonlength)],
                 );
                 pointer++;
               }
@@ -525,22 +479,22 @@ export function diffCleanupMerge(Diffs: Diff[]): Diff[] {
             diffs.splice(pointer - n, n);
             pointer = pointer - n;
           } else if (textDelete.length === 0) {
-            diffs.splice(pointer - n, n, [DIFFINSERT, textInsert]);
+            diffs.splice(pointer - n, n, [DIFF_INSERT, textInsert]);
             pointer = pointer - n + 1;
           } else if (textInsert.length === 0) {
-            diffs.splice(pointer - n, n, [DIFFDELETE, textDelete]);
+            diffs.splice(pointer - n, n, [DIFF_DELETE, textDelete]);
             pointer = pointer - n + 1;
           } else {
             diffs.splice(
               pointer - n,
               n,
-              [DIFFDELETE, textDelete],
-              [DIFFINSERT, textInsert],
+              [DIFF_DELETE, textDelete],
+              [DIFF_INSERT, textInsert],
             );
             pointer = pointer - n + 2;
           }
         }
-        if (pointer !== 0 && diffs[pointer - 1][0] === DIFFEQUAL) {
+        if (pointer !== 0 && diffs[pointer - 1][0] === DIFF_EQUAL) {
           // Merge this equality with the previous one.
           diffs[pointer - 1][1] += diffs[pointer][1];
           diffs.splice(pointer, 1);
@@ -566,8 +520,8 @@ export function diffCleanupMerge(Diffs: Diff[]): Diff[] {
   // Intentionally ignore the first and last element (don't need checking).
   while (pointer < diffs.length - 1) {
     if (
-      diffs[pointer - 1][0] === DIFFEQUAL &&
-      diffs[pointer + 1][0] === DIFFEQUAL
+      diffs[pointer - 1][0] === DIFF_EQUAL &&
+      diffs[pointer + 1][0] === DIFF_EQUAL
     ) {
       // This is a single edit surrounded by equalities.
       if (
@@ -646,10 +600,10 @@ function makeEditSplice(
     return null;
   }
   return removeEmptyTuples([
-    [DIFFEQUAL, before],
-    [DIFFDELETE, oldMiddle],
-    [DIFFINSERT, newMiddle],
-    [DIFFEQUAL, after],
+    [DIFF_EQUAL, before],
+    [DIFF_DELETE, oldMiddle],
+    [DIFF_INSERT, newMiddle],
+    [DIFF_EQUAL, after],
   ]);
 }
 
@@ -751,6 +705,6 @@ export function diff(text1: string, text2: string, cursorPos: number): Diff[] {
   return diffMain({ text1, text2, cursorPos });
 }
 
-diff.INSERT = DIFFINSERT;
-diff.DELETE = DIFFDELETE;
-diff.EQUAL = DIFFEQUAL;
+diff.INSERT = DIFF_INSERT;
+diff.DELETE = DIFF_DELETE;
+diff.EQUAL = DIFF_EQUAL;
