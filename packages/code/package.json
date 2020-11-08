@@ -47,6 +47,6 @@
         "access": "public"
     },
     "dependencies": {
-        "ts-loader": "^8.0.9"
+        "ts-loader": "^8.0.10"
     }
 }
