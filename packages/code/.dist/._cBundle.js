@@ -169,7 +169,7 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
-const DIFFDELETE = -1;
+const DIFF_DELETE = -1;
 function diffMain({ text1 , text2 , cursorPos  }) {
     if (text1 === text2) {
         if (text1) {
@@ -225,7 +225,7 @@ function diffCompute_(text1, text2) {
     if (!text2) {
         return [
             [
-                DIFFDELETE,
+                DIFF_DELETE,
                 text1
             ]
         ];
@@ -249,14 +249,14 @@ function diffCompute_(text1, text2) {
             ], 
         ];
         if (text1.length > text2.length) {
-            diffs[0][0] = diffs[2][0] = DIFFDELETE;
+            diffs[0][0] = diffs[2][0] = DIFF_DELETE;
         }
         return diffs;
     }
     if (shorttext.length === 1) {
         return [
             [
-                DIFFDELETE,
+                DIFF_DELETE,
                 text1
             ],
             [
@@ -267,19 +267,19 @@ function diffCompute_(text1, text2) {
     }
     const hm = diffHalfMatch_(text1, text2);
     if (hm) {
-        const text1C = hm[0];
-        const text1B = hm[1];
-        const text2C = hm[2];
-        const text2B = hm[3];
-        const midCommon = hm[4];
+        const text1C = hm[0] || "";
+        const text1B = hm[1] || "";
+        const text2C = hm[2] || "";
+        const text2B = hm[3] || "";
+        const midCommon = hm[4] || "";
         const diffsA = diffMain({
-            text1: text1C[1],
-            text2: text2C[1],
+            text1: text1C,
+            text2: text2C,
             cursorPos: 0
         });
         const diffsB = diffMain({
-            text1: text1B[1],
-            text2: text2B[1],
+            text1: text1B,
+            text2: text2B,
             cursorPos: 0
         });
         return diffsA.concat([
@@ -373,7 +373,7 @@ function diffBisect_(text1, text2) {
     }
     return [
         [
-            DIFFDELETE,
+            DIFF_DELETE,
             text1
         ],
         [
@@ -388,60 +388,60 @@ function diffBisectSplit_(text1, text2, x, y) {
     const text1b = text1.substring(x);
     const text2b = text2.substring(y);
     const diffs = diffMain({
-        text1: text1a[1],
-        text2: text2a[1],
+        text1: text1a,
+        text2: text2a,
         cursorPos: 0
     });
-    const diffsb = diffMain({
-        text1: text1b[1],
-        text2: text2b[1],
+    const diffsB = diffMain({
+        text1: text1b,
+        text2: text2b,
         cursorPos: 0
     });
-    return diffs.concat(diffsb);
+    return diffs.concat(diffsB);
 }
 function diffCommonPrefix(text1, text2) {
     if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
         return 0;
     }
-    let pointermin = 0;
-    let pointermax = Math.min(text1.length, text2.length);
-    let pointermid = pointermax;
-    let pointerstart = 0;
-    while(pointermin < pointermid){
-        if (text1.substring(pointerstart, pointermid) == text2.substring(pointerstart, pointermid)) {
-            pointermin = pointermid;
-            pointerstart = pointermin;
+    let pointerMin = 0;
+    let pointerMax = Math.min(text1.length, text2.length);
+    let pointerMid = pointerMax;
+    let pointerStart = 0;
+    while(pointerMin < pointerMid){
+        if (text1.substring(pointerStart, pointerMid) == text2.substring(pointerStart, pointerMid)) {
+            pointerMin = pointerMid;
+            pointerStart = pointerMin;
         } else {
-            pointermax = pointermid;
+            pointerMax = pointerMid;
         }
-        pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
     }
-    if (isSurrogatePairStart(text1.charCodeAt(pointermid - 1))) {
-        pointermid--;
+    if (isSurrogatePairStart(text1.charCodeAt(pointerMid - 1))) {
+        pointerMid--;
     }
-    return pointermid;
+    return pointerMid;
 }
 function diffCommonSuffix(text1, text2) {
     if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
         return 0;
     }
-    let pointermin = 0;
-    let pointermax = Math.min(text1.length, text2.length);
-    let pointermid = pointermax;
-    let pointerend = 0;
-    while(pointermin < pointermid){
-        if (text1.substring(text1.length - pointermid, text1.length - pointerend) == text2.substring(text2.length - pointermid, text2.length - pointerend)) {
-            pointermin = pointermid;
-            pointerend = pointermin;
+    let pointerMin = 0;
+    let pointerMax = Math.min(text1.length, text2.length);
+    let pointerMid = pointerMax;
+    let pointerEnd = 0;
+    while(pointerMin < pointerMid){
+        if (text1.substring(text1.length - pointerMid, text1.length - pointerEnd) == text2.substring(text2.length - pointerMid, text2.length - pointerEnd)) {
+            pointerMin = pointerMid;
+            pointerEnd = pointerMin;
         } else {
-            pointermax = pointermid;
+            pointerMax = pointerMid;
         }
-        pointermid = Math.floor((pointermax - pointermin) / 2 + pointermin);
+        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
     }
-    if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointermid))) {
-        pointermid--;
+    if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointerMid))) {
+        pointerMid--;
     }
-    return pointermid;
+    return pointerMid;
 }
 function diffHalfMatch_(text1, text2) {
     const longtext = text1.length > text2.length ? text1 : text2;
@@ -541,7 +541,7 @@ function diffCleanupMerge(Diffs) {
                 textInsert += diffs[pointer][1];
                 pointer++;
                 break;
-            case DIFFDELETE:
+            case DIFF_DELETE:
                 countDelete++;
                 textDelete += diffs[pointer][1];
                 pointer++;
@@ -587,13 +587,13 @@ function diffCleanupMerge(Diffs) {
                         pointer = pointer - n + 1;
                     } else if (textInsert.length === 0) {
                         diffs.splice(pointer - n, n, [
-                            DIFFDELETE,
+                            DIFF_DELETE,
                             textDelete
                         ]);
                         pointer = pointer - n + 1;
                     } else {
                         diffs.splice(pointer - n, n, [
-                            DIFFDELETE,
+                            DIFF_DELETE,
                             textDelete
                         ], [
                             1,
@@ -674,7 +674,7 @@ function makeEditSplice(before, oldMiddle, newMiddle, after) {
             before
         ],
         [
-            DIFFDELETE,
+            DIFF_DELETE,
             oldMiddle
         ],
         [
@@ -773,7 +773,7 @@ function diff(text1, text2, cursorPos) {
     });
 }
 diff.INSERT = 1;
-diff.DELETE = DIFFDELETE;
+diff.DELETE = DIFF_DELETE;
 diff.EQUAL = 0;
 const document = window.document;
 let firstLoad = true;
