@@ -34,6 +34,7 @@ export class DevcontainerGenerator {
     "xfce",
     "noVNC",
     "xpra",
+    "deno",
     "zsh",
     "vscode",
     "suffix",
@@ -50,6 +51,7 @@ export class DevcontainerGenerator {
   private _vscode = false;
   private _xpra = false;
   private _k8s = false;
+  private _deno= false;
   private _noVNC = false;
   private _zsh = false;
   private _chromium = false;
@@ -109,6 +111,11 @@ export class DevcontainerGenerator {
   public setXfce() {
     this._xfce = true;
   }
+
+  public setDeno() {
+    this._deno = true;
+  }
+
 
   public setK8s() {
     this._k8s = true;
@@ -177,6 +184,13 @@ export class DevcontainerGenerator {
           this._gitVersion,
         );
       }
+    }
+    if (this._deno) {
+      this._dockerfile += dockerTemplates["deno"]
+      .replace("{DENO_VERSION}", softwareVersions.deno)
+
+      this._readme += readmeTemplates["deno"]
+      .replace("{DENO_VERSION}", softwareVersions.deno)    
     }
 
     if (this._nodeVersion) {
