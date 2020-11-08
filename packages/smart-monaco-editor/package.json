@@ -6,7 +6,7 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
-        "build": "deno bundle src/editor.ts --no-check > lib/editor.js && cp index.tjs index.js && sed -i 's/VERSION/'$npm_package_version'/' index.js",
+        "build": "deno bundle src/editor.ts --no-check > lib/editor.js",
         "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
         "clean": "rm -rf lib screenshot*",
         "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
