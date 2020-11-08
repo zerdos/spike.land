@@ -17,6 +17,13 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
   async (
     { onChange, code, language },
   ) => {
+    const container = window.document.getElementById("container");
+    if (!container) {
+      const el = document.getElementById("container");
+      el.id = "container"
+      document.body.appendChild(el);
+    }
+
     if (window["monaco"] === undefined) {
       const vsPath =
         "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
