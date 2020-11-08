@@ -49,15 +49,7 @@ RUN addgroup --gid 1000 ${USER}  \
   && touch /usr/bin/startx /usr/bin/startWithBash \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
-  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash ### git for Ubuntu
-
-RUN add-apt-repository ppa:git-core/ppa && apt-get update \
-&& apt-get install --no-install-recommends -y \
-    git \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
+  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
 ### deno.Dockerfile
 RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
      && apt-get autoremove -y \
@@ -157,14 +149,6 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
 
-### vscode.Dockerfile
-RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
-    && apt-get update && apt-get install -y code \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/*
-
 # docker.Dockerfile
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && add-apt-repository \
@@ -183,21 +167,6 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
 
 ENV COMPOSE_DOCKER_CLI_BUILD=1
 ENV DOCKER_BUILDKIT=1
-### zsh.Dockerfie
-
-RUN apt-get update && apt-get install -y zsh \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && chsh -s /usr/bin/zsh ${USER}
-
-USER ${USER}
-ENV HOME /home/${USER}
-WORKDIR /home/${USER}
-ENV SHELL=/usr/bin/zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g' .zshrc 
-
 ### suffix.Dockerfie
 
 
