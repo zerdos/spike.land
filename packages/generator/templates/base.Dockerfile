@@ -33,7 +33,6 @@ RUN apt-get update \
   sudo \
   tzdata \
   xz-utils \
-  zsh \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
