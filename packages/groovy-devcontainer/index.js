@@ -5,14 +5,11 @@ const run = async () => {
   const devGenerator = new DevcontainerGenerator("groovy");
 
   devGenerator.setNodeVersion("lts");
-  devGenerator.updateGit();
-  devGenerator.setDotnet("3"), devGenerator.setDocker();
   devGenerator.setXfce();
+  devGenerator.setDeno();
   devGenerator.setVscode();
-  devGenerator.setCypress();
   devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
-  devGenerator.setZsh();
 
   const { Dockerfile, README } = await devGenerator.generate();
 

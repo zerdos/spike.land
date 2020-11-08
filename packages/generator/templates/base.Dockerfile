@@ -42,7 +42,7 @@ ARG USER="developer"
 ENV USER=${USER}
 
 RUN addgroup --gid 1000 ${USER}  \
-  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
+  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /bin/bash --ingroup ${USER} ${USER} \
   && adduser ${USER} sudo \
   && chown ${USER}:${USER} -R /home/${USER} \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
