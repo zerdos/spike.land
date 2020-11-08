@@ -700,8 +700,6 @@ function findCursorEditDiff(
 }
 
 export function diff(text1: string, text2: string, cursorPos: number): Diff[] {
-  // only pass fix_unicode=true at the top level, not when diffMain is
-  // recursively invoked
   return diffMain({ text1, text2, cursorPos });
 }
 

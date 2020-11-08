@@ -6,6 +6,11 @@ import { SEO } from "../components/seo";
 import AVLTree from "avl";
 
 import styled from "@emotion/styled";
+import JSONTree from "react-json-tree";
+
+// If you're using Immutable.js: `npm i --save immutable`
+import { diff } from "@zedvision/code/src-deno/frontend/diff";
+import { counterExample } from "../components/codeBox/example";
 
 interface Props {
   data: {
@@ -40,7 +45,6 @@ const NotFoundPage = ({ data, location }: Props) => {
       avl.insert(4);
       avl.insert(5);
       avl.insert(6);
-
       avl.insert(7);
       avl.insert(8);
       avl.insert(9);
@@ -162,11 +166,18 @@ const NotFoundPage = ({ data, location }: Props) => {
 
   const root = getRoot(avl.maxNode());
 
+  const [diffArr, chDiff] = React.useState(diff(counterExample, "", 0));
+
   return (
     <Layout>
       <SEO title="404: Not Found" />
+      <StyledText
+        onChange={(e) => chDiff(diff(e.target.value, counterExample, 0))}
+      >
+        {counterExample}
+      </StyledText>
       <h1>Not Found</h1>
-
+      <JSONTree data={diffArr} />
       <Rotated key={res.toString()}>
         <ReqPrint node={root} topLevel={0} left={0} level={0} />
         {/* {res.slice((res.length + 1) / 2).filter((k: number) =>
@@ -184,6 +195,10 @@ const NotFoundPage = ({ data, location }: Props) => {
     </Layout>
   );
 };
+const StyledText = styled.textarea`
+  min-width: 600px;
+  min-height: 400px;
+`;
 
 export default NotFoundPage;
 

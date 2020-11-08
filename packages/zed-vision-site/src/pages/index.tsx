@@ -7,7 +7,7 @@ import { SEO } from "../components/seo";
 import { rhythm } from "../components/utils/typography";
 import styled from "@emotion/styled";
 
-const forkme = require("../../assets/forkme.png");
+import forkMe from "../../assets/forkMe.png";
 
 const StyledLink = styled(Link)`
   box-shadow: "none";
@@ -55,10 +55,9 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
           loading="lazy"
           width="149"
           height="149"
-          src={forkme}
+          src={forkMe}
           style={{ position: "absolute", top: 0, right: 0 }}
           alt="Fork me on GitHub"
-          data-recalc-dims="1"
         />
       </a>
 
