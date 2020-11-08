@@ -2,12 +2,11 @@
   "name": "zedvision",
   "description": "our monorepo",
   "repository": "git@github.com:zed-vision/monorepo.git",
-  "author": "Zoltan Erdos <zerdos@zed.vision>",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "tutorials/*"
+    "packages/*"
   ],
   "scripts": {
     "release": "yarn check --integrity --verify-tree && yarn build && git add . && git commit -m pre-release && git push &&  git pull && lerna publish && yarn docker:push && git push",

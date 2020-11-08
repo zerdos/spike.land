@@ -2,7 +2,7 @@ ARG DISTRO=focal
 FROM ubuntu:${DISTRO}
 
 ### base.Dockerfile
-### Generator: https://github.com/zerdos/devcontainer/
+### Generator: https://github.com/zed-vision/monorepo/
 LABEL maintainer=zoltan.erdos@me.com
 
 ENV DEBIAN_FRONTEND=noninteractive
