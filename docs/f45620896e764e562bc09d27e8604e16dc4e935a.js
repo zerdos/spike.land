@@ -325,7 +325,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return Function("return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.4.4/lib/editor.js')");
+                return Function("return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.5.1/lib/editor.js')");
 
               case 2:
                 _context2.t0 = _context2.sent;

@@ -169,7 +169,7 @@ function Page() {
 
                 monaco = true;
                 _context.next = 4;
-                return Function("return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.4.4/lib/editor.js')");
+                return Function("return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.5.1/lib/editor.js')");
 
               case 4:
                 _context.t0 = _context.sent;
