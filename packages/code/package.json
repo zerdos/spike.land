@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "6.4.6",
+    "version": "6.5.6",
     "description": "Monaco Editor for React",
     "main": "code.zed-vision.min.js",
     "sideEffects": false,
