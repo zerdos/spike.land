@@ -12,7 +12,7 @@
   "scripts": {
     "docker": "docker build --build-arg USER=$USER -f packages/focal-devcontainer/Dockerfile . -t focal-local",
     "dev": "yarn wsrun -a dev ",
-    "release": "yarn install --frozen-lockfile && yarn lerna run build --since && git add . && git commit -m pre-release && git push &&  git pull && lerna publish && git push && git add . && git commit -m after-release && git push",
+    "release": "yarn check --integrity --verify-tree  && yarn lerna run build --since && git add . && git commit -m pre-release && git push &&  git pull && lerna publish && git push && git add . && git commit -m after-release && git push",
     "xbuild": "(yarn xxx build || echo fail) && yarn xxx generate:dockerfile",
     "test": "yarn xxx tests",
     "docker:build": "yarn xxx docker:build",
