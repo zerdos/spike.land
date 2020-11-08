@@ -209,7 +209,7 @@ RUN apt-get update && apt-get install -y zsh \
 ENV SHELL=/usr/bin/zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
     && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g'  ~/.zshrc \
-    && touch  ~/.bashrc
+    && touch  ~/.bashrc && echo ":)" >  ~/.mood
 ### suffix.Dockerfie
 
 
