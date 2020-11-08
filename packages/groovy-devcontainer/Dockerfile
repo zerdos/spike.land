@@ -33,7 +33,6 @@ RUN apt-get update \
   sudo \
   tzdata \
   xz-utils \
-  zsh \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
@@ -42,7 +41,7 @@ ARG USER="developer"
 ENV USER=${USER}
 
 RUN addgroup --gid 1000 ${USER}  \
-  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
+  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /bin/bash --ingroup ${USER} ${USER} \
   && adduser ${USER} sudo \
   && chown ${USER}:${USER} -R /home/${USER} \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
@@ -50,15 +49,15 @@ RUN addgroup --gid 1000 ${USER}  \
   && touch /usr/bin/startx /usr/bin/startWithBash \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
-  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash ### git for Ubuntu
+  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
+### deno.Dockerfile
+RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
+     && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* \
+  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.5.1
 
-RUN add-apt-repository ppa:git-core/ppa && apt-get update \
-&& apt-get install --no-install-recommends -y \
-    git \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
+  
 ENV NODE_VERSION 14.15.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
@@ -101,66 +100,6 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 
 ENV YARN_CACHE_FOLDER=/yarn
 
-### dotnet.Dockerfile
-
-
-# Install .NET CLI dependencies
-RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends  \
-        libc6 \
-        libgcc1 \
-        libgssapi-krb5-2 \
-        libicu-dev \
-        liblttng-ust0 \
-        libssl-dev \
-        libstdc++6 \
-        apt-transport-https \
-        zlib1g;
-
-# Install .NET Core SDK
-ENV DOTNET_SDK_VERSION 3.1.402
-
-RUN curl -SL --output dotnet.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
-    && dotnet_sha512='42154efb5ad66ae3dcc300b2c0573a9537dd916fc48cbae92885a63a0b6d7f7c3a4366ca2298107783bc1f1913328f35e778dcda378da276cff3b8269495d5be' \
-    && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
-    && mkdir -p /usr/share/dotnet \
-    && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
-    && rm dotnet.tar.gz \
-    && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
-
-# Configure web servers to bind to port 80 when present
-ENV ASPNETCORE_URLS=http://+:80 \
-    # Enable detection of running in a container
-    DOTNET_RUNNING_IN_CONTAINER=true \
-    # Enable correct mode for dotnet watch (only mode supported in a container)
-    NUGET_XMLDOC_MODE=skip
-
-# Trigger first run experience by running arbitrary cmd to populate local package cache
-
-## cypress.Dockerfile
-
-RUN apt-get update \
-&& apt-get install --no-install-recommends -y \
-  libgtk-3-0 \
-  libnotify-dev \
-  libgconf-2-4 \
-  libnss3 \
-  libxss1 \
-  unzip \
-  libasound2 \
-  libxtst6 \
-  xauth \
-  xvfb \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
-USER ${USER}
- 
-RUN yarn global add cypress@5.5.0
-
-USER root
 ### noVNC.Dockerfile
 
 RUN  apt-get update \
@@ -217,33 +156,6 @@ RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
-
-# docker.Dockerfile
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
-    && add-apt-repository \
-         "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal test" \
-    && apt-get install --no-install-recommends -y \
-        docker-ce \
-        docker-ce-cli \
-    && curl -L  \
-        https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` \
-        -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose \
-    && usermod -G docker -a ${USER} \
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* 
-
-ENV COMPOSE_DOCKER_CLI_BUILD=1
-ENV DOCKER_BUILDKIT=1
-### zsh.Dockerfie
-
-USER ${USER}
-ENV HOME /home/${USER}
-WORKDIR /home/${USER}
-ENV SHELL=/usr/bin/zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g' .zshrc 
 
 ### suffix.Dockerfie
 

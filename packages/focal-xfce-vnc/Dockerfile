@@ -33,7 +33,6 @@ RUN apt-get update \
   sudo \
   tzdata \
   xz-utils \
-  zsh \
   && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
@@ -42,7 +41,7 @@ ARG USER="developer"
 ENV USER=${USER}
 
 RUN addgroup --gid 1000 ${USER}  \
-  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
+  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /bin/bash --ingroup ${USER} ${USER} \
   && adduser ${USER} sudo \
   && chown ${USER}:${USER} -R /home/${USER} \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
@@ -141,23 +140,6 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/*
-
-### vscode.Dockerfile
-RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
-    && apt-get update && apt-get install -y code \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/*
-
-### zsh.Dockerfie
-
-USER ${USER}
-ENV HOME /home/${USER}
-WORKDIR /home/${USER}
-ENV SHELL=/usr/bin/zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" \
-    && sed -i -e 's/plugins=(git)/plugins=(git gitfast git-extras npm yarn)/g' .zshrc 
 
 ### suffix.Dockerfie
 
