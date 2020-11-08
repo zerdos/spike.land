@@ -17,7 +17,7 @@
     "test": "yarn xxx tests",
     "docker:build": "yarn xxx docker:build",
     "docker:push": "yarn xxx docker:push",
-    "xxx": "yarn wsrun --parallel --exclude-missing"
+    "xxx": "yarn wsrun --parallel --exclude-missing -c"
   },
   "husky": {
     "hooks": {
