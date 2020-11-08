@@ -1,6 +1,12 @@
 const modules = {
 };
 export const startMonaco = async ({ onChange , code , language  })=>{
+    const container = window.document.getElementById("container");
+    if (!container) {
+        const el = document.getElementById("container");
+        el.id = "container";
+        document.body.appendChild(el);
+    }
     if (window["monaco"] === undefined) {
         const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
         const { require  } = await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
