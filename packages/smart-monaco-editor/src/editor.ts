@@ -20,7 +20,7 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
     const container = window.document.getElementById("container");
     if (!container) {
       const el = document.getElementById("container");
-      el.id = "container"
+      el.id = "container";
       document.body.appendChild(el);
     }
 
