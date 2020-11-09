@@ -11,6 +11,7 @@
   "scripts": {
     "release": "yarn check --integrity --verify-tree && yarn build && git add . && git commit -m pre-release && git push &&  git pull && lerna publish && yarn docker:push && git push",
     "build": "yarn lerna run build --parallel --since main",
+    "rebuild": "yarn lerna run build --parallel",
     "docker:build": "yarn lerna run docker:build --parallel",
     "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"
   },
