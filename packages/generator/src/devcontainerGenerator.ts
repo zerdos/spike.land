@@ -43,7 +43,7 @@ export class DevcontainerGenerator {
   private _gitVersion = "";
   private _amplify = false;
   private _cypressVersion = "";
-  private _dotnet: null | "2" | "3" = null;
+  private _dotnet: null | "2" | "3" | "5" = null;
   private _xfce = false;
   private _debianBackports = false;
   private _docker = false;
@@ -154,7 +154,7 @@ export class DevcontainerGenerator {
     this._docker = true;
   }
 
-  public setDotnet(version: "2" | "3" = "2") {
+  public setDotnet(version: "2" | "3" | "5" = "2") {
     this._dotnet = version;
   }
 
@@ -208,14 +208,21 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["2.1.810"],
+            softwareVersions.sha.dotnet_sha512["2.1.811"],
           );
-      } else {
+      } else if (this._dotnet === "3") {
         this._dockerfile += dockerTemplates["dotnet3"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["3.1.402"],
+            softwareVersions.sha.dotnet_sha512["3.1.403"],
+          );
+      } else {
+        this._dockerfile += dockerTemplates["dotnet5"]
+          .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet5)
+          .replace(
+            "{dotnet_sha512}",
+            softwareVersions.sha.dotnet_sha512["5.0.100-rc2.2"],
           );
       }
     }

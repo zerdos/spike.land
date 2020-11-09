@@ -7,8 +7,8 @@ services:
         USER: $USER
     tmpfs:
       - /home/$USER/tmpfs:exec
-    privileged: true
     network_mode: host
+    user: $USER
     shm_size: 4gb
     volumes:
       # - $HOME:/home/$USER/host:delegated

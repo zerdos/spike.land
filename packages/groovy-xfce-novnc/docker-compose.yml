@@ -7,10 +7,12 @@ services:
         USER: $USER
     tmpfs:
       - /home/$USER/tmpfs:exec
-    privileged: true
-    shm_size: 8gb
+    network_mode: host
+    user: $USER
+    shm_size: 4gb
     volumes:
-      - /home:/home
+      # - $HOME:/home/$USER/host:delegated
+      - /var/run/docker.sock:/var/run/docker.sock
       - yarn:/yarn
     ports:
       - "6080:6080"

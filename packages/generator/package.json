@@ -9,7 +9,7 @@
   ],
   "main": "lib/src/index.js",
   "scripts": {
-    "build": "yarn tsc"
+    "build": "yarn tsc && deno fmt src"
   },
   "publishConfig": {
     "access": "public"
