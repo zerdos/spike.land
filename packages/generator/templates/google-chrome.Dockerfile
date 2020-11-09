@@ -8,5 +8,9 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
   && mv /usr/bin/google-chrome /usr/bin/google-chrome-bin \
+  && mv /usr/bin/google-chrome-stable /usr/bin/google-chrome-stable-bin \
   && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
-  && chmod +x /usr/bin/google-chrome
+  && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
+  && chmod +x /usr/bin/google-chrome \
+  && chmod +x /usr/bin/google-chrome-stable
+  
