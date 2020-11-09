@@ -108,29 +108,6 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
 
 ENV YARN_CACHE_FOLDER=/yarn
 
-## cypress.Dockerfile
-
-RUN apt-get update \
-&& apt-get install --no-install-recommends -y \
-  libgtk-3-0 \
-  libnotify-dev \
-  libgconf-2-4 \
-  libnss3 \
-  libxss1 \
-  unzip \
-  libasound2 \
-  libxtst6 \
-  xauth \
-  xvfb \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
-USER ${USER}
- 
-RUN yarn global add cypress@5.5.0
-
-USER root
 ### noVNC.Dockerfile
 
 RUN  apt-get update \
@@ -175,7 +152,7 @@ RUN apt-get update \
 ### chromium.Dockerfile
 RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update && apt-get install -y --no-install-recommends google-chrome-stable \
+    && apt-get update && apt-get install -y --install-recommends firefox google-chrome-stable \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
@@ -187,24 +164,14 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && chmod +x /usr/bin/google-chrome-stable
   
 
-# docker.Dockerfile
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
-    && add-apt-repository \
-         "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal test" \
-    && apt-get install --no-install-recommends -y \
-        docker-ce \
-        docker-ce-cli \
-    && curl -L  \
-        https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` \
-        -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose \
-    && usermod -G docker -a ${USER} \
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* 
-
-ENV COMPOSE_DOCKER_CLI_BUILD=1
-ENV DOCKER_BUILDKIT=1
+### vscode.Dockerfile
+RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
+    && apt-get update && apt-get install -y code libxtst6 \
+     && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* \
+  && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
 ### zsh.Dockerfie
 
 RUN apt-get update && apt-get install -y --no-install-recommends zsh \

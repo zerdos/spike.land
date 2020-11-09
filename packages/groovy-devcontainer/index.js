@@ -9,8 +9,7 @@ const run = async () => {
   devGenerator.setDeno();
   devGenerator.updateGit();
   devGenerator.setZsh();
-  devGenerator.setDocker();
-  devGenerator.setCypress();
+  devGenerator.setVscode();
   devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
 
