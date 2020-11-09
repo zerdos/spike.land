@@ -2,7 +2,7 @@ FROM devimage
 
 ### zsh.Dockerfie
 
-RUN apt-get update && apt-get install -y zsh \
+RUN apt-get update && apt-get install -y --no-install-recommends zsh \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
