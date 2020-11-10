@@ -1,6 +1,6 @@
 ## Devcontainer
 
-- Base image: buildpack-deps:groovy
+- Base image: buildpack-deps:ubuntu:groovy
 - Node: 14.15.0
 - Yarn: 1.22.10
 - With noVNC - XFCE trought noVNC (http://localhost:6080)

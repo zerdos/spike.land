@@ -4,6 +4,7 @@ FROM devimage
 
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
+  libgtk2.0-0 \
   libgtk-3-0 \
   libnotify-dev \
   libgconf-2-4 \
@@ -12,7 +13,6 @@ RUN apt-get update \
   unzip \
   libasound2 \
   libxtst6 \
-  xauth \
   xvfb \
 && apt-get autoremove -y \
 && apt-get clean -y \

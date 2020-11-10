@@ -1,4 +1,4 @@
-FROM ubuntu:groovy
+FROM gitpod/workspace-full
 
 ### base.Dockerfile
 ### Generator: https://github.com/zed-vision/monorepo/
@@ -50,23 +50,7 @@ RUN (addgroup --gid 33333 ${USER}  \
   && touch /usr/bin/startx /usr/bin/startWithBash \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
-  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash ### git for Ubuntu
-
-RUN add-apt-repository ppa:git-core/ppa && apt-get update \
-&& apt-get install --no-install-recommends -y \
-    git \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
-### deno.Dockerfile
-RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.5.2
-
-  
+  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
 ENV NODE_VERSION 14.15.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
@@ -165,14 +149,6 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && chmod +x /usr/bin/google-chrome-stable
   
 
-### vscode.Dockerfile
-RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
-    && apt-get update && apt-get install -y code libxtst6 \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
 ### zsh.Dockerfie
 
 RUN apt-get update && apt-get install -y --no-install-recommends zsh \

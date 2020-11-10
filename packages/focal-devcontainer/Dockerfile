@@ -1,11 +1,12 @@
-ARG DISTRO=focal
-FROM ubuntu:${DISTRO}
+FROM ubuntu:focal
 
 ### base.Dockerfile
 ### Generator: https://github.com/zed-vision/monorepo/
 LABEL maintainer=zoltan.erdos@me.com
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+USER 0
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
@@ -37,11 +38,11 @@ RUN apt-get update \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
 
-ARG USER="developer"
+ARG USER="gitpod"
 ENV USER=${USER}
 
-RUN addgroup --gid 1000 ${USER}  \
-  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
+RUN (addgroup --gid 33333 ${USER}  \
+  && adduser --uid 33333 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER}  || echo user_exist) \
   && adduser ${USER} sudo \
   && chown ${USER}:${USER} -R /home/${USER} \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
@@ -112,6 +113,7 @@ ENV YARN_CACHE_FOLDER=/yarn
 
 RUN apt-get update \
 && apt-get install --no-install-recommends -y \
+  libgtk2.0-0 \
   libgtk-3-0 \
   libnotify-dev \
   libgconf-2-4 \
@@ -120,7 +122,6 @@ RUN apt-get update \
   unzip \
   libasound2 \
   libxtst6 \
-  xauth \
   xvfb \
 && apt-get autoremove -y \
 && apt-get clean -y \

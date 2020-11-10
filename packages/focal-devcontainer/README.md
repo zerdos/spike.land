@@ -1,6 +1,6 @@
 ## Devcontainer
 
-- Base image: buildpack-deps:focal
+- Base image: buildpack-deps:ubuntu:focal
 - Deno: {DENO_VERSION- Node: 14.15.0
 - Yarn: 1.22.10
 - Cypress 5.5.0

@@ -2,12 +2,14 @@ const { DevcontainerGenerator } = require("@devcontainer/generator");
 const { writeFile } = require("fs").promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("ubuntu:groovy");
+  const devGenerator = new DevcontainerGenerator("gitpod/workspace-full");
 
+  devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();
+  devGenerator.setZsh();
   devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
-  devGenerator.setNodeVersion("lts");
+
 
   const { Dockerfile, README } = await devGenerator.generate();
 

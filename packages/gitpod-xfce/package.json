@@ -1,0 +1,39 @@
+{
+  "name": "@devcontainer/gitpod-xfce",
+  "tagname": "gitpod-xfce",
+  "port": "6080",
+  "testport": "7224",
+  "scripts": {
+    "test": "yarn test:start && yarn test:healthcheck && yarn test:clean",
+    "test:clean": "docker kill $npm_package_tagname-$npm_package_version || docker container rm $npm_package_tagname-$npm_package_version  || true £2>/dev/null",
+    "test:start": "yarn test:clean && docker run -p 127.0.0.1:$npm_package_testport:$npm_package_port -d --name $npm_package_tagname-$npm_package_version devimages/$npm_package_tagname:$npm_package_version",
+    "test:healthcheck": "echo check: $npm_package_tagname && yarn test:is:running && sleep 5 && yarn test:is:running",
+    "test:is:running": "yarn wait-on http://localhost:$npm_package_testport",
+    "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
+    "docker:build": "docker build . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",
+    "generate:dockerfile": "node index.js",
+    "build": "node index.js && yarn docker:build"
+  },
+  "files": [
+    ".devcontainer/**/*",
+    "docker-compose.yml",
+    "Dockerfile",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@devcontainer/generator": "^6.7.4",
+    "load-text-file": "1.2.0",
+    "wait-on": "5.2.0"
+  },
+  "version": "6.7.4",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "git@github.com:zerdos/devcontainer.git",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "private": false,
+  "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
+  "publishConfig": {
+    "access": "public"
+  }
+}

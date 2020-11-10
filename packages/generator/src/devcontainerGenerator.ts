@@ -1,11 +1,21 @@
 import { promises as fs } from "fs";
 
-type Base = "stretch" | "buster" | "bionic" | "disco" | "groovy" | "focal";
-
+type Base =
+  | "stretch"
+  | "buster"
+  | "bionic"
+  | "disco"
+  | "groovy"
+  | "focal"
+  | "gitpod/workspace-full";
 type nodeVersion = "lts" | "current";
 
 const getDistro = (b: Base) =>
-  b === "stretch" || b === "buster" ? "debian" : "ubuntu";
+  b === "gitpod/workspace-full"
+    ? "gitpod/workspace-full"
+    : b === "stretch" || b === "buster"
+    ? "debian"
+    : "ubuntu";
 
 import * as softwareVersions from "../versions.json";
 

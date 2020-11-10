@@ -1,11 +1,12 @@
-ARG DISTRO=groovy
-FROM ubuntu:${DISTRO}
+FROM ubuntu:groovy
 
 ### base.Dockerfile
 ### Generator: https://github.com/zed-vision/monorepo/
 LABEL maintainer=zoltan.erdos@me.com
 
 ENV DEBIAN_FRONTEND=noninteractive
+
+USER 0
 
 RUN apt-get update \
   && apt-get install --no-install-recommends -y \
@@ -37,11 +38,11 @@ RUN apt-get update \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* 
 
-ARG USER="developer"
+ARG USER="gitpod"
 ENV USER=${USER}
 
-RUN addgroup --gid 1000 ${USER}  \
-  && adduser --uid 1000 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER} \
+RUN (addgroup --gid 33333 ${USER}  \
+  && adduser --uid 33333 --disabled-password --gecos "" --force-badname --shell /usr/bin/zsh --ingroup ${USER} ${USER}  || echo user_exist) \
   && adduser ${USER} sudo \
   && chown ${USER}:${USER} -R /home/${USER} \
   && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
