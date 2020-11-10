@@ -1152,6 +1152,11 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
+"@devcontainer/generator@6.8.0":
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/@devcontainer/generator/-/generator-6.8.0.tgz#f00d9299d9d634a9482f6366ae75ab229d044496"
+  integrity sha512-WA8pEnYdq+zypTxShTgTGp8JClxOUknuOo7lyvg5Fzp7xcYiH5ERq1YznBwzrQpAZbqT2EZnoHPCbnp/jzlbzA==
+
 "@emotion/babel-plugin-jsx-pragmatic@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.5.tgz#27debfe9c27c4d83574d509787ae553bf8a34d7e"
