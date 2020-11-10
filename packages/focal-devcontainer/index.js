@@ -11,7 +11,6 @@ const run = async () => {
   devGenerator.setChrome();
   devGenerator.setVscode();
 
-
   const { Dockerfile, README } = await devGenerator.generate();
 
   await writeFile(`${__dirname}/Dockerfile`, Dockerfile);

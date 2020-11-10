@@ -13,7 +13,6 @@ const run = async () => {
   devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
 
-
   const { Dockerfile, README } = await devGenerator.generate();
 
   await writeFile(`${__dirname}/Dockerfile`, Dockerfile);
