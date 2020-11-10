@@ -8,23 +8,23 @@
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ CodeBox_CodeBox; });
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(8);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(14);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__(12);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__(7);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(9);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/utils/babel.ts
@@ -39,7 +39,7 @@ var sha = __webpack_require__(11);
 // EXTERNAL MODULE: ./src/components/codeBox/example.ts
 var example = __webpack_require__(56);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
 var styled_base_browser_esm = __webpack_require__(5);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
@@ -83,10 +83,10 @@ var ResultBoxContainer = Object(styled_base_browser_esm["a" /* default */])("div
   name: "1e9tybj",
   styles: "display:block;width:150px;height:150px;overflow:hidden;"
 } : undefined);
-// EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
 var framer_motion_es = __webpack_require__(61);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
 var core_browser_esm = __webpack_require__(1);
 
 // CONCATENATED MODULE: ./src/components/codeBox/codeboxComponents.tsx

@@ -8221,13 +8221,13 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "pageQuery", function() { return /* binding */ pageQuery; });
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__(12);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
 var styled_base_browser_esm = __webpack_require__(5);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/layout.tsx + 1 modules
@@ -8236,13 +8236,13 @@ var layout = __webpack_require__(23);
 // EXTERNAL MODULE: ./src/components/seo.tsx
 var seo = __webpack_require__(21);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/createClass.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/createClass.js
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
@@ -8258,7 +8258,7 @@ function _createClass(Constructor, protoProps, staticProps) {
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/avl/src/utils.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/avl/src/utils.js
 /**
  * Prints tree horizontally
  * @param  {Node}                       root
@@ -8376,7 +8376,7 @@ function sort(keys, values, left, right, compare) {
   sort(keys, values, left, j, compare);
   sort(keys, values, j + 1, right, compare);
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/avl/src/index.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/avl/src/index.js
 
 
  // function createNode (parent, left, right, height, key, data) {
@@ -9156,7 +9156,7 @@ var src_AVLTree = /*#__PURE__*/function () {
 
 
 src_AVLTree.default = src_AVLTree;
-// EXTERNAL MODULE: /z/monorepo/node_modules/react-json-tree/lib/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react-json-tree/lib/index.js
 var lib = __webpack_require__(160);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
@@ -9864,7 +9864,7 @@ diff.EQUAL = DIFF_EQUAL;
 // EXTERNAL MODULE: ./src/components/codeBox/example.ts
 var example = __webpack_require__(56);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
 var core_browser_esm = __webpack_require__(1);
 
 // CONCATENATED MODULE: ./src/pages/404.tsx

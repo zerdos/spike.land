@@ -12,25 +12,25 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 
 // UNUSED EXPORTS: CacheProvider, css, ClassNames, Global, createElement, keyframes
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(17);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/cache/dist/cache.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/cache/dist/cache.browser.esm.js + 2 modules
 var cache_browser_esm = __webpack_require__(70);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/inheritsLoose.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/inheritsLoose.js
 var helpers_inheritsLoose = __webpack_require__(34);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/utils/dist/utils.browser.esm.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/utils/dist/utils.browser.esm.js
 var utils_browser_esm = __webpack_require__(25);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/serialize/dist/serialize.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/serialize/dist/serialize.browser.esm.js + 2 modules
 var serialize_browser_esm = __webpack_require__(22);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/core/dist/emotion-element-57a3a7a3.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/core/dist/emotion-element-57a3a7a3.browser.esm.js
 
 
 
@@ -137,10 +137,10 @@ var Emotion = /* #__PURE__ */emotion_element_57a3a7a3_browser_esm_withEmotionCac
 if (false) {}
 
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/sheet/dist/sheet.browser.esm.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/sheet/dist/sheet.browser.esm.js
 var sheet_browser_esm = __webpack_require__(86);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/css/dist/css.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/css/dist/css.browser.esm.js
 
 
 function css_browser_esm_css() {
@@ -152,7 +152,7 @@ function css_browser_esm_css() {
 }
 
 /* harmony default export */ var css_browser_esm = (css_browser_esm_css);
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js
 
 
 
@@ -788,7 +788,7 @@ module.exports = function (exec) {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _toConsumableArray; });
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
 
@@ -798,16 +798,16 @@ function _arrayLikeToArray(arr, len) {
 
   return arr2;
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/iterableToArray.js
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -817,11 +817,11 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
 
 
 
@@ -878,13 +878,13 @@ __webpack_require__.d(__webpack_exports__, "setLoader", function() { return /* b
 __webpack_require__.d(__webpack_exports__, "publicLoader", function() { return /* binding */ publicLoader; });
 __webpack_require__.d(__webpack_exports__, "getStaticQueryResults", function() { return /* binding */ getStaticQueryResults; });
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(17);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__(12);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./.cache/prefetch.js
@@ -1257,7 +1257,7 @@ var navigate = globalHistory.navigate;
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ serialize_browser_esm_serializeStyles; });
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/hash/dist/hash.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/hash/dist/hash.browser.esm.js
 /* eslint-disable */
 // Inspired by https://github.com/garycourt/murmurhash-js
 // Ported from https://github.com/aappleby/smhasher/blob/61a0530f28277f2e850bfc39600ce61d02b518de/src/MurmurHash2.cpp#L37-L86
@@ -1313,7 +1313,7 @@ function murmur2(str) {
 }
 
 /* harmony default export */ var hash_browser_esm = (murmur2);
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/unitless/dist/unitless.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/unitless/dist/unitless.browser.esm.js
 var unitlessKeys = {
   animationIterationCount: 1,
   borderImageOutset: 1,
@@ -1363,10 +1363,10 @@ var unitlessKeys = {
   strokeWidth: 1
 };
 /* harmony default export */ var unitless_browser_esm = (unitlessKeys);
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/memoize/dist/memoize.browser.esm.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/memoize/dist/memoize.browser.esm.js
 var memoize_browser_esm = __webpack_require__(52);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/serialize/dist/serialize.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/serialize/dist/serialize.browser.esm.js
 
 
 
@@ -3434,10 +3434,10 @@ ScrollHandler.propTypes = {
 
 "use strict";
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/sheet/dist/sheet.browser.esm.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/sheet/dist/sheet.browser.esm.js
 var sheet_browser_esm = __webpack_require__(86);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/stylis/dist/stylis.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/stylis/dist/stylis.browser.esm.js
 function stylis_min(W) {
   function M(d, c, e, h, a) {
     for (var m = 0, b = 0, v = 0, n = 0, q, g, x = 0, K = 0, k, u = k = q = 0, l = 0, r = 0, I = 0, t = 0, B = e.length, J = B - 1, y, f = '', p = '', F = '', G = '', C; l < B;) {
@@ -4052,7 +4052,7 @@ function stylis_min(W) {
 }
 
 /* harmony default export */ var stylis_browser_esm = (stylis_min);
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/weak-memoize/dist/weak-memoize.browser.esm.js
 var weakMemoize = function weakMemoize(func) {
   // $FlowFixMe flow doesn't include all non-primitive types as allowed for weakmaps
   var cache = new WeakMap();
@@ -4069,7 +4069,7 @@ var weakMemoize = function weakMemoize(func) {
 };
 
 /* harmony default export */ var weak_memoize_browser_esm = (weakMemoize);
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/cache/dist/cache.browser.esm.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@emotion/cache/dist/cache.browser.esm.js
 
 
  // https://github.com/thysultan/stylis.js/tree/master/plugins/rule-sheet
@@ -4228,7 +4228,7 @@ var cache_browser_esm_createCache = function createCache(options) {
 
 "use strict";
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/mitt/dist/mitt.es.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/mitt/dist/mitt.es.js
 //      
 // An event handler can take an optional event argument
 // and should not return a value
@@ -4894,7 +4894,7 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 
 // UNUSED EXPORTS: cleanPath
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@reach/router/es/lib/utils.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@reach/router/es/lib/utils.js
 var utils = __webpack_require__(36);
 
 // EXTERNAL MODULE: ./.cache/strip-prefix.js
@@ -5951,7 +5951,7 @@ Object(_api_runner_browser__WEBPACK_IMPORTED_MODULE_0__["apiRunner"])("onService
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/extends.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
   _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -5969,34 +5969,34 @@ function _extends() {
 
   return _extends.apply(this, arguments);
 }
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 var inheritsLoose = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./.cache/api-runner-browser.js
 var api_runner_browser = __webpack_require__(29);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react-dom/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react-dom/index.js
 var react_dom = __webpack_require__(92);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@reach/router/es/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@reach/router/es/index.js
 var es = __webpack_require__(26);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/gatsby-react-router-scroll/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/gatsby-react-router-scroll/index.js
 var gatsby_react_router_scroll = __webpack_require__(53);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@mikaelkristiansson/domready/ready.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@mikaelkristiansson/domready/ready.js
 var ready = __webpack_require__(149);
 var ready_default = /*#__PURE__*/__webpack_require__.n(ready);
 
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__(19);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/core-js/modules/es.array.reduce.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/core-js/modules/es.array.reduce.js
 var es_array_reduce = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./.cache/loader.js + 1 modules
@@ -6012,13 +6012,13 @@ var emitter = __webpack_require__(71);
 // This is extracted to separate module because it's shared
 // between browser and SSR code
 var RouteAnnouncerProps={id:"gatsby-announcer",style:{position:"absolute",top:0,width:1,height:1,padding:0,overflow:"hidden",clip:"rect(0, 0, 0, 0)",whiteSpace:"nowrap",border:0},"aria-live":"assertive","aria-atomic":"true"};
-// EXTERNAL MODULE: /z/monorepo/node_modules/@reach/router/es/lib/history.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@reach/router/es/lib/history.js
 var lib_history = __webpack_require__(20);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/gatsby-link/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/gatsby-link/index.js
 var gatsby_link = __webpack_require__(6);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
 var core_browser_esm = __webpack_require__(1);
 
 // CONCATENATED MODULE: ./.cache/navigation.js
@@ -6058,10 +6058,10 @@ var page_renderer = __webpack_require__(95);
 var async_requires = __webpack_require__(151);
 var async_requires_default = /*#__PURE__*/__webpack_require__.n(async_requires);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(14);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/shallow-compare/es/index.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/shallow-compare/es/index.js
 // Pulled from react-compat
 // https://github.com/developit/preact-compat/blob/7c5de00e7c85e2ffd011bf3af02899b63f699d3a/src/index.js#L349
 function shallowDiffers(a, b) {
@@ -6120,30 +6120,30 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "wrapRootElement", function() { return /* binding */ wrapRootElement; });
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/core-js/modules/es.array.reduce.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/core-js/modules/es.array.reduce.js
 var es_array_reduce = __webpack_require__(4);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(14);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@mdx-js/react/dist/esm.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@mdx-js/react/dist/esm.js
 var esm = __webpack_require__(51);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/gatsby-plugin-mdx/context.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/gatsby-plugin-mdx/context.js
 var context = __webpack_require__(85);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
 var mdx_components = __webpack_require__(131);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
 var scope_0=__webpack_require__(263).default;var scope_1=__webpack_require__(132).default;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
 var core_browser_esm = __webpack_require__(1);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/gatsby-plugin-mdx/wrap-root-element.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/gatsby-plugin-mdx/wrap-root-element.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){Object(defineProperty["a" /* default */])(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * so, this import is weird right?
  *
@@ -6166,7 +6166,7 @@ function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.g
  * Submit a PR
  */var componentsAndGuards={};var wrap_root_element_componentFromGuards=function componentFromGuards(arr){return function GatsbyMDXComponentFinder(props){var _arr$find=arr.find(function(_ref){var guard=_ref.guard;return guard?guard(props):true;}),Component=_arr$find.Component;return Object(core_browser_esm["b" /* jsx */])(Component,props);};};mdx_components["plugins"].forEach(function(_ref2){var _ref2$guards=_ref2.guards,guards=_ref2$guards===void 0?{}:_ref2$guards,components=_ref2.components;Object.entries(components).forEach(function(_ref3){var componentName=_ref3[0],Component=_ref3[1];if(componentsAndGuards[componentName]){componentsAndGuards.push({guard:guards[componentName],Component:Component});}else{componentsAndGuards[componentName]=[{guard:guards[componentName],Component:Component}];}});});var components=Object.entries(componentsAndGuards).map(function(_ref4){var _ref5;var name=_ref4[0],arr=_ref4[1];return _ref5={},_ref5[name]=wrap_root_element_componentFromGuards(arr.concat({guard:undefined,Component:name})),_ref5;}).reduce(function(acc,obj){return _objectSpread(_objectSpread({},acc),obj);},{});// merge any components in wrapRootElement above this wrapRoot
 var MDXConsumer=Object(esm["withMDXComponents"])(function(_ref6){var componentsFromContext=_ref6.components,children=_ref6.children;return Object(core_browser_esm["b" /* jsx */])(context["MDXScopeProvider"],{__mdxScope:mdx_scopes},Object(core_browser_esm["b" /* jsx */])(esm["MDXProvider"],{components:_objectSpread(_objectSpread({},componentsFromContext),components)},children));});var wrap_root_element_WrapRootElement=function WrapRootElement(_ref7){var element=_ref7.element;return Object(core_browser_esm["b" /* jsx */])(MDXConsumer,null,element);};/* harmony default export */ var wrap_root_element = (wrap_root_element_WrapRootElement);
-// CONCATENATED MODULE: /z/monorepo/node_modules/gatsby-plugin-mdx/gatsby-browser.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/gatsby-plugin-mdx/gatsby-browser.js
 var wrapRootElement=wrap_root_element;
 
 /***/ }),
@@ -6179,10 +6179,10 @@ var wrapRootElement=wrap_root_element;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
 var core_browser_esm = __webpack_require__(1);
 
 // CONCATENATED MODULE: ./src/components/Counter.tsx

@@ -856,14 +856,14 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "sha256", function() { return /* binding */ sha256; });
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(1);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
+// EXTERNAL MODULE: /workspace/monorepo/node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__(0);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
@@ -899,7 +899,7 @@ function _asyncToGenerator(fn) {
     });
   };
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/z/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--20!./src/components/utils/sha256/sha256.worker.ts
+// CONCATENATED MODULE: /workspace/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/workspace/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--20!./src/components/utils/sha256/sha256.worker.ts
 
 
 

@@ -11,8 +11,7 @@
     "test:is:running": "yarn wait-on http://localhost:$npm_package_testport",
     "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
     "docker:build": "docker build . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",
-    "generate:dockerfile": "node index.js",
-    "build": "node index.js && yarn docker:build"
+    "build": "node index.js"
   },
   "files": [
     ".devcontainer/**/*",
