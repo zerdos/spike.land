@@ -1,6 +1,7 @@
 {
     "files.autoSave": "onFocusChange",
   "deno.enable": true,
+  "git.autorefresh": true,
   "deno.import_intellisense_autodiscovery": true,
   "deno.unstable": false,
   "deno.lint": true,
@@ -13,5 +14,7 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "denoland.vscode-deno",
   },
-  "editor.autoSave": "on"
+  "editor.autoSave": "on",
+  "git.autofetch": true,
+  "npm.packageManager": "yarn"
 }
