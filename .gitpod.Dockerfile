@@ -1,7 +1,6 @@
 
 ARG USER=gitpod
-ARG DEVCONTAINER=devimages/gitpod-xfce:6.7.7
-ARG DEVCONTAINER=devimages/gitpod-xfce:6.7.7
+ARG DEVCONTAINER=devimages/gitpod-xfce:6.7.8
 FROM ${DEVCONTAINER}
                                         
 COPY yarn.lock package.json ./
