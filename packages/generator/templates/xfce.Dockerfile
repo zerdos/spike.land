@@ -5,6 +5,8 @@ FROM devimage
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         xfce4 \
+       nano \
+        terminator \
         gpg-agent \
         # xfce4-goodies \
     && apt-get autoremove -y \

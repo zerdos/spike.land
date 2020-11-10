@@ -3,16 +3,12 @@ FROM devimage
 ### noVNC.Dockerfile
 
 RUN  apt-get update \
-  && apt-get install --no-install-recommends -y \
+  && apt-get install --install-recommends -y \
     autocutsel \
     # xfwm4 \
     # xvfb \
     novnc \
     # websockify \
-    nano \
-    mc \
-    htop \
-    terminator \
     tigervnc-standalone-server \
   &&  cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
   && sed -i -e '1 aautocutsel -fork' /etc/X11/Xvnc-session \
