@@ -164,7 +164,9 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && chmod +x /usr/bin/google-chrome \
   && chmod +x /usr/bin/google-chrome-stable
   
-
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
 ### vscode.Dockerfile
 RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \

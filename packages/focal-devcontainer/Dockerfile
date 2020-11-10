@@ -187,7 +187,9 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && chmod +x /usr/bin/google-chrome \
   && chmod +x /usr/bin/google-chrome-stable
   
-
+ENV QT_X11_NO_MITSHM=1
+ENV _X11_NO_MITSHM=1
+ENV _MITSHM=0
 # docker.Dockerfile
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
     && add-apt-repository \
