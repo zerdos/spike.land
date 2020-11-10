@@ -95,11 +95,9 @@ RUN  apt-get update \
   && apt-get install --no-install-recommends -y \
     autocutsel \
     xfwm4 \
-    libgtk-3-0 \
     xvfb \
     novnc \
     websockify \
-    dbus-x11 \
     nano \
     mc \
     htop \
@@ -133,7 +131,9 @@ RUN apt-get update \
 ### chromium.Dockerfile
 RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update && apt-get install -y --install-recommends firefox google-chrome-stable \
+    && apt-get update && apt-get install -y --no-install-recommends \  
+    ## firefox 
+    google-chrome-stable \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \

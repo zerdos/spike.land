@@ -6,11 +6,9 @@ RUN  apt-get update \
   && apt-get install --no-install-recommends -y \
     autocutsel \
     xfwm4 \
-    libgtk-3-0 \
     xvfb \
     novnc \
     websockify \
-    dbus-x11 \
     nano \
     mc \
     htop \
