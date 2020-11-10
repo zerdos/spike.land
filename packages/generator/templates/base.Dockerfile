@@ -21,8 +21,7 @@ RUN apt-get update \
   libvips \
   locales \
   mc \
-  procps \
-  nano \
+  dirmngr \
   procps \
   psmisc \
   software-properties-common \
