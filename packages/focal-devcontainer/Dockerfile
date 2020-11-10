@@ -13,10 +13,6 @@ RUN apt-get update \
   apt-transport-https \
   apt-utils \
   curl \
-  dirmngr \
-  g++ \
-  gcc \
-  cachefilesd \
   git \
   gpg \
   gpg-agent \
@@ -24,12 +20,11 @@ RUN apt-get update \
   inotify-tools \
   libvips \
   locales \
-  make \
   mc \
+  procps \
   nano \
   procps \
   psmisc \
-  python3 \
   software-properties-common \
   sudo \
   tzdata \
@@ -50,23 +45,7 @@ RUN (addgroup --gid 33333 ${USER}  \
   && touch /usr/bin/startx /usr/bin/startWithBash \
   && chmod +x /usr/bin/startx /usr/bin/startWithBash \
   && echo "(sudo sysctl fs.inotify.max_user_watches=524288 fs.inotify.max_user_instances=524288 net.core.somaxconn=524288 fscache.object_max_active=524288 || echo failed) && (sudo sysctl -p || echo failed) && (sudo chown ${USER}:${USER} /home/${USER}/tmpfs)" >> /usr/bin/startx \
-  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash ### git for Ubuntu
-
-RUN add-apt-repository ppa:git-core/ppa && apt-get update \
-&& apt-get install --no-install-recommends -y \
-    git \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
-### deno.Dockerfile
-RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
-     && apt-get autoremove -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.5.2
-
-  
+  && echo "bash /usr/bin/startx" >> /usr/bin/startWithBash && chmod +x /usr/bin/startWithBash 
 ENV NODE_VERSION 14.15.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
@@ -105,50 +84,25 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   && npm i -g yarn@1.22.10 
-## cypress.Dockerfile
-
-RUN apt-get update \
-&& apt-get install --no-install-recommends -y \
-  libgtk2.0-0 \
-  libgtk-3-0 \
-  libnotify-dev \
-  libgconf-2-4 \
-  libnss3 \
-  libxss1 \
-  unzip \
-  libasound2 \
-  libxtst6 \
-  xvfb \
-&& apt-get autoremove -y \
-&& apt-get clean -y \
-&& rm -rf /var/lib/apt/lists/* 
-
-USER ${USER}
- 
-RUN yarn global add cypress@5.5.0
-
-USER root
 ### noVNC.Dockerfile
 
 RUN  apt-get update \
   && apt-get install --no-install-recommends -y \
     autocutsel \
-    xfwm4 \
-    xvfb \
+    # xfwm4 \
+    # xvfb \
     novnc \
-    websockify \
+    # websockify \
     nano \
     mc \
     htop \
-    procps \
     terminator \
     tigervnc-standalone-server \
-    tigervnc-xorg-extension \
   &&  cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
   && sed -i -e '1 aautocutsel -fork' /etc/X11/Xvnc-session \
   && sed -i -e 's/iconic/nowin/g' /etc/X11/Xvnc-session \
-  && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
-  && sed -i -e 's/use_compositing=true/use_compositing=false/g' /usr/share/xfwm4/defaults \
+  # && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
+  # && sed -i -e 's/use_compositing=true/use_compositing=false/g' /usr/share/xfwm4/defaults \
   && sed -i -e '1 aterminator &' /etc/X11/Xvnc-session \
   && apt-get autoremove -y \
   && apt-get clean -y \
@@ -186,24 +140,14 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
 ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1
 ENV _MITSHM=0
-# docker.Dockerfile
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
-    && add-apt-repository \
-         "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal test" \
-    && apt-get install --no-install-recommends -y \
-        docker-ce \
-        docker-ce-cli \
-    && curl -L  \
-        https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` \
-        -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose \
-    && usermod -G docker -a ${USER} \
-    && apt-get autoremove -y \
-    && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* 
-
-ENV COMPOSE_DOCKER_CLI_BUILD=1
-ENV DOCKER_BUILDKIT=1
+### vscode.Dockerfile
+RUN  curl -sSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" >> /etc/apt/sources.list.d/vscode.list \
+    && apt-get update && apt-get install -y --no-install-recommends code libxtst6 \
+     && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/* \
+  && sed -i -e 's/\/usr\/bin\/code/\/usr\/share\/code\/code --user-data-dir /g' /usr/share/applications/code.desktop 
 ### zsh.Dockerfie
 
 RUN apt-get update && apt-get install -y --no-install-recommends zsh \

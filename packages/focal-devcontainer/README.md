@@ -1,11 +1,9 @@
 ## Devcontainer
 
 - Base image: buildpack-deps:ubuntu:focal
-- Deno: {DENO_VERSION- Node: 14.15.0
+- Node: 14.15.0
 - Yarn: 1.22.10
-- Cypress 5.5.0
 - With noVNC - XFCE trought noVNC (http://localhost:6080)
-- with Google-chrome- docker preinstalled
-- Zsh + Oh my zsh!
+- with Google-chrome- With Vscode- Zsh + Oh my zsh!
 
 Git repository: https://github.com/zed-vision/monorepo

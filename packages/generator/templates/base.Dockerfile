@@ -13,10 +13,6 @@ RUN apt-get update \
   apt-transport-https \
   apt-utils \
   curl \
-  dirmngr \
-  g++ \
-  gcc \
-  cachefilesd \
   git \
   gpg \
   gpg-agent \
@@ -24,12 +20,11 @@ RUN apt-get update \
   inotify-tools \
   libvips \
   locales \
-  make \
   mc \
+  procps \
   nano \
   procps \
   psmisc \
-  python3 \
   software-properties-common \
   sudo \
   tzdata \

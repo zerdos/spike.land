@@ -5,22 +5,20 @@ FROM devimage
 RUN  apt-get update \
   && apt-get install --no-install-recommends -y \
     autocutsel \
-    xfwm4 \
-    xvfb \
+    # xfwm4 \
+    # xvfb \
     novnc \
-    websockify \
+    # websockify \
     nano \
     mc \
     htop \
-    procps \
     terminator \
     tigervnc-standalone-server \
-    tigervnc-xorg-extension \
   &&  cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
   && sed -i -e '1 aautocutsel -fork' /etc/X11/Xvnc-session \
   && sed -i -e 's/iconic/nowin/g' /etc/X11/Xvnc-session \
-  && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
-  && sed -i -e 's/use_compositing=true/use_compositing=false/g' /usr/share/xfwm4/defaults \
+  # && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
+  # && sed -i -e 's/use_compositing=true/use_compositing=false/g' /usr/share/xfwm4/defaults \
   && sed -i -e '1 aterminator &' /etc/X11/Xvnc-session \
   && apt-get autoremove -y \
   && apt-get clean -y \
