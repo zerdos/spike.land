@@ -1,9 +1,7 @@
 
 ARG USER=gitpod
-ARG DEVCONTAINER=devimages/groovy-devcontainer:6.7.4
+ARG DEVCONTAINER=devimages/gitpod-xfce
 FROM ${DEVCONTAINER}
-
-WORKDIR /workspace/monorepo
                                         
 COPY yarn.lock package.json ./
 RUN sudo chown -R $USER:$USER . && yarn --frozen-lockfile
