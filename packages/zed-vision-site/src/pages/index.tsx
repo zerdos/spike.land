@@ -50,7 +50,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
     <Layout>
       <SEO title="This is Zed vision" />
       <h1>Hi, this is my playground</h1>
-      <a href="https://github.com/zed-vision/zed-vision-site">
+      <a href="https://github.com/zed-vision/monorepo">
         <img
           loading="lazy"
           width="149"

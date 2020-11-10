@@ -47,7 +47,7 @@ var BlogIndex = function BlogIndex(_ref) {
   return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__[/* jsx */ "b"])(_components_layout__WEBPACK_IMPORTED_MODULE_4__[/* Layout */ "a"], null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__[/* jsx */ "b"])(_components_seo__WEBPACK_IMPORTED_MODULE_5__[/* SEO */ "a"], {
     title: "This is Zed vision"
   }), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__[/* jsx */ "b"])("h1", null, "Hi, this is my playground"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__[/* jsx */ "b"])("a", {
-    href: "https://github.com/zed-vision/zed-vision-site"
+    href: "https://github.com/zed-vision/monorepo"
   }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_8__[/* jsx */ "b"])("img", {
     loading: "lazy",
     width: "149",
