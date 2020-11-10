@@ -1,6 +1,6 @@
 
 ARG USER=gitpod
-ARG DEVCONTAINER=devimages/gitpod-xfce:6.7.8
+ARG DEVCONTAINER=devimages/groovy-devcontainer:6.8.0
 FROM ${DEVCONTAINER}
                                         
 COPY yarn.lock package.json ./
