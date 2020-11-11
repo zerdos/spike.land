@@ -109,8 +109,7 @@ RUN  apt-get update \
     novnc \
     # websockify \
     tigervnc-standalone-server \
-  && yarn global add @novnc/novnc \ 
-  && git clone https://github.com/zerdos/noVNC.git --depth=1 \
+  && git clone https://github.com/novnc/noVNC.git  --branch v1.2.0 --depth=1 \
   && cp -rf noVNC/*  /usr/share/novnc/ \
   && rm -rf ./noVNC \
   #&& cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
