@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/smart-monaco-editor-example",
-  "version": "6.8.3",
+  "version": "6.9.2",
   "homepage": "https://unpkg.com/@zedvision/smart-monaco-editor-example/build",
   "dependencies": {
     "@testing-library/jest-dom": "5.11.5",
