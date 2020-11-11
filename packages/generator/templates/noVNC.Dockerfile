@@ -11,7 +11,10 @@ RUN  apt-get update \
     # websockify \
     tigervnc-standalone-server \
   && yarn global add @novnc/novnc \ 
-  && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
+  && git clone https://github.com/zerdos/noVNC.git --depth=1 \
+  && cp -rf noVNC/*  /usr/share/novnc/ \
+  && rm -rf ./noVNC \
+  #&& cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
   && sed -i -e '1 aautocutsel -fork' /etc/X11/Xvnc-session \
   && sed -i -e 's/iconic/nowin/g' /etc/X11/Xvnc-session \
   && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
