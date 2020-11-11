@@ -13,7 +13,7 @@ RUN  apt-get update \
   && git clone https://github.com/novnc/noVNC.git  --branch v1.2.0 --depth=1 \
   && cp -rf noVNC/*  /usr/share/novnc/ \
   && rm -rf ./noVNC \
-  #&& cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
+  && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
   && sed -i -e '1 aautocutsel -fork' /etc/X11/Xvnc-session \
   && sed -i -e 's/iconic/nowin/g' /etc/X11/Xvnc-session \
   && sed -i -e 's/workspace_count=4/workspace_count=1/g' /usr/share/xfwm4/defaults \
