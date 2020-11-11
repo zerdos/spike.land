@@ -9,6 +9,7 @@
     "packages/*"
   ],
   "scripts": {
+    "prerelease": "yarn lerna release --help",
     "release": "yarn check --integrity --verify-tree && yarn build && git add . && git commit -m pre-release && git push &&  git pull && yarn docker:build && lerna publish && yarn docker:push && git push",
     "build": "yarn lerna run build --parallel --since main",
     "rebuild": "yarn lerna run build --parallel",
