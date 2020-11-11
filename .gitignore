@@ -97,7 +97,6 @@ typings/
 
 ## Build directory
 extension/
-dist/
 .awcache
 
 # yarn 2
