@@ -5,13 +5,13 @@
     "main": "code.zed-vision.min.js",
     "sideEffects": false,
     "scripts": {
-        "clean": "rm -rf .dist && mkdir .dist",
+        "clean": "rm -rf dist && mkdir dist",
         "build": "yarn clean && deno fmt src-deno && yarn build-codebox &&yarn minify &&yarn build-template",
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
         "build-template": " deno run --allow-read --allow-write generate-fe-bundle.ts",
         "deploy": "wrangler build && wrangler publish",
-        "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > .dist/._cBundle.js",
-        "minify": "yarn esbuild .dist/._cBundle.js  --minify --outfile=.dist/._cBundle.js.min.js",
+        "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > dist/_cBundle.js",
+        "minify": "yarn esbuild dist/_cBundle.js  --minify --outfile=dist/_cBundle.js.min.js",
         "serve": "file_server ."
     },
     "keywords": [

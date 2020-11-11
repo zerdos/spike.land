@@ -1,7 +1,7 @@
 const html = (await Deno.readTextFile("index.html"));
 
 const starterTsx = (await Deno.readTextFile("./src-deno/frontend/starter.tsx"));
-const js = (await Deno.readTextFile(".dist/._cBundle.js.min.js"));
+const js = (await Deno.readTextFile("dist/_cBundle.js.min.js"));
 
 const templates = {
   js: new TextEncoder().encode(js),
