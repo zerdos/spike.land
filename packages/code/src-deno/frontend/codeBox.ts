@@ -21,7 +21,7 @@ let latestGoodCode = "";
 const searchRegExp = /import/gi;
 const replaceWith = "///";
 
-async function run() {
+export async function run() {
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
@@ -287,5 +287,3 @@ async function run() {
     }).code.replace(searchRegExp, replaceWith);
   }
 }
-
-run();

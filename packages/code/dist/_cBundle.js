@@ -789,7 +789,7 @@ let latestCode = "";
 let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
-async function run() {
+export async function run() {
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
     await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
@@ -973,5 +973,4 @@ async function run() {
         }).code.replace(/import/gi, "///");
     }
 }
-run();
 
