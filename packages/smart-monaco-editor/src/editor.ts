@@ -125,34 +125,27 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
         name: "csstype",
         url: "https://unpkg.com/csstype@latest/index.d.ts",
         depend: [],
-      },
-      {
+      }, {
         name: "@emotion/styled",
         url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
         depend: ["@emotion/react", "@emotion/serialize", "react"],
-      },
-{
-      name: "@emotion/cache",
-      url: "https://unpkg.com/@emotion/cache@latest/types/index.d.ts",
-      depend: ["@emotion/utils"
-  ],
-    },
-      {
+      }, {
+        name: "@emotion/cache",
+        url: "https://unpkg.com/@emotion/cache@latest/types/index.d.ts",
+        depend: ["@emotion/utils"],
+      }, {
         name: "@emotion/react",
         url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
-        depend: ["@emotion/cache", "@emotion/serialize", "react"],
-      },
-      {
+        depend: ["@emotion/cache"],
+      }, {
         name: "@emotion/serialize",
         url: "https://unpkg.com/@emotion/serialize@latest/types/index.d.ts",
         depend: ["@emotion/utils", "csstype"],
-      },
-      {
+      }, {
         name: "@emotion/utils",
         url: "https://unpkg.com/@emotion/utils@latest/types/index.d.ts",
         depend: [],
-      }
-      ];
+      }];
       console.log(importHelper);
 
       //# sourceMappingURL=importHelper.js.map

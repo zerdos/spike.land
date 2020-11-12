@@ -152,9 +152,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 name: "@emotion/react",
                 url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
                 depend: [
-                    "@emotion/cache",
-                    "@emotion/serialize",
-                    "react"
+                    "@emotion/cache"
                 ]
             },
             {
