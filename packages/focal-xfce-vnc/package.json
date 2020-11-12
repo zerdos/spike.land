@@ -24,7 +24,7 @@
     "load-text-file": "1.2.0",
     "wait-on": "5.2.0"
   },
-  "version": "7.0.2",
+  "version": "7.0.6",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "git@github.com:zerdos/devcontainer.git",
