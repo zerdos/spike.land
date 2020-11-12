@@ -41,13 +41,14 @@ export async function run() {
     "https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js",
   );
 
+  window["css"] = window["emotionReact"].css;
+  window["jsx"] = window["emotionReact"].jsx;
+
   await importScript(
     "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
   );
 
   window["styled"] = window["emotionStyled"];
-  window["css"] = window["emotionReact"].css;
-  window["jsx"] = window["emotionReact"].jsx;
 
   setTimeout(() => makeDraggable(), 100);
 
@@ -134,7 +135,6 @@ export async function run() {
       const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
         "file:///main.tsx",
       );
-      console.log([...diag, ...comp, ...syntax]);
 
       return [...diag, ...comp, ...syntax];
     }
@@ -163,7 +163,6 @@ export async function run() {
 
           document.getElementById("root")!.classList.add("transparent");
           const slices = diff(latestGoodCode, cd, 0);
-          console.log(slices);
 
           if (slices.length <= 3) {
             modules.monaco.editor.setTheme("hc-black");

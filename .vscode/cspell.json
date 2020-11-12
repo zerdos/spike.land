@@ -245,6 +245,7 @@
         "posix",
         "postcss",
         "posthtml",
+        "postrelease",
         "prefixer",
         "preload",
         "prepend",

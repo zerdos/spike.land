@@ -877,10 +877,10 @@ export async function run() {
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
     await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");
     await importScript("https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js");
-    await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
-    window["styled"] = window["emotionStyled"];
     window["css"] = window["emotionReact"].css;
     window["jsx"] = window["emotionReact"].jsx;
+    await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
+    window["styled"] = window["emotionStyled"];
     setTimeout(()=>makeDraggable()
     , 100);
     (async ()=>{
@@ -934,11 +934,6 @@ export async function run() {
             const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
             const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
             const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
-            console.log([
-                ...diag,
-                ...comp,
-                ...syntax
-            ]);
             return [
                 ...diag,
                 ...comp,
@@ -966,7 +961,6 @@ export async function run() {
                     }
                     document.getElementById("root").classList.add("transparent");
                     const slices = diff(latestGoodCode, cd, 0);
-                    console.log(slices);
                     if (slices.length <= 3) {
                         modules1.monaco.editor.setTheme("hc-black");
                         return;
