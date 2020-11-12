@@ -97,15 +97,25 @@
   <div id="ace"></div>
   <script>
   if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js', {scope: '/'})
-  .then((reg) => {
-    // registration worked
-    console.log('Registration succeeded. Scope is ' + reg.scope);
-  }).catch((error) => {
-    // registration failed
-    console.log('Registration failed with ' + error);
+  navigator.serviceWorker.register('/sw.js').then(function() {
+    console.log('service worker is is all cool.');
+  }).catch(function(e) {
+    console.error('service worker is not so cool.', e);
+    throw e;
   });
-}
+  }
+  // bling.js
+  var $ = window.$ = document.querySelector.bind(document);
+  var $$ = window.$$ = document.querySelectorAll.bind(document);
+  Node.prototype.on = window.on = function(name, fn) {
+    this.addEventListener(name, fn);
+  }
+  NodeList.prototype.__proto__ = Array.prototype;
+  NodeList.prototype.on = NodeList.prototype.addEventListener = (function(name, fn) {
+    this.forEach(function(elem) {
+      elem.on(name, fn);
+    });
+  });
   </script>
   
   <script type="module">
@@ -115,8 +125,8 @@
       const cdnAddress = "https://unpkg.com/@zedvision/code@" ;
       const script = "/dist/_cBundle.js.min.js";
 
-      console.log(location.url);
-      if (window.location.url.includes(":")) {
+
+      if (window.location.href.includes(":")) {
         const {run} = await import("./dist/_cBundle.js")
         run();
       }
