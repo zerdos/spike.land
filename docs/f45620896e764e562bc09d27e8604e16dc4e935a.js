@@ -28,21 +28,21 @@ var asyncToGenerator = __webpack_require__(9);
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/utils/babel.ts
-var babel = __webpack_require__(57);
+var babel = __webpack_require__(55);
 
 // EXTERNAL MODULE: ./src/components/utils/renderer.ts
-var renderer = __webpack_require__(59);
+var renderer = __webpack_require__(57);
 
 // EXTERNAL MODULE: ./src/components/utils/sha.ts
 var sha = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./src/components/codeBox/example.ts
-var example = __webpack_require__(56);
+var example = __webpack_require__(54);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
 var taggedTemplateLiteralLoose = __webpack_require__(5);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 13 modules
+// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 11 modules
 var emotion_styled_browser_esm = __webpack_require__(7);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
@@ -116,7 +116,7 @@ var ErrorContainer = emotion_styled_browser_esm["a" /* default */].div(_template
 var ResultBox = emotion_styled_browser_esm["a" /* default */].div(_templateObject5());
 var ResultBoxContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject6());
 // EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
-var framer_motion_es = __webpack_require__(61);
+var framer_motion_es = __webpack_require__(59);
 
 // CONCATENATED MODULE: ./src/components/codeBox/codeboxComponents.tsx
 
@@ -884,7 +884,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
 /***/ }),
 
-/***/ 56:
+/***/ 54:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -899,7 +899,7 @@ var counterExample = "import React, { FC, useState } from \"react\";\nimport Rea
 
 /***/ }),
 
-/***/ 57:
+/***/ 55:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1047,7 +1047,7 @@ var transform = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 59:
+/***/ 57:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1057,7 +1057,7 @@ var transform = /*#__PURE__*/function () {
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
-/* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(60);
+/* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(58);
 /* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
 
@@ -1130,11 +1130,11 @@ var render = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 60:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 
-				var addMethods = __webpack_require__(58)
+				var addMethods = __webpack_require__(56)
 				var methods = ["renderWorker"]
 				module.exports = function() {
 					var w = new Worker(__webpack_require__.p + "built-renderer.b78dcc.worker.js", { name: "built-renderer.[hash:6].worker.js" })

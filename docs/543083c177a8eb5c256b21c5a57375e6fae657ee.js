@@ -93,7 +93,7 @@ var unHash = /*#__PURE__*/function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 
-				var addMethods = __webpack_require__(58)
+				var addMethods = __webpack_require__(56)
 				var methods = ["sha256"]
 				module.exports = function() {
 					var w = new Worker(__webpack_require__.p + "built-sha256.95c84a.worker.js", { name: "built-sha256.[hash:6].worker.js" })
@@ -105,7 +105,7 @@ var unHash = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 58:
+/***/ 56:
 /***/ (function(module, exports) {
 
 function addMethods(worker, methods) {

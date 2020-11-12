@@ -1,5 +1,5 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[9],Array(55).concat([
-/* 55 */
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[9],Array(53).concat([
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -406,7 +406,7 @@ _defineProperty(JSONNestedNode, "defaultProps", {
 });
 
 /***/ }),
-/* 56 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -420,6 +420,8 @@ var defaultProps = {
 var counterExample = "import React, { FC, useState } from \"react\";\nimport ReactDOM from \"react-dom\";\n\nconst Counter: FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst rootElement = document.createElement(\"div\");\n\nReactDOM.render(<Counter initial={0} />, rootElement);\ndocument.body.appendChild(rootElement);\n\n";
 
 /***/ }),
+/* 55 */,
+/* 56 */,
 /* 57 */,
 /* 58 */,
 /* 59 */,
@@ -1294,9 +1296,9 @@ module.exports = Array.isArray || function isArray(arg) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(2);
-var shared = __webpack_require__(79);
+var shared = __webpack_require__(77);
 var has = __webpack_require__(13);
-var uid = __webpack_require__(80);
+var uid = __webpack_require__(78);
 var NATIVE_SYMBOL = __webpack_require__(99);
 var USE_SYMBOL_AS_UID = __webpack_require__(174);
 
@@ -2804,7 +2806,7 @@ var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
-var _JSONNestedNode = _interopRequireDefault(__webpack_require__(55));
+var _JSONNestedNode = _interopRequireDefault(__webpack_require__(53));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -3403,7 +3405,7 @@ var _react = _interopRequireDefault(__webpack_require__(0));
 
 var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
-var _JSONNestedNode = _interopRequireDefault(__webpack_require__(55));
+var _JSONNestedNode = _interopRequireDefault(__webpack_require__(53));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -3505,7 +3507,7 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _JSONNestedNode = _interopRequireDefault(__webpack_require__(55));
+var _JSONNestedNode = _interopRequireDefault(__webpack_require__(53));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -4174,7 +4176,7 @@ exports.twilight = _interopRequire(_twilight);
 
 var $ = __webpack_require__(38);
 var flattenIntoArray = __webpack_require__(171);
-var toObject = __webpack_require__(83);
+var toObject = __webpack_require__(81);
 var toLength = __webpack_require__(32);
 var toInteger = __webpack_require__(46);
 var arraySpeciesCreate = __webpack_require__(173);
@@ -4236,7 +4238,7 @@ module.exports = flattenIntoArray;
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var aFunction = __webpack_require__(82);
+var aFunction = __webpack_require__(80);
 
 // optional / simple context binding
 module.exports = function (fn, that, length) {
@@ -4266,7 +4268,7 @@ module.exports = function (fn, that, length) {
 /* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(24);
+var isObject = __webpack_require__(23);
 var isArray = __webpack_require__(97);
 var wellKnownSymbol = __webpack_require__(98);
 
@@ -4347,8 +4349,8 @@ var defineProperties = __webpack_require__(178);
 var enumBugKeys = __webpack_require__(47);
 var hiddenKeys = __webpack_require__(44);
 var html = __webpack_require__(180);
-var documentCreateElement = __webpack_require__(76);
-var sharedKey = __webpack_require__(78);
+var documentCreateElement = __webpack_require__(74);
+var sharedKey = __webpack_require__(76);
 
 var GT = '>';
 var LT = '<';
@@ -4448,7 +4450,7 @@ module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperti
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var internalObjectKeys = __webpack_require__(81);
+var internalObjectKeys = __webpack_require__(79);
 var enumBugKeys = __webpack_require__(47);
 
 // `Object.keys` method
@@ -8233,10 +8235,10 @@ var taggedTemplateLiteralLoose = __webpack_require__(5);
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/layout.tsx + 1 modules
-var layout = __webpack_require__(22);
+var layout = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/components/seo.tsx
-var seo = __webpack_require__(21);
+var seo = __webpack_require__(20);
 
 // CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
 function _classCallCheck(instance, Constructor) {
@@ -9158,7 +9160,7 @@ var src_AVLTree = /*#__PURE__*/function () {
 
 
 src_AVLTree.default = src_AVLTree;
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 13 modules
+// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 11 modules
 var emotion_styled_browser_esm = __webpack_require__(7);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react-json-tree/lib/index.js
@@ -9867,7 +9869,7 @@ diff.INSERT = DIFF_INSERT;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = DIFF_EQUAL;
 // EXTERNAL MODULE: ./src/components/codeBox/example.ts
-var example = __webpack_require__(56);
+var example = __webpack_require__(54);
 
 // CONCATENATED MODULE: ./src/pages/404.tsx
 
