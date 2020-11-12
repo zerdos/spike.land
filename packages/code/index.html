@@ -126,7 +126,7 @@
       const script = "/dist/_cBundle.js.min.js";
 
 
-      if (window.location.href.includes(":")) {
+      if (window.location.href.includes("0.0.0.0")) {
         const {run} = await import("./dist/_cBundle.js")
         run();
       }
