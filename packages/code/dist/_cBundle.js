@@ -76,9 +76,12 @@ const startMonaco = async ({ onChange , code , language  })=>{
         mouseWheelZoom: false,
         wordWrapColumn: 80,
         automaticLayout: true,
-        scrollBeyondLastLine: true,
+        scrollBeyondLastLine: false,
         autoIndent: "brackets",
         autoClosingQuotes: "always",
+        padding: {
+            bottom: 300
+        },
         lineNumbers: "on",
         autoClosingBrackets: "always",
         autoClosingOvertype: "always",

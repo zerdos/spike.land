@@ -65,9 +65,12 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
 
         //       glyphMargin: true,
         automaticLayout: true,
-        scrollBeyondLastLine: true,
+        scrollBeyondLastLine: false,
         autoIndent: "brackets",
         autoClosingQuotes: "always",
+        padding: {
+          bottom: 300
+        },
         lineNumbers: "on",
         autoClosingBrackets: "always",
         autoClosingOvertype: "always",
