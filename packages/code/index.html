@@ -95,10 +95,22 @@
 
   <div id="container"></div>
   <div id="ace"></div>
+  <script>
+  if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js', {scope: '/'})
+  .then((reg) => {
+    // registration worked
+    console.log('Registration succeeded. Scope is ' + reg.scope);
+  }).catch((error) => {
+    // registration failed
+    console.log('Registration failed with ' + error);
+  });
+}
+  </script>
   
   <script type="module">
       import {run} from "https://unpkg.com/@zedvision/code/dist/_cBundle.js.min.js"
-      
+
     //inject
       
     //inject

@@ -21,7 +21,17 @@ const corsHeaders = {
 
 export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
-    // const url = new URL(request.url);
+    const url = new URL(request.url);
+
+    if (url.endsWith("sw.js")){
+
+      return new Response(`console.log("hello");` , {
+        headers: {
+          "content-type": "text/javascript",
+        },
+      });
+
+    }
 
     // const hash = url.searchParams.get("h");
     // // const urlStr = url.toString();
