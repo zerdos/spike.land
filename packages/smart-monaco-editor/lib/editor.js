@@ -109,6 +109,13 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 ]
             },
             {
+                name: "@emotion/cache",
+                url: "https://unpkg.com/@emotion/cache@latest/types/index.d.ts",
+                depend: [
+                    "@emotion/utils"
+                ]
+            },
+            {
                 name: "@emotion/react",
                 url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
                 depend: [
@@ -131,6 +138,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 depend: []
             }
         ];
+        console.log(importHelper);
         const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
             )()
         );

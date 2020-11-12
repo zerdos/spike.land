@@ -131,6 +131,12 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
         url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
         depend: ["@emotion/react", "@emotion/serialize", "react"],
       },
+{
+      name: "@emotion/cache",
+      url: "https://unpkg.com/@emotion/cache@latest/types/index.d.ts",
+      depend: ["@emotion/utils"
+  ],
+    },
       {
         name: "@emotion/react",
         url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
@@ -147,6 +153,7 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
         depend: [],
       }
       ];
+      console.log(importHelper);
 
       //# sourceMappingURL=importHelper.js.map
       const dts = importHelper.map(({ name, url }) =>
