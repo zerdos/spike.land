@@ -1,4 +1,4 @@
-import {html} from "./html.ts";
+import {html, sw} from "./html.ts";
 
 // function inject(startKey: string, start:) {
  
@@ -21,11 +21,11 @@ const corsHeaders = {
 
 export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
-    const url = new URL(request.url);
+    // const url = new URL(request.url);
 
-    if (url.endsWith("sw.js")){
+    if (request.url.endsWith("sw.js")){
 
-      return new Response(`console.log("hello");` , {
+      return new Response(sw , {
         headers: {
           "content-type": "text/javascript",
         },
@@ -46,7 +46,7 @@ export async function handleRequest(request: Request): Promise<Response> {
     //   }
     // }
 
-    return new Response(html.toString() , {
+    return new Response(html , {
       headers: {
         "content-type": "text/html",
       },
