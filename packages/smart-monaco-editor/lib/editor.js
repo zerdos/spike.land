@@ -34,14 +34,14 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             verticalScrollbarSize: 20
         },
         minimap: {
-            enabled: false
+            enabled: true
         },
         folding: false,
         multiCursorModifier: "alt",
         wordWrap: "on",
         wordWrapBreakAfterCharacters: ">([{]))],;}",
         mouseWheelZoom: false,
-        wordWrapColumn: 70,
+        wordWrapColumn: 80,
         automaticLayout: true,
         scrollBeyondLastLine: true,
         autoIndent: "brackets",

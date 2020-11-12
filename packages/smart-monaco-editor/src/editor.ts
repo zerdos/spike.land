@@ -1,6 +1,5 @@
 import type AMDLoader from "https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts";
 import type * as monaco from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts";
-
 interface ISmartMonacoEditor {
   monaco: monaco;
   editor: monaco.editor.IStandaloneCodeEditor;
@@ -55,14 +54,14 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
           verticalScrollbarSize: 20,
         },
         minimap: {
-          enabled: false,
+          enabled: true,
         },
         folding: false,
         multiCursorModifier: "alt",
         wordWrap: "on",
         wordWrapBreakAfterCharacters: ">([{]))],;}",
         mouseWheelZoom: false,
-        wordWrapColumn: 70,
+        wordWrapColumn: 80,
 
         //       glyphMargin: true,
         automaticLayout: true,
