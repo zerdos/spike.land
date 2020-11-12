@@ -46,7 +46,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         scrollBeyondLastLine: true,
         autoIndent: "brackets",
         autoClosingQuotes: "always",
-        lineNumbers: "off",
+        lineNumbers: "on",
         autoClosingBrackets: "always",
         autoClosingOvertype: "always",
         suggest: {

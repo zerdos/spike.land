@@ -69,7 +69,7 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
         scrollBeyondLastLine: true,
         autoIndent: "brackets",
         autoClosingQuotes: "always",
-        lineNumbers: "off",
+        lineNumbers: "on",
         autoClosingBrackets: "always",
         autoClosingOvertype: "always",
 
