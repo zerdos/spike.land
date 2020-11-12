@@ -24,7 +24,7 @@
     "load-text-file": "1.2.0",
     "wait-on": "5.2.0"
   },
-  "version": "7.0.6",
+  "version": "7.0.8",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "https://github.com/zed-vision/monorepo",
