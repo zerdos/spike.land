@@ -2,7 +2,7 @@
     "name": "@zedvision/code",
     "version": "6.9.12",
     "description": "Monaco Editor for React",
-    "main": "code.zed-vision.min.js",
+    "main": "dist/_cBundle.js.min.js",
     "sideEffects": false,
     "scripts": {
         "clean": "rm -rf dist && mkdir dist",
