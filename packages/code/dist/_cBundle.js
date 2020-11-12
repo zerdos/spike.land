@@ -133,7 +133,16 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 depend: []
             },
             {
-                name: "@emotion/styled",
+                name: "@emotion/styled/base.d.ts",
+                url: "https://unpkg.com/@emotion/styled@latest/types/base.d.ts",
+                depend: [
+                    "@emotion/react",
+                    "@emotion/serialize",
+                    "react"
+                ]
+            },
+            {
+                name: "@emotion/styled/index.d.ts",
                 url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
                 depend: [
                     "@emotion/react",
@@ -142,21 +151,53 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 ]
             },
             {
-                name: "@emotion/cache",
+                name: "@emotion/cache/index.d.ts",
                 url: "https://unpkg.com/@emotion/cache@latest/types/index.d.ts",
                 depend: [
                     "@emotion/utils"
                 ]
             },
             {
-                name: "@emotion/react",
-                url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
+                name: "@emotion/react/index.d.ts",
+                url: "https://unpkg.com/@emotion/react@latest/types/index.d.ts",
                 depend: [
                     "@emotion/cache"
                 ]
             },
             {
-                name: "@emotion/serialize",
+                name: "@emotion/react/jsx-namespace.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.0.0/types/jsx-namespace.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/react/css-prop.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.0.0/types/css-prop.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/react/helper.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.0.0/types/helper.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/react/theming.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.0.0/types/theming.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/serialize/index.d.ts",
                 url: "https://unpkg.com/@emotion/serialize@latest/types/index.d.ts",
                 depend: [
                     "@emotion/utils",
@@ -164,13 +205,13 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 ]
             },
             {
-                name: "@emotion/utils",
+                name: "@emotion/utils/index.d.ts",
                 url: "https://unpkg.com/@emotion/utils@latest/types/index.d.ts",
                 depend: []
-            }
+            }, 
         ];
         console.log(importHelper);
-        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), `file:///node_modules/@types/${name}/index.d.ts`)
+        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
             )()
         );
         modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
@@ -833,6 +874,8 @@ export async function run() {
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
     await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");
     await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
+    await importScript("https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js");
+    window["styled"] = window["emotionStyled"];
     setTimeout(()=>makeDraggable()
     , 100);
     (async ()=>{
@@ -886,6 +929,11 @@ export async function run() {
             const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
             const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
             const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
+            console.log([
+                ...diag,
+                ...comp,
+                ...syntax
+            ]);
             return [
                 ...diag,
                 ...comp,

@@ -38,8 +38,15 @@ export async function run() {
   );
 
   await importScript(
+    "https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js",
+  );
+
+  await importScript(
     "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
   );
+
+
+  window["styled"] = window["emotionStyled"];
 
   setTimeout(() => makeDraggable(), 100);
 
@@ -126,6 +133,7 @@ export async function run() {
       const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
         "file:///main.tsx",
       );
+      console.log([...diag, ...comp, ...syntax]);
 
       return [...diag, ...comp, ...syntax];
     }
