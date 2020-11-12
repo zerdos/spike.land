@@ -5,6 +5,7 @@ import { transform } from "../components/utils/babel";
 import { render } from "../components/utils/renderer";
 import ReactDiffViewer from "react-diff-viewer";
 import format from "html-format";
+import { startMonaco } from "@zedvision/smart-monaco-editor";
 
 const Wrapper: React.FC<
   {
@@ -180,9 +181,6 @@ export default function Page() {
     const runner = async () => {
       if (!monaco) {
         monaco = true;
-        const { startMonaco } = await (await Function(
-          "return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.5.1/lib/editor.js')",
-        ))();
 
         startMonaco(
           {
