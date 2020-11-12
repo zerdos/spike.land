@@ -22,7 +22,7 @@
     "@ampproject/worker-dom": "0.27.3",
     "@emotion/react": "11.0.0",
     "@emotion/styled": "11.0.0",
-    "@emotion/styled-base": "^11.0.0",
+    "@emotion/styled-base": "11.0.0",
     "@zedvision/smart-monaco-editor": "^6.9.17",
     "avl": "1.4.4",
     "framer-motion": "2.9.4",
