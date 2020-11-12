@@ -1,6 +1,6 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[10],{
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[11],{
 
-/***/ 233:
+/***/ 234:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,50 +10,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9);
-/* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
+/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _components_utils_sha__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(11);
-/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(39);
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(61);
-/* harmony import */ var _emotion_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(1);
+/* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7);
+/* harmony import */ var _components_utils_sha__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
+/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(36);
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(61);
 
 
 
 
 
 
-function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+function _templateObject4() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(["\n  height: 100vh;\n  width: 100vw;\n  overflow: hidden;\n  text-align: center;\n  display: relative;\n  background: rgba(0, 85, 255, 1);\n  perspective: 1000px;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(["\nwidth: 100%;\nmin-height: 120px;\nmax-height: 100%;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(["\ndisplay: block;\nwidth: 150px;\nheight: 150px;\noverflow: hidden;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])(["\n  text-align: center;\n  border-radius: 12px;\n  width: 200px;\n  height: 200px;\n  display: flex;\n  place-content: center;\n  place-items: center;\n  margin: 0;\n  padding: 0;\n  background: rgb(255, 255, 255) none repeat scroll 0% 0%;\n  user-select: none;\n  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px 0px, rgba(0, 0, 0, 0.06) 0px 10px 15px 0px;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
 
 
 
 
 
 
-
-var Styled = Object(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])("div", {
-  target: "e1w0tlto0"
-})( true ? {
-  name: "t1r55p",
-  styles: "text-align:center;border-radius:12px;width:200px;height:200px;display:flex;place-content:center;place-items:center;margin:0;padding:0;background:rgb(255,255,255) none repeat scroll 0% 0%;user-select:none;box-shadow:rgba(0,0,0,0.1) 0px 2px 3px 0px,rgba(0,0,0,0.06) 0px 10px 15px 0px;"
-} : undefined);
-
-var DivContainer = Object(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])("div", {
-  target: "e1w0tlto1"
-})( true ? {
-  name: "1e9tybj",
-  styles: "display:block;width:150px;height:150px;overflow:hidden;"
-} : undefined);
-
-var StyledTextArea = Object(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])("textarea", {
-  target: "e1w0tlto2"
-})( true ? {
-  name: "g49eaj",
-  styles: "width:100%;min-height:120px;max-height:100%;"
-} : undefined);
+var Styled = _emotion_styled__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].div(_templateObject());
+var DivContainer = _emotion_styled__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].div(_templateObject2());
+var StyledTextArea = _emotion_styled__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].textarea(_templateObject3());
 
 var Sha256Writer = function Sha256Writer(_ref) {
   var onNew = _ref.onNew,
@@ -70,7 +90,7 @@ var Sha256Writer = function Sha256Writer(_ref) {
       text: prevText
     });
   }, [prevText]);
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(DivContainer, null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])("p", null, "Start to type"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(StyledTextArea, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](DivContainer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"]("p", null, "Start to type"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](StyledTextArea, {
     onChange: /*#__PURE__*/function () {
       var _ref2 = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee(e) {
         var textContent, sha256Hash;
@@ -80,7 +100,7 @@ var Sha256Writer = function Sha256Writer(_ref) {
               case 0:
                 textContent = e.target.value;
                 _context.next = 3;
-                return Object(_components_utils_sha__WEBPACK_IMPORTED_MODULE_6__[/* hash */ "a"])(textContent);
+                return Object(_components_utils_sha__WEBPACK_IMPORTED_MODULE_7__[/* hash */ "a"])(textContent);
 
               case 3:
                 sha256Hash = _context.sent;
@@ -106,7 +126,7 @@ var Sha256Writer = function Sha256Writer(_ref) {
 };
 
 var ShaContainer = function ShaContainer() {
-  var x = Object(framer_motion__WEBPACK_IMPORTED_MODULE_8__[/* useMotionValue */ "b"])(0);
+  var x = Object(framer_motion__WEBPACK_IMPORTED_MODULE_9__[/* useMotionValue */ "b"])(0);
 
   var _React$useState2 = react__WEBPACK_IMPORTED_MODULE_5__["useState"]([]),
       hashList = _React$useState2[0],
@@ -123,12 +143,12 @@ var ShaContainer = function ShaContainer() {
       activeText = _React$useState3$.activeText,
       setCords = _React$useState3[1];
 
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])("div", null, hashList.map(function (hash) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"]("div", null, hashList.map(function (hash) {
     var _hashToCoordinates = hashToCoordinates(hash),
         locationX = _hashToCoordinates.locationX,
         locationY = _hashToCoordinates.locationY;
 
-    return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])("div", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"]("div", {
       onMouseEnter: /*#__PURE__*/Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default.a.mark(function _callee2() {
         var text, _hashToCoordinates2, locationX, locationY;
 
@@ -137,7 +157,7 @@ var ShaContainer = function ShaContainer() {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return Object(_components_utils_sha__WEBPACK_IMPORTED_MODULE_6__[/* unHash */ "b"])(hash);
+                return Object(_components_utils_sha__WEBPACK_IMPORTED_MODULE_7__[/* unHash */ "b"])(hash);
 
               case 2:
                 text = _context2.sent;
@@ -169,7 +189,7 @@ var ShaContainer = function ShaContainer() {
       },
       key: hash
     });
-  }), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(framer_motion__WEBPACK_IMPORTED_MODULE_8__[/* motion */ "a"].div, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](framer_motion__WEBPACK_IMPORTED_MODULE_9__[/* motion */ "a"].div, {
     animate: {
       x: locX * window.innerWidth / 105 - 100,
       y: locY * window.innerHeight / 105 - 50,
@@ -180,7 +200,7 @@ var ShaContainer = function ShaContainer() {
       position: "absolute",
       x: x
     }
-  }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(Styled, null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(Sha256Writer, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](Styled, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](Sha256Writer, {
     prevText: activeText,
     onNew: function onNew(hash) {
       var _hashToCoordinates3 = hashToCoordinates(hash),
@@ -197,18 +217,11 @@ var ShaContainer = function ShaContainer() {
     }
   }))));
 };
-
-var Container = Object(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])("div", {
-  target: "e1w0tlto3"
-})( true ? {
-  name: "1mzexlt",
-  styles: "height:100vh;width:100vw;overflow:hidden;text-align:center;display:relative;background:rgba(0,85,255,1);perspective:1000px;"
-} : undefined);
-
+var Container = _emotion_styled__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].div(_templateObject4());
 function Page() {
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(react__WEBPACK_IMPORTED_MODULE_5__["Fragment"], null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(react_helmet__WEBPACK_IMPORTED_MODULE_7__[/* Helmet */ "a"], null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])("style", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](react__WEBPACK_IMPORTED_MODULE_5__["Fragment"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](react_helmet__WEBPACK_IMPORTED_MODULE_8__[/* Helmet */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"]("style", {
     type: "text/css"
-  }, "\n      html {\n          height: 100vh;\n          width: 100vw;\n          overflow: hidden;\n      }")), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(Container, null, typeof window !== "undefined" ? Object(_emotion_core__WEBPACK_IMPORTED_MODULE_9__[/* jsx */ "b"])(ShaContainer, null) : "Loading"));
+  }, "\n      html {\n          height: 100vh;\n          width: 100vw;\n          overflow: hidden;\n      }")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](Container, null, typeof window !== "undefined" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5__["createElement"](ShaContainer, null) : "Loading"));
 }
 
 function hashToCoordinates(hash) {

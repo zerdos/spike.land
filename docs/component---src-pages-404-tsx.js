@@ -1,4 +1,4 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[8],Array(55).concat([
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[9],Array(55).concat([
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12,13 +12,13 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
-var _JSONArrow = _interopRequireDefault(__webpack_require__(97));
+var _JSONArrow = _interopRequireDefault(__webpack_require__(95));
 
 var _getCollectionEntries = _interopRequireDefault(__webpack_require__(163));
 
-var _JSONNode = _interopRequireDefault(__webpack_require__(96));
+var _JSONNode = _interopRequireDefault(__webpack_require__(94));
 
 var _ItemRange = _interopRequireDefault(__webpack_require__(164));
 
@@ -457,9 +457,7 @@ var counterExample = "import React, { FC, useState } from \"react\";\nimport Rea
 /* 91 */,
 /* 92 */,
 /* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -472,7 +470,7 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
 var _objType = _interopRequireDefault(__webpack_require__(161));
 
@@ -706,7 +704,7 @@ var _default = JSONNode;
 exports["default"] = _default;
 
 /***/ }),
-/* 97 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -719,7 +717,7 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -770,13 +768,13 @@ var _default = JSONArrow;
 exports["default"] = _default;
 
 /***/ }),
-/* 98 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(4);
+__webpack_require__(3);
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -1279,10 +1277,10 @@ var invertTheme = function invertTheme(theme) {
 exports.invertTheme = invertTheme;
 
 /***/ }),
-/* 99 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(42);
+var classof = __webpack_require__(40);
 
 // `IsArray` abstract operation
 // https://tc39.github.io/ecma262/#sec-isarray
@@ -1292,14 +1290,14 @@ module.exports = Array.isArray || function isArray(arg) {
 
 
 /***/ }),
-/* 100 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(3);
-var shared = __webpack_require__(80);
+var global = __webpack_require__(2);
+var shared = __webpack_require__(79);
 var has = __webpack_require__(13);
-var uid = __webpack_require__(81);
-var NATIVE_SYMBOL = __webpack_require__(101);
+var uid = __webpack_require__(80);
+var NATIVE_SYMBOL = __webpack_require__(99);
 var USE_SYMBOL_AS_UID = __webpack_require__(174);
 
 var WellKnownSymbolsStore = shared('wks');
@@ -1315,7 +1313,7 @@ module.exports = function (name) {
 
 
 /***/ }),
-/* 101 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var fails = __webpack_require__(10);
@@ -1328,7 +1326,7 @@ module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
 
 
 /***/ }),
-/* 102 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* MIT license */
@@ -2229,6 +2227,8 @@ convert.rgb.gray = function (rgb) {
 };
 
 /***/ }),
+/* 101 */,
+/* 102 */,
 /* 103 */,
 /* 104 */,
 /* 105 */,
@@ -2305,13 +2305,13 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
-var _JSONNode = _interopRequireDefault(__webpack_require__(96));
+var _JSONNode = _interopRequireDefault(__webpack_require__(94));
 
 var _createStylingFromTheme = _interopRequireDefault(__webpack_require__(168));
 
-var _reactBase16Styling = __webpack_require__(98);
+var _reactBase16Styling = __webpack_require__(96);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -2802,7 +2802,7 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
 var _JSONNestedNode = _interopRequireDefault(__webpack_require__(55));
 
@@ -3169,9 +3169,9 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
-var _JSONArrow = _interopRequireDefault(__webpack_require__(97));
+var _JSONArrow = _interopRequireDefault(__webpack_require__(95));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -3401,7 +3401,7 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
 var _JSONNestedNode = _interopRequireDefault(__webpack_require__(55));
 
@@ -3669,7 +3669,7 @@ exports["default"] = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(0));
 
-var _propTypes = _interopRequireDefault(__webpack_require__(2));
+var _propTypes = _interopRequireDefault(__webpack_require__(1));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -3750,7 +3750,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _reactBase16Styling = __webpack_require__(98);
+var _reactBase16Styling = __webpack_require__(96);
 
 var _solarized = _interopRequireDefault(__webpack_require__(229));
 
@@ -4172,11 +4172,11 @@ exports.twilight = _interopRequire(_twilight);
 
 "use strict";
 
-var $ = __webpack_require__(40);
+var $ = __webpack_require__(38);
 var flattenIntoArray = __webpack_require__(171);
-var toObject = __webpack_require__(84);
-var toLength = __webpack_require__(33);
-var toInteger = __webpack_require__(48);
+var toObject = __webpack_require__(83);
+var toLength = __webpack_require__(32);
+var toInteger = __webpack_require__(46);
 var arraySpeciesCreate = __webpack_require__(173);
 
 // `Array.prototype.flat` method
@@ -4199,8 +4199,8 @@ $({ target: 'Array', proto: true }, {
 
 "use strict";
 
-var isArray = __webpack_require__(99);
-var toLength = __webpack_require__(33);
+var isArray = __webpack_require__(97);
+var toLength = __webpack_require__(32);
 var bind = __webpack_require__(172);
 
 // `FlattenIntoArray` abstract operation
@@ -4236,7 +4236,7 @@ module.exports = flattenIntoArray;
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var aFunction = __webpack_require__(83);
+var aFunction = __webpack_require__(82);
 
 // optional / simple context binding
 module.exports = function (fn, that, length) {
@@ -4267,8 +4267,8 @@ module.exports = function (fn, that, length) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(24);
-var isArray = __webpack_require__(99);
-var wellKnownSymbol = __webpack_require__(100);
+var isArray = __webpack_require__(97);
+var wellKnownSymbol = __webpack_require__(98);
 
 var SPECIES = wellKnownSymbol('species');
 
@@ -4292,7 +4292,7 @@ module.exports = function (originalArray, length) {
 /* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var NATIVE_SYMBOL = __webpack_require__(101);
+var NATIVE_SYMBOL = __webpack_require__(99);
 
 module.exports = NATIVE_SYMBOL
   // eslint-disable-next-line no-undef
@@ -4316,9 +4316,9 @@ addToUnscopables('flat');
 /* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var wellKnownSymbol = __webpack_require__(100);
+var wellKnownSymbol = __webpack_require__(98);
 var create = __webpack_require__(177);
-var definePropertyModule = __webpack_require__(31);
+var definePropertyModule = __webpack_require__(30);
 
 var UNSCOPABLES = wellKnownSymbol('unscopables');
 var ArrayPrototype = Array.prototype;
@@ -4342,13 +4342,13 @@ module.exports = function (key) {
 /* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(32);
+var anObject = __webpack_require__(31);
 var defineProperties = __webpack_require__(178);
-var enumBugKeys = __webpack_require__(49);
-var hiddenKeys = __webpack_require__(46);
+var enumBugKeys = __webpack_require__(47);
+var hiddenKeys = __webpack_require__(44);
 var html = __webpack_require__(180);
-var documentCreateElement = __webpack_require__(77);
-var sharedKey = __webpack_require__(79);
+var documentCreateElement = __webpack_require__(76);
+var sharedKey = __webpack_require__(78);
 
 var GT = '>';
 var LT = '<';
@@ -4426,9 +4426,9 @@ module.exports = Object.create || function create(O, Properties) {
 /* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var DESCRIPTORS = __webpack_require__(18);
-var definePropertyModule = __webpack_require__(31);
-var anObject = __webpack_require__(32);
+var DESCRIPTORS = __webpack_require__(17);
+var definePropertyModule = __webpack_require__(30);
+var anObject = __webpack_require__(31);
 var objectKeys = __webpack_require__(179);
 
 // `Object.defineProperties` method
@@ -4448,8 +4448,8 @@ module.exports = DESCRIPTORS ? Object.defineProperties : function defineProperti
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var internalObjectKeys = __webpack_require__(82);
-var enumBugKeys = __webpack_require__(49);
+var internalObjectKeys = __webpack_require__(81);
+var enumBugKeys = __webpack_require__(47);
 
 // `Object.keys` method
 // https://tc39.github.io/ecma262/#sec-object.keys
@@ -4462,7 +4462,7 @@ module.exports = Object.keys || function keys(O) {
 /* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getBuiltIn = __webpack_require__(47);
+var getBuiltIn = __webpack_require__(45);
 
 module.exports = getBuiltIn('document', 'documentElement');
 
@@ -6452,7 +6452,7 @@ module.exports = function isArrayish(obj) {
 /* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(102);
+var conversions = __webpack_require__(100);
 
 var route = __webpack_require__(225);
 
@@ -6691,7 +6691,7 @@ module.exports = {
 /* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var conversions = __webpack_require__(102);
+var conversions = __webpack_require__(100);
 /*
 	this function routes a model to all other models.
 
@@ -8211,7 +8211,9 @@ exports["default"] = _default;
 /* 256 */,
 /* 257 */,
 /* 258 */,
-/* 259 */
+/* 259 */,
+/* 260 */,
+/* 261 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8224,14 +8226,14 @@ __webpack_require__.d(__webpack_exports__, "pageQuery", function() { return /* b
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__(12);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
-var styled_base_browser_esm = __webpack_require__(5);
+// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(5);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/layout.tsx + 1 modules
-var layout = __webpack_require__(23);
+var layout = __webpack_require__(22);
 
 // EXTERNAL MODULE: ./src/components/seo.tsx
 var seo = __webpack_require__(21);
@@ -9156,6 +9158,9 @@ var src_AVLTree = /*#__PURE__*/function () {
 
 
 src_AVLTree.default = src_AVLTree;
+// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 13 modules
+var emotion_styled_browser_esm = __webpack_require__(7);
+
 // EXTERNAL MODULE: /z/monorepo/node_modules/react-json-tree/lib/index.js
 var lib = __webpack_require__(160);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
@@ -9864,14 +9869,30 @@ diff.EQUAL = DIFF_EQUAL;
 // EXTERNAL MODULE: ./src/components/codeBox/example.ts
 var example = __webpack_require__(56);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
-var core_browser_esm = __webpack_require__(1);
-
 // CONCATENATED MODULE: ./src/pages/404.tsx
 
 
 
-function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+function _templateObject2() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n  min-width: 600px;\n  min-height: 400px;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])([" \n  height: 600px;\n  display: block;\n  width: 600px;\n  position: relative;\n  border: 4px solid black;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
 
 
 
@@ -9881,14 +9902,7 @@ function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringif
 
 
 
-
-
-var Rotated = Object(styled_base_browser_esm["a" /* default */])("div", {
-  target: "elo6tnq0"
-})( true ? {
-  name: "1c8krw0",
-  styles: "height:600px;display:block;width:600px;position:relative;border:4px solid black;"
-} : undefined);
+var Rotated = emotion_styled_browser_esm["a" /* default */].div(_templateObject());
 
 var _404_NotFoundPage = function NotFoundPage(_ref) {
   var data = _ref.data,
@@ -9974,18 +9988,18 @@ var _404_NotFoundPage = function NotFoundPage(_ref) {
         topLevel = _ref3.topLevel,
         left = _ref3.left,
         level = _ref3.level;
-    return Object(core_browser_esm["b" /* jsx */])(react["Fragment"], null, Object(core_browser_esm["b" /* jsx */])("div", {
+    return /*#__PURE__*/react["createElement"](react["Fragment"], null, /*#__PURE__*/react["createElement"]("div", {
       style: {
         position: "absolute",
         top: topLevel * 60,
         left: left
       }
-    }, node.key), node.right && Object(core_browser_esm["b" /* jsx */])(ReqPrint, {
+    }, node.key), node.right && /*#__PURE__*/react["createElement"](ReqPrint, {
       node: node.right,
       left: left + 256 / Math.pow(2, level),
       topLevel: topLevel,
       level: level + 1
-    }), node.left && Object(core_browser_esm["b" /* jsx */])(ReqPrint, {
+    }), node.left && /*#__PURE__*/react["createElement"](ReqPrint, {
       node: node.left,
       left: left,
       topLevel: topLevel + 1,
@@ -10010,31 +10024,25 @@ var _404_NotFoundPage = function NotFoundPage(_ref) {
       diffArr = _React$useState2[0],
       chDiff = _React$useState2[1];
 
-  return Object(core_browser_esm["b" /* jsx */])(layout["a" /* Layout */], null, Object(core_browser_esm["b" /* jsx */])(seo["a" /* SEO */], {
+  return /*#__PURE__*/react["createElement"](layout["a" /* Layout */], null, /*#__PURE__*/react["createElement"](seo["a" /* SEO */], {
     title: "404: Not Found"
-  }), Object(core_browser_esm["b" /* jsx */])(StyledText, {
+  }), /*#__PURE__*/react["createElement"](StyledText, {
     onChange: function onChange(e) {
       return chDiff(diff(e.target.value, example["a" /* counterExample */], 0));
     }
-  }, example["a" /* counterExample */]), Object(core_browser_esm["b" /* jsx */])("h1", null, "Not Found"), Object(core_browser_esm["b" /* jsx */])(lib_default.a, {
+  }, example["a" /* counterExample */]), /*#__PURE__*/react["createElement"]("h1", null, "Not Found"), /*#__PURE__*/react["createElement"](lib_default.a, {
     data: diffArr
-  }), Object(core_browser_esm["b" /* jsx */])(Rotated, {
+  }), /*#__PURE__*/react["createElement"](Rotated, {
     key: res.toString()
-  }, Object(core_browser_esm["b" /* jsx */])(ReqPrint, {
+  }, /*#__PURE__*/react["createElement"](ReqPrint, {
     node: root,
     topLevel: 0,
     left: 0,
     level: 0
-  })), Object(core_browser_esm["b" /* jsx */])("p", null, "You just hit a route that not exist... the sadness."));
+  })), /*#__PURE__*/react["createElement"]("p", null, "You just hit a route that not exist... the sadness."));
 };
 
-var StyledText = Object(styled_base_browser_esm["a" /* default */])("textarea", {
-  target: "elo6tnq1"
-})( true ? {
-  name: "4a0w9a",
-  styles: "min-width:600px;min-height:400px;"
-} : undefined);
-
+var StyledText = emotion_styled_browser_esm["a" /* default */].textarea(_templateObject2());
 /* harmony default export */ var _404 = __webpack_exports__["default"] = (_404_NotFoundPage);
 var pageQuery = "3159585216";
 

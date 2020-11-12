@@ -1,6 +1,6 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[5],{
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[6],{
 
-/***/ 105:
+/***/ 103:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19,7 +19,7 @@ var defineProperty = __webpack_require__(14);
 var toConsumableArray = __webpack_require__(12);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(7);
+var runtime = __webpack_require__(6);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(9);
@@ -39,65 +39,93 @@ var sha = __webpack_require__(11);
 // EXTERNAL MODULE: ./src/components/codeBox/example.ts
 var example = __webpack_require__(56);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled-base/dist/styled-base.browser.esm.js
-var styled_base_browser_esm = __webpack_require__(5);
+// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(5);
+
+// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 13 modules
+var emotion_styled_browser_esm = __webpack_require__(7);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
 
 
-function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+function _templateObject6() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\ndisplay: block;\nwidth: 150px;\nheight: 150px;\noverflow: hidden;\n"]);
 
-var Header = Object(styled_base_browser_esm["a" /* default */])("div", {
-  target: "ej43tje0"
-})( true ? {
-  name: "befuqp",
-  styles: "background:#3f51b5;font-family:\"Roboto\";margin:0;padding:10px 20px 10px;color:white;"
-} : undefined);
-var CodeContainer = Object(styled_base_browser_esm["a" /* default */])("div", {
-  target: "ej43tje1"
-})( true ? {
-  name: "14oehqf",
-  styles: "display:block;width:100%;height:70vh;"
-} : undefined);
-var ResultContainer = Object(styled_base_browser_esm["a" /* default */])("div", {
-  target: "ej43tje2"
-})( true ? {
-  name: "7wh13m",
-  styles: "display:block;width:100%;"
-} : undefined);
-var ErrorContainer = Object(styled_base_browser_esm["a" /* default */])("div", {
-  target: "ej43tje3"
-})( true ? {
-  name: "13si4fh",
-  styles: "display:block;width:100%;padding:10px;color:white;background:red;height:220px;pre{font-size:1em;line-height:1;}"
-} : undefined);
-var ResultBox = Object(styled_base_browser_esm["a" /* default */])("div", {
-  target: "ej43tje4"
-})( true ? {
-  name: "t1r55p",
-  styles: "text-align:center;border-radius:12px;width:200px;height:200px;display:flex;place-content:center;place-items:center;margin:0;padding:0;background:rgb(255,255,255) none repeat scroll 0% 0%;user-select:none;box-shadow:rgba(0,0,0,0.1) 0px 2px 3px 0px,rgba(0,0,0,0.06) 0px 10px 15px 0px;"
-} : undefined);
-var ResultBoxContainer = Object(styled_base_browser_esm["a" /* default */])("div", {
-  target: "ej43tje5"
-})( true ? {
-  name: "1e9tybj",
-  styles: "display:block;width:150px;height:150px;overflow:hidden;"
-} : undefined);
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n  text-align: center;\n  border-radius: 12px;\n  width: 200px;\n  height: 200px;\n  display: flex;\n  place-content: center;\n  place-items: center;\n  margin: 0;\n  padding: 0;\n  background: rgb(255, 255, 255) none repeat scroll 0% 0%;\n  user-select: none;\n  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px 0px, rgba(0, 0, 0, 0.06) 0px 10px 15px 0px;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n    display: block;\n    width: 100%;\n    padding: 10px;\n    color: white;\n    background: red;\n    height: 220px;\n    pre{\n        font-size: 1em;\n        line-height: 1;\n    }\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n    display: block;\n    width: 100%;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n    display: block;\n     width: 100%;\n    height: 70vh;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n    background: #3f51b5;\n    font-family: \"Roboto\";\n    margin: 0;\n    padding: 10px 20px 10px;\n    color: white;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+
+var Header = emotion_styled_browser_esm["a" /* default */].div(_templateObject());
+var CodeContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject2());
+var ResultContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject3());
+var ErrorContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject4());
+var ResultBox = emotion_styled_browser_esm["a" /* default */].div(_templateObject5());
+var ResultBoxContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject6());
 // EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
 var framer_motion_es = __webpack_require__(61);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/core/dist/core.browser.esm.js + 2 modules
-var core_browser_esm = __webpack_require__(1);
-
 // CONCATENATED MODULE: ./src/components/codeBox/codeboxComponents.tsx
-
 
 
 
 var codeboxComponents_HtmlPlayer = function HtmlPlayer(_ref) {
   var content = _ref.content,
       onEvent = _ref.onEvent;
-  return Object(core_browser_esm["b" /* jsx */])(react["Fragment"], null, Object(core_browser_esm["b" /* jsx */])(ResultBoxContainer, {
+  return /*#__PURE__*/react["createElement"](react["Fragment"], null, /*#__PURE__*/react["createElement"](ResultBoxContainer, {
     onClick: function onClick(e) {
       var clickedElement = e.target;
       var clickEvent = clickedElement.getAttribute("data-onclick");
@@ -137,7 +165,7 @@ var codeboxComponents_ResultComponent = function ResultComponent(_ref2) {
   }, [transformed[0].renderedHash]);
 
   if (transformed[0].rendered.length === 0) {
-    return Object(core_browser_esm["b" /* jsx */])("p", null, "loading ", transformed[0].renderedHash);
+    return /*#__PURE__*/react["createElement"]("p", null, "loading ", transformed[0].renderedHash);
   } // function _html(x: number, y: number) {
   //   // console.log(rendered );
   //   return transformed[Number(x)] &&
@@ -147,17 +175,17 @@ var codeboxComponents_ResultComponent = function ResultComponent(_ref2) {
 
   var divLength = 1000 / (events.length + 1); // const transCopy = [...transformed].map((t)=>{t.rendered=[...t.rendered].reverse(); return t;});
 
-  return Object(core_browser_esm["b" /* jsx */])("div", {
+  return /*#__PURE__*/react["createElement"]("div", {
     style: {
       position: "relative",
       textAlign: "right",
       width: width
     }
   }, transformed.map(function (t, k) {
-    return Object(core_browser_esm["b" /* jsx */])("div", {
+    return /*#__PURE__*/react["createElement"]("div", {
       key: t.renderedHash + k
     }, "ss ", t.renderedHash, "ss", events.map(function (event, renderContentKey) {
-      return Object(core_browser_esm["b" /* jsx */])("div", {
+      return /*#__PURE__*/react["createElement"]("div", {
         onMouseEnter: function onMouseEnter() {
           return setContent({
             content: t.rendered[renderContentKey]
@@ -173,7 +201,7 @@ var codeboxComponents_ResultComponent = function ResultComponent(_ref2) {
         key: t.renderedHash + renderContentKey
       }, event);
     }));
-  }), Object(core_browser_esm["b" /* jsx */])(framer_motion_es["a" /* motion */].div, {
+  }), /*#__PURE__*/react["createElement"](framer_motion_es["a" /* motion */].div, {
     // layout
     drag: true,
     dragElastic: 0.1,
@@ -212,7 +240,7 @@ var codeboxComponents_ResultComponent = function ResultComponent(_ref2) {
       top: -220,
       left: 900
     }
-  }, Object(core_browser_esm["b" /* jsx */])(ResultBox, null, Object(core_browser_esm["b" /* jsx */])(codeboxComponents_HtmlPlayer, {
+  }, /*#__PURE__*/react["createElement"](ResultBox, null, /*#__PURE__*/react["createElement"](codeboxComponents_HtmlPlayer, {
     key: content,
     content: content,
     onEvent: onEvent
@@ -236,13 +264,12 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
-
 var monacoEditor;
 var CodeBox_CodeBox = function CodeBox(_ref) {
   var title = _ref.title,
       children = _ref.children;
   var starterCode = (children === null || children === void 0 ? void 0 : children.toString().trim()) || example["a" /* counterExample */];
-  if (typeof window === "undefined") return Object(core_browser_esm["b" /* jsx */])("pre", null, "Loading");
+  if (typeof window === "undefined") return /*#__PURE__*/react["createElement"]("pre", null, "Loading");
 
   var _React$useState = react["useState"]({
     events: example["b" /* defaultProps */].events,
@@ -765,7 +792,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
   //   });
   // }, [hashArr.length]);
 
-  return Object(core_browser_esm["b" /* jsx */])(react["Fragment"], null, !!title && Object(core_browser_esm["b" /* jsx */])(Header, null, Object(core_browser_esm["b" /* jsx */])("span", null, title), Object(core_browser_esm["b" /* jsx */])("button", {
+  return /*#__PURE__*/react["createElement"](react["Fragment"], null, !!title && /*#__PURE__*/react["createElement"](Header, null, /*#__PURE__*/react["createElement"]("span", null, title), /*#__PURE__*/react["createElement"]("button", {
     onClick: /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee7() {
       var hash, dataObj, body, request, response;
       return regenerator_default.a.wrap(function _callee7$(_context7) {
@@ -817,9 +844,9 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
         }
       }, _callee7);
     }))
-  }, "Save")), Object(core_browser_esm["b" /* jsx */])(CodeContainer, {
+  }, "Save")), /*#__PURE__*/react["createElement"](CodeContainer, {
     id: "container"
-  }), error ? Object(core_browser_esm["b" /* jsx */])(ErrorContainer, null, Object(core_browser_esm["b" /* jsx */])("pre", null, error.toString()), Object(core_browser_esm["b" /* jsx */])("button", {
+  }), error ? /*#__PURE__*/react["createElement"](ErrorContainer, null, /*#__PURE__*/react["createElement"]("pre", null, error.toString()), /*#__PURE__*/react["createElement"]("button", {
     onClick: /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee8() {
       var code;
       return regenerator_default.a.wrap(function _callee8$(_context8) {
@@ -841,7 +868,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
         }
       }, _callee8);
     }))
-  }, "Restore to the last working version")) : transformed.length > 0 ? Object(core_browser_esm["b" /* jsx */])(ResultContainer, null, Object(core_browser_esm["b" /* jsx */])(codeboxComponents_ResultComponent, {
+  }, "Restore to the last working version")) : transformed.length > 0 ? /*#__PURE__*/react["createElement"](ResultContainer, null, /*#__PURE__*/react["createElement"](codeboxComponents_ResultComponent, {
     transformed: transformed,
     key: transformed[0].renderedHash,
     events: events,
@@ -852,7 +879,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
         });
       });
     }
-  })) : Object(core_browser_esm["b" /* jsx */])(react["Fragment"], null));
+  })) : /*#__PURE__*/react["createElement"](react["Fragment"], null));
 };
 
 /***/ }),
@@ -879,7 +906,7 @@ var counterExample = "import React, { FC, useState } from \"react\";\nimport Rea
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return transform; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
 /* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
@@ -1027,7 +1054,7 @@ var transform = /*#__PURE__*/function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
 /* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(60);
