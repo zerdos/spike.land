@@ -45,7 +45,6 @@ export async function run() {
     "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
   );
 
-
   window["styled"] = window["emotionStyled"];
 
   setTimeout(() => makeDraggable(), 100);
