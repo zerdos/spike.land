@@ -6,11 +6,11 @@
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hash; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return unHash; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 /* harmony import */ var _sha256_sha256_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(231);
 /* harmony import */ var _sha256_sha256_worker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_sha256_sha256_worker__WEBPACK_IMPORTED_MODULE_3__);
 
@@ -105,57 +105,7 @@ var unHash = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 56:
-/***/ (function(module, exports) {
-
-function addMethods(worker, methods) {
-  var c = 0;
-  var callbacks = {};
-  worker.addEventListener('message', function (e) {
-    var d = e.data;
-    if (d.type !== 'RPC') return;
-
-    if (d.id) {
-      var f = callbacks[d.id];
-
-      if (f) {
-        delete callbacks[d.id];
-
-        if (d.error) {
-          f[1](Object.assign(Error(d.error.message), d.error));
-        } else {
-          f[0](d.result);
-        }
-      }
-    } else {
-      var evt = document.createEvent('Event');
-      evt.initEvent(d.method, false, false);
-      evt.data = d.params;
-      worker.dispatchEvent(evt);
-    }
-  });
-  methods.forEach(function (method) {
-    worker[method] = function () {
-      var _arguments = arguments;
-      return new Promise(function (a, b) {
-        var id = ++c;
-        callbacks[id] = [a, b];
-        worker.postMessage({
-          type: 'RPC',
-          id: id,
-          method: method,
-          params: [].slice.call(_arguments)
-        });
-      });
-    };
-  });
-}
-
-module.exports = addMethods;
-
-/***/ }),
-
-/***/ 6:
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -910,15 +860,65 @@ try {
 
 /***/ }),
 
-/***/ 8:
+/***/ 56:
+/***/ (function(module, exports) {
+
+function addMethods(worker, methods) {
+  var c = 0;
+  var callbacks = {};
+  worker.addEventListener('message', function (e) {
+    var d = e.data;
+    if (d.type !== 'RPC') return;
+
+    if (d.id) {
+      var f = callbacks[d.id];
+
+      if (f) {
+        delete callbacks[d.id];
+
+        if (d.error) {
+          f[1](Object.assign(Error(d.error.message), d.error));
+        } else {
+          f[0](d.result);
+        }
+      }
+    } else {
+      var evt = document.createEvent('Event');
+      evt.initEvent(d.method, false, false);
+      evt.data = d.params;
+      worker.dispatchEvent(evt);
+    }
+  });
+  methods.forEach(function (method) {
+    worker[method] = function () {
+      var _arguments = arguments;
+      return new Promise(function (a, b) {
+        var id = ++c;
+        callbacks[id] = [a, b];
+        worker.postMessage({
+          type: 'RPC',
+          id: id,
+          method: method,
+          params: [].slice.call(_arguments)
+        });
+      });
+    };
+  });
+}
+
+module.exports = addMethods;
+
+/***/ }),
+
+/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(6);
+module.exports = __webpack_require__(4);
 
 
 /***/ }),
 
-/***/ 9:
+/***/ 8:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

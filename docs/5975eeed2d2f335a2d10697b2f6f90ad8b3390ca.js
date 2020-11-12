@@ -1940,7 +1940,7 @@ var SEO = function SEO(_ref) {
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ layout_Layout; });
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(5);
+var taggedTemplateLiteralLoose = __webpack_require__(6);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
@@ -1949,7 +1949,7 @@ var react = __webpack_require__(0);
 var Helmet = __webpack_require__(36);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 11 modules
-var emotion_styled_browser_esm = __webpack_require__(7);
+var emotion_styled_browser_esm = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__(26);

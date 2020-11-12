@@ -1,5 +1,6 @@
 import * as React from "react";
 import Monaco from "monaco-editor";
+import { startMonaco } from "@zedvision/smart-monaco-editor";
 import { transform } from "../utils/babel";
 import { render } from "../utils/renderer";
 import { hash, unHash } from "../utils/sha";
@@ -56,10 +57,6 @@ export const CodeBox: React.FC<{
     }
 
     const runner = async (c: string) => {
-      const { startMonaco } = await (await Function(
-        "return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.5.1/lib/editor.js')",
-      ))();
-
       const monaco = await startMonaco(
         {
           language: "typescript",

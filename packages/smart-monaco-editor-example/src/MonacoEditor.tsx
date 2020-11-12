@@ -6,7 +6,7 @@ export const MonacoEditor: React.FC<
   React.useEffect(() => {
     (async () => {
       const { startMonaco } = await (await Function(
-        "return import('https://unpkg.com/@zedvision/smart-monaco-editor/@6.5.1/lib/editor.js')",
+        "return import('https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js')",
       ))();
 
       startMonaco({ language: "html", code, onChange });

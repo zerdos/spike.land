@@ -9,7 +9,7 @@
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ CodeBox_CodeBox; });
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(8);
+var regenerator = __webpack_require__(7);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
@@ -19,14 +19,16 @@ var defineProperty = __webpack_require__(14);
 var toConsumableArray = __webpack_require__(12);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(6);
+var runtime = __webpack_require__(4);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(9);
+var asyncToGenerator = __webpack_require__(8);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
+// CONCATENATED MODULE: ../smart-monaco-editor/lib/editor.js
+var editor_require;var modules={};var startMonaco=/*#__PURE__*/function(){var _ref2=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee2(_ref){var onChange,code,language,container,el,vsPath,_yield$loadScript,require,importHelper,dts;return regenerator_default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:onChange=_ref.onChange,code=_ref.code,language=_ref.language;container=window.document.getElementById("container");if(!container){el=document.getElementById("container");el.id="container";document.body.appendChild(el);}if(!(window["monaco"]===undefined)){_context2.next=14;break;}vsPath="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";_context2.next=7;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"+"/loader.min.js");case 7:_yield$loadScript=_context2.sent;require=_yield$loadScript.require;require.config({paths:{"vs":"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}});_context2.next=12;return new Promise(function(resolve){return require(["vs/editor/editor.main"],function(monaco){modules.monaco=monaco;resolve(monaco);});});case 12:_context2.next=15;break;case 14:return _context2.abrupt("return",modules);case 15:modules.editor=modules.monaco.editor.create(window.document.getElementById("container"),{cursorStyle:"block",formatOnType:true,scrollbar:{horizontal:"hidden",verticalHasArrows:true,verticalScrollbarSize:20},minimap:{enabled:true},folding:false,multiCursorModifier:"alt",wordWrap:"on",wordWrapBreakAfterCharacters:">([{]))],;}",mouseWheelZoom:false,wordWrapColumn:80,automaticLayout:true,scrollBeyondLastLine:true,autoIndent:"brackets",autoClosingQuotes:"always",lineNumbers:"on",autoClosingBrackets:"always",autoClosingOvertype:"always",suggest:{},codeLens:true,autoSurround:"languageDefined",trimAutoWhitespace:true,codeActionsOnSaveTimeout:100,model:modules.monaco.editor.createModel(code,language,modules.monaco.Uri.parse(language==="typescript"?"file:///main.tsx":"file:///main.html")),value:code,language:language,theme:"vs-dark"});modules.editor.onDidChangeModelContent(function(){return onChange(modules.editor.getValue());});modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({noSuggestionDiagnostics:true,noSemanticValidation:true,noSyntaxValidation:true});if(!(language==="typescript")){_context2.next=26;break;}importHelper=[{name:"react",url:"https://unpkg.com/@types/react@latest/index.d.ts",depend:["global","csstype","react-dom","prop-types"]},{name:"global",url:"https://unpkg.com/@types/react@latest/global.d.ts",depend:[]},{name:"prop-types",url:"https://unpkg.com/@types/prop-types@latest/index.d.ts",depend:[]},{name:"react-dom",url:"https://unpkg.com/@types/react-dom@latest/index.d.ts",depend:[]},{name:"csstype",url:"https://unpkg.com/csstype@latest/index.d.ts",depend:[]},{name:"@emotion/styled",url:"https://unpkg.com/@emotion/styled@latest/types/index.d.ts",depend:["@emotion/react","@emotion/serialize","react"]},{name:"@emotion/react",url:"https://unpkg.com/@emotion/styled@latest/types/index.d.ts",depend:["@emotion/cache","@emotion/serialize","react"]},{name:"@emotion/serialize",url:"https://unpkg.com/@emotion/serialize@latest/types/index.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/utils",url:"https://unpkg.com/@emotion/utils@latest/types/index.d.ts",depend:[]}];dts=importHelper.map(function(_ref3){var name=_ref3.name,url=_ref3.url;return Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee(){return regenerator_default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.t0=modules.monaco.languages.typescript.typescriptDefaults;_context.next=3;return fetch(url);case 3:_context.next=5;return _context.sent.text();case 5:_context.t1=_context.sent;_context.t2="file:///node_modules/@types/"+name+"/index.d.ts";return _context.abrupt("return",_context.t0.addExtraLib.call(_context.t0,_context.t1,_context.t2));case 8:case"end":return _context.stop();}}},_callee);}))();});modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({target:modules.monaco.languages.typescript.ScriptTarget.ESNext,allowNonTsExtensions:true,allowUmdGlobalAccess:true,strict:true,allowJs:true,noEmitOnError:true,allowSyntheticDefaultImports:true,moduleResolution:modules.monaco.languages.typescript.ModuleResolutionKind.NodeJs,module:modules.monaco.languages.typescript.ModuleKind.CommonJS,noEmit:true,typeRoots:["node_modules/@types"],jsx:modules.monaco.languages.typescript.JsxEmit.React,jsxFactory:"React.createElement",jsxFragmentFactory:"React.Fragment",esModuleInterop:true});_context2.next=24;return Promise.all(dts);case 24:modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({noSuggestionDiagnostics:false,noSemanticValidation:false,noSyntaxValidation:false});return _context2.abrupt("return",modules);case 26:case"end":return _context2.stop();}}},_callee2);}));return function startMonaco(_x){return _ref2.apply(this,arguments);};}();function loadScript(src){return new Promise(function(resolve,reject){var s;s=window.document.createElement("script");s.src=src;s.onload=function(){return resolve(window);};s.onerror=reject;window.document.head.appendChild(s);});}
 // EXTERNAL MODULE: ./src/components/utils/babel.ts
 var babel = __webpack_require__(55);
 
@@ -40,10 +42,10 @@ var sha = __webpack_require__(11);
 var example = __webpack_require__(54);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(5);
+var taggedTemplateLiteralLoose = __webpack_require__(6);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 11 modules
-var emotion_styled_browser_esm = __webpack_require__(7);
+var emotion_styled_browser_esm = __webpack_require__(9);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
 
@@ -264,6 +266,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+
 var monacoEditor;
 var CodeBox_CodeBox = function CodeBox(_ref) {
   var title = _ref.title,
@@ -345,24 +348,12 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
     var runner = /*#__PURE__*/function () {
       var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(c) {
-        var _yield$yield$Function, startMonaco, monaco, model, tsWorker, modelUri, diag, comp, syntax, tsErrorMessageArr, tsErrorMessage, codeHash, tHash, hashArrValue, renderedHashContentHash, renderedHashContent, prevIndex, t, rendered, renderedHash;
-
+        var monaco, model, tsWorker, modelUri, diag, comp, syntax, tsErrorMessageArr, tsErrorMessage, codeHash, tHash, hashArrValue, renderedHashContentHash, renderedHashContent, prevIndex, t, rendered, renderedHash;
         return regenerator_default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return Function("return import('https://unpkg.com/@zedvision/smart-monaco-editor@6.5.1/lib/editor.js')");
-
-              case 2:
-                _context2.t0 = _context2.sent;
-                _context2.next = 5;
-                return (0, _context2.t0)();
-
-              case 5:
-                _yield$yield$Function = _context2.sent;
-                startMonaco = _yield$yield$Function.startMonaco;
-                _context2.next = 9;
                 return startMonaco({
                   language: "typescript",
                   code: c,
@@ -371,53 +362,53 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                   }
                 });
 
-              case 9:
+              case 2:
                 monaco = _context2.sent;
                 // await window["monaco"].editor.colorizeElement(document.getElementById("container"))
                 // const monaco: typeof Monaco = window["monaco"];
                 model = monaco.editor.getModel("file:///main.tsx");
                 monacoEditor = model;
-                _context2.next = 14;
+                _context2.next = 7;
                 return window["monaco"].languages.typescript.getTypeScriptWorker();
 
-              case 14:
+              case 7:
                 tsWorker = _context2.sent;
                 modelUri = model === null || model === void 0 ? void 0 : model.uri;
 
                 if (modelUri) {
-                  _context2.next = 18;
+                  _context2.next = 11;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 18:
-                _context2.next = 20;
+              case 11:
+                _context2.next = 13;
                 return tsWorker(modelUri);
 
-              case 20:
-                _context2.next = 22;
+              case 13:
+                _context2.next = 15;
                 return _context2.sent.getSemanticDiagnostics("file:///main.tsx");
 
-              case 22:
+              case 15:
                 diag = _context2.sent;
-                _context2.next = 25;
+                _context2.next = 18;
                 return tsWorker(modelUri);
 
-              case 25:
-                _context2.next = 27;
+              case 18:
+                _context2.next = 20;
                 return _context2.sent.getCompilerOptionsDiagnostics("file:///main.tsx");
 
-              case 27:
+              case 20:
                 comp = _context2.sent;
-                _context2.next = 30;
+                _context2.next = 23;
                 return tsWorker(modelUri);
 
-              case 30:
-                _context2.next = 32;
+              case 23:
+                _context2.next = 25;
                 return _context2.sent.getSyntacticDiagnostics("file:///main.tsx");
 
-              case 32:
+              case 25:
                 syntax = _context2.sent;
                 tsErrorMessageArr = [].concat(Object(toConsumableArray["a" /* default */])(diag), Object(toConsumableArray["a" /* default */])(comp), Object(toConsumableArray["a" /* default */])(syntax));
                 tsErrorMessage = tsErrorMessageArr.length === 0 ? "" : tsErrorMessageArr[0].messageText.toString();
@@ -425,62 +416,62 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                 // console.log(fix);
                 // model.set
 
-                _context2.next = 38;
+                _context2.next = 31;
                 return Object(sha["a" /* hash */])(c);
 
-              case 38:
+              case 31:
                 codeHash = _context2.sent;
-                _context2.next = 41;
+                _context2.next = 34;
                 return transformCode(codeHash, tsErrorMessage);
 
-              case 41:
+              case 34:
                 tHash = _context2.sent;
-                _context2.next = 44;
+                _context2.next = 37;
                 return Object(sha["a" /* hash */])({
                   events: [example["b" /* defaultProps */].events[0]]
                 });
 
-              case 44:
+              case 37:
                 hashArrValue = _context2.sent;
 
                 if (!(!tHash || tsErrorMessage)) {
-                  _context2.next = 47;
+                  _context2.next = 40;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 47:
-                _context2.next = 49;
+              case 40:
+                _context2.next = 42;
                 return Object(renderer["a" /* render */])(tHash, hashArrValue);
 
-              case 49:
+              case 42:
                 renderedHashContentHash = _context2.sent;
 
                 if (!(typeof renderedHashContentHash === "string")) {
-                  _context2.next = 56;
+                  _context2.next = 49;
                   break;
                 }
 
-                _context2.next = 53;
+                _context2.next = 46;
                 return Object(sha["b" /* unHash */])(renderedHashContentHash);
 
-              case 53:
-                _context2.t1 = _context2.sent;
-                _context2.next = 57;
+              case 46:
+                _context2.t0 = _context2.sent;
+                _context2.next = 50;
                 break;
 
-              case 56:
-                _context2.t1 = "<p>Error</p>";
+              case 49:
+                _context2.t0 = "<p>Error</p>";
 
-              case 57:
-                renderedHashContent = _context2.t1;
+              case 50:
+                renderedHashContent = _context2.t0;
                 prevIndex = transformed.findIndex(function (x) {
                   return x.hash === tHash;
                 });
 
                 if (!(prevIndex > 0)) {
-                  _context2.next = 64;
+                  _context2.next = 57;
                   break;
                 }
 
@@ -498,12 +489,12 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
                 return _context2.abrupt("return");
 
-              case 64:
+              case 57:
                 rendered = [typeof renderedHashContent === "string" ? renderedHashContent : "<p>Error</p>"];
-                _context2.next = 67;
+                _context2.next = 60;
                 return Object(sha["a" /* hash */])(rendered);
 
-              case 67:
+              case 60:
                 renderedHash = _context2.sent;
 
                 if (code === c) {
@@ -589,7 +580,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                   });
                 }
 
-              case 69:
+              case 62:
               case "end":
                 return _context2.stop();
             }
@@ -904,11 +895,11 @@ var counterExample = "import React, { FC, useState } from \"react\";\nimport Rea
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return transform; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 /* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 
 
@@ -1052,11 +1043,11 @@ var transform = /*#__PURE__*/function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
 /* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(58);
 /* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(11);
