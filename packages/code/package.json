@@ -1,11 +1,11 @@
 {
     "name": "@zedvision/code",
-    "version": "7.0.3",
+    "version": "7.0.4",
     "description": "Monaco Editor for React",
     "main": "dist/_cBundle.js.min.js",
     "files": [
         "**/*"
-      ],
+    ],
     "scripts": {
         "clean": "rm -rf dist && mkdir dist",
         "build": "yarn clean && deno fmt src-deno && yarn build-codebox && yarn minify && yarn build-template",
