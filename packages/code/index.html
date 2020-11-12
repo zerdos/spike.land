@@ -109,13 +109,28 @@
   </script>
   
   <script type="module">
-      import {run} from "https://unpkg.com/@zedvision/code/dist/_cBundle.js.min.js"
+
+    const runner = async ()=>{
+      const version = "latest";
+      const cdnAddress = "https://unpkg.com/@zedvision/code@" ;
+      const script = "/dist/_cBundle.js.min.js";
+
+      console.log(location.url);
+      if (window.location.url.includes(":")) {
+        const {run} = await import("./dist/_cBundle.js")
+        run();
+      }
+
+      const {run} = await import(cdnAddress + version + script)
+      run();
+    }
+    
 
     //inject
       
     //inject
 
-    run();
+    runner();
   </script>
 </body>
 </html>

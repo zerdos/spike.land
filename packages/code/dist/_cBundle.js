@@ -826,6 +826,7 @@ export async function run() {
     await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
     await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");
+    await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
     setTimeout(()=>makeDraggable()
     , 100);
     (async ()=>{
