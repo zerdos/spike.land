@@ -27,7 +27,7 @@
   "version": "7.0.2",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
-  "repository": "git@github.com:zerdos/devcontainer.git",
+  "repository": "git@github.com:zed-vision/monorepo.git",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "private": false,

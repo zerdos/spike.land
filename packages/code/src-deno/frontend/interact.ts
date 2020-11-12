@@ -2,7 +2,7 @@ import { importScript } from "./importScript.ts";
 
 export const makeDraggable = async () => {
   const onload = await importScript(
-    "https://unpkg.com/interactjs@1.10.0/dist/interact.js",
+    "https://unpkg.com/interactjs@1.10.0/dist/interact.min.js",
   );
 
   const interact = window["interact"];

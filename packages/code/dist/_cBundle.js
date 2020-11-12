@@ -7,7 +7,7 @@ const importScript = async (src)=>new Promise(function(resolve, reject) {
     })
 ;
 const makeDraggable = async ()=>{
-    const onload = await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.js");
+    const onload = await importScript("https://unpkg.com/interactjs@1.10.0/dist/interact.min.js");
     const interact = window["interact"];
     interact(".draggable").draggable({
         inertia: true,
