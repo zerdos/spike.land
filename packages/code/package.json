@@ -3,7 +3,9 @@
     "version": "7.0.3",
     "description": "Monaco Editor for React",
     "main": "dist/_cBundle.js.min.js",
-    "sideEffects": false,
+    "files": [
+        "**/*"
+      ],
     "scripts": {
         "clean": "rm -rf dist && mkdir dist",
         "build": "yarn clean && deno fmt src-deno && yarn build-codebox && yarn minify && yarn build-template",
