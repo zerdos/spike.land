@@ -23,7 +23,7 @@
     "@emotion/react": "11.0.0",
     "@emotion/styled": "11.0.0",
     "@emotion/styled-base": "11.0.0",
-    "@zedvision/smart-monaco-editor": "^7.0.2",
+    "@zedvision/smart-monaco-editor": "^6.6.6",
     "avl": "1.4.4",
     "framer-motion": "2.9.4",
     "gatsby": "2.25.4",

@@ -10,6 +10,5 @@
     "strict": true,
     "types": ["node"]
   },
-  "include": ["src"],
-  "exclude": ["./lib", "node_modules", "**/__tests__/*"]
+  "include": ["src"]
 }

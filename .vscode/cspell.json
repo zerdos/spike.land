@@ -143,6 +143,7 @@
         "getpass",
         "gitconfiglocal",
         "gitlab",
+        "gitpod",
         "globby",
         "graphiql",
         "groovy",
