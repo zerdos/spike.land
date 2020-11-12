@@ -175,6 +175,7 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
+const starter = `import * as React from "react";\nimport ReactDOM from "react-dom";\n\nconst Counter: React.FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = React.useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst elementToRender = document.getElementById("root");\nReactDOM.render(<Counter />, elementToRender);\n`;
 const DIFF_DELETE = -1;
 function diffMain({ text1 , text2 , cursorPos  }) {
     if (text1 === text2) {
@@ -955,7 +956,7 @@ export async function run() {
     function getCodeToLoad() {
         const search = new URLSearchParams(window.location.search);
         const h = search.get("h") || localStorage.getItem("codeBoXHash");
-        return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+        return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || starter;
     }
     function transpileCode(code) {
         return window.Babel.transform(code, {

@@ -280,6 +280,7 @@
         "setimmediate",
         "setprototypeof",
         "shasum",
+        "shatest",
         "shellwords",
         "shorttext",
         "sindresorhus",

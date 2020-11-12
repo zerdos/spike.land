@@ -1,4 +1,15 @@
-import { inject } from "./html.js";
+import {html} from "./html.ts";
+
+// function inject(startKey: string, start:) {
+ 
+//   const res = html.split("//inject")
+//   return [res[0], 
+//   "const injectCoded =  new Uint8Array(["+inject+"]); " ,
+//   "localStorage.setItem(\`"+ injectKey +"\`, inject); ",
+//   jsDecoded, 
+//   res[2]].join(" ");
+// }
+
 
 const shaStore = SHATEST;
 
@@ -10,22 +21,22 @@ const corsHeaders = {
 
 export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
-    const url = new URL(request.url);
+    // const url = new URL(request.url);
 
-    const hash = url.searchParams.get("h");
-    // const urlStr = url.toString();
+    // const hash = url.searchParams.get("h");
+    // // const urlStr = url.toString();
 
-    let starterCode: null | string = null;
+    // let starterCode: null | string = null;
 
-    if (hash !== null && hash.length > 5) {
-      starterCode = await shaStore.get(hash);
+    // if (hash !== null && hash.length > 5) {
+    //   const json = await shaStore.get(hash);
 
-      if (starterCode !== null) {
-        starterCode = JSON.parse(starterCode).code;
-      }
-    }
+    //   if (json !== null) {
+    //     starterCode = JSON.parse(json).code;
+    //   }
+    // }
 
-    return new Response(inject(hash, starterCode), {
+    return new Response(html.toString() , {
       headers: {
         "content-type": "text/html",
       },
@@ -49,7 +60,7 @@ export async function handleRequest(request: Request): Promise<Response> {
       "",
     );
     const smallerKey = hash.substring(0, 7);
-    await shaStore.put(smallerKey, myBuffer);
+    shaStore.put(smallerKey, myBuffer);
 
     const resp = new Response(`{"hash":"${smallerKey}"}`);
 

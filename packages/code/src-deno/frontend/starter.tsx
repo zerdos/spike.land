@@ -1,4 +1,4 @@
-import * as React from "react";
+export const starter = `import * as React from "react";
 import ReactDOM from "react-dom";
 
 const Counter: React.FC<{ initial?: number }> = (
@@ -15,3 +15,4 @@ const Counter: React.FC<{ initial?: number }> = (
 
 const elementToRender = document.getElementById("root");
 ReactDOM.render(<Counter />, elementToRender);
+`;

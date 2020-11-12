@@ -4,6 +4,7 @@ import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/Defi
 import { makeDraggable } from "./interact.ts";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.ts";
+import { starter } from "./starter.tsx";
 
 import { diff } from "./diff.ts";
 
@@ -264,7 +265,7 @@ export async function run() {
     const h = search.get("h") || localStorage.getItem("codeBoXHash");
 
     return (h && window.localStorage.getItem(h)) ||
-      window.localStorage.getItem("STARTER") || `() => <>Hello</>`;
+      window.localStorage.getItem("STARTER") || starter;
   }
 
   function transpileCode(code: string) {

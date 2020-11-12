@@ -1,4 +1,3 @@
 node_modules
 transpiled
-src
-html.js
+html.ts
