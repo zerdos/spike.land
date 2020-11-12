@@ -40,12 +40,14 @@ export async function run() {
   await importScript(
     "https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js",
   );
-
+  window["css"] = window["emotionReact"].css;
   await importScript(
     "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
   );
 
   window["styled"] = window["emotionStyled"];
+  window["css"] = window["emotionReact"].css;
+  window["jsx"] = window["emotionReact"].jsx;
 
   setTimeout(() => makeDraggable(), 100);
 
