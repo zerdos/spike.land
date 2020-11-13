@@ -1,18 +1,39 @@
-export const starter = `import * as React from "react";
-import ReactDOM from "react-dom";
+export const starter = `import React from "react";
+import ReactDOM from "react-dom"
+/** @jsx jsx */
+import styled from "@emotion/styled"
 
-const Counter: React.FC<{ initial?: number }> = (
-  { initial = 0 },
-) => {
-  const [clicks, setClicks] = React.useState(initial);
+const Counter = () => {
+  const [clicks, setClicks] = React.useState(0);
 
-  return <div>
-    <p>Clicks: {clicks}</p>
-    <button onClick={() => setClicks(clicks + 1)}>+</button>
-    <button onClick={() => setClicks(clicks - 1)}>-</button>
-  </div>;
-};
+  return <Container>
+    <Button css={\`background: green\`} onClick={() => setClicks(clicks - 1)}>-</Button>
+    {clicks}
+    <Button css={\`background: red\`} onClick={() => setClicks(clicks + 1)}>+</Button>
+  </Container>
+}
+
+const Container = styled.div\`
+  background: white;
+  border: 6px solid grey;
+  border-radius: 20px;
+  padding: 1rem;
+ \`
+
+const Button = styled.a\`
+  text-align: center;
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  width: 3rem;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  \`
 
 const elementToRender = document.getElementById("root");
 ReactDOM.render(<Counter />, elementToRender);
+
+
 `;

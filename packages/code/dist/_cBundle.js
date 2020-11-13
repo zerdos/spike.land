@@ -256,7 +256,7 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
-const starter = `import * as React from "react";\nimport ReactDOM from "react-dom";\n\nconst Counter: React.FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = React.useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst elementToRender = document.getElementById("root");\nReactDOM.render(<Counter />, elementToRender);\n`;
+const starter = `import React from "react";\nimport ReactDOM from "react-dom"\n/** @jsx jsx */\nimport styled from "@emotion/styled"\n\nconst Counter = () => {\n  const [clicks, setClicks] = React.useState(0);\n\n  return <Container>\n    <Button css={\`background: green\`} onClick={() => setClicks(clicks - 1)}>-</Button>\n    {clicks}\n    <Button css={\`background: red\`} onClick={() => setClicks(clicks + 1)}>+</Button>\n  </Container>\n}\n\nconst Container = styled.div\`\n  background: white;\n  border: 6px solid grey;\n  border-radius: 20px;\n  padding: 1rem;\n \`\n\nconst Button = styled.a\`\n  text-align: center;\n  display: inline-block;\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 1rem;\n  width: 3rem;\n  background: transparent;\n  color: white;\n  border: 2px solid white;\n  \`\n\nconst elementToRender = document.getElementById("root");\nReactDOM.render(<Counter />, elementToRender);\n\n\n`;
 const DIFF_DELETE = -1;
 function diffMain({ text1 , text2 , cursorPos  }) {
     if (text1 === text2) {
