@@ -225,14 +225,14 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["3.1.403"],
+            softwareVersions.sha.dotnet_sha512["3.1.404"],
           );
       } else {
         this._dockerfile += dockerTemplates["dotnet5"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet5)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["5.0.100-rc2.2"],
+            softwareVersions.sha.dotnet_sha512["5.0.100"],
           );
       }
     }
