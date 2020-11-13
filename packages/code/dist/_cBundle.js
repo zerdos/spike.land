@@ -8,6 +8,64 @@ const importScript = async (src)=>new Promise(function(resolve, reject) {
 ;
 const makeDraggable = async ()=>{
     await importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
+    const JSFrame = window["JSFrame"];
+    const jsFrame = new JSFrame();
+    const frame = jsFrame.create({
+        name: `Win0`,
+        title: `Win0 - Yosemite style`,
+        left: 20,
+        top: 100,
+        width: 400,
+        height: 320,
+        minWidth: 200,
+        minHeight: 110,
+        appearanceName: "yosemite",
+        appearanceParam: {
+            titleBar: {
+                greenButton: "fullscreen"
+            }
+        },
+        html: '<div  style=\"font-size:16px\"><div id=root></div></div>'
+    }).show();
+    frame.setControl({
+        maximizeButton: "zoomButton",
+        maximizeParam: {
+            fullScreen: true,
+            restoreKey: "Escape"
+        },
+        demaximizeButton: "dezoomButton",
+        deminimizeButton: "deminimizeButton",
+        hideButton: "minimizeButton",
+        hideParam: {
+            align: "ABSOLUTE",
+            offset: {
+                x: 100,
+                y: 500
+            },
+            duration: 300
+        },
+        dehideParam: {
+            duration: 300
+        },
+        styleDisplay: "inline",
+        animation: true,
+        animationDuration: 100
+    });
+    frame.control.on("maximized", (frame1, info)=>{
+        console.log("\'maximized\' event fired.The window was maximized.");
+        frame1.on("#bg", "dblclick", function(_frame, e) {
+            _frame.control.doCommand("restore");
+        });
+    });
+    frame.control.on("demaximized", (frame1, info)=>{
+        console.log("\'demaximized\' event fired.The window is now back to its original size from its maximized state.");
+    });
+    frame.control.on("hid", (frame1, info)=>{
+        console.log("\'hid\' event fired.The window was hidden.");
+    });
+    frame.control.on("dehided", (frame1, info)=>{
+        console.log("\'dehided\' event fired.A hidden window has appeared.");
+    });
 };
 const modules = {
 };
@@ -191,7 +249,6 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 depend: []
             }, 
         ];
-        console.log(importHelper);
         const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
             )()
         );
@@ -858,8 +915,7 @@ export async function run() {
     window["jsx"] = window["emotionReact"].jsx;
     await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
     window["styled"] = window["emotionStyled"];
-    setTimeout(()=>makeDraggable()
-    , 100);
+    await makeDraggable();
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;

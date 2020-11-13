@@ -46,7 +46,7 @@ export async function run() {
 
   window["styled"] = window["emotionStyled"];
 
-  setTimeout(() => makeDraggable(), 100);
+  await makeDraggable();
 
   (async () => {
     const example = getCodeToLoad();

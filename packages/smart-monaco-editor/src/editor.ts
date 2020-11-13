@@ -188,8 +188,6 @@ export const startMonaco: (props: StartMonaco) => Promise<ISmartMonacoEditor> =
           depend: [],
         },
       ];
-      console.log(importHelper);
-
       //# sourceMappingURL=importHelper.js.map
       const dts = importHelper.map(({ name, url }) =>
         (async () =>

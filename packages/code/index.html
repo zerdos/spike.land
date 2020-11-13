@@ -47,9 +47,6 @@
       opacity: 0.7;
     }
 
-    #root {
-      display: none;
-    }
 
     #ace {
       display: none;
@@ -106,7 +103,7 @@
 
 <body>
   <div id="error" class="draggable"></div>
-  <div id="root" class="draggable resize-drag"></div>
+  
 
   <div id="container"></div>
   <div id="ace"></div>
@@ -144,10 +141,12 @@
       if (window.location.href.includes("0.0.0.0") || window.location.href.includes("localhost")) {
         const { run } = await import("./dist/_cBundle.js")
         run();
+      } else {
+        const { run } = await import(cdnAddress + version + script)
+         run();
       }
 
-      const { run } = await import(cdnAddress + version + script)
-      run();
+
     }
 
 
