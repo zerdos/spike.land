@@ -1,5 +1,3 @@
-const modules = {
-};
 export const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -18,51 +16,52 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         await new Promise((resolve)=>require([
                 "vs/editor/editor.main"
             ], (monaco)=>{
-                modules.monaco = monaco;
                 resolve(monaco);
             })
         );
-    } else {
-        return modules;
     }
-    modules.editor = modules.monaco.editor.create(window.document.getElementById("container"), {
-        cursorStyle: "block",
-        formatOnType: true,
-        scrollbar: {
-            horizontal: "hidden",
-            verticalHasArrows: true,
-            verticalScrollbarSize: 20
-        },
-        minimap: {
-            enabled: true
-        },
-        folding: false,
-        multiCursorModifier: "alt",
-        wordWrap: "on",
-        wordWrapBreakAfterCharacters: ">([{]))],;}",
-        mouseWheelZoom: false,
-        wordWrapColumn: 80,
-        automaticLayout: true,
-        scrollBeyondLastLine: false,
-        autoIndent: "brackets",
-        autoClosingQuotes: "always",
-        padding: {
-            bottom: 300
-        },
-        lineNumbers: "on",
-        autoClosingBrackets: "always",
-        autoClosingOvertype: "always",
-        suggest: {
-        },
-        codeLens: true,
-        autoSurround: "languageDefined",
-        trimAutoWhitespace: true,
-        codeActionsOnSaveTimeout: 100,
-        model: modules.monaco.editor.createModel(code, language, modules.monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
-        value: code,
-        language: language,
-        theme: "vs-dark"
-    });
+    const monaco = window["monaco"];
+    const modules = {
+        monaco: monaco,
+        editor: monaco.editor.create(window.document.getElementById("container"), {
+            cursorStyle: "block",
+            formatOnType: true,
+            scrollbar: {
+                horizontal: "hidden",
+                verticalHasArrows: true,
+                verticalScrollbarSize: 20
+            },
+            minimap: {
+                enabled: true
+            },
+            folding: false,
+            multiCursorModifier: "alt",
+            wordWrap: "on",
+            wordWrapBreakAfterCharacters: ">([{]))],;}",
+            mouseWheelZoom: false,
+            wordWrapColumn: 80,
+            automaticLayout: true,
+            scrollBeyondLastLine: false,
+            autoIndent: "brackets",
+            autoClosingQuotes: "always",
+            padding: {
+                bottom: 300
+            },
+            lineNumbers: "on",
+            autoClosingBrackets: "always",
+            autoClosingOvertype: "always",
+            suggest: {
+            },
+            codeLens: true,
+            autoSurround: "languageDefined",
+            trimAutoWhitespace: true,
+            codeActionsOnSaveTimeout: 100,
+            model: monaco.editor.createModel(code, language, monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
+            value: code,
+            language: language,
+            theme: "vs-dark"
+        })
+    };
     modules.editor.onDidChangeModelContent(()=>onChange(modules.editor.getValue())
     );
     modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({

@@ -25,7 +25,7 @@ const makeDraggable = async ()=>{
                 greenButton: "fullscreen"
             }
         },
-        html: '<div  style=\"font-size:16px\"><div id=root></div></div>'
+        html: '<div style=\"font-size:16px\"><div id=root></div></div>'
     }).show();
     frame.setControl({
         maximizeButton: "zoomButton",
@@ -67,8 +67,6 @@ const makeDraggable = async ()=>{
         console.log("\'dehided\' event fired.A hidden window has appeared.");
     });
 };
-const modules = {
-};
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -87,51 +85,52 @@ const startMonaco = async ({ onChange , code , language  })=>{
         await new Promise((resolve)=>require([
                 "vs/editor/editor.main"
             ], (monaco)=>{
-                modules.monaco = monaco;
                 resolve(monaco);
             })
         );
-    } else {
-        return modules;
     }
-    modules.editor = modules.monaco.editor.create(window.document.getElementById("container"), {
-        cursorStyle: "block",
-        formatOnType: true,
-        scrollbar: {
-            horizontal: "hidden",
-            verticalHasArrows: true,
-            verticalScrollbarSize: 20
-        },
-        minimap: {
-            enabled: true
-        },
-        folding: false,
-        multiCursorModifier: "alt",
-        wordWrap: "on",
-        wordWrapBreakAfterCharacters: ">([{]))],;}",
-        mouseWheelZoom: false,
-        wordWrapColumn: 80,
-        automaticLayout: true,
-        scrollBeyondLastLine: false,
-        autoIndent: "brackets",
-        autoClosingQuotes: "always",
-        padding: {
-            bottom: 300
-        },
-        lineNumbers: "on",
-        autoClosingBrackets: "always",
-        autoClosingOvertype: "always",
-        suggest: {
-        },
-        codeLens: true,
-        autoSurround: "languageDefined",
-        trimAutoWhitespace: true,
-        codeActionsOnSaveTimeout: 100,
-        model: modules.monaco.editor.createModel(code, language, modules.monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
-        value: code,
-        language: language,
-        theme: "vs-dark"
-    });
+    const monaco = window["monaco"];
+    const modules = {
+        monaco: monaco,
+        editor: monaco.editor.create(window.document.getElementById("container"), {
+            cursorStyle: "block",
+            formatOnType: true,
+            scrollbar: {
+                horizontal: "hidden",
+                verticalHasArrows: true,
+                verticalScrollbarSize: 20
+            },
+            minimap: {
+                enabled: true
+            },
+            folding: false,
+            multiCursorModifier: "alt",
+            wordWrap: "on",
+            wordWrapBreakAfterCharacters: ">([{]))],;}",
+            mouseWheelZoom: false,
+            wordWrapColumn: 80,
+            automaticLayout: true,
+            scrollBeyondLastLine: false,
+            autoIndent: "brackets",
+            autoClosingQuotes: "always",
+            padding: {
+                bottom: 300
+            },
+            lineNumbers: "on",
+            autoClosingBrackets: "always",
+            autoClosingOvertype: "always",
+            suggest: {
+            },
+            codeLens: true,
+            autoSurround: "languageDefined",
+            trimAutoWhitespace: true,
+            codeActionsOnSaveTimeout: 100,
+            model: monaco.editor.createModel(code, language, monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
+            value: code,
+            language: language,
+            theme: "vs-dark"
+        })
+    };
     modules.editor.onDidChangeModelContent(()=>onChange(modules.editor.getValue())
     );
     modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -933,18 +932,18 @@ export async function run() {
             aceEditor.session.setMode("ace/mode/typescript");
             aceEditor.setValue(example);
         }
-        const modules1 = await startMonaco({
+        const modules = await startMonaco({
             language: "typescript",
             code: example,
             onChange
         });
         aceEditor && aceEditor.session.on("change", function() {
             const value = aceEditor.getValue();
-            modules1.editor.setValue(value);
+            modules.editor.setValue(value);
             onChange(value);
         });
         function onChange(code) {
-            if (!modules1) return;
+            if (!modules) return;
             latestCode = code;
             if (!busy) {
                 runner(latestCode);
@@ -961,9 +960,9 @@ export async function run() {
             }
         }
         async function getErrors() {
-            if (!modules1 || !modules1.monaco) return;
-            const modelUri = modules1.monaco.Uri.parse("file:///main.tsx");
-            const tsWorker = await modules1.monaco.languages.typescript.getTypeScriptWorker();
+            if (!modules || !modules.monaco) return;
+            const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
+            const tsWorker = await modules.monaco.languages.typescript.getTypeScriptWorker();
             const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
             const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
             const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
@@ -995,22 +994,22 @@ export async function run() {
                     document.getElementById("root").classList.add("transparent");
                     const slices = diff(latestGoodCode, cd, 0);
                     if (slices.length <= 3) {
-                        modules1.monaco.editor.setTheme("hc-black");
+                        modules.monaco.editor.setTheme("hc-black");
                         return;
                     }
                     errorDiv.innerHTML = err[0].messageText.toString();
                     document.getElementById("root").style.setProperty("dispay", "none");
                     errorDiv.style.display = "block";
                     errorReported = cd;
-                    modules1.monaco.editor.setTheme("vs-light");
+                    modules.monaco.editor.setTheme("vs-light");
                     setTimeout(()=>{
-                        modules1.monaco.editor.setTheme("hc-black");
+                        modules.monaco.editor.setTheme("hc-black");
                     }, keystrokeTillNoError++);
                     return;
                 }
                 latestGoodCode = cd;
                 errorDiv.style.display = "none";
-                modules1.monaco.editor.setTheme("vs-dark");
+                modules.monaco.editor.setTheme("vs-dark");
                 document.getElementById("root").classList.remove("transparent");
                 keystrokeTillNoError = 0;
                 busy = 0;
@@ -1020,9 +1019,9 @@ export async function run() {
                 if (cd !== latestCode) {
                     return;
                 }
-                modules1.monaco.editor.setTheme("vs-light");
+                modules.monaco.editor.setTheme("vs-light");
                 setTimeout(()=>{
-                    modules1.monaco.editor.setTheme("hc-black");
+                    modules.monaco.editor.setTheme("hc-black");
                 }, 10);
                 console.error(err);
             }

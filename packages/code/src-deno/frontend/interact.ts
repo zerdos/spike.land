@@ -23,7 +23,7 @@ export const makeDraggable = async () => {
         greenButton: "fullscreen", //'maximize' icon or 'fullscreen' icon
       },
     },
-    html: '<div  style="font-size:16px"><div id=root></div></div>',
+    html: '<div style="font-size:16px"><div id=root></div></div>',
   }).show();
 
   //You can automatically set the actions that are typically expected
