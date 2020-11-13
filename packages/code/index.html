@@ -11,7 +11,7 @@
   <script crossorigin src="https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
   <!-- <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script> -->
-  <!-- <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script> -->
+  <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     crossorigin="anonymous" />
@@ -115,6 +115,7 @@
   </script>
 
   <script>
+    window["motion"] = window["Motion"].motion;
     window["css"] = window["emotionReact"].css;
     window["jsx"] = window["emotionReact"].jsx;
 
@@ -125,11 +126,15 @@
     //inject
 
     async function restartCode(transpileCode) {
-    console.log(transpileCode);
+
+    const regex2 = /styled.div/gi;
+
+    const replaced = transpileCode.replaceAll(regex2, "styled(motion.div)");
+    console.log(replaced);
     const restart = new Function(
-      "transpileCode",
+      "replaced",
       `return function() {  
-        !!!{transpileCode}
+        !!!{replaced}
       }`,
     )()
     restart();
