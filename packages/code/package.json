@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "7.0.24",
+    "version": "7.0.25",
     "description": "Monaco Editor for React",
     "main": "dist/_cBundle.js.min.js",
     "files": [
