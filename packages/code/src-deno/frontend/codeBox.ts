@@ -1,7 +1,7 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts";
 
-import { makeDraggable } from "./interact.ts";
+// import { makeDraggable } from "./interact.ts";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.ts";
 import { starter } from "./starter.tsx";
@@ -40,9 +40,6 @@ export async function run() {
   //   "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
   // );
 
-  window["css"] = window["emotionReact"].css;
-  window["jsx"] = window["emotionReact"].jsx;
-
   await importScript(
     "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
   );
@@ -50,6 +47,8 @@ export async function run() {
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
+  window["css"] = window["emotionReact"].css;
+  window["jsx"] = window["emotionReact"].jsx;
 
   window["styled"] = window["emotionStyled"];
 
@@ -222,6 +221,7 @@ export async function run() {
   document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
   async function restartCode(transpileCode: string) {
+    console.log(transpileCode);
     const restart = new Function(
       "transpileCode",
       `return function(){ 

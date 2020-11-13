@@ -82,8 +82,7 @@
 
 <body>
   <div id="error" class="draggable"></div>
-  <div id="zed"></div>
-  <!-- <div id="root"></div> -->
+  <div id="root"></div>
   
   <div id="container"></div>
 
@@ -116,21 +115,25 @@
   </script>
 
   <script>
+    window["css"] = window["emotionReact"].css;
+    window["jsx"] = window["emotionReact"].jsx;
+
+    window["styled"] = window["emotionStyled"];
 
     //inject
 
     //inject
 
     async function restartCode(transpileCode) {
+
     const restart = new Function(
       "transpileCode",
-      "return function(){ + \n" + transpileCode +" \n}",
+      `return function() {  
+        !!!{transpileCode}
+      }`,
     )()}
-    
-  
 
-    const zedRoot = document.getElementById("zed");
-    ReactDOM.render(React.createElement("div",{id: "root"}), zedRoot);
+    
 
   </script>
 
@@ -158,7 +161,7 @@
 
     //inject
 
-    runner();
+    // runner();
   </script>
 </body>
 

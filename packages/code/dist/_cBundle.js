@@ -845,10 +845,10 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    window["css"] = window["emotionReact"].css;
-    window["jsx"] = window["emotionReact"].jsx;
     await importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
+    window["css"] = window["emotionReact"].css;
+    window["jsx"] = window["emotionReact"].jsx;
     window["styled"] = window["emotionStyled"];
     (async ()=>{
         const example = getCodeToLoad();
@@ -964,6 +964,7 @@ export async function run() {
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
     async function restartCode(transpileCode) {
+        console.log(transpileCode);
         const restart = new Function("transpileCode", `return function(){ \n        ${transpileCode} \n    }`)();
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
