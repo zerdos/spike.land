@@ -1,14 +1,12 @@
 import {html, sw} from "./html.ts";
 
-// function inject(startKey: string, start:) {
- 
-//   const res = html.split("//inject")
-//   return [res[0], 
-//   "const injectCoded =  new Uint8Array(["+inject+"]); " ,
-//   "localStorage.setItem(\`"+ injectKey +"\`, inject); ",
-//   jsDecoded, 
-//   res[2]].join(" ");
-// }
+function inject(startKey: string, start: string) {
+  const regex = /`/gi;
+  const escaped = start.replaceAll(regex, "``");
+  const res = html.split("//inject")
+  return [res[0], `localStorage.setItem("${startKey}", \`${escaped}\`),
+  `, res[2]].join("\n");
+}
 
 
 const shaStore = SHATEST;
@@ -21,7 +19,7 @@ const corsHeaders = {
 
 export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
-    // const url = new URL(request.url);
+    const url = new URL(request.url);
 
     if (request.url.endsWith("sw.js")){
 
@@ -33,20 +31,20 @@ export async function handleRequest(request: Request): Promise<Response> {
 
     }
 
-    // const hash = url.searchParams.get("h");
-    // // const urlStr = url.toString();
+    const hash = url.searchParams.get("h");
+    const urlStr = url.toString();
 
-    // let starterCode: null | string = null;
+    let starterCode: null | string = null;
 
-    // if (hash !== null && hash.length > 5) {
-    //   const json = await shaStore.get(hash);
+    if (hash !== null && hash.length > 5) {
+      const json = await shaStore.get(hash);
 
-    //   if (json !== null) {
-    //     starterCode = JSON.parse(json).code;
-    //   }
-    // }
+      if (json !== null) {
+        starterCode = JSON.parse(json).code;
+      }
+    }
 
-    return new Response(html , {
+    return new Response(starterCode!==null?inject(hash, starterCode):html , {
       headers: {
         "content-type": "text/html",
       },
