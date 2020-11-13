@@ -14,6 +14,8 @@ const Counter = () => {
 }
 
 const Container = styled.div\`
+  margin: 2em;
+  max-width: 400px;
   background: white;
   border: 6px solid grey;
   border-radius: 20px;
@@ -27,9 +29,8 @@ const Button = styled.button\`
   padding: 0.5rem 0;
   margin: 0.5rem 1rem;
   width: 3rem;
-  background: transparent;
   color: white;
-  border: 2px solid white;
+  border: none;
   :focus{
     outline: none;
   }

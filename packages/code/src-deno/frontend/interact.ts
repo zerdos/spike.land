@@ -9,8 +9,8 @@ export const makeDraggable = async () => {
   const jsFrame = new JSFrame();
 
   const frame = jsFrame.create({
-    name: `Win0`,
-    title: `Win0 - Yosemite style`,
+    name: `Root`,
+    title: `React Component`,
     left: 20,
     top: 100,
     width: 400,
