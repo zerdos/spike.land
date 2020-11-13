@@ -124,9 +124,7 @@
     async function restartCode(transpileCode) {
     const restart = new Function(
       "transpileCode",
-      `return function(){ 
-        ${transpileCode} 
-    }`,
+      "return function(){ + \n" + transpileCode +" \n}",
     )()}
     
   
