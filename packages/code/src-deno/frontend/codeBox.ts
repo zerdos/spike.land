@@ -278,6 +278,7 @@ export async function run() {
   }
   function getCodeToLoad() {
     const search = new URLSearchParams(window.location.search);
+    const h = search.get("h") || localStorage.getItem("codeBoXHash");
 
     return (h && window.localStorage.getItem(h)) ||
       window.localStorage.getItem("STARTER") || starter;
