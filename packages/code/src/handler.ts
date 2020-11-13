@@ -1,10 +1,10 @@
 import {html, sw} from "./html.ts";
 
-function inject(startKey: string, start: string) {
+function inject(startKey: string, start: string, startTranspiled: string) {
   
   const res = html.split("//inject")
-  return [res[0], `localStorage.setItem("${startKey}", unescape("${escape(start)}")),
-  `, res[2]].join("\n");
+  return [res[0], `localStorage.setItem("${startKey}", unescape("${escape(start)}"));`,
+  `localStorage.setItem("${startKey}T", unescape("${escape(startTransPiled)}"))`, res[2]].join("\n");
 }
 
 
@@ -45,16 +45,20 @@ export async function handleRequest(request: Request): Promise<Response> {
     
 
     let starterCode: null | string = null;
+    let starterCodeTrans: null | string = null;
+    
 
     if (hash !== null && hash.length > 5) {
       const json = await shaStore.get(hash);
 
       if (json !== null) {
         starterCode = JSON.parse(json).code;
+        starterCodeTrans = JSON.parse(json).codeTranspiled;
+        
       }
     }
 
-    return new Response(starterCode!==null?inject(hash, starterCode):html , {
+    return new Response(starterCode!==null?inject(hash, starterCode, starterCodeTrans):html , {
       headers: {
         "content-type": "text/html",
       },

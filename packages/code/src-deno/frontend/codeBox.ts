@@ -53,7 +53,7 @@ export async function run() {
 
   window["styled"] = window["emotionStyled"];
 
-  await makeDraggable();
+  // await makeDraggable();
 
   (async () => {
     const example = getCodeToLoad();
