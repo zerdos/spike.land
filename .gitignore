@@ -99,11 +99,11 @@ typings/
 extension/
 .awcache
 
-# yarn 2
-# https://github.com/yarnpkg/berry/issues/454#issuecomment-530312089
+packages/code/dist/worker.js
+packages/code/worker/script.js
+
+
 .yarn/*
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
-packages/code/dist/worker.js
-packages/code/worker/script.js
