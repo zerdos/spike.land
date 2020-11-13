@@ -2,7 +2,7 @@ import {html, sw} from "./html.ts";
 
 function inject(startKey: string, start: string) {
   const regex = /`/gi;
-  const escaped = start.replaceAll(regex, "``");
+  const escaped = start.replaceAll(regex, "\\`");
   const res = html.split("//inject")
   return [res[0], `localStorage.setItem("${startKey}", \`${escaped}\`),
   `, res[2]].join("\n");
@@ -28,11 +28,22 @@ export async function handleRequest(request: Request): Promise<Response> {
           "content-type": "text/javascript",
         },
       });
+    }
 
+    if (request.url.includes("?hash=")){
+      const hash = url.searchParams.get("hash");
+      const json = await shaStore.get(hash)
+      const obj = JSON.parse(json)
+
+       return new Response(JSON.stringify(obj) , {
+        headers: {
+          "content-type": "application/json",
+        },
+      });
     }
 
     const hash = url.searchParams.get("h");
-    const urlStr = url.toString();
+    
 
     let starterCode: null | string = null;
 
@@ -68,7 +79,7 @@ export async function handleRequest(request: Request): Promise<Response> {
       "",
     );
     const smallerKey = hash.substring(0, 7);
-    shaStore.put(smallerKey, myBuffer);
+    await shaStore.put(smallerKey, myBuffer);
 
     const resp = new Response(`{"hash":"${smallerKey}"}`);
 

@@ -4,7 +4,6 @@ this.addEventListener('install', function(e) {
   e.waitUntil(caches.open(VERSION).then(cache => {
     return cache.addAll([
       '/',
-      '/index.html',
       '/sw.js',
     ]);
   }))
@@ -44,7 +43,7 @@ function fetchFromNetworkAndCache(e) {
     // foreign requests may be res.type === 'opaque' and missing a url
     if (!res.url) return res;
     // regardless, we don't want to cache other origin's assets
-    if (new URL(res.url).origin !== location.origin) return res;
+    // if (new URL(res.url).origin !== location.origin) return res;
 
     return caches.open(VERSION).then(cache => {
       // TODO: figure out if the content is new and therefore the page needs a reload.
