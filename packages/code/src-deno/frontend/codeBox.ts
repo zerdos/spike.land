@@ -34,10 +34,6 @@ export async function run() {
   );
 
   await importScript(
-    "https://unpkg.com/interactjs@1.10.0/dist/interact.min.js",
-  );
-
-  await importScript(
     "https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js",
   );
 

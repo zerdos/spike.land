@@ -74,7 +74,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         const importHelper = [
             {
                 name: "react",
-                url: "https://unpkg.com/@types/react@latest/index.d.ts",
+                url: "https://unpkg.com/@types/react@16.9.56/index.d.ts",
                 depend: [
                     "global",
                     "csstype",
@@ -84,27 +84,27 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "global",
-                url: "https://unpkg.com/@types/react@latest/global.d.ts",
+                url: "https://unpkg.com/@types/react@16.9.56/global.d.ts",
                 depend: []
             },
             {
                 name: "prop-types",
-                url: "https://unpkg.com/@types/prop-types@latest/index.d.ts",
+                url: "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
                 depend: []
             },
             {
                 name: "react-dom",
-                url: "https://unpkg.com/@types/react-dom@latest/index.d.ts",
+                url: "https://unpkg.com/@types/react-dom@16.9.9/index.d.ts",
                 depend: []
             },
             {
                 name: "csstype",
-                url: "https://unpkg.com/csstype@latest/index.d.ts",
+                url: "https://unpkg.com/csstype@3.0.4/index.d.ts",
                 depend: []
             },
             {
                 name: "@emotion/styled/base.d.ts",
-                url: "https://unpkg.com/@emotion/styled@latest/types/base.d.ts",
+                url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
                 depend: [
                     "@emotion/react",
                     "@emotion/serialize",
@@ -113,7 +113,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/styled/index.d.ts",
-                url: "https://unpkg.com/@emotion/styled@latest/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
                 depend: [
                     "@emotion/react",
                     "@emotion/serialize",
@@ -122,14 +122,14 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/cache/index.d.ts",
-                url: "https://unpkg.com/@emotion/cache@latest/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
                 depend: [
                     "@emotion/utils"
                 ]
             },
             {
                 name: "@emotion/react/index.d.ts",
-                url: "https://unpkg.com/@emotion/react@latest/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.0.0/types/index.d.ts",
                 depend: [
                     "@emotion/cache"
                 ]
@@ -168,7 +168,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/serialize/index.d.ts",
-                url: "https://unpkg.com/@emotion/serialize@latest/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -176,7 +176,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/utils/index.d.ts",
-                url: "https://unpkg.com/@emotion/utils@latest/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
                 depend: []
             }, 
         ];
