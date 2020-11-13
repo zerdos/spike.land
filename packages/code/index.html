@@ -116,6 +116,21 @@
   </script>
 
   <script>
+
+    //inject
+
+    //inject
+
+    async function restartCode(transpileCode) {
+    const restart = new Function(
+      "transpileCode",
+      `return function(){ 
+        ${transpileCode} 
+    }`,
+    )()}
+    
+  
+
     const zedRoot = document.getElementById("zed");
     ReactDOM.render(React.createElement("div",{id: "root"}), zedRoot);
 

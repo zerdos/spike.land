@@ -5,7 +5,7 @@ function inject(startKey: string, code: string, codeTranspiled: string) {
   return [
     res[0],
     `localStorage.setItem("${startKey}", unescape("${escape(code)}"));`,
-    `localStorage.setItem("${startKey}T", unescape("${
+    `restartCode(unescape("${
       escape(codeTranspiled)
     }"));`,
     res[2],
