@@ -1,12 +1,9 @@
 import {html, sw} from "./html.ts";
 
 function inject(startKey: string, start: string) {
-  const regex = /`/gi;
-  const regexD = /$/gi;
-  const escaped = start.replaceAll(regex, "\\`");
-  const escapedD = escaped.replaceAll(regexD, "\\$");
+  
   const res = html.split("//inject")
-  return [res[0], `localStorage.setItem("${startKey}", \`${escapedD}\`),
+  return [res[0], `localStorage.setItem("${startKey}", unescape("${escape(start)}")),
   `, res[2]].join("\n");
 }
 
