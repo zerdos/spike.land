@@ -20,7 +20,7 @@ const Container = styled.div\`
   padding: 1rem;
  \`
 
-const Button = styled.a\`
+const Button = styled.button\`
   text-align: center;
   display: inline-block;
   border-radius: 6px;
@@ -30,6 +30,9 @@ const Button = styled.a\`
   background: transparent;
   color: white;
   border: 2px solid white;
+  :focus{
+    outline: none;
+  }
   \`
 
 const elementToRender = document.getElementById("root");
