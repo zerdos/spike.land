@@ -105,3 +105,5 @@ extension/
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
+packages/code/dist/worker.js
+packages/code/worker/script.js
