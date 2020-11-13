@@ -6,5 +6,9 @@ route = ""
 zone_id = "ec8e903035c7b0fcd3e95f1e483ab68c"
 webpack_config = "webpack.config.js"
 kv_namespaces = [
-  { binding = "SHATEST", id = "23ad5069f6c24f69a1ac62cfecd9fe19" }
+  { binding = "SHATEST", id = "23ad5069f6c24f69a1ac62cfecd9fe19", preview_id="23ad5069f6c24f69a1ac62cfecd9fe19" }
 ]
+
+[dev]
+port=9000
+local_protocol="https"
