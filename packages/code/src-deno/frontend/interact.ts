@@ -1,10 +1,4 @@
-import { importScript } from "./importScript.ts";
-
 export const makeDraggable = async () => {
-  await importScript(
-    "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
-  );
-
   const JSFrame = window["JSFrame"];
   const jsFrame = new JSFrame();
 

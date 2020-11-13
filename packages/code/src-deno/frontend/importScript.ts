@@ -1,4 +1,5 @@
 export const importScript = async (src: string) =>
+  document.querySelector(`script[src="${src}"]`) ||
   new Promise(function (resolve, reject) {
     const s = window.document.createElement("script");
     s.src = src;

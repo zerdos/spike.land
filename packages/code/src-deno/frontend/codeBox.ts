@@ -23,25 +23,32 @@ const searchRegExp = /import/gi;
 const replaceWith = "///";
 
 export async function run() {
-  await importScript(
-    "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
-  );
-  await importScript(
-    "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
-  );
-  await importScript(
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
-  );
+  // await importScript(
+  //   "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+  // );
+  // await importScript(
+  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  // );
 
-  await importScript(
-    "https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js",
-  );
+  // await importScript(
+  //   "https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js",
+  // );
+  // await importScript(
+  //   "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+  // );
+  // await importScript(
+  //   "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
+  // );
 
   window["css"] = window["emotionReact"].css;
   window["jsx"] = window["emotionReact"].jsx;
 
   await importScript(
-    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+    "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
+  );
+
+  await importScript(
+    "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
 
   window["styled"] = window["emotionStyled"];
@@ -64,9 +71,9 @@ export async function run() {
         importScript(
           "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
         ),
-        importScript(
-          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
-        ),
+        // importScript(
+        //   "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
+        // ),
         importScript(
           "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
         ),

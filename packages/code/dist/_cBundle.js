@@ -1,13 +1,4 @@
-const importScript = async (src)=>new Promise(function(resolve, reject) {
-        const s = window.document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        window.document.head.appendChild(s);
-    })
-;
 const makeDraggable = async ()=>{
-    await importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
     const JSFrame = window["JSFrame"];
     const jsFrame = new JSFrame();
     const frame = jsFrame.create({
@@ -290,6 +281,14 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
+const importScript = async (src)=>document.querySelector(`script[src="${src}"]`) || new Promise(function(resolve, reject) {
+        const s = window.document.createElement("script");
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = reject;
+        window.document.head.appendChild(s);
+    })
+;
 const starter = `import React from "react";\nimport ReactDOM from "react-dom"\n/** @jsx jsx */\nimport styled from "@emotion/styled"\n\nconst Counter = () => {\n  const [clicks, setClicks] = React.useState(0);\n\n  return <Container>\n    <Button css={\`background: green\`} onClick={() => setClicks(clicks - 1)}>-</Button>\n    {clicks}\n    <Button css={\`background: red\`} onClick={() => setClicks(clicks + 1)}>+</Button>\n  </Container>\n}\n\nconst Container = styled.div\`\n  margin: 2em;\n  max-width: 400px;\n  background: white;\n  border: 6px solid grey;\n  border-radius: 20px;\n  padding: 1rem;\n \`\n\nconst Button = styled.button\`\n  text-align: center;\n  display: inline-block;\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 1rem;\n  width: 3rem;\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`\n\nconst elementToRender = document.getElementById("root");\nReactDOM.render(<Counter />, elementToRender);\n\n\n`;
 const DIFF_DELETE = -1;
 function diffMain({ text1 , text2 , cursorPos  }) {
@@ -906,13 +905,10 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
-    await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
-    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
-    await importScript("https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js");
     window["css"] = window["emotionReact"].css;
     window["jsx"] = window["emotionReact"].jsx;
-    await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
+    await importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
+    await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
     window["styled"] = window["emotionStyled"];
     await makeDraggable();
     (async ()=>{
@@ -922,7 +918,6 @@ export async function run() {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
             await Promise.all([
                 importScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"),
-                importScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js"),
                 importScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js"), 
             ]);
             document.getElementById("ace").style.setProperty("display", "block");
