@@ -15,8 +15,8 @@ const makeDraggable = async ()=>{
         title: `React Component`,
         left: 20,
         top: 100,
-        width: 400,
-        height: 320,
+        width: 300,
+        height: 200,
         minWidth: 200,
         minHeight: 110,
         appearanceName: "yosemite",
@@ -167,7 +167,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "csstype",
-                url: "https://unpkg.com/csstype@3.0.4/index.d.ts",
+                url: "https://unpkg.com/csstype@3.0.5/index.d.ts",
                 depend: []
             },
             {
