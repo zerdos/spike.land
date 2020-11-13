@@ -1,12 +1,16 @@
-import {html, sw} from "./html.ts";
+import { html, sw } from "./html.ts";
 
-function inject(startKey: string, start: string, startTranspiled: string) {
-  
-  const res = html.split("//inject")
-  return [res[0], `localStorage.setItem("${startKey}", unescape("${escape(start)}"));`,
-  `localStorage.setItem("${startKey}T", unescape("${escape(startTransPiled)}"))`, res[2]].join("\n");
+function inject(startKey: string, code: string, codeTranspiled: string) {
+  const res = html.split("//inject");
+  return [
+    res[0],
+    `localStorage.setItem("${startKey}", unescape("${escape(code)}"));`,
+    `localStorage.setItem("${startKey}T", unescape("${
+      escape(codeTranspiled)
+    }"));`,
+    res[2],
+  ].join("\n");
 }
-
 
 const shaStore = SHATEST;
 
@@ -20,21 +24,20 @@ export async function handleRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
     const url = new URL(request.url);
 
-    if (request.url.endsWith("sw.js")){
-
-      return new Response(sw , {
+    if (request.url.endsWith("sw.js")) {
+      return new Response(sw, {
         headers: {
           "content-type": "text/javascript",
         },
       });
     }
 
-    if (request.url.includes("?hash=")){
+    if (request.url.includes("?hash=")) {
       const hash = url.searchParams.get("hash");
-      const json = await shaStore.get(hash)
-      const obj = JSON.parse(json)
+      const json = await shaStore.get(hash);
+      const obj = JSON.parse(json);
 
-       return new Response(JSON.stringify(obj) , {
+      return new Response(JSON.stringify(obj), {
         headers: {
           "content-type": "application/json",
         },
@@ -42,27 +45,28 @@ export async function handleRequest(request: Request): Promise<Response> {
     }
 
     const hash = url.searchParams.get("h");
-    
 
-    let starterCode: null | string = null;
-    let starterCodeTrans: null | string = null;
-    
+    let code: null | string = null;
+    let codeTranspiled: null | string = null;
 
     if (hash !== null && hash.length > 5) {
       const json = await shaStore.get(hash);
 
       if (json !== null) {
-        starterCode = JSON.parse(json).code;
-        starterCodeTrans = JSON.parse(json).codeTranspiled;
-        
+        const parsed = JSON.parse(json);
+        code = parsed.code;
+        codeTranspiled = parsed.codeTranspiled;
       }
     }
 
-    return new Response(starterCode!==null?inject(hash, starterCode, starterCodeTrans):html , {
-      headers: {
-        "content-type": "text/html",
+    return new Response(
+      code !== null ? inject(hash, code, codeTranspiled) : html,
+      {
+        headers: {
+          "content-type": "text/html",
+        },
       },
-    });
+    );
   } else if (request.method === "POST") {
     const data = (await request.json());
 
