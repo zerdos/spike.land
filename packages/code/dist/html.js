@@ -88,7 +88,7 @@ async function initComlink() {
   console.log(await swProxy.counter);
 }
 
-if (navigator.serviceWorker.controller) {
+if (navigator.serviceWorker) {
   navigator.serviceWorker.register("sw.js");
 }
 
