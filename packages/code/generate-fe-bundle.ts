@@ -18,5 +18,22 @@ await Deno.writeTextFile(
   "dist/html.js",
   "export const version = `" + version + "`; " +
     "export const html = `" + html + "`; " +
-    "export const sw = `" + sw + "`;",
+    "export const sw = `" + sw + "`; " + `
+    export function inject(
+      html,
+      startKey,
+      code,
+      codeTranspiled,
+    ) {
+      const res = html.split("//inject");
+      return [
+        res[0],
+        \`localStorage.setItem("\${startKey}", unescape("\${escape(code)}"));\`,
+        \`restartCode(
+          unescape("\${escape(codeTranspiled)}")
+          );\`,
+        res[2],
+      ].join("\\n");
+    }
+  `,
 );

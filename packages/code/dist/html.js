@@ -228,9 +228,7 @@ self.addEventListener("fetch", function (e) {
 
   const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
     return cache.match(e.request).then((response) => {
-    
       if (!response) {
-
         console.log("NO CACHE MATCH");
         return handleNoCacheMatch(e);
       }
@@ -268,13 +266,19 @@ function fetchFromNetworkAndCache(e) {
 
   return fetch(e.request).then((res) => {
     console.log(res);
-    if (res.type==="opaque" || new URL(res.url) !== location.origin || location.search!=="" ) return res;
+    if (
+      res.type === "opaque" || new URL(res.url) !== location.origin ||
+      location.search !== ""
+    ) {
+      return res;
+    }
 
     return caches.open(cacheKey).then((cache) => {
       // TODO: figure out if the content is new and therefore the page needs a reload.
-      
-      if (e.request.method!=="POST")
-      cache.put(e.request, res.clone());
+
+      if (e.request.method !== "POST") {
+        cache.put(e.request, res.clone());
+      }
       return res;
     });
   }).catch((err) => console.error(e.request.url, err));
@@ -302,4 +306,21 @@ self.addEventListener("message", (event) => {
     Comlink.expose(obj, event.data.port);
   }
 });
-`;
+`; 
+    export function inject(
+      html,
+      startKey,
+      code,
+      codeTranspiled,
+    ) {
+      const res = html.split("//inject");
+      return [
+        res[0],
+        `localStorage.setItem("${startKey}", unescape("${escape(code)}"));`,
+        `restartCode(
+          unescape("${escape(codeTranspiled)}")
+          );`,
+        res[2],
+      ].join("\n");
+    }
+  

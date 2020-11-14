@@ -1,23 +1,4 @@
-import { html, sw } from "../dist/html.js";
-
-self.runner = self.runner || "worker-cf";
-
-function inject(
-  html: string,
-  startKey: string,
-  code: string,
-  codeTranspiled: string,
-) {
-  const res = html.split("//inject");
-  return [
-    res[0],
-    `localStorage.setItem("${startKey}", unescape("${escape(code)}"));`,
-    `restartCode(
-      unescape("${escape(codeTranspiled)}")
-      );`,
-    res[2],
-  ].join("\n");
-}
+import { html, inject, sw } from "../dist/html.js";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -40,9 +21,9 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (request.url.includes("?hash=")) {
       const hash = url.searchParams.get("hash");
       if (hash !== null) {
-        const json = await SHATEST.get(hash, "stream");
-        if (json !== null) {
-          return new Response(json, {
+        const jsonStream = await SHATEST.get(hash, "stream");
+        if (jsonStream !== null) {
+          return new Response(jsonStream, {
             headers: {
               "content-type": "application/json",
             },
