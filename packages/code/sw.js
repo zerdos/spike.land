@@ -1,25 +1,28 @@
-importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js") ;
+importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
+importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js")
 // importScripts("../../../dist/umd/comlink.js");
 
 addEventListener("install", () => skipWaiting());
 addEventListener("activate", () => clients.claim());
 
-var VERSION = "7";
+const VERSION = "7";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
     caches.open(VERSION).then((cache) => {
       return cache.addAll([
         "/",
-        "/sw.js",
+        "/sw.js"
       ]);
     }),
   );
 });
 
 this.addEventListener("fetch", function (e) {
-  var tryInCachesFirst = caches.open(VERSION).then((cache) => {
+  const tryInCachesFirst = caches.open(VERSION).then((cache) => {
     return cache.match(e.request).then((response) => {
+      console.log(e);
+
       if (!response) {
         return handleNoCacheMatch(e);
       }
