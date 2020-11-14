@@ -1,4 +1,4 @@
-export const version = `7.1.13`; export const html = `<!DOCTYPE html>
+export const version = `7.1.14`; export const html = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -172,7 +172,7 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
   <script type="module">
 
     const runner = async () => {
-      const version = "7.1.13";
+      const version = "7.1.14";
       const cdnAddress = "https://unpkg.com/@zedvision/code@";
       const script = "/dist/_cBundle.js.min.js";
 
@@ -196,7 +196,7 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
 </html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
 importScripts(
-  "https://unpkg.com/@zedvision/code@7.1.13/dist/worker-script.js",
+  "https://unpkg.com/@zedvision/code@7.1.14/dist/worker-script.js",
 );
 
 const dbPromise = idb.openDB("localZedCodeStore", 1, {
@@ -223,7 +223,7 @@ const SHATEST = {
   },
 };
 
-var cacheKey = "7.1.13";
+var cacheKey = "7.1.14";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
