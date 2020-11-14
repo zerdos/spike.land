@@ -3,7 +3,7 @@ importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js")
 // importScripts("../../../dist/umd/comlink.js");
 
 const runner = "browser-sw";
-const VERSION = "7";
+const VERSION = "8";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
