@@ -191,6 +191,7 @@ importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js")
 addEventListener("install", () => skipWaiting());
 addEventListener("activate", () => clients.claim());
 
+const runner = "browser-sw";
 const VERSION = "7";
 
 this.addEventListener("install", function (e) {
