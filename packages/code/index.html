@@ -68,6 +68,7 @@
 
 
 <script type="module">
+const SHATEST = {};
 
 async function initComlink() {
   const { port1, port2 } = new MessageChannel();
@@ -81,6 +82,7 @@ async function initComlink() {
   const swProxy = Comlink.wrap(port2);
   SHATEST.get = (key) => swProxy.get(key);
   shaTEST.put = (key, value) => swProxy.put(key, value);
+
   console.log(await swProxy.counter);
   await swProxy.inc();
   console.log(await swProxy.counter);
@@ -88,7 +90,6 @@ async function initComlink() {
 
 if (navigator.serviceWorker.controller) {
   navigator.serviceWorker.register("sw.js");
-
 }
 
 navigator.serviceWorker.addEventListener("controllerchange", initComlink);
