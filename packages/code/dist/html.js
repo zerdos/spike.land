@@ -92,6 +92,7 @@ export const version = `7.1.21`; export const html = `<!DOCTYPE html>
 
 if (navigator.serviceWorker) {
   navigator.serviceWorker.register("sw.js");
+  initComlink()
 }
 
 
