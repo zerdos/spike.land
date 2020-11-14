@@ -1,4 +1,4 @@
-export const version = `7.1.10`; export const html = `<!DOCTYPE html>
+export const version = `7.1.11`; export const html = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -169,7 +169,7 @@ export const version = `7.1.10`; export const html = `<!DOCTYPE html>
   <script type="module">
 
     const runner = async () => {
-      const version = "7.1.10";
+      const version = "7.1.11";
       const cdnAddress = "https://unpkg.com/@zedvision/code@";
       const script = "/dist/_cBundle.js.min.js";
 
@@ -192,7 +192,7 @@ export const version = `7.1.10`; export const html = `<!DOCTYPE html>
 
 </html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
-importScripts("https://unpkg.com/@zedvision/code@7.1.10/dist/worker-script.js");
+importScripts("https://unpkg.com/@zedvision/code@7.1.11/dist/worker-script.js");
 
 const dbPromise = openDB('local-keyval-store', 1, {
   upgrade(db) {
@@ -221,7 +221,7 @@ const SHATEST = {
 // importScripts("../../../dist/umd/comlink.js");
 
 
-var cacheKey = "7.1.10";
+var cacheKey = "7.1.11";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
