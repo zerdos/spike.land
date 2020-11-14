@@ -1,4 +1,4 @@
-export const version = `7.1.6`; export const html = `<!DOCTYPE html>
+export const version = `7.1.7`; export const html = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -163,7 +163,7 @@ export const version = `7.1.6`; export const html = `<!DOCTYPE html>
   <script type="module">
 
     const runner = async () => {
-      const version = "7.1.6";
+      const version = "7.1.7";
       const cdnAddress = "https://unpkg.com/@zedvision/code@";
       const script = "/dist/_cBundle.js.min.js";
 
