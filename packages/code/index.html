@@ -68,7 +68,7 @@
 
   <div id="ace"></div>
 
-<script>
+<script type="module">
 
 async function initComlink() {
   const { port1, port2 } = new MessageChannel();
@@ -102,7 +102,16 @@ navigator.serviceWorker.register("sw.js");
 
 </script>
 
-<!-- // bling.js
+  <script>
+    window["motion"] = window["Motion"].motion;
+    window["css"] = window["emotionReact"].css;
+    window["jsx"] = window["emotionReact"].jsx;
+
+    window["styled"] = window["emotionStyled"];
+
+    //inject
+
+    <!-- // bling.js
 const $ = window.$ = document.querySelector.bind(document);
 const $$ = window.$$ = document.querySelectorAll.bind(document);
 Node.prototype.on = window.on = function (name, fn) {
@@ -117,15 +126,6 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
   });
   -->
 
-
-  <script>
-    window["motion"] = window["Motion"].motion;
-    window["css"] = window["emotionReact"].css;
-    window["jsx"] = window["emotionReact"].jsx;
-
-    window["styled"] = window["emotionStyled"];
-
-    //inject
 
     //inject
 
