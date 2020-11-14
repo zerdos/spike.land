@@ -13,9 +13,7 @@
   <script crossorigin src="https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js"></script>
 
   
-  <!-- <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script> -->
-  <!-- <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script> -->
-
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     crossorigin="anonymous" />
 
@@ -68,6 +66,7 @@
 
   <div id="ace"></div>
 
+
 <script type="module">
 
 async function initComlink() {
@@ -88,11 +87,11 @@ async function initComlink() {
 }
 
 if (navigator.serviceWorker.controller) {
-  initComlink();
+  navigator.serviceWorker.register("sw.js");
+
 }
 
 navigator.serviceWorker.addEventListener("controllerchange", initComlink);
-navigator.serviceWorker.register("sw.js");
 
 // navigator.serviceWorker.getRegistrations().then(function (registrations) {
 //     for (let registration of registrations) {
@@ -111,7 +110,7 @@ navigator.serviceWorker.register("sw.js");
 
     //inject
 
-    <!-- // bling.js
+   // bling.js
 const $ = window.$ = document.querySelector.bind(document);
 const $$ = window.$$ = document.querySelectorAll.bind(document);
 Node.prototype.on = window.on = function (name, fn) {
@@ -124,7 +123,6 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
       elem.on(name, fn);
     });
   });
-  -->
 
 
     //inject
