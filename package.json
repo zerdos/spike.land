@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "push": "yarn install --check-files && yarn build && git add . && git commit -m pre-release && git push && git pull && yarn build && git push",
-    "release": "yarn push && lerna publish patch --yes",
+    "release": "yarn push && lerna publish patch --yes && yarn push",
     "postrelease": "echo Wait-till-the-package-appears-on-unpkg-then-yarn-deploy",
     "build": "yarn lerna run build --parallel --since main",
     "rebuild": "yarn lerna run build --parallel",
