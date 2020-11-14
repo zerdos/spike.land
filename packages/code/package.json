@@ -7,6 +7,7 @@
         "**/*"
     ],
     "scripts": {
+        "dev": "yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist",
         "build": "yarn clean && deno fmt src-deno && yarn build-codebox && yarn minify && yarn build-template",
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",

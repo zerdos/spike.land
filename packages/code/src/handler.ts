@@ -35,11 +35,11 @@ export async function handleRequest(request: Request): Promise<Response> {
     if (request.url.includes("?hash=")) {
       const hash = url.searchParams.get("hash");
       if (hash !== null) {
-        const json = await shaStore.get(hash);
+        const json = await shaStore.get(hash, "stream");
         if (json !== null) {
-          const obj = JSON.parse(json);
 
-          return new Response(JSON.stringify(obj), {
+
+          return new Response(json, {
             headers: {
               "content-type": "application/json",
             },
