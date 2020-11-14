@@ -1,63 +1,3 @@
-const makeDraggable = async ()=>{
-    const JSFrame = window["JSFrame"];
-    const jsFrame = new JSFrame();
-    const frame = jsFrame.create({
-        name: `Root`,
-        title: `React Component`,
-        left: 20,
-        top: 100,
-        width: 300,
-        height: 200,
-        minWidth: 200,
-        minHeight: 110,
-        appearanceName: "yosemite",
-        appearanceParam: {
-            titleBar: {
-                greenButton: "fullscreen"
-            }
-        },
-        html: '<div style=\"font-size:16px\"><div id=root></div></div>'
-    }).show();
-    frame.setControl({
-        maximizeButton: "zoomButton",
-        maximizeParam: {
-            fullScreen: true,
-            restoreKey: "Escape"
-        },
-        demaximizeButton: "dezoomButton",
-        deminimizeButton: "deminimizeButton",
-        hideButton: "minimizeButton",
-        hideParam: {
-            align: "ABSOLUTE",
-            offset: {
-                x: 100,
-                y: 500
-            },
-            duration: 300
-        },
-        dehideParam: {
-            duration: 300
-        },
-        styleDisplay: "inline",
-        animation: true,
-        animationDuration: 100
-    });
-    frame.control.on("maximized", (frame1, info)=>{
-        console.log("\'maximized\' event fired.The window was maximized.");
-        frame1.on("#bg", "dblclick", function(_frame, e) {
-            _frame.control.doCommand("restore");
-        });
-    });
-    frame.control.on("demaximized", (frame1, info)=>{
-        console.log("\'demaximized\' event fired.The window is now back to its original size from its maximized state.");
-    });
-    frame.control.on("hid", (frame1, info)=>{
-        console.log("\'hid\' event fired.The window was hidden.");
-    });
-    frame.control.on("dehided", (frame1, info)=>{
-        console.log("\'dehided\' event fired.A hidden window has appeared.");
-    });
-};
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -84,7 +24,6 @@ const startMonaco = async ({ onChange , code , language  })=>{
     const modules = {
         monaco: monaco,
         editor: monaco.editor.create(window.document.getElementById("container"), {
-            cursorStyle: "block",
             formatOnType: true,
             scrollbar: {
                 horizontal: "hidden",
@@ -92,7 +31,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 verticalScrollbarSize: 20
             },
             minimap: {
-                enabled: true
+                enabled: false
             },
             folding: false,
             multiCursorModifier: "alt",
@@ -905,12 +844,11 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    window["css"] = window["emotionReact"].css;
-    window["jsx"] = window["emotionReact"].jsx;
     await importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
+    window["css"] = window["emotionReact"].css;
+    window["jsx"] = window["emotionReact"].jsx;
     window["styled"] = window["emotionStyled"];
-    await makeDraggable();
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;
@@ -1025,6 +963,7 @@ export async function run() {
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
     async function restartCode(transpileCode) {
+        console.log(transpileCode);
         const restart = new Function("transpileCode", `return function(){ \n        ${transpileCode} \n    }`)();
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{

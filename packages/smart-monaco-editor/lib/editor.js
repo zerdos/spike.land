@@ -24,7 +24,6 @@ export const startMonaco = async ({ onChange , code , language  })=>{
     const modules = {
         monaco: monaco,
         editor: monaco.editor.create(window.document.getElementById("container"), {
-            cursorStyle: "block",
             formatOnType: true,
             scrollbar: {
                 horizontal: "hidden",
@@ -32,7 +31,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 verticalScrollbarSize: 20
             },
             minimap: {
-                enabled: true
+                enabled: false
             },
             folding: false,
             multiCursorModifier: "alt",

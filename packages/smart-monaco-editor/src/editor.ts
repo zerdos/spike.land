@@ -34,7 +34,6 @@ export const startMonaco: SmartMonaco = async (
     editor: monaco.editor.create(
       window.document.getElementById("container"),
       {
-        cursorStyle: "block",
         formatOnType: true,
         scrollbar: {
           horizontal: "hidden",
@@ -42,7 +41,7 @@ export const startMonaco: SmartMonaco = async (
           verticalScrollbarSize: 20,
         },
         minimap: {
-          enabled: true,
+          enabled: false,
         },
         folding: false,
         multiCursorModifier: "alt",

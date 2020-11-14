@@ -1,14 +1,22 @@
-import {html, sw} from "./html.ts";
+import { html, sw } from "../dist/html.js";
+const runner = "worker-cf";
 
-function inject(startKey: string, start: string) {
-  
-  const res = html.split("//inject")
-  return [res[0], `localStorage.setItem("${startKey}", unescape("${escape(start)}")),
-  `, res[2]].join("\n");
+function inject(
+  html: string,
+  startKey: string,
+  code: string,
+  codeTranspiled: string,
+) {
+  const res = html.split("//inject");
+  return [
+    res[0],
+    `localStorage.setItem("${startKey}", unescape("${escape(code)}"));`,
+    `restartCode(
+      unescape("${escape(codeTranspiled)}")
+      );`,
+    res[2],
+  ].join("\n");
 }
-
-
-const shaStore = SHATEST;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -16,55 +24,60 @@ const corsHeaders = {
   "Access-Control-Max-Age": "86400",
 };
 
-export async function handleRequest(request: Request): Promise<Response> {
+export async function handleCloudRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
     const url = new URL(request.url);
 
-    if (request.url.endsWith("sw.js")){
-
-      return new Response(sw , {
+    if (request.url.endsWith("sw.js")) {
+      return new Response(sw, {
         headers: {
           "content-type": "text/javascript",
         },
       });
     }
 
-    if (request.url.includes("?hash=")){
+    if (request.url.includes("?hash=")) {
       const hash = url.searchParams.get("hash");
-      const json = await shaStore.get(hash)
-      const obj = JSON.parse(json)
-
-       return new Response(JSON.stringify(obj) , {
-        headers: {
-          "content-type": "application/json",
-        },
-      });
+      if (hash !== null) {
+        const json = await SHATEST.get(hash, "stream");
+        if (json !== null) {
+          return new Response(json, {
+            headers: {
+              "content-type": "application/json",
+            },
+          });
+        }
+      }
     }
-
     const hash = url.searchParams.get("h");
-    
 
-    let starterCode: null | string = null;
+    let code: null | string = null;
+    let codeTranspiled: null | string = null;
 
     if (hash !== null && hash.length > 5) {
-      const json = await shaStore.get(hash);
+      const json = await SHATEST.get(hash);
 
       if (json !== null) {
-        starterCode = JSON.parse(json).code;
+        const parsed = JSON.parse(json);
+        code = parsed.code;
+        codeTranspiled = parsed.codeTranspiled;
       }
     }
 
-    return new Response(starterCode!==null?inject(hash, starterCode):html , {
-      headers: {
-        "content-type": "text/html",
+    return new Response(
+      hash !== null ? inject(html, hash, code, codeTranspiled) : html,
+      {
+        headers: {
+          "content-type": "text/html",
+        },
       },
-    });
+    );
   } else if (request.method === "POST") {
     const data = (await request.json());
 
     const myBuffer = new TextEncoder().encode(JSON.stringify(data));
 
-    const myDigest = await crypto.subtle.digest(
+    const myDigest = await crypto!.subtle.digest(
       {
         name: "SHA-256",
       },
@@ -78,7 +91,7 @@ export async function handleRequest(request: Request): Promise<Response> {
       "",
     );
     const smallerKey = hash.substring(0, 7);
-    await shaStore.put(smallerKey, myBuffer);
+    await SHATEST.put(smallerKey, myBuffer);
 
     const resp = new Response(`{"hash":"${smallerKey}"}`);
 
