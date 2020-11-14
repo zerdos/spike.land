@@ -11,9 +11,9 @@ export const version = `7.1.28`; export const html = `<!DOCTYPE html>
   <script crossorigin src="https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
 
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 
   <style>
     #container {
@@ -35,7 +35,7 @@ export const version = `7.1.28`; export const html = `<!DOCTYPE html>
     }
 
 
-  
+
 
     #ace {
       position: absolute;
@@ -59,47 +59,47 @@ export const version = `7.1.28`; export const html = `<!DOCTYPE html>
 <body>
   <div id="error" class="draggable"></div>
   <div id="root"></div>
-  
+
   <div id="container"></div>
 
   <div id="ace"></div>
 
   <script type="module">
-  import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
+    import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
 
 
 
 
-  async function initComlink() {
-    const { port1, port2 } = new MessageChannel();
-    const msg = {
-      comlinkInit: true,
-      port: port1,
-    };
+    async function initComlink() {
+      const { port1, port2 } = new MessageChannel();
+      const msg = {
+        comlinkInit: true,
+        port: port1,
+      };
 
-    navigator.serviceWorker.ready.then(registration => {
+      navigator.serviceWorker.ready.then(registration => {
         registration.active.postMessage(msg, [port1]);
-    });
+      });
 
 
-    const swProxy = Comlink.wrap(port2);
-    console.log(await swProxy.counter);
+      const swProxy = Comlink.wrap(port2);
+      console.log(await swProxy.counter);
 
-    window["SHATEST"] = {
-      get: async (key) => await swProxy.get(key),
-      put: async (key, value) => await swProxy.put(key, value)
+      window["SHATEST"] = {
+        get: async (key) => await swProxy.get(key),
+        put: async (key, value) => await swProxy.put(key, value)
+      }
+
+      await swProxy.inc();
+      console.log(await swProxy.counter);
     }
 
-    await swProxy.inc();
-    console.log(await swProxy.counter);
-  }
+    navigator.serviceWorker.addEventListener("controllerchange", initComlink);
 
-  navigator.serviceWorker.addEventListener("controllerchange", initComlink);
-
-if (navigator.serviceWorker) {
-  navigator.serviceWorker.register("sw.js");
-  initComlink()
-}
+    if (navigator.serviceWorker) {
+      navigator.serviceWorker.register("sw.js");
+      initComlink()
+    }
 
 
 // navigator.serviceWorker.getRegistrations().then(function (registrations) {
@@ -108,7 +108,7 @@ if (navigator.serviceWorker) {
 //     }
 //   });
 
-</script>
+  </script>
 
   <script type="module">
     // window["motion"] = window["Motion"].motion;
@@ -118,42 +118,24 @@ if (navigator.serviceWorker) {
     window["styled"] = window["emotionStyled"];
 
     //inject
-
-   // bling.js
-const $ = window.$ = document.querySelector.bind(document);
-const $$ = window.$$ = document.querySelectorAll.bind(document);
-Node.prototype.on = window.on = function (name, fn) {
-  this.addEventListener(name, fn);
-};
-NodeList.prototype.__proto__ = Array.prototype;
-NodeList.prototype.on = NodeList.prototype.addEventListener =
-  (function (name, fn) {
-    this.forEach(function (elem) {
-      elem.on(name, fn);
-    });
-  });
-
-
     //inject
+
+
 
     async function restartCode(transpileCode) {
 
-    const regex2 = /styled.div/gi;
-
-  //  console.log(replaced);
-    const restart = new Function(
-      "transpileCode",
-      \`return function() {  
+      //  console.log(replaced);
+      const restart = new Function(
+        "transpileCode",
+        \`return function() {  
         \${transpileCode}
       }\`,
-    )()
-    restart();
-  }
+      )()
+      restart();
+    }
 
-    
 
   </script>
-
   <script type="module">
 
     const runner = async () => {
@@ -165,10 +147,10 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
         const { run } = await import("./dist/_cBundle.js")
         run();
       } else {
-        const version =  "@7.1.28";
+        const version = "@7.1.28";
         const { run } = await import(cdnAddress   //+ version
-        + script)
-         run();
+          + script)
+        run();
       }
 
 
