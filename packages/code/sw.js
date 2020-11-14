@@ -1,3 +1,9 @@
+importScripts("https://unpkg.com/comlink@alpha/dist/umd/comlink.js");
+// importScripts("../../../dist/umd/comlink.js");
+
+addEventListener("install", () => skipWaiting());
+addEventListener("activate", () => clients.claim());
+
 var VERSION = "7";
 
 this.addEventListener("install", function (e) {
@@ -65,3 +71,18 @@ function fetchFromNetworkAndCache(e) {
 function handleNoCacheMatch(e) {
   return fetchFromNetworkAndCache(e);
 }
+
+
+const obj = {
+  counter: 0,
+  inc() {
+    this.counter++;
+  },
+};
+
+self.addEventListener("message", (event) => {
+  if (event.data.comlinkInit) {
+    Comlink.expose(obj, event.data.port);
+    return;
+  }
+});

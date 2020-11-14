@@ -87,18 +87,34 @@ export const version = `7.1.3`; export const html = `<!DOCTYPE html>
   <div id="container"></div>
 
   <div id="ace"></div>
-  <script>
-    
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then(function () {
-        console.log('service worker is is all cool.');
-      }).catch(function (e) {
-        console.error('service worker is not so cool.', e);
-        throw e;
-      });
-    }
-    // bling.js
+<script type="module">
+  import * as Comlink from "https://unpkg.com/comlink@alpha/dist/esm/comlink.mjs";
+
+  async function initComlink() {
+    
+    const { port1, port2 } = new MessageChannel();
+    const msg = {
+      comlinkInit: true,
+      port: port1,
+    };
+
+    navigator.serviceWorker.controller.postMessage(msg, [port1]);
+
+    const swProxy = Comlink.wrap(port2);
+    console.log(await swProxy.counter);
+    await swProxy.inc();
+    console.log(await swProxy.counter);
+  }
+
+  if (navigator.serviceWorker.controller) {
+    initComlink();
+  }
+
+  navigator.serviceWorker.addEventListener("controllerchange", initComlink);
+  navigator.serviceWorker.register("sw.js");
+
+// bling.js
     var $ = window.$ = document.querySelector.bind(document);
     var $$ = window.$$ = document.querySelectorAll.bind(document);
     Node.prototype.on = window.on = function (name, fn) {
@@ -168,7 +184,13 @@ export const version = `7.1.3`; export const html = `<!DOCTYPE html>
   </script>
 </body>
 
-</html>`; export const sw = `var VERSION = "7";
+</html>`; export const sw = `importScripts("https://unpkg.com/comlink@alpha/dist/umd/comlink.js");
+// importScripts("../../../dist/umd/comlink.js");
+
+addEventListener("install", () => skipWaiting());
+addEventListener("activate", () => clients.claim());
+
+var VERSION = "7";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
@@ -235,4 +257,18 @@ function fetchFromNetworkAndCache(e) {
 function handleNoCacheMatch(e) {
   return fetchFromNetworkAndCache(e);
 }
-`;
+
+
+const obj = {
+  counter: 0,
+  inc() {
+    this.counter++;
+  },
+};
+
+self.addEventListener("message", (event) => {
+  if (event.data.comlinkInit) {
+    Comlink.expose(obj, event.data.port);
+    return;
+  }
+});`;
