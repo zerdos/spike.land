@@ -67,7 +67,7 @@
   <script type="module">
   import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
 
-  const SHATEST = {};
+
 
 
   async function initComlink() {
@@ -76,13 +76,19 @@
       comlinkInit: true,
       port: port1,
     };
-    navigator.serviceWorker.controller.postMessage(msg, [port1]);
+
+    navigator.serviceWorker.ready.then(registration => {
+        registration.active.postMessage(msg, [port1]);
+    });
+
 
     const swProxy = Comlink.wrap(port2);
     console.log(await swProxy.counter);
-      
-    SHATEST.get = async (key) => await swProxy.get(key);
-    SHATEST.put = async (key, value) => await swProxy.put(key, value);
+
+    WINDOW["SHATEST"] = {
+      get: async (key) => await swProxy.get(key),
+      put: async (key, value) => await swProxy.put(key, value)
+    }
 
     await swProxy.inc();
     console.log(await swProxy.counter);
@@ -96,9 +102,6 @@ if (navigator.serviceWorker) {
 }
 
 
-navigator.serviceWorker.ready.then(registration => {
-  registration.active.postMessage('ping');
-});
 // navigator.serviceWorker.getRegistrations().then(function (registrations) {
 //     for (let registration of registrations) {
 //       registration.unregister();
