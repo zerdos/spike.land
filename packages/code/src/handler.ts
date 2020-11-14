@@ -24,7 +24,7 @@ const corsHeaders = {
   "Access-Control-Max-Age": "86400",
 };
 
-export async function handleRequest(request: Request): Promise<Response> {
+export async function handleCloudRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
     const url = new URL(request.url);
 

@@ -2,9 +2,6 @@ importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js")
 // importScripts("../../../dist/umd/comlink.js");
 
-addEventListener("install", () => skipWaiting());
-addEventListener("activate", () => clients.claim());
-
 const runner = "browser-sw";
 const VERSION = "7";
 

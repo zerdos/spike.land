@@ -188,9 +188,6 @@ export const version = `7.1.7`; export const html = `<!DOCTYPE html>
 importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js")
 // importScripts("../../../dist/umd/comlink.js");
 
-addEventListener("install", () => skipWaiting());
-addEventListener("activate", () => clients.claim());
-
 const runner = "browser-sw";
 const VERSION = "7";
 
