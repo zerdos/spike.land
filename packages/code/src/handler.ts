@@ -1,5 +1,7 @@
 import { html, inject, sw } from "../dist/html.js";
 
+var SHATEST: KVNamespace
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
@@ -23,7 +25,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       if (hash !== null) {
         const jsonStream = await SHATEST.get(hash, "stream");
         if (jsonStream !== null) {
-          return new Response(jsonStream, {
+        return new Response(jsonStream, {
             headers: {
               "content-type": "application/json",
             },
