@@ -1,5 +1,6 @@
 import { html, sw } from "./html.ts";
 
+
 function inject(startKey: string, code: string, codeTranspiled: string) {
   const res = html.split("//inject");
   return [
@@ -11,8 +12,6 @@ function inject(startKey: string, code: string, codeTranspiled: string) {
     res[2],
   ].join("\n");
 }
-
-const shaStore = SHATEST;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -35,7 +34,7 @@ export async function handleRequest(request: Request): Promise<Response> {
     if (request.url.includes("?hash=")) {
       const hash = url.searchParams.get("hash");
       if (hash !== null) {
-        const json = await shaStore.get(hash, "stream");
+        const json = await SHATEST.get(hash, "stream");
         if (json !== null) {
 
 
@@ -54,7 +53,7 @@ export async function handleRequest(request: Request): Promise<Response> {
     let codeTranspiled: null | string = null;
 
     if (hash !== null && hash.length > 5) {
-      const json = await shaStore.get(hash);
+      const json = await SHATEST.get(hash);
 
       if (json !== null) {
         const parsed = JSON.parse(json);
@@ -64,7 +63,7 @@ export async function handleRequest(request: Request): Promise<Response> {
     }
 
     return new Response(
-      code !== null ? inject(hash, code, codeTranspiled) : html,
+      hash !== null ? inject(hash, code, codeTranspiled) : html,
       {
         headers: {
           "content-type": "text/html",
@@ -76,7 +75,7 @@ export async function handleRequest(request: Request): Promise<Response> {
 
     const myBuffer = new TextEncoder().encode(JSON.stringify(data));
 
-    const myDigest = await crypto.subtle.digest(
+    const myDigest = await crypto!.subtle.digest(
       {
         name: "SHA-256",
       },
@@ -90,7 +89,7 @@ export async function handleRequest(request: Request): Promise<Response> {
       "",
     );
     const smallerKey = hash.substring(0, 7);
-    await shaStore.put(smallerKey, myBuffer);
+    await SHATEST.put(smallerKey, myBuffer);
 
     const resp = new Response(`{"hash":"${smallerKey}"}`);
 

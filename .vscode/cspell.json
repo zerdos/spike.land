@@ -283,6 +283,7 @@
         "semver",
         "setimmediate",
         "setprototypeof",
+        "shastore",
         "shasum",
         "shatest",
         "shellwords",

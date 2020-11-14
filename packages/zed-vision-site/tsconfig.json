@@ -1,6 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Deno",
+
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2018",
     "lib": [
       "webworker",
       "dom",
@@ -8,15 +11,14 @@
       "esnext"
     ],
     "allowJs": true,
-    "skipLibCheck": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "moduleResolution": "Classic",
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",

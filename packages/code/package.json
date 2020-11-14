@@ -2,7 +2,7 @@
     "name": "@zedvision/code",
     "version": "7.0.47",
     "description": "Monaco Editor for React",
-    "main": "dist/_cBundle.js.min.js",
+    "main": "dist/worker-script.js",
     "files": [
         "**/*"
     ],
@@ -11,7 +11,7 @@
         "clean": "rm -rf dist && mkdir dist",
         "build": "yarn clean && deno fmt src-deno && yarn build-codebox && yarn minify && yarn build-template",
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
-        "build-template": " deno run --allow-read --allow-write generate-fe-bundle.ts",
+        "build-template": " deno run --allow-read --allow-write generate-fe-bundle.ts && deno bundle src/index.ts --no-check dist/worker-script.js",
         "deploy": "wrangler build && wrangler publish",
         "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > dist/_cBundle.js",
         "minify": "yarn esbuild dist/_cBundle.js  --minify --outfile=dist/_cBundle.js.min.js",
@@ -35,11 +35,7 @@
     "devDependencies": {
         "@cloudflare/workers-types": "2.1.0",
         "@cloudflare/wrangler": "1.12.2",
-        "@types/webpack-env": "1.15.3",
-        "esbuild": "0.8.6",
-        "typescript": "4.0.5",
-        "webpack": "5.4.0",
-        "webpack-cli": "4.2.0"
+        "esbuild": "0.8.7"
     },
     "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
@@ -47,8 +43,5 @@
     "private": false,
     "publishConfig": {
         "access": "public"
-    },
-    "dependencies": {
-        "ts-loader": "^8.0.11"
     }
 }
