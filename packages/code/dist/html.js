@@ -91,7 +91,7 @@ export const version = `7.1.14`; export const html = `<!DOCTYPE html>
 <script type="module">
 import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
 
-cost SHATEST = {}
+const SHATEST = {}
 
 async function initComlink() {
   const { port1, port2 } = new MessageChannel();
