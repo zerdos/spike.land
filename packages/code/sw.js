@@ -1,8 +1,9 @@
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
-importScripts(
-  "https://unpkg.com/@zedvision/code@VERSION/dist/worker-script.js",
-);
+
+// importScripts(
+//   "https://unpkg.com/@zedvision/code@VERSION/dist/worker-script.js",
+// );
 
 const dbPromise = idb.openDB("localZedCodeStore", 1, {
   upgrade(db) {
@@ -46,7 +47,10 @@ self.addEventListener("fetch", function (e) {
 
   const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
     return cache.match(e.request).then((response) => {
+    
       if (!response) {
+
+        console.log("NO CACHE MATCH");
         return handleNoCacheMatch(e);
       }
 
@@ -82,14 +86,13 @@ function fetchFromNetworkAndCache(e) {
   }
 
   return fetch(e.request).then((res) => {
-    // foreign requests may be res.type === 'opaque' and missing a url
-    if (!res.url) return res;
-    // regardless, we don't want to cache other origin's assets
-    // if (new URL(res.url).origin !== location.origin) return res;
+    console.log(res);
+    if (res.type==="opaque" || new URL(res.url).origin !== location.origin) return res;
 
     return caches.open(cacheKey).then((cache) => {
       // TODO: figure out if the content is new and therefore the page needs a reload.
-
+      
+      if (e.request.method!=="POST")
       cache.put(e.request, res.clone());
       return res;
     });

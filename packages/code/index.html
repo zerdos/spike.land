@@ -140,12 +140,11 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
 
     const regex2 = /styled.div/gi;
 
-    const replaced = transpileCode.replaceAll(regex2, "styled(motion.div)");
   //  console.log(replaced);
     const restart = new Function(
-      "replaced",
+      "transpileCode",
       `return function() {  
-        !!!{replaced}
+        !!!{transpileCode}
       }`,
     )()
     restart();
@@ -158,8 +157,7 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
   <script type="module">
 
     const runner = async () => {
-      const version = "latest";
-      const cdnAddress = "https://unpkg.com/@zedvision/code@";
+      const cdnAddress = "https://unpkg.com/@zedvision/code";
       const script = "/dist/_cBundle.js.min.js";
 
 
@@ -167,7 +165,9 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
         const { run } = await import("./dist/_cBundle.js")
         run();
       } else {
-        const { run } = await import(cdnAddress + version + script)
+        const version =  "@latest";
+        const { run } = await import(cdnAddress   //+ version
+        + script)
          run();
       }
 
