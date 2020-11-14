@@ -9,7 +9,10 @@ export const html = (await Deno.readTextFile("index.html")).replace(
   "latest",
   version,
 ).replaceAll(regex, "\\`").replace("!!!", "\\$");
-export const sw = (await Deno.readTextFile("sw.js")).replaceAll("VERSION", version);
+export const sw = (await Deno.readTextFile("sw.js")).replaceAll(
+  "VERSION",
+  version,
+);
 
 await Deno.writeTextFile(
   "dist/html.js",

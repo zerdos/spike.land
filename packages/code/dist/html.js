@@ -192,34 +192,33 @@ export const version = `7.1.11`; export const html = `<!DOCTYPE html>
 
 </html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
-importScripts("https://unpkg.com/@zedvision/code@7.1.11/dist/worker-script.js");
+importScripts(
+  "https://unpkg.com/@zedvision/code@7.1.11/dist/worker-script.js",
+);
 
-const dbPromise = openDB('local-keyval-store', 1, {
+const dbPromise = openDB("localZedCodeStore", 1, {
   upgrade(db) {
-    db.createObjectStore('codeStore');
+    db.createObjectStore("codeStore");
   },
 });
 
 const SHATEST = {
   async get(key) {
-    return (await dbPromise).get('keyval', key);
+    return (await dbPromise).get("codeStore", key);
   },
   async put(key, val) {
-    return (await dbPromise).put('keyval', val, key);
+    return (await dbPromise).put("codeStore", val, key);
   },
   async delete(key) {
-    return (await dbPromise).delete('keyval', key);
+    return (await dbPromise).delete("codeStore", key);
   },
   async clear() {
-    return (await dbPromise).clear('keyval');
+    return (await dbPromise).clear("codeStore");
   },
   async keys() {
-    return (await dbPromise).getAllKeys('keyval');
+    return (await dbPromise).getAllKeys("codeStore");
   },
 };
-
-// importScripts("../../../dist/umd/comlink.js");
-
 
 var cacheKey = "7.1.11";
 
@@ -234,33 +233,21 @@ this.addEventListener("install", function (e) {
   );
 });
 
-let dbRequest = indexedDB.open("bookstore");
-dbRequest.onsuccess = (event) => {
-  let db = event.target.result;
-
-this.addEventListener("fetch", function (e) {
+self.addEventListener("fetch", function (e) {
   self.runner = "browser-sw";
-
-
-  db.onclose = (event) => {
-    alert("the database: " + db.name + "was closed outside the script!");
-  };
-};
-
 
   const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
     return cache.match(e.request).then((response) => {
-      console.log(e);
-
       if (!response) {
         return handleNoCacheMatch(e);
       }
-      // Update cache record in the background
+
       fetchFromNetworkAndCache(e);
-      // Reply with stale data
+
       return response;
     });
   });
+
   e.respondWith(tryInCachesFirst);
 });
 
@@ -294,7 +281,7 @@ function fetchFromNetworkAndCache(e) {
 
     return caches.open(cacheKey).then((cache) => {
       // TODO: figure out if the content is new and therefore the page needs a reload.
-      
+
       cache.put(e.request, res.clone());
       return res;
     });
@@ -307,8 +294,12 @@ function handleNoCacheMatch(e) {
 
 const obj = {
   counter: 0,
-  put(key, val){return SHATEST.put(key, val)}
-  get(key){return SHATEST.get(key)}
+  put(key, val) {
+    return SHATEST.put(key, val);
+  },
+  get(key) {
+    return SHATEST.get(key);
+  },
   inc() {
     this.counter++;
   },
@@ -317,7 +308,6 @@ const obj = {
 self.addEventListener("message", (event) => {
   if (event.data.comlinkInit) {
     Comlink.expose(obj, event.data.port);
-    return;
   }
 });
 `;
