@@ -64,6 +64,7 @@
         "concat",
         "corejs",
         "cosmiconfig",
+        "crossorigin",
         "cssdb",
         "cssesc",
         "cssnano",

@@ -1,7 +1,11 @@
-import { html, sw } from "./html.ts";
+import { html, sw } from "../dist/html.js";
 
-
-function inject(startKey: string, code: string, codeTranspiled: string) {
+function inject(
+  html: string,
+  startKey: string,
+  code: string,
+  codeTranspiled: string,
+) {
   const res = html.split("//inject");
   return [
     res[0],
@@ -36,8 +40,6 @@ export async function handleRequest(request: Request): Promise<Response> {
       if (hash !== null) {
         const json = await SHATEST.get(hash, "stream");
         if (json !== null) {
-
-
           return new Response(json, {
             headers: {
               "content-type": "application/json",
@@ -46,7 +48,6 @@ export async function handleRequest(request: Request): Promise<Response> {
         }
       }
     }
-
     const hash = url.searchParams.get("h");
 
     let code: null | string = null;
@@ -63,7 +64,7 @@ export async function handleRequest(request: Request): Promise<Response> {
     }
 
     return new Response(
-      hash !== null ? inject(hash, code, codeTranspiled) : html,
+      hash !== null ? inject(html, hash, code, codeTranspiled) : html,
       {
         headers: {
           "content-type": "text/html",
