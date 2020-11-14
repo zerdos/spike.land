@@ -268,7 +268,7 @@ function fetchFromNetworkAndCache(e) {
 
   return fetch(e.request).then((res) => {
     console.log(res);
-    if (res.type==="opaque" || new URL(res.url).origin !== location.origin) return res;
+    if (res.type==="opaque" || new URL(res.url) !== location.origin || location.search!=="" ) return res;
 
     return caches.open(cacheKey).then((cache) => {
       // TODO: figure out if the content is new and therefore the page needs a reload.
