@@ -196,7 +196,7 @@ importScripts(
   "https://unpkg.com/@zedvision/code@7.1.12/dist/worker-script.js",
 );
 
-const dbPromise = openDB("localZedCodeStore", 1, {
+const dbPromise = idb.openDB("localZedCodeStore", 1, {
   upgrade(db) {
     db.createObjectStore("codeStore");
   },
