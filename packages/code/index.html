@@ -10,8 +10,11 @@
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/react@11.0.0/dist/emotion-react.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
+  <script crossorigin src="https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js"></script>
+
+  
   <!-- <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script> -->
-  <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>
+  <!-- <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script> -->
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     crossorigin="anonymous" />
@@ -22,29 +25,6 @@
       width: 100vw;
       height: 100vh;
     }
-
-    /* body {
-      overflow: hidden;
-      width: 100%;
-      height: 100vh
-    } */
-
-    /* @keyframes opening {
-      from {
-        width: 10%;
-        height: 20vh;
-      }
-
-      66% {
-        width: 100%;
-        height: 20vh;
-      }
-
-      to {
-        width: 100%;
-        height: 100vh;
-      }
-    } */
 
 
     #error {
@@ -88,10 +68,7 @@
 
   <div id="ace"></div>
 
-<script type="module">
-import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
-
-const SHATEST = {}
+<script>
 
 async function initComlink() {
   const { port1, port2 } = new MessageChannel();
@@ -123,7 +100,9 @@ navigator.serviceWorker.register("sw.js");
 //     }
 //   });
 
-// bling.js
+</script>
+
+<!-- // bling.js
 const $ = window.$ = document.querySelector.bind(document);
 const $$ = window.$$ = document.querySelectorAll.bind(document);
 Node.prototype.on = window.on = function (name, fn) {
@@ -136,8 +115,8 @@ NodeList.prototype.on = NodeList.prototype.addEventListener =
       elem.on(name, fn);
     });
   });
- 
-</script>
+  -->
+
 
   <script>
     window["motion"] = window["Motion"].motion;
