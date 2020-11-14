@@ -107,6 +107,7 @@ export const version = `7.1.10`; export const html = `<!DOCTYPE html>
     navigator.serviceWorker.controller.postMessage(msg, [port1]);
 
     const swProxy = Comlink.wrap(port2);
+    window["SHATEST"]=swProxy
     console.log(await swProxy.counter);
     await swProxy.inc();
     console.log(await swProxy.counter);
@@ -151,7 +152,7 @@ export const version = `7.1.10`; export const html = `<!DOCTYPE html>
     const regex2 = /styled.div/gi;
 
     const replaced = transpileCode.replaceAll(regex2, "styled(motion.div)");
-    console.log(replaced);
+  //  console.log(replaced);
     const restart = new Function(
       "replaced",
       \`return function() {  
@@ -190,10 +191,35 @@ export const version = `7.1.10`; export const html = `<!DOCTYPE html>
 </body>
 
 </html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
+importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
 importScripts("https://unpkg.com/@zedvision/code@7.1.10/dist/worker-script.js");
+
+const dbPromise = openDB('local-keyval-store', 1, {
+  upgrade(db) {
+    db.createObjectStore('codeStore');
+  },
+});
+
+const SHATEST = {
+  async get(key) {
+    return (await dbPromise).get('keyval', key);
+  },
+  async put(key, val) {
+    return (await dbPromise).put('keyval', val, key);
+  },
+  async delete(key) {
+    return (await dbPromise).delete('keyval', key);
+  },
+  async clear() {
+    return (await dbPromise).clear('keyval');
+  },
+  async keys() {
+    return (await dbPromise).getAllKeys('keyval');
+  },
+};
+
 // importScripts("../../../dist/umd/comlink.js");
 
-self.runner = "browser-sw";
 
 var cacheKey = "7.1.10";
 
@@ -208,7 +234,20 @@ this.addEventListener("install", function (e) {
   );
 });
 
+let dbRequest = indexedDB.open("bookstore");
+dbRequest.onsuccess = (event) => {
+  let db = event.target.result;
+
 this.addEventListener("fetch", function (e) {
+  self.runner = "browser-sw";
+
+
+  db.onclose = (event) => {
+    alert("the database: " + db.name + "was closed outside the script!");
+  };
+};
+
+
   const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
     return cache.match(e.request).then((response) => {
       console.log(e);
@@ -268,6 +307,8 @@ function handleNoCacheMatch(e) {
 
 const obj = {
   counter: 0,
+  put(key, val){return SHATEST.put(key, val)}
+  get(key){return SHATEST.get(key)}
   inc() {
     this.counter++;
   },
