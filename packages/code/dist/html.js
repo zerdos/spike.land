@@ -1,4 +1,4 @@
-export const version = `7.1.9`; export const html = `<!DOCTYPE html>
+export const version = `7.1.10`; export const html = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -168,7 +168,7 @@ export const version = `7.1.9`; export const html = `<!DOCTYPE html>
   <script type="module">
 
     const runner = async () => {
-      const version = "7.1.9";
+      const version = "7.1.10";
       const cdnAddress = "https://unpkg.com/@zedvision/code@";
       const script = "/dist/_cBundle.js.min.js";
 
@@ -190,12 +190,12 @@ export const version = `7.1.9`; export const html = `<!DOCTYPE html>
 </body>
 
 </html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
-importScripts("https://unpkg.com/@zedvision/code@7.1.9/dist/worker-script.js");
+importScripts("https://unpkg.com/@zedvision/code@7.1.10/dist/worker-script.js");
 // importScripts("../../../dist/umd/comlink.js");
 
 self.runner = "browser-sw";
 
-var cacheKey = "7.1.9";
+var cacheKey = "7.1.10";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
