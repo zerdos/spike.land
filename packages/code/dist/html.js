@@ -89,7 +89,7 @@ export const version = `7.1.4`; export const html = `<!DOCTYPE html>
   <div id="ace"></div>
 
 <script type="module">
-  import * as Comlink from "https://unpkg.com/comlink@alpha/dist/esm/comlink.mjs";
+  import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
 
   async function initComlink() {
     
@@ -184,7 +184,7 @@ export const version = `7.1.4`; export const html = `<!DOCTYPE html>
   </script>
 </body>
 
-</html>`; export const sw = `importScripts("https://unpkg.com/comlink@alpha/dist/umd/comlink.js");
+</html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js") ;
 // importScripts("../../../dist/umd/comlink.js");
 
 addEventListener("install", () => skipWaiting());
