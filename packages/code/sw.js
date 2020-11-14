@@ -1,5 +1,5 @@
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
-importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js")
+importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js");
 // importScripts("../../../dist/umd/comlink.js");
 
 const runner = "browser-sw";
@@ -10,7 +10,7 @@ this.addEventListener("install", function (e) {
     caches.open(VERSION).then((cache) => {
       return cache.addAll([
         "/",
-        "/sw.js"
+        "/sw.js",
       ]);
     }),
   );
@@ -72,7 +72,6 @@ function fetchFromNetworkAndCache(e) {
 function handleNoCacheMatch(e) {
   return fetchFromNetworkAndCache(e);
 }
-
 
 const obj = {
   counter: 0,

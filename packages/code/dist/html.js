@@ -190,7 +190,7 @@ export const version = `7.1.9`; export const html = `<!DOCTYPE html>
 </body>
 
 </html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
-importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js")
+importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js");
 // importScripts("../../../dist/umd/comlink.js");
 
 const runner = "browser-sw";
@@ -201,7 +201,7 @@ this.addEventListener("install", function (e) {
     caches.open(VERSION).then((cache) => {
       return cache.addAll([
         "/",
-        "/sw.js"
+        "/sw.js",
       ]);
     }),
   );
@@ -264,7 +264,6 @@ function handleNoCacheMatch(e) {
   return fetchFromNetworkAndCache(e);
 }
 
-
 const obj = {
   counter: 0,
   inc() {
@@ -277,4 +276,5 @@ self.addEventListener("message", (event) => {
     Comlink.expose(obj, event.data.port);
     return;
   }
-});`;
+});
+`;

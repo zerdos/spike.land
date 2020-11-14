@@ -48,6 +48,6 @@ module.exports = {
         display: `standalone`,
         cache_busting_mode: `none`,
       },
-    }
+    },
   ],
 };
