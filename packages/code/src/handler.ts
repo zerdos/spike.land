@@ -1,5 +1,6 @@
 import { html, sw } from "../dist/html.js";
-const runner = "worker-cf";
+
+self.runner = self.runner || "worker-cf";
 
 function inject(
   html: string,

@@ -280,6 +280,7 @@
         "rimraf",
         "ripemd",
         "rollup",
+        "runner",
         "samverschueren",
         "scandir",
         "semver",

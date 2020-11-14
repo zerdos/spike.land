@@ -1,13 +1,14 @@
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
-importScripts("https://unpkg.com/@zedvision/code@7.1.5/dist/worker-script.js");
+importScripts("https://unpkg.com/@zedvision/code@VERSION/dist/worker-script.js");
 // importScripts("../../../dist/umd/comlink.js");
 
-const runner = "browser-sw";
-const VERSION = "8";
+self.runner = "browser-sw";
+
+var cacheKey = "VERSION";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
-    caches.open(VERSION).then((cache) => {
+    caches.open(cacheKey).then((cache) => {
       return cache.addAll([
         "/",
         "/sw.js",
@@ -17,7 +18,7 @@ this.addEventListener("install", function (e) {
 });
 
 this.addEventListener("fetch", function (e) {
-  const tryInCachesFirst = caches.open(VERSION).then((cache) => {
+  const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
     return cache.match(e.request).then((response) => {
       console.log(e);
 
@@ -37,7 +38,7 @@ this.addEventListener("activate", function (e) {
   e.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(keys.map((key) => {
-        if (key !== VERSION) {
+        if (key !== cacheKey) {
           return caches.delete(key);
         }
       }));
@@ -61,8 +62,9 @@ function fetchFromNetworkAndCache(e) {
     // regardless, we don't want to cache other origin's assets
     // if (new URL(res.url).origin !== location.origin) return res;
 
-    return caches.open(VERSION).then((cache) => {
+    return caches.open(cacheKey).then((cache) => {
       // TODO: figure out if the content is new and therefore the page needs a reload.
+      
       cache.put(e.request, res.clone());
       return res;
     });
