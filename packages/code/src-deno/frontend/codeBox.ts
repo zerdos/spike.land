@@ -1,5 +1,4 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
-import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts";
 
 // import { makeDraggable } from "./interact.ts";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
@@ -56,58 +55,6 @@ export async function run() {
   (async () => {
     const example = getCodeToLoad();
     latestGoodCode = example;
-
-    let aceEditor: AceAjax.Ace;
-    if (
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        window.navigator.userAgent,
-      )
-    ) {
-      // some code.
-
-      await importScript(
-        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
-      );
-      await importScript(
-        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
-      );
-      await importScript(
-        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
-      );
-
-      document.getElementById("ace").style.setProperty("display", "block");
-      document.getElementById("container").style.setProperty("display", "none");
-
-      aceEditor = window["ace"].edit("ace");
-      aceEditor.getSession().setMode("ace/mode/typescript");
-
-      const setThemeForAce = (wait: number) =>
-        setTimeout(() => {
-          let aceEditor = window["ace"].edit("ace");
-          let theme = aceEditor.getTheme();
-          if (theme !== "ace/theme/monokai ") {
-            aceEditor.setTheme("ace/theme/monokai");
-            setThemeForAce(2 * wait);
-          }
-        }, wait);
-
-      setThemeForAce(100);
-
-      aceEditor.setValue(example);
-      aceEditor.blur();
-    }
-
-    const modules = await startMonaco({
-      language: "typescript",
-      code: example,
-      onChange,
-    });
-
-    aceEditor && aceEditor.session.on("change", function () {
-      const value = aceEditor.getValue();
-      modules.editor.setValue(value);
-      onChange(value);
-    });
 
     function onChange(code: string) {
       if (!modules) return;

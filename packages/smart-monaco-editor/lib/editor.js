@@ -5,6 +5,32 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         el.id = "container";
         document.body.appendChild(el);
     }
+    const modelUri = language === "typescript" ? "file:///main.tsx" : "file:///main.html";
+    let aceEditor;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
+        const aceEl = window.document.createElement("div");
+        aceEl.id = "ace";
+        window.document.body.appendChild(aceEl);
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js");
+        language === "typescript" ? await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js") : await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js");
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js");
+        window.document.getElementById("ace").style.setProperty("display", "block");
+        container.style.setProperty("display", "none");
+        aceEditor = window["ace"].edit("ace");
+        aceEditor.getSession().setMode("ace/mode/typescript");
+        const setThemeForAce = (wait)=>setTimeout(()=>{
+                let aceEditor1 = window["ace"].edit("ace");
+                let theme = aceEditor1.getTheme();
+                if (theme !== "ace/theme/monokai ") {
+                    aceEditor1.setTheme("ace/theme/monokai");
+                    setThemeForAce(2 * wait);
+                }
+            }, wait)
+        ;
+        setThemeForAce(100);
+        aceEditor.setValue(code);
+        aceEditor.blur();
+    }
     if (window["monaco"] === undefined) {
         const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
         const { require  } = await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
@@ -55,7 +81,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             autoSurround: "languageDefined",
             trimAutoWhitespace: true,
             codeActionsOnSaveTimeout: 100,
-            model: monaco.editor.createModel(code, language, monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html")),
+            model: monaco.editor.getModel(modelUri) || monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri)),
             value: code,
             language: language,
             theme: "vs-dark"
@@ -63,6 +89,12 @@ export const startMonaco = async ({ onChange , code , language  })=>{
     };
     modules.editor.onDidChangeModelContent(()=>onChange(modules.editor.getValue())
     );
+    aceEditor && aceEditor.session.on("change", function() {
+        const value = aceEditor.getValue();
+        modules.editor.setValue(value);
+        onChange(value);
+    });
+    aceEditor && document.getElementById("container").replaceWith(document.getElementById("ace"));
     modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: true,
         noSemanticValidation: true,

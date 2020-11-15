@@ -1,5 +1,7 @@
 import type AMDLoader from "https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts";
 import type { Monaco, SmartMonaco } from "./editor.d.ts";
+import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts";
+
 
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language },
@@ -11,6 +13,57 @@ export const startMonaco: SmartMonaco = async (
     el.id = "container";
     document.body.appendChild(el);
   }
+  const modelUri = language === "typescript"? "file:///main.tsx"
+  : "file:///main.html";
+
+
+  let aceEditor: AceAjax.Ace;
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        window.navigator.userAgent,
+      )
+    ) {
+      // some code.
+      const aceEl = window.document.createElement("div");
+      aceEl.id = "ace";
+      window.document.body.appendChild(aceEl);
+      
+      await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
+      );
+
+      language === "typescript"?  await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
+      ): await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js",
+      );
+
+      await loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
+      );
+
+      window.document.getElementById("ace").style.setProperty("display", "block");
+      container.style.setProperty("display", "none");
+
+      aceEditor = window["ace"].edit("ace");
+      aceEditor.getSession().setMode("ace/mode/typescript");
+
+      const setThemeForAce = (wait: number) =>
+        setTimeout(() => {
+          let aceEditor = window["ace"].edit("ace");
+          let theme = aceEditor.getTheme();
+          if (theme !== "ace/theme/monokai ") {
+            aceEditor.setTheme("ace/theme/monokai");
+            setThemeForAce(2 * wait);
+          }
+        }, wait);
+
+      setThemeForAce(100);
+
+      aceEditor.setValue(code);
+      aceEditor.blur();
+    }
+
 
   if (window["monaco"] === undefined) {
     const vsPath =
@@ -68,13 +121,11 @@ export const startMonaco: SmartMonaco = async (
         // acceptSuggestionOnCommitCharacter: true,
         trimAutoWhitespace: true,
         codeActionsOnSaveTimeout: 100,
-        model: monaco.editor.createModel(
+        model: monaco.editor.getModel(modelUri) || monaco.editor.createModel(
           code,
           language,
           monaco.Uri.parse(
-            language === "typescript"
-              ? "file:///main.tsx"
-              : "file:///main.html",
+        modelUri
           ),
         ),
         value: code,
@@ -87,6 +138,14 @@ export const startMonaco: SmartMonaco = async (
   modules.editor.onDidChangeModelContent(() =>
     onChange(modules.editor.getValue())
   );
+
+  aceEditor && aceEditor.session.on("change", function () {
+    const value = aceEditor.getValue();
+    modules.editor.setValue(value);
+    onChange(value);
+  });
+  aceEditor && document.getElementById("container").replaceWith(document.getElementById("ace"))
+
 
   modules.monaco.languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
