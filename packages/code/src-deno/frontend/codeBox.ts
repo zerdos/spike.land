@@ -80,7 +80,18 @@ export async function run() {
 
       aceEditor = window["ace"].edit("ace");
       aceEditor.getSession().setMode("ace/mode/typescript");
-      setTimeout(() => aceEditor.setTheme("ace/theme/monokai"), 100);
+
+      const setThemeForAce = (wait: number) =>
+        setTimeout(() => {
+          let aceEditor = window["ace"].edit("ace");
+          let theme = aceEditor.getTheme();
+          if (theme !== "ace/theme/monokai ") {
+            aceEditor.setTheme("ace/theme/monokai");
+            setThemeForAce(2 * wait);
+          }
+        }, wait);
+
+      setThemeForAce(100);
 
       aceEditor.setValue(example);
       aceEditor.blur();

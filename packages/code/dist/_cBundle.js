@@ -858,8 +858,16 @@ export async function run() {
             document.getElementById("container").style.setProperty("display", "none");
             aceEditor = window["ace"].edit("ace");
             aceEditor.getSession().setMode("ace/mode/typescript");
-            setTimeout(()=>aceEditor.setTheme("ace/theme/monokai")
-            , 100);
+            const setThemeForAce = (wait)=>setTimeout(()=>{
+                    let aceEditor1 = window["ace"].edit("ace");
+                    let theme = aceEditor1.getTheme();
+                    if (theme !== "ace/theme/monokai ") {
+                        aceEditor1.setTheme("ace/theme/monokai");
+                        setThemeForAce(2 * wait);
+                    }
+                }, wait)
+            ;
+            setThemeForAce(100);
             aceEditor.setValue(example);
             aceEditor.blur();
         }
