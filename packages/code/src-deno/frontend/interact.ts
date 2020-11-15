@@ -7,17 +7,18 @@ export const makeDraggable = async () => {
     title: `React Component`,
     left: 20,
     top: 100,
-    width: 300,
-    height: 200,
-    minWidth: 200,
-    minHeight: 110,
+    width: 400,
+    height: 300,
+    minWidth: 600,
+    iframe: false,
+    minHeight: 400,
+    url: "runner.html",
     appearanceName: "yosemite",
     appearanceParam: {
       titleBar: {
         greenButton: "fullscreen", //'maximize' icon or 'fullscreen' icon
       },
     },
-    html: '<div style="font-size:16px"><div id=root></div></div>',
   }).show();
 
   //You can automatically set the actions that are typically expected
@@ -39,6 +40,7 @@ export const makeDraggable = async () => {
       },
       duration: 300,
     },
+
     dehideParam: {
       duration: 300,
     },

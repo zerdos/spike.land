@@ -1,7 +1,7 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts";
 
-import { makeDraggable } from "./interact.ts";
+// import { makeDraggable } from "./interact.ts";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.ts";
 import { starter } from "./starter.tsx";
@@ -47,15 +47,11 @@ export async function run() {
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
-  window["css"] = window["emotionReact"].css;
-  window["jsx"] = window["emotionReact"].jsx;
 
-  window["styled"] = window["emotionStyled"];
-
-  setTimeout(async () => {
-    await jsFrameLoader;
-    makeDraggable();
-  });
+  // setTimeout(async () => {
+  //   await jsFrameLoader;
+  //   makeDraggable();
+  // });
 
   (async () => {
     const example = getCodeToLoad();
