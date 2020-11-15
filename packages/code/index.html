@@ -159,10 +159,17 @@
         const { run } = await import("./dist/_cBundle.js")
         run();
       } else {
-        const version = "@latest";
-        const { run } = await import(cdnAddress   +  version
-          + script)
+        try{
+          const version = "@latest";
+          const { run } = await import(cdnAddress   +  version + script)
         run();
+        } catch(e){
+          
+          //If the CDN doesn't have or package yet
+          const { run } = await import(cdnAddress  + "@lat"+"est"  +  version + script)
+          run();
+        }
+   
       }
 
 
