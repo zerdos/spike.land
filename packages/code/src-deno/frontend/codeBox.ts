@@ -69,9 +69,9 @@ export async function run() {
         importScript(
           "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
         ),
-        // importScript(
-        //   "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
-        // ),
+        importScript(
+          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
+        ),
         importScript(
           "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
         ),
@@ -80,9 +80,11 @@ export async function run() {
       document.getElementById("container").style.setProperty("display", "none");
 
       aceEditor = window["ace"].edit("ace");
+      aceEditor.getSession().setMode("ace/mode/typescript");
       aceEditor.setTheme("ace/theme/monokai");
-      aceEditor.session.setMode("ace/mode/typescript");
+
       aceEditor.setValue(example);
+      aceEditor.blur();
     }
 
     const modules = await startMonaco({

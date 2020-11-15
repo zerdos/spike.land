@@ -853,14 +853,16 @@ export async function run() {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
             await Promise.all([
                 importScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"),
+                importScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js"),
                 importScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js"), 
             ]);
             document.getElementById("ace").style.setProperty("display", "block");
             document.getElementById("container").style.setProperty("display", "none");
             aceEditor = window["ace"].edit("ace");
+            aceEditor.getSession().setMode("ace/mode/typescript");
             aceEditor.setTheme("ace/theme/monokai");
-            aceEditor.session.setMode("ace/mode/typescript");
             aceEditor.setValue(example);
+            aceEditor.blur();
         }
         const modules = await startMonaco({
             language: "typescript",
