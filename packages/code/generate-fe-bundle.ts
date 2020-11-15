@@ -9,31 +9,43 @@ export const html = (await Deno.readTextFile("index.html")).replace(
   "latest",
   version,
 ).replaceAll(regex, "\\`").replace("!!!", "\\$");
-export const sw = (await Deno.readTextFile("sw.js")).replaceAll(
-  "VERSION",
-  version,
+
+export const sw = (await Deno.readTextFile("sw.js")).replaceAll(regex2,
+  version
 );
+
+const bundle = "export const version = `" + version + "`; " +
+"export const html = `" + html + "`; " +
+"export const sw = `" + sw + "`; " + `
+export function inject(
+  html,
+  startKey,
+  code,
+  codeTranspiled,
+) {
+  const res = html.split("//inject");
+  return [
+    res[0],
+    \`localStorage.setItem("\${startKey}", unescape("\${escape(code)}"));\`,
+    \`restartCode(
+      unescape("\${escape(codeTranspiled)}")
+      );\`,
+    res[2],
+  ].join("\\n");
+}
+`;
 
 await Deno.writeTextFile(
   "dist/html.js",
-  "export const version = `" + version + "`; " +
-    "export const html = `" + html + "`; " +
-    "export const sw = `" + sw + "`; " + `
-    export function inject(
-      html,
-      startKey,
-      code,
-      codeTranspiled,
-    ) {
-      const res = html.split("//inject");
-      return [
-        res[0],
-        \`localStorage.setItem("\${startKey}", unescape("\${escape(code)}"));\`,
-        \`restartCode(
-          unescape("\${escape(codeTranspiled)}")
-          );\`,
-        res[2],
-      ].join("\\n");
-    }
-  `,
+  bundle
 );
+
+
+const regex3 = /export /gi;
+
+await Deno.writeTextFile(
+  "dist/htmlNoModule.js",
+  bundle.replaceAll(regex3, "")
+);
+
+

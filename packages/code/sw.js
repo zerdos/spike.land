@@ -1,9 +1,9 @@
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
 
-// importScripts(
-//   "https://unpkg.com/@zedvision/code@VERSION/dist/html.js",
-// );
+importScripts(
+  "https://unpkg.com/@zedvision/code@VERSION/dist/htmlNoModule.js",
+);
 
 const dbPromise = idb.openDB("localZedCodeStore", 1, {
   upgrade(db) {
