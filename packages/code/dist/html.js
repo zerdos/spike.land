@@ -199,7 +199,7 @@ this.addEventListener("install", function (e) {
     caches.open(cacheKey).then((cache) => {
       return cache.addAll([
         "/",
-        "/sw.js",
+        "/index.html",
       ]);
     }),
   );
