@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "7.1.34",
+    "version": "7.1.35",
     "description": "Monaco Editor for React",
     "main": "dist/worker-script.js",
     "files": [
