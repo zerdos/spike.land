@@ -322,7 +322,7 @@ export const CodeBox: React.FC<{
       </button>
     </Header>}
     <CodeContainer id="container" />
-    <CodeContainer id="ace" />
+    <CodeContainer style={{ display: "none" }} id="ace" />
     {error
       ? <ErrorContainer>
         <pre>

@@ -839,6 +839,9 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
   }, "Save")), /*#__PURE__*/react["createElement"](CodeContainer, {
     id: "container"
   }), /*#__PURE__*/react["createElement"](CodeContainer, {
+    style: {
+      display: "none"
+    },
     id: "ace"
   }), error ? /*#__PURE__*/react["createElement"](ErrorContainer, null, /*#__PURE__*/react["createElement"]("pre", null, error.toString()), /*#__PURE__*/react["createElement"]("button", {
     onClick: /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee8() {
