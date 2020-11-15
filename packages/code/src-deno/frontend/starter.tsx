@@ -15,20 +15,21 @@ const Counter = () => {
 
 const Container = styled.div\`
   margin: 2em;
-  max-width: 400px;
+  display: inline-block;
+  min-width: 200px;
   background: white;
-  border: 6px solid grey;
-  border-radius: 20px;
+  border: 4px dotted red;
+  border-radius: 30px;
   padding: 1rem;
- \`
+\`
 
 const Button = styled.button\`
   text-align: center;
   display: inline-block;
   border-radius: 6px;
   padding: 0.5rem 0;
-  margin: 0.5rem 1rem;
-  width: 3rem;
+  margin: 0.5rem 2rem;
+  width: 4rem;
   color: white;
   border: none;
   :focus{
@@ -38,6 +39,7 @@ const Button = styled.button\`
 
 const elementToRender = document.getElementById("root");
 ReactDOM.render(<Counter />, elementToRender);
+
 
 
 `;

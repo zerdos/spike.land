@@ -26,25 +26,14 @@ export const version = `7.1.42`; export const html = `<!DOCTYPE html>
     #wrap {
       display: block;
       width: 100%;
+      resize: vertical;
       height: 20vh;
       text-align: center;
       background-color: dimgray;
       overflow-y: scroll;
       
-   
     }
 
-    .gutter-vertical{
-      cursor: ns-resize;
-      resize: vertical;
-      content: "";
-      display: block;
-      height: 8px;
-      width: 100%;
-         position: absolute;
-      top: -3px;
-        z-index: 10;
-    }
 
     #root {
  
@@ -80,10 +69,7 @@ export const version = `7.1.42`; export const html = `<!DOCTYPE html>
   <div id="error" class="draggable"></div>
  
   <div id="wrap">  
-
-
-    
-    <div class="gutter gutter-vertical" style="height: 1px;"><div id="root"></div>     </div>
+<div id="root"></div>    
 
   </div>
 
