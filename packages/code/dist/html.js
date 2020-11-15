@@ -27,7 +27,7 @@ export const version = `7.1.48`; export const html = `<!DOCTYPE html>
       display: block;
       width: 100%;
       resize: vertical;
-      height: 20vh;
+      height: 300px;
       text-align: center;
       background-color: dimgray;
       overflow-y: scroll;
