@@ -31,11 +31,12 @@ export const version = `7.1.41`; export const html = `<!DOCTYPE html>
       background-color: dimgray;
       overflow-y: scroll;
       
-      resize: vertical;
+   
     }
 
     .gutter-vertical{
       cursor: ns-resize;
+      resize: vertical;
       content: "";
       display: block;
       height: 8px;
@@ -81,11 +82,12 @@ export const version = `7.1.41`; export const html = `<!DOCTYPE html>
   <div id="wrap">  
 
 
-    <div id="root"></div>    
+    
+    <div class="gutter gutter-vertical" style="height: 1px;"><div id="root"></div>     </div>
 
   </div>
 
-  <div class="gutter gutter-vertical" style="height: 1px;"></div>
+
 
   <div id="container"></div>
 
