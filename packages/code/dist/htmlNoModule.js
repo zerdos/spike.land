@@ -46,8 +46,7 @@ const version = `7.1.39`; const html = `<!DOCTYPE html>
     }
 
     #root {
-      width: 50%;
-      height: 100vh;
+ 
       display: inline-block;
       margin: 20px auto
     }
