@@ -78,9 +78,9 @@ function fetchFromNetworkAndCache(e) {
   // There's probably more going on here, but I'd rather just ignore this problem. :)
   // https://github.com/paulirish/caltrainschedule.io/issues/49
   if (
-    e.request.cache === "only-if-cached"// && e.request.mode !== "same-origin"
+    e.request.cache === "only-if-cached" // && e.request.mode !== "same-origin"
   ) {
-    console.log("NO CACHE!", e)
+    console.log("NO CACHE!", e);
     return;
   }
 

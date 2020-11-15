@@ -10,13 +10,14 @@ export const html = (await Deno.readTextFile("index.html")).replace(
   version,
 ).replaceAll(regex, "\\`").replace("!!!", "\\$");
 
-export const sw = (await Deno.readTextFile("sw.js")).replaceAll(regex2,
-  version
+export const sw = (await Deno.readTextFile("sw.js")).replaceAll(
+  regex2,
+  version,
 );
 
 const bundle = "export const version = `" + version + "`; " +
-"export const html = `" + html + "`; " +
-"export const sw = `" + sw + "`; " + `
+  "export const html = `" + html + "`; " +
+  "export const sw = `" + sw + "`; " + `
 export function inject(
   html,
   startKey,
@@ -37,15 +38,12 @@ export function inject(
 
 await Deno.writeTextFile(
   "dist/html.js",
-  bundle
+  bundle,
 );
-
 
 const regex3 = /export /gi;
 
 await Deno.writeTextFile(
   "dist/htmlNoModule.js",
-  bundle.replaceAll(regex3, "")
+  bundle.replaceAll(regex3, ""),
 );
-
-

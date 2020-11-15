@@ -65,17 +65,16 @@ export async function run() {
     ) {
       // some code.
 
-      await Promise.all([
-        importScript(
-          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
-        ),
-        importScript(
-          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
-        ),
-        importScript(
-          "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
-        ),
-      ]);
+      await importScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
+      );
+      await importScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
+      );
+      await importScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
+      );
+
       document.getElementById("ace").style.setProperty("display", "block");
       document.getElementById("container").style.setProperty("display", "none");
 
