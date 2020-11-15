@@ -56,6 +56,12 @@ export async function run() {
     const example = getCodeToLoad();
     latestGoodCode = example;
 
+    const modules = await startMonaco({
+      language: "typescript",
+      code: example,
+      onChange,
+    });
+
     function onChange(code: string) {
       if (!modules) return;
       latestCode = code;
