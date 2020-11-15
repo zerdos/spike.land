@@ -1,4 +1,4 @@
-const version = `7.1.46`; const html = `<!DOCTYPE html>
+const version = `7.1.47`; const html = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -160,7 +160,7 @@ const version = `7.1.46`; const html = `<!DOCTYPE html>
         run();
       } else {
         try{
-          const version = "@7.1.46";
+          const version = "@7.1.47";
           const { run } = await import(cdnAddress   +  version + script)
         run();
         } catch(e){
@@ -184,7 +184,7 @@ const version = `7.1.46`; const html = `<!DOCTYPE html>
 importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
 
 importScripts(
-  "https://unpkg.com/@zedvision/code@7.1.46/dist/htmlNoModule.js",
+  "https://unpkg.com/@zedvision/code@7.1.47/dist/htmlNoModule.js",
 );
 
 const dbPromise = idb.openDB("localZedCodeStore", 1, {
@@ -211,7 +211,7 @@ const SHATEST = {
   },
 };
 
-var cacheKey = "7.1.46";
+var cacheKey = "7.1.47";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
