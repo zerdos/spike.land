@@ -37,7 +37,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
 
       options: {
-        icon: `assets/gatsby-icon.png`,
+        icon: `assets/android-chrome-512x512.png`,
         name:
           `Zed Vision - Development experience, Testing, and everything between`,
         short_name: `ZedVision`,
