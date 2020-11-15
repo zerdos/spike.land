@@ -148,7 +148,7 @@ export const version = `7.1.35`; export const html = `<!DOCTYPE html>
         run();
       } else {
         const version = "@7.1.35";
-        const { run } = await import(cdnAddress   //+ version
+        const { run } = await import(cdnAddress   +  version
           + script)
         run();
       }
