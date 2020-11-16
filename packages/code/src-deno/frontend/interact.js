@@ -36,10 +36,10 @@ export const makeDraggable = async () => {
             titleBar: {
               color: "white",
               fontSize: "20px",
-              background: "red",
+              background: "#b22",
               leftMargin: 40,
               height: 30,
-              fontSize: 14,
+              fontSize: 20,
               buttonWidth: 36,
               buttonHeight: 16,
               buttonColor: "white",
