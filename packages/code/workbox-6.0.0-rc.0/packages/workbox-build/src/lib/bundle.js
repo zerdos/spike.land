@@ -6,16 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-const {babel} = require('@rollup/plugin-babel');
-const {nodeResolve} = require('@rollup/plugin-node-resolve');
-const {rollup} = require('rollup');
-const {terser} = require('rollup-plugin-terser');
-const {writeFile} = require('fs-extra');
-const omt = require('@surma/rollup-plugin-off-main-thread');
-const presetEnv = require('@babel/preset-env');
-const replace = require('@rollup/plugin-replace');
-const tempy = require('tempy');
-const upath = require('upath');
+const { babel } = require("@rollup/plugin-babel");
+const { nodeResolve } = require("@rollup/plugin-node-resolve");
+const { rollup } = require("rollup");
+const { terser } = require("rollup-plugin-terser");
+const { writeFile } = require("fs-extra");
+const omt = require("@surma/rollup-plugin-off-main-thread");
+const presetEnv = require("@babel/preset-env");
+const replace = require("@rollup/plugin-replace");
+const tempy = require("tempy");
+const upath = require("upath");
 
 module.exports = async ({
   babelPresetEnvTargets,
@@ -27,16 +27,16 @@ module.exports = async ({
 }) => {
   // We need to write this to the "real" file system, as Rollup won't read from
   // a custom file system.
-  const {dir, base} = upath.parse(swDest);
+  const { dir, base } = upath.parse(swDest);
 
-  const temporaryFile = tempy.file({name: base});
+  const temporaryFile = tempy.file({ name: base });
   await writeFile(temporaryFile, unbundledCode);
 
   const plugins = [
     nodeResolve(),
-    replace({'process.env.NODE_ENV': JSON.stringify(mode)}),
+    replace({ "process.env.NODE_ENV": JSON.stringify(mode) }),
     babel({
-      babelHelpers: 'bundled',
+      babelHelpers: "bundled",
       // Disable the logic that checks for local Babel config files:
       // https://github.com/GoogleChrome/workbox/issues/2111
       babelrc: false,
@@ -50,7 +50,7 @@ module.exports = async ({
     }),
   ];
 
-  if (mode === 'production') {
+  if (mode === "production") {
     plugins.push(terser({
       mangle: {
         toplevel: true,
@@ -71,16 +71,16 @@ module.exports = async ({
   if (!inlineWorkboxRuntime) {
     rollupConfig.plugins.unshift(omt());
     rollupConfig.manualChunks = (id) => {
-      return id.includes('workbox') ? 'workbox' : undefined;
+      return id.includes("workbox") ? "workbox" : undefined;
     };
   }
 
   const bundle = await rollup(rollupConfig);
 
-  const {output} = await bundle.generate({
+  const { output } = await bundle.generate({
     sourcemap,
     // Using an external Workbox runtime requires 'amd'.
-    format: inlineWorkboxRuntime ? 'es' : 'amd',
+    format: inlineWorkboxRuntime ? "es" : "amd",
   });
 
   const files = [];
@@ -94,7 +94,7 @@ module.exports = async ({
       let code = chunkOrAsset.code;
 
       if (chunkOrAsset.map) {
-        const sourceMapFile = chunkOrAsset.fileName + '.map';
+        const sourceMapFile = chunkOrAsset.fileName + ".map";
         code += `//# sourceMappingURL=${sourceMapFile}\n`;
 
         files.push({

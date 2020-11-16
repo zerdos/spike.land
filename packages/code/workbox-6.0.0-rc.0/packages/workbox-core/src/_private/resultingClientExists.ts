@@ -5,9 +5,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {timeout} from './timeout.js';
-import '../_version.js';
-
+import { timeout } from "./timeout.js";
+import "../_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -24,12 +23,14 @@ const MAX_RETRY_TIME = 2000;
  * @return {Promise<Client|undefined>}
  * @private
  */
-export async function resultingClientExists(resultingClientId?: string): Promise<Client | undefined> {
+export async function resultingClientExists(
+  resultingClientId?: string,
+): Promise<Client | undefined> {
   if (!resultingClientId) {
     return;
   }
 
-  let existingWindows = await self.clients.matchAll({type: 'window'});
+  let existingWindows = await self.clients.matchAll({ type: "window" });
   const existingWindowIds = new Set(existingWindows.map((w) => w.id));
 
   let resultingWindow;
@@ -37,15 +38,15 @@ export async function resultingClientExists(resultingClientId?: string): Promise
 
   // Only wait up to `MAX_RETRY_TIME` to find a matching client.
   while (performance.now() - startTime < MAX_RETRY_TIME) {
-    existingWindows = await self.clients.matchAll({type: 'window'});
+    existingWindows = await self.clients.matchAll({ type: "window" });
 
     resultingWindow = existingWindows.find((w) => {
       if (resultingClientId) {
         // If we have a `resultingClientId`, we can match on that.
-        return w.id === resultingClientId
+        return w.id === resultingClientId;
       } else {
         // Otherwise match on finding a window not in `existingWindowIds`.
-        return !existingWindowIds.has(w.id)
+        return !existingWindowIds.has(w.id);
       }
     });
 

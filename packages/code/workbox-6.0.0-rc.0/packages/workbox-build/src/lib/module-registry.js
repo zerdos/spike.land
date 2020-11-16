@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-const ol = require('common-tags').oneLine;
-const upath = require('upath');
+const ol = require("common-tags").oneLine;
+const upath = require("upath");
 
 /**
  * Class for keeping track of which Workbox modules are used by the generated
@@ -31,7 +31,7 @@ class ModuleRegistry {
   getImportStatements() {
     const workboxModuleImports = [];
 
-    for (const [localName, {moduleName, pkg}] of this.modulesUsed) {
+    for (const [localName, { moduleName, pkg }] of this.modulesUsed) {
       // By default require.resolve returns the resolved path of the 'main'
       // field, which might be deeper than the package root. To work around
       // this, we can find the package's root by resolving its package.json and
@@ -54,7 +54,7 @@ class ModuleRegistry {
    * @private
    */
   getLocalName(pkg, moduleName) {
-    return `${pkg.replace(/-/g, '_')}_${moduleName}`;
+    return `${pkg.replace(/-/g, "_")}_${moduleName}`;
   }
 
   /**
@@ -65,7 +65,7 @@ class ModuleRegistry {
    */
   use(pkg, moduleName) {
     const localName = this.getLocalName(pkg, moduleName);
-    this.modulesUsed.set(localName, {moduleName, pkg});
+    this.modulesUsed.set(localName, { moduleName, pkg });
 
     return localName;
   }

@@ -6,18 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {timeout} from 'workbox-core/_private/timeout.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { timeout } from "workbox-core/_private/timeout.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
 
-import {Strategy, StrategyOptions} from './Strategy.js';
-import {StrategyHandler} from './StrategyHandler.js';
-import {messages} from './utils/messages.js';
-import './_version.js';
+import { Strategy, StrategyOptions } from "./Strategy.js";
+import { StrategyHandler } from "./StrategyHandler.js";
+import { messages } from "./utils/messages.js";
+import "./_version.js";
 
-
-interface NetworkOnlyOptions extends Omit<StrategyOptions, 'cacheName' | 'matchOptions'> {
+interface NetworkOnlyOptions
+  extends Omit<StrategyOptions, "cacheName" | "matchOptions"> {
   networkTimeoutSeconds?: number;
 }
 
@@ -61,12 +61,12 @@ class NetworkOnly extends Strategy {
    * @return {Promise<Response>}
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-strategies',
+        moduleName: "workbox-strategies",
         className: this.constructor.name,
-        funcName: '_handle',
-        paramName: 'request',
+        funcName: "_handle",
+        paramName: "request",
       });
     }
 
@@ -74,25 +74,32 @@ class NetworkOnly extends Strategy {
     let response: Response | undefined;
 
     try {
-      const promises: Promise<Response|undefined>[] = [handler.fetch(request)];
+      const promises: Promise<Response | undefined>[] = [
+        handler.fetch(request),
+      ];
 
       if (this._networkTimeoutSeconds) {
-        const timeoutPromise = timeout(this._networkTimeoutSeconds * 1000) as Promise<undefined>;
+        const timeoutPromise = timeout(
+          this._networkTimeoutSeconds * 1000,
+        ) as Promise<undefined>;
         promises.push(timeoutPromise);
       }
 
       response = await Promise.race(promises);
       if (!response) {
-        throw new Error(`Timed out the network response after ` +
-            `${this._networkTimeoutSeconds} seconds.`);
+        throw new Error(
+          `Timed out the network response after ` +
+            `${this._networkTimeoutSeconds} seconds.`,
+        );
       }
     } catch (err) {
       error = err;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       logger.groupCollapsed(
-          messages.strategyStart(this.constructor.name, request));
+        messages.strategyStart(this.constructor.name, request),
+      );
       if (response) {
         logger.log(`Got response from network.`);
       } else {
@@ -103,10 +110,10 @@ class NetworkOnly extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError('no-response', {url: request.url, error});
+      throw new WorkboxError("no-response", { url: request.url, error });
     }
     return response;
   }
 }
 
-export {NetworkOnly, NetworkOnlyOptions};
+export { NetworkOnly, NetworkOnlyOptions };

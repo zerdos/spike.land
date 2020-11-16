@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-const assert = require('assert');
+const assert = require("assert");
 
-const errors = require('./errors');
-const transformManifest = require('./transform-manifest');
-const getCompositeDetails = require('./get-composite-details');
-const getFileDetails = require('./get-file-details');
-const getStringDetails = require('./get-string-details');
+const errors = require("./errors");
+const transformManifest = require("./transform-manifest");
+const getCompositeDetails = require("./get-composite-details");
+const getFileDetails = require("./get-file-details");
+const getStringDetails = require("./get-string-details");
 
 module.exports = async ({
   additionalManifestEntries,
@@ -37,7 +37,7 @@ module.exports = async ({
   if (globDirectory) {
     try {
       fileDetails = globPatterns.reduce((accumulated, globPattern) => {
-        const {globbedFileDetails, warning} = getFileDetails({
+        const { globbedFileDetails, warning } = getFileDetails({
           globDirectory,
           globFollow,
           globIgnores,
@@ -68,13 +68,13 @@ module.exports = async ({
 
   if (templatedURLs) {
     for (const url of Object.keys(templatedURLs)) {
-      assert(!fileSet.has(url), errors['templated-url-matches-glob']);
+      assert(!fileSet.has(url), errors["templated-url-matches-glob"]);
 
       const dependencies = templatedURLs[url];
       if (Array.isArray(dependencies)) {
         const details = dependencies.reduce((previous, globPattern) => {
           try {
-            const {globbedFileDetails, warning} = getFileDetails({
+            const { globbedFileDetails, warning } = getFileDetails({
               globDirectory,
               globFollow,
               globIgnores,
@@ -90,13 +90,15 @@ module.exports = async ({
           } catch (error) {
             const debugObj = {};
             debugObj[url] = dependencies;
-            throw new Error(`${errors['bad-template-urls-asset']} ` +
-              `'${globPattern}' from '${JSON.stringify(debugObj)}':\n` +
-              error);
+            throw new Error(
+              `${errors["bad-template-urls-asset"]} ` +
+                `'${globPattern}' from '${JSON.stringify(debugObj)}':\n` +
+                error,
+            );
           }
         }, []);
         fileDetails.push(getCompositeDetails(url, details));
-      } else if (typeof dependencies === 'string') {
+      } else if (typeof dependencies === "string") {
         fileDetails.push(getStringDetails(url, dependencies));
       }
     }

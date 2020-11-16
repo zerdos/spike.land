@@ -6,17 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from 'workbox-core/_private/logger.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {RouteHandler, RouteMatchCallback} from 'workbox-core/types.js';
+import { logger } from "workbox-core/_private/logger.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { RouteHandler, RouteMatchCallback } from "workbox-core/types.js";
 
-import {Route} from './Route.js';
-import {RegExpRoute} from './RegExpRoute.js';
-import {HTTPMethod} from './utils/constants.js';
-import {getOrCreateDefaultRouter} from './utils/getOrCreateDefaultRouter.js';
+import { Route } from "./Route.js";
+import { RegExpRoute } from "./RegExpRoute.js";
+import { HTTPMethod } from "./utils/constants.js";
+import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
-import './_version.js';
-
+import "./_version.js";
 
 /**
  * Easily register a RegExp, string, or function with a caching
@@ -38,47 +37,52 @@ import './_version.js';
  * @memberof module:workbox-routing
  */
 function registerRoute(
-    capture: RegExp | string | RouteMatchCallback | Route,
-    handler?: RouteHandler,
-    method?: HTTPMethod): Route {
+  capture: RegExp | string | RouteMatchCallback | Route,
+  handler?: RouteHandler,
+  method?: HTTPMethod,
+): Route {
   let route;
 
-  if (typeof capture === 'string') {
+  if (typeof capture === "string") {
     const captureUrl = new URL(capture, location.href);
 
-    if (process.env.NODE_ENV !== 'production') {
-      if (!(capture.startsWith('/') || capture.startsWith('http'))) {
-        throw new WorkboxError('invalid-string', {
-          moduleName: 'workbox-routing',
-          funcName: 'registerRoute',
-          paramName: 'capture',
+    if (process.env.NODE_ENV !== "production") {
+      if (!(capture.startsWith("/") || capture.startsWith("http"))) {
+        throw new WorkboxError("invalid-string", {
+          moduleName: "workbox-routing",
+          funcName: "registerRoute",
+          paramName: "capture",
         });
       }
 
       // We want to check if Express-style wildcards are in the pathname only.
       // TODO: Remove this log message in v4.
-      const valueToCheck = capture.startsWith('http') ?
-          captureUrl.pathname : capture;
+      const valueToCheck = capture.startsWith("http")
+        ? captureUrl.pathname
+        : capture;
 
       // See https://github.com/pillarjs/path-to-regexp#parameters
-      const wildcards = '[*:?+]';
+      const wildcards = "[*:?+]";
       if ((new RegExp(`${wildcards}`)).exec(valueToCheck)) {
         logger.debug(
-            `The '$capture' parameter contains an Express-style wildcard ` +
-          `character (${wildcards}). Strings are now always interpreted as ` +
-          `exact matches; use a RegExp for partial or wildcard matches.`
+          `The '$capture' parameter contains an Express-style wildcard ` +
+            `character (${wildcards}). Strings are now always interpreted as ` +
+            `exact matches; use a RegExp for partial or wildcard matches.`,
         );
       }
     }
 
-    const matchCallback: RouteMatchCallback = ({url}) => {
-      if (process.env.NODE_ENV !== 'production') {
-        if ((url.pathname === captureUrl.pathname) &&
-            (url.origin !== captureUrl.origin)) {
+    const matchCallback: RouteMatchCallback = ({ url }) => {
+      if (process.env.NODE_ENV !== "production") {
+        if (
+          (url.pathname === captureUrl.pathname) &&
+          (url.origin !== captureUrl.origin)
+        ) {
           logger.debug(
-              `${capture} only partially matches the cross-origin URL ` +
+            `${capture} only partially matches the cross-origin URL ` +
               `${url}. This route will only handle cross-origin requests ` +
-              `if they match the entire URL.`);
+              `if they match the entire URL.`,
+          );
         }
       }
 
@@ -90,16 +94,16 @@ function registerRoute(
   } else if (capture instanceof RegExp) {
     // If `capture` is a `RegExp` then `handler` and `method` must be present.
     route = new RegExpRoute(capture, handler!, method);
-  } else if (typeof capture === 'function') {
+  } else if (typeof capture === "function") {
     // If `capture` is a function then `handler` and `method` must be present.
     route = new Route(capture, handler!, method);
   } else if (capture instanceof Route) {
     route = capture;
   } else {
-    throw new WorkboxError('unsupported-route-type', {
-      moduleName: 'workbox-routing',
-      funcName: 'registerRoute',
-      paramName: 'capture',
+    throw new WorkboxError("unsupported-route-type", {
+      moduleName: "workbox-routing",
+      funcName: "registerRoute",
+      paramName: "capture",
     });
   }
 
@@ -109,4 +113,4 @@ function registerRoute(
   return route;
 }
 
-export {registerRoute};
+export { registerRoute };

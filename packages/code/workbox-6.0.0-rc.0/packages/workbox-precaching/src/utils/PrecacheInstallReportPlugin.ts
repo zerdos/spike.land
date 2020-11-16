@@ -6,10 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin, WorkboxPluginCallbackParam} from 'workbox-core/types.js';
+import {
+  WorkboxPlugin,
+  WorkboxPluginCallbackParam,
+} from "workbox-core/types.js";
 
-import '../_version.js';
-
+import "../_version.js";
 
 /**
  * A plugin, designed to be used with PrecacheController, to determine the
@@ -19,22 +21,22 @@ class PrecacheInstallReportPlugin implements WorkboxPlugin {
   updatedURLs: string[] = [];
   notUpdatedURLs: string[] = [];
 
-  handlerWillStart: WorkboxPlugin['handlerWillStart'] = async ({
+  handlerWillStart: WorkboxPlugin["handlerWillStart"] = async ({
     request,
     state,
-  }: WorkboxPluginCallbackParam['handlerWillStart']) => {
+  }: WorkboxPluginCallbackParam["handlerWillStart"]) => {
     // TODO: `state` should never be undefined...
     if (state) {
       state.originalRequest = request;
     }
-  }
+  };
 
-  cachedResponseWillBeUsed: WorkboxPlugin['cachedResponseWillBeUsed'] = async ({
+  cachedResponseWillBeUsed: WorkboxPlugin["cachedResponseWillBeUsed"] = async ({
     event,
     state,
     cachedResponse,
-  }: WorkboxPluginCallbackParam['cachedResponseWillBeUsed']) => {
-    if (event.type === 'install') {
+  }: WorkboxPluginCallbackParam["cachedResponseWillBeUsed"]) => {
+    if (event.type === "install") {
       // TODO: `state` should never be undefined...
       const url = state!.originalRequest.url;
 
@@ -45,7 +47,7 @@ class PrecacheInstallReportPlugin implements WorkboxPlugin {
       }
     }
     return cachedResponse;
-  }
+  };
 }
 
-export {PrecacheInstallReportPlugin};
+export { PrecacheInstallReportPlugin };

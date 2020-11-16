@@ -6,30 +6,29 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {cacheNames} from 'workbox-core/_private/cacheNames.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {waitUntil} from 'workbox-core/_private/waitUntil.js';
-import {Strategy} from 'workbox-strategies/Strategy.js';
-import {RouteHandlerCallback, WorkboxPlugin} from 'workbox-core/types.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { cacheNames } from "workbox-core/_private/cacheNames.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { waitUntil } from "workbox-core/_private/waitUntil.js";
+import { Strategy } from "workbox-strategies/Strategy.js";
+import { RouteHandlerCallback, WorkboxPlugin } from "workbox-core/types.js";
 
-import {createCacheKey} from './utils/createCacheKey.js';
-import {PrecacheInstallReportPlugin} from './utils/PrecacheInstallReportPlugin.js';
-import {PrecacheCacheKeyPlugin} from './utils/PrecacheCacheKeyPlugin.js';
-import {printCleanupDetails} from './utils/printCleanupDetails.js';
-import {printInstallDetails} from './utils/printInstallDetails.js';
-import {PrecacheStrategy} from './PrecacheStrategy.js';
-import {PrecacheEntry} from './_types.js';
-import './_version.js';
-
+import { createCacheKey } from "./utils/createCacheKey.js";
+import { PrecacheInstallReportPlugin } from "./utils/PrecacheInstallReportPlugin.js";
+import { PrecacheCacheKeyPlugin } from "./utils/PrecacheCacheKeyPlugin.js";
+import { printCleanupDetails } from "./utils/printCleanupDetails.js";
+import { printInstallDetails } from "./utils/printInstallDetails.js";
+import { PrecacheStrategy } from "./PrecacheStrategy.js";
+import { PrecacheEntry } from "./_types.js";
+import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
 
 declare global {
   interface WorkerGlobalScope {
-    __WB_MANIFEST: Array<PrecacheEntry|string>;
+    __WB_MANIFEST: Array<PrecacheEntry | string>;
   }
 }
 
@@ -48,7 +47,15 @@ class PrecacheController {
   private _installAndActiveListenersAdded?: boolean;
   private readonly _strategy: Strategy;
   private readonly _urlsToCacheKeys: Map<string, string> = new Map();
-  private readonly _urlsToCacheModes: Map<string, "reload" | "default" | "no-store" | "no-cache" | "force-cache" | "only-if-cached"> = new Map();
+  private readonly _urlsToCacheModes: Map<
+    string,
+    | "reload"
+    | "default"
+    | "no-store"
+    | "no-cache"
+    | "force-cache"
+    | "only-if-cached"
+  > = new Map();
   private readonly _cacheKeysToIntegrities: Map<string, string> = new Map();
 
   /**
@@ -61,12 +68,15 @@ class PrecacheController {
    * @param {boolean} [options.fallbackToNetwork=true] Whether to attempt to
    * get the response from the network if there's a precache miss.
    */
-  constructor({cacheName, plugins = [], fallbackToNetwork = true}: PrecacheControllerOptions = {}) {
+  constructor(
+    { cacheName, plugins = [], fallbackToNetwork = true }:
+      PrecacheControllerOptions = {},
+  ) {
     this._strategy = new PrecacheStrategy({
       cacheName: cacheNames.getPrecacheName(cacheName),
       plugins: [
         ...plugins,
-        new PrecacheCacheKeyPlugin({precacheController: this}),
+        new PrecacheCacheKeyPlugin({ precacheController: this }),
       ],
       fallbackToNetwork,
     });
@@ -98,8 +108,8 @@ class PrecacheController {
     this.addToCacheList(entries);
 
     if (!this._installAndActiveListenersAdded) {
-      self.addEventListener('install', this.install);
-      self.addEventListener('activate', this.activate);
+      self.addEventListener("install", this.install);
+      self.addEventListener("activate", this.activate);
       this._installAndActiveListenersAdded = true;
     }
   }
@@ -111,41 +121,46 @@ class PrecacheController {
    * @param {Array<module:workbox-precaching.PrecacheController.PrecacheEntry|string>} entries
    *     Array of entries to precache.
    */
-  addToCacheList(entries: Array<PrecacheEntry|string>) {
-    if (process.env.NODE_ENV !== 'production') {
+  addToCacheList(entries: Array<PrecacheEntry | string>) {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isArray(entries, {
-        moduleName: 'workbox-precaching',
-        className: 'PrecacheController',
-        funcName: 'addToCacheList',
-        paramName: 'entries',
+        moduleName: "workbox-precaching",
+        className: "PrecacheController",
+        funcName: "addToCacheList",
+        paramName: "entries",
       });
     }
 
     const urlsToWarnAbout: string[] = [];
     for (const entry of entries) {
       // See https://github.com/GoogleChrome/workbox/issues/2259
-      if (typeof entry === 'string') {
+      if (typeof entry === "string") {
         urlsToWarnAbout.push(entry);
       } else if (entry && entry.revision === undefined) {
         urlsToWarnAbout.push(entry.url);
       }
 
-      const {cacheKey, url} = createCacheKey(entry);
-      const cacheMode = (typeof entry !== 'string' && entry.revision) ?
-        'reload' : 'default';
+      const { cacheKey, url } = createCacheKey(entry);
+      const cacheMode = (typeof entry !== "string" && entry.revision)
+        ? "reload"
+        : "default";
 
-      if (this._urlsToCacheKeys.has(url) &&
-          this._urlsToCacheKeys.get(url) !== cacheKey) {
-        throw new WorkboxError('add-to-cache-list-conflicting-entries', {
+      if (
+        this._urlsToCacheKeys.has(url) &&
+        this._urlsToCacheKeys.get(url) !== cacheKey
+      ) {
+        throw new WorkboxError("add-to-cache-list-conflicting-entries", {
           firstEntry: this._urlsToCacheKeys.get(url),
           secondEntry: cacheKey,
         });
       }
 
-      if (typeof entry !== 'string' && entry.integrity) {
-        if (this._cacheKeysToIntegrities.has(cacheKey) &&
-            this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity) {
-          throw new WorkboxError('add-to-cache-list-conflicting-integrities', {
+      if (typeof entry !== "string" && entry.integrity) {
+        if (
+          this._cacheKeysToIntegrities.has(cacheKey) &&
+          this._cacheKeysToIntegrities.get(cacheKey) !== entry.integrity
+        ) {
+          throw new WorkboxError("add-to-cache-list-conflicting-integrities", {
             url,
           });
         }
@@ -157,9 +172,9 @@ class PrecacheController {
 
       if (urlsToWarnAbout.length > 0) {
         const warningMessage = `Workbox is precaching URLs without revision ` +
-          `info: ${urlsToWarnAbout.join(', ')}\nThis is generally NOT safe. ` +
+          `info: ${urlsToWarnAbout.join(", ")}\nThis is generally NOT safe. ` +
           `Learn more at https://bit.ly/wb-precache`;
-        if (process.env.NODE_ENV === 'production') {
+        if (process.env.NODE_ENV === "production") {
           // Use console directly to display this warning without bloating
           // bundle sizes by pulling in all of the logger codebase in prod.
           console.warn(warningMessage);
@@ -195,23 +210,23 @@ class PrecacheController {
         const request = new Request(url, {
           integrity,
           cache: cacheMode,
-          credentials: 'same-origin',
+          credentials: "same-origin",
         });
 
         await Promise.all(this.strategy.handleAll({
-          params: {cacheKey},
+          params: { cacheKey },
           request,
           event,
         }));
       }
 
-      const {updatedURLs, notUpdatedURLs} = installReportPlugin;
+      const { updatedURLs, notUpdatedURLs } = installReportPlugin;
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         printInstallDetails(updatedURLs, notUpdatedURLs);
       }
 
-      return {updatedURLs, notUpdatedURLs};
+      return { updatedURLs, notUpdatedURLs };
     });
   }
 
@@ -239,11 +254,11 @@ class PrecacheController {
         }
       }
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         printCleanupDetails(deletedURLs);
       }
 
-      return {deletedURLs};
+      return { deletedURLs };
     });
   }
 
@@ -299,7 +314,9 @@ class PrecacheController {
    * to look up in the precache.
    * @return {Promise<Response|undefined>}
    */
-  async matchPrecache(request: string|Request): Promise<Response|undefined> {
+  async matchPrecache(
+    request: string | Request,
+  ): Promise<Response | undefined> {
     const url = request instanceof Request ? request.url : request;
     const cacheKey = this.getCacheKeyForURL(url);
     if (cacheKey) {
@@ -320,15 +337,15 @@ class PrecacheController {
   createHandlerBoundToURL(url: string): RouteHandlerCallback {
     const cacheKey = this.getCacheKeyForURL(url);
     if (!cacheKey) {
-      throw new WorkboxError('non-precached-url', {url});
+      throw new WorkboxError("non-precached-url", { url });
     }
     return (options) => {
       options.request = new Request(url);
-      options.params = {cacheKey, ...options.params};
+      options.params = { cacheKey, ...options.params };
 
       return this.strategy.handle(options);
     };
   }
 }
 
-export {PrecacheController};
+export { PrecacheController };

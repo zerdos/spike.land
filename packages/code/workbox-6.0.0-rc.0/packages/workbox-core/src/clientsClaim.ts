@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import './_version.js';
-
+import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -19,7 +18,7 @@ declare let self: ServiceWorkerGlobalScope;
  * @memberof module:workbox-core
  */
 function clientsClaim() {
-  self.addEventListener('activate', () => self.clients.claim());
+  self.addEventListener("activate", () => self.clients.claim());
 }
 
-export {clientsClaim}
+export { clientsClaim };

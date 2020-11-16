@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 /**
  * Deletes the database.
@@ -25,7 +24,7 @@ export const deleteDatabase = async (name: string) => {
       reject(request.error);
     };
     request.onblocked = () => {
-      reject(new Error('Delete blocked'));
+      reject(new Error("Delete blocked"));
     };
     request.onsuccess = () => {
       resolve();

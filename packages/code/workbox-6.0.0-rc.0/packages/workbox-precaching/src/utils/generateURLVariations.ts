@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {removeIgnoredSearchParams} from './removeIgnoredSearchParams.js';
-import {PrecacheRouteOptions} from '../_types.js';
-import '../_version.js';
-
+import { removeIgnoredSearchParams } from "./removeIgnoredSearchParams.js";
+import { PrecacheRouteOptions } from "../_types.js";
+import "../_version.js";
 
 /**
  * Generator function that yields possible variations on the original URL to
@@ -23,19 +22,21 @@ import '../_version.js';
  */
 export function* generateURLVariations(url: string, {
   ignoreURLParametersMatching = [/^utm_/, /^fbclid$/],
-  directoryIndex = 'index.html',
+  directoryIndex = "index.html",
   cleanURLs = true,
   urlManipulation,
 }: PrecacheRouteOptions = {}) {
   const urlObject = new URL(url, location.href);
-  urlObject.hash = '';
+  urlObject.hash = "";
   yield urlObject.href;
 
-  const urlWithoutIgnoredParams =
-      removeIgnoredSearchParams(urlObject, ignoreURLParametersMatching);
+  const urlWithoutIgnoredParams = removeIgnoredSearchParams(
+    urlObject,
+    ignoreURLParametersMatching,
+  );
   yield urlWithoutIgnoredParams.href;
 
-  if (directoryIndex && urlWithoutIgnoredParams.pathname.endsWith('/')) {
+  if (directoryIndex && urlWithoutIgnoredParams.pathname.endsWith("/")) {
     const directoryURL = new URL(urlWithoutIgnoredParams.href);
     directoryURL.pathname += directoryIndex;
     yield directoryURL.href;
@@ -43,12 +44,12 @@ export function* generateURLVariations(url: string, {
 
   if (cleanURLs) {
     const cleanURL = new URL(urlWithoutIgnoredParams.href);
-    cleanURL.pathname += '.html';
+    cleanURL.pathname += ".html";
     yield cleanURL.href;
   }
 
   if (urlManipulation) {
-    const additionalURLs = urlManipulation({url: urlObject});
+    const additionalURLs = urlManipulation({ url: urlObject });
     for (const urlToAttempt of additionalURLs) {
       yield urlToAttempt.href;
     }

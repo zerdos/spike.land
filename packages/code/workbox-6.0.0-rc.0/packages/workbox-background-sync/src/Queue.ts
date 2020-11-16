@@ -6,14 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {assert} from 'workbox-core/_private/assert.js';
-import {getFriendlyURL} from 'workbox-core/_private/getFriendlyURL.js';
-import {UnidentifiedQueueStoreEntry, QueueStore} from './lib/QueueStore.js';
-import {StorableRequest} from './lib/StorableRequest.js';
-import './_version.js';
-
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { assert } from "workbox-core/_private/assert.js";
+import { getFriendlyURL } from "workbox-core/_private/getFriendlyURL.js";
+import { QueueStore, UnidentifiedQueueStoreEntry } from "./lib/QueueStore.js";
+import { StorableRequest } from "./lib/StorableRequest.js";
+import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -23,7 +22,7 @@ interface OnSyncCallbackOptions {
 }
 
 interface OnSyncCallback {
-  (options: OnSyncCallbackOptions): void|Promise<void>;
+  (options: OnSyncCallbackOptions): void | Promise<void>;
 }
 
 export interface QueueOptions {
@@ -37,7 +36,7 @@ interface QueueEntry {
   metadata?: object;
 }
 
-const TAG_PREFIX = 'workbox-background-sync';
+const TAG_PREFIX = "workbox-background-sync";
 const MAX_RETENTION_TIME = 60 * 24 * 7; // 7 days in minutes
 
 const queueNames = new Set();
@@ -51,7 +50,9 @@ const queueNames = new Set();
  * @return {Object}
  * @private
  */
-const convertEntry = (queueStoreEntry: UnidentifiedQueueStoreEntry): QueueEntry => {
+const convertEntry = (
+  queueStoreEntry: UnidentifiedQueueStoreEntry,
+): QueueEntry => {
   const queueEntry: QueueEntry = {
     request: new StorableRequest(queueStoreEntry.requestData).toRequest(),
     timestamp: queueStoreEntry.timestamp,
@@ -98,11 +99,11 @@ class Queue {
    */
   constructor(name: string, {
     onSync,
-    maxRetentionTime
+    maxRetentionTime,
   }: QueueOptions = {}) {
     // Ensure the store name is not already being used
     if (queueNames.has(name)) {
-      throw new WorkboxError('duplicate-queue-name', {name});
+      throw new WorkboxError("duplicate-queue-name", { name });
     } else {
       queueNames.add(name);
     }
@@ -139,22 +140,22 @@ class Queue {
    *     don't want particular requests to expire.
    */
   async pushRequest(entry: QueueEntry) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(entry, 'object', {
-        moduleName: 'workbox-background-sync',
-        className: 'Queue',
-        funcName: 'pushRequest',
-        paramName: 'entry',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(entry, "object", {
+        moduleName: "workbox-background-sync",
+        className: "Queue",
+        funcName: "pushRequest",
+        paramName: "entry",
       });
       assert!.isInstance(entry.request, Request, {
-        moduleName: 'workbox-background-sync',
-        className: 'Queue',
-        funcName: 'pushRequest',
-        paramName: 'entry.request',
+        moduleName: "workbox-background-sync",
+        className: "Queue",
+        funcName: "pushRequest",
+        paramName: "entry.request",
       });
     }
 
-    await this._addRequest(entry, 'push');
+    await this._addRequest(entry, "push");
   }
 
   /**
@@ -174,22 +175,22 @@ class Queue {
    *     don't want particular requests to expire.
    */
   async unshiftRequest(entry: QueueEntry) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(entry, 'object', {
-        moduleName: 'workbox-background-sync',
-        className: 'Queue',
-        funcName: 'unshiftRequest',
-        paramName: 'entry',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(entry, "object", {
+        moduleName: "workbox-background-sync",
+        className: "Queue",
+        funcName: "unshiftRequest",
+        paramName: "entry",
       });
       assert!.isInstance(entry.request, Request, {
-        moduleName: 'workbox-background-sync',
-        className: 'Queue',
-        funcName: 'unshiftRequest',
-        paramName: 'entry.request',
+        moduleName: "workbox-background-sync",
+        className: "Queue",
+        funcName: "unshiftRequest",
+        paramName: "entry.request",
       });
     }
 
-    await this._addRequest(entry, 'unshift');
+    await this._addRequest(entry, "unshift");
   }
 
   /**
@@ -200,7 +201,7 @@ class Queue {
    * @return {Promise<Object>}
    */
   async popRequest() {
-    return this._removeRequest('pop');
+    return this._removeRequest("pop");
   }
 
   /**
@@ -211,7 +212,7 @@ class Queue {
    * @return {Promise<Object>}
    */
   async shiftRequest() {
-    return this._removeRequest('shift');
+    return this._removeRequest("shift");
   }
 
   /**
@@ -239,7 +240,6 @@ class Queue {
     return unexpiredEntries;
   }
 
-
   /**
    * Adds the entry to the QueueStore and registers for a sync event.
    *
@@ -254,7 +254,7 @@ class Queue {
     request,
     metadata,
     timestamp = Date.now(),
-  }: QueueEntry, operation: 'push' | 'unshift') {
+  }: QueueEntry, operation: "push" | "unshift") {
     const storableRequest = await StorableRequest.fromRequest(request.clone());
     const entry: UnidentifiedQueueStoreEntry = {
       requestData: storableRequest.toObject(),
@@ -267,11 +267,14 @@ class Queue {
     }
 
     await this._queueStore[
-        `${operation}Entry` as 'pushEntry' | 'unshiftEntry'](entry);
+      `${operation}Entry` as "pushEntry" | "unshiftEntry"
+    ](entry);
 
-    if (process.env.NODE_ENV !== 'production') {
-      logger.log(`Request for '${getFriendlyURL(request.url)}' has ` +
-          `been added to background sync queue '${this._name}'.`);
+    if (process.env.NODE_ENV !== "production") {
+      logger.log(
+        `Request for '${getFriendlyURL(request.url)}' has ` +
+          `been added to background sync queue '${this._name}'.`,
+      );
     }
 
     // Don't register for a sync if we're in the middle of a sync. Instead,
@@ -292,10 +295,13 @@ class Queue {
    * @return {Object|undefined}
    * @private
    */
-  async _removeRequest(operation: 'pop' | 'shift'): Promise<QueueEntry | undefined> {
+  async _removeRequest(
+    operation: "pop" | "shift",
+  ): Promise<QueueEntry | undefined> {
     const now = Date.now();
     const entry = await this._queueStore[
-        `${operation}Entry` as 'popEntry' | 'shiftEntry']();
+      `${operation}Entry` as "popEntry" | "shiftEntry"
+    ]();
 
     if (entry) {
       // Ignore requests older than maxRetentionTime. Call this function
@@ -322,23 +328,29 @@ class Queue {
       try {
         await fetch(entry.request.clone());
 
-        if (process.env.NODE_ENV !== 'production') {
-          logger.log(`Request for '${getFriendlyURL(entry.request.url)}' ` +
-             `has been replayed in queue '${this._name}'`);
+        if (process.env.NODE_ENV !== "production") {
+          logger.log(
+            `Request for '${getFriendlyURL(entry.request.url)}' ` +
+              `has been replayed in queue '${this._name}'`,
+          );
         }
       } catch (error) {
         await this.unshiftRequest(entry);
 
-        if (process.env.NODE_ENV !== 'production') {
-          logger.log(`Request for '${getFriendlyURL(entry.request.url)}' ` +
-             `failed to replay, putting it back in queue '${this._name}'`);
+        if (process.env.NODE_ENV !== "production") {
+          logger.log(
+            `Request for '${getFriendlyURL(entry.request.url)}' ` +
+              `failed to replay, putting it back in queue '${this._name}'`,
+          );
         }
-        throw new WorkboxError('queue-replay-failed', {name: this._name});
+        throw new WorkboxError("queue-replay-failed", { name: this._name });
       }
     }
-    if (process.env.NODE_ENV !== 'production') {
-      logger.log(`All requests in queue '${this.name}' have successfully ` +
-          `replayed; the queue is now empty!`);
+    if (process.env.NODE_ENV !== "production") {
+      logger.log(
+        `All requests in queue '${this.name}' have successfully ` +
+          `replayed; the queue is now empty!`,
+      );
     }
   }
 
@@ -346,15 +358,17 @@ class Queue {
    * Registers a sync event with a tag unique to this instance.
    */
   async registerSync() {
-    if ('sync' in self.registration) {
+    if ("sync" in self.registration) {
       try {
         await self.registration.sync.register(`${TAG_PREFIX}:${this._name}`);
       } catch (err) {
         // This means the registration failed for some reason, possibly due to
         // the user disabling it.
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== "production") {
           logger.warn(
-              `Unable to register sync event for '${this._name}'.`, err);
+            `Unable to register sync event for '${this._name}'.`,
+            err,
+          );
         }
       }
     }
@@ -368,12 +382,14 @@ class Queue {
    * @private
    */
   private _addSyncListener() {
-    if ('sync' in self.registration) {
-      self.addEventListener('sync', (event: SyncEvent) => {
+    if ("sync" in self.registration) {
+      self.addEventListener("sync", (event: SyncEvent) => {
         if (event.tag === `${TAG_PREFIX}:${this._name}`) {
-          if (process.env.NODE_ENV !== 'production') {
-            logger.log(`Background sync for tag '${event.tag}' ` +
-                `has been received`);
+          if (process.env.NODE_ENV !== "production") {
+            logger.log(
+              `Background sync for tag '${event.tag}' ` +
+                `has been received`,
+            );
           }
 
           const syncComplete = async () => {
@@ -381,7 +397,7 @@ class Queue {
 
             let syncError;
             try {
-              await this._onSync({queue: this});
+              await this._onSync({ queue: this });
             } catch (error) {
               syncError = error;
 
@@ -394,8 +410,10 @@ class Queue {
               // Unless there was an error during the sync, in which
               // case the browser will automatically retry later, as long
               // as `event.lastChance` is not true.
-              if (this._requestsAddedDuringSync &&
-                  !(syncError && !event.lastChance)) {
+              if (
+                this._requestsAddedDuringSync &&
+                !(syncError && !event.lastChance)
+              ) {
                 await this.registerSync();
               }
 
@@ -407,12 +425,12 @@ class Queue {
         }
       });
     } else {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         logger.log(`Background sync replaying without background sync event`);
       }
       // If the browser doesn't support background sync, retry
       // every time the service worker starts up as a fallback.
-      this._onSync({queue: this});
+      this._onSync({ queue: this });
     }
   }
 
@@ -429,4 +447,4 @@ class Queue {
   }
 }
 
-export {Queue};
+export { Queue };

@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {MapLikeObject} from '../../types.js';
-import '../../_version.js';
-
+import { MapLikeObject } from "../../types.js";
+import "../../_version.js";
 
 interface MessageMap {
   [messageID: string]: (param: MapLikeObject) => string;
 }
 
 export const messages: MessageMap = {
-  'invalid-value': ({paramName, validValueDescription, value}) => {
+  "invalid-value": ({ paramName, validValueDescription, value }) => {
     if (!paramName || !validValueDescription) {
       throw new Error(`Unexpected input to 'invalid-value' error.`);
     }
@@ -24,7 +23,7 @@ export const messages: MessageMap = {
       `${JSON.stringify(value)}.`;
   },
 
-  'not-an-array': ({moduleName, className, funcName, paramName}) => {
+  "not-an-array": ({ moduleName, className, funcName, paramName }) => {
     if (!moduleName || !className || !funcName || !paramName) {
       throw new Error(`Unexpected input to 'not-an-array' error.`);
     }
@@ -32,55 +31,71 @@ export const messages: MessageMap = {
       `'${moduleName}.${className}.${funcName}()' must be an array.`;
   },
 
-  'incorrect-type': ({expectedType, paramName, moduleName, className,
-    funcName}) => {
+  "incorrect-type": (
+    { expectedType, paramName, moduleName, className, funcName },
+  ) => {
     if (!expectedType || !paramName || !moduleName || !funcName) {
       throw new Error(`Unexpected input to 'incorrect-type' error.`);
     }
     return `The parameter '${paramName}' passed into ` +
-      `'${moduleName}.${className ? (className + '.') : ''}` +
+      `'${moduleName}.${className ? (className + ".") : ""}` +
       `${funcName}()' must be of type ${expectedType}.`;
   },
 
-  'incorrect-class': ({expectedClass, paramName, moduleName, className,
-    funcName, isReturnValueProblem}) => {
+  "incorrect-class": (
+    {
+      expectedClass,
+      paramName,
+      moduleName,
+      className,
+      funcName,
+      isReturnValueProblem,
+    },
+  ) => {
     if (!expectedClass || !moduleName || !funcName) {
       throw new Error(`Unexpected input to 'incorrect-class' error.`);
     }
 
     if (isReturnValueProblem) {
       return `The return value from ` +
-        `'${moduleName}.${className ? (className + '.') : ''}${funcName}()' ` +
+        `'${moduleName}.${className ? (className + ".") : ""}${funcName}()' ` +
         `must be an instance of class ${expectedClass.name}.`;
     }
 
     return `The parameter '${paramName}' passed into ` +
-      `'${moduleName}.${className ? (className + '.') : ''}${funcName}()' ` +
+      `'${moduleName}.${className ? (className + ".") : ""}${funcName}()' ` +
       `must be an instance of class ${expectedClass.name}.`;
   },
 
-  'missing-a-method': ({expectedMethod, paramName, moduleName, className,
-    funcName}) => {
-    if (!expectedMethod || !paramName || !moduleName || !className
-        || !funcName) {
+  "missing-a-method": (
+    { expectedMethod, paramName, moduleName, className, funcName },
+  ) => {
+    if (
+      !expectedMethod || !paramName || !moduleName || !className ||
+      !funcName
+    ) {
       throw new Error(`Unexpected input to 'missing-a-method' error.`);
     }
     return `${moduleName}.${className}.${funcName}() expected the ` +
       `'${paramName}' parameter to expose a '${expectedMethod}' method.`;
   },
 
-  'add-to-cache-list-unexpected-type': ({entry}) => {
+  "add-to-cache-list-unexpected-type": ({ entry }) => {
     return `An unexpected entry was passed to ` +
-    `'workbox-precaching.PrecacheController.addToCacheList()' The entry ` +
-    `'${JSON.stringify(entry)}' isn't supported. You must supply an array of ` +
-    `strings with one or more characters, objects with a url property or ` +
-    `Request objects.`;
+      `'workbox-precaching.PrecacheController.addToCacheList()' The entry ` +
+      `'${
+        JSON.stringify(entry)
+      }' isn't supported. You must supply an array of ` +
+      `strings with one or more characters, objects with a url property or ` +
+      `Request objects.`;
   },
 
-  'add-to-cache-list-conflicting-entries': ({firstEntry, secondEntry}) => {
+  "add-to-cache-list-conflicting-entries": ({ firstEntry, secondEntry }) => {
     if (!firstEntry || !secondEntry) {
-      throw new Error(`Unexpected input to ` +
-        `'add-to-cache-list-duplicate-entries' error.`);
+      throw new Error(
+        `Unexpected input to ` +
+          `'add-to-cache-list-duplicate-entries' error.`,
+      );
     }
 
     return `Two of the entries passed to ` +
@@ -90,20 +105,23 @@ export const messages: MessageMap = {
       `of the entries.`;
   },
 
-  'plugin-error-request-will-fetch': ({thrownError}) => {
+  "plugin-error-request-will-fetch": ({ thrownError }) => {
     if (!thrownError) {
-      throw new Error(`Unexpected input to ` +
-        `'plugin-error-request-will-fetch', error.`);
+      throw new Error(
+        `Unexpected input to ` +
+          `'plugin-error-request-will-fetch', error.`,
+      );
     }
 
     return `An error was thrown by a plugins 'requestWillFetch()' method. ` +
       `The thrown error message was: '${thrownError.message}'.`;
   },
 
-  'invalid-cache-name': ({cacheNameId, value}) => {
+  "invalid-cache-name": ({ cacheNameId, value }) => {
     if (!cacheNameId) {
       throw new Error(
-          `Expected a 'cacheNameId' for error 'invalid-cache-name'`);
+        `Expected a 'cacheNameId' for error 'invalid-cache-name'`,
+      );
     }
 
     return `You must provide a name containing at least one character for ` +
@@ -111,60 +129,65 @@ export const messages: MessageMap = {
       `'${JSON.stringify(value)}'`;
   },
 
-  'unregister-route-but-not-found-with-method': ({method}) => {
+  "unregister-route-but-not-found-with-method": ({ method }) => {
     if (!method) {
-      throw new Error(`Unexpected input to ` +
-        `'unregister-route-but-not-found-with-method' error.`);
+      throw new Error(
+        `Unexpected input to ` +
+          `'unregister-route-but-not-found-with-method' error.`,
+      );
     }
 
     return `The route you're trying to unregister was not  previously ` +
       `registered for the method type '${method}'.`;
   },
 
-  'unregister-route-route-not-registered': () => {
+  "unregister-route-route-not-registered": () => {
     return `The route you're trying to unregister was not previously ` +
       `registered.`;
   },
 
-  'queue-replay-failed': ({name}) => {
+  "queue-replay-failed": ({ name }) => {
     return `Replaying the background sync queue '${name}' failed.`;
   },
 
-  'duplicate-queue-name': ({name}) => {
+  "duplicate-queue-name": ({ name }) => {
     return `The Queue name '${name}' is already being used. ` +
-        `All instances of backgroundSync.Queue must be given unique names.`;
+      `All instances of backgroundSync.Queue must be given unique names.`;
   },
 
-  'expired-test-without-max-age': ({methodName, paramName}) => {
+  "expired-test-without-max-age": ({ methodName, paramName }) => {
     return `The '${methodName}()' method can only be used when the ` +
       `'${paramName}' is used in the constructor.`;
   },
 
-  'unsupported-route-type': ({moduleName, className, funcName, paramName}) => {
+  "unsupported-route-type": (
+    { moduleName, className, funcName, paramName },
+  ) => {
     return `The supplied '${paramName}' parameter was an unsupported type. ` +
       `Please check the docs for ${moduleName}.${className}.${funcName} for ` +
       `valid input types.`;
   },
 
-  'not-array-of-class': ({value, expectedClass,
-    moduleName, className, funcName, paramName}) => {
+  "not-array-of-class": (
+    { value, expectedClass, moduleName, className, funcName, paramName },
+  ) => {
     return `The supplied '${paramName}' parameter must be an array of ` +
       `'${expectedClass}' objects. Received '${JSON.stringify(value)},'. ` +
       `Please check the call to ${moduleName}.${className}.${funcName}() ` +
       `to fix the issue.`;
   },
 
-  'max-entries-or-age-required': ({moduleName, className, funcName}) => {
+  "max-entries-or-age-required": ({ moduleName, className, funcName }) => {
     return `You must define either config.maxEntries or config.maxAgeSeconds` +
       `in ${moduleName}.${className}.${funcName}`;
   },
 
-  'statuses-or-headers-required': ({moduleName, className, funcName}) => {
+  "statuses-or-headers-required": ({ moduleName, className, funcName }) => {
     return `You must define either config.statuses or config.headers` +
       `in ${moduleName}.${className}.${funcName}`;
   },
 
-  'invalid-string': ({moduleName, funcName, paramName}) => {
+  "invalid-string": ({ moduleName, funcName, paramName }) => {
     if (!paramName || !moduleName || !funcName) {
       throw new Error(`Unexpected input to 'invalid-string' error.`);
     }
@@ -174,22 +197,22 @@ export const messages: MessageMap = {
       `more info.`;
   },
 
-  'channel-name-required': () => {
+  "channel-name-required": () => {
     return `You must provide a channelName to construct a ` +
-    `BroadcastCacheUpdate instance.`;
+      `BroadcastCacheUpdate instance.`;
   },
 
-  'invalid-responses-are-same-args': () => {
+  "invalid-responses-are-same-args": () => {
     return `The arguments passed into responsesAreSame() appear to be ` +
       `invalid. Please ensure valid Responses are used.`;
   },
 
-  'expire-custom-caches-only': () => {
+  "expire-custom-caches-only": () => {
     return `You must provide a 'cacheName' property when using the ` +
       `expiration plugin with a runtime caching strategy.`;
   },
 
-  'unit-must-be-bytes': ({normalizedRangeHeader}) => {
+  "unit-must-be-bytes": ({ normalizedRangeHeader }) => {
     if (!normalizedRangeHeader) {
       throw new Error(`Unexpected input to 'unit-must-be-bytes' error.`);
     }
@@ -197,7 +220,7 @@ export const messages: MessageMap = {
       `The Range header provided was "${normalizedRangeHeader}"`;
   },
 
-  'single-range-only': ({normalizedRangeHeader}) => {
+  "single-range-only": ({ normalizedRangeHeader }) => {
     if (!normalizedRangeHeader) {
       throw new Error(`Unexpected input to 'single-range-only' error.`);
     }
@@ -206,7 +229,7 @@ export const messages: MessageMap = {
       `"${normalizedRangeHeader}"`;
   },
 
-  'invalid-range-values': ({normalizedRangeHeader}) => {
+  "invalid-range-values": ({ normalizedRangeHeader }) => {
     if (!normalizedRangeHeader) {
       throw new Error(`Unexpected input to 'invalid-range-values' error.`);
     }
@@ -215,26 +238,26 @@ export const messages: MessageMap = {
       `"${normalizedRangeHeader}"`;
   },
 
-  'no-range-header': () => {
+  "no-range-header": () => {
     return `No Range header was found in the Request provided.`;
   },
 
-  'range-not-satisfiable': ({size, start, end}) => {
+  "range-not-satisfiable": ({ size, start, end }) => {
     return `The start (${start}) and end (${end}) values in the Range are ` +
       `not satisfiable by the cached response, which is ${size} bytes.`;
   },
 
-  'attempt-to-cache-non-get-request': ({url, method}) => {
+  "attempt-to-cache-non-get-request": ({ url, method }) => {
     return `Unable to cache '${url}' because it is a '${method}' request and ` +
       `only 'GET' requests can be cached.`;
   },
 
-  'cache-put-with-no-response': ({url}) => {
+  "cache-put-with-no-response": ({ url }) => {
     return `There was an attempt to cache '${url}' but the response was not ` +
       `defined.`;
   },
 
-  'no-response': ({url, error}) => {
+  "no-response": ({ url, error }) => {
     let message = `The strategy could not generate a response for '${url}'.`;
     if (error) {
       message += ` The underlying error is ${error}.`;
@@ -242,27 +265,27 @@ export const messages: MessageMap = {
     return message;
   },
 
-  'bad-precaching-response': ({url, status}) => {
+  "bad-precaching-response": ({ url, status }) => {
     return `The precaching request for '${url}' failed` +
-        (status ? ` with an HTTP status of ${status}.` : `.`);
+      (status ? ` with an HTTP status of ${status}.` : `.`);
   },
 
-  'non-precached-url': ({url}) => {
+  "non-precached-url": ({ url }) => {
     return `createHandlerBoundToURL('${url}') was called, but that URL is ` +
       `not precached. Please pass in a URL that is precached instead.`;
   },
 
-  'add-to-cache-list-conflicting-integrities': ({url}) => {
+  "add-to-cache-list-conflicting-integrities": ({ url }) => {
     return `Two of the entries passed to ` +
       `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` +
       `${url} with different integrity values. Please remove one of them.`;
   },
 
-  'missing-precache-entry': ({cacheName, url}) => {
+  "missing-precache-entry": ({ cacheName, url }) => {
     return `Unable to find a precached response in ${cacheName} for ${url}.`;
   },
 
-  'cross-origin-copy-response': ({origin}) => {
+  "cross-origin-copy-response": ({ origin }) => {
     return `workbox-core.copyResponse() can only be used with same-origin ` +
       `responses. It was passed a response with origin ${origin}.`;
   },

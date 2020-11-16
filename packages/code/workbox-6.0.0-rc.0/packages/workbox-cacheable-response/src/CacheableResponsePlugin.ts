@@ -6,9 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin} from 'workbox-core/types.js';
-import {CacheableResponse, CacheableResponseOptions} from './CacheableResponse.js';
-import './_version.js';
+import { WorkboxPlugin } from "workbox-core/types.js";
+import {
+  CacheableResponse,
+  CacheableResponseOptions,
+} from "./CacheableResponse.js";
+import "./_version.js";
 
 /**
  * A class implementing the `cacheWillUpdate` lifecycle callback. This makes it
@@ -44,12 +47,12 @@ class CacheableResponsePlugin implements WorkboxPlugin {
    * @return {Response|null}
    * @private
    */
-  cacheWillUpdate: WorkboxPlugin['cacheWillUpdate'] = async ({response}) => {
+  cacheWillUpdate: WorkboxPlugin["cacheWillUpdate"] = async ({ response }) => {
     if (this._cacheableResponse.isResponseCacheable(response)) {
       return response;
     }
     return null;
-  }
+  };
 }
 
-export {CacheableResponsePlugin};
+export { CacheableResponsePlugin };

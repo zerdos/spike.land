@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-const getFileManifestEntries = require('./lib/get-file-manifest-entries');
-const getManifestSchema = require('./options/schema/get-manifest');
-const validate = require('./lib/validate-options');
+const getFileManifestEntries = require("./lib/get-file-manifest-entries");
+const getManifestSchema = require("./options/schema/get-manifest");
+const validate = require("./lib/validate-options");
 
 // eslint-disable-next-line jsdoc/newline-after-description
 /**
@@ -91,10 +91,10 @@ const validate = require('./lib/validate-options');
 async function getManifest(config) {
   const options = validate(config, getManifestSchema);
 
-  const {manifestEntries, count, size, warnings} =
+  const { manifestEntries, count, size, warnings } =
     await getFileManifestEntries(options);
 
-  return {manifestEntries, count, size, warnings};
+  return { manifestEntries, count, size, warnings };
 }
 
 module.exports = getManifest;

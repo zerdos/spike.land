@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-const glob = require('glob');
-const upath = require('upath');
+const glob = require("glob");
+const upath = require("upath");
 
-const errors = require('./errors');
-const getFileSize = require('./get-file-size');
-const getFileHash = require('./get-file-hash');
+const errors = require("./errors");
+const getFileSize = require("./get-file-size");
+const getFileHash = require("./get-file-hash");
 
 module.exports = ({
   globDirectory,
@@ -31,12 +31,12 @@ module.exports = ({
       strict: globStrict,
     });
   } catch (err) {
-    throw new Error(errors['unable-to-glob-files'] + ` '${err.message}'`);
+    throw new Error(errors["unable-to-glob-files"] + ` '${err.message}'`);
   }
 
   if (globbedFiles.length === 0) {
-    warning = errors['useless-glob-pattern'] + ' ' +
-      JSON.stringify({globDirectory, globPattern, globIgnores}, null, 2);
+    warning = errors["useless-glob-pattern"] + " " +
+      JSON.stringify({ globDirectory, globPattern, globIgnores }, null, 2);
   }
 
   const fileDetails = globbedFiles.map((file) => {
@@ -57,5 +57,5 @@ module.exports = ({
   // If !== null, means it's a valid file.
   const globbedFileDetails = fileDetails.filter((details) => details !== null);
 
-  return {globbedFileDetails, warning};
+  return { globbedFileDetails, warning };
 };

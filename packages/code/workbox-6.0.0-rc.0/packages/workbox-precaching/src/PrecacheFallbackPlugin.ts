@@ -6,14 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin} from 'workbox-core/types.js';
+import { WorkboxPlugin } from "workbox-core/types.js";
 
-import {getOrCreatePrecacheController} from
-    './utils/getOrCreatePrecacheController.js';
-import {PrecacheController} from './PrecacheController.js';
+import {
+  getOrCreatePrecacheController,
+} from "./utils/getOrCreatePrecacheController.js";
+import { PrecacheController } from "./PrecacheController.js";
 
-import './_version.js';
-
+import "./_version.js";
 
 /**
  * `PrecacheFallbackPlugin` allows you to specify an "offline fallback"
@@ -43,13 +43,13 @@ class PrecacheFallbackPlugin implements WorkboxPlugin {
    *     PrecacheController instance. If not provided, the default
    *     PrecacheController will be used.
    */
-  constructor({fallbackURL, precacheController}: {
+  constructor({ fallbackURL, precacheController }: {
     fallbackURL: string;
     precacheController?: PrecacheController;
   }) {
     this._fallbackURL = fallbackURL;
     this._precacheController = precacheController ||
-        getOrCreatePrecacheController();
+      getOrCreatePrecacheController();
   }
 
   /**
@@ -57,8 +57,8 @@ class PrecacheFallbackPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  handlerDidError: WorkboxPlugin['handlerDidError'] =
-    () => this._precacheController.matchPrecache(this._fallbackURL);
+  handlerDidError: WorkboxPlugin["handlerDidError"] = () =>
+    this._precacheController.matchPrecache(this._fallbackURL);
 }
 
-export {PrecacheFallbackPlugin};
+export { PrecacheFallbackPlugin };

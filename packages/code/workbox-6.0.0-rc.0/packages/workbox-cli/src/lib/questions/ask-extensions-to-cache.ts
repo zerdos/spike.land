@@ -6,17 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-import * as assert from 'assert';
-import {prompt} from 'inquirer';
-import * as glob from 'glob';
-import * as ora from 'ora';
-import * as upath from 'upath';
+import * as assert from "assert";
+import { prompt } from "inquirer";
+import * as glob from "glob";
+import * as ora from "ora";
+import * as upath from "upath";
 
-import {errors} from '../errors';
-import {constants} from '../constants';
+import { errors } from "../errors";
+import { constants } from "../constants";
 
 // The key used for the question/answer.
-const name = 'globPatterns';
+const name = "globPatterns";
 
 /**
  * @param {string} globDirectory The directory used for the root of globbing.
@@ -27,12 +27,16 @@ async function getAllFileExtensions(globDirectory: string) {
   const files: string[] = await new Promise((resolve, reject) => {
     // Use a pattern to match any file that contains a '.', since that signifies
     // the presence of a file extension.
-    glob('**/*.*', {
+    glob("**/*.*", {
       cwd: globDirectory,
       nodir: true,
       ignore: [
-        ...constants.ignoredDirectories.map((directory) => `**/${directory}/**`),
-        ...constants.ignoredFileExtensions.map((extension) => `**/*.${extension}`),
+        ...constants.ignoredDirectories.map((directory) =>
+          `**/${directory}/**`
+        ),
+        ...constants.ignoredFileExtensions.map((extension) =>
+          `**/*.${extension}`
+        ),
       ],
     }, (error, files) => {
       if (error) {
@@ -48,7 +52,7 @@ async function getAllFileExtensions(globDirectory: string) {
     const extension = upath.extname(file);
     if (extension) {
       // Get rid of the leading . character.
-      extensions.add(extension.replace(/^\./, ''));
+      extensions.add(extension.replace(/^\./, ""));
     }
   }
 
@@ -70,26 +74,26 @@ async function askQuestion(globDirectory: string) {
   const fileExtensions = await getAllFileExtensions(globDirectory);
   spinner.stop();
 
-  assert(fileExtensions.length > 0, errors['no-file-extensions-found']);
+  assert(fileExtensions.length > 0, errors["no-file-extensions-found"]);
 
   return prompt([{
     name,
-    message: 'Which file types would you like to precache?',
-    type: 'checkbox',
+    message: "Which file types would you like to precache?",
+    type: "checkbox",
     choices: fileExtensions,
     default: fileExtensions,
   }]);
 }
 
-export async function askExtensionsToCache(globDirectory: string){
+export async function askExtensionsToCache(globDirectory: string) {
   const answers = await askQuestion(globDirectory);
   const extensions = answers[name];
-  assert(extensions.length > 0, errors['no-file-extensions-selected']);
+  assert(extensions.length > 0, errors["no-file-extensions-selected"]);
 
   // glob isn't happy with a single option inside of a {} group, so use a
   // pattern without a {} group when there's only one extension.
-  const extensionsPattern = extensions.length === 1 ?
-    extensions[0] :
-    `{${extensions.join(',')}}`;
+  const extensionsPattern = extensions.length === 1
+    ? extensions[0]
+    : `{${extensions.join(",")}}`;
   return [`**/*.${extensionsPattern}`];
 }

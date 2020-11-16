@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {createHeaders} from './utils/createHeaders.js';
-import {concatenate} from './concatenate.js';
-import {StreamSource} from './_types.js';
-import './_version.js';
-
+import { createHeaders } from "./utils/createHeaders.js";
+import { concatenate } from "./concatenate.js";
+import { StreamSource } from "./_types.js";
+import "./_version.js";
 
 /**
  * Takes multiple source Promises, each of which could resolve to a Response, a
@@ -30,14 +29,15 @@ import './_version.js';
  * @memberof module:workbox-streams
  */
 function concatenateToResponse(
-    sourcePromises: Promise<StreamSource>[],
-    headersInit: HeadersInit): {done: Promise<void>; response: Response} {
-  const {done, stream} = concatenate(sourcePromises);
+  sourcePromises: Promise<StreamSource>[],
+  headersInit: HeadersInit,
+): { done: Promise<void>; response: Response } {
+  const { done, stream } = concatenate(sourcePromises);
 
   const headers = createHeaders(headersInit);
-  const response = new Response(stream, {headers});
+  const response = new Response(stream, { headers });
 
-  return {done, response};
+  return { done, response };
 }
 
-export {concatenateToResponse};
+export { concatenateToResponse };

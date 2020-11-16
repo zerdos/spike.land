@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
+import "../_version.js";
 
 // logger is used inside of both service workers and the window global scope.
 declare global {
@@ -18,18 +18,24 @@ declare global {
   }
 }
 
-type LoggerMethods = 'debug'|'log'|'warn'|'error'|'groupCollapsed'|'groupEnd';
-    
-const logger = (process.env.NODE_ENV === 'production' ? null : (() => {
+type LoggerMethods =
+  | "debug"
+  | "log"
+  | "warn"
+  | "error"
+  | "groupCollapsed"
+  | "groupEnd";
+
+const logger = (process.env.NODE_ENV === "production" ? null : (() => {
   // Don't overwrite this value if it's already set.
   // See https://github.com/GoogleChrome/workbox/pull/2284#issuecomment-560470923
-  if (!('__WB_DISABLE_DEV_LOGS' in self)) {
+  if (!("__WB_DISABLE_DEV_LOGS" in self)) {
     self.__WB_DISABLE_DEV_LOGS = false;
   }
 
   let inGroup = false;
 
-  const methodToColorMap: {[methodName: string]: string|null} = {
+  const methodToColorMap: { [methodName: string]: string | null } = {
     debug: `#7f8c8d`, // Gray
     log: `#2ecc71`, // Green
     warn: `#f39c12`, // Yellow
@@ -38,12 +44,12 @@ const logger = (process.env.NODE_ENV === 'production' ? null : (() => {
     groupEnd: null, // No colored prefix on groupEnd
   };
 
-  const print = function(method: LoggerMethods, args: any[]) {
+  const print = function (method: LoggerMethods, args: any[]) {
     if (self.__WB_DISABLE_DEV_LOGS) {
       return;
     }
 
-    if (method === 'groupCollapsed') {
+    if (method === "groupCollapsed") {
       // Safari doesn't print all console.groupCollapsed() arguments:
       // https://bugs.webkit.org/show_bug.cgi?id=182754
       if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
@@ -61,19 +67,19 @@ const logger = (process.env.NODE_ENV === 'production' ? null : (() => {
     ];
 
     // When in a group, the workbox prefix is not displayed.
-    const logPrefix = inGroup ? [] : ['%cworkbox', styles.join(';')];
+    const logPrefix = inGroup ? [] : ["%cworkbox", styles.join(";")];
 
     console[method](...logPrefix, ...args);
 
-    if (method === 'groupCollapsed') {
+    if (method === "groupCollapsed") {
       inGroup = true;
     }
-    if (method === 'groupEnd') {
+    if (method === "groupEnd") {
       inGroup = false;
     }
   };
 
-  const api: {[methodName: string]: Function} = {};
+  const api: { [methodName: string]: Function } = {};
   const loggerMethods = Object.keys(methodToColorMap);
 
   for (const key of loggerMethods) {
@@ -87,4 +93,4 @@ const logger = (process.env.NODE_ENV === 'production' ? null : (() => {
   return api as unknown;
 })()) as Console;
 
-export {logger};
+export { logger };

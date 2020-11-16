@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-const {SourceMapConsumer, SourceMapGenerator} = require('source-map');
+const { SourceMapConsumer, SourceMapGenerator } = require("source-map");
 
 /**
  * Adapted from https://github.com/nsams/sourcemap-aware-replace, with modern
@@ -46,7 +46,7 @@ async function replaceAndUpdateSourceMap({
   let lineNum = 0;
   let filePos = 0;
 
-  const lines = src.split('\n');
+  const lines = src.split("\n");
   for (let line of lines) {
     lineNum++;
     let searchPos = 0;
@@ -55,7 +55,7 @@ async function replaceAndUpdateSourceMap({
         src.substring(filePos + pos + searchString.length);
       line = line.substring(0, pos) + replaceString +
         line.substring(pos + searchString.length);
-      replacements.push({line: lineNum, column: pos});
+      replacements.push({ line: lineNum, column: pos });
       searchPos = pos + replaceString.length;
     }
     filePos += line.length + 1;
@@ -65,8 +65,10 @@ async function replaceAndUpdateSourceMap({
 
   consumer.eachMapping((mapping) => {
     for (const replacement of replacements) {
-      if (replacement.line == mapping.generatedLine &&
-          mapping.generatedColumn > replacement.column) {
+      if (
+        replacement.line == mapping.generatedLine &&
+        mapping.generatedColumn > replacement.column
+      ) {
         const offset = searchString.length - replaceString.length;
         mapping.generatedColumn -= offset;
       }

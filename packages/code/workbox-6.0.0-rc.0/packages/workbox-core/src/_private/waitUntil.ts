@@ -5,8 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 /**
  * A utility method that makes it easier to use `event.waitUntil` with
@@ -23,4 +22,4 @@ function waitUntil(event: ExtendableEvent, asyncFn: () => Promise<any>) {
   return returnPromise;
 }
 
-export {waitUntil};
+export { waitUntil };

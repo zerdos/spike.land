@@ -6,12 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {RouteHandler} from 'workbox-core/types.js';
+import { RouteHandler } from "workbox-core/types.js";
 
-import {getOrCreateDefaultRouter} from './utils/getOrCreateDefaultRouter.js';
+import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
-import './_version.js';
-
+import "./_version.js";
 
 /**
  * Define a default `handler` that's called when no routes explicitly
@@ -30,4 +29,4 @@ function setDefaultHandler(handler: RouteHandler) {
   defaultRouter.setDefaultHandler(handler);
 }
 
-export {setDefaultHandler};
+export { setDefaultHandler };

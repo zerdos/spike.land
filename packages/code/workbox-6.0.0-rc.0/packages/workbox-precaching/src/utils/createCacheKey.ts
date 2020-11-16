@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {PrecacheEntry} from '../_types.js';
-import '../_version.js';
-
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { PrecacheEntry } from "../_types.js";
+import "../_version.js";
 
 interface CacheKey {
   cacheKey: string;
@@ -17,7 +16,7 @@ interface CacheKey {
 }
 
 // Name of the search parameter used to store revision info.
-const REVISION_SEARCH_PARAM = '__WB_REVISION__';
+const REVISION_SEARCH_PARAM = "__WB_REVISION__";
 
 /**
  * Converts a manifest entry into a versioned URL suitable for precaching.
@@ -28,14 +27,14 @@ const REVISION_SEARCH_PARAM = '__WB_REVISION__';
  * @private
  * @memberof module:workbox-precaching
  */
-export function createCacheKey(entry: PrecacheEntry | string): CacheKey  {
+export function createCacheKey(entry: PrecacheEntry | string): CacheKey {
   if (!entry) {
-    throw new WorkboxError('add-to-cache-list-unexpected-type', {entry});
+    throw new WorkboxError("add-to-cache-list-unexpected-type", { entry });
   }
 
   // If a precache manifest entry is a string, it's assumed to be a versioned
   // URL, like '/app.abcd1234.js'. Return as-is.
-  if (typeof entry === 'string') {
+  if (typeof entry === "string") {
     const urlObject = new URL(entry, location.href);
     return {
       cacheKey: urlObject.href,
@@ -43,9 +42,9 @@ export function createCacheKey(entry: PrecacheEntry | string): CacheKey  {
     };
   }
 
-  const {revision, url} = entry;
+  const { revision, url } = entry;
   if (!url) {
-    throw new WorkboxError('add-to-cache-list-unexpected-type', {entry});
+    throw new WorkboxError("add-to-cache-list-unexpected-type", { entry });
   }
 
   // If there's just a URL and no revision, then it's also assumed to be a

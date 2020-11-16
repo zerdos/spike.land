@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import './_version.js';
+import "./_version.js";
 
 export interface InstallResult {
   updatedURLs: string[];
@@ -29,7 +29,7 @@ export interface PrecacheRouteOptions {
   urlManipulation?: urlManipulation;
 }
 
-export type urlManipulation = ({url}: {url: URL}) => URL[];
+export type urlManipulation = ({ url }: { url: URL }) => URL[];
 
 // * * * IMPORTANT! * * *
 // ------------------------------------------------------------------------- //

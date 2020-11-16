@@ -6,23 +6,26 @@
   https://opensource.org/licenses/MIT.
 */
 
-const bundle = require('workbox-build/build/lib/bundle');
-const populateSWTemplate =
-  require('workbox-build/build/lib/populate-sw-template');
-const prettyBytes = require('pretty-bytes');
-const validate = require('workbox-build/build/lib/validate-options');
-const webpack = require('webpack');
+const bundle = require("workbox-build/build/lib/bundle");
+const populateSWTemplate = require(
+  "workbox-build/build/lib/populate-sw-template",
+);
+const prettyBytes = require("pretty-bytes");
+const validate = require("workbox-build/build/lib/validate-options");
+const webpack = require("webpack");
 const webpackGenerateSWSchema = require(
-    'workbox-build/build/options/schema/webpack-generate-sw');
+  "workbox-build/build/options/schema/webpack-generate-sw",
+);
 
-const getScriptFilesForChunks = require('./lib/get-script-files-for-chunks');
-const getManifestEntriesFromCompilation =
-  require('./lib/get-manifest-entries-from-compilation');
-const relativeToOutputPath = require('./lib/relative-to-output-path');
+const getScriptFilesForChunks = require("./lib/get-script-files-for-chunks");
+const getManifestEntriesFromCompilation = require(
+  "./lib/get-manifest-entries-from-compilation",
+);
+const relativeToOutputPath = require("./lib/relative-to-output-path");
 
 // webpack v4/v5 compatibility:
 // https://github.com/webpack/webpack/issues/11425#issuecomment-686607633
-const {RawSource} = webpack.sources || require('webpack-sources');
+const { RawSource } = webpack.sources || require("webpack-sources");
 
 // Used to keep track of swDest files written by *any* instance of this plugin.
 // See https://github.com/GoogleChrome/workbox/issues/2181
@@ -220,27 +223,31 @@ class GenerateSW {
 
     // webpack v4/v5 compatibility:
     // https://github.com/webpack/webpack/issues/11425#issuecomment-690387207
-    if (webpack.version.startsWith('4.')) {
+    if (webpack.version.startsWith("4.")) {
       compiler.hooks.emit.tapPromise(
-          this.constructor.name,
-          (compilation) => this.addAssets(compilation).catch(
-              (error) => compilation.errors.push(error)),
+        this.constructor.name,
+        (compilation) =>
+          this.addAssets(compilation).catch(
+            (error) => compilation.errors.push(error),
+          ),
       );
     } else {
-      const {PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER} = webpack.Compilation;
+      const { PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER } = webpack.Compilation;
       // Specifically hook into thisCompilation, as per
       // https://github.com/webpack/webpack/issues/11425#issuecomment-690547848
       compiler.hooks.thisCompilation.tap(
-          this.constructor.name, (compilation) => {
-            compilation.hooks.processAssets.tapPromise({
-              name: this.constructor.name,
-              // TODO(jeffposnick): This may need to change eventually.
-              // See https://github.com/webpack/webpack/issues/11822#issuecomment-726184972
-              stage: PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER - 10,
-            }, () => this.addAssets(compilation).catch(
-                (error) => compilation.errors.push(error)),
-            );
-          },
+        this.constructor.name,
+        (compilation) => {
+          compilation.hooks.processAssets.tapPromise({
+            name: this.constructor.name,
+            // TODO(jeffposnick): This may need to change eventually.
+            // See https://github.com/webpack/webpack/issues/11822#issuecomment-726184972
+            stage: PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER - 10,
+          }, () =>
+            this.addAssets(compilation).catch(
+              (error) => compilation.errors.push(error),
+            ));
+        },
       );
     }
   }
@@ -253,11 +260,13 @@ class GenerateSW {
   async addAssets(compilation) {
     // See https://github.com/GoogleChrome/workbox/issues/1790
     if (this.alreadyCalled) {
-      compilation.warnings.push(`${this.constructor.name} has been called ` +
-        `multiple times, perhaps due to running webpack in --watch mode. The ` +
-        `precache manifest generated after the first call may be inaccurate! ` +
-        `Please see https://github.com/GoogleChrome/workbox/issues/1790 for ` +
-        `more information.`);
+      compilation.warnings.push(
+        `${this.constructor.name} has been called ` +
+          `multiple times, perhaps due to running webpack in --watch mode. The ` +
+          `precache manifest generated after the first call may be inaccurate! ` +
+          `Please see https://github.com/GoogleChrome/workbox/issues/1790 for ` +
+          `more information.`,
+      );
     } else {
       this.alreadyCalled = true;
     }
@@ -269,29 +278,35 @@ class GenerateSW {
       // See https://github.com/GoogleChrome/workbox/issues/2158
       config = validate(this.config, webpackGenerateSWSchema);
     } catch (error) {
-      throw new Error(`Please check your ${this.constructor.name} plugin ` +
-        `configuration:\n${error.message}`);
+      throw new Error(
+        `Please check your ${this.constructor.name} plugin ` +
+          `configuration:\n${error.message}`,
+      );
     }
 
     // Ensure that we don't precache any of the assets generated by *any*
     // instance of this plugin.
-    config.exclude.push(({asset}) => _generatedAssetNames.has(asset.name));
+    config.exclude.push(({ asset }) => _generatedAssetNames.has(asset.name));
 
     if (config.importScriptsViaChunks) {
       // Anything loaded via importScripts() is implicitly cached by the service
       // worker, and should not be added to the precache manifest.
       config.excludeChunks = (config.excludeChunks || [])
-          .concat(config.importScriptsViaChunks);
+        .concat(config.importScriptsViaChunks);
 
       const scripts = getScriptFilesForChunks(
-          compilation, config.importScriptsViaChunks);
+        compilation,
+        config.importScriptsViaChunks,
+      );
 
       config.importScripts = (config.importScripts || [])
-          .concat(scripts);
+        .concat(scripts);
     }
 
-    const {size, sortedEntries} = await getManifestEntriesFromCompilation(
-        compilation, config);
+    const { size, sortedEntries } = await getManifestEntriesFromCompilation(
+      compilation,
+      config,
+    );
     config.manifestEntries = sortedEntries;
 
     const unbundledCode = populateSWTemplate(config);
@@ -308,7 +323,7 @@ class GenerateSW {
     for (const file of files) {
       compilation.emitAsset(file.name, new RawSource(file.contents), {
         // See https://github.com/webpack-contrib/compression-webpack-plugin/issues/218#issuecomment-726196160
-        minimized: config.mode === 'production',
+        minimized: config.mode === "production",
       });
       _generatedAssetNames.add(file.name);
     }

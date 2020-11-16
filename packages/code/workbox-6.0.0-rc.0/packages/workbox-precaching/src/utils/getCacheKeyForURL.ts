@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {getOrCreatePrecacheController} from './getOrCreatePrecacheController.js';
-import {generateURLVariations} from './generateURLVariations.js';
-import {PrecacheRouteOptions} from '../_types.js';
-import '../_version.js';
-
+import { getOrCreatePrecacheController } from "./getOrCreatePrecacheController.js";
+import { generateURLVariations } from "./generateURLVariations.js";
+import { PrecacheRouteOptions } from "../_types.js";
+import "../_version.js";
 
 /**
  * This function will take the request URL and manipulate it based on the
@@ -23,8 +22,10 @@ import '../_version.js';
  *
  * @private
  */
-export const getCacheKeyForURL =
-    (url: string, options: PrecacheRouteOptions): string | void => {
+export const getCacheKeyForURL = (
+  url: string,
+  options: PrecacheRouteOptions,
+): string | void => {
   const precacheController = getOrCreatePrecacheController();
 
   const urlsToCacheKeys = precacheController.getURLsToCacheKeys();

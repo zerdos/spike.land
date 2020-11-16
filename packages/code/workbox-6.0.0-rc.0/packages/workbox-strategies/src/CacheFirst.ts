@@ -6,15 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
 
-import {Strategy} from './Strategy.js';
-import {StrategyHandler} from './StrategyHandler.js';
-import {messages} from './utils/messages.js';
-import './_version.js';
-
+import { Strategy } from "./Strategy.js";
+import { StrategyHandler } from "./StrategyHandler.js";
+import { messages } from "./utils/messages.js";
+import "./_version.js";
 
 /**
  * An implementation of a [cache-first]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network}
@@ -41,12 +40,12 @@ class CacheFirst extends Strategy {
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     const logs = [];
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-strategies',
+        moduleName: "workbox-strategies",
         className: this.constructor.name,
-        funcName: 'makeRequest',
-        paramName: 'request',
+        funcName: "makeRequest",
+        paramName: "request",
       });
     }
 
@@ -54,10 +53,11 @@ class CacheFirst extends Strategy {
 
     let error;
     if (!response) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         logs.push(
-            `No response found in the '${this.cacheName}' cache. ` +
-            `Will respond with a network request.`);
+          `No response found in the '${this.cacheName}' cache. ` +
+            `Will respond with a network request.`,
+        );
       }
       try {
         response = await handler.fetchAndCachePut(request);
@@ -65,7 +65,7 @@ class CacheFirst extends Strategy {
         error = err;
       }
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         if (response) {
           logs.push(`Got response from network.`);
         } else {
@@ -73,15 +73,17 @@ class CacheFirst extends Strategy {
         }
       }
     } else {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         logs.push(
-            `Found a cached response in the '${this.cacheName}' cache.`);
+          `Found a cached response in the '${this.cacheName}' cache.`,
+        );
       }
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       logger.groupCollapsed(
-          messages.strategyStart(this.constructor.name, request));
+        messages.strategyStart(this.constructor.name, request),
+      );
       for (const log of logs) {
         logger.log(log);
       }
@@ -90,10 +92,10 @@ class CacheFirst extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError('no-response', {url: request.url, error});
+      throw new WorkboxError("no-response", { url: request.url, error });
     }
     return response;
   }
 }
 
-export {CacheFirst};
+export { CacheFirst };

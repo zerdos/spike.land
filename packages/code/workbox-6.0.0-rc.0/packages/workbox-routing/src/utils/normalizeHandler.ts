@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {RouteHandler, RouteHandlerObject} from 'workbox-core/types.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { RouteHandler, RouteHandlerObject } from "workbox-core/types.js";
 
-import '../_version.js';
-
+import "../_version.js";
 
 /**
  * @param {function()|Object} handler Either a function, or an object with a
@@ -20,27 +19,27 @@ import '../_version.js';
  * @private
  */
 export const normalizeHandler = (
-  handler: RouteHandler
+  handler: RouteHandler,
 ): RouteHandlerObject => {
-  if (handler && typeof handler === 'object') {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.hasMethod(handler, 'handle', {
-        moduleName: 'workbox-routing',
-        className: 'Route',
-        funcName: 'constructor',
-        paramName: 'handler',
+  if (handler && typeof handler === "object") {
+    if (process.env.NODE_ENV !== "production") {
+      assert!.hasMethod(handler, "handle", {
+        moduleName: "workbox-routing",
+        className: "Route",
+        funcName: "constructor",
+        paramName: "handler",
       });
     }
     return handler;
   } else {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(handler, 'function', {
-        moduleName: 'workbox-routing',
-        className: 'Route',
-        funcName: 'constructor',
-        paramName: 'handler',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(handler, "function", {
+        moduleName: "workbox-routing",
+        className: "Route",
+        funcName: "constructor",
+        paramName: "handler",
       });
     }
-    return {handle: handler};
+    return { handle: handler };
   }
 };

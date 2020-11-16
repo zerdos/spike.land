@@ -5,8 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 /**
  * Returns a promise that resolves and the passed number of milliseconds.

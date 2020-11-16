@@ -6,16 +6,19 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {cacheNames} from 'workbox-core/_private/cacheNames.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {getFriendlyURL} from 'workbox-core/_private/getFriendlyURL.js';
-import {HandlerCallbackOptions, RouteHandlerObject, WorkboxPlugin}
-    from 'workbox-core/types.js';
+import { cacheNames } from "workbox-core/_private/cacheNames.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { getFriendlyURL } from "workbox-core/_private/getFriendlyURL.js";
+import {
+  HandlerCallbackOptions,
+  RouteHandlerObject,
+  WorkboxPlugin,
+} from "workbox-core/types.js";
 
-import {StrategyHandler} from './StrategyHandler.js';
+import { StrategyHandler } from "./StrategyHandler.js";
 
-import './_version.js';
+import "./_version.js";
 
 export interface StrategyOptions {
   cacheName?: string;
@@ -37,7 +40,7 @@ abstract class Strategy implements RouteHandlerObject {
 
   protected abstract _handle(
     request: Request,
-    handler: StrategyHandler
+    handler: StrategyHandler,
   ): Promise<Response | undefined>;
 
   /**
@@ -145,7 +148,7 @@ abstract class Strategy implements RouteHandlerObject {
   handleAll(options: FetchEvent | HandlerCallbackOptions): [
     Promise<Response>,
     Promise<void>,
-   ] {
+  ] {
     // Allow for flexible options to be passed.
     if (options instanceof FetchEvent) {
       options = {
@@ -155,22 +158,31 @@ abstract class Strategy implements RouteHandlerObject {
     }
 
     const event = options.event;
-    const request = typeof options.request === 'string' ?
-        new Request(options.request) :
-        options.request;
-    const params = 'params' in options ? options.params : undefined;
+    const request = typeof options.request === "string"
+      ? new Request(options.request)
+      : options.request;
+    const params = "params" in options ? options.params : undefined;
 
-    const handler = new StrategyHandler(this, {event, request, params});
+    const handler = new StrategyHandler(this, { event, request, params });
 
     const responseDone = this._getResponse(handler, request, event);
-    const handlerDone = this._awaitComplete(responseDone, handler, request, event);
+    const handlerDone = this._awaitComplete(
+      responseDone,
+      handler,
+      request,
+      event,
+    );
 
     // Return an array of promises, suitable for use with Promise.all().
     return [responseDone, handlerDone];
   }
 
-  async _getResponse(handler: StrategyHandler, request: Request, event: ExtendableEvent) {
-    await handler.runCallbacks('handlerWillStart', {event, request});
+  async _getResponse(
+    handler: StrategyHandler,
+    request: Request,
+    event: ExtendableEvent,
+  ) {
+    await handler.runCallbacks("handlerWillStart", { event, request });
 
     let response: Response | undefined = undefined;
     try {
@@ -178,12 +190,12 @@ abstract class Strategy implements RouteHandlerObject {
       // The "official" Strategy subclasses all throw this error automatically,
       // but in case a third-party Strategy doesn't, ensure that we have a
       // consistent failure when there's no response or an error response.
-      if (!response || response.type === 'error') {
-        throw new WorkboxError('no-response', {url: request.url});
+      if (!response || response.type === "error") {
+        throw new WorkboxError("no-response", { url: request.url });
       }
     } catch (error) {
-      for (const callback of handler.iterateCallbacks('handlerDidError')) {
-        response = await callback({error, event, request});
+      for (const callback of handler.iterateCallbacks("handlerDidError")) {
+        response = await callback({ error, event, request });
         if (response) {
           break;
         }
@@ -191,21 +203,28 @@ abstract class Strategy implements RouteHandlerObject {
 
       if (!response) {
         throw error;
-      } else if (process.env.NODE_ENV !== 'production') {
-        logger.log(`While responding to '${getFriendlyURL(request.url)}', ` +
-          `an ${error} error occurred. Using a fallback response provided by `+
-          `a handlerDidError plugin.`);
+      } else if (process.env.NODE_ENV !== "production") {
+        logger.log(
+          `While responding to '${getFriendlyURL(request.url)}', ` +
+            `an ${error} error occurred. Using a fallback response provided by ` +
+            `a handlerDidError plugin.`,
+        );
       }
     }
 
-    for (const callback of handler.iterateCallbacks('handlerWillRespond')) {
-      response = await callback({event, request, response});
+    for (const callback of handler.iterateCallbacks("handlerWillRespond")) {
+      response = await callback({ event, request, response });
     }
 
     return response;
   }
 
-  async _awaitComplete(responseDone: Promise<Response>, handler: StrategyHandler, request: Request, event: ExtendableEvent) {
+  async _awaitComplete(
+    responseDone: Promise<Response>,
+    handler: StrategyHandler,
+    request: Request,
+    event: ExtendableEvent,
+  ) {
     let response;
     let error;
 
@@ -218,7 +237,7 @@ abstract class Strategy implements RouteHandlerObject {
     }
 
     try {
-      await handler.runCallbacks('handlerDidRespond', {
+      await handler.runCallbacks("handlerDidRespond", {
         event,
         request,
         response,
@@ -228,7 +247,7 @@ abstract class Strategy implements RouteHandlerObject {
       error = waitUntilError;
     }
 
-    await handler.runCallbacks('handlerDidComplete', {
+    await handler.runCallbacks("handlerDidComplete", {
       event,
       request,
       response,
@@ -242,7 +261,7 @@ abstract class Strategy implements RouteHandlerObject {
   }
 }
 
-export {Strategy}
+export { Strategy };
 
 /**
  * Classes extending the `Strategy` based class should implement this method,

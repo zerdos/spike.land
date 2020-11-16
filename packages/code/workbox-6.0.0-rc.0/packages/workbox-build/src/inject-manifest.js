@@ -6,20 +6,21 @@
   https://opensource.org/licenses/MIT.
 */
 
-const assert = require('assert');
-const fse = require('fs-extra');
-const sourceMapURL = require('source-map-url');
-const stringify = require('fast-json-stable-stringify');
-const upath = require('upath');
+const assert = require("assert");
+const fse = require("fs-extra");
+const sourceMapURL = require("source-map-url");
+const stringify = require("fast-json-stable-stringify");
+const upath = require("upath");
 
-const errors = require('./lib/errors');
-const escapeRegexp = require('./lib/escape-regexp');
-const getFileManifestEntries = require('./lib/get-file-manifest-entries');
-const injectManifestSchema = require('./options/schema/inject-manifest');
-const rebasePath = require('./lib/rebase-path');
-const replaceAndUpdateSourceMap =
-  require('./lib/replace-and-update-source-map');
-const validate = require('./lib/validate-options');
+const errors = require("./lib/errors");
+const escapeRegexp = require("./lib/escape-regexp");
+const getFileManifestEntries = require("./lib/get-file-manifest-entries");
+const injectManifestSchema = require("./options/schema/inject-manifest");
+const rebasePath = require("./lib/rebase-path");
+const replaceAndUpdateSourceMap = require(
+  "./lib/replace-and-update-source-map",
+);
+const validate = require("./lib/validate-options");
 
 // eslint-disable-next-line jsdoc/newline-after-description
 /**
@@ -127,30 +128,37 @@ async function injectManifest(config) {
     }));
   }
 
-  const globalRegexp = new RegExp(escapeRegexp(options.injectionPoint), 'g');
+  const globalRegexp = new RegExp(escapeRegexp(options.injectionPoint), "g");
 
-  const {count, size, manifestEntries, warnings} =
+  const { count, size, manifestEntries, warnings } =
     await getFileManifestEntries(options);
   let swFileContents;
   try {
-    swFileContents = await fse.readFile(options.swSrc, 'utf8');
+    swFileContents = await fse.readFile(options.swSrc, "utf8");
   } catch (error) {
-    throw new Error(`${errors['invalid-sw-src']} ${error.message}`);
+    throw new Error(`${errors["invalid-sw-src"]} ${error.message}`);
   }
 
   const injectionResults = swFileContents.match(globalRegexp);
   if (!injectionResults) {
     // See https://github.com/GoogleChrome/workbox/issues/2230
     if (upath.resolve(options.swSrc) === upath.resolve(options.swDest)) {
-      throw new Error(errors['same-src-and-dest'] + ' ' +
-        options.injectionPoint);
+      throw new Error(
+        errors["same-src-and-dest"] + " " +
+          options.injectionPoint,
+      );
     }
-    throw new Error(errors['injection-point-not-found'] + ' ' +
-      options.injectionPoint);
+    throw new Error(
+      errors["injection-point-not-found"] + " " +
+        options.injectionPoint,
+    );
   }
 
-  assert(injectionResults.length === 1, errors['multiple-injection-points'] +
-    options.injectionPoint);
+  assert(
+    injectionResults.length === 1,
+    errors["multiple-injection-points"] +
+      options.injectionPoint,
+  );
 
   const manifestString = stringify(manifestEntries);
   const filesToWrite = {};
@@ -162,18 +170,18 @@ async function injectManifest(config) {
   // (assuming it's a real file, not a data: URL) at the same time.
   // See https://github.com/GoogleChrome/workbox/issues/2235
   // and https://github.com/GoogleChrome/workbox/issues/2648
-  if (url && !url.startsWith('data:')) {
+  if (url && !url.startsWith("data:")) {
     const sourcemapSrcPath = upath.resolve(upath.dirname(options.swSrc), url);
     const sourcemapDestPath = upath.resolve(upath.dirname(options.swDest), url);
 
     let originalMap;
     try {
-      originalMap = await fse.readJSON(sourcemapSrcPath, 'utf8');
+      originalMap = await fse.readJSON(sourcemapSrcPath, "utf8");
     } catch (error) {
-      throw new Error(`${errors['cant-find-sourcemap']} ${error.message}`);
+      throw new Error(`${errors["cant-find-sourcemap"]} ${error.message}`);
     }
 
-    const {map, source} = await replaceAndUpdateSourceMap({
+    const { map, source } = await replaceAndUpdateSourceMap({
       originalMap,
       jsFilename: upath.basename(options.swDest),
       originalSource: swFileContents,
@@ -187,15 +195,19 @@ async function injectManifest(config) {
     // If there's no sourcemap associated with swSrc, a simple string
     // replacement will suffice.
     filesToWrite[options.swDest] = swFileContents.replace(
-        globalRegexp, manifestString);
+      globalRegexp,
+      manifestString,
+    );
   }
 
   for (const [file, contents] of Object.entries(filesToWrite)) {
     try {
       await fse.mkdirp(upath.dirname(file));
     } catch (error) {
-      throw new Error(errors['unable-to-make-injection-directory'] +
-        ` '${error.message}'`);
+      throw new Error(
+        errors["unable-to-make-injection-directory"] +
+          ` '${error.message}'`,
+      );
     }
 
     await fse.writeFile(file, contents);

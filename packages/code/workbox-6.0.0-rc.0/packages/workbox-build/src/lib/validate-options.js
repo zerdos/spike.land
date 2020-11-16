@@ -7,10 +7,10 @@
 */
 
 module.exports = (options, schema) => {
-  const {value, error} = schema.validate(options, {
+  const { value, error } = schema.validate(options, {
     language: {
       object: {
-        allowUnknown: 'is not a supported parameter.',
+        allowUnknown: "is not a supported parameter.",
       },
     },
   });

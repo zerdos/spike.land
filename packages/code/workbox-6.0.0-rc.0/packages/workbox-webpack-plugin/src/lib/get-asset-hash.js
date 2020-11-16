@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 /**
  * @param {WebpackAsset} asset
@@ -22,7 +22,7 @@ module.exports = (asset) => {
     return null;
   }
 
-  return crypto.createHash('md5')
-      .update(Buffer.from(asset.source.source()))
-      .digest('hex');
+  return crypto.createHash("md5")
+    .update(Buffer.from(asset.source.source()))
+    .digest("hex");
 };

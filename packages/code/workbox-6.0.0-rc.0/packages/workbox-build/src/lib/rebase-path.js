@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-const upath = require('upath');
+const upath = require("upath");
 
-module.exports = ({baseDirectory, file}) => {
+module.exports = ({ baseDirectory, file }) => {
   // The initial path is relative to the current directory, so make it absolute.
   const absolutePath = upath.resolve(file);
 

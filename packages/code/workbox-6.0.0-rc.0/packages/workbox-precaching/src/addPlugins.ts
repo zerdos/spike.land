@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin} from 'workbox-core/types.js';
-import {getOrCreatePrecacheController} from './utils/getOrCreatePrecacheController.js';
-import './_version.js';
-
+import { WorkboxPlugin } from "workbox-core/types.js";
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import "./_version.js";
 
 /**
  * Adds plugins to the precaching strategy.
@@ -23,4 +22,4 @@ function addPlugins(plugins: WorkboxPlugin[]) {
   precacheController.strategy.plugins.push(...plugins);
 }
 
-export {addPlugins};
+export { addPlugins };

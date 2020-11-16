@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {prompt} from 'inquirer';
-import {oneLine as ol} from 'common-tags';
+import { prompt } from "inquirer";
+import { oneLine as ol } from "common-tags";
 
 // The key used for the question/answer.
-const name = 'swSrc';
+const name = "swSrc";
 
 /**
  * @return {Promise<Object>} The answers from inquirer.
@@ -21,7 +21,7 @@ function askQuestion() {
     message: ol`Where's your existing service worker file? To be used with
       injectManifest, it should include a call to
       'self.__WB_MANIFEST'`,
-    type: 'input',
+    type: "input",
   }]);
 }
 

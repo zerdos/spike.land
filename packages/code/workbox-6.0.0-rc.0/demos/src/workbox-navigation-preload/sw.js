@@ -1,4 +1,6 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js",
+);
 
 workbox.setConfig({
   debug: true,
@@ -9,7 +11,7 @@ workbox.navigationPreload.enable();
 
 // Swap in NetworkOnly, CacheFirst, or StaleWhileRevalidate as needed.
 const strategy = new workbox.strategies.NetworkFirst({
-  cacheName: 'cached-navigations',
+  cacheName: "cached-navigations",
   plugins: [
     // Any plugins, like workbox.expiration, etc.
   ],

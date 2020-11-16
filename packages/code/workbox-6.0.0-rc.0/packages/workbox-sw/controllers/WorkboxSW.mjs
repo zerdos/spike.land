@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.mjs';
+import "../_version.mjs";
 
 const CDN_PATH = `WORKBOX_CDN_ROOT_URL`;
 
@@ -16,79 +16,79 @@ const MODULE_KEY_TO_NAME_MAPPING = {
    * @memberof workbox
    * @see module:workbox-background-sync
    */
-  backgroundSync: 'background-sync',
+  backgroundSync: "background-sync",
   /**
    * @name broadcastUpdate
    * @memberof workbox
    * @see module:workbox-broadcast-update
    */
-  broadcastUpdate: 'broadcast-update',
+  broadcastUpdate: "broadcast-update",
   /**
    * @name cacheableResponse
    * @memberof workbox
    * @see module:workbox-cacheable-response
    */
-  cacheableResponse: 'cacheable-response',
+  cacheableResponse: "cacheable-response",
   /**
    * @name core
    * @memberof workbox
    * @see module:workbox-core
    */
-  core: 'core',
+  core: "core",
   /**
    * @name expiration
    * @memberof workbox
    * @see module:workbox-expiration
    */
-  expiration: 'expiration',
+  expiration: "expiration",
   /**
    * @name googleAnalytics
    * @memberof workbox
    * @see module:workbox-google-analytics
    */
-  googleAnalytics: 'offline-ga',
+  googleAnalytics: "offline-ga",
   /**
    * @name navigationPreload
    * @memberof workbox
    * @see module:workbox-navigation-preload
    */
-  navigationPreload: 'navigation-preload',
+  navigationPreload: "navigation-preload",
   /**
    * @name precaching
    * @memberof workbox
    * @see module:workbox-precaching
    */
-  precaching: 'precaching',
+  precaching: "precaching",
   /**
    * @name rangeRequests
    * @memberof workbox
    * @see module:workbox-range-requests
    */
-  rangeRequests: 'range-requests',
+  rangeRequests: "range-requests",
   /**
    * @name routing
    * @memberof workbox
    * @see module:workbox-routing
    */
-  routing: 'routing',
+  routing: "routing",
   /**
    * @name strategies
    * @memberof workbox
    * @see module:workbox-strategies
    */
-  strategies: 'strategies',
+  strategies: "strategies",
   /**
    * @name streams
    * @memberof workbox
    * @see module:workbox-streams
    */
-  streams: 'streams',
+  streams: "streams",
   /**
    * @name recipes
    * @memberof workbox
    * @see module:workbox-recipes
    */
-  recipes: 'recipes',
+  recipes: "recipes",
 };
 
 /**
@@ -106,12 +106,12 @@ export class WorkboxSW {
   constructor() {
     this.v = {};
     this._options = {
-      debug: self.location.hostname === 'localhost',
+      debug: self.location.hostname === "localhost",
       modulePathPrefix: null,
       modulePathCb: null,
     };
 
-    this._env = this._options.debug ? 'dev' : 'prod';
+    this._env = this._options.debug ? "dev" : "prod";
     this._modulesLoaded = false;
 
     return new Proxy(this, {
@@ -150,9 +150,9 @@ export class WorkboxSW {
   setConfig(options = {}) {
     if (!this._modulesLoaded) {
       Object.assign(this._options, options);
-      this._env = this._options.debug ? 'dev' : 'prod';
+      this._env = this._options.debug ? "dev" : "prod";
     } else {
-      throw new Error('Config must be set before accessing workbox.* modules');
+      throw new Error("Config must be set before accessing workbox.* modules");
     }
   }
 
@@ -178,7 +178,8 @@ export class WorkboxSW {
       // We can't rely on workbox-core being loaded so using console
       // eslint-disable-next-line
       console.error(
-          `Unable to import module '${moduleName}' from '${modulePath}'.`);
+        `Unable to import module '${moduleName}' from '${modulePath}'.`,
+      );
       throw err;
     }
   }
@@ -204,17 +205,17 @@ export class WorkboxSW {
     const pathPrefix = this._options.modulePathPrefix;
     if (pathPrefix) {
       // Split to avoid issues with developers ending / not ending with slash
-      pathParts = pathPrefix.split('/');
+      pathParts = pathPrefix.split("/");
 
       // We don't need a slash at the end as we will be adding
       // a filename regardless
-      if (pathParts[pathParts.length - 1] === '') {
+      if (pathParts[pathParts.length - 1] === "") {
         pathParts.splice(pathParts.length - 1, 1);
       }
     }
 
     pathParts.push(fileName);
 
-    return pathParts.join('/');
+    return pathParts.join("/");
   }
 }

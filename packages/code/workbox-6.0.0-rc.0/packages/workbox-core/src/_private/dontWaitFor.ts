@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
+import "../_version.js";
 
 /**
  * A helper function that prevents a promise from being flagged as unused.

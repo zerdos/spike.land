@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {getOrCreatePrecacheController} from './utils/getOrCreatePrecacheController.js';
-import {PrecacheEntry} from './_types.js';
-import './_version.js';
-
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import { PrecacheEntry } from "./_types.js";
+import "./_version.js";
 
 /**
  * Adds items to the precache list, removing any duplicates and
@@ -30,9 +29,9 @@ import './_version.js';
  *
  * @memberof module:workbox-precaching
  */
-function precache(entries: Array<PrecacheEntry|string>) {
+function precache(entries: Array<PrecacheEntry | string>) {
   const precacheController = getOrCreatePrecacheController();
   precacheController.precache(entries);
 }
 
-export {precache}
+export { precache };

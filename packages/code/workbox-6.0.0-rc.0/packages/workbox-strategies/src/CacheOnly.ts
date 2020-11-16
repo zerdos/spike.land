@@ -6,15 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
 
-import {Strategy} from './Strategy.js';
-import {StrategyHandler} from './StrategyHandler.js';
-import {messages} from './utils/messages.js';
-import './_version.js';
-
+import { Strategy } from "./Strategy.js";
+import { StrategyHandler } from "./StrategyHandler.js";
+import { messages } from "./utils/messages.js";
+import "./_version.js";
 
 /**
  * An implementation of a
@@ -38,23 +37,26 @@ class CacheOnly extends Strategy {
    * @return {Promise<Response>}
    */
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-strategies',
+        moduleName: "workbox-strategies",
         className: this.constructor.name,
-        funcName: 'makeRequest',
-        paramName: 'request',
+        funcName: "makeRequest",
+        paramName: "request",
       });
     }
 
     const response = await handler.cacheMatch(request);
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       logger.groupCollapsed(
-          messages.strategyStart(this.constructor.name, request));
+        messages.strategyStart(this.constructor.name, request),
+      );
       if (response) {
-        logger.log(`Found a cached response in the '${this.cacheName}' ` +
-          `cache.`);
+        logger.log(
+          `Found a cached response in the '${this.cacheName}' ` +
+            `cache.`,
+        );
         messages.printFinalResponse(response);
       } else {
         logger.log(`No response found in the '${this.cacheName}' cache.`);
@@ -63,10 +65,10 @@ class CacheOnly extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError('no-response', {url: request.url});
+      throw new WorkboxError("no-response", { url: request.url });
     }
     return response;
   }
 }
 
-export {CacheOnly};
+export { CacheOnly };

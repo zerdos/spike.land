@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import './_version.mjs';
+import "./_version.mjs";
 
 /**
  * A `ModulePathCallback` function can be used to modify the modify the where

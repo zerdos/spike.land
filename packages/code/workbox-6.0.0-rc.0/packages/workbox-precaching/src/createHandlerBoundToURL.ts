@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {getOrCreatePrecacheController} from './utils/getOrCreatePrecacheController.js';
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
 
-import './_version.js';
+import "./_version.js";
 
 /**
  * Helper function that calls
@@ -32,4 +32,4 @@ function createHandlerBoundToURL(url: string) {
   return precacheController.createHandlerBoundToURL(url);
 }
 
-export {createHandlerBoundToURL}
+export { createHandlerBoundToURL };

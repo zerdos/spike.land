@@ -7,11 +7,11 @@
 */
 
 export const constants = {
-  defaultConfigFile: 'workbox-config.js',
+  defaultConfigFile: "workbox-config.js",
   ignoredDirectories: [
-    'node_modules',
+    "node_modules",
   ],
   ignoredFileExtensions: [
-    'map',
+    "map",
   ],
 };

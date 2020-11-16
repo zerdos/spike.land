@@ -6,15 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {registerQuotaErrorCallback} from './registerQuotaErrorCallback.js';
-import * as _private from './_private.js';
-import {cacheNames} from './cacheNames.js';
-import {copyResponse} from './copyResponse.js';
-import {clientsClaim} from './clientsClaim.js';
-import {setCacheNameDetails} from './setCacheNameDetails.js';
-import {skipWaiting} from './skipWaiting.js';
-import './_version.js';
-
+import { registerQuotaErrorCallback } from "./registerQuotaErrorCallback.js";
+import * as _private from "./_private.js";
+import { cacheNames } from "./cacheNames.js";
+import { copyResponse } from "./copyResponse.js";
+import { clientsClaim } from "./clientsClaim.js";
+import { setCacheNameDetails } from "./setCacheNameDetails.js";
+import { skipWaiting } from "./skipWaiting.js";
+import "./_version.js";
 
 /**
  * All of the Workbox service worker libraries use workbox-core for shared
@@ -33,4 +32,4 @@ export {
   skipWaiting,
 };
 
-export * from './types.js';
+export * from "./types.js";

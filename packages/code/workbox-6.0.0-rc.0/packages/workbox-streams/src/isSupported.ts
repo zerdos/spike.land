@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {canConstructReadableStream} from 'workbox-core/_private/canConstructReadableStream.js';
-import './_version.js';
-
+import { canConstructReadableStream } from "workbox-core/_private/canConstructReadableStream.js";
+import "./_version.js";
 
 /**
  * This is a utility method that determines whether the current browser supports
@@ -25,4 +24,4 @@ function isSupported() {
   return canConstructReadableStream();
 }
 
-export {isSupported}
+export { isSupported };

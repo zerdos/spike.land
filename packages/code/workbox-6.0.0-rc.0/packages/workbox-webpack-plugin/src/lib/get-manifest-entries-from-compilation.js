@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-const {matchPart} = require('webpack').ModuleFilenameHelpers;
-const transformManifest = require('workbox-build/build/lib/transform-manifest');
+const { matchPart } = require("webpack").ModuleFilenameHelpers;
+const transformManifest = require("workbox-build/build/lib/transform-manifest");
 
-const getAssetHash = require('./get-asset-hash');
-const resolveWebpackURL = require('./resolve-webpack-url');
+const getAssetHash = require("./get-asset-hash");
+const resolveWebpackURL = require("./resolve-webpack-url");
 
 /**
  * For a given asset, checks whether at least one of the conditions matches.
@@ -25,8 +25,8 @@ const resolveWebpackURL = require('./resolve-webpack-url');
  */
 function checkConditions(asset, compilation, conditions = []) {
   for (const condition of conditions) {
-    if (typeof condition === 'function') {
-      if (condition({asset, compilation})) {
+    if (typeof condition === "function") {
+      if (condition({ asset, compilation })) {
         return true;
       }
     } else {
@@ -84,9 +84,11 @@ function filterAssets(compilation, config) {
           allowedAssetNames.add(assetName);
         }
       } else {
-        compilation.warnings.push(`The chunk '${chunkName}' was ` +
-          `provided in your Workbox chunks config, but was not found in the ` +
-          `compilation.`);
+        compilation.warnings.push(
+          `The chunk '${chunkName}' was ` +
+            `provided in your Workbox chunks config, but was not found in the ` +
+            `compilation.`,
+        );
       }
     }
   }
@@ -128,7 +130,7 @@ function filterAssets(compilation, config) {
 
     // Treat an empty config.includes as an implicit inclusion.
     const isIncluded = !Array.isArray(config.include) ||
-        checkConditions(asset, compilation, config.include);
+      checkConditions(asset, compilation, config.include);
     if (!isIncluded) {
       continue;
     }
@@ -143,7 +145,7 @@ function filterAssets(compilation, config) {
 module.exports = async (compilation, config) => {
   const filteredAssets = filterAssets(compilation, config);
 
-  const {publicPath} = compilation.options.output;
+  const { publicPath } = compilation.options.output;
 
   const fileDetails = Array.from(filteredAssets).map((asset) => {
     return {
@@ -153,7 +155,7 @@ module.exports = async (compilation, config) => {
     };
   });
 
-  const {manifestEntries, size, warnings} = await transformManifest({
+  const { manifestEntries, size, warnings } = await transformManifest({
     fileDetails,
     additionalManifestEntries: config.additionalManifestEntries,
     dontCacheBustURLsMatching: config.dontCacheBustURLsMatching,
@@ -167,7 +169,8 @@ module.exports = async (compilation, config) => {
 
   // Ensure that the entries are properly sorted by URL.
   const sortedEntries = manifestEntries.sort(
-      (a, b) => a.url === b.url ? 0 : (a.url > b.url ? 1 : -1));
+    (a, b) => a.url === b.url ? 0 : (a.url > b.url ? 1 : -1),
+  );
 
-  return {size, sortedEntries};
+  return { size, sortedEntries };
 };

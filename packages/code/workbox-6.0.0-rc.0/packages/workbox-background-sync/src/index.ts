@@ -6,16 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {Queue} from './Queue.js';
-import {BackgroundSyncPlugin} from './BackgroundSyncPlugin.js';
-import './_version.js';
-
+import { Queue } from "./Queue.js";
+import { BackgroundSyncPlugin } from "./BackgroundSyncPlugin.js";
+import "./_version.js";
 
 /**
  * @module workbox-background-sync
  */
 
-export {
-  Queue,
-  BackgroundSyncPlugin,
-};
+export { BackgroundSyncPlugin, Queue };

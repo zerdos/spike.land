@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-const joi = require('@hapi/joi');
+const joi = require("@hapi/joi");
 
-const basePartial = require('../partials/base');
-const globPartial = require('../partials/glob');
+const basePartial = require("../partials/base");
+const globPartial = require("../partials/glob");
 
 const supportedOptions = Object.assign({}, basePartial, globPartial);
 

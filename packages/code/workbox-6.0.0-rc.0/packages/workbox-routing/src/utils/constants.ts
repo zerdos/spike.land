@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
+import "../_version.js";
 
-
-export type HTTPMethod = 'DELETE' | 'GET' | 'HEAD' | 'PATCH' | 'POST' | 'PUT';
+export type HTTPMethod = "DELETE" | "GET" | "HEAD" | "PATCH" | "POST" | "PUT";
 
 /**
  * The default HTTP method, 'GET', used when there's no specific method
@@ -19,7 +18,7 @@ export type HTTPMethod = 'DELETE' | 'GET' | 'HEAD' | 'PATCH' | 'POST' | 'PUT';
  *
  * @private
  */
-export const defaultMethod: HTTPMethod = 'GET';
+export const defaultMethod: HTTPMethod = "GET";
 
 /**
  * The list of valid HTTP methods associated with requests that could be routed.
@@ -29,10 +28,10 @@ export const defaultMethod: HTTPMethod = 'GET';
  * @private
  */
 export const validMethods: HTTPMethod[] = [
-  'DELETE',
-  'GET',
-  'HEAD',
-  'PATCH',
-  'POST',
-  'PUT',
+  "DELETE",
+  "GET",
+  "HEAD",
+  "PATCH",
+  "POST",
+  "PUT",
 ];

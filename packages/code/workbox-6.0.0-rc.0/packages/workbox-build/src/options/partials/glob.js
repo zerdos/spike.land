@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-const joi = require('@hapi/joi');
+const joi = require("@hapi/joi");
 
-const defaults = require('../defaults');
+const defaults = require("../defaults");
 
 module.exports = {
   globDirectory: joi.string(),
@@ -19,5 +19,5 @@ module.exports = {
   // templatedURLs is an object where any property name is valid, and the values
   // can be either a string or an array of strings.
   templatedURLs: joi.object()
-      .pattern(/./, [joi.string(), joi.array().items(joi.string())]),
+    .pattern(/./, [joi.string(), joi.array().items(joi.string())]),
 };

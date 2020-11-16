@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 let supportStatus: boolean | undefined;
 
@@ -22,9 +21,9 @@ let supportStatus: boolean | undefined;
  */
 function canConstructResponseFromBodyStream(): boolean {
   if (supportStatus === undefined) {
-    const testResponse = new Response('');
+    const testResponse = new Response("");
 
-    if ('body' in testResponse) {
+    if ("body" in testResponse) {
       try {
         new Response(testResponse.body);
         supportStatus = true;
@@ -38,4 +37,4 @@ function canConstructResponseFromBodyStream(): boolean {
   return supportStatus;
 }
 
-export {canConstructResponseFromBodyStream};
+export { canConstructResponseFromBodyStream };

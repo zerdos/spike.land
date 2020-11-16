@@ -6,14 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import * as assert from 'assert';
-import {prompt} from 'inquirer';
-import * as upath from 'upath';
+import * as assert from "assert";
+import { prompt } from "inquirer";
+import * as upath from "upath";
 
-import {errors} from '../errors';
+import { errors } from "../errors";
 
 // The key used for the question/answer.
-const name = 'swDest';
+const name = "swDest";
 
 /**
  * @param {string} defaultDir
@@ -23,16 +23,16 @@ function askQuestion(defaultDir: string) {
   return prompt([{
     name,
     message: `Where would you like your service worker file to be saved?`,
-    type: 'input',
-    default: upath.join(defaultDir, 'sw.js'),
+    type: "input",
+    default: upath.join(defaultDir, "sw.js"),
   }]);
 }
 
-export async function askSWDest(defaultDir = '.') {
+export async function askSWDest(defaultDir = ".") {
   const answers = await askQuestion(defaultDir);
   const swDest = answers[name].trim();
 
-  assert(swDest, errors['invalid-sw-dest']);
+  assert(swDest, errors["invalid-sw-dest"]);
 
   return swDest;
 }

@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-const fs = require('fs');
+const fs = require("fs");
 
-const errors = require('./errors');
+const errors = require("./errors");
 
 module.exports = (file) => {
   try {
@@ -18,6 +18,6 @@ module.exports = (file) => {
     }
     return stat.size;
   } catch (err) {
-    throw new Error(errors['unable-to-get-file-size'] + ` '${err.message}'`);
+    throw new Error(errors["unable-to-get-file-size"] + ` '${err.message}'`);
   }
 };

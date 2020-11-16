@@ -6,20 +6,23 @@
   https://opensource.org/licenses/MIT.
 */
 
-const prettyBytes = require('pretty-bytes');
+const prettyBytes = require("pretty-bytes");
 const replaceAndUpdateSourceMap = require(
-    'workbox-build/build/lib/replace-and-update-source-map');
-const stringify = require('fast-json-stable-stringify');
-const upath = require('upath');
-const validate = require('workbox-build/build/lib/validate-options');
-const webpack = require('webpack');
+  "workbox-build/build/lib/replace-and-update-source-map",
+);
+const stringify = require("fast-json-stable-stringify");
+const upath = require("upath");
+const validate = require("workbox-build/build/lib/validate-options");
+const webpack = require("webpack");
 const webpackInjectManifestSchema = require(
-    'workbox-build/build/options/schema/webpack-inject-manifest');
+  "workbox-build/build/options/schema/webpack-inject-manifest",
+);
 
-const getManifestEntriesFromCompilation =
-  require('./lib/get-manifest-entries-from-compilation');
-const getSourcemapAssetName = require('./lib/get-sourcemap-asset-name');
-const relativeToOutputPath = require('./lib/relative-to-output-path');
+const getManifestEntriesFromCompilation = require(
+  "./lib/get-manifest-entries-from-compilation",
+);
+const getSourcemapAssetName = require("./lib/get-sourcemap-asset-name");
+const relativeToOutputPath = require("./lib/relative-to-output-path");
 
 // Used to keep track of swDest files written by *any* instance of this plugin.
 // See https://github.com/GoogleChrome/workbox/issues/2181
@@ -30,7 +33,7 @@ const SingleEntryPlugin = webpack.EntryPlugin || webpack.SingleEntryPlugin;
 
 // webpack v4/v5 compatibility:
 // https://github.com/webpack/webpack/issues/11425#issuecomment-686607633
-const {RawSource} = webpack.sources || require('webpack-sources');
+const { RawSource } = webpack.sources || require("webpack-sources");
 
 /**
  * This class supports compiling a service worker file provided via `swSrc`,
@@ -148,34 +151,40 @@ class InjectManifest {
     this.propagateWebpackConfig(compiler);
 
     compiler.hooks.make.tapPromise(
-        this.constructor.name,
-        (compilation) => this.handleMake(compilation, compiler).catch(
-            (error) => compilation.errors.push(error)),
+      this.constructor.name,
+      (compilation) =>
+        this.handleMake(compilation, compiler).catch(
+          (error) => compilation.errors.push(error),
+        ),
     );
 
     // webpack v4/v5 compatibility:
     // https://github.com/webpack/webpack/issues/11425#issuecomment-690387207
-    if (webpack.version.startsWith('4.')) {
+    if (webpack.version.startsWith("4.")) {
       compiler.hooks.emit.tapPromise(
-          this.constructor.name,
-          (compilation) => this.addAssets(compilation).catch(
-              (error) => compilation.errors.push(error)),
+        this.constructor.name,
+        (compilation) =>
+          this.addAssets(compilation).catch(
+            (error) => compilation.errors.push(error),
+          ),
       );
     } else {
-      const {PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER} = webpack.Compilation;
+      const { PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER } = webpack.Compilation;
       // Specifically hook into thisCompilation, as per
       // https://github.com/webpack/webpack/issues/11425#issuecomment-690547848
       compiler.hooks.thisCompilation.tap(
-          this.constructor.name, (compilation) => {
-            compilation.hooks.processAssets.tapPromise({
-              name: this.constructor.name,
-              // TODO(jeffposnick): This may need to change eventually.
-              // See https://github.com/webpack/webpack/issues/11822#issuecomment-726184972
-              stage: PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER - 10,
-            }, () => this.addAssets(compilation).catch(
-                (error) => compilation.errors.push(error)),
-            );
-          },
+        this.constructor.name,
+        (compilation) => {
+          compilation.hooks.processAssets.tapPromise({
+            name: this.constructor.name,
+            // TODO(jeffposnick): This may need to change eventually.
+            // See https://github.com/webpack/webpack/issues/11822#issuecomment-726184972
+            stage: PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER - 10,
+          }, () =>
+            this.addAssets(compilation).catch(
+              (error) => compilation.errors.push(error),
+            ));
+        },
       );
     }
   }
@@ -193,8 +202,8 @@ class InjectManifest {
     };
 
     const childCompiler = compilation.createChildCompiler(
-        this.constructor.name,
-        outputOptions,
+      this.constructor.name,
+      outputOptions,
     );
 
     childCompiler.context = parentCompiler.context;
@@ -208,9 +217,9 @@ class InjectManifest {
     }
 
     new SingleEntryPlugin(
-        parentCompiler.context,
-        this.config.swSrc,
-        this.constructor.name,
+      parentCompiler.context,
+      this.config.swSrc,
+      this.constructor.name,
     ).apply(childCompiler);
 
     await new Promise((resolve, reject) => {
@@ -219,9 +228,11 @@ class InjectManifest {
           reject(error);
         } else {
           compilation.warnings = compilation.warnings.concat(
-              childCompilation.warnings);
+            childCompilation.warnings,
+          );
           compilation.errors = compilation.errors.concat(
-              childCompilation.errors);
+            childCompilation.errors,
+          );
 
           resolve();
         }
@@ -237,7 +248,8 @@ class InjectManifest {
    */
   addSrcToAssets(compilation, parentCompiler) {
     const source = parentCompiler.inputFileSystem.readFileSync(
-        this.config.swSrc).toString();
+      this.config.swSrc,
+    ).toString();
     compilation.emitAsset(this.config.swDest, new RawSource(source));
   }
 
@@ -251,8 +263,10 @@ class InjectManifest {
     try {
       this.config = validate(this.config, webpackInjectManifestSchema);
     } catch (error) {
-      throw new Error(`Please check your ${this.constructor.name} plugin ` +
-        `configuration:\n${error.message}`);
+      throw new Error(
+        `Please check your ${this.constructor.name} plugin ` +
+          `configuration:\n${error.message}`,
+      );
     }
 
     this.config.swDest = relativeToOutputPath(compilation, this.config.swDest);
@@ -290,7 +304,7 @@ class InjectManifest {
 
     // Ensure that we don't precache any of the assets generated by *any*
     // instance of this plugin.
-    config.exclude.push(({asset}) => _generatedAssetNames.has(asset.name));
+    config.exclude.push(({ asset }) => _generatedAssetNames.has(asset.name));
 
     // See https://webpack.js.org/contribute/plugin-patterns/#monitoring-the-watch-graph
     const absoluteSwSrc = upath.resolve(this.config.swSrc);
@@ -303,8 +317,10 @@ class InjectManifest {
       throw new Error(`Can't find ${config.injectionPoint} in your SW source.`);
     }
 
-    const {size, sortedEntries} = await getManifestEntriesFromCompilation(
-        compilation, config);
+    const { size, sortedEntries } = await getManifestEntriesFromCompilation(
+      compilation,
+      config,
+    );
 
     let manifestString = stringify(sortedEntries);
     if (this.config.compileSrc) {
@@ -313,12 +329,15 @@ class InjectManifest {
     }
 
     const sourcemapAssetName = getSourcemapAssetName(
-        compilation, swAssetString, config.swDest);
+      compilation,
+      swAssetString,
+      config.swDest,
+    );
 
     if (sourcemapAssetName) {
       _generatedAssetNames.add(sourcemapAssetName);
       const sourcemapAsset = compilation.getAsset(sourcemapAssetName);
-      const {source, map} = await replaceAndUpdateSourceMap({
+      const { source, map } = await replaceAndUpdateSourceMap({
         jsFilename: config.swDest,
         originalMap: JSON.parse(sourcemapAsset.source.source()),
         originalSource: swAssetString,
@@ -331,8 +350,12 @@ class InjectManifest {
     } else {
       // If there's no sourcemap associated with swDest, a simple string
       // replacement will suffice.
-      compilation.updateAsset(config.swDest, new RawSource(
-          swAssetString.replace(config.injectionPoint, manifestString)));
+      compilation.updateAsset(
+        config.swDest,
+        new RawSource(
+          swAssetString.replace(config.injectionPoint, manifestString),
+        ),
+      );
     }
 
     if (compilation.getLogger) {

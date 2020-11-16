@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {assert} from 'workbox-core/_private/assert.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {calculateEffectiveBoundaries} from './utils/calculateEffectiveBoundaries.js';
-import {parseRangeHeader} from './utils/parseRangeHeader.js';
-import './_version.js';
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { assert } from "workbox-core/_private/assert.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { calculateEffectiveBoundaries } from "./utils/calculateEffectiveBoundaries.js";
+import { parseRangeHeader } from "./utils/parseRangeHeader.js";
+import "./_version.js";
 
 /**
  * Given a `Request` and `Response` objects as input, this will return a
@@ -32,19 +32,21 @@ import './_version.js';
  * @memberof module:workbox-range-requests
  */
 async function createPartialResponse(
-    request: Request, originalResponse: Response): Promise<Response> {
+  request: Request,
+  originalResponse: Response,
+): Promise<Response> {
   try {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-range-requests',
-        funcName: 'createPartialResponse',
-        paramName: 'request',
+        moduleName: "workbox-range-requests",
+        funcName: "createPartialResponse",
+        paramName: "request",
       });
 
       assert!.isInstance(originalResponse, Response, {
-        moduleName: 'workbox-range-requests',
-        funcName: 'createPartialResponse',
-        paramName: 'originalResponse',
+        moduleName: "workbox-range-requests",
+        funcName: "createPartialResponse",
+        paramName: "originalResponse",
       });
     }
 
@@ -54,39 +56,48 @@ async function createPartialResponse(
       return originalResponse;
     }
 
-    const rangeHeader = request.headers.get('range');
+    const rangeHeader = request.headers.get("range");
     if (!rangeHeader) {
-      throw new WorkboxError('no-range-header');
+      throw new WorkboxError("no-range-header");
     }
 
     const boundaries = parseRangeHeader(rangeHeader);
     const originalBlob = await originalResponse.blob();
 
     const effectiveBoundaries = calculateEffectiveBoundaries(
-        originalBlob, boundaries.start, boundaries.end);
+      originalBlob,
+      boundaries.start,
+      boundaries.end,
+    );
 
-    const slicedBlob = originalBlob.slice(effectiveBoundaries.start,
-        effectiveBoundaries.end);
+    const slicedBlob = originalBlob.slice(
+      effectiveBoundaries.start,
+      effectiveBoundaries.end,
+    );
     const slicedBlobSize = slicedBlob.size;
 
     const slicedResponse = new Response(slicedBlob, {
       // Status code 206 is for a Partial Content response.
       // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/206
       status: 206,
-      statusText: 'Partial Content',
+      statusText: "Partial Content",
       headers: originalResponse.headers,
     });
 
-    slicedResponse.headers.set('Content-Length', String(slicedBlobSize));
-    slicedResponse.headers.set('Content-Range',
-        `bytes ${effectiveBoundaries.start}-${effectiveBoundaries.end - 1}/` +
-        originalBlob.size);
+    slicedResponse.headers.set("Content-Length", String(slicedBlobSize));
+    slicedResponse.headers.set(
+      "Content-Range",
+      `bytes ${effectiveBoundaries.start}-${effectiveBoundaries.end - 1}/` +
+        originalBlob.size,
+    );
 
     return slicedResponse;
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      logger.warn(`Unable to construct a partial response; returning a ` +
-        `416 Range Not Satisfiable response instead.`);
+    if (process.env.NODE_ENV !== "production") {
+      logger.warn(
+        `Unable to construct a partial response; returning a ` +
+          `416 Range Not Satisfiable response instead.`,
+      );
       logger.groupCollapsed(`View details here.`);
       logger.log(error);
       logger.log(request);
@@ -94,11 +105,11 @@ async function createPartialResponse(
       logger.groupEnd();
     }
 
-    return new Response('', {
+    return new Response("", {
       status: 416,
-      statusText: 'Range Not Satisfiable',
+      statusText: "Range Not Satisfiable",
     });
   }
 }
 
-export {createPartialResponse};
+export { createPartialResponse };

@@ -1,4 +1,4 @@
-declare module 'workbox-build' {
+declare module "workbox-build" {
   type BuildReturnValue = {
     count: number;
     filePaths: Array<string>;

@@ -9,5 +9,5 @@
 // A really light wrapper on top of Node's require() to make it easier to stub
 // out reading the configuration during tests.
 export function readConfig(configFile: string) {
-  return require(configFile)
+  return require(configFile);
 }

@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 /**
  * Returns true if two URLs have the same `.href` property. The URLS can be
@@ -19,6 +18,6 @@ import '../_version.js';
  * @return {boolean}
  */
 export function urlsMatch(url1: string, url2: string): boolean {
-  const {href} = location;
+  const { href } = location;
   return new URL(url1, href).href === new URL(url2, href).href;
 }

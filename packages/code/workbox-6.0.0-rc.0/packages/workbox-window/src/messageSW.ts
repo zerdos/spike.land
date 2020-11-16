@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import './_version.js';
-
+import "./_version.js";
 
 /**
  * Sends a data object to a service worker via `postMessage` and resolves with
@@ -33,4 +32,4 @@ function messageSW(sw: ServiceWorker, data: {}): Promise<any> {
   });
 }
 
-export {messageSW}
+export { messageSW };

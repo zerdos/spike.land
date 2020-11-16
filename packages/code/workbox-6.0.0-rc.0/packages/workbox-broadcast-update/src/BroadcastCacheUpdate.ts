@@ -6,29 +6,33 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {timeout} from 'workbox-core/_private/timeout.js';
-import {resultingClientExists} from 'workbox-core/_private/resultingClientExists.js';
-import {CacheDidUpdateCallbackParam} from 'workbox-core/types.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {responsesAreSame} from './responsesAreSame.js';
-import {CACHE_UPDATED_MESSAGE_TYPE, CACHE_UPDATED_MESSAGE_META, DEFAULT_HEADERS_TO_CHECK} from './utils/constants.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { timeout } from "workbox-core/_private/timeout.js";
+import { resultingClientExists } from "workbox-core/_private/resultingClientExists.js";
+import { CacheDidUpdateCallbackParam } from "workbox-core/types.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { responsesAreSame } from "./responsesAreSame.js";
+import {
+  CACHE_UPDATED_MESSAGE_META,
+  CACHE_UPDATED_MESSAGE_TYPE,
+  DEFAULT_HEADERS_TO_CHECK,
+} from "./utils/constants.js";
 
-import './_version.js';
-
+import "./_version.js";
 
 // UA-sniff Safari: https://stackoverflow.com/questions/7944460/detect-safari-browser
 // TODO(philipwalton): remove once this Safari bug fix has been released.
 // https://bugs.webkit.org/show_bug.cgi?id=201169
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
 
 export interface BroadcastCacheUpdateOptions {
   headersToCheck?: string[];
-  generatePayload?: (options: CacheDidUpdateCallbackParam) => Record<string, any>;
+  generatePayload?: (
+    options: CacheDidUpdateCallbackParam,
+  ) => Record<string, any>;
 }
 
 /**
@@ -38,7 +42,9 @@ export interface BroadcastCacheUpdateOptions {
  * @return Object
  * @private
  */
-function defaultPayloadGenerator(data: CacheDidUpdateCallbackParam): Record<string, any> {
+function defaultPayloadGenerator(
+  data: CacheDidUpdateCallbackParam,
+): Record<string, any> {
   return {
     cacheName: data.cacheName,
     updatedURL: data.request.url,
@@ -56,7 +62,9 @@ function defaultPayloadGenerator(data: CacheDidUpdateCallbackParam): Record<stri
  */
 class BroadcastCacheUpdate {
   private readonly _headersToCheck: string[];
-  private readonly _generatePayload: (options: CacheDidUpdateCallbackParam) => Record<string, any>;
+  private readonly _generatePayload: (
+    options: CacheDidUpdateCallbackParam,
+  ) => Record<string, any>;
 
   /**
    * Construct a BroadcastCacheUpdate instance with a specific `channelName` to
@@ -110,24 +118,24 @@ class BroadcastCacheUpdate {
    * @return {Promise} Resolves once the update is sent.
    */
   async notifyIfUpdated(options: CacheDidUpdateCallbackParam): Promise<void> {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(options.cacheName, 'string', {
-        moduleName: 'workbox-broadcast-update',
-        className: 'BroadcastCacheUpdate',
-        funcName: 'notifyIfUpdated',
-        paramName: 'cacheName',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(options.cacheName, "string", {
+        moduleName: "workbox-broadcast-update",
+        className: "BroadcastCacheUpdate",
+        funcName: "notifyIfUpdated",
+        paramName: "cacheName",
       });
       assert!.isInstance(options.newResponse, Response, {
-        moduleName: 'workbox-broadcast-update',
-        className: 'BroadcastCacheUpdate',
-        funcName: 'notifyIfUpdated',
-        paramName: 'newResponse',
+        moduleName: "workbox-broadcast-update",
+        className: "BroadcastCacheUpdate",
+        funcName: "notifyIfUpdated",
+        paramName: "newResponse",
       });
       assert!.isInstance(options.request, Request, {
-        moduleName: 'workbox-broadcast-update',
-        className: 'BroadcastCacheUpdate',
-        funcName: 'notifyIfUpdated',
-        paramName: 'request',
+        moduleName: "workbox-broadcast-update",
+        className: "BroadcastCacheUpdate",
+        funcName: "notifyIfUpdated",
+        paramName: "request",
       });
     }
 
@@ -136,10 +144,18 @@ class BroadcastCacheUpdate {
       return;
     }
 
-    if (!responsesAreSame(options.oldResponse, options.newResponse, this._headersToCheck)) {
-      if (process.env.NODE_ENV !== 'production') {
+    if (
+      !responsesAreSame(
+        options.oldResponse,
+        options.newResponse,
+        this._headersToCheck,
+      )
+    ) {
+      if (process.env.NODE_ENV !== "production") {
         logger.log(
-            `Newer response found (and cached) for:`, options.request.url);
+          `Newer response found (and cached) for:`,
+          options.request.url,
+        );
       }
 
       const messageData = {
@@ -150,7 +166,7 @@ class BroadcastCacheUpdate {
 
       // For navigation requests, wait until the new window client exists
       // before sending the message
-      if (options.request.mode === 'navigate') {
+      if (options.request.mode === "navigate") {
         let resultingClientId: string | undefined;
         if (options.event instanceof FetchEvent) {
           resultingClientId = options.event.resultingClientId;
@@ -172,7 +188,7 @@ class BroadcastCacheUpdate {
         }
       }
 
-      const windows = await self.clients.matchAll({type: 'window'});
+      const windows = await self.clients.matchAll({ type: "window" });
       for (const win of windows) {
         win.postMessage(messageData);
       }
@@ -180,4 +196,4 @@ class BroadcastCacheUpdate {
   }
 }
 
-export {BroadcastCacheUpdate};
+export { BroadcastCacheUpdate };

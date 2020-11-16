@@ -6,11 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
+import "../_version.js";
 
-
-type IDBObjectStoreMethods = 'get' | 'count' | 'getKey' | 'getAll' |
-    'getAllKeys' | 'add' | 'put' | 'clear' | 'delete';
+type IDBObjectStoreMethods =
+  | "get"
+  | "count"
+  | "getKey"
+  | "getAll"
+  | "getAllKeys"
+  | "add"
+  | "put"
+  | "clear"
+  | "delete";
 
 type Query = IDBValidKey | IDBKeyRange | null;
 
@@ -37,8 +44,8 @@ interface GetAllMatchingOptions {
 export class DBWrapper {
   private readonly _name: string;
   private readonly _version: number;
-  private readonly _onupgradeneeded?: DBWrapperOptions['onupgradeneeded'];
-  private readonly _onversionchange: DBWrapperOptions['onversionchange'];
+  private readonly _onupgradeneeded?: DBWrapperOptions["onupgradeneeded"];
+  private readonly _onversionchange: DBWrapperOptions["onversionchange"];
   private _db: IDBDatabase | null = null;
 
   // The following IDBObjectStore methods are shadowed on this class.
@@ -99,7 +106,7 @@ export class DBWrapper {
       let openRequestTimedOut = false;
       setTimeout(() => {
         openRequestTimedOut = true;
-        reject(new Error('The open request was blocked and timed out'));
+        reject(new Error("The open request was blocked and timed out"));
       }, this.OPEN_TIMEOUT);
 
       const openRequest = indexedDB.open(this._name, this._version);
@@ -108,7 +115,7 @@ export class DBWrapper {
         if (openRequestTimedOut) {
           openRequest.transaction!.abort();
           openRequest.result.close();
-        } else if (typeof this._onupgradeneeded === 'function') {
+        } else if (typeof this._onupgradeneeded === "function") {
           this._onupgradeneeded(evt);
         }
       };
@@ -150,9 +157,8 @@ export class DBWrapper {
    * @private
    */
   async getAll(storeName: string, query?: Query, count?: number) {
-    return await this.getAllMatching(storeName, {query, count});
+    return await this.getAllMatching(storeName, { query, count });
   }
-
 
   /**
    * Polyfills the native `getAllKeys()` method. Note, this is overridden at
@@ -166,7 +172,9 @@ export class DBWrapper {
    */
   async getAllKeys(storeName: string, query: Query, count: number) {
     const entries = await this.getAllMatching(
-        storeName, {query, count, includeKeys: true})
+      storeName,
+      { query, count, includeKeys: true },
+    );
 
     return entries.map((entry: IDBCursor) => entry.key);
   }
@@ -191,11 +199,11 @@ export class DBWrapper {
   async getAllMatching(storeName: string, {
     index,
     query = null, // IE/Edge errors if query === `undefined`.
-    direction = 'next',
+    direction = "next",
     count,
     includeKeys = false,
   }: GetAllMatchingOptions = {}): Promise<Array<IDBCursor | any>> {
-    return await this.transaction([storeName], 'readonly', (txn, done) => {
+    return await this.transaction([storeName], "readonly", (txn, done) => {
       const store = txn.objectStore(storeName);
       const target = index ? store.index(index) : store;
       const results: any[] = [];
@@ -302,24 +310,26 @@ export class DBWrapper {
 // per-instance or global basis.
 DBWrapper.prototype.OPEN_TIMEOUT = 2000;
 
-
 // Wrap native IDBObjectStore methods according to their mode.
 const methodsToWrap = {
-  readonly: ['get', 'count', 'getKey', 'getAll', 'getAllKeys'],
-  readwrite: ['add', 'put', 'clear', 'delete'],
+  readonly: ["get", "count", "getKey", "getAll", "getAllKeys"],
+  readwrite: ["add", "put", "clear", "delete"],
 };
 for (const [mode, methods] of Object.entries(methodsToWrap)) {
   for (const method of methods) {
     if (method in IDBObjectStore.prototype) {
       // Don't use arrow functions here since we're outside of the class.
-      DBWrapper.prototype[method as IDBObjectStoreMethods] =
-          async function(storeName: string, ...args: any[]) {
-            return await this._call(
-                method as IDBObjectStoreMethods,
-                storeName,
-                mode as IDBTransactionMode,
-                ...args);
-          };
+      DBWrapper.prototype[method as IDBObjectStoreMethods] = async function (
+        storeName: string,
+        ...args: any[]
+      ) {
+        return await this._call(
+          method as IDBObjectStoreMethods,
+          storeName,
+          mode as IDBTransactionMode,
+          ...args,
+        );
+      };
     }
   }
 }

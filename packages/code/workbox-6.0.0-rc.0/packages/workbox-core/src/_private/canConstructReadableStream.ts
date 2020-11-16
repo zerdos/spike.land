@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 let supportStatus: boolean | undefined;
 
@@ -25,7 +24,7 @@ function canConstructReadableStream(): boolean {
   if (supportStatus === undefined) {
     // See https://github.com/GoogleChrome/workbox/issues/1473
     try {
-      new ReadableStream({start() {}});
+      new ReadableStream({ start() {} });
       supportStatus = true;
     } catch (error) {
       supportStatus = false;
@@ -35,4 +34,4 @@ function canConstructReadableStream(): boolean {
   return supportStatus;
 }
 
-export {canConstructReadableStream};
+export { canConstructReadableStream };

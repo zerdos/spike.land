@@ -6,24 +6,31 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {MapLikeObject} from 'workbox-core/types.js';
-import '../_version.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { MapLikeObject } from "workbox-core/types.js";
+import "../_version.js";
 
-
-type SerializableProperties = 'method' | 'referrer' | 'referrerPolicy' | 'mode'
-    | 'credentials' | 'cache' | 'redirect' | 'integrity' | 'keepalive';
+type SerializableProperties =
+  | "method"
+  | "referrer"
+  | "referrerPolicy"
+  | "mode"
+  | "credentials"
+  | "cache"
+  | "redirect"
+  | "integrity"
+  | "keepalive";
 
 const serializableProperties: SerializableProperties[] = [
-  'method',
-  'referrer',
-  'referrerPolicy',
-  'mode',
-  'credentials',
-  'cache',
-  'redirect',
-  'integrity',
-  'keepalive',
+  "method",
+  "referrer",
+  "referrerPolicy",
+  "mode",
+  "credentials",
+  "cache",
+  "redirect",
+  "integrity",
+  "keepalive",
 ];
 
 export interface RequestData extends MapLikeObject {
@@ -57,7 +64,7 @@ class StorableRequest {
     };
 
     // Set the body if present.
-    if (request.method !== 'GET') {
+    if (request.method !== "GET") {
       // Use ArrayBuffer to support non-text request bodies.
       // NOTE: we can't use Blobs becuse Safari doesn't support storing
       // Blobs in IndexedDB in some cases:
@@ -90,25 +97,25 @@ class StorableRequest {
    * @private
    */
   constructor(requestData: RequestData) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(requestData, 'object', {
-        moduleName: 'workbox-background-sync',
-        className: 'StorableRequest',
-        funcName: 'constructor',
-        paramName: 'requestData',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(requestData, "object", {
+        moduleName: "workbox-background-sync",
+        className: "StorableRequest",
+        funcName: "constructor",
+        paramName: "requestData",
       });
-      assert!.isType(requestData.url, 'string', {
-        moduleName: 'workbox-background-sync',
-        className: 'StorableRequest',
-        funcName: 'constructor',
-        paramName: 'requestData.url',
+      assert!.isType(requestData.url, "string", {
+        moduleName: "workbox-background-sync",
+        className: "StorableRequest",
+        funcName: "constructor",
+        paramName: "requestData.url",
       });
     }
 
     // If the request's mode is `navigate`, convert it to `same-origin` since
     // navigation requests can't be constructed via script.
-    if (requestData['mode'] === 'navigate') {
-      requestData['mode'] = 'same-origin';
+    if (requestData["mode"] === "navigate") {
+      requestData["mode"] = "same-origin";
     }
 
     this._requestData = requestData;
@@ -154,4 +161,4 @@ class StorableRequest {
   }
 }
 
-export {StorableRequest};
+export { StorableRequest };

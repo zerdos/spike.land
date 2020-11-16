@@ -6,14 +6,16 @@
   https://opensource.org/licenses/MIT.
 */
 
-const errors = require('./errors');
-const escapeRegExp = require('./escape-regexp');
+const errors = require("./errors");
+const escapeRegExp = require("./escape-regexp");
 
 module.exports = (modifyURLPrefix) => {
-  if (!modifyURLPrefix ||
-      typeof modifyURLPrefix !== 'object' ||
-      Array.isArray(modifyURLPrefix)) {
-    throw new Error(errors['modify-url-prefix-bad-prefixes']);
+  if (
+    !modifyURLPrefix ||
+    typeof modifyURLPrefix !== "object" ||
+    Array.isArray(modifyURLPrefix)
+  ) {
+    throw new Error(errors["modify-url-prefix-bad-prefixes"]);
   }
 
   // If there are no entries in modifyURLPrefix, just return an identity
@@ -23,23 +25,23 @@ module.exports = (modifyURLPrefix) => {
   }
 
   Object.keys(modifyURLPrefix).forEach((key) => {
-    if (typeof modifyURLPrefix[key] !== 'string') {
-      throw new Error(errors['modify-url-prefix-bad-prefixes']);
+    if (typeof modifyURLPrefix[key] !== "string") {
+      throw new Error(errors["modify-url-prefix-bad-prefixes"]);
     }
   });
 
   // Escape the user input so it's safe to use in a regex.
   const safeModifyURLPrefixes = Object.keys(modifyURLPrefix).map(escapeRegExp);
   // Join all the `modifyURLPrefix` keys so a single regex can be used.
-  const prefixMatchesStrings = safeModifyURLPrefixes.join('|');
+  const prefixMatchesStrings = safeModifyURLPrefixes.join("|");
   // Add `^` to the front the prefix matches so it only matches the start of
   // a string.
   const modifyRegex = new RegExp(`^(${prefixMatchesStrings})`);
 
   return (originalManifest) => {
     const manifest = originalManifest.map((entry) => {
-      if (typeof entry.url !== 'string') {
-        throw new Error(errors['manifest-entry-bad-url']);
+      if (typeof entry.url !== "string") {
+        throw new Error(errors["manifest-entry-bad-url"]);
       }
 
       entry.url = entry.url.replace(modifyRegex, (match) => {
@@ -49,6 +51,6 @@ module.exports = (modifyURLPrefix) => {
       return entry;
     });
 
-    return {manifest};
+    return { manifest };
   };
 };

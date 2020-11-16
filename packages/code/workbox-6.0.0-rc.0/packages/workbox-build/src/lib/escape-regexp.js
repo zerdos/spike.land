@@ -7,4 +7,4 @@
 */
 
 // From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
-module.exports = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+module.exports = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

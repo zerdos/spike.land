@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from 'workbox-core/_private/logger.js';
-import '../_version.js';
-
+import { logger } from "workbox-core/_private/logger.js";
+import "../_version.js";
 
 /**
  * @param {string} groupTitle
@@ -37,17 +36,21 @@ function _nestedGroup(groupTitle: string, urls: string[]) {
  * @private
  * @memberof module:workbox-precaching
  */
-export function printInstallDetails(urlsToPrecache: string[], urlsAlreadyPrecached: string[]) {
+export function printInstallDetails(
+  urlsToPrecache: string[],
+  urlsAlreadyPrecached: string[],
+) {
   const precachedCount = urlsToPrecache.length;
   const alreadyPrecachedCount = urlsAlreadyPrecached.length;
 
   if (precachedCount || alreadyPrecachedCount) {
-    let message =
-        `Precaching ${precachedCount} file${precachedCount === 1 ? '' : 's'}.`;
+    let message = `Precaching ${precachedCount} file${
+      precachedCount === 1 ? "" : "s"
+    }.`;
 
     if (alreadyPrecachedCount > 0) {
       message += ` ${alreadyPrecachedCount} ` +
-        `file${alreadyPrecachedCount === 1 ? ' is' : 's are'} already cached.`;
+        `file${alreadyPrecachedCount === 1 ? " is" : "s are"} already cached.`;
     }
 
     logger.groupCollapsed(message);

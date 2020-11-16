@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from 'workbox-core/_private/logger.js';
-import {getFriendlyURL} from 'workbox-core/_private/getFriendlyURL.js';
-import '../_version.js';
-
+import { logger } from "workbox-core/_private/logger.js";
+import { getFriendlyURL } from "workbox-core/_private/getFriendlyURL.js";
+import "../_version.js";
 
 export const messages = {
   strategyStart: (strategyName: string, request: Request) =>
@@ -17,7 +16,7 @@ export const messages = {
   printFinalResponse: (response?: Response) => {
     if (response) {
       logger.groupCollapsed(`View the final response here.`);
-      logger.log(response || '[No response returned]');
+      logger.log(response || "[No response returned]");
       logger.groupEnd();
     }
   },

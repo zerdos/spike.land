@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin} from '../types.js';
-import '../_version.js';
-
+import { WorkboxPlugin } from "../types.js";
+import "../_version.js";
 
 export const pluginUtils = {
   filter: (plugins: WorkboxPlugin[], callbackName: string) => {

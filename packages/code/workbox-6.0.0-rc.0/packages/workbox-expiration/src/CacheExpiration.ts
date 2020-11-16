@@ -6,15 +6,14 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {dontWaitFor} from 'workbox-core/_private/dontWaitFor.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { dontWaitFor } from "workbox-core/_private/dontWaitFor.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
 
-import {CacheTimestampsModel} from './models/CacheTimestampsModel.js';
+import { CacheTimestampsModel } from "./models/CacheTimestampsModel.js";
 
-import './_version.js';
-
+import "./_version.js";
 
 interface CacheExpirationConfig {
   maxEntries?: number;
@@ -52,37 +51,37 @@ class CacheExpiration {
    * that will be used when calling `delete()` on the cache.
    */
   constructor(cacheName: string, config: CacheExpirationConfig = {}) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(cacheName, 'string', {
-        moduleName: 'workbox-expiration',
-        className: 'CacheExpiration',
-        funcName: 'constructor',
-        paramName: 'cacheName',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(cacheName, "string", {
+        moduleName: "workbox-expiration",
+        className: "CacheExpiration",
+        funcName: "constructor",
+        paramName: "cacheName",
       });
 
       if (!(config.maxEntries || config.maxAgeSeconds)) {
-        throw new WorkboxError('max-entries-or-age-required', {
-          moduleName: 'workbox-expiration',
-          className: 'CacheExpiration',
-          funcName: 'constructor',
+        throw new WorkboxError("max-entries-or-age-required", {
+          moduleName: "workbox-expiration",
+          className: "CacheExpiration",
+          funcName: "constructor",
         });
       }
 
       if (config.maxEntries) {
-        assert!.isType(config.maxEntries, 'number', {
-          moduleName: 'workbox-expiration',
-          className: 'CacheExpiration',
-          funcName: 'constructor',
-          paramName: 'config.maxEntries',
+        assert!.isType(config.maxEntries, "number", {
+          moduleName: "workbox-expiration",
+          className: "CacheExpiration",
+          funcName: "constructor",
+          paramName: "config.maxEntries",
         });
       }
 
       if (config.maxAgeSeconds) {
-        assert!.isType(config.maxAgeSeconds, 'number', {
-          moduleName: 'workbox-expiration',
-          className: 'CacheExpiration',
-          funcName: 'constructor',
-          paramName: 'config.maxAgeSeconds',
+        assert!.isType(config.maxAgeSeconds, "number", {
+          moduleName: "workbox-expiration",
+          className: "CacheExpiration",
+          funcName: "constructor",
+          paramName: "config.maxAgeSeconds",
         });
       }
     }
@@ -104,11 +103,14 @@ class CacheExpiration {
     }
     this._isRunning = true;
 
-    const minTimestamp = this._maxAgeSeconds ?
-        Date.now() - (this._maxAgeSeconds * 1000) : 0;
+    const minTimestamp = this._maxAgeSeconds
+      ? Date.now() - (this._maxAgeSeconds * 1000)
+      : 0;
 
     const urlsExpired = await this._timestampModel.expireEntries(
-        minTimestamp, this._maxEntries);
+      minTimestamp,
+      this._maxEntries,
+    );
 
     // Delete URLs from the cache
     const cache = await self.caches.open(this._cacheName);
@@ -116,15 +118,17 @@ class CacheExpiration {
       await cache.delete(url, this._matchOptions);
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (urlsExpired.length > 0) {
         logger.groupCollapsed(
-            `Expired ${urlsExpired.length} ` +
-          `${urlsExpired.length === 1 ? 'entry' : 'entries'} and removed ` +
-          `${urlsExpired.length === 1 ? 'it' : 'them'} from the ` +
-          `'${this._cacheName}' cache.`);
-        logger.log(`Expired the following ${urlsExpired.length === 1 ?
-            'URL' : 'URLs'}:`);
+          `Expired ${urlsExpired.length} ` +
+            `${urlsExpired.length === 1 ? "entry" : "entries"} and removed ` +
+            `${urlsExpired.length === 1 ? "it" : "them"} from the ` +
+            `'${this._cacheName}' cache.`,
+        );
+        logger.log(
+          `Expired the following ${urlsExpired.length === 1 ? "URL" : "URLs"}:`,
+        );
         urlsExpired.forEach((url) => logger.log(`    ${url}`));
         logger.groupEnd();
       } else {
@@ -147,12 +151,12 @@ class CacheExpiration {
    * @param {string} url
    */
   async updateTimestamp(url: string) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(url, 'string', {
-        moduleName: 'workbox-expiration',
-        className: 'CacheExpiration',
-        funcName: 'updateTimestamp',
-        paramName: 'url',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(url, "string", {
+        moduleName: "workbox-expiration",
+        className: "CacheExpiration",
+        funcName: "updateTimestamp",
+        paramName: "url",
       });
     }
 
@@ -172,10 +176,10 @@ class CacheExpiration {
    */
   async isURLExpired(url: string): Promise<boolean> {
     if (!this._maxAgeSeconds) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         throw new WorkboxError(`expired-test-without-max-age`, {
-          methodName: 'isURLExpired',
-          paramName: 'maxAgeSeconds',
+          methodName: "isURLExpired",
+          paramName: "maxAgeSeconds",
         });
       }
       return false;
@@ -198,4 +202,4 @@ class CacheExpiration {
   }
 }
 
-export {CacheExpiration};
+export { CacheExpiration };

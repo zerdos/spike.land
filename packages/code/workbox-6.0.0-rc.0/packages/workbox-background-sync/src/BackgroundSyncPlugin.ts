@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin} from 'workbox-core/types.js';
-import {Queue, QueueOptions} from './Queue.js';
-import './_version.js';
+import { WorkboxPlugin } from "workbox-core/types.js";
+import { Queue, QueueOptions } from "./Queue.js";
+import "./_version.js";
 
 /**
  * A class implementing the `fetchDidFail` lifecycle callback. This makes it
@@ -35,9 +35,9 @@ class BackgroundSyncPlugin implements WorkboxPlugin {
    * @param {Request} options.request
    * @private
    */
-  fetchDidFail: WorkboxPlugin['fetchDidFail'] = async ({request}) => {
-    await this._queue.pushRequest({request});
-  }
+  fetchDidFail: WorkboxPlugin["fetchDidFail"] = async ({ request }) => {
+    await this._queue.pushRequest({ request });
+  };
 }
 
-export {BackgroundSyncPlugin};
+export { BackgroundSyncPlugin };

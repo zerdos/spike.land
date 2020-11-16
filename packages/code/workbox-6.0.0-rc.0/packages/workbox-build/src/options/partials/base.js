@@ -6,18 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-const joi = require('@hapi/joi');
+const joi = require("@hapi/joi");
 
-const defaults = require('../defaults');
-const manifestEntryObject = require('../objects/manifest-entry');
-const regExpObject = require('../objects/reg-exp');
+const defaults = require("../defaults");
+const manifestEntryObject = require("../objects/manifest-entry");
+const regExpObject = require("../objects/reg-exp");
 
 module.exports = {
   additionalManifestEntries: joi.array()
-      .items(joi.string(), manifestEntryObject),
+    .items(joi.string(), manifestEntryObject),
   dontCacheBustURLsMatching: regExpObject,
   manifestTransforms: joi.array().items(joi.func().minArity(1).maxArity(2)),
   maximumFileSizeToCacheInBytes: joi.number().min(1)
-      .default(defaults.maximumFileSizeToCacheInBytes),
+    .default(defaults.maximumFileSizeToCacheInBytes),
   modifyURLPrefix: joi.object(),
 };

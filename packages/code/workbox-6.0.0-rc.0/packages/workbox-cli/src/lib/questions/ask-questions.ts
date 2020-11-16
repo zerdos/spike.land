@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {askConfigLocation} from './ask-config-location';
-import {askExtensionsToCache} from './ask-extensions-to-cache';
-import {askRootOfWebApp} from './ask-root-of-web-app';
-import {askSWDest} from './ask-sw-dest';
-import {askSWSrc} from './ask-sw-src';
+import { askConfigLocation } from "./ask-config-location";
+import { askExtensionsToCache } from "./ask-extensions-to-cache";
+import { askRootOfWebApp } from "./ask-root-of-web-app";
+import { askSWDest } from "./ask-sw-dest";
+import { askSWSrc } from "./ask-sw-src";
 
 export async function askQuestions(options = {}) {
   const globDirectory = await askRootOfWebApp();

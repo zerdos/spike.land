@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
 
-import {cacheOkAndOpaquePlugin} from './plugins/cacheOkAndOpaquePlugin.js';
-import {Strategy, StrategyOptions} from './Strategy.js';
-import {StrategyHandler} from './StrategyHandler.js';
-import {messages} from './utils/messages.js';
-import './_version.js';
-
+import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
+import { Strategy, StrategyOptions } from "./Strategy.js";
+import { StrategyHandler } from "./StrategyHandler.js";
+import { messages } from "./utils/messages.js";
+import "./_version.js";
 
 export interface NetworkFirstOptions extends StrategyOptions {
   networkTimeoutSeconds?: number;
@@ -63,18 +62,18 @@ class NetworkFirst extends Strategy {
 
     // If this instance contains no plugins with a 'cacheWillUpdate' callback,
     // prepend the `cacheOkAndOpaquePlugin` plugin to the plugins list.
-    if (!this.plugins.some((p) => 'cacheWillUpdate' in p)) {
+    if (!this.plugins.some((p) => "cacheWillUpdate" in p)) {
       this.plugins.unshift(cacheOkAndOpaquePlugin);
     }
 
     this._networkTimeoutSeconds = options.networkTimeoutSeconds || 0;
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (this._networkTimeoutSeconds) {
-        assert!.isType(this._networkTimeoutSeconds, 'number', {
-          moduleName: 'workbox-strategies',
+        assert!.isType(this._networkTimeoutSeconds, "number", {
+          moduleName: "workbox-strategies",
           className: this.constructor.name,
-          funcName: 'constructor',
-          paramName: 'networkTimeoutSeconds',
+          funcName: "constructor",
+          paramName: "networkTimeoutSeconds",
         });
       }
     }
@@ -90,12 +89,12 @@ class NetworkFirst extends Strategy {
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     const logs: any[] = [];
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-strategies',
+        moduleName: "workbox-strategies",
         className: this.constructor.name,
-        funcName: 'handle',
-        paramName: 'makeRequest',
+        funcName: "handle",
+        paramName: "makeRequest",
       });
     }
 
@@ -103,13 +102,16 @@ class NetworkFirst extends Strategy {
     let timeoutId: number | undefined;
 
     if (this._networkTimeoutSeconds) {
-      const {id, promise} = this._getTimeoutPromise({request, logs, handler});
+      const { id, promise } = this._getTimeoutPromise(
+        { request, logs, handler },
+      );
       timeoutId = id;
       promises.push(promise);
     }
 
-    const networkPromise =
-        this._getNetworkPromise({timeoutId, request, logs, handler});
+    const networkPromise = this._getNetworkPromise(
+      { timeoutId, request, logs, handler },
+    );
 
     promises.push(networkPromise);
     for (const promise of promises) {
@@ -127,9 +129,10 @@ class NetworkFirst extends Strategy {
       response = await networkPromise;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       logger.groupCollapsed(
-          messages.strategyStart(this.constructor.name, request));
+        messages.strategyStart(this.constructor.name, request),
+      );
       for (const log of logs) {
         logger.log(log);
       }
@@ -138,7 +141,7 @@ class NetworkFirst extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError('no-response', {url: request.url});
+      throw new WorkboxError("no-response", { url: request.url });
     }
     return response;
   }
@@ -152,25 +155,29 @@ class NetworkFirst extends Strategy {
    *
    * @private
    */
-  private _getTimeoutPromise({request, logs, handler}: {
+  private _getTimeoutPromise({ request, logs, handler }: {
     request: Request;
     logs: any[];
     handler: StrategyHandler;
-  }): {promise: Promise<Response | undefined>; id?: number} {
+  }): { promise: Promise<Response | undefined>; id?: number } {
     let timeoutId;
-    const timeoutPromise: Promise<Response | undefined> = new Promise((resolve) => {
-      const onNetworkTimeout = async () => {
-        if (process.env.NODE_ENV !== 'production') {
-          logs.push(`Timing out the network response at ` +
-            `${this._networkTimeoutSeconds} seconds.`);
-        }
-        resolve(await handler.cacheMatch(request));
-      };
-      timeoutId = setTimeout(
+    const timeoutPromise: Promise<Response | undefined> = new Promise(
+      (resolve) => {
+        const onNetworkTimeout = async () => {
+          if (process.env.NODE_ENV !== "production") {
+            logs.push(
+              `Timing out the network response at ` +
+                `${this._networkTimeoutSeconds} seconds.`,
+            );
+          }
+          resolve(await handler.cacheMatch(request));
+        };
+        timeoutId = setTimeout(
           onNetworkTimeout,
           this._networkTimeoutSeconds * 1000,
-      );
-    });
+        );
+      },
+    );
 
     return {
       promise: timeoutPromise,
@@ -188,12 +195,12 @@ class NetworkFirst extends Strategy {
    *
    * @private
    */
-  async _getNetworkPromise({timeoutId, request, logs, handler}: {
+  async _getNetworkPromise({ timeoutId, request, logs, handler }: {
     request: Request;
     logs: any[];
     timeoutId?: number;
     handler: StrategyHandler;
-  }): Promise<Response|undefined> {
+  }): Promise<Response | undefined> {
     let error;
     let response;
     try {
@@ -206,22 +213,26 @@ class NetworkFirst extends Strategy {
       clearTimeout(timeoutId);
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (response) {
         logs.push(`Got response from network.`);
       } else {
-        logs.push(`Unable to get a response from the network. Will respond ` +
-          `with a cached response.`);
+        logs.push(
+          `Unable to get a response from the network. Will respond ` +
+            `with a cached response.`,
+        );
       }
     }
 
     if (error || !response) {
       response = await handler.cacheMatch(request);
 
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         if (response) {
-          logs.push(`Found a cached response in the '${this.cacheName}'` +
-            ` cache.`);
+          logs.push(
+            `Found a cached response in the '${this.cacheName}'` +
+              ` cache.`,
+          );
         } else {
           logs.push(`No response found in the '${this.cacheName}' cache.`);
         }
@@ -232,4 +243,4 @@ class NetworkFirst extends Strategy {
   }
 }
 
-export {NetworkFirst};
+export { NetworkFirst };

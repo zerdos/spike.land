@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import * as assert from 'assert';
-import {prompt} from 'inquirer';
-import {oneLine as ol} from 'common-tags';
+import * as assert from "assert";
+import { prompt } from "inquirer";
+import { oneLine as ol } from "common-tags";
 
-import {constants} from '../constants';
-import {errors} from '../errors';
+import { constants } from "../constants";
+import { errors } from "../errors";
 
 // The key used for the question/answer.
-const name = 'configLocation';
+const name = "configLocation";
 
 /**
  * @return {Promise<Object>} The answers from inquirer.
@@ -23,7 +23,7 @@ function askQuestion() {
   return prompt([{
     name,
     message: ol`Where would you like to save these configuration options?`,
-    type: 'input',
+    type: "input",
     default: constants.defaultConfigFile,
   }]);
 }
@@ -32,7 +32,7 @@ export async function askConfigLocation() {
   const answers = await askQuestion();
   const configLocation: string = answers[name].trim();
 
-  assert(configLocation, errors['invalid-config-location']);
+  assert(configLocation, errors["invalid-config-location"]);
 
   return configLocation;
 }

@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {getFriendlyURL} from 'workbox-core/_private/getFriendlyURL.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import './_version.js';
-
+import { assert } from "workbox-core/_private/assert.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { getFriendlyURL } from "workbox-core/_private/getFriendlyURL.js";
+import { logger } from "workbox-core/_private/logger.js";
+import "./_version.js";
 
 export interface CacheableResponseOptions {
   statuses?: number[];
-  headers?: {[headerName: string]: string};
+  headers?: { [headerName: string]: string };
 }
 
 /**
@@ -27,8 +26,8 @@ export interface CacheableResponseOptions {
  * @memberof module:workbox-cacheable-response
  */
 class CacheableResponse {
-  private readonly _statuses?: CacheableResponseOptions['statuses'];
-  private readonly _headers?: CacheableResponseOptions['headers'];
+  private readonly _statuses?: CacheableResponseOptions["statuses"];
+  private readonly _headers?: CacheableResponseOptions["headers"];
 
   /**
    * To construct a new CacheableResponse instance you must provide at least
@@ -45,30 +44,30 @@ class CacheableResponse {
    * If multiple headers are provided, only one needs to be present.
    */
   constructor(config: CacheableResponseOptions = {}) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (!(config.statuses || config.headers)) {
-        throw new WorkboxError('statuses-or-headers-required', {
-          moduleName: 'workbox-cacheable-response',
-          className: 'CacheableResponse',
-          funcName: 'constructor',
+        throw new WorkboxError("statuses-or-headers-required", {
+          moduleName: "workbox-cacheable-response",
+          className: "CacheableResponse",
+          funcName: "constructor",
         });
       }
 
       if (config.statuses) {
         assert!.isArray(config.statuses, {
-          moduleName: 'workbox-cacheable-response',
-          className: 'CacheableResponse',
-          funcName: 'constructor',
-          paramName: 'config.statuses',
+          moduleName: "workbox-cacheable-response",
+          className: "CacheableResponse",
+          funcName: "constructor",
+          paramName: "config.statuses",
         });
       }
 
       if (config.headers) {
-        assert!.isType(config.headers, 'object', {
-          moduleName: 'workbox-cacheable-response',
-          className: 'CacheableResponse',
-          funcName: 'constructor',
-          paramName: 'config.headers',
+        assert!.isType(config.headers, "object", {
+          moduleName: "workbox-cacheable-response",
+          className: "CacheableResponse",
+          funcName: "constructor",
+          paramName: "config.headers",
         });
       }
     }
@@ -87,12 +86,12 @@ class CacheableResponse {
    * otherwise.
    */
   isResponseCacheable(response: Response): boolean {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(response, Response, {
-        moduleName: 'workbox-cacheable-response',
-        className: 'CacheableResponse',
-        funcName: 'isResponseCacheable',
-        paramName: 'response',
+        moduleName: "workbox-cacheable-response",
+        className: "CacheableResponse",
+        funcName: "isResponseCacheable",
+        paramName: "response",
       });
     }
 
@@ -108,28 +107,36 @@ class CacheableResponse {
       });
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (!cacheable) {
-        logger.groupCollapsed(`The request for ` +
-          `'${getFriendlyURL(response.url)}' returned a response that does ` +
-          `not meet the criteria for being cached.`);
+        logger.groupCollapsed(
+          `The request for ` +
+            `'${getFriendlyURL(response.url)}' returned a response that does ` +
+            `not meet the criteria for being cached.`,
+        );
 
         logger.groupCollapsed(`View cacheability criteria here.`);
-        logger.log(`Cacheable statuses: ` +
-          JSON.stringify(this._statuses));
-        logger.log(`Cacheable headers: ` +
-          JSON.stringify(this._headers, null, 2));
+        logger.log(
+          `Cacheable statuses: ` +
+            JSON.stringify(this._statuses),
+        );
+        logger.log(
+          `Cacheable headers: ` +
+            JSON.stringify(this._headers, null, 2),
+        );
         logger.groupEnd();
 
-        const logFriendlyHeaders: {[key: string]: string} = {};
+        const logFriendlyHeaders: { [key: string]: string } = {};
         response.headers.forEach((value, key) => {
           logFriendlyHeaders[key] = value;
         });
 
         logger.groupCollapsed(`View response status and headers here.`);
         logger.log(`Response status: ` + response.status);
-        logger.log(`Response headers: ` +
-          JSON.stringify(logFriendlyHeaders, null, 2));
+        logger.log(
+          `Response headers: ` +
+            JSON.stringify(logFriendlyHeaders, null, 2),
+        );
         logger.groupEnd();
 
         logger.groupCollapsed(`View full response details here.`);
@@ -145,4 +152,4 @@ class CacheableResponse {
   }
 }
 
-export {CacheableResponse};
+export { CacheableResponse };

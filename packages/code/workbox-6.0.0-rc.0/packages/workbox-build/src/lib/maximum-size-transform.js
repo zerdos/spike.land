@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-const prettyBytes = require('pretty-bytes');
+const prettyBytes = require("pretty-bytes");
 
 module.exports = (maximumFileSizeToCacheInBytes) => {
   return (originalManifest) => {
@@ -16,12 +16,14 @@ module.exports = (maximumFileSizeToCacheInBytes) => {
         return true;
       }
 
-      warnings.push(`${entry.url} is ${prettyBytes(entry.size)}, and won't ` +
-        `be precached. Configure maximumFileSizeToCacheInBytes to change ` +
-        `this limit.`);
+      warnings.push(
+        `${entry.url} is ${prettyBytes(entry.size)}, and won't ` +
+          `be precached. Configure maximumFileSizeToCacheInBytes to change ` +
+          `this limit.`,
+      );
       return false;
     });
 
-    return {manifest, warnings};
+    return { manifest, warnings };
   };
 };

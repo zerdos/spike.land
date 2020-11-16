@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin} from 'workbox-core/types.js';
-import '../_version.js';
-
+import { WorkboxPlugin } from "workbox-core/types.js";
+import "../_version.js";
 
 export const cacheOkAndOpaquePlugin: WorkboxPlugin = {
   /**
@@ -21,7 +20,7 @@ export const cacheOkAndOpaquePlugin: WorkboxPlugin = {
    *
    * @private
    */
-  cacheWillUpdate: async ({response}) => {
+  cacheWillUpdate: async ({ response }) => {
     if (response.status === 200 || response.status === 0) {
       return response;
     }

@@ -6,20 +6,20 @@
   https://opensource.org/licenses/MIT.
 */
 
-const crypto = require('crypto');
+const crypto = require("crypto");
 
 module.exports = (compositeURL, dependencyDetails) => {
   let totalSize = 0;
-  let compositeHash = '';
+  let compositeHash = "";
 
   for (const fileDetails of dependencyDetails) {
     totalSize += fileDetails.size;
     compositeHash += fileDetails.hash;
   }
 
-  const md5 = crypto.createHash('md5');
+  const md5 = crypto.createHash("md5");
   md5.update(compositeHash);
-  const hashOfHashes = md5.digest('hex');
+  const hashOfHashes = md5.digest("hex");
 
   return {
     file: compositeURL,

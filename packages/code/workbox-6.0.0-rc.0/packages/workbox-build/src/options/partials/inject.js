@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-const joi = require('@hapi/joi');
+const joi = require("@hapi/joi");
 
-const defaults = require('../defaults');
+const defaults = require("../defaults");
 
 module.exports = {
   injectionPoint: joi.string().default(defaults.injectionPoint),

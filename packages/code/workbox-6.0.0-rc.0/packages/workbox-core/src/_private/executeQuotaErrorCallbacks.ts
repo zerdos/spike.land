@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from '../_private/logger.js';
-import {quotaErrorCallbacks} from '../models/quotaErrorCallbacks.js';
-import '../_version.js';
-
+import { logger } from "../_private/logger.js";
+import { quotaErrorCallbacks } from "../models/quotaErrorCallbacks.js";
+import "../_version.js";
 
 /**
  * Runs all of the callback functions, one at a time sequentially, in the order
@@ -19,21 +18,23 @@ import '../_version.js';
  * @private
  */
 async function executeQuotaErrorCallbacks() {
-  if (process.env.NODE_ENV !== 'production') {
-    logger.log(`About to run ${quotaErrorCallbacks.size} ` +
-        `callbacks to clean up caches.`);
+  if (process.env.NODE_ENV !== "production") {
+    logger.log(
+      `About to run ${quotaErrorCallbacks.size} ` +
+        `callbacks to clean up caches.`,
+    );
   }
 
   for (const callback of quotaErrorCallbacks) {
     await callback();
-    if (process.env.NODE_ENV !== 'production') {
-      logger.log(callback, 'is complete.');
+    if (process.env.NODE_ENV !== "production") {
+      logger.log(callback, "is complete.");
     }
   }
 
-  if (process.env.NODE_ENV !== 'production') {
-    logger.log('Finished running callbacks.');
+  if (process.env.NODE_ENV !== "production") {
+    logger.log("Finished running callbacks.");
   }
 }
 
-export {executeQuotaErrorCallbacks};
+export { executeQuotaErrorCallbacks };

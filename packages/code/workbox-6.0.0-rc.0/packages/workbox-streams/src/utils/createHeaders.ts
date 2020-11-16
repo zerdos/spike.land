@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
+import "../_version.js";
 
 /**
  * This is a utility method that determines whether the current browser supports
@@ -25,10 +25,10 @@ import '../_version.js';
 function createHeaders(headersInit = {}) {
   // See https://github.com/GoogleChrome/workbox/issues/1461
   const headers = new Headers(headersInit);
-  if (!headers.has('content-type')) {
-    headers.set('content-type', 'text/html');
+  if (!headers.has("content-type")) {
+    headers.set("content-type", "text/html");
   }
   return headers;
 }
 
-export {createHeaders};
+export { createHeaders };

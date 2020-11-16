@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
 
-import {cacheOkAndOpaquePlugin} from './plugins/cacheOkAndOpaquePlugin.js';
-import {Strategy, StrategyOptions} from './Strategy.js';
-import {StrategyHandler} from './StrategyHandler.js';
-import {messages} from './utils/messages.js';
-import './_version.js';
-
+import { cacheOkAndOpaquePlugin } from "./plugins/cacheOkAndOpaquePlugin.js";
+import { Strategy, StrategyOptions } from "./Strategy.js";
+import { StrategyHandler } from "./StrategyHandler.js";
+import { messages } from "./utils/messages.js";
+import "./_version.js";
 
 /**
  * An implementation of a
@@ -56,7 +55,7 @@ class StaleWhileRevalidate extends Strategy {
 
     // If this instance contains no plugins with a 'cacheWillUpdate' callback,
     // prepend the `cacheOkAndOpaquePlugin` plugin to the plugins list.
-    if (!this.plugins.some((p) => 'cacheWillUpdate' in p)) {
+    if (!this.plugins.some((p) => "cacheWillUpdate" in p)) {
       this.plugins.unshift(cacheOkAndOpaquePlugin);
     }
   }
@@ -71,34 +70,38 @@ class StaleWhileRevalidate extends Strategy {
   async _handle(request: Request, handler: StrategyHandler): Promise<Response> {
     const logs = [];
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-strategies',
+        moduleName: "workbox-strategies",
         className: this.constructor.name,
-        funcName: 'handle',
-        paramName: 'request',
+        funcName: "handle",
+        paramName: "request",
       });
     }
 
     const fetchAndCachePromise = handler
-        .fetchAndCachePut(request)
-        .catch(() => {
-          // Swallow this error because a 'no-response' error will be thrown in
-          // main handler return flow. This will be in the `waitUntil()` flow.
-        });
+      .fetchAndCachePut(request)
+      .catch(() => {
+        // Swallow this error because a 'no-response' error will be thrown in
+        // main handler return flow. This will be in the `waitUntil()` flow.
+      });
 
     let response = await handler.cacheMatch(request);
 
     let error;
     if (response) {
-      if (process.env.NODE_ENV !== 'production') {
-        logs.push(`Found a cached response in the '${this.cacheName}'` +
-          ` cache. Will update with the network response in the background.`);
+      if (process.env.NODE_ENV !== "production") {
+        logs.push(
+          `Found a cached response in the '${this.cacheName}'` +
+            ` cache. Will update with the network response in the background.`,
+        );
       }
     } else {
-      if (process.env.NODE_ENV !== 'production') {
-        logs.push(`No response found in the '${this.cacheName}' cache. ` +
-          `Will wait for the network response.`);
+      if (process.env.NODE_ENV !== "production") {
+        logs.push(
+          `No response found in the '${this.cacheName}' cache. ` +
+            `Will wait for the network response.`,
+        );
       }
       try {
         // NOTE(philipwalton): Really annoying that we have to type cast here.
@@ -109,9 +112,10 @@ class StaleWhileRevalidate extends Strategy {
       }
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       logger.groupCollapsed(
-          messages.strategyStart(this.constructor.name, request));
+        messages.strategyStart(this.constructor.name, request),
+      );
       for (const log of logs) {
         logger.log(log);
       }
@@ -120,10 +124,10 @@ class StaleWhileRevalidate extends Strategy {
     }
 
     if (!response) {
-      throw new WorkboxError('no-response', {url: request.url, error});
+      throw new WorkboxError("no-response", { url: request.url, error });
     }
     return response;
   }
 }
 
-export {StaleWhileRevalidate};
+export { StaleWhileRevalidate };

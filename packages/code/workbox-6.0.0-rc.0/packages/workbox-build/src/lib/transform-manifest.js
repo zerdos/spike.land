@@ -6,13 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-const errors = require('./errors');
-const additionalManifestEntriesTransform =
-  require('./additional-manifest-entries-transform');
-const maximumSizeTransform = require('./maximum-size-transform');
-const modifyURLPrefixTransform = require('./modify-url-prefix-transform');
-const noRevisionForURLsMatchingTransform =
-  require('./no-revision-for-urls-matching-transform');
+const errors = require("./errors");
+const additionalManifestEntriesTransform = require(
+  "./additional-manifest-entries-transform",
+);
+const maximumSizeTransform = require("./maximum-size-transform");
+const modifyURLPrefixTransform = require("./modify-url-prefix-transform");
+const noRevisionForURLsMatchingTransform = require(
+  "./no-revision-for-urls-matching-transform",
+);
 
 /**
  * A `ManifestTransform` function can be used to modify the modify the `url` or
@@ -81,7 +83,7 @@ module.exports = async ({
   // {url, revision, size} objects, with \ replaced with /.
   const normalizedManifest = fileDetails.map((fileDetails) => {
     return {
-      url: fileDetails.file.replace(/\\/g, '/'),
+      url: fileDetails.file.replace(/\\/g, "/"),
       revision: fileDetails.hash,
       size: fileDetails.size,
     };
@@ -99,7 +101,8 @@ module.exports = async ({
 
   if (dontCacheBustURLsMatching) {
     transformsToApply.push(
-        noRevisionForURLsMatchingTransform(dontCacheBustURLsMatching));
+      noRevisionForURLsMatchingTransform(dontCacheBustURLsMatching),
+    );
   }
 
   // Run any manifestTransforms functions second-to-last.
@@ -110,14 +113,15 @@ module.exports = async ({
   // Run additionalManifestEntriesTransform last.
   if (additionalManifestEntries) {
     transformsToApply.push(
-        additionalManifestEntriesTransform(additionalManifestEntries));
+      additionalManifestEntriesTransform(additionalManifestEntries),
+    );
   }
 
   let transformedManifest = normalizedManifest;
   for (const transform of transformsToApply) {
     const result = await transform(transformedManifest, transformParam);
-    if (!('manifest' in result)) {
-      throw new Error(errors['bad-manifest-transforms-return-value']);
+    if (!("manifest" in result)) {
+      throw new Error(errors["bad-manifest-transforms-return-value"]);
     }
 
     transformedManifest = result.manifest;

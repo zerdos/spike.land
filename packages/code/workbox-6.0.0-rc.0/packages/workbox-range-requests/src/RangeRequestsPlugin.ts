@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxPlugin} from 'workbox-core/types.js';
-import {createPartialResponse} from './createPartialResponse.js';
-import './_version.js';
-
+import { WorkboxPlugin } from "workbox-core/types.js";
+import { createPartialResponse } from "./createPartialResponse.js";
+import "./_version.js";
 
 /**
  * The range request plugin makes it easy for a request with a 'Range' header to
@@ -32,18 +31,19 @@ class RangeRequestsPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cachedResponseWillBeUsed: WorkboxPlugin['cachedResponseWillBeUsed'] =
-      async ({request, cachedResponse}) => {
+  cachedResponseWillBeUsed: WorkboxPlugin["cachedResponseWillBeUsed"] = async (
+    { request, cachedResponse },
+  ) => {
     // Only return a sliced response if there's something valid in the cache,
     // and there's a Range: header in the request.
-    if (cachedResponse && request.headers.has('range')) {
+    if (cachedResponse && request.headers.has("range")) {
       return await createPartialResponse(request, cachedResponse);
     }
 
     // If there was no Range: header, or if cachedResponse wasn't valid, just
     // pass it through as-is.
     return cachedResponse;
-  }
+  };
 }
 
-export {RangeRequestsPlugin};
+export { RangeRequestsPlugin };

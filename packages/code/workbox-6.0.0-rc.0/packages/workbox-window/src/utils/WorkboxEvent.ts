@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxEventTarget} from './WorkboxEventTarget.js';
-import '../_version.js';
-
+import { WorkboxEventTarget } from "./WorkboxEventTarget.js";
+import "../_version.js";
 
 /**
  * A minimal `Event` subclass shim.
@@ -22,17 +21,21 @@ export class WorkboxEvent<K extends keyof WorkboxEventMap> {
   originalEvent?: Event;
   isExternal?: boolean;
 
-  constructor(public type: K, props: Omit<WorkboxEventMap[K], 'target' | 'type'>) {
+  constructor(
+    public type: K,
+    props: Omit<WorkboxEventMap[K], "target" | "type">,
+  ) {
     Object.assign(this, props);
   }
 }
 
-export interface WorkboxMessageEvent extends WorkboxEvent<'message'> {
+export interface WorkboxMessageEvent extends WorkboxEvent<"message"> {
   originalEvent: Event;
   data: any;
 }
 
-export interface WorkboxLifecycleEvent extends WorkboxEvent<keyof WorkboxLifecycleEventMap> {
+export interface WorkboxLifecycleEvent
+  extends WorkboxEvent<keyof WorkboxLifecycleEventMap> {
   isUpdate?: boolean;
 }
 
@@ -41,15 +44,15 @@ export interface WorkboxLifecycleWaitingEvent extends WorkboxLifecycleEvent {
 }
 
 export interface WorkboxLifecycleEventMap {
-  'installing': WorkboxLifecycleEvent;
-  'installed': WorkboxLifecycleEvent;
-  'waiting': WorkboxLifecycleWaitingEvent;
-  'activating': WorkboxLifecycleEvent;
-  'activated': WorkboxLifecycleEvent;
-  'controlling': WorkboxLifecycleEvent;
-  'redundant': WorkboxLifecycleEvent;
+  "installing": WorkboxLifecycleEvent;
+  "installed": WorkboxLifecycleEvent;
+  "waiting": WorkboxLifecycleWaitingEvent;
+  "activating": WorkboxLifecycleEvent;
+  "activated": WorkboxLifecycleEvent;
+  "controlling": WorkboxLifecycleEvent;
+  "redundant": WorkboxLifecycleEvent;
 }
 
 export interface WorkboxEventMap extends WorkboxLifecycleEventMap {
-  'message': WorkboxMessageEvent;
+  "message": WorkboxMessageEvent;
 }

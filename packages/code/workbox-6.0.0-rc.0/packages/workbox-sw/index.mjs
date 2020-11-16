@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxSW} from './controllers/WorkboxSW.mjs';
-import './_version.mjs';
+import { WorkboxSW } from "./controllers/WorkboxSW.mjs";
+import "./_version.mjs";
 
 /**
  * @namespace workbox

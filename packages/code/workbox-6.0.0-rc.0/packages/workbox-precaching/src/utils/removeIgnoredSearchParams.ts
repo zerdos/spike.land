@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
+import "../_version.js";
 
 /**
  * Removes any URL search parameters that should be ignored.
@@ -21,7 +21,9 @@ import '../_version.js';
  * @memberof module:workbox-precaching
  */
 export function removeIgnoredSearchParams(
-    urlObject: URL, ignoreURLParametersMatching: RegExp[] = []): URL {
+  urlObject: URL,
+  ignoreURLParametersMatching: RegExp[] = [],
+): URL {
   // Convert the iterable into an array at the start of the loop to make sure
   // deletion doesn't mess up iteration.
   for (const paramName of [...urlObject.searchParams.keys()]) {

@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from 'workbox-core/_private/logger.js';
-import {isSupported} from './isSupported.js';
-import './_version.js';
-
+import { logger } from "workbox-core/_private/logger.js";
+import { isSupported } from "./isSupported.js";
+import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -26,25 +25,25 @@ declare let self: ServiceWorkerGlobalScope;
  */
 function enable(headerValue?: string) {
   if (isSupported()) {
-    self.addEventListener('activate', (event: ExtendableEvent) => {
+    self.addEventListener("activate", (event: ExtendableEvent) => {
       event.waitUntil(
-          self.registration.navigationPreload.enable().then(() => {
+        self.registration.navigationPreload.enable().then(() => {
           // Defaults to Service-Worker-Navigation-Preload: true if not set.
-            if (headerValue) {
-              self.registration.navigationPreload.setHeaderValue(headerValue);
-            }
+          if (headerValue) {
+            self.registration.navigationPreload.setHeaderValue(headerValue);
+          }
 
-            if (process.env.NODE_ENV !== 'production') {
-              logger.log(`Navigation preload is enabled.`);
-            }
-          })
+          if (process.env.NODE_ENV !== "production") {
+            logger.log(`Navigation preload is enabled.`);
+          }
+        }),
       );
     });
   } else {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       logger.log(`Navigation preload is not supported in this browser.`);
     }
   }
 }
 
-export {enable};
+export { enable };

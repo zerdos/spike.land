@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-const template = require('lodash/template');
-const swTemplate = require('../templates/sw-template');
+const template = require("lodash/template");
+const swTemplate = require("../templates/sw-template");
 
-const errors = require('./errors');
-const ModuleRegistry = require('./module-registry');
-const runtimeCachingConverter = require('./runtime-caching-converter');
-const stringifyWithoutComments = require('./stringify-without-comments');
+const errors = require("./errors");
+const ModuleRegistry = require("./module-registry");
+const runtimeCachingConverter = require("./runtime-caching-converter");
+const stringifyWithoutComments = require("./stringify-without-comments");
 
 module.exports = ({
   cacheId,
@@ -33,7 +33,7 @@ module.exports = ({
 }) => {
   // There needs to be at least something to precache, or else runtime caching.
   if (!(manifestEntries.length > 0 || runtimeCaching.length > 0)) {
-    throw new Error(errors['no-manifest-entries-or-runtime-caching']);
+    throw new Error(errors["no-manifest-entries-or-runtime-caching"]);
   }
 
   // These are all options that can be passed to the precacheAndRoute() method.
@@ -41,17 +41,15 @@ module.exports = ({
     directoryIndex,
     // An array of RegExp objects can't be serialized by JSON.stringify()'s
     // default behavior, so if it's given, convert it manually.
-    ignoreURLParametersMatching: ignoreURLParametersMatching ?
-      [] :
-      undefined,
+    ignoreURLParametersMatching: ignoreURLParametersMatching ? [] : undefined,
   };
 
   let precacheOptionsString = JSON.stringify(precacheOptions, null, 2);
   if (ignoreURLParametersMatching) {
     precacheOptionsString = precacheOptionsString.replace(
-        `"ignoreURLParametersMatching": []`,
-        `"ignoreURLParametersMatching": [` +
-      `${ignoreURLParametersMatching.join(', ')}]`,
+      `"ignoreURLParametersMatching": []`,
+      `"ignoreURLParametersMatching": [` +
+        `${ignoreURLParametersMatching.join(", ")}]`,
     );
   }
 
@@ -59,12 +57,12 @@ module.exports = ({
   if (offlineGoogleAnalytics) {
     // If offlineGoogleAnalytics is a truthy value, we need to convert it to the
     // format expected by the template.
-    offlineAnalyticsConfigString = offlineGoogleAnalytics === true ?
-      // If it's the literal value true, then use an empty config string.
-      '{}' :
-      // Otherwise, convert the config object into a more complex string, taking
+    offlineAnalyticsConfigString = offlineGoogleAnalytics === true
+      ? // If it's the literal value true, then use an empty config string.
+        "{}"
+      : // Otherwise, convert the config object into a more complex string, taking
       // into account the fact that functions might need to be stringified.
-      stringifyWithoutComments(offlineGoogleAnalytics);
+        stringifyWithoutComments(offlineGoogleAnalytics);
   }
 
   const moduleRegistry = new ModuleRegistry();
@@ -92,9 +90,10 @@ module.exports = ({
 
     // We need the import statements for all of the Workbox runtime modules
     // prepended, so that the correct bundle can be created.
-    return workboxImportStatements.join('\n') + populatedTemplate;
+    return workboxImportStatements.join("\n") + populatedTemplate;
   } catch (error) {
     throw new Error(
-        `${errors['populating-sw-tmpl-failed']} '${error.message}'`);
+      `${errors["populating-sw-tmpl-failed"]} '${error.message}'`,
+    );
   }
 };

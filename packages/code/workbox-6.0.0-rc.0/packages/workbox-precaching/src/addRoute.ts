@@ -1,4 +1,3 @@
-
 /*
   Copyright 2019 Google LLC
   Use of this source code is governed by an MIT-style
@@ -6,14 +5,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {registerRoute} from 'workbox-routing/registerRoute.js';
+import { registerRoute } from "workbox-routing/registerRoute.js";
 
-import {getOrCreatePrecacheController} from './utils/getOrCreatePrecacheController.js';
-import {PrecacheRoute} from './PrecacheRoute.js';
-import {PrecacheRouteOptions} from './_types.js';
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import { PrecacheRoute } from "./PrecacheRoute.js";
+import { PrecacheRouteOptions } from "./_types.js";
 
-import './_version.js';
-
+import "./_version.js";
 
 /**
  * Add a `fetch` listener to the service worker that will
@@ -37,4 +35,4 @@ function addRoute(options?: PrecacheRouteOptions) {
   registerRoute(precacheRoute);
 }
 
-export {addRoute}
+export { addRoute };

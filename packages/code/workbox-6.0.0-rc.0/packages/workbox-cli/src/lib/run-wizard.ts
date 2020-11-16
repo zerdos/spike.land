@@ -6,28 +6,30 @@
   https://opensource.org/licenses/MIT.
 */
 
-import * as fse from 'fs-extra';
-import {oneLine as ol} from 'common-tags';
+import * as fse from "fs-extra";
+import { oneLine as ol } from "common-tags";
 
-import {askQuestions} from './questions/ask-questions';
-import {logger} from './logger.js';
+import { askQuestions } from "./questions/ask-questions";
+import { logger } from "./logger.js";
 
 export async function runWizard(options = {}) {
-  const {configLocation, config} = await askQuestions(options);
+  const { configLocation, config } = await askQuestions(options);
 
   const contents = `module.exports = ${JSON.stringify(config, null, 2)};`;
   await fse.writeFile(configLocation, contents);
 
-  const command = ("injectManifest" in options) ? 'injectManifest' : 'generateSW';
+  const command = ("injectManifest" in options)
+    ? "injectManifest"
+    : "generateSW";
   logger.log(`To build your service worker, run
 
   workbox ${command} ${configLocation}
 
 as part of a build process. See https://goo.gl/fdTQBf for details.`);
 
-  const configDocsURL = ("injectManifest" in options) ?
-    'https://goo.gl/8bs14N' :
-    'https://goo.gl/gVo87N';
+  const configDocsURL = ("injectManifest" in options)
+    ? "https://goo.gl/8bs14N"
+    : "https://goo.gl/gVo87N";
 
   logger.log(ol`You can further customize your service worker by making changes
     to ${configLocation}. See ${configDocsURL} for details.`);

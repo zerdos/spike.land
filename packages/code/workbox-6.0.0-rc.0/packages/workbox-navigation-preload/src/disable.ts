@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from 'workbox-core/_private/logger.js';
-import {isSupported} from './isSupported.js';
-import './_version.js';
-
+import { logger } from "workbox-core/_private/logger.js";
+import { isSupported } from "./isSupported.js";
+import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -21,20 +20,20 @@ declare let self: ServiceWorkerGlobalScope;
  */
 function disable() {
   if (isSupported()) {
-    self.addEventListener('activate', (event: ExtendableEvent) => {
+    self.addEventListener("activate", (event: ExtendableEvent) => {
       event.waitUntil(
-          self.registration.navigationPreload.disable().then(() => {
-            if (process.env.NODE_ENV !== 'production') {
-              logger.log(`Navigation preload is disabled.`);
-            }
-          })
+        self.registration.navigationPreload.disable().then(() => {
+          if (process.env.NODE_ENV !== "production") {
+            logger.log(`Navigation preload is disabled.`);
+          }
+        }),
       );
     });
   } else {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       logger.log(`Navigation preload is not supported in this browser.`);
     }
   }
 }
 
-export {disable};
+export { disable };

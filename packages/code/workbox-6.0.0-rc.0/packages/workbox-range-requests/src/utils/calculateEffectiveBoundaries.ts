@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {assert} from 'workbox-core/_private/assert.js';
-import '../_version.js';
-
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { assert } from "workbox-core/_private/assert.js";
+import "../_version.js";
 
 /**
  * @param {Blob} blob A source blob.
@@ -22,19 +21,22 @@ import '../_version.js';
  * @private
  */
 function calculateEffectiveBoundaries(
-    blob: Blob, start?: number, end?: number): {start: number; end: number} {
-  if (process.env.NODE_ENV !== 'production') {
+  blob: Blob,
+  start?: number,
+  end?: number,
+): { start: number; end: number } {
+  if (process.env.NODE_ENV !== "production") {
     assert!.isInstance(blob, Blob, {
-      moduleName: 'workbox-range-requests',
-      funcName: 'calculateEffectiveBoundaries',
-      paramName: 'blob',
+      moduleName: "workbox-range-requests",
+      funcName: "calculateEffectiveBoundaries",
+      paramName: "blob",
     });
   }
 
   const blobSize = blob.size;
 
   if ((end && end > blobSize) || (start && start < 0)) {
-    throw new WorkboxError('range-not-satisfiable', {
+    throw new WorkboxError("range-not-satisfiable", {
       size: blobSize,
       end,
       start,
@@ -62,4 +64,4 @@ function calculateEffectiveBoundaries(
   };
 }
 
-export {calculateEffectiveBoundaries};
+export { calculateEffectiveBoundaries };

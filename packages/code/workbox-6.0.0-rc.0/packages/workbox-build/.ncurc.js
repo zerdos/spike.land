@@ -14,6 +14,6 @@ module.exports = {
   reject: [
     // joi v16 is the last release to support Node v10:
     // https://github.com/sideway/joi/issues/2262
-    '@hapi/joi',
+    "@hapi/joi",
   ],
 };

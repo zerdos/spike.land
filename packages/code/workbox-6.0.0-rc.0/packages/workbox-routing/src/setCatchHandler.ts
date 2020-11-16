@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {RouteHandler} from 'workbox-core/types.js';
+import { RouteHandler } from "workbox-core/types.js";
 
-import {getOrCreateDefaultRouter} from './utils/getOrCreateDefaultRouter.js';
+import { getOrCreateDefaultRouter } from "./utils/getOrCreateDefaultRouter.js";
 
-import './_version.js';
+import "./_version.js";
 
 /**
  * If a Route throws an error while handling a request, this `handler`
@@ -26,4 +26,4 @@ function setCatchHandler(handler: RouteHandler) {
   defaultRouter.setCatchHandler(handler);
 }
 
-export {setCatchHandler};
+export { setCatchHandler };

@@ -6,18 +6,18 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {cacheNames} from 'workbox-core/_private/cacheNames.js';
-import {dontWaitFor} from 'workbox-core/_private/dontWaitFor.js';
-import {getFriendlyURL} from 'workbox-core/_private/getFriendlyURL.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {registerQuotaErrorCallback} from 'workbox-core/registerQuotaErrorCallback.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {WorkboxPlugin} from 'workbox-core/types.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { cacheNames } from "workbox-core/_private/cacheNames.js";
+import { dontWaitFor } from "workbox-core/_private/dontWaitFor.js";
+import { getFriendlyURL } from "workbox-core/_private/getFriendlyURL.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { registerQuotaErrorCallback } from "workbox-core/registerQuotaErrorCallback.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { WorkboxPlugin } from "workbox-core/types.js";
 
-import {CacheExpiration} from './CacheExpiration.js';
+import { CacheExpiration } from "./CacheExpiration.js";
 
-import './_version.js';
+import "./_version.js";
 
 /**
  * This plugin can be used in a `workbox-strategy` to regularly enforce a
@@ -64,30 +64,30 @@ class ExpirationPlugin implements WorkboxPlugin {
     matchOptions?: CacheQueryOptions;
     purgeOnQuotaError?: boolean;
   } = {}) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (!(config.maxEntries || config.maxAgeSeconds)) {
-        throw new WorkboxError('max-entries-or-age-required', {
-          moduleName: 'workbox-expiration',
-          className: 'Plugin',
-          funcName: 'constructor',
+        throw new WorkboxError("max-entries-or-age-required", {
+          moduleName: "workbox-expiration",
+          className: "Plugin",
+          funcName: "constructor",
         });
       }
 
       if (config.maxEntries) {
-        assert!.isType(config.maxEntries, 'number', {
-          moduleName: 'workbox-expiration',
-          className: 'Plugin',
-          funcName: 'constructor',
-          paramName: 'config.maxEntries',
+        assert!.isType(config.maxEntries, "number", {
+          moduleName: "workbox-expiration",
+          className: "Plugin",
+          funcName: "constructor",
+          paramName: "config.maxEntries",
         });
       }
 
       if (config.maxAgeSeconds) {
-        assert!.isType(config.maxAgeSeconds, 'number', {
-          moduleName: 'workbox-expiration',
-          className: 'Plugin',
-          funcName: 'constructor',
-          paramName: 'config.maxAgeSeconds',
+        assert!.isType(config.maxAgeSeconds, "number", {
+          moduleName: "workbox-expiration",
+          className: "Plugin",
+          funcName: "constructor",
+          paramName: "config.maxAgeSeconds",
         });
       }
     }
@@ -112,7 +112,7 @@ class ExpirationPlugin implements WorkboxPlugin {
    */
   private _getCacheExpiration(cacheName: string): CacheExpiration {
     if (cacheName === cacheNames.getRuntimeName()) {
-      throw new WorkboxError('expire-custom-caches-only');
+      throw new WorkboxError("expire-custom-caches-only");
     }
 
     let cacheExpiration = this._cacheExpirations.get(cacheName);
@@ -140,11 +140,11 @@ class ExpirationPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cachedResponseWillBeUsed: WorkboxPlugin['cachedResponseWillBeUsed'] = async ({
+  cachedResponseWillBeUsed: WorkboxPlugin["cachedResponseWillBeUsed"] = async ({
     event,
     request,
     cacheName,
-    cachedResponse
+    cachedResponse,
   }) => {
     if (!cachedResponse) {
       return null;
@@ -164,19 +164,21 @@ class ExpirationPlugin implements WorkboxPlugin {
       try {
         event.waitUntil(updateTimestampDone);
       } catch (error) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== "production") {
           // The event may not be a fetch event; only log the URL if it is.
-          if ('request' in event) {
-            logger.warn(`Unable to ensure service worker stays alive when ` +
-              `updating cache entry for ` +
-              `'${getFriendlyURL((event as FetchEvent).request.url)}'.`);
+          if ("request" in event) {
+            logger.warn(
+              `Unable to ensure service worker stays alive when ` +
+                `updating cache entry for ` +
+                `'${getFriendlyURL((event as FetchEvent).request.url)}'.`,
+            );
           }
         }
       }
     }
 
     return isFresh ? cachedResponse : null;
-  }
+  };
 
   /**
    * @param {Response} cachedResponse
@@ -215,11 +217,11 @@ class ExpirationPlugin implements WorkboxPlugin {
    * @private
    */
   private _getDateHeaderTimestamp(cachedResponse: Response): number | null {
-    if (!cachedResponse.headers.has('date')) {
+    if (!cachedResponse.headers.has("date")) {
       return null;
     }
 
-    const dateHeader = cachedResponse.headers.get('date');
+    const dateHeader = cachedResponse.headers.get("date");
     const parsedDate = new Date(dateHeader!);
     const headerTime = parsedDate.getTime();
 
@@ -242,30 +244,29 @@ class ExpirationPlugin implements WorkboxPlugin {
    *
    * @private
    */
-  cacheDidUpdate: WorkboxPlugin['cacheDidUpdate'] = async ({
+  cacheDidUpdate: WorkboxPlugin["cacheDidUpdate"] = async ({
     cacheName,
-    request
+    request,
   }) => {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(cacheName, 'string', {
-        moduleName: 'workbox-expiration',
-        className: 'Plugin',
-        funcName: 'cacheDidUpdate',
-        paramName: 'cacheName',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(cacheName, "string", {
+        moduleName: "workbox-expiration",
+        className: "Plugin",
+        funcName: "cacheDidUpdate",
+        paramName: "cacheName",
       });
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-expiration',
-        className: 'Plugin',
-        funcName: 'cacheDidUpdate',
-        paramName: 'request',
+        moduleName: "workbox-expiration",
+        className: "Plugin",
+        funcName: "cacheDidUpdate",
+        paramName: "request",
       });
     }
 
     const cacheExpiration = this._getCacheExpiration(cacheName);
     await cacheExpiration.updateTimestamp(request.url);
     await cacheExpiration.expireEntries();
-  }
-
+  };
 
   /**
    * This is a helper method that performs two operations:
@@ -296,4 +297,4 @@ class ExpirationPlugin implements WorkboxPlugin {
   }
 }
 
-export {ExpirationPlugin};
+export { ExpirationPlugin };

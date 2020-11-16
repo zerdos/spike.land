@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-const upath = require('upath');
+const upath = require("upath");
 
-const resolveWebpackURL = require('./resolve-webpack-url');
+const resolveWebpackURL = require("./resolve-webpack-url");
 
 module.exports = (compilation, chunkNames) => {
-  const {chunks} = compilation.getStats().toJson({chunks: true});
-  const {publicPath} = compilation.options.output;
+  const { chunks } = compilation.getStats().toJson({ chunks: true });
+  const { publicPath } = compilation.options.output;
   const scriptFiles = new Set();
 
   for (const chunkName of chunkNames) {
@@ -20,19 +20,23 @@ module.exports = (compilation, chunkNames) => {
     if (chunk) {
       for (const file of chunk.files) {
         // See https://github.com/GoogleChrome/workbox/issues/2161
-        if (upath.extname(file) === '.js') {
+        if (upath.extname(file) === ".js") {
           scriptFiles.add(resolveWebpackURL(publicPath, file));
         }
       }
     } else {
-      compilation.warnings.push(`${chunkName} was provided to ` +
-        `importScriptsViaChunks, but didn't match any named chunks.`);
+      compilation.warnings.push(
+        `${chunkName} was provided to ` +
+          `importScriptsViaChunks, but didn't match any named chunks.`,
+      );
     }
   }
 
   if (scriptFiles.size === 0) {
-    compilation.warnings.push(`There were no assets matching ` +
-        `importScriptsViaChunks: [${chunkNames}].`);
+    compilation.warnings.push(
+      `There were no assets matching ` +
+        `importScriptsViaChunks: [${chunkNames}].`,
+    );
   }
 
   return Array.from(scriptFiles);

@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from './_private/assert.js';
-import {cacheNames, PartialCacheNameDetails} from './_private/cacheNames.js';
-import {WorkboxError} from './_private/WorkboxError.js';
-import './_version.js';
-
+import { assert } from "./_private/assert.js";
+import { cacheNames, PartialCacheNameDetails } from "./_private/cacheNames.js";
+import { WorkboxError } from "./_private/WorkboxError.js";
+import "./_version.js";
 
 /**
  * Modifies the default cache names used by the Workbox packages.
@@ -30,33 +29,35 @@ import './_version.js';
  * @memberof module:workbox-core
  */
 function setCacheNameDetails(details: PartialCacheNameDetails) {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     Object.keys(details).forEach((key) => {
-      assert!.isType(details[key], 'string', {
-        moduleName: 'workbox-core',
-        funcName: 'setCacheNameDetails',
+      assert!.isType(details[key], "string", {
+        moduleName: "workbox-core",
+        funcName: "setCacheNameDetails",
         paramName: `details.${key}`,
       });
     });
 
-    if ('precache' in details && details['precache']!.length === 0) {
-      throw new WorkboxError('invalid-cache-name', {
-        cacheNameId: 'precache',
-        value: details['precache'],
+    if ("precache" in details && details["precache"]!.length === 0) {
+      throw new WorkboxError("invalid-cache-name", {
+        cacheNameId: "precache",
+        value: details["precache"],
       });
     }
 
-    if ('runtime' in details && details['runtime']!.length === 0) {
-      throw new WorkboxError('invalid-cache-name', {
-        cacheNameId: 'runtime',
-        value: details['runtime'],
+    if ("runtime" in details && details["runtime"]!.length === 0) {
+      throw new WorkboxError("invalid-cache-name", {
+        cacheNameId: "runtime",
+        value: details["runtime"],
       });
     }
 
-    if ('googleAnalytics' in details && details['googleAnalytics'].length === 0) {
-      throw new WorkboxError('invalid-cache-name', {
-        cacheNameId: 'googleAnalytics',
-        value: details['googleAnalytics'],
+    if (
+      "googleAnalytics" in details && details["googleAnalytics"].length === 0
+    ) {
+      throw new WorkboxError("invalid-cache-name", {
+        cacheNameId: "googleAnalytics",
+        value: details["googleAnalytics"],
       });
     }
   }
@@ -64,4 +65,4 @@ function setCacheNameDetails(details: PartialCacheNameDetails) {
   cacheNames.updateDetails(details);
 }
 
-export {setCacheNameDetails}
+export { setCacheNameDetails };

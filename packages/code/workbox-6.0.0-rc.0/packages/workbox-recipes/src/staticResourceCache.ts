@@ -5,12 +5,15 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import {registerRoute} from 'workbox-routing/registerRoute.js';
-import {StaleWhileRevalidate} from 'workbox-strategies/StaleWhileRevalidate.js';
-import {CacheableResponsePlugin} from 'workbox-cacheable-response/CacheableResponsePlugin.js';
-import {RouteMatchCallback, RouteMatchCallbackOptions} from 'workbox-core/types.js';
+import { registerRoute } from "workbox-routing/registerRoute.js";
+import { StaleWhileRevalidate } from "workbox-strategies/StaleWhileRevalidate.js";
+import { CacheableResponsePlugin } from "workbox-cacheable-response/CacheableResponsePlugin.js";
+import {
+  RouteMatchCallback,
+  RouteMatchCallbackOptions,
+} from "workbox-core/types.js";
 
-import './_version.js';
+import "./_version.js";
 
 export interface StaticResourceOptions {
   cacheName?: string;
@@ -26,9 +29,11 @@ export interface StaticResourceOptions {
  * @param {string} [options.cacheName] Name for cache. Defaults to static-resources
  */
 function staticResourceCache(options: StaticResourceOptions = {}) {
-  const defaultMatchCallback = ({request}: RouteMatchCallbackOptions) => request.destination === 'style' || request.destination === 'script' || request.destination === 'worker';
+  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>
+    request.destination === "style" || request.destination === "script" ||
+    request.destination === "worker";
 
-  const cacheName = options.cacheName || 'static-resources';
+  const cacheName = options.cacheName || "static-resources";
   const matchCallback = options.matchCallback || defaultMatchCallback;
 
   registerRoute(
@@ -40,8 +45,8 @@ function staticResourceCache(options: StaticResourceOptions = {}) {
           statuses: [0, 200],
         }),
       ],
-    })
+    }),
   );
 }
 
-export { staticResourceCache }
+export { staticResourceCache };

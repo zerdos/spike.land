@@ -5,11 +5,14 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import {setCatchHandler} from 'workbox-routing/setCatchHandler.js';
-import {matchPrecache} from 'workbox-precaching/matchPrecache.js';
-import {RouteHandler, RouteHandlerCallbackOptions} from 'workbox-core/types.js';
+import { setCatchHandler } from "workbox-routing/setCatchHandler.js";
+import { matchPrecache } from "workbox-precaching/matchPrecache.js";
+import {
+  RouteHandler,
+  RouteHandlerCallbackOptions,
+} from "workbox-core/types.js";
 
-import './_version.js';
+import "./_version.js";
 
 export interface OfflineFallbackOptions {
   pageFallback?: string;
@@ -28,12 +31,12 @@ export interface OfflineFallbackOptions {
  * @param {string} [options.fontFallback] Precache name to match for font fallbacks.
  */
 function offlineFallback(options: OfflineFallbackOptions = {}) {
-  const pageFallback = options.pageFallback || 'offline.html';
+  const pageFallback = options.pageFallback || "offline.html";
   const imageFallback = options.imageFallback || false;
   const fontFallback = options.fontFallback || false;
 
   const handler: RouteHandler = async (
-    options: RouteHandlerCallbackOptions
+    options: RouteHandlerCallbackOptions,
   ) => {
     const dest = options.request.destination;
 
@@ -55,4 +58,4 @@ function offlineFallback(options: OfflineFallbackOptions = {}) {
   setCatchHandler(handler);
 }
 
-export { offlineFallback }
+export { offlineFallback };

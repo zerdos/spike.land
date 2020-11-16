@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from './_private/logger.js';
+import { logger } from "./_private/logger.js";
 
-import './_version.js';
+import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -23,13 +23,15 @@ declare let self: ServiceWorkerGlobalScope;
 function skipWaiting() {
   // Just call self.skipWaiting() directly.
   // See https://github.com/GoogleChrome/workbox/issues/2525
-  if (process.env.NODE_ENV !== 'production') {
-    logger.warn(`skipWaiting() from workbox-core is no longer recommended ` +
+  if (process.env.NODE_ENV !== "production") {
+    logger.warn(
+      `skipWaiting() from workbox-core is no longer recommended ` +
         `and will be removed in Workbox v7. Using self.skipWaiting() instead ` +
-        `is equivalent.`);
+        `is equivalent.`,
+    );
   }
 
   self.skipWaiting();
 }
 
-export {skipWaiting}
+export { skipWaiting };

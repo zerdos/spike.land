@@ -6,15 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-const joi = require('@hapi/joi');
+const joi = require("@hapi/joi");
 
-const defaults = require('../defaults');
-const regExpObject = require('../objects/reg-exp');
+const defaults = require("../defaults");
+const regExpObject = require("../objects/reg-exp");
 
 module.exports = {
   chunks: joi.array().items(joi.string()),
   exclude: joi.array().items(joi.string(), regExpObject, joi.func().arity(1))
-      .default(defaults.exclude),
+    .default(defaults.exclude),
   excludeChunks: joi.array().items(joi.string()),
   include: joi.array().items(joi.string(), regExpObject, joi.func().arity(1)),
   mode: joi.string().default(process.env.NODE_ENV || defaults.mode),

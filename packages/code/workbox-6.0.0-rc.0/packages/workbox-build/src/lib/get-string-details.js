@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-const getStringHash = require('./get-string-hash');
+const getStringHash = require("./get-string-hash");
 
 module.exports = (url, string) => {
   return {

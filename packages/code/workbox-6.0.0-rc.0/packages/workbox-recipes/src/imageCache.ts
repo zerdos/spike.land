@@ -5,13 +5,16 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import {registerRoute} from 'workbox-routing/registerRoute.js';
-import {CacheFirst} from 'workbox-strategies/CacheFirst.js';
-import {CacheableResponsePlugin} from 'workbox-cacheable-response/CacheableResponsePlugin.js';
-import {ExpirationPlugin} from 'workbox-expiration/ExpirationPlugin.js';
-import {RouteMatchCallback, RouteMatchCallbackOptions} from 'workbox-core/types.js';
+import { registerRoute } from "workbox-routing/registerRoute.js";
+import { CacheFirst } from "workbox-strategies/CacheFirst.js";
+import { CacheableResponsePlugin } from "workbox-cacheable-response/CacheableResponsePlugin.js";
+import { ExpirationPlugin } from "workbox-expiration/ExpirationPlugin.js";
+import {
+  RouteMatchCallback,
+  RouteMatchCallbackOptions,
+} from "workbox-core/types.js";
 
-import './_version.js';
+import "./_version.js";
 
 export interface ImageCacheOptions {
   cacheName?: string;
@@ -31,9 +34,10 @@ export interface ImageCacheOptions {
  * @param {number} [options.maxEntries] Maximum number of images that will be cached. Defaults to 60
  */
 function imageCache(options: ImageCacheOptions = {}) {
-  const defaultMatchCallback = ({request}: RouteMatchCallbackOptions) => request.destination === 'image';
+  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>
+    request.destination === "image";
 
-  const cacheName = options.cacheName || 'images';
+  const cacheName = options.cacheName || "images";
   const matchCallback = options.matchCallback || defaultMatchCallback;
   const maxAgeSeconds = options.maxAgeSeconds || 30 * 24 * 60 * 60;
   const maxEntries = options.maxEntries || 60;
@@ -48,11 +52,11 @@ function imageCache(options: ImageCacheOptions = {}) {
         }),
         new ExpirationPlugin({
           maxEntries,
-          maxAgeSeconds
+          maxAgeSeconds,
         }),
       ],
-    })
+    }),
   );
 }
 
-export { imageCache }
+export { imageCache };

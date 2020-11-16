@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-const upath = require('upath');
+const upath = require("upath");
 
 /**
  * @param {Object} compilation The webpack compilation.

@@ -6,12 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-const fse = require('fs-extra');
-const upath = require('upath');
+const fse = require("fs-extra");
+const upath = require("upath");
 
-const bundle = require('./bundle');
-const errors = require('./errors');
-const populateSWTemplate = require('./populate-sw-template');
+const bundle = require("./bundle");
+const errors = require("./errors");
+const populateSWTemplate = require("./populate-sw-template");
 
 module.exports = async ({
   babelPresetEnvTargets,
@@ -39,8 +39,10 @@ module.exports = async ({
   try {
     await fse.mkdirp(outputDir);
   } catch (error) {
-    throw new Error(`${errors['unable-to-make-sw-directory']}. ` +
-      `'${error.message}'`);
+    throw new Error(
+      `${errors["unable-to-make-sw-directory"]}. ` +
+        `'${error.message}'`,
+    );
   }
 
   const unbundledCode = populateSWTemplate({
@@ -81,10 +83,10 @@ module.exports = async ({
 
     return filePaths;
   } catch (error) {
-    if (error.code === 'EISDIR') {
+    if (error.code === "EISDIR") {
       // See https://github.com/GoogleChrome/workbox/issues/612
-      throw new Error(errors['sw-write-failure-directory']);
+      throw new Error(errors["sw-write-failure-directory"]);
     }
-    throw new Error(`${errors['sw-write-failure']} '${error.message}'`);
+    throw new Error(`${errors["sw-write-failure"]} '${error.message}'`);
   }
 };

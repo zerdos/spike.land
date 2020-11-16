@@ -6,32 +6,31 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {BackgroundSyncPlugin} from 'workbox-background-sync/BackgroundSyncPlugin.js';
-import {Queue} from 'workbox-background-sync/Queue.js';
-import {cacheNames} from 'workbox-core/_private/cacheNames.js';
-import {getFriendlyURL} from 'workbox-core/_private/getFriendlyURL.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {RouteMatchCallbackOptions} from 'workbox-core/types.js';
-import {Route} from 'workbox-routing/Route.js';
-import {Router} from 'workbox-routing/Router.js';
-import {NetworkFirst} from 'workbox-strategies/NetworkFirst.js';
-import {NetworkOnly} from 'workbox-strategies/NetworkOnly.js';
+import { BackgroundSyncPlugin } from "workbox-background-sync/BackgroundSyncPlugin.js";
+import { Queue } from "workbox-background-sync/Queue.js";
+import { cacheNames } from "workbox-core/_private/cacheNames.js";
+import { getFriendlyURL } from "workbox-core/_private/getFriendlyURL.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { RouteMatchCallbackOptions } from "workbox-core/types.js";
+import { Route } from "workbox-routing/Route.js";
+import { Router } from "workbox-routing/Router.js";
+import { NetworkFirst } from "workbox-strategies/NetworkFirst.js";
+import { NetworkOnly } from "workbox-strategies/NetworkOnly.js";
 import {
-  QUEUE_NAME,
-  MAX_RETENTION_TIME,
-  GOOGLE_ANALYTICS_HOST,
-  GTM_HOST,
   ANALYTICS_JS_PATH,
-  GTAG_JS_PATH,
-  GTM_JS_PATH,
   COLLECT_PATHS_REGEX,
-} from './utils/constants.js';
-import './_version.js';
-
+  GOOGLE_ANALYTICS_HOST,
+  GTAG_JS_PATH,
+  GTM_HOST,
+  GTM_JS_PATH,
+  MAX_RETENTION_TIME,
+  QUEUE_NAME,
+} from "./utils/constants.js";
+import "./_version.js";
 
 interface GoogleAnalyticsInitializeOptions {
   cacheName?: string;
-  parameterOverrides?: {[paramName: string]: string};
+  parameterOverrides?: { [paramName: string]: string };
   hitFilter?: (params: URLSearchParams) => void;
 }
 
@@ -47,26 +46,26 @@ interface GoogleAnalyticsInitializeOptions {
  * @private
  */
 const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
-  return async ({queue}: {queue: Queue}) => {
+  return async ({ queue }: { queue: Queue }) => {
     let entry;
     while (entry = await queue.shiftRequest()) {
-      const {request, timestamp} = entry;
+      const { request, timestamp } = entry;
       const url = new URL(request.url);
 
       try {
         // Measurement protocol requests can set their payload parameters in
         // either the URL query string (for GET requests) or the POST body.
-        const params = request.method === 'POST' ?
-            new URLSearchParams(await request.clone().text()) :
-            url.searchParams;
+        const params = request.method === "POST"
+          ? new URLSearchParams(await request.clone().text())
+          : url.searchParams;
 
         // Calculate the qt param, accounting for the fact that an existing
         // qt param may be present and should be updated rather than replaced.
-        const originalHitTime = timestamp! - (Number(params.get('qt')) || 0);
+        const originalHitTime = timestamp! - (Number(params.get("qt")) || 0);
         const queueTime = Date.now() - originalHitTime;
 
         // Set the qt param prior to applying hitFilter or parameterOverrides.
-        params.set('qt', String(queueTime));
+        params.set("qt", String(queueTime));
 
         // Apply `parameterOverrides`, if set.
         if (config.parameterOverrides) {
@@ -77,38 +76,45 @@ const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
         }
 
         // Apply `hitFilter`, if set.
-        if (typeof config.hitFilter === 'function') {
+        if (typeof config.hitFilter === "function") {
           config.hitFilter.call(null, params);
         }
 
         // Retry the fetch. Ignore URL search params from the URL as they're
         // now in the post body.
-        await fetch(new Request(url.origin + url.pathname, {
-          body: params.toString(),
-          method: 'POST',
-          mode: 'cors',
-          credentials: 'omit',
-          headers: {'Content-Type': 'text/plain'},
-        }));
+        await fetch(
+          new Request(url.origin + url.pathname, {
+            body: params.toString(),
+            method: "POST",
+            mode: "cors",
+            credentials: "omit",
+            headers: { "Content-Type": "text/plain" },
+          }),
+        );
 
-
-        if (process.env.NODE_ENV !== 'production') {
-          logger.log(`Request for '${getFriendlyURL(url.href)}' ` +
-             `has been replayed`);
+        if (process.env.NODE_ENV !== "production") {
+          logger.log(
+            `Request for '${getFriendlyURL(url.href)}' ` +
+              `has been replayed`,
+          );
         }
       } catch (err) {
         await queue.unshiftRequest(entry);
 
-        if (process.env.NODE_ENV !== 'production') {
-          logger.log(`Request for '${getFriendlyURL(url.href)}' ` +
-             `failed to replay, putting it back in the queue.`);
+        if (process.env.NODE_ENV !== "production") {
+          logger.log(
+            `Request for '${getFriendlyURL(url.href)}' ` +
+              `failed to replay, putting it back in the queue.`,
+          );
         }
         throw err;
       }
     }
-    if (process.env.NODE_ENV !== 'production') {
-      logger.log(`All Google Analytics request successfully replayed; ` +
-          `the queue is now empty!`);
+    if (process.env.NODE_ENV !== "production") {
+      logger.log(
+        `All Google Analytics request successfully replayed; ` +
+          `the queue is now empty!`,
+      );
     }
   };
 };
@@ -122,17 +128,17 @@ const createOnSyncCallback = (config: GoogleAnalyticsInitializeOptions) => {
  * @private
  */
 const createCollectRoutes = (bgSyncPlugin: BackgroundSyncPlugin) => {
-  const match = ({url}: RouteMatchCallbackOptions) =>
-      url.hostname === GOOGLE_ANALYTICS_HOST &&
-      COLLECT_PATHS_REGEX.test(url.pathname);
+  const match = ({ url }: RouteMatchCallbackOptions) =>
+    url.hostname === GOOGLE_ANALYTICS_HOST &&
+    COLLECT_PATHS_REGEX.test(url.pathname);
 
   const handler = new NetworkOnly({
     plugins: [bgSyncPlugin],
   });
 
   return [
-    new Route(match, handler, 'GET'),
-    new Route(match, handler, 'POST'),
+    new Route(match, handler, "GET"),
+    new Route(match, handler, "POST"),
   ];
 };
 
@@ -145,13 +151,13 @@ const createCollectRoutes = (bgSyncPlugin: BackgroundSyncPlugin) => {
  * @private
  */
 const createAnalyticsJsRoute = (cacheName: string) => {
-  const match = ({url}: RouteMatchCallbackOptions) =>
-      url.hostname === GOOGLE_ANALYTICS_HOST &&
-      url.pathname === ANALYTICS_JS_PATH;
+  const match = ({ url }: RouteMatchCallbackOptions) =>
+    url.hostname === GOOGLE_ANALYTICS_HOST &&
+    url.pathname === ANALYTICS_JS_PATH;
 
-  const handler = new NetworkFirst({cacheName});
+  const handler = new NetworkFirst({ cacheName });
 
-  return new Route(match, handler, 'GET');
+  return new Route(match, handler, "GET");
 };
 
 /**
@@ -163,13 +169,13 @@ const createAnalyticsJsRoute = (cacheName: string) => {
  * @private
  */
 const createGtagJsRoute = (cacheName: string) => {
-  const match = ({url}: RouteMatchCallbackOptions) =>
-      url.hostname === GTM_HOST &&
-      url.pathname === GTAG_JS_PATH;
+  const match = ({ url }: RouteMatchCallbackOptions) =>
+    url.hostname === GTM_HOST &&
+    url.pathname === GTAG_JS_PATH;
 
-  const handler = new NetworkFirst({cacheName});
+  const handler = new NetworkFirst({ cacheName });
 
-  return new Route(match, handler, 'GET');
+  return new Route(match, handler, "GET");
 };
 
 /**
@@ -181,13 +187,13 @@ const createGtagJsRoute = (cacheName: string) => {
  * @private
  */
 const createGtmJsRoute = (cacheName: string) => {
-  const match = ({url}: RouteMatchCallbackOptions) =>
-      url.hostname === GTM_HOST &&
-      url.pathname === GTM_JS_PATH;
+  const match = ({ url }: RouteMatchCallbackOptions) =>
+    url.hostname === GTM_HOST &&
+    url.pathname === GTM_JS_PATH;
 
-  const handler = new NetworkFirst({cacheName});
+  const handler = new NetworkFirst({ cacheName });
 
-  return new Route(match, handler, 'GET');
+  return new Route(match, handler, "GET");
 };
 
 /**
@@ -229,6 +235,4 @@ const initialize = (options: GoogleAnalyticsInitializeOptions = {}) => {
   router.addFetchListener();
 };
 
-export {
-  initialize,
-};
+export { initialize };

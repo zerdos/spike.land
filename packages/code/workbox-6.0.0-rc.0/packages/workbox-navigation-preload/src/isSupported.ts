@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import './_version.js';
-
+import "./_version.js";
 
 // Give TypeScript the correct global.
 declare let self: ServiceWorkerGlobalScope;
@@ -22,4 +21,4 @@ function isSupported(): boolean {
   return Boolean(self.registration && self.registration.navigationPreload);
 }
 
-export {isSupported};
+export { isSupported };

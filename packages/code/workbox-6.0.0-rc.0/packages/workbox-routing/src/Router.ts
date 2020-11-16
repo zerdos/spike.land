@@ -6,21 +6,21 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {getFriendlyURL} from 'workbox-core/_private/getFriendlyURL.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { getFriendlyURL } from "workbox-core/_private/getFriendlyURL.js";
 import {
   RouteHandler,
-  RouteHandlerObject,
   RouteHandlerCallbackOptions,
+  RouteHandlerObject,
   RouteMatchCallbackOptions,
-} from 'workbox-core/types.js';
-import {HTTPMethod, defaultMethod} from './utils/constants.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {normalizeHandler} from './utils/normalizeHandler.js';
-import {Route} from './Route.js';
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
+} from "workbox-core/types.js";
+import { defaultMethod, HTTPMethod } from "./utils/constants.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { normalizeHandler } from "./utils/normalizeHandler.js";
+import { Route } from "./Route.js";
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
 
-import './_version.js';
+import "./_version.js";
 
 type RequestArgs = string | [string, RequestInit?];
 
@@ -76,13 +76,16 @@ class Router {
    */
   addFetchListener() {
     // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
-    self.addEventListener('fetch', ((event: FetchEvent) => {
-      const {request} = event;
-      const responsePromise = this.handleRequest({request, event});
-      if (responsePromise) {
-        event.respondWith(responsePromise);
-      }
-    }) as EventListener);
+    self.addEventListener(
+      "fetch",
+      ((event: FetchEvent) => {
+        const { request } = event;
+        const responsePromise = this.handleRequest({ request, event });
+        if (responsePromise) {
+          event.respondWith(responsePromise);
+        }
+      }) as EventListener,
+    );
   }
 
   /**
@@ -109,36 +112,40 @@ class Router {
    */
   addCacheListener() {
     // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
-    self.addEventListener('message', ((event: ExtendableMessageEvent) => {
-      if (event.data && event.data.type === 'CACHE_URLS') {
-        const {payload}: CacheURLsMessageData = event.data;
+    self.addEventListener(
+      "message",
+      ((event: ExtendableMessageEvent) => {
+        if (event.data && event.data.type === "CACHE_URLS") {
+          const { payload }: CacheURLsMessageData = event.data;
 
-        if (process.env.NODE_ENV !== 'production') {
-          logger.debug(`Caching URLs from the window`, payload.urlsToCache);
-        }
-
-        const requestPromises = Promise.all(payload.urlsToCache.map(
-            (entry: string | [string, RequestInit?]) => {
-          if (typeof entry === 'string') {
-            entry = [entry];
+          if (process.env.NODE_ENV !== "production") {
+            logger.debug(`Caching URLs from the window`, payload.urlsToCache);
           }
 
-          const request = new Request(...entry);
-          return this.handleRequest({request, event});
+          const requestPromises = Promise.all(payload.urlsToCache.map(
+            (entry: string | [string, RequestInit?]) => {
+              if (typeof entry === "string") {
+                entry = [entry];
+              }
 
-        // TODO(philipwalton): TypeScript errors without this typecast for
-        // some reason (probably a bug). The real type here should work but
-        // doesn't: `Array<Promise<Response> | undefined>`.
-        }) as any[]); // TypeScript
+              const request = new Request(...entry);
+              return this.handleRequest({ request, event });
 
-        event.waitUntil(requestPromises);
+              // TODO(philipwalton): TypeScript errors without this typecast for
+              // some reason (probably a bug). The real type here should work but
+              // doesn't: `Array<Promise<Response> | undefined>`.
+            },
+          ) as any[]); // TypeScript
 
-        // If a MessageChannel was used, reply to the message on success.
-        if (event.ports && event.ports[0]) {
-          requestPromises.then(() => event.ports[0].postMessage(true));
+          event.waitUntil(requestPromises);
+
+          // If a MessageChannel was used, reply to the message on success.
+          if (event.ports && event.ports[0]) {
+            requestPromises.then(() => event.ports[0].postMessage(true));
+          }
         }
-      }
-    }) as EventListener);
+      }) as EventListener,
+    );
   }
 
   /**
@@ -153,30 +160,31 @@ class Router {
    *     registered route can handle the request. If there is no matching
    *     route and there's no `defaultHandler`, `undefined` is returned.
    */
-  handleRequest({request, event}: {
+  handleRequest({ request, event }: {
     request: Request;
     event: ExtendableEvent;
   }): Promise<Response> | undefined {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isInstance(request, Request, {
-        moduleName: 'workbox-routing',
-        className: 'Router',
-        funcName: 'handleRequest',
-        paramName: 'options.request',
+        moduleName: "workbox-routing",
+        className: "Router",
+        funcName: "handleRequest",
+        paramName: "options.request",
       });
     }
 
     const url = new URL(request.url, location.href);
-    if (!url.protocol.startsWith('http')) {
-      if (process.env.NODE_ENV !== 'production') {
+    if (!url.protocol.startsWith("http")) {
+      if (process.env.NODE_ENV !== "production") {
         logger.debug(
-            `Workbox Router only supports URLs that start with 'http'.`);
+          `Workbox Router only supports URLs that start with 'http'.`,
+        );
       }
       return;
     }
 
     const sameOrigin = url.origin === location.origin;
-    const {params, route} = this.findMatchingRoute({
+    const { params, route } = this.findMatchingRoute({
       event,
       request,
       sameOrigin,
@@ -185,15 +193,17 @@ class Router {
     let handler = route && route.handler;
 
     const debugMessages = [];
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       if (handler) {
         debugMessages.push([
-          `Found a route to handle this request:`, route,
+          `Found a route to handle this request:`,
+          route,
         ]);
 
         if (params) {
           debugMessages.push([
-            `Passing the following params to the route's handler:`, params,
+            `Passing the following params to the route's handler:`,
+            params,
           ]);
         }
       }
@@ -203,15 +213,17 @@ class Router {
     // fall back to defaultHandler if that's defined.
     const method = request.method as HTTPMethod;
     if (!handler && this._defaultHandlerMap.has(method)) {
-      if (process.env.NODE_ENV !== 'production') {
-        debugMessages.push(`Failed to find a matching route. Falling ` +
-          `back to the default handler for ${method}.`);
+      if (process.env.NODE_ENV !== "production") {
+        debugMessages.push(
+          `Failed to find a matching route. Falling ` +
+            `back to the default handler for ${method}.`,
+        );
       }
       handler = this._defaultHandlerMap.get(method);
     }
 
     if (!handler) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== "production") {
         // No handler so Workbox will do nothing. If logs is set of debug
         // i.e. verbose, we should print out this information.
         logger.debug(`No route found for: ${getFriendlyURL(url)}`);
@@ -219,7 +231,7 @@ class Router {
       return;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
       // We have a handler, meaning Workbox is going to handle the route.
       // print the routing details to the console.
       logger.groupCollapsed(`Router is responding to: ${getFriendlyURL(url)}`);
@@ -239,23 +251,25 @@ class Router {
     // error. It should still callback to the catch handler.
     let responsePromise;
     try {
-      responsePromise = handler.handle({url, request, event, params});
+      responsePromise = handler.handle({ url, request, event, params });
     } catch (err) {
       responsePromise = Promise.reject(err);
     }
 
     if (responsePromise instanceof Promise && this._catchHandler) {
       responsePromise = responsePromise.catch((err) => {
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== "production") {
           // Still include URL here as it will be async from the console group
           // and may not make sense without the URL
-          logger.groupCollapsed(`Error thrown when responding to: ` +
-            ` ${getFriendlyURL(url)}. Falling back to Catch Handler.`);
+          logger.groupCollapsed(
+            `Error thrown when responding to: ` +
+              ` ${getFriendlyURL(url)}. Falling back to Catch Handler.`,
+          );
           logger.error(`Error thrown by:`, route);
           logger.error(err);
           logger.groupEnd();
         }
-        return this._catchHandler!.handle({url, request, event});
+        return this._catchHandler!.handle({ url, request, event });
       });
     }
 
@@ -276,21 +290,23 @@ class Router {
    *     otherwise.
    */
   findMatchingRoute(
-    {url, sameOrigin, request, event}: RouteMatchCallbackOptions):
-      {route?: Route; params?: RouteHandlerCallbackOptions['params']} {
+    { url, sameOrigin, request, event }: RouteMatchCallbackOptions,
+  ): { route?: Route; params?: RouteHandlerCallbackOptions["params"] } {
     const routes = this._routes.get(request.method as HTTPMethod) || [];
     for (const route of routes) {
       let params;
-      const matchResult = route.match({url, sameOrigin, request, event});
+      const matchResult = route.match({ url, sameOrigin, request, event });
       if (matchResult) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== "production") {
           // Warn developers that using an async matchCallback is almost always
-          // not the right thing to do. 
+          // not the right thing to do.
           if (matchResult instanceof Promise) {
-            logger.warn(`While routing ${getFriendlyURL(url)}, an async ` +
+            logger.warn(
+              `While routing ${getFriendlyURL(url)}, an async ` +
                 `matchCallback function was used. Please convert the ` +
                 `following route to use a synchronous matchCallback function:`,
-                route);
+              route,
+            );
           }
         }
 
@@ -299,11 +315,13 @@ class Router {
         if (Array.isArray(matchResult) && matchResult.length === 0) {
           // Instead of passing an empty array in as params, use undefined.
           params = undefined;
-        } else if ((matchResult.constructor === Object &&
-            Object.keys(matchResult).length === 0)) {
+        } else if (
+          (matchResult.constructor === Object &&
+            Object.keys(matchResult).length === 0)
+        ) {
           // Instead of passing an empty object in as params, use undefined.
           params = undefined;
-        } else if (typeof matchResult === 'boolean') {
+        } else if (typeof matchResult === "boolean") {
           // For the boolean value true (rather than just something truth-y),
           // don't set params.
           // See https://github.com/GoogleChrome/workbox/pull/2134#issuecomment-513924353
@@ -311,7 +329,7 @@ class Router {
         }
 
         // Return early if have a match.
-        return {route, params};
+        return { route, params };
       }
     }
     // If no match was found above, return and empty object.
@@ -353,40 +371,40 @@ class Router {
    * @param {module:workbox-routing.Route} route The route to register.
    */
   registerRoute(route: Route) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(route, 'object', {
-        moduleName: 'workbox-routing',
-        className: 'Router',
-        funcName: 'registerRoute',
-        paramName: 'route',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(route, "object", {
+        moduleName: "workbox-routing",
+        className: "Router",
+        funcName: "registerRoute",
+        paramName: "route",
       });
 
-      assert!.hasMethod(route, 'match', {
-        moduleName: 'workbox-routing',
-        className: 'Router',
-        funcName: 'registerRoute',
-        paramName: 'route',
+      assert!.hasMethod(route, "match", {
+        moduleName: "workbox-routing",
+        className: "Router",
+        funcName: "registerRoute",
+        paramName: "route",
       });
 
-      assert!.isType(route.handler, 'object', {
-        moduleName: 'workbox-routing',
-        className: 'Router',
-        funcName: 'registerRoute',
-        paramName: 'route',
+      assert!.isType(route.handler, "object", {
+        moduleName: "workbox-routing",
+        className: "Router",
+        funcName: "registerRoute",
+        paramName: "route",
       });
 
-      assert!.hasMethod(route.handler, 'handle', {
-        moduleName: 'workbox-routing',
-        className: 'Router',
-        funcName: 'registerRoute',
-        paramName: 'route.handler',
+      assert!.hasMethod(route.handler, "handle", {
+        moduleName: "workbox-routing",
+        className: "Router",
+        funcName: "registerRoute",
+        paramName: "route.handler",
       });
 
-      assert!.isType(route.method, 'string', {
-        moduleName: 'workbox-routing',
-        className: 'Router',
-        funcName: 'registerRoute',
-        paramName: 'route.method',
+      assert!.isType(route.method, "string", {
+        moduleName: "workbox-routing",
+        className: "Router",
+        funcName: "registerRoute",
+        paramName: "route.method",
       });
     }
 
@@ -407,9 +425,10 @@ class Router {
   unregisterRoute(route: Route) {
     if (!this._routes.has(route.method)) {
       throw new WorkboxError(
-          'unregister-route-but-not-found-with-method', {
-            method: route.method,
-          }
+        "unregister-route-but-not-found-with-method",
+        {
+          method: route.method,
+        },
       );
     }
 
@@ -417,9 +436,9 @@ class Router {
     if (routeIndex > -1) {
       this._routes.get(route.method)!.splice(routeIndex, 1);
     } else {
-      throw new WorkboxError('unregister-route-route-not-registered');
+      throw new WorkboxError("unregister-route-route-not-registered");
     }
   }
 }
 
-export {Router};
+export { Router };

@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {addRoute} from './addRoute.js';
-import {precache} from './precache.js';
-import {PrecacheRouteOptions, PrecacheEntry} from './_types.js';
-import './_version.js';
-
+import { addRoute } from "./addRoute.js";
+import { precache } from "./precache.js";
+import { PrecacheEntry, PrecacheRouteOptions } from "./_types.js";
+import "./_version.js";
 
 /**
  * This method will add entries to the precache list and add a route to
@@ -26,9 +25,12 @@ import './_version.js';
  *
  * @memberof module:workbox-precaching
  */
-function precacheAndRoute(entries: Array<PrecacheEntry|string>, options?: PrecacheRouteOptions) {
+function precacheAndRoute(
+  entries: Array<PrecacheEntry | string>,
+  options?: PrecacheRouteOptions,
+) {
   precache(entries);
   addRoute(options);
 }
 
-export {precacheAndRoute}
+export { precacheAndRoute };

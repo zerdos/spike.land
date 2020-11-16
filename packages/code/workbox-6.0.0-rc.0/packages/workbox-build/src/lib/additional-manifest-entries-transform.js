@@ -6,7 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-const errors = require('./errors');
+const errors = require("./errors");
 
 module.exports = (additionalManifestEntries) => {
   return (manifest) => {
@@ -16,7 +16,7 @@ module.exports = (additionalManifestEntries) => {
     for (const additionalEntry of additionalManifestEntries) {
       // Warn about either a string or an object that lacks a precache property.
       // (An object with a revision property set to null is okay.)
-      if (typeof additionalEntry === 'string') {
+      if (typeof additionalEntry === "string") {
         stringEntries.add(additionalEntry);
       } else if (additionalEntry && additionalEntry.revision === undefined) {
         stringEntries.add(additionalEntry.url);
@@ -26,12 +26,12 @@ module.exports = (additionalManifestEntries) => {
     }
 
     if (stringEntries.size > 0) {
-      let urls = '\n';
+      let urls = "\n";
       for (const stringEntry of stringEntries) {
         urls += `  - ${stringEntry}\n`;
       }
 
-      warnings.push(errors['string-entry-warning'] + urls);
+      warnings.push(errors["string-entry-warning"] + urls);
     }
 
     return {

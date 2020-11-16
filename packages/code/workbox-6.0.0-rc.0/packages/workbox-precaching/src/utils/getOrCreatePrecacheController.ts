@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {PrecacheController} from '../PrecacheController.js';
-import '../_version.js';
-
+import { PrecacheController } from "../PrecacheController.js";
+import "../_version.js";
 
 let precacheController: PrecacheController | undefined;
 

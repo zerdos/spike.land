@@ -1,4 +1,6 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js",
+);
 
 workbox.setConfig({
   debug: true,
@@ -8,24 +10,24 @@ workbox.setConfig({
 // workbox.core.setLogLevel(workbox.core.LOG_LEVELS.debug);
 
 // Set up a route to alter the demo-img
-const matchCb = ({url, event}) => {
-  return url.pathname === '/demo-img.png';
+const matchCb = ({ url, event }) => {
+  return url.pathname === "/demo-img.png";
 };
 
-const handlerCb = ({url, event, params}) => {
-  return fetch('/demo-popper.png');
+const handlerCb = ({ url, event, params }) => {
+  return fetch("/demo-popper.png");
 };
 
 // First parameter can be a string, RegExp, workbox Route, or a match callback (used here)
 // Second parameter handles the response and must return a Response promise
 workbox.routing.registerRoute(matchCb, handlerCb);
 
-const GLITCH_ICO_URL = 'https://glitch.com/edit/favicon-app.ico';
+const GLITCH_ICO_URL = "https://glitch.com/edit/favicon-app.ico";
 workbox.routing.registerRoute(GLITCH_ICO_URL, () => {
   // Demonstrating when an error is thrown by a Route.
   throw new Error(`Example error thrown from the default handler`);
 });
 
-workbox.routing.setCatchHandler(({event}) => {
+workbox.routing.setCatchHandler(({ event }) => {
   return fetch(event.request);
 });

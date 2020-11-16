@@ -5,8 +5,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 function stripParams(fullURL: string, ignoreParams: string[]) {
   const strippedURL = new URL(fullURL);
@@ -15,7 +14,6 @@ function stripParams(fullURL: string, ignoreParams: string[]) {
   }
   return strippedURL.href;
 }
-
 
 /**
  * Matches an item in the cache, ignoring specific URL params. This is similar
@@ -43,7 +41,7 @@ async function cacheMatchIgnoreParams(
   }
 
   // Otherwise, match by comparing keys
-  const keysOptions = {...matchOptions, ignoreSearch: true};
+  const keysOptions = { ...matchOptions, ignoreSearch: true };
   const cacheKeys = await cache.keys(request, keysOptions);
 
   for (const cacheKey of cacheKeys) {
@@ -55,4 +53,4 @@ async function cacheMatchIgnoreParams(
   return;
 }
 
-export {cacheMatchIgnoreParams};
+export { cacheMatchIgnoreParams };

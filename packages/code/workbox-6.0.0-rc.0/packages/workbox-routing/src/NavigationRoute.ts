@@ -6,13 +6,13 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {RouteHandler, RouteMatchCallbackOptions} from 'workbox-core/types.js';
+import { assert } from "workbox-core/_private/assert.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { RouteHandler, RouteMatchCallbackOptions } from "workbox-core/types.js";
 
-import {Route} from './Route.js';
+import { Route } from "./Route.js";
 
-import './_version.js';
+import "./_version.js";
 
 export interface NavigationRouteMatchOptions {
   allowlist?: RegExp[];
@@ -57,24 +57,29 @@ class NavigationRoute extends Route {
    * match the URL's pathname and search parameter, the route will handle the
    * request (assuming the denylist doesn't match).
    */
-  constructor(handler: RouteHandler,
-      {allowlist = [/./], denylist = []}: NavigationRouteMatchOptions = {}) {
-    if (process.env.NODE_ENV !== 'production') {
+  constructor(
+    handler: RouteHandler,
+    { allowlist = [/./], denylist = [] }: NavigationRouteMatchOptions = {},
+  ) {
+    if (process.env.NODE_ENV !== "production") {
       assert!.isArrayOfClass(allowlist, RegExp, {
-        moduleName: 'workbox-routing',
-        className: 'NavigationRoute',
-        funcName: 'constructor',
-        paramName: 'options.allowlist',
+        moduleName: "workbox-routing",
+        className: "NavigationRoute",
+        funcName: "constructor",
+        paramName: "options.allowlist",
       });
       assert!.isArrayOfClass(denylist, RegExp, {
-        moduleName: 'workbox-routing',
-        className: 'NavigationRoute',
-        funcName: 'constructor',
-        paramName: 'options.denylist',
+        moduleName: "workbox-routing",
+        className: "NavigationRoute",
+        funcName: "constructor",
+        paramName: "options.denylist",
       });
     }
 
-    super((options: RouteMatchCallbackOptions) => this._match(options), handler);
+    super(
+      (options: RouteMatchCallbackOptions) => this._match(options),
+      handler,
+    );
 
     this._allowlist = allowlist;
     this._denylist = denylist;
@@ -90,8 +95,8 @@ class NavigationRoute extends Route {
    *
    * @private
    */
-  private _match({url, request}: RouteMatchCallbackOptions): boolean {
-    if (request && request.mode !== 'navigate') {
+  private _match({ url, request }: RouteMatchCallbackOptions): boolean {
+    if (request && request.mode !== "navigate") {
       return false;
     }
 
@@ -99,30 +104,36 @@ class NavigationRoute extends Route {
 
     for (const regExp of this._denylist) {
       if (regExp.test(pathnameAndSearch)) {
-        if (process.env.NODE_ENV !== 'production') {
-          logger.log(`The navigation route ${pathnameAndSearch} is not ` +
+        if (process.env.NODE_ENV !== "production") {
+          logger.log(
+            `The navigation route ${pathnameAndSearch} is not ` +
               `being used, since the URL matches this denylist pattern: ` +
-              `${regExp}`);
+              `${regExp}`,
+          );
         }
         return false;
       }
     }
 
     if (this._allowlist.some((regExp) => regExp.test(pathnameAndSearch))) {
-      if (process.env.NODE_ENV !== 'production') {
-        logger.debug(`The navigation route ${pathnameAndSearch} ` +
-            `is being used.`);
+      if (process.env.NODE_ENV !== "production") {
+        logger.debug(
+          `The navigation route ${pathnameAndSearch} ` +
+            `is being used.`,
+        );
       }
       return true;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      logger.log(`The navigation route ${pathnameAndSearch} is not ` +
+    if (process.env.NODE_ENV !== "production") {
+      logger.log(
+        `The navigation route ${pathnameAndSearch} is not ` +
           `being used, since the URL being navigated to doesn't ` +
-          `match the allowlist.`);
+          `match the allowlist.`,
+      );
     }
     return false;
   }
 }
 
-export {NavigationRoute};
+export { NavigationRoute };

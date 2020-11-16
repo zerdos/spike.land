@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-const {getModuleURL} = require('./lib/cdn-utils');
-const copyWorkboxLibraries = require('./lib/copy-workbox-libraries');
-const generateSW = require('./generate-sw');
-const getManifest = require('./get-manifest');
-const injectManifest = require('./inject-manifest');
+const { getModuleURL } = require("./lib/cdn-utils");
+const copyWorkboxLibraries = require("./lib/copy-workbox-libraries");
+const generateSW = require("./generate-sw");
+const getManifest = require("./get-manifest");
+const injectManifest = require("./inject-manifest");
 
 /**
  * @module workbox-build

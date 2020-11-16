@@ -6,17 +6,17 @@
   https://opensource.org/licenses/MIT.
 */
 
-const errors = require('./errors');
+const errors = require("./errors");
 
 module.exports = (regexp) => {
   if (!(regexp instanceof RegExp)) {
-    throw new Error(errors['invalid-dont-cache-bust']);
+    throw new Error(errors["invalid-dont-cache-bust"]);
   }
 
   return (originalManifest) => {
     const manifest = originalManifest.map((entry) => {
-      if (typeof entry.url !== 'string') {
-        throw new Error(errors['manifest-entry-bad-url']);
+      if (typeof entry.url !== "string") {
+        throw new Error(errors["manifest-entry-bad-url"]);
       }
 
       if (entry.url.match(regexp)) {
@@ -26,6 +26,6 @@ module.exports = (regexp) => {
       return entry;
     });
 
-    return {manifest};
+    return { manifest };
   };
 };

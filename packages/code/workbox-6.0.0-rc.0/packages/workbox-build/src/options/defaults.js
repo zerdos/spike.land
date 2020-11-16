@@ -7,7 +7,7 @@
 */
 
 module.exports = {
-  babelPresetEnvTargets: ['chrome >= 56'],
+  babelPresetEnvTargets: ["chrome >= 56"],
   cleanupOutdatedCaches: false,
   clientsClaim: false,
   compileSrc: true,
@@ -17,18 +17,18 @@ module.exports = {
     /^manifest.*\.js$/,
   ],
   globFollow: true,
-  globIgnores: ['**/node_modules/**/*'],
-  globPatterns: ['**/*.{js,css,html}'],
+  globIgnores: ["**/node_modules/**/*"],
+  globPatterns: ["**/*.{js,css,html}"],
   globStrict: true,
-  injectionPoint: 'self.__WB_MANIFEST',
+  injectionPoint: "self.__WB_MANIFEST",
   inlineWorkboxRuntime: false,
   maximumFileSizeToCacheInBytes: 2 * 1024 * 1024,
-  mode: 'production',
+  mode: "production",
   navigateFallback: null,
   navigationPreload: false,
   offlineGoogleAnalytics: false,
   purgeOnQuotaError: true,
   skipWaiting: false,
   sourcemap: true,
-  swDestFilename: 'service-worker.js',
+  swDestFilename: "service-worker.js",
 };

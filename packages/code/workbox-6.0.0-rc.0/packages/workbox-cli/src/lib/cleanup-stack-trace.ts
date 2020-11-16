@@ -12,7 +12,7 @@
 // since that's just frames related to the Node runtime/loader.
 export function cleanupStackTrace(error: Error, moduleName: string) {
   if (!error.stack) {
-    return '';
+    return "";
   }
   const frames = error.stack.split(`\n`);
   let startFrame: number | undefined;

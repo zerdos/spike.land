@@ -6,16 +6,12 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {CacheExpiration} from './CacheExpiration.js';
-import {ExpirationPlugin} from './ExpirationPlugin.js';
-import './_version.js';
-
+import { CacheExpiration } from "./CacheExpiration.js";
+import { ExpirationPlugin } from "./ExpirationPlugin.js";
+import "./_version.js";
 
 /**
  * @module workbox-expiration
  */
 
-export {
-  CacheExpiration,
-  ExpirationPlugin,
-};
+export { CacheExpiration, ExpirationPlugin };

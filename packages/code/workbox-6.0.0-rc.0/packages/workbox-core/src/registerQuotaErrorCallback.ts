@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from './_private/logger.js';
-import {assert} from './_private/assert.js';
-import {quotaErrorCallbacks} from './models/quotaErrorCallbacks.js';
-import './_version.js';
-
+import { logger } from "./_private/logger.js";
+import { assert } from "./_private/assert.js";
+import { quotaErrorCallbacks } from "./models/quotaErrorCallbacks.js";
+import "./_version.js";
 
 /**
  * Adds a function to the set of quotaErrorCallbacks that will be executed if
@@ -20,19 +19,19 @@ import './_version.js';
  * @memberof module:workbox-core
  */
 function registerQuotaErrorCallback(callback: Function) {
-  if (process.env.NODE_ENV !== 'production') {
-    assert!.isType(callback, 'function', {
-      moduleName: 'workbox-core',
-      funcName: 'register',
-      paramName: 'callback',
+  if (process.env.NODE_ENV !== "production") {
+    assert!.isType(callback, "function", {
+      moduleName: "workbox-core",
+      funcName: "register",
+      paramName: "callback",
     });
   }
 
   quotaErrorCallbacks.add(callback);
 
-  if (process.env.NODE_ENV !== 'production') {
-    logger.log('Registered a callback to respond to quota errors.', callback);
+  if (process.env.NODE_ENV !== "production") {
+    logger.log("Registered a callback to respond to quota errors.", callback);
   }
 }
 
-export {registerQuotaErrorCallback};
+export { registerQuotaErrorCallback };

@@ -6,10 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-const ol = require('common-tags').oneLine;
+const ol = require("common-tags").oneLine;
 
-const errors = require('./errors');
-const stringifyWithoutComments = require('./stringify-without-comments');
+const errors = require("./errors");
+const stringifyWithoutComments = require("./stringify-without-comments");
 
 /**
  * Given a set of options that configures runtime caching behavior, convert it
@@ -34,10 +34,10 @@ function getOptionsString(moduleRegistry, options = {}) {
   // not directly used to construct a plugin instance. If set, need to be
   // passed as options to the handler constructor instead.
   const handlerOptionKeys = [
-    'cacheName',
-    'networkTimeoutSeconds',
-    'fetchOptions',
-    'matchOptions',
+    "cacheName",
+    "networkTimeoutSeconds",
+    "fetchOptions",
+    "matchOptions",
   ];
   const handlerOptions = {};
   for (const key of handlerOptionKeys) {
@@ -55,13 +55,15 @@ function getOptionsString(moduleRegistry, options = {}) {
 
     let pluginCode;
     switch (pluginName) {
-      case 'backgroundSync': {
+      case "backgroundSync": {
         const name = pluginConfig.name;
         const plugin = moduleRegistry.use(
-            'workbox-background-sync', 'BackgroundSyncPlugin');
+          "workbox-background-sync",
+          "BackgroundSyncPlugin",
+        );
 
         pluginCode = `new ${plugin}(${JSON.stringify(name)}`;
-        if ('options' in pluginConfig) {
+        if ("options" in pluginConfig) {
           pluginCode += `, ${stringifyWithoutComments(pluginConfig.options)}`;
         }
         pluginCode += `)`;
@@ -69,38 +71,46 @@ function getOptionsString(moduleRegistry, options = {}) {
         break;
       }
 
-      case 'broadcastUpdate': {
+      case "broadcastUpdate": {
         const channelName = pluginConfig.channelName;
-        const opts = Object.assign({channelName}, pluginConfig.options);
+        const opts = Object.assign({ channelName }, pluginConfig.options);
         const plugin = moduleRegistry.use(
-            'workbox-broadcast-update', 'BroadcastUpdatePlugin');
+          "workbox-broadcast-update",
+          "BroadcastUpdatePlugin",
+        );
 
         pluginCode = `new ${plugin}(${stringifyWithoutComments(opts)})`;
 
         break;
       }
 
-      case 'cacheableResponse': {
+      case "cacheableResponse": {
         const plugin = moduleRegistry.use(
-            'workbox-cacheable-response', 'CacheableResponsePlugin');
+          "workbox-cacheable-response",
+          "CacheableResponsePlugin",
+        );
 
         pluginCode = `new ${plugin}(${stringifyWithoutComments(pluginConfig)})`;
 
         break;
       }
 
-      case 'expiration': {
+      case "expiration": {
         const plugin = moduleRegistry.use(
-            'workbox-expiration', 'ExpirationPlugin');
+          "workbox-expiration",
+          "ExpirationPlugin",
+        );
 
         pluginCode = `new ${plugin}(${stringifyWithoutComments(pluginConfig)})`;
 
         break;
       }
 
-      case 'precacheFallback': {
+      case "precacheFallback": {
         const plugin = moduleRegistry.use(
-            'workbox-precaching', 'PrecacheFallbackPlugin');
+          "workbox-precaching",
+          "PrecacheFallbackPlugin",
+        );
 
         pluginCode = `new ${plugin}(${stringifyWithoutComments(pluginConfig)})`;
 
@@ -108,7 +118,7 @@ function getOptionsString(moduleRegistry, options = {}) {
       }
 
       default: {
-        throw new Error(errors['bad-runtime-caching-config'] + pluginName);
+        throw new Error(errors["bad-runtime-caching-config"] + pluginName);
       }
     }
 
@@ -118,48 +128,52 @@ function getOptionsString(moduleRegistry, options = {}) {
   if (Object.keys(handlerOptions).length > 0 || plugins.length > 0) {
     const optionsString = JSON.stringify(handlerOptions).slice(1, -1);
     return ol`{
-      ${optionsString ? optionsString + ',' : ''}
-      plugins: [${plugins.join(', ')}]
+      ${optionsString ? optionsString + "," : ""}
+      plugins: [${plugins.join(", ")}]
     }`;
   } else {
-    return '';
+    return "";
   }
 }
 
 module.exports = (moduleRegistry, runtimeCaching) => {
   return runtimeCaching.map((entry) => {
-    const method = entry.method || 'GET';
+    const method = entry.method || "GET";
 
     if (!entry.urlPattern) {
-      throw new Error(errors['urlPattern-is-required']);
+      throw new Error(errors["urlPattern-is-required"]);
     }
 
     if (!entry.handler) {
-      throw new Error(errors['handler-is-required']);
+      throw new Error(errors["handler-is-required"]);
     }
 
     // This validation logic is a bit too gnarly for joi, so it's manually
     // implemented here.
-    if (entry.options && entry.options.networkTimeoutSeconds &&
-        entry.handler !== 'NetworkFirst') {
-      throw new Error(errors['invalid-network-timeout-seconds']);
+    if (
+      entry.options && entry.options.networkTimeoutSeconds &&
+      entry.handler !== "NetworkFirst"
+    ) {
+      throw new Error(errors["invalid-network-timeout-seconds"]);
     }
 
     // urlPattern might be a string, a RegExp object, or a function.
     // If it's a string, it needs to be quoted.
-    const matcher = typeof entry.urlPattern === 'string' ?
-      JSON.stringify(entry.urlPattern) :
-      entry.urlPattern;
+    const matcher = typeof entry.urlPattern === "string"
+      ? JSON.stringify(entry.urlPattern)
+      : entry.urlPattern;
 
     const registerRoute = moduleRegistry.use(
-        'workbox-routing', 'registerRoute');
-    if (typeof entry.handler === 'string') {
+      "workbox-routing",
+      "registerRoute",
+    );
+    if (typeof entry.handler === "string") {
       const optionsString = getOptionsString(moduleRegistry, entry.options);
-      const handler = moduleRegistry.use('workbox-strategies', entry.handler);
+      const handler = moduleRegistry.use("workbox-strategies", entry.handler);
       const strategyString = `new ${handler}(${optionsString})`;
 
       return `${registerRoute}(${matcher}, ${strategyString}, '${method}');\n`;
-    } else if (typeof entry.handler === 'function') {
+    } else if (typeof entry.handler === "function") {
       return `${registerRoute}(${matcher}, ${entry.handler}, '${method}');\n`;
     }
   }).filter((entry) => Boolean(entry)); // Remove undefined map() return values.

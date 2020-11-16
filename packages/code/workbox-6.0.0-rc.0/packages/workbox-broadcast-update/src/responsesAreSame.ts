@@ -6,10 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxError} from 'workbox-core/_private/WorkboxError.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import './_version.js';
-
+import { WorkboxError } from "workbox-core/_private/WorkboxError.js";
+import { logger } from "workbox-core/_private/logger.js";
+import "./_version.js";
 
 /**
  * Given two `Response's`, compares several header values to see if they are
@@ -27,10 +26,12 @@ const responsesAreSame = (
   secondResponse: Response,
   headersToCheck: string[],
 ) => {
-  if (process.env.NODE_ENV !== 'production') {
-    if (!(firstResponse instanceof Response &&
-      secondResponse instanceof Response)) {
-      throw new WorkboxError('invalid-responses-are-same-args');
+  if (process.env.NODE_ENV !== "production") {
+    if (
+      !(firstResponse instanceof Response &&
+        secondResponse instanceof Response)
+    ) {
+      throw new WorkboxError("invalid-responses-are-same-args");
     }
   }
 
@@ -40,11 +41,17 @@ const responsesAreSame = (
   });
 
   if (!atLeastOneHeaderAvailable) {
-    if (process.env.NODE_ENV !== 'production') {
-      logger.warn(`Unable to determine where the response has been updated ` +
-        `because none of the headers that would be checked are present.`);
-      logger.debug(`Attempting to compare the following: `,
-          firstResponse, secondResponse, headersToCheck);
+    if (process.env.NODE_ENV !== "production") {
+      logger.warn(
+        `Unable to determine where the response has been updated ` +
+          `because none of the headers that would be checked are present.`,
+      );
+      logger.debug(
+        `Attempting to compare the following: `,
+        firstResponse,
+        secondResponse,
+        headersToCheck,
+      );
     }
 
     // Just return true, indicating the that responses are the same, since we
@@ -62,4 +69,4 @@ const responsesAreSame = (
   });
 };
 
-export {responsesAreSame};
+export { responsesAreSame };

@@ -6,8 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-const sourceMapURL = require('source-map-url');
-const upath = require('upath');
+const sourceMapURL = require("source-map-url");
+const upath = require("upath");
 
 /**
  * If our bundled swDest file contains a sourcemap, we would invalidate that
@@ -37,7 +37,8 @@ module.exports = (compilation, swContents, swDest) => {
     // See https://github.com/GoogleChrome/workbox/issues/2250
     const swAssetDirname = upath.dirname(swDest);
     const sourcemapURLAssetName = upath.normalize(
-        upath.join(swAssetDirname, url));
+      upath.join(swAssetDirname, url),
+    );
 
     // Not sure if there's a better way to check for asset existence?
     if (compilation.getAsset(sourcemapURLAssetName)) {

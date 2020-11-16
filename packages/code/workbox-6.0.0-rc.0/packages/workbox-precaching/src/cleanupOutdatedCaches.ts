@@ -6,11 +6,10 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {cacheNames} from 'workbox-core/_private/cacheNames.js';
-import {logger} from 'workbox-core/_private/logger.js';
-import {deleteOutdatedCaches} from './utils/deleteOutdatedCaches.js';
-import './_version.js';
-
+import { cacheNames } from "workbox-core/_private/cacheNames.js";
+import { logger } from "workbox-core/_private/logger.js";
+import { deleteOutdatedCaches } from "./utils/deleteOutdatedCaches.js";
+import "./_version.js";
 
 /**
  * Adds an `activate` event listener which will clean up incompatible
@@ -20,18 +19,26 @@ import './_version.js';
  */
 function cleanupOutdatedCaches() {
   // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
-  self.addEventListener('activate', ((event: ExtendableEvent) => {
-    const cacheName = cacheNames.getPrecacheName();
+  self.addEventListener(
+    "activate",
+    ((event: ExtendableEvent) => {
+      const cacheName = cacheNames.getPrecacheName();
 
-    event.waitUntil(deleteOutdatedCaches(cacheName).then((cachesDeleted) => {
-      if (process.env.NODE_ENV !== 'production') {
-        if (cachesDeleted.length > 0) {
-          logger.log(`The following out-of-date precaches were cleaned up ` +
-              `automatically:`, cachesDeleted);
-        }
-      }
-    }));
-  }) as EventListener);
+      event.waitUntil(
+        deleteOutdatedCaches(cacheName).then((cachesDeleted) => {
+          if (process.env.NODE_ENV !== "production") {
+            if (cachesDeleted.length > 0) {
+              logger.log(
+                `The following out-of-date precaches were cleaned up ` +
+                  `automatically:`,
+                cachesDeleted,
+              );
+            }
+          }
+        }),
+      );
+    }) as EventListener,
+  );
 }
 
-export {cleanupOutdatedCaches}
+export { cleanupOutdatedCaches };

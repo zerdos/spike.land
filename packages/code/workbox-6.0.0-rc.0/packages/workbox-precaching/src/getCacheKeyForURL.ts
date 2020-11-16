@@ -6,9 +6,8 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {getOrCreatePrecacheController} from './utils/getOrCreatePrecacheController.js';
-import './_version.js';
-
+import { getOrCreatePrecacheController } from "./utils/getOrCreatePrecacheController.js";
+import "./_version.js";
 
 /**
  * Takes in a URL, and returns the corresponding URL that could be used to
@@ -34,4 +33,4 @@ function getCacheKeyForURL(url: string) {
   return precacheController.getCacheKeyForURL(url);
 }
 
-export {getCacheKeyForURL}
+export { getCacheKeyForURL };

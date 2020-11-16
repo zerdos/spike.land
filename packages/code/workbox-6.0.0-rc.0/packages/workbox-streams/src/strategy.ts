@@ -6,17 +6,21 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from 'workbox-core/_private/logger.js';
-import {RouteHandlerCallback, RouteHandlerCallbackOptions} from 'workbox-core/types.js';
-import {createHeaders} from './utils/createHeaders.js';
-import {concatenateToResponse} from './concatenateToResponse.js';
-import {isSupported} from './isSupported.js';
-import {StreamSource} from './_types.js';
-import './_version.js';
-
+import { logger } from "workbox-core/_private/logger.js";
+import {
+  RouteHandlerCallback,
+  RouteHandlerCallbackOptions,
+} from "workbox-core/types.js";
+import { createHeaders } from "./utils/createHeaders.js";
+import { concatenateToResponse } from "./concatenateToResponse.js";
+import { isSupported } from "./isSupported.js";
+import { StreamSource } from "./_types.js";
+import "./_version.js";
 
 interface StreamsHandlerCallback {
-  ({url, request, event, params}: RouteHandlerCallbackOptions): Promise<StreamSource> | StreamSource;
+  (
+    { url, request, event, params }: RouteHandlerCallbackOptions,
+  ): Promise<StreamSource> | StreamSource;
 }
 
 /**
@@ -39,15 +43,19 @@ function strategy(
   sourceFunctions: StreamsHandlerCallback[],
   headersInit: HeadersInit,
 ): RouteHandlerCallback {
-  return async ({event, request, url, params}: RouteHandlerCallbackOptions) => {
+  return async (
+    { event, request, url, params }: RouteHandlerCallbackOptions,
+  ) => {
     const sourcePromises = sourceFunctions.map((fn) => {
       // Ensure the return value of the function is always a promise.
-      return Promise.resolve(fn({event, request, url, params}));
+      return Promise.resolve(fn({ event, request, url, params }));
     });
 
     if (isSupported()) {
-      const {done, response} =
-          concatenateToResponse(sourcePromises, headersInit);
+      const { done, response } = concatenateToResponse(
+        sourcePromises,
+        headersInit,
+      );
 
       if (event) {
         event.waitUntil(done);
@@ -55,9 +63,11 @@ function strategy(
       return response;
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      logger.log(`The current browser doesn't support creating response ` +
-        `streams. Falling back to non-streaming response instead.`);
+    if (process.env.NODE_ENV !== "production") {
+      logger.log(
+        `The current browser doesn't support creating response ` +
+          `streams. Falling back to non-streaming response instead.`,
+      );
     }
 
     // Fallback to waiting for everything to finish, and concatenating the
@@ -79,8 +89,8 @@ function strategy(
 
     // Constructing a new Response from a Blob source is well-supported.
     // So is constructing a new Blob from multiple source Blobs or strings.
-    return new Response(new Blob(blobParts), {headers});
+    return new Response(new Blob(blobParts), { headers });
   };
 }
 
-export {strategy}
+export { strategy };

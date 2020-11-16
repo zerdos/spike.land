@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-const fse = require('fs-extra');
-const upath = require('upath');
-const errors = require('./errors');
-
+const fse = require("fs-extra");
+const upath = require("upath");
+const errors = require("./errors");
 
 // Used to filter the libraries to copy based on our package.json dependencies.
-const WORKBOX_PREFIX = 'workbox-';
+const WORKBOX_PREFIX = "workbox-";
 
 // The directory within each package containing the final bundles.
-const BUILD_DIR = 'build';
+const BUILD_DIR = "build";
 
 /**
  * This copies over a set of runtime libraries used by Workbox into a
@@ -37,7 +36,7 @@ const BUILD_DIR = 'build';
  * @alias module:workbox-build.copyWorkboxLibraries
  */
 module.exports = async (destDirectory) => {
-  const thisPkg = require('../../package.json');
+  const thisPkg = require("../../package.json");
   // Use the version string from workbox-build in the name of the parent
   // directory. This should be safe, because lerna will bump workbox-build's
   // pkg.version whenever one of the dependent libraries gets bumped, and we
@@ -48,13 +47,15 @@ module.exports = async (destDirectory) => {
 
   const copyPromises = [];
   const librariesToCopy = Object.keys(thisPkg.dependencies).filter(
-      (dependency) => dependency.startsWith(WORKBOX_PREFIX));
+    (dependency) => dependency.startsWith(WORKBOX_PREFIX),
+  );
 
   for (const library of librariesToCopy) {
     // Get the path to the package on the user's filesystem by require-ing
     // the package's `package.json` file via the node resolution algorithm.
     const libraryPath = upath.dirname(
-        require.resolve(`${library}/package.json`));
+      require.resolve(`${library}/package.json`),
+    );
 
     const buildPath = upath.join(libraryPath, BUILD_DIR);
 
@@ -67,6 +68,6 @@ module.exports = async (destDirectory) => {
     await Promise.all(copyPromises);
     return workboxDirectoryName;
   } catch (error) {
-    throw Error(`${errors['unable-to-copy-workbox-libraries']} ${error}`);
+    throw Error(`${errors["unable-to-copy-workbox-libraries"]} ${error}`);
   }
 };

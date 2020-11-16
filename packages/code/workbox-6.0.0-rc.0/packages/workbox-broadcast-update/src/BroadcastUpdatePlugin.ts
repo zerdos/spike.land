@@ -6,12 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {dontWaitFor} from 'workbox-core/_private/dontWaitFor.js';
-import {WorkboxPlugin} from 'workbox-core/types.js';
+import { dontWaitFor } from "workbox-core/_private/dontWaitFor.js";
+import { WorkboxPlugin } from "workbox-core/types.js";
 
-import {BroadcastCacheUpdate, BroadcastCacheUpdateOptions} from './BroadcastCacheUpdate.js';
+import {
+  BroadcastCacheUpdate,
+  BroadcastCacheUpdateOptions,
+} from "./BroadcastCacheUpdate.js";
 
-import './_version.js';
+import "./_version.js";
 
 /**
  * This plugin will automatically broadcast a message whenever a cached response
@@ -52,9 +55,9 @@ class BroadcastUpdatePlugin implements WorkboxPlugin {
    * @param {Request} options.request The request that triggered the update.
    * @param {Request} options.event The event that triggered the update.
    */
-  cacheDidUpdate: WorkboxPlugin['cacheDidUpdate'] = async (options) => {
+  cacheDidUpdate: WorkboxPlugin["cacheDidUpdate"] = async (options) => {
     dontWaitFor(this._broadcastUpdate.notifyIfUpdated(options));
-  }
+  };
 }
 
-export {BroadcastUpdatePlugin};
+export { BroadcastUpdatePlugin };

@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
+import "../_version.js";
 
-
-declare let registration: ServiceWorkerRegistration|undefined;
+declare let registration: ServiceWorkerRegistration | undefined;
 
 export interface CacheNameDetails {
-  googleAnalytics: string; 
-  precache: string; 
-  prefix: string; 
-  runtime: string; 
+  googleAnalytics: string;
+  precache: string;
+  prefix: string;
+  runtime: string;
   suffix: string;
 }
 
@@ -24,36 +23,39 @@ export interface PartialCacheNameDetails {
 }
 
 export type CacheNameDetailsProp =
-    'googleAnalytics' | 'precache' | 'prefix' | 'runtime' | 'suffix';
-
+  | "googleAnalytics"
+  | "precache"
+  | "prefix"
+  | "runtime"
+  | "suffix";
 
 const _cacheNameDetails: CacheNameDetails = {
-  googleAnalytics: 'googleAnalytics',
-  precache: 'precache-v2',
-  prefix: 'workbox',
-  runtime: 'runtime',
-  suffix: typeof registration !== 'undefined' ? registration.scope : '',
+  googleAnalytics: "googleAnalytics",
+  precache: "precache-v2",
+  prefix: "workbox",
+  runtime: "runtime",
+  suffix: typeof registration !== "undefined" ? registration.scope : "",
 };
 
 const _createCacheName = (cacheName: string): string => {
   return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix]
-      .filter((value) => value && value.length > 0)
-      .join('-');
+    .filter((value) => value && value.length > 0)
+    .join("-");
 };
 
 const eachCacheNameDetail = (fn: Function): void => {
   for (const key of Object.keys(_cacheNameDetails)) {
     fn(key as CacheNameDetailsProp);
   }
-} 
+};
 
 export const cacheNames = {
   updateDetails: (details: PartialCacheNameDetails) => {
     eachCacheNameDetail((key: CacheNameDetailsProp) => {
-      if (typeof details[key] === 'string') {
+      if (typeof details[key] === "string") {
         _cacheNameDetails[key] = details[key];
       }
-    })
+    });
   },
   getGoogleAnalyticsName: (userCacheName?: string) => {
     return userCacheName || _createCacheName(_cacheNameDetails.googleAnalytics);

@@ -5,12 +5,15 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import {registerRoute} from 'workbox-routing/registerRoute.js';
-import {NetworkFirst} from 'workbox-strategies/NetworkFirst.js';
-import {CacheableResponsePlugin} from 'workbox-cacheable-response/CacheableResponsePlugin.js';
-import {RouteMatchCallback, RouteMatchCallbackOptions} from 'workbox-core/types.js';
+import { registerRoute } from "workbox-routing/registerRoute.js";
+import { NetworkFirst } from "workbox-strategies/NetworkFirst.js";
+import { CacheableResponsePlugin } from "workbox-cacheable-response/CacheableResponsePlugin.js";
+import {
+  RouteMatchCallback,
+  RouteMatchCallbackOptions,
+} from "workbox-core/types.js";
 
-import './_version.js';
+import "./_version.js";
 
 export interface ImageCacheOptions {
   cacheName?: string;
@@ -29,9 +32,10 @@ export interface ImageCacheOptions {
  * @param {number} [options.networkTimoutSeconds] Maximum amount of time, in seconds, to wait on the network before falling back to cache. Defaults to 3
  */
 function pageCache(options: ImageCacheOptions = {}) {
-  const defaultMatchCallback = ({request}: RouteMatchCallbackOptions) => request.mode === 'navigate';
+  const defaultMatchCallback = ({ request }: RouteMatchCallbackOptions) =>
+    request.mode === "navigate";
 
-  const cacheName = options.cacheName || 'pages';
+  const cacheName = options.cacheName || "pages";
   const matchCallback = options.matchCallback || defaultMatchCallback;
   const networkTimeoutSeconds = options.networkTimeoutSeconds || 3;
 
@@ -45,8 +49,8 @@ function pageCache(options: ImageCacheOptions = {}) {
           statuses: [0, 200],
         }),
       ],
-    })
+    }),
   );
 }
 
-export { pageCache }
+export { pageCache };

@@ -6,8 +6,7 @@
   https://opensource.org/licenses/MIT.
 */
 
-import '../_version.js';
-
+import "../_version.js";
 
 /**
  * The Deferred class composes Promises in a way that allows for them to be
@@ -33,5 +32,4 @@ class Deferred<T> {
   }
 }
 
-
-export {Deferred};
+export { Deferred };

@@ -1,4 +1,6 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+importScripts(
+  "https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js",
+);
 
 // Note: Ignore the error that Glitch raises about workbox being undefined.
 workbox.setConfig({
@@ -6,7 +8,7 @@ workbox.setConfig({
 });
 
 // To avoid async issues, we load core before we call it in the callback
-workbox.loadModule('workbox-core');
+workbox.loadModule("workbox-core");
 
 const printLogs = () => {
   // ☠️ You should never so this - this is just so we can show off our logging.
@@ -24,12 +26,12 @@ const printCacheNames = () => {
   });
 };
 
-self.addEventListener('message', (event) => {
+self.addEventListener("message", (event) => {
   switch (event.data.command) {
-    case 'printLogs':
+    case "printLogs":
       printLogs();
       break;
-    case 'printCacheNames':
+    case "printCacheNames":
       printCacheNames();
       break;
     default:

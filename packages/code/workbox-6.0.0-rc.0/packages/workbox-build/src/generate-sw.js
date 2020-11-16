@@ -6,14 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-const upath = require('upath');
+const upath = require("upath");
 
-const generateSWSchema = require('./options/schema/generate-sw');
-const getFileManifestEntries = require('./lib/get-file-manifest-entries');
-const rebasePath = require('./lib/rebase-path');
-const validate = require('./lib/validate-options');
-const writeServiceWorkerUsingDefaultTemplate =
-  require('./lib/write-sw-using-default-template');
+const generateSWSchema = require("./options/schema/generate-sw");
+const getFileManifestEntries = require("./lib/get-file-manifest-entries");
+const rebasePath = require("./lib/rebase-path");
+const validate = require("./lib/validate-options");
+const writeServiceWorkerUsingDefaultTemplate = require(
+  "./lib/write-sw-using-default-template",
+);
 
 // eslint-disable-next-line jsdoc/newline-after-description
 /**
@@ -208,7 +209,7 @@ async function generateSW(config) {
     // See https://rollupjs.org/guide/en/#outputchunkfilenames for naming.
     if (!options.inlineWorkboxRuntime) {
       const swDestDir = upath.dirname(options.swDest);
-      const workboxRuntimeFile = upath.join(swDestDir, 'workbox-*.js');
+      const workboxRuntimeFile = upath.join(swDestDir, "workbox-*.js");
       options.globIgnores.push(rebasePath({
         baseDirectory: options.globDirectory,
         file: workboxRuntimeFile,
@@ -216,14 +217,14 @@ async function generateSW(config) {
     }
   }
 
-  const {count, size, manifestEntries, warnings} =
+  const { count, size, manifestEntries, warnings } =
     await getFileManifestEntries(options);
 
   const filePaths = await writeServiceWorkerUsingDefaultTemplate(Object.assign({
     manifestEntries,
   }, options));
 
-  return {count, filePaths, size, warnings};
+  return { count, filePaths, size, warnings };
 }
 
 module.exports = generateSW;

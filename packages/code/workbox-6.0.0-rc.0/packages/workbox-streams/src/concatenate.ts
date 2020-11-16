@@ -6,11 +6,11 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {logger} from 'workbox-core/_private/logger.js';
-import {assert} from 'workbox-core/_private/assert.js';
-import {Deferred} from 'workbox-core/_private/Deferred.js';
-import {StreamSource} from './_types.js';
-import './_version.js';
+import { logger } from "workbox-core/_private/logger.js";
+import { assert } from "workbox-core/_private/assert.js";
+import { Deferred } from "workbox-core/_private/Deferred.js";
+import { StreamSource } from "./_types.js";
+import "./_version.js";
 
 /**
  * Takes either a Response, a ReadableStream, or a
@@ -48,11 +48,11 @@ function concatenate(sourcePromises: Promise<StreamSource>[]): {
   done: Promise<void>;
   stream: ReadableStream;
 } {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV !== "production") {
     assert!.isArray(sourcePromises, {
-      moduleName: 'workbox-streams',
-      funcName: 'concatenate',
-      paramName: 'sourcePromises',
+      moduleName: "workbox-streams",
+      funcName: "concatenate",
+      paramName: "sourcePromises",
     });
   }
 
@@ -69,60 +69,62 @@ function concatenate(sourcePromises: Promise<StreamSource>[]): {
   const stream = new ReadableStream({
     pull(controller: ReadableStreamDefaultController<any>) {
       return readerPromises[i]
-          .then((reader) => reader.read())
-          .then((result) => {
-            if (result.done) {
-              if (process.env.NODE_ENV !== 'production') {
-                logMessages.push(['Reached the end of source:',
-                  sourcePromises[i]]);
-              }
+        .then((reader) => reader.read())
+        .then((result) => {
+          if (result.done) {
+            if (process.env.NODE_ENV !== "production") {
+              logMessages.push(
+                ["Reached the end of source:", sourcePromises[i]],
+              );
+            }
 
-              i++;
-              if (i >= readerPromises.length) {
+            i++;
+            if (i >= readerPromises.length) {
               // Log all the messages in the group at once in a single group.
-                if (process.env.NODE_ENV !== 'production') {
-                  logger.groupCollapsed(
-                      `Concatenating ${readerPromises.length} sources.`);
-                  for (const message of logMessages) {
-                    if (Array.isArray(message)) {
-                      logger.log(...message);
-                    } else {
-                      logger.log(message);
-                    }
+              if (process.env.NODE_ENV !== "production") {
+                logger.groupCollapsed(
+                  `Concatenating ${readerPromises.length} sources.`,
+                );
+                for (const message of logMessages) {
+                  if (Array.isArray(message)) {
+                    logger.log(...message);
+                  } else {
+                    logger.log(message);
                   }
-                  logger.log('Finished reading all sources.');
-                  logger.groupEnd();
                 }
-
-                controller.close();
-                streamDeferred.resolve();
-                return;
+                logger.log("Finished reading all sources.");
+                logger.groupEnd();
               }
 
-              // The `pull` method is defined because we're inside it.
-              return this.pull!(controller);
-            } else {
-              controller.enqueue(result.value);
+              controller.close();
+              streamDeferred.resolve();
+              return;
             }
-          }).catch((error) => {
-            if (process.env.NODE_ENV !== 'production') {
-              logger.error('An error occurred:', error);
-            }
-            streamDeferred.reject(error);
-            throw error;
-          });
+
+            // The `pull` method is defined because we're inside it.
+            return this.pull!(controller);
+          } else {
+            controller.enqueue(result.value);
+          }
+        }).catch((error) => {
+          if (process.env.NODE_ENV !== "production") {
+            logger.error("An error occurred:", error);
+          }
+          streamDeferred.reject(error);
+          throw error;
+        });
     },
 
     cancel() {
-      if (process.env.NODE_ENV !== 'production') {
-        logger.warn('The ReadableStream was cancelled.');
+      if (process.env.NODE_ENV !== "production") {
+        logger.warn("The ReadableStream was cancelled.");
       }
 
       streamDeferred.resolve();
     },
   });
 
-  return {done: streamDeferred.promise, stream};
+  return { done: streamDeferred.promise, stream };
 }
 
-export {concatenate};
+export { concatenate };

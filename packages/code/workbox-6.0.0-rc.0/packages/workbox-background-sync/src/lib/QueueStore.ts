@@ -6,16 +6,15 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {assert} from 'workbox-core/_private/assert.js';
-import {DBWrapper} from 'workbox-core/_private/DBWrapper.js';
-import {RequestData} from './StorableRequest.js';
-import '../_version.js';
-
+import { assert } from "workbox-core/_private/assert.js";
+import { DBWrapper } from "workbox-core/_private/DBWrapper.js";
+import { RequestData } from "./StorableRequest.js";
+import "../_version.js";
 
 const DB_VERSION = 3;
-const DB_NAME = 'workbox-background-sync';
-const OBJECT_STORE_NAME = 'requests';
-const INDEXED_PROP = 'queueName';
+const DB_NAME = "workbox-background-sync";
+const OBJECT_STORE_NAME = "requests";
+const INDEXED_PROP = "queueName";
 
 export interface UnidentifiedQueueStoreEntry {
   requestData: RequestData;
@@ -63,18 +62,18 @@ export class QueueStore {
    * @private
    */
   async pushEntry(entry: UnidentifiedQueueStoreEntry) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(entry, 'object', {
-        moduleName: 'workbox-background-sync',
-        className: 'QueueStore',
-        funcName: 'pushEntry',
-        paramName: 'entry',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(entry, "object", {
+        moduleName: "workbox-background-sync",
+        className: "QueueStore",
+        funcName: "pushEntry",
+        paramName: "entry",
       });
-      assert!.isType(entry.requestData, 'object', {
-        moduleName: 'workbox-background-sync',
-        className: 'QueueStore',
-        funcName: 'pushEntry',
-        paramName: 'entry.requestData',
+      assert!.isType(entry.requestData, "object", {
+        moduleName: "workbox-background-sync",
+        className: "QueueStore",
+        funcName: "pushEntry",
+        paramName: "entry.requestData",
       });
     }
 
@@ -95,18 +94,18 @@ export class QueueStore {
    * @private
    */
   async unshiftEntry(entry: UnidentifiedQueueStoreEntry) {
-    if (process.env.NODE_ENV !== 'production') {
-      assert!.isType(entry, 'object', {
-        moduleName: 'workbox-background-sync',
-        className: 'QueueStore',
-        funcName: 'unshiftEntry',
-        paramName: 'entry',
+    if (process.env.NODE_ENV !== "production") {
+      assert!.isType(entry, "object", {
+        moduleName: "workbox-background-sync",
+        className: "QueueStore",
+        funcName: "unshiftEntry",
+        paramName: "entry",
       });
-      assert!.isType(entry.requestData, 'object', {
-        moduleName: 'workbox-background-sync',
-        className: 'QueueStore',
-        funcName: 'unshiftEntry',
-        paramName: 'entry.requestData',
+      assert!.isType(entry.requestData, "object", {
+        moduleName: "workbox-background-sync",
+        className: "QueueStore",
+        funcName: "unshiftEntry",
+        paramName: "entry.requestData",
       });
     }
 
@@ -133,7 +132,7 @@ export class QueueStore {
    * @private
    */
   async popEntry(): Promise<QueueStoreEntry> {
-    return this._removeEntry({direction: 'prev'});
+    return this._removeEntry({ direction: "prev" });
   }
 
   /**
@@ -143,7 +142,7 @@ export class QueueStore {
    * @private
    */
   async shiftEntry(): Promise<QueueStoreEntry> {
-    return this._removeEntry({direction: 'next'});
+    return this._removeEntry({ direction: "next" });
   }
 
   /**
@@ -182,7 +181,7 @@ export class QueueStore {
    * @return {Promise<Object>}
    * @private
    */
-  async _removeEntry({direction}: {direction?: IDBCursorDirection}) {
+  async _removeEntry({ direction }: { direction?: IDBCursorDirection }) {
     const [entry] = await this._db.getAllMatching(OBJECT_STORE_NAME, {
       direction,
       index: INDEXED_PROP,
@@ -213,8 +212,8 @@ export class QueueStore {
 
     const objStore = db.createObjectStore(OBJECT_STORE_NAME, {
       autoIncrement: true,
-      keyPath: 'id',
+      keyPath: "id",
     });
-    objStore.createIndex(INDEXED_PROP, INDEXED_PROP, {unique: false});
+    objStore.createIndex(INDEXED_PROP, INDEXED_PROP, { unique: false });
   }
 }

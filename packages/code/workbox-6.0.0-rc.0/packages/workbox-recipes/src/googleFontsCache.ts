@@ -5,13 +5,13 @@
   license that can be found in the LICENSE file or at
   https://opensource.org/licenses/MIT.
 */
-import {registerRoute} from 'workbox-routing/registerRoute.js';
-import {StaleWhileRevalidate} from 'workbox-strategies/StaleWhileRevalidate.js';
-import {CacheFirst} from 'workbox-strategies/CacheFirst.js';
-import {CacheableResponsePlugin} from 'workbox-cacheable-response/CacheableResponsePlugin.js';
-import {ExpirationPlugin} from 'workbox-expiration/ExpirationPlugin.js';
+import { registerRoute } from "workbox-routing/registerRoute.js";
+import { StaleWhileRevalidate } from "workbox-strategies/StaleWhileRevalidate.js";
+import { CacheFirst } from "workbox-strategies/CacheFirst.js";
+import { CacheableResponsePlugin } from "workbox-cacheable-response/CacheableResponsePlugin.js";
+import { ExpirationPlugin } from "workbox-expiration/ExpirationPlugin.js";
 
-import './_version.js';
+import "./_version.js";
 
 export interface GoogleFontCacheOptions {
   cachePrefix?: string;
@@ -30,22 +30,22 @@ export interface GoogleFontCacheOptions {
  * @param {number} [options.maxEntries] Maximum number of fonts that will be cached. Defaults to 30
  */
 function googleFontsCache(options: GoogleFontCacheOptions = {}) {
-  const sheetCacheName = `${options.cachePrefix || 'google-fonts'}-stylesheets`;
-  const fontCacheName = `${options.cachePrefix || 'google-fonts'}-webfonts`;
+  const sheetCacheName = `${options.cachePrefix || "google-fonts"}-stylesheets`;
+  const fontCacheName = `${options.cachePrefix || "google-fonts"}-webfonts`;
   const maxAgeSeconds = options.maxAgeSeconds || 60 * 60 * 24 * 365;
   const maxEntries = options.maxEntries || 30;
 
   // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
   registerRoute(
-    ({ url }) => url.origin === 'https://fonts.googleapis.com',
+    ({ url }) => url.origin === "https://fonts.googleapis.com",
     new StaleWhileRevalidate({
       cacheName: sheetCacheName,
-    })
+    }),
   );
 
   // Cache the underlying font files with a cache-first strategy for 1 year.
   registerRoute(
-    ({ url }) => url.origin === 'https://fonts.gstatic.com',
+    ({ url }) => url.origin === "https://fonts.gstatic.com",
     new CacheFirst({
       cacheName: fontCacheName,
       plugins: [
@@ -57,8 +57,8 @@ function googleFontsCache(options: GoogleFontCacheOptions = {}) {
           maxEntries,
         }),
       ],
-    })
+    }),
   );
 }
 
-export { googleFontsCache }
+export { googleFontsCache };

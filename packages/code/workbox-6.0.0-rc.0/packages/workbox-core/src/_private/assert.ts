@@ -6,9 +6,9 @@
   https://opensource.org/licenses/MIT.
 */
 
-import {WorkboxError} from '../_private/WorkboxError.js';
-import {MapLikeObject} from '../types.js';
-import '../_version.js';
+import { WorkboxError } from "../_private/WorkboxError.js";
+import { MapLikeObject } from "../types.js";
+import "../_version.js";
 
 /*
  * This method throws if the supplied value is not an array.
@@ -21,7 +21,7 @@ const isArray = (
   details: MapLikeObject,
 ) => {
   if (!Array.isArray(value)) {
-    throw new WorkboxError('not-an-array', details);
+    throw new WorkboxError("not-an-array", details);
   }
 };
 
@@ -31,9 +31,9 @@ const hasMethod = (
   details: MapLikeObject,
 ) => {
   const type = typeof object[expectedMethod];
-  if (type !== 'function') {
-    details['expectedMethod'] = expectedMethod;
-    throw new WorkboxError('missing-a-method', details);
+  if (type !== "function") {
+    details["expectedMethod"] = expectedMethod;
+    throw new WorkboxError("missing-a-method", details);
   }
 };
 
@@ -43,8 +43,8 @@ const isType = (
   details: MapLikeObject,
 ) => {
   if (typeof object !== expectedType) {
-    details['expectedType'] = expectedType;
-    throw new WorkboxError('incorrect-type', details);
+    details["expectedType"] = expectedType;
+    throw new WorkboxError("incorrect-type", details);
   }
 };
 
@@ -54,19 +54,21 @@ const isInstance = (
   details: MapLikeObject,
 ) => {
   if (!(object instanceof expectedClass)) {
-    details['expectedClass'] = expectedClass;
-    throw new WorkboxError('incorrect-class', details);
+    details["expectedClass"] = expectedClass;
+    throw new WorkboxError("incorrect-class", details);
   }
 };
 
 const isOneOf = (
   value: any,
   validValues: any[],
-  details: MapLikeObject) => {
+  details: MapLikeObject,
+) => {
   if (!validValues.includes(value)) {
-    details['validValueDescription'] =
-        `Valid values are ${JSON.stringify(validValues)}.`
-    throw new WorkboxError('invalid-value', details);
+    details["validValueDescription"] = `Valid values are ${
+      JSON.stringify(validValues)
+    }.`;
+    throw new WorkboxError("invalid-value", details);
   }
 };
 
@@ -75,7 +77,7 @@ const isArrayOfClass = (
   expectedClass: Function,
   details: MapLikeObject,
 ) => {
-  const error = new WorkboxError('not-array-of-class', details);
+  const error = new WorkboxError("not-array-of-class", details);
   if (!Array.isArray(value)) {
     throw error;
   }
@@ -87,7 +89,7 @@ const isArrayOfClass = (
   }
 };
 
-const finalAssertExports = process.env.NODE_ENV === 'production' ? null : {
+const finalAssertExports = process.env.NODE_ENV === "production" ? null : {
   hasMethod,
   isArray,
   isInstance,
@@ -96,4 +98,4 @@ const finalAssertExports = process.env.NODE_ENV === 'production' ? null : {
   isArrayOfClass,
 };
 
-export {finalAssertExports as assert};
+export { finalAssertExports as assert };
