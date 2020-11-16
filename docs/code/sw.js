@@ -45,6 +45,7 @@ this.addEventListener("install", function (e) {
 self.addEventListener("fetch", async function (e) {
   self.runner = "browser-sw";
 
+  console.log(request);
   if (request.method === "POST") {
     const data = (await request.json());
 
