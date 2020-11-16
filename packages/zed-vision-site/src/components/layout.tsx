@@ -15,10 +15,6 @@ ${fonts}
 
 ${styles}
 
-body{
-  margin: 0;
-}
-
 main{ 
   max-width: 1140px;
   margin: auto
@@ -32,6 +28,13 @@ export const Layout: React.FC = ({ children }) =>
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
+      <style type="text/css">
+        {`
+        body {
+          margin: 0;
+        }
+    `}
+      </style>
     </Helmet>
     <StyledContent>
       <main>

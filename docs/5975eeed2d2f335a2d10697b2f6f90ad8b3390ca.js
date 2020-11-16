@@ -1961,7 +1961,7 @@ var fonts = "\n/* cyrillic-ext */\n@font-face {\n    font-family: 'Montserrat';\
 
 
 function _templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n--main-bg-color: white;\n\n", "\n\n", "\n\nbody{\n  margin: 0;\n}\n\nmain{ \n  max-width: 1140px;\n  margin: auto\n}\n"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n--main-bg-color: white;\n\n", "\n\n", "\n\nmain{ \n  max-width: 1140px;\n  margin: auto\n}\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -1982,7 +1982,9 @@ var layout_Layout = function Layout(_ref) {
   return /*#__PURE__*/react["createElement"](react["Fragment"], null, /*#__PURE__*/react["createElement"](Helmet["a" /* Helmet */], null, /*#__PURE__*/react["createElement"]("meta", {
     name: "viewport",
     content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  })), /*#__PURE__*/react["createElement"](StyledContent, null, /*#__PURE__*/react["createElement"]("main", null, children)));
+  }), /*#__PURE__*/react["createElement"]("style", {
+    type: "text/css"
+  }, "\n        body {\n          margin: 0;\n        }\n    ")), /*#__PURE__*/react["createElement"](StyledContent, null, /*#__PURE__*/react["createElement"]("main", null, children)));
 };
 
 /***/ }),
