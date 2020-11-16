@@ -155,11 +155,11 @@ const version = `7.1.52`; const html = `<!DOCTYPE html>
 
     const runner = async () => {
       const cdnAddress = "https://unpkg.com/@zedvision/code";
-      const script = "/dist/_cBundle.js.min.js";
+      const script = "/dist/codeLoader.js.min.js";
 
 
       if (window.location.href.includes("0.0.0.0") || window.location.href.includes("localhost") || window.location.href.includes("zed.vision/code")) {
-        const { run } = await import("./dist/_cBundle.js")
+        const { run } = await import("./dist/codeLoader.js")
         run();
       } else {
         try{

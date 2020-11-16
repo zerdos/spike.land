@@ -13,8 +13,8 @@
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
         "build-template": "deno run --allow-read --allow-write generate-fe-bundle.ts && deno bundle src/index.ts --no-check dist/worker-script.js",
         "deploy": "wrangler build && wrangler publish",
-        "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > dist/_cBundle.js",
-        "minify": "yarn esbuild dist/_cBundle.js  --minify --outfile=dist/_cBundle.js.min.js",
+        "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > dist/codeLoader.js",
+        "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.js.min.js",
         "serve": "file_server ."
     },
     "keywords": [
