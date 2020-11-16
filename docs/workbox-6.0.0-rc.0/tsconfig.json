@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "lib": ["es2017", "webworker"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveConstEnums": true,
+    "strict": true,
+    "target": "esnext",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+  },
+  "files": [
+    "./infra/type-overrides.d.ts"
+  ],
+  "exclude": [],
+  "references": [
+    { "path": "./packages/workbox-broadcast-update/" },
+    { "path": "./packages/workbox-background-sync/" },
+    { "path": "./packages/workbox-cacheable-response/" },
+    { "path": "./packages/workbox-core/" },
+    { "path": "./packages/workbox-expiration/" },
+    { "path": "./packages/workbox-navigation-preload/" },
+    { "path": "./packages/workbox-precaching/" },
+    { "path": "./packages/workbox-range-requests/" },
+    { "path": "./packages/workbox-routing/" },
+    { "path": "./packages/workbox-strategies/" },
+    { "path": "./packages/workbox-streams/" },
+    { "path": "./packages/workbox-window/" }
+  ]
+}
