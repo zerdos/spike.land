@@ -2,9 +2,7 @@ export const version = `7.1.53`; export const html = `<!DOCTYPE html>
 <html>
 
 <head>
-  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
-  <meta content="utf-8" http-equiv="encoding">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
