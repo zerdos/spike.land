@@ -157,7 +157,7 @@ export const ResultComponent: React.FC<
 
       //   setIndexToShow({ yyy: newIndexY, xxx: newIndex });
       // }}
-      style={{ position: "absolute", top: -220, left: 900 }}
+      style={{ position: "absolute", top: -220, right: 40 }}
     >
       <ResultBox>
         <HtmlPlayer

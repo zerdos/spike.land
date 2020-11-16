@@ -22,6 +22,9 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 let aceEditor1 = window["ace"].edit("ace");
                 let theme = aceEditor1.getTheme();
                 if (theme !== "ace/theme/monokai ") {
+                    aceEditor1.setOptions({
+                        fontSize: "14pt"
+                    });
                     aceEditor1.setTheme("ace/theme/monokai");
                     setThemeForAce(2 * wait);
                 }

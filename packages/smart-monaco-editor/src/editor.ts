@@ -54,6 +54,9 @@ export const startMonaco: SmartMonaco = async (
         let aceEditor = window["ace"].edit("ace");
         let theme = aceEditor.getTheme();
         if (theme !== "ace/theme/monokai ") {
+          aceEditor.setOptions({
+            fontSize: "14pt"
+            });
           aceEditor.setTheme("ace/theme/monokai");
           setThemeForAce(2 * wait);
         }
@@ -73,6 +76,7 @@ export const startMonaco: SmartMonaco = async (
     ) as AMDLoader;
 
     require.config({ paths: { "vs": vsPath } });
+    
     await new Promise((resolve) =>
       require(["vs/editor/editor.main"], (monaco) => {
         resolve(monaco);
