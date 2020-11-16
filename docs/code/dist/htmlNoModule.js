@@ -188,7 +188,7 @@ importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
 //   "https://unpkg.com/@zedvision/code@7.2.2/dist/htmlNoModule.js",
 // );
 
-const dbPromise = idb.openDB("localZedCodeStore", 1, {
+const dbPromise = idb.openDB("localZedCodeStore", 3, {
   upgrade(db) {
     db.createObjectStore("codeStore");
   },
