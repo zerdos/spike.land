@@ -6,7 +6,7 @@
       "start": "node updateServer.js"
     },
     "dependencies": {
-      "express": "^4.17.1"
+      "express": "4.17.1"
     },
     "engines": {
       "node": "8.x"
