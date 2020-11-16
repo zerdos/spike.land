@@ -61,7 +61,7 @@ RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
   && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.5.2
 
   
-ENV NODE_VERSION 14.15.0
+ENV NODE_VERSION 14.15.1
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \

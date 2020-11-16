@@ -20,7 +20,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@devcontainer/generator": "^6.9.4",
+    "@devcontainer/generator": "^7.0.28",
     "load-text-file": "1.2.0",
     "wait-on": "5.2.0"
   },
