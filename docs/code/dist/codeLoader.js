@@ -1027,12 +1027,6 @@ export async function run() {
                         localStorage.setItem("codeBoXHash", hash);
                         localStorage.setItem(hash, latestGoodCode);
                         setQueryStringParameter("h", hash);
-                        function setQueryStringParameter(name, value) {
-                            const params = new URLSearchParams(window.location.search);
-                            params.set(name, value);
-                            window.history.replaceState({
-                            }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
-                        }
                     }
                 } catch (e) {
                     console.log("no localStorage");
@@ -1065,5 +1059,11 @@ export async function run() {
             ]
         }).code.replace(/import/gi, "///");
     }
+}
+function setQueryStringParameter(name, value) {
+    const params = new URLSearchParams(window.location.search);
+    params.set(name, value);
+    window.history.replaceState({
+    }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
 }
 
