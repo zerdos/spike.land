@@ -186,9 +186,9 @@ const version = `7.1.52`; const html = `<!DOCTYPE html>
 </html>`; const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts("https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js");
 
-importScripts(
-  "https://unpkg.com/@zedvision/code@7.1.52/dist/htmlNoModule.js",
-);
+// importScripts(
+//   "https://unpkg.com/@zedvision/code@7.1.52/dist/htmlNoModule.js",
+// );
 
 const dbPromise = idb.openDB("localZedCodeStore", 1, {
   upgrade(db) {
@@ -214,7 +214,7 @@ const SHATEST = {
   },
 };
 
-var cacheKey = "7.1.52";
+var cacheKey = "7.1.52-1";
 
 this.addEventListener("install", function (e) {
   e.waitUntil(
