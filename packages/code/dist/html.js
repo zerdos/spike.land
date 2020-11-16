@@ -228,10 +228,36 @@ this.addEventListener("install", function (e) {
 self.addEventListener("fetch", function (e) {
   self.runner = "browser-sw";
 
+  if (request.method === "POST") {
+    const data = (await request.json());
+
+    const myBuffer = new TextEncoder().encode(JSON.stringify(data));
+
+    const myDigest = await crypto!.subtle.digest(
+      {
+        name: "SHA-256",
+      },
+      myBuffer,
+    );
+
+    const hashArray = Array.from(new Uint8Array(myDigest));
+
+    // convert bytes to hex string
+    const hash = hashArray.map((b) => ("00" + b.toString(16)).slice(-2)).join(
+      "",
+    );
+    const smallerKey = hash.substring(0, 7);
+    await SHATEST.put(smallerKey, myBuffer);
+
+    const resp = new Response(`{"hash":"${smallerKey}"}`);
+    return resp;
+  }
+  // if (e.request.url==="code.zed.vison" && req)
+
   const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
     return cache.match(e.request).then((response) => {
       if (!response) {
-        console.log("NO CACHE MATCH");
+       // console.log("NO CACHE MATCH");
         return handleNoCacheMatch(e);
       }
 

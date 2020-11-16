@@ -70,7 +70,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     );
 
     const hashArray = Array.from(new Uint8Array(myDigest));
-
+      
     // convert bytes to hex string
     const hash = hashArray.map((b) => ("00" + b.toString(16)).slice(-2)).join(
       "",
