@@ -9,7 +9,7 @@ export const MonacoEditor: React.FC<
         "return import('https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js')",
       ))();
 
-      startMonaco({ language: "html", code, onChange });
+      startMonaco({ language: "typescript", code, onChange });
     })();
   }, []);
 
