@@ -1,18 +1,32 @@
+const importScript = async (src)=>document.querySelector(`script[src="${src}"]`) || new Promise(function(resolve, reject) {
+        const s = window.document.createElement("script");
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = reject;
+        window.document.head.appendChild(s);
+    })
+;
 const makeDraggable = async ()=>{
-    const JSFrame = window["JSFrame"];
-    const jsFrameNotFixed = new JSFrame({
-        fixed: false
+    await importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            const JSFrame = window["JSFrame"];
+            const jsFrameNotFixed = new JSFrame({
+                fixed: false
+            });
+            jsFrameNotFixed.create({
+                name: `Win0`,
+                title: `Your page :)`,
+                left: (window.innerWidth - window.innerWidth * 0.7) / 2,
+                top: 20,
+                width: window.innerWidth * 0.7,
+                height: 320,
+                appearanceName: "yosemite",
+                html: `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" /><div style="color:black; font-size:16px; overflow: hidden" class="window-content">\n    <div id="root"></div>\n</div>`
+            }).show();
+            resolve();
+        });
     });
-    jsFrameNotFixed.create({
-        name: `Win0`,
-        title: `Your page :)`,
-        left: (window.innerWidth - window.innerWidth * 0.7) / 2,
-        top: 20,
-        width: window.innerWidth * 0.7,
-        height: 320,
-        appearanceName: "yosemite",
-        html: `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" /><div style="color:black; font-size:16px; overflow: hidden" class="window-content">\n    <div id="root"></div>\n</div>`
-    }).show();
 };
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
@@ -271,14 +285,6 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
-const importScript = async (src)=>document.querySelector(`script[src="${src}"]`) || new Promise(function(resolve, reject) {
-        const s = window.document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        window.document.head.appendChild(s);
-    })
-;
 const starter = `import React from "react";\nimport ReactDOM from "react-dom";\n/** @jsx jsx */\nimport styled from "@emotion/styled";\n\nconst Counter = () => {\n  const [clicks, setClicks] = React.useState(0);\n\n  return <Container>\n    <Button css={\`background: green\`} onClick={() => setClicks(clicks - 1)}>\n      -\n    </Button>\n    {clicks}\n    <Button css={\`background: red\`} onClick={() => setClicks(clicks + 1)}>\n      +\n    </Button>\n  </Container>;\n};\n\nconst Container = styled.div\`\n  margin: 2em;\n  display: inline-block;\n  min-width: 200px;\n  background: white;\n  border: 4px dotted red;\n  border-radius: 30px;\n  padding: 1rem;\n\`;\n\nconst Button = styled.button\`\n  text-align: center;\n  display: inline-block;\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nconst elementToRender = document.getElementById("root");\nReactDOM.render(<Counter />, elementToRender);\n\n`;
 const DIFF_DELETE = -1;
 function diffMain({ text1 , text2 , cursorPos  }) {
@@ -895,10 +901,8 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    const jsFrameLoader = importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
+    await makeDraggable();
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
-    await jsFrameLoader;
-    makeDraggable();
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;

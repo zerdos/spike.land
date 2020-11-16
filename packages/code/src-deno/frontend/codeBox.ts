@@ -1,8 +1,8 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 
-import { makeDraggable } from "./interact.ts";
+import { makeDraggable } from "./interact.js";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
-import { importScript } from "./importScript.ts";
+import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 
 import { diff } from "./diff.ts";
@@ -39,17 +39,17 @@ export async function run() {
   //   "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
   // );
 
-  const jsFrameLoader = importScript(
-    "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
-  );
+  // const jsFrameLoader = importScript(
+  // "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
+  // );
 
+  // setTimeout(async () => {
+
+  await makeDraggable();
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
 
-  // setTimeout(async () => {
-  await jsFrameLoader;
-  makeDraggable();
   // document.querySelec;
   // });
 
