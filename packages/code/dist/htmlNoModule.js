@@ -33,9 +33,11 @@ const version = `7.2.2`; const html = `<!DOCTYPE html>
 
 
     #wrap {
+      resize: vertical;
+      overflow: auto;
       display: block;
       width: 100%;
-      min-height: 380px;
+      height: 380px;
       text-align: center;
       background-color: dimgray;
     }
