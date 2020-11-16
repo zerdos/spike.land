@@ -5,9 +5,9 @@ export const makeDraggable = async () => {
   jsFrameNotFixed.create({
     name: `Win0`,
     title: `Your page :)`,
-    left: (window.innerWidth - 400) / 2,
+    left: (window.innerWidth - 360) / 2,
     top: 20,
-    width: 400,
+    width: 360,
     height: 320,
     appearanceName: "yosemite",
     html:
