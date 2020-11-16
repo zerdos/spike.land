@@ -8,6 +8,7 @@ import { rhythm } from "../components/utils/typography";
 import styled from "@emotion/styled";
 
 import forkMe from "../../assets/forkMe.png";
+import { registerSW } from "../sw-reg";
 
 const StyledLink = styled(Link)`
   box-shadow: "none";
@@ -46,6 +47,11 @@ interface Props {
 const BlogIndex: React.FC<Props> = ({ data }) => {
   const edges = data.allMdx.edges;
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      registerSW();
+    }
+  }, []);
   return (
     <Layout>
       <SEO title="This is Zed vision" />

@@ -1,14 +1,103 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[5],{
 
-/***/ 102:
+/***/ 10:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hash; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return unHash; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _sha256_sha256_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(57);
+/* harmony import */ var _sha256_sha256_worker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_sha256_sha256_worker__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+var hashTable = {};
+
+var _ref = typeof window !== "undefined" && _sha256_sha256_worker__WEBPACK_IMPORTED_MODULE_3__(),
+    sha256 = _ref.sha256;
+
+var hash = /*#__PURE__*/function () {
+  var _ref2 = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(input) {
+    var strInput, hash, shorterHash, shortener;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            shortener = function _shortener(hash) {
+              for (var i = 4; i < 64; i++) {
+                var _shorterHash = hash.substr(0, i);
+
+                if (hashTable[_shorterHash] === undefined) {
+                  hashTable[_shorterHash] = hash;
+                  return _shorterHash;
+                }
+
+                if (hashTable[_shorterHash] === hash) return _shorterHash;
+              }
+
+              return hash;
+            };
+
+            strInput = typeof input !== "string" ? JSON.stringify(input) : input;
+            _context.next = 4;
+            return sha256(strInput);
+
+          case 4:
+            hash = _context.sent;
+            shorterHash = shortener(hash);
+            hashTable[hash] = input;
+            return _context.abrupt("return", shorterHash);
+
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function hash(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var unHash = /*#__PURE__*/function () {
+  var _ref3 = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(hash) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            return _context2.abrupt("return", hashTable[hashTable[hash]]);
+
+          case 1:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function unHash(_x2) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+
+/***/ 103:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cancelSync; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getFrameData; });
-/* harmony import */ var core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /* harmony import */ var core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(60);
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(61);
 
 
 var prevTime = 0;
@@ -165,7 +254,7 @@ var getFrameData = function getFrameData() {
 
 /***/ }),
 
-/***/ 106:
+/***/ 107:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1422,7 +1511,7 @@ __webpack_require__.d(__webpack_exports__, "y", function() { return /* binding *
 // UNUSED EXPORTS: angle, applyOffset, attract, attractExpo, createAnticipate, createAttractor, createBackIn, createExpoIn, decay, degreesToRadians, isPoint, isPoint3D, keyframes, mirrorEasing, mixColor, mixComplex, pointFromVector, radiansToDegrees, reverseEasing, smooth, smoothFrame, snap, spring, steps, toDecimal, velocityPerFrame
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/core-js/modules/es.array.reduce.js
-var es_array_reduce = __webpack_require__(4);
+var es_array_reduce = __webpack_require__(6);
 
 // CONCATENATED MODULE: /z/monorepo/node_modules/popmotion/node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
@@ -1852,13 +1941,13 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
   return value;
 }
 // EXTERNAL MODULE: /z/monorepo/node_modules/hey-listen/dist/hey-listen.es.js
-var hey_listen_es = __webpack_require__(60);
+var hey_listen_es = __webpack_require__(61);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/style-value-types/dist/style-value-types.es.js + 1 modules
-var style_value_types_es = __webpack_require__(106);
+var style_value_types_es = __webpack_require__(107);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/framesync/dist/framesync.es.js
-var framesync_es = __webpack_require__(102);
+var framesync_es = __webpack_require__(103);
 
 // CONCATENATED MODULE: /z/monorepo/node_modules/popmotion/dist/popmotion.es.js
 
@@ -3049,7 +3138,73 @@ var steps = function steps(_steps, direction) {
 
 /***/ }),
 
-/***/ 60:
+/***/ 27:
+/***/ (function(module, exports) {
+
+function addMethods(worker, methods) {
+  var c = 0;
+  var callbacks = {};
+  worker.addEventListener('message', function (e) {
+    var d = e.data;
+    if (d.type !== 'RPC') return;
+
+    if (d.id) {
+      var f = callbacks[d.id];
+
+      if (f) {
+        delete callbacks[d.id];
+
+        if (d.error) {
+          f[1](Object.assign(Error(d.error.message), d.error));
+        } else {
+          f[0](d.result);
+        }
+      }
+    } else {
+      var evt = document.createEvent('Event');
+      evt.initEvent(d.method, false, false);
+      evt.data = d.params;
+      worker.dispatchEvent(evt);
+    }
+  });
+  methods.forEach(function (method) {
+    worker[method] = function () {
+      var _arguments = arguments;
+      return new Promise(function (a, b) {
+        var id = ++c;
+        callbacks[id] = [a, b];
+        worker.postMessage({
+          type: 'RPC',
+          id: id,
+          method: method,
+          params: [].slice.call(_arguments)
+        });
+      });
+    };
+  });
+}
+
+module.exports = addMethods;
+
+/***/ }),
+
+/***/ 57:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+				var addMethods = __webpack_require__(27)
+				var methods = ["sha256"]
+				module.exports = function() {
+					var w = new Worker(__webpack_require__.p + "built-sha256.95c84a.worker.js", { name: "built-sha256.[hash:6].worker.js" })
+					addMethods(w, methods)
+					
+					return w
+				}
+			
+
+/***/ }),
+
+/***/ 61:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
