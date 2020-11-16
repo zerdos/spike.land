@@ -158,7 +158,7 @@
       const script = "/dist/_cBundle.js.min.js";
 
 
-      if (window.location.href.includes("0.0.0.0") || window.location.href.includes("localhost")) {
+      if (window.location.href.includes("0.0.0.0") || window.location.href.includes("localhost") || window.location.href.includes("zed.vision/code")) {
         const { run } = await import("./dist/_cBundle.js")
         run();
       } else {
