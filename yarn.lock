@@ -7407,10 +7407,10 @@ es6-symbol@^3.1.1, es6-symbol@~3.1.3:
     d "^1.0.1"
     ext "^1.1.2"
 
-esbuild@0.8.7:
-  version "0.8.7"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.7.tgz#3f329626235443bb5b9437eda7aaa91009f1029f"
-  integrity sha512-3PRWDk6Jb6uGEljeEPaR3RHdMTCMkzTpHbM+L0EhG/ohpIgFQvLXcB+nLRwy6N3/kt6kfIoxYQpq2mgd57dj6Q==
+esbuild@0.8.8:
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.8.tgz#4501b97584564ae3338dc9574aa6fbb21802ecf0"
+  integrity sha512-1Wo7L5Y6FpUUalF2APCh9cJi+IZ60jU9IBpTZSXA7jj3HItpAxPTmeIqGsaRW66rjg8SU6rvLnvQpgWqkCkCeA==
 
 escalade@^3.0.2, escalade@^3.1.1:
   version "3.1.1"
