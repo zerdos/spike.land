@@ -1,6 +1,6 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 
-// import { makeDraggable } from "./interact.ts";
+import { makeDraggable } from "./interact.ts";
 import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.ts";
 import { starter } from "./starter.tsx";
@@ -48,8 +48,9 @@ export async function run() {
   );
 
   // setTimeout(async () => {
-  //   await jsFrameLoader;
-  //   makeDraggable();
+  await jsFrameLoader;
+  makeDraggable();
+  // document.querySelec;
   // });
 
   (async () => {

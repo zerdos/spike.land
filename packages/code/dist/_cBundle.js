@@ -1,3 +1,19 @@
+const makeDraggable = async ()=>{
+    const JSFrame = window["JSFrame"];
+    const jsFrameNotFixed = new JSFrame({
+        fixed: false
+    });
+    jsFrameNotFixed.create({
+        name: `Win0`,
+        title: `Your page :)`,
+        left: (window.innerWidth - 400) / 2,
+        top: 20,
+        width: 400,
+        height: 320,
+        appearanceName: "yosemite",
+        html: `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" /><div style="color:black; font-size:16px; overflow: hidden" class="window-content">\n    <div id="root"></div>\n</div>`
+    }).show();
+};
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -878,6 +894,8 @@ let latestGoodCode = "";
 export async function run() {
     const jsFrameLoader = importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
+    await jsFrameLoader;
+    makeDraggable();
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;
