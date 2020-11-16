@@ -42,7 +42,7 @@ this.addEventListener("install", function (e) {
   );
 });
 
-self.addEventListener("fetch", function (e) {
+self.addEventListener("fetch", async function (e) {
   self.runner = "browser-sw";
 
   if (request.method === "POST") {
@@ -66,7 +66,7 @@ self.addEventListener("fetch", function (e) {
     const smallerKey = hash.substring(0, 7);
     await SHATEST.put(smallerKey, myBuffer);
 
-    const resp = new Response(`{"hash":"${smallerKey}"}`);
+    const resp = new Response({hash: smallerKey});
     return resp;
   }
   // if (e.request.url==="code.zed.vison" && req)
