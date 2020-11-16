@@ -186,7 +186,7 @@ export async function run() {
   document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
   async function restartCode(transpileCode: string) {
-    console.log(transpileCode);
+    // console.log(transpileCode);
     const restart = new Function(
       "transpileCode",
       `return function(){ 

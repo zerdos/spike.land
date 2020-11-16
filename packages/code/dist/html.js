@@ -195,8 +195,16 @@ const dbPromise = idb.openDB("localZedCodeStore", 1, {
 });
 
 const SHATEST = {
-  async get(key) {
-    return (await dbPromise).get("codeStore", key);
+  async get(key, format = "text") {
+    const data = (await dbPromise).get("codeStore", key);
+    if (!data) return null;
+    if (format === "text") {
+      const allData = await data;
+      const decoder = new TextDecoder();
+      const text = decoder.decode(allData);
+      return text;
+    }
+    return data;
   },
   async put(key, val) {
     return (await dbPromise).put("codeStore", val, key);
@@ -225,40 +233,52 @@ this.addEventListener("install", function (e) {
   );
 });
 
-self.addEventListener("fetch", async function (e) {
+self.addEventListener("fetch", function (e) {
   self.runner = "browser-sw";
 
-  console.log(request);
-  if (request.method === "POST") {
-    const data = (await request.json());
+  console.log(e.request);
+  if (e.request.method === "POST") {
+    e.respondWith(
+      (async () => {
+        const data = (await e.request.json());
 
-    const myBuffer = new TextEncoder().encode(JSON.stringify(data));
+        const myBuffer = new TextEncoder().encode(JSON.stringify(data));
 
-    const myDigest = await crypto!.subtle.digest(
-      {
-        name: "SHA-256",
-      },
-      myBuffer,
+        const myDigest = await crypto.subtle.digest(
+          {
+            name: "SHA-256",
+          },
+          myBuffer,
+        );
+
+        const hashArray = Array.from(new Uint8Array(myDigest));
+
+        // convert bytes to hex string
+        const hash = hashArray.map((b) => ("00" + b.toString(16)).slice(-2))
+          .join(
+            "",
+          );
+        const smallerKey = hash.substring(0, 8);
+        await SHATEST.put(smallerKey, myBuffer);
+
+        return new Response(JSON.stringify({ hash: smallerKey }), {
+          headers: { "Content-Type": "application/json" },
+        });
+      })(),
     );
+    return;
 
-    const hashArray = Array.from(new Uint8Array(myDigest));
+    // e.res
 
-    // convert bytes to hex string
-    const hash = hashArray.map((b) => ("00" + b.toString(16)).slice(-2)).join(
-      "",
-    );
-    const smallerKey = hash.substring(0, 7);
-    await SHATEST.put(smallerKey, myBuffer);
-
-    const resp = new Response({hash: smallerKey});
-    return resp;
+    // const resp = new Response();
+    // return
   }
   // if (e.request.url==="code.zed.vison" && req)
 
   const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
     return cache.match(e.request).then((response) => {
       if (!response) {
-       // console.log("NO CACHE MATCH");
+        // console.log("NO CACHE MATCH");
         return handleNoCacheMatch(e);
       }
 

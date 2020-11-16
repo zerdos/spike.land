@@ -999,7 +999,6 @@ export async function run() {
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
     async function restartCode(transpileCode) {
-        console.log(transpileCode);
         const restart = new Function("transpileCode", `return function(){ \n        ${transpileCode} \n    }`)();
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
