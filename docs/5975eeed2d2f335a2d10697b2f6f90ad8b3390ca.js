@@ -1961,7 +1961,7 @@ var fonts = "\n/* cyrillic-ext */\n@font-face {\n    font-family: 'Montserrat';\
 
 
 function _templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n--main-bg-color: white;\n\n", "\n\n", "\n\nmain{ \n  max-width: 1140px;\n  margin: auto\n}\n"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n--main-bg-color: white;\n\n", "\n\n", "\n\nbody{\n  margin: 0;\n}\n\nmain{ \n  max-width: 1140px;\n  margin: auto\n}\n"]);
 
   _templateObject = function _templateObject() {
     return data;

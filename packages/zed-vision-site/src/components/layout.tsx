@@ -15,6 +15,10 @@ ${fonts}
 
 ${styles}
 
+body{
+  margin: 0;
+}
+
 main{ 
   max-width: 1140px;
   margin: auto
