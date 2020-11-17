@@ -41,7 +41,7 @@
 
       function _templateObject3() {
         var data = Object(
-          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ /* default */[
             "a"
           ],
         )(["\n  margin-bottom: ", ";\n"]);
@@ -55,7 +55,7 @@
 
       function _templateObject2() {
         var data = Object(
-          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ /* default */[
             "a"
           ],
         )([
@@ -74,7 +74,7 @@
 
       function _templateObject() {
         var data = Object(
-          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ /* default */[
             "a"
           ],
         )(["\n  margin-top: ", ";\n  margin-bottom: 0;\n"]);
@@ -93,22 +93,22 @@
           ]("div", props);
         },
         code:
-          _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_9__/* CodeBox */ [
+          _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_9__ /* CodeBox */[
             "a"
           ],
       };
       var StyledHeader =
-        _emotion_styled__WEBPACK_IMPORTED_MODULE_8__/* default */ ["a"].h1(
+        _emotion_styled__WEBPACK_IMPORTED_MODULE_8__ /* default */["a"].h1(
           _templateObject(),
           Object(
-            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
+            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__ /* rhythm */[
               "b"
             ],
           )(1),
         );
 
       var _scale = Object(
-          _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* scale */ [
+          _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__ /* scale */[
             "c"
           ],
         )(1 / 5),
@@ -116,21 +116,21 @@
         lineHeight = _scale.lineHeight;
 
       var StyledDate =
-        _emotion_styled__WEBPACK_IMPORTED_MODULE_8__/* default */ ["a"].p(
+        _emotion_styled__WEBPACK_IMPORTED_MODULE_8__ /* default */["a"].p(
           _templateObject2(),
           fontSize,
           lineHeight,
           Object(
-            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
+            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__ /* rhythm */[
               "b"
             ],
           )(1),
         );
-      var Hr = _emotion_styled__WEBPACK_IMPORTED_MODULE_8__/* default */ ["a"]
+      var Hr = _emotion_styled__WEBPACK_IMPORTED_MODULE_8__ /* default */["a"]
         .hr(
           _templateObject3(),
           Object(
-            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
+            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__ /* rhythm */[
               "b"
             ],
           )(1),
@@ -165,10 +165,10 @@
           react__WEBPACK_IMPORTED_MODULE_1__["Fragment"],
           null,
           /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
-            _components_layout__WEBPACK_IMPORTED_MODULE_4__/* Layout */ ["a"],
+            _components_layout__WEBPACK_IMPORTED_MODULE_4__ /* Layout */["a"],
             null,
             /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
-              _components_seo__WEBPACK_IMPORTED_MODULE_5__/* SEO */ ["a"],
+              _components_seo__WEBPACK_IMPORTED_MODULE_5__ /* SEO */["a"],
               {
                 title: post.frontmatter.title,
                 description: post.frontmatter.description || post.excerpt,
@@ -200,7 +200,7 @@
               "footer",
               null,
               /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
-                _components_bio__WEBPACK_IMPORTED_MODULE_3__/* Bio */ ["a"],
+                _components_bio__WEBPACK_IMPORTED_MODULE_3__ /* Bio */["a"],
                 null,
               ),
             ),
@@ -531,7 +531,7 @@
 
     function _templateObject2() {
       var data = Object(
-        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ /* default */[
           "a"
         ],
       )([
@@ -548,7 +548,7 @@
 
     function _templateObject() {
       var data = Object(
-        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ /* default */[
           "a"
         ],
       )(["\n  margin-top: ", ";\n  display: flex;\n  margin-bottom: ", ";\n"]);
@@ -561,20 +561,20 @@
     }
 
     var Container =
-      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
+      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ /* default */["a"].div(
         _templateObject(),
         Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__ /* rhythm */["b"],
         )(2.5),
         Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__ /* rhythm */["b"],
         )(2.5),
       );
     var StyledImgDiv =
-      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
+      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ /* default */["a"].div(
         _templateObject2(),
         Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__ /* rhythm */["b"],
         )(1 / 2),
       );
     var Bio = function Bio() {

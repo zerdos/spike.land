@@ -122,7 +122,7 @@
           try {
             for (
               var _b = Object(
-                  tslib__WEBPACK_IMPORTED_MODULE_0__/* __values */ ["f"],
+                  tslib__WEBPACK_IMPORTED_MODULE_0__ /* __values */["f"],
                 )(this.subscriptions),
                 _c = _b.next();
               !_c.done;
@@ -228,7 +228,7 @@
             } // Update timestamp
 
             var _a = Object(
-                framesync__WEBPACK_IMPORTED_MODULE_1__/* getFrameData */ ["c"],
+                framesync__WEBPACK_IMPORTED_MODULE_1__ /* getFrameData */["c"],
               )(),
               delta = _a.delta,
               timestamp = _a.timestamp;
@@ -236,7 +236,7 @@
             if (_this.lastUpdated !== timestamp) {
               _this.timeDelta = delta;
               _this.lastUpdated = timestamp;
-              framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"]
+              framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"]
                 .postRender(_this.scheduleVelocityCheck);
             }
           };
@@ -250,7 +250,7 @@
      */
 
           this.scheduleVelocityCheck = function () {
-            return framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"]
+            return framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"]
               .postRender(_this.velocityCheck);
           };
           /**
@@ -441,7 +441,7 @@
           return this.canTrackVelocity
             ? // These casts could be avoided if parseFloat would be typed better
               Object(
-                popmotion__WEBPACK_IMPORTED_MODULE_2__/* velocityPerSecond */ [
+                popmotion__WEBPACK_IMPORTED_MODULE_2__ /* velocityPerSecond */[
                   "x"
                 ],
               )(
@@ -533,21 +533,21 @@
     };
 
     var easingLookup = {
-      linear: popmotion__WEBPACK_IMPORTED_MODULE_2__/* linear */ ["t"],
-      easeIn: popmotion__WEBPACK_IMPORTED_MODULE_2__/* easeIn */ ["o"],
-      easeInOut: popmotion__WEBPACK_IMPORTED_MODULE_2__/* easeInOut */ ["p"],
-      easeOut: popmotion__WEBPACK_IMPORTED_MODULE_2__/* easeOut */ ["q"],
-      circIn: popmotion__WEBPACK_IMPORTED_MODULE_2__/* circIn */ ["i"],
-      circInOut: popmotion__WEBPACK_IMPORTED_MODULE_2__/* circInOut */ ["j"],
-      circOut: popmotion__WEBPACK_IMPORTED_MODULE_2__/* circOut */ ["k"],
-      backIn: popmotion__WEBPACK_IMPORTED_MODULE_2__/* backIn */ ["c"],
-      backInOut: popmotion__WEBPACK_IMPORTED_MODULE_2__/* backInOut */ ["d"],
-      backOut: popmotion__WEBPACK_IMPORTED_MODULE_2__/* backOut */ ["e"],
-      anticipate: popmotion__WEBPACK_IMPORTED_MODULE_2__/* anticipate */ ["b"],
-      bounceIn: popmotion__WEBPACK_IMPORTED_MODULE_2__/* bounceIn */ ["f"],
+      linear: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* linear */["t"],
+      easeIn: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* easeIn */["o"],
+      easeInOut: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* easeInOut */["p"],
+      easeOut: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* easeOut */["q"],
+      circIn: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* circIn */["i"],
+      circInOut: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* circInOut */["j"],
+      circOut: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* circOut */["k"],
+      backIn: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* backIn */["c"],
+      backInOut: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* backInOut */["d"],
+      backOut: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* backOut */["e"],
+      anticipate: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* anticipate */["b"],
+      bounceIn: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* bounceIn */["f"],
       bounceInOut:
-        popmotion__WEBPACK_IMPORTED_MODULE_2__/* bounceInOut */ ["g"],
-      bounceOut: popmotion__WEBPACK_IMPORTED_MODULE_2__/* bounceOut */ ["h"],
+        popmotion__WEBPACK_IMPORTED_MODULE_2__ /* bounceInOut */["g"],
+      bounceOut: popmotion__WEBPACK_IMPORTED_MODULE_2__ /* bounceOut */["h"],
     };
 
     var easingDefinitionToFunction = function easingDefinitionToFunction(
@@ -555,12 +555,12 @@
     ) {
       if (Array.isArray(definition)) {
         // If cubic bezier definition, create bezier curve
-        Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+        Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
           definition.length === 4,
           "Cubic bezier arrays must contain four numerical values.",
         );
 
-        var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+        var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
             definition,
             4,
           ),
@@ -570,11 +570,11 @@
           y2 = _a[3];
 
         return Object(
-          popmotion__WEBPACK_IMPORTED_MODULE_2__/* cubicBezier */ ["m"],
+          popmotion__WEBPACK_IMPORTED_MODULE_2__ /* cubicBezier */["m"],
         )(x1, y1, x2, y2);
       } else if (typeof definition === "string") {
         // Else lookup from table
-        Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+        Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
           easingLookup[definition] !== undefined,
           "Invalid easing type '" + definition + "'",
         );
@@ -607,7 +607,7 @@
 
       if (
         typeof value === "string" && // It's animatable if we have a string
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* complex */ ["c"].test(
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* complex */["c"].test(
           value,
         ) && // And it contains numbers and/or colors
         !value.startsWith("url(") // Unless it starts with "url("
@@ -685,7 +685,7 @@
           defaultTransitions.default;
       }
 
-      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])({
+      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])({
         to: to,
       }, transitionFactory(to));
     };
@@ -706,7 +706,7 @@
         repeatDelay = _a.repeatDelay,
         from = _a.from,
         transition = Object(
-          tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"],
+          tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"],
         )(
           _a,
           [
@@ -735,11 +735,11 @@
         ease = _a.ease,
         times = _a.times,
         transition = Object(
-          tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"],
+          tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"],
         )(_a, ["yoyo", "loop", "flip", "ease", "times"]);
 
       var options = Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
       )({}, transition);
 
       if (times) {
@@ -811,7 +811,7 @@
     function hydrateKeyframes(options) {
       if (Array.isArray(options.to) && options.to[0] === null) {
         options.to = Object(
-          tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"],
+          tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"],
         )(options.to);
         options.to[0] = options.from;
       }
@@ -835,9 +835,9 @@
 
       if (!isTransitionDefined(transition)) {
         transition = Object(
-          tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+          tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
         )(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {},
             transition,
           ),
@@ -845,8 +845,8 @@
         );
       }
 
-      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           options,
         ),
@@ -874,12 +874,12 @@
         origin === "none" && isTargetAnimatable && typeof target === "string"
       ) {
         origin =
-          style_value_types__WEBPACK_IMPORTED_MODULE_4__/* complex */ ["c"]
+          style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* complex */["c"]
             .getAnimatableNone(target);
       }
 
       var isOriginAnimatable = isAnimatable(key, origin);
-      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* warning */ ["b"])(
+      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* warning */["b"])(
         isOriginAnimatable === isTargetAnimatable,
         "You are trying to animate " + key + ' from "' + origin + '" to "' +
           target + '". ' + origin +
@@ -900,18 +900,18 @@
         };
         return valueTransition.type === "inertia" ||
             valueTransition.type === "decay"
-          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* inertia */ ["r"])(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* inertia */["r"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
                 {},
                 options,
               ),
               valueTransition,
             ),
           )
-          : Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* animate */ ["a"])(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+          : Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* animate */["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
                 {},
                 getPopmotionAnimationOptions(valueTransition, options, key),
               ),
@@ -1035,10 +1035,10 @@
  * ValueType for ints
  */
 
-    var int = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-      Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+    var int = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+      Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
         {},
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* number */ ["g"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* number */["g"],
       ),
       {
         transform: Math.round,
@@ -1050,110 +1050,110 @@
 
     var defaultValueTypes = {
       // Color props
-      color: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
+      color: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
       backgroundColor:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
       outlineColor:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
-      fill: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
-      stroke: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
+      fill: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
+      stroke: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
       // Border props
       borderColor:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
       borderTopColor:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
       borderRightColor:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
       borderBottomColor:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
       borderLeftColor:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
-      borderWidth: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
+      borderWidth: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderTopWidth:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderRightWidth:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderBottomWidth:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderLeftWidth:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderRadius:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      radius: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      radius: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderTopLeftRadius:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderTopRightRadius:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderBottomRightRadius:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       borderBottomLeftRadius:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       // Positioning props
-      width: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      maxWidth: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      height: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      maxHeight: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      size: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      top: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      right: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      bottom: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      left: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+      width: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      maxWidth: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      height: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      maxHeight: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      size: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      top: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      right: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      bottom: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      left: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       // Spacing props
-      padding: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      paddingTop: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+      padding: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      paddingTop: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       paddingRight:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       paddingBottom:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      paddingLeft: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      margin: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      marginTop: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      marginRight: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      paddingLeft: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      margin: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      marginTop: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      marginRight: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       marginBottom:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      marginLeft: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      marginLeft: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       // Transform props
-      rotate: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
+      rotate: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
       rotateX:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
       rotateY:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
       rotateZ:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
-      scale: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* scale */ ["l"],
-      scaleX: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* scale */ ["l"],
-      scaleY: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* scale */ ["l"],
-      scaleZ: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* scale */ ["l"],
-      skew: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
-      skewX: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
-      skewY: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
-      distance: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      translateX: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      translateY: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      translateZ: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      x: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      y: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      z: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      perspective: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
+      scale: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* scale */["l"],
+      scaleX: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* scale */["l"],
+      scaleY: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* scale */["l"],
+      scaleZ: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* scale */["l"],
+      skew: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
+      skewX: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
+      skewY: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
+      distance: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      translateX: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      translateY: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      translateZ: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      x: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      y: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      z: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      perspective: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       transformPerspective:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      opacity: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* alpha */ ["a"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      opacity: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* alpha */["a"],
       originX:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* progressPercentage */ [
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* progressPercentage */[
           "i"
         ],
       originY:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* progressPercentage */ [
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* progressPercentage */[
           "i"
         ],
-      originZ: style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
+      originZ: style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
       // Misc
       zIndex: int,
       // SVG
       fillOpacity:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* alpha */ ["a"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* alpha */["a"],
       strokeOpacity:
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* alpha */ ["a"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* alpha */["a"],
       numOctaves: int,
     };
     /**
@@ -1161,12 +1161,12 @@
  */
 
     var dimensionValueTypes = [
-      style_value_types__WEBPACK_IMPORTED_MODULE_4__/* number */ ["g"],
-      style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"],
-      style_value_types__WEBPACK_IMPORTED_MODULE_4__/* percent */ ["h"],
-      style_value_types__WEBPACK_IMPORTED_MODULE_4__/* degrees */ ["d"],
-      style_value_types__WEBPACK_IMPORTED_MODULE_4__/* vw */ ["n"],
-      style_value_types__WEBPACK_IMPORTED_MODULE_4__/* vh */ ["m"],
+      style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* number */["g"],
+      style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"],
+      style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* percent */["h"],
+      style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* degrees */["d"],
+      style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* vw */["n"],
+      style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* vh */["m"],
       auto,
     ];
     /**
@@ -1190,12 +1190,12 @@
  */
 
     var valueTypes = Object(
-      tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"],
+      tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"],
     )(
       dimensionValueTypes,
       [
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* color */ ["b"],
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* complex */ ["c"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* color */["b"],
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* complex */["c"],
       ],
     );
     /**
@@ -1283,7 +1283,7 @@
         resolved = variant;
       }
 
-      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])({
+      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])({
         transition: visualElement.getDefaultTransition(),
       }, resolved);
     }
@@ -1310,13 +1310,13 @@
         _c = _b.transitionEnd,
         transitionEnd = _c === void 0 ? {} : _c,
         transition = _b.transition,
-        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
           _b,
           ["transitionEnd", "transition"],
         );
 
-      target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+      target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           target,
         ),
@@ -1332,7 +1332,7 @@
 
     function setVariants(visualElement, variantLabels) {
       var reversedLabels = Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"],
       )(variantLabels).reverse();
 
       reversedLabels.forEach(function (key) {
@@ -1385,7 +1385,7 @@
             ? _a
             : visualElement.readNativeValue(key);
           value = readValue !== undefined ? readValue : target[key];
-          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
             value !== null,
             'No initial value for "' + key +
               '" can be inferred. Ensure an initial value for "' + key +
@@ -1398,12 +1398,12 @@
           value = parseFloat(value);
         } else if (
           !findValueType(value) &&
-          style_value_types__WEBPACK_IMPORTED_MODULE_4__/* complex */ ["c"]
+          style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* complex */["c"]
             .test(targetValue)
         ) {
           // If value is not recognised as animatable, ie "none", create an animatable version origin based on the target
           value =
-            style_value_types__WEBPACK_IMPORTED_MODULE_4__/* complex */ ["c"]
+            style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* complex */["c"]
               .getAnimatableNone(targetValue);
         }
 
@@ -1471,7 +1471,7 @@
 
     function animateVariantLabels(visualElement, variantLabels, opts) {
       var animations = Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"],
       )(variantLabels).reverse().map(function (label) {
         return animateVariant(visualElement, label, opts);
       });
@@ -1539,7 +1539,7 @@
       var when = transition.when;
 
       if (when) {
-        var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+        var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
             when === "beforeChildren"
               ? [getAnimation, getChildrenAnimations]
               : [getChildrenAnimations, getAnimation],
@@ -1554,9 +1554,7 @@
           [
             getAnimation(),
             getChildrenAnimations(
-              opts === null || opts === void 0
-                ? void 0
-                : opts.delay,
+              opts === null || opts === void 0 ? void 0 : opts.delay,
             ),
           ],
         );
@@ -1638,7 +1636,7 @@
       var _e = visualElement.makeTargetAnimatable(targetAndTransition),
         transitionEnd = _e.transitionEnd,
         transition = _e.transition,
-        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
           _e,
           ["transitionEnd", "transition"],
         );
@@ -1664,7 +1662,7 @@
             key,
             value,
             valueTarget,
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])({
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])({
               delay: delay,
             }, transition),
           ),
@@ -1741,7 +1739,7 @@
       if (!visualElement.activeOverrides.size) return 0;
       return Math.max.apply(
         Math,
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"])(
           Array.from(visualElement.activeOverrides),
         ),
       );
@@ -1821,7 +1819,7 @@
           this.parent = parent;
           this.rootParent = parent ? parent.rootParent : this;
           this.treePath = parent
-            ? Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"])(
+            ? Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"])(
               parent.treePath,
               [parent],
             )
@@ -1971,7 +1969,7 @@
           }
 
           this.config = Object(
-            tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+            tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
           )({}, config);
         }; // Set a single `latest` value
 
@@ -1990,7 +1988,7 @@
         };
 
         VisualElement.prototype.scheduleRender = function () {
-          framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"].render(
+          framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"].render(
             this.triggerRender,
             false,
             true,
@@ -1998,7 +1996,7 @@
         };
 
         VisualElement.prototype.scheduleUpdateLayoutDelta = function () {
-          framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"].preRender(
+          framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"].preRender(
             this.rootParent.updateLayoutDelta,
             false,
             true,
@@ -2012,7 +2010,7 @@
             _this.setSingleStaticValue(key, latest); // Schedule onUpdate if we have an onUpdate listener and the component has mounted
 
             _this.element && _this.config.onUpdate &&
-              framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"].update(
+              framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"].update(
                 _this.update,
                 false,
                 true,
@@ -2032,7 +2030,7 @@
         }; // Mount the VisualElement with the actual DOM element
 
         VisualElement.prototype.mount = function (element) {
-          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
             !!element,
             "No ref found. Ensure components created with motion.custom forward refs using React.forwardRef",
           );
@@ -2054,10 +2052,10 @@
           this.forEachValue(function (_, key) {
             return _this.removeValue(key);
           });
-          framesync__WEBPACK_IMPORTED_MODULE_1__/* cancelSync */ ["a"].update(
+          framesync__WEBPACK_IMPORTED_MODULE_1__ /* cancelSync */["a"].update(
             this.update,
           );
-          framesync__WEBPACK_IMPORTED_MODULE_1__/* cancelSync */ ["a"].render(
+          framesync__WEBPACK_IMPORTED_MODULE_1__ /* cancelSync */["a"].render(
             this.render,
           );
           this.removeFromParent && this.removeFromParent();
@@ -2152,11 +2150,11 @@
 
     function copyAxisBox(box) {
       return {
-        x: Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        x: Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           box.x,
         ),
-        y: Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        y: Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           box.y,
         ),
@@ -2175,11 +2173,11 @@
 
     function delta() {
       return {
-        x: Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        x: Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           zeroDelta,
         ),
-        y: Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        y: Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           zeroDelta,
         ),
@@ -2400,7 +2398,7 @@
       var match = cssVariableRegex.exec(current);
       if (!match) return [];
 
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           match,
           3,
         ),
@@ -2417,13 +2415,13 @@
         depth = 1;
       }
 
-      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
         depth <= maxDepth,
         'Max CSS variable fallback depth detected in property "' + current +
           '". This may indicate a circular fallback dependency.',
       );
 
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           parseCSSVariable(current),
           2,
         ),
@@ -2452,7 +2450,7 @@
     function resolveCSSVariables(visualElement, _a, transitionEnd) {
       var _b;
 
-      var target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+      var target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
         _a,
         [],
       );
@@ -2468,7 +2466,7 @@
 
       if (transitionEnd) {
         transitionEnd = Object(
-          tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+          tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
         )({}, transitionEnd);
       } // Go through existing `MotionValue`s and ensure any existing CSS variables are resolved
 
@@ -2521,7 +2519,7 @@
    */
       if (typeof latest === "string") {
         if (
-          style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"].test(
+          style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"].test(
             latest,
           )
         ) {
@@ -2559,13 +2557,13 @@
       }
 
       var shadow =
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* complex */ ["c"].parse(
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* complex */["c"].parse(
           latest,
         ); // TODO: Doesn't support multiple shadows
 
       if (shadow.length > 5) return original;
       var template =
-        style_value_types__WEBPACK_IMPORTED_MODULE_4__/* complex */ ["c"]
+        style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* complex */["c"]
           .createTransformer(latest);
       var offset = typeof shadow[0] !== "number" ? 1 : 0; // Calculate the overall context scale
 
@@ -2581,7 +2579,7 @@
    */
 
       var averageScale = Object(
-        popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"],
+        popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"],
       )(xScale, yScale, 0.5); // Blur
 
       if (typeof shadow[2 + offset] === "number") {
@@ -2610,9 +2608,9 @@
     };
     var valueScaleCorrection = {
       borderRadius: Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
       )(
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           borderCorrectionDefinition,
         ),
@@ -2880,7 +2878,7 @@
  */
 
     function applyAxisTransforms(final, axis, transforms, _a) {
-      var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           _a,
           3,
         ),
@@ -2894,7 +2892,7 @@
         ? transforms[originKey]
         : 0.5;
       var originPoint = Object(
-        popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"],
+        popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"],
       )(axis.min, axis.max, axisOrigin); // Apply the axis delta to the final axis
 
       applyAxisDelta(
@@ -2951,7 +2949,7 @@
       }
 
       var originPoint =
-        Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"])(
+        Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"])(
           axis.min,
           axis.max,
           origin,
@@ -2977,7 +2975,7 @@
  */
 
     function removeAxisTransforms(axis, transforms, _a) {
-      var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           _a,
           3,
         ),
@@ -3018,7 +3016,7 @@
     }
 
     var clampProgress = function clampProgress(v) {
-      return Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* clamp */ ["l"])(
+      return Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* clamp */["l"])(
         0,
         1,
         v,
@@ -3037,7 +3035,7 @@
         maxDistance = 0.01;
       }
 
-      return Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* distance */ ["n"])(
+      return Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* distance */["n"])(
         value,
         target,
       ) < maxDistance;
@@ -3058,11 +3056,11 @@
 
       if (targetLength > sourceLength) {
         origin = Object(
-          popmotion__WEBPACK_IMPORTED_MODULE_2__/* progress */ ["w"],
+          popmotion__WEBPACK_IMPORTED_MODULE_2__ /* progress */["w"],
         )(target.min, target.max - sourceLength, source.min);
       } else if (sourceLength > targetLength) {
         origin = Object(
-          popmotion__WEBPACK_IMPORTED_MODULE_2__/* progress */ ["w"],
+          popmotion__WEBPACK_IMPORTED_MODULE_2__ /* progress */["w"],
         )(source.min, source.max - targetLength, target.min);
       }
 
@@ -3078,12 +3076,12 @@
     function updateAxisDelta(delta, source, target, origin) {
       delta.origin = origin === undefined ? calcOrigin(source, target) : origin;
       delta.originPoint = Object(
-        popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"],
+        popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"],
       )(source.min, source.max, delta.origin);
       delta.scale = calcLength(target) / calcLength(source);
       if (isNear(delta.scale, 1, 0.0001)) delta.scale = 1;
       delta.translate =
-        Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"])(
+        Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"])(
           target.min,
           target.max,
           delta.origin,
@@ -3151,8 +3149,8 @@
 
     var isNumOrPxType = function isNumOrPxType(v) {
       return v ===
-          style_value_types__WEBPACK_IMPORTED_MODULE_4__/* number */ ["g"] ||
-        v === style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"];
+          style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* number */["g"] ||
+        v === style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"];
     };
 
     var BoundingBoxDimension;
@@ -3299,12 +3297,12 @@
           transitionEnd = {};
         }
 
-        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           target,
         );
         transitionEnd = Object(
-          tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+          tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
         )({}, transitionEnd);
         var targetPositionalKeys = Object.keys(target).filter(isPositionalKey); // We want to remove any transform values that could affect the element's bounding box before
         // it's measured. We'll reapply these later.
@@ -3330,7 +3328,7 @@
               if (!toType) {
                 toType = findDimensionValueType(to[i]);
                 Object(
-                  hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"],
+                  hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"],
                 )(
                   toType === fromType ||
                     isNumOrPxType(fromType) && isNumOrPxType(toType),
@@ -3338,7 +3336,7 @@
                 );
               } else {
                 Object(
-                  hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"],
+                  hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"],
                 )(
                   findDimensionValueType(to[i]) === toType,
                   "All keyframes must be of the same type",
@@ -3364,16 +3362,18 @@
               } else if (
                 Array.isArray(to) &&
                 toType ===
-                  style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"]
+                  style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"]
               ) {
                 target[key] = to.map(parseFloat);
               }
             } else if (
               (fromType === null || fromType === void 0
                 ? void 0
-                : fromType.transform) && (toType === null || toType === void 0
-                  ? void 0
-                  : toType.transform) && (from === 0 || to === 0)
+                : fromType.transform) &&
+              (toType === null || toType === void 0
+                ? void 0
+                : toType.transform) &&
+              (from === 0 || to === 0)
             ) {
               // If one or the other value is 0, it's safe to coerce it to the
               // type of the other without measurement
@@ -3411,7 +3411,7 @@
           if (removedTransformValues.length) {
             removedTransformValues.forEach(function (_a) {
               var _b = Object(
-                  tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"],
+                  tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"],
                 )(_a, 2),
                 key = _b[0],
                 value = _b[1];
@@ -3476,7 +3476,7 @@
     var HTMLVisualElement =
       /** @class */
       function (_super) {
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __extends */ ["b"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __extends */["b"])(
           HTMLVisualElement,
           _super,
         );
@@ -3661,9 +3661,9 @@
           }
 
           this.config = Object(
-            tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+            tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
           )(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
               {},
               this.defaultConfig,
             ),
@@ -3714,7 +3714,7 @@
           var transition = _a.transition,
             transitionEnd = _a.transitionEnd,
             target = Object(
-              tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"],
+              tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"],
             )(_a, ["transition", "transitionEnd"]);
 
           var transformValues = this.config.transformValues;
@@ -3736,7 +3736,7 @@
             target = parsed.target;
           }
 
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {
               transition: transition,
               transitionEnd: transitionEnd,
@@ -3863,7 +3863,7 @@
             this.box,
             this.prevViewportBox || this.box,
           );
-          framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"].update(
+          framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"].update(
             function () {
               return _this.rebaseTargetBox();
             },
@@ -4118,7 +4118,7 @@
     function calcOrigin$1(origin, offset, size) {
       return typeof origin === "string"
         ? origin
-        : style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"]
+        : style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"]
           .transform(offset + size * origin);
     }
     /**
@@ -4133,7 +4133,7 @@
     } // Convert a progress 0-1 to a pixels value based on the provided length
 
     var progressToPixels = function progressToPixels(progress, length) {
-      return style_value_types__WEBPACK_IMPORTED_MODULE_4__/* px */ ["j"]
+      return style_value_types__WEBPACK_IMPORTED_MODULE_4__ /* px */["j"]
         .transform(progress * length);
     };
 
@@ -4220,7 +4220,7 @@
         _c = _a.pathOffset,
         pathOffset = _c === void 0 ? 0 : _c,
         // This is object creation, which we try to avoid per-frame.
-        latest = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+        latest = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
           _a,
           [
             "attrX",
@@ -4327,7 +4327,7 @@
     var SVGVisualElement =
       /** @class */
       function (_super) {
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __extends */ ["b"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __extends */["b"])(
           SVGVisualElement,
           _super,
         );
@@ -4566,9 +4566,9 @@
         return new DOMVisualElement(parent, ref);
       });
       visualElement.updateConfig(
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
               {},
               visualElement.config,
             ),
@@ -4727,9 +4727,9 @@
       var drag = _a.drag; // The `any` isn't ideal but it is the type of createElement props argument
 
       var htmlProps = {
-        style: Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        style: Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
               {},
               visualElement.reactStyle,
             ),
@@ -4757,13 +4757,13 @@
  */
 
     function buildSVGProps(visualElement) {
-      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+      return Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           visualElement.attrs,
         ),
         {
-          style: Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+          style: Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {},
             visualElement.reactStyle,
           ),
@@ -4792,9 +4792,9 @@
         : buildHTMLProps(visualElement, props);
       return Object(react__WEBPACK_IMPORTED_MODULE_5__["createElement"])(
         Component,
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
               {},
               forwardedProps,
             ),
@@ -4965,7 +4965,7 @@
       var children = _a.children,
         _b = _a.features,
         features = _b === void 0 ? [] : _b,
-        props = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+        props = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
           _a,
           ["children", "features"],
         );
@@ -4975,7 +4975,7 @@
       )(MotionConfigContext);
 
       var loadedFeatures = Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"],
       )(pluginContext.features, features); // We do want to rerender children when the number of loaded features changes
 
       var value = Object(react__WEBPACK_IMPORTED_MODULE_5__["useMemo"])(
@@ -5020,7 +5020,7 @@
       if (isStatic || typeof window === "undefined") return null;
 
       var allFeatures = Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"],
       )(defaultFeatures, plugins.features);
 
       var numFeatures = allFeatures.length;
@@ -5038,7 +5038,7 @@
             features.push(
               Object(react__WEBPACK_IMPORTED_MODULE_5__["createElement"])(
                 Component,
-                Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+                Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
                   {
                     key: key,
                   },
@@ -5444,10 +5444,9 @@
      * If this component or any ancestor is static, we disable hardware acceleration
      * and don't load any additional functionality.
      */
-        var isStatic =
-          Object(react__WEBPACK_IMPORTED_MODULE_5__["useContext"])(
-            MotionConfigContext,
-          ).isStatic;
+        var isStatic = Object(react__WEBPACK_IMPORTED_MODULE_5__["useContext"])(
+          MotionConfigContext,
+        ).isStatic;
         /**
      * Create a VisualElement for this component. A VisualElement provides a common
      * interface to renderer-specific APIs (ie DOM/Three.js etc) as well as
@@ -5799,23 +5798,21 @@
             // any larger than this we'll want to reset the pointer history
             // on the first update to avoid visual snapping to the cursoe.
 
-            var isDistancePastThreshold =
-              Object(
-                popmotion__WEBPACK_IMPORTED_MODULE_2__/* distance */ ["n"],
-              )(info.offset, {
-                x: 0,
-                y: 0,
-              }) >= 3;
+            var isDistancePastThreshold = Object(
+              popmotion__WEBPACK_IMPORTED_MODULE_2__ /* distance */["n"],
+            )(info.offset, {
+              x: 0,
+              y: 0,
+            }) >= 3;
             if (!isPanStarted && !isDistancePastThreshold) return;
             var point = info.point;
-            var timestamp =
-              Object(
-                framesync__WEBPACK_IMPORTED_MODULE_1__/* getFrameData */ ["c"],
-              )().timestamp;
+            var timestamp = Object(
+              framesync__WEBPACK_IMPORTED_MODULE_1__ /* getFrameData */["c"],
+            )().timestamp;
 
             _this.history.push(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-                Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+                Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
                   {},
                   point,
                 ),
@@ -5850,7 +5847,7 @@
               return;
             } // Throttle mouse move event to once per frame
 
-            framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"].update(
+            framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"].update(
               _this.updatePoint,
               true,
             );
@@ -5874,13 +5871,12 @@
           var info = extractEventInfo(event);
           var initialInfo = transformPoint(info, this.transformPagePoint);
           var point = initialInfo.point;
-          var timestamp =
-            Object(
-              framesync__WEBPACK_IMPORTED_MODULE_1__/* getFrameData */ ["c"],
-            )().timestamp;
+          var timestamp = Object(
+            framesync__WEBPACK_IMPORTED_MODULE_1__ /* getFrameData */["c"],
+          )().timestamp;
           this.history = [
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
                 {},
                 point,
               ),
@@ -5893,7 +5889,7 @@
           onSessionStart &&
             onSessionStart(event, getPanInfo(initialInfo, this.history));
           this.removeListeners = Object(
-            popmotion__WEBPACK_IMPORTED_MODULE_2__/* pipe */ ["v"],
+            popmotion__WEBPACK_IMPORTED_MODULE_2__ /* pipe */["v"],
           )(
             addPointerEvent(window, "pointermove", this.handlePointerMove),
             addPointerEvent(window, "pointerup", this.handlePointerUp),
@@ -5907,7 +5903,7 @@
 
         PanSession.prototype.end = function () {
           this.removeListeners && this.removeListeners();
-          framesync__WEBPACK_IMPORTED_MODULE_1__/* cancelSync */ ["a"].update(
+          framesync__WEBPACK_IMPORTED_MODULE_1__ /* cancelSync */["a"].update(
             this.updatePoint,
           );
         };
@@ -6017,7 +6013,7 @@
       if (min !== undefined && point < min) {
         // If we have a min point defined, and this is outside of that, constrain
         point = elastic
-          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"])(
+          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"])(
             min,
             point,
             elastic,
@@ -6026,7 +6022,7 @@
       } else if (max !== undefined && point > max) {
         // If we have a max point defined, and this is outside of that, constrain
         point = elastic
-          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"])(
+          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"])(
             max,
             point,
             elastic,
@@ -6100,7 +6096,7 @@
         constraintsAxis.max - constraintsAxis.min <
           layoutAxis.max - layoutAxis.min
       ) {
-        _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+        _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           [max, min],
           2,
         ),
@@ -6129,7 +6125,7 @@
 
     function calcPositionFromProgress(axis, constraints, progress) {
       var axisLength = axis.max - axis.min;
-      var min = Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"])(
+      var min = Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"])(
         constraints.min,
         constraints.max - axisLength,
         progress,
@@ -6307,7 +6303,7 @@
               _this.cursorProgress[axis] = cursorProgress
                 ? cursorProgress[axis]
                 : Object(
-                  popmotion__WEBPACK_IMPORTED_MODULE_2__/* progress */ ["w"],
+                  popmotion__WEBPACK_IMPORTED_MODULE_2__ /* progress */["w"],
                 )(min, max, point[axis]);
               /**
          * If we have external drag MotionValues, record their origin point. On pointermove
@@ -6437,7 +6433,7 @@
             onMeasureDragConstraints = _a.onMeasureDragConstraints,
             transformPagePoint = _a.transformPagePoint;
           var constraintsElement = constraints.current;
-          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
             constraintsElement !== null,
             "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.",
           );
@@ -6601,7 +6597,7 @@
             _g = _a.dragMomentum,
             dragMomentum = _g === void 0 ? true : _g,
             remainingProps = Object(
-              tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"],
+              tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"],
             )(
               _a,
               [
@@ -6615,7 +6611,7 @@
             );
 
           this.props = Object(
-            tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+            tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
           )({
             drag: drag,
             dragDirectionLock: dragDirectionLock,
@@ -6676,9 +6672,9 @@
             var bounceDamping = dragElastic ? 40 : 10000000;
 
             var inertia = Object(
-              tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+              tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
             )(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])({
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])({
                 type: "inertia",
                 velocity: dragMomentum ? velocity[axis] : 0,
                 bounceStiffness: bounceStiffness,
@@ -6892,8 +6888,8 @@
         });
       });
       dragControls.updateProps(
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {},
             props,
           ),
@@ -6922,7 +6918,7 @@
 
     var Component = makeRenderlessComponent(function (_a) {
       var visualElement = _a.visualElement,
-        props = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+        props = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
           _a,
           ["visualElement"],
         );
@@ -7088,7 +7084,7 @@
       function onPointerDown(event, info) {
         removePointerUp();
         cancelPointerEventListener.current = Object(
-          popmotion__WEBPACK_IMPORTED_MODULE_2__/* pipe */ ["v"],
+          popmotion__WEBPACK_IMPORTED_MODULE_2__ /* pipe */["v"],
         )(
           addPointerEvent(window, "pointerup", function (event, info) {
             var _a;
@@ -7195,7 +7191,7 @@
     ];
     var GestureComponent = makeRenderlessComponent(function (_a) {
       var visualElement = _a.visualElement,
-        props = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+        props = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
           _a,
           ["visualElement"],
         );
@@ -7335,7 +7331,7 @@
    */
 
         AnimationControls.prototype.set = function (definition) {
-          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+          Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
             this.hasMounted,
             "controls.set() should only be called after a component has mounted. Consider calling within a useEffect hook.",
           );
@@ -7374,7 +7370,7 @@
 
             _this.start.apply(
               _this,
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"])(
                 animation,
               ),
             ).then(resolve);
@@ -7406,7 +7402,7 @@
         exit = props.exit,
         visualElement = props.visualElement;
 
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           usePresence(),
           2,
         ),
@@ -7486,14 +7482,14 @@
 
       var transition = _a.transition,
         transitionEnd = _a.transitionEnd,
-        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"])(
+        target = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"])(
           _a,
           ["transition", "transitionEnd"],
         );
 
       return mergeTransitionEnd
-        ? Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        ? Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {},
             target,
           ),
@@ -7567,9 +7563,9 @@
 
         isInitialRender.current = false;
         prevValues.current = Object(
-          tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+          tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
         )(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {},
             prevValues.current,
           ),
@@ -7579,8 +7575,8 @@
         if (Object.keys(targetToAnimate).length) {
           startVisualElementAnimation(
             visualElement,
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
                 {},
                 targetToAnimate,
               ),
@@ -7750,10 +7746,10 @@
 
     function tweenAxis(target, prev, next, p) {
       target.min = Object(
-        popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"],
+        popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"],
       )(prev.min, next.min, p);
       target.max = Object(
-        popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"],
+        popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"],
       )(prev.max, next.max, p);
     }
 
@@ -7762,7 +7758,7 @@
     var Animate =
       /** @class */
       function (_super) {
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __extends */ ["b"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __extends */["b"])(
           Animate,
           _super,
         );
@@ -7795,7 +7791,7 @@
               visibilityAction = _a.visibilityAction,
               shouldStackAnimate = _a.shouldStackAnimate,
               config = Object(
-                tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"],
+                tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"],
               )(
                 _a,
                 [
@@ -7893,8 +7889,8 @@
           visualElement.enableLayoutProjection();
           this.unsubLayoutReady = visualElement.onLayoutUpdate(this.animate);
           visualElement.updateConfig(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
                 {},
                 visualElement.config,
               ),
@@ -8002,7 +7998,7 @@
           return function (p) {
             opacity.set(
               easeCrossfadeIn(
-                Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"])(
+                Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"])(
                   0,
                   1,
                   p,
@@ -8011,7 +8007,7 @@
             );
             crossfadeOpacity.set(
               easeCrossfadeOut(
-                Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* mix */ ["u"])(
+                Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* mix */["u"])(
                   1,
                   0,
                   p,
@@ -8037,7 +8033,7 @@
       }(react__WEBPACK_IMPORTED_MODULE_5__["Component"]);
 
     function AnimateLayoutContextProvider(props) {
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           usePresence(),
           2,
         ),
@@ -8045,7 +8041,7 @@
 
       return Object(react__WEBPACK_IMPORTED_MODULE_5__["createElement"])(
         Animate,
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           props,
           {
@@ -8074,7 +8070,7 @@
         if (p < min) return 0;
         if (p > max) return 1;
         return easing(
-          Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* progress */ ["w"])(
+          Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* progress */["w"])(
             min,
             max,
             p,
@@ -8086,12 +8082,12 @@
     var easeCrossfadeIn = compress(
       0,
       0.5,
-      popmotion__WEBPACK_IMPORTED_MODULE_2__/* circOut */ ["k"],
+      popmotion__WEBPACK_IMPORTED_MODULE_2__ /* circOut */["k"],
     );
     var easeCrossfadeOut = compress(
       0.5,
       0.95,
-      popmotion__WEBPACK_IMPORTED_MODULE_2__/* linear */ ["t"],
+      popmotion__WEBPACK_IMPORTED_MODULE_2__ /* linear */["t"],
     );
     /**
  * @public
@@ -8113,7 +8109,7 @@
     var Measure =
       /** @class */
       function (_super) {
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __extends */ ["b"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __extends */["b"])(
           Measure,
           _super,
         );
@@ -8179,7 +8175,7 @@
       );
       return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(
         Measure,
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           props,
           {
@@ -8227,9 +8223,9 @@
 
     function createMotionProxy(defaultFeatures) {
       var config = Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
       )(
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
           {},
           domBaseConfig,
         ),
@@ -8287,8 +8283,8 @@
     function createDomMotionComponent(key) {
       return createMotionComponent(
         key,
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-          Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+          Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {},
             domBaseConfig,
           ),
@@ -8309,7 +8305,7 @@
         false,
       );
 
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           Object(react__WEBPACK_IMPORTED_MODULE_5__["useState"])(0),
           2,
         ),
@@ -8548,7 +8544,7 @@
       } // If this is a subsequent render, deal with entering and exiting children
 
       var childrenToRender = Object(
-        tslib__WEBPACK_IMPORTED_MODULE_0__/* __spread */ ["e"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__ /* __spread */["e"],
       )(filteredChildren); // Diff the keys of the currently-present and target children to update our
       // exiting list.
 
@@ -8711,9 +8707,10 @@
         !((_a = stack === null || stack === void 0 ? void 0 : stack.follow) ===
               null || _a === void 0
           ? void 0
-          : _a.isPresenceRoot) && !(stackLead === null || stackLead === void 0
-            ? void 0
-            : stackLead.isPresenceRoot)
+          : _a.isPresenceRoot) &&
+        !(stackLead === null || stackLead === void 0
+          ? void 0
+          : stackLead.isPresenceRoot)
       ) {
         return config;
       }
@@ -8760,7 +8757,7 @@
  */
 
     function findLeadAndFollow(stack, _a) {
-      var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           _a,
           2,
         ),
@@ -8874,7 +8871,7 @@
           this.prevLead = this.lead;
           this.prevFollow = this.follow;
 
-          var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+          var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
               findLeadAndFollow(this.order, [this.lead, this.follow]),
               2,
             ),
@@ -8964,7 +8961,7 @@
     var AnimateSharedLayout =
       /** @class */
       function (_super) {
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __extends */ ["b"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __extends */["b"])(
           AnimateSharedLayout,
           _super,
         );
@@ -9005,9 +9002,9 @@
      */
 
           _this.syncContext = Object(
-            tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+            tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
           )(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
               {},
               createBatcher(),
             ),
@@ -9019,7 +9016,7 @@
                 // By copying syncContext to itself, when this component re-renders it'll also re-render
                 // all children subscribed to the SharedLayout context.
                 _this.syncContext = Object(
-                  tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"],
+                  tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"],
                 )({}, _this.syncContext);
 
                 _this.scheduleUpdate(true);
@@ -9292,7 +9289,7 @@
    */
 
       useMultiOnChange(values, function () {
-        return framesync__WEBPACK_IMPORTED_MODULE_1__/* default */ ["b"].update(
+        return framesync__WEBPACK_IMPORTED_MODULE_1__ /* default */["b"].update(
           updateValue,
           false,
           true,
@@ -9386,11 +9383,11 @@
       var outputRange = args[2 + argOffset];
       var options = args[3 + argOffset];
       var interpolator = Object(
-        popmotion__WEBPACK_IMPORTED_MODULE_2__/* interpolate */ ["s"],
+        popmotion__WEBPACK_IMPORTED_MODULE_2__ /* interpolate */["s"],
       )(
         inputRange,
         outputRange,
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])({
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])({
           mixer: getMixer(outputRange[0]),
         }, options),
       );
@@ -9409,7 +9406,7 @@
       return Array.isArray(input)
         ? useListTransform(input, transformer)
         : useListTransform([input], function (_a) {
-          var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+          var _b = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
               _a,
               1,
             ),
@@ -9479,11 +9476,11 @@
       var parentScaleX = useMotionValue(1);
       var parentScaleY = useMotionValue(1);
       var visualElement = useVisualElementContext();
-      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
         !!(scale || visualElement),
         "If no scale values are provided, useInvertedScale must be used within a child of another motion component.",
       );
-      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* warning */ ["b"])(
+      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* warning */["b"])(
         hasWarned,
         "useInvertedScale is deprecated and will be removed in 3.0. Use the layout prop instead.",
       );
@@ -9540,10 +9537,10 @@
           }
 
           activeSpringAnimation.current = Object(
-            popmotion__WEBPACK_IMPORTED_MODULE_2__/* animate */ ["a"],
+            popmotion__WEBPACK_IMPORTED_MODULE_2__ /* animate */["a"],
           )(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
-              Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])({
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
+              Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])({
                 from: value.get(),
                 to: v,
                 velocity: value.getVelocity(),
@@ -9658,7 +9655,7 @@
       var values = useConstant(createScrollMotionValues);
       useIsomorphicLayoutEffect(function () {
         var element = ref.current;
-        Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* invariant */ ["a"])(
+        Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* invariant */["a"])(
           !!element,
           "ref provided to useScroll must be passed into a HTML element.",
         );
@@ -9797,7 +9794,7 @@
  */
 
     function useReducedMotion() {
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           Object(react__WEBPACK_IMPORTED_MODULE_5__["useState"])(
             prefersReducedMotion.get(),
           ),
@@ -9966,13 +9963,13 @@
         items[_i] = arguments[_i];
       } // TODO: After Framer X beta, remove this warning
 
-      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__/* warning */ ["b"])(
+      Object(hey_listen__WEBPACK_IMPORTED_MODULE_3__ /* warning */["b"])(
         items.length > 1,
         "useCycle syntax has changed. `useCycle([0, 1, 2])` becomes `useCycle(0, 1, 2)`",
       );
       var index = Object(react__WEBPACK_IMPORTED_MODULE_5__["useRef"])(0);
 
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           Object(react__WEBPACK_IMPORTED_MODULE_5__["useState"])(
             items[index.current],
           ),
@@ -9983,7 +9980,7 @@
 
       return [item, function (next) {
         index.current = typeof next !== "number"
-          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__/* wrap */ ["y"])(
+          ? Object(popmotion__WEBPACK_IMPORTED_MODULE_2__ /* wrap */["y"])(
             0,
             items.length,
             index.current + 1,
@@ -10174,7 +10171,7 @@
     var StateVisualElement =
       /** @class */
       function (_super) {
-        Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __extends */ ["b"])(
+        Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __extends */["b"])(
           StateVisualElement,
           _super,
         );
@@ -10196,12 +10193,12 @@
           var transition = _a.transition,
             transitionEnd = _a.transitionEnd,
             target = Object(
-              tslib__WEBPACK_IMPORTED_MODULE_0__/* __rest */ ["d"],
+              tslib__WEBPACK_IMPORTED_MODULE_0__ /* __rest */["d"],
             )(_a, ["transition", "transitionEnd"]);
 
           var origin = getOrigin(target, transition || {}, this);
           checkTargetForNewValues(this, target, origin);
-          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
             {
               transition: transition,
               transitionEnd: transitionEnd,
@@ -10240,7 +10237,7 @@
  */
 
     function useAnimatedState(initialState) {
-      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __read */ ["c"])(
+      var _a = Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __read */["c"])(
           Object(react__WEBPACK_IMPORTED_MODULE_5__["useState"])(initialState),
           2,
         ),
@@ -10253,7 +10250,7 @@
       visualElement.updateConfig({
         onUpdate: function onUpdate(v) {
           return setAnimationState(
-            Object(tslib__WEBPACK_IMPORTED_MODULE_0__/* __assign */ ["a"])(
+            Object(tslib__WEBPACK_IMPORTED_MODULE_0__ /* __assign */["a"])(
               {},
               v,
             ),

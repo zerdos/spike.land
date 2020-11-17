@@ -91,9 +91,8 @@
           ? void 0
           : base.endsWith("/"))
         ? base.slice(0, -1)
-        : base) + (path.startsWith("/")
-          ? path
-          : "/" + path);
+        : base) +
+        (path.startsWith("/") ? path : "/" + path);
     } // These global values are wrapped in typeof clauses to ensure the values exist.
     // This is especially problematic in unit testing of this component.
 
@@ -1759,9 +1758,8 @@
     ////////////////////////////////////////////////////////////////////////////////
     // global history - uses window.history as the source if available, otherwise a
     // memory history
-    var canUseDOM =
-      !!(typeof window !== "undefined" && window.document &&
-        window.document.createElement);
+    var canUseDOM = !!(typeof window !== "undefined" && window.document &&
+      window.document.createElement);
     var getSource = function getSource() {
       return canUseDOM ? window : createMemorySource();
     };
@@ -2092,21 +2090,19 @@
           args[_key] = arguments[_key];
         }
 
-        return _ret =
-          (_temp =
-            (_this = _possibleConstructorReturn(
-              this,
-              _React$Component.call.apply(
-                _React$Component,
-                [this].concat(args),
-              ),
-            ),
-              _this),
-            _this.state = {
-              context: _this.getContext(),
-              refs: { unlisten: null },
-            },
-            _temp),
+        return _ret = (_temp = (_this = _possibleConstructorReturn(
+          this,
+          _React$Component.call.apply(
+            _React$Component,
+            [this].concat(args),
+          ),
+        ),
+          _this),
+          _this.state = {
+            context: _this.getContext(),
+            refs: { unlisten: null },
+          },
+          _temp),
           _possibleConstructorReturn(_this, _ret);
       }
 
@@ -2186,7 +2182,7 @@
 
     LocationProvider.defaultProps = {
       history:
-        _lib_history__WEBPACK_IMPORTED_MODULE_6__/* globalHistory */ ["c"],
+        _lib_history__WEBPACK_IMPORTED_MODULE_6__ /* globalHistory */["c"],
     };
     false ? undefined : void 0;
     var ServerLocation = function ServerLocation(_ref2) {
@@ -2426,23 +2422,21 @@
           args[_key2] = arguments[_key2];
         }
 
-        return _ret2 =
-          (_temp2 =
-            (_this4 = _possibleConstructorReturn(
-              this,
-              _React$Component2.call.apply(
-                _React$Component2,
-                [this].concat(args),
-              ),
-            ),
-              _this4),
-            _this4.state = {},
-            _this4.requestFocus = function (node) {
-              if (!_this4.state.shouldFocus && node) {
-                node.focus();
-              }
-            },
-            _temp2),
+        return _ret2 = (_temp2 = (_this4 = _possibleConstructorReturn(
+          this,
+          _React$Component2.call.apply(
+            _React$Component2,
+            [this].concat(args),
+          ),
+        ),
+          _this4),
+          _this4.state = {},
+          _this4.requestFocus = function (node) {
+            if (!_this4.state.shouldFocus && node) {
+              node.focus();
+            }
+          },
+          _temp2),
           _possibleConstructorReturn(_this4, _ret2);
       }
 
@@ -3458,9 +3452,7 @@
       for (
         var _len = arguments.length,
           query = Array(
-            _len > 1
-              ? _len - 1
-              : 0,
+            _len > 1 ? _len - 1 : 0,
           ),
           _key = 1;
         _key < _len;
@@ -4770,7 +4762,7 @@
         if (i % 2) {
           ownKeys(Object(source), true).forEach(function (key) {
             Object(
-              _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+              _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ /* default */[
                 "a"
               ],
             )(target, key, source[key]);
@@ -4794,7 +4786,7 @@
     } // Renders page
     var PageRenderer = /*#__PURE__*/ function (_React$Component) {
       Object(
-        _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__/* default */ [
+        _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ /* default */[
           "a"
         ],
       )(PageRenderer, _React$Component);
@@ -4811,7 +4803,7 @@
               _objectSpread(
                 {},
                 Object(
-                  _find_path__WEBPACK_IMPORTED_MODULE_5__/* grabMatchParams */ [
+                  _find_path__WEBPACK_IMPORTED_MODULE_5__ /* grabMatchParams */[
                     "c"
                   ],
                 )(this.props.location.pathname),
@@ -5907,7 +5899,7 @@
         if (i % 2) {
           ownKeys(Object(source), true).forEach(function (key) {
             Object(
-              _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+              _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ /* default */[
                 "a"
               ],
             )(target, key, source[key]);
@@ -5936,7 +5928,7 @@
       if (!pageResources) return null;
       return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1___default.a
         .createElement(
-          _page_renderer__WEBPACK_IMPORTED_MODULE_3__/* default */ ["a"],
+          _page_renderer__WEBPACK_IMPORTED_MODULE_3__ /* default */["a"],
           _objectSpread(
             { location: location, pageResources: pageResources },
             pageResources.json,
@@ -7005,12 +6997,11 @@
                 SiteRoot,
               );
             };
-            var renderer =
-              Object(api_runner_browser["apiRunner"])(
-                "replaceHydrateFunction",
-                undefined,
-                react_dom_default.a.hydrate,
-              )[0];
+            var renderer = Object(api_runner_browser["apiRunner"])(
+              "replaceHydrateFunction",
+              undefined,
+              react_dom_default.a.hydrate,
+            )[0];
             ready_default()(function () {
               renderer(
                 /*#__PURE__*/ react_default.a.createElement(App, null),

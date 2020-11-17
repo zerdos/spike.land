@@ -37,7 +37,7 @@
     var defaultProps = {
       events: ["reset"].concat(
         Object(
-          _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+          _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ /* default */[
             "a"
           ],
         )(new Array(8).fill("+1")),

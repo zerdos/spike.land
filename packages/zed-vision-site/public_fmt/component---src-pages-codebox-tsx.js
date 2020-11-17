@@ -25,10 +25,10 @@
         return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__[
           "createElement"
         ](
-          _components_layout__WEBPACK_IMPORTED_MODULE_2__/* Layout */ ["a"],
+          _components_layout__WEBPACK_IMPORTED_MODULE_2__ /* Layout */["a"],
           null,
           /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
-            _components_seo__WEBPACK_IMPORTED_MODULE_3__/* SEO */ ["a"],
+            _components_seo__WEBPACK_IMPORTED_MODULE_3__ /* SEO */["a"],
             {
               title: "Code Box",
             },
@@ -44,7 +44,7 @@
             "Lets see!",
           ),
           /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
-            _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_1__/* CodeBox */ [
+            _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_1__ /* CodeBox */[
               "a"
             ],
             {

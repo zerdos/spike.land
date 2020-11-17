@@ -152,62 +152,66 @@
       "../../node_modules/workerize-loader/dist/rpc-worker-loader.js!../../node_modules/gatsby/dist/utils/babel-loader.js?!./src/components/utils/sha256/sha256.worker.ts",
   );
   /******/
-})(/************************************************************************/
-/******/ {
-  /***/ "../../node_modules/workerize-loader/dist/rpc-worker-loader.js!../../node_modules/gatsby/dist/utils/babel-loader.js?!./src/components/utils/sha256/sha256.worker.ts":
-    /*!**********************************************************************************************************************************************************************************************!*\
+})(
+  /************************************************************************/
+  /******/ {
+    /***/ "../../node_modules/workerize-loader/dist/rpc-worker-loader.js!../../node_modules/gatsby/dist/utils/babel-loader.js?!./src/components/utils/sha256/sha256.worker.ts":
+      /*!**********************************************************************************************************************************************************************************************!*\
   !*** /z/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/z/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--19!./src/components/utils/sha256/sha256.worker.ts ***!
   \**********************************************************************************************************************************************************************************************/
-    /*! exports provided: sha256 */
-    /***/ (function (module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */ __webpack_require__.d(
-        __webpack_exports__,
-        "sha256",
-        function () {
-          return sha256;
-        },
-      );
-      async function sha256(message) {
-        const msgBuffer = new TextEncoder().encode(message);
-        const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert bytes to hex string
+      /*! exports provided: sha256 */
+      /***/ (function (module, __webpack_exports__, __webpack_require__) {
+        "use strict";
+        __webpack_require__.r(__webpack_exports__);
+        /* harmony export (binding) */ __webpack_require__.d(
+          __webpack_exports__,
+          "sha256",
+          function () {
+            return sha256;
+          },
+        );
+        async function sha256(message) {
+          const msgBuffer = new TextEncoder().encode(message);
+          const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+          const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert bytes to hex string
 
-        const hashHex = hashArray.map((b) => ("00" + b.toString(16)).slice(-2))
-          .join("");
-        return hashHex;
-      }
-      addEventListener("message", function (e) {
-        var _e$data = e.data,
-          type = _e$data.type,
-          method = _e$data.method,
-          id = _e$data.id,
-          params = _e$data.params,
-          f,
-          p;
-        if (type === "RPC" && method) {
-          if (f = __webpack_exports__[method]) {
-            p = Promise.resolve().then(function () {
-              return f.apply(__webpack_exports__, params);
-            });
-          } else p = Promise.reject("No such method");
-          p.then(function (result) {
-            postMessage({ type: "RPC", id: id, result: result });
-          }).catch(function (e) {
-            var error = { message: e };
-            if (e.stack) {
-              error.message = e.message;
-              error.stack = e.stack;
-              error.name = e.name;
-            }
-            postMessage({ type: "RPC", id: id, error: error });
-          });
+          const hashHex = hashArray.map((b) =>
+            ("00" + b.toString(16)).slice(-2)
+          )
+            .join("");
+          return hashHex;
         }
-      });
-      postMessage({ type: "RPC", method: "ready" });
+        addEventListener("message", function (e) {
+          var _e$data = e.data,
+            type = _e$data.type,
+            method = _e$data.method,
+            id = _e$data.id,
+            params = _e$data.params,
+            f,
+            p;
+          if (type === "RPC" && method) {
+            if (f = __webpack_exports__[method]) {
+              p = Promise.resolve().then(function () {
+                return f.apply(__webpack_exports__, params);
+              });
+            } else p = Promise.reject("No such method");
+            p.then(function (result) {
+              postMessage({ type: "RPC", id: id, result: result });
+            }).catch(function (e) {
+              var error = { message: e };
+              if (e.stack) {
+                error.message = e.message;
+                error.stack = e.stack;
+                error.name = e.name;
+              }
+              postMessage({ type: "RPC", id: id, error: error });
+            });
+          }
+        });
+        postMessage({ type: "RPC", method: "ready" });
 
-      /***/
-    }),
-  /******/
-});
+        /***/
+      }),
+    /******/
+  },
+);
