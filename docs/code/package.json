@@ -1,0 +1,48 @@
+{
+    "name": "@zedvision/code",
+    "version": "7.2.5",
+    "description": "Monaco Editor for React",
+    "main": "dist/worker-script.js",
+    "files": [
+        "**/*"
+    ],
+    "scripts": {
+        "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
+        "dev": "yarn wrangler preview",
+        "clean": "rm -rf dist && mkdir dist",
+        "build": "yarn clean && deno fmt src-deno && yarn build-codebox && yarn minify && yarn build-template",
+        "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
+        "build-template": "deno run --allow-read --allow-write generate-fe-bundle.ts && deno bundle src/index.ts --no-check dist/worker-script.js",
+        "deploy": "wrangler build && wrangler publish",
+        "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > dist/codeLoader.js",
+        "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.js.min.js",
+        "serve": "file_server ."
+    },
+    "keywords": [
+        "monaco",
+        "editor",
+        "react",
+        "html",
+        "vscode"
+    ],
+    "authors": [
+        "Zoltan Erdos <zolika84@gmail.com>"
+    ],
+    "bugs": {
+        "url": "https://github.com/zed-vision/monorepo"
+    },
+    "homepage": "https://code.zed.vision",
+    "repository": "https://github.com/zed-vision/monorepo",
+    "devDependencies": {
+        "@cloudflare/workers-types": "2.1.0",
+        "@cloudflare/wrangler": "1.12.2",
+        "esbuild": "0.8.9"
+    },
+    "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
+    "author": "Zoltan Erdos <zolika84@gmail.com>",
+    "license": "BSD-3-Clause",
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    }
+}

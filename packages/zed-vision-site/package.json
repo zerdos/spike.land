@@ -2,7 +2,7 @@
   "name": "@zed-vision/zed-vision-site",
   "scripts": {
     "postinstall": "gatsby telemetry --disable",
-    "build": "yarn clean && deno fmt src && gatsby build --no-uglify && rm -rf ../../docs && mv public ../../docs",
+    "build": "yarn clean && deno fmt src && gatsby build --no-uglify && rm -rf public_fmt && mv public public_fmt && deno fmt public_fmt && gatsby clean && gatsby build",
     "start-https": "GATSBY_HOT_LOADER=fast-refresh yarn generate-certs && yarn gatsby develop --host 0.0.0.0 --https --cert-file .certs/localhost.cert --key-file .certs/localhost.key",
     "start": "gatsby develop",
     "serve": "gatsby serve",
