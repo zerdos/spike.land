@@ -2,6 +2,8 @@
 haters/
 client_id
 
+docs/code/src**
+
 ### Node ###
 # Logs
 logs
