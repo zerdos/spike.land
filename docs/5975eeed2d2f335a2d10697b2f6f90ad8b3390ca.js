@@ -1,6 +1,6 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[3],{
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[1],{
 
-/***/ 159:
+/***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var t = Object.getOwnPropertySymbols,
@@ -1631,11 +1631,11 @@ module.exports = function (t) {
     }
   });
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(16)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(14)))
 
 /***/ }),
 
-/***/ 160:
+/***/ 146:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1659,11 +1659,11 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
-var _grayPercentage = __webpack_require__(161);
+var _grayPercentage = __webpack_require__(147);
 
 var _grayPercentage2 = _interopRequireDefault(_grayPercentage);
 
-var _typographyBreakpointConstants = __webpack_require__(162);
+var _typographyBreakpointConstants = __webpack_require__(148);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -1771,7 +1771,7 @@ exports.default = theme;
 
 /***/ }),
 
-/***/ 161:
+/***/ 147:
 /***/ (function(module, exports) {
 
 function isNumeric(n) {
@@ -1836,7 +1836,7 @@ module.exports = function (lightness, hue, darkBackground) {
 
 /***/ }),
 
-/***/ 162:
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1863,15 +1863,15 @@ var MIN_MOBILE_MEDIA_QUERY = exports.MIN_MOBILE_MEDIA_QUERY = "@media (min-width
 
 /***/ }),
 
-/***/ 20:
+/***/ 19:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SEO; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(18);
-/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(36);
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(33);
 
 
 
@@ -1931,7 +1931,7 @@ var SEO = function SEO(_ref) {
 
 /***/ }),
 
-/***/ 21:
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1940,19 +1940,19 @@ var SEO = function SEO(_ref) {
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ layout_Layout; });
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(8);
+var taggedTemplateLiteralLoose = __webpack_require__(4);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react-helmet/es/Helmet.js
-var Helmet = __webpack_require__(36);
+var Helmet = __webpack_require__(33);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 10 modules
-var emotion_styled_browser_esm = __webpack_require__(9);
+// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 13 modules
+var emotion_styled_browser_esm = __webpack_require__(6);
 
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(26);
+var typography = __webpack_require__(24);
 
 // CONCATENATED MODULE: ./src/components/utils/fonts.ts
 // @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,500&display=swap');
@@ -1989,15 +1989,15 @@ var layout_Layout = function Layout(_ref) {
 
 /***/ }),
 
-/***/ 26:
+/***/ 24:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return rhythm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return scale; });
-/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(159);
+/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(145);
 /* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typography__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
+/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(146);
 /* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__);
 
 

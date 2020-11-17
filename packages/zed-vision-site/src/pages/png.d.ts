@@ -1,3 +1,4 @@
 declare module "*.png" {
-  export default filename = "";
+  const value: any;
+  export = value;
 }

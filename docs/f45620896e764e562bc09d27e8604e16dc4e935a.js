@@ -1,6 +1,37 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[6],{
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[5],{
 
-/***/ 104:
+/***/ 221:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+				var addMethods = __webpack_require__(87)
+				var methods = ["renderWorker"]
+				module.exports = function() {
+					var w = new Worker(__webpack_require__.p + "built-renderer.b78dcc.worker.js", { name: "built-renderer.[hash:6].worker.js" })
+					addMethods(w, methods)
+					
+					return w
+				}
+			
+
+/***/ }),
+
+/***/ 50:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return defaultProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return counterExample; });
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+
+var defaultProps = {
+  events: ["reset"].concat(Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(new Array(8).fill("+1")))
+};
+var counterExample = "import React, { FC, useState } from \"react\";\nimport ReactDOM from \"react-dom\";\n\nconst Counter: FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst rootElement = document.createElement(\"div\");\n\nReactDOM.render(<Counter initial={0} />, rootElement);\ndocument.body.appendChild(rootElement);\n\n";
+
+/***/ }),
+
+/***/ 90:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,44 +40,243 @@
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ CodeBox_CodeBox; });
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(3);
+var regenerator = __webpack_require__(8);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(14);
+var defineProperty = __webpack_require__(16);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__(12);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(1);
+var runtime = __webpack_require__(5);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(4);
+var asyncToGenerator = __webpack_require__(9);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
-// EXTERNAL MODULE: ../smart-monaco-editor/lib/editor.js
-var editor = __webpack_require__(62);
-
-// EXTERNAL MODULE: ./src/components/utils/babel.ts
-var babel = __webpack_require__(56);
-
-// EXTERNAL MODULE: ./src/components/utils/renderer.ts
-var renderer = __webpack_require__(58);
-
+// CONCATENATED MODULE: ../smart-monaco-editor/lib/editor.js
+var editor_require;var startMonaco=/*#__PURE__*/function(){var _ref2=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee2(_ref){var onChange,code,language,container,el,modelUri,aceEditor,aceEl,setThemeForAce,vsPath,_yield$loadScript,require,monaco,modules,importHelper,dts;return regenerator_default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:onChange=_ref.onChange,code=_ref.code,language=_ref.language;container=window.document.getElementById("container");if(!container){el=document.getElementById("container");el.id="container";document.body.appendChild(el);}modelUri=language==="typescript"?"file:///main.tsx":"file:///main.html";if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)){_context2.next=27;break;}aceEl=window.document.createElement("div");aceEl.id="ace";window.document.body.appendChild(aceEl);_context2.next=10;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js");case 10:if(!(language==="typescript")){_context2.next=15;break;}_context2.next=13;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js");case 13:_context2.next=17;break;case 15:_context2.next=17;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js");case 17:_context2.next=19;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js");case 19:window.document.getElementById("ace").style.setProperty("display","block");container.style.setProperty("display","none");aceEditor=window["ace"].edit("ace");aceEditor.getSession().setMode("ace/mode/typescript");setThemeForAce=function setThemeForAce(wait){return setTimeout(function(){var aceEditor1=window["ace"].edit("ace");var theme=aceEditor1.getTheme();if(theme!=="ace/theme/monokai "){aceEditor1.setOptions({fontSize:"14pt"});aceEditor1.setTheme("ace/theme/monokai");setThemeForAce(2*wait);}},wait);};setThemeForAce(100);aceEditor.setValue(code);aceEditor.blur();case 27:if(!(window["monaco"]===undefined)){_context2.next=36;break;}vsPath="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";_context2.next=31;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"+"/loader.min.js");case 31:_yield$loadScript=_context2.sent;require=_yield$loadScript.require;require.config({paths:{"vs":"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}});_context2.next=36;return new Promise(function(resolve){return require(["vs/editor/editor.main"],function(monaco){resolve(monaco);});});case 36:monaco=window["monaco"];modules={monaco:monaco,editor:monaco.editor.create(window.document.getElementById("container"),{formatOnType:true,scrollbar:{horizontal:"hidden",verticalHasArrows:true,verticalScrollbarSize:20},minimap:{enabled:false},folding:false,multiCursorModifier:"alt",wordWrap:"on",wordWrapBreakAfterCharacters:">([{]))],;}",mouseWheelZoom:false,wordWrapColumn:80,automaticLayout:true,scrollBeyondLastLine:false,autoIndent:"brackets",autoClosingQuotes:"always",padding:{bottom:300},lineNumbers:"on",autoClosingBrackets:"always",autoClosingOvertype:"always",suggest:{},codeLens:true,autoSurround:"languageDefined",trimAutoWhitespace:true,codeActionsOnSaveTimeout:100,model:monaco.editor.getModel(modelUri)||monaco.editor.createModel(code,language,monaco.Uri.parse(modelUri)),value:code,language:language,theme:"vs-dark"})};modules.editor.onDidChangeModelContent(function(){return onChange(modules.editor.getValue());});aceEditor&&aceEditor.session.on("change",function(){var value=aceEditor.getValue();modules.editor.setValue(value);onChange(value);});aceEditor&&document.getElementById("container").replaceWith(document.getElementById("ace"));modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({noSuggestionDiagnostics:true,noSemanticValidation:true,noSyntaxValidation:true});if(!(language==="typescript")){_context2.next=50;break;}importHelper=[{name:"react",url:"https://unpkg.com/@types/react@16.9.56/index.d.ts",depend:["global","csstype","react-dom","prop-types"]},{name:"global",url:"https://unpkg.com/@types/react@16.9.56/global.d.ts",depend:[]},{name:"prop-types",url:"https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",depend:[]},{name:"react-dom",url:"https://unpkg.com/@types/react-dom@16.9.9/index.d.ts",depend:[]},{name:"csstype",url:"https://unpkg.com/csstype@3.0.5/index.d.ts",depend:[]},{name:"@emotion/styled/base.d.ts",url:"https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",depend:["@emotion/react","@emotion/serialize","react"]},{name:"@emotion/styled/index.d.ts",url:"https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",depend:["@emotion/react","@emotion/serialize","react"]},{name:"@emotion/cache/index.d.ts",url:"https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",depend:["@emotion/utils"]},{name:"@emotion/react/index.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/index.d.ts",depend:["@emotion/cache"]},{name:"@emotion/react/jsx-namespace.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/jsx-namespace.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/react/css-prop.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/css-prop.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/react/helper.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/helper.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/react/theming.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/theming.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/serialize/index.d.ts",url:"https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/utils/index.d.ts",url:"https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",depend:[]}];dts=importHelper.map(function(_ref3){var name=_ref3.name,url=_ref3.url;return Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee(){return regenerator_default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.t0=modules.monaco.languages.typescript.typescriptDefaults;_context.next=3;return fetch(url);case 3:_context.next=5;return _context.sent.text();case 5:_context.t1=_context.sent;_context.t2=name.includes("@emotion")?"file:///node_modules/"+name:"file:///node_modules/@types/"+name+"/index.d.ts";return _context.abrupt("return",_context.t0.addExtraLib.call(_context.t0,_context.t1,_context.t2));case 8:case"end":return _context.stop();}}},_callee);}))();});modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({target:modules.monaco.languages.typescript.ScriptTarget.ESNext,allowNonTsExtensions:true,allowUmdGlobalAccess:true,strict:true,allowJs:true,noEmitOnError:true,allowSyntheticDefaultImports:true,moduleResolution:modules.monaco.languages.typescript.ModuleResolutionKind.NodeJs,module:modules.monaco.languages.typescript.ModuleKind.CommonJS,noEmit:true,typeRoots:["node_modules/@types"],jsx:modules.monaco.languages.typescript.JsxEmit.React,jsxFactory:"React.createElement",jsxFragmentFactory:"React.Fragment",esModuleInterop:true});_context2.next=48;return Promise.all(dts);case 48:modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({noSuggestionDiagnostics:false,noSemanticValidation:false,noSyntaxValidation:false});return _context2.abrupt("return",modules);case 50:case"end":return _context2.stop();}}},_callee2);}));return function startMonaco(_x){return _ref2.apply(this,arguments);};}();function loadScript(src){return new Promise(function(resolve,reject){var s;s=window.document.createElement("script");s.src=src;s.onload=function(){return resolve(window);};s.onerror=reject;window.document.head.appendChild(s);});}
 // EXTERNAL MODULE: ./src/components/utils/sha.ts
-var sha = __webpack_require__(10);
+var sha = __webpack_require__(25);
 
+// CONCATENATED MODULE: ./src/components/utils/babel.ts
+
+
+
+
+var cache = {};
+var worker = typeof window !== "undefined" ? new Worker(URL.createObjectURL(new window.Blob(["\nimportScripts('https://unpkg.com/@babel/standalone@7.12.6/babel.min.js');\n\nself.onmessage=(message)=>{\n  const hash = message.data.hash;\n\ntry{\n  const translatedMessage = Babel.transform(message.data.code, {\nplugins: [],\npresets: [\"react\", [\"typescript\", { isTSX: true, allExtensions: true }]],\n}).code.replace(\"export const\", \"const\").replace(\"import \", \"//mport \").replace(\"import \", \"//mport \")\n\n    postMessage({hash, translatedCode: translatedMessage})\n} catch(e){\n  postMessage({hash, translatedCode: \"error\", error: e})\n}\n\n}\n"], {
+  type: "application/javascript"
+}))) : {
+  onmessage: function onmessage() {},
+  postMessage: function postMessage() {}
+};
+
+worker.onmessage = /*#__PURE__*/function () {
+  var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(message) {
+    var codeHash, errorHash, transformedCodeHash;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            codeHash = message.data.hash;
+
+            if (!(typeof cache[codeHash] === "string")) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 3:
+            if (!(typeof cache[codeHash] === "object")) {
+              _context.next = 16;
+              break;
+            }
+
+            if (!message.data.error) {
+              _context.next = 11;
+              break;
+            }
+
+            _context.next = 7;
+            return Object(sha["a" /* hash */])(message.data.error);
+
+          case 7:
+            errorHash = _context.sent;
+            cache[codeHash].reject(errorHash);
+            cache[codeHash] = {
+              error: errorHash
+            };
+            return _context.abrupt("return");
+
+          case 11:
+            _context.next = 13;
+            return Object(sha["a" /* hash */])(message.data.translatedCode);
+
+          case 13:
+            transformedCodeHash = _context.sent;
+            cache[codeHash].resolve(transformedCodeHash);
+            cache[codeHash] = transformedCodeHash;
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var transform = /*#__PURE__*/function () {
+  var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(codeHash) {
+    var code, returnPromise;
+    return regenerator_default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return Object(sha["b" /* unHash */])(codeHash);
+
+          case 2:
+            code = _context2.sent;
+
+            if (!(typeof cache[codeHash] === "string")) {
+              _context2.next = 5;
+              break;
+            }
+
+            return _context2.abrupt("return", cache[codeHash]);
+
+          case 5:
+            if (!(typeof cache[codeHash] === "undefined")) {
+              _context2.next = 9;
+              break;
+            }
+
+            worker.postMessage({
+              hash: codeHash,
+              code: code
+            });
+            returnPromise = new Promise(function (resolve, reject) {
+              cache[codeHash] = {
+                resolve: resolve,
+                reject: reject,
+                promise: returnPromise
+              };
+            });
+            return _context2.abrupt("return", returnPromise);
+
+          case 9:
+            if (!(cache[codeHash] && cache[codeHash].error)) {
+              _context2.next = 11;
+              break;
+            }
+
+            return _context2.abrupt("return", Promise.reject(cache[codeHash].error));
+
+          case 11:
+            return _context2.abrupt("return", cache[codeHash].promise);
+
+          case 12:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function transform(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+// EXTERNAL MODULE: ./src/components/utils/renderer/renderer.worker.ts
+var renderer_worker = __webpack_require__(221);
+
+// CONCATENATED MODULE: ./src/components/utils/renderer.ts
+
+
+
+
+
+
+var renderer_ref = typeof window !== "undefined" && renderer_worker(),
+    renderWorker = renderer_ref.renderWorker;
+
+var render = /*#__PURE__*/function () {
+  var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(transformedCodeHash, defaultPropsHash) {
+    var code, defaultProps, renderResult, renderedStringHash;
+    return regenerator_default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return Object(sha["b" /* unHash */])(transformedCodeHash);
+
+          case 3:
+            code = _context.sent;
+            _context.next = 6;
+            return Object(sha["b" /* unHash */])(defaultPropsHash);
+
+          case 6:
+            defaultProps = _context.sent;
+            _context.next = 9;
+            return renderWorker(code, defaultProps);
+
+          case 9:
+            renderResult = _context.sent;
+
+            if (!(typeof renderResult != "string")) {
+              _context.next = 12;
+              break;
+            }
+
+            throw renderResult.error;
+
+          case 12:
+            _context.next = 14;
+            return Object(sha["a" /* hash */])(renderResult);
+
+          case 14:
+            renderedStringHash = _context.sent;
+            return _context.abrupt("return", renderedStringHash);
+
+          case 18:
+            _context.prev = 18;
+            _context.t0 = _context["catch"](0);
+            return _context.abrupt("return", {
+              error: _context.t0
+            });
+
+          case 21:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 18]]);
+  }));
+
+  return function render(_x, _x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
 // EXTERNAL MODULE: ./src/components/codeBox/example.ts
-var example = __webpack_require__(55);
+var example = __webpack_require__(50);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(8);
+var taggedTemplateLiteralLoose = __webpack_require__(4);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 10 modules
-var emotion_styled_browser_esm = __webpack_require__(9);
+// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 13 modules
+var emotion_styled_browser_esm = __webpack_require__(6);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
 
@@ -119,7 +349,7 @@ var ErrorContainer = emotion_styled_browser_esm["a" /* default */].div(_template
 var ResultBox = emotion_styled_browser_esm["a" /* default */].div(_templateObject5());
 var ResultBoxContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject6());
 // EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
-var framer_motion_es = __webpack_require__(60);
+var framer_motion_es = __webpack_require__(51);
 
 // CONCATENATED MODULE: ./src/components/codeBox/codeboxComponents.tsx
 
@@ -320,7 +550,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                 }
 
                 _context3.prev = 1;
-                return _context3.abrupt("return", Object(babel["a" /* transform */])(codeHash));
+                return _context3.abrupt("return", transform(codeHash));
 
               case 5:
                 _context3.prev = 5;
@@ -355,7 +585,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return Object(editor["a" /* startMonaco */])({
+                return startMonaco({
                   language: "typescript",
                   code: c,
                   onChange: function onChange(code) {
@@ -444,7 +674,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
               case 40:
                 _context2.next = 42;
-                return Object(renderer["a" /* render */])(tHash, hashArrValue);
+                return render(tHash, hashArrValue);
 
               case 42:
                 renderedHashContentHash = _context2.sent;
@@ -520,7 +750,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                               switch (_context.prev = _context.next) {
                                 case 0:
                                   _context.next = 2;
-                                  return Object(renderer["a" /* render */])(tHash, h);
+                                  return render(tHash, h);
 
                                 case 2:
                                   renderedHash = _context.sent;
@@ -613,7 +843,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                     }
 
                     _context4.next = 3;
-                    return Object(renderer["a" /* render */])(t.hash, h);
+                    return render(t.hash, h);
 
                   case 3:
                     renderedHash = _context4.sent;
@@ -709,7 +939,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                               }
 
                               _context5.next = 3;
-                              return Object(renderer["a" /* render */])(t.hash, hashArrValue);
+                              return render(t.hash, hashArrValue);
 
                             case 3:
                               renderedHash = _context5.sent;
@@ -878,282 +1108,6 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
     }
   })) : /*#__PURE__*/react["createElement"](react["Fragment"], null));
 };
-
-/***/ }),
-
-/***/ 55:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return defaultProps; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return counterExample; });
-/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-
-var defaultProps = {
-  events: ["reset"].concat(Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(new Array(8).fill("+1")))
-};
-var counterExample = "import React, { FC, useState } from \"react\";\nimport ReactDOM from \"react-dom\";\n\nconst Counter: FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst rootElement = document.createElement(\"div\");\n\nReactDOM.render(<Counter initial={0} />, rootElement);\ndocument.body.appendChild(rootElement);\n\n";
-
-/***/ }),
-
-/***/ 56:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return transform; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(10);
-
-
-
-
-var cache = {};
-var worker = typeof window !== "undefined" ? new Worker(URL.createObjectURL(new window.Blob(["\nimportScripts('https://unpkg.com/@babel/standalone@7.12.6/babel.min.js');\n\nself.onmessage=(message)=>{\n  const hash = message.data.hash;\n\ntry{\n  const translatedMessage = Babel.transform(message.data.code, {\nplugins: [],\npresets: [\"react\", [\"typescript\", { isTSX: true, allExtensions: true }]],\n}).code.replace(\"export const\", \"const\").replace(\"import \", \"//mport \").replace(\"import \", \"//mport \")\n\n    postMessage({hash, translatedCode: translatedMessage})\n} catch(e){\n  postMessage({hash, translatedCode: \"error\", error: e})\n}\n\n}\n"], {
-  type: "application/javascript"
-}))) : {
-  onmessage: function onmessage() {},
-  postMessage: function postMessage() {}
-};
-
-worker.onmessage = /*#__PURE__*/function () {
-  var _ref = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(message) {
-    var codeHash, errorHash, transformedCodeHash;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            codeHash = message.data.hash;
-
-            if (!(typeof cache[codeHash] === "string")) {
-              _context.next = 3;
-              break;
-            }
-
-            return _context.abrupt("return");
-
-          case 3:
-            if (!(typeof cache[codeHash] === "object")) {
-              _context.next = 16;
-              break;
-            }
-
-            if (!message.data.error) {
-              _context.next = 11;
-              break;
-            }
-
-            _context.next = 7;
-            return Object(_sha__WEBPACK_IMPORTED_MODULE_3__[/* hash */ "a"])(message.data.error);
-
-          case 7:
-            errorHash = _context.sent;
-            cache[codeHash].reject(errorHash);
-            cache[codeHash] = {
-              error: errorHash
-            };
-            return _context.abrupt("return");
-
-          case 11:
-            _context.next = 13;
-            return Object(_sha__WEBPACK_IMPORTED_MODULE_3__[/* hash */ "a"])(message.data.translatedCode);
-
-          case 13:
-            transformedCodeHash = _context.sent;
-            cache[codeHash].resolve(transformedCodeHash);
-            cache[codeHash] = transformedCodeHash;
-
-          case 16:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var transform = /*#__PURE__*/function () {
-  var _ref2 = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(codeHash) {
-    var code, returnPromise;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return Object(_sha__WEBPACK_IMPORTED_MODULE_3__[/* unHash */ "b"])(codeHash);
-
-          case 2:
-            code = _context2.sent;
-
-            if (!(typeof cache[codeHash] === "string")) {
-              _context2.next = 5;
-              break;
-            }
-
-            return _context2.abrupt("return", cache[codeHash]);
-
-          case 5:
-            if (!(typeof cache[codeHash] === "undefined")) {
-              _context2.next = 9;
-              break;
-            }
-
-            worker.postMessage({
-              hash: codeHash,
-              code: code
-            });
-            returnPromise = new Promise(function (resolve, reject) {
-              cache[codeHash] = {
-                resolve: resolve,
-                reject: reject,
-                promise: returnPromise
-              };
-            });
-            return _context2.abrupt("return", returnPromise);
-
-          case 9:
-            if (!(cache[codeHash] && cache[codeHash].error)) {
-              _context2.next = 11;
-              break;
-            }
-
-            return _context2.abrupt("return", Promise.reject(cache[codeHash].error));
-
-          case 11:
-            return _context2.abrupt("return", cache[codeHash].promise);
-
-          case 12:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function transform(_x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-/***/ }),
-
-/***/ 58:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-/* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(59);
-/* harmony import */ var _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _sha__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(10);
-
-
-
-
-
-
-var _ref = typeof window !== "undefined" && _renderer_renderer_worker__WEBPACK_IMPORTED_MODULE_3__(),
-    renderWorker = _ref.renderWorker;
-
-var render = /*#__PURE__*/function () {
-  var _ref2 = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(transformedCodeHash, defaultPropsHash) {
-    var code, defaultProps, renderResult, renderedStringHash;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return Object(_sha__WEBPACK_IMPORTED_MODULE_4__[/* unHash */ "b"])(transformedCodeHash);
-
-          case 3:
-            code = _context.sent;
-            _context.next = 6;
-            return Object(_sha__WEBPACK_IMPORTED_MODULE_4__[/* unHash */ "b"])(defaultPropsHash);
-
-          case 6:
-            defaultProps = _context.sent;
-            _context.next = 9;
-            return renderWorker(code, defaultProps);
-
-          case 9:
-            renderResult = _context.sent;
-
-            if (!(typeof renderResult != "string")) {
-              _context.next = 12;
-              break;
-            }
-
-            throw renderResult.error;
-
-          case 12:
-            _context.next = 14;
-            return Object(_sha__WEBPACK_IMPORTED_MODULE_4__[/* hash */ "a"])(renderResult);
-
-          case 14:
-            renderedStringHash = _context.sent;
-            return _context.abrupt("return", renderedStringHash);
-
-          case 18:
-            _context.prev = 18;
-            _context.t0 = _context["catch"](0);
-            return _context.abrupt("return", {
-              error: _context.t0
-            });
-
-          case 21:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[0, 18]]);
-  }));
-
-  return function render(_x, _x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-/***/ }),
-
-/***/ 59:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-				var addMethods = __webpack_require__(27)
-				var methods = ["renderWorker"]
-				module.exports = function() {
-					var w = new Worker(__webpack_require__.p + "built-renderer.b78dcc.worker.js", { name: "built-renderer.[hash:6].worker.js" })
-					addMethods(w, methods)
-					
-					return w
-				}
-			
-
-/***/ }),
-
-/***/ 62:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return startMonaco; });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-var require;var startMonaco=/*#__PURE__*/function(){var _ref2=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref){var onChange,code,language,container,el,modelUri,aceEditor,aceEl,setThemeForAce,vsPath,_yield$loadScript,require,monaco,modules,importHelper,dts;return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:onChange=_ref.onChange,code=_ref.code,language=_ref.language;container=window.document.getElementById("container");if(!container){el=document.getElementById("container");el.id="container";document.body.appendChild(el);}modelUri=language==="typescript"?"file:///main.tsx":"file:///main.html";if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)){_context2.next=27;break;}aceEl=window.document.createElement("div");aceEl.id="ace";window.document.body.appendChild(aceEl);_context2.next=10;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js");case 10:if(!(language==="typescript")){_context2.next=15;break;}_context2.next=13;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js");case 13:_context2.next=17;break;case 15:_context2.next=17;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js");case 17:_context2.next=19;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js");case 19:window.document.getElementById("ace").style.setProperty("display","block");container.style.setProperty("display","none");aceEditor=window["ace"].edit("ace");aceEditor.getSession().setMode("ace/mode/typescript");setThemeForAce=function setThemeForAce(wait){return setTimeout(function(){var aceEditor1=window["ace"].edit("ace");var theme=aceEditor1.getTheme();if(theme!=="ace/theme/monokai "){aceEditor1.setOptions({fontSize:"14pt"});aceEditor1.setTheme("ace/theme/monokai");setThemeForAce(2*wait);}},wait);};setThemeForAce(100);aceEditor.setValue(code);aceEditor.blur();case 27:if(!(window["monaco"]===undefined)){_context2.next=36;break;}vsPath="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";_context2.next=31;return loadScript("https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"+"/loader.min.js");case 31:_yield$loadScript=_context2.sent;require=_yield$loadScript.require;require.config({paths:{"vs":"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}});_context2.next=36;return new Promise(function(resolve){return require(["vs/editor/editor.main"],function(monaco){resolve(monaco);});});case 36:monaco=window["monaco"];modules={monaco:monaco,editor:monaco.editor.create(window.document.getElementById("container"),{formatOnType:true,scrollbar:{horizontal:"hidden",verticalHasArrows:true,verticalScrollbarSize:20},minimap:{enabled:false},folding:false,multiCursorModifier:"alt",wordWrap:"on",wordWrapBreakAfterCharacters:">([{]))],;}",mouseWheelZoom:false,wordWrapColumn:80,automaticLayout:true,scrollBeyondLastLine:false,autoIndent:"brackets",autoClosingQuotes:"always",padding:{bottom:300},lineNumbers:"on",autoClosingBrackets:"always",autoClosingOvertype:"always",suggest:{},codeLens:true,autoSurround:"languageDefined",trimAutoWhitespace:true,codeActionsOnSaveTimeout:100,model:monaco.editor.getModel(modelUri)||monaco.editor.createModel(code,language,monaco.Uri.parse(modelUri)),value:code,language:language,theme:"vs-dark"})};modules.editor.onDidChangeModelContent(function(){return onChange(modules.editor.getValue());});aceEditor&&aceEditor.session.on("change",function(){var value=aceEditor.getValue();modules.editor.setValue(value);onChange(value);});aceEditor&&document.getElementById("container").replaceWith(document.getElementById("ace"));modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({noSuggestionDiagnostics:true,noSemanticValidation:true,noSyntaxValidation:true});if(!(language==="typescript")){_context2.next=50;break;}importHelper=[{name:"react",url:"https://unpkg.com/@types/react@16.9.56/index.d.ts",depend:["global","csstype","react-dom","prop-types"]},{name:"global",url:"https://unpkg.com/@types/react@16.9.56/global.d.ts",depend:[]},{name:"prop-types",url:"https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",depend:[]},{name:"react-dom",url:"https://unpkg.com/@types/react-dom@16.9.9/index.d.ts",depend:[]},{name:"csstype",url:"https://unpkg.com/csstype@3.0.5/index.d.ts",depend:[]},{name:"@emotion/styled/base.d.ts",url:"https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",depend:["@emotion/react","@emotion/serialize","react"]},{name:"@emotion/styled/index.d.ts",url:"https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",depend:["@emotion/react","@emotion/serialize","react"]},{name:"@emotion/cache/index.d.ts",url:"https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",depend:["@emotion/utils"]},{name:"@emotion/react/index.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/index.d.ts",depend:["@emotion/cache"]},{name:"@emotion/react/jsx-namespace.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/jsx-namespace.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/react/css-prop.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/css-prop.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/react/helper.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/helper.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/react/theming.d.ts",url:"https://unpkg.com/@emotion/react@11.1.1/types/theming.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/serialize/index.d.ts",url:"https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",depend:["@emotion/utils","csstype"]},{name:"@emotion/utils/index.d.ts",url:"https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",depend:[]}];dts=importHelper.map(function(_ref3){var name=_ref3.name,url=_ref3.url;return Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.t0=modules.monaco.languages.typescript.typescriptDefaults;_context.next=3;return fetch(url);case 3:_context.next=5;return _context.sent.text();case 5:_context.t1=_context.sent;_context.t2=name.includes("@emotion")?"file:///node_modules/"+name:"file:///node_modules/@types/"+name+"/index.d.ts";return _context.abrupt("return",_context.t0.addExtraLib.call(_context.t0,_context.t1,_context.t2));case 8:case"end":return _context.stop();}}},_callee);}))();});modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({target:modules.monaco.languages.typescript.ScriptTarget.ESNext,allowNonTsExtensions:true,allowUmdGlobalAccess:true,strict:true,allowJs:true,noEmitOnError:true,allowSyntheticDefaultImports:true,moduleResolution:modules.monaco.languages.typescript.ModuleResolutionKind.NodeJs,module:modules.monaco.languages.typescript.ModuleKind.CommonJS,noEmit:true,typeRoots:["node_modules/@types"],jsx:modules.monaco.languages.typescript.JsxEmit.React,jsxFactory:"React.createElement",jsxFragmentFactory:"React.Fragment",esModuleInterop:true});_context2.next=48;return Promise.all(dts);case 48:modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({noSuggestionDiagnostics:false,noSemanticValidation:false,noSyntaxValidation:false});return _context2.abrupt("return",modules);case 50:case"end":return _context2.stop();}}},_callee2);}));return function startMonaco(_x){return _ref2.apply(this,arguments);};}();function loadScript(src){return new Promise(function(resolve,reject){var s;s=window.document.createElement("script");s.src=src;s.onload=function(){return resolve(window);};s.onerror=reject;window.document.head.appendChild(s);});}
 
 /***/ })
 
