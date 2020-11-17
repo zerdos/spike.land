@@ -1,5 +1,5 @@
 importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/5.1.4/workbox-sw.js",
+  "https://storage.googleapis.com/workbox-cdn/releases/6.0.0-rc.0/workbox-sw.js",
 );
 workbox.loadModule("workbox-strategies");
 workbox.loadModule("workbox-expiration");
