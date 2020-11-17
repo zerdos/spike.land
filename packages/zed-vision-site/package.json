@@ -70,7 +70,7 @@
     "@types/uuid": "8.3.0",
     "dotenv": "8.2.0",
     "gatsby-image": "2.5.0",
-    "gatsby-plugin-manifest": "2.6.0",
+    "gatsby-plugin-manifest": "2.6.1",
     "gatsby-plugin-mdx": "1.4.0",
     "gatsby-plugin-react-helmet": "3.4.0",
     "gatsby-plugin-remove-fingerprints": "0.0.2",
