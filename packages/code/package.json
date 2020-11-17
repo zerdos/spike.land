@@ -7,16 +7,14 @@
         "**/*"
     ],
     "scripts": {
-        "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
         "dev": "yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist",
-        "build": "yarn clean && deno fmt src-deno && yarn build-codebox && yarn minify && yarn build-template",
+        "build": "yarn clean && deno fmt src-deno src && yarn build-codebox && yarn minify && yarn build-template",
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
-        "build-template": "deno run --allow-read --allow-write generate-fe-bundle.ts && deno bundle src/index.ts --no-check dist/worker-script.js",
-        "deploy": "wrangler build && wrangler publish",
+        "build-template": "deno run --allow-read --allow-write generate-fe-bundle.ts && deno bundle src/index.ts --no-check dist/worker-script.js && yarn esbuild dist/worker-script.js  --minify --outfile=dist-worker-script.min.js",
+        "publish": "yarn wrangler publish",
         "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > dist/codeLoader.js",
-        "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.js.min.js",
-        "serve": "file_server ."
+        "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.js.min.js"
     },
     "keywords": [
         "monaco",

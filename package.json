@@ -9,12 +9,13 @@
     "packages/*"
   ],
   "scripts": {
+    "serve": "yarn copy && file_server --cert .certs/cert.pem --key .certs/key.pem --host localhost docs",
     "push": "git add . && git commit -m pre-release && git push && git pull",
     "release": "cd packages/code && yarn build && cd ../../ && yarn push && lerna publish patch --yes && yarn push",
     "postrelease": "echo Wait-till-the-package-appears-on-unpkg-then-yarn-deploy",
-    "build": "yarn lerna run build --parallel --since main",
+    "build": "yarn lerna run build --parallel --since main && yarn copy",
     "copy": "rm -rf docs && mkdir -p docs/code && cp -a packages/zed-vision-site/public/. docs/ && cp -a packages/code/. docs/code/ && rm -rf docs/code/.certs",
-    "rebuild": "yarn lerna run build --parallel",
+    "rebuild": "yarn lerna run build --parallel && yarn copy",
     "docker:build": "yarn lerna run docker:build --parallel",
     "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"
   },

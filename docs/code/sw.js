@@ -56,7 +56,19 @@ self.addEventListener("fetch", function (e) {
   if (e.request.method === "POST") {
     e.respondWith(
       (async () => {
+
         const data = (await e.request.json());
+        const request = new Request(
+          "https://code.zed.vision",
+          {
+            body: data,
+            method: "POST",
+            headers: { "content-type": "application/json;charset=UTF-8" },
+          },
+        );
+        let response = fetch(request)
+
+   
 
         const myBuffer = new TextEncoder().encode(JSON.stringify(data));
 
@@ -76,6 +88,11 @@ self.addEventListener("fetch", function (e) {
           );
         const smallerKey = hash.substring(0, 8);
         await SHATEST.put(smallerKey, myBuffer);
+        try{
+        console("SERVER HASH: "+ await response);
+        } catch(e){
+          console.log("fetch failed", e)
+        }
 
         return new Response(JSON.stringify({ hash: smallerKey }), {
           headers: { "Content-Type": "application/json" },
