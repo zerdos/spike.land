@@ -41,7 +41,7 @@
     "stringify-object": "^3.3.0",
     "strip-comments": "^2.0.1",
     "tempy": "^0.6.0",
-    "upath": "^1.2.0",
+    "upath": "^2.0.0",
     "workbox-background-sync": "^6.0.0-rc.0",
     "workbox-broadcast-update": "^6.0.0-rc.0",
     "workbox-cacheable-response": "^6.0.0-rc.0",
