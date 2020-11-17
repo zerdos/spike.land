@@ -238,7 +238,6 @@ this.addEventListener("install", function (e) {
 self.addEventListener("fetch", function (e) {
   self.runner = "browser-sw";
 
-  console.log(e.request);
   if (e.request.method === "POST") {
     e.respondWith(
       (async () => {
