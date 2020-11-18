@@ -153,33 +153,19 @@ const version = `7.3.2`; const html = `<!DOCTYPE html>
   <script type="module">
 
   const runner = async () => {
-
-
-    if (window.location.href.includes("0.0.0.0") || window.location.href.includes("localhost") || window.location.href.includes("zed.vision/code")) {
-      const { run } = await import("./dist/codeLoader.js")
-
+    if (window.location.href.includes("zed.dev")) {
+      const { run } = await import("./dist/codeLoader.js");
       run();
     } else {
-      const cdnAddress = "https://unpkg.com/@zedvision/code";
-      const script = "/dist/codeLoader.js.min.js";
-
       try {
-        const { run } = await import(cdnAddress + "@VERSION" + script)
+        const { run } = await import("./dist/codeLoader.min.js");
         run();
       } catch (e) {
-
-        //If the CDN doesn't have or package yet
-        const version = "@7.3.2";
-
-        const { run } = await import(cdnAddress + "@latest" + script)
+        const { run } = await import( "https://unpkg.com/@zedvision/code@7.3.2/dist/codeLoader.min.js" );
         run();
       }
-
     }
-
-
   }
-
 
   runner();
   </script>
