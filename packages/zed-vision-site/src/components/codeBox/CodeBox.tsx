@@ -1,5 +1,4 @@
 import * as React from "react";
-import Monaco from "monaco-editor";
 import { startMonaco } from "@zedvision/smart-monaco-editor";
 import { transform } from "../utils/babel";
 import { render } from "../utils/renderer";
@@ -13,7 +12,7 @@ import {
 } from "./styledCodeBoxComps";
 import { ITransformed, ResultComponent } from "./codeboxComponents";
 
-let monacoEditor: Monaco.editor.IStandaloneCodeEditor;
+let monacoEditor: monaco.editor.IStandaloneCodeEditor;
 
 export const CodeBox: React.FC<{
   live?: boolean;
@@ -90,8 +89,6 @@ export const CodeBox: React.FC<{
       const tsErrorMessage = tsErrorMessageArr.length === 0
         ? ""
         : tsErrorMessageArr[0].messageText.toString();
-
-      console.log(monacoEditor);
 
       // const model = monacoEditor
 
