@@ -113,9 +113,9 @@ define("./service-worker.js", ["./workbox-e8da24eb"], function (workbox) {
     "revision": null,
   }, {
     "url": "/render-page.js",
-    "revision": "d42fb2a1f0b711b180448a2c5e2e490b",
+    "revision": "ba2c5803091ddd793870df976dc8e014",
   }, {
-    "url": "/static/zed-profile-pic-5e9304b71289e19e25c128ce8fa758fe.jpg",
-    "revision": "5e9304b71289e19e25c128ce8fa758fe",
+    "url": "/static/zed-profile-pic-cd941e033fafca9e98b23dae7e5a0ccc.jpg",
+    "revision": "cd941e033fafca9e98b23dae7e5a0ccc",
   }], {});
 });

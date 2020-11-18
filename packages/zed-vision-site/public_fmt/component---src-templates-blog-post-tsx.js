@@ -622,7 +622,7 @@
 
   /***/ 57: /***/ (function (module, exports, __webpack_require__) {
     module.exports = __webpack_require__.p +
-      "static/zed-profile-pic-5e9304b71289e19e25c128ce8fa758fe.jpg";
+      "static/zed-profile-pic-cd941e033fafca9e98b23dae7e5a0ccc.jpg";
 
     /***/
   }),
