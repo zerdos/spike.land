@@ -113,7 +113,10 @@ define("./service-worker.js", ["./workbox-e8da24eb"], function (workbox) {
     "revision": null,
   }, {
     "url": "/render-page.js",
-    "revision": "ba2c5803091ddd793870df976dc8e014",
+    "revision": "3b17105a52796b279a39ecc625f2a091",
+  }, {
+    "url": "/static/forkMe-1a2bcb7dd2c870c3afe5d50466500c18.png",
+    "revision": "1a2bcb7dd2c870c3afe5d50466500c18",
   }, {
     "url": "/static/zed-profile-pic-cd941e033fafca9e98b23dae7e5a0ccc.jpg",
     "revision": "cd941e033fafca9e98b23dae7e5a0ccc",
