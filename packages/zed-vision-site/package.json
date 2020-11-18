@@ -1,14 +1,11 @@
 {
   "name": "@zed-vision/zed-vision-site",
   "scripts": {
-    "postinstall": "gatsby telemetry --disable",
     "build": "yarn clean && deno fmt src && gatsby build --no-uglify && rm -rf public_fmt && mv public public_fmt && deno fmt public_fmt && gatsby clean && gatsby build",
-    "start-https": "GATSBY_HOT_LOADER=fast-refresh yarn generate-certs && yarn gatsby develop --host 0.0.0.0 --https --cert-file .certs/localhost.cert --key-file .certs/localhost.key",
+    "start-https": "yarn gatsby develop",
     "start": "gatsby develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "serve-https": "yarn generate-certs && file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 ../../docs",
-    "generate-certs": "test -d .certs || (mkdir .certs && cd .certs && npx devcert-cli generate localhost)"
+    "clean": "gatsby clean"
   },
   "private": true,
   "description": "Zed vision blog",

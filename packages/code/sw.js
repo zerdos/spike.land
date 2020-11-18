@@ -56,7 +56,6 @@ self.addEventListener("fetch", function (e) {
   if (e.request.method === "POST") {
     e.respondWith(
       (async () => {
-
         const data = (await e.request.json());
         const request = new Request(
           "https://code.zed.vision",
@@ -66,13 +65,14 @@ self.addEventListener("fetch", function (e) {
             headers: { "content-type": "application/json;charset=UTF-8" },
           },
         );
-        fetch(request).then((response)=>{
-          console.log("SERVER HASH: "+ JSON.stringify(await (await response).json()) );
-        }).catch(e){
-          console.log("fetch failed", e);
-        }
 
-   
+        fetch(request).then((response) =>
+          console.log(
+            "SERVER HASH: " + JSON.stringify(await (await response).json()),
+          )
+        ).catch(function failureCallback(error) {
+          console.error("Error generating audio file: " + error);
+        });
 
         const myBuffer = new TextEncoder().encode(JSON.stringify(data));
 

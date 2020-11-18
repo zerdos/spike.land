@@ -33,8 +33,9 @@
       subClass.__proto__ = superClass;
     }
 
-    var canUseDOM = !!(typeof window !== "undefined" && window.document &&
-      window.document.createElement);
+    var canUseDOM =
+      !!(typeof window !== "undefined" && window.document &&
+        window.document.createElement);
 
     function withSideEffect(
       reducePropsToState,
@@ -1881,7 +1882,8 @@
           prop.charCodeAt(1) === 110 &&
           /* n */
           prop.charCodeAt(2) < 91;
-    } /* Z+1 */);
+    }/* Z+1 */
+    );
     /* harmony default export */ var emotion_is_prop_valid_browser_esm =
       (isPropValid);
     // CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/extends.js
@@ -3849,8 +3851,7 @@ styleSheet.flush()
           ? identifierName
           : "Styled(" + (typeof baseTag === "string"
             ? baseTag
-            : baseTag.displayName || baseTag.name || "Component") +
-            ")";
+            : baseTag.displayName || baseTag.name || "Component") + ")";
         Styled.defaultProps = tag.defaultProps;
         Styled.__emotion_real = Styled;
         Styled.__emotion_base = baseTag;

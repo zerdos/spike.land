@@ -408,10 +408,9 @@
               var _this2 = this;
 
               return !!Object.keys(nextProps).find(function (key) {
-                return key !== "circularCache" &&
-                  (key === "keyPath"
-                    ? nextProps[key].join("/") !== _this2.props[key].join("/")
-                    : nextProps[key] !== _this2.props[key]);
+                return key !== "circularCache" && (key === "keyPath"
+                  ? nextProps[key].join("/") !== _this2.props[key].join("/")
+                  : nextProps[key] !== _this2.props[key]);
               }) || nextState.expanded !== this.state.expanded;
             },
           }, {
@@ -529,11 +528,12 @@
           createItemString: _propTypes["default"].func.isRequired,
           styling: _propTypes["default"].func.isRequired,
           collectionLimit: _propTypes["default"].number,
-          keyPath: _propTypes["default"].arrayOf(
-            _propTypes["default"].oneOfType(
-              [_propTypes["default"].string, _propTypes["default"].number],
-            ),
-          ).isRequired,
+          keyPath:
+            _propTypes["default"].arrayOf(
+              _propTypes["default"].oneOfType(
+                [_propTypes["default"].string, _propTypes["default"].number],
+              ),
+            ).isRequired,
           labelRenderer: _propTypes["default"].func.isRequired,
           shouldExpandNode: _propTypes["default"].func,
           level: _propTypes["default"].number.isRequired,
@@ -576,7 +576,7 @@
         var defaultProps = {
           events: ["reset"].concat(
             Object(
-              _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ /* default */[
+              _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__/* default */ [
                 "a"
               ],
             )(new Array(8).fill("+1")),
@@ -918,11 +918,12 @@
 
         JSONNode.propTypes = {
           getItemString: _propTypes["default"].func.isRequired,
-          keyPath: _propTypes["default"].arrayOf(
-            _propTypes["default"].oneOfType(
-              [_propTypes["default"].string, _propTypes["default"].number],
+          keyPath:
+            _propTypes["default"].arrayOf(
+              _propTypes["default"].oneOfType(
+                [_propTypes["default"].string, _propTypes["default"].number],
+              ).isRequired,
             ).isRequired,
-          ).isRequired,
           labelRenderer: _propTypes["default"].func.isRequired,
           styling: _propTypes["default"].func.isRequired,
           value: _propTypes["default"].any,
@@ -1345,7 +1346,9 @@
                     for (
                       var _len = arguments.length,
                         args = new Array(
-                          _len > 1 ? _len - 1 : 0,
+                          _len > 1
+                            ? _len - 1
+                            : 0,
                         ),
                         _key = 1;
                       _key < _len;
@@ -1381,7 +1384,9 @@
                     for (
                       var _len2 = arguments.length,
                         args = new Array(
-                          _len2 > 1 ? _len2 - 1 : 0,
+                          _len2 > 1
+                            ? _len2 - 1
+                            : 0,
                         ),
                         _key2 = 1;
                       _key2 < _len2;
@@ -1405,7 +1410,9 @@
                     for (
                       var _len3 = arguments.length,
                         args = new Array(
-                          _len3 > 1 ? _len3 - 1 : 0,
+                          _len3 > 1
+                            ? _len3 - 1
+                            : 0,
                         ),
                         _key3 = 1;
                       _key3 < _len3;
@@ -1429,7 +1436,9 @@
                     for (
                       var _len4 = arguments.length,
                         args = new Array(
-                          _len4 > 1 ? _len4 - 1 : 0,
+                          _len4 > 1
+                            ? _len4 - 1
+                            : 0,
                         ),
                         _key4 = 1;
                       _key4 < _len4;
@@ -1453,7 +1462,9 @@
                     for (
                       var _len5 = arguments.length,
                         args = new Array(
-                          _len5 > 1 ? _len5 - 1 : 0,
+                          _len5 > 1
+                            ? _len5 - 1
+                            : 0,
                         ),
                         _key5 = 1;
                       _key5 < _len5;
@@ -1495,7 +1506,9 @@
           for (
             var _len6 = arguments.length,
               args = new Array(
-                _len6 > 2 ? _len6 - 2 : 0,
+                _len6 > 2
+                  ? _len6 - 2
+                  : 0,
               ),
               _key6 = 2;
             _key6 < _len6;
@@ -1566,13 +1579,11 @@
                 ? arguments[2]
                 : {};
             var _options$defaultBase = options.defaultBase16,
-              defaultBase16 = _options$defaultBase === void 0
-                ? DEFAULT_BASE16
-                : _options$defaultBase,
+              defaultBase16 = _options$defaultBase === void 0 ? DEFAULT_BASE16
+              : _options$defaultBase,
               _options$base16Themes = options.base16Themes,
-              base16Themes = _options$base16Themes === void 0
-                ? null
-                : _options$base16Themes;
+              base16Themes = _options$base16Themes === void 0 ? null
+              : _options$base16Themes;
             var base16Theme = getBase16Theme(themeOrStyling, base16Themes);
 
             if (base16Theme) {
@@ -1599,7 +1610,9 @@
             for (
               var _len7 = arguments.length,
                 args = new Array(
-                  _len7 > 3 ? _len7 - 3 : 0,
+                  _len7 > 3
+                    ? _len7 - 3
+                    : 0,
                 ),
                 _key7 = 3;
               _key7 < _len7;
@@ -1644,8 +1657,7 @@
           }
 
           return theme && Object.prototype.hasOwnProperty.call(theme, "base00")
-            ? theme
-            : undefined;
+            ? theme : undefined;
         };
 
         exports.getBase16Theme = getBase16Theme;
@@ -1701,9 +1713,8 @@
 
         var WellKnownSymbolsStore = shared("wks");
         var Symbol = global.Symbol;
-        var createWellKnownSymbol = USE_SYMBOL_AS_UID
-          ? Symbol
-          : Symbol && Symbol.withoutSetter || uid;
+        var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol
+        : Symbol && Symbol.withoutSetter || uid;
 
         module.exports = function (name) {
           if (!has(WellKnownSymbolsStore, name)) {
@@ -2229,15 +2240,12 @@
           g = x * -0.9689 + y * 1.8758 + z * 0.0415;
           b = x * 0.0557 + y * -0.2040 + z * 1.0570; // assume sRGB
 
-          r = r > 0.0031308
-            ? 1.055 * Math.pow(r, 1.0 / 2.4) - 0.055
-            : r * 12.92;
-          g = g > 0.0031308
-            ? 1.055 * Math.pow(g, 1.0 / 2.4) - 0.055
-            : g * 12.92;
-          b = b > 0.0031308
-            ? 1.055 * Math.pow(b, 1.0 / 2.4) - 0.055
-            : b * 12.92;
+          r = r > 0.0031308 ? 1.055 * Math.pow(r, 1.0 / 2.4) - 0.055
+          : r * 12.92;
+          g = g > 0.0031308 ? 1.055 * Math.pow(g, 1.0 / 2.4) - 0.055
+          : g * 12.92;
+          b = b > 0.0031308 ? 1.055 * Math.pow(b, 1.0 / 2.4) - 0.055
+          : b * 12.92;
           r = Math.min(Math.max(0, r), 1);
           g = Math.min(Math.max(0, g), 1);
           b = Math.min(Math.max(0, b), 1);
@@ -3155,7 +3163,9 @@
                 for (
                   var _len = arguments.length,
                     args = new Array(
-                      _len > 1 ? _len - 1 : 0,
+                      _len > 1
+                        ? _len - 1
+                        : 0,
                     ),
                     _key = 1;
                   _key < _len;
@@ -3403,7 +3413,7 @@
         }
 
         function _objectWithoutPropertiesLoose(source, excluded) {
-          if (source == null) {
+          if (source == null) { 
             return {};
           }
           var target = {};
@@ -3586,11 +3596,9 @@
 
         function getEntries(type, collection, sortObjectKeys) {
           var from = arguments.length > 3 && arguments[3] !== undefined
-            ? arguments[3]
-            : 0;
+            ? arguments[3] : 0;
           var to = arguments.length > 4 && arguments[4] !== undefined
-            ? arguments[4]
-            : Infinity;
+            ? arguments[4] : Infinity;
           var res;
 
           if (type === "Object") {
@@ -3698,11 +3706,9 @@
 
         function getCollectionEntries(type, collection, sortObjectKeys, limit) {
           var from = arguments.length > 4 && arguments[4] !== undefined
-            ? arguments[4]
-            : 0;
+            ? arguments[4] : 0;
           var to = arguments.length > 5 && arguments[5] !== undefined
-            ? arguments[5]
-            : Infinity;
+            ? arguments[5] : Infinity;
           var getEntriesBound = getEntries.bind(
             null,
             type,
@@ -3743,13 +3749,15 @@
               )
               : entries;
           } else {
-            limitedEntries = isSubset ? getRanges(from, to, limit) : [].concat(
-              _toConsumableArray(getEntriesBound(0, limit - 5).entries),
-              _toConsumableArray(getRanges(limit - 4, length - 5, limit)),
-              _toConsumableArray(
-                getEntriesBound(length - 4, length - 1).entries,
-              ),
-            );
+            limitedEntries = isSubset
+              ? getRanges(from, to, limit)
+              : [].concat(
+                _toConsumableArray(getEntriesBound(0, limit - 5).entries),
+                _toConsumableArray(getRanges(limit - 4, length - 5, limit)),
+                _toConsumableArray(
+                  getEntriesBound(length - 4, length - 1).entries,
+                ),
+              );
           }
 
           return limitedEntries;
@@ -3928,11 +3936,10 @@
         }
 
         function _getPrototypeOf(o) {
-          _getPrototypeOf = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function _getPrototypeOf(o) {
-              return o.__proto__ || Object.getPrototypeOf(o);
-            };
+          _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf
+          : function _getPrototypeOf(o) {
+            return o.__proto__ || Object.getPrototypeOf(o);
+          };
           return _getPrototypeOf(o);
         }
 
@@ -4192,11 +4199,9 @@
               return {
                 s: F,
                 n: function n() {
-                  if (i >= o.length) {
-                    return {
+                  if (i >= o.length) {return {
                       done: true,
-                    };
-                  }
+                    };}
                   return {
                     done: false,
                     value: o[i++],
@@ -4419,11 +4424,12 @@
           nodeType: _propTypes["default"].string.isRequired,
           styling: _propTypes["default"].func.isRequired,
           labelRenderer: _propTypes["default"].func.isRequired,
-          keyPath: _propTypes["default"].arrayOf(
-            _propTypes["default"].oneOfType(
-              [_propTypes["default"].string, _propTypes["default"].number],
+          keyPath:
+            _propTypes["default"].arrayOf(
+              _propTypes["default"].oneOfType(
+                [_propTypes["default"].string, _propTypes["default"].number],
+              ).isRequired,
             ).isRequired,
-          ).isRequired,
           valueRenderer: _propTypes["default"].func.isRequired,
           value: _propTypes["default"].any,
           valueGetter: _propTypes["default"].func,
@@ -4457,11 +4463,9 @@
 
           if (Object.getOwnPropertySymbols) {
             var symbols = Object.getOwnPropertySymbols(object);
-            if (enumerableOnly) {
-              symbols = symbols.filter(function (sym) {
+            if (enumerableOnly) {symbols = symbols.filter(function (sym) {
                 return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-              });
-            }
+              });}
             keys.push.apply(keys, symbols);
           }
 
@@ -4961,20 +4965,19 @@
                 : source[sourceIndex];
 
               if (depth > 0 && isArray(element)) {
-                targetIndex = flattenIntoArray(
-                  target,
-                  original,
-                  element,
-                  toLength(element.length),
-                  targetIndex,
-                  depth - 1,
-                ) - 1;
+                targetIndex =
+                  flattenIntoArray(
+                    target,
+                    original,
+                    element,
+                    toLength(element.length),
+                    targetIndex,
+                    depth - 1,
+                  ) - 1;
               } else {
-                if (targetIndex >= 0x1FFFFFFFFFFFFF) {
-                  throw TypeError(
+                if (targetIndex >= 0x1FFFFFFFFFFFFF) {throw TypeError(
                     "Exceed the acceptable array length",
-                  );
-                }
+                  );}
                 target[targetIndex] = element;
               }
 
@@ -5163,7 +5166,7 @@
           var length = enumBugKeys.length;
           while (
             length--
-          ) {
+          ) { 
             delete NullProtoObject[PROTOTYPE][enumBugKeys[length]];
           }
           return NullProtoObject();
@@ -5198,19 +5201,18 @@
 
         // `Object.defineProperties` method
         // https://tc39.github.io/ecma262/#sec-object.defineproperties
-        module.exports = DESCRIPTORS
-          ? Object.defineProperties
-          : function defineProperties(O, Properties) {
-            anObject(O);
-            var keys = objectKeys(Properties);
-            var length = keys.length;
-            var index = 0;
-            var key;
-            while (length > index) {
-              definePropertyModule.f(O, key = keys[index++], Properties[key]);
-            }
-            return O;
-          };
+        module.exports = DESCRIPTORS ? Object.defineProperties
+        : function defineProperties(O, Properties) {
+          anObject(O);
+          var keys = objectKeys(Properties);
+          var length = keys.length;
+          var index = 0;
+          var key;
+          while (length > index) {
+            definePropertyModule.f(O, key = keys[index++], Properties[key]);
+          }
+          return O;
+        };
 
         /***/
       }),
@@ -6370,8 +6372,7 @@
             channels = convert[this.model].channels;
             this.color = result.value.slice(0, channels);
             this.valpha = typeof result.value[channels] === "number"
-              ? result.value[channels]
-              : 1;
+              ? result.value[channels] : 1;
           } else if (obj.length) {
             this.model = model || "rgb";
             channels = convert[this.model].channels;
@@ -6443,24 +6444,21 @@
           string: function string(places) {
             var self = this.model in colorString.to ? this : this.rgb();
             self = self.round(typeof places === "number" ? places : 1);
-            var args = self.valpha === 1
-              ? self.color
-              : self.color.concat(this.valpha);
+            var args = self.valpha === 1 ? self.color
+            : self.color.concat(this.valpha);
             return colorString.to[self.model](args);
           },
           percentString: function percentString(places) {
             var self = this.rgb().round(
               typeof places === "number" ? places : 1,
             );
-            var args = self.valpha === 1
-              ? self.color
-              : self.color.concat(this.valpha);
+            var args = self.valpha === 1 ? self.color
+            : self.color.concat(this.valpha);
             return colorString.to.rgb.percent(args);
           },
           array: function array() {
-            return this.valpha === 1
-              ? this.color.slice()
-              : this.color.concat(this.valpha);
+            return this.valpha === 1 ? this.color.slice()
+            : this.color.concat(this.valpha);
           },
           object: function object() {
             var result = {};
@@ -6569,9 +6567,8 @@
 
             for (var i = 0; i < rgb.length; i++) {
               var chan = rgb[i] / 255;
-              lum[i] = chan <= 0.03928
-                ? chan / 12.92
-                : Math.pow((chan + 0.055) / 1.055, 2.4);
+              lum[i] = chan <= 0.03928 ? chan / 12.92
+              : Math.pow((chan + 0.055) / 1.055, 2.4);
             }
 
             return 0.2126 * lum[0] + 0.7152 * lum[1] + 0.0722 * lum[2];
@@ -7951,9 +7948,8 @@
               return false;
             }
 
-            var pattern = isFunction(value) || isHostObject(value)
-              ? reIsNative
-              : reIsHostCtor;
+            var pattern = isFunction(value) || isHostObject(value) ? reIsNative
+            : reIsHostCtor;
             return pattern.test(toSource(value));
           }
           /**
@@ -8071,9 +8067,8 @@
               Ctor = createCtor(func);
 
             function wrapper() {
-              var fn = this && this !== root && this instanceof wrapper
-                ? Ctor
-                : func;
+              var fn = this && this !== root && this instanceof wrapper ? Ctor
+              : func;
               return fn.apply(isBind ? thisArg : this, arguments);
             }
 
@@ -8166,10 +8161,11 @@
                 args[index] = arguments[index];
               }
 
-              var holders = length < 3 && args[0] !== placeholder &&
+              var holders =
+                length < 3 && args[0] !== placeholder &&
                   args[length - 1] !== placeholder
-                ? []
-                : replaceHolders(args, placeholder);
+                  ? []
+                  : replaceHolders(args, placeholder);
               length -= holders.length;
 
               if (length < arity) {
@@ -8187,9 +8183,8 @@
                 );
               }
 
-              var fn = this && this !== root && this instanceof wrapper
-                ? Ctor
-                : func;
+              var fn = this && this !== root && this instanceof wrapper ? Ctor
+              : func;
               return apply(fn, this, args);
             }
 
@@ -8325,9 +8320,8 @@
                 leftIndex = -1,
                 leftLength = partials.length,
                 args = Array(leftLength + argsLength),
-                fn = this && this !== root && this instanceof wrapper
-                  ? Ctor
-                  : func;
+                fn = this && this !== root && this instanceof wrapper ? Ctor
+                : func;
 
               while (++leftIndex < leftLength) {
                 args[leftIndex] = partials[leftIndex];
@@ -8477,8 +8471,7 @@
             partials = newData[3];
             holders = newData[4];
             arity = newData[9] = newData[9] == null
-              ? isBindKey ? 0 : func.length
-              : nativeMax(newData[9] - length, 0);
+              ? isBindKey ? 0 : func.length : nativeMax(newData[9] - length, 0);
 
             if (!arity && bitmask & (CURRY_FLAG | CURRY_RIGHT_FLAG)) {
               bitmask &= ~(CURRY_FLAG | CURRY_RIGHT_FLAG);
@@ -8599,9 +8592,8 @@
 
             while (length--) {
               var index = indexes[length];
-              array[length] = isIndex(index, arrLength)
-                ? oldArray[index]
-                : undefined;
+              array[length] = isIndex(index, arrLength) ? oldArray[index]
+              : undefined;
             }
 
             return array;
@@ -8617,21 +8609,20 @@
  * @returns {Function} Returns `wrapper`.
  */
 
-          var setWrapToString = !defineProperty
-            ? identity
-            : function (wrapper, reference, bitmask) {
-              var source = reference + "";
-              return defineProperty(wrapper, "toString", {
-                "configurable": true,
-                "enumerable": false,
-                "value": constant(
-                  insertWrapDetails(
-                    source,
-                    updateWrapDetails(getWrapDetails(source), bitmask),
-                  ),
+          var setWrapToString = !defineProperty ? identity
+          : function (wrapper, reference, bitmask) {
+            var source = reference + "";
+            return defineProperty(wrapper, "toString", {
+              "configurable": true,
+              "enumerable": false,
+              "value": constant(
+                insertWrapDetails(
+                  source,
+                  updateWrapDetails(getWrapDetails(source), bitmask),
                 ),
-              });
-            };
+              ),
+            });
+          };
           /**
  * Converts `func` to its source code.
  *
@@ -8901,9 +8892,8 @@
           function toInteger(value) {
             var result = toFinite(value),
               remainder = result % 1;
-            return result === result
-              ? remainder ? result - remainder : result
-              : 0;
+            return result === result ? remainder ? result - remainder : result
+            : 0;
           }
           /**
  * Converts `value` to a number.
@@ -9163,8 +9153,7 @@
  */
         function print(root) {
           var printNode = arguments.length > 1 && arguments[1] !== undefined
-            ? arguments[1]
-            : function (n) {
+            ? arguments[1] : function (n) {
               return n.key;
             };
           var out = [];
@@ -9410,9 +9399,8 @@
    */
           function AVLTree(comparator) {
             var noDuplicates =
-              arguments.length > 1 && arguments[1] !== undefined
-                ? arguments[1]
-                : false;
+              arguments.length > 1 && arguments[1] !== undefined ? arguments[1]
+              : false;
 
             _classCallCheck(this, AVLTree);
 
@@ -10027,11 +10015,9 @@
                 ? arguments[1]
                 : [];
               var presort = arguments.length > 2 ? arguments[2] : undefined;
-              if (this._size !== 0) {
-                throw new Error(
+              if (this._size !== 0) {throw new Error(
                   "bulk-load: tree is not empty",
-                );
-              }
+                );}
               var size = keys.length;
               if (presort) sort(keys, values, 0, size - 1, this._comparator);
               this._root = loadRecursive(null, keys, values, 0, size);
@@ -10742,15 +10728,12 @@
 
         function findCursorEditDiff(oldText, newText, cursorPos) {
           // note: this runs after equality check has ruled out exact equality
-          var oldRange = typeof cursorPos === "number"
-            ? {
-              index: cursorPos,
-              length: 0,
-            }
-            : cursorPos.oldRange;
-          var newRange = typeof cursorPos === "number"
-            ? null
-            : cursorPos.newRange; // take into account the old and new selection to generate the best diff
+          var oldRange = typeof cursorPos === "number" ? {
+            index: cursorPos,
+            length: 0,
+          } : cursorPos.oldRange;
+          var newRange = typeof cursorPos === "number" ? null
+          : cursorPos.newRange; // take into account the old and new selection to generate the best diff
           // possible for a text edit.  for example, a text change from "xxx" to "xx"
           // could be a delete or forwards-delete of any one of the x's, or the
           // result of selecting two of the x's and typing "x".
@@ -11023,11 +11006,10 @@
           } //@ts-ignore
 
           var getRoot = function getRoot(node) {
-            return node && node.parent !== null
-              ? getRoot(node.parent)
-              : node || {
-                key: 0,
-              };
+            return node && node.parent !== null ? getRoot(node.parent)
+            : node || {
+              key: 0,
+            };
           }; // const max = avl.maxNode() && avl.maxNode().key && avl.maxNode().key;
           // console.log(max);
 

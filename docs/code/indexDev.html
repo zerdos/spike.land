@@ -169,8 +169,7 @@ body, html {
 
   <script type="module">
     // window["motion"] = window["Motion"].motion;
-    window["css"] = window["emotionReact"].css;
-    window["jsx"] = window["emotionReact"].jsx;
+    Object.assign(window, emotionReact);
 
     window["styled"] = window["emotionStyled"];
 

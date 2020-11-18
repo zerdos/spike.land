@@ -23,10 +23,10 @@
         return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__[
           "createElement"
         ](
-          _components_layout__WEBPACK_IMPORTED_MODULE_1__ /* Layout */["a"],
+          _components_layout__WEBPACK_IMPORTED_MODULE_1__/* Layout */ ["a"],
           null,
           /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
-            _components_seo__WEBPACK_IMPORTED_MODULE_2__ /* SEO */["a"],
+            _components_seo__WEBPACK_IMPORTED_MODULE_2__/* SEO */ ["a"],
             {
               title: "... offline",
             },

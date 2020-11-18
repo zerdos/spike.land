@@ -298,7 +298,9 @@
               "function" == typeof i &&
               ("string" != typeof e || b(i, "name") || _(i, "name", e),
                 (u = r(i)).source || (u.source = o.join(
-                  "string" == typeof e ? e : "",
+                  "string" == typeof e
+                    ? e
+                    : "",
                 ))),
                 t !== n
                   ? (c ? !f && t[e] && (s = !0) : delete t[e],
@@ -337,14 +339,10 @@
           lt = function (t) {
             return function (e, r, n) {
               var o, i = v(e), a = ut(i.length), u = ft(n, a);
-              if (t && r != r) {
-                for (; a > u;) {
-                  if ((o = i[u++]) != o) return !0;
-                  else {
-                    for (; a > u; u++) {
-                      if ((t || u in i) && i[u] === r) return t || u || 0;
-                    }
-                  }
+              if (t && r != r) for (; a > u;) if ((o = i[u++]) != o) return !0;
+              else {
+                for (; a > u; u++) {
+                  if ((t || u in i) && i[u] === r) return t || u || 0;
                 }
               }
               return !t && -1;
@@ -403,10 +401,15 @@
               for (o in e) {
                 if (
                   a = e[o],
-                    i = t.noTargetGet ? (u = It(r, o)) && u.value : r[o],
+                    i = t.noTargetGet
+                      ? (u = It(r, o)) && u.value
+                      : r[o],
                     !At(
-                      s ? o : c + (f ? "." : "#") +
-                        o,
+                      s
+                        ? o
+                        : c + (f
+                          ? "."
+                          : "#") + o,
                       t.forced,
                     ) && void 0 !== i
                 ) {
@@ -428,13 +431,14 @@
               i = ft(e, n),
               a = arguments.length > 2 ? arguments[2] : void 0,
               u = Pt(
-                (void 0 === a ? n : ft(a, n)) - i,
+                (void 0 === a
+                  ? n
+                  : ft(a, n)) - i,
                 n - o,
               ),
               c = 1;
             for (
-              i < o && o < i + u && (c = -1, i += u - 1, o += u - 1);
-              u-- > 0;
+              i < o && o < i + u && (c = -1, i += u - 1, o += u - 1); u-- > 0;
             ) {
               i in r ? r[o] = r[i] : delete r[o], o += c, i += c;
             }
@@ -550,7 +554,9 @@
                   r = ut(e.length),
                   n = arguments.length,
                   o = ft(
-                    n > 1 ? arguments[1] : void 0,
+                    n > 1
+                      ? arguments[1]
+                      : void 0,
                     r,
                   ),
                   i = n > 2 ? arguments[2] : void 0,
@@ -575,7 +581,9 @@
                   r !== Array && !te(r.prototype)
                 ? g(r) && null === (r = r[ee]) && (r = void 0)
                 : r = void 0),
-              new (void 0 === r ? Array : r)(0 === e ? 0 : e);
+              new (void 0 === r
+                ? Array
+                : r)(0 === e ? 0 : e);
           },
           ne = [].push,
           oe = function (t) {
@@ -600,7 +608,7 @@
                 m++
               ) {
                 if ((a || m in v) && (h = g(l = v[m], m, d), t)) {
-                  if (e) S[m] = h;
+                  if (e)S[m] = h;
                   else if (h) {
                     switch (t) {
                       case 3:
@@ -633,7 +641,7 @@
             throw t;
           },
           se = function (t, e) {
-            if (b(ue, t)) return ue[t];
+            if (b(ue, t))return ue[t];
             e || (e = {});
             var r = [][t],
               n = !!b(e, "ACCESSORS") && e.ACCESSORS,
@@ -737,10 +745,9 @@
           Se = function (t) {
             return function (e, r) {
               var n, o, i = String(d(e)), a = it(r), u = i.length;
-              return a < 0 || a >= u
-                ? t ? "" : void 0
-                : (n = i.charCodeAt(a)) < 55296 || n > 56319 || a + 1 === u ||
-                    (o = i.charCodeAt(a + 1)) < 56320 || o > 57343
+              return a < 0 || a >= u ? t ? "" : void 0
+              : (n = i.charCodeAt(a)) < 55296 || n > 56319 || a + 1 === u ||
+                  (o = i.charCodeAt(a + 1)) < 56320 || o > 57343
                 ? t ? i.charAt(a) : n
                 : t
                 ? i.slice(a, a + 2)
@@ -757,8 +764,10 @@
           Te = Object.prototype,
           Oe = we ? Object.getPrototypeOf : function (t) {
             return t = jt(t),
-              b(t, Re) ? t[Re] : "function" == typeof t.constructor &&
-                  t instanceof t.constructor
+              b(t, Re)
+                ? t[Re]
+                : "function" == typeof t.constructor &&
+                    t instanceof t.constructor
                 ? t.constructor.prototype
                 : t instanceof Object
                 ? Te
@@ -843,9 +852,9 @@
             if (
               y &&
               (u = Oe(y.call(new t())),
-                De !== Object.prototype && u.next &&
-                (Oe(u) !== De &&
-                  (Le ? Le(u, De) : "function" != typeof u[Fe] && _(u, Fe, Be)),
+                De !== Object.prototype && u.next && (Oe(u) !== De && (Le
+                  ? Le(u, De)
+                  : "function" != typeof u[Fe] && _(u, Fe, Be)),
                   Pe(u, h, !0))),
                 "values" == o && v && "values" !== v.name &&
                 (p = !0,
@@ -863,9 +872,8 @@
                   entries: l("entries"),
                 }, a
               ) {
-                for (f in c) (Ce || p || !(f in d)) && Z(d, f, c[f]);
-              }
-              else_t({ target: e, proto: !0, forced: Ce || p }, c);
+                for (f in c)(Ce || p || !(f in d)) && Z(d, f, c[f]);
+              } else_t({ target: e, proto: !0, forced: Ce || p }, c);
             }
             return c;
           },
@@ -909,15 +917,12 @@
           }()),
           er = Qe ? l : function (t) {
             var e, r, n;
-            return void 0 === t
-              ? "Undefined"
-              : null === t
-              ? "Null"
-              : "string" == typeof (r = function (t, e) {
-                  try {
-                    return t[e];
-                  } catch (t) {}
-                }(e = Object(t), Ze))
+            return void 0 === t ? "Undefined"
+            : null === t ? "Null" : "string" == typeof (r = function (t, e) {
+                try {
+                  return t[e];
+                } catch (t) {}
+              }(e = Object(t), Ze))
               ? r
               : tr
               ? l(e)
@@ -927,7 +932,7 @@
           },
           rr = Ct("iterator"),
           nr = function (t) {
-            if (null != t) return t[rr] || t["@@iterator"] || Ne[er(t)];
+            if (null != t)return t[rr] || t["@@iterator"] || Ne[er(t)];
           },
           or = Ct("iterator"),
           ir = !1;
@@ -986,9 +991,7 @@
                 null == h || c == Array && Xe(h)
             ) {
               for (
-                r = new c(e = ut(u.length));
-                e > p;
-                p++
+                r = new c(e = ut(u.length)); e > p; p++
               ) {
                 a = l ? f(u[p], p) : u[p], Ye(r, p, a);
               }
@@ -1046,7 +1049,9 @@
             for (
               var t = 0,
                 e = arguments.length,
-                r = new ("function" == typeof this ? this : Array)(e);
+                r = new ("function" == typeof this
+                  ? this
+                  : Array)(e);
               e > t;
             ) {
               Ye(r, t, arguments[t++]);
@@ -1094,13 +1099,12 @@
                 REQUIRED: !1,
                 fastKey: function (t, e) {
                   if (!g(t)) {
-                    return "symbol" == typeof t
-                      ? t
-                      : ("string" == typeof t ? "S" : "P") + t;
+                    return "symbol" == typeof t ? t
+                    : ("string" == typeof t ? "S" : "P") + t;
                   }
                   if (!b(t, r)) {
                     if (!o(t)) return "F";
-                    if (!e) return "E";
+                    if (!e)return "E";
                     i(t);
                   }
                   return t[r].objectID;
@@ -1138,11 +1142,8 @@
                 return n && $e(n), new Rr(!0, t);
               },
               v = function (t) {
-                return f
-                  ? (x(t), h ? p(t[0], t[1], d) : p(t[0], t[1]))
-                  : h
-                  ? p(t, d)
-                  : p(t);
+                return f ? (x(t), h ? p(t[0], t[1], d) : p(t[0], t[1]))
+                : h ? p(t, d) : p(t);
               };
             if (l) n = t;
             else {
@@ -1170,11 +1171,9 @@
             return new Rr(!1);
           },
           Or = function (t, e, r) {
-            if (!(t instanceof e)) {
-              throw TypeError(
+            if (!(t instanceof e)) {throw TypeError(
                 "Incorrect " + (r ? r + " " : "") + "invocation",
-              );
-            }
+              );}
             return t;
           },
           xr = function (t, e, r) {
@@ -1305,23 +1304,25 @@
                 a = Ur(e),
                 u = function (t, e, r) {
                   var n, o, u = a(t), s = c(t, e);
-                  return s ? s.value = r : (u.last = s = {
-                    index: o = Nr(e, !0),
-                    key: e,
-                    value: r,
-                    previous: n = u.last,
-                    next: void 0,
-                    removed: !1,
-                  },
-                    u.first || (u.first = s),
-                    n && (n.next = s),
-                    i ? u.size++ : t.size++,
-                    "F" !== o && (u.index[o] = s)),
+                  return s
+                    ? s.value = r
+                    : (u.last = s = {
+                      index: o = Nr(e, !0),
+                      key: e,
+                      value: r,
+                      previous: n = u.last,
+                      next: void 0,
+                      removed: !1,
+                    },
+                      u.first || (u.first = s),
+                      n && (n.next = s),
+                      i ? u.size++ : t.size++,
+                      "F" !== o && (u.index[o] = s)),
                     t;
                 },
                 c = function (t, e) {
                   var r, n = a(t), o = Nr(e);
-                  if ("F" !== o) return n.index[o];
+                  if ("F" !== o)return n.index[o];
                   for (r = n.first; r; r = r.next) if (r.key == e) return r;
                 };
               return Ir(o.prototype, {
@@ -1410,8 +1411,7 @@
                 },
                 function () {
                   for (
-                    var t = i(this), e = t.kind, r = t.last;
-                    r && r.removed;
+                    var t = i(this), e = t.kind, r = t.last; r && r.removed;
                   ) {
                     r = r.previous;
                   }
@@ -1488,8 +1488,7 @@
                 Gr[Cr] = Br;
               }
             }
-            if (Gr[Fr] || _(Gr, Fr, Wr), Dr[Wr]) {
-              for (var Kr in dr) {
+            if (Gr[Fr] || _(Gr, Fr, Wr), Dr[Wr]) {for (var Kr in dr) {
                 if (Gr[Kr] !== dr[Kr]) {
                   try {
                     _(Gr, Kr, dr[Kr]);
@@ -1497,8 +1496,7 @@
                     Gr[Kr] = dr[Kr];
                   }
                 }
-              }
-            }
+              }}
           }
         }
         var $r = function (t) {
@@ -1515,9 +1513,7 @@
                 ? (n = 0,
                   o = Jt(
                     a,
-                    i > 2
-                      ? arguments[2]
-                      : void 0,
+                    i > 2 ? arguments[2] : void 0,
                     2,
                   ),
                   Tr(t, function (t) {
@@ -1710,8 +1706,7 @@
             {
               merge: function (t) {
                 for (
-                  var e = x(this), r = Yt(e.set), n = 0;
-                  n < arguments.length;
+                  var e = x(this), r = Yt(e.set), n = 0; n < arguments.length;
                 ) {
                   Tr(arguments[n++], r, { that: e, AS_ENTRIES: !0 });
                 }
@@ -1730,7 +1725,9 @@
                 if (
                   Yt(t),
                     Tr(r, function (r, i) {
-                      n ? (n = !1, o = i) : o = t(o, i, r, e);
+                      n
+                        ? (n = !1, o = i)
+                        : o = t(o, i, r, e);
                     }, { AS_ENTRIES: !0, IS_ITERATOR: !0 }),
                     n
                 ) {
@@ -1971,7 +1968,9 @@
                 if (
                   Yt(t),
                     Tr(r, function (r) {
-                      n ? (n = !1, o = r) : o = t(o, r, r, e);
+                      n
+                        ? (n = !1, o = r)
+                        : o = t(o, r, r, e);
                     }, { IS_ITERATOR: !0 }),
                     n
                 ) {
@@ -2090,7 +2089,11 @@
                         var e = i(this);
                         if (g(t)) {
                           var r = rn(t);
-                          return !0 === r ? sn(e).get(t) : r ? r[e.id] : void 0;
+                          return !0 === r
+                            ? sn(e).get(t)
+                            : r
+                            ? r[e.id]
+                            : void 0;
                         }
                       },
                       set: function (t, e) {
@@ -2153,7 +2156,9 @@
                   if (g(t) && !i(t)) {
                     var o = r(this);
                     o.frozen || (o.frozen = new e()),
-                      f.call(this, t) ? h.call(this, t, n) : o.frozen.set(t, n);
+                      f.call(this, t)
+                        ? h.call(this, t, n)
+                        : o.frozen.set(t, n);
                   } else h.call(this, t, n);
                   return this;
                 },
@@ -2314,8 +2319,7 @@
           Dn = function (t) {
             return function (e) {
               for (
-                var r, n = v(e), o = Ft(n), a = o.length, u = 0, c = [];
-                a > u;
+                var r, n = v(e), o = Ft(n), a = o.length, u = 0, c = []; a > u;
               ) {
                 r = o[u++], i && !Ln.call(n, r) || c.push(t ? [r, n[r]] : n[r]);
               }
@@ -2395,8 +2399,9 @@
           Jn = "".endsWith,
           Qn = Math.min,
           Zn = Xn("endsWith"),
-          to = !(Zn ||
-            (Kn = Yn(String.prototype, "endsWith"), !Kn || Kn.writable));
+          to =
+            !(Zn ||
+              (Kn = Yn(String.prototype, "endsWith"), !Kn || Kn.writable));
         _t(
           { target: "String", proto: !0, forced: !to && !Zn },
           {
@@ -2405,7 +2410,9 @@
               qn(t);
               var r = arguments.length > 1 ? arguments[1] : void 0,
                 n = ut(e.length),
-                o = void 0 === r ? n : Qn(ut(r), n),
+                o = void 0 === r
+                  ? n
+                  : Qn(ut(r), n),
                 i = String(t);
               return Jn ? Jn.call(e, i, o) : e.slice(o - i.length, o) === i;
             },
@@ -2461,11 +2468,10 @@
                 u = a.length,
                 c = void 0 === n ? " " : String(n),
                 s = ut(r);
-              return s <= u || "" == c
-                ? a
-                : ((i = no.call(c, oo((o = s - u) / c.length))).length > o &&
-                  (i = i.slice(0, o)),
-                  t ? a + i : i + a);
+              return s <= u || "" == c ? a
+              : ((i = no.call(c, oo((o = s - u) / c.length))).length > o &&
+                (i = i.slice(0, o)),
+                t ? a + i : i + a);
             };
           },
           ao = { start: io(!1), end: io(!0) },
@@ -2519,7 +2525,9 @@
               var e = String(d(this));
               qn(t);
               var r = ut(po(
-                  arguments.length > 1 ? arguments[1] : void 0,
+                  arguments.length > 1
+                    ? arguments[1]
+                    : void 0,
                   e.length,
                 )),
                 n = String(t);
@@ -2534,22 +2542,18 @@
           },
           mo = bn.start,
           bo = yo("trimStart"),
-          So = bo
-            ? function () {
-              return mo(this);
-            }
-            : "".trimStart;
+          So = bo ? function () {
+            return mo(this);
+          } : "".trimStart;
         _t(
           { target: "String", proto: !0, forced: bo },
           { trimStart: So, trimLeft: So },
         ), Zt("String", "trimLeft");
         var Eo = bn.end,
           wo = yo("trimEnd"),
-          Ro = wo
-            ? function () {
-              return Eo(this);
-            }
-            : "".trimEnd;
+          Ro = wo ? function () {
+            return Eo(this);
+          } : "".trimEnd;
         _t(
           { target: "String", proto: !0, forced: wo },
           { trimEnd: Ro, trimRight: Ro },
@@ -2619,7 +2623,9 @@
               }
               var o = r.prototype,
                 i = Vt(
-                  g(o) ? o : Object.prototype,
+                  g(o)
+                    ? o
+                    : Object.prototype,
                 ),
                 a = Function.apply.call(t, i, e);
               return g(a) ? a : i;
@@ -2654,12 +2660,8 @@
           _t({ target: "Reflect", stat: !0 }, {
             get: function t(e, r) {
               var n, o, i = arguments.length < 3 ? e : arguments[2];
-              return x(e) === i
-                ? e[r]
-                : (n = O.f(e, r))
-                ? b(n, "value")
-                  ? n.value
-                  : void 0 === n.get
+              return x(e) === i ? e[r] : (n = O.f(e, r))
+                ? b(n, "value") ? n.value : void 0 === n.get
                   ? void 0
                   : n.get.call(i)
                 : g(o = Oe(e))
@@ -2839,8 +2841,7 @@
               ? n.length
                 ? (i = new Zr(n.concat(u)),
                   Tr(i, (a = []).push, { that: a }),
-                  a)
-                : u
+                  a) : u
               : n;
           };
         _t({ target: "Reflect", stat: !0 }, {
@@ -3020,9 +3021,7 @@
               : Ui && n && (i.lastIndex = i.global ? n.index + n[0].length : e),
             Li && n && n.length > 1 && Ni.call(n[0], r, function () {
               for (
-                o = 1;
-                o < arguments.length - 2;
-                o++
+                o = 1; o < arguments.length - 2; o++
               ) {
                 void 0 === arguments[o] && (n[o] = void 0);
               }
@@ -3125,9 +3124,8 @@
                   ""[t],
                   function (t, e, r, n, o) {
                     return e.exec === Di
-                      ? a && !o
-                        ? { done: !0, value: c.call(e, r, n) }
-                        : { done: !0, value: t.call(r, e, n) }
+                      ? a && !o ? { done: !0, value: c.call(e, r, n) }
+                      : { done: !0, value: t.call(r, e, n) }
                       : { done: !1 };
                   },
                   {
@@ -3265,9 +3263,7 @@
                     if (0 === f) return e;
                     if (f > c) {
                       var l = ra(f / 10);
-                      return 0 === l
-                        ? e
-                        : l <= c
+                      return 0 === l ? e : l <= c
                         ? void 0 === o[l - 1]
                           ? a.charAt(1)
                           : o[l - 1] + a.charAt(1)
@@ -3300,50 +3296,53 @@
           });
         Yi("split", 2, function (t, e, r) {
           var n;
-          return n = "c" == "abbc".split(/(b)*/)[1] ||
+          return n =
+            "c" == "abbc".split(/(b)*/)[1] ||
               4 != "test".split(/(?:)/, -1).length ||
               2 != "ab".split(/(?:ab)*/).length ||
               4 != ".".split(/(.?)(.?)/).length ||
               ".".split(/()()/).length > 1 || "".split(/.?/).length
-            ? function (t, r) {
-              var n = String(d(this)),
-                o = void 0 === r ? 4294967295 : r >>> 0;
-              if (0 === o) return [];
-              if (void 0 === t) return [n];
-              if (!Vn(t)) return e.call(n, t, o);
-              for (
-                var i,
-                  a,
-                  u,
-                  c = [],
-                  s = 0,
-                  f = new RegExp(
-                    t.source,
-                    (t.ignoreCase ? "i" : "") + (t.multiline ? "m" : "") +
-                      (t.unicode ? "u" : "") + (t.sticky ? "y" : "") +
-                      "g",
-                  );
-                (i = Di.call(f, n)) &&
-                !((a = f.lastIndex) > s &&
-                  (c.push(n.slice(s, i.index)),
-                    i.length > 1 && i.index < n.length &&
-                    ia.apply(c, i.slice(1)),
-                    u = i[0].length,
-                    s = a,
-                    c.length >= o));
-              ) {
-                f.lastIndex === i.index && f.lastIndex++;
+              ? function (t, r) {
+                var n = String(d(this)),
+                  o = void 0 === r ? 4294967295 : r >>> 0;
+                if (0 === o) return [];
+                if (void 0 === t) return [n];
+                if (!Vn(t)) return e.call(n, t, o);
+                for (
+                  var i,
+                    a,
+                    u,
+                    c = [],
+                    s = 0,
+                    f = new RegExp(
+                      t.source,
+                      (t.ignoreCase ? "i" : "") + (t.multiline ? "m" : "") +
+                        (t.unicode ? "u" : "") + (t.sticky
+                          ? "y"
+                          : "") +
+                        "g",
+                    );
+                  (i = Di.call(f, n)) &&
+                  !((a = f.lastIndex) > s &&
+                    (c.push(n.slice(s, i.index)),
+                      i.length > 1 && i.index < n.length &&
+                      ia.apply(c, i.slice(1)),
+                      u = i[0].length,
+                      s = a,
+                      c.length >= o));
+                ) {
+                  f.lastIndex === i.index && f.lastIndex++;
+                }
+                return s === n.length
+                  ? !u && f.test("") || c.push("")
+                  : c.push(n.slice(s)),
+                  c.length > o ? c.slice(0, o) : c;
               }
-              return s === n.length
-                ? !u && f.test("") || c.push("")
-                : c.push(n.slice(s)),
-                c.length > o ? c.slice(0, o) : c;
-            }
-            : "0".split(void 0, 0).length
-            ? function (t, r) {
-              return void 0 === t && 0 === r ? [] : e.call(this, t, r);
-            }
-            : e,
+              : "0".split(void 0, 0).length
+              ? function (t, r) {
+                return void 0 === t && 0 === r ? [] : e.call(this, t, r);
+              }
+              : e,
             [function (e, r) {
               var o = d(this), i = null == e ? void 0 : e[t];
               return void 0 !== i ? i.call(e, o, r) : n.call(String(o), e, r);
@@ -3357,8 +3356,12 @@
                 f = new c(
                   ua ? a : "^(?:" + a.source + ")",
                   (a.ignoreCase ? "i" : "") + (a.multiline ? "m" : "") +
-                    (a.unicode ? "u" : "") +
-                    (ua ? "y" : "g"),
+                    (a.unicode
+                      ? "u"
+                      : "") +
+                    (ua
+                      ? "y"
+                      : "g"),
                 ),
                 l = void 0 === o ? 4294967295 : o >>> 0;
               if (0 === l) return [];
@@ -3369,7 +3372,9 @@
                 if (
                   null === g || (v = aa(
                       ut(
-                        f.lastIndex + (ua ? 0 : p),
+                        f.lastIndex + (ua
+                          ? 0
+                          : p),
                       ),
                       u.length,
                     )) === h
@@ -3387,10 +3392,9 @@
             }];
         }, !ua);
         var ca, sa, fa = n.process, la = fa && fa.versions, ha = la && la.v8;
-        ha
-          ? sa = (ca = ha.split("."))[0] + ca[1]
-          : uo && (!(ca = uo.match(/Edge\/(\d+)/)) || ca[1] >= 74) &&
-            (ca = uo.match(/Chrome\/(\d+)/)) && (sa = ca[1]);
+        ha ? sa = (ca = ha.split("."))[0] + ca[1]
+        : uo && (!(ca = uo.match(/Edge\/(\d+)/)) || ca[1] >= 74) &&
+          (ca = uo.match(/Chrome\/(\d+)/)) && (sa = ca[1]);
         var pa = sa && +sa,
           da = Ct("species"),
           va = Ct("isConcatSpreadable"),
@@ -3406,7 +3410,7 @@
               1 !== t.concat(Boolean).foo;
           }),
           ma = function (t) {
-            if (!g(t)) return !1;
+            if (!g(t))return !1;
             var e = t[va];
             return void 0 !== e ? !!e : te(t);
           };
@@ -3419,16 +3423,14 @@
                 if (ma(i = -1 === e ? a : arguments[e])) {
                   if (
                     c + (o = ut(i.length)) > 9007199254740991
-                  ) {
+                  ) { 
                     throw TypeError("Maximum allowed index exceeded");
                   }
-                  for (r = 0; r < o; r++, c++) r in i && Ye(u, c, i[r]);
+                  for (r = 0; r < o; r++, c++)r in i && Ye(u, c, i[r]);
                 } else {
-                  if (c >= 9007199254740991) {
-                    throw TypeError(
+                  if (c >= 9007199254740991) {throw TypeError(
                       "Maximum allowed index exceeded",
-                    );
-                  }
+                    );}
                   Ye(u, c++, i);
                 }
               }
@@ -3439,8 +3441,7 @@
         var ba = yt.f,
           Sa = {}.toString,
           Ea = "object" == typeof window && window && Object.getOwnPropertyNames
-            ? Object.getOwnPropertyNames(window)
-            : [],
+            ? Object.getOwnPropertyNames(window) : [],
           wa = {
             f: function (t) {
               return Ea && "[object Window]" == Sa.call(t)
@@ -3485,25 +3486,21 @@
                   return ka(this, "a", { value: 7 }).a;
                 },
               })).a;
-            })
-            ? function (t, e, r) {
-              var n = Ua(Pa, e);
-              n && delete Pa[e], ka(t, e, r), n && t !== Pa && ka(Pa, e, n);
-            }
-            : ka,
+            }) ? function (t, e, r) {
+            var n = Ua(Pa, e);
+            n && delete Pa[e], ka(t, e, r), n && t !== Pa && ka(Pa, e, n);
+          } : ka,
           Va = function (t, e) {
             var r = Ca[t] = Vt(Na.prototype);
             return _a(r, { type: "Symbol", tag: t, description: e }),
               i || (r.description = e),
               r;
           },
-          qa = Ut
-            ? function (t) {
-              return "symbol" == typeof t;
-            }
-            : function (t) {
-              return Object(t) instanceof Na;
-            },
+          qa = Ut ? function (t) {
+            return "symbol" == typeof t;
+          } : function (t) {
+            return Object(t) instanceof Na;
+          },
           Ha = function (t, e, r) {
             t === Pa && Ha(Fa, e, r), x(t);
             var n = y(e, !0);
@@ -3616,7 +3613,7 @@
                   return Ba[e] = r, Wa[r] = e, r;
                 },
                 keyFor: function (t) {
-                  if (!qa(t)) throw TypeError(t + " is not a symbol");
+                  if (!qa(t))throw TypeError(t + " is not a symbol");
                   if (b(Wa, t)) return Wa[t];
                 },
                 useSetter: function () {
@@ -3631,7 +3628,9 @@
               { target: "Object", stat: !0, forced: !Mt, sham: !i },
               {
                 create: function (t, e) {
-                  return void 0 === e ? Vt(t) : Xa(Vt(t), e);
+                  return void 0 === e
+                    ? Vt(t)
+                    : Xa(Vt(t), e);
                 },
                 defineProperty: Ha,
                 defineProperties: Xa,
@@ -3664,11 +3663,9 @@
             { target: "JSON", stat: !0, forced: tu },
             {
               stringify: function (t, e, r) {
-                for (var n, o = [t], i = 1; arguments.length > i;) {
-                  o.push(
+                for (var n, o = [t], i = 1; arguments.length > i;) {o.push(
                     arguments[i++],
-                  );
-                }
+                  );}
                 if (n = e, (g(e) || void 0 !== t) && !qa(t)) {
                   return te(e) || (e = function (t, e) {
                     if (
@@ -3698,9 +3695,7 @@
               var t = arguments.length < 1 || void 0 === arguments[0]
                   ? void 0
                   : String(arguments[0]),
-                e = this instanceof ou
-                  ? new ru(t)
-                  : void 0 === t
+                e = this instanceof ou ? new ru(t) : void 0 === t
                   ? ru()
                   : ru(t);
               return "" === t && (nu[e] = !0), e;
@@ -3897,7 +3892,7 @@
             },
           },
           Ju = function (t, e) {
-            if (x(t), g(e) && e.constructor === t) return e;
+            if (x(t), g(e) && e.constructor === t)return e;
             var r = Yu.f(t);
             return (0, r.resolve)(e), r.promise;
           },
@@ -3985,13 +3980,12 @@
                 o.initEvent(t, !1, !0),
                 n.dispatchEvent(o))
               : o = { promise: e, reason: r },
-              !pc && (i = n["on" + t])
-                ? i(o)
-                : "unhandledrejection" === t && function (t, e) {
-                  var r = n.console;
-                  r && r.error &&
-                    (1 === arguments.length ? r.error(t) : r.error(t, e));
-                }("Unhandled promise rejection", r);
+              !pc && (i = n["on" + t]) ? i(o)
+              : "unhandledrejection" === t && function (t, e) {
+                var r = n.console;
+                r && r.error &&
+                  (1 === arguments.length ? r.error(t) : r.error(t, e));
+              }("Unhandled promise rejection", r);
           },
           bc = function (t) {
             Zu.call(n, function () {
@@ -4033,20 +4027,16 @@
             if (!e.done) {
               e.done = !0, n && (e = n);
               try {
-                if (e.facade === r) {
-                  throw ac("Promise can't be resolved itself");
-                }
+                if (e.facade === r)throw ac("Promise can't be resolved itself");
                 var o = gc(r);
-                o
-                  ? Hu(function () {
-                    var n = { done: !1 };
-                    try {
-                      o.call(r, wc(t, n, e), wc(Rc, n, e));
-                    } catch (t) {
-                      Rc(n, t, e);
-                    }
-                  })
-                  : (e.value = r, e.state = 1, yc(e, !1));
+                o ? Hu(function () {
+                  var n = { done: !1 };
+                  try {
+                    o.call(r, wc(t, n, e), wc(Rc, n, e));
+                  } catch (t) {
+                    Rc(n, t, e);
+                  }
+                }) : (e.value = r, e.state = 1, yc(e, !1));
               } catch (t) {
                 Rc({ done: !1 }, t, e);
               }
@@ -4080,7 +4070,9 @@
               var r = oc(this), n = fc(Jr(this, ic));
               return n.ok = "function" != typeof t || t,
                 n.fail = "function" == typeof e && e,
-                n.domain = vu ? cc.domain : void 0,
+                n.domain = vu
+                  ? cc.domain
+                  : void 0,
                 r.parent = !0,
                 r.reactions.push(n),
                 0 != r.state && yc(r, !1),
@@ -4354,9 +4346,8 @@
               this.bodyUsed = this.bodyUsed,
                 this._bodyInit = t,
                 t
-                  ? "string" == typeof t
-                    ? this._bodyText = t
-                    : _c && Blob.prototype.isPrototypeOf(t)
+                  ? "string" == typeof t ? this._bodyText = t
+                  : _c && Blob.prototype.isPrototypeOf(t)
                     ? this._bodyBlob = t
                     : jc && FormData.prototype.isPrototypeOf(t)
                     ? this._bodyFormData = t
@@ -5067,8 +5058,11 @@
               }
             }
           }(
-            void 0 !== t ? t
-            : "undefined" != typeof window ? window : "undefined" != typeof self
+            void 0 !== t
+              ? t
+              : "undefined" != typeof window
+              ? window
+              : "undefined" != typeof self
               ? self
               : t,
           );
@@ -5093,9 +5087,7 @@
                 return !1;
               }
               for (
-                var e = {}, r = 0;
-                r < 10;
-                r++
+                var e = {}, r = 0; r < 10; r++
               ) {
                 e["_" + String.fromCharCode(r)] = r;
               }

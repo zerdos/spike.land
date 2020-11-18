@@ -327,7 +327,7 @@
 
     function _templateObject2() {
       var data = Object(
-        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ /* default */[
+        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
           "a"
         ],
       )([
@@ -344,7 +344,7 @@
 
     function _templateObject() {
       var data = Object(
-        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ /* default */[
+        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
           "a"
         ],
       )(["\n  margin-top: ", ";\n  display: flex;\n  margin-bottom: ", ";\n"]);
@@ -357,20 +357,20 @@
     }
 
     var Container =
-      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ /* default */["a"].div(
+      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
         _templateObject(),
         Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__ /* rhythm */["b"],
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
         )(2.5),
         Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__ /* rhythm */["b"],
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
         )(2.5),
       );
     var StyledImgDiv =
-      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ /* default */["a"].div(
+      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
         _templateObject2(),
         Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__ /* rhythm */["b"],
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
         )(1 / 2),
       );
     var Bio = function Bio() {
