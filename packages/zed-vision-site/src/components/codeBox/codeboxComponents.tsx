@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import * as React from "react";
 
-import { ResultBox, ResultBoxContainer } from "./styledCodeBoxComps";
+import { ResultBox, ResultBoxContainer } from "./styledCodeBoxComps.tsx";
 
 export interface ITransformed {
   hash: string;
