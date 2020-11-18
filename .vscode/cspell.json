@@ -1,6 +1,8 @@
 {
     "version": "0.1",
-    "ignorePaths": ["yarn.lock"],
+    "ignorePaths": [
+        "yarn.lock"
+    ],
     "words": [
         "agentkeepalive",
         "almosthidden",
@@ -92,6 +94,7 @@
         "devimage",
         "dezalgo",
         "diffie",
+        "dimgray",
         "dispay",
         "distro",
         "docblock",
