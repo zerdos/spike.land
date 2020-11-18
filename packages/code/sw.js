@@ -107,7 +107,7 @@ importScripts(
       // const resp = new Response();
       // return
     }
-    // if (e.request.url==="code.zed.vison" && req)
+    // if (e.request.url==="code.zed.vision" && req)
 
     const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
       return cache.match(e.request).then((response) => {

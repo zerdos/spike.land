@@ -1,4 +1,4 @@
-export const version = `7.2.6`; export const html = `<!DOCTYPE html>
+export const version = `7.3.0`; export const html = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -169,7 +169,7 @@ export const version = `7.2.6`; export const html = `<!DOCTYPE html>
       } catch (e) {
 
         //If the CDN doesn't have or package yet
-        const version = "@7.2.6";
+        const version = "@7.3.0";
 
         const { run } = await import(cdnAddress + "@latest" + script)
         run();
@@ -191,7 +191,7 @@ importScripts(
 );
 
 // importScripts(
-//   "https://unpkg.com/@zedvision/code@7.2.6/dist/htmlNoModule.js",
+//   "https://unpkg.com/@zedvision/code@7.3.0/dist/htmlNoModule.js",
 // );
 
 (({ Comlink, idb, location, caches, addEventListener }) => {
@@ -227,7 +227,7 @@ importScripts(
     },
   };
 
-  var cacheKey = "7.2.6-1";
+  var cacheKey = "7.3.0-1";
 
   addEventListener("install", function (e) {
     e.waitUntil(
@@ -294,7 +294,7 @@ importScripts(
       // const resp = new Response();
       // return
     }
-    // if (e.request.url==="code.zed.vison" && req)
+    // if (e.request.url==="code.zed.vision" && req)
 
     const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
       return cache.match(e.request).then((response) => {

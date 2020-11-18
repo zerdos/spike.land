@@ -1,4 +1,8 @@
-import { html, inject, sw } from "../dist/html.js";
+import {
+  html,
+  inject,
+  //  sw
+} from "../dist/html.js";
 
 var SHATEST: KVNamespace;
 
@@ -12,27 +16,27 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   if (request.method === "GET") {
     const url = new URL(request.url);
 
-    if (request.url.endsWith("sw.js")) {
-      return new Response(sw, {
-        headers: {
-          "content-type": "text/javascript",
-        },
-      });
-    }
+    // if (request.url.endsWith("sw.js")) {
+    //   return new Response(sw, {
+    //     headers: {
+    //       "content-type": "text/javascript",
+    //     },
+    //   });
+    // }
 
-    if (request.url.includes("?hash=")) {
-      const hash = url.searchParams.get("hash");
-      if (hash !== null) {
-        const jsonStream = await SHATEST.get(hash, "stream");
-        if (jsonStream !== null) {
-          return new Response(jsonStream, {
-            headers: {
-              "content-type": "",
-            },
-          });
-        }
-      }
-    }
+    // if (request.url.includes("?hash=")) {
+    //   const hash = url.searchParams.get("hash");
+    //   if (hash !== null) {
+    //     const jsonStream = await SHATEST.get(hash, "stream");
+    //     if (jsonStream !== null) {
+    //       return new Response(jsonStream, {
+    //         headers: {
+    //           "content-type": "",
+    //         },
+    //       });
+    //     }
+    //   }
+    // }
 
     const hash = url.searchParams.get("h");
 
