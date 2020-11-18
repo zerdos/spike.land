@@ -12,6 +12,7 @@ module.exports = {
     },
   },
   plugins: [
+   
     `gatsby-plugin-remove-fingerprints`,
     `gatsby-plugin-remove-generator`,
     `gatsby-plugin-workerize-loader`,
@@ -48,6 +49,6 @@ module.exports = {
         display: `standalone`,
         cache_busting_mode: `none`,
       },
-    },
+    }
   ],
 };

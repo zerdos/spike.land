@@ -17,33 +17,35 @@
       /* harmony import */ var _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_1__ =
         __webpack_require__(95);
       /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_2__ =
-        __webpack_require__(23);
+        __webpack_require__(21);
       /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_3__ =
-        __webpack_require__(18);
+        __webpack_require__(17);
+      /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_4__ =
+        __webpack_require__(1);
 
       function Page() {
-        return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__[
-          "createElement"
-        ](
+        return Object(
+          _emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"],
+        )(
           _components_layout__WEBPACK_IMPORTED_MODULE_2__/* Layout */ ["a"],
           null,
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             _components_seo__WEBPACK_IMPORTED_MODULE_3__/* SEO */ ["a"],
             {
               title: "Code Box",
             },
           ),
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             "h1",
             null,
             "Code box",
           ),
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             "p",
             null,
             "Lets see!",
           ),
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_1__/* CodeBox */ [
               "a"
             ],

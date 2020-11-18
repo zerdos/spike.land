@@ -17,8 +17,8 @@
         return /* binding */ pageQuery;
       });
 
-      // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-      var taggedTemplateLiteralLoose = __webpack_require__(8);
+      // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js + 1 modules
+      var emotion_styled_base_browser_esm = __webpack_require__(11);
 
       // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
       var react = __webpack_require__(0);
@@ -27,26 +27,23 @@
       var gatsby_browser_entry = __webpack_require__(15);
 
       // EXTERNAL MODULE: ./src/components/bio.tsx
-      var bio = __webpack_require__(56);
+      var bio = __webpack_require__(55);
 
       // EXTERNAL MODULE: ./src/components/layout.tsx + 1 modules
-      var layout = __webpack_require__(23);
+      var layout = __webpack_require__(21);
 
       // EXTERNAL MODULE: ./src/components/seo.tsx
-      var seo = __webpack_require__(18);
+      var seo = __webpack_require__(17);
 
       // EXTERNAL MODULE: ./src/components/utils/typography.ts
-      var typography = __webpack_require__(28);
-
-      // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
-      var emotion_styled_browser_esm = __webpack_require__(10);
+      var typography = __webpack_require__(27);
 
       // EXTERNAL MODULE: ./assets/forkMe.png
       var forkMe = __webpack_require__(230);
       var forkMe_default = /*#__PURE__*/ __webpack_require__.n(forkMe);
 
       // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
-      var regenerator = __webpack_require__(19);
+      var regenerator = __webpack_require__(18);
       var regenerator_default = /*#__PURE__*/ __webpack_require__.n(
         regenerator,
       );
@@ -55,7 +52,7 @@
       var runtime = __webpack_require__(9);
 
       // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-      var asyncToGenerator = __webpack_require__(20);
+      var asyncToGenerator = __webpack_require__(19);
 
       // CONCATENATED MODULE: ./src/sw-reg.js
       function _createForOfIteratorHelperLoose(o, allowArrayLike) {
@@ -166,45 +163,41 @@
           return _ref.apply(this, arguments);
         };
       }();
+      // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
+      var emotion_react_browser_esm = __webpack_require__(1);
+
       // CONCATENATED MODULE: ./src/pages/index.tsx
 
-      function _templateObject2() {
-        var data = Object(
-          taggedTemplateLiteralLoose["a"/* default */
-          ],
-        )(["\n  margin-bottom: ", ";\n"]);
-
-        _templateObject2 = function _templateObject2() {
-          return data;
-        };
-
-        return data;
+      function _EMOTION_STRINGIFIED_CSS_ERROR__() {
+        return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop).";
       }
 
-      function _templateObject() {
-        var data = Object(
-          taggedTemplateLiteralLoose["a"/* default */
-          ],
-        )(['\n  box-shadow: "none";\n']);
-
-        _templateObject = function _templateObject() {
-          return data;
-        };
-
-        return data;
-      }
-
-      var StyledLink = Object(
-        emotion_styled_browser_esm["a"/* default */
+      var StyledLink = /*#__PURE__*/ Object(
+        emotion_styled_base_browser_esm["a"/* default */
         ],
-      )(gatsby_browser_entry["Link"])(_templateObject());
-      var H3 = emotion_styled_browser_esm["a"/* default */
-      ].h3(
-        _templateObject2(),
+      )(gatsby_browser_entry["Link"], {
+        target: "e1yxq7wt1",
+      })(
+        true
+          ? {
+            name: "vo4wym",
+            styles: 'box-shadow:"none"',
+          }
+          : undefined,
+      );
+
+      var H3 = Object(
+        emotion_styled_base_browser_esm["a"/* default */
+        ],
+      )("h3", {
+        target: "e1yxq7wt0",
+      })(
+        "margin-bottom:",
         Object(
           typography["b"/* rhythm */
           ],
         )(1 / 4),
+        ";",
       );
 
       var pages_BlogIndex = function BlogIndex(_ref) {
@@ -215,28 +208,39 @@
             registerSW();
           }
         }, []);
-        return /*#__PURE__*/ react["createElement"](
+        return Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )(
           layout["a"/* Layout */
           ],
           null,
-          /*#__PURE__*/ react["createElement"](
+          Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )(
             seo["a"/* SEO */
             ],
             {
               title: "This is Zed vision",
             },
           ),
-          /*#__PURE__*/ react["createElement"](
-            "h1",
-            null,
-            "Hi, this is my playground",
-          ),
-          /*#__PURE__*/ react["createElement"](
+          Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )("h1", null, "Hi, this is my playground"),
+          Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )(
             "a",
             {
               href: "https://github.com/zed-vision/monorepo",
             },
-            /*#__PURE__*/ react["createElement"]("img", {
+            Object(
+              emotion_react_browser_esm["b"/* jsx */
+              ],
+            )("img", {
               loading: "lazy",
               width: "149",
               height: "149",
@@ -252,31 +256,48 @@
           edges.map(function (_ref2) {
             var node = _ref2.node;
             var title = node.frontmatter.title || node.fields.slug;
-            return /*#__PURE__*/ react["createElement"](
+            return Object(
+              emotion_react_browser_esm["b"/* jsx */
+              ],
+            )(
               "article",
               {
                 key: node.fields.slug,
               },
-              /*#__PURE__*/ react["createElement"](
+              Object(
+                emotion_react_browser_esm["b"/* jsx */
+                ],
+              )(
                 "header",
                 null,
-                /*#__PURE__*/ react["createElement"](
+                Object(
+                  emotion_react_browser_esm["b"/* jsx */
+                  ],
+                )(
                   H3,
                   null,
-                  /*#__PURE__*/ react["createElement"](StyledLink, {
+                  Object(
+                    emotion_react_browser_esm["b"/* jsx */
+                    ],
+                  )(StyledLink, {
                     to: node.fields.slug,
                   }, title),
                 ),
-                /*#__PURE__*/ react["createElement"](
-                  "small",
-                  null,
-                  node.frontmatter.date,
-                ),
+                Object(
+                  emotion_react_browser_esm["b"/* jsx */
+                  ],
+                )("small", null, node.frontmatter.date),
               ),
-              /*#__PURE__*/ react["createElement"](
+              Object(
+                emotion_react_browser_esm["b"/* jsx */
+                ],
+              )(
                 "section",
                 null,
-                /*#__PURE__*/ react["createElement"]("p", {
+                Object(
+                  emotion_react_browser_esm["b"/* jsx */
+                  ],
+                )("p", {
                   dangerouslySetInnerHTML: {
                     __html: node.frontmatter.description || node.excerpt,
                   },
@@ -284,7 +305,10 @@
               ),
             );
           }),
-          /*#__PURE__*/ react["createElement"](
+          Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )(
             bio["a"/* Bio */
             ],
             null,
@@ -299,7 +323,7 @@
       /***/
     }),
 
-  /***/ 56: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 55: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
@@ -308,101 +332,81 @@
         return Bio;
       },
     );
-    /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ =
-      __webpack_require__(8);
+    /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ =
+      __webpack_require__(11);
     /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ =
       __webpack_require__(0);
     /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default =
       /*#__PURE__*/ __webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-    /* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ =
-      __webpack_require__(10);
-    /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_3__ =
-      __webpack_require__(28);
-    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ =
-      __webpack_require__(57);
-    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default =
+    /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_2__ =
+      __webpack_require__(27);
+    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3__ =
+      __webpack_require__(56);
+    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3___default =
       /*#__PURE__*/ __webpack_require__.n(
-        _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__,
+        _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3__,
       );
+    /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_4__ =
+      __webpack_require__(1);
 
-    function _templateObject2() {
-      var data = Object(
-        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
-          "a"
-        ],
-      )([
-        "\n  margin-right: ",
-        ";\n  margin-bottom: 0;\n  overflow: hidden;\n  width: 50px;\n  height: 50px;\n  border-radius: 25px;\n",
-      ]);
+    var Container = Object(
+      _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__/* default */ ["a"],
+    )("div", {
+      target: "e10dbsa31",
+    })(
+      "margin-top:",
+      Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__/* rhythm */ ["b"])(
+        2.5,
+      ),
+      ";display:flex;margin-bottom:",
+      Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__/* rhythm */ ["b"])(
+        2.5,
+      ),
+      ";",
+    );
 
-      _templateObject2 = function _templateObject2() {
-        return data;
-      };
+    var StyledImgDiv = Object(
+      _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__/* default */ ["a"],
+    )("div", {
+      target: "e10dbsa30",
+    })(
+      "margin-right:",
+      Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__/* rhythm */ ["b"])(
+        1 / 2,
+      ),
+      ";margin-bottom:0;overflow:hidden;width:50px;height:50px;border-radius:25px;",
+    );
 
-      return data;
-    }
-
-    function _templateObject() {
-      var data = Object(
-        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
-          "a"
-        ],
-      )(["\n  margin-top: ", ";\n  display: flex;\n  margin-bottom: ", ";\n"]);
-
-      _templateObject = function _templateObject() {
-        return data;
-      };
-
-      return data;
-    }
-
-    var Container =
-      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
-        _templateObject(),
-        Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
-        )(2.5),
-        Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
-        )(2.5),
-      );
-    var StyledImgDiv =
-      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
-        _templateObject2(),
-        Object(
-          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
-        )(1 / 2),
-      );
     var Bio = function Bio() {
-      return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+      return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
         Container,
         null,
-        /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+        Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
           StyledImgDiv,
           null,
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             "img",
             {
               alt: "Zoltan Erdos",
-              src: _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default.a,
+              src: _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3___default.a,
             },
           ),
         ),
-        /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+        Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
           "p",
           null,
           "Written by ",
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             "strong",
             null,
             "Zoltan Erdos",
           ),
           "developer experience and software quality expert",
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             "br",
             null,
           ),
-          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
             "a",
             {
               href: "https://twitter.com/ZoltanErdos",
@@ -416,7 +420,7 @@
     /***/
   }),
 
-  /***/ 57: /***/ (function (module, exports, __webpack_require__) {
+  /***/ 56: /***/ (function (module, exports, __webpack_require__) {
     module.exports = __webpack_require__.p +
       "static/zed-profile-pic-5e9304b71289e19e25c128ce8fa758fe.jpg";
 

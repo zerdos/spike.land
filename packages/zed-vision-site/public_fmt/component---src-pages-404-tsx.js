@@ -9,6 +9,7 @@
   ,
   ,
   ,
+  ,
   /* 0 */
   /* 1 */
   /* 2 */
@@ -20,17 +21,18 @@
   /* 8 */
   /* 9 */
   /* 10 */
+  /* 11 */
   /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/extends.js
-    var helpers_extends = __webpack_require__(26);
+    // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/extends.js
+    var esm_extends = __webpack_require__(22);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
     var react = __webpack_require__(0);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/memoize/dist/memoize.browser.esm.js
-    var memoize_browser_esm = __webpack_require__(29);
+    var memoize_browser_esm = __webpack_require__(25);
 
     // CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
 
@@ -50,17 +52,14 @@
     );
     /* harmony default export */ var emotion_is_prop_valid_browser_esm =
       (isPropValid);
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/extends.js
-    var esm_extends = __webpack_require__(52);
-
     // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-element-5144c041.browser.esm.js
-    var emotion_element_5144c041_browser_esm = __webpack_require__(5);
+    var emotion_element_5144c041_browser_esm = __webpack_require__(6);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js
-    var emotion_utils_browser_esm = __webpack_require__(17);
+    var emotion_utils_browser_esm = __webpack_require__(33);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js + 2 modules
-    var emotion_serialize_browser_esm = __webpack_require__(22);
+    var emotion_serialize_browser_esm = __webpack_require__(36);
 
     // CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
 
@@ -268,152 +267,7 @@
     };
 
     /* harmony default export */ var emotion_styled_base_browser_esm =
-      (emotion_styled_base_browser_esm_createStyled);
-    // CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js
-
-    var tags = [
-      "a",
-      "abbr",
-      "address",
-      "area",
-      "article",
-      "aside",
-      "audio",
-      "b",
-      "base",
-      "bdi",
-      "bdo",
-      "big",
-      "blockquote",
-      "body",
-      "br",
-      "button",
-      "canvas",
-      "caption",
-      "cite",
-      "code",
-      "col",
-      "colgroup",
-      "data",
-      "datalist",
-      "dd",
-      "del",
-      "details",
-      "dfn",
-      "dialog",
-      "div",
-      "dl",
-      "dt",
-      "em",
-      "embed",
-      "fieldset",
-      "figcaption",
-      "figure",
-      "footer",
-      "form",
-      "h1",
-      "h2",
-      "h3",
-      "h4",
-      "h5",
-      "h6",
-      "head",
-      "header",
-      "hgroup",
-      "hr",
-      "html",
-      "i",
-      "iframe",
-      "img",
-      "input",
-      "ins",
-      "kbd",
-      "keygen",
-      "label",
-      "legend",
-      "li",
-      "link",
-      "main",
-      "map",
-      "mark",
-      "marquee",
-      "menu",
-      "menuitem",
-      "meta",
-      "meter",
-      "nav",
-      "noscript",
-      "object",
-      "ol",
-      "optgroup",
-      "option",
-      "output",
-      "p",
-      "param",
-      "picture",
-      "pre",
-      "progress",
-      "q",
-      "rp",
-      "rt",
-      "ruby",
-      "s",
-      "samp",
-      "script",
-      "section",
-      "select",
-      "small",
-      "source",
-      "span",
-      "strong",
-      "style",
-      "sub",
-      "summary",
-      "sup",
-      "table",
-      "tbody",
-      "td",
-      "textarea",
-      "tfoot",
-      "th",
-      "thead",
-      "time",
-      "title",
-      "tr",
-      "track",
-      "u",
-      "ul",
-      "var",
-      "video",
-      "wbr", // SVG
-      "circle",
-      "clipPath",
-      "defs",
-      "ellipse",
-      "foreignObject",
-      "g",
-      "image",
-      "line",
-      "linearGradient",
-      "mask",
-      "path",
-      "pattern",
-      "polygon",
-      "polyline",
-      "radialGradient",
-      "rect",
-      "stop",
-      "svg",
-      "text",
-      "tspan",
-    ];
-    var newStyled = emotion_styled_base_browser_esm.bind();
-    tags.forEach(function (tagName) {
-      // $FlowFixMe: we can ignore this because its exposed type is defined by the CreateStyled type
-      newStyled[tagName] = newStyled(tagName);
-    });
-    /* harmony default export */ var emotion_styled_browser_esm =
-      __webpack_exports__["a"] = (newStyled);
+      __webpack_exports__["a"] = (emotion_styled_base_browser_esm_createStyled);
 
     /***/
   }),
@@ -457,9 +311,7 @@
   ,
   ,
   ,
-  ,
-  ,
-  /* 53 */
+  /* 52 */
   /***/ (function (module, exports, __webpack_require__) {
     "use strict";
 
@@ -470,7 +322,7 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
     var _JSONArrow = _interopRequireDefault(__webpack_require__(86));
 
@@ -995,7 +847,7 @@
 
     /***/
   }),
-  /* 54 */
+  /* 53 */
   /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
@@ -1013,7 +865,7 @@
       },
     );
     /* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ =
-      __webpack_require__(21);
+      __webpack_require__(20);
 
     var defaultProps = {
       events: ["reset"].concat(
@@ -1059,6 +911,7 @@
   ,
   ,
   ,
+  ,
   /* 85 */
   /***/ (function (module, exports, __webpack_require__) {
     "use strict";
@@ -1070,7 +923,7 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
     var _objType = _interopRequireDefault(__webpack_require__(155));
 
@@ -1385,7 +1238,7 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : {
@@ -1455,7 +1308,7 @@
   /***/ (function (module, exports, __webpack_require__) {
     "use strict";
 
-    __webpack_require__(4);
+    __webpack_require__(5);
 
     Object.defineProperty(exports, "__esModule", {
       value: true,
@@ -2124,7 +1977,7 @@
   }),
   /* 88 */
   /***/ (function (module, exports, __webpack_require__) {
-    var classof = __webpack_require__(39);
+    var classof = __webpack_require__(38);
 
     // `IsArray` abstract operation
     // https://tc39.github.io/ecma262/#sec-isarray
@@ -2136,10 +1989,10 @@
   }),
   /* 89 */
   /***/ (function (module, exports, __webpack_require__) {
-    var global = __webpack_require__(2);
-    var shared = __webpack_require__(69);
-    var has = __webpack_require__(7);
-    var uid = __webpack_require__(70);
+    var global = __webpack_require__(3);
+    var shared = __webpack_require__(68);
+    var has = __webpack_require__(8);
+    var uid = __webpack_require__(69);
     var NATIVE_SYMBOL = __webpack_require__(90);
     var USE_SYMBOL_AS_UID = __webpack_require__(168);
 
@@ -2164,7 +2017,7 @@
   }),
   /* 90 */
   /***/ (function (module, exports, __webpack_require__) {
-    var fails = __webpack_require__(6);
+    var fails = __webpack_require__(7);
 
     module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
       // Chrome 38 Symbol has incorrect toString conversion
@@ -3164,7 +3017,7 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
     var _JSONNode = _interopRequireDefault(__webpack_require__(85));
 
@@ -3769,9 +3622,9 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-    var _JSONNestedNode = _interopRequireDefault(__webpack_require__(53));
+    var _JSONNestedNode = _interopRequireDefault(__webpack_require__(52));
 
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : {
@@ -4183,7 +4036,7 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
     var _JSONArrow = _interopRequireDefault(__webpack_require__(86));
 
@@ -4444,9 +4297,9 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
-    var _JSONNestedNode = _interopRequireDefault(__webpack_require__(53));
+    var _JSONNestedNode = _interopRequireDefault(__webpack_require__(52));
 
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : {
@@ -4552,7 +4405,7 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _JSONNestedNode = _interopRequireDefault(__webpack_require__(53));
+    var _JSONNestedNode = _interopRequireDefault(__webpack_require__(52));
 
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : {
@@ -4729,7 +4582,7 @@
 
     var _react = _interopRequireDefault(__webpack_require__(0));
 
-    var _propTypes = _interopRequireDefault(__webpack_require__(1));
+    var _propTypes = _interopRequireDefault(__webpack_require__(2));
 
     function _interopRequireDefault(obj) {
       return obj && obj.__esModule ? obj : {
@@ -5299,11 +5152,11 @@
   /***/ (function (module, exports, __webpack_require__) {
     "use strict";
 
-    var $ = __webpack_require__(59);
+    var $ = __webpack_require__(58);
     var flattenIntoArray = __webpack_require__(165);
-    var toObject = __webpack_require__(73);
-    var toLength = __webpack_require__(35);
-    var toInteger = __webpack_require__(44);
+    var toObject = __webpack_require__(72);
+    var toLength = __webpack_require__(32);
+    var toInteger = __webpack_require__(43);
     var arraySpeciesCreate = __webpack_require__(167);
 
     // `Array.prototype.flat` method
@@ -5333,7 +5186,7 @@
     "use strict";
 
     var isArray = __webpack_require__(88);
-    var toLength = __webpack_require__(35);
+    var toLength = __webpack_require__(32);
     var bind = __webpack_require__(166);
 
     // `FlattenIntoArray` abstract operation
@@ -5389,7 +5242,7 @@
   }),
   /* 166 */
   /***/ (function (module, exports, __webpack_require__) {
-    var aFunction = __webpack_require__(72);
+    var aFunction = __webpack_require__(71);
 
     // optional / simple context binding
     module.exports = function (fn, that, length) {
@@ -5422,7 +5275,7 @@
   }),
   /* 167 */
   /***/ (function (module, exports, __webpack_require__) {
-    var isObject = __webpack_require__(25);
+    var isObject = __webpack_require__(24);
     var isArray = __webpack_require__(88);
     var wellKnownSymbol = __webpack_require__(89);
 
@@ -5473,7 +5326,7 @@
   /***/ (function (module, exports, __webpack_require__) {
     var wellKnownSymbol = __webpack_require__(89);
     var create = __webpack_require__(171);
-    var definePropertyModule = __webpack_require__(33);
+    var definePropertyModule = __webpack_require__(30);
 
     var UNSCOPABLES = wellKnownSymbol("unscopables");
     var ArrayPrototype = Array.prototype;
@@ -5496,13 +5349,13 @@
   }),
   /* 171 */
   /***/ (function (module, exports, __webpack_require__) {
-    var anObject = __webpack_require__(34);
+    var anObject = __webpack_require__(31);
     var defineProperties = __webpack_require__(172);
-    var enumBugKeys = __webpack_require__(45);
-    var hiddenKeys = __webpack_require__(42);
+    var enumBugKeys = __webpack_require__(44);
+    var hiddenKeys = __webpack_require__(41);
     var html = __webpack_require__(174);
-    var documentCreateElement = __webpack_require__(66);
-    var sharedKey = __webpack_require__(68);
+    var documentCreateElement = __webpack_require__(65);
+    var sharedKey = __webpack_require__(67);
 
     var GT = ">";
     var LT = "<";
@@ -5584,8 +5437,8 @@
   /* 172 */
   /***/ (function (module, exports, __webpack_require__) {
     var DESCRIPTORS = __webpack_require__(13);
-    var definePropertyModule = __webpack_require__(33);
-    var anObject = __webpack_require__(34);
+    var definePropertyModule = __webpack_require__(30);
+    var anObject = __webpack_require__(31);
     var objectKeys = __webpack_require__(173);
 
     // `Object.defineProperties` method
@@ -5608,8 +5461,8 @@
   }),
   /* 173 */
   /***/ (function (module, exports, __webpack_require__) {
-    var internalObjectKeys = __webpack_require__(71);
-    var enumBugKeys = __webpack_require__(45);
+    var internalObjectKeys = __webpack_require__(70);
+    var enumBugKeys = __webpack_require__(44);
 
     // `Object.keys` method
     // https://tc39.github.io/ecma262/#sec-object.keys
@@ -5621,7 +5474,7 @@
   }),
   /* 174 */
   /***/ (function (module, exports, __webpack_require__) {
-    var getBuiltIn = __webpack_require__(43);
+    var getBuiltIn = __webpack_require__(42);
 
     module.exports = getBuiltIn("document", "documentElement");
 
@@ -9505,19 +9358,19 @@
     });
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
-    var toConsumableArray = __webpack_require__(21);
+    var toConsumableArray = __webpack_require__(20);
 
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-    var taggedTemplateLiteralLoose = __webpack_require__(8);
+    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js + 1 modules
+    var emotion_styled_base_browser_esm = __webpack_require__(11);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
     var react = __webpack_require__(0);
 
     // EXTERNAL MODULE: ./src/components/layout.tsx + 1 modules
-    var layout = __webpack_require__(23);
+    var layout = __webpack_require__(21);
 
     // EXTERNAL MODULE: ./src/components/seo.tsx
-    var seo = __webpack_require__(18);
+    var seo = __webpack_require__(17);
 
     // CONCATENATED MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/classCallCheck.js
     function _classCallCheck(instance, Constructor) {
@@ -10445,9 +10298,6 @@
     }();
 
     src_AVLTree.default = src_AVLTree;
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
-    var emotion_styled_browser_esm = __webpack_require__(10);
-
     // EXTERNAL MODULE: /z/monorepo/node_modules/react-json-tree/lib/index.js
     var lib = __webpack_require__(154);
     var lib_default = /*#__PURE__*/ __webpack_require__.n(lib);
@@ -10981,42 +10831,33 @@
     diff.DELETE = DIFF_DELETE;
     diff.EQUAL = 0;
     // EXTERNAL MODULE: ./src/components/codeBox/example.ts
-    var example = __webpack_require__(54);
+    var example = __webpack_require__(53);
+
+    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
+    var emotion_react_browser_esm = __webpack_require__(1);
 
     // CONCATENATED MODULE: ./src/pages/404.tsx
 
-    function _templateObject2() {
-      var data = Object(
-        taggedTemplateLiteralLoose["a"/* default */
-        ],
-      )(["\n  min-width: 600px;\n  min-height: 400px;\n"]);
-
-      _templateObject2 = function _templateObject2() {
-        return data;
-      };
-
-      return data;
-    }
-
-    function _templateObject() {
-      var data = Object(
-        taggedTemplateLiteralLoose["a"/* default */
-        ],
-      )([
-        " \n  height: 600px;\n  display: block;\n  width: 600px;\n  position: relative;\n  border: 4px solid black;\n",
-      ]);
-
-      _templateObject = function _templateObject() {
-        return data;
-      };
-
-      return data;
+    function _EMOTION_STRINGIFIED_CSS_ERROR__() {
+      return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop).";
     }
 
     // If you're using Immutable.js: `npm i --save immutable`
 
-    var Rotated = emotion_styled_browser_esm["a"/* default */
-    ].div(_templateObject());
+    var Rotated = Object(
+      emotion_styled_base_browser_esm["a"/* default */
+      ],
+    )("div", {
+      target: "elo6tnq1",
+    })(
+      true
+        ? {
+          name: "r8w34d",
+          styles:
+            "height:600px;display:block;width:600px;position:relative;border:4px solid black",
+        }
+        : undefined,
+    );
 
     var _404_NotFoundPage = function NotFoundPage(_ref) {
       var data = _ref.data,
@@ -11119,23 +10960,35 @@
           topLevel = _ref3.topLevel,
           left = _ref3.left,
           level = _ref3.level;
-        return /*#__PURE__*/ react["createElement"](
+        return Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )(
           react["Fragment"],
           null,
-          /*#__PURE__*/ react["createElement"]("div", {
+          Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )("div", {
             style: {
               position: "absolute",
               top: topLevel * 60,
               left: left,
             },
           }, node.key),
-          node.right && /*#__PURE__*/ react["createElement"](ReqPrint, {
+          node.right && Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )(ReqPrint, {
             node: node.right,
             left: left + 256 / Math.pow(2, level),
             topLevel: topLevel,
             level: level + 1,
           }),
-          node.left && /*#__PURE__*/ react["createElement"](ReqPrint, {
+          node.left && Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )(ReqPrint, {
             node: node.left,
             left: left,
             topLevel: topLevel + 1,
@@ -11167,18 +11020,27 @@
         diffArr = _React$useState2[0],
         chDiff = _React$useState2[1];
 
-      return /*#__PURE__*/ react["createElement"](
+      return Object(
+        emotion_react_browser_esm["b"/* jsx */
+        ],
+      )(
         layout["a"/* Layout */
         ],
         null,
-        /*#__PURE__*/ react["createElement"](
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )(
           seo["a"/* SEO */
           ],
           {
             title: "404: Not Found",
           },
         ),
-        /*#__PURE__*/ react["createElement"](
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )(
           StyledText,
           {
             onChange: function onChange(e) {
@@ -11193,32 +11055,55 @@
           example["a"/* counterExample */
           ],
         ),
-        /*#__PURE__*/ react["createElement"]("h1", null, "Not Found"),
-        /*#__PURE__*/ react["createElement"](lib_default.a, {
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )("h1", null, "Not Found"),
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )(lib_default.a, {
           data: diffArr,
         }),
-        /*#__PURE__*/ react["createElement"](
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )(
           Rotated,
           {
             key: res.toString(),
           },
-          /*#__PURE__*/ react["createElement"](ReqPrint, {
+          Object(
+            emotion_react_browser_esm["b"/* jsx */
+            ],
+          )(ReqPrint, {
             node: root,
             topLevel: 0,
             left: 0,
             level: 0,
           }),
         ),
-        /*#__PURE__*/ react["createElement"](
-          "p",
-          null,
-          "You just hit a route that not exist... the sadness.",
-        ),
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )("p", null, "You just hit a route that not exist... the sadness."),
       );
     };
 
-    var StyledText = emotion_styled_browser_esm["a"/* default */
-    ].textarea(_templateObject2());
+    var StyledText = Object(
+      emotion_styled_base_browser_esm["a"/* default */
+      ],
+    )("textarea", {
+      target: "elo6tnq0",
+    })(
+      true
+        ? {
+          name: "1lh9jx8",
+          styles: "min-width:600px;min-height:400px",
+        }
+        : undefined,
+    );
+
     /* harmony default export */ var _404 = __webpack_exports__["default"] =
       (_404_NotFoundPage);
     var pageQuery = "3159585216";

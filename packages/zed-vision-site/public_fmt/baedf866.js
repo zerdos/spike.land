@@ -64,7 +64,7 @@
       /* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_2__ =
         __webpack_require__(250);
       /* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_3__ =
-        __webpack_require__(55);
+        __webpack_require__(54);
       /* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_4__ =
         __webpack_require__(98);
       /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ =
