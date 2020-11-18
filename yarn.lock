@@ -1234,11 +1234,6 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.0.0.tgz#a0ef06080f339477ad4ba7f56e1c931f7ba50822"
   integrity sha512-cdCHfZtf/0rahPDCZ9zyq+36EqfD/6c0WUqTFZ/hv9xadTUv2lGE5QK7/Z6Dnx2oRxC0usfVM2/BYn9q9B9wZA==
 
-"@emotion/styled-base@^11.0.0":
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/@emotion/styled-base/-/styled-base-11.0.0.tgz#d84547eb39869d406db593cce1fbcbf9c435dbaa"
-  integrity sha512-/NY/PXrQkl/wI0+0E3QWd+m9kMg7h4THmjbPEe0VVnplNtdJC6db0VHDqmaC2tsEDcda6zvy3b8giM9DHa6BLw==
-
 "@emotion/styled@11.0.0":
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.0.0.tgz#698196c2822746360a8644a73a5d842b2d1a78a5"
