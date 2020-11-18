@@ -2,16 +2,6 @@ const path = require(`path`);
 const {GenerateSW} = require('workbox-webpack-plugin');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
-exports.onCreateBabelConfig = ({ actions }, pluginOptions) => {
-  actions.setBabelPreset({
-    name: require.resolve(`@emotion/babel-preset-css-prop`),
-    options: {
-      sourceMap: process.env.NODE_ENV !== `production`,
-      autoLabel: process.env.NODE_ENV !== `production`?"always":"never",
-      ...(pluginOptions ? pluginOptions : {}),
-    },
-  })
-}
 
 
 exports.createPages = async ({ graphql, actions }) => {

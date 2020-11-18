@@ -1,5 +1,5 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[11], {
-  /***/ 233:
+  /***/ 234:
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
       "use strict";
       __webpack_require__.r(__webpack_exports__);
@@ -10,8 +10,8 @@
           return pageQuery;
         },
       );
-      /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ =
-        __webpack_require__(11);
+      /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ =
+        __webpack_require__(8);
       /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ =
         __webpack_require__(0);
       /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default =
@@ -19,51 +19,93 @@
       /* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_2__ =
         __webpack_require__(15);
       /* harmony import */ var _components_bio__WEBPACK_IMPORTED_MODULE_3__ =
-        __webpack_require__(55);
+        __webpack_require__(56);
       /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_4__ =
-        __webpack_require__(21);
+        __webpack_require__(23);
       /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_5__ =
-        __webpack_require__(17);
+        __webpack_require__(18);
       /* harmony import */ var _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__ =
-        __webpack_require__(27);
+        __webpack_require__(28);
       /* harmony import */ var gatsby_plugin_mdx__WEBPACK_IMPORTED_MODULE_7__ =
-        __webpack_require__(234);
+        __webpack_require__(235);
       /* harmony import */ var gatsby_plugin_mdx__WEBPACK_IMPORTED_MODULE_7___default =
         /*#__PURE__*/ __webpack_require__.n(
           gatsby_plugin_mdx__WEBPACK_IMPORTED_MODULE_7__,
         );
-      /* harmony import */ var _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_8__ =
-        __webpack_require__(95);
-      /* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_9__ =
-        __webpack_require__(46);
-      /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_10__ =
-        __webpack_require__(1);
+      /* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_8__ =
+        __webpack_require__(10);
+      /* harmony import */ var _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_9__ =
+        __webpack_require__(96);
+      /* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_10__ =
+        __webpack_require__(47);
+
+      function _templateObject3() {
+        var data = Object(
+          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+            "a"
+          ],
+        )(["\n  margin-bottom: ", ";\n"]);
+
+        _templateObject3 = function _templateObject3() {
+          return data;
+        };
+
+        return data;
+      }
+
+      function _templateObject2() {
+        var data = Object(
+          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+            "a"
+          ],
+        )([
+          "\n  font-size: ",
+          ";\n  line-height: ",
+          ";\n  display: block;\n  margin-bottom: ",
+          ";\n",
+        ]);
+
+        _templateObject2 = function _templateObject2() {
+          return data;
+        };
+
+        return data;
+      }
+
+      function _templateObject() {
+        var data = Object(
+          _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+            "a"
+          ],
+        )(["\n  margin-top: ", ";\n  margin-bottom: 0;\n"]);
+
+        _templateObject = function _templateObject() {
+          return data;
+        };
+
+        return data;
+      }
 
       var components = {
         pre: function PreComp(props) {
-          return Object(
-            _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-          )("div", props);
+          return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__[
+            "createElement"
+          ]("div", props);
         },
         code:
-          _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_8__/* CodeBox */ [
+          _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_9__/* CodeBox */ [
             "a"
           ],
       };
-
-      var StyledHeader = Object(
-        _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__/* default */ ["a"],
-      )("h1", {
-        target: "egkikmm2",
-      })(
-        "margin-top:",
-        Object(
-          _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
-            "b"
-          ],
-        )(1),
-        ";margin-bottom:0;",
-      );
+      var StyledHeader =
+        _emotion_styled__WEBPACK_IMPORTED_MODULE_8__/* default */ ["a"].h1(
+          _templateObject(),
+          Object(
+            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
+              "b"
+            ],
+          )(1),
+        );
 
       var _scale = Object(
           _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* scale */ [
@@ -73,37 +115,26 @@
         fontSize = _scale.fontSize,
         lineHeight = _scale.lineHeight;
 
-      var StyledDate = Object(
-        _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__/* default */ ["a"],
-      )("p", {
-        target: "egkikmm1",
-      })(
-        "font-size:",
-        fontSize,
-        ";line-height:",
-        lineHeight,
-        ";display:block;margin-bottom:",
-        Object(
-          _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
-            "b"
-          ],
-        )(1),
-        ";",
-      );
-
-      var Hr = Object(
-        _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__/* default */ ["a"],
-      )("hr", {
-        target: "egkikmm0",
-      })(
-        "margin-bottom:",
-        Object(
-          _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
-            "b"
-          ],
-        )(1),
-        ";",
-      );
+      var StyledDate =
+        _emotion_styled__WEBPACK_IMPORTED_MODULE_8__/* default */ ["a"].p(
+          _templateObject2(),
+          fontSize,
+          lineHeight,
+          Object(
+            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
+              "b"
+            ],
+          )(1),
+        );
+      var Hr = _emotion_styled__WEBPACK_IMPORTED_MODULE_8__/* default */ ["a"]
+        .hr(
+          _templateObject3(),
+          Object(
+            _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__/* rhythm */ [
+              "b"
+            ],
+          )(1),
+        );
 
       var BlogPostTemplate = function BlogPostTemplate(_ref) {
         var data = _ref.data,
@@ -113,14 +144,14 @@
           next = pageContext.next;
 
         var BlogPost = function BlogPost() {
-          return Object(
-            _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-          )(
-            _mdx_js_react__WEBPACK_IMPORTED_MODULE_9__["MDXProvider"],
+          return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__[
+            "createElement"
+          ](
+            _mdx_js_react__WEBPACK_IMPORTED_MODULE_10__["MDXProvider"],
             {
               components: components,
             },
-            Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
               gatsby_plugin_mdx__WEBPACK_IMPORTED_MODULE_7__["MDXRenderer"],
               null,
               post.body,
@@ -128,68 +159,64 @@
           );
         };
 
-        return Object(
-          _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-        )(
+        return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__[
+          "createElement"
+        ](
           react__WEBPACK_IMPORTED_MODULE_1__["Fragment"],
           null,
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
             _components_layout__WEBPACK_IMPORTED_MODULE_4__/* Layout */ ["a"],
             null,
-            Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
               _components_seo__WEBPACK_IMPORTED_MODULE_5__/* SEO */ ["a"],
               {
                 title: post.frontmatter.title,
                 description: post.frontmatter.description || post.excerpt,
               },
             ),
-            Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
               "header",
               null,
-              Object(
-                _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-              )(StyledHeader, null, post.frontmatter.title),
-              Object(
-                _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-              )(StyledDate, null, post.frontmatter.date),
+              /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+                StyledHeader,
+                null,
+                post.frontmatter.title,
+              ),
+              /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
+                StyledDate,
+                null,
+                post.frontmatter.date,
+              ),
             ),
-            Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
               BlogPost,
               null,
             ),
-            Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
               Hr,
               null,
             ),
-            Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
               "footer",
               null,
-              Object(
-                _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-              )(
+              /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
                 _components_bio__WEBPACK_IMPORTED_MODULE_3__/* Bio */ ["a"],
                 null,
               ),
             ),
-            Object(_emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"])(
+            /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
               "nav",
               null,
-              Object(
-                _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-              )(
+              /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
                 "ul",
                 null,
-                previous &&
-                  Object(
-                    _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-                  )(
+                previous && /*#__PURE__*/
+                  react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
                     "li",
                     null,
-                    Object(
-                      _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ [
-                        "b"
-                      ],
-                    )(
+                    /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__[
+                      "createElement"
+                    ](
                       gatsby__WEBPACK_IMPORTED_MODULE_2__["Link"],
                       {
                         to: previous.fields.slug,
@@ -199,17 +226,13 @@
                       previous.frontmatter.title,
                     ),
                   ),
-                next &&
-                  Object(
-                    _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ ["b"],
-                  )(
+                next && /*#__PURE__*/
+                  react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
                     "li",
                     null,
-                    Object(
-                      _emotion_react__WEBPACK_IMPORTED_MODULE_10__/* jsx */ [
-                        "b"
-                      ],
-                    )(
+                    /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__[
+                      "createElement"
+                    ](
                       gatsby__WEBPACK_IMPORTED_MODULE_2__["Link"],
                       {
                         to: next.fields.slug,
@@ -232,22 +255,22 @@
       /***/
     }),
 
-  /***/ 234: /***/ (function (module, exports, __webpack_require__) {
+  /***/ 235: /***/ (function (module, exports, __webpack_require__) {
     /**
  * Welcome to gatsby-plugin-mdx!
  *
  * Start reading in gatsby-node.js
- */ var MDXRenderer = __webpack_require__(235);
+ */ var MDXRenderer = __webpack_require__(236);
     module.exports = { MDXRenderer: MDXRenderer };
 
     /***/
   }),
 
-  /***/ 235: /***/ (function (module, exports, __webpack_require__) {
-    var _construct = __webpack_require__(236);
-    var _toConsumableArray = __webpack_require__(239);
-    var _defineProperty = __webpack_require__(244);
-    var _objectWithoutPropertiesLoose = __webpack_require__(77);
+  /***/ 236: /***/ (function (module, exports, __webpack_require__) {
+    var _construct = __webpack_require__(237);
+    var _toConsumableArray = __webpack_require__(240);
+    var _defineProperty = __webpack_require__(245);
+    var _objectWithoutPropertiesLoose = __webpack_require__(75);
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
       if (Object.getOwnPropertySymbols) {
@@ -286,8 +309,8 @@
       return target;
     }
     var React = __webpack_require__(0);
-    var _require = __webpack_require__(46), mdx = _require.mdx;
-    var _require2 = __webpack_require__(73),
+    var _require = __webpack_require__(47), mdx = _require.mdx;
+    var _require2 = __webpack_require__(74),
       useMDXScope = _require2.useMDXScope;
     module.exports = function MDXRenderer(_ref) {
       var scope = _ref.scope,
@@ -317,10 +340,10 @@
     /***/
   }),
 
-  /***/ 236: /***/ (function (module, exports, __webpack_require__) {
-    var setPrototypeOf = __webpack_require__(237);
+  /***/ 237: /***/ (function (module, exports, __webpack_require__) {
+    var setPrototypeOf = __webpack_require__(238);
 
-    var isNativeReflectConstruct = __webpack_require__(238);
+    var isNativeReflectConstruct = __webpack_require__(239);
 
     function _construct(Parent, args, Class) {
       if (isNativeReflectConstruct()) {
@@ -344,7 +367,7 @@
     /***/
   }),
 
-  /***/ 237: /***/ (function (module, exports) {
+  /***/ 238: /***/ (function (module, exports) {
     function _setPrototypeOf(o, p) {
       module.exports = _setPrototypeOf = Object.setPrototypeOf ||
         function _setPrototypeOf(o, p) {
@@ -360,7 +383,7 @@
     /***/
   }),
 
-  /***/ 238: /***/ (function (module, exports) {
+  /***/ 239: /***/ (function (module, exports) {
     function _isNativeReflectConstruct() {
       if (typeof Reflect === "undefined" || !Reflect.construct) return false;
       if (Reflect.construct.sham) return false;
@@ -381,14 +404,14 @@
     /***/
   }),
 
-  /***/ 239: /***/ (function (module, exports, __webpack_require__) {
-    var arrayWithoutHoles = __webpack_require__(240);
+  /***/ 240: /***/ (function (module, exports, __webpack_require__) {
+    var arrayWithoutHoles = __webpack_require__(241);
 
-    var iterableToArray = __webpack_require__(241);
+    var iterableToArray = __webpack_require__(242);
 
-    var unsupportedIterableToArray = __webpack_require__(242);
+    var unsupportedIterableToArray = __webpack_require__(243);
 
-    var nonIterableSpread = __webpack_require__(243);
+    var nonIterableSpread = __webpack_require__(244);
 
     function _toConsumableArray(arr) {
       return arrayWithoutHoles(arr) || iterableToArray(arr) ||
@@ -400,8 +423,8 @@
     /***/
   }),
 
-  /***/ 240: /***/ (function (module, exports, __webpack_require__) {
-    var arrayLikeToArray = __webpack_require__(94);
+  /***/ 241: /***/ (function (module, exports, __webpack_require__) {
+    var arrayLikeToArray = __webpack_require__(95);
 
     function _arrayWithoutHoles(arr) {
       if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -412,7 +435,7 @@
     /***/
   }),
 
-  /***/ 241: /***/ (function (module, exports) {
+  /***/ 242: /***/ (function (module, exports) {
     function _iterableToArray(iter) {
       if (
         typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)
@@ -426,8 +449,8 @@
     /***/
   }),
 
-  /***/ 242: /***/ (function (module, exports, __webpack_require__) {
-    var arrayLikeToArray = __webpack_require__(94);
+  /***/ 243: /***/ (function (module, exports, __webpack_require__) {
+    var arrayLikeToArray = __webpack_require__(95);
 
     function _unsupportedIterableToArray(o, minLen) {
       if (!o) return;
@@ -447,7 +470,7 @@
     /***/
   }),
 
-  /***/ 243: /***/ (function (module, exports) {
+  /***/ 244: /***/ (function (module, exports) {
     function _nonIterableSpread() {
       throw new TypeError(
         "Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.",
@@ -459,7 +482,7 @@
     /***/
   }),
 
-  /***/ 244: /***/ (function (module, exports) {
+  /***/ 245: /***/ (function (module, exports) {
     function _defineProperty(obj, key, value) {
       if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -480,7 +503,7 @@
     /***/
   }),
 
-  /***/ 55: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 56: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
@@ -489,81 +512,101 @@
         return Bio;
       },
     );
-    /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ =
-      __webpack_require__(11);
+    /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ =
+      __webpack_require__(8);
     /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ =
       __webpack_require__(0);
     /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default =
       /*#__PURE__*/ __webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-    /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_2__ =
-      __webpack_require__(27);
-    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3__ =
-      __webpack_require__(56);
-    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3___default =
+    /* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ =
+      __webpack_require__(10);
+    /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_3__ =
+      __webpack_require__(28);
+    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ =
+      __webpack_require__(57);
+    /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default =
       /*#__PURE__*/ __webpack_require__.n(
-        _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3__,
+        _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__,
       );
-    /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_4__ =
-      __webpack_require__(1);
 
-    var Container = Object(
-      _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__/* default */ ["a"],
-    )("div", {
-      target: "e10dbsa31",
-    })(
-      "margin-top:",
-      Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__/* rhythm */ ["b"])(
-        2.5,
-      ),
-      ";display:flex;margin-bottom:",
-      Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__/* rhythm */ ["b"])(
-        2.5,
-      ),
-      ";",
-    );
+    function _templateObject2() {
+      var data = Object(
+        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+          "a"
+        ],
+      )([
+        "\n  margin-right: ",
+        ";\n  margin-bottom: 0;\n  overflow: hidden;\n  width: 50px;\n  height: 50px;\n  border-radius: 25px;\n",
+      ]);
 
-    var StyledImgDiv = Object(
-      _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__/* default */ ["a"],
-    )("div", {
-      target: "e10dbsa30",
-    })(
-      "margin-right:",
-      Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__/* rhythm */ ["b"])(
-        1 / 2,
-      ),
-      ";margin-bottom:0;overflow:hidden;width:50px;height:50px;border-radius:25px;",
-    );
+      _templateObject2 = function _templateObject2() {
+        return data;
+      };
 
+      return data;
+    }
+
+    function _templateObject() {
+      var data = Object(
+        _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__/* default */ [
+          "a"
+        ],
+      )(["\n  margin-top: ", ";\n  display: flex;\n  margin-bottom: ", ";\n"]);
+
+      _templateObject = function _templateObject() {
+        return data;
+      };
+
+      return data;
+    }
+
+    var Container =
+      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
+        _templateObject(),
+        Object(
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
+        )(2.5),
+        Object(
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
+        )(2.5),
+      );
+    var StyledImgDiv =
+      _emotion_styled__WEBPACK_IMPORTED_MODULE_2__/* default */ ["a"].div(
+        _templateObject2(),
+        Object(
+          _utils_typography__WEBPACK_IMPORTED_MODULE_3__/* rhythm */ ["b"],
+        )(1 / 2),
+      );
     var Bio = function Bio() {
-      return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
+      return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
         Container,
         null,
-        Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
+        /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
           StyledImgDiv,
           null,
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
             "img",
             {
               alt: "Zoltan Erdos",
-              src: _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3___default.a,
+              src: _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default.a,
             },
           ),
         ),
-        Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
+        /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
           "p",
           null,
           "Written by ",
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
             "strong",
             null,
             "Zoltan Erdos",
           ),
           "developer experience and software quality expert",
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
             "br",
             null,
           ),
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_4__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_1__["createElement"](
             "a",
             {
               href: "https://twitter.com/ZoltanErdos",
@@ -577,14 +620,14 @@
     /***/
   }),
 
-  /***/ 56: /***/ (function (module, exports, __webpack_require__) {
+  /***/ 57: /***/ (function (module, exports, __webpack_require__) {
     module.exports = __webpack_require__.p +
       "static/zed-profile-pic-5e9304b71289e19e25c128ce8fa758fe.jpg";
 
     /***/
   }),
 
-  /***/ 94: /***/ (function (module, exports) {
+  /***/ 95: /***/ (function (module, exports) {
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length) len = arr.length;
 

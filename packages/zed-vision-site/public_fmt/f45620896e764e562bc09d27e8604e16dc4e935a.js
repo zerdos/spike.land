@@ -1,6 +1,6 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[3], {
-  /***/ 225: /***/ (function (module, exports, __webpack_require__) {
-    var addMethods = __webpack_require__(92);
+  /***/ 226: /***/ (function (module, exports, __webpack_require__) {
+    var addMethods = __webpack_require__(93);
     var methods = ["sha256"];
     module.exports = function () {
       var w = new Worker(
@@ -15,8 +15,8 @@
     /***/
   }),
 
-  /***/ 226: /***/ (function (module, exports, __webpack_require__) {
-    var addMethods = __webpack_require__(92);
+  /***/ 227: /***/ (function (module, exports, __webpack_require__) {
+    var addMethods = __webpack_require__(93);
     var methods = ["renderWorker"];
     module.exports = function () {
       var w = new Worker(
@@ -31,7 +31,7 @@
     /***/
   }),
 
-  /***/ 228:
+  /***/ 229:
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
       "use strict";
       /* harmony export (binding) */ __webpack_require__.d(
@@ -613,12 +613,12 @@ PERFORMANCE OF THIS SOFTWARE.
       /***/
     }),
 
-  /***/ 229:
+  /***/ 230:
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
       "use strict";
       __webpack_require__.r(__webpack_exports__);
       /* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_0__ =
-        __webpack_require__(25);
+        __webpack_require__(30);
 
       var reactPropsRegex =
         /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
@@ -638,7 +638,7 @@ PERFORMANCE OF THIS SOFTWARE.
       /***/
     }),
 
-  /***/ 250:
+  /***/ 251:
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
       "use strict";
 
@@ -722,7 +722,7 @@ PERFORMANCE OF THIS SOFTWARE.
       // UNUSED EXPORTS: angle, applyOffset, attract, attractExpo, createAnticipate, createAttractor, createBackIn, createExpoIn, decay, degreesToRadians, isPoint, isPoint3D, keyframes, mirrorEasing, mixColor, mixComplex, pointFromVector, radiansToDegrees, reverseEasing, smooth, smoothFrame, snap, spring, steps, toDecimal, velocityPerFrame
 
       // EXTERNAL MODULE: /z/monorepo/node_modules/core-js/modules/es.array.reduce.js
-      var es_array_reduce = __webpack_require__(5);
+      var es_array_reduce = __webpack_require__(4);
 
       // CONCATENATED MODULE: /z/monorepo/node_modules/popmotion/node_modules/tslib/tslib.es6.js
       /*! *****************************************************************************
@@ -1242,13 +1242,13 @@ PERFORMANCE OF THIS SOFTWARE.
         return value;
       }
       // EXTERNAL MODULE: /z/monorepo/node_modules/hey-listen/dist/hey-listen.es.js
-      var hey_listen_es = __webpack_require__(54);
+      var hey_listen_es = __webpack_require__(55);
 
       // EXTERNAL MODULE: /z/monorepo/node_modules/style-value-types/dist/style-value-types.es.js + 1 modules
-      var style_value_types_es = __webpack_require__(98);
+      var style_value_types_es = __webpack_require__(99);
 
       // EXTERNAL MODULE: /z/monorepo/node_modules/framesync/dist/framesync.es.js
-      var framesync_es = __webpack_require__(93);
+      var framesync_es = __webpack_require__(94);
 
       // CONCATENATED MODULE: /z/monorepo/node_modules/popmotion/dist/popmotion.es.js
 
@@ -2667,7 +2667,7 @@ PERFORMANCE OF THIS SOFTWARE.
       /***/
     }),
 
-  /***/ 53: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 54: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
@@ -2684,7 +2684,7 @@ PERFORMANCE OF THIS SOFTWARE.
       },
     );
     /* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ =
-      __webpack_require__(20);
+      __webpack_require__(21);
 
     var defaultProps = {
       events: ["reset"].concat(
@@ -2701,7 +2701,7 @@ PERFORMANCE OF THIS SOFTWARE.
     /***/
   }),
 
-  /***/ 54: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 55: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
@@ -2726,7 +2726,7 @@ PERFORMANCE OF THIS SOFTWARE.
     /***/
   }),
 
-  /***/ 92: /***/ (function (module, exports) {
+  /***/ 93: /***/ (function (module, exports) {
     function addMethods(worker, methods) {
       var c = 0;
       var callbacks = {};
@@ -2775,7 +2775,7 @@ PERFORMANCE OF THIS SOFTWARE.
     /***/
   }),
 
-  /***/ 93: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 94: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
@@ -2792,13 +2792,13 @@ PERFORMANCE OF THIS SOFTWARE.
       },
     );
     /* harmony import */ var core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_0__ =
-      __webpack_require__(5);
+      __webpack_require__(4);
     /* harmony import */ var core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_0___default =
       /*#__PURE__*/ __webpack_require__.n(
         core_js_modules_es_array_reduce__WEBPACK_IMPORTED_MODULE_0__,
       );
     /* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_1__ =
-      __webpack_require__(54);
+      __webpack_require__(55);
 
     var prevTime = 0;
     var onNextFrame =
@@ -2969,7 +2969,7 @@ PERFORMANCE OF THIS SOFTWARE.
     /***/
   }),
 
-  /***/ 95: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 96: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     // EXPORTS
@@ -2978,20 +2978,20 @@ PERFORMANCE OF THIS SOFTWARE.
     });
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
-    var regenerator = __webpack_require__(18);
+    var regenerator = __webpack_require__(19);
     var regenerator_default = /*#__PURE__*/ __webpack_require__.n(regenerator);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
     var defineProperty = __webpack_require__(14);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
-    var toConsumableArray = __webpack_require__(20);
+    var toConsumableArray = __webpack_require__(21);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
     var runtime = __webpack_require__(9);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-    var asyncToGenerator = __webpack_require__(19);
+    var asyncToGenerator = __webpack_require__(20);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
     var react = __webpack_require__(0);
@@ -3384,7 +3384,7 @@ PERFORMANCE OF THIS SOFTWARE.
       });
     }
     // EXTERNAL MODULE: ./src/components/utils/sha256/sha256.worker.ts
-    var sha256_worker = __webpack_require__(225);
+    var sha256_worker = __webpack_require__(226);
 
     // CONCATENATED MODULE: ./src/components/utils/sha.ts
 
@@ -3616,7 +3616,7 @@ PERFORMANCE OF THIS SOFTWARE.
       };
     }();
     // EXTERNAL MODULE: ./src/components/utils/renderer/renderer.worker.ts
-    var renderer_worker = __webpack_require__(226);
+    var renderer_worker = __webpack_require__(227);
 
     // CONCATENATED MODULE: ./src/components/utils/renderer.ts
 
@@ -3692,119 +3692,126 @@ PERFORMANCE OF THIS SOFTWARE.
       };
     }();
     // EXTERNAL MODULE: ./src/components/codeBox/example.ts
-    var example = __webpack_require__(53);
+    var example = __webpack_require__(54);
 
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js + 1 modules
-    var emotion_styled_base_browser_esm = __webpack_require__(11);
+    // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+    var taggedTemplateLiteralLoose = __webpack_require__(8);
+
+    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
+    var emotion_styled_browser_esm = __webpack_require__(10);
 
     // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
 
-    function _EMOTION_STRINGIFIED_CSS_ERROR__() {
-      return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop).";
+    function _templateObject6() {
+      var data = Object(
+        taggedTemplateLiteralLoose["a"/* default */
+        ],
+      )([
+        "\n    display: block;\n    width: 150px;\n    height: 150px;\n    overflow: hidden;\n",
+      ]);
+
+      _templateObject6 = function _templateObject6() {
+        return data;
+      };
+
+      return data;
     }
 
-    var Header = Object(
-      emotion_styled_base_browser_esm["a"/* default */
-      ],
-    )("div", {
-      target: "ej43tje5",
-    })(
-      true
-        ? {
-          name: "mw3krp",
-          styles:
-            'background:#3f51b5;font-family:"Roboto";margin:0;padding:10px 20px 10px;color:white',
-        }
-        : undefined,
-    );
-    var CodeContainer = Object(
-      emotion_styled_base_browser_esm["a"/* default */
-      ],
-    )("div", {
-      target: "ej43tje4",
-    })(
-      true
-        ? {
-          name: "1rosqx9",
-          styles: "display:block;width:100%;height:70vh",
-        }
-        : undefined,
-    );
-    var ResultContainer = Object(
-      emotion_styled_base_browser_esm["a"/* default */
-      ],
-    )("div", {
-      target: "ej43tje3",
-    })(
-      true
-        ? {
-          name: "1082qq3",
-          styles: "display:block;width:100%",
-        }
-        : undefined,
-    );
-    var ErrorContainer = Object(
-      emotion_styled_base_browser_esm["a"/* default */
-      ],
-    )("div", {
-      target: "ej43tje2",
-    })(
-      true
-        ? {
-          name: "13si4fh",
-          styles:
-            "display:block;width:100%;padding:10px;color:white;background:red;height:220px;pre{font-size:1em;line-height:1;}",
-        }
-        : undefined,
-    );
-    var ResultBox = Object(
-      emotion_styled_base_browser_esm["a"/* default */
-      ],
-    )("div", {
-      target: "ej43tje1",
-    })(
-      true
-        ? {
-          name: "y6vqu",
-          styles:
-            "text-align:center;border-radius:12px;width:200px;height:200px;display:flex;place-content:center;place-items:center;margin:0;padding:0;background:rgb(255, 255, 255) none repeat scroll 0% 0%;user-select:none;box-shadow:rgba(0, 0, 0, 0.1) 0px 2px 3px 0px,rgba(0, 0, 0, 0.06) 0px 10px 15px 0px",
-        }
-        : undefined,
-    );
-    var ResultBoxContainer = Object(
-      emotion_styled_base_browser_esm["a"/* default */
-      ],
-    )("div", {
-      target: "ej43tje0",
-    })(
-      true
-        ? {
-          name: "t2hrcs",
-          styles: "display:block;width:150px;height:150px;overflow:hidden",
-        }
-        : undefined,
-    );
-    // EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
-    var framer_motion_es = __webpack_require__(227);
+    function _templateObject5() {
+      var data = Object(
+        taggedTemplateLiteralLoose["a"/* default */
+        ],
+      )([
+        "\n    text-align: center;\n    border-radius: 12px;\n    width: 200px;\n    height: 200px;\n    display: flex;\n    place-content: center;\n    place-items: center;\n    margin: 0;\n    padding: 0;\n    background: rgb(255, 255, 255) none repeat scroll 0% 0%;\n    user-select: none;\n    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px 0px, rgba(0, 0, 0, 0.06) 0px 10px 15px 0px;\n",
+      ]);
 
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
-    var emotion_react_browser_esm = __webpack_require__(1);
+      _templateObject5 = function _templateObject5() {
+        return data;
+      };
+
+      return data;
+    }
+
+    function _templateObject4() {
+      var data = Object(
+        taggedTemplateLiteralLoose["a"/* default */
+        ],
+      )([
+        "\n    display: block;\n    width: 100%;\n    padding: 10px;\n    color: white;\n    background: red;\n    height: 220px;\n    pre{\n        font-size: 1em;\n        line-height: 1;\n    }\n",
+      ]);
+
+      _templateObject4 = function _templateObject4() {
+        return data;
+      };
+
+      return data;
+    }
+
+    function _templateObject3() {
+      var data = Object(
+        taggedTemplateLiteralLoose["a"/* default */
+        ],
+      )(["\n    display: block;\n    width: 100%;\n"]);
+
+      _templateObject3 = function _templateObject3() {
+        return data;
+      };
+
+      return data;
+    }
+
+    function _templateObject2() {
+      var data = Object(
+        taggedTemplateLiteralLoose["a"/* default */
+        ],
+      )(["\n    display: block;\n    width: 100%;\n    height: 70vh;\n"]);
+
+      _templateObject2 = function _templateObject2() {
+        return data;
+      };
+
+      return data;
+    }
+
+    function _templateObject() {
+      var data = Object(
+        taggedTemplateLiteralLoose["a"/* default */
+        ],
+      )([
+        '\n    background: #3f51b5;\n    font-family: "Roboto";\n    margin: 0;\n    padding: 10px 20px 10px;\n    color: white;\n',
+      ]);
+
+      _templateObject = function _templateObject() {
+        return data;
+      };
+
+      return data;
+    }
+
+    var Header = emotion_styled_browser_esm["a"/* default */
+    ].div(_templateObject());
+    var CodeContainer = emotion_styled_browser_esm["a"/* default */
+    ].div(_templateObject2());
+    var ResultContainer = emotion_styled_browser_esm["a"/* default */
+    ].div(_templateObject3());
+    var ErrorContainer = emotion_styled_browser_esm["a"/* default */
+    ].div(_templateObject4());
+    var ResultBox = emotion_styled_browser_esm["a"/* default */
+    ].div(_templateObject5());
+    var ResultBoxContainer = emotion_styled_browser_esm["a"/* default */
+    ].div(_templateObject6());
+    // EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
+    var framer_motion_es = __webpack_require__(228);
 
     // CONCATENATED MODULE: ./src/components/codeBox/codeboxComponents.tsx
 
     var codeboxComponents_HtmlPlayer = function HtmlPlayer(_ref) {
       var content = _ref.content,
         onEvent = _ref.onEvent;
-      return Object(
-        emotion_react_browser_esm["b"/* jsx */
-        ],
-      )(
+      return /*#__PURE__*/ react["createElement"](
         react["Fragment"],
         null,
-        Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )(ResultBoxContainer, {
+        /*#__PURE__*/ react["createElement"](ResultBoxContainer, {
           onClick: function onClick(e) {
             var clickedElement = e.target;
             var clickEvent = clickedElement.getAttribute("data-onclick");
@@ -3849,10 +3856,12 @@ PERFORMANCE OF THIS SOFTWARE.
       }, [transformed[0].renderedHash]);
 
       if (transformed[0].rendered.length === 0) {
-        return Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )("p", null, "loading ", transformed[0].renderedHash);
+        return /*#__PURE__*/ react["createElement"](
+          "p",
+          null,
+          "loading ",
+          transformed[0].renderedHash,
+        );
       } // function _html(x: number, y: number) {
       //   // console.log(rendered );
       //   return transformed[Number(x)] &&
@@ -3861,10 +3870,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
       var divLength = 1000 / (events.length + 1); // const transCopy = [...transformed].map((t)=>{t.rendered=[...t.rendered].reverse(); return t;});
 
-      return Object(
-        emotion_react_browser_esm["b"/* jsx */
-        ],
-      )(
+      return /*#__PURE__*/ react["createElement"](
         "div",
         {
           style: {
@@ -3874,10 +3880,7 @@ PERFORMANCE OF THIS SOFTWARE.
           },
         },
         transformed.map(function (t, k) {
-          return Object(
-            emotion_react_browser_esm["b"/* jsx */
-            ],
-          )(
+          return /*#__PURE__*/ react["createElement"](
             "div",
             {
               key: t.renderedHash + k,
@@ -3886,10 +3889,7 @@ PERFORMANCE OF THIS SOFTWARE.
             t.renderedHash,
             "ss",
             events.map(function (event, renderContentKey) {
-              return Object(
-                emotion_react_browser_esm["b"/* jsx */
-                ],
-              )("div", {
+              return /*#__PURE__*/ react["createElement"]("div", {
                 onMouseEnter: function onMouseEnter() {
                   return setContent({
                     content: t.rendered[renderContentKey],
@@ -3907,10 +3907,7 @@ PERFORMANCE OF THIS SOFTWARE.
             }),
           );
         }),
-        Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )(
+        /*#__PURE__*/ react["createElement"](
           framer_motion_es["a"/* motion */
           ].div,
           {
@@ -3925,16 +3922,10 @@ PERFORMANCE OF THIS SOFTWARE.
               right: 40,
             },
           },
-          Object(
-            emotion_react_browser_esm["b"/* jsx */
-            ],
-          )(
+          /*#__PURE__*/ react["createElement"](
             ResultBox,
             null,
-            Object(
-              emotion_react_browser_esm["b"/* jsx */
-              ],
-            )(codeboxComponents_HtmlPlayer, {
+            /*#__PURE__*/ react["createElement"](codeboxComponents_HtmlPlayer, {
               key: content,
               content: content,
               onEvent: onEvent,
@@ -3996,10 +3987,7 @@ PERFORMANCE OF THIS SOFTWARE.
         : children.toString().trim()) || example["a"/* counterExample */
       ];
       if (typeof window === "undefined") {
-        return Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )("pre", null, "Loading");
+        return /*#__PURE__*/ react["createElement"]("pre", null, "Loading");
       }
 
       var _React$useState = react["useState"]({
@@ -4655,115 +4643,93 @@ PERFORMANCE OF THIS SOFTWARE.
       //   });
       // }, [hashArr.length]);
 
-      return Object(
-        emotion_react_browser_esm["b"/* jsx */
-        ],
-      )(
+      return /*#__PURE__*/ react["createElement"](
         react["Fragment"],
         null,
-        !!title && Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )(
-          Header,
-          null,
-          Object(
-            emotion_react_browser_esm["b"/* jsx */
-            ],
-          )("span", null, title),
-          Object(
-            emotion_react_browser_esm["b"/* jsx */
-            ],
-          )("button", {
-            onClick: /*#__PURE__*/ Object(
-              asyncToGenerator["a"/* default */
-              ],
-            )(/*#__PURE__*/ regenerator_default.a.mark(function _callee7() {
-              var hash, dataObj, body, request, response;
-              return regenerator_default.a.wrap(function _callee7$(_context7) {
-                while (1) {
-                  switch (_context7.prev = _context7.next) {
-                    case 0:
-                      hash = transformed[0].code[0];
-                      _context7.t0 = hash;
-                      _context7.t1 = transformed[0].hash;
-                      _context7.next = 5;
-                      return unHash(transformed[0].code[0]);
+        !!title && /*#__PURE__*/
+          react["createElement"](
+            Header,
+            null,
+            /*#__PURE__*/ react["createElement"]("span", null, title),
+            /*#__PURE__*/ react["createElement"]("button", {
+              onClick: /*#__PURE__*/ Object(
+                asyncToGenerator["a"/* default */
+                ],
+              )(/*#__PURE__*/ regenerator_default.a.mark(function _callee7() {
+                var hash, dataObj, body, request, response;
+                return regenerator_default.a.wrap(
+                  function _callee7$(_context7) {
+                    while (1) {
+                      switch (_context7.prev = _context7.next) {
+                        case 0:
+                          hash = transformed[0].code[0];
+                          _context7.t0 = hash;
+                          _context7.t1 = transformed[0].hash;
+                          _context7.next = 5;
+                          return unHash(transformed[0].code[0]);
 
-                    case 5:
-                      _context7.t2 = _context7.sent;
-                      _context7.next = 8;
-                      return unHash(transformed[0].hash);
+                        case 5:
+                          _context7.t2 = _context7.sent;
+                          _context7.next = 8;
+                          return unHash(transformed[0].hash);
 
-                    case 8:
-                      _context7.t3 = _context7.sent;
-                      dataObj = {
-                        codeHash: _context7.t0,
-                        transpiledHash: _context7.t1,
-                        code: _context7.t2,
-                        transpiledCode: _context7.t3,
-                      };
-                      body = {
-                        results: [dataObj],
-                        errors: null,
-                        msg: "",
-                      };
-                      request = new Request(
-                        "https://my-ts-project.zed-vision.workers.dev",
-                        {
-                          body: JSON.stringify(body),
-                          method: "POST",
-                          headers: {
-                            "content-type": "application/json;charset=UTF-8",
-                          },
-                        },
-                      );
-                      _context7.next = 14;
-                      return fetch(request);
+                        case 8:
+                          _context7.t3 = _context7.sent;
+                          dataObj = {
+                            codeHash: _context7.t0,
+                            transpiledHash: _context7.t1,
+                            code: _context7.t2,
+                            transpiledCode: _context7.t3,
+                          };
+                          body = {
+                            results: [dataObj],
+                            errors: null,
+                            msg: "",
+                          };
+                          request = new Request(
+                            "https://my-ts-project.zed-vision.workers.dev",
+                            {
+                              body: JSON.stringify(body),
+                              method: "POST",
+                              headers: {
+                                "content-type":
+                                  "application/json;charset=UTF-8",
+                              },
+                            },
+                          );
+                          _context7.next = 14;
+                          return fetch(request);
 
-                    case 14:
-                      response = _context7.sent;
-                      console.log(response);
+                        case 14:
+                          response = _context7.sent;
+                          console.log(response);
 
-                    case 16:
-                    case "end":
-                      return _context7.stop();
-                  }
-                }
-              }, _callee7);
-            })),
-          }, "Save"),
-        ),
-        Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )(CodeContainer, {
+                        case 16:
+                        case "end":
+                          return _context7.stop();
+                      }
+                    }
+                  },
+                  _callee7,
+                );
+              })),
+            }, "Save"),
+          ),
+        /*#__PURE__*/ react["createElement"](CodeContainer, {
           id: "container",
         }),
-        Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )(CodeContainer, {
+        /*#__PURE__*/ react["createElement"](CodeContainer, {
           style: {
             display: "none",
           },
           id: "ace",
         }),
         error
-          ? Object(
-            emotion_react_browser_esm["b"/* jsx */
-            ],
-          )(
+          ? /*#__PURE__*/ react["createElement"](
             ErrorContainer,
             null,
-            Object(
-              emotion_react_browser_esm["b"/* jsx */
-              ],
-            )("pre", null, error.toString()),
-            Object(
-              emotion_react_browser_esm["b"/* jsx */
-              ],
-            )("button", {
+            /*#__PURE__*/ react["createElement"]("pre", null, error.toString()),
+            /*#__PURE__*/ react["createElement"]("button", {
               onClick: /*#__PURE__*/ Object(
                 asyncToGenerator["a"/* default */
                 ],
@@ -4794,45 +4760,39 @@ PERFORMANCE OF THIS SOFTWARE.
             }, "Restore to the last working version"),
           )
           : transformed.length > 0
-          ? Object(
-            emotion_react_browser_esm["b"/* jsx */
-            ],
-          )(
+          ? /*#__PURE__*/ react["createElement"](
             ResultContainer,
             null,
-            Object(
-              emotion_react_browser_esm["b"/* jsx */
-              ],
-            )(codeboxComponents_ResultComponent, {
-              transformed: transformed,
-              key: transformed[0].renderedHash,
-              events: events,
-              onEvent: function onEvent(ev) {
-                changeProps(function (p) {
-                  return _objectSpread(_objectSpread({}, p), {}, {
-                    events: [].concat(
-                      Object(
-                        toConsumableArray["a"/* default */
-                        ],
-                      )(p.events),
-                      [ev],
-                    ),
+            /*#__PURE__*/ react["createElement"](
+              codeboxComponents_ResultComponent,
+              {
+                transformed: transformed,
+                key: transformed[0].renderedHash,
+                events: events,
+                onEvent: function onEvent(ev) {
+                  changeProps(function (p) {
+                    return _objectSpread(_objectSpread({}, p), {}, {
+                      events: [].concat(
+                        Object(
+                          toConsumableArray["a"/* default */
+                          ],
+                        )(p.events),
+                        [ev],
+                      ),
+                    });
                   });
-                });
+                },
               },
-            }),
+            ),
           )
-          : Object(
-            emotion_react_browser_esm["b"/* jsx */
-            ],
-          )(react["Fragment"], null),
+          : /*#__PURE__*/ react["createElement"](react["Fragment"], null),
       );
     };
 
     /***/
   }),
 
-  /***/ 98: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 99: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     // EXPORTS
@@ -4906,7 +4866,9 @@ PERFORMANCE OF THIS SOFTWARE.
           } ||
         function (d, b) {
           for (var p in b) {
-            if (b.hasOwnProperty(p)) d[p] = b[p];
+            if (b.hasOwnProperty(p)) {
+              d[p] = b[p];
+            }
           }
         };
 

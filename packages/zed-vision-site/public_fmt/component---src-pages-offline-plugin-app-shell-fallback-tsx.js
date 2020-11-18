@@ -1,5 +1,5 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[9], {
-  /***/ 231:
+  /***/ 232:
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
       "use strict";
       __webpack_require__.r(__webpack_exports__);
@@ -15,30 +15,28 @@
       /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default =
         /*#__PURE__*/ __webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
       /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ =
-        __webpack_require__(21);
+        __webpack_require__(23);
       /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_2__ =
-        __webpack_require__(17);
-      /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_3__ =
-        __webpack_require__(1);
+        __webpack_require__(18);
 
       var NotFoundPage = function NotFoundPage() {
-        return Object(
-          _emotion_react__WEBPACK_IMPORTED_MODULE_3__/* jsx */ ["b"],
-        )(
+        return /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__[
+          "createElement"
+        ](
           _components_layout__WEBPACK_IMPORTED_MODULE_1__/* Layout */ ["a"],
           null,
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_3__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
             _components_seo__WEBPACK_IMPORTED_MODULE_2__/* SEO */ ["a"],
             {
               title: "... offline",
             },
           ),
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_3__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
             "h1",
             null,
             "Maybe you are offline",
           ),
-          Object(_emotion_react__WEBPACK_IMPORTED_MODULE_3__/* jsx */ ["b"])(
+          /*#__PURE__*/ react__WEBPACK_IMPORTED_MODULE_0__["createElement"](
             "p",
             null,
             "Check your internet connection",

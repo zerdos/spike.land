@@ -114,7 +114,7 @@ define("./service-worker.js",['./workbox-e8da24eb'], function (workbox) { 'use s
     "revision": null
   }, {
     "url": "/render-page.js",
-    "revision": "5cf1ef35f427f42e8f90679255ac07ea"
+    "revision": "d42fb2a1f0b711b180448a2c5e2e490b"
   }, {
     "url": "/static/zed-profile-pic-5e9304b71289e19e25c128ce8fa758fe.jpg",
     "revision": "5e9304b71289e19e25c128ce8fa758fe"
