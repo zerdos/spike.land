@@ -1,44 +1,5 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[17], {
-  /***/ 14: /***/ (function (module, exports) {
-    var g;
-
-    // This works in non-strict mode
-    g = (function () {
-      return this;
-    })();
-
-    try {
-      // This works if eval is allowed (see CSP)
-      g = g || new Function("return this")();
-    } catch (e) {
-      // This works if the window reference is available
-      if (typeof window === "object") g = window;
-    }
-
-    // g can still be undefined, but nothing to do about it...
-    // We return undefined, instead of nothing here, so it's
-    // easier to handle this case. if(!global) { ...}
-
-    module.exports = g;
-
-    /***/
-  }),
-
-  /***/ 93: /***/ (function (module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony import */ var gatsby_legacy_polyfills__WEBPACK_IMPORTED_MODULE_0__ =
-      __webpack_require__(95);
-    /* harmony import */ var gatsby_legacy_polyfills__WEBPACK_IMPORTED_MODULE_0___default =
-      /*#__PURE__*/ __webpack_require__.n(
-        gatsby_legacy_polyfills__WEBPACK_IMPORTED_MODULE_0__,
-      );
-    if (false) {}
-
-    /***/
-  }),
-
-  /***/ 95: /***/ (function (module, exports, __webpack_require__) {
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[13], {
+  /***/ 100: /***/ (function (module, exports, __webpack_require__) {
     /* WEBPACK VAR INJECTION */ (function (global) {
       !function () {
         var t = "undefined" != typeof globalThis
@@ -5128,8 +5089,47 @@
       }();
 
       /* WEBPACK VAR INJECTION */
-    }.call(this, __webpack_require__(14)));
+    }.call(this, __webpack_require__(12)));
 
     /***/
   }),
-}, [[93, 6]]]);
+
+  /***/ 12: /***/ (function (module, exports) {
+    var g;
+
+    // This works in non-strict mode
+    g = (function () {
+      return this;
+    })();
+
+    try {
+      // This works if eval is allowed (see CSP)
+      g = g || new Function("return this")();
+    } catch (e) {
+      // This works if the window reference is available
+      if (typeof window === "object")g = window;
+    }
+
+    // g can still be undefined, but nothing to do about it...
+    // We return undefined, instead of nothing here, so it's
+    // easier to handle this case. if(!global) { ...}
+
+    module.exports = g;
+
+    /***/
+  }),
+
+  /***/ 99: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony import */ var gatsby_legacy_polyfills__WEBPACK_IMPORTED_MODULE_0__ =
+      __webpack_require__(100);
+    /* harmony import */ var gatsby_legacy_polyfills__WEBPACK_IMPORTED_MODULE_0___default =
+      /*#__PURE__*/ __webpack_require__.n(
+        gatsby_legacy_polyfills__WEBPACK_IMPORTED_MODULE_0__,
+      );
+    if (false) {}
+
+    /***/
+  }),
+}, [[99, 4]]]);

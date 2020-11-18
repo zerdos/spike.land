@@ -83,7 +83,7 @@
   /******/
   // Promise = chunk loading, 0 = chunk loaded
   /******/ var installedChunks = {
-    /******/ 6: 0,
+    /******/ 4: 0,
     /******/
   };
   /******/
@@ -95,19 +95,15 @@
     /******/ return __webpack_require__.p + "" +
       ({
         "0": "commons",
-        "1": "5975eeed2d2f335a2d10697b2f6f90ad8b3390ca",
-        "2": "453cc0b6d33d665f434cd1ee2825287997acb440",
-        "3": "baedf866",
-        "4": "ccf6ab1fdf2dc1c427b959e7c0ed7a280e2e7e1d",
-        "5": "f45620896e764e562bc09d27e8604e16dc4e935a",
-        "8": "component---src-pages-404-tsx",
-        "9": "component---src-pages-codebox-tsx",
-        "10": "component---src-pages-fun-tsx",
-        "11": "component---src-pages-index-tsx",
-        "12": "component---src-pages-offline-plugin-app-shell-fallback-tsx",
-        "13": "component---src-pages-using-typescript-tsx",
-        "14": "component---src-pages-zzz-tsx",
-        "15": "component---src-templates-blog-post-tsx",
+        "1": "99f88db283bf64456a2d4b8df9957dcbc8f9346f",
+        "2": "baedf866",
+        "3": "f45620896e764e562bc09d27e8604e16dc4e935a",
+        "6": "component---src-pages-404-tsx",
+        "7": "component---src-pages-codebox-tsx",
+        "8": "component---src-pages-index-tsx",
+        "9": "component---src-pages-offline-plugin-app-shell-fallback-tsx",
+        "10": "component---src-pages-using-typescript-tsx",
+        "11": "component---src-templates-blog-post-tsx",
       }[chunkId] || chunkId) + ".js";
     /******/
   }

@@ -1,5 +1,5 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[13], {
-  /***/ 227:
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[10], {
+  /***/ 232:
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
       "use strict";
       __webpack_require__.r(__webpack_exports__);
@@ -15,11 +15,11 @@
       /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default =
         /*#__PURE__*/ __webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
       /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ =
-        __webpack_require__(20);
+        __webpack_require__(23);
       /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_2__ =
-        __webpack_require__(19);
+        __webpack_require__(18);
       /* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_3__ =
-        __webpack_require__(17);
+        __webpack_require__(15);
 
       // If you don't want to use TypeScript you can delete this file!
 

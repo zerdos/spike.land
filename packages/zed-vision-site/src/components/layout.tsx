@@ -1,44 +1,28 @@
 import * as React from "react";
-import { Helmet } from "react-helmet";
-import styled from "@emotion/styled";
 import typography from "./utils/typography";
 import { fonts } from "./utils/fonts";
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
 
 const styles = typography.createStyles().replace(
   /first-child/gi,
   "first-of-type",
 );
-const StyledContent = styled.div`
---main-bg-color: white;
 
-${fonts}
+export const Layout: React.FC = ({ children }) =>
+  <React.Fragment>
+    <main
+      css={css`
+      ${fonts}
 
 ${styles}
-
 main{ 
   max-width: 1140px;
   margin: auto
 }
-`;
-
-export const Layout: React.FC = ({ children }) =>
-  <React.Fragment>
-    <Helmet>
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-      />
-      <style type="text/css">
-        {`
-        body {
-          margin: 0;
-        }
-    `}
-      </style>
-    </Helmet>
-    <StyledContent>
-      <main>
-        {children}
-      </main>
-    </StyledContent>
+      
+      `}
+    >
+      {children}
+    </main>
   </React.Fragment>;

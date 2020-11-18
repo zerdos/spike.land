@@ -1,5 +1,5 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[15], {
-  /***/ 229:
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[11], {
+  /***/ 233:
     /***/ (function (module, __webpack_exports__, __webpack_require__) {
       "use strict";
       __webpack_require__.r(__webpack_exports__);
@@ -11,33 +11,33 @@
         },
       );
       /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ =
-        __webpack_require__(4);
+        __webpack_require__(8);
       /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ =
         __webpack_require__(0);
       /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default =
         /*#__PURE__*/ __webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
       /* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_2__ =
-        __webpack_require__(17);
+        __webpack_require__(15);
       /* harmony import */ var _components_bio__WEBPACK_IMPORTED_MODULE_3__ =
-        __webpack_require__(53);
+        __webpack_require__(56);
       /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_4__ =
-        __webpack_require__(20);
+        __webpack_require__(23);
       /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_5__ =
-        __webpack_require__(19);
+        __webpack_require__(18);
       /* harmony import */ var _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__ =
-        __webpack_require__(24);
+        __webpack_require__(28);
       /* harmony import */ var gatsby_plugin_mdx__WEBPACK_IMPORTED_MODULE_7__ =
-        __webpack_require__(230);
+        __webpack_require__(234);
       /* harmony import */ var gatsby_plugin_mdx__WEBPACK_IMPORTED_MODULE_7___default =
         /*#__PURE__*/ __webpack_require__.n(
           gatsby_plugin_mdx__WEBPACK_IMPORTED_MODULE_7__,
         );
       /* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_8__ =
-        __webpack_require__(6);
+        __webpack_require__(10);
       /* harmony import */ var _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_9__ =
-        __webpack_require__(90);
+        __webpack_require__(95);
       /* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_10__ =
-        __webpack_require__(44);
+        __webpack_require__(47);
 
       function _templateObject3() {
         var data = Object(
@@ -255,22 +255,22 @@
       /***/
     }),
 
-  /***/ 230: /***/ (function (module, exports, __webpack_require__) {
+  /***/ 234: /***/ (function (module, exports, __webpack_require__) {
     /**
  * Welcome to gatsby-plugin-mdx!
  *
  * Start reading in gatsby-node.js
- */ var MDXRenderer = __webpack_require__(231);
+ */ var MDXRenderer = __webpack_require__(235);
     module.exports = { MDXRenderer: MDXRenderer };
 
     /***/
   }),
 
-  /***/ 231: /***/ (function (module, exports, __webpack_require__) {
-    var _construct = __webpack_require__(232);
-    var _toConsumableArray = __webpack_require__(235);
-    var _defineProperty = __webpack_require__(240);
-    var _objectWithoutPropertiesLoose = __webpack_require__(72);
+  /***/ 235: /***/ (function (module, exports, __webpack_require__) {
+    var _construct = __webpack_require__(236);
+    var _toConsumableArray = __webpack_require__(239);
+    var _defineProperty = __webpack_require__(244);
+    var _objectWithoutPropertiesLoose = __webpack_require__(75);
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
       if (Object.getOwnPropertySymbols) {
@@ -309,8 +309,8 @@
       return target;
     }
     var React = __webpack_require__(0);
-    var _require = __webpack_require__(44), mdx = _require.mdx;
-    var _require2 = __webpack_require__(71),
+    var _require = __webpack_require__(47), mdx = _require.mdx;
+    var _require2 = __webpack_require__(74),
       useMDXScope = _require2.useMDXScope;
     module.exports = function MDXRenderer(_ref) {
       var scope = _ref.scope,
@@ -340,10 +340,10 @@
     /***/
   }),
 
-  /***/ 232: /***/ (function (module, exports, __webpack_require__) {
-    var setPrototypeOf = __webpack_require__(233);
+  /***/ 236: /***/ (function (module, exports, __webpack_require__) {
+    var setPrototypeOf = __webpack_require__(237);
 
-    var isNativeReflectConstruct = __webpack_require__(234);
+    var isNativeReflectConstruct = __webpack_require__(238);
 
     function _construct(Parent, args, Class) {
       if (isNativeReflectConstruct()) {
@@ -367,7 +367,7 @@
     /***/
   }),
 
-  /***/ 233: /***/ (function (module, exports) {
+  /***/ 237: /***/ (function (module, exports) {
     function _setPrototypeOf(o, p) {
       module.exports = _setPrototypeOf = Object.setPrototypeOf ||
         function _setPrototypeOf(o, p) {
@@ -383,7 +383,7 @@
     /***/
   }),
 
-  /***/ 234: /***/ (function (module, exports) {
+  /***/ 238: /***/ (function (module, exports) {
     function _isNativeReflectConstruct() {
       if (typeof Reflect === "undefined" || !Reflect.construct) return false;
       if (Reflect.construct.sham) return false;
@@ -404,14 +404,14 @@
     /***/
   }),
 
-  /***/ 235: /***/ (function (module, exports, __webpack_require__) {
-    var arrayWithoutHoles = __webpack_require__(236);
+  /***/ 239: /***/ (function (module, exports, __webpack_require__) {
+    var arrayWithoutHoles = __webpack_require__(240);
 
-    var iterableToArray = __webpack_require__(237);
+    var iterableToArray = __webpack_require__(241);
 
-    var unsupportedIterableToArray = __webpack_require__(238);
+    var unsupportedIterableToArray = __webpack_require__(242);
 
-    var nonIterableSpread = __webpack_require__(239);
+    var nonIterableSpread = __webpack_require__(243);
 
     function _toConsumableArray(arr) {
       return arrayWithoutHoles(arr) || iterableToArray(arr) ||
@@ -423,8 +423,8 @@
     /***/
   }),
 
-  /***/ 236: /***/ (function (module, exports, __webpack_require__) {
-    var arrayLikeToArray = __webpack_require__(89);
+  /***/ 240: /***/ (function (module, exports, __webpack_require__) {
+    var arrayLikeToArray = __webpack_require__(94);
 
     function _arrayWithoutHoles(arr) {
       if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -435,7 +435,7 @@
     /***/
   }),
 
-  /***/ 237: /***/ (function (module, exports) {
+  /***/ 241: /***/ (function (module, exports) {
     function _iterableToArray(iter) {
       if (
         typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)
@@ -449,8 +449,8 @@
     /***/
   }),
 
-  /***/ 238: /***/ (function (module, exports, __webpack_require__) {
-    var arrayLikeToArray = __webpack_require__(89);
+  /***/ 242: /***/ (function (module, exports, __webpack_require__) {
+    var arrayLikeToArray = __webpack_require__(94);
 
     function _unsupportedIterableToArray(o, minLen) {
       if (!o) return;
@@ -470,7 +470,7 @@
     /***/
   }),
 
-  /***/ 239: /***/ (function (module, exports) {
+  /***/ 243: /***/ (function (module, exports) {
     function _nonIterableSpread() {
       throw new TypeError(
         "Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.",
@@ -482,7 +482,7 @@
     /***/
   }),
 
-  /***/ 240: /***/ (function (module, exports) {
+  /***/ 244: /***/ (function (module, exports) {
     function _defineProperty(obj, key, value) {
       if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -503,7 +503,7 @@
     /***/
   }),
 
-  /***/ 53: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+  /***/ 56: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
@@ -513,17 +513,17 @@
       },
     );
     /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ =
-      __webpack_require__(4);
+      __webpack_require__(8);
     /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ =
       __webpack_require__(0);
     /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default =
       /*#__PURE__*/ __webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
     /* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ =
-      __webpack_require__(6);
+      __webpack_require__(10);
     /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_3__ =
-      __webpack_require__(24);
+      __webpack_require__(28);
     /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ =
-      __webpack_require__(54);
+      __webpack_require__(57);
     /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default =
       /*#__PURE__*/ __webpack_require__.n(
         _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__,
@@ -620,14 +620,14 @@
     /***/
   }),
 
-  /***/ 54: /***/ (function (module, exports, __webpack_require__) {
+  /***/ 57: /***/ (function (module, exports, __webpack_require__) {
     module.exports = __webpack_require__.p +
       "static/zed-profile-pic-5e9304b71289e19e25c128ce8fa758fe.jpg";
 
     /***/
   }),
 
-  /***/ 89: /***/ (function (module, exports) {
+  /***/ 94: /***/ (function (module, exports) {
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length) len = arr.length;
 
