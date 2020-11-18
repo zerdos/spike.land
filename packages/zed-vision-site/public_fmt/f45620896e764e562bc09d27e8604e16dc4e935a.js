@@ -4113,57 +4113,56 @@ PERFORMANCE OF THIS SOFTWARE.
                     // await window["monaco"].editor.colorizeElement(document.getElementById("container"))
                     // const monaco: typeof Monaco = window["monaco"];
                     model = monaco.editor.getModel("file:///main.tsx");
-                    monacoEditor = model;
-                    _context2.next = 7;
+                    _context2.next = 6;
                     return window["monaco"].languages.typescript
                       .getTypeScriptWorker();
 
-                  case 7:
+                  case 6:
                     tsWorker = _context2.sent;
                     modelUri = model === null || model === void 0
                       ? void 0
                       : model.uri;
 
                     if (modelUri) {
-                      _context2.next = 11;
+                      _context2.next = 10;
                       break;
                     }
 
                     return _context2.abrupt("return");
 
-                  case 11:
-                    _context2.next = 13;
+                  case 10:
+                    _context2.next = 12;
                     return tsWorker(modelUri);
 
-                  case 13:
-                    _context2.next = 15;
+                  case 12:
+                    _context2.next = 14;
                     return _context2.sent.getSemanticDiagnostics(
                       "file:///main.tsx",
                     );
 
-                  case 15:
+                  case 14:
                     diag = _context2.sent;
-                    _context2.next = 18;
+                    _context2.next = 17;
                     return tsWorker(modelUri);
 
-                  case 18:
-                    _context2.next = 20;
+                  case 17:
+                    _context2.next = 19;
                     return _context2.sent.getCompilerOptionsDiagnostics(
                       "file:///main.tsx",
                     );
 
-                  case 20:
+                  case 19:
                     comp = _context2.sent;
-                    _context2.next = 23;
+                    _context2.next = 22;
                     return tsWorker(modelUri);
 
-                  case 23:
-                    _context2.next = 25;
+                  case 22:
+                    _context2.next = 24;
                     return _context2.sent.getSyntacticDiagnostics(
                       "file:///main.tsx",
                     );
 
-                  case 25:
+                  case 24:
                     syntax = _context2.sent;
                     tsErrorMessageArr = [].concat(
                       Object(
@@ -4181,21 +4180,18 @@ PERFORMANCE OF THIS SOFTWARE.
                     );
                     tsErrorMessage = tsErrorMessageArr.length === 0
                       ? ""
-                      : tsErrorMessageArr[0].messageText.toString(); // const model = monacoEditor
-                    // console.log(fix);
-                    // model.set
-
-                    _context2.next = 30;
+                      : tsErrorMessageArr[0].messageText.toString();
+                    _context2.next = 29;
                     return sha_hash(c);
 
-                  case 30:
+                  case 29:
                     codeHash = _context2.sent;
-                    _context2.next = 33;
+                    _context2.next = 32;
                     return transformCode(codeHash, tsErrorMessage);
 
-                  case 33:
+                  case 32:
                     tHash = _context2.sent;
-                    _context2.next = 36;
+                    _context2.next = 35;
                     return sha_hash({
                       events: [
                         example["b"/* defaultProps */
@@ -4203,47 +4199,47 @@ PERFORMANCE OF THIS SOFTWARE.
                       ],
                     });
 
-                  case 36:
+                  case 35:
                     hashArrValue = _context2.sent;
 
                     if (!(!tHash || tsErrorMessage)) {
-                      _context2.next = 39;
+                      _context2.next = 38;
                       break;
                     }
 
                     return _context2.abrupt("return");
 
-                  case 39:
-                    _context2.next = 41;
+                  case 38:
+                    _context2.next = 40;
                     return render(tHash, hashArrValue);
 
-                  case 41:
+                  case 40:
                     renderedHashContentHash = _context2.sent;
 
                     if (!(typeof renderedHashContentHash === "string")) {
-                      _context2.next = 48;
+                      _context2.next = 47;
                       break;
                     }
 
-                    _context2.next = 45;
+                    _context2.next = 44;
                     return unHash(renderedHashContentHash);
 
-                  case 45:
+                  case 44:
                     _context2.t0 = _context2.sent;
-                    _context2.next = 49;
+                    _context2.next = 48;
                     break;
 
-                  case 48:
+                  case 47:
                     _context2.t0 = "<p>Error</p>";
 
-                  case 49:
+                  case 48:
                     renderedHashContent = _context2.t0;
                     prevIndex = transformed.findIndex(function (x) {
                       return x.hash === tHash;
                     });
 
                     if (!(prevIndex > 0)) {
-                      _context2.next = 56;
+                      _context2.next = 55;
                       break;
                     }
 
@@ -4274,16 +4270,16 @@ PERFORMANCE OF THIS SOFTWARE.
 
                     return _context2.abrupt("return");
 
-                  case 56:
+                  case 55:
                     rendered = [
                       typeof renderedHashContent === "string"
                         ? renderedHashContent
                         : "<p>Error</p>",
                     ];
-                    _context2.next = 59;
+                    _context2.next = 58;
                     return sha_hash(rendered);
 
-                  case 59:
+                  case 58:
                     renderedHash = _context2.sent;
 
                     if (code === c) {
@@ -4394,7 +4390,7 @@ PERFORMANCE OF THIS SOFTWARE.
                       });
                     }
 
-                  case 61:
+                  case 60:
                   case "end":
                     return _context2.stop();
                 }
@@ -4732,7 +4728,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 asyncToGenerator["a"/* default */
                 ],
               )(/*#__PURE__*/ regenerator_default.a.mark(function _callee8() {
-                var code;
+                var code, monacoEditor;
                 return regenerator_default.a.wrap(
                   function _callee8$(_context8) {
                     while (1) {
@@ -4743,10 +4739,13 @@ PERFORMANCE OF THIS SOFTWARE.
 
                         case 2:
                           code = _context8.sent;
+                          monacoEditor = monaco.editor.getModel(
+                            "file:///main.tsx",
+                          );
                           monacoEditor.setValue(code);
                           changeCode(code);
 
-                        case 5:
+                        case 6:
                         case "end":
                           return _context8.stop();
                       }

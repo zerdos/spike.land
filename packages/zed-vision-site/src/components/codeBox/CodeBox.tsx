@@ -66,7 +66,6 @@ export const CodeBox: React.FC<{
       // const monaco: typeof Monaco = window["monaco"];
 
       const model = monaco.editor.getModel("file:///main.tsx");
-      monacoEditor = model;
 
       const tsWorker = await window["monaco"].languages.typescript
         .getTypeScriptWorker();
@@ -87,11 +86,6 @@ export const CodeBox: React.FC<{
       const tsErrorMessage = tsErrorMessageArr.length === 0
         ? ""
         : tsErrorMessageArr[0].messageText.toString();
-
-      // const model = monacoEditor
-
-      // console.log(fix);
-      // model.set
 
       const codeHash = await hash(c);
       const tHash = await transformCode(codeHash, tsErrorMessage);
@@ -328,6 +322,7 @@ export const CodeBox: React.FC<{
             const code = await unHash(
               transformed[0].code[0],
             );
+            const monacoEditor = monaco.editor.getModel("file:///main.tsx");
             monacoEditor.setValue(code);
             changeCode(code);
           }}
