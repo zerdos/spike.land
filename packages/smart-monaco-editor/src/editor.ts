@@ -1,6 +1,16 @@
-import type AMDLoader from "https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts";
-import type { Monaco, SmartMonaco } from "./editor.d.ts";
-import * as AceAjax from "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts";
+interface ISmartMonacoEditor {
+  monaco: monaco;
+  editor: monaco.editor.IStandaloneCodeEditor;
+}
+interface StartMonacoProps {
+  onChange: (code: string) => void;
+  code: string;
+  language: "html" | "javascript" | "typescript";
+}
+
+interface SmartMonaco {
+  (props: StartMonacoProps): Promise<ISmartMonacoEditor>;
+}
 
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language },

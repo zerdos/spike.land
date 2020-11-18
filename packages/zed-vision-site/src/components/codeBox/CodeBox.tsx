@@ -1,9 +1,9 @@
 import * as React from "react";
 import { startMonaco } from "@zedvision/smart-monaco-editor";
-import { transform } from "../utils/babel";
-import { render } from "../utils/renderer";
-import { hash, unHash } from "../utils/sha";
-import { counterExample, defaultProps } from "./example";
+import { transform } from "../utils/babel.ts";
+import { render } from "../utils/renderer.ts";
+import { hash, unHash } from "../utils/sha.ts";
+import { counterExample, defaultProps } from "./example.ts";
 import {
   CodeContainer,
   ErrorContainer,
