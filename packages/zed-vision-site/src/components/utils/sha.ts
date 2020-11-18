@@ -1,4 +1,4 @@
-import * as shaWorker from "./sha256/sha256.worker";
+import * as shaWorker from "./sha256/sha256.worker.ts";
 const hashTable = {};
 
 const { sha256 } = ((typeof window !== "undefined") &&

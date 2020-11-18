@@ -4140,6 +4140,9 @@
     // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
     var react = __webpack_require__(0);
 
+    // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+    var taggedTemplateLiteralLoose = __webpack_require__(8);
+
     // EXTERNAL MODULE: ./src/components/utils/typography.ts
     var typography = __webpack_require__(28);
 
@@ -4152,19 +4155,32 @@
 
     // CONCATENATED MODULE: ./src/components/utils/globalStyle.tsx
 
+    function _templateObject() {
+      var data = Object(
+        taggedTemplateLiteralLoose["a"/* default */
+        ],
+      )(["\n      ", "\n      ", "\n  "]);
+
+      _templateObject = function _templateObject() {
+        return data;
+      };
+
+      return data;
+    }
+
     /** @jsx jsx */
 
     var styles = typography["a"/* default */
     ].createStyles().replace(/first-child/gi, "first-of-type");
     var globalStyle_GlobalStyle = function GlobalStyle() {
       return Object(
-        emotion_react_browser_esm["b"/* jsx */
+        emotion_react_browser_esm["c"/* jsx */
         ],
       )(
         react["Fragment"],
         null,
         Object(
-          emotion_react_browser_esm["b"/* jsx */
+          emotion_react_browser_esm["c"/* jsx */
           ],
         )(
           emotion_react_browser_esm["a"/* Global */
@@ -4183,15 +4199,18 @@
     var globalStyle_MainContainer = function MainContainer(_ref) {
       var children = _ref.children;
       return Object(
-        emotion_react_browser_esm["b"/* jsx */
+        emotion_react_browser_esm["c"/* jsx */
         ],
       )(
         "div",
         {
-          css: "\n      " + fonts + "\n      " + styles + "\n  ",
+          css: Object(
+            emotion_react_browser_esm["b"/* css */
+            ],
+          )(_templateObject(), fonts, styles),
         },
         Object(
-          emotion_react_browser_esm["b"/* jsx */
+          emotion_react_browser_esm["c"/* jsx */
           ],
         )("main", {
           css: "  \n  max-width: 1140px;\n  margin: auto;\n  ",
@@ -4665,10 +4684,16 @@
       },
     );
     /* unused harmony export createElement */
-    /* unused harmony export css */
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
       "b",
+      function () {
+        return css;
+      },
+    );
+    /* harmony export (binding) */ __webpack_require__.d(
+      __webpack_exports__,
+      "c",
       function () {
         return jsx;
       },
@@ -5404,6 +5429,27 @@
       };
 
       return _extends.apply(this, arguments);
+    }
+
+    /***/
+  }),
+
+  /***/ 8: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+    /* harmony export (binding) */ __webpack_require__.d(
+      __webpack_exports__,
+      "a",
+      function () {
+        return _taggedTemplateLiteralLoose;
+      },
+    );
+    function _taggedTemplateLiteralLoose(strings, raw) {
+      if (!raw) {
+        raw = strings.slice(0);
+      }
+
+      strings.raw = raw;
+      return strings;
     }
 
     /***/

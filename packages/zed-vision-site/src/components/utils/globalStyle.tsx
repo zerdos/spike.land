@@ -1,6 +1,6 @@
 import * as React from "react";
-import typography from "./typography";
-import { fonts } from "./fonts";
+import typography from "./typography.ts";
+import { fonts } from "./fonts.ts";
 /** @jsx jsx */
 import { css, Global, jsx } from "@emotion/react";
 
@@ -9,7 +9,7 @@ const styles = typography.createStyles().replace(
   "first-of-type",
 );
 
-export const GlobalStyle = () =>
+export const GlobalStyle: React.FC = () =>
   <React.Fragment>
     <Global
       styles={{
@@ -21,9 +21,9 @@ export const GlobalStyle = () =>
     />
   </React.Fragment>;
 
-export const MainContainer = ({ children }) =>
+export const MainContainer: React.FC = ({ children }) =>
   <div
-    css={`
+    css={css`
       ${fonts}
       ${styles}
   `}

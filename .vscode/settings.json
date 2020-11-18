@@ -10,6 +10,7 @@
     "**/CVS": true,
     "**/.DS_Store": true
   },
+  "deno.import_map": "./import_map.json",
   "search.useIgnoreFiles": true,
     "files.autoSave": "onFocusChange",
   "deno.enable": true,

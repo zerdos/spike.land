@@ -1,0 +1,14 @@
+{
+    "imports": {
+       "react": "https://unpkg.com/react@17/umd/react.production.min.js",
+       "@emotion/react": "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
+      "typography-theme-wordpress-2016": "https://unpkg.com/typography-theme-wordpress-2016@0.16.19/dist/index.js",
+      "typography": "https://unpkg.com/typography@0.16.19/dist/index.js",
+      "@emotion/cache": "https://unpkg.com/@emotion/cache@11.0.0/dist/emotion-cache.browser.cjs.js",
+      "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.0/dist/emotion-serialize.browser.cjs.js",
+      "./jsx-namespace": "https://unpkg.com/@emotion/react@11.1.1/types/jsx-namespace.d.ts"
+      "https://unpkg.com/@emotion/react@11.1.1/types/index": "https://unpkg.com/@emotion/react@11.1.1/types/index.d.ts"
+      
+      }
+ }
+ 
