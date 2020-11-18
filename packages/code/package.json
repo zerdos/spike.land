@@ -11,7 +11,7 @@
         "clean": "rm -rf dist && mkdir dist",
         "build": "yarn clean && deno fmt . && yarn build-codebox && yarn minify && yarn build-template",
         "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
-        "build-template": "deno run --allow-read --allow-write generate-fe-bundle.ts && deno bundle src/index.ts --no-check dist/worker-script.js && yarn esbuild dist/worker-script.js  --minify --outfile=dist-worker-script.min.js",
+        "build-template": "deno run --allow-read --allow-write generate-fe-bundle.ts && deno bundle src/index.ts --no-check dist/worker-script.js && yarn esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
         "deploy": "yarn wrangler publish",
         "build-codebox": "deno bundle src-deno/frontend/codeBox.ts --no-check > dist/codeLoader.js",
         "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.js.min.js"
