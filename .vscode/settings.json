@@ -1,4 +1,16 @@
 {
+  "files.exclude": {
+    "docs":true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.git": true,
+    "**/build": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true
+  },
+  "search.useIgnoreFiles": true,
     "files.autoSave": "onFocusChange",
   "deno.enable": true,
   "git.autorefresh": true,

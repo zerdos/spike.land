@@ -249,12 +249,16 @@ self.addEventListener("fetch", function (e) {
         const request = new Request(
           "https://code.zed.vision",
           {
-            body: data,
+            body: JSON.stringify(data),
             method: "POST",
             headers: { "content-type": "application/json;charset=UTF-8" },
           },
         );
-        let response = fetch(request)
+        fetch(request).then((response)=>{
+          console.log("SERVER HASH: "+ JSON.stringify(await (await response).json()) );
+        }).catch(e){
+          console.log("fetch failed", e);
+        }
 
    
 
@@ -276,11 +280,6 @@ self.addEventListener("fetch", function (e) {
           );
         const smallerKey = hash.substring(0, 8);
         await SHATEST.put(smallerKey, myBuffer);
-        try{
-        console("SERVER HASH: "+ await response);
-        } catch(e){
-          console.log("fetch failed", e)
-        }
 
         return new Response(JSON.stringify({ hash: smallerKey }), {
           headers: { "Content-Type": "application/json" },
