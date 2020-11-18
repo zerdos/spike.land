@@ -4554,9 +4554,9 @@
         taggedTemplateLiteralLoose["a"/* default */
         ],
       )([
-        "\n      ",
+        "\n\n  max-width: 1140px;\n  margin: auto;\n\n  ",
         "\n\n",
-        "\nmain{ \n  max-width: 1140px;\n  margin: auto\n}\n      \n      ",
+        "\n\n      \n      ",
       ]);
 
       _templateObject = function _templateObject() {

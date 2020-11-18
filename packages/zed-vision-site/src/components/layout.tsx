@@ -13,13 +13,14 @@ export const Layout: React.FC = ({ children }) =>
   <React.Fragment>
     <main
       css={css`
-      ${fonts}
+
+  max-width: 1140px;
+  margin: auto;
+
+  ${fonts}
 
 ${styles}
-main{ 
-  max-width: 1140px;
-  margin: auto
-}
+
       
       `}
     >
