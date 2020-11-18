@@ -1,11 +1,9 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 
 import { makeDraggable } from "./interact.js";
-import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
+import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
-
-import { diff } from "../../../diff/diff.ts";
 
 const document = (window as { document: Document }).document;
 
@@ -107,6 +105,7 @@ export async function run() {
     }
 
     async function runner(cd: string) {
+      const { diff } = await import("../dist/diff.min.js");
       if (busy === 1) {
         return;
       }
