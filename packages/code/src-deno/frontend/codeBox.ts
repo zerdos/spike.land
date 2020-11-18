@@ -5,7 +5,7 @@ import { startMonaco } from "../../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 
-import { diff } from "./diff.ts";
+import { diff } from "../../../diff/diff.ts";
 
 const document = (window as { document: Document }).document;
 

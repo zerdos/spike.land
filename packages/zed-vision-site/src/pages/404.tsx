@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 import JSONTree from "react-json-tree";
 
 // If you're using Immutable.js: `npm i --save immutable`
-import { diff } from "@zedvision/code/src-deno/frontend/diff";
+import { diff } from "@zedvision/diff";
 import { counterExample } from "../components/codeBox/example";
 
 interface Props {
