@@ -215,7 +215,7 @@ export const CodeBox: React.FC<{
       events.length > hashArr.length ||
       events.length > transformed[0].rendered.length
     ) {
-      events.forEach(async (v:unknown, k: number)=> {
+      events.forEach(async (v: unknown, k: number) => {
         if (k < hashArr.length) return;
         // changeProps((p)=>{p.hashArr[k] = p.hashArr[k] || p.hashArr[k-1]; return p;});
         const hashArrValue = await hash({

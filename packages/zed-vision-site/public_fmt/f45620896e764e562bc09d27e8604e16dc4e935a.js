@@ -3978,7 +3978,6 @@ PERFORMANCE OF THIS SOFTWARE.
       return target;
     }
 
-    var monacoEditor;
     var CodeBox_CodeBox = function CodeBox(_ref) {
       var title = _ref.title,
         children = _ref.children;
@@ -4182,22 +4181,21 @@ PERFORMANCE OF THIS SOFTWARE.
                     );
                     tsErrorMessage = tsErrorMessageArr.length === 0
                       ? ""
-                      : tsErrorMessageArr[0].messageText.toString();
-                    console.log(monacoEditor); // const model = monacoEditor
+                      : tsErrorMessageArr[0].messageText.toString(); // const model = monacoEditor
                     // console.log(fix);
                     // model.set
 
-                    _context2.next = 31;
+                    _context2.next = 30;
                     return sha_hash(c);
 
-                  case 31:
+                  case 30:
                     codeHash = _context2.sent;
-                    _context2.next = 34;
+                    _context2.next = 33;
                     return transformCode(codeHash, tsErrorMessage);
 
-                  case 34:
+                  case 33:
                     tHash = _context2.sent;
-                    _context2.next = 37;
+                    _context2.next = 36;
                     return sha_hash({
                       events: [
                         example["b"/* defaultProps */
@@ -4205,47 +4203,47 @@ PERFORMANCE OF THIS SOFTWARE.
                       ],
                     });
 
-                  case 37:
+                  case 36:
                     hashArrValue = _context2.sent;
 
                     if (!(!tHash || tsErrorMessage)) {
-                      _context2.next = 40;
+                      _context2.next = 39;
                       break;
                     }
 
                     return _context2.abrupt("return");
 
-                  case 40:
-                    _context2.next = 42;
+                  case 39:
+                    _context2.next = 41;
                     return render(tHash, hashArrValue);
 
-                  case 42:
+                  case 41:
                     renderedHashContentHash = _context2.sent;
 
                     if (!(typeof renderedHashContentHash === "string")) {
-                      _context2.next = 49;
+                      _context2.next = 48;
                       break;
                     }
 
-                    _context2.next = 46;
+                    _context2.next = 45;
                     return unHash(renderedHashContentHash);
 
-                  case 46:
+                  case 45:
                     _context2.t0 = _context2.sent;
-                    _context2.next = 50;
+                    _context2.next = 49;
                     break;
 
-                  case 49:
+                  case 48:
                     _context2.t0 = "<p>Error</p>";
 
-                  case 50:
+                  case 49:
                     renderedHashContent = _context2.t0;
                     prevIndex = transformed.findIndex(function (x) {
                       return x.hash === tHash;
                     });
 
                     if (!(prevIndex > 0)) {
-                      _context2.next = 57;
+                      _context2.next = 56;
                       break;
                     }
 
@@ -4276,16 +4274,16 @@ PERFORMANCE OF THIS SOFTWARE.
 
                     return _context2.abrupt("return");
 
-                  case 57:
+                  case 56:
                     rendered = [
                       typeof renderedHashContent === "string"
                         ? renderedHashContent
                         : "<p>Error</p>",
                     ];
-                    _context2.next = 60;
+                    _context2.next = 59;
                     return sha_hash(rendered);
 
-                  case 60:
+                  case 59:
                     renderedHash = _context2.sent;
 
                     if (code === c) {
@@ -4396,7 +4394,7 @@ PERFORMANCE OF THIS SOFTWARE.
                       });
                     }
 
-                  case 62:
+                  case 61:
                   case "end":
                     return _context2.stop();
                 }
