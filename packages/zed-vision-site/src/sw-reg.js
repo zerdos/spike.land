@@ -14,7 +14,7 @@ export const registerSW = async () => {
       return;
     }
 
-    await navigator.serviceWorker.register("/sw.js", {
+    await navigator.serviceWorker.register("/service-worker.js", {
       updateViaCache: "imports",
       scope: "/",
     });

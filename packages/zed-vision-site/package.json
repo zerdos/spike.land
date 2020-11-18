@@ -32,7 +32,8 @@
     "react-json-tree": "0.13.0",
     "react-typography": "0.16.19",
     "typography": "0.16.19",
-    "typography-theme-wordpress-2016": "0.16.19"
+    "typography-theme-wordpress-2016": "0.16.19",
+    "workbox-webpack-plugin": "6.0.0-rc.0"
   },
   "homepage": "https://zed.vision",
   "keywords": [

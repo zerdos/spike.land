@@ -1,4 +1,5 @@
 const path = require(`path`);
+const {GenerateSW} = require('workbox-webpack-plugin');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -65,8 +66,10 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
   // if (getConfig().mode === "production") {
+   const config=  getConfig();
+   config.plugins.push(    new GenerateSW())
   actions.replaceWebpackConfig({
-    ...getConfig(),
+    ...config,
     devtool: false,
   });
   // de}

@@ -135,7 +135,7 @@
                   case 4:
                     _context.next = 6;
                     return navigator.serviceWorker.register(
-                      "/sw.js",
+                      "/service-worker.js",
                       { updateViaCache: "imports", scope: "/" },
                     );
                   case 6:
