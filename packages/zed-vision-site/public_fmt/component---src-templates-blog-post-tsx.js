@@ -21,7 +21,7 @@
       /* harmony import */ var _components_bio__WEBPACK_IMPORTED_MODULE_3__ =
         __webpack_require__(56);
       /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_4__ =
-        __webpack_require__(23);
+        __webpack_require__(22);
       /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_5__ =
         __webpack_require__(18);
       /* harmony import */ var _components_utils_typography__WEBPACK_IMPORTED_MODULE_6__ =

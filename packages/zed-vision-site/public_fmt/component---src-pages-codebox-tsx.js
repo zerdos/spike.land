@@ -17,7 +17,7 @@
       /* harmony import */ var _components_codeBox_CodeBox__WEBPACK_IMPORTED_MODULE_1__ =
         __webpack_require__(96);
       /* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_2__ =
-        __webpack_require__(23);
+        __webpack_require__(22);
       /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_3__ =
         __webpack_require__(18);
 

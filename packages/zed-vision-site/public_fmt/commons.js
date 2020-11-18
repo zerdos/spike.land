@@ -4134,6 +4134,94 @@
 
     // EXPORTS
     __webpack_require__.d(__webpack_exports__, "a", function () {
+      return /* binding */ layout_Layout;
+    });
+
+    // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+    var react = __webpack_require__(0);
+
+    // EXTERNAL MODULE: ./src/components/utils/typography.ts
+    var typography = __webpack_require__(28);
+
+    // CONCATENATED MODULE: ./src/components/utils/fonts.ts
+    // @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,500&display=swap');
+    var fonts =
+      "\n/* cyrillic-ext */\n@font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z8fZwnCo.woff2) format('woff2');\n    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n  }\n  /* cyrillic */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z-PZwnCo.woff2) format('woff2');\n    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n  }\n  /* vietnamese */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z8_ZwnCo.woff2) format('woff2');\n    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n  }\n  /* latin-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z8vZwnCo.woff2) format('woff2');\n    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n  }\n  /* latin */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z_PZw.woff2) format('woff2');\n    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n  }\n  /* cyrillic-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gTD_u50.woff2) format('woff2');\n    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n  }\n  /* cyrillic */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3g3D_u50.woff2) format('woff2');\n    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n  }\n  /* vietnamese */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gbD_u50.woff2) format('woff2');\n    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n  }\n  /* latin-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gfD_u50.woff2) format('woff2');\n    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n  }\n  /* latin */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gnD_g.woff2) format('woff2');\n    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n  }\n  /* cyrillic-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gTD_u50.woff2) format('woff2');\n    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n  }\n  /* cyrillic */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3g3D_u50.woff2) format('woff2');\n    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n  }\n  /* vietnamese */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gbD_u50.woff2) format('woff2');\n    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n  }\n  /* latin-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gfD_u50.woff2) format('woff2');\n    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n  }\n  /* latin */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gnD_g.woff2) format('woff2');\n    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n  }\n  ";
+    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
+    var emotion_react_browser_esm = __webpack_require__(29);
+
+    // CONCATENATED MODULE: ./src/components/utils/globalStyle.tsx
+
+    /** @jsx jsx */
+
+    var styles = typography["a"/* default */
+    ].createStyles().replace(/first-child/gi, "first-of-type");
+    var globalStyle_GlobalStyle = function GlobalStyle() {
+      return Object(
+        emotion_react_browser_esm["b"/* jsx */
+        ],
+      )(
+        react["Fragment"],
+        null,
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )(
+          emotion_react_browser_esm["a"/* Global */
+          ],
+          {
+            styles: {
+              body: {
+                margin: 0,
+                padding: 0,
+              },
+            },
+          },
+        ),
+      );
+    };
+    var globalStyle_MainContainer = function MainContainer(_ref) {
+      var children = _ref.children;
+      return Object(
+        emotion_react_browser_esm["b"/* jsx */
+        ],
+      )(
+        "div",
+        {
+          css: "\n      " + fonts + "\n      " + styles + "\n  ",
+        },
+        Object(
+          emotion_react_browser_esm["b"/* jsx */
+          ],
+        )("main", {
+          css: "  \n  max-width: 1140px;\n  margin: auto;\n  ",
+        }, children),
+      );
+    };
+    // CONCATENATED MODULE: ./src/components/layout.tsx
+
+    var layout_Layout = function Layout(_ref) {
+      var children = _ref.children;
+      return /*#__PURE__*/ react["createElement"](
+        react["Fragment"],
+        null,
+        /*#__PURE__*/ react["createElement"](globalStyle_GlobalStyle, null),
+        /*#__PURE__*/ react["createElement"](
+          globalStyle_MainContainer,
+          null,
+          children,
+        ),
+      );
+    };
+
+    /***/
+  }),
+
+  /***/ 23: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    // EXPORTS
+    __webpack_require__.d(__webpack_exports__, "a", function () {
       return /* binding */ emotion_serialize_browser_esm_serializeStyles;
     });
 
@@ -4523,76 +4611,6 @@
     /***/
   }),
 
-  /***/ 23: /***/ (function (module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    // EXPORTS
-    __webpack_require__.d(__webpack_exports__, "a", function () {
-      return /* binding */ layout_Layout;
-    });
-
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-    var taggedTemplateLiteralLoose = __webpack_require__(8);
-
-    // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
-    var react = __webpack_require__(0);
-
-    // EXTERNAL MODULE: ./src/components/utils/typography.ts
-    var typography = __webpack_require__(28);
-
-    // CONCATENATED MODULE: ./src/components/utils/fonts.ts
-    // @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,500&display=swap');
-    var fonts =
-      "\n/* cyrillic-ext */\n@font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z8fZwnCo.woff2) format('woff2');\n    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n  }\n  /* cyrillic */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z-PZwnCo.woff2) format('woff2');\n    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n  }\n  /* vietnamese */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z8_ZwnCo.woff2) format('woff2');\n    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n  }\n  /* latin-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z8vZwnCo.woff2) format('woff2');\n    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n  }\n  /* latin */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: italic;\n    font-weight: 500;\n    font-display: swap;\n    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'), url(https://fonts.gstatic.com/s/montserrat/v15/JTUPjIg1_i6t8kCHKm459WxZOg3z_PZw.woff2) format('woff2');\n    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n  }\n  /* cyrillic-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gTD_u50.woff2) format('woff2');\n    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n  }\n  /* cyrillic */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3g3D_u50.woff2) format('woff2');\n    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n  }\n  /* vietnamese */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gbD_u50.woff2) format('woff2');\n    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n  }\n  /* latin-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gfD_u50.woff2) format('woff2');\n    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n  }\n  /* latin */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 800;\n    font-display: swap;\n    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_c5H3gnD_g.woff2) format('woff2');\n    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n  }\n  /* cyrillic-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gTD_u50.woff2) format('woff2');\n    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;\n  }\n  /* cyrillic */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3g3D_u50.woff2) format('woff2');\n    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;\n  }\n  /* vietnamese */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gbD_u50.woff2) format('woff2');\n    unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;\n  }\n  /* latin-ext */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gfD_u50.woff2) format('woff2');\n    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n  }\n  /* latin */\n  @font-face {\n    font-family: 'Montserrat';\n    font-style: normal;\n    font-weight: 900;\n    font-display: swap;\n    src: local('Montserrat Black'), local('Montserrat-Black'), url(https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_epG3gnD_g.woff2) format('woff2');\n    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n  }\n  ";
-    // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
-    var emotion_react_browser_esm = __webpack_require__(29);
-
-    // CONCATENATED MODULE: ./src/components/layout.tsx
-
-    function _templateObject() {
-      var data = Object(
-        taggedTemplateLiteralLoose["a"/* default */
-        ],
-      )([
-        "\n\n  max-width: 1140px;\n  margin: auto;\n\n  ",
-        "\n\n",
-        "\n\n      \n      ",
-      ]);
-
-      _templateObject = function _templateObject() {
-        return data;
-      };
-
-      return data;
-    }
-
-    /** @jsx jsx */
-
-    var styles = typography["a"/* default */
-    ].createStyles().replace(/first-child/gi, "first-of-type");
-    var layout_Layout = function Layout(_ref) {
-      var children = _ref.children;
-      return Object(
-        emotion_react_browser_esm["b"/* jsx */
-        ],
-      )(
-        react["Fragment"],
-        null,
-        Object(
-          emotion_react_browser_esm["b"/* jsx */
-          ],
-        )("main", {
-          css: Object(
-            emotion_react_browser_esm["a"/* css */
-            ],
-          )(_templateObject(), fonts, styles),
-        }, children),
-      );
-    };
-
-    /***/
-  }),
-
   /***/ 28: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* harmony export (binding) */ __webpack_require__.d(
@@ -4639,15 +4657,15 @@
   /***/ 29: /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
     /* unused harmony export ClassNames */
-    /* unused harmony export Global */
-    /* unused harmony export createElement */
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
       "a",
       function () {
-        return css;
+        return Global;
       },
     );
+    /* unused harmony export createElement */
+    /* unused harmony export css */
     /* harmony export (binding) */ __webpack_require__.d(
       __webpack_exports__,
       "b",
@@ -4681,7 +4699,7 @@
     /* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_6__ =
       __webpack_require__(17);
     /* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_7__ =
-      __webpack_require__(22);
+      __webpack_require__(23);
     /* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_8__ =
       __webpack_require__(83);
 
@@ -5121,7 +5139,7 @@
     /* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_5__ =
       __webpack_require__(17);
     /* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_6__ =
-      __webpack_require__(22);
+      __webpack_require__(23);
 
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     var EmotionCacheContext = /* #__PURE__ */ Object(
@@ -5386,27 +5404,6 @@
       };
 
       return _extends.apply(this, arguments);
-    }
-
-    /***/
-  }),
-
-  /***/ 8: /***/ (function (module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-    /* harmony export (binding) */ __webpack_require__.d(
-      __webpack_exports__,
-      "a",
-      function () {
-        return _taggedTemplateLiteralLoose;
-      },
-    );
-    function _taggedTemplateLiteralLoose(strings, raw) {
-      if (!raw) {
-        raw = strings.slice(0);
-      }
-
-      strings.raw = raw;
-      return strings;
     }
 
     /***/

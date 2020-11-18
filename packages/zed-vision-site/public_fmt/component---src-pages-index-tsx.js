@@ -29,8 +29,8 @@
       // EXTERNAL MODULE: ./src/components/bio.tsx
       var bio = __webpack_require__(56);
 
-      // EXTERNAL MODULE: ./src/components/layout.tsx + 1 modules
-      var layout = __webpack_require__(23);
+      // EXTERNAL MODULE: ./src/components/layout.tsx + 2 modules
+      var layout = __webpack_require__(22);
 
       // EXTERNAL MODULE: ./src/components/seo.tsx
       var seo = __webpack_require__(18);

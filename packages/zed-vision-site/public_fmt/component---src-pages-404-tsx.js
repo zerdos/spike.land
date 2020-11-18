@@ -7,8 +7,6 @@
   ,
   ,
   ,
-  ,
-  ,
   /* 0 */
   /* 1 */
   /* 2 */
@@ -18,7 +16,27 @@
   /* 6 */
   /* 7 */
   /* 8 */
-  /* 9 */
+  /***/ (function (module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+    /* harmony export (binding) */ __webpack_require__.d(
+      __webpack_exports__,
+      "a",
+      function () {
+        return _taggedTemplateLiteralLoose;
+      },
+    );
+    function _taggedTemplateLiteralLoose(strings, raw) {
+      if (!raw) {
+        raw = strings.slice(0);
+      }
+
+      strings.raw = raw;
+      return strings;
+    }
+
+    /***/
+  }),
+  ,
   /* 10 */
   /***/ (function (module, __webpack_exports__, __webpack_require__) {
     "use strict";
@@ -60,7 +78,7 @@
     var emotion_utils_browser_esm = __webpack_require__(17);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js + 2 modules
-    var emotion_serialize_browser_esm = __webpack_require__(22);
+    var emotion_serialize_browser_esm = __webpack_require__(23);
 
     // CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
 
@@ -9514,8 +9532,8 @@
     // EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
     var react = __webpack_require__(0);
 
-    // EXTERNAL MODULE: ./src/components/layout.tsx + 1 modules
-    var layout = __webpack_require__(23);
+    // EXTERNAL MODULE: ./src/components/layout.tsx + 2 modules
+    var layout = __webpack_require__(22);
 
     // EXTERNAL MODULE: ./src/components/seo.tsx
     var seo = __webpack_require__(18);

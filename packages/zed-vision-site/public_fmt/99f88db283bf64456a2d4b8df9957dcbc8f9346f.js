@@ -39,7 +39,7 @@
     var emotion_utils_browser_esm = __webpack_require__(17);
 
     // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js + 2 modules
-    var emotion_serialize_browser_esm = __webpack_require__(22);
+    var emotion_serialize_browser_esm = __webpack_require__(23);
 
     // CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
 
@@ -462,6 +462,27 @@
           _next(undefined);
         });
       };
+    }
+
+    /***/
+  }),
+
+  /***/ 8: /***/ (function (module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+    /* harmony export (binding) */ __webpack_require__.d(
+      __webpack_exports__,
+      "a",
+      function () {
+        return _taggedTemplateLiteralLoose;
+      },
+    );
+    function _taggedTemplateLiteralLoose(strings, raw) {
+      if (!raw) {
+        raw = strings.slice(0);
+      }
+
+      strings.raw = raw;
+      return strings;
     }
 
     /***/
