@@ -1,4 +1,4 @@
-const version = `7.3.0`; const html = `<!DOCTYPE html>
+const version = `7.3.1`; const html = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -169,7 +169,7 @@ const version = `7.3.0`; const html = `<!DOCTYPE html>
       } catch (e) {
 
         //If the CDN doesn't have or package yet
-        const version = "@7.3.0";
+        const version = "@7.3.1";
 
         const { run } = await import(cdnAddress + "@latest" + script)
         run();
@@ -191,7 +191,7 @@ importScripts(
 );
 
 // importScripts(
-//   "https://unpkg.com/@zedvision/code@7.3.0/dist/htmlNoModule.js",
+//   "https://unpkg.com/@zedvision/code@7.3.1/dist/htmlNoModule.js",
 // );
 
 (({ Comlink, idb, location, caches, addEventListener }) => {
@@ -227,7 +227,7 @@ importScripts(
     },
   };
 
-  var cacheKey = "7.3.0-1";
+  var cacheKey = "7.3.1-1";
 
   addEventListener("install", function (e) {
     e.waitUntil(
