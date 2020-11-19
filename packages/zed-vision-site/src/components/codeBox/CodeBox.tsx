@@ -57,6 +57,7 @@ export const CodeBox: React.FC<{
 
     const runner = async (c: string) => {
       if (!editorAttached) {
+        setEditorAttached(true);
         await startMonaco(
           {
             language: "typescript",
