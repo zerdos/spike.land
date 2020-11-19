@@ -1937,7 +1937,7 @@ object-assign
           react_dom_server__WEBPACK_IMPORTED_MODULE_1__,
         );
       self.importScripts(
-        "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.3/dist/worker/worker.js",
+        "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
       );
 
       async function renderWorker(code, props) {

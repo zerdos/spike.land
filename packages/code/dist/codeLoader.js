@@ -376,7 +376,7 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    const workerDomImport = importScript("https://unpkg.com/@ampproject/worker-dom@0.27.3/dist/main.js");
+    const workerDomImport = importScript("https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js");
     await makeDraggable();
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
     (async ()=>{

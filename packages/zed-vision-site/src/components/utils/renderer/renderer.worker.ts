@@ -1,5 +1,5 @@
 self.importScripts(
-  "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.3/dist/worker/worker.js",
+  "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
 );
 import * as React from "react";
 import ReactDOMServer from "react-dom/server";

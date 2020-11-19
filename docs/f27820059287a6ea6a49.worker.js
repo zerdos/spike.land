@@ -350,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/server */ "../../node_modules/react-dom/server.js");
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom_server__WEBPACK_IMPORTED_MODULE_1__);
-self.importScripts("https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.3/dist/worker/worker.js");
+self.importScripts("https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.4/dist/worker/worker.js");
 
 
 async function renderWorker(code, props) {

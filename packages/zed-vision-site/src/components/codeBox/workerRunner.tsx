@@ -16,7 +16,7 @@ export const WorkerBox: React.FC<
   React.useEffect(() => {
     const run = async () => {
       await loadScript(
-        "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.3/dist/main.js",
+        "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.4/dist/main.js",
       );
 
       const versionA = await unHash(codeHash);
@@ -70,7 +70,7 @@ function createHTMLSourceBlob(blobUrl: any) {
 
 <head>
   <meta charset="utf-8">
-  <script src="https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.3/dist/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.4/dist/main.js"></script>
   <style>
   body{
     background-color: white;

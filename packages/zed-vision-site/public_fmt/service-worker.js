@@ -106,14 +106,14 @@ define("./service-worker.js", ["./workbox-e8da24eb"], function (workbox) {
    */
 
   workbox.precacheAndRoute([{
-    "url": "/066e8e09db459cc64b34.worker.js",
-    "revision": null,
-  }, {
     "url": "/60279455279f06c16ede.worker.js",
     "revision": null,
   }, {
+    "url": "/f27820059287a6ea6a49.worker.js",
+    "revision": null,
+  }, {
     "url": "/render-page.js",
-    "revision": "a74fb2b784af808334cac3bc389f50f1",
+    "revision": "907239441610548e37724744e3abdf55",
   }, {
     "url": "/static/forkMe-1a2bcb7dd2c870c3afe5d50466500c18.png",
     "revision": "1a2bcb7dd2c870c3afe5d50466500c18",

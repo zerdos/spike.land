@@ -20,7 +20,7 @@
     var methods = ["renderWorker"];
     module.exports = function () {
       var w = new Worker(
-        __webpack_require__.p + "built-renderer.b78dcc.worker.js",
+        __webpack_require__.p + "built-renderer.3f95e3.worker.js",
         { name: "built-renderer.[hash:6].worker.js" },
       );
       addMethods(w, methods);

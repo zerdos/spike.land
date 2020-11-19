@@ -44,7 +44,7 @@ export async function run() {
   // setTimeout(async () => {
 
   const workerDomImport = importScript(
-    "https://unpkg.com/@ampproject/worker-dom@0.27.3/dist/main.js",
+    "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   );
   await makeDraggable();
   await importScript(

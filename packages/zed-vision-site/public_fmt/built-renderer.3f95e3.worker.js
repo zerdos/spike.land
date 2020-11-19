@@ -2565,7 +2565,7 @@
     // CONCATENATED MODULE: /z/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/z/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--20!./src/components/utils/renderer/renderer.worker.ts
 
     self.importScripts(
-      "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.3/dist/worker/worker.js",
+      "https://cdn.jsdelivr.net/npm/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
     );
 
     function renderWorker(_x, _x2) {
