@@ -37,6 +37,8 @@ export const CodeBox: React.FC<{
 
   const [code, changeCode] = React.useState(starterCode);
 
+  const [editorAttached, setEditorAttached] = React.useState(false);
+
   React.useEffect(() => {
     async function transformCode(codeHash: string, errorMessage?: string) {
       if (errorMessage) {
@@ -54,13 +56,16 @@ export const CodeBox: React.FC<{
     }
 
     const runner = async (c: string) => {
-      const monaco = await startMonaco(
-        {
-          language: "typescript",
-          code: c,
-          onChange: (code: string) => changeCode(code),
-        },
-      );
+      if (!editorAttached) {
+        await startMonaco(
+          {
+            language: "typescript",
+            code: c,
+            onChange: (code: string) => changeCode(code),
+          },
+        );
+      }
+      const monaco = window["monaco"];
 
       // await window["monaco"].editor.colorizeElement(document.getElementById("container"))
       // const monaco: typeof Monaco = window["monaco"];

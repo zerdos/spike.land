@@ -1,9 +1,9 @@
 {
   "name": "@zed-vision/zed-vision-site",
   "scripts": {
-    "build": "yarn clean && deno fmt src && gatsby build --no-uglify && rm -rf public_fmt && mv public public_fmt && deno fmt public_fmt && gatsby clean && gatsby build",
+    "build": "yarn clean && deno fmt src && gatsby clean && gatsby build",
     "start-https": "yarn gatsby develop",
-    "start": "gatsby develop",
+    "start": "yarn gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
