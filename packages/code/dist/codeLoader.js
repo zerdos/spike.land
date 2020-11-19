@@ -376,6 +376,7 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
+    const workerDomImport = importScript("https://unpkg.com/@ampproject/worker-dom@0.27.3/dist/main.js");
     await makeDraggable();
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
     (async ()=>{
@@ -474,6 +475,7 @@ export async function run() {
     })();
     restartCode(transpileCode(getCodeToLoad()));
     document.getElementById("root").setAttribute("style", "display:block");
+    await workerDomImport;
     async function restartCode(transpileCode) {
         const restart = new Function("transpileCode", `return function(){ \n        ${transpileCode} \n    }`)();
         if (!firstLoad) {
