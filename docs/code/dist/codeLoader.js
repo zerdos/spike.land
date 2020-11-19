@@ -376,6 +376,9 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
+    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
+    await importScript("https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js");
+    await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
     const workerDomImport = importScript("https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js");
     await makeDraggable();
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
@@ -477,7 +480,20 @@ export async function run() {
     document.getElementById("root").setAttribute("style", "display:block");
     await workerDomImport;
     async function restartCode(transpileCode) {
-        const restart = new Function("transpileCode", `return function(){ \n        ${transpileCode} \n    }`)();
+        const searchRegExp = /import/gi;
+        const replaceWith = "///";
+        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "const DefaultElement = ");
+        console.log(code);
+        const url = createSourceBlob(code);
+        console.log(url);
+        const restart = ()=>{
+            const renderToString = new Function("code", `return function(){  \n        \n        ${code}\n\n        console.log(DefaultElement);\n      }`)();
+            renderToString();
+            const rootEl = document.getElementById("main-root");
+            rootEl.setAttribute("src", url);
+            console.log(rootEl);
+            MainThread.upgradeElement(rootEl, "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js");
+        };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
                 if (latestCode1 !== latestGoodCode) return;
@@ -522,7 +538,7 @@ export async function run() {
         return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || starter;
     }
     function transpileCode(code) {
-        return window.Babel.transform(code, {
+        return Babel.transform(code, {
             plugins: [],
             presets: [
                 "react",
@@ -534,7 +550,7 @@ export async function run() {
                     }
                 ], 
             ]
-        }).code.replace(/import/gi, "///");
+        }).code;
     }
 }
 function setQueryStringParameter(name, value) {
@@ -542,5 +558,14 @@ function setQueryStringParameter(name, value) {
     params.set(name, value);
     window.history.replaceState({
     }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+}
+function createSourceBlob(code) {
+    const blob = new Blob([
+        code
+    ], {
+        type: "text/javascript"
+    });
+    const url = window.URL.createObjectURL(blob);
+    return url;
 }
 

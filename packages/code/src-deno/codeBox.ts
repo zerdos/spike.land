@@ -16,8 +16,6 @@ let latestCode = "";
 let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
-const searchRegExp = /import/gi;
-const replaceWith = "///";
 
 export async function run() {
   // await importScript(
@@ -41,7 +39,16 @@ export async function run() {
   // "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
   // );
 
-  // setTimeout(async () => {
+  await importScript(
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  );
+
+  await importScript(
+    "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
+  );
+  await importScript(
+    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+  );
 
   const workerDomImport = importScript(
     "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
@@ -50,9 +57,6 @@ export async function run() {
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
-
-  // document.querySelec;
-  // });
 
   (async () => {
     const example = getCodeToLoad();
@@ -189,13 +193,47 @@ export async function run() {
   // dragElement(document.getElementById("root"));
   await workerDomImport;
   async function restartCode(transpileCode: string) {
-    // console.log(transpileCode);
-    const restart = new Function(
-      "transpileCode",
-      `return function(){ 
-        ${transpileCode} 
-    }`,
-    )();
+    const searchRegExp = /import/gi;
+    const replaceWith = "///";
+
+    const code = transpileCode.replaceAll(
+      searchRegExp,
+      replaceWith,
+    ).replace("export default", "const DefaultElement = ");
+    console.log(code);
+    const url = createSourceBlob(code);
+    console.log(url);
+
+    // const restart = new Function(
+    //   "url",
+    //   `return function(){
+
+    const restart = () => {
+      const renderToString = new Function(
+        "code",
+        `return function(){  
+        
+        ${code}
+
+        console.log(DefaultElement);
+      }`,
+      )();
+      renderToString();
+
+      const rootEl = document.getElementById("main-root");
+      rootEl.setAttribute("src", url);
+      // rootEl.src = "./eeee.js";
+      console.log(rootEl);
+
+      MainThread.upgradeElement(
+        rootEl,
+        "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
+      );
+    };
+
+    //     import(url).then((page)=>ReactDOM.render(page, rootEl));
+    // }`,
+    // )(url);
 
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
@@ -253,23 +291,13 @@ export async function run() {
   }
 
   function transpileCode(code: string) {
-    return (window as unknown as {
-      Babel: {
-        transform: (
-          code: string,
-          options: {
-            plugins: string[];
-            presets: (string | [string, { [key: string]: boolean }])[];
-          },
-        ) => { code: string };
-      };
-    }).Babel.transform(code, {
+    return Babel.transform(code, {
       plugins: [],
       presets: [
         "react",
         ["typescript", { isTSX: true, allExtensions: true }],
       ],
-    }).code.replace(searchRegExp, replaceWith);
+    }).code;
   }
 }
 
@@ -281,4 +309,11 @@ function setQueryStringParameter(name: string, value: string) {
     "",
     decodeURIComponent(`${window.location.pathname}?${params}`),
   );
+}
+
+function createSourceBlob(code) {
+  const blob = new Blob([code], { type: "text/javascript" });
+
+  const url = window.URL.createObjectURL(blob);
+  return url;
 }

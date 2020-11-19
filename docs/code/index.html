@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 
 <head>
@@ -70,6 +70,7 @@
 
 <body>
   <div id="error" class="draggable"></div>
+  <div id="main-root"></div>
  
   <div id="wrap">  
 
@@ -110,11 +111,13 @@
       await swProxy.inc();
     }
 
-    if (navigator.serviceWorker) {
+    if (!window.location.href.includes("zed.dev"))  {
+      if (navigator.serviceWorker) {
       navigator.serviceWorker.addEventListener("controllerchange", initComlink);
       navigator.serviceWorker.register("sw.js");
-      initComlink()
+     initComlink()
     }
+  }
 
 
 // navigator.serviceWorker.getRegistrations().then(function (registrations) {
