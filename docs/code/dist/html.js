@@ -154,11 +154,11 @@ export const version = `7.3.3`; export const html = `<!DOCTYPE html>
 
   const runner = async () => {
     if (window.location.href.includes("zed.dev")) {
-      const { run } = await import("./dist/codeLoader.js");
+      const { run } = await import("/code/dist/codeLoader.js");
       run();
     } else {
       try {
-        const { run } = await import("./dist/codeLoader.min.js");
+        const { run } = await import("/code/dist/codeLoader.min.js");
         run();
       } catch (e) {
         const { run } = await import( "https://unpkg.com/@zedvision/code@7.3.3/dist/codeLoader.min.js" );
