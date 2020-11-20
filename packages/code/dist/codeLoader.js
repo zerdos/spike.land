@@ -475,8 +475,6 @@ export async function run() {
         const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ");
         const restart = async ()=>{
             const renderToString = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n        console.log(DefaultElement);\n                return ReactDOMServer.renderToString(jsx(DefaultElement));\n      }`)();
-            const HTML = renderToString();
-            console.log(HTML);
             const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
             ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
             ).join("\n  ");

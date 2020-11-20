@@ -138,6 +138,7 @@ export async function run() {
             return;
           }
 
+          // document.getElementById("root")!.classList.add("transparent");
           const slices = diff(latestGoodCode, cd, 0);
 
           if (slices.length <= 3) {
@@ -146,6 +147,11 @@ export async function run() {
           }
 
           errorDiv!.innerHTML = err[0].messageText.toString();
+
+          // document.getElementById("root").style.setProperty(
+          //   "dispay",
+          //   "none",
+          // );
 
           errorDiv!.style.display = "block";
           errorReported = cd;
@@ -187,6 +193,8 @@ export async function run() {
   })();
   restartCode(transpileCode(getCodeToLoad()));
 
+  // document.getElementById("root")!.setAttribute("style", "display:block");
+  // dragElement(document.getElementById("root"));
   await workerDomImport;
   async function restartCode(transpileCode: string) {
     const searchRegExp = /import/gi;
@@ -196,7 +204,14 @@ export async function run() {
       searchRegExp,
       replaceWith,
     ).replace("export default", "DefaultElement = ");
-    
+    // console.log(code);/
+    // const url = createJSSourceBlob(code);
+    // console.log(url);
+
+    // const restart = new Function(
+    //   "url",
+    //   `return function(){
+
     const restart = async () => {
       const renderToString = new Function(
         "code",
@@ -208,6 +223,12 @@ export async function run() {
                 return ReactDOMServer.renderToString(jsx(DefaultElement));
       }`,
       )();
+      const HTML = renderToString();
+
+      console.log(HTML);
+
+      // document.getElementById("root").innerHTML = HTML;
+
       const css = Array.from(
         document.querySelector("head > style[data-emotion=css]").sheet
           .cssRules,
@@ -257,7 +278,7 @@ export async function run() {
       //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
       // );
     };
-
+    
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
         if (latestCode !== latestGoodCode) return;
