@@ -174,12 +174,12 @@ export const startMonaco: SmartMonaco = async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@16.9.56/index.d.ts",
+        url: "https://unpkg.com/@types/react@16.14.0/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@16.9.56/global.d.ts",
+        url: "https://unpkg.com/@types/react@16.14.0/global.d.ts",
         depend: [],
       },
       {

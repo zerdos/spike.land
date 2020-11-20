@@ -205,7 +205,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
         const importHelper = [
             {
                 name: "react",
-                url: "https://unpkg.com/@types/react@16.9.56/index.d.ts",
+                url: "https://unpkg.com/@types/react@16.14.0/index.d.ts",
                 depend: [
                     "global",
                     "csstype",
@@ -215,7 +215,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "global",
-                url: "https://unpkg.com/@types/react@16.9.56/global.d.ts",
+                url: "https://unpkg.com/@types/react@16.14.0/global.d.ts",
                 depend: []
             },
             {
