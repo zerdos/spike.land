@@ -33,7 +33,6 @@ async function handleCloudRequest(request) {
                 }
             }
         }
-        return Response.redirect("https://zed.vision/code", 301);
     } else if (request.method === "POST") {
         const myBuffer = await request.data();
         const myDigest = await crypto.subtle.digest({

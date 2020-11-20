@@ -38,7 +38,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
-    return Response.redirect("https://zed.vision/code", 301);
+    //  return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
     const myBuffer = (await request.data());
 
