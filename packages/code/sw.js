@@ -59,13 +59,13 @@ importScripts(
     if (e.request.method === "POST") {
       e.respondWith(
         (async () => {
-          const data = (await e.request.json());
+          const data = (await e.request.text());
           const request = new Request(
             "https://code.zed.vision",
             {
-              body: JSON.stringify(data),
+              body: data,
               method: "POST",
-              headers: { "content-type": "application/json;charset=UTF-8" },
+              headers: { "content-type": "text/html;charset=UTF-8" },
             },
           );
 
