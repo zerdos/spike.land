@@ -71,8 +71,8 @@ const makeDraggable = async ()=>{
                 },
                 style: {
                     backgroundColor: "rgba(198,198,198,0.8)",
-                    fontSize: "1rem",
-                    overflow: "hidden",
+                    fontSize: "14px",
+                    overflowY: "scroll",
                     width: "100%"
                 },
                 html: `<div id="root"></div>`
