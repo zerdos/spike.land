@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@types/react": "16.14.0",
-    "@types/react-dom": "16.9.9",
+    "@types/react-dom": "16.9.10",
     "husky": "4.3.0",
     "lerna": "3.22.1"
   }
