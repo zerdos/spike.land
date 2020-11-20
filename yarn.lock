@@ -5172,10 +5172,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-capture-website@1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/capture-website/-/capture-website-1.2.4.tgz#29f7397ebf24b12e16da39b551cb105cbd8d9dd6"
-  integrity sha512-X9GTHuokApW9w5RcmP4/dMuZzHky35IN8c3nehKk5OxARCg0Cn6u6Ie/OaydGzkdydPDHy3J2I/YnylJRPo+yQ==
+capture-website@1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/capture-website/-/capture-website-1.2.5.tgz#f27fa3b83ab6a13ec7a74fe2c245f122a625d133"
+  integrity sha512-sQn6bf6C62K0o13V1XzTi4/pSQT+7JpAZcuCkIF0nA+rMlKoBeWWDvyyNXzPjmgLiKOD2Q9vfpueFl9rwrqvcw==
   dependencies:
     file-url "^3.0.0"
     puppeteer "^5.3.1"
