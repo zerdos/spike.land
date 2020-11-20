@@ -12,7 +12,7 @@ const Counter = () => {
     body{
         margin: 0;
         height: 100vh;
-        background: khaki	;
+        background: khaki;
       }  
     \`} />
     <div css={\`
