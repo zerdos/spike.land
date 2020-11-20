@@ -43,7 +43,7 @@ const buttonStyles = (color: string) => css\`
   padding: 0.5rem 0;
   margin: 0.5rem 2rem;
   width: 4rem;
-  background: ${color};
+  background: \${color};
   color: white;
   border: none;
   :focus{
