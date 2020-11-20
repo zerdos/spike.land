@@ -269,7 +269,7 @@ export async function run() {
       </body>
       </html>
       `;
-      const iframeBlob = createHTMLSourceBlob(iframe);
+      const iframeBlob = await saveHtml(iframe);
 
       const target = document.getElementsByTagName("iframe").item(0);
 
@@ -392,4 +392,20 @@ function createHTMLSourceBlob(code: string) {
 
   const url = window.URL.createObjectURL(blob);
   return url;
+}
+
+async function saveHtml(code: string) {
+  const request = new Request(
+    "https://code.zed.vision",
+    {
+      body: code,
+      method: "POST",
+      headers: { "content-type": "text/html;charset=UTF-8" },
+    },
+  );
+
+  const response = await fetch(request);
+
+  const { hash } = await response.json();
+  return `https://code.zed.vision/?r=${hash}`;
 }
