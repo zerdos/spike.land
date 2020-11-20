@@ -1,7 +1,7 @@
 export const starter = `/** @jsx jsx */
 
 import {
-  css
+  css, jsx
 } from "@emotion/react";
 
 const Counter = () => {
