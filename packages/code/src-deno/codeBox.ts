@@ -269,7 +269,7 @@ export async function run() {
       </body>
       </html>
       `;
-      const iframeBlob = await saveHtml(iframe);
+      const iframeBlob = await createHTMLSourceBlob(iframe); //    saveHtml(iframe);
 
       const target = document.getElementsByTagName("iframe").item(0);
 

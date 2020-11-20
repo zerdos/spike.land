@@ -34,7 +34,7 @@ async function handleCloudRequest(request) {
             }
         }
     } else if (request.method === "POST") {
-        const myBuffer = await request.body();
+        const myBuffer = await request.arrayBuffer();
         const myDigest = await crypto.subtle.digest({
             name: "SHA-256"
         }, myBuffer);
