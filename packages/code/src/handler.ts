@@ -1,7 +1,7 @@
 var SHATEST: KVNamespace;
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Origin": "https://zed.vision",
   "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
   "Access-Control-Max-Age": "86400",
 };
@@ -38,7 +38,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
-     return Response.redirect("https://zed.vision/code", 301);
+    return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
     const myBuffer = await request.arrayBuffer();
 
@@ -60,7 +60,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     const resp = new Response(`{"hash":"${smallerKey}"}`);
 
-    resp.headers.append("Access-Control-Allow-Origin", "*");
+    resp.headers.append("Access-Control-Allow-Origin", "https://zed.vision");
     resp.headers.append(
       "Access-Control-Allow-Methods",
       "GET,HEAD,POST,OPTIONS",
