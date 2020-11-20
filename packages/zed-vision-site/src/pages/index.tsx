@@ -1,14 +1,14 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
 
-import { Bio } from "../components/bio";
-import { Layout } from "../components/layout";
-import { SEO } from "../components/seo";
-import { rhythm } from "../components/utils/typography";
+import { Bio } from "../components/bio.tsx";
+import { Layout } from "../components/layout.tsx";
+import { SEO } from "../components/seo.tsx";
+import { rhythm } from "../components/utils/typography.ts";
 import styled from "@emotion/styled";
 
 import forkMe from "../../assets/forkMe.png";
-import { registerSW } from "../sw-reg";
+import { registerSW } from "../sw-reg.js";
 
 const StyledLink = styled(Link)`
   box-shadow: "none";
