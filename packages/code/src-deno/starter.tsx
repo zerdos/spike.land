@@ -1,13 +1,19 @@
 export const starter = `/** @jsx jsx */
 
 import {
-  css, jsx
+  css, jsx, Global
 } from "@emotion/react";
 
 const Counter = () => {
   const [clicks, setClicks] = React.useState(0);
 
-  return <div css={containerStyles}>
+  return <>
+  <Global styles={{
+    body: {
+     margin: 0,
+     height: "100vh",
+   background: "khaki	"
+ }}} /><div css={containerStyles}>
   <h1>Counter example</h1>
     <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>
     -
@@ -16,7 +22,8 @@ const Counter = () => {
     <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>
       +
     </button>
-  </div>;
+  </div>
+</>;
 };
 
 const containerStyles = css\`

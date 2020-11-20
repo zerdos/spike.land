@@ -1,4 +1,5 @@
-export const version = `7.5.4`; export const html = `  <!DOCTYPE html>
+export const version = `7.5.4`;
+export const html = `  <!DOCTYPE html>
 <html>
 
 <head>
@@ -178,7 +179,9 @@ export const version = `7.5.4`; export const html = `  <!DOCTYPE html>
   </script>
 </body>
 
-</html>`; export const sw = `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
+</html>`;
+export const sw =
+  `importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts(
   "https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js",
 );
@@ -371,7 +374,7 @@ importScripts(
     }
   });
 })(self);
-`; 
+`;
 export function inject(
   html,
   startKey,
