@@ -219,7 +219,7 @@ export async function run() {
           let DefaultElement;
         
         ${code}
-        console.log(DefaultElement);
+        
                 return ReactDOMServer.renderToString(jsx(DefaultElement));
       }`,
       )();

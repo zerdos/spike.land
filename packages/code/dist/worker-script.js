@@ -1,6 +1,6 @@
 var SHATEST;
 const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": "https://zed.vision",
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };
@@ -45,7 +45,7 @@ async function handleCloudRequest(request) {
         const smallerKey = hash.substring(0, 8);
         await SHATEST.put(smallerKey, myBuffer);
         const resp = new Response(`{"hash":"${smallerKey}"}`);
-        resp.headers.append("Access-Control-Allow-Origin", "*");
+        resp.headers.append("Access-Control-Allow-Origin", "https://zed.vision");
         resp.headers.append("Access-Control-Allow-Methods", "GET,HEAD,POST,OPTIONS");
         resp.headers.append("Access-Control-Max-Age", "86400");
         return resp;
