@@ -225,7 +225,7 @@ export async function run() {
       )();
       const HTML = renderToString();
 
-      console.log(HTML);
+      // console.log(HTML);
 
       // document.getElementById("root").innerHTML = HTML;
 
@@ -278,7 +278,7 @@ export async function run() {
       //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
       // );
     };
-    
+
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
         if (latestCode !== latestGoodCode) return;
