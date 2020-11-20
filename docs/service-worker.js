@@ -114,7 +114,7 @@ define("./service-worker.js",['./workbox-e8da24eb'], function (workbox) { 'use s
     "revision": null
   }, {
     "url": "/render-page.js",
-    "revision": "bebe2a1106243d050e72c9311b4d2658"
+    "revision": "6bfa5691e1073a26dda9bd00caf3d9e4"
   }, {
     "url": "/static/forkMe-1a2bcb7dd2c870c3afe5d50466500c18.png",
     "revision": "1a2bcb7dd2c870c3afe5d50466500c18"

@@ -28,4 +28,5 @@ export const hash = async (input: string | unknown) => {
   }
 };
 
-export const unHash = async (hash: string) => hashTable[hashTable[hash]];
+export const unHash = async (hash: string) =>
+  hashTable[hashTable[hash] as string] as string;
