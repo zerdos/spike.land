@@ -83,7 +83,6 @@ export const html = `<!DOCTYPE html>
 
 <body>
   <div id="error" class="draggable"></div>
-  <div id="root"></div>
   
   <div id="container"></div>
 

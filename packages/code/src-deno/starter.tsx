@@ -1,13 +1,7 @@
-export const starter = `import React from "react";
-import ReactDOM from "react-dom";
-/** @jsx jsx */
-import styled from "@emotion/styled";
-
-const Counter = () => {
-  /** @jsx jsx */
+export const starter = `/** @jsx jsx */
 
 import {
-  css, jsx
+  css
 } from "@emotion/react";
 
 const Counter = () => {
