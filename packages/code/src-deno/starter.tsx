@@ -41,7 +41,6 @@ const Button = styled.button\`
   }
   \`;
 
-const elementToRender = document.getElementById("root");
-ReactDOM.render(<Counter />, elementToRender);
+export default Counter;
 
 `;

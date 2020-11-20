@@ -4,10 +4,13 @@ export const version = `7.5.0`; export const html = `  <!DOCTYPE html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
+  
+  
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+  <!-- <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script> -->
   <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>
-  <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
+  <!-- <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script> -->
+  <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script>
 
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
@@ -135,6 +138,7 @@ export const version = `7.5.0`; export const html = `  <!DOCTYPE html>
     window["styled"] = window["emotionStyled"];
 
     //inject
+
     //inject
 
 
@@ -159,16 +163,24 @@ export const version = `7.5.0`; export const html = `  <!DOCTYPE html>
     if (window.location.href.includes("zed.dev")) {
       const { run } = await import("/code/dist/codeLoader.js");
       run();
-    } else {
-      try {
+      return;
+    }
+
+    if (window.location.href.includes("0.0.0.0")) {
+      const { run } = await import("/dist/codeLoader.js");
+      run();
+      return;
+    }
+
+    try {
         const { run } = await import("/code/dist/codeLoader.min.js");
         run();
       } catch (e) {
         const { run } = await import( "https://unpkg.com/@zedvision/code@7.5.0/dist/codeLoader.min.js" );
         run();
       }
-    }
   }
+  
 
   runner();
   </script>

@@ -1,112 +1,99 @@
-const importScript = async (src)=>document.querySelector(`script[src="${src}"]`) || new Promise(function(resolve, reject) {
-        const s = window.document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        window.document.head.appendChild(s);
-    })
-;
-const makeDraggable = async ()=>{
-    await importScript("https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js");
+const makeDraggable = async (url)=>{
     return new Promise((resolve)=>{
-        setTimeout(()=>{
-            const JSFrame = window["JSFrame"];
-            const jsFrame = new JSFrame({
-                horizontalAlign: "left",
-                verticalAlign: "top"
-            });
-            const frame = jsFrame.create({
-                name: `Win2`,
-                title: `Z`,
-                left: (window.innerWidth - window.innerWidth * 0.7) / 2,
-                top: 20,
-                width: window.innerWidth * 0.7,
-                height: 320,
-                minWidth: 300,
-                minHeight: 200,
-                appearanceName: "material",
-                appearanceParam: {
-                    border: {
-                        shadow: "2px 2px 10px  rgba(0, 0, 0, 0.5)",
-                        width: 0,
-                        radius: 6
-                    },
-                    titleBar: {
-                        color: "white",
-                        background: "#b22",
-                        leftMargin: 40,
-                        height: 30,
-                        fontSize: 20,
-                        buttonWidth: 36,
-                        buttonHeight: 16,
-                        buttonColor: "white",
-                        fontWeight: "bolder",
-                        buttons: [
-                            {
-                                fa: "fas fa-times",
-                                name: "closeButton",
-                                visible: true
-                            },
-                            {
-                                fa: "fas fa-expand-arrows-alt",
-                                name: "maximizeButton",
-                                visible: true
-                            },
-                            {
-                                fa: "fas fa-compress-arrows-alt",
-                                name: "minimizedButton",
-                                visible: false
-                            }, 
-                        ],
-                        buttonsOnLeft: [
-                            {
-                                fa: "fas fa-bars",
-                                name: "menu",
-                                visible: true,
-                                childMenuHTML: '<div class=\"list-group\">' + '  <div name=\"menu1\" class=\"list-group-item list-group-item-action py-2\">Menu Item 01</div>' + '  <div name=\"menu2\" class=\"list-group-item list-group-item-action py-2\">Menu Item 02</div>' + '  <div name=\"menu3\" class=\"list-group-item list-group-item-action py-2\">Menu Item 03</div>' + "</div>",
-                                childMenuWidth: 300
-                            }, 
-                        ]
-                    }
-                },
-                style: {
-                    backgroundColor: "rgba(198,198,198,0.8)",
-                    fontSize: "14px",
-                    overflowY: "scroll",
-                    width: "100%"
-                },
-                html: `<div id="root"></div>`
-            }).show();
-            frame.setControl({
-                maximizeButton: "maximizeButton",
-                demaximizeButton: "restoreButton",
-                minimizeButton: "minimizeButton",
-                deminimizeButton: "deminimizeButton",
-                hideButton: "closeButton",
-                animation: true,
-                animationDuration: 150,
-                maximizeWithoutTitleBar: true,
-                restoreKey: "Escape"
-            });
-            frame.control.on("hid", (frame1, info)=>{
-                frame1.closeFrame();
-            });
-            frame.control.on("maximized", (frame1, info)=>{
-                jsFrame.showToast({
-                    text: 'Press \"ESC\" to minimize.',
-                    align: "center"
-                });
-            });
-            frame.control.on("demaximized", (frame1, info)=>{
-            });
-            frame.on("menu", "click", (_frame, evt, info)=>{
-                const name = evt.target.getAttribute("name");
-                if (name && name.startsWith("menu")) {
-                    alert(name + " clicked");
-                }
-            });
-            resolve();
+        const JSFrame = window["JSFrame"];
+        const jsFrame = new JSFrame({
+            horizontalAlign: "left",
+            verticalAlign: "top"
         });
+        const frame = jsFrame.create({
+            name: `Win2`,
+            title: `Z`,
+            left: (window.innerWidth - window.innerWidth * 0.7) / 2,
+            top: 20,
+            width: window.innerWidth * 0.7,
+            height: 320,
+            minWidth: 300,
+            minHeight: 200,
+            appearanceName: "material",
+            appearanceParam: {
+                border: {
+                    shadow: "2px 2px 10px  rgba(0, 0, 0, 0.5)",
+                    width: 0,
+                    radius: 6
+                },
+                titleBar: {
+                    color: "white",
+                    background: "#b22",
+                    leftMargin: 40,
+                    height: 30,
+                    fontSize: 20,
+                    buttonWidth: 36,
+                    buttonHeight: 16,
+                    buttonColor: "white",
+                    fontWeight: "bolder",
+                    buttons: [
+                        {
+                            fa: "fas fa-times",
+                            name: "closeButton",
+                            visible: true
+                        },
+                        {
+                            fa: "fas fa-expand-arrows-alt",
+                            name: "maximizeButton",
+                            visible: true
+                        },
+                        {
+                            fa: "fas fa-compress-arrows-alt",
+                            name: "minimizedButton",
+                            visible: false
+                        }, 
+                    ],
+                    buttonsOnLeft: [
+                        {
+                            fa: "fas fa-bars",
+                            name: "menu",
+                            visible: true,
+                            childMenuHTML: '<div class=\"list-group\">' + '  <div name=\"menu1\" class=\"list-group-item list-group-item-action py-2\">Menu Item 01</div>' + '  <div name=\"menu2\" class=\"list-group-item list-group-item-action py-2\">Menu Item 02</div>' + '  <div name=\"menu3\" class=\"list-group-item list-group-item-action py-2\">Menu Item 03</div>' + "</div>",
+                            childMenuWidth: 300
+                        }, 
+                    ]
+                }
+            },
+            style: {
+                overflowY: "scroll",
+                width: "100%"
+            },
+            url: url
+        }).show();
+        frame.setControl({
+            maximizeButton: "maximizeButton",
+            demaximizeButton: "restoreButton",
+            minimizeButton: "minimizeButton",
+            deminimizeButton: "deminimizeButton",
+            hideButton: "closeButton",
+            animation: true,
+            animationDuration: 150,
+            maximizeWithoutTitleBar: true,
+            restoreKey: "Escape"
+        });
+        frame.control.on("hid", (frame1, info)=>{
+            frame1.closeFrame();
+        });
+        frame.control.on("maximized", (frame1, info)=>{
+            jsFrame.showToast({
+                text: 'Press \"ESC\" to minimize.',
+                align: "center"
+            });
+        });
+        frame.control.on("demaximized", (frame1, info)=>{
+        });
+        frame.on("menu", "click", (_frame, evt, info)=>{
+            const name = evt.target.getAttribute("name");
+            if (name && name.startsWith("menu")) {
+                alert(name + " clicked");
+            }
+        });
+        resolve();
     });
 };
 const startMonaco = async ({ onChange , code , language  })=>{
@@ -366,7 +353,15 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
-const starter = `import React from "react";\nimport ReactDOM from "react-dom";\n/** @jsx jsx */\nimport styled from "@emotion/styled";\n\nconst Counter = () => {\n  const [clicks, setClicks] = React.useState(0);\n\n  return <Container>\n    <Button css={\`background: green\`} onClick={() => setClicks(clicks - 1)}>\n      -\n    </Button>\n    {clicks}\n    <Button css={\`background: red\`} onClick={() => setClicks(clicks + 1)}>\n      +\n    </Button>\n  </Container>;\n};\n\nconst Container = styled.div\`\n  margin: 2em;\n  display: inline-block;\n  min-width: 200px;\n  background: white;\n  border: 4px dotted red;\n  border-radius: 30px;\n  padding: 1rem;\n\`;\n\nconst Button = styled.button\`\n  text-align: center;\n  display: inline-block;\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nconst elementToRender = document.getElementById("root");\nReactDOM.render(<Counter />, elementToRender);\n\n`;
+const importScript = async (src)=>document.querySelector(`script[src="${src}"]`) || new Promise(function(resolve, reject) {
+        const s = window.document.createElement("script");
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = reject;
+        window.document.head.appendChild(s);
+    })
+;
+const starter = `import React from "react";\nimport ReactDOM from "react-dom";\n/** @jsx jsx */\nimport styled from "@emotion/styled";\n\nconst Counter = () => {\n  const [clicks, setClicks] = React.useState(0);\n\n  return <Container>\n    <Button css={\`background: green\`} onClick={() => setClicks(clicks - 1)}>\n      -\n    </Button>\n    {clicks}\n    <Button css={\`background: red\`} onClick={() => setClicks(clicks + 1)}>\n      +\n    </Button>\n  </Container>;\n};\n\nconst Container = styled.div\`\n  margin: 2em;\n  display: inline-block;\n  min-width: 200px;\n  background: white;\n  border: 4px dotted red;\n  border-radius: 30px;\n  padding: 1rem;\n\`;\n\nconst Button = styled.button\`\n  text-align: center;\n  display: inline-block;\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default Counter;\n\n`;
 const document = window.document;
 let firstLoad = true;
 let busy = 0;
@@ -376,11 +371,10 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
+    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js");
     await importScript("https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js");
     await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
     const workerDomImport = importScript("https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js");
-    await makeDraggable();
     await importScript("https://unpkg.com/@babel/standalone@7.12.6/babel.min.js");
     (async ()=>{
         const example = getCodeToLoad();
@@ -440,14 +434,12 @@ export async function run() {
                     if (errorReported === cd) {
                         return;
                     }
-                    document.getElementById("root").classList.add("transparent");
                     const slices = diff(latestGoodCode, cd, 0);
                     if (slices.length <= 3) {
                         modules.monaco.editor.setTheme("hc-black");
                         return;
                     }
                     errorDiv.innerHTML = err[0].messageText.toString();
-                    document.getElementById("root").style.setProperty("dispay", "none");
                     errorDiv.style.display = "block";
                     errorReported = cd;
                     modules.monaco.editor.setTheme("vs-light");
@@ -459,7 +451,6 @@ export async function run() {
                 latestGoodCode = cd;
                 errorDiv.style.display = "none";
                 modules.monaco.editor.setTheme("vs-dark");
-                document.getElementById("root").classList.remove("transparent");
                 keystrokeTillNoError = 0;
                 busy = 0;
                 restartCode(transpileCode(cd));
@@ -477,22 +468,27 @@ export async function run() {
         }
     })();
     restartCode(transpileCode(getCodeToLoad()));
-    document.getElementById("root").setAttribute("style", "display:block");
     await workerDomImport;
     async function restartCode(transpileCode) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "const DefaultElement = ");
-        console.log(code);
-        const url = createSourceBlob(code);
-        console.log(url);
-        const restart = ()=>{
-            const renderToString = new Function("code", `return function(){  \n        \n        ${code}\n\n        console.log(DefaultElement);\n      }`)();
-            renderToString();
-            const rootEl = document.getElementById("main-root");
-            rootEl.setAttribute("src", url);
-            console.log(rootEl);
-            MainThread.upgradeElement(rootEl, "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js");
+        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ");
+        const restart = async ()=>{
+            const renderToString = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n        console.log(DefaultElement);\n                return ReactDOMServer.renderToString(jsx(DefaultElement));\n      }`)();
+            const HTML = renderToString();
+            console.log(HTML);
+            const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
+            ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
+            ).join("\n  ");
+            console.log(css);
+            const iframe = `<!DOCTYPE html>\n      <html lang="en">\n      <head>\n      <style>\n      html{\n        background: white;\n      }\n      ${css}\n      </style>\n      </head>\n      <body>\n      ${HTML}\n      </body>\n      </html>\n      `;
+            const iframeBlob = createHTMLSourceBlob(iframe);
+            const target = document.getElementsByTagName("iframe").item(0);
+            if (target) {
+                target.setAttribute("src", iframeBlob);
+            } else {
+                await makeDraggable(iframeBlob);
+            }
         };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
@@ -559,11 +555,11 @@ function setQueryStringParameter(name, value) {
     window.history.replaceState({
     }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
 }
-function createSourceBlob(code) {
+function createHTMLSourceBlob(code) {
     const blob = new Blob([
         code
     ], {
-        type: "text/javascript"
+        type: "text/html"
     });
     const url = window.URL.createObjectURL(blob);
     return url;

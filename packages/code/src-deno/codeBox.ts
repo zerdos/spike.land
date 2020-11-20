@@ -39,8 +39,12 @@ export async function run() {
   // "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
   // );
 
+  // await importScript(
+  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  // );
+
   await importScript(
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
   );
 
   await importScript(
@@ -53,7 +57,7 @@ export async function run() {
   const workerDomImport = importScript(
     "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   );
-  await makeDraggable();
+
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.6/babel.min.js",
   );
@@ -134,7 +138,6 @@ export async function run() {
             return;
           }
 
-          document.getElementById("root")!.classList.add("transparent");
           const slices = diff(latestGoodCode, cd, 0);
 
           if (slices.length <= 3) {
@@ -143,11 +146,6 @@ export async function run() {
           }
 
           errorDiv!.innerHTML = err[0].messageText.toString();
-
-          document.getElementById("root").style.setProperty(
-            "dispay",
-            "none",
-          );
 
           errorDiv!.style.display = "block";
           errorReported = cd;
@@ -166,7 +164,7 @@ export async function run() {
 
         modules.monaco.editor.setTheme("vs-dark");
 
-        document.getElementById("root").classList.remove("transparent");
+        // document.getElementById("root").classList.remove("transparent");
         keystrokeTillNoError = 0;
 
         busy = 0;
@@ -189,8 +187,6 @@ export async function run() {
   })();
   restartCode(transpileCode(getCodeToLoad()));
 
-  document.getElementById("root")!.setAttribute("style", "display:block");
-  // dragElement(document.getElementById("root"));
   await workerDomImport;
   async function restartCode(transpileCode: string) {
     const searchRegExp = /import/gi;
@@ -199,41 +195,68 @@ export async function run() {
     const code = transpileCode.replaceAll(
       searchRegExp,
       replaceWith,
-    ).replace("export default", "const DefaultElement = ");
-    console.log(code);
-    const url = createSourceBlob(code);
-    console.log(url);
-
-    // const restart = new Function(
-    //   "url",
-    //   `return function(){
-
-    const restart = () => {
+    ).replace("export default", "DefaultElement = ");
+    
+    const restart = async () => {
       const renderToString = new Function(
         "code",
         `return function(){  
+          let DefaultElement;
         
         ${code}
-
         console.log(DefaultElement);
+                return ReactDOMServer.renderToString(jsx(DefaultElement));
       }`,
       )();
-      renderToString();
+      const css = Array.from(
+        document.querySelector("head > style[data-emotion=css]").sheet
+          .cssRules,
+      ).map((x: any) => x.cssText).filter((cssRule) =>
+        HTML.includes(cssRule.substring(3, 8))
+      ).join("\n  ");
 
-      const rootEl = document.getElementById("main-root");
-      rootEl.setAttribute("src", url);
+      console.log(css);
+
+      const iframe = `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <style>
+      html{
+        background: white;
+      }
+      ${css}
+      </style>
+      </head>
+      <body>
+      ${HTML}
+      </body>
+      </html>
+      `;
+      const iframeBlob = createHTMLSourceBlob(iframe);
+
+      const target = document.getElementsByTagName("iframe").item(0);
+
+      if (target) {
+        target.setAttribute(
+          "src",
+          iframeBlob,
+        );
+      } else {
+        await makeDraggable(iframeBlob);
+      }
+
+      // document.getElementById("root").innerHTML = "";
+
+      // const rootEl = document.getElementById("main-root");
+      // rootEl.setAttribute("src", url);
       // rootEl.src = "./eeee.js";
-      console.log(rootEl);
+      // console.log(rootEl);
 
-      MainThread.upgradeElement(
-        rootEl,
-        "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
-      );
+      // MainThread.upgradeElement(
+      //   rootEl,
+      //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
+      // );
     };
-
-    //     import(url).then((page)=>ReactDOM.render(page, rootEl));
-    // }`,
-    // )(url);
 
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
@@ -311,8 +334,15 @@ function setQueryStringParameter(name: string, value: string) {
   );
 }
 
-function createSourceBlob(code) {
+function createJSSourceBlob(code: string) {
   const blob = new Blob([code], { type: "text/javascript" });
+
+  const url = window.URL.createObjectURL(blob);
+  return url;
+}
+
+function createHTMLSourceBlob(code: string) {
+  const blob = new Blob([code], { type: "text/html" });
 
   const url = window.URL.createObjectURL(blob);
   return url;
