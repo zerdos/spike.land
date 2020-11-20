@@ -59,7 +59,7 @@ importScripts(
     if (e.request.method === "POST") {
       e.respondWith(
         (async () => {
-          const data = (await e.request.text());
+          const data = (await e.request.body());
           const request = new Request(
             "https://code.zed.vision",
             {
