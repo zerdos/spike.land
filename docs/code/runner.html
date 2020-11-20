@@ -29,32 +29,6 @@
 </head>
 
 <body>
-    <div id="root">"<div class="css-1mgh2zg"><button class="css-1avoz39">-</button>0<button class="css-ysgjgi">+</button>ssslsl</div></div>
-    <script module="true">
-
-        Object.assign(window, emotionReact);
-        const styled = emotionStyled;
-
-
-        const Counter = () => {
-            const [clicks, setClicks] = React.useState(0);
-            return jsx(Container, null, jsx(Button, {
-                css: `background: green`,
-                onClick: () => setClicks(clicks - 1)
-            }, "-"), clicks, jsx(Button, { css: `background: red`, onClick: () => setClicks(clicks + 1) }, "+"), "ssslsl");
-
-
-        }; const Container = styled.div`  margin: 2em;  max-width: 400px;  background: white; border: 6px solid grey;  border-radius: 20px; padding: 1rem;`; const Button = styled.button`  text-align: center;  display: inline-block;  border-radius: 6px; padding: 0.5rem 0; margin: 0.5rem 1rem; width: 3rem; color: white; border: none; :focus{   outline: none;  } `;
-         const elementToRender = document.getElementById("root"); 
-        
-         ReactDOMServer.renderToString(jsx(Counter, null))
-        setTimeout(()=>{
-            ReactDOM.render(jsx(Counter, null), elementToRender);
-        },10009);
-
-    </script>
-    <!-- your content will go there..  -->
-
 </body>
 
 </html>
