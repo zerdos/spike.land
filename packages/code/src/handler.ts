@@ -40,7 +40,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     //  return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
-    const myBuffer = (await request.body());
+    const myBuffer = await request.arrayBuffer()
 
     const myDigest = await crypto!.subtle.digest(
       {
