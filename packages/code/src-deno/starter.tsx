@@ -4,20 +4,28 @@ import ReactDOM from "react-dom";
 import styled from "@emotion/styled";
 
 const Counter = () => {
+  /** @jsx jsx */
+
+import {
+  css, jsx
+} from "@emotion/react";
+
+const Counter = () => {
   const [clicks, setClicks] = React.useState(0);
 
-  return <Container>
-    <Button css={\`background: green\`} onClick={() => setClicks(clicks - 1)}>
-      -
-    </Button>
+  return <div css={containerStyles}>
+  <h1>Counter example</h1>
+    <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>
+    -
+    </button>
     {clicks}
-    <Button css={\`background: red\`} onClick={() => setClicks(clicks + 1)}>
+    <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>
       +
-    </Button>
-  </Container>;
+    </button>
+  </div>;
 };
 
-const Container = styled.div\`
+const containerStyles = css\`
   margin: 2em;
   display: inline-block;
   min-width: 200px;
@@ -27,13 +35,15 @@ const Container = styled.div\`
   padding: 1rem;
 \`;
 
-const Button = styled.button\`
+
+const buttonStyles = (color: string) => css\`
   text-align: center;
   display: inline-block;
   border-radius: 6px;
   padding: 0.5rem 0;
   margin: 0.5rem 2rem;
   width: 4rem;
+  background: ${color};
   color: white;
   border: none;
   :focus{
