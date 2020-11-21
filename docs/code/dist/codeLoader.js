@@ -7,7 +7,7 @@ const makeDraggable = async (url)=>{
         });
         const frame = jsFrame.create({
             name: `Win2`,
-            title: `Z`,
+            title: `Z <b> Hello </b>`,
             left: (window.innerWidth - window.innerWidth * 0.7) / 2,
             top: 20,
             width: window.innerWidth * 0.7,
@@ -40,6 +40,7 @@ const makeDraggable = async (url)=>{
                         {
                             fa: "fas fa-expand-arrows-alt",
                             name: "maximizeButton",
+                            html: "<b>hello</b>",
                             visible: true
                         },
                         {
@@ -309,7 +310,16 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 name: "@emotion/utils/index.d.ts",
                 url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
                 depend: []
-            }, 
+            },
+            {
+                name: "framer-motion",
+                url: "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.d.ts",
+                depend: []
+            },
+            {
+                name: "popmotion",
+                url: "https://unpkg.com/browse/popmotion@9.0.0/lib/index.d.ts"
+            }
         ];
         const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
             )()
@@ -371,6 +381,8 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
+    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
+    await importScript("https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
     (async ()=>{
         const example = getCodeToLoad();
@@ -477,7 +489,13 @@ export async function run() {
                 const last = firstBit.indexOf("}");
                 bodyStylesFix = firstBit.slice(0, last + 1);
             }
-            const iframe = `<!DOCTYPE html>\n      <html lang="en">\n      <head>\n      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n      <style>\n      ${bodyStylesFix}\n      ${css}\n      </style>\n      </head>\n      <body>\n      <div id="root">\n      ${HTML}\n      </div>\n      <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n      <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n      <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n      <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n      <script type="module">\n      Object.assign(window, emotionReact);\n\n     const styled = window["emotionStyled"];\n\n      let DefaultElement;\n        \n      ${code}\n\n      ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n      </script>\n      </body>\n      </html>\n      `;
+            let motionDep;
+            let motionScript;
+            if (code.includes("framer-motion")) {
+                motionDep = "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js";
+                motionScript = "const {motion} = Motion";
+            }
+            const iframe = `<!DOCTYPE html>\n      <html lang="en">\n      <head>\n      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n      <style>\n      ${bodyStylesFix}\n      ${css}\n      </style>\n      </head>\n      <body>\n      <div id="root">\n      ${HTML}\n      </div>\n      <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n      ${motionDep}\n      <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n      <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n      <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n      <script type="module">\n      Object.assign(window, emotionReact);\n\n     const styled = window["emotionStyled"];\n\n      let DefaultElement;\n        \n      ${code}\n\n      ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n      </script>\n      </body>\n      </html>\n      `;
             const iframeBlob = await createHTMLSourceBlob(iframe);
             const target = document.getElementsByTagName("iframe").item(0);
             if (target) {
@@ -538,22 +556,6 @@ export async function run() {
         const h = search.get("h") || localStorage.getItem("codeBoXHash");
         return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || starter;
     }
-    function transpileCode(code) {
-        const { transform  } = window["Babel"];
-        return transform(code, {
-            plugins: [],
-            presets: [
-                "react",
-                [
-                    "typescript",
-                    {
-                        isTSX: true,
-                        allExtensions: true
-                    }
-                ], 
-            ]
-        }).code;
-    }
 }
 function setQueryStringParameter(name, value) {
     const params = new URLSearchParams(window.location.search);
@@ -569,5 +571,21 @@ function createHTMLSourceBlob(code) {
     });
     const url = window.URL.createObjectURL(blob);
     return url;
+}
+function transpileCode(code) {
+    const { transform  } = window["Babel"];
+    return transform(code, {
+        plugins: [],
+        presets: [
+            "react",
+            [
+                "typescript",
+                {
+                    isTSX: true,
+                    allExtensions: true
+                }
+            ], 
+        ]
+    }).code;
 }
 

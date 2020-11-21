@@ -211,7 +211,16 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 name: "@emotion/utils/index.d.ts",
                 url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
                 depend: []
-            }, 
+            },
+            {
+                name: "framer-motion",
+                url: "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.d.ts",
+                depend: []
+            },
+            {
+                name: "popmotion",
+                url: "https://unpkg.com/browse/popmotion@9.0.0/lib/index.d.ts"
+            }
         ];
         const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
             )()

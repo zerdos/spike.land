@@ -49,9 +49,9 @@ export async function run() {
   // "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
   // );
 
-  // await importScript(
-  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
-  // );
+  await importScript(
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  );
 
   // await importScript(
   //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
@@ -60,9 +60,9 @@ export async function run() {
   // await importScript(
   //   "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
   // );
-  // await importScript(
-  //   "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
-  // );
+  await importScript(
+    "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js",
+  );
 
   // const workerDomImport = importScript(
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
@@ -71,6 +71,39 @@ export async function run() {
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
   );
+
+  // const motion = Motion.motion;
+
+  // const MyMotion = () =>
+  //   /*#__PURE__*/ React.createElement(motion.div, {
+  //     style: {
+  //       dispay: "block",
+  //       backround: "red",
+  //       width: 300,
+  //       height: 300,
+  //     },
+  //     drag: true,
+  //     layout: true,
+  //     animate: {
+  //       scale: 2,
+  //     },
+  //   }, React.createElement("iframe", null));
+
+  // const myRoot = document.getElementById("main-root");
+  // ReactDOM.render(
+  //   React.createElement(MyMotion, {}),
+  //   myRoot,
+  // );
+
+  // document.body.appendChild(myRoot);
+
+  // const code = transpileCode(
+  //   `
+  //   const motion = Motion.motion;
+  //   const myMotion = ()=><motion.div drag layout animate ={{scale: 2}} ></motion.div>`,
+  // );
+
+  // console.log(code);
 
   (async () => {
     const example = getCodeToLoad();
@@ -257,6 +290,15 @@ export async function run() {
         bodyStylesFix = firstBit.slice(0, last + 1);
       }
 
+      let motionDep;
+      let motionScript;
+      if (code.includes("framer-motion")) {
+        motionDep =
+          "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js";
+
+        motionScript = "const {motion} = Motion";
+      }
+
       const iframe = `<!DOCTYPE html>
       <html lang="en">
       <head>
@@ -271,6 +313,7 @@ export async function run() {
       ${HTML}
       </div>
       <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
+      ${motionDep}
       <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
       <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>
       <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
@@ -377,17 +420,6 @@ export async function run() {
     return (h && window.localStorage.getItem(h)) ||
       window.localStorage.getItem("STARTER") || starter;
   }
-
-  function transpileCode(code: string) {
-    const { transform } = (window as unknown as { Babel: Babel })["Babel"];
-    return transform(code, {
-      plugins: [],
-      presets: [
-        "react",
-        ["typescript", { isTSX: true, allExtensions: true }],
-      ],
-    }).code;
-  }
 }
 
 function setQueryStringParameter(name: string, value: string) {
@@ -428,4 +460,15 @@ async function saveHtml(code: string) {
 
   const { hash } = await response.json();
   return `https://code.zed.vision/?r=${hash}`;
+}
+
+function transpileCode(code: string) {
+  const { transform } = (window as unknown as { Babel: Babel })["Babel"];
+  return transform(code, {
+    plugins: [],
+    presets: [
+      "react",
+      ["typescript", { isTSX: true, allExtensions: true }],
+    ],
+  }).code;
 }

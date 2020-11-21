@@ -32,7 +32,6 @@ const version = `7.6.3`; const html = `  <!DOCTYPE html>
     }
 
 
-
     #wrap {
       resize: vertical;
       overflow: auto;
@@ -62,7 +61,7 @@ const version = `7.6.3`; const html = `  <!DOCTYPE html>
 </head>
 
 <body>
-  <div id="error" class="draggable"></div>
+  <div id="error"></div>
   <div id="main-root"></div>
  
   <div id="wrap">  
