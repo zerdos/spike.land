@@ -1,4 +1,4 @@
-import { hash, unHash } from "./sha";
+import { hash, unHash } from "./sha.ts";
 
 const cache = {};
 

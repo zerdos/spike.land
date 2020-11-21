@@ -24,7 +24,7 @@ export const startMonaco: SmartMonaco = async (
   }
   const modelUri = language === "typescript"
     ? "https://zed.vision/code/?h=main.tsx"
-    : "https://zed.vision/code/?h=main.tsxmain.html";
+    : "https://zed.vision/code/?h=main.html";
 
   let aceEditor: AceAjax.Ace;
   if (
