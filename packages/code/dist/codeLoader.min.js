@@ -18,17 +18,18 @@ const Counter = () => {
       }  
     \`} />
     <motion.div 
-        animate={{scale: 1}}
-        initial={{scale: 0.7}} 
-        transition={{duration: 0.5}} 
-        css={\`
-        margin: 2rem;
-        display: inline-block;
-        min-width: 200px;
-        background: white;
-        border: 4px dotted red;
-        border-radius: 30px;
-        padding: 2rem;
+      animate={{scale: 1}}
+      initial={{scale: 0.7}} 
+      transition={{duration: 0.5}} 
+      drag
+      css={\`
+      margin: 2rem;
+      display: inline-block;
+      min-width: 200px;
+      background: white;
+      border: 4px dotted red;
+      border-radius: 30px;
+      padding: 2rem;
       \`}>
       <h1>Counter example</h1>
       <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>
