@@ -1,101 +1,3 @@
-const makeDraggable = async (url)=>{
-    return new Promise((resolve)=>{
-        const JSFrame = window["JSFrame"];
-        const jsFrame = new JSFrame({
-            horizontalAlign: "left",
-            verticalAlign: "top"
-        });
-        const frame = jsFrame.create({
-            name: `Win2`,
-            title: `Z`,
-            left: (window.innerWidth - 460) / 2,
-            top: 20,
-            width: 460,
-            height: 320,
-            minWidth: 300,
-            minHeight: 200,
-            appearanceName: "material",
-            appearanceParam: {
-                border: {
-                    shadow: "2px 2px 10px  rgba(0, 0, 0, 0.5)",
-                    width: 0,
-                    radius: 6
-                },
-                titleBar: {
-                    color: "white",
-                    background: "#b22",
-                    leftMargin: 40,
-                    height: 30,
-                    fontSize: 20,
-                    buttonWidth: 36,
-                    buttonHeight: 16,
-                    buttonColor: "white",
-                    fontWeight: "bolder",
-                    buttons: [
-                        {
-                            fa: "fas fa-times",
-                            name: "closeButton",
-                            visible: true
-                        },
-                        {
-                            fa: "fas fa-expand-arrows-alt",
-                            name: "maximizeButton",
-                            visible: true
-                        },
-                        {
-                            fa: "fas fa-compress-arrows-alt",
-                            name: "minimizedButton",
-                            visible: false
-                        }, 
-                    ],
-                    buttonsOnLeft: [
-                        {
-                            fa: "fas fa-bars",
-                            name: "menu",
-                            visible: true,
-                            childMenuHTML: '<div class=\"list-group\">' + '  <div name=\"menu1\" class=\"list-group-item list-group-item-action py-2\">Menu Item 01</div>' + '  <div name=\"menu2\" class=\"list-group-item list-group-item-action py-2\">Menu Item 02</div>' + '  <div name=\"menu3\" class=\"list-group-item list-group-item-action py-2\">Menu Item 03</div>' + "</div>",
-                            childMenuWidth: 300
-                        }, 
-                    ]
-                }
-            },
-            style: {
-                overflowY: "scroll",
-                width: "100%"
-            },
-            url: url
-        }).show();
-        frame.setControl({
-            maximizeButton: "maximizeButton",
-            demaximizeButton: "restoreButton",
-            minimizeButton: "minimizeButton",
-            deminimizeButton: "deminimizeButton",
-            hideButton: "closeButton",
-            animation: true,
-            animationDuration: 150,
-            maximizeWithoutTitleBar: true,
-            restoreKey: "Escape"
-        });
-        frame.control.on("hid", (frame1, info)=>{
-            frame1.closeFrame();
-        });
-        frame.control.on("maximized", (frame1, info)=>{
-            jsFrame.showToast({
-                text: 'Press \"ESC\" to minimize.',
-                align: "center"
-            });
-        });
-        frame.control.on("demaximized", (frame1, info)=>{
-        });
-        frame.on("menu", "click", (_frame, evt, info)=>{
-            const name = evt.target.getAttribute("name");
-            if (name && name.startsWith("menu")) {
-                alert(name + " clicked");
-            }
-        });
-        resolve();
-    });
-};
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -474,39 +376,8 @@ export async function run() {
         const replaceWith = "///";
         const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ").replace(`"framer-motion"`, `\n    Object.assign(window, React);\n    const {motion} = Motion;\n    `);
         const restart = async ()=>{
-            const renderToString = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOMServer.renderToString(jsx(DefaultElement));\n      }`)();
-            const HTML = renderToString();
-            const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
-            ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
-            ).join("\n  ");
-            let bodyStylesFix;
-            if (code.includes("body{")) {
-                const start = code.indexOf("body{");
-                const firstBit = code.slice(start);
-                const last = firstBit.indexOf("}");
-                bodyStylesFix = firstBit.slice(0, last + 1);
-            }
-            let motionDep = "";
-            let motionScript = "";
-            if (code.includes("Motion")) {
-                motionDep = `<script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>`;
-                motionScript = "const {motion} = Motion";
-            }
-            const iframe = `<!DOCTYPE html>\n      <html lang="en">\n      <head>\n      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n      <style>\n      ${bodyStylesFix}\n      ${css}\n      </style>\n      </head>\n      <body>\n      <div id="root">\n      ${HTML}\n      </div>\n      <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n      ${motionDep}\n      <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n      <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n      <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n      <script type="module">\n      Object.assign(window, emotionReact);\n\n     const styled = window["emotionStyled"];\n\n      let DefaultElement;\n        \n      ${code}\n\n      ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n      </script>\n      </body>\n      </html>\n      `;
-            const iframeBlob = await createHTMLSourceBlob(iframe);
-            const target = document.getElementsByTagName("iframe").item(0);
-            if (target) {
-                const cloned = document.createElement("iframe");
-                cloned.setAttribute("src", iframeBlob);
-                setTimeout(()=>{
-                    window.requestAnimationFrame(()=>{
-                        target.setAttribute("src", iframeBlob);
-                        cloned.remove();
-                    });
-                });
-            } else {
-                await makeDraggable(iframeBlob);
-            }
+            const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.hydrate(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
+            hydrate();
         };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
@@ -559,15 +430,6 @@ function setQueryStringParameter(name, value) {
     params.set(name, value);
     window.history.replaceState({
     }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
-}
-function createHTMLSourceBlob(code) {
-    const blob = new Blob([
-        code
-    ], {
-        type: "text/html"
-    });
-    const url = window.URL.createObjectURL(blob);
-    return url;
 }
 function transpileCode(code) {
     const { transform  } = window["Babel"];

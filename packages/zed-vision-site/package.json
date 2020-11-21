@@ -2,7 +2,7 @@
   "name": "@zed-vision/zed-vision-site",
   "scripts": {
     "build": "yarn clean && deno fmt src && gatsby clean && gatsby build",
-    "start-https": "yarn gatsby develop",
+  "start-https": "yarn gatsby develop",
     "start": "yarn gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean"

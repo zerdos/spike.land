@@ -8,7 +8,7 @@ const version = `7.6.7`; const html = `  <!DOCTYPE html>
   
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
-  <!-- <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script> -->
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script>
@@ -20,10 +20,7 @@ const version = `7.6.7`; const html = `  <!DOCTYPE html>
   <style>
 
 
-    body{
-      overflow: scroll;
-    }
-
+    
     #container,  #ace {
       background-color: #1e1e1e;
       width: 100%;
@@ -54,6 +51,8 @@ const version = `7.6.7`; const html = `  <!DOCTYPE html>
 </head>
 
 <body>
+  <div id="root"></div>
+  <div id="error"></div>
   <div id="container"></div>
   <div id="ace"></div>
   <script type="module">
