@@ -40,8 +40,7 @@ const version = `7.6.7`; const html = `  <!DOCTYPE html>
 
     #root {
       position: absolute;
-      background-color: red;
-      opacity: 0.7;
+      z-index: 900;
     }
 
 
