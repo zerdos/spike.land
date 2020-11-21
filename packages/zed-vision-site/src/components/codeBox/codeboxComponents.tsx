@@ -134,8 +134,7 @@ export const ResultComponent: React.FC<
       //     (indexMaxY * (e.layerY + 220)) / 200,
       //   );
       //   // console.log(event.layerY, newIndexY );
-      //   if (newIndexY < 0) {
-      //     newIndexY = 0;
+      //   if (newIndexc0 = 0;
       //   }
       //   if (newIndexY >= indexMaxY) {
       //     newIndexY = indexMaxY - 1;

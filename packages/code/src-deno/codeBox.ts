@@ -253,6 +253,8 @@ export async function run() {
     ).replace("export default", "DefaultElement = ").replace(
       `"framer-motion"`,
       `
+    /** @jsx jsx */
+    Object.assign(window, React);
     const {motion} = Motion;
     `,
     );

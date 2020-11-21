@@ -1,13 +1,11 @@
-export const starter = `/** @jsx jsx */
-
+export const starter = `import {motion} from "framer-motion";
+import {useState} from "react";
 import {
-  css, jsx, Global
+  css, Global
 } from "@emotion/react";
 
-import {motion} from "framer-motion";
-
 const Counter = () => {
-  const [clicks, setClicks] = React.useState(0);
+  const [clicks, setClicks] = useState(0);
 
   return <>
     <Global styles={css\`
