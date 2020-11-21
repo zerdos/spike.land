@@ -1,6 +1,6 @@
 import * as React from "react";
 import "@ampproject/worker-dom/dist/main";
-import { unHash } from "../utils/sha";
+import { unHash } from "../utils/sha.ts";
 
 export const WorkerBox: React.FC<
   {
@@ -37,10 +37,10 @@ export const WorkerBox: React.FC<
 
 async function createSourceBlob(codeToRun: any) {
   const react = await fetch(
-    "https://unpkg.com/react@16.14.0/cjs/react.production.min.js",
+    "https://unpkg.com/react@17.0.1/cjs/react.production.min.js",
   );
   const react_dom = await fetch(
-    "https://unpkg.com/react-dom@16.14.0/cjs/react-dom.production.min.js",
+    "https://unpkg.com/react-dom@17.0.1/cjs/react-dom.production.min.js",
   );
   const reactTEXT = await react.text();
   const reactDOM = await react_dom.text();

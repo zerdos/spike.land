@@ -1,4 +1,4 @@
-export interface Babel {
+declare interface Babel {
   transform: (
     code: string,
     options: {

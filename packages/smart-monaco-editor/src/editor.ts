@@ -189,7 +189,7 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "react-dom",
-        url: "https://unpkg.com/@types/react-dom@16.9.9/index.d.ts",
+        url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
         depend: [],
       },
       {
@@ -227,7 +227,6 @@ export const startMonaco: SmartMonaco = async (
         url: "https://unpkg.com/@emotion/react@11.1.1/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
-
       {
         name: "@emotion/react/helper.d.ts",
         url: "https://unpkg.com/@emotion/react@11.1.1/types/helper.d.ts",

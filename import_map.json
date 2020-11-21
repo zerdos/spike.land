@@ -1,6 +1,6 @@
 {
     "imports": {
-       "react": "https://unpkg.com/react@17/umd/react.production.min.js",
+       "react": "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
        "@emotion/react": "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
       "typography-theme-wordpress-2016": "https://unpkg.com/typography-theme-wordpress-2016@0.16.19/dist/index.js",
       "typography": "https://unpkg.com/typography@0.16.19/dist/index.js",
@@ -9,7 +9,9 @@
       "./jsx-namespace": "https://unpkg.com/@emotion/react@11.1.1/types/jsx-namespace.d.ts",
       "https://unpkg.com/@emotion/react@11.1.1/types/index": "https://unpkg.com/@emotion/react@11.1.1/types/index.d.ts",
       "@zedvision/smart-monaco-editor" :"https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js",
-      "framer-motion": "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"
+      "framer-motion": "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js",
+      "@ampproject/worker-dom/dist/main": "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
+      "react-dom/server": "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"
     
       }
  }

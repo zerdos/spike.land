@@ -127,7 +127,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "react-dom",
-                url: "https://unpkg.com/@types/react-dom@16.9.9/index.d.ts",
+                url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
                 depend: []
             },
             {

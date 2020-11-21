@@ -225,7 +225,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "react-dom",
-                url: "https://unpkg.com/@types/react-dom@16.9.9/index.d.ts",
+                url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
                 depend: []
             },
             {
@@ -486,14 +486,12 @@ export async function run() {
             if (target) {
                 const cloned = document.createElement("iframe");
                 cloned.setAttribute("src", iframeBlob);
-                cloned.onload = ()=>console.log("Loooooooaaaded")
-                ;
                 setTimeout(()=>{
                     window.requestAnimationFrame(()=>{
                         target.setAttribute("src", iframeBlob);
                         cloned.remove();
                     });
-                }, 30);
+                });
             } else {
                 await makeDraggable(iframeBlob);
             }
@@ -542,7 +540,8 @@ export async function run() {
         return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || starter;
     }
     function transpileCode(code) {
-        return Babel.transform(code, {
+        const Babel = window;
+        return window.transform(code, {
             plugins: [],
             presets: [
                 "react",

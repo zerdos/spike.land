@@ -277,7 +277,6 @@ export async function run() {
       if (target) {
         const cloned = document.createElement("iframe");
         cloned.setAttribute("src", iframeBlob);
-        cloned.onload = () => console.log("Loooooooaaaded");
 
         setTimeout(() => {
           window.requestAnimationFrame(() => {
@@ -287,7 +286,7 @@ export async function run() {
             );
             cloned.remove();
           });
-        }, 30);
+        });
       } else {
         await makeDraggable(iframeBlob);
       }
@@ -361,6 +360,7 @@ export async function run() {
   }
 
   function transpileCode(code: string) {
+    const Babel = window as unknown as { Babel: Babel }["Babel"];
     return Babel.transform(code, {
       plugins: [],
       presets: [

@@ -60,21 +60,26 @@ importScripts(
       e.respondWith(
         (async () => {
           const data = (await e.request.arrayBuffer());
-          const request = new Request(
-            "https://code.zed.vision",
-            {
-              body: data,
-              method: "POST",
-              headers: { "content-type": "text/html;charset=UTF-8" },
-            },
-          );
 
-          fetch(request)
-            .then((response) => response.json())
-            .then((data) => console.log("SERVER HASH: " + JSON.stringify(data)))
-            .catch(function failureCallback(error) {
-              console.error("Error generating audio file: " + error);
-            });
+          if (location.origin.includes("zed.vision")) {
+            const request = new Request(
+              "https://code.zed.vision",
+              {
+                body: data,
+                method: "POST",
+                headers: { "content-type": "text/html;charset=UTF-8" },
+              },
+            );
+
+            fetch(request)
+              .then((response) => response.json())
+              .then((data) =>
+                console.log("SERVER HASH: " + JSON.stringify(data))
+              )
+              .catch(function failureCallback(error) {
+                console.error("Error" + error);
+              });
+          }
 
           const myBuffer = new TextEncoder().encode(JSON.stringify(data));
 
