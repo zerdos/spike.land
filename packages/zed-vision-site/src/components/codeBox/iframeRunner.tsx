@@ -1,6 +1,6 @@
 import * as React from "react";
-import { unHash } from "../utils/sha";
-import { ITransformed } from "./codeboxComponents";
+import { unHash } from "../utils/sha.ts";
+import { ITransformed } from "./codeboxComponents.tsx";
 
 export const IframeRunner: React.FC<
   {
