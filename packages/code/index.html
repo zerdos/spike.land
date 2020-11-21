@@ -23,6 +23,7 @@
     body{
       overflow: scroll;
     }
+
     #container,  #ace {
       background-color: #1e1e1e;
       width: 100%;
@@ -33,16 +34,6 @@
       display: none;
     }
 
-
-    #wrap {
-      resize: vertical;
-      overflow: auto;
-      display: block;
-      width: 100%;
-      height: 380px;
-      text-align: center;
-      background-color: dimgray;
-    }
 
     #error {
       display: none;
@@ -63,20 +54,8 @@
 </head>
 
 <body>
-  <div id="error"></div>
-  <div id="main-root"></div>
- 
-  <div id="wrap">  
-
-
-  </div>
-
-
-
   <div id="container"></div>
-
   <div id="ace"></div>
-
   <script type="module">
     import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
 
