@@ -71,7 +71,9 @@ export const CodeBox: React.FC<{
       // await window["monaco"].editor.colorizeElement(document.getElementById("container"))
       // const monaco: typeof Monaco = window["monaco"];
 
-      const model = monaco.editor.getModel("https://zed.vision/code/?h=main.tsxmain.tsx");
+      const model = monaco.editor.getModel(
+        "https://zed.vision/code/?h=main.tsx",
+      );
 
       const tsWorker = await window["monaco"].languages.typescript
         .getTypeScriptWorker();
@@ -79,12 +81,14 @@ export const CodeBox: React.FC<{
       if (!modelUri) return;
 
       const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
-        "https://zed.vision/code/?h=main.tsxmain.tsx",
+        "https://zed.vision/code/?h=main.tsx",
       );
       const comp = await (await tsWorker(modelUri))
-        .getCompilerOptionsDiagnostics("https://zed.vision/code/?h=main.tsxmain.tsx");
+        .getCompilerOptionsDiagnostics(
+          "https://zed.vision/code/?h=main.tsx",
+        );
       const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
-        "https://zed.vision/code/?h=main.tsxmain.tsx",
+        "https://zed.vision/code/?h=main.tsx",
       );
 
       const tsErrorMessageArr = [...diag, ...comp, ...syntax];
@@ -328,7 +332,9 @@ export const CodeBox: React.FC<{
             const code = await unHash(
               transformed[0].code[0],
             );
-            const monacoEditor = monaco.editor.getModel("https://zed.vision/code/?h=main.tsxmain.tsx");
+            const monacoEditor = monaco.editor.getModel(
+              "https://zed.vision/code/?h=main.tsx",
+            );
             monacoEditor.setValue(code);
             changeCode(code);
           }}

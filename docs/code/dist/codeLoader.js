@@ -320,7 +320,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
                 url: "https://unpkg.com/browse/popmotion@9.0.0/lib/index.d.ts"
             }
         ];
-        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `https://zed.vision/code/?h=main.tsxnode_modules/${name}` : `https://zed.vision/code/?h=main.tsxnode_modules/@types/${name}/index.d.ts`)
+        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
             )()
         );
         modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
@@ -331,7 +331,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             allowJs: true,
             noEmitOnError: true,
             allowSyntheticDefaultImports: true,
-            moduleResolution: modules.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+            moduleResolution: modules.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
             module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
             noEmit: true,
             typeRoots: [
