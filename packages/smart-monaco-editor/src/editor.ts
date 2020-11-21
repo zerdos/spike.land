@@ -23,8 +23,8 @@ export const startMonaco: SmartMonaco = async (
     document.body.appendChild(el);
   }
   const modelUri = language === "typescript"
-    ? "file:///main.tsx"
-    : "file:///main.html";
+    ? "https://zed.vision/code/?h=main.tsxmain.tsx"
+    : "https://zed.vision/code/?h=main.tsxmain.html";
 
   let aceEditor: AceAjax.Ace;
   if (
@@ -280,7 +280,7 @@ export const startMonaco: SmartMonaco = async (
         noEmitOnError: true,
         allowSyntheticDefaultImports: true,
         moduleResolution:
-          modules.monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        modules.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
         module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
         noEmit: true,
         typeRoots: ["node_modules/@types"],

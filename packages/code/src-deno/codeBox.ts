@@ -138,7 +138,7 @@ export async function run() {
     async function getErrors() {
       if (!modules || !modules.monaco) return;
 
-      const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
+      const modelUri = modules.monaco.Uri.parse("https://zed.vision/code/?h=main.tsxmain.tsx");
 
       //const model = window["monaco"].editor.getModel(modelUri);
       // getCodeToLoad;
@@ -146,13 +146,13 @@ export async function run() {
         .getTypeScriptWorker();
 
       const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
-        "file:///main.tsx",
+        "https://zed.vision/code/?h=main.tsxmain.tsx",
       );
       const comp = await (await tsWorker(modelUri))
-        .getCompilerOptionsDiagnostics("file:///main.tsx");
+        .getCompilerOptionsDiagnostics("https://zed.vision/code/?h=main.tsxmain.tsx");
 
       const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
-        "file:///main.tsx",
+        "https://zed.vision/code/?h=main.tsxmain.tsx",
       );
 
       return [...diag, ...comp, ...syntax];
