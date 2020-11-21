@@ -401,10 +401,10 @@ export async function run() {
         try {
           const localStorage: Storage = window.localStorage;
 
-          const prevHash = localStorage.getItem("codeBoXHash");
+          const prevHash = localStorage.getItem("codeBoXHash2");
 
           if (prevHash !== hash) {
-            localStorage.setItem("codeBoXHash", hash);
+            localStorage.setItem("codeBoXHash2", hash);
             localStorage.setItem(hash, latestGoodCode);
             setQueryStringParameter("h", hash);
           }
@@ -420,7 +420,7 @@ export async function run() {
   }
   function getCodeToLoad() {
     const search = new URLSearchParams(window.location.search);
-    const h = search.get("h") || localStorage.getItem("codeBoXHash");
+    const h = search.get("h") || localStorage.getItem("codeBoXHash2");
 
     return (h && window.localStorage.getItem(h)) ||
       window.localStorage.getItem("STARTER") || starter;
