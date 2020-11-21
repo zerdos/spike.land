@@ -1,4 +1,4 @@
-export const version = `7.6.1`; export const html = `  <!DOCTYPE html>
+export const version = `7.6.2`; export const html = `  <!DOCTYPE html>
 <html>
 
 <head>
@@ -169,7 +169,7 @@ export const version = `7.6.1`; export const html = `  <!DOCTYPE html>
         const { run } = await import("/code/dist/codeLoader.min.js");
         run();
       } catch (e) {
-        const { run } = await import( "https://unpkg.com/@zedvision/code@7.6.1/dist/codeLoader.min.js" );
+        const { run } = await import( "https://unpkg.com/@zedvision/code@7.6.2/dist/codeLoader.min.js" );
         run();
       }
   }
@@ -185,7 +185,7 @@ importScripts(
 );
 
 // importScripts(
-//   "https://unpkg.com/@zedvision/code@7.6.1/dist/htmlNoModule.js",
+//   "https://unpkg.com/@zedvision/code@7.6.2/dist/htmlNoModule.js",
 // );
 
 (({ Comlink, idb, location, caches, addEventListener }) => {
@@ -221,7 +221,7 @@ importScripts(
     },
   };
 
-  var cacheKey = "7.6.1-1";
+  var cacheKey = "7.6.2-1";
 
   addEventListener("install", function (e) {
     e.waitUntil(
