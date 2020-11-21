@@ -246,9 +246,12 @@ export async function run() {
     const code = transpileCode.replaceAll(
       searchRegExp,
       replaceWith,
-    ).replace("export default", "DefaultElement = ").replace(`"framer-motion"`,`
+    ).replace("export default", "DefaultElement = ").replace(
+      `"framer-motion"`,
+      `
     const {motion} = Motion;
-    `);
+    `,
+    );
     // console.log(code);/
     // const url = createJSSourceBlob(code);
     // console.log(url);

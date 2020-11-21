@@ -4,6 +4,8 @@ import {
   css, jsx, Global
 } from "@emotion/react";
 
+import {motion} from "framer-motion";
+
 const Counter = () => {
   const [clicks, setClicks] = React.useState(0);
 
@@ -15,7 +17,10 @@ const Counter = () => {
         background: khaki;
       }  
     \`} />
-    <div css={\`
+    <div animation={{scale: 1}}
+         initial={{scale: 0.7}} 
+         transition={{duration: 0.5}} 
+        css={\`
         margin: 2rem;
         display: inline-block;
         min-width: 200px;

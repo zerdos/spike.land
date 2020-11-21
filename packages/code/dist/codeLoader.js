@@ -474,7 +474,7 @@ export async function run() {
     async function restartCode(transpileCode) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ");
+        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ").replace(`"framer-motion"`, `\n    const {motion} = Motion;\n    `);
         const restart = async ()=>{
             const renderToString = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOMServer.renderToString(jsx(DefaultElement));\n      }`)();
             const HTML = renderToString();
