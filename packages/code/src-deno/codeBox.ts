@@ -474,7 +474,7 @@ async function saveHtml(code: string) {
 
 function transpileCode(code: string) {
   const { transform } = (window as unknown as { Babel: Babel })["Babel"];
-  return transform("/** @jsx jsx */\n"+code, {
+  return transform("/** @jsx jsx */\n" + code, {
     plugins: [],
     presets: [
       "react",

@@ -1,8 +1,8 @@
-export const starter = `import {motion} from "framer-motion";
-import {useState} from "react";
+export const starter = `import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   css, Global
-} from "@emotion/react";
+} from "@emotion/react";;
 
 const Counter = () => {
   const [clicks, setClicks] = useState(0);

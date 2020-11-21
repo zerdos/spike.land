@@ -472,7 +472,7 @@ export async function run() {
     async function restartCode(transpileCode) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ").replace(`"framer-motion"`, `\n    /** @jsx jsx */\n    Object.assign(window, React);\n    const {motion} = Motion;\n    `);
+        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ").replace(`"framer-motion"`, `\n    Object.assign(window, React);\n    const {motion} = Motion;\n    `);
         const restart = async ()=>{
             const renderToString = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOMServer.renderToString(jsx(DefaultElement));\n      }`)();
             const HTML = renderToString();
@@ -571,7 +571,7 @@ function createHTMLSourceBlob(code) {
 }
 function transpileCode(code) {
     const { transform  } = window["Babel"];
-    return transform(code, {
+    return transform("/** @jsx jsx */\n" + code, {
         plugins: [],
         presets: [
             "react",
