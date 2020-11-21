@@ -8,7 +8,7 @@ const makeDraggable = async (url)=>{
         const frame = jsFrame.create({
             name: `Win2`,
             title: `Z`,
-            left: (window.innerWidth - 460 * 0.7) / 2,
+            left: (window.innerWidth - 460) / 2,
             top: 20,
             width: 460,
             height: 320,
