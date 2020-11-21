@@ -17,7 +17,7 @@ const Counter = () => {
         background: khaki;
       }  
     \`} />
-    <div animation={{scale: 1}}
+    <motion.div animation={{scale: 1}}
          initial={{scale: 0.7}} 
          transition={{duration: 0.5}} 
         css={\`
@@ -37,7 +37,7 @@ const Counter = () => {
       <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>
         +
     </button>
-    </div>
+    </motion.div>
   </>;
 };
 
