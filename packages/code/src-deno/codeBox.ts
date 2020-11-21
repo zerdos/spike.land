@@ -246,9 +246,8 @@ export async function run() {
         HTML.includes(cssRule.substring(3, 8))
       ).join("\n  ");
 
-
       //
-      // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch 
+      // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
       //
       let bodyStylesFix;
       if (code.includes("body{")) {
