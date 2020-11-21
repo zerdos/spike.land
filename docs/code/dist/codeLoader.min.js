@@ -17,7 +17,8 @@ const Counter = () => {
         background: khaki;
       }  
     \`} />
-    <motion.div animation={{scale: 1}}
+    <motion.div 
+         animation={{scale: 1}}
          initial={{scale: 0.7}} 
          transition={{duration: 0.5}} 
         css={\`
