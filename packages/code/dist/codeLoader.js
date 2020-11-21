@@ -380,8 +380,6 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
-    await importScript("https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js");
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
     (async ()=>{
         const example = getCodeToLoad();
