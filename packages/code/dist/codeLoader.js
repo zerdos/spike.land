@@ -103,7 +103,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
         el.id = "container";
         document.body.appendChild(el);
     }
-    const modelUri = language === "typescript" ? "https://zed.vision/code/?h=main.tsx" : "https://zed.vision/code/?h=main.tsxmain.html";
+    const modelUri = language === "typescript" ? "https://zed.vision/code/?h=main.tsx" : "https://zed.vision/code/?h=main.html";
     let aceEditor;
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
         const aceEl = window.document.createElement("div");
