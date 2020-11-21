@@ -2,14 +2,14 @@
   "name": "@zed-vision/zed-vision-site",
   "scripts": {
     "build": "yarn clean && deno fmt src && gatsby clean && gatsby build",
-  "start-https": "yarn gatsby develop",
+    "start-https": "yarn gatsby develop",
     "start": "yarn gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
   "private": true,
   "description": "Zed vision blog",
-  "version": "7.6.7",
+  "version": "7.6.8",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo/"
@@ -19,7 +19,7 @@
     "@emotion/react": "11.1.1",
     "@emotion/styled": "11.0.0",
     "@zedvision/diff": "^7.3.2",
-    "@zedvision/smart-monaco-editor": "^7.6.7",
+    "@zedvision/smart-monaco-editor": "^7.6.8",
     "avl": "1.4.4",
     "framer-motion": "2.9.4",
     "gatsby": "2.27.0",
