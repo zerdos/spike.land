@@ -18,9 +18,9 @@ const Counter = () => {
       }  
     \`} />
     <motion.div 
-         animation={{scale: 1}}
-         initial={{scale: 0.7}} 
-         transition={{duration: 0.5}} 
+        animate={{scale: 1}}
+        initial={{scale: 0.7}} 
+        transition={{duration: 0.5}} 
         css={\`
         margin: 2rem;
         display: inline-block;
