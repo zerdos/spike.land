@@ -72,7 +72,7 @@ export const CodeBox: React.FC<{
       // const monaco: typeof Monaco = window["monaco"];
 
       const model = monaco.editor.getModel(
-        "https://zed.vision/code/?h=main.tsx",
+        "file:///main.tsx",
       );
 
       const tsWorker = await window["monaco"].languages.typescript
@@ -81,14 +81,14 @@ export const CodeBox: React.FC<{
       if (!modelUri) return;
 
       const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
-        "https://zed.vision/code/?h=main.tsx",
+        "file:///main.tsx",
       );
       const comp = await (await tsWorker(modelUri))
         .getCompilerOptionsDiagnostics(
-          "https://zed.vision/code/?h=main.tsx",
+          "file:///main.tsx",
         );
       const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
-        "https://zed.vision/code/?h=main.tsx",
+        "file:///main.tsx",
       );
 
       const tsErrorMessageArr = [...diag, ...comp, ...syntax];
@@ -333,7 +333,7 @@ export const CodeBox: React.FC<{
               transformed[0].code[0],
             );
             const monacoEditor = monaco.editor.getModel(
-              "https://zed.vision/code/?h=main.tsx",
+              "file:///main.tsx",
             );
             monacoEditor.setValue(code);
             changeCode(code);
