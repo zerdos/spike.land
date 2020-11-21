@@ -7,7 +7,7 @@ const makeDraggable = async (url)=>{
         });
         const frame = jsFrame.create({
             name: `Win2`,
-            title: `Z <b> Hello </b>`,
+            title: `Z`,
             left: (window.innerWidth - window.innerWidth * 0.7) / 2,
             top: 20,
             width: window.innerWidth * 0.7,
@@ -40,7 +40,6 @@ const makeDraggable = async (url)=>{
                         {
                             fa: "fas fa-expand-arrows-alt",
                             name: "maximizeButton",
-                            html: "<b>hello</b>",
                             visible: true
                         },
                         {
