@@ -370,7 +370,7 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
         window.document.head.appendChild(s);
     })
 ;
-const starter = `/** @jsx jsx */\n\nimport {\n  css, jsx, Global\n} from "@emotion/react";\n\nconst Counter = () => {\n  const [clicks, setClicks] = React.useState(0);\n\n  return <>\n    <Global styles={css\`\n    body{\n        margin: 0;\n        height: 100vh;\n        background: khaki;\n      }  \n    \`} />\n    <div css={\`\n        margin: 2rem;\n        display: inline-block;\n        min-width: 200px;\n        background: white;\n        border: 4px dotted red;\n        border-radius: 30px;\n        padding: 2rem;\n      \`}>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n    </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n    </div>\n  </>;\n};\n\n\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default Counter;\n`;
+const starter = `/** @jsx jsx */\n\nimport {\n  css, jsx, Global\n} from "@emotion/react";\n\nimport {motion} from "framer-motion";\n\nconst Counter = () => {\n  const [clicks, setClicks] = React.useState(0);\n\n  return <>\n    <Global styles={css\`\n    body{\n        margin: 0;\n        height: 100vh;\n        background: khaki;\n      }  \n    \`} />\n    <div animation={{scale: 1}}\n         initial={{scale: 0.7}} \n         transition={{duration: 0.5}} \n        css={\`\n        margin: 2rem;\n        display: inline-block;\n        min-width: 200px;\n        background: white;\n        border: 4px dotted red;\n        border-radius: 30px;\n        padding: 2rem;\n      \`}>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n    </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n    </div>\n  </>;\n};\n\n\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default Counter;\n`;
 const document = window.document;
 let firstLoad = true;
 let busy = 0;
@@ -474,7 +474,7 @@ export async function run() {
     async function restartCode(transpileCode) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ");
+        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ").replace(`"framer-motion"`, `\n    const {motion} = Motion;\n    `);
         const restart = async ()=>{
             const renderToString = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOMServer.renderToString(jsx(DefaultElement));\n      }`)();
             const HTML = renderToString();
@@ -534,9 +534,9 @@ export async function run() {
                 const { hash  } = await response.json();
                 try {
                     const localStorage = window.localStorage;
-                    const prevHash = localStorage.getItem("codeBoXHash");
+                    const prevHash = localStorage.getItem("codeBoXHash2");
                     if (prevHash !== hash) {
-                        localStorage.setItem("codeBoXHash", hash);
+                        localStorage.setItem("codeBoXHash2", hash);
                         localStorage.setItem(hash, latestGoodCode);
                         setQueryStringParameter("h", hash);
                     }
@@ -552,7 +552,7 @@ export async function run() {
     }
     function getCodeToLoad() {
         const search = new URLSearchParams(window.location.search);
-        const h = search.get("h") || localStorage.getItem("codeBoXHash");
+        const h = search.get("h") || localStorage.getItem("codeBoXHash2");
         return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || starter;
     }
 }
