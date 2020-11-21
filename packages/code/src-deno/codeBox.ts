@@ -53,20 +53,20 @@ export async function run() {
   //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
   // );
 
-  await importScript(
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
-  );
+  // await importScript(
+  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+  // );
 
-  await importScript(
-    "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
-  );
-  await importScript(
-    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
-  );
+  // await importScript(
+  //   "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
+  // );
+  // await importScript(
+  //   "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+  // );
 
-  const workerDomImport = importScript(
-    "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
-  );
+  // const workerDomImport = importScript(
+  //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
+  // );
 
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
@@ -205,7 +205,7 @@ export async function run() {
 
   // document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
-  await workerDomImport;
+  // await workerDomImport;
   async function restartCode(transpileCode: string) {
     const searchRegExp = /import/gi;
     const replaceWith = "///";
