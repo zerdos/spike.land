@@ -246,7 +246,10 @@ export async function run() {
         HTML.includes(cssRule.substring(3, 8))
       ).join("\n  ");
 
-      // console.log(css);
+
+      //
+      // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch 
+      //
       let bodyStylesFix;
       if (code.includes("body{")) {
         const start = code.indexOf("body{");
@@ -254,7 +257,6 @@ export async function run() {
         const last = firstBit.indexOf("}");
         bodyStylesFix = firstBit.slice(0, last + 1);
       }
-      // console.log(bodyStylesFix);
 
       const iframe = `<!DOCTYPE html>
       <html lang="en">
