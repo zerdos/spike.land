@@ -120,7 +120,7 @@ export const ResultComponent: React.FC<
     <motion.div
       // layout
       drag={true}
-      dragElastic={0.1}
+      dragElastic={0.5}
       dragMomentum={false}
       dragListener={true}
       // onDrag={(event) => {

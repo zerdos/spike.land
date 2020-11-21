@@ -291,10 +291,10 @@ export async function run() {
       }
 
       let motionDep = "";
-      let motionScript ="";
+      let motionScript = "";
       if (code.includes("framer-motion")) {
         motionDep =
-          "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js";
+          `<script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>`;
 
         motionScript = "const {motion} = Motion";
       }
