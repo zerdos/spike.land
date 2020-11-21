@@ -103,7 +103,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
         el.id = "container";
         document.body.appendChild(el);
     }
-    const modelUri = language === "typescript" ? "https://zed.vision/code/?h=main.tsxmain.tsx" : "https://zed.vision/code/?h=main.tsxmain.html";
+    const modelUri = language === "typescript" ? "file:///main.tsx" : "file:///main.html";
     let aceEditor;
     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
         const aceEl = window.document.createElement("div");
@@ -408,11 +408,11 @@ export async function run() {
         }
         async function getErrors() {
             if (!modules || !modules.monaco) return;
-            const modelUri = modules.monaco.Uri.parse("https://zed.vision/code/?h=main.tsxmain.tsx");
+            const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
             const tsWorker = await modules.monaco.languages.typescript.getTypeScriptWorker();
-            const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("https://zed.vision/code/?h=main.tsxmain.tsx");
-            const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("https://zed.vision/code/?h=main.tsxmain.tsx");
-            const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("https://zed.vision/code/?h=main.tsxmain.tsx");
+            const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
+            const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
+            const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
             return [
                 ...diag,
                 ...comp,
