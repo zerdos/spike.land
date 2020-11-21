@@ -29,8 +29,7 @@ const Counter = () => {
       initial={{ scale: 0.7 }} 
       transition={{ duration: 0.5 }} 
       drag
-      dragConstraints={{ left: 0, right: 400, bottom: 100, top: 0 }}
-      >
+      dragConstraints={{ left: -200, right: window.innerWidth-200, bottom: window.innerHeight-200, top: -200 }}>
       <h1>Counter example</h1>
       <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>
         -

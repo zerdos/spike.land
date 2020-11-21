@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  
+
   
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">  
   <style>
 
+    body{
+      overflow: hidden;
+    }
 
     
     #container,  #ace {
@@ -40,8 +43,7 @@
 
     #root {
       position: absolute;
-      background-color: red;
-      opacity: 0.7;
+      z-index: 900;
     }
 
 
