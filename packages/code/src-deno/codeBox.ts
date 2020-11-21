@@ -49,9 +49,9 @@ export async function run() {
   // "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
   // );
 
-  await importScript(
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
-  );
+  // await importScript(
+  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  // );
 
   // await importScript(
   //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
@@ -60,9 +60,9 @@ export async function run() {
   // await importScript(
   //   "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
   // );
-  await importScript(
-    "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js",
-  );
+  // await importScript(
+  //   "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js",
+  // );
 
   // const workerDomImport = importScript(
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
