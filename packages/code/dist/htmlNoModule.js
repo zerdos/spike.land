@@ -38,6 +38,13 @@ const version = `7.6.7`; const html = `  <!DOCTYPE html>
       opacity: 0.7;
     }
 
+    #root {
+      position: absolute;
+      background-color: red;
+      opacity: 0.7;
+    }
+
+
 
 
     .almosthidden {
