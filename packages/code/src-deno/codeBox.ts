@@ -290,8 +290,8 @@ export async function run() {
         bodyStylesFix = firstBit.slice(0, last + 1);
       }
 
-      let motionDep;
-      let motionScript;
+      let motionDep = "";
+      let motionScript ="";
       if (code.includes("framer-motion")) {
         motionDep =
           "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js";
