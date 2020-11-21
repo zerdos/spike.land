@@ -5,6 +5,16 @@ import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 
+interface Babel {
+  transform: (
+    code: string,
+    options: {
+      plugins: string[];
+      presets: (string | [string, { [key: string]: boolean }])[];
+    },
+  ) => { code: string };
+}
+
 const document = (window as { document: Document }).document;
 
 let firstLoad = true;
@@ -360,8 +370,8 @@ export async function run() {
   }
 
   function transpileCode(code: string) {
-    const Babel = window as unknown as { Babel: Babel }["Babel"];
-    return Babel.transform(code, {
+    const { transform } = (window as unknown as { Babel: Babel })["Babel"];
+    return transform(code, {
       plugins: [],
       presets: [
         "react",

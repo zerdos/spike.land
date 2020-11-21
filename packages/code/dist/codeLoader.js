@@ -540,8 +540,8 @@ export async function run() {
         return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || starter;
     }
     function transpileCode(code) {
-        const Babel = window;
-        return window.transform(code, {
+        const { transform  } = window["Babel"];
+        return transform(code, {
             plugins: [],
             presets: [
                 "react",
