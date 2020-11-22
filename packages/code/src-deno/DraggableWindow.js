@@ -9,10 +9,9 @@ export const renderDraggableWindow = (motion) => {
           css: `
             z-index:900;
             background: white;
-            border: 2px solid red;
+            border: 2px solid white;
             
             border-radius: 0px 0px 12px 12px;
-            padding: 1rem;
           `,
           animate: {
             scale: 1,
@@ -41,10 +40,9 @@ export const renderDraggableWindow = (motion) => {
           css: `
       display: block;
       with: 100%;
-      height: 40px;
-      background: red
+      height: 30px;
+      background: darkblue;
     `,
-          
         }),
         jsx("div", {
           css: `

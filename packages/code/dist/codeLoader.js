@@ -25,6 +25,8 @@ const renderDraggableWindow = (motion)=>{
                 top: 0
             }
         }, jsx("div", {
+            css: `\n      display: block;\n      with: 100%;\n      height: 40px;\n      background: red\n    `
+        }), jsx("div", {
             css: `\n      display: block;\n      with: 100%;\n      height: 40px;\n      background: red\n    `,
             id: "root"
         }), jsx("div", {
