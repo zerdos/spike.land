@@ -44,6 +44,15 @@ export const renderDraggableWindow = (motion) => {
       height: 40px;
       background: red
     `,
+          
+        }),
+        jsx("div", {
+          css: `
+      display: block;
+      with: 100%;
+      height: 40px;
+      background: red
+    `,
           id: "root",
         }),
         jsx("div", {
