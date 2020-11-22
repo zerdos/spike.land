@@ -1,7 +1,7 @@
 const renderDraggableWindow = (motion)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
-            css: `\n            z-index:900;\n            background: white;\n            border: 2px solid red;\n            \n            border-radius: 0px 0px 12px 12px;\n            padding: 1rem;\n          `,
+            css: `\n            z-index:900;\n            background: white;\n            border: 2px solid white;\n            \n            border-radius: 0px 0px 12px 12px;\n          `,
             animate: {
                 scale: 1,
                 top: 1,
@@ -25,7 +25,7 @@ const renderDraggableWindow = (motion)=>{
                 top: 0
             }
         }, jsx("div", {
-            css: `\n      display: block;\n      with: 100%;\n      height: 40px;\n      background: red\n    `
+            css: `\n      display: block;\n      with: 100%;\n      height: 30px;\n      background: darkblue;\n    `
         }), jsx("div", {
             css: `\n      display: block;\n      with: 100%;\n      height: 40px;\n      background: red\n    `,
             id: "root"
