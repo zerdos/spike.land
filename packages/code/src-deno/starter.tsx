@@ -1,48 +1,20 @@
 export const starter = `import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  css, Global
-} from "@emotion/react";;
+import {css, Global} from "@emotion/react";;
 
 const Counter = () => {
   const [clicks, setClicks] = useState(0);
 
   return <>
-    <Global styles={css\`
-    body{
-        margin: 0;
-        height: 100vh;
-        background: khaki;
-      }  
-    \`} />
-    <motion.div 
-      css={\`
-        margin: 2rem;
-        display: inline-block;
-        min-width: 200px;
-        background: white;
-        border: 4px dotted red;
-        border-radius: 30px;
-        padding: 2rem;
-      \`}
-      animate={{ scale: 1 }}
-      initial={{ scale: 0.7 }} 
-      transition={{ duration: 0.5 }} 
-      drag
-      dragConstraints={{ left: -200, right: window.innerWidth-200, bottom: window.innerHeight-200, top: -200 }}>
       <h1>Counter example</h1>
       <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>
         -
-    </button>
+     </button>
       {clicks}
       <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>
         +
     </button>
-    </motion.div>
-  </>;
-};
-
-
+  </>
+}
 
 const buttonStyles = (color: string) => css\`
   border-radius: 6px;
@@ -57,5 +29,13 @@ const buttonStyles = (color: string) => css\`
   }
   \`;
 
-export default Counter;
+export default () => <>
+  <Global styles={css\`
+      body{
+          margin: 0;
+        }  
+      \`}
+  />
+  <Counter />
+</>
 `;

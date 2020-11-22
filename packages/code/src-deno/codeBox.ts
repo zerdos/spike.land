@@ -1,6 +1,6 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 
-import { makeDraggable } from "./interact.js";
+import { renderDraggableWindow } from "./DraggableWindow.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
@@ -16,13 +16,13 @@ interface Babel {
 }
 
 const document = (window as { document: Document }).document;
-
 let firstLoad = true;
 
-let busy = 0;
-
-let keystrokeTillNoError = 0;
+const { motion } = window["Motion"];
 let latestCode = "";
+let busy = 0;
+let keystrokeTillNoError = 0;
+
 let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
@@ -67,7 +67,7 @@ export async function run() {
   // const workerDomImport = importScript(
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   // );
-
+  renderDraggableWindow(motion);
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
   );
@@ -250,13 +250,12 @@ export async function run() {
     const code = transpileCode.replaceAll(
       searchRegExp,
       replaceWith,
-    ).replace("export default", "DefaultElement = ").replace(
-      `"framer-motion"`,
-      `
+    ).replace("export default", "DefaultElement = ");
+
+    `
     Object.assign(window, React);
     const {motion} = Motion;
-    `,
-    );
+    `;
     // console.log(code);/
     // const url = createJSSourceBlob(code);
     // console.log(url);
@@ -266,6 +265,7 @@ export async function run() {
     //   `return function(){
 
     const restart = async () => {
+      console.log(code);
       const hydrate = new Function(
         "code",
         `return function(){  
@@ -273,7 +273,7 @@ export async function run() {
         
         ${code}
 
-                return ReactDOM.hydrate(jsx(DefaultElement), document.getElementById("root"));
+                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));
       }`,
       )();
 
@@ -486,11 +486,16 @@ async function saveHtml(code: string) {
 
 function transpileCode(code: string) {
   const { transform } = (window as unknown as { Babel: Babel })["Babel"];
-  return transform("/** @jsx jsx */\n" + code, {
-    plugins: [],
-    presets: [
-      "react",
-      ["typescript", { isTSX: true, allExtensions: true }],
-    ],
-  }).code;
+  return transform(
+    "/** @jsx jsx */\n" + `
+  Object.assign(window, React);
+  ` + code,
+    {
+      plugins: [],
+      presets: [
+        "react",
+        ["typescript", { isTSX: true, allExtensions: true }],
+      ],
+    },
+  ).code;
 }

@@ -41,9 +41,10 @@ export const version = `7.7.0`; export const html = `  <!DOCTYPE html>
       opacity: 0.7;
     }
 
-    #root {
-      position: absolute;
+    #dragabbleWindow {
+      position: fixed;
       z-index: 900;
+      height: 1px;
     }
 
 
@@ -60,7 +61,7 @@ export const version = `7.7.0`; export const html = `  <!DOCTYPE html>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="dragabbleWindow"></div>
   <div id="error"></div>
   <div id="container"></div>
   <div id="ace"></div>

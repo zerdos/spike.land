@@ -1,3 +1,29 @@
+const renderDraggableWindow = (motion)=>{
+    const DraggableWindow = ()=>{
+        return jsx(React.Fragment, null, jsx(motion.div, {
+            css: `\n            z-index:900;\n            margin: 2rem;\n            display: inline-block;\n            min-width: 200px;\n            background: white;\n            border: 4px dotted red;\n            border-radius: 30px;\n            padding: 2rem;\n          `,
+            animate: {
+                scale: 1
+            },
+            initial: {
+                scale: 0.7
+            },
+            transition: {
+                duration: 0.5
+            },
+            drag: true,
+            dragConstraints: {
+                left: -200,
+                right: window.innerWidth - 200,
+                bottom: window.innerHeight + 200,
+                top: 0
+            }
+        }, jsx("div", {
+            id: "root"
+        })));
+    };
+    ReactDOM.render(jsx(DraggableWindow), document.getElementById("dragabbleWindow"));
+};
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -272,16 +298,18 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
         window.document.head.appendChild(s);
     })
 ;
-const starter = `import { useState } from "react";\nimport { motion } from "framer-motion";\nimport {\n  css, Global\n} from "@emotion/react";;\n\nconst Counter = () => {\n  const [clicks, setClicks] = useState(0);\n\n  return <>\n    <Global styles={css\`\n    body{\n        margin: 0;\n        height: 100vh;\n        background: khaki;\n      }  \n    \`} />\n    <motion.div \n      css={\`\n        margin: 2rem;\n        display: inline-block;\n        min-width: 200px;\n        background: white;\n        border: 4px dotted red;\n        border-radius: 30px;\n        padding: 2rem;\n      \`}\n      animate={{ scale: 1 }}\n      initial={{ scale: 0.7 }} \n      transition={{ duration: 0.5 }} \n      drag\n      dragConstraints={{ left: -200, right: window.innerWidth-200, bottom: window.innerHeight-200, top: -200 }}>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n    </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n    </motion.div>\n  </>;\n};\n\n\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default Counter;\n`;
+const starter = `import { useState } from "react";\nimport {css, Global} from "@emotion/react";;\n\nconst Counter = () => {\n  const [clicks, setClicks] = useState(0);\n\n  return <>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n     </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n  </>\n}\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n        }  \n      \`}\n  />\n  <Counter />\n</>\n`;
 const document = window.document;
 let firstLoad = true;
+const { motion  } = window["Motion"];
+let latestCode = "";
 let busy = 0;
 let keystrokeTillNoError = 0;
-let latestCode = "";
 let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
+    renderDraggableWindow(motion);
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
     (async ()=>{
         const example = getCodeToLoad();
@@ -374,9 +402,11 @@ export async function run() {
     async function restartCode(transpileCode) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ").replace(`"framer-motion"`, `\n    Object.assign(window, React);\n    const {motion} = Motion;\n    `);
+        const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ");
+        `\n    Object.assign(window, React);\n    const {motion} = Motion;\n    `;
         const restart = async ()=>{
-            const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.hydrate(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
+            console.log(code);
+            const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
         };
         if (!firstLoad) {
@@ -433,7 +463,7 @@ function setQueryStringParameter(name, value) {
 }
 function transpileCode(code) {
     const { transform  } = window["Babel"];
-    return transform("/** @jsx jsx */\n" + code, {
+    return transform("/** @jsx jsx */\n" + `\n  Object.assign(window, React);\n  ` + code, {
         plugins: [],
         presets: [
             "react",
