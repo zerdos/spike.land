@@ -419,10 +419,6 @@ export async function run() {
         };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
-                const helloWorld = new TextEncoder().encode("Hello World");
-                const encoded = gzipEncode(helloWorld);
-                const decoded = gzipDecode(encoded);
-                console.log(decoded);
                 if (!location.origin.includes("zed.vision")) {
                     return;
                 }
