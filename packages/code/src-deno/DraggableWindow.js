@@ -10,7 +10,6 @@ export const renderDraggableWindow = (motion, onShare) => {
             z-index:900;
             background: white;
             border: 2px solid white;
-            
             border-radius: 0px 0px 12px 12px;
           `,
           animate: {
@@ -43,8 +42,8 @@ export const renderDraggableWindow = (motion, onShare) => {
       height: 30px;
       background: burlywood;
     `,
-        }), jsx("div", {onClick}),
-        jsx("div", {
+        }),
+        jsx("div", { onClick: ()=>onShare(),
           css: `
       display: inline-block;
       min-width: 200px;
