@@ -5,6 +5,9 @@ import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 
+// import Diff from "https://unpkg.com/diff@5.0.0/dist/diff.js";
+// console.log(Diff.structuredPatch("hash1", "hash2", "amaaafa", "alma", "", ""));
+
 interface Babel {
   transform: (
     code: string,
@@ -14,7 +17,6 @@ interface Babel {
     },
   ) => { code: string };
 }
-
 const document = (window as { document: Document }).document;
 let firstLoad = true;
 
@@ -50,10 +52,6 @@ export async function run() {
   // );
 
   // await importScript(
-  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
-  // );
-
-  // await importScript(
   //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
   // );
 
@@ -70,6 +68,10 @@ export async function run() {
   renderDraggableWindow(motion);
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
+  );
+
+  importScript(
+    "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js",
   );
 
   // const motion = Motion.motion;
@@ -389,6 +391,12 @@ export async function run() {
 
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
+        const helloWorld = new TextEncoder().encode("Hello World");
+
+        const encoded = gzipEncode(helloWorld);
+        const decoded = gzipDecode(encoded);
+        console.log(decoded);
+
         if (!location.origin.includes("zed.vision")) {
           return;
         }

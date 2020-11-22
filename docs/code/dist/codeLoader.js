@@ -312,6 +312,7 @@ let latestGoodCode = "";
 export async function run() {
     renderDraggableWindow(motion);
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
+    importScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js");
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;
@@ -412,6 +413,10 @@ export async function run() {
         };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
+                const helloWorld = new TextEncoder().encode("Hello World");
+                const encoded = gzipEncode(helloWorld);
+                const decoded = gzipDecode(encoded);
+                console.log(decoded);
                 if (!location.origin.includes("zed.vision")) {
                     return;
                 }
