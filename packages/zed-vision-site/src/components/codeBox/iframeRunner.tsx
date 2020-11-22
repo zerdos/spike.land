@@ -45,7 +45,7 @@ export const IframeRunner: React.FC<
       const codeToRun = await unHash(transformed[transformed.length - 1].hash);
       const iframeUrl = createSourceBlob(codeToRun, events, true);
       setTarget(iframeUrl);
-      console.log(events);
+      //  console.log(events);
     };
     run();
   }, [transformed[0].code, events]);
@@ -106,7 +106,7 @@ function createSourceBlob(codeToRun: any, events: unknown[], replay: boolean) {
         emit(event) {
 
             events.push(event);
-            console.log(events.length);
+      //      console.log(events.length);
           window.parent.postMessage({events})
         },
         checkoutEveryNth: 20

@@ -312,9 +312,10 @@ export const CodeBox: React.FC<{
               headers: { "content-type": "application/json;charset=UTF-8" },
             },
           );
-          const response = await fetch(request);
+          //const response = 
+          await fetch(request);
 
-          console.log(response);
+          // console.log(response);
         }}
       >
         Save

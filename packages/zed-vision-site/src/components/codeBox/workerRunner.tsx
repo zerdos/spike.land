@@ -20,7 +20,7 @@ export const WorkerBox: React.FC<
       );
 
       const versionA = await unHash(codeHash);
-      console.log(versionA);
+      //      console.log(versionA);
 
       const url = await createSourceBlob(versionA);
       const iframeBlob = createHTMLSourceBlob(url);

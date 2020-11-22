@@ -434,7 +434,7 @@ export async function run() {
             setQueryStringParameter("h", hash);
           }
         } catch (e) {
-          console.log("no localStorage");
+          //         console.log("no localStorage");
         }
       };
 

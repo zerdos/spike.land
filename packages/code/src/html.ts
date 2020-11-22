@@ -92,7 +92,7 @@ export const html = `<!DOCTYPE html>
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').then(function () {
-        console.log('service worker is is all cool.');
+       // console.log('service worker is is all cool.');
       }).catch(function (e) {
         console.error('service worker is not so cool.', e);
         throw e;
@@ -130,7 +130,7 @@ export const html = `<!DOCTYPE html>
     const regex2 = /styled.div/gi;
 
     const replaced = transpileCode.replaceAll(regex2, "styled(motion.div)");
-    console.log(replaced);
+  //  console.log(replaced);
     const restart = new Function(
       "replaced",
       \`return function() {  

@@ -447,7 +447,6 @@ export async function run() {
                         setQueryStringParameter("h", hash);
                     }
                 } catch (e) {
-                    console.log("no localStorage");
                 }
             };
             setTimeout(()=>saveCode(latestCode)
