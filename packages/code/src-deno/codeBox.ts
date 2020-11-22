@@ -225,7 +225,6 @@ export async function run() {
         keystrokeTillNoError = 0;
 
         busy = 0;
-      
         restartCode(transpileCode(cd));
       } catch (err) {
         busy = 0;
@@ -259,8 +258,7 @@ export async function run() {
       replaceWith,
     ).replace("export default", "DefaultElement = ");
 
-
-    console.log(code)
+    console.log(code);
     `
     Object.assign(window, React);
     const {motion} = Motion;
