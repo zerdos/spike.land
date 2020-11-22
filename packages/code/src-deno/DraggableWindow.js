@@ -43,9 +43,9 @@ export const renderDraggableWindow = (motion, onShare) => {
       height: 30px;
       background: burlywood;
     `,
-       
-  "Share it!"
-  }),
+
+          "Share it!": "Share it!",
+        }),
         jsx("div", {
           css: `
       display: inline-block;

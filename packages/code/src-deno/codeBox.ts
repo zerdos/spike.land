@@ -65,7 +65,9 @@ export async function run() {
   // const workerDomImport = importScript(
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   // );
-  renderDraggableWindow(motion);
+
+  renderDraggableWindow(motion, ()=>"Sharing it");
+
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
   );
