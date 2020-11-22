@@ -1,7 +1,7 @@
-const renderDraggableWindow = (motion)=>{
+const renderDraggableWindow = (motion, onShare)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
-            css: `\n            z-index:900;\n            background: white;\n            border: 2px solid white;\n            \n            border-radius: 0px 0px 12px 12px;\n          `,
+            css: `\n            z-index:900;\n            background: white;\n            border: 2px solid white;\n            border-radius: 0px 0px 12px 12px;\n          `,
             animate: {
                 scale: 1,
                 top: 1,
@@ -27,7 +27,9 @@ const renderDraggableWindow = (motion)=>{
         }, jsx("div", {
             css: `\n      display: block;\n      with: 100%;\n      height: 30px;\n      background: burlywood;\n    `
         }), jsx("div", {
-            css: `\n      display: inline-block;\n      min-width: 200px;y\n      scroll-vert\n      max-width: 600px;\n      max-height: 800px;\n      overflow-y: scroll;\n    `,
+            onClick: ()=>onShare()
+            ,
+            css: `\n      display: inline-block;\n      min-width: 200px;\n      padding: 30px;\n      max-width: 600px;\n      max-height: 800px;\n      overflow-y: scroll;\n    `,
             id: "root"
         })));
     };
