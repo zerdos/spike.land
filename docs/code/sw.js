@@ -32,7 +32,7 @@ importScripts(
         str = new TextDecoder().decode(val);
       }
 
-      return (await dbPromise).put("codeStore", val, str);
+      return (await dbPromise).put("codeStore", key, str);
     },
     async delete(key) {
       return (await dbPromise).delete("codeStore", key);
