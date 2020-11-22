@@ -49,7 +49,7 @@ export const renderDraggableWindow = (motion) => {
       display: block;
       with: 100%;
       height: 40px;
-      background: red
+      background: burlywood
     `,
           id: "root",
         }),
