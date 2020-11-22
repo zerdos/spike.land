@@ -27,7 +27,7 @@ const renderDraggableWindow = (motion, onShare)=>{
         }, jsx("div", {
             css: `\n      display: block;\n      with: 100%;\n      height: 30px;\n      background: burlywood;\n    `
         }, jsx("button", {
-            css: buttonStyles("red"),
+            css: `\n              backgound: blue;\n            `,
             onClick: ()=>onShare()
         }, "SHARE")), jsx("div", {
             css: `  \n      display: inline-block;\n      min-width: 200px;\n      padding: 30px;\n      max-width: 600px;\n      max-height: 800px;\n      overflow-y: scroll;\n    `,

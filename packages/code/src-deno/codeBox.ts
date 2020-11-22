@@ -29,6 +29,8 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 
+let shareitAsHtml; 
+
 export async function run() {
   // await importScript(
   //   "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
@@ -66,7 +68,7 @@ export async function run() {
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   // );
 
-  renderDraggableWindow(motion, () => console.log("Sharing it"));
+  renderDraggableWindow(motion, () => saveHtml());
 
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
@@ -283,21 +285,29 @@ export async function run() {
       )();
 
       hydrate();
-      // const renderToString = new Function(
-      //   "code",
-      //   `return function(){
-      //     let DefaultElement;
 
-      //   ${code}
 
-      //           return ReactDOMServer.renderToString(jsx(DefaultElement));
-      // }`,
-      // )();
+      shareitAsHtml = () => {
+              const renderToString = new Function(
+          "code",
+          `return function(){
+            let DefaultElement;
+  
+          ${code}
+  
+                  return ReactDOMServer.renderToString(jsx(DefaultElement));
+        }`,
+        )();
+          const HTML = renderToString();
+      
+      }
+
+      // const renderToString = 
       // const HTML = renderToString();
 
       // // console.log(HTML);
 
-      // // document.getElementById("root").innerHTML = HTML;
+      // // document.getElementById("root").innxerHTML = HTML;
 
       // const css = Array.from(
       //   document.querySelector("head > style[data-emotion=css]").sheet
@@ -480,6 +490,9 @@ function createHTMLSourceBlob(code: string) {
 }
 
 async function saveHtml(code: string) {
+
+
+
   const request = new Request(
     "https://code.zed.vision",
     {
