@@ -16,8 +16,14 @@ export const renderDraggableWindow = (motion) => {
           `,
           animate: {
             scale: 1,
+            top: 1,
+            left: 600,
           },
+          dragElastic: 0.5,
+          dragMomentum: false,
           initial: {
+            top: 1,
+            left: 0,
             scale: 0.7,
           },
           transition: {

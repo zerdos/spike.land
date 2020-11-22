@@ -3,9 +3,15 @@ const renderDraggableWindow = (motion)=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
             css: `\n            z-index:900;\n            background: white;\n            border: 2px solid red;\n            \n            border-radius: 0px 0px 12px 12px;\n            padding: 1rem;\n          `,
             animate: {
-                scale: 1
+                scale: 1,
+                top: 1,
+                left: 600
             },
+            dragElastic: 0.5,
+            dragMomentum: false,
             initial: {
+                top: 1,
+                left: 0,
                 scale: 0.7
             },
             transition: {
