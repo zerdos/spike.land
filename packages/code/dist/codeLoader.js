@@ -1,7 +1,7 @@
 const renderDraggableWindow = (motion)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
-            css: `\n            z-index:900;\n            margin: 2rem;\n            display: inline-block;\n            min-width: 200px;\n            background: white;\n            border: 4px dotted red;\n            border-radius: 30px;\n            padding: 2rem;\n          `,
+            css: `\n            z-index:900;\n            background: white;\n            border: 2px solid red;\n            border-radius: 0px 0px 12px 12px;\n            padding: 1rem;\n          `,
             animate: {
                 scale: 1
             },
@@ -19,6 +19,7 @@ const renderDraggableWindow = (motion)=>{
                 top: 0
             }
         }, jsx("div", {
+            css: `\n      display: inline-block;\n      min-width: 200px;\n      max-width: 600px;\n      max-height: 800px;\n      overflow-y: scroll;\n    `,
             id: "root"
         })));
     };
@@ -298,7 +299,7 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
         window.document.head.appendChild(s);
     })
 ;
-const starter = `import { useState } from "react";\nimport {css, Global} from "@emotion/react";;\n\nconst Counter = () => {\n  const [clicks, setClicks] = useState(0);\n\n  return <>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n     </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n  </>\n}\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n        }  \n      \`}\n  />\n  <Counter />\n</>\n`;
+const starter = `import { useState } from "react";\nimport {css, Global} from "@emotion/react";;\n\nconst Counter = () => {\n  const [clicks, setClicks] = useState(0);\n\n  return <>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n     </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n  </>\n}\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n        }  \n    \`}\n  />\n  <Counter />\n</>\n`;
 const document = window.document;
 let firstLoad = true;
 const { motion  } = window["Motion"];

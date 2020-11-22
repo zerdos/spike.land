@@ -34,7 +34,7 @@ export default () => <>
       body{
           margin: 0;
         }  
-      \`}
+    \`}
   />
   <Counter />
 </>
