@@ -225,12 +225,15 @@ export async function run() {
         keystrokeTillNoError = 0;
 
         busy = 0;
+      
         restartCode(transpileCode(cd));
       } catch (err) {
         busy = 0;
         if (cd !== latestCode) {
           return;
         }
+
+        
 
         modules.monaco.editor.setTheme("vs-light");
         setTimeout(() => {
@@ -256,6 +259,8 @@ export async function run() {
       replaceWith,
     ).replace("export default", "DefaultElement = ");
 
+
+    console.log(code)
     `
     Object.assign(window, React);
     const {motion} = Motion;

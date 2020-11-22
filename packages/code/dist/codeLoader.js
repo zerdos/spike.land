@@ -321,7 +321,7 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 export async function run() {
-    renderDraggableWindow(motion, ()=>"Sharing it"
+    renderDraggableWindow(motion, ()=>console.log("Sharing it")
     );
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
     importScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js");
