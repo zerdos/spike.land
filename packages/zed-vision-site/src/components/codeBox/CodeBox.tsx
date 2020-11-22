@@ -312,7 +312,7 @@ export const CodeBox: React.FC<{
               headers: { "content-type": "application/json;charset=UTF-8" },
             },
           );
-          //const response = 
+          //const response =
           await fetch(request);
 
           // console.log(response);
