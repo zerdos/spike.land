@@ -152,7 +152,6 @@ importScripts(
     }
 
     return fetch(e.request).then((res) => {
-      console.log(res);
       if (
         res.type === "opaque" || //new URL(res.url) !== location.origin ||
         location.search !== ""
