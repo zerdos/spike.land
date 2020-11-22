@@ -248,13 +248,11 @@ importScripts(
               });
           }
 
-          const myBuffer = new TextEncoder().encode(JSON.stringify(data));
-
           const myDigest = await crypto.subtle.digest(
             {
               name: "SHA-256",
             },
-            myBuffer,
+            data,
           );
 
           const hashArray = Array.from(new Uint8Array(myDigest));
@@ -265,7 +263,7 @@ importScripts(
               "",
             );
           const smallerKey = hash.substring(0, 8);
-          await SHATEST.put(smallerKey, myBuffer);
+          await SHATEST.put(smallerKey, data);
 
           return new Response(JSON.stringify({ hash: smallerKey }), {
             headers: { "Content-Type": "application/json" },
