@@ -14,9 +14,6 @@ const version = `7.7.4`; const html = `  <!DOCTYPE html>
   <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script>
   <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>
 
-  <script crossorigin src="https://unpkg.com/@streetscape.gl/monochrome@1.0.6/dist/es5/float-panel/index.js"></script>
- 
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous">  
   <style>
