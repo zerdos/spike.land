@@ -1,4 +1,4 @@
-export const renderDraggableWindow = (motion) => {
+export const renderDraggableWindow = (motion, onShare) => {
   const DraggableWindow = () => {
     return jsx(
       React.Fragment,
@@ -43,12 +43,12 @@ export const renderDraggableWindow = (motion) => {
       height: 30px;
       background: burlywood;
     `,
-        }),
+        }), jsx("div", {onClick}),
         jsx("div", {
           css: `
       display: inline-block;
-      min-width: 200px;y
-      scroll-vert
+      min-width: 200px;
+      padding: 30px;
       max-width: 600px;
       max-height: 800px;
       overflow-y: scroll;

@@ -27,9 +27,6 @@ const renderDraggableWindow = (motion)=>{
         }, jsx("div", {
             css: `\n      display: block;\n      with: 100%;\n      height: 30px;\n      background: burlywood;\n    `
         }), jsx("div", {
-            css: `\n      display: block;\n      with: 100%;\n      height: 40px;\n      background: burlywood\n    `,
-            id: "root"
-        }), jsx("div", {
             css: `\n      display: inline-block;\n      min-width: 200px;y\n      scroll-vert\n      max-width: 600px;\n      max-height: 800px;\n      overflow-y: scroll;\n    `,
             id: "root"
         })));
