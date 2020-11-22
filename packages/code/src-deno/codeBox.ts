@@ -391,11 +391,11 @@ export async function run() {
 
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
-        const helloWorld = new TextEncoder().encode("Hello World");
+        // const helloWorld = new TextEncoder().encode("Hello World");
 
-        const encoded = gzipEncode(helloWorld);
-        const decoded = gzipDecode(encoded);
-        console.log(decoded);
+        // const encoded = gzipEncode(helloWorld);
+        // const decoded = gzipDecode(encoded);
+        // console.log(decoded);
 
         if (!location.origin.includes("zed.vision")) {
           return;
