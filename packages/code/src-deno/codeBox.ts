@@ -267,7 +267,7 @@ export async function run() {
     //   `return function(){
 
     const restart = async () => {
- //     console.log(code);
+      //     console.log(code);
       const hydrate = new Function(
         "code",
         `return function(){  
