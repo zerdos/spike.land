@@ -29,7 +29,7 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 
-let shareitAsHtml; 
+let shareitAsHtml;
 
 export async function run() {
   // await importScript(
@@ -286,9 +286,8 @@ export async function run() {
 
       hydrate();
 
-
       shareitAsHtml = () => {
-              const renderToString = new Function(
+        const renderToString = new Function(
           "code",
           `return function(){
             let DefaultElement;
@@ -298,11 +297,10 @@ export async function run() {
                   return ReactDOMServer.renderToString(jsx(DefaultElement));
         }`,
         )();
-          const HTML = renderToString();
-      
-      }
+        const HTML = renderToString();
+      };
 
-      // const renderToString = 
+      // const renderToString =
       // const HTML = renderToString();
 
       // // console.log(HTML);
@@ -490,9 +488,6 @@ function createHTMLSourceBlob(code: string) {
 }
 
 async function saveHtml(code: string) {
-
-
-
   const request = new Request(
     "https://code.zed.vision",
     {
