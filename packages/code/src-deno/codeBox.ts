@@ -232,8 +232,6 @@ export async function run() {
           return;
         }
 
-        
-
         modules.monaco.editor.setTheme("vs-light");
         setTimeout(() => {
           modules.monaco.editor.setTheme("hc-black");

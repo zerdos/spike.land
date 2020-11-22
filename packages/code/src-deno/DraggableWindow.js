@@ -36,18 +36,20 @@ export const renderDraggableWindow = (motion, onShare) => {
           },
         },
         jsx("div", {
-          onClick: () => onShare(),
           css: `
       display: block;
       with: 100%;
       height: 30px;
       background: burlywood;
-    `,
+    `},
 
-          "Share it!": "Share it!",
-        }),
+    jsx("button", {
+      css: buttonStyles("red"),
+      onClick: () => onShare()
+    }, "SHARE")
+        ),
         jsx("div", {
-          css: `
+          css: `  
       display: inline-block;
       min-width: 200px;
       padding: 30px;
