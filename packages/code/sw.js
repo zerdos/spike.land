@@ -27,9 +27,9 @@ importScripts(
       return data;
     },
     async put(key, val) {
-      let str= val;
-      if (typeof val !== "string"){
-        str = new TextDecoder().decode(val)
+      let str = val;
+      if (typeof val !== "string") {
+        str = new TextDecoder().decode(val);
       }
 
       return (await dbPromise).put("codeStore", val, str);

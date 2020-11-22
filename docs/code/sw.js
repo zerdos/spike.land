@@ -27,7 +27,12 @@ importScripts(
       return data;
     },
     async put(key, val) {
-      return (await dbPromise).put("codeStore", val, key);
+      let str = val;
+      if (typeof val !== "string") {
+        str = new TextDecoder().decode(val);
+      }
+
+      return (await dbPromise).put("codeStore", val, str);
     },
     async delete(key) {
       return (await dbPromise).delete("codeStore", key);
