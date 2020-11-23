@@ -251,11 +251,12 @@ export const startMonaco: SmartMonaco = async (
       {
         name: "framer-motion",
         url: "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.d.ts",
-        depend: []
-       },
-       {name: "popmotion",
-      url: "https://unpkg.com/browse/popmotion@9.0.0/lib/index.d.ts"
-    }
+        depend: [],
+      },
+      {
+        name: "popmotion",
+        url: "https://unpkg.com/browse/popmotion@9.0.0/lib/index.d.ts",
+      },
     ];
     //# sourceMappingURL=importHelper.js.map
     const dts = importHelper.map(({ name, url }) =>
@@ -280,7 +281,7 @@ export const startMonaco: SmartMonaco = async (
         noEmitOnError: true,
         allowSyntheticDefaultImports: true,
         moduleResolution:
-        modules.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
+          modules.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
         module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
         noEmit: true,
         typeRoots: ["node_modules/@types"],
