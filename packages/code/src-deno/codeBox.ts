@@ -256,16 +256,16 @@ export async function run() {
     const searchRegExp = /import/gi;
     const replaceWith = "///";
 
-    const code = transpileCode.replaceAll(
+    const code = `
+    Object.assign(window, React);
+    const {motion} = Motion;
+    ` + transpileCode.replaceAll(
       searchRegExp,
       replaceWith,
     ).replace("export default", "DefaultElement = ");
 
     // console.log(code);
-    `
-    Object.assign(window, React);
-    const {motion} = Motion;
-    `;
+
     // console.log(code);/
     // const url = createJSSourceBlob(code);
     // console.log(url);
@@ -336,7 +336,7 @@ export async function run() {
         <head profile="http://www.w3.org/2005/10/profile">
         <link rel="icon" 
               type="image/png" 
-              href="http://zed.vision/favicon.ico">
+              href="https://zed.vision/favicon.ico">
         <style>
         ${bodyStylesFix}
         ${css}
