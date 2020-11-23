@@ -198,7 +198,7 @@ importScripts(
         str = new TextDecoder().decode(val);
       }
 
-      return (await dbPromise).put("codeStore", key, str);
+      return (await dbPromise).put("codeStore", str, key);
     },
     async delete(key) {
       return (await dbPromise).delete("codeStore", key);

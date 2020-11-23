@@ -55,7 +55,8 @@ async function handleCloudRequest(request) {
                     status: 403
                 });
             }
-            return new Response("NOT implemented yet.", {
+            const data = await request.json();
+            return new Response("NOT implemented yet." + JSON.stringify(data), {
                 status: 404
             });
         }

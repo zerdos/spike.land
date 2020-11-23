@@ -50,7 +50,9 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         });
       }
 
-      return new Response("NOT implemented yet.", {
+      const data = await request.json();
+
+      return new Response("NOT implemented yet." + JSON.stringify(data), {
         status: 404,
       });
     }
