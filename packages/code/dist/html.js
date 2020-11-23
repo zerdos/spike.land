@@ -181,11 +181,13 @@ importScripts(
   });
 
   const SHATEST = {
-    async get(key, format = "text") {
+    async get(key, format = "string") {
       const data = (await dbPromise).get("codeStore", key);
       if (!data) return null;
-      if (format === "text") {
+      if (format === "string") {
         const allData = await data;
+        if (typeof allData === format) return allData;
+
         const decoder = new TextDecoder();
         const text = decoder.decode(allData);
         return text;
