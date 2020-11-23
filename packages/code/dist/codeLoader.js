@@ -504,8 +504,7 @@ function createHTMLSourceBlob(code) {
     ], {
         type: "text/html"
     });
-    const url = window.URL.createObjectURL(blob);
-    return url;
+    return blob;
 }
 async function saveHtml(htmlBlob) {
     const request = new Request("https://code.zed.vision", {
