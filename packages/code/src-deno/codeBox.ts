@@ -360,7 +360,7 @@ export async function run() {
         `;
         const iframeBlob = await createHTMLSourceBlob(iframe); //    saveHtml(iframe);
         const link = await saveHtml(iframeBlob);
-        console.log(link)
+        console.log(link);
       };
 
       // const renderToString =
