@@ -322,7 +322,7 @@ let latestSavedCode = "";
 let latestGoodCode = "";
 let shareitAsHtml;
 export async function run() {
-    renderDraggableWindow(motion, ()=>saveHtml()
+    renderDraggableWindow(motion, ()=>shareitAsHtml()
     );
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
     importScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js");
@@ -423,9 +423,28 @@ export async function run() {
         const restart = async ()=>{
             const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
-            shareitAsHtml = ()=>{
+            shareitAsHtml = async ()=>{
                 const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
                 const HTML = renderToString();
+                const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
+                ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
+                ).join("\n  ");
+                let bodyStylesFix;
+                if (code.includes("body{")) {
+                    const start = code.indexOf("body{");
+                    const firstBit = code.slice(start);
+                    const last = firstBit.indexOf("}");
+                    bodyStylesFix = firstBit.slice(0, last + 1);
+                }
+                let motionDep = "";
+                let motionScript = "";
+                if (code.includes("Motion")) {
+                    motionDep = `<script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>`;
+                    motionScript = "const {motion} = Motion";
+                }
+                const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n       const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n\n        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        </script>\n        </body>\n        </html>\n        `;
+                const iframeBlob = await createHTMLSourceBlob(iframe);
+                const link = await saveHtml(iframeBlob);
             };
         };
         if (!firstLoad) {
@@ -479,9 +498,18 @@ function setQueryStringParameter(name, value) {
     window.history.replaceState({
     }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
 }
-async function saveHtml(code) {
+function createHTMLSourceBlob(code) {
+    const blob = new Blob([
+        code
+    ], {
+        type: "text/html"
+    });
+    const url = window.URL.createObjectURL(blob);
+    return url;
+}
+async function saveHtml(htmlBlob) {
     const request = new Request("https://code.zed.vision", {
-        body: code,
+        body: htmlBlob,
         method: "POST",
         headers: {
             "content-type": "text/html;charset=UTF-8"

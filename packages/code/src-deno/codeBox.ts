@@ -29,7 +29,7 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 
-let shareitAsHtml;
+let shareitAsHtml: () => void;
 
 export async function run() {
   // await importScript(
@@ -68,7 +68,7 @@ export async function run() {
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   // );
 
-  renderDraggableWindow(motion, () => saveHtml());
+  renderDraggableWindow(motion, () => shareitAsHtml());
 
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
@@ -286,7 +286,7 @@ export async function run() {
 
       hydrate();
 
-      shareitAsHtml = () => {
+      shareitAsHtml = async () => {
         const renderToString = new Function(
           "code",
           `return function(){
@@ -298,6 +298,68 @@ export async function run() {
         }`,
         )();
         const HTML = renderToString();
+
+        const css = Array.from(
+          document.querySelector("head > style[data-emotion=css]").sheet
+            .cssRules,
+        ).map((x: any) => x.cssText).filter((cssRule) =>
+          HTML.includes(cssRule.substring(3, 8))
+        ).join("\n  ");
+
+        //
+        // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
+        //
+        let bodyStylesFix;
+        if (code.includes("body{")) {
+          const start = code.indexOf("body{");
+          const firstBit = code.slice(start);
+          const last = firstBit.indexOf("}");
+          bodyStylesFix = firstBit.slice(0, last + 1);
+        }
+
+        let motionDep = "";
+        let motionScript = "";
+        if (code.includes("Motion")) {
+          motionDep =
+            `<script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>`;
+
+          motionScript = "const {motion} = Motion";
+        }
+
+        const iframe = `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style>
+        ${bodyStylesFix}
+        ${css}
+        </style>
+        </head>
+        <body>
+        <div id="root">
+        ${HTML}
+        </div>
+        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
+        ${motionDep}
+        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>
+        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
+        <script type="module">
+        Object.assign(window, emotionReact);
+
+       const styled = window["emotionStyled"];
+
+        let DefaultElement;
+
+        ${code}
+
+        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+        </script>
+        </body>
+        </html>
+        `;
+        const iframeBlob = await createHTMLSourceBlob(iframe); //    saveHtml(iframe);
+        const link = await saveHtml(iframeBlob);
       };
 
       // const renderToString =
@@ -306,67 +368,6 @@ export async function run() {
       // // console.log(HTML);
 
       // // document.getElementById("root").innxerHTML = HTML;
-
-      // const css = Array.from(
-      //   document.querySelector("head > style[data-emotion=css]").sheet
-      //     .cssRules,
-      // ).map((x: any) => x.cssText).filter((cssRule) =>
-      //   HTML.includes(cssRule.substring(3, 8))
-      // ).join("\n  ");
-
-      // //
-      // // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
-      // //
-      // let bodyStylesFix;
-      // if (code.includes("body{")) {
-      //   const start = code.indexOf("body{");
-      //   const firstBit = code.slice(start);
-      //   const last = firstBit.indexOf("}");
-      //   bodyStylesFix = firstBit.slice(0, last + 1);
-      // }
-
-      //   let motionDep = "";
-      //   let motionScript = "";
-      //   if (code.includes("Motion")) {
-      //     motionDep =
-      //       `<script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>`;
-
-      //     motionScript = "const {motion} = Motion";
-      //   }
-
-      //   const iframe = `<!DOCTYPE html>
-      //   <html lang="en">
-      //   <head>
-      //   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      //   <style>
-      //   ${bodyStylesFix}
-      //   ${css}
-      //   </style>
-      //   </head>
-      //   <body>
-      //   <div id="root">
-      //   ${HTML}
-      //   </div>
-      //   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
-      //   ${motionDep}
-      //   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
-      //   <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>
-      //   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
-      //   <script type="module">
-      //   Object.assign(window, emotionReact);
-
-      //  const styled = window["emotionStyled"];
-
-      //   let DefaultElement;
-
-      //   ${code}
-
-      //   ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
-      //   </script>
-      //   </body>
-      //   </html>
-      //   `;
-      //   const iframeBlob = await createHTMLSourceBlob(iframe); //    saveHtml(iframe);
 
       //   const target = document.getElementsByTagName("iframe").item(0);
 
@@ -487,11 +488,11 @@ function createHTMLSourceBlob(code: string) {
   return url;
 }
 
-async function saveHtml(code: string) {
+async function saveHtml(htmlBlob: Blob) {
   const request = new Request(
     "https://code.zed.vision",
     {
-      body: code,
+      body: htmlBlob,
       method: "POST",
       headers: { "content-type": "text/html;charset=UTF-8" },
     },
