@@ -445,6 +445,7 @@ export async function run() {
                 const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n       const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n\n        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        </script>\n        </body>\n        </html>\n        `;
                 const iframeBlob = await createHTMLSourceBlob(iframe);
                 const link = await saveHtml(iframeBlob);
+                console.log(link);
             };
         };
         if (!firstLoad) {
@@ -504,8 +505,7 @@ function createHTMLSourceBlob(code) {
     ], {
         type: "text/html"
     });
-    const url = window.URL.createObjectURL(blob);
-    return url;
+    return blob;
 }
 async function saveHtml(htmlBlob) {
     const request = new Request("https://code.zed.vision", {
