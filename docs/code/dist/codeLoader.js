@@ -418,7 +418,6 @@ export async function run() {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
         const code = transpileCode.replaceAll(/import/gi, "///").replace("export default", "DefaultElement = ");
-        console.log(code);
         `\n    Object.assign(window, React);\n    const {motion} = Motion;\n    `;
         const restart = async ()=>{
             const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
