@@ -258,7 +258,13 @@ export async function run() {
 
     const code = `
     Object.assign(window, React);
-    const {motion} = Motion;
+    if (window.Motion) {
+        Object.assign(window, window.Motion);
+    }
+    if (window.emotionStyled){
+      window.styled= window.emotionStyled;
+    }
+    ;
     ` + transpileCode.replaceAll(
       searchRegExp,
       replaceWith,

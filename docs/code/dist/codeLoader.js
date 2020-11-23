@@ -646,7 +646,7 @@ export async function run() {
     async function restartCode(transpileCode1) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = `\n    Object.assign(window, React);\n    const {motion} = Motion;\n    ` + transpileCode1.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
+        const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transpileCode1.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
         const restart = async ()=>{
             const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
