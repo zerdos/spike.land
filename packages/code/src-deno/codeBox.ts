@@ -330,6 +330,10 @@ export async function run() {
         <html lang="en">
         <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <head profile="http://www.w3.org/2005/10/profile">
+        <link rel="icon" 
+              type="image/png" 
+              href="http://zed.vision/favicon.ico">
         <style>
         ${bodyStylesFix}
         ${css}
