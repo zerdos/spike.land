@@ -483,9 +483,7 @@ function createJSSourceBlob(code: string) {
 
 function createHTMLSourceBlob(code: string) {
   const blob = new Blob([code], { type: "text/html" });
-
-  const url = window.URL.createObjectURL(blob);
-  return url;
+  return blob;
 }
 
 async function saveHtml(htmlBlob: Blob) {
