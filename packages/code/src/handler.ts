@@ -1,4 +1,5 @@
 var SHATEST: KVNamespace;
+var API_KEY: string;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://zed.vision",
@@ -40,6 +41,20 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
+    const psk = request.headers.get("API_KEY");
+
+    if (psk) {
+      if (psk !== API_KEY) {
+        return new Response("Sorry, you have supplied an invalid key.", {
+          status: 403,
+        });
+      }
+
+      return new Response("NOT implemented yet.", {
+        status: 404,
+      });
+    }
+
     const myBuffer = await request.arrayBuffer();
 
     const myDigest = await crypto!.subtle.digest(

@@ -1,4 +1,5 @@
 var SHATEST;
+var API_KEY;
 const corsHeaders = {
     "Access-Control-Allow-Origin": "https://zed.vision",
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
@@ -47,6 +48,17 @@ async function handleCloudRequest(request) {
         }
         return Response.redirect("https://zed.vision/code", 301);
     } else if (request.method === "POST") {
+        const psk = request.headers.get("API_KEY");
+        if (psk) {
+            if (psk !== API_KEY) {
+                return new Response("Sorry, you have supplied an invalid key.", {
+                    status: 403
+                });
+            }
+            return new Response("NOT implemented yet.", {
+                status: 404
+            });
+        }
         const myBuffer = await request.arrayBuffer();
         const myDigest = await crypto.subtle.digest({
             name: "SHA-256"
