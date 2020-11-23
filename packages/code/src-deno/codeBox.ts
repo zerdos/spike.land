@@ -68,7 +68,10 @@ export async function run() {
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   // );
 
-  renderDraggableWindow(motion, () => shareitAsHtml());
+  renderDraggableWindow(motion, async () => {
+    const link = await shareitAsHtml();
+    window.open(link as unknown as string);
+  });
 
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",

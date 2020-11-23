@@ -1,5 +1,4 @@
 export const renderDraggableWindow = (motion, onShare) => {
-  const [shareUrl, setShareUrl] = React.useState(false);
   const DraggableWindow = () => {
     return jsx(
       React.Fragment,
@@ -46,17 +45,12 @@ export const renderDraggableWindow = (motion, onShare) => {
       background: burlywood;
     `,
           },
-          shareUrl === false
-            ? jsx("button", {
-              css: `
+          jsx("button", {
+            css: `
               backgound: blue;
             `,
-              onClick: async () => {
-                const url = onShare();
-                setShareUrl(url);
-              },
-            }, "SHARE")
-            : shareUrl,
+            onClick: () => onShare(),
+          }, "SHARE"),
         ),
         jsx("div", {
           css: `  

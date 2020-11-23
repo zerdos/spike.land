@@ -1,5 +1,4 @@
 const renderDraggableWindow = (motion, onShare)=>{
-    const [shareUrl, setShareUrl] = React.useState(false);
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
             css: `\n            z-index:900;\n            background: white;\n            border: 2px solid white;\n            border-radius: 0px 0px 12px 12px;\n          `,
@@ -27,13 +26,10 @@ const renderDraggableWindow = (motion, onShare)=>{
             }
         }, jsx("div", {
             css: `\n      display: block;\n      with: 100%;\n      height: 30px;\n      background: burlywood;\n    `
-        }, shareUrl === false ? jsx("button", {
+        }, jsx("button", {
             css: `\n              backgound: blue;\n            `,
-            onClick: async ()=>{
-                const url = onShare();
-                setShareUrl(url);
-            }
-        }, "SHARE") : shareUrl), jsx("div", {
+            onClick: ()=>onShare()
+        }, "SHARE")), jsx("div", {
             css: `  \n      display: inline-block;\n      min-width: 200px;\n      padding: 30px;\n      max-width: 600px;\n      max-height: 800px;\n      overflow-y: scroll;\n    `,
             id: "root"
         })));
@@ -326,8 +322,10 @@ let latestSavedCode = "";
 let latestGoodCode = "";
 let shareitAsHtml;
 export async function run() {
-    renderDraggableWindow(motion, ()=>shareitAsHtml()
-    );
+    renderDraggableWindow(motion, async ()=>{
+        const link = await shareitAsHtml();
+        window.open(link);
+    });
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
     importScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js");
     (async ()=>{
