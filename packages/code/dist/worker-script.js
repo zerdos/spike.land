@@ -4,6 +4,18 @@ const corsHeaders = {
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };
+function handleOptions(request) {
+    const headers = request.headers;
+    let respHeaders = {
+        ...headers,
+        ...corsHeaders,
+        "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
+    };
+    return new Response(request.body, {
+        headers: respHeaders
+    });
+}
+self.runner = self.runner || "worker-cf";
 async function handleCloudRequest(request) {
     if (request.method === "GET") {
         const url = new URL(request.url);
@@ -52,18 +64,6 @@ async function handleCloudRequest(request) {
     }
     return handleOptions(request);
 }
-function handleOptions(request) {
-    const headers = request.headers;
-    let respHeaders;
-    return new Response(request.body, {
-        headers: {
-            ...headers,
-            ...corsHeaders,
-            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
-        }
-    });
-}
-self.runner = self.runner || "worker-cf";
 addEventListener("fetch", (event)=>{
     if (self.runner !== "worker-cf") return;
     event.respondWith(handleCloudRequest(event.request));

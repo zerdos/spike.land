@@ -1,3 +1,14 @@
+function loadScript(src) {
+    return new Promise(function(resolve, reject) {
+        var s;
+        s = window.document.createElement("script");
+        s.src = src;
+        s.onload = ()=>resolve(window)
+        ;
+        s.onerror = reject;
+        window.document.head.appendChild(s);
+    });
+}
 export const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -36,10 +47,10 @@ export const startMonaco = async ({ onChange , code , language  })=>{
     }
     if (window["monaco"] === undefined) {
         const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
-        const { require  } = await loadScript(`${"https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"}/loader.min.js`);
+        const { require  } = await loadScript(`${vsPath}/loader.min.js`);
         require.config({
             paths: {
-                "vs": "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs"
+                "vs": vsPath
             }
         });
         await new Promise((resolve)=>require([
@@ -253,15 +264,4 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         return modules;
     }
 };
-function loadScript(src) {
-    return new Promise(function(resolve, reject) {
-        var s;
-        s = window.document.createElement("script");
-        s.src = src;
-        s.onload = ()=>resolve(window)
-        ;
-        s.onerror = reject;
-        window.document.head.appendChild(s);
-    });
-}
 
