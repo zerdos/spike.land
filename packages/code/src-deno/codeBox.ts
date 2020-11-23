@@ -20,7 +20,7 @@ interface Babel {
 const document = (window as { document: Document }).document;
 let firstLoad = true;
 
-const { motion } = window["Motion"];
+const { motion } = Motion;
 let latestCode = "";
 let busy = 0;
 let keystrokeTillNoError = 0;
@@ -77,9 +77,9 @@ export async function run() {
     "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
   );
 
-  importScript(
-    "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js",
-  );
+  // importScript(
+  //   "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js",
+  // );
 
   // const motion = Motion.motion;
 

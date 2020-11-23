@@ -58,7 +58,7 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
 const starter = `import { useState } from "react";\nimport {css, Global} from "@emotion/react";;\n\nconst Counter = () => {\n  const [clicks, setClicks] = useState(0);\n\n  return <>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n     </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n  </>\n}\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n        }  \n    \`}\n  />\n  <Counter />\n</>\n`;
 const document1 = window.document;
 let firstLoad = true;
-const { motion  } = window["Motion"];
+const { motion  } = Motion;
 let latestCode = "";
 let busy = 0;
 let keystrokeTillNoError = 0;
@@ -554,7 +554,6 @@ export async function run() {
         window.open(link);
     });
     await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
-    importScript("https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js");
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;
