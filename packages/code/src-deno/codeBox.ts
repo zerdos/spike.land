@@ -513,7 +513,6 @@ async function saveHtml(htmlBlob: Blob) {
       headers: {
         "content-type": "text/html;charset=UTF-8",
         "SHARE": "true",
-        "Service-Worker-Allowed": "/code/",
       },
     },
   );
