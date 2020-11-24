@@ -41,6 +41,24 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
+    const path = JSON.stringify(request.url);
+
+    const maybeRoute = path.split("/").pop();
+
+    const hash = await SHATEST.get(maybeRoute);
+
+    if (hash !== null) {
+      const jsonStream = await SHATEST.get(hash, "stream");
+      if (jsonStream !== null) {
+        return new Response(jsonStream, {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "text/html; charset=UTF-8",
+          },
+        });
+      }
+    }
+
     return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
     const psk = request.headers.get("API_KEY");
@@ -56,13 +74,17 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         });
       }
 
-      const value = await SHATEST.list({ limit: 100 });
+      const { prefix, loginHash } = await (request.json());
+      if (loginHash) {
+        await SHATEST.put("LOGIN", loginHash);
+      }
 
-      return new Response("NOT implemented yet." + JSON.stringify(value.keys), {
-        status: 404,
+      const value = await SHATEST.list({ prefix, limit: 100 });
+
+      return new Response(JSON.stringify(value), {
         headers: {
           ...corsHeaders,
-          "Content-Type": "text/html; charset=UTF-8",
+          "content-type": "application/json;charset=UTF-8",
         },
       });
     }
