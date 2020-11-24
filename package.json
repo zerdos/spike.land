@@ -24,10 +24,10 @@
     }
   },
   "dependencies": {
+    "@babel/standalone": "7.12.8",
     "comlink": "4.3.0",
-    "monaco-editor": "0.21.2",
     "framer-motion": "2.9.4",
-    "@babel/standalone": "7.12.8"
+    "monaco-editor": "0.21.2"
   },
   "devDependencies": {
     "@types/react": "17.0.0",
