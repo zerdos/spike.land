@@ -54,7 +54,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     const hash = await SHATEST.get(maybeRoute);
 
     if (hash !== null) {
-      const jsonStream = await SHATEST.get(hash, "stream");
+      const jsonStream = await SHATEST.get(await hash, "stream");
       if (jsonStream !== null) {
         return new Response(jsonStream, {
           headers: {
