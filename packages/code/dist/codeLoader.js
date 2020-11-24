@@ -649,7 +649,7 @@ export async function run() {
             }
         }
     })();
-    restartCode(transpileCode(getCodeToLoad()));
+    restartCode(transpileCode(await getCodeToLoad()));
     async function restartCode(transpileCode1) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";

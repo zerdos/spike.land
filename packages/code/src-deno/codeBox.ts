@@ -246,7 +246,7 @@ export async function run() {
 
     //
   })();
-  restartCode(transpileCode(getCodeToLoad()));
+  restartCode(transpileCode(await getCodeToLoad()));
 
   // document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
