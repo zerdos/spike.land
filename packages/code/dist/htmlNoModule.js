@@ -236,7 +236,9 @@ let needToSave = false;
 
   addEventListener("fetch", async function (e) {
     self.runner = "browser-sw";
-
+    if (e.request.headers.get("API_KEY")) {
+      e.respondWith(fetch(e.request));
+    }
     if (
       e.request.method === "GET" && e.request.url.includes("zed.") &&
       (e.request.url.includes("?h") || e.request.url.includes("?r"))
