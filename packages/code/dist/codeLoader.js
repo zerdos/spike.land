@@ -678,26 +678,24 @@ export async function run() {
         restart();
     }
     async function getCodeToLoad() {
-        try {
-            const search = new URLSearchParams(window.location.search);
-            const keyToLoad = search.get("h") || window.localStorage.getItem("codeBoXHash2");
-            if (keyToLoad) {
-                const content = window.localStorage.getItem(keyToLoad);
-                if (content) return content;
-                const cont = await window.SHATEST.get(keyToLoad);
-                if (cont) return await cont;
-                let text;
-                try {
-                    const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
-                    text = await resp.json();
-                } catch (e) {
-                    console.error(e);
-                    return starter;
-                }
-                return text.code;
+        const search = new URLSearchParams(window.location.search);
+        const keyToLoad = search.get("h") || window.localStorage.getItem("codeBoXHash2");
+        if (keyToLoad) {
+            const content = window.localStorage.getItem(keyToLoad);
+            if (content) return content;
+            const cont = await window.SHATEST.get(keyToLoad);
+            if (cont) return await cont;
+            let text;
+            try {
+                const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
+                text = await resp.json();
+            } catch (e) {
+                console.error(e);
+                return starter;
             }
-            return starter;
+            return text.code;
         }
+        return starter;
     }
     function setQueryStringParameter(name, value) {
         const params = new URLSearchParams(window.location.search);
