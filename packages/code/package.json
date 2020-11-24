@@ -10,8 +10,7 @@
         "dev": "yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist",
         "cp": "yarn esbuild ../diff/diff.js  --minify --outfile=dist/diff.min.js",
-        "build": "yarn clean && deno fmt . && yarn cp && yarn build-codebox && yarn minify",
-        "build-bundle": "deno bundle src-deno/index.ts src/index.js --no-check",
+        "build": "yarn clean && deno fmt . && yarn cp && deno bundle src/index.ts dist/worker-script.js --no-check && yarn build-codebox",
         "deploy": "yarn wrangler publish",
         "build-codebox": "deno bundle src-deno/codeBox.ts --no-check > dist/codeLoader.js",
         "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.min.js"

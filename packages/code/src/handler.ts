@@ -19,6 +19,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         if (jsonStream !== null) {
           return new Response(jsonStream, {
             headers: {
+              ...corsHeaders,
               "content-type": "text/javascript",
             },
           });

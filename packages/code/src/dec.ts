@@ -1,5 +1,3 @@
-/// <reference lib="webworker" />
-
 export type {
   FetchEvent,
   KVNamespace,
