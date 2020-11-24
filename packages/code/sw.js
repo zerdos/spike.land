@@ -4,7 +4,7 @@ importScripts(
 );
 
 const getUrl = () => {
-  if (window.location.href.includes("zed.dev")) {
+  if (location.href.includes("zed.dev")) {
     return "https://code.zed.dev";
   }
   return "https://code.zed.vision";
