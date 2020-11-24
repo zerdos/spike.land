@@ -114,7 +114,7 @@ export async function run() {
   // console.log(code);
 
   (async () => {
-    const example = getCodeToLoad();
+    const example = await getCodeToLoad();
     latestGoodCode = example;
 
     const modules = await startMonaco({

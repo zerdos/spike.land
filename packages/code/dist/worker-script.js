@@ -2,6 +2,7 @@ var OLD_SHATEST;
 var API_KEY;
 const corsHeaders = {
     "Access-Control-Allow-Origin": "https://zed.vision",
+    "Access-Control-Allow-Credentials": "true",
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };

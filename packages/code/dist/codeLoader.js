@@ -563,7 +563,7 @@ export async function run() {
     });
     await importScript("https://unpkg.com/@babel/standalone@7.12.8/babel.min.js");
     (async ()=>{
-        const example = getCodeToLoad();
+        const example = await getCodeToLoad();
         latestGoodCode = example;
         const modules = await startMonaco({
             language: "typescript",
