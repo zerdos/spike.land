@@ -12,7 +12,7 @@
     "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev docs",
     "push": "yarn build && git add . && git commit -m pre-release && git push && git pull",
     "release": "cd packages/code && yarn build && cd ../../ && yarn push && lerna publish patch --yes && yarn push",
-    "build": "yarn lerna run build --parallel --since main && yarn copy",
+    "build": "yarn lerna run build --parallel --since b && yarn copy",
     "copy": "rm -rf docs && mkdir -p docs/code && cp -a packages/zed-vision-site/public/. docs/ && cp -a packages/code/. docs/code/ && rm -rf docs/code/.certs",
     "rebuild": "yarn lerna run build --parallel && yarn copy",
     "docker:build": "yarn lerna run docker:build --parallel",
@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lerna run build --parallel --since main"
+      "pre-commit": "yarn lerna run build --parallel --since b"
     }
   },
   "dependencies": {
