@@ -56,6 +56,12 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
     })
 ;
 const starter = `import { useState } from "react";\nimport {css, Global} from "@emotion/react";;\n\nconst Counter = () => {\n  const [clicks, setClicks] = useState(0);\n\n  return <>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n     </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n  </>\n}\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n        }  \n    \`}\n  />\n  <Counter />\n</>\n`;
+const getUrl = ()=>{
+    if (window.location.href.includes("zed.dev")) {
+        return "https://code.zed.dev";
+    }
+    return "https://code.zed.vision";
+};
 const document1 = window.document;
 let firstLoad = true;
 const { motion  } = Motion;
@@ -81,7 +87,7 @@ function createHTMLSourceBlob(code) {
     return blob;
 }
 async function saveHtml(htmlBlob) {
-    const request = new Request("https://code.zed.vision", {
+    const request = new Request(getUrl(), {
         body: htmlBlob,
         method: "POST",
         headers: {
@@ -90,7 +96,7 @@ async function saveHtml(htmlBlob) {
     });
     const response = await fetch(request);
     const { hash  } = await response.json();
-    return `https://code.zed.vision/?r=${hash}`;
+    return getUrl() + `/?r=${hash}`;
 }
 function transpileCode(code) {
     const { transform  } = window["Babel"];
@@ -676,7 +682,7 @@ export async function run() {
         };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
-                if (!location.origin.includes("zed.vision")) {
+                if (!location.origin.includes(".zed.")) {
                     return;
                 }
                 if (latestCode1 !== latestGoodCode) return;
@@ -687,7 +693,7 @@ export async function run() {
                     code: latestGoodCode
                 };
                 const stringBody = JSON.stringify(body);
-                const request = new Request("https://code.zed.vision", {
+                const request = new Request(getUrl(), {
                     body: stringBody,
                     method: "POST",
                     headers: {

@@ -5,6 +5,13 @@ import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 
+const getUrl = () => {
+  if (window.location.href.includes("zed.dev")) {
+    return "https://code.zed.dev";
+  }
+  return "https://code.zed.vision";
+};
+
 // import Diff from "https://unpkg.com/diff@5.0.0/dist/diff.js";
 // console.log(Diff.structuredPatch("hash1", "hash2", "amaaafa", "alma", "", ""));
 
@@ -45,14 +52,6 @@ export async function run() {
   // await importScript(
   //   "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
   // );
-  // await importScript(
-  //   "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
-  // );
-
-  // const jsFrameLoader = importScript(
-  // "https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js",
-  // );
-
   // await importScript(
   //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
   // );
@@ -424,7 +423,7 @@ export async function run() {
         // const decoded = gzipDecode(encoded);
         // console.log(decoded);
 
-        if (!location.origin.includes("zed.vision")) {
+        if (!location.origin.includes(".zed.")) {
           return;
         }
         if (latestCode !== latestGoodCode) return;
@@ -438,7 +437,7 @@ export async function run() {
 
         const stringBody = JSON.stringify(body);
         const request = new Request(
-          "https://code.zed.vision",
+          getUrl(),
           {
             body: stringBody,
             method: "POST",
@@ -503,7 +502,7 @@ function createHTMLSourceBlob(code: string) {
 
 async function saveHtml(htmlBlob: Blob) {
   const request = new Request(
-    "https://code.zed.vision",
+    getUrl(),
     {
       body: htmlBlob,
       method: "POST",
@@ -514,7 +513,7 @@ async function saveHtml(htmlBlob: Blob) {
   const response = await fetch(request);
 
   const { hash } = await response.json();
-  return `https://code.zed.vision/?r=${hash}`;
+  return getUrl() + `/?r=${hash}`;
 }
 
 function transpileCode(code: string) {

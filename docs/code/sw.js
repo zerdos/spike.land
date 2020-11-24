@@ -3,6 +3,15 @@ importScripts(
   "https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js",
 );
 
+const getUrl = () => {
+  if (window.location.href.includes("zed.dev")) {
+    return "https://code.zed.dev";
+  }
+  return "https://code.zed.vision";
+};
+
+let needToSave = false;
+
 // importScripts(
 //   "https://unpkg.com/@zedvision/code@VERSION/dist/htmlNoModule.js",
 // );
@@ -60,17 +69,33 @@ importScripts(
     );
   });
 
-  addEventListener("fetch", function (e) {
+  addEventListener("fetch", async function (e) {
     self.runner = "browser-sw";
+
+    if (
+      e.request.method === "GET" && e.request.url.includes(".zed.") &&
+      (e.request.url.includes("?h") || e.request.url.includes("?r"))
+    ) {
+      const url = new URL(e.request.url);
+
+      if (url.includes("?h")) {
+        const hash = url.searchParams.get("h");
+        const val = await SHATEST.get(hash);
+
+        if (val) {
+          e.respondWith(val);
+        }
+      }
+    }
 
     if (e.request.method === "POST") {
       e.respondWith(
         (async () => {
           const data = (await e.request.arrayBuffer());
 
-          if (location.origin.includes("zed.vision")) {
+          if (needToSave && location.origin.includes(".zed.")) {
             const request = new Request(
-              "https://code.zed.vision",
+              getUrl(),
               {
                 body: data,
                 method: "POST",

@@ -11,7 +11,6 @@ const version = `7.8.1`; const html = `  <!DOCTYPE html>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
-  <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script>
   <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
@@ -92,12 +91,12 @@ const version = `7.8.1`; const html = `  <!DOCTYPE html>
       await swProxy.inc();
     }
 
-    if (!window.location.href.includes("zed.dev"))  {
+    // if (!window.location.href.includes("zed.dev"))  {
       if (navigator.serviceWorker) {
       navigator.serviceWorker.addEventListener("controllerchange", initComlink);
       navigator.serviceWorker.register("sw.js");
      initComlink()
-    }
+    // }
   }
 
 
@@ -169,6 +168,15 @@ importScripts(
   "https://unpkg.com/idb@5.0.7/build/iife/with-async-ittr-min.js",
 );
 
+const getUrl = () => {
+  if (window.location.href.includes("zed.dev")) {
+    return "https://code.zed.dev";
+  }
+  return "https://code.zed.vision";
+};
+
+let needToSave = false;
+
 // importScripts(
 //   "https://unpkg.com/@zedvision/code@7.8.1/dist/htmlNoModule.js",
 // );
@@ -226,17 +234,33 @@ importScripts(
     );
   });
 
-  addEventListener("fetch", function (e) {
+  addEventListener("fetch", async function (e) {
     self.runner = "browser-sw";
+
+    if (
+      e.request.method === "GET" && e.request.url.includes(".zed.") &&
+      (e.request.url.includes("?h") || e.request.url.includes("?r"))
+    ) {
+      const url = new URL(e.request.url);
+
+      if (url.includes("?h")) {
+        const hash = url.searchParams.get("h");
+        const val = await SHATEST.get(hash);
+
+        if (val) {
+          e.respondWith(val);
+        }
+      }
+    }
 
     if (e.request.method === "POST") {
       e.respondWith(
         (async () => {
           const data = (await e.request.arrayBuffer());
 
-          if (location.origin.includes("zed.vision")) {
+          if (needToSave && location.origin.includes(".zed.")) {
             const request = new Request(
-              "https://code.zed.vision",
+              getUrl(),
               {
                 body: data,
                 method: "POST",

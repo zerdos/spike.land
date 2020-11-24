@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "serve": "yarn copy && file_server --cert .certs/code.zed.dev.pem --key .certs/code.zed.dev-key.pem --host code.zed.dev docs",
+    "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev docs",
     "push": "yarn build && git add . && git commit -m pre-release && git push && git pull",
     "release": "cd packages/code && yarn build && cd ../../ && yarn push && lerna publish patch --yes && yarn push",
     "build": "yarn lerna run build --parallel --since main && yarn copy",
