@@ -49,12 +49,6 @@ async function handleCloudRequest(request) {
         }
         const path = request.url;
         const maybeRoute = path.split("/").pop();
-        return new Response(maybeRoute, {
-            headers: {
-                ...corsHeaders,
-                "Content-Type": "text/html; charset=UTF-8"
-            }
-        });
         const hash = await SHATEST.get(maybeRoute);
         if (hash !== null) {
             const jsonStream = await SHATEST.get(await hash, "stream");
