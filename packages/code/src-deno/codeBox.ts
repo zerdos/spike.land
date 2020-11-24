@@ -470,71 +470,80 @@ export async function run() {
     restart();
   }
   async function getCodeToLoad() {
-    const search = new URLSearchParams(window.location.search);
-    const keyToLoad = search.get("h") ||
-      window.localStorage.getItem("codeBoXHash2");
+    try {
+      const search = new URLSearchParams(window.location.search);
+      const keyToLoad = search.get("h") ||
+        window.localStorage.getItem("codeBoXHash2");
 
-    if (keyToLoad) {
-      const content = window.localStorage.getItem(keyToLoad);
-      if (content) return content;
-      const cont = await window.SHATEST.get(keyToLoad);
-      if (cont) return await cont;
+      if (keyToLoad) {
+        const content = window.localStorage.getItem(keyToLoad);
+        if (content) return content;
+        const cont = await window.SHATEST.get(keyToLoad);
+        if (cont) return await cont;
+        let text;
+        try {
+          const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
+          text = await resp.json();
+        } catch (e) {
+          console.error(e);
 
-      const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
-      const text = await resp.json();
-      return text.code;
+          return starter;
+        }
+
+        return text.code;
+      }
+
+      return starter;
     }
-
-    return starter;
   }
-}
 
-function setQueryStringParameter(name: string, value: string) {
-  const params = new URLSearchParams(window.location.search);
-  params.set(name, value);
-  window.history.replaceState(
-    {},
-    "",
-    decodeURIComponent(`${window.location.pathname}?${params}`),
-  );
-}
+  function setQueryStringParameter(name: string, value: string) {
+    const params = new URLSearchParams(window.location.search);
+    params.set(name, value);
+    window.history.replaceState(
+      {},
+      "",
+      decodeURIComponent(`${window.location.pathname}?${params}`),
+    );
+  }
 
-function createHTMLSourceBlob(code: string) {
-  const blob = new Blob([code], { type: "text/html" });
-  return blob;
-}
+  function createHTMLSourceBlob(code: string) {
+    const blob = new Blob([code], { type: "text/html" });
+    return blob;
+  }
 
-async function saveHtml(htmlBlob: Blob) {
-  const request = new Request(
-    getUrl(),
-    {
-      body: htmlBlob,
-      method: "POST",
-      headers: {
-        "content-type": "text/html;charset=UTF-8",
-        "SHARE": "true",
+  async function saveHtml(htmlBlob: Blob) {
+    const request = new Request(
+      getUrl(),
+      {
+        body: htmlBlob,
+        method: "POST",
+        headers: {
+          "content-type": "text/html;charset=UTF-8",
+          "SHARE": "true",
+        },
       },
-    },
-  );
+    );
 
-  const response = await fetch(request);
+    const response = await fetch(request);
 
-  const { hash } = await response.json();
-  return getUrl() + `/?r=${hash}`;
-}
+    const { hash } = await response.json();
+    return getUrl() + `/?r=${hash}`;
+  }
 
-function transpileCode(code: string) {
-  const { transform } = (window as unknown as { Babel: Babel })["Babel"];
-  return transform(
-    "/** @jsx jsx */\n" + `
+  function transpileCode(code: string) {
+    const { transform } = (window as unknown as { Babel: Babel })["Babel"];
+    return transform(
+      "/** @jsx jsx */\n" + `
   Object.assign(window, React);
   ` + code,
-    {
-      plugins: [],
-      presets: [
-        "react",
-        ["typescript", { isTSX: true, allExtensions: true }],
-      ],
-    },
-  ).code;
+      {
+        plugins: [],
+        presets: [
+          "react",
+          ["typescript", { isTSX: true, allExtensions: true }],
+        ],
+      },
+    ).code;
+  }
 }

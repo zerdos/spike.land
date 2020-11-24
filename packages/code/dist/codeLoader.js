@@ -72,49 +72,6 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareitAsHtml;
-function setQueryStringParameter(name, value) {
-    const params = new URLSearchParams(window.location.search);
-    params.set(name, value);
-    window.history.replaceState({
-    }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
-}
-function createHTMLSourceBlob(code) {
-    const blob = new Blob([
-        code
-    ], {
-        type: "text/html"
-    });
-    return blob;
-}
-async function saveHtml(htmlBlob) {
-    const request = new Request(getUrl(), {
-        body: htmlBlob,
-        method: "POST",
-        headers: {
-            "content-type": "text/html;charset=UTF-8",
-            "SHARE": "true"
-        }
-    });
-    const response = await fetch(request);
-    const { hash  } = await response.json();
-    return getUrl() + `/?r=${hash}`;
-}
-function transpileCode(code) {
-    const { transform  } = window["Babel"];
-    return transform("/** @jsx jsx */\n" + `\n  Object.assign(window, React);\n  ` + code, {
-        plugins: [],
-        presets: [
-            "react",
-            [
-                "typescript",
-                {
-                    isTSX: true,
-                    allExtensions: true
-                }
-            ], 
-        ]
-    }).code;
-}
 const L = -1;
 function y(i) {
     return i >= 55296 && i <= 56319;
@@ -649,10 +606,10 @@ export async function run() {
         }
     })();
     restartCode(transpileCode(await getCodeToLoad()));
-    async function restartCode(transpileCode1) {
+    async function restartCode(transpileCode) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transpileCode1.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
+        const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transpileCode.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
         const restart = async ()=>{
             const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
@@ -690,7 +647,7 @@ export async function run() {
                 if (latestSavedCode === latestCode1) return;
                 latestSavedCode = latestCode1;
                 const body = {
-                    codeTranspiled: transpileCode1,
+                    codeTranspiled: transpileCode,
                     code: latestGoodCode
                 };
                 const stringBody = JSON.stringify(body);
@@ -721,18 +678,69 @@ export async function run() {
         restart();
     }
     async function getCodeToLoad() {
-        const search = new URLSearchParams(window.location.search);
-        const keyToLoad = search.get("h") || window.localStorage.getItem("codeBoXHash2");
-        if (keyToLoad) {
-            const content = window.localStorage.getItem(keyToLoad);
-            if (content) return content;
-            const cont = await window.SHATEST.get(keyToLoad);
-            if (cont) return await cont;
-            const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
-            const text = await resp.json();
-            return text.code;
+        try {
+            const search = new URLSearchParams(window.location.search);
+            const keyToLoad = search.get("h") || window.localStorage.getItem("codeBoXHash2");
+            if (keyToLoad) {
+                const content = window.localStorage.getItem(keyToLoad);
+                if (content) return content;
+                const cont = await window.SHATEST.get(keyToLoad);
+                if (cont) return await cont;
+                let text;
+                try {
+                    const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
+                    text = await resp.json();
+                } catch (e) {
+                    console.error(e);
+                    return starter;
+                }
+                return text.code;
+            }
+            return starter;
         }
-        return starter;
+    }
+    function setQueryStringParameter(name, value) {
+        const params = new URLSearchParams(window.location.search);
+        params.set(name, value);
+        window.history.replaceState({
+        }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+    }
+    function createHTMLSourceBlob(code) {
+        const blob = new Blob([
+            code
+        ], {
+            type: "text/html"
+        });
+        return blob;
+    }
+    async function saveHtml(htmlBlob) {
+        const request = new Request(getUrl(), {
+            body: htmlBlob,
+            method: "POST",
+            headers: {
+                "content-type": "text/html;charset=UTF-8",
+                "SHARE": "true"
+            }
+        });
+        const response = await fetch(request);
+        const { hash  } = await response.json();
+        return getUrl() + `/?r=${hash}`;
+    }
+    function transpileCode(code) {
+        const { transform  } = window["Babel"];
+        return transform("/** @jsx jsx */\n" + `\n  Object.assign(window, React);\n  ` + code, {
+            plugins: [],
+            presets: [
+                "react",
+                [
+                    "typescript",
+                    {
+                        isTSX: true,
+                        allExtensions: true
+                    }
+                ], 
+            ]
+        }).code;
     }
 }
 function E({ text1: i , text2: n , cursorPos: e  }) {
