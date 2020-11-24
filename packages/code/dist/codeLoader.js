@@ -721,10 +721,19 @@ export async function run() {
         firstLoad = false;
         restart();
     }
-    function getCodeToLoad() {
+    async function getCodeToLoad() {
         const search = new URLSearchParams(window.location.search);
-        const h = search.get("h") || localStorage.getItem("codeBoXHash2");
-        return h && window.localStorage.getItem(h) || window.localStorage.getItem("STARTER") || starter;
+        const h = search.get("h");
+        if (h) {
+            const content = window.localStorage.getItem(h);
+            if (content) return content;
+            const cont = await window.OLD_SHATEST.get(h);
+            if (cont) return cont;
+            const resp = await fetch(getUrl() + "/?h=" + h);
+            const text = await resp.text();
+            return text;
+        }
+        return starter;
     }
 }
 function E({ text1: i , text2: n , cursorPos: e  }) {
