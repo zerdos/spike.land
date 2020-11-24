@@ -3,7 +3,6 @@ var API_KEY: string;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://zed.vision",
-  "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
   "Access-Control-Max-Age": "86400",
 };
@@ -20,7 +19,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           return new Response(jsonStream, {
             headers: {
               ...corsHeaders,
-              "content-type": "text/javascript",
+              "Content-Type": "text/html; charset=UTF-8",
             },
           });
         }
@@ -34,7 +33,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         if (jsonStream !== null) {
           return new Response(jsonStream, {
             headers: {
-              "content-type": "text/html",
+              "Content-Type": "text/html; charset=UTF-8",
             },
           });
         }
