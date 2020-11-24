@@ -683,7 +683,7 @@ export async function run() {
         };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
-                if (!location.origin.includes(".zed.")) {
+                if (!location.origin.includes("zed.")) {
                     return;
                 }
                 if (latestCode1 !== latestGoodCode) return;

@@ -423,7 +423,7 @@ export async function run() {
         // const decoded = gzipDecode(encoded);
         // console.log(decoded);
 
-        if (!location.origin.includes(".zed.")) {
+        if (!location.origin.includes("zed.")) {
           return;
         }
         if (latestCode !== latestGoodCode) return;

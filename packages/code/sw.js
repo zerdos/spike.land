@@ -73,7 +73,7 @@ let needToSave = false;
     self.runner = "browser-sw";
 
     if (
-      e.request.method === "GET" && e.request.url.includes(".zed.") &&
+      e.request.method === "GET" && e.request.url.includes("zed.") &&
       (e.request.url.includes("?h") || e.request.url.includes("?r"))
     ) {
       const url = new URL(e.request.url);
@@ -94,7 +94,7 @@ let needToSave = false;
           const share = e.request.headers.get("SHARE");
           const data = (await e.request.arrayBuffer());
 
-          if (share || needToSave && location.origin.includes(".zed.")) {
+          if (share || needToSave && location.origin.includes("zed.")) {
             const request = new Request(
               getUrl(),
               {
