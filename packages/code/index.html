@@ -137,7 +137,7 @@
   <script type="module">
 
   const runner = async () => {
-    if (window.location.href.includes("zed.dev")) {
+    if (window.location.href.includes("zed.")) {
       const { run } = await import("/code/dist/codeLoader.js");
       run();
       return;

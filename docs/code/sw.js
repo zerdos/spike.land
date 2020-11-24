@@ -12,10 +12,6 @@ const getUrl = () => {
 
 let needToSave = false;
 
-// importScripts(
-//   "https://unpkg.com/@zedvision/code@VERSION/dist/htmlNoModule.js",
-// );
-
 (({ Comlink, idb, location, caches, addEventListener }) => {
   const dbPromise = idb.openDB("localZedCodeStore", 1, {
     upgrade(db) {
