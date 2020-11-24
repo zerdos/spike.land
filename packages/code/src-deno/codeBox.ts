@@ -506,7 +506,7 @@ async function saveHtml(htmlBlob: Blob) {
     {
       body: htmlBlob,
       method: "POST",
-      headers: { "content-type": "text/html;charset=UTF-8" },
+      headers: { "content-type": "text/html;charset=UTF-8", "SHARE": "true" },
     },
   );
 

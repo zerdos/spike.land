@@ -91,10 +91,10 @@ let needToSave = false;
     if (e.request.method === "POST") {
       e.respondWith(
         (async () => {
-          const SAVE = request.headers.get("SHARE");
+          const share = request.headers.get("SHARE");
           const data = (await e.request.arrayBuffer());
 
-          if (needToSave && location.origin.includes(".zed.")) {
+          if (share || needToSave && location.origin.includes(".zed.")) {
             const request = new Request(
               getUrl(),
               {
