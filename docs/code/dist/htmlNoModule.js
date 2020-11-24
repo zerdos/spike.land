@@ -256,7 +256,7 @@ let needToSave = false;
     if (e.request.method === "POST") {
       e.respondWith(
         (async () => {
-          const share = request.headers.get("SHARE");
+          const share = e.request.headers.get("SHARE");
           const data = (await e.request.arrayBuffer());
 
           if (share || needToSave && location.origin.includes(".zed.")) {
