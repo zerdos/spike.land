@@ -560,7 +560,7 @@ export async function run() {
         const link = await shareitAsHtml();
         window.open(link);
     });
-    await importScript("https://unpkg.com/@babel/standalone@7.12.7/babel.min.js");
+    await importScript("https://unpkg.com/@babel/standalone@7.12.8/babel.min.js");
     (async ()=>{
         const example = getCodeToLoad();
         latestGoodCode = example;

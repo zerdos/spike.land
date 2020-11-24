@@ -73,7 +73,7 @@ export async function run() {
   });
 
   await importScript(
-    "https://unpkg.com/@babel/standalone@7.12.7/babel.min.js",
+    "https://unpkg.com/@babel/standalone@7.12.8/babel.min.js",
   );
 
   // importScript(
