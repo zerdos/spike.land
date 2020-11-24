@@ -92,7 +92,8 @@ async function saveHtml(htmlBlob) {
         method: "POST",
         headers: {
             "content-type": "text/html;charset=UTF-8",
-            "SHARE": "true"
+            "SHARE": "true",
+            "Service-Worker-Allowed": "/code/"
         }
     });
     const response = await fetch(request);
