@@ -86,13 +86,14 @@ let needToSave = false;
       }
     }
 
-    if (e.request.method === "POST") {
+    const share = e.request.headers.get("SHARE");
+    if (!share && e.request.method === "POST") {
       e.respondWith(
         (async () => {
           const share = e.request.headers.get("SHARE");
           const data = (await e.request.arrayBuffer());
 
-          if (share || needToSave && location.origin.includes("zed.")) {
+          if (needToSave && location.origin.includes("zed.")) {
             const request = new Request(
               getUrl(),
               {
