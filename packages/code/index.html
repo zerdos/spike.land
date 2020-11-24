@@ -85,7 +85,8 @@
 
       window["SHATEST"] = {
         get: async (key) => await swProxy.get(key),
-        put: async (key, value) => await swProxy.put(key, value)
+        put: async (key, value) => await swProxy.put(key, value),
+        keys: async()=>await swProxy.keys(),
       }
 
       await swProxy.inc();
