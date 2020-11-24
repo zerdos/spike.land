@@ -83,7 +83,7 @@ export const version = `7.8.1`; export const html = `  <!DOCTYPE html>
 
       const swProxy = Comlink.wrap(port2);
 
-      window["SHATEST"] = {
+      window["OLD_SHATEST"] = {
         get: async (key) => await swProxy.get(key),
         put: async (key, value) => await swProxy.put(key, value)
       }
@@ -188,7 +188,7 @@ let needToSave = false;
     },
   });
 
-  const SHATEST = {
+  const OLD_SHATEST = {
     async get(key, format = "string") {
       const data = (await dbPromise).get("codeStore", key);
       if (!data) return null;
@@ -245,7 +245,7 @@ let needToSave = false;
 
       if (url.includes("?h")) {
         const hash = url.searchParams.get("h");
-        const val = await SHATEST.get(hash);
+        const val = await OLD_SHATEST.get(hash);
 
         if (val) {
           e.respondWith(val);
@@ -256,6 +256,7 @@ let needToSave = false;
     if (e.request.method === "POST") {
       e.respondWith(
         (async () => {
+          const SAVE = request.headers.get("SHARE");
           const data = (await e.request.arrayBuffer());
 
           if (needToSave && location.origin.includes(".zed.")) {
@@ -293,7 +294,7 @@ let needToSave = false;
               "",
             );
           const smallerKey = hash.substring(0, 8);
-          await SHATEST.put(smallerKey, data);
+          await OLD_SHATEST.put(smallerKey, data);
 
           return new Response(JSON.stringify({ hash: smallerKey }), {
             headers: { "Content-Type": "application/json" },
@@ -374,10 +375,10 @@ let needToSave = false;
   const obj = {
     counter: 0,
     put(key, val) {
-      return SHATEST.put(key, val);
+      return OLD_SHATEST.put(key, val);
     },
     get(key) {
-      return SHATEST.get(key);
+      return OLD_SHATEST.get(key);
     },
     inc() {
       this.counter++;

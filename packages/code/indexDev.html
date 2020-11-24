@@ -144,7 +144,7 @@ body, html {
 
       const swProxy = Comlink.wrap(port2);
 
-      window["SHATEST"] = {
+      window["OLD_SHATEST"] = {
         get: async (key) => await swProxy.get(key),
         put: async (key, value) => await swProxy.put(key, value)
       }
