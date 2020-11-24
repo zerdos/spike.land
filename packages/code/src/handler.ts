@@ -76,15 +76,11 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     const smallerKey = hash.substring(0, 8);
     await OLD_SHATEST.put(smallerKey, myBuffer);
 
-    const resp = new Response(`{"hash":"${smallerKey}"}`);
-
-    resp.headers.append("Access-Control-Allow-Origin", "https://zed.vision");
-    resp.headers.append(
-      "Access-Control-Allow-Methods",
-      "GET,HEAD,POST,OPTIONS",
-    );
-    resp.headers.append("Access-Control-Max-Age", "86400");
-    return resp;
+    return new Response(JSON.stringify({ hash: smallerKey }), {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+      },
+    });
   }
 
   return handleOptions(request);
