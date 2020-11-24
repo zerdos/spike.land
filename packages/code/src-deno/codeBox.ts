@@ -477,7 +477,7 @@ export async function run() {
     if (keyToLoad) {
       const content = window.localStorage.getItem(keyToLoad);
       if (content) return content;
-      const cont = await window.OLD_SHATEST.get(keyToLoad);
+      const cont = await window.SHATEST.get(keyToLoad);
       if (cont) return await cont;
 
       const resp = await fetch(getUrl() + "/?h=" + keyToLoad);

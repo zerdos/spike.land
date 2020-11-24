@@ -1,4 +1,4 @@
-var OLD_SHATEST;
+var SHATEST;
 var API_KEY;
 const corsHeaders = {
     "Access-Control-Allow-Origin": "https://zed.vision",
@@ -22,7 +22,7 @@ async function handleCloudRequest(request) {
         if (request.url.includes("?h")) {
             const hash = url.searchParams.get("h");
             if (hash !== null) {
-                const jsonStream = await OLD_SHATEST.get(hash, "stream");
+                const jsonStream = await SHATEST.get(hash, "stream");
                 if (jsonStream !== null) {
                     return new Response(jsonStream, {
                         headers: {
@@ -36,7 +36,7 @@ async function handleCloudRequest(request) {
         if (request.url.includes("?r")) {
             const hash = url.searchParams.get("r");
             if (hash !== null) {
-                const jsonStream = await OLD_SHATEST.get(hash, "stream");
+                const jsonStream = await SHATEST.get(hash, "stream");
                 if (jsonStream !== null) {
                     return new Response(jsonStream, {
                         headers: {
@@ -55,7 +55,7 @@ async function handleCloudRequest(request) {
                     status: 403
                 });
             }
-            const value = await OLD_SHATEST.list({
+            const value = await SHATEST.list({
                 limit: 100
             });
             return new Response("NOT implemented yet." + JSON.stringify(value.keys), {
@@ -70,7 +70,7 @@ async function handleCloudRequest(request) {
         const hash = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
         ).join("");
         const smallerKey = hash.substring(0, 8);
-        await OLD_SHATEST.put(smallerKey, myBuffer);
+        await SHATEST.put(smallerKey, myBuffer);
         return new Response(JSON.stringify({
             hash: smallerKey
         }), {

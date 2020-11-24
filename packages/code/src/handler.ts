@@ -1,4 +1,4 @@
-var OLD_SHATEST: KVNamespace;
+var SHATEST: KVNamespace;
 var API_KEY: string;
 
 const corsHeaders = {
@@ -14,7 +14,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (request.url.includes("?h")) {
       const hash = url.searchParams.get("h");
       if (hash !== null) {
-        const jsonStream = await OLD_SHATEST.get(hash, "stream");
+        const jsonStream = await SHATEST.get(hash, "stream");
         if (jsonStream !== null) {
           return new Response(jsonStream, {
             headers: {
@@ -29,7 +29,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (request.url.includes("?r")) {
       const hash = url.searchParams.get("r");
       if (hash !== null) {
-        const jsonStream = await OLD_SHATEST.get(hash, "stream");
+        const jsonStream = await SHATEST.get(hash, "stream");
         if (jsonStream !== null) {
           return new Response(jsonStream, {
             headers: {
@@ -51,7 +51,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         });
       }
 
-      const value = await OLD_SHATEST.list({ limit: 100 });
+      const value = await SHATEST.list({ limit: 100 });
 
       return new Response("NOT implemented yet." + JSON.stringify(value.keys), {
         status: 404,
@@ -74,7 +74,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       "",
     );
     const smallerKey = hash.substring(0, 8);
-    await OLD_SHATEST.put(smallerKey, myBuffer);
+    await SHATEST.put(smallerKey, myBuffer);
 
     return new Response(JSON.stringify({ hash: smallerKey }), {
       headers: {
