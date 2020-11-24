@@ -243,7 +243,7 @@ let needToSave = false;
     ) {
       const url = new URL(e.request.url);
 
-      if (url.includes("?h")) {
+      if (url.get("h")) {
         const hash = url.searchParams.get("h");
         const val = await OLD_SHATEST.get(hash);
 
