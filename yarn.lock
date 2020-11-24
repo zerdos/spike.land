@@ -1182,7 +1182,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@^7.12.6":
+"@babel/standalone@7.12.8", "@babel/standalone@^7.12.6":
   version "7.12.8"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.12.8.tgz#c4915f7120462b75b63a396088e14361dca86be6"
   integrity sha512-0NPKt9h+d9ZC2bgOuh2zlM5RwaHgOol9XhMH1Jlk3oRCvHU+FSVhr7AGUtq2oRS4IDo2oULj+AKj8nj1NMKppA==
@@ -5697,6 +5697,11 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
+
+comlink@4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.3.0.tgz#80b3366baccd87897dab3638ebfcfae28b2f87c7"
+  integrity sha512-mu4KKKNuW8TvkfpW/H88HBPeILubBS6T94BdD1VWBXNXfiyqVtwUCVNO1GeNOBTsIswzsMjWlycYr+77F5b84g==
 
 comma-separated-tokens@^1.0.0:
   version "1.0.8"
