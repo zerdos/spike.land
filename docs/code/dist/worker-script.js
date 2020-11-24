@@ -40,6 +40,7 @@ async function handleCloudRequest(request) {
                 if (jsonStream !== null) {
                     return new Response(jsonStream, {
                         headers: {
+                            ...corsHeaders,
                             "Content-Type": "text/html; charset=UTF-8"
                         }
                     });
@@ -52,14 +53,22 @@ async function handleCloudRequest(request) {
         if (psk) {
             if (psk !== API_KEY) {
                 return new Response("Sorry, you have supplied an invalid key.", {
-                    status: 403
+                    status: 403,
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "text/html; charset=UTF-8"
+                    }
                 });
             }
             const value = await SHATEST.list({
                 limit: 100
             });
             return new Response("NOT implemented yet." + JSON.stringify(value.keys), {
-                status: 404
+                status: 404,
+                headers: {
+                    ...corsHeaders,
+                    "Content-Type": "text/html; charset=UTF-8"
+                }
             });
         }
         const myBuffer = await request.arrayBuffer();
@@ -75,6 +84,7 @@ async function handleCloudRequest(request) {
             hash: smallerKey
         }), {
             headers: {
+                ...corsHeaders,
                 "content-type": "application/json;charset=UTF-8"
             }
         });

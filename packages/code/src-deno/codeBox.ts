@@ -499,13 +499,6 @@ function setQueryStringParameter(name: string, value: string) {
   );
 }
 
-function createJSSourceBlob(code: string) {
-  const blob = new Blob([code], { type: "text/javascript" });
-
-  const url = window.URL.createObjectURL(blob);
-  return url;
-}
-
 function createHTMLSourceBlob(code: string) {
   const blob = new Blob([code], { type: "text/html" });
   return blob;

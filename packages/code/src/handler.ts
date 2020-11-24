@@ -33,6 +33,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         if (jsonStream !== null) {
           return new Response(jsonStream, {
             headers: {
+              ...corsHeaders,
               "Content-Type": "text/html; charset=UTF-8",
             },
           });
@@ -48,6 +49,10 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       if (psk !== API_KEY) {
         return new Response("Sorry, you have supplied an invalid key.", {
           status: 403,
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "text/html; charset=UTF-8",
+          },
         });
       }
 
@@ -55,6 +60,10 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       return new Response("NOT implemented yet." + JSON.stringify(value.keys), {
         status: 404,
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "text/html; charset=UTF-8",
+        },
       });
     }
 
@@ -78,6 +87,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     return new Response(JSON.stringify({ hash: smallerKey }), {
       headers: {
+        ...corsHeaders,
         "content-type": "application/json;charset=UTF-8",
       },
     });

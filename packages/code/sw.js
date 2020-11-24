@@ -102,7 +102,7 @@ let needToSave = false;
               },
             );
 
-            fetch(request)
+            await fetch(request)
               .then((response) => response.json())
               .then((data) =>
                 console.log("SERVER HASH: " + JSON.stringify(data))
