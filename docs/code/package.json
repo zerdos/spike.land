@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "7.8.2",
+    "version": "7.8.3",
     "description": "Monaco Editor for React",
     "main": "dist/worker-script.js",
     "files": [
@@ -33,7 +33,7 @@
     "devDependencies": {
         "@cloudflare/workers-types": "2.1.0",
         "@cloudflare/wrangler": "1.12.2",
-        "esbuild": "0.8.12"
+        "esbuild": "0.8.13"
     },
     "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
