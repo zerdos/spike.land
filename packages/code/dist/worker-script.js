@@ -49,16 +49,18 @@ async function handleCloudRequest(request) {
         }
         const path = request.url;
         const maybeRoute = path.split("/").pop();
-        const hash = await SHATEST.get(maybeRoute);
-        if (hash !== null) {
-            const jsonStream = await SHATEST.get(await hash, "stream");
-            if (jsonStream !== null) {
-                return new Response(jsonStream, {
-                    headers: {
-                        ...corsHeaders,
-                        "Content-Type": "text/html; charset=UTF-8"
-                    }
-                });
+        if (maybeRoute) {
+            const hash = await SHATEST.get(maybeRoute);
+            if (hash !== null) {
+                const jsonStream = await SHATEST.get(await hash, "stream");
+                if (jsonStream !== null) {
+                    return new Response(jsonStream, {
+                        headers: {
+                            ...corsHeaders,
+                            "Content-Type": "text/html; charset=UTF-8"
+                        }
+                    });
+                }
             }
         }
         return Response.redirect("https://zed.vision/code", 301);

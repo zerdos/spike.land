@@ -44,18 +44,19 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     const path = request.url;
 
     const maybeRoute = path.split("/").pop();
+    if (maybeRoute) {
+      const hash = await SHATEST.get(maybeRoute);
 
-    const hash = await SHATEST.get(maybeRoute);
-
-    if (hash !== null) {
-      const jsonStream = await SHATEST.get(await hash, "stream");
-      if (jsonStream !== null) {
-        return new Response(jsonStream, {
-          headers: {
-            ...corsHeaders,
-            "Content-Type": "text/html; charset=UTF-8",
-          },
-        });
+      if (hash !== null) {
+        const jsonStream = await SHATEST.get(await hash, "stream");
+        if (jsonStream !== null) {
+          return new Response(jsonStream, {
+            headers: {
+              ...corsHeaders,
+              "Content-Type": "text/html; charset=UTF-8",
+            },
+          });
+        }
       }
     }
 
