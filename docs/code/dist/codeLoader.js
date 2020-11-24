@@ -723,13 +723,13 @@ export async function run() {
     }
     async function getCodeToLoad() {
         const search = new URLSearchParams(window.location.search);
-        const h = search.get("h");
-        if (h) {
-            const content = window.localStorage.getItem(h);
+        const keyToLoad = search.get("h") || window.localStorage.getItem("codeBoXHash2");
+        if (keyToLoad) {
+            const content = window.localStorage.getItem(keyToLoad);
             if (content) return content;
-            const cont = await window.OLD_SHATEST.get(h);
-            if (cont) return cont;
-            const resp = await fetch(getUrl() + "/?h=" + h);
+            const cont = await window.OLD_SHATEST.get(keyToLoad);
+            if (cont) return await cont;
+            const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
             const text = await resp.text();
             return text;
         }
