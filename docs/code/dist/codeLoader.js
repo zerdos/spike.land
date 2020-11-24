@@ -729,8 +729,8 @@ export async function run() {
             const cont = await window.SHATEST.get(keyToLoad);
             if (cont) return await cont;
             const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
-            const text = await resp.text();
-            return text;
+            const text = await resp.json();
+            return text.code;
         }
         return starter;
     }
