@@ -550,6 +550,9 @@ export async function run() {
         keys.slice(0, 10).map((x)=>x.name
         ).map(async (hash)=>{
             const code = await getCode(hash);
+            const el = document1.createElement("div");
+            document1.getElementById("root").replaceWith(el);
+            el.id = "root";
             restartCode(transpileCode(code));
             console.log(document1.getElementById("root").innerHTML);
         });

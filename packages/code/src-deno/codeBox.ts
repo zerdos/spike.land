@@ -78,6 +78,10 @@ export async function run() {
     const keys = await getKeys(apiKey, "a");
     keys.slice(0, 10).map((x) => x.name).map(async (hash) => {
       const code = await getCode(hash);
+
+      const el = document.createElement("div");
+      document.getElementById("root").replaceWith(el);
+      el.id = "root";
       restartCode(transpileCode(code));
       console.log(document.getElementById("root").innerHTML);
       //      console.log(transpileCode(code))
