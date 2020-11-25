@@ -111,7 +111,7 @@ export async function run() {
           restartCode(codeTranspiled);
           const html = document.getElementById("root").innerHTML;
           if (html !== html2) {
-            console.log({ html, html2, codeTranspiled, transpiled });
+            console.log({ hash, html, html2, codeTranspiled, transpiled });
           }
         }
       } catch (e) {

@@ -584,6 +584,7 @@ export async function run() {
                     const html = document1.getElementById("root").innerHTML;
                     if (html !== html2) {
                         console.log({
+                            hash,
                             html,
                             html2,
                             codeTranspiled,
