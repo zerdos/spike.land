@@ -575,12 +575,14 @@ export async function run() {
             try {
                 transpiled = transpileCode(code);
                 if (transpiled !== codeTranspiled) {
-                    restartCode(transpiled);
+                    const searchRegExp = /setInterval/gi;
+                    const replaceWith = "///";
+                    restartCode(transpiled.replaceAll(searchRegExp, replaceWith));
                     const html2 = document1.getElementById("root").innerHTML;
                     const el2 = document1.createElement("div");
                     document1.getElementById("root").replaceWith(el2);
                     el2.id = "root";
-                    restartCode(codeTranspiled);
+                    restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith));
                     const html = document1.getElementById("root").innerHTML;
                     if (html !== html2) {
                         console.log({
