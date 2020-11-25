@@ -55,6 +55,22 @@ async function getKeys(apiKey: string, prefix: string) {
     return [] as { name: string }[];
   }
 }
+async function deleteHash(apiKey: string, hash: string) {
+  try {
+    const url = `https://code.zed.vision/keys/?hash=${hash}`;
+    const req = await fetch(url, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        "API_KEY": apiKey,
+      },
+    });
+
+    return true;
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
 
 async function getCode(hash: string) {
   try {
@@ -130,6 +146,7 @@ export async function run() {
                 transpiled2: transpiled,
               },
             );
+            await deleteHash(apiKey, hash);
           }
         }
       } catch (e) {

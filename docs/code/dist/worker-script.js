@@ -33,6 +33,16 @@ async function handleCloudRequest(request) {
                 }
             });
         }
+        if (pathname === "/keys/delete") {
+            const hash = searchParams.get("hash");
+            const value = await SHATEST.delete(hash);
+            return new Response(JSON.stringify(value), {
+                headers: {
+                    ...corsHeaders,
+                    "content-type": "application/json;charset=UTF-8"
+                }
+            });
+        }
     }
     if (request.method === "GET") {
         const url = new URL(request.url);
