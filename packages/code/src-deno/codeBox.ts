@@ -106,9 +106,9 @@ async function getTranspiledCode(hash: string) {
 }
 
 export async function run() {
-  async function regenerate(apiKey: string) {
-    const keys = await getKeys(apiKey, "a");
-    keys.slice(0, 10).map((x) => x.name).map(async (hash) => {
+  async function regenerate(apiKey: string, prefix: string) {
+    const keys = await getKeys(apiKey, prefix);
+    keys.map((x) => x.name).map(async (hash) => {
       const code = await getCode(hash);
       if (!code) return "";
       const codeTranspiled = await getTranspiledCode(hash);
