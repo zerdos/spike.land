@@ -73,6 +73,14 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
     })
 ;
 const starter = `import { useState } from "react";\nimport {css, Global} from "@emotion/react";;\n\nconst Counter = () => {\n  const [clicks, setClicks] = useState(0);\n\n  return <>\n      <h1>Counter example</h1>\n      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>\n        -\n     </button>\n      {clicks}\n      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>\n        +\n    </button>\n  </>\n}\n\nconst buttonStyles = (color: string) => css\`\n  border-radius: 6px;\n  padding: 0.5rem 0;\n  margin: 0.5rem 2rem;\n  width: 4rem;\n  background: \${color};\n  color: white;\n  border: none;\n  :focus{\n    outline: none;\n  }\n  \`;\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n        }  \n    \`}\n  />\n  <Counter />\n</>\n`;
+async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
+    ).join("");
+    return hashHex.substr(0, 8);
+}
 const getUrl = ()=>{
     if (window.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
@@ -776,8 +784,8 @@ export async function run() {
                         "content-type": "application/json;charset=UTF-8"
                     }
                 });
-                const response = await fetch(request);
-                const { hash  } = await response.json();
+                const response = fetch(request);
+                const hash = await sha256(stringBody);
                 try {
                     const localStorage = window.localStorage;
                     const prevHash = localStorage.getItem("codeBoXHash2");
@@ -788,9 +796,9 @@ export async function run() {
                     }
                 } catch (e) {
                 }
+                await response;
             };
-            setTimeout(()=>saveCode(latestCode)
-            , 500);
+            saveCode(latestCode);
         }
         firstLoad = false;
         restart();

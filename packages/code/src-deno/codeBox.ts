@@ -4,6 +4,7 @@ import { renderDraggableWindow } from "./DraggableWindow.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
+import { sha256 } from "./sha256.ts";
 
 const getUrl = () => {
   if (window.location.href.includes("zed.dev")) {
@@ -564,9 +565,11 @@ export async function run() {
           },
         );
 
-        const response = await fetch(request);
+        const response = fetch(request);
+        const hash = await sha256(stringBody);
+        // console.log(shaHash);
 
-        const { hash } = await response.json();
+        // const { hash } = await response.json();
 
         try {
           const localStorage: Storage = window.localStorage;
@@ -581,9 +584,10 @@ export async function run() {
         } catch (e) {
           //         console.log("no localStorage");
         }
+        await response;
       };
 
-      setTimeout(() => saveCode(latestCode), 500);
+      saveCode(latestCode);
     }
     firstLoad = false;
     restart();
