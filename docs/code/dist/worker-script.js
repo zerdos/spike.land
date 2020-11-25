@@ -17,6 +17,23 @@ function handleOptions(request) {
     });
 }
 async function handleCloudRequest(request) {
+    const psk = String(request.headers.get("API_KEY") || "");
+    if (request.method === "GET" && psk && psk === API_KEY) {
+        const url = new URL(request.url);
+        const { searchParams , pathname  } = url;
+        if (pathname === "/keys/") {
+            const prefix = searchParams.get("prefix");
+            const value = await SHATEST.list({
+                prefix
+            });
+            return new Response(JSON.stringify(value), {
+                headers: {
+                    ...corsHeaders,
+                    "content-type": "application/json;charset=UTF-8"
+                }
+            });
+        }
+    }
     if (request.method === "GET") {
         const url = new URL(request.url);
         if (request.url.includes("?h")) {
@@ -65,32 +82,6 @@ async function handleCloudRequest(request) {
         }
         return Response.redirect("https://zed.vision/code", 301);
     } else if (request.method === "POST") {
-        const psk = request.headers.get("API_KEY");
-        if (psk) {
-            if (psk !== API_KEY) {
-                return new Response("Sorry, you have supplied an invalid key.", {
-                    status: 403,
-                    headers: {
-                        ...corsHeaders,
-                        "Content-Type": "text/html; charset=UTF-8"
-                    }
-                });
-            }
-            const { prefix , loginHash  } = await request.json();
-            if (loginHash) {
-                await SHATEST.put("LOGIN", loginHash);
-            }
-            const value = await SHATEST.list({
-                prefix,
-                limit: 100
-            });
-            return new Response(JSON.stringify(value), {
-                headers: {
-                    ...corsHeaders,
-                    "content-type": "application/json;charset=UTF-8"
-                }
-            });
-        }
         const myBuffer = await request.arrayBuffer();
         const myDigest = await crypto.subtle.digest({
             name: "SHA-256"
