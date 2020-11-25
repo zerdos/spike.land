@@ -78,12 +78,18 @@ export async function run() {
     const keys = await getKeys(apiKey, "a");
     keys.slice(0, 10).map((x) => x.name).map(async (hash) => {
       const code = await getCode(hash);
-
+      if (!code) return "";
       const el = document.createElement("div");
       document.getElementById("root").replaceWith(el);
       el.id = "root";
-      restartCode(transpileCode(code));
-      console.log(document.getElementById("root").innerHTML);
+      let transpiled;
+      try {
+        transpiled = transpileCode(code);
+        restartCode(transpiled);
+        console.log(document.getElementById("root").innerHTML);
+      } catch (e) {
+        console.error({ hash, code, transpiled });
+      }
       //      console.log(transpileCode(code))
     });
   }
