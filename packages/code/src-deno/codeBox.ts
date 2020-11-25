@@ -38,7 +38,7 @@ let latestGoodCode = "";
 
 let shareitAsHtml: () => void;
 
-async function test(apiKey: string, prefix: string) {
+async function getKeys(apiKey: string, prefix: string) {
   try {
     const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
 
@@ -74,7 +74,15 @@ async function getCode(hash: string) {
 }
 
 export async function run() {
-  Object.assign(window, { test, getCode });
+  async function regenerate(apiKey: string) {
+    const keys = await getKeys(apiKey, "a");
+    keys.slice(0, 10).map((x) => x.name).map(async (hash) => {
+      const code = await getCode(hash);
+      console.log(transpileCode(code));
+    });
+  }
+
+  Object.assign(window, { getKeys, getCode, restartCode, regenerate });
 
   // await importScript(
   //   "https://unpkg.com/react@17.0.1/umd/react.production.min.js",

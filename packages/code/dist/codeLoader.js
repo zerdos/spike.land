@@ -72,7 +72,7 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareitAsHtml;
-async function test(apiKey, prefix) {
+async function getKeys(apiKey, prefix) {
     try {
         const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
         const req = await fetch(list, {
@@ -545,9 +545,19 @@ const startMonaco = async ({ onChange , code , language  })=>{
     }
 };
 export async function run() {
+    async function regenerate(apiKey) {
+        const keys = await getKeys(apiKey, "a");
+        keys.slice(0, 10).map((x)=>x.name
+        ).map(async (hash)=>{
+            const code = await getCode(hash);
+            console.log(transpileCode(code));
+        });
+    }
     Object.assign(window, {
-        test,
-        getCode
+        getKeys,
+        getCode,
+        restartCode,
+        regenerate
     });
     renderDraggableWindow(motion, async ()=>{
         const link = await shareitAsHtml();
