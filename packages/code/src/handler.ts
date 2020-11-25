@@ -25,7 +25,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         },
       });
     }
-    if (pathname === "/keys/delete") {
+    if (pathname === "/keys/delete/") {
       const hash = searchParams.get("hash");
       const value = await SHATEST.delete(hash);
 

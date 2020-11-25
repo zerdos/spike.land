@@ -57,7 +57,7 @@ async function getKeys(apiKey: string, prefix: string) {
 }
 async function deleteHash(apiKey: string, hash: string) {
   try {
-    const url = `https://code.zed.vision/keys/?hash=${hash}`;
+    const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
     const req = await fetch(url, {
       headers: {
         "content-type": "application/json;charset=UTF-8",

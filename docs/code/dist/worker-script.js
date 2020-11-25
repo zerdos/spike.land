@@ -33,7 +33,7 @@ async function handleCloudRequest(request) {
                 }
             });
         }
-        if (pathname === "/keys/delete") {
+        if (pathname === "/keys/delete/") {
             const hash = searchParams.get("hash");
             const value = await SHATEST.delete(hash);
             return new Response(JSON.stringify(value), {
