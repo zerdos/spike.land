@@ -42,17 +42,27 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     if (request.url.includes("?h")) {
       const hash = url.searchParams.get("h");
-      if (hash !== null) {
-        const jsonStream = await SHATEST.get(hash, "stream");
-        if (jsonStream !== null) {
-          return new Response(jsonStream, {
+      const jsonStream = await SHATEST.get(hash, "stream");
+      if (jsonStream === null) {
+        return new Response(
+          JSON.stringify({
+            error: "Not found",
+          }),
+          {
             headers: {
               ...corsHeaders,
-              "Content-Type": "text/html; charset=UTF-8",
+              "content-type": "application/json;charset=UTF-8",
             },
-          });
-        }
+          },
+        );
       }
+
+      return new Response(jsonStream, {
+        headers: {
+          ...corsHeaders,
+          "content-type": "application/json;charset=UTF-8",
+        },
+      });
     }
 
     if (request.url.includes("?r")) {

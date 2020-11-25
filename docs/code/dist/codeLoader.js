@@ -80,7 +80,7 @@ async function test(apiKey, prefix) {
             "API_KEY": apiKey
         }
     });
-    const data = req.json();
+    const data = await req.json();
     console.log(data);
 }
 const L = -1;

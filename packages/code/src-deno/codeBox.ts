@@ -46,7 +46,18 @@ async function test(apiKey: string, prefix: string) {
       "API_KEY": apiKey,
     },
   });
-  const data = req.json();
+  const data = await req.json();
+  console.log(data);
+}
+
+async function getCode(hash: string) {
+  const list = `https://code.zed.vision/?h=${hash}`;
+  const req = await fetch(list, {
+    headers: {
+      "content-type": "application/json;charset=UTF-8",
+    },
+  });
+  const data = await req.json();
   console.log(data);
 }
 
