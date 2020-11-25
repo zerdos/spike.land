@@ -1,5 +1,5 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
-
+import { getKeys } from "./maintanence/maintenence.ts";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
@@ -38,23 +38,6 @@ let latestGoodCode = "";
 
 let shareitAsHtml: () => void;
 
-async function getKeys(apiKey: string, prefix: string) {
-  try {
-    const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
-
-    const req = await fetch(list, {
-      headers: {
-        "content-type": "application/json;charset=UTF-8",
-        "API_KEY": apiKey,
-      },
-    });
-    const data = await req.json();
-    return data.keys as { name: string }[];
-  } catch (e) {
-    console.log(e);
-    return [] as { name: string }[];
-  }
-}
 async function deleteHash(apiKey: string, hash: string) {
   try {
     const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;

@@ -1,0 +1,17 @@
+export async function getKeys(apiKey: string, prefix: string) {
+  try {
+    const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
+
+    const req = await fetch(list, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        "API_KEY": apiKey,
+      },
+    });
+    const data = await req.json();
+    return data.keys as { name: string }[];
+  } catch (e) {
+    console.log(e);
+    return [] as { name: string }[];
+  }
+}

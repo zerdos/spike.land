@@ -1,3 +1,20 @@
+async function getKeys(apiKey, prefix) {
+    try {
+        const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
+        const req = await fetch(list, {
+            headers: {
+                "content-type": "application/json;charset=UTF-8",
+                "API_KEY": apiKey
+            }
+        });
+        const data = await req.json();
+        return data.keys;
+    } catch (e) {
+        console.log(e);
+        return [];
+    }
+}
+const getKeys1 = getKeys;
 const renderDraggableWindow = (motion, onShare)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
@@ -72,22 +89,6 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareitAsHtml;
-async function getKeys(apiKey, prefix) {
-    try {
-        const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
-        const req = await fetch(list, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "API_KEY": apiKey
-            }
-        });
-        const data = await req.json();
-        return data.keys;
-    } catch (e) {
-        console.log(e);
-        return [];
-    }
-}
 async function deleteHash(apiKey, hash) {
     try {
         const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
@@ -625,7 +626,7 @@ export async function run() {
         });
     }
     Object.assign(window, {
-        getKeys,
+        getKeys: getKeys,
         getCode,
         restartCode,
         regenerate
