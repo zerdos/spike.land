@@ -353,7 +353,7 @@ export async function run() {
   // document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
   // await workerDomImport;
-  async function restartCode(transpileCode: string) {
+  async function restartCode(transPiled: string) {
     const searchRegExp = /import/gi;
     const replaceWith = "///";
 
@@ -366,7 +366,7 @@ export async function run() {
       window.styled= window.emotionStyled;
     }
     ;
-    ` + transpileCode.replaceAll(
+    ` + transPiled.replaceAll(
       searchRegExp,
       replaceWith,
     ).replace("export default", "DefaultElement = ");
@@ -533,7 +533,7 @@ export async function run() {
         latestSavedCode = latestCode;
 
         const body = {
-          codeTranspiled: transpileCode,
+          codeTranspiled: transpileCode(latestGoodCode),
           code: latestGoodCode,
         };
 

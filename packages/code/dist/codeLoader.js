@@ -705,10 +705,10 @@ export async function run() {
         }
     })();
     restartCode(transpileCode(await getCodeToLoad()));
-    async function restartCode(transpileCode) {
+    async function restartCode(transPiled) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
-        const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transpileCode.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
+        const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transPiled.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
         const restart = async ()=>{
             const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
@@ -746,7 +746,7 @@ export async function run() {
                 if (latestSavedCode === latestCode1) return;
                 latestSavedCode = latestCode1;
                 const body = {
-                    codeTranspiled: transpileCode,
+                    codeTranspiled: transpileCode(latestGoodCode),
                     code: latestGoodCode
                 };
                 const stringBody = JSON.stringify(body);
