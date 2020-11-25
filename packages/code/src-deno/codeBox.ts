@@ -40,7 +40,9 @@ let shareitAsHtml: () => void;
 
 async function test(apiKey: string, prefix: string) {
   const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
-  const req = await fetch(list);
+  const req = await fetch(list, {
+    headers: { "content-type": "application/json;charset=UTF-8" },
+  });
   const data = req.json();
   console.log(data);
 }
