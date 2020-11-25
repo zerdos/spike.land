@@ -1,26 +1,60 @@
 import { config } from "https://deno.land/x/dotenv/mod.ts";
-import { getHash } from "./maintenence.ts";
-import { asyncLimit } from "./asynclimit.js";
+//import { memo } from "react";
+// import { getHash } from "./maintenence.ts";
+// import { asyncLimit } from "./asynclimit.js";
 // import {sha256} from "../sha256.ts"
 import { sha256 } from "./sha256.ts";
-import { keys } from "./data/keys.ts";
+// import { keys } from "./data/keys.ts";
 const env = config();
 
-//@ts-ignore
-const checkhashLimit = asyncLimit(checkHash, 1);
+// //@ts-ignore
+// const checkhashLimit = asyncLimit(checkHash, 1);
 let memory: string[] = [];
-async function checkHash(hash: string) {
-  const text = Deno.readTextFileSync(`./data/${hash}.json`);
-  memory.push(text);
+// async function checkHash(hash: string) {
+//   const text = Deno.readTextFileSync(`./data/${hash}.json`);
+//   memory.push(text);
 
-  // console.log( sha256(text));
+//   // console.log( sha256(text));
+// }
+
+// keys.filter((x) => x.length < 9).map(checkHash);
+
+// const mmm: string[] = []
+// for (const dirEntry in Deno.readDirSync("./data/90")) {
+// // console.log(file);
+// console.log(dirEntry);
+
+// }
+
+for (const dirEntry of Deno.readDirSync("./data/200")) {
+  console.log(dirEntry.name);
+  memory.push(Deno.readTextFileSync("./data/200/" + dirEntry.name));
 }
-keys.filter((x) => x.length < 9).map(checkHash);
+function shuffle(arr: string[]) {
+  var currentIndex = arr.length, temporaryValue, randomIndex;
 
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
+  }
+
+  return arr;
+}
+memory = shuffle(memory);
+// console.log(mmm)
+
+console.log(memory.filter((c) => c.indexOf("***") > -1).length);
 //console.log(memory[0]);
-let iters = 0;
+let iters = 210;
 
-while (iters < 100) {
+while (iters < 1000) {
   let length = 15;
   let maxlen = 15;
   let num = -1;
