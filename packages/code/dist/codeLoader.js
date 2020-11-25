@@ -577,11 +577,13 @@ export async function run() {
                 if (transpiled !== codeTranspiled) {
                     const searchRegExp = /setInterval/gi;
                     const replaceWith = "///";
+                    window.ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
                     restartCode(transpiled.replaceAll(searchRegExp, replaceWith));
                     const html2 = document1.getElementById("root").innerHTML;
                     const el2 = document1.createElement("div");
                     document1.getElementById("root").replaceWith(el2);
                     el2.id = "root";
+                    window.ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
                     restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith));
                     const html = document1.getElementById("root").innerHTML;
                     if (html !== html2) {

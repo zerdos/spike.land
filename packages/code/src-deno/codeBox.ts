@@ -106,11 +106,17 @@ export async function run() {
           const searchRegExp = /setInterval/gi;
           const replaceWith = "///";
 
+          window.ReactDOM.unmountComponentAtNode(
+            document.getElementById("root"),
+          );
           restartCode(transpiled.replaceAll(searchRegExp, replaceWith));
           const html2 = document.getElementById("root").innerHTML;
           const el2 = document.createElement("div");
           document.getElementById("root").replaceWith(el2);
           el2.id = "root";
+          window.ReactDOM.unmountComponentAtNode(
+            document.getElementById("root"),
+          );
           restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith));
           const html = document.getElementById("root").innerHTML;
           if (html !== html2) {
