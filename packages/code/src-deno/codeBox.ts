@@ -105,13 +105,14 @@ export async function run() {
         if (transpiled !== codeTranspiled) {
           restartCode(transpiled);
           const html2 = document.getElementById("root").innerHTML;
-          console.log(document.getElementById("root").innerHTML);
           const el2 = document.createElement("div");
           document.getElementById("root").replaceWith(el2);
           el2.id = "root";
           restartCode(codeTranspiled);
           const html = document.getElementById("root").innerHTML;
-          console.log({ html, html2, codeTranspiled, transpiled });
+          if (html !== html2) {
+            console.log({ html, html2, codeTranspiled, transpiled });
+          }
         }
       } catch (e) {
         console.error({ hash, code, transpiled });
