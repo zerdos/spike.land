@@ -104,6 +104,22 @@ async function getCode(hash) {
         return "";
     }
 }
+async function getTranspiledCode(hash) {
+    try {
+        const list = `https://code.zed.vision/?h=${hash}`;
+        const req = await fetch(list, {
+            headers: {
+                "content-type": "application/json;charset=UTF-8"
+            }
+        });
+        const data = await req.json();
+        if (data.codeTranspiled) return data.codeTranspiled;
+        return "";
+    } catch (e) {
+        console.log(e);
+        return "";
+    }
+}
 const L = -1;
 function y(i) {
     return i >= 55296 && i <= 56319;
@@ -551,14 +567,29 @@ export async function run() {
         ).map(async (hash)=>{
             const code = await getCode(hash);
             if (!code) return "";
+            const codeTranspiled = await getTranspiledCode(hash);
             const el = document1.createElement("div");
             document1.getElementById("root").replaceWith(el);
             el.id = "root";
             let transpiled;
             try {
                 transpiled = transpileCode(code);
-                restartCode(transpiled);
-                console.log(document1.getElementById("root").innerHTML);
+                if (transpiled !== codeTranspiled) {
+                    restartCode(transpiled);
+                    const html2 = document1.getElementById("root").innerHTML;
+                    console.log(document1.getElementById("root").innerHTML);
+                    const el2 = document1.createElement("div");
+                    document1.getElementById("root").replaceWith(el2);
+                    el2.id = "root";
+                    restartCode(codeTranspiled);
+                    const html = document1.getElementById("root").innerHTML;
+                    console.log({
+                        html,
+                        html2,
+                        codeTranspiled,
+                        transpiled
+                    });
+                }
             } catch (e) {
                 console.error({
                     hash,

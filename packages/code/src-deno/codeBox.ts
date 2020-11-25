@@ -72,6 +72,22 @@ async function getCode(hash: string) {
     return "";
   }
 }
+async function getTranspiledCode(hash: string) {
+  try {
+    const list = `https://code.zed.vision/?h=${hash}`;
+    const req = await fetch(list, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+      },
+    });
+    const data = await req.json();
+    if (data.codeTranspiled) return data.codeTranspiled as string;
+    return "";
+  } catch (e) {
+    console.log(e);
+    return "";
+  }
+}
 
 export async function run() {
   async function regenerate(apiKey: string) {
@@ -79,14 +95,24 @@ export async function run() {
     keys.slice(0, 10).map((x) => x.name).map(async (hash) => {
       const code = await getCode(hash);
       if (!code) return "";
+      const codeTranspiled = await getTranspiledCode(hash);
       const el = document.createElement("div");
       document.getElementById("root").replaceWith(el);
       el.id = "root";
       let transpiled;
       try {
         transpiled = transpileCode(code);
-        restartCode(transpiled);
-        console.log(document.getElementById("root").innerHTML);
+        if (transpiled !== codeTranspiled) {
+          restartCode(transpiled);
+          const html2 = document.getElementById("root").innerHTML;
+          console.log(document.getElementById("root").innerHTML);
+          const el2 = document.createElement("div");
+          document.getElementById("root").replaceWith(el2);
+          el2.id = "root";
+          restartCode(codeTranspiled);
+          const html = document.getElementById("root").innerHTML;
+          console.log({ html, html2, codeTranspiled, transpiled });
+        }
       } catch (e) {
         console.error({ hash, code, transpiled });
       }
