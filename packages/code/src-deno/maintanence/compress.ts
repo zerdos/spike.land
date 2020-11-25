@@ -4,20 +4,20 @@ import { config } from "https://deno.land/x/dotenv/mod.ts";
 // import { asyncLimit } from "./asynclimit.js";
 // import {sha256} from "../sha256.ts"
 import { sha256 } from "./sha256.ts";
-// import { keys } from "./data/keys.ts";
+import { keys } from "./data/keys.ts";
 const env = config();
 
 // //@ts-ignore
 // const checkhashLimit = asyncLimit(checkHash, 1);
 let memory: string[] = [];
-// async function checkHash(hash: string) {
-//   const text = Deno.readTextFileSync(`./data/${hash}.json`);
-//   memory.push(text);
+async function checkHash(hash: string) {
+  const text = Deno.readTextFileSync(`./data/${hash}.json`);
+  memory.push(text);
 
-//   // console.log( sha256(text));
-// }
+  //   // console.log( sha256(text));
+}
 
-// keys.filter((x) => x.length < 9).map(checkHash);
+keys.filter((x) => x.length < 9).map(checkHash);
 
 // const mmm: string[] = []
 // for (const dirEntry in Deno.readDirSync("./data/90")) {
@@ -26,10 +26,10 @@ let memory: string[] = [];
 
 // }
 
-for (const dirEntry of Deno.readDirSync("./data/200")) {
-  console.log(dirEntry.name);
-  memory.push(Deno.readTextFileSync("./data/200/" + dirEntry.name));
-}
+// for (const dirEntry of Deno.readDirSync("./data/880")) {
+//   console.log(dirEntry.name);
+//   memory.push(Deno.readTextFileSync("./data/880/" + dirEntry.name));
+// }
 function shuffle(arr: string[]) {
   var currentIndex = arr.length, temporaryValue, randomIndex;
 
@@ -50,11 +50,11 @@ function shuffle(arr: string[]) {
 memory = shuffle(memory);
 // console.log(mmm)
 
-console.log(memory.filter((c) => c.indexOf("***") > -1).length);
+// console.log(memory.filter((c) => c.indexOf("***") > -1).length);
 //console.log(memory[0]);
-let iters = 210;
+let iters = 0;
 
-while (iters < 1000) {
+while (iters < 10000) {
   let length = 15;
   let maxlen = 15;
   let num = -1;
@@ -87,7 +87,7 @@ while (iters < 1000) {
     }
     // console.log(i, length);
   }
-  memory.push(mem);
+  newMemory.push(mem);
   const hasmMem = newMemory.map((s) => sha256(s));
   Deno.mkdirSync("./data/" + iters);
   newMemory.map((x) =>
