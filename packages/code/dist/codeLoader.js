@@ -576,7 +576,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
     }
 };
 export async function run() {
-    async function regenerate(apiKey, prefix) {
+    async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
         const keys = await getKeys(apiKey, prefix);
         keys.map((x)=>x.name
         ).map(async (hash)=>{
@@ -612,7 +612,7 @@ export async function run() {
                             transpiled1: codeTranspiled,
                             transpiled2: transpiled
                         });
-                        await deleteHash(apiKey, hash);
+                        deleteIfRenderedHTmlDiffers && await deleteHash(apiKey, hash);
                     }
                 }
             } catch (e) {

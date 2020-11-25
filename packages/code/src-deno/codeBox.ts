@@ -106,7 +106,11 @@ async function getTranspiledCode(hash: string) {
 }
 
 export async function run() {
-  async function regenerate(apiKey: string, prefix: string) {
+  async function regenerate(
+    apiKey: string,
+    prefix: string,
+    deleteIfRenderedHTmlDiffers = false,
+  ) {
     const keys = await getKeys(apiKey, prefix);
     keys.map((x) => x.name).map(async (hash) => {
       const code = await getCode(hash);
@@ -159,7 +163,7 @@ export async function run() {
                 transpiled2: transpiled,
               },
             );
-            await deleteHash(apiKey, hash);
+            deleteIfRenderedHTmlDiffers && await deleteHash(apiKey, hash);
           }
         }
       } catch (e) {
