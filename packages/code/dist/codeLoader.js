@@ -72,6 +72,12 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareitAsHtml;
+async function test(apiKey, prefix) {
+    const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
+    const req = await fetch(list);
+    const data = req.json();
+    console.log(data);
+}
 const L = -1;
 function y(i) {
     return i >= 55296 && i <= 56319;
@@ -513,6 +519,9 @@ const startMonaco = async ({ onChange , code , language  })=>{
     }
 };
 export async function run() {
+    Object.assign(window, {
+        TEST_KEYS: test
+    });
     renderDraggableWindow(motion, async ()=>{
         const link = await shareitAsHtml();
         window.open(link);

@@ -38,7 +38,15 @@ let latestGoodCode = "";
 
 let shareitAsHtml: () => void;
 
+async function test(apiKey: string, prefix: string) {
+  const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
+  const req = await fetch(list);
+  const data = req.json();
+  console.log(data);
+}
+
 export async function run() {
+  Object.assign(window, { TEST_KEYS: test });
   // await importScript(
   //   "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
   // );
