@@ -112,7 +112,14 @@ export async function run() {
           const html = document.getElementById("root").innerHTML;
           if (html !== html2) {
             console.log(
-              { hash, code, html, html2, codeTranspiled, transpiled },
+              {
+                hash,
+                code,
+                html1: html,
+                html2,
+                transpiled1: codeTranspiled,
+                transpiled2: transpiled,
+              },
             );
           }
         }

@@ -586,10 +586,10 @@ export async function run() {
                         console.log({
                             hash,
                             code,
-                            html,
+                            html1: html,
                             html2,
-                            codeTranspiled,
-                            transpiled
+                            transpiled1: codeTranspiled,
+                            transpiled2: transpiled
                         });
                     }
                 }
