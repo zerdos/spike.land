@@ -122,10 +122,18 @@ export async function run() {
           const searchRegExp = /setInterval/gi;
           const replaceWith = "///";
 
+          const searchRegExp2 = /debugger/gi;
+          const replaceWith2 = "///";
+
           window.ReactDOM.unmountComponentAtNode(
             document.getElementById("root"),
           );
-          restartCode(transpiled.replaceAll(searchRegExp, replaceWith));
+          restartCode(
+            transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(
+              searchRegExp2,
+              replaceWith2,
+            ),
+          );
           const html2 = document.getElementById("root").innerHTML;
           const el2 = document.createElement("div");
           document.getElementById("root").replaceWith(el2);
@@ -133,7 +141,12 @@ export async function run() {
           window.ReactDOM.unmountComponentAtNode(
             document.getElementById("root"),
           );
-          restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith));
+          restartCode(
+            codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(
+              searchRegExp2,
+              replaceWith2,
+            ),
+          );
           const html = document.getElementById("root").innerHTML;
           if (html !== html2) {
             console.log(

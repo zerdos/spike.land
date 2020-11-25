@@ -592,14 +592,16 @@ export async function run() {
                 if (transpiled !== codeTranspiled) {
                     const searchRegExp = /setInterval/gi;
                     const replaceWith = "///";
+                    const searchRegExp2 = /debugger/gi;
+                    const replaceWith2 = "///";
                     window.ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
-                    restartCode(transpiled.replaceAll(searchRegExp, replaceWith));
+                    restartCode(transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
                     const html2 = document1.getElementById("root").innerHTML;
                     const el2 = document1.createElement("div");
                     document1.getElementById("root").replaceWith(el2);
                     el2.id = "root";
                     window.ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
-                    restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith));
+                    restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
                     const html = document1.getElementById("root").innerHTML;
                     if (html !== html2) {
                         console.log({
