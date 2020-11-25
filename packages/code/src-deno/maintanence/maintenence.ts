@@ -1,3 +1,23 @@
+export async function getHash(hash: string) {
+  try {
+    const list = `https://code.zed.vision/?h=${hash}`;
+    const req = await fetch(list, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+      },
+    });
+    const data = await req.json();
+
+    console.log(data);
+
+    //if (data.code) return data.code as string;
+    // return "";
+  } catch (e) {
+    console.log(e);
+    return "";
+  }
+}
+
 export async function getKeys(apiKey: string, prefix: string) {
   try {
     const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
