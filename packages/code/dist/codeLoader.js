@@ -585,6 +585,7 @@ export async function run() {
                     if (html !== html2) {
                         console.log({
                             hash,
+                            code,
                             html,
                             html2,
                             codeTranspiled,
