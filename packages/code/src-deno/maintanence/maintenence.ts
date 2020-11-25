@@ -6,9 +6,9 @@ export async function getHash(hash: string) {
         "content-type": "application/json;charset=UTF-8",
       },
     });
-    const data = await req.json();
+    const data = await req.text();
 
-    console.log(data);
+    return data;
 
     //if (data.code) return data.code as string;
     // return "";

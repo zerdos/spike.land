@@ -459,7 +459,7 @@ export async function run() {
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <head profile="http://www.w3.org/2005/10/profile">
         <link rel="icon" 
-              type="image/png" 
+              type="image/png"
               href="https://zed.vision/favicon.ico">
         <style>
         ${bodyStylesFix}
