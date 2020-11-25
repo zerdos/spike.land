@@ -73,15 +73,36 @@ let latestSavedCode = "";
 let latestGoodCode = "";
 let shareitAsHtml;
 async function test(apiKey, prefix) {
-    const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
-    const req = await fetch(list, {
-        headers: {
-            "content-type": "application/json;charset=UTF-8",
-            "API_KEY": apiKey
-        }
-    });
-    const data = await req.json();
-    console.log(data);
+    try {
+        const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
+        const req = await fetch(list, {
+            headers: {
+                "content-type": "application/json;charset=UTF-8",
+                "API_KEY": apiKey
+            }
+        });
+        const data = await req.json();
+        return data.keys;
+    } catch (e) {
+        console.log(e);
+        return [];
+    }
+}
+async function getCode(hash) {
+    try {
+        const list = `https://code.zed.vision/?h=${hash}`;
+        const req = await fetch(list, {
+            headers: {
+                "content-type": "application/json;charset=UTF-8"
+            }
+        });
+        const data = await req.json();
+        if (data.code) return data.code;
+        return "";
+    } catch (e) {
+        console.log(e);
+        return "";
+    }
 }
 const L = -1;
 function y(i) {
@@ -525,7 +546,8 @@ const startMonaco = async ({ onChange , code , language  })=>{
 };
 export async function run() {
     Object.assign(window, {
-        TEST_KEYS: test
+        test,
+        getCode
     });
     renderDraggableWindow(motion, async ()=>{
         const link = await shareitAsHtml();

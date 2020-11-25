@@ -39,30 +39,43 @@ let latestGoodCode = "";
 let shareitAsHtml: () => void;
 
 async function test(apiKey: string, prefix: string) {
-  const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
-  const req = await fetch(list, {
-    headers: {
-      "content-type": "application/json;charset=UTF-8",
-      "API_KEY": apiKey,
-    },
-  });
-  const data = await req.json();
-  console.log(data);
+  try {
+    const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
+
+    const req = await fetch(list, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+        "API_KEY": apiKey,
+      },
+    });
+    const data = await req.json();
+    return data.keys as { name: string }[];
+  } catch (e) {
+    console.log(e);
+    return [] as { name: string }[];
+  }
 }
 
 async function getCode(hash: string) {
-  const list = `https://code.zed.vision/?h=${hash}`;
-  const req = await fetch(list, {
-    headers: {
-      "content-type": "application/json;charset=UTF-8",
-    },
-  });
-  const data = await req.json();
-  console.log(data);
+  try {
+    const list = `https://code.zed.vision/?h=${hash}`;
+    const req = await fetch(list, {
+      headers: {
+        "content-type": "application/json;charset=UTF-8",
+      },
+    });
+    const data = await req.json();
+    if (data.code) return data.code as string;
+    return "";
+  } catch (e) {
+    console.log(e);
+    return "";
+  }
 }
 
 export async function run() {
-  Object.assign(window, { TEST_KEYS: test });
+  Object.assign(window, { test, getCode });
+
   // await importScript(
   //   "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
   // );
