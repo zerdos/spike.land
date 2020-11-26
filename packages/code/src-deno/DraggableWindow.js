@@ -28,9 +28,9 @@ export const renderDraggableWindow = (motion, onShare) => {
           },
           drag: true,
           dragConstraints: {
-            left: -200,
-            right: window.innerWidth - 200,
-            bottom: window.innerHeight + 200,
+            left: -window.innerWidth + 200,
+            right: 0,
+            bottom: window.innerHeight - 200,
             top: 0,
           },
         },
