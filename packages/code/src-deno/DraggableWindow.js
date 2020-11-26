@@ -7,10 +7,9 @@ export const renderDraggableWindow = (motion, onShare) => {
         motion.div,
         {
           css: `
-            z-index:900;
-            background: white;
-            border: 2px solid white;
-            border-radius: 0px 0px 12px 12px;
+            background: red;
+            border: 4px solid red;
+            border-radius: 8px;
           `,
           animate: {
             scale: 1,
@@ -41,16 +40,26 @@ export const renderDraggableWindow = (motion, onShare) => {
             css: `
       display: block;
       with: 100%;
-      height: 30px;
-      background: burlywood;
+      text-align: right;
+      background: linear-gradient(0deg, darkred, red);
     `,
           },
           jsx("button", {
             css: `
-              backgound: blue;
+              background: darkred;
+              margin-top: -4px;
+              color: white;
+              cursor: pointer;
+              font-weight: bold;
+              font-family: Roboto;
+              padding: 8px 16px;
+              outline: none;
+              box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+              border: none;
+              border-radius: 0px 8px 0px 0px;
             `,
             onClick: () => onShare(),
-          }, "SHARE"),
+          }, "🌎 SHARE"),
         ),
         jsx("div", {
           css: `  
@@ -58,8 +67,11 @@ export const renderDraggableWindow = (motion, onShare) => {
       min-width: 200px;
       padding: 30px;
       max-width: 600px;
+      margin-bottom: -4px;
+      background: white;
       max-height: 800px;
-      overflow-y: scroll;
+      border-radius: 0px 0px 8px 8px;
+      overflow-y: overlay;
     `,
           id: "root",
         }),

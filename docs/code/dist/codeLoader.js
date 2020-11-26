@@ -18,7 +18,7 @@ const getKeys1 = getKeys;
 const renderDraggableWindow = (motion, onShare)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
-            css: `\n            z-index:900;\n            background: white;\n            border: 2px solid white;\n            border-radius: 0px 0px 12px 12px;\n          `,
+            css: `\n            background: red;\n            border: 4px solid red;\n            border-radius: 8px;\n          `,
             animate: {
                 scale: 1,
                 top: 1,
@@ -42,12 +42,12 @@ const renderDraggableWindow = (motion, onShare)=>{
                 top: 0
             }
         }, jsx("div", {
-            css: `\n      display: block;\n      with: 100%;\n      height: 30px;\n      background: burlywood;\n    `
+            css: `\n      display: block;\n      with: 100%;\n      text-align: right;\n      background: linear-gradient(0deg, darkred, red);\n    `
         }, jsx("button", {
-            css: `\n              backgound: blue;\n            `,
+            css: `\n              background: darkred;\n              margin-top: -4px;\n              color: white;\n              cursor: pointer;\n              font-weight: bold;\n              font-family: Roboto;\n              padding: 8px 16px;\n              outline: none;\n              box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);\n              border: none;\n              border-radius: 0px 8px 0px 0px;\n            `,
             onClick: ()=>onShare()
-        }, "SHARE")), jsx("div", {
-            css: `  \n      display: inline-block;\n      min-width: 200px;\n      padding: 30px;\n      max-width: 600px;\n      max-height: 800px;\n      overflow-y: scroll;\n    `,
+        }, "🌎 SHARE")), jsx("div", {
+            css: `  \n      display: inline-block;\n      min-width: 200px;\n      padding: 30px;\n      max-width: 600px;\n      margin-bottom: -4px;\n      background: white;\n      max-height: 800px;\n      border-radius: 0px 0px 8px 8px;\n      overflow-y: overlay;\n    `,
             id: "root"
         })));
     };
