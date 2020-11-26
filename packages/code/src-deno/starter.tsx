@@ -1,41 +1,40 @@
 export const starter = `import { useState } from "react";
-import {css, Global} from "@emotion/react";;
+import { motion } from "framer-motion";
+import { css, Global } from "@emotion/react";;
 
-const Counter = () => {
-  const [clicks, setClicks] = useState(0);
+const Slider = () => {
+  const [sliderValue, setSlider] = useState(64);
 
   return <>
-      <h1>Counter example</h1>
-      <button css={buttonStyles("green")} onClick={() => setClicks(clicks - 1)}>
-        -
-     </button>
-      {clicks}
-      <button css={buttonStyles("red")} onClick={() => setClicks(clicks + 1)}>
-        +
-    </button>
-  </>
-}
-
-const buttonStyles = (color: string) => css\`
-  border-radius: 6px;
-  padding: 0.5rem 0;
-  margin: 0.5rem 2rem;
-  width: 4rem;
-  background: \${color};
-  color: white;
-  border: none;
-  :focus{
-    outline: none;
-  }
-  \`;
-
-export default () => <>
   <Global styles={css\`
       body{
           margin: 0;
+          background: rgb(\${sliderValue},\${255-sliderValue},255);
+          overflow: overlay;
         }  
-    \`}
-  />
-  <Counter />
+    \`}/>
+    <input max="128"
+      css={\`
+        appearance: none;
+        width: 100%;
+        height: 40px; 
+        background: rgb(\${sliderValue*2},\${255-2*sliderValue},0); 
+        outline: none; 
+    \`} type="range"
+      value={sliderValue} step="1"
+      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>
+    </input>
+    <motion.p
+      animate={{ fontSize: sliderValue + \`px\` }}>
+      Example when the text gets bigger...
+    </motion.p>
+      <motion.p animate={{fontSize:128-sliderValue+"px"}}>
+        ...or smaller
+    </motion.p>
+  </>
+}
+
+export default () => <>
+  <Slider />
 </>
 `;
