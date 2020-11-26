@@ -53,6 +53,58 @@ const renderDraggableWindow = (motion, onShare)=>{
     };
     ReactDOM.render(jsx(DraggableWindow), document.getElementById("dragabbleWindow"));
 };
+function renderDraggableEditor() {
+    const jsFrame = new JSFrame();
+    const frame = jsFrame.create({
+        name: `Win`,
+        left: window.innerWidth / 2,
+        top: 40,
+        width: window.innerWidth / 2 - 40,
+        height: 600,
+        minWidth: 300,
+        minHeight: 300,
+        appearanceName: "material",
+        appearanceParam: {
+            titleBar: {
+                color: "white",
+                background: "#333333"
+            }
+        },
+        style: {
+            backgroundColor: "rgba(255,255,255,0.8)",
+            overflow: "auto"
+        },
+        style: {
+            backgroundColor: "rgba(0,0,0,0.8)",
+            overflow: "hidden",
+            width: "100%"
+        },
+        html: '<div id="container"></div>'
+    }).show();
+    frame.setControl({
+        maximizeButton: "maximizeButton",
+        demaximizeButton: "restoreButton",
+        minimizeButton: "minimizeButton",
+        deminimizeButton: "deminimizeButton",
+        hideButton: "closeButton",
+        animation: true,
+        animationDuration: 150
+    });
+    frame.control.on("hid", (frame1, info)=>{
+        frame1.closeFrame();
+    });
+    frame.control.on("maximized", (frame1, info)=>{
+        jsFrame.showToast({
+            text: "Maximized"
+        });
+    });
+    frame.control.on("demaximized", (frame1, info)=>{
+    });
+    frame.control.on("minimized", (frame1, info)=>{
+    });
+    frame.control.on("dminimized", (frame1, info)=>{
+    });
+}
 function loadScript(src) {
     return new Promise(function(resolve, reject) {
         var s;
@@ -584,7 +636,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
         return modules;
     }
 };
-export async function run() {
+export async function run(mode = "window") {
     async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
         const keys = await getKeys(apiKey, prefix);
         keys.map((x)=>x.name
@@ -639,10 +691,18 @@ export async function run() {
         restartCode,
         regenerate
     });
-    renderDraggableWindow(motion, async ()=>{
-        const link = await shareitAsHtml();
-        window.open(link);
-    });
+    if (mode === "editor") {
+        renderDraggableEditor(motion, async ()=>{
+            const link = await shareitAsHtml();
+            window.open(link);
+        });
+    }
+    if (mode == "window") {
+        renderDraggableWindow(motion, async ()=>{
+            const link = await shareitAsHtml();
+            window.open(link);
+        });
+    }
     await importScript("https://unpkg.com/@babel/standalone@7.12.9/babel.min.js");
     (async ()=>{
         const example = await getCodeToLoad();

@@ -1,18 +1,174 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+  
+  <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
+  <script crossorigin src="https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js"></script>
+  <script crossorigin src="https://unpkg.com/jsframe.js@1.6.2/lib/jsframe.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <style>
+
+    body{
+      overflow: hidden;
+    }
+
+    
+    #container,  #ace {
+      background-color: #1e1e1e;
+      min-width: 400px;
+      min-height: 400px;
+      width: 100%;
+      height: 100%;
+    }
+
+    #ace {
+      display: none;
+    }
+
+
+    #error {
+      display: none;
+      background-color: red;
+      opacity: 0.7;
+    }
+
+    #dragabbleWindow {
+      right: 20px;
+      top: 20px;
+      position: fixed;
+      z-index: 900;
+      height: 1px;
+    }
+
+
+
+
+    .almosthidden {
+      opacity: 0.5;
+    }
+
+    button {
+      font-size: large;
+    }
+  </style>
 </head>
 
 <body>
+  <div id="dragabbleWindow"></div>
+  <div id="error"></div>
+  <div id="root"></div>
+  <div id="ace"></div>
+  <script type="module">
+    import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
+
+
+
+
+    async function initComlink() {
+      const { port1, port2 } = new MessageChannel();
+      const msg = {
+        comlinkInit: true,
+        port: port1,
+      };
+
+      navigator.serviceWorker.ready.then(registration => {
+        registration.active.postMessage(msg, [port1]);
+      });
+
+
+      const swProxy = Comlink.wrap(port2);
+
+      window["SHATEST"] = {
+        get: async (key) => await swProxy.get(key),
+        put: async (key, value) => await swProxy.put(key, value),
+        keys: async()=>await swProxy.keys(),
+      }
+
+      await swProxy.inc();
+    }
+
+    // if (!window.location.href.includes("zed.dev"))  {
+      if (navigator.serviceWorker) {
+      navigator.serviceWorker.addEventListener("controllerchange", initComlink);
+      navigator.serviceWorker.register("sw.js");
+     initComlink()
+    // }
+  }
+
+
+// navigator.serviceWorker.getRegistrations().then(function (registrations) {
+//     for (let registration of registrations) {
+//       registration.unregister();
+//     }
+//   });
+
+  </script>
+
+  <script type="module">
+    // window["motion"] = window["Motion"].motion;
+    Object.assign(window, emotionReact);
+
+    window["styled"] = window["emotionStyled"];
+
+    //inject
+
+    //inject
+
+
+
+    async function restartCode(transpileCode) {
+
+      //  console.log(replaced);
+      const restart = new Function(
+        "transpileCode",
+        `return function() {  
+        !!!{transpileCode}
+      }`,
+      )()
+      restart();
+    }
+
+
+  </script>
   <script type="module">
 
-    import counter from "./counter222.js"
-    
-    console.log("YOOOO")
+  const runner = async () => {
+    if (window.location.href.includes("zed.")) {
+      const { run } = await import("/code/dist/codeLoader.js");
+      run("editor");
+      return;
+    }
 
-    console.log(counter)
+    if (window.location.href.includes("0.0.0.0")) {
+      const { run } = await import("/dist/codeLoader.js");
+      run("editor");
+      return;
+    }
 
+    try {
+        const { run } = await import("/code/dist/codeLoader.min.js");
+        run("editor");
+      } catch (e) {
+        const { run } = await import( "https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js" );
+        run("editor");
+      }
+  }
+  
+
+  runner();
   </script>
 </body>
 

@@ -1,6 +1,7 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
 import { getKeys } from "./maintanence/maintenence.ts";
 import { renderDraggableWindow } from "./DraggableWindow.js";
+import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
@@ -89,7 +90,7 @@ async function getTranspiledCode(hash: string) {
   }
 }
 
-export async function run() {
+export async function run(mode = "window") {
   async function regenerate(
     apiKey: string,
     prefix: string,
@@ -187,10 +188,19 @@ export async function run() {
   //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
   // );
 
-  renderDraggableWindow(motion, async () => {
-    const link = await shareitAsHtml();
-    window.open(link as unknown as string);
-  });
+  if (mode === "editor") {
+    renderDraggableEditor(motion, async () => {
+      const link = await shareitAsHtml();
+      window.open(link as unknown as string);
+    });
+  }
+
+  if (mode == "window") {
+    renderDraggableWindow(motion, async () => {
+      const link = await shareitAsHtml();
+      window.open(link as unknown as string);
+    });
+  }
 
   await importScript(
     "https://unpkg.com/@babel/standalone@7.12.9/babel.min.js",
