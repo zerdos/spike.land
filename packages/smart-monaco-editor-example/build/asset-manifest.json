@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/@zedvision/smart-monaco-editor-example/build/static/css/main.fc51c1b2.chunk.css",
-    "main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/main.96224169.chunk.js",
-    "main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/main.96224169.chunk.js.map",
-    "runtime-main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/runtime-main.9b50413f.js",
-    "runtime-main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/runtime-main.9b50413f.js.map",
-    "static/js/2.11e5b8cc.chunk.js": "/@zedvision/smart-monaco-editor-example/build/static/js/2.11e5b8cc.chunk.js",
-    "static/js/2.11e5b8cc.chunk.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/2.11e5b8cc.chunk.js.map",
+    "main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/main.1c52e1f3.chunk.js",
+    "main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/main.1c52e1f3.chunk.js.map",
+    "runtime-main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/runtime-main.f7abf870.js",
+    "runtime-main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/runtime-main.f7abf870.js.map",
+    "static/js/2.03ca2508.chunk.js": "/@zedvision/smart-monaco-editor-example/build/static/js/2.03ca2508.chunk.js",
+    "static/js/2.03ca2508.chunk.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/2.03ca2508.chunk.js.map",
     "index.html": "/@zedvision/smart-monaco-editor-example/build/index.html",
     "static/css/main.fc51c1b2.chunk.css.map": "/@zedvision/smart-monaco-editor-example/build/static/css/main.fc51c1b2.chunk.css.map",
-    "static/js/2.11e5b8cc.chunk.js.LICENSE.txt": "/@zedvision/smart-monaco-editor-example/build/static/js/2.11e5b8cc.chunk.js.LICENSE.txt",
+    "static/js/2.03ca2508.chunk.js.LICENSE.txt": "/@zedvision/smart-monaco-editor-example/build/static/js/2.03ca2508.chunk.js.LICENSE.txt",
     "static/media/logo.103b5fa1.svg": "/@zedvision/smart-monaco-editor-example/build/static/media/logo.103b5fa1.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.9b50413f.js",
-    "static/js/2.11e5b8cc.chunk.js",
+    "static/js/runtime-main.f7abf870.js",
+    "static/js/2.03ca2508.chunk.js",
     "static/css/main.fc51c1b2.chunk.css",
-    "static/js/main.96224169.chunk.js"
+    "static/js/main.1c52e1f3.chunk.js"
   ]
 }
