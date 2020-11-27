@@ -15,7 +15,7 @@ async function getKeys(apiKey, prefix) {
     }
 }
 const getKeys1 = getKeys;
-const renderDraggableWindow = (motion, onShare)=>{
+const renderDraggableWindow = (onShare)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
             css: `\n            background: red;\n            border: 4px solid red;\n            border-radius: 8px;\n          `,
@@ -147,7 +147,7 @@ let keystrokeTillNoError = 0;
 let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
-let shareitAsHtml;
+let shareItAsHtml;
 async function deleteHash(apiKey, hash) {
     try {
         const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
@@ -691,14 +691,11 @@ export async function run(mode = "window") {
         regenerate
     });
     if (mode === "editor") {
-        renderDraggableEditor(motion, async ()=>{
-            const link = await shareitAsHtml();
-            window.open(link);
-        });
+        renderDraggableEditor();
     }
     if (mode == "window") {
-        renderDraggableWindow(motion, async ()=>{
-            const link = await shareitAsHtml();
+        renderDraggableWindow(async ()=>{
+            const link = await shareItAsHtml();
             window.open(link);
         });
     }
@@ -798,7 +795,7 @@ export async function run(mode = "window") {
         const restart = async ()=>{
             const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
-            shareitAsHtml = async ()=>{
+            shareItAsHtml = async ()=>{
                 const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
                 const HTML = renderToString();
                 const css = Array.from(document1.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText

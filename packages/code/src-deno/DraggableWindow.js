@@ -1,4 +1,4 @@
-export const renderDraggableWindow = (motion, onShare) => {
+export const renderDraggableWindow = (onShare) => {
   const DraggableWindow = () => {
     return jsx(
       React.Fragment,

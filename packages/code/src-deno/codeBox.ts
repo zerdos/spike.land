@@ -37,7 +37,7 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 
-let shareitAsHtml: () => void;
+let shareItAsHtml: () => void;
 
 async function deleteHash(apiKey: string, hash: string) {
   try {
@@ -188,15 +188,12 @@ export async function run(mode = "window") {
   // );
 
   if (mode === "editor") {
-    renderDraggableEditor(motion, async () => {
-      const link = await shareitAsHtml();
-      window.open(link as unknown as string);
-    });
+    renderDraggableEditor();
   }
 
   if (mode == "window") {
-    renderDraggableWindow(motion, async () => {
-      const link = await shareitAsHtml();
+    renderDraggableWindow(async () => {
+      const link = await shareItAsHtml();
       window.open(link as unknown as string);
     });
   }
@@ -423,7 +420,7 @@ export async function run(mode = "window") {
 
       hydrate();
 
-      shareitAsHtml = async () => {
+      shareItAsHtml = async () => {
         const renderToString = new Function(
           "code",
           `return function(){
