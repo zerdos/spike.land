@@ -29,7 +29,6 @@ interface Babel {
 const document = (window as { document: Document }).document;
 let firstLoad = true;
 
-const { motion } = Motion;
 let latestCode = "";
 let busy = 0;
 let keystrokeTillNoError = 0;

@@ -2,7 +2,7 @@ import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
 
 var SHATEST: KVNamespace;
 var USERS: KVNamespace;
-var API_KEY: st`ring;
+var API_KEY: string;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://zed.vision",

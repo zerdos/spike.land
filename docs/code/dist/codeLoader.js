@@ -141,7 +141,6 @@ const getUrl = ()=>{
 };
 const document1 = window.document;
 let firstLoad = true;
-const { motion  } = Motion;
 let latestCode = "";
 let busy = 0;
 let keystrokeTillNoError = 0;
