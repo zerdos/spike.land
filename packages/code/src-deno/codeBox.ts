@@ -1,5 +1,5 @@
 import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
-import { getKeys } from "./maintanence/maintenence.ts";
+import { getKeys } from "./maintenance/maintenance.ts";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
