@@ -1,4 +1,8 @@
+import { useSpring } from "framer-motion";
+import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
+
 var SHATEST: KVNamespace;
+var USERS: KVNamespace;
 var API_KEY: string;
 
 const corsHeaders = {
@@ -10,9 +14,9 @@ const corsHeaders = {
 export async function handleCloudRequest(request: Request): Promise<Response> {
   const psk = String(request.headers.get("API_KEY") || "");
   const url = new URL(request.url);
+  const { searchParams, pathname } = url;
 
   if (request.method === "GET" && psk && psk === API_KEY) {
-    const { searchParams, pathname } = url;
     if (pathname === "/keys/") {
       const prefix = searchParams.get("prefix")!;
       const value = await SHATEST.list({ prefix });
@@ -49,8 +53,26 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     // });
   }
   if (request.method === "GET") {
-    const hash = url.searchParams.get("h")!;
-    const pageHash = url.searchParams.get("r");
+    const hash = searchParams.get("h");
+
+    if (pathname === "/register") {
+      const uuid = v4.generate();
+      await USERS.put(
+        uuid,
+        JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),
+      );
+      return new Response(
+        JSON.stringify({
+          uuid,
+        }),
+        {
+          headers: {
+            ...corsHeaders,
+            "content-type": "application/json;charset=UTF-8",
+          },
+        },
+      );
+    }
 
     if (hash) {
       const jsonStream = await SHATEST.get(hash, "stream")!;
@@ -76,6 +98,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       });
     }
 
+    const pageHash = url.searchParams.get("r");
     if (pageHash) {
       const jsonStream = await SHATEST.get(pageHash, "stream");
       if (jsonStream !== null) {
@@ -88,7 +111,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
-    const maybeRoute = url.pathname.substr(1);
+    const maybeRoute = pathname.substr(1);
     if (maybeRoute) {
       const jsonStream = await SHATEST.get(maybeRoute, "stream");
       if (jsonStream !== null) {
