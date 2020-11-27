@@ -54,7 +54,6 @@ export const renderDraggableWindow = (motion, onShare) => {
               font-family: Roboto;
               padding: 8px 16px;
               outline: none;
-              box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
               border: none;
               border-radius: 0px 8px 0px 0px;
             `,
@@ -63,11 +62,9 @@ export const renderDraggableWindow = (motion, onShare) => {
         ),
         jsx("div", {
           css: `  
-      display: inline-block;
       min-width: 200px;
       padding: 30px;
       max-width: 600px;
-      margin-bottom: -4px;
       background: white;
       max-height: 800px;
       border-radius: 0px 0px 8px 8px;
