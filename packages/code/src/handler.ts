@@ -9,13 +9,12 @@ const corsHeaders = {
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
   const psk = String(request.headers.get("API_KEY") || "");
+  const url = new URL(request.url);
 
   if (request.method === "GET" && psk && psk === API_KEY) {
-    const url = new URL(request.url);
-
     const { searchParams, pathname } = url;
     if (pathname === "/keys/") {
-      const prefix = searchParams.get("prefix");
+      const prefix = searchParams.get("prefix")!;
       const value = await SHATEST.list({ prefix });
 
       return new Response(JSON.stringify(value), {
@@ -25,9 +24,10 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         },
       });
     }
+
     if (pathname === "/keys/delete/") {
-      const hash = searchParams.get("hash");
-      const value = await SHATEST.delete(hash);
+      const hash = searchParams.get("hash")!;
+      const value = await SHATEST.delete(hash)!;
 
       return new Response(JSON.stringify(value), {
         headers: {
@@ -49,11 +49,11 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     // });
   }
   if (request.method === "GET") {
-    const url = new URL(request.url);
+    const hash = url.searchParams.get("h")!;
+    const pageHash = url.searchParams.get("r");
 
-    if (request.url.includes("?h")) {
-      const hash = url.searchParams.get("h");
-      const jsonStream = await SHATEST.get(hash, "stream");
+    if (hash) {
+      const jsonStream = await SHATEST.get(hash, "stream")!;
       if (jsonStream === null) {
         return new Response(
           JSON.stringify({
@@ -76,37 +76,28 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       });
     }
 
-    if (request.url.includes("?r")) {
-      const hash = url.searchParams.get("r");
-      if (hash !== null) {
-        const jsonStream = await SHATEST.get(hash, "stream");
-        if (jsonStream !== null) {
-          return new Response(jsonStream, {
-            headers: {
-              ...corsHeaders,
-              "Content-Type": "text/html; charset=UTF-8",
-            },
-          });
-        }
+    if (pageHash) {
+      const jsonStream = await SHATEST.get(pageHash, "stream");
+      if (jsonStream !== null) {
+        return new Response(jsonStream, {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "text/html; charset=UTF-8",
+          },
+        });
       }
     }
 
-    const path = request.url;
-
-    const maybeRoute = path.split("/").pop();
+    const maybeRoute = url.pathname.substr(1);
     if (maybeRoute) {
-      const hash = await SHATEST.get(maybeRoute);
-
-      if (hash !== null) {
-        const jsonStream = await SHATEST.get(await hash, "stream");
-        if (jsonStream !== null) {
-          return new Response(jsonStream, {
-            headers: {
-              ...corsHeaders,
-              "Content-Type": "text/html; charset=UTF-8",
-            },
-          });
-        }
+      const jsonStream = await SHATEST.get(maybeRoute, "stream");
+      if (jsonStream !== null) {
+        return new Response(jsonStream, {
+          headers: {
+            ...corsHeaders,
+            "Content-Type": "text/html; charset=UTF-8",
+          },
+        });
       }
     }
     return Response.redirect("https://zed.vision/code", 301);

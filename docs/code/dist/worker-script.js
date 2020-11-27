@@ -18,8 +18,8 @@ function handleOptions(request) {
 }
 async function handleCloudRequest(request) {
     const psk = String(request.headers.get("API_KEY") || "");
+    const url = new URL(request.url);
     if (request.method === "GET" && psk && psk === API_KEY) {
-        const url = new URL(request.url);
         const { searchParams , pathname  } = url;
         if (pathname === "/keys/") {
             const prefix = searchParams.get("prefix");
@@ -45,9 +45,9 @@ async function handleCloudRequest(request) {
         }
     }
     if (request.method === "GET") {
-        const url = new URL(request.url);
-        if (request.url.includes("?h")) {
-            const hash = url.searchParams.get("h");
+        const hash = url.searchParams.get("h");
+        const pageHash = url.searchParams.get("r");
+        if (hash) {
             const jsonStream = await SHATEST.get(hash, "stream");
             if (jsonStream === null) {
                 return new Response(JSON.stringify({
@@ -66,34 +66,27 @@ async function handleCloudRequest(request) {
                 }
             });
         }
-        if (request.url.includes("?r")) {
-            const hash = url.searchParams.get("r");
-            if (hash !== null) {
-                const jsonStream = await SHATEST.get(hash, "stream");
-                if (jsonStream !== null) {
-                    return new Response(jsonStream, {
-                        headers: {
-                            ...corsHeaders,
-                            "Content-Type": "text/html; charset=UTF-8"
-                        }
-                    });
-                }
+        if (pageHash) {
+            const jsonStream = await SHATEST.get(pageHash, "stream");
+            if (jsonStream !== null) {
+                return new Response(jsonStream, {
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "text/html; charset=UTF-8"
+                    }
+                });
             }
         }
-        const path = request.url;
-        const maybeRoute = path.split("/").pop();
+        const maybeRoute = url.pathname.substr(1);
         if (maybeRoute) {
-            const hash = await SHATEST.get(maybeRoute);
-            if (hash !== null) {
-                const jsonStream = await SHATEST.get(await hash, "stream");
-                if (jsonStream !== null) {
-                    return new Response(jsonStream, {
-                        headers: {
-                            ...corsHeaders,
-                            "Content-Type": "text/html; charset=UTF-8"
-                        }
-                    });
-                }
+            const jsonStream = await SHATEST.get(maybeRoute, "stream");
+            if (jsonStream !== null) {
+                return new Response(jsonStream, {
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "text/html; charset=UTF-8"
+                    }
+                });
             }
         }
         return Response.redirect("https://zed.vision/code", 301);
