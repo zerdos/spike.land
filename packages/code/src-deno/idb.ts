@@ -3,11 +3,7 @@ export const getDB = async () => {
     "https://unpkg.com/idb@5.0.7/build/esm/index.js"
   );
 
-  const dbPromise = openDB("localZedCodeStore", 1, {
-    upgrade(db) {
-      db.createObjectStore("codeStore");
-    },
-  });
+  const dbPromise = openDB("localZedCodeStore", 1);
 
   return {
     async get(key: string, format = "string") {
@@ -23,15 +19,17 @@ export const getDB = async () => {
       }
       return data;
     },
-    async put(key: sting, val: string) {
-      let str = val;
+    async put(key: string, val: string | ArrayBuffer) {
+      let str: string;
       if (typeof val !== "string") {
         str = new TextDecoder().decode(val);
+      } else {
+        str = val;
       }
 
       return (await dbPromise).put("codeStore", str, key);
     },
-    async delete(key) {
+    async delete(key: string) {
       return (await dbPromise).delete("codeStore", key);
     },
     async clear() {
