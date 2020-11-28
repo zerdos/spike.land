@@ -134,7 +134,7 @@ async function sha256(message) {
     return hashHex.substr(0, 8);
 }
 const getDB = async ()=>{
-    const { openDB  } = await import("https://unpkg.com/idb@5.0.7/build/esm/index.js");
+    const { openDB , IDBPObjectStore  } = await import("https://unpkg.com/idb@5.0.7/build/esm/index.js");
     const dbPromise = openDB("localZedCodeStore", 1, {
         blocked () {
         },

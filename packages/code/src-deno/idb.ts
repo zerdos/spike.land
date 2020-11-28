@@ -1,9 +1,5 @@
-import { IDBPObjectStore } from "idb";
-import { IDBPDatabase } from "idb";
-import { IDBPDatabase } from "idb";
-
 export const getDB = async () => {
-  const { openDB } = await import(
+  const { openDB, IDBPObjectStore } = await import(
     "https://unpkg.com/idb@5.0.7/build/esm/index.js"
   );
 
