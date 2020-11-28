@@ -27,7 +27,10 @@
     "@babel/standalone": "7.12.9",
     "comlink": "4.3.0",
     "framer-motion": "2.9.4",
-    "monaco-editor": "0.21.2"
+    "idb": "5.0.7",
+    "monaco-editor": "0.21.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@types/react": "17.0.0",

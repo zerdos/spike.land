@@ -19,7 +19,7 @@ let needToSave = false;
     },
   });
 
-  const SHATEST = {
+  const codeDB = {
     async get(key, format = "string") {
       const data = (await dbPromise).get("codeStore", key);
       if (!data) return null;
@@ -78,7 +78,7 @@ let needToSave = false;
 
       if (url.searchParams.get("h")) {
         const hash = url.searchParams.get("h");
-        const val = await SHATEST.get(hash);
+        const val = await codeDB.get(hash);
 
         if (val) {
           e.respondWith(val);
@@ -128,7 +128,7 @@ let needToSave = false;
               "",
             );
           const smallerKey = hash.substring(0, 8);
-          await SHATEST.put(smallerKey, data);
+          await codeDB.put(smallerKey, data);
 
           return new Response(JSON.stringify({ hash: smallerKey }), {
             headers: { "Content-Type": "application/json" },
@@ -209,10 +209,10 @@ let needToSave = false;
   const obj = {
     counter: 0,
     put(key, val) {
-      return SHATEST.put(key, val);
+      return codeDB.put(key, val);
     },
     get(key) {
-      return SHATEST.get(key);
+      return codeDB.get(key);
     },
     inc() {
       this.counter++;

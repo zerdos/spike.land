@@ -6,6 +6,7 @@ import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 import { sha256 } from "./sha256.ts";
+import { getDB } from "./idb.ts";
 
 const getUrl = () => {
   if (window.location.href.includes("zed.dev")) {
@@ -90,6 +91,8 @@ async function getTranspiledCode(hash: string) {
 }
 
 export async function run(mode = "window") {
+  const codeDB = await getDB();
+
   async function regenerate(
     apiKey: string,
     prefix: string,
@@ -578,13 +581,11 @@ export async function run(mode = "window") {
         // const { hash } = await response.json();
 
         try {
-          const localStorage: Storage = window.localStorage;
-
-          const prevHash = localStorage.getItem("codeBoXHash2");
+          const prevHash = await codeDB.get("codeBoXHash2");
 
           if (prevHash !== hash) {
-            localStorage.setItem("codeBoXHash2", hash);
-            localStorage.setItem(hash, latestGoodCode);
+            await codeDB.put("codeBoXHash2", hash);
+            await codeDB.put(hash, latestGoodCode);
             setQueryStringParameter("h", hash);
           }
         } catch (e) {
@@ -601,13 +602,13 @@ export async function run(mode = "window") {
   async function getCodeToLoad() {
     const search = new URLSearchParams(window.location.search);
     const keyToLoad = search.get("h") ||
-      window.localStorage.getItem("codeBoXHash2");
+      await codeDB.get("codeBoXHash2");
 
     if (keyToLoad) {
-      const content = window.localStorage.getItem(keyToLoad);
+      const content = await codeDB.get(keyToLoad);
+
       if (content) return content;
-      const cont = await window.SHATEST.get(keyToLoad);
-      if (cont) return await cont;
+
       let text;
       try {
         const resp = await fetch(getUrl() + "/?h=" + keyToLoad);

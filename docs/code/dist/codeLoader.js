@@ -133,6 +133,130 @@ async function sha256(message) {
     ).join("");
     return hashHex.substr(0, 8);
 }
+const getDB = async ()=>{
+    const { openDB  } = await import("https://unpkg.com/idb@5.0.7/build/esm/index.js");
+    const dbPromise = openDB("localZedCodeStore", 1, {
+        upgrade (db) {
+            db.createObjectStore("codeStore");
+        }
+    });
+    return {
+        async get (key, format = "string") {
+            const data = (await dbPromise).get("codeStore", key);
+            if (!data) return null;
+            if (format === "string") {
+                const allData = await data;
+                if (typeof allData === format) return allData;
+                const decoder = new TextDecoder();
+                const text = decoder.decode(allData);
+                return text;
+            }
+            return data;
+        },
+        async put (key, val) {
+            let str = val;
+            if (typeof val !== "string") {
+                str = new TextDecoder().decode(val);
+            }
+            return (await dbPromise).put("codeStore", str, key);
+        },
+        async delete (key) {
+            return (await dbPromise).delete("codeStore", key);
+        },
+        async clear () {
+            return (await dbPromise).clear("codeStore");
+        },
+        async keys () {
+            return (await dbPromise).getAllKeys("codeStore");
+        }
+    };
+};
+const instanceOfAny = (object, constructors)=>constructors.some((c)=>object instanceof c
+    )
+;
+let idbProxyableTypes;
+let cursorAdvanceMethods;
+function getIdbProxyableTypes() {
+    return idbProxyableTypes || (idbProxyableTypes = [
+        IDBDatabase,
+        IDBObjectStore,
+        IDBIndex,
+        IDBCursor,
+        IDBTransaction, 
+    ]);
+}
+function getCursorAdvanceMethods() {
+    return cursorAdvanceMethods || (cursorAdvanceMethods = [
+        IDBCursor.prototype.advance,
+        IDBCursor.prototype.continue,
+        IDBCursor.prototype.continuePrimaryKey, 
+    ]);
+}
+const cursorRequestMap = new WeakMap();
+const transactionDoneMap = new WeakMap();
+const transactionStoreNamesMap = new WeakMap();
+const transformCache = new WeakMap();
+const reverseTransformCache = new WeakMap();
+function cacheDonePromiseForTransaction(tx) {
+    if (transactionDoneMap.has(tx)) return;
+    const done = new Promise((resolve, reject)=>{
+        const unlisten = ()=>{
+            tx.removeEventListener('complete', complete);
+            tx.removeEventListener('error', error);
+            tx.removeEventListener('abort', error);
+        };
+        const complete = ()=>{
+            resolve();
+            unlisten();
+        };
+        const error = ()=>{
+            reject(tx.error || new DOMException('AbortError', 'AbortError'));
+            unlisten();
+        };
+        tx.addEventListener('complete', complete);
+        tx.addEventListener('error', error);
+        tx.addEventListener('abort', error);
+    });
+    transactionDoneMap.set(tx, done);
+}
+const unwrap = (value)=>reverseTransformCache.get(value)
+;
+const readMethods = [
+    'get',
+    'getKey',
+    'getAll',
+    'getAllKeys',
+    'count'
+];
+const writeMethods = [
+    'put',
+    'add',
+    'delete',
+    'clear'
+];
+const cachedMethods = new Map();
+function getMethod(target, prop) {
+    if (!(target instanceof IDBDatabase && !(prop in target) && typeof prop === 'string')) {
+        return;
+    }
+    if (cachedMethods.get(prop)) return cachedMethods.get(prop);
+    const targetFuncName = prop.replace(/FromIndex$/, '');
+    const useIndex = prop !== targetFuncName;
+    const isWrite = writeMethods.includes(targetFuncName);
+    if (!(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) || !(isWrite || readMethods.includes(targetFuncName))) {
+        return;
+    }
+    const method = async function(storeName, ...args) {
+        const tx = this.transaction(storeName, isWrite ? 'readwrite' : 'readonly');
+        let target1 = tx.store;
+        if (useIndex) target1 = target1.index(args.shift());
+        const returnVal = await target1[targetFuncName](...args);
+        if (isWrite) await tx.done;
+        return returnVal;
+    };
+    cachedMethods.set(prop, method);
+    return method;
+}
 const getUrl = ()=>{
     if (window.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
@@ -636,6 +760,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
     }
 };
 export async function run(mode = "window") {
+    const codeDB = await getDB();
     async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
         const keys = await getKeys(apiKey, prefix);
         keys.map((x)=>x.name
@@ -843,11 +968,10 @@ export async function run(mode = "window") {
                 const response = fetch(request);
                 const hash = await sha256(stringBody);
                 try {
-                    const localStorage = window.localStorage;
-                    const prevHash = localStorage.getItem("codeBoXHash2");
+                    const prevHash = await codeDB.get("codeBoXHash2");
                     if (prevHash !== hash) {
-                        localStorage.setItem("codeBoXHash2", hash);
-                        localStorage.setItem(hash, latestGoodCode);
+                        await codeDB.put("codeBoXHash2", hash);
+                        await codeDB.put(hash, latestGoodCode);
                         setQueryStringParameter("h", hash);
                     }
                 } catch (e) {
@@ -861,12 +985,10 @@ export async function run(mode = "window") {
     }
     async function getCodeToLoad() {
         const search = new URLSearchParams(window.location.search);
-        const keyToLoad = search.get("h") || window.localStorage.getItem("codeBoXHash2");
+        const keyToLoad = search.get("h") || await codeDB.get("codeBoXHash2");
         if (keyToLoad) {
-            const content = window.localStorage.getItem(keyToLoad);
+            const content = await codeDB.get(keyToLoad);
             if (content) return content;
-            const cont = await window.SHATEST.get(keyToLoad);
-            if (cont) return await cont;
             let text;
             try {
                 const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
@@ -923,6 +1045,102 @@ export async function run(mode = "window") {
         }).code;
     }
 }
+function promisifyRequest(request) {
+    const promise = new Promise((resolve, reject)=>{
+        const unlisten = ()=>{
+            request.removeEventListener('success', success);
+            request.removeEventListener('error', error);
+        };
+        const success = ()=>{
+            resolve(wrap(request.result));
+            unlisten();
+        };
+        const error = ()=>{
+            reject(request.error);
+            unlisten();
+        };
+        request.addEventListener('success', success);
+        request.addEventListener('error', error);
+    });
+    promise.then((value)=>{
+        if (value instanceof IDBCursor) {
+            cursorRequestMap.set(value, request);
+        }
+    }).catch(()=>{
+    });
+    reverseTransformCache.set(promise, request);
+    return promise;
+}
+let idbProxyTraps = {
+    get (target, prop, receiver) {
+        if (target instanceof IDBTransaction) {
+            if (prop === 'done') return transactionDoneMap.get(target);
+            if (prop === 'objectStoreNames') {
+                return target.objectStoreNames || transactionStoreNamesMap.get(target);
+            }
+            if (prop === 'store') {
+                return receiver.objectStoreNames[1] ? undefined : receiver.objectStore(receiver.objectStoreNames[0]);
+            }
+        }
+        return wrap(target[prop]);
+    },
+    set (target, prop, value) {
+        target[prop] = value;
+        return true;
+    },
+    has (target, prop) {
+        if (target instanceof IDBTransaction && (prop === 'done' || prop === 'store')) {
+            return true;
+        }
+        return prop in target;
+    }
+};
+function replaceTraps(callback) {
+    idbProxyTraps = callback(idbProxyTraps);
+}
+function wrapFunction(func) {
+    if (func === IDBDatabase.prototype.transaction && !('objectStoreNames' in IDBTransaction.prototype)) {
+        return function(storeNames, ...args) {
+            const tx = func.call(unwrap(this), storeNames, ...args);
+            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [
+                storeNames
+            ]);
+            return wrap(tx);
+        };
+    }
+    if (getCursorAdvanceMethods().includes(func)) {
+        return function(...args) {
+            func.apply(unwrap(this), args);
+            return wrap(cursorRequestMap.get(this));
+        };
+    }
+    return function(...args) {
+        return wrap(func.apply(unwrap(this), args));
+    };
+}
+function transformCachableValue(value) {
+    if (typeof value === 'function') return wrapFunction(value);
+    if (value instanceof IDBTransaction) cacheDonePromiseForTransaction(value);
+    if (instanceOfAny(value, getIdbProxyableTypes())) return new Proxy(value, idbProxyTraps);
+    return value;
+}
+function wrap(value) {
+    if (value instanceof IDBRequest) return promisifyRequest(value);
+    if (transformCache.has(value)) return transformCache.get(value);
+    const newValue = transformCachableValue(value);
+    if (newValue !== value) {
+        transformCache.set(value, newValue);
+        reverseTransformCache.set(newValue, value);
+    }
+    return newValue;
+}
+replaceTraps((oldTraps)=>({
+        ...oldTraps,
+        get: (target, prop, receiver)=>getMethod(target, prop) || oldTraps.get(target, prop, receiver)
+        ,
+        has: (target, prop)=>!!getMethod(target, prop) || oldTraps.has(target, prop)
+    })
+);
 function E({ text1: i , text2: n , cursorPos: e  }) {
     if (i === n) return i ? [
         [
