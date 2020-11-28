@@ -2,8 +2,5 @@
     "version": "0.1",
     "ignorePaths": [
         "yarn.lock"
-    ],
-    "words": [
-        "comlink"
     ]
 }
