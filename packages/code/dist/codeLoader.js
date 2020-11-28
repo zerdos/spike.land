@@ -135,7 +135,17 @@ async function sha256(message) {
 }
 const getDB = async ()=>{
     const { openDB  } = await import("https://unpkg.com/idb@5.0.7/build/esm/index.js");
-    const dbPromise = openDB("localZedCodeStore", 1);
+    const dbPromise = openDB("localZedCodeStore", 1, {
+        blocked () {
+        },
+        blocking () {
+        },
+        terminated () {
+        },
+        upgrade (db) {
+            db.createObjectStore("codeStore");
+        }
+    });
     return {
         async get (key, format = "string") {
             const data = (await dbPromise).get("codeStore", key);
