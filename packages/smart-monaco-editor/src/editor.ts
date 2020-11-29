@@ -1,6 +1,6 @@
-import type {monaco} from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts";
+import type { monaco } from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts";
 interface ISmartMonacoEditor {
-  monaco:  monaco;
+  monaco: monaco;
   editor: monaco.editor.IStandaloneCodeEditor;
 }
 interface StartMonacoProps {
