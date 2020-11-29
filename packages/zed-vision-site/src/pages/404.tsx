@@ -177,7 +177,6 @@ const NotFoundPage = ({ data, location }: Props) => {
         {counterExample}
       </StyledText>
       <h1>Not Found</h1>
-      <JSONTree data={diffArr} />
       <Rotated key={res.toString()}>
         <ReqPrint node={root} topLevel={0} left={0} level={0} />
         {/* {res.slice((res.length + 1) / 2).filter((k: number) =>
