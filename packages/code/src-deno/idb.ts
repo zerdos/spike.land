@@ -1,5 +1,5 @@
 export const getDB = async () => {
-  const { openDB, IDBPObjectStore } = await import(
+  const { openDB } = await import(
     "https://unpkg.com/idb@5.0.7/build/esm/index.js"
   );
 
@@ -7,7 +7,7 @@ export const getDB = async () => {
     blocked() {},
     blocking() {},
     terminated() {},
-    upgrade(db: IDBPObjectStore) {
+    upgrade(db: any) {
       db.createObjectStore("codeStore");
     },
   });
