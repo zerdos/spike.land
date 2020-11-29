@@ -29,7 +29,7 @@ export const MainContainer: React.FC = ({ children }) =>
   `}
   >
     <main
-      css={`  
+      css={css`  
   max-width: 1140px;
   margin: auto;
   `}

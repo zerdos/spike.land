@@ -3,7 +3,7 @@
   "scripts": {
     "build": "yarn clean && deno fmt src && gatsby clean && gatsby build",
     "start-https": "yarn gatsby develop",
-    "start": "yarn gatsby develop",
+    "start": "yarn clean && gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
