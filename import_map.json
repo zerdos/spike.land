@@ -11,7 +11,7 @@
       "@zedvision/smart-monaco-editor" :"https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js",
       "framer-motion": "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js",
       "@ampproject/worker-dom/dist/main": "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
-      "react-dom/server": "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+      "react-dom/server": "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"
     }
  }
  
