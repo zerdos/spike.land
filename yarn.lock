@@ -5273,10 +5273,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-capture-website@1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/capture-website/-/capture-website-1.2.5.tgz#f27fa3b83ab6a13ec7a74fe2c245f122a625d133"
-  integrity sha512-sQn6bf6C62K0o13V1XzTi4/pSQT+7JpAZcuCkIF0nA+rMlKoBeWWDvyyNXzPjmgLiKOD2Q9vfpueFl9rwrqvcw==
+capture-website@1.2.6:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/capture-website/-/capture-website-1.2.6.tgz#a7f47cebdb14dd0288039b5e40149b7c68215ddf"
+  integrity sha512-EZzQIhwoDgpAFJESZ4g27aXPqNt+rCExtHPpSgakzDnGtSRBeLQqvHrOngNwJ7yWtYJ6GDohWHUZ+f52hgKziw==
   dependencies:
     file-url "^3.0.0"
     puppeteer "^5.3.1"
