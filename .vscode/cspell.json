@@ -7,10 +7,14 @@
     "words": [
         "browserslist",
         "codebox",
+        "csstype",
         "deno",
         "Erdos",
         "esbuild",
+        "monokai",
         "outfile",
+        "overtype",
+        "popmotion",
         "workerize",
         "Zoltan"
     ]

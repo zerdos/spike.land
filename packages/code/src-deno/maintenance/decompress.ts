@@ -1,14 +1,14 @@
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 //import { memo } from "react";
 // import { getHash } from "./maintenence.ts";
-// import { asyncLimit } from "./asynclimit.js";
+// import { asyncLimit } from "./asyncLimit.js";
 // import
 import { sha256 } from "./sha256.ts";
 // import { keys } from "./data/keys.ts";
 const env = config();
 
 // //@ts-ignore
-// const checkhashLimit = asyncLimit(checkHash, 1);
+// const checkHashLimit = asyncLimit(checkHash, 1);
 let memory: string[] = [];
 // async function checkHash(hash: string) {
 //   const text = Deno.readTextFileSync(`./data/${hash}.json`);

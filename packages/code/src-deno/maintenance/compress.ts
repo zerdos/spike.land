@@ -1,14 +1,14 @@
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 //import { memo } from "react";
-// import { getHash } from "./maintenence.ts";
-// import { asyncLimit } from "./asynclimit.js";
+// import { getHash } from "./maintenance.ts";
+// import { asyncLimit } from "./asyncLimit.js";
 // import {sha256} from "../sha256.ts"
 import { sha256 } from "./sha256.ts";
 import { keys } from "./data/keys.ts";
 const env = config();
 
 // //@ts-ignore
-// const checkhashLimit = asyncLimit(checkHash, 1);
+// const checkHashLimit = asyncLimit(checkHash, 1);
 let memory: string[] = [];
 async function checkHash(hash: string) {
   const text = Deno.readTextFileSync(`./data/${hash}.json`);
@@ -56,7 +56,6 @@ let iters = 0;
 
 while (iters < 10000) {
   let length = 15;
-  let maxlen = 15;
   let num = -1;
   let oldST = "";
   let newMemory: string[] = [];
@@ -88,7 +87,7 @@ while (iters < 10000) {
     // console.log(i, length);
   }
   newMemory.push(mem);
-  const hasmMem = newMemory.map((s) => sha256(s));
+  const hashMem = newMemory.map((s) => sha256(s));
   Deno.mkdirSync("./data/" + iters);
   newMemory.map((x) =>
     Deno.writeTextFileSync(`./data/${iters}/` + sha256(x) + ".json", x)
@@ -96,7 +95,7 @@ while (iters < 10000) {
   memory = memory.map((t) => {
     let k = t;
     newMemory.map((v, i) => {
-      k = k.replace(v, "***" + hasmMem[i] + "***");
+      k = k.replace(v, "***" + hashMem[i] + "***");
     });
     if (k !== t) {
       const hash = sha256(k);
