@@ -6,15 +6,18 @@
     ],
     "words": [
         "browserslist",
+        "code",
         "codebox",
         "csstype",
         "deno",
         "Erdos",
         "esbuild",
+        "get",
         "monokai",
         "outfile",
         "overtype",
         "popmotion",
+        "transpiled",
         "workerize",
         "Zoltan"
     ]
