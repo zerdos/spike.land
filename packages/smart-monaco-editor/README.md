@@ -5,11 +5,11 @@
 [DEMO - html edit, with babel support ![Screenshot](https://unpkg.com/@zedvision/smart-monaco-editor/screenshot-html.png)](https://unpkg.com/@zedvision/smart-monaco-editor/exampleHtml.html) 
 
 [DEMO - with react create app  ![Screenshot](https://unpkg.com/@zedvision/smart-monaco-editor/screenshot-example.png)](https://unpkg.com/@zedvision/smart-monaco-editor-example/build/index.html) 
-gi
 
-<h1 align="center">smart-monaco-editor</h1>
 
-##examples added
+# smart-monaco-editor
+
+## Examples added
 
 Works with typescript, and it knows jsx as well.
 
