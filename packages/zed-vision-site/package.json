@@ -22,7 +22,7 @@
     "@zedvision/smart-monaco-editor": "^7.10.1",
     "avl": "1.4.4",
     "framer-motion": "2.9.4",
-    "gatsby": "2.27.4",
+    "gatsby": "2.27.5",
     "html-format": "1.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
