@@ -1,3 +1,10 @@
+async function arrBuffSha256(msgBuffer) {
+    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
+    ).join("");
+    return hashHex;
+}
 const HEX_CHARS = "0123456789abcdef".split("");
 const EXTRA = [
     -2147483648,
@@ -486,12 +493,7 @@ async function handleCloudRequest(request) {
         return Response.redirect("https://zed.vision/code", 301);
     } else if (request.method === "POST") {
         const myBuffer = await request.arrayBuffer();
-        const myDigest = await crypto.subtle.digest({
-            name: "SHA-256"
-        }, myBuffer);
-        const hashArray = Array.from(new Uint8Array(myDigest));
-        const hash = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
-        ).join("");
+        const hash = await arrBuffSha256(myBuffer);
         const smallerKey = hash.substring(0, 8);
         await SHATEST.put(smallerKey, myBuffer);
         return new Response(JSON.stringify({

@@ -1,3 +1,4 @@
+import { arrBuffSha256 } from "../src-deno/sha256.ts";
 import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
 
 var SHATEST: KVNamespace;
@@ -126,19 +127,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   } else if (request.method === "POST") {
     const myBuffer = await request.arrayBuffer();
 
-    const myDigest = await crypto!.subtle.digest(
-      {
-        name: "SHA-256",
-      },
-      myBuffer,
-    );
+    const hash = await arrBuffSha256(myBuffer);
 
-    const hashArray = Array.from(new Uint8Array(myDigest));
-
-    // convert bytes to hex string
-    const hash = hashArray.map((b) => ("00" + b.toString(16)).slice(-2)).join(
-      "",
-    );
     const smallerKey = hash.substring(0, 8);
     await SHATEST.put(smallerKey, myBuffer);
 

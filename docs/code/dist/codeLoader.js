@@ -125,13 +125,12 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
     })
 ;
 const starter = `import { useState } from "react";\nimport { motion } from "framer-motion";\nimport { css, Global } from "@emotion/react";;\n\nconst Slider = () => {\n  const [sliderValue, setSlider] = useState(64);\n\n  return <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          background: rgb(\${sliderValue},\${255-sliderValue},255);\n          overflow: overlay;\n        }  \n    \`}/>\n    <input max="128"\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${sliderValue*2},\${255-2*sliderValue},0); \n        outline: none; \n    \`} type="range"\n      value={sliderValue} step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <motion.p\n      animate={{ fontSize: sliderValue + \`px\` }}>\n      Example when the text gets bigger...\n    </motion.p>\n      <motion.p animate={{fontSize:128-sliderValue+"px"}}>\n        ...or smaller\n    </motion.p>\n  </>\n}\n\nexport default () => <>\n  <Slider />\n</>\n`;
-async function sha256(message) {
-    const msgBuffer = new TextEncoder().encode(message);
+async function arrBuffSha256(msgBuffer) {
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
     ).join("");
-    return hashHex.substr(0, 8);
+    return hashHex;
 }
 const getDB = async ()=>{
     const { openDB  } = await import("https://unpkg.com/idb@5.0.7/build/esm/index.js");
@@ -767,6 +766,11 @@ const startMonaco = async ({ onChange , code , language  })=>{
         return modules;
     }
 };
+async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashHex = await arrBuffSha256(msgBuffer);
+    return hashHex.substr(0, 8);
+}
 export async function run(mode = "window") {
     const codeDB = await getDB();
     async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
