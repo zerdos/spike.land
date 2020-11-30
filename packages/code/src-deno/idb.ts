@@ -13,9 +13,12 @@ export const getDB = async () => {
   });
 
   return {
-    async get(key: string, format = "string") {
+    async get(key: string, format: "string" | "json" | "stream" = "string") {
       const data = (await dbPromise).get("codeStore", key);
       if (!data) return null;
+      if (format === "json") {
+        return JSON.parse(data);
+      }
       if (format === "string") {
         const allData = await data;
         if (typeof allData === format) return allData;

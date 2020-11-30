@@ -149,6 +149,9 @@ const getDB = async ()=>{
         async get (key, format = "string") {
             const data = (await dbPromise).get("codeStore", key);
             if (!data) return null;
+            if (format === "json") {
+                return JSON.parse(data);
+            }
             if (format === "string") {
                 const allData = await data;
                 if (typeof allData === format) return allData;
@@ -264,6 +267,7 @@ function getMethod(target, prop) {
     cachedMethods.set(prop, method);
     return method;
 }
+var ReactDOM = window.ReactDOM;
 const getUrl = ()=>{
     if (window.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
@@ -325,6 +329,21 @@ async function getTranspiledCode(hash) {
         console.log(e);
         return "";
     }
+}
+async function getUserId() {
+    const codeDB = await getDB();
+    const uuid = await codeDB.get("uuid");
+    if (!uuid) {
+        if (!window.location.href.includes("zed.dev")) {
+            const resp = await fetch("https://code.zed.vision/register");
+            const data = await resp.json();
+            codeDB.put("uuid", data.uuid);
+            return data.uuid;
+        } else {
+            codeDB.put("uuid", "1234");
+        }
+    }
+    return uuid;
 }
 const L = -1;
 function y(i) {
@@ -771,15 +790,19 @@ async function sha256(message) {
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
+export const getProjects = async ()=>{
+    const uuid = await getUserId();
+    const codeDB = await getDB();
+    const projects = await codeDB.get(uuid, "json");
+    if (!projects) {
+        await codeDB.put(uuid, JSON.stringify([]));
+        return [];
+    }
+    return projects;
+};
 export async function run(mode = "window") {
     const codeDB = await getDB();
-    const uuid = await codeDB.get("uuid");
-    if (!uuid) {
-        const resp = await fetch("https://code.zed.vision/register");
-        const data = await resp.json();
-        codeDB.put("uuid", data.uuid);
-        return run(mode);
-    }
+    const uuid = await getUserId();
     async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
         const keys = await getKeys(apiKey, prefix);
         keys.map((x)=>x.name
@@ -798,13 +821,13 @@ export async function run(mode = "window") {
                     const replaceWith = "///";
                     const searchRegExp2 = /debugger/gi;
                     const replaceWith2 = "///";
-                    window.ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
+                    ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
                     restartCode(transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
                     const html2 = document1.getElementById("root").innerHTML;
                     const el2 = document1.createElement("div");
                     document1.getElementById("root").replaceWith(el2);
                     el2.id = "root";
-                    window.ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
+                    ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
                     restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
                     const html = document1.getElementById("root").innerHTML;
                     if (html !== html2) {

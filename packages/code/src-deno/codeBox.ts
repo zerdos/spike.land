@@ -8,11 +8,29 @@ import { starter } from "./starter.tsx";
 import { sha256 } from "./sha256.ts";
 import { getDB } from "./idb.ts";
 
+//@ts-ignore
+var ReactDOM: {
+  unmountComponentAtNode: (node: any) => void;
+} = window.ReactDOM;
+
 const getUrl = () => {
   if (window.location.href.includes("zed.dev")) {
     return "https://code.zed.dev";
   }
   return "https://code.zed.vision";
+};
+
+export const getProjects = async () => {
+  const uuid = await getUserId();
+  const codeDB = await getDB();
+  const projects = await codeDB.get(uuid, "json");
+
+  if (!projects) {
+    await codeDB.put(uuid, JSON.stringify([]));
+    return [];
+  }
+
+  return projects;
 };
 
 // import Diff from "https://unpkg.com/diff@5.0.0/dist/diff.js";
@@ -90,16 +108,26 @@ async function getTranspiledCode(hash: string) {
   }
 }
 
+async function getUserId() {
+  const codeDB = await getDB();
+  const uuid = await codeDB.get("uuid");
+  if (!uuid) {
+    if (!window.location.href.includes("zed.dev")) {
+      const resp = await fetch("https://code.zed.vision/register");
+      const data = await resp.json();
+      codeDB.put("uuid", data.uuid);
+      return data.uuid;
+    } else {
+      codeDB.put("uuid", "1234");
+    }
+  }
+  return uuid;
+}
+
 export async function run(mode = "window") {
   const codeDB = await getDB();
 
-  const uuid = await codeDB.get("uuid");
-  if (!uuid) {
-    const resp = await fetch("https://code.zed.vision/register");
-    const data = await resp.json();
-    codeDB.put("uuid", data.uuid);
-    return run(mode);
-  }
+  const uuid = await getUserId();
 
   async function regenerate(
     apiKey: string,
@@ -124,7 +152,7 @@ export async function run(mode = "window") {
           const searchRegExp2 = /debugger/gi;
           const replaceWith2 = "///";
 
-          window.ReactDOM.unmountComponentAtNode(
+          ReactDOM.unmountComponentAtNode(
             document.getElementById("root"),
           );
           restartCode(
@@ -137,7 +165,7 @@ export async function run(mode = "window") {
           const el2 = document.createElement("div");
           document.getElementById("root").replaceWith(el2);
           el2.id = "root";
-          window.ReactDOM.unmountComponentAtNode(
+          ReactDOM.unmountComponentAtNode(
             document.getElementById("root"),
           );
           restartCode(
