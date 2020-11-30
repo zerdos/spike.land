@@ -1,7 +1,7 @@
-define("./workbox-e8da24eb.js",['exports'], function (exports) { 'use strict';
+define("./workbox-0b5aa461.js",['exports'], function (exports) { 'use strict';
 
     try {
-      self['workbox:core:6.0.0-alpha.3'] && _();
+      self['workbox:core:6.0.0-rc.0'] && _();
     } catch (e) {}
 
     /*
@@ -476,7 +476,7 @@ define("./workbox-e8da24eb.js",['exports'], function (exports) { 'use strict';
     };
 
     try {
-      self['workbox:routing:6.0.0-alpha.3'] && _();
+      self['workbox:routing:6.0.0-rc.0'] && _();
     } catch (e) {}
 
     /*
@@ -1330,7 +1330,7 @@ define("./workbox-e8da24eb.js",['exports'], function (exports) { 'use strict';
     }
 
     try {
-      self['workbox:precaching:6.0.0-alpha.3'] && _();
+      self['workbox:precaching:6.0.0-rc.0'] && _();
     } catch (e) {}
 
     /*
@@ -1808,7 +1808,7 @@ define("./workbox-e8da24eb.js",['exports'], function (exports) { 'use strict';
     }
 
     try {
-      self['workbox:strategies:6.0.0-alpha.3'] && _();
+      self['workbox:strategies:6.0.0-rc.0'] && _();
     } catch (e) {}
 
     function toRequest(input) {
