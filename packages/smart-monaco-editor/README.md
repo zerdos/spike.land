@@ -1,11 +1,11 @@
 
 
-[DEMO - normal html file, without react or any build tool ![Screenshot](screenshot.png)](https://unpkg.com/@zedvision/smart-monaco-editor/index.html) 
+[DEMO - normal html file, without react or any build tool ![Screenshot](https://unpkg.com/@zedvision/smart-monaco-editor/screenshot.png)](https://unpkg.com/@zedvision/smart-monaco-editor/index.html) 
 
-[DEMO - html edit, with babel support ![Screenshot](screenshot-html.png)](https://unpkg.com/@zedvision/smart-monaco-editor/exampleHtml.html) 
+[DEMO - html edit, with babel support ![Screenshot](https://unpkg.com/@zedvision/smart-monaco-editor/screenshot-html.png)](https://unpkg.com/@zedvision/smart-monaco-editor/exampleHtml.html) 
 
 
-[DEMO - with react create app ] ![Screenshot](screenshot-example.png)(https://unpkg.com/@zedvision/smart-monaco-editor-exampl/build/index.html) 
+[DEMO - with react create app ] ![Screenshot](https://unpkg.com/@zedvision/smart-monaco-editor/screenshot-example.png)(https://unpkg.com/@zedvision/smart-monaco-editor-example/build/index.html) 
 
 
 <h1 align="center">smart-monaco-editor</h1>
