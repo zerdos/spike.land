@@ -1,9 +1,17 @@
 {
     "version": "0.1",
     "ignorePaths": [
-        "yarn.lock"
+        "yarn.lock",
+        "package.json"
     ],
     "words": [
-        "deno"
+        "browserslist",
+        "codebox",
+        "deno",
+        "Erdos",
+        "esbuild",
+        "outfile",
+        "workerize",
+        "Zoltan"
     ]
 }
