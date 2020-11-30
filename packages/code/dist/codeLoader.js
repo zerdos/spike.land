@@ -773,6 +773,13 @@ async function sha256(message) {
 }
 export async function run(mode = "window") {
     const codeDB = await getDB();
+    const uuid = await codeDB.get("uuid");
+    if (!uuid) {
+        const resp = await fetch("https://code.zed.vision/register");
+        const data = await resp.json();
+        codeDB.put("uuid", data.uuid);
+        return run(mode);
+    }
     async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
         const keys = await getKeys(apiKey, prefix);
         keys.map((x)=>x.name
