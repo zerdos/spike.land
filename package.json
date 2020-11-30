@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@babel/standalone": "7.12.9",
-    "@emotion/styled": "11.0.0",
     "@emotion/react": "11.1.1",
+    "@emotion/styled": "11.0.0",
     "comlink": "4.3.0",
     "framer-motion": "2.9.4",
     "idb": "5.0.7",
@@ -35,12 +35,12 @@
     "react-dom": "17.0.1"
   },
   "devDependencies": {
-    "@types/react": "17.0.0",
     "@emotion/cache": "11.0.0",
     "@emotion/utils": "1.0.0",
     "@types/prop-types": "15.7.3",
-    "csstype": "3.0.5",
+    "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
+    "csstype": "3.0.5",
     "husky": "4.3.0",
     "lerna": "3.22.1"
   }
