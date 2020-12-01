@@ -3394,11 +3394,6 @@
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
 
-"@types/uuid@8.3.0":
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
-  integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
-
 "@types/vfile-message@*":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/vfile-message/-/vfile-message-2.0.0.tgz#690e46af0fdfc1f9faae00cd049cc888957927d5"
@@ -4312,11 +4307,6 @@ autoprefixer@^9.6.1, autoprefixer@^9.8.4:
     num2fraction "^1.2.2"
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
-
-avl@1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/avl/-/avl-1.4.4.tgz#01026fc8b28f26b25b917fb0f033a37eff3abaf0"
-  integrity sha512-vMjF4jhT2N0naO1fsBTA/lZ2AB70ECBv41na7oBe8B5PCgMVvNrWG+VRKMlbG5Mk5UGbMxzUD9fXK/IBsmmO5A==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -9859,11 +9849,6 @@ html-escaper@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
-
-html-format@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/html-format/-/html-format-1.0.1.tgz#3f518be1a1123e2d378716aef662c07ed2a0e008"
-  integrity sha512-ePp+h+akaQiLeCGPefWQ4QJXVXhWx4sU4ZxJVFlaY0AeVgh/tnHGTL27ao09JrdEEelXYMAWi4ynKKheck4tdw==
 
 html-minifier-terser@^5.0.1:
   version "5.1.1"
