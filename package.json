@@ -43,6 +43,6 @@
     "csstype": "3.0.5",
     "husky": "4.3.0",
     "lerna": "3.22.1",
-    "popmotion": "9.0.0"
+    "popmotion": "9.0.1"
   }
 }
