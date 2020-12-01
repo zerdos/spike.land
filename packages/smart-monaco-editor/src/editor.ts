@@ -1,4 +1,6 @@
 import type { monaco } from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts";
+import type Ace from "https://raw.githubusercontent.com/ajaxorg/ace/master/ace.d.ts";
+
 interface ISmartMonacoEditor {
   monaco: monaco;
   editor: monaco.editor.IStandaloneCodeEditor;
@@ -27,7 +29,7 @@ export const startMonaco: SmartMonaco = async (
     ? "file:///main.tsx"
     : "file:///main.html";
 
-  let aceEditor: AceAjax.Ace;
+  let aceEditor: Ace;
   if (
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       window.navigator.userAgent,
@@ -82,9 +84,10 @@ export const startMonaco: SmartMonaco = async (
   if (window["monaco"] === undefined) {
     const vsPath =
       "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
+    //@ts-ignore
     const { require } = await loadScript(
       `${vsPath}/loader.min.js`,
-    ) as AMDLoader;
+    );;
 
     require.config({ paths: { "vs": vsPath } });
 
@@ -95,7 +98,7 @@ export const startMonaco: SmartMonaco = async (
     );
   }
 
-  const monaco = window["monaco"] as Monaco;
+  const monaco = window["monaco"] as monaco;
 
   const modules = {
     monaco: monaco,
