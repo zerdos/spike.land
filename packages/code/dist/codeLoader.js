@@ -57,8 +57,7 @@ function renderDraggableEditor() {
     const jsFrame = new JSFrame();
     const frame = jsFrame.create({
         name: `Win`,
-        left: window.innerWidth / 2,
-        top: 40,
+        title: `monaco`,
         width: window.innerWidth / 2 - 40,
         height: 600,
         minWidth: 300,
@@ -67,7 +66,8 @@ function renderDraggableEditor() {
         appearanceParam: {
             titleBar: {
                 color: "white",
-                background: "#333333"
+                height: 40,
+                background: "red"
             }
         },
         style: {
@@ -80,7 +80,8 @@ function renderDraggableEditor() {
             width: "100%"
         },
         html: '<div id="container"></div>'
-    }).show();
+    });
+    frame.setPosition(window.innerWidth - 32, 32, "RIGHT_TOP");
     frame.setControl({
         maximizeButton: "maximizeButton",
         demaximizeButton: "restoreButton",
@@ -104,6 +105,8 @@ function renderDraggableEditor() {
     });
     frame.control.on("dminimized", (frame1, info)=>{
     });
+    frame.show();
+    console.log(frame);
 }
 function loadScript(src) {
     return new Promise(function(resolve, reject) {
