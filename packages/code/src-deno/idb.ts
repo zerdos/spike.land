@@ -1,6 +1,6 @@
 export const getDB = async () => {
   const { openDB } = await import(
-    "https://unpkg.com/idb@5.0.7/build/esm/index.js"
+    "https://unpkg.com/idb@5.0.8/build/esm/index.js"
   );
 
   const dbPromise = openDB("localZedCodeStore", 1, {
