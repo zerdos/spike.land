@@ -1,6 +1,6 @@
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts(
-  "https://unpkg.com/idb@5.0.8/build/iife/with-async-ittr-min.js"
+  "https://unpkg.com/idb@5.0.8/build/iife/with-async-ittr-min.js",
 );
 
 const getUrl = () => {
