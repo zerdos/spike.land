@@ -256,7 +256,7 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/browse/popmotion@9.0.0/lib/index.d.ts",
+        url: "https://unpkg.com/browse/popmotion@9.0.1/lib/index.d.ts",
       },
     ];
     //# sourceMappingURL=importHelper.js.map
