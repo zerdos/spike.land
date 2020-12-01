@@ -1,12 +1,12 @@
 {
   "name": "@zedvision/smart-monaco-editor-example",
-  "version": "7.10.2",
+  "version": "8.0.0",
   "homepage": "https://unpkg.com/@zedvision/smart-monaco-editor-example/build",
   "dependencies": {
     "@types/node": "14.14.10",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
-    "@zedvision/smart-monaco-editor": "^7.10.2",
+    "@zedvision/smart-monaco-editor": "^8.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-scripts": "4.0.1",
