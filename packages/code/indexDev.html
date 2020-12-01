@@ -178,18 +178,6 @@ body, html {
 
 
 
-    async function restartCode(transpileCode) {
-
-      //  console.log(replaced);
-      const restart = new Function(
-        "transpileCode",
-        `return function() {  
-        !!!{transpileCode}
-      }`,
-      )()
-      restart();
-    }
-
 
   </script>
   <script type="module">
