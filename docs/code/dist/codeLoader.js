@@ -267,14 +267,139 @@ function getMethod(target, prop) {
     cachedMethods.set(prop, method);
     return method;
 }
+const DIFF_DELETE = -1;
+function isSurrogatePairStart(charCode) {
+    return charCode >= 55296 && charCode <= 56319;
+}
+function isSurrogatePairEnd(charCode) {
+    return charCode >= 56320 && charCode <= 57343;
+}
+function startsWithPairEnd(str) {
+    return isSurrogatePairEnd(str.charCodeAt(0));
+}
+function endsWithPairStart(str) {
+    return isSurrogatePairStart(str.charCodeAt(str.length - 1));
+}
+function removeEmptyTuples(tuples) {
+    const ret = [];
+    for(let i = 0; i < tuples.length; i++){
+        if (tuples[i][1].length > 0) {
+            ret.push(tuples[i]);
+        }
+    }
+    return ret;
+}
+function makeEditSplice(before, oldMiddle, newMiddle, after) {
+    if (endsWithPairStart(before) || startsWithPairEnd(after)) {
+        return null;
+    }
+    return removeEmptyTuples([
+        [
+            0,
+            before
+        ],
+        [
+            DIFF_DELETE,
+            oldMiddle
+        ],
+        [
+            1,
+            newMiddle
+        ],
+        [
+            0,
+            after
+        ], 
+    ]);
+}
+function findCursorEditDiff(oldText, newText, cursorPos) {
+    const oldRange = typeof cursorPos === "number" ? {
+        index: cursorPos,
+        length: 0
+    } : cursorPos.oldRange;
+    const newRange = typeof cursorPos === "number" ? null : cursorPos.newRange;
+    const oldLength = oldText.length;
+    const newLength = newText.length;
+    if (oldRange.length === 0 && (newRange === null || newRange.length === 0)) {
+        const oldCursor = oldRange.index;
+        const oldBefore = oldText.slice(0, oldCursor);
+        const oldAfter = oldText.slice(oldCursor);
+        const maybeNewCursor = newRange ? newRange.index : null;
+        editBefore: {
+            const newCursor = oldCursor + newLength - oldLength;
+            if (maybeNewCursor !== null && maybeNewCursor !== newCursor) {
+                break editBefore;
+            }
+            if (newCursor < 0 || newCursor > newLength) {
+                break editBefore;
+            }
+            const newBefore = newText.slice(0, newCursor);
+            const newAfter = newText.slice(newCursor);
+            if (newAfter !== oldAfter) {
+                break editBefore;
+            }
+            const prefixLength = Math.min(oldCursor, newCursor);
+            const oldPrefix = oldBefore.slice(0, prefixLength);
+            const newPrefix = newBefore.slice(0, prefixLength);
+            if (oldPrefix !== newPrefix) {
+                break editBefore;
+            }
+            const oldMiddle = oldBefore.slice(prefixLength);
+            const newMiddle = newBefore.slice(prefixLength);
+            return makeEditSplice(oldPrefix, oldMiddle, newMiddle, oldAfter);
+        }
+        editAfter: {
+            if (maybeNewCursor !== null && maybeNewCursor !== oldCursor) {
+                break editAfter;
+            }
+            const cursor = oldCursor;
+            const newBefore = newText.slice(0, oldCursor);
+            const newAfter = newText.slice(oldCursor);
+            if (newBefore !== oldBefore) {
+                break editAfter;
+            }
+            const suffixLength = Math.min(oldLength - oldCursor, newLength - oldCursor);
+            const oldSuffix = oldAfter.slice(oldAfter.length - suffixLength);
+            const newSuffix = newAfter.slice(newAfter.length - suffixLength);
+            if (oldSuffix !== newSuffix) {
+                break editAfter;
+            }
+            const oldMiddle = oldAfter.slice(0, oldAfter.length - suffixLength);
+            const newMiddle = newAfter.slice(0, newAfter.length - suffixLength);
+            return makeEditSplice(oldBefore, oldMiddle, newMiddle, oldSuffix);
+        }
+    }
+    if (oldRange.length > 0 && newRange && newRange.length === 0) {
+        replaceRange: {
+            const oldPrefix = oldText.slice(0, oldRange.index);
+            const oldSuffix = oldText.slice(oldRange.index + oldRange.length);
+            const prefixLength = oldPrefix.length;
+            const suffixLength = oldSuffix.length;
+            if (newLength < prefixLength + suffixLength) {
+                break replaceRange;
+            }
+            const newPrefix = newText.slice(0, prefixLength);
+            const newSuffix = newText.slice(newLength - suffixLength);
+            if (oldPrefix !== newPrefix || oldSuffix !== newSuffix) {
+                break replaceRange;
+            }
+            const oldMiddle = oldText.slice(prefixLength, oldLength - suffixLength);
+            const newMiddle = newText.slice(prefixLength, newLength - suffixLength);
+            return makeEditSplice(oldPrefix, oldMiddle, newMiddle, oldSuffix);
+        }
+    }
+    return null;
+}
+diff.INSERT = 1;
+diff.DELETE = DIFF_DELETE;
+diff.EQUAL = 0;
 var ReactDOM = window.ReactDOM;
 const getUrl = ()=>{
-    if (window.location.href.includes("zed.dev")) {
+    if (document.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
     }
     return "https://code.zed.vision";
 };
-const document1 = window.document;
 let firstLoad = true;
 let latestCode = "";
 let busy = 0;
@@ -345,190 +470,19 @@ async function getUserId() {
     }
     return uuid;
 }
-const L = -1;
-function y(i) {
-    return i >= 55296 && i <= 56319;
-}
-function v(i) {
-    return i >= 56320 && i <= 57343;
-}
-function I(i) {
-    return v(i.charCodeAt(0));
-}
-function R(i) {
-    return y(i.charCodeAt(i.length - 1));
-}
-function F(i) {
-    const n = [];
-    for(let e = 0; e < i.length; e++)i[e][1].length > 0 && n.push(i[e]);
-    return n;
-}
-function P(i, n, e, r) {
-    return R(i) || I(r) ? null : F([
-        [
-            0,
-            i
-        ],
-        [
-            L,
-            n
-        ],
-        [
-            1,
-            e
-        ],
-        [
-            0,
-            r
-        ]
-    ]);
-}
-function H(i, n, e) {
-    const r = typeof e == "number" ? {
-        index: e,
-        length: 0
-    } : e.oldRange, s = typeof e == "number" ? null : e.newRange, f = i.length, l = n.length;
-    if (r.length === 0 && (s === null || s.length === 0)) {
-        const t = r.index, c = i.slice(0, t), h = i.slice(t), o = s ? s.index : null;
-        n: {
-            const p = t + l - f;
-            if (o !== null && o !== p) break n;
-            if (p < 0 || p > l) break n;
-            const A = n.slice(0, p), d = n.slice(p);
-            if (d !== h) break n;
-            const a = Math.min(t, p), g = c.slice(0, a), M = A.slice(0, a);
-            if (g !== M) break n;
-            const u = c.slice(a), b = A.slice(a);
-            return P(g, u, b, h);
-        }
-        n: {
-            if (o !== null && o !== t) break n;
-            const p = t, A = n.slice(0, t), d = n.slice(t);
-            if (A !== c) break n;
-            const a = Math.min(f - t, l - t), g = h.slice(h.length - a), M = d.slice(d.length - a);
-            if (g !== M) break n;
-            const u = h.slice(0, h.length - a), b = d.slice(0, d.length - a);
-            return P(c, u, b, g);
-        }
+function replaceWithEmpty(elementId = "root") {
+    const el = document.createElement("div");
+    const rootEl = document.getElementById(elementId);
+    try {
+        ReactDOM.unmountComponentAtNode(rootEl);
+    } catch (e) {
+        console.error("Error in un-mount", e);
     }
-    if (r.length > 0 && s && s.length === 0) {
-        n: {
-            const t = i.slice(0, r.index), c = i.slice(r.index + r.length), h = t.length, o = c.length;
-            if (l < h + o) break n;
-            const p = n.slice(0, h), A = n.slice(l - o);
-            if (t !== p || c !== A) break n;
-            const d = i.slice(h, f - o), a = n.slice(h, l - o);
-            return P(t, d, a, c);
-        }
+    if (rootEl) rootEl.replaceWith(el);
+    else {
+        document.body.appendChild(el);
     }
-    return null;
-}
-diff.INSERT = 1, diff.DELETE = L, diff.EQUAL = 0;
-function D(i, n) {
-    if (!i || !n || i.charAt(0) !== n.charAt(0)) return 0;
-    let e = 0, r = Math.min(i.length, n.length), s = r, f = 0;
-    for(; e < s;)i.substring(f, s) == n.substring(f, s) ? (e = s, f = e) : r = s, s = Math.floor((r - e) / 2 + e);
-    return y(i.charCodeAt(s - 1)) && s--, s;
-}
-function O(i, n) {
-    if (!i || !n || i.slice(-1) !== n.slice(-1)) return 0;
-    let e = 0, r = Math.min(i.length, n.length), s = r, f = 0;
-    for(; e < s;)i.substring(i.length - s, i.length - f) == n.substring(n.length - s, n.length - f) ? (e = s, f = e) : r = s, s = Math.floor((r - e) / 2 + e);
-    return v(i.charCodeAt(i.length - s)) && s--, s;
-}
-function N(i, n) {
-    const e = i.length > n.length ? i : n, r = i.length > n.length ? n : i;
-    if (e.length < 4 || r.length * 2 < e.length) return null;
-    function s(d, a, g) {
-        const M = d.substring(g, g + Math.floor(d.length / 4));
-        let u = -1, b = "", m, k, w, C;
-        for(; (u = a.indexOf(M, u + 1)) !== -1;){
-            const S = D(d.substring(g), a.substring(u)), B = O(d.substring(0, g), a.substring(0, u));
-            b.length < B + S && (b = a.substring(u - B, u) + a.substring(u, u + S), m = d.substring(0, g - B), k = d.substring(g + S), w = a.substring(0, u - B), C = a.substring(u + S));
-        }
-        return b.length * 2 >= d.length ? [
-            m,
-            k,
-            w,
-            C,
-            b
-        ] : null;
-    }
-    const f = s(e, r, Math.ceil(e.length / 4)), l = s(e, r, Math.ceil(e.length / 2));
-    let t;
-    if (l === null && f === null) return null;
-    if (l === null) {
-        if (f === null) return null;
-        t = f;
-    } else if (f === null) {
-        if (l === null) return null;
-        t = l;
-    } else t = f[4].length > l[4].length ? f : l;
-    let c, h, o, p;
-    i.length > n.length ? (c = t[0], h = t[1], o = t[2], p = t[3]) : (o = t[0], p = t[1], c = t[2], h = t[3]);
-    const A = t[4];
-    return [
-        c,
-        h,
-        o,
-        p,
-        A
-    ];
-}
-function diffCleanupMerge(i) {
-    const n = [
-        ...i
-    ];
-    n.push([
-        0,
-        ""
-    ]);
-    let e = 0, r = 0, s = 0, f = "", l = "", t, c;
-    for(; e < n.length;){
-        if (e < n.length - 1 && !n[e][1]) {
-            n.splice(e, 1);
-            continue;
-        }
-        switch(n[e][0]){
-            case 1:
-                s++, l += n[e][1], e++;
-                break;
-            case L:
-                r++, f += n[e][1], e++;
-                break;
-            case 0:
-                if (c = e - s - r - 1, e < n.length - 1 && !n[e][1]) {
-                    n.splice(e, 1);
-                    break;
-                }
-                if (f.length > 0 || l.length > 0) {
-                    f.length > 0 && l.length > 0 && (t = D(l, f), t !== 0 && (c >= 0 ? n[c][1] += l.substring(0, t) : (n.splice(0, 0, [
-                        0,
-                        l.substring(0, t)
-                    ]), e++), l = l.substring(t), f = f.substring(t)), t = O(l, f), t !== 0 && (n[e][1] = l.substring(l.length - t) + n[e][1], l = l.substring(0, l.length - t), f = f.substring(0, f.length - t)));
-                    const o = s + r;
-                    f.length === 0 && l.length === 0 ? (n.splice(e - o, o), e = e - o) : f.length === 0 ? (n.splice(e - o, o, [
-                        1,
-                        l
-                    ]), e = e - o + 1) : l.length === 0 ? (n.splice(e - o, o, [
-                        L,
-                        f
-                    ]), e = e - o + 1) : (n.splice(e - o, o, [
-                        L,
-                        f
-                    ], [
-                        1,
-                        l
-                    ]), e = e - o + 2);
-                }
-                e !== 0 && n[e - 1][0] === 0 ? (n[e - 1][1] += n[e][1], n.splice(e, 1)) : e++, s = 0, r = 0, f = "", l = "";
-                break;
-        }
-    }
-    n[n.length - 1][1] === "" && n.pop();
-    let h = !1;
-    for(e = 1; e < n.length - 1;)n[e - 1][0] === 0 && n[e + 1][0] === 0 && (n[e][1].substring(n[e][1].length - n[e - 1][1].length) === n[e - 1][1] ? (n[e][1] = n[e - 1][1] + n[e][1].substring(0, n[e][1].length - n[e - 1][1].length), n[e + 1][1] = n[e - 1][1] + n[e + 1][1], n.splice(e - 1, 1), h = !0) : n[e][1].substring(0, n[e + 1][1].length) == n[e + 1][1] && (n[e - 1][1] += n[e + 1][1], n[e][1] = n[e][1].substring(n[e + 1][1].length) + n[e + 1][1], n.splice(e + 1, 1), h = !0)), e++;
-    return h ? diffCleanupMerge(n) : n;
+    el.id = elementId;
 }
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
@@ -788,6 +742,250 @@ async function sha256(message) {
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
+function diffCommonPrefix(text1, text2) {
+    if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
+        return 0;
+    }
+    let pointerMin = 0;
+    let pointerMax = Math.min(text1.length, text2.length);
+    let pointerMid = pointerMax;
+    let pointerStart = 0;
+    while(pointerMin < pointerMid){
+        if (text1.substring(pointerStart, pointerMid) == text2.substring(pointerStart, pointerMid)) {
+            pointerMin = pointerMid;
+            pointerStart = pointerMin;
+        } else {
+            pointerMax = pointerMid;
+        }
+        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
+    }
+    if (isSurrogatePairStart(text1.charCodeAt(pointerMid - 1))) {
+        pointerMid--;
+    }
+    return pointerMid;
+}
+function diffCommonSuffix(text1, text2) {
+    if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
+        return 0;
+    }
+    let pointerMin = 0;
+    let pointerMax = Math.min(text1.length, text2.length);
+    let pointerMid = pointerMax;
+    let pointerEnd = 0;
+    while(pointerMin < pointerMid){
+        if (text1.substring(text1.length - pointerMid, text1.length - pointerEnd) == text2.substring(text2.length - pointerMid, text2.length - pointerEnd)) {
+            pointerMin = pointerMid;
+            pointerEnd = pointerMin;
+        } else {
+            pointerMax = pointerMid;
+        }
+        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
+    }
+    if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointerMid))) {
+        pointerMid--;
+    }
+    return pointerMid;
+}
+function diffHalfMatch_(text1, text2) {
+    const longtext = text1.length > text2.length ? text1 : text2;
+    const shorttext = text1.length > text2.length ? text2 : text1;
+    if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
+        return null;
+    }
+    function diffHalfMatchI_(longtext1, shorttext1, i) {
+        const seed = longtext1.substring(i, i + Math.floor(longtext1.length / 4));
+        let j = -1;
+        let bestCommon = "";
+        let bestLongtextA, bestLongtextB, bestShorttextA, bestShorttextB;
+        while((j = shorttext1.indexOf(seed, j + 1)) !== -1){
+            const prefixLength = diffCommonPrefix(longtext1.substring(i), shorttext1.substring(j));
+            const suffixLength = diffCommonSuffix(longtext1.substring(0, i), shorttext1.substring(0, j));
+            if (bestCommon.length < suffixLength + prefixLength) {
+                bestCommon = shorttext1.substring(j - suffixLength, j) + shorttext1.substring(j, j + prefixLength);
+                bestLongtextA = longtext1.substring(0, i - suffixLength);
+                bestLongtextB = longtext1.substring(i + prefixLength);
+                bestShorttextA = shorttext1.substring(0, j - suffixLength);
+                bestShorttextB = shorttext1.substring(j + prefixLength);
+            }
+        }
+        if (bestCommon.length * 2 >= longtext1.length) {
+            return [
+                bestLongtextA,
+                bestLongtextB,
+                bestShorttextA,
+                bestShorttextB,
+                bestCommon, 
+            ];
+        } else {
+            return null;
+        }
+    }
+    const hm1 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
+    const hm2 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
+    let hm;
+    if (hm2 === null && hm1 === null) return null;
+    else if (hm2 === null) {
+        if (hm1 === null) {
+            return null;
+        }
+        hm = hm1;
+    } else if (hm1 === null) {
+        if (hm2 === null) {
+            return null;
+        }
+        hm = hm2;
+    } else {
+        hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
+    }
+    let text1A, text1B, text2A, text2B;
+    if (text1.length > text2.length) {
+        text1A = hm[0];
+        text1B = hm[1];
+        text2A = hm[2];
+        text2B = hm[3];
+    } else {
+        text2A = hm[0];
+        text2B = hm[1];
+        text1A = hm[2];
+        text1B = hm[3];
+    }
+    const midCommon = hm[4];
+    return [
+        text1A,
+        text1B,
+        text2A,
+        text2B,
+        midCommon
+    ];
+}
+function diffCleanupMerge(Diffs) {
+    const diffs = [
+        ...Diffs
+    ];
+    diffs.push([
+        0,
+        ""
+    ]);
+    let pointer = 0;
+    let countDelete = 0;
+    let countInsert = 0;
+    let textDelete = "";
+    let textInsert = "";
+    let commonlength;
+    let previousEquality;
+    while(pointer < diffs.length){
+        if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+            diffs.splice(pointer, 1);
+            continue;
+        }
+        switch(diffs[pointer][0]){
+            case 1:
+                countInsert++;
+                textInsert += diffs[pointer][1];
+                pointer++;
+                break;
+            case DIFF_DELETE:
+                countDelete++;
+                textDelete += diffs[pointer][1];
+                pointer++;
+                break;
+            case 0:
+                previousEquality = pointer - countInsert - countDelete - 1;
+                if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+                    diffs.splice(pointer, 1);
+                    break;
+                }
+                if (textDelete.length > 0 || textInsert.length > 0) {
+                    if (textDelete.length > 0 && textInsert.length > 0) {
+                        commonlength = diffCommonPrefix(textInsert, textDelete);
+                        if (commonlength !== 0) {
+                            if (previousEquality >= 0) {
+                                diffs[previousEquality][1] += textInsert.substring(0, commonlength);
+                            } else {
+                                diffs.splice(0, 0, [
+                                    0,
+                                    textInsert.substring(0, commonlength)
+                                ]);
+                                pointer++;
+                            }
+                            textInsert = textInsert.substring(commonlength);
+                            textDelete = textDelete.substring(commonlength);
+                        }
+                        commonlength = diffCommonSuffix(textInsert, textDelete);
+                        if (commonlength !== 0) {
+                            diffs[pointer][1] = textInsert.substring(textInsert.length - commonlength) + diffs[pointer][1];
+                            textInsert = textInsert.substring(0, textInsert.length - commonlength);
+                            textDelete = textDelete.substring(0, textDelete.length - commonlength);
+                        }
+                    }
+                    const n = countInsert + countDelete;
+                    if (textDelete.length === 0 && textInsert.length === 0) {
+                        diffs.splice(pointer - n, n);
+                        pointer = pointer - n;
+                    } else if (textDelete.length === 0) {
+                        diffs.splice(pointer - n, n, [
+                            1,
+                            textInsert
+                        ]);
+                        pointer = pointer - n + 1;
+                    } else if (textInsert.length === 0) {
+                        diffs.splice(pointer - n, n, [
+                            DIFF_DELETE,
+                            textDelete
+                        ]);
+                        pointer = pointer - n + 1;
+                    } else {
+                        diffs.splice(pointer - n, n, [
+                            DIFF_DELETE,
+                            textDelete
+                        ], [
+                            1,
+                            textInsert
+                        ]);
+                        pointer = pointer - n + 2;
+                    }
+                }
+                if (pointer !== 0 && diffs[pointer - 1][0] === 0) {
+                    diffs[pointer - 1][1] += diffs[pointer][1];
+                    diffs.splice(pointer, 1);
+                } else {
+                    pointer++;
+                }
+                countInsert = 0;
+                countDelete = 0;
+                textDelete = "";
+                textInsert = "";
+                break;
+        }
+    }
+    if (diffs[diffs.length - 1][1] === "") {
+        diffs.pop();
+    }
+    let changes = false;
+    pointer = 1;
+    while(pointer < diffs.length - 1){
+        if (diffs[pointer - 1][0] === 0 && diffs[pointer + 1][0] === 0) {
+            if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
+                diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
+                diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
+                diffs.splice(pointer - 1, 1);
+                changes = true;
+            } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
+                diffs[pointer - 1][1] += diffs[pointer + 1][1];
+                diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
+                diffs.splice(pointer + 1, 1);
+                changes = true;
+            }
+        }
+        pointer++;
+        isSurrogatePairStart;
+    }
+    if (changes) {
+        ``;
+        return diffCleanupMerge(diffs);
+    }
+    return diffs;
+}
 export const getProjects = async ()=>{
     const uuid = await getUserId();
     const codeDB = await getDB();
@@ -798,6 +996,338 @@ export const getProjects = async ()=>{
     }
     return projects;
 };
+function promisifyRequest(request) {
+    const promise = new Promise((resolve, reject)=>{
+        const unlisten = ()=>{
+            request.removeEventListener('success', success);
+            request.removeEventListener('error', error);
+        };
+        const success = ()=>{
+            resolve(wrap(request.result));
+            unlisten();
+        };
+        const error = ()=>{
+            reject(request.error);
+            unlisten();
+        };
+        request.addEventListener('success', success);
+        request.addEventListener('error', error);
+    });
+    promise.then((value)=>{
+        if (value instanceof IDBCursor) {
+            cursorRequestMap.set(value, request);
+        }
+    }).catch(()=>{
+    });
+    reverseTransformCache.set(promise, request);
+    return promise;
+}
+let idbProxyTraps = {
+    get (target, prop, receiver) {
+        if (target instanceof IDBTransaction) {
+            if (prop === 'done') return transactionDoneMap.get(target);
+            if (prop === 'objectStoreNames') {
+                return target.objectStoreNames || transactionStoreNamesMap.get(target);
+            }
+            if (prop === 'store') {
+                return receiver.objectStoreNames[1] ? undefined : receiver.objectStore(receiver.objectStoreNames[0]);
+            }
+        }
+        return wrap(target[prop]);
+    },
+    set (target, prop, value) {
+        target[prop] = value;
+        return true;
+    },
+    has (target, prop) {
+        if (target instanceof IDBTransaction && (prop === 'done' || prop === 'store')) {
+            return true;
+        }
+        return prop in target;
+    }
+};
+function replaceTraps(callback) {
+    idbProxyTraps = callback(idbProxyTraps);
+}
+function wrapFunction(func) {
+    if (func === IDBDatabase.prototype.transaction && !('objectStoreNames' in IDBTransaction.prototype)) {
+        return function(storeNames, ...args) {
+            const tx = func.call(unwrap(this), storeNames, ...args);
+            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [
+                storeNames
+            ]);
+            return wrap(tx);
+        };
+    }
+    if (getCursorAdvanceMethods().includes(func)) {
+        return function(...args) {
+            func.apply(unwrap(this), args);
+            return wrap(cursorRequestMap.get(this));
+        };
+    }
+    return function(...args) {
+        return wrap(func.apply(unwrap(this), args));
+    };
+}
+function transformCachableValue(value) {
+    if (typeof value === 'function') return wrapFunction(value);
+    if (value instanceof IDBTransaction) cacheDonePromiseForTransaction(value);
+    if (instanceOfAny(value, getIdbProxyableTypes())) return new Proxy(value, idbProxyTraps);
+    return value;
+}
+function wrap(value) {
+    if (value instanceof IDBRequest) return promisifyRequest(value);
+    if (transformCache.has(value)) return transformCache.get(value);
+    const newValue = transformCachableValue(value);
+    if (newValue !== value) {
+        transformCache.set(value, newValue);
+        reverseTransformCache.set(newValue, value);
+    }
+    return newValue;
+}
+replaceTraps((oldTraps)=>({
+        ...oldTraps,
+        get: (target, prop, receiver)=>getMethod(target, prop) || oldTraps.get(target, prop, receiver)
+        ,
+        has: (target, prop)=>!!getMethod(target, prop) || oldTraps.has(target, prop)
+    })
+);
+function diffMain({ text1 , text2 , cursorPos  }) {
+    if (text1 === text2) {
+        if (text1) {
+            return [
+                [
+                    0,
+                    text1
+                ]
+            ];
+        }
+        return [];
+    }
+    if (cursorPos) {
+        const editdiff = findCursorEditDiff(text1, text2, cursorPos);
+        if (editdiff) {
+            return editdiff;
+        }
+    }
+    let commonlength = diffCommonPrefix(text1, text2);
+    const commonprefix = text1.substring(0, commonlength);
+    text1 = text1.substring(commonlength);
+    text2 = text2.substring(commonlength);
+    commonlength = diffCommonSuffix(text1, text2);
+    const commonsuffix = text1.substring(text1.length - commonlength);
+    text1 = text1.substring(0, text1.length - commonlength);
+    text2 = text2.substring(0, text2.length - commonlength);
+    const diffs = diffCompute_(text1, text2);
+    if (commonprefix) {
+        diffs.unshift([
+            0,
+            commonprefix
+        ]);
+    }
+    if (commonsuffix) {
+        diffs.push([
+            0,
+            commonsuffix
+        ]);
+    }
+    diffCleanupMerge(diffs);
+    return diffs;
+}
+function diffCompute_(text1, text2) {
+    let diffs;
+    if (!text1) {
+        return [
+            [
+                1,
+                text2
+            ]
+        ];
+    }
+    if (!text2) {
+        return [
+            [
+                DIFF_DELETE,
+                text1
+            ]
+        ];
+    }
+    const longtext = text1.length > text2.length ? text1 : text2;
+    const shorttext = text1.length > text2.length ? text2 : text1;
+    const i = longtext.indexOf(shorttext);
+    if (i !== -1) {
+        diffs = [
+            [
+                1,
+                longtext.substring(0, i)
+            ],
+            [
+                0,
+                shorttext
+            ],
+            [
+                1,
+                longtext.substring(i + shorttext.length)
+            ], 
+        ];
+        if (text1.length > text2.length) {
+            diffs[0][0] = diffs[2][0] = DIFF_DELETE;
+        }
+        return diffs;
+    }
+    if (shorttext.length === 1) {
+        return [
+            [
+                DIFF_DELETE,
+                text1
+            ],
+            [
+                1,
+                text2
+            ]
+        ];
+    }
+    const hm = diffHalfMatch_(text1, text2);
+    if (hm) {
+        const text1C = hm[0] || "";
+        const text1B = hm[1] || "";
+        const text2C = hm[2] || "";
+        const text2B = hm[3] || "";
+        const midCommon = hm[4] || "";
+        const diffsA = diffMain({
+            text1: text1C,
+            text2: text2C,
+            cursorPos: 0
+        });
+        const diffsB = diffMain({
+            text1: text1B,
+            text2: text2B,
+            cursorPos: 0
+        });
+        return diffsA.concat([
+            [
+                0,
+                midCommon[1]
+            ]
+        ], diffsB);
+    }
+    return diffBisect_(text1, text2);
+}
+function diffBisect_(text1, text2) {
+    const text1Length = text1.length;
+    const text2Length = text2.length;
+    const maxD = Math.ceil((text1Length + text2Length) / 2);
+    const vOffset = maxD;
+    const vLength = 2 * maxD;
+    const v1 = new Array(vLength);
+    const v2 = new Array(vLength);
+    for(let x = 0; x < vLength; x++){
+        v1[x] = -1;
+        v2[x] = -1;
+    }
+    v1[maxD + 1] = 0;
+    v2[maxD + 1] = 0;
+    const delta = text1Length - text2Length;
+    const front = delta % 2 !== 0;
+    let k1start = 0;
+    let k1end = 0;
+    let k2start = 0;
+    let k2end = 0;
+    for(let d = 0; d < maxD; d++){
+        for(let k1 = -d + k1start; k1 <= d - k1end; k1 += 2){
+            const k1Offset = maxD + k1;
+            let x1;
+            if (k1 === -d || k1 !== d && v1[k1Offset - 1] < v1[k1Offset + 1]) {
+                x1 = v1[k1Offset + 1];
+            } else {
+                x1 = v1[k1Offset - 1] + 1;
+            }
+            let y1 = x1 - k1;
+            while(x1 < text1Length && y1 < text2Length && text1.charAt(x1) === text2.charAt(y1)){
+                x1++;
+                y1++;
+            }
+            v1[k1Offset] = x1;
+            if (x1 > text1Length) {
+                k1end += 2;
+            } else if (y1 > text2Length) {
+                k1start += 2;
+            } else if (front) {
+                const k2Offset = maxD + delta - k1;
+                if (k2Offset >= 0 && k2Offset < vLength && v2[k2Offset] !== -1) {
+                    const x2 = text1Length - v2[k2Offset];
+                    if (x1 >= x2) {
+                        return diffBisectSplit_(text1, text2, x1, y1);
+                    }
+                }
+            }
+        }
+        let x2;
+        for(let k2 = -d + k2start; k2 <= d - k2end; k2 += 2){
+            const k2Offset = maxD + k2;
+            if (k2 === -d || k2 !== d && v2[k2Offset - 1] < v2[k2Offset + 1]) {
+                x2 = v2[k2Offset + 1];
+            } else {
+                x2 = v2[k2Offset - 1] + 1;
+            }
+            let y2 = x2 - k2;
+            while(x2 < text1Length && y2 < text2Length && text1.charAt(text1Length - x2 - 1) === text2.charAt(text2Length - y2 - 1)){
+                x2++;
+                y2++;
+            }
+            v2[k2Offset] = x2;
+            if (x2 > text1Length) {
+                k2end += 2;
+            } else if (y2 > text2Length) {
+                k2start += 2;
+            } else if (!front) {
+                const k1Offset = maxD + delta - k2;
+                if (k1Offset >= 0 && k1Offset < vLength && v1[k1Offset] !== -1) {
+                    const x1 = v1[k1Offset];
+                    const y1 = maxD + x1 - k1Offset;
+                    x2 = text1Length - x2;
+                    if (x1 >= x2) {
+                        return diffBisectSplit_(text1, text2, x1, y1);
+                    }
+                }
+            }
+        }
+    }
+    return [
+        [
+            DIFF_DELETE,
+            text1
+        ],
+        [
+            1,
+            text2
+        ]
+    ];
+}
+function diffBisectSplit_(text1, text2, x, y) {
+    const text1a = text1.substring(0, x);
+    const text2a = text2.substring(0, y);
+    const text1b = text1.substring(x);
+    const text2b = text2.substring(y);
+    const diffs = diffMain({
+        text1: text1a,
+        text2: text2a,
+        cursorPos: 0
+    });
+    const diffsB = diffMain({
+        text1: text1b,
+        text2: text2b,
+        cursorPos: 0
+    });
+    return diffs.concat(diffsB);
+}
+function diff(text1, text2, cursorPos) {
+    return diffMain({
+        text1,
+        text2,
+        cursorPos
+    });
+}
 export async function run(mode = "window") {
     const codeDB = await getDB();
     const uuid = await getUserId();
@@ -808,9 +1338,7 @@ export async function run(mode = "window") {
             const code = await getCode(hash);
             if (!code) return "";
             const codeTranspiled = await getTranspiledCode(hash);
-            const el = document1.createElement("div");
-            document1.getElementById("root").replaceWith(el);
-            el.id = "root";
+            replaceWithEmpty("root");
             let transpiled;
             try {
                 transpiled = transpileCode(code);
@@ -819,15 +1347,12 @@ export async function run(mode = "window") {
                     const replaceWith = "///";
                     const searchRegExp2 = /debugger/gi;
                     const replaceWith2 = "///";
-                    ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
+                    ReactDOM.unmountComponentAtNode(document.getElementById("root"));
                     restartCode(transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
-                    const html2 = document1.getElementById("root").innerHTML;
-                    const el2 = document1.createElement("div");
-                    document1.getElementById("root").replaceWith(el2);
-                    el2.id = "root";
-                    ReactDOM.unmountComponentAtNode(document1.getElementById("root"));
+                    const html2 = document.getElementById("root").innerHTML;
+                    replaceWithEmpty("root");
                     restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
-                    const html = document1.getElementById("root").innerHTML;
+                    const html = document.getElementById("root").innerHTML;
                     if (html !== html2) {
                         console.log({
                             hash,
@@ -904,14 +1429,13 @@ export async function run(mode = "window") {
             ];
         }
         async function runner(cd) {
-            const { diff  } = await import("../dist/diff.min.js");
             if (busy === 1) {
                 return;
             }
             try {
                 busy = 1;
                 const err = await getErrors();
-                const errorDiv = document1.getElementById("error");
+                const errorDiv = document.getElementById("error");
                 busy = 0;
                 if (cd !== latestCode) {
                     return;
@@ -963,7 +1487,7 @@ export async function run(mode = "window") {
             shareItAsHtml = async ()=>{
                 const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
                 const HTML = renderToString();
-                const css = Array.from(document1.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
+                const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
                 ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
                 ).join("\n  ");
                 let bodyStylesFix;
@@ -1084,255 +1608,5 @@ export async function run(mode = "window") {
             ]
         }).code;
     }
-}
-function promisifyRequest(request) {
-    const promise = new Promise((resolve, reject)=>{
-        const unlisten = ()=>{
-            request.removeEventListener('success', success);
-            request.removeEventListener('error', error);
-        };
-        const success = ()=>{
-            resolve(wrap(request.result));
-            unlisten();
-        };
-        const error = ()=>{
-            reject(request.error);
-            unlisten();
-        };
-        request.addEventListener('success', success);
-        request.addEventListener('error', error);
-    });
-    promise.then((value)=>{
-        if (value instanceof IDBCursor) {
-            cursorRequestMap.set(value, request);
-        }
-    }).catch(()=>{
-    });
-    reverseTransformCache.set(promise, request);
-    return promise;
-}
-let idbProxyTraps = {
-    get (target, prop, receiver) {
-        if (target instanceof IDBTransaction) {
-            if (prop === 'done') return transactionDoneMap.get(target);
-            if (prop === 'objectStoreNames') {
-                return target.objectStoreNames || transactionStoreNamesMap.get(target);
-            }
-            if (prop === 'store') {
-                return receiver.objectStoreNames[1] ? undefined : receiver.objectStore(receiver.objectStoreNames[0]);
-            }
-        }
-        return wrap(target[prop]);
-    },
-    set (target, prop, value) {
-        target[prop] = value;
-        return true;
-    },
-    has (target, prop) {
-        if (target instanceof IDBTransaction && (prop === 'done' || prop === 'store')) {
-            return true;
-        }
-        return prop in target;
-    }
-};
-function replaceTraps(callback) {
-    idbProxyTraps = callback(idbProxyTraps);
-}
-function wrapFunction(func) {
-    if (func === IDBDatabase.prototype.transaction && !('objectStoreNames' in IDBTransaction.prototype)) {
-        return function(storeNames, ...args) {
-            const tx = func.call(unwrap(this), storeNames, ...args);
-            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [
-                storeNames
-            ]);
-            return wrap(tx);
-        };
-    }
-    if (getCursorAdvanceMethods().includes(func)) {
-        return function(...args) {
-            func.apply(unwrap(this), args);
-            return wrap(cursorRequestMap.get(this));
-        };
-    }
-    return function(...args) {
-        return wrap(func.apply(unwrap(this), args));
-    };
-}
-function transformCachableValue(value) {
-    if (typeof value === 'function') return wrapFunction(value);
-    if (value instanceof IDBTransaction) cacheDonePromiseForTransaction(value);
-    if (instanceOfAny(value, getIdbProxyableTypes())) return new Proxy(value, idbProxyTraps);
-    return value;
-}
-function wrap(value) {
-    if (value instanceof IDBRequest) return promisifyRequest(value);
-    if (transformCache.has(value)) return transformCache.get(value);
-    const newValue = transformCachableValue(value);
-    if (newValue !== value) {
-        transformCache.set(value, newValue);
-        reverseTransformCache.set(newValue, value);
-    }
-    return newValue;
-}
-replaceTraps((oldTraps)=>({
-        ...oldTraps,
-        get: (target, prop, receiver)=>getMethod(target, prop) || oldTraps.get(target, prop, receiver)
-        ,
-        has: (target, prop)=>!!getMethod(target, prop) || oldTraps.has(target, prop)
-    })
-);
-function E({ text1: i , text2: n , cursorPos: e  }) {
-    if (i === n) return i ? [
-        [
-            0,
-            i
-        ]
-    ] : [];
-    if (e) {
-        const t = H(i, n, e);
-        if (t) return t;
-    }
-    let r = D(i, n);
-    const s = i.substring(0, r);
-    i = i.substring(r), n = n.substring(r), r = O(i, n);
-    const f = i.substring(i.length - r);
-    i = i.substring(0, i.length - r), n = n.substring(0, n.length - r);
-    const l = W(i, n);
-    return s && l.unshift([
-        0,
-        s
-    ]), f && l.push([
-        0,
-        f
-    ]), diffCleanupMerge(l), l;
-}
-function W(i, n) {
-    let e;
-    if (!i) return [
-        [
-            1,
-            n
-        ]
-    ];
-    if (!n) return [
-        [
-            L,
-            i
-        ]
-    ];
-    const r = i.length > n.length ? i : n, s = i.length > n.length ? n : i, f = r.indexOf(s);
-    if (f !== -1) return e = [
-        [
-            1,
-            r.substring(0, f)
-        ],
-        [
-            0,
-            s
-        ],
-        [
-            1,
-            r.substring(f + s.length)
-        ]
-    ], i.length > n.length && (e[0][0] = e[2][0] = L), e;
-    if (s.length === 1) return [
-        [
-            L,
-            i
-        ],
-        [
-            1,
-            n
-        ]
-    ];
-    const l = N(i, n);
-    if (l) {
-        const t = l[0] || "", c = l[1] || "", h = l[2] || "", o = l[3] || "", p = l[4] || "", A = E({
-            text1: t,
-            text2: h,
-            cursorPos: 0
-        }), d = E({
-            text1: c,
-            text2: o,
-            cursorPos: 0
-        });
-        return A.concat([
-            [
-                0,
-                p[1]
-            ]
-        ], d);
-    }
-    return j(i, n);
-}
-function j(i, n) {
-    const e = i.length, r = n.length, s = Math.ceil((e + r) / 2), f = s, l = 2 * s, t = new Array(l), c = new Array(l);
-    for(let g = 0; g < l; g++)t[g] = -1, c[g] = -1;
-    t[s + 1] = 0, c[s + 1] = 0;
-    const h = e - r, o = h % 2 !== 0;
-    let p = 0, A = 0, d = 0, a = 0;
-    for(let g1 = 0; g1 < s; g1++){
-        for(let u = -g1 + p; u <= g1 - A; u += 2){
-            const b = s + u;
-            let m;
-            u === -g1 || u !== g1 && t[b - 1] < t[b + 1] ? m = t[b + 1] : m = t[b - 1] + 1;
-            let k = m - u;
-            for(; m < e && k < r && i.charAt(m) === n.charAt(k);)m++, k++;
-            if (t[b] = m, m > e) A += 2;
-            else if (k > r) p += 2;
-            else if (o) {
-                const w = s + h - u;
-                if (w >= 0 && w < l && c[w] !== -1) {
-                    const C = e - c[w];
-                    if (m >= C) return _(i, n, m, k);
-                }
-            }
-        }
-        let M;
-        for(let u1 = -g1 + d; u1 <= g1 - a; u1 += 2){
-            const b = s + u1;
-            u1 === -g1 || u1 !== g1 && c[b - 1] < c[b + 1] ? M = c[b + 1] : M = c[b - 1] + 1;
-            let m = M - u1;
-            for(; M < e && m < r && i.charAt(e - M - 1) === n.charAt(r - m - 1);)M++, m++;
-            if (c[b] = M, M > e) a += 2;
-            else if (m > r) d += 2;
-            else if (!o) {
-                const k = s + h - u1;
-                if (k >= 0 && k < l && t[k] !== -1) {
-                    const w = t[k], C = s + w - k;
-                    if (M = e - M, w >= M) return _(i, n, w, C);
-                }
-            }
-        }
-    }
-    return [
-        [
-            L,
-            i
-        ],
-        [
-            1,
-            n
-        ]
-    ];
-}
-function _(i, n, e, r) {
-    const s = i.substring(0, e), f = n.substring(0, r), l = i.substring(e), t = n.substring(r), c = E({
-        text1: s,
-        text2: f,
-        cursorPos: 0
-    }), h = E({
-        text1: l,
-        text2: t,
-        cursorPos: 0
-    });
-    return c.concat(h);
-}
-function diff(i, n, e) {
-    return E({
-        text1: i,
-        text2: n,
-        cursorPos: e
-    });
 }
 

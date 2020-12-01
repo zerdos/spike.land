@@ -1,4 +1,5 @@
-import { Document } from "https://raw.githubusercontent.com/microsoft/TypeScript/master/lib/lib.dom.d.ts";
+/// <reference lib="dom" />
+
 import { getKeys } from "./maintenance/maintenance.ts";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
@@ -7,14 +8,13 @@ import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 import { sha256 } from "./sha256.ts";
 import { getDB } from "./idb.ts";
+import { diff } from "../../diff/diff.ts";
 
 //@ts-ignore
-var ReactDOM: {
-  unmountComponentAtNode: (node: any) => void;
-} = window.ReactDOM;
+var ReactDOM: { unmountComponentAtNode: (node: any) => void } = window.ReactDOM;
 
 const getUrl = () => {
-  if (window.location.href.includes("zed.dev")) {
+  if (document.location.href.includes("zed.dev")) {
     return "https://code.zed.dev";
   }
   return "https://code.zed.vision";
@@ -33,9 +33,6 @@ export const getProjects = async () => {
   return projects;
 };
 
-// import Diff from "https://unpkg.com/diff@5.0.0/dist/diff.js";
-// console.log(Diff.structuredPatch("hash1", "hash2", "amaaafa", "alma", "", ""));
-
 interface Babel {
   transform: (
     code: string,
@@ -45,7 +42,7 @@ interface Babel {
     },
   ) => { code: string };
 }
-const document = (window as { document: Document }).document;
+// const document = (window as { document: Document }).document;
 let firstLoad = true;
 
 let latestCode = "";
@@ -124,6 +121,25 @@ async function getUserId() {
   return uuid;
 }
 
+function replaceWithEmpty(elementId = "root") {
+  const el = document.createElement("div");
+  const rootEl = document.getElementById(elementId);
+  try {
+    ReactDOM.unmountComponentAtNode(
+      rootEl,
+    );
+  } catch (e) {
+    console.error("Error in un-mount", e);
+  }
+
+  if (rootEl) rootEl.replaceWith(el);
+  else {
+    document.body.appendChild(el);
+  }
+
+  el.id = elementId;
+}
+
 export async function run(mode = "window") {
   const codeDB = await getDB();
 
@@ -139,9 +155,7 @@ export async function run(mode = "window") {
       const code = await getCode(hash);
       if (!code) return "";
       const codeTranspiled = await getTranspiledCode(hash);
-      const el = document.createElement("div");
-      document.getElementById("root").replaceWith(el);
-      el.id = "root";
+      replaceWithEmpty("root");
       let transpiled;
       try {
         transpiled = transpileCode(code);
@@ -161,20 +175,15 @@ export async function run(mode = "window") {
               replaceWith2,
             ),
           );
-          const html2 = document.getElementById("root").innerHTML;
-          const el2 = document.createElement("div");
-          document.getElementById("root").replaceWith(el2);
-          el2.id = "root";
-          ReactDOM.unmountComponentAtNode(
-            document.getElementById("root"),
-          );
+          const html2 = document.getElementById("root")!.innerHTML;
+          replaceWithEmpty("root");
           restartCode(
             codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(
               searchRegExp2,
               replaceWith2,
             ),
           );
-          const html = document.getElementById("root").innerHTML;
+          const html = document.getElementById("root")!.innerHTML;
           if (html !== html2) {
             console.log(
               {
@@ -241,43 +250,6 @@ export async function run(mode = "window") {
     "https://unpkg.com/@babel/standalone@7.12.9/babel.min.js",
   );
 
-  // importScript(
-  //   "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js",
-  // );
-
-  // const motion = Motion.motion;
-
-  // const MyMotion = () =>
-  //   /*#__PURE__*/ React.createElement(motion.div, {
-  //     style: {
-  //       dispay: "block",
-  //       backround: "red",
-  //       width: 300,
-  //       height: 300,
-  //     },
-  //     drag: true,
-  //     layout: true,
-  //     animate: {
-  //       scale: 2,
-  //     },
-  //   }, React.createElement("iframe", null));
-
-  // const myRoot = document.getElementById("main-root");
-  // ReactDOM.render(
-  //   React.createElement(MyMotion, {}),
-  //   myRoot,
-  // );
-
-  // document.body.appendChild(myRoot);
-
-  // const code = transpileCode(
-  //   `
-  //   const motion = Motion.motion;
-  //   const myMotion = ()=><motion.div drag layout animate ={{scale: 2}} ></motion.div>`,
-  // );
-
-  // console.log(code);
-
   (async () => {
     const example = await getCodeToLoad();
     latestGoodCode = example;
@@ -336,7 +308,6 @@ export async function run(mode = "window") {
     }
 
     async function runner(cd: string) {
-      const { diff } = await import("../dist/diff.min.js");
       if (busy === 1) {
         return;
       }
@@ -358,7 +329,6 @@ export async function run(mode = "window") {
             return;
           }
 
-          // document.getElementById("root")!.classList.add("transparent");
           const slices = diff(latestGoodCode, cd, 0);
 
           if (slices.length <= 3) {
@@ -368,18 +338,8 @@ export async function run(mode = "window") {
 
           errorDiv!.innerHTML = err[0].messageText.toString();
 
-          // document.getElementById("root").style.setProperty(
-          //   "dispay",
-          //   "none",
-          // );
-
           errorDiv!.style.display = "block";
           errorReported = cd;
-
-          // modules.monaco.editor.setTheme("vs-light");
-          // setTimeout(() => {
-          //   modules.monaco.editor.setTheme("hc-black");
-          // }, keystrokeTillNoError++);
 
           return;
         }
@@ -473,6 +433,7 @@ export async function run(mode = "window") {
         const HTML = renderToString();
 
         const css = Array.from(
+          //@ts-ignore
           document.querySelector("head > style[data-emotion=css]").sheet
             .cssRules,
         ).map((x: any) => x.cssText).filter((cssRule) =>
@@ -535,59 +496,14 @@ export async function run(mode = "window") {
         </body>
         </html>
         `;
-        const iframeBlob = await createHTMLSourceBlob(iframe); //    saveHtml(iframe);
+        const iframeBlob = await createHTMLSourceBlob(iframe);
         const link = await saveHtml(iframeBlob);
-        // console.log(link);
         return link;
       };
-
-      // const renderToString =
-      // const HTML = renderToString();
-
-      // // console.log(HTML);
-
-      // // document.getElementById("root").innxerHTML = HTML;
-
-      //   const target = document.getElementsByTagName("iframe").item(0);
-
-      // if (target) {
-      //   const cloned = document.createElement("iframe");
-      //   cloned.setAttribute("src", iframeBlob);
-
-      //   setTimeout(() => {
-      //     window.requestAnimationFrame(() => {
-      //       target.setAttribute(
-      //         "src",
-      //         iframeBlob,
-      //       );
-      //       cloned.remove();
-      //     });
-      //   });
-      // } else {
-      //   await makeDraggable(iframeBlob);
-      // }
-
-      // document.getElementById("root").innerHTML = "";
-
-      // const rootEl = document.getElementById("main-root");
-      // rootEl.setAttribute("src", url);
-      // rootEl.src = "./eeee.js";
-      // console.log(rootEl);
-
-      // MainThread.upgradeElement(
-      //   rootEl,
-      //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js",
-      // );
     };
 
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
-        // const helloWorld = new TextEncoder().encode("Hello World");
-
-        // const encoded = gzipEncode(helloWorld);
-        // const decoded = gzipDecode(encoded);
-        // console.log(decoded);
-
         if (!location.origin.includes("zed.")) {
           return;
         }
@@ -612,9 +528,6 @@ export async function run(mode = "window") {
 
         const response = fetch(request);
         const hash = await sha256(stringBody);
-        // console.log(shaHash);
-
-        // const { hash } = await response.json();
 
         try {
           const prevHash = await codeDB.get("codeBoXHash2");
@@ -625,7 +538,6 @@ export async function run(mode = "window") {
             setQueryStringParameter("h", hash);
           }
         } catch (e) {
-          //         console.log("no localStorage");
         }
         await response;
       };

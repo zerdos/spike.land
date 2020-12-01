@@ -8,6 +8,7 @@
         "browserslist",
         "code",
         "codebox",
+        "crossorigin",
         "csstype",
         "deno",
         "Erdos",
@@ -18,6 +19,7 @@
         "overtype",
         "popmotion",
         "transpiled",
+        "unmount",
         "workerize",
         "Zoltan"
     ]
