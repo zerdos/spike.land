@@ -286,9 +286,7 @@ export const startMonaco: SmartMonaco = async (
         module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
         noEmit: true,
         typeRoots: ["node_modules/@types"],
-        jsx: modules.monaco.languages.typescript.JsxEmit.React,
-        jsxFactory: "React.createElement",
-        jsxFragmentFactory: "React.Fragment",
+        jsx: "react-jsx",
         esModuleInterop: true,
       },
     );

@@ -250,9 +250,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             typeRoots: [
                 "node_modules/@types"
             ],
-            jsx: modules.monaco.languages.typescript.JsxEmit.React,
-            jsxFactory: "React.createElement",
-            jsxFragmentFactory: "React.Fragment",
+            jsx: "react-jsx",
             esModuleInterop: true
         });
         await Promise.all(dts);
