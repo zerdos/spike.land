@@ -1583,7 +1583,8 @@ export async function run(mode = "window") {
         return blob;
     }
     async function saveHtml(htmlBlob) {
-        const request = new Request(getUrl(), {
+        const cfUrl = getUrl();
+        const request = new Request(cfUrl, {
             body: htmlBlob,
             method: "POST",
             headers: {
@@ -1593,7 +1594,7 @@ export async function run(mode = "window") {
         });
         const response = await fetch(request);
         const { hash  } = await response.json();
-        return getUrl() + `/?r=${hash}`;
+        return `${cfUrl}/${hash}`;
     }
     function transpileCode(code) {
         const { transform  } = window["Babel"];

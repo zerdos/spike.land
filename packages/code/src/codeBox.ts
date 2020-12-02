@@ -589,8 +589,9 @@ export async function run(mode = "window") {
   }
 
   async function saveHtml(htmlBlob: Blob) {
+    const cfUrl = getUrl();
     const request = new Request(
-      getUrl(),
+      cfUrl,
       {
         body: htmlBlob,
         method: "POST",
@@ -604,7 +605,7 @@ export async function run(mode = "window") {
     const response = await fetch(request);
 
     const { hash } = await response.json();
-    return getUrl() + `/?r=${hash}`;
+    return `${cfUrl}/${hash}`;
   }
 
   function transpileCode(code: string) {
