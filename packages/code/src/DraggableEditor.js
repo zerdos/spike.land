@@ -2,7 +2,7 @@ export function renderDraggableEditor() {
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
     name: `Win`,
-    title: `monaco`,
+    title: ``,
     width: (window.innerWidth / 2) - 40,
     height: 600,
     minWidth: 300,
