@@ -5,6 +5,7 @@
         "package.json"
     ],
     "words": [
+        "ampproject",
         "browserslist",
         "code",
         "codebox",
@@ -21,6 +22,7 @@
         "transpiled",
         "unmount",
         "workerize",
+        "zedvision",
         "Zoltan"
     ]
 }
