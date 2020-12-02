@@ -228,7 +228,7 @@ export async function run(mode = "window") {
   //   "https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js",
   // );
   // await importScript(
-  //   "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.js",
+  //   "https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.js",
   // );
 
   // const workerDomImport = importScript(

@@ -703,7 +703,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@2.9.4/dist/framer-motion.d.ts",
+                url: "https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.d.ts",
                 depend: []
             },
             {
