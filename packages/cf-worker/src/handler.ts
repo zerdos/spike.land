@@ -1,7 +1,7 @@
 import { arrBuffSha256 } from "../../code/src/sha256.ts";
 import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
 
-var SHATEST: KVNamespace;
+var SHA_STORE: KVNamespace;
 var USERS: KVNamespace;
 var API_KEY: string;
 
@@ -19,7 +19,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   if (request.method === "GET" && psk && psk === API_KEY) {
     if (pathname === "/keys/") {
       const prefix = searchParams.get("prefix")!;
-      const value = await SHATEST.list({ prefix });
+      const value = await SHA_STORE.list({ prefix });
 
       return new Response(JSON.stringify(value), {
         headers: {
@@ -31,7 +31,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     if (pathname === "/keys/delete/") {
       const hash = searchParams.get("hash")!;
-      const value = await SHATEST.delete(hash)!;
+      const value = await SHA_STORE.delete(hash)!;
 
       return new Response(JSON.stringify(value), {
         headers: {
@@ -42,7 +42,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
 
     // if (loginHash) {
-    //   await SHATEST.put("LOGIN", loginHash);
+    //   await SHA_STORE.put("LOGIN", loginHash);
     // }
 
     // return new Response(JSON.stringify(value), {
@@ -75,7 +75,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
 
     if (hash) {
-      const jsonStream = await SHATEST.get(hash, "stream")!;
+      const jsonStream = await SHA_STORE.get(hash, "stream")!;
       if (jsonStream === null) {
         return new Response(
           JSON.stringify({
@@ -100,7 +100,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     const pageHash = url.searchParams.get("r");
     if (pageHash) {
-      const jsonStream = await SHATEST.get(pageHash, "stream");
+      const jsonStream = await SHA_STORE.get(pageHash, "stream");
       if (jsonStream !== null) {
         return new Response(jsonStream, {
           headers: {
@@ -113,7 +113,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     const maybeRoute = pathname.substr(1);
     if (maybeRoute) {
-      const jsonStream = await SHATEST.get(maybeRoute, "stream");
+      const jsonStream = await SHA_STORE.get(maybeRoute, "stream");
       if (jsonStream !== null) {
         return new Response(jsonStream, {
           headers: {
@@ -130,7 +130,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     const hash = await arrBuffSha256(myBuffer);
 
     const smallerKey = hash.substring(0, 8);
-    await SHATEST.put(smallerKey, myBuffer);
+    await SHA_STORE.put(smallerKey, myBuffer);
 
     return new Response(JSON.stringify({ hash: smallerKey }), {
       headers: {
