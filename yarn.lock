@@ -17505,9 +17505,9 @@ stylehacks@^4.0.0:
     postcss-selector-parser "^3.0.0"
 
 stylis@^4.0.3:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.0.4.tgz#5a86047c87928e9a6afc76dafcb03acba69115e0"
-  integrity sha512-V52wqQLk+xZW2v6dpiz1HEa/inSigsK/S+GjMJBrXQK/Xu2R7gHDzeJkdXIxDSiLu57ageN8HNuZCehATlQq2A==
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.0.5.tgz#789b7014377bd4a4c0e3cf733b5463c2495564f2"
+  integrity sha512-6drpXTtQLGXTrCoSlO1JEseXLTfgnx5tRJbY4iBxCKmzRPNI1JcuVYlbjjSml7rcsUxtjvRM7CjlTWqB9QQz2A==
 
 subscriptions-transport-ws@0.9.18:
   version "0.9.18"
