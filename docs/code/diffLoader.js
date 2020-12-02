@@ -1,3 +1,6 @@
-import { diff } from "../../diff/diff.min.js";
+const loader = async () => {
+  const { diff } = await import("../diff/diff.min.js");
+  window.diff = diff;
+};
 
-window.diff = diff;
+loader();
