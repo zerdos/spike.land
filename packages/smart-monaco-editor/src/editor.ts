@@ -87,7 +87,7 @@ export const startMonaco: SmartMonaco = async (
     //@ts-ignore
     const { require } = await loadScript(
       `${vsPath}/loader.min.js`,
-    );;
+    );
 
     require.config({ paths: { "vs": vsPath } });
 

@@ -8,7 +8,7 @@
     ],
     "scripts": {
         "clean": "rm -rf dist && mkdir dist",
-        "build": "yarn clean && deno bundle src/codeBox.ts --no-check > dist/codeLoader.js && yarn minify",
+        "build": "yarn clean && deno fmt . && deno bundle src/codeBox.ts --no-check > dist/codeLoader.js && yarn minify",
         "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
