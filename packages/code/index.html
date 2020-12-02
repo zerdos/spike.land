@@ -82,17 +82,12 @@
   <script type="module">
 
   const runner = async () => {
-    if (window.location.href.includes("zed.")) {
-      const { run } = await import("/code/dist/codeLoader.js");
+    if (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0")) {
+      const { run } = await import("/code/dist/codeLoader.min.js");
       run();
       return;
     }
 
-    if (window.location.href.includes("0.0.0.0")) {
-      const { run } = await import("/dist/codeLoader.js");
-      run();
-      return;
-    }
 
     try {
         const { run } = await import("/code/dist/codeLoader.min.js");
