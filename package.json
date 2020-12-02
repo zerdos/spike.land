@@ -13,7 +13,7 @@
     "push": "yarn build && git add . && git commit -m pre-release && git push && git pull",
     "release": "cd packages/code && yarn build && cd ../../ && yarn push && lerna publish patch --yes && yarn push",
     "build": "yarn lerna run build --parallel --since b && yarn copy",
-    "copy": "rm -rf docs && mkdir -p docs/code && cp -a packages/zed-vision-site/public/. docs/ && cp -a packages/code/. docs/code/ && rm -rf docs/code/.certs",
+    "copy": "rm -rf docs && mkdir -p docs/code && cp -a packages/zed-vision-site/public/. docs/ && cp -a packages/code/. docs/code/ && cp -a packages/diff/. docs/diff/ && rm -rf docs/code/.certs",
     "rebuild": "yarn lerna run build --parallel && yarn copy",
     "docker:build": "yarn lerna run docker:build --parallel",
     "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"

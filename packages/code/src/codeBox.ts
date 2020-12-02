@@ -230,9 +230,9 @@ export async function run(mode = "window") {
   //   "https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.js",
   // );
 
-  // const workerDomImport = importScript(
-  //   "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
-  // );
+  importScript(
+    "../../diff.min.js",
+  );
 
   if (mode === "editor") {
     renderDraggableEditor();
@@ -327,9 +327,6 @@ export async function run(mode = "window") {
           if (errorReported === cd) {
             return;
           }
-          const { diff } = await import(
-            "https://unpkg.com/@zedvision/diff@8.0.0/diff.js"
-          );
 
           const slices = diff(latestGoodCode, cd, 0);
 
