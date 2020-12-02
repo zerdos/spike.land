@@ -67,7 +67,7 @@ function renderDraggableEditor() {
             titleBar: {
                 color: "white",
                 height: 40,
-                background: "red"
+                background: "darkred"
             }
         },
         style: {
