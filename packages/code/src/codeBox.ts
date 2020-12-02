@@ -231,7 +231,7 @@ export async function run(mode = "window") {
   // );
 
   importScript(
-    "../diffLoader.js",
+    "diffLoader.js",
   );
 
   if (mode === "editor") {
