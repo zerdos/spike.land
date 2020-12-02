@@ -19,14 +19,14 @@ const StyledImgDiv = styled.div`
   border-radius: 25px;
 `;
 
-export const Bio = () => {
-  const objectives = [
-    `a bit less
-    frustrating.`,
-    `more fun`,
-    `great again`,
-  ];
+const objectives = [
+  `a bit less
+  frustrating.`,
+  `more fun`,
+  `great again`,
+];
 
+export const Bio = () => {
   let random = Math.random();
 
   if (typeof window === "undefined") random = 0.4; //have a consistent ssr
@@ -43,7 +43,7 @@ export const Bio = () => {
         Written by <strong>
           Zoltan Erdos
         </strong>, who is interested to make software development
-        {` ` + objectives[Math.round(random * objectives.length)]}
+        {` ` + objectives[Math.floor(random * objectives.length)] | "crazy."}
         <br />
         <a href={`https://twitter.com/ZoltanErdos`}>
           Follow me on Twitter
