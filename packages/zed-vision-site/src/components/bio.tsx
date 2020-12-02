@@ -20,6 +20,13 @@ const StyledImgDiv = styled.div`
 `;
 
 export const Bio = () => {
+  const objectives = [
+    `a bit less
+    frustrating.`,
+    `more fun`,
+    `great again`,
+  ];
+
   return (
     <Container>
       <StyledImgDiv>
@@ -31,8 +38,8 @@ export const Bio = () => {
       <p>
         Written by <strong>
           Zoltan Erdos
-        </strong>, who is interested to make software development a bit less
-        frustrating.
+        </strong>, who is interested to make software development
+        {` ` + objectives[Math.round(Math.random() * objectives.length)]}
         <br />
         <a href={`https://twitter.com/ZoltanErdos`}>
           Follow me on Twitter
