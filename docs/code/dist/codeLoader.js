@@ -681,7 +681,7 @@ export async function run(mode = "window") {
         restartCode,
         regenerate
     });
-    importScript("../../diff.min.js");
+    importScript("../../diff/diff.min.js");
     if (mode === "editor") {
         renderDraggableEditor();
     }
