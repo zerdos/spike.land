@@ -29,8 +29,10 @@ export const Bio = () => {
         />
       </StyledImgDiv>
       <p>
-        Written by <strong>Zoltan Erdos</strong>
-        developer experience and software quality expert
+        Written by <strong>
+          Zoltan Erdos
+        </strong>, who is interested to make software development a bit less
+        frustrating.
         <br />
         <a href={`https://twitter.com/ZoltanErdos`}>
           Follow me on Twitter
