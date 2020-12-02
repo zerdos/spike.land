@@ -27,6 +27,10 @@ export const Bio = () => {
     `great again`,
   ];
 
+  let random = Math.random();
+
+  if (typeof window === "undefined") random = 0.4; //have a consistent ssr
+
   return (
     <Container>
       <StyledImgDiv>
@@ -39,7 +43,7 @@ export const Bio = () => {
         Written by <strong>
           Zoltan Erdos
         </strong>, who is interested to make software development
-        {` ` + objectives[Math.round(Math.random() * objectives.length)]}
+        {` ` + objectives[Math.round(random * objectives.length)]}
         <br />
         <a href={`https://twitter.com/ZoltanErdos`}>
           Follow me on Twitter
