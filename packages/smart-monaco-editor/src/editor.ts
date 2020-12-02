@@ -117,7 +117,7 @@ export const startMonaco: SmartMonaco = async (
         folding: false,
         multiCursorModifier: "alt",
         wordWrap: "on",
-        wordWrapBreakAfterCharacters: ">([{]))],;}",
+        wordWrapBreakAfterCharacters: ">([{]))],;} ",
         mouseWheelZoom: false,
         wordWrapColumn: 80,
 

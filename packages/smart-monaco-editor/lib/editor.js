@@ -76,7 +76,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             folding: false,
             multiCursorModifier: "alt",
             wordWrap: "on",
-            wordWrapBreakAfterCharacters: ">([{]))],;}",
+            wordWrapBreakAfterCharacters: ">([{]))],;} ",
             mouseWheelZoom: false,
             wordWrapColumn: 80,
             automaticLayout: true,
