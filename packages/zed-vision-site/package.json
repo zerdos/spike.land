@@ -9,7 +9,7 @@
   },
   "private": true,
   "description": "Zed vision blog",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo/"
@@ -19,7 +19,7 @@
     "@emotion/react": "11.1.1",
     "@emotion/styled": "11.0.0",
     "@zedvision/diff": "^8.0.0",
-    "@zedvision/smart-monaco-editor": "^8.0.0",
+    "@zedvision/smart-monaco-editor": "^8.0.1",
     "framer-motion": "2.9.5",
     "gatsby": "2.28.0",
     "react": "17.0.1",
