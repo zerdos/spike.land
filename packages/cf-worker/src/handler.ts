@@ -1,4 +1,4 @@
-import { arrBuffSha256 } from "../src-deno/sha256.ts";
+import { arrBuffSha256 } from "../../code/src-deno/sha256.ts";
 import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
 
 var SHATEST: KVNamespace;

@@ -1,25 +1,21 @@
 {
     "name": "@zedvision/code",
     "version": "8.0.2",
-    "description": "Monaco Editor for React",
-    "main": "dist/worker-script.js",
+    "description": "zed.vison/code",
+    "main": "dist/codeLoader.min.js",
     "files": [
         "**/*"
     ],
     "scripts": {
-        "dev": "yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist",
-        "cp": "yarn esbuild ../diff/diff.js  --minify --outfile=dist/diff.min.js",
-        "build": "yarn clean && deno fmt . && yarn cp && deno bundle src/index.ts dist/worker-script.js --no-check && yarn build-codebox && yarn min",
-        "min": "yarn esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
-        "deploy": "yarn wrangler publish",
-        "build-codebox": "deno bundle src-deno/codeBox.ts --no-check > dist/codeLoader.js",
+        "build": "yarn clean && deno bundle src-deno/codeBox.ts --no-check > dist/codeLoader.js && yarn minify",
         "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
         "monaco",
         "editor",
         "react",
+        "typescript",
         "html",
         "vscode"
     ],

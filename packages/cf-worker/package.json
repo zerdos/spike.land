@@ -1,21 +1,22 @@
 {
-    "name": "@zedvision/code",
+    "name": "@zedvision/cf-worker",
     "version": "8.0.2",
-    "description": "zed.vison/code",
-    "main": "dist/codeLoader.min.js",
+    "description": "Worker script for zed.vision/code",
+    "main": "dist/worker-script.min.js",
     "files": [
         "**/*"
     ],
     "scripts": {
+        "dev": "yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist",
-        "build": "yarn clean && deno bundle src-deno/codeBox.ts --no-check > dist/codeLoader.js && yarn minify",
-        "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.min.js"
+        "build": "yarn clean && deno fmt . && deno bundle src/index.ts dist/worker-script.js --no-check && yarn min",
+        "min": "yarn esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
+        "deploy": "yarn wrangler publish"
     },
     "keywords": [
         "monaco",
         "editor",
         "react",
-        "typescript",
         "html",
         "vscode"
     ],

@@ -12,6 +12,7 @@
         "crossorigin",
         "csstype",
         "deno",
+        "dragabble",
         "Erdos",
         "esbuild",
         "get",
@@ -21,6 +22,7 @@
         "popmotion",
         "transpiled",
         "unmount",
+        "window",
         "workerize",
         "zedvision",
         "Zoltan"

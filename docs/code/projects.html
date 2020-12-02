@@ -45,10 +45,6 @@
       height: 1px;
     }
 
-    .almosthidden {
-      opacity: 0.5;
-    }
-
     button {
       font-size: large;
     }
@@ -61,24 +57,9 @@
   <div id="container"></div>
   <div id="ace"></div>
   <script type="module">
-
-
-    // if (!window.location.href.includes("zed.dev"))  {
-      if (navigator.serviceWorker) {
-
-      navigator.serviceWorker.register("sw.js");
-      }
-//     initComlink()
-    // }
-  // }
-
-
-// navigator.serviceWorker.getRegistrations().then(function (registrations) {
-//     for (let registration of registrations) {
-//       registration.unregister();
-//     }
-//   });
-
+    if (navigator.serviceWorker) {
+        navigator.serviceWorker.register("sw.js");
+    }
   </script>
 
   <script type="module">

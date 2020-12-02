@@ -1,4 +1,3 @@
-importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 importScripts(
   "https://unpkg.com/idb@5.0.8/build/iife/with-async-ittr-min.js",
 );
@@ -12,7 +11,7 @@ const getUrl = () => {
 
 let needToSave = false;
 
-(({ Comlink, idb, location, caches, addEventListener }) => {
+(({ idb, location, caches, addEventListener }) => {
   const dbPromise = idb.openDB("localZedCodeStore", 1, {
     upgrade(db) {
       db.createObjectStore("codeStore");
@@ -218,10 +217,4 @@ let needToSave = false;
       this.counter++;
     },
   };
-
-  self.addEventListener("message", (event) => {
-    if (event.data.comlinkInit) {
-      Comlink.expose(obj, event.data.port);
-    }
-  });
 })(self);
