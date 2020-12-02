@@ -12,7 +12,7 @@ export function renderDraggableEditor() {
       titleBar: {
         color: "white",
         height: 40,
-        background: "darkred",
+        background: "#1e1e1e",
       },
     },
     style: {
