@@ -270,6 +270,97 @@ function getMethod(target, prop) {
     cachedMethods.set(prop, method);
     return method;
 }
+var ReactDOM = window.ReactDOM;
+const getUrl = ()=>{
+    if (document.location.href.includes("zed.dev")) {
+        return "https://code.zed.dev";
+    }
+    return "https://code.zed.vision";
+};
+let firstLoad = true;
+let latestCode = "";
+let busy = 0;
+let keystrokeTillNoError = 0;
+let errorReported = "";
+let latestSavedCode = "";
+let latestGoodCode = "";
+let shareItAsHtml;
+async function deleteHash(apiKey, hash) {
+    try {
+        const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
+        const req = await fetch(url, {
+            headers: {
+                "content-type": "application/json;charset=UTF-8",
+                "API_KEY": apiKey
+            }
+        });
+        return true;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+}
+async function getCode(hash) {
+    try {
+        const list = `https://code.zed.vision/?h=${hash}`;
+        const req = await fetch(list, {
+            headers: {
+                "content-type": "application/json;charset=UTF-8"
+            }
+        });
+        const data = await req.json();
+        if (data.code) return data.code;
+        return "";
+    } catch (e) {
+        console.log(e);
+        return "";
+    }
+}
+async function getTranspiledCode(hash) {
+    try {
+        const list = `https://code.zed.vision/?h=${hash}`;
+        const req = await fetch(list, {
+            headers: {
+                "content-type": "application/json;charset=UTF-8"
+            }
+        });
+        const data = await req.json();
+        if (data.codeTranspiled) return data.codeTranspiled;
+        return "";
+    } catch (e) {
+        console.log(e);
+        return "";
+    }
+}
+async function getUserId() {
+    const codeDB = await getDB();
+    const uuid = await codeDB.get("uuid");
+    if (!uuid) {
+        if (!window.location.href.includes("zed.dev")) {
+            const resp = await fetch("https://code.zed.vision/register");
+            const data = await resp.json();
+            codeDB.put("uuid", data.uuid);
+            return data.uuid;
+        } else {
+            codeDB.put("uuid", "1234");
+        }
+    }
+    return uuid;
+}
+function replaceWithEmpty(elementId = "root") {
+    const el = document.createElement("div");
+    const rootEl = document.getElementById(elementId);
+    try {
+        ReactDOM.unmountComponentAtNode(rootEl);
+    } catch (e) {
+        console.error("Error in un-mount", e);
+    }
+    if (rootEl) rootEl.replaceWith(el);
+    else {
+        document.body.appendChild(el);
+    }
+    el.id = elementId;
+}
 const DIFF_DELETE = -1;
 function isSurrogatePairStart(charCode) {
     return charCode >= 55296 && charCode <= 56319;
@@ -396,96 +487,249 @@ function findCursorEditDiff(oldText, newText, cursorPos) {
 diff.INSERT = 1;
 diff.DELETE = DIFF_DELETE;
 diff.EQUAL = 0;
-var ReactDOM = window.ReactDOM;
-const getUrl = ()=>{
-    if (document.location.href.includes("zed.dev")) {
-        return "https://code.zed.dev";
+function diffCommonPrefix(text1, text2) {
+    if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
+        return 0;
     }
-    return "https://code.zed.vision";
-};
-let firstLoad = true;
-let latestCode = "";
-let busy = 0;
-let keystrokeTillNoError = 0;
-let errorReported = "";
-let latestSavedCode = "";
-let latestGoodCode = "";
-let shareItAsHtml;
-async function deleteHash(apiKey, hash) {
-    try {
-        const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
-        const req = await fetch(url, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "API_KEY": apiKey
-            }
-        });
-        return true;
-    } catch (e) {
-        console.log(e);
-        return false;
-    }
-}
-async function getCode(hash) {
-    try {
-        const list = `https://code.zed.vision/?h=${hash}`;
-        const req = await fetch(list, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8"
-            }
-        });
-        const data = await req.json();
-        if (data.code) return data.code;
-        return "";
-    } catch (e) {
-        console.log(e);
-        return "";
-    }
-}
-async function getTranspiledCode(hash) {
-    try {
-        const list = `https://code.zed.vision/?h=${hash}`;
-        const req = await fetch(list, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8"
-            }
-        });
-        const data = await req.json();
-        if (data.codeTranspiled) return data.codeTranspiled;
-        return "";
-    } catch (e) {
-        console.log(e);
-        return "";
-    }
-}
-async function getUserId() {
-    const codeDB = await getDB();
-    const uuid = await codeDB.get("uuid");
-    if (!uuid) {
-        if (!window.location.href.includes("zed.dev")) {
-            const resp = await fetch("https://code.zed.vision/register");
-            const data = await resp.json();
-            codeDB.put("uuid", data.uuid);
-            return data.uuid;
+    let pointerMin = 0;
+    let pointerMax = Math.min(text1.length, text2.length);
+    let pointerMid = pointerMax;
+    let pointerStart = 0;
+    while(pointerMin < pointerMid){
+        if (text1.substring(pointerStart, pointerMid) == text2.substring(pointerStart, pointerMid)) {
+            pointerMin = pointerMid;
+            pointerStart = pointerMin;
         } else {
-            codeDB.put("uuid", "1234");
+            pointerMax = pointerMid;
+        }
+        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
+    }
+    if (isSurrogatePairStart(text1.charCodeAt(pointerMid - 1))) {
+        pointerMid--;
+    }
+    return pointerMid;
+}
+function diffCommonSuffix(text1, text2) {
+    if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
+        return 0;
+    }
+    let pointerMin = 0;
+    let pointerMax = Math.min(text1.length, text2.length);
+    let pointerMid = pointerMax;
+    let pointerEnd = 0;
+    while(pointerMin < pointerMid){
+        if (text1.substring(text1.length - pointerMid, text1.length - pointerEnd) == text2.substring(text2.length - pointerMid, text2.length - pointerEnd)) {
+            pointerMin = pointerMid;
+            pointerEnd = pointerMin;
+        } else {
+            pointerMax = pointerMid;
+        }
+        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
+    }
+    if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointerMid))) {
+        pointerMid--;
+    }
+    return pointerMid;
+}
+function diffHalfMatch_(text1, text2) {
+    const longtext = text1.length > text2.length ? text1 : text2;
+    const shorttext = text1.length > text2.length ? text2 : text1;
+    if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
+        return null;
+    }
+    function diffHalfMatchI_(longtext1, shorttext1, i) {
+        const seed = longtext1.substring(i, i + Math.floor(longtext1.length / 4));
+        let j = -1;
+        let bestCommon = "";
+        let bestLongtextA, bestLongtextB, bestShorttextA, bestShorttextB;
+        while((j = shorttext1.indexOf(seed, j + 1)) !== -1){
+            const prefixLength = diffCommonPrefix(longtext1.substring(i), shorttext1.substring(j));
+            const suffixLength = diffCommonSuffix(longtext1.substring(0, i), shorttext1.substring(0, j));
+            if (bestCommon.length < suffixLength + prefixLength) {
+                bestCommon = shorttext1.substring(j - suffixLength, j) + shorttext1.substring(j, j + prefixLength);
+                bestLongtextA = longtext1.substring(0, i - suffixLength);
+                bestLongtextB = longtext1.substring(i + prefixLength);
+                bestShorttextA = shorttext1.substring(0, j - suffixLength);
+                bestShorttextB = shorttext1.substring(j + prefixLength);
+            }
+        }
+        if (bestCommon.length * 2 >= longtext1.length) {
+            return [
+                bestLongtextA,
+                bestLongtextB,
+                bestShorttextA,
+                bestShorttextB,
+                bestCommon, 
+            ];
+        } else {
+            return null;
         }
     }
-    return uuid;
+    const hm1 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
+    const hm2 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
+    let hm;
+    if (hm2 === null && hm1 === null) return null;
+    else if (hm2 === null) {
+        if (hm1 === null) {
+            return null;
+        }
+        hm = hm1;
+    } else if (hm1 === null) {
+        if (hm2 === null) {
+            return null;
+        }
+        hm = hm2;
+    } else {
+        hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
+    }
+    let text1A, text1B, text2A, text2B;
+    if (text1.length > text2.length) {
+        text1A = hm[0];
+        text1B = hm[1];
+        text2A = hm[2];
+        text2B = hm[3];
+    } else {
+        text2A = hm[0];
+        text2B = hm[1];
+        text1A = hm[2];
+        text1B = hm[3];
+    }
+    const midCommon = hm[4];
+    return [
+        text1A,
+        text1B,
+        text2A,
+        text2B,
+        midCommon
+    ];
 }
-function replaceWithEmpty(elementId = "root") {
-    const el = document.createElement("div");
-    const rootEl = document.getElementById(elementId);
-    try {
-        ReactDOM.unmountComponentAtNode(rootEl);
-    } catch (e) {
-        console.error("Error in un-mount", e);
+function diffCleanupMerge(Diffs) {
+    const diffs = [
+        ...Diffs
+    ];
+    diffs.push([
+        0,
+        ""
+    ]);
+    let pointer = 0;
+    let countDelete = 0;
+    let countInsert = 0;
+    let textDelete = "";
+    let textInsert = "";
+    let commonlength;
+    let previousEquality;
+    while(pointer < diffs.length){
+        if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+            diffs.splice(pointer, 1);
+            continue;
+        }
+        switch(diffs[pointer][0]){
+            case 1:
+                countInsert++;
+                textInsert += diffs[pointer][1];
+                pointer++;
+                break;
+            case DIFF_DELETE:
+                countDelete++;
+                textDelete += diffs[pointer][1];
+                pointer++;
+                break;
+            case 0:
+                previousEquality = pointer - countInsert - countDelete - 1;
+                if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
+                    diffs.splice(pointer, 1);
+                    break;
+                }
+                if (textDelete.length > 0 || textInsert.length > 0) {
+                    if (textDelete.length > 0 && textInsert.length > 0) {
+                        commonlength = diffCommonPrefix(textInsert, textDelete);
+                        if (commonlength !== 0) {
+                            if (previousEquality >= 0) {
+                                diffs[previousEquality][1] += textInsert.substring(0, commonlength);
+                            } else {
+                                diffs.splice(0, 0, [
+                                    0,
+                                    textInsert.substring(0, commonlength)
+                                ]);
+                                pointer++;
+                            }
+                            textInsert = textInsert.substring(commonlength);
+                            textDelete = textDelete.substring(commonlength);
+                        }
+                        commonlength = diffCommonSuffix(textInsert, textDelete);
+                        if (commonlength !== 0) {
+                            diffs[pointer][1] = textInsert.substring(textInsert.length - commonlength) + diffs[pointer][1];
+                            textInsert = textInsert.substring(0, textInsert.length - commonlength);
+                            textDelete = textDelete.substring(0, textDelete.length - commonlength);
+                        }
+                    }
+                    const n = countInsert + countDelete;
+                    if (textDelete.length === 0 && textInsert.length === 0) {
+                        diffs.splice(pointer - n, n);
+                        pointer = pointer - n;
+                    } else if (textDelete.length === 0) {
+                        diffs.splice(pointer - n, n, [
+                            1,
+                            textInsert
+                        ]);
+                        pointer = pointer - n + 1;
+                    } else if (textInsert.length === 0) {
+                        diffs.splice(pointer - n, n, [
+                            DIFF_DELETE,
+                            textDelete
+                        ]);
+                        pointer = pointer - n + 1;
+                    } else {
+                        diffs.splice(pointer - n, n, [
+                            DIFF_DELETE,
+                            textDelete
+                        ], [
+                            1,
+                            textInsert
+                        ]);
+                        pointer = pointer - n + 2;
+                    }
+                }
+                if (pointer !== 0 && diffs[pointer - 1][0] === 0) {
+                    diffs[pointer - 1][1] += diffs[pointer][1];
+                    diffs.splice(pointer, 1);
+                } else {
+                    pointer++;
+                }
+                countInsert = 0;
+                countDelete = 0;
+                textDelete = "";
+                textInsert = "";
+                break;
+        }
     }
-    if (rootEl) rootEl.replaceWith(el);
-    else {
-        document.body.appendChild(el);
+    if (diffs[diffs.length - 1][1] === "") {
+        diffs.pop();
     }
-    el.id = elementId;
+    let changes = false;
+    pointer = 1;
+    while(pointer < diffs.length - 1){
+        if (diffs[pointer - 1][0] === 0 && diffs[pointer + 1][0] === 0) {
+            if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
+                diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
+                diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
+                diffs.splice(pointer - 1, 1);
+                changes = true;
+            } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
+                diffs[pointer - 1][1] += diffs[pointer + 1][1];
+                diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
+                diffs.splice(pointer + 1, 1);
+                changes = true;
+            }
+        }
+        pointer++;
+        isSurrogatePairStart;
+    }
+    if (changes) {
+        ``;
+        return diffCleanupMerge(diffs);
+    }
+    return diffs;
 }
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
@@ -745,250 +989,6 @@ async function sha256(message) {
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
-function diffCommonPrefix(text1, text2) {
-    if (!text1 || !text2 || text1.charAt(0) !== text2.charAt(0)) {
-        return 0;
-    }
-    let pointerMin = 0;
-    let pointerMax = Math.min(text1.length, text2.length);
-    let pointerMid = pointerMax;
-    let pointerStart = 0;
-    while(pointerMin < pointerMid){
-        if (text1.substring(pointerStart, pointerMid) == text2.substring(pointerStart, pointerMid)) {
-            pointerMin = pointerMid;
-            pointerStart = pointerMin;
-        } else {
-            pointerMax = pointerMid;
-        }
-        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
-    }
-    if (isSurrogatePairStart(text1.charCodeAt(pointerMid - 1))) {
-        pointerMid--;
-    }
-    return pointerMid;
-}
-function diffCommonSuffix(text1, text2) {
-    if (!text1 || !text2 || text1.slice(-1) !== text2.slice(-1)) {
-        return 0;
-    }
-    let pointerMin = 0;
-    let pointerMax = Math.min(text1.length, text2.length);
-    let pointerMid = pointerMax;
-    let pointerEnd = 0;
-    while(pointerMin < pointerMid){
-        if (text1.substring(text1.length - pointerMid, text1.length - pointerEnd) == text2.substring(text2.length - pointerMid, text2.length - pointerEnd)) {
-            pointerMin = pointerMid;
-            pointerEnd = pointerMin;
-        } else {
-            pointerMax = pointerMid;
-        }
-        pointerMid = Math.floor((pointerMax - pointerMin) / 2 + pointerMin);
-    }
-    if (isSurrogatePairEnd(text1.charCodeAt(text1.length - pointerMid))) {
-        pointerMid--;
-    }
-    return pointerMid;
-}
-function diffHalfMatch_(text1, text2) {
-    const longtext = text1.length > text2.length ? text1 : text2;
-    const shorttext = text1.length > text2.length ? text2 : text1;
-    if (longtext.length < 4 || shorttext.length * 2 < longtext.length) {
-        return null;
-    }
-    function diffHalfMatchI_(longtext1, shorttext1, i) {
-        const seed = longtext1.substring(i, i + Math.floor(longtext1.length / 4));
-        let j = -1;
-        let bestCommon = "";
-        let bestLongtextA, bestLongtextB, bestShorttextA, bestShorttextB;
-        while((j = shorttext1.indexOf(seed, j + 1)) !== -1){
-            const prefixLength = diffCommonPrefix(longtext1.substring(i), shorttext1.substring(j));
-            const suffixLength = diffCommonSuffix(longtext1.substring(0, i), shorttext1.substring(0, j));
-            if (bestCommon.length < suffixLength + prefixLength) {
-                bestCommon = shorttext1.substring(j - suffixLength, j) + shorttext1.substring(j, j + prefixLength);
-                bestLongtextA = longtext1.substring(0, i - suffixLength);
-                bestLongtextB = longtext1.substring(i + prefixLength);
-                bestShorttextA = shorttext1.substring(0, j - suffixLength);
-                bestShorttextB = shorttext1.substring(j + prefixLength);
-            }
-        }
-        if (bestCommon.length * 2 >= longtext1.length) {
-            return [
-                bestLongtextA,
-                bestLongtextB,
-                bestShorttextA,
-                bestShorttextB,
-                bestCommon, 
-            ];
-        } else {
-            return null;
-        }
-    }
-    const hm1 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 4));
-    const hm2 = diffHalfMatchI_(longtext, shorttext, Math.ceil(longtext.length / 2));
-    let hm;
-    if (hm2 === null && hm1 === null) return null;
-    else if (hm2 === null) {
-        if (hm1 === null) {
-            return null;
-        }
-        hm = hm1;
-    } else if (hm1 === null) {
-        if (hm2 === null) {
-            return null;
-        }
-        hm = hm2;
-    } else {
-        hm = hm1[4].length > hm2[4].length ? hm1 : hm2;
-    }
-    let text1A, text1B, text2A, text2B;
-    if (text1.length > text2.length) {
-        text1A = hm[0];
-        text1B = hm[1];
-        text2A = hm[2];
-        text2B = hm[3];
-    } else {
-        text2A = hm[0];
-        text2B = hm[1];
-        text1A = hm[2];
-        text1B = hm[3];
-    }
-    const midCommon = hm[4];
-    return [
-        text1A,
-        text1B,
-        text2A,
-        text2B,
-        midCommon
-    ];
-}
-function diffCleanupMerge(Diffs) {
-    const diffs = [
-        ...Diffs
-    ];
-    diffs.push([
-        0,
-        ""
-    ]);
-    let pointer = 0;
-    let countDelete = 0;
-    let countInsert = 0;
-    let textDelete = "";
-    let textInsert = "";
-    let commonlength;
-    let previousEquality;
-    while(pointer < diffs.length){
-        if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
-            diffs.splice(pointer, 1);
-            continue;
-        }
-        switch(diffs[pointer][0]){
-            case 1:
-                countInsert++;
-                textInsert += diffs[pointer][1];
-                pointer++;
-                break;
-            case DIFF_DELETE:
-                countDelete++;
-                textDelete += diffs[pointer][1];
-                pointer++;
-                break;
-            case 0:
-                previousEquality = pointer - countInsert - countDelete - 1;
-                if (pointer < diffs.length - 1 && !diffs[pointer][1]) {
-                    diffs.splice(pointer, 1);
-                    break;
-                }
-                if (textDelete.length > 0 || textInsert.length > 0) {
-                    if (textDelete.length > 0 && textInsert.length > 0) {
-                        commonlength = diffCommonPrefix(textInsert, textDelete);
-                        if (commonlength !== 0) {
-                            if (previousEquality >= 0) {
-                                diffs[previousEquality][1] += textInsert.substring(0, commonlength);
-                            } else {
-                                diffs.splice(0, 0, [
-                                    0,
-                                    textInsert.substring(0, commonlength)
-                                ]);
-                                pointer++;
-                            }
-                            textInsert = textInsert.substring(commonlength);
-                            textDelete = textDelete.substring(commonlength);
-                        }
-                        commonlength = diffCommonSuffix(textInsert, textDelete);
-                        if (commonlength !== 0) {
-                            diffs[pointer][1] = textInsert.substring(textInsert.length - commonlength) + diffs[pointer][1];
-                            textInsert = textInsert.substring(0, textInsert.length - commonlength);
-                            textDelete = textDelete.substring(0, textDelete.length - commonlength);
-                        }
-                    }
-                    const n = countInsert + countDelete;
-                    if (textDelete.length === 0 && textInsert.length === 0) {
-                        diffs.splice(pointer - n, n);
-                        pointer = pointer - n;
-                    } else if (textDelete.length === 0) {
-                        diffs.splice(pointer - n, n, [
-                            1,
-                            textInsert
-                        ]);
-                        pointer = pointer - n + 1;
-                    } else if (textInsert.length === 0) {
-                        diffs.splice(pointer - n, n, [
-                            DIFF_DELETE,
-                            textDelete
-                        ]);
-                        pointer = pointer - n + 1;
-                    } else {
-                        diffs.splice(pointer - n, n, [
-                            DIFF_DELETE,
-                            textDelete
-                        ], [
-                            1,
-                            textInsert
-                        ]);
-                        pointer = pointer - n + 2;
-                    }
-                }
-                if (pointer !== 0 && diffs[pointer - 1][0] === 0) {
-                    diffs[pointer - 1][1] += diffs[pointer][1];
-                    diffs.splice(pointer, 1);
-                } else {
-                    pointer++;
-                }
-                countInsert = 0;
-                countDelete = 0;
-                textDelete = "";
-                textInsert = "";
-                break;
-        }
-    }
-    if (diffs[diffs.length - 1][1] === "") {
-        diffs.pop();
-    }
-    let changes = false;
-    pointer = 1;
-    while(pointer < diffs.length - 1){
-        if (diffs[pointer - 1][0] === 0 && diffs[pointer + 1][0] === 0) {
-            if (diffs[pointer][1].substring(diffs[pointer][1].length - diffs[pointer - 1][1].length) === diffs[pointer - 1][1]) {
-                diffs[pointer][1] = diffs[pointer - 1][1] + diffs[pointer][1].substring(0, diffs[pointer][1].length - diffs[pointer - 1][1].length);
-                diffs[pointer + 1][1] = diffs[pointer - 1][1] + diffs[pointer + 1][1];
-                diffs.splice(pointer - 1, 1);
-                changes = true;
-            } else if (diffs[pointer][1].substring(0, diffs[pointer + 1][1].length) == diffs[pointer + 1][1]) {
-                diffs[pointer - 1][1] += diffs[pointer + 1][1];
-                diffs[pointer][1] = diffs[pointer][1].substring(diffs[pointer + 1][1].length) + diffs[pointer + 1][1];
-                diffs.splice(pointer + 1, 1);
-                changes = true;
-            }
-        }
-        pointer++;
-        isSurrogatePairStart;
-    }
-    if (changes) {
-        ``;
-        return diffCleanupMerge(diffs);
-    }
-    return diffs;
-}
 export const getProjects = async ()=>{
     const uuid = await getUserId();
     const codeDB = await getDB();
@@ -999,6 +999,289 @@ export const getProjects = async ()=>{
     }
     return projects;
 };
+export async function run(mode = "window") {
+    const codeDB = await getDB();
+    const uuid = await getUserId();
+    async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
+        const keys = await getKeys(apiKey, prefix);
+        keys.map((x)=>x.name
+        ).map(async (hash)=>{
+            const code = await getCode(hash);
+            if (!code) return "";
+            const codeTranspiled = await getTranspiledCode(hash);
+            replaceWithEmpty("root");
+            let transpiled;
+            try {
+                transpiled = transpileCode(code);
+                if (transpiled !== codeTranspiled) {
+                    const searchRegExp = /setInterval/gi;
+                    const replaceWith = "///";
+                    const searchRegExp2 = /debugger/gi;
+                    const replaceWith2 = "///";
+                    ReactDOM.unmountComponentAtNode(document.getElementById("root"));
+                    restartCode(transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
+                    const html2 = document.getElementById("root").innerHTML;
+                    replaceWithEmpty("root");
+                    restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
+                    const html = document.getElementById("root").innerHTML;
+                    if (html !== html2) {
+                        console.log({
+                            hash,
+                            code,
+                            html1: html,
+                            html2,
+                            transpiled1: codeTranspiled,
+                            transpiled2: transpiled
+                        });
+                        deleteIfRenderedHTmlDiffers && await deleteHash(apiKey, hash);
+                    }
+                }
+            } catch (e) {
+                console.error({
+                    hash,
+                    code,
+                    transpiled
+                });
+            }
+        });
+    }
+    Object.assign(window, {
+        getKeys: getKeys,
+        getCode,
+        restartCode,
+        regenerate
+    });
+    if (mode === "editor") {
+        renderDraggableEditor();
+    }
+    if (mode == "window") {
+        renderDraggableWindow(async ()=>{
+            const link = await shareItAsHtml();
+            window.open(link);
+        });
+    }
+    await importScript("https://unpkg.com/@babel/standalone@7.12.9/babel.min.js");
+    (async ()=>{
+        const example = await getCodeToLoad();
+        latestGoodCode = example;
+        const modules = await startMonaco({
+            language: "typescript",
+            code: example,
+            onChange
+        });
+        function onChange(code) {
+            if (!modules) return;
+            latestCode = code;
+            if (!busy) {
+                runner(latestCode);
+            } else {
+                const myCode = code;
+                const cl = setInterval(()=>{
+                    if (code !== latestCode || !busy) {
+                        clearInterval(cl);
+                    }
+                    if (!busy) {
+                        runner(latestCode);
+                    }
+                }, 100);
+            }
+        }
+        async function getErrors() {
+            if (!modules || !modules.monaco) return;
+            const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
+            const tsWorker = await modules.monaco.languages.typescript.getTypeScriptWorker();
+            const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
+            const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
+            const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
+            return [
+                ...diag,
+                ...comp,
+                ...syntax
+            ];
+        }
+        async function runner(cd) {
+            if (busy === 1) {
+                return;
+            }
+            try {
+                busy = 1;
+                const err = await getErrors();
+                const errorDiv = document.getElementById("error");
+                busy = 0;
+                if (cd !== latestCode) {
+                    return;
+                }
+                if (err && err.length) {
+                    if (latestCode != cd) {
+                        return;
+                    }
+                    if (errorReported === cd) {
+                        return;
+                    }
+                    const { diff  } = await import("https://unpkg.com/@zedvision/diff@8.0.0/diff.js");
+                    const slices = diff(latestGoodCode, cd, 0);
+                    if (slices.length <= 3) {
+                        modules.monaco.editor.setTheme("hc-black");
+                        return;
+                    }
+                    errorDiv.innerHTML = err[0].messageText.toString();
+                    errorDiv.style.display = "block";
+                    errorReported = cd;
+                    return;
+                }
+                latestGoodCode = cd;
+                errorDiv.style.display = "none";
+                modules.monaco.editor.setTheme("vs-dark");
+                keystrokeTillNoError = 0;
+                busy = 0;
+                restartCode(transpileCode(cd));
+            } catch (err) {
+                busy = 0;
+                if (cd !== latestCode) {
+                    return;
+                }
+                modules.monaco.editor.setTheme("vs-light");
+                setTimeout(()=>{
+                    modules.monaco.editor.setTheme("hc-black");
+                }, 50);
+                console.error(err);
+            }
+        }
+    })();
+    restartCode(transpileCode(await getCodeToLoad()));
+    async function restartCode(transPiled) {
+        const searchRegExp = /import/gi;
+        const replaceWith = "///";
+        const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transPiled.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
+        const restart = async ()=>{
+            const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
+            hydrate();
+            shareItAsHtml = async ()=>{
+                const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
+                const HTML = renderToString();
+                const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
+                ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
+                ).join("\n  ");
+                let bodyStylesFix;
+                if (code.includes("body{")) {
+                    const start = code.indexOf("body{");
+                    const firstBit = code.slice(start);
+                    const last = firstBit.indexOf("}");
+                    bodyStylesFix = firstBit.slice(0, last + 1);
+                }
+                let motionDep = "";
+                let motionScript = "";
+                if (code.includes("Motion")) {
+                    motionDep = `<script crossorigin src="https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.js"></script>`;
+                    motionScript = "const {motion} = Motion";
+                }
+                const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <head profile="http://www.w3.org/2005/10/profile">\n        <link rel="icon" \n              type="image/png"\n              href="https://zed.vision/favicon.ico">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n       const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n\n        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        </script>\n        </body>\n        </html>\n        `;
+                const iframeBlob = await createHTMLSourceBlob(iframe);
+                const link = await saveHtml(iframeBlob);
+                return link;
+            };
+        };
+        if (!firstLoad) {
+            const saveCode = async (latestCode1)=>{
+                if (!location.origin.includes("zed.")) {
+                    return;
+                }
+                if (latestCode1 !== latestGoodCode) return;
+                if (latestSavedCode === latestCode1) return;
+                latestSavedCode = latestCode1;
+                const body = {
+                    codeTranspiled: transpileCode(latestGoodCode),
+                    code: latestGoodCode
+                };
+                const stringBody = JSON.stringify(body);
+                const request = new Request(getUrl(), {
+                    body: stringBody,
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json;charset=UTF-8"
+                    }
+                });
+                const response = fetch(request);
+                const hash = await sha256(stringBody);
+                try {
+                    const prevHash = await codeDB.get("codeBoXHash2");
+                    if (prevHash !== hash) {
+                        await codeDB.put("codeBoXHash2", hash);
+                        await codeDB.put(hash, latestGoodCode);
+                        setQueryStringParameter("h", hash);
+                    }
+                } catch (e) {
+                }
+                await response;
+            };
+            saveCode(latestCode);
+        }
+        firstLoad = false;
+        restart();
+    }
+    async function getCodeToLoad() {
+        const search = new URLSearchParams(window.location.search);
+        const keyToLoad = search.get("h") || await codeDB.get("codeBoXHash2");
+        if (keyToLoad) {
+            const content = await codeDB.get(keyToLoad);
+            if (content) return content;
+            let text;
+            try {
+                const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
+                text = await resp.json();
+            } catch (e) {
+                console.error(e);
+                return starter;
+            }
+            return text.code;
+        }
+        return starter;
+    }
+    function setQueryStringParameter(name, value) {
+        const params = new URLSearchParams(window.location.search);
+        params.set(name, value);
+        window.history.replaceState({
+        }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
+    }
+    function createHTMLSourceBlob(code) {
+        const blob = new Blob([
+            code
+        ], {
+            type: "text/html"
+        });
+        return blob;
+    }
+    async function saveHtml(htmlBlob) {
+        const cfUrl = getUrl();
+        const request = new Request(cfUrl, {
+            body: htmlBlob,
+            method: "POST",
+            headers: {
+                "content-type": "text/html;charset=UTF-8",
+                "SHARE": "true"
+            }
+        });
+        const response = await fetch(request);
+        const { hash  } = await response.json();
+        return `${cfUrl}/${hash}`;
+    }
+    function transpileCode(code) {
+        const { transform  } = window["Babel"];
+        return transform("/** @jsx jsx */\n" + `\n  Object.assign(window, React);\n  ` + code, {
+            plugins: [],
+            presets: [
+                "react",
+                [
+                    "typescript",
+                    {
+                        isTSX: true,
+                        allExtensions: true
+                    }
+                ], 
+            ]
+        }).code;
+    }
+}
 function promisifyRequest(request) {
     const promise = new Promise((resolve, reject)=>{
         const unlisten = ()=>{
@@ -1330,287 +1613,5 @@ function diff(text1, text2, cursorPos) {
         text2,
         cursorPos
     });
-}
-export async function run(mode = "window") {
-    const codeDB = await getDB();
-    const uuid = await getUserId();
-    async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
-        const keys = await getKeys(apiKey, prefix);
-        keys.map((x)=>x.name
-        ).map(async (hash)=>{
-            const code = await getCode(hash);
-            if (!code) return "";
-            const codeTranspiled = await getTranspiledCode(hash);
-            replaceWithEmpty("root");
-            let transpiled;
-            try {
-                transpiled = transpileCode(code);
-                if (transpiled !== codeTranspiled) {
-                    const searchRegExp = /setInterval/gi;
-                    const replaceWith = "///";
-                    const searchRegExp2 = /debugger/gi;
-                    const replaceWith2 = "///";
-                    ReactDOM.unmountComponentAtNode(document.getElementById("root"));
-                    restartCode(transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
-                    const html2 = document.getElementById("root").innerHTML;
-                    replaceWithEmpty("root");
-                    restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
-                    const html = document.getElementById("root").innerHTML;
-                    if (html !== html2) {
-                        console.log({
-                            hash,
-                            code,
-                            html1: html,
-                            html2,
-                            transpiled1: codeTranspiled,
-                            transpiled2: transpiled
-                        });
-                        deleteIfRenderedHTmlDiffers && await deleteHash(apiKey, hash);
-                    }
-                }
-            } catch (e) {
-                console.error({
-                    hash,
-                    code,
-                    transpiled
-                });
-            }
-        });
-    }
-    Object.assign(window, {
-        getKeys: getKeys,
-        getCode,
-        restartCode,
-        regenerate
-    });
-    if (mode === "editor") {
-        renderDraggableEditor();
-    }
-    if (mode == "window") {
-        renderDraggableWindow(async ()=>{
-            const link = await shareItAsHtml();
-            window.open(link);
-        });
-    }
-    await importScript("https://unpkg.com/@babel/standalone@7.12.9/babel.min.js");
-    (async ()=>{
-        const example = await getCodeToLoad();
-        latestGoodCode = example;
-        const modules = await startMonaco({
-            language: "typescript",
-            code: example,
-            onChange
-        });
-        function onChange(code) {
-            if (!modules) return;
-            latestCode = code;
-            if (!busy) {
-                runner(latestCode);
-            } else {
-                const myCode = code;
-                const cl = setInterval(()=>{
-                    if (code !== latestCode || !busy) {
-                        clearInterval(cl);
-                    }
-                    if (!busy) {
-                        runner(latestCode);
-                    }
-                }, 100);
-            }
-        }
-        async function getErrors() {
-            if (!modules || !modules.monaco) return;
-            const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
-            const tsWorker = await modules.monaco.languages.typescript.getTypeScriptWorker();
-            const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
-            const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
-            const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
-            return [
-                ...diag,
-                ...comp,
-                ...syntax
-            ];
-        }
-        async function runner(cd) {
-            if (busy === 1) {
-                return;
-            }
-            try {
-                busy = 1;
-                const err = await getErrors();
-                const errorDiv = document.getElementById("error");
-                busy = 0;
-                if (cd !== latestCode) {
-                    return;
-                }
-                if (err && err.length) {
-                    if (latestCode != cd) {
-                        return;
-                    }
-                    if (errorReported === cd) {
-                        return;
-                    }
-                    const slices = diff(latestGoodCode, cd, 0);
-                    if (slices.length <= 3) {
-                        modules.monaco.editor.setTheme("hc-black");
-                        return;
-                    }
-                    errorDiv.innerHTML = err[0].messageText.toString();
-                    errorDiv.style.display = "block";
-                    errorReported = cd;
-                    return;
-                }
-                latestGoodCode = cd;
-                errorDiv.style.display = "none";
-                modules.monaco.editor.setTheme("vs-dark");
-                keystrokeTillNoError = 0;
-                busy = 0;
-                restartCode(transpileCode(cd));
-            } catch (err) {
-                busy = 0;
-                if (cd !== latestCode) {
-                    return;
-                }
-                modules.monaco.editor.setTheme("vs-light");
-                setTimeout(()=>{
-                    modules.monaco.editor.setTheme("hc-black");
-                }, 50);
-                console.error(err);
-            }
-        }
-    })();
-    restartCode(transpileCode(await getCodeToLoad()));
-    async function restartCode(transPiled) {
-        const searchRegExp = /import/gi;
-        const replaceWith = "///";
-        const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transPiled.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
-        const restart = async ()=>{
-            const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
-            hydrate();
-            shareItAsHtml = async ()=>{
-                const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
-                const HTML = renderToString();
-                const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
-                ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
-                ).join("\n  ");
-                let bodyStylesFix;
-                if (code.includes("body{")) {
-                    const start = code.indexOf("body{");
-                    const firstBit = code.slice(start);
-                    const last = firstBit.indexOf("}");
-                    bodyStylesFix = firstBit.slice(0, last + 1);
-                }
-                let motionDep = "";
-                let motionScript = "";
-                if (code.includes("Motion")) {
-                    motionDep = `<script crossorigin src="https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.js"></script>`;
-                    motionScript = "const {motion} = Motion";
-                }
-                const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <head profile="http://www.w3.org/2005/10/profile">\n        <link rel="icon" \n              type="image/png"\n              href="https://zed.vision/favicon.ico">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n       const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n\n        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        </script>\n        </body>\n        </html>\n        `;
-                const iframeBlob = await createHTMLSourceBlob(iframe);
-                const link = await saveHtml(iframeBlob);
-                return link;
-            };
-        };
-        if (!firstLoad) {
-            const saveCode = async (latestCode1)=>{
-                if (!location.origin.includes("zed.")) {
-                    return;
-                }
-                if (latestCode1 !== latestGoodCode) return;
-                if (latestSavedCode === latestCode1) return;
-                latestSavedCode = latestCode1;
-                const body = {
-                    codeTranspiled: transpileCode(latestGoodCode),
-                    code: latestGoodCode
-                };
-                const stringBody = JSON.stringify(body);
-                const request = new Request(getUrl(), {
-                    body: stringBody,
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json;charset=UTF-8"
-                    }
-                });
-                const response = fetch(request);
-                const hash = await sha256(stringBody);
-                try {
-                    const prevHash = await codeDB.get("codeBoXHash2");
-                    if (prevHash !== hash) {
-                        await codeDB.put("codeBoXHash2", hash);
-                        await codeDB.put(hash, latestGoodCode);
-                        setQueryStringParameter("h", hash);
-                    }
-                } catch (e) {
-                }
-                await response;
-            };
-            saveCode(latestCode);
-        }
-        firstLoad = false;
-        restart();
-    }
-    async function getCodeToLoad() {
-        const search = new URLSearchParams(window.location.search);
-        const keyToLoad = search.get("h") || await codeDB.get("codeBoXHash2");
-        if (keyToLoad) {
-            const content = await codeDB.get(keyToLoad);
-            if (content) return content;
-            let text;
-            try {
-                const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
-                text = await resp.json();
-            } catch (e) {
-                console.error(e);
-                return starter;
-            }
-            return text.code;
-        }
-        return starter;
-    }
-    function setQueryStringParameter(name, value) {
-        const params = new URLSearchParams(window.location.search);
-        params.set(name, value);
-        window.history.replaceState({
-        }, "", decodeURIComponent(`${window.location.pathname}?${params}`));
-    }
-    function createHTMLSourceBlob(code) {
-        const blob = new Blob([
-            code
-        ], {
-            type: "text/html"
-        });
-        return blob;
-    }
-    async function saveHtml(htmlBlob) {
-        const cfUrl = getUrl();
-        const request = new Request(cfUrl, {
-            body: htmlBlob,
-            method: "POST",
-            headers: {
-                "content-type": "text/html;charset=UTF-8",
-                "SHARE": "true"
-            }
-        });
-        const response = await fetch(request);
-        const { hash  } = await response.json();
-        return `${cfUrl}/${hash}`;
-    }
-    function transpileCode(code) {
-        const { transform  } = window["Babel"];
-        return transform("/** @jsx jsx */\n" + `\n  Object.assign(window, React);\n  ` + code, {
-            plugins: [],
-            presets: [
-                "react",
-                [
-                    "typescript",
-                    {
-                        isTSX: true,
-                        allExtensions: true
-                    }
-                ], 
-            ]
-        }).code;
-    }
 }
 

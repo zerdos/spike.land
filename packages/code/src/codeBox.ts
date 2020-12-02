@@ -8,7 +8,6 @@ import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 import { sha256 } from "./sha256.ts";
 import { getDB } from "./idb.ts";
-import { diff } from "../../diff/diff.ts";
 
 //@ts-ignore
 var ReactDOM: { unmountComponentAtNode: (node: any) => void } = window.ReactDOM;
@@ -328,6 +327,9 @@ export async function run(mode = "window") {
           if (errorReported === cd) {
             return;
           }
+          const { diff } = await import(
+            "https://unpkg.com/@zedvision/diff@8.0.0/diff.js"
+          );
 
           const slices = diff(latestGoodCode, cd, 0);
 
