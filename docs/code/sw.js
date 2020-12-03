@@ -1,3 +1,4 @@
+
 importScripts(
   "https://unpkg.com/idb@5.0.8/build/iife/with-async-ittr-min.js",
 );
@@ -80,7 +81,7 @@ let needToSave = false;
         const val = codeDB.get(hash);
 
         if (val) {
-          e.respondWith(val);
+          e.respondWith(new Respond(val);
         }
       }
     }
@@ -103,7 +104,7 @@ let needToSave = false;
             );
 
             await fetch(request)
-              .then((response) => response.json())
+              .then((response) => response.body())
               .then((data) =>
                 console.log("SERVER HASH: " + JSON.stringify(data))
               )
