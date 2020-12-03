@@ -46,7 +46,7 @@ export const getDB = async () => {
           // console.log(JSON.stringify(diffObj));
           const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
           if (prev.length > diffAsStr.length) {
-            (await dbPromise).put("codeStore", diffAsStr, key);
+            (await dbPromise).put("codeStore", diffAsStr, val);
           }
           // console.log(diffAsStr);
         }

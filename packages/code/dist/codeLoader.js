@@ -1299,7 +1299,7 @@ const getDB = async ()=>{
                     const diffObj = await diff1(valVal, prev);
                     const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
                     if (prev.length > diffAsStr.length) {
-                        (await dbPromise).put("codeStore", diffAsStr, key);
+                        (await dbPromise).put("codeStore", diffAsStr, val);
                     }
                 }
             } catch  {
