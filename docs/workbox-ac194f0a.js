@@ -1,7 +1,7 @@
-define("./workbox-0b5aa461.js",['exports'], function (exports) { 'use strict';
+define("./workbox-ac194f0a.js",['exports'], function (exports) { 'use strict';
 
     try {
-      self['workbox:core:6.0.0-rc.0'] && _();
+      self['workbox:core:6.0.2'] && _();
     } catch (e) {}
 
     /*
@@ -476,7 +476,7 @@ define("./workbox-0b5aa461.js",['exports'], function (exports) { 'use strict';
     };
 
     try {
-      self['workbox:routing:6.0.0-rc.0'] && _();
+      self['workbox:routing:6.0.2'] && _();
     } catch (e) {}
 
     /*
@@ -1330,7 +1330,7 @@ define("./workbox-0b5aa461.js",['exports'], function (exports) { 'use strict';
     }
 
     try {
-      self['workbox:precaching:6.0.0-rc.0'] && _();
+      self['workbox:precaching:6.0.2'] && _();
     } catch (e) {}
 
     /*
@@ -1411,6 +1411,8 @@ define("./workbox-0b5aa461.js",['exports'], function (exports) { 'use strict';
     /**
      * A plugin, designed to be used with PrecacheController, to determine the
      * of assets that were updated (or not updated) during the install event.
+     *
+     * @private
      */
 
     class PrecacheInstallReportPlugin {
@@ -1457,6 +1459,12 @@ define("./workbox-0b5aa461.js",['exports'], function (exports) { 'use strict';
       license that can be found in the LICENSE file or at
       https://opensource.org/licenses/MIT.
     */
+    /**
+     * A plugin, designed to be used with PrecacheController, to translate URLs into
+     * the corresponding cache key, based on the current revision info.
+     *
+     * @private
+     */
 
     class PrecacheCacheKeyPlugin {
       constructor({
@@ -1808,7 +1816,7 @@ define("./workbox-0b5aa461.js",['exports'], function (exports) { 'use strict';
     }
 
     try {
-      self['workbox:strategies:6.0.0-rc.0'] && _();
+      self['workbox:strategies:6.0.2'] && _();
     } catch (e) {}
 
     function toRequest(input) {
