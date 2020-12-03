@@ -1,4 +1,3 @@
-
 importScripts(
   "https://unpkg.com/idb@5.0.8/build/iife/with-async-ittr-min.js",
 );
