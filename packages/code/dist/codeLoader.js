@@ -1,20 +1,3 @@
-async function getKeys(apiKey, prefix) {
-    try {
-        const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
-        const req = await fetch(list, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "API_KEY": apiKey
-            }
-        });
-        const data = await req.json();
-        return data.keys;
-    } catch (e) {
-        console.log(e);
-        return [];
-    }
-}
-const getKeys1 = getKeys;
 const renderDraggableWindow = (onShare)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
@@ -905,67 +888,6 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareItAsHtml;
-async function deleteHash(apiKey, hash) {
-    try {
-        const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
-        const req = await fetch(url, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8",
-                "API_KEY": apiKey
-            }
-        });
-        return true;
-    } catch (e) {
-        console.log(e);
-        return false;
-    }
-}
-async function getCode(hash) {
-    try {
-        const list = `https://code.zed.vision/?h=${hash}`;
-        const req = await fetch(list, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8"
-            }
-        });
-        const data = await req.json();
-        if (data.code) return data.code;
-        return "";
-    } catch (e) {
-        console.log(e);
-        return "";
-    }
-}
-async function getTranspiledCode(hash) {
-    try {
-        const list = `https://code.zed.vision/?h=${hash}`;
-        const req = await fetch(list, {
-            headers: {
-                "content-type": "application/json;charset=UTF-8"
-            }
-        });
-        const data = await req.json();
-        if (data.codeTranspiled) return data.codeTranspiled;
-        return "";
-    } catch (e) {
-        console.log(e);
-        return "";
-    }
-}
-function replaceWithEmpty(elementId = "root") {
-    const el = document.createElement("div");
-    const rootEl = document.getElementById(elementId);
-    try {
-        ReactDOM.unmountComponentAtNode(rootEl);
-    } catch (e) {
-        console.error("Error in un-mount", e);
-    }
-    if (rootEl) rootEl.replaceWith(el);
-    else {
-        document.body.appendChild(el);
-    }
-    el.id = elementId;
-}
 const startMonaco = async ({ onChange , code , language  })=>{
     const container = window.document.getElementById("container");
     if (!container) {
@@ -1346,7 +1268,7 @@ const getDB = async ()=>{
             db.createObjectStore("codeStore");
         }
     });
-    return {
+    const dbObj = {
         async get (key, format = "string") {
             let data;
             try {
@@ -1370,19 +1292,18 @@ const getDB = async ()=>{
         async put (key, val) {
             let prev;
             try {
-                prev = await (await dbPromise).get(key);
+                const realKey = await dbObj.get(key);
+                if (realKey.length === 8) prev = await dbObj.get(realKey);
+                if (prev) {
+                    const valVal = await dbObj.get(val);
+                    const diffObj = await diff1(prev, valVal);
+                    const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+                    console.log(diffAsStr);
+                }
             } catch  {
                 prev = "";
             }
-            if (val === prev) return data;
-            else {
-                const diffObj = await diff1(prev, val);
-                const diffAsStr = [
-                    diffObj.b,
-                    ...diffObj.c
-                ].join(",");
-                console.log(diffAsStr);
-            }
+            if (prev !== "" && val === prev) return data;
             let str;
             if (typeof val !== "string") {
                 str = new TextDecoder().decode(val);
@@ -1401,6 +1322,7 @@ const getDB = async ()=>{
             return (await dbPromise).getAllKeys("codeStore");
         }
     };
+    return dbObj;
 };
 export const getProjects = async ()=>{
     const uuid = await getUserId();
@@ -1428,58 +1350,7 @@ async function getUserId() {
     return uuid;
 }
 export async function run(mode = "window") {
-    const codeDB = await getDB();
-    const uuid = await getUserId();
-    async function regenerate(apiKey, prefix, deleteIfRenderedHTmlDiffers = false) {
-        const keys = await getKeys(apiKey, prefix);
-        keys.map((x)=>x.name
-        ).map(async (hash)=>{
-            const code = await getCode(hash);
-            if (!code) return "";
-            const codeTranspiled = await getTranspiledCode(hash);
-            replaceWithEmpty("root");
-            let transpiled;
-            try {
-                transpiled = transpileCode(code);
-                if (transpiled !== codeTranspiled) {
-                    const searchRegExp = /setInterval/gi;
-                    const replaceWith = "///";
-                    const searchRegExp2 = /debugger/gi;
-                    const replaceWith2 = "///";
-                    ReactDOM.unmountComponentAtNode(document.getElementById("root"));
-                    restartCode(transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
-                    const html2 = document.getElementById("root").innerHTML;
-                    replaceWithEmpty("root");
-                    restartCode(codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExp2, replaceWith2));
-                    const html = document.getElementById("root").innerHTML;
-                    if (html !== html2) {
-                        console.log({
-                            hash,
-                            code,
-                            html1: html,
-                            html2,
-                            transpiled1: codeTranspiled,
-                            transpiled2: transpiled
-                        });
-                        deleteIfRenderedHTmlDiffers && await deleteHash(apiKey, hash);
-                    }
-                }
-            } catch (e) {
-                console.error({
-                    hash,
-                    code,
-                    transpiled
-                });
-            }
-        });
-    }
-    Object.assign(window, {
-        getKeys: getKeys,
-        getCode,
-        restartCode,
-        regenerate
-    });
-    importScript("diffLoader.js");
+    await importScript("https://unpkg.com/@babel/standalone@7.12.9/babel.min.js");
     if (mode === "editor") {
         renderDraggableEditor();
     }
@@ -1489,94 +1360,94 @@ export async function run(mode = "window") {
             window.open(link);
         });
     }
-    await importScript("https://unpkg.com/@babel/standalone@7.12.9/babel.min.js");
-    (async ()=>{
-        const example = await getCodeToLoad();
-        latestGoodCode = example;
-        const modules = await startMonaco({
-            language: "typescript",
-            code: example,
-            onChange
-        });
-        function onChange(code) {
-            if (!modules) return;
-            latestCode = code;
-            if (!busy) {
-                runner(latestCode);
-            } else {
-                const myCode = code;
-                const cl = setInterval(()=>{
-                    if (code !== latestCode || !busy) {
-                        clearInterval(cl);
-                    }
-                    if (!busy) {
-                        runner(latestCode);
-                    }
-                }, 100);
-            }
+    const codeDB = await getDB();
+    const uuid = await getUserId();
+    const example = await getCodeToLoad();
+    restartCode(transpileCode(example));
+    latestGoodCode = example;
+    const modules = await startMonaco({
+        language: "typescript",
+        code: example,
+        onChange
+    });
+    async function runner(cd) {
+        if (busy === 1) {
+            return;
         }
-        async function getErrors() {
-            if (!modules || !modules.monaco) return;
-            const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
-            const tsWorker = await modules.monaco.languages.typescript.getTypeScriptWorker();
-            const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
-            const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
-            const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
-            return [
-                ...diag,
-                ...comp,
-                ...syntax
-            ];
-        }
-        async function runner(cd) {
-            if (busy === 1) {
+        try {
+            busy = 1;
+            const err = await getErrors();
+            const errorDiv = document.getElementById("error");
+            busy = 0;
+            if (cd !== latestCode) {
                 return;
             }
-            try {
-                busy = 1;
-                const err = await getErrors();
-                const errorDiv = document.getElementById("error");
-                busy = 0;
-                if (cd !== latestCode) {
+            if (err && err.length) {
+                if (latestCode != cd) {
                     return;
                 }
-                if (err && err.length) {
-                    if (latestCode != cd) {
-                        return;
-                    }
-                    if (errorReported === cd) {
-                        return;
-                    }
-                    const slices = await diff(latestGoodCode, cd);
-                    if (slices.c.length <= 3) {
-                        modules.monaco.editor.setTheme("hc-black");
-                        return;
-                    }
-                    errorDiv.innerHTML = err[0].messageText.toString();
-                    errorDiv.style.display = "block";
-                    errorReported = cd;
+                if (errorReported === cd) {
                     return;
                 }
-                latestGoodCode = cd;
-                errorDiv.style.display = "none";
-                modules.monaco.editor.setTheme("vs-dark");
-                keystrokeTillNoError = 0;
-                busy = 0;
-                restartCode(transpileCode(cd));
-            } catch (err) {
-                busy = 0;
-                if (cd !== latestCode) {
-                    return;
-                }
-                modules.monaco.editor.setTheme("vs-light");
-                setTimeout(()=>{
+                const slices = await diff(latestGoodCode, cd);
+                if (slices.c.length <= 3) {
                     modules.monaco.editor.setTheme("hc-black");
-                }, 50);
-                console.error(err);
+                    return;
+                }
+                errorDiv.innerHTML = err[0].messageText.toString();
+                errorDiv.style.display = "block";
+                errorReported = cd;
+                return;
             }
+            latestGoodCode = cd;
+            errorDiv.style.display = "none";
+            modules.monaco.editor.setTheme("vs-dark");
+            keystrokeTillNoError = 0;
+            busy = 0;
+            restartCode(transpileCode(cd));
+        } catch (err) {
+            busy = 0;
+            if (cd !== latestCode) {
+                return;
+            }
+            modules.monaco.editor.setTheme("vs-light");
+            setTimeout(()=>{
+                modules.monaco.editor.setTheme("hc-black");
+            }, 50);
+            console.error(err);
         }
-    })();
-    restartCode(transpileCode(await getCodeToLoad()));
+    }
+    function onChange(code) {
+        if (!modules) return;
+        latestCode = code;
+        if (!busy) {
+            runner(latestCode);
+        } else {
+            const myCode = code;
+            const cl = setInterval(()=>{
+                if (code !== latestCode || !busy) {
+                    clearInterval(cl);
+                }
+                if (!busy) {
+                    runner(latestCode);
+                }
+            }, 100);
+        }
+    }
+    async function getErrors() {
+        if (!modules || !modules.monaco) return;
+        const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
+        const tsWorker = await modules.monaco.languages.typescript.getTypeScriptWorker();
+        const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics("file:///main.tsx");
+        const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics("file:///main.tsx");
+        const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics("file:///main.tsx");
+        return [
+            ...diag,
+            ...comp,
+            ...syntax
+        ];
+    }
+    importScript("diffLoader.js");
     async function restartCode(transPiled) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
@@ -1611,32 +1482,24 @@ export async function run(mode = "window") {
         };
         if (!firstLoad) {
             const saveCode = async (latestCode1)=>{
-                if (!location.origin.includes("zed.")) {
-                    return;
-                }
                 if (latestCode1 !== latestGoodCode) return;
                 if (latestSavedCode === latestCode1) return;
                 latestSavedCode = latestCode1;
-                const body = {
-                    codeTranspiled: transpileCode(latestGoodCode),
-                    code: latestGoodCode
-                };
-                const stringBody = JSON.stringify(body);
                 const request = new Request(getUrl(), {
-                    body: stringBody,
+                    body: latestCode1,
                     method: "POST",
                     headers: {
-                        "content-type": "application/json;charset=UTF-8"
+                        "content-type": "text/plain;charset=UTF-8"
                     }
                 });
                 const response = fetch(request);
-                const hash = await sha256(stringBody);
+                const hash = await sha256(latestCode1);
                 try {
-                    const prevHash = await codeDB.get("codeBoXHash2");
+                    const prevHash = await codeDB.get("PROJECTNAME");
                     if (prevHash !== hash) {
                         console.log("now put");
-                        await codeDB.put("codeBoXHash2", hash);
-                        await codeDB.put(hash, latestGoodCode);
+                        await codeDB.put(hash, latestCode1);
+                        await codeDB.put("PROJECTNAME", hash);
                         setQueryStringParameter("h", hash);
                     }
                 } catch (e) {
@@ -1649,26 +1512,29 @@ export async function run(mode = "window") {
         restart();
     }
     async function getCodeToLoad() {
+        const db = await getDB();
         const search = new URLSearchParams(window.location.search);
-        const keyToLoad = search.get("h") || await codeDB.get("codeBoXHash2");
+        const keyToLoad = search.get("h") || await db.get("PROJECTNAME");
         if (keyToLoad) {
-            const content = await codeDB.get(keyToLoad);
+            let code;
+            let content;
+            try {
+                code = await db.get(keyToLoad);
+            } catch  {
+                console.error("error json parse: " + content);
+            }
             if (content) return content;
             let text;
             try {
                 const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
                 text = await resp.json();
             } catch (e) {
-                const body = {
-                    codeTranspiled: transpileCode(starter),
-                    code: starter
-                };
-                const stringBody = JSON.stringify(body);
-                const shaHash = await sha256(stringBody);
-                codeDb.put(shaHash, stringBody);
+                const shaHash = await sha256(code);
+                db.put(shaHash, code);
+                await db.put("PROJECTNAME", shaHash);
                 return starter;
             }
-            return text.code;
+            return text;
         }
         return starter;
     }

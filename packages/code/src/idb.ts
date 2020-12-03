@@ -1,5 +1,6 @@
 import { diff } from "../../diff/diff.min.js";
 import { openDB } from "https://unpkg.com/idb@5.0.8?module";
+import { sha256 } from "./sha256.ts";
 
 export const getDB = async () => {
   const dbPromise = openDB("localZedCodeStore", 1, {
@@ -8,7 +9,7 @@ export const getDB = async () => {
     },
   });
 
-  return {
+  const dbObj = {
     async get(key: string, format: "string" | "json" | "stream" = "string") {
       let data;
       try {
@@ -36,16 +37,21 @@ export const getDB = async () => {
       let prev;
 
       try {
-        prev = await (await dbPromise).get(key);
+        const realKey = await dbObj.get(key);
+        if (realKey.length === 8) prev = await dbObj.get(realKey);
+        if (prev) {
+          const valVal = await dbObj.get(val);
+          // console.log(prev, valVal);
+          const diffObj = await diff(prev, valVal);
+          // console.log(JSON.stringify(diffObj));
+          const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+          console.log(diffAsStr);
+        }
       } catch {
         prev = "";
       }
-      if (val === prev) return data;
-      else {
-        const diffObj = await diff(prev, val);
-        const diffAsStr = [diffObj.b, ...diffObj.c].join(",");
-        console.log(diffAsStr);
-      }
+
+      if (prev !== "" && val === prev) return data;
 
       let str: string;
       if (typeof val !== "string") {
@@ -66,4 +72,5 @@ export const getDB = async () => {
       return (await dbPromise).getAllKeys("codeStore");
     },
   };
+  return dbObj;
 };
