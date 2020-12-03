@@ -477,9 +477,9 @@ export async function run(mode = "window") {
         const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
         text = await resp.json();
       } catch (e) {
-        const shaHash = await sha256(code);
+        const shaHash = await sha256(starter);
 
-        db.put(shaHash, code);
+        db.put(shaHash, starter);
         await db.put("PROJECTNAME", shaHash);
         return starter;
       }
