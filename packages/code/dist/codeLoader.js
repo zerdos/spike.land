@@ -1507,6 +1507,7 @@ export async function run(mode = "window") {
                 try {
                     const prevHash = await codeDB.get("codeBoXHash2");
                     if (prevHash !== hash) {
+                        console.log("now put");
                         await codeDB.put("codeBoXHash2", hash);
                         await codeDB.put(hash, latestGoodCode);
                         setQueryStringParameter("h", hash);
