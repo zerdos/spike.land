@@ -1,9 +1,9 @@
-import * as React from "react";
+import {useEffect, FC} from "react";
 
-export const MonacoEditor: React.FC<
+export const MonacoEditor: FC<
   { code: string; onChange: (code: string) => void }
 > = ({ code, onChange }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       const { startMonaco } = await (await Function(
         "return import('https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js')",
