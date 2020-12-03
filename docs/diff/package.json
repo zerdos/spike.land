@@ -6,8 +6,8 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
-        "clean": "rm *.js && deno fmt . ",
-        "build": "yarn clean && deno bundle diff.ts diff.js && yarn min",
+        "clean": "rm -rf *.js && deno fmt . ",
+        "build": "yarn clean && deno bundle diff.ts diff.js --no-check && yarn min",
         "min": "yarn esbuild diff.js  --minify --outfile=diff.min.js"
     },
     "keywords": [

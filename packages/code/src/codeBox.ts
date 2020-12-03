@@ -328,9 +328,9 @@ export async function run(mode = "window") {
             return;
           }
 
-          const slices = diff(latestGoodCode, cd, 0);
+          const slices = await diff(latestGoodCode, cd);
 
-          if (slices.length <= 3) {
+          if (slices.c.length <= 3) {
             modules.monaco.editor.setTheme("hc-black");
             return;
           }
