@@ -42,10 +42,13 @@ export const getDB = async () => {
         if (prev) {
           const valVal = await dbObj.get(val);
           // console.log(prev, valVal);
-          const diffObj = await diff(prev, valVal);
+          const diffObj = await diff(valVal, prev);
           // console.log(JSON.stringify(diffObj));
           const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-          console.log(diffAsStr);
+          if (prev.length > diffAsStr.length) {
+            (await dbPromise).put("codeStore", diffAsStr, key);
+          }
+          // console.log(diffAsStr);
         }
       } catch {
         prev = "";
