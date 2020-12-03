@@ -1296,7 +1296,7 @@ const getDB = async ()=>{
                 if (realKey.length === 8) prev = await dbObj.get(realKey);
                 if (prev) {
                     const valVal = await dbObj.get(val);
-                    const diffObj = await diff1(valVal, prev);
+                    const diffObj = await diff1(prev, valVal);
                     const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
                     if (prev.length > diffAsStr.length) {
                         (await dbPromise).put("codeStore", diffAsStr, val);

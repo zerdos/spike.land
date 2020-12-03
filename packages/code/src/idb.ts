@@ -40,9 +40,10 @@ export const getDB = async () => {
         const realKey = await dbObj.get(key);
         if (realKey.length === 8) prev = await dbObj.get(realKey);
         if (prev) {
+          //compressing the old value
           const valVal = await dbObj.get(val);
           // console.log(prev, valVal);
-          const diffObj = await diff(valVal, prev);
+          const diffObj = await diff(prev, valVal);
           // console.log(JSON.stringify(diffObj));
           const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
           if (prev.length > diffAsStr.length) {
