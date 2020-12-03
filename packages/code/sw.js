@@ -77,7 +77,7 @@ let needToSave = false;
 
       if (url.searchParams.get("h")) {
         const hash = url.searchParams.get("h");
-        const val = await codeDB.get(hash);
+        const val = codeDB.get(hash);
 
         if (val) {
           e.respondWith(val);
