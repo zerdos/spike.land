@@ -83,7 +83,7 @@
 
   const runner = async () => {
     if (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0")) {
-      const { run } = await import("/code/dist/codeLoader.min.js");
+      const { run } = await import("/code/dist/codeLoader.js");
       run();
       return;
     }

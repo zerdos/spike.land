@@ -796,63 +796,12 @@ async function Ge(c) {
     const w = new TextEncoder().encode(c), O = await Ze(w);
     return O.substr(0, 8);
 }
-const getDB = async ()=>{
-    const { openDB  } = await import("https://unpkg.com/idb@5.0.8/build/esm/index.js");
-    const dbPromise = openDB("localZedCodeStore", 1, {
-        blocked () {
-        },
-        blocking () {
-        },
-        terminated () {
-        },
-        upgrade (db) {
-            db.createObjectStore("codeStore");
-        }
-    });
+const diff1 = async (c, w)=>{
+    const O = Ge(c), C = Diff.diffChars(c, w);
     return {
-        async get (key, format = "string") {
-            const data = (await dbPromise).get("codeStore", key);
-            if (!data) return null;
-            if (format === "json") {
-                return JSON.parse(data);
-            }
-            if (format === "string") {
-                const allData = await data;
-                if (typeof allData === format) return allData;
-                const decoder = new TextDecoder();
-                const text = decoder.decode(allData);
-                return text;
-            }
-            return data;
-        },
-        async put (key, val) {
-            const prev = await (await dbPromise).get(key);
-            if (val === prev) return;
-            else {
-                const diff = await diff(prev, val);
-                const diffAsStr = [
-                    diff.b,
-                    ...diff.c
-                ].join();
-                console.log(diffAsStr);
-            }
-            let str;
-            if (typeof val !== "string") {
-                str = new TextDecoder().decode(val);
-            } else {
-                str = val;
-            }
-            return (await dbPromise).put("codeStore", str, key);
-        },
-        async delete (key) {
-            return (await dbPromise).delete("codeStore", key);
-        },
-        async clear () {
-            return (await dbPromise).clear("codeStore");
-        },
-        async keys () {
-            return (await dbPromise).getAllKeys("codeStore");
-        }
+        b: await O,
+        c: C.map((H)=>H.added ? H.value : H.removed ? -H.count : H.count
+        )
     };
 };
 const instanceOfAny = (object, constructors)=>constructors.some((c)=>object instanceof c
@@ -866,14 +815,14 @@ function getIdbProxyableTypes() {
         IDBObjectStore,
         IDBIndex,
         IDBCursor,
-        IDBTransaction, 
+        IDBTransaction
     ]);
 }
 function getCursorAdvanceMethods() {
     return cursorAdvanceMethods || (cursorAdvanceMethods = [
         IDBCursor.prototype.advance,
         IDBCursor.prototype.continue,
-        IDBCursor.prototype.continuePrimaryKey, 
+        IDBCursor.prototype.continuePrimaryKey
     ]);
 }
 const cursorRequestMap = new WeakMap();
@@ -1002,21 +951,6 @@ async function getTranspiledCode(hash) {
         console.log(e);
         return "";
     }
-}
-async function getUserId() {
-    const codeDB = await getDB();
-    const uuid = await codeDB.get("uuid");
-    if (!uuid) {
-        if (!window.location.href.includes("zed.dev")) {
-            const resp = await fetch("https://code.zed.vision/register");
-            const data = await resp.json();
-            codeDB.put("uuid", data.uuid);
-            return data.uuid;
-        } else {
-            codeDB.put("uuid", "1234");
-        }
-    }
-    return uuid;
 }
 function replaceWithEmpty(elementId = "root") {
     const el = document.createElement("div");
@@ -1290,6 +1224,184 @@ async function sha256(message) {
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
+function promisifyRequest(request) {
+    const promise = new Promise((resolve, reject)=>{
+        const unlisten = ()=>{
+            request.removeEventListener('success', success);
+            request.removeEventListener('error', error);
+        };
+        const success = ()=>{
+            resolve(wrap(request.result));
+            unlisten();
+        };
+        const error = ()=>{
+            reject(request.error);
+            unlisten();
+        };
+        request.addEventListener('success', success);
+        request.addEventListener('error', error);
+    });
+    promise.then((value)=>{
+        if (value instanceof IDBCursor) {
+            cursorRequestMap.set(value, request);
+        }
+    }).catch(()=>{
+    });
+    reverseTransformCache.set(promise, request);
+    return promise;
+}
+let idbProxyTraps = {
+    get (target, prop, receiver) {
+        if (target instanceof IDBTransaction) {
+            if (prop === 'done') return transactionDoneMap.get(target);
+            if (prop === 'objectStoreNames') {
+                return target.objectStoreNames || transactionStoreNamesMap.get(target);
+            }
+            if (prop === 'store') {
+                return receiver.objectStoreNames[1] ? undefined : receiver.objectStore(receiver.objectStoreNames[0]);
+            }
+        }
+        return wrap(target[prop]);
+    },
+    set (target, prop, value) {
+        target[prop] = value;
+        return true;
+    },
+    has (target, prop) {
+        if (target instanceof IDBTransaction && (prop === 'done' || prop === 'store')) {
+            return true;
+        }
+        return prop in target;
+    }
+};
+function replaceTraps(callback) {
+    idbProxyTraps = callback(idbProxyTraps);
+}
+function wrapFunction(func) {
+    if (func === IDBDatabase.prototype.transaction && !('objectStoreNames' in IDBTransaction.prototype)) {
+        return function(storeNames, ...args) {
+            const tx = func.call(unwrap(this), storeNames, ...args);
+            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [
+                storeNames
+            ]);
+            return wrap(tx);
+        };
+    }
+    if (getCursorAdvanceMethods().includes(func)) {
+        return function(...args) {
+            func.apply(unwrap(this), args);
+            return wrap(cursorRequestMap.get(this));
+        };
+    }
+    return function(...args) {
+        return wrap(func.apply(unwrap(this), args));
+    };
+}
+function transformCachableValue(value) {
+    if (typeof value === 'function') return wrapFunction(value);
+    if (value instanceof IDBTransaction) cacheDonePromiseForTransaction(value);
+    if (instanceOfAny(value, getIdbProxyableTypes())) return new Proxy(value, idbProxyTraps);
+    return value;
+}
+function wrap(value) {
+    if (value instanceof IDBRequest) return promisifyRequest(value);
+    if (transformCache.has(value)) return transformCache.get(value);
+    const newValue = transformCachableValue(value);
+    if (newValue !== value) {
+        transformCache.set(value, newValue);
+        reverseTransformCache.set(newValue, value);
+    }
+    return newValue;
+}
+function openDB(name, version, { blocked , upgrade , blocking , terminated  } = {
+}) {
+    const request = indexedDB.open(name, version);
+    const openPromise = wrap(request);
+    if (upgrade) {
+        request.addEventListener('upgradeneeded', (event)=>{
+            upgrade(wrap(request.result), event.oldVersion, event.newVersion, wrap(request.transaction));
+        });
+    }
+    if (blocked) request.addEventListener('blocked', ()=>blocked()
+    );
+    openPromise.then((db)=>{
+        if (terminated) db.addEventListener('close', ()=>terminated()
+        );
+        if (blocking) db.addEventListener('versionchange', ()=>blocking()
+        );
+    }).catch(()=>{
+    });
+    return openPromise;
+}
+replaceTraps((oldTraps)=>({
+        ...oldTraps,
+        get: (target, prop, receiver)=>getMethod(target, prop) || oldTraps.get(target, prop, receiver)
+        ,
+        has: (target, prop)=>!!getMethod(target, prop) || oldTraps.has(target, prop)
+    })
+);
+const getDB = async ()=>{
+    const dbPromise = openDB("localZedCodeStore", 1, {
+        upgrade (db) {
+            db.createObjectStore("codeStore");
+        }
+    });
+    return {
+        async get (key, format = "string") {
+            let data;
+            try {
+                data = (await dbPromise).get("codeStore", key);
+                if (!data) return null;
+            } catch (_) {
+                return null;
+            }
+            if (format === "json") {
+                return JSON.parse(data);
+            }
+            if (format === "string") {
+                const allData = await data;
+                if (typeof allData === format) return allData;
+                const decoder = new TextDecoder();
+                const text = decoder.decode(allData);
+                return text;
+            }
+            return data;
+        },
+        async put (key, val) {
+            let prev;
+            try {
+                prev = await (await dbPromise).get(key);
+            } catch  {
+                prev = "";
+            }
+            if (val === prev) return data;
+            else {
+                const diffObj = await diff1(prev, val);
+                const diffAsStr = [
+                    diffObj.b,
+                    ...diffObj.c
+                ].join(",");
+                console.log(diffAsStr);
+            }
+            let str;
+            if (typeof val !== "string") {
+                str = new TextDecoder().decode(val);
+            } else {
+                str = val;
+            }
+            return (await dbPromise).put("codeStore", str, key);
+        },
+        async delete (key) {
+            return (await dbPromise).delete("codeStore", key);
+        },
+        async clear () {
+            return (await dbPromise).clear("codeStore");
+        },
+        async keys () {
+            return (await dbPromise).getAllKeys("codeStore");
+        }
+    };
+};
 export const getProjects = async ()=>{
     const uuid = await getUserId();
     const codeDB = await getDB();
@@ -1300,6 +1412,21 @@ export const getProjects = async ()=>{
     }
     return projects;
 };
+async function getUserId() {
+    const codeDB = await getDB();
+    const uuid = await codeDB.get("uuid");
+    if (!uuid) {
+        if (!window.location.href.includes("zed.dev")) {
+            const resp = await fetch("https://code.zed.vision/register");
+            const data = await resp.json();
+            codeDB.put("uuid", data.uuid);
+            return data.uuid;
+        } else {
+            codeDB.put("uuid", "1234");
+        }
+    }
+    return uuid;
+}
 export async function run(mode = "window") {
     const codeDB = await getDB();
     const uuid = await getUserId();
@@ -1532,7 +1659,13 @@ export async function run(mode = "window") {
                 const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
                 text = await resp.json();
             } catch (e) {
-                console.error(e);
+                const body = {
+                    codeTranspiled: transpileCode(starter),
+                    code: starter
+                };
+                const stringBody = JSON.stringify(body);
+                const shaHash = await sha256(stringBody);
+                codeDb.put(shaHash, stringBody);
                 return starter;
             }
             return text.code;
@@ -1584,100 +1717,4 @@ export async function run(mode = "window") {
         }).code;
     }
 }
-function promisifyRequest(request) {
-    const promise = new Promise((resolve, reject)=>{
-        const unlisten = ()=>{
-            request.removeEventListener('success', success);
-            request.removeEventListener('error', error);
-        };
-        const success = ()=>{
-            resolve(wrap(request.result));
-            unlisten();
-        };
-        const error = ()=>{
-            reject(request.error);
-            unlisten();
-        };
-        request.addEventListener('success', success);
-        request.addEventListener('error', error);
-    });
-    promise.then((value)=>{
-        if (value instanceof IDBCursor) {
-            cursorRequestMap.set(value, request);
-        }
-    }).catch(()=>{
-    });
-    reverseTransformCache.set(promise, request);
-    return promise;
-}
-let idbProxyTraps = {
-    get (target, prop, receiver) {
-        if (target instanceof IDBTransaction) {
-            if (prop === 'done') return transactionDoneMap.get(target);
-            if (prop === 'objectStoreNames') {
-                return target.objectStoreNames || transactionStoreNamesMap.get(target);
-            }
-            if (prop === 'store') {
-                return receiver.objectStoreNames[1] ? undefined : receiver.objectStore(receiver.objectStoreNames[0]);
-            }
-        }
-        return wrap(target[prop]);
-    },
-    set (target, prop, value) {
-        target[prop] = value;
-        return true;
-    },
-    has (target, prop) {
-        if (target instanceof IDBTransaction && (prop === 'done' || prop === 'store')) {
-            return true;
-        }
-        return prop in target;
-    }
-};
-function replaceTraps(callback) {
-    idbProxyTraps = callback(idbProxyTraps);
-}
-function wrapFunction(func) {
-    if (func === IDBDatabase.prototype.transaction && !('objectStoreNames' in IDBTransaction.prototype)) {
-        return function(storeNames, ...args) {
-            const tx = func.call(unwrap(this), storeNames, ...args);
-            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [
-                storeNames
-            ]);
-            return wrap(tx);
-        };
-    }
-    if (getCursorAdvanceMethods().includes(func)) {
-        return function(...args) {
-            func.apply(unwrap(this), args);
-            return wrap(cursorRequestMap.get(this));
-        };
-    }
-    return function(...args) {
-        return wrap(func.apply(unwrap(this), args));
-    };
-}
-function transformCachableValue(value) {
-    if (typeof value === 'function') return wrapFunction(value);
-    if (value instanceof IDBTransaction) cacheDonePromiseForTransaction(value);
-    if (instanceOfAny(value, getIdbProxyableTypes())) return new Proxy(value, idbProxyTraps);
-    return value;
-}
-function wrap(value) {
-    if (value instanceof IDBRequest) return promisifyRequest(value);
-    if (transformCache.has(value)) return transformCache.get(value);
-    const newValue = transformCachableValue(value);
-    if (newValue !== value) {
-        transformCache.set(value, newValue);
-        reverseTransformCache.set(newValue, value);
-    }
-    return newValue;
-}
-replaceTraps((oldTraps)=>({
-        ...oldTraps,
-        get: (target, prop, receiver)=>getMethod(target, prop) || oldTraps.get(target, prop, receiver)
-        ,
-        has: (target, prop)=>!!getMethod(target, prop) || oldTraps.has(target, prop)
-    })
-);
 

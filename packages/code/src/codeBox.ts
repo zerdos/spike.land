@@ -205,10 +205,6 @@ export async function run(mode = "window") {
   }
 
   Object.assign(window, { getKeys, getCode, restartCode, regenerate });
-
-  // await importScript(
-  //   "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
-  // );
   // await importScript(
   //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
   // );
@@ -562,8 +558,16 @@ export async function run(mode = "window") {
         const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
         text = await resp.json();
       } catch (e) {
-        console.error(e);
+        const body = {
+          codeTranspiled: transpileCode(starter),
+          code: starter,
+        };
 
+        const stringBody = JSON.stringify(body);
+
+        const shaHash = await sha256(stringBody);
+
+        codeDb.put(shaHash, stringBody);
         return starter;
       }
 

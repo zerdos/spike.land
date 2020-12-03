@@ -204,17 +204,4 @@ let needToSave = false;
   function handleNoCacheMatch(e) {
     return fetchFromNetworkAndCache(e);
   }
-
-  const obj = {
-    counter: 0,
-    put(key, val) {
-      return codeDB.put(key, val);
-    },
-    get(key) {
-      return codeDB.get(key);
-    },
-    inc() {
-      this.counter++;
-    },
-  };
 })(self);
