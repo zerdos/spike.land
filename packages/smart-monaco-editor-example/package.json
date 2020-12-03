@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/smart-monaco-editor-example",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "homepage": "https://unpkg.com/@zedvision/smart-monaco-editor-example/build",
   "dependencies": {
     "@types/react": "17.0.0",
