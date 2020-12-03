@@ -323,7 +323,7 @@ function assert(expr, msg = "") {
     }
 }
 const NIL_UUID = "00000000-0000-0000-0000-000000000000";
-var SHA_STORE;
+var SHAKV;
 var USERS;
 var API_KEY;
 const corsHeaders = {
@@ -408,7 +408,7 @@ async function handleCloudRequest(request) {
     if (request.method === "GET" && psk && psk === API_KEY) {
         if (pathname === "/keys/") {
             const prefix = searchParams.get("prefix");
-            const value = await SHA_STORE.list({
+            const value = await SHAKV.list({
                 prefix
             });
             return new Response(JSON.stringify(value), {
@@ -420,7 +420,7 @@ async function handleCloudRequest(request) {
         }
         if (pathname === "/keys/delete/") {
             const hash = searchParams.get("hash");
-            const value = await SHA_STORE.delete(hash);
+            const value = await SHAKV.delete(hash);
             return new Response(JSON.stringify(value), {
                 headers: {
                     ...corsHeaders,
@@ -448,7 +448,7 @@ async function handleCloudRequest(request) {
             });
         }
         if (hash) {
-            const jsonStream = await SHA_STORE.get(hash, "stream");
+            const jsonStream = await SHAKV.get(hash, "stream");
             if (jsonStream === null) {
                 return new Response(JSON.stringify({
                     error: "Not found"
@@ -468,7 +468,7 @@ async function handleCloudRequest(request) {
         }
         const pageHash = url.searchParams.get("r");
         if (pageHash) {
-            const jsonStream = await SHA_STORE.get(pageHash, "stream");
+            const jsonStream = await SHAKV.get(pageHash, "stream");
             if (jsonStream !== null) {
                 return new Response(jsonStream, {
                     headers: {
@@ -480,7 +480,7 @@ async function handleCloudRequest(request) {
         }
         const maybeRoute = pathname.substr(1);
         if (maybeRoute) {
-            const jsonStream = await SHA_STORE.get(maybeRoute, "stream");
+            const jsonStream = await SHAKV.get(maybeRoute, "stream");
             if (jsonStream !== null) {
                 return new Response(jsonStream, {
                     headers: {
@@ -495,7 +495,7 @@ async function handleCloudRequest(request) {
         const myBuffer = await request.arrayBuffer();
         const hash = await arrBuffSha256(myBuffer);
         const smallerKey = hash.substring(0, 8);
-        await SHA_STORE.put(smallerKey, myBuffer);
+        await SHAKV.put(smallerKey, myBuffer);
         return new Response(JSON.stringify({
             hash: smallerKey
         }), {
