@@ -1,4 +1,4 @@
-import {useEffect, FC} from "react";
+import { FC, useEffect } from "react";
 
 export const MonacoEditor: FC<
   { code: string; onChange: (code: string) => void }
