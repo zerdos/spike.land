@@ -1,3 +1,5 @@
+import { diff } from "../../diff/diff.min.js";
+
 export const getDB = async () => {
   const { openDB } = await import(
     "https://unpkg.com/idb@5.0.8/build/esm/index.js"
@@ -30,6 +32,14 @@ export const getDB = async () => {
       return data;
     },
     async put(key: string, val: string | ArrayBuffer) {
+      const prev = await (await dbPromise).get(key);
+      if (val === prev) return;
+      else {
+        const diff = await diff(prev, val);
+        const diffAsStr = [diff.b, ...diff.c].join();
+        console.log(diffAsStr);
+      }
+
       let str: string;
       if (typeof val !== "string") {
         str = new TextDecoder().decode(val);
