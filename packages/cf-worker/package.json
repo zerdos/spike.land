@@ -31,7 +31,7 @@
     "devDependencies": {
         "@cloudflare/workers-types": "2.1.0",
         "@cloudflare/wrangler": "1.12.2",
-        "esbuild": "0.8.17"
+        "esbuild": "0.8.18"
     },
     "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
