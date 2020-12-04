@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/@zedvision/smart-monaco-editor-example/build/static/css/main.fc51c1b2.chunk.css",
+    "main.css": "/@zedvision/smart-monaco-editor-example/build/static/css/main.58f4e44e.chunk.css",
     "main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/main.93a1f651.chunk.js",
     "main.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/main.93a1f651.chunk.js.map",
     "runtime-main.js": "/@zedvision/smart-monaco-editor-example/build/static/js/runtime-main.f7abf870.js",
@@ -8,14 +8,14 @@
     "static/js/2.03ca2508.chunk.js": "/@zedvision/smart-monaco-editor-example/build/static/js/2.03ca2508.chunk.js",
     "static/js/2.03ca2508.chunk.js.map": "/@zedvision/smart-monaco-editor-example/build/static/js/2.03ca2508.chunk.js.map",
     "index.html": "/@zedvision/smart-monaco-editor-example/build/index.html",
-    "static/css/main.fc51c1b2.chunk.css.map": "/@zedvision/smart-monaco-editor-example/build/static/css/main.fc51c1b2.chunk.css.map",
+    "static/css/main.58f4e44e.chunk.css.map": "/@zedvision/smart-monaco-editor-example/build/static/css/main.58f4e44e.chunk.css.map",
     "static/js/2.03ca2508.chunk.js.LICENSE.txt": "/@zedvision/smart-monaco-editor-example/build/static/js/2.03ca2508.chunk.js.LICENSE.txt",
     "static/media/logo.103b5fa1.svg": "/@zedvision/smart-monaco-editor-example/build/static/media/logo.103b5fa1.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f7abf870.js",
     "static/js/2.03ca2508.chunk.js",
-    "static/css/main.fc51c1b2.chunk.css",
+    "static/css/main.58f4e44e.chunk.css",
     "static/js/main.93a1f651.chunk.js"
   ]
 }

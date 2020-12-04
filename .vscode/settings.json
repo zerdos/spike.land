@@ -1,9 +1,7 @@
 {
   "files.exclude": {
-    "docs":true,
     "**/node_modules": true,
     "**/.git": true,
-    "**/build": true,
     "**/.svn": true,
     "**/.hg": true,
     "**/CVS": true,
@@ -11,7 +9,7 @@
   },
   "deno.import_map": "./import_map.json",
   "search.useIgnoreFiles": true,
-    "files.autoSave": "onFocusChange",
+  "files.autoSave": "onFocusChange",
   "deno.enable": true,
   "git.autorefresh": true,
   "deno.import_intellisense_autodiscovery": true,
