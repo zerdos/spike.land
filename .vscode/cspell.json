@@ -6,6 +6,9 @@
     ],
     "words": [
         "ampproject",
+        "autodiscovery",
+        "autofetch",
+        "autorefresh",
         "browserslist",
         "Cachable",
         "code",
@@ -16,6 +19,7 @@
         "demaximized",
         "deminimize",
         "deno",
+        "denoland",
         "dminimized",
         "dragabble",
         "Erdos",
