@@ -373,11 +373,21 @@ export async function run(mode = "window") {
 
           motionScript = "const {motion} = Motion";
         }
+        let title = "(code).zed.vision :)";
+
+        if (
+          HTML.indexOf("<title>") > -1 && HTML.indexOf("</title>") > -1
+        ) {
+          title = HTML.slice(
+            HTML.indexOf("<title>") + 7,
+            HTML.indexOf("</title>"),
+          );
+        }
 
         const iframe = `<!DOCTYPE html>
         <html lang="en">
         <head>
-        <title>Generated with code.zed.vision</title>
+        <title>${title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <head profile="http://www.w3.org/2005/10/profile">
