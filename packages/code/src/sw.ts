@@ -9,7 +9,7 @@ const getUrl = () => {
 
 let needToSave = false;
 
-(({ location, caches, addEventListener }) => {
+(async ({ location, caches, addEventListener }) => {
   const codeDB = await getDB();
   var cacheKey = "VERSION-1";
 

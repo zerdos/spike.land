@@ -987,7 +987,7 @@ const getDB = async ()=>{
     };
     return dbObj;
 };
-(({ location , caches , addEventListener  })=>{
+(async ({ location , caches , addEventListener  })=>{
     const codeDB = await getDB();
     var cacheKey = "VERSION-1";
     addEventListener("install", function(e) {
