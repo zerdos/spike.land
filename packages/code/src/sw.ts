@@ -35,8 +35,6 @@ let needToSave = false;
       const url = new URL(e.request.url);
 
       if (url.searchParams.get("h")) {
-        const codeDb = const;
-
         try {
           const val = await codeDB.get(hash);
 

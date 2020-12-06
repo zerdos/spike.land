@@ -1005,7 +1005,6 @@ const getDB = async ()=>{
         if (e.request.method === "GET" && e.request.url.includes("zed.") && (e.request.url.includes("?h") || e.request.url.includes("?r"))) {
             const url = new URL(e.request.url);
             if (url.searchParams.get("h")) {
-                const codeDb = const;
                 try {
                     const val = await codeDB.get(hash);
                     if (val) {
