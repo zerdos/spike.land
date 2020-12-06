@@ -1299,7 +1299,6 @@ const getDB = async ()=>{
     const dbObj = {
         async get (key, format = "string") {
             let data;
-            console.log("GET ", key);
             try {
                 data = (await dbPromise).get("codeStore", key);
                 if (!data) return null;

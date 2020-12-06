@@ -12,7 +12,6 @@ export const getDB = async () => {
   const dbObj = {
     async get(key: string, format: "string" | "json" | "stream" = "string") {
       let data;
-      console.log("GET ", key);
       try {
         data = (await dbPromise).get("codeStore", key);
 
