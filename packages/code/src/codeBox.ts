@@ -168,6 +168,8 @@ export async function run(mode = "window") {
         return;
       }
       if (err && err.length) {
+        const { diff } = await import("../../diff/diff.min.js");
+
         if (latestCode != cd) {
           return;
         }
@@ -261,10 +263,6 @@ export async function run(mode = "window") {
 
     return [...diag, ...comp, ...syntax];
   }
-
-  importScript(
-    "diffLoader.js",
-  );
 
   // document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
@@ -445,14 +443,13 @@ export async function run(mode = "window") {
 
     if (keyToLoad) {
       let code;
-      let content;
       try {
         code = await db.get(keyToLoad);
       } catch {
-        console.error("error json parse: " + content);
+        console.error("error load key: " + keyToLoad);
       }
 
-      if (content) return content;
+      if (code) return code;
 
       let text;
       try {

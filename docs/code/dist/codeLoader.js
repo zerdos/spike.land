@@ -772,7 +772,7 @@ async function Ge(c) {
     const w = new TextEncoder().encode(c), O = await Ze(w);
     return O.substr(0, 8);
 }
-const diff1 = async (c, w)=>{
+const diff = async (c, w)=>{
     const O = Ge(c), C = Diff.diffChars(c, w);
     return {
         b: await O,
@@ -1273,16 +1273,38 @@ const getDB = async ()=>{
         const isKey = [
             ...str.slice(0, 8)
         ].filter((x)=>x < 0 || x > "f"
-        ).length > 0;
+        ).length === 0;
         const maybeInst = str.slice(8);
         if (isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]") {
+            try {
+                return JSON.parse(maybeInst).length > 1;
+            } catch  {
+                return false;
+            }
             return true;
         }
         return false;
     };
+    const assemble = (oldValue, instructions)=>{
+        const instArr = JSON.parse(instructions);
+        let old = oldValue.slice();
+        let ret = "";
+        instArr.forEach((element)=>{
+            if (Number(element) === element) {
+                const absNum = Math.abs(element);
+                const currentString = old.slice(0, absNum);
+                old = old.slice(absNum);
+                if (element > 0) ret += String(currentString);
+            } else {
+                ret += String(element);
+            }
+        });
+        return ret;
+    };
     const dbObj = {
         async get (key, format = "string") {
             let data;
+            console.log("GET ", key);
             try {
                 data = (await dbPromise).get("codeStore", key);
                 if (!data) return null;
@@ -1294,7 +1316,16 @@ const getDB = async ()=>{
             }
             if (format === "string") {
                 const allData = await data;
-                if (typeof allData === format) return allData;
+                if (typeof allData === format) {
+                    const text = allData;
+                    if (isDiff(allData)) {
+                        const keyOfDiff = allData.slice(0, 8);
+                        const instructions = allData.slice(8);
+                        const oldValue = await dbObj.get(keyOfDiff);
+                        return assemble(oldValue, instructions);
+                    }
+                    return allData;
+                }
                 const decoder = new TextDecoder();
                 const text = decoder.decode(allData);
                 return text;
@@ -1310,7 +1341,7 @@ const getDB = async ()=>{
                     const prevValue = await dbObj.get(oldKey);
                     const prevSha = await sha256(prevValue);
                     if (prevSha === oldKey) {
-                        const diffObj = await diff1(actualValue, prevValue);
+                        const diffObj = await diff(actualValue, prevValue);
                         const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
                         (await dbPromise).put("codeStore", diffAsStr, prevSha);
                     }
@@ -1398,13 +1429,14 @@ export async function run(mode = "window") {
                 return;
             }
             if (err && err.length) {
+                const { diff: diff1  } = await import("../../diff/diff.min.js");
                 if (latestCode != cd) {
                     return;
                 }
                 if (errorReported === cd) {
                     return;
                 }
-                const slices = await diff(latestGoodCode, cd);
+                const slices = await diff1(latestGoodCode, cd);
                 if (slices.c.length <= 3) {
                     modules.monaco.editor.setTheme("hc-black");
                     return;
@@ -1462,7 +1494,6 @@ export async function run(mode = "window") {
             ...syntax
         ];
     }
-    importScript("diffLoader.js");
     async function restartCode(transPiled) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
@@ -1530,13 +1561,12 @@ export async function run(mode = "window") {
         const keyToLoad = search.get("h") || await db.get("PROJECTNAME");
         if (keyToLoad) {
             let code;
-            let content;
             try {
                 code = await db.get(keyToLoad);
             } catch  {
-                console.error("error json parse: " + content);
+                console.error("error load key: " + keyToLoad);
             }
-            if (content) return content;
+            if (code) return code;
             let text;
             try {
                 const resp = await fetch(getUrl() + "/?h=" + keyToLoad);

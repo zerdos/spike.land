@@ -12,21 +12,46 @@ export const getDB = async () => {
   const isDiff = (str) => {
     if (str.length < 10) return false;
     const isKey =
-      [...str.slice(0, 8)].filter((x) => x < 0 || x > "f").length > 0;
+      [...(str.slice(0, 8))].filter((x) => x < 0 || x > "f").length === 0;
     const maybeInst = str.slice(8);
 
     if (
       isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]"
     ) {
+      try {
+        return JSON.parse(maybeInst).length > 1;
+      } catch {
+        return false;
+      }
       return true;
     }
 
     return false;
   };
 
+  const assemble = (oldValue, instructions) => {
+    const instArr = JSON.parse(instructions);
+    let old = oldValue.slice();
+
+    let ret = "";
+
+    instArr.forEach((element) => {
+      if (Number(element) === element) {
+        const absNum = Math.abs(element);
+        const currentString = old.slice(0, absNum);
+        old = old.slice(absNum);
+        if (element > 0) ret += String(currentString);
+      } else {
+        ret += String(element);
+      }
+    });
+    return ret;
+  };
+
   const dbObj = {
     async get(key: string, format: "string" | "json" | "stream" = "string") {
       let data;
+      console.log("GET ", key);
       try {
         data = (await dbPromise).get("codeStore", key);
 
@@ -40,10 +65,21 @@ export const getDB = async () => {
       }
       if (format === "string") {
         const allData = await data;
-        if (typeof allData === format) return allData;
+        if (typeof allData === format) {
+          const text = allData;
+          if (isDiff(text)) {
+            const keyOfDiff = text.slice(0, 8);
+            const instructions = text.slice(8);
+            const oldValue = await dbObj.get(keyOfDiff);
+            return assemble(oldValue, instructions);
+          }
+
+          return allData;
+        }
 
         const decoder = new TextDecoder();
         const text = decoder.decode(allData);
+
         return text;
       }
       return data;
