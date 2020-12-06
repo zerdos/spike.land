@@ -9,8 +9,10 @@ import { starter } from "./starter.tsx";
 import { sha256 } from "./sha256.ts";
 import { getDB } from "./idb.ts";
 
-//@ts-ignore
-var ReactDOM: { unmountComponentAtNode: (node: any) => void } = window.ReactDOM;
+const document = window.document;
+
+var ReactDOM: { unmountComponentAtNode: (node: unknown) => void } =
+  window.ReactDOM;
 
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
@@ -267,7 +269,7 @@ export async function run(mode = "window") {
   // document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
   // await workerDomImport;
-  async function restartCode(transPiled: string) {
+  function restartCode(transPiled: string) {
     const searchRegExp = /import/gi;
     const replaceWith = "///";
 
@@ -295,7 +297,7 @@ export async function run(mode = "window") {
     //   "url",
     //   `return function(){
 
-    const restart = async () => {
+    const restart = () => {
       //     console.log(code);
       const hydrate = new Function(
         "code",
@@ -324,10 +326,9 @@ export async function run(mode = "window") {
         const HTML = renderToString();
 
         const css = Array.from(
-          //@ts-ignore
           document.querySelector("head > style[data-emotion=css]").sheet
             .cssRules,
-        ).map((x: any) => x.cssText).filter((cssRule) =>
+        ).map((x: unknown) => x.cssText).filter((cssRule) =>
           HTML.includes(cssRule.substring(3, 8))
         ).join("\n  ");
 
@@ -424,6 +425,7 @@ export async function run(mode = "window") {
             //const response = fetch(request);
           }
         } catch (e) {
+          console.error(e);
         }
 
         // lets not save now - we will save the diff only

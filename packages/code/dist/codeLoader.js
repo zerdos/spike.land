@@ -873,9 +873,10 @@ async function arrBuffSha256(msgBuffer) {
     ).join("");
     return hashHex;
 }
+const document1 = window.document;
 var ReactDOM = window.ReactDOM;
 const getUrl = ()=>{
-    if (document.location.href.includes("zed.dev")) {
+    if (document1.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
     }
     return "https://code.zed.vision";
@@ -1423,7 +1424,7 @@ export async function run(mode = "window") {
         try {
             busy = 1;
             const err = await getErrors();
-            const errorDiv = document.getElementById("error");
+            const errorDiv = document1.getElementById("error");
             busy = 0;
             if (cd !== latestCode) {
                 return;
@@ -1494,17 +1495,17 @@ export async function run(mode = "window") {
             ...syntax
         ];
     }
-    async function restartCode(transPiled) {
+    function restartCode(transPiled) {
         const searchRegExp = /import/gi;
         const replaceWith = "///";
         const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transPiled.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
-        const restart = async ()=>{
+        const restart = ()=>{
             const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
             shareItAsHtml = async ()=>{
                 const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
                 const HTML = renderToString();
-                const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
+                const css = Array.from(document1.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
                 ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
                 ).join("\n  ");
                 let bodyStylesFix;
@@ -1548,6 +1549,7 @@ export async function run(mode = "window") {
                         setQueryStringParameter("h", hash);
                     }
                 } catch (e) {
+                    console.error(e);
                 }
             };
             saveCode(latestCode);
