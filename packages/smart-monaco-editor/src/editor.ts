@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import type { monaco } from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts";
 import type Ace from "https://raw.githubusercontent.com/ajaxorg/ace/master/ace.d.ts";
 
@@ -15,9 +17,14 @@ interface SmartMonaco {
   (props: StartMonacoProps): Promise<ISmartMonacoEditor>;
 }
 
+
+
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language },
 ) => {
+  if (typeof window === "undefined") return "";
+  
+  const document = window.document;
   const container = window.document.getElementById("container");
 
   if (!container) {
@@ -64,8 +71,8 @@ export const startMonaco: SmartMonaco = async (
 
     const setThemeForAce = (wait: number) =>
       setTimeout(() => {
-        let aceEditor = window["ace"].edit("ace");
-        let theme = aceEditor.getTheme();
+        const aceEditor = window["ace"].edit("ace");
+        const theme = aceEditor.getTheme();
         if (theme !== "ace/theme/monokai ") {
           aceEditor.setOptions({
             fontSize: "14pt",
@@ -84,7 +91,7 @@ export const startMonaco: SmartMonaco = async (
   if (window["monaco"] === undefined) {
     const vsPath =
       "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
-    //@ts-ignore
+
     const { require } = await loadScript(
       `${vsPath}/loader.min.js`,
     );

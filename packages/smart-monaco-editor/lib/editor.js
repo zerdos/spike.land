@@ -10,6 +10,8 @@ function loadScript(src) {
     });
 }
 export const startMonaco = async ({ onChange , code , language  })=>{
+    if (typeof window === "undefined") return "";
+    const document = window.document;
     const container = window.document.getElementById("container");
     if (!container) {
         const el = document.getElementById("container");
@@ -30,8 +32,8 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         aceEditor = window["ace"].edit("ace");
         aceEditor.getSession().setMode("ace/mode/typescript");
         const setThemeForAce = (wait)=>setTimeout(()=>{
-                let aceEditor1 = window["ace"].edit("ace");
-                let theme = aceEditor1.getTheme();
+                const aceEditor1 = window["ace"].edit("ace");
+                const theme = aceEditor1.getTheme();
                 if (theme !== "ace/theme/monokai ") {
                     aceEditor1.setOptions({
                         fontSize: "14pt"
