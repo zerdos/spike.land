@@ -111,26 +111,26 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
     })
 ;
 const starter = `import { useState } from "react";\nimport { motion } from "framer-motion";\nimport { css, Global } from "@emotion/react";;\n\nconst Slider = () => {\n  const [sliderValue, setSlider] = useState(64);\n\n  return <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          background: rgb(\${sliderValue},\${255-sliderValue},255);\n          overflow: overlay;\n        }  \n    \`}/>\n    <input max="128"\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${sliderValue*2},\${255-2*sliderValue},0); \n        outline: none; \n    \`} type="range"\n      value={sliderValue} step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <motion.p\n      animate={{ fontSize: sliderValue + \`px\` }}>\n      Example when the text gets bigger...\n    </motion.p>\n      <motion.p animate={{fontSize:128-sliderValue+"px"}}>\n        ...or smaller\n    </motion.p>\n  </>\n}\n\nexport default () => <>\n  <Slider />\n</>\n`;
-(function(c, w) {
-    typeof exports == "object" && typeof module != "undefined" ? w(exports) : typeof define == "function" && define.amd ? define([
+(function(d, h) {
+    typeof exports == "object" && typeof module != "undefined" ? h(exports) : typeof define == "function" && define.amd ? define([
         "exports"
-    ], w) : (c = c || self, w(c.Diff = {
+    ], h) : (d = d || self, h(d.Diff = {
     }));
-})(this, function(c) {
+})(this, function(d) {
     "use strict";
-    function w() {
+    function h() {
     }
-    w.prototype = {
+    h.prototype = {
         diff: function(n, t) {
             var r = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {
             }, f = r.callback;
             typeof r == "function" && (f = r, r = {
             }), this.options = r;
             var i = this;
-            function l(d) {
+            function l(c) {
                 return f ? (setTimeout(function() {
-                    f(void 0, d);
-                }, 0), !0) : d;
+                    f(void 0, c);
+                }, 0), !0) : c;
             }
             n = this.castInput(n), t = this.castInput(t), n = this.removeEmpty(this.tokenize(n)), t = this.removeEmpty(this.tokenize(t));
             var s = t.length, o = n.length, u = 1, p = s + o, v = [
@@ -145,28 +145,28 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
                     count: t.length
                 }
             ]);
-            function h() {
-                for(var d = -1 * u; d <= u; d += 2){
-                    var y = void 0, x = v[d - 1], m = v[d + 1], F = (m ? m.newPos : 0) - d;
-                    x && (v[d - 1] = void 0);
-                    var L = x && x.newPos + 1 < s, I = m && 0 <= F && F < o;
-                    if (!L && !I) {
-                        v[d] = void 0;
+            function w() {
+                for(var c = -1 * u; c <= u; c += 2){
+                    var L = void 0, F = v[c - 1], m = v[c + 1], N = (m ? m.newPos : 0) - c;
+                    F && (v[c - 1] = void 0);
+                    var y = F && F.newPos + 1 < s, A = m && 0 <= N && N < o;
+                    if (!y && !A) {
+                        v[c] = void 0;
                         continue;
                     }
-                    if (!L || I && x.newPos < m.newPos ? (y = C(m), i.pushComponent(y.components, void 0, !0)) : (y = x, y.newPos++, i.pushComponent(y.components, !0, void 0)), F = i.extractCommon(y, t, n, d), y.newPos + 1 >= s && F + 1 >= o) return l(O(i, y.components, t, n, i.useLongestToken));
-                    v[d] = y;
+                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)), N = i.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) return l(x(i, L.components, t, n, i.useLongestToken));
+                    v[c] = L;
                 }
                 u++;
             }
-            if (f) (function d() {
+            if (f) (function c() {
                 setTimeout(function() {
                     if (u > p) return f();
-                    h() || d();
+                    w() || c();
                 }, 0);
             })();
             else for(; u <= p;){
-                var g = h();
+                var g = w();
                 if (g) return g;
             }
         },
@@ -205,7 +205,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             return n.join("");
         }
     };
-    function O(e, n, t, r, f) {
+    function x(e, n, t, r, f) {
         for(var i = 0, l = n.length, s = 0, o = 0; i < l; i++){
             var u = n[i];
             if (u.removed) {
@@ -216,9 +216,9 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             } else {
                 if (!u.added && f) {
                     var p = t.slice(s, s + u.count);
-                    p = p.map(function(h, g) {
-                        var d = r[o + g];
-                        return d.length > h.length ? d : h;
+                    p = p.map(function(w, g) {
+                        var c = r[o + g];
+                        return c.length > w.length ? c : w;
                     }), u.value = e.join(p);
                 } else u.value = e.join(t.slice(s, s + u.count));
                 s += u.count, u.added || (o += u.count);
@@ -227,38 +227,38 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         var a = n[l - 1];
         return (l > 1 && typeof a.value == "string" && (a.added || a.removed) && e.equals("", a.value) && (n[l - 2].value += a.value, n.pop()), n);
     }
-    function C(e) {
+    function H(e) {
         return {
             newPos: e.newPos,
             components: e.components.slice(0)
         };
     }
-    var H = new w;
-    function ye(e, n, t) {
-        return H.diff(e, n, t);
+    var S = new h;
+    function W(e, n, t) {
+        return S.diff(e, n, t);
     }
-    function te(e, n) {
+    function $(e, n) {
         if (typeof e == "function") n.callback = e;
         else if (e) for(var t in e)e.hasOwnProperty(t) && (n[t] = e[t]);
         return n;
     }
-    var re = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/, ie = /\S/, R = new w;
-    R.equals = function(e, n) {
-        return this.options.ignoreCase && (e = e.toLowerCase(), n = n.toLowerCase()), e === n || this.options.ignoreWhitespace && !ie.test(e) && !ie.test(n);
-    }, R.tokenize = function(e) {
-        for(var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < n.length - 1; t++)!n[t + 1] && n[t + 2] && re.test(n[t]) && re.test(n[t + 2]) && (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
+    var B = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/, fe = /\S/, P = new h;
+    P.equals = function(e, n) {
+        return this.options.ignoreCase && (e = e.toLowerCase(), n = n.toLowerCase()), e === n || this.options.ignoreWhitespace && !fe.test(e) && !fe.test(n);
+    }, P.tokenize = function(e) {
+        for(var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < n.length - 1; t++)!n[t + 1] && n[t + 2] && B.test(n[t]) && B.test(n[t + 2]) && (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
         return n;
     };
     function me(e, n, t) {
-        return (t = te(t, {
+        return (t = $(t, {
             ignoreWhitespace: !0
-        }), R.diff(e, n, t));
+        }), P.diff(e, n, t));
     }
     function xe(e, n, t) {
-        return R.diff(e, n, t);
+        return P.diff(e, n, t);
     }
-    var D = new w;
-    D.tokenize = function(e) {
+    var U = new h;
+    U.tokenize = function(e) {
         var n = [], t = e.split(/(\n|\r\n)/);
         t[t.length - 1] || t.pop();
         for(var r = 0; r < t.length; r++){
@@ -267,101 +267,101 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         }
         return n;
     };
-    function fe(e, n, t) {
-        return D.diff(e, n, t);
+    function le(e, n, t) {
+        return U.diff(e, n, t);
     }
     function Fe(e, n, t) {
-        var r = te(t, {
+        var r = $(t, {
             ignoreWhitespace: !0
         });
-        return D.diff(e, n, r);
+        return U.diff(e, n, r);
     }
-    var le = new w;
-    le.tokenize = function(e) {
+    var se = new h;
+    se.tokenize = function(e) {
         return e.split(/(\S.+?[.!?])(?=\s+|$)/);
     };
     function Ne(e, n, t) {
-        return le.diff(e, n, t);
-    }
-    var se = new w;
-    se.tokenize = function(e) {
-        return e.split(/([{}:;,]|\s+)/);
-    };
-    function He(e, n, t) {
         return se.diff(e, n, t);
     }
-    function B(e) {
-        return (typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? B = function(n) {
+    var oe = new h;
+    oe.tokenize = function(e) {
+        return e.split(/([{}:;,]|\s+)/);
+    };
+    function Se(e, n, t) {
+        return oe.diff(e, n, t);
+    }
+    function V(e) {
+        return (typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? V = function(n) {
             return typeof n;
-        } : B = function(n) {
+        } : V = function(n) {
             return n && typeof Symbol == "function" && n.constructor === Symbol && n !== Symbol.prototype ? "symbol" : typeof n;
-        }, B(e));
+        }, V(e));
     }
-    function S(e) {
-        return Se(e) || Ie(e) || Ae(e) || Ee();
+    function b(e) {
+        return He(e) || Ie(e) || be(e) || Ae();
     }
-    function Se(e) {
-        if (Array.isArray(e)) return Q(e);
+    function He(e) {
+        if (Array.isArray(e)) return j(e);
     }
     function Ie(e) {
         if (typeof Symbol != "undefined" && Symbol.iterator in Object(e)) return Array.from(e);
     }
-    function Ae(e, n) {
+    function be(e, n) {
         if (!e) return;
-        if (typeof e == "string") return Q(e, n);
+        if (typeof e == "string") return j(e, n);
         var t = Object.prototype.toString.call(e).slice(8, -1);
         if ((t === "Object" && e.constructor && (t = e.constructor.name), t === "Map" || t === "Set")) return Array.from(e);
-        if (t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)) return Q(e, n);
+        if (t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)) return j(e, n);
     }
-    function Q(e, n) {
+    function j(e, n) {
         (n == null || n > e.length) && (n = e.length);
         for(var t = 0, r = new Array(n); t < n; t++)r[t] = e[t];
         return r;
     }
-    function Ee() {
+    function Ae() {
         throw new TypeError(`Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
     }
-    var Te = Object.prototype.toString, q = new w;
-    q.useLongestToken = !0, q.tokenize = D.tokenize, q.castInput = function(e) {
+    var Ee = Object.prototype.toString, J = new h;
+    J.useLongestToken = !0, J.tokenize = U.tokenize, J.castInput = function(e) {
         var n = this.options, t = n.undefinedReplacement, r = n.stringifyReplacer, f = r === void 0 ? function(i, l) {
             return typeof l == "undefined" ? t : l;
         } : r;
-        return typeof e == "string" ? e : JSON.stringify(P(e, null, null, f), f, "  ");
-    }, q.equals = function(e, n) {
-        return w.prototype.equals.call(q, e.replace(/,([\r\n])/g, "$1"), n.replace(/,([\r\n])/g, "$1"));
+        return typeof e == "string" ? e : JSON.stringify(X(e, null, null, f), f, "  ");
+    }, J.equals = function(e, n) {
+        return h.prototype.equals.call(J, e.replace(/,([\r\n])/g, "$1"), n.replace(/,([\r\n])/g, "$1"));
     };
-    function be(e, n, t) {
-        return q.diff(e, n, t);
+    function Te(e, n, t) {
+        return J.diff(e, n, t);
     }
-    function P(e, n, t, r, f) {
+    function X(e, n, t, r, f) {
         n = n || [], t = t || [], r && (e = r(f, e));
         var i;
         for(i = 0; i < n.length; i += 1)if (n[i] === e) return t[i];
         var l;
-        if (Te.call(e) === "[object Array]") {
-            for((n.push(e), l = new Array(e.length), t.push(l), i = 0); i < e.length; i += 1)l[i] = P(e[i], n, t, r, f);
+        if (Ee.call(e) === "[object Array]") {
+            for((n.push(e), l = new Array(e.length), t.push(l), i = 0); i < e.length; i += 1)l[i] = X(e[i], n, t, r, f);
             return (n.pop(), t.pop(), l);
         }
-        if ((e && e.toJSON && (e = e.toJSON()), B(e) === "object" && e !== null)) {
+        if ((e && e.toJSON && (e = e.toJSON()), V(e) === "object" && e !== null)) {
             n.push(e), l = {
             }, t.push(l);
             var s = [], o;
             for(o in e)e.hasOwnProperty(o) && s.push(o);
-            for((s.sort(), i = 0); i < s.length; i += 1)o = s[i], l[o] = P(e[o], n, t, r, o);
+            for((s.sort(), i = 0); i < s.length; i += 1)o = s[i], l[o] = X(e[o], n, t, r, o);
             n.pop(), t.pop();
         } else l = e;
         return l;
     }
-    var U = new w;
-    U.tokenize = function(e) {
+    var Z = new h;
+    Z.tokenize = function(e) {
         return e.slice();
-    }, U.join = U.removeEmpty = function(e) {
+    }, Z.join = Z.removeEmpty = function(e) {
         return e;
     };
     function Oe(e, n, t) {
-        return U.diff(e, n, t);
+        return Z.diff(e, n, t);
     }
-    function V(e) {
+    function G(e) {
         var n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
         }, t = e.split(/\r\n|[\n\v\f\r\x85]/), r = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], f = [], i = 0;
         function l() {
@@ -386,8 +386,8 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         function s(u) {
             var p = /^(---|\+\+\+)\s+(.*)$/.exec(t[i]);
             if (p) {
-                var v = p[1] === "---" ? "old" : "new", a = p[2].split("	", 2), h = a[0].replace(/\\\\/g, "\\");
-                /^".*"$/.test(h) && (h = h.substr(1, h.length - 2)), u[v + "FileName"] = h, u[v + "Header"] = (a[1] || "").trim(), i++;
+                var v = p[1] === "---" ? "old" : "new", a = p[2].split("	", 2), w = a[0].replace(/\\\\/g, "\\");
+                /^".*"$/.test(w) && (w = w.substr(1, w.length - 2)), u[v + "FileName"] = w, u[v + "Header"] = (a[1] || "").trim(), i++;
             }
         }
         function o() {
@@ -400,13 +400,13 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
                 linedelimiters: []
             };
             a.oldLines === 0 && (a.oldStart += 1), a.newLines === 0 && (a.newStart += 1);
-            for(var h = 0, g = 0; i < t.length && !(t[i].indexOf("--- ") === 0 && i + 2 < t.length && t[i + 1].indexOf("+++ ") === 0 && t[i + 2].indexOf("@@") === 0); i++){
-                var d = t[i].length == 0 && i != t.length - 1 ? " " : t[i][0];
-                if (d === "+" || d === "-" || d === " " || d === "\\") a.lines.push(t[i]), a.linedelimiters.push(r[i] || `\n`), d === "+" ? h++ : d === "-" ? g++ : d === " " && (h++, g++);
+            for(var w = 0, g = 0; i < t.length && !(t[i].indexOf("--- ") === 0 && i + 2 < t.length && t[i + 1].indexOf("+++ ") === 0 && t[i + 2].indexOf("@@") === 0); i++){
+                var c = t[i].length == 0 && i != t.length - 1 ? " " : t[i][0];
+                if (c === "+" || c === "-" || c === " " || c === "\\") a.lines.push(t[i]), a.linedelimiters.push(r[i] || `\n`), c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
                 else break;
             }
-            if ((!h && a.newLines === 1 && (a.newLines = 0), !g && a.oldLines === 1 && (a.oldLines = 0), n.strict)) {
-                if (h !== a.newLines) throw new Error("Added line count did not match for hunk at line " + (u + 1));
+            if ((!w && a.newLines === 1 && (a.newLines = 0), !g && a.oldLines === 1 && (a.oldLines = 0), n.strict)) {
+                if (w !== a.newLines) throw new Error("Added line count did not match for hunk at line " + (u + 1));
                 if (g !== a.oldLines) throw new Error("Removed line count did not match for hunk at line " + (u + 1));
             }
             return a;
@@ -424,62 +424,62 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             if (!f) return (i || (r = !0), n <= e - l ? -l++ : (f = !0, s()));
         };
     }
-    function oe(e, n) {
+    function ue(e, n) {
         var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {
         };
-        if ((typeof n == "string" && (n = V(n)), Array.isArray(n))) {
+        if ((typeof n == "string" && (n = G(n)), Array.isArray(n))) {
             if (n.length > 1) throw new Error("applyPatch only works with a single input.");
             n = n[0];
         }
-        var r = e.split(/\r\n|[\n\v\f\r\x85]/), f = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], i = n.hunks, l = t.compareLine || function(ee, J, G, M) {
-            return J === M;
+        var r = e.split(/\r\n|[\n\v\f\r\x85]/), f = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], i = n.hunks, l = t.compareLine || function(re, D, K, C) {
+            return D === C;
         }, s = 0, o = t.fuzzFactor || 0, u = 0, p = 0, v, a;
-        function h(ee, J) {
-            for(var G = 0; G < ee.lines.length; G++){
-                var M = ee.lines[G], ne = M.length > 0 ? M[0] : " ", Xe = M.length > 0 ? M.substr(1) : M;
-                if (ne === " " || ne === "-") {
-                    if (!l(J + 1, r[J], ne, Xe) && (s++, s > o)) return !1;
-                    J++;
+        function w(re, D) {
+            for(var K = 0; K < re.lines.length; K++){
+                var C = re.lines[K], ie = C.length > 0 ? C[0] : " ", Xe = C.length > 0 ? C.substr(1) : C;
+                if (ie === " " || ie === "-") {
+                    if (!l(D + 1, r[D], ie, Xe) && (s++, s > o)) return !1;
+                    D++;
                 }
             }
             return !0;
         }
         for(var g = 0; g < i.length; g++){
-            for(var d = i[g], y = r.length - d.oldLines, x = 0, m = p + d.oldStart - 1, F = ze(m, u, y); x !== void 0; x = F())if (h(d, m + x)) {
-                d.offset = p += x;
+            for(var c = i[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N())if (w(c, m + F)) {
+                c.offset = p += F;
                 break;
             }
-            if (x === void 0) return !1;
-            u = d.offset + d.oldStart + d.oldLines;
+            if (F === void 0) return !1;
+            u = c.offset + c.oldStart + c.oldLines;
         }
-        for(var L = 0, I = 0; I < i.length; I++){
-            var N = i[I], A = N.oldStart + N.offset + L - 1;
-            L += N.newLines - N.oldLines;
-            for(var E = 0; E < N.lines.length; E++){
-                var T = N.lines[E], b = T.length > 0 ? T[0] : " ", Z = T.length > 0 ? T.substr(1) : T, k = N.linedelimiters[E];
-                if (b === " ") A++;
-                else if (b === "-") r.splice(A, 1), f.splice(A, 1);
-                else if (b === "+") r.splice(A, 0, Z), f.splice(A, 0, k), A++;
-                else if (b === "\\") {
-                    var $ = N.lines[E - 1] ? N.lines[E - 1][0] : null;
-                    $ === "+" ? v = !0 : $ === "-" && (a = !0);
+        for(var y = 0, A = 0; A < i.length; A++){
+            var I = i[A], E = I.oldStart + I.offset + y - 1;
+            y += I.newLines - I.oldLines;
+            for(var T = 0; T < I.lines.length; T++){
+                var O = I.lines[T], z = O.length > 0 ? O[0] : " ", Y = O.length > 0 ? O.substr(1) : O, te = I.linedelimiters[T];
+                if (z === " ") E++;
+                else if (z === "-") r.splice(E, 1), f.splice(E, 1);
+                else if (z === "+") r.splice(E, 0, Y), f.splice(E, 0, te), E++;
+                else if (z === "\\") {
+                    var R = I.lines[T - 1] ? I.lines[T - 1][0] : null;
+                    R === "+" ? v = !0 : R === "-" && (a = !0);
                 }
             }
         }
         if (v) for(; !r[r.length - 1];)r.pop(), f.pop();
         else a && (r.push(""), f.push(`\n`));
-        for(var W = 0; W < r.length - 1; W++)r[W] = r[W] + f[W];
+        for(var q = 0; q < r.length - 1; q++)r[q] = r[q] + f[q];
         return r.join("");
     }
     function We(e, n) {
-        typeof e == "string" && (e = V(e));
+        typeof e == "string" && (e = G(e));
         var t = 0;
         function r() {
             var f = e[t++];
             if (!f) return n.complete();
             n.loadFile(f, function(i, l) {
                 if (i) return n.complete(i);
-                var s = oe(l, f, n);
+                var s = ue(l, f, n);
                 n.patched(f, s, function(o) {
                     if (o) return n.complete(o);
                     r();
@@ -488,55 +488,55 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         }
         r();
     }
-    function Y(e, n, t, r, f, i, l) {
+    function _(e, n, t, r, f, i, l) {
         l || (l = {
         }), typeof l.context == "undefined" && (l.context = 4);
-        var s = fe(t, r, l);
+        var s = le(t, r, l);
         s.push({
             value: "",
             lines: []
         });
-        function o(x) {
-            return x.map(function(m) {
+        function o(F) {
+            return F.map(function(m) {
                 return " " + m;
             });
         }
-        for(var u = [], p = 0, v = 0, a = [], h = 1, g = 1, d = function(m) {
-            var F = s[m], L = F.lines || F.value.replace(/\n$/, "").split(`\n`);
-            if ((F.lines = L, F.added || F.removed)) {
-                var I;
+        for(var u = [], p = 0, v = 0, a = [], w = 1, g = 1, c = function(m) {
+            var N = s[m], y = N.lines || N.value.replace(/\n$/, "").split(`\n`);
+            if ((N.lines = y, N.added || N.removed)) {
+                var A;
                 if (!p) {
-                    var N = s[m - 1];
-                    p = h, v = g, N && (a = l.context > 0 ? o(N.lines.slice(-l.context)) : [], p -= a.length, v -= a.length);
+                    var I = s[m - 1];
+                    p = w, v = g, I && (a = l.context > 0 ? o(I.lines.slice(-l.context)) : [], p -= a.length, v -= a.length);
                 }
-                (I = a).push.apply(I, S(L.map(function(W) {
-                    return (F.added ? "+" : "-") + W;
-                }))), F.added ? g += L.length : h += L.length;
+                (A = a).push.apply(A, b(y.map(function(q) {
+                    return (N.added ? "+" : "-") + q;
+                }))), N.added ? g += y.length : w += y.length;
             } else {
                 if (p) {
-                    if (L.length <= l.context * 2 && m < s.length - 2) {
-                        var A;
-                        (A = a).push.apply(A, S(o(L)));
+                    if (y.length <= l.context * 2 && m < s.length - 2) {
+                        var E;
+                        (E = a).push.apply(E, b(o(y)));
                     } else {
-                        var E, T = Math.min(L.length, l.context);
-                        (E = a).push.apply(E, S(o(L.slice(0, T))));
-                        var b = {
+                        var T, O = Math.min(y.length, l.context);
+                        (T = a).push.apply(T, b(o(y.slice(0, O))));
+                        var z = {
                             oldStart: p,
-                            oldLines: h - p + T,
+                            oldLines: w - p + O,
                             newStart: v,
-                            newLines: g - v + T,
+                            newLines: g - v + O,
                             lines: a
                         };
-                        if (m >= s.length - 2 && L.length <= l.context) {
-                            var Z = /\n$/.test(t), k = /\n$/.test(r), $ = L.length == 0 && a.length > b.oldLines;
-                            !Z && $ && t.length > 0 && a.splice(b.oldLines, 0, "\\ No newline at end of file"), (!Z && !$ || !k) && a.push("\\ No newline at end of file");
+                        if (m >= s.length - 2 && y.length <= l.context) {
+                            var Y = /\n$/.test(t), te = /\n$/.test(r), R = y.length == 0 && a.length > z.oldLines;
+                            !Y && R && t.length > 0 && a.splice(z.oldLines, 0, "\\ No newline at end of file"), (!Y && !R || !te) && a.push("\\ No newline at end of file");
                         }
-                        u.push(b), p = 0, v = 0, a = [];
+                        u.push(z), p = 0, v = 0, a = [];
                     }
                 }
-                h += L.length, g += L.length;
+                w += y.length, g += y.length;
             }
-        }, y = 0; y < s.length; y++)d(y);
+        }, L = 0; L < s.length; L++)c(L);
         return {
             oldFileName: e,
             newFileName: n,
@@ -554,37 +554,37 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         }
         return n.join(`\n`) + `\n`;
     }
-    function ue(e, n, t, r, f, i, l) {
-        return Me(Y(e, n, t, r, f, i, l));
+    function ae(e, n, t, r, f, i, l) {
+        return Me(_(e, n, t, r, f, i, l));
     }
     function qe(e, n, t, r, f, i) {
-        return ue(e, e, n, t, r, f, i);
+        return ae(e, e, n, t, r, f, i);
     }
     function Ce(e, n) {
-        return e.length !== n.length ? !1 : K(e, n);
+        return e.length !== n.length ? !1 : k(e, n);
     }
-    function K(e, n) {
+    function k(e, n) {
         if (n.length > e.length) return !1;
         for(var t = 0; t < n.length; t++)if (n[t] !== e[t]) return !1;
         return !0;
     }
-    function $e(e) {
-        var n = _(e.lines), t = n.oldLines, r = n.newLines;
+    function Je(e) {
+        var n = ne(e.lines), t = n.oldLines, r = n.newLines;
         t !== void 0 ? e.oldLines = t : delete e.oldLines, r !== void 0 ? e.newLines = r : delete e.newLines;
     }
-    function Je(e, n, t) {
-        e = ae(e, t), n = ae(n, t);
+    function $e(e, n, t) {
+        e = de(e, t), n = de(n, t);
         var r = {
         };
-        (e.index || n.index) && (r.index = e.index || n.index), (e.newFileName || n.newFileName) && (de(e) ? de(n) ? (r.oldFileName = X(r, e.oldFileName, n.oldFileName), r.newFileName = X(r, e.newFileName, n.newFileName), r.oldHeader = X(r, e.oldHeader, n.oldHeader), r.newHeader = X(r, e.newHeader, n.newHeader)) : (r.oldFileName = e.oldFileName, r.newFileName = e.newFileName, r.oldHeader = e.oldHeader, r.newHeader = e.newHeader) : (r.oldFileName = n.oldFileName || e.oldFileName, r.newFileName = n.newFileName || e.newFileName, r.oldHeader = n.oldHeader || e.oldHeader, r.newHeader = n.newHeader || e.newHeader)), r.hunks = [];
+        (e.index || n.index) && (r.index = e.index || n.index), (e.newFileName || n.newFileName) && (ce(e) ? ce(n) ? (r.oldFileName = Q(r, e.oldFileName, n.oldFileName), r.newFileName = Q(r, e.newFileName, n.newFileName), r.oldHeader = Q(r, e.oldHeader, n.oldHeader), r.newHeader = Q(r, e.newHeader, n.newHeader)) : (r.oldFileName = e.oldFileName, r.newFileName = e.newFileName, r.oldHeader = e.oldHeader, r.newHeader = e.newHeader) : (r.oldFileName = n.oldFileName || e.oldFileName, r.newFileName = n.newFileName || e.newFileName, r.oldHeader = n.oldHeader || e.oldHeader, r.newHeader = n.newHeader || e.newHeader)), r.hunks = [];
         for(var f = 0, i = 0, l = 0, s = 0; f < e.hunks.length || i < n.hunks.length;){
             var o = e.hunks[f] || {
                 oldStart: Infinity
             }, u = n.hunks[i] || {
                 oldStart: Infinity
             };
-            if (ce(o, u)) r.hunks.push(pe(o, l)), f++, s += o.newLines - o.oldLines;
-            else if (ce(u, o)) r.hunks.push(pe(u, s)), i++, l += u.newLines - u.oldLines;
+            if (pe(o, u)) r.hunks.push(ve(o, l)), f++, s += o.newLines - o.oldLines;
+            else if (pe(u, o)) r.hunks.push(ve(u, s)), i++, l += u.newLines - u.oldLines;
             else {
                 var p = {
                     oldStart: Math.min(o.oldStart, u.oldStart),
@@ -598,27 +598,27 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         }
         return r;
     }
-    function ae(e, n) {
+    function de(e, n) {
         if (typeof e == "string") {
-            if (/^@@/m.test(e) || /^Index:/m.test(e)) return V(e)[0];
+            if (/^@@/m.test(e) || /^Index:/m.test(e)) return G(e)[0];
             if (!n) throw new Error("Must provide a base reference or pass in a patch");
-            return Y(void 0, void 0, n, e);
+            return _(void 0, void 0, n, e);
         }
         return e;
     }
-    function de(e) {
+    function ce(e) {
         return e.newFileName && e.newFileName !== e.oldFileName;
     }
-    function X(e, n, t) {
+    function Q(e, n, t) {
         return n === t ? n : (e.conflict = !0, {
             mine: n,
             theirs: t
         });
     }
-    function ce(e, n) {
+    function pe(e, n) {
         return e.oldStart < n.oldStart && e.oldStart + e.oldLines < n.oldStart;
     }
-    function pe(e, n) {
+    function ve(e, n) {
         return {
             oldStart: e.oldStart,
             oldLines: e.oldLines,
@@ -637,65 +637,65 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             lines: f,
             index: 0
         };
-        for((he(e, i, l), he(e, l, i)); i.index < i.lines.length && l.index < l.lines.length;){
+        for((we(e, i, l), we(e, l, i)); i.index < i.lines.length && l.index < l.lines.length;){
             var s = i.lines[i.index], o = l.lines[l.index];
             if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) De(e, i, l);
             else if (s[0] === "+" && o[0] === " ") {
                 var u;
-                (u = e.lines).push.apply(u, S(z(i)));
+                (u = e.lines).push.apply(u, b(M(i)));
             } else if (o[0] === "+" && s[0] === " ") {
                 var p;
-                (p = e.lines).push.apply(p, S(z(l)));
-            } else s[0] === "-" && o[0] === " " ? ve(e, i, l) : o[0] === "-" && s[0] === " " ? ve(e, l, i, !0) : s === o ? (e.lines.push(s), i.index++, l.index++) : j(e, z(i), z(l));
+                (p = e.lines).push.apply(p, b(M(l)));
+            } else s[0] === "-" && o[0] === " " ? he(e, i, l) : o[0] === "-" && s[0] === " " ? he(e, l, i, !0) : s === o ? (e.lines.push(s), i.index++, l.index++) : ee(e, M(i), M(l));
         }
-        we(e, i), we(e, l), $e(e);
+        ge(e, i), ge(e, l), Je(e);
     }
     function De(e, n, t) {
-        var r = z(n), f = z(t);
-        if (ge(r) && ge(f)) {
-            if (K(r, f) && Le(t, r, r.length - f.length)) {
+        var r = M(n), f = M(t);
+        if (ye(r) && ye(f)) {
+            if (k(r, f) && Le(t, r, r.length - f.length)) {
                 var i;
-                (i = e.lines).push.apply(i, S(r));
+                (i = e.lines).push.apply(i, b(r));
                 return;
-            } else if (K(f, r) && Le(n, f, f.length - r.length)) {
+            } else if (k(f, r) && Le(n, f, f.length - r.length)) {
                 var l;
-                (l = e.lines).push.apply(l, S(f));
+                (l = e.lines).push.apply(l, b(f));
                 return;
             }
         } else if (Ce(r, f)) {
             var s;
-            (s = e.lines).push.apply(s, S(r));
+            (s = e.lines).push.apply(s, b(r));
             return;
         }
-        j(e, r, f);
+        ee(e, r, f);
     }
-    function ve(e, n, t, r) {
-        var f = z(n), i = Be(t, f);
+    function he(e, n, t, r) {
+        var f = M(n), i = Be(t, f);
         if (i.merged) {
             var l;
-            (l = e.lines).push.apply(l, S(i.merged));
-        } else j(e, r ? i : f, r ? f : i);
+            (l = e.lines).push.apply(l, b(i.merged));
+        } else ee(e, r ? i : f, r ? f : i);
     }
-    function j(e, n, t) {
+    function ee(e, n, t) {
         e.conflict = !0, e.lines.push({
             conflict: !0,
             mine: n,
             theirs: t
         });
     }
-    function he(e, n, t) {
+    function we(e, n, t) {
         for(; n.offset < t.offset && n.index < n.lines.length;){
             var r = n.lines[n.index++];
             e.lines.push(r), n.offset++;
         }
     }
-    function we(e, n) {
+    function ge(e, n) {
         for(; n.index < n.lines.length;){
             var t = n.lines[n.index++];
             e.lines.push(t);
         }
     }
-    function z(e) {
+    function M(e) {
         for(var n = [], t = e.lines[e.index][0]; e.index < e.lines.length;){
             var r = e.lines[e.index];
             if ((t === "-" && r[0] === "+" && (t = "+"), t === r[0])) n.push(r), e.index++;
@@ -717,7 +717,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             changes: t
         };
     }
-    function ge(e) {
+    function ye(e) {
         return e.reduce(function(n, t) {
             return n && t[0] === "-";
         }, !0);
@@ -729,11 +729,11 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         }
         return (e.index += t, !0);
     }
-    function _(e) {
+    function ne(e) {
         var n = 0, t = 0;
         return (e.forEach(function(r) {
             if (typeof r != "string") {
-                var f = _(r.mine), i = _(r.theirs);
+                var f = ne(r.mine), i = ne(r.theirs);
                 n !== void 0 && (f.oldLines === i.oldLines ? n += f.oldLines : n = void 0), t !== void 0 && (f.newLines === i.newLines ? t += f.newLines : t = void 0);
             } else t !== void 0 && (r[0] === "+" || r[0] === " ") && t++, n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
         }), {
@@ -759,24 +759,49 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         var n = e;
         return (n = n.replace(/&/g, "&amp;"), n = n.replace(/</g, "&lt;"), n = n.replace(/>/g, "&gt;"), n = n.replace(/"/g, "&quot;"), n);
     }
-    c.Diff = w, c.applyPatch = oe, c.applyPatches = We, c.canonicalize = P, c.convertChangesToDMP = Pe, c.convertChangesToXML = Ue, c.createPatch = qe, c.createTwoFilesPatch = ue, c.diffArrays = Oe, c.diffChars = ye, c.diffCss = He, c.diffJson = be, c.diffLines = fe, c.diffSentences = Ne, c.diffTrimmedLines = Fe, c.diffWords = me, c.diffWordsWithSpace = xe, c.merge = Je, c.parsePatch = V, c.structuredPatch = Y, Object.defineProperty(c, "__esModule", {
+    d.Diff = h, d.applyPatch = ue, d.applyPatches = We, d.canonicalize = X, d.convertChangesToDMP = Pe, d.convertChangesToXML = Ue, d.createPatch = qe, d.createTwoFilesPatch = ae, d.diffArrays = Oe, d.diffChars = W, d.diffCss = Se, d.diffJson = Te, d.diffLines = le, d.diffSentences = Ne, d.diffTrimmedLines = Fe, d.diffWords = me, d.diffWordsWithSpace = xe, d.merge = $e, d.parsePatch = G, d.structuredPatch = _, Object.defineProperty(d, "__esModule", {
         value: !0
     });
 });
-async function Ze(c) {
-    const w = await crypto.subtle.digest("SHA-256", c), O = Array.from(new Uint8Array(w)), C = O.map((H)=>("00" + H.toString(16)).slice(-2)
+async function Ze(d) {
+    const h = await crypto.subtle.digest("SHA-256", d), x = Array.from(new Uint8Array(h)), H = x.map((S)=>("00" + S.toString(16)).slice(-2)
     ).join("");
-    return C;
+    return H;
 }
-async function Ge(c) {
-    const w = new TextEncoder().encode(c), O = await Ze(w);
-    return O.substr(0, 8);
+const isDiff = (d)=>{
+    if (d.length < 10) return !1;
+    const h = [
+        ...d.slice(0, 8)
+    ].filter((H)=>H < "0" || H > "f"
+    ).length === 0, x = d.slice(8);
+    if (h && x[0] === "[" && x[x.length - 1] === "]") {
+        try {
+            return JSON.parse(x).length > 1;
+        } catch  {
+            return !1;
+        }
+        return !0;
+    }
+    return !1;
+}, assemble = (d, h)=>{
+    const x = JSON.parse(h);
+    let H = d.slice(), S = "";
+    return x.forEach((W)=>{
+        if (Number(W) === W) {
+            const $ = Math.abs(W), B = H.slice(0, $);
+            H = H.slice($), W > 0 && (S += String(B));
+        } else S += String(W);
+    }), S;
+};
+async function Ge(d) {
+    const h = new TextEncoder().encode(d), x = await Ze(h);
+    return x.substr(0, 8);
 }
-const diff = async (c, w)=>{
-    const O = Ge(c), C = Diff.diffChars(c, w);
+const diff = async (d, h)=>{
+    const x = Ge(d), H = diffChars(d, h);
     return {
-        b: await O,
-        c: C.map((H)=>H.added ? H.value : H.removed ? -H.count : H.count
+        b: await x,
+        c: H.map((S)=>S.added ? S.value : S.removed ? -S.count : S.count
         )
     };
 };
@@ -873,10 +898,10 @@ async function arrBuffSha256(msgBuffer) {
     ).join("");
     return hashHex;
 }
-const document1 = window.document;
+const document = window.document;
 var ReactDOM = window.ReactDOM;
 const getUrl = ()=>{
-    if (document1.location.href.includes("zed.dev")) {
+    if (document.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
     }
     return "https://code.zed.vision";
@@ -890,11 +915,13 @@ let latestSavedCode = "";
 let latestGoodCode = "";
 let shareItAsHtml;
 const startMonaco = async ({ onChange , code , language  })=>{
+    if (typeof window === "undefined") return "";
+    const document1 = window.document;
     const container = window.document.getElementById("container");
     if (!container) {
-        const el = document.getElementById("container");
+        const el = document1.getElementById("container");
         el.id = "container";
-        document.body.appendChild(el);
+        document1.body.appendChild(el);
     }
     const modelUri = language === "typescript" ? "file:///main.tsx" : "file:///main.html";
     let aceEditor;
@@ -910,8 +937,8 @@ const startMonaco = async ({ onChange , code , language  })=>{
         aceEditor = window["ace"].edit("ace");
         aceEditor.getSession().setMode("ace/mode/typescript");
         const setThemeForAce = (wait)=>setTimeout(()=>{
-                let aceEditor1 = window["ace"].edit("ace");
-                let theme = aceEditor1.getTheme();
+                const aceEditor1 = window["ace"].edit("ace");
+                const theme = aceEditor1.getTheme();
                 if (theme !== "ace/theme/monokai ") {
                     aceEditor1.setOptions({
                         fontSize: "14pt"
@@ -988,7 +1015,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
         modules.editor.setValue(value);
         onChange(value);
     });
-    aceEditor && document.getElementById("container").replaceWith(document.getElementById("ace"));
+    aceEditor && document1.getElementById("container").replaceWith(document1.getElementById("ace"));
     modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
         noSuggestionDiagnostics: true,
         noSemanticValidation: true,
@@ -1269,39 +1296,6 @@ const getDB = async ()=>{
             db.createObjectStore("codeStore");
         }
     });
-    const isDiff = (str)=>{
-        if (str.length < 10) return false;
-        const isKey = [
-            ...str.slice(0, 8)
-        ].filter((x)=>x < 0 || x > "f"
-        ).length === 0;
-        const maybeInst = str.slice(8);
-        if (isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]") {
-            try {
-                return JSON.parse(maybeInst).length > 1;
-            } catch  {
-                return false;
-            }
-            return true;
-        }
-        return false;
-    };
-    const assemble = (oldValue, instructions)=>{
-        const instArr = JSON.parse(instructions);
-        let old = oldValue.slice();
-        let ret = "";
-        instArr.forEach((element)=>{
-            if (Number(element) === element) {
-                const absNum = Math.abs(element);
-                const currentString = old.slice(0, absNum);
-                old = old.slice(absNum);
-                if (element > 0) ret += String(currentString);
-            } else {
-                ret += String(element);
-            }
-        });
-        return ret;
-    };
     const dbObj = {
         async get (key, format = "string") {
             let data;
@@ -1424,7 +1418,7 @@ export async function run(mode = "window") {
         try {
             busy = 1;
             const err = await getErrors();
-            const errorDiv = document1.getElementById("error");
+            const errorDiv = document.getElementById("error");
             busy = 0;
             if (cd !== latestCode) {
                 return;
@@ -1505,7 +1499,7 @@ export async function run(mode = "window") {
             shareItAsHtml = async ()=>{
                 const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
                 const HTML = renderToString();
-                const css = Array.from(document1.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
+                const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
                 ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))
                 ).join("\n  ");
                 let bodyStylesFix;

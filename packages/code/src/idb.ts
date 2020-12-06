@@ -1,4 +1,4 @@
-import { diff } from "../../diff/diff.min.js";
+import { assemble, diff, isDiff } from "../../diff/diff.min.js";
 import { openDB } from "https://unpkg.com/idb@5.0.8?module";
 import { sha256 } from "./sha256.ts";
 
@@ -8,45 +8,6 @@ export const getDB = async () => {
       db.createObjectStore("codeStore");
     },
   });
-
-  const isDiff = (str) => {
-    if (str.length < 10) return false;
-    const isKey =
-      [...(str.slice(0, 8))].filter((x) => x < 0 || x > "f").length === 0;
-    const maybeInst = str.slice(8);
-
-    if (
-      isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]"
-    ) {
-      try {
-        return JSON.parse(maybeInst).length > 1;
-      } catch {
-        return false;
-      }
-      return true;
-    }
-
-    return false;
-  };
-
-  const assemble = (oldValue, instructions) => {
-    const instArr = JSON.parse(instructions);
-    let old = oldValue.slice();
-
-    let ret = "";
-
-    instArr.forEach((element) => {
-      if (Number(element) === element) {
-        const absNum = Math.abs(element);
-        const currentString = old.slice(0, absNum);
-        old = old.slice(absNum);
-        if (element > 0) ret += String(currentString);
-      } else {
-        ret += String(element);
-      }
-    });
-    return ret;
-  };
 
   const dbObj = {
     async get(key: string, format: "string" | "json" | "stream" = "string") {
