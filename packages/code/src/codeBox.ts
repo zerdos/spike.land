@@ -411,7 +411,7 @@ export async function run(mode = "window") {
           },
         );
 
-        const response = fetch(request);
+        // let response;
         const hash = await sha256(latestCode);
 
         try {
@@ -422,10 +422,14 @@ export async function run(mode = "window") {
             await codeDB.put(hash, latestCode);
             await codeDB.put("PROJECTNAME", hash);
             setQueryStringParameter("h", hash);
+
+            //const response = fetch(request);
           }
         } catch (e) {
         }
-        await response;
+
+        // lets not save now - we will save the diff only
+        // await response;
       };
 
       saveCode(latestCode);

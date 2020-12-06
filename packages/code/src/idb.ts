@@ -37,20 +37,32 @@ export const getDB = async () => {
       let prev;
 
       try {
-        const realKey = await dbObj.get(key);
-        if (realKey.length === 8) prev = await dbObj.get(realKey);
-        if (prev) {
-          //compressing the old value
-          const valVal = await dbObj.get(val);
-          // console.log(prev, valVal);
-          const diffObj = await diff(prev, valVal);
-          // console.log(JSON.stringify(diffObj));
-          const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-          if (prev.length > diffAsStr.length) {
-            (await dbPromise).put("codeStore", diffAsStr, val);
+        const oldKey = await dbObj.get(key);
+        // console.log(realKey);
+        if (oldKey.length === 8 && oldKey !== val) {
+          const actualValue = await dbObj.get(val);
+          const prevValue = await dbObj.get(oldKey);
+          const prevSha = await sha256(prevValue);
+
+          if (prevSha === oldKey) {
+            const diffObj = await diff(actualValue, prevValue);
+            const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+            (await dbPromise).put("codeStore", diffAsStr, prevSha);
           }
-          // console.log(diffAsStr);
         }
+
+        // if (prev) {
+        //   //compressing the old value
+        //   const valVal = await dbObj.get(val);
+        //   // console.log(prev, valVal);
+        //   const diffObj = await diff(prev, valVal);
+        //   // console.log(JSON.stringify(diffObj));
+        //   const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+        //   if (prev.length > diffAsStr.length) {
+        //     (await dbPromise).put("codeStore", diffAsStr, realKey);
+        //   }
+        //   // console.log(diffAsStr);
+        // }
       } catch {
         prev = "";
       }

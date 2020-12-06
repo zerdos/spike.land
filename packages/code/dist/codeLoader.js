@@ -111,13 +111,6 @@ const importScript = async (src)=>document.querySelector(`script[src="${src}"]`)
     })
 ;
 const starter = `import { useState } from "react";\nimport { motion } from "framer-motion";\nimport { css, Global } from "@emotion/react";;\n\nconst Slider = () => {\n  const [sliderValue, setSlider] = useState(64);\n\n  return <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          background: rgb(\${sliderValue},\${255-sliderValue},255);\n          overflow: overlay;\n        }  \n    \`}/>\n    <input max="128"\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${sliderValue*2},\${255-2*sliderValue},0); \n        outline: none; \n    \`} type="range"\n      value={sliderValue} step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <motion.p\n      animate={{ fontSize: sliderValue + \`px\` }}>\n      Example when the text gets bigger...\n    </motion.p>\n      <motion.p animate={{fontSize:128-sliderValue+"px"}}>\n        ...or smaller\n    </motion.p>\n  </>\n}\n\nexport default () => <>\n  <Slider />\n</>\n`;
-async function arrBuffSha256(msgBuffer) {
-    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
-    ).join("");
-    return hashHex;
-}
 (function(c, w) {
     typeof exports == "object" && typeof module != "undefined" ? w(exports) : typeof define == "function" && define.amd ? define([
         "exports"
@@ -873,6 +866,13 @@ function getMethod(target, prop) {
     cachedMethods.set(prop, method);
     return method;
 }
+async function arrBuffSha256(msgBuffer) {
+    const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
+    ).join("");
+    return hashHex;
+}
 var ReactDOM = window.ReactDOM;
 const getUrl = ()=>{
     if (document.location.href.includes("zed.dev")) {
@@ -1292,14 +1292,15 @@ const getDB = async ()=>{
         async put (key, val) {
             let prev;
             try {
-                const realKey = await dbObj.get(key);
-                if (realKey.length === 8) prev = await dbObj.get(realKey);
-                if (prev) {
-                    const valVal = await dbObj.get(val);
-                    const diffObj = await diff1(prev, valVal);
-                    const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-                    if (prev.length > diffAsStr.length) {
-                        (await dbPromise).put("codeStore", diffAsStr, val);
+                const oldKey = await dbObj.get(key);
+                if (oldKey.length === 8 && oldKey !== val) {
+                    const actualValue = await dbObj.get(val);
+                    const prevValue = await dbObj.get(oldKey);
+                    const prevSha = await sha256(prevValue);
+                    if (prevSha === oldKey) {
+                        const diffObj = await diff1(actualValue, prevValue);
+                        const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+                        (await dbPromise).put("codeStore", diffAsStr, prevSha);
                     }
                 }
             } catch  {
@@ -1494,7 +1495,6 @@ export async function run(mode = "window") {
                         "content-type": "text/plain;charset=UTF-8"
                     }
                 });
-                const response = fetch(request);
                 const hash = await sha256(latestCode1);
                 try {
                     const prevHash = await codeDB.get("PROJECTNAME");
@@ -1506,7 +1506,6 @@ export async function run(mode = "window") {
                     }
                 } catch (e) {
                 }
-                await response;
             };
             saveCode(latestCode);
         }
