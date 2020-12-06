@@ -17,13 +17,11 @@ interface SmartMonaco {
   (props: StartMonacoProps): Promise<ISmartMonacoEditor>;
 }
 
-
-
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language },
 ) => {
   if (typeof window === "undefined") return "";
-  
+
   const document = window.document;
   const container = window.document.getElementById("container");
 
