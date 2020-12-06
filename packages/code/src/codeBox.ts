@@ -27,14 +27,31 @@ export const getProjects = async () => {
   const codeDB = await getDB();
   const projects = await codeDB.get(uuid, "json");
 
-  if (!projects) {
+  if (!projects || !projects.list) {
     const projectId = v4.generate();
 
-    await codeDB.put(uuid, JSON.stringify([projectId]));
+    await codeDB.put(
+      uuid,
+      JSON.stringify({
+        list: [projectId],
+        [projectId]: {
+          created: Date.now(),
+          lastOpen: Date.now(),
+        },
+      }),
+    );
+
     return [projectId];
   }
 
-  return projects;
+  // const search = new URLSearchParams(window.location.search);
+
+  // const keyToLoad = search.get("h") || await db.get(projectName);
+  // if(keyToLoad){
+  //   projects.map(p=>codeDB.get())
+  // }
+
+  return projects.list;
 };
 
 interface Babel {

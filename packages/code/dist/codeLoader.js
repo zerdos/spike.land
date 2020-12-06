@@ -1745,16 +1745,22 @@ export const getProjects = async ()=>{
     const uuid = await getUserId();
     const codeDB = await getDB();
     const projects = await codeDB.get(uuid, "json");
-    if (!projects) {
+    if (!projects || !projects.list) {
         const projectId = mod.generate();
-        await codeDB.put(uuid, JSON.stringify([
-            projectId
-        ]));
+        await codeDB.put(uuid, JSON.stringify({
+            list: [
+                projectId
+            ],
+            [projectId]: {
+                created: Date.now(),
+                lastOpen: Date.now()
+            }
+        }));
         return [
             projectId
         ];
     }
-    return projects;
+    return projects.list;
 };
 async function getUserId() {
     const codeDB = await getDB();
