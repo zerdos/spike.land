@@ -80,7 +80,7 @@ let needToSave = false;
         const val = codeDB.get(hash);
 
         if (val) {
-          e.respondWith(new Respond(val);
+          e.respondWith(new Respond(val));
         }
       }
     }
