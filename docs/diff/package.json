@@ -7,7 +7,7 @@
     "sideEffects": false,
     "scripts": {
         "clean": "deno fmt .",
-        "build": "yarn clean && deno bundle diff.ts diff.js && yarn min",
+        "build": "yarn clean && deno bundle diff.ts diff.js --no-check && yarn min",
         "min": "yarn esbuild diff.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=diff.min.js"
     },
     "keywords": [
