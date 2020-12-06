@@ -173,14 +173,14 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/index.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
                 depend: [
                     "@emotion/cache"
                 ]
             },
             {
                 name: "@emotion/react/jsx-namespace.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/jsx-namespace.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -188,7 +188,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/css-prop.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/css-prop.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/css-prop.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -196,7 +196,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/helper.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/helper.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -204,7 +204,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/theming.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/theming.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"

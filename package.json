@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@babel/standalone": "7.12.9",
-    "@emotion/react": "11.1.1",
+    "@emotion/react": "11.1.2",
     "@emotion/styled": "11.0.0",
     "comlink": "4.3.0",
     "diff": "5.0.0",
@@ -44,7 +44,7 @@
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "csstype": "3.0.5",
-    "husky": "4.3.0",
+    "husky": "4.3.4",
     "lerna": "3.22.1",
     "popmotion": "9.0.1"
   }

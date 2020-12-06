@@ -1052,14 +1052,14 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/index.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
                 depend: [
                     "@emotion/cache"
                 ]
             },
             {
                 name: "@emotion/react/jsx-namespace.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/jsx-namespace.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -1067,7 +1067,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/css-prop.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/css-prop.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/css-prop.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -1075,7 +1075,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/helper.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/helper.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -1083,7 +1083,7 @@ const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "@emotion/react/theming.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.1/types/theming.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
                 depend: [
                     "@emotion/utils",
                     "csstype"
@@ -1476,7 +1476,7 @@ export async function run(mode = "window") {
                     motionDep = `<script crossorigin src="https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.js"></script>`;
                     motionScript = "const {motion} = Motion";
                 }
-                const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <head profile="http://www.w3.org/2005/10/profile">\n        <link rel="icon" \n              type="image/png"\n              href="https://zed.vision/favicon.ico">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.1/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n       const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n\n        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        </script>\n        </body>\n        </html>\n        `;
+                const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <head profile="http://www.w3.org/2005/10/profile">\n        <link rel="icon" \n              type="image/png"\n              href="https://zed.vision/favicon.ico">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n       const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n\n        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        </script>\n        </body>\n        </html>\n        `;
                 const iframeBlob = await createHTMLSourceBlob(iframe);
                 const link = await saveHtml(iframeBlob);
                 return link;
