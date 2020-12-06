@@ -377,6 +377,8 @@ export async function run(mode = "window") {
         const iframe = `<!DOCTYPE html>
         <html lang="en">
         <head>
+        <title>Generated with code.zed.vision</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <head profile="http://www.w3.org/2005/10/profile">
         <link rel="icon" 
