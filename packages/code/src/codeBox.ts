@@ -8,6 +8,7 @@ import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 import { sha256 } from "./sha256.ts";
 import { getDB } from "./idb.ts";
+import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
 
 const document = window.document;
 
@@ -27,8 +28,10 @@ export const getProjects = async () => {
   const projects = await codeDB.get(uuid, "json");
 
   if (!projects) {
-    await codeDB.put(uuid, JSON.stringify([]));
-    return [];
+    const projectId = v4.generate();
+
+    await codeDB.put(uuid, JSON.stringify([projectId]));
+    return [projectId];
   }
 
   return projects;
@@ -144,6 +147,8 @@ export async function run(mode = "window") {
   const codeDB = await getDB();
 
   const uuid = await getUserId();
+  const projects = await getProjects();
+  const projectName = projects[0];
 
   const example = await getCodeToLoad();
   restartCode(transpileCode(example));
@@ -414,12 +419,11 @@ export async function run(mode = "window") {
         const hash = await sha256(latestCode);
 
         try {
-          const prevHash = await codeDB.get("PROJECTNAME");
+          const prevHash = await codeDB.get(projectName);
 
           if (prevHash !== hash) {
-            console.log("now put");
             await codeDB.put(hash, latestCode);
-            await codeDB.put("PROJECTNAME", hash);
+            await codeDB.put(projectName, hash);
             setQueryStringParameter("h", hash);
 
             //const response = fetch(request);
@@ -441,7 +445,7 @@ export async function run(mode = "window") {
     const db = await getDB();
 
     const search = new URLSearchParams(window.location.search);
-    const keyToLoad = search.get("h") || await db.get("PROJECTNAME");
+    const keyToLoad = search.get("h") || await db.get(projectName);
 
     if (keyToLoad) {
       let code;
@@ -461,7 +465,7 @@ export async function run(mode = "window") {
         const shaHash = await sha256(starter);
 
         db.put(shaHash, starter);
-        await db.put("PROJECTNAME", shaHash);
+        await db.put(projectName, shaHash);
         return starter;
       }
 

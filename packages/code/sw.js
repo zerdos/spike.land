@@ -26,14 +26,12 @@
                     components: []
                 }
             ], a = this.extractCommon(v[0], t, n, 0);
-            if (v[0].newPos + 1 >= s && a + 1 >= o) {
-                return l([
-                    {
-                        value: this.join(t),
-                        count: t.length
-                    }
-                ]);
-            }
+            if (v[0].newPos + 1 >= s && a + 1 >= o) return l([
+                {
+                    value: this.join(t),
+                    count: t.length
+                }
+            ]);
             function w() {
                 for(var c = -1 * u; c <= u; c += 2){
                     var L = void 0, F = v[c - 1], m = v[c + 1], N = (m ? m.newPos : 0) - c;
@@ -43,25 +41,20 @@
                         v[c] = void 0;
                         continue;
                     }
-                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)), N = i.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) {
-                        return l(x(i, L.components, t, n, i.useLongestToken));
-                    }
+                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)), N = i.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) return l(x(i, L.components, t, n, i.useLongestToken));
                     v[c] = L;
                 }
                 u++;
             }
-            if (f) {
-                (function c() {
-                    setTimeout(function() {
-                        if (u > p) return f();
-                        w() || c();
-                    }, 0);
-                })();
-            } else {
-                for(; u <= p;){
-                    var g = w();
-                    if (g) return g;
-                }
+            if (f) (function c() {
+                setTimeout(function() {
+                    if (u > p) return f();
+                    w() || c();
+                }, 0);
+            })();
+            else for(; u <= p;){
+                var g = w();
+                if (g) return g;
             }
         },
         pushComponent: function(n, t, r) {
@@ -77,9 +70,7 @@
             });
         },
         extractCommon: function(n, t, r, f) {
-            for(var i = t.length, l = r.length, s = n.newPos, o = s - f, u = 0; s + 1 < i && o + 1 < l && this.equals(t[s + 1], r[o + 1]);){
-                s++, o++, u++;
-            }
+            for(var i = t.length, l = r.length, s = n.newPos, o = s - f, u = 0; s + 1 < i && o + 1 < l && this.equals(t[s + 1], r[o + 1]);)s++, o++, u++;
             return u && n.components.push({
                 count: u
             }), n.newPos = s, o;
@@ -129,7 +120,7 @@
             components: e.components.slice(0)
         };
     }
-    var S = new h();
+    var S = new h;
     function W(e, n, t) {
         return S.diff(e, n, t);
     }
@@ -138,13 +129,11 @@
         else if (e) for(var t in e)e.hasOwnProperty(t) && (n[t] = e[t]);
         return n;
     }
-    var B = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/, fe = /\S/, P = new h();
+    var B = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/, fe = /\S/, P = new h;
     P.equals = function(e, n) {
         return this.options.ignoreCase && (e = e.toLowerCase(), n = n.toLowerCase()), e === n || this.options.ignoreWhitespace && !fe.test(e) && !fe.test(n);
     }, P.tokenize = function(e) {
-        for(var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < n.length - 1; t++){
-            !n[t + 1] && n[t + 2] && B.test(n[t]) && B.test(n[t + 2]) && (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
-        }
+        for(var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < n.length - 1; t++)!n[t + 1] && n[t + 2] && B.test(n[t]) && B.test(n[t + 2]) && (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
         return n;
     };
     function me(e, n, t) {
@@ -155,7 +144,7 @@
     function xe(e, n, t) {
         return P.diff(e, n, t);
     }
-    var U = new h();
+    var U = new h;
     U.tokenize = function(e) {
         var n = [], t = e.split(/(\n|\r\n)/);
         t[t.length - 1] || t.pop();
@@ -174,14 +163,14 @@
         });
         return U.diff(e, n, r);
     }
-    var se = new h();
+    var se = new h;
     se.tokenize = function(e) {
         return e.split(/(\S.+?[.!?])(?=\s+|$)/);
     };
     function Ne(e, n, t) {
         return se.diff(e, n, t);
     }
-    var oe = new h();
+    var oe = new h;
     oe.tokenize = function(e) {
         return e.split(/([{}:;,]|\s+)/);
     };
@@ -202,20 +191,14 @@
         if (Array.isArray(e)) return j(e);
     }
     function Ie(e) {
-        if (typeof Symbol != "undefined" && Symbol.iterator in Object(e)) {
-            return Array.from(e);
-        }
+        if (typeof Symbol != "undefined" && Symbol.iterator in Object(e)) return Array.from(e);
     }
     function be(e, n) {
         if (!e) return;
         if (typeof e == "string") return j(e, n);
         var t = Object.prototype.toString.call(e).slice(8, -1);
-        if ((t === "Object" && e.constructor && (t = e.constructor.name), t === "Map" || t === "Set")) {
-            return Array.from(e);
-        }
-        if (t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)) {
-            return j(e, n);
-        }
+        if ((t === "Object" && e.constructor && (t = e.constructor.name), t === "Map" || t === "Set")) return Array.from(e);
+        if (t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)) return j(e, n);
     }
     function j(e, n) {
         (n == null || n > e.length) && (n = e.length);
@@ -225,7 +208,7 @@
     function Ae() {
         throw new TypeError(`Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
     }
-    var Ee = Object.prototype.toString, J = new h();
+    var Ee = Object.prototype.toString, J = new h;
     J.useLongestToken = !0, J.tokenize = U.tokenize, J.castInput = function(e) {
         var n = this.options, t = n.undefinedReplacement, r = n.stringifyReplacer, f = r === void 0 ? function(i, l) {
             return typeof l == "undefined" ? t : l;
@@ -243,9 +226,7 @@
         for(i = 0; i < n.length; i += 1)if (n[i] === e) return t[i];
         var l;
         if (Ee.call(e) === "[object Array]") {
-            for((n.push(e), l = new Array(e.length), t.push(l), i = 0); i < e.length; i += 1){
-                l[i] = X(e[i], n, t, r, f);
-            }
+            for((n.push(e), l = new Array(e.length), t.push(l), i = 0); i < e.length; i += 1)l[i] = X(e[i], n, t, r, f);
             return (n.pop(), t.pop(), l);
         }
         if ((e && e.toJSON && (e = e.toJSON()), V(e) === "object" && e !== null)) {
@@ -253,14 +234,12 @@
             }, t.push(l);
             var s = [], o;
             for(o in e)e.hasOwnProperty(o) && s.push(o);
-            for((s.sort(), i = 0); i < s.length; i += 1){
-                o = s[i], l[o] = X(e[o], n, t, r, o);
-            }
+            for((s.sort(), i = 0); i < s.length; i += 1)o = s[i], l[o] = X(e[o], n, t, r, o);
             n.pop(), t.pop();
         } else l = e;
         return l;
     }
-    var Z = new h();
+    var Z = new h;
     Z.tokenize = function(e) {
         return e.slice();
     }, Z.join = Z.removeEmpty = function(e) {
@@ -286,9 +265,7 @@
                 if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(a)) break;
                 if (/^@@/.test(a)) u.hunks.push(o());
                 else {
-                    if (a && n.strict) {
-                        throw new Error("Unknown line " + (i + 1) + " " + JSON.stringify(a));
-                    }
+                    if (a && n.strict) throw new Error("Unknown line " + (i + 1) + " " + JSON.stringify(a));
                     i++;
                 }
             }
@@ -312,17 +289,12 @@
             a.oldLines === 0 && (a.oldStart += 1), a.newLines === 0 && (a.newStart += 1);
             for(var w = 0, g = 0; i < t.length && !(t[i].indexOf("--- ") === 0 && i + 2 < t.length && t[i + 1].indexOf("+++ ") === 0 && t[i + 2].indexOf("@@") === 0); i++){
                 var c = t[i].length == 0 && i != t.length - 1 ? " " : t[i][0];
-                if (c === "+" || c === "-" || c === " " || c === "\\") {
-                    a.lines.push(t[i]), a.linedelimiters.push(r[i] || `\n`), c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
-                } else break;
+                if (c === "+" || c === "-" || c === " " || c === "\\") a.lines.push(t[i]), a.linedelimiters.push(r[i] || `\n`), c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
+                else break;
             }
             if ((!w && a.newLines === 1 && (a.newLines = 0), !g && a.oldLines === 1 && (a.oldLines = 0), n.strict)) {
-                if (w !== a.newLines) {
-                    throw new Error("Added line count did not match for hunk at line " + (u + 1));
-                }
-                if (g !== a.oldLines) {
-                    throw new Error("Removed line count did not match for hunk at line " + (u + 1));
-                }
+                if (w !== a.newLines) throw new Error("Added line count did not match for hunk at line " + (u + 1));
+                if (g !== a.oldLines) throw new Error("Removed line count did not match for hunk at line " + (u + 1));
             }
             return a;
         }
@@ -343,9 +315,7 @@
         var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {
         };
         if ((typeof n == "string" && (n = G(n)), Array.isArray(n))) {
-            if (n.length > 1) {
-                throw new Error("applyPatch only works with a single input.");
-            }
+            if (n.length > 1) throw new Error("applyPatch only works with a single input.");
             n = n[0];
         }
         var r = e.split(/\r\n|[\n\v\f\r\x85]/), f = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], i = n.hunks, l = t.compareLine || function(re, D, K, C) {
@@ -362,11 +332,9 @@
             return !0;
         }
         for(var g = 0; g < i.length; g++){
-            for(var c = i[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N()){
-                if (w(c, m + F)) {
-                    c.offset = p += F;
-                    break;
-                }
+            for(var c = i[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N())if (w(c, m + F)) {
+                c.offset = p += F;
+                break;
             }
             if (F === void 0) return !1;
             u = c.offset + c.oldStart + c.oldLines;
@@ -386,9 +354,7 @@
             }
         }
         if (v) for(; !r[r.length - 1];)r.pop(), f.pop();
-        else {
-            a && (r.push(""), f.push(`\n`));
-        }
+        else a && (r.push(""), f.push(`\n`));
         for(var q = 0; q < r.length - 1; q++)r[q] = r[q] + f[q];
         return r.join("");
     }
@@ -457,9 +423,7 @@
                 }
                 w += y.length, g += y.length;
             }
-        }, L = 0; L < s.length; L++){
-            c(L);
-        }
+        }, L = 0; L < s.length; L++)c(L);
         return {
             oldFileName: e,
             newFileName: n,
@@ -507,9 +471,8 @@
                 oldStart: Infinity
             };
             if (pe(o, u)) r.hunks.push(ve(o, l)), f++, s += o.newLines - o.oldLines;
-            else if (pe(u, o)) {
-                r.hunks.push(ve(u, s)), i++, l += u.newLines - u.oldLines;
-            } else {
+            else if (pe(u, o)) r.hunks.push(ve(u, s)), i++, l += u.newLines - u.oldLines;
+            else {
                 var p = {
                     oldStart: Math.min(o.oldStart, u.oldStart),
                     oldLines: 0,
@@ -525,9 +488,7 @@
     function de(e, n) {
         if (typeof e == "string") {
             if (/^@@/m.test(e) || /^Index:/m.test(e)) return G(e)[0];
-            if (!n) {
-                throw new Error("Must provide a base reference or pass in a patch");
-            }
+            if (!n) throw new Error("Must provide a base reference or pass in a patch");
             return _(void 0, void 0, n, e);
         }
         return e;
@@ -565,17 +526,14 @@
         };
         for((we(e, i, l), we(e, l, i)); i.index < i.lines.length && l.index < l.lines.length;){
             var s = i.lines[i.index], o = l.lines[l.index];
-            if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) {
-                De(e, i, l);
-            } else if (s[0] === "+" && o[0] === " ") {
+            if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) De(e, i, l);
+            else if (s[0] === "+" && o[0] === " ") {
                 var u;
                 (u = e.lines).push.apply(u, b(M(i)));
             } else if (o[0] === "+" && s[0] === " ") {
                 var p;
                 (p = e.lines).push.apply(p, b(M(l)));
-            } else {
-                s[0] === "-" && o[0] === " " ? he(e, i, l) : o[0] === "-" && s[0] === " " ? he(e, l, i, !0) : s === o ? (e.lines.push(s), i.index++, l.index++) : ee(e, M(i), M(l));
-            }
+            } else s[0] === "-" && o[0] === " " ? he(e, i, l) : o[0] === "-" && s[0] === " " ? he(e, l, i, !0) : s === o ? (e.lines.push(s), i.index++, l.index++) : ee(e, M(i), M(l));
         }
         ge(e, i), ge(e, l), Je(e);
     }
@@ -627,9 +585,8 @@
     function M(e) {
         for(var n = [], t = e.lines[e.index][0]; e.index < e.lines.length;){
             var r = e.lines[e.index];
-            if ((t === "-" && r[0] === "+" && (t = "+"), t === r[0])) {
-                n.push(r), e.index++;
-            } else break;
+            if ((t === "-" && r[0] === "+" && (t = "+"), t === r[0])) n.push(r), e.index++;
+            else break;
         }
         return n;
     }
@@ -637,11 +594,7 @@
         for(var t = [], r = [], f = 0, i = !1, l = !1; f < n.length && e.index < e.lines.length;){
             var s = e.lines[e.index], o = n[f];
             if (o[0] === "+") break;
-            if ((i = i || s[0] !== " ", r.push(o), f++, s[0] === "+")) {
-                for(l = !0; s[0] === "+";){
-                    t.push(s), s = e.lines[++e.index];
-                }
-            }
+            if ((i = i || s[0] !== " ", r.push(o), f++, s[0] === "+")) for(l = !0; s[0] === "+";)t.push(s), s = e.lines[++e.index];
             o.substr(1) === s.substr(1) ? (t.push(s), e.index++) : l = !0;
         }
         if (((n[f] || "")[0] === "+" && i && (l = !0), l)) return t;
@@ -669,21 +622,17 @@
             if (typeof r != "string") {
                 var f = ne(r.mine), i = ne(r.theirs);
                 n !== void 0 && (f.oldLines === i.oldLines ? n += f.oldLines : n = void 0), t !== void 0 && (f.newLines === i.newLines ? t += f.newLines : t = void 0);
-            } else {
-                t !== void 0 && (r[0] === "+" || r[0] === " ") && t++, n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
-            }
+            } else t !== void 0 && (r[0] === "+" || r[0] === " ") && t++, n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
         }), {
             oldLines: n,
             newLines: t
         });
     }
     function Pe(e) {
-        for(var n = [], t, r, f = 0; f < e.length; f++){
-            t = e[f], t.added ? r = 1 : t.removed ? r = -1 : r = 0, n.push([
-                r,
-                t.value
-            ]);
-        }
+        for(var n = [], t, r, f = 0; f < e.length; f++)t = e[f], t.added ? r = 1 : t.removed ? r = -1 : r = 0, n.push([
+            r,
+            t.value
+        ]);
         return n;
     }
     function Ue(e) {
@@ -974,7 +923,7 @@ const getDB = async ()=>{
         async get (key, format = "string") {
             let data;
             try {
-                data = (await dbPromise).get("codeStore", key);
+                data = await (await dbPromise).get("codeStore", key);
                 if (!data) return null;
             } catch (_) {
                 return null;

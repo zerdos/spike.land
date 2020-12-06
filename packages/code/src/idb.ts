@@ -13,7 +13,7 @@ export const getDB = async () => {
     async get(key: string, format: "string" | "json" | "stream" = "string") {
       let data;
       try {
-        data = (await dbPromise).get("codeStore", key);
+        data = await (await dbPromise).get("codeStore", key);
 
         if (!data) return null;
       } catch (_) {

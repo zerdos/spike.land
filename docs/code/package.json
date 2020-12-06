@@ -9,7 +9,7 @@
     "scripts": {
         "clean": "rm -rf dist && mkdir dist",
         "build:sw": "deno bundle src/sw.ts --no-check > sw.js",
-        "build": "yarn clean && deno fmt . && deno bundle src/codeBox.ts --no-check > dist/codeLoader.js  && yarn build:sw && yarn minify",
+        "build": "yarn clean && deno fmt src && deno bundle src/codeBox.ts --no-check > dist/codeLoader.js  && yarn build:sw && yarn minify",
         "minify": "yarn esbuild dist/codeLoader.js  --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [

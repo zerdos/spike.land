@@ -139,14 +139,12 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
                     components: []
                 }
             ], a = this.extractCommon(v[0], t, n, 0);
-            if (v[0].newPos + 1 >= s && a + 1 >= o) {
-                return l([
-                    {
-                        value: this.join(t),
-                        count: t.length
-                    }
-                ]);
-            }
+            if (v[0].newPos + 1 >= s && a + 1 >= o) return l([
+                {
+                    value: this.join(t),
+                    count: t.length
+                }
+            ]);
             function w() {
                 for(var c = -1 * u; c <= u; c += 2){
                     var L = void 0, F = v[c - 1], m = v[c + 1], N = (m ? m.newPos : 0) - c;
@@ -156,25 +154,20 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
                         v[c] = void 0;
                         continue;
                     }
-                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)), N = i.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) {
-                        return l(x(i, L.components, t, n, i.useLongestToken));
-                    }
+                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)), N = i.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) return l(x(i, L.components, t, n, i.useLongestToken));
                     v[c] = L;
                 }
                 u++;
             }
-            if (f) {
-                (function c() {
-                    setTimeout(function() {
-                        if (u > p) return f();
-                        w() || c();
-                    }, 0);
-                })();
-            } else {
-                for(; u <= p;){
-                    var g = w();
-                    if (g) return g;
-                }
+            if (f) (function c() {
+                setTimeout(function() {
+                    if (u > p) return f();
+                    w() || c();
+                }, 0);
+            })();
+            else for(; u <= p;){
+                var g = w();
+                if (g) return g;
             }
         },
         pushComponent: function(n, t, r) {
@@ -190,9 +183,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             });
         },
         extractCommon: function(n, t, r, f) {
-            for(var i = t.length, l = r.length, s = n.newPos, o = s - f, u = 0; s + 1 < i && o + 1 < l && this.equals(t[s + 1], r[o + 1]);){
-                s++, o++, u++;
-            }
+            for(var i = t.length, l = r.length, s = n.newPos, o = s - f, u = 0; s + 1 < i && o + 1 < l && this.equals(t[s + 1], r[o + 1]);)s++, o++, u++;
             return u && n.components.push({
                 count: u
             }), n.newPos = s, o;
@@ -242,7 +233,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             components: e.components.slice(0)
         };
     }
-    var S = new h();
+    var S = new h;
     function W(e, n, t) {
         return S.diff(e, n, t);
     }
@@ -251,13 +242,11 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         else if (e) for(var t in e)e.hasOwnProperty(t) && (n[t] = e[t]);
         return n;
     }
-    var B = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/, fe = /\S/, P = new h();
+    var B = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/, fe = /\S/, P = new h;
     P.equals = function(e, n) {
         return this.options.ignoreCase && (e = e.toLowerCase(), n = n.toLowerCase()), e === n || this.options.ignoreWhitespace && !fe.test(e) && !fe.test(n);
     }, P.tokenize = function(e) {
-        for(var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < n.length - 1; t++){
-            !n[t + 1] && n[t + 2] && B.test(n[t]) && B.test(n[t + 2]) && (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
-        }
+        for(var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < n.length - 1; t++)!n[t + 1] && n[t + 2] && B.test(n[t]) && B.test(n[t + 2]) && (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
         return n;
     };
     function me(e, n, t) {
@@ -268,7 +257,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
     function xe(e, n, t) {
         return P.diff(e, n, t);
     }
-    var U = new h();
+    var U = new h;
     U.tokenize = function(e) {
         var n = [], t = e.split(/(\n|\r\n)/);
         t[t.length - 1] || t.pop();
@@ -287,14 +276,14 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         });
         return U.diff(e, n, r);
     }
-    var se = new h();
+    var se = new h;
     se.tokenize = function(e) {
         return e.split(/(\S.+?[.!?])(?=\s+|$)/);
     };
     function Ne(e, n, t) {
         return se.diff(e, n, t);
     }
-    var oe = new h();
+    var oe = new h;
     oe.tokenize = function(e) {
         return e.split(/([{}:;,]|\s+)/);
     };
@@ -315,20 +304,14 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         if (Array.isArray(e)) return j(e);
     }
     function Ie(e) {
-        if (typeof Symbol != "undefined" && Symbol.iterator in Object(e)) {
-            return Array.from(e);
-        }
+        if (typeof Symbol != "undefined" && Symbol.iterator in Object(e)) return Array.from(e);
     }
     function be(e, n) {
         if (!e) return;
         if (typeof e == "string") return j(e, n);
         var t = Object.prototype.toString.call(e).slice(8, -1);
-        if ((t === "Object" && e.constructor && (t = e.constructor.name), t === "Map" || t === "Set")) {
-            return Array.from(e);
-        }
-        if (t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)) {
-            return j(e, n);
-        }
+        if ((t === "Object" && e.constructor && (t = e.constructor.name), t === "Map" || t === "Set")) return Array.from(e);
+        if (t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)) return j(e, n);
     }
     function j(e, n) {
         (n == null || n > e.length) && (n = e.length);
@@ -338,7 +321,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
     function Ae() {
         throw new TypeError(`Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
     }
-    var Ee = Object.prototype.toString, J = new h();
+    var Ee = Object.prototype.toString, J = new h;
     J.useLongestToken = !0, J.tokenize = U.tokenize, J.castInput = function(e) {
         var n = this.options, t = n.undefinedReplacement, r = n.stringifyReplacer, f = r === void 0 ? function(i, l) {
             return typeof l == "undefined" ? t : l;
@@ -356,9 +339,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         for(i = 0; i < n.length; i += 1)if (n[i] === e) return t[i];
         var l;
         if (Ee.call(e) === "[object Array]") {
-            for((n.push(e), l = new Array(e.length), t.push(l), i = 0); i < e.length; i += 1){
-                l[i] = X(e[i], n, t, r, f);
-            }
+            for((n.push(e), l = new Array(e.length), t.push(l), i = 0); i < e.length; i += 1)l[i] = X(e[i], n, t, r, f);
             return (n.pop(), t.pop(), l);
         }
         if ((e && e.toJSON && (e = e.toJSON()), V(e) === "object" && e !== null)) {
@@ -366,14 +347,12 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             }, t.push(l);
             var s = [], o;
             for(o in e)e.hasOwnProperty(o) && s.push(o);
-            for((s.sort(), i = 0); i < s.length; i += 1){
-                o = s[i], l[o] = X(e[o], n, t, r, o);
-            }
+            for((s.sort(), i = 0); i < s.length; i += 1)o = s[i], l[o] = X(e[o], n, t, r, o);
             n.pop(), t.pop();
         } else l = e;
         return l;
     }
-    var Z = new h();
+    var Z = new h;
     Z.tokenize = function(e) {
         return e.slice();
     }, Z.join = Z.removeEmpty = function(e) {
@@ -399,9 +378,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
                 if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(a)) break;
                 if (/^@@/.test(a)) u.hunks.push(o());
                 else {
-                    if (a && n.strict) {
-                        throw new Error("Unknown line " + (i + 1) + " " + JSON.stringify(a));
-                    }
+                    if (a && n.strict) throw new Error("Unknown line " + (i + 1) + " " + JSON.stringify(a));
                     i++;
                 }
             }
@@ -425,17 +402,12 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             a.oldLines === 0 && (a.oldStart += 1), a.newLines === 0 && (a.newStart += 1);
             for(var w = 0, g = 0; i < t.length && !(t[i].indexOf("--- ") === 0 && i + 2 < t.length && t[i + 1].indexOf("+++ ") === 0 && t[i + 2].indexOf("@@") === 0); i++){
                 var c = t[i].length == 0 && i != t.length - 1 ? " " : t[i][0];
-                if (c === "+" || c === "-" || c === " " || c === "\\") {
-                    a.lines.push(t[i]), a.linedelimiters.push(r[i] || `\n`), c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
-                } else break;
+                if (c === "+" || c === "-" || c === " " || c === "\\") a.lines.push(t[i]), a.linedelimiters.push(r[i] || `\n`), c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
+                else break;
             }
             if ((!w && a.newLines === 1 && (a.newLines = 0), !g && a.oldLines === 1 && (a.oldLines = 0), n.strict)) {
-                if (w !== a.newLines) {
-                    throw new Error("Added line count did not match for hunk at line " + (u + 1));
-                }
-                if (g !== a.oldLines) {
-                    throw new Error("Removed line count did not match for hunk at line " + (u + 1));
-                }
+                if (w !== a.newLines) throw new Error("Added line count did not match for hunk at line " + (u + 1));
+                if (g !== a.oldLines) throw new Error("Removed line count did not match for hunk at line " + (u + 1));
             }
             return a;
         }
@@ -456,9 +428,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {
         };
         if ((typeof n == "string" && (n = G(n)), Array.isArray(n))) {
-            if (n.length > 1) {
-                throw new Error("applyPatch only works with a single input.");
-            }
+            if (n.length > 1) throw new Error("applyPatch only works with a single input.");
             n = n[0];
         }
         var r = e.split(/\r\n|[\n\v\f\r\x85]/), f = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], i = n.hunks, l = t.compareLine || function(re, D, K, C) {
@@ -475,11 +445,9 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             return !0;
         }
         for(var g = 0; g < i.length; g++){
-            for(var c = i[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N()){
-                if (w(c, m + F)) {
-                    c.offset = p += F;
-                    break;
-                }
+            for(var c = i[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N())if (w(c, m + F)) {
+                c.offset = p += F;
+                break;
             }
             if (F === void 0) return !1;
             u = c.offset + c.oldStart + c.oldLines;
@@ -499,9 +467,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             }
         }
         if (v) for(; !r[r.length - 1];)r.pop(), f.pop();
-        else {
-            a && (r.push(""), f.push(`\n`));
-        }
+        else a && (r.push(""), f.push(`\n`));
         for(var q = 0; q < r.length - 1; q++)r[q] = r[q] + f[q];
         return r.join("");
     }
@@ -570,9 +536,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
                 }
                 w += y.length, g += y.length;
             }
-        }, L = 0; L < s.length; L++){
-            c(L);
-        }
+        }, L = 0; L < s.length; L++)c(L);
         return {
             oldFileName: e,
             newFileName: n,
@@ -620,9 +584,8 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
                 oldStart: Infinity
             };
             if (pe(o, u)) r.hunks.push(ve(o, l)), f++, s += o.newLines - o.oldLines;
-            else if (pe(u, o)) {
-                r.hunks.push(ve(u, s)), i++, l += u.newLines - u.oldLines;
-            } else {
+            else if (pe(u, o)) r.hunks.push(ve(u, s)), i++, l += u.newLines - u.oldLines;
+            else {
                 var p = {
                     oldStart: Math.min(o.oldStart, u.oldStart),
                     oldLines: 0,
@@ -638,9 +601,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
     function de(e, n) {
         if (typeof e == "string") {
             if (/^@@/m.test(e) || /^Index:/m.test(e)) return G(e)[0];
-            if (!n) {
-                throw new Error("Must provide a base reference or pass in a patch");
-            }
+            if (!n) throw new Error("Must provide a base reference or pass in a patch");
             return _(void 0, void 0, n, e);
         }
         return e;
@@ -678,17 +639,14 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         };
         for((we(e, i, l), we(e, l, i)); i.index < i.lines.length && l.index < l.lines.length;){
             var s = i.lines[i.index], o = l.lines[l.index];
-            if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) {
-                De(e, i, l);
-            } else if (s[0] === "+" && o[0] === " ") {
+            if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) De(e, i, l);
+            else if (s[0] === "+" && o[0] === " ") {
                 var u;
                 (u = e.lines).push.apply(u, b(M(i)));
             } else if (o[0] === "+" && s[0] === " ") {
                 var p;
                 (p = e.lines).push.apply(p, b(M(l)));
-            } else {
-                s[0] === "-" && o[0] === " " ? he(e, i, l) : o[0] === "-" && s[0] === " " ? he(e, l, i, !0) : s === o ? (e.lines.push(s), i.index++, l.index++) : ee(e, M(i), M(l));
-            }
+            } else s[0] === "-" && o[0] === " " ? he(e, i, l) : o[0] === "-" && s[0] === " " ? he(e, l, i, !0) : s === o ? (e.lines.push(s), i.index++, l.index++) : ee(e, M(i), M(l));
         }
         ge(e, i), ge(e, l), Je(e);
     }
@@ -740,9 +698,8 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
     function M(e) {
         for(var n = [], t = e.lines[e.index][0]; e.index < e.lines.length;){
             var r = e.lines[e.index];
-            if ((t === "-" && r[0] === "+" && (t = "+"), t === r[0])) {
-                n.push(r), e.index++;
-            } else break;
+            if ((t === "-" && r[0] === "+" && (t = "+"), t === r[0])) n.push(r), e.index++;
+            else break;
         }
         return n;
     }
@@ -750,11 +707,7 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
         for(var t = [], r = [], f = 0, i = !1, l = !1; f < n.length && e.index < e.lines.length;){
             var s = e.lines[e.index], o = n[f];
             if (o[0] === "+") break;
-            if ((i = i || s[0] !== " ", r.push(o), f++, s[0] === "+")) {
-                for(l = !0; s[0] === "+";){
-                    t.push(s), s = e.lines[++e.index];
-                }
-            }
+            if ((i = i || s[0] !== " ", r.push(o), f++, s[0] === "+")) for(l = !0; s[0] === "+";)t.push(s), s = e.lines[++e.index];
             o.substr(1) === s.substr(1) ? (t.push(s), e.index++) : l = !0;
         }
         if (((n[f] || "")[0] === "+" && i && (l = !0), l)) return t;
@@ -782,21 +735,17 @@ const starter = `import { useState } from "react";\nimport { motion } from "fram
             if (typeof r != "string") {
                 var f = ne(r.mine), i = ne(r.theirs);
                 n !== void 0 && (f.oldLines === i.oldLines ? n += f.oldLines : n = void 0), t !== void 0 && (f.newLines === i.newLines ? t += f.newLines : t = void 0);
-            } else {
-                t !== void 0 && (r[0] === "+" || r[0] === " ") && t++, n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
-            }
+            } else t !== void 0 && (r[0] === "+" || r[0] === " ") && t++, n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
         }), {
             oldLines: n,
             newLines: t
         });
     }
     function Pe(e) {
-        for(var n = [], t, r, f = 0; f < e.length; f++){
-            t = e[f], t.added ? r = 1 : t.removed ? r = -1 : r = 0, n.push([
-                r,
-                t.value
-            ]);
-        }
+        for(var n = [], t, r, f = 0; f < e.length; f++)t = e[f], t.added ? r = 1 : t.removed ? r = -1 : r = 0, n.push([
+            r,
+            t.value
+        ]);
         return n;
     }
     function Ue(e) {
@@ -949,6 +898,324 @@ async function arrBuffSha256(msgBuffer) {
     ).join("");
     return hashHex;
 }
+const HEX_CHARS = "0123456789abcdef".split("");
+const EXTRA = [
+    -2147483648,
+    8388608,
+    32768,
+    128
+];
+const SHIFT = [
+    24,
+    16,
+    8,
+    0
+];
+const blocks = [];
+class Sha1 {
+    #blocks;
+    #block;
+    #start;
+    #bytes;
+    #hBytes;
+    #finalized;
+    #hashed;
+    #h0=1732584193;
+    #h1=4023233417;
+    #h2=2562383102;
+    #h3=271733878;
+    #h4=3285377520;
+    #lastByteIndex=0;
+    constructor(sharedMemory1 = false){
+        this.init(sharedMemory1);
+    }
+    init(sharedMemory) {
+        if (sharedMemory) {
+            blocks[0] = blocks[16] = blocks[1] = blocks[2] = blocks[3] = blocks[4] = blocks[5] = blocks[6] = blocks[7] = blocks[8] = blocks[9] = blocks[10] = blocks[11] = blocks[12] = blocks[13] = blocks[14] = blocks[15] = 0;
+            this.#blocks = blocks;
+        } else {
+            this.#blocks = [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ];
+        }
+        this.#h0 = 1732584193;
+        this.#h1 = 4023233417;
+        this.#h2 = 2562383102;
+        this.#h3 = 271733878;
+        this.#h4 = 3285377520;
+        this.#block = this.#start = this.#bytes = this.#hBytes = 0;
+        this.#finalized = this.#hashed = false;
+    }
+    update(message) {
+        if (this.#finalized) {
+            return this;
+        }
+        let msg;
+        if (message instanceof ArrayBuffer) {
+            msg = new Uint8Array(message);
+        } else {
+            msg = message;
+        }
+        let index = 0;
+        const length = msg.length;
+        const blocks1 = this.#blocks;
+        while(index < length){
+            let i;
+            if (this.#hashed) {
+                this.#hashed = false;
+                blocks1[0] = this.#block;
+                blocks1[16] = blocks1[1] = blocks1[2] = blocks1[3] = blocks1[4] = blocks1[5] = blocks1[6] = blocks1[7] = blocks1[8] = blocks1[9] = blocks1[10] = blocks1[11] = blocks1[12] = blocks1[13] = blocks1[14] = blocks1[15] = 0;
+            }
+            if (typeof msg !== "string") {
+                for(i = this.#start; index < length && i < 64; ++index){
+                    blocks1[i >> 2] |= msg[index] << SHIFT[(i++) & 3];
+                }
+            } else {
+                for(i = this.#start; index < length && i < 64; ++index){
+                    let code = msg.charCodeAt(index);
+                    if (code < 128) {
+                        blocks1[i >> 2] |= code << SHIFT[(i++) & 3];
+                    } else if (code < 2048) {
+                        blocks1[i >> 2] |= (192 | code >> 6) << SHIFT[(i++) & 3];
+                        blocks1[i >> 2] |= (128 | code & 63) << SHIFT[(i++) & 3];
+                    } else if (code < 55296 || code >= 57344) {
+                        blocks1[i >> 2] |= (224 | code >> 12) << SHIFT[(i++) & 3];
+                        blocks1[i >> 2] |= (128 | code >> 6 & 63) << SHIFT[(i++) & 3];
+                        blocks1[i >> 2] |= (128 | code & 63) << SHIFT[(i++) & 3];
+                    } else {
+                        code = 65536 + ((code & 1023) << 10 | msg.charCodeAt(++index) & 1023);
+                        blocks1[i >> 2] |= (240 | code >> 18) << SHIFT[(i++) & 3];
+                        blocks1[i >> 2] |= (128 | code >> 12 & 63) << SHIFT[(i++) & 3];
+                        blocks1[i >> 2] |= (128 | code >> 6 & 63) << SHIFT[(i++) & 3];
+                        blocks1[i >> 2] |= (128 | code & 63) << SHIFT[(i++) & 3];
+                    }
+                }
+            }
+            this.#lastByteIndex = i;
+            this.#bytes += i - this.#start;
+            if (i >= 64) {
+                this.#block = blocks1[16];
+                this.#start = i - 64;
+                this.hash();
+                this.#hashed = true;
+            } else {
+                this.#start = i;
+            }
+        }
+        if (this.#bytes > 4294967295) {
+            this.#hBytes += this.#bytes / 4294967296 >>> 0;
+            this.#bytes = this.#bytes >>> 0;
+        }
+        return this;
+    }
+    finalize() {
+        if (this.#finalized) {
+            return;
+        }
+        this.#finalized = true;
+        const blocks1 = this.#blocks;
+        const i = this.#lastByteIndex;
+        blocks1[16] = this.#block;
+        blocks1[i >> 2] |= EXTRA[i & 3];
+        this.#block = blocks1[16];
+        if (i >= 56) {
+            if (!this.#hashed) {
+                this.hash();
+            }
+            blocks1[0] = this.#block;
+            blocks1[16] = blocks1[1] = blocks1[2] = blocks1[3] = blocks1[4] = blocks1[5] = blocks1[6] = blocks1[7] = blocks1[8] = blocks1[9] = blocks1[10] = blocks1[11] = blocks1[12] = blocks1[13] = blocks1[14] = blocks1[15] = 0;
+        }
+        blocks1[14] = this.#hBytes << 3 | this.#bytes >>> 29;
+        blocks1[15] = this.#bytes << 3;
+        this.hash();
+    }
+    hash() {
+        let a = this.#h0;
+        let b = this.#h1;
+        let c = this.#h2;
+        let d = this.#h3;
+        let e = this.#h4;
+        let f;
+        let j;
+        let t;
+        const blocks1 = this.#blocks;
+        for(j = 16; j < 80; ++j){
+            t = blocks1[j - 3] ^ blocks1[j - 8] ^ blocks1[j - 14] ^ blocks1[j - 16];
+            blocks1[j] = t << 1 | t >>> 31;
+        }
+        for(j = 0; j < 20; j += 5){
+            f = b & c | ~b & d;
+            t = a << 5 | a >>> 27;
+            e = t + f + e + 1518500249 + blocks1[j] >>> 0;
+            b = b << 30 | b >>> 2;
+            f = a & b | ~a & c;
+            t = e << 5 | e >>> 27;
+            d = t + f + d + 1518500249 + blocks1[j + 1] >>> 0;
+            a = a << 30 | a >>> 2;
+            f = e & a | ~e & b;
+            t = d << 5 | d >>> 27;
+            c = t + f + c + 1518500249 + blocks1[j + 2] >>> 0;
+            e = e << 30 | e >>> 2;
+            f = d & e | ~d & a;
+            t = c << 5 | c >>> 27;
+            b = t + f + b + 1518500249 + blocks1[j + 3] >>> 0;
+            d = d << 30 | d >>> 2;
+            f = c & d | ~c & e;
+            t = b << 5 | b >>> 27;
+            a = t + f + a + 1518500249 + blocks1[j + 4] >>> 0;
+            c = c << 30 | c >>> 2;
+        }
+        for(; j < 40; j += 5){
+            f = b ^ c ^ d;
+            t = a << 5 | a >>> 27;
+            e = t + f + e + 1859775393 + blocks1[j] >>> 0;
+            b = b << 30 | b >>> 2;
+            f = a ^ b ^ c;
+            t = e << 5 | e >>> 27;
+            d = t + f + d + 1859775393 + blocks1[j + 1] >>> 0;
+            a = a << 30 | a >>> 2;
+            f = e ^ a ^ b;
+            t = d << 5 | d >>> 27;
+            c = t + f + c + 1859775393 + blocks1[j + 2] >>> 0;
+            e = e << 30 | e >>> 2;
+            f = d ^ e ^ a;
+            t = c << 5 | c >>> 27;
+            b = t + f + b + 1859775393 + blocks1[j + 3] >>> 0;
+            d = d << 30 | d >>> 2;
+            f = c ^ d ^ e;
+            t = b << 5 | b >>> 27;
+            a = t + f + a + 1859775393 + blocks1[j + 4] >>> 0;
+            c = c << 30 | c >>> 2;
+        }
+        for(; j < 60; j += 5){
+            f = b & c | b & d | c & d;
+            t = a << 5 | a >>> 27;
+            e = t + f + e - 1894007588 + blocks1[j] >>> 0;
+            b = b << 30 | b >>> 2;
+            f = a & b | a & c | b & c;
+            t = e << 5 | e >>> 27;
+            d = t + f + d - 1894007588 + blocks1[j + 1] >>> 0;
+            a = a << 30 | a >>> 2;
+            f = e & a | e & b | a & b;
+            t = d << 5 | d >>> 27;
+            c = t + f + c - 1894007588 + blocks1[j + 2] >>> 0;
+            e = e << 30 | e >>> 2;
+            f = d & e | d & a | e & a;
+            t = c << 5 | c >>> 27;
+            b = t + f + b - 1894007588 + blocks1[j + 3] >>> 0;
+            d = d << 30 | d >>> 2;
+            f = c & d | c & e | d & e;
+            t = b << 5 | b >>> 27;
+            a = t + f + a - 1894007588 + blocks1[j + 4] >>> 0;
+            c = c << 30 | c >>> 2;
+        }
+        for(; j < 80; j += 5){
+            f = b ^ c ^ d;
+            t = a << 5 | a >>> 27;
+            e = t + f + e - 899497514 + blocks1[j] >>> 0;
+            b = b << 30 | b >>> 2;
+            f = a ^ b ^ c;
+            t = e << 5 | e >>> 27;
+            d = t + f + d - 899497514 + blocks1[j + 1] >>> 0;
+            a = a << 30 | a >>> 2;
+            f = e ^ a ^ b;
+            t = d << 5 | d >>> 27;
+            c = t + f + c - 899497514 + blocks1[j + 2] >>> 0;
+            e = e << 30 | e >>> 2;
+            f = d ^ e ^ a;
+            t = c << 5 | c >>> 27;
+            b = t + f + b - 899497514 + blocks1[j + 3] >>> 0;
+            d = d << 30 | d >>> 2;
+            f = c ^ d ^ e;
+            t = b << 5 | b >>> 27;
+            a = t + f + a - 899497514 + blocks1[j + 4] >>> 0;
+            c = c << 30 | c >>> 2;
+        }
+        this.#h0 = this.#h0 + a >>> 0;
+        this.#h1 = this.#h1 + b >>> 0;
+        this.#h2 = this.#h2 + c >>> 0;
+        this.#h3 = this.#h3 + d >>> 0;
+        this.#h4 = this.#h4 + e >>> 0;
+    }
+    hex() {
+        this.finalize();
+        const h0 = this.#h0;
+        const h1 = this.#h1;
+        const h2 = this.#h2;
+        const h3 = this.#h3;
+        const h4 = this.#h4;
+        return HEX_CHARS[h0 >> 28 & 15] + HEX_CHARS[h0 >> 24 & 15] + HEX_CHARS[h0 >> 20 & 15] + HEX_CHARS[h0 >> 16 & 15] + HEX_CHARS[h0 >> 12 & 15] + HEX_CHARS[h0 >> 8 & 15] + HEX_CHARS[h0 >> 4 & 15] + HEX_CHARS[h0 & 15] + HEX_CHARS[h1 >> 28 & 15] + HEX_CHARS[h1 >> 24 & 15] + HEX_CHARS[h1 >> 20 & 15] + HEX_CHARS[h1 >> 16 & 15] + HEX_CHARS[h1 >> 12 & 15] + HEX_CHARS[h1 >> 8 & 15] + HEX_CHARS[h1 >> 4 & 15] + HEX_CHARS[h1 & 15] + HEX_CHARS[h2 >> 28 & 15] + HEX_CHARS[h2 >> 24 & 15] + HEX_CHARS[h2 >> 20 & 15] + HEX_CHARS[h2 >> 16 & 15] + HEX_CHARS[h2 >> 12 & 15] + HEX_CHARS[h2 >> 8 & 15] + HEX_CHARS[h2 >> 4 & 15] + HEX_CHARS[h2 & 15] + HEX_CHARS[h3 >> 28 & 15] + HEX_CHARS[h3 >> 24 & 15] + HEX_CHARS[h3 >> 20 & 15] + HEX_CHARS[h3 >> 16 & 15] + HEX_CHARS[h3 >> 12 & 15] + HEX_CHARS[h3 >> 8 & 15] + HEX_CHARS[h3 >> 4 & 15] + HEX_CHARS[h3 & 15] + HEX_CHARS[h4 >> 28 & 15] + HEX_CHARS[h4 >> 24 & 15] + HEX_CHARS[h4 >> 20 & 15] + HEX_CHARS[h4 >> 16 & 15] + HEX_CHARS[h4 >> 12 & 15] + HEX_CHARS[h4 >> 8 & 15] + HEX_CHARS[h4 >> 4 & 15] + HEX_CHARS[h4 & 15];
+    }
+    toString() {
+        return this.hex();
+    }
+    digest() {
+        this.finalize();
+        const h0 = this.#h0;
+        const h1 = this.#h1;
+        const h2 = this.#h2;
+        const h3 = this.#h3;
+        const h4 = this.#h4;
+        return [
+            h0 >> 24 & 255,
+            h0 >> 16 & 255,
+            h0 >> 8 & 255,
+            h0 & 255,
+            h1 >> 24 & 255,
+            h1 >> 16 & 255,
+            h1 >> 8 & 255,
+            h1 & 255,
+            h2 >> 24 & 255,
+            h2 >> 16 & 255,
+            h2 >> 8 & 255,
+            h2 & 255,
+            h3 >> 24 & 255,
+            h3 >> 16 & 255,
+            h3 >> 8 & 255,
+            h3 & 255,
+            h4 >> 24 & 255,
+            h4 >> 16 & 255,
+            h4 >> 8 & 255,
+            h4 & 255, 
+        ];
+    }
+    array() {
+        return this.digest();
+    }
+    arrayBuffer() {
+        this.finalize();
+        const buffer = new ArrayBuffer(20);
+        const dataView = new DataView(buffer);
+        dataView.setUint32(0, this.#h0);
+        dataView.setUint32(4, this.#h1);
+        dataView.setUint32(8, this.#h2);
+        dataView.setUint32(12, this.#h3);
+        dataView.setUint32(16, this.#h4);
+        return buffer;
+    }
+}
+function assert(expr, msg = "") {
+    if (!expr) {
+        throw new DenoStdInternalError(msg);
+    }
+}
+const NIL_UUID = "00000000-0000-0000-0000-000000000000";
 const document = window.document;
 var ReactDOM = window.ReactDOM;
 const getUrl = ()=>{
@@ -965,6 +1232,49 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareItAsHtml;
+function bytesToUuid(bytes) {
+    const bits = [
+        ...bytes
+    ].map((bit)=>{
+        const s = bit.toString(16);
+        return bit < 16 ? "0" + s : s;
+    });
+    return [
+        ...bits.slice(0, 4),
+        "-",
+        ...bits.slice(4, 6),
+        "-",
+        ...bits.slice(6, 8),
+        "-",
+        ...bits.slice(8, 10),
+        "-",
+        ...bits.slice(10, 16), 
+    ].join("");
+}
+function uuidToBytes(uuid) {
+    const bytes = [];
+    uuid.replace(/[a-fA-F0-9]{2}/g, (hex)=>{
+        bytes.push(parseInt(hex, 16));
+        return "";
+    });
+    return bytes;
+}
+function stringToBytes(str) {
+    str = unescape(encodeURIComponent(str));
+    const bytes = new Array(str.length);
+    for(let i = 0; i < str.length; i++){
+        bytes[i] = str.charCodeAt(i);
+    }
+    return bytes;
+}
+function createBuffer(content) {
+    const arrayBuffer = new ArrayBuffer(content.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+    for(let i = 0; i < content.length; i++){
+        uint8Array[i] = content[i];
+    }
+    return arrayBuffer;
+}
 const startMonaco = async ({ onChange , code , language  })=>{
     if (typeof window === "undefined") return "";
     const document1 = window.document;
@@ -1225,6 +1535,22 @@ async function sha256(message) {
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
+const mod = function() {
+    const UUID_RE = new RegExp("^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", "i");
+    function validate(id) {
+        return UUID_RE.test(id);
+    }
+    function generate() {
+        const rnds = crypto.getRandomValues(new Uint8Array(16));
+        rnds[6] = rnds[6] & 15 | 64;
+        rnds[8] = rnds[8] & 63 | 128;
+        return bytesToUuid(rnds);
+    }
+    return {
+        validate,
+        generate
+    };
+}();
 function promisifyRequest(request) {
     const promise = new Promise((resolve, reject)=>{
         const unlisten = ()=>{
@@ -1351,7 +1677,7 @@ const getDB = async ()=>{
         async get (key, format = "string") {
             let data;
             try {
-                data = (await dbPromise).get("codeStore", key);
+                data = await (await dbPromise).get("codeStore", key);
                 if (!data) return null;
             } catch (_) {
                 return null;
@@ -1420,8 +1746,13 @@ export const getProjects = async ()=>{
     const codeDB = await getDB();
     const projects = await codeDB.get(uuid, "json");
     if (!projects) {
-        await codeDB.put(uuid, JSON.stringify([]));
-        return [];
+        const projectId = mod.generate();
+        await codeDB.put(uuid, JSON.stringify([
+            projectId
+        ]));
+        return [
+            projectId
+        ];
     }
     return projects;
 };
@@ -1453,6 +1784,8 @@ export async function run(mode = "window") {
     }
     const codeDB = await getDB();
     const uuid = await getUserId();
+    const projects = await getProjects();
+    const projectName = projects[0];
     const example = await getCodeToLoad();
     restartCode(transpileCode(example));
     latestGoodCode = example;
@@ -1585,11 +1918,10 @@ export async function run(mode = "window") {
                 });
                 const hash = await sha256(latestCode1);
                 try {
-                    const prevHash = await codeDB.get("PROJECTNAME");
+                    const prevHash = await codeDB.get(projectName);
                     if (prevHash !== hash) {
-                        console.log("now put");
                         await codeDB.put(hash, latestCode1);
-                        await codeDB.put("PROJECTNAME", hash);
+                        await codeDB.put(projectName, hash);
                         setQueryStringParameter("h", hash);
                     }
                 } catch (e) {
@@ -1604,7 +1936,7 @@ export async function run(mode = "window") {
     async function getCodeToLoad() {
         const db = await getDB();
         const search = new URLSearchParams(window.location.search);
-        const keyToLoad = search.get("h") || await db.get("PROJECTNAME");
+        const keyToLoad = search.get("h") || await db.get(projectName);
         if (keyToLoad) {
             let code;
             try {
@@ -1620,7 +1952,7 @@ export async function run(mode = "window") {
             } catch (e) {
                 const shaHash = await sha256(starter);
                 db.put(shaHash, starter);
-                await db.put("PROJECTNAME", shaHash);
+                await db.put(projectName, shaHash);
                 return starter;
             }
             return text;
