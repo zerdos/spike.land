@@ -9,6 +9,21 @@ export const getDB = async () => {
     },
   });
 
+  const isDiff = (str) => {
+    if (str.length < 10) return false;
+    const isKey =
+      [...str.slice(0, 8)].filter((x) => x < 0 || x > "f").length > 0;
+    const maybeInst = str.slice(8);
+
+    if (
+      isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]"
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   const dbObj = {
     async get(key: string, format: "string" | "json" | "stream" = "string") {
       let data;
