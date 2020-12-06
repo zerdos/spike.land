@@ -390,6 +390,7 @@ export async function run(mode = "window") {
         <title>${title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="Description" content="Generated with code.zed.vision">
         <head profile="http://www.w3.org/2005/10/profile">
         <link rel="icon" 
               type="image/png"
@@ -402,7 +403,6 @@ export async function run(mode = "window") {
         <body>
         <div id="root">
         ${HTML}
-        </div>
         <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
         ${motionDep}
         <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
@@ -419,6 +419,8 @@ export async function run(mode = "window") {
 
         ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
         </script>
+        </div>
+        
         </body>
         </html>
         `;

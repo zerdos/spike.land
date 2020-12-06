@@ -431,6 +431,14 @@ async function handleCloudRequest(request) {
     }
     if (request.method === "GET") {
         const hash = searchParams.get("h");
+        if (pathname === "/robots.txt") {
+            return new Response("User-agent: * Disallow: /", {
+                headers: {
+                    ...corsHeaders,
+                    "content-type": "text/html;charset=UTF-8"
+                }
+            });
+        }
         if (pathname === "/register") {
             const uuid = mod.generate();
             await USERS.put(uuid, JSON.stringify({
