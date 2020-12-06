@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
-  
+
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
@@ -18,15 +18,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   <style>
-
-    body{
+    body {
       overflow: hidden;
     }
 
-    
-    #container,  #ace {
+
+    #container,
+    #ace {
       background-color: #1e1e1e;
       min-width: 400px;
       min-height: 400px;
@@ -64,11 +64,15 @@
   <div id="error"></div>
   <div id="root"></div>
   <div id="ace"></div>
-  <!-- <script type="module">
+  <script type="module">
     if (navigator.serviceWorker) {
-        navigator.serviceWorker.register("sw.js");
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister()
+        }
+      });
     }
-  </script> -->
+  </script>
 
   <script type="module">
     // window["motion"] = window["Motion"].motion;
@@ -98,30 +102,30 @@
   </script>
   <script type="module">
 
-  const runner = async () => {
-    if (window.location.href.includes("zed.")) {
-      const { run } = await import("/code/dist/codeLoader.js");
-      run("editor");
-      return;
-    }
+    const runner = async () => {
+      if (window.location.href.includes("zed.")) {
+        const { run } = await import("/code/dist/codeLoader.js");
+        run("editor");
+        return;
+      }
 
-    if (window.location.href.includes("0.0.0.0")) {
-      const { run } = await import("/dist/codeLoader.js");
-      run("editor");
-      return;
-    }
+      if (window.location.href.includes("0.0.0.0")) {
+        const { run } = await import("/dist/codeLoader.js");
+        run("editor");
+        return;
+      }
 
-    try {
+      try {
         const { run } = await import("/code/dist/codeLoader.min.js");
         run("editor");
       } catch (e) {
-        const { run } = await import( "https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js" );
+        const { run } = await import("https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js");
         run("editor");
       }
-  }
-  
+    }
 
-  runner();
+
+    runner();
   </script>
 </body>
 

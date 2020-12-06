@@ -59,11 +59,15 @@
   <div id="error"></div>
   <div id="container"></div>
   <div id="ace"></div>
-  <!-- <script type="module">
+  <script type="module">
   if (navigator.serviceWorker) {
-      navigator.serviceWorker.register("sw.js");
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for(let registration of registrations) {
+        registration.unregister()
+      } 
+    });
   }
-  </script> -->
+  </script>
 
   <script type="module">
     // window["motion"] = window["Motion"].motion;
