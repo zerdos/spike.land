@@ -1,8 +1,4 @@
 import { config } from "https://deno.land/x/dotenv/mod.ts";
-//import { memo } from "react";
-// import { getHash } from "./maintenance.ts";
-// import { asyncLimit } from "./asyncLimit.js";
-// import {sha256} from "../sha256.ts"
 import { sha256 } from "./sha256.ts";
 import { keys } from "./data/keys.ts";
 const env = config();

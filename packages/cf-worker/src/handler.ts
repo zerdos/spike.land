@@ -1,5 +1,5 @@
 import { arrBuffSha256 } from "../../code/src/sha256.ts";
-import { v4 } from "@deno/std/uuid/mod.ts";
+import { v4 } from "uuid";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
@@ -65,7 +65,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
 
     if (pathname === "/register") {
-      const uuid = v4.generate();
+      const uuid = v4();
       await USERS.put(
         uuid,
         JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),

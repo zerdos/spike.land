@@ -1,5 +1,4 @@
-import { v4 } from "@deno/std/uuid/mod.ts";
-import { getKeys } from "./maintenance/maintenance.ts";
+import { v4 } from "uuid";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
@@ -27,7 +26,7 @@ export const getProjects = async () => {
   const projects = await codeDB.get(uuid, "json");
 
   if (!projects || !projects.list) {
-    const projectId = v4.generate();
+    const projectId = v4();
 
     await codeDB.put(
       uuid,

@@ -5,7 +5,6 @@ export async function sha256(message: string) {
 }
 
 export async function arrBuffSha256(msgBuffer: Uint8Array) {
-  //@ts-ignore
   const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
 

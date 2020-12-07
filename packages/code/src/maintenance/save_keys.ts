@@ -1,7 +1,5 @@
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 
-// import { getKeys } from "./maintenance.ts";
-
 // const env = config();
 
 // const hashes = {
