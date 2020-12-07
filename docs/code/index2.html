@@ -70,7 +70,7 @@
         for (let registration of registrations) {
           registration.unregister()
         }
-      });
+      }).then(() => navigator.serviceWorker.register('sw.js'))
     }
   </script>
 

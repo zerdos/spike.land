@@ -57,13 +57,12 @@
   <div id="container"></div>
   <div id="ace"></div>
   <script type="module">
-
     if (navigator.serviceWorker) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         for (let registration of registrations) {
           registration.unregister()
         }
-      });
+      }).then(() => navigator.serviceWorker.register('sw.js'))
     }
   </script>
 
