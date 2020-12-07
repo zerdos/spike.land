@@ -390,20 +390,28 @@ export async function run(mode = "window") {
         ${HTML}
         <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
         ${motionDep}
-        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>
         <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
-        <script type="module">
+        <script>
         Object.assign(window, emotionReact);
 
-       const styled = window["emotionStyled"];
+        const styled = window["emotionStyled"];
 
         let DefaultElement;
 
         ${code}
 
-        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
         </script>
+        document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+        <script>
+   
+        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+        console.log(DefaultElement);
+        
+        </script>
+
         </div>
         
         </body>
