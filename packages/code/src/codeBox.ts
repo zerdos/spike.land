@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import v4 from "uuid";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";

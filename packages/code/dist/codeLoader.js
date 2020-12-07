@@ -1,215 +1,42 @@
-!(function(r, e) {
-    "object" == typeof exports && "undefined" != typeof module ? e(exports) : "function" == typeof define && define.amd ? define([
-        "exports"
-    ], e) : e((r = "undefined" != typeof globalThis ? globalThis : r || self).uuid = {
-    });
-})(this, function(r) {
-    "use strict";
-    var e = "undefined" != typeof crypto && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || "undefined" != typeof msCrypto && "function" == typeof msCrypto.getRandomValues && msCrypto.getRandomValues.bind(msCrypto), n = new Uint8Array(16);
-    function t() {
-        if (!e) throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
-        return e(n);
+var getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
+var rnds8 = new Uint8Array(16);
+function rng() {
+    if (!getRandomValues) {
+        throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
     }
-    var o = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
-    function a(r1) {
-        return "string" == typeof r1 && o.test(r1);
+    return getRandomValues(rnds8);
+}
+const __default = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
+function validate(uuid) {
+    return typeof uuid === 'string' && __default.test(uuid);
+}
+var byteToHex = [];
+for(var i = 0; i < 256; ++i){
+    byteToHex.push((i + 256).toString(16).substr(1));
+}
+function stringify(arr) {
+    var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
+    if (!validate(uuid)) {
+        throw TypeError('Stringified UUID is invalid');
     }
-    for(var i1, u1, f = [], s = 0; s < 256; ++s)f.push((s + 256).toString(16).substr(1));
-    function c(r1) {
-        var e1 = arguments.length > 1 && (void 0) !== arguments[1] ? arguments[1] : 0, n1 = (f[r1[e1 + 0]] + f[r1[e1 + 1]] + f[r1[e1 + 2]] + f[r1[e1 + 3]] + "-" + f[r1[e1 + 4]] + f[r1[e1 + 5]] + "-" + f[r1[e1 + 6]] + f[r1[e1 + 7]] + "-" + f[r1[e1 + 8]] + f[r1[e1 + 9]] + "-" + f[r1[e1 + 10]] + f[r1[e1 + 11]] + f[r1[e1 + 12]] + f[r1[e1 + 13]] + f[r1[e1 + 14]] + f[r1[e1 + 15]]).toLowerCase();
-        if (!a(n1)) throw TypeError("Stringified UUID is invalid");
-        return n1;
-    }
-    var l = 0, d = 0;
-    function v(r1) {
-        if (!a(r1)) throw TypeError("Invalid UUID");
-        var e1, n1 = new Uint8Array(16);
-        return (n1[0] = (e1 = parseInt(r1.slice(0, 8), 16)) >>> 24, n1[1] = e1 >>> 16 & 255, n1[2] = e1 >>> 8 & 255, n1[3] = 255 & e1, n1[4] = (e1 = parseInt(r1.slice(9, 13), 16)) >>> 8, n1[5] = 255 & e1, n1[6] = (e1 = parseInt(r1.slice(14, 18), 16)) >>> 8, n1[7] = 255 & e1, n1[8] = (e1 = parseInt(r1.slice(19, 23), 16)) >>> 8, n1[9] = 255 & e1, n1[10] = (e1 = parseInt(r1.slice(24, 36), 16)) / 1099511627776 & 255, n1[11] = e1 / 4294967296 & 255, n1[12] = e1 >>> 24 & 255, n1[13] = e1 >>> 16 & 255, n1[14] = e1 >>> 8 & 255, n1[15] = 255 & e1, n1);
-    }
-    function p(r1, e1, n1) {
-        function t1(r2, t2, o1, a1) {
-            if (("string" == typeof r2 && (r2 = function(r3) {
-                r3 = unescape(encodeURIComponent(r3));
-                for(var e2 = [], n2 = 0; n2 < r3.length; ++n2)e2.push(r3.charCodeAt(n2));
-                return e2;
-            }(r2)), "string" == typeof t2 && (t2 = v(t2)), 16 !== t2.length)) throw TypeError("Namespace must be array-like (16 iterable integer values, 0-255)");
-            var i1 = new Uint8Array(16 + r2.length);
-            if ((i1.set(t2), i1.set(r2, t2.length), (i1 = n1(i1))[6] = 15 & i1[6] | e1, i1[8] = 63 & i1[8] | 128, o1)) {
-                a1 = a1 || 0;
-                for(var u1 = 0; u1 < 16; ++u1)o1[a1 + u1] = i1[u1];
-                return o1;
-            }
-            return c(i1);
+    return uuid;
+}
+function v4(options, buf, offset) {
+    options = options || {
+    };
+    var rnds = options.random || (options.rng || rng)();
+    rnds[6] = rnds[6] & 15 | 64;
+    rnds[8] = rnds[8] & 63 | 128;
+    if (buf) {
+        offset = offset || 0;
+        for(var i1 = 0; i1 < 16; ++i1){
+            buf[offset + i1] = rnds[i1];
         }
-        try {
-            t1.name = r1;
-        } catch (r) {
-        }
-        return (t1.DNS = "6ba7b810-9dad-11d1-80b4-00c04fd430c8", t1.URL = "6ba7b811-9dad-11d1-80b4-00c04fd430c8", t1);
+        return buf;
     }
-    function h(r1) {
-        return 14 + (r1 + 64 >>> 9 << 4) + 1;
-    }
-    function y(r1, e1) {
-        var n1 = (65535 & r1) + (65535 & e1);
-        return (r1 >> 16) + (e1 >> 16) + (n1 >> 16) << 16 | 65535 & n1;
-    }
-    function g(r1, e1, n1, t1, o1, a1) {
-        return y((i2 = y(y(e1, r1), y(t1, a1))) << (u2 = o1) | i2 >>> 32 - u2, n1);
-        var i2, u2;
-    }
-    function m(r1, e1, n1, t1, o1, a1, i2) {
-        return g(e1 & n1 | ~e1 & t1, r1, e1, o1, a1, i2);
-    }
-    function w(r1, e1, n1, t1, o1, a1, i2) {
-        return g(e1 & t1 | n1 & ~t1, r1, e1, o1, a1, i2);
-    }
-    function b(r1, e1, n1, t1, o1, a1, i2) {
-        return g(e1 ^ n1 ^ t1, r1, e1, o1, a1, i2);
-    }
-    function A(r1, e1, n1, t1, o1, a1, i2) {
-        return g(n1 ^ (e1 | ~t1), r1, e1, o1, a1, i2);
-    }
-    var U = p("v3", 48, function(r1) {
-        if ("string" == typeof r1) {
-            var e1 = unescape(encodeURIComponent(r1));
-            r1 = new Uint8Array(e1.length);
-            for(var n1 = 0; n1 < e1.length; ++n1)r1[n1] = e1.charCodeAt(n1);
-        }
-        return function(r2) {
-            for(var e1 = [], n1 = 32 * r2.length, t1 = "0123456789abcdef", o1 = 0; o1 < n1; o1 += 8){
-                var a1 = r2[o1 >> 5] >>> o1 % 32 & 255, i2 = parseInt(t1.charAt(a1 >>> 4 & 15) + t1.charAt(15 & a1), 16);
-                e1.push(i2);
-            }
-            return e1;
-        }(function(r2, e1) {
-            r2[e1 >> 5] |= 128 << e1 % 32, r2[h(e1) - 1] = e1;
-            for(var n1 = 1732584193, t1 = -271733879, o1 = -1732584194, a1 = 271733878, i2 = 0; i2 < r2.length; i2 += 16){
-                var u2 = n1, f1 = t1, s1 = o1, c1 = a1;
-                n1 = m(n1, t1, o1, a1, r2[i2], 7, -680876936), a1 = m(a1, n1, t1, o1, r2[i2 + 1], 12, -389564586), o1 = m(o1, a1, n1, t1, r2[i2 + 2], 17, 606105819), t1 = m(t1, o1, a1, n1, r2[i2 + 3], 22, -1044525330), n1 = m(n1, t1, o1, a1, r2[i2 + 4], 7, -176418897), a1 = m(a1, n1, t1, o1, r2[i2 + 5], 12, 1200080426), o1 = m(o1, a1, n1, t1, r2[i2 + 6], 17, -1473231341), t1 = m(t1, o1, a1, n1, r2[i2 + 7], 22, -45705983), n1 = m(n1, t1, o1, a1, r2[i2 + 8], 7, 1770035416), a1 = m(a1, n1, t1, o1, r2[i2 + 9], 12, -1958414417), o1 = m(o1, a1, n1, t1, r2[i2 + 10], 17, -42063), t1 = m(t1, o1, a1, n1, r2[i2 + 11], 22, -1990404162), n1 = m(n1, t1, o1, a1, r2[i2 + 12], 7, 1804603682), a1 = m(a1, n1, t1, o1, r2[i2 + 13], 12, -40341101), o1 = m(o1, a1, n1, t1, r2[i2 + 14], 17, -1502002290), n1 = w(n1, t1 = m(t1, o1, a1, n1, r2[i2 + 15], 22, 1236535329), o1, a1, r2[i2 + 1], 5, -165796510), a1 = w(a1, n1, t1, o1, r2[i2 + 6], 9, -1069501632), o1 = w(o1, a1, n1, t1, r2[i2 + 11], 14, 643717713), t1 = w(t1, o1, a1, n1, r2[i2], 20, -373897302), n1 = w(n1, t1, o1, a1, r2[i2 + 5], 5, -701558691), a1 = w(a1, n1, t1, o1, r2[i2 + 10], 9, 38016083), o1 = w(o1, a1, n1, t1, r2[i2 + 15], 14, -660478335), t1 = w(t1, o1, a1, n1, r2[i2 + 4], 20, -405537848), n1 = w(n1, t1, o1, a1, r2[i2 + 9], 5, 568446438), a1 = w(a1, n1, t1, o1, r2[i2 + 14], 9, -1019803690), o1 = w(o1, a1, n1, t1, r2[i2 + 3], 14, -187363961), t1 = w(t1, o1, a1, n1, r2[i2 + 8], 20, 1163531501), n1 = w(n1, t1, o1, a1, r2[i2 + 13], 5, -1444681467), a1 = w(a1, n1, t1, o1, r2[i2 + 2], 9, -51403784), o1 = w(o1, a1, n1, t1, r2[i2 + 7], 14, 1735328473), n1 = b(n1, t1 = w(t1, o1, a1, n1, r2[i2 + 12], 20, -1926607734), o1, a1, r2[i2 + 5], 4, -378558), a1 = b(a1, n1, t1, o1, r2[i2 + 8], 11, -2022574463), o1 = b(o1, a1, n1, t1, r2[i2 + 11], 16, 1839030562), t1 = b(t1, o1, a1, n1, r2[i2 + 14], 23, -35309556), n1 = b(n1, t1, o1, a1, r2[i2 + 1], 4, -1530992060), a1 = b(a1, n1, t1, o1, r2[i2 + 4], 11, 1272893353), o1 = b(o1, a1, n1, t1, r2[i2 + 7], 16, -155497632), t1 = b(t1, o1, a1, n1, r2[i2 + 10], 23, -1094730640), n1 = b(n1, t1, o1, a1, r2[i2 + 13], 4, 681279174), a1 = b(a1, n1, t1, o1, r2[i2], 11, -358537222), o1 = b(o1, a1, n1, t1, r2[i2 + 3], 16, -722521979), t1 = b(t1, o1, a1, n1, r2[i2 + 6], 23, 76029189), n1 = b(n1, t1, o1, a1, r2[i2 + 9], 4, -640364487), a1 = b(a1, n1, t1, o1, r2[i2 + 12], 11, -421815835), o1 = b(o1, a1, n1, t1, r2[i2 + 15], 16, 530742520), n1 = A(n1, t1 = b(t1, o1, a1, n1, r2[i2 + 2], 23, -995338651), o1, a1, r2[i2], 6, -198630844), a1 = A(a1, n1, t1, o1, r2[i2 + 7], 10, 1126891415), o1 = A(o1, a1, n1, t1, r2[i2 + 14], 15, -1416354905), t1 = A(t1, o1, a1, n1, r2[i2 + 5], 21, -57434055), n1 = A(n1, t1, o1, a1, r2[i2 + 12], 6, 1700485571), a1 = A(a1, n1, t1, o1, r2[i2 + 3], 10, -1894986606), o1 = A(o1, a1, n1, t1, r2[i2 + 10], 15, -1051523), t1 = A(t1, o1, a1, n1, r2[i2 + 1], 21, -2054922799), n1 = A(n1, t1, o1, a1, r2[i2 + 8], 6, 1873313359), a1 = A(a1, n1, t1, o1, r2[i2 + 15], 10, -30611744), o1 = A(o1, a1, n1, t1, r2[i2 + 6], 15, -1560198380), t1 = A(t1, o1, a1, n1, r2[i2 + 13], 21, 1309151649), n1 = A(n1, t1, o1, a1, r2[i2 + 4], 6, -145523070), a1 = A(a1, n1, t1, o1, r2[i2 + 11], 10, -1120210379), o1 = A(o1, a1, n1, t1, r2[i2 + 2], 15, 718787259), t1 = A(t1, o1, a1, n1, r2[i2 + 9], 21, -343485551), n1 = y(n1, u2), t1 = y(t1, f1), o1 = y(o1, s1), a1 = y(a1, c1);
-            }
-            return [
-                n1,
-                t1,
-                o1,
-                a1
-            ];
-        }(function(r2) {
-            if (0 === r2.length) return [];
-            for(var e1 = 8 * r2.length, n1 = new Uint32Array(h(e1)), t1 = 0; t1 < e1; t1 += 8)n1[t1 >> 5] |= (255 & r2[t1 / 8]) << t1 % 32;
-            return n1;
-        }(r1), 8 * r1.length));
-    });
-    function I(r1, e1, n1, t1) {
-        switch(r1){
-            case 0:
-                return e1 & n1 ^ ~e1 & t1;
-            case 1:
-                return e1 ^ n1 ^ t1;
-            case 2:
-                return e1 & n1 ^ e1 & t1 ^ n1 & t1;
-            case 3:
-                return e1 ^ n1 ^ t1;
-        }
-    }
-    function C(r1, e1) {
-        return r1 << e1 | r1 >>> 32 - e1;
-    }
-    var R = p("v5", 80, function(r1) {
-        var e1 = [
-            1518500249,
-            1859775393,
-            2400959708,
-            3395469782
-        ], n1 = [
-            1732584193,
-            4023233417,
-            2562383102,
-            271733878,
-            3285377520
-        ];
-        if ("string" == typeof r1) {
-            var t1 = unescape(encodeURIComponent(r1));
-            r1 = [];
-            for(var o1 = 0; o1 < t1.length; ++o1)r1.push(t1.charCodeAt(o1));
-        } else Array.isArray(r1) || (r1 = Array.prototype.slice.call(r1));
-        r1.push(128);
-        for(var a1 = r1.length / 4 + 2, i2 = Math.ceil(a1 / 16), u2 = new Array(i2), f1 = 0; f1 < i2; ++f1){
-            for(var s1 = new Uint32Array(16), c1 = 0; c1 < 16; ++c1)s1[c1] = r1[64 * f1 + 4 * c1] << 24 | r1[64 * f1 + 4 * c1 + 1] << 16 | r1[64 * f1 + 4 * c1 + 2] << 8 | r1[64 * f1 + 4 * c1 + 3];
-            u2[f1] = s1;
-        }
-        u2[i2 - 1][14] = 8 * (r1.length - 1) / Math.pow(2, 32), u2[i2 - 1][14] = Math.floor(u2[i2 - 1][14]), u2[i2 - 1][15] = 8 * (r1.length - 1) & 4294967295;
-        for(var l1 = 0; l1 < i2; ++l1){
-            for(var d1 = new Uint32Array(80), v1 = 0; v1 < 16; ++v1)d1[v1] = u2[l1][v1];
-            for(var p1 = 16; p1 < 80; ++p1)d1[p1] = C(d1[p1 - 3] ^ d1[p1 - 8] ^ d1[p1 - 14] ^ d1[p1 - 16], 1);
-            for(var h1 = n1[0], y1 = n1[1], g1 = n1[2], m1 = n1[3], w1 = n1[4], b1 = 0; b1 < 80; ++b1){
-                var A1 = Math.floor(b1 / 20), U1 = C(h1, 5) + I(A1, y1, g1, m1) + w1 + e1[A1] + d1[b1] >>> 0;
-                w1 = m1, m1 = g1, g1 = C(y1, 30) >>> 0, y1 = h1, h1 = U1;
-            }
-            n1[0] = n1[0] + h1 >>> 0, n1[1] = n1[1] + y1 >>> 0, n1[2] = n1[2] + g1 >>> 0, n1[3] = n1[3] + m1 >>> 0, n1[4] = n1[4] + w1 >>> 0;
-        }
-        return [
-            n1[0] >> 24 & 255,
-            n1[0] >> 16 & 255,
-            n1[0] >> 8 & 255,
-            255 & n1[0],
-            n1[1] >> 24 & 255,
-            n1[1] >> 16 & 255,
-            n1[1] >> 8 & 255,
-            255 & n1[1],
-            n1[2] >> 24 & 255,
-            n1[2] >> 16 & 255,
-            n1[2] >> 8 & 255,
-            255 & n1[2],
-            n1[3] >> 24 & 255,
-            n1[3] >> 16 & 255,
-            n1[3] >> 8 & 255,
-            255 & n1[3],
-            n1[4] >> 24 & 255,
-            n1[4] >> 16 & 255,
-            n1[4] >> 8 & 255,
-            255 & n1[4]
-        ];
-    });
-    r.NIL = "00000000-0000-0000-0000-000000000000", r.parse = v, r.stringify = c, r.v1 = function(r1, e1, n1) {
-        var o1 = e1 && n1 || 0, a1 = e1 || new Array(16), f1 = (r1 = r1 || {
-        }).node || i1, s1 = (void 0) !== r1.clockseq ? r1.clockseq : u1;
-        if (null == f1 || null == s1) {
-            var v1 = r1.random || (r1.rng || t)();
-            null == f1 && (f1 = i1 = [
-                1 | v1[0],
-                v1[1],
-                v1[2],
-                v1[3],
-                v1[4],
-                v1[5]
-            ]), null == s1 && (s1 = u1 = 16383 & (v1[6] << 8 | v1[7]));
-        }
-        var p1 = (void 0) !== r1.msecs ? r1.msecs : Date.now(), h1 = (void 0) !== r1.nsecs ? r1.nsecs : d + 1, y1 = p1 - l + (h1 - d) / 10000;
-        if (y1 < 0 && (void 0) === r1.clockseq && (s1 = s1 + 1 & 16383), (y1 < 0 || p1 > l) && (void 0) === r1.nsecs && (h1 = 0), h1 >= 10000) throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
-        l = p1, d = h1, u1 = s1;
-        var g1 = (10000 * (268435455 & (p1 += 12219292800000)) + h1) % 4294967296;
-        a1[o1++] = g1 >>> 24 & 255, a1[o1++] = g1 >>> 16 & 255, a1[o1++] = g1 >>> 8 & 255, a1[o1++] = 255 & g1;
-        var m1 = p1 / 4294967296 * 10000 & 268435455;
-        a1[o1++] = m1 >>> 8 & 255, a1[o1++] = 255 & m1, a1[o1++] = m1 >>> 24 & 15 | 16, a1[o1++] = m1 >>> 16 & 255, a1[o1++] = s1 >>> 8 | 128, a1[o1++] = 255 & s1;
-        for(var w1 = 0; w1 < 6; ++w1)a1[o1 + w1] = f1[w1];
-        return e1 || c(a1);
-    }, r.v3 = U, r.v4 = function(r1, e1, n1) {
-        var o1 = (r1 = r1 || {
-        }).random || (r1.rng || t)();
-        if (o1[6] = 15 & o1[6] | 64, o1[8] = 63 & o1[8] | 128, e1) {
-            n1 = n1 || 0;
-            for(var a1 = 0; a1 < 16; ++a1)e1[n1 + a1] = o1[a1];
-            return e1;
-        }
-        return c(o1);
-    }, r.v5 = R, r.validate = a, r.version = function(r1) {
-        if (!a(r1)) throw TypeError("Invalid UUID");
-        return parseInt(r1.substr(14, 1), 16);
-    }, Object.defineProperty(r, "__esModule", {
-        value: !0
-    });
-});
+    return stringify(rnds);
+}
 const renderDraggableWindow = (onShare)=>{
     const DraggableWindow = ()=>{
         return jsx(React.Fragment, null, jsx(motion.div, {
@@ -338,7 +165,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             }, f = r.callback;
             typeof r == "function" && (f = r, r = {
             }), this.options = r;
-            var i = this;
+            var i1 = this;
             function l(c) {
                 return f ? (setTimeout(function() {
                     f(void 0, c);
@@ -366,7 +193,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
                         v[c] = void 0;
                         continue;
                     }
-                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)), N = i.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) return l(x(i, L.components, t, n, i.useLongestToken));
+                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i1.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i1.pushComponent(L.components, !0, void 0)), N = i1.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) return l(x(i1, L.components, t, n, i1.useLongestToken));
                     v[c] = L;
                 }
                 u++;
@@ -395,7 +222,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             });
         },
         extractCommon: function(n, t, r, f) {
-            for(var i = t.length, l = r.length, s = n.newPos, o = s - f, u = 0; s + 1 < i && o + 1 < l && this.equals(t[s + 1], r[o + 1]);)s++, o++, u++;
+            for(var i1 = t.length, l = r.length, s = n.newPos, o = s - f, u = 0; s + 1 < i1 && o + 1 < l && this.equals(t[s + 1], r[o + 1]);)s++, o++, u++;
             return u && n.components.push({
                 count: u
             }), n.newPos = s, o;
@@ -418,12 +245,12 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         }
     };
     function x(e, n, t, r, f) {
-        for(var i = 0, l = n.length, s = 0, o = 0; i < l; i++){
-            var u = n[i];
+        for(var i1 = 0, l = n.length, s = 0, o = 0; i1 < l; i1++){
+            var u = n[i1];
             if (u.removed) {
-                if ((u.value = e.join(r.slice(o, o + u.count)), o += u.count, i && n[i - 1].added)) {
-                    var v = n[i - 1];
-                    n[i - 1] = n[i], n[i] = v;
+                if ((u.value = e.join(r.slice(o, o + u.count)), o += u.count, i1 && n[i1 - 1].added)) {
+                    var v = n[i1 - 1];
+                    n[i1 - 1] = n[i1], n[i1] = v;
                 }
             } else {
                 if (!u.added && f) {
@@ -535,7 +362,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
     }
     var Ee = Object.prototype.toString, J = new h;
     J.useLongestToken = !0, J.tokenize = U.tokenize, J.castInput = function(e) {
-        var n = this.options, t = n.undefinedReplacement, r = n.stringifyReplacer, f = r === void 0 ? function(i, l) {
+        var n = this.options, t = n.undefinedReplacement, r = n.stringifyReplacer, f = r === void 0 ? function(i1, l) {
             return typeof l == "undefined" ? t : l;
         } : r;
         return typeof e == "string" ? e : JSON.stringify(X(e, null, null, f), f, "  ");
@@ -547,11 +374,11 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
     }
     function X(e, n, t, r, f) {
         n = n || [], t = t || [], r && (e = r(f, e));
-        var i;
-        for(i = 0; i < n.length; i += 1)if (n[i] === e) return t[i];
+        var i1;
+        for(i1 = 0; i1 < n.length; i1 += 1)if (n[i1] === e) return t[i1];
         var l;
         if (Ee.call(e) === "[object Array]") {
-            for((n.push(e), l = new Array(e.length), t.push(l), i = 0); i < e.length; i += 1)l[i] = X(e[i], n, t, r, f);
+            for((n.push(e), l = new Array(e.length), t.push(l), i1 = 0); i1 < e.length; i1 += 1)l[i1] = X(e[i1], n, t, r, f);
             return (n.pop(), t.pop(), l);
         }
         if ((e && e.toJSON && (e = e.toJSON()), V(e) === "object" && e !== null)) {
@@ -559,7 +386,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             }, t.push(l);
             var s = [], o;
             for(o in e)e.hasOwnProperty(o) && s.push(o);
-            for((s.sort(), i = 0); i < s.length; i += 1)o = s[i], l[o] = X(e[o], n, t, r, o);
+            for((s.sort(), i1 = 0); i1 < s.length; i1 += 1)o = s[i1], l[o] = X(e[o], n, t, r, o);
             n.pop(), t.pop();
         } else l = e;
         return l;
@@ -575,35 +402,35 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
     }
     function G(e) {
         var n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {
-        }, t = e.split(/\r\n|[\n\v\f\r\x85]/), r = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], f = [], i = 0;
+        }, t = e.split(/\r\n|[\n\v\f\r\x85]/), r = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], f = [], i1 = 0;
         function l() {
             var u = {
             };
-            for(f.push(u); i < t.length;){
-                var p = t[i];
+            for(f.push(u); i1 < t.length;){
+                var p = t[i1];
                 if (/^(\-\-\-|\+\+\+|@@)\s/.test(p)) break;
                 var v = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(p);
-                v && (u.index = v[1]), i++;
+                v && (u.index = v[1]), i1++;
             }
-            for((s(u), s(u), u.hunks = []); i < t.length;){
-                var a = t[i];
+            for((s(u), s(u), u.hunks = []); i1 < t.length;){
+                var a = t[i1];
                 if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(a)) break;
                 if (/^@@/.test(a)) u.hunks.push(o());
                 else {
-                    if (a && n.strict) throw new Error("Unknown line " + (i + 1) + " " + JSON.stringify(a));
-                    i++;
+                    if (a && n.strict) throw new Error("Unknown line " + (i1 + 1) + " " + JSON.stringify(a));
+                    i1++;
                 }
             }
         }
         function s(u) {
-            var p = /^(---|\+\+\+)\s+(.*)$/.exec(t[i]);
+            var p = /^(---|\+\+\+)\s+(.*)$/.exec(t[i1]);
             if (p) {
                 var v = p[1] === "---" ? "old" : "new", a = p[2].split("	", 2), w = a[0].replace(/\\\\/g, "\\");
-                /^".*"$/.test(w) && (w = w.substr(1, w.length - 2)), u[v + "FileName"] = w, u[v + "Header"] = (a[1] || "").trim(), i++;
+                /^".*"$/.test(w) && (w = w.substr(1, w.length - 2)), u[v + "FileName"] = w, u[v + "Header"] = (a[1] || "").trim(), i1++;
             }
         }
         function o() {
-            var u = i, p = t[i++], v = p.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/), a = {
+            var u = i1, p = t[i1++], v = p.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/), a = {
                 oldStart: +v[1],
                 oldLines: typeof v[2] == "undefined" ? 1 : +v[2],
                 newStart: +v[3],
@@ -612,9 +439,9 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
                 linedelimiters: []
             };
             a.oldLines === 0 && (a.oldStart += 1), a.newLines === 0 && (a.newStart += 1);
-            for(var w = 0, g = 0; i < t.length && !(t[i].indexOf("--- ") === 0 && i + 2 < t.length && t[i + 1].indexOf("+++ ") === 0 && t[i + 2].indexOf("@@") === 0); i++){
-                var c = t[i].length == 0 && i != t.length - 1 ? " " : t[i][0];
-                if (c === "+" || c === "-" || c === " " || c === "\\") a.lines.push(t[i]), a.linedelimiters.push(r[i] || `\n`), c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
+            for(var w = 0, g = 0; i1 < t.length && !(t[i1].indexOf("--- ") === 0 && i1 + 2 < t.length && t[i1 + 1].indexOf("+++ ") === 0 && t[i1 + 2].indexOf("@@") === 0); i1++){
+                var c = t[i1].length == 0 && i1 != t.length - 1 ? " " : t[i1][0];
+                if (c === "+" || c === "-" || c === " " || c === "\\") a.lines.push(t[i1]), a.linedelimiters.push(r[i1] || `\n`), c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
                 else break;
             }
             if ((!w && a.newLines === 1 && (a.newLines = 0), !g && a.oldLines === 1 && (a.oldLines = 0), n.strict)) {
@@ -623,17 +450,17 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             }
             return a;
         }
-        for(; i < t.length;)l();
+        for(; i1 < t.length;)l();
         return f;
     }
     function ze(e, n, t) {
-        var r = !0, f = !1, i = !1, l = 1;
+        var r = !0, f = !1, i1 = !1, l = 1;
         return function s() {
-            if (r && !i) {
+            if (r && !i1) {
                 if ((f ? l++ : r = !1, e + l <= t)) return l;
-                i = !0;
+                i1 = !0;
             }
-            if (!f) return (i || (r = !0), n <= e - l ? -l++ : (f = !0, s()));
+            if (!f) return (i1 || (r = !0), n <= e - l ? -l++ : (f = !0, s()));
         };
     }
     function ue(e, n) {
@@ -643,7 +470,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             if (n.length > 1) throw new Error("applyPatch only works with a single input.");
             n = n[0];
         }
-        var r = e.split(/\r\n|[\n\v\f\r\x85]/), f = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], i = n.hunks, l = t.compareLine || function(re, D, K, C) {
+        var r = e.split(/\r\n|[\n\v\f\r\x85]/), f = e.match(/\r\n|[\n\v\f\r\x85]/g) || [], i1 = n.hunks, l = t.compareLine || function(re, D, K, C) {
             return D === C;
         }, s = 0, o = t.fuzzFactor || 0, u = 0, p = 0, v, a;
         function w(re, D) {
@@ -656,16 +483,16 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             }
             return !0;
         }
-        for(var g = 0; g < i.length; g++){
-            for(var c = i[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N())if (w(c, m + F)) {
+        for(var g = 0; g < i1.length; g++){
+            for(var c = i1[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N())if (w(c, m + F)) {
                 c.offset = p += F;
                 break;
             }
             if (F === void 0) return !1;
             u = c.offset + c.oldStart + c.oldLines;
         }
-        for(var y = 0, A = 0; A < i.length; A++){
-            var I = i[A], E = I.oldStart + I.offset + y - 1;
+        for(var y = 0, A = 0; A < i1.length; A++){
+            var I = i1[A], E = I.oldStart + I.offset + y - 1;
             y += I.newLines - I.oldLines;
             for(var T = 0; T < I.lines.length; T++){
                 var O = I.lines[T], z = O.length > 0 ? O[0] : " ", Y = O.length > 0 ? O.substr(1) : O, te = I.linedelimiters[T];
@@ -689,8 +516,8 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         function r() {
             var f = e[t++];
             if (!f) return n.complete();
-            n.loadFile(f, function(i, l) {
-                if (i) return n.complete(i);
+            n.loadFile(f, function(i1, l) {
+                if (i1) return n.complete(i1);
                 var s = ue(l, f, n);
                 n.patched(f, s, function(o) {
                     if (o) return n.complete(o);
@@ -700,7 +527,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         }
         r();
     }
-    function _(e, n, t, r, f, i, l) {
+    function _(e, n, t, r, f, i1, l) {
         l || (l = {
         }), typeof l.context == "undefined" && (l.context = 4);
         var s = le(t, r, l);
@@ -753,7 +580,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             oldFileName: e,
             newFileName: n,
             oldHeader: f,
-            newHeader: i,
+            newHeader: i1,
             hunks: u
         };
     }
@@ -766,11 +593,11 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         }
         return n.join(`\n`) + `\n`;
     }
-    function ae(e, n, t, r, f, i, l) {
-        return Me(_(e, n, t, r, f, i, l));
+    function ae(e, n, t, r, f, i1, l) {
+        return Me(_(e, n, t, r, f, i1, l));
     }
-    function qe(e, n, t, r, f, i) {
-        return ae(e, e, n, t, r, f, i);
+    function qe(e, n, t, r, f, i1) {
+        return ae(e, e, n, t, r, f, i1);
     }
     function Ce(e, n) {
         return e.length !== n.length ? !1 : k(e, n);
@@ -789,14 +616,14 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         var r = {
         };
         (e.index || n.index) && (r.index = e.index || n.index), (e.newFileName || n.newFileName) && (ce(e) ? ce(n) ? (r.oldFileName = Q(r, e.oldFileName, n.oldFileName), r.newFileName = Q(r, e.newFileName, n.newFileName), r.oldHeader = Q(r, e.oldHeader, n.oldHeader), r.newHeader = Q(r, e.newHeader, n.newHeader)) : (r.oldFileName = e.oldFileName, r.newFileName = e.newFileName, r.oldHeader = e.oldHeader, r.newHeader = e.newHeader) : (r.oldFileName = n.oldFileName || e.oldFileName, r.newFileName = n.newFileName || e.newFileName, r.oldHeader = n.oldHeader || e.oldHeader, r.newHeader = n.newHeader || e.newHeader)), r.hunks = [];
-        for(var f = 0, i = 0, l = 0, s = 0; f < e.hunks.length || i < n.hunks.length;){
+        for(var f = 0, i1 = 0, l = 0, s = 0; f < e.hunks.length || i1 < n.hunks.length;){
             var o = e.hunks[f] || {
                 oldStart: Infinity
-            }, u = n.hunks[i] || {
+            }, u = n.hunks[i1] || {
                 oldStart: Infinity
             };
             if (pe(o, u)) r.hunks.push(ve(o, l)), f++, s += o.newLines - o.oldLines;
-            else if (pe(u, o)) r.hunks.push(ve(u, s)), i++, l += u.newLines - u.oldLines;
+            else if (pe(u, o)) r.hunks.push(ve(u, s)), i1++, l += u.newLines - u.oldLines;
             else {
                 var p = {
                     oldStart: Math.min(o.oldStart, u.oldStart),
@@ -805,7 +632,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
                     newLines: 0,
                     lines: []
                 };
-                Re(p, o.oldStart, o.lines, u.oldStart, u.lines), i++, f++, r.hunks.push(p);
+                Re(p, o.oldStart, o.lines, u.oldStart, u.lines), i1++, f++, r.hunks.push(p);
             }
         }
         return r;
@@ -840,7 +667,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         };
     }
     function Re(e, n, t, r, f) {
-        var i = {
+        var i1 = {
             offset: n,
             lines: t,
             index: 0
@@ -849,25 +676,25 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             lines: f,
             index: 0
         };
-        for((we(e, i, l), we(e, l, i)); i.index < i.lines.length && l.index < l.lines.length;){
-            var s = i.lines[i.index], o = l.lines[l.index];
-            if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) De(e, i, l);
+        for((we(e, i1, l), we(e, l, i1)); i1.index < i1.lines.length && l.index < l.lines.length;){
+            var s = i1.lines[i1.index], o = l.lines[l.index];
+            if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) De(e, i1, l);
             else if (s[0] === "+" && o[0] === " ") {
                 var u;
-                (u = e.lines).push.apply(u, b(M(i)));
+                (u = e.lines).push.apply(u, b(M(i1)));
             } else if (o[0] === "+" && s[0] === " ") {
                 var p;
                 (p = e.lines).push.apply(p, b(M(l)));
-            } else s[0] === "-" && o[0] === " " ? he(e, i, l) : o[0] === "-" && s[0] === " " ? he(e, l, i, !0) : s === o ? (e.lines.push(s), i.index++, l.index++) : ee(e, M(i), M(l));
+            } else s[0] === "-" && o[0] === " " ? he(e, i1, l) : o[0] === "-" && s[0] === " " ? he(e, l, i1, !0) : s === o ? (e.lines.push(s), i1.index++, l.index++) : ee(e, M(i1), M(l));
         }
-        ge(e, i), ge(e, l), Je(e);
+        ge(e, i1), ge(e, l), Je(e);
     }
     function De(e, n, t) {
         var r = M(n), f = M(t);
         if (ye(r) && ye(f)) {
             if (k(r, f) && Le(t, r, r.length - f.length)) {
-                var i;
-                (i = e.lines).push.apply(i, b(r));
+                var i1;
+                (i1 = e.lines).push.apply(i1, b(r));
                 return;
             } else if (k(f, r) && Le(n, f, f.length - r.length)) {
                 var l;
@@ -882,11 +709,11 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         ee(e, r, f);
     }
     function he(e, n, t, r) {
-        var f = M(n), i = Be(t, f);
-        if (i.merged) {
+        var f = M(n), i1 = Be(t, f);
+        if (i1.merged) {
             var l;
-            (l = e.lines).push.apply(l, b(i.merged));
-        } else ee(e, r ? i : f, r ? f : i);
+            (l = e.lines).push.apply(l, b(i1.merged));
+        } else ee(e, r ? i1 : f, r ? f : i1);
     }
     function ee(e, n, t) {
         e.conflict = !0, e.lines.push({
@@ -916,13 +743,13 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         return n;
     }
     function Be(e, n) {
-        for(var t = [], r = [], f = 0, i = !1, l = !1; f < n.length && e.index < e.lines.length;){
+        for(var t = [], r = [], f = 0, i1 = !1, l = !1; f < n.length && e.index < e.lines.length;){
             var s = e.lines[e.index], o = n[f];
             if (o[0] === "+") break;
-            if ((i = i || s[0] !== " ", r.push(o), f++, s[0] === "+")) for(l = !0; s[0] === "+";)t.push(s), s = e.lines[++e.index];
+            if ((i1 = i1 || s[0] !== " ", r.push(o), f++, s[0] === "+")) for(l = !0; s[0] === "+";)t.push(s), s = e.lines[++e.index];
             o.substr(1) === s.substr(1) ? (t.push(s), e.index++) : l = !0;
         }
-        if (((n[f] || "")[0] === "+" && i && (l = !0), l)) return t;
+        if (((n[f] || "")[0] === "+" && i1 && (l = !0), l)) return t;
         for(; f < n.length;)r.push(n[f++]);
         return {
             merged: r,
@@ -945,8 +772,8 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
         var n = 0, t = 0;
         return (e.forEach(function(r) {
             if (typeof r != "string") {
-                var f = ne(r.mine), i = ne(r.theirs);
-                n !== void 0 && (f.oldLines === i.oldLines ? n += f.oldLines : n = void 0), t !== void 0 && (f.newLines === i.newLines ? t += f.newLines : t = void 0);
+                var f = ne(r.mine), i1 = ne(r.theirs);
+                n !== void 0 && (f.oldLines === i1.oldLines ? n += f.oldLines : n = void 0), t !== void 0 && (f.newLines === i1.newLines ? t += f.newLines : t = void 0);
             } else t !== void 0 && (r[0] === "+" || r[0] === " ") && t++, n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
         }), {
             oldLines: n,

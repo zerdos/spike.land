@@ -1,5 +1,5 @@
 import { arrBuffSha256 } from "../../code/src/sha256.ts";
-import { v4 } from "uuid";
+import v4 from "uuid";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
