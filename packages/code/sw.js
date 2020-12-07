@@ -1001,7 +1001,7 @@ const getDB = async ()=>{
         if (e.request.headers.get("API_KEY")) {
             e.respondWith(fetch(e.request));
         }
-        if (e.request.method === "GET" && e.request.url.includes("zed.") && (e.request.url.includes("?h") || e.request.url.includes("?r"))) {
+        if (e.request.method === "GET" && e.request.url.includes("code.zed.vision") && (e.request.url.includes("?h") || e.request.url.includes("?r"))) {
             const url = new URL(e.request.url);
             const hash = url.searchParams.get("h");
             if (hash) {

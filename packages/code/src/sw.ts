@@ -29,7 +29,7 @@ const needToSave = false;
       e.respondWith(fetch(e.request));
     }
     if (
-      e.request.method === "GET" && e.request.url.includes("zed.") &&
+      e.request.method === "GET" && e.request.url.includes("code.zed.vision") &&
       (e.request.url.includes("?h") || e.request.url.includes("?r"))
     ) {
       const url = new URL(e.request.url);
