@@ -700,14 +700,14 @@ function getIdbProxyableTypes() {
         IDBObjectStore,
         IDBIndex,
         IDBCursor,
-        IDBTransaction
+        IDBTransaction, 
     ]);
 }
 function getCursorAdvanceMethods() {
     return cursorAdvanceMethods || (cursorAdvanceMethods = [
         IDBCursor.prototype.advance,
         IDBCursor.prototype.continue,
-        IDBCursor.prototype.continuePrimaryKey
+        IDBCursor.prototype.continuePrimaryKey, 
     ]);
 }
 const cursorRequestMap = new WeakMap();
