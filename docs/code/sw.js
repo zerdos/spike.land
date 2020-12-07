@@ -786,12 +786,11 @@ async function arrBuffSha256(msgBuffer) {
     return hashHex;
 }
 const getUrl = ()=>{
-    if (location.href.includes("zed.dev")) {
+    if (window.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
     }
     return "https://code.zed.vision";
 };
-let needToSave = false;
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashHex = await arrBuffSha256(msgBuffer);
@@ -1004,11 +1003,12 @@ const getDB = async ()=>{
         }
         if (e.request.method === "GET" && e.request.url.includes("zed.") && (e.request.url.includes("?h") || e.request.url.includes("?r"))) {
             const url = new URL(e.request.url);
-            if (url.searchParams.get("h")) {
+            const hash = url.searchParams.get("h");
+            if (hash) {
                 try {
                     const val = await codeDB.get(hash);
                     if (val) {
-                        e.respondWith(new Respond(val, {
+                        e.respondWith(new Response(val, {
                             type: "text/javascript"
                         }));
                     }
@@ -1022,7 +1022,7 @@ const getDB = async ()=>{
             e.respondWith((async ()=>{
                 const share1 = e.request.headers.get("SHARE");
                 const data = await e.request.arrayBuffer();
-                if (needToSave && location.origin.includes("zed.")) {
+                if (false && location.origin.includes("zed.")) {
                     const request = new Request(getUrl(), {
                         body: data,
                         method: "POST",
@@ -1096,4 +1096,3 @@ const getDB = async ()=>{
         return fetchFromNetworkAndCache(e);
     }
 })(self);
-

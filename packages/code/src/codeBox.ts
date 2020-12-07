@@ -1,4 +1,4 @@
-import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
+import { v4 } from "@deno/std/uuid/mod.ts";
 import { getKeys } from "./maintenance/maintenance.ts";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";

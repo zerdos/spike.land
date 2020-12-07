@@ -1,5 +1,5 @@
 import { arrBuffSha256 } from "../../code/src/sha256.ts";
-import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
+import { v4 } from "@deno/std/uuid/mod.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
@@ -149,21 +149,13 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     });
   }
 
-  return handleOptions(request);
-}
-
-function handleOptions(request: Request): Response {
-  const headers = request.headers;
-
-  let respHeaders = {
-    ...headers,
-    ...corsHeaders,
-    "Access-Control-Allow-Headers": request.headers.get(
-      "Access-Control-Request-Headers",
-    ),
-  };
-
   return new Response(request.body, {
-    headers: respHeaders as any,
+    headers: {
+      ...request.headers,
+      ...corsHeaders,
+      "Access-Control-Allow-Headers": request.headers.get(
+        "Access-Control-Request-Headers",
+      ),
+    },
   });
 }

@@ -12,6 +12,7 @@
   "search.useIgnoreFiles": true,
   "files.autoSave": "onFocusChange",
   "deno.enable": true,
+  
   "git.autorefresh": true,
   "deno.import_intellisense_autodiscovery": true,
   "deno.unstable": true,

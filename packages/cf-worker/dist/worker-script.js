@@ -331,17 +331,6 @@ const corsHeaders = {
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };
-function handleOptions(request) {
-    const headers = request.headers;
-    let respHeaders = {
-        ...headers,
-        ...corsHeaders,
-        "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
-    };
-    return new Response(request.body, {
-        headers: respHeaders
-    });
-}
 function bytesToUuid(bytes) {
     const bits = [
         ...bytes
@@ -513,7 +502,13 @@ async function handleCloudRequest(request) {
             }
         });
     }
-    return handleOptions(request);
+    return new Response(request.body, {
+        headers: {
+            ...request.headers,
+            ...corsHeaders,
+            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
+        }
+    });
 }
 addEventListener("fetch", (event)=>{
     event.respondWith(handleCloudRequest(event.request));

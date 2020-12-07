@@ -1,13 +1,13 @@
 import { getDB } from "./idb.ts";
 
 const getUrl = () => {
-  if (location.href.includes("zed.dev")) {
+  if (window.location.href.includes("zed.dev")) {
     return "https://code.zed.dev";
   }
   return "https://code.zed.vision";
 };
 
-let needToSave = false;
+const needToSave = false;
 
 (async ({ location, caches, addEventListener }) => {
   const codeDB = await getDB();
@@ -33,13 +33,14 @@ let needToSave = false;
       (e.request.url.includes("?h") || e.request.url.includes("?r"))
     ) {
       const url = new URL(e.request.url);
+      const hash = url.searchParams.get("h");
 
-      if (url.searchParams.get("h")) {
+      if (hash) {
         try {
           const val = await codeDB.get(hash);
 
           if (val) {
-            e.respondWith(new Respond(val, { type: "text/javascript" }));
+            e.respondWith(new Response(val, { type: "text/javascript" }));
           }
         } catch (e) {
           console.error(e);
