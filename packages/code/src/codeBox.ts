@@ -402,8 +402,8 @@ export async function run(mode = "window") {
 
         ${code}
 
-        </script>
         document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+        </script>
         <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
         <script>
    
