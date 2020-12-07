@@ -393,7 +393,7 @@ export async function run(mode = "window") {
         <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>
         <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
-        <script>
+        <script type="module">
         Object.assign(window, emotionReact);
 
         const styled = window["emotionStyled"];
