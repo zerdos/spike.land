@@ -983,8 +983,7 @@ const getDB = ()=>{
     };
     return dbObj;
 };
-(async ({ location , caches , addEventListener  })=>{
-    const codeDB = await getDB();
+(({ location , caches , addEventListener  })=>{
     var cacheKey = "VERSION-1";
     addEventListener("install", function(e) {
         e.waitUntil(caches.open(cacheKey).then((cache)=>{
@@ -1040,6 +1039,7 @@ const getDB = ()=>{
                 const hash = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
                 ).join("");
                 const smallerKey = hash.substring(0, 8);
+                const codeDB = await getDB();
                 await codeDB.put(smallerKey, data);
                 return new Response(JSON.stringify({
                     hash: smallerKey

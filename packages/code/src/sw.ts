@@ -9,8 +9,7 @@ const getUrl = () => {
 
 const needToSave = false;
 
-(async ({ location, caches, addEventListener }) => {
-  const codeDB = await getDB();
+(({ location, caches, addEventListener }) => {
   var cacheKey = "VERSION-1";
 
   addEventListener("install", function (e: ExtendableEvent) {
@@ -90,6 +89,7 @@ const needToSave = false;
               "",
             );
           const smallerKey = hash.substring(0, 8);
+          const codeDB = await getDB();
           await codeDB.put(smallerKey, data);
 
           return new Response(JSON.stringify({ hash: smallerKey }), {
