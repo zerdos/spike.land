@@ -79,16 +79,16 @@
     const runner = async () => {
       if (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0")) {
         const { run } = await import("/code/dist/codeLoader.js");
-        run();
+        run("window");
         return;
       }
 
       try {
         const { run } = await import("/code/dist/codeLoader.min.js");
-        run();
+        run("window");
       } catch (e) {
         const { run } = await import("https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js");
-        run();
+        run("window");
       }
     }
     

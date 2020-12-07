@@ -1883,10 +1883,11 @@ export async function run(mode = "window") {
         const replaceWith = "///";
         const code = `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` + transPiled.replaceAll(searchRegExp, replaceWith).replace("export default", "DefaultElement = ");
         const restart = ()=>{
-            const hydrate = new Function("code", `return function(){  \n          let DefaultElement;\n        \n        ${code}\n\n                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
+            const codeToHydrate = mode === "window" ? code.replace("body{", "#root{") : code;
+            const hydrate = new Function(`return function(){  \n          let DefaultElement;\n          ${codeToHydrate}\n          return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`)();
             hydrate();
             shareItAsHtml = async ()=>{
-                const renderToString = new Function("code", `return function(){\n            let DefaultElement;\n  \n          ${code}\n  \n                  return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
+                const renderToString = new Function(`return function(){\n            let DefaultElement;\n            ${code}\n            return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`)();
                 const HTML = renderToString();
                 const css = Array.from(document.querySelector("head > style[data-emotion=css]").sheet.cssRules).map((x)=>x.cssText
                 ).filter((cssRule)=>HTML.includes(cssRule.substring(3, 8))

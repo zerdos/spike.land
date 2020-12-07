@@ -320,14 +320,16 @@ export async function run(mode = "window") {
 
     const restart = () => {
       //     console.log(code);
+
+      const codeToHydrate = mode === "window"
+        ? code.replace("body{", "#root{")
+        : code;
+
       const hydrate = new Function(
-        "code",
         `return function(){  
           let DefaultElement;
-        
-        ${code}
-
-                return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));
+          ${codeToHydrate}
+          return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));
       }`,
       )();
 
@@ -335,13 +337,10 @@ export async function run(mode = "window") {
 
       shareItAsHtml = async () => {
         const renderToString = new Function(
-          "code",
           `return function(){
             let DefaultElement;
-  
-          ${code}
-  
-                  return ReactDOMServer.renderToString(jsx(DefaultElement));
+            ${code}
+            return ReactDOMServer.renderToString(jsx(DefaultElement));
         }`,
         )();
         const HTML = renderToString();
