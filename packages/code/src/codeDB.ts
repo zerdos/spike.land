@@ -1,5 +1,5 @@
 import { assemble, diff, isDiff } from "../../diff/diff.min.js";
-import { openDB } from "https://unpkg.com/idb@5.0.8/build/esm/index.js";
+import { openDB } from "idb";
 import { sha256 } from "./sha256.ts";
 
 export const getDB = () => {

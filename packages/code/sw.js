@@ -1019,7 +1019,7 @@ const getDB = ()=>{
             e.respondWith((async ()=>{
                 const share1 = e.request.headers.get("SHARE");
                 const data = await e.request.arrayBuffer();
-                if (false && location.origin.includes("zed.")) {
+                if (false && location.origin.includes("code.zed.vision")) {
                     const request = new Request(getUrl(), {
                         body: data,
                         method: "POST",

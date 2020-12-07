@@ -1,4 +1,4 @@
-import { getDB } from "./idb.ts";
+import { getDB } from "./codeDB.ts";
 
 const getUrl = () => {
   if (window.location.href.includes("zed.dev")) {
@@ -55,7 +55,7 @@ const needToSave = false;
           const share = e.request.headers.get("SHARE");
           const data = (await e.request.arrayBuffer());
 
-          if (needToSave && location.origin.includes("zed.")) {
+          if (needToSave && location.origin.includes("code.zed.vision")) {
             const request = new Request(
               getUrl(),
               {
