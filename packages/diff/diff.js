@@ -1165,7 +1165,6 @@ export const isDiff = (str)=>{
         } catch  {
             return false;
         }
-        return true;
     }
     return false;
 };

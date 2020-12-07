@@ -6,8 +6,8 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
-        "clean": "deno fmt .",
-        "build": "yarn clean && deno bundle diff.ts diff.js --no-check && yarn min",
+        "clean": "deno fmt src",
+        "build": "yarn clean && deno bundle --import-map ../../import_map.json --no-check --unstable src/diff.ts diff.js && yarn min",
         "min": "yarn esbuild diff.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=diff.min.js"
     },
     "keywords": [
@@ -27,6 +27,7 @@
     },
     "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
     "dependencies": {
+        "diff": "5.0.0",
         "esbuild": "0.8.20"
     }
 }

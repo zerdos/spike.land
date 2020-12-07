@@ -5911,9 +5911,9 @@ contentful-management@^5.26.3:
     type-fest "0.15.1"
 
 contentful-sdk-core@^6.4.0:
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/contentful-sdk-core/-/contentful-sdk-core-6.6.0.tgz#88f43a0cf6ffe527b142c9ae0b286d6093b88133"
-  integrity sha512-/+Pi1ZK+hkYL704TONSHuVU0WGM0egkg/gE709HNOCdk0/M+PItFm9a+/sR5KsLhWdp8koRa7Mv6ZvYQgJMSWw==
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/contentful-sdk-core/-/contentful-sdk-core-6.7.0.tgz#c014f12d7a716548c248e905dd8e095a6dbf7a0f"
+  integrity sha512-+b8UXVE249Z6WzMLXvsu3CIvN/s5xXRZ9o+zY7zDdPkIYBMW15xcs9N2ATI6ncmc+s1uj4XZij/2skflletHiw==
   dependencies:
     fast-copy "^2.1.0"
     qs "^6.9.4"

@@ -2,7 +2,7 @@ import { assemble, diff, isDiff } from "../../diff/diff.min.js";
 import { openDB } from "https://unpkg.com/idb@5.0.8?module";
 import { sha256 } from "./sha256.ts";
 
-export const getDB = async () => {
+export const getDB = () => {
   const dbPromise = openDB("localZedCodeStore", 1, {
     upgrade(db) {
       db.createObjectStore("codeStore");
@@ -25,7 +25,7 @@ export const getDB = async () => {
       }
       if (format === "string") {
         const allData = await data;
-        if (typeof allData === format) {
+        if (typeof allData === "string" && format === "string") {
           const text = allData;
           if (isDiff(text)) {
             const keyOfDiff = text.slice(0, 8);

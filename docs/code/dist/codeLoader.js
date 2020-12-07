@@ -1092,13 +1092,10 @@ const isDiff = (d)=>{
         ...d.slice(0, 8)
     ].filter((H)=>H < "0" || H > "f"
     ).length === 0, x = d.slice(8);
-    if (h && x[0] === "[" && x[x.length - 1] === "]") {
-        try {
-            return JSON.parse(x).length > 1;
-        } catch  {
-            return !1;
-        }
-        return !0;
+    if (h && x[0] === "[" && x[x.length - 1] === "]") try {
+        return JSON.parse(x).length > 1;
+    } catch  {
+        return !1;
     }
     return !1;
 }, assemble = (d, h)=>{
@@ -1667,7 +1664,7 @@ replaceTraps((oldTraps)=>({
         has: (target, prop)=>!!getMethod(target, prop) || oldTraps.has(target, prop)
     })
 );
-const getDB = async ()=>{
+const getDB = ()=>{
     const dbPromise = openDB("localZedCodeStore", 1, {
         upgrade (db) {
             db.createObjectStore("codeStore");
@@ -1687,7 +1684,7 @@ const getDB = async ()=>{
             }
             if (format === "string") {
                 const allData = await data;
-                if (typeof allData === format) {
+                if (typeof allData === "string" && format === "string") {
                     const text = allData;
                     if (isDiff(allData)) {
                         const keyOfDiff = allData.slice(0, 8);

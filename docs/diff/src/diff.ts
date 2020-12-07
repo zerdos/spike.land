@@ -1,5 +1,5 @@
-import { Diff } from "https://unpkg.com/diff@5.0.0/dist/diff.js";
-import { sha256 } from "../code/src/sha256.ts";
+import { Diff } from "diff";
+import { sha256 } from "../../code/src/sha256.ts";
 
 export const diff = async (str1: string, str2: string) => {
   const sha1Str1 = sha256(str1);
@@ -26,7 +26,6 @@ export const isDiff = (str: string) => {
     } catch {
       return false;
     }
-    return true;
   }
 
   return false;

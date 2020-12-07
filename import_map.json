@@ -1,6 +1,7 @@
 {
    "imports": {
       "react": "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+      "diff": "https://unpkg.com/diff@5.0.0/dist/diff.js",
       "@emotion/react": "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
       "typography-theme-wordpress-2016": "https://unpkg.com/typography-theme-wordpress-2016@0.16.19/dist/index.js",
       "typography": "https://unpkg.com/typography@0.16.19/dist/index.js",
