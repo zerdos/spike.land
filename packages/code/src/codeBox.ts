@@ -377,6 +377,7 @@ export async function run(mode = "window") {
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="Description" content="Generated with code.zed.vision">
         <head profile="http://www.w3.org/2005/10/profile">
+        <link rel="preload" href="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" as="script">
         <link rel="icon" 
               type="image/png"
               href="https://zed.vision/favicon.ico">
