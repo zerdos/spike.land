@@ -84,10 +84,10 @@
       }
 
       try {
-        const { run } = await import("https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js");
+        const { run } = await import("/code/dist/codeLoader.min.js");
         run("window");
       } catch (e) {
-        const { run } = await import("/code/dist/codeLoader.min.js");
+        const { run } = await import("https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js");
         run("window");
       }
     }
