@@ -403,7 +403,10 @@ export async function run(mode = "window") {
 
         ${code}
         
+        console.log(ReactDOMServer.renderToString(jsx(DefaultElement)));
+        
         document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+
         
         setTimeout(()=>{
           const s = window.document.createElement("script");
