@@ -402,10 +402,14 @@ export async function run(mode = "window") {
 
         ${code}
 
-        document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+        setTimeout(()=>{
+          const s = window.document.createElement("script");
+          s.src = "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js";
+          s.onload = () =>document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+          window.document.head.appendChild(s);
+        })
         </script>
-        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
-        <script>
+ 
    
         ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
         console.log(DefaultElement);
