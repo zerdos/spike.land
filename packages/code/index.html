@@ -3,6 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs/editor/editor.main.js" as="script">
 
 
 
@@ -84,10 +85,10 @@
       }
 
       try {
-        const { run } = await import("/code/dist/codeLoader.min.js");
+        const { run } = await import("https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js");
         run("window");
       } catch (e) {
-        const { run } = await import("https://unpkg.com/@zedvision/code@latest/dist/codeLoader.min.js");
+        const { run } = await import("/code/dist/codeLoader.min.js");
         run("window");
       }
     }
