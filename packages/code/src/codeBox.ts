@@ -4,7 +4,7 @@ import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
-import { starter } from "./starter.tsx";
+import { starter } from "./starterNoFramerMotion.tsx";
 import { sha256 } from "./sha256.ts";
 import { getDB } from "./idb.ts";
 
