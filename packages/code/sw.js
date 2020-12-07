@@ -962,7 +962,7 @@ const getDB = ()=>{
             } catch  {
                 prev = "";
             }
-            if (prev !== "" && val === prev) return data;
+            if (prev !== "" && val === prev) return val;
             let str;
             if (typeof val !== "string") {
                 str = new TextDecoder().decode(val);
