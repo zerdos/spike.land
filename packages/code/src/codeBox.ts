@@ -1,5 +1,4 @@
-/// <reference lib="dom" />
-
+import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
 import { getKeys } from "./maintenance/maintenance.ts";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
@@ -8,8 +7,8 @@ import { importScript } from "./importScript.js";
 import { starter } from "./starter.tsx";
 import { sha256 } from "./sha256.ts";
 import { getDB } from "./idb.ts";
-import { v4 } from "https://deno.land/std@0.79.0/uuid/mod.ts";
 
+/// <reference lib="dom" />
 const document = window.document;
 
 var ReactDOM: { unmountComponentAtNode: (node: unknown) => void } =
