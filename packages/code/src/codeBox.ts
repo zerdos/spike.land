@@ -388,6 +388,7 @@ export async function run(mode = "window") {
         <body>
         <div id="root">
         ${HTML}
+        </div>
         <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
         ${motionDep}
         <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
@@ -418,7 +419,7 @@ export async function run(mode = "window") {
         
         </script>
 
-        </div>
+
         
         </body>
         </html>
