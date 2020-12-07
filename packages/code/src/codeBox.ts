@@ -401,17 +401,22 @@ export async function run(mode = "window") {
         let DefaultElement;
 
         ${code}
-
+        
+        document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+        
         setTimeout(()=>{
           const s = window.document.createElement("script");
           s.src = "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js";
-          s.onload = () =>ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+          s.onload = ()=>document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
           window.document.head.appendChild(s);
         })
         </script>
  
    
-  
+        ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+        console.log(DefaultElement);
+        
+        </script>
 
         </div>
         
