@@ -308,19 +308,7 @@ export async function run(mode = "window") {
       replaceWith,
     ).replace("export default", "DefaultElement = ");
 
-    // console.log(code);
-
-    // console.log(code);/
-    // const url = createJSSourceBlob(code);
-    // console.log(url);
-
-    // const restart = new Function(
-    //   "url",
-    //   `return function(){
-
     const restart = () => {
-      //     console.log(code);
-
       const codeToHydrate = mode === "window"
         ? code.replace("body{", "#root{")
         : code;
