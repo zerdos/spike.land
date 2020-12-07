@@ -454,8 +454,8 @@ export async function run(mode = "window") {
           if (prevHash !== hash) {
             await codeDB.put(hash, latestCode);
             await codeDB.put(projectName, hash);
-            setQueryStringParameter("h", hash);
 
+            // setQueryStringParameter("h", hash);
             //const response = fetch(request);
           }
         } catch (e) {
