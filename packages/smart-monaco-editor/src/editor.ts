@@ -94,9 +94,9 @@ export const startMonaco: SmartMonaco = async (
       `${vsPath}/loader.min.js`,
     )) as unknown as {require: (depts: unknown, res: unknown) => void }; 
 
-    // require.config({ paths: { "vs": vsPath } });
+    require.config({ paths: { "vs": vsPath } });
 
-    await new Promise((resolve) => require([vsPath+"/editor/editor.main"], resolve));
+    await new Promise((resolve) => require(["/editor/editor.main"], resolve));
   }
 
   const monaco = window["monaco"] as monaco;
