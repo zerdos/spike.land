@@ -131,14 +131,19 @@ function renderDraggableEditor() {
     console.log(frame);
 }
 function m(p) {
-    return new Promise(function(r, i1) {
+    return new Promise(function(d, i1) {
         var o;
-        o = window.document.createElement("script"), o.src = p, o.onload = ()=>r(window)
+        o = window.document.createElement("script"), o.src = p, o.onload = ()=>d(window)
         , o.onerror = i1, window.document.head.appendChild(o);
     });
 }
-const startMonaco = async ({ onChange: p , code: r , language: i1  })=>{
-    if (typeof window == "undefined") return "";
+const startMonaco = async ({ onChange: p , code: d , language: i1  })=>{
+    if (typeof window == "undefined") return {
+        monaco: {
+        },
+        editor: {
+        }
+    };
     const o = window.document, l = window.document.getElementById("container");
     if (!l) {
         const e = o.getElementById("container");
@@ -150,30 +155,24 @@ const startMonaco = async ({ onChange: p , code: r , language: i1  })=>{
         const e = window.document.createElement("div");
         e.id = "ace", window.document.body.appendChild(e), await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"), i1 === "typescript" ? await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js") : await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js"), await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js"), window.document.getElementById("ace").style.setProperty("display", "block"), l.style.setProperty("display", "none"), n = window.ace.edit("ace"), n.getSession().setMode("ace/mode/typescript");
         const a = (s)=>setTimeout(()=>{
-                const d = window.ace.edit("ace"), y = d.getTheme();
-                y !== "ace/theme/monokai " && (d.setOptions({
+                const c = window.ace.edit("ace"), y = c.getTheme();
+                y !== "ace/theme/monokai " && (c.setOptions({
                     fontSize: "14pt"
-                }), d.setTheme("ace/theme/monokai"), a(2 * s));
+                }), c.setTheme("ace/theme/monokai"), a(2 * s));
             }, s)
         ;
-        a(100), n.setValue(r), n.blur();
+        a(100), n.setValue(d), n.blur();
     }
     if (window.monaco === void 0) {
         const e = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs", { require: a  } = await m(`${e}/loader.min.js`);
-        a.config({
-            paths: {
-                vs: e
-            }
-        }), await new Promise((s)=>a([
-                "vs/editor/editor.main"
-            ], (d)=>{
-                s(d);
-            })
+        await new Promise((s)=>a([
+                e + "/editor/editor.main"
+            ], s)
         );
     }
-    const c = window.monaco, t = {
-        monaco: c,
-        editor: c.editor.create(window.document.getElementById("container"), {
+    const r = window.monaco, t = {
+        monaco: r,
+        editor: r.editor.create(window.document.getElementById("container"), {
             formatOnType: !0,
             scrollbar: {
                 horizontal: "hidden",
@@ -205,8 +204,8 @@ const startMonaco = async ({ onChange: p , code: r , language: i1  })=>{
             autoSurround: "languageDefined",
             trimAutoWhitespace: !0,
             codeActionsOnSaveTimeout: 100,
-            model: c.editor.getModel(u) || c.editor.createModel(r, i1, c.Uri.parse(u)),
-            value: r,
+            model: r.editor.getModel(u) || r.editor.createModel(d, i1, r.Uri.parse(u)),
+            value: d,
             language: i1,
             theme: "vs-dark"
         })
@@ -337,7 +336,7 @@ const startMonaco = async ({ onChange: p , code: r , language: i1  })=>{
                 name: "popmotion",
                 url: "https://unpkg.com/browse/popmotion@9.0.1/lib/index.d.ts"
             }
-        ], a = e.map(({ name: s , url: d  })=>(async ()=>t.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(d)).text(), s.includes("@emotion") ? `file:///node_modules/${s}` : `file:///node_modules/@types/${s}/index.d.ts`)
+        ], a = e.map(({ name: s , url: c  })=>(async ()=>t.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(c)).text(), s.includes("@emotion") ? `file:///node_modules/${s}` : `file:///node_modules/@types/${s}/index.d.ts`)
             )()
         );
         return t.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({

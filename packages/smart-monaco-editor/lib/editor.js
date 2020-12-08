@@ -56,7 +56,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
         const { require  } = await loadScript(`${vsPath}/loader.min.js`);
         await new Promise((resolve)=>require([
-                "vs/editor/editor.main"
+                vsPath + "/editor/editor.main"
             ], resolve)
         );
     }
