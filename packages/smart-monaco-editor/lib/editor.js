@@ -61,7 +61,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             }
         });
         await new Promise((resolve)=>require([
-                "/editor/editor.main"
+                "vs/editor/editor.main"
             ], resolve)
         );
     }

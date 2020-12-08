@@ -96,7 +96,7 @@ export const startMonaco: SmartMonaco = async (
 
     require.config({ paths: { "vs": vsPath } });
 
-    await new Promise((resolve) => require(["/editor/editor.main"], resolve));
+    await new Promise((resolve) => require(["vs/editor/editor.main"], resolve));
   }
 
   const monaco = window["monaco"] as monaco;
