@@ -7,7 +7,7 @@ github:
     addComment: true
     addBadge: true
     addLabel: prebuilt-in-gitpod
-image: devimages/groovy-devcontainer:8.1.3
+image: devimages/groovy-devcontainer:8.2.0
 vscode:
   extensions:
     - denoland.vscode-deno@2.3.3:aFOFUSjDJT7KDqulGrZ5zA==
