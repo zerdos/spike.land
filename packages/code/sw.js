@@ -913,6 +913,12 @@ const getDB = ()=>{
     const dbPromise = openDB("localZedCodeStore", 1, {
         upgrade (db) {
             db.createObjectStore("codeStore");
+        },
+        blocked () {
+        },
+        blocking () {
+        },
+        terminated () {
         }
     });
     const dbObj = {
@@ -949,14 +955,16 @@ const getDB = ()=>{
             let prev;
             try {
                 const oldKey = await dbObj.get(key);
-                if (oldKey.length === 8 && oldKey !== val) {
+                if (typeof oldKey === "string" && typeof val === "string" && oldKey.length === 8 && oldKey !== val) {
                     const actualValue = await dbObj.get(val);
                     const prevValue = await dbObj.get(oldKey);
-                    const prevSha = await sha256(prevValue);
-                    if (prevSha === oldKey) {
-                        const diffObj = await diff(actualValue, prevValue);
-                        const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-                        (await dbPromise).put("codeStore", diffAsStr, prevSha);
+                    if (typeof prevValue === "string") {
+                        const prevSha = await sha256(prevValue);
+                        if (prevSha === oldKey) {
+                            const diffObj = await diff(actualValue, prevValue);
+                            const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+                            (await dbPromise).put("codeStore", diffAsStr, prevSha);
+                        }
                     }
                 }
             } catch  {

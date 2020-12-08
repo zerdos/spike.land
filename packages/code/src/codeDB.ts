@@ -1,16 +1,27 @@
 import { assemble, diff, isDiff } from "../../diff/diff.min.js";
-import { openDB } from "idb";
+import { openDB } from "https://unpkg.com/idb@5.0.8/build/esm/index.js";
 import { sha256 } from "./sha256.ts";
 
 export const getDB = () => {
   const dbPromise = openDB("localZedCodeStore", 1, {
-    upgrade(db) {
+    upgrade(db: {
+      createObjectStore: (name: string) => void;
+    }) {
       db.createObjectStore("codeStore");
+    },
+    blocked() {
+    },
+    blocking() {
+    },
+    terminated() {
     },
   });
 
   const dbObj = {
-    async get(key: string, format: "string" | "json" | "stream" = "string") {
+    async get(
+      key: string,
+      format: "string" | "json" | "stream" = "string",
+    ): Promise<string | unknown | null> {
       let data;
       try {
         data = await (await dbPromise).get("codeStore", key);
@@ -50,15 +61,20 @@ export const getDB = () => {
       try {
         const oldKey = await dbObj.get(key);
         // console.log(realKey);
-        if (oldKey.length === 8 && oldKey !== val) {
+        if (
+          typeof oldKey === "string" && typeof val === "string" &&
+          oldKey.length === 8 && oldKey !== val
+        ) {
           const actualValue = await dbObj.get(val);
           const prevValue = await dbObj.get(oldKey);
-          const prevSha = await sha256(prevValue);
+          if (typeof prevValue === "string") {
+            const prevSha = await sha256(prevValue);
 
-          if (prevSha === oldKey) {
-            const diffObj = await diff(actualValue, prevValue);
-            const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-            (await dbPromise).put("codeStore", diffAsStr, prevSha);
+            if (prevSha === oldKey) {
+              const diffObj = await diff(actualValue, prevValue);
+              const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+              (await dbPromise).put("codeStore", diffAsStr, prevSha);
+            }
           }
         }
       } catch {
