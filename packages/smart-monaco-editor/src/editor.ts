@@ -20,7 +20,7 @@ interface SmartMonaco {
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language },
 ) => {
-  if (typeof window === "undefined") return "";
+  if (typeof window === "undefined") return {monaco: {} as monaco, editor: {}} as ISmartMonacoEditor;
 
   const document = window.document;
   const container = window.document.getElementById("container");
@@ -90,17 +90,13 @@ export const startMonaco: SmartMonaco = async (
     const vsPath =
       "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
 
-    const { require } = await loadScript(
+    const { require } = (await loadScript(
       `${vsPath}/loader.min.js`,
-    );
+    )) as unknown as {require: (depts: unknown, res: unknown) => void }; 
 
-    require.config({ paths: { "vs": vsPath } });
+    // require.config({ paths: { "vs": vsPath } });
 
-    await new Promise((resolve) =>
-      require(["vs/editor/editor.main"], (monaco) => {
-        resolve(monaco);
-      })
-    );
+    await new Promise((resolve) => require(["vs/editor/editor.main"], resolve));
   }
 
   const monaco = window["monaco"] as monaco;
