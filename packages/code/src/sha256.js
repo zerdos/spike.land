@@ -1,10 +1,10 @@
-export async function sha256(message: string) {
+export async function sha256(message) {
   const msgBuffer = new TextEncoder().encode(message);
   const hashHex = await arrBuffSha256(msgBuffer);
   return hashHex.substr(0, 8);
 }
 
-export async function arrBuffSha256(msgBuffer: Uint8Array) {
+export async function arrBuffSha256(msgBuffer) {
   const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
 
