@@ -26,7 +26,7 @@
     "bugs": {
         "url": "https://github.com/zed-vision/monorepo"
     },
-    "homepage": "https://code.zed.vision",
+    "homepage": "https://code.zed-vision.workers.dev",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
         "esbuild": "0.8.21"

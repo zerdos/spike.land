@@ -17,7 +17,7 @@ const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
     return "https://code.zed.dev";
   }
-  return "https://code.zed.vision";
+  return "https://code.zed-vision.workers.dev";
 };
 
 export const getProjects = async () => {
@@ -76,7 +76,7 @@ let shareItAsHtml: () => void;
 
 async function deleteHash(apiKey: string, hash: string) {
   try {
-    const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
+    const url = `https://code.zed-vision.workers.dev/keys/delete/?hash=${hash}`;
     const req = await fetch(url, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -93,7 +93,7 @@ async function deleteHash(apiKey: string, hash: string) {
 
 async function getCode(hash: string) {
   try {
-    const list = `https://code.zed.vision/?h=${hash}`;
+    const list = `https://code.zed-vision.workers.dev/?h=${hash}`;
     const req = await fetch(list, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -113,7 +113,7 @@ async function getUserId() {
   const uuid = await codeDB.get("uuid");
   if (!uuid) {
     if (!window.location.href.includes("zed.dev")) {
-      const resp = await fetch("https://code.zed.vision/register");
+      const resp = await fetch("https://code.zed-vision.workers.dev/register");
       const data = await resp.json();
       codeDB.put("uuid", data.uuid);
       return data.uuid;
@@ -375,7 +375,7 @@ export async function run(mode = "window") {
         <title>${title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta name="Description" content="Generated with code.zed.vision">
+        <meta name="Description" content="Generated with code.zed-vision.workers.dev">
         <head profile="http://www.w3.org/2005/10/profile">
         <link rel="preload" href="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" as="script">
         <link rel="icon" 

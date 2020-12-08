@@ -786,7 +786,7 @@ const getUrl = ()=>{
     if (window.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
     }
-    return "https://code.zed.vision";
+    return "https://code.zed-vision.workers.dev";
 };
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
@@ -997,7 +997,7 @@ const getDB = ()=>{
         if (e.request.headers.get("API_KEY")) {
             e.respondWith(fetch(e.request));
         }
-        if (e.request.method === "GET" && e.request.url.includes("code.zed.vision") && (e.request.url.includes("?h") || e.request.url.includes("?r"))) {
+        if (e.request.method === "GET" && e.request.url.includes("code.zed-vision.workers.dev") && (e.request.url.includes("?h") || e.request.url.includes("?r"))) {
             const url = new URL(e.request.url);
             const hash = url.searchParams.get("h");
             if (hash) {
@@ -1018,7 +1018,7 @@ const getDB = ()=>{
             e.respondWith((async ()=>{
                 const share1 = e.request.headers.get("SHARE");
                 const data = await e.request.arrayBuffer();
-                if (false && location.origin.includes("code.zed.vision")) {
+                if (false && location.origin.includes("code.zed-vision.workers.dev")) {
                     const request = new Request(getUrl(), {
                         body: data,
                         method: "POST",

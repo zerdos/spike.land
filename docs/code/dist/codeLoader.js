@@ -940,7 +940,7 @@ const getUrl = ()=>{
     if (document.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
     }
-    return "https://code.zed.vision";
+    return "https://code.zed-vision.workers.dev";
 };
 let firstLoad = true;
 let latestCode = "";
@@ -1426,7 +1426,7 @@ async function getUserId() {
     const uuid = await codeDB.get("uuid");
     if (!uuid) {
         if (!window.location.href.includes("zed.dev")) {
-            const resp = await fetch("https://code.zed.vision/register");
+            const resp = await fetch("https://code.zed-vision.workers.dev/register");
             const data = await resp.json();
             codeDB.put("uuid", data.uuid);
             return data.uuid;
@@ -1568,7 +1568,7 @@ export async function run(mode = "window") {
                 if (HTML.indexOf("<title>") > -1 && HTML.indexOf("</title>") > -1) {
                     title = HTML.slice(HTML.indexOf("<title>") + 7, HTML.indexOf("</title>"));
                 }
-                const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <title>${title}</title>\n        <meta name="viewport" content="width=device-width, initial-scale=1">\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <meta name="Description" content="Generated with code.zed.vision">\n        <head profile="http://www.w3.org/2005/10/profile">\n        <link rel="preload" href="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" as="script">\n        <link rel="icon" \n              type="image/png"\n              href="https://zed.vision/favicon.ico">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n        const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n        \n        console.log(ReactDOMServer.renderToString(jsx(DefaultElement)));\n        \n        document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));\n        \n        const s = window.document.createElement("script");\n        s.src = "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js";\n        s.onload = ()=> ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        window.document.head.appendChild(s);\n\n        </script>\n        </body>\n        </html>\n        `;
+                const iframe = `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <title>${title}</title>\n        <meta name="viewport" content="width=device-width, initial-scale=1">\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <meta name="Description" content="Generated with code.zed-vision.workers.dev">\n        <head profile="http://www.w3.org/2005/10/profile">\n        <link rel="preload" href="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" as="script">\n        <link rel="icon" \n              type="image/png"\n              href="https://zed.vision/favicon.ico">\n        <style>\n        ${bodyStylesFix}\n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>\n        ${motionDep}\n        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>\n        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>\n        <script type="module">\n        Object.assign(window, emotionReact);\n\n        const styled = window["emotionStyled"];\n\n        let DefaultElement;\n\n        ${code}\n        \n        console.log(ReactDOMServer.renderToString(jsx(DefaultElement)));\n        \n        document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));\n        \n        const s = window.document.createElement("script");\n        s.src = "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js";\n        s.onload = ()=> ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        window.document.head.appendChild(s);\n\n        </script>\n        </body>\n        </html>\n        `;
                 const iframeBlob = await createHTMLSourceBlob(iframe);
                 const link = await saveHtml(iframeBlob);
                 return link;
