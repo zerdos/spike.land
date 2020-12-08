@@ -18,17 +18,19 @@ export const HtmlPlayer: React.FC<{
     content,
     onEvent,
   },
-) =>
-  <>
+) => {
+  return <>
     <ResultBoxContainer
-      onClick={(e) => {
-        const clickedElement = e.target as Element;
-        const clickEvent = clickedElement.getAttribute("data-onclick");
-        if (clickEvent) onEvent(clickEvent);
+      onClick={(e: { target: Element }) => {
+        const clickEvent = e.target.getAttribute("data-onclick");
+        if (clickEvent) {
+          onEvent(clickEvent);
+        }
       }}
       dangerouslySetInnerHTML={{ __html: String(content) }}
     />
   </>;
+};
 
 export const ResultComponent: React.FC<
   {

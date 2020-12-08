@@ -5,6 +5,7 @@
       "@emotion/react": "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
       "typography-theme-wordpress-2016": "https://unpkg.com/typography-theme-wordpress-2016@0.16.19/dist/index.js",
       "typography": "https://unpkg.com/typography@0.16.19/dist/index.js",
+      "@emotion/styled": "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.browser.cjs.js",
       "@emotion/cache": "https://unpkg.com/@emotion/cache@11.0.0/dist/emotion-cache.browser.cjs.js",
       "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.0/dist/emotion-serialize.browser.cjs.js",
       "./jsx-namespace": "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
