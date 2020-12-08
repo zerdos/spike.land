@@ -1,6 +1,6 @@
 export async function getHash(hash: string) {
   try {
-    const list = `https://code.zed-vision.workers.dev/?h=${hash}`;
+    const list = `https://code.zed.vision/?h=${hash}`;
     const req = await fetch(list, {
       headers: {
         "content-type": "application/json;charset=UTF-8",
@@ -20,7 +20,7 @@ export async function getHash(hash: string) {
 
 export async function getKeys(apiKey: string, prefix: string) {
   try {
-    const list = `https://code.zed-vision.workers.dev/keys/?prefix=${prefix}`;
+    const list = `https://code.zed.vision/keys/?prefix=${prefix}`;
 
     const req = await fetch(list, {
       headers: {

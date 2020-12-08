@@ -305,7 +305,7 @@ export const CodeBox: React.FC<{
           const body = { results: [dataObj], errors: null, msg: "" };
 
           const request = new Request(
-            "https://code.zed-vision.workers.dev",
+            "https://code.zed.vision",
             {
               body: JSON.stringify(body),
               method: "POST",

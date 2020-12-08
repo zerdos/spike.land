@@ -4,7 +4,7 @@ const getUrl = () => {
   if (window.location.href.includes("zed.dev")) {
     return "https://code.zed.dev";
   }
-  return "https://code.zed-vision.workers.dev";
+  return "https://code.zed.vision";
 };
 
 const needToSave = false;
@@ -29,7 +29,7 @@ const needToSave = false;
     }
     if (
       e.request.method === "GET" &&
-      e.request.url.includes("code.zed-vision.workers.dev") &&
+      e.request.url.includes("code.zed.vision") &&
       (e.request.url.includes("?h") || e.request.url.includes("?r"))
     ) {
       const url = new URL(e.request.url);
@@ -57,7 +57,7 @@ const needToSave = false;
 
           if (
             needToSave &&
-            location.origin.includes("code.zed-vision.workers.dev")
+            location.origin.includes("code.zed.vision")
           ) {
             const request = new Request(
               getUrl(),
@@ -108,7 +108,7 @@ const needToSave = false;
       // const resp = new Response();
       // return
     }
-    // if (e.request.url==="code.zed-vision.workers.dev" && req)
+    // if (e.request.url==="code.zed.vision" && req)
 
     const tryInCachesFirst = caches.open(cacheKey).then((cache) => {
       return cache.match(e.request).then((response) => {
