@@ -8,6 +8,7 @@
 
   <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@zedvision/qrious@4.0.4/dist/qrious.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
@@ -29,6 +30,10 @@
       width: 100%;
       height: 100vh;
     }
+    img {
+      box-shadow: 0 0 10px 5px #666;
+    }
+
 
     #ace {
       display: none;
@@ -56,6 +61,7 @@
 </head>
 
 <body>
+  <img id="qrious">
   <div id="dragabbleWindow"></div>
   <div id="error"></div>
   <div id="container"></div>
@@ -69,7 +75,6 @@
       }).then(() => navigator.serviceWorker.register('sw.js'))
     }
   </script>
-
   <script type="module">
     // window["motion"] = window["Motion"].motion;
     Object.assign(window, emotionReact);
