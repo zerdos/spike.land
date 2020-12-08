@@ -31,7 +31,6 @@ export class DevcontainerGenerator {
     "android",
     "git",
     "debianBackports",
-    "amplify",
     "google-chrome",
     "chromium",
     "gitUbuntu",
@@ -51,7 +50,6 @@ export class DevcontainerGenerator {
   ];
   private _nodeVersion: nodeVersion | null = null;
   private _gitVersion = "";
-  private _amplify = false;
   private _cypressVersion = "";
   private _dotnet: null | "2" | "3" | "5" = null;
   private _xfce = false;
@@ -140,10 +138,6 @@ export class DevcontainerGenerator {
 
   public setAndroid() {
     this._android = true;
-  }
-
-  public setAmplify() {
-    this._amplify = true;
   }
 
   public setRemoteDesktop(type: "xpra" | "noVNC" = "xpra") {
@@ -235,17 +229,6 @@ export class DevcontainerGenerator {
             softwareVersions.sha.dotnet_sha512["5.0.100"],
           );
       }
-    }
-
-    if (this._amplify) {
-      this._dockerfile += dockerTemplates["amplify"].replace(
-        "{AMPLIFY}",
-        softwareVersions.amplify,
-      );
-      this._readme += readmeTemplates["amplify"].replace(
-        "{AMPLIFY}",
-        softwareVersions.amplify,
-      );
     }
 
     if (this._cypressVersion) {
