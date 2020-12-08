@@ -170,7 +170,7 @@ const startMonaco = async ({ onChange: p , code: d , language: i1  })=>{
                 vs: e
             }
         }), await new Promise((s)=>a([
-                "/editor/editor.main"
+                "vs/editor/editor.main"
             ], s)
         );
     }
