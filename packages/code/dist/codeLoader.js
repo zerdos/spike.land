@@ -165,8 +165,12 @@ const startMonaco = async ({ onChange: p , code: d , language: i1  })=>{
     }
     if (window.monaco === void 0) {
         const e = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs", { require: a  } = await m(`${e}/loader.min.js`);
-        await new Promise((s)=>a([
-                e + "/editor/editor.main"
+        a.config({
+            paths: {
+                vs: e
+            }
+        }), await new Promise((s)=>a([
+                "/editor/editor.main"
             ], s)
         );
     }
