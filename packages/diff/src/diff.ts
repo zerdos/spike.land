@@ -1,5 +1,5 @@
 import { Diff } from "diff";
-import { sha256 } from "../../code/src/sha256.ts";
+import { sha256 } from "../../code/src/sha256.js";
 
 export const diff = async (str1: string, str2: string) => {
   const sha1Str1 = sha256(str1);
