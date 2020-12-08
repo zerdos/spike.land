@@ -92,7 +92,7 @@ export const startMonaco: SmartMonaco = async (
 
     const { require } = (await loadScript(
       `${vsPath}/loader.min.js`,
-    )) as unknown as {require: (depts: unknown, res: unknown) => void }; 
+    )) as unknown as {require: ({config: (opts:unknown) => void }) | ((depts: unknown, res: unknown) => void) }; 
 
     require.config({ paths: { "vs": vsPath } });
 

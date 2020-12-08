@@ -6,6 +6,7 @@ import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { rhythm } from "../components/utils/typography.ts";
 import styled from "@emotion/styled";
+import { Qr } from "../components/code/Qr.tsx";
 
 import forkMe from "../../assets/forkMe.png";
 import { registerSW } from "../sw-reg.js";
@@ -52,10 +53,15 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
       registerSW();
     }
   }, []);
+
   return (
     <Layout>
       <SEO title="This is Zed vision" />
-      <h1>Hi, this is my playground</h1>
+      <h1>
+        Hi, this is my playground: <Qr
+          url={"https://code.zed.vision?qr=true"}
+        />
+      </h1>
       <a href="https://github.com/zed-vision/monorepo">
         <img
           loading="lazy"
