@@ -5,7 +5,7 @@ import { startMonaco } from "../../smart-monaco-editor/lib/editor.min.js";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.tsx";
 import { sha256 } from "./sha256.js";
-import { getDB } from "../../shadb/src/codeDB.ts";
+import { getDB } from "../../shadb/src/shaDB.ts";
 
 /// <reference lib="dom" />
 const document = window.document;
@@ -22,13 +22,13 @@ const getUrl = () => {
 
 export const getProjects = async () => {
   const uuid = await getUserId();
-  const codeDB = await getDB();
-  const projects = await codeDB.get(uuid, "json");
+  const shaDB = await getDB();
+  const projects = await shaDB.get(uuid, "json");
 
   if (!projects || !projects.list) {
     const projectId = v4();
 
-    await codeDB.put(
+    await shaDB.put(
       uuid,
       JSON.stringify({
         list: [projectId],
@@ -46,7 +46,7 @@ export const getProjects = async () => {
 
   // const keyToLoad = search.get("h") || await db.get(projectName);
   // if(keyToLoad){
-  //   projects.map(p=>codeDB.get())
+  //   projects.map(p=>shaDB.get())
   // }
 
   return projects.list;
@@ -109,16 +109,16 @@ async function getCode(hash: string) {
 }
 
 async function getUserId() {
-  const codeDB = await getDB();
-  const uuid = await codeDB.get("uuid");
+  const shaDB = await getDB();
+  const uuid = await shaDB.get("uuid");
   if (!uuid) {
     if (!window.location.href.includes("zed.dev")) {
       const resp = await fetch("https://code.zed.vision/register");
       const data = await resp.json();
-      codeDB.put("uuid", data.uuid);
+      shaDB.put("uuid", data.uuid);
       return data.uuid;
     } else {
-      codeDB.put("uuid", "1234");
+      shaDB.put("uuid", "1234");
     }
   }
   return uuid;
@@ -159,7 +159,7 @@ export async function run(mode = "window") {
     });
   }
 
-  const codeDB = await getDB();
+  const shaDB = await getDB();
 
   const uuid = await getUserId();
   const projects = await getProjects();
@@ -443,11 +443,11 @@ export async function run(mode = "window") {
         const hash = await sha256(latestCode);
 
         try {
-          const prevHash = await codeDB.get(projectName);
+          const prevHash = await shaDB.get(projectName);
 
           if (prevHash !== hash) {
-            await codeDB.put(hash, latestCode);
-            await codeDB.put(projectName, hash);
+            await shaDB.put(hash, latestCode);
+            await shaDB.put(projectName, hash);
 
             // setQueryStringParameter("h", hash);
             //const response = fetch(request);

@@ -1010,8 +1010,8 @@ const getDB = ()=>{
             const hash = url.searchParams.get("h");
             if (hash) {
                 try {
-                    const codeDB = await getDB();
-                    const val = await codeDB.get(hash);
+                    const shaDB = await getDB();
+                    const val = await shaDB.get(hash);
                     if (val) {
                         e.respondWith(new Response(val, {
                             type: "text/javascript"
@@ -1048,8 +1048,8 @@ const getDB = ()=>{
                 const hash = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
                 ).join("");
                 const smallerKey = hash.substring(0, 8);
-                const codeDB = await getDB();
-                await codeDB.put(smallerKey, data);
+                const shaDB = await getDB();
+                await shaDB.put(smallerKey, data);
                 return new Response(JSON.stringify({
                     hash: smallerKey
                 }), {

@@ -1383,11 +1383,11 @@ const getDB = ()=>{
 };
 export const getProjects = async ()=>{
     const uuid = await getUserId();
-    const codeDB = await getDB();
-    const projects = await codeDB.get(uuid, "json");
+    const shaDB = await getDB();
+    const projects = await shaDB.get(uuid, "json");
     if (!projects || !projects.list) {
         const projectId = v4();
-        await codeDB.put(uuid, JSON.stringify({
+        await shaDB.put(uuid, JSON.stringify({
             list: [
                 projectId
             ],
@@ -1403,16 +1403,16 @@ export const getProjects = async ()=>{
     return projects.list;
 };
 async function getUserId() {
-    const codeDB = await getDB();
-    const uuid = await codeDB.get("uuid");
+    const shaDB = await getDB();
+    const uuid = await shaDB.get("uuid");
     if (!uuid) {
         if (!window.location.href.includes("zed.dev")) {
             const resp = await fetch("https://code.zed.vision/register");
             const data = await resp.json();
-            codeDB.put("uuid", data.uuid);
+            shaDB.put("uuid", data.uuid);
             return data.uuid;
         } else {
-            codeDB.put("uuid", "1234");
+            shaDB.put("uuid", "1234");
         }
     }
     return uuid;
@@ -1428,7 +1428,7 @@ export async function run(mode = "window") {
             window.open(link);
         });
     }
-    const codeDB = await getDB();
+    const shaDB = await getDB();
     const uuid = await getUserId();
     const projects = await getProjects();
     const projectName = projects[0];
@@ -1569,10 +1569,10 @@ export async function run(mode = "window") {
                 });
                 const hash = await sha256(latestCode1);
                 try {
-                    const prevHash = await codeDB.get(projectName);
+                    const prevHash = await shaDB.get(projectName);
                     if (prevHash !== hash) {
-                        await codeDB.put(hash, latestCode1);
-                        await codeDB.put(projectName, hash);
+                        await shaDB.put(hash, latestCode1);
+                        await shaDB.put(projectName, hash);
                     }
                 } catch (e) {
                     console.error(e);

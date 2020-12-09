@@ -1,4 +1,4 @@
-import { getDB } from "../../shadb/src/codeDB.ts";
+import { getDB } from "../../shadb/src/shaDB.ts";
 
 const getUrl = () => {
   if (self.location.href.includes("zed.dev")) {
@@ -37,8 +37,8 @@ const needToSave = false;
 
       if (hash) {
         try {
-          const codeDB = await getDB();
-          const val = await codeDB.get(hash);
+          const shaDB = await getDB();
+          const val = await shaDB.get(hash);
 
           if (val) {
             e.respondWith(new Response(val, { type: "text/javascript" }));
@@ -92,8 +92,8 @@ const needToSave = false;
               "",
             );
           const smallerKey = hash.substring(0, 8);
-          const codeDB = await getDB();
-          await codeDB.put(smallerKey, data);
+          const shaDB = await getDB();
+          await shaDB.put(smallerKey, data);
 
           return new Response(JSON.stringify({ hash: smallerKey }), {
             headers: { "Content-Type": "application/json" },

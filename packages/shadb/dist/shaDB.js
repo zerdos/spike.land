@@ -782,12 +782,6 @@ async function arrBuffSha256(msgBuffer) {
     ).join("");
     return hashHex;
 }
-const getUrl = ()=>{
-    if (self.location.href.includes("zed.dev")) {
-        return "https://code.zed.dev";
-    }
-    return "https://code.zed.vision";
-};
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashHex = await arrBuffSha256(msgBuffer);
@@ -909,7 +903,7 @@ replaceTraps((oldTraps)=>({
         has: (target, prop)=>!!getMethod(target, prop) || oldTraps.has(target, prop)
     })
 );
-const getDB = ()=>{
+export const getDB = ()=>{
     const dbPromise = openDB("localZedCodeStore", 1, {
         upgrade (db) {
             db.createObjectStore("codeStore");
@@ -991,114 +985,3 @@ const getDB = ()=>{
     };
     return dbObj;
 };
-(({ location , caches , addEventListener  })=>{
-    var cacheKey = "VERSION-1";
-    addEventListener("install", function(e) {
-        e.waitUntil(caches.open(cacheKey).then((cache)=>{
-            return cache.addAll([
-                "/",
-                "/index.html", 
-            ]);
-        }));
-    });
-    addEventListener("fetch", async function(e) {
-        if (e.request.headers.get("API_KEY")) {
-            e.respondWith(fetch(e.request));
-        }
-        if (e.request.method === "GET" && e.request.url.includes("code.zed.vision") && (e.request.url.includes("?h") || e.request.url.includes("?r"))) {
-            const url = new URL(e.request.url);
-            const hash = url.searchParams.get("h");
-            if (hash) {
-                try {
-                    const shaDB = await getDB();
-                    const val = await shaDB.get(hash);
-                    if (val) {
-                        e.respondWith(new Response(val, {
-                            type: "text/javascript"
-                        }));
-                    }
-                } catch (e) {
-                    console.error(e);
-                }
-            }
-        }
-        const share = e.request.headers.get("SHARE");
-        if (!share && e.request.method === "POST") {
-            e.respondWith((async ()=>{
-                const share1 = e.request.headers.get("SHARE");
-                const data = await e.request.arrayBuffer();
-                if (false && location.origin.includes("code.zed.vision")) {
-                    const request = new Request(getUrl(), {
-                        body: data,
-                        method: "POST",
-                        headers: {
-                            "content-type": "text/html;charset=UTF-8"
-                        }
-                    });
-                    await fetch(request).then((response)=>response.text()
-                    ).then((data1)=>console.log("SERVER HASH: " + data1)
-                    ).catch(function failureCallback(error) {
-                        console.error("Error" + error);
-                    });
-                }
-                const myDigest = await crypto.subtle.digest({
-                    name: "SHA-256"
-                }, data);
-                const hashArray = Array.from(new Uint8Array(myDigest));
-                const hash = hashArray.map((b)=>("00" + b.toString(16)).slice(-2)
-                ).join("");
-                const smallerKey = hash.substring(0, 8);
-                const shaDB = await getDB();
-                await shaDB.put(smallerKey, data);
-                return new Response(JSON.stringify({
-                    hash: smallerKey
-                }), {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-            })());
-            return;
-        }
-        const tryInCachesFirst = caches.open(cacheKey).then((cache)=>{
-            return cache.match(e.request).then((response)=>{
-                if (!response) {
-                    return handleNoCacheMatch(e);
-                }
-                fetchFromNetworkAndCache(e);
-                return response;
-            });
-        });
-        e.respondWith(tryInCachesFirst);
-    });
-    addEventListener("activate", function(e) {
-        e.waitUntil(caches.keys().then((keys)=>{
-            return Promise.all(keys.map((key)=>{
-                if (key !== cacheKey) {
-                    return caches.delete(key);
-                }
-            }));
-        }));
-    });
-    function fetchFromNetworkAndCache(e) {
-        if (e.request.cache === "only-if-cached") {
-            console.log("NO CACHE!", e);
-            return;
-        }
-        return fetch(e.request).then((res)=>{
-            if (res.type === "opaque" || location.search !== "") {
-                return res;
-            }
-            return caches.open(cacheKey).then((cache)=>{
-                if (e.request.method !== "POST") {
-                    cache.put(e.request, res.clone());
-                }
-                return res;
-            });
-        }).catch((err)=>console.error(e.request.url, err)
-        );
-    }
-    function handleNoCacheMatch(e) {
-        return fetchFromNetworkAndCache(e);
-    }
-})(self);
