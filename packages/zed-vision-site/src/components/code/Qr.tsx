@@ -34,7 +34,7 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
       }
       console.log("expired");
     };
-    connect(3);
+    if (typeof window !== "undefined") connect(3);
   }, []);
 
   return <a href={url}>
