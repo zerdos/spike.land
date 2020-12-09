@@ -41,7 +41,9 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
   }, [retry]);
 
   React.useEffect(() => {
-    if (counter) setTimeout(() => setCounter((x: number) => x - 1));
+    if (typeof window !== "undefined" && counter) {
+      setTimeout(() => setCounter((x: number) => x - 1), 1000);
+    }
   }, [counter]);
 
   return <a href={url}>
