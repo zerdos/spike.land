@@ -48,6 +48,7 @@ export const renderDraggableWindow = (onShare) => {
             css: `
               background: darkred;
               margin-top: -4px;
+              margin-right: -4px;
               color: white;
               cursor: pointer;
               font-weight: bold;
