@@ -125,7 +125,7 @@ async function handleCloudRequest(request) {
                 }
                 return new Promise((resolve)=>{
                     const clear = setInterval(async ()=>{
-                        const data1 = await USERS.get(uuid, "json");
+                        const data1 = await SHAKV.get(uuid, "json");
                         if (!data1 || data1.connected) {
                             clearInterval(clear);
                             resolve(data1);

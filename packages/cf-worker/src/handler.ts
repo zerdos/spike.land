@@ -103,7 +103,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
-            const data = await USERS.get(
+            const data = await SHAKV.get(
               uuid,
               "json",
             );
