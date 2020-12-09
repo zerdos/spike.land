@@ -1435,7 +1435,7 @@ export const getProjects = async ()=>{
     }
     return projects.list;
 };
-async function getUserId() {
+export async function getUserId() {
     const shaDB = await getDB();
     const uuid = await shaDB.get("uuid");
     if (!uuid) {

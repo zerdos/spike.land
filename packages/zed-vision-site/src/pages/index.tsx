@@ -1,5 +1,6 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
+import {getDB} from "@zedvision/shadb";
 
 import { Bio } from "../components/bio.tsx";
 import { Layout } from "../components/layout.tsx";
@@ -50,7 +51,28 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
+      const install = async() => {
+        async function getUserId() {
+          const shaDB = await getDB();
+          const uuid = await shaDB.get("uuid");
+          if (!uuid) {
+            if (!window.location.href.includes("zed.dev")) {
+              const resp = await fetch("https://code.zed.vision/register");
+              const data = await resp.json();
+              shaDB.put("uuid", data.uuid);
+              return data.uuid;
+            } else {
+              shaDB.put("uuid", "1234");
+            }
+          }
+          return uuid;
+        } 
+        console.log(await getUserId());
+      } 
+      install()
+
       registerSW();
+
     }
   }, []);
 
