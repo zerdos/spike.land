@@ -34,7 +34,7 @@ const buttonStyles = (color: string) =>
   border-radius: 6px;
   display: block;
   padding: 0.5rem 0;
-  margin-top: 20Px;
+  margin-top: 20px;
   width: 4rem;
   background: ${color};
   color: white;
