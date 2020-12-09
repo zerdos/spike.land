@@ -13,7 +13,7 @@ export default function () {
     [...(str.slice(0, 8))].filter((x) => x < "0" || x > "f").length === 0;
   const needToCheck = pathname.length === 8 && isKey(pathname);
 
-  const [is404, setStatus] = React.useState(!needToCheck);
+  const [is404, set404] = React.useState(false);
 
   React.useEffect(() => {
     if (!is404) {
@@ -30,11 +30,15 @@ export default function () {
             location.href = "https://zed.vision/code/";
           }
         } else {
-          setStatus(true);
+          set404(true);
         }
       };
     }
-    runner();
+
+    if (typeof window !== "undefined") {
+      if (needToCheck) runner();
+      else set404(true);
+    }
   }, []);
 
   return (<>
@@ -46,6 +50,6 @@ export default function () {
         Let's say, its a 404 page.
       </p>
     </Layout>}
-    {is404 === false && <div>loading...</div>}
+    {is404 === false && <div></div>}
   </>);
 }
