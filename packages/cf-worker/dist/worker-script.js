@@ -126,7 +126,7 @@ async function handleCloudRequest(request) {
                             clearInterval(clear);
                             resolve(data1);
                         }
-                    }, 1000);
+                    }, 3000);
                 });
             };
             const data = await waitForChange();
