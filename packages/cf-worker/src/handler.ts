@@ -89,11 +89,32 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (pathname === "/check") {
       const uuid = searchParams.get("uuid");
 
-      const data = await USERS.get(
-        uuid,
-      );
+      const waitForChange = async () => {
+        const data = await USERS.get(
+          uuid,
+          "json",
+        );
+        if (!data) {
+          return null;
+        }
+        return new Promise((resolve) => {
+          const clear = setInterval(async () => {
+            const data = await USERS.get(
+              uuid,
+              "json",
+            );
+            if (!data) {
+              clearInterval(clear);
+              resolve(data);
+            }
+          }, 1000);
+        });
+      };
+
+      await waitForChange();
+
       return new Response(
-        data,
+        JSON.stringify({ expired: true }),
         {
           headers: {
             ...corsHeaders,

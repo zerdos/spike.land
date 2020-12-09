@@ -113,8 +113,25 @@ async function handleCloudRequest(request) {
         }
         if (pathname === "/check") {
             const uuid = searchParams.get("uuid");
-            const data = await USERS.get(uuid);
-            return new Response(data, {
+            const waitForChange = async ()=>{
+                const data = await USERS.get(uuid, "json");
+                if (!data) {
+                    return null;
+                }
+                return new Promise((resolve)=>{
+                    const clear = setInterval(async ()=>{
+                        const data1 = await USERS.get(uuid, "json");
+                        if (!data1) {
+                            clearInterval(clear);
+                            resolve(data1);
+                        }
+                    }, 1000);
+                });
+            };
+            await waitForChange();
+            return new Response(JSON.stringify({
+                expired: true
+            }), {
                 headers: {
                     ...corsHeaders,
                     "content-type": "application/json;charset=UTF-8"
