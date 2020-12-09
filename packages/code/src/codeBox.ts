@@ -1,7 +1,7 @@
 import v4 from "uuid";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
-import { startMonaco } from "../../smart-monaco-editor/lib/editor.min.js";
+import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.tsx";
 import { sha256 } from "./sha256.js";

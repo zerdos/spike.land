@@ -133,242 +133,17 @@ function renderDraggableEditor() {
     frame.show();
     console.log(frame);
 }
-function m(p) {
-    return new Promise(function(d, i1) {
-        var o;
-        o = window.document.createElement("script"), o.src = p, o.onload = ()=>d(window)
-        , o.onerror = i1, window.document.head.appendChild(o);
+function loadScript(src) {
+    return new Promise(function(resolve, reject) {
+        var s;
+        s = window.document.createElement("script");
+        s.src = src;
+        s.onload = ()=>resolve(window)
+        ;
+        s.onerror = reject;
+        window.document.head.appendChild(s);
     });
 }
-const startMonaco = async ({ onChange: p , code: d , language: i1  })=>{
-    if (typeof window == "undefined") return {
-        monaco: {
-        },
-        editor: {
-        }
-    };
-    const o = window.document, l = window.document.getElementById("container");
-    if (!l) {
-        const e = o.getElementById("container");
-        e.id = "container", o.body.appendChild(e);
-    }
-    const u = i1 === "typescript" ? "file:///main.tsx" : "file:///main.html";
-    let n;
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
-        const e = window.document.createElement("div");
-        e.id = "ace", window.document.body.appendChild(e), await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"), i1 === "typescript" ? await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js") : await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js"), await m("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js"), window.document.getElementById("ace").style.setProperty("display", "block"), l.style.setProperty("display", "none"), n = window.ace.edit("ace"), n.getSession().setMode("ace/mode/typescript");
-        const a = (s)=>setTimeout(()=>{
-                const c = window.ace.edit("ace"), y = c.getTheme();
-                y !== "ace/theme/monokai " && (c.setOptions({
-                    fontSize: "14pt"
-                }), c.setTheme("ace/theme/monokai"), a(2 * s));
-            }, s)
-        ;
-        a(100), n.setValue(d), n.blur();
-    }
-    if (window.monaco === void 0) {
-        const e = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs", { require: a  } = await m(`${e}/loader.min.js`);
-        a.config({
-            paths: {
-                vs: e
-            }
-        }), await new Promise((s)=>a([
-                "vs/editor/editor.main"
-            ], s)
-        );
-    }
-    const r = window.monaco, t = {
-        monaco: r,
-        editor: r.editor.create(window.document.getElementById("container"), {
-            formatOnType: !0,
-            scrollbar: {
-                horizontal: "hidden",
-                verticalHasArrows: !0,
-                verticalScrollbarSize: 20
-            },
-            minimap: {
-                enabled: !1
-            },
-            folding: !1,
-            multiCursorModifier: "alt",
-            wordWrap: "on",
-            wordWrapBreakAfterCharacters: ">([{]))],;} ",
-            mouseWheelZoom: !1,
-            wordWrapColumn: 80,
-            automaticLayout: !0,
-            scrollBeyondLastLine: !1,
-            autoIndent: "brackets",
-            autoClosingQuotes: "always",
-            padding: {
-                bottom: 300
-            },
-            lineNumbers: "on",
-            autoClosingBrackets: "always",
-            autoClosingOvertype: "always",
-            suggest: {
-            },
-            codeLens: !0,
-            autoSurround: "languageDefined",
-            trimAutoWhitespace: !0,
-            codeActionsOnSaveTimeout: 100,
-            model: r.editor.getModel(u) || r.editor.createModel(d, i1, r.Uri.parse(u)),
-            value: d,
-            language: i1,
-            theme: "vs-dark"
-        })
-    };
-    if (t.editor.onDidChangeModelContent(()=>p(t.editor.getValue())
-    ), n && n.session.on("change", function() {
-        const e = n.getValue();
-        t.editor.setValue(e), p(e);
-    }), n && o.getElementById("container").replaceWith(o.getElementById("ace")), t.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-        noSuggestionDiagnostics: !0,
-        noSemanticValidation: !0,
-        noSyntaxValidation: !0
-    }), i1 === "typescript") {
-        const e = [
-            {
-                name: "react",
-                url: "https://unpkg.com/@types/react@17.0.0/index.d.ts",
-                depend: [
-                    "global",
-                    "csstype",
-                    "react-dom",
-                    "prop-types"
-                ]
-            },
-            {
-                name: "global",
-                url: "https://unpkg.com/@types/react@17.0.0/global.d.ts",
-                depend: []
-            },
-            {
-                name: "prop-types",
-                url: "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
-                depend: []
-            },
-            {
-                name: "react-dom",
-                url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
-                depend: []
-            },
-            {
-                name: "csstype",
-                url: "https://unpkg.com/csstype@3.0.5/index.d.ts",
-                depend: []
-            },
-            {
-                name: "@emotion/styled/base.d.ts",
-                url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
-                depend: [
-                    "@emotion/react",
-                    "@emotion/serialize",
-                    "react"
-                ]
-            },
-            {
-                name: "@emotion/styled/index.d.ts",
-                url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
-                depend: [
-                    "@emotion/react",
-                    "@emotion/serialize",
-                    "react"
-                ]
-            },
-            {
-                name: "@emotion/cache/index.d.ts",
-                url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
-                depend: [
-                    "@emotion/utils"
-                ]
-            },
-            {
-                name: "@emotion/react/index.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
-                depend: [
-                    "@emotion/cache"
-                ]
-            },
-            {
-                name: "@emotion/react/jsx-namespace.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
-                depend: [
-                    "@emotion/utils",
-                    "csstype"
-                ]
-            },
-            {
-                name: "@emotion/react/css-prop.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.2/types/css-prop.d.ts",
-                depend: [
-                    "@emotion/utils",
-                    "csstype"
-                ]
-            },
-            {
-                name: "@emotion/react/helper.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
-                depend: [
-                    "@emotion/utils",
-                    "csstype"
-                ]
-            },
-            {
-                name: "@emotion/react/theming.d.ts",
-                url: "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
-                depend: [
-                    "@emotion/utils",
-                    "csstype"
-                ]
-            },
-            {
-                name: "@emotion/serialize/index.d.ts",
-                url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
-                depend: [
-                    "@emotion/utils",
-                    "csstype"
-                ]
-            },
-            {
-                name: "@emotion/utils/index.d.ts",
-                url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
-                depend: []
-            },
-            {
-                name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.d.ts",
-                depend: []
-            },
-            {
-                name: "popmotion",
-                url: "https://unpkg.com/browse/popmotion@9.0.1/lib/index.d.ts"
-            }
-        ], a = e.map(({ name: s , url: c  })=>(async ()=>t.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(c)).text(), s.includes("@emotion") ? `file:///node_modules/${s}` : `file:///node_modules/@types/${s}/index.d.ts`)
-            )()
-        );
-        return t.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-            target: t.monaco.languages.typescript.ScriptTarget.ESNext,
-            allowNonTsExtensions: !0,
-            allowUmdGlobalAccess: !0,
-            strict: !0,
-            allowJs: !0,
-            noEmitOnError: !0,
-            allowSyntheticDefaultImports: !0,
-            moduleResolution: t.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
-            module: t.monaco.languages.typescript.ModuleKind.CommonJS,
-            noEmit: !0,
-            typeRoots: [
-                "node_modules/@types"
-            ],
-            jsx: "react-jsx",
-            esModuleInterop: !0
-        }), await Promise.all(a), t.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-            noSuggestionDiagnostics: !1,
-            noSemanticValidation: !1,
-            noSyntaxValidation: !1
-        }), t;
-    }
-};
 const importScript = async (src)=>document.querySelector(`script[src="${src}"]`) || new Promise(function(resolve, reject) {
         const s = window.document.createElement("script");
         s.src = src;
@@ -414,14 +189,14 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             ]);
             function w() {
                 for(var c = -1 * u; c <= u; c += 2){
-                    var L = void 0, F = v[c - 1], m1 = v[c + 1], N = (m1 ? m1.newPos : 0) - c;
+                    var L = void 0, F = v[c - 1], m = v[c + 1], N = (m ? m.newPos : 0) - c;
                     F && (v[c - 1] = void 0);
-                    var y = F && F.newPos + 1 < s, A = m1 && 0 <= N && N < o;
+                    var y = F && F.newPos + 1 < s, A = m && 0 <= N && N < o;
                     if (!y && !A) {
                         v[c] = void 0;
                         continue;
                     }
-                    if (!y || A && F.newPos < m1.newPos ? (L = H(m1), i1.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i1.pushComponent(L.components, !0, void 0)), N = i1.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) return l(x(i1, L.components, t, n, i1.useLongestToken));
+                    if (!y || A && F.newPos < m.newPos ? (L = H(m), i1.pushComponent(L.components, void 0, !0)) : (L = F, L.newPos++, i1.pushComponent(L.components, !0, void 0)), N = i1.extractCommon(L, t, n, c), L.newPos + 1 >= s && N + 1 >= o) return l(x(i1, L.components, t, n, i1.useLongestToken));
                     v[c] = L;
                 }
                 u++;
@@ -712,7 +487,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             return !0;
         }
         for(var g = 0; g < i1.length; g++){
-            for(var c = i1[g], L = r.length - c.oldLines, F = 0, m1 = p + c.oldStart - 1, N = ze(m1, u, L); F !== void 0; F = N())if (w(c, m1 + F)) {
+            for(var c = i1[g], L = r.length - c.oldLines, F = 0, m = p + c.oldStart - 1, N = ze(m, u, L); F !== void 0; F = N())if (w(c, m + F)) {
                 c.offset = p += F;
                 break;
             }
@@ -764,16 +539,16 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
             lines: []
         });
         function o(F) {
-            return F.map(function(m1) {
-                return " " + m1;
+            return F.map(function(m) {
+                return " " + m;
             });
         }
-        for(var u = [], p = 0, v = 0, a = [], w = 1, g = 1, c = function(m1) {
-            var N = s[m1], y = N.lines || N.value.replace(/\n$/, "").split(`\n`);
+        for(var u = [], p = 0, v = 0, a = [], w = 1, g = 1, c = function(m) {
+            var N = s[m], y = N.lines || N.value.replace(/\n$/, "").split(`\n`);
             if ((N.lines = y, N.added || N.removed)) {
                 var A;
                 if (!p) {
-                    var I = s[m1 - 1];
+                    var I = s[m - 1];
                     p = w, v = g, I && (a = l.context > 0 ? o(I.lines.slice(-l.context)) : [], p -= a.length, v -= a.length);
                 }
                 (A = a).push.apply(A, b(y.map(function(q) {
@@ -781,7 +556,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
                 }))), N.added ? g += y.length : w += y.length;
             } else {
                 if (p) {
-                    if (y.length <= l.context * 2 && m1 < s.length - 2) {
+                    if (y.length <= l.context * 2 && m < s.length - 2) {
                         var E;
                         (E = a).push.apply(E, b(o(y)));
                     } else {
@@ -794,7 +569,7 @@ const starter = `import { useState } from "react";\nimport { css, Global } from 
                             newLines: g - v + O,
                             lines: a
                         };
-                        if (m1 >= s.length - 2 && y.length <= l.context) {
+                        if (m >= s.length - 2 && y.length <= l.context) {
                             var Y = /\n$/.test(t), te = /\n$/.test(r), R = y.length == 0 && a.length > z.oldLines;
                             !Y && R && t.length > 0 && a.splice(z.oldLines, 0, "\\ No newline at end of file"), (!Y && !R || !te) && a.push("\\ No newline at end of file");
                         }
@@ -1178,6 +953,264 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareItAsHtml;
+const startMonaco = async ({ onChange , code , language  })=>{
+    if (typeof window === "undefined") return {
+        monaco: {
+        },
+        editor: {
+        }
+    };
+    const document1 = window.document;
+    const container = window.document.getElementById("container");
+    if (!container) {
+        const el = document1.getElementById("container");
+        el.id = "container";
+        document1.body.appendChild(el);
+    }
+    const modelUri = language === "typescript" ? "file:///main.tsx" : "file:///main.html";
+    let aceEditor;
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent)) {
+        const aceEl = window.document.createElement("div");
+        aceEl.id = "ace";
+        window.document.body.appendChild(aceEl);
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js");
+        language === "typescript" ? await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js") : await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js");
+        await loadScript("https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js");
+        window.document.getElementById("ace").style.setProperty("display", "block");
+        container.style.setProperty("display", "none");
+        aceEditor = window["ace"].edit("ace");
+        aceEditor.getSession().setMode("ace/mode/typescript");
+        const setThemeForAce = (wait)=>setTimeout(()=>{
+                const aceEditor1 = window["ace"].edit("ace");
+                const theme = aceEditor1.getTheme();
+                if (theme !== "ace/theme/monokai ") {
+                    aceEditor1.setOptions({
+                        fontSize: "14pt"
+                    });
+                    aceEditor1.setTheme("ace/theme/monokai");
+                    setThemeForAce(2 * wait);
+                }
+            }, wait)
+        ;
+        setThemeForAce(100);
+        aceEditor.setValue(code);
+        aceEditor.blur();
+    }
+    if (window["monaco"] === undefined) {
+        const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
+        const { require  } = await loadScript(`${vsPath}/loader.min.js`);
+        require.config({
+            paths: {
+                "vs": vsPath
+            }
+        });
+        await new Promise((resolve)=>require([
+                "vs/editor/editor.main"
+            ], resolve)
+        );
+    }
+    const monaco = window["monaco"];
+    const modules = {
+        monaco: monaco,
+        editor: monaco.editor.create(window.document.getElementById("container"), {
+            formatOnType: true,
+            scrollbar: {
+                horizontal: "hidden",
+                verticalHasArrows: true,
+                verticalScrollbarSize: 20
+            },
+            minimap: {
+                enabled: false
+            },
+            folding: false,
+            multiCursorModifier: "alt",
+            wordWrap: "on",
+            wordWrapBreakAfterCharacters: ">([{]))],;} ",
+            mouseWheelZoom: false,
+            wordWrapColumn: 80,
+            automaticLayout: true,
+            scrollBeyondLastLine: false,
+            autoIndent: "brackets",
+            autoClosingQuotes: "always",
+            padding: {
+                bottom: 300
+            },
+            lineNumbers: "on",
+            autoClosingBrackets: "always",
+            autoClosingOvertype: "always",
+            suggest: {
+            },
+            codeLens: true,
+            autoSurround: "languageDefined",
+            trimAutoWhitespace: true,
+            codeActionsOnSaveTimeout: 100,
+            model: monaco.editor.getModel(modelUri) || monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri)),
+            value: code,
+            language: language,
+            theme: "vs-dark"
+        })
+    };
+    modules.editor.onDidChangeModelContent(()=>onChange(modules.editor.getValue())
+    );
+    aceEditor && aceEditor.session.on("change", function() {
+        const value = aceEditor.getValue();
+        modules.editor.setValue(value);
+        onChange(value);
+    });
+    aceEditor && document1.getElementById("container").replaceWith(document1.getElementById("ace"));
+    modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSuggestionDiagnostics: true,
+        noSemanticValidation: true,
+        noSyntaxValidation: true
+    });
+    if (language === "typescript") {
+        const importHelper = [
+            {
+                name: "react",
+                url: "https://unpkg.com/@types/react@17.0.0/index.d.ts",
+                depend: [
+                    "global",
+                    "csstype",
+                    "react-dom",
+                    "prop-types"
+                ]
+            },
+            {
+                name: "global",
+                url: "https://unpkg.com/@types/react@17.0.0/global.d.ts",
+                depend: []
+            },
+            {
+                name: "prop-types",
+                url: "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
+                depend: []
+            },
+            {
+                name: "react-dom",
+                url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
+                depend: []
+            },
+            {
+                name: "csstype",
+                url: "https://unpkg.com/csstype@3.0.5/index.d.ts",
+                depend: []
+            },
+            {
+                name: "@emotion/styled/base.d.ts",
+                url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
+                depend: [
+                    "@emotion/react",
+                    "@emotion/serialize",
+                    "react"
+                ]
+            },
+            {
+                name: "@emotion/styled/index.d.ts",
+                url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
+                depend: [
+                    "@emotion/react",
+                    "@emotion/serialize",
+                    "react"
+                ]
+            },
+            {
+                name: "@emotion/cache/index.d.ts",
+                url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
+                depend: [
+                    "@emotion/utils"
+                ]
+            },
+            {
+                name: "@emotion/react/index.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
+                depend: [
+                    "@emotion/cache"
+                ]
+            },
+            {
+                name: "@emotion/react/jsx-namespace.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/react/css-prop.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/css-prop.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/react/helper.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/react/theming.d.ts",
+                url: "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/serialize/index.d.ts",
+                url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
+                depend: [
+                    "@emotion/utils",
+                    "csstype"
+                ]
+            },
+            {
+                name: "@emotion/utils/index.d.ts",
+                url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+                depend: []
+            },
+            {
+                name: "framer-motion",
+                url: "https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.d.ts",
+                depend: []
+            },
+            {
+                name: "popmotion",
+                url: "https://unpkg.com/browse/popmotion@9.0.1/lib/index.d.ts"
+            }, 
+        ];
+        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
+            )()
+        );
+        modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+            target: modules.monaco.languages.typescript.ScriptTarget.ESNext,
+            allowNonTsExtensions: true,
+            allowUmdGlobalAccess: true,
+            strict: true,
+            allowJs: true,
+            noEmitOnError: true,
+            allowSyntheticDefaultImports: true,
+            moduleResolution: modules.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
+            module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
+            noEmit: true,
+            typeRoots: [
+                "node_modules/@types"
+            ],
+            jsx: "react-jsx",
+            esModuleInterop: true
+        });
+        await Promise.all(dts);
+        modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+            noSuggestionDiagnostics: false,
+            noSemanticValidation: false,
+            noSyntaxValidation: false
+        });
+        return modules;
+    }
+};
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashHex = await arrBuffSha256(msgBuffer);

@@ -2,7 +2,7 @@
     "name": "@zedvision/diff",
     "version": "8.2.3",
     "description": "Diffs 2 strings",
-    "main": "diff.min.js",
+    "main": "dist/diff.min.js",
     "private": false,
     "sideEffects": false,
     "scripts": {
