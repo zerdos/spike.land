@@ -72,8 +72,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         JSON.stringify(
           {
             uuid,
-            registered: Date.now(),
-            cf: request.cf,
             connected: searchParams.get("uuid"),
           },
         ),

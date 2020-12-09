@@ -1,6 +1,7 @@
 import React from "react";
 import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
+import { sha256 } from "../components/utils/sha256/sha256.worker.ts";
 
 export default function () {
   let pathname = "";
@@ -17,7 +18,18 @@ export default function () {
   React.useEffect(() => {
     if (!is404) {
       const runner = async () => {
-        fetch("https://code.zed.vision/");
+        const repl = await fetch(`https://code.zed.vision/${patname}`);
+        const data = await repl.json();
+        const uuid = data.uuid;
+        if (uuid) {
+          const hash = (await sha256(uuid)).substring(0, 8);
+          if (pathname === hash) {
+            const conn = await fetch(
+              `https://code.zed.vision/connect?uuid=${uuid}`,
+            );
+            location.href = "https://zed.vision/code/";
+          }
+        }
       };
     }
   }, []);

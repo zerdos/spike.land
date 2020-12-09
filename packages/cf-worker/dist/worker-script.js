@@ -103,8 +103,6 @@ async function handleCloudRequest(request) {
             const key = await sha256(uuid);
             await SHAKV.put(key, JSON.stringify({
                 uuid,
-                registered: Date.now(),
-                cf: request.cf,
                 connected: searchParams.get("uuid")
             }), {
                 expirationTtl: 60
