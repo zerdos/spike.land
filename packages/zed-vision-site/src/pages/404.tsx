@@ -17,7 +17,7 @@ export default function () {
 
   React.useEffect(() => {
     const runner = async () => {
-      const repl = await fetch(`https://code.zed.vision/${patname}`);
+      const repl = await fetch(`https://code.zed.vision/${pathname}`);
       const data = await repl.json();
       const uuid = data.uuid;
       if (uuid) {
