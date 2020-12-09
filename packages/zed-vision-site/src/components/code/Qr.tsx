@@ -5,10 +5,11 @@ import QRious from "@zedvision/qrious";
 
 export const Qr: React.FC<{ url: string }> = ({ url }) => {
   const ref = React.useRef(null);
+  const [retry, setRetry] = React.useState(3);
 
   React.useEffect(() => {
     let qr: QRious = null;
-    const connect = async (retry: number) => {
+    const connect = async () => {
       const req = await fetch("https://code.zed.vision/connect?ww");
       const data = await req.json();
       const uuid = data.uuid;
@@ -32,13 +33,13 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
       if (res.expired === false) {
         location.href = "https://zed.vision/code";
       }
-      console.log("expired");
+      setRetry(retry - 1);
     };
-    if (typeof window !== "undefined") connect(3);
-  }, []);
+    if (typeof window !== "undefined" && retry > 0) connect();
+  }, [retry]);
 
   return <a href={url}>
-    <img
+    {retry > 0 && <img
       css={css`
     display: inline-block;
     vertical-align: middle;
@@ -46,6 +47,6 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
     `}
       ref={ref}
     >
-    </img>
+    </img>}
   </a>;
 };
