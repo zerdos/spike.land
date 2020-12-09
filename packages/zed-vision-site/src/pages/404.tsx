@@ -22,8 +22,11 @@ export default function () {
         const data = await response.text();
         const json = JSON.parse(data);
         const uuid = json.uuid;
+        console.log({ uuid });
         if (uuid) {
           const hash = (await sha256(uuid)).substring(0, 8);
+          console.log({ hash });
+
           if (pathname === hash) {
             const conn = await fetch(
               `https://code.zed.vision/connect?uuid=${uuid}`,
