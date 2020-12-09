@@ -27,7 +27,7 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
         );
       }
 
-      const check = await fetch(`https://code.zed.vision/check?uuid=uid`);
+      const check = await fetch(`https://code.zed.vision/check?uuid=${uuid}`);
       const res = await check.json();
       if (res.expired === false) {
         location.href = "https://zed.vision/code";
