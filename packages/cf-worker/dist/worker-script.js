@@ -93,6 +93,24 @@ async function handleCloudRequest(request) {
                 }
             });
         }
+        if (pathname === "/connect") {
+            const uuid = v4();
+            await USERS.put(uuid, JSON.stringify({
+                uuid,
+                registered: Date.now(),
+                cf: request.cf
+            }, {
+                expirationTtl: 60
+            }));
+            return new Response(JSON.stringify({
+                uuid
+            }), {
+                headers: {
+                    ...corsHeaders,
+                    "content-type": "application/json;charset=UTF-8"
+                }
+            });
+        }
         if (pathname === "/register") {
             const uuid = v4();
             await USERS.put(uuid, JSON.stringify({
