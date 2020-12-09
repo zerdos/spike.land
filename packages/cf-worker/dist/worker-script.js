@@ -99,9 +99,9 @@ async function handleCloudRequest(request) {
                 uuid,
                 registered: Date.now(),
                 cf: request.cf
-            }, {
+            }), {
                 expirationTtl: 60
-            }));
+            });
             return new Response(JSON.stringify({
                 uuid
             }), {

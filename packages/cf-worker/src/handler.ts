@@ -70,8 +70,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         uuid,
         JSON.stringify(
           { uuid, registered: Date.now(), cf: request.cf },
-          { expirationTtl: 60 },
         ),
+        { expirationTtl: 60 },
       );
       return new Response(
         JSON.stringify({
