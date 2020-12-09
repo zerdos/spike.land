@@ -16,24 +16,22 @@ export default function () {
   const [is404, set404] = React.useState(false);
 
   React.useEffect(() => {
-    if (!is404) {
-      const runner = async () => {
-        const repl = await fetch(`https://code.zed.vision/${patname}`);
-        const data = await repl.json();
-        const uuid = data.uuid;
-        if (uuid) {
-          const hash = (await sha256(uuid)).substring(0, 8);
-          if (pathname === hash) {
-            const conn = await fetch(
-              `https://code.zed.vision/connect?uuid=${uuid}`,
-            );
-            location.href = "https://zed.vision/code/";
-          }
-        } else {
-          set404(true);
+    const runner = async () => {
+      const repl = await fetch(`https://code.zed.vision/${patname}`);
+      const data = await repl.json();
+      const uuid = data.uuid;
+      if (uuid) {
+        const hash = (await sha256(uuid)).substring(0, 8);
+        if (pathname === hash) {
+          const conn = await fetch(
+            `https://code.zed.vision/connect?uuid=${uuid}`,
+          );
+          location.href = "https://zed.vision/code/";
         }
-      };
-    }
+      } else {
+        set404(true);
+      }
+    };
 
     if (typeof window !== "undefined") {
       if (needToCheck) runner();
