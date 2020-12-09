@@ -5,7 +5,7 @@ import { SEO } from "../components/seo.tsx";
 export default function () {
   let pathname;
   if (typeof window !== `undefined`) {
-    pathname = location.href.pathname;
+    pathname = (new URL(location.href)).pathname.substr(1);
   }
   return (
     <Layout>
