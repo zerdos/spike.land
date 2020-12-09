@@ -52,7 +52,11 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
     display: inline-block;
     vertical-align: middle;
     box-shadow: 0 0 ${10 +
-        counter}px 5px {retry===3? darkorange? retry===2?"green":"darkred"}
+        counter}px 5px ${
+        retry === 3 ? "darkorange" : retry === 2 ? "green" : "darkred"
+      };
+
+
     `}
       ref={ref}
     >
