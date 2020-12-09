@@ -20,6 +20,8 @@ export default function () {
       try {
         const response = await fetch(`https://code.zed.vision/${pathname}`);
         const data = await response.text();
+        console.log({ data });
+        ya;
         const json = JSON.parse(data);
         const uuid = json.uuid;
         console.log({ uuid });
