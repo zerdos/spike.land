@@ -38,7 +38,8 @@ export default function () {
         } else {
           set404(true);
         }
-      } catch {
+      } catch (e) {
+        console.error(e);
         set404(true);
       }
     };
