@@ -111,6 +111,16 @@ async function handleCloudRequest(request) {
                 }
             });
         }
+        if (pathname === "/check") {
+            const uuid = searchParams.get("uuid");
+            const data = await USERS.get(uuid);
+            return new Response(data, {
+                headers: {
+                    ...corsHeaders,
+                    "content-type": "application/json;charset=UTF-8"
+                }
+            });
+        }
         if (pathname === "/register") {
             const uuid = v4();
             await USERS.put(uuid, JSON.stringify({
