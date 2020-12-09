@@ -111,7 +111,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
               clearInterval(clear);
               resolve(data);
             }
-          }, 3000);
+          }, 1000);
         });
       };
 

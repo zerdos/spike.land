@@ -130,7 +130,7 @@ async function handleCloudRequest(request) {
                             clearInterval(clear);
                             resolve(data1);
                         }
-                    }, 3000);
+                    }, 1000);
                 });
             };
             const data = await waitForChange();
