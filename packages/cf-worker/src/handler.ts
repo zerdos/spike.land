@@ -65,11 +65,16 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
 
     if (pathname === "/connect") {
-      const uuid = v4();
+      const uuid = searchParams.get("uuid") || v4();
       await USERS.put(
         uuid,
         JSON.stringify(
-          { uuid, registered: Date.now(), cf: request.cf },
+          {
+            uuid,
+            registered: Date.now(),
+            cf: request.cf,
+            connected: searchParams.get("uuid"),
+          },
         ),
         { expirationTtl: 60 },
       );
@@ -94,8 +99,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           uuid,
           "json",
         );
-        if (!data) {
-          return null;
+        if (!data || data.connected) {
+          return data;
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
@@ -103,7 +108,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
               uuid,
               "json",
             );
-            if (!data) {
+            if (!data || data.connected) {
               clearInterval(clear);
               resolve(data);
             }
@@ -111,10 +116,10 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         });
       };
 
-      await waitForChange();
+      const data = await waitForChange();
 
       return new Response(
-        JSON.stringify({ expired: true }),
+        JSON.stringify({ expired: data === null }),
         {
           headers: {
             ...corsHeaders,

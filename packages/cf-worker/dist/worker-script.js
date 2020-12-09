@@ -94,11 +94,12 @@ async function handleCloudRequest(request) {
             });
         }
         if (pathname === "/connect") {
-            const uuid = v4();
+            const uuid = searchParams.get("uuid") || v4();
             await USERS.put(uuid, JSON.stringify({
                 uuid,
                 registered: Date.now(),
-                cf: request.cf
+                cf: request.cf,
+                connected: searchParams.get("uuid")
             }), {
                 expirationTtl: 60
             });
@@ -115,22 +116,22 @@ async function handleCloudRequest(request) {
             const uuid = searchParams.get("uuid");
             const waitForChange = async ()=>{
                 const data = await USERS.get(uuid, "json");
-                if (!data) {
-                    return null;
+                if (!data || data.connected) {
+                    return data;
                 }
                 return new Promise((resolve)=>{
                     const clear = setInterval(async ()=>{
                         const data1 = await USERS.get(uuid, "json");
-                        if (!data1) {
+                        if (!data1 || data1.connected) {
                             clearInterval(clear);
                             resolve(data1);
                         }
                     }, 1000);
                 });
             };
-            await waitForChange();
+            const data = await waitForChange();
             return new Response(JSON.stringify({
-                expired: true
+                expired: data === null
             }), {
                 headers: {
                     ...corsHeaders,
