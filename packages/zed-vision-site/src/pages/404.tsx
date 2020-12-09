@@ -1,7 +1,7 @@
 import React from "react";
 import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
-import { sha256 } from "../components/utils/sha256/sha256.worker.ts";
+import { sha256 } from "../components/utils/sha256/sha256.ts";
 
 export default function () {
   let pathname = "";
