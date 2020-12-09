@@ -15,7 +15,7 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
       const data = await req.json();
       setCounter(60);
       const uuid = data.uuid;
-      const url = `https://code.zed.vision/connect?uuid=${uuid}`;
+      const url = `https://zed.vision/${uuid}`;
 
       if (qr !== null) {
         qr.value = url;
