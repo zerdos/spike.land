@@ -1,7 +1,7 @@
 import { getDB } from "./codeDB.ts";
 
 const getUrl = () => {
-  if (window.location.href.includes("zed.dev")) {
+  if (self.location.href.includes("zed.dev")) {
     return "https://code.zed.dev";
   }
   return "https://code.zed.vision";
@@ -69,10 +69,8 @@ const needToSave = false;
             );
 
             await fetch(request)
-              .then((response) => response.body())
-              .then((data) =>
-                console.log("SERVER HASH: " + JSON.stringify(data))
-              )
+              .then((response) => response.text())
+              .then((data) => console.log("SERVER HASH: " + data))
               .catch(function failureCallback(error) {
                 console.error("Error" + error);
               });

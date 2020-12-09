@@ -783,7 +783,7 @@ async function arrBuffSha256(msgBuffer) {
     return hashHex;
 }
 const getUrl = ()=>{
-    if (window.location.href.includes("zed.dev")) {
+    if (self.location.href.includes("zed.dev")) {
         return "https://code.zed.dev";
     }
     return "https://code.zed.vision";
@@ -1034,8 +1034,8 @@ const getDB = ()=>{
                             "content-type": "text/html;charset=UTF-8"
                         }
                     });
-                    await fetch(request).then((response)=>response.body()
-                    ).then((data1)=>console.log("SERVER HASH: " + JSON.stringify(data1))
+                    await fetch(request).then((response)=>response.text()
+                    ).then((data1)=>console.log("SERVER HASH: " + data1)
                     ).catch(function failureCallback(error) {
                         console.error("Error" + error);
                     });
