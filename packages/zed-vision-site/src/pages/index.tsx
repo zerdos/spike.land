@@ -71,7 +71,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
       } 
       install()
 
-      registerSW();
+      // registerSW();
 
     }
   }, []);
