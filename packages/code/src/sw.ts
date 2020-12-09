@@ -37,6 +37,7 @@ const needToSave = false;
 
       if (hash) {
         try {
+          const codeDB = await getDB();
           const val = await codeDB.get(hash);
 
           if (val) {

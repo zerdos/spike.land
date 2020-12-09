@@ -1010,6 +1010,7 @@ const getDB = ()=>{
             const hash = url.searchParams.get("h");
             if (hash) {
                 try {
+                    const codeDB = await getDB();
                     const val = await codeDB.get(hash);
                     if (val) {
                         e.respondWith(new Response(val, {
