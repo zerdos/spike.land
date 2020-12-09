@@ -17,18 +17,25 @@ export default function () {
 
   React.useEffect(() => {
     const runner = async () => {
-      const repl = await fetch(`https://code.zed.vision/${pathname}`);
-      const data = await repl.json();
-      const uuid = data.uuid;
-      if (uuid) {
-        const hash = (await sha256(uuid)).substring(0, 8);
-        if (pathname === hash) {
-          const conn = await fetch(
-            `https://code.zed.vision/connect?uuid=${uuid}`,
-          );
-          location.href = "https://zed.vision/code/";
+      try {
+        const response = await fetch(`https://code.zed.vision/${pathname}`);
+        const data = await response.text();
+        const json = JSON.parse(data);
+        const uuid = json.uuid;
+        if (uuid) {
+          const hash = (await sha256(uuid)).substring(0, 8);
+          if (pathname === hash) {
+            const conn = await fetch(
+              `https://code.zed.vision/connect?uuid=${uuid}`,
+            );
+            location.href = "https://zed.vision/code/";
+          } else {
+            set404(true);
+          }
+        } else {
+          set404(true);
         }
-      } else {
+      } catch {
         set404(true);
       }
     };
