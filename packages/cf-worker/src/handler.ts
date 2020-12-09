@@ -1,4 +1,4 @@
-import { arrBuffSha256 } from "../../code/src/sha256.js";
+import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
 import v4 from "uuid";
 
 var SHAKV: KVNamespace;
@@ -66,8 +66,9 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     if (pathname === "/connect") {
       const uuid = searchParams.get("uuid") || v4();
-      await USERS.put(
-        uuid,
+      const key = await sha256(uuid);
+      await SHAKV.put(
+        key,
         JSON.stringify(
           {
             uuid,
@@ -80,7 +81,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       );
       return new Response(
         JSON.stringify({
-          uuid,
+          uuid: key,
         }),
         {
           headers: {
@@ -95,7 +96,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const uuid = searchParams.get("uuid");
 
       const waitForChange = async () => {
-        const data = await USERS.get(
+        const data = await SHAKV.get(
           uuid,
           "json",
         );

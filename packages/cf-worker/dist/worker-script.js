@@ -55,6 +55,11 @@ const corsHeaders = {
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };
+async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashHex = await arrBuffSha256(msgBuffer);
+    return hashHex.substr(0, 8);
+}
 async function handleCloudRequest(request) {
     const psk = String(request.headers.get("API_KEY") || "");
     const url = new URL(request.url);
@@ -95,7 +100,8 @@ async function handleCloudRequest(request) {
         }
         if (pathname === "/connect") {
             const uuid = searchParams.get("uuid") || v4();
-            await USERS.put(uuid, JSON.stringify({
+            const key = await sha256(uuid);
+            await SHAKV.put(key, JSON.stringify({
                 uuid,
                 registered: Date.now(),
                 cf: request.cf,
@@ -104,7 +110,7 @@ async function handleCloudRequest(request) {
                 expirationTtl: 60
             });
             return new Response(JSON.stringify({
-                uuid
+                uuid: key
             }), {
                 headers: {
                     ...corsHeaders,
@@ -115,7 +121,7 @@ async function handleCloudRequest(request) {
         if (pathname === "/check") {
             const uuid = searchParams.get("uuid");
             const waitForChange = async ()=>{
-                const data = await USERS.get(uuid, "json");
+                const data = await SHAKV.get(uuid, "json");
                 if (!data || data.connected) {
                     return data;
                 }

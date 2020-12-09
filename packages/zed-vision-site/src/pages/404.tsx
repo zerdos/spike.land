@@ -16,6 +16,9 @@ export default function () {
 
   React.useEffect(() => {
     if (!is404) {
+      const runner = async () => {
+        fetch("https://code.zed.vision/");
+      };
     }
   }, []);
 
