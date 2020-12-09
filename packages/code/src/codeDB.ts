@@ -1,4 +1,4 @@
-import { assemble, diff, isDiff } from "../../diff/diff.min.js";
+import { assemble, diff, isDiff } from "../../diff/dist/diff.min.js";
 import { openDB } from "https://unpkg.com/idb@5.0.8/build/esm/index.js";
 import { sha256 } from "./sha256.js";
 

@@ -190,7 +190,7 @@ export async function run(mode = "window") {
         return;
       }
       if (err && err.length) {
-        const { diff } = await import("../../diff/diff.min.js");
+        const { diff } = await import("../../diff/dist/diff.min.js");
 
         if (latestCode != cd) {
           return;

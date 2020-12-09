@@ -1453,7 +1453,7 @@ export async function run(mode = "window") {
                 return;
             }
             if (err && err.length) {
-                const { diff: diff1  } = await import("../../diff/diff.min.js");
+                const { diff: diff1  } = await import("../../diff/dist/diff.min.js");
                 if (latestCode != cd) {
                     return;
                 }

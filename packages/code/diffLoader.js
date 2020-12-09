@@ -1,5 +1,5 @@
 const loader = async () => {
-  const { diff } = await import("../diff/diff.min.js");
+  const { diff } = await import("../diff/dist/diff.min.js");
   window.diff = diff;
 };
 

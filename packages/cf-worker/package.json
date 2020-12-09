@@ -8,8 +8,8 @@
     ],
     "scripts": {
         "dev": "yarn wrangler preview",
-        "clean": "rm -rf dist && mkdir dist",
-        "build": "yarn clean && deno fmt src && deno bundle --unstable --import-map ../../import_map.json src/index.ts dist/worker-script.js --no-check && yarn min && yarn deploy",
+        "clean": "rm -rf dist && mkdir dist && deno fmt src",
+        "build": "deno bundle --unstable --import-map ../../import_map.json src/index.ts dist/worker-script.js --no-check && yarn min && yarn deploy",
         "min": "yarn esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
         "deploy": "yarn wrangler publish"
     },

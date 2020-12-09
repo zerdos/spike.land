@@ -9,7 +9,7 @@
     "scripts": {
         "clean": "rm -rf dist && mkdir dist",
         "build:sw": "deno bundle  --unstable --import-map ../../import_map.json --no-check src/sw.ts sw.js",
-        "build": "yarn clean && deno fmt src && deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js && yarn build:sw && yarn minify",
+        "build": "deno fmt src && deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js && yarn build:sw && yarn minify",
         "minify": "yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
