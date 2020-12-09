@@ -1,6 +1,6 @@
 import * as React from "react";
 import { graphql, Link } from "gatsby";
-import {getDB} from "@zedvision/shadb";
+import { getDB } from "@zedvision/shadb";
 
 import { Bio } from "../components/bio.tsx";
 import { Layout } from "../components/layout.tsx";
@@ -51,7 +51,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
-      const install = async() => {
+      const install = async () => {
         async function getUserId() {
           const shaDB = await getDB();
           const uuid = await shaDB.get("uuid");
@@ -66,13 +66,12 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
             }
           }
           return uuid;
-        } 
+        }
         console.log(await getUserId());
-      } 
-      install()
+      };
+      install();
 
       // registerSW();
-
     }
   }, []);
 

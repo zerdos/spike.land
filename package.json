@@ -15,7 +15,7 @@
     "build": "cd packages/diff && yarn build && cd ../../ && yarn lerna run build --parallel --since b && yarn copy",
     "clean": "yarn lerna run clean --parallel --since b",
     "copy": "rm -rf docs && mkdir -p docs/code && cp -a packages/zed-vision-site/public/. docs/ && cp -a packages/code/. docs/code/ && cp -a packages/diff/. docs/diff/ && rm -rf docs/code/.certs",
-    "rebuild": "yarn lerna run clean --parallel && yarn lerna run build && yarn copy",
+    "rebuild": "yarn lerna run clean --parallel && yarn  build && yarn copy",
     "docker:build": "yarn lerna run docker:build --parallel",
     "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"
   },

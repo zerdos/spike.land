@@ -1,5 +1,5 @@
 import React from "react";
-import {getDB} from "@zedvision/shadb"
+import { getDB } from "@zedvision/shadb";
 import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { sha256 } from "../components/utils/sha256/sha256.ts";
@@ -18,7 +18,7 @@ export default function () {
 
   React.useEffect(() => {
     const runner = async () => {
-      const db = getDB()
+      const db = getDB();
       try {
         const response = await fetch(`https://code.zed.vision/${pathname}`);
         const data = await response.text();
