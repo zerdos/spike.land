@@ -29,9 +29,12 @@ export default function () {
             );
             location.href = "https://zed.vision/code/";
           }
+        } else {
+          setStatus(true);
         }
       };
     }
+    runner();
   }, []);
 
   return (<>
