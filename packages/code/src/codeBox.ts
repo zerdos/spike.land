@@ -5,7 +5,7 @@ import { startMonaco } from "../../smart-monaco-editor/lib/editor.min.js";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.tsx";
 import { sha256 } from "./sha256.js";
-import { getDB } from "./codeDB.ts";
+import { getDB } from "../../shadb/src/codeDB.ts";
 
 /// <reference lib="dom" />
 const document = window.document;

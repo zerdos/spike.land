@@ -1,0 +1,32 @@
+{
+    "name": "@zedvision/shadb",
+    "version": "8.2.0",
+    "description": "db layer top on idb",
+    "main": "diff.min.js",
+    "private": false,
+    "sideEffects": false,
+    "scripts": {
+        "clean": "rm -rf dist && mkdir dist && deno fmt src",
+        "build": "deno bundle --import-map ../../import_map.json --no-check --unstable src/codeDB.ts dist/codeDB.js && yarn min",
+        "min": "yarn esbuild dist/codeDB.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=dist/codeDB.min.js"
+    },
+    "keywords": [
+        "diff"
+    ],
+    "authors": [
+        "Zoltan Erdos <zolika84@gmail.com>"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zed-vision/monorepo"
+    },
+    "homepage": "https://github.com/zed-vision/monorepo",
+    "repository": "https://github.com/zed-vision/monorepo",
+    "publishConfig": {
+        "access": "public"
+    },
+    "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
+    "dependencies": {
+        "esbuild": "0.8.21"
+    }
+}

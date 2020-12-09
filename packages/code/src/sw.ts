@@ -1,4 +1,4 @@
-import { getDB } from "./codeDB.ts";
+import { getDB } from "../../shadb/src/codeDB.ts";
 
 const getUrl = () => {
   if (self.location.href.includes("zed.dev")) {
