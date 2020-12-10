@@ -7,9 +7,9 @@
  
   "compilerOptions": {
     "jsx": "react-jsx",
-    "lib": [],
+    "lib": ["WebWorker", "DOM", "DOM.Iterable", "ESNext"],
     "resolveJsonModule": true,
-    "moduleResolution": "classic",
+    "moduleResolution": "node",
     "strict": true
   }
 }

@@ -47,6 +47,8 @@ function v4(options, buf, offset) {
     }
     return stringify(rnds);
 }
+const v41 = ()=>v4()
+;
 var SHAKV;
 var USERS;
 var API_KEY;
@@ -99,7 +101,7 @@ async function handleCloudRequest(request) {
             });
         }
         if (pathname === "/connect") {
-            const uuid = searchParams.get("uuid") || v4();
+            const uuid = searchParams.get("uuid") || v41();
             const key = await sha256(uuid);
             await SHAKV.put(key, JSON.stringify({
                 uuid,
@@ -144,7 +146,7 @@ async function handleCloudRequest(request) {
             });
         }
         if (pathname === "/register") {
-            const uuid = v4();
+            const uuid = v41();
             await USERS.put(uuid, JSON.stringify({
                 uuid,
                 registered: Date.now(),

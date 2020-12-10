@@ -17,7 +17,7 @@
   "deno.import_intellisense_autodiscovery": true,
   "deno.unstable": true,
   "deno.lint": true,
-
+  "deno.config": "./tsconfig.json",
   "deno.import_intellisense_origins": {
     "https://deno.land": true,
   },
