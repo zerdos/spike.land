@@ -68,8 +68,6 @@ export const CodeBox: React.FC<{
       }
       const monaco = window["monaco"];
 
-
-
       const model = monaco.editor.getModel(
         "file:///main.tsx",
       );
