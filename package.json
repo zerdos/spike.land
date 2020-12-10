@@ -31,7 +31,6 @@
     "diff": "5.0.0",
     "framer-motion": "2.9.5",
     "idb": "5.0.8",
-    "@zedvision/jsframe": "6.1.0",
     "monaco-editor": "0.21.2",
     "normalize.css": "8.0.1",
     "react": "17.0.1",
