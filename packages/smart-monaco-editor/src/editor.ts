@@ -88,10 +88,10 @@ export const startMonaco: SmartMonaco = async (
 
   if (window["monaco"] === undefined) {
     const vsPath =
-      "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
+      "https://unpkg.com/@zedvision/monaco-editor@0.21.2/release/min/vs";
 
     const { require } = (await loadScript(
-      `${vsPath}/loader.min.js`,
+      `${vsPath}/loader.js`,
     )) as unknown as {require: ({config: (opts:unknown) => void }) | ((depts: unknown, res: unknown) => void) }; 
 
     require.config({ paths: { "vs": vsPath } });

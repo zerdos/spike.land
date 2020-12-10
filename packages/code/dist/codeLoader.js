@@ -997,8 +997,8 @@ const startMonaco = async ({ onChange , code , language  })=>{
         aceEditor.blur();
     }
     if (window["monaco"] === undefined) {
-        const vsPath = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.2/min/vs";
-        const { require  } = await loadScript(`${vsPath}/loader.min.js`);
+        const vsPath = "https://unpkg.com/@zedvision/monaco-editor@0.21.2/release/min/vs";
+        const { require  } = await loadScript(`${vsPath}/loader.js`);
         require.config({
             paths: {
                 "vs": vsPath
