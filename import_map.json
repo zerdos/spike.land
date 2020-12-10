@@ -1,20 +1,19 @@
 {
    "imports": {
-      "react": "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
-      "diff": "https://unpkg.com/diff@5.0.0/dist/diff.js",
-      "typography-theme-wordpress-2016": "https://unpkg.com/typography-theme-wordpress-2016@0.16.19/dist/index.js",
-      "typography": "https://unpkg.com/typography@0.16.19/dist/index.js",
-      "@emotion/react": "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.browser.cjs.js",
-      "@emotion/styled": "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.browser.cjs.js",
-      "@emotion/cache": "https://unpkg.com/@emotion/cache@11.0.0/dist/emotion-cache.browser.cjs.js",
-      "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.0/dist/emotion-serialize.browser.cjs.js",
-      "./jsx-namespace": "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
-      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js",
-      "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious/dist/qrious.min.js",
-      "framer-motion": "https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.js",
-      "@ampproject/worker-dom/dist/main": "https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js",
+      "react": "./node_modules/react/umd/react.production.min.js",
+      "diff": "./node_modules/diff/dist/diff.js",
+      "typography-theme-wordpress-2016": "./node_modules/typography-theme-wordpress-2016/dist/index.js",
+      "typography": "./node_modules/typography/dist/index.js",
+      "@emotion/react": "./node_modules/@emotion/react/dist/emotion-react.browser.cjs.js",
+      "@emotion/styled": "./node_modules/@emotion/styled/dist/emotion-styled.browser.cjs.js",
+      "@emotion/cache": "./node_modules/@emotion/cache/dist/emotion-cache.browser.cjs.js",
+      "@emotion/serialize": "./node_modules/@emotion/serialize/dist/emotion-serialize.browser.cjs.js",
+      "./jsx-namespace": "./node_modules/yar@emotion/react/types/jsx-namespace.d.ts",
+      "@zedvision/smart-monaco-editor": "./packages/smart-monaco-editor/src/editor.ts",
+      "@zedvision/qrious": "./node_modules/@zedvision/qrious/dist/qrious.min.js",
+      "framer-motion": "./node_modules/framer-motion/dist/framer-motion.js",
+      "@ampproject/worker-dom/dist/main": "./node_modules/@ampproject/worker-dom@0.27.4/dist/main.js",
       "react-dom/server": "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
-      "@deno/std/": "https://deno.land/std@0.80.0/",
-      "uuid": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js"
+      "uuid": "./node_modules/uuid/dist/esm-browser/v4.js"
    }
 }
