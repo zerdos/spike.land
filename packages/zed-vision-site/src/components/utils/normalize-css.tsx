@@ -1,5 +1,4 @@
-export const normalize = `/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-html {
+export const normalize = `html {
   line-height: 1.15; 
   -webkit-text-size-adjust: 100%; 
 }
@@ -147,4 +146,4 @@ template {
 }
 [hidden] {
   display: none;
-}`
+}`;
