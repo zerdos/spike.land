@@ -88,7 +88,7 @@ export const startMonaco: SmartMonaco = async (
 
   if (window["monaco"] === undefined) {
     const vsPath =
-      "https://unpkg.com/@zedvision/monaco-editor@0.22.2/release/min/vs";
+      "https://unpkg.com/@zedvision/monaco-editor@0.21.2/release/min/vs";
 
     const { require } = (await loadScript(
       `${vsPath}/loader.js`,
