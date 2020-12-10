@@ -145,7 +145,7 @@ function replaceWithEmpty(elementId = "root") {
 
 export async function run(mode = "window") {
   await importScript(
-    "https://unpkg.com/@babel/standalone@7.12.9/babel.min.js",
+    "https://unpkg.com/@babel/standalone@7.12.10/babel.min.js",
   );
 
   if (mode === "editor") {
