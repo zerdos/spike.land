@@ -10,7 +10,7 @@
     "test:healthcheck": "echo check: $npm_package_tagname && yarn test:is:running && sleep 5 && yarn test:is:running",
     "test:is:running": "yarn wait-on http://localhost:$npm_package_testport",
     "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
-    "docker:build": "docker build . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",
+    "docker:build": "yarn build && docker build . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",
     "build": "node index.js"
   },
   "files": [
