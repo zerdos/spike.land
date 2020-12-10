@@ -68,8 +68,7 @@ export const CodeBox: React.FC<{
       }
       const monaco = window["monaco"];
 
-      // await window["monaco"].editor.colorizeElement(document.getElementById("container"))
-      // const monaco: typeof Monaco = window["monaco"];
+
 
       const model = monaco.editor.getModel(
         "file:///main.tsx",
@@ -258,32 +257,6 @@ export const CodeBox: React.FC<{
       });
     }
   }, [events.length]);
-
-  // React.useEffect(() => {
-  //   transformed.forEach(async (t, ind) => {
-  //     const hash = t.hash;
-
-  //     hashArr.forEach(async (p, pIndex) => {
-  //       const htmlHash = await render(hash, p);
-
-  //       const html = (typeof htmlHash === "string")
-  //         ? await unHash(htmlHash)
-  //         : "<p>Error</p>";
-
-  //       changeWorkerRenderedComponent((x) => {
-  //         const tInd = x.transformed.findIndex((t) => t.hash === hash);
-  //         if (tInd === -1) {
-  //           return x;
-  //         }
-  //         x.transformed[tInd].rendered[pIndex] = html;
-
-  //         return x;
-  //       });
-  //     });
-
-  //     // arr.push(props.hashArr.map((val, ind)=> map[t.hash][ind]));
-  //   });
-  // }, [hashArr.length]);
 
   return <>
     {!!title && <Header>
