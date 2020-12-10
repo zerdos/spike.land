@@ -1,5 +1,6 @@
 import * as React from "react";
 import typography from "./typography.ts";
+import {normalize} from "./normalize-css.tsx";
 import { fonts } from "./fonts.ts";
 /** @jsx jsx */
 import { css, Global, jsx } from "@emotion/react";
@@ -12,12 +13,9 @@ const styles = typography.createStyles().replace(
 export const GlobalStyle: React.FC = () =>
   <React.Fragment>
     <Global
-      styles={{
-        body: {
-          margin: 0,
-          padding: 0,
-        },
-      }}
+      styles={css`
+      ${normalize}
+      `}
     />
   </React.Fragment>;
 
