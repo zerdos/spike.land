@@ -1,0 +1,129 @@
+
+body {
+    margin: 8px;
+    display: block;
+
+    font-family: 'Roboto';
+    font-weight: lighter;
+    font-size: 16px;
+    color: #666666;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: normal;
+    border-bottom: 1px solid #bbb;
+}
+
+h2 span {
+    color: #666666;
+    white-space: nowrap;
+}
+
+li {
+    padding-bottom: 5px;
+}
+
+a {
+    color: #6aa0d0;
+    text-decoration: none;
+}
+
+code {
+    background: #dddddd;
+    margin: 5px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h2 a {
+    font-weight: 300;
+    margin: 0 10px 0 0;
+    white-space: nowrap;
+}
+
+
+.btn-primary {
+    display: inline-block;
+    line-height: 30px;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    background-color: #428bca;
+    border-color: #357ebd;
+    border-radius: 5px;
+    border-width: 0px;
+    margin: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.btn-primary:hover {
+    background-color: #3276b1;
+    border-color: #285e8e;
+}
+
+.btn-primary:focus {
+    outline: none;
+}
+
+.btn-secondary {
+    display: inline-block;
+    line-height: 30px;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    background-color: #6c757d;
+    border-radius: 5px;
+    border-width: 0px;
+    border-color: transparent;
+    margin: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.btn-secondary:hover {
+    background-color: #5b636a;
+}
+
+.btn-secondary:focus {
+    outline: none;
+}
+
+.btn-success {
+    display: inline-block;
+    line-height: 30px;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
+    background-color: #28a745;
+    border-radius: 5px;
+    border-width: 0px;
+    margin: 5px;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.btn-success:hover {
+    background-color: #218d3a;
+}
+
+.btn-success:focus {
+    outline: none;
+}
+
+
+.window-content {
+    font-size: 14px;
+    padding: 10px;
+    color: #666666;
+    user-select: none;
+}
+

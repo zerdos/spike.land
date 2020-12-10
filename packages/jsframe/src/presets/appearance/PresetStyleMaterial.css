@@ -1,0 +1,11 @@
+.jsframe-preset-style-material-default {
+    background: black;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.jsframe-preset-style-material-focused {
+    background: black;
+    border-top-left-radius: 36px;
+    border-top-right-radius: 36px;
+}

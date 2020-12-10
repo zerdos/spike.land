@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JsFrame.js example - Desktop on the web with 'yosemite' preset</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="../../../index.css">
+    <link rel="stylesheet" href="yosemite-desktop.css"/>
+</head>
+<body>
+<h2><a href="../../../index.html">JSFrame.js examples</a><span>Desktop on the web with 'yosemite' preset</span></h2>
+<div id="task-bar" class="task-bar">
+</div>
+<div class="git-link">
+    <a href="https://github.com/riversun/JSFrame.js/tree/master/public/examples/v160/preset-window-yosemite-desktop"
+       target="_blank">View source on GitHub</a>
+</div>
+<div class="license-link">
+    Icons from http://flat-icon-design.com , Photo by Tiago Fioreze License: CC-BY-SA 3.0
+</div>
+
+<script src="../../../jsframe.js"></script>
+<script>
+  const jsFrame = new JSFrame();
+
+  let initialWindowLeft = 20;
+  let initialWindowTop = 60;
+
+  const createWindow = ({ iconId, iconUrl }, visible) => {
+
+    const frame = jsFrame.create({
+      name: iconId,
+      title: `${iconId} - Yosemite style`,
+      left: initialWindowLeft, top: initialWindowTop, width: 400, height: 320, minWidth: 200, minHeight: 110,
+
+      //  The "preset" are a collection of "look and feel" + "standard behavior" presets,
+      //  allowing you to achieve common window behavior with less coding.
+      preset: 'yosemite',
+      presetParam: {
+        // Set the window control command to be executed when the maximize button is pressed
+        maximizeButtonBehavior: 'fullscreen',// Possible commands are 'fullscreen' or 'maximize'
+        // Set the window control command to be executed when the maximize button is pressed
+        minimizeButtonBehavior: 'hide',// Possible commands are 'minimize' or 'hide'
+        closeButtonBehavior: 'hide',
+        control: {
+
+          // Parameters to use when the 'hide' command is executed
+          hideParam: {
+            //ABSOLUTE:If you want the window to disappear after transitioning to the position you specified
+            align: 'ABSOLUTE',
+            //A DOM Element can be used to specify the point at which the window disappears when it is hidden
+            toElement: document.querySelector(`#${iconId}`),
+            //Time to hide(milliseconds)
+            duration: 200
+          },
+        }
+      },
+      style: {
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        overflow: 'hidden'
+      },
+      html: `<div id="window_content" class="window-content"/>`,
+    });
+
+
+    const iconImageTag = `<img src="${iconUrl}" class="icon">`;
+
+    // You can double-click it back to its original size as below.
+    frame.$('#window_content').innerHTML = `${iconImageTag}<br>Double click here or click "maximize" button to fullscreen.`;
+    frame.on('#window_content', 'dblclick', (_frame) => {
+      // When window double-clicked, do 'maximize'
+      // You can use frame.control#doCommand to execute the window control command directly.
+      _frame.control.doCommand('maximize');
+    });
+    frame.control.on('maximized', (frame) => {
+      frame.$('#window_content').innerHTML = `${iconImageTag}<br>Double click here or press Escape to restore.`;
+      frame.on('#window_content', 'dblclick', (_frame, e) => {
+        _frame.control.doCommand('restore');
+      });
+    });
+
+    frame.control.on('demaximized', (frame) => {
+      frame.$('#window_content').innerHTML = `${iconImageTag}<br>Double click here or click "maximize" button to fullscreen.`;
+      frame.on('#window_content', 'dblclick', (_frame) => {
+        _frame.control.doCommand('maximize');
+      });
+    });
+
+    // set event handler
+    document.querySelector(`#${iconId}`).addEventListener('click', () => {
+      if (jsFrame.containsWindowName(iconId)) {
+        const windowMode = frame.control.getWindowMode();
+        if (windowMode === 'hid') {
+          frame.control.doCommand('dehide');
+        } else if (windowMode === 'default') {
+          frame.control.doCommand('hide');
+        }
+      } else {
+        // Note:This situation doesn't occur in this example.
+        createWindow(iconId, true);
+      }
+    });
+
+    if (visible) {
+      frame.show();
+    } else {
+      frame.control.doHide({
+        silent: true,//true means invisible action
+        duration: 0,
+        align: 'ABSOLUTE',//need to set the offset point where window is minimized
+        toElement: document.querySelector(`#${iconId}`),
+      });
+    }
+
+    initialWindowLeft += 20;
+    initialWindowTop += 20;
+  }
+
+  const NUM_OF_ICONS = 16;// Max=16
+  const taskBar = document.querySelector('#task-bar');
+  const iconModels = [];
+
+  const zeroPadding = (n) => {
+    const numStr = '0' + n;
+    return numStr.substring(numStr.length - 2, numStr.length)
+  };
+
+  for (let iconIdx = 0; iconIdx < NUM_OF_ICONS; iconIdx += 1) {
+    const strIndex = zeroPadding(iconIdx + 1);
+    const iconId = `Window-${strIndex}`;
+    const iconUrl = `https://riversun.github.io/img/icons/${strIndex}.png`;
+    const iconTag = `<img src="${iconUrl}" class="icon" id="${iconId}">`;
+    taskBar.innerHTML += iconTag;
+    iconModels.push({ iconId, iconUrl });
+  }
+
+  for (let winIdx = 0; winIdx < iconModels.length; winIdx += 1) {
+    createWindow(iconModels[winIdx], winIdx === 0);
+  }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JsFrame.js example - Handling of content click events, etc.</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="../../../index.css">
+
+</head>
+<body>
+<h2><a href="../../../index.html">JSFrame.js examples</a><span>Handling of content click events, etc.</span>
+</h2>
+<div style="font-size: 16px; color: white; position: fixed; right: 20px; bottom: 10px">
+    <a href="https://github.com/riversun/JSFrame.js/tree/master/public/examples/v160/event-handling-like-click"
+       title="View source for this page on GitHub" target="_blank">View source on GitHub</a>
+</div>
+<script src="../../../jsframe.js"></script>
+
+<script>
+  function start() {
+
+    const jsFrame = new JSFrame();
+    const frames = [];
+
+    const innerHTML = `<div style="padding:10px;font-size:20px;"><h3>My contents</h3>
+    <p>This is my contents</p>
+    <button id="my_button_01" type="button" class="btn-primary">Button 1</button>
+    <button id="my_button_02" type="button" class="btn-secondary">Button 2</button>
+    <button id="my_button_03" type="button" class="btn-success">Button 3</button></div>`;
+
+
+    for (let i = 0; i < 2; i++) {
+
+      const frame = jsFrame.create({
+        appearanceName: 'yosemite',
+        name: `MyWindow${i}`,
+        title: `Window${i}`,
+        left: 20 + 440 * i, top: 80, width: 400, height: 300,
+        minWidth: 160, minHeight: 100,
+        style: {
+          backgroundColor: 'rgba(255,255,255,0.9)',
+          overflow: 'auto'
+        },
+        html: innerHTML
+      });
+
+      //set event listener
+      frame.on('minimizeButton', 'click', (_frame, evt) => {
+        const size = _frame.getSize();
+        _frame.setSize(size.width - 20, size.height - 20);
+        jsFrame.showToast({
+          html: `Minimize button clicked`,
+          align: 'top'
+        });
+      });
+
+      frame.on('zoomButton', 'click', (_frame, evt) => {
+        const size = _frame.getSize();
+        _frame.setSize(size.width + 20, size.height + 20);
+        jsFrame.showToast({
+          html: `Zoom button clicked`,
+          align: 'top'
+        });
+      });
+
+      frame.on('closeButton', 'click', (_frame, evt) => {
+        _frame.closeFrame();
+        jsFrame.showToast({
+          html: `Close button clicked`,
+          align: 'top'
+        });
+      });
+
+      const htmlButtonListener = (_frame, evt) => {
+        const jsFrame = new JSFrame();
+        jsFrame.showToast({
+          html: `Clicked ${_frame.getName()}'s ${evt.target.id}`,
+          align: 'top'
+        });
+      };
+
+      //You can get DOM element in the HTML by selector format
+      frame.on('#my_button_01', 'click', htmlButtonListener);
+      frame.on('#my_button_02', 'click', htmlButtonListener);
+      frame.on('#my_button_03', 'click', htmlButtonListener);
+      frame.show();
+      frames.push(frame);
+    }
+
+    frames[0].requestFocus();
+  }
+
+  start();
+</script>
+</body>
+</html>

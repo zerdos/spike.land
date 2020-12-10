@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JsFrame.js toast</title>
+    <meta charset="utf-8">
+    <meta name="description" content="A javascript popup/floating window library.">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body style="background: url('https://upload.wikimedia.org/wikipedia/commons/e/e0/Clouds_over_the_Atlantic_Ocean.jpg') 50% no-repeat fixed; background-size: cover;">
+<br>
+<div class="container-fluid">
+    <button type="button" onclick="showToast01()" class="m-1 btn btn-primary btn-sm">Show toast(default)</button>
+    <button type="button" onclick="showToast02()" class="m-1 btn btn-primary btn-sm">Show toast(center)</button>
+    <button type="button" onclick="showToast03()" class="m-1 btn btn-primary btn-sm">Show toast(top)</button>
+    <button type="button" onclick="showToast04()" class="m-1 btn btn-primary btn-sm">Show toast(customized)</button>
+</div>
+<script src="../../jsframe.js"></script>
+<script>
+
+    const jsFrame = new JSFrame();
+    
+    function showToast01() {
+
+        jsFrame.showToast({
+            html: 'Default toast',
+        });
+    }
+
+    function showToast02() {
+
+        jsFrame.showToast({
+            align: 'center', html: 'Toast displayed in the center'
+        });
+    }
+
+    function showToast03() {
+
+        jsFrame.showToast({
+            align: 'top', html: 'Toast displayed at the top',
+        });
+    }
+
+    function showToast04() {
+
+        jsFrame.showToast({
+            width: 260,
+            height: 100,
+            duration: 2000,//Duration(millis)
+            align: 'center',// alignment from 'top'/'center'/'bottom'(default)
+            style: {
+                borderRadius: '2px',
+                backgroundColor: 'rgba(0,124,255,0.8)',
+            },
+            html: '<span style="color:white;">Custom toast</span>',
+            closeButton: true,//Show close button
+            closeButtonColor: 'white'//Color of close button
+        });
+    }
+</script>
+</body>
+</html>

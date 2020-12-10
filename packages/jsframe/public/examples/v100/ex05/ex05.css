@@ -1,0 +1,11 @@
+.ex05title_default {
+    background: white;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.ex05title_focused {
+    background: white;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
