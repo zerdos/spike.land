@@ -5,6 +5,29 @@ async function arrBuffSha256(msgBuffer) {
     ).join("");
     return hashHex;
 }
+const corsHeaders = {
+    "Access-Control-Allow-Origin": "https://zed.vision",
+    "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+    "Access-Control-Max-Age": "86400"
+};
+function handleOptions(request) {
+    const headers = request.headers;
+    if (headers.get("Origin") !== null && headers.get("Access-Control-Request-Method") !== null && headers.get("Access-Control-Request-Headers") !== null) {
+        const respHeaders = {
+            ...corsHeaders,
+            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
+        };
+        return new Response(null, {
+            headers: respHeaders
+        });
+    } else {
+        return new Response(null, {
+            headers: {
+                Allow: corsHeaders["Access-Control-Allow-Methods"]
+            }
+        });
+    }
+}
 var getRandomValues;
 var rnds8 = new Uint8Array(16);
 function rng() {
@@ -52,29 +75,6 @@ const v41 = ()=>v4()
 var SHAKV;
 var USERS;
 var API_KEY;
-const corsHeaders = {
-    "Access-Control-Allow-Origin": "https://zed.vision",
-    "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-    "Access-Control-Max-Age": "86400"
-};
-function handleOptions(request) {
-    const headers = request.headers;
-    if (headers.get("Origin") !== null && headers.get("Access-Control-Request-Method") !== null && headers.get("Access-Control-Request-Headers") !== null) {
-        const respHeaders = {
-            ...corsHeaders,
-            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
-        };
-        return new Response(null, {
-            headers: respHeaders
-        });
-    } else {
-        return new Response(null, {
-            headers: {
-                Allow: "GET, HEAD, POST, OPTIONS"
-            }
-        });
-    }
-}
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashHex = await arrBuffSha256(msgBuffer);
@@ -141,6 +141,7 @@ async function handleCloudRequest(request) {
         }
         if (pathname === "/check") {
             const uuid = searchParams.get("uuid");
+            if (uuid === null) return new Response("500");
             const waitForChange = async ()=>{
                 const data = await SHAKV.get(uuid, "json");
                 if (!data || data.connected) {

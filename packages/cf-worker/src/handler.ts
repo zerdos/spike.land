@@ -1,15 +1,12 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
-import { KVNamespace, v4 } from "./dec.ts";
+import { corsHeaders} from "./corsHeaders.ts"; 
+import { handleOptions } from "./handleOptions.ts";
+import {v4 } from "./dec.ts"
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
-var API_KEY: string;
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "https://zed.vision",
-  "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-  "Access-Control-Max-Age": "86400",
-};
+var API_KEY: string;
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
   if (request.method === "OPTIONS") {
@@ -98,8 +95,10 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (pathname === "/check") {
       const uuid = searchParams.get("uuid");
 
+      if (uuid === null) return new Response("500");
+
       const waitForChange = async () => {
-        const data = await SHAKV.get(
+        const data = await SHAKV.get<{connected: boolean}>(
           uuid,
           "json",
         );
@@ -108,7 +107,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
-            const data = await SHAKV.get(
+            const data = await SHAKV.get<{connected: boolean}>(
               uuid,
               "json",
             );
@@ -219,38 +218,4 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   }
 
   return new Response("404");
-}
-
-function handleOptions(request: Request) {
-  // Make sure the necessary headers are present
-  // for this to be a valid pre-flight request
-  const headers = request.headers;
-  if (
-    headers.get("Origin") !== null &&
-    headers.get("Access-Control-Request-Method") !== null &&
-    headers.get("Access-Control-Request-Headers") !== null
-  ){
-    // Handle CORS pre-flight request.
-    // If you want to check or reject the requested method + headers
-    // you can do that here.
-    const respHeaders = {
-      ...corsHeaders,
-    // Allow all future content Request headers to go back to browser
-    // such as Authorization (Bearer) or X-Client-Name-Version
-      "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")!,
-    }
-
-    return new Response(null, {
-      headers: respHeaders,
-    })
-  }
-  else {
-    // Handle standard OPTIONS request.
-    // If you want to allow other HTTP Methods, you can do that here.
-    return new Response(null, {
-      headers: {
-        Allow: "GET, HEAD, POST, OPTIONS",
-      },
-    })
-  }
 }
