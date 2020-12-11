@@ -1,6 +1,6 @@
 import type { FetchEvent } from "./dec.ts";
 import { handleCloudRequest } from "./handler.ts";
-import {handleOptions} from "./utils/handleOptions.ts";
+import { handleOptions } from "./utils/handleOptions.ts";
 
 addEventListener("fetch", (event: FetchEvent) => {
   if (event.request.method === "OPTIONS") {

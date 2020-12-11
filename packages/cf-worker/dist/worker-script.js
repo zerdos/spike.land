@@ -113,8 +113,7 @@ async function handleCloudRequest(request) {
             const value = await SHAKV.delete(hash);
             return json(value);
         }
-    }
-    if (request.method === "GET") {
+    } else if (request.method === "GET") {
         if (pathname === "/robots.txt") {
             return text("User-agent: * Disallow: /");
         }

@@ -6,5 +6,4 @@ export type {
   KVNamespace,
 } from "../../../node_modules/@cloudflare/workers-types/index.d.ts";
 
-
 export const v4 = () => gen() as unknown as string;

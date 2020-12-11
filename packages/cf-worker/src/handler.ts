@@ -1,12 +1,11 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
-import { text, json } from "./utils/handleOptions.ts";
-import {v4 } from "./dec.ts"
+import { json, text } from "./utils/handleOptions.ts";
+import { v4 } from "./dec.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
 
 var API_KEY: string;
-
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
   const psk = String(request.headers.get("API_KEY") || "");
@@ -26,13 +25,12 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       return json(value);
     }
-  }
+  } else if (request.method === "GET") {
 
-  if (request.method === "GET") {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
     }
-    
+
     if (pathname === "/connect") {
       const uuid = searchParams.get("uuid") || v4();
       const key = await sha256(uuid);
@@ -46,7 +44,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         ),
         { expirationTtl: 60 },
       );
-      return json({uuid: key});
+      return json({ uuid: key });
     }
 
     if (pathname === "/check") {
@@ -55,7 +53,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       if (uuid === null) return new Response("500");
 
       const waitForChange = async () => {
-        const data = await SHAKV.get<{connected: boolean}>(
+        const data = await SHAKV.get<{ connected: boolean }>(
           uuid,
           "json",
         );
@@ -64,7 +62,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
-            const data = await SHAKV.get<{connected: boolean}>(
+            const data = await SHAKV.get<{ connected: boolean }>(
               uuid,
               "json",
             );
@@ -87,7 +85,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         uuid,
         JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),
       );
-      return json({uuid});
+      return json({ uuid });
     }
 
     const maybeRoute = pathname.substr(1);
@@ -99,6 +97,18 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
     return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
+    // this need restriction
+    // such as:
+    //    what are we saving - which projectID
+    //    what will be the key
+    //    and the data for the construction
+    //         -- which is the parent sha id
+    //         -- and what are we doing with it
+    //             - for example, adding a new line
+    //                - or babel it
+    //                - or render it to html
+    //                - then the result :)
+
     const myBuffer = await request.arrayBuffer();
 
     const hash = await arrBuffSha256(myBuffer);
@@ -107,8 +117,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     await SHAKV.put(smallerKey, myBuffer);
 
     return json({
-      hash: smallerKey
-    }) 
+      hash: smallerKey,
+    });
   }
 
   return new Response("404");
