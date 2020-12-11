@@ -26,7 +26,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return json(value);
     }
   } else if (request.method === "GET") {
-
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
     }
