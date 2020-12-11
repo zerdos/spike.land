@@ -1,6 +1,5 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
-import { corsHeaders} from "./corsHeaders.ts"; 
-import { handleOptions } from "./handleOptions.ts";
+import { handleOptions, handleTextResponse, handleJsonResponse } from "./utils/handleOptions.ts";
 import {v4 } from "./dec.ts"
 
 var SHAKV: KVNamespace;
@@ -8,9 +7,9 @@ var USERS: KVNamespace;
 
 var API_KEY: string;
 
+
 export async function handleCloudRequest(request: Request): Promise<Response> {
   if (request.method === "OPTIONS") {
-    // Handle CORS preflight requests
     return handleOptions(request);
   }
   
@@ -23,47 +22,20 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const prefix = searchParams.get("prefix")!;
       const value = await SHAKV.list({ prefix });
 
-      return new Response(JSON.stringify(value), {
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json;charset=UTF-8",
-        },
-      });
+      return handleJsonResponse(value);
     }
 
     if (pathname === "/keys/delete/") {
       const hash = searchParams.get("hash")!;
       const value = await SHAKV.delete(hash)!;
 
-      return new Response(JSON.stringify(value), {
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json;charset=UTF-8",
-        },
-      });
+      return handleJsonResponse(value);
     }
 
-    // if (loginHash) {
-    //   await SHAKV.put("LOGIN", loginHash);
-    // }
-
-    // return new Response(JSON.stringify(value), {
-    //   headers: {
-    //     ...corsHeaders,
-    //     "Content-Type": "application/json;charset=UTF-8",
-    //   },
-    // });
   }
   if (request.method === "GET") {
-    const hash = searchParams.get("h");
-
     if (pathname === "/robots.txt") {
-      return new Response("User-agent: * Disallow: /", {
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "text/html;charset=UTF-8",
-        },
-      });
+      return handleTextResponse("User-agent: * Disallow: /");
     }
 
     if (pathname === "/connect") {
@@ -79,17 +51,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         ),
         { expirationTtl: 60 },
       );
-      return new Response(
-        JSON.stringify({
-          uuid: key,
-        }),
-        {
-          headers: {
-            ...corsHeaders,
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-        },
-      );
+      return handleJsonResponse({uuid: key});
     }
 
     if (pathname === "/check") {
@@ -121,15 +83,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       const data = await waitForChange();
 
-      return new Response(
-        JSON.stringify({ expired: data === null }),
-        {
-          headers: {
-            ...corsHeaders,
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-        },
-      );
+      return handleJsonResponse({ expired: data === null });
     }
 
     if (pathname === "/register") {
@@ -138,66 +92,14 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         uuid,
         JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),
       );
-      return new Response(
-        JSON.stringify({
-          uuid,
-        }),
-        {
-          headers: {
-            ...corsHeaders,
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-        },
-      );
-    }
-
-    if (hash) {
-      const jsonStream = await SHAKV.get(hash, "stream")!;
-      if (jsonStream === null) {
-        return new Response(
-          JSON.stringify({
-            error: "Not found",
-          }),
-          {
-            headers: {
-              ...corsHeaders,
-              "Content-Type": "application/json;charset=UTF-8",
-            },
-          },
-        );
-      }
-
-      return new Response(jsonStream, {
-        headers: {
-          ...corsHeaders,
-          "Content-Type": "application/json;charset=UTF-8",
-        },
-      });
-    }
-
-    const pageHash = url.searchParams.get("r");
-    if (pageHash) {
-      const jsonStream = await SHAKV.get(pageHash, "stream");
-      if (jsonStream !== null) {
-        return new Response(jsonStream, {
-          headers: {
-            ...corsHeaders,
-            "Content-Type": "text/html; charset=UTF-8",
-          },
-        });
-      }
+      return handleJsonResponse({uuid});
     }
 
     const maybeRoute = pathname.substr(1);
     if (maybeRoute) {
       const jsonStream = await SHAKV.get(maybeRoute, "stream");
       if (jsonStream !== null) {
-        return new Response(jsonStream, {
-          headers: {
-            ...corsHeaders,
-            "Content-Type": "text/html; charset=UTF-8",
-          },
-        });
+        return handleTextResponse(jsonStream);
       }
     }
     return Response.redirect("https://zed.vision/code", 301);
@@ -209,12 +111,9 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     const smallerKey = hash.substring(0, 8);
     await SHAKV.put(smallerKey, myBuffer);
 
-    return new Response(JSON.stringify({ hash: smallerKey }), {
-      headers: {
-        ...corsHeaders,
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    });
+    return handleJsonResponse({
+      hash: smallerKey
+    }) 
   }
 
   return new Response("404");

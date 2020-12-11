@@ -10,6 +10,22 @@ const corsHeaders = {
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };
+function handleJsonResponse(resp) {
+    return new Response(JSON.stringify(resp), {
+        headers: {
+            ...corsHeaders,
+            "Content-Type": "application/json;charset=UTF-8"
+        }
+    });
+}
+function handleTextResponse(resp) {
+    return new Response(resp, {
+        headers: {
+            ...corsHeaders,
+            "Content-Type": "text/html;charset=UTF-8"
+        }
+    });
+}
 function handleOptions(request) {
     const headers = request.headers;
     if (headers.get("Origin") !== null && headers.get("Access-Control-Request-Method") !== null && headers.get("Access-Control-Request-Headers") !== null) {
@@ -93,33 +109,17 @@ async function handleCloudRequest(request) {
             const value = await SHAKV.list({
                 prefix
             });
-            return new Response(JSON.stringify(value), {
-                headers: {
-                    ...corsHeaders,
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
-            });
+            return handleJsonResponse(value);
         }
         if (pathname === "/keys/delete/") {
             const hash = searchParams.get("hash");
             const value = await SHAKV.delete(hash);
-            return new Response(JSON.stringify(value), {
-                headers: {
-                    ...corsHeaders,
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
-            });
+            return handleJsonResponse(value);
         }
     }
     if (request.method === "GET") {
-        const hash = searchParams.get("h");
         if (pathname === "/robots.txt") {
-            return new Response("User-agent: * Disallow: /", {
-                headers: {
-                    ...corsHeaders,
-                    "Content-Type": "text/html;charset=UTF-8"
-                }
-            });
+            return handleTextResponse("User-agent: * Disallow: /");
         }
         if (pathname === "/connect") {
             const uuid = searchParams.get("uuid") || v41();
@@ -130,13 +130,8 @@ async function handleCloudRequest(request) {
             }), {
                 expirationTtl: 60
             });
-            return new Response(JSON.stringify({
+            return handleJsonResponse({
                 uuid: key
-            }), {
-                headers: {
-                    ...corsHeaders,
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
             });
         }
         if (pathname === "/check") {
@@ -158,13 +153,8 @@ async function handleCloudRequest(request) {
                 });
             };
             const data = await waitForChange();
-            return new Response(JSON.stringify({
+            return handleJsonResponse({
                 expired: data === null
-            }), {
-                headers: {
-                    ...corsHeaders,
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
             });
         }
         if (pathname === "/register") {
@@ -174,56 +164,15 @@ async function handleCloudRequest(request) {
                 registered: Date.now(),
                 cf: request.cf
             }));
-            return new Response(JSON.stringify({
+            return handleJsonResponse({
                 uuid
-            }), {
-                headers: {
-                    ...corsHeaders,
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
             });
-        }
-        if (hash) {
-            const jsonStream = await SHAKV.get(hash, "stream");
-            if (jsonStream === null) {
-                return new Response(JSON.stringify({
-                    error: "Not found"
-                }), {
-                    headers: {
-                        ...corsHeaders,
-                        "Content-Type": "application/json;charset=UTF-8"
-                    }
-                });
-            }
-            return new Response(jsonStream, {
-                headers: {
-                    ...corsHeaders,
-                    "Content-Type": "application/json;charset=UTF-8"
-                }
-            });
-        }
-        const pageHash = url.searchParams.get("r");
-        if (pageHash) {
-            const jsonStream = await SHAKV.get(pageHash, "stream");
-            if (jsonStream !== null) {
-                return new Response(jsonStream, {
-                    headers: {
-                        ...corsHeaders,
-                        "Content-Type": "text/html; charset=UTF-8"
-                    }
-                });
-            }
         }
         const maybeRoute = pathname.substr(1);
         if (maybeRoute) {
             const jsonStream = await SHAKV.get(maybeRoute, "stream");
             if (jsonStream !== null) {
-                return new Response(jsonStream, {
-                    headers: {
-                        ...corsHeaders,
-                        "Content-Type": "text/html; charset=UTF-8"
-                    }
-                });
+                return handleTextResponse(jsonStream);
             }
         }
         return Response.redirect("https://zed.vision/code", 301);
@@ -232,13 +181,8 @@ async function handleCloudRequest(request) {
         const hash = await arrBuffSha256(myBuffer);
         const smallerKey = hash.substring(0, 8);
         await SHAKV.put(smallerKey, myBuffer);
-        return new Response(JSON.stringify({
+        return handleJsonResponse({
             hash: smallerKey
-        }), {
-            headers: {
-                ...corsHeaders,
-                "Content-Type": "application/json;charset=UTF-8"
-            }
         });
     }
     return new Response("404");

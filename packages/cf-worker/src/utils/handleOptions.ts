@@ -1,5 +1,22 @@
 import { corsHeaders} from "./corsHeaders.ts"; 
 
+export function handleJsonResponse(resp: unknown){
+  return new Response(JSON.stringify(resp), {
+    headers: {
+      ...corsHeaders,
+      "Content-Type": "application/json;charset=UTF-8",
+    }  });
+}
+
+export function handleTextResponse(resp: string | ReadableStream){
+  return new Response(resp, {
+    headers: {
+      ...corsHeaders,
+      "Content-Type": "text/html;charset=UTF-8",
+    }  });
+}
+
+
 export function handleOptions(request: Request) {
   // Make sure the necessary headers are present
   // for this to be a valid pre-flight request
