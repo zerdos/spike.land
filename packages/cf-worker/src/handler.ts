@@ -1,5 +1,5 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
-import { handleOptions, handleTextResponse, handleJsonResponse } from "./utils/handleOptions.ts";
+import { text, json } from "./utils/handleOptions.ts";
 import {v4 } from "./dec.ts"
 
 var SHAKV: KVNamespace;
@@ -9,10 +9,6 @@ var API_KEY: string;
 
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
-  if (request.method === "OPTIONS") {
-    return handleOptions(request);
-  }
-  
   const psk = String(request.headers.get("API_KEY") || "");
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
@@ -22,22 +18,21 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const prefix = searchParams.get("prefix")!;
       const value = await SHAKV.list({ prefix });
 
-      return handleJsonResponse(value);
+      return json(value);
     }
-
     if (pathname === "/keys/delete/") {
       const hash = searchParams.get("hash")!;
       const value = await SHAKV.delete(hash)!;
 
-      return handleJsonResponse(value);
+      return json(value);
     }
-
   }
+
   if (request.method === "GET") {
     if (pathname === "/robots.txt") {
-      return handleTextResponse("User-agent: * Disallow: /");
+      return text("User-agent: * Disallow: /");
     }
-
+    
     if (pathname === "/connect") {
       const uuid = searchParams.get("uuid") || v4();
       const key = await sha256(uuid);
@@ -51,7 +46,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         ),
         { expirationTtl: 60 },
       );
-      return handleJsonResponse({uuid: key});
+      return json({uuid: key});
     }
 
     if (pathname === "/check") {
@@ -83,7 +78,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       const data = await waitForChange();
 
-      return handleJsonResponse({ expired: data === null });
+      return json({ expired: data === null });
     }
 
     if (pathname === "/register") {
@@ -92,14 +87,14 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         uuid,
         JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),
       );
-      return handleJsonResponse({uuid});
+      return json({uuid});
     }
 
     const maybeRoute = pathname.substr(1);
     if (maybeRoute) {
       const jsonStream = await SHAKV.get(maybeRoute, "stream");
       if (jsonStream !== null) {
-        return handleTextResponse(jsonStream);
+        return text(jsonStream);
       }
     }
     return Response.redirect("https://zed.vision/code", 301);
@@ -111,7 +106,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     const smallerKey = hash.substring(0, 8);
     await SHAKV.put(smallerKey, myBuffer);
 
-    return handleJsonResponse({
+    return json({
       hash: smallerKey
     }) 
   }

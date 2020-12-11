@@ -10,7 +10,7 @@ const corsHeaders = {
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };
-function handleJsonResponse(resp) {
+function json(resp) {
     return new Response(JSON.stringify(resp), {
         headers: {
             ...corsHeaders,
@@ -18,7 +18,7 @@ function handleJsonResponse(resp) {
         }
     });
 }
-function handleTextResponse(resp) {
+function text(resp) {
     return new Response(resp, {
         headers: {
             ...corsHeaders,
@@ -97,9 +97,6 @@ async function sha256(message) {
     return hashHex.substr(0, 8);
 }
 async function handleCloudRequest(request) {
-    if (request.method === "OPTIONS") {
-        return handleOptions(request);
-    }
     const psk = String(request.headers.get("API_KEY") || "");
     const url = new URL(request.url);
     const { searchParams , pathname  } = url;
@@ -109,17 +106,17 @@ async function handleCloudRequest(request) {
             const value = await SHAKV.list({
                 prefix
             });
-            return handleJsonResponse(value);
+            return json(value);
         }
         if (pathname === "/keys/delete/") {
             const hash = searchParams.get("hash");
             const value = await SHAKV.delete(hash);
-            return handleJsonResponse(value);
+            return json(value);
         }
     }
     if (request.method === "GET") {
         if (pathname === "/robots.txt") {
-            return handleTextResponse("User-agent: * Disallow: /");
+            return text("User-agent: * Disallow: /");
         }
         if (pathname === "/connect") {
             const uuid = searchParams.get("uuid") || v41();
@@ -130,7 +127,7 @@ async function handleCloudRequest(request) {
             }), {
                 expirationTtl: 60
             });
-            return handleJsonResponse({
+            return json({
                 uuid: key
             });
         }
@@ -153,7 +150,7 @@ async function handleCloudRequest(request) {
                 });
             };
             const data = await waitForChange();
-            return handleJsonResponse({
+            return json({
                 expired: data === null
             });
         }
@@ -164,7 +161,7 @@ async function handleCloudRequest(request) {
                 registered: Date.now(),
                 cf: request.cf
             }));
-            return handleJsonResponse({
+            return json({
                 uuid
             });
         }
@@ -172,7 +169,7 @@ async function handleCloudRequest(request) {
         if (maybeRoute) {
             const jsonStream = await SHAKV.get(maybeRoute, "stream");
             if (jsonStream !== null) {
-                return handleTextResponse(jsonStream);
+                return text(jsonStream);
             }
         }
         return Response.redirect("https://zed.vision/code", 301);
@@ -181,12 +178,16 @@ async function handleCloudRequest(request) {
         const hash = await arrBuffSha256(myBuffer);
         const smallerKey = hash.substring(0, 8);
         await SHAKV.put(smallerKey, myBuffer);
-        return handleJsonResponse({
+        return json({
             hash: smallerKey
         });
     }
     return new Response("404");
 }
 addEventListener("fetch", (event)=>{
-    event.respondWith(handleCloudRequest(event.request));
+    if (event.request.method === "OPTIONS") {
+        event.respondWith(handleOptions(event.request));
+    } else {
+        event.respondWith(handleCloudRequest(event.request));
+    }
 });

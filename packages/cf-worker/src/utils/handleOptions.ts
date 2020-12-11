@@ -1,6 +1,6 @@
 import { corsHeaders} from "./corsHeaders.ts"; 
 
-export function handleJsonResponse(resp: unknown){
+export function json(resp: unknown){
   return new Response(JSON.stringify(resp), {
     headers: {
       ...corsHeaders,
@@ -8,7 +8,7 @@ export function handleJsonResponse(resp: unknown){
     }  });
 }
 
-export function handleTextResponse(resp: string | ReadableStream){
+export function text(resp: string | ReadableStream){
   return new Response(resp, {
     headers: {
       ...corsHeaders,
