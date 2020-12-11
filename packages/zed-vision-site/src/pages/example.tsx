@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 import { css, Global, jsx } from "@emotion/react";
 
-//wwhat
 const Slider = () => {
   const steps = 128;
   const [sliderValue, setSlider] = useState(steps / 2);
