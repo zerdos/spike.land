@@ -5,14 +5,15 @@ import { v4 } from "./dec.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
+var API_KEY: string;
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
 
-  if (request.method === "GET" && psk) {
-    return handleAdmin(request, searchParams, pathname, psk);
+  if (request.method === "GET" && psk && psk==API_KEY) {
+    return handleAdmin(request, searchParams, pathname, SHAKV);
   } else if (request.method === "GET") {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");

@@ -5,8 +5,6 @@ async function arrBuffSha256(msgBuffer) {
     ).join("");
     return hashHex;
 }
-var API_KEY;
-var SHAKV;
 var getRandomValues;
 var rnds8 = new Uint8Array(16);
 function rng() {
@@ -51,8 +49,9 @@ function v4(options, buf, offset) {
 }
 const v41 = ()=>v4()
 ;
-var SHAKV1;
+var SHAKV;
 var USERS;
+var API_KEY;
 const corsHeaders = {
     "Access-Control-Allow-Origin": "https://zed.vision",
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
@@ -97,31 +96,26 @@ async function sha256(message) {
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
-async function handleAdmin(request, searchParams, pathname, psk) {
-    if (request.method === "GET" && psk && psk === API_KEY) {
-        if (pathname === "/keys/") {
-            const prefix = searchParams.get("prefix");
-            const value = await SHAKV.list({
-                prefix
-            });
-            return json(value);
-        }
-        if (pathname === "/keys/delete/") {
-            const hash = searchParams.get("hash");
-            const value = await SHAKV.delete(hash);
-            return json(value);
-        }
+async function handleAdmin(request, searchParams, pathname, SHAKV1) {
+    if (pathname === "/keys/") {
+        const prefix = searchParams.get("prefix");
+        const value = await SHAKV1.list({
+            prefix
+        });
+        return json(value);
     }
-    return json({
-        error: "not found"
-    });
+    if (pathname === "/keys/delete/") {
+        const hash = searchParams.get("hash");
+        const value = await SHAKV1.delete(hash);
+        return json(value);
+    }
 }
 async function handleCloudRequest(request) {
     const url = new URL(request.url);
     const { searchParams , pathname  } = url;
     const psk = String(request.headers.get("API_KEY") || "");
-    if (request.method === "GET" && psk) {
-        return handleAdmin(request, searchParams, pathname, psk);
+    if (request.method === "GET" && psk && psk == API_KEY) {
+        return handleAdmin(request, searchParams, pathname, SHAKV);
     } else if (request.method === "GET") {
         if (pathname === "/robots.txt") {
             return text("User-agent: * Disallow: /");
@@ -129,7 +123,7 @@ async function handleCloudRequest(request) {
         if (pathname === "/connect") {
             const uuid = searchParams.get("uuid") || v41();
             const key = await sha256(uuid);
-            await SHAKV1.put(key, JSON.stringify({
+            await SHAKV.put(key, JSON.stringify({
                 uuid,
                 connected: searchParams.get("uuid")
             }), {
@@ -143,13 +137,13 @@ async function handleCloudRequest(request) {
             const uuid = searchParams.get("uuid");
             if (uuid === null) return new Response("500");
             const waitForChange = async ()=>{
-                const data = await SHAKV1.get(uuid, "json");
+                const data = await SHAKV.get(uuid, "json");
                 if (!data || data.connected) {
                     return data;
                 }
                 return new Promise((resolve)=>{
                     const clear = setInterval(async ()=>{
-                        const data1 = await SHAKV1.get(uuid, "json");
+                        const data1 = await SHAKV.get(uuid, "json");
                         if (!data1 || data1.connected) {
                             clearInterval(clear);
                             resolve(data1);
@@ -175,7 +169,7 @@ async function handleCloudRequest(request) {
         }
         const maybeRoute = pathname.substr(1);
         if (maybeRoute) {
-            const jsonStream = await SHAKV1.get(maybeRoute, "stream");
+            const jsonStream = await SHAKV.get(maybeRoute, "stream");
             if (jsonStream !== null) {
                 return text(jsonStream);
             }
@@ -185,7 +179,7 @@ async function handleCloudRequest(request) {
         const myBuffer = await request.arrayBuffer();
         const hash = await arrBuffSha256(myBuffer);
         const smallerKey = hash.substring(0, 8);
-        await SHAKV1.put(smallerKey, myBuffer);
+        await SHAKV.put(smallerKey, myBuffer);
         return json({
             hash: smallerKey
         });
