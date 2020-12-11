@@ -5,8 +5,10 @@ workers_dev = true
 route = "https://code.zed.vision/*"
 zone_id = "ec8e903035c7b0fcd3e95f1e483ab68c"
 kv_namespaces = [
-  { binding = "SHAKV", id = "6fdd12d3f73d48b1a5c1f3b355ab8a4d", preview_id="6fdd12d3f73d48b1a5c1f3b355ab8a4d" },
-  { binding = "USERS", id = "0f2452fdee904dd5a0d401a896bc5e34", preview_id="0f2452fdee904dd5a0d401a896bc5e34" }
+  { binding = "SHAKV",    id = "6fdd12d3f73d48b1a5c1f3b355ab8a4d", preview_id="6fdd12d3f73d48b1a5c1f3b355ab8a4d" },
+  { binding = "USERS",    id = "0f2452fdee904dd5a0d401a896bc5e34", preview_id="0f2452fdee904dd5a0d401a896bc5e34" },
+  { binding = "LOGS",     id = "96d2b68314364220a82bf70190531856", preview_id="96d2b68314364220a82bf70190531856" },
+  { binding = "PROJECTS", id = "23b1f3012e0b43019882d02029f1a089", preview_id="23b1f3012e0b43019882d02029f1a089" }
 ]
 [dev]
 port=9000

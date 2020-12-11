@@ -1,30 +1,18 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
+import { handleAdmin } from "./admin.ts";
 import { json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
 
-var API_KEY: string;
-
 export async function handleCloudRequest(request: Request): Promise<Response> {
-  const psk = String(request.headers.get("API_KEY") || "");
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
+  const psk = String(request.headers.get("API_KEY") || "");
 
-  if (request.method === "GET" && psk && psk === API_KEY) {
-    if (pathname === "/keys/") {
-      const prefix = searchParams.get("prefix")!;
-      const value = await SHAKV.list({ prefix });
-
-      return json(value);
-    }
-    if (pathname === "/keys/delete/") {
-      const hash = searchParams.get("hash")!;
-      const value = await SHAKV.delete(hash)!;
-
-      return json(value);
-    }
+  if (request.method === "GET" && psk) {
+    return handleAdmin(request, searchParams, pathname, psk);
   } else if (request.method === "GET") {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
