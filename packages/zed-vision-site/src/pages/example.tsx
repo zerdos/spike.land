@@ -9,7 +9,7 @@ const Slider = () => {
   return <>
     <input
       max={steps}
-      css={`
+      css={css`
         appearance: none;
         width: 100%;
         height: 40px; 
