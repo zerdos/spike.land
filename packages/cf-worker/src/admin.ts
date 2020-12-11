@@ -16,5 +16,6 @@ export async function handleAdmin(
 
       return json(value);
     }
+    return json({error: "not implemented"})
 
 }

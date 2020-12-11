@@ -109,6 +109,9 @@ async function handleAdmin(request, searchParams, pathname, SHAKV1) {
         const value = await SHAKV1.delete(hash);
         return json(value);
     }
+    return json({
+        error: "not implemented"
+    });
 }
 async function handleCloudRequest(request) {
     const url = new URL(request.url);
