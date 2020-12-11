@@ -280,7 +280,7 @@ export const CodeBox: React.FC<{
             {
               body: JSON.stringify(body),
               method: "POST",
-              headers: { "content-type": "application/json;charset=UTF-8" },
+              headers: { "Content-Type": "application/json;charset=UTF-8" },
             },
           );
           //const response =

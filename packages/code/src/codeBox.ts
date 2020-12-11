@@ -79,7 +79,7 @@ async function deleteHash(apiKey: string, hash: string) {
     const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
     const req = await fetch(url, {
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "application/json;charset=UTF-8",
         "API_KEY": apiKey,
       },
     });
@@ -96,7 +96,7 @@ async function getCode(hash: string) {
     const list = `https://code.zed.vision/?h=${hash}`;
     const req = await fetch(list, {
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "application/json;charset=UTF-8",
       },
     });
     const data = await req.json();
@@ -436,7 +436,7 @@ export async function run(mode = "window") {
           {
             body: latestCode,
             method: "POST",
-            headers: { "content-type": "text/plain;charset=UTF-8" },
+            headers: { "Content-Type": "text/plain;charset=UTF-8" },
           },
         );
 
@@ -523,7 +523,7 @@ export async function run(mode = "window") {
         body: htmlBlob,
         method: "POST",
         headers: {
-          "content-type": "text/html;charset=UTF-8",
+          "Content-Type": "text/html;charset=UTF-8",
           "SHARE": "true",
         },
       },

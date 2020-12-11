@@ -1597,7 +1597,7 @@ export async function run(mode = "window") {
                     body: latestCode1,
                     method: "POST",
                     headers: {
-                        "content-type": "text/plain;charset=UTF-8"
+                        "Content-Type": "text/plain;charset=UTF-8"
                     }
                 });
                 const hash = await sha256(latestCode1);
@@ -1662,7 +1662,7 @@ export async function run(mode = "window") {
             body: htmlBlob,
             method: "POST",
             headers: {
-                "content-type": "text/html;charset=UTF-8",
+                "Content-Type": "text/html;charset=UTF-8",
                 "SHARE": "true"
             }
         });

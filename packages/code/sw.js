@@ -1032,7 +1032,7 @@ const getDB = ()=>{
                         body: data,
                         method: "POST",
                         headers: {
-                            "content-type": "text/html;charset=UTF-8"
+                            "Content-Type": "text/html;charset=UTF-8"
                         }
                     });
                     await fetch(request).then((response)=>response.text()

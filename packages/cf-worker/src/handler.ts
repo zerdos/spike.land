@@ -12,6 +12,11 @@ const corsHeaders = {
 };
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
+  if (request.method === "OPTIONS") {
+    // Handle CORS preflight requests
+    return handleOptions(request);
+  }
+  
   const psk = String(request.headers.get("API_KEY") || "");
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
@@ -24,7 +29,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return new Response(JSON.stringify(value), {
         headers: {
           ...corsHeaders,
-          "content-type": "application/json;charset=UTF-8",
+          "Content-Type": "application/json;charset=UTF-8",
         },
       });
     }
@@ -36,7 +41,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return new Response(JSON.stringify(value), {
         headers: {
           ...corsHeaders,
-          "content-type": "application/json;charset=UTF-8",
+          "Content-Type": "application/json;charset=UTF-8",
         },
       });
     }
@@ -48,7 +53,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     // return new Response(JSON.stringify(value), {
     //   headers: {
     //     ...corsHeaders,
-    //     "content-type": "application/json;charset=UTF-8",
+    //     "Content-Type": "application/json;charset=UTF-8",
     //   },
     // });
   }
@@ -59,7 +64,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return new Response("User-agent: * Disallow: /", {
         headers: {
           ...corsHeaders,
-          "content-type": "text/html;charset=UTF-8",
+          "Content-Type": "text/html;charset=UTF-8",
         },
       });
     }
@@ -84,7 +89,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         {
           headers: {
             ...corsHeaders,
-            "content-type": "application/json;charset=UTF-8",
+            "Content-Type": "application/json;charset=UTF-8",
           },
         },
       );
@@ -122,7 +127,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         {
           headers: {
             ...corsHeaders,
-            "content-type": "application/json;charset=UTF-8",
+            "Content-Type": "application/json;charset=UTF-8",
           },
         },
       );
@@ -141,7 +146,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         {
           headers: {
             ...corsHeaders,
-            "content-type": "application/json;charset=UTF-8",
+            "Content-Type": "application/json;charset=UTF-8",
           },
         },
       );
@@ -157,7 +162,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           {
             headers: {
               ...corsHeaders,
-              "content-type": "application/json;charset=UTF-8",
+              "Content-Type": "application/json;charset=UTF-8",
             },
           },
         );
@@ -166,7 +171,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return new Response(jsonStream, {
         headers: {
           ...corsHeaders,
-          "content-type": "application/json;charset=UTF-8",
+          "Content-Type": "application/json;charset=UTF-8",
         },
       });
     }
@@ -208,18 +213,44 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     return new Response(JSON.stringify({ hash: smallerKey }), {
       headers: {
         ...corsHeaders,
-        "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "application/json;charset=UTF-8",
       },
     });
   }
 
-  return new Response(request.body, {
-    headers: {
-      ...request.headers,
+  return new Response("404");
+}
+
+function handleOptions(request: Request) {
+  // Make sure the necessary headers are present
+  // for this to be a valid pre-flight request
+  const headers = request.headers;
+  if (
+    headers.get("Origin") !== null &&
+    headers.get("Access-Control-Request-Method") !== null &&
+    headers.get("Access-Control-Request-Headers") !== null
+  ){
+    // Handle CORS pre-flight request.
+    // If you want to check or reject the requested method + headers
+    // you can do that here.
+    const respHeaders = {
       ...corsHeaders,
-      "Access-Control-Allow-Headers": request.headers.get(
-        "Access-Control-Request-Headers",
-      ),
-    },
-  });
+    // Allow all future content Request headers to go back to browser
+    // such as Authorization (Bearer) or X-Client-Name-Version
+      "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")!,
+    }
+
+    return new Response(null, {
+      headers: respHeaders,
+    })
+  }
+  else {
+    // Handle standard OPTIONS request.
+    // If you want to allow other HTTP Methods, you can do that here.
+    return new Response(null, {
+      headers: {
+        Allow: "GET, HEAD, POST, OPTIONS",
+      },
+    })
+  }
 }

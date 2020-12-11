@@ -57,12 +57,33 @@ const corsHeaders = {
     "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
     "Access-Control-Max-Age": "86400"
 };
+function handleOptions(request) {
+    const headers = request.headers;
+    if (headers.get("Origin") !== null && headers.get("Access-Control-Request-Method") !== null && headers.get("Access-Control-Request-Headers") !== null) {
+        const respHeaders = {
+            ...corsHeaders,
+            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
+        };
+        return new Response(null, {
+            headers: respHeaders
+        });
+    } else {
+        return new Response(null, {
+            headers: {
+                Allow: "GET, HEAD, POST, OPTIONS"
+            }
+        });
+    }
+}
 async function sha256(message) {
     const msgBuffer = new TextEncoder().encode(message);
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
 async function handleCloudRequest(request) {
+    if (request.method === "OPTIONS") {
+        return handleOptions(request);
+    }
     const psk = String(request.headers.get("API_KEY") || "");
     const url = new URL(request.url);
     const { searchParams , pathname  } = url;
@@ -75,7 +96,7 @@ async function handleCloudRequest(request) {
             return new Response(JSON.stringify(value), {
                 headers: {
                     ...corsHeaders,
-                    "content-type": "application/json;charset=UTF-8"
+                    "Content-Type": "application/json;charset=UTF-8"
                 }
             });
         }
@@ -85,7 +106,7 @@ async function handleCloudRequest(request) {
             return new Response(JSON.stringify(value), {
                 headers: {
                     ...corsHeaders,
-                    "content-type": "application/json;charset=UTF-8"
+                    "Content-Type": "application/json;charset=UTF-8"
                 }
             });
         }
@@ -96,7 +117,7 @@ async function handleCloudRequest(request) {
             return new Response("User-agent: * Disallow: /", {
                 headers: {
                     ...corsHeaders,
-                    "content-type": "text/html;charset=UTF-8"
+                    "Content-Type": "text/html;charset=UTF-8"
                 }
             });
         }
@@ -114,7 +135,7 @@ async function handleCloudRequest(request) {
             }), {
                 headers: {
                     ...corsHeaders,
-                    "content-type": "application/json;charset=UTF-8"
+                    "Content-Type": "application/json;charset=UTF-8"
                 }
             });
         }
@@ -141,7 +162,7 @@ async function handleCloudRequest(request) {
             }), {
                 headers: {
                     ...corsHeaders,
-                    "content-type": "application/json;charset=UTF-8"
+                    "Content-Type": "application/json;charset=UTF-8"
                 }
             });
         }
@@ -157,7 +178,7 @@ async function handleCloudRequest(request) {
             }), {
                 headers: {
                     ...corsHeaders,
-                    "content-type": "application/json;charset=UTF-8"
+                    "Content-Type": "application/json;charset=UTF-8"
                 }
             });
         }
@@ -169,14 +190,14 @@ async function handleCloudRequest(request) {
                 }), {
                     headers: {
                         ...corsHeaders,
-                        "content-type": "application/json;charset=UTF-8"
+                        "Content-Type": "application/json;charset=UTF-8"
                     }
                 });
             }
             return new Response(jsonStream, {
                 headers: {
                     ...corsHeaders,
-                    "content-type": "application/json;charset=UTF-8"
+                    "Content-Type": "application/json;charset=UTF-8"
                 }
             });
         }
@@ -215,17 +236,11 @@ async function handleCloudRequest(request) {
         }), {
             headers: {
                 ...corsHeaders,
-                "content-type": "application/json;charset=UTF-8"
+                "Content-Type": "application/json;charset=UTF-8"
             }
         });
     }
-    return new Response(request.body, {
-        headers: {
-            ...request.headers,
-            ...corsHeaders,
-            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers")
-        }
-    });
+    return new Response("404");
 }
 addEventListener("fetch", (event)=>{
     event.respondWith(handleCloudRequest(event.request));

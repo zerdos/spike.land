@@ -3,7 +3,7 @@ export async function getHash(hash: string) {
     const list = `https://code.zed.vision/?h=${hash}`;
     const req = await fetch(list, {
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "application/json;charset=UTF-8",
       },
     });
     const data = await req.text();
@@ -24,7 +24,7 @@ export async function getKeys(apiKey: string, prefix: string) {
 
     const req = await fetch(list, {
       headers: {
-        "content-type": "application/json;charset=UTF-8",
+        "Content-Type": "application/json;charset=UTF-8",
         "API_KEY": apiKey,
       },
     });
