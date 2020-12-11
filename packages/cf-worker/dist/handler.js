@@ -6,6 +6,11 @@ const dec_ts_1 = require("./dec.ts");
 var SHAKV;
 var USERS;
 var API_KEY;
+const corsHeaders = {
+    "Access-Control-Allow-Origin": "https://zed.vision",
+    "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+    "Access-Control-Max-Age": "86400",
+};
 async function handleCloudRequest(request) {
     const psk = String(request.headers.get("API_KEY") || "");
     const url = new URL(request.url);
@@ -15,7 +20,10 @@ async function handleCloudRequest(request) {
             const prefix = searchParams.get("prefix");
             const value = await SHAKV.list({ prefix });
             return new Response(JSON.stringify(value), {
-                headers: { "content-type": "application/json;charset=UTF-8" }
+                headers: {
+                    ...corsHeaders,
+                    "content-type": "application/json;charset=UTF-8",
+                },
             });
         }
         if (pathname === "/keys/delete/") {
@@ -23,6 +31,7 @@ async function handleCloudRequest(request) {
             const value = await SHAKV.delete(hash);
             return new Response(JSON.stringify(value), {
                 headers: {
+                    ...corsHeaders,
                     "content-type": "application/json;charset=UTF-8",
                 },
             });
@@ -42,6 +51,7 @@ async function handleCloudRequest(request) {
         if (pathname === "/robots.txt") {
             return new Response("User-agent: * Disallow: /", {
                 headers: {
+                    ...corsHeaders,
                     "content-type": "text/html;charset=UTF-8",
                 },
             });
@@ -57,15 +67,13 @@ async function handleCloudRequest(request) {
                 uuid: key,
             }), {
                 headers: {
+                    ...corsHeaders,
                     "content-type": "application/json;charset=UTF-8",
                 },
             });
         }
         if (pathname === "/check") {
             const uuid = searchParams.get("uuid");
-            if (uuid === null) {
-                return new Response(null);
-            }
             const waitForChange = async () => {
                 const data = await SHAKV.get(uuid, "json");
                 if (!data || data.connected) {
@@ -84,6 +92,7 @@ async function handleCloudRequest(request) {
             const data = await waitForChange();
             return new Response(JSON.stringify({ expired: data === null }), {
                 headers: {
+                    ...corsHeaders,
                     "content-type": "application/json;charset=UTF-8",
                 },
             });
@@ -95,6 +104,7 @@ async function handleCloudRequest(request) {
                 uuid,
             }), {
                 headers: {
+                    ...corsHeaders,
                     "content-type": "application/json;charset=UTF-8",
                 },
             });
@@ -106,12 +116,16 @@ async function handleCloudRequest(request) {
                     error: "Not found",
                 }), {
                     headers: {
+                        ...corsHeaders,
                         "content-type": "application/json;charset=UTF-8",
                     },
                 });
             }
             return new Response(jsonStream, {
-                headers: { "content-type": "application/json;charset=UTF-8" },
+                headers: {
+                    ...corsHeaders,
+                    "content-type": "application/json;charset=UTF-8",
+                },
             });
         }
         const pageHash = url.searchParams.get("r");
@@ -119,7 +133,10 @@ async function handleCloudRequest(request) {
             const jsonStream = await SHAKV.get(pageHash, "stream");
             if (jsonStream !== null) {
                 return new Response(jsonStream, {
-                    headers: { "Content-Type": "text/html; charset=UTF-8" }
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "text/html; charset=UTF-8",
+                    },
                 });
             }
         }
@@ -128,7 +145,10 @@ async function handleCloudRequest(request) {
             const jsonStream = await SHAKV.get(maybeRoute, "stream");
             if (jsonStream !== null) {
                 return new Response(jsonStream, {
-                    headers: { "Content-Type": "text/html; charset=UTF-8" }
+                    headers: {
+                        ...corsHeaders,
+                        "Content-Type": "text/html; charset=UTF-8",
+                    },
                 });
             }
         }
@@ -140,10 +160,19 @@ async function handleCloudRequest(request) {
         const smallerKey = hash.substring(0, 8);
         await SHAKV.put(smallerKey, myBuffer);
         return new Response(JSON.stringify({ hash: smallerKey }), {
-            headers: { "content-type": "application/json;charset=UTF-8" }
+            headers: {
+                ...corsHeaders,
+                "content-type": "application/json;charset=UTF-8",
+            },
         });
     }
-    return new Response(null);
+    return new Response(request.body, {
+        headers: {
+            ...request.headers,
+            ...corsHeaders,
+            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers"),
+        },
+    });
 }
 exports.handleCloudRequest = handleCloudRequest;
 //# sourceMappingURL=handler.js.map
