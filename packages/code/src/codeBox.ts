@@ -1,4 +1,4 @@
-import v4 from "uuid";
+import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
