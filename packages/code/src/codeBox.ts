@@ -358,6 +358,16 @@ export async function run(mode = "window") {
 
           motionScript = "const {motion} = Motion";
         }
+
+
+        let qrDep = "";
+        if (code.indexOf("QRious") > -1) {
+          qrDep =
+            `<script crossorigin src="https://unpkg.com/@zedvision/qrious@8.4.2/dist/qrious.min.js"></script>`;
+
+        }
+
+
         let title = "(code).zed.vision :)";
 
         if (
@@ -393,6 +403,7 @@ export async function run(mode = "window") {
         </div>
         <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
         ${motionDep}
+        ${qrDep}
         <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
         <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>
         <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>

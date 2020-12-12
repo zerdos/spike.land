@@ -9,7 +9,7 @@ export const Qr: React.FC = () => {
   const [counter, setCounter] = React.useState(0);
 
   React.useEffect(() => {
-    let qr: QRious = null;
+    let qr: QRious;
     const connect = async () => {
       const req = await fetch("https://code.zed.vision/connect");
       const data = await req.json();
@@ -17,8 +17,8 @@ export const Qr: React.FC = () => {
       const key = data.key;
       const url = `https://zed.vision/${key}`;
 
-      if (qr !== null) {
-        qr.value = url;
+      if (qr) {
+        qr.set({ value: url });
       } else {
         qr = new QRious(
           {
