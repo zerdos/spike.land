@@ -26,7 +26,7 @@ module.exports = (env, argv) => {
     optimization: {
       minimizer: [
         new TerserPlugin({
-          //extractComments: true,
+          extractComments: false,
           //cache: true,
           //parallel: true,
           //sourceMap: true,
@@ -57,7 +57,7 @@ module.exports = (env, argv) => {
   };
 
   if (argv.mode !== "production") {
-    conf.devtool = "inline-source-map";
+    conf.devtool = false;
   }
 
   return conf;

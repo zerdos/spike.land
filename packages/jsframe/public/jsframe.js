@@ -1497,7 +1497,9 @@
                             return null;
                           }
                           var i = r.get(t);
-                          if (!i) return null;
+                          if (!i) {
+                            return null;
+                          }
                           var o = i.get(n), a = this._getFrozenListenerDef(o);
                           return a;
                         },
@@ -1673,7 +1675,9 @@
                           try {
                             for (a.s(); !(r = a.n()).done;) {
                               var s = i(r.value, 2), l = s[0];
-                              if (s[1][t] === n) return l;
+                              if (s[1][t] === n) {
+                                return l;
+                              }
                             }
                           } catch (e) {
                             a.e(e);
