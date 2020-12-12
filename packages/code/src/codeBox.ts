@@ -291,7 +291,10 @@ export async function run(mode = "window") {
   // await workerDomImport;
   function restartCode(transPiled: string) {
     const searchRegExp = /import/gi;
+    const searchRegExpExport = /export /gi;
     const replaceWith = "///";
+
+
 
     const code = `
     Object.assign(window, React);
@@ -305,7 +308,8 @@ export async function run(mode = "window") {
     ` + transPiled.replaceAll(
       searchRegExp,
       replaceWith,
-    ).replace("export default", "DefaultElement = ");
+    ).replace("export default", "DefaultElement = ")
+    .replaceAll(searchRegExpExport,"");
 
     const restart = () => {
       const codeToHydrate = mode === "window"
@@ -391,6 +395,7 @@ export async function run(mode = "window") {
               href="https://zed.vision/favicon.ico">
         <style>
         ${bodyStylesFix}
+        
         ${css}
         </style>
         </head>
