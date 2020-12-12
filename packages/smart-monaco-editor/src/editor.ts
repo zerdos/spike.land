@@ -269,8 +269,8 @@ export const startMonaco: SmartMonaco = async (
         url: "https://unpkg.com/popmotion@9.0.1/lib/index.d.ts",
       },
       {
-        name: "@zedvision/qrious",
-        url: "https://unpkg.com/@zedvision/8.4.2/dist/qrious.d.ts",
+        name: "@zedvision/qrious/index.d.ts",
+        url: "https://unpkg.com/@zedvision/qrious@8.4.2/dist/qrious.d.ts",
       },
     ];
     //# sourceMappingURL=importHelper.js.map
