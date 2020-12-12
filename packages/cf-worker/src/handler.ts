@@ -36,13 +36,13 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
 
     if (pathname === "/check") {
-      const uuid = searchParams.get("uuid");
+      const key = searchParams.get("key");
 
-      if (uuid === null) return new Response("500");
+      if (key === null) return new Response("500");
 
       const waitForChange = async () => {
         const data = await SHAKV.get<{ connected: boolean }>(
-          uuid,
+          key,
           "json",
         );
         if (!data || data.connected) {
@@ -51,7 +51,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
             const data = await SHAKV.get<{ connected: boolean }>(
-              uuid,
+              key,
               "json",
             );
             if (!data || data.connected) {

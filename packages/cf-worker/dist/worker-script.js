@@ -164,16 +164,16 @@ async function handleCloudRequest(request) {
       });
     }
     if (pathname === "/check") {
-      const uuid = searchParams.get("uuid");
-      if (uuid === null) return new Response("500");
+      const key = searchParams.get("key");
+      if (key === null) return new Response("500");
       const waitForChange = async () => {
-        const data = await SHAKV.get(uuid, "json");
+        const data = await SHAKV.get(key, "json");
         if (!data || data.connected) {
           return data;
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
-            const data1 = await SHAKV.get(uuid, "json");
+            const data1 = await SHAKV.get(key, "json");
             if (!data1 || data1.connected) {
               clearInterval(clear);
               resolve(data1);

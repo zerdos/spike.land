@@ -25,12 +25,11 @@ export const Qr: React.FC = () => {
             element: ref.current,
             size: 200,
             foreground: "darkred",
-            value: url,
           },
         );
       }
 
-      const check = await fetch(`https://code.zed.vision/check?uuid=${uuid}`);
+      const check = await fetch(`https://code.zed.vision/check?key=${key}`);
       const res = await check.json();
       if (res.expired === false) {
         location.href = "https://zed.vision/code/";
