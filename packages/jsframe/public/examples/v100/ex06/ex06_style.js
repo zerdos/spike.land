@@ -1,48 +1,42 @@
 function getOriginalStyle_ex06_01(fApr) {
+  fApr.showTitleBar = false;
+  fApr.showCloseButton = false;
 
-    fApr.showTitleBar = false;
-    fApr.showCloseButton = false;
+  fApr.titleBarCaptionFontSize = "12px";
+  fApr.titleBarCaptionFontWeight = "normal";
+  fApr.titleBarCaptionLeftMargin = "10px";
+  fApr.titleBarCaptionColorDefault = "#4d494d";
+  fApr.titleBarCaptionColorFocused = "#4d494d";
 
+  fApr.titleBarHeight = "5px";
 
-    fApr.titleBarCaptionFontSize = '12px';
-    fApr.titleBarCaptionFontWeight = 'normal';
-    fApr.titleBarCaptionLeftMargin = '10px';
-    fApr.titleBarCaptionColorDefault = '#4d494d';
-    fApr.titleBarCaptionColorFocused = '#4d494d';
+  fApr.titleBarColorDefault = "white";
+  fApr.titleBarColorFocused = "white";
 
-    fApr.titleBarHeight = '5px';
+  fApr.titleBarBorderBottomDefault = null;
+  fApr.titleBarBorderBottomFocused = null;
 
-    fApr.titleBarColorDefault = 'white';
-    fApr.titleBarColorFocused = 'white';
+  fApr.frameBorderRadius = "6px";
 
-    fApr.titleBarBorderBottomDefault = null;
-    fApr.titleBarBorderBottomFocused = null;
+  //border width
+  fApr.frameBorderWidthDefault = "1px";
+  fApr.frameBorderWidthFocused = "1px";
 
-    fApr.frameBorderRadius = '6px';
+  //border color
+  fApr.frameBorderColorDefault = "#aaaaaa";
+  fApr.frameBorderColorFocused = "#aaaaaa";
 
-    //border width
-    fApr.frameBorderWidthDefault = '1px';
-    fApr.frameBorderWidthFocused = '1px';
+  fApr.frameBorderStyle = "solid";
 
+  //window shadow
+  fApr.frameBoxShadow = "2px 2px 5px  rgba(0, 0, 0, 0.5)";
 
-    //border color
-    fApr.frameBorderColorDefault = '#aaaaaa';
-    fApr.frameBorderColorFocused = '#aaaaaa';
+  fApr.frameBackgroundColor = "white";
 
-    fApr.frameBorderStyle = 'solid';
+  fApr.frameComponents = new Array();
 
-    //window shadow
-    fApr.frameBoxShadow = '2px 2px 5px  rgba(0, 0, 0, 0.5)';
+  //adjustment value
+  fApr.frameHeightAdjust = 0; //10;// 2;//default is 1
 
-    fApr.frameBackgroundColor = 'white';
-
-
-    fApr.frameComponents = new Array();
-
-    //adjustment value
-    fApr.frameHeightAdjust =0;//10;// 2;//default is 1
-
-
-
-    return fApr;
+  return fApr;
 }

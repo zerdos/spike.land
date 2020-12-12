@@ -31,38 +31,28 @@ var frmStyle1 = jsFrame.createFrameAppearance();
 
 //create frame (left,top,width,height)
 var frame01 = jsFrame.createFrame(20, 40, 320, 220, frmStyle1)
-    .setTitle("My Window1")
-    //if true,you can resize the window
-    .setResizable(true)
-    //if true,you can drag and move the window
-    .setMovable(true);
+  .setTitle("My Window1")
+  //if true,you can resize the window
+  .setResizable(true)
+  //if true,you can drag and move the window
+  .setMovable(true);
 
 var viewOfFrm01 = frame01.getFrameView();
 
-viewOfFrm01.innerHTML = '<div style="padding:10px;font-size:12px;color:darkgray">Contents of window01</div>';
+viewOfFrm01.innerHTML =
+  '<div style="padding:10px;font-size:12px;color:darkgray">Contents of window01</div>';
 
 //show window
 frame01.show();
 
-
 //frame2
 var frmStyle2 = jsFrame.createFrameAppearance();
 
-
 var frame02 = jsFrame.createFrame(360, 40, 320, 220, frmStyle2)
-    .setTitle("My Window2")
-    .setResizable(true)
-    .setMovable(true);
+  .setTitle("My Window2")
+  .setResizable(true)
+  .setMovable(true);
 
 frame02.getFrameView().innerHTML =
-    '<div style="padding:10px;font-size:12px;color:darkgray">Contents of window02</div>';
+  '<div style="padding:10px;font-size:12px;color:darkgray">Contents of window02</div>';
 frame02.show();
-
-
-
-
-
-
-
-
-

@@ -954,12 +954,14 @@ let latestSavedCode = "";
 let latestGoodCode = "";
 let shareItAsHtml;
 const startMonaco = async ({ onChange , code , language  })=>{
-    if (typeof window === "undefined") return {
-        monaco: {
-        },
-        editor: {
-        }
-    };
+    if (typeof window === "undefined") {
+        return {
+            monaco: {
+            },
+            editor: {
+            }
+        };
+    }
     const document1 = window.document;
     const container = window.document.getElementById("container");
     if (!container) {

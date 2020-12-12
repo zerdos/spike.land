@@ -1,5 +1,5 @@
 /*
- * QRious v4.0.3
+ * QRious v8.4.0
  * Copyright (C) 2020 Alasdair Mercer
  * Copyright (C) 2010 Tom Zerucha
  *
@@ -2275,35 +2275,33 @@
    * @extends ElementService
    */
   var BrowserElementService = ElementService_1.extend({
-
     /**
      * @override
      */
-    createCanvas: function() {
-      return document.createElement('canvas');
+    createCanvas: function () {
+      return document.createElement("canvas");
     },
 
     /**
      * @override
      */
-    createImage: function() {
-      return document.createElement('img');
+    createImage: function () {
+      return document.createElement("img");
     },
 
     /**
      * @override
      */
-    isCanvas: function(element) {
+    isCanvas: function (element) {
       return element instanceof HTMLCanvasElement;
     },
 
     /**
      * @override
      */
-    isImage: function(element) {
+    isImage: function (element) {
       return element instanceof HTMLImageElement;
-    }
-
+    },
   });
 
   var BrowserElementService_1 = BrowserElementService;

@@ -20,7 +20,9 @@ interface SmartMonaco {
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language },
 ) => {
-  if (typeof window === "undefined") return {monaco: {} as monaco, editor: {}} as ISmartMonacoEditor;
+  if (typeof window === "undefined") {
+    return { monaco: {} as monaco, editor: {} } as ISmartMonacoEditor;
+  }
 
   const document = window.document;
   const container = window.document.getElementById("container");
@@ -92,7 +94,11 @@ export const startMonaco: SmartMonaco = async (
 
     const { require } = (await loadScript(
       `${vsPath}/loader.js`,
-    )) as unknown as {require: ({config: (opts:unknown) => void }) | ((depts: unknown, res: unknown) => void) }; 
+    )) as unknown as {
+      require:
+        | ({ config: (opts: unknown) => void })
+        | ((depts: unknown, res: unknown) => void);
+    };
 
     require.config({ paths: { "vs": vsPath } });
 

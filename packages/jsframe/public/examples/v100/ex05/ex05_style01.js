@@ -24,114 +24,109 @@
  */
 
 function getOriginalStyle_ex05_01(fApr) {
+  fApr.showTitleBar = true;
+  fApr.showCloseButton = true;
 
-    fApr.showTitleBar = true;
-    fApr.showCloseButton = true;
+  fApr.titleBarCaptionFontSize = "12px";
+  fApr.titleBarCaptionFontWeight = "normal";
+  fApr.titleBarCaptionLeftMargin = "10px";
+  fApr.titleBarCaptionColorDefault = "#4d494d";
+  fApr.titleBarCaptionColorFocused = "#4d494d";
 
+  fApr.titleBarHeight = "5px";
 
-    fApr.titleBarCaptionFontSize = '12px';
-    fApr.titleBarCaptionFontWeight = 'normal';
-    fApr.titleBarCaptionLeftMargin = '10px';
-    fApr.titleBarCaptionColorDefault = '#4d494d';
-    fApr.titleBarCaptionColorFocused = '#4d494d';
+  fApr.titleBarColorDefault = "white";
+  fApr.titleBarColorFocused = "white";
 
-    fApr.titleBarHeight = '5px';
+  fApr.titleBarBorderBottomDefault = null;
+  fApr.titleBarBorderBottomFocused = null;
 
-    fApr.titleBarColorDefault = 'white';
-    fApr.titleBarColorFocused = 'white';
+  fApr.frameBorderRadius = "6px";
 
-    fApr.titleBarBorderBottomDefault = null;
-    fApr.titleBarBorderBottomFocused = null;
+  //border width
+  fApr.frameBorderWidthDefault = "1px";
+  fApr.frameBorderWidthFocused = "1px";
 
-    fApr.frameBorderRadius = '6px';
+  //border color
+  fApr.frameBorderColorDefault = "#aaaaaa";
+  fApr.frameBorderColorFocused = "#aaaaaa";
 
-    //border width
-    fApr.frameBorderWidthDefault = '1px';
-    fApr.frameBorderWidthFocused = '1px';
+  fApr.frameBorderStyle = "solid";
 
+  //window shadow
+  fApr.frameBoxShadow = "2px 2px 5px  rgba(0, 0, 0, 0.5)";
 
-    //border color
-    fApr.frameBorderColorDefault = '#aaaaaa';
-    fApr.frameBorderColorFocused = '#aaaaaa';
+  fApr.frameBackgroundColor = "white";
 
-    fApr.frameBorderStyle = 'solid';
+  fApr.frameComponents = new Array();
 
-    //window shadow
-    fApr.frameBoxShadow = '2px 2px 5px  rgba(0, 0, 0, 0.5)';
+  //adjustment value
+  fApr.frameHeightAdjust = 2; //default is 1
 
-    fApr.frameBackgroundColor = 'white';
+  fApr.onInitialize = function () {
+    var partsBuilder = fApr.getPartsBuilder();
 
+    //configure close button appearance[begin]//////////////
 
-    fApr.frameComponents = new Array();
+    const crossMark0 = "\u274c";
+    const crossMark1 = "\u2716";
+    const crossMark2 = "\u274e";
+    const CROSS_MARK = crossMark1;
 
-    //adjustment value
-    fApr.frameHeightAdjust = 2;//default is 1
+    var cbApr = partsBuilder.buildTextButtonAppearance();
 
-    fApr.onInitialize = function () {
+    cbApr.width = 20;
+    cbApr.height = 20;
 
+    cbApr.borderRadius = 10;
+    cbApr.borderWidth = 1;
 
-        var partsBuilder = fApr.getPartsBuilder();
+    cbApr.borderColorDefault = "#cccccc";
+    cbApr.borderColorFocused = "#cccccc";
+    cbApr.borderColorHovered = "#dddddd";
+    cbApr.borderColorPressed = "#eeeeee";
 
+    cbApr.borderStyleDefault = "solid";
+    cbApr.borderStyleFocused = cbApr.borderStyleDefault;
+    cbApr.borderStyleHovered = cbApr.borderStyleDefault;
+    cbApr.borderStylePressed = cbApr.borderStyleDefault;
 
-        //configure close button appearance[begin]//////////////
+    //background
+    cbApr.backgroundColorDefault = "white";
+    cbApr.backgroundColorFocused = "white";
+    cbApr.backgroundColorHovered = "#eeeeee";
+    cbApr.backgroundColorPressed = "#dddddd";
 
-        const crossMark0 = '\u274c';
-        const crossMark1 = '\u2716';
-        const crossMark2 = '\u274e';
-        const CROSS_MARK = crossMark1;
+    cbApr.backgroundBoxShadow = "2px 2px 5px  rgba(0, 0, 0, 0.5)";
 
+    //caption
+    cbApr.caption = CROSS_MARK;
 
-        var cbApr = partsBuilder.buildTextButtonAppearance();
+    cbApr.captionColorDefault = "#black";
+    cbApr.captionColorFocused = "black";
+    cbApr.captionColorHovered = "white";
+    cbApr.captionColorPressed = "white";
 
-        cbApr.width = 20;
-        cbApr.height = 20;
+    cbApr.captionShiftYpx = 1;
+    cbApr.captionFontRatio = 0.6;
 
+    var closeBtnEle = partsBuilder.buildTextButton(cbApr);
+    var eleLeft = 4;
+    var eleTop = -10 - parseInt(fApr.titleBarHeight);
+    var eleAlign = "RIGHT_TOP";
 
-        cbApr.borderRadius = 10;
-        cbApr.borderWidth = 1;
+    // 'closeButton' is a special name
+    fApr.addFrameComponent(
+      "closeButton",
+      closeBtnEle,
+      eleLeft,
+      eleTop,
+      eleAlign,
+    );
 
-        cbApr.borderColorDefault = '#cccccc';
-        cbApr.borderColorFocused = '#cccccc';
-        cbApr.borderColorHovered = '#dddddd';
-        cbApr.borderColorPressed = '#eeeeee';
+    //configure close button appearance[end]//////////////
+  };
+  //
 
-        cbApr.borderStyleDefault = 'solid';
-        cbApr.borderStyleFocused = cbApr.borderStyleDefault;
-        cbApr.borderStyleHovered = cbApr.borderStyleDefault;
-        cbApr.borderStylePressed = cbApr.borderStyleDefault;
-
-        //background
-        cbApr.backgroundColorDefault = 'white';
-        cbApr.backgroundColorFocused = 'white';
-        cbApr.backgroundColorHovered = '#eeeeee';
-        cbApr.backgroundColorPressed = '#dddddd';
-
-        cbApr.backgroundBoxShadow = '2px 2px 5px  rgba(0, 0, 0, 0.5)';
-
-        //caption
-        cbApr.caption = CROSS_MARK;
-
-        cbApr.captionColorDefault = '#black';
-        cbApr.captionColorFocused = 'black';
-        cbApr.captionColorHovered = 'white';
-        cbApr.captionColorPressed = 'white';
-
-        cbApr.captionShiftYpx = 1;
-        cbApr.captionFontRatio = 0.6;
-
-        var closeBtnEle = partsBuilder.buildTextButton(cbApr);
-        var eleLeft = 4;
-        var eleTop = -10 - parseInt(fApr.titleBarHeight);
-        var eleAlign = 'RIGHT_TOP';
-
-        // 'closeButton' is a special name
-        fApr.addFrameComponent('closeButton', closeBtnEle, eleLeft, eleTop, eleAlign);
-
-        //configure close button appearance[end]//////////////
-
-
-    };
-    //
-
-    return fApr;
+  return fApr;
 }

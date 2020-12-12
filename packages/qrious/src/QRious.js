@@ -17,11 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-'use strict';
+"use strict";
 
-var QRious = require('qrious-core');
+var QRious = require("qrious-core");
 
-var BrowserElementService = require('./service/element/BrowserElementService');
+var BrowserElementService = require("./service/element/BrowserElementService");
 
 QRious.use(new BrowserElementService());
 

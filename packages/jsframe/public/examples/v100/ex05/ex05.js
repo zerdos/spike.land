@@ -24,31 +24,41 @@
  */
 var jsFrame = new JSFrame();
 
-
-var frame01 = jsFrame.createFrame(20, 40, 320, 100, getOriginalStyle_ex05_01(jsFrame.createFrameAppearance()));
-frame01.setTitleBarClassName('ex05title_default','ex05title_focused');
+var frame01 = jsFrame.createFrame(
+  20,
+  40,
+  320,
+  100,
+  getOriginalStyle_ex05_01(jsFrame.createFrameAppearance()),
+);
+frame01.setTitleBarClassName("ex05title_default", "ex05title_focused");
 
 frame01.setTitle("").getFrameView().innerHTML =
-    '<div style="overflow:hidden;padding:15px;color:gray;font-size: 10px;top: 40%; margin-top: -1em;">' +
-    'Welcome to JsFrame.This is an example of JsFrame library.<br/>' +
-    'It consists of a thin title bar and a closing button on the edge.<br/>' +
-    '<a href="#" onclick="closeFrame01();return false;" style="color:#0077c9">Click to close</a></div>';
+  '<div style="overflow:hidden;padding:15px;color:gray;font-size: 10px;top: 40%; margin-top: -1em;">' +
+  "Welcome to JsFrame.This is an example of JsFrame library.<br/>" +
+  "It consists of a thin title bar and a closing button on the edge.<br/>" +
+  '<a href="#" onclick="closeFrame01();return false;" style="color:#0077c9">Click to close</a></div>';
 
 frame01.show();
 
 //example for iframe
-var frame02 = jsFrame.createFrame(360, 40, 320, 100, getOriginalStyle_ex05_02(jsFrame.createFrameAppearance().setUseIFrame(true)));
+var frame02 = jsFrame.createFrame(
+  360,
+  40,
+  320,
+  100,
+  getOriginalStyle_ex05_02(jsFrame.createFrameAppearance().setUseIFrame(true)),
+);
 frame02.setTitle("");
-frame02.setUrl('ex05_inner.html');
+frame02.setUrl("ex05_inner.html");
 frame02.show();
-
 
 frame01.requestFocus();
 
 function closeFrame01() {
-    frame01.closeFrame();
+  frame01.closeFrame();
 }
 
 function closeFrame02() {
-    frame02.closeFrame();
+  frame02.closeFrame();
 }

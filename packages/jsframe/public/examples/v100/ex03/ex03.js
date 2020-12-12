@@ -25,68 +25,97 @@
 
 var jsFrame = new JSFrame();
 
-var frame01 = jsFrame.createFrame(20, 40, 240, 150, getOriginalStyle_ex03_yosemite_style(jsFrame.createFrameAppearance()));
+var frame01 = jsFrame.createFrame(
+  20,
+  40,
+  240,
+  150,
+  getOriginalStyle_ex03_yosemite_style(jsFrame.createFrameAppearance()),
+);
 
 //(classNameForDefault, classNameForFocused)
-frame01.setTitleBarClassName('ex03title_yosemite_style_default', 'ex03title_yosemite_style_focused');
-frame01.setTitle('My Window 1');
+frame01.setTitleBarClassName(
+  "ex03title_yosemite_style_default",
+  "ex03title_yosemite_style_focused",
+);
+frame01.setTitle("My Window 1");
 frame01.getFrameView().style.backgroundColor = "rgba(255,255,255,0.9)";
-frame01.getFrameView().innerHTML = '<div style="padding:10px;font-size:16px;color:dimgray;">Yosemite Style</div>';
+frame01.getFrameView().innerHTML =
+  '<div style="padding:10px;font-size:16px;color:dimgray;">Yosemite Style</div>';
 
 frame01.show();
 
 //Set callback for frameComponent
-frame01.getFrameComponentElement('minimizeButton').onclick = function (e) {
-    //[TIPS]
-    //You know the object 'frame01' and 'this.parentObject' point the same object.
-    //But using 'this.parentObject' like below is strongly recommended instead of using 'frame01'
-    var frame = this.parentObject;
-    frame.setSize(200, 125);
+frame01.getFrameComponentElement("minimizeButton").onclick = function (e) {
+  //[TIPS]
+  //You know the object 'frame01' and 'this.parentObject' point the same object.
+  //But using 'this.parentObject' like below is strongly recommended instead of using 'frame01'
+  var frame = this.parentObject;
+  frame.setSize(200, 125);
 };
-frame01.getFrameComponentElement('zoomButton').onclick = function (e) {
-    var frame = this.parentObject;
-    frame.setSize(240, 150);
+frame01.getFrameComponentElement("zoomButton").onclick = function (e) {
+  var frame = this.parentObject;
+  frame.setSize(240, 150);
 };
 
 if (true) {
-    var frame02 = jsFrame.createFrame(300, 40, 240, 150, getOriginalStyle_ex03_yosemite_style(jsFrame.createFrameAppearance()));
+  var frame02 = jsFrame.createFrame(
+    300,
+    40,
+    240,
+    150,
+    getOriginalStyle_ex03_yosemite_style(jsFrame.createFrameAppearance()),
+  );
 
-//(classNameForDefault, classNameForFocused)
-    frame02.setTitleBarClassName('ex03title_yosemite_style_default', 'ex03title_yosemite_style_focused');
-    frame02.setTitle('My Window 2');
-    frame02.getFrameView().style.backgroundColor = "rgba(255,255,255,0.9)";
-    frame02.getFrameView().innerHTML = '<div style="padding:10px;font-size:16px;color:dimgray;">Yosemite Style</div>';
-    frame02.show();
+  //(classNameForDefault, classNameForFocused)
+  frame02.setTitleBarClassName(
+    "ex03title_yosemite_style_default",
+    "ex03title_yosemite_style_focused",
+  );
+  frame02.setTitle("My Window 2");
+  frame02.getFrameView().style.backgroundColor = "rgba(255,255,255,0.9)";
+  frame02.getFrameView().innerHTML =
+    '<div style="padding:10px;font-size:16px;color:dimgray;">Yosemite Style</div>';
+  frame02.show();
 
-//Set callback for frameComponent
-    frame02.getFrameComponentElement('minimizeButton').onclick = function (e) {
-        var frame = this.parentObject;
-        frame.setSize(200, 125);
-    };
-    frame02.getFrameComponentElement('zoomButton').onclick = function (e) {
-        var frame = this.parentObject;
-        frame.setSize(240, 150);
-    };
+  //Set callback for frameComponent
+  frame02.getFrameComponentElement("minimizeButton").onclick = function (e) {
+    var frame = this.parentObject;
+    frame.setSize(200, 125);
+  };
+  frame02.getFrameComponentElement("zoomButton").onclick = function (e) {
+    var frame = this.parentObject;
+    frame.setSize(240, 150);
+  };
 
+  var frame03 = jsFrame.createFrame(
+    20,
+    220,
+    520,
+    200,
+    getOriginalStyle_ex03_yosemite_style(jsFrame.createFrameAppearance()),
+  );
 
-    var frame03 = jsFrame.createFrame(20, 220, 520, 200, getOriginalStyle_ex03_yosemite_style(jsFrame.createFrameAppearance()));
+  //(classNameForDefault, classNameForFocused)
+  frame03.setTitleBarClassName(
+    "ex03title_yosemite_style_default",
+    "ex03title_yosemite_style_focused",
+  );
+  frame03.setTitle("My Window 3");
+  frame03.getFrameView().style.backgroundColor = "rgba(255,255,255,0.9)";
+  frame03.getFrameView().innerHTML =
+    '<div style="padding:10px;font-size:16px;color:dimgray;">Yosemite Style</div>';
+  frame03.show();
 
-//(classNameForDefault, classNameForFocused)
-    frame03.setTitleBarClassName('ex03title_yosemite_style_default', 'ex03title_yosemite_style_focused');
-    frame03.setTitle('My Window 3');
-    frame03.getFrameView().style.backgroundColor = "rgba(255,255,255,0.9)";
-    frame03.getFrameView().innerHTML = '<div style="padding:10px;font-size:16px;color:dimgray;">Yosemite Style</div>';
-    frame03.show();
-
-//Set callback for frameComponent
-    frame03.getFrameComponentElement('minimizeButton').onclick = function (e) {
-        var frame = this.parentObject;
-        frame.setSize(200, 125);
-    };
-    frame03.getFrameComponentElement('zoomButton').onclick = function (e) {
-        var frame = this.parentObject;
-        frame.setSize(520, 200);
-    };
+  //Set callback for frameComponent
+  frame03.getFrameComponentElement("minimizeButton").onclick = function (e) {
+    var frame = this.parentObject;
+    frame.setSize(200, 125);
+  };
+  frame03.getFrameComponentElement("zoomButton").onclick = function (e) {
+    var frame = this.parentObject;
+    frame.setSize(520, 200);
+  };
 }
 //focus on frame01
 frame01.requestFocus();

@@ -15,17 +15,17 @@
  * extensions have the same UUID, they are considered equal even if their identifier is different.
  */
 export class ExtensionIdentifier {
-    constructor(value) {
-        this.value = value;
-        this._lower = value.toLowerCase();
-    }
-    /**
+  constructor(value) {
+    this.value = value;
+    this._lower = value.toLowerCase();
+  }
+  /**
      * Gives the value by which to index (for equality).
      */
-    static toKey(id) {
-        if (typeof id === 'string') {
-            return id.toLowerCase();
-        }
-        return id._lower;
+  static toKey(id) {
+    if (typeof id === "string") {
+      return id.toLowerCase();
     }
+    return id._lower;
+  }
 }

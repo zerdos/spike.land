@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 export class ListError extends Error {
-    constructor(user, message) {
-        super(`ListError [${user}] ${message}`);
-    }
+  constructor(user, message) {
+    super(`ListError [${user}] ${message}`);
+  }
 }

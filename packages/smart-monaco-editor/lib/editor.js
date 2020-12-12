@@ -10,12 +10,14 @@ function loadScript(src) {
     });
 }
 export const startMonaco = async ({ onChange , code , language  })=>{
-    if (typeof window === "undefined") return {
-        monaco: {
-        },
-        editor: {
-        }
-    };
+    if (typeof window === "undefined") {
+        return {
+            monaco: {
+            },
+            editor: {
+            }
+        };
+    }
     const document = window.document;
     const container = window.document.getElementById("container");
     if (!container) {

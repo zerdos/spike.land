@@ -2,10 +2,10 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { EditorOptions } from './common/config/editorOptions';
-import { createMonacoBaseAPI } from './common/standalone/standaloneBase';
-import { createMonacoEditorAPI } from './standalone/browser/standaloneEditor';
-import { createMonacoLanguagesAPI } from './standalone/browser/standaloneLanguages';
+import { EditorOptions } from "./common/config/editorOptions";
+import { createMonacoBaseAPI } from "./common/standalone/standaloneBase";
+import { createMonacoEditorAPI } from "./standalone/browser/standaloneEditor";
+import { createMonacoLanguagesAPI } from "./standalone/browser/standaloneLanguages";
 // Set defaults for standalone editor
 EditorOptions.wrappingIndent.defaultValue = 0 /* None */;
 EditorOptions.glyphMargin.defaultValue = false;
@@ -29,20 +29,23 @@ export const Token = api.Token;
 export const editor = api.editor;
 export const languages = api.languages;
 self.monaco = api;
-if (typeof self.require !== 'undefined' && typeof self.require.config === 'function') {
-    self.require.config({
-        ignoreDuplicateModules: [
-            'vscode-languageserver-types',
-            'vscode-languageserver-types/main',
-            'vscode-languageserver-textdocument',
-            'vscode-languageserver-textdocument/main',
-            'vscode-nls',
-            'vscode-nls/vscode-nls',
-            'jsonc-parser',
-            'jsonc-parser/main',
-            'vscode-uri',
-            'vscode-uri/index',
-            'vs/basic-languages/typescript/typescript'
-        ]
-    });
+if (
+  typeof self.require !== "undefined" &&
+  typeof self.require.config === "function"
+) {
+  self.require.config({
+    ignoreDuplicateModules: [
+      "vscode-languageserver-types",
+      "vscode-languageserver-types/main",
+      "vscode-languageserver-textdocument",
+      "vscode-languageserver-textdocument/main",
+      "vscode-nls",
+      "vscode-nls/vscode-nls",
+      "jsonc-parser",
+      "jsonc-parser/main",
+      "vscode-uri",
+      "vscode-uri/index",
+      "vs/basic-languages/typescript/typescript",
+    ],
+  });
 }

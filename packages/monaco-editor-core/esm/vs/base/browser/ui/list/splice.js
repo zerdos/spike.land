@@ -3,10 +3,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 export class CombinedSpliceable {
-    constructor(spliceables) {
-        this.spliceables = spliceables;
-    }
-    splice(start, deleteCount, elements) {
-        this.spliceables.forEach(s => s.splice(start, deleteCount, elements));
-    }
+  constructor(spliceables) {
+    this.spliceables = spliceables;
+  }
+  splice(start, deleteCount, elements) {
+    this.spliceables.forEach((s) => s.splice(start, deleteCount, elements));
+  }
 }
