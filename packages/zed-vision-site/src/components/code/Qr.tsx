@@ -3,6 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/react";
 import QRious from "@zedvision/qrious";
 
+
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(3);
@@ -17,16 +18,21 @@ export const Qr: React.FC = () => {
       const key = data.key;
       const url = `https://zed.vision/${key}`;
 
+      const options = {
+        element: ref.current,
+        size: 200,
+        foregroundAlpha: .9,
+        foreground: "red",
+        padding: 12,
+        backgroundAlpha: 0.8,
+        background: "black",
+        value: url
+      };
       if (qr) {
-        qr.set({ value: url });
+        qr.set(options);
       } else {
         qr = new QRious(
-          {
-            element: ref.current,
-            size: 200,
-            foreground: "darkred",
-            value: url
-          },
+          options
         );
       }
 
@@ -47,19 +53,35 @@ export const Qr: React.FC = () => {
   }, [counter]);
 
   return <a href="https://zed.vision/code">
-    {retry > 0 && <img
-      css={css`
+    {retry > 0 && <div css={css`
+    background: blue;
     display: inline-block;
+    padding: 10px 10px 0px 10px;
+    border-radius: 12px;
+
+            text-align: center;
+
+    `}><img
+        css={css`
+    display: block;
     vertical-align: middle;
     box-shadow: 0 0 ${10 +
-        counter}px 5px ${
-        retry === 3 ? "darkorange" : retry === 2 ? "green" : "darkred"
-      };
+          counter}px 5px ${retry === 3 ? "darkorange" : retry === 2 ? "green" : "darkred"
+          };
 
 
     `}
-      ref={ref}
-    >
-    </img>}
+        ref={ref}
+      >
+
+      </img>
+      <p css={css`
+        font-family: Roboto;
+        font-size: 20px;
+        text-transform: uppercase; 
+        color: white;
+        `}>Connect device</p>
+    </div>}
   </a>;
 };
+//
