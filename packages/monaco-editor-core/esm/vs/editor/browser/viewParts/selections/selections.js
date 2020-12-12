@@ -122,7 +122,9 @@ export class SelectionsOverlay extends DynamicViewOverlay {
         linesVisibleRanges[linesVisibleRanges.length - 1].lineNumber;
       if (bottomLineNumber === viewport.endLineNumber) {
         for (
-          let i = previousFrame.length - 1; !previousFrameBottom && i >= 0; i--
+          let i = previousFrame.length - 1;
+          !previousFrameBottom && i >= 0;
+          i--
         ) {
           if (previousFrame[i].lineNumber === bottomLineNumber) {
             previousFrameBottom = previousFrame[i].ranges[0];

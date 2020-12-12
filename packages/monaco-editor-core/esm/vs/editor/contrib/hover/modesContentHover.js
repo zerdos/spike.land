@@ -691,17 +691,19 @@ export class ModesContentHoverWidget extends ContentHoverWidget {
           this.recentMarkerCodeActionsInfo = undefined;
         }
       }
-      const updatePlaceholderDisposable =
-        this.recentMarkerCodeActionsInfo &&
+      const updatePlaceholderDisposable = this.recentMarkerCodeActionsInfo &&
           !this.recentMarkerCodeActionsInfo.hasCodeActions
-          ? Disposable.None
-          : disposables.add(
-            disposableTimeout(() =>
+        ? Disposable.None
+        : disposables.add(
+          disposableTimeout(
+            () =>
               quickfixPlaceholderElement.textContent = nls.localize(
                 "checkingForQuickFixes",
                 "Checking for quick fixes...",
-              ), 200),
-          );
+              ),
+            200,
+          ),
+        );
       const codeActionsPromise = this.getCodeActions(markerHover.marker);
       disposables.add(toDisposable(() => codeActionsPromise.cancel()));
       codeActionsPromise.then((actions) => {

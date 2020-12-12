@@ -185,7 +185,9 @@ export class TypeOperations {
     } else if (lineNumber > 1) {
       let lastLineNumber;
       for (
-        lastLineNumber = lineNumber - 1; lastLineNumber >= 1; lastLineNumber--
+        lastLineNumber = lineNumber - 1;
+        lastLineNumber >= 1;
+        lastLineNumber--
       ) {
         const lineText = model.getLineContent(lastLineNumber);
         const nonWhitespaceIdx = strings.lastNonWhitespaceIndex(lineText);
@@ -971,10 +973,9 @@ export class TypeOperations {
       return null;
     }
     if (electricAction.matchOpenBracket) {
-      let endColumn =
-        (lineTokens.getLineContent() + ch).lastIndexOf(
-          electricAction.matchOpenBracket,
-        ) + 1;
+      let endColumn = (lineTokens.getLineContent() + ch).lastIndexOf(
+        electricAction.matchOpenBracket,
+      ) + 1;
       let match = model.findMatchingBracketUp(electricAction.matchOpenBracket, {
         lineNumber: position.lineNumber,
         column: endColumn,

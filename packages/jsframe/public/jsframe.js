@@ -942,8 +942,9 @@
 
           function _arrayLikeToArray(arr, len) {
             if (len == null || len > arr.length) len = arr.length;
-            for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] =
-                arr[i];}
+            for (var i = 0, arr2 = new Array(len); i < len; i++) {
+              arr2[i] = arr[i];
+            }
             return arr2;
           }
 
@@ -1093,18 +1094,17 @@
               }, function (e, t, n) {
                 "use strict";
                 function r(e) {
-                  return (r =
-                    "function" == typeof Symbol &&
+                  return (r = "function" == typeof Symbol &&
                       "symbol" == typeof Symbol.iterator
-                      ? function (e) {
-                        return typeof e;
-                      }
-                      : function (e) {
-                        return e && "function" == typeof Symbol &&
-                            e.constructor === Symbol && e !== Symbol.prototype
-                          ? "symbol"
-                          : typeof e;
-                      })(e);
+                    ? function (e) {
+                      return typeof e;
+                    }
+                    : function (e) {
+                      return e && "function" == typeof Symbol &&
+                          e.constructor === Symbol && e !== Symbol.prototype
+                        ? "symbol"
+                        : typeof e;
+                    })(e);
                 }
                 function i(e, t) {
                   return function (e) {
@@ -1468,7 +1468,9 @@
                           var n = [], r = this.evTargetListenersMap.get(e);
                           if (!r) return n;
                           var i = r.get(t);
-                          if (!i) return n;
+                          if (!i) {
+                            return n;
+                          }
                           var a, s = o(i.values());
                           try {
                             for (s.s(); !(a = s.n()).done;) {
@@ -1505,7 +1507,9 @@
                             throw Error("Only two arguments can be specified");
                           }
                           var n = this.evTargetListenersMap.get(e);
-                          if (!n) return !1;
+                          if (!n) {
+                            return !1;
+                          }
                           var r = n.get(t);
                           return !(!r || 0 === r.size);
                         },
@@ -1777,13 +1781,11 @@
                     return n;
                   },
                   t.n = function (e) {
-                    var r = e && e.__esModule
-                      ? function () {
-                        return e.default;
-                      }
-                      : function () {
-                        return e;
-                      };
+                    var r = e && e.__esModule ? function () {
+                      return e.default;
+                    } : function () {
+                      return e;
+                    };
                     return t.d(r, "a", r), r;
                   },
                   t.o = function (e, r) {
@@ -1914,18 +1916,17 @@
                   return n;
                 }
                 function c(e) {
-                  return (c =
-                    "function" == typeof Symbol &&
+                  return (c = "function" == typeof Symbol &&
                       "symbol" == typeof Symbol.iterator
-                      ? function (e) {
-                        return typeof e;
-                      }
-                      : function (e) {
-                        return e && "function" == typeof Symbol &&
-                            e.constructor === Symbol && e !== Symbol.prototype
-                          ? "symbol"
-                          : typeof e;
-                      })(e);
+                    ? function (e) {
+                      return typeof e;
+                    }
+                    : function (e) {
+                      return e && "function" == typeof Symbol &&
+                          e.constructor === Symbol && e !== Symbol.prototype
+                        ? "symbol"
+                        : typeof e;
+                    })(e);
                 }
                 function f(e, r, t) {
                   var a = function (e) {
@@ -2034,9 +2035,7 @@
                       l = c)
                     : l = {},
                     f(
-                      i
-                        ? l
-                        : r,
+                      i ? l : r,
                       t,
                       {
                         assignToObject: a ? r : l,
@@ -2448,11 +2447,9 @@
           }();
 
           function applyToSingletonTag(style, index, remove, obj) {
-            var css = remove
-              ? ""
-              : obj.media
-              ? "@media ".concat(obj.media, " {").concat(obj.css, "}")
-              : obj.css; // For old IE
+            var css = remove ? ""
+            : obj.media ? "@media ".concat(obj.media, " {").concat(obj.css, "}")
+            : obj.css; // For old IE
 
             /* istanbul ignore if  */
 
@@ -3339,9 +3336,8 @@
               me.titleBar.style.boxSizing = "border-box";
               me.titleBar.style.top = "0px";
               me.titleBar.style.left = "0px";
-              me.titleBar.style.width =
-                (w_width - me.titleAdjustWidth +
-                  DEF.CANVAS.WIDTH_ADJUST_20180722) + "px";
+              me.titleBar.style.width = (w_width - me.titleAdjustWidth +
+                DEF.CANVAS.WIDTH_ADJUST_20180722) + "px";
               me.titleBar.style.userSelect = "none";
 
               if (me.titleBarHeight) {
@@ -6708,16 +6704,14 @@
               if (hasFocus) {
                 return {
                   frameAppearance: me,
-                  innerBorderRadius:
-                    (parseInt(ref.frameBorderRadius, 10) -
-                      parseInt(ref.frameBorderWidthFocused, 10)) + "px",
+                  innerBorderRadius: (parseInt(ref.frameBorderRadius, 10) -
+                    parseInt(ref.frameBorderWidthFocused, 10)) + "px",
                 };
               }
               return {
                 frameAppearance: me,
-                innerBorderRadius:
-                  (parseInt(ref.frameBorderRadius, 10) -
-                    parseInt(ref.frameBorderWidthDefault, 10)) + "px",
+                innerBorderRadius: (parseInt(ref.frameBorderRadius, 10) -
+                  parseInt(ref.frameBorderWidthDefault, 10)) + "px",
               };
             };
 
@@ -7313,13 +7307,11 @@
 
                 ndiv.innerHTML = rbtSrc.childMenuHTML;
                 ndiv.style.position = "absolute";
-                ndiv.style.width = (rbtSrc.childMenuWidth
-                  ? rbtSrc.childMenuWidth
-                  : 200) + "px";
-                ndiv.style.top =
-                  (parseInt(rbtEle.style.top, 10) +
-                    parseInt(rbtEle.style.height, 10) / 2 +
-                    titleBarHeight / 2) + "px";
+                ndiv.style.width =
+                  (rbtSrc.childMenuWidth ? rbtSrc.childMenuWidth : 200) + "px";
+                ndiv.style.top = (parseInt(rbtEle.style.top, 10) +
+                  parseInt(rbtEle.style.height, 10) / 2 +
+                  titleBarHeight / 2) + "px";
                 ndiv.style.left = rbtEle.style.left;
                 ndiv.style.display = "none";
 
@@ -8316,11 +8308,9 @@
               presetParam.maximizeButtonBehavior === "fullscreen";
             var minimizeButton =
               presetParam.minimizeButtonBehavior === "minimize"
-                ? "minimizeButton"
-                : null;
+                ? "minimizeButton" : null;
             var hideButton1 = presetParam.minimizeButtonBehavior === "hide"
-              ? "minimizeButton"
-              : null;
+              ? "minimizeButton" : null;
             var hideButton2 = presetParam.closeButtonBehavior === "hide"
               ? "custom-close-button"
               : null;

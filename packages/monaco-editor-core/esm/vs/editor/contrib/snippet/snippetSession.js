@@ -176,8 +176,9 @@ export class OneSnippet {
             this._hasPlaceholderBeenCollapsed(placeholder);
           accessor.changeDecorationOptions(
             id,
-            placeholder.isFinalTabstop ? OneSnippet._decor.activeFinal
-            : OneSnippet._decor.active,
+            placeholder.isFinalTabstop
+              ? OneSnippet._decor.activeFinal
+              : OneSnippet._decor.active,
           );
           activePlaceholders.add(placeholder);
           for (
@@ -201,8 +202,9 @@ export class OneSnippet {
           if (!activePlaceholders.has(placeholder)) {
             accessor.changeDecorationOptions(
               id,
-              placeholder.isFinalTabstop ? OneSnippet._decor.inactiveFinal
-              : OneSnippet._decor.inactive,
+              placeholder.isFinalTabstop
+                ? OneSnippet._decor.inactiveFinal
+                : OneSnippet._decor.inactive,
             );
           }
         }

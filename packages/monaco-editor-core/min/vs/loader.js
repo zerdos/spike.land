@@ -614,7 +614,7 @@ var define,
                 v,
                 c,
                 (function (e, n, i, a) {
-                  if (e)s(e);
+                  if (e) s(e);
                   else {
                     var u;
                     u = n.charCodeAt(0) === t._BOM
@@ -648,19 +648,17 @@ var define,
                 this._path.dirname(n.filename),
               ),
               s.record(32, n.filename),
-              l ? o()
-              : i(
+              l ? o() : i(
                 new Error("Didn't receive define call in " + n.filename + "!"),
               ),
               d;
           },
           t.prototype._getElectronRendererScriptPathOrUri = function (e) {
-            if (!this._env.isElectronRenderer)return e;
+            if (!this._env.isElectronRenderer) return e;
             var t = e.match(/^([a-z])\:(.*)/i);
-            return t
-              ? "file:///" +
-                (t[1].toUpperCase() + ":" + t[2]).replace(/\\/g, "/")
-              : "file://" + e;
+            return t ? "file:///" +
+              (t[1].toUpperCase() + ":" + t[2]).replace(/\\/g, "/")
+            : "file://" + e;
           },
           t.prototype._getCachedDataPath = function (e, t) {
             var r = this._crypto.createHash("md5").update(t, "utf8").update(
@@ -699,9 +697,8 @@ var define,
                       (a = o._crypto.createHash("md5").update(t, "utf8")
                         .digest());
                     var i = e.createCachedData();
-                    0 === i.length || i.length === s || d >= 5 || (i.length < s
-                      ? u()
-                      : (s = i.length,
+                    0 === i.length || i.length === s || d >= 5 ||
+                      (i.length < s ? u() : (s = i.length,
                         o._fs.writeFile(
                           r,
                           Buffer.concat([a, i]),
@@ -741,7 +738,8 @@ var define,
                       : r.record(61, t), a();
                   }),
                 );
-            } elsethis._fs.readFile(e, { encoding: "utf8" }, n);
+            }
+            elsethis._fs.readFile(e, { encoding: "utf8" }, n);
           },
           t.prototype._verifyCachedData = function (e, t, r, n, o) {
             var i = this;
@@ -994,7 +992,9 @@ var define,
         s.prototype.getBuildInfo = function () {
           if (!this._config.isBuild()) return null;
           for (
-            var e = [], t = 0, r = 0, n = this._modules2.length; r < n; r++
+            var e = [], t = 0, r = 0, n = this._modules2.length;
+            r < n;
+            r++
           ) {
             var o = this._modules2[r];
             if (o) {
@@ -1178,7 +1178,7 @@ var define,
         },
         s.prototype._hasDependencyPath = function (e, t) {
           var r = this._modules2[e];
-          if (!r) return !1;
+          if (!r)return !1;
           for (
             var n = [], o = 0, i = this._moduleIdProvider.getMaxModuleId();
             o < i;
@@ -1201,7 +1201,7 @@ var define,
           return !1;
         },
         s.prototype._findCyclePath = function (e, t, r) {
-          if (e === t || 50 === r) return [e];
+          if (e === t || 50 === r)return [e];
           var n = this._modules2[e];
           if (!n) return null;
           var o = n.dependencies;
@@ -1241,7 +1241,7 @@ var define,
               n.push("node|" + r);
             var o = -1,
               i = function (r) {
-                if (++o >= n.length) t._onLoadError(e, r);
+                if (++o >= n.length)t._onLoadError(e, r);
                 else {
                   var s = n[o], d = t.getRecorder();
                   if (t._config.isBuild() && "empty:" === s) {
@@ -1345,7 +1345,7 @@ var define,
                         this._inversePluginDependencies2.set(d.pluginId, c)),
                         c.push(d),
                         this._loadModule(d.pluginId);
-                    } else this._loadModule(d.id);
+                    } elsethis._loadModule(d.id);
                   } else e.unresolvedDependenciesCount--;
                 } else e.unresolvedDependenciesCount--;
               } else e.exportsPassedIn = !0, e.unresolvedDependenciesCount--;

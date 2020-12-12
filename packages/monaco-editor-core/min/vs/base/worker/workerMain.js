@@ -341,7 +341,9 @@
         return t.prototype._createIgnoreDuplicateModulesMap = function () {
           this.ignoreDuplicateModulesMap = {};
           for (
-            var e = 0; e < this.options.ignoreDuplicateModules.length; e++
+            var e = 0;
+            e < this.options.ignoreDuplicateModules.length;
+            e++
           ) {
             this
               .ignoreDuplicateModulesMap[
@@ -384,7 +386,9 @@
           },
           t.prototype._applyPaths = function (t) {
             for (
-              var n, r = 0, i = this.sortedPathsRules.length; r < i; r++
+              var n, r = 0, i = this.sortedPathsRules.length;
+              r < i;
+              r++
             ) {
               if (
                 n = this.sortedPathsRules[r], e.Utilities.startsWith(t, n.from)
@@ -428,7 +432,9 @@
               e.Utilities.containsQueryString(r) || (r += ".js"), n = [r];
             } else {
               for (
-                var i = 0, o = (n = this._applyPaths(r)).length; i < o; i++
+                var i = 0, o = (n = this._applyPaths(r)).length;
+                i < o;
+                i++
               ) {
                 this.isBuild() && "empty:" === n[i] ||
                   (e.Utilities.isAbsolutePath(n[i]) ||
@@ -667,7 +673,7 @@
                   _,
                   d,
                   (function (e, r, s, l) {
-                    if (e)o(e);
+                    if (e) o(e);
                     else {
                       var u;
                       u = r.charCodeAt(0) === t._BOM
@@ -701,8 +707,7 @@
                   this._path.dirname(r.filename),
                 ),
                 s.record(32, r.filename),
-                c ? i()
-                : o(
+                c ? i() : o(
                   new Error(
                     "Didn't receive define call in " + r.filename + "!",
                   ),
@@ -710,12 +715,11 @@
                 a;
             },
             t.prototype._getElectronRendererScriptPathOrUri = function (e) {
-              if (!this._env.isElectronRenderer)return e;
+              if (!this._env.isElectronRenderer) return e;
               var t = e.match(/^([a-z])\:(.*)/i);
-              return t
-                ? "file:///" +
-                  (t[1].toUpperCase() + ":" + t[2]).replace(/\\/g, "/")
-                : "file://" + e;
+              return t ? "file:///" +
+                (t[1].toUpperCase() + ":" + t[2]).replace(/\\/g, "/")
+              : "file://" + e;
             },
             t.prototype._getCachedDataPath = function (e, t) {
               var n = this._crypto.createHash("md5").update(t, "utf8").update(
@@ -755,18 +759,16 @@
                           .digest());
                       var o = e.createCachedData();
                       0 === o.length || o.length === s || a >= 5 ||
-                        (o.length < s
-                          ? u()
-                          : (s = o.length,
-                            i._fs.writeFile(
-                              n,
-                              Buffer.concat([l, o]),
-                              (function (e) {
-                                e && r.getConfig().onError(e),
-                                  r.getRecorder().record(63, n),
-                                  u();
-                              }),
-                            )));
+                        (o.length < s ? u() : (s = o.length,
+                          i._fs.writeFile(
+                            n,
+                            Buffer.concat([l, o]),
+                            (function (e) {
+                              e && r.getConfig().onError(e),
+                                r.getRecorder().record(63, n),
+                                u();
+                            }),
+                          )));
                     }),
                     o * Math.pow(4, a++),
                   );
@@ -797,7 +799,8 @@
                         : n.record(61, t), l();
                     }),
                   );
-              } elsethis._fs.readFile(e, { encoding: "utf8" }, r);
+              }
+              elsethis._fs.readFile(e, { encoding: "utf8" }, r);
             },
             t.prototype._verifyCachedData = function (e, t, n, r, i) {
               var o = this;
@@ -1051,7 +1054,9 @@
           s.prototype.getBuildInfo = function () {
             if (!this._config.isBuild()) return null;
             for (
-              var e = [], t = 0, n = 0, r = this._modules2.length; n < r; n++
+              var e = [], t = 0, n = 0, r = this._modules2.length;
+              n < r;
+              n++
             ) {
               var i = this._modules2[n];
               if (i) {
@@ -1121,8 +1126,8 @@
             }
           },
           s.prototype._normalizeDependency = function (e, t) {
-            if ("exports" === e) return i.EXPORTS;
-            if ("module" === e) return i.MODULE;
+            if ("exports" === e)return i.EXPORTS;
+            if ("module" === e)return i.MODULE;
             if ("require" === e) return i.REQUIRE;
             var n = e.indexOf("!");
             if (n >= 0) {
@@ -1143,7 +1148,7 @@
             return n;
           },
           s.prototype._relativeRequire = function (t, n, r, i) {
-            if ("string" == typeof n) return this.synchronousRequire(n, t);
+            if ("string" == typeof n)return this.synchronousRequire(n, t);
             this.defineModule(
               e.Utilities.generateAnonymousModule(),
               n,
@@ -1239,7 +1244,7 @@
           },
           s.prototype._hasDependencyPath = function (e, t) {
             var n = this._modules2[e];
-            if (!n) return !1;
+            if (!n)return !1;
             for (
               var r = [], i = 0, o = this._moduleIdProvider.getMaxModuleId();
               i < o;
@@ -1262,9 +1267,9 @@
             return !1;
           },
           s.prototype._findCyclePath = function (e, t, n) {
-            if (e === t || 50 === n) return [e];
+            if (e === t || 50 === n)return [e];
             var r = this._modules2[e];
-            if (!r) return null;
+            if (!r)return null;
             var i = r.dependencies;
             if (i) {
               for (var o = 0, s = i.length; o < s; o++) {
@@ -1302,7 +1307,7 @@
                 r.push("node|" + n);
               var i = -1,
                 o = function (n) {
-                  if (++i >= r.length) t._onLoadError(e, n);
+                  if (++i >= r.length)t._onLoadError(e, n);
                   else {
                     var s = r[i], a = t.getRecorder();
                     if (t._config.isBuild() && "empty:" === s) {
@@ -1485,9 +1490,11 @@
             ) {
               return void o(arguments[0]);
             }
-            if ("string" == typeof arguments[0]) {return r.synchronousRequire(
+            if ("string" == typeof arguments[0]) {
+              return r.synchronousRequire(
                 arguments[0],
-              );}
+              );
+            }
           }
           if (
             2 !== arguments.length && 3 !== arguments.length ||
@@ -2073,9 +2080,11 @@
               .dispose = t.isDisposable = t.MultiDisposeError = void 0;
         const r = !1, i = "__is_disposable_tracked__";
         function o(e) {
-          if (r && e && e !== c.None) {try {
+          if (r && e && e !== c.None) {
+            try {
               e[i] = !0;
-            } catch (e) {}}
+            } catch (e) {}
+          }
         }
         function s(e) {
           if (!r) return e;
@@ -2145,9 +2154,11 @@
           }
           add(e) {
             if (!e) return e;
-            if (e === this) {throw new Error(
+            if (e === this) {
+              throw new Error(
                 "Cannot register a disposable on itself!",
-              );}
+              );
+            }
             return o(e),
               this._isDisposed
                 ? u.DISABLE_DISPOSED_WARNING ||
@@ -2169,9 +2180,11 @@
             o(this), this._store.dispose();
           }
           _register(e) {
-            if (e === this) {throw new Error(
+            if (e === this) {
+              throw new Error(
                 "Cannot register a disposable on itself!",
-              );}
+              );
+            }
             return this._store.add(e);
           }
         }
@@ -2389,10 +2402,9 @@
                 return e;
               },
               e.any = function (...e) {
-                return (t, n = null, i) =>
-                  r.combinedDisposable(
-                    ...e.map((e) => e((e) => t.call(n, e), null, i)),
-                  );
+                return (t, n = null, i) => r.combinedDisposable(
+                  ...e.map((e) => e((e) => t.call(n, e), null, i)),
+                );
               },
               e.reduce = s,
               e.snapshot = a,
@@ -2779,8 +2791,7 @@
         let g = void 0;
         "undefined" != typeof process ? g = process
         : void 0 !== f.vscode && (g = f.vscode.process);
-        const m =
-          "string" ==
+        const m = "string" ==
             typeof (null === (n = null == g ? void 0 : g.versions) ||
                 void 0 === n
               ? void 0
@@ -2796,18 +2807,19 @@
               u = "en",
               c = "en";
             const e = g.env.VSCODE_NLS_CONFIG;
-            if (e) {try {
+            if (e) {
+              try {
                 const t = JSON.parse(e), n = t.availableLanguages["*"];
                 u = t.locale, c = n || "en", d = t._translationsConfigFile;
-              } catch (e) {}}
+              } catch (e) {}
+            }
             s = !0;
           } else console.error("Unable to resolve platform.");
         } else {
           r = (h = navigator.userAgent).indexOf("Windows") >= 0,
             i = h.indexOf("Macintosh") >= 0,
-            l =
-              (h.indexOf("Macintosh") >= 0 || h.indexOf("iPad") >= 0 ||
-                h.indexOf("iPhone") >= 0) &&
+            l = (h.indexOf("Macintosh") >= 0 || h.indexOf("iPad") >= 0 ||
+              h.indexOf("iPhone") >= 0) &&
               !!navigator.maxTouchPoints && navigator.maxTouchPoints > 0,
             o = h.indexOf("Linux") >= 0,
             a = !0,
@@ -2849,7 +2861,7 @@
                   t.globals.postMessage({ vscodeSetImmediateId: i }, "*");
               };
             }
-            if (g)return g.nextTick.bind(g);
+            if (g) return g.nextTick.bind(g);
             const e = Promise.resolve();
             return (t) => e.then(t);
           }(),
@@ -2891,19 +2903,14 @@
                 n.globals.vscode.process.execPath.substr(
                   0,
                   n.globals.vscode.process.execPath.lastIndexOf(
-                    "win32" === n.globals.vscode.process.platform
-                      ? "\\"
-                      : "/",
+                    "win32" === n.globals.vscode.process.platform ? "\\" : "/",
                   ),
                 ),
             }
             : {
               get platform() {
-                return n.isWindows
-                  ? "win32"
-                  : n.isMacintosh
-                  ? "darwin"
-                  : "linux";
+                return n.isWindows ? "win32"
+                : n.isMacintosh ? "darwin" : "linux";
               },
               nextTick: (e) => n.setImmediate(e),
               get env() {
@@ -2978,10 +2985,11 @@
                   }
                 }
                 t && (i += i.length > 0 ? `${n}..` : "..", o = 2);
-              } else {i.length > 0
+              } else {
+                i.length > 0
                   ? i += `${n}${e.slice(s + 1, d)}`
-                  : i = e.slice(s + 1, d),
-                  o = d - s - 1;}
+                  : i = e.slice(s + 1, d), o = d - s - 1;
+              }
               s = d, u = 0;
             } else c === a && -1 !== u ? ++u : u = -1;
           }
@@ -3000,13 +3008,15 @@
             let t = "", r = "", i = !1;
             for (let o = e.length - 1; o >= -1; o--) {
               let s;
-              if (o >= 0) if (d(s = e[o], "path"), 0 === s.length) continue;
-              else {
-                0 === t.length
-                  ? s = n.cwd()
-                  : (void 0 === (s = n.env[`=${t}`] || n.cwd()) ||
-                    s.slice(0, 2).toLowerCase() !== t.toLowerCase() &&
-                      s.charCodeAt(2) === u) && (s = `${t}\\`);
+              if (o >= 0) {
+                if (d(s = e[o], "path"), 0 === s.length) continue;
+                else {
+                  0 === t.length
+                    ? s = n.cwd()
+                    : (void 0 === (s = n.env[`=${t}`] || n.cwd()) ||
+                      s.slice(0, 2).toLowerCase() !== t.toLowerCase() &&
+                        s.charCodeAt(2) === u) && (s = `${t}\\`);
+                }
               }
               const a = s.length;
               let l = 0, c = "", f = !1;
@@ -3037,9 +3047,11 @@
                   if (c.toLowerCase() !== t.toLowerCase()) continue;
                 } else t = c;
               }
-              if (i) if (t.length > 0) break;
-              else if (r = `${s.slice(l)}\\${r}`, i = f, f && t.length > 0) {
-                break;
+              if (i) {
+                if (t.length > 0) break;
+                else if (r = `${s.slice(l)}\\${r}`, i = f, f && t.length > 0) {
+                  break;
+                }
               }
             }
             return r = m(r, !i, "\\", h), i ? `${t}\\${r}` : `${t}${r}` || ".";
@@ -3127,19 +3139,24 @@
               if (t !== n.charCodeAt(l + m)) break;
               t === u && (g = m);
             }
-            if (m !== f) if (-1 === g) return i;
-            else {
-              if (h > f) {
-                if (n.charCodeAt(l + m) === u) return i.slice(l + m + 1);
-                if (2 === m) return i.slice(l + m);
+            if (m !== f) {
+              if (-1 === g) return i;
+              else {
+                if (h > f) {
+                  if (n.charCodeAt(l + m) === u) return i.slice(l + m + 1);
+                  if (2 === m) return i.slice(l + m);
+                }
+                a > f &&
+                (e.charCodeAt(o + m) === u ? g = m : 2 === m && (g = 3)),
+                  -1 === g && (g = 0);
               }
-              a > f && (e.charCodeAt(o + m) === u ? g = m : 2 === m && (g = 3)),
-                -1 === g && (g = 0);
             }
             let p = "";
             for (
-              m = o + g + 1; m <= s; ++m
-            ) { 
+              m = o + g + 1;
+              m <= s;
+              ++m
+            ) {
               m !== s && e.charCodeAt(m) !== u ||
                 (p += 0 === p.length ? ".." : "\\..");
             }
@@ -3153,10 +3170,12 @@
             if (0 === e.length) return "";
             const n = t.win32.resolve(e);
             if (n.length <= 2) return e;
-            if (n.charCodeAt(0) === u) {if (n.charCodeAt(1) === u) {
+            if (n.charCodeAt(0) === u) {
+              if (n.charCodeAt(1) === u) {
                 const e = n.charCodeAt(2);
                 if (63 !== e && e !== a) return `\\\\?\\UNC\\${n.slice(2)}`;
-              }} else if (
+              }
+            } else if (
               g(n.charCodeAt(0)) && 58 === n.charCodeAt(1) &&
               n.charCodeAt(2) === u
             ) {
@@ -3184,8 +3203,10 @@
                   }
                 }
               }
-            } else {g(i) && 58 === e.charCodeAt(1) &&
-                (r = n = t > 2 && h(e.charCodeAt(2)) ? 3 : 2);}
+            } else {
+              g(i) && 58 === e.charCodeAt(1) &&
+                (r = n = t > 2 && h(e.charCodeAt(2)) ? 3 : 2);
+            }
             let o = -1, s = !0;
             for (let n = t - 1; n >= r; --n) {
               if (h(e.charCodeAt(n))) {
@@ -3338,8 +3359,9 @@
               return 0 === (e = m(e, !t, "/", f)).length
                 ? t ? "/" : n ? "./" : "." : (n && (e += "/"), t ? `/${e}` : e);
             },
-            isAbsolute:
-              (e) => (d(e, "path"), e.length > 0 && e.charCodeAt(0) === l),
+            isAbsolute: (
+              e,
+            ) => (d(e, "path"), e.length > 0 && e.charCodeAt(0) === l),
             join(...e) {
               if (0 === e.length) return ".";
               let n;
@@ -3378,7 +3400,9 @@
               }
               let c = "";
               for (
-                u = 1 + a + 1; u <= r; ++u
+                u = 1 + a + 1;
+                u <= r;
+                ++u
               ) {
                 u !== r && e.charCodeAt(u) !== l ||
                   (c += 0 === c.length ? ".." : "/..");
@@ -3387,7 +3411,7 @@
             },
             toNamespacedPath: (e) => e,
             dirname(e) {
-              if (d(e, "path"), 0 === e.length)return ".";
+              if (d(e, "path"), 0 === e.length) return ".";
               const t = e.charCodeAt(0) === l;
               let n = -1, r = !0;
               for (let t = e.length - 1; t >= 1; --t) {
@@ -3396,7 +3420,7 @@
                     n = t;
                     break;
                   }
-                } else { 
+                } else {
                   r = !1;
                 }
               }
@@ -3418,7 +3442,8 @@
                     }
                   } else {
                     -1 === a && (o = !1, a = n + 1),
-                      s >= 0 && (u === t.charCodeAt(s)
+                      s >= 0 &&
+                      (u === t.charCodeAt(s)
                         ? -1 == --s && (i = n)
                         : (s = -1, i = a));
                   }
@@ -3458,7 +3483,7 @@
             parse(e) {
               d(e, "path");
               const t = { root: "", dir: "", base: "", ext: "", name: "" };
-              if (0 === e.length)return t;
+              if (0 === e.length) return t;
               const n = e.charCodeAt(0) === l;
               let r;
               n ? (t.root = "/", r = 1) : r = 0;
@@ -3616,8 +3641,9 @@
             if (a === c) continue;
             const d = a - c;
             if ((32 !== d || !u(c)) && (-32 !== d || !u(a))) {
-              return l(a) && l(c) ? d
-              : s(e.toLowerCase(), t.toLowerCase(), n, r, i, o);
+              return l(a) && l(c)
+                ? d
+                : s(e.toLowerCase(), t.toLowerCase(), n, r, i, o);
             }
           }
           const a = r - n, c = o - i;
@@ -3714,7 +3740,7 @@
             return e.replace(/\*/g, "");
           },
           t.createRegExp = function (e, t, n = {}) {
-            if (!e)throw new Error("Cannot create regex from empty string");
+            if (!e) throw new Error("Cannot create regex from empty string");
             t || (e = r(e)),
               n.wholeWord &&
               (/\B/.test(e.charAt(0)) || (e = "\\b" + e),
@@ -3843,7 +3869,8 @@
                   t = 55296 + ((1047552 & e) >>> 10),
                   r = 56320 + ((1023 & e) >>> 0);
                 n.push(String.fromCharCode(t)), n.push(String.fromCharCode(r));
-              } elsen.push(String.fromCharCode(65533));
+              }
+              elsen.push(String.fromCharCode(65533));
             }
             return n.join("");
           };
@@ -3863,8 +3890,7 @@
             e >= 65281 && e <= 65374;
         }
         function v(e, t) {
-          return 0 === e ? 5 !== t && 7 !== t
-          : (2 !== e || 3 !== t) &&
+          return 0 === e ? 5 !== t && 7 !== t : (2 !== e || 3 !== t) &&
             (4 === e || 2 === e || 3 === e ||
               (4 === t || 2 === t || 3 === t ||
                 (8 !== e || 8 !== t && 9 !== t && 11 !== t && 12 !== t) &&
@@ -3927,11 +3953,13 @@
             if (e < 127) return 0;
             const t = this._data, n = t.length / 3;
             let r = 1;
-            for (; r <= n;) {if (e < t[3 * r]) r *= 2;
+            for (; r <= n;) {
+              if (e < t[3 * r]) r *= 2;
               else {
                 if (!(e > t[3 * r + 1])) return t[3 * r + 2];
                 r = 2 * r + 1;
-              }}
+              }
+            }
             return 0;
           }
         }
@@ -4034,8 +4062,9 @@
                 }
                 {
                   const t = e.charCodeAt(o + 1);
-                  n.isLowSurrogate(t) ? (o++, l = n.computeCodePoint(i, t))
-                  : l = 65533;
+                  n.isLowSurrogate(t)
+                    ? (o++, l = n.computeCodePoint(i, t))
+                    : l = 65533;
                 }
               } else n.isLowSurrogate(i) && (l = 65533);
               if (s = this._push(r, s, l), !(++o < t)) break;
@@ -4044,7 +4073,9 @@
             this._buffLen = s, this._leftoverHighSurrogate = a;
           }
           _push(e, t, n) {
-            return n < 128 ? e[t++] = n : n < 2048
+            return n < 128
+              ? e[t++] = n
+              : n < 2048
               ? (e[t++] = 192 | (1984 & n) >>> 6, e[t++] = 128 | (63 & n) >>> 0)
               : n < 65536
               ? (e[t++] = 224 | (61440 & n) >>> 12,
@@ -4279,7 +4310,8 @@
           }
           ComputeDiffRecursive(e, t, r, i, s) {
             for (
-              s[0] = !1; e <= t && r <= i && this.ElementsAreEqual(e, r);
+              s[0] = !1;
+              e <= t && r <= i && this.ElementsAreEqual(e, r);
             ) {
               e++, r++;
             }
@@ -4426,7 +4458,8 @@
                     : _[e - 1] + 1) - (e - b) - v;
                 const n = u;
                 for (
-                  ; u < t && c < i && this.ElementsAreEqual(u + 1, c + 1);
+                  ;
+                  u < t && c < i && this.ElementsAreEqual(u + 1, c + 1);
                 ) {
                   u++, c++;
                 }
@@ -4564,9 +4597,8 @@
           PrettifyChanges(e) {
             for (let t = 0; t < e.length; t++) {
               const n = e[t],
-                r = t < e.length - 1
-                  ? e[t + 1].originalStart
-                  : this._originalElementsOrHash.length,
+                r = t < e.length - 1 ? e[t + 1].originalStart
+                : this._originalElementsOrHash.length,
                 i = t < e.length - 1 ? e[t + 1].modifiedStart
                 : this._modifiedElementsOrHash.length,
                 o = n.originalLength > 0,
@@ -4797,11 +4829,13 @@
           return "function" == typeof e;
         }
         function s(e, t) {
-          if (n(t)) {if (typeof e !== t) {
+          if (n(t)) {
+            if (typeof e !== t) {
               throw new Error(
                 `argument does not match constraint: typeof ${t}`,
               );
-            }} else if (o(t)) {
+            }
+          } else if (o(t)) {
             try {
               if (e instanceof t) return;
             } catch (e) {}
@@ -4861,13 +4895,13 @@
           t.isFunction = o,
           t.validateConstraints = function (e, t) {
             const n = Math.min(e.length, t.length);
-            for (let r = 0; r < n; r++)s(e[r], t[r]);
+            for (let r = 0; r < n; r++) s(e[r], t[r]);
           },
           t.validateConstraint = s,
           t.getAllPropertyNames = a,
           t.getAllMethodNames = function (e) {
             const t = [];
-            for (const n of a(e))"function" == typeof e[n] && t.push(n);
+            for (const n of a(e)) "function" == typeof e[n] && t.push(n);
             return t;
           },
           t.createProxyObject = function (e, t) {
@@ -4876,7 +4910,7 @@
               return t(e, n);
             });
             let r = {};
-            for (const t of e)r[t] = n(t);
+            for (const t of e) r[t] = n(t);
             return r;
           },
           t.withNullAsUndefined = function (e) {
@@ -4987,16 +5021,14 @@
           }
           static parse(e, t = !1) {
             const n = u.exec(e);
-            return n
-              ? new h(
-                n[2] || a,
-                b(n[4] || a),
-                b(n[5] || a),
-                b(n[7] || a),
-                b(n[9] || a),
-                t,
-              )
-              : new h(a, a, a, a, a);
+            return n ? new h(
+              n[2] || a,
+              b(n[4] || a),
+              b(n[5] || a),
+              b(n[7] || a),
+              b(n[9] || a),
+              t,
+            ) : new h(a, a, a, a, a);
           }
           static file(e) {
             let t = a;
@@ -5004,8 +5036,9 @@
               n.isWindows && (e = e.replace(/\\/g, l)), e[0] === l && e[1] === l
             ) {
               const n = e.indexOf(l, 2);
-              -1 === n ? (t = e.substring(2), e = l)
-              : (t = e.substring(2, n), e = e.substring(n) || l);
+              -1 === n
+                ? (t = e.substring(2), e = l)
+                : (t = e.substring(2, n), e = e.substring(n) || l);
             }
             return new h("file", t, e, a, a);
           }
@@ -5106,7 +5139,8 @@
               void 0 !== t
                 ? (-1 !== r &&
                   (n += encodeURIComponent(e.substring(r, i)), r = -1),
-                  n += t) : -1 === r && (r = i);
+                  n += t)
+                : -1 === r && (r = i);
             }
           }
           return -1 !== r && (n += encodeURIComponent(e.substring(r))),
@@ -5153,8 +5187,9 @@
                     r += n(t.substr(e + 1), !1)),
                 r += "@";
             }
-            -1 === (e = (o = o.toLowerCase()).indexOf(":")) ? r += n(o, !1)
-            : (r += n(o.substr(0, e), !1), r += o.substr(e));
+            -1 === (e = (o = o.toLowerCase()).indexOf(":"))
+              ? r += n(o, !1)
+              : (r += n(o.substr(0, e), !1), r += o.substr(e));
           }
           if (s) {
             if (
@@ -5177,16 +5212,14 @@
         t.uriToFsPath = p;
         const C = /(%[0-9A-Za-z][0-9A-Za-z])+/g;
         function b(e) {
-          return e.match(C)
-            ? e.replace(C, (e) =>
-              (function e(t) {
-                try {
-                  return decodeURIComponent(t);
-                } catch (n) {
-                  return t.length > 3 ? t.substr(0, 3) + e(t.substr(3)) : t;
-                }
-              })(e))
-            : e;
+          return e.match(C) ? e.replace(C, (e) =>
+            (function e(t) {
+              try {
+                return decodeURIComponent(t);
+              } catch (n) {
+                return t.length > 3 ? t.substr(0, 3) + e(t.substr(3)) : t;
+              }
+            })(e)) : e;
         }
       }),
     ),
@@ -5273,8 +5306,10 @@
             if (e.req) {
               const n = e;
               for (
-                let e = 0; e < n.args.length; e++
-              ) { 
+                let e = 0;
+                e < n.args.length;
+                e++
+              ) {
                 n.args[e] instanceof ArrayBuffer && t.push(n.args[e]);
               }
             } else {
@@ -5318,8 +5353,7 @@
             let i = null;
             void 0 !== self.require &&
               "function" == typeof self.require.getConfig
-              ? i = self.require.getConfig()
-              : void 0 !== self.requirejs &&
+              ? i = self.require.getConfig() : void 0 !== self.requirejs &&
                 (i = self.requirejs.s.contexts._.config);
             const a = o.getAllMethodNames(n);
             this._onModuleLoaded = this._protocol.sendMessage(
@@ -5661,14 +5695,12 @@
             return new r(e.lineNumber, e.column, t.lineNumber, t.column);
           }
           static lift(e) {
-            return e
-              ? new r(
-                e.startLineNumber,
-                e.startColumn,
-                e.endLineNumber,
-                e.endColumn,
-              )
-              : null;
+            return e ? new r(
+              e.startLineNumber,
+              e.startColumn,
+              e.endLineNumber,
+              e.endColumn,
+            ) : null;
           }
           static isIRange(e) {
             return e && "number" == typeof e.startLineNumber &&
@@ -5784,11 +5816,13 @@
             if (e && !t || !e && t) return !1;
             if (!e && !t) return !0;
             if (e.length !== t.length) return !1;
-            for (let n = 0, r = e.length; n < r; n++) {if (
+            for (let n = 0, r = e.length; n < r; n++) {
+              if (
                 !this.selectionsEqual(e[n], t[n])
               ) {
                 return !1;
-              }}
+              }
+            }
             return !0;
           }
           static isISelection(e) {
@@ -6014,9 +6048,8 @@
               this.modified = new s(t),
               this.continueLineDiff = h(n.maxComputationTime),
               this.continueCharDiff = h(
-                0 === n.maxComputationTime
-                  ? 0
-                  : Math.min(n.maxComputationTime, 5e3),
+                0 === n.maxComputationTime ? 0
+                : Math.min(n.maxComputationTime, 5e3),
               );
           }
           computeDiff() {
@@ -6326,35 +6359,34 @@
           }
           static computeLinks(
             e,
-            t =
-              (null === o &&
-                (o = new i(
-                  [
-                    [1, 104, 2],
-                    [1, 72, 2],
-                    [1, 102, 6],
-                    [1, 70, 6],
-                    [2, 116, 3],
-                    [2, 84, 3],
-                    [3, 116, 4],
-                    [3, 84, 4],
-                    [4, 112, 5],
-                    [4, 80, 5],
-                    [5, 115, 9],
-                    [5, 83, 9],
-                    [5, 58, 10],
-                    [6, 105, 7],
-                    [6, 73, 7],
-                    [7, 108, 8],
-                    [7, 76, 8],
-                    [8, 101, 9],
-                    [8, 69, 9],
-                    [9, 58, 10],
-                    [10, 47, 11],
-                    [11, 47, 12],
-                  ],
-                )),
-                o),
+            t = (null === o &&
+              (o = new i(
+                [
+                  [1, 104, 2],
+                  [1, 72, 2],
+                  [1, 102, 6],
+                  [1, 70, 6],
+                  [2, 116, 3],
+                  [2, 84, 3],
+                  [3, 116, 4],
+                  [3, 84, 4],
+                  [4, 112, 5],
+                  [4, 80, 5],
+                  [5, 115, 9],
+                  [5, 83, 9],
+                  [5, 58, 10],
+                  [6, 105, 7],
+                  [6, 73, 7],
+                  [7, 108, 8],
+                  [7, 76, 8],
+                  [8, 101, 9],
+                  [8, 69, 9],
+                  [9, 58, 10],
+                  [10, 47, 11],
+                  [11, 47, 12],
+                ],
+              )),
+              o),
           ) {
             const r = function () {
               if (null === s) {
@@ -7290,14 +7322,12 @@
         }
         function l(e) {
           var t;
-          e.done
-            ? i(e.value)
-            : (t = e.value,
-              t instanceof n ? t : new n(
-                (function (e) {
-                  e(t);
-                }),
-              )).then(s, a);
+          e.done ? i(e.value) : (t = e.value,
+            t instanceof n ? t : new n(
+              (function (e) {
+                e(t);
+              }),
+            )).then(s, a);
         }
         l((r = r.apply(e, t || [])).next());
       }),

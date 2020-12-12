@@ -275,13 +275,12 @@ class LineChange {
         diffChange.modifiedStart,
         diffChange.modifiedStart + diffChange.modifiedLength - 1,
       );
-      let rawChanges =
-        computeDiff(
-          originalCharSequence,
-          modifiedCharSequence,
-          continueCharDiff,
-          true,
-        ).changes;
+      let rawChanges = computeDiff(
+        originalCharSequence,
+        modifiedCharSequence,
+        continueCharDiff,
+        true,
+      ).changes;
       if (shouldPostProcessCharChanges) {
         rawChanges = postProcessCharChanges(rawChanges);
       }

@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -118,7 +114,9 @@ class InspectTokens extends EditorAction {
 function renderTokenText(tokenText) {
   let result = "";
   for (
-    let charIndex = 0, len = tokenText.length; charIndex < len; charIndex++
+    let charIndex = 0, len = tokenText.length;
+    charIndex < len;
+    charIndex++
   ) {
     let charCode = tokenText.charCodeAt(charIndex);
     switch (charCode) {
@@ -212,11 +210,7 @@ class InspectTokensWidget extends Disposable {
         $(
           "span.tm-token-length",
           undefined,
-          `${tokenText.length} ${
-            tokenText.length === 1
-              ? "char"
-              : "chars"
-          }`,
+          `${tokenText.length} ${tokenText.length === 1 ? "char" : "chars"}`,
         ),
       ),
     );
@@ -291,8 +285,9 @@ class InspectTokensWidget extends Disposable {
               "td.tm-metadata-value",
               undefined,
               `${
-                metadata ? Color.Format.CSS.formatHex(metadata.background)
-                : "-?-"
+                metadata
+                  ? Color.Format.CSS.formatHex(metadata.background)
+                  : "-?-"
               }`,
             ),
           ),

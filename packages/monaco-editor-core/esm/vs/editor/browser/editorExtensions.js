@@ -317,7 +317,7 @@ export var EditorExtensionsRegistry;
   EditorExtensionsRegistry.getEditorContributions = getEditorContributions;
   function getSomeEditorContributions(ids) {
     return EditorContributionRegistry.INSTANCE.getEditorContributions().filter(
-      (c) => ids.indexOf(c.id) >= 0
+      (c) => ids.indexOf(c.id) >= 0,
     );
   }
   EditorExtensionsRegistry.getSomeEditorContributions =

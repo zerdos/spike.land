@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -487,10 +483,10 @@ class ResourceNavigator extends Disposable {
         ? _a
         : false;
     this._register(
-      Event.filter(this.widget.onDidChangeSelection, (e) =>
-        e.browserEvent instanceof KeyboardEvent)((e) =>
-          this.onSelectionFromKeyboard(e)
-        ),
+      Event.filter(
+        this.widget.onDidChangeSelection,
+        (e) => e.browserEvent instanceof KeyboardEvent,
+      )((e) => this.onSelectionFromKeyboard(e)),
     );
     this._register(
       this.widget.onPointer((e) => this.onPointer(e.element, e.browserEvent)),
@@ -502,10 +498,10 @@ class ResourceNavigator extends Disposable {
     );
     if (this.openOnFocus) {
       this._register(
-        Event.filter(this.widget.onDidChangeFocus, (e) =>
-          e.browserEvent instanceof KeyboardEvent)((e) =>
-            this.onFocusFromKeyboard(e)
-          ),
+        Event.filter(
+          this.widget.onDidChangeFocus,
+          (e) => e.browserEvent instanceof KeyboardEvent,
+        )((e) => this.onFocusFromKeyboard(e)),
       );
     }
     if (

@@ -48,7 +48,8 @@ export function getPathLabel(resource, userHomeProvider, rootProvider) {
   // normalize and tildify (macOS, Linux only)
   let res = normalize(resource.fsPath);
   if (
-    !isWindows && (userHomeProvider === null || userHomeProvider === void 0
+    !isWindows &&
+    (userHomeProvider === null || userHomeProvider === void 0
       ? void 0
       : userHomeProvider.userHome)
   ) {

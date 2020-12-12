@@ -267,8 +267,11 @@ export class Configuration extends CommonEditorConfiguration {
     super(isSimpleWidget, options);
     this.accessibilityService = accessibilityService;
     this._elementSizeObserver = this._register(
-      new ElementSizeObserver(referenceDomElement, options.dimension, () =>
-        this._onReferenceDomElementSizeChanged()),
+      new ElementSizeObserver(
+        referenceDomElement,
+        options.dimension,
+        () => this._onReferenceDomElementSizeChanged(),
+      ),
     );
     this._register(
       CSSBasedConfiguration.INSTANCE.onDidChange(() =>

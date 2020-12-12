@@ -6,45 +6,40 @@ export function getNodeColor(node) {
   return ((node.metadata & 1 /* ColorMask */) >>> 0 /* ColorOffset */);
 }
 function setNodeColor(node, color) {
-  node.metadata =
-    ((node.metadata & 254 /* ColorMaskInverse */) |
-      (color << 0 /* ColorOffset */));
+  node.metadata = ((node.metadata & 254 /* ColorMaskInverse */) |
+    (color << 0 /* ColorOffset */));
 }
 function getNodeIsVisited(node) {
   return ((node.metadata & 2 /* IsVisitedMask */) >>>
     1 /* IsVisitedOffset */) === 1;
 }
 function setNodeIsVisited(node, value) {
-  node.metadata =
-    ((node.metadata & 253 /* IsVisitedMaskInverse */) |
-      ((value ? 1 : 0) << 1 /* IsVisitedOffset */));
+  node.metadata = ((node.metadata & 253 /* IsVisitedMaskInverse */) |
+    ((value ? 1 : 0) << 1 /* IsVisitedOffset */));
 }
 function getNodeIsForValidation(node) {
   return ((node.metadata & 4 /* IsForValidationMask */) >>>
     2 /* IsForValidationOffset */) === 1;
 }
 function setNodeIsForValidation(node, value) {
-  node.metadata =
-    ((node.metadata & 251 /* IsForValidationMaskInverse */) |
-      ((value ? 1 : 0) << 2 /* IsForValidationOffset */));
+  node.metadata = ((node.metadata & 251 /* IsForValidationMaskInverse */) |
+    ((value ? 1 : 0) << 2 /* IsForValidationOffset */));
 }
 export function getNodeIsInOverviewRuler(node) {
   return ((node.metadata & 8 /* IsInOverviewRulerMask */) >>>
     3 /* IsInOverviewRulerOffset */) === 1;
 }
 function setNodeIsInOverviewRuler(node, value) {
-  node.metadata =
-    ((node.metadata & 247 /* IsInOverviewRulerMaskInverse */) |
-      ((value ? 1 : 0) << 3 /* IsInOverviewRulerOffset */));
+  node.metadata = ((node.metadata & 247 /* IsInOverviewRulerMaskInverse */) |
+    ((value ? 1 : 0) << 3 /* IsInOverviewRulerOffset */));
 }
 function getNodeStickiness(node) {
   return ((node.metadata & 48 /* StickinessMask */) >>>
     4 /* StickinessOffset */);
 }
 function _setNodeStickiness(node, stickiness) {
-  node.metadata =
-    ((node.metadata & 207 /* StickinessMaskInverse */) |
-      (stickiness << 4 /* StickinessOffset */));
+  node.metadata = ((node.metadata & 207 /* StickinessMaskInverse */) |
+    (stickiness << 4 /* StickinessOffset */));
 }
 function getCollapseOnReplaceEdit(node) {
   return ((node.metadata & 64 /* CollapseOnReplaceEditMask */) >>>

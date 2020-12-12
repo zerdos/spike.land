@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -176,7 +172,9 @@ let CodeActionMenu = class CodeActionMenu extends Disposable {
                   ? void 0
                   : _b.value,
               },
-              actionsToShow.map((item) => item.action),
+              actionsToShow.map((item) =>
+                item.action
+              ),
             ),
           );
         }

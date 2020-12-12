@@ -387,11 +387,10 @@ export class ViewLines extends ViewPart {
     );
     let nextLineModelLineNumber = 0;
     if (includeNewLines) {
-      nextLineModelLineNumber =
-        this._context.model.coordinatesConverter
-          .convertViewPositionToModelPosition(
-            new Position(range.startLineNumber, 1),
-          ).lineNumber;
+      nextLineModelLineNumber = this._context.model.coordinatesConverter
+        .convertViewPositionToModelPosition(
+          new Position(range.startLineNumber, 1),
+        ).lineNumber;
     }
     const rendStartLineNumber = this._visibleLines.getStartLineNumber();
     const rendEndLineNumber = this._visibleLines.getEndLineNumber();
@@ -416,10 +415,9 @@ export class ViewLines extends ViewPart {
       }
       if (includeNewLines && lineNumber < originalEndLineNumber) {
         const currentLineModelLineNumber = nextLineModelLineNumber;
-        nextLineModelLineNumber =
-          this._context.model.coordinatesConverter
-            .convertViewPositionToModelPosition(new Position(lineNumber + 1, 1))
-            .lineNumber;
+        nextLineModelLineNumber = this._context.model.coordinatesConverter
+          .convertViewPositionToModelPosition(new Position(lineNumber + 1, 1))
+          .lineNumber;
         if (currentLineModelLineNumber !== nextLineModelLineNumber) {
           visibleRangesForLine.ranges[visibleRangesForLine.ranges.length - 1]
             .width += this._typicalHalfwidthCharacterWidth;
@@ -669,10 +667,9 @@ export class ViewLines extends ViewPart {
       boxStartY = this._context.viewLayout.getVerticalOffsetForLineNumber(
         range.startLineNumber,
       );
-      boxEndY =
-        this._context.viewLayout.getVerticalOffsetForLineNumber(
-          range.endLineNumber,
-        ) + this._lineHeight;
+      boxEndY = this._context.viewLayout.getVerticalOffsetForLineNumber(
+        range.endLineNumber,
+      ) + this._lineHeight;
     } else {
       return -1;
     }

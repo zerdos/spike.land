@@ -52,7 +52,9 @@ let __insane_func;
       return n[i].exports;
     }
     for (
-      var u = "function" == typeof require && require, i = 0; i < t.length; i++
+      var u = "function" == typeof require && require, i = 0;
+      i < t.length;
+      i++
     ) {
       o(t[i]);
     }

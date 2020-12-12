@@ -61,11 +61,10 @@ function buildReplaceStringForSpecificSpecialCharacter(
   const splitMatchAtSpecialCharacter = matches[0].split(specialCharacter);
   let replaceString = "";
   splitPatternAtSpecialCharacter.forEach((splitValue, index) => {
-    replaceString +=
-      buildReplaceStringWithCasePreserved(
-        [splitMatchAtSpecialCharacter[index]],
-        splitValue,
-      ) + specialCharacter;
+    replaceString += buildReplaceStringWithCasePreserved(
+      [splitMatchAtSpecialCharacter[index]],
+      splitValue,
+    ) + specialCharacter;
   });
   return replaceString.slice(0, -1);
 }

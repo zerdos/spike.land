@@ -369,11 +369,10 @@ export class ActionBar extends Disposable {
     // trigger action
     const actionViewItem = this.viewItems[this.focusedItem];
     if (actionViewItem instanceof BaseActionViewItem) {
-      const context =
-        (actionViewItem._context === null ||
-            actionViewItem._context === undefined)
-          ? event
-          : actionViewItem._context;
+      const context = (actionViewItem._context === null ||
+          actionViewItem._context === undefined)
+        ? event
+        : actionViewItem._context;
       this.run(actionViewItem._action, context);
     }
   }

@@ -266,9 +266,7 @@ registerThemingParticipant((theme, collector) => {
   if (rangeHighlightBorder) {
     collector.addRule(
       `.monaco-editor .rangeHighlight { border: 1px ${
-        theme.type === "hc"
-          ? "dotted"
-          : "solid"
+        theme.type === "hc" ? "dotted" : "solid"
       } ${rangeHighlightBorder}; }`,
     );
   }
@@ -282,9 +280,7 @@ registerThemingParticipant((theme, collector) => {
   if (symbolHighlightBorder) {
     collector.addRule(
       `.monaco-editor .symbolHighlight { border: 1px ${
-        theme.type === "hc"
-          ? "dotted"
-          : "solid"
+        theme.type === "hc" ? "dotted" : "solid"
       } ${symbolHighlightBorder}; }`,
     );
   }

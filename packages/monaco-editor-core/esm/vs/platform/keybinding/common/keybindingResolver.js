@@ -200,9 +200,7 @@ export class KeybindingResolver {
   resolve(context, currentChord, keypress) {
     this._log(
       `| Resolving ${keypress}${
-        currentChord
-          ? ` chorded from ${currentChord}`
-          : ``
+        currentChord ? ` chorded from ${currentChord}` : ``
       }`,
     );
     let lookupMap = null;

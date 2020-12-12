@@ -741,9 +741,8 @@ export class LcsDiff {
         }
       }
       // Check to see if we should be quitting early, before moving on to the next iteration.
-      const matchLengthOfLongest =
-        ((furthestOriginalIndex - originalStart) +
-          (furthestModifiedIndex - modifiedStart) - numDifferences) / 2;
+      const matchLengthOfLongest = ((furthestOriginalIndex - originalStart) +
+        (furthestModifiedIndex - modifiedStart) - numDifferences) / 2;
       if (
         this.ContinueProcessingPredicate !== null &&
         !this.ContinueProcessingPredicate(

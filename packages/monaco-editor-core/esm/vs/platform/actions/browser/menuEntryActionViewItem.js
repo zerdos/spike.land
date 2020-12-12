@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -195,11 +191,10 @@ let MenuEntryActionViewItem = class MenuEntryActionViewItem
   _updateItemClass(item) {
     var _a, _b;
     this._itemClassDispose.value = undefined;
-    const icon =
-      this._commandAction.checked &&
+    const icon = this._commandAction.checked &&
         ((_a = item.toggled) === null || _a === void 0 ? void 0 : _a.icon)
-        ? item.toggled.icon
-        : item.icon;
+      ? item.toggled.icon
+      : item.icon;
     if (ThemeIcon.isThemeIcon(icon)) {
       // theme icons
       const iconClass = ThemeIcon.asClassName(icon);

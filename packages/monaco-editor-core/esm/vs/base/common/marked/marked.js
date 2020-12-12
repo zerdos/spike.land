@@ -736,8 +736,10 @@
             pre: !this.options.sanitizer &&
               (cap[1] === "pre" || cap[1] === "script" || cap[1] === "style"),
             text: this.options.sanitize
-              ? this.options.sanitizer ? this.options.sanitizer(cap[0])
-              : _escape(cap[0]) : cap[0],
+              ? this.options.sanitizer
+                ? this.options.sanitizer(cap[0])
+                : _escape(cap[0])
+              : cap[0],
           };
         }
       };
@@ -820,7 +822,8 @@
             type: "paragraph",
             raw: cap[0],
             text: cap[1].charAt(cap[1].length - 1) === "\n"
-              ? cap[1].slice(0, -1) : cap[1],
+              ? cap[1].slice(0, -1)
+              : cap[1],
           };
         }
       };
@@ -2054,9 +2057,8 @@
         }
 
         return '<pre><code class="' + this.options.langPrefix +
-          escape$1(lang, true) + '">' + (escaped
-            ? _code
-            : escape$1(_code, true)) +
+          escape$1(lang, true) + '">' +
+          (escaped ? _code : escape$1(_code, true)) +
           "</code></pre>\n";
       };
 
@@ -2113,8 +2115,9 @@
 
       _proto.tablecell = function tablecell(content, flags) {
         var type = flags.header ? "th" : "td";
-        var tag = flags.align ? "<" + type + ' align="' + flags.align + '">'
-        : "<" + type + ">";
+        var tag = flags.align
+          ? "<" + type + ' align="' + flags.align + '">'
+          : "<" + type + ">";
         return tag + content + "</" + type + ">\n";
       } // span level renderer
       ;

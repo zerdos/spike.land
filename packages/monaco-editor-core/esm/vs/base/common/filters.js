@@ -530,7 +530,9 @@ export function fuzzyScore(
     row++, patternPos++
   ) {
     for (
-      column = 1, wordPos = wordStart; wordPos < wordLen; column++, wordPos++
+      column = 1, wordPos = wordStart;
+      wordPos < wordLen;
+      column++, wordPos++
     ) {
       const score = _doScore(
         pattern,

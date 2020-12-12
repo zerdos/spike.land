@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -50,16 +46,27 @@ export class Gesture extends Disposable {
     this.ignoreTargets = [];
     this._lastSetTapCountTime = 0;
     this._register(
-      DomUtils.addDisposableListener(document, "touchstart", (e) =>
-        this.onTouchStart(e), { passive: false }),
+      DomUtils.addDisposableListener(
+        document,
+        "touchstart",
+        (e) => this.onTouchStart(e),
+        { passive: false },
+      ),
     );
     this._register(
-      DomUtils.addDisposableListener(document, "touchend", (e) =>
-        this.onTouchEnd(e)),
+      DomUtils.addDisposableListener(
+        document,
+        "touchend",
+        (e) => this.onTouchEnd(e),
+      ),
     );
     this._register(
-      DomUtils.addDisposableListener(document, "touchmove", (e) =>
-        this.onTouchMove(e), { passive: false }),
+      DomUtils.addDisposableListener(
+        document,
+        "touchmove",
+        (e) => this.onTouchMove(e),
+        { passive: false },
+      ),
     );
   }
   static addTarget(element) {
@@ -89,7 +96,7 @@ export class Gesture extends Disposable {
     return {
       dispose: () => {
         Gesture.INSTANCE.ignoreTargets = Gesture.INSTANCE.ignoreTargets.filter(
-          (t) => t !== element
+          (t) => t !== element,
         );
       },
     };

@@ -183,18 +183,14 @@ export class BlockCommentCommand {
       res.push(
         EditOperation.insert(
           new Position(r.startLineNumber, r.startColumn),
-          startToken + (insertSpace
-            ? " "
-            : ""),
+          startToken + (insertSpace ? " " : ""),
         ),
       );
       // Insert block comment end
       res.push(
         EditOperation.insert(
           new Position(r.endLineNumber, r.endColumn),
-          (insertSpace
-            ? " "
-            : "") + endToken,
+          (insertSpace ? " " : "") + endToken,
         ),
       );
     } else {

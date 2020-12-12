@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -222,8 +218,8 @@ let ModelServiceImpl = class ModelServiceImpl extends Disposable {
     if (
       config.editor && typeof config.editor.detectIndentation !== "undefined"
     ) {
-      detectIndentation =
-        (config.editor.detectIndentation === "false" ? false
+      detectIndentation = (config.editor.detectIndentation === "false"
+        ? false
         : Boolean(config.editor.detectIndentation));
     }
     let largeFileOptimizations = EDITOR_MODEL_DEFAULTS.largeFileOptimizations;
@@ -514,16 +510,15 @@ export function isSemanticColoringEnabled(
   configurationService,
 ) {
   var _a;
-  const setting =
-    (_a = configurationService.getValue(
+  const setting = (_a = configurationService.getValue(
           SEMANTIC_HIGHLIGHTING_SETTING_ID,
           {
             overrideIdentifier: model.getLanguageIdentifier().language,
             resource: model.uri,
           },
         )) === null || _a === void 0
-      ? void 0
-      : _a.enabled;
+    ? void 0
+    : _a.enabled;
   if (typeof setting === "boolean") {
     return setting;
   }

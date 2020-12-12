@@ -62,7 +62,8 @@ export function filtersAction(filter, action) {
   }
   if (filter.excludes) {
     if (
-      actionKind && filter.excludes.some((exclude) =>
+      actionKind &&
+      filter.excludes.some((exclude) =>
         excludesAction(actionKind, exclude, filter.include)
       )
     ) {

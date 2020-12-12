@@ -1201,7 +1201,9 @@ export class TokensStore {
       }
     }
     for (
-      let tokenIndex = fromTokenIndex; tokenIndex < tokensCount; tokenIndex++
+      let tokenIndex = fromTokenIndex;
+      tokenIndex < tokensCount;
+      tokenIndex++
     ) {
       tokens[tokenIndex << 1] += textLength;
     }

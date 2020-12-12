@@ -322,9 +322,7 @@ class Label {
         this.singleLabel = dom.append(
           this.container,
           dom.$("a.label-name", {
-            id: options === null || options === void 0
-              ? void 0
-              : options.domId,
+            id: options === null || options === void 0 ? void 0 : options.domId,
           }),
         );
       }

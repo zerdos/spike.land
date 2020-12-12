@@ -23,9 +23,7 @@ export function renderCodicons(text) {
 export function renderCodicon(name, animation) {
   return dom.$(
     `span.codicon.codicon-${name}${
-      animation
-        ? `.codicon-animation-${animation}`
-        : ""
+      animation ? `.codicon-animation-${animation}` : ""
     }`,
   );
 }
