@@ -8,7 +8,7 @@
     "scripts": {
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "build": "deno bundle --import-map ../../import_map.json --no-check --unstable src/shaDB.ts dist/shaDB.js && yarn min",
-        "min": "yarn esbuild dist/shaDB.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=dist/shaDB.min.js"
+        "min": "deno fmt dist && yarn esbuild dist/shaDB.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=dist/shaDB.min.js"
     },
     "keywords": [
         "diff"

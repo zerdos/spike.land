@@ -43,7 +43,7 @@
   "main": "dist/qrious.js",
   "scripts": {
     "build": "grunt build && yarn minify",
-    "minify": "yarn esbuild --minify dist/qrious.js --outfile=dist/qrious.min.js",
+    "minify": "deno fmt dist && yarn esbuild --minify dist/qrious.js --outfile=dist/qrious.min.js",
     "ci": "grunt ci",
     "test": "grunt test"
   }

@@ -1345,8 +1345,9 @@ var define,
                         this._inversePluginDependencies2.set(d.pluginId, c)),
                         c.push(d),
                         this._loadModule(d.pluginId);
-                    } elsethis._loadModule(d.id);
-                  } else e.unresolvedDependenciesCount--;
+                    }
+                    elsethis._loadModule(d.id);
+                  } elsee.unresolvedDependenciesCount--;
                 } else e.unresolvedDependenciesCount--;
               } else e.exportsPassedIn = !0, e.unresolvedDependenciesCount--;
             }

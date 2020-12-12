@@ -3443,9 +3443,8 @@
                   } else {
                     -1 === a && (o = !1, a = n + 1),
                       s >= 0 &&
-                      (u === t.charCodeAt(s)
-                        ? -1 == --s && (i = n)
-                        : (s = -1, i = a));
+                      (u === t.charCodeAt(s) ? -1 == --s && (i = n)
+                      : (s = -1, i = a));
                   }
                 }
                 return r === i ? i = a : -1 === i && (i = e.length),

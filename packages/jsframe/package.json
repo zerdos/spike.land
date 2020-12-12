@@ -5,7 +5,7 @@
   "main": "lib/jsframe.min.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "min": "yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js",
+    "min": "deno fmt lib && yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js",
     "clean": "deno fmt src && rm -rf lib && mkdir lib",
     "build": "webpack --config webpack.config.js --mode development && yarn min",
     "release": "cross-env NODE_ENV=test webpack --config webpack.config.js --mode production",

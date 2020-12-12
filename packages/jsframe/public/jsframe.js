@@ -1493,7 +1493,9 @@
                             throw Error("Only 3 arguments can be specified");
                           }
                           var r = this.evTargetListenersMap.get(e);
-                          if (!r) return null;
+                          if (!r) {
+                            return null;
+                          }
                           var i = r.get(t);
                           if (!i) return null;
                           var o = i.get(n), a = this._getFrozenListenerDef(o);
@@ -1523,7 +1525,9 @@
                           var r = this.evTargetListenersMap.get(e);
                           if (!r) return !1;
                           var i = r.get(t);
-                          if (!i) return !1;
+                          if (!i) {
+                            return !1;
+                          }
                           var o = i.get(n);
                           return !!o;
                         },
