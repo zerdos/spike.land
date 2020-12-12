@@ -1285,7 +1285,7 @@ const document = window.document;
 var ReactDOM = window.ReactDOM;
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
-    return "https://code.zed.dev";
+    return "https://code.zed.vision";
   }
   return "https://code.zed.vision";
 };

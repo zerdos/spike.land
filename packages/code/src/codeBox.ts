@@ -15,7 +15,7 @@ var ReactDOM: { unmountComponentAtNode: (node: unknown) => void } =
 
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
-    return "https://code.zed.dev";
+    return "https://code.zed.vision";
   }
   return "https://code.zed.vision";
 };
