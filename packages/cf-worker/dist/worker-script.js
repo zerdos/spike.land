@@ -160,7 +160,7 @@ async function handleCloudRequest(request) {
         },
       );
       return json({
-        uuid: key,
+        key,
       });
     }
     if (pathname === "/check") {

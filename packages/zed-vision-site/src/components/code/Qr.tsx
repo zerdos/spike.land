@@ -3,7 +3,7 @@ import React from "react";
 import { css, jsx } from "@emotion/react";
 import QRious from "@zedvision/qrious";
 
-export const Qr: React.FC<{ url: string }> = ({ url }) => {
+export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(3);
   const [counter, setCounter] = React.useState(0);
@@ -11,11 +11,11 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
   React.useEffect(() => {
     let qr: QRious = null;
     const connect = async () => {
-      const req = await fetch("https://code.zed.vision/connect?ww");
+      const req = await fetch("https://code.zed.vision/connect");
       const data = await req.json();
       setCounter(60);
-      const uuid = data.uuid;
-      const url = `https://zed.vision/${uuid}`;
+      const key = data.key;
+      const url = `https://zed.vision/${key}`;
 
       if (qr !== null) {
         qr.value = url;
@@ -46,7 +46,7 @@ export const Qr: React.FC<{ url: string }> = ({ url }) => {
     }
   }, [counter]);
 
-  return <a href={url}>
+  return <a href="https://zed.vision/code">
     {retry > 0 && <img
       css={css`
     display: inline-block;

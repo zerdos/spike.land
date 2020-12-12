@@ -32,7 +32,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         ),
         { expirationTtl: 60 },
       );
-      return json({ uuid: key });
+      return json({ key });
     }
 
     if (pathname === "/check") {
