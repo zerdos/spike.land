@@ -266,7 +266,11 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/browse/popmotion@9.0.1/lib/index.d.ts",
+        url: "https://unpkg.com/popmotion@9.0.1/lib/index.d.ts",
+      },
+      {
+        name: "@zedvision/qrious",
+        url: "https://unpkg.com/@zedvision/8.4.2/dist/qrious.d.ts",
       },
     ];
     //# sourceMappingURL=importHelper.js.map
@@ -276,7 +280,7 @@ export const startMonaco: SmartMonaco = async (
           await (await fetch(
             url,
           )).text(),
-          name.includes("@emotion")
+          name.includes("@")
             ? `file:///node_modules/${name}`
             : `file:///node_modules/@types/${name}/index.d.ts`,
         ))()

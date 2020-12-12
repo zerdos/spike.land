@@ -237,10 +237,14 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "popmotion",
-                url: "https://unpkg.com/browse/popmotion@9.0.1/lib/index.d.ts"
+                url: "https://unpkg.com/popmotion@9.0.1/lib/index.d.ts"
+            },
+            {
+                name: "@zedvision/qrious",
+                url: "https://unpkg.com/@zedvision/8.4.2/dist/qrious.d.ts"
             }, 
         ];
-        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@emotion") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
+        const dts = importHelper.map(({ name , url  })=>(async ()=>modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@") ? `file:///node_modules/${name}` : `file:///node_modules/@types/${name}/index.d.ts`)
             )()
         );
         modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
