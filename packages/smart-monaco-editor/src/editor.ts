@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 
-import type { monaco } from "https://unpkg.com/@zedvision/monaco-editor@0.22.2/release/monaco.d.ts";
+import type { monaco } from "https://unpkg.com/@zedvision/monaco-editor@0.21.2/release/monaco.d.ts";
 import type Ace from "https://raw.githubusercontent.com/ajaxorg/ace/master/ace.d.ts";
 
 interface ISmartMonacoEditor {
