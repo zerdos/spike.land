@@ -25,6 +25,7 @@ export const Qr: React.FC = () => {
             element: ref.current,
             size: 200,
             foreground: "darkred",
+            value: url
           },
         );
       }

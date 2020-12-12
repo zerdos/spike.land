@@ -79,7 +79,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
     <Layout>
       <SEO title="This is Zed vision" />
       <h1>
-        Hi, this is my playground: <Qr/>
+        Hi, this is my playground: <Qr />
       </h1>
       <a href="https://github.com/zed-vision/monorepo">
         <img

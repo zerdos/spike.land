@@ -359,14 +359,11 @@ export async function run(mode = "window") {
           motionScript = "const {motion} = Motion";
         }
 
-
         let qrDep = "";
         if (code.indexOf("QRious") > -1) {
           qrDep =
             `<script crossorigin src="https://unpkg.com/@zedvision/qrious@8.4.2/dist/qrious.min.js"></script>`;
-
         }
-
 
         let title = "(code).zed.vision :)";
 
