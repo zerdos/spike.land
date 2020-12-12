@@ -1,7 +1,7 @@
-var mergeDeeply = require('merge-deeply');
-var CTextButtonAppearance = require('./CButtonAppearance.js');
-var CImageButtonAppearance = require('./CImageButtonAppearance.js');
-var CChildMenuAppearance = require('./CChildMenuAppearance.js');
+var mergeDeeply = require("merge-deeply");
+var CTextButtonAppearance = require("./CButtonAppearance.js");
+var CImageButtonAppearance = require("./CImageButtonAppearance.js");
+var CChildMenuAppearance = require("./CChildMenuAppearance.js");
 
 /**
  * CDomPartsBuilder class
@@ -11,72 +11,79 @@ var CChildMenuAppearance = require('./CChildMenuAppearance.js');
 function CDomPartsBuilder() {
 }
 
-CDomPartsBuilder.prototype.buildChildMenuAppearance = function(frameAppearance) {
+CDomPartsBuilder.prototype.buildChildMenuAppearance = function (
+  frameAppearance,
+) {
   return new CChildMenuAppearance(frameAppearance);
 };
-CDomPartsBuilder.prototype.buildTextButtonAppearance = function(src) {
+CDomPartsBuilder.prototype.buildTextButtonAppearance = function (src) {
   if (src) {
-    var result = mergeDeeply({ op: 'clone', object1: src, concatArray: true });
+    var result = mergeDeeply({ op: "clone", object1: src, concatArray: true });
     return result;
   } else {
     return new CTextButtonAppearance();
   }
 };
-CDomPartsBuilder.prototype.buildImageButtonAppearance = function(src) {
+CDomPartsBuilder.prototype.buildImageButtonAppearance = function (src) {
   if (src) {
-    var clonedImageButtonAppearance = mergeDeeply({ op: 'clone', object1: src });
+    var clonedImageButtonAppearance = mergeDeeply(
+      { op: "clone", object1: src },
+    );
     return clonedImageButtonAppearance;
   } else {
     return new CImageButtonAppearance();
   }
 };
 
-CDomPartsBuilder.prototype.buildButton = function(btnAppearance) {
+CDomPartsBuilder.prototype.buildButton = function (btnAppearance) {
   var me = this;
   return me.buildTextButton(btnAppearance);
 };
 
-CDomPartsBuilder.prototype.appendChildMenuTo = function(childMenuAppearance, parentEle) {
+CDomPartsBuilder.prototype.appendChildMenuTo = function (
+  childMenuAppearance,
+  parentEle,
+) {
   var me = this;
-  var ndiv = document.createElement('div');
-  ndiv.classList.add('jsframe-child-menu');
+  var ndiv = document.createElement("div");
+  ndiv.classList.add("jsframe-child-menu");
   ndiv.innerHTML = childMenuAppearance.childMenuHTML;
-  ndiv.style.position = 'absolute';
-  ndiv.style.pointerEvents = 'none';
-  ndiv.style.width = childMenuAppearance.childMenuWidth + 'px';
+  ndiv.style.position = "absolute";
+  ndiv.style.pointerEvents = "none";
+  ndiv.style.width = childMenuAppearance.childMenuWidth + "px";
   // ndiv.style.top = childMenuAppearance.childMenuTop + 'px';
   // ndiv.style.left = childMenuAppearance.childMenuLeft + 'px';
-  ndiv.style.display = 'none';
+  ndiv.style.display = "none";
 
   var posX = childMenuAppearance.xOffset;
-  var posY = parseInt(parentEle.style.height, 10) + childMenuAppearance.yOffset + 2;
+  var posY = parseInt(parentEle.style.height, 10) +
+    childMenuAppearance.yOffset + 2;
 
-  if (childMenuAppearance.childMenuAlign === 'LEFT') {
-    ndiv.style.left = posX + 'px';
-  } else if (childMenuAppearance.childMenuAlign === 'RIGHT') {
-    ndiv.style.right = posX + 'px';
-  } else if (childMenuAppearance.childMenuAlign === 'CENTER') {
-    posX = -childMenuAppearance.childMenuWidth / 2 + parseInt(parentEle.style.height, 10) / 2;
-    ndiv.style.left = posX + 'px';
+  if (childMenuAppearance.childMenuAlign === "LEFT") {
+    ndiv.style.left = posX + "px";
+  } else if (childMenuAppearance.childMenuAlign === "RIGHT") {
+    ndiv.style.right = posX + "px";
+  } else if (childMenuAppearance.childMenuAlign === "CENTER") {
+    posX = -childMenuAppearance.childMenuWidth / 2 +
+      parseInt(parentEle.style.height, 10) / 2;
+    ndiv.style.left = posX + "px";
   }
-  ndiv.style.top = posY + 'px';
+  ndiv.style.top = posY + "px";
 
   // ndiv.style.pointerEvents is none to avoid referring clicks to extra areas.
   // But we want its children to be responsive, so we set pointerEvents to auto
-  ndiv.firstChild.style.pointerEvents = 'auto';
+  ndiv.firstChild.style.pointerEvents = "auto";
 
   parentEle.appendChild(ndiv);
   //return ndiv;
 };
-
 
 /**
  * Creates an actual DOM element from the specified appearance
  * @param btnAppearance
  * @returns {HTMLDivElement}
  */
-CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
-
+CDomPartsBuilder.prototype.buildTextButton = function (btnAppearance) {
   var size = btnAppearance.size;
   var width = size;
   var height = size;
@@ -89,8 +96,7 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
     height = btnAppearance.height;
   }
 
-
-  var divElement = document.createElement('div');
+  var divElement = document.createElement("div");
 
   //border
   var borderWidth = btnAppearance.borderWidth;
@@ -125,16 +131,16 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
 
   //prevent to catch mouse events
   if (btnImageDefault) {
-    btnImageDefault.style.pointerEvents = 'none';
+    btnImageDefault.style.pointerEvents = "none";
   }
   if (btnImageFocused) {
-    btnImageFocused.style.pointerEvents = 'none';
+    btnImageFocused.style.pointerEvents = "none";
   }
   if (btnImageHovered) {
-    btnImageHovered.style.pointerEvents = 'none';
+    btnImageHovered.style.pointerEvents = "none";
   }
   if (btnImagePressed) {
-    btnImagePressed.style.pointerEvents = 'none';
+    btnImagePressed.style.pointerEvents = "none";
   }
 
   var _captionColorDefault = btnAppearance.captionColorDefault;
@@ -151,66 +157,64 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
   //Set whether mouse is pressing or not internally.
   divElement._isMouseDown = false;
 
-  divElement.style.position = 'absolute';
+  divElement.style.position = "absolute";
 
-  divElement.style.top = '0px';
-  divElement.style.left = '0px';
-  divElement.style.width = (width) + 'px';
-  divElement.style.height = (height) + 'px';
+  divElement.style.top = "0px";
+  divElement.style.left = "0px";
+  divElement.style.width = (width) + "px";
+  divElement.style.height = (height) + "px";
 
   if (btnAppearance.cursor) {
     divElement.style.cursor = btnAppearance.cursor;
   } else {
-    divElement.style.cursor = 'pointer';
+    divElement.style.cursor = "pointer";
   }
-  divElement.style.margin = '0px';
-  divElement.style.padding = '0px';
+  divElement.style.margin = "0px";
+  divElement.style.padding = "0px";
   //added for preventing bootstrap.css pollution
-  divElement.style.boxSizing = 'content-box';
-  divElement.style.fontFamily = 'sans-serif';
+  divElement.style.boxSizing = "content-box";
+  divElement.style.fontFamily = "sans-serif";
 
-  divElement.onmousedown = function(e) {
+  divElement.onmousedown = function (e) {
     divElement._isMouseDown = true;
-    divElement._handleFocusDrawing('onmousedown');
+    divElement._handleFocusDrawing("onmousedown");
   };
 
-  divElement.onmouseout = function(e) {
+  divElement.onmouseout = function (e) {
     divElement._isMouseDown = false;
-    divElement._handleFocusDrawing('onmouseout');
+    divElement._handleFocusDrawing("onmouseout");
   };
 
-  divElement.onmouseover = function(e) {
+  divElement.onmouseover = function (e) {
     divElement._handleHoverDrawing();
   };
 
-  divElement.onmouseup = function(e) {
+  divElement.onmouseup = function (e) {
     divElement._isMouseDown = false;
-    divElement._handleFocusDrawing('onmouseup');
+    divElement._handleFocusDrawing("onmouseup");
   };
-
 
   /**
    * The parent notifies that the parent's frame got focus
    */
-  divElement._onTakeFocus = function() {
+  divElement._onTakeFocus = function () {
     divElement._hasFrameFocus = true;
-    divElement._handleFocusDrawing('_onTakeFocus');
+    divElement._handleFocusDrawing("_onTakeFocus");
   };
 
   /**
    * The parent notifies that the parent's frame has lost focus
    */
-  divElement._onReleaseFocus = function() {
-
+  divElement._onReleaseFocus = function () {
     divElement._hasFrameFocus = false;
-    divElement._handleFocusDrawing('_onReleaseFocus');
+    divElement._handleFocusDrawing("_onReleaseFocus");
   };
 
   /**
    *  To handle 2x2 matrix.
    *  (_hasFrameFocus true/false x _isMouseDown true/false)
    */
-  divElement._handleFocusDrawing = function(evtName) {
+  divElement._handleFocusDrawing = function (evtName) {
     if (divElement._hasFrameFocus) {
       //When this element has focus
 
@@ -247,7 +251,6 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
           updateImage(btnImageFocused, divElement);
         }
       }
-
     } else {
       //When this element doesn't have focus
       if (divElement._isMouseDown) {
@@ -266,9 +269,7 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
           // divElement.appendChild(btnImagePressed);
           updateImage(btnImagePressed, divElement);
         }
-
       } else {
-
         //border
         divElement.style.borderColor = borderColorDefault;
         divElement.style.borderStyle = borderStyleDefault;
@@ -288,8 +289,7 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
     }
   };
 
-  divElement._handleHoverDrawing = function() {
-
+  divElement._handleHoverDrawing = function () {
     if (divElement._hasFrameFocus) {
       //When this element has focus
     } else {
@@ -318,24 +318,25 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
       updateImage(btnImageHovered, divElement);
     }
   };
-  divElement.style.padding = '0px';
+  divElement.style.padding = "0px";
 
-  divElement.style.textAlign = 'center';
-  divElement.style.fontSize = (height * captionFontRatio) + 'px';
+  divElement.style.textAlign = "center";
+  divElement.style.fontSize = (height * captionFontRatio) + "px";
 
-  divElement.style.lineHeight = (height) + 'px';
+  divElement.style.lineHeight = (height) + "px";
 
-  divElement.style.borderWidth = '1px';
+  divElement.style.borderWidth = "1px";
 
   if (borderWidth != null) {
-    divElement.style.borderWidth = borderWidth + 'px';
+    divElement.style.borderWidth = borderWidth + "px";
   }
 
   if (backgroundBoxShadow != null) {
     divElement.style.boxShadow = backgroundBoxShadow;
   }
 
-  divElement.style.borderRadius = (borderRadius + parseInt(divElement.style.borderWidth)) + 'px';
+  divElement.style.borderRadius =
+    (borderRadius + parseInt(divElement.style.borderWidth)) + "px";
 
   var childMode = true;
 
@@ -344,42 +345,38 @@ CDomPartsBuilder.prototype.buildTextButton = function(btnAppearance) {
     // divElement.appendChild(btnImageDefault);
     updateImage(btnImageDefault, divElement);
   } else if (childMode && caption) {
-
-    var span = document.createElement('span');
+    var span = document.createElement("span");
     //span.style.position='absolute';
-    span.style.width = '100%';
-    span.style.marginTop = captionShiftYpx + 'px';
-    span.style.display = 'inline-block';
-    span.style.textAlign = 'center';
-    span.style.fontFamily = 'sans-serif';
+    span.style.width = "100%";
+    span.style.marginTop = captionShiftYpx + "px";
+    span.style.display = "inline-block";
+    span.style.textAlign = "center";
+    span.style.fontFamily = "sans-serif";
     span.appendChild(document.createTextNode(caption));
     divElement.appendChild(span);
-
   } else if (childMode && fa) {
-
-    var span = document.createElement('span');
-    span.style.pointerEvents = 'none';
-    span.style.width = '100%';
-    span.style.marginTop = captionShiftYpx + 'px';
-    span.style.display = 'inline-block';
-    span.style.textAlign = 'center';
-    span.style.fontFamily = 'sans-serif';
+    var span = document.createElement("span");
+    span.style.pointerEvents = "none";
+    span.style.width = "100%";
+    span.style.marginTop = captionShiftYpx + "px";
+    span.style.display = "inline-block";
+    span.style.textAlign = "center";
+    span.style.fontFamily = "sans-serif";
     span.innerHTML = '<i class="' + fa + '"></i>';
     divElement.appendChild(span);
   } else if (!childMode && caption) {
-    divElement.style.paddingTop = captionShiftYpx + 'px';
+    divElement.style.paddingTop = captionShiftYpx + "px";
     divElement.appendChild(document.createTextNode(caption));
   }
 
   divElement._handleFocusDrawing();
   return divElement;
-
 };
 
 // Don't use innerHTML='' because there may be a child below this 'img' element.
 // A child that may be a child is a childMenu.
 function updateImage(image, parentElement) {
-  var imgs = parentElement.querySelectorAll('img');
+  var imgs = parentElement.querySelectorAll("img");
   if (parentElement.firstChild) {
     parentElement.insertBefore(image, parentElement.firstChild);
   } else {
@@ -394,7 +391,6 @@ function updateImage(image, parentElement) {
 }
 
 //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-
 
 /**
  * end of CDomPartsBuilder class

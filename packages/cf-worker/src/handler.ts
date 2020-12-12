@@ -12,7 +12,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
 
-  if (request.method === "GET" && psk && psk==API_KEY) {
+  if (request.method === "GET" && psk && psk == API_KEY) {
     return handleAdmin(request, searchParams, pathname, SHAKV);
   } else if (request.method === "GET") {
     if (pathname === "/robots.txt") {

@@ -1,11 +1,9 @@
-var inherit = require('../utils/Inherit.js')
-var CTextButtonAppearance = require('./CButtonAppearance.js');
+var inherit = require("../utils/Inherit.js");
+var CTextButtonAppearance = require("./CButtonAppearance.js");
 
 inherit(CImageButtonAppearance, CTextButtonAppearance);
 
 function CImageButtonAppearance() {
-
-
   this.imageDefault = null;
   this.imageHovered = null;
   this.imagePressed = null;
@@ -14,7 +12,7 @@ function CImageButtonAppearance() {
   this.imageStore = {};
 }
 
-CImageButtonAppearance.prototype._setImage = function(src, width, height) {
+CImageButtonAppearance.prototype._setImage = function (src, width, height) {
   var me = this;
 
   var storedImgEle = me.imageStore[src];
@@ -22,20 +20,21 @@ CImageButtonAppearance.prototype._setImage = function(src, width, height) {
   if (storedImgEle) {
     return storedImgEle;
   } else {
-    var imgEle = document.createElement('img');
+    var imgEle = document.createElement("img");
     imgEle.src = src;
     if (width && height) {
       var imgWidth = width;
       var imgHeight = height;
-      var imgStyle = 'margin:0px;padding:0px;width:' + imgWidth + 'px;height:' + imgHeight + 'px';
-      imgEle.setAttribute('style', imgStyle);
+      var imgStyle = "margin:0px;padding:0px;width:" + imgWidth + "px;height:" +
+        imgHeight + "px";
+      imgEle.setAttribute("style", imgStyle);
     }
     me.imageStore[src] = imgEle;
 
     return imgEle;
   }
-}
-CImageButtonAppearance.prototype.setSrc = function(model) {
+};
+CImageButtonAppearance.prototype.setSrc = function (model) {
   var me = this;
   if (model.default) {
     me.imageDefault = me._setImage(model.default, model.width, model.height);
@@ -49,6 +48,6 @@ CImageButtonAppearance.prototype.setSrc = function(model) {
   if (model.focused) {
     me.imageFocused = me._setImage(model.focused, model.width, model.height);
   }
-}
+};
 
 module.exports = CImageButtonAppearance;

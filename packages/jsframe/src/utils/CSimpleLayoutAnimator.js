@@ -1,4 +1,4 @@
-var CTimer = require('./CTimer.js');
+var CTimer = require("./CTimer.js");
 
 /**
  * CSimpleLayoutAnimator class
@@ -7,7 +7,6 @@ var CTimer = require('./CTimer.js');
  * @constructor
  */
 function CSimpleLayoutAnimator() {
-
   this.fps = 30;
   this.durationMillis = 200;
   this.targetFrame = null;
@@ -27,12 +26,10 @@ function CSimpleLayoutAnimator() {
   this._toX = 0;
   this._toY = 0;
 
-
   this.pinnedAnimationEnabled = false;
   this._pinX = 0;
   this._pinY = 0;
   this._pinAnchor = null;
-
 }
 
 /**
@@ -40,10 +37,9 @@ function CSimpleLayoutAnimator() {
  * @param ciframe
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.set = function(ciframe) {
+CSimpleLayoutAnimator.prototype.set = function (ciframe) {
   var me = this;
   me.targetFrame = ciframe;
-
 
   me.fromWidth(ciframe.getWidth());
   me.fromHeight(ciframe.getHeight());
@@ -55,16 +51,14 @@ CSimpleLayoutAnimator.prototype.set = function(ciframe) {
 
   me.fromPosition(crrPos.x, crrPos.y, crrPos.anchor);
 
-
   return me;
-
 };
 
 /**
  * Get CIFrame object
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.get = function() {
+CSimpleLayoutAnimator.prototype.get = function () {
   var me = this;
   return me.targetFrame;
 };
@@ -74,7 +68,7 @@ CSimpleLayoutAnimator.prototype.get = function() {
  * @param durationMillis
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.setDuration = function(durationMillis) {
+CSimpleLayoutAnimator.prototype.setDuration = function (durationMillis) {
   var me = this;
 
   me.durationMillis = durationMillis;
@@ -86,7 +80,7 @@ CSimpleLayoutAnimator.prototype.setDuration = function(durationMillis) {
  * @param fps
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.setFPS = function(fps) {
+CSimpleLayoutAnimator.prototype.setFPS = function (fps) {
   var me = this;
   me.fps = fps;
   return me;
@@ -108,7 +102,7 @@ CSimpleLayoutAnimator.prototype.setFPS = function(fps) {
  'RIGHT_BOTTOM'
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.fromPosition = function(x, y, anchor) {
+CSimpleLayoutAnimator.prototype.fromPosition = function (x, y, anchor) {
   var me = this;
   me.pinnedAnimationEnabled = true;
 
@@ -127,7 +121,7 @@ CSimpleLayoutAnimator.prototype.fromPosition = function(x, y, anchor) {
  * @param fromWidth
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.fromWidth = function(fromWidth) {
+CSimpleLayoutAnimator.prototype.fromWidth = function (fromWidth) {
   var me = this;
   me._crrWidth = fromWidth;
 
@@ -139,7 +133,7 @@ CSimpleLayoutAnimator.prototype.fromWidth = function(fromWidth) {
  * @param fromHeight
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.fromHeight = function(fromHeight) {
+CSimpleLayoutAnimator.prototype.fromHeight = function (fromHeight) {
   var me = this;
   me._crrHeight = fromHeight;
 
@@ -151,7 +145,7 @@ CSimpleLayoutAnimator.prototype.fromHeight = function(fromHeight) {
  * @param toWidth
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.toWidth = function(toWidth) {
+CSimpleLayoutAnimator.prototype.toWidth = function (toWidth) {
   var me = this;
   me._toWidth = toWidth;
 
@@ -163,7 +157,7 @@ CSimpleLayoutAnimator.prototype.toWidth = function(toWidth) {
  * @param toHeight
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.toHeight = function(toHeight) {
+CSimpleLayoutAnimator.prototype.toHeight = function (toHeight) {
   var me = this;
   me._toHeight = toHeight;
   return me;
@@ -174,7 +168,7 @@ CSimpleLayoutAnimator.prototype.toHeight = function(toHeight) {
  * @param fromAlpha
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.fromAlpha = function(fromAlpha) {
+CSimpleLayoutAnimator.prototype.fromAlpha = function (fromAlpha) {
   var me = this;
   me._crrAlpha = fromAlpha;
 
@@ -186,7 +180,7 @@ CSimpleLayoutAnimator.prototype.fromAlpha = function(fromAlpha) {
  * @param toAlpha
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.toAlpha = function(toAlpha) {
+CSimpleLayoutAnimator.prototype.toAlpha = function (toAlpha) {
   var me = this;
   me._toAlpha = toAlpha;
 
@@ -197,9 +191,9 @@ CSimpleLayoutAnimator.prototype.toAlpha = function(toAlpha) {
  * Get CIFrame object
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.ease = function(ease) {
+CSimpleLayoutAnimator.prototype.ease = function (ease) {
   var me = this;
-  me._ease=ease;
+  me._ease = ease;
   return me;
 };
 
@@ -209,7 +203,7 @@ CSimpleLayoutAnimator.prototype.ease = function(ease) {
  * @param y
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.toPosition = function(x, y) {
+CSimpleLayoutAnimator.prototype.toPosition = function (x, y) {
   var me = this;
   me._toX = x;
   me._toY = y;
@@ -221,7 +215,7 @@ CSimpleLayoutAnimator.prototype.toPosition = function(x, y) {
  * @param x
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.toX = function(x) {
+CSimpleLayoutAnimator.prototype.toX = function (x) {
   var me = this;
   me._toX = x;
   return me;
@@ -232,16 +226,16 @@ CSimpleLayoutAnimator.prototype.toX = function(x) {
  * @param t
  * @returns {*}
  */
-CSimpleLayoutAnimator.prototype.toY = function(t) {
+CSimpleLayoutAnimator.prototype.toY = function (t) {
   var me = this;
   me._toY = t;
   return me;
 };
 
-
-CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled) {
-
-
+CSimpleLayoutAnimator.prototype.start = function (
+  waitMillis,
+  requestFocusEnabled,
+) {
   var me = this;
 
   var fromWidth = me._crrWidth;
@@ -252,10 +246,7 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
 
   var fromAlpha = me._crrAlpha;
 
-
-  return new Promise(function(resolve, reject) {
-
-
+  return new Promise(function (resolve, reject) {
     var numOfSteps = parseInt(me.fps * (me.durationMillis / 1000));
     if (numOfSteps == 0) {
       numOfSteps = 1;
@@ -268,24 +259,21 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
     var deltaY = (me._toY - fromY) / numOfSteps;
 
     var deltaAlpha = (me._toAlpha - fromAlpha) / numOfSteps;
-    if(me._ease){
-      deltaAlpha=deltaAlpha/1.24;
+    if (me._ease) {
+      deltaAlpha = deltaAlpha / 1.24;
     }
 
     var unitMillis = me.durationMillis / numOfSteps;
 
     var idx = 0;
 
-
     function loop() {
       var timer = new CTimer();
 
       timer.setIntervalMillis(unitMillis);
 
-      timer.setCallback(function(timer) {
-
+      timer.setCallback(function (timer) {
         if (idx == numOfSteps) {
-
           var _width = me._toWidth;
           var _height = me._toHeight;
 
@@ -297,9 +285,14 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
           if (me.pinnedAnimationEnabled) {
             //me.targetFrame._setPositionInternally(me._pinX, me._pinY, me._pinAnchor, _width, _height);
 
-            me.targetFrame._setPositionInternally(_x, _y, me._pinAnchor, _width, _height);
+            me.targetFrame._setPositionInternally(
+              _x,
+              _y,
+              me._pinAnchor,
+              _width,
+              _height,
+            );
           }
-
 
           if (me.targetFrame.htmlElement.style) {
             me.targetFrame.htmlElement.style.opacity = _alpha;
@@ -326,7 +319,6 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
           return;
         }
 
-
         var _width = fromWidth + deltaWidth * idx;
         var _height = fromHeight + deltaHeight * idx;
 
@@ -337,7 +329,13 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
 
         if (me.pinnedAnimationEnabled) {
           //me.targetFrame._setPositionInternally(me._pinX, me._pinY, me._pinAnchor, _width, _height);
-          me.targetFrame._setPositionInternally(_x, _y, me._pinAnchor, _width, _height);
+          me.targetFrame._setPositionInternally(
+            _x,
+            _y,
+            me._pinAnchor,
+            _width,
+            _height,
+          );
         }
 
         if (me.targetFrame.htmlElement.style) {
@@ -348,7 +346,6 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
         me.targetFrame.setSize(_width, _height, true);
 
         if (idx == 0) {
-
           //check window existence
           var wmgr = me.targetFrame.parentCanvas;
           if (wmgr) {
@@ -364,15 +361,13 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
         idx++;
       });
 
-
       timer.startTimer();
     }
 
     if (waitMillis) {
-
       var waiter = new CTimer();
       waiter.setIntervalMillis(waitMillis);
-      waiter.setCallback(function(_timer) {
+      waiter.setCallback(function (_timer) {
         _timer.stopTimer();
 
         loop();
@@ -381,16 +376,12 @@ CSimpleLayoutAnimator.prototype.start = function(waitMillis, requestFocusEnabled
     } else {
       loop();
     }
-
-
   });
-
-};//start
+}; //start
 
 /**
  * end of CSimpleLayoutAnimator class
  */
 //+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-
 
 module.exports = CSimpleLayoutAnimator;

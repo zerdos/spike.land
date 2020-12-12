@@ -5,7 +5,9 @@
   "main": "lib/jsframe.min.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack --config webpack.config.js --mode development",
+    "min": "yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js",
+    "clean": "deno fmt src && rm -rf lib && mkdir lib",
+    "build": "webpack --config webpack.config.js --mode development && yarn min",
     "release": "cross-env NODE_ENV=test webpack --config webpack.config.js --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -37,14 +39,14 @@
     "cross-env": "7.0.3",
     "css-loader": "5.0.1",
     "style-loader": "2.0.0",
-    "webpack": "5.10.0",
+    "webpack": "5.10.1",
     "webpack-cli": "4.2.0",
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
-    "@riversun/event-emitter": "^1.5.0",
-    "esbuild": "^0.8.20",
-    "event-listener-helper": "^1.1.2",
-    "merge-deeply": "^3.0.0"
+    "@riversun/event-emitter": "1.5.0",
+    "esbuild": "0.8.21",
+    "event-listener-helper": "1.1.2",
+    "merge-deeply": "3.0.0"
   }
 }

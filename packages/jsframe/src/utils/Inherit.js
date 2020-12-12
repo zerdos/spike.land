@@ -5,7 +5,6 @@
  * @param baseClass
  */
 function inherit(subClass, baseClass) {
-
   function clazz() {
   }
 
@@ -15,7 +14,6 @@ function inherit(subClass, baseClass) {
   subClass.prototype.constructor = subClass;
   subClass.superConstructor = baseClass;
   subClass.superClass = baseClass.prototype;
-
 }
 
 /**
