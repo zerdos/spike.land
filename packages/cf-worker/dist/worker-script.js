@@ -1356,7 +1356,8 @@ async function handleCloudRequest(request) {
     const myBuffer = await request.arrayBuffer();
     const hash = await arrBuffSha256(myBuffer);
     const smallerKey = hash.substring(0, 8);
-    await SHAKV.put(smallerKey, myBuffer);
+    const shaDB = getDbObj(SHAKV);
+    const result = shaDB.put(smallerKey, myBuffer);
     return json({
       hash: smallerKey,
     });

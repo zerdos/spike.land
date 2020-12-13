@@ -97,8 +97,11 @@ export const getDbObj = (dbPromise, isIdb=false) => {
       } else {
         str = val;
       }
-
+      if (isIdb){
       return (await dbPromise).put("codeStore", str, key);
+      } else {
+        return dbPromise.put(key, str);
+      }
     },
     async delete(key: string) {
       return (await dbPromise).delete("codeStore", key);
