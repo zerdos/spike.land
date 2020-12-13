@@ -105,7 +105,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     const smallerKey = hash.substring(0, 8);
     const shaDB = getDbObj(SHAKV);
-    const result = shaDB.put(smallerKey, myBuffer);
+    const result = await shaDB.put(smallerKey, myBuffer);
 
     return json({
       hash: smallerKey,

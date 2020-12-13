@@ -81,7 +81,7 @@ export const getDbObj = (dbPromise, isIdb = false) => {
             if (prevSha === oldKey) {
               const diffObj = await diff(actualValue, prevValue);
               const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-              (await dbPromise).put("codeStore", diffAsStr, prevSha);
+              dbObj.put(prevSha, diffAsStr);
             }
           }
         }
