@@ -81,8 +81,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (maybeRoute) {
       const shaDB = getDbObj(SHAKV);
       const result = shaDB.get(maybeRoute);
-      if (result !== null) {        
-        return text( await result);
+      if (result !== null) {
+        return text(await result);
       }
     }
     return Response.redirect("https://zed.vision/code", 301);

@@ -1159,7 +1159,7 @@ export const getDbObj = (dbPromise, isIdb = false) => {
       if (isIdb) {
         return (await dbPromise).put("codeStore", str, key);
       } else {
-        return dbPromise.put(key, str);
+        return await dbPromise.put(key, str);
       }
     },
     async delete(key) {

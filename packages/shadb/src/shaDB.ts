@@ -20,7 +20,7 @@ export const getDB = () => {
   return getDbObj(dbPromise, true);
 };
 
-export const getDbObj = (dbPromise, isIdb=false) => {
+export const getDbObj = (dbPromise, isIdb = false) => {
   const dbObj = {
     async get(
       key: string,
@@ -28,7 +28,7 @@ export const getDbObj = (dbPromise, isIdb=false) => {
     ): Promise<string | unknown | null> {
       let data;
       try {
-        if (isIdb){
+        if (isIdb) {
           data = await (await dbPromise).get("codeStore", key);
         } else {
           data = await dbPromise.get(key);
@@ -97,10 +97,10 @@ export const getDbObj = (dbPromise, isIdb=false) => {
       } else {
         str = val;
       }
-      if (isIdb){
-      return (await dbPromise).put("codeStore", str, key);
+      if (isIdb) {
+        return (await dbPromise).put("codeStore", str, key);
       } else {
-        return dbPromise.put(key, str);
+        return await dbPromise.put(key, str);
       }
     },
     async delete(key: string) {
@@ -114,4 +114,4 @@ export const getDbObj = (dbPromise, isIdb=false) => {
     },
   };
   return dbObj;
-}
+};

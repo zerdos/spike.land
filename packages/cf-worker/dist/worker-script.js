@@ -6,19 +6,19 @@ async function arrBuffSha256(msgBuffer) {
   );
   return hashHex;
 }
-(function (i, u) {
+(function (i, a) {
   typeof exports == "object" && typeof module != "undefined"
-    ? u(exports)
+    ? a(exports)
     : typeof define == "function" && define.amd
     ? define([
       "exports",
-    ], u)
-    : (i = i || self, u(i.Diff = {}));
+    ], a)
+    : (i = i || self, a(i.Diff = {}));
 })(this, function (i) {
   "use strict";
-  function u() {
+  function a() {
   }
-  u.prototype = {
+  a.prototype = {
     diff: function (e, n) {
       var t = arguments.length > 2 && arguments[2] !== void 0
           ? arguments[2]
@@ -38,18 +38,18 @@ async function arrBuffSha256(msgBuffer) {
         n = this.castInput(n),
         e = this.removeEmpty(this.tokenize(e)),
         n = this.removeEmpty(this.tokenize(n));
-      var a = n.length,
+      var u = n.length,
         l = e.length,
         c = 1,
-        d = a + l,
-        v = [
+        d = u + l,
+        m = [
           {
             newPos: -1,
             components: [],
           },
         ],
-        x = this.extractCommon(v[0], n, e, 0);
-      if (v[0].newPos + 1 >= a && x + 1 >= l) {
+        x = this.extractCommon(m[0], n, e, 0);
+      if (m[0].newPos + 1 >= u && x + 1 >= l) {
         return o([
           {
             value: this.join(n),
@@ -60,13 +60,13 @@ async function arrBuffSha256(msgBuffer) {
       function h() {
         for (var y = -1 * c; y <= c; y += 2) {
           var S = void 0,
-            E = v[y - 1],
-            k = v[y + 1],
+            E = m[y - 1],
+            k = m[y + 1],
             N = (k ? k.newPos : 0) - y;
-          E && (v[y - 1] = void 0);
-          var D = E && E.newPos + 1 < a, O = k && 0 <= N && N < l;
+          E && (m[y - 1] = void 0);
+          var D = E && E.newPos + 1 < u, O = k && 0 <= N && N < l;
           if (!D && !O) {
-            v[y] = void 0;
+            m[y] = void 0;
             continue;
           }
           if (
@@ -74,11 +74,11 @@ async function arrBuffSha256(msgBuffer) {
               ? (S = g(k), s.pushComponent(S.components, void 0, !0))
               : (S = E, S.newPos++, s.pushComponent(S.components, !0, void 0)),
               N = s.extractCommon(S, n, e, y),
-              S.newPos + 1 >= a && N + 1 >= l
+              S.newPos + 1 >= u && N + 1 >= l
           ) {
             return o(f(s, S.components, n, e, s.useLongestToken));
           }
-          v[y] = S;
+          m[y] = S;
         }
         c++;
       }
@@ -112,15 +112,15 @@ async function arrBuffSha256(msgBuffer) {
     },
     extractCommon: function (e, n, t, r) {
       for (
-        var s = n.length, o = t.length, a = e.newPos, l = a - r, c = 0;
-        a + 1 < s && l + 1 < o && this.equals(n[a + 1], t[l + 1]);
+        var s = n.length, o = t.length, u = e.newPos, l = u - r, c = 0;
+        u + 1 < s && l + 1 < o && this.equals(n[u + 1], t[l + 1]);
       ) {
-        a++, l++, c++;
+        u++, l++, c++;
       }
       return c && e.components.push({
         count: c,
       }),
-        e.newPos = a,
+        e.newPos = u,
         l;
     },
     equals: function (e, n) {
@@ -144,7 +144,7 @@ async function arrBuffSha256(msgBuffer) {
     },
   };
   function f(e, n, t, r, s) {
-    for (var o = 0, a = n.length, l = 0, c = 0; o < a; o++) {
+    for (var o = 0, u = n.length, l = 0, c = 0; o < u; o++) {
       var d = n[o];
       if (d.removed) {
         if (
@@ -152,8 +152,8 @@ async function arrBuffSha256(msgBuffer) {
             c += d.count,
             o && n[o - 1].added)
         ) {
-          var v = n[o - 1];
-          n[o - 1] = n[o], n[o] = v;
+          var m = n[o - 1];
+          n[o - 1] = n[o], n[o] = m;
         }
       } else {
         if (!d.added && s) {
@@ -166,9 +166,9 @@ async function arrBuffSha256(msgBuffer) {
         l += d.count, d.added || (c += d.count);
       }
     }
-    var h = n[a - 1];
-    return (a > 1 && typeof h.value == "string" && (h.added || h.removed) &&
-      e.equals("", h.value) && (n[a - 2].value += h.value, n.pop()),
+    var h = n[u - 1];
+    return (u > 1 && typeof h.value == "string" && (h.added || h.removed) &&
+      e.equals("", h.value) && (n[u - 2].value += h.value, n.pop()),
       n);
   }
   function g(e) {
@@ -177,18 +177,18 @@ async function arrBuffSha256(msgBuffer) {
       components: e.components.slice(0),
     };
   }
-  var p = new u();
+  var p = new a();
   function w(e, n, t) {
     return p.diff(e, n, t);
   }
-  function m(e, n) {
+  function v(e, n) {
     if (typeof e == "function") n.callback = e;
     else if (e) for (var t in e) e.hasOwnProperty(t) && (n[t] = e[t]);
     return n;
   }
   var L = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,
     j = /\S/,
-    F = new u();
+    F = new a();
   F.equals = function (e, n) {
     return this.options.ignoreCase &&
       (e = e.toLowerCase(), n = n.toLowerCase()),
@@ -206,7 +206,7 @@ async function arrBuffSha256(msgBuffer) {
       return n;
     };
   function B(e, n, t) {
-    return (t = m(t, {
+    return (t = v(t, {
       ignoreWhitespace: !0,
     }),
       F.diff(e, n, t));
@@ -214,7 +214,7 @@ async function arrBuffSha256(msgBuffer) {
   function z(e, n, t) {
     return F.diff(e, n, t);
   }
-  var M = new u();
+  var M = new a();
   M.tokenize = function (e) {
     var n = [], t = e.split(/(\n|\r\n)/);
     t[t.length - 1] || t.pop();
@@ -230,19 +230,19 @@ async function arrBuffSha256(msgBuffer) {
     return M.diff(e, n, t);
   }
   function Ae(e, n, t) {
-    var r = m(t, {
+    var r = v(t, {
       ignoreWhitespace: !0,
     });
     return M.diff(e, n, r);
   }
-  var ve = new u();
+  var ve = new a();
   ve.tokenize = function (e) {
     return e.split(/(\S.+?[.!?])(?=\s+|$)/);
   };
   function Be(e, n, t) {
     return ve.diff(e, n, t);
   }
-  var me = new u();
+  var me = new a();
   me.tokenize = function (e) {
     return e.split(/([{}:;,]|\s+)/);
   };
@@ -262,7 +262,7 @@ async function arrBuffSha256(msgBuffer) {
       },
       Z(e));
   }
-  function P(e) {
+  function I(e) {
     return Oe(e) || Te(e) || $e(e) || Je();
   }
   function Oe(e) {
@@ -301,7 +301,7 @@ async function arrBuffSha256(msgBuffer) {
       `Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`,
     );
   }
-  var We = Object.prototype.toString, V = new u();
+  var We = Object.prototype.toString, V = new a();
   V.useLongestToken = !0,
     V.tokenize = M.tokenize,
     V.castInput = function (e) {
@@ -309,8 +309,8 @@ async function arrBuffSha256(msgBuffer) {
         t = n.undefinedReplacement,
         r = n.stringifyReplacer,
         s = r === void 0
-          ? function (o, a) {
-            return typeof a == "undefined" ? t : a;
+          ? function (o, u) {
+            return typeof u == "undefined" ? t : u;
           }
           : r;
       return typeof e == "string"
@@ -318,7 +318,7 @@ async function arrBuffSha256(msgBuffer) {
         : JSON.stringify(_(e, null, null, s), s, "  ");
     },
     V.equals = function (e, n) {
-      return u.prototype.equals.call(
+      return a.prototype.equals.call(
         V,
         e.replace(/,([\r\n])/g, "$1"),
         n.replace(/,([\r\n])/g, "$1"),
@@ -331,28 +331,28 @@ async function arrBuffSha256(msgBuffer) {
     n = n || [], t = t || [], r && (e = r(s, e));
     var o;
     for (o = 0; o < n.length; o += 1) if (n[o] === e) return t[o];
-    var a;
+    var u;
     if (We.call(e) === "[object Array]") {
       for (
-        (n.push(e), a = new Array(e.length), t.push(a), o = 0);
+        (n.push(e), u = new Array(e.length), t.push(u), o = 0);
         o < e.length;
         o += 1
       ) {
-        a[o] = _(e[o], n, t, r, s);
+        u[o] = _(e[o], n, t, r, s);
       }
-      return (n.pop(), t.pop(), a);
+      return (n.pop(), t.pop(), u);
     }
     if ((e && e.toJSON && (e = e.toJSON()), Z(e) === "object" && e !== null)) {
-      n.push(e), a = {}, t.push(a);
+      n.push(e), u = {}, t.push(u);
       var l = [], c;
       for (c in e) e.hasOwnProperty(c) && l.push(c);
       for ((l.sort(), o = 0); o < l.length; o += 1) {c = l[o],
-          a[c] = _(e[c], n, t, r, c);}
+          u[c] = _(e[c], n, t, r, c);}
       n.pop(), t.pop();
-    } else a = e;
-    return a;
+    } else u = e;
+    return u;
   }
-  var G = new u();
+  var G = new a();
   G.tokenize = function (e) {
     return e.slice();
   },
@@ -368,12 +368,12 @@ async function arrBuffSha256(msgBuffer) {
       r = e.match(/\r\n|[\n\v\f\r\x85]/g) || [],
       s = [],
       o = 0;
-    function a() {
+    function u() {
       var d = {};
       for (s.push(d); o < t.length;) {
-        var v = t[o];
-        if (/^(\-\-\-|\+\+\+|@@)\s/.test(v)) break;
-        var x = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(v);
+        var m = t[o];
+        if (/^(\-\-\-|\+\+\+|@@)\s/.test(m)) break;
+        var x = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(m);
         x && (d.index = x[1]), o++;
       }
       for ((l(d), l(d), d.hunks = []); o < t.length;) {
@@ -391,10 +391,10 @@ async function arrBuffSha256(msgBuffer) {
       }
     }
     function l(d) {
-      var v = /^(---|\+\+\+)\s+(.*)$/.exec(t[o]);
-      if (v) {
-        var x = v[1] === "---" ? "old" : "new",
-          h = v[2].split("	", 2),
+      var m = /^(---|\+\+\+)\s+(.*)$/.exec(t[o]);
+      if (m) {
+        var x = m[1] === "---" ? "old" : "new",
+          h = m[2].split("	", 2),
           b = h[0].replace(/\\\\/g, "\\");
         /^".*"$/.test(b) && (b = b.substr(1, b.length - 2)),
           d[x + "FileName"] = b,
@@ -404,8 +404,8 @@ async function arrBuffSha256(msgBuffer) {
     }
     function c() {
       var d = o,
-        v = t[o++],
-        x = v.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),
+        m = t[o++],
+        x = m.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),
         h = {
           oldStart: +x[1],
           oldLines: typeof x[2] == "undefined" ? 1 : +x[2],
@@ -450,17 +450,17 @@ async function arrBuffSha256(msgBuffer) {
       }
       return h;
     }
-    for (; o < t.length;) a();
+    for (; o < t.length;) u();
     return s;
   }
   function Ue(e, n, t) {
-    var r = !0, s = !1, o = !1, a = 1;
+    var r = !0, s = !1, o = !1, u = 1;
     return function l() {
       if (r && !o) {
-        if ((s ? a++ : r = !1, e + a <= t)) return a;
+        if ((s ? u++ : r = !1, e + u <= t)) return u;
         o = !0;
       }
-      if (!s) return (o || (r = !0), n <= e - a ? -a++ : (s = !0, l()));
+      if (!s) return (o || (r = !0), n <= e - u ? -u++ : (s = !0, l()));
     };
   }
   function we(e, n) {
@@ -474,13 +474,13 @@ async function arrBuffSha256(msgBuffer) {
     var r = e.split(/\r\n|[\n\v\f\r\x85]/),
       s = e.match(/\r\n|[\n\v\f\r\x85]/g) || [],
       o = n.hunks,
-      a = t.compareLine || function (ae, K, ee, W) {
+      u = t.compareLine || function (ae, K, ee, W) {
         return K === W;
       },
       l = 0,
       c = t.fuzzFactor || 0,
       d = 0,
-      v = 0,
+      m = 0,
       x,
       h;
     function b(ae, K) {
@@ -489,7 +489,7 @@ async function arrBuffSha256(msgBuffer) {
           ue = W.length > 0 ? W[0] : " ",
           rn = W.length > 0 ? W.substr(1) : W;
         if (ue === " " || ue === "-") {
-          if (!a(K + 1, r[K], ue, rn) && (l++, l > c)) return !1;
+          if (!u(K + 1, r[K], ue, rn) && (l++, l > c)) return !1;
           K++;
         }
       }
@@ -500,13 +500,13 @@ async function arrBuffSha256(msgBuffer) {
         var S = o[y],
           E = r.length - S.oldLines,
           k = 0,
-          N = v + S.oldStart - 1,
+          N = m + S.oldStart - 1,
           D = Ue(N, d, E);
         k !== void 0;
         k = D()
       ) {
         if (b(S, N + k)) {
-          S.offset = v += k;
+          S.offset = m += k;
           break;
         }
       }
@@ -514,18 +514,18 @@ async function arrBuffSha256(msgBuffer) {
       d = S.offset + S.oldStart + S.oldLines;
     }
     for (var O = 0, U = 0; U < o.length; U++) {
-      var H = o[U], C = H.oldStart + H.offset + O - 1;
+      var H = o[U], P = H.oldStart + H.offset + O - 1;
       O += H.newLines - H.oldLines;
-      for (var I = 0; I < H.lines.length; I++) {
-        var A = H.lines[I],
+      for (var C = 0; C < H.lines.length; C++) {
+        var A = H.lines[C],
           J = A.length > 0 ? A[0] : " ",
           se = A.length > 0 ? A.substr(1) : A,
-          Q = H.linedelimiters[I];
-        if (J === " ") C++;
-        else if (J === "-") r.splice(C, 1), s.splice(C, 1);
-        else if (J === "+") r.splice(C, 0, se), s.splice(C, 0, Q), C++;
+          Q = H.linedelimiters[C];
+        if (J === " ") P++;
+        else if (J === "-") r.splice(P, 1), s.splice(P, 1);
+        else if (J === "+") r.splice(P, 0, se), s.splice(P, 0, Q), P++;
         else if (J === "\\") {
-          var Y = H.lines[I - 1] ? H.lines[I - 1][0] : null;
+          var Y = H.lines[C - 1] ? H.lines[C - 1][0] : null;
           Y === "+" ? x = !0 : Y === "-" && (h = !0);
         }
       }
@@ -541,9 +541,9 @@ async function arrBuffSha256(msgBuffer) {
     function r() {
       var s = e[t++];
       if (!s) return n.complete();
-      n.loadFile(s, function (o, a) {
+      n.loadFile(s, function (o, u) {
         if (o) return n.complete(o);
-        var l = we(a, s, n);
+        var l = we(u, s, n);
         n.patched(s, l, function (c) {
           if (c) return n.complete(c);
           r();
@@ -552,9 +552,9 @@ async function arrBuffSha256(msgBuffer) {
     }
     r();
   }
-  function te(e, n, t, r, s, o, a) {
-    a || (a = {}), typeof a.context == "undefined" && (a.context = 4);
-    var l = ge(t, r, a);
+  function te(e, n, t, r, s, o, u) {
+    u || (u = {}), typeof u.context == "undefined" && (u.context = 4);
+    var l = ge(t, r, u);
     l.push({
       value: "",
       lines: [],
@@ -566,7 +566,7 @@ async function arrBuffSha256(msgBuffer) {
     }
     for (
       var d = [],
-        v = 0,
+        m = 0,
         x = 0,
         h = [],
         b = 1,
@@ -575,37 +575,37 @@ async function arrBuffSha256(msgBuffer) {
           var N = l[k], D = N.lines || N.value.replace(/\n$/, "").split(`\n`);
           if ((N.lines = D, N.added || N.removed)) {
             var O;
-            if (!v) {
+            if (!m) {
               var U = l[k - 1];
-              v = b,
+              m = b,
                 x = y,
                 U &&
-                (h = a.context > 0 ? c(U.lines.slice(-a.context)) : [],
-                  v -= h.length,
+                (h = u.context > 0 ? c(U.lines.slice(-u.context)) : [],
+                  m -= h.length,
                   x -= h.length);
             }
             (O = h).push.apply(
               O,
-              P(D.map(function (Y) {
+              I(D.map(function (Y) {
                 return (N.added ? "+" : "-") + Y;
               })),
             ), N.added ? y += D.length : b += D.length;
           } else {
-            if (v) {
-              if (D.length <= a.context * 2 && k < l.length - 2) {
+            if (m) {
+              if (D.length <= u.context * 2 && k < l.length - 2) {
                 var H;
-                (H = h).push.apply(H, P(c(D)));
+                (H = h).push.apply(H, I(c(D)));
               } else {
-                var C, I = Math.min(D.length, a.context);
-                (C = h).push.apply(C, P(c(D.slice(0, I))));
+                var P, C = Math.min(D.length, u.context);
+                (P = h).push.apply(P, I(c(D.slice(0, C))));
                 var A = {
-                  oldStart: v,
-                  oldLines: b - v + I,
+                  oldStart: m,
+                  oldLines: b - m + C,
                   newStart: x,
-                  newLines: y - x + I,
+                  newLines: y - x + C,
                   lines: h,
                 };
-                if (k >= l.length - 2 && D.length <= a.context) {
+                if (k >= l.length - 2 && D.length <= u.context) {
                   var J = /\n$/.test(t),
                     se = /\n$/.test(r),
                     Q = D.length == 0 && h.length > A.oldLines;
@@ -613,7 +613,7 @@ async function arrBuffSha256(msgBuffer) {
                   h.splice(A.oldLines, 0, "\\ No newline at end of file"),
                     (!J && !Q || !se) && h.push("\\ No newline at end of file");
                 }
-                d.push(A), v = 0, x = 0, h = [];
+                d.push(A), m = 0, x = 0, h = [];
               }
             }
             b += D.length, y += D.length;
@@ -661,8 +661,8 @@ async function arrBuffSha256(msgBuffer) {
     }
     return n.join(`\n`) + `\n`;
   }
-  function ye(e, n, t, r, s, o, a) {
-    return Ke(te(e, n, t, r, s, o, a));
+  function ye(e, n, t, r, s, o, u) {
+    return Ke(te(e, n, t, r, s, o, u));
   }
   function Ze(e, n, t, r, s, o) {
     return ye(e, e, n, t, r, s, o);
@@ -701,7 +701,7 @@ async function arrBuffSha256(msgBuffer) {
           r.newHeader = n.newHeader || e.newHeader)),
       r.hunks = [];
     for (
-      var s = 0, o = 0, a = 0, l = 0; s < e.hunks.length || o < n.hunks.length;
+      var s = 0, o = 0, u = 0, l = 0; s < e.hunks.length || o < n.hunks.length;
     ) {
       var c = e.hunks[s] || {
           oldStart: Infinity,
@@ -709,21 +709,21 @@ async function arrBuffSha256(msgBuffer) {
         d = n.hunks[o] || {
           oldStart: Infinity,
         };
-      if (be(c, d)) r.hunks.push(Le(c, a)), s++, l += c.newLines - c.oldLines;
+      if (be(c, d)) r.hunks.push(Le(c, u)), s++, l += c.newLines - c.oldLines;
       else if (be(d, c)) {
-        r.hunks.push(Le(d, l)), o++, a += d.newLines - d.oldLines;
+        r.hunks.push(Le(d, l)), o++, u += d.newLines - d.oldLines;
       } else {
-        var v = {
+        var m = {
           oldStart: Math.min(c.oldStart, d.oldStart),
           oldLines: 0,
-          newStart: Math.min(c.newStart + a, d.oldStart + l),
+          newStart: Math.min(c.newStart + u, d.oldStart + l),
           newLines: 0,
           lines: [],
         };
-        qe(v, c.oldStart, c.lines, d.oldStart, d.lines),
+        qe(m, c.oldStart, c.lines, d.oldStart, d.lines),
           o++,
           s++,
-          r.hunks.push(v);
+          r.hunks.push(m);
       }
     }
     return r;
@@ -765,51 +765,51 @@ async function arrBuffSha256(msgBuffer) {
         lines: t,
         index: 0,
       },
-      a = {
+      u = {
         offset: r,
         lines: s,
         index: 0,
       };
     for (
-      (Ne(e, o, a), Ne(e, a, o));
-      o.index < o.lines.length && a.index < a.lines.length;
+      (Ne(e, o, u), Ne(e, u, o));
+      o.index < o.lines.length && u.index < u.lines.length;
     ) {
-      var l = o.lines[o.index], c = a.lines[a.index];
+      var l = o.lines[o.index], c = u.lines[u.index];
       if ((l[0] === "-" || l[0] === "+") && (c[0] === "-" || c[0] === "+")) {
-        Qe(e, o, a);
+        Qe(e, o, u);
       } else if (l[0] === "+" && c[0] === " ") {
         var d;
-        (d = e.lines).push.apply(d, P($(o)));
+        (d = e.lines).push.apply(d, I($(o)));
       } else if (c[0] === "+" && l[0] === " ") {
-        var v;
-        (v = e.lines).push.apply(v, P($(a)));
+        var m;
+        (m = e.lines).push.apply(m, I($(u)));
       } else {
         l[0] === "-" && c[0] === " "
-          ? ke(e, o, a)
+          ? ke(e, o, u)
           : c[0] === "-" && l[0] === " "
-          ? ke(e, a, o, !0)
+          ? ke(e, u, o, !0)
           : l === c
-          ? (e.lines.push(l), o.index++, a.index++)
-          : ie(e, $(o), $(a));
+          ? (e.lines.push(l), o.index++, u.index++)
+          : ie(e, $(o), $(u));
       }
     }
-    De(e, o), De(e, a), Ge(e);
+    De(e, o), De(e, u), Ge(e);
   }
   function Qe(e, n, t) {
     var r = $(n), s = $(t);
     if (je(r) && je(s)) {
       if (re(r, s) && Fe(t, r, r.length - s.length)) {
         var o;
-        (o = e.lines).push.apply(o, P(r));
+        (o = e.lines).push.apply(o, I(r));
         return;
       } else if (re(s, r) && Fe(n, s, s.length - r.length)) {
-        var a;
-        (a = e.lines).push.apply(a, P(s));
+        var u;
+        (u = e.lines).push.apply(u, I(s));
         return;
       }
     } else if (_e(r, s)) {
       var l;
-      (l = e.lines).push.apply(l, P(r));
+      (l = e.lines).push.apply(l, I(r));
       return;
     }
     ie(e, r, s);
@@ -817,8 +817,8 @@ async function arrBuffSha256(msgBuffer) {
   function ke(e, n, t, r) {
     var s = $(n), o = Ye(t, s);
     if (o.merged) {
-      var a;
-      (a = e.lines).push.apply(a, P(o.merged));
+      var u;
+      (u = e.lines).push.apply(u, I(o.merged));
     } else ie(e, r ? o : s, r ? s : o);
   }
   function ie(e, n, t) {
@@ -852,19 +852,19 @@ async function arrBuffSha256(msgBuffer) {
   }
   function Ye(e, n) {
     for (
-      var t = [], r = [], s = 0, o = !1, a = !1;
+      var t = [], r = [], s = 0, o = !1, u = !1;
       s < n.length && e.index < e.lines.length;
     ) {
       var l = e.lines[e.index], c = n[s];
       if (c[0] === "+") break;
       if ((o = o || l[0] !== " ", r.push(c), s++, l[0] === "+")) {
-        for (a = !0; l[0] === "+";) {
+        for (u = !0; l[0] === "+";) {
           t.push(l), l = e.lines[++e.index];
         }
       }
-      c.substr(1) === l.substr(1) ? (t.push(l), e.index++) : a = !0;
+      c.substr(1) === l.substr(1) ? (t.push(l), e.index++) : u = !0;
     }
-    if (((n[s] || "")[0] === "+" && o && (a = !0), a)) return t;
+    if (((n[s] || "")[0] === "+" && o && (u = !0), u)) return t;
     for (; s < n.length;) r.push(n[s++]);
     return {
       merged: r,
@@ -930,7 +930,7 @@ async function arrBuffSha256(msgBuffer) {
       n = n.replace(/"/g, "&quot;"),
       n);
   }
-  i.Diff = u,
+  i.Diff = a,
     i.applyPatch = we,
     i.applyPatches = Re,
     i.canonicalize = _,
@@ -955,18 +955,18 @@ async function arrBuffSha256(msgBuffer) {
     });
 });
 async function on(i) {
-  const u = await crypto.subtle.digest("SHA-256", i),
-    f = Array.from(new Uint8Array(u)),
+  const a = await crypto.subtle.digest("SHA-256", i),
+    f = Array.from(new Uint8Array(a)),
     g = f.map((p) => ("00" + p.toString(16)).slice(-2)).join("");
   return g;
 }
 const sn = (i) => {
     if (i.length < 10) return !1;
-    const u = [
+    const a = [
         ...i.slice(0, 8),
       ].filter((g) => g < "0" || g > "f").length === 0,
       f = i.slice(8);
-    if (u && f[0] === "[" && f[f.length - 1] === "]") {
+    if (a && f[0] === "[" && f[f.length - 1] === "]") {
       try {
         return JSON.parse(f).length > 1;
       } catch {
@@ -975,29 +975,29 @@ const sn = (i) => {
     }
     return !1;
   },
-  an = (i, u) => {
-    const f = JSON.parse(u);
+  an = (i, a) => {
+    const f = JSON.parse(a);
     let g = i.slice(), p = "";
     return f.forEach((w) => {
       if (Number(w) === w) {
-        const m = Math.abs(w), L = g.slice(0, m);
-        g = g.slice(m), w > 0 && (p += String(L));
+        const v = Math.abs(w), L = g.slice(0, v);
+        g = g.slice(v), w > 0 && (p += String(L));
       } else p += String(w);
     }),
       p;
   };
 async function un(i) {
-  const u = new TextEncoder().encode(i), f = await on(u);
+  const a = new TextEncoder().encode(i), f = await on(a);
   return f.substr(0, 8);
 }
-const ln = async (i, u) => {
-    const f = un(i), g = Diff.diffChars(i, u);
+const ln = async (i, a) => {
+    const f = un(i), g = Diff.diffChars(i, a);
     return {
       b: await f,
       c: g.map((p) => p.added ? p.value : p.removed ? -p.count : p.count),
     };
   },
-  fn = (i, u) => u.some((f) => i instanceof f);
+  fn = (i, a) => a.some((f) => i instanceof f);
 let He, Ee;
 function cn() {
   return He || (He = [
@@ -1015,30 +1015,30 @@ function dn() {
     IDBCursor.prototype.continuePrimaryKey,
   ]);
 }
-const Ie = new WeakMap(),
+const Ce = new WeakMap(),
   le = new WeakMap(),
-  Pe = new WeakMap(),
+  Ie = new WeakMap(),
   fe = new WeakMap(),
   ce = new WeakMap();
 function hn(i) {
   if (le.has(i)) return;
-  const u = new Promise((f, g) => {
+  const a = new Promise((f, g) => {
     const p = () => {
         i.removeEventListener("complete", w),
-          i.removeEventListener("error", m),
-          i.removeEventListener("abort", m);
+          i.removeEventListener("error", v),
+          i.removeEventListener("abort", v);
       },
       w = () => {
         f(), p();
       },
-      m = () => {
+      v = () => {
         g(i.error || new DOMException("AbortError", "AbortError")), p();
       };
     i.addEventListener("complete", w),
-      i.addEventListener("error", m),
-      i.addEventListener("abort", m);
+      i.addEventListener("error", v),
+      i.addEventListener("abort", v);
   });
-  le.set(i, u);
+  le.set(i, a);
 }
 const de = (i) => ce.get(i),
   pn = [
@@ -1055,59 +1055,59 @@ const de = (i) => ce.get(i),
     "clear",
   ],
   he = new Map();
-function Ce(i, u) {
-  if (!(i instanceof IDBDatabase && !(u in i) && typeof u == "string")) return;
-  if (he.get(u)) return he.get(u);
-  const f = u.replace(/FromIndex$/, ""), g = u !== f, p = gn.includes(f);
+function Pe(i, a) {
+  if (!(i instanceof IDBDatabase && !(a in i) && typeof a == "string")) return;
+  if (he.get(a)) return he.get(a);
+  const f = a.replace(/FromIndex$/, ""), g = a !== f, p = gn.includes(f);
   if (
     !(f in (g ? IDBIndex : IDBObjectStore).prototype) || !(p || pn.includes(f))
   ) {
     return;
   }
-  const w = async function (m, ...L) {
-    const j = this.transaction(m, p ? "readwrite" : "readonly");
+  const w = async function (v, ...L) {
+    const j = this.transaction(v, p ? "readwrite" : "readonly");
     let F = j.store;
     g && (F = F.index(L.shift()));
     const B = await F[f](...L);
     return (p && await j.done, B);
   };
-  return he.set(u, w), w;
+  return he.set(a, w), w;
 }
 async function vn(i) {
-  const u = await crypto.subtle.digest("SHA-256", i),
-    f = Array.from(new Uint8Array(u)),
+  const a = await crypto.subtle.digest("SHA-256", i),
+    f = Array.from(new Uint8Array(a)),
     g = f.map((p) => ("00" + p.toString(16)).slice(-2)).join("");
   return g;
 }
 async function mn(i) {
-  const u = new TextEncoder().encode(i), f = await vn(u);
+  const a = new TextEncoder().encode(i), f = await vn(a);
   return f.substr(0, 8);
 }
-const getDbObj = (i, u = !1) => {
+const getDbObj = (i, a = !1) => {
   const f = {
     async get(g, p = "string") {
       let w;
       try {
         if (
-          (u ? w = await (await i).get("codeStore", g) : w = await i.get(g), !w)
+          (a ? w = await (await i).get("codeStore", g) : w = await i.get(g), !w)
         ) {
           return null;
         }
-      } catch (m) {
+      } catch (v) {
         return null;
       }
       if (p === "json") return JSON.parse(w);
       if (p === "string") {
-        const m = await w;
-        if (typeof m == "string" && p === "string") {
-          const F = m;
-          if (sn(m)) {
-            const B = m.slice(0, 8), z = m.slice(8), M = await f.get(B);
+        const v = await w;
+        if (typeof v == "string" && p === "string") {
+          const F = v;
+          if (sn(v)) {
+            const B = v.slice(0, 8), z = v.slice(8), M = await f.get(B);
             return an(M, z);
           }
-          return m;
+          return v;
         }
-        const L = new TextDecoder(), j = L.decode(m);
+        const L = new TextDecoder(), j = L.decode(v);
         return j;
       }
       return w;
@@ -1133,9 +1133,9 @@ const getDbObj = (i, u = !1) => {
         w = "";
       }
       if (w !== "" && p === w) return p;
-      let m;
-      return (typeof p != "string" ? m = new TextDecoder().decode(p) : m = p,
-        (await i).put("codeStore", m, g));
+      let v;
+      return (typeof p != "string" ? v = new TextDecoder().decode(p) : v = p,
+        a ? (await i).put("codeStore", v, g) : i.put(g, v));
     },
     async delete(g) {
       return (await i).delete("codeStore", g);
@@ -1372,46 +1372,46 @@ addEventListener("fetch", (event) => {
   }
 });
 function wn(i1) {
-  const u = new Promise((f, g) => {
+  const a = new Promise((f, g) => {
     const p = () => {
         i1.removeEventListener("success", w),
-          i1.removeEventListener("error", m);
+          i1.removeEventListener("error", v);
       },
       w = () => {
         f(T(i1.result)), p();
       },
-      m = () => {
+      v = () => {
         g(i1.error), p();
       };
-    i1.addEventListener("success", w), i1.addEventListener("error", m);
+    i1.addEventListener("success", w), i1.addEventListener("error", v);
   });
-  return u.then((f) => {
-    f instanceof IDBCursor && Ie.set(f, i1);
+  return a.then((f) => {
+    f instanceof IDBCursor && Ce.set(f, i1);
   }).catch(() => {
   }),
-    ce.set(u, i1),
-    u;
+    ce.set(a, i1),
+    a;
 }
 let pe = {
-  get(i, u, f) {
+  get(i, a, f) {
     if (i instanceof IDBTransaction) {
-      if (u === "done") return le.get(i);
-      if (u === "objectStoreNames") return i.objectStoreNames || Pe.get(i);
-      if (u === "store") {
+      if (a === "done") return le.get(i);
+      if (a === "objectStoreNames") return i.objectStoreNames || Ie.get(i);
+      if (a === "store") {
         return f.objectStoreNames[1]
           ? void 0
           : f.objectStore(f.objectStoreNames[0]);
       }
     }
-    return T(i[u]);
+    return T(i[a]);
   },
-  set(i, u, f) {
-    return (i[u] = f, !0);
+  set(i, a, f) {
+    return (i[a] = f, !0);
   },
-  has(i, u) {
-    return i instanceof IDBTransaction && (u === "done" || u === "store")
+  has(i, a) {
+    return i instanceof IDBTransaction && (a === "done" || a === "store")
       ? !0
-      : u in i;
+      : a in i;
   },
 };
 function yn(i2) {
@@ -1420,22 +1420,22 @@ function yn(i2) {
 function Sn(i2) {
   return i2 === IDBDatabase.prototype.transaction &&
       !("objectStoreNames" in IDBTransaction.prototype)
-    ? function (u, ...f) {
-      const g = i2.call(de(this), u, ...f);
-      return Pe.set(
+    ? function (a, ...f) {
+      const g = i2.call(de(this), a, ...f);
+      return Ie.set(
         g,
-        u.sort ? u.sort() : [
-          u,
+        a.sort ? a.sort() : [
+          a,
         ],
       ),
         T(g);
     }
     : dn().includes(i2)
-    ? function (...u) {
-      return i2.apply(de(this), u), T(Ie.get(this));
+    ? function (...a) {
+      return i2.apply(de(this), a), T(Ce.get(this));
     }
-    : function (...u) {
-      return T(i2.apply(de(this), u));
+    : function (...a) {
+      return T(i2.apply(de(this), a));
     };
 }
 function xn(i2) {
@@ -1447,19 +1447,19 @@ function xn(i2) {
 function T(i2) {
   if (i2 instanceof IDBRequest) return wn(i2);
   if (fe.has(i2)) return fe.get(i2);
-  const u = xn(i2);
-  return u !== i2 && (fe.set(i2, u), ce.set(u, i2)), u;
+  const a = xn(i2);
+  return a !== i2 && (fe.set(i2, a), ce.set(a, i2)), a;
 }
 function bn(
   i2,
-  u,
+  a,
   { blocked: f, upgrade: g, blocking: p, terminated: w } = {},
 ) {
-  const m = indexedDB.open(i2, u), L = T(m);
-  return g && m.addEventListener("upgradeneeded", (j) => {
-    g(T(m.result), j.oldVersion, j.newVersion, T(m.transaction));
+  const v = indexedDB.open(i2, a), L = T(v);
+  return g && v.addEventListener("upgradeneeded", (j) => {
+    g(T(v.result), j.oldVersion, j.newVersion, T(v.transaction));
   }),
-    f && m.addEventListener("blocked", () => f()),
+    f && v.addEventListener("blocked", () => f()),
     L.then((j) => {
       w && j.addEventListener("close", () => w()),
         p && j.addEventListener("versionchange", () => p());
@@ -1469,6 +1469,6 @@ function bn(
 }
 yn((i2) => ({
   ...i2,
-  get: (u, f, g) => Ce(u, f) || i2.get(u, f, g),
-  has: (u, f) => !!Ce(u, f) || i2.has(u, f),
+  get: (a, f, g) => Pe(a, f) || i2.get(a, f, g),
+  has: (a, f) => !!Pe(a, f) || i2.has(a, f),
 }));

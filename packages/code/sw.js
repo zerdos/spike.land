@@ -793,6 +793,85 @@ async function sha256(message) {
     const hashHex = await arrBuffSha256(msgBuffer);
     return hashHex.substr(0, 8);
 }
+const getDbObj = (dbPromise, isIdb = false)=>{
+    const dbObj = {
+        async get (key, format = "string") {
+            let data;
+            try {
+                if (isIdb) {
+                    data = await (await dbPromise).get("codeStore", key);
+                } else {
+                    data = await dbPromise.get(key);
+                }
+                if (!data) return null;
+            } catch (_) {
+                return null;
+            }
+            if (format === "json") {
+                return JSON.parse(data);
+            }
+            if (format === "string") {
+                const allData = await data;
+                if (typeof allData === "string" && format === "string") {
+                    const text = allData;
+                    if (isDiff(allData)) {
+                        const keyOfDiff = allData.slice(0, 8);
+                        const instructions = allData.slice(8);
+                        const oldValue = await dbObj.get(keyOfDiff);
+                        return assemble(oldValue, instructions);
+                    }
+                    return allData;
+                }
+                const decoder = new TextDecoder();
+                const text = decoder.decode(allData);
+                return text;
+            }
+            return data;
+        },
+        async put (key, val) {
+            let prev;
+            try {
+                const oldKey = await dbObj.get(key);
+                if (typeof oldKey === "string" && typeof val === "string" && oldKey.length === 8 && oldKey !== val) {
+                    const actualValue = await dbObj.get(val);
+                    const prevValue = await dbObj.get(oldKey);
+                    if (typeof prevValue === "string") {
+                        const prevSha = await sha256(prevValue);
+                        if (prevSha === oldKey) {
+                            const diffObj = await diff(actualValue, prevValue);
+                            const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+                            (await dbPromise).put("codeStore", diffAsStr, prevSha);
+                        }
+                    }
+                }
+            } catch  {
+                prev = "";
+            }
+            if (prev !== "" && val === prev) return val;
+            let str;
+            if (typeof val !== "string") {
+                str = new TextDecoder().decode(val);
+            } else {
+                str = val;
+            }
+            if (isIdb) {
+                return (await dbPromise).put("codeStore", str, key);
+            } else {
+                return await dbPromise.put(key, str);
+            }
+        },
+        async delete (key) {
+            return (await dbPromise).delete("codeStore", key);
+        },
+        async clear () {
+            return (await dbPromise).clear("codeStore");
+        },
+        async keys () {
+            return (await dbPromise).getAllKeys("codeStore");
+        }
+    };
+    return dbObj;
+};
 function promisifyRequest(request) {
     const promise = new Promise((resolve, reject)=>{
         const unlisten = ()=>{
@@ -921,75 +1000,7 @@ const getDB = ()=>{
         terminated () {
         }
     });
-    const dbObj = {
-        async get (key, format = "string") {
-            let data;
-            try {
-                data = await (await dbPromise).get("codeStore", key);
-                if (!data) return null;
-            } catch (_) {
-                return null;
-            }
-            if (format === "json") {
-                return JSON.parse(data);
-            }
-            if (format === "string") {
-                const allData = await data;
-                if (typeof allData === "string" && format === "string") {
-                    const text = allData;
-                    if (isDiff(allData)) {
-                        const keyOfDiff = allData.slice(0, 8);
-                        const instructions = allData.slice(8);
-                        const oldValue = await dbObj.get(keyOfDiff);
-                        return assemble(oldValue, instructions);
-                    }
-                    return allData;
-                }
-                const decoder = new TextDecoder();
-                const text = decoder.decode(allData);
-                return text;
-            }
-            return data;
-        },
-        async put (key, val) {
-            let prev;
-            try {
-                const oldKey = await dbObj.get(key);
-                if (typeof oldKey === "string" && typeof val === "string" && oldKey.length === 8 && oldKey !== val) {
-                    const actualValue = await dbObj.get(val);
-                    const prevValue = await dbObj.get(oldKey);
-                    if (typeof prevValue === "string") {
-                        const prevSha = await sha256(prevValue);
-                        if (prevSha === oldKey) {
-                            const diffObj = await diff(actualValue, prevValue);
-                            const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-                            (await dbPromise).put("codeStore", diffAsStr, prevSha);
-                        }
-                    }
-                }
-            } catch  {
-                prev = "";
-            }
-            if (prev !== "" && val === prev) return val;
-            let str;
-            if (typeof val !== "string") {
-                str = new TextDecoder().decode(val);
-            } else {
-                str = val;
-            }
-            return (await dbPromise).put("codeStore", str, key);
-        },
-        async delete (key) {
-            return (await dbPromise).delete("codeStore", key);
-        },
-        async clear () {
-            return (await dbPromise).clear("codeStore");
-        },
-        async keys () {
-            return (await dbPromise).getAllKeys("codeStore");
-        }
-    };
-    return dbObj;
+    return getDbObj(dbPromise, true);
 };
 (({ location , caches , addEventListener  })=>{
     var cacheKey = "VERSION-1";
