@@ -1,4 +1,5 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
+import { assemble, diff, isDiff } from "../../diff/dist/diff.min.js";
 import { handleAdmin } from "./admin.ts";
 import { json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
