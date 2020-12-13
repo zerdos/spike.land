@@ -4,6 +4,7 @@
   "port": "6080",
   "testport": "7224",
   "scripts": {
+    "npm:install": "npm install",
     "test": "yarn test:start && yarn test:healthcheck && yarn test:clean",
     "test:clean": "docker kill $npm_package_tagname-$npm_package_version || docker container rm $npm_package_tagname-$npm_package_version  || true £2>/dev/null",
     "test:start": "yarn test:clean && docker run -p 127.0.0.1:$npm_package_testport:$npm_package_port -d --name $npm_package_tagname-$npm_package_version devimages/$npm_package_tagname:$npm_package_version",

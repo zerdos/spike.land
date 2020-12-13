@@ -6,6 +6,7 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
+        "npm:install": "npm install",
         "build": "deno bundle --no-check --unstable --import-map ../../import_map.json src/editor.ts lib/editor.js && yarn min",
         "min": "deno fmt dist && yarn esbuild --minify lib/editor.js --outfile=lib/editor.min.js ",
         "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",

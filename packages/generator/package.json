@@ -9,6 +9,7 @@
   ],
   "main": "lib/src/index.js",
   "scripts": {
+    "npm:install": "npm install",
     "build": "yarn tsc && deno fmt src"
   },
   "publishConfig": {
