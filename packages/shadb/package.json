@@ -7,8 +7,9 @@
     "sideEffects": false,
     "scripts": {
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "build": "deno bundle --import-map ../../import_map.json --no-check --unstable src/shaDB.ts dist/shaDB.js && yarn min",
-        "min": "deno fmt dist && yarn esbuild dist/shaDB.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=dist/shaDB.min.js"
+        "dts": "yarn tsc  -d src/shaDB.ts >/dev/null || echo done  && mv src/shaDB.d.ts dist/  && rm src/shaDB.js",
+        "build": "deno bundle --import-map ../../import_map.json --no-check --unstable src/shaDB.ts dist/shaDB.js && yarn dts && yarn minify",
+        "minify": "deno fmt dist && yarn esbuild dist/shaDB.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=dist/shaDB.min.js"
     },
     "keywords": [
         "diff"

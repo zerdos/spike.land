@@ -29,6 +29,7 @@
     "@emotion/react": "11.1.2",
     "@emotion/styled": "11.0.0",
     "@zedvision/qrious": "^8.4.1",
+    "@zedvision/shadb": "^8.4.1",
     "diff": "5.0.0",
     "framer-motion": "2.9.5",
     "idb": "5.0.8",
