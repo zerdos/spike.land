@@ -1135,7 +1135,7 @@ const getDbObj = (i, a = !1) => {
       if (w !== "" && p === w) return p;
       let v;
       return (typeof p != "string" ? v = new TextDecoder().decode(p) : v = p,
-        a ? (await i).put("codeStore", v, g) : i.put(g, v));
+        a ? (await i).put("codeStore", v, g) : await i.put(g, v));
     },
     async delete(g) {
       return (await i).delete("codeStore", g);
