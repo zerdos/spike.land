@@ -1372,6 +1372,17 @@ const startMonaco = async ({ onChange, code, language }) => {
     );
   }
   const monaco = window["monaco"];
+  let model;
+  try {
+    model = monaco.editor.getModel(modelUri);
+    if (model.getValue() !== code) model.setValue(code);
+  } catch {
+    model = await monaco.editor.createModel(
+      code,
+      language,
+      monaco.Uri.parse(modelUri),
+    );
+  }
   const modules = {
     monaco: monaco,
     editor: monaco.editor.create(window.document.getElementById("container"), {
@@ -1405,8 +1416,7 @@ const startMonaco = async ({ onChange, code, language }) => {
       autoSurround: "languageDefined",
       trimAutoWhitespace: true,
       codeActionsOnSaveTimeout: 100,
-      model: monaco.editor.getModel(modelUri) ||
-        monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri)),
+      model,
       value: code,
       language: language,
       theme: "vs-dark",
@@ -1942,6 +1952,7 @@ export async function run(mode = "window") {
     }
   }
   async function getErrors() {
+    console.log("GET ERRORS");
     if (!modules || !modules.monaco) return;
     const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
     const tsWorker = await modules.monaco.languages.typescript

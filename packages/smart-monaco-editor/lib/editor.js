@@ -68,6 +68,13 @@ export const startMonaco = async ({ onChange , code , language  })=>{
         );
     }
     const monaco = window["monaco"];
+    let model;
+    try {
+        model = monaco.editor.getModel(modelUri);
+        if (model.getValue() !== code) model.setValue(code);
+    } catch  {
+        model = await monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri));
+    }
     const modules = {
         monaco: monaco,
         editor: monaco.editor.create(window.document.getElementById("container"), {
@@ -102,7 +109,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             autoSurround: "languageDefined",
             trimAutoWhitespace: true,
             codeActionsOnSaveTimeout: 100,
-            model: monaco.editor.getModel(modelUri) || monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri)),
+            model,
             value: code,
             language: language,
             theme: "vs-dark"

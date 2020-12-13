@@ -107,6 +107,22 @@ export const startMonaco: SmartMonaco = async (
 
   const monaco = window["monaco"] as monaco;
 
+  let model;
+  try{
+    model = monaco.editor.getModel(modelUri);
+    if (model.getValue()!==code)
+    model.setValue(code);
+  }
+  catch{
+    model = await monaco.editor.createModel(
+      code,
+      language,
+      monaco.Uri.parse(
+        modelUri,
+      ),
+    )  
+  }
+
   const modules = {
     monaco: monaco,
     editor: monaco.editor.create(
@@ -146,13 +162,7 @@ export const startMonaco: SmartMonaco = async (
         // acceptSuggestionOnCommitCharacter: true,
         trimAutoWhitespace: true,
         codeActionsOnSaveTimeout: 100,
-        model: monaco.editor.getModel(modelUri) || monaco.editor.createModel(
-          code,
-          language,
-          monaco.Uri.parse(
-            modelUri,
-          ),
-        ),
+        model,
         value: code,
         language: language,
         theme: "vs-dark",
