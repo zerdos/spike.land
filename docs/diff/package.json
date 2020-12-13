@@ -29,6 +29,6 @@
     "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
     "dependencies": {
         "diff": "5.0.0",
-        "esbuild": "0.8.21"
+        "esbuild": "0.8.22"
     }
 }
