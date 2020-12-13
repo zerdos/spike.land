@@ -1,1 +1,0 @@
-(this.webpackJsonp=this.webpackJsonp||[]).push([[12],{157:function(e,n,t){"use strict";t.r(n);var l=t(0),a=t(18),c=t(17);n.default=function(){return l.createElement(a.a,null,l.createElement(c.a,{title:"... offline"}),l.createElement("h1",null,"Maybe you are offline"),l.createElement("p",null,"Check your internet connection"))}}}]);
