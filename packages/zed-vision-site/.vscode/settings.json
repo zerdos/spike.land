@@ -39,6 +39,7 @@
   "cSpell.words": [
     "Erdos",
     "Kanye",
+    "SHAKV",
     "Zoltan",
     "ampproject",
     "atrule",
@@ -88,7 +89,7 @@
     "react",
     "react docgen typescript loader",
     "roboto",
-    "SHAKV",
+    "shadb",
     "synthwave",
     "tabindex",
     "textarea",
@@ -109,6 +110,7 @@
     "workerize",
     "xkcd",
     "xstate",
+    "zedvision",
     "zoli"
   ],
   "typescript.suggest.paths": false,
