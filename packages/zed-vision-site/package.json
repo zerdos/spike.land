@@ -1,11 +1,11 @@
 {
   "name": "@zed-vision/zed-vision-site",
   "scripts": {
-    "build": "gatsby build && cp -ar blog/. public/",
-    "start-https": "yarn gatsby develop",
-    "start": "gatsby develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean && deno fmt src"
+    "build": "yarn gatsby build && cp -ar blog/. public/",
+    "start-https": "yarn yarn gatsby develop",
+    "start": "yarn gatsby develop",
+    "serve": "yarn gatsby serve",
+    "clean": "yarn gatsby clean && deno fmt src"
   },
   "private": true,
   "description": "Zed vision blog",

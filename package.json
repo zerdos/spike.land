@@ -9,6 +9,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "husky install",
     "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev docs",
     "push": "yarn build && git add . && git commit -m pre-release && git push && git pull",
     "release": "cd packages/code && yarn build && cd ../smart-monaco-editor && yarn build && cd ../.. && yarn push && lerna publish patch --yes && yarn push",
@@ -40,6 +41,8 @@
     "uuid": "8.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@cloudflare/workers-types": "2.1.0",
     "@emotion/cache": "11.0.0",
     "@emotion/utils": "1.0.0",
     "@types/prop-types": "15.7.3",
