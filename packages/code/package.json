@@ -30,7 +30,7 @@
     "homepage": "https://code.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "esbuild": "0.8.21"
+        "esbuild": "0.8.22"
     },
     "gitHead": "db133fb2edf1a37f0e340e26d8aa28c8763b93c2",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
