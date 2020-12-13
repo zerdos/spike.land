@@ -294,8 +294,6 @@ export async function run(mode = "window") {
     const searchRegExpExport = /export /gi;
     const replaceWith = "///";
 
-
-
     const code = `
     Object.assign(window, React);
     if (window.Motion) {
@@ -309,7 +307,7 @@ export async function run(mode = "window") {
       searchRegExp,
       replaceWith,
     ).replace("export default", "DefaultElement = ")
-    .replaceAll(searchRegExpExport,"");
+      .replaceAll(searchRegExpExport, "");
 
     const restart = () => {
       const codeToHydrate = mode === "window"
