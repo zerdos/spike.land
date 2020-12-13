@@ -1,5 +1,5 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
-import { getDbObj } from "../../shadb/src/shaDB.ts";
+import { getDbObj } from "../../shadb/src/getDbObj.ts";
 import { handleAdmin } from "./admin.ts";
 import { json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
