@@ -1,10 +1,10 @@
 import { assemble, diff, isDiff } from "../../diff/dist/diff.min.js";
-import {openDB} from "https://unpkg.com/idb@5.0.8/build/esm/index.js" ;
+import { openDB } from "https://unpkg.com/idb@5.0.8/build/esm/index.js";
 import { sha256 } from "../../code/src/sha256.js";
-import {  getDbObj } from "./getDbObj.ts";
+import { getDbObj } from "./getDbObj.ts";
 
-export const getDB =  () => {
-  const dbPromise =  openDB("localZedCodeStore", 1, {
+export const getDB = () => {
+  const dbPromise = openDB("localZedCodeStore", 1, {
     upgrade(db: {
       createObjectStore: (name: string) => void;
     }) {
