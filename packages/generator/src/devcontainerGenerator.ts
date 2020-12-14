@@ -7,6 +7,7 @@ type Base =
   | "disco"
   | "groovy"
   | "focal"
+  | "hirsute"
   | "gitpod/workspace-full";
 type nodeVersion = "lts" | "current";
 
