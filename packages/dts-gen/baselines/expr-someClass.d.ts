@@ -1,11 +1,9 @@
 declare class someClass {
-    constructor(...args: any[]);
+  constructor(...args: any[]);
 
-    prototypeMethod(...args: any[]): void;
+  prototypeMethod(...args: any[]): void;
 
-    static staticMethod(...args: any[]): void;
+  static staticMethod(...args: any[]): void;
 
-    static staticNum: number;
-
+  static staticNum: number;
 }
-

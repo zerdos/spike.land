@@ -1,2 +1,1 @@
 declare const someArray: number[];
-

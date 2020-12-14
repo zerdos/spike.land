@@ -1,5 +1,4 @@
 declare const builtIns: {
-    arr: string[];
-    d: Date;
+  arr: string[];
+  d: Date;
 };
-

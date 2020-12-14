@@ -25,6 +25,33 @@ export function resolve(...args: any[]): void;
 export function toNamespacedPath(...args: any[]): void;
 
 export namespace posix {
+  const delimiter: string;
+
+  const sep: string;
+
+  function basename(...args: any[]): void;
+
+  function dirname(...args: any[]): void;
+
+  function extname(...args: any[]): void;
+
+  function format(p0: any): any;
+
+  function isAbsolute(...args: any[]): void;
+
+  function join(...args: any[]): void;
+
+  function normalize(...args: any[]): void;
+
+  function parse(...args: any[]): void;
+
+  function relative(...args: any[]): void;
+
+  function resolve(...args: any[]): void;
+
+  function toNamespacedPath(...args: any[]): void;
+
+  namespace posix {
     const delimiter: string;
 
     const sep: string;
@@ -52,566 +79,551 @@ export namespace posix {
     function toNamespacedPath(...args: any[]): void;
 
     namespace posix {
-        const delimiter: string;
+      const delimiter: string;
 
-        const sep: string;
+      const sep: string;
 
-        function basename(...args: any[]): void;
+      function basename(...args: any[]): void;
 
-        function dirname(...args: any[]): void;
+      function dirname(...args: any[]): void;
 
-        function extname(...args: any[]): void;
+      function extname(...args: any[]): void;
 
-        function format(p0: any): any;
+      function format(p0: any): any;
 
-        function isAbsolute(...args: any[]): void;
+      function isAbsolute(...args: any[]): void;
 
-        function join(...args: any[]): void;
+      function join(...args: any[]): void;
 
-        function normalize(...args: any[]): void;
+      function normalize(...args: any[]): void;
 
-        function parse(...args: any[]): void;
+      function parse(...args: any[]): void;
 
-        function relative(...args: any[]): void;
+      function relative(...args: any[]): void;
 
-        function resolve(...args: any[]): void;
+      function resolve(...args: any[]): void;
 
-        function toNamespacedPath(...args: any[]): void;
+      function toNamespacedPath(...args: any[]): void;
 
-        namespace posix {
-            const delimiter: string;
+      namespace posix {
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const basename: any;
 
-            const sep: string;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const delimiter: any;
 
-            function basename(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const dirname: any;
 
-            function dirname(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const extname: any;
 
-            function extname(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const format: any;
 
-            function format(p0: any): any;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const isAbsolute: any;
 
-            function isAbsolute(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const join: any;
 
-            function join(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const normalize: any;
 
-            function normalize(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const parse: any;
 
-            function parse(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const posix: any;
 
-            function relative(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const relative: any;
 
-            function resolve(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const resolve: any;
 
-            function toNamespacedPath(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const sep: any;
 
-            namespace posix {
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const basename: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const delimiter: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.posix
+        const win32: any;
+      }
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const dirname: any;
+      namespace win32 {
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const basename: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const extname: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const delimiter: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const format: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const dirname: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const extname: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const join: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const format: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const normalize: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const parse: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const join: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const posix: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const relative: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const parse: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const resolve: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const posix: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const sep: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const relative: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const toNamespacedPath: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.posix.posix.posix.posix
-                const win32: any;
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const sep: any;
 
-            }
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const toNamespacedPath: any;
 
-            namespace win32 {
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const basename: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const delimiter: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const dirname: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const extname: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const format: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const isAbsolute: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const join: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const normalize: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const parse: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const posix: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const relative: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const sep: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.posix.posix.posix.win32
-                const win32: any;
-
-            }
-
-        }
-
-        namespace win32 {
-            const delimiter: string;
-
-            const sep: string;
-
-            function basename(...args: any[]): void;
-
-            function dirname(...args: any[]): void;
-
-            function extname(...args: any[]): void;
-
-            function format(p0: any): any;
-
-            function isAbsolute(...args: any[]): void;
-
-            function join(...args: any[]): void;
-
-            function normalize(...args: any[]): void;
-
-            function parse(...args: any[]): void;
-
-            function relative(...args: any[]): void;
-
-            function resolve(...args: any[]): void;
-
-            function toNamespacedPath(...args: any[]): void;
-
-            namespace posix {
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const basename: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const delimiter: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const dirname: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const extname: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const format: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const isAbsolute: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const join: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const normalize: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const parse: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const posix: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const relative: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const sep: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.posix
-                const win32: any;
-
-            }
-
-            namespace win32 {
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const basename: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const delimiter: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const dirname: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const extname: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const format: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const isAbsolute: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const join: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const normalize: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const parse: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const posix: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const relative: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const sep: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.posix.posix.win32.win32
-                const win32: any;
-
-            }
-
-        }
-
+        // Too-deep object hierarchy from path.posix.posix.posix.win32
+        const win32: any;
+      }
     }
 
     namespace win32 {
-        const delimiter: string;
+      const delimiter: string;
 
-        const sep: string;
+      const sep: string;
 
-        function basename(...args: any[]): void;
+      function basename(...args: any[]): void;
 
-        function dirname(...args: any[]): void;
+      function dirname(...args: any[]): void;
 
-        function extname(...args: any[]): void;
+      function extname(...args: any[]): void;
 
-        function format(p0: any): any;
+      function format(p0: any): any;
 
-        function isAbsolute(...args: any[]): void;
+      function isAbsolute(...args: any[]): void;
 
-        function join(...args: any[]): void;
+      function join(...args: any[]): void;
 
-        function normalize(...args: any[]): void;
+      function normalize(...args: any[]): void;
 
-        function parse(...args: any[]): void;
+      function parse(...args: any[]): void;
 
-        function relative(...args: any[]): void;
+      function relative(...args: any[]): void;
 
-        function resolve(...args: any[]): void;
+      function resolve(...args: any[]): void;
 
-        function toNamespacedPath(...args: any[]): void;
+      function toNamespacedPath(...args: any[]): void;
 
-        namespace posix {
-            const delimiter: string;
+      namespace posix {
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const basename: any;
 
-            const sep: string;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const delimiter: any;
 
-            function basename(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const dirname: any;
 
-            function dirname(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const extname: any;
 
-            function extname(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const format: any;
 
-            function format(p0: any): any;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const isAbsolute: any;
 
-            function isAbsolute(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const join: any;
 
-            function join(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const normalize: any;
 
-            function normalize(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const parse: any;
 
-            function parse(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const posix: any;
 
-            function relative(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const relative: any;
 
-            function resolve(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const resolve: any;
 
-            function toNamespacedPath(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const sep: any;
 
-            namespace posix {
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const basename: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const delimiter: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.posix
+        const win32: any;
+      }
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const dirname: any;
+      namespace win32 {
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const basename: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const extname: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const delimiter: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const format: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const dirname: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const extname: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const join: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const format: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const normalize: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const parse: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const join: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const posix: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const relative: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const parse: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const resolve: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const posix: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const sep: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const relative: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const toNamespacedPath: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.posix
-                const win32: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const sep: any;
 
-            }
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const toNamespacedPath: any;
 
-            namespace win32 {
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const basename: any;
+        // Too-deep object hierarchy from path.posix.posix.win32.win32
+        const win32: any;
+      }
+    }
+  }
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const delimiter: any;
+  namespace win32 {
+    const delimiter: string;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const dirname: any;
+    const sep: string;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const extname: any;
+    function basename(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const format: any;
+    function dirname(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const isAbsolute: any;
+    function extname(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const join: any;
+    function format(p0: any): any;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const normalize: any;
+    function isAbsolute(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const parse: any;
+    function join(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const posix: any;
+    function normalize(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const relative: any;
+    function parse(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const resolve: any;
+    function relative(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const sep: any;
+    function resolve(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const toNamespacedPath: any;
+    function toNamespacedPath(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.posix.win32.posix.win32
-                const win32: any;
+    namespace posix {
+      const delimiter: string;
 
-            }
+      const sep: string;
 
-        }
+      function basename(...args: any[]): void;
 
-        namespace win32 {
-            const delimiter: string;
+      function dirname(...args: any[]): void;
 
-            const sep: string;
+      function extname(...args: any[]): void;
 
-            function basename(...args: any[]): void;
+      function format(p0: any): any;
 
-            function dirname(...args: any[]): void;
+      function isAbsolute(...args: any[]): void;
 
-            function extname(...args: any[]): void;
+      function join(...args: any[]): void;
 
-            function format(p0: any): any;
+      function normalize(...args: any[]): void;
 
-            function isAbsolute(...args: any[]): void;
+      function parse(...args: any[]): void;
 
-            function join(...args: any[]): void;
+      function relative(...args: any[]): void;
 
-            function normalize(...args: any[]): void;
+      function resolve(...args: any[]): void;
 
-            function parse(...args: any[]): void;
+      function toNamespacedPath(...args: any[]): void;
 
-            function relative(...args: any[]): void;
+      namespace posix {
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const basename: any;
 
-            function resolve(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const delimiter: any;
 
-            function toNamespacedPath(...args: any[]): void;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const dirname: any;
 
-            namespace posix {
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const basename: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const extname: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const delimiter: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const format: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const dirname: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const extname: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const join: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const format: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const parse: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const join: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const posix: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const normalize: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const relative: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const parse: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const posix: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const sep: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const relative: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const resolve: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.posix
+        const win32: any;
+      }
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const sep: any;
+      namespace win32 {
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const basename: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const toNamespacedPath: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const delimiter: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.posix
-                const win32: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const dirname: any;
 
-            }
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const extname: any;
 
-            namespace win32 {
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const basename: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const format: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const delimiter: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const dirname: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const join: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const extname: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const format: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const parse: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const posix: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const join: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const relative: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const normalize: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const parse: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const sep: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const posix: any;
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const relative: any;
-
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const sep: any;
-
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.posix.win32.win32.win32
-                const win32: any;
-
-            }
-
-        }
-
+        // Too-deep object hierarchy from path.posix.win32.posix.win32
+        const win32: any;
+      }
     }
 
+    namespace win32 {
+      const delimiter: string;
+
+      const sep: string;
+
+      function basename(...args: any[]): void;
+
+      function dirname(...args: any[]): void;
+
+      function extname(...args: any[]): void;
+
+      function format(p0: any): any;
+
+      function isAbsolute(...args: any[]): void;
+
+      function join(...args: any[]): void;
+
+      function normalize(...args: any[]): void;
+
+      function parse(...args: any[]): void;
+
+      function relative(...args: any[]): void;
+
+      function resolve(...args: any[]): void;
+
+      function toNamespacedPath(...args: any[]): void;
+
+      namespace posix {
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const basename: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const delimiter: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const dirname: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const extname: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const format: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const isAbsolute: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const join: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const normalize: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const parse: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const posix: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const relative: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const resolve: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const sep: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const toNamespacedPath: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.posix
+        const win32: any;
+      }
+
+      namespace win32 {
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const basename: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const delimiter: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const dirname: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const extname: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const format: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const isAbsolute: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const join: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const normalize: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const parse: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const posix: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const relative: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const resolve: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const sep: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const toNamespacedPath: any;
+
+        // Too-deep object hierarchy from path.posix.win32.win32.win32
+        const win32: any;
+      }
+    }
+  }
 }
 
 export namespace win32 {
+  const delimiter: string;
+
+  const sep: string;
+
+  function basename(...args: any[]): void;
+
+  function dirname(...args: any[]): void;
+
+  function extname(...args: any[]): void;
+
+  function format(p0: any): any;
+
+  function isAbsolute(...args: any[]): void;
+
+  function join(...args: any[]): void;
+
+  function normalize(...args: any[]): void;
+
+  function parse(...args: any[]): void;
+
+  function relative(...args: any[]): void;
+
+  function resolve(...args: any[]): void;
+
+  function toNamespacedPath(...args: any[]): void;
+
+  namespace posix {
     const delimiter: string;
 
     const sep: string;
@@ -639,562 +651,519 @@ export namespace win32 {
     function toNamespacedPath(...args: any[]): void;
 
     namespace posix {
-        const delimiter: string;
+      const delimiter: string;
 
-        const sep: string;
+      const sep: string;
 
-        function basename(...args: any[]): void;
+      function basename(...args: any[]): void;
 
-        function dirname(...args: any[]): void;
+      function dirname(...args: any[]): void;
 
-        function extname(...args: any[]): void;
+      function extname(...args: any[]): void;
 
-        function format(p0: any): any;
+      function format(p0: any): any;
 
-        function isAbsolute(...args: any[]): void;
+      function isAbsolute(...args: any[]): void;
 
-        function join(...args: any[]): void;
+      function join(...args: any[]): void;
 
-        function normalize(...args: any[]): void;
+      function normalize(...args: any[]): void;
 
-        function parse(...args: any[]): void;
+      function parse(...args: any[]): void;
 
-        function relative(...args: any[]): void;
+      function relative(...args: any[]): void;
 
-        function resolve(...args: any[]): void;
+      function resolve(...args: any[]): void;
 
-        function toNamespacedPath(...args: any[]): void;
+      function toNamespacedPath(...args: any[]): void;
 
-        namespace posix {
-            const delimiter: string;
+      namespace posix {
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const basename: any;
 
-            const sep: string;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const delimiter: any;
 
-            function basename(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const dirname: any;
 
-            function dirname(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const extname: any;
 
-            function extname(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const format: any;
 
-            function format(p0: any): any;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const isAbsolute: any;
 
-            function isAbsolute(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const join: any;
 
-            function join(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const normalize: any;
 
-            function normalize(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const parse: any;
 
-            function parse(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const posix: any;
 
-            function relative(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const relative: any;
 
-            function resolve(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const resolve: any;
 
-            function toNamespacedPath(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const sep: any;
 
-            namespace posix {
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const basename: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const delimiter: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.posix
+        const win32: any;
+      }
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const dirname: any;
+      namespace win32 {
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const basename: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const extname: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const delimiter: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const format: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const dirname: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const extname: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const join: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const format: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const normalize: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const parse: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const join: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const posix: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const relative: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const parse: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const resolve: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const posix: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const sep: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const relative: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const toNamespacedPath: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.win32.posix.posix.posix
-                const win32: any;
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const sep: any;
 
-            }
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const toNamespacedPath: any;
 
-            namespace win32 {
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const basename: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const delimiter: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const dirname: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const extname: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const format: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const isAbsolute: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const join: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const normalize: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const parse: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const posix: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const relative: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const sep: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.win32.posix.posix.win32
-                const win32: any;
-
-            }
-
-        }
-
-        namespace win32 {
-            const delimiter: string;
-
-            const sep: string;
-
-            function basename(...args: any[]): void;
-
-            function dirname(...args: any[]): void;
-
-            function extname(...args: any[]): void;
-
-            function format(p0: any): any;
-
-            function isAbsolute(...args: any[]): void;
-
-            function join(...args: any[]): void;
-
-            function normalize(...args: any[]): void;
-
-            function parse(...args: any[]): void;
-
-            function relative(...args: any[]): void;
-
-            function resolve(...args: any[]): void;
-
-            function toNamespacedPath(...args: any[]): void;
-
-            namespace posix {
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const basename: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const delimiter: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const dirname: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const extname: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const format: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const isAbsolute: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const join: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const normalize: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const parse: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const posix: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const relative: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const sep: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.posix
-                const win32: any;
-
-            }
-
-            namespace win32 {
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const basename: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const delimiter: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const dirname: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const extname: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const format: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const isAbsolute: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const join: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const normalize: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const parse: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const posix: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const relative: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const sep: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.win32.posix.win32.win32
-                const win32: any;
-
-            }
-
-        }
-
+        // Too-deep object hierarchy from path.win32.posix.posix.win32
+        const win32: any;
+      }
     }
 
     namespace win32 {
-        const delimiter: string;
+      const delimiter: string;
 
-        const sep: string;
+      const sep: string;
 
-        function basename(...args: any[]): void;
+      function basename(...args: any[]): void;
 
-        function dirname(...args: any[]): void;
+      function dirname(...args: any[]): void;
 
-        function extname(...args: any[]): void;
+      function extname(...args: any[]): void;
 
-        function format(p0: any): any;
+      function format(p0: any): any;
 
-        function isAbsolute(...args: any[]): void;
+      function isAbsolute(...args: any[]): void;
 
-        function join(...args: any[]): void;
+      function join(...args: any[]): void;
 
-        function normalize(...args: any[]): void;
+      function normalize(...args: any[]): void;
 
-        function parse(...args: any[]): void;
+      function parse(...args: any[]): void;
 
-        function relative(...args: any[]): void;
+      function relative(...args: any[]): void;
 
-        function resolve(...args: any[]): void;
+      function resolve(...args: any[]): void;
 
-        function toNamespacedPath(...args: any[]): void;
+      function toNamespacedPath(...args: any[]): void;
 
-        namespace posix {
-            const delimiter: string;
+      namespace posix {
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const basename: any;
 
-            const sep: string;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const delimiter: any;
 
-            function basename(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const dirname: any;
 
-            function dirname(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const extname: any;
 
-            function extname(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const format: any;
 
-            function format(p0: any): any;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const isAbsolute: any;
 
-            function isAbsolute(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const join: any;
 
-            function join(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const normalize: any;
 
-            function normalize(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const parse: any;
 
-            function parse(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const posix: any;
 
-            function relative(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const relative: any;
 
-            function resolve(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const resolve: any;
 
-            function toNamespacedPath(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const sep: any;
 
-            namespace posix {
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const basename: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const delimiter: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.posix
+        const win32: any;
+      }
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const dirname: any;
+      namespace win32 {
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const basename: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const extname: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const delimiter: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const format: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const dirname: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const extname: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const join: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const format: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const normalize: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const parse: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const join: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const posix: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const relative: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const parse: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const resolve: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const posix: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const sep: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const relative: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const toNamespacedPath: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.posix
-                const win32: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const sep: any;
 
-            }
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const toNamespacedPath: any;
 
-            namespace win32 {
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const basename: any;
+        // Too-deep object hierarchy from path.win32.posix.win32.win32
+        const win32: any;
+      }
+    }
+  }
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const delimiter: any;
+  namespace win32 {
+    const delimiter: string;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const dirname: any;
+    const sep: string;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const extname: any;
+    function basename(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const format: any;
+    function dirname(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const isAbsolute: any;
+    function extname(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const join: any;
+    function format(p0: any): any;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const normalize: any;
+    function isAbsolute(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const parse: any;
+    function join(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const posix: any;
+    function normalize(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const relative: any;
+    function parse(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const resolve: any;
+    function relative(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const sep: any;
+    function resolve(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const toNamespacedPath: any;
+    function toNamespacedPath(...args: any[]): void;
 
-                // Too-deep object hierarchy from path.win32.win32.posix.win32
-                const win32: any;
+    namespace posix {
+      const delimiter: string;
 
-            }
+      const sep: string;
 
-        }
+      function basename(...args: any[]): void;
 
-        namespace win32 {
-            const delimiter: string;
+      function dirname(...args: any[]): void;
 
-            const sep: string;
+      function extname(...args: any[]): void;
 
-            function basename(...args: any[]): void;
+      function format(p0: any): any;
 
-            function dirname(...args: any[]): void;
+      function isAbsolute(...args: any[]): void;
 
-            function extname(...args: any[]): void;
+      function join(...args: any[]): void;
 
-            function format(p0: any): any;
+      function normalize(...args: any[]): void;
 
-            function isAbsolute(...args: any[]): void;
+      function parse(...args: any[]): void;
 
-            function join(...args: any[]): void;
+      function relative(...args: any[]): void;
 
-            function normalize(...args: any[]): void;
+      function resolve(...args: any[]): void;
 
-            function parse(...args: any[]): void;
+      function toNamespacedPath(...args: any[]): void;
 
-            function relative(...args: any[]): void;
+      namespace posix {
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const basename: any;
 
-            function resolve(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const delimiter: any;
 
-            function toNamespacedPath(...args: any[]): void;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const dirname: any;
 
-            namespace posix {
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const basename: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const extname: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const delimiter: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const format: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const dirname: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const extname: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const join: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const format: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const parse: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const join: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const posix: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const normalize: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const relative: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const parse: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const posix: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const sep: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const relative: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const resolve: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.posix
+        const win32: any;
+      }
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const sep: any;
+      namespace win32 {
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const basename: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const toNamespacedPath: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const delimiter: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.posix
-                const win32: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const dirname: any;
 
-            }
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const extname: any;
 
-            namespace win32 {
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const basename: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const format: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const delimiter: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const isAbsolute: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const dirname: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const join: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const extname: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const normalize: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const format: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const parse: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const isAbsolute: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const posix: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const join: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const relative: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const normalize: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const resolve: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const parse: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const sep: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const posix: any;
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const toNamespacedPath: any;
 
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const relative: any;
-
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const resolve: any;
-
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const sep: any;
-
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const toNamespacedPath: any;
-
-                // Too-deep object hierarchy from path.win32.win32.win32.win32
-                const win32: any;
-
-            }
-
-        }
-
+        // Too-deep object hierarchy from path.win32.win32.posix.win32
+        const win32: any;
+      }
     }
 
-}
+    namespace win32 {
+      const delimiter: string;
 
+      const sep: string;
+
+      function basename(...args: any[]): void;
+
+      function dirname(...args: any[]): void;
+
+      function extname(...args: any[]): void;
+
+      function format(p0: any): any;
+
+      function isAbsolute(...args: any[]): void;
+
+      function join(...args: any[]): void;
+
+      function normalize(...args: any[]): void;
+
+      function parse(...args: any[]): void;
+
+      function relative(...args: any[]): void;
+
+      function resolve(...args: any[]): void;
+
+      function toNamespacedPath(...args: any[]): void;
+
+      namespace posix {
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const basename: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const delimiter: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const dirname: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const extname: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const format: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const isAbsolute: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const join: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const normalize: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const parse: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const posix: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const relative: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const resolve: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const sep: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const toNamespacedPath: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.posix
+        const win32: any;
+      }
+
+      namespace win32 {
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const basename: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const delimiter: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const dirname: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const extname: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const format: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const isAbsolute: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const join: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const normalize: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const parse: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const posix: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const relative: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const resolve: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const sep: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const toNamespacedPath: any;
+
+        // Too-deep object hierarchy from path.win32.win32.win32.win32
+        const win32: any;
+      }
+    }
+  }
+}

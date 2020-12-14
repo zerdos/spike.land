@@ -1,7 +1,6 @@
 declare const badNames: {
-    "  ": number;
-    "*": number;
-    default: boolean;
-    with: number;
+  "  ": number;
+  "*": number;
+  default: boolean;
+  with: number;
 };
-

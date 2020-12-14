@@ -29,7 +29,7 @@ function writeDefinitelyTypedPackage(indexDtsContent, packageName, overwrite) {
     if (!fs_1.existsSync(packageDir)) {
         fs_1.mkdirSync(packageDir);
     }
-    run(indexDtsContent, packageName, dtName, packageDir).catch(e => {
+    run(indexDtsContent, packageName, dtName, packageDir).catch((e) => {
         console.error(e);
         process.exit(1);
     });
@@ -65,9 +65,9 @@ function getIndex(content, packageName) {
         catch (e) {
             console.warn(`Warning: Could not retrieve version/homepage information: ${e.message}`);
         }
-        let authorName = 'My Self';
+        let authorName = "My Self";
         try {
-            const globalGitConfig = parseGitConfig.sync({ cwd: os_1.homedir(), path: '.gitconfig' });
+            const globalGitConfig = parseGitConfig.sync({ cwd: os_1.homedir(), path: ".gitconfig" });
             if (globalGitConfig.user && globalGitConfig.user.name) {
                 authorName = globalGitConfig.user.name;
             }
@@ -75,13 +75,13 @@ function getIndex(content, packageName) {
         catch (e) {
             console.warn(`Warning: Could not retrieve author name: ${e.message}`);
         }
-        let authorUserName = 'me';
+        let authorUserName = "me";
         try {
-            const repoGitConfig = parseGitConfig.sync({ path: path_1.join('.git', 'config') });
+            const repoGitConfig = parseGitConfig.sync({ path: path_1.join(".git", "config") });
             if (repoGitConfig['remote "origin"'] && repoGitConfig['remote "origin"'].url) {
                 const url = url_1.parse(repoGitConfig['remote "origin"'].url);
-                if (url.hostname === 'github.com' && url.pathname) {
-                    authorUserName = url.pathname.split('/')[1] || authorUserName;
+                if (url.hostname === "github.com" && url.pathname) {
+                    authorUserName = url.pathname.split("/")[1] || authorUserName;
                 }
             }
         }
@@ -89,8 +89,8 @@ function getIndex(content, packageName) {
             console.warn(`Warning: Could not retrieve author's user name: ${e.message}`);
         }
         const authorUrl = url_1.format({
-            protocol: 'https',
-            hostname: 'github.com',
+            protocol: "https",
+            hostname: "github.com",
             pathname: authorUserName,
         });
         return `// Type definitions for ${packageName} ${version}
@@ -124,7 +124,7 @@ function getTSConfig(dtName) {
 }
 function loadString(url) {
     return new Promise((resolve, reject) => {
-        http_1.get(url, res => {
+        http_1.get(url, (res) => {
             if (res.statusCode !== 200) {
                 return reject(new Error(`HTTP Error ${res.statusCode}: ${http_1.STATUS_CODES[res.statusCode || 500]} for ${url}`));
             }

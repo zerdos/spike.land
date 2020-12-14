@@ -1,9 +1,9 @@
-import guess = require('../lib');
+import guess = require("../lib");
 
-(function() {
-	"use strict";
+(function () {
+  "use strict";
 
-	let css = `position: fixed;
+  let css = `position: fixed;
 	display: inline-block;
 	left: 10%;
 	top: 10%;
@@ -18,10 +18,10 @@ import guess = require('../lib');
     color: white;
 	text-align: center;`;
 
-	let displayWindow = document.createElement('div');
-	displayWindow.setAttribute('id', 'tsguess-window');
-	displayWindow.setAttribute('style', css);
-	displayWindow.innerHTML = `
+  let displayWindow = document.createElement("div");
+  displayWindow.setAttribute("id", "tsguess-window");
+  displayWindow.setAttribute("style", css);
+  displayWindow.innerHTML = `
 		<div>tsguess Browser Type Guesser</div>
 		  <div style="font-family: monospace; text-align: left">
             <form onsubmit="return false;">
@@ -32,20 +32,26 @@ import guess = require('../lib');
 		  <textarea id="tsguess-output" style="font-family: monospace; align: center; border: solid black 2px;" rows="40" cols="120" placeholder="Generated .d.ts content will appear here"></textarea>
         </div>
 	`;
-	window.setTimeout(() => {
-		const button = document.getElementById('tsguess-generate') as HTMLInputElement;
-		const input = document.getElementById('tsguess-input') as HTMLInputElement;
-		const output = document.getElementById('tsguess-output') as HTMLTextAreaElement;
-		button.addEventListener("click", () => {
-			output.value = guess.generateIdentifierDeclarationFile(input.value, eval(input.value));
-		});
+  window.setTimeout(() => {
+    const button = document.getElementById(
+      "tsguess-generate",
+    ) as HTMLInputElement;
+    const input = document.getElementById("tsguess-input") as HTMLInputElement;
+    const output = document.getElementById(
+      "tsguess-output",
+    ) as HTMLTextAreaElement;
+    button.addEventListener("click", () => {
+      output.value = guess.generateIdentifierDeclarationFile(
+        input.value,
+        eval(input.value),
+      );
+    });
 
-        (<any>window)['infer'] = function(name: string) {
-            input.value = name;
-            button.click();
-        };
+    (<any> window)["infer"] = function (name: string) {
+      input.value = name;
+      button.click();
+    };
+  }, 10);
 
-	}, 10);
-	
-	document.body.appendChild(displayWindow);
+  document.body.appendChild(displayWindow);
 })();

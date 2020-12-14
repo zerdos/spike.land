@@ -4,17 +4,17 @@ const fs = require("fs");
 const path = require("path");
 const tsg = require("../lib");
 const testModuleNames = [
-    'fs',
-    'path',
-    'lodash',
-    'jquery',
-    'yargs',
-    'ecurve',
+    "fs",
+    "path",
+    "lodash",
+    "jquery",
+    "yargs",
+    "ecurve",
 ];
 class MyClass {
     constructor(arg) {
         this.arg = arg;
-        this.instanceStr = 'inst';
+        this.instanceStr = "inst";
     }
     prototypeMethod(_p) { }
     static staticMethod(_s) { }
@@ -22,23 +22,25 @@ class MyClass {
 MyClass.staticNum = 32;
 const selfRefExpr = {
     a: 32,
-    b: 'ok',
+    b: "ok",
     self: null,
 };
 selfRefExpr.self = selfRefExpr;
 const expressions = {
     Math,
     selfref: selfRefExpr,
-    builtIns: { d: new Date(3), arr: ['x'] },
-    someArray: [1, 'foo', Math, null, undefined, false],
+    builtIns: { d: new Date(3), arr: ["x"] },
+    someArray: [1, "foo", Math, null, undefined, false],
     badNames: { "*": 10, "default": true, "with": 10, "  ": 3 },
     someClass: MyClass,
 };
 function checkDeclarationBaseline(name, content) {
     const filename = path.join(__dirname, `../../baselines/${name}`);
-    const existing = fs.existsSync(filename) ? fs.readFileSync(filename, 'utf-8') : '<none>';
+    const existing = fs.existsSync(filename)
+        ? fs.readFileSync(filename, "utf-8")
+        : "<none>";
     if (existing !== content) {
-        fs.writeFileSync(filename, content, 'utf-8');
+        fs.writeFileSync(filename, content, "utf-8");
         throw new Error(`Baseline ${name} changed`);
     }
 }
