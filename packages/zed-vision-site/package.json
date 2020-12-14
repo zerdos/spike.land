@@ -1,7 +1,7 @@
 {
   "name": "@zed-vision/zed-vision-site",
   "scripts": {
-    "npm:install": "rm -rf package-lock.json && npm install",
+    "npm:install": "rm -rf package-lock.json && npm install --legacy-peer-deps",
     "build": "yarn gatsby build && cp -ar blog/. public/",
     "start-https": "yarn yarn gatsby develop",
     "start": "yarn gatsby develop",
@@ -25,6 +25,8 @@
     "@zedvision/smart-monaco-editor": "^8.4.12",
     "framer-motion": "2.9.5",
     "gatsby": "2.28.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-helmet": "6.1.0",
     "react-json-tree": "0.13.0",
     "react-typography": "0.16.19",
