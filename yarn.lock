@@ -3956,6 +3956,18 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zedvision/qrious@8.4.11":
+  version "8.4.11"
+  resolved "https://registry.yarnpkg.com/@zedvision/qrious/-/qrious-8.4.11.tgz#29b5fe6b04d52c2529b73d8985c2de5060ebb7f9"
+  integrity sha512-JHbbaktSQMMLjHda6oQTCXMqwsBeTMbxJ6C2xxOfyCtCWzimqH2Ekd+KOInDYf6xicchnt+8++tUDCviiQFbyA==
+
+"@zedvision/shadb@8.4.11":
+  version "8.4.11"
+  resolved "https://registry.yarnpkg.com/@zedvision/shadb/-/shadb-8.4.11.tgz#efaa7c26d61af9ad407be92958694529ffbcdf32"
+  integrity sha512-tV1IKN+AIQ52cqk7W9zUn4Ych65KQhJCOUuH/gM5G7Wu+eMLODupYhdW/nBuSTPhO7+tZpOeNflPHQbtNiZWzQ==
+  dependencies:
+    esbuild "0.8.22"
+
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@zkochan/cmd-shim/-/cmd-shim-3.1.0.tgz#2ab8ed81f5bb5452a85f25758eb9b8681982fd2e"
