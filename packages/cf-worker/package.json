@@ -33,7 +33,7 @@
         "@cloudflare/workers-types": "2.1.0",
         "@cloudflare/wrangler": "1.12.2",
         "@types/uuid": "8.3.0",
-        "esbuild": "0.8.22"
+        "esbuild": "0.8.23"
     },
     "gitHead": "520741663e1da196b7dbbf0174e110548df04a31",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
