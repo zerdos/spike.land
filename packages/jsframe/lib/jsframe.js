@@ -1,4 +1,4 @@
-/*! jsframe v8.4.13 Copyright (c) 2007-2020 Tom Misawa */
+/*! jsframe v8.5.0 Copyright (c) 2007-2020 Tom Misawa */
 (function webpackUniversalModuleDefinition(root, factory) {
   if (typeof exports === "object" && typeof module === "object") {
     module.exports = factory();
@@ -11,10 +11,10 @@
 })(self, function () {
   return /******/ (() => { // webpackBootstrap
     /******/ var __webpack_modules__ = ({
-      /***/ "../../node_modules/@riversun/event-emitter/lib/event-emitter.js":
-        /*!***********************************************************************!*\
-  !*** ../../node_modules/@riversun/event-emitter/lib/event-emitter.js ***!
-  \***********************************************************************/
+      /***/ "./node_modules/@riversun/event-emitter/lib/event-emitter.js":
+        /*!*******************************************************************!*\
+  !*** ./node_modules/@riversun/event-emitter/lib/event-emitter.js ***!
+  \*******************************************************************/
         /***/ (function (module) {
           /*! event-emitter(https://github.com/riversun/event-emitter) v1.5.0 Copyright (c) 2020 riversun.org@gmail.com */
           !function (e, t) {
@@ -531,10 +531,294 @@
           /***/
         }),
 
-      /***/ "../../node_modules/event-listener-helper/lib/event-listener-helper.js":
-        /*!*****************************************************************************!*\
-  !*** ../../node_modules/event-listener-helper/lib/event-listener-helper.js ***!
-  \*****************************************************************************/
+      /***/ "./node_modules/css-loader/dist/cjs.js!./src/JSFrame.css":
+        /*!***************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/JSFrame.css ***!
+  \***************************************************************/
+        /***/ ((module, __webpack_exports__, __webpack_require__) => {
+          "use strict";
+          __webpack_require__.r(__webpack_exports__);
+          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
+            /* harmony export */
+          });
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
+            __webpack_require__(
+              /*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
+            );
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
+            /*#__PURE__*/ __webpack_require__.n(
+              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
+            );
+          // Imports
+
+          var ___CSS_LOADER_EXPORT___ =
+            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
+              function (i) {
+                return i[1];
+              },
+            );
+          // Module
+          ___CSS_LOADER_EXPORT___.push(
+            [
+              module.id,
+              ".jsframe-titlebar-default {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f5f5f5, color-stop(1.0, #f8f7f2)));\n    background: -webkit-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: -moz-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: linear-gradient(top, #f5f5f5, #f8f7f2);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-titlebar-focused {\n    /* (c)2015 Johannes Jakob\n       Made with <3 in Germany */\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ebebeb, color-stop(1.0, #d5d5d5)));\n    background: -webkit-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: -moz-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: linear-gradient(top, #ebebeb, #d5d5d5);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-modal-window-background {\n    background: rgba(0, 0, 0, 0.6);\n    height: 100%;\n    widdth: 100%\n}",
+              "",
+            ],
+          );
+          // Exports
+          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
+            (___CSS_LOADER_EXPORT___);
+
+          /***/
+        }),
+
+      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleMaterial.css":
+        /*!**********************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleMaterial.css ***!
+  \**********************************************************************************************/
+        /***/ ((module, __webpack_exports__, __webpack_require__) => {
+          "use strict";
+          __webpack_require__.r(__webpack_exports__);
+          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
+            /* harmony export */
+          });
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
+            __webpack_require__(
+              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
+            );
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
+            /*#__PURE__*/ __webpack_require__.n(
+              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
+            );
+          // Imports
+
+          var ___CSS_LOADER_EXPORT___ =
+            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
+              function (i) {
+                return i[1];
+              },
+            );
+          // Module
+          ___CSS_LOADER_EXPORT___.push(
+            [
+              module.id,
+              ".jsframe-preset-style-material-default {\n    background: black;\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-preset-style-material-focused {\n    background: black;\n    border-top-left-radius: 36px;\n    border-top-right-radius: 36px;\n}\n",
+              "",
+            ],
+          );
+          // Exports
+          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
+            (___CSS_LOADER_EXPORT___);
+
+          /***/
+        }),
+
+      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStylePopup.css":
+        /*!*******************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStylePopup.css ***!
+  \*******************************************************************************************/
+        /***/ ((module, __webpack_exports__, __webpack_require__) => {
+          "use strict";
+          __webpack_require__.r(__webpack_exports__);
+          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
+            /* harmony export */
+          });
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
+            __webpack_require__(
+              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
+            );
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
+            /*#__PURE__*/ __webpack_require__.n(
+              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
+            );
+          // Imports
+
+          var ___CSS_LOADER_EXPORT___ =
+            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
+              function (i) {
+                return i[1];
+              },
+            );
+          // Module
+          ___CSS_LOADER_EXPORT___.push(
+            [
+              module.id,
+              ".jsframe-preset-style-popup-default {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n\n.jsframe-preset-style-popup-focused {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n",
+              "",
+            ],
+          );
+          // Exports
+          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
+            (___CSS_LOADER_EXPORT___);
+
+          /***/
+        }),
+
+      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleRedstone.css":
+        /*!**********************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleRedstone.css ***!
+  \**********************************************************************************************/
+        /***/ ((module, __webpack_exports__, __webpack_require__) => {
+          "use strict";
+          __webpack_require__.r(__webpack_exports__);
+          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
+            /* harmony export */
+          });
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
+            __webpack_require__(
+              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
+            );
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
+            /*#__PURE__*/ __webpack_require__.n(
+              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
+            );
+          // Imports
+
+          var ___CSS_LOADER_EXPORT___ =
+            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
+              function (i) {
+                return i[1];
+              },
+            );
+          // Module
+          ___CSS_LOADER_EXPORT___.push(
+            [
+              module.id,
+              ".jsframe-preset-style-redstone-default {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n\n.jsframe-preset-style-redstone-focused {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n",
+              "",
+            ],
+          );
+          // Exports
+          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
+            (___CSS_LOADER_EXPORT___);
+
+          /***/
+        }),
+
+      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleYosemite.css":
+        /*!**********************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleYosemite.css ***!
+  \**********************************************************************************************/
+        /***/ ((module, __webpack_exports__, __webpack_require__) => {
+          "use strict";
+          __webpack_require__.r(__webpack_exports__);
+          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
+            /* harmony export */
+          });
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
+            __webpack_require__(
+              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
+            );
+          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
+            /*#__PURE__*/ __webpack_require__.n(
+              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
+            );
+          // Imports
+
+          var ___CSS_LOADER_EXPORT___ =
+            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
+              function (i) {
+                return i[1];
+              },
+            );
+          // Module
+          ___CSS_LOADER_EXPORT___.push(
+            [
+              module.id,
+              ".jsframe-preset-style-yosemite-default {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f5f5f5, color-stop(1.0, #f8f7f2)));\n    background: -webkit-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: -moz-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: linear-gradient(top, #f5f5f5, #f8f7f2);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-preset-style-yosemite-focused {\n    /* (c)2015 Johannes Jakob\n       Made with <3 in Germany */\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ebebeb, color-stop(1.0, #d5d5d5)));\n    background: -webkit-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: -moz-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: linear-gradient(top, #ebebeb, #d5d5d5);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n",
+              "",
+            ],
+          );
+          // Exports
+          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
+            (___CSS_LOADER_EXPORT___);
+
+          /***/
+        }),
+
+      /***/ "./node_modules/css-loader/dist/runtime/api.js":
+        /*!*****************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
+  \*****************************************************/
+        /***/ ((module) => {
+          "use strict";
+
+          /*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+          */
+          // css base code, injected by the css-loader
+          // eslint-disable-next-line func-names
+          module.exports = function (cssWithMappingToString) {
+            var list = []; // return the list of modules as css string
+
+            list.toString = function toString() {
+              return this.map(function (item) {
+                var content = cssWithMappingToString(item);
+
+                if (item[2]) {
+                  return "@media ".concat(item[2], " {").concat(content, "}");
+                }
+
+                return content;
+              }).join("");
+            }; // import a list of modules into the list
+            // eslint-disable-next-line func-names
+
+            list.i = function (modules, mediaQuery, dedupe) {
+              if (typeof modules === "string") {
+                // eslint-disable-next-line no-param-reassign
+                modules = [[null, modules, ""]];
+              }
+
+              var alreadyImportedModules = {};
+
+              if (dedupe) {
+                for (var i = 0; i < this.length; i++) {
+                  // eslint-disable-next-line prefer-destructuring
+                  var id = this[i][0];
+
+                  if (id != null) {
+                    alreadyImportedModules[id] = true;
+                  }
+                }
+              }
+
+              for (var _i = 0; _i < modules.length; _i++) {
+                var item = [].concat(modules[_i]);
+
+                if (dedupe && alreadyImportedModules[item[0]]) {
+                  // eslint-disable-next-line no-continue
+                  continue;
+                }
+
+                if (mediaQuery) {
+                  if (!item[2]) {
+                    item[2] = mediaQuery;
+                  } else {
+                    item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+                  }
+                }
+
+                list.push(item);
+              }
+            };
+
+            return list;
+          };
+
+          /***/
+        }),
+
+      /***/ "./node_modules/event-listener-helper/lib/event-listener-helper.js":
+        /*!*************************************************************************!*\
+  !*** ./node_modules/event-listener-helper/lib/event-listener-helper.js ***!
+  \*************************************************************************/
         /***/ (function (module) {
           /*! event-listener-helper(https://github.com/riversun/event-listener-helper) v1.1.2 Copyright (c) 2020 riversun.org@gmail.com */
           !function (e, t) {
@@ -1236,10 +1520,10 @@
           /***/
         }),
 
-      /***/ "../../node_modules/merge-deeply/lib/merge-deeply.js":
-        /*!***********************************************************!*\
-  !*** ../../node_modules/merge-deeply/lib/merge-deeply.js ***!
-  \***********************************************************/
+      /***/ "./node_modules/merge-deeply/lib/merge-deeply.js":
+        /*!*******************************************************!*\
+  !*** ./node_modules/merge-deeply/lib/merge-deeply.js ***!
+  \*******************************************************/
         /***/ (function (module) {
           /*! merge-deeply v3.0.0 Copyright (c) 2019-2020 riversun.org@gmail.com */
           !function (e, r) {
@@ -1577,290 +1861,6 @@
               }]).default;
             }),
           );
-
-          /***/
-        }),
-
-      /***/ "./node_modules/css-loader/dist/cjs.js!./src/JSFrame.css":
-        /*!***************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/JSFrame.css ***!
-  \***************************************************************/
-        /***/ ((module, __webpack_exports__, __webpack_require__) => {
-          "use strict";
-          __webpack_require__.r(__webpack_exports__);
-          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
-            /* harmony export */
-          });
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
-            __webpack_require__(
-              /*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
-            );
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
-            /*#__PURE__*/ __webpack_require__.n(
-              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
-            );
-          // Imports
-
-          var ___CSS_LOADER_EXPORT___ =
-            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
-              function (i) {
-                return i[1];
-              },
-            );
-          // Module
-          ___CSS_LOADER_EXPORT___.push(
-            [
-              module.id,
-              ".jsframe-titlebar-default {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f5f5f5, color-stop(1.0, #f8f7f2)));\n    background: -webkit-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: -moz-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: linear-gradient(top, #f5f5f5, #f8f7f2);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-titlebar-focused {\n    /* (c)2015 Johannes Jakob\n       Made with <3 in Germany */\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ebebeb, color-stop(1.0, #d5d5d5)));\n    background: -webkit-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: -moz-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: linear-gradient(top, #ebebeb, #d5d5d5);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-modal-window-background {\n    background: rgba(0, 0, 0, 0.6);\n    height: 100%;\n    widdth: 100%\n}",
-              "",
-            ],
-          );
-          // Exports
-          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
-            (___CSS_LOADER_EXPORT___);
-
-          /***/
-        }),
-
-      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleMaterial.css":
-        /*!**********************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleMaterial.css ***!
-  \**********************************************************************************************/
-        /***/ ((module, __webpack_exports__, __webpack_require__) => {
-          "use strict";
-          __webpack_require__.r(__webpack_exports__);
-          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
-            /* harmony export */
-          });
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
-            __webpack_require__(
-              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
-            );
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
-            /*#__PURE__*/ __webpack_require__.n(
-              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
-            );
-          // Imports
-
-          var ___CSS_LOADER_EXPORT___ =
-            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
-              function (i) {
-                return i[1];
-              },
-            );
-          // Module
-          ___CSS_LOADER_EXPORT___.push(
-            [
-              module.id,
-              ".jsframe-preset-style-material-default {\n    background: black;\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-preset-style-material-focused {\n    background: black;\n    border-top-left-radius: 36px;\n    border-top-right-radius: 36px;\n}\n",
-              "",
-            ],
-          );
-          // Exports
-          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
-            (___CSS_LOADER_EXPORT___);
-
-          /***/
-        }),
-
-      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStylePopup.css":
-        /*!*******************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStylePopup.css ***!
-  \*******************************************************************************************/
-        /***/ ((module, __webpack_exports__, __webpack_require__) => {
-          "use strict";
-          __webpack_require__.r(__webpack_exports__);
-          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
-            /* harmony export */
-          });
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
-            __webpack_require__(
-              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
-            );
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
-            /*#__PURE__*/ __webpack_require__.n(
-              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
-            );
-          // Imports
-
-          var ___CSS_LOADER_EXPORT___ =
-            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
-              function (i) {
-                return i[1];
-              },
-            );
-          // Module
-          ___CSS_LOADER_EXPORT___.push(
-            [
-              module.id,
-              ".jsframe-preset-style-popup-default {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n\n.jsframe-preset-style-popup-focused {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n",
-              "",
-            ],
-          );
-          // Exports
-          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
-            (___CSS_LOADER_EXPORT___);
-
-          /***/
-        }),
-
-      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleRedstone.css":
-        /*!**********************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleRedstone.css ***!
-  \**********************************************************************************************/
-        /***/ ((module, __webpack_exports__, __webpack_require__) => {
-          "use strict";
-          __webpack_require__.r(__webpack_exports__);
-          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
-            /* harmony export */
-          });
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
-            __webpack_require__(
-              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
-            );
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
-            /*#__PURE__*/ __webpack_require__.n(
-              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
-            );
-          // Imports
-
-          var ___CSS_LOADER_EXPORT___ =
-            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
-              function (i) {
-                return i[1];
-              },
-            );
-          // Module
-          ___CSS_LOADER_EXPORT___.push(
-            [
-              module.id,
-              ".jsframe-preset-style-redstone-default {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n\n.jsframe-preset-style-redstone-focused {\n    background: white;\n    border-top-left-radius: 0px;\n    border-top-right-radius: 0px;\n}\n",
-              "",
-            ],
-          );
-          // Exports
-          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
-            (___CSS_LOADER_EXPORT___);
-
-          /***/
-        }),
-
-      /***/ "./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleYosemite.css":
-        /*!**********************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/presets/appearance/PresetStyleYosemite.css ***!
-  \**********************************************************************************************/
-        /***/ ((module, __webpack_exports__, __webpack_require__) => {
-          "use strict";
-          __webpack_require__.r(__webpack_exports__);
-          /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-            /* harmony export */ "default": () => __WEBPACK_DEFAULT_EXPORT__,
-            /* harmony export */
-          });
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ =
-            __webpack_require__(
-              /*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js",
-            );
-          /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default =
-            /*#__PURE__*/ __webpack_require__.n(
-              _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__,
-            );
-          // Imports
-
-          var ___CSS_LOADER_EXPORT___ =
-            _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(
-              function (i) {
-                return i[1];
-              },
-            );
-          // Module
-          ___CSS_LOADER_EXPORT___.push(
-            [
-              module.id,
-              ".jsframe-preset-style-yosemite-default {\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f5f5f5, color-stop(1.0, #f8f7f2)));\n    background: -webkit-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: -moz-linear-gradient(top, #f5f5f5, #f8f7f2);\n    background: linear-gradient(top, #f5f5f5, #f8f7f2);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n\n.jsframe-preset-style-yosemite-focused {\n    /* (c)2015 Johannes Jakob\n       Made with <3 in Germany */\n    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ebebeb, color-stop(1.0, #d5d5d5)));\n    background: -webkit-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: -moz-linear-gradient(top, #ebebeb, #d5d5d5);\n    background: linear-gradient(top, #ebebeb, #d5d5d5);\n    border-top-left-radius: 6px;\n    border-top-right-radius: 6px;\n}\n",
-              "",
-            ],
-          );
-          // Exports
-          /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ =
-            (___CSS_LOADER_EXPORT___);
-
-          /***/
-        }),
-
-      /***/ "./node_modules/css-loader/dist/runtime/api.js":
-        /*!*****************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
-  \*****************************************************/
-        /***/ ((module) => {
-          "use strict";
-
-          /*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-          */
-          // css base code, injected by the css-loader
-          // eslint-disable-next-line func-names
-          module.exports = function (cssWithMappingToString) {
-            var list = []; // return the list of modules as css string
-
-            list.toString = function toString() {
-              return this.map(function (item) {
-                var content = cssWithMappingToString(item);
-
-                if (item[2]) {
-                  return "@media ".concat(item[2], " {").concat(content, "}");
-                }
-
-                return content;
-              }).join("");
-            }; // import a list of modules into the list
-            // eslint-disable-next-line func-names
-
-            list.i = function (modules, mediaQuery, dedupe) {
-              if (typeof modules === "string") {
-                // eslint-disable-next-line no-param-reassign
-                modules = [[null, modules, ""]];
-              }
-
-              var alreadyImportedModules = {};
-
-              if (dedupe) {
-                for (var i = 0; i < this.length; i++) {
-                  // eslint-disable-next-line prefer-destructuring
-                  var id = this[i][0];
-
-                  if (id != null) {
-                    alreadyImportedModules[id] = true;
-                  }
-                }
-              }
-
-              for (var _i = 0; _i < modules.length; _i++) {
-                var item = [].concat(modules[_i]);
-
-                if (dedupe && alreadyImportedModules[item[0]]) {
-                  // eslint-disable-next-line no-continue
-                  continue;
-                }
-
-                if (mediaQuery) {
-                  if (!item[2]) {
-                    item[2] = mediaQuery;
-                  } else {
-                    item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
-                  }
-                }
-
-                list.push(item);
-              }
-            };
-
-            return list;
-          };
 
           /***/
         }),
@@ -2426,7 +2426,7 @@
 
           __webpack_require__(/*! ./JSFrame.css */ "./src/JSFrame.css");
           var EventEmitter = __webpack_require__(
-            /*! @riversun/event-emitter */ "../../node_modules/@riversun/event-emitter/lib/event-emitter.js",
+            /*! @riversun/event-emitter */ "./node_modules/@riversun/event-emitter/lib/event-emitter.js",
           );
           var CALIGN = __webpack_require__(
             /*! ./CCommon.js */ "./src/CCommon.js",
@@ -2447,7 +2447,7 @@
             /*! ./utils/CSimpleLayoutAnimator.js */ "./src/utils/CSimpleLayoutAnimator.js",
           );
           var EventListenerHelper = __webpack_require__(
-            /*! event-listener-helper */ "../../node_modules/event-listener-helper/lib/event-listener-helper.js",
+            /*! event-listener-helper */ "./node_modules/event-listener-helper/lib/event-listener-helper.js",
           );
 
           //If you don't want to bundle preset styles in JsFrame.js ,comment out below.
@@ -6024,7 +6024,7 @@
   \********************************************/
         /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
           var mergeDeeply = __webpack_require__(
-            /*! merge-deeply */ "../../node_modules/merge-deeply/lib/merge-deeply.js",
+            /*! merge-deeply */ "./node_modules/merge-deeply/lib/merge-deeply.js",
           );
           var CTextButtonAppearance = __webpack_require__(
             /*! ./CButtonAppearance.js */ "./src/appearance/CButtonAppearance.js",
@@ -8117,7 +8117,7 @@
   \****************************************************/
         /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
           var mergeDeeply = __webpack_require__(
-            /*! merge-deeply */ "../../node_modules/merge-deeply/lib/merge-deeply.js",
+            /*! merge-deeply */ "./node_modules/merge-deeply/lib/merge-deeply.js",
           );
 
           function getPreset(param) {
@@ -8824,10 +8824,10 @@
             /*! ../CCommon.js */ "./src/CCommon.js",
           );
           var mergeDeeply = __webpack_require__(
-            /*! merge-deeply */ "../../node_modules/merge-deeply/lib/merge-deeply.js",
+            /*! merge-deeply */ "./node_modules/merge-deeply/lib/merge-deeply.js",
           );
           var EventListenerHelper = __webpack_require__(
-            /*! event-listener-helper */ "../../node_modules/event-listener-helper/lib/event-listener-helper.js",
+            /*! event-listener-helper */ "./node_modules/event-listener-helper/lib/event-listener-helper.js",
           );
 
           function WindowEventHelper(model) {
