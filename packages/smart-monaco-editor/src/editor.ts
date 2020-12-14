@@ -1,6 +1,6 @@
 /// <reference lib="dom" />
 
-import type { monaco } from "https://unpkg.com/@zedvision/monaco-editor@0.21.2/release/monaco.d.ts";
+import type { monaco } from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts";
 import type Ace from "https://raw.githubusercontent.com/ajaxorg/ace/master/ace.d.ts";
 
 interface ISmartMonacoEditor {
@@ -89,8 +89,7 @@ export const startMonaco: SmartMonaco = async (
   }
 
   if (window["monaco"] === undefined) {
-    const vsPath =
-      "https://unpkg.com/@zedvision/monaco-editor@0.21.2/release/min/vs";
+    const vsPath = "https://unpkg.com/monaco-editor@0.21.2/min/vs";
 
     const { require } = (await loadScript(
       `${vsPath}/loader.js`,
