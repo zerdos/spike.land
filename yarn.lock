@@ -3172,6 +3172,14 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zedvision/dts-gen@8.5.1":
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/@zedvision/dts-gen/-/dts-gen-8.5.1.tgz#abf749b49bb4af90016503bfbef56be6238f066d"
+  integrity sha512-isIvpdEmUUz7UcHKU2iBZFKNOgQAUZoqyhuDFg5c5lfiPXLLgh7GNgIn01osjSHEIEqzBFtf79HjDxILzKREBw==
+  dependencies:
+    dts-dom "3.6.0"
+    parse-git-config "3.0.0"
+
 "@zedvision/qrious@8.4.11":
   version "8.4.11"
   resolved "https://registry.yarnpkg.com/@zedvision/qrious/-/qrious-8.4.11.tgz#29b5fe6b04d52c2529b73d8985c2de5060ebb7f9"
@@ -8311,11 +8319,11 @@ glob@~5.0.0:
     path-is-absolute "^1.0.0"
 
 global-dirs@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/global-dirs/-/global-dirs-2.0.1.tgz#acdf3bb6685bcd55cb35e8a052266569e9469201"
-  integrity sha512-5HqUqdhkEovj2Of/ms3IeS/EekcO54ytHRLV4PEY2rhRwrHXLQjeVEES0Lhka0xwNDtGYn58wyC4s5+MHsOO6A==
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/global-dirs/-/global-dirs-2.1.0.tgz#e9046a49c806ff04d6c1825e196c8f0091e8df4d"
+  integrity sha512-MG6kdOUh/xBnyo9cJFeIKkLEc1AyFq42QTU4XiX51i2NEdxLxLWXIjEjmqKeSuKR7pAZjTqUVoT2b2huxVLgYQ==
   dependencies:
-    ini "^1.3.5"
+    ini "1.3.7"
 
 global-modules@1.0.0, global-modules@^1.0.0:
   version "1.0.0"
@@ -9313,6 +9321,11 @@ inherits@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
+
+ini@1.3.7:
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
+  integrity sha512-iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==
 
 ini@^1.3.2, ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
   version "1.3.8"
