@@ -2,12 +2,12 @@ import * as React from "react";
 import { graphql, Link } from "gatsby";
 import { getDB } from "@zedvision/shadb";
 
-import { Bio } from "../components/bio.tsx";
-import { Layout } from "../components/layout.tsx";
+import { Bio } from "../components/bio";
+import { Layout } from "../components/layout";
 import { SEO } from "../components/seo.tsx";
 import { rhythm } from "../components/utils/typography.ts";
 import styled from "@emotion/styled";
-import { Qr } from "../components/code/Qr.tsx";
+import { Qr } from "../components/code/Qr";
 
 import forkMe from "../../assets/forkMe.png";
 import { registerSW } from "../sw-reg.js";

@@ -2,7 +2,7 @@
     "name": "@zedvision/shadb",
     "version": "8.5.0",
     "description": "db layer top on idb",
-    "main": "dist/shaDB.min.js",
+    "main": "dist/shaDB.js",
     "private": false,
     "sideEffects": false,
     "scripts": {
