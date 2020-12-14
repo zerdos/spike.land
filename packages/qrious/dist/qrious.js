@@ -1,5 +1,5 @@
 /*
- * QRious v8.4.6
+ * QRious v8.4.7
  * Copyright (C) 2020 Alasdair Mercer
  * Copyright (C) 2010 Tom Zerucha
  *

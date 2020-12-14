@@ -28,7 +28,7 @@
     "url": "https://github.com/zerdos/qrious.git"
   },
   "devDependencies": {
-    "dts-gen": "^8.4.6",
+    "@zedvision/yardts-gen": "^8.4.6",
     "esbuild": "0.8.22",
     "eslint-config-notninja": "0.4.0",
     "grunt": "1.3.0",
@@ -50,5 +50,5 @@
     "ci": "grunt ci",
     "test": "grunt test"
   },
-  "gitHead": "fa29173ef1ea95fcc0914e5f7edd41ef10947a9f"
+  "gitHead": "0ef7763499bb9d5112d6b941743a042013bf36e4"
 }

@@ -26,7 +26,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "fa29173ef1ea95fcc0914e5f7edd41ef10947a9f",
+    "gitHead": "0ef7763499bb9d5112d6b941743a042013bf36e4",
     "dependencies": {
         "diff": "5.0.0",
         "esbuild": "0.8.22"
