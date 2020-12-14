@@ -71,7 +71,9 @@ export const startMonaco = async ({ onChange , code , language  })=>{
     let model;
     try {
         model = monaco.editor.getModel(modelUri);
-        if (model.getValue() !== code) model.setValue(code);
+        if (model.getValue() !== code) {
+            model.setValue(code);
+        }
     } catch  {
         model = await monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri));
     }

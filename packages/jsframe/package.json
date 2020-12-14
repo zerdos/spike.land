@@ -6,7 +6,7 @@
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
     "start": "webpack-dev-server",
-    "min": "deno fmt lib && yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js",
+    "min": "deno fmt lib && yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js && rm -rf public/jsframe.js && cp lib/jsframe.min.js public/jsframe.js",
     "clean": "deno fmt src && rm -rf lib && mkdir lib",
     "build": "webpack --config webpack.config.js --mode development && yarn min",
     "release": "cross-env NODE_ENV=test webpack --config webpack.config.js --mode production",

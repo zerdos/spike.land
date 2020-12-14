@@ -108,19 +108,19 @@ export const startMonaco: SmartMonaco = async (
   const monaco = window["monaco"] as monaco;
 
   let model;
-  try{
+  try {
     model = monaco.editor.getModel(modelUri);
-    if (model.getValue()!==code)
-    model.setValue(code);
-  }
-  catch{
+    if (model.getValue() !== code) {
+      model.setValue(code);
+    }
+  } catch {
     model = await monaco.editor.createModel(
       code,
       language,
       monaco.Uri.parse(
         modelUri,
       ),
-    )  
+    );
   }
 
   const modules = {

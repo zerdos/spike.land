@@ -1347,8 +1347,9 @@ var define,
                         this._loadModule(d.pluginId);
                     }
                     elsethis._loadModule(d.id);
-                  } elsee.unresolvedDependenciesCount--;
-                } else e.unresolvedDependenciesCount--;
+                  }
+                  elsee.unresolvedDependenciesCount--;
+                } elsee.unresolvedDependenciesCount--;
               } else e.exportsPassedIn = !0, e.unresolvedDependenciesCount--;
             }
           }
