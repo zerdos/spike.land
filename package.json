@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "npm:install": "npm install && yarn lerna run npm:install --parallel",
+    "npm:install": "yarn lerna run npm:install --parallel",
     "postinstall": "husky install",
     "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev docs",
     "push": "yarn build && git add . && git commit -m pre-release && git push && git pull",
@@ -30,8 +30,8 @@
     "@babel/standalone": "7.12.10",
     "@emotion/react": "11.1.2",
     "@emotion/styled": "11.0.0",
-    "@zedvision/qrious": "8.4.2",
-    "@zedvision/shadb": "8.4.4",
+    "@zedvision/qrious": "8.4.11",
+    "@zedvision/shadb": "8.4.11",
     "diff": "5.0.0",
     "framer-motion": "2.9.5",
     "idb": "5.0.8",

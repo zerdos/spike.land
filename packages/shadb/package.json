@@ -6,7 +6,7 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
-        "npm:install": "npm install",
+        "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "dts": "yarn tsc -d src/shaDB.ts >/dev/null || echo done  && mv src/shaDB.d.ts dist/  && rm src/shaDB.js",
         "build": "deno bundle --import-map ../../import_map.json --no-check --unstable src/shaDB.ts dist/shaDB.js && yarn dts && yarn minify",

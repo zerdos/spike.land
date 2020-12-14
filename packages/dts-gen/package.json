@@ -30,7 +30,7 @@
     "typescript"
   ],
   "scripts": {
-    "npm:install": "npm install",
+    "npm:install": "rm -rf package-lock.json && npm install",
     "build": "tsc || echo died",
     "build-browser": "tsc -p browser && webpack",
     "lint": "tslint --project tsconfig.json --format stylish"

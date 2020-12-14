@@ -7,7 +7,7 @@
         "**/*"
     ],
     "scripts": {
-        "npm:install": "npm install",
+        "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "build:sw": "deno bundle  --unstable --import-map ../../import_map.json --no-check src/sw.ts sw.js",
         "build": "deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js && yarn build:sw && yarn minify",
