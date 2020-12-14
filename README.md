@@ -14,5 +14,12 @@ if (code) return "it is in the monorepo"
 ```
 ### If you came here for a specific thing - then look in the packages folder. You can browse thr whole repo with gitpods:  [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/zed-vision/monorepo)
 
+# If you opened the repo in gitpods, you are lucky, and you can try the newest Ubuntu with this command:
+
+bash```
+startx
+```
+After it opened, you can access the remote server on the port :6080 in your browser.
+
 
 
