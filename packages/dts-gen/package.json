@@ -1,5 +1,5 @@
 {
-  "name": "dts-gen",
+  "name": "@zedvision/dts-gen",
   "version": "8.4.6",
   "description": "TypeScript Definition File Generator",
   "main": "bin/lib/index.js",
@@ -49,5 +49,6 @@
   "homepage": "https://github.com/Microsoft/dts-gen#readme",
   "engines": {
     "node": ">=6.0.0"
-  }
+  },
+  "gitHead": "fa29173ef1ea95fcc0914e5f7edd41ef10947a9f"
 }

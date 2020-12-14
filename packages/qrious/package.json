@@ -49,5 +49,6 @@
     "minify": "deno fmt dist && yarn esbuild --minify dist/qrious.js --outfile=dist/qrious.min.js",
     "ci": "grunt ci",
     "test": "grunt test"
-  }
+  },
+  "gitHead": "fa29173ef1ea95fcc0914e5f7edd41ef10947a9f"
 }
