@@ -4,8 +4,8 @@ import { getDB } from "@zedvision/shadb";
 
 import { Bio } from "../components/bio";
 import { Layout } from "../components/layout";
-import { SEO } from "../components/seo.tsx";
-import { rhythm } from "../components/utils/typography.ts";
+import { SEO } from "../components/seo";
+import { rhythm } from "../components/utils/typography";
 import styled from "@emotion/styled";
 import { Qr } from "../components/code/Qr";
 

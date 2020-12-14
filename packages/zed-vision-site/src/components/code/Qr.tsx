@@ -1,6 +1,9 @@
-import React from "react";
+/// <reference types="@emotion/react/types/css-prop" />
+
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
+import React from "react";
+
 import QRious from "@zedvision/qrious";
 
 export const Qr: React.FC = () => {
@@ -66,7 +69,6 @@ export const Qr: React.FC = () => {
       <img
         css={css`
     display: block;
-    vertical-align: middle;
     box-shadow: 0 0 ${10 +
           counter}px 5px ${
           retry === 3 ? "darkorange" : retry === 2 ? "green" : "darkred"
