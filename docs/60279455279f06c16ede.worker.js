@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../node_modules/workerize-loader/dist/rpc-worker-loader.js!../../node_modules/gatsby/dist/utils/babel-loader.js?!./src/components/utils/sha256/sha256.worker.ts":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** /workspace/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/workspace/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--19!./src/components/utils/sha256/sha256.worker.ts ***!
-  \**************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************!*\
+  !*** /z/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/z/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--19!./src/components/utils/sha256/sha256.worker.ts ***!
+  \**********************************************************************************************************************************************************************************************/
 /*! exports provided: sha256 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

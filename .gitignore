@@ -111,5 +111,3 @@ packages/code/worker/script.js
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
-packages/smart-monaco-editor-example/.eslintcache
-packages/smart-monaco-editor-example/.eslintcache
