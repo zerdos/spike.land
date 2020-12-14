@@ -87,9 +87,9 @@
 /******/ ({
 
 /***/ "../../node_modules/object-assign/index.js":
-/*!*******************************************************!*\
-  !*** /z/monorepo/node_modules/object-assign/index.js ***!
-  \*******************************************************/
+/*!***************************************************************!*\
+  !*** /workspace/monorepo/node_modules/object-assign/index.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -189,9 +189,9 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 /***/ }),
 
 /***/ "../../node_modules/react-dom/cjs/react-dom-server.node.production.min.js":
-/*!**************************************************************************************!*\
-  !*** /z/monorepo/node_modules/react-dom/cjs/react-dom-server.node.production.min.js ***!
-  \**************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** /workspace/monorepo/node_modules/react-dom/cjs/react-dom-server.node.production.min.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -253,9 +253,9 @@ exports.renderToStaticNodeStream=function(a,b){return new fb(a,!0,b)};exports.re
 /***/ }),
 
 /***/ "../../node_modules/react-dom/server.js":
-/*!****************************************************!*\
-  !*** /z/monorepo/node_modules/react-dom/server.js ***!
-  \****************************************************/
+/*!************************************************************!*\
+  !*** /workspace/monorepo/node_modules/react-dom/server.js ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -268,9 +268,9 @@ module.exports = __webpack_require__(/*! ./server.node */ "../../node_modules/re
 /***/ }),
 
 /***/ "../../node_modules/react-dom/server.node.js":
-/*!*********************************************************!*\
-  !*** /z/monorepo/node_modules/react-dom/server.node.js ***!
-  \*********************************************************/
+/*!*****************************************************************!*\
+  !*** /workspace/monorepo/node_modules/react-dom/server.node.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -285,9 +285,9 @@ if (true) {
 /***/ }),
 
 /***/ "../../node_modules/react/cjs/react.production.min.js":
-/*!******************************************************************!*\
-  !*** /z/monorepo/node_modules/react/cjs/react.production.min.js ***!
-  \******************************************************************/
+/*!**************************************************************************!*\
+  !*** /workspace/monorepo/node_modules/react/cjs/react.production.min.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -320,9 +320,9 @@ exports.useLayoutEffect=function(a,b){return S().useLayoutEffect(a,b)};exports.u
 /***/ }),
 
 /***/ "../../node_modules/react/index.js":
-/*!***********************************************!*\
-  !*** /z/monorepo/node_modules/react/index.js ***!
-  \***********************************************/
+/*!*******************************************************!*\
+  !*** /workspace/monorepo/node_modules/react/index.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -337,9 +337,9 @@ if (true) {
 /***/ }),
 
 /***/ "../../node_modules/workerize-loader/dist/rpc-worker-loader.js!../../node_modules/gatsby/dist/utils/babel-loader.js?!./src/components/utils/renderer/renderer.worker.ts":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** /z/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/z/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--19!./src/components/utils/renderer/renderer.worker.ts ***!
-  \**************************************************************************************************************************************************************************************************/
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** /workspace/monorepo/node_modules/workerize-loader/dist/rpc-worker-loader.js!/workspace/monorepo/node_modules/gatsby/dist/utils/babel-loader.js??ref--19!./src/components/utils/renderer/renderer.worker.ts ***!
+  \******************************************************************************************************************************************************************************************************************/
 /*! exports provided: renderWorker */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
