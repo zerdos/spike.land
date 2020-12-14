@@ -1,4 +1,4 @@
-/*! jsframe v8.4.8 Copyright (c) 2007-2020 Tom Misawa */
+/*! jsframe v8.4.9 Copyright (c) 2007-2020 Tom Misawa */
 (function webpackUniversalModuleDefinition(root, factory) {
   if (typeof exports === "object" && typeof module === "object") {
     module.exports = factory();

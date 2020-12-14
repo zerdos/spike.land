@@ -6,6 +6,9 @@
   "bin": {
     "dts-gen": "bin/lib/run.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@babel/core": "^7.12.10",
     "dts-dom": "latest",
@@ -38,16 +41,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Microsoft/dts-gen.git"
+    "url": "git+https://github.com/zed-vision/monorepo.git"
   },
   "author": "Ryan Cavanaugh <ryanca@microsoft.com> (https://www.github.com/RyanCavanaugh)",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Microsoft/dts-gen/issues"
   },
-  "homepage": "https://github.com/Microsoft/dts-gen#readme",
+  "homepage": "https://github.com/zed-vision/monorepo",
   "engines": {
     "node": ">=6.0.0"
   },
-  "gitHead": "ec0daddbbbd027a89eb4d9f7c792b291e4d74aef"
+  "gitHead": "520741663e1da196b7dbbf0174e110548df04a31"
 }
