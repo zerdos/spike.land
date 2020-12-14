@@ -5,6 +5,7 @@ type Base =
   | "buster"
   | "bionic"
   | "disco"
+  | "eoan"
   | "groovy"
   | "focal"
   | "hirsute"

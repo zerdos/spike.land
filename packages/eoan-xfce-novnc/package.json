@@ -1,0 +1,39 @@
+{
+  "name": "@devcontainer/eoan-xfce-novnc",
+  "tagname": "eoan-xfce-novnc",
+  "port": "6080",
+  "testport": "7162",
+  "scripts": {
+    "npm:install": "rm -rf package-lock.json && npm install",
+    "test": "yarn test:start && yarn test:healthcheck && yarn test:clean",
+    "test:clean": "docker kill $npm_package_tagname-$npm_package_version || docker container rm $npm_package_tagname-$npm_package_version  || true £2>/dev/null",
+    "test:start": "yarn test:clean && docker run -p 127.0.0.1:$npm_package_testport:$npm_package_port -d --name $npm_package_tagname-$npm_package_version devimages/$npm_package_tagname:$npm_package_version",
+    "test:healthcheck": "echo check: $npm_package_tagname && yarn test:is:running && sleep 5 && yarn test:is:running",
+    "test:is:running": "yarn wait-on http://localhost:$npm_package_testport",
+    "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
+    "docker:build": "yarn build && docker build --progress plain . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",
+    "build": "node index.js"
+  },
+  "files": [
+    ".devcontainer/**/*",
+    "docker-compose.yml",
+    "Dockerfile",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@devcontainer/generator": "^8.5.0",
+    "load-text-file": "1.2.0",
+    "wait-on": "5.2.0"
+  },
+  "version": "8.5.0",
+  "description": "devcontainer vscode docker xfce remoteDesktop",
+  "main": "index.js",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "private": false,
+  "gitHead": "520741663e1da196b7dbbf0174e110548df04a31",
+  "publishConfig": {
+    "access": "public"
+  }
+}
