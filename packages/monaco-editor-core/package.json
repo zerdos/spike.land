@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "8.4.1",
+  "version": "8.4.6",
   "description": "A browser based code editor",
   "author": "Microsoft Corporation",
   "license": "MIT",
