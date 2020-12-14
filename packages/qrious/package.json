@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/qrious",
-  "version": "8.4.10",
+  "version": "8.4.11",
   "description": "Library for QR code generation using canvas",
   "homepage": "https://github.com/neocotic/qrious",
   "publishConfig": {
@@ -28,7 +28,7 @@
     "url": "https://github.com/zerdos/qrious.git"
   },
   "devDependencies": {
-    "@zedvision/dts-gen": "^8.4.10",
+    "@zedvision/dts-gen": "^8.4.11",
     "esbuild": "0.8.22",
     "eslint-config-notninja": "0.4.0",
     "grunt": "1.3.0",
