@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/jsframe",
-  "version": "8.4.4",
+  "version": "8.4.5",
   "description": "It is an independent lightweight multi-window library for javascript.\r - Create various popup windows.\r - Styling the appearance flexibly.",
   "main": "lib/jsframe.min.js",
   "scripts": {
@@ -41,9 +41,9 @@
     "css-loader": "5.0.1",
     "esbuild": "0.8.22",
     "style-loader": "2.0.0",
+    "terser-webpack-plugin": "5.0.3",
     "webpack": "5.10.1",
     "webpack-cli": "4.2.0",
-    "terser-webpack-plugin": "5.0.3",
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
