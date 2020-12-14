@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/diff",
-    "version": "8.4.7",
+    "version": "8.4.8",
     "description": "Diffs 2 strings",
     "main": "dist/diff.min.js",
     "private": false,
@@ -26,7 +26,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "0ef7763499bb9d5112d6b941743a042013bf36e4",
+    "gitHead": "ec0daddbbbd027a89eb4d9f7c792b291e4d74aef",
     "dependencies": {
         "diff": "5.0.0",
         "esbuild": "0.8.22"

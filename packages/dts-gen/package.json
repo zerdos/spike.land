@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@types/mocha": "latest",
-    "@types/node": "latest",
+    "@types/node": "latest",  
     "@types/parse-git-config": "^1.1.0",
     "@types/yargs": "latest",
     "ecurve": "1.0.5",
@@ -29,7 +29,6 @@
   "keywords": [
     "typescript"
   ],
-  "preferGlobal": true,
   "scripts": {
     "npm:install": "npm install",
     "test": "mocha bin/tests/test.js",
@@ -50,5 +49,5 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "gitHead": "0ef7763499bb9d5112d6b941743a042013bf36e4"
+  "gitHead": "ec0daddbbbd027a89eb4d9f7c792b291e4d74aef"
 }
