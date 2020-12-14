@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/dts-gen",
-  "version": "8.4.8",
+  "version": "8.4.9",
   "description": "TypeScript Definition File Generator",
   "main": "bin/lib/index.js",
   "bin": {
@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@types/mocha": "latest",
-    "@types/node": "latest",  
+    "@types/node": "latest",
     "@types/parse-git-config": "^1.1.0",
     "@types/yargs": "latest",
     "ecurve": "1.0.5",
