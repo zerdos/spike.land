@@ -10,24 +10,23 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/core": "^7.12.10",
     "dts-dom": "latest",
     "parse-git-config": "^3.0.0",
-    "typescript": "^4.1.3",
-    "yargs": "^16.2.0"
+    "typescript": "4.1.3",
+    "yargs": "16.2.0"
   },
   "devDependencies": {
     "@types/mocha": "latest",
     "@types/node": "latest",
-    "@types/parse-git-config": "^3.0.0",
+    "@types/parse-git-config": "3.0.0",
     "@types/yargs": "latest",
     "ecurve": "1.0.6",
     "jquery": "latest",
     "lodash": "latest",
-    "mocha": "^8.2.1",
+    "mocha": "8.2.1",
     "react": "latest",
-    "tslint": "^6.1.3",
-    "webpack": "^5.10.1"
+    "tslint": "6.1.3",
+    "webpack": "5.10.1"
   },
   "keywords": [
     "typescript"
@@ -50,7 +49,7 @@
   },
   "homepage": "https://github.com/zed-vision/monorepo",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=12.0.0"
   },
   "gitHead": "520741663e1da196b7dbbf0174e110548df04a31"
 }
