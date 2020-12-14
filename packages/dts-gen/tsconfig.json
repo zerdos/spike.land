@@ -1,0 +1,21 @@
+{
+    "include": [
+        "lib",
+        "tests"
+    ],
+    "compilerOptions": {
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "sourceMap": false,
+        "outDir": "./bin",
+        "newLine": "LF"
+    }
+}
