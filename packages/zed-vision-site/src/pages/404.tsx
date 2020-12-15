@@ -24,13 +24,14 @@ export default function () {
         const uuid = await getUserId();
         console.log(uuid);
         const uuidHash = (await sha256(uuid)).substring(0, 8);
+        console.log(uuidHash);
         const checkKeyUuid = (await sha256(key + uuid)).substring(0, 8);
         const checkHashUuidHash = (await sha256(key + uuidHash)).substring(0, 8);
         console.log(
-          `https://code.zed.vision/connect?key=${key}${uuidHash}${checkHashUuidHash}${checkKeyUuid}`,
+          `https://code.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
         );
         const response = await fetch(
-          `https://code.zed.vision/connect?key=${key}${uuidHash}${checkHashUuidHash}${checkKeyUuid}`,
+          `https://code.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
         );
         const data: { success: boolean } = await response.json();
         if (data.success) {
