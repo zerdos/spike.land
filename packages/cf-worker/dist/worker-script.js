@@ -1304,7 +1304,7 @@ async function handleCloudRequest(request) {
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
-            const data1 = await USERS.get(key, "json");
+            const data1 = await USERS.get(uuid, "json");
             if (!data1 || data1.connected) {
               clearInterval(clear);
               resolve(data1);
