@@ -128,19 +128,26 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       return json({ uuid, key: uuidHash });
     }
-    if (pathname === "/uuids"){
-      const list = await USERS.list();
+    // if (pathname === "/uuids"){
+    //   const list = await USERS.list();
 
-      const work = list.keys.map(x=>x.name).map(async(uuid)=>{
-        const hash=await sha256(uuid);
-        await USERS.put(hash, uuid);
-      });
+    //   const work = list.keys.map( x=>x.name).map(async(uuid)=>{
+    //     // if (uuid.length === 8) {
+    //     //     await USERS.delete(uuid)
+    //     // }
+        
 
-      await Promise.all(work);
+        
+    //     const hash=await sha256(uuid);
+    //     const hashHash = await sha256(hash)
+    //     await USERKEYS.delete(hashHash);
+    //   });
 
-      return json({uuids: list.keys});
+    //   await Promise.all(work);
 
-    }
+    //   return json({uuids: list.keys});
+
+    // }
 
     if (pathname === "/create-project") {
       const uuidHash = request.headers.get("TOKEN");
