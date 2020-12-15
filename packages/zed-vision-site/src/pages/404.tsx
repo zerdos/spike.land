@@ -2,7 +2,7 @@ import React from "react";
 import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { sha256 } from "../components/utils/sha256/sha256.ts";
-import { getUserId } from "../components/code/getUser"
+import { getUserId } from "../components/code/getUser";
 
 export default function () {
   let pathname = "";
@@ -23,16 +23,16 @@ export default function () {
         const uuid = await getUserId();
         const uuidHash = (await sha256(uuid)).substring(0, 8);
         const checkKeyUuid = await sha256(key + uuid).substring(0, 8);
-        const checkHashUuidHash = await sha256(key+uuidHash).substring(0, 8);
-        const response = await fetch(`https://code.zed.vision/connect?key=${key}${uuidHash}${checkHashUuidHash}${checkKeyUuid}`);
-        const data:  {success: boolean} = await response.json();
-      if (data.success){
-
-            location.href = "https://zed.vision/code/";
-          } else {
-            set404(true);
-          }
-         
+        const checkHashUuidHash = await sha256(key + uuidHash).substring(0, 8);
+        const response = await fetch(
+          `https://code.zed.vision/connect?key=${key}${uuidHash}${checkHashUuidHash}${checkKeyUuid}`,
+        );
+        const data: { success: boolean } = await response.json();
+        if (data.success) {
+          location.href = "https://zed.vision/code/";
+        } else {
+          set404(true);
+        }
       } catch (e) {
         console.error(e);
         set404(true);

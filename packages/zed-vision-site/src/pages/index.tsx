@@ -9,7 +9,7 @@ import { graphql, Link } from "gatsby";
 import { Bio } from "../components/bio";
 import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
-import { getUserId } from "../components/code/getUser"
+import { getUserId } from "../components/code/getUser";
 import { rhythm } from "../components/utils/typography";
 import { Qr } from "../components/code/Qr";
 
@@ -47,7 +47,6 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       const install = async () => {
-        
         console.log(await getUserId());
       };
       install();
@@ -78,13 +77,20 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
         return (
           <article key={node.fields.slug}>
             <header>
-              <h3 css={`  
+              <h3
+                css={`  
                       margin-bottom: ${rhythm(1 / 4)};
-                      `}>
-                <Link css={`    
+                      `}
+              >
+                <Link
+                  css={`    
                     box-shadow: "none";
-                  `} to={node.fields.slug}>{title}</Link>
-              </h3> 
+                  `}
+                  to={node.fields.slug}
+                >
+                  {title}
+                </Link>
+              </h3>
               <small>{node.frontmatter.date}</small>
             </header>
             <section>
