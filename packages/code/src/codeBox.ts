@@ -7,10 +7,8 @@ import { starter } from "./starterNoFramerMotion.ts";
 import { sha256 } from "./sha256.js";
 import { getDB } from "../../shadb/src/shaDB.ts";
 
-const document = window.document;
 
-var ReactDOM: { unmountComponentAtNode: (node: unknown) => void } =
-  window.ReactDOM;
+const {ReactDOM, document} = window as unknown as {ReactDOM: { unmountComponentAtNode: (node: unknown) => void }, document: Document}
 
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {

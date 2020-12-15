@@ -2698,7 +2698,7 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-dom@17.0.0":
+"@types/react-dom@17.0.0", "@types/react-dom@^17.0.0":
   version "17.0.0"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.0.tgz#b3b691eb956c4b3401777ee67b900cb28415d95a"
   integrity sha512-lUqY7OlkF/RbNtD5nIq7ot8NquXrdFrjSOR6+w9a9RFQevGi1oZO1dcJbXMeONAPKtZ2UrZOEJ5UOCVsxbLk/g==
@@ -2712,7 +2712,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@17.0.0":
+"@types/react@*", "@types/react@17.0.0", "@types/react@^17.0.0":
   version "17.0.0"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.0.tgz#5af3eb7fad2807092f0046a1302b7823e27919b8"
   integrity sha512-aj/L7RIMsRlWML3YB6KZiXB3fV2t41+5RBGYF8z+tAKU43Px8C3cYUZsDvf1/+Bm4FK21QWBrDutu8ZJ/70qOw==
@@ -3179,18 +3179,6 @@
   dependencies:
     dts-dom "3.6.0"
     parse-git-config "3.0.0"
-
-"@zedvision/qrious@8.4.11":
-  version "8.4.11"
-  resolved "https://registry.yarnpkg.com/@zedvision/qrious/-/qrious-8.4.11.tgz#29b5fe6b04d52c2529b73d8985c2de5060ebb7f9"
-  integrity sha512-JHbbaktSQMMLjHda6oQTCXMqwsBeTMbxJ6C2xxOfyCtCWzimqH2Ekd+KOInDYf6xicchnt+8++tUDCviiQFbyA==
-
-"@zedvision/shadb@8.4.11":
-  version "8.4.11"
-  resolved "https://registry.yarnpkg.com/@zedvision/shadb/-/shadb-8.4.11.tgz#efaa7c26d61af9ad407be92958694529ffbcdf32"
-  integrity sha512-tV1IKN+AIQ52cqk7W9zUn4Ych65KQhJCOUuH/gM5G7Wu+eMLODupYhdW/nBuSTPhO7+tZpOeNflPHQbtNiZWzQ==
-  dependencies:
-    esbuild "0.8.22"
 
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"
@@ -6502,11 +6490,6 @@ es6-promisify@^5.0.0:
   integrity sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=
   dependencies:
     es6-promise "^4.0.3"
-
-esbuild@0.8.22:
-  version "0.8.22"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.22.tgz#d558dd8579eb824a10ca04daa7be712379cae759"
-  integrity sha512-7cgcJwjff5pw6JLTpUyN3QZ6raOYamfvBt7ry0tyGZwZJ/W8mJrHuv+VC5rbNEO4Mz8s8ElmcavKc7R2g1HWow==
 
 esbuild@0.8.23:
   version "0.8.23"
@@ -13587,7 +13570,7 @@ react-dev-utils@^4.2.3:
     strip-ansi "3.0.1"
     text-table "0.2.0"
 
-react-dom@17.0.1:
+react-dom@17.0.1, react-dom@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.1.tgz#1de2560474ec9f0e334285662ede52dbc5426fc6"
   integrity sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
@@ -13664,7 +13647,7 @@ react-typography@0.16.19:
   resolved "https://registry.yarnpkg.com/react-typography/-/react-typography-0.16.19.tgz#5736b47961dcf6b9605b6fa38d41980db2588e28"
   integrity sha512-kV2qLEsdm0x9P4YXQEDVc88tDb4Vg0h/vdVZGgbqaRn8ERvNzV76JHUeOby3vvcUYU5MPd5Kz5DPH9Bhp4I/iw==
 
-react@17.0.1:
+react@17.0.1, react@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
   integrity sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w==

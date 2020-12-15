@@ -1,19 +1,18 @@
-
 {
-    "compilerOptions": {
-      "outDir": "./dist",
-      "module": "commonjs",
-      "target": "esnext",
-      "lib": ["esnext", "webworker", "dom"],
-      "alwaysStrict": true,
-      "strict": true,
-      "preserveConstEnums": true,
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "esModuleInterop": true
-    },
-    
-    "include": [
-      "src"
-    ],
+  // This is based on https://deno.land/manual/getting_started/typescript#custom-typescript-compiler-options
+  // then the defaults are removed.
+ 
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Deno",
+ 
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "lib": ["WebWorker", "dom", "dom.iterable", "ESNext", "deno.ns"],
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "types": [""],
+    "strict": true
   }
+}
+ 

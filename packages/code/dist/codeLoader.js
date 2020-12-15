@@ -1281,8 +1281,7 @@ async function arrBuffSha256(msgBuffer) {
   );
   return hashHex;
 }
-const document = window.document;
-var ReactDOM = window.ReactDOM;
+const { ReactDOM, document } = window;
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
     return "https://code.zed.vision";
