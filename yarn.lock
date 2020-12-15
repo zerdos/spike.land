@@ -3180,6 +3180,18 @@
     dts-dom "3.6.0"
     parse-git-config "3.0.0"
 
+"@zedvision/qrious@8.4.11":
+  version "8.4.11"
+  resolved "https://registry.yarnpkg.com/@zedvision/qrious/-/qrious-8.4.11.tgz#29b5fe6b04d52c2529b73d8985c2de5060ebb7f9"
+  integrity sha512-JHbbaktSQMMLjHda6oQTCXMqwsBeTMbxJ6C2xxOfyCtCWzimqH2Ekd+KOInDYf6xicchnt+8++tUDCviiQFbyA==
+
+"@zedvision/shadb@8.4.11":
+  version "8.4.11"
+  resolved "https://registry.yarnpkg.com/@zedvision/shadb/-/shadb-8.4.11.tgz#efaa7c26d61af9ad407be92958694529ffbcdf32"
+  integrity sha512-tV1IKN+AIQ52cqk7W9zUn4Ych65KQhJCOUuH/gM5G7Wu+eMLODupYhdW/nBuSTPhO7+tZpOeNflPHQbtNiZWzQ==
+  dependencies:
+    esbuild "0.8.22"
+
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@zkochan/cmd-shim/-/cmd-shim-3.1.0.tgz#2ab8ed81f5bb5452a85f25758eb9b8681982fd2e"
@@ -6490,6 +6502,11 @@ es6-promisify@^5.0.0:
   integrity sha1-UQnWLz5W6pZ8S2NQWu8IKRyKUgM=
   dependencies:
     es6-promise "^4.0.3"
+
+esbuild@0.8.22:
+  version "0.8.22"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.22.tgz#d558dd8579eb824a10ca04daa7be712379cae759"
+  integrity sha512-7cgcJwjff5pw6JLTpUyN3QZ6raOYamfvBt7ry0tyGZwZJ/W8mJrHuv+VC5rbNEO4Mz8s8ElmcavKc7R2g1HWow==
 
 esbuild@0.8.23:
   version "0.8.23"

@@ -7,8 +7,10 @@ import { starter } from "./starterNoFramerMotion.ts";
 import { sha256 } from "./sha256.js";
 import { getDB } from "../../shadb/src/shaDB.ts";
 
-
-const {ReactDOM, document} = window as unknown as {ReactDOM: { unmountComponentAtNode: (node: unknown) => void }, document: Document}
+const { ReactDOM, document } = window as unknown as {
+  ReactDOM: { unmountComponentAtNode: (node: unknown) => void };
+  document: Document;
+};
 
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
@@ -20,9 +22,9 @@ const getUrl = () => {
 export const getProjects = async () => {
   const uuid = await getUserId();
   const shaDB = await getDB();
-  const projects = await shaDB.get<{list:unknown}>(uuid, "json");
+  const projects = await shaDB.get<{ list: unknown }>(uuid, "json");
 
-  if (typeof projects === "string" ||  projects===null ||  !projects.list) {
+  if (typeof projects === "string" || projects === null || !projects.list) {
     const projectId = v4();
 
     await shaDB.put(

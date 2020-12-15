@@ -19,7 +19,10 @@ function log(message: string, data: unknown = {}, type = "cf") {
   const today = new Date(timeElapsed);
   const nowIso = today.toISOString();
 
-  return LOGS.put(String(now++), JSON.stringify({ message, time: nowIso, type, data }));
+  return LOGS.put(
+    String(now++),
+    JSON.stringify({ message, time: nowIso, type, data }),
+  );
 }
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
@@ -59,15 +62,13 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         const tokenUuid = await USERKEYS.get(tokenKey);
 
         if (tokenUuid === null) {
-        return json({
-          error:404,
-          message: "token not found"
-        });
-
+          return json({
+            error: 404,
+            message: "token not found",
+          });
         }
         const checkPass = await sha256(tokenKey + uuid);
         const checkPassToken = await sha256(tokenUuid + uuid);
-
 
         if (checkPass === pass) {
           await USERS.put(
@@ -102,7 +103,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         if (!uuid) return null;
 
         const data = await USERS.get<{ connected: boolean }>(
-          uuid,"json"
+          uuid,
+          "json",
         );
         if (!data || data.connected) {
           return data;
@@ -183,7 +185,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     const maybeRoute = pathname.substr(1);
     if (maybeRoute) {
       const shaDB = getDbObj(SHAKV);
-      const result = (await shaDB.get(maybeRoute)) as string | null ;
+      const result = (await shaDB.get(maybeRoute)) as string | null;
       if (result !== null) {
         return text(result);
       }
