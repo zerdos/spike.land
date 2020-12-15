@@ -4,7 +4,7 @@ import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.ts";
-import { arrBuffSha256, sha256 } from "./sha256.js";
+import { sha256 } from "./sha256.js";
 import { getDB } from "../../shadb/src/shaDB.ts";
 
 const { ReactDOM, document } = window as unknown as {
@@ -12,7 +12,7 @@ const { ReactDOM, document } = window as unknown as {
   document: Document;
 };
 
-async function getZkey(hash) {
+async function getZkey(hash: string) {
   const uuid = await getUserId();
 
   const uKey = await sha256(uuid);
@@ -398,8 +398,8 @@ export async function run(mode = "window") {
         </body>
         </html>
         `;
-        const iframeBlob = await createHTMLSourceBlob(iframe);
-        const link = await saveHtml(iframeBlob);
+
+        const link = await saveHtml(iframe);
         return link;
       };
     };
@@ -499,9 +499,10 @@ export async function run(mode = "window") {
     return blob;
   }
 
-  async function saveHtml(htmlBlob: Blob) {
+  async function saveHtml(html: string) {
     const cfUrl = getUrl();
-    const hash = await arrBuffSha256(htmlBlob);
+    const hash = await sha256(html);
+    const htmlBlob = await createHTMLSourceBlob(html);
     const request = new Request(
       cfUrl,
       {
