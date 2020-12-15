@@ -22,7 +22,7 @@
     "lodash": "4.17.20",
     "react": "17.0.1",
     "typescript": "4.1.3",
-    "webpack": "5.10.1",
+    "webpack": "5.10.2",
     "yargs": "16.2.0"
   },
   "keywords": [
