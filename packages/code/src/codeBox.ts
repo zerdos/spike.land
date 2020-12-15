@@ -7,7 +7,7 @@ import { starter } from "./starterNoFramerMotion.ts";
 import { sha256 } from "./sha256.js";
 import { getDB } from "../../shadb/src/shaDB.ts";
 
-/// <reference lib="dom" />
+const document = window.document;
 
 var ReactDOM: { unmountComponentAtNode: (node: unknown) => void } =
   window.ReactDOM;

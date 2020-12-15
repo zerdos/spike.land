@@ -7,6 +7,7 @@
     "**/CVS": true,
     "**/.DS_Store": true
   },
+  "typescript.tsserver.useSeparateSyntaxServer": true,
   "typescript.tsserver.log": "verbose",
   "deno.importMap": "./import_map.json",
   "deno.import_map": "./import_map.json",
@@ -17,6 +18,7 @@
   "deno.import_intellisense_autodiscovery": true,
   "deno.unstable": true,
   "deno.lint": true,
+  "deno.config": "./tsconfig.json",
   "deno.import_intellisense_origins": {
     "https://deno.land": true,
   },

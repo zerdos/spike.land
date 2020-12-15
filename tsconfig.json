@@ -6,11 +6,12 @@
   "display": "Deno",
  
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "jsx": "react",
     "allowJs": true,
-    "lib": ["WebWorker", "DOM", "DOM.Iterable", "ESNext"],
+    "lib": ["WebWorker", "dom", "dom.iterable", "ESNext", "deno.ns"],
     "resolveJsonModule": true,
     "moduleResolution": "node",
+    "types": [""],
     "strict": true
   }
 }

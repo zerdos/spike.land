@@ -1281,6 +1281,7 @@ async function arrBuffSha256(msgBuffer) {
   );
   return hashHex;
 }
+const document = window.document;
 var ReactDOM = window.ReactDOM;
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
@@ -1302,12 +1303,12 @@ const startMonaco = async ({ onChange, code, language }) => {
       editor: {},
     };
   }
-  const document = window.document;
+  const document1 = window.document;
   const container = window.document.getElementById("container");
   if (!container) {
-    const el = document.getElementById("container");
+    const el = document1.getElementById("container");
     el.id = "container";
-    document.body.appendChild(el);
+    document1.body.appendChild(el);
   }
   const modelUri = language === "typescript"
     ? "file:///main.tsx"
@@ -1430,8 +1431,8 @@ const startMonaco = async ({ onChange, code, language }) => {
     onChange(value);
   });
   aceEditor &&
-    document.getElementById("container").replaceWith(
-      document.getElementById("ace"),
+    document1.getElementById("container").replaceWith(
+      document1.getElementById("ace"),
     );
   modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
