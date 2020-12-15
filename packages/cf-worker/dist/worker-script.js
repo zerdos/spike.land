@@ -1404,10 +1404,12 @@ async function handleCloudRequest(request) {
     }
     const myBuffer = await request.arrayBuffer();
     const hash = await arrBuffSha256(myBuffer);
-    if (hash !== sha) {
+    const smallerKey = hash.substring(0, 8);
+    if (smallerKey !== sha) {
       return json({
         error: 401,
-        message: "body hash not matching with the sent hash",
+        message:
+          `body hash not matching with the sent hash: ${smallerKey} -- ${zkey}`,
       });
     }
     const uuid = await USERKEYS.get(uKey);
@@ -1429,7 +1431,6 @@ async function handleCloudRequest(request) {
       sha,
     });
     const maybeRoute = pathname.substr(1);
-    const smallerKey = hash.substring(0, 8);
     await SHAKV.put(smallerKey, myBuffer);
     if (maybeRoute) {
       const shaDB = getDbObj(SHAKV);
