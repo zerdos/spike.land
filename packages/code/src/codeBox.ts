@@ -22,10 +22,10 @@ const getUrl = () => {
 export const getProjects = async () => {
   const uuid = await getUserId();
   const shaDB = await getDB();
-  const projects = await shaDB.get<{ list: unknown }>(uuid, "json");
+  const projects = await shaDB.get<{ list: string[] }>(uuid, "json");
 
   if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId = v4();
+    const projectId: string = v4({},null, null);
 
     await shaDB.put(
       uuid,
@@ -71,40 +71,6 @@ let latestSavedCode = "";
 let latestGoodCode = "";
 
 let shareItAsHtml: () => void;
-
-async function deleteHash(apiKey: string, hash: string) {
-  try {
-    const url = `https://code.zed.vision/keys/delete/?hash=${hash}`;
-    const req = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "API_KEY": apiKey,
-      },
-    });
-
-    return true;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
-}
-
-async function getCode(hash: string) {
-  try {
-    const list = `https://code.zed.vision/?h=${hash}`;
-    const req = await fetch(list, {
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-    });
-    const data = await req.json();
-    if (data.code) return data.code as string;
-    return "";
-  } catch (e) {
-    console.log(e);
-    return "";
-  }
-}
 
 export async function getUserId() {
   const shaDB = await getDB();
@@ -158,8 +124,6 @@ export async function run(mode = "window") {
   }
 
   const shaDB = await getDB();
-
-  const uuid = await getUserId();
   const projects = await getProjects();
   const projectName = projects[0];
 

@@ -1837,7 +1837,7 @@ export const getProjects = async () => {
   const shaDB = await getDB();
   const projects = await shaDB.get(uuid, "json");
   if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId = v4();
+    const projectId = v4({}, null, null);
     await shaDB.put(
       uuid,
       JSON.stringify({
@@ -1885,7 +1885,6 @@ export async function run(mode = "window") {
     });
   }
   const shaDB = await getDB();
-  const uuid = await getUserId();
   const projects = await getProjects();
   const projectName = projects[0];
   const example = await getCodeToLoad();
