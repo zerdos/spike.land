@@ -8,7 +8,7 @@
   "compilerOptions": {
     "jsx": "react",
     "allowJs": true,
-    "lib": ["WebWorker", "dom", "dom.iterable", "ESNext", "deno.ns"],
+    "lib": ["WebWorker", "dom", "dom.iterable", "ESNext"],
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "types": [""],
