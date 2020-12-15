@@ -229,6 +229,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return json({ error: 401, message: "user not verified" });
     }
 
+    await log("new html", { uKey, sha });
+
     // this need restriction
     // such as:
     //    what are we saving - which projectID

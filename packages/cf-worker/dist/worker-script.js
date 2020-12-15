@@ -1424,6 +1424,10 @@ async function handleCloudRequest(request) {
         message: "user not verified",
       });
     }
+    await log("new html", {
+      uKey,
+      sha,
+    });
     const maybeRoute = pathname.substr(1);
     const smallerKey = hash.substring(0, 8);
     await SHAKV.put(smallerKey, myBuffer);
