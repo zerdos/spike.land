@@ -74,14 +74,14 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       const waitForChange = async () => {
         const uuid = await USERKEYS.get(
-          key
+          key,
         );
 
         if (!uuid) return null;
 
         const data = await USERS.get<{ connected: boolean }>(
-          uuid
-        )
+          uuid,
+        );
         if (!data || data.connected) {
           return data;
         }
