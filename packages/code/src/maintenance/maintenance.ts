@@ -18,7 +18,6 @@ export async function getHash(hash: string) {
   }
 }
 
-
 async function getCode(hash: string) {
   try {
     const list = `https://code.zed.vision/?h=${hash}`;
@@ -35,7 +34,6 @@ async function getCode(hash: string) {
     return "";
   }
 }
-
 
 async function deleteHash(apiKey: string, hash: string) {
   try {

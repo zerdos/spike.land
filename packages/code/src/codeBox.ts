@@ -25,7 +25,7 @@ export const getProjects = async () => {
   const projects = await shaDB.get<{ list: string[] }>(uuid, "json");
 
   if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId: string = v4({},null, null);
+    const projectId: string = v4({}, null, null);
 
     await shaDB.put(
       uuid,
