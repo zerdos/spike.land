@@ -3,12 +3,11 @@ import { renderDraggableWindow } from "./DraggableWindow.js";
 import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
-import { starter } from "./starterNoFramerMotion.tsx";
+import { starter } from "./starterNoFramerMotion.ts";
 import { sha256 } from "./sha256.js";
 import { getDB } from "../../shadb/src/shaDB.ts";
 
 /// <reference lib="dom" />
-const document = window.document;
 
 var ReactDOM: { unmountComponentAtNode: (node: unknown) => void } =
   window.ReactDOM;
@@ -23,9 +22,9 @@ const getUrl = () => {
 export const getProjects = async () => {
   const uuid = await getUserId();
   const shaDB = await getDB();
-  const projects = await shaDB.get(uuid, "json");
+  const projects = await shaDB.get<{list:unknown}>(uuid, "json");
 
-  if (!projects || !projects.list) {
+  if (typeof projects === "string" ||  projects===null ||  !projects.list) {
     const projectId = v4();
 
     await shaDB.put(
@@ -66,7 +65,6 @@ let firstLoad = true;
 
 let latestCode = "";
 let busy = 0;
-let keystrokeTillNoError = 0;
 
 let errorReported = "";
 let latestSavedCode = "";
@@ -219,9 +217,6 @@ export async function run(mode = "window") {
       errorDiv!.style!.display = "none";
 
       modules.monaco.editor.setTheme("vs-dark");
-
-      // document.getElementById("root").classList.remove("transparent");
-      keystrokeTillNoError = 0;
 
       busy = 0;
       restartCode(transpileCode(cd));

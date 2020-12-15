@@ -1281,7 +1281,6 @@ async function arrBuffSha256(msgBuffer) {
   );
   return hashHex;
 }
-const document = window.document;
 var ReactDOM = window.ReactDOM;
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
@@ -1292,7 +1291,6 @@ const getUrl = () => {
 let firstLoad = true;
 let latestCode = "";
 let busy = 0;
-let keystrokeTillNoError = 0;
 let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
@@ -1304,12 +1302,12 @@ const startMonaco = async ({ onChange, code, language }) => {
       editor: {},
     };
   }
-  const document1 = window.document;
+  const document = window.document;
   const container = window.document.getElementById("container");
   if (!container) {
-    const el = document1.getElementById("container");
+    const el = document.getElementById("container");
     el.id = "container";
-    document1.body.appendChild(el);
+    document.body.appendChild(el);
   }
   const modelUri = language === "typescript"
     ? "file:///main.tsx"
@@ -1432,8 +1430,8 @@ const startMonaco = async ({ onChange, code, language }) => {
     onChange(value);
   });
   aceEditor &&
-    document1.getElementById("container").replaceWith(
-      document1.getElementById("ace"),
+    document.getElementById("container").replaceWith(
+      document.getElementById("ace"),
     );
   modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
     noSuggestionDiagnostics: true,
@@ -1838,7 +1836,7 @@ export const getProjects = async () => {
   const uuid = await getUserId();
   const shaDB = await getDB();
   const projects = await shaDB.get(uuid, "json");
-  if (!projects || !projects.list) {
+  if (typeof projects === "string" || projects === null || !projects.list) {
     const projectId = v4();
     await shaDB.put(
       uuid,
@@ -1931,7 +1929,6 @@ export async function run(mode = "window") {
       latestGoodCode = cd;
       errorDiv.style.display = "none";
       modules.monaco.editor.setTheme("vs-dark");
-      keystrokeTillNoError = 0;
       busy = 0;
       restartCode(transpileCode(cd));
     } catch (err) {

@@ -3,10 +3,10 @@ import { sha256 } from "../../code/src/sha256.js";
 
 export const getDbObj = (dbPromise, isIdb = false) => {
   const dbObj = {
-    async get(
+    async get<T>(
       key: string,
       format: "string" | "json" | "stream" = "string",
-    ): Promise<string | unknown | null> {
+    ): Promise<string | T | null> {
       let data;
       try {
         if (isIdb) {
