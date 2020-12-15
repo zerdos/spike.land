@@ -6,8 +6,21 @@ import { v4 } from "./dec.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
+
+var LOGS: KVNamespace;
 var USERKEYS: KVNamespace;
 var API_KEY: string;
+
+let now = 0;
+
+function log(message: string, data: unknown={}, type="cf"){
+  now = now || Date.now();
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+  const nowIso = today.toISOString(); 
+
+  return LOGS.put(now++, JSON.stringify({message, time: nowIso,type, data}));
+}
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -113,6 +126,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           { uuid, uuidHash, registered: Date.now(), cf: request.cf },
         ),
       );
+      await log("register", {uuidHash});
       await USERKEYS.put(uuidHash, uuid);
       return json({ uuid });
     }

@@ -1059,8 +1059,25 @@ function v4(options, buf, offset) {
 const v41 = () => v4();
 var SHAKV;
 var USERS;
+var LOGS;
 var USERKEYS;
 var API_KEY;
+let now = 0;
+function log(message, data = {}, type = "cf") {
+  now = now || Date.now();
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
+  const nowIso = today.toISOString();
+  return LOGS.put(
+    now++,
+    JSON.stringify({
+      message,
+      time: nowIso,
+      type,
+      data,
+    }),
+  );
+}
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
@@ -1306,6 +1323,9 @@ async function handleCloudRequest(request) {
           cf: request.cf,
         }),
       );
+      await log("register", {
+        uuidHash,
+      });
       await USERKEYS.put(uuidHash, uuid);
       return json({
         uuid,
