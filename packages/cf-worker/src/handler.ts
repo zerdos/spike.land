@@ -192,6 +192,39 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
     return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
+
+    const zkey = String(request.headers.get("ZKEY") || "");
+
+    const sha = zkey.slice(0,8);
+    const uKey = zkey.slice(8,16);
+    const gKey = zkey.slice(16,24);
+    const proofKey = zkey.slice(24,32);
+
+    if (!sha || !uKey ||  !gKey || !proofKey) return json({error: 401, "message": "not matching keys"});
+    const checkGkey=await sha256(sha+uKey);
+     
+    if (checkGkey!==gKey) return json({error: 401, "message": "content and userkeys are not a pain"});
+
+    
+
+
+    const myBuffer = await request.arrayBuffer();
+    const hash = await arrBuffSha256(myBuffer);
+
+    if (hash!==sha) return json({error: 401, message: "body hash not matching with the sent hash"});
+
+    const uuid = await USERKEYS.get(uKey);
+    
+    if (!uuid) return json({error: 500, message: "user not found"});
+
+    const checkProofKey = await sha256(sha + uuid);
+
+    if (checkProofKey!==proofKey) return json({error: 401, message: "user not verified"});
+    
+
+    
+
+
     // this need restriction
     // such as:
     //    what are we saving - which projectID
@@ -204,8 +237,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     //                - or render it to html
     //                - then the result :)
     const maybeRoute = pathname.substr(1);
-    const myBuffer = await request.arrayBuffer();
-    const hash = await arrBuffSha256(myBuffer);
+
     const smallerKey = hash.substring(0, 8);
 
     await SHAKV.put(smallerKey, myBuffer);

@@ -1832,6 +1832,13 @@ const getDB = () => {
   });
   return getDbObj(dbPromise, true);
 };
+async function getZkey(hash) {
+  const uuid = await getUserId();
+  const uKey = await sha256(uuid);
+  const gKey = await sha256(hash + uKey);
+  const vKey = await sha256(hash + uuid);
+  return `${hash}${uKey}${gKey}${vKey}`;
+}
 export const getProjects = async () => {
   const uuid = await getUserId();
   const shaDB = await getDB();
@@ -2047,14 +2054,15 @@ export async function run(mode = "window") {
         if (latestCode1 !== latestGoodCode) return;
         if (latestSavedCode === latestCode1) return;
         latestSavedCode = latestCode1;
+        const hash = await sha256(latestCode1);
         const request = new Request(getUrl(), {
           body: latestCode1,
           method: "POST",
           headers: {
             "Content-Type": "text/plain;charset=UTF-8",
+            "ZKEY": await getZkey(hash),
           },
         });
-        const hash = await sha256(latestCode1);
         try {
           const prevHash = await shaDB.get(projectName);
           if (prevHash !== hash) {
@@ -2115,16 +2123,17 @@ export async function run(mode = "window") {
   }
   async function saveHtml(htmlBlob) {
     const cfUrl = getUrl();
+    const hash = await arrBuffSha256(htmlBlob);
     const request = new Request(cfUrl, {
       body: htmlBlob,
       method: "POST",
       headers: {
         "Content-Type": "text/html;charset=UTF-8",
         "SHARE": "true",
+        "ZKEY": await getZkey(hash),
       },
     });
     const response = await fetch(request);
-    const { hash } = await response.json();
     return `${cfUrl}/${hash}`;
   }
   function transpileCode(code) {

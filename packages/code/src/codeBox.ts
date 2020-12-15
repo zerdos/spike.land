@@ -4,13 +4,22 @@ import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.ts";
-import { sha256 } from "./sha256.js";
+import { sha256, arrBuffSha256 } from "./sha256.js";
 import { getDB } from "../../shadb/src/shaDB.ts";
 
 const { ReactDOM, document } = window as unknown as {
   ReactDOM: { unmountComponentAtNode: (node: unknown) => void };
   document: Document;
 };
+
+async function getZkey(hash){
+  const uuid = await getUserId();
+
+  const uKey = await sha256(uuid);
+  const gKey = await sha256(hash+uKey);
+  const vKey = await sha256(hash+ uuid);
+  return `${hash}${uKey}${gKey}${vKey}`;
+}
 
 const getUrl = () => {
   if (document.location.href.includes("zed.dev")) {
@@ -395,6 +404,8 @@ export async function run(mode = "window") {
       };
     };
 
+
+        
     if (!firstLoad) {
       const saveCode = async (latestCode: string) => {
         if (latestCode !== latestGoodCode) return;
@@ -402,17 +413,21 @@ export async function run(mode = "window") {
 
         latestSavedCode = latestCode;
 
+        const hash = await sha256(latestCode);
+
+
         const request = new Request(
           getUrl(),
           {
             body: latestCode,
             method: "POST",
-            headers: { "Content-Type": "text/plain;charset=UTF-8" },
+            headers: { "Content-Type": "text/plain;charset=UTF-8",
+            "ZKEY":  await getZkey(hash)},
           },
         );
 
         // let response;
-        const hash = await sha256(latestCode);
+
 
         try {
           const prevHash = await shaDB.get(projectName);
@@ -488,6 +503,7 @@ export async function run(mode = "window") {
 
   async function saveHtml(htmlBlob: Blob) {
     const cfUrl = getUrl();
+    const hash = await arrBuffSha256(htmlBlob)
     const request = new Request(
       cfUrl,
       {
@@ -496,13 +512,13 @@ export async function run(mode = "window") {
         headers: {
           "Content-Type": "text/html;charset=UTF-8",
           "SHARE": "true",
+          "ZKEY":  await getZkey(hash)
         },
       },
     );
 
     const response = await fetch(request);
 
-    const { hash } = await response.json();
     return `${cfUrl}/${hash}`;
   }
 
