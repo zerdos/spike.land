@@ -73,10 +73,14 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       if (key === null) return new Response("500");
 
       const waitForChange = async () => {
-        const data = await USERKEYS.get<{ connected: boolean }>(
-          key,
-          "json",
+        const uuid = await USERKEYS.get<{ connected: boolean }>(
+          key
         );
+        if (!uuid) return null;
+
+        const data = await USERKEYS.get<{ connected: boolean }>(
+          uuid
+        )
         if (!data || data.connected) {
           return data;
         }

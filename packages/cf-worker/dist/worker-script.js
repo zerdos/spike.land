@@ -1273,7 +1273,9 @@ async function handleCloudRequest(request) {
       const key = searchParams.get("key");
       if (key === null) return new Response("500");
       const waitForChange = async () => {
-        const data = await USERKEYS.get(key, "json");
+        const uuid = await USERKEYS.get(key);
+        if (!uuid) return null;
+        const data = await USERKEYS.get(uuid);
         if (!data || data.connected) {
           return data;
         }
