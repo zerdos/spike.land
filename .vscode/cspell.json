@@ -48,6 +48,7 @@
         "transpiled",
         "unlisten",
         "unmount",
+        "userkeys",
         "uuidv",
         "window",
         "workerize",

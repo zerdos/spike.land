@@ -6,6 +6,7 @@ import { v4 } from "./dec.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
+var USERKEYS: KVNamespace;
 var API_KEY: string;
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
@@ -19,21 +20,51 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
     }
-
     if (pathname === "/connect") {
-      const uuid = searchParams.get("uuid") || v4();
-      const key = await sha256(uuid);
-      await SHAKV.put(
-        key,
-        JSON.stringify(
-          {
-            uuid,
-            connected: searchParams.get("uuid"),
-          },
-        ),
-        { expirationTtl: 60 },
-      );
-      return json({ key });
+      if (searchParams.get("key")) {
+        const key = searchParams.get("key")!;
+
+        const tokenKey = key.slice(0, 8);
+        const userIdKey = key.slice(8, 16);
+        const pass = key.slice(16, 24);
+        const tokenPassUserId = key.slice(24, 32);
+
+        const checkTokenPassUserId = await sha256(tokenKey + userIdKey);
+
+        if (
+          !tokenKey || !userIdKey || !pass ||
+          (checkTokenPassUserId !== tokenPassUserId)
+        ) {
+          return json({ error: "auth error" });
+        }
+
+        const uuid = await USERKEYS.get(userIdKey);
+        if (uuid === null) {
+          return json({ error: 401 });
+        }
+
+        const tokenUuid = await USERKEYS.get(tokenKey);
+        const checkPass = await sha256(tokenKey + uuid);
+        const checkPassToken = await sha256(tokenUuid + uuid);
+
+        if (checkPass === pass) {
+          await USERKEYS.put(
+            key,
+            JSON.stringify(
+              {
+                uuid,
+                connected: searchParams.get("uuid"),
+              },
+            ),
+            { expirationTtl: 60 },
+          );
+
+          return json({ success: true });
+        } else if (checkPassToken === pass) {
+          return json({ success: true });
+        }
+        return json({ error: 401 });
+      }
     }
 
     if (pathname === "/check") {
@@ -42,7 +73,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       if (key === null) return new Response("500");
 
       const waitForChange = async () => {
-        const data = await SHAKV.get<{ connected: boolean }>(
+        const data = await USERKEYS.get<{ connected: boolean }>(
           key,
           "json",
         );
@@ -51,7 +82,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
-            const data = await SHAKV.get<{ connected: boolean }>(
+            const data = await USERKEYS.get<{ connected: boolean }>(
               key,
               "json",
             );
@@ -69,6 +100,32 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
 
     if (pathname === "/register") {
+      const uuid = v4();
+      const uuidHash = await sha256(uuid);
+      await USERS.put(
+        uuid,
+        JSON.stringify(
+          { uuid, uuidHash, registered: Date.now(), cf: request.cf },
+        ),
+      );
+      await USERKEYS.put(uuidHash, uuid);
+      return json({ uuid });
+    }
+    if (pathname === "/token") {
+      const uuid = v4();
+      const uuidHash = await sha256(uuid);
+      await USERS.put(
+        uuid,
+        JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),
+        { expirationTtl: 60 },
+      );
+      await USERKEYS.put(uuidHash, uuid, { expirationTtl: 60 });
+
+      return json({ uuid, key: uuidHash });
+    }
+
+    if (pathname === "/create-project") {
+      const uuidHash = request.headers.get("TOKEN");
       const uuid = v4();
       await USERS.put(
         uuid,
@@ -98,14 +155,17 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     //                - or babel it
     //                - or render it to html
     //                - then the result :)
-
+    const maybeRoute = pathname.substr(1);
     const myBuffer = await request.arrayBuffer();
-
     const hash = await arrBuffSha256(myBuffer);
-
     const smallerKey = hash.substring(0, 8);
-    const shaDB = getDbObj(SHAKV);
-    const result = await shaDB.put(smallerKey, myBuffer);
+
+    await SHAKV.put(smallerKey, myBuffer);
+
+    if (maybeRoute) {
+      const shaDB = getDbObj(SHAKV);
+      const result = await shaDB.put(maybeRoute, smallerKey);
+    }
 
     return json({
       hash: smallerKey,

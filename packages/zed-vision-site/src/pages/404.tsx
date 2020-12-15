@@ -1,8 +1,8 @@
 import React from "react";
-import { getDB } from "@zedvision/shadb";
 import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { sha256 } from "../components/utils/sha256/sha256.ts";
+import { getUserId } from "../components/code/getUser"
 
 export default function () {
   let pathname = "";
@@ -18,29 +18,21 @@ export default function () {
 
   React.useEffect(() => {
     const runner = async () => {
-      const db = getDB();
       try {
-        const response = await fetch(`https://code.zed.vision/${pathname}`);
-        const data = await response.text();
-        console.log({ data });
-        const json = JSON.parse(data);
-        const uuid = json.uuid;
-        console.log({ uuid });
-        if (uuid) {
-          const hash = (await sha256(uuid)).substring(0, 8);
-          console.log({ hash });
+        const key = pathname;
+        const uuid = await getUserId();
+        const uuidHash = (await sha256(uuid)).substring(0, 8);
+        const checkKeyUuid = await sha256(key + uuid).substring(0, 8);
+        const checkHashUuidHash = await sha256(key+uuidHash).substring(0, 8);
+        const response = await fetch(`https://code.zed.vision/connect?key=${key}${uuidHash}${checkHashUuidHash}${checkKeyUuid}`);
+        const data:  {success: boolean} = await response.json();
+      if (data.success){
 
-          if (pathname === hash) {
-            const conn = await fetch(
-              `https://code.zed.vision/connect?uuid=${uuid}`,
-            );
             location.href = "https://zed.vision/code/";
           } else {
             set404(true);
           }
-        } else {
-          set404(true);
-        }
+         
       } catch (e) {
         console.error(e);
         set404(true);

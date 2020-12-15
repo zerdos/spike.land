@@ -1,24 +1,19 @@
+/// <reference types="@emotion/react/types/css-prop" />
+
+/** @jsx jsx */
+import { css, jsx } from "@emotion/react";
+
 import * as React from "react";
 import { graphql, Link } from "gatsby";
-import { getDB } from "@zedvision/shadb";
 
 import { Bio } from "../components/bio";
 import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
+import { getUserId } from "../components/code/getUser"
 import { rhythm } from "../components/utils/typography";
-import styled from "@emotion/styled";
 import { Qr } from "../components/code/Qr";
 
 import forkMe from "../../assets/forkMe.png";
-import { registerSW } from "../sw-reg.js";
-
-const StyledLink = styled(Link)`
-  box-shadow: "none";
-`;
-
-const H3 = styled.h3`
-  margin-bottom: ${rhythm(1 / 4)};
-`;
 
 interface Props {
   data: {
@@ -52,21 +47,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       const install = async () => {
-        async function getUserId() {
-          const shaDB = await getDB();
-          const uuid = await shaDB.get("uuid");
-          if (!uuid) {
-            if (!window.location.href.includes("zed.dev")) {
-              const resp = await fetch("https://code.zed.vision/register");
-              const data = await resp.json();
-              shaDB.put("uuid", data.uuid);
-              return data.uuid;
-            } else {
-              shaDB.put("uuid", "1234");
-            }
-          }
-          return uuid;
-        }
+        
         console.log(await getUserId());
       };
       install();
@@ -97,9 +78,13 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
         return (
           <article key={node.fields.slug}>
             <header>
-              <H3>
-                <StyledLink to={node.fields.slug}>{title}</StyledLink>
-              </H3>
+              <h3 css={`  
+                      margin-bottom: ${rhythm(1 / 4)};
+                      `}>
+                <Link css={`    
+                    box-shadow: "none";
+                  `} to={node.fields.slug}>{title}</Link>
+              </h3> 
               <small>{node.frontmatter.date}</small>
             </header>
             <section>

@@ -1059,6 +1059,7 @@ function v4(options, buf, offset) {
 const v41 = () => v4();
 var SHAKV;
 var USERS;
+var USERKEYS;
 var API_KEY;
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -1220,33 +1221,65 @@ async function handleCloudRequest(request) {
       return text("User-agent: * Disallow: /");
     }
     if (pathname === "/connect") {
-      const uuid = searchParams.get("uuid") || v41();
-      const key = await sha256(uuid);
-      await SHAKV.put(
-        key,
-        JSON.stringify({
-          uuid,
-          connected: searchParams.get("uuid"),
-        }),
-        {
-          expirationTtl: 60,
-        },
-      );
-      return json({
-        key,
-      });
+      if (searchParams.get("key")) {
+        const key = searchParams.get("key");
+        const tokenKey = key.slice(0, 8);
+        const userIdKey = key.slice(8, 16);
+        const pass = key.slice(16, 24);
+        const tokenPassUserId = key.slice(24, 32);
+        const checkTokenPassUserId = await sha256(tokenKey + userIdKey);
+        if (
+          !tokenKey || !userIdKey || !pass ||
+          checkTokenPassUserId !== tokenPassUserId
+        ) {
+          return json({
+            error: "auth error",
+          });
+        }
+        const uuid = await USERKEYS.get(userIdKey);
+        if (uuid === null) {
+          return json({
+            error: 401,
+          });
+        }
+        const tokenUuid = await USERKEYS.get(tokenKey);
+        const checkPass = await sha256(tokenKey + uuid);
+        const checkPassToken = await sha256(tokenUuid + uuid);
+        if (checkPass === pass) {
+          await USERKEYS.put(
+            key,
+            JSON.stringify({
+              uuid,
+              connected: searchParams.get("uuid"),
+            }),
+            {
+              expirationTtl: 60,
+            },
+          );
+          return json({
+            success: true,
+          });
+        } else if (checkPassToken === pass) {
+          return json({
+            success: true,
+          });
+        }
+        return json({
+          error: 401,
+        });
+      }
     }
     if (pathname === "/check") {
       const key = searchParams.get("key");
       if (key === null) return new Response("500");
       const waitForChange = async () => {
-        const data = await SHAKV.get(key, "json");
+        const data = await USERKEYS.get(key, "json");
         if (!data || data.connected) {
           return data;
         }
         return new Promise((resolve) => {
           const clear = setInterval(async () => {
-            const data1 = await SHAKV.get(key, "json");
+            const data1 = await USERKEYS.get(key, "json");
             if (!data1 || data1.connected) {
               clearInterval(clear);
               resolve(data1);
@@ -1260,6 +1293,46 @@ async function handleCloudRequest(request) {
       });
     }
     if (pathname === "/register") {
+      const uuid = v41();
+      const uuidHash = await sha256(uuid);
+      await USERS.put(
+        uuid,
+        JSON.stringify({
+          uuid,
+          uuidHash,
+          registered: Date.now(),
+          cf: request.cf,
+        }),
+      );
+      await USERKEYS.put(uuidHash, uuid);
+      return json({
+        uuid,
+      });
+    }
+    if (pathname === "/token") {
+      const uuid = v41();
+      const uuidHash = await sha256(uuid);
+      await USERS.put(
+        uuid,
+        JSON.stringify({
+          uuid,
+          registered: Date.now(),
+          cf: request.cf,
+        }),
+        {
+          expirationTtl: 60,
+        },
+      );
+      await USERKEYS.put(uuidHash, uuid, {
+        expirationTtl: 60,
+      });
+      return json({
+        uuid,
+        key: uuidHash,
+      });
+    }
+    if (pathname === "/create-project") {
+      const uuidHash = request.headers.get("TOKEN");
       const uuid = v41();
       await USERS.put(
         uuid,
@@ -1283,11 +1356,15 @@ async function handleCloudRequest(request) {
     }
     return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
+    const maybeRoute = pathname.substr(1);
     const myBuffer = await request.arrayBuffer();
     const hash = await arrBuffSha256(myBuffer);
     const smallerKey = hash.substring(0, 8);
-    const shaDB = getDbObj(SHAKV);
-    const result = await shaDB.put(smallerKey, myBuffer);
+    await SHAKV.put(smallerKey, myBuffer);
+    if (maybeRoute) {
+      const shaDB = getDbObj(SHAKV);
+      const result = await shaDB.put(maybeRoute, smallerKey);
+    }
     return json({
       hash: smallerKey,
     });
