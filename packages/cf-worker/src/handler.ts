@@ -216,7 +216,11 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     if (smallerKey !== sha) {
       return json(
-        { error: 401, message: `body hash not matching with the sent hash: ${smallerKey} -- ${zkey}` },
+        {
+          error: 401,
+          message:
+            `body hash not matching with the sent hash: ${smallerKey} -- ${zkey}`,
+        },
       );
     }
 
@@ -244,8 +248,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     //                - or render it to html
     //                - then the result :)
     const maybeRoute = pathname.substr(1);
-
-
 
     await SHAKV.put(smallerKey, myBuffer);
 
