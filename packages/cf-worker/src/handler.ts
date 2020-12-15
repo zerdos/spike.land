@@ -13,13 +13,13 @@ var API_KEY: string;
 
 let now = 0;
 
-function log(message: string, data: unknown={}, type="cf"){
+function log(message: string, data: unknown = {}, type = "cf") {
   now = now || Date.now();
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
-  const nowIso = today.toISOString(); 
+  const nowIso = today.toISOString();
 
-  return LOGS.put(now++, JSON.stringify({message, time: nowIso,type, data}));
+  return LOGS.put(now++, JSON.stringify({ message, time: nowIso, type, data }));
 }
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
@@ -126,7 +126,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           { uuid, uuidHash, registered: Date.now(), cf: request.cf },
         ),
       );
-      await log("register", {uuidHash});
+      await log("register", { uuidHash });
       await USERKEYS.put(uuidHash, uuid);
       return json({ uuid });
     }
@@ -149,9 +149,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     //     // if (uuid.length === 8) {
     //     //     await USERS.delete(uuid)
     //     // }
-        
 
-        
     //     const hash=await sha256(uuid);
     //     const hashHash = await sha256(hash)
     //     await USERKEYS.delete(hashHash);
