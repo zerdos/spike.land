@@ -19,11 +19,14 @@ export default function () {
   React.useEffect(() => {
     const runner = async () => {
       try {
+        console.log(pathname);
         const key = pathname;
         const uuid = await getUserId();
+        console.log(uuid);
         const uuidHash = (await sha256(uuid)).substring(0, 8);
         const checkKeyUuid = await sha256(key + uuid).substring(0, 8);
         const checkHashUuidHash = await sha256(key + uuidHash).substring(0, 8);
+        console.log(`https://code.zed.vision/connect?key=${key}${uuidHash}${checkHashUuidHash}${checkKeyUuid}`);
         const response = await fetch(
           `https://code.zed.vision/connect?key=${key}${uuidHash}${checkHashUuidHash}${checkKeyUuid}`,
         );

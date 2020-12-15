@@ -1246,8 +1246,8 @@ async function handleCloudRequest(request) {
         const checkPass = await sha256(tokenKey + uuid);
         const checkPassToken = await sha256(tokenUuid + uuid);
         if (checkPass === pass) {
-          await USERKEYS.put(
-            key,
+          await USERS.put(
+            tokenUuid,
             JSON.stringify({
               uuid,
               connected: searchParams.get("uuid"),
@@ -1275,7 +1275,7 @@ async function handleCloudRequest(request) {
       const waitForChange = async () => {
         const uuid = await USERKEYS.get(key);
         if (!uuid) return null;
-        const data = await USERKEYS.get(uuid);
+        const data = await USERS.get(uuid);
         if (!data || data.connected) {
           return data;
         }

@@ -48,8 +48,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         const checkPassToken = await sha256(tokenUuid + uuid);
 
         if (checkPass === pass) {
-          await USERKEYS.put(
-            key,
+          await USERS.put(
+            tokenUuid,
             JSON.stringify(
               {
                 uuid,
@@ -73,12 +73,13 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       if (key === null) return new Response("500");
 
       const waitForChange = async () => {
-        const uuid = await USERKEYS.get<{ connected: boolean }>(
+        const uuid = await USERKEYS.get(
           key
         );
+
         if (!uuid) return null;
 
-        const data = await USERKEYS.get<{ connected: boolean }>(
+        const data = await USERS.get<{ connected: boolean }>(
           uuid
         )
         if (!data || data.connected) {
