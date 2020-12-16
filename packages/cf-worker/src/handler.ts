@@ -76,7 +76,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
             JSON.stringify(
               {
                 uuid,
-                connected: searchParams.get("uuid"),
+                connected: userIdKey,
               },
             ),
             { expirationTtl: 60 },
@@ -84,6 +84,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
           return json({ success: true });
         } else if (checkPassToken === pass) {
+
+
           return json({ success: true });
         }
         return json({ error: 401 });

@@ -1273,7 +1273,7 @@ async function handleCloudRequest(request) {
             tokenUuid,
             JSON.stringify({
               uuid,
-              connected: searchParams.get("uuid"),
+              connected: userIdKey,
             }),
             {
               expirationTtl: 60,

@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: buildpack-deps:ubuntu:focal
-- Node: 14.15.1
+- Node: 14.15.2
 - Yarn: 1.22.5
 - Cypress 6.1.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)

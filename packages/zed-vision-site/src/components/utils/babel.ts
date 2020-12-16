@@ -6,7 +6,7 @@ const worker = (typeof window !== "undefined")
   ? new Worker(URL.createObjectURL(
     new window.Blob(
       [`
-importScripts('https://unpkg.com/@babel/standalone@7.12.10/babel.min.js');
+importScripts('https://unpkg.com/@babel/standalone@7.12.11/babel.min.js');
 
 self.onmessage=(message)=>{
   const hash = message.data.hash;
