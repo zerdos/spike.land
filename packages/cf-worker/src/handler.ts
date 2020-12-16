@@ -29,7 +29,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
-  log("request", {searchParams, pathname, cf: request.cf} )
+  log("request", { searchParams, pathname, cf: request.cf });
   if (request.method === "GET" && psk && psk == API_KEY) {
     return handleAdmin(request, searchParams, pathname, SHAKV);
   } else if (request.method === "GET") {
