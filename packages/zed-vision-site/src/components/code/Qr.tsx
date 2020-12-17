@@ -3,6 +3,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React from "react";
+import { loadScript } from "../../loadScript.js";
 
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
@@ -10,10 +11,11 @@ export const Qr: React.FC = () => {
   const [counter, setCounter] = React.useState(0);
 
   React.useEffect(() => {
-    let qr: QRious;
+    let qr;
     const connect = async () => {
-      const QRious = (await import("@zedvision/qrious")).default;
-
+      await loadScript(
+        "https://unpkg.com/@zedvision/qrious@8.5.6/dist/qrious.min.js",
+      );
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();
 
@@ -34,7 +36,8 @@ export const Qr: React.FC = () => {
       if (qr) {
         qr.set(options);
       } else {
-        qr = new QRious(
+        console.log(window.QRious);
+        qr = new window.QRious(
           options,
         );
       }
@@ -46,8 +49,8 @@ export const Qr: React.FC = () => {
       }
       setRetry(retry - 1);
     };
-    if (typeof window !== "undefined" && retry > 0) connect();
-  }, [retry]);
+    if (typeof window !== "undefined" && retry > 0 && ref.current) connect();
+  }, [retry, ref.current]);
 
   React.useEffect(() => {
     if (typeof window !== "undefined" && counter) {

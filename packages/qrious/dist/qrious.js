@@ -2518,6 +2518,11 @@
     var BrowserElementService = require_BrowserElementService();
     QRious.use(new BrowserElementService());
     module.exports = QRious;
+    try {
+      window.QRious = QRious;
+    } catch (e) {
+      console.log(e);
+    }
   });
   require_QRious2();
 })();

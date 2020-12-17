@@ -3137,11 +3137,6 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zedvision/qrious@8.5.4":
-  version "8.5.4"
-  resolved "https://registry.yarnpkg.com/@zedvision/qrious/-/qrious-8.5.4.tgz#f2f2e8d5c7d86ab37e8d2b16eaff3678d1c36307"
-  integrity sha512-3jdXwOpLfDPlOZheFuEk3K16W92iv2gOFw1CwXazLKZ9NjGq/90GDeYnpVGz7vYVuJyQjPTQXu1B9KAMxPnGXg==
-
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@zkochan/cmd-shim/-/cmd-shim-3.1.0.tgz#2ab8ed81f5bb5452a85f25758eb9b8681982fd2e"
