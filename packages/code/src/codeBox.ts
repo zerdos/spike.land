@@ -526,10 +526,7 @@ export async function run(mode = "window") {
 
   function transpileCode(code: string) {
     const { transform } = (window as unknown as { Babel: Babel })["Babel"];
-    return transform(
-      "/** @jsx jsx */\n" + `
-  Object.assign(window, React);
-  ` + code,
+    return transform(`/** @jsx jsx */ Object.assign(window, React); ${code}`,
       {
         plugins: [],
         presets: [

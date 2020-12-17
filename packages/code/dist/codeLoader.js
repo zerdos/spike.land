@@ -2084,21 +2084,18 @@ export async function run(mode = "window") {
   }
   function transpileCode(code) {
     const { transform } = window["Babel"];
-    return transform(
-      "/** @jsx jsx */\n" + `\n  Object.assign(window, React);\n  ` + code,
-      {
-        plugins: [],
-        presets: [
-          "react",
-          [
-            "typescript",
-            {
-              isTSX: true,
-              allExtensions: true,
-            },
-          ],
+    return transform(`/** @jsx jsx */ Object.assign(window, React); ${code}`, {
+      plugins: [],
+      presets: [
+        "react",
+        [
+          "typescript",
+          {
+            isTSX: true,
+            allExtensions: true,
+          },
         ],
-      },
-    ).code;
+      ],
+    }).code;
   }
 }

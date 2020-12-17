@@ -28,7 +28,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "denoland.vscode-deno",
   },
-  "editor.autoSave": "on",
   "git.autofetch": true,
   "npm.packageManager": "yarn",
   "typescript.tsdk": "./node_modules/typescript/lib"
