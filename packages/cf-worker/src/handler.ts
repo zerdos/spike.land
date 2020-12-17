@@ -236,7 +236,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return json({ error: 401, message: "user not verified" });
     }
 
-    await log("new html", { uKey, sha });
+    await log("new html", {  sha, uKey });
 
     // this need restriction
     // such as:

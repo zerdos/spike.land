@@ -9,7 +9,8 @@
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "build:sw": "deno bundle  --unstable --import-map ../../import_map.json --no-check src/sw.ts sw.js",
+        "build:sw": "workbox generateSW workbox-config.js",
+        "xbuild:sw": "deno bundle  --unstable --import-map ../../import_map.json --no-check src/sw.ts sw.js",
         "build": "deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js && yarn build:sw && yarn minify && cp src/*.js dist/",
         "minify": "deno fmt dist && yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
@@ -30,6 +31,7 @@
     "homepage": "https://code.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
+        "workbox-cli": "6.0.2",
         "esbuild": "0.8.23"
     },
     "gitHead": "520741663e1da196b7dbbf0174e110548df04a31",

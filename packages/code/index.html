@@ -66,15 +66,7 @@
   <div id="error"></div>
   <div id="container"></div>
   <div id="ace"></div>
-  <script type="module">
-    if (navigator.serviceWorker) {
-      navigator.serviceWorker.getRegistrations().then(function (registrations) {
-        for (let registration of registrations) {
-          registration.unregister()
-        }
-      }).then(() => navigator.serviceWorker.register('sw.js'))
-    }
-  </script>
+  
   <script type="module">
     // window["motion"] = window["Motion"].motion;
     Object.assign(window, emotionReact);
@@ -99,6 +91,13 @@
     }
     
     runner();
+    
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('dist/sw.js');
+      });
+    }
+
   </script>
 </body>
 

@@ -1437,8 +1437,8 @@ async function handleCloudRequest(request) {
       });
     }
     await log("new html", {
-      uKey,
       sha,
+      uKey,
     });
     const maybeRoute = pathname.substr(1);
     await SHAKV.put(smallerKey, myBuffer);
