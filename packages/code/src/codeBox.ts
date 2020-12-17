@@ -121,7 +121,7 @@ export async function run(mode = "window") {
   );
 
   if (mode === "editor") {
-    const { renderDraggableEditor } = await import("../src/DraggableEditor.js");
+    const { renderDraggableEditor } = await import("./DraggableEditor.js");
 
     await renderDraggableEditor(importScript);
   }

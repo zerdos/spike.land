@@ -566,7 +566,7 @@
   // src/utils/CSimpleLayoutAnimator.js
   var require_CSimpleLayoutAnimator = __commonJS((exports, module) => {
     var CTimer = require_CTimer();
-    function CSimpleLayoutAnimator() {
+    function CSimpleLayoutAnimator2() {
       this.fps = 30;
       this.durationMillis = 200;
       this.targetFrame = null;
@@ -583,7 +583,7 @@
       this._pinY = 0;
       this._pinAnchor = null;
     }
-    CSimpleLayoutAnimator.prototype.set = function (ciframe) {
+    CSimpleLayoutAnimator2.prototype.set = function (ciframe) {
       var me = this;
       me.targetFrame = ciframe;
       me.fromWidth(ciframe.getWidth());
@@ -594,21 +594,21 @@
       me.fromPosition(crrPos.x, crrPos.y, crrPos.anchor);
       return me;
     };
-    CSimpleLayoutAnimator.prototype.get = function () {
+    CSimpleLayoutAnimator2.prototype.get = function () {
       var me = this;
       return me.targetFrame;
     };
-    CSimpleLayoutAnimator.prototype.setDuration = function (durationMillis) {
+    CSimpleLayoutAnimator2.prototype.setDuration = function (durationMillis) {
       var me = this;
       me.durationMillis = durationMillis;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.setFPS = function (fps) {
+    CSimpleLayoutAnimator2.prototype.setFPS = function (fps) {
       var me = this;
       me.fps = fps;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.fromPosition = function (x, y, anchor) {
+    CSimpleLayoutAnimator2.prototype.fromPosition = function (x, y, anchor) {
       var me = this;
       me.pinnedAnimationEnabled = true;
       me._pinX = x;
@@ -619,58 +619,58 @@
       }
       return me;
     };
-    CSimpleLayoutAnimator.prototype.fromWidth = function (fromWidth) {
+    CSimpleLayoutAnimator2.prototype.fromWidth = function (fromWidth) {
       var me = this;
       me._crrWidth = fromWidth;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.fromHeight = function (fromHeight) {
+    CSimpleLayoutAnimator2.prototype.fromHeight = function (fromHeight) {
       var me = this;
       me._crrHeight = fromHeight;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.toWidth = function (toWidth) {
+    CSimpleLayoutAnimator2.prototype.toWidth = function (toWidth) {
       var me = this;
       me._toWidth = toWidth;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.toHeight = function (toHeight) {
+    CSimpleLayoutAnimator2.prototype.toHeight = function (toHeight) {
       var me = this;
       me._toHeight = toHeight;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.fromAlpha = function (fromAlpha) {
+    CSimpleLayoutAnimator2.prototype.fromAlpha = function (fromAlpha) {
       var me = this;
       me._crrAlpha = fromAlpha;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.toAlpha = function (toAlpha) {
+    CSimpleLayoutAnimator2.prototype.toAlpha = function (toAlpha) {
       var me = this;
       me._toAlpha = toAlpha;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.ease = function (ease) {
+    CSimpleLayoutAnimator2.prototype.ease = function (ease) {
       var me = this;
       me._ease = ease;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.toPosition = function (x, y) {
+    CSimpleLayoutAnimator2.prototype.toPosition = function (x, y) {
       var me = this;
       me._toX = x;
       me._toY = y;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.toX = function (x) {
+    CSimpleLayoutAnimator2.prototype.toX = function (x) {
       var me = this;
       me._toX = x;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.toY = function (t) {
+    CSimpleLayoutAnimator2.prototype.toY = function (t) {
       var me = this;
       me._toY = t;
       return me;
     };
-    CSimpleLayoutAnimator.prototype.start = function (
+    CSimpleLayoutAnimator2.prototype.start = function (
       waitMillis,
       requestFocusEnabled,
     ) {
@@ -776,7 +776,7 @@
         }
       });
     };
-    module.exports = CSimpleLayoutAnimator;
+    module.exports = CSimpleLayoutAnimator2;
   });
 
   // ../../node_modules/merge-deeply/lib/merge-deeply.js
@@ -1788,12 +1788,12 @@
   // src/utils/WindowEventHelper.js
   var require_WindowEventHelper = __commonJS((exports, module) => {
     "use strict";
-    var CSimpleLayoutAnimator = require_CSimpleLayoutAnimator();
-    var CALIGN2 = require_CCommon();
+    var CSimpleLayoutAnimator2 = require_CSimpleLayoutAnimator();
+    var CALIGN3 = require_CCommon();
     var mergeDeeply = require_merge_deeply();
-    var EventListenerHelper = require_event_listener_helper();
-    function WindowEventHelper(model) {
-      this.eventListenerHelper = new EventListenerHelper();
+    var EventListenerHelper2 = require_event_listener_helper();
+    function WindowEventHelper2(model) {
+      this.eventListenerHelper = new EventListenerHelper2();
       this.windowMode = "default";
       this.styleDisplay = "flex";
       this.horizontalAlign = "left";
@@ -1859,12 +1859,12 @@
         this.resizeListener = this.handleOnVirtualResize.bind(this);
       }
     }
-    WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR = "__jsframe-mp-marker";
-    WindowEventHelper.prototype.on = function (eventType, callback) {
+    WindowEventHelper2.MATCH_PARENT_CHANGE_MARKER_ATTR = "__jsframe-mp-marker";
+    WindowEventHelper2.prototype.on = function (eventType, callback) {
       var me = this;
       me.eventListeners[eventType] = callback;
     };
-    WindowEventHelper.prototype.doMaximize = function (model) {
+    WindowEventHelper2.prototype.doMaximize = function (model) {
       var me = this;
       if (me.windowMode === "hid") {
         throw Error(
@@ -1886,7 +1886,7 @@
           });
           matchParentResizeObserver.observe(parentElement, {
             attributeFilter: [
-              WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
+              WindowEventHelper2.MATCH_PARENT_CHANGE_MARKER_ATTR,
             ],
             attributes: true,
           });
@@ -1936,7 +1936,7 @@
         matchParent: model && model.matchParent ? model.matchParent : false,
       });
     };
-    WindowEventHelper.prototype.renderMaximizedMode = function (model) {
+    WindowEventHelper2.prototype.renderMaximizedMode = function (model) {
       var me = this;
       var frame = me.frame;
       var from = me.loadWindowStats("maximize_mode");
@@ -2027,10 +2027,10 @@
         }
       }
     };
-    WindowEventHelper.prototype.getWindowMode = function () {
+    WindowEventHelper2.prototype.getWindowMode = function () {
       return this.windowMode;
     };
-    WindowEventHelper.prototype.doDemaximize = function (model) {
+    WindowEventHelper2.prototype.doDemaximize = function (model) {
       var me = this;
       var frame = me.frame;
       if (me.windowMode === "hid") {
@@ -2061,20 +2061,20 @@
         eventType: "demaximized",
       });
     };
-    WindowEventHelper.prototype.handleOnResize = function () {
+    WindowEventHelper2.prototype.handleOnResize = function () {
       var me = this;
       me.renderMaximizedMode({
         caller: "handleOnResize",
       });
     };
-    WindowEventHelper.prototype.handleOnVirtualResize = function () {
+    WindowEventHelper2.prototype.handleOnVirtualResize = function () {
       var me = this;
       me.renderMaximizedMode({
         caller: "handleOnResize",
         matchParent: true,
       });
     };
-    WindowEventHelper.prototype.doMinimize = function (model) {
+    WindowEventHelper2.prototype.doMinimize = function (model) {
       var me = this;
       if (me.windowMode === "minimized" || me.windowMode === "minimizing") {
         return;
@@ -2090,7 +2090,7 @@
         toWidth: model && model.toWidth ? model.toWidth : null,
       });
     };
-    WindowEventHelper.prototype.renderMinimizedMode = function (model) {
+    WindowEventHelper2.prototype.renderMinimizedMode = function (model) {
       var me = this;
       var frame = me.frame;
       var ri = me.loadWindowStats("minimize_mode");
@@ -2130,7 +2130,7 @@
         funcDoRender();
       }
     };
-    WindowEventHelper.prototype.doDeminimize = function (model) {
+    WindowEventHelper2.prototype.doDeminimize = function (model) {
       var me = this;
       var frame = me.frame;
       if (!me.hasWindowStats("minimize_mode")) {
@@ -2151,7 +2151,7 @@
         eventType: "deminimized",
       });
     };
-    WindowEventHelper.prototype.doHide = function (model) {
+    WindowEventHelper2.prototype.doHide = function (model) {
       var me = this;
       if (me.windowMode === "hid" || me.windowMode === "hiding") {
         return;
@@ -2168,7 +2168,7 @@
       }
       me.renderHideMode(arg);
     };
-    WindowEventHelper.prototype.renderHideMode = function (model) {
+    WindowEventHelper2.prototype.renderHideMode = function (model) {
       var me = this;
       var frame = me.frame;
       var ri = me.loadWindowStats("hide_mode");
@@ -2182,31 +2182,31 @@
       var top = 0;
       {
         var align = model && model.align ? model.align : "LEFT_TOP";
-        if (!align || CALIGN2.LEFT_TOP == align) {
+        if (!align || CALIGN3.LEFT_TOP == align) {
           left = from.left;
           top = from.top;
-        } else if (CALIGN2.HCENTER_TOP == align) {
+        } else if (CALIGN3.HCENTER_TOP == align) {
           left = from.left + from.width / 2;
           top = from.top;
-        } else if (CALIGN2.RIGHT_TOP == align) {
+        } else if (CALIGN3.RIGHT_TOP == align) {
           left = from.left + from.width;
           top = from.top;
-        } else if (CALIGN2.LEFT_VCENTER == align) {
+        } else if (CALIGN3.LEFT_VCENTER == align) {
           left = from.left;
           top = from.top + from.height / 2;
-        } else if (CALIGN2.HCENTER_VCENTER == align) {
+        } else if (CALIGN3.HCENTER_VCENTER == align) {
           left = from.left + from.width / 2;
           top = from.top + from.height / 2;
-        } else if (CALIGN2.RIGHT_VCENTER == align) {
+        } else if (CALIGN3.RIGHT_VCENTER == align) {
           left = from.left + from.width;
           top = from.top + from.height / 2;
-        } else if (CALIGN2.LEFT_BOTTOM == align) {
+        } else if (CALIGN3.LEFT_BOTTOM == align) {
           left = from.left;
           top = from.top + from.height;
-        } else if (CALIGN2.HCENTER_BOTTOM == align) {
+        } else if (CALIGN3.HCENTER_BOTTOM == align) {
           left = from.left + from.width / 2;
           top = from.top + from.height;
-        } else if (CALIGN2.RIGHT_BOTTOM == align) {
+        } else if (CALIGN3.RIGHT_BOTTOM == align) {
           left = from.left + from.width;
           top = from.top + from.height;
         } else if (align == "ABSOLUTE") {
@@ -2258,7 +2258,7 @@
         funcDoRender();
       }
     };
-    WindowEventHelper.prototype.doDehide = function (model) {
+    WindowEventHelper2.prototype.doDehide = function (model) {
       var me = this;
       var frame = me.frame;
       if (!me.hasWindowStats("hide_mode")) {
@@ -2274,11 +2274,11 @@
         eventType: "dehided",
       });
     };
-    WindowEventHelper.prototype.loadWindowStats = function (storeKeyName) {
+    WindowEventHelper2.prototype.loadWindowStats = function (storeKeyName) {
       var me = this;
       return me.statsStore[storeKeyName];
     };
-    WindowEventHelper.prototype.saveCurrentWindowStats = function (
+    WindowEventHelper2.prototype.saveCurrentWindowStats = function (
       storeKeyName,
     ) {
       var me = this;
@@ -2298,7 +2298,7 @@
         return true;
       }
     };
-    WindowEventHelper.prototype.windowStatsEquals = function (
+    WindowEventHelper2.prototype.windowStatsEquals = function (
       windowStats1,
       windowStats2,
     ) {
@@ -2310,15 +2310,15 @@
         return false;
       }
     };
-    WindowEventHelper.prototype.clearWindowStats = function (storeKeyName) {
+    WindowEventHelper2.prototype.clearWindowStats = function (storeKeyName) {
       var me = this;
       me.statsStore[storeKeyName] = null;
     };
-    WindowEventHelper.prototype.hasWindowStats = function (storeKeyName) {
+    WindowEventHelper2.prototype.hasWindowStats = function (storeKeyName) {
       var me = this;
       return me.statsStore[storeKeyName];
     };
-    WindowEventHelper.prototype.getCurrentWindowStats = function () {
+    WindowEventHelper2.prototype.getCurrentWindowStats = function () {
       var me = this;
       var frame = me.frame;
       var __titleBarHeight = parseInt(frame.titleBar.style.height, 10);
@@ -2342,7 +2342,7 @@
         movable: __movable,
       };
     };
-    WindowEventHelper.prototype.restoreWindow = function (model) {
+    WindowEventHelper2.prototype.restoreWindow = function (model) {
       var me = this;
       var frame = me.frame;
       var to = me.loadWindowStats(model.restoreMode);
@@ -2410,13 +2410,13 @@
         me.matchParentResizeObserver = null;
       }
     };
-    WindowEventHelper.prototype.animateFrame = function (model) {
+    WindowEventHelper2.prototype.animateFrame = function (model) {
       var me = this;
       var needRequestFocusAfterAnimation = false;
       var fromAlpha = !isNaN(model.fromAlpha) ? model.fromAlpha : 1;
       var from = model.from;
       var to = model.to;
-      var animator = new CSimpleLayoutAnimator();
+      var animator = new CSimpleLayoutAnimator2();
       animator.set(model.frame).setDuration(
         model.duration ? model.duration : me.animationDuration,
       ).fromPosition(from.left, from.top, "LEFT_TOP").toPosition(
@@ -2432,7 +2432,7 @@
           },
         );
     };
-    WindowEventHelper.prototype.doCommand = function (cmd, opt) {
+    WindowEventHelper2.prototype.doCommand = function (cmd, opt) {
       var me = this;
       if (cmd === "maximize") {
         me._defaultFunctionMaximize(me.frame);
@@ -2456,7 +2456,7 @@
         me._defaultFunctionDehide(me.frame);
       }
     };
-    WindowEventHelper.prototype._defaultFunctionMaximize = function (
+    WindowEventHelper2.prototype._defaultFunctionMaximize = function (
       _frame,
       evt,
     ) {
@@ -2478,13 +2478,13 @@
       }
       _frame.control.doMaximize(param);
     };
-    WindowEventHelper.prototype._defaultFunctionDemaximize = function (
+    WindowEventHelper2.prototype._defaultFunctionDemaximize = function (
       _frame,
       evt,
     ) {
       _frame.control.doDemaximize({});
     };
-    WindowEventHelper.prototype._defaultFunctionRestoreFromFullscreen =
+    WindowEventHelper2.prototype._defaultFunctionRestoreFromFullscreen =
       function (_frame, evt) {
         var me = this;
         _frame.control.doDemaximize({
@@ -2492,19 +2492,19 @@
           callback: me.restoreCallback ? me.restoreCallback : null,
         });
       };
-    WindowEventHelper.prototype._defaultFunctionMinimize = function (
+    WindowEventHelper2.prototype._defaultFunctionMinimize = function (
       _frame,
       evt,
     ) {
       _frame.control.doMinimize(this.minimizeParam);
     };
-    WindowEventHelper.prototype._defaultFunctionDeminimize = function (
+    WindowEventHelper2.prototype._defaultFunctionDeminimize = function (
       _frame,
       evt,
     ) {
       _frame.control.doDeminimize(this.deminimizeParam);
     };
-    WindowEventHelper.prototype._defaultFunctionHide = function (_frame, evt) {
+    WindowEventHelper2.prototype._defaultFunctionHide = function (_frame, evt) {
       var param = {
         align: "CENTER_BOTTOM",
       };
@@ -2513,14 +2513,14 @@
       }
       _frame.control.doHide(param);
     };
-    WindowEventHelper.prototype._defaultFunctionDehide = function (
+    WindowEventHelper2.prototype._defaultFunctionDehide = function (
       _frame,
       evt,
     ) {
       var me = this;
       _frame.control.doDehide(me.dehideParam);
     };
-    WindowEventHelper.prototype.setupDefaultEvents = function () {
+    WindowEventHelper2.prototype.setupDefaultEvents = function () {
       var me = this;
       if (me.maximizeButton) {
         me.frame.on(
@@ -2562,12 +2562,12 @@
         }
       }
     };
-    module.exports = WindowEventHelper;
+    module.exports = WindowEventHelper2;
   });
 
   // src/utils/Inherit.js
   var require_Inherit = __commonJS((exports, module) => {
-    function inherit(subClass, baseClass) {
+    function inherit2(subClass, baseClass) {
       function clazz() {
       }
       clazz.prototype = baseClass.prototype;
@@ -2576,7 +2576,7 @@
       subClass.superConstructor = baseClass;
       subClass.superClass = baseClass.prototype;
     }
-    module.exports = inherit;
+    module.exports = inherit2;
   });
 
   // src/appearance/CButtonAppearance.js
@@ -2614,9 +2614,9 @@
 
   // src/appearance/CImageButtonAppearance.js
   var require_CImageButtonAppearance = __commonJS((exports, module) => {
-    var inherit = require_Inherit();
+    var inherit2 = require_Inherit();
     var CTextButtonAppearance = require_CButtonAppearance();
-    inherit(CImageButtonAppearance, CTextButtonAppearance);
+    inherit2(CImageButtonAppearance, CTextButtonAppearance);
     function CImageButtonAppearance() {
       this.imageDefault = null;
       this.imageHovered = null;
@@ -2695,14 +2695,14 @@
     var CTextButtonAppearance = require_CButtonAppearance();
     var CImageButtonAppearance = require_CImageButtonAppearance();
     var CChildMenuAppearance = require_CChildMenuAppearance();
-    function CDomPartsBuilder() {
+    function CDomPartsBuilder2() {
     }
-    CDomPartsBuilder.prototype.buildChildMenuAppearance = function (
+    CDomPartsBuilder2.prototype.buildChildMenuAppearance = function (
       frameAppearance,
     ) {
       return new CChildMenuAppearance(frameAppearance);
     };
-    CDomPartsBuilder.prototype.buildTextButtonAppearance = function (src) {
+    CDomPartsBuilder2.prototype.buildTextButtonAppearance = function (src) {
       if (src) {
         var result = mergeDeeply(
           { op: "clone", object1: src, concatArray: true },
@@ -2712,7 +2712,7 @@
         return new CTextButtonAppearance();
       }
     };
-    CDomPartsBuilder.prototype.buildImageButtonAppearance = function (src) {
+    CDomPartsBuilder2.prototype.buildImageButtonAppearance = function (src) {
       if (src) {
         var clonedImageButtonAppearance = mergeDeeply(
           { op: "clone", object1: src },
@@ -2722,11 +2722,11 @@
         return new CImageButtonAppearance();
       }
     };
-    CDomPartsBuilder.prototype.buildButton = function (btnAppearance) {
+    CDomPartsBuilder2.prototype.buildButton = function (btnAppearance) {
       var me = this;
       return me.buildTextButton(btnAppearance);
     };
-    CDomPartsBuilder.prototype.appendChildMenuTo = function (
+    CDomPartsBuilder2.prototype.appendChildMenuTo = function (
       childMenuAppearance,
       parentEle,
     ) {
@@ -2754,7 +2754,7 @@
       ndiv.firstChild.style.pointerEvents = "auto";
       parentEle.appendChild(ndiv);
     };
-    CDomPartsBuilder.prototype.buildTextButton = function (btnAppearance) {
+    CDomPartsBuilder2.prototype.buildTextButton = function (btnAppearance) {
       var size = btnAppearance.size;
       var width = size;
       var height = size;
@@ -2958,7 +2958,7 @@
         }
       }
     }
-    module.exports = CDomPartsBuilder;
+    module.exports = CDomPartsBuilder2;
   });
 
   // src/appearance/CFrameComponent.js
@@ -3069,9 +3069,9 @@
 
   // src/appearance/CFrameAppearance.js
   var require_CFrameAppearance = __commonJS((exports, module) => {
-    var CDomPartsBuilder = require_CDomPartsBuilder();
+    var CDomPartsBuilder2 = require_CDomPartsBuilder();
     var CFrameComponent = require_CFrameComponent();
-    function CFrameAppearance() {
+    function CFrameAppearance2() {
       var me = this;
       this.showTitleBar = true;
       this.showCloseButton = true;
@@ -3166,18 +3166,18 @@
       this.onTitleBarStyleInitialize = function () {
       };
     }
-    CFrameAppearance.prototype.getPartsBuilder = function () {
+    CFrameAppearance2.prototype.getPartsBuilder = function () {
       var me = this;
       if (me._partsBuilder === null) {
-        me._partsBuilder = new CDomPartsBuilder();
+        me._partsBuilder = new CDomPartsBuilder2();
       }
       return me._partsBuilder;
     };
-    CFrameAppearance.prototype.initialize = function () {
+    CFrameAppearance2.prototype.initialize = function () {
       var me = this;
       me.onInitialize();
     };
-    CFrameAppearance.prototype.addFrameComponent = function (
+    CFrameAppearance2.prototype.addFrameComponent = function (
       id,
       myDomElement,
       x,
@@ -3202,7 +3202,7 @@
       this.frameComponents.push(frameComponent);
       return frameComponent;
     };
-    module.exports = CFrameAppearance;
+    module.exports = CFrameAppearance2;
   });
 
   // src/presets/appearance/PresetStyleYosemite.css
@@ -4199,368 +4199,377 @@
   });
 
   // src/JSFrame.js
-  var require_JSFrame2 = __commonJS((exports, module) => {
-    "use strict";
-    require_JSFrame();
-    var EventEmitter = require_event_emitter();
-    var CALIGN2 = require_CCommon();
-    var WindowEventHelper = require_WindowEventHelper();
-    var inherit = require_Inherit();
-    var CFrameAppearance = require_CFrameAppearance();
-    var CDomPartsBuilder = require_CDomPartsBuilder();
-    var CSimpleLayoutAnimator = require_CSimpleLayoutAnimator();
-    var EventListenerHelper = require_event_listener_helper();
-    var presetStyles = {
-      yosemite: require_PresetStyleYosemite2(),
-      redstone: require_PresetStyleRedstone2(),
-      popup: require_PresetStylePopup2(),
-      toast: require_PresetStyleToast(),
-      material: require_PresetStyleMaterial2(),
-    };
-    var presetWindows = {
-      yosemite: require_PresetWindowYosemite(),
-    };
-    var DEF = {};
-    var MOUSE_ENABLED = true;
-    var TOUCH_ENABLED = true;
-    var TOUCH_MOVE_ONLY_WITH_ONE_FINGER = true;
-    DEF.CBEAN = {};
-    DEF.CBEAN.HTML_ELEMENT = "span";
-    DEF.CBEAN.HTML_ELEMENT_ID_PREFIX = "htmlElement_";
-    DEF.CBEAN.TYPE_NAME = "bean";
-    function CBeanFrame(
-      beanId,
-      left,
-      top,
-      width,
-      height,
-      zindex,
-      w_border_width,
-      appearance,
-    ) {
-      var me = this;
-      me.movable = true;
-      me.id = beanId;
-      me.property = {};
-      me.extra = {};
-      me.parentCanvas = null;
-      me.htmlElement = null;
-      me.pullUpDisabled = false;
-      if (appearance) {
-        me.pullUpDisabled = appearance.pullUpDisabled;
+  "use strict";
+  require_JSFrame();
+  var EventEmitter = require_event_emitter();
+  var CALIGN2 = require_CCommon();
+  var WindowEventHelper = require_WindowEventHelper();
+  var inherit = require_Inherit();
+  var CFrameAppearance = require_CFrameAppearance();
+  var CDomPartsBuilder = require_CDomPartsBuilder();
+  var CSimpleLayoutAnimator = require_CSimpleLayoutAnimator();
+  var EventListenerHelper = require_event_listener_helper();
+  var presetStyles = {
+    yosemite: require_PresetStyleYosemite2(),
+    redstone: require_PresetStyleRedstone2(),
+    popup: require_PresetStylePopup2(),
+    toast: require_PresetStyleToast(),
+    material: require_PresetStyleMaterial2(),
+  };
+  var presetWindows = {
+    yosemite: require_PresetWindowYosemite(),
+  };
+  var DEF = {};
+  var MOUSE_ENABLED = true;
+  var TOUCH_ENABLED = true;
+  var TOUCH_MOVE_ONLY_WITH_ONE_FINGER = true;
+  DEF.CBEAN = {};
+  DEF.CBEAN.HTML_ELEMENT = "span";
+  DEF.CBEAN.HTML_ELEMENT_ID_PREFIX = "htmlElement_";
+  DEF.CBEAN.TYPE_NAME = "bean";
+  function CBeanFrame(
+    beanId,
+    left,
+    top,
+    width,
+    height,
+    zindex,
+    w_border_width,
+    appearance,
+  ) {
+    var me = this;
+    me.movable = true;
+    me.id = beanId;
+    me.property = {};
+    me.extra = {};
+    me.parentCanvas = null;
+    me.htmlElement = null;
+    me.pullUpDisabled = false;
+    if (appearance) {
+      me.pullUpDisabled = appearance.pullUpDisabled;
+    }
+    me.htmlElement = document.createElement(DEF.CBEAN.HTML_ELEMENT);
+    me.htmlElement.id = DEF.CBEAN.HTML_ELEMENT_ID_PREFIX + beanId;
+    me.htmlElement.style.position = "absolute";
+    me.htmlElement.style.left = parseInt(left, 10) + "px";
+    me.htmlElement.style.top = parseInt(top, 10) + "px";
+    me.htmlElement.style.width = parseInt(width, 10) + "px";
+    me.htmlElement.style.height = parseInt(height, 10) + "px";
+    if (zindex !== null) {
+      me.htmlElement.style.zIndex = zindex;
+    }
+    me.htmlElement.style.borderColor = "#000000";
+    me.htmlElement.style.fontSize = "1px";
+    me.htmlElement.parent = me;
+    if (MOUSE_ENABLED) {
+      me.htmlElement.onmousedown = me.onmouseDown;
+    }
+    if (TOUCH_ENABLED) {
+      if ("ontouchstart" in window) {
+        var funcOnTouchStart = function (evt) {
+          evt.preventDefault();
+          me.onmouseDown.bind(this)(evt);
+        };
+        me.htmlElement.ontouchstart = funcOnTouchStart;
       }
-      me.htmlElement = document.createElement(DEF.CBEAN.HTML_ELEMENT);
-      me.htmlElement.id = DEF.CBEAN.HTML_ELEMENT_ID_PREFIX + beanId;
-      me.htmlElement.style.position = "absolute";
-      me.htmlElement.style.left = parseInt(left, 10) + "px";
-      me.htmlElement.style.top = parseInt(top, 10) + "px";
-      me.htmlElement.style.width = parseInt(width, 10) + "px";
-      me.htmlElement.style.height = parseInt(height, 10) + "px";
-      if (zindex !== null) {
-        me.htmlElement.style.zIndex = zindex;
-      }
-      me.htmlElement.style.borderColor = "#000000";
-      me.htmlElement.style.fontSize = "1px";
-      me.htmlElement.parent = me;
-      if (MOUSE_ENABLED) {
-        me.htmlElement.onmousedown = me.onmouseDown;
-      }
-      if (TOUCH_ENABLED) {
-        if ("ontouchstart" in window) {
-          var funcOnTouchStart = function (evt) {
-            evt.preventDefault();
-            me.onmouseDown.bind(this)(evt);
-          };
-          me.htmlElement.ontouchstart = funcOnTouchStart;
-        }
-      }
-      me.htmlElement.typeName = DEF.CBEAN.TYPE_NAME;
-      me.htmlElement.usage = "nothing";
-      me.htmlElement.isRangeLimited = false;
+    }
+    me.htmlElement.typeName = DEF.CBEAN.TYPE_NAME;
+    me.htmlElement.usage = "nothing";
+    me.htmlElement.isRangeLimited = false;
+    me.htmlElement.argX = 1;
+    me.htmlElement.argY = 1;
+    me.externalAreaClickedListener = null;
+    me.onMoveListener = null;
+  }
+  CBeanFrame.prototype.getWindowType = function () {
+    return "CBeanFrame";
+  };
+  CBeanFrame.prototype.setOnMoveListener = function (listener) {
+    var me = this;
+    me.onMoveListener = listener;
+  };
+  CBeanFrame.prototype._onMove = function (e) {
+    var me = this;
+    if (me.onMoveListener) {
+      me.onMoveListener(e);
+    }
+  };
+  CBeanFrame.prototype.setMovable = function (enabled) {
+    var me = this;
+    if (enabled) {
       me.htmlElement.argX = 1;
       me.htmlElement.argY = 1;
-      me.externalAreaClickedListener = null;
-      me.onMoveListener = null;
+    } else {
+      me.htmlElement.argX = 0;
+      me.htmlElement.argY = 0;
     }
-    CBeanFrame.prototype.getWindowType = function () {
-      return "CBeanFrame";
-    };
-    CBeanFrame.prototype.setOnMoveListener = function (listener) {
-      var me = this;
-      me.onMoveListener = listener;
-    };
-    CBeanFrame.prototype._onMove = function (e) {
-      var me = this;
-      if (me.onMoveListener) {
-        me.onMoveListener(e);
-      }
-    };
-    CBeanFrame.prototype.setMovable = function (enabled) {
-      var me = this;
-      if (enabled) {
-        me.htmlElement.argX = 1;
-        me.htmlElement.argY = 1;
-      } else {
-        me.htmlElement.argX = 0;
-        me.htmlElement.argY = 0;
-      }
-      me.movable = enabled;
-      return me;
-    };
-    CBeanFrame.prototype.setParentCanvas = function (parentCanvas) {
-      var me = this;
-      me.parentCanvas = parentCanvas;
-      me.htmlElement.parentCanvas = me.parentCanvas;
-      return me;
-    };
-    CBeanFrame.prototype.setOnExternalAreaClickedListener = function (
-      listener,
+    me.movable = enabled;
+    return me;
+  };
+  CBeanFrame.prototype.setParentCanvas = function (parentCanvas) {
+    var me = this;
+    me.parentCanvas = parentCanvas;
+    me.htmlElement.parentCanvas = me.parentCanvas;
+    return me;
+  };
+  CBeanFrame.prototype.setOnExternalAreaClickedListener = function (listener) {
+    var me = this;
+    me.externalAreaClickedListener = listener;
+    return me;
+  };
+  CBeanFrame.prototype.onBodyClicked = function (e) {
+    var me = this;
+    var clickX = e.pageX;
+    var clickY = e.pageY;
+    var left = parseInt(me.htmlElement.style.left);
+    var top = parseInt(me.htmlElement.style.top);
+    var width = parseInt(me.htmlElement.style.width);
+    var height = parseInt(me.htmlElement.style.height);
+    if (
+      left < clickX && clickX < left + width && top < clickY &&
+      clickY < top + height
     ) {
-      var me = this;
-      me.externalAreaClickedListener = listener;
-      return me;
-    };
-    CBeanFrame.prototype.onBodyClicked = function (e) {
-      var me = this;
-      var clickX = e.pageX;
-      var clickY = e.pageY;
-      var left = parseInt(me.htmlElement.style.left);
-      var top = parseInt(me.htmlElement.style.top);
-      var width = parseInt(me.htmlElement.style.width);
-      var height = parseInt(me.htmlElement.style.height);
-      if (
-        left < clickX && clickX < left + width && top < clickY &&
-        clickY < top + height
-      ) {
-      } else {
-        if (me.externalAreaClickedListener) {
-          me.externalAreaClickedListener();
-        }
+    } else {
+      if (me.externalAreaClickedListener) {
+        me.externalAreaClickedListener();
       }
-    };
-    CBeanFrame.prototype.onmouseDown = function (evt) {
-      var refHtmlElement = this;
-      var e = evt;
-      if (TOUCH_ENABLED) {
-        if (evt.type === "touchstart") {
-          var changedTouches = evt.changedTouches;
-          if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
-            var touches = evt.touches;
-            if (touches.length === 1) {
-              e = changedTouches[0];
-            } else {
-              return true;
-            }
-          } else {
+    }
+  };
+  CBeanFrame.prototype.onmouseDown = function (evt) {
+    var refHtmlElement = this;
+    var e = evt;
+    if (TOUCH_ENABLED) {
+      if (evt.type === "touchstart") {
+        var changedTouches = evt.changedTouches;
+        if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
+          var touches = evt.touches;
+          if (touches.length === 1) {
             e = changedTouches[0];
+          } else {
+            return true;
           }
+        } else {
+          e = changedTouches[0];
         }
       }
-      var refCBeanFrame = refHtmlElement.parent;
-      if (e.button == 0 || evt.type === "touchstart") {
-        if (refCBeanFrame.pullUpDisabled) {
-          return false;
-        } else {
-          refHtmlElement.parentCanvas.currentObject = refHtmlElement;
-          refHtmlElement.parentCanvas.pullUp(refCBeanFrame.id);
-        }
-      } else if (e.button == 2) {
+    }
+    var refCBeanFrame = refHtmlElement.parent;
+    if (e.button == 0 || evt.type === "touchstart") {
+      if (refCBeanFrame.pullUpDisabled) {
         return false;
+      } else {
+        refHtmlElement.parentCanvas.currentObject = refHtmlElement;
+        refHtmlElement.parentCanvas.pullUp(refCBeanFrame.id);
       }
-      if (refHtmlElement.parentCanvas.currentObject) {
-        refHtmlElement.parentCanvas.offsetX = e.pageX -
-          parseInt(refHtmlElement.parentCanvas.currentObject.style.left, 10);
-        refHtmlElement.parentCanvas.offsetY = e.pageY -
-          parseInt(refHtmlElement.parentCanvas.currentObject.style.top, 10);
-      }
+    } else if (e.button == 2) {
       return false;
-    };
-    DEF.CANVAS = {};
-    DEF.CANVAS.HTML_ELEMENT = "div";
-    DEF.CANVAS.WIDTH_ADJUST_20180722 = 2;
-    DEF.CANVAS.HEIGHT_ADJUST_20180722 = 3;
-    function CCanvas(parentElement, canvasId, left, top, width, height) {
-      function EventData() {
-        this.x = 0;
-        this.y = 0;
-        this.screenX = 0;
-        this.screenY = 0;
-        this.deltaX = 0;
-        this.deltaY = 0;
-        this.isMoved = false;
-        this.targetTypeName = null;
-        this.targetUsage = null;
-        this.targetObject = null;
-      }
-      var me = this;
-      me.enablePullUp = true;
-      me.currentObject = null;
-      me.onTopObject = null;
-      me.offsetX = 0;
-      me.offsetY = 0;
-      me.mouseDownSource = null;
-      me.id = canvasId;
-      me.canvasElement = null;
-      me.parentElement = parentElement;
-      me.beanList = new Array();
-      me.beanIdName = {};
-      me.beanNameId = {};
-      me.eventData = new EventData();
-      me.baseZIndex = 0;
-      me.setBaseZIndex = function (baseZIndex) {
-        me.baseZIndex = baseZIndex;
-      };
-      me.getBaseZIndex = function () {
-        return me.baseZIndex;
-      };
-      me.canvasElement = document.createElement(DEF.CANVAS.HTML_ELEMENT);
-      me.canvasElement.style.zIndex = 2e3;
-      me.canvasElement.id = me.id;
-      me.canvasElement.style.boxSizing = "border-box";
-      me.canvasElement.style.position = "absolute";
-      me.canvasElement.style.left = parseInt(left) + "px";
-      me.canvasElement.style.top = parseInt(top) + "px";
-      me.canvasElement.style.width = parseInt(width) +
-        DEF.CANVAS.WIDTH_ADJUST_20180722 + "px";
-      me.canvasElement.style.height = parseInt(height) +
-        DEF.CANVAS.HEIGHT_ADJUST_20180722 + "px";
-      me.canvasElement.style.backgroundColor = "transparent";
-      me.canvasElement.style.borderStyle = "none";
-      me.canvasElement.style.margin = "0px";
-      me.canvasElement.style.borderWidth = "0px";
-      me.canvasElement.style.borderColor = "transparent";
-      me.parentElement.appendChild(me.canvasElement);
     }
-    CCanvas.prototype.mouseMove = function (evt) {
-      var me = this;
-      var e = evt;
-      if (TOUCH_ENABLED) {
-        if (evt.type === "touchmove") {
-          var changedTouches = evt.changedTouches;
-          if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
-            var touches = evt.touches;
-            if (touches.length === 1) {
-              e = changedTouches[0];
-            } else {
-              return true;
-            }
-          } else {
+    if (refHtmlElement.parentCanvas.currentObject) {
+      refHtmlElement.parentCanvas.offsetX = e.pageX -
+        parseInt(refHtmlElement.parentCanvas.currentObject.style.left, 10);
+      refHtmlElement.parentCanvas.offsetY = e.pageY -
+        parseInt(refHtmlElement.parentCanvas.currentObject.style.top, 10);
+    }
+    return false;
+  };
+  DEF.CANVAS = {};
+  DEF.CANVAS.HTML_ELEMENT = "div";
+  DEF.CANVAS.WIDTH_ADJUST_20180722 = 2;
+  DEF.CANVAS.HEIGHT_ADJUST_20180722 = 3;
+  function CCanvas(parentElement, canvasId, left, top, width, height) {
+    function EventData() {
+      this.x = 0;
+      this.y = 0;
+      this.screenX = 0;
+      this.screenY = 0;
+      this.deltaX = 0;
+      this.deltaY = 0;
+      this.isMoved = false;
+      this.targetTypeName = null;
+      this.targetUsage = null;
+      this.targetObject = null;
+    }
+    var me = this;
+    me.enablePullUp = true;
+    me.currentObject = null;
+    me.onTopObject = null;
+    me.offsetX = 0;
+    me.offsetY = 0;
+    me.mouseDownSource = null;
+    me.id = canvasId;
+    me.canvasElement = null;
+    me.parentElement = parentElement;
+    me.beanList = new Array();
+    me.beanIdName = {};
+    me.beanNameId = {};
+    me.eventData = new EventData();
+    me.baseZIndex = 0;
+    me.setBaseZIndex = function (baseZIndex) {
+      me.baseZIndex = baseZIndex;
+    };
+    me.getBaseZIndex = function () {
+      return me.baseZIndex;
+    };
+    me.canvasElement = document.createElement(DEF.CANVAS.HTML_ELEMENT);
+    me.canvasElement.style.zIndex = 2e3;
+    me.canvasElement.id = me.id;
+    me.canvasElement.style.boxSizing = "border-box";
+    me.canvasElement.style.position = "absolute";
+    me.canvasElement.style.left = parseInt(left) + "px";
+    me.canvasElement.style.top = parseInt(top) + "px";
+    me.canvasElement.style.width = parseInt(width) +
+      DEF.CANVAS.WIDTH_ADJUST_20180722 + "px";
+    me.canvasElement.style.height = parseInt(height) +
+      DEF.CANVAS.HEIGHT_ADJUST_20180722 + "px";
+    me.canvasElement.style.backgroundColor = "transparent";
+    me.canvasElement.style.borderStyle = "none";
+    me.canvasElement.style.margin = "0px";
+    me.canvasElement.style.borderWidth = "0px";
+    me.canvasElement.style.borderColor = "transparent";
+    me.parentElement.appendChild(me.canvasElement);
+  }
+  CCanvas.prototype.mouseMove = function (evt) {
+    var me = this;
+    var e = evt;
+    if (TOUCH_ENABLED) {
+      if (evt.type === "touchmove") {
+        var changedTouches = evt.changedTouches;
+        if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
+          var touches = evt.touches;
+          if (touches.length === 1) {
             e = changedTouches[0];
+          } else {
+            return true;
           }
-        }
-      }
-      if (me.currentObject) {
-        me.eventData.targetTypeName = me.currentObject.typeName;
-        me.eventData.targetUsage = me.currentObject.usage;
-        me.eventData.targetObject = me.currentObject;
-        var newObjLeftPx = e.pageX - me.offsetX;
-        var newObjTopPx = e.pageY - me.offsetY;
-        var absoluteMouseX = e.pageX;
-        var absoluteMouseY = e.pageY;
-        var oldObjLeftPx = me.currentObject.style.left;
-        var oldObjTopPx = me.currentObject.style.top;
-        var tmpLeft = parseInt(newObjLeftPx, 10);
-        var tmpTop = parseInt(newObjTopPx, 10);
-        var tmpRight = tmpLeft + parseInt(me.currentObject.style.width, 10);
-        var tmpBottom = tmpTop + parseInt(me.currentObject.style.height, 10);
-        var styleWidth = parseInt(me.canvasElement.style.width, 10);
-        var styleHeight = parseInt(me.canvasElement.style.height, 10);
-        var deltaX = 0;
-        var deltaY = 0;
-        if (
-          me.currentObject.isRangeLimited == true &&
-          (tmpLeft <= 0 || tmpRight > styleWidth || tmpTop <= 0 ||
-            tmpBottom > styleHeight)
-        ) {
-          deltaX = 0;
-          deltaY = 0;
         } else {
-          deltaX = parseInt(newObjLeftPx, 10) - parseInt(oldObjLeftPx, 10);
-          deltaY = parseInt(newObjTopPx, 10) - parseInt(oldObjTopPx, 10);
-          me.currentObject.style.left = parseInt(me.currentObject.style.left) +
-            deltaX * me.currentObject.argX + "px";
-          me.currentObject.style.top = parseInt(me.currentObject.style.top) +
-            deltaY * me.currentObject.argY + "px";
-          var parentObject = me.currentObject.parent;
-          if (parentObject && parentObject._onMove) {
-            parentObject._onMove();
-          }
+          e = changedTouches[0];
         }
-        me.eventData.deltaX = deltaX;
-        me.eventData.deltaY = deltaY;
-        return me.eventData;
       }
-      return null;
-    };
-    CCanvas.prototype.mouseUp = function (e) {
-      var me = this;
-      me.currentObject = null;
-      me.mouseDownSource = null;
-    };
-    CCanvas.prototype.pullUp = function (targetBeanId) {
-      var me = this;
-      var tmpBeanArray = [];
-      var beanList = me.beanList;
-      for (var i in beanList) {
-        tmpBeanArray.push(beanList[i]);
+    }
+    if (me.currentObject) {
+      me.eventData.targetTypeName = me.currentObject.typeName;
+      me.eventData.targetUsage = me.currentObject.usage;
+      me.eventData.targetObject = me.currentObject;
+      var newObjLeftPx = e.pageX - me.offsetX;
+      var newObjTopPx = e.pageY - me.offsetY;
+      var absoluteMouseX = e.pageX;
+      var absoluteMouseY = e.pageY;
+      var oldObjLeftPx = me.currentObject.style.left;
+      var oldObjTopPx = me.currentObject.style.top;
+      var tmpLeft = parseInt(newObjLeftPx, 10);
+      var tmpTop = parseInt(newObjTopPx, 10);
+      var tmpRight = tmpLeft + parseInt(me.currentObject.style.width, 10);
+      var tmpBottom = tmpTop + parseInt(me.currentObject.style.height, 10);
+      var styleWidth = parseInt(me.canvasElement.style.width, 10);
+      var styleHeight = parseInt(me.canvasElement.style.height, 10);
+      var deltaX = 0;
+      var deltaY = 0;
+      if (
+        me.currentObject.isRangeLimited == true &&
+        (tmpLeft <= 0 || tmpRight > styleWidth || tmpTop <= 0 ||
+          tmpBottom > styleHeight)
+      ) {
+        deltaX = 0;
+        deltaY = 0;
+      } else {
+        deltaX = parseInt(newObjLeftPx, 10) - parseInt(oldObjLeftPx, 10);
+        deltaY = parseInt(newObjTopPx, 10) - parseInt(oldObjTopPx, 10);
+        me.currentObject.style.left = parseInt(me.currentObject.style.left) +
+          deltaX * me.currentObject.argX + "px";
+        me.currentObject.style.top = parseInt(me.currentObject.style.top) +
+          deltaY * me.currentObject.argY + "px";
+        var parentObject = me.currentObject.parent;
+        if (parentObject && parentObject._onMove) {
+          parentObject._onMove();
+        }
       }
-      var targetBean = beanList[targetBeanId];
-      if (me.enablePullUp) {
-        me.pullUpSort(targetBean, tmpBeanArray, me.baseZIndex);
-      }
-      me.onTopObject = targetBean;
-    };
-    CCanvas.prototype.pullUpSort = function (
-      pullupObject,
-      objectArray,
-      baseIndex,
-    ) {
-      var me = this;
-      pullupObject.htmlElement.style.zIndex = objectArray.length + baseIndex;
-      objectArray.sort(function (b, a) {
-        return -parseInt(b.htmlElement.style.zIndex, 10) +
-          parseInt(a.htmlElement.style.zIndex, 10);
-      });
-      for (var i in objectArray) {
-        objectArray[i].htmlElement.style.zIndex = objectArray.length - 1 - i +
-          baseIndex;
-      }
-    };
-    CCanvas.prototype.removeBean = function (beanId) {
-      var me = this;
-      var beanList = me.beanList;
-      var targetBean = beanList[beanId];
-      me.canvasElement.removeChild(targetBean.htmlElement);
-      delete beanList[beanId];
-    };
-    CCanvas.prototype.addBean = function (bean) {
-      var me = this;
-      var beanList = me.beanList;
-      var beanIdName = me.beanIdName;
-      var beanNameId = me.beanNameId;
-      beanList[bean.id] = bean;
-      if (bean.property.name) {
-        beanNameId[bean.property.name] = bean.id;
-        beanIdName[bean.id] = bean.property.name;
-      }
-      var num = 0;
-      for (var j in beanList) {
-        num++;
-      }
-      bean.htmlElement.style.zIndex = num + me.baseZIndex;
-      bean.setParentCanvas(me);
-      this.canvasElement.appendChild(bean.htmlElement);
-    };
-    CCanvas.prototype.getParentElement = function () {
-      var me = this;
-      return me.parentElement;
-    };
-    DEF.CFRAME = {};
-    DEF.CFRAME.CANVAS_ELEMENT_BGCOLOR = "transparent";
-    DEF.CFRAME.MODAL_BACKGROUND_FRAME_ID_PREFIX =
-      "window__modal_window_background_";
-    inherit(CFrame, CBeanFrame);
-    function CFrame(
+      me.eventData.deltaX = deltaX;
+      me.eventData.deltaY = deltaY;
+      return me.eventData;
+    }
+    return null;
+  };
+  CCanvas.prototype.mouseUp = function (e) {
+    var me = this;
+    me.currentObject = null;
+    me.mouseDownSource = null;
+  };
+  CCanvas.prototype.pullUp = function (targetBeanId) {
+    var me = this;
+    var tmpBeanArray = [];
+    var beanList = me.beanList;
+    for (var i in beanList) {
+      tmpBeanArray.push(beanList[i]);
+    }
+    var targetBean = beanList[targetBeanId];
+    if (me.enablePullUp) {
+      me.pullUpSort(targetBean, tmpBeanArray, me.baseZIndex);
+    }
+    me.onTopObject = targetBean;
+  };
+  CCanvas.prototype.pullUpSort = function (
+    pullupObject,
+    objectArray,
+    baseIndex,
+  ) {
+    var me = this;
+    pullupObject.htmlElement.style.zIndex = objectArray.length + baseIndex;
+    objectArray.sort(function (b, a) {
+      return -parseInt(b.htmlElement.style.zIndex, 10) +
+        parseInt(a.htmlElement.style.zIndex, 10);
+    });
+    for (var i in objectArray) {
+      objectArray[i].htmlElement.style.zIndex = objectArray.length - 1 - i +
+        baseIndex;
+    }
+  };
+  CCanvas.prototype.removeBean = function (beanId) {
+    var me = this;
+    var beanList = me.beanList;
+    var targetBean = beanList[beanId];
+    me.canvasElement.removeChild(targetBean.htmlElement);
+    delete beanList[beanId];
+  };
+  CCanvas.prototype.addBean = function (bean) {
+    var me = this;
+    var beanList = me.beanList;
+    var beanIdName = me.beanIdName;
+    var beanNameId = me.beanNameId;
+    beanList[bean.id] = bean;
+    if (bean.property.name) {
+      beanNameId[bean.property.name] = bean.id;
+      beanIdName[bean.id] = bean.property.name;
+    }
+    var num = 0;
+    for (var j in beanList) {
+      num++;
+    }
+    bean.htmlElement.style.zIndex = num + me.baseZIndex;
+    bean.setParentCanvas(me);
+    this.canvasElement.appendChild(bean.htmlElement);
+  };
+  CCanvas.prototype.getParentElement = function () {
+    var me = this;
+    return me.parentElement;
+  };
+  DEF.CFRAME = {};
+  DEF.CFRAME.CANVAS_ELEMENT_BGCOLOR = "transparent";
+  DEF.CFRAME.MODAL_BACKGROUND_FRAME_ID_PREFIX =
+    "window__modal_window_background_";
+  inherit(CFrame, CBeanFrame);
+  function CFrame(
+    windowId,
+    w_left,
+    w_top,
+    w_width,
+    w_height,
+    zindex,
+    w_border_width,
+    appearance,
+  ) {
+    var me = this;
+    CFrame.superConstructor.call(
+      this,
       windowId,
       w_left,
       w_top,
@@ -4569,1479 +4578,1459 @@
       zindex,
       w_border_width,
       appearance,
-    ) {
-      var me = this;
-      CFrame.superConstructor.call(
-        this,
-        windowId,
-        w_left,
-        w_top,
-        w_width,
-        w_height,
-        zindex,
-        w_border_width,
-        appearance,
-      );
-      me.anchor = CALIGN2.LEFT_TOP;
-      me.showTitleBar = appearance.showTitleBar;
-      me.canvasNetHeight = null;
-      me.canvasNetWidth = null;
-      me.frameHeightAdjust = appearance.frameHeightAdjust;
-      me.frameComponentMap = {};
-      me.canvas = null;
-      me.myCanvasId = null;
-      me.floatingButton = null;
-      me.titleBarClassNameDefault = "jsframe-titlebar-default";
-      me.titleBarClassNameFocused = "jsframe-titlebar-focused";
-      me.titleBarHeight = appearance.titleBarHeight;
-      me.titleBarCaption = appearance.titleBarCaption;
-      me.titleBarCaptionLeftMargin = appearance.titleBarCaptionLeftMargin;
-      me.titleBarCaptionFontSize = appearance.titleBarCaptionFontSize;
-      me.titleBarCaptionFontWeight = appearance.titleBarCaptionFontWeight;
-      me.titleBarBorderBottomDefault = appearance.titleBarBorderBottomDefault;
-      me.titleBarBorderBottomFocused = appearance.titleBarBorderBottomFocused;
-      me.titleBarCaptionTextShadow = appearance.titleBarCaptionTextShadow;
-      me.titleBarCaptionTextAlign = appearance.titleBarCaptionTextAlign;
-      me.titleAdjustWidth = 2;
-      me.windowId = windowId;
-      me.exBorderWidth = 0;
-      me.myCanvasId = windowId + "_canvas";
-      var appIcon = document.createElement("img");
-      appIcon.src = "";
-      appIcon.style.position = "absolute";
-      appIcon.style.left = "2px";
-      appIcon.style.top = "2px";
-      appIcon.style.width = "16px";
-      appIcon.style.height = "16px";
-      appIcon.style.visibility = "hidden";
-      me.titleBar = document.createElement("div");
-      me.titleBar.className = "jsframetitlebar";
-      if (me.showTitleBar) {
-        me.titleBar.id = windowId + "_title";
-        me.titleBar.style.position = "absolute";
-        me.titleBar.style.boxSizing = "border-box";
-        me.titleBar.style.top = "0px";
-        me.titleBar.style.left = "0px";
-        me.titleBar.style.width = w_width - me.titleAdjustWidth +
-          DEF.CANVAS.WIDTH_ADJUST_20180722 + "px";
-        me.titleBar.style.userSelect = "none";
-        if (me.titleBarHeight) {
-          var titleBarAdjust = 0;
-          if (me.titleBarBorderBottomDefault) {
-            titleBarAdjust = 0;
-          }
-          me.titleBar.style.height = parseInt(me.titleBarHeight, 10) + 0 + "px";
+    );
+    me.anchor = CALIGN2.LEFT_TOP;
+    me.showTitleBar = appearance.showTitleBar;
+    me.canvasNetHeight = null;
+    me.canvasNetWidth = null;
+    me.frameHeightAdjust = appearance.frameHeightAdjust;
+    me.frameComponentMap = {};
+    me.canvas = null;
+    me.myCanvasId = null;
+    me.floatingButton = null;
+    me.titleBarClassNameDefault = "jsframe-titlebar-default";
+    me.titleBarClassNameFocused = "jsframe-titlebar-focused";
+    me.titleBarHeight = appearance.titleBarHeight;
+    me.titleBarCaption = appearance.titleBarCaption;
+    me.titleBarCaptionLeftMargin = appearance.titleBarCaptionLeftMargin;
+    me.titleBarCaptionFontSize = appearance.titleBarCaptionFontSize;
+    me.titleBarCaptionFontWeight = appearance.titleBarCaptionFontWeight;
+    me.titleBarBorderBottomDefault = appearance.titleBarBorderBottomDefault;
+    me.titleBarBorderBottomFocused = appearance.titleBarBorderBottomFocused;
+    me.titleBarCaptionTextShadow = appearance.titleBarCaptionTextShadow;
+    me.titleBarCaptionTextAlign = appearance.titleBarCaptionTextAlign;
+    me.titleAdjustWidth = 2;
+    me.windowId = windowId;
+    me.exBorderWidth = 0;
+    me.myCanvasId = windowId + "_canvas";
+    var appIcon = document.createElement("img");
+    appIcon.src = "";
+    appIcon.style.position = "absolute";
+    appIcon.style.left = "2px";
+    appIcon.style.top = "2px";
+    appIcon.style.width = "16px";
+    appIcon.style.height = "16px";
+    appIcon.style.visibility = "hidden";
+    me.titleBar = document.createElement("div");
+    me.titleBar.className = "jsframetitlebar";
+    if (me.showTitleBar) {
+      me.titleBar.id = windowId + "_title";
+      me.titleBar.style.position = "absolute";
+      me.titleBar.style.boxSizing = "border-box";
+      me.titleBar.style.top = "0px";
+      me.titleBar.style.left = "0px";
+      me.titleBar.style.width = w_width - me.titleAdjustWidth +
+        DEF.CANVAS.WIDTH_ADJUST_20180722 + "px";
+      me.titleBar.style.userSelect = "none";
+      if (me.titleBarHeight) {
+        var titleBarAdjust = 0;
+        if (me.titleBarBorderBottomDefault) {
+          titleBarAdjust = 0;
         }
-        if (me.titleBarColorDefault) {
-          me.titleBar.style.background = me.titleBarColorDefault;
-        }
-        me.titleBar.style.zIndex = 0;
-        me.titleBar.style.color = me.titleBarCaptionColorDefault;
-        me.titleBar.style.fontSize = me.titleBarCaptionFontSize;
-        me.titleBar.style.fontWeight = me.titleBarCaptionFontWeight;
-        me.titleBar.style.textShadow = me.titleBarCaptionTextShadow;
-        me.titleBar.style.textAlign = me.titleBarCaptionTextAlign;
-        me.titleBar.style.lineHeight = me.titleBar.style.height;
-        me.titleBar.style.borderBottom = me.titleBarBorderBottomDefault;
-        me.titleBar.style.overflow = "hidden";
-        var titleBarText = document.createTextNode("");
-        var titleBarTextSpan = document.createElement("span");
-        titleBarTextSpan.id = me.id + "_titleBarText";
-        if (me.titleBarCaptionLeftMargin != null) {
-          titleBarTextSpan.style.position = "absolute";
-          titleBarTextSpan.style.left =
-            parseInt(me.titleBarCaptionLeftMargin, 10) + "px";
-        } else {
-          titleBarTextSpan.style.position = "absolute";
-          titleBarTextSpan.style.left = "0px";
-          titleBarTextSpan.style.right = "0px";
-        }
-        titleBarTextSpan.style.top = "0px";
-        titleBarTextSpan.appendChild(titleBarText);
-        me.titleBar.appendChild(titleBarTextSpan);
+        me.titleBar.style.height = parseInt(me.titleBarHeight, 10) + 0 + "px";
       }
-      me.htmlElement.appendChild(me.titleBar);
-      var canvasMoreHeight = parseInt(me.titleBarHeight, 10) - titleBarAdjust;
-      var canvasMoreSpacing = parseInt(me.titleAdjustWidth, 10);
-      if (me.showTitleBar) {
+      if (me.titleBarColorDefault) {
+        me.titleBar.style.background = me.titleBarColorDefault;
+      }
+      me.titleBar.style.zIndex = 0;
+      me.titleBar.style.color = me.titleBarCaptionColorDefault;
+      me.titleBar.style.fontSize = me.titleBarCaptionFontSize;
+      me.titleBar.style.fontWeight = me.titleBarCaptionFontWeight;
+      me.titleBar.style.textShadow = me.titleBarCaptionTextShadow;
+      me.titleBar.style.textAlign = me.titleBarCaptionTextAlign;
+      me.titleBar.style.lineHeight = me.titleBar.style.height;
+      me.titleBar.style.borderBottom = me.titleBarBorderBottomDefault;
+      me.titleBar.style.overflow = "hidden";
+      var titleBarText = document.createTextNode("");
+      var titleBarTextSpan = document.createElement("span");
+      titleBarTextSpan.id = me.id + "_titleBarText";
+      if (me.titleBarCaptionLeftMargin != null) {
+        titleBarTextSpan.style.position = "absolute";
+        titleBarTextSpan.style.left =
+          parseInt(me.titleBarCaptionLeftMargin, 10) + "px";
       } else {
-        canvasMoreHeight = 0;
-        canvasMoreSpacing = 0;
-        titleBarAdjust = 0;
+        titleBarTextSpan.style.position = "absolute";
+        titleBarTextSpan.style.left = "0px";
+        titleBarTextSpan.style.right = "0px";
       }
-      me.canvasNetWidth = w_width - canvasMoreSpacing;
-      me.canvasNetHeight = w_height - canvasMoreHeight - canvasMoreSpacing - 1 -
-        titleBarAdjust + me.frameHeightAdjust;
-      me.htmlElement.style.cursor = "move";
-      me.canvas = new CCanvas(
-        me.htmlElement,
-        me.myCanvasId,
-        0,
-        canvasMoreHeight,
-        w_width - canvasMoreSpacing,
-        w_height - canvasMoreHeight - canvasMoreSpacing,
-      );
-      me.canvas.enablePullUp = false;
-      me.canvas.canvasElement.style.backgroundColor =
-        DEF.CFRAME.CANVAS_ELEMENT_BGCOLOR;
-      me.canvas.canvasElement.style.cursor = "default";
-      if (MOUSE_ENABLED) {
-        me.canvas.canvasElement.onmousedown = me.canvasMouseDown;
-      }
-      if (TOUCH_ENABLED) {
-        if ("ontouchstart" in window) {
-          var funcOnTouchStart = function (evt) {
-            var touchStartEvent = evt.changedTouches[0];
-            me.canvasMouseDown.bind(this)(touchStartEvent);
-          };
-          me.canvas.canvasElement.ontouchstart = funcOnTouchStart;
-        }
-      }
-      me.canvas.canvasElement.parentCFrame = me;
-      var tmpCanvasWidth = parseInt(me.canvas.canvasElement.style.width, 10);
-      var tmpCanvasHeight = parseInt(me.canvas.canvasElement.style.height, 10);
-      var markerWidth = appearance.resizeAreaWidth;
-      var markerHeight = appearance.resizeAreaHeight;
-      var edgeMargin = appearance.resizeAreaOffset;
-      var markerZIndex = 0;
-      var colorRD, colorDD, colorRR;
-      if (appearance.resizeAreaVisible) {
-        colorRD = "rgba(255, 0, 0, 0.5)";
-        colorDD = "rgba(0, 0, 255, 0.5)";
-        colorRR = "rgba(0, 255, 0, 0.5)";
-      }
-      var markerRD = new CMarkerWindow(
-        me.myCanvasId + "_RD",
-        tmpCanvasWidth + edgeMargin,
-        tmpCanvasHeight + edgeMargin,
-        markerWidth,
-        markerHeight,
-        markerZIndex,
-        "RD",
-        colorRD,
-      );
-      markerRD.htmlElement.style.cursor = "se-resize";
-      markerRD.htmlElement.argX = 0;
-      markerRD.htmlElement.argY = 0;
-      var markerDD = new CMarkerWindow(
-        me.myCanvasId + "_DD",
-        0,
-        tmpCanvasHeight + edgeMargin,
-        tmpCanvasWidth + edgeMargin,
-        markerHeight,
-        markerZIndex,
-        "DD",
-        colorDD,
-      );
-      markerDD.htmlElement.style.cursor = "n-resize";
-      markerDD.htmlElement.argX = 0;
-      markerDD.htmlElement.argY = 0;
-      var markerRR = new CMarkerWindow(
-        me.myCanvasId + "_RR",
-        tmpCanvasWidth + edgeMargin,
-        0,
-        markerWidth,
-        tmpCanvasHeight + edgeMargin,
-        markerZIndex,
-        "RR",
-        colorRR,
-      );
-      markerRR.htmlElement.style.cursor = "w-resize";
-      markerRR.htmlElement.argY = 0;
-      markerRR.htmlElement.argX = 0;
-      me.canvas.addBean(markerRD);
-      me.canvas.addBean(markerDD);
-      me.canvas.addBean(markerRR);
-      me.removeMarkers = function () {
-        me.canvas.removeBean(markerRD.id);
-        me.canvas.removeBean(markerDD.id);
-        me.canvas.removeBean(markerRR.id);
-        me.htmlElement.style.cursor = "default";
-      };
-      me.removeMarkers2 = function () {
-        me.canvas.removeBean(markerRD.id);
-        me.canvas.removeBean(markerDD.id);
-        me.canvas.removeBean(markerRR.id);
-      };
-      me.enableMarkers = function (enabled) {
-        if (enabled) {
-          markerRD.htmlElement.style.display = "flex";
-          markerDD.htmlElement.style.display = "flex";
-          markerRR.htmlElement.style.display = "flex";
-          markerRD.htmlElement.style.cursor = "se-resize";
-          markerDD.htmlElement.style.cursor = "n-resize";
-          markerRR.htmlElement.style.cursor = "w-resize";
-        } else {
-          markerRD.htmlElement.style.display = "none";
-          markerDD.htmlElement.style.display = "none";
-          markerRR.htmlElement.style.display = "none";
-        }
-      };
-      for (var idx in appearance.frameComponents) {
-        var frameComponent = appearance.frameComponents[idx];
-        frameComponent.setFrame(me);
-        if (frameComponent.id == "closeButton") {
-          frameComponent.htmlElement.onclick = me.close;
-        }
-        var frameComponentHasChildMenu = frameComponent.htmlElement
-          .querySelector(".jsframe-child-menu");
-        if (frameComponentHasChildMenu) {
-          me.eventListenerHelper.addEventListener(
-            frameComponent.htmlElement,
-            "click",
-            function (e) {
-              var frameComponentId = e.target.getAttribute("component-id");
-              me.hideFrameComponentChildMenus(
-                { exceptFrameComponentId: frameComponentId },
-              );
-              if (frameComponentId) {
-                var frameComponentHtmlElement = me.getFrameComponentElement(
-                  frameComponentId,
-                );
-                var frameComponentChildMenu = frameComponentHtmlElement
-                  .querySelector(".jsframe-child-menu");
-                if (frameComponentChildMenu) {
-                  if (frameComponentChildMenu.style.display == "table") {
-                    frameComponentChildMenu.style.display = "none";
-                  } else {
-                    frameComponentChildMenu.style.display = "table";
-                  }
-                } else {
-                  console.error(
-                    "frameComponent child menu isnt found. frameComponentId=" +
-                      frameComponentId,
-                  );
-                }
-              }
-            },
-            { listenerName: "frame-component_child-menu-listener" },
-          );
-        }
-        me.addFrameComponent(frameComponent);
-      }
-      me.htmlElement.style.backgroundColor = "transparent";
-      me.htmlElement.oncontextmenu = this.contextMenu;
-      var caribVal = 0;
-      me.caribValue = caribVal;
-      if (me.exBorderWidth) {
-        me.htmlElement.style.borderWidth = me.exBorderWidth + "px";
-      }
-      me.htmlElement.style.width = parseInt(me.htmlElement.style.width, 10) -
-        caribVal + "px";
-      me.htmlElement.style.height = parseInt(me.htmlElement.style.height, 10) -
-        caribVal + 1 + "px";
-      me.htmlElement.typeName = "cwindow";
-      me.htmlElement.overflow = "auto";
-      me.htmlElement.style.boxSizing = "content-box";
-      if (appearance.frameBorderStyle) {
-        me.htmlElement.style.borderStyle = appearance.frameBorderStyle;
-      }
-      if (appearance.frameBoxShadow) {
-        me.htmlElement.style.boxShadow = appearance.frameBoxShadow;
-      }
-      if (parseInt(appearance.frameBorderWidthDefault, 10) >= 0) {
-        me.htmlElement.style.borderWidth = appearance.frameBorderWidthDefault;
-        me.htmlElement.style.borderColor = appearance.frameBorderColorDefault;
-      }
-      if (parseInt(appearance.frameBorderRadius, 10) >= 0) {
-        me.htmlElement.style.borderRadius = appearance.frameBorderRadius;
-      }
-      me.onCloseFrameListener = null;
+      titleBarTextSpan.style.top = "0px";
+      titleBarTextSpan.appendChild(titleBarText);
+      me.titleBar.appendChild(titleBarTextSpan);
     }
-    CFrame.prototype.setTitleBarClassName = function (
-      classNameForDefault,
-      classNameForFocused,
-    ) {
-      var me = this;
-      if (classNameForDefault) {
-        me.titleBarClassNameDefault = classNameForDefault;
-        me.titleBarClassNameFocused = classNameForDefault;
+    me.htmlElement.appendChild(me.titleBar);
+    var canvasMoreHeight = parseInt(me.titleBarHeight, 10) - titleBarAdjust;
+    var canvasMoreSpacing = parseInt(me.titleAdjustWidth, 10);
+    if (me.showTitleBar) {
+    } else {
+      canvasMoreHeight = 0;
+      canvasMoreSpacing = 0;
+      titleBarAdjust = 0;
+    }
+    me.canvasNetWidth = w_width - canvasMoreSpacing;
+    me.canvasNetHeight = w_height - canvasMoreHeight - canvasMoreSpacing - 1 -
+      titleBarAdjust + me.frameHeightAdjust;
+    me.htmlElement.style.cursor = "move";
+    me.canvas = new CCanvas(
+      me.htmlElement,
+      me.myCanvasId,
+      0,
+      canvasMoreHeight,
+      w_width - canvasMoreSpacing,
+      w_height - canvasMoreHeight - canvasMoreSpacing,
+    );
+    me.canvas.enablePullUp = false;
+    me.canvas.canvasElement.style.backgroundColor =
+      DEF.CFRAME.CANVAS_ELEMENT_BGCOLOR;
+    me.canvas.canvasElement.style.cursor = "default";
+    if (MOUSE_ENABLED) {
+      me.canvas.canvasElement.onmousedown = me.canvasMouseDown;
+    }
+    if (TOUCH_ENABLED) {
+      if ("ontouchstart" in window) {
+        var funcOnTouchStart = function (evt) {
+          var touchStartEvent = evt.changedTouches[0];
+          me.canvasMouseDown.bind(this)(touchStartEvent);
+        };
+        me.canvas.canvasElement.ontouchstart = funcOnTouchStart;
       }
-      if (classNameForFocused) {
-        me.titleBarClassNameFocused = classNameForFocused;
-      }
-      return me;
+    }
+    me.canvas.canvasElement.parentCFrame = me;
+    var tmpCanvasWidth = parseInt(me.canvas.canvasElement.style.width, 10);
+    var tmpCanvasHeight = parseInt(me.canvas.canvasElement.style.height, 10);
+    var markerWidth = appearance.resizeAreaWidth;
+    var markerHeight = appearance.resizeAreaHeight;
+    var edgeMargin = appearance.resizeAreaOffset;
+    var markerZIndex = 0;
+    var colorRD, colorDD, colorRR;
+    if (appearance.resizeAreaVisible) {
+      colorRD = "rgba(255, 0, 0, 0.5)";
+      colorDD = "rgba(0, 0, 255, 0.5)";
+      colorRR = "rgba(0, 255, 0, 0.5)";
+    }
+    var markerRD = new CMarkerWindow(
+      me.myCanvasId + "_RD",
+      tmpCanvasWidth + edgeMargin,
+      tmpCanvasHeight + edgeMargin,
+      markerWidth,
+      markerHeight,
+      markerZIndex,
+      "RD",
+      colorRD,
+    );
+    markerRD.htmlElement.style.cursor = "se-resize";
+    markerRD.htmlElement.argX = 0;
+    markerRD.htmlElement.argY = 0;
+    var markerDD = new CMarkerWindow(
+      me.myCanvasId + "_DD",
+      0,
+      tmpCanvasHeight + edgeMargin,
+      tmpCanvasWidth + edgeMargin,
+      markerHeight,
+      markerZIndex,
+      "DD",
+      colorDD,
+    );
+    markerDD.htmlElement.style.cursor = "n-resize";
+    markerDD.htmlElement.argX = 0;
+    markerDD.htmlElement.argY = 0;
+    var markerRR = new CMarkerWindow(
+      me.myCanvasId + "_RR",
+      tmpCanvasWidth + edgeMargin,
+      0,
+      markerWidth,
+      tmpCanvasHeight + edgeMargin,
+      markerZIndex,
+      "RR",
+      colorRR,
+    );
+    markerRR.htmlElement.style.cursor = "w-resize";
+    markerRR.htmlElement.argY = 0;
+    markerRR.htmlElement.argX = 0;
+    me.canvas.addBean(markerRD);
+    me.canvas.addBean(markerDD);
+    me.canvas.addBean(markerRR);
+    me.removeMarkers = function () {
+      me.canvas.removeBean(markerRD.id);
+      me.canvas.removeBean(markerDD.id);
+      me.canvas.removeBean(markerRR.id);
+      me.htmlElement.style.cursor = "default";
     };
-    CFrame.prototype.addFrameComponent = function (frameComponent) {
-      var me = this;
-      me.frameComponentMap[frameComponent.id] = frameComponent;
-      me.canvas.canvasElement.appendChild(frameComponent.htmlElement);
-      return me;
+    me.removeMarkers2 = function () {
+      me.canvas.removeBean(markerRD.id);
+      me.canvas.removeBean(markerDD.id);
+      me.canvas.removeBean(markerRR.id);
     };
-    CFrame.prototype.getFrameComponentElement = function (id) {
-      var me = this;
-      if (me.frameComponentMap[id]) {
-        return me.frameComponentMap[id].htmlElement;
+    me.enableMarkers = function (enabled) {
+      if (enabled) {
+        markerRD.htmlElement.style.display = "flex";
+        markerDD.htmlElement.style.display = "flex";
+        markerRR.htmlElement.style.display = "flex";
+        markerRD.htmlElement.style.cursor = "se-resize";
+        markerDD.htmlElement.style.cursor = "n-resize";
+        markerRR.htmlElement.style.cursor = "w-resize";
       } else {
-        return null;
+        markerRD.htmlElement.style.display = "none";
+        markerDD.htmlElement.style.display = "none";
+        markerRR.htmlElement.style.display = "none";
       }
     };
-    CFrame.prototype.removeFrameComponentById = function (frameComponentId) {
-      var me = this;
-      var frameComponent = me.frameComponentMap[frameComponentId];
-      me.canvas.canvasElement.removeChild(frameComponent.htmlElement);
-      delete me.frameComponentMap[frameComponentId];
-    };
-    CFrame.prototype.showFrameComponent = function (frameComponentId, display) {
-      var me = this;
-      var comp = me.getFrameComponentElement(frameComponentId);
-      if (comp) {
-        if (display) {
-          comp.style.display = display;
+    for (var idx in appearance.frameComponents) {
+      var frameComponent = appearance.frameComponents[idx];
+      frameComponent.setFrame(me);
+      if (frameComponent.id == "closeButton") {
+        frameComponent.htmlElement.onclick = me.close;
+      }
+      var frameComponentHasChildMenu = frameComponent.htmlElement.querySelector(
+        ".jsframe-child-menu",
+      );
+      if (frameComponentHasChildMenu) {
+        me.eventListenerHelper.addEventListener(
+          frameComponent.htmlElement,
+          "click",
+          function (e) {
+            var frameComponentId = e.target.getAttribute("component-id");
+            me.hideFrameComponentChildMenus(
+              { exceptFrameComponentId: frameComponentId },
+            );
+            if (frameComponentId) {
+              var frameComponentHtmlElement = me.getFrameComponentElement(
+                frameComponentId,
+              );
+              var frameComponentChildMenu = frameComponentHtmlElement
+                .querySelector(".jsframe-child-menu");
+              if (frameComponentChildMenu) {
+                if (frameComponentChildMenu.style.display == "table") {
+                  frameComponentChildMenu.style.display = "none";
+                } else {
+                  frameComponentChildMenu.style.display = "table";
+                }
+              } else {
+                console.error(
+                  "frameComponent child menu isnt found. frameComponentId=" +
+                    frameComponentId,
+                );
+              }
+            }
+          },
+          { listenerName: "frame-component_child-menu-listener" },
+        );
+      }
+      me.addFrameComponent(frameComponent);
+    }
+    me.htmlElement.style.backgroundColor = "transparent";
+    me.htmlElement.oncontextmenu = this.contextMenu;
+    var caribVal = 0;
+    me.caribValue = caribVal;
+    if (me.exBorderWidth) {
+      me.htmlElement.style.borderWidth = me.exBorderWidth + "px";
+    }
+    me.htmlElement.style.width = parseInt(me.htmlElement.style.width, 10) -
+      caribVal + "px";
+    me.htmlElement.style.height = parseInt(me.htmlElement.style.height, 10) -
+      caribVal + 1 + "px";
+    me.htmlElement.typeName = "cwindow";
+    me.htmlElement.overflow = "auto";
+    me.htmlElement.style.boxSizing = "content-box";
+    if (appearance.frameBorderStyle) {
+      me.htmlElement.style.borderStyle = appearance.frameBorderStyle;
+    }
+    if (appearance.frameBoxShadow) {
+      me.htmlElement.style.boxShadow = appearance.frameBoxShadow;
+    }
+    if (parseInt(appearance.frameBorderWidthDefault, 10) >= 0) {
+      me.htmlElement.style.borderWidth = appearance.frameBorderWidthDefault;
+      me.htmlElement.style.borderColor = appearance.frameBorderColorDefault;
+    }
+    if (parseInt(appearance.frameBorderRadius, 10) >= 0) {
+      me.htmlElement.style.borderRadius = appearance.frameBorderRadius;
+    }
+    me.onCloseFrameListener = null;
+  }
+  CFrame.prototype.setTitleBarClassName = function (
+    classNameForDefault,
+    classNameForFocused,
+  ) {
+    var me = this;
+    if (classNameForDefault) {
+      me.titleBarClassNameDefault = classNameForDefault;
+      me.titleBarClassNameFocused = classNameForDefault;
+    }
+    if (classNameForFocused) {
+      me.titleBarClassNameFocused = classNameForFocused;
+    }
+    return me;
+  };
+  CFrame.prototype.addFrameComponent = function (frameComponent) {
+    var me = this;
+    me.frameComponentMap[frameComponent.id] = frameComponent;
+    me.canvas.canvasElement.appendChild(frameComponent.htmlElement);
+    return me;
+  };
+  CFrame.prototype.getFrameComponentElement = function (id) {
+    var me = this;
+    if (me.frameComponentMap[id]) {
+      return me.frameComponentMap[id].htmlElement;
+    } else {
+      return null;
+    }
+  };
+  CFrame.prototype.removeFrameComponentById = function (frameComponentId) {
+    var me = this;
+    var frameComponent = me.frameComponentMap[frameComponentId];
+    me.canvas.canvasElement.removeChild(frameComponent.htmlElement);
+    delete me.frameComponentMap[frameComponentId];
+  };
+  CFrame.prototype.showFrameComponent = function (frameComponentId, display) {
+    var me = this;
+    var comp = me.getFrameComponentElement(frameComponentId);
+    if (comp) {
+      if (display) {
+        comp.style.display = display;
+      } else {
+        comp.style.display = "flex";
+      }
+    }
+    return me;
+  };
+  CFrame.prototype.hideFrameComponent = function (frameComponentId) {
+    var me = this;
+    var comp = me.getFrameComponentElement(frameComponentId);
+    if (comp) {
+      comp.style.display = "none";
+    }
+    return me;
+  };
+  CFrame.prototype.hideAllVisibleFrameComponents = function () {
+    var me = this;
+    var compMap = me.frameComponentMap;
+    for (var key in compMap) {
+      if (compMap.hasOwnProperty(key)) {
+        var comp = compMap[key].htmlElement;
+        if (comp.style.display === "none") {
+          comp._alreadyNone = true;
+        }
+        comp.style.display = "none";
+      }
+    }
+  };
+  CFrame.prototype.showAllVisibleFrameComponents = function () {
+    var me = this;
+    var compMap = me.frameComponentMap;
+    for (var key in compMap) {
+      if (compMap.hasOwnProperty(key)) {
+        var comp = compMap[key].htmlElement;
+        if (comp._alreadyNone) {
+          comp._alreadyNone = null;
         } else {
           comp.style.display = "flex";
         }
       }
-      return me;
-    };
-    CFrame.prototype.hideFrameComponent = function (frameComponentId) {
-      var me = this;
-      var comp = me.getFrameComponentElement(frameComponentId);
-      if (comp) {
-        comp.style.display = "none";
-      }
-      return me;
-    };
-    CFrame.prototype.hideAllVisibleFrameComponents = function () {
-      var me = this;
-      var compMap = me.frameComponentMap;
-      for (var key in compMap) {
-        if (compMap.hasOwnProperty(key)) {
-          var comp = compMap[key].htmlElement;
-          if (comp.style.display === "none") {
-            comp._alreadyNone = true;
-          }
-          comp.style.display = "none";
-        }
-      }
-    };
-    CFrame.prototype.showAllVisibleFrameComponents = function () {
-      var me = this;
-      var compMap = me.frameComponentMap;
-      for (var key in compMap) {
-        if (compMap.hasOwnProperty(key)) {
-          var comp = compMap[key].htmlElement;
-          if (comp._alreadyNone) {
-            comp._alreadyNone = null;
-          } else {
-            comp.style.display = "flex";
-          }
-        }
-      }
-    };
-    CFrame.prototype.hideFrameComponentChildMenus = function (opt) {
-      var me = this;
-      var compMap = me.frameComponentMap;
-      for (var frameComponentId in compMap) {
-        if (compMap.hasOwnProperty(frameComponentId)) {
-          if (opt && opt.exceptFrameComponentId) {
-            if (frameComponentId === opt.exceptFrameComponentId) {
-              continue;
-            }
-          }
-          var comp = compMap[frameComponentId];
-          if (comp.childMenu) {
-            comp.childMenu.style.display = "none";
-          }
-        }
-      }
-    };
-    CFrame.prototype.setTitle = function (str) {
-      var me = this;
-      me.title = str;
-      if (me.showTitleBar) {
-        var textNode = document.createTextNode(str);
-        me.titleBar.firstChild.replaceChild(
-          textNode,
-          me.titleBar.firstChild.firstChild,
-        );
-      }
-      return me;
-    };
-    CFrame.prototype.resize = function (
-      deltaLeft,
-      deltaTop,
-      deltaWidth,
-      deltaHeight,
-    ) {
-      var me = this;
-      var tmpLeft = parseInt(me.htmlElement.style.left, 10);
-      var tmpTop = parseInt(me.htmlElement.style.top, 10);
-      var tmpWidth = parseInt(me.htmlElement.style.width, 10);
-      var tmpHeight = parseInt(me.htmlElement.style.height, 10);
-      me.htmlElement.style.left = parseInt(tmpLeft + deltaLeft, 10) + "px";
-      me.htmlElement.style.top = parseInt(tmpTop + deltaTop, 10) + "px";
-      me.htmlElement.style.width = parseInt(tmpWidth + deltaWidth, 10) + "px";
-      me.htmlElement.style.height = parseInt(tmpHeight + deltaHeight, 10) +
-        "px";
-      var tmpCanvasWidth = parseInt(me.canvas.canvasElement.style.width, 10);
-      var tmpCanvasHeight = parseInt(me.canvas.canvasElement.style.height, 10);
-      me.canvas.canvasElement.style.width = tmpCanvasWidth + deltaWidth + "px";
-      me.canvas.canvasElement.style.height = tmpCanvasHeight + deltaHeight +
-        "px";
-      if (me.showTitleBar) {
-        me.titleBar.style.width = tmpCanvasWidth + deltaWidth + "px";
-      } else {
-      }
-      for (var beanName in me.canvas.beanList) {
-        var tmpBean = me.canvas.beanList[beanName];
-        if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
-          if (tmpBean.htmlElement.usage == "RD") {
-            tmpBean.htmlElement.style.left =
-              parseInt(tmpBean.htmlElement.style.left, 10) + deltaWidth + "px";
-            tmpBean.htmlElement.style.top =
-              parseInt(tmpBean.htmlElement.style.top, 10) + deltaHeight + "px";
-          } else if (tmpBean.htmlElement.usage == "DD") {
-            tmpBean.htmlElement.style.width =
-              parseInt(tmpBean.htmlElement.style.width, 10) + deltaWidth + "px";
-            tmpBean.htmlElement.style.top =
-              parseInt(tmpBean.htmlElement.style.top, 10) + deltaHeight + "px";
-          } else if (tmpBean.htmlElement.usage == "RR") {
-            tmpBean.htmlElement.style.left =
-              parseInt(tmpBean.htmlElement.style.left, 10) + deltaWidth + "px";
-            tmpBean.htmlElement.style.height =
-              parseInt(tmpBean.htmlElement.style.height, 10) + deltaHeight +
-              "px";
-          }
-        }
-      }
-    };
-    CFrame.prototype.canvasMouseDown = function (e) {
-      var me = this;
-      if (this.parentCFrame.parentCanvas.mouseDownSource == null) {
-        this.parentCFrame.parentCanvas.mouseDownSource = "childcanvas";
-      }
-    };
-    CFrame.prototype.mouseUp = function (e) {
-      this.canvas.mouseUp(e);
-    };
-    CFrame.prototype.close = function (e) {
-      var me = this;
-      var parentCanvas = this.parentObject.parentCanvas;
-      var cframeObj = this.parentObject;
-      console.log(
-        'CFrame#close "' + cframeObj.title + "(@" + cframeObj.getName() +
-          ')" @' + cframeObj.windowId,
-      );
-      var windowId = cframeObj.id;
-      cframeObj.closeInternally(e, parentCanvas, windowId);
-    };
-    CFrame.prototype.closeFrame = function (e) {
-      var me = this;
-      console.log(
-        'CFrame#closeFrame "' + me.title + "(" + me.getName() + ')" @' +
-          me.windowId,
-      );
-      var parentCanvas = this.parentCanvas;
-      me.closeInternally(e, parentCanvas, me.windowId);
-    };
-    CFrame.prototype.closeInternally = function (e, parentCanvas, windowId) {
-      var me = this;
-      if (!parentCanvas) {
-        console.error("Window(" + windowId + ") may have been closed");
-        return;
-      }
-      parentCanvas.removeBean(windowId);
-      if (me.modalBackgroundWindowId) {
-        parentCanvas.removeBean(me.modalBackgroundWindowId);
-        me.modalBackgroundWindowId = null;
-      }
-      if (me.onCloseFrameListener) {
-        me.onCloseFrameListener(me);
-      }
-    };
-    CFrame.prototype.setOnCloseFrameListener = function (listener) {
-      var me = this;
-      me.onCloseFrameListener = listener;
-    };
-    CFrame.prototype.contextMenu = function () {
-      var contextMenuSource = "CFrame";
-      return false;
-    };
-    CFrame.prototype.setTitleBarTextColor = function (str) {
-      var me = this;
-      me.titleBar.style.color = str;
-    };
-    CFrame.prototype.setPosition = function (x, y, anchor) {
-      var me = this;
-      var frameWidth = me.getWidth();
-      var frameHeight = me.getHeight();
-      me._setPositionInternally(x, y, anchor, frameWidth, frameHeight);
-      return me;
-    };
-    CFrame.prototype._setPositionInternally = function (
-      x,
-      y,
-      anchor,
-      frameWidth,
-      frameHeight,
-    ) {
-      var me = this;
-      if (anchor) {
-        me.anchor = anchor;
-      }
-      if (!anchor || CALIGN2.LEFT_TOP == anchor) {
-        me.htmlElement.style.left = x + "px";
-        me.htmlElement.style.top = y + "px";
-      } else if (CALIGN2.HCENTER_TOP == anchor) {
-        me.htmlElement.style.left = -frameWidth / 2 + x + "px";
-        me.htmlElement.style.top = y + "px";
-      } else if (CALIGN2.RIGHT_TOP == anchor) {
-        me.htmlElement.style.left = -frameWidth + x + "px";
-        me.htmlElement.style.top = y + "px";
-      } else if (CALIGN2.LEFT_VCENTER == anchor) {
-        me.htmlElement.style.left = x + "px";
-        me.htmlElement.style.top = -frameHeight / 2 + y + "px";
-      } else if (CALIGN2.HCENTER_VCENTER == anchor) {
-        me.htmlElement.style.left = -frameWidth / 2 + x + "px";
-        me.htmlElement.style.top = -frameHeight / 2 + y + "px";
-      } else if (CALIGN2.RIGHT_VCENTER == anchor) {
-        me.htmlElement.style.left = -frameWidth + x + "px";
-        me.htmlElement.style.top = -frameHeight / 2 + y + "px";
-      } else if (CALIGN2.LEFT_BOTTOM == anchor) {
-        me.htmlElement.style.left = x + "px";
-        me.htmlElement.style.top = -frameHeight + y + "px";
-      } else if (CALIGN2.HCENTER_BOTTOM == anchor) {
-        me.htmlElement.style.left = -frameWidth / 2 + x + "px";
-        me.htmlElement.style.top = -frameHeight + y + "px";
-      } else if (CALIGN2.RIGHT_BOTTOM == anchor) {
-        me.htmlElement.style.left = -frameWidth + x + "px";
-        me.htmlElement.style.top = -frameHeight + y + "px";
-      }
-    };
-    CFrame.prototype.getPosition = function () {
-      var me = this;
-      var frameWidth = me.getWidth();
-      var frameHeight = me.getHeight();
-      var x;
-      var y;
-      var anchor = me.anchor;
-      if (!anchor || CALIGN2.LEFT_TOP == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10);
-        y = parseInt(me.htmlElement.style.top, 10);
-      } else if (CALIGN2.HCENTER_TOP == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10) + frameWidth / 2;
-        y = parseInt(me.htmlElement.style.top, 10);
-      } else if (CALIGN2.RIGHT_TOP == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10) + frameWidth;
-        y = parseInt(me.htmlElement.style.top, 10);
-      } else if (CALIGN2.LEFT_VCENTER == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10);
-        y = parseInt(me.htmlElement.style.top, 10) + frameHeight / 2;
-      } else if (CALIGN2.HCENTER_VCENTER == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10) + frameWidth / 2;
-        y = parseInt(me.htmlElement.style.top, 10) + frameHeight / 2;
-      } else if (CALIGN2.RIGHT_VCENTER == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10) + frameWidth;
-        y = parseInt(me.htmlElement.style.top, 10) + frameHeight / 2;
-      } else if (CALIGN2.LEFT_BOTTOM == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10);
-        y = parseInt(me.htmlElement.style.top, 10) + frameHeight;
-      } else if (CALIGN2.HCENTER_BOTTOM == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10) + frameWidth / 2;
-        y = parseInt(me.htmlElement.style.top, 10) + frameHeight;
-      } else if (CALIGN2.RIGHT_BOTTOM == anchor) {
-        x = parseInt(me.htmlElement.style.left, 10) + frameWidth;
-        y = parseInt(me.htmlElement.style.top, 10) + frameHeight;
-      }
-      return { x, y, anchor };
-    };
-    CFrame.prototype.getLeft = function () {
-      var me = this;
-      return parseInt(me.htmlElement.style.left, 10);
-    };
-    CFrame.prototype.getTop = function () {
-      var me = this;
-      return parseInt(me.htmlElement.style.top, 10);
-    };
-    CFrame.prototype.getWidth = function () {
-      var me = this;
-      return parseInt(me.htmlElement.style.width, 10);
-    };
-    CFrame.prototype.getHeight = function () {
-      var me = this;
-      return parseInt(me.htmlElement.style.height, 10);
-    };
-    CFrame.prototype.getSize = function () {
-      var me = this;
-      return { width: me.getWidth(), height: me.getHeight() };
-    };
-    CFrame.prototype.setSize = function (width, height, force) {
-      var me = this;
-      var byUser = true;
-      if (force) {
-        byUser = false;
-      }
-      me.resize(0, 0, width - me.getWidth(), height - me.getHeight(), byUser);
-      return me;
-    };
-    CFrame.prototype.getWindowId = function () {
-      var me = this;
-      return me.windowId;
-    };
-    CFrame.prototype.getName = function () {
-      var me = this;
-      return me.property.name;
-    };
-    CFrame.prototype.setName = function (name) {
-      var me = this;
-      me.property.name = name;
-    };
-    inherit(CIfFrame, CFrame);
-    function CIfFrame(windowId, left, top, width, height, appearance) {
-      var wleft = left;
-      var wtop = top;
-      var wwidth = width;
-      var wheight = height;
-      var zindex = appearance.zindex;
-      var wborderwidth = null;
-      var me = this;
-      this.jsFrame = null;
-      this.control = null;
-      this.minFrameWidth = 128;
-      this.minWindowHeight = 32;
-      this.eventListenerHelper = new EventListenerHelper();
-      this.overrayTransparentScreenEnabled = false;
-      this.overrayTransparentScreenOnResize = true;
-      this.titleBarColorFocused = appearance.titleBarColorFocused;
-      this.titleBarColorDefault = appearance.titleBarColorDefault;
-      this.titleBarCaptionColorDefault = appearance.titleBarCaptionColorDefault;
-      this.titleBarCaptionColorFocused = appearance.titleBarCaptionColorFocused;
-      CIfFrame.superConstructor.call(
-        me,
-        windowId,
-        wleft,
-        wtop,
-        wwidth,
-        wheight,
-        zindex,
-        wborderwidth,
-        appearance,
-      );
-      me.frameBorderColorDefault = appearance.frameBorderColorDefault;
-      me.frameBorderColorFocused = appearance.frameBorderColorFocused;
-      me.frameBorderWidthDefault = appearance.frameBorderWidthDefault;
-      me.frameBorderWidthFocused = appearance.frameBorderWidthFocused;
-      me.iframe = null;
-      me.ifDelta = 0;
-      me.resizable = true;
-      me.onMouseMoveOnIframe = null;
-      me.onMouseUpOnIframe = null;
-      me._hasFocus = false;
-      me._hasFocusTime = 0;
-      me.htmlElement.typeName = "cifwindow";
-      var exIframeName = "riversun_" + windowId;
-      me.dframe = document.createElement("div");
-      me.iframe = document.createElement("iframe");
-      me.iframe.name = exIframeName;
-      me.iframe.id = exIframeName;
-      me.iframe.frameBorder = "0";
-      me.iframe.zIndex = -1;
-      me.iframe.allowTransparency = "true";
-      me.iframe.width = me.canvasNetWidth - me.ifDelta + 0;
-      me.iframe.height = me.canvasNetHeight - me.ifDelta + 0;
-      me.showTitleBar = appearance.showTitleBar;
-      me.getFrameInnerBorderRadius = appearance.getFrameInnerBorderRadius;
-      me.frameBorderRadius = appearance.frameBorderRadius;
-      me.adjustFrameBorderRadius();
-      me.useIframe = false;
-      me.canvas.canvasElement.appendChild(me.iframe);
-      me.canvas.canvasElement.appendChild(me.dframe);
-      this.setUseIframe = function (useIframe) {
-        me.useIframe = useIframe;
-        me.iframe.style.visibility = "hidden";
-        me.iframe.style.position = "absolute";
-        me.iframe.style.left = "0px";
-        me.iframe.style.top = "0px";
-        me.iframe.style.width = "100%";
-        me.iframe.style.height = "100%";
-        me.dframe.style.visibility = "hidden";
-        me.dframe.style.position = "absolute";
-        me.dframe.style.left = "0px";
-        me.dframe.style.boxSizing = "content-box";
-        me.dframe.style.top = "0px";
-        me.dframe.style.width = "100%";
-        me.dframe.style.height = "100%";
-        me.dframe.style.backgroundColor = "white";
-        if (useIframe) {
-          me.iframe.style.visibility = "visible";
-          me.dframe.style.visibility = "hidden";
-        } else {
-          me.iframe.style.visibility = "hidden";
-          me.dframe.style.visibility = "visible";
-        }
-      };
-      me.setUseIframe(appearance.useIframe);
-      if (
-        me.overrayTransparentScreenEnabled ||
-        me.overrayTransparentScreenOnResize
-      ) {
-        me.transparence = document.createElement("span");
-        me.transparence.style.position = "absolute";
-        me.transparence.style.left = "0px";
-        me.transparence.style.top = "0px";
-        me.transparence.style.width = "0px";
-        me.transparence.style.height = "0px";
-        me.transparence.style.zIndex = 4;
-        me.transparence.style.borderWidth = "0px";
-        me.transparence.style.borderColor = "#ff00ee";
-        me.transparence.style.borderStyle = "none";
-        me.transparence.style.cursor = "default";
-        me.transparence.style.pointerEvents = "none";
-        me.canvas.canvasElement.style.backgroundColor =
-          appearance.frameBackgroundColor;
-        me.canvas.canvasElement.appendChild(me.transparence);
-      }
-      me.eventEmitter = new EventEmitter();
-      me.appearance = appearance;
     }
-    CIfFrame.prototype.getFrameView = function () {
-      var me = this;
-      return me.dframe;
-    };
-    CIfFrame.prototype.getFrameAppearance = function () {
-      var me = this;
-      return me.appearance;
-    };
-    CIfFrame.prototype.setHTML = function (html) {
-      var me = this;
-      me.dframe.innerHTML = html;
-    };
-    CIfFrame.prototype.setFrameInFrame = function (enabled) {
-      var me = this;
-      var contentsEle = me.dframe ? me.dframe.firstChild : null;
-      if (contentsEle) {
-        if (!Date.now) {
-          Date.now = function now() {
-            return new Date().getTime();
-          };
+  };
+  CFrame.prototype.hideFrameComponentChildMenus = function (opt) {
+    var me = this;
+    var compMap = me.frameComponentMap;
+    for (var frameComponentId in compMap) {
+      if (compMap.hasOwnProperty(frameComponentId)) {
+        if (opt && opt.exceptFrameComponentId) {
+          if (frameComponentId === opt.exceptFrameComponentId) {
+            continue;
+          }
         }
-        if (enabled) {
-          me.eventEmitter.only("resize", "fif-listener", function () {
-            contentsEle.setAttribute(
-              WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
-              Date.now(),
-            );
-          });
-        } else {
-          contentsEle.removeAttribute(
-            WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
-          );
-          me.eventEmitter.only("resize", "fif-listener", function () {
-          });
+        var comp = compMap[frameComponentId];
+        if (comp.childMenu) {
+          comp.childMenu.style.display = "none";
         }
       }
-    };
-    CIfFrame.prototype.$ = function (q) {
-      var me = this;
-      if (me.useIframe) {
-        var docInIframe = me.iframe.contentWindow.document;
-        return docInIframe.querySelector(q);
+    }
+  };
+  CFrame.prototype.setTitle = function (str) {
+    var me = this;
+    me.title = str;
+    if (me.showTitleBar) {
+      var textNode = document.createTextNode(str);
+      me.titleBar.firstChild.replaceChild(
+        textNode,
+        me.titleBar.firstChild.firstChild,
+      );
+    }
+    return me;
+  };
+  CFrame.prototype.resize = function (
+    deltaLeft,
+    deltaTop,
+    deltaWidth,
+    deltaHeight,
+  ) {
+    var me = this;
+    var tmpLeft = parseInt(me.htmlElement.style.left, 10);
+    var tmpTop = parseInt(me.htmlElement.style.top, 10);
+    var tmpWidth = parseInt(me.htmlElement.style.width, 10);
+    var tmpHeight = parseInt(me.htmlElement.style.height, 10);
+    me.htmlElement.style.left = parseInt(tmpLeft + deltaLeft, 10) + "px";
+    me.htmlElement.style.top = parseInt(tmpTop + deltaTop, 10) + "px";
+    me.htmlElement.style.width = parseInt(tmpWidth + deltaWidth, 10) + "px";
+    me.htmlElement.style.height = parseInt(tmpHeight + deltaHeight, 10) + "px";
+    var tmpCanvasWidth = parseInt(me.canvas.canvasElement.style.width, 10);
+    var tmpCanvasHeight = parseInt(me.canvas.canvasElement.style.height, 10);
+    me.canvas.canvasElement.style.width = tmpCanvasWidth + deltaWidth + "px";
+    me.canvas.canvasElement.style.height = tmpCanvasHeight + deltaHeight + "px";
+    if (me.showTitleBar) {
+      me.titleBar.style.width = tmpCanvasWidth + deltaWidth + "px";
+    } else {
+    }
+    for (var beanName in me.canvas.beanList) {
+      var tmpBean = me.canvas.beanList[beanName];
+      if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
+        if (tmpBean.htmlElement.usage == "RD") {
+          tmpBean.htmlElement.style.left =
+            parseInt(tmpBean.htmlElement.style.left, 10) + deltaWidth + "px";
+          tmpBean.htmlElement.style.top =
+            parseInt(tmpBean.htmlElement.style.top, 10) + deltaHeight + "px";
+        } else if (tmpBean.htmlElement.usage == "DD") {
+          tmpBean.htmlElement.style.width =
+            parseInt(tmpBean.htmlElement.style.width, 10) + deltaWidth + "px";
+          tmpBean.htmlElement.style.top =
+            parseInt(tmpBean.htmlElement.style.top, 10) + deltaHeight + "px";
+        } else if (tmpBean.htmlElement.usage == "RR") {
+          tmpBean.htmlElement.style.left =
+            parseInt(tmpBean.htmlElement.style.left, 10) + deltaWidth + "px";
+          tmpBean.htmlElement.style.height =
+            parseInt(tmpBean.htmlElement.style.height, 10) + deltaHeight + "px";
+        }
+      }
+    }
+  };
+  CFrame.prototype.canvasMouseDown = function (e) {
+    var me = this;
+    if (this.parentCFrame.parentCanvas.mouseDownSource == null) {
+      this.parentCFrame.parentCanvas.mouseDownSource = "childcanvas";
+    }
+  };
+  CFrame.prototype.mouseUp = function (e) {
+    this.canvas.mouseUp(e);
+  };
+  CFrame.prototype.close = function (e) {
+    var me = this;
+    var parentCanvas = this.parentObject.parentCanvas;
+    var cframeObj = this.parentObject;
+    console.log(
+      'CFrame#close "' + cframeObj.title + "(@" + cframeObj.getName() + ')" @' +
+        cframeObj.windowId,
+    );
+    var windowId = cframeObj.id;
+    cframeObj.closeInternally(e, parentCanvas, windowId);
+  };
+  CFrame.prototype.closeFrame = function (e) {
+    var me = this;
+    console.log(
+      'CFrame#closeFrame "' + me.title + "(" + me.getName() + ')" @' +
+        me.windowId,
+    );
+    var parentCanvas = this.parentCanvas;
+    me.closeInternally(e, parentCanvas, me.windowId);
+  };
+  CFrame.prototype.closeInternally = function (e, parentCanvas, windowId) {
+    var me = this;
+    if (!parentCanvas) {
+      console.error("Window(" + windowId + ") may have been closed");
+      return;
+    }
+    parentCanvas.removeBean(windowId);
+    if (me.modalBackgroundWindowId) {
+      parentCanvas.removeBean(me.modalBackgroundWindowId);
+      me.modalBackgroundWindowId = null;
+    }
+    if (me.onCloseFrameListener) {
+      me.onCloseFrameListener(me);
+    }
+  };
+  CFrame.prototype.setOnCloseFrameListener = function (listener) {
+    var me = this;
+    me.onCloseFrameListener = listener;
+  };
+  CFrame.prototype.contextMenu = function () {
+    var contextMenuSource = "CFrame";
+    return false;
+  };
+  CFrame.prototype.setTitleBarTextColor = function (str) {
+    var me = this;
+    me.titleBar.style.color = str;
+  };
+  CFrame.prototype.setPosition = function (x, y, anchor) {
+    var me = this;
+    var frameWidth = me.getWidth();
+    var frameHeight = me.getHeight();
+    me._setPositionInternally(x, y, anchor, frameWidth, frameHeight);
+    return me;
+  };
+  CFrame.prototype._setPositionInternally = function (
+    x,
+    y,
+    anchor,
+    frameWidth,
+    frameHeight,
+  ) {
+    var me = this;
+    if (anchor) {
+      me.anchor = anchor;
+    }
+    if (!anchor || CALIGN2.LEFT_TOP == anchor) {
+      me.htmlElement.style.left = x + "px";
+      me.htmlElement.style.top = y + "px";
+    } else if (CALIGN2.HCENTER_TOP == anchor) {
+      me.htmlElement.style.left = -frameWidth / 2 + x + "px";
+      me.htmlElement.style.top = y + "px";
+    } else if (CALIGN2.RIGHT_TOP == anchor) {
+      me.htmlElement.style.left = -frameWidth + x + "px";
+      me.htmlElement.style.top = y + "px";
+    } else if (CALIGN2.LEFT_VCENTER == anchor) {
+      me.htmlElement.style.left = x + "px";
+      me.htmlElement.style.top = -frameHeight / 2 + y + "px";
+    } else if (CALIGN2.HCENTER_VCENTER == anchor) {
+      me.htmlElement.style.left = -frameWidth / 2 + x + "px";
+      me.htmlElement.style.top = -frameHeight / 2 + y + "px";
+    } else if (CALIGN2.RIGHT_VCENTER == anchor) {
+      me.htmlElement.style.left = -frameWidth + x + "px";
+      me.htmlElement.style.top = -frameHeight / 2 + y + "px";
+    } else if (CALIGN2.LEFT_BOTTOM == anchor) {
+      me.htmlElement.style.left = x + "px";
+      me.htmlElement.style.top = -frameHeight + y + "px";
+    } else if (CALIGN2.HCENTER_BOTTOM == anchor) {
+      me.htmlElement.style.left = -frameWidth / 2 + x + "px";
+      me.htmlElement.style.top = -frameHeight + y + "px";
+    } else if (CALIGN2.RIGHT_BOTTOM == anchor) {
+      me.htmlElement.style.left = -frameWidth + x + "px";
+      me.htmlElement.style.top = -frameHeight + y + "px";
+    }
+  };
+  CFrame.prototype.getPosition = function () {
+    var me = this;
+    var frameWidth = me.getWidth();
+    var frameHeight = me.getHeight();
+    var x;
+    var y;
+    var anchor = me.anchor;
+    if (!anchor || CALIGN2.LEFT_TOP == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10);
+      y = parseInt(me.htmlElement.style.top, 10);
+    } else if (CALIGN2.HCENTER_TOP == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10) + frameWidth / 2;
+      y = parseInt(me.htmlElement.style.top, 10);
+    } else if (CALIGN2.RIGHT_TOP == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10) + frameWidth;
+      y = parseInt(me.htmlElement.style.top, 10);
+    } else if (CALIGN2.LEFT_VCENTER == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10);
+      y = parseInt(me.htmlElement.style.top, 10) + frameHeight / 2;
+    } else if (CALIGN2.HCENTER_VCENTER == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10) + frameWidth / 2;
+      y = parseInt(me.htmlElement.style.top, 10) + frameHeight / 2;
+    } else if (CALIGN2.RIGHT_VCENTER == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10) + frameWidth;
+      y = parseInt(me.htmlElement.style.top, 10) + frameHeight / 2;
+    } else if (CALIGN2.LEFT_BOTTOM == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10);
+      y = parseInt(me.htmlElement.style.top, 10) + frameHeight;
+    } else if (CALIGN2.HCENTER_BOTTOM == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10) + frameWidth / 2;
+      y = parseInt(me.htmlElement.style.top, 10) + frameHeight;
+    } else if (CALIGN2.RIGHT_BOTTOM == anchor) {
+      x = parseInt(me.htmlElement.style.left, 10) + frameWidth;
+      y = parseInt(me.htmlElement.style.top, 10) + frameHeight;
+    }
+    return { x, y, anchor };
+  };
+  CFrame.prototype.getLeft = function () {
+    var me = this;
+    return parseInt(me.htmlElement.style.left, 10);
+  };
+  CFrame.prototype.getTop = function () {
+    var me = this;
+    return parseInt(me.htmlElement.style.top, 10);
+  };
+  CFrame.prototype.getWidth = function () {
+    var me = this;
+    return parseInt(me.htmlElement.style.width, 10);
+  };
+  CFrame.prototype.getHeight = function () {
+    var me = this;
+    return parseInt(me.htmlElement.style.height, 10);
+  };
+  CFrame.prototype.getSize = function () {
+    var me = this;
+    return { width: me.getWidth(), height: me.getHeight() };
+  };
+  CFrame.prototype.setSize = function (width, height, force) {
+    var me = this;
+    var byUser = true;
+    if (force) {
+      byUser = false;
+    }
+    me.resize(0, 0, width - me.getWidth(), height - me.getHeight(), byUser);
+    return me;
+  };
+  CFrame.prototype.getWindowId = function () {
+    var me = this;
+    return me.windowId;
+  };
+  CFrame.prototype.getName = function () {
+    var me = this;
+    return me.property.name;
+  };
+  CFrame.prototype.setName = function (name) {
+    var me = this;
+    me.property.name = name;
+  };
+  inherit(CIfFrame, CFrame);
+  function CIfFrame(windowId, left, top, width, height, appearance) {
+    var wleft = left;
+    var wtop = top;
+    var wwidth = width;
+    var wheight = height;
+    var zindex = appearance.zindex;
+    var wborderwidth = null;
+    var me = this;
+    this.jsFrame = null;
+    this.control = null;
+    this.minFrameWidth = 128;
+    this.minWindowHeight = 32;
+    this.eventListenerHelper = new EventListenerHelper();
+    this.overrayTransparentScreenEnabled = false;
+    this.overrayTransparentScreenOnResize = true;
+    this.titleBarColorFocused = appearance.titleBarColorFocused;
+    this.titleBarColorDefault = appearance.titleBarColorDefault;
+    this.titleBarCaptionColorDefault = appearance.titleBarCaptionColorDefault;
+    this.titleBarCaptionColorFocused = appearance.titleBarCaptionColorFocused;
+    CIfFrame.superConstructor.call(
+      me,
+      windowId,
+      wleft,
+      wtop,
+      wwidth,
+      wheight,
+      zindex,
+      wborderwidth,
+      appearance,
+    );
+    me.frameBorderColorDefault = appearance.frameBorderColorDefault;
+    me.frameBorderColorFocused = appearance.frameBorderColorFocused;
+    me.frameBorderWidthDefault = appearance.frameBorderWidthDefault;
+    me.frameBorderWidthFocused = appearance.frameBorderWidthFocused;
+    me.iframe = null;
+    me.ifDelta = 0;
+    me.resizable = true;
+    me.onMouseMoveOnIframe = null;
+    me.onMouseUpOnIframe = null;
+    me._hasFocus = false;
+    me._hasFocusTime = 0;
+    me.htmlElement.typeName = "cifwindow";
+    var exIframeName = "riversun_" + windowId;
+    me.dframe = document.createElement("div");
+    me.iframe = document.createElement("iframe");
+    me.iframe.name = exIframeName;
+    me.iframe.id = exIframeName;
+    me.iframe.frameBorder = "0";
+    me.iframe.zIndex = -1;
+    me.iframe.allowTransparency = "true";
+    me.iframe.width = me.canvasNetWidth - me.ifDelta + 0;
+    me.iframe.height = me.canvasNetHeight - me.ifDelta + 0;
+    me.showTitleBar = appearance.showTitleBar;
+    me.getFrameInnerBorderRadius = appearance.getFrameInnerBorderRadius;
+    me.frameBorderRadius = appearance.frameBorderRadius;
+    me.adjustFrameBorderRadius();
+    me.useIframe = false;
+    me.canvas.canvasElement.appendChild(me.iframe);
+    me.canvas.canvasElement.appendChild(me.dframe);
+    this.setUseIframe = function (useIframe) {
+      me.useIframe = useIframe;
+      me.iframe.style.visibility = "hidden";
+      me.iframe.style.position = "absolute";
+      me.iframe.style.left = "0px";
+      me.iframe.style.top = "0px";
+      me.iframe.style.width = "100%";
+      me.iframe.style.height = "100%";
+      me.dframe.style.visibility = "hidden";
+      me.dframe.style.position = "absolute";
+      me.dframe.style.left = "0px";
+      me.dframe.style.boxSizing = "content-box";
+      me.dframe.style.top = "0px";
+      me.dframe.style.width = "100%";
+      me.dframe.style.height = "100%";
+      me.dframe.style.backgroundColor = "white";
+      if (useIframe) {
+        me.iframe.style.visibility = "visible";
+        me.dframe.style.visibility = "hidden";
       } else {
-        return me.dframe.querySelector(q);
+        me.iframe.style.visibility = "hidden";
+        me.dframe.style.visibility = "visible";
       }
     };
-    CIfFrame.prototype.on = function (id, eventType, callbackFunc) {
-      var me = this;
-      var component = me.getFrameComponentElement(id);
-      if (component) {
-        me.eventListenerHelper.addEventListener(
-          component,
-          eventType,
-          function (e) {
-            callbackFunc(me, e, {
-              type: "frameComponent",
-              id,
-              eventType,
-            });
-          },
-          { listenerName: "frame-component-listener" },
-        );
+    me.setUseIframe(appearance.useIframe);
+    if (
+      me.overrayTransparentScreenEnabled || me.overrayTransparentScreenOnResize
+    ) {
+      me.transparence = document.createElement("span");
+      me.transparence.style.position = "absolute";
+      me.transparence.style.left = "0px";
+      me.transparence.style.top = "0px";
+      me.transparence.style.width = "0px";
+      me.transparence.style.height = "0px";
+      me.transparence.style.zIndex = 4;
+      me.transparence.style.borderWidth = "0px";
+      me.transparence.style.borderColor = "#ff00ee";
+      me.transparence.style.borderStyle = "none";
+      me.transparence.style.cursor = "default";
+      me.transparence.style.pointerEvents = "none";
+      me.canvas.canvasElement.style.backgroundColor =
+        appearance.frameBackgroundColor;
+      me.canvas.canvasElement.appendChild(me.transparence);
+    }
+    me.eventEmitter = new EventEmitter();
+    me.appearance = appearance;
+  }
+  CIfFrame.prototype.getFrameView = function () {
+    var me = this;
+    return me.dframe;
+  };
+  CIfFrame.prototype.getFrameAppearance = function () {
+    var me = this;
+    return me.appearance;
+  };
+  CIfFrame.prototype.setHTML = function (html) {
+    var me = this;
+    me.dframe.innerHTML = html;
+  };
+  CIfFrame.prototype.setFrameInFrame = function (enabled) {
+    var me = this;
+    var contentsEle = me.dframe ? me.dframe.firstChild : null;
+    if (contentsEle) {
+      if (!Date.now) {
+        Date.now = function now() {
+          return new Date().getTime();
+        };
       }
-      if (id === "frame" || id === "window") {
-        if (eventType === "move" && !me.eventEmitter.hasListenerFuncs("move")) {
-          me.setOnMoveListener(function (e) {
-            me.eventEmitter.emit("move", me._getCurrentSizePos());
-          });
-        }
-        me.eventEmitter.on(eventType, callbackFunc);
-      }
-      var domElement = me.$(id);
-      if (domElement) {
-        if (
-          me.eventListenerHelper.hasEventListener(
-            domElement,
-            eventType,
-            "frame-dom-listener",
-          )
-        ) {
-          me.eventListenerHelper.removeEventListener(
-            domElement,
-            eventType,
-            null,
-            { listenerName: "frame-dom-listener" },
+      if (enabled) {
+        me.eventEmitter.only("resize", "fif-listener", function () {
+          contentsEle.setAttribute(
+            WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
+            Date.now(),
           );
-        }
-        me.eventListenerHelper.addEventListener(
+        });
+      } else {
+        contentsEle.removeAttribute(
+          WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
+        );
+        me.eventEmitter.only("resize", "fif-listener", function () {
+        });
+      }
+    }
+  };
+  CIfFrame.prototype.$ = function (q) {
+    var me = this;
+    if (me.useIframe) {
+      var docInIframe = me.iframe.contentWindow.document;
+      return docInIframe.querySelector(q);
+    } else {
+      return me.dframe.querySelector(q);
+    }
+  };
+  CIfFrame.prototype.on = function (id, eventType, callbackFunc) {
+    var me = this;
+    var component = me.getFrameComponentElement(id);
+    if (component) {
+      me.eventListenerHelper.addEventListener(
+        component,
+        eventType,
+        function (e) {
+          callbackFunc(me, e, {
+            type: "frameComponent",
+            id,
+            eventType,
+          });
+        },
+        { listenerName: "frame-component-listener" },
+      );
+    }
+    if (id === "frame" || id === "window") {
+      if (eventType === "move" && !me.eventEmitter.hasListenerFuncs("move")) {
+        me.setOnMoveListener(function (e) {
+          me.eventEmitter.emit("move", me._getCurrentSizePos());
+        });
+      }
+      me.eventEmitter.on(eventType, callbackFunc);
+    }
+    var domElement = me.$(id);
+    if (domElement) {
+      if (
+        me.eventListenerHelper.hasEventListener(
           domElement,
           eventType,
-          function (e) {
-            callbackFunc(me, e, {
-              type: "dom",
-              id,
-              eventType,
-            });
-          },
+          "frame-dom-listener",
+        )
+      ) {
+        me.eventListenerHelper.removeEventListener(
+          domElement,
+          eventType,
+          null,
           { listenerName: "frame-dom-listener" },
         );
       }
-      if (!domElement) {
-        var domElementOnCanvasElement = me.canvas.canvasElement.querySelector(
-          id,
-        );
-        if (domElementOnCanvasElement) {
-          domElementOnCanvasElement.addEventListener(eventType, function (e) {
-            callbackFunc(me, e, {
-              type: "dom",
-              id,
-              eventType,
-            });
+      me.eventListenerHelper.addEventListener(
+        domElement,
+        eventType,
+        function (e) {
+          callbackFunc(me, e, {
+            type: "dom",
+            id,
+            eventType,
           });
-        }
+        },
+        { listenerName: "frame-dom-listener" },
+      );
+    }
+    if (!domElement) {
+      var domElementOnCanvasElement = me.canvas.canvasElement.querySelector(id);
+      if (domElementOnCanvasElement) {
+        domElementOnCanvasElement.addEventListener(eventType, function (e) {
+          callbackFunc(me, e, {
+            type: "dom",
+            id,
+            eventType,
+          });
+        });
       }
-    };
-    CIfFrame.prototype.adjustFrameBorderRadius = function () {
-      var me = this;
-      if (parseInt(me.frameBorderRadius, 10) > 0) {
-        var borderData = me.getFrameInnerBorderRadius(me, me._hasFocus);
-        var frameAppearance = borderData.frameAppearance;
-        var innerBorderRadius = borderData.innerBorderRadius;
-        var titleBarHeight = parseInt(frameAppearance.titleBarHeight, 10);
-        if (me.showTitleBar) {
-          me.canvas.canvasElement.style.borderBottomRightRadius =
-            innerBorderRadius;
-          me.canvas.canvasElement.style.borderBottomLeftRadius =
-            innerBorderRadius;
-          me.iframe.style.borderBottomRightRadius = innerBorderRadius;
-          me.iframe.style.borderBottomLeftRadius = innerBorderRadius;
-          me.titleBar.style.borderTopLeftRadius = innerBorderRadius;
-          me.titleBar.style.borderTopRightRadius = innerBorderRadius;
-        } else {
-          me.canvas.canvasElement.style.borderRadius = innerBorderRadius;
-          me.iframe.style.borderRadius = innerBorderRadius;
-        }
-        if (me.dframe) {
-          if (titleBarHeight === 0) {
-            if (!me.dframe.style.borderTopRightRadius) {
-              me.dframe.style.borderTopRightRadius = innerBorderRadius;
-            }
-            if (!me.dframe.style.borderTopLeftRadius) {
-              me.dframe.style.borderTopLeftRadius = innerBorderRadius;
-            }
-          }
-          me.dframe.style.borderBottomRightRadius = innerBorderRadius;
-          me.dframe.style.borderBottomLeftRadius = innerBorderRadius;
-        }
-      }
-    };
-    CIfFrame.prototype.handleReleasingFocus = function (e) {
-      var me = this;
-      var focused = me._hasFocus;
-      me._hasFocus = false;
-      me.titleBar.className = me.titleBarClassNameDefault;
-      if (me.titleBarColorDefault) {
-        me.titleBar.style.background = me.titleBarColorDefault;
-      }
-      me.titleBar.style.color = me.titleBarCaptionColorDefault;
-      if (me.frameBorderColorDefault) {
-        me.htmlElement.style.borderColor = me.frameBorderColorDefault;
-      }
-      if (me.frameBorderWidthDefault) {
-        me.htmlElement.style.borderWidth = me.frameBorderWidthDefault;
-        me.adjustFrameBorderRadius();
-      }
-      if (me.htmlElement.typeName == "cifwindow") {
-        if (me.overrayTransparentScreenEnabled) {
-          me.transparence.style.width = parseInt(me.iframe.width, 10) + "px";
-          me.transparence.style.height = parseInt(me.iframe.height, 10) + "px";
-        }
-      }
-      for (var frameComponentId in me.frameComponentMap) {
-        var frameComponent = me.frameComponentMap[frameComponentId];
-        frameComponent.handleReleasingFocus();
-      }
-      if (me.titleBarBorderBottomDefault) {
-        me.titleBar.style.borderBottom = me.titleBarBorderBottomDefault;
-      }
-      if (focused) {
-        me.eventEmitter.emit("blur", { target: me });
-      }
-      return me;
-    };
-    CIfFrame.prototype.handleTakingFocus = function (e) {
-      var me = this;
-      var focused = me._hasFocus;
-      me._hasFocus = true;
-      me._hasFocus = Date.now();
-      if (me.overrayTransparentScreenEnabled) {
-        me.transparence.style.width = "0px";
-        me.transparence.style.height = "0px";
-      }
-      me.titleBar.className = me.titleBarClassNameFocused;
-      if (me.titleBarColorFocused) {
-        me.titleBar.style.background = me.titleBarColorFocused;
-      }
-      me.titleBar.style.color = me.titleBarCaptionColorFocused;
-      if (me.frameBorderColorFocused) {
-        me.htmlElement.style.borderColor = me.frameBorderColorFocused;
-      }
-      if (me.frameBorderWidthFocused) {
-        me.htmlElement.style.borderWidth = me.frameBorderWidthFocused;
-        me.adjustFrameBorderRadius();
-      }
-      if (me.titleBarBorderBottomFocused) {
-        me.titleBar.style.borderBottom = me.titleBarBorderBottomFocused;
-      }
-      for (var frameComponentId in me.frameComponentMap) {
-        var frameComponent = me.frameComponentMap[frameComponentId];
-        frameComponent.handleTakingFocus();
-      }
-      if (!focused) {
-        me.eventEmitter.emit("focus", { target: me });
-      }
-      return me;
-    };
-    CFrame.prototype.show = function (model) {
-      var me = this;
-      me.htmlElement.style.display = "flex";
-      if (model && model.requestFocus == false) {
+    }
+  };
+  CIfFrame.prototype.adjustFrameBorderRadius = function () {
+    var me = this;
+    if (parseInt(me.frameBorderRadius, 10) > 0) {
+      var borderData = me.getFrameInnerBorderRadius(me, me._hasFocus);
+      var frameAppearance = borderData.frameAppearance;
+      var innerBorderRadius = borderData.innerBorderRadius;
+      var titleBarHeight = parseInt(frameAppearance.titleBarHeight, 10);
+      if (me.showTitleBar) {
+        me.canvas.canvasElement.style.borderBottomRightRadius =
+          innerBorderRadius;
+        me.canvas.canvasElement.style.borderBottomLeftRadius =
+          innerBorderRadius;
+        me.iframe.style.borderBottomRightRadius = innerBorderRadius;
+        me.iframe.style.borderBottomLeftRadius = innerBorderRadius;
+        me.titleBar.style.borderTopLeftRadius = innerBorderRadius;
+        me.titleBar.style.borderTopRightRadius = innerBorderRadius;
       } else {
-        me.requestFocus();
+        me.canvas.canvasElement.style.borderRadius = innerBorderRadius;
+        me.iframe.style.borderRadius = innerBorderRadius;
       }
-      return me;
+      if (me.dframe) {
+        if (titleBarHeight === 0) {
+          if (!me.dframe.style.borderTopRightRadius) {
+            me.dframe.style.borderTopRightRadius = innerBorderRadius;
+          }
+          if (!me.dframe.style.borderTopLeftRadius) {
+            me.dframe.style.borderTopLeftRadius = innerBorderRadius;
+          }
+        }
+        me.dframe.style.borderBottomRightRadius = innerBorderRadius;
+        me.dframe.style.borderBottomLeftRadius = innerBorderRadius;
+      }
+    }
+  };
+  CIfFrame.prototype.handleReleasingFocus = function (e) {
+    var me = this;
+    var focused = me._hasFocus;
+    me._hasFocus = false;
+    me.titleBar.className = me.titleBarClassNameDefault;
+    if (me.titleBarColorDefault) {
+      me.titleBar.style.background = me.titleBarColorDefault;
+    }
+    me.titleBar.style.color = me.titleBarCaptionColorDefault;
+    if (me.frameBorderColorDefault) {
+      me.htmlElement.style.borderColor = me.frameBorderColorDefault;
+    }
+    if (me.frameBorderWidthDefault) {
+      me.htmlElement.style.borderWidth = me.frameBorderWidthDefault;
+      me.adjustFrameBorderRadius();
+    }
+    if (me.htmlElement.typeName == "cifwindow") {
+      if (me.overrayTransparentScreenEnabled) {
+        me.transparence.style.width = parseInt(me.iframe.width, 10) + "px";
+        me.transparence.style.height = parseInt(me.iframe.height, 10) + "px";
+      }
+    }
+    for (var frameComponentId in me.frameComponentMap) {
+      var frameComponent = me.frameComponentMap[frameComponentId];
+      frameComponent.handleReleasingFocus();
+    }
+    if (me.titleBarBorderBottomDefault) {
+      me.titleBar.style.borderBottom = me.titleBarBorderBottomDefault;
+    }
+    if (focused) {
+      me.eventEmitter.emit("blur", { target: me });
+    }
+    return me;
+  };
+  CIfFrame.prototype.handleTakingFocus = function (e) {
+    var me = this;
+    var focused = me._hasFocus;
+    me._hasFocus = true;
+    me._hasFocus = Date.now();
+    if (me.overrayTransparentScreenEnabled) {
+      me.transparence.style.width = "0px";
+      me.transparence.style.height = "0px";
+    }
+    me.titleBar.className = me.titleBarClassNameFocused;
+    if (me.titleBarColorFocused) {
+      me.titleBar.style.background = me.titleBarColorFocused;
+    }
+    me.titleBar.style.color = me.titleBarCaptionColorFocused;
+    if (me.frameBorderColorFocused) {
+      me.htmlElement.style.borderColor = me.frameBorderColorFocused;
+    }
+    if (me.frameBorderWidthFocused) {
+      me.htmlElement.style.borderWidth = me.frameBorderWidthFocused;
+      me.adjustFrameBorderRadius();
+    }
+    if (me.titleBarBorderBottomFocused) {
+      me.titleBar.style.borderBottom = me.titleBarBorderBottomFocused;
+    }
+    for (var frameComponentId in me.frameComponentMap) {
+      var frameComponent = me.frameComponentMap[frameComponentId];
+      frameComponent.handleTakingFocus();
+    }
+    if (!focused) {
+      me.eventEmitter.emit("focus", { target: me });
+    }
+    return me;
+  };
+  CFrame.prototype.show = function (model) {
+    var me = this;
+    me.htmlElement.style.display = "flex";
+    if (model && model.requestFocus == false) {
+    } else {
+      me.requestFocus();
+    }
+    return me;
+  };
+  CFrame.prototype.showModal = function (onCloseListener) {
+    var me = this;
+    var appearance = new CFrameAppearance();
+    appearance.showTitleBar = true;
+    appearance.showCloseButton = false;
+    appearance.frameBorderRadius = "0px";
+    appearance.frameBorderStyle = "none";
+    appearance.frameBorderWidthDefault = "0px";
+    appearance.frameBorderWidthFocused = "0px";
+    appearance.frameBoxShadow = null;
+    appearance.frameBackgroundColor = "transparent";
+    appearance.frameComponents = [];
+    appearance.frameHeightAdjust = 0;
+    appearance.titleBarHeight = "0px";
+    appearance.titleBarBorderBottomFocused = null;
+    appearance.titleBarCaptionLeftMargin = "0px";
+    appearance.onInitialize = function () {
     };
-    CFrame.prototype.showModal = function (onCloseListener) {
-      var me = this;
-      var appearance = new CFrameAppearance();
-      appearance.showTitleBar = true;
-      appearance.showCloseButton = false;
-      appearance.frameBorderRadius = "0px";
-      appearance.frameBorderStyle = "none";
-      appearance.frameBorderWidthDefault = "0px";
-      appearance.frameBorderWidthFocused = "0px";
-      appearance.frameBoxShadow = null;
-      appearance.frameBackgroundColor = "transparent";
-      appearance.frameComponents = [];
-      appearance.frameHeightAdjust = 0;
-      appearance.titleBarHeight = "0px";
-      appearance.titleBarBorderBottomFocused = null;
-      appearance.titleBarCaptionLeftMargin = "0px";
-      appearance.onInitialize = function () {
-      };
-      appearance.pullUpDisabled = true;
-      var windowManager = me.parentCanvas;
-      var modalBackgroundWindowId =
-        DEF.CFRAME.MODAL_BACKGROUND_FRAME_ID_PREFIX + me.id;
-      var modalBackgroundFrame = new CIfFrame(
-        modalBackgroundWindowId,
-        0,
-        0,
-        1,
-        1,
-        appearance,
-      );
+    appearance.pullUpDisabled = true;
+    var windowManager = me.parentCanvas;
+    var modalBackgroundWindowId = DEF.CFRAME.MODAL_BACKGROUND_FRAME_ID_PREFIX +
+      me.id;
+    var modalBackgroundFrame = new CIfFrame(
+      modalBackgroundWindowId,
+      0,
+      0,
+      1,
+      1,
+      appearance,
+    );
+    modalBackgroundFrame.setSize(window.innerWidth, window.innerHeight, true);
+    modalBackgroundFrame.setResizable(false);
+    window.addEventListener("resize", function () {
       modalBackgroundFrame.setSize(window.innerWidth, window.innerHeight, true);
-      modalBackgroundFrame.setResizable(false);
-      window.addEventListener("resize", function () {
-        modalBackgroundFrame.setSize(
-          window.innerWidth,
-          window.innerHeight,
-          true,
-        );
-      });
-      me.modalBackgroundWindowId = modalBackgroundWindowId;
-      modalBackgroundFrame.hide();
-      windowManager.addWindow(modalBackgroundFrame);
-      modalBackgroundFrame.setTitle("").getFrameView().innerHTML =
-        '<div class="jsframe-modal-window-background"></div>';
-      modalBackgroundFrame.getFrameView().style.backgroundColor =
-        "rgba(0,0,0,0.0)";
-      modalBackgroundFrame.show();
-      me.show();
-      if (onCloseListener) {
-        me.setOnCloseFrameListener(onCloseListener);
+    });
+    me.modalBackgroundWindowId = modalBackgroundWindowId;
+    modalBackgroundFrame.hide();
+    windowManager.addWindow(modalBackgroundFrame);
+    modalBackgroundFrame.setTitle("").getFrameView().innerHTML =
+      '<div class="jsframe-modal-window-background"></div>';
+    modalBackgroundFrame.getFrameView().style.backgroundColor =
+      "rgba(0,0,0,0.0)";
+    modalBackgroundFrame.show();
+    me.show();
+    if (onCloseListener) {
+      me.setOnCloseFrameListener(onCloseListener);
+    }
+  };
+  CFrame.prototype.getWindowManager = function () {
+    var me = this;
+    return me.parentCanvas;
+  };
+  CIfFrame.prototype.hide = function () {
+    var me = this;
+    me.htmlElement.style.display = "none";
+    return me;
+  };
+  CIfFrame.prototype.onmouseDown = function (e) {
+    var refHtmlElement = this;
+    document.body.ondrag = function () {
+      return false;
+    };
+    refHtmlElement.decorator = CFrame.prototype.onmouseDown;
+    refHtmlElement.decorator(e);
+    var refCIfFrame = refHtmlElement.parent;
+    var refCWindowManager = refHtmlElement.parentCanvas;
+    for (var windowId in refCWindowManager.beanList) {
+      var objCIfFrame = refCWindowManager.beanList[windowId];
+      if (windowId == refCIfFrame.getWindowId()) {
+      } else {
+        objCIfFrame.handleReleasingFocus();
       }
-    };
-    CFrame.prototype.getWindowManager = function () {
-      var me = this;
-      return me.parentCanvas;
-    };
-    CIfFrame.prototype.hide = function () {
-      var me = this;
-      me.htmlElement.style.display = "none";
-      return me;
-    };
-    CIfFrame.prototype.onmouseDown = function (e) {
-      var refHtmlElement = this;
-      document.body.ondrag = function () {
-        return false;
-      };
-      refHtmlElement.decorator = CFrame.prototype.onmouseDown;
-      refHtmlElement.decorator(e);
-      var refCIfFrame = refHtmlElement.parent;
-      var refCWindowManager = refHtmlElement.parentCanvas;
-      for (var windowId in refCWindowManager.beanList) {
-        var objCIfFrame = refCWindowManager.beanList[windowId];
-        if (windowId == refCIfFrame.getWindowId()) {
-        } else {
-          objCIfFrame.handleReleasingFocus();
-        }
-      }
-      refCIfFrame.handleTakingFocus();
-    };
-    CIfFrame.prototype.mouseUp = function (e) {
-      var refCIfFrame = this;
-      if (
-        refCIfFrame.overrayTransparentScreenEnabled ||
-        refCIfFrame.overrayTransparentScreenOnResize
-      ) {
-        if (refCIfFrame.parentCanvas.onTopObject == refCIfFrame) {
-          refCIfFrame.transparence.style.width = "0px";
-          refCIfFrame.transparence.style.height = "0px";
-        } else {
-          if (refCIfFrame.overrayTransparentScreenEnabled) {
-            refCIfFrame.transparence.style.width =
-              parseInt(refCIfFrame.iframe.width) + "px";
-            refCIfFrame.transparence.style.height =
-              parseInt(refCIfFrame.iframe.height) + "px";
-          }
-        }
-      }
-      refCIfFrame.decorator = CFrame.prototype.mouseUp;
-      refCIfFrame.decorator(e);
-      document.body.ondrag = null;
-      document.body.onselectstart = null;
-      refCIfFrame.transparence.style.pointerEvents = "none";
-    };
-    CIfFrame.prototype.setMinFrameSize = function (width, height) {
-      var me = this;
-      me.minFrameWidth = width;
-      me.minWindowHeight = height;
-    };
-    CIfFrame.prototype.resize = function (
-      deltaLeft,
-      deltaTop,
-      deltaWidth,
-      deltaHeight,
-      byUser,
+    }
+    refCIfFrame.handleTakingFocus();
+  };
+  CIfFrame.prototype.mouseUp = function (e) {
+    var refCIfFrame = this;
+    if (
+      refCIfFrame.overrayTransparentScreenEnabled ||
+      refCIfFrame.overrayTransparentScreenOnResize
     ) {
-      var refCIfFrame = this;
-      if (!refCIfFrame.resizable && byUser) {
-        return null;
-      }
-      var prevSize = refCIfFrame.getSize();
-      var tmpLeft = parseInt(refCIfFrame.htmlElement.style.left, 10);
-      var tmpTop = parseInt(refCIfFrame.htmlElement.style.top, 10);
-      var tmpWidth = parseInt(refCIfFrame.htmlElement.style.width, 10);
-      var tmpHeight = parseInt(refCIfFrame.htmlElement.style.height, 10);
-      if (
-        byUser &&
-        tmpWidth + deltaWidth < refCIfFrame.minFrameWidth & deltaWidth < 0
-      ) {
-        refCIfFrame.htmlElement.style.width = tmpWidth + "px";
-        deltaWidth = 0;
-      }
-      if (
-        byUser &&
-        tmpHeight + deltaHeight < refCIfFrame.minWindowHeight & deltaHeight < 0
-      ) {
-        refCIfFrame.htmlElement.style.height = tmpHeight + "px";
-        deltaHeight = 0;
-      }
-      refCIfFrame.htmlElement.style.left = tmpLeft + deltaLeft + "px";
-      refCIfFrame.htmlElement.style.top = tmpTop + deltaTop + "px";
-      refCIfFrame.htmlElement.style.width = tmpWidth + deltaWidth + "px";
-      refCIfFrame.htmlElement.style.height = tmpHeight + deltaHeight + "px";
-      var tmpCanvasWidth = parseInt(
-        refCIfFrame.canvas.canvasElement.style.width,
-        10,
-      );
-      var tmpCanvasHeight = parseInt(
-        refCIfFrame.canvas.canvasElement.style.height,
-        10,
-      );
-      refCIfFrame.canvas.canvasElement.style.width = tmpCanvasWidth +
-        deltaWidth + "px";
-      refCIfFrame.canvas.canvasElement.style.height = tmpCanvasHeight +
-        deltaHeight + "px";
-      refCIfFrame.titleBar.style.width = tmpCanvasWidth - refCIfFrame.ifDelta +
-        deltaWidth + 0 + "px";
-      refCIfFrame.iframe.width = tmpCanvasWidth - refCIfFrame.ifDelta +
-        deltaWidth + 0 + "px";
-      refCIfFrame.iframe.height = tmpCanvasHeight - refCIfFrame.ifDelta +
-        deltaHeight + refCIfFrame.frameHeightAdjust + "px";
-      if (
-        refCIfFrame.overrayTransparentScreenEnabled ||
-        refCIfFrame.overrayTransparentScreenOnResize
-      ) {
-        refCIfFrame.transparence.style.width =
-          parseInt(refCIfFrame.iframe.width) + "px";
-        refCIfFrame.transparence.style.height =
-          parseInt(refCIfFrame.iframe.height) + "px";
-      }
-      for (var frameComponentId in refCIfFrame.frameComponentMap) {
-        var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
-        frameComponent.updateAlign();
-      }
-      for (var beanName in refCIfFrame.canvas.beanList) {
-        var tmpBean = refCIfFrame.canvas.beanList[beanName];
-        if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
-          if (tmpBean.htmlElement.usage == "RD") {
-            tmpBean.htmlElement.style.left =
-              parseInt(tmpBean.htmlElement.style.left) + deltaWidth + "px";
-            tmpBean.htmlElement.style.top =
-              parseInt(tmpBean.htmlElement.style.top) + deltaHeight + "px";
-          } else if (tmpBean.htmlElement.usage == "DD") {
-            tmpBean.htmlElement.style.width =
-              parseInt(tmpBean.htmlElement.style.width) + deltaWidth + "px";
-            tmpBean.htmlElement.style.top =
-              parseInt(tmpBean.htmlElement.style.top) + deltaHeight + "px";
-          } else if (tmpBean.htmlElement.usage == "RR") {
-            tmpBean.htmlElement.style.left =
-              parseInt(tmpBean.htmlElement.style.left) + deltaWidth + "px";
-            tmpBean.htmlElement.style.height =
-              parseInt(tmpBean.htmlElement.style.height) + deltaHeight + "px";
-          }
+      if (refCIfFrame.parentCanvas.onTopObject == refCIfFrame) {
+        refCIfFrame.transparence.style.width = "0px";
+        refCIfFrame.transparence.style.height = "0px";
+      } else {
+        if (refCIfFrame.overrayTransparentScreenEnabled) {
+          refCIfFrame.transparence.style.width =
+            parseInt(refCIfFrame.iframe.width) + "px";
+          refCIfFrame.transparence.style.height =
+            parseInt(refCIfFrame.iframe.height) + "px";
         }
       }
-      var crrSize = refCIfFrame.getSize();
-      if (
-        prevSize.width !== crrSize.width || prevSize.height !== crrSize.height
-      ) {
-        refCIfFrame.eventEmitter.emit(
-          "resize",
-          refCIfFrame._getCurrentSizePos(),
-        );
-      }
-    };
-    CIfFrame.prototype._getCurrentSizePos = function () {
-      var me = this;
-      var crrSize = me.getSize();
-      var crrPos = me.getPosition();
-      return { target: me, pos: crrPos, size: crrSize };
-    };
-    CIfFrame.prototype.resizeDirect = function (width, height, byUser) {
-      var refCIfFrame = this;
-      if (!refCIfFrame.resizable && byUser) {
-        return null;
-      }
-      refCIfFrame.htmlElement.style.width = width + "px";
-      refCIfFrame.htmlElement.style.height = height + "px";
-      var tmpCanvasWidth = parseInt(
-        refCIfFrame.canvas.canvasElement.style.width,
-      );
-      var tmpCanvasHeight = parseInt(
-        refCIfFrame.canvas.canvasElement.style.height,
-      );
-      refCIfFrame.canvas.canvasElement.style.width = width + "px";
-      refCIfFrame.canvas.canvasElement.style.height = height -
-        refCIfFrame.titleBar.style.height + "px";
-      refCIfFrame.titleBar.style.width = width - refCIfFrame.ifDelta + "px";
-      refCIfFrame.iframe.width = width - refCIfFrame.ifDelta + "px";
-      refCIfFrame.iframe.height = height - refCIfFrame.ifDelta +
-        refCIfFrame.frameHeightAdjust + "px";
-      if (
-        refCIfFrame.overrayTransparentScreenEnabled ||
-        refCIfFrame.overrayTransparentScreenOnResize
-      ) {
-        refCIfFrame.transparence.style.width =
-          parseInt(refCIfFrame.iframe.width) + "px";
-        refCIfFrame.transparence.style.height =
-          parseInt(refCIfFrame.iframe.height) + "px";
-      }
-      for (var frameComponentId in refCIfFrame.frameComponentMap) {
-        var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
-        frameComponent.updateAlign();
-      }
-      for (var beanName in refCIfFrame.canvas.beanList) {
-        var tmpBean = refCIfFrame.canvas.beanList[beanName];
-        if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
-          if (tmpBean.htmlElement.usage == "RD") {
-            tmpBean.htmlElement.style.left = width + "px";
-            tmpBean.htmlElement.style.top = height + "px";
-          } else if (tmpBean.htmlElement.usage == "DD") {
-            tmpBean.htmlElement.style.width = width + "px";
-            tmpBean.htmlElement.style.top = height + "px";
-          } else if (tmpBean.htmlElement.usage == "RR") {
-            tmpBean.htmlElement.style.left = width + "px";
-            tmpBean.htmlElement.style.height = height + "px";
-          }
+    }
+    refCIfFrame.decorator = CFrame.prototype.mouseUp;
+    refCIfFrame.decorator(e);
+    document.body.ondrag = null;
+    document.body.onselectstart = null;
+    refCIfFrame.transparence.style.pointerEvents = "none";
+  };
+  CIfFrame.prototype.setMinFrameSize = function (width, height) {
+    var me = this;
+    me.minFrameWidth = width;
+    me.minWindowHeight = height;
+  };
+  CIfFrame.prototype.resize = function (
+    deltaLeft,
+    deltaTop,
+    deltaWidth,
+    deltaHeight,
+    byUser,
+  ) {
+    var refCIfFrame = this;
+    if (!refCIfFrame.resizable && byUser) {
+      return null;
+    }
+    var prevSize = refCIfFrame.getSize();
+    var tmpLeft = parseInt(refCIfFrame.htmlElement.style.left, 10);
+    var tmpTop = parseInt(refCIfFrame.htmlElement.style.top, 10);
+    var tmpWidth = parseInt(refCIfFrame.htmlElement.style.width, 10);
+    var tmpHeight = parseInt(refCIfFrame.htmlElement.style.height, 10);
+    if (
+      byUser &&
+      tmpWidth + deltaWidth < refCIfFrame.minFrameWidth & deltaWidth < 0
+    ) {
+      refCIfFrame.htmlElement.style.width = tmpWidth + "px";
+      deltaWidth = 0;
+    }
+    if (
+      byUser &&
+      tmpHeight + deltaHeight < refCIfFrame.minWindowHeight & deltaHeight < 0
+    ) {
+      refCIfFrame.htmlElement.style.height = tmpHeight + "px";
+      deltaHeight = 0;
+    }
+    refCIfFrame.htmlElement.style.left = tmpLeft + deltaLeft + "px";
+    refCIfFrame.htmlElement.style.top = tmpTop + deltaTop + "px";
+    refCIfFrame.htmlElement.style.width = tmpWidth + deltaWidth + "px";
+    refCIfFrame.htmlElement.style.height = tmpHeight + deltaHeight + "px";
+    var tmpCanvasWidth = parseInt(
+      refCIfFrame.canvas.canvasElement.style.width,
+      10,
+    );
+    var tmpCanvasHeight = parseInt(
+      refCIfFrame.canvas.canvasElement.style.height,
+      10,
+    );
+    refCIfFrame.canvas.canvasElement.style.width = tmpCanvasWidth + deltaWidth +
+      "px";
+    refCIfFrame.canvas.canvasElement.style.height = tmpCanvasHeight +
+      deltaHeight + "px";
+    refCIfFrame.titleBar.style.width = tmpCanvasWidth - refCIfFrame.ifDelta +
+      deltaWidth + 0 + "px";
+    refCIfFrame.iframe.width = tmpCanvasWidth - refCIfFrame.ifDelta +
+      deltaWidth + 0 + "px";
+    refCIfFrame.iframe.height = tmpCanvasHeight - refCIfFrame.ifDelta +
+      deltaHeight + refCIfFrame.frameHeightAdjust + "px";
+    if (
+      refCIfFrame.overrayTransparentScreenEnabled ||
+      refCIfFrame.overrayTransparentScreenOnResize
+    ) {
+      refCIfFrame.transparence.style.width =
+        parseInt(refCIfFrame.iframe.width) + "px";
+      refCIfFrame.transparence.style.height =
+        parseInt(refCIfFrame.iframe.height) + "px";
+    }
+    for (var frameComponentId in refCIfFrame.frameComponentMap) {
+      var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
+      frameComponent.updateAlign();
+    }
+    for (var beanName in refCIfFrame.canvas.beanList) {
+      var tmpBean = refCIfFrame.canvas.beanList[beanName];
+      if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
+        if (tmpBean.htmlElement.usage == "RD") {
+          tmpBean.htmlElement.style.left =
+            parseInt(tmpBean.htmlElement.style.left) + deltaWidth + "px";
+          tmpBean.htmlElement.style.top =
+            parseInt(tmpBean.htmlElement.style.top) + deltaHeight + "px";
+        } else if (tmpBean.htmlElement.usage == "DD") {
+          tmpBean.htmlElement.style.width =
+            parseInt(tmpBean.htmlElement.style.width) + deltaWidth + "px";
+          tmpBean.htmlElement.style.top =
+            parseInt(tmpBean.htmlElement.style.top) + deltaHeight + "px";
+        } else if (tmpBean.htmlElement.usage == "RR") {
+          tmpBean.htmlElement.style.left =
+            parseInt(tmpBean.htmlElement.style.left) + deltaWidth + "px";
+          tmpBean.htmlElement.style.height =
+            parseInt(tmpBean.htmlElement.style.height) + deltaHeight + "px";
         }
       }
-    };
-    CIfFrame.prototype.requestFocus = function () {
-      var me = this;
-      var beanList = me.parentCanvas.beanList;
-      for (var windowId in beanList) {
-        var tmpIfWindow = beanList[windowId];
-        if (windowId == me.getWindowId()) {
-          tmpIfWindow.handleTakingFocus();
-        } else {
-          tmpIfWindow.handleReleasingFocus();
+    }
+    var crrSize = refCIfFrame.getSize();
+    if (
+      prevSize.width !== crrSize.width || prevSize.height !== crrSize.height
+    ) {
+      refCIfFrame.eventEmitter.emit("resize", refCIfFrame._getCurrentSizePos());
+    }
+  };
+  CIfFrame.prototype._getCurrentSizePos = function () {
+    var me = this;
+    var crrSize = me.getSize();
+    var crrPos = me.getPosition();
+    return { target: me, pos: crrPos, size: crrSize };
+  };
+  CIfFrame.prototype.resizeDirect = function (width, height, byUser) {
+    var refCIfFrame = this;
+    if (!refCIfFrame.resizable && byUser) {
+      return null;
+    }
+    refCIfFrame.htmlElement.style.width = width + "px";
+    refCIfFrame.htmlElement.style.height = height + "px";
+    var tmpCanvasWidth = parseInt(refCIfFrame.canvas.canvasElement.style.width);
+    var tmpCanvasHeight = parseInt(
+      refCIfFrame.canvas.canvasElement.style.height,
+    );
+    refCIfFrame.canvas.canvasElement.style.width = width + "px";
+    refCIfFrame.canvas.canvasElement.style.height = height -
+      refCIfFrame.titleBar.style.height + "px";
+    refCIfFrame.titleBar.style.width = width - refCIfFrame.ifDelta + "px";
+    refCIfFrame.iframe.width = width - refCIfFrame.ifDelta + "px";
+    refCIfFrame.iframe.height = height - refCIfFrame.ifDelta +
+      refCIfFrame.frameHeightAdjust + "px";
+    if (
+      refCIfFrame.overrayTransparentScreenEnabled ||
+      refCIfFrame.overrayTransparentScreenOnResize
+    ) {
+      refCIfFrame.transparence.style.width =
+        parseInt(refCIfFrame.iframe.width) + "px";
+      refCIfFrame.transparence.style.height =
+        parseInt(refCIfFrame.iframe.height) + "px";
+    }
+    for (var frameComponentId in refCIfFrame.frameComponentMap) {
+      var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
+      frameComponent.updateAlign();
+    }
+    for (var beanName in refCIfFrame.canvas.beanList) {
+      var tmpBean = refCIfFrame.canvas.beanList[beanName];
+      if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
+        if (tmpBean.htmlElement.usage == "RD") {
+          tmpBean.htmlElement.style.left = width + "px";
+          tmpBean.htmlElement.style.top = height + "px";
+        } else if (tmpBean.htmlElement.usage == "DD") {
+          tmpBean.htmlElement.style.width = width + "px";
+          tmpBean.htmlElement.style.top = height + "px";
+        } else if (tmpBean.htmlElement.usage == "RR") {
+          tmpBean.htmlElement.style.left = width + "px";
+          tmpBean.htmlElement.style.height = height + "px";
         }
       }
-      me.parentCanvas.pullUp(me.id);
-    };
-    CIfFrame.prototype.setUrl = function (url) {
-      var me = this;
-      return new Promise(function (resolve, reject) {
-        if (url) {
-          me.setUseIframe(true);
-        } else {
-          me.setUseIframe(false);
-          resolve();
-        }
-        me.iframe.src = url;
-        me.iframe.onload = function () {
-          var funcOnMouseMove = function (e) {
-            var clientX = e.pageX;
-            var clientY = e.pageY;
-            if (TOUCH_ENABLED) {
-              if (e.type === "touchmove") {
-                var changedTouches = e.changedTouches;
-                if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
-                  var touches = e.touches;
-                  if (touches.length === 1) {
-                    clientX = changedTouches[0].pageX;
-                    clientY = changedTouches[0].pageY;
-                  } else {
-                    return true;
-                  }
-                } else {
+    }
+  };
+  CIfFrame.prototype.requestFocus = function () {
+    var me = this;
+    var beanList = me.parentCanvas.beanList;
+    for (var windowId in beanList) {
+      var tmpIfWindow = beanList[windowId];
+      if (windowId == me.getWindowId()) {
+        tmpIfWindow.handleTakingFocus();
+      } else {
+        tmpIfWindow.handleReleasingFocus();
+      }
+    }
+    me.parentCanvas.pullUp(me.id);
+  };
+  CIfFrame.prototype.setUrl = function (url) {
+    var me = this;
+    return new Promise(function (resolve, reject) {
+      if (url) {
+        me.setUseIframe(true);
+      } else {
+        me.setUseIframe(false);
+        resolve();
+      }
+      me.iframe.src = url;
+      me.iframe.onload = function () {
+        var funcOnMouseMove = function (e) {
+          var clientX = e.pageX;
+          var clientY = e.pageY;
+          if (TOUCH_ENABLED) {
+            if (e.type === "touchmove") {
+              var changedTouches = e.changedTouches;
+              if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
+                var touches = e.touches;
+                if (touches.length === 1) {
                   clientX = changedTouches[0].pageX;
                   clientY = changedTouches[0].pageY;
+                } else {
+                  return true;
                 }
-              }
-            }
-            var frameLeft = me.getLeft();
-            var frameTop = me.getTop();
-            var eventFromIframe = document.createEvent("MouseEvents");
-            eventFromIframe.initMouseEvent(
-              "mousemove",
-              true,
-              false,
-              window,
-              e.detail,
-              e.screenX,
-              e.screenY,
-              clientX + frameLeft,
-              clientY + frameTop,
-              e.ctrlKey,
-              e.altKey,
-              e.shiftKey,
-              e.metaKey,
-              e.button,
-              null,
-            );
-            me.parentCanvas.windowMouseMove(eventFromIframe);
-            if (me.onMouseMoveOnIframe) {
-              me.onMouseMoveOnIframe(eventFromIframe);
-            }
-          };
-          me.iframe.contentWindow.document.onmousemove = funcOnMouseMove;
-          me.iframe.contentWindow.document.ontouchmove = funcOnMouseMove;
-          var funcOnMouseUp = function (e) {
-            var clientX = e.pageX;
-            var clientY = e.pageY;
-            if (TOUCH_ENABLED) {
-              if (e.type === "touchend") {
-                var changedTouches = e.changedTouches;
+              } else {
                 clientX = changedTouches[0].pageX;
                 clientY = changedTouches[0].pageY;
               }
             }
-            var frameLeft = me.getLeft();
-            var frameTop = me.getTop();
-            var eventFromIframe = document.createEvent("MouseEvents");
-            eventFromIframe.initMouseEvent(
-              "mouseup",
-              true,
-              false,
-              window,
-              e.detail,
-              e.screenX,
-              e.screenY,
-              clientX + frameLeft,
-              clientY + frameTop,
-              e.ctrlKey,
-              e.altKey,
-              e.shiftKey,
-              e.metaKey,
-              e.button,
-              null,
-            );
-            me.parentCanvas.windowMouseUp(eventFromIframe);
-            if (me.onMouseUpOnIframe) {
-              me.onMouseUpOnIframe(eventFromIframe);
-            }
-          };
-          me.iframe.contentWindow.document.onmouseup = funcOnMouseUp;
-          me.iframe.contentWindow.document.ontouchend = funcOnMouseUp;
-          resolve(me, me.iframe.contentWindow.document);
+          }
+          var frameLeft = me.getLeft();
+          var frameTop = me.getTop();
+          var eventFromIframe = document.createEvent("MouseEvents");
+          eventFromIframe.initMouseEvent(
+            "mousemove",
+            true,
+            false,
+            window,
+            e.detail,
+            e.screenX,
+            e.screenY,
+            clientX + frameLeft,
+            clientY + frameTop,
+            e.ctrlKey,
+            e.altKey,
+            e.shiftKey,
+            e.metaKey,
+            e.button,
+            null,
+          );
+          me.parentCanvas.windowMouseMove(eventFromIframe);
+          if (me.onMouseMoveOnIframe) {
+            me.onMouseMoveOnIframe(eventFromIframe);
+          }
         };
-      });
-    };
-    CIfFrame.prototype.getIfDocument = function () {
-      var me = this;
-      return me.iframe.contentWindow.document;
-    };
-    CIfFrame.prototype.setScrolling = function (str) {
-      var me = this;
-      me.iframe.scrolling = str;
-    };
-    CIfFrame.prototype.getScrolling = function (str) {
-      var me = this;
-      return me.iframe.scrolling;
-    };
-    CIfFrame.prototype.setResizable = function (enabled) {
-      var me = this;
-      me.resizable = enabled;
-      me.enableMarkers(enabled);
-      return me;
-    };
-    CIfFrame.prototype.setControl = function (model) {
-      var me = this;
-      if (model) {
-        model.frame = me;
-        me.control = me.jsFrame.createWindowEventHelper(model);
-        me.control.setupDefaultEvents();
-      }
-    };
-    inherit(CWindowManager, CCanvas);
-    function CWindowManager(parentElement, canvasId, left, top, width, height) {
-      CWindowManager.superConstructor.call(
-        this,
-        parentElement,
-        canvasId,
-        left,
-        top,
-        width,
-        height,
-      );
-      var me = this;
-      document.addEventListener("click", function (evt) {
-        for (var windowId in me.beanList) {
-          var beanFrame = me.beanList[windowId];
-          beanFrame.onBodyClicked(evt);
-        }
-      });
-    }
-    CWindowManager.prototype.getWindow = function (windowId) {
-      var me = this;
-      return me.beanList[windowId];
-    };
-    CWindowManager.prototype.addWindow = function (window2) {
-      var me = this;
-      var windowId = window2.getWindowId();
-      var name = window2.getName();
-      me.beanIdName[windowId] = name;
-      me.beanNameId[name] = windowId;
-      me.addBean(window2);
-    };
-    CWindowManager.prototype.containsWindowName = function (name) {
-      var me = this;
-      var windowId = me.beanNameId[name];
-      if (windowId) {
-        return true;
-      }
-      return false;
-    };
-    CWindowManager.prototype.getWindowByName = function (name) {
-      var me = this;
-      var windowId = me.beanNameId[name];
-      if (windowId) {
-        return me.getWindow(windowId);
-      } else {
-        return null;
-      }
-    };
-    CWindowManager.prototype.windowMouseMove = function (e) {
-      var me = this;
-      if (me.currentObject == null) {
-        return null;
-      }
-      var childWindowMoved = false;
-      var beanList = me.beanList;
-      for (var windowId in beanList) {
-        var targetWindow = beanList[windowId];
-        var eventData = targetWindow.canvas.mouseMove(e);
-        childWindowMoved = childWindowMoved | eventData != null;
-        if (eventData != null) {
-          if (eventData.targetTypeName == "cmarkerwindow") {
-            var targetObject = eventData.targetObject;
-            targetWindow.transparence.style.pointerEvents = "auto";
-            if (targetObject.usage == "RD") {
-              targetWindow.resize(
-                0,
-                0,
-                eventData.deltaX,
-                eventData.deltaY,
-                true,
-              );
-            } else if (targetObject.usage == "DD") {
-              targetWindow.resize(0, 0, 0, eventData.deltaY, true);
-            } else if (targetObject.usage == "RR") {
-              targetWindow.resize(0, 0, eventData.deltaX, 0, true);
+        me.iframe.contentWindow.document.onmousemove = funcOnMouseMove;
+        me.iframe.contentWindow.document.ontouchmove = funcOnMouseMove;
+        var funcOnMouseUp = function (e) {
+          var clientX = e.pageX;
+          var clientY = e.pageY;
+          if (TOUCH_ENABLED) {
+            if (e.type === "touchend") {
+              var changedTouches = e.changedTouches;
+              clientX = changedTouches[0].pageX;
+              clientY = changedTouches[0].pageY;
             }
           }
-        }
+          var frameLeft = me.getLeft();
+          var frameTop = me.getTop();
+          var eventFromIframe = document.createEvent("MouseEvents");
+          eventFromIframe.initMouseEvent(
+            "mouseup",
+            true,
+            false,
+            window,
+            e.detail,
+            e.screenX,
+            e.screenY,
+            clientX + frameLeft,
+            clientY + frameTop,
+            e.ctrlKey,
+            e.altKey,
+            e.shiftKey,
+            e.metaKey,
+            e.button,
+            null,
+          );
+          me.parentCanvas.windowMouseUp(eventFromIframe);
+          if (me.onMouseUpOnIframe) {
+            me.onMouseUpOnIframe(eventFromIframe);
+          }
+        };
+        me.iframe.contentWindow.document.onmouseup = funcOnMouseUp;
+        me.iframe.contentWindow.document.ontouchend = funcOnMouseUp;
+        resolve(me, me.iframe.contentWindow.document);
+      };
+    });
+  };
+  CIfFrame.prototype.getIfDocument = function () {
+    var me = this;
+    return me.iframe.contentWindow.document;
+  };
+  CIfFrame.prototype.setScrolling = function (str) {
+    var me = this;
+    me.iframe.scrolling = str;
+  };
+  CIfFrame.prototype.getScrolling = function (str) {
+    var me = this;
+    return me.iframe.scrolling;
+  };
+  CIfFrame.prototype.setResizable = function (enabled) {
+    var me = this;
+    me.resizable = enabled;
+    me.enableMarkers(enabled);
+    return me;
+  };
+  CIfFrame.prototype.setControl = function (model) {
+    var me = this;
+    if (model) {
+      model.frame = me;
+      me.control = me.jsFrame.createWindowEventHelper(model);
+      me.control.setupDefaultEvents();
+    }
+  };
+  inherit(CWindowManager, CCanvas);
+  function CWindowManager(parentElement, canvasId, left, top, width, height) {
+    CWindowManager.superConstructor.call(
+      this,
+      parentElement,
+      canvasId,
+      left,
+      top,
+      width,
+      height,
+    );
+    var me = this;
+    document.addEventListener("click", function (evt) {
+      for (var windowId in me.beanList) {
+        var beanFrame = me.beanList[windowId];
+        beanFrame.onBodyClicked(evt);
       }
-      if (!childWindowMoved && this.mouseDownSource != "childcanvas") {
-        me.mouseMove(e);
-      }
-    };
-    CWindowManager.prototype.windowMouseUp = function (e) {
-      var me = this;
-      me.mouseUp(e);
-      var beanList = me.beanList;
-      for (var windowId in beanList) {
-        var objWindow = beanList[windowId];
-        objWindow.mouseUp(e);
-      }
-    };
-    CWindowManager.prototype.removeBean = function (windowId) {
-      var me = this;
-      var beanList = me.beanList;
-      var targetBean = beanList[windowId];
-      if (targetBean == null) {
-        return;
-      }
-      var removeTargetBeanHasFocus = targetBean._hasFocus;
-      me.canvasElement.removeChild(targetBean.htmlElement);
-      delete beanList[windowId];
-      var beanName = me.beanIdName[windowId];
-      if (beanName) {
-        delete me.beanIdName[windowId];
-        delete me.beanNameId[beanName];
-      }
-      var maxFocusTime = 0;
-      var lastFocusedFrame = null;
-      if (removeTargetBeanHasFocus) {
-        for (var windowId in beanList) {
-          var frame = beanList[windowId];
-          if (maxFocusTime <= frame._hasFocusTime && !frame.pullUpDisabled) {
-            maxFocusTime = frame._hasFocusTime;
-            lastFocusedFrame = frame;
+    });
+  }
+  CWindowManager.prototype.getWindow = function (windowId) {
+    var me = this;
+    return me.beanList[windowId];
+  };
+  CWindowManager.prototype.addWindow = function (window2) {
+    var me = this;
+    var windowId = window2.getWindowId();
+    var name = window2.getName();
+    me.beanIdName[windowId] = name;
+    me.beanNameId[name] = windowId;
+    me.addBean(window2);
+  };
+  CWindowManager.prototype.containsWindowName = function (name) {
+    var me = this;
+    var windowId = me.beanNameId[name];
+    if (windowId) {
+      return true;
+    }
+    return false;
+  };
+  CWindowManager.prototype.getWindowByName = function (name) {
+    var me = this;
+    var windowId = me.beanNameId[name];
+    if (windowId) {
+      return me.getWindow(windowId);
+    } else {
+      return null;
+    }
+  };
+  CWindowManager.prototype.windowMouseMove = function (e) {
+    var me = this;
+    if (me.currentObject == null) {
+      return null;
+    }
+    var childWindowMoved = false;
+    var beanList = me.beanList;
+    for (var windowId in beanList) {
+      var targetWindow = beanList[windowId];
+      var eventData = targetWindow.canvas.mouseMove(e);
+      childWindowMoved = childWindowMoved | eventData != null;
+      if (eventData != null) {
+        if (eventData.targetTypeName == "cmarkerwindow") {
+          var targetObject = eventData.targetObject;
+          targetWindow.transparence.style.pointerEvents = "auto";
+          if (targetObject.usage == "RD") {
+            targetWindow.resize(0, 0, eventData.deltaX, eventData.deltaY, true);
+          } else if (targetObject.usage == "DD") {
+            targetWindow.resize(0, 0, 0, eventData.deltaY, true);
+          } else if (targetObject.usage == "RR") {
+            targetWindow.resize(0, 0, eventData.deltaX, 0, true);
           }
         }
-        if (lastFocusedFrame) {
-          lastFocusedFrame.requestFocus();
+      }
+    }
+    if (!childWindowMoved && this.mouseDownSource != "childcanvas") {
+      me.mouseMove(e);
+    }
+  };
+  CWindowManager.prototype.windowMouseUp = function (e) {
+    var me = this;
+    me.mouseUp(e);
+    var beanList = me.beanList;
+    for (var windowId in beanList) {
+      var objWindow = beanList[windowId];
+      objWindow.mouseUp(e);
+    }
+  };
+  CWindowManager.prototype.removeBean = function (windowId) {
+    var me = this;
+    var beanList = me.beanList;
+    var targetBean = beanList[windowId];
+    if (targetBean == null) {
+      return;
+    }
+    var removeTargetBeanHasFocus = targetBean._hasFocus;
+    me.canvasElement.removeChild(targetBean.htmlElement);
+    delete beanList[windowId];
+    var beanName = me.beanIdName[windowId];
+    if (beanName) {
+      delete me.beanIdName[windowId];
+      delete me.beanNameId[beanName];
+    }
+    var maxFocusTime = 0;
+    var lastFocusedFrame = null;
+    if (removeTargetBeanHasFocus) {
+      for (var windowId in beanList) {
+        var frame = beanList[windowId];
+        if (maxFocusTime <= frame._hasFocusTime && !frame.pullUpDisabled) {
+          maxFocusTime = frame._hasFocusTime;
+          lastFocusedFrame = frame;
         }
       }
-      targetBean.parentCanvas = null;
-    };
-    inherit(CMarkerWindow, CBeanFrame);
-    function CMarkerWindow(
+      if (lastFocusedFrame) {
+        lastFocusedFrame.requestFocus();
+      }
+    }
+    targetBean.parentCanvas = null;
+  };
+  inherit(CMarkerWindow, CBeanFrame);
+  function CMarkerWindow(
+    windowId,
+    left,
+    top,
+    width,
+    height,
+    zindex,
+    usage,
+    color,
+  ) {
+    var me = this;
+    CMarkerWindow.superConstructor.call(
+      this,
       windowId,
       left,
       top,
@@ -6049,492 +6038,473 @@
       height,
       zindex,
       usage,
-      color,
-    ) {
-      var me = this;
-      CMarkerWindow.superConstructor.call(
-        this,
-        windowId,
-        left,
-        top,
-        width,
-        height,
-        zindex,
-        usage,
-      );
-      me.htmlElement.typeName = "cmarkerwindow";
-      me.htmlElement.usage = usage;
-      me.htmlElement.isRangeLimited = false;
-      me.htmlElement.style.borderStyle = "none";
-      me.htmlElement.style.zIndex = 1;
-      if (color) {
-        me.htmlElement.style.background = color;
-      }
-      me.getWindowType = function () {
-        return "CMarkerWindow";
-      };
+    );
+    me.htmlElement.typeName = "cmarkerwindow";
+    me.htmlElement.usage = usage;
+    me.htmlElement.isRangeLimited = false;
+    me.htmlElement.style.borderStyle = "none";
+    me.htmlElement.style.zIndex = 1;
+    if (color) {
+      me.htmlElement.style.background = color;
     }
-    function JSFrame(model) {
-      var me = this;
-      var parentElement = null;
-      me.isWindowManagerFixed = true;
-      if (model && model.fixed == false) {
-        me.isWindowManagerFixed = false;
-      }
-      if (model && model.parentElement) {
-        parentElement = model.parentElement;
-      }
-      me.hAlign = "left";
-      me.vAlign = "top";
-      if (model && model.horizontalAlign) {
-        me.hAlign = model.horizontalAlign;
-      }
-      if (model && model.verticalAlign) {
-        me.vAlign = model.verticalAlign;
-      }
-      me.pullToRefresh = false;
-      if (model && typeof model.pullToRefresh === "boolean") {
-        me.pullToRefresh = model.pullToRefresh;
-      }
-      me.touchActionManipulation = true;
-      if (model && typeof model.touchActionManipulation === "boolean") {
-        me.touchActionManipulation = model.touchActionManipulation;
-      }
-      if (!parentElement) {
-        if (me.isWindowManagerFixed) {
-          var topParentDiv = document.createElement("div");
-          topParentDiv.id = "jsFrame_fixed_" + me.generateUUID();
-          topParentDiv.setAttribute(
-            "style",
-            "position:fixed;" + me.hAlign + ":0px;" + me.vAlign +
-              ":0px;margin:0px;padding:0px;",
-          );
-          document.body.appendChild(topParentDiv);
-          parentElement = topParentDiv;
-        } else {
-          var topParentDiv = document.createElement("div");
-          topParentDiv.id = "jsFrame_absolute_" + me.generateUUID();
-          topParentDiv.setAttribute(
-            "style",
-            "position:absolute;" + me.hAlign + ":0px;" + me.vAlign +
-              ":0px;margin:0px;padding:0px;",
-          );
-          document.body.appendChild(topParentDiv);
-          parentElement = topParentDiv;
-        }
+    me.getWindowType = function () {
+      return "CMarkerWindow";
+    };
+  }
+  function JSFrame(model) {
+    var me = this;
+    var parentElement = null;
+    me.isWindowManagerFixed = true;
+    if (model && model.fixed == false) {
+      me.isWindowManagerFixed = false;
+    }
+    if (model && model.parentElement) {
+      parentElement = model.parentElement;
+    }
+    me.hAlign = "left";
+    me.vAlign = "top";
+    if (model && model.horizontalAlign) {
+      me.hAlign = model.horizontalAlign;
+    }
+    if (model && model.verticalAlign) {
+      me.vAlign = model.verticalAlign;
+    }
+    me.pullToRefresh = false;
+    if (model && typeof model.pullToRefresh === "boolean") {
+      me.pullToRefresh = model.pullToRefresh;
+    }
+    me.touchActionManipulation = true;
+    if (model && typeof model.touchActionManipulation === "boolean") {
+      me.touchActionManipulation = model.touchActionManipulation;
+    }
+    if (!parentElement) {
+      if (me.isWindowManagerFixed) {
+        var topParentDiv = document.createElement("div");
+        topParentDiv.id = "jsFrame_fixed_" + me.generateUUID();
+        topParentDiv.setAttribute(
+          "style",
+          "position:fixed;" + me.hAlign + ":0px;" + me.vAlign +
+            ":0px;margin:0px;padding:0px;",
+        );
+        document.body.appendChild(topParentDiv);
+        parentElement = topParentDiv;
       } else {
-        if (me.isWindowManagerFixed) {
-          var topParentDiv = document.createElement("div");
-          topParentDiv.id = "jsFrame_fixed_" + me.generateUUID();
-          topParentDiv.setAttribute(
-            "style",
-            "position:fixed;" + me.hAlign + ":0px;" + me.vAlign +
-              ":0px;margin:0px;padding:0px;",
-          );
-          parentElement.appendChild(topParentDiv);
-        } else {
-          var topParentDiv = document.createElement("div");
-          topParentDiv.id = "jsFrame_absolute_" + me.generateUUID();
-          topParentDiv.setAttribute(
-            "style",
-            "position:absolute;" + me.hAlign + ":0px;" + me.vAlign +
-              ":0px;margin:0px;padding:0px;",
-          );
-          parentElement.appendChild(topParentDiv);
-        }
+        var topParentDiv = document.createElement("div");
+        topParentDiv.id = "jsFrame_absolute_" + me.generateUUID();
+        topParentDiv.setAttribute(
+          "style",
+          "position:absolute;" + me.hAlign + ":0px;" + me.vAlign +
+            ":0px;margin:0px;padding:0px;",
+        );
+        document.body.appendChild(topParentDiv);
+        parentElement = topParentDiv;
       }
-      if (MOUSE_ENABLED) {
-        document.addEventListener("mouseup", mouseUp);
-        document.addEventListener("mousemove", mouseMove);
-      }
-      if (TOUCH_ENABLED) {
-        if ("ontouchend" in window) {
-          var funcOnTouchEnd = function (evt) {
-            mouseUp.bind(this)(evt);
-          };
-          document.addEventListener("touchend", funcOnTouchEnd);
-        }
-        if ("ontouchmove" in window) {
-          if (me.touchActionManipulation) {
-            me.doEnableTouchActionManipulation();
-          }
-          if (!me.pullToRefresh) {
-            me.doDisablePullToRefresh();
-          }
-          var funcOnTouchMove = function (evt) {
-            evt.preventDefault();
-            mouseMove.bind(this)(evt);
-          };
-          document.addEventListener("touchmove", funcOnTouchMove);
-        }
-      }
-      me.windowManager = new CWindowManager(
-        parentElement,
-        "windowManager_" + me.generateUUID(),
-        0,
-        0,
-        0,
-        0,
-      );
-      me.domPartsBuilder = null;
-      function mouseUp(e) {
-        me.windowManager.windowMouseUp(e);
-      }
-      function mouseMove(e) {
-        me.windowManager.windowMouseMove(e);
+    } else {
+      if (me.isWindowManagerFixed) {
+        var topParentDiv = document.createElement("div");
+        topParentDiv.id = "jsFrame_fixed_" + me.generateUUID();
+        topParentDiv.setAttribute(
+          "style",
+          "position:fixed;" + me.hAlign + ":0px;" + me.vAlign +
+            ":0px;margin:0px;padding:0px;",
+        );
+        parentElement.appendChild(topParentDiv);
+      } else {
+        var topParentDiv = document.createElement("div");
+        topParentDiv.id = "jsFrame_absolute_" + me.generateUUID();
+        topParentDiv.setAttribute(
+          "style",
+          "position:absolute;" + me.hAlign + ":0px;" + me.vAlign +
+            ":0px;margin:0px;padding:0px;",
+        );
+        parentElement.appendChild(topParentDiv);
       }
     }
-    JSFrame.prototype.doEnableTouchActionManipulation = function () {
-      var bodyStyle = document.documentElement.getAttribute("style");
-      if (!bodyStyle) {
-        bodyStyle = "";
-      } else {
-        if (!bodyStyle.endsWith(";")) {
-          bodyStyle += ";";
+    if (MOUSE_ENABLED) {
+      document.addEventListener("mouseup", mouseUp);
+      document.addEventListener("mousemove", mouseMove);
+    }
+    if (TOUCH_ENABLED) {
+      if ("ontouchend" in window) {
+        var funcOnTouchEnd = function (evt) {
+          mouseUp.bind(this)(evt);
+        };
+        document.addEventListener("touchend", funcOnTouchEnd);
+      }
+      if ("ontouchmove" in window) {
+        if (me.touchActionManipulation) {
+          me.doEnableTouchActionManipulation();
         }
-      }
-      if (bodyStyle.indexOf("touch-action") === -1) {
-        bodyStyle +=
-          "-ms-touch-action: manipulation;touch-action: manipulation;";
-        document.documentElement.setAttribute("style", bodyStyle);
-      }
-    };
-    JSFrame.prototype.doDisablePullToRefresh = function () {
-      var bodyStyle = document.body.getAttribute("style");
-      if (!bodyStyle) {
-        bodyStyle = "";
-      } else {
-        if (!bodyStyle.endsWith(";")) {
-          bodyStyle += ";";
+        if (!me.pullToRefresh) {
+          me.doDisablePullToRefresh();
         }
+        var funcOnTouchMove = function (evt) {
+          evt.preventDefault();
+          mouseMove.bind(this)(evt);
+        };
+        document.addEventListener("touchmove", funcOnTouchMove);
       }
-      if (bodyStyle.indexOf("overscroll-behavior-y") === -1) {
-        bodyStyle += "overscroll-behavior-y: contain;";
-        document.body.setAttribute("style", bodyStyle);
+    }
+    me.windowManager = new CWindowManager(
+      parentElement,
+      "windowManager_" + me.generateUUID(),
+      0,
+      0,
+      0,
+      0,
+    );
+    me.domPartsBuilder = null;
+    function mouseUp(e) {
+      me.windowManager.windowMouseUp(e);
+    }
+    function mouseMove(e) {
+      me.windowManager.windowMouseMove(e);
+    }
+  }
+  JSFrame.prototype.doEnableTouchActionManipulation = function () {
+    var bodyStyle = document.documentElement.getAttribute("style");
+    if (!bodyStyle) {
+      bodyStyle = "";
+    } else {
+      if (!bodyStyle.endsWith(";")) {
+        bodyStyle += ";";
       }
-    };
-    JSFrame.prototype.getDomPartsBuilder = function () {
-      var me = this;
-      if (!me.domPartsBuilder) {
-        me.domPartsBuilder = new CDomPartsBuilder();
+    }
+    if (bodyStyle.indexOf("touch-action") === -1) {
+      bodyStyle += "-ms-touch-action: manipulation;touch-action: manipulation;";
+      document.documentElement.setAttribute("style", bodyStyle);
+    }
+  };
+  JSFrame.prototype.doDisablePullToRefresh = function () {
+    var bodyStyle = document.body.getAttribute("style");
+    if (!bodyStyle) {
+      bodyStyle = "";
+    } else {
+      if (!bodyStyle.endsWith(";")) {
+        bodyStyle += ";";
       }
-      return me.domPartsBuilder;
-    };
-    JSFrame.prototype.create = function (model) {
-      var me = this;
-      var properties = {};
-      properties.name = model.name;
-      var title = model.title;
-      var left = model.left;
-      var top = model.top;
-      var width = model.width;
-      var height = model.height;
-      var appearance = model.appearance;
-      var presetWindowName = model.preset;
-      var presetWindowParam = model.presetParam;
-      var appearanceName = model.appearanceName;
-      var appearanceParam = model.appearanceParam;
-      var style = model.style;
-      var minWidth = model.minWidth;
-      var minHeight = model.minHeight;
-      var html = model.html;
-      var resizable = model.resizable;
-      var movable = model.movable;
-      var url = model.url;
-      var urlLoaded = model.urlLoaded;
-      var presetParam = model.presetParam;
-      var presetWindow;
-      if (presetWindowName) {
-        var presetWindowObj = this.getPresetWindow(presetWindowName);
-        presetWindow = presetWindowObj.getPresetWindow(presetParam);
-        appearance = this.createPresetStyle(
-          presetWindow.appearanceName,
-          { appearanceParam: presetWindow.appearanceParam },
-        );
-      } else if (appearanceName) {
-        appearance = this.createPresetStyle(
-          appearanceName,
-          { appearanceParam },
-        );
-      }
-      if (model.clientHeight) {
-        var windowTitleBarHeight = parseInt(appearance.titleBarHeight || 0) -
-          appearance.frameHeightAdjust;
-        height = model.clientHeight + windowTitleBarHeight;
-      }
-      var frame = this.createFrame(
-        left,
-        top,
-        width,
-        height,
-        appearance,
-        properties,
+    }
+    if (bodyStyle.indexOf("overscroll-behavior-y") === -1) {
+      bodyStyle += "overscroll-behavior-y: contain;";
+      document.body.setAttribute("style", bodyStyle);
+    }
+  };
+  JSFrame.prototype.getDomPartsBuilder = function () {
+    var me = this;
+    if (!me.domPartsBuilder) {
+      me.domPartsBuilder = new CDomPartsBuilder();
+    }
+    return me.domPartsBuilder;
+  };
+  JSFrame.prototype.create = function (model) {
+    var me = this;
+    var properties = {};
+    properties.name = model.name;
+    var title = model.title;
+    var left = model.left;
+    var top = model.top;
+    var width = model.width;
+    var height = model.height;
+    var appearance = model.appearance;
+    var presetWindowName = model.preset;
+    var presetWindowParam = model.presetParam;
+    var appearanceName = model.appearanceName;
+    var appearanceParam = model.appearanceParam;
+    var style = model.style;
+    var minWidth = model.minWidth;
+    var minHeight = model.minHeight;
+    var html = model.html;
+    var resizable = model.resizable;
+    var movable = model.movable;
+    var url = model.url;
+    var urlLoaded = model.urlLoaded;
+    var presetParam = model.presetParam;
+    var presetWindow;
+    if (presetWindowName) {
+      var presetWindowObj = this.getPresetWindow(presetWindowName);
+      presetWindow = presetWindowObj.getPresetWindow(presetParam);
+      appearance = this.createPresetStyle(
+        presetWindow.appearanceName,
+        { appearanceParam: presetWindow.appearanceParam },
       );
-      if (title) {
-        frame.setTitle(title);
-      }
-      if (html) {
-        frame.setHTML(html);
-      }
-      if (url) {
-        var urlPromise = frame.setUrl(url);
-        if (urlLoaded) {
-          urlPromise.then(urlLoaded);
-        }
-      }
-      if (resizable == false) {
-        frame.setResizable(false);
-      }
-      if (movable == false) {
-        frame.setMovable(false);
-      }
-      if (minWidth && minHeight) {
-        frame.minFrameWidth = minWidth;
-      }
-      if (minHeight) {
-        frame.minWindowHeight = minHeight;
-        if (model.clientHeight) {
-          frame.minWindowHeight = minHeight + windowTitleBarHeight;
-        }
-      }
-      if (style) {
-        var frameView = frame.getFrameView();
-        for (var name in style) {
-          if (style.hasOwnProperty(name)) {
-            frameView.style[name] = style[name];
-          }
-        }
-      }
-      if (presetWindow) {
-        presetWindow.setupPresetWindow(frame);
-      }
-      return frame;
-    };
-    JSFrame.prototype.createFrame = function (
+    } else if (appearanceName) {
+      appearance = this.createPresetStyle(appearanceName, { appearanceParam });
+    }
+    if (model.clientHeight) {
+      var windowTitleBarHeight = parseInt(appearance.titleBarHeight || 0) -
+        appearance.frameHeightAdjust;
+      height = model.clientHeight + windowTitleBarHeight;
+    }
+    var frame = this.createFrame(
       left,
       top,
       width,
       height,
       appearance,
       properties,
+    );
+    if (title) {
+      frame.setTitle(title);
+    }
+    if (html) {
+      frame.setHTML(html);
+    }
+    if (url) {
+      var urlPromise = frame.setUrl(url);
+      if (urlLoaded) {
+        urlPromise.then(urlLoaded);
+      }
+    }
+    if (resizable == false) {
+      frame.setResizable(false);
+    }
+    if (movable == false) {
+      frame.setMovable(false);
+    }
+    if (minWidth && minHeight) {
+      frame.minFrameWidth = minWidth;
+    }
+    if (minHeight) {
+      frame.minWindowHeight = minHeight;
+      if (model.clientHeight) {
+        frame.minWindowHeight = minHeight + windowTitleBarHeight;
+      }
+    }
+    if (style) {
+      var frameView = frame.getFrameView();
+      for (var name in style) {
+        if (style.hasOwnProperty(name)) {
+          frameView.style[name] = style[name];
+        }
+      }
+    }
+    if (presetWindow) {
+      presetWindow.setupPresetWindow(frame);
+    }
+    return frame;
+  };
+  JSFrame.prototype.createFrame = function (
+    left,
+    top,
+    width,
+    height,
+    appearance,
+    properties,
+  ) {
+    var me = this;
+    if (!appearance) {
+      appearance = me.createFrameAppearance();
+    }
+    appearance.initialize();
+    var windowId = "window_" + me.generateUUID();
+    if (!left) {
+      left = 0;
+    }
+    if (!top) {
+      top = 0;
+    }
+    if (!width) {
+      width = 128;
+    }
+    if (!height) {
+      height = 128;
+    }
+    var frame = new CIfFrame(windowId, left, top, width, height, appearance);
+    frame.jsFrame = me;
+    if (properties && properties.name) {
+      frame.setName(properties.name);
+    }
+    frame.hide();
+    me.windowManager.addWindow(frame);
+    if (appearance.getTitleBarStyle) {
+      var titleBarStyle = appearance.getTitleBarStyle();
+      if (titleBarStyle) {
+        frame.setTitleBarClassName(
+          titleBarStyle.titleBarClassNameDefault,
+          titleBarStyle.titleBarClassNameFocused,
+        );
+      }
+    } else if (
+      appearance.titleBarClassNameDefault && appearance.titleBarClassNameFocused
     ) {
-      var me = this;
-      if (!appearance) {
-        appearance = me.createFrameAppearance();
-      }
-      appearance.initialize();
-      var windowId = "window_" + me.generateUUID();
-      if (!left) {
-        left = 0;
-      }
-      if (!top) {
-        top = 0;
-      }
-      if (!width) {
-        width = 128;
-      }
-      if (!height) {
-        height = 128;
-      }
-      var frame = new CIfFrame(windowId, left, top, width, height, appearance);
-      frame.jsFrame = me;
-      if (properties && properties.name) {
-        frame.setName(properties.name);
-      }
-      frame.hide();
-      me.windowManager.addWindow(frame);
-      if (appearance.getTitleBarStyle) {
-        var titleBarStyle = appearance.getTitleBarStyle();
-        if (titleBarStyle) {
-          frame.setTitleBarClassName(
-            titleBarStyle.titleBarClassNameDefault,
-            titleBarStyle.titleBarClassNameFocused,
-          );
-        }
-      } else if (
-        appearance.titleBarClassNameDefault &&
-        appearance.titleBarClassNameFocused
-      ) {
-        frame.setTitleBarClassName(
-          appearance.titleBarClassNameDefault,
-          appearance.titleBarClassNameFocused,
-        );
-      } else if (appearance.titleBarClassNameDefault) {
-        frame.setTitleBarClassName(
-          appearance.titleBarClassNameDefault,
-          appearance.titleBarClassNameDefault,
-        );
-      }
-      return frame;
-    };
-    JSFrame.prototype.containsWindowName = function (windowName) {
-      var me = this;
-      return me.windowManager.containsWindowName(windowName);
-    };
-    JSFrame.prototype.getWindowByName = function (windowName) {
-      var me = this;
-      return me.windowManager.getWindowByName(windowName);
-    };
-    JSFrame.prototype.generateUUID = function () {
-      var unixTime = Date.now();
-      var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-        /[xy]/g,
-        function (c) {
-          var r = (unixTime + Math.random() * 16) % 16 | 0;
-          unixTime = Math.floor(unixTime / 16);
-          return (c == "x" ? r : r & 3 | 8).toString(16);
-        },
+      frame.setTitleBarClassName(
+        appearance.titleBarClassNameDefault,
+        appearance.titleBarClassNameFocused,
       );
-      return uuid;
-    };
-    JSFrame.prototype.createFrameAppearance = function () {
-      return new CFrameAppearance();
-    };
-    JSFrame.prototype.createAnimator = function () {
-      return new CSimpleLayoutAnimator();
-    };
-    JSFrame.prototype.createWindowEventHelper = function (model) {
-      var me = this;
-      if (!model) {
-        model = {};
-      }
-      model.verticalAlign = me.vAlign;
-      model.horizontalAlign = me.hAlign;
-      var wndEventHelper = new WindowEventHelper(model);
-      return wndEventHelper;
-    };
-    JSFrame.prototype.getPresetWindow = function (presetName, param) {
-      if (presetWindows[presetName]) {
-        var presetObj = presetWindows[presetName];
-        return presetObj;
-      } else {
-        return null;
-      }
-    };
-    JSFrame.prototype.createPresetStyle = function (presetName, param) {
-      var me = this;
-      var apr = me.createFrameAppearance();
-      if (param && param.focusedFrameOnly) {
-        apr.focusedFrameOnly = param.focusedFrameOnly;
-      }
-      if (presetStyles[presetName]) {
-        var styleObj = presetStyles[presetName];
-        var appearanceParam = null;
-        if (param && param.appearanceParam) {
-          appearanceParam = param.appearanceParam;
-        }
-        return styleObj.getStyle(apr, appearanceParam);
-      }
-      console.error(
-        '[JSFrame] Preset appearance "' + presetName + '" not found.',
+    } else if (appearance.titleBarClassNameDefault) {
+      frame.setTitleBarClassName(
+        appearance.titleBarClassNameDefault,
+        appearance.titleBarClassNameDefault,
       );
-      return apr;
+    }
+    return frame;
+  };
+  JSFrame.prototype.containsWindowName = function (windowName) {
+    var me = this;
+    return me.windowManager.containsWindowName(windowName);
+  };
+  JSFrame.prototype.getWindowByName = function (windowName) {
+    var me = this;
+    return me.windowManager.getWindowByName(windowName);
+  };
+  JSFrame.prototype.generateUUID = function () {
+    var unixTime = Date.now();
+    var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+      /[xy]/g,
+      function (c) {
+        var r = (unixTime + Math.random() * 16) % 16 | 0;
+        unixTime = Math.floor(unixTime / 16);
+        return (c == "x" ? r : r & 3 | 8).toString(16);
+      },
+    );
+    return uuid;
+  };
+  JSFrame.prototype.createFrameAppearance = function () {
+    return new CFrameAppearance();
+  };
+  JSFrame.prototype.createAnimator = function () {
+    return new CSimpleLayoutAnimator();
+  };
+  JSFrame.prototype.createWindowEventHelper = function (model) {
+    var me = this;
+    if (!model) {
+      model = {};
+    }
+    model.verticalAlign = me.vAlign;
+    model.horizontalAlign = me.hAlign;
+    var wndEventHelper = new WindowEventHelper(model);
+    return wndEventHelper;
+  };
+  JSFrame.prototype.getPresetWindow = function (presetName, param) {
+    if (presetWindows[presetName]) {
+      var presetObj = presetWindows[presetName];
+      return presetObj;
+    } else {
+      return null;
+    }
+  };
+  JSFrame.prototype.createPresetStyle = function (presetName, param) {
+    var me = this;
+    var apr = me.createFrameAppearance();
+    if (param && param.focusedFrameOnly) {
+      apr.focusedFrameOnly = param.focusedFrameOnly;
+    }
+    if (presetStyles[presetName]) {
+      var styleObj = presetStyles[presetName];
+      var appearanceParam = null;
+      if (param && param.appearanceParam) {
+        appearanceParam = param.appearanceParam;
+      }
+      return styleObj.getStyle(apr, appearanceParam);
+    }
+    console.error(
+      '[JSFrame] Preset appearance "' + presetName + '" not found.',
+    );
+    return apr;
+  };
+  JSFrame.prototype.showToast = function (model) {
+    if (!model) {
+      return;
+    }
+    var me = this;
+    var toastHeight = 60;
+    var toastWidth = 260;
+    var openCloseDurationMs = 300;
+    var stayDurationMs = 1e3;
+    var startY = window.innerHeight - 10 - toastHeight / 2;
+    var endY = window.innerHeight - 20 - toastHeight / 2;
+    var myHtml = "";
+    var showButton = false;
+    var style = {
+      borderRadius: "10px",
+      background: "rgba(0,0,0,0.8)",
     };
-    JSFrame.prototype.showToast = function (model) {
-      if (!model) {
-        return;
-      }
-      var me = this;
-      var toastHeight = 60;
-      var toastWidth = 260;
-      var openCloseDurationMs = 300;
-      var stayDurationMs = 1e3;
-      var startY = window.innerHeight - 10 - toastHeight / 2;
-      var endY = window.innerHeight - 20 - toastHeight / 2;
-      var myHtml = "";
-      var showButton = false;
-      var style = {
-        borderRadius: "10px",
-        background: "rgba(0,0,0,0.8)",
-      };
-      if (model.style) {
-        style = model.style;
-      }
-      if (model.height) {
-        toastHeight = model.height;
-      }
-      if (model.width) {
-        toastWidth = model.width;
-      }
-      if (model.duration) {
-        stayDurationMs = model.duration;
-      }
-      if (model.align) {
-        if (model.align == "top") {
-          startY = 10 + toastHeight / 2;
-          endY = 20 + toastHeight / 2;
-        } else if (model.align == "center") {
-          startY = window.innerHeight / 2;
-          endY = window.innerHeight / 2;
-        } else {
-        }
-      }
-      if (model.html) {
-        myHtml = model.html;
-      }
-      if (model.text) {
-        myHtml = model.text;
-      }
-      if (model.closeButton == true) {
-        showButton = true;
+    if (model.style) {
+      style = model.style;
+    }
+    if (model.height) {
+      toastHeight = model.height;
+    }
+    if (model.width) {
+      toastWidth = model.width;
+    }
+    if (model.duration) {
+      stayDurationMs = model.duration;
+    }
+    if (model.align) {
+      if (model.align == "top") {
+        startY = 10 + toastHeight / 2;
+        endY = 20 + toastHeight / 2;
+      } else if (model.align == "center") {
+        startY = window.innerHeight / 2;
+        endY = window.innerHeight / 2;
       } else {
-        showButton = false;
       }
-      var apr = me.createPresetStyle("toast");
-      if (style.borderRadius) {
-        apr.frameBorderRadius = style.borderRadius;
-      }
-      if (model.closeButtonColor) {
-        apr.captionClor = model.closeButtonColor;
-      }
-      var frame = me.create({
-        name: "toast_" + me.generateUUID(),
-        width: toastWidth,
-        height: toastHeight,
-        movable: false,
-        resizable: false,
-        appearance: apr,
-        style,
-        html:
-          '<div id="my_element" style="box-sizing:border-box;display: flex;justify-content: center;align-items: center;padding:10px;font-size:16px;color:darkgray;height:' +
-          toastHeight + 'px">' + myHtml + "</div>",
-      });
-      if (showButton) {
-      } else {
-        frame.hideFrameComponent("closeButton");
-      }
-      var requestFocusAfterAnimation = false;
-      var startX = window.innerWidth / 2;
-      if (me.hAlign == "right") {
-        startX = -startX;
-      }
-      if (me.vAlign == "bottom") {
-        startY = startY - window.innerHeight;
-        endY = endY - window.innerHeight;
-      }
-      var animator = me.createAnimator();
-      animator.set(frame).setDuration(openCloseDurationMs).fromPosition(
+    }
+    if (model.html) {
+      myHtml = model.html;
+    }
+    if (model.text) {
+      myHtml = model.text;
+    }
+    if (model.closeButton == true) {
+      showButton = true;
+    } else {
+      showButton = false;
+    }
+    var apr = me.createPresetStyle("toast");
+    if (style.borderRadius) {
+      apr.frameBorderRadius = style.borderRadius;
+    }
+    if (model.closeButtonColor) {
+      apr.captionClor = model.closeButtonColor;
+    }
+    var frame = me.create({
+      name: "toast_" + me.generateUUID(),
+      width: toastWidth,
+      height: toastHeight,
+      movable: false,
+      resizable: false,
+      appearance: apr,
+      style,
+      html:
+        '<div id="my_element" style="box-sizing:border-box;display: flex;justify-content: center;align-items: center;padding:10px;font-size:16px;color:darkgray;height:' +
+        toastHeight + 'px">' + myHtml + "</div>",
+    });
+    if (showButton) {
+    } else {
+      frame.hideFrameComponent("closeButton");
+    }
+    var requestFocusAfterAnimation = false;
+    var startX = window.innerWidth / 2;
+    if (me.hAlign == "right") {
+      startX = -startX;
+    }
+    if (me.vAlign == "bottom") {
+      startY = startY - window.innerHeight;
+      endY = endY - window.innerHeight;
+    }
+    var animator = me.createAnimator();
+    animator.set(frame).setDuration(openCloseDurationMs).fromPosition(
+      startX,
+      startY,
+      "CENTER_CENTER",
+    ).toPosition(startX, endY, "CENTER_CENTER").toAlpha(1).fromAlpha(0).start(
+      0,
+      requestFocusAfterAnimation,
+    ).then(function (animatorObj) {
+      return animatorObj.setDuration(openCloseDurationMs).fromPosition(
         startX,
-        startY,
+        endY,
         "CENTER_CENTER",
-      ).toPosition(startX, endY, "CENTER_CENTER").toAlpha(1).fromAlpha(0).start(
-        0,
-        requestFocusAfterAnimation,
-      ).then(function (animatorObj) {
-        return animatorObj.setDuration(openCloseDurationMs).fromPosition(
-          startX,
-          endY,
-          "CENTER_CENTER",
-        ).toPosition(startX, startY, "CENTER_CENTER").fromAlpha(1).toAlpha(0.5)
-          .start(stayDurationMs, requestFocusAfterAnimation);
-      }).then(function (animatorObj) {
-        var _frame = animatorObj.get();
-        _frame.closeFrame();
-      });
-    };
-    Object.freeze(DEF);
-    module.exports = JSFrame;
-    window.JSFrame = JSFrame;
-  });
-  require_JSFrame2();
+      ).toPosition(startX, startY, "CENTER_CENTER").fromAlpha(1).toAlpha(0.5)
+        .start(stayDurationMs, requestFocusAfterAnimation);
+    }).then(function (animatorObj) {
+      var _frame = animatorObj.get();
+      _frame.closeFrame();
+    });
+  };
+  Object.freeze(DEF);
+  var JSFrame_default = JSFrame;
+  window.JSFrame = JSFrame;
 })();

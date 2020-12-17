@@ -1828,7 +1828,7 @@ export async function run(mode = "window") {
     "https://unpkg.com/@babel/standalone@7.12.11/babel.min.js",
   );
   if (mode === "editor") {
-    const { renderDraggableEditor } = await import("../src/DraggableEditor.js");
+    const { renderDraggableEditor } = await import("./DraggableEditor.js");
     await renderDraggableEditor(importScript);
   }
   if (mode == "window") {
