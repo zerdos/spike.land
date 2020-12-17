@@ -59,15 +59,6 @@ export const getProjects = async () => {
   return projects.list;
 };
 
-interface Babel {
-  transform: (
-    code: string,
-    options: {
-      plugins: string[];
-      presets: (string | [string, { [key: string]: boolean }])[];
-    },
-  ) => { code: string };
-}
 // const document = (window as { document: Document }).document;
 let firstLoad = true;
 
@@ -116,9 +107,7 @@ function replaceWithEmpty(elementId = "root") {
 }
 
 export async function run(mode = "window") {
-  await importScript(
-    "https://unpkg.com/@babel/standalone@7.12.11/babel.min.js",
-  );
+  const {transpileCode} = await import("./transpile.js")
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
@@ -138,7 +127,7 @@ export async function run(mode = "window") {
   const projectName = projects[0];
 
   const example = await getCodeToLoad();
-  restartCode(transpileCode(example));
+  restartCode( await transpileCode(example));
   latestGoodCode = example;
 
   const modules = await startMonaco({
@@ -193,7 +182,7 @@ export async function run(mode = "window") {
       modules.monaco.editor.setTheme("vs-dark");
 
       busy = 0;
-      restartCode(transpileCode(cd));
+      restartCode( await transpileCode(cd));
     } catch (err) {
       busy = 0;
       if (cd !== latestCode) {
@@ -524,16 +513,5 @@ export async function run(mode = "window") {
     return `${cfUrl}/${hash}`;
   }
 
-  function transpileCode(code: string) {
-    const { transform } = (window as unknown as { Babel: Babel })["Babel"];
-    return transform(`/** @jsx jsx */ Object.assign(window, React); ${code}`,
-      {
-        plugins: [],
-        presets: [
-          "react",
-          ["typescript", { isTSX: true, allExtensions: true }],
-        ],
-      },
-    ).code;
-  }
+
 }
