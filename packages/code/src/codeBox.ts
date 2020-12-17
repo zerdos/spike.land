@@ -107,7 +107,7 @@ function replaceWithEmpty(elementId = "root") {
 }
 
 export async function run(mode = "window") {
-  const {transpileCode} = await import("./transpile.js")
+  const { transpileCode } = await import("./transpile.js");
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
@@ -127,7 +127,7 @@ export async function run(mode = "window") {
   const projectName = projects[0];
 
   const example = await getCodeToLoad();
-  restartCode( await transpileCode(example));
+  restartCode(await transpileCode(example));
   latestGoodCode = example;
 
   const modules = await startMonaco({
@@ -182,7 +182,7 @@ export async function run(mode = "window") {
       modules.monaco.editor.setTheme("vs-dark");
 
       busy = 0;
-      restartCode( await transpileCode(cd));
+      restartCode(await transpileCode(cd));
     } catch (err) {
       busy = 0;
       if (cd !== latestCode) {
@@ -218,7 +218,6 @@ export async function run(mode = "window") {
   }
 
   async function getErrors() {
-
     if (!modules || !modules.monaco) return;
 
     const modelUri = modules.monaco.Uri.parse(
@@ -512,6 +511,4 @@ export async function run(mode = "window") {
 
     return `${cfUrl}/${hash}`;
   }
-
-
 }
