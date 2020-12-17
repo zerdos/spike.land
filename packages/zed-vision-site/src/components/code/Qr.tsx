@@ -60,19 +60,17 @@ export const Qr: React.FC = () => {
   return <a href="https://zed.vision/code">
     {retry > 0 && <div
       css={css`
-    background: blue;
-    display: inline-block;
-    padding: 10px 10px 0px 10px;
-    border-radius: 12px;
-
-            text-align: center;
-
+        background: blue;
+        display: inline-block;
+        padding: 10px 10px 0px 10px;
+        border-radius: 12px;
+        text-align: center;
     `}
     >
       <img
         css={css`
-    display: block;
-    box-shadow: 0 0 ${10 +
+          display: block;
+          box-shadow: 0 0 ${10 +
           counter}px 5px ${
           retry === 3 ? "darkorange" : retry === 2 ? "green" : "darkred"
         };
