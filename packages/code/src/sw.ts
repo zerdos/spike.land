@@ -1,11 +1,4 @@
-import { getDB } from "../../shadb/src/shaDB.ts";
-
-const getUrl = () => {
-  // if (self.location.href.includes("zed.dev")) {
-  //   return "https://code.zed.dev";
-  // }
-  return "https://code.zed.vision";
-};
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
 
 const needToSave = false;
 
@@ -171,3 +164,16 @@ const needToSave = false;
     return fetchFromNetworkAndCache(e);
   }
 })(self);
+
+async function getDB(){
+
+  const {getDB} = await import("https://unpkg.com/browse/@zedvision/shadb@8.5.4/dist/shaDB.min.js");
+  return getDB();
+  }
+  
+  function getUrl(){
+    // if (self.location.href.includes("zed.dev")) {
+    //   return "https://code.zed.dev";
+    // }
+    return "https://code.zed.vision";
+  }
