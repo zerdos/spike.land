@@ -78,12 +78,12 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
           <article key={node.fields.slug}>
             <header>
               <h3
-                css={`  
+                css={css`  
                       margin-bottom: ${rhythm(1 / 4)};
                       `}
               >
                 <Link
-                  css={`    
+                  css={css`    
                     box-shadow: "none";
                   `}
                   to={node.fields.slug}

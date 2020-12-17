@@ -4,8 +4,6 @@
 import { css, jsx } from "@emotion/react";
 import React from "react";
 
-import QRious from "@zedvision/qrious";
-
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(3);
@@ -14,6 +12,8 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr: QRious;
     const connect = async () => {
+      const QRious = (await import("@zedvision/qrious")).default;
+
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();
 
