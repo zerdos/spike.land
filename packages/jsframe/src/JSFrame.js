@@ -3342,4 +3342,4 @@ JSFrame.prototype.showToast = function (model) {
 Object.freeze(DEF);
 
 module.exports = JSFrame;
-window,JSFrame = JSFrame;
+window.JSFrame = JSFrame;
