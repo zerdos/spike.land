@@ -1,4 +1,11 @@
-export const renderDraggableWindow = (onShare) => {
+export async function renderDraggableWindow ( win) {
+  const { jsx, React, ReactDOM, onShare, importScript } = win;
+  
+  
+  await importScript("https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js");
+  
+  const  { motion } = window.Motion;
+  
   const DraggableWindow = () => {
     return jsx(
       React.Fragment,
@@ -81,4 +88,4 @@ export const renderDraggableWindow = (onShare) => {
     jsx(DraggableWindow),
     document.getElementById("dragabbleWindow"),
   );
-};
+}

@@ -57,74 +57,6 @@ function v4(options, buf, offset) {
   }
   return stringify(rnds);
 }
-const renderDraggableWindow = (onShare) => {
-  const DraggableWindow = () => {
-    return jsx(
-      React.Fragment,
-      null,
-      jsx(
-        motion.div,
-        {
-          css:
-            `\n            background: red;\n            border: 4px solid red;\n            border-radius: 8px;\n          `,
-          animate: {
-            scale: 1,
-            top: 1,
-            left: 600,
-          },
-          dragElastic: 0.5,
-          dragMomentum: false,
-          initial: {
-            top: 1,
-            left: 0,
-            scale: 0.7,
-          },
-          transition: {
-            duration: 0.5,
-          },
-          drag: true,
-          dragConstraints: {
-            left: -window.innerWidth + 200,
-            right: 0,
-            bottom: window.innerHeight - 200,
-            top: 0,
-          },
-        },
-        jsx(
-          "div",
-          {
-            css:
-              `\n      display: block;\n      with: 100%;\n      text-align: right;\n      background: linear-gradient(0deg, darkred, red);\n    `,
-          },
-          jsx("button", {
-            css:
-              `\n              background: darkred;\n              margin-top: -4px;\n              margin-right: -4px;\n              color: white;\n              cursor: pointer;\n              font-weight: bold;\n              font-family: Roboto;\n              padding: 8px 16px;\n              outline: none;\n              border: none;\n              border-radius: 0px 8px 0px 0px;\n            `,
-            onClick: () => onShare(),
-          }, "🌎 SHARE"),
-        ),
-        jsx("div", {
-          css:
-            `  \n      min-width: 200px;\n      padding: 30px;\n      max-width: 600px;\n      background: white;\n      max-height: 800px;\n      border-radius: 0px 0px 8px 8px;\n      overflow-y: overlay;\n    `,
-          id: "root",
-        }),
-      ),
-    );
-  };
-  ReactDOM.render(
-    jsx(DraggableWindow),
-    document.getElementById("dragabbleWindow"),
-  );
-};
-function loadScript(src) {
-  return new Promise(function (resolve, reject) {
-    var s;
-    s = window.document.createElement("script");
-    s.src = src;
-    s.onload = () => resolve(window);
-    s.onerror = reject;
-    window.document.head.appendChild(s);
-  });
-}
 const importScript = async (src) =>
   document.querySelector(`script[src="${src}"]`) ||
   new Promise(function (resolve, reject) {
@@ -134,6 +66,7 @@ const importScript = async (src) =>
     s.onerror = reject;
     window.document.head.appendChild(s);
   });
+const importScript1 = importScript;
 const starter =
   `import { useState } from "react";\nimport { css, Global } from "@emotion/react";\n\nconst Slider = () => {\n  const steps = 128;\n  const [sliderValue, setSlider] = useState(steps / 2);\n  return <>\n    <input max={steps}\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${255 / steps * sliderValue} \${255 / steps * (steps - sliderValue)} 0); \n        outline: none; \n    \`} type="range"\n      aria-label="font size changer"\n      value={sliderValue}\n      step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <p\n      css={css\`\n        font-size: \${72 / steps * sliderValue}px\n        \`}>\n      Example when the text gets bigger...\n    </p>\n    <p css={css\`\n        font-size: \${72 / steps * (steps - sliderValue)}px\n        \`}>\n      ...or smaller\n    </p>\n  </>\n}\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    \`} />\n  <Slider />\n</>\n`;
 const instanceOfAny = (object, constructors) =>
@@ -1240,6 +1173,16 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareItAsHtml;
+function p(l) {
+  return new Promise(function (i1, a) {
+    var o;
+    o = window.document.createElement("script"),
+      o.src = l,
+      o.onload = () => i1(window),
+      o.onerror = a,
+      window.document.head.appendChild(o);
+  });
+}
 const proxyMarker = Symbol("Comlink.proxy");
 const createEndpoint = Symbol("Comlink.endpoint");
 const releaseProxy = Symbol("Comlink.releaseProxy");
@@ -1310,309 +1253,6 @@ function generateUUID() {
   ).join("-");
 }
 let transform;
-const startMonaco = async ({ onChange, code, language }) => {
-  if (typeof window === "undefined") {
-    return {
-      monaco: {},
-      editor: {},
-    };
-  }
-  const document1 = window.document;
-  const container = window.document.getElementById("container");
-  if (!container) {
-    const el = document1.getElementById("container");
-    el.id = "container";
-    document1.body.appendChild(el);
-  }
-  const modelUri = language === "typescript"
-    ? "file:///main.tsx"
-    : "file:///main.html";
-  let aceEditor;
-  if (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      window.navigator.userAgent,
-    )
-  ) {
-    const aceEl = window.document.createElement("div");
-    aceEl.id = "ace";
-    window.document.body.appendChild(aceEl);
-    await loadScript(
-      "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
-    );
-    language === "typescript"
-      ? await loadScript(
-        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
-      )
-      : await loadScript(
-        "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js",
-      );
-    await loadScript(
-      "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
-    );
-    window.document.getElementById("ace").style.setProperty("display", "block");
-    container.style.setProperty("display", "none");
-    aceEditor = window["ace"].edit("ace");
-    aceEditor.getSession().setMode("ace/mode/typescript");
-    const setThemeForAce = (wait) =>
-      setTimeout(() => {
-        const aceEditor1 = window["ace"].edit("ace");
-        const theme = aceEditor1.getTheme();
-        if (theme !== "ace/theme/monokai ") {
-          aceEditor1.setOptions({
-            fontSize: "14pt",
-          });
-          aceEditor1.setTheme("ace/theme/monokai");
-          setThemeForAce(2 * wait);
-        }
-      }, wait);
-    setThemeForAce(100);
-    aceEditor.setValue(code);
-    aceEditor.blur();
-  }
-  if (window["monaco"] === undefined) {
-    const vsPath = "https://unpkg.com/monaco-editor@0.21.2/min/vs";
-    const { require } = await loadScript(`${vsPath}/loader.js`);
-    require.config({
-      paths: {
-        "vs": vsPath,
-      },
-    });
-    await new Promise((resolve) =>
-      require([
-        "vs/editor/editor.main",
-      ], resolve)
-    );
-  }
-  const monaco = window["monaco"];
-  let model;
-  try {
-    model = monaco.editor.getModel(modelUri);
-    if (model.getValue() !== code) {
-      model.setValue(code);
-    }
-  } catch {
-    model = await monaco.editor.createModel(
-      code,
-      language,
-      monaco.Uri.parse(modelUri),
-    );
-  }
-  const modules = {
-    monaco: monaco,
-    editor: monaco.editor.create(window.document.getElementById("container"), {
-      formatOnType: true,
-      scrollbar: {
-        horizontal: "hidden",
-        verticalHasArrows: true,
-        verticalScrollbarSize: 20,
-      },
-      minimap: {
-        enabled: false,
-      },
-      folding: false,
-      multiCursorModifier: "alt",
-      wordWrap: "on",
-      wordWrapBreakAfterCharacters: ">([{]))],;} ",
-      mouseWheelZoom: false,
-      wordWrapColumn: 80,
-      automaticLayout: true,
-      scrollBeyondLastLine: false,
-      autoIndent: "brackets",
-      autoClosingQuotes: "always",
-      padding: {
-        bottom: 300,
-      },
-      lineNumbers: "on",
-      autoClosingBrackets: "always",
-      autoClosingOvertype: "always",
-      suggest: {},
-      codeLens: true,
-      autoSurround: "languageDefined",
-      trimAutoWhitespace: true,
-      codeActionsOnSaveTimeout: 100,
-      model,
-      value: code,
-      language: language,
-      theme: "vs-dark",
-    }),
-  };
-  modules.editor.onDidChangeModelContent(() =>
-    onChange(modules.editor.getValue())
-  );
-  aceEditor && aceEditor.session.on("change", function () {
-    const value = aceEditor.getValue();
-    modules.editor.setValue(value);
-    onChange(value);
-  });
-  aceEditor &&
-    document1.getElementById("container").replaceWith(
-      document1.getElementById("ace"),
-    );
-  modules.monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
-    noSuggestionDiagnostics: true,
-    noSemanticValidation: true,
-    noSyntaxValidation: true,
-  });
-  if (language === "typescript") {
-    const importHelper = [
-      {
-        name: "react",
-        url: "https://unpkg.com/@types/react@17.0.0/index.d.ts",
-        depend: [
-          "global",
-          "csstype",
-          "react-dom",
-          "prop-types",
-        ],
-      },
-      {
-        name: "global",
-        url: "https://unpkg.com/@types/react@17.0.0/global.d.ts",
-        depend: [],
-      },
-      {
-        name: "prop-types",
-        url: "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
-        depend: [],
-      },
-      {
-        name: "react-dom",
-        url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
-        depend: [],
-      },
-      {
-        name: "csstype",
-        url: "https://unpkg.com/csstype@3.0.5/index.d.ts",
-        depend: [],
-      },
-      {
-        name: "@emotion/styled/base.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
-        depend: [
-          "@emotion/react",
-          "@emotion/serialize",
-          "react",
-        ],
-      },
-      {
-        name: "@emotion/styled/index.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
-        depend: [
-          "@emotion/react",
-          "@emotion/serialize",
-          "react",
-        ],
-      },
-      {
-        name: "@emotion/cache/index.d.ts",
-        url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
-        depend: [
-          "@emotion/utils",
-        ],
-      },
-      {
-        name: "@emotion/react/index.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
-        depend: [
-          "@emotion/cache",
-        ],
-      },
-      {
-        name: "@emotion/react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
-        depend: [
-          "@emotion/utils",
-          "csstype",
-        ],
-      },
-      {
-        name: "@emotion/react/css-prop.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/css-prop.d.ts",
-        depend: [
-          "@emotion/utils",
-          "csstype",
-        ],
-      },
-      {
-        name: "@emotion/react/helper.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
-        depend: [
-          "@emotion/utils",
-          "csstype",
-        ],
-      },
-      {
-        name: "@emotion/react/theming.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
-        depend: [
-          "@emotion/utils",
-          "csstype",
-        ],
-      },
-      {
-        name: "@emotion/serialize/index.d.ts",
-        url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
-        depend: [
-          "@emotion/utils",
-          "csstype",
-        ],
-      },
-      {
-        name: "@emotion/utils/index.d.ts",
-        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
-        depend: [],
-      },
-      {
-        name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.d.ts",
-        depend: [],
-      },
-      {
-        name: "popmotion",
-        url: "https://unpkg.com/popmotion@9.0.1/lib/index.d.ts",
-      },
-      {
-        name: "@zedvision/qrious/index.d.ts",
-        url: "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.d.ts",
-      },
-    ];
-    const dts = importHelper.map(({ name, url }) =>
-      (async () =>
-        modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(url)).text(),
-          name.includes("@")
-            ? `file:///node_modules/${name}`
-            : `file:///node_modules/@types/${name}/index.d.ts`,
-        ))()
-    );
-    modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-      target: modules.monaco.languages.typescript.ScriptTarget.ESNext,
-      allowNonTsExtensions: true,
-      allowUmdGlobalAccess: true,
-      strict: true,
-      allowJs: true,
-      noEmitOnError: true,
-      allowSyntheticDefaultImports: true,
-      moduleResolution:
-        modules.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
-      module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
-      noEmit: true,
-      typeRoots: [
-        "node_modules/@types",
-      ],
-      jsx: "react-jsx",
-      esModuleInterop: true,
-    });
-    await Promise.all(dts);
-    modules.monaco.languages.typescript.typescriptDefaults
-      .setDiagnosticsOptions({
-        noSuggestionDiagnostics: false,
-        noSemanticValidation: false,
-        noSyntaxValidation: false,
-      });
-    return modules;
-  }
-};
 async function sha256(message) {
   const msgBuffer = new TextEncoder().encode(message);
   const hashHex = await arrBuffSha256(msgBuffer);
@@ -1915,16 +1555,28 @@ export async function getUserId() {
   return uuid;
 }
 export async function run(mode = "window") {
+  const { startMonaco } = await import(
+    "https://unpkg.com/@zedvision/smart-monaco-editor@8.5.4/lib/editor.min.js"
+  );
   const { transpileCode } = await import("./transpile.js");
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
     await renderDraggableEditor(importScript);
   }
-  if (mode == "window") {
-    renderDraggableWindow(async () => {
+  if (mode === "window") {
+    const { renderDraggableWindow } = await import("./DraggableWindow.js");
+    const onShare = async () => {
       const link = await shareItAsHtml();
       window.open(link);
-    });
+    };
+    const opts = {
+      onShare,
+      ReactDOM,
+      React: window.React,
+      jsx: window.jsx,
+      importScript: importScript,
+    };
+    await renderDraggableWindow(opts);
   }
   const shaDB = await getDB();
   const projects = await getProjects();
@@ -2291,7 +1943,7 @@ function createProxy(ep, path = [], target = function () {
         return () => {
           return requestResponseMessage(ep, {
             type: 5,
-            path: path.map((p) => p.toString()),
+            path: path.map((p1) => p1.toString()),
           }).then(() => {
             closeEndPoint(ep);
             isProxyReleased = true;
@@ -2306,7 +1958,7 @@ function createProxy(ep, path = [], target = function () {
         }
         const r = requestResponseMessage(ep, {
           type: 0,
-          path: path.map((p) => p.toString()),
+          path: path.map((p1) => p1.toString()),
         }).then(fromWireValue);
         return r.then.bind(r);
       }
@@ -2323,7 +1975,7 @@ function createProxy(ep, path = [], target = function () {
         path: [
           ...path,
           prop,
-        ].map((p) => p.toString()),
+        ].map((p1) => p1.toString()),
         value,
       }, transferables).then(fromWireValue);
     },
@@ -2341,7 +1993,7 @@ function createProxy(ep, path = [], target = function () {
       const [argumentList, transferables] = processArguments(rawArgumentList);
       return requestResponseMessage(ep, {
         type: 2,
-        path: path.map((p) => p.toString()),
+        path: path.map((p1) => p1.toString()),
         argumentList,
       }, transferables).then(fromWireValue);
     },
@@ -2350,7 +2002,7 @@ function createProxy(ep, path = [], target = function () {
       const [argumentList, transferables] = processArguments(rawArgumentList);
       return requestResponseMessage(ep, {
         type: 3,
-        path: path.map((p) => p.toString()),
+        path: path.map((p1) => p1.toString()),
         argumentList,
       }, transferables).then(fromWireValue);
     },

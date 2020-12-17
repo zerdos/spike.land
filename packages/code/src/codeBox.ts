@@ -1,6 +1,5 @@
 import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
-import { renderDraggableWindow } from "./DraggableWindow.js";
-import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
+
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.ts";
 import { sha256 } from "./sha256.js";
@@ -107,6 +106,10 @@ function replaceWithEmpty(elementId = "root") {
 }
 
 export async function run(mode = "window") {
+  const { startMonaco } = await import(
+    "https://unpkg.com/@zedvision/smart-monaco-editor@8.5.4/lib/editor.min.js"
+  );
+  //    "../dist/editor.min.js");
   const { transpileCode } = await import("./transpile.js");
 
   if (mode === "editor") {
@@ -115,11 +118,15 @@ export async function run(mode = "window") {
     await renderDraggableEditor(importScript);
   }
 
-  if (mode == "window") {
-    renderDraggableWindow(async () => {
+  if (mode === "window") {
+    const { renderDraggableWindow } = await import("./DraggableWindow.js");
+
+    const onShare = async () => {
       const link = await shareItAsHtml();
       window.open(link as unknown as string);
-    });
+    }
+    const opts = {onShare, ReactDOM, React: window.React, jsx: window.jsx, importScript}
+    await renderDraggableWindow(opts);
   }
 
   const shaDB = await getDB();
