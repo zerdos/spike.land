@@ -218,7 +218,7 @@ export async function run(mode = "window") {
   }
 
   async function getErrors() {
-    console.log("GET ERRORS");
+
     if (!modules || !modules.monaco) return;
 
     const modelUri = modules.monaco.Uri.parse(
