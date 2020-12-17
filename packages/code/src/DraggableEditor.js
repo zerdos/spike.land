@@ -1,4 +1,6 @@
-export function renderDraggableEditor() {
+export async function renderDraggableEditor(importScript) {
+  await importScript("./jsframe.min.js");
+
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
     name: `Win`,
@@ -56,5 +58,5 @@ export function renderDraggableEditor() {
   });
   frame.show();
 
-  console.log(frame);
+  return frame;
 }

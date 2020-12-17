@@ -115,7 +115,8 @@ const renderDraggableWindow = (onShare) => {
     document.getElementById("dragabbleWindow"),
   );
 };
-function renderDraggableEditor() {
+async function renderDraggableEditor(importScript) {
+  await importScript("./jsframe.min.js");
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
     name: `Win`,
@@ -168,7 +169,7 @@ function renderDraggableEditor() {
   frame.control.on("dminimized", (frame1, info) => {
   });
   frame.show();
-  console.log(frame);
+  return frame;
 }
 function loadScript(src) {
   return new Promise(function (resolve, reject) {
@@ -1883,8 +1884,7 @@ export async function run(mode = "window") {
     "https://unpkg.com/@babel/standalone@7.12.11/babel.min.js",
   );
   if (mode === "editor") {
-    await importScript("./jsframe.js");
-    renderDraggableEditor();
+    await renderDraggableEditor(importScript);
   }
   if (mode == "window") {
     renderDraggableWindow(async () => {
