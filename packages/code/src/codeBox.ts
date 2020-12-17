@@ -124,8 +124,14 @@ export async function run(mode = "window") {
     const onShare = async () => {
       const link = await shareItAsHtml();
       window.open(link as unknown as string);
-    }
-    const opts = {onShare, ReactDOM, React: window.React, jsx: window.jsx, importScript}
+    };
+    const opts = {
+      onShare,
+      ReactDOM,
+      React: window.React,
+      jsx: window.jsx,
+      importScript,
+    };
     await renderDraggableWindow(opts);
   }
 

@@ -20,14 +20,13 @@ export function log(message: string, data: unknown = {}) {
 
   return LOGS.put(
     String(2000000000000 - now++),
-
-    JSON.stringify({ message, time: `${hour}:${minute}`, data }),            { expirationTtl: 86400*7 },
-
+    JSON.stringify({ message, time: `${hour}:${minute}`, data }),
+    { expirationTtl: 86400 * 7 },
   );
 }
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
-  const { country, colo } = request.cf || {country: "", colo: ""};
+  const { country, colo } = request.cf || { country: "", colo: "" };
 
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
@@ -170,9 +169,9 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     //     await LOGS.delete(uuid);
     //   });
 
-      // await Promise.all(work);
+    // await Promise.all(work);
 
-      // return json({uuids: list.keys});
+    // return json({uuids: list.keys});
 
     // }
 
