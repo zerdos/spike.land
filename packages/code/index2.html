@@ -62,6 +62,16 @@
   <div id="error"></div>
   <div id="root"></div>
   <div id="ace"></div>
+
+  <script type="module">
+    import {Workbox} from 'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs';
+    
+    if ('serviceWorker' in navigator) {
+      const wb = new Workbox('sw.js');
+    
+      wb.register();
+    }
+    </script>
  
   <script type="module">
     // window["motion"] = window["Motion"].motion;
@@ -114,11 +124,6 @@
     
     runner();
     
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('dist/sw.js');
-      });
-    }
   </script>
 </body>
 
