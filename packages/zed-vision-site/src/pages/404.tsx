@@ -2,7 +2,7 @@ import React from "react";
 import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { sha256 } from "../components/utils/sha256/sha256.ts";
-import { getUserId } from "../components/code/getUser";
+import { getUserId } from "../components/code/getUser.ts";
 
 export default function () {
   let pathname = "";

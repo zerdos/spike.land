@@ -303,10 +303,12 @@ export async function run(mode = "window") {
         )();
         const HTML = renderToString();
 
-        const css = Array.from(
-          document.querySelector("head > style[data-emotion=css]").sheet
+        const css = Array.from<{ cssText: string }>(
+          (document.querySelector(
+            "head > style[data-emotion=css]",
+          ) as unknown as { sheet: { cssRules: { cssText: string }[] } }).sheet
             .cssRules,
-        ).map((x: unknown) => x.cssText).filter((cssRule) =>
+        ).map((x) => x.cssText).filter((cssRule) =>
           HTML.includes(cssRule.substring(3, 8))
         ).join("\n  ");
 
