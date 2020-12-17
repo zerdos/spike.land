@@ -1,9 +1,9 @@
 import { getDB } from "../../shadb/src/shaDB.ts";
 
 const getUrl = () => {
-  if (self.location.href.includes("zed.dev")) {
-    return "https://code.zed.dev";
-  }
+  // if (self.location.href.includes("zed.dev")) {
+  //   return "https://code.zed.dev";
+  // }
   return "https://code.zed.vision";
 };
 

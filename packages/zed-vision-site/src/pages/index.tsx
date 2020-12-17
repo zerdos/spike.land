@@ -15,13 +15,13 @@ import { Qr } from "../components/code/Qr";
 
 import forkMe from "../../assets/forkMe.png";
 
-const isMobile = ()=> {
+const isMobile = () => {
   if (typeof window === "undefined") return false;
-  
-  
+
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-  window.navigator.userAgent,
-)}
+    window.navigator.userAgent,
+  );
+};
 
 interface Props {
   data: {
@@ -66,9 +66,11 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
   return (
     <Layout>
       <SEO title="This is Zed vision" />
-      {isMobile() === false ? <h1>
-        Link your mobile with this code: <Qr />
-      </h1>:<h1>This is my blog.</h1>}
+      {isMobile() === false
+        ? <h1>
+          Link your mobile with this code: <Qr />
+        </h1>
+        : <h1>This is my blog.</h1>}
       <a href="https://github.com/zed-vision/monorepo">
         <img
           loading="lazy"

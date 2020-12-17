@@ -26,12 +26,12 @@ function log(message: string, data: unknown = {}, type = "cf") {
 }
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
-  const {country, colo} = request.cf;
+  const { country, colo } = request.cf;
 
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
-  log("request", { searchParams, pathname, country, colo});
+  log("request", { searchParams, pathname, country, colo });
   if (request.method === "GET" && psk && psk == API_KEY) {
     return handleAdmin(request, searchParams, pathname, SHAKV);
   } else if (request.method === "GET") {
@@ -136,7 +136,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       await USERS.put(
         uuid,
         JSON.stringify(
-          { uuid, uuidHash, registered: Date.now(),country, colo },
+          { uuid, uuidHash, registered: Date.now(), country, colo },
         ),
       );
       await log("register", { uuidHash });
@@ -179,7 +179,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const uuid = v4();
       await USERS.put(
         uuid,
-        JSON.stringify({ uuid, registered: Date.now(), country, colo}),
+        JSON.stringify({ uuid, registered: Date.now(), country, colo }),
       );
       return json({ uuid });
     }
@@ -236,7 +236,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return json({ error: 401, message: "user not verified" });
     }
 
-    await log("new html", {  sha, uKey });
+    await log("new html", { sha, uKey });
 
     // this need restriction
     // such as:

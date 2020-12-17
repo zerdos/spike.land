@@ -783,9 +783,6 @@ async function arrBuffSha256(msgBuffer) {
     return hashHex;
 }
 const getUrl = ()=>{
-    if (self.location.href.includes("zed.dev")) {
-        return "https://code.zed.dev";
-    }
     return "https://code.zed.vision";
 };
 async function sha256(message) {
