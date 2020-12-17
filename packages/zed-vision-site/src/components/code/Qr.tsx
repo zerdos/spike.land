@@ -77,11 +77,11 @@ export const Qr: React.FC = () => {
       </img>
       <p
         css={css`
-        font-family: Roboto;
-        font-size: 20px;
-        text-transform: uppercase; 
-        color: white;
-        `}
+              font-family: Roboto;
+              font-size: 20px;
+              text-transform: uppercase; 
+              color: white;
+            `}
       >
         Connect device
       </p>
