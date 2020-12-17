@@ -6,9 +6,9 @@ import { v4 } from "./dec.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
-
 var LOGS: KVNamespace;
 var USERKEYS: KVNamespace;
+
 var API_KEY: string;
 
 let now = 0;
