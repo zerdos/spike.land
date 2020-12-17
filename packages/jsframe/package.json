@@ -5,16 +5,13 @@
   "main": "lib/jsframe.min.js",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
-    "start": "webpack-dev-server",
     "min": "deno fmt lib && yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js && rm -rf public/jsframe.js && cp lib/jsframe.min.js public/jsframe.js",
     "clean": "deno fmt src && rm -rf lib && mkdir lib",
-    "build": "webpack --config webpack.config.js --mode development && yarn min",
-    "release": "cross-env NODE_ENV=test webpack --config webpack.config.js --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "yarn esbuild src/index.js --loader:.css=text --bundle --outfile=lib/jsframe.js && yarn min"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zerdos/JSFrame.js.git"
+    "url": "git+https://github.com/zedvision/monorepo.git"
   },
   "author": "Tom Misawa <riversun.org@gmail.com> (https://github.com/riversun)",
   "license": "MIT",
@@ -34,17 +31,7 @@
   },
   "homepage": "https://github.com/riversun/JSFrame.js#readme",
   "devDependencies": {
-    "@babel/core": "7.12.10",
-    "@babel/preset-env": "7.12.11",
-    "babel-loader": "8.2.2",
-    "cross-env": "7.0.3",
-    "css-loader": "5.0.1",
-    "esbuild": "0.8.23",
-    "style-loader": "2.0.0",
-    "terser-webpack-plugin": "5.0.3",
-    "webpack": "5.10.3",
-    "webpack-cli": "4.2.0",
-    "webpack-dev-server": "3.11.0"
+    "esbuild": "0.8.23"
   },
   "dependencies": {
     "@riversun/event-emitter": "1.5.0",

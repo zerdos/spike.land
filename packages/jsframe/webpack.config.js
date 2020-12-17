@@ -48,12 +48,7 @@ module.exports = (env, argv) => {
           ],
         },
       ],
-    },
-    plugins: [
-      new webpack.BannerPlugin(
-        `[name] v${version} Copyright (c) 2007-2020 Tom Misawa`,
-      ),
-    ],
+    }
   };
 
   if (argv.mode !== "production") {
