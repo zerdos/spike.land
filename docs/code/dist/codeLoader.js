@@ -1168,7 +1168,6 @@ const getUrl = () => {
 };
 let firstLoad = true;
 let latestCode = "";
-let busy = 0;
 let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
@@ -1590,18 +1589,12 @@ export async function run(mode = "window") {
     onChange,
   });
   async function runner(cd) {
-    if (busy === 1) {
-      return;
-    }
     try {
-      busy = 1;
-      const err = await getErrors();
+      restartCode(await transpileCode(cd));
+      const err = await getErrors(cd);
       const errorDiv = document.getElementById("error");
-      busy = 0;
-      if (cd !== latestCode) {
-        return;
-      }
       if (err && err.length) {
+        restartCode(await transpileCode(latestGoodCode));
         const { diff: diff1 } = await import("../../diff/dist/diff.min.js");
         if (latestCode != cd) {
           return;
@@ -1622,10 +1615,7 @@ export async function run(mode = "window") {
       latestGoodCode = cd;
       errorDiv.style.display = "none";
       modules.monaco.editor.setTheme("vs-dark");
-      busy = 0;
-      restartCode(await transpileCode(cd));
     } catch (err) {
-      busy = 0;
       if (cd !== latestCode) {
         return;
       }
@@ -1639,38 +1629,28 @@ export async function run(mode = "window") {
   function onChange(code) {
     if (!modules) return;
     latestCode = code;
-    if (!busy) {
-      runner(latestCode);
-    } else {
-      const myCode = code;
-      const cl = setInterval(() => {
-        if (code !== latestCode || !busy) {
-          clearInterval(cl);
-        }
-        if (!busy) {
-          runner(latestCode);
-        }
-      }, 100);
-    }
+    window.requestAnimationFrame(() => runner(latestCode), 50);
   }
-  async function getErrors() {
+  async function getErrors(code) {
     if (!modules || !modules.monaco) return;
-    const modelUri = modules.monaco.Uri.parse("file:///main.tsx");
-    const tsWorker = await modules.monaco.languages.typescript
-      .getTypeScriptWorker();
-    const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
-      "file:///main.tsx",
-    );
-    const comp = await (await tsWorker(modelUri)).getCompilerOptionsDiagnostics(
-      "file:///main.tsx",
-    );
-    const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
-      "file:///main.tsx",
-    );
+    const { monaco } = modules;
+    const shaCode = await sha256(code);
+    const filename = `file:///${shaCode}.tsx`;
+    const uri = monaco.Uri.parse(filename);
+    const model = monaco.editor.getModel(uri) ||
+      await monaco.editor.createModel(code, "typescript", uri);
+    const worker = await monaco.languages.typescript.getTypeScriptWorker();
+    const client = await worker(model.uri);
+    const diag = client.getSemanticDiagnostics(filename);
+    const comp = client.getCompilerOptionsDiagnostics(filename);
+    const syntax = client.getSyntacticDiagnostics(filename);
+    const fastError = await Promise.race([
+      diag,
+      comp,
+      syntax,
+    ]);
     return [
-      ...diag,
-      ...comp,
-      ...syntax,
+      ...fastError,
     ];
   }
   function restartCode(transPiled) {
@@ -1678,7 +1658,7 @@ export async function run(mode = "window") {
     const searchRegExpExport = /export /gi;
     const replaceWith = "///";
     const code =
-      `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    ;\n    ` +
+      `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    \n    ` +
       transPiled.replaceAll(searchRegExp, replaceWith).replace(
         "export default",
         "DefaultElement = ",

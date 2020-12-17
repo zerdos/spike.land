@@ -62,7 +62,6 @@ export const getProjects = async () => {
 let firstLoad = true;
 
 let latestCode = "";
-let busy = 0;
 
 let errorReported = "";
 let latestSavedCode = "";
@@ -150,20 +149,17 @@ export async function run(mode = "window") {
   });
 
   async function runner(cd: string) {
-    if (busy === 1) {
-      return;
-    }
+   try {
 
-    try {
-      busy = 1;
-      const err = await getErrors();
+      restartCode(await transpileCode(cd));
+      const err = await getErrors(cd);
+    
+
       const errorDiv = document.getElementById("error");
-      busy = 0;
 
-      if (cd !== latestCode) {
-        return;
-      }
+
       if (err && err.length) {
+        restartCode(await transpileCode(latestGoodCode));
         const { diff } = await import("../../diff/dist/diff.min.js");
 
         if (latestCode != cd) {
@@ -194,10 +190,8 @@ export async function run(mode = "window") {
 
       modules.monaco.editor.setTheme("vs-dark");
 
-      busy = 0;
-      restartCode(await transpileCode(cd));
+
     } catch (err) {
-      busy = 0;
       if (cd !== latestCode) {
         return;
       }
@@ -213,50 +207,28 @@ export async function run(mode = "window") {
   function onChange(code: string) {
     if (!modules) return;
     latestCode = code;
-
-    if (!busy) {
-      runner(latestCode);
-    } else {
-      const myCode = code;
-      const cl = setInterval(() => {
-        if (myCode !== latestCode || !busy) {
-          clearInterval(cl);
-        }
-
-        if (!busy) {
-          runner(latestCode);
-        }
-      }, 100);
-    }
+    window.requestAnimationFrame(()=>runner(latestCode),50); ;
   }
 
-  async function getErrors() {
+  async function getErrors(code: string) {
     if (!modules || !modules.monaco) return;
+    const { monaco } = modules;
+    const shaCode = await sha256(code);
+    const filename = `file:///${shaCode}.tsx`;
+    const uri = monaco.Uri.parse(filename);
+    const model =  monaco.editor.getModel(uri) || await monaco.editor.createModel(code, "typescript", uri);
+    const worker = await monaco.languages.typescript.getTypeScriptWorker();
+    const client = await worker(model.uri);
 
-    const modelUri = modules.monaco.Uri.parse(
-      "file:///main.tsx",
-    );
+    const diag =  client.getSemanticDiagnostics(filename);
+    const comp =  client.getCompilerOptionsDiagnostics(filename);
+    const syntax =  client.getSyntacticDiagnostics(filename);
+    const fastError = await Promise.race([diag, comp, syntax])
 
-    //const model = window["monaco"].editor.getModel(modelUri);
-    // getCodeToLoad;
-    const tsWorker = await modules.monaco.languages.typescript
-      .getTypeScriptWorker();
-
-    const diag = await (await tsWorker(modelUri)).getSemanticDiagnostics(
-      "file:///main.tsx",
-    );
-    const comp = await (await tsWorker(modelUri))
-      .getCompilerOptionsDiagnostics(
-        "file:///main.tsx",
-      );
-
-    const syntax = await (await tsWorker(modelUri)).getSyntacticDiagnostics(
-      "file:///main.tsx",
-    );
-
-    return [...diag, ...comp, ...syntax];
+    return [
+      ...fastError
+    ];
   }
-
   // document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
   // await workerDomImport;
@@ -273,7 +245,7 @@ export async function run(mode = "window") {
     if (window.emotionStyled){
       window.styled= window.emotionStyled;
     }
-    ;
+    
     ` + transPiled.replaceAll(
       searchRegExp,
       replaceWith,
