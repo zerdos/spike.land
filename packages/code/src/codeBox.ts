@@ -1,6 +1,5 @@
 import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 import { renderDraggableWindow } from "./DraggableWindow.js";
-import { renderDraggableEditor } from "./DraggableEditor.js";
 import { startMonaco } from "../../smart-monaco-editor/src/editor.ts";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.ts";
@@ -122,7 +121,8 @@ export async function run(mode = "window") {
   );
 
   if (mode === "editor") {
-  
+    const { renderDraggableEditor } = await import("./DraggableEditor.js");
+
     await renderDraggableEditor(importScript);
   }
 
