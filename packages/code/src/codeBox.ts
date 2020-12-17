@@ -325,7 +325,7 @@ export async function run(mode = "window") {
         let motionScript = "";
         if (code.indexOf("framer-motion") > -1) {
           motionDep =
-            `<script crossorigin src="https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.js"></script>`;
+            `<script crossorigin src="https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js"></script>`;
 
           motionScript = "const {motion} = Motion";
         }

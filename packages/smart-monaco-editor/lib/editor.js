@@ -241,7 +241,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             },
             {
                 name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@2.9.5/dist/framer-motion.d.ts",
+                url: "https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.d.ts",
                 depend: []
             },
             {
