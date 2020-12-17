@@ -1063,19 +1063,19 @@ var LOGS;
 var USERKEYS;
 var API_KEY;
 let now = 0;
-function log(message, data = {}, type = "cf") {
+function log(message, data = {}) {
   now = now || Date.now();
-  const timeElapsed = Date.now();
-  const today = new Date(timeElapsed);
-  const nowIso = today.toISOString();
+  const [hour, minute] = new Date().toLocaleTimeString("en-US").split(/:| /);
   return LOGS.put(
-    String(now++),
+    String(2000000000000 - now++),
     JSON.stringify({
       message,
-      time: nowIso,
-      type,
+      time: `${hour}:${minute}`,
       data,
     }),
+    {
+      expirationTtl: 86400 * 7,
+    },
   );
 }
 const corsHeaders = {
@@ -1228,7 +1228,10 @@ async function handleAdmin(request, searchParams, pathname, SHAKV1) {
   });
 }
 async function handleCloudRequest(request) {
-  const { country, colo } = request.cf;
+  const { country, colo } = request.cf || {
+    country: "",
+    colo: "",
+  };
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
@@ -1366,6 +1369,16 @@ async function handleCloudRequest(request) {
       return json({
         uuid,
         key: uuidHash,
+      });
+    }
+    if (pathname === "/uuids") {
+      const list = await LOGS.list();
+      const work = list.keys.map((x) => x.name).map(async (uuid) => {
+        await LOGS.delete(uuid);
+      });
+      await Promise.all(work);
+      return json({
+        uuids: list.keys,
       });
     }
     if (pathname === "/create-project") {

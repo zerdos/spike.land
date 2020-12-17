@@ -13,20 +13,21 @@ var API_KEY: string;
 
 let now = 0;
 
-function log(message: string, data: unknown = {}, type = "cf") {
+export function log(message: string, data: unknown = {}) {
   now = now || Date.now();
-  const timeElapsed = Date.now();
-  const today = new Date(timeElapsed);
-  const nowIso = today.toISOString();
+
+  const [hour, minute] = new Date().toLocaleTimeString("en-US").split(/:| /);
 
   return LOGS.put(
-    String(now++),
-    JSON.stringify({ message, time: nowIso, type, data }),
+    String(2000000000000 - now++),
+
+    JSON.stringify({ message, time: `${hour}:${minute}`, data }),            { expirationTtl: 86400*7 },
+
   );
 }
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
-  const { country, colo } = request.cf;
+  const { country, colo } = request.cf || {country: "", colo: ""};
 
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
@@ -155,24 +156,25 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       return json({ uuid, key: uuidHash });
     }
-    // if (pathname === "/uuids"){
-    //   const list = await USERS.list();
 
-    //   const work = list.keys.map( x=>x.name).map(async(uuid)=>{
-    //     // if (uuid.length === 8) {
-    //     //     await USERS.delete(uuid)
-    //     // }
+    if (pathname === "/uuids"){
+      const list = await LOGS.list();
 
-    //     const hash=await sha256(uuid);
-    //     const hashHash = await sha256(hash)
-    //     await USERKEYS.delete(hashHash);
-    //   });
+      const work = list.keys.map( x=>x.name).map(async(uuid)=>{
+        // if (uuid.length === 8) {
+        //     await USERS.delete(uuid)
+        // }
 
-    //   await Promise.all(work);
+        // const hash=await sha256(uuid);
+        // const hashHash = await sha256(hash)
+        await LOGS.delete(uuid);
+      });
 
-    //   return json({uuids: list.keys});
+      await Promise.all(work);
 
-    // }
+      return json({uuids: list.keys});
+
+    }
 
     if (pathname === "/create-project") {
       const uuidHash = request.headers.get("TOKEN");
