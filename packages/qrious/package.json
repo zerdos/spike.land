@@ -44,11 +44,10 @@
   "main": "dist/qrious.js",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
-    "build": "grunt build && yarn dts && yarn minify",
+
+    "build": "yarn esbuild src/QRious.js --loader:.css=text --bundle --outfile=dist/qrious.js --target=chrome58,firefox57,safari11,edge16 && yarn minify",
     "dts": "yarn dts-gen -m @zedvision/qrious -f dist/qrious.d.ts",
-    "minify": "deno fmt dist && yarn esbuild --minify dist/qrious.js --outfile=dist/qrious.min.js",
-    "ci": "grunt ci",
-    "test": "grunt test"
+    "minify": "deno fmt dist && yarn esbuild --minify dist/qrious.js --outfile=dist/qrious.min.js"
   },
   "gitHead": "520741663e1da196b7dbbf0174e110548df04a31"
 }
