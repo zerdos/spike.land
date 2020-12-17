@@ -1883,6 +1883,7 @@ export async function run(mode = "window") {
     "https://unpkg.com/@babel/standalone@7.12.11/babel.min.js",
   );
   if (mode === "editor") {
+    await importScript("./jsframe.js");
     renderDraggableEditor();
   }
   if (mode == "window") {

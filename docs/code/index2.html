@@ -12,7 +12,7 @@
   <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
   <script crossorigin src="https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js"></script>
-  <script crossorigin src="https://unpkg.com/@zedvision/jsframe@8.4.1/lib/jsframe.min.js"></script>
+  <script crossorigin src="jsframe.js"></script>
 
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
@@ -101,9 +101,8 @@
 
   </script>
   <script type="module">
-
     const runner = async () => {
-      if (window.location.href.includes("zed.")) {
+      if (window.location.href.includes("zed.")) {  
         const { run } = await import("/code/dist/codeLoader.js");
         run("editor");
         return;

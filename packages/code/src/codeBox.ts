@@ -122,6 +122,7 @@ export async function run(mode = "window") {
   );
 
   if (mode === "editor") {
+    await importScript("./jsframe.js");
     renderDraggableEditor();
   }
 
