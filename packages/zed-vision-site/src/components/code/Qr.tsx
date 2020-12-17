@@ -36,7 +36,6 @@ export const Qr: React.FC = () => {
       if (qr) {
         qr.set(options);
       } else {
-        console.log(window.QRious);
         qr = new window.QRious(
           options,
         );
@@ -49,8 +48,8 @@ export const Qr: React.FC = () => {
       }
       setRetry(retry - 1);
     };
-    if (typeof window !== "undefined" && retry > 0 && ref.current) connect();
-  }, [retry, ref.current]);
+    if (typeof window !== "undefined" && retry > 0) connect();
+  }, [retry]);
 
   React.useEffect(() => {
     if (typeof window !== "undefined" && counter) {
