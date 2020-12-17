@@ -26,10 +26,12 @@ function log(message: string, data: unknown = {}, type = "cf") {
 }
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
+  const {country, colo} = request.cf;
+
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
-  log("request", { searchParams, pathname, cf: request.cf });
+  log("request", { searchParams, pathname, country, colo});
   if (request.method === "GET" && psk && psk == API_KEY) {
     return handleAdmin(request, searchParams, pathname, SHAKV);
   } else if (request.method === "GET") {
@@ -134,7 +136,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       await USERS.put(
         uuid,
         JSON.stringify(
-          { uuid, uuidHash, registered: Date.now(), cf: request.cf },
+          { uuid, uuidHash, registered: Date.now(),country, colo },
         ),
       );
       await log("register", { uuidHash });
@@ -146,7 +148,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const uuidHash = await sha256(uuid);
       await USERS.put(
         uuid,
-        JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),
+        JSON.stringify({ uuid, registered: Date.now(), country, colo }),
         { expirationTtl: 60 },
       );
       await USERKEYS.put(uuidHash, uuid, { expirationTtl: 60 });
@@ -177,7 +179,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const uuid = v4();
       await USERS.put(
         uuid,
-        JSON.stringify({ uuid, registered: Date.now(), cf: request.cf }),
+        JSON.stringify({ uuid, registered: Date.now(), country, colo}),
       );
       return json({ uuid });
     }

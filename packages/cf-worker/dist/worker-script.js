@@ -1228,13 +1228,15 @@ async function handleAdmin(request, searchParams, pathname, SHAKV1) {
   });
 }
 async function handleCloudRequest(request) {
+  const { country, colo } = request.cf;
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
   log("request", {
     searchParams,
     pathname,
-    cf: request.cf,
+    country,
+    colo,
   });
   if (request.method === "GET" && psk && psk == API_KEY) {
     return handleAdmin(request, searchParams, pathname, SHAKV);
@@ -1331,7 +1333,8 @@ async function handleCloudRequest(request) {
           uuid,
           uuidHash,
           registered: Date.now(),
-          cf: request.cf,
+          country,
+          colo,
         }),
       );
       await log("register", {
@@ -1350,7 +1353,8 @@ async function handleCloudRequest(request) {
         JSON.stringify({
           uuid,
           registered: Date.now(),
-          cf: request.cf,
+          country,
+          colo,
         }),
         {
           expirationTtl: 60,
@@ -1372,7 +1376,8 @@ async function handleCloudRequest(request) {
         JSON.stringify({
           uuid,
           registered: Date.now(),
-          cf: request.cf,
+          country,
+          colo,
         }),
       );
       return json({
