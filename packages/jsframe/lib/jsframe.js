@@ -6534,6 +6534,7 @@
     };
     Object.freeze(DEF);
     module.exports = JSFrame;
+    window, JSFrame = JSFrame;
   });
   require_JSFrame2();
 })();
