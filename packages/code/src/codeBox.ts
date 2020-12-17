@@ -336,7 +336,7 @@ export async function run(mode = "window") {
         let qrDep = "";
         if (code.indexOf("QRious") > -1) {
           qrDep =
-            `<script crossorigin src="https://unpkg.com/@zedvision/qrious@8.4.2/dist/qrious.min.js"></script>`;
+            `<script crossorigin src="https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js"></script>`;
         }
 
         let title = "(code).zed.vision :)";

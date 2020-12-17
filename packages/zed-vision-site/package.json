@@ -20,7 +20,6 @@
     "@emotion/react": "11.1.2",
     "@emotion/styled": "11.0.0",
     "@zedvision/diff": "8.5.4",
-    "@zedvision/qrious": "^8.5.7",
     "@zedvision/shadb": "8.5.4",
     "@zedvision/smart-monaco-editor": "8.5.4",
     "framer-motion": "3.0.0",
