@@ -1,5 +1,3 @@
-/// <reference types="@emotion/react/types/css-prop" />
-
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React from "react";
