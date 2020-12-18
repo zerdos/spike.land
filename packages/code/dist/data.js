@@ -9,7 +9,7 @@ export async function getZkey(hash) {
 }
 
 export async function getUserId() {
-  const { getDB } = await import("./shaDB.min.js");
+  const { getDB } = await import("../dist/shaDB.min.js");
   const shaDB = await getDB();
   const uuid = await shaDB.get("uuid");
   if (!uuid) {
@@ -29,7 +29,7 @@ export const getProjects = async () => {
     "https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js",
   );
 
-  const { getDB } = await import("./shaDB.min.js");
+  const { getDB } = await import("../dist/shaDB.min.js");
   const shaDB = await getDB();
 
   const uuid = await getUserId();
@@ -63,7 +63,7 @@ export const getProjects = async () => {
 };
 
 export const saveCode = async (code) => {
-  const { getDB } = await import("./shaDB.min.js");
+  const { getDB } = await import("../dist/shaDB.min.js");
 
   const { sha256 } = await import("./sha256.js");
   const hash = await sha256(code);

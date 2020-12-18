@@ -51,7 +51,7 @@ export async function run(mode = "window") {
     });
   }
 
-  const { getDB } = await import("./shaDB.min.js");
+  const { getDB } = await import("../dist/shaDB.min.js");
   const { getUserId, getProjects, saveCode } = await import("./data.js");
 
   const shaDB = await getDB();
@@ -64,7 +64,7 @@ export async function run(mode = "window") {
   restartCode(transpiled);
 
   const { startMonaco } = await import(
-    "./editor.min.js"
+    "../dist/editor.min.js"
   );
 
   const modules = await startMonaco({
@@ -87,7 +87,7 @@ export async function run(mode = "window") {
       } else {
         session.error = cd;
 
-        const { diff } = await import("./diff.min.js");
+        const { diff } = await import("../dist/diff.min.js");
 
         const slices = await diff(session.code, cd);
 
@@ -173,7 +173,7 @@ export async function run(mode = "window") {
   }
   async function getCodeToLoad() {
     const { getUserId, getProjects, saveCode } = await import("./data.js");
-    const { getDB } = await import("./shaDB.min.js");
+    const { getDB } = await import("../dist/shaDB.min.js");
     const db = await getDB();
 
     const uuid = await getUserId();

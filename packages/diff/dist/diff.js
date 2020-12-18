@@ -1436,14 +1436,76 @@
     value: true,
   });
 });
-async function arrBuffSha256(msgBuffer) {
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map((b) => ("00" + b.toString(16)).slice(-2)).join(
-    "",
-  );
-  return hashHex;
+const proxyMarker = Symbol("Comlink.proxy");
+const createEndpoint = Symbol("Comlink.endpoint");
+const releaseProxy = Symbol("Comlink.releaseProxy");
+const throwMarker = Symbol("Comlink.thrown");
+const isObject = (val) =>
+  typeof val === "object" && val !== null || typeof val === "function";
+const throwTransferHandler = {
+  canHandle: (value) => isObject(value) && throwMarker in value,
+  serialize({ value }) {
+    let serialized;
+    if (value instanceof Error) {
+      serialized = {
+        isError: true,
+        value: {
+          message: value.message,
+          name: value.name,
+          stack: value.stack,
+        },
+      };
+    } else {
+      serialized = {
+        isError: false,
+        value,
+      };
+    }
+    return [
+      serialized,
+      [],
+    ];
+  },
+  deserialize(serialized) {
+    if (serialized.isError) {
+      throw Object.assign(
+        new Error(serialized.value.message),
+        serialized.value,
+      );
+    }
+    throw serialized.value;
+  },
+};
+function isMessagePort(endpoint) {
+  return endpoint.constructor.name === "MessagePort";
 }
+function closeEndPoint(endpoint) {
+  if (isMessagePort(endpoint)) endpoint.close();
+}
+function throwIfProxyReleased(isReleased) {
+  if (isReleased) {
+    throw new Error("Proxy has been released and is not useable");
+  }
+}
+function myFlat(arr) {
+  return Array.prototype.concat.apply([], arr);
+}
+const transferCache = new WeakMap();
+function transfer(obj, transfers) {
+  transferCache.set(obj, transfers);
+  return obj;
+}
+function proxy(obj) {
+  return Object.assign(obj, {
+    [proxyMarker]: true,
+  });
+}
+function generateUUID() {
+  return new Array(4).fill(0).map(() =>
+    Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)
+  ).join("-");
+}
+let wArrBuffSha256;
 export const isDiff = (str) => {
   if (str.length < 10) return false;
   const isKey = [
@@ -1477,11 +1539,264 @@ export const assemble = (oldValue, instructions) => {
   });
   return ret;
 };
+function requestResponseMessage(ep, msg, transfers) {
+  return new Promise((resolve) => {
+    const id = generateUUID();
+    ep.addEventListener("message", function l(ev) {
+      if (!ev.data || !ev.data.id || ev.data.id !== id) {
+        return;
+      }
+      ep.removeEventListener("message", l);
+      resolve(ev.data);
+    });
+    if (ep.start) {
+      ep.start();
+    }
+    ep.postMessage(
+      Object.assign({
+        id,
+      }, msg),
+      transfers,
+    );
+  });
+}
+const proxyTransferHandler = {
+  canHandle: (val) => isObject(val) && val[proxyMarker],
+  serialize(obj) {
+    const { port1, port2 } = new MessageChannel();
+    expose(obj, port1);
+    return [
+      port2,
+      [
+        port2,
+      ],
+    ];
+  },
+  deserialize(port) {
+    port.start();
+    return wrap(port);
+  },
+};
+const transferHandlers = new Map([
+  [
+    "proxy",
+    proxyTransferHandler,
+  ],
+  [
+    "throw",
+    throwTransferHandler,
+  ],
+]);
+function expose(obj, ep = self) {
+  ep.addEventListener("message", function callback(ev) {
+    if (!ev || !ev.data) {
+      return;
+    }
+    const { id, type, path } = Object.assign({
+      path: [],
+    }, ev.data);
+    const argumentList = (ev.data.argumentList || []).map(fromWireValue);
+    let returnValue;
+    try {
+      const parent = path.slice(0, -1).reduce((obj1, prop) => obj1[prop], obj);
+      const rawValue = path.reduce((obj1, prop) => obj1[prop], obj);
+      switch (type) {
+        case 0:
+          {
+            returnValue = rawValue;
+          }
+          break;
+        case 1:
+          {
+            parent[path.slice(-1)[0]] = fromWireValue(ev.data.value);
+            returnValue = true;
+          }
+          break;
+        case 2:
+          {
+            returnValue = rawValue.apply(parent, argumentList);
+          }
+          break;
+        case 3:
+          {
+            const value = new rawValue(...argumentList);
+            returnValue = proxy(value);
+          }
+          break;
+        case 4:
+          {
+            const { port1, port2 } = new MessageChannel();
+            expose(obj, port2);
+            returnValue = transfer(port1, [
+              port1,
+            ]);
+          }
+          break;
+        case 5:
+          {
+            returnValue = undefined;
+          }
+          break;
+      }
+    } catch (value) {
+      returnValue = {
+        value,
+        [throwMarker]: 0,
+      };
+    }
+    Promise.resolve(returnValue).catch((value) => {
+      return {
+        value,
+        [throwMarker]: 0,
+      };
+    }).then((returnValue1) => {
+      const [wireValue, transferables] = toWireValue(returnValue1);
+      ep.postMessage(
+        Object.assign(Object.assign({}, wireValue), {
+          id,
+        }),
+        transferables,
+      );
+      if (type === 5) {
+        ep.removeEventListener("message", callback);
+        closeEndPoint(ep);
+      }
+    });
+  });
+  if (ep.start) {
+    ep.start();
+  }
+}
+function wrap(ep, target) {
+  return createProxy(ep, [], target);
+}
+function createProxy(ep, path = [], target = function () {
+}) {
+  let isProxyReleased = false;
+  const proxy1 = new Proxy(target, {
+    get(_target, prop) {
+      throwIfProxyReleased(isProxyReleased);
+      if (prop === releaseProxy) {
+        return () => {
+          return requestResponseMessage(ep, {
+            type: 5,
+            path: path.map((p) => p.toString()),
+          }).then(() => {
+            closeEndPoint(ep);
+            isProxyReleased = true;
+          });
+        };
+      }
+      if (prop === "then") {
+        if (path.length === 0) {
+          return {
+            then: () => proxy1,
+          };
+        }
+        const r = requestResponseMessage(ep, {
+          type: 0,
+          path: path.map((p) => p.toString()),
+        }).then(fromWireValue);
+        return r.then.bind(r);
+      }
+      return createProxy(ep, [
+        ...path,
+        prop,
+      ]);
+    },
+    set(_target, prop, rawValue) {
+      throwIfProxyReleased(isProxyReleased);
+      const [value, transferables] = toWireValue(rawValue);
+      return requestResponseMessage(ep, {
+        type: 1,
+        path: [
+          ...path,
+          prop,
+        ].map((p) => p.toString()),
+        value,
+      }, transferables).then(fromWireValue);
+    },
+    apply(_target, _thisArg, rawArgumentList) {
+      throwIfProxyReleased(isProxyReleased);
+      const last = path[path.length - 1];
+      if (last === createEndpoint) {
+        return requestResponseMessage(ep, {
+          type: 4,
+        }).then(fromWireValue);
+      }
+      if (last === "bind") {
+        return createProxy(ep, path.slice(0, -1));
+      }
+      const [argumentList, transferables] = processArguments(rawArgumentList);
+      return requestResponseMessage(ep, {
+        type: 2,
+        path: path.map((p) => p.toString()),
+        argumentList,
+      }, transferables).then(fromWireValue);
+    },
+    construct(_target, rawArgumentList) {
+      throwIfProxyReleased(isProxyReleased);
+      const [argumentList, transferables] = processArguments(rawArgumentList);
+      return requestResponseMessage(ep, {
+        type: 3,
+        path: path.map((p) => p.toString()),
+        argumentList,
+      }, transferables).then(fromWireValue);
+    },
+  });
+  return proxy1;
+}
+function processArguments(argumentList) {
+  const processed = argumentList.map(toWireValue);
+  return [
+    processed.map((v) => v[0]),
+    myFlat(processed.map((v) => v[1])),
+  ];
+}
+function toWireValue(value) {
+  for (const [name, handler] of transferHandlers) {
+    if (handler.canHandle(value)) {
+      const [serializedValue, transferables] = handler.serialize(value);
+      return [
+        {
+          type: 3,
+          name,
+          value: serializedValue,
+        },
+        transferables,
+      ];
+    }
+  }
+  return [
+    {
+      type: 0,
+      value,
+    },
+    transferCache.get(value) || [],
+  ];
+}
+function fromWireValue(value) {
+  switch (value.type) {
+    case 3:
+      return transferHandlers.get(value.name).deserialize(value.value);
+    case 0:
+      return value.value;
+  }
+}
 async function sha256(message) {
   const msgBuffer = new TextEncoder().encode(message);
-  const hashHex = await arrBuffSha256(msgBuffer);
-  return hashHex.substr(0, 8);
+  return arrBuffSha256(msgBuffer);
 }
+async function arrBuffSha256(msgBuffer) {
+  wArrBuffSha256 = wArrBuffSha256 || await init();
+  return wArrBuffSha256(msgBuffer);
+}
+function init() {
+  const worker = new Worker("./dist/sha256.worker.js");
+  wArrBuffSha256 = wrap(worker);
+  return wArrBuffSha256;
+}
+init();
 export const diff = async (str1, str2) => {
   const sha1Str1 = sha256(str1);
   const res = Diff.diffChars(str1, str2);
