@@ -22,8 +22,8 @@ function validate(uuid) {
   return typeof uuid === "string" && __default.test(uuid);
 }
 var byteToHex = [];
-for (var i = 0; i < 256; ++i) {
-  byteToHex.push((i + 256).toString(16).substr(1));
+for (var i1 = 0; i1 < 256; ++i1) {
+  byteToHex.push((i1 + 256).toString(16).substr(1));
 }
 function stringify(arr) {
   var offset = arguments.length > 1 && arguments[1] !== undefined
@@ -59,12 +59,316 @@ function v4(options, buf, offset) {
 }
 const starter =
   `import { useState } from "react";\nimport { css, Global } from "@emotion/react";\n\nconst Slider = () => {\n  const steps = 128;\n  const [sliderValue, setSlider] = useState(steps / 2);\n  return <>\n    <input max={steps}\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${255 / steps * sliderValue} \${255 / steps * (steps - sliderValue)} 0); \n        outline: none; \n    \`} type="range"\n      aria-label="font size changer"\n      value={sliderValue}\n      step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <p\n      css={css\`\n        font-size: \${72 / steps * sliderValue}px\n        \`}>\n      Example when the text gets bigger...\n    </p>\n    <p css={css\`\n        font-size: \${72 / steps * (steps - sliderValue)}px\n        \`}>\n      ...or smaller\n    </p>\n  </>\n}\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    \`} />\n  <Slider />\n</>\n`;
-const instanceOfAny = (object, constructors) =>
-  constructors.some((c) => object instanceof c);
-let idbProxyableTypes;
-let cursorAdvanceMethods;
-function getIdbProxyableTypes() {
-  return idbProxyableTypes || (idbProxyableTypes = [
+const session = {
+  firstLoad: true,
+  errorCode: "",
+  code: "",
+};
+function replaceWithEmpty(elementId = "root") {
+  const el = document.createElement("div");
+  const rootEl = document.getElementById(elementId);
+  try {
+    ReactDOM.unmountComponentAtNode(rootEl);
+  } catch (e) {
+    console.error("Error in un-mount", e);
+  }
+  if (rootEl) rootEl.replaceWith(el);
+  else {
+    document.body.appendChild(el);
+  }
+  el.id = elementId;
+}
+export async function run(mode = "window") {
+  const { transpileCode } = await import("./transpile.js");
+  session.code = await getCodeToLoad();
+  if (mode === "editor") {
+    const { renderDraggableEditor } = await import("./DraggableEditor.js");
+    await renderDraggableEditor();
+  }
+  if (mode === "window") {
+    const { renderDraggableWindow } = await import("./DraggableWindow.js");
+    const onShare = async () => {
+      const { shareItAsHtml } = await import("./share.js");
+      const link = await shareItAsHtml(session);
+      window.open(link);
+    };
+    await renderDraggableWindow();
+  }
+  const errorDiv = document.getElementById("error");
+  const { getDB } = await import("./shaDB.min.js");
+  const { getUserId, getProjects, saveCode } = await import("./data.js");
+  const shaDB = await getDB();
+  const uuid = await getUserId();
+  const projects = await getProjects(uuid, () => v4());
+  const projectName = projects[0];
+  const transpiled = await transpileCode(session.code);
+  restartCode(transpiled);
+  const { startMonaco } = await import("./editor.min.js");
+  const modules = await startMonaco({
+    language: "typescript",
+    code: session.code,
+    onChange,
+  });
+  async function runner(cd) {
+    try {
+      const transpiled1 = await transpileCode(cd);
+      if (transpiled1.length) restartCode(transpiled1);
+      const err = await getErrors(cd);
+      if (err.length === 0) {
+        session.code = cd;
+        await saveCode(cd);
+      } else {
+        session.error = cd;
+        const { diff } = await import("./diff.min.js");
+        const slices = await diff(session.code, cd);
+        if (slices.c.length <= 3) {
+          modules.monaco.editor.setTheme("hc-black");
+          return;
+        }
+        errorDiv.innerHTML = err[0].messageText.toString();
+        errorDiv.style.display = "block";
+        return;
+      }
+      errorDiv.style.display = "none";
+      modules.monaco.editor.setTheme("vs-dark");
+    } catch (err) {
+      modules.monaco.editor.setTheme("vs-light");
+      setTimeout(() => {
+        modules.monaco.editor.setTheme("hc-black");
+      }, 50);
+      console.error(err);
+    }
+  }
+  function onChange(code) {
+    if (!modules) return;
+    window.requestAnimationFrame(() => runner(code));
+  }
+  async function getErrors(code) {
+    if (!modules || !modules.monaco) return;
+    const { monaco } = modules;
+    const { sha256 } = await import("./sha256.js");
+    const shaCode = await sha256(code);
+    const filename = `file:///${shaCode}.tsx`;
+    const uri = monaco.Uri.parse(filename);
+    const model = monaco.editor.getModel(uri) ||
+      await monaco.editor.createModel(code, "typescript", uri);
+    const worker = await monaco.languages.typescript.getTypeScriptWorker();
+    const client = await worker(model.uri);
+    const diag = client.getSemanticDiagnostics(filename);
+    const comp = client.getCompilerOptionsDiagnostics(filename);
+    const syntax = client.getSyntacticDiagnostics(filename);
+    const fastError = await Promise.race([
+      diag,
+      comp,
+      syntax,
+    ]);
+    model.dispose();
+    return [
+      ...fastError,
+    ];
+  }
+  function restartCode(transPiled) {
+    if (typeof transPiled !== "string" || transPiled === "") {
+      return;
+    }
+    const searchRegExp = /import/gi;
+    const searchRegExpExport = /export /gi;
+    const replaceWith = "///";
+    const code =
+      `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    \n    ` +
+      transPiled.replaceAll(searchRegExp, replaceWith).replace(
+        "export default",
+        "DefaultElement = ",
+      ).replaceAll(searchRegExpExport, "");
+    if (!session.firstLoad) replaceWithEmpty("root");
+    const restart = () => {
+      const codeToHydrate = mode === "window"
+        ? code.replace("body{", "#root{")
+        : code;
+      const hydrate = new Function(
+        `return function(){  \n          let DefaultElement;\n          ${codeToHydrate}\n          return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`,
+      )();
+      hydrate();
+    };
+    restart();
+  }
+  async function getCodeToLoad() {
+    const {
+      getUserId: getUserId1,
+      getProjects: getProjects1,
+      saveCode: saveCode1,
+    } = await import("./data.js");
+    const { getDB: getDB1 } = await import("./shaDB.min.js");
+    const db = await getDB1();
+    const uuid1 = await getUserId1();
+    const projects1 = await getProjects1(uuid1, v4);
+    const projectName1 = projects1[0];
+    const search = new URLSearchParams(window.location.search);
+    const keyToLoad = search.get("h") || await db.get(projectName1);
+    if (keyToLoad) {
+      let code;
+      try {
+        code = await db.get(keyToLoad);
+      } catch {
+        console.error("error load key: " + keyToLoad);
+      }
+      if (code) return code;
+      let text;
+      try {
+        const resp = await fetch("https://code.zed.vision/?h=" + keyToLoad);
+        text = await resp.json();
+      } catch (e) {
+        const { sha256 } = await import("./sha256.js");
+        const shaHash = await sha256(starter);
+        db.put(shaHash, starter);
+        await db.put(projectName1, shaHash);
+        return starter;
+      }
+      return text;
+    }
+    return starter;
+  }
+  function setQueryStringParameter(name, value) {
+    const params = new URLSearchParams(window.location.search);
+    params.set(name, value);
+    window.history.replaceState(
+      {},
+      "",
+      decodeURIComponent(`${window.location.pathname}?${params}`),
+    );
+  }
+}
+const proxyMarker = Symbol("Comlink.proxy");
+const createEndpoint = Symbol("Comlink.endpoint");
+const releaseProxy = Symbol("Comlink.releaseProxy");
+const throwMarker = Symbol("Comlink.thrown");
+const isObject = (val) =>
+  typeof val === "object" && val !== null || typeof val === "function";
+const throwTransferHandler = {
+  canHandle: (value) => isObject(value) && throwMarker in value,
+  serialize({ value }) {
+    let serialized;
+    if (value instanceof Error) {
+      serialized = {
+        isError: true,
+        value: {
+          message: value.message,
+          name: value.name,
+          stack: value.stack,
+        },
+      };
+    } else {
+      serialized = {
+        isError: false,
+        value,
+      };
+    }
+    return [
+      serialized,
+      [],
+    ];
+  },
+  deserialize(serialized) {
+    if (serialized.isError) {
+      throw Object.assign(
+        new Error(serialized.value.message),
+        serialized.value,
+      );
+    }
+    throw serialized.value;
+  },
+};
+function isMessagePort(endpoint) {
+  return endpoint.constructor.name === "MessagePort";
+}
+function closeEndPoint(endpoint) {
+  if (isMessagePort(endpoint)) endpoint.close();
+}
+function throwIfProxyReleased(isReleased) {
+  if (isReleased) {
+    throw new Error("Proxy has been released and is not useable");
+  }
+}
+function myFlat(arr) {
+  return Array.prototype.concat.apply([], arr);
+}
+const transferCache = new WeakMap();
+function transfer(obj, transfers) {
+  transferCache.set(obj, transfers);
+  return obj;
+}
+function proxy(obj) {
+  return Object.assign(obj, {
+    [proxyMarker]: true,
+  });
+}
+function generateUUID() {
+  return new Array(4).fill(0).map(() =>
+    Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)
+  ).join("-");
+}
+let transform;
+async function saveHtml(html) {
+  const { sha256 } = await import("./sha256.js");
+  const { getZkey } = await import("./data.js");
+  const hash = await sha256(html);
+  const request = new Request("https://code.zed.vision", {
+    body: html,
+    method: "POST",
+    headers: {
+      "Content-Type": "text/html;charset=UTF-8",
+      "SHARE": "true",
+      "ZKEY": await getZkey(hash),
+    },
+  });
+  await fetch(request);
+  return `https://zed.vision/${hash}`;
+}
+async function getUserId() {
+  const { getDB } = await import("./shaDB.min.js");
+  const shaDB = await getDB();
+  const uuid = await shaDB.get("uuid");
+  if (!uuid) {
+    if (!window.location.href.includes("zed.dev")) {
+      const resp = await fetch("https://code.zed.vision/register");
+      const data = await resp.json();
+      shaDB.put("uuid", data.uuid);
+      return data.uuid;
+    } else {
+      shaDB.put("uuid", "1234");
+      return "1234";
+    }
+  }
+  return uuid;
+}
+const getProjects = async (uuid, v41) => {
+  const { getDB } = await import("./shaDB.min.js");
+  const shaDB = await getDB();
+  const projects = await shaDB.get(uuid, "json");
+  if (typeof projects === "string" || projects === null || !projects.list) {
+    const projectId = v41();
+    await shaDB.put(
+      uuid,
+      JSON.stringify({
+        list: [
+          projectId,
+        ],
+        [projectId]: {
+          created: Date.now(),
+          lastOpen: Date.now(),
+        },
+      }),
+    );
+    return [
+      projectId,
+    ];
+  }
+  return projects.list;
+};
+const on = (i1, a) => a.some((f) => i1 instanceof f);
+let He1, Ee;
+function sn() {
+  return He1 || (He1 = [
     IDBDatabase,
     IDBObjectStore,
     IDBIndex,
@@ -72,82 +376,1150 @@ function getIdbProxyableTypes() {
     IDBTransaction,
   ]);
 }
-function getCursorAdvanceMethods() {
-  return cursorAdvanceMethods || (cursorAdvanceMethods = [
+function an() {
+  return Ee || (Ee = [
     IDBCursor.prototype.advance,
     IDBCursor.prototype.continue,
     IDBCursor.prototype.continuePrimaryKey,
   ]);
 }
-const cursorRequestMap = new WeakMap();
-const transactionDoneMap = new WeakMap();
-const transactionStoreNamesMap = new WeakMap();
-const transformCache = new WeakMap();
-const reverseTransformCache = new WeakMap();
-function cacheDonePromiseForTransaction(tx) {
-  if (transactionDoneMap.has(tx)) return;
-  const done = new Promise((resolve, reject) => {
-    const unlisten = () => {
-      tx.removeEventListener("complete", complete);
-      tx.removeEventListener("error", error);
-      tx.removeEventListener("abort", error);
-    };
-    const complete = () => {
-      resolve();
-      unlisten();
-    };
-    const error = () => {
-      reject(tx.error || new DOMException("AbortError", "AbortError"));
-      unlisten();
-    };
-    tx.addEventListener("complete", complete);
-    tx.addEventListener("error", error);
-    tx.addEventListener("abort", error);
+const Pe = new WeakMap(),
+  le = new WeakMap(),
+  Ce = new WeakMap(),
+  fe = new WeakMap(),
+  ce1 = new WeakMap();
+function un(i1) {
+  if (le.has(i1)) return;
+  const a = new Promise((f, g) => {
+    const p = () => {
+        i1.removeEventListener("complete", w),
+          i1.removeEventListener("error", v),
+          i1.removeEventListener("abort", v);
+      },
+      w = () => {
+        f(), p();
+      },
+      v = () => {
+        g(i1.error || new DOMException("AbortError", "AbortError")), p();
+      };
+    i1.addEventListener("complete", w),
+      i1.addEventListener("error", v),
+      i1.addEventListener("abort", v);
   });
-  transactionDoneMap.set(tx, done);
+  le.set(i1, a);
 }
-const unwrap = (value) => reverseTransformCache.get(value);
-const readMethods = [
-  "get",
-  "getKey",
-  "getAll",
-  "getAllKeys",
-  "count",
-];
-const writeMethods = [
-  "put",
-  "add",
-  "delete",
-  "clear",
-];
-const cachedMethods = new Map();
-function getMethod(target, prop) {
+const de1 = (i1) => ce1.get(i1),
+  ln = [
+    "get",
+    "getKey",
+    "getAll",
+    "getAllKeys",
+    "count",
+  ],
+  fn = [
+    "put",
+    "add",
+    "delete",
+    "clear",
+  ],
+  he1 = new Map();
+function Ie1(i1, a) {
+  if (!(i1 instanceof IDBDatabase && !(a in i1) && typeof a == "string")) {
+    return;
+  }
+  if (he1.get(a)) return he1.get(a);
+  const f = a.replace(/FromIndex$/, ""), g = a !== f, p = fn.includes(f);
   if (
-    !(target instanceof IDBDatabase && !(prop in target) &&
-      typeof prop === "string")
+    !(f in (g ? IDBIndex : IDBObjectStore).prototype) || !(p || ln.includes(f))
   ) {
     return;
   }
-  if (cachedMethods.get(prop)) return cachedMethods.get(prop);
-  const targetFuncName = prop.replace(/FromIndex$/, "");
-  const useIndex = prop !== targetFuncName;
-  const isWrite = writeMethods.includes(targetFuncName);
-  if (
-    !(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) ||
-    !(isWrite || readMethods.includes(targetFuncName))
-  ) {
-    return;
-  }
-  const method = async function (storeName, ...args) {
-    const tx = this.transaction(storeName, isWrite ? "readwrite" : "readonly");
-    let target1 = tx.store;
-    if (useIndex) target1 = target1.index(args.shift());
-    const returnVal = await target1[targetFuncName](...args);
-    if (isWrite) await tx.done;
-    return returnVal;
+  const w = async function (v, ...L) {
+    const j = this.transaction(v, p ? "readwrite" : "readonly");
+    let F = j.store;
+    g && (F = F.index(L.shift()));
+    const B = await F[f](...L);
+    return (p && await j.done, B);
   };
-  cachedMethods.set(prop, method);
-  return method;
+  return he1.set(a, w), w;
+}
+(function (i1, a) {
+  typeof exports == "object" && typeof module != "undefined"
+    ? a(exports)
+    : typeof define == "function" && define.amd
+    ? define([
+      "exports",
+    ], a)
+    : (i1 = i1 || self, a(i1.Diff = {}));
+})(this, function (i1) {
+  "use strict";
+  function a() {
+  }
+  a.prototype = {
+    diff: function (e, n) {
+      var t = arguments.length > 2 && arguments[2] !== void 0
+          ? arguments[2]
+          : {},
+        r = t.callback;
+      typeof t == "function" && (r = t, t = {}), this.options = t;
+      var s = this;
+      function o(y) {
+        return r
+          ? (setTimeout(function () {
+            r(void 0, y);
+          }, 0),
+            !0)
+          : y;
+      }
+      e = this.castInput(e),
+        n = this.castInput(n),
+        e = this.removeEmpty(this.tokenize(e)),
+        n = this.removeEmpty(this.tokenize(n));
+      var u = n.length,
+        l = e.length,
+        c = 1,
+        d = u + l,
+        m = [
+          {
+            newPos: -1,
+            components: [],
+          },
+        ],
+        x = this.extractCommon(m[0], n, e, 0);
+      if (m[0].newPos + 1 >= u && x + 1 >= l) {
+        return o([
+          {
+            value: this.join(n),
+            count: n.length,
+          },
+        ]);
+      }
+      function h() {
+        for (var y = -1 * c; y <= c; y += 2) {
+          var S = void 0,
+            E = m[y - 1],
+            k = m[y + 1],
+            N = (k ? k.newPos : 0) - y;
+          E && (m[y - 1] = void 0);
+          var D = E && E.newPos + 1 < u, O = k && 0 <= N && N < l;
+          if (!D && !O) {
+            m[y] = void 0;
+            continue;
+          }
+          if (
+            !D || O && E.newPos < k.newPos
+              ? (S = g(k), s.pushComponent(S.components, void 0, !0))
+              : (S = E, S.newPos++, s.pushComponent(S.components, !0, void 0)),
+              N = s.extractCommon(S, n, e, y),
+              S.newPos + 1 >= u && N + 1 >= l
+          ) {
+            return o(f(s, S.components, n, e, s.useLongestToken));
+          }
+          m[y] = S;
+        }
+        c++;
+      }
+      if (r) {
+        (function y() {
+          setTimeout(function () {
+            if (c > d) return r();
+            h() || y();
+          }, 0);
+        })();
+      } else {
+        for (; c <= d;) {
+          var b = h();
+          if (b) return b;
+        }
+      }
+    },
+    pushComponent: function (e, n, t) {
+      var r = e[e.length - 1];
+      r && r.added === n && r.removed === t
+        ? e[e.length - 1] = {
+          count: r.count + 1,
+          added: n,
+          removed: t,
+        }
+        : e.push({
+          count: 1,
+          added: n,
+          removed: t,
+        });
+    },
+    extractCommon: function (e, n, t, r) {
+      for (
+        var s = n.length, o = t.length, u = e.newPos, l = u - r, c = 0;
+        u + 1 < s && l + 1 < o && this.equals(n[u + 1], t[l + 1]);
+      ) {
+        u++, l++, c++;
+      }
+      return c && e.components.push({
+        count: c,
+      }),
+        e.newPos = u,
+        l;
+    },
+    equals: function (e, n) {
+      return this.options.comparator
+        ? this.options.comparator(e, n)
+        : e === n ||
+          this.options.ignoreCase && e.toLowerCase() === n.toLowerCase();
+    },
+    removeEmpty: function (e) {
+      for (var n = [], t = 0; t < e.length; t++) e[t] && n.push(e[t]);
+      return n;
+    },
+    castInput: function (e) {
+      return e;
+    },
+    tokenize: function (e) {
+      return e.split("");
+    },
+    join: function (e) {
+      return e.join("");
+    },
+  };
+  function f(e, n, t, r, s) {
+    for (var o = 0, u = n.length, l = 0, c = 0; o < u; o++) {
+      var d = n[o];
+      if (d.removed) {
+        if (
+          (d.value = e.join(r.slice(c, c + d.count)),
+            c += d.count,
+            o && n[o - 1].added)
+        ) {
+          var m = n[o - 1];
+          n[o - 1] = n[o], n[o] = m;
+        }
+      } else {
+        if (!d.added && s) {
+          var x = t.slice(l, l + d.count);
+          x = x.map(function (b, y) {
+            var S = r[c + y];
+            return S.length > b.length ? S : b;
+          }), d.value = e.join(x);
+        } else d.value = e.join(t.slice(l, l + d.count));
+        l += d.count, d.added || (c += d.count);
+      }
+    }
+    var h = n[u - 1];
+    return (u > 1 && typeof h.value == "string" && (h.added || h.removed) &&
+      e.equals("", h.value) && (n[u - 2].value += h.value, n.pop()),
+      n);
+  }
+  function g(e) {
+    return {
+      newPos: e.newPos,
+      components: e.components.slice(0),
+    };
+  }
+  var p = new a();
+  function w(e, n, t) {
+    return p.diff(e, n, t);
+  }
+  function v(e, n) {
+    if (typeof e == "function") n.callback = e;
+    else if (e) for (var t in e) e.hasOwnProperty(t) && (n[t] = e[t]);
+    return n;
+  }
+  var L = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,
+    j = /\S/,
+    F = new a();
+  F.equals = function (e, n) {
+    return this.options.ignoreCase &&
+      (e = e.toLowerCase(), n = n.toLowerCase()),
+      e === n || this.options.ignoreWhitespace && !j.test(e) && !j.test(n);
+  },
+    F.tokenize = function (e) {
+      for (
+        var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0;
+        t < n.length - 1;
+        t++
+      ) {
+        !n[t + 1] && n[t + 2] && L.test(n[t]) && L.test(n[t + 2]) &&
+          (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
+      }
+      return n;
+    };
+  function B(e, n, t) {
+    return (t = v(t, {
+      ignoreWhitespace: !0,
+    }),
+      F.diff(e, n, t));
+  }
+  function z(e, n, t) {
+    return F.diff(e, n, t);
+  }
+  var M = new a();
+  M.tokenize = function (e) {
+    var n = [], t = e.split(/(\n|\r\n)/);
+    t[t.length - 1] || t.pop();
+    for (var r = 0; r < t.length; r++) {
+      var s = t[r];
+      r % 2 && !this.options.newlineIsToken
+        ? n[n.length - 1] += s
+        : (this.options.ignoreWhitespace && (s = s.trim()), n.push(s));
+    }
+    return n;
+  };
+  function ge(e, n, t) {
+    return M.diff(e, n, t);
+  }
+  function Ae(e, n, t) {
+    var r = v(t, {
+      ignoreWhitespace: !0,
+    });
+    return M.diff(e, n, r);
+  }
+  var ve = new a();
+  ve.tokenize = function (e) {
+    return e.split(/(\S.+?[.!?])(?=\s+|$)/);
+  };
+  function Be(e, n, t) {
+    return ve.diff(e, n, t);
+  }
+  var me = new a();
+  me.tokenize = function (e) {
+    return e.split(/([{}:;,]|\s+)/);
+  };
+  function Me(e, n, t) {
+    return me.diff(e, n, t);
+  }
+  function Z(e) {
+    return (typeof Symbol == "function" && typeof Symbol.iterator == "symbol"
+      ? Z = function (n) {
+        return typeof n;
+      }
+      : Z = function (n) {
+        return n && typeof Symbol == "function" && n.constructor === Symbol &&
+            n !== Symbol.prototype
+          ? "symbol"
+          : typeof n;
+      },
+      Z(e));
+  }
+  function C(e) {
+    return Oe(e) || Te(e) || $e(e) || Je();
+  }
+  function Oe(e) {
+    if (Array.isArray(e)) return ne(e);
+  }
+  function Te(e) {
+    if (
+      typeof Symbol != "undefined" && Symbol.iterator in Object(e)
+    ) {
+      return Array.from(e);
+    }
+  }
+  function $e(e, n) {
+    if (!e) return;
+    if (typeof e == "string") return ne(e, n);
+    var t = Object.prototype.toString.call(e).slice(8, -1);
+    if (
+      (t === "Object" && e.constructor && (t = e.constructor.name),
+        t === "Map" || t === "Set")
+    ) {
+      return Array.from(e);
+    }
+    if (
+      t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)
+    ) {
+      return ne(e, n);
+    }
+  }
+  function ne(e, n) {
+    (n == null || n > e.length) && (n = e.length);
+    for (var t = 0, r = new Array(n); t < n; t++) r[t] = e[t];
+    return r;
+  }
+  function Je() {
+    throw new TypeError(
+      `Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`,
+    );
+  }
+  var We = Object.prototype.toString, V = new a();
+  V.useLongestToken = !0,
+    V.tokenize = M.tokenize,
+    V.castInput = function (e) {
+      var n = this.options,
+        t = n.undefinedReplacement,
+        r = n.stringifyReplacer,
+        s = r === void 0
+          ? function (o, u) {
+            return typeof u == "undefined" ? t : u;
+          }
+          : r;
+      return typeof e == "string"
+        ? e
+        : JSON.stringify(_(e, null, null, s), s, "  ");
+    },
+    V.equals = function (e, n) {
+      return a.prototype.equals.call(
+        V,
+        e.replace(/,([\r\n])/g, "$1"),
+        n.replace(/,([\r\n])/g, "$1"),
+      );
+    };
+  function ze(e, n, t) {
+    return V.diff(e, n, t);
+  }
+  function _(e, n, t, r, s) {
+    n = n || [], t = t || [], r && (e = r(s, e));
+    var o;
+    for (o = 0; o < n.length; o += 1) if (n[o] === e) return t[o];
+    var u;
+    if (We.call(e) === "[object Array]") {
+      for (
+        (n.push(e), u = new Array(e.length), t.push(u), o = 0);
+        o < e.length;
+        o += 1
+      ) {
+        u[o] = _(e[o], n, t, r, s);
+      }
+      return (n.pop(), t.pop(), u);
+    }
+    if ((e && e.toJSON && (e = e.toJSON()), Z(e) === "object" && e !== null)) {
+      n.push(e), u = {}, t.push(u);
+      var l = [], c;
+      for (c in e) e.hasOwnProperty(c) && l.push(c);
+      for ((l.sort(), o = 0); o < l.length; o += 1) {c = l[o],
+          u[c] = _(e[c], n, t, r, c);}
+      n.pop(), t.pop();
+    } else u = e;
+    return u;
+  }
+  var G = new a();
+  G.tokenize = function (e) {
+    return e.slice();
+  },
+    G.join = G.removeEmpty = function (e) {
+      return e;
+    };
+  function Ve(e, n, t) {
+    return G.diff(e, n, t);
+  }
+  function X(e) {
+    var n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {},
+      t = e.split(/\r\n|[\n\v\f\r\x85]/),
+      r = e.match(/\r\n|[\n\v\f\r\x85]/g) || [],
+      s = [],
+      o = 0;
+    function u() {
+      var d = {};
+      for (s.push(d); o < t.length;) {
+        var m = t[o];
+        if (/^(\-\-\-|\+\+\+|@@)\s/.test(m)) break;
+        var x = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(m);
+        x && (d.index = x[1]), o++;
+      }
+      for ((l(d), l(d), d.hunks = []); o < t.length;) {
+        var h = t[o];
+        if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(h)) break;
+        if (/^@@/.test(h)) d.hunks.push(c());
+        else {
+          if (h && n.strict) {
+            throw new Error(
+              "Unknown line " + (o + 1) + " " + JSON.stringify(h),
+            );
+          }
+          o++;
+        }
+      }
+    }
+    function l(d) {
+      var m = /^(---|\+\+\+)\s+(.*)$/.exec(t[o]);
+      if (m) {
+        var x = m[1] === "---" ? "old" : "new",
+          h = m[2].split("	", 2),
+          b = h[0].replace(/\\\\/g, "\\");
+        /^".*"$/.test(b) && (b = b.substr(1, b.length - 2)),
+          d[x + "FileName"] = b,
+          d[x + "Header"] = (h[1] || "").trim(),
+          o++;
+      }
+    }
+    function c() {
+      var d = o,
+        m = t[o++],
+        x = m.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),
+        h = {
+          oldStart: +x[1],
+          oldLines: typeof x[2] == "undefined" ? 1 : +x[2],
+          newStart: +x[3],
+          newLines: typeof x[4] == "undefined" ? 1 : +x[4],
+          lines: [],
+          linedelimiters: [],
+        };
+      h.oldLines === 0 && (h.oldStart += 1),
+        h.newLines === 0 && (h.newStart += 1);
+      for (
+        var b = 0, y = 0;
+        o < t.length &&
+        !(t[o].indexOf("--- ") === 0 && o + 2 < t.length &&
+          t[o + 1].indexOf("+++ ") === 0 && t[o + 2].indexOf("@@") === 0);
+        o++
+      ) {
+        var S = t[o].length == 0 && o != t.length - 1 ? " " : t[o][0];
+        if (
+          S === "+" || S === "-" || S === " " || S === "\\"
+        ) {
+          h.lines.push(t[o]),
+            h.linedelimiters.push(r[o] || `\n`),
+            S === "+" ? b++ : S === "-" ? y++ : S === " " && (b++, y++);
+        } else break;
+      }
+      if (
+        (!b && h.newLines === 1 && (h.newLines = 0),
+          !y && h.oldLines === 1 && (h.oldLines = 0),
+          n.strict)
+      ) {
+        if (b !== h.newLines) {
+          throw new Error(
+            "Added line count did not match for hunk at line " + (d + 1),
+          );
+        }
+        if (y !== h.oldLines) {
+          throw new Error(
+            "Removed line count did not match for hunk at line " + (d + 1),
+          );
+        }
+      }
+      return h;
+    }
+    for (; o < t.length;) u();
+    return s;
+  }
+  function Ue(e, n, t) {
+    var r = !0, s = !1, o = !1, u = 1;
+    return function l() {
+      if (r && !o) {
+        if ((s ? u++ : r = !1, e + u <= t)) return u;
+        o = !0;
+      }
+      if (!s) return (o || (r = !0), n <= e - u ? -u++ : (s = !0, l()));
+    };
+  }
+  function we(e, n) {
+    var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {};
+    if ((typeof n == "string" && (n = X(n)), Array.isArray(n))) {
+      if (n.length > 1) {
+        throw new Error("applyPatch only works with a single input.");
+      }
+      n = n[0];
+    }
+    var r = e.split(/\r\n|[\n\v\f\r\x85]/),
+      s = e.match(/\r\n|[\n\v\f\r\x85]/g) || [],
+      o = n.hunks,
+      u = t.compareLine || function (ae, K, ee, W) {
+        return K === W;
+      },
+      l = 0,
+      c = t.fuzzFactor || 0,
+      d = 0,
+      m = 0,
+      x,
+      h;
+    function b(ae, K) {
+      for (var ee = 0; ee < ae.lines.length; ee++) {
+        var W = ae.lines[ee],
+          ue = W.length > 0 ? W[0] : " ",
+          rn = W.length > 0 ? W.substr(1) : W;
+        if (ue === " " || ue === "-") {
+          if (!u(K + 1, r[K], ue, rn) && (l++, l > c)) return !1;
+          K++;
+        }
+      }
+      return !0;
+    }
+    for (var y = 0; y < o.length; y++) {
+      for (
+        var S = o[y],
+          E = r.length - S.oldLines,
+          k = 0,
+          N = m + S.oldStart - 1,
+          D = Ue(N, d, E);
+        k !== void 0;
+        k = D()
+      ) {
+        if (b(S, N + k)) {
+          S.offset = m += k;
+          break;
+        }
+      }
+      if (k === void 0) return !1;
+      d = S.offset + S.oldStart + S.oldLines;
+    }
+    for (var O = 0, U = 0; U < o.length; U++) {
+      var H = o[U], I = H.oldStart + H.offset + O - 1;
+      O += H.newLines - H.oldLines;
+      for (var P = 0; P < H.lines.length; P++) {
+        var A = H.lines[P],
+          J = A.length > 0 ? A[0] : " ",
+          se = A.length > 0 ? A.substr(1) : A,
+          Q = H.linedelimiters[P];
+        if (J === " ") I++;
+        else if (J === "-") r.splice(I, 1), s.splice(I, 1);
+        else if (J === "+") r.splice(I, 0, se), s.splice(I, 0, Q), I++;
+        else if (J === "\\") {
+          var Y = H.lines[P - 1] ? H.lines[P - 1][0] : null;
+          Y === "+" ? x = !0 : Y === "-" && (h = !0);
+        }
+      }
+    }
+    if (x) for (; !r[r.length - 1];) r.pop(), s.pop();
+    else h && (r.push(""), s.push(`\n`));
+    for (var R = 0; R < r.length - 1; R++) r[R] = r[R] + s[R];
+    return r.join("");
+  }
+  function Re(e, n) {
+    typeof e == "string" && (e = X(e));
+    var t = 0;
+    function r() {
+      var s = e[t++];
+      if (!s) return n.complete();
+      n.loadFile(s, function (o, u) {
+        if (o) return n.complete(o);
+        var l = we(u, s, n);
+        n.patched(s, l, function (c) {
+          if (c) return n.complete(c);
+          r();
+        });
+      });
+    }
+    r();
+  }
+  function te(e, n, t, r, s, o, u) {
+    u || (u = {}), typeof u.context == "undefined" && (u.context = 4);
+    var l = ge(t, r, u);
+    l.push({
+      value: "",
+      lines: [],
+    });
+    function c(k) {
+      return k.map(function (N) {
+        return " " + N;
+      });
+    }
+    for (
+      var d = [],
+        m = 0,
+        x = 0,
+        h = [],
+        b = 1,
+        y = 1,
+        S = function (k) {
+          var N = l[k], D = N.lines || N.value.replace(/\n$/, "").split(`\n`);
+          if ((N.lines = D, N.added || N.removed)) {
+            var O;
+            if (!m) {
+              var U = l[k - 1];
+              m = b,
+                x = y,
+                U &&
+                (h = u.context > 0 ? c(U.lines.slice(-u.context)) : [],
+                  m -= h.length,
+                  x -= h.length);
+            }
+            (O = h).push.apply(
+              O,
+              C(D.map(function (Y) {
+                return (N.added ? "+" : "-") + Y;
+              })),
+            ), N.added ? y += D.length : b += D.length;
+          } else {
+            if (m) {
+              if (D.length <= u.context * 2 && k < l.length - 2) {
+                var H;
+                (H = h).push.apply(H, C(c(D)));
+              } else {
+                var I, P = Math.min(D.length, u.context);
+                (I = h).push.apply(I, C(c(D.slice(0, P))));
+                var A = {
+                  oldStart: m,
+                  oldLines: b - m + P,
+                  newStart: x,
+                  newLines: y - x + P,
+                  lines: h,
+                };
+                if (k >= l.length - 2 && D.length <= u.context) {
+                  var J = /\n$/.test(t),
+                    se = /\n$/.test(r),
+                    Q = D.length == 0 && h.length > A.oldLines;
+                  !J && Q && t.length > 0 &&
+                  h.splice(A.oldLines, 0, "\\ No newline at end of file"),
+                    (!J && !Q || !se) && h.push("\\ No newline at end of file");
+                }
+                d.push(A), m = 0, x = 0, h = [];
+              }
+            }
+            b += D.length, y += D.length;
+          }
+        },
+        E = 0;
+      E < l.length;
+      E++
+    ) {
+      S(E);
+    }
+    return {
+      oldFileName: e,
+      newFileName: n,
+      oldHeader: s,
+      newHeader: o,
+      hunks: d,
+    };
+  }
+  function Ke(e) {
+    var n = [];
+    e.oldFileName == e.newFileName && n.push("Index: " + e.oldFileName),
+      n.push(
+        "===================================================================",
+      ),
+      n.push(
+        "--- " + e.oldFileName + (typeof e.oldHeader == "undefined"
+          ? ""
+          : "	" + e.oldHeader),
+      ),
+      n.push(
+        "+++ " + e.newFileName + (typeof e.newHeader == "undefined"
+          ? ""
+          : "	" + e.newHeader),
+      );
+    for (var t = 0; t < e.hunks.length; t++) {
+      var r = e.hunks[t];
+      r.oldLines === 0 && (r.oldStart -= 1),
+        r.newLines === 0 && (r.newStart -= 1),
+        n.push(
+          "@@ -" + r.oldStart + "," + r.oldLines + " +" + r.newStart + "," +
+            r.newLines + " @@",
+        ),
+        n.push.apply(n, r.lines);
+    }
+    return n.join(`\n`) + `\n`;
+  }
+  function ye(e, n, t, r, s, o, u) {
+    return Ke(te(e, n, t, r, s, o, u));
+  }
+  function Ze(e, n, t, r, s, o) {
+    return ye(e, e, n, t, r, s, o);
+  }
+  function _e(e, n) {
+    return e.length !== n.length ? !1 : re(e, n);
+  }
+  function re(e, n) {
+    if (n.length > e.length) return !1;
+    for (var t = 0; t < n.length; t++) if (n[t] !== e[t]) return !1;
+    return !0;
+  }
+  function Ge(e) {
+    var n = oe(e.lines), t = n.oldLines, r = n.newLines;
+    t !== void 0 ? e.oldLines = t : delete e.oldLines,
+      r !== void 0 ? e.newLines = r : delete e.newLines;
+  }
+  function Xe(e, n, t) {
+    e = Se(e, t), n = Se(n, t);
+    var r = {};
+    (e.index || n.index) && (r.index = e.index || n.index),
+      (e.newFileName || n.newFileName) &&
+      (xe(e)
+        ? xe(n)
+          ? (r.oldFileName = q(r, e.oldFileName, n.oldFileName),
+            r.newFileName = q(r, e.newFileName, n.newFileName),
+            r.oldHeader = q(r, e.oldHeader, n.oldHeader),
+            r.newHeader = q(r, e.newHeader, n.newHeader))
+          : (r.oldFileName = e.oldFileName,
+            r.newFileName = e.newFileName,
+            r.oldHeader = e.oldHeader,
+            r.newHeader = e.newHeader)
+        : (r.oldFileName = n.oldFileName || e.oldFileName,
+          r.newFileName = n.newFileName || e.newFileName,
+          r.oldHeader = n.oldHeader || e.oldHeader,
+          r.newHeader = n.newHeader || e.newHeader)),
+      r.hunks = [];
+    for (
+      var s = 0, o = 0, u = 0, l = 0; s < e.hunks.length || o < n.hunks.length;
+    ) {
+      var c = e.hunks[s] || {
+          oldStart: Infinity,
+        },
+        d = n.hunks[o] || {
+          oldStart: Infinity,
+        };
+      if (be(c, d)) r.hunks.push(Le(c, u)), s++, l += c.newLines - c.oldLines;
+      else if (be(d, c)) {
+        r.hunks.push(Le(d, l)), o++, u += d.newLines - d.oldLines;
+      } else {
+        var m = {
+          oldStart: Math.min(c.oldStart, d.oldStart),
+          oldLines: 0,
+          newStart: Math.min(c.newStart + u, d.oldStart + l),
+          newLines: 0,
+          lines: [],
+        };
+        qe(m, c.oldStart, c.lines, d.oldStart, d.lines),
+          o++,
+          s++,
+          r.hunks.push(m);
+      }
+    }
+    return r;
+  }
+  function Se(e, n) {
+    if (typeof e == "string") {
+      if (/^@@/m.test(e) || /^Index:/m.test(e)) return X(e)[0];
+      if (!n) {
+        throw new Error("Must provide a base reference or pass in a patch");
+      }
+      return te(void 0, void 0, n, e);
+    }
+    return e;
+  }
+  function xe(e) {
+    return e.newFileName && e.newFileName !== e.oldFileName;
+  }
+  function q(e, n, t) {
+    return n === t ? n : (e.conflict = !0, {
+      mine: n,
+      theirs: t,
+    });
+  }
+  function be(e, n) {
+    return e.oldStart < n.oldStart && e.oldStart + e.oldLines < n.oldStart;
+  }
+  function Le(e, n) {
+    return {
+      oldStart: e.oldStart,
+      oldLines: e.oldLines,
+      newStart: e.newStart + n,
+      newLines: e.newLines,
+      lines: e.lines,
+    };
+  }
+  function qe(e, n, t, r, s) {
+    var o = {
+        offset: n,
+        lines: t,
+        index: 0,
+      },
+      u = {
+        offset: r,
+        lines: s,
+        index: 0,
+      };
+    for (
+      (Ne(e, o, u), Ne(e, u, o));
+      o.index < o.lines.length && u.index < u.lines.length;
+    ) {
+      var l = o.lines[o.index], c = u.lines[u.index];
+      if ((l[0] === "-" || l[0] === "+") && (c[0] === "-" || c[0] === "+")) {
+        Qe(e, o, u);
+      } else if (l[0] === "+" && c[0] === " ") {
+        var d;
+        (d = e.lines).push.apply(d, C($(o)));
+      } else if (c[0] === "+" && l[0] === " ") {
+        var m;
+        (m = e.lines).push.apply(m, C($(u)));
+      } else {
+        l[0] === "-" && c[0] === " "
+          ? ke(e, o, u)
+          : c[0] === "-" && l[0] === " "
+          ? ke(e, u, o, !0)
+          : l === c
+          ? (e.lines.push(l), o.index++, u.index++)
+          : ie(e, $(o), $(u));
+      }
+    }
+    De(e, o), De(e, u), Ge(e);
+  }
+  function Qe(e, n, t) {
+    var r = $(n), s = $(t);
+    if (je(r) && je(s)) {
+      if (re(r, s) && Fe(t, r, r.length - s.length)) {
+        var o;
+        (o = e.lines).push.apply(o, C(r));
+        return;
+      } else if (re(s, r) && Fe(n, s, s.length - r.length)) {
+        var u;
+        (u = e.lines).push.apply(u, C(s));
+        return;
+      }
+    } else if (_e(r, s)) {
+      var l;
+      (l = e.lines).push.apply(l, C(r));
+      return;
+    }
+    ie(e, r, s);
+  }
+  function ke(e, n, t, r) {
+    var s = $(n), o = Ye(t, s);
+    if (o.merged) {
+      var u;
+      (u = e.lines).push.apply(u, C(o.merged));
+    } else ie(e, r ? o : s, r ? s : o);
+  }
+  function ie(e, n, t) {
+    e.conflict = !0,
+      e.lines.push({
+        conflict: !0,
+        mine: n,
+        theirs: t,
+      });
+  }
+  function Ne(e, n, t) {
+    for (; n.offset < t.offset && n.index < n.lines.length;) {
+      var r = n.lines[n.index++];
+      e.lines.push(r), n.offset++;
+    }
+  }
+  function De(e, n) {
+    for (; n.index < n.lines.length;) {
+      var t = n.lines[n.index++];
+      e.lines.push(t);
+    }
+  }
+  function $(e) {
+    for (var n = [], t = e.lines[e.index][0]; e.index < e.lines.length;) {
+      var r = e.lines[e.index];
+      if ((t === "-" && r[0] === "+" && (t = "+"), t === r[0])) {
+        n.push(r), e.index++;
+      } else break;
+    }
+    return n;
+  }
+  function Ye(e, n) {
+    for (
+      var t = [], r = [], s = 0, o = !1, u = !1;
+      s < n.length && e.index < e.lines.length;
+    ) {
+      var l = e.lines[e.index], c = n[s];
+      if (c[0] === "+") break;
+      if ((o = o || l[0] !== " ", r.push(c), s++, l[0] === "+")) {
+        for (u = !0; l[0] === "+";) {
+          t.push(l), l = e.lines[++e.index];
+        }
+      }
+      c.substr(1) === l.substr(1) ? (t.push(l), e.index++) : u = !0;
+    }
+    if (((n[s] || "")[0] === "+" && o && (u = !0), u)) return t;
+    for (; s < n.length;) r.push(n[s++]);
+    return {
+      merged: r,
+      changes: t,
+    };
+  }
+  function je(e) {
+    return e.reduce(function (n, t) {
+      return n && t[0] === "-";
+    }, !0);
+  }
+  function Fe(e, n, t) {
+    for (var r = 0; r < t; r++) {
+      var s = n[n.length - t + r].substr(1);
+      if (e.lines[e.index + r] !== " " + s) return !1;
+    }
+    return (e.index += t, !0);
+  }
+  function oe(e) {
+    var n = 0, t = 0;
+    return (e.forEach(function (r) {
+      if (typeof r != "string") {
+        var s = oe(r.mine), o = oe(r.theirs);
+        n !== void 0 &&
+        (s.oldLines === o.oldLines ? n += s.oldLines : n = void 0),
+          t !== void 0 &&
+          (s.newLines === o.newLines ? t += s.newLines : t = void 0);
+      } else {
+        t !== void 0 && (r[0] === "+" || r[0] === " ") && t++,
+          n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
+      }
+    }),
+      {
+        oldLines: n,
+        newLines: t,
+      });
+  }
+  function en(e) {
+    for (var n = [], t, r, s = 0; s < e.length; s++) {
+      t = e[s],
+        t.added ? r = 1 : t.removed ? r = -1 : r = 0,
+        n.push([
+          r,
+          t.value,
+        ]);
+    }
+    return n;
+  }
+  function nn(e) {
+    for (var n = [], t = 0; t < e.length; t++) {
+      var r = e[t];
+      r.added ? n.push("<ins>") : r.removed && n.push("<del>"),
+        n.push(tn(r.value)),
+        r.added ? n.push("</ins>") : r.removed && n.push("</del>");
+    }
+    return n.join("");
+  }
+  function tn(e) {
+    var n = e;
+    return (n = n.replace(/&/g, "&amp;"),
+      n = n.replace(/</g, "&lt;"),
+      n = n.replace(/>/g, "&gt;"),
+      n = n.replace(/"/g, "&quot;"),
+      n);
+  }
+  i1.Diff = a,
+    i1.applyPatch = we,
+    i1.applyPatches = Re,
+    i1.canonicalize = _,
+    i1.convertChangesToDMP = en,
+    i1.convertChangesToXML = nn,
+    i1.createPatch = Ze,
+    i1.createTwoFilesPatch = ye,
+    i1.diffArrays = Ve,
+    i1.diffChars = w,
+    i1.diffCss = Me,
+    i1.diffJson = ze,
+    i1.diffLines = ge,
+    i1.diffSentences = Be,
+    i1.diffTrimmedLines = Ae,
+    i1.diffWords = B,
+    i1.diffWordsWithSpace = z,
+    i1.merge = Xe,
+    i1.parsePatch = X,
+    i1.structuredPatch = te,
+    Object.defineProperty(i1, "__esModule", {
+      value: !0,
+    });
+});
+async function cn(i1) {
+  const a = await crypto.subtle.digest("SHA-256", i1),
+    f = Array.from(new Uint8Array(a)),
+    g = f.map((p) => ("00" + p.toString(16)).slice(-2)).join("");
+  return g;
+}
+const dn = (i1) => {
+    if (i1.length < 10) return !1;
+    const a = [
+        ...i1.slice(0, 8),
+      ].filter((g) => g < "0" || g > "f").length === 0,
+      f = i1.slice(8);
+    if (a && f[0] === "[" && f[f.length - 1] === "]") {
+      try {
+        return JSON.parse(f).length > 1;
+      } catch {
+        return !1;
+      }
+    }
+    return !1;
+  },
+  hn = (i1, a) => {
+    const f = JSON.parse(a);
+    let g = i1.slice(), p = "";
+    return f.forEach((w) => {
+      if (Number(w) === w) {
+        const v = Math.abs(w), L = g.slice(0, v);
+        g = g.slice(v), w > 0 && (p += String(L));
+      } else p += String(w);
+    }),
+      p;
+  };
+async function pn(i1) {
+  const a = new TextEncoder().encode(i1), f = await cn(a);
+  return f.substr(0, 8);
+}
+const gn = async (i1, a) => {
+  const f = pn(i1), g = Diff.diffChars(i1, a);
+  return {
+    b: await f,
+    c: g.map((p) => p.added ? p.value : p.removed ? -p.count : p.count),
+  };
+};
+async function vn(i1) {
+  const a = await crypto.subtle.digest("SHA-256", i1),
+    f = Array.from(new Uint8Array(a)),
+    g = f.map((p) => ("00" + p.toString(16)).slice(-2)).join("");
+  return g;
+}
+async function mn(i1) {
+  const a = new TextEncoder().encode(i1), f = await vn(a);
+  return f.substr(0, 8);
+}
+const wn = (i1, a = !1) => {
+  const f = {
+    async get(g, p = "string") {
+      let w;
+      try {
+        if (
+          (a ? w = await (await i1).get("codeStore", g) : w = await i1.get(g),
+            !w)
+        ) {
+          return null;
+        }
+      } catch (v) {
+        return null;
+      }
+      if (p === "json") return JSON.parse(w);
+      if (p === "string") {
+        const v = await w;
+        if (typeof v == "string" && p === "string") {
+          const F = v;
+          if (dn(v)) {
+            const B = v.slice(0, 8), z = v.slice(8), M = await f.get(B);
+            return hn(M, z);
+          }
+          return v;
+        }
+        const L = new TextDecoder(), j = L.decode(v);
+        return j;
+      }
+      return w;
+    },
+    async put(g, p) {
+      let w;
+      try {
+        const L = await f.get(g);
+        if (
+          typeof L == "string" && typeof p == "string" && L.length === 8 &&
+          L !== p
+        ) {
+          const j = await f.get(p), F = await f.get(L);
+          if (typeof F == "string") {
+            const B = await mn(F);
+            if (B === L) {
+              const z = await gn(j, F), M = z.b + JSON.stringify(z.c);
+              f.put(B, M);
+            }
+          }
+        }
+      } catch {
+        w = "";
+      }
+      if (w !== "" && p === w) return p;
+      let v;
+      return (typeof p != "string" ? v = new TextDecoder().decode(p) : v = p,
+        a ? (await i1).put("codeStore", v, g) : await i1.put(g, v));
+    },
+    async delete(g) {
+      return (await i1).delete("codeStore", g);
+    },
+    async clear() {
+      return (await i1).clear("codeStore");
+    },
+    async keys() {
+      return (await i1).getAllKeys("codeStore");
+    },
+  };
+  return f;
+};
+function p(l) {
+  return new Promise(function (i1, a) {
+    var o;
+    o = window.document.createElement("script"),
+      o.src = l,
+      o.onload = () => i1(window),
+      o.onerror = a,
+      window.document.head.appendChild(o);
+  });
 }
 (function (d, h) {
   typeof exports == "object" && typeof module != "undefined"
@@ -184,7 +1556,7 @@ function getMethod(target, prop) {
       var s = t.length,
         o = n.length,
         u = 1,
-        p = s + o,
+        p1 = s + o,
         v = [
           {
             newPos: -1,
@@ -228,12 +1600,12 @@ function getMethod(target, prop) {
       if (f) {
         (function c() {
           setTimeout(function () {
-            if (u > p) return f();
+            if (u > p1) return f();
             w() || c();
           }, 0);
         })();
       } else {
-        for (; u <= p;) {
+        for (; u <= p1;) {
           var g = w();
           if (g) return g;
         }
@@ -300,11 +1672,11 @@ function getMethod(target, prop) {
         }
       } else {
         if (!u.added && f) {
-          var p = t.slice(s, s + u.count);
-          p = p.map(function (w, g) {
+          var p1 = t.slice(s, s + u.count);
+          p1 = p1.map(function (w, g) {
             var c = r[o + g];
             return c.length > w.length ? c : w;
-          }), u.value = e.join(p);
+          }), u.value = e.join(p1);
         } else u.value = e.join(t.slice(s, s + u.count));
         s += u.count, u.added || (o += u.count);
       }
@@ -330,12 +1702,12 @@ function getMethod(target, prop) {
     return n;
   }
   var B = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,
-    fe = /\S/,
+    fe1 = /\S/,
     P = new h();
   P.equals = function (e, n) {
     return this.options.ignoreCase &&
       (e = e.toLowerCase(), n = n.toLowerCase()),
-      e === n || this.options.ignoreWhitespace && !fe.test(e) && !fe.test(n);
+      e === n || this.options.ignoreWhitespace && !fe1.test(e) && !fe1.test(n);
   },
     P.tokenize = function (e) {
       for (
@@ -369,7 +1741,7 @@ function getMethod(target, prop) {
     }
     return n;
   };
-  function le(e, n, t) {
+  function le1(e, n, t) {
     return U.diff(e, n, t);
   }
   function Fe(e, n, t) {
@@ -406,15 +1778,13 @@ function getMethod(target, prop) {
       V(e));
   }
   function b(e) {
-    return He(e) || Ie(e) || be(e) || Ae();
+    return He2(e) || Ie2(e) || be(e) || Ae();
   }
-  function He(e) {
+  function He2(e) {
     if (Array.isArray(e)) return j(e);
   }
-  function Ie(e) {
-    if (
-      typeof Symbol != "undefined" && Symbol.iterator in Object(e)
-    ) {
+  function Ie2(e) {
+    if (typeof Symbol != "undefined" && Symbol.iterator in Object(e)) {
       return Array.from(e);
     }
   }
@@ -444,7 +1814,7 @@ function getMethod(target, prop) {
       `Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`,
     );
   }
-  var Ee = Object.prototype.toString, J = new h();
+  var Ee1 = Object.prototype.toString, J = new h();
   J.useLongestToken = !0,
     J.tokenize = U.tokenize,
     J.castInput = function (e) {
@@ -475,7 +1845,7 @@ function getMethod(target, prop) {
     var i1;
     for (i1 = 0; i1 < n.length; i1 += 1) if (n[i1] === e) return t[i1];
     var l;
-    if (Ee.call(e) === "[object Array]") {
+    if (Ee1.call(e) === "[object Array]") {
       for (
         (n.push(e), l = new Array(e.length), t.push(l), i1 = 0);
         i1 < e.length;
@@ -489,8 +1859,9 @@ function getMethod(target, prop) {
       n.push(e), l = {}, t.push(l);
       var s = [], o;
       for (o in e) e.hasOwnProperty(o) && s.push(o);
-      for ((s.sort(), i1 = 0); i1 < s.length; i1 += 1) {o = s[i1],
-          l[o] = X(e[o], n, t, r, o);}
+      for ((s.sort(), i1 = 0); i1 < s.length; i1 += 1) {
+        o = s[i1], l[o] = X(e[o], n, t, r, o);
+      }
       n.pop(), t.pop();
     } else l = e;
     return l;
@@ -514,9 +1885,9 @@ function getMethod(target, prop) {
     function l() {
       var u = {};
       for (f.push(u); i1 < t.length;) {
-        var p = t[i1];
-        if (/^(\-\-\-|\+\+\+|@@)\s/.test(p)) break;
-        var v = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(p);
+        var p1 = t[i1];
+        if (/^(\-\-\-|\+\+\+|@@)\s/.test(p1)) break;
+        var v = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(p1);
         v && (u.index = v[1]), i1++;
       }
       for ((s(u), s(u), u.hunks = []); i1 < t.length;) {
@@ -534,10 +1905,10 @@ function getMethod(target, prop) {
       }
     }
     function s(u) {
-      var p = /^(---|\+\+\+)\s+(.*)$/.exec(t[i1]);
-      if (p) {
-        var v = p[1] === "---" ? "old" : "new",
-          a = p[2].split("	", 2),
+      var p1 = /^(---|\+\+\+)\s+(.*)$/.exec(t[i1]);
+      if (p1) {
+        var v = p1[1] === "---" ? "old" : "new",
+          a = p1[2].split("	", 2),
           w = a[0].replace(/\\\\/g, "\\");
         /^".*"$/.test(w) && (w = w.substr(1, w.length - 2)),
           u[v + "FileName"] = w,
@@ -547,8 +1918,8 @@ function getMethod(target, prop) {
     }
     function o() {
       var u = i1,
-        p = t[i1++],
-        v = p.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),
+        p1 = t[i1++],
+        v = p1.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),
         a = {
           oldStart: +v[1],
           oldLines: typeof v[2] == "undefined" ? 1 : +v[2],
@@ -567,12 +1938,12 @@ function getMethod(target, prop) {
         i1++
       ) {
         var c = t[i1].length == 0 && i1 != t.length - 1 ? " " : t[i1][0];
-        if (
-          c === "+" || c === "-" || c === " " || c === "\\"
-        ) {
+        if (c === "+" || c === "-" || c === " " || c === "\\") {
           a.lines.push(t[i1]),
             a.linedelimiters.push(r[i1] || `\n`),
-            c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
+            c === "+" ? w++ : c === "-"
+              ? g++
+              : c === " " && (w++, g++);
         } else break;
       }
       if (
@@ -623,7 +1994,7 @@ function getMethod(target, prop) {
       s = 0,
       o = t.fuzzFactor || 0,
       u = 0,
-      p = 0,
+      p1 = 0,
       v,
       a;
     function w(re, D) {
@@ -643,13 +2014,13 @@ function getMethod(target, prop) {
         var c = i1[g],
           L = r.length - c.oldLines,
           F = 0,
-          m = p + c.oldStart - 1,
+          m = p1 + c.oldStart - 1,
           N = ze(m, u, L);
         F !== void 0;
         F = N()
       ) {
         if (w(c, m + F)) {
-          c.offset = p += F;
+          c.offset = p1 += F;
           break;
         }
       }
@@ -674,7 +2045,9 @@ function getMethod(target, prop) {
       }
     }
     if (v) for (; !r[r.length - 1];) r.pop(), f.pop();
-    else a && (r.push(""), f.push(`\n`));
+    else {
+      a && (r.push(""), f.push(`\n`));
+    }
     for (var q = 0; q < r.length - 1; q++) r[q] = r[q] + f[q];
     return r.join("");
   }
@@ -697,7 +2070,7 @@ function getMethod(target, prop) {
   }
   function _(e, n, t, r, f, i1, l) {
     l || (l = {}), typeof l.context == "undefined" && (l.context = 4);
-    var s = le(t, r, l);
+    var s = le1(t, r, l);
     s.push({
       value: "",
       lines: [],
@@ -709,7 +2082,7 @@ function getMethod(target, prop) {
     }
     for (
       var u = [],
-        p = 0,
+        p1 = 0,
         v = 0,
         a = [],
         w = 1,
@@ -718,13 +2091,13 @@ function getMethod(target, prop) {
           var N = s[m], y = N.lines || N.value.replace(/\n$/, "").split(`\n`);
           if ((N.lines = y, N.added || N.removed)) {
             var A;
-            if (!p) {
+            if (!p1) {
               var I = s[m - 1];
-              p = w,
+              p1 = w,
                 v = g,
                 I &&
                 (a = l.context > 0 ? o(I.lines.slice(-l.context)) : [],
-                  p -= a.length,
+                  p1 -= a.length,
                   v -= a.length);
             }
             (A = a).push.apply(
@@ -734,7 +2107,7 @@ function getMethod(target, prop) {
               })),
             ), N.added ? g += y.length : w += y.length;
           } else {
-            if (p) {
+            if (p1) {
               if (y.length <= l.context * 2 && m < s.length - 2) {
                 var E;
                 (E = a).push.apply(E, b(o(y)));
@@ -742,8 +2115,8 @@ function getMethod(target, prop) {
                 var T, O = Math.min(y.length, l.context);
                 (T = a).push.apply(T, b(o(y.slice(0, O))));
                 var z = {
-                  oldStart: p,
-                  oldLines: w - p + O,
+                  oldStart: p1,
+                  oldLines: w - p1 + O,
                   newStart: v,
                   newLines: g - v + O,
                   lines: a,
@@ -756,7 +2129,7 @@ function getMethod(target, prop) {
                   a.splice(z.oldLines, 0, "\\ No newline at end of file"),
                     (!Y && !R || !te) && a.push("\\ No newline at end of file");
                 }
-                u.push(z), p = 0, v = 0, a = [];
+                u.push(z), p1 = 0, v = 0, a = [];
               }
             }
             w += y.length, g += y.length;
@@ -810,7 +2183,7 @@ function getMethod(target, prop) {
   function qe(e, n, t, r, f, i1) {
     return ae(e, e, n, t, r, f, i1);
   }
-  function Ce(e, n) {
+  function Ce1(e, n) {
     return e.length !== n.length ? !1 : k(e, n);
   }
   function k(e, n) {
@@ -824,12 +2197,11 @@ function getMethod(target, prop) {
       r !== void 0 ? e.newLines = r : delete e.newLines;
   }
   function $e(e, n, t) {
-    e = de(e, t), n = de(n, t);
+    e = de2(e, t), n = de2(n, t);
     var r = {};
     (e.index || n.index) && (r.index = e.index || n.index),
-      (e.newFileName || n.newFileName) &&
-      (ce(e)
-        ? ce(n)
+      (e.newFileName || n.newFileName) && (ce2(e)
+        ? ce2(n)
           ? (r.oldFileName = Q(r, e.oldFileName, n.oldFileName),
             r.newFileName = Q(r, e.newFileName, n.newFileName),
             r.oldHeader = Q(r, e.oldHeader, n.oldHeader),
@@ -857,22 +2229,22 @@ function getMethod(target, prop) {
       else if (pe(u, o)) {
         r.hunks.push(ve(u, s)), i1++, l += u.newLines - u.oldLines;
       } else {
-        var p = {
+        var p1 = {
           oldStart: Math.min(o.oldStart, u.oldStart),
           oldLines: 0,
           newStart: Math.min(o.newStart + l, u.oldStart + s),
           newLines: 0,
           lines: [],
         };
-        Re(p, o.oldStart, o.lines, u.oldStart, u.lines),
+        Re(p1, o.oldStart, o.lines, u.oldStart, u.lines),
           i1++,
           f++,
-          r.hunks.push(p);
+          r.hunks.push(p1);
       }
     }
     return r;
   }
-  function de(e, n) {
+  function de2(e, n) {
     if (typeof e == "string") {
       if (/^@@/m.test(e) || /^Index:/m.test(e)) return G(e)[0];
       if (!n) {
@@ -882,7 +2254,7 @@ function getMethod(target, prop) {
     }
     return e;
   }
-  function ce(e) {
+  function ce2(e) {
     return e.newFileName && e.newFileName !== e.oldFileName;
   }
   function Q(e, n, t) {
@@ -925,13 +2297,12 @@ function getMethod(target, prop) {
         var u;
         (u = e.lines).push.apply(u, b(M(i1)));
       } else if (o[0] === "+" && s[0] === " ") {
-        var p;
-        (p = e.lines).push.apply(p, b(M(l)));
+        var p1;
+        (p1 = e.lines).push.apply(p1, b(M(l)));
       } else {
-        s[0] === "-" && o[0] === " "
-          ? he(e, i1, l)
-          : o[0] === "-" && s[0] === " "
-          ? he(e, l, i1, !0)
+        s[0] === "-" && o[0] === " " ? he2(e, i1, l)
+        : o[0] === "-" && s[0] === " "
+          ? he2(e, l, i1, !0)
           : s === o
           ? (e.lines.push(s), i1.index++, l.index++)
           : ee(e, M(i1), M(l));
@@ -951,14 +2322,14 @@ function getMethod(target, prop) {
         (l = e.lines).push.apply(l, b(f));
         return;
       }
-    } else if (Ce(r, f)) {
+    } else if (Ce1(r, f)) {
       var s;
       (s = e.lines).push.apply(s, b(r));
       return;
     }
     ee(e, r, f);
   }
-  function he(e, n, t, r) {
+  function he2(e, n, t, r) {
     var f = M(n), i1 = Be(t, f);
     if (i1.merged) {
       var l;
@@ -1046,7 +2417,7 @@ function getMethod(target, prop) {
         newLines: t,
       });
   }
-  function Pe(e) {
+  function Pe1(e) {
     for (var n = [], t, r, f = 0; f < e.length; f++) {
       t = e[f],
         t.added ? r = 1 : t.removed ? r = -1 : r = 0,
@@ -1078,7 +2449,7 @@ function getMethod(target, prop) {
     d.applyPatch = ue,
     d.applyPatches = We,
     d.canonicalize = X,
-    d.convertChangesToDMP = Pe,
+    d.convertChangesToDMP = Pe1,
     d.convertChangesToXML = Ue,
     d.createPatch = qe,
     d.createTwoFilesPatch = ae,
@@ -1086,7 +2457,7 @@ function getMethod(target, prop) {
     d.diffChars = W,
     d.diffCss = Se,
     d.diffJson = Te,
-    d.diffLines = le,
+    d.diffLines = le1,
     d.diffSentences = Ne,
     d.diffTrimmedLines = Fe,
     d.diffWords = me,
@@ -1104,43 +2475,10 @@ async function Ze(d) {
     H = x.map((S) => ("00" + S.toString(16)).slice(-2)).join("");
   return H;
 }
-const isDiff = (d) => {
-    if (d.length < 10) return !1;
-    const h = [
-        ...d.slice(0, 8),
-      ].filter((H) => H < "0" || H > "f").length === 0,
-      x = d.slice(8);
-    if (h && x[0] === "[" && x[x.length - 1] === "]") {
-      try {
-        return JSON.parse(x).length > 1;
-      } catch {
-        return !1;
-      }
-    }
-    return !1;
-  },
-  assemble = (d, h) => {
-    const x = JSON.parse(h);
-    let H = d.slice(), S = "";
-    return x.forEach((W) => {
-      if (Number(W) === W) {
-        const $ = Math.abs(W), B = H.slice(0, $);
-        H = H.slice($), W > 0 && (S += String(B));
-      } else S += String(W);
-    }),
-      S;
-  };
 async function Ge(d) {
   const h = new TextEncoder().encode(d), x = await Ze(h);
   return x.substr(0, 8);
 }
-const diff = async (d, h) => {
-  const x = Ge(d), H = Diff.diffChars(d, h);
-  return {
-    b: await x,
-    c: H.map((S) => S.added ? S.value : S.removed ? -S.count : S.count),
-  };
-};
 async function arrBuffSha256(msgBuffer) {
   const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
@@ -1149,200 +2487,21 @@ async function arrBuffSha256(msgBuffer) {
   );
   return hashHex;
 }
-const { ReactDOM, document } = window;
-const getUrl = () => {
-  if (document.location.href.includes("zed.dev")) {
-    return "https://code.zed.vision";
+function getDepts(code) {
+  const debts = [
+    "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+    "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
+    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+  ];
+  if (code.indexOf("framer-motion") !== -1) {
+    debts.push("https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js");
   }
-  return "https://code.zed.vision";
-};
-let firstLoad = true;
-let latestCode = "";
-let errorReported = "";
-let latestSavedCode = "";
-let latestGoodCode = "";
-let shareItAsHtml;
-function replaceWithEmpty(elementId = "root") {
-  const el = document.createElement("div");
-  const rootEl = document.getElementById(elementId);
-  try {
-    ReactDOM.unmountComponentAtNode(rootEl);
-  } catch (e) {
-    console.error("Error in un-mount", e);
+  if (code.indexOf("qrious") !== -1) {
+    debts.push("https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js");
   }
-  if (rootEl) rootEl.replaceWith(el);
-  else {
-    document.body.appendChild(el);
-  }
-  el.id = elementId;
+  return debts;
 }
-function p(l) {
-  return new Promise(function (i1, a) {
-    var o;
-    o = window.document.createElement("script"),
-      o.src = l,
-      o.onload = () => i1(window),
-      o.onerror = a,
-      window.document.head.appendChild(o);
-  });
-}
-const proxyMarker = Symbol("Comlink.proxy");
-const createEndpoint = Symbol("Comlink.endpoint");
-const releaseProxy = Symbol("Comlink.releaseProxy");
-const throwMarker = Symbol("Comlink.thrown");
-const isObject = (val) =>
-  typeof val === "object" && val !== null || typeof val === "function";
-const throwTransferHandler = {
-  canHandle: (value) => isObject(value) && throwMarker in value,
-  serialize({ value }) {
-    let serialized;
-    if (value instanceof Error) {
-      serialized = {
-        isError: true,
-        value: {
-          message: value.message,
-          name: value.name,
-          stack: value.stack,
-        },
-      };
-    } else {
-      serialized = {
-        isError: false,
-        value,
-      };
-    }
-    return [
-      serialized,
-      [],
-    ];
-  },
-  deserialize(serialized) {
-    if (serialized.isError) {
-      throw Object.assign(
-        new Error(serialized.value.message),
-        serialized.value,
-      );
-    }
-    throw serialized.value;
-  },
-};
-function isMessagePort(endpoint) {
-  return endpoint.constructor.name === "MessagePort";
-}
-function closeEndPoint(endpoint) {
-  if (isMessagePort(endpoint)) endpoint.close();
-}
-function throwIfProxyReleased(isReleased) {
-  if (isReleased) {
-    throw new Error("Proxy has been released and is not useable");
-  }
-}
-function myFlat(arr) {
-  return Array.prototype.concat.apply([], arr);
-}
-const transferCache = new WeakMap();
-function transfer(obj, transfers) {
-  transferCache.set(obj, transfers);
-  return obj;
-}
-function proxy(obj) {
-  return Object.assign(obj, {
-    [proxyMarker]: true,
-  });
-}
-function generateUUID() {
-  return new Array(4).fill(0).map(() =>
-    Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)
-  ).join("-");
-}
-let transform;
-async function sha256(message) {
-  const msgBuffer = new TextEncoder().encode(message);
-  const hashHex = await arrBuffSha256(msgBuffer);
-  return hashHex.substr(0, 8);
-}
-const getDbObj = (dbPromise, isIdb = false) => {
-  const dbObj = {
-    async get(key, format = "string") {
-      let data;
-      try {
-        if (isIdb) {
-          data = await (await dbPromise).get("codeStore", key);
-        } else {
-          data = await dbPromise.get(key);
-        }
-        if (!data) return null;
-      } catch (_) {
-        return null;
-      }
-      if (format === "json") {
-        return JSON.parse(data);
-      }
-      if (format === "string") {
-        const allData = await data;
-        if (typeof allData === "string" && format === "string") {
-          const text = allData;
-          if (isDiff(allData)) {
-            const keyOfDiff = allData.slice(0, 8);
-            const instructions = allData.slice(8);
-            const oldValue = await dbObj.get(keyOfDiff);
-            return assemble(oldValue, instructions);
-          }
-          return allData;
-        }
-        const decoder = new TextDecoder();
-        const text = decoder.decode(allData);
-        return text;
-      }
-      return data;
-    },
-    async put(key, val) {
-      let prev;
-      try {
-        const oldKey = await dbObj.get(key);
-        if (
-          typeof oldKey === "string" && typeof val === "string" &&
-          oldKey.length === 8 && oldKey !== val
-        ) {
-          const actualValue = await dbObj.get(val);
-          const prevValue = await dbObj.get(oldKey);
-          if (typeof prevValue === "string") {
-            const prevSha = await sha256(prevValue);
-            if (prevSha === oldKey) {
-              const diffObj = await diff(actualValue, prevValue);
-              const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-              dbObj.put(prevSha, diffAsStr);
-            }
-          }
-        }
-      } catch {
-        prev = "";
-      }
-      if (prev !== "" && val === prev) return val;
-      let str;
-      if (typeof val !== "string") {
-        str = new TextDecoder().decode(val);
-      } else {
-        str = val;
-      }
-      if (isIdb) {
-        return (await dbPromise).put("codeStore", str, key);
-      } else {
-        return await dbPromise.put(key, str);
-      }
-    },
-    async delete(key) {
-      return (await dbPromise).delete("codeStore", key);
-    },
-    async clear() {
-      return (await dbPromise).clear("codeStore");
-    },
-    async keys() {
-      return (await dbPromise).getAllKeys("codeStore");
-    },
-  };
-  return dbObj;
-};
 function requestResponseMessage(ep, msg, transfers) {
   return new Promise((resolve) => {
     const id = generateUUID();
@@ -1364,456 +2523,6 @@ function requestResponseMessage(ep, msg, transfers) {
     );
   });
 }
-function promisifyRequest(request) {
-  const promise = new Promise((resolve, reject) => {
-    const unlisten = () => {
-      request.removeEventListener("success", success);
-      request.removeEventListener("error", error);
-    };
-    const success = () => {
-      resolve(wrap1(request.result));
-      unlisten();
-    };
-    const error = () => {
-      reject(request.error);
-      unlisten();
-    };
-    request.addEventListener("success", success);
-    request.addEventListener("error", error);
-  });
-  promise.then((value) => {
-    if (value instanceof IDBCursor) {
-      cursorRequestMap.set(value, request);
-    }
-  }).catch(() => {
-  });
-  reverseTransformCache.set(promise, request);
-  return promise;
-}
-let idbProxyTraps = {
-  get(target, prop, receiver) {
-    if (target instanceof IDBTransaction) {
-      if (prop === "done") return transactionDoneMap.get(target);
-      if (prop === "objectStoreNames") {
-        return target.objectStoreNames || transactionStoreNamesMap.get(target);
-      }
-      if (prop === "store") {
-        return receiver.objectStoreNames[1]
-          ? undefined
-          : receiver.objectStore(receiver.objectStoreNames[0]);
-      }
-    }
-    return wrap1(target[prop]);
-  },
-  set(target, prop, value) {
-    target[prop] = value;
-    return true;
-  },
-  has(target, prop) {
-    if (
-      target instanceof IDBTransaction && (prop === "done" || prop === "store")
-    ) {
-      return true;
-    }
-    return prop in target;
-  },
-};
-function replaceTraps(callback) {
-  idbProxyTraps = callback(idbProxyTraps);
-}
-function wrapFunction(func) {
-  if (
-    func === IDBDatabase.prototype.transaction &&
-    !("objectStoreNames" in IDBTransaction.prototype)
-  ) {
-    return function (storeNames, ...args) {
-      const tx = func.call(unwrap(this), storeNames, ...args);
-      transactionStoreNamesMap.set(
-        tx,
-        storeNames.sort ? storeNames.sort() : [
-          storeNames,
-        ],
-      );
-      return wrap1(tx);
-    };
-  }
-  if (getCursorAdvanceMethods().includes(func)) {
-    return function (...args) {
-      func.apply(unwrap(this), args);
-      return wrap1(cursorRequestMap.get(this));
-    };
-  }
-  return function (...args) {
-    return wrap1(func.apply(unwrap(this), args));
-  };
-}
-function transformCachableValue(value) {
-  if (typeof value === "function") return wrapFunction(value);
-  if (value instanceof IDBTransaction) cacheDonePromiseForTransaction(value);
-  if (instanceOfAny(value, getIdbProxyableTypes())) {
-    return new Proxy(value, idbProxyTraps);
-  }
-  return value;
-}
-function wrap1(value) {
-  if (value instanceof IDBRequest) return promisifyRequest(value);
-  if (transformCache.has(value)) return transformCache.get(value);
-  const newValue = transformCachableValue(value);
-  if (newValue !== value) {
-    transformCache.set(value, newValue);
-    reverseTransformCache.set(newValue, value);
-  }
-  return newValue;
-}
-function openDB(
-  name,
-  version,
-  { blocked, upgrade, blocking, terminated } = {},
-) {
-  const request = indexedDB.open(name, version);
-  const openPromise = wrap1(request);
-  if (upgrade) {
-    request.addEventListener("upgradeneeded", (event) => {
-      upgrade(
-        wrap1(request.result),
-        event.oldVersion,
-        event.newVersion,
-        wrap1(request.transaction),
-      );
-    });
-  }
-  if (blocked) request.addEventListener("blocked", () => blocked());
-  openPromise.then((db) => {
-    if (terminated) db.addEventListener("close", () => terminated());
-    if (blocking) db.addEventListener("versionchange", () => blocking());
-  }).catch(() => {
-  });
-  return openPromise;
-}
-replaceTraps((oldTraps) => ({
-  ...oldTraps,
-  get: (target, prop, receiver) =>
-    getMethod(target, prop) || oldTraps.get(target, prop, receiver),
-  has: (target, prop) =>
-    !!getMethod(target, prop) || oldTraps.has(target, prop),
-}));
-const getDB = () => {
-  const dbPromise = openDB("localZedCodeStore", 1, {
-    upgrade(db) {
-      db.createObjectStore("codeStore");
-    },
-    blocked() {
-    },
-    blocking() {
-    },
-    terminated() {
-    },
-  });
-  return getDbObj(dbPromise, true);
-};
-async function getZkey(hash) {
-  const uuid = await getUserId();
-  const uKey = await sha256(uuid);
-  const gKey = await sha256(hash + uKey);
-  const vKey = await sha256(hash + uuid);
-  return `${hash}${uKey}${gKey}${vKey}`;
-}
-export const getProjects = async (uuid) => {
-  const shaDB = await getDB();
-  const projects = await shaDB.get(uuid, "json");
-  if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId = v4();
-    await shaDB.put(
-      uuid,
-      JSON.stringify({
-        list: [
-          projectId,
-        ],
-        [projectId]: {
-          created: Date.now(),
-          lastOpen: Date.now(),
-        },
-      }),
-    );
-    return [
-      projectId,
-    ];
-  }
-  return projects.list;
-};
-export async function getUserId() {
-  const shaDB = await getDB();
-  const uuid = await shaDB.get("uuid");
-  if (!uuid) {
-    if (!window.location.href.includes("zed.dev")) {
-      const resp = await fetch("https://code.zed.vision/register");
-      const data = await resp.json();
-      shaDB.put("uuid", data.uuid);
-      return data.uuid;
-    } else {
-      shaDB.put("uuid", "1234");
-      return "1234";
-    }
-  }
-  return uuid;
-}
-export async function run(mode = "window") {
-  const { startMonaco } = await import(
-    "https://unpkg.com/@zedvision/smart-monaco-editor@8.5.4/lib/editor.min.js"
-  );
-  const { transpileCode } = await import("./transpile.js");
-  if (mode === "editor") {
-    const { renderDraggableEditor } = await import("./DraggableEditor.js");
-    await renderDraggableEditor();
-  }
-  if (mode === "window") {
-    const { renderDraggableWindow } = await import("./DraggableWindow.js");
-    const onShare = async () => {
-      const link = await shareItAsHtml();
-      window.open(link);
-    };
-    const opts = {
-      onShare,
-      ReactDOM,
-      React: window.React,
-      jsx: window.jsx,
-    };
-    await renderDraggableWindow(opts);
-  }
-  const shaDB = await getDB();
-  const uuid = await getUserId();
-  const projects = await getProjects(uuid);
-  const projectName = projects[0];
-  const example = await getCodeToLoad();
-  restartCode(await transpileCode(example));
-  latestGoodCode = example;
-  const modules = await startMonaco({
-    language: "typescript",
-    code: example,
-    onChange,
-  });
-  async function runner(cd) {
-    try {
-      restartCode(await transpileCode(cd));
-      const err = await getErrors(cd);
-      const errorDiv = document.getElementById("error");
-      if (err && err.length) {
-        restartCode(await transpileCode(latestGoodCode));
-        const { diff: diff1 } = await import("../../diff/dist/diff.min.js");
-        if (latestCode != cd) {
-          return;
-        }
-        if (errorReported === cd) {
-          return;
-        }
-        const slices = await diff1(latestGoodCode, cd);
-        if (slices.c.length <= 3) {
-          modules.monaco.editor.setTheme("hc-black");
-          return;
-        }
-        errorDiv.innerHTML = err[0].messageText.toString();
-        errorDiv.style.display = "block";
-        errorReported = cd;
-        return;
-      }
-      latestGoodCode = cd;
-      errorDiv.style.display = "none";
-      modules.monaco.editor.setTheme("vs-dark");
-    } catch (err) {
-      if (cd !== latestCode) {
-        return;
-      }
-      modules.monaco.editor.setTheme("vs-light");
-      setTimeout(() => {
-        modules.monaco.editor.setTheme("hc-black");
-      }, 50);
-      console.error(err);
-    }
-  }
-  function onChange(code) {
-    if (!modules) return;
-    latestCode = code;
-    requestAnimationFrame(() => runner(latestCode));
-  }
-  async function getErrors(code) {
-    if (!modules || !modules.monaco) return;
-    const { monaco } = modules;
-    const shaCode = await sha256(code);
-    const filename = `file:///${shaCode}.tsx`;
-    const uri = monaco.Uri.parse(filename);
-    const model = monaco.editor.getModel(uri) ||
-      await monaco.editor.createModel(code, "typescript", uri);
-    const worker = await monaco.languages.typescript.getTypeScriptWorker();
-    const client = await worker(model.uri);
-    const diag = client.getSemanticDiagnostics(filename);
-    const comp = client.getCompilerOptionsDiagnostics(filename);
-    const syntax = client.getSyntacticDiagnostics(filename);
-    const fastError = await Promise.race([
-      diag,
-      comp,
-      syntax,
-    ]);
-    model.dispose();
-    return [
-      ...fastError,
-    ];
-  }
-  function restartCode(transPiled) {
-    if (typeof transPiled !== "string" || transPiled === "") {
-      return;
-    }
-    const searchRegExp = /import/gi;
-    const searchRegExpExport = /export /gi;
-    const replaceWith = "///";
-    const code =
-      `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    \n    ` +
-      transPiled.replaceAll(searchRegExp, replaceWith).replace(
-        "export default",
-        "DefaultElement = ",
-      ).replaceAll(searchRegExpExport, "");
-    replaceWithEmpty("root");
-    const restart = () => {
-      const codeToHydrate = mode === "window"
-        ? code.replace("body{", "#root{")
-        : code;
-      const hydrate = new Function(
-        `return function(){  \n          let DefaultElement;\n          ${codeToHydrate}\n          return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`,
-      )();
-      hydrate();
-      shareItAsHtml = async () => {
-        const renderToString = new Function(
-          `return function(){\n            let DefaultElement;\n            ${code}\n            return ReactDOMServer.renderToString(jsx(DefaultElement));\n        }`,
-        )();
-        const HTML = renderToString();
-        const css = Array.from(
-          document.querySelector("head > style[data-emotion=css]").sheet
-            .cssRules,
-        ).map((x) => x.cssText).filter((cssRule) =>
-          HTML.includes(cssRule.substring(3, 8))
-        ).join("\n  ");
-        let bodyStylesFix;
-        if (code.includes("body{")) {
-          const start = code.indexOf("body{");
-          const firstBit = code.slice(start);
-          const last = firstBit.indexOf("}");
-          bodyStylesFix = firstBit.slice(0, last + 1);
-        }
-        let motionDep = "";
-        let motionScript = "";
-        if (code.indexOf("framer-motion") > -1) {
-          motionDep =
-            `<script crossorigin src="https://unpkg.com/framer-motion@3.0..0/dist/framer-motion.js"></script>`;
-          motionScript = "const {motion} = Motion";
-        }
-        let qrDep = "";
-        if (code.indexOf("QRious") > -1) {
-          qrDep =
-            `<script crossorigin src="https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js"></script>`;
-        }
-        let title = "(code).zed.vision :)";
-        if (HTML.indexOf("<title>") > -1 && HTML.indexOf("</title>") > -1) {
-          title = HTML.slice(
-            HTML.indexOf("<title>") + 7,
-            HTML.indexOf("</title>"),
-          );
-        }
-        const codeForImport =
-          `\n      const runner = async()=>{\n          const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");\n\n          const debts = ["https://unpkg.com/react@17.0.1/umd/react.production.min.js",\n          "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",\n          "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",\n          "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"\n          ];\n\n          for (let i = 0; i < debts.length; i++) {\n              await importScript(debts[i]);\n          }\n\n\n            Object.assign(window, emotionReact);\n            let styled = window["emotionStyled"];\n            let DefaultElement;\n            ${code}\n            document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));\n        \n\n            await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")\n            ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);\n        }\n        runner();\n        `;
-        const iframe =
-          `<!DOCTYPE html>\n        <html lang="en">\n        <head>\n        <title>${title}</title>\n        <meta name="viewport" content="width=device-width, initial-scale=1">\n        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n        <meta name="Description" content="Generated with code.zed.vision">\n        <head profile="http://www.w3.org/2005/10/profile">\n        <link rel="preload" href="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" as="script">\n        <link rel="icon" \n              type="image/png"\n              href="https://zed.vision/favicon.ico">\n        <style>\n        ${bodyStylesFix}\n        \n        ${css}\n        </style>\n        </head>\n        <body>\n        <div id="root">\n        ${HTML}\n        </div>\n     \n        <script type="module">\n     \n        ${codeForImport}\n\n        </script>\n        </body>\n        </html>\n        `;
-        const link = await saveHtml(iframe);
-        return link;
-      };
-    };
-    if (!firstLoad) {
-      const saveCode = async (latestCode1) => {
-        if (latestCode1 !== latestGoodCode) return;
-        if (latestSavedCode === latestCode1) return;
-        latestSavedCode = latestCode1;
-        const hash = await sha256(latestCode1);
-        const request = new Request(getUrl(), {
-          body: latestCode1,
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=UTF-8",
-            "ZKEY": await getZkey(hash),
-          },
-        });
-        try {
-          const prevHash = await shaDB.get(projectName);
-          if (prevHash !== hash) {
-            await shaDB.put(hash, latestCode1);
-            await shaDB.put(projectName, hash);
-          }
-        } catch (e) {
-          console.error(e);
-        }
-      };
-      saveCode(latestCode);
-    }
-    firstLoad = false;
-    restart();
-  }
-  async function getCodeToLoad() {
-    const db = await getDB();
-    const search = new URLSearchParams(window.location.search);
-    const keyToLoad = search.get("h") || await db.get(projectName);
-    if (keyToLoad) {
-      let code;
-      try {
-        code = await db.get(keyToLoad);
-      } catch {
-        console.error("error load key: " + keyToLoad);
-      }
-      if (code) return code;
-      let text;
-      try {
-        const resp = await fetch(getUrl() + "/?h=" + keyToLoad);
-        text = await resp.json();
-      } catch (e) {
-        const shaHash = await sha256(starter);
-        db.put(shaHash, starter);
-        await db.put(projectName, shaHash);
-        return starter;
-      }
-      return text;
-    }
-    return starter;
-  }
-  function setQueryStringParameter(name, value) {
-    const params = new URLSearchParams(window.location.search);
-    params.set(name, value);
-    window.history.replaceState(
-      {},
-      "",
-      decodeURIComponent(`${window.location.pathname}?${params}`),
-    );
-  }
-  function createHTMLSourceBlob(code) {
-    const blob = new Blob([
-      code,
-    ], {
-      type: "text/html",
-    });
-    return blob;
-  }
-  async function saveHtml(html) {
-    const cfUrl = getUrl();
-    const hash = await sha256(html);
-    const htmlBlob = await createHTMLSourceBlob(html);
-    const request = new Request(cfUrl, {
-      body: htmlBlob,
-      method: "POST",
-      headers: {
-        "Content-Type": "text/html;charset=UTF-8",
-        "SHARE": "true",
-        "ZKEY": await getZkey(hash),
-      },
-    });
-    const response = await fetch(request);
-    return `${cfUrl}/${hash}`;
-  }
-}
 const proxyTransferHandler = {
   canHandle: (val) => isObject(val) && val[proxyMarker],
   serialize(obj) {
@@ -1828,7 +2537,7 @@ const proxyTransferHandler = {
   },
   deserialize(port) {
     port.start();
-    return wrap2(port);
+    return wrap(port);
   },
 };
 const transferHandlers = new Map([
@@ -1921,7 +2630,7 @@ function expose(obj, ep = self) {
     ep.start();
   }
 }
-function wrap2(ep, target) {
+function wrap(ep, target) {
   return createProxy(ep, [], target);
 }
 function createProxy(ep, path = [], target = function () {
@@ -2039,7 +2748,108 @@ function fromWireValue(value) {
 }
 function init() {
   const worker = new Worker("./dist/transpile.worker.js");
-  transform = wrap2(worker);
+  transform = wrap(worker);
   return transform;
 }
 init();
+function yn(i1) {
+  const a = new Promise((f, g) => {
+    const p1 = () => {
+        i1.removeEventListener("success", w),
+          i1.removeEventListener("error", v);
+      },
+      w = () => {
+        f(T(i1.result)), p1();
+      },
+      v = () => {
+        g(i1.error), p1();
+      };
+    i1.addEventListener("success", w), i1.addEventListener("error", v);
+  });
+  return a.then((f) => {
+    f instanceof IDBCursor && Pe.set(f, i1);
+  }).catch(() => {
+  }),
+    ce1.set(a, i1),
+    a;
+}
+let pe = {
+  get(i, a, f) {
+    if (i instanceof IDBTransaction) {
+      if (a === "done") return le.get(i);
+      if (a === "objectStoreNames") return i.objectStoreNames || Ce.get(i);
+      if (a === "store") {
+        return f.objectStoreNames[1]
+          ? void 0
+          : f.objectStore(f.objectStoreNames[0]);
+      }
+    }
+    return T(i[a]);
+  },
+  set(i, a, f) {
+    return (i[a] = f, !0);
+  },
+  has(i, a) {
+    return i instanceof IDBTransaction && (a === "done" || a === "store")
+      ? !0
+      : a in i;
+  },
+};
+function Sn(i2) {
+  pe = i2(pe);
+}
+function xn(i2) {
+  return i2 === IDBDatabase.prototype.transaction &&
+      !("objectStoreNames" in IDBTransaction.prototype)
+    ? function (a, ...f) {
+      const g = i2.call(de1(this), a, ...f);
+      return Ce.set(
+        g,
+        a.sort ? a.sort() : [
+          a,
+        ],
+      ),
+        T(g);
+    }
+    : an().includes(i2)
+    ? function (...a) {
+      return i2.apply(de1(this), a), T(Pe.get(this));
+    }
+    : function (...a) {
+      return T(i2.apply(de1(this), a));
+    };
+}
+function bn(i2) {
+  return typeof i2 == "function"
+    ? xn(i2)
+    : (i2 instanceof IDBTransaction && un(i2),
+      on(i2, sn()) ? new Proxy(i2, pe) : i2);
+}
+function T(i2) {
+  if (i2 instanceof IDBRequest) return yn(i2);
+  if (fe.has(i2)) return fe.get(i2);
+  const a = bn(i2);
+  return a !== i2 && (fe.set(i2, a), ce1.set(a, i2)), a;
+}
+function Ln(
+  i2,
+  a,
+  { blocked: f, upgrade: g, blocking: p1, terminated: w } = {},
+) {
+  const v = indexedDB.open(i2, a), L = T(v);
+  return g && v.addEventListener("upgradeneeded", (j) => {
+    g(T(v.result), j.oldVersion, j.newVersion, T(v.transaction));
+  }),
+    f && v.addEventListener("blocked", () => f()),
+    L.then((j) => {
+      w && j.addEventListener("close", () => w()),
+        p1 && j.addEventListener("versionchange", () => p1());
+    }).catch(() => {
+    }),
+    L;
+}
+Sn((i2) => ({
+  ...i2,
+  get: (a, f, g) => Ie1(a, f) || i2.get(a, f, g),
+  has: (a, f) => !!Ie1(a, f) || i2.has(a, f),
+}));

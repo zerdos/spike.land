@@ -1,6 +1,6 @@
 export async function renderDraggableEditor() {
-  const {importScript} = await import("./importScript.js");
-  const {JSFrame} = await importScript("./jsframe.min.js");
+  const { importScript } = await import("./importScript.js");
+  const { JSFrame } = await importScript("./jsframe.min.js");
 
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
