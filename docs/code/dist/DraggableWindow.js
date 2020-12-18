@@ -1,10 +1,8 @@
 export async function renderDraggableWindow(win) {
-  const { importScript } = await import("./importScript.js");  
+  const { importScript } = await import("./importScript.js");
   const { getDepts } = await import("./templates.js");
-  
+
   const debts = getDepts("framer-motion");
-
-
 
   for (let i = 0; i < debts.length; i++) {
     await importScript(debts[i]);
@@ -14,7 +12,7 @@ export async function renderDraggableWindow(win) {
   let styled = window["emotionStyled"];
   let DefaultElement;
 
-  const {jsx, React} = window;
+  const { jsx, React } = window;
 
   const { motion } = window.Motion;
 
@@ -98,14 +96,12 @@ export async function renderDraggableWindow(win) {
   const html = ReactDOMServer.renderToString(jsx(DraggableWindow));
   document.getElementById("dragabbleWindow").innerHTML = html;
 
-
-  await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js");
+  await importScript(
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  );
 
   ReactDOM.hydrate(
     jsx(DraggableWindow),
     document.getElementById("dragabbleWindow"),
   );
-
-
-  
 }

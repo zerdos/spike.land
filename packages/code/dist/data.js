@@ -58,26 +58,21 @@ export const getProjects = async (uuid, v4) => {
   return projects.list;
 };
 
-
 export const saveCode = async (code) => {
-
   const { getDB } = await import("./shaDB.min.js");
-
-
 
   const { sha256 } = await import("./sha256.js");
   const hash = await sha256(code);
-  const projectName = await getProjects()
+  const projectName = await getProjects();
 
   try {
     const shaDB = await getDB();
     const prevHash = await shaDB.get(projectName);
 
     if (prevHash !== hash) {
-
       await shaDB.put(hash, code);
       await shaDB.put(projectName, hash);
-``
+      ``;
       // setQueryStringParameter("h", hash);
       //const response = fetch(request);
     }

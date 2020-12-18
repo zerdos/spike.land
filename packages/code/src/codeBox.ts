@@ -2,7 +2,6 @@ import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 
 import { starter } from "./starterNoFramerMotion.ts";
 
-
 const session = {
   firstLoad: true,
   errorCode: "",
@@ -29,7 +28,6 @@ function replaceWithEmpty(elementId = "root") {
 }
 
 export async function run(mode = "window") {
-  
   const { transpileCode } = await import("./transpile.js");
 
   session.code = await getCodeToLoad();
@@ -50,7 +48,6 @@ export async function run(mode = "window") {
       window.open(link as unknown as string);
     };
 
-
     await renderDraggableWindow();
   }
 
@@ -61,7 +58,7 @@ export async function run(mode = "window") {
   const shaDB = await getDB();
   const uuid = await getUserId();
 
-  const projects = await getProjects(uuid, ()=>v4());
+  const projects = await getProjects(uuid, () => v4());
   const projectName = projects[0];
 
   const transpiled = await transpileCode(session.code);
@@ -86,11 +83,10 @@ export async function run(mode = "window") {
       const err = await getErrors(cd);
       if (err.length === 0) {
         session.code = cd;
-        await saveCode(cd)
-      }
-      else {
+        await saveCode(cd);
+      } else {
         session.error = cd;
-       
+
         const { diff } = await import("./diff.min.js");
 
         const slices = await diff(session.code, cd);
@@ -111,8 +107,6 @@ export async function run(mode = "window") {
 
       modules.monaco.editor.setTheme("vs-dark");
     } catch (err) {
-     
-      
       modules.monaco.editor.setTheme("vs-light");
       setTimeout(() => {
         modules.monaco.editor.setTheme("hc-black");
@@ -127,7 +121,6 @@ export async function run(mode = "window") {
   }
 
   async function getErrors(code: string) {
-
     if (!modules || !modules.monaco) return;
     const { monaco } = modules;
     const { sha256 } = await import("./sha256.js");
@@ -195,7 +188,6 @@ export async function run(mode = "window") {
       hydrate();
     };
 
-    
     restart();
   }
   async function getCodeToLoad() {
@@ -206,7 +198,6 @@ export async function run(mode = "window") {
     const uuid = await getUserId();
     const projects = await getProjects(uuid, v4);
     const projectName = projects[0];
-
 
     const search = new URLSearchParams(window.location.search);
     const keyToLoad = search.get("h") || await db.get(projectName);
