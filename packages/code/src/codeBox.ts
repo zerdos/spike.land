@@ -149,14 +149,11 @@ export async function run(mode = "window") {
   });
 
   async function runner(cd: string) {
-   try {
-
+    try {
       restartCode(await transpileCode(cd));
       const err = await getErrors(cd);
-    
 
       const errorDiv = document.getElementById("error");
-
 
       if (err && err.length) {
         restartCode(await transpileCode(latestGoodCode));
@@ -189,8 +186,6 @@ export async function run(mode = "window") {
       errorDiv!.style!.display = "none";
 
       modules.monaco.editor.setTheme("vs-dark");
-
-
     } catch (err) {
       if (cd !== latestCode) {
         return;
@@ -207,7 +202,7 @@ export async function run(mode = "window") {
   function onChange(code: string) {
     if (!modules) return;
     latestCode = code;
-    window.requestAnimationFrame(()=>runner(latestCode),50); ;
+    window.requestAnimationFrame(() => runner(latestCode), 50);
   }
 
   async function getErrors(code: string) {
@@ -216,17 +211,20 @@ export async function run(mode = "window") {
     const shaCode = await sha256(code);
     const filename = `file:///${shaCode}.tsx`;
     const uri = monaco.Uri.parse(filename);
-    const model =  monaco.editor.getModel(uri) || await monaco.editor.createModel(code, "typescript", uri);
+    const model = monaco.editor.getModel(uri) ||
+      await monaco.editor.createModel(code, "typescript", uri);
     const worker = await monaco.languages.typescript.getTypeScriptWorker();
     const client = await worker(model.uri);
 
-    const diag =  client.getSemanticDiagnostics(filename);
-    const comp =  client.getCompilerOptionsDiagnostics(filename);
-    const syntax =  client.getSyntacticDiagnostics(filename);
-    const fastError = await Promise.race([diag, comp, syntax])
+    const diag = client.getSemanticDiagnostics(filename);
+    const comp = client.getCompilerOptionsDiagnostics(filename);
+    const syntax = client.getSyntacticDiagnostics(filename);
+    const fastError = await Promise.race([diag, comp, syntax]);
+
+    model.dispose();
 
     return [
-      ...fastError
+      ...fastError,
     ];
   }
   // document.getElementById("root")!.setAttribute("style", "display:block");

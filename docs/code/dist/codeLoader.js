@@ -1649,6 +1649,7 @@ export async function run(mode = "window") {
       comp,
       syntax,
     ]);
+    model.dispose();
     return [
       ...fastError,
     ];
