@@ -25,13 +25,12 @@ const getUrl = () => {
   return "https://code.zed.vision";
 };
 
-export const getProjects = async () => {
-  const uuid = await getUserId();
+export const getProjects = async (uuid: string) => {
   const shaDB = await getDB();
   const projects = await shaDB.get<{ list: string[] }>(uuid, "json");
 
   if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId: string = v4({}, null, null);
+    const projectId: string = v4();
 
     await shaDB.put(
       uuid,
@@ -79,6 +78,7 @@ export async function getUserId() {
       return data.uuid;
     } else {
       shaDB.put("uuid", "1234");
+      return "1234";
     }
   }
   return uuid;
@@ -133,7 +133,8 @@ export async function run(mode = "window") {
   }
 
   const shaDB = await getDB();
-  const projects = await getProjects();
+  const uuid = await getUserId();
+  const projects = await getProjects(uuid);
   const projectName = projects[0];
 
   const example = await getCodeToLoad();

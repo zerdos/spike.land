@@ -1518,12 +1518,11 @@ async function getZkey(hash) {
   const vKey = await sha256(hash + uuid);
   return `${hash}${uKey}${gKey}${vKey}`;
 }
-export const getProjects = async () => {
-  const uuid = await getUserId();
+export const getProjects = async (uuid) => {
   const shaDB = await getDB();
   const projects = await shaDB.get(uuid, "json");
   if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId = v4({}, null, null);
+    const projectId = v4();
     await shaDB.put(
       uuid,
       JSON.stringify({
@@ -1553,6 +1552,7 @@ export async function getUserId() {
       return data.uuid;
     } else {
       shaDB.put("uuid", "1234");
+      return "1234";
     }
   }
   return uuid;
@@ -1581,7 +1581,8 @@ export async function run(mode = "window") {
     await renderDraggableWindow(opts);
   }
   const shaDB = await getDB();
-  const projects = await getProjects();
+  const uuid = await getUserId();
+  const projects = await getProjects(uuid);
   const projectName = projects[0];
   const example = await getCodeToLoad();
   restartCode(await transpileCode(example));
