@@ -1,5 +1,119 @@
 const starter =
   `import { useState } from "react";\nimport { css, Global } from "@emotion/react";\n\nconst Slider = () => {\n  const steps = 128;\n  const [sliderValue, setSlider] = useState(steps / 2);\n  return <>\n    <input max={steps}\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${255 / steps * sliderValue} \${255 / steps * (steps - sliderValue)} 0); \n        outline: none; \n    \`} type="range"\n      aria-label="font size changer"\n      value={sliderValue}\n      step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <p\n      css={css\`\n        font-size: \${72 / steps * sliderValue}px\n        \`}>\n      Example when the text gets bigger...\n    </p>\n    <p css={css\`\n        font-size: \${72 / steps * (steps - sliderValue)}px\n        \`}>\n      ...or smaller\n    </p>\n  </>\n}\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    \`} />\n  <Slider />\n</>\n`;
+const __default = async function () {
+  const { importScript } = await import(
+    "https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js"
+  );
+  const debts = [
+    "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+    "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
+    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+    "https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js",
+  ];
+  for (let i = 0; i < debts.length; i++) {
+    await importScript(debts[i]);
+  }
+  Object.assign(window, emotionReact);
+  let styled = window["emotionStyled"];
+  let DefaultElement;
+  Object.assign(window, React);
+  if (window.Motion) {
+    Object.assign(window, window.Motion);
+  }
+  if (window.emotionStyled) {
+    window.styled = window.emotionStyled;
+  }
+  Object.assign(window, React);
+  const DraggableWindow = ({ onShare }) => {
+    const [scale, changeScale] = React.useState(100);
+    const ref = React.useRef(null);
+    return jsx(
+      motion.div,
+      {
+        ref: ref,
+        css:
+          `\n            background: red;\n            max-width: 80%;\n            left: 60%;\n            border: 4px solid red; \n            border-radius: 8px;\n          `,
+        whileDrag: {
+          scale: scale / 100 * 0.7,
+        },
+        animate: {
+          scale: scale / 100,
+        },
+        dragElastic: 0.5,
+        dragMomentum: false,
+        transition: {},
+        drag: true,
+      },
+      jsx(
+        "div",
+        {
+          css: css
+            `\n      display: block;\n      width: 100%;\n      text-align: right;\n      background: linear-gradient(0deg, darkred, red);\n    `,
+        },
+        jsx("button", {
+          onClick: () => changeScale((x) => x - 10),
+          css: buttonCss({
+            color: "green",
+            square: true,
+          }),
+        }, "-"),
+        jsx(
+          "div",
+          {
+            css: css
+              `\n        color:white;\n        padding: 7px;\n        display:inline;\n        background: \n        font-family: Roboto;\n        font-weight: 600;\n        margin-left: 0px;\n        margin-right: -25px;\n      `,
+          },
+          scale,
+          "%",
+        ),
+        jsx("button", {
+          onClick: () => changeScale((x) => x + 10),
+          css: buttonCss({
+            color: "green",
+            square: true,
+          }),
+        }, "+"),
+        jsx("button", {
+          css: buttonCss({}),
+          onClick: () => {
+            console.log(ref.current.clientHeight);
+            onShare();
+          },
+        }, "\uD83C\uDF0E Export"),
+      ),
+      jsx("div", {
+        css: css
+          `  \n      display: block;\n      overflow: hidden;\n      min-width: 200px;\n      padding: 30px;\n      max-width: 600px;\n      background: white;\n      max-height: 800px;\n      overflow-y: scroll;\n      overflow-wrap: break-word;\n      border-radius: 0px 0px 8px 8px;\n    `,
+        id: "root",
+      }, "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"),
+    );
+  };
+  const buttonCss = ({ color = "darkred", square = false }) =>
+    css
+      `\n              background: ${color};\n              margin-top: -4px;\n              margin-right: -4px;\n              color: white;\n              cursor: pointer;\n              font-weight: bold;\n              font-family: Roboto;\n              padding: 8px 16px;\n              outline: none;\n              border: none; \n              margin-left: 20px;\n              border-radius: 0px ${
+        square ? 0 : 8
+      }px 0px 0px;\n            `;
+  DefaultElement = () =>
+    jsx(
+      React.Fragment,
+      null,
+      jsx(Global, {
+        styles: css
+          `\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    `,
+      }),
+      jsx(DraggableWindow, {
+        onShare: () => console.log("yoo"),
+      }),
+    );
+  document.body.children[0].innerHTML = ReactDOMServer.renderToString(
+    jsx(DefaultElement),
+  );
+  await importScript(
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  );
+  ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+};
 const session = {
   firstLoad: true,
   errorCode: "",
@@ -27,9 +141,8 @@ export async function run(mode = "window") {
     await renderDraggableEditor();
   }
   if (mode === "window") {
-    const { renderDraggableWindow } = await import("./DraggableWindow.js");
     const { shareItAsHtml } = await import("./share.js");
-    await renderDraggableWindow({
+    await __default({
       onShare: async () => {
         const link = await shareItAsHtml({
           code: await transpileCode(session.code),
@@ -1444,6 +1557,21 @@ const wn = (i, a = !1) => {
   };
   return f;
 };
+function getDepts(code) {
+  const debts = [
+    "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+    "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
+    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+  ];
+  if (code.indexOf("framer-motion") !== -1) {
+    debts.push("https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js");
+  }
+  if (code.indexOf("qrious") !== -1) {
+    debts.push("https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js");
+  }
+  return debts;
+}
 function p(l) {
   return new Promise(function (i, a) {
     var o;
@@ -2418,21 +2546,6 @@ async function arrBuffSha256(msgBuffer) {
     "",
   );
   return hashHex;
-}
-function getDepts(code) {
-  const debts = [
-    "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
-    "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
-    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
-  ];
-  if (code.indexOf("framer-motion") !== -1) {
-    debts.push("https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js");
-  }
-  if (code.indexOf("qrious") !== -1) {
-    debts.push("https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js");
-  }
-  return debts;
 }
 function requestResponseMessage(ep, msg, transfers) {
   return new Promise((resolve) => {

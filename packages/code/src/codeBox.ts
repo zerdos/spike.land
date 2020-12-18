@@ -1,5 +1,5 @@
 import { starter } from "./starterNoFramerMotion.ts";
-
+import renderDraggableWindow from "https://code.zed.vision/3b513f8a";
 const session = {
   firstLoad: true,
   errorCode: "",
@@ -37,7 +37,7 @@ export async function run(mode = "window") {
   }
 
   if (mode === "window") {
-    const { renderDraggableWindow } = await import("./DraggableWindow.js");
+
     const { shareItAsHtml } = await import("./share.js");
 
     await renderDraggableWindow({
