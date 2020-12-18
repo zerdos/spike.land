@@ -5,3 +5,5 @@ interface CSSImportRule extends CSSRule {
   readonly media: MediaList;
   readonly styleSheet: CSSStyleSheet;
 }
+
+declare const workbox: unknown;
