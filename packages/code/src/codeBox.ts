@@ -1,6 +1,5 @@
 import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 
-import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.ts";
 import { sha256 } from "./sha256.js";
 import { getDB } from "../../shadb/src/shaDB.ts";
@@ -114,7 +113,7 @@ export async function run(mode = "window") {
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
 
-    await renderDraggableEditor(importScript);
+    await renderDraggableEditor();
   }
 
   if (mode === "window") {
@@ -128,8 +127,7 @@ export async function run(mode = "window") {
       onShare,
       ReactDOM,
       React: window.React,
-      jsx: window.jsx,
-      importScript,
+      jsx: window.jsx
     };
     await renderDraggableWindow(opts);
   }

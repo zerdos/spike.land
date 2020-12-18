@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, Global, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -15,7 +15,6 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = (
             background: red;
             max-width: 80%;
             left: 60%;
-            position: absolute;
             border: 4px solid red; 
             border-radius: 8px;
           `}
@@ -49,14 +48,13 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = (
       <div
         css={css`
         color:white;
-        background: darkred;
         padding: 7px;
         display:inline;
         background: 
         font-family: Roboto;
         font-weight: 600;
-        margin-left: px;
-        margin-right: -20px;
+        margin-left: 0px;
+        margin-right: -25px;
       `}
       >
         {scale}%
@@ -93,6 +91,7 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = (
     `}
       id="root"
     >
+      DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
     </div>
   </motion.div>;
 };

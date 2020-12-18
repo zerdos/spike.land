@@ -1,5 +1,7 @@
 export async function renderDraggableWindow(win) {
-  const { jsx, React, ReactDOM, onShare, importScript } = win;
+  const {importScript} = await import("./importScript.js");
+
+  const { jsx, React, ReactDOM, onShare } = win;
 
   await importScript(
     "https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js",

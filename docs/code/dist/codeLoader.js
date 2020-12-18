@@ -57,16 +57,6 @@ function v4(options, buf, offset) {
   }
   return stringify(rnds);
 }
-const importScript = async (src) =>
-  document.querySelector(`script[src="${src}"]`) ||
-  new Promise(function (resolve, reject) {
-    const s = window.document.createElement("script");
-    s.src = src;
-    s.onload = resolve;
-    s.onerror = reject;
-    window.document.head.appendChild(s);
-  });
-const importScript1 = importScript;
 const starter =
   `import { useState } from "react";\nimport { css, Global } from "@emotion/react";\n\nconst Slider = () => {\n  const steps = 128;\n  const [sliderValue, setSlider] = useState(steps / 2);\n  return <>\n    <input max={steps}\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${255 / steps * sliderValue} \${255 / steps * (steps - sliderValue)} 0); \n        outline: none; \n    \`} type="range"\n      aria-label="font size changer"\n      value={sliderValue}\n      step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <p\n      css={css\`\n        font-size: \${72 / steps * sliderValue}px\n        \`}>\n      Example when the text gets bigger...\n    </p>\n    <p css={css\`\n        font-size: \${72 / steps * (steps - sliderValue)}px\n        \`}>\n      ...or smaller\n    </p>\n  </>\n}\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    \`} />\n  <Slider />\n</>\n`;
 const instanceOfAny = (object, constructors) =>
@@ -1560,7 +1550,7 @@ export async function run(mode = "window") {
   const { transpileCode } = await import("./transpile.js");
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
-    await renderDraggableEditor(importScript);
+    await renderDraggableEditor();
   }
   if (mode === "window") {
     const { renderDraggableWindow } = await import("./DraggableWindow.js");
@@ -1573,7 +1563,6 @@ export async function run(mode = "window") {
       ReactDOM,
       React: window.React,
       jsx: window.jsx,
-      importScript: importScript,
     };
     await renderDraggableWindow(opts);
   }
