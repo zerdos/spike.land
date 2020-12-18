@@ -1,62 +1,3 @@
-var getRandomValues;
-var rnds8 = new Uint8Array(16);
-function rng() {
-  if (!getRandomValues) {
-    getRandomValues =
-      typeof crypto !== "undefined" && crypto.getRandomValues &&
-        crypto.getRandomValues.bind(crypto) ||
-      typeof msCrypto !== "undefined" &&
-        typeof msCrypto.getRandomValues === "function" &&
-        msCrypto.getRandomValues.bind(msCrypto);
-    if (!getRandomValues) {
-      throw new Error(
-        "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported",
-      );
-    }
-  }
-  return getRandomValues(rnds8);
-}
-const __default =
-  /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
-function validate(uuid) {
-  return typeof uuid === "string" && __default.test(uuid);
-}
-var byteToHex = [];
-for (var i1 = 0; i1 < 256; ++i1) {
-  byteToHex.push((i1 + 256).toString(16).substr(1));
-}
-function stringify(arr) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined
-    ? arguments[1]
-    : 0;
-  var uuid =
-    (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] +
-      byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" +
-      byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" +
-      byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" +
-      byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" +
-      byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] +
-      byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] +
-      byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
-  if (!validate(uuid)) {
-    throw TypeError("Stringified UUID is invalid");
-  }
-  return uuid;
-}
-function v4(options, buf, offset) {
-  options = options || {};
-  var rnds = options.random || (options.rng || rng)();
-  rnds[6] = rnds[6] & 15 | 64;
-  rnds[8] = rnds[8] & 63 | 128;
-  if (buf) {
-    offset = offset || 0;
-    for (var i1 = 0; i1 < 16; ++i1) {
-      buf[offset + i1] = rnds[i1];
-    }
-    return buf;
-  }
-  return stringify(rnds);
-}
 const starter =
   `import { useState } from "react";\nimport { css, Global } from "@emotion/react";\n\nconst Slider = () => {\n  const steps = 128;\n  const [sliderValue, setSlider] = useState(steps / 2);\n  return <>\n    <input max={steps}\n      css={\`\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(\${255 / steps * sliderValue} \${255 / steps * (steps - sliderValue)} 0); \n        outline: none; \n    \`} type="range"\n      aria-label="font size changer"\n      value={sliderValue}\n      step="1"\n      onChangeCapture={(e) => setSlider(Number(e.currentTarget.value))}>\n    </input>\n    <p\n      css={css\`\n        font-size: \${72 / steps * sliderValue}px\n        \`}>\n      Example when the text gets bigger...\n    </p>\n    <p css={css\`\n        font-size: \${72 / steps * (steps - sliderValue)}px\n        \`}>\n      ...or smaller\n    </p>\n  </>\n}\n\nexport default () => <>\n  <Global styles={css\`\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    \`} />\n  <Slider />\n</>\n`;
 const session = {
@@ -99,7 +40,7 @@ export async function run(mode = "window") {
   const { getUserId, getProjects, saveCode } = await import("./data.js");
   const shaDB = await getDB();
   const uuid = await getUserId();
-  const projects = await getProjects(uuid, () => v4());
+  const projects = await getProjects();
   const projectName = projects[0];
   const transpiled = await transpileCode(session.code);
   restartCode(transpiled);
@@ -201,7 +142,7 @@ export async function run(mode = "window") {
     const { getDB: getDB1 } = await import("./shaDB.min.js");
     const db = await getDB1();
     const uuid1 = await getUserId1();
-    const projects1 = await getProjects1(uuid1, v4);
+    const projects1 = await getProjects1();
     const projectName1 = projects1[0];
     const search = new URLSearchParams(window.location.search);
     const keyToLoad = search.get("h") || await db.get(projectName1);
@@ -341,12 +282,19 @@ async function getUserId() {
   }
   return uuid;
 }
-const getProjects = async (uuid, v41) => {
+const getProjects = async () => {
+  const { importScript } = await import(
+    "https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js"
+  );
+  const { uuidv4 } = await importScript(
+    "https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js",
+  );
   const { getDB } = await import("./shaDB.min.js");
   const shaDB = await getDB();
+  const uuid = await getUserId();
   const projects = await shaDB.get(uuid, "json");
   if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId = v41();
+    const projectId = uuidv4();
     await shaDB.put(
       uuid,
       JSON.stringify({
@@ -365,7 +313,7 @@ const getProjects = async (uuid, v41) => {
   }
   return projects.list;
 };
-const on = (i1, a) => a.some((f) => i1 instanceof f);
+const on = (i, a) => a.some((f) => i instanceof f);
 let He1, Ee;
 function sn() {
   return He1 || (He1 = [
@@ -388,27 +336,27 @@ const Pe = new WeakMap(),
   Ce = new WeakMap(),
   fe = new WeakMap(),
   ce1 = new WeakMap();
-function un(i1) {
-  if (le.has(i1)) return;
+function un(i) {
+  if (le.has(i)) return;
   const a = new Promise((f, g) => {
     const p = () => {
-        i1.removeEventListener("complete", w),
-          i1.removeEventListener("error", v),
-          i1.removeEventListener("abort", v);
+        i.removeEventListener("complete", w),
+          i.removeEventListener("error", v),
+          i.removeEventListener("abort", v);
       },
       w = () => {
         f(), p();
       },
       v = () => {
-        g(i1.error || new DOMException("AbortError", "AbortError")), p();
+        g(i.error || new DOMException("AbortError", "AbortError")), p();
       };
-    i1.addEventListener("complete", w),
-      i1.addEventListener("error", v),
-      i1.addEventListener("abort", v);
+    i.addEventListener("complete", w),
+      i.addEventListener("error", v),
+      i.addEventListener("abort", v);
   });
-  le.set(i1, a);
+  le.set(i, a);
 }
-const de1 = (i1) => ce1.get(i1),
+const de1 = (i) => ce1.get(i),
   ln = [
     "get",
     "getKey",
@@ -423,10 +371,8 @@ const de1 = (i1) => ce1.get(i1),
     "clear",
   ],
   he1 = new Map();
-function Ie1(i1, a) {
-  if (!(i1 instanceof IDBDatabase && !(a in i1) && typeof a == "string")) {
-    return;
-  }
+function Ie1(i, a) {
+  if (!(i instanceof IDBDatabase && !(a in i) && typeof a == "string")) return;
   if (he1.get(a)) return he1.get(a);
   const f = a.replace(/FromIndex$/, ""), g = a !== f, p = fn.includes(f);
   if (
@@ -443,15 +389,15 @@ function Ie1(i1, a) {
   };
   return he1.set(a, w), w;
 }
-(function (i1, a) {
+(function (i, a) {
   typeof exports == "object" && typeof module != "undefined"
     ? a(exports)
     : typeof define == "function" && define.amd
     ? define([
       "exports",
     ], a)
-    : (i1 = i1 || self, a(i1.Diff = {}));
-})(this, function (i1) {
+    : (i = i || self, a(i.Diff = {}));
+})(this, function (i) {
   "use strict";
   function a() {
   }
@@ -1367,42 +1313,42 @@ function Ie1(i1, a) {
       n = n.replace(/"/g, "&quot;"),
       n);
   }
-  i1.Diff = a,
-    i1.applyPatch = we,
-    i1.applyPatches = Re,
-    i1.canonicalize = _,
-    i1.convertChangesToDMP = en,
-    i1.convertChangesToXML = nn,
-    i1.createPatch = Ze,
-    i1.createTwoFilesPatch = ye,
-    i1.diffArrays = Ve,
-    i1.diffChars = w,
-    i1.diffCss = Me,
-    i1.diffJson = ze,
-    i1.diffLines = ge,
-    i1.diffSentences = Be,
-    i1.diffTrimmedLines = Ae,
-    i1.diffWords = B,
-    i1.diffWordsWithSpace = z,
-    i1.merge = Xe,
-    i1.parsePatch = X,
-    i1.structuredPatch = te,
-    Object.defineProperty(i1, "__esModule", {
+  i.Diff = a,
+    i.applyPatch = we,
+    i.applyPatches = Re,
+    i.canonicalize = _,
+    i.convertChangesToDMP = en,
+    i.convertChangesToXML = nn,
+    i.createPatch = Ze,
+    i.createTwoFilesPatch = ye,
+    i.diffArrays = Ve,
+    i.diffChars = w,
+    i.diffCss = Me,
+    i.diffJson = ze,
+    i.diffLines = ge,
+    i.diffSentences = Be,
+    i.diffTrimmedLines = Ae,
+    i.diffWords = B,
+    i.diffWordsWithSpace = z,
+    i.merge = Xe,
+    i.parsePatch = X,
+    i.structuredPatch = te,
+    Object.defineProperty(i, "__esModule", {
       value: !0,
     });
 });
-async function cn(i1) {
-  const a = await crypto.subtle.digest("SHA-256", i1),
+async function cn(i) {
+  const a = await crypto.subtle.digest("SHA-256", i),
     f = Array.from(new Uint8Array(a)),
     g = f.map((p) => ("00" + p.toString(16)).slice(-2)).join("");
   return g;
 }
-const dn = (i1) => {
-    if (i1.length < 10) return !1;
+const dn = (i) => {
+    if (i.length < 10) return !1;
     const a = [
-        ...i1.slice(0, 8),
+        ...i.slice(0, 8),
       ].filter((g) => g < "0" || g > "f").length === 0,
-      f = i1.slice(8);
+      f = i.slice(8);
     if (a && f[0] === "[" && f[f.length - 1] === "]") {
       try {
         return JSON.parse(f).length > 1;
@@ -1412,9 +1358,9 @@ const dn = (i1) => {
     }
     return !1;
   },
-  hn = (i1, a) => {
+  hn = (i, a) => {
     const f = JSON.parse(a);
-    let g = i1.slice(), p = "";
+    let g = i.slice(), p = "";
     return f.forEach((w) => {
       if (Number(w) === w) {
         const v = Math.abs(w), L = g.slice(0, v);
@@ -1423,35 +1369,34 @@ const dn = (i1) => {
     }),
       p;
   };
-async function pn(i1) {
-  const a = new TextEncoder().encode(i1), f = await cn(a);
+async function pn(i) {
+  const a = new TextEncoder().encode(i), f = await cn(a);
   return f.substr(0, 8);
 }
-const gn = async (i1, a) => {
-  const f = pn(i1), g = Diff.diffChars(i1, a);
+const gn = async (i, a) => {
+  const f = pn(i), g = Diff.diffChars(i, a);
   return {
     b: await f,
     c: g.map((p) => p.added ? p.value : p.removed ? -p.count : p.count),
   };
 };
-async function vn(i1) {
-  const a = await crypto.subtle.digest("SHA-256", i1),
+async function vn(i) {
+  const a = await crypto.subtle.digest("SHA-256", i),
     f = Array.from(new Uint8Array(a)),
     g = f.map((p) => ("00" + p.toString(16)).slice(-2)).join("");
   return g;
 }
-async function mn(i1) {
-  const a = new TextEncoder().encode(i1), f = await vn(a);
+async function mn(i) {
+  const a = new TextEncoder().encode(i), f = await vn(a);
   return f.substr(0, 8);
 }
-const wn = (i1, a = !1) => {
+const wn = (i, a = !1) => {
   const f = {
     async get(g, p = "string") {
       let w;
       try {
         if (
-          (a ? w = await (await i1).get("codeStore", g) : w = await i1.get(g),
-            !w)
+          (a ? w = await (await i).get("codeStore", g) : w = await i.get(g), !w)
         ) {
           return null;
         }
@@ -1497,26 +1442,26 @@ const wn = (i1, a = !1) => {
       if (w !== "" && p === w) return p;
       let v;
       return (typeof p != "string" ? v = new TextDecoder().decode(p) : v = p,
-        a ? (await i1).put("codeStore", v, g) : await i1.put(g, v));
+        a ? (await i).put("codeStore", v, g) : await i.put(g, v));
     },
     async delete(g) {
-      return (await i1).delete("codeStore", g);
+      return (await i).delete("codeStore", g);
     },
     async clear() {
-      return (await i1).clear("codeStore");
+      return (await i).clear("codeStore");
     },
     async keys() {
-      return (await i1).getAllKeys("codeStore");
+      return (await i).getAllKeys("codeStore");
     },
   };
   return f;
 };
 function p(l) {
-  return new Promise(function (i1, a) {
+  return new Promise(function (i, a) {
     var o;
     o = window.document.createElement("script"),
       o.src = l,
-      o.onload = () => i1(window),
+      o.onload = () => i(window),
       o.onerror = a,
       window.document.head.appendChild(o);
   });
@@ -1540,7 +1485,7 @@ function p(l) {
           : {},
         f = r.callback;
       typeof r == "function" && (f = r, r = {}), this.options = r;
-      var i1 = this;
+      var i = this;
       function l(c) {
         return f
           ? (setTimeout(function () {
@@ -1586,12 +1531,12 @@ function p(l) {
           }
           if (
             !y || A && F.newPos < m.newPos
-              ? (L = H(m), i1.pushComponent(L.components, void 0, !0))
-              : (L = F, L.newPos++, i1.pushComponent(L.components, !0, void 0)),
-              N = i1.extractCommon(L, t, n, c),
+              ? (L = H(m), i.pushComponent(L.components, void 0, !0))
+              : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)),
+              N = i.extractCommon(L, t, n, c),
               L.newPos + 1 >= s && N + 1 >= o
           ) {
-            return l(x(i1, L.components, t, n, i1.useLongestToken));
+            return l(x(i, L.components, t, n, i.useLongestToken));
           }
           v[c] = L;
         }
@@ -1627,8 +1572,8 @@ function p(l) {
     },
     extractCommon: function (n, t, r, f) {
       for (
-        var i1 = t.length, l = r.length, s = n.newPos, o = s - f, u = 0;
-        s + 1 < i1 && o + 1 < l && this.equals(t[s + 1], r[o + 1]);
+        var i = t.length, l = r.length, s = n.newPos, o = s - f, u = 0;
+        s + 1 < i && o + 1 < l && this.equals(t[s + 1], r[o + 1]);
       ) {
         s++, o++, u++;
       }
@@ -1659,16 +1604,16 @@ function p(l) {
     },
   };
   function x(e, n, t, r, f) {
-    for (var i1 = 0, l = n.length, s = 0, o = 0; i1 < l; i1++) {
-      var u = n[i1];
+    for (var i = 0, l = n.length, s = 0, o = 0; i < l; i++) {
+      var u = n[i];
       if (u.removed) {
         if (
           (u.value = e.join(r.slice(o, o + u.count)),
             o += u.count,
-            i1 && n[i1 - 1].added)
+            i && n[i - 1].added)
         ) {
-          var v = n[i1 - 1];
-          n[i1 - 1] = n[i1], n[i1] = v;
+          var v = n[i - 1];
+          n[i - 1] = n[i], n[i] = v;
         }
       } else {
         if (!u.added && f) {
@@ -1822,7 +1767,7 @@ function p(l) {
         t = n.undefinedReplacement,
         r = n.stringifyReplacer,
         f = r === void 0
-          ? function (i1, l) {
+          ? function (i, l) {
             return typeof l == "undefined" ? t : l;
           }
           : r;
@@ -1842,16 +1787,16 @@ function p(l) {
   }
   function X(e, n, t, r, f) {
     n = n || [], t = t || [], r && (e = r(f, e));
-    var i1;
-    for (i1 = 0; i1 < n.length; i1 += 1) if (n[i1] === e) return t[i1];
+    var i;
+    for (i = 0; i < n.length; i += 1) if (n[i] === e) return t[i];
     var l;
     if (Ee1.call(e) === "[object Array]") {
       for (
-        (n.push(e), l = new Array(e.length), t.push(l), i1 = 0);
-        i1 < e.length;
-        i1 += 1
+        (n.push(e), l = new Array(e.length), t.push(l), i = 0);
+        i < e.length;
+        i += 1
       ) {
-        l[i1] = X(e[i1], n, t, r, f);
+        l[i] = X(e[i], n, t, r, f);
       }
       return (n.pop(), t.pop(), l);
     }
@@ -1859,8 +1804,8 @@ function p(l) {
       n.push(e), l = {}, t.push(l);
       var s = [], o;
       for (o in e) e.hasOwnProperty(o) && s.push(o);
-      for ((s.sort(), i1 = 0); i1 < s.length; i1 += 1) {
-        o = s[i1], l[o] = X(e[o], n, t, r, o);
+      for ((s.sort(), i = 0); i < s.length; i += 1) {
+        o = s[i], l[o] = X(e[o], n, t, r, o);
       }
       n.pop(), t.pop();
     } else l = e;
@@ -1881,31 +1826,31 @@ function p(l) {
       t = e.split(/\r\n|[\n\v\f\r\x85]/),
       r = e.match(/\r\n|[\n\v\f\r\x85]/g) || [],
       f = [],
-      i1 = 0;
+      i = 0;
     function l() {
       var u = {};
-      for (f.push(u); i1 < t.length;) {
-        var p1 = t[i1];
+      for (f.push(u); i < t.length;) {
+        var p1 = t[i];
         if (/^(\-\-\-|\+\+\+|@@)\s/.test(p1)) break;
         var v = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(p1);
-        v && (u.index = v[1]), i1++;
+        v && (u.index = v[1]), i++;
       }
-      for ((s(u), s(u), u.hunks = []); i1 < t.length;) {
-        var a = t[i1];
+      for ((s(u), s(u), u.hunks = []); i < t.length;) {
+        var a = t[i];
         if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(a)) break;
         if (/^@@/.test(a)) u.hunks.push(o());
         else {
           if (a && n.strict) {
             throw new Error(
-              "Unknown line " + (i1 + 1) + " " + JSON.stringify(a),
+              "Unknown line " + (i + 1) + " " + JSON.stringify(a),
             );
           }
-          i1++;
+          i++;
         }
       }
     }
     function s(u) {
-      var p1 = /^(---|\+\+\+)\s+(.*)$/.exec(t[i1]);
+      var p1 = /^(---|\+\+\+)\s+(.*)$/.exec(t[i]);
       if (p1) {
         var v = p1[1] === "---" ? "old" : "new",
           a = p1[2].split("	", 2),
@@ -1913,12 +1858,12 @@ function p(l) {
         /^".*"$/.test(w) && (w = w.substr(1, w.length - 2)),
           u[v + "FileName"] = w,
           u[v + "Header"] = (a[1] || "").trim(),
-          i1++;
+          i++;
       }
     }
     function o() {
-      var u = i1,
-        p1 = t[i1++],
+      var u = i,
+        p1 = t[i++],
         v = p1.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),
         a = {
           oldStart: +v[1],
@@ -1932,15 +1877,15 @@ function p(l) {
         a.newLines === 0 && (a.newStart += 1);
       for (
         var w = 0, g = 0;
-        i1 < t.length &&
-        !(t[i1].indexOf("--- ") === 0 && i1 + 2 < t.length &&
-          t[i1 + 1].indexOf("+++ ") === 0 && t[i1 + 2].indexOf("@@") === 0);
-        i1++
+        i < t.length &&
+        !(t[i].indexOf("--- ") === 0 && i + 2 < t.length &&
+          t[i + 1].indexOf("+++ ") === 0 && t[i + 2].indexOf("@@") === 0);
+        i++
       ) {
-        var c = t[i1].length == 0 && i1 != t.length - 1 ? " " : t[i1][0];
+        var c = t[i].length == 0 && i != t.length - 1 ? " " : t[i][0];
         if (c === "+" || c === "-" || c === " " || c === "\\") {
-          a.lines.push(t[i1]),
-            a.linedelimiters.push(r[i1] || `\n`),
+          a.lines.push(t[i]),
+            a.linedelimiters.push(r[i] || `\n`),
             c === "+" ? w++ : c === "-"
               ? g++
               : c === " " && (w++, g++);
@@ -1964,17 +1909,17 @@ function p(l) {
       }
       return a;
     }
-    for (; i1 < t.length;) l();
+    for (; i < t.length;) l();
     return f;
   }
   function ze(e, n, t) {
-    var r = !0, f = !1, i1 = !1, l = 1;
+    var r = !0, f = !1, i = !1, l = 1;
     return function s() {
-      if (r && !i1) {
+      if (r && !i) {
         if ((f ? l++ : r = !1, e + l <= t)) return l;
-        i1 = !0;
+        i = !0;
       }
-      if (!f) return (i1 || (r = !0), n <= e - l ? -l++ : (f = !0, s()));
+      if (!f) return (i || (r = !0), n <= e - l ? -l++ : (f = !0, s()));
     };
   }
   function ue(e, n) {
@@ -1987,7 +1932,7 @@ function p(l) {
     }
     var r = e.split(/\r\n|[\n\v\f\r\x85]/),
       f = e.match(/\r\n|[\n\v\f\r\x85]/g) || [],
-      i1 = n.hunks,
+      i = n.hunks,
       l = t.compareLine || function (re, D, K, C) {
         return D === C;
       },
@@ -2009,9 +1954,9 @@ function p(l) {
       }
       return !0;
     }
-    for (var g = 0; g < i1.length; g++) {
+    for (var g = 0; g < i.length; g++) {
       for (
-        var c = i1[g],
+        var c = i[g],
           L = r.length - c.oldLines,
           F = 0,
           m = p1 + c.oldStart - 1,
@@ -2027,8 +1972,8 @@ function p(l) {
       if (F === void 0) return !1;
       u = c.offset + c.oldStart + c.oldLines;
     }
-    for (var y = 0, A = 0; A < i1.length; A++) {
-      var I = i1[A], E = I.oldStart + I.offset + y - 1;
+    for (var y = 0, A = 0; A < i.length; A++) {
+      var I = i[A], E = I.oldStart + I.offset + y - 1;
       y += I.newLines - I.oldLines;
       for (var T = 0; T < I.lines.length; T++) {
         var O = I.lines[T],
@@ -2057,8 +2002,8 @@ function p(l) {
     function r() {
       var f = e[t++];
       if (!f) return n.complete();
-      n.loadFile(f, function (i1, l) {
-        if (i1) return n.complete(i1);
+      n.loadFile(f, function (i, l) {
+        if (i) return n.complete(i);
         var s = ue(l, f, n);
         n.patched(f, s, function (o) {
           if (o) return n.complete(o);
@@ -2068,7 +2013,7 @@ function p(l) {
     }
     r();
   }
-  function _(e, n, t, r, f, i1, l) {
+  function _(e, n, t, r, f, i, l) {
     l || (l = {}), typeof l.context == "undefined" && (l.context = 4);
     var s = le1(t, r, l);
     s.push({
@@ -2145,7 +2090,7 @@ function p(l) {
       oldFileName: e,
       newFileName: n,
       oldHeader: f,
-      newHeader: i1,
+      newHeader: i,
       hunks: u,
     };
   }
@@ -2177,11 +2122,11 @@ function p(l) {
     }
     return n.join(`\n`) + `\n`;
   }
-  function ae(e, n, t, r, f, i1, l) {
-    return Me(_(e, n, t, r, f, i1, l));
+  function ae(e, n, t, r, f, i, l) {
+    return Me(_(e, n, t, r, f, i, l));
   }
-  function qe(e, n, t, r, f, i1) {
-    return ae(e, e, n, t, r, f, i1);
+  function qe(e, n, t, r, f, i) {
+    return ae(e, e, n, t, r, f, i);
   }
   function Ce1(e, n) {
     return e.length !== n.length ? !1 : k(e, n);
@@ -2216,18 +2161,17 @@ function p(l) {
           r.newHeader = n.newHeader || e.newHeader)),
       r.hunks = [];
     for (
-      var f = 0, i1 = 0, l = 0, s = 0;
-      f < e.hunks.length || i1 < n.hunks.length;
+      var f = 0, i = 0, l = 0, s = 0; f < e.hunks.length || i < n.hunks.length;
     ) {
       var o = e.hunks[f] || {
           oldStart: Infinity,
         },
-        u = n.hunks[i1] || {
+        u = n.hunks[i] || {
           oldStart: Infinity,
         };
       if (pe(o, u)) r.hunks.push(ve(o, l)), f++, s += o.newLines - o.oldLines;
       else if (pe(u, o)) {
-        r.hunks.push(ve(u, s)), i1++, l += u.newLines - u.oldLines;
+        r.hunks.push(ve(u, s)), i++, l += u.newLines - u.oldLines;
       } else {
         var p1 = {
           oldStart: Math.min(o.oldStart, u.oldStart),
@@ -2237,7 +2181,7 @@ function p(l) {
           lines: [],
         };
         Re(p1, o.oldStart, o.lines, u.oldStart, u.lines),
-          i1++,
+          i++,
           f++,
           r.hunks.push(p1);
       }
@@ -2276,7 +2220,7 @@ function p(l) {
     };
   }
   function Re(e, n, t, r, f) {
-    var i1 = {
+    var i = {
         offset: n,
         lines: t,
         index: 0,
@@ -2287,35 +2231,35 @@ function p(l) {
         index: 0,
       };
     for (
-      (we(e, i1, l), we(e, l, i1));
-      i1.index < i1.lines.length && l.index < l.lines.length;
+      (we(e, i, l), we(e, l, i));
+      i.index < i.lines.length && l.index < l.lines.length;
     ) {
-      var s = i1.lines[i1.index], o = l.lines[l.index];
+      var s = i.lines[i.index], o = l.lines[l.index];
       if ((s[0] === "-" || s[0] === "+") && (o[0] === "-" || o[0] === "+")) {
-        De(e, i1, l);
+        De(e, i, l);
       } else if (s[0] === "+" && o[0] === " ") {
         var u;
-        (u = e.lines).push.apply(u, b(M(i1)));
+        (u = e.lines).push.apply(u, b(M(i)));
       } else if (o[0] === "+" && s[0] === " ") {
         var p1;
         (p1 = e.lines).push.apply(p1, b(M(l)));
       } else {
-        s[0] === "-" && o[0] === " " ? he2(e, i1, l)
+        s[0] === "-" && o[0] === " " ? he2(e, i, l)
         : o[0] === "-" && s[0] === " "
-          ? he2(e, l, i1, !0)
+          ? he2(e, l, i, !0)
           : s === o
-          ? (e.lines.push(s), i1.index++, l.index++)
-          : ee(e, M(i1), M(l));
+          ? (e.lines.push(s), i.index++, l.index++)
+          : ee(e, M(i), M(l));
       }
     }
-    ge(e, i1), ge(e, l), Je(e);
+    ge(e, i), ge(e, l), Je(e);
   }
   function De(e, n, t) {
     var r = M(n), f = M(t);
     if (ye(r) && ye(f)) {
       if (k(r, f) && Le(t, r, r.length - f.length)) {
-        var i1;
-        (i1 = e.lines).push.apply(i1, b(r));
+        var i;
+        (i = e.lines).push.apply(i, b(r));
         return;
       } else if (k(f, r) && Le(n, f, f.length - r.length)) {
         var l;
@@ -2330,11 +2274,11 @@ function p(l) {
     ee(e, r, f);
   }
   function he2(e, n, t, r) {
-    var f = M(n), i1 = Be(t, f);
-    if (i1.merged) {
+    var f = M(n), i = Be(t, f);
+    if (i.merged) {
       var l;
-      (l = e.lines).push.apply(l, b(i1.merged));
-    } else ee(e, r ? i1 : f, r ? f : i1);
+      (l = e.lines).push.apply(l, b(i.merged));
+    } else ee(e, r ? i : f, r ? f : i);
   }
   function ee(e, n, t) {
     e.conflict = !0,
@@ -2367,19 +2311,19 @@ function p(l) {
   }
   function Be(e, n) {
     for (
-      var t = [], r = [], f = 0, i1 = !1, l = !1;
+      var t = [], r = [], f = 0, i = !1, l = !1;
       f < n.length && e.index < e.lines.length;
     ) {
       var s = e.lines[e.index], o = n[f];
       if (o[0] === "+") break;
-      if ((i1 = i1 || s[0] !== " ", r.push(o), f++, s[0] === "+")) {
+      if ((i = i || s[0] !== " ", r.push(o), f++, s[0] === "+")) {
         for (l = !0; s[0] === "+";) {
           t.push(s), s = e.lines[++e.index];
         }
       }
       o.substr(1) === s.substr(1) ? (t.push(s), e.index++) : l = !0;
     }
-    if (((n[f] || "")[0] === "+" && i1 && (l = !0), l)) return t;
+    if (((n[f] || "")[0] === "+" && i && (l = !0), l)) return t;
     for (; f < n.length;) r.push(n[f++]);
     return {
       merged: r,
@@ -2402,11 +2346,11 @@ function p(l) {
     var n = 0, t = 0;
     return (e.forEach(function (r) {
       if (typeof r != "string") {
-        var f = ne(r.mine), i1 = ne(r.theirs);
+        var f = ne(r.mine), i = ne(r.theirs);
         n !== void 0 &&
-        (f.oldLines === i1.oldLines ? n += f.oldLines : n = void 0),
+        (f.oldLines === i.oldLines ? n += f.oldLines : n = void 0),
           t !== void 0 &&
-          (f.newLines === i1.newLines ? t += f.newLines : t = void 0);
+          (f.newLines === i.newLines ? t += f.newLines : t = void 0);
       } else {
         t !== void 0 && (r[0] === "+" || r[0] === " ") && t++,
           n !== void 0 && (r[0] === "-" || r[0] === " ") && n++;
@@ -2752,25 +2696,24 @@ function init() {
   return transform;
 }
 init();
-function yn(i1) {
+function yn(i) {
   const a = new Promise((f, g) => {
     const p1 = () => {
-        i1.removeEventListener("success", w),
-          i1.removeEventListener("error", v);
+        i.removeEventListener("success", w), i.removeEventListener("error", v);
       },
       w = () => {
-        f(T(i1.result)), p1();
+        f(T(i.result)), p1();
       },
       v = () => {
-        g(i1.error), p1();
+        g(i.error), p1();
       };
-    i1.addEventListener("success", w), i1.addEventListener("error", v);
+    i.addEventListener("success", w), i.addEventListener("error", v);
   });
   return a.then((f) => {
-    f instanceof IDBCursor && Pe.set(f, i1);
+    f instanceof IDBCursor && Pe.set(f, i);
   }).catch(() => {
   }),
-    ce1.set(a, i1),
+    ce1.set(a, i),
     a;
 }
 let pe = {
@@ -2795,14 +2738,14 @@ let pe = {
       : a in i;
   },
 };
-function Sn(i2) {
-  pe = i2(pe);
+function Sn(i) {
+  pe = i(pe);
 }
-function xn(i2) {
-  return i2 === IDBDatabase.prototype.transaction &&
+function xn(i) {
+  return i === IDBDatabase.prototype.transaction &&
       !("objectStoreNames" in IDBTransaction.prototype)
     ? function (a, ...f) {
-      const g = i2.call(de1(this), a, ...f);
+      const g = i.call(de1(this), a, ...f);
       return Ce.set(
         g,
         a.sort ? a.sort() : [
@@ -2811,32 +2754,32 @@ function xn(i2) {
       ),
         T(g);
     }
-    : an().includes(i2)
+    : an().includes(i)
     ? function (...a) {
-      return i2.apply(de1(this), a), T(Pe.get(this));
+      return i.apply(de1(this), a), T(Pe.get(this));
     }
     : function (...a) {
-      return T(i2.apply(de1(this), a));
+      return T(i.apply(de1(this), a));
     };
 }
-function bn(i2) {
-  return typeof i2 == "function"
-    ? xn(i2)
-    : (i2 instanceof IDBTransaction && un(i2),
-      on(i2, sn()) ? new Proxy(i2, pe) : i2);
+function bn(i) {
+  return typeof i == "function"
+    ? xn(i)
+    : (i instanceof IDBTransaction && un(i),
+      on(i, sn()) ? new Proxy(i, pe) : i);
 }
-function T(i2) {
-  if (i2 instanceof IDBRequest) return yn(i2);
-  if (fe.has(i2)) return fe.get(i2);
-  const a = bn(i2);
-  return a !== i2 && (fe.set(i2, a), ce1.set(a, i2)), a;
+function T(i) {
+  if (i instanceof IDBRequest) return yn(i);
+  if (fe.has(i)) return fe.get(i);
+  const a = bn(i);
+  return a !== i && (fe.set(i, a), ce1.set(a, i)), a;
 }
 function Ln(
-  i2,
+  i,
   a,
   { blocked: f, upgrade: g, blocking: p1, terminated: w } = {},
 ) {
-  const v = indexedDB.open(i2, a), L = T(v);
+  const v = indexedDB.open(i, a), L = T(v);
   return g && v.addEventListener("upgradeneeded", (j) => {
     g(T(v.result), j.oldVersion, j.newVersion, T(v.transaction));
   }),
@@ -2848,8 +2791,8 @@ function Ln(
     }),
     L;
 }
-Sn((i2) => ({
-  ...i2,
-  get: (a, f, g) => Ie1(a, f) || i2.get(a, f, g),
-  has: (a, f) => !!Ie1(a, f) || i2.has(a, f),
+Sn((i) => ({
+  ...i,
+  get: (a, f, g) => Ie1(a, f) || i.get(a, f, g),
+  has: (a, f) => !!Ie1(a, f) || i.has(a, f),
 }));

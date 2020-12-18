@@ -26,13 +26,19 @@ export async function getUserId() {
   return uuid;
 }
 
-export const getProjects = async (uuid, v4) => {
+export const getProjects = async () => {
+  
+  const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");
+  const {uuidv4} = await importScript("https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js")
+
   const { getDB } = await import("./shaDB.min.js");
   const shaDB = await getDB();
+
+  const uuid = await getUserId();
   const projects = await shaDB.get(uuid, "json");
 
   if (typeof projects === "string" || projects === null || !projects.list) {
-    const projectId = v4();
+    const projectId = uuidv4();
 
     await shaDB.put(
       uuid,

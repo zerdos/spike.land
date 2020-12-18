@@ -1,5 +1,3 @@
-import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
-
 import { starter } from "./starterNoFramerMotion.ts";
 
 const session = {
@@ -58,7 +56,7 @@ export async function run(mode = "window") {
   const shaDB = await getDB();
   const uuid = await getUserId();
 
-  const projects = await getProjects(uuid, () => v4());
+  const projects = await getProjects();
   const projectName = projects[0];
 
   const transpiled = await transpileCode(session.code);
@@ -196,7 +194,7 @@ export async function run(mode = "window") {
     const db = await getDB();
 
     const uuid = await getUserId();
-    const projects = await getProjects(uuid, v4);
+    const projects = await getProjects();
     const projectName = projects[0];
 
     const search = new URLSearchParams(window.location.search);
