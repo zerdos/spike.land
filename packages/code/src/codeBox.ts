@@ -351,14 +351,20 @@ export async function run(mode = "window") {
      
         <script type="module">
      
-        import {importScript} from "https://unpkg.com/@zedvision/code/dist/importScript.js"
+        import {importScript} from "https://unpkg.com/@zedvision/code@8.5.10/dist/importScript.js"
         
         const runner=async() =>{
     
-            await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
-            await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js");
-            await importScript("https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js");
-            await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
+          const debts = ["https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+          "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+          "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
+          "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"
+          ];
+
+          for (let i = 0; i < debts.length; i++) {
+              await importScript(debts[i]);
+          }
+
 
             Object.assign(window, emotionReact);
             let styled = window["emotionStyled"];
