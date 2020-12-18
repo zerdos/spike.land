@@ -4,7 +4,7 @@ importScripts("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
 
 const transform = (code) => {
   try {
-    return Babel.transform(
+    const transPiled = Babel.transform(
       `/** @jsx jsx */ 
   Object.assign(window, React); 
   ${code}`,
@@ -16,6 +16,28 @@ const transform = (code) => {
         ],
       },
     ).code;
+
+    const searchRegExp = /import/gi;
+    const searchRegExpExport = /export /gi;
+    const replaceWith = "///";
+
+    const safeCode = `
+    Object.assign(window, React);
+    if (window.Motion) {
+        Object.assign(window, window.Motion);
+    }
+    if (window.emotionStyled){
+      window.styled= window.emotionStyled;
+    }
+    
+    ` + transPiled.replaceAll(
+      searchRegExp,
+      replaceWith,
+    ).replace("export default", "DefaultElement = ")
+      .replaceAll(searchRegExpExport, "")
+
+      return safeCode;
+
   } catch (e) {
     console.error(e);
     return "";

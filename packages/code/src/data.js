@@ -13,23 +13,22 @@ export async function getUserId() {
   const shaDB = await getDB();
   const uuid = await shaDB.get("uuid");
   if (!uuid) {
-    if (!window.location.href.includes("zed.dev")) {
       const resp = await fetch("https://code.zed.vision/register");
       const data = await resp.json();
       shaDB.put("uuid", data.uuid);
       return data.uuid;
-    } else {
-      shaDB.put("uuid", "1234");
-      return "1234";
-    }
+    
   }
   return uuid;
 }
 
 export const getProjects = async () => {
-  
-  const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");
-  const {uuidv4} = await importScript("https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js")
+  const { importScript } = await import(
+    "https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js"
+  );
+  const { uuidv4 } = await importScript(
+    "https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js",
+  );
 
   const { getDB } = await import("./shaDB.min.js");
   const shaDB = await getDB();

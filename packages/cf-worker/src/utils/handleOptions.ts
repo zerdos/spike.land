@@ -18,7 +18,7 @@ export function text(resp: string | ReadableStream) {
   });
 }
 
-export function js(resp: string | ReadableStream){
+export function js(resp: string | ReadableStream) {
   return new Response(resp, {
     headers: {
       ...corsHeaders,

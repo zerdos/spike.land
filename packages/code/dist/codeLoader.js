@@ -28,12 +28,15 @@ export async function run(mode = "window") {
   }
   if (mode === "window") {
     const { renderDraggableWindow } = await import("./DraggableWindow.js");
-    const onShare = async () => {
-      const { shareItAsHtml } = await import("./share.js");
-      const link = await shareItAsHtml(session);
-      window.open(link);
-    };
-    await renderDraggableWindow();
+    const { shareItAsHtml } = await import("./share.js");
+    await renderDraggableWindow({
+      onShare: async () => {
+        const link = await shareItAsHtml({
+          code: await transpileCode(session.code),
+        });
+        window.open(link);
+      },
+    });
   }
   const errorDiv = document.getElementById("error");
   const { getDB } = await import("./shaDB.min.js");
@@ -112,20 +115,11 @@ export async function run(mode = "window") {
     if (typeof transPiled !== "string" || transPiled === "") {
       return;
     }
-    const searchRegExp = /import/gi;
-    const searchRegExpExport = /export /gi;
-    const replaceWith = "///";
-    const code =
-      `\n    Object.assign(window, React);\n    if (window.Motion) {\n        Object.assign(window, window.Motion);\n    }\n    if (window.emotionStyled){\n      window.styled= window.emotionStyled;\n    }\n    \n    ` +
-      transPiled.replaceAll(searchRegExp, replaceWith).replace(
-        "export default",
-        "DefaultElement = ",
-      ).replaceAll(searchRegExpExport, "");
     if (!session.firstLoad) replaceWithEmpty("root");
     const restart = () => {
       const codeToHydrate = mode === "window"
-        ? code.replace("body{", "#root{")
-        : code;
+        ? transPiled.replace("body{", "#root{")
+        : transPiled;
       const hydrate = new Function(
         `return function(){  \n          let DefaultElement;\n          ${codeToHydrate}\n          return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));\n      }`,
       )();
@@ -249,15 +243,15 @@ function generateUUID() {
   ).join("-");
 }
 let transform;
-async function saveHtml(html) {
+async function save(content, type) {
   const { sha256 } = await import("./sha256.js");
   const { getZkey } = await import("./data.js");
-  const hash = await sha256(html);
+  const hash = await sha256(content);
   const request = new Request("https://code.zed.vision", {
-    body: html,
+    body: content,
     method: "POST",
     headers: {
-      "Content-Type": "text/html;charset=UTF-8",
+      "Content-Type": type + ";charset=UTF-8",
       "ZKEY": await getZkey(hash),
     },
   });
@@ -269,15 +263,10 @@ async function getUserId() {
   const shaDB = await getDB();
   const uuid = await shaDB.get("uuid");
   if (!uuid) {
-    if (!window.location.href.includes("zed.dev")) {
-      const resp = await fetch("https://code.zed.vision/register");
-      const data = await resp.json();
-      shaDB.put("uuid", data.uuid);
-      return data.uuid;
-    } else {
-      shaDB.put("uuid", "1234");
-      return "1234";
-    }
+    const resp = await fetch("https://code.zed.vision/register");
+    const data = await resp.json();
+    shaDB.put("uuid", data.uuid);
+    return data.uuid;
   }
   return uuid;
 }
@@ -2465,6 +2454,12 @@ function requestResponseMessage(ep, msg, transfers) {
       transfers,
     );
   });
+}
+function saveHtml(html) {
+  return save(html, "text/html");
+}
+function saveJs(js) {
+  return save(js, "application/json");
 }
 const proxyTransferHandler = {
   canHandle: (val) => isObject(val) && val[proxyMarker],

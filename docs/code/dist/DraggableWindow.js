@@ -1,4 +1,4 @@
-export async function renderDraggableWindow(win) {
+export async function renderDraggableWindow({ onShare }) {
   const { importScript } = await import("./importScript.js");
   const { getDepts } = await import("./templates.js");
 

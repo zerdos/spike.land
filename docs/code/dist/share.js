@@ -26,25 +26,37 @@ export const shareItAsHtml = async ({ code }) => {
 
   const { getHtml, getCodeForImport } = await import("./templates.js");
 
+  const jsLink = await saveJs(getCodeForImport(code));
+  const js = `import app from "${jsLink}";
+  app();`;
+
   const link = await saveHtml(
-    getHtml({ HTML, css, js: getCodeForImport(code) }),
+    getHtml({ HTML, css, js }),
   );
 
   return link;
 };
 
-async function saveHtml(html) {
+function saveHtml(html) {
+  return save(html, "text/html");
+}
+
+function saveJs(js) {
+  return save(js, "application/json");
+}
+
+async function save(content, type) {
   const { sha256 } = await import("./sha256.js");
   const { getZkey } = await import("./data.js");
 
-  const hash = await sha256(html);
+  const hash = await sha256(content);
   const request = new Request(
     "https://code.zed.vision",
     {
-      body: html,
+      body: content,
       method: "POST",
       headers: {
-        "Content-Type": "text/html;charset=UTF-8",
+        "Content-Type": type + ";charset=UTF-8",
         "ZKEY": await getZkey(hash),
       },
     },

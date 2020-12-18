@@ -38,15 +38,15 @@ export async function run(mode = "window") {
 
   if (mode === "window") {
     const { renderDraggableWindow } = await import("./DraggableWindow.js");
+    const { shareItAsHtml } = await import("./share.js");
 
-    const onShare = async () => {
-      const { shareItAsHtml } = await import("./share.js");
-      const link = await shareItAsHtml(session);
+    await renderDraggableWindow({
+      onShare: async () => {
 
-      window.open(link as unknown as string);
-    };
-
-    await renderDraggableWindow();
+        const link = await shareItAsHtml({ code: await transpileCode(session.code) });
+        window.open(link as unknown as string);
+      },
+    });
   }
 
   const errorDiv = document.getElementById("error");
@@ -150,30 +150,11 @@ export async function run(mode = "window") {
       return;
     }
 
-    const searchRegExp = /import/gi;
-    const searchRegExpExport = /export /gi;
-    const replaceWith = "///";
-
-    const code = `
-    Object.assign(window, React);
-    if (window.Motion) {
-        Object.assign(window, window.Motion);
-    }
-    if (window.emotionStyled){
-      window.styled= window.emotionStyled;
-    }
-    
-    ` + transPiled.replaceAll(
-      searchRegExp,
-      replaceWith,
-    ).replace("export default", "DefaultElement = ")
-      .replaceAll(searchRegExpExport, "");
-
     if (!session.firstLoad) replaceWithEmpty("root");
     const restart = () => {
       const codeToHydrate = mode === "window"
-        ? code.replace("body{", "#root{")
-        : code;
+        ? transPiled.replace("body{", "#root{")
+        : transPiled;
 
       const hydrate = new Function(
         `return function(){  

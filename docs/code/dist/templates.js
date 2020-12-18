@@ -64,7 +64,7 @@ export function getDepts(code) {
 export const getCodeForImport = (code) => {
   const debStr = JSON.stringify(getDepts(code));
 
-  return `const runner = async()=>{
+  return `export default = async() => {
 const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");
 
     const debts = ${debStr};
@@ -84,6 +84,5 @@ for (let i = 0; i < debts.length; i++) {
     await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")
     ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
 }
-runner();
 `;
 };
