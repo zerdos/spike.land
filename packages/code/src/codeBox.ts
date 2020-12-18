@@ -351,7 +351,7 @@ export async function run(mode = "window") {
      
         <script type="module">
      
-        import {importScript} from "https://unpkg.com/@zedvision/code@8.5.10/dist/importScript.js"
+        import {importScript} from "https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js"
         
         const runner=async() =>{
     
