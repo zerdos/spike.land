@@ -334,7 +334,6 @@ export async function run(mode = "window") {
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="Description" content="Generated with code.zed.vision">
         <head profile="http://www.w3.org/2005/10/profile">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
         <link rel="preload" href="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js" as="script">
         <link rel="icon" 
               type="image/png"
@@ -349,34 +348,36 @@ export async function run(mode = "window") {
         <div id="root">
         ${HTML}
         </div>
-        <script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
-        ${motionDep}
-        ${qrDep}
-        <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"></script>
-        <script crossorigin src="https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js"></script>
-        <script crossorigin src="https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"></script>
+     
         <script type="module">
-        Object.assign(window, emotionReact);
-
-        const styled = window["emotionStyled"];
-
-        let DefaultElement;
-
-        ${code}
+     
+        import {importScript} from "https://unpkg.com/@zedvision/code/dist/importScript.js"
         
-        console.log(ReactDOMServer.renderToString(jsx(DefaultElement)));
+        const runner=async() =>{
+    
+            await importScript("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
+            await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js");
+            await importScript("https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js");
+            await importScript("https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js");
+
+            Object.assign(window, emotionReact);
+            let styled = window["emotionStyled"];
+            let DefaultElement;
+            ${code}
+            document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
         
-        document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
-        
-        const s = window.document.createElement("script");
-        s.src = "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js";
-        s.onload = ()=> ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
-        window.document.head.appendChild(s);
+
+            await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")
+            ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+        }
+        runner();
 
         </script>
         </body>
         </html>
         `;
+
+
 
         const link = await saveHtml(iframe);
         return link;
