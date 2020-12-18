@@ -78,7 +78,6 @@ export const saveCode = async (code) => {
     if (prevHash !== hash) {
       await shaDB.put(hash, code);
       await shaDB.put(projectName, hash);
-      ``;
       // setQueryStringParameter("h", hash);
       //const response = fetch(request);
     }

@@ -18,6 +18,15 @@ export function text(resp: string | ReadableStream) {
   });
 }
 
+export function js(resp: string | ReadableStream){
+  return new Response(resp, {
+    headers: {
+      ...corsHeaders,
+      "Content-Type": "application/javascript;charset=UTF-8",
+    },
+  });
+}
+
 export function handleOptions(request: Request) {
   // Make sure the necessary headers are present
   // for this to be a valid pre-flight request

@@ -1,7 +1,7 @@
 import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
 import { getDbObj } from "../../shadb/src/getDbObj.ts";
 import { handleAdmin } from "./admin.ts";
-import { json, text } from "./utils/handleOptions.ts";
+import { json, text, js } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
 
 var SHAKV: KVNamespace;
@@ -190,7 +190,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const shaDB = getDbObj(SHAKV);
       const result = (await shaDB.get(maybeRoute)) as string | null;
       if (result !== null) {
-        return text(result);
+        if (result.indexOf("export")===0) return js(result);
+        return text(result);        
       }
     }
     return Response.redirect("https://zed.vision/code", 301);

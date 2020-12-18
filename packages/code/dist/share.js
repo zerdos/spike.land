@@ -45,7 +45,6 @@ async function saveHtml(html) {
       method: "POST",
       headers: {
         "Content-Type": "text/html;charset=UTF-8",
-        "SHARE": "true",
         "ZKEY": await getZkey(hash),
       },
     },

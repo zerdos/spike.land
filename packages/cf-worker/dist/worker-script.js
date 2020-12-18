@@ -1099,6 +1099,14 @@ function text(resp) {
     },
   });
 }
+function js(resp) {
+  return new Response(resp, {
+    headers: {
+      ...corsHeaders,
+      "Content-Type": "application/javascript;charset=UTF-8",
+    },
+  });
+}
 function handleOptions(request) {
   const headers = request.headers;
   if (
@@ -1392,6 +1400,7 @@ async function handleCloudRequest(request) {
       const shaDB = getDbObj(SHAKV);
       const result = await shaDB.get(maybeRoute);
       if (result !== null) {
+        if (result.indexOf("export") === 0) return js(result);
         return text(result);
       }
     }
