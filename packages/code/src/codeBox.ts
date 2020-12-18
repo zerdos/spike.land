@@ -1,5 +1,5 @@
 import { starter } from "./starterNoFramerMotion.ts";
-import renderDraggableWindow from "https://code.zed.vision/3b513f8a";
+import {renderDraggableWindow} from "./DraggableWindow.js";
 const session = {
   firstLoad: true,
   errorCode: "",
