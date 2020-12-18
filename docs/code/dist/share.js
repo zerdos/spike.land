@@ -42,7 +42,7 @@ function saveHtml(html) {
 }
 
 function saveJs(js) {
-  return save(js, "application/json");
+  return save(js, "application/javascript");
 }
 
 async function save(content, type) {
@@ -64,5 +64,5 @@ async function save(content, type) {
 
   await fetch(request);
 
-  return `https://zed.vision/${hash}`;
+  return `https://code.zed.vision/${hash}`;
 }

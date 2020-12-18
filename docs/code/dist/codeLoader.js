@@ -256,7 +256,7 @@ async function save(content, type) {
     },
   });
   await fetch(request);
-  return `https://zed.vision/${hash}`;
+  return `https://code.zed.vision/${hash}`;
 }
 async function getUserId() {
   const { getDB } = await import("./shaDB.min.js");
@@ -2459,7 +2459,7 @@ function saveHtml(html) {
   return save(html, "text/html");
 }
 function saveJs(js) {
-  return save(js, "application/json");
+  return save(js, "application/javascript");
 }
 const proxyTransferHandler = {
   canHandle: (val) => isObject(val) && val[proxyMarker],
