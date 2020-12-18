@@ -1,7 +1,8 @@
 # ignore haters
 haters/
 client_id
-
+videos/
+screenshots/
 docs/code/src**
 .eslintcache
 
