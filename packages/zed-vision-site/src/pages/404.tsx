@@ -57,10 +57,9 @@ export default function () {
     }
   }, []);
 
-  return (<>
+  return (<>   
     {is404 === true && <Layout>
       <SEO title="404: Not Found" />
-
       <h1>This page is not a page: {pathname}</h1>
       <p>
         Let's say, its a 404 page.

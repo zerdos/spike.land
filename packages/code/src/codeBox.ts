@@ -202,7 +202,7 @@ export async function run(mode = "window") {
   function onChange(code: string) {
     if (!modules) return;
     latestCode = code;
-    window.requestAnimationFrame(() => runner(latestCode), 50);
+    requestAnimationFrame(() => runner(latestCode));
   }
 
   async function getErrors(code: string) {
@@ -231,6 +231,12 @@ export async function run(mode = "window") {
   // dragElement(document.getElementById("root"));
   // await workerDomImport;
   function restartCode(transPiled: string) {
+    if (typeof transPiled!=="string" || transPiled==="")  {
+      // console.log(transPiled.error);
+      return;
+    }
+
+
     const searchRegExp = /import/gi;
     const searchRegExpExport = /export /gi;
     const replaceWith = "///";

@@ -1629,7 +1629,7 @@ export async function run(mode = "window") {
   function onChange(code) {
     if (!modules) return;
     latestCode = code;
-    window.requestAnimationFrame(() => runner(latestCode), 50);
+    requestAnimationFrame(() => runner(latestCode));
   }
   async function getErrors(code) {
     if (!modules || !modules.monaco) return;
@@ -1655,6 +1655,9 @@ export async function run(mode = "window") {
     ];
   }
   function restartCode(transPiled) {
+    if (typeof transPiled !== "string" || transPiled === "") {
+      return;
+    }
     const searchRegExp = /import/gi;
     const searchRegExpExport = /export /gi;
     const replaceWith = "///";
