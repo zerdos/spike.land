@@ -325,6 +325,33 @@ export async function run(mode = "window") {
             HTML.indexOf("</title>"),
           );
         }
+        const codeForImport = `
+      const runner = async()=>{
+          const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");
+
+          const debts = ["https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+          "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+          "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
+          "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"
+          ];
+
+          for (let i = 0; i < debts.length; i++) {
+              await importScript(debts[i]);
+          }
+
+
+            Object.assign(window, emotionReact);
+            let styled = window["emotionStyled"];
+            let DefaultElement;
+            ${code}
+            document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+        
+
+            await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")
+            ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+        }
+        runner();
+        `
 
         const iframe = `<!DOCTYPE html>
         <html lang="en">
@@ -351,32 +378,7 @@ export async function run(mode = "window") {
      
         <script type="module">
      
-        import {importScript} from "https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js"
-        
-        const runner=async() =>{
-    
-          const debts = ["https://unpkg.com/react@17.0.1/umd/react.production.min.js",
-          "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
-          "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
-          "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js"
-          ];
-
-          for (let i = 0; i < debts.length; i++) {
-              await importScript(debts[i]);
-          }
-
-
-            Object.assign(window, emotionReact);
-            let styled = window["emotionStyled"];
-            let DefaultElement;
-            ${code}
-            document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
-        
-
-            await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")
-            ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
-        }
-        runner();
+        ${codeForImport}
 
         </script>
         </body>
