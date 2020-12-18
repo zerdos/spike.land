@@ -1,9 +1,0 @@
-{
-  "name": "tests",
-  "version": "8.5.10",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "cypress": "^6.1.0"
-  }
-}
