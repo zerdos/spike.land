@@ -253,6 +253,7 @@ export async function run(mode = "window") {
     ).replace("export default", "DefaultElement = ")
       .replaceAll(searchRegExpExport, "");
 
+    replaceWithEmpty("root");
     const restart = () => {
       const codeToHydrate = mode === "window"
         ? code.replace("body{", "#root{")

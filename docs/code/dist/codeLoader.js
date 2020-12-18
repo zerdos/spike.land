@@ -1162,6 +1162,20 @@ let errorReported = "";
 let latestSavedCode = "";
 let latestGoodCode = "";
 let shareItAsHtml;
+function replaceWithEmpty(elementId = "root") {
+  const el = document.createElement("div");
+  const rootEl = document.getElementById(elementId);
+  try {
+    ReactDOM.unmountComponentAtNode(rootEl);
+  } catch (e) {
+    console.error("Error in un-mount", e);
+  }
+  if (rootEl) rootEl.replaceWith(el);
+  else {
+    document.body.appendChild(el);
+  }
+  el.id = elementId;
+}
 function p(l) {
   return new Promise(function (i1, a) {
     var o;
@@ -1656,6 +1670,7 @@ export async function run(mode = "window") {
         "export default",
         "DefaultElement = ",
       ).replaceAll(searchRegExpExport, "");
+    replaceWithEmpty("root");
     const restart = () => {
       const codeToHydrate = mode === "window"
         ? code.replace("body{", "#root{")
