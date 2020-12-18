@@ -31,7 +31,7 @@
     "@emotion/react": "11.1.2",
     "@emotion/styled": "11.0.0",
     "diff": "5.0.0",
-    "framer-motion": "3.0.0",
+    "framer-motion": "3.1.1",
     "idb": "5.0.8",
     "monaco-editor": "0.21.2",
     "normalize.css": "8.0.1",
@@ -51,7 +51,7 @@
     "csstype": "3.0.5",
     "husky": "5.0.6",
     "lerna": "3.22.1",
-    "popmotion": "9.0.1",
+    "popmotion": "9.0.2",
     "typescript": "4.1.3"
   }
 }

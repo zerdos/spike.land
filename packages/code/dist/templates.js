@@ -52,7 +52,7 @@ export function getDepts(code) {
   ];
 
   if (code.indexOf("framer-motion") !== -1) {
-    debts.push("https://unpkg.com/framer-motion@3.0.0/dist/framer-motion.js");
+    debts.push("https://unpkg.com/framer-motion@3.1.1/dist/framer-motion.js");
   }
   if (code.indexOf("qrious") !== -1) {
     debts.push("https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js");
