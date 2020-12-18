@@ -34,10 +34,9 @@ const transform = (code) => {
       searchRegExp,
       replaceWith,
     ).replace("export default", "DefaultElement = ")
-      .replaceAll(searchRegExpExport, "")
+      .replaceAll(searchRegExpExport, "");
 
-      return safeCode;
-
+    return safeCode;
   } catch (e) {
     console.error(e);
     return "";

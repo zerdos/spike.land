@@ -1,5 +1,5 @@
-import { starter } from "./starterNoFramerMotion.ts";
-import {renderDraggableWindow} from "./DraggableWindow.js";
+import { starter } from "./starterNoFramerMotion.js";
+
 const session = {
   firstLoad: true,
   errorCode: "",
@@ -37,19 +37,20 @@ export async function run(mode = "window") {
   }
 
   if (mode === "window") {
+    const { renderDraggableWindow } = await import("./DraggableWindow.js");
 
     const { shareItAsHtml } = await import("./share.js");
 
     await renderDraggableWindow({
       onShare: async () => {
-
-        const link = await shareItAsHtml({ code: await transpileCode(session.code) });
-        window.open(link as unknown as string);
+        const link = await shareItAsHtml(
+          { code: await transpileCode(session.code) },
+        );
+        window.open(link);
       },
     });
   }
 
-  const errorDiv = document.getElementById("error");
   const { getDB } = await import("./shaDB.min.js");
   const { getUserId, getProjects, saveCode } = await import("./data.js");
 
@@ -72,13 +73,14 @@ export async function run(mode = "window") {
     onChange,
   });
 
-  async function runner(cd: string) {
+  async function runner(cd) {
     try {
       const transpiled = await transpileCode(cd);
       ///yellow
       if (transpiled.length) restartCode(transpiled);
 
       const err = await getErrors(cd);
+      const errorDiv = document.getElementById("error");
       if (err.length === 0) {
         session.code = cd;
         await saveCode(cd);
@@ -94,14 +96,14 @@ export async function run(mode = "window") {
           return;
         }
 
-        errorDiv!.innerHTML = err[0].messageText.toString();
+        errorDiv.innerHTML = err[0].messageText.toString();
 
-        errorDiv!.style.display = "block";
+        errorDiv.style.display = "block";
 
         return;
       }
 
-      errorDiv!.style!.display = "none";
+      errorDiv.style.display = "none";
 
       modules.monaco.editor.setTheme("vs-dark");
     } catch (err) {
@@ -113,12 +115,12 @@ export async function run(mode = "window") {
     }
   }
 
-  function onChange(code: string) {
+  function onChange(code) {
     if (!modules) return;
     window.requestAnimationFrame(() => runner(code));
   }
 
-  async function getErrors(code: string) {
+  async function getErrors(code) {
     if (!modules || !modules.monaco) return;
     const { monaco } = modules;
     const { sha256 } = await import("./sha256.js");
@@ -144,7 +146,7 @@ export async function run(mode = "window") {
   // document.getElementById("root")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("root"));
   // await workerDomImport;
-  function restartCode(transPiled: string) {
+  function restartCode(transPiled) {
     if (typeof transPiled !== "string" || transPiled === "") {
       // console.log(transPiled.error);
       return;
@@ -210,7 +212,7 @@ export async function run(mode = "window") {
     return starter;
   }
 
-  function setQueryStringParameter(name: string, value: string) {
+  function setQueryStringParameter(name, value) {
     const params = new URLSearchParams(window.location.search);
     params.set(name, value);
     window.history.replaceState(
