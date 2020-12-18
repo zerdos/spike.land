@@ -64,7 +64,7 @@ export function getDepts(code) {
 export const getCodeForImport = (code) => {
   const debStr = JSON.stringify(getDepts(code));
 
-  return `export default = async() => {
+  return `export default async function(){
 const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");
 
     const debts = ${debStr};
