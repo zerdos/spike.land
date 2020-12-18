@@ -231,11 +231,10 @@ export async function run(mode = "window") {
   // dragElement(document.getElementById("root"));
   // await workerDomImport;
   function restartCode(transPiled: string) {
-    if (typeof transPiled!=="string" || transPiled==="")  {
+    if (typeof transPiled !== "string" || transPiled === "") {
       // console.log(transPiled.error);
       return;
     }
-
 
     const searchRegExp = /import/gi;
     const searchRegExpExport = /export /gi;

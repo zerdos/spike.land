@@ -5,4 +5,4 @@ declare var USERKEYS: KVNamespace;
 declare var USERS: KVNamespace;
 declare var LOGS: KVNamespace;
 
-declare const requestAnimationFrame: (callback: ()=>void)=>number
+declare const requestAnimationFrame: (callback: () => void) => number;

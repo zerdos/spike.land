@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
-import React from "react"
+import React from "react";
 
-
-export const DraggableWindow: React.FC<{ onShare: () => void }> = ({ onShare }) => {
+export const DraggableWindow: React.FC<{ onShare: () => void }> = (
+  { onShare },
+) => {
   const [scale, changeScale] = React.useState(100);
   const ref = React.useRef<HTMLDivElement>(null);
-  
+
   return <motion.div
     ref={ref}
     css={`
@@ -18,11 +19,11 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = ({ onShare }) 
             border: 4px solid red; 
             border-radius: 8px;
           `}
-    whileDrag={ {
-            scale:scale/100*0.7
-          }}
+    whileDrag={{
+      scale: scale / 100 * 0.7,
+    }}
     animate={{
-      scale: scale/100,
+      scale: scale / 100,
     }}
     dragElastic={0.5}
     dragMomentum={false}
@@ -30,14 +31,23 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = ({ onShare }) 
       // duration: 0.5
     }}
     drag={true}
-    > <div css={css`
+  >
+    <div
+      css={css`
       display: block;
       width: 100%;
       text-align: right;
       background: linear-gradient(0deg, darkred, red);
-    `}>
-      <button  onClick={()=>changeScale(x=>x-10)} css={buttonCss({color: "green", square: true})}>-</button>
-      <div css={css`
+    `}
+    >
+      <button
+        onClick={() => changeScale((x) => x - 10)}
+        css={buttonCss({ color: "green", square: true })}
+      >
+        -
+      </button>
+      <div
+        css={css`
         color:white;
         background: darkred;
         padding: 7px;
@@ -47,19 +57,29 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = ({ onShare }) 
         font-weight: 600;
         margin-left: px;
         margin-right: -20px;
-      `}>{scale}%</div>
-          <button  onClick={()=>changeScale(x=>x+10)}  css={buttonCss({color: "green", square: true})}>+</button>
+      `}
+      >
+        {scale}%
+      </div>
+      <button
+        onClick={() => changeScale((x) => x + 10)}
+        css={buttonCss({ color: "green", square: true })}
+      >
+        +
+      </button>
 
-
-      <button css={buttonCss({})}
-
+      <button
+        css={buttonCss({})}
         onClick={() => {
           console.log(ref.current!.clientHeight);
-          onShare()
+          onShare();
         }}
-      >🌎 Export</button>
+      >
+        🌎 Export
+      </button>
     </div>
-    <div css={css`  
+    <div
+      css={css`  
       display: block;
       overflow: hidden;
       min-width: 200px;
@@ -70,12 +90,15 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = ({ onShare }) 
       overflow-y: scroll;
       overflow-wrap: break-word;
       border-radius: 0px 0px 8px 8px;
-    `} id="root" >
+    `}
+      id="root"
+    >
     </div>
-  </motion.div>
-}
+  </motion.div>;
+};
 
-const buttonCss= ({color="darkred", square= false}) => css`
+const buttonCss = ({ color = "darkred", square = false }) =>
+  css`
               background: ${color};
               margin-top: -4px;
               margin-right: -4px;
@@ -87,5 +110,5 @@ const buttonCss= ({color="darkred", square= false}) => css`
               outline: none;
               border: none; 
               margin-left: 20px;
-              border-radius: 0px ${square?0:8}px 0px 0px;
-            `
+              border-radius: 0px ${square ? 0 : 8}px 0px 0px;
+            `;
