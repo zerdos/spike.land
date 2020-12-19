@@ -1,3 +1,4 @@
+import { importScript } from "../dist/importScript.js";
 import { starter } from "./starterNoFramerMotion.js";
 
 const session = {
@@ -53,12 +54,6 @@ export async function run(mode = "window") {
 
   const { getDB } = await import("../dist/shaDB.min.js");
   const { getUserId, getProjects, saveCode } = await import("./data.js");
-
-  const shaDB = await getDB();
-  const uuid = await getUserId();
-
-  const projects = await getProjects();
-  const projectName = projects[0];
 
   const transpiled = await transpileCode(session.code);
   restartCode(transpiled);
@@ -153,20 +148,30 @@ export async function run(mode = "window") {
     }
 
     if (!session.firstLoad) replaceWithEmpty("root");
+
     const restart = () => {
       const codeToHydrate = mode === "window"
         ? transPiled.replace("body{", "#root{")
         : transPiled;
+      importScript;
 
       const hydrate = new Function(
+        "importScript",
         `return function(){  
           let DefaultElement;
           ${codeToHydrate}
-          return ReactDOM.render(jsx(DefaultElement), document.getElementById("root"));
-      }`,
-      )();
+          
+          document.getElementById("root").innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
-      hydrate();
+          setTimeout(async()=>{
+              await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")          
+              ReactDOM.hydrate(jsx(DefaultElement), document.getElementById("root"));
+          }, 500);
+
+      }`,
+      )(importScript);
+
+      setTimeout(() => hydrate());
     };
 
     restart();
