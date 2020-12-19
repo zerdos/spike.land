@@ -67,7 +67,9 @@ export const saveCode = async (code) => {
 
   const { sha256 } = await import("./sha256.js");
   const hash = await sha256(code);
-  const projectName = await getProjects();
+
+  const projects = await getProjects();
+  const projectName = projects[0];
 
   try {
     const shaDB = await getDB();
