@@ -33,8 +33,11 @@ function formatter(code) {
 
 export async function run(mode = "window") {
   const { transpileCode } = await import("./transpile.js");
+  await importScript("https://unpkg.com/prettier@2.2.1/standalone.js");
+  await importScript("https://unpkg.com/prettier@2.2.1/parser-babel.js");
+  await importScript("https://unpkg.com/prettier@2.2.1/parser-html.js");
 
-  session.code = await getCodeToLoad();
+  session.code = formatter(await getCodeToLoad());
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
@@ -68,9 +71,6 @@ export async function run(mode = "window") {
   );
 
   let lastErrors = 0;
-  await importScript("https://unpkg.com/prettier@2.2.1/standalone.js");
-  await importScript("https://unpkg.com/prettier@2.2.1/parser-babel.js");
-  await importScript("https://unpkg.com/prettier@2.2.1/parser-html.js");
 
   const modules = await startMonaco({
     language: "typescript",
