@@ -8,13 +8,14 @@
     ],
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
-        "clean": "rm -rf dist && mkdir dist && deno fmt src && cp ../shadb/dist/shaDB.min.js ../diff/dist/diff.min.js ../smart-monaco-editor/lib/editor.min.js dist/ ",
+        "clean": "rm -rf dist && mkdir dist && deno fmt src",
+        "copy": "cp ../shadb/dist/shaDB.min.js ../diff/dist/diff.min.js ../smart-monaco-editor/lib/editor.min.js src/*.js dist/",
         "xbuild:sw": "workbox generateSW workbox-config.js",
         "build:sw": "yarn esbuild --loader:.ts=ts src/sw.ts --outfile=sw.js",
         "obuild:sw": "deno bundle  --unstable --import-map ../../import_map.json --no-check src/sw.ts sw.js",
-        "xxbuild": "cp ../smart-monaco-editor/lib/editor.min.js dist/ && deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js",
-        "build": "cp src/*.js dist/ && yarn minify && yarn build:sw",
-        "minify": "deno fmt dist && yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
+        "xxbuild": "cp -rf ../smart-monaco-editor/lib/editor.min.js dist/ && deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js",
+        "build": "deno fmt src && yarn copy && yarn minify  && yarn build:sw",
+        "minify": "yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
         "monaco",

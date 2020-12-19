@@ -3,7 +3,7 @@ import { config } from "https://deno.land/x/dotenv/mod.ts";
 // import { getHash } from "./maintenence.ts";
 // import { asyncLimit } from "./asyncLimit.js";
 // import
-import { sha256 } from "./sha256.ts";
+import { sha256 } from "./sha256.js";
 // import { keys } from "./data/keys.ts";
 const env = config();
 

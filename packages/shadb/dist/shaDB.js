@@ -88,19 +88,19 @@ function getMethod(target, prop) {
   cachedMethods.set(prop, method);
   return method;
 }
-(function (d, h) {
+(function (d, w) {
   typeof exports == "object" && typeof module != "undefined"
-    ? h(exports)
+    ? w(exports)
     : typeof define == "function" && define.amd
     ? define([
       "exports",
-    ], h)
-    : (d = d || self, h(d.Diff = {}));
+    ], w)
+    : (d = d || self, w(d.Diff = {}));
 })(this, function (d) {
   "use strict";
-  function h() {
+  function w() {
   }
-  h.prototype = {
+  w.prototype = {
     diff: function (n, t) {
       var r = arguments.length > 2 && arguments[2] !== void 0
           ? arguments[2]
@@ -139,26 +139,26 @@ function getMethod(target, prop) {
           },
         ]);
       }
-      function w() {
+      function h() {
         for (var c = -1 * u; c <= u; c += 2) {
           var L = void 0,
-            F = v[c - 1],
+            x = v[c - 1],
             m = v[c + 1],
-            N = (m ? m.newPos : 0) - c;
-          F && (v[c - 1] = void 0);
-          var y = F && F.newPos + 1 < s, A = m && 0 <= N && N < o;
-          if (!y && !A) {
+            F = (m ? m.newPos : 0) - c;
+          x && (v[c - 1] = void 0);
+          var y = x && x.newPos + 1 < s, E = m && 0 <= F && F < o;
+          if (!y && !E) {
             v[c] = void 0;
             continue;
           }
           if (
-            !y || A && F.newPos < m.newPos
-              ? (L = H(m), i.pushComponent(L.components, void 0, !0))
-              : (L = F, L.newPos++, i.pushComponent(L.components, !0, void 0)),
-              N = i.extractCommon(L, t, n, c),
-              L.newPos + 1 >= s && N + 1 >= o
+            !y || E && x.newPos < m.newPos
+              ? (L = I(m), i.pushComponent(L.components, void 0, !0))
+              : (L = x, L.newPos++, i.pushComponent(L.components, !0, void 0)),
+              F = i.extractCommon(L, t, n, c),
+              L.newPos + 1 >= s && F + 1 >= o
           ) {
-            return l(x(i, L.components, t, n, i.useLongestToken));
+            return l(H(i, L.components, t, n, i.useLongestToken));
           }
           v[c] = L;
         }
@@ -168,12 +168,12 @@ function getMethod(target, prop) {
         (function c() {
           setTimeout(function () {
             if (u > p) return f();
-            w() || c();
+            h() || c();
           }, 0);
         })();
       } else {
         for (; u <= p;) {
-          var g = w();
+          var g = h();
           if (g) return g;
         }
       }
@@ -225,7 +225,7 @@ function getMethod(target, prop) {
       return n.join("");
     },
   };
-  function x(e, n, t, r, f) {
+  function H(e, n, t, r, f) {
     for (var i = 0, l = n.length, s = 0, o = 0; i < l; i++) {
       var u = n[i];
       if (u.removed) {
@@ -240,9 +240,9 @@ function getMethod(target, prop) {
       } else {
         if (!u.added && f) {
           var p = t.slice(s, s + u.count);
-          p = p.map(function (w, g) {
+          p = p.map(function (h, g) {
             var c = r[o + g];
-            return c.length > w.length ? c : w;
+            return c.length > h.length ? c : h;
           }), u.value = e.join(p);
         } else u.value = e.join(t.slice(s, s + u.count));
         s += u.count, u.added || (o += u.count);
@@ -253,13 +253,13 @@ function getMethod(target, prop) {
       e.equals("", a.value) && (n[l - 2].value += a.value, n.pop()),
       n);
   }
-  function H(e) {
+  function I(e) {
     return {
       newPos: e.newPos,
       components: e.components.slice(0),
     };
   }
-  var S = new h();
+  var S = new w();
   function W(e, n, t) {
     return S.diff(e, n, t);
   }
@@ -268,21 +268,21 @@ function getMethod(target, prop) {
     else if (e) for (var t in e) e.hasOwnProperty(t) && (n[t] = e[t]);
     return n;
   }
-  var B = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,
+  var P = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,
     fe = /\S/,
-    P = new h();
-  P.equals = function (e, n) {
+    U = new w();
+  U.equals = function (e, n) {
     return this.options.ignoreCase &&
       (e = e.toLowerCase(), n = n.toLowerCase()),
       e === n || this.options.ignoreWhitespace && !fe.test(e) && !fe.test(n);
   },
-    P.tokenize = function (e) {
+    U.tokenize = function (e) {
       for (
         var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0;
         t < n.length - 1;
         t++
       ) {
-        !n[t + 1] && n[t + 2] && B.test(n[t]) && B.test(n[t + 2]) &&
+        !n[t + 1] && n[t + 2] && P.test(n[t]) && P.test(n[t + 2]) &&
           (n[t] += n[t + 2], n.splice(t + 1, 2), t--);
       }
       return n;
@@ -291,13 +291,13 @@ function getMethod(target, prop) {
     return (t = $(t, {
       ignoreWhitespace: !0,
     }),
-      P.diff(e, n, t));
+      U.diff(e, n, t));
   }
   function xe(e, n, t) {
-    return P.diff(e, n, t);
+    return U.diff(e, n, t);
   }
-  var U = new h();
-  U.tokenize = function (e) {
+  var V = new w();
+  V.tokenize = function (e) {
     var n = [], t = e.split(/(\n|\r\n)/);
     t[t.length - 1] || t.pop();
     for (var r = 0; r < t.length; r++) {
@@ -309,43 +309,43 @@ function getMethod(target, prop) {
     return n;
   };
   function le(e, n, t) {
-    return U.diff(e, n, t);
+    return V.diff(e, n, t);
   }
   function Fe(e, n, t) {
     var r = $(t, {
       ignoreWhitespace: !0,
     });
-    return U.diff(e, n, r);
+    return V.diff(e, n, r);
   }
-  var se = new h();
+  var se = new w();
   se.tokenize = function (e) {
     return e.split(/(\S.+?[.!?])(?=\s+|$)/);
   };
   function Ne(e, n, t) {
     return se.diff(e, n, t);
   }
-  var oe = new h();
+  var oe = new w();
   oe.tokenize = function (e) {
     return e.split(/([{}:;,]|\s+)/);
   };
   function Se(e, n, t) {
     return oe.diff(e, n, t);
   }
-  function V(e) {
+  function X(e) {
     return (typeof Symbol == "function" && typeof Symbol.iterator == "symbol"
-      ? V = function (n) {
+      ? X = function (n) {
         return typeof n;
       }
-      : V = function (n) {
+      : X = function (n) {
         return n && typeof Symbol == "function" && n.constructor === Symbol &&
             n !== Symbol.prototype
           ? "symbol"
           : typeof n;
       },
-      V(e));
+      X(e));
   }
   function b(e) {
-    return He(e) || Ie(e) || be(e) || Ae();
+    return He(e) || Ie(e) || be(e) || Ee();
   }
   function He(e) {
     if (Array.isArray(e)) return j(e);
@@ -378,14 +378,14 @@ function getMethod(target, prop) {
     for (var t = 0, r = new Array(n); t < n; t++) r[t] = e[t];
     return r;
   }
-  function Ae() {
+  function Ee() {
     throw new TypeError(
       `Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`,
     );
   }
-  var Ee = Object.prototype.toString, J = new h();
+  var Ae = Object.prototype.toString, J = new w();
   J.useLongestToken = !0,
-    J.tokenize = U.tokenize,
+    J.tokenize = V.tokenize,
     J.castInput = function (e) {
       var n = this.options,
         t = n.undefinedReplacement,
@@ -397,10 +397,10 @@ function getMethod(target, prop) {
           : r;
       return typeof e == "string"
         ? e
-        : JSON.stringify(X(e, null, null, f), f, "  ");
+        : JSON.stringify(Z(e, null, null, f), f, "  ");
     },
     J.equals = function (e, n) {
-      return h.prototype.equals.call(
+      return w.prototype.equals.call(
         J,
         e.replace(/,([\r\n])/g, "$1"),
         n.replace(/,([\r\n])/g, "$1"),
@@ -409,40 +409,40 @@ function getMethod(target, prop) {
   function Te(e, n, t) {
     return J.diff(e, n, t);
   }
-  function X(e, n, t, r, f) {
+  function Z(e, n, t, r, f) {
     n = n || [], t = t || [], r && (e = r(f, e));
     var i;
     for (i = 0; i < n.length; i += 1) if (n[i] === e) return t[i];
     var l;
-    if (Ee.call(e) === "[object Array]") {
+    if (Ae.call(e) === "[object Array]") {
       for (
         (n.push(e), l = new Array(e.length), t.push(l), i = 0);
         i < e.length;
         i += 1
       ) {
-        l[i] = X(e[i], n, t, r, f);
+        l[i] = Z(e[i], n, t, r, f);
       }
       return (n.pop(), t.pop(), l);
     }
-    if ((e && e.toJSON && (e = e.toJSON()), V(e) === "object" && e !== null)) {
+    if ((e && e.toJSON && (e = e.toJSON()), X(e) === "object" && e !== null)) {
       n.push(e), l = {}, t.push(l);
       var s = [], o;
       for (o in e) e.hasOwnProperty(o) && s.push(o);
       for ((s.sort(), i = 0); i < s.length; i += 1) {o = s[i],
-          l[o] = X(e[o], n, t, r, o);}
+          l[o] = Z(e[o], n, t, r, o);}
       n.pop(), t.pop();
     } else l = e;
     return l;
   }
-  var Z = new h();
-  Z.tokenize = function (e) {
+  var B = new w();
+  B.tokenize = function (e) {
     return e.slice();
   },
-    Z.join = Z.removeEmpty = function (e) {
+    B.join = B.removeEmpty = function (e) {
       return e;
     };
   function Oe(e, n, t) {
-    return Z.diff(e, n, t);
+    return B.diff(e, n, t);
   }
   function G(e) {
     var n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {},
@@ -477,9 +477,9 @@ function getMethod(target, prop) {
       if (p) {
         var v = p[1] === "---" ? "old" : "new",
           a = p[2].split("	", 2),
-          w = a[0].replace(/\\\\/g, "\\");
-        /^".*"$/.test(w) && (w = w.substr(1, w.length - 2)),
-          u[v + "FileName"] = w,
+          h = a[0].replace(/\\\\/g, "\\");
+        /^".*"$/.test(h) && (h = h.substr(1, h.length - 2)),
+          u[v + "FileName"] = h,
           u[v + "Header"] = (a[1] || "").trim(),
           i++;
       }
@@ -499,7 +499,7 @@ function getMethod(target, prop) {
       a.oldLines === 0 && (a.oldStart += 1),
         a.newLines === 0 && (a.newStart += 1);
       for (
-        var w = 0, g = 0;
+        var h = 0, g = 0;
         i < t.length &&
         !(t[i].indexOf("--- ") === 0 && i + 2 < t.length &&
           t[i + 1].indexOf("+++ ") === 0 && t[i + 2].indexOf("@@") === 0);
@@ -511,15 +511,15 @@ function getMethod(target, prop) {
         ) {
           a.lines.push(t[i]),
             a.linedelimiters.push(r[i] || `\n`),
-            c === "+" ? w++ : c === "-" ? g++ : c === " " && (w++, g++);
+            c === "+" ? h++ : c === "-" ? g++ : c === " " && (h++, g++);
         } else break;
       }
       if (
-        (!w && a.newLines === 1 && (a.newLines = 0),
+        (!h && a.newLines === 1 && (a.newLines = 0),
           !g && a.oldLines === 1 && (a.oldLines = 0),
           n.strict)
       ) {
-        if (w !== a.newLines) {
+        if (h !== a.newLines) {
           throw new Error(
             "Added line count did not match for hunk at line " + (u + 1),
           );
@@ -565,13 +565,13 @@ function getMethod(target, prop) {
       p = 0,
       v,
       a;
-    function w(re, D) {
+    function h(re, D) {
       for (var K = 0; K < re.lines.length; K++) {
         var C = re.lines[K],
           ie = C.length > 0 ? C[0] : " ",
-          Xe = C.length > 0 ? C.substr(1) : C;
+          Ze = C.length > 0 ? C.substr(1) : C;
         if (ie === " " || ie === "-") {
-          if (!l(D + 1, r[D], ie, Xe) && (s++, s > o)) return !1;
+          if (!l(D + 1, r[D], ie, Ze) && (s++, s > o)) return !1;
           D++;
         }
       }
@@ -581,33 +581,33 @@ function getMethod(target, prop) {
       for (
         var c = i[g],
           L = r.length - c.oldLines,
-          F = 0,
+          x = 0,
           m = p + c.oldStart - 1,
-          N = ze(m, u, L);
-        F !== void 0;
-        F = N()
+          F = ze(m, u, L);
+        x !== void 0;
+        x = F()
       ) {
-        if (w(c, m + F)) {
-          c.offset = p += F;
+        if (h(c, m + x)) {
+          c.offset = p += x;
           break;
         }
       }
-      if (F === void 0) return !1;
+      if (x === void 0) return !1;
       u = c.offset + c.oldStart + c.oldLines;
     }
-    for (var y = 0, A = 0; A < i.length; A++) {
-      var I = i[A], E = I.oldStart + I.offset + y - 1;
-      y += I.newLines - I.oldLines;
-      for (var T = 0; T < I.lines.length; T++) {
-        var O = I.lines[T],
+    for (var y = 0, E = 0; E < i.length; E++) {
+      var N = i[E], A = N.oldStart + N.offset + y - 1;
+      y += N.newLines - N.oldLines;
+      for (var T = 0; T < N.lines.length; T++) {
+        var O = N.lines[T],
           z = O.length > 0 ? O[0] : " ",
           Y = O.length > 0 ? O.substr(1) : O,
-          te = I.linedelimiters[T];
-        if (z === " ") E++;
-        else if (z === "-") r.splice(E, 1), f.splice(E, 1);
-        else if (z === "+") r.splice(E, 0, Y), f.splice(E, 0, te), E++;
+          te = N.linedelimiters[T];
+        if (z === " ") A++;
+        else if (z === "-") r.splice(A, 1), f.splice(A, 1);
+        else if (z === "+") r.splice(A, 0, Y), f.splice(A, 0, te), A++;
         else if (z === "\\") {
-          var R = I.lines[T - 1] ? I.lines[T - 1][0] : null;
+          var R = N.lines[T - 1] ? N.lines[T - 1][0] : null;
           R === "+" ? v = !0 : R === "-" && (a = !0);
         }
       }
@@ -641,8 +641,8 @@ function getMethod(target, prop) {
       value: "",
       lines: [],
     });
-    function o(F) {
-      return F.map(function (m) {
+    function o(x) {
+      return x.map(function (m) {
         return " " + m;
       });
     }
@@ -651,38 +651,38 @@ function getMethod(target, prop) {
         p = 0,
         v = 0,
         a = [],
-        w = 1,
+        h = 1,
         g = 1,
         c = function (m) {
-          var N = s[m], y = N.lines || N.value.replace(/\n$/, "").split(`\n`);
-          if ((N.lines = y, N.added || N.removed)) {
-            var A;
+          var F = s[m], y = F.lines || F.value.replace(/\n$/, "").split(`\n`);
+          if ((F.lines = y, F.added || F.removed)) {
+            var E;
             if (!p) {
-              var I = s[m - 1];
-              p = w,
+              var N = s[m - 1];
+              p = h,
                 v = g,
-                I &&
-                (a = l.context > 0 ? o(I.lines.slice(-l.context)) : [],
+                N &&
+                (a = l.context > 0 ? o(N.lines.slice(-l.context)) : [],
                   p -= a.length,
                   v -= a.length);
             }
-            (A = a).push.apply(
-              A,
+            (E = a).push.apply(
+              E,
               b(y.map(function (q) {
-                return (N.added ? "+" : "-") + q;
+                return (F.added ? "+" : "-") + q;
               })),
-            ), N.added ? g += y.length : w += y.length;
+            ), F.added ? g += y.length : h += y.length;
           } else {
             if (p) {
               if (y.length <= l.context * 2 && m < s.length - 2) {
-                var E;
-                (E = a).push.apply(E, b(o(y)));
+                var A;
+                (A = a).push.apply(A, b(o(y)));
               } else {
                 var T, O = Math.min(y.length, l.context);
                 (T = a).push.apply(T, b(o(y.slice(0, O))));
                 var z = {
                   oldStart: p,
-                  oldLines: w - p + O,
+                  oldLines: h - p + O,
                   newStart: v,
                   newLines: g - v + O,
                   lines: a,
@@ -698,7 +698,7 @@ function getMethod(target, prop) {
                 u.push(z), p = 0, v = 0, a = [];
               }
             }
-            w += y.length, g += y.length;
+            h += y.length, g += y.length;
           }
         },
         L = 0;
@@ -897,7 +897,7 @@ function getMethod(target, prop) {
     ee(e, r, f);
   }
   function he(e, n, t, r) {
-    var f = M(n), i = Be(t, f);
+    var f = M(n), i = Pe(t, f);
     if (i.merged) {
       var l;
       (l = e.lines).push.apply(l, b(i.merged));
@@ -932,7 +932,7 @@ function getMethod(target, prop) {
     }
     return n;
   }
-  function Be(e, n) {
+  function Pe(e, n) {
     for (
       var t = [], r = [], f = 0, i = !1, l = !1;
       f < n.length && e.index < e.lines.length;
@@ -984,7 +984,7 @@ function getMethod(target, prop) {
         newLines: t,
       });
   }
-  function Pe(e) {
+  function Ue(e) {
     for (var n = [], t, r, f = 0; f < e.length; f++) {
       t = e[f],
         t.added ? r = 1 : t.removed ? r = -1 : r = 0,
@@ -995,16 +995,16 @@ function getMethod(target, prop) {
     }
     return n;
   }
-  function Ue(e) {
+  function Ve(e) {
     for (var n = [], t = 0; t < e.length; t++) {
       var r = e[t];
       r.added ? n.push("<ins>") : r.removed && n.push("<del>"),
-        n.push(Ve(r.value)),
+        n.push(Xe(r.value)),
         r.added ? n.push("</ins>") : r.removed && n.push("</del>");
     }
     return n.join("");
   }
-  function Ve(e) {
+  function Xe(e) {
     var n = e;
     return (n = n.replace(/&/g, "&amp;"),
       n = n.replace(/</g, "&lt;"),
@@ -1012,12 +1012,12 @@ function getMethod(target, prop) {
       n = n.replace(/"/g, "&quot;"),
       n);
   }
-  d.Diff = h,
+  d.Diff = w,
     d.applyPatch = ue,
     d.applyPatches = We,
-    d.canonicalize = X,
-    d.convertChangesToDMP = Pe,
-    d.convertChangesToXML = Ue,
+    d.canonicalize = Z,
+    d.convertChangesToDMP = Ue,
+    d.convertChangesToXML = Ve,
     d.createPatch = qe,
     d.createTwoFilesPatch = ae,
     d.diffArrays = Oe,
@@ -1036,62 +1036,57 @@ function getMethod(target, prop) {
       value: !0,
     });
 });
-async function Ze(d) {
-  const h = await crypto.subtle.digest("SHA-256", d),
-    x = Array.from(new Uint8Array(h)),
-    H = x.map((S) => ("00" + S.toString(16)).slice(-2)).join("");
-  return H;
-}
-const isDiff = (d) => {
+const Be = async (d) =>
+  Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        typeof d == "string" ? new TextEncoder().encode(d) : d,
+      ),
+    ).slice(0, 4),
+  ).map((w) => ("00" + w.toString(16)).slice(-2)).join("");
+const diff = async (d, w) => {
+    const H = Be(d), I = Diff.diffChars(d, w);
+    return {
+      b: await H,
+      c: I.map((S) => S.added ? S.value : S.removed ? -S.count : S.count),
+    };
+  },
+  isDiff = (d) => {
     if (d.length < 10) return !1;
-    const h = [
+    const w = [
         ...d.slice(0, 8),
-      ].filter((H) => H < "0" || H > "f").length === 0,
-      x = d.slice(8);
-    if (h && x[0] === "[" && x[x.length - 1] === "]") {
+      ].filter((I) => I < "0" || I > "f").length === 0,
+      H = d.slice(8);
+    if (w && H[0] === "[" && H[H.length - 1] === "]") {
       try {
-        return JSON.parse(x).length > 1;
+        return JSON.parse(H).length > 1;
       } catch {
         return !1;
       }
     }
     return !1;
   },
-  assemble = (d, h) => {
-    const x = JSON.parse(h);
-    let H = d.slice(), S = "";
-    return x.forEach((W) => {
+  assemble = (d, w) => {
+    const H = JSON.parse(w);
+    let I = d.slice(), S = "";
+    return H.forEach((W) => {
       if (Number(W) === W) {
-        const $ = Math.abs(W), B = H.slice(0, $);
-        H = H.slice($), W > 0 && (S += String(B));
+        const $ = Math.abs(W), P = I.slice(0, $);
+        I = I.slice($), W > 0 && (S += String(P));
       } else S += String(W);
     }),
       S;
   };
-async function Ge(d) {
-  const h = new TextEncoder().encode(d), x = await Ze(h);
-  return x.substr(0, 8);
-}
-const diff = async (d, h) => {
-  const x = Ge(d), H = Diff.diffChars(d, h);
-  return {
-    b: await x,
-    c: H.map((S) => S.added ? S.value : S.removed ? -S.count : S.count),
-  };
-};
-async function arrBuffSha256(msgBuffer) {
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray.map((b) => ("00" + b.toString(16)).slice(-2)).join(
-    "",
-  );
-  return hashHex;
-}
-async function sha256(message) {
-  const msgBuffer = new TextEncoder().encode(message);
-  const hashHex = await arrBuffSha256(msgBuffer);
-  return hashHex.substr(0, 8);
-}
+const sha256 = async (x) =>
+  Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        typeof x === "string" ? new TextEncoder().encode(x) : x,
+      ),
+    ).slice(0, 4),
+  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
 const getDbObj = (dbPromise, isIdb = false) => {
   const dbObj = {
     async get(key, format = "string") {

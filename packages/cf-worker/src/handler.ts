@@ -1,4 +1,4 @@
-import { arrBuffSha256, sha256 } from "../../code/src/sha256.js";
+import { sha256 } from "../../code/src/sha256.js";
 import { getDbObj } from "../../shadb/src/getDbObj.ts";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
@@ -215,7 +215,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
 
     const myBuffer = await request.arrayBuffer();
-    const hash = await arrBuffSha256(myBuffer);
+    const hash = await sha256(myBuffer);
     const smallerKey = hash.substring(0, 8);
 
     if (smallerKey !== sha) {
