@@ -37,7 +37,6 @@ export const getDbObj = (dbPromise, isIdb = false) => {
           return allData;
         }
 
-
         return new TextDecoder().decode(allData);
       }
       return data;

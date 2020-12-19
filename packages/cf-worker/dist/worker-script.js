@@ -1026,9 +1026,7 @@ const getDbObj = (dbPromise, isIdb = false) => {
           }
           return allData;
         }
-        const decoder = new TextDecoder();
-        const text = decoder.decode(allData);
-        return text;
+        return new TextDecoder().decode(allData);
       }
       return data;
     },
