@@ -216,26 +216,17 @@ export async function run(mode = "window") {
 
           try{
                 ${codeToHydrate}
+                
+                const root = document.getElementById("zbody").children[0] || document.createElement("div");
+                ReactDOM.render(jsx(DefaultElement), root);
+                
+                document.getElementById("zbody").children[0] ||    document.getElementById("zbody").appendChild(root);        
 
-                const innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
+                
                 session.preRendered = DefaultElement;
 
-                const root = document.createElement("div");
-                root.innerHTML = innerHTML;
-                
-                if(document.getElementById("zbody").children.length) {
-                  document.getElementById("zbody").children[0].remove();
-                }
-      
-                document.getElementById("zbody").appendChild(root);
 
-                setTimeout(async()=>{
-                  if (session.preRendered === DefaultElement){
-                    session.hydrated = root;
-                    ReactDOM.hydrate(jsx(DefaultElement), root);
-                  }
-                }, 500);
 
           } catch (e) {
             if (session.lastError!==0) console.error({e});
