@@ -1007,10 +1007,10 @@
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-2.1.0.tgz#6e4f07567f4c914ad811c2d7a6172d0ae834c7f6"
   integrity sha512-VmXaHTq0lt6Xre4aK1hUK25hjZjuEUkHtdUEt0FJamv+NzQO54Gwp6Zr5Cfu6SP5EQ/tTmTMP/tK9npA8zhcCg==
 
-"@cloudflare/wrangler@1.12.2":
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.12.2.tgz#9185d46f0f81c2f7a3700511712754fd9c3b2615"
-  integrity sha512-hovZ0yR8pofMiyIAsxOdKxdU9P33yWcTKuaiOYlwKRAMctB8ghRDeUhYzreAe/Kq6Iu7hdP8lfeub4sUHQxe4Q==
+"@cloudflare/wrangler@1.12.3":
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.12.3.tgz#291331b105a441fab925456e88f93391211de319"
+  integrity sha512-p1roGAuaxiXPmUG/m2qiaFfwxW5b7e4P5cw9jpWvKz2i+GyWxxyIdytX898kJorXPq5RnoypdHB9yjEjTNB0uA==
   dependencies:
     binary-install "0.0.1"
 
@@ -6356,10 +6356,10 @@ es6-promisify@^5.0.0:
   dependencies:
     es6-promise "^4.0.3"
 
-esbuild@0.8.23:
-  version "0.8.23"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.23.tgz#8c4ccd3abb5f7b4ae9f31c571971517be4ae60d2"
-  integrity sha512-LkgCmotGnhVgRGxjDkTBBYrnJ5stcxK+40cEJGtXUS16hcAWy90cn1qjxKCogzLPJ75gW/L6ejly7VKrMstVGQ==
+esbuild@0.8.24:
+  version "0.8.24"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.24.tgz#18645e102254682909017cec648f84d4834f15b3"
+  integrity sha512-bqgEa2VemAN+YM52SM1626+/pdLp+p9NyqISB06ixcvauKIJk6akia3UTTsGAgn0oHEdReZ97gL+LYX+UjgwKA==
 
 escalade@^3.1.1:
   version "3.1.1"
