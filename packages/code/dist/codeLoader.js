@@ -43,6 +43,7 @@ export async function run(mode = "window") {
   await importScript("https://unpkg.com/prettier@2.2.1/parser-html.js");
 
   session.code = formatter(await getCodeToLoad());
+  session.transpiled = await transpileCode(session.code);
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
@@ -107,7 +108,7 @@ export async function run(mode = "window") {
         if (session.transpiled !== transpiled) {
           session.transpiled = transpiled;
 
-          await saveCode(formatter(cd), transpileCode);
+          await saveCode(formatter(cd), session.transpiled);
         }
 
         await saveCode(cd);
