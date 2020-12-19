@@ -2,8 +2,9 @@ import { importScript } from "../dist/importScript.js";
 import { starter } from "./starterNoFramerMotion.js";
 
 const session = {
-  firstLoad: true,
-  errorCode: "",
+  hydrated: false,
+  preRendered: false,
+  transpiled: "",
   code: "",
 };
 
@@ -25,25 +26,9 @@ function formatter(code) {
     "tabWidth": 2,
     "trailingComma": "all",
     "useTabs": false,
-    "vueIndentScriptAndStyle": false,
-    parser: "babel",
+    parser: "babel-ts",
     plugins: window.prettierPlugins,
   });
-}
-
-function unHydrate(elementId = "zbody", element) {
-  try {
-    const root = window.document.getElementById(elementId);
-    const html = root.innerHTML;
-    if (html.length > 0) {
-      ReactDOM.unmountComponentAtNode(
-        element,
-      );
-      root.innerHTML = html;
-    }
-  } catch (e) {
-    console.error("Error in un-mount", e);
-  }
 }
 
 export async function run(mode = "window") {
@@ -99,7 +84,7 @@ export async function run(mode = "window") {
       let restartError = false;
       ///yellow
       if (transpiled.length && lastErrors === 0) {
-        restartError = await restartCode(transpiled);
+        restartError = restartCode(transpiled);
       }
 
       const err = [
@@ -111,8 +96,13 @@ export async function run(mode = "window") {
       const errorDiv = window.document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         session.code = cd;
+        if (session.transPiled !== transpiled) {
+          session.transPiled = transpiled;
 
-        await saveCode(formatter(cd));
+          await saveCode(formatter(cd), transpileCode);
+        }
+
+        await saveCode(cd);
       } else {
         session.error = cd;
 
@@ -177,42 +167,53 @@ export async function run(mode = "window") {
   function restartCode(transPiled) {
     if (typeof transPiled !== "string" || transPiled === "") {
       // console.log(transPiled.error);
-      return;
+      return 1;
     }
 
-    let hydrated = false;
+    const codeToHydrate = mode === "window"
+      ? transPiled.replace("body{", "#zroot{")
+      : transPiled;
 
-    const restart = () => {
-      const codeToHydrate = mode === "window"
-        ? transPiled.replace("body{", "#root{")
-        : transPiled;
-
-      if (hydrated) {
-        unHydrate("zbody", hydrated);
-        hydrated = false;
+    if (session.hydrated) {
+      try {
+        const root = window.document.getElementById("zbody");
+        const html = root.innerHTML;
+        if (html.length > 0) {
+          ReactDOM.unmountComponentAtNode(
+            root,
+          );
+          session.hydrated = false;
+          root.innerHTML = html;
+        }
+      } catch (e) {
+        console.error("Error in un-mount", e);
       }
+    }
 
-      const hydrate = new Function(
-        "importScript",
-        `return function(){  
+    const hydrate = new Function(
+      "importScript",
+      "session",
+      `return function(){  
           let DefaultElement;
           const root = document.createElement("div");
 
           try{
-
                 ${codeToHydrate}
 
-                
                 root.innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
-                hydrated = DefaultElement;
+                session.preRendered = DefaultElement;
+
                 setTimeout(async()=>{
-                  if (hydrated === DefaultElement){
+                  if (session.preRendered === DefaultElement){
+                    session.hydrated = DefaultElement;
                     ReactDOM.hydrate(jsx(DefaultElement), root);
                   }
                 }, 500);
 
-          } catch (e){
+          } catch (e) {
+            console.error({e});
+            session.preRendered=false;
             root.innerHTML = e.message;
           }
 
@@ -222,12 +223,10 @@ export async function run(mode = "window") {
           
           document.getElementById("zbody").appendChild(root);
       }`,
-      )(importScript);
+    )(importScript, session);
 
-      hydrate();
-    };
-
-    restart();
+    hydrate();
+    return !session.preRendered;
   }
   async function getCodeToLoad() {
     const { getUserId, getProjects, saveCode } = await import("./data.js");
