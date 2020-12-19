@@ -69,10 +69,16 @@ export async function run(mode = "window") {
   async function runner(cd) {
     try {
       const transpiled = await transpileCode(cd);
+      let restartError = false;
       ///yellow
-      if (transpiled.length && lastErrors === 0) restartCode(transpiled);
+      if (transpiled.length && lastErrors === 0) {
+        restartError = await restartCode(transpiled);
+      }
 
-      const err = await getErrors(cd);
+      const err = [
+        ...(restartError ? [restartError] : []),
+        ...(await getErrors(cd)),
+      ];
       lastErrors = err.length;
       const errorDiv = window.document.getElementById("error");
       if (err.length === 0) {
@@ -166,15 +172,15 @@ export async function run(mode = "window") {
         "importScript",
         `return function(){  
           let DefaultElement;
+          ley root;
+
+          try{
+
           ${codeToHydrate}
 
-          const root = document.createElement("div");
+          root = document.createElement("div");
           
           root.innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
-          if(document.getElementById("zbody").children.length) {
-            document.getElementById("zbody").children[0].remove();
-          }
-          document.getElementById("zbody").appendChild(root);
 
           hydrated = DefaultElement;
           setTimeout(async()=>{
@@ -182,7 +188,20 @@ export async function run(mode = "window") {
               ReactDOM.hydrate(jsx(DefaultElement), root);
             }
 
+
+            if(document.getElementById("zbody").children.length) {
+              document.getElementById("zbody").children[0].remove();
+            }
+            
           }, 500);
+
+          } catch (e){
+            root.innerHTML = e.message;
+          }
+          
+          document.getElementById("zbody").appendChild(root);
+
+     
 
       }`,
       )(importScript);
