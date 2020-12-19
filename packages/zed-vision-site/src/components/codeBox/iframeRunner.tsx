@@ -82,14 +82,14 @@ function createSourceBlob(codeToRun: any, events: unknown[], replay: boolean) {
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="zbody"></div>
   
   <script>
 
 
 
   ${codeToRun}
-  ReactDOM.render(React.createElement(Counter, {}, {}), document.getElementById("root"));
+  ReactDOM.render(React.createElement(Counter, {}, {}), document.getElementById("zbody"));
 
 
     

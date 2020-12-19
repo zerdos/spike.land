@@ -88,7 +88,7 @@ export async function renderDraggableWindow({ onShare }) {
       border-radius: 0px 0px 8px 8px;
       overflow-y: overlay;
     `,
-          id: "root",
+          id: "zbody",
         }),
       ),
     );

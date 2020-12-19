@@ -7,23 +7,19 @@ const session = {
   code: "",
 };
 
-function replaceWithEmpty(elementId = "root") {
-  const el = document.createElement("div");
-  const rootEl = document.getElementById(elementId);
+function unHydrate(elementId = "zbody", element) {
   try {
-    ReactDOM.unmountComponentAtNode(
-      rootEl,
-    );
+    const root = document.getElementById(elementId);
+    const html = root.innerHTML;
+    if (html.length > 0) {
+      ReactDOM.unmountComponentAtNode(
+        element,
+      );
+      root.innerHTML = html;
+    }
   } catch (e) {
     console.error("Error in un-mount", e);
   }
-
-  if (rootEl) rootEl.replaceWith(el);
-  else {
-    document.body.appendChild(el);
-  }
-
-  el.id = elementId;
 }
 
 export async function run(mode = "window") {
@@ -138,8 +134,12 @@ export async function run(mode = "window") {
       ...fastError,
     ];
   }
-  // document.getElementById("root")!.setAttribute("style", "display:block");
-  // dragElement(document.getElementById("root"));
+  await importScript(
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  );
+
+  // document.getElementById("zbody")!.setAttribute("style", "display:block");
+  // dragElement(document.getElementById("zbody"));
   // await workerDomImport;
   function restartCode(transPiled) {
     if (typeof transPiled !== "string" || transPiled === "") {
@@ -147,25 +147,37 @@ export async function run(mode = "window") {
       return;
     }
 
-    if (!session.firstLoad) replaceWithEmpty("root");
+    let hydrated = false;
 
     const restart = () => {
       const codeToHydrate = mode === "window"
         ? transPiled.replace("body{", "#root{")
         : transPiled;
-      importScript;
+
+      if (hydrated) {
+        unHydrate("zbody", hydrated);
+      }
 
       const hydrate = new Function(
         "importScript",
         `return function(){  
           let DefaultElement;
           ${codeToHydrate}
-          
-          document.getElementById("root").innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
+          const root = document.createElement("div");
+          
+          root.innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+          if(document.getElementById("zbody").children.length) {
+            document.getElementById("zbody").children[0].remove();
+          }
+          document.getElementById("zbody").appendChild(root);
+
+          hydrated = DefaultElement;
           setTimeout(async()=>{
-              await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")          
-              ReactDOM.hydrate(jsx(DefaultElement), document.getElementById("root"));
+            if (hydrated === DefaultElement){
+              ReactDOM.hydrate(jsx(DefaultElement), root);
+            }
+
           }, 500);
 
       }`,

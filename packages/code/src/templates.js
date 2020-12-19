@@ -32,7 +32,7 @@ export const getHtml = ({ HTML, css, js }) => {
 </style>
 </head>
 <body>
-<div id="root">
+<div id="zbody">
     ${HTML}
 </div>
 <script type="module">

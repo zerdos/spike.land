@@ -1,8 +1,10 @@
 export const importScript = (src, res = []) =>
-  window.document.querySelector(`script[src="${src}"]`) ||
+  window.document.head.querySelector(`script[src="${src}"]`) ||
   new Promise(function (resolve, reject) {
     const s = window.document.createElement("script");
     s.src = src;
+    s.async = "async";
+    s.type = "application/javascript";
     s.onload = (() => {
       if (res.length === 0) {
         resolve(window);

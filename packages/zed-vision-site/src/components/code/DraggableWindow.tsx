@@ -89,7 +89,7 @@ export const DraggableWindow: React.FC<{ onShare: () => void }> = (
       overflow-wrap: break-word;
       border-radius: 0px 0px 8px 8px;
     `}
-      id="root"
+      id="zbody"
     >
       DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
     </div>

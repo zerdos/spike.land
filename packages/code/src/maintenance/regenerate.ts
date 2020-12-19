@@ -7,7 +7,7 @@ async function regenerate(
   keys.map((x) => x.name).map(async (hash) => {
     const code = await getCode(hash);
     if (!code) return "";
-    replaceWithEmpty("root");
+    replaceWithEmpty("zbody");
     let transpiled;
     try {
       transpiled = transpileCode(code);
@@ -19,7 +19,7 @@ async function regenerate(
       const replaceWith2 = "///";
 
       ReactDOM.unmountComponentAtNode(
-        document.getElementById("root"),
+        document.getElementById("zbody"),
       );
       restartCode(
         transpiled.replaceAll(searchRegExp, replaceWith).replaceAll(
@@ -27,15 +27,15 @@ async function regenerate(
           replaceWith2,
         ),
       );
-      const html2 = document.getElementById("root")!.innerHTML;
-      replaceWithEmpty("root");
+      const html2 = document.getElementById("zbody")!.innerHTML;
+      replaceWithEmpty("zbody");
       restartCode(
         codeTranspiled.replaceAll(searchRegExp, replaceWith).replaceAll(
           searchRegExp2,
           replaceWith2,
         ),
       );
-      const html = document.getElementById("root")!.innerHTML;
+      const html = document.getElementById("zbody")!.innerHTML;
       if (html !== html2) {
         console.log(
           {

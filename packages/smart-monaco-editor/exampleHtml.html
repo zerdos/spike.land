@@ -96,7 +96,7 @@
     <div id="container" ></div>
   </div>
 
-  <iframe id="root"></iframe>
+  <iframe id="zbody"></iframe>
 
 
   <script type="module">
@@ -124,9 +124,9 @@
 
 
     function replaceFrames() {
-        const old = document.getElementById("root");
+        const old = document.getElementById("zbody");
         old.remove();
-        document.getElementById("hidden").setAttribute("id", "root");
+        document.getElementById("hidden").setAttribute("id", "zbody");
     }
     restartCode(example);
 
