@@ -79,9 +79,10 @@ export async function run(mode = "window") {
         ...(restartError ? [restartError] : []),
         ...(await getErrors(cd)),
       ];
+      if (lastErrors && err.length === 0) restartCode(transpiled);
       lastErrors = err.length;
       const errorDiv = window.document.getElementById("error");
-      if (err.length === 0) {
+      if (err.length === 0 && transpiled.length) {
         session.code = cd;
         await saveCode(cd);
       } else {
