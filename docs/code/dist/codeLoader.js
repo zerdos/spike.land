@@ -172,37 +172,31 @@ export async function run(mode = "window") {
         "importScript",
         `return function(){  
           let DefaultElement;
-          ley root;
+          const root = document.createElement("div");
 
           try{
 
-          ${codeToHydrate}
+                ${codeToHydrate}
 
-          root = document.createElement("div");
-          
-          root.innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+                
+                root.innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
-          hydrated = DefaultElement;
-          setTimeout(async()=>{
-            if (hydrated === DefaultElement){
-              ReactDOM.hydrate(jsx(DefaultElement), root);
-            }
-
-
-            if(document.getElementById("zbody").children.length) {
-              document.getElementById("zbody").children[0].remove();
-            }
-            
-          }, 500);
+                hydrated = DefaultElement;
+                setTimeout(async()=>{
+                  if (hydrated === DefaultElement){
+                    ReactDOM.hydrate(jsx(DefaultElement), root);
+                  }
+                }, 500);
 
           } catch (e){
             root.innerHTML = e.message;
           }
+
+          if(document.getElementById("zbody").children.length) {
+            document.getElementById("zbody").children[0].remove();
+          }
           
           document.getElementById("zbody").appendChild(root);
-
-     
-
       }`,
       )(importScript);
 
