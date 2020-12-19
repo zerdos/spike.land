@@ -9,7 +9,8 @@ function loadScript(src) {
         window.document.head.appendChild(s);
     });
 }
-export const startMonaco = async ({ onChange , code , language  })=>{
+export const startMonaco = async ({ onChange , code , language , options ={
+}  })=>{
     if (typeof window === "undefined") {
         return {
             monaco: {
@@ -18,6 +19,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
             }
         };
     }
+    const { gylph  } = options;
     const document = window.document;
     const container = window.document.getElementById("container");
     if (!container) {
@@ -90,6 +92,7 @@ export const startMonaco = async ({ onChange , code , language  })=>{
                 enabled: false
             },
             folding: false,
+            glyphMargin: gylph,
             multiCursorModifier: "alt",
             wordWrap: "on",
             wordWrapBreakAfterCharacters: ">([{]))],;} ",

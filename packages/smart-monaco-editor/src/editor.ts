@@ -11,6 +11,9 @@ interface StartMonacoProps {
   onChange: (code: string) => void;
   code: string;
   language: "html" | "javascript" | "typescript";
+  options?: {
+    gylph?: boolean;
+  };
 }
 
 interface SmartMonaco {
@@ -18,11 +21,12 @@ interface SmartMonaco {
 }
 
 export const startMonaco: SmartMonaco = async (
-  { onChange, code, language },
+  { onChange, code, language, options = {} },
 ) => {
   if (typeof window === "undefined") {
     return { monaco: {} as monaco, editor: {} } as ISmartMonacoEditor;
   }
+  const { gylph } = options;
 
   const document = window.document;
   const container = window.document.getElementById("container");
@@ -137,6 +141,7 @@ export const startMonaco: SmartMonaco = async (
           enabled: false,
         },
         folding: false,
+        glyphMargin: gylph,
         multiCursorModifier: "alt",
         wordWrap: "on",
         wordWrapBreakAfterCharacters: ">([{]))],;} ",

@@ -9,7 +9,7 @@ const session = {
 
 function unHydrate(elementId = "zbody", element) {
   try {
-    const root = document.getElementById(elementId);
+    const root = window.document.getElementById(elementId);
     const html = root.innerHTML;
     if (html.length > 0) {
       ReactDOM.unmountComponentAtNode(
@@ -64,14 +64,17 @@ export async function run(mode = "window") {
     onChange,
   });
 
+  let lastErrors = 0;
+
   async function runner(cd) {
     try {
       const transpiled = await transpileCode(cd);
       ///yellow
-      if (transpiled.length) restartCode(transpiled);
+      if (transpiled.length && lastErrors === 0) restartCode(transpiled);
 
       const err = await getErrors(cd);
-      const errorDiv = document.getElementById("error");
+      lastErrors = err.length;
+      const errorDiv = window.document.getElementById("error");
       if (err.length === 0) {
         session.code = cd;
         await saveCode(cd);
@@ -156,6 +159,7 @@ export async function run(mode = "window") {
 
       if (hydrated) {
         unHydrate("zbody", hydrated);
+        hydrated = false;
       }
 
       const hydrate = new Function(
