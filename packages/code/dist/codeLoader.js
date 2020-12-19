@@ -7,6 +7,30 @@ const session = {
   code: "",
 };
 
+function formatter(code) {
+  return window.prettier.format(code, {
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "embeddedLanguageFormatting": "auto",
+    "htmlWhitespaceSensitivity": "css",
+    "insertPragma": false,
+    "jsxBracketSameLine": true,
+    "jsxSingleQuote": false,
+    "printWidth": 80,
+    "proseWrap": "preserve",
+    "quoteProps": "as-needed",
+    "requirePragma": false,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all",
+    "useTabs": false,
+    "vueIndentScriptAndStyle": false,
+    parser: "babel",
+    plugins: window.prettierPlugins,
+  });
+}
+
 function unHydrate(elementId = "zbody", element) {
   try {
     const root = window.document.getElementById(elementId);
@@ -58,15 +82,18 @@ export async function run(mode = "window") {
     "../dist/editor.min.js"
   );
 
+  let lastErrors = 0;
+  await importScript("https://unpkg.com/prettier@2.2.1/standalone.js");
+  await importScript("https://unpkg.com/prettier@2.2.1/parser-babel.js");
+  await importScript("https://unpkg.com/prettier@2.2.1/parser-html.js");
+
   const modules = await startMonaco({
     language: "typescript",
-    code: session.code,
+    code: formatter(session.code),
     onChange,
   });
 
-  let lastErrors = 0;
-
-  async function runner(cd) {
+  async function onChange(cd) {
     try {
       const transpiled = await transpileCode(cd);
       let restartError = false;
@@ -84,7 +111,8 @@ export async function run(mode = "window") {
       const errorDiv = window.document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         session.code = cd;
-        await saveCode(cd);
+
+        await saveCode(formatter(cd));
       } else {
         session.error = cd;
 
@@ -114,11 +142,6 @@ export async function run(mode = "window") {
       }, 50);
       console.error(err);
     }
-  }
-
-  function onChange(code) {
-    if (!modules) return;
-    window.requestAnimationFrame(() => runner(code));
   }
 
   async function getErrors(code) {
@@ -201,7 +224,7 @@ export async function run(mode = "window") {
       }`,
       )(importScript);
 
-      setTimeout(() => hydrate());
+      hydrate();
     };
 
     restart();
