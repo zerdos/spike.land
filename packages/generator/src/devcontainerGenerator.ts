@@ -228,7 +228,7 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet5)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["5.0.100"],
+            softwareVersions.sha.dotnet_sha512["5.0.101"],
           );
       }
     }
