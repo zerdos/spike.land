@@ -58,7 +58,7 @@ export async function run(mode = "window") {
     await renderDraggableWindow({
       onShare: async () => {
         const link = await shareItAsHtml(
-          { code: await transpileCode(session.code) },
+          { code: session.transpiled },
         );
         window.open(link);
       },
@@ -84,7 +84,7 @@ export async function run(mode = "window") {
   async function runner(cd) {
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
-      if (session.transPiled === transpiled) return;
+      if (session.transpiled === transpiled) return;
       let restartError = false;
       ///yellow
       if (transpiled.length && session.lastErrors === 0) {
@@ -104,8 +104,8 @@ export async function run(mode = "window") {
       const errorDiv = window.document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         session.code = cd;
-        if (session.transPiled !== transpiled) {
-          session.transPiled = transpiled;
+        if (session.transpiled !== transpiled) {
+          session.transpiled = transpiled;
 
           await saveCode(formatter(cd), transpileCode);
         }
@@ -180,15 +180,15 @@ export async function run(mode = "window") {
   // document.getElementById("zbody")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("zbody"));
   // await workerDomImport;
-  function restartCode(transPiled) {
-    if (typeof transPiled !== "string" || transPiled === "") {
-      // console.log(transPiled.error);
+  function restartCode(transpiled) {
+    if (typeof transpiled !== "string" || transpiled === "") {
+      // console.log(transpiled.error);
       return 1;
     }
 
     const codeToHydrate = mode === "window"
-      ? transPiled.replace("body{", "#zroot{")
-      : transPiled;
+      ? transpiled.replace("body{", "#zroot{")
+      : transpiled;
 
     if (session.hydrated) {
       try {

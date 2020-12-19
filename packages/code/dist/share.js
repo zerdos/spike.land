@@ -2,11 +2,11 @@ export const shareItAsHtml = async ({ code }) => {
   const { getDepts } = await import("./templates.js");
   const { importScript } = await import("./importScript.js");
 
-  // const debts = getDepts();
+  const debts = getDepts(code);
 
-  // for (let i = 0; i < debts.length; i++) {
-  //   await importScript(debts[i]);
-  // }
+  for (let i = 0; i < debts.length; i++) {
+    await importScript(debts[i]);
+  }
 
   const renderToString = new Function(
     `return function(){
