@@ -102,7 +102,7 @@ export const startMonaco = async ({ onChange , code , language , options ={
             formatOnPaste: false,
             disableMonospaceOptimizations: true,
             showUnused: true,
-            automaticLayout: false,
+            automaticLayout: true,
             scrollBeyondLastLine: false,
             autoIndent: "full",
             accessibilitySupport: "off",

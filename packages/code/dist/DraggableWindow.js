@@ -83,7 +83,6 @@ export async function renderDraggableWindow({ onShare }) {
       min-width: 200px;
       padding: 30px;
       max-width: 600px;
-      background: white;
       max-height: 800px;
       border-radius: 0px 0px 8px 8px;
       overflow-y: overlay;

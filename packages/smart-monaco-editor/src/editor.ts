@@ -153,7 +153,7 @@ export const startMonaco: SmartMonaco = async (
         showUnused: true,
 
         //       glyphMargin: true,
-        automaticLayout: false,
+        automaticLayout: true,
         scrollBeyondLastLine: false,
         autoIndent: "full",
         accessibilitySupport: "off",

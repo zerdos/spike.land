@@ -188,7 +188,7 @@ export async function run(mode = "window") {
     }
 
     const codeToHydrate = mode === "window"
-      ? transpiled.replace("body{", "#zroot{")
+      ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
     if (session.hydrated) {
