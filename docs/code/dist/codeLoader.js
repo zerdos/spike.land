@@ -191,21 +191,21 @@ export async function run(mode = "window") {
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
-    if (session.hydrated) {
-      try {
-        const root = window.document.getElementById("zbody");
-        const html = root.innerHTML;
-        if (html.length > 0) {
-          ReactDOM.unmountComponentAtNode(
-            session.hydrated,
-          );
-          session.hydrated = false;
-          root.innerHTML = html;
-        }
-      } catch (e) {
-        console.error("Error in un-mount", e);
-      }
-    }
+    // if (session.hydrated) {
+    //   try {
+    //     const root = window.document.getElementById("zbody");
+    //     const html = root.innerHTML;
+    //     if (html.length > 0) {
+    //       ReactDOM.unmountComponentAtNode(
+    //         session.hydrated,
+    //       );
+    //       session.hydrated = false;
+    //       root.innerHTML = html;
+    //     }
+    //   } catch (e) {
+    //     console.error("Error in un-mount", e);
+    //   }hydrated
+    // }
 
     const hydrate = new Function(
       "importScript",
