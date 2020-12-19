@@ -6,7 +6,7 @@ const searchRegExp = /import/gi;
 const searchRegExpExport = /export /gi;
 const replaceWith = "///";
 
-const transform = (code) => {
+const transform = (code, hasToReport) => {
   try {
     const safeCode = `/** @jsx jsx */ 
     Object.assign(window, React);
@@ -34,7 +34,7 @@ const transform = (code) => {
       },
     ).code;
   } catch (e) {
-    console.error(e);
+    hasToReport && console.error(e);
     return "";
   }
 };

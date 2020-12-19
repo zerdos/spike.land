@@ -131,7 +131,7 @@ export const startMonaco: SmartMonaco = async (
     editor: monaco.editor.create(
       window.document.getElementById("container"),
       {
-        formatOnType: true,
+        formatOnType: false,
         scrollbar: {
           horizontal: "hidden",
           verticalHasArrows: true,
@@ -142,14 +142,13 @@ export const startMonaco: SmartMonaco = async (
         },
         folding: false,
         glyphMargin: gylph,
-        wordWrap: "on",
-        wordWrapBreakAfterCharacters: ">([{]))],;} ",
+        wordWrap: "off",
         mouseWheelZoom: false,
         wordWrapColumn: 80,
         useTabStops: false,
         dragAndDrop: false,
         disableLayerHinting: true,
-        formatOnPaste: true,
+        formatOnPaste: false,
         disableMonospaceOptimizations: true,
         showUnused: true,
 
@@ -172,7 +171,7 @@ export const startMonaco: SmartMonaco = async (
         codeLens: true,
         autoSurround: "languageDefined",
         // acceptSuggestionOnCommitCharacter: true,
-        trimAutoWhitespace: true,
+        trimAutoWhitespace: false,
         codeActionsOnSaveTimeout: 100,
         model,
         value: code,

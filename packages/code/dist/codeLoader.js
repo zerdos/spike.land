@@ -4,31 +4,36 @@ import { starter } from "./starterNoFramerMotion.js";
 const session = {
   hydrated: false,
   preRendered: false,
+  lastErrors: 0,
   transpiled: "",
   code: "",
 };
 
 function formatter(code) {
-  return window.prettier.format(code, {
-    "arrowParens": "always",
-    "bracketSpacing": true,
-    "embeddedLanguageFormatting": "auto",
-    "htmlWhitespaceSensitivity": "css",
-    "insertPragma": false,
-    "jsxBracketSameLine": true,
-    "jsxSingleQuote": false,
-    "printWidth": 80,
-    "proseWrap": "preserve",
-    "quoteProps": "as-needed",
-    "requirePragma": false,
-    "semi": true,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "all",
-    "useTabs": false,
-    parser: "babel-ts",
-    plugins: window.prettierPlugins,
-  });
+  try {
+    return window.prettier.format(code, {
+      "arrowParens": "always",
+      "bracketSpacing": true,
+      "embeddedLanguageFormatting": "auto",
+      "htmlWhitespaceSensitivity": "css",
+      "insertPragma": false,
+      "jsxBracketSameLine": true,
+      "jsxSingleQuote": false,
+      "printWidth": 80,
+      "proseWrap": "preserve",
+      "quoteProps": "as-needed",
+      "requirePragma": false,
+      "semi": true,
+      "singleQuote": true,
+      "tabWidth": 2,
+      "trailingComma": "all",
+      "useTabs": false,
+      parser: "babel-ts",
+      plugins: window.prettierPlugins,
+    });
+  } catch {
+    return code;
+  }
 }
 
 export async function run(mode = "window") {
@@ -70,29 +75,32 @@ export async function run(mode = "window") {
     "../dist/editor.min.js"
   );
 
-  let lastErrors = 0;
-
   const modules = await startMonaco({
     language: "typescript",
     code: formatter(session.code),
-    onChange,
+    onChange: (c) => runner(formatter(c)),
   });
 
-  async function onChange(cd) {
+  async function runner(cd) {
     try {
-      const transpiled = await transpileCode(cd);
+      const transpiled = await transpileCode(cd, session.lastErrors);
+      if (session.transPiled === transpiled) return;
       let restartError = false;
       ///yellow
-      if (transpiled.length && lastErrors === 0) {
+      if (transpiled.length && session.lastErrors === 0) {
         restartError = restartCode(transpiled);
       }
 
       const err = [
-        ...(restartError ? [restartError] : []),
+        ...(restartError
+          ? [
+            { messageText: "Error while starting the app. Check the console!" },
+          ]
+          : []),
         ...(await getErrors(cd)),
       ];
-      if (lastErrors && err.length === 0) restartCode(transpiled);
-      lastErrors = err.length;
+      if (session.lastErrors && err.length === 0) restartCode(transpiled);
+      session.lastErrors = err.length;
       const errorDiv = window.document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         session.code = cd;
@@ -111,7 +119,15 @@ export async function run(mode = "window") {
         const slices = await diff(session.code, cd);
 
         if (slices.c.length <= 3) {
+          session.lastErrors = 0;
+
+          return;
+        }
+
+        if (slices.c.length == 4) {
+          session.lastErrors = 0;
           modules.monaco.editor.setTheme("hc-black");
+
           return;
         }
 
@@ -180,7 +196,7 @@ export async function run(mode = "window") {
         const html = root.innerHTML;
         if (html.length > 0) {
           ReactDOM.unmountComponentAtNode(
-            root,
+            session.hydrated,
           );
           session.hydrated = false;
           root.innerHTML = html;
@@ -195,33 +211,37 @@ export async function run(mode = "window") {
       "session",
       `return function(){  
           let DefaultElement;
-          const root = document.createElement("div");
+
 
           try{
                 ${codeToHydrate}
 
-                root.innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
+                const innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
                 session.preRendered = DefaultElement;
 
+                const root = document.createElement("div");
+                root.innerHTML = innerHTML;
+                
+                if(document.getElementById("zbody").children.length) {
+                  document.getElementById("zbody").children[0].remove();
+                }
+      
+                document.getElementById("zbody").appendChild(root);
+
                 setTimeout(async()=>{
                   if (session.preRendered === DefaultElement){
-                    session.hydrated = DefaultElement;
+                    session.hydrated = root;
                     ReactDOM.hydrate(jsx(DefaultElement), root);
                   }
                 }, 500);
 
           } catch (e) {
-            console.error({e});
+            if (session.lastError!==0) console.error({e});
             session.preRendered=false;
-            root.innerHTML = e.message;
           }
 
-          if(document.getElementById("zbody").children.length) {
-            document.getElementById("zbody").children[0].remove();
-          }
-          
-          document.getElementById("zbody").appendChild(root);
+         
       }`,
     )(importScript, session);
 
