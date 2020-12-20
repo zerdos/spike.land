@@ -1,7 +1,9 @@
-export const shareItAsHtml = async ({ code }) => {
-  const { getDepts } = await import("./templates.js");
-  const { importScript } = await import("./importScript.js");
+import { importScript } from "./importScript.js";
+import { getDepts } from "./templates.js";
+import { sha256 } from "./sha256.js";
+import { getZkey } from "./data.js";
 
+export const shareItAsHtml = async ({ code }) => {
   const debts = getDepts(code);
 
   for (let i = 0; i < debts.length; i++) {
@@ -46,9 +48,6 @@ function saveJs(js) {
 }
 
 async function save(content, type) {
-  const { sha256 } = await import("./sha256.js");
-  const { getZkey } = await import("./data.js");
-
   const hash = await sha256(content);
   const request = new Request(
     "https://code.zed.vision",

@@ -1,5 +1,10 @@
-import { importScript } from "../dist/importScript.js";
+import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
+import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js";
+
+import { getProjects, getUserId, saveCode } from "./data.js";
+import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.js";
+import { transpileCode } from "./transpile.js";
 
 const session = {
   hydrated: false,
@@ -37,7 +42,6 @@ function formatter(code) {
 }
 
 export async function run(mode = "window") {
-  const { transpileCode } = await import("./transpile.js");
   await importScript("https://unpkg.com/prettier@2.2.1/standalone.js");
   await importScript("https://unpkg.com/prettier@2.2.1/parser-babel.js");
   await importScript("https://unpkg.com/prettier@2.2.1/parser-html.js");
@@ -66,15 +70,8 @@ export async function run(mode = "window") {
     });
   }
 
-  const { getDB } = await import("../dist/shaDB.min.js");
-  const { getUserId, getProjects, saveCode } = await import("./data.js");
-
   const transpiled = await transpileCode(session.code);
   restartCode(transpiled);
-
-  const { startMonaco } = await import(
-    "../dist/editor.js"
-  );
 
   const modules = await startMonaco({
     language: "typescript",
@@ -240,12 +237,9 @@ export async function run(mode = "window") {
     hydrate();
     return !session.preRendered;
   }
-  async function getCodeToLoad() {
-    const { getUserId, getProjects, saveCode } = await import("./data.js");
-    const { getDB } = await import("../dist/shaDB.min.js");
-    const db = await getDB();
 
-    const uuid = await getUserId();
+  async function getCodeToLoad() {
+    const db = await getDB();
     const projects = await getProjects();
     const projectName = projects[0];
 

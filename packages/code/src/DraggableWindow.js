@@ -1,20 +1,22 @@
-export async function renderDraggableWindow({ onShare }) {
-  const { importScript } = await import("./importScript.js");
-  const { getDepts } = await import("./templates.js");
+import { importScript } from "./importScript.js";
+import { getDepts } from "./templates.js";
 
+export async function renderDraggableWindow({ onShare }) {
   const debts = getDepts("framer-motion");
 
   for (let i = 0; i < debts.length; i++) {
     await importScript(debts[i]);
   }
 
+  // let styled = window["emotionStyled"];
+  // let DefaultElement;
+
+  const { React, Motion, emotionReact } = window;
+
   Object.assign(window, emotionReact);
-  let styled = window["emotionStyled"];
-  let DefaultElement;
+  const { jsx, css } = emotionReact;
 
-  const { jsx, React } = window;
-
-  const { motion } = window.Motion;
+  const { motion } = Motion;
 
   const DraggableWindow = () => {
     return jsx(
@@ -23,7 +25,7 @@ export async function renderDraggableWindow({ onShare }) {
       jsx(
         motion.div,
         {
-          css: `
+          css: css`
             background: red;
             border: 4px solid red;
             border-radius: 8px;

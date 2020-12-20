@@ -1,6 +1,9 @@
+import { importScript } from "./importScript.js";
+
 export async function renderDraggableEditor() {
-  const { importScript } = await import("./importScript.js");
-  const { JSFrame } = await importScript("./jsframe.min.js");
+  const { JSFrame } = await importScript(
+    "@zedvision/jsframe/dist/jsframe.min.js",
+  );
 
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({

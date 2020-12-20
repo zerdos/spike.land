@@ -1,0 +1,11 @@
+{
+  "name": "@zedvision/sha256",
+  "version": "1.0.0",
+  "exports": "./sha256.js",
+
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": false,
+  "license": "MIT"
+}

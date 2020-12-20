@@ -2,13 +2,14 @@
     "name": "@zedvision/diff",
     "version": "8.6.2",
     "description": "Diffs 2 strings",
-    "main": "dist/diff.min.js",
+    "exports": "./dist/diff.min.js",
     "private": false,
     "sideEffects": false,
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "build": "deno bundle --import-map ../../import_map.json --no-check --unstable src/diff.ts dist/diff.js && yarn min",
+        "prebuild": "deno bundle --import-map ../../import_map.json --no-check --unstable src/diff.ts dist/diff.js",
+        "build": "yarn min",
         "min": "deno fmt dist && yarn esbuild dist/diff.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --minify-syntax --outfile=dist/diff.min.js"
     },
     "keywords": [
@@ -29,6 +30,9 @@
     "gitHead": "779a0943d1492b82dc9b75186e4ec384f796c86a",
     "dependencies": {
         "diff": "5.0.0",
-        "esbuild": "0.8.24"
+        "esbuild": "0.8.25"
+    },
+    "devDependencies": {
+        "typescript": "^4.1.3"
     }
 }

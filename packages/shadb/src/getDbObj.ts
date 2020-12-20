@@ -1,7 +1,20 @@
-import { assemble, diff, isDiff } from "../../diff/dist/diff.min.js";
-import { sha256 } from "../../code/src/sha256.js";
+import { assemble, diff, isDiff } from "../dist/diff.js";
+
+
 
 export const getDbObj = (dbPromise, isIdb = false) => {
+
+  const sha256 = async (x) =>
+  Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        typeof x === "string" ? new TextEncoder().encode(x) : x,
+      ),
+    ).slice(0, 4),
+  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
+
+
   const dbObj = {
     async get<T>(
       key: string,

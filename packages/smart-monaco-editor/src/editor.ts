@@ -1,5 +1,13 @@
-import { importScript } from "../../code/src/importScript.js";
-import { getMonaco, isMobile } from "./monaco.js";
+import { importScript } from "https://unpkg.com/@zedvision/code/dist/importScript.js";
+import * as monaco from "https://cdn.skypack.dev/monaco-editor";
+
+export const isMobile = () => {
+  if (typeof window === "undefined") return false;
+
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    window.navigator.userAgent,
+  );
+};
 
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language, options },
@@ -70,8 +78,6 @@ export const startMonaco: SmartMonaco = async (
     aceEditor.setValue(code);
     aceEditor.blur();
   }
-
-  const monaco = await getMonaco();
 
   let model;
   try {
