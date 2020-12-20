@@ -32,13 +32,11 @@ export const shareItAsHtml = async ({ code, jsExport }) => {
 
   const { getHtml, getCodeForImport } = await import("./templates.js");
 
-  let js;
+  let js = getCodeForImport(code);
   if (jsExport) {
     const jsLink = await saveJs(getCodeForImport(code));
     js = `import app from "${jsLink}";
   app();`;
-  } else {
-    js = code;
   }
 
   const link = await saveHtml(
