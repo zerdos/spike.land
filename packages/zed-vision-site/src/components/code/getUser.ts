@@ -1,13 +1,13 @@
 export async function getUserId() {
   if (typeof window === "undefined") return "";
 
-  const getDB = await new Function(`
+  const {getDB} = await new Function(`
   return function(){
     return import("https://unpkg.com/@zedvision/shadb@8.6.8/dist/shaDB.js");
   }
   `);
 
-  const shaDB = await getDB().default;
+  const shaDB = await getDB();
   const uuid = await shaDB.get("uuid");
   if (!uuid) {
     const resp = await fetch("https://code.zed.vision/register");
