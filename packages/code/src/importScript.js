@@ -22,7 +22,7 @@ export const importScript = (src, res = []) => {
         window.document.head.appendChild(s);
       });
   } else if (prefix === "@zedvisi") {
-    if (!cache[src]) cache[src] = import(`https://cdn.skypack.dev/${src}`);
+    if (!cache[src]) cache[src] = import(`https://unpkg.com/${src}`);
     return cache[src];
   }
 };

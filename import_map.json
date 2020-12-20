@@ -12,6 +12,6 @@
       "@zedvision/smart-monaco-editor": "./packages/smart-monaco-editor/src/editor.ts",
       "@zedvision/qrious": "./node_modules/@zedvision/qrious/dist/qrious.min.js",
       "@ampproject/worker-dom/dist/main": "./node_modules/@ampproject/worker-dom@0.27.4/dist/main.js",
-      "react-dom/server": "https://cdn.skypack.dev/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"
+      "react-dom/server": "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js"
       }
 }

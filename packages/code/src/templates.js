@@ -45,15 +45,15 @@ export const getHtml = ({ HTML, css, js }) => {
 
 export function getDepts(code) {
   const debts = [
-    "https://cdn.skypack.dev/react@17.0.1/umd/react.production.min.js",
-    "https://cdn.skypack.dev/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
-    "https://cdn.skypack.dev/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
-    "https://cdn.skypack.dev/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
+    "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
+    "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
+    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
   ];
 
   if (code.indexOf("framer-motion") !== -1) {
     debts.push(
-      "https://cdn.skypack.dev/framer-motion@3.1.1/dist/framer-motion.js",
+      "https://unpkg.com/framer-motion@3.1.1/dist/framer-motion.js",
     );
   }
   if (code.indexOf("qrious") !== -1) {
@@ -85,7 +85,7 @@ for (let i = 0; i < debts.length; i++) {
     document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
 
-    await importScript("https://cdn.skypack.dev/react-dom@17.0.1/umd/react-dom.production.min.js")
+    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")
     ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
 }
 `;

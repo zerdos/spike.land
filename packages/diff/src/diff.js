@@ -137,7 +137,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 exports.__esModule = true;
 exports.assemble = exports.isDiff = exports.diff = void 0;
-var base_js_1 = require("https://cdn.skypack.dev/diff@5.0.0/lib/diff/base.js");
+var base_js_1 = require("https://unpkg.com/diff@5.0.0/lib/diff/base.js");
 var sha256_js_1 = require(
   "https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js",
 );

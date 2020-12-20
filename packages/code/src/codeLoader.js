@@ -172,7 +172,7 @@ export async function run(mode = "window") {
     ];
   }
   await importScript(
-    "https://cdn.skypack.dev/react-dom@17.0.1/umd/react-dom.production.min.js",
+    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
   );
 
   // document.getElementById("zbody")!.setAttribute("style", "display:block");

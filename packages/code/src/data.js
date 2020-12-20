@@ -1,5 +1,5 @@
 import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
-import v4 from "https://cdn.skypack.dev/uuid@8.3.2/dist/esm-browser/v4.js";
+import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 import { sha256 } from "./sha256.js";
 
 export async function getZkey(hash) {
