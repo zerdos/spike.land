@@ -25,6 +25,5 @@ export const importScript = (src, res = []) => {
   } else if (prefix === "@zedvisi") {
     // if (!cache[src]) cache[src] = import(`https://unpkg.com/${src}`);
     // return cache[src];
-    
   }
 };

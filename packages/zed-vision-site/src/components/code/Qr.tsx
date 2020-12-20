@@ -11,7 +11,6 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr;
     const connect = async () => {
-      
       await importScript(
         "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js",
       );
