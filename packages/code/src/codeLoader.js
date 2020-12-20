@@ -1,4 +1,4 @@
-import { getDB } from "https://cdn.skypack.dev/@zedvision/shadb/src/shaDB.js";
+import { getDB } from "https://cdn.skypack.dev/@zedvision/shadb/dist/shaDB.js";
 import { startMonaco } from "https://cdn.skypack.dev/@zedvision/smart-monaco-editor/lib/editor.js";
 
 import { getProjects, getUserId, saveCode } from "./data.js";

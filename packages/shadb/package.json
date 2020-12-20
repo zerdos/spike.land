@@ -2,14 +2,14 @@
     "name": "@zedvision/shadb",
     "version": "8.6.4",
     "description": "db layer top on idb",
-    "main": "dist/getDbObj.js",
+    "exports": "./dist/shaDB.js",
     "private": false,
     "sideEffects": false,
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "dts": "yarn tsc -d src/getDbObj.ts >/dev/null || echo done  && mv src/getDbObj.d.ts dist/  && rm src/getDbObj.js",
-        "prebuild": "cp -rf ../diff/src/diff.js dist/ && deno bundle --import-map ../../import_map.json --no-check --unstable src/getDbObj.ts dist/getDbObj.js && cp -rf src/*js dist/ && yarn tsc || echo ok ",
+        "prebuild": "yarn tsc || echo ok ",
         "build": "yarn dts"
     },
     "keywords": [

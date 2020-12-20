@@ -1,5 +1,5 @@
 import * as React from "react";
-import { startMonaco } from "@zedvision/smart-monaco-editor";
+
 import { transform } from "../utils/babel.ts";
 import { render } from "../utils/renderer.ts";
 import { hash, unHash } from "../utils/sha.ts";
@@ -58,6 +58,7 @@ export const CodeBox: React.FC<{
     const runner = async (c: string) => {
       if (!editorAttached) {
         setEditorAttached(true);
+        const { startMonaco } = await import("https://cdn.skypack.dev/@zedvision/smart-monaco-editor/lib/editor.js");
         await startMonaco(
           {
             language: "typescript",
