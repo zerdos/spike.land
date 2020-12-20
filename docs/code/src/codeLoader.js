@@ -1,5 +1,5 @@
 import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
-import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js";
+import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor@8.6.9/lib/editor.js";
 
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
