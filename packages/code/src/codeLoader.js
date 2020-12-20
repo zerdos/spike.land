@@ -73,7 +73,7 @@ export async function run(mode = "window") {
   restartCode(transpiled);
 
   const { startMonaco } = await import(
-    "../dist/editor.min.js"
+    "../dist/editor.js"
   );
 
   const modules = await startMonaco({

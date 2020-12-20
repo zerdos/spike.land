@@ -1,81 +1,60 @@
-/// <reference lib="dom" />
-
-import type { monaco } from "https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts";
-import type Ace from "https://raw.githubusercontent.com/ajaxorg/ace/master/ace.d.ts";
-
-interface ISmartMonacoEditor {
-  monaco: monaco;
-  editor: monaco.editor.IStandaloneCodeEditor;
-}
-interface StartMonacoProps {
-  onChange: (code: string) => void;
-  code: string;
-  language: "html" | "javascript" | "typescript";
-  options?: {
-    gylph?: boolean;
-  };
-}
-
-interface SmartMonaco {
-  (props: StartMonacoProps): Promise<ISmartMonacoEditor>;
-}
+import { importScript } from "../../code/src/importScript.js";
+import { getMonaco, isMobile } from "./monaco.js";
 
 export const startMonaco: SmartMonaco = async (
-  { onChange, code, language, options = {} },
+  { onChange, code, language, options },
 ) => {
-  if (typeof window === "undefined") {
-    return { monaco: {} as monaco, editor: {} } as ISmartMonacoEditor;
-  }
-  const { gylph } = options;
-
-  const document = window.document;
-  const container = window.document.getElementById("container");
+  let aceEditor: Ace.Editor = null;
+  const { document } = window;
+  const container = document.getElementById("container");
 
   if (!container) {
     const el = document.getElementById("container");
     el.id = "container";
     document.body.appendChild(el);
   }
+
   const modelUri = language === "typescript"
     ? "file:///main.tsx"
     : "file:///main.html";
 
-  let aceEditor: Ace;
-  if (
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      window.navigator.userAgent,
-    )
-  ) {
+  if (isMobile()) {
     // some code.
     const aceEl = window.document.createElement("div");
     aceEl.id = "ace";
     window.document.body.appendChild(aceEl);
 
-    await loadScript(
+    await importScript(
       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
     );
 
     language === "typescript"
-      ? await loadScript(
+      ? await importScript(
         "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
       )
-      : await loadScript(
+      : await importScript(
         "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js",
       );
 
-    await loadScript(
+    await importScript(
       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
     );
 
     window.document.getElementById("ace").style.setProperty("display", "block");
     container.style.setProperty("display", "none");
 
-    aceEditor = window["ace"].edit("ace");
+    const { ace } = (window as unknown as {
+      ace: {
+        edit: (container: string) => Ace.Editor;
+      };
+    });
+
+    aceEditor = ace.edit("ace");
     aceEditor.getSession().setMode("ace/mode/typescript");
 
     const setThemeForAce = (wait: number) =>
       setTimeout(() => {
-        const aceEditor = window["ace"].edit("ace");
+        const aceEditor = ace.edit("ace");
         const theme = aceEditor.getTheme();
         if (theme !== "ace/theme/monokai ") {
           aceEditor.setOptions({
@@ -92,23 +71,7 @@ export const startMonaco: SmartMonaco = async (
     aceEditor.blur();
   }
 
-  if (window["monaco"] === undefined) {
-    const vsPath = "https://unpkg.com/monaco-editor@0.21.2/min/vs";
-
-    const { require } = (await loadScript(
-      `${vsPath}/loader.js`,
-    )) as unknown as {
-      require:
-        | ({ config: (opts: unknown) => void })
-        | ((depts: unknown, res: unknown) => void);
-    };
-
-    require.config({ paths: { "vs": vsPath } });
-
-    await new Promise((resolve) => require(["vs/editor/editor.main"], resolve));
-  }
-
-  const monaco = window["monaco"] as monaco;
+  const monaco = await getMonaco();
 
   let model;
   try {
@@ -141,7 +104,7 @@ export const startMonaco: SmartMonaco = async (
           enabled: false,
         },
         folding: false,
-        glyphMargin: gylph,
+        glyphMargin: false,
         wordWrap: "off",
         mouseWheelZoom: false,
         wordWrapColumn: 80,
@@ -177,6 +140,7 @@ export const startMonaco: SmartMonaco = async (
         value: code,
         language: language,
         theme: "vs-dark",
+        ...options,
       },
     ),
   };
@@ -337,14 +301,3 @@ export const startMonaco: SmartMonaco = async (
     return modules;
   }
 };
-
-function loadScript(src: string) {
-  return new Promise(function (resolve, reject) {
-    var s;
-    s = window.document.createElement("script");
-    s.src = src;
-    s.onload = () => resolve(window);
-    s.onerror = reject;
-    window.document.head.appendChild(s);
-  });
-}

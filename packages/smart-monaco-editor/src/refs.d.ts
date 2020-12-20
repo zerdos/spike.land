@@ -1,4 +1,19 @@
-/// <reference types="https://unpkg.com/monaco-editor@0.21.2/monaco.d.ts" />
-/// <reference types="https://raw.githubusercontent.com/microsoft/vscode-loader/master/src/loader.d.ts" />
-/// <reference types="https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/types/ace/index.d.ts" />
-/// <reference types="@emotion/react/types/css-prop" />
+/// <reference lib="dom" />
+
+interface ISmartMonacoEditor {
+  monaco: monaco;
+  editor: monaco.editor.IStandaloneCodeEditor;
+}
+
+interface StartMonacoProps {
+  onChange: (code: string) => void;
+  code: string;
+  language: "html" | "javascript" | "typescript";
+  options?: {
+    gylph: boolean;
+  };
+}
+
+declare interface SmartMonaco {
+  (props: StartMonacoProps): Promise<ISmartMonacoEditor>;
+}
