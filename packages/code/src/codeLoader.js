@@ -1,5 +1,9 @@
-import { getDB } from "https://cdn.skypack.dev/@zedvision/shadb/dist/shaDB.js";
-import { startMonaco } from "https://cdn.skypack.dev/@zedvision/smart-monaco-editor/lib/editor.js";
+import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
+import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js";
+
+import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
+import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 
 import { getProjects, getUserId, saveCode } from "./data.js";
 import { importScript } from "./importScript.js";
@@ -16,7 +20,7 @@ const session = {
 
 function formatter(code) {
   try {
-    return window.prettier.format(code, {
+    return prettier.format(code, {
       "arrowParens": "always",
       "bracketSpacing": true,
       "embeddedLanguageFormatting": "auto",
@@ -34,7 +38,7 @@ function formatter(code) {
       "trailingComma": "all",
       "useTabs": false,
       parser: "babel-ts",
-      plugins: window.prettierPlugins,
+      plugins: [parserBabel, parserHtml],
     });
   } catch {
     return code;
@@ -42,10 +46,6 @@ function formatter(code) {
 }
 
 export async function run(mode = "window") {
-  await importScript("https://cdn.skypack.dev/prettier@2.2.1/standalone.js");
-  await importScript("https://cdn.skypack.dev/prettier@2.2.1/parser-babel.js");
-  await importScript("https://cdn.skypack.dev/prettier@2.2.1/parser-html.js");
-
   session.code = formatter(await getCodeToLoad());
   session.transpiled = await transpileCode(session.code);
 

@@ -443,8 +443,7 @@ var startMonaco = function (_a) {
             },
             {
               name: "@zedvision/qrious/index.d.ts",
-              url:
-                "https://cdn.skypack.dev/@zedvision/qrious@8.5.7/dist/qrious.d.ts",
+              url: "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.d.ts",
             },
           ];
           dts = importHelper.map(function (_a) {

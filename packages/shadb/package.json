@@ -8,9 +8,8 @@
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "dts": "yarn tsc -d src/getDbObj.ts >/dev/null || echo done  && mv src/getDbObj.d.ts dist/  && rm src/getDbObj.js",
         "prebuild": "yarn tsc || echo ok ",
-        "build": "yarn dts"
+        "build": "echo done"
     },
     "keywords": [
         "diff"

@@ -1,5 +1,5 @@
 import {diff} from "https://cdn.skypack.dev/diff@5.0.0/lib/diff/base.js"
-import { sha256 } from "https://cdn.skypack.dev/@zedvision/code@8.6.3/dist/sha256.js";
+import { sha256 } from "https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js";
 
 export const diff = async (str1: string, str2: string) => {
 

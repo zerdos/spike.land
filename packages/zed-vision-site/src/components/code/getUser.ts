@@ -1,4 +1,4 @@
-import { getDB } from "@zedvision/shadb";
+import { getDB } from "@zedvision/shadb/dist/shaDB.js";
 
 export async function getUserId() {
   const shaDB = await getDB();

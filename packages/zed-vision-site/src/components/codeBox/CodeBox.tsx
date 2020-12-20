@@ -58,7 +58,12 @@ export const CodeBox: React.FC<{
     const runner = async (c: string) => {
       if (!editorAttached) {
         setEditorAttached(true);
-        const { startMonaco } = await import("https://cdn.skypack.dev/@zedvision/smart-monaco-editor/lib/editor.js");
+        const { startMonaco } = await (new Function(
+          `return function(){
+            return  import("https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js")
+          }`,
+        )());
+
         await startMonaco(
           {
             language: "typescript",

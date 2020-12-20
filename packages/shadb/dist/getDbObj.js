@@ -1,4 +1,4 @@
-import { assemble, diff, isDiff } from "https://cdn.skypack.dev/@zedvision/diff/dist/diff.js";
+import { assemble, diff, isDiff, } from "https://unpkg.com/@zedvision/diff/dist/diff.js";
 export const getDbObj = (dbPromise, isIdb = false) => {
     const sha256 = async (x) => Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", typeof x === "string" ? new TextEncoder().encode(x) : x)).slice(0, 4)).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
     const dbObj = {
@@ -11,8 +11,9 @@ export const getDbObj = (dbPromise, isIdb = false) => {
                 else {
                     data = await dbPromise.get(key);
                 }
-                if (!data)
+                if (!data) {
                     return null;
+                }
             }
             catch (_) {
                 return null;
@@ -59,8 +60,9 @@ export const getDbObj = (dbPromise, isIdb = false) => {
             catch {
                 prev = "";
             }
-            if (prev !== "" && val === prev)
+            if (prev !== "" && val === prev) {
                 return val;
+            }
             let str;
             if (typeof val !== "string") {
                 str = new TextDecoder().decode(val);

@@ -58,7 +58,7 @@ export function getDepts(code) {
   }
   if (code.indexOf("qrious") !== -1) {
     debts.push(
-      "https://cdn.skypack.dev/@zedvision/qrious@8.5.7/dist/qrious.min.js",
+      "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js",
     );
   }
 
@@ -69,7 +69,7 @@ export const getCodeForImport = (code) => {
   const debStr = JSON.stringify(getDepts(code));
 
   return `export default async function(){
-const {importScript} = await import("https://cdn.skypack.dev/@zedvision/code@8.6.0/dist/importScript.js");
+const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");
 
     const debts = ${debStr};
 
