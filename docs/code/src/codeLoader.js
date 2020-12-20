@@ -9,6 +9,7 @@ import { getProjects, getUserId, saveCode } from "./data.js";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
+import { ipfs, shareItAsHtml } from "./share.js";
 
 const session = {
   hydrated: false,

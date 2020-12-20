@@ -3,7 +3,11 @@ import { getDepts } from "./templates.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 
-export const shareItAsHtml = async ({ code }) => {
+export const ipfs = async () => {
+  await importScript("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
+};
+
+export const shareItAsHtml = async ({ code, jsExport }) => {
   const debts = getDepts(code);
 
   for (let i = 0; i < debts.length; i++) {
@@ -28,9 +32,14 @@ export const shareItAsHtml = async ({ code }) => {
 
   const { getHtml, getCodeForImport } = await import("./templates.js");
 
-  const jsLink = await saveJs(getCodeForImport(code));
-  const js = `import app from "${jsLink}";
+  let js;
+  if (jsExport) {
+    const jsLink = await saveJs(getCodeForImport(code));
+    js = `import app from "${jsLink}";
   app();`;
+  } else {
+    js = code;
+  }
 
   const link = await saveHtml(
     getHtml({ HTML, css, js }),
