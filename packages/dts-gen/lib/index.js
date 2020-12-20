@@ -106,8 +106,8 @@ function isLegalIdentifier(s) {
     if (!ts.isIdentifierStart(s.charCodeAt(0), ts.ScriptTarget.Latest)) {
         return false;
     }
-    for (var i_1 = 1; i_1 < s.length; i_1++) {
-        if (!ts.isIdentifierPart(s.charCodeAt(i_1), ts.ScriptTarget.Latest)) {
+    for (var i = 1; i < s.length; i++) {
+        if (!ts.isIdentifierPart(s.charCodeAt(i), ts.ScriptTarget.Latest)) {
             return false;
         }
     }
@@ -315,8 +315,8 @@ function getParameterListAndReturnType(obj, fn) {
     var funcStack = [];
     if (isNativeFunction(obj)) {
         var args = [];
-        for (var i_2 = 0; i_2 < obj.length; i_2++) {
-            args.push(dts_dom_1.create.parameter("p" + i_2, dom.type.any));
+        for (var i = 0; i < obj.length; i++) {
+            args.push(dts_dom_1.create.parameter("p" + i, dom.type.any));
         }
         return [args, dom.type.any];
     }

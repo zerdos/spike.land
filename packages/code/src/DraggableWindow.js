@@ -99,7 +99,7 @@ export async function renderDraggableWindow({ onShare }) {
   document.getElementById("dragabbleWindow").innerHTML = html;
 
   await importScript(
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+    "https://cdn.skypack.dev/react-dom@17.0.1/umd/react-dom.production.min.js",
   );
 
   ReactDOM.hydrate(

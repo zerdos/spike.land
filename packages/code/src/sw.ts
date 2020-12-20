@@ -1,5 +1,5 @@
 importScripts(
-  "https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js",
+  "https://cdn.skypack.dev/workbox-sw@6.0.2/build/workbox-sw.js",
 );
 // This will trigger the importScripts() for workbox.strategies and its dependencies:
 const { strategies } = workbox;

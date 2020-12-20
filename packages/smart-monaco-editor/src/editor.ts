@@ -1,4 +1,4 @@
-import { importScript } from "https://unpkg.com/@zedvision/code/src/importScript.js";
+import { importScript } from "https://cdn.skypack.dev/@zedvision/code/src/importScript.js";
 import * as monaco from "https://cdn.skypack.dev/monaco-editor";
 
 export const isMobile = () => {
@@ -176,92 +176,96 @@ export const startMonaco: SmartMonaco = async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.0/index.d.ts",
+        url: "https://cdn.skypack.dev/@types/react@17.0.0/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.0/global.d.ts",
+        url: "https://cdn.skypack.dev/@types/react@17.0.0/global.d.ts",
         depend: [],
       },
       {
         name: "prop-types",
-        url: "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
+        url: "https://cdn.skypack.dev/@types/prop-types@15.7.3/index.d.ts",
         depend: [],
       },
       {
         name: "react-dom",
-        url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
+        url: "https://cdn.skypack.dev/@types/react-dom@17.0.0/index.d.ts",
         depend: [],
       },
       {
         name: "csstype",
-        url: "https://unpkg.com/csstype@3.0.5/index.d.ts",
+        url: "https://cdn.skypack.dev/csstype@3.0.5/index.d.ts",
         depend: [],
       },
       {
         name: "@emotion/styled/base.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
+        url: "https://cdn.skypack.dev/@emotion/styled@11.0.0/types/base.d.ts",
         depend: ["@emotion/react", "@emotion/serialize", "react"],
       },
       {
         name: "@emotion/styled/index.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
+        url: "https://cdn.skypack.dev/@emotion/styled@11.0.0/types/index.d.ts",
         depend: ["@emotion/react", "@emotion/serialize", "react"],
       },
       {
         name: "@emotion/cache/index.d.ts",
-        url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
+        url: "https://cdn.skypack.dev/@emotion/cache@11.0.0/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
         name: "@emotion/react/index.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
+        url: "https://cdn.skypack.dev/@emotion/react@11.1.2/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
+        url:
+          "https://cdn.skypack.dev/@emotion/react@11.1.2/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/css-prop.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/css-prop.d.ts",
+        url:
+          "https://cdn.skypack.dev/@emotion/react@11.1.2/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
+        url: "https://cdn.skypack.dev/@emotion/react@11.1.2/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/theming.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
+        url: "https://cdn.skypack.dev/@emotion/react@11.1.2/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/serialize/index.d.ts",
-        url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
+        url:
+          "https://cdn.skypack.dev/@emotion/serialize@1.0.0/types/index.d.ts",
 
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/utils/index.d.ts",
-        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+        url: "https://cdn.skypack.dev/@emotion/utils@1.0.0/types/index.d.ts",
         depend: [],
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@3.1.1/dist/framer-motion.d.ts",
+        url:
+          "https://cdn.skypack.dev/framer-motion@3.1.1/dist/framer-motion.d.ts",
         depend: [],
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/popmotion@9.0.2/lib/index.d.ts",
+        url: "https://cdn.skypack.dev/popmotion@9.0.2/lib/index.d.ts",
       },
       {
         name: "@zedvision/qrious/index.d.ts",
-        url: "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.d.ts",
+        url: "https://cdn.skypack.dev/@zedvision/qrious@8.5.7/dist/qrious.d.ts",
       },
     ];
     //# sourceMappingURL=importHelper.js.map

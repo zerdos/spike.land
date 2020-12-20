@@ -1,4 +1,4 @@
-import { assemble, diff, isDiff } from "../dist/diff.js";
+import { assemble, diff, isDiff } from "https://cdn.skypack.dev/@zedvision/diff";
 
 
 

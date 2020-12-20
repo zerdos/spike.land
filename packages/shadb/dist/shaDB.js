@@ -1,4 +1,4 @@
-import { openDB } from "https://unpkg.com/idb@5.0.8/build/esm/index.js";
+import { openDB } from "https://cdn.skypack.dev/idb/build/esm/index.js";
 
 import { getDbObj } from "./getDbObj.js";
 

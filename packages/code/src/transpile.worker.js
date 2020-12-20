@@ -1,4 +1,4 @@
-import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
+import * as Comlink from "https://cdn.skypack.dev/comlink/dist/esm/comlink.mjs";
 import React from "https://cdn.skypack.dev/react";
 import Babel from "https://cdn.skypack.dev/@babel/standalone";
 

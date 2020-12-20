@@ -12,7 +12,7 @@ export const Qr: React.FC = () => {
     let qr;
     const connect = async () => {
       await loadScript(
-        "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js",
+        "https://cdn.skypack.dev/@zedvision/qrious@8.5.7/dist/qrious.min.js",
       );
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();

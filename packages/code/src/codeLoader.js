@@ -1,5 +1,5 @@
-import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
-import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js";
+import { getDB } from "https://cdn.skypack.dev/@zedvision/shadb/src/shaDB.js";
+import { startMonaco } from "https://cdn.skypack.dev/@zedvision/smart-monaco-editor/lib/editor.js";
 
 import { getProjects, getUserId, saveCode } from "./data.js";
 import { importScript } from "./importScript.js";
@@ -42,9 +42,9 @@ function formatter(code) {
 }
 
 export async function run(mode = "window") {
-  await importScript("https://unpkg.com/prettier@2.2.1/standalone.js");
-  await importScript("https://unpkg.com/prettier@2.2.1/parser-babel.js");
-  await importScript("https://unpkg.com/prettier@2.2.1/parser-html.js");
+  await importScript("https://cdn.skypack.dev/prettier@2.2.1/standalone.js");
+  await importScript("https://cdn.skypack.dev/prettier@2.2.1/parser-babel.js");
+  await importScript("https://cdn.skypack.dev/prettier@2.2.1/parser-html.js");
 
   session.code = formatter(await getCodeToLoad());
   session.transpiled = await transpileCode(session.code);
@@ -172,7 +172,7 @@ export async function run(mode = "window") {
     ];
   }
   await importScript(
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+    "https://cdn.skypack.dev/react-dom@17.0.1/umd/react-dom.production.min.js",
   );
 
   // document.getElementById("zbody")!.setAttribute("style", "display:block");

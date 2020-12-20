@@ -9,7 +9,7 @@
            Y8b
 
 
-[![Chat](https://img.shields.io/gitter/room/neocotic/qrious.svg?style=flat-square)](https://unpkg.com/@zedvision/qrious/demo.html)
+[![Chat](https://img.shields.io/gitter/room/neocotic/qrious.svg?style=flat-square)](https://cdn.skypack.dev/@zedvision/qrious/demo.html)
 
 [QRious](https://github.com/neocotic/qrious) is a pure JavaScript library for generating QR codes using HTML5 canvas.
 

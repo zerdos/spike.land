@@ -66,8 +66,8 @@ function createSourceBlob(codeToRun: any, events: unknown[], replay: boolean) {
 
 <head>
   <meta charset="utf-8">
-  <script crossorigin src="https://unpkg.com/react@17.0.0.1/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://cdn.skypack.dev/react@17.0.0.1/umd/react.development.js"></script>
+  <script crossorigin src="https://cdn.skypack.dev/react-dom@17.0.1/umd/react-dom.development.js"></script>
   <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.min.css"

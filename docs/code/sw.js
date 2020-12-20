@@ -1,4 +1,4 @@
-importScripts("https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js");
+importScripts("https://cdn.skypack.dev/workbox-sw@6.0.2/build/workbox-sw.js");
 const {strategies} = workbox;
 self.addEventListener("fetch", (event) => {
   const {request} = event;

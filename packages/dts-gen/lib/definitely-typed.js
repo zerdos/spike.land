@@ -64,7 +64,7 @@ function writeDefinitelyTypedPackage(indexDtsContent, packageName, overwrite) {
 exports["default"] = writeDefinitelyTypedPackage;
 function run(indexDtsContent, packageName, dtName, packageDir) {
     return __awaiter(this, void 0, void 0, function () {
-        var files, _a, _i, files_1, _b, name_1, text_1;
+        var files, _a, _i, files_1, _b, name_1, text;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
@@ -78,8 +78,8 @@ function run(indexDtsContent, packageName, dtName, packageDir) {
                         ["tslint.json", '{ "extends": "dtslint/dt.json" }\n']
                     ];
                     for (_i = 0, files_1 = files; _i < files_1.length; _i++) {
-                        _b = files_1[_i], name_1 = _b[0], text_1 = _b[1];
-                        fs_1.writeFileSync(path_1.join(packageDir, name_1), text_1, "utf-8");
+                        _b = files_1[_i], name_1 = _b[0], text = _b[1];
+                        fs_1.writeFileSync(path_1.join(packageDir, name_1), text, "utf-8");
                     }
                     return [2 /*return*/];
             }
