@@ -141,7 +141,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.startMonaco = exports.isMobile = void 0;
 var importScript_js_1 = require(
-  "https://cdn.skypack.dev/@zedvision/code/src/importScript.js",
+  "https://unpkg.com/@zedvision/code@8.6.6/src/importScript.js",
 );
 var monaco = require("https://cdn.skypack.dev/monaco-editor");
 var isMobile = function () {
