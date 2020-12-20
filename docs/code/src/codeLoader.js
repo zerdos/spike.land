@@ -1,6 +1,6 @@
 import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
 import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor@8.6.9/lib/editor.js";
-
+import { diff } from "https://unpkg.com/@zedvision/diff/dist/diff.min.js";
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
@@ -15,6 +15,7 @@ const session = {
   hydrated: false,
   preRendered: false,
   lastErrors: 0,
+  ipfs: 0,
   transpiled: "",
   code: "",
 };
@@ -81,6 +82,11 @@ export async function run(mode = "window") {
   });
 
   async function runner(cd) {
+    if (cd.slice(0, 100).indexOf("ipfs") !== -1) {
+      await ipfs();
+      session.ipfs = 1;
+    }
+
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
       if (session.transpiled === transpiled) return;
@@ -112,8 +118,6 @@ export async function run(mode = "window") {
         await saveCode(cd);
       } else {
         session.error = cd;
-
-        const { diff } = await import("../dist/diff.min.js");
 
         const slices = await diff(session.code, cd);
 

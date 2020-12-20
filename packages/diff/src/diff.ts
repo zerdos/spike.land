@@ -1,9 +1,9 @@
-import { diff } from "https://unpkg.com/diff@5.0.0/lib/diff/base.js";
+import { Diff } from "https://unpkg.com/diff@5.0.0/dist/diff.js";
 import { sha256 } from "https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js";
 
 export const diff = async (str1: string, str2: string) => {
   const sha1Str1 = sha256(str1);
-  const res = diff(str1, str2);
+  const res = Diff.diffChars(str1, str2);
   return {
     b: await sha1Str1,
     c: res.map((
