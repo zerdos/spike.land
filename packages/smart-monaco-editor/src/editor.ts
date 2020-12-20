@@ -1,4 +1,4 @@
-import { importScript } from "https://unpkg.com/@zedvision/code/dist/importScript.js";
+import { importScript } from "https://unpkg.com/@zedvision/code/src/importScript.js";
 import * as monaco from "https://cdn.skypack.dev/monaco-editor";
 
 export const isMobile = () => {

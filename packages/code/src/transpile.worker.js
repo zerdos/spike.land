@@ -1,6 +1,6 @@
-importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
-importScripts("https://unpkg.com/@babel/standalone@7.12.11/babel.min.js");
-importScripts("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
+import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
+import React from "https://cdn.skypack.dev/react";
+import Babel from "https://cdn.skypack.dev/@babel/standalone";
 
 const searchRegExp = /import/gi;
 const searchRegExpExport = /export /gi;

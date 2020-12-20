@@ -8,7 +8,10 @@ export async function transpileCode(code, hasToReport) {
   return await transform(code, hasToReport);
 }
 function init() {
-  const worker = new Worker("/code/src/transpile.worker.js");
+  const worker = new Worker(
+    "/code/src/transpile.worker.js",
+    { type: "module" },
+  );
   // WebWorkers use `postMessage` and therefore work with Comlink.
   transform = Comlink.wrap(worker);
   return transform;
