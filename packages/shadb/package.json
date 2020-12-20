@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/shadb",
-    "version": "8.6.8",
+    "version": "8.6.9",
     "description": "db layer top on idb",
     "exports": "./dist/shaDB.js",
     "private": false,
