@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React from "react";
-import { loadScript } from "../../loadScript.js";
+import { importScript } from "./importScript.js";
 
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
@@ -11,7 +11,8 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr;
     const connect = async () => {
-      await loadScript(
+      
+      await importScript(
         "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js",
       );
       const req = await fetch("https://code.zed.vision/token");

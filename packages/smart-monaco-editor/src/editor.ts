@@ -1,4 +1,4 @@
-import { importScript } from "../../code/src/importScript.js";
+import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
 
 export const startMonaco: SmartMonaco = async (

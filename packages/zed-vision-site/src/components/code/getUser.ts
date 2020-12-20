@@ -1,7 +1,18 @@
-import { getDB } from "@zedvision/shadb/dist/shaDB.js";
 
 export async function getUserId() {
-  const shaDB = await getDB();
+
+  if (typeof window ==="undefined") return "";
+  
+
+  const getDB = await new Function(`
+  return function(){
+    return import("https://unpkg.com/@zedvision/shadb@8.6.8/dist/shaDB.js");
+  }
+  `
+
+  )
+
+  const shaDB = await getDB().default;
   const uuid = await shaDB.get("uuid");
   if (!uuid) {
     const resp = await fetch("https://code.zed.vision/register");

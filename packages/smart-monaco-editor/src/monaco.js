@@ -1,4 +1,4 @@
-import { importScript } from "https://unpkg.com/@zedvision/code@8.6.8/src/importScript.js";
+import { importScript } from "./importScript.js";
 
 export const getMonaco = async () => {
   const vsPath = "https://unpkg.com/monaco-editor@0.21.2/min/vs";

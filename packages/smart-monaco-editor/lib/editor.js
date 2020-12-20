@@ -1,4 +1,4 @@
-import { importScript } from "../../code/src/importScript.js";
+import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
 export const startMonaco = async ({ onChange, code, language, options }) => {
     let aceEditor = null;
@@ -50,7 +50,7 @@ export const startMonaco = async ({ onChange, code, language, options }) => {
             model.setValue(code);
         }
     }
-    catch (_a) {
+    catch {
         model = await monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri));
     }
     const modules = {
@@ -235,4 +235,3 @@ export const startMonaco = async ({ onChange, code, language, options }) => {
         return modules;
     }
 };
-//# sourceMappingURL=editor.js.map
