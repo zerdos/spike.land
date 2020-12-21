@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-memoize",
-  "version": "10.10.16",
+  "version": "10.10.17",
   "description": "emotion's memoize utility",
   "main": "dist/emotion-memoize.cjs.js",
   "module": "dist/emotion-memoize.esm.js",

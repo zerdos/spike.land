@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-server",
-  "version": "10.10.16",
+  "version": "10.10.17",
   "description": "Extract and inline critical css with emotion for server side rendering.",
   "main": "dist/emotion-server.cjs.js",
   "types": "types/index.d.ts",
@@ -10,7 +10,7 @@
     "types/*.d.ts",
     "create-instance"
   ],
-  "private":false,
+  "private": false,
   "scripts": {
     "test:typescript": "dtslint types",
     "build": "microbundle build"
