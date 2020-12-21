@@ -3,14 +3,14 @@ import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js"
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
-import ReactDOM from "https://cdn.skypack.dev/react-dom";
-import { DraggableWindow, jsx } from "./DraggableWindow.js";
+
+import { DraggableWindow, jsx, ReactDOM } from "./DraggableWindow.js";
 
 import { getProjects, saveCode } from "./data.js";
 import { shaDB } from "./db.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
-import { shareItAsHtml } from "./share.js";
+import { createJsBlob, shareItAsHtml } from "./share.js";
 
 const session = {
   hydrated: false,
@@ -173,13 +173,7 @@ export async function run(mode = "window") {
       ...fastError,
     ];
   }
-  // await importScript(
-  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
-  // );
 
-  // document.getElementById("zbody")!.setAttribute("style", "display:block");
-  // dragElement(document.getElementById("zbody"));
-  // await workerDomImport;
   async function restartCode(transpiled) {
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
@@ -190,30 +184,9 @@ export async function run(mode = "window") {
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
-    // if (session.hydrated) {
-    //   try {
-    //     const root = window.document.getElementById("zbody");
-    //     const html = root.innerHTML;
-    //     if (html.length > 0) {
-    //       ReactDOM.unmountComponentAtNode(
-    //         session.hydrated,
-    //       );
-    //       session.hydrated = false;
-    //       root.innerHTML = html;
-    //     }
-    //   } catch (e) {
-    //     console.error("Error in un-mount", e);
-    //   }hydrated
-    // }
-
-    function createSourceBlob(code) {
-      const blob = new Blob([code], { type: "application/javascript" });
-
-      return URL.createObjectURL(blob);
-    }
     const root = window.document.getElementById("zbody");
 
-    const Element = (await import(createSourceBlob(codeToHydrate))).default;
+    const Element = (await import(createJsBlob(codeToHydrate))).default;
 
     ReactDOM.render(Element(), root);
 

@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>WebTorrent Demo</title>
-  </head>
-  <body>
-      <div></div>
 
-    <script type="module">
+<head>
+  <meta charset="utf-8">
+  <title>WebTorrent Demo</title>
+  
+</head>
 
+<body>
+  <div id="me"></div>
 
-import React from 'https://cdn.skypack.dev/react';
-import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+  <script type="module">
+  import {upgradeElement} from 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.mjs';
 
-import {Global,jsx ,css} from 'https://cdn.skypack.dev/@emotion/react';
-import {motion} from 'https://cdn.skypack.dev/framer-motion';
+    const renderer = new Blob([`
+    const runner= async() =>{
 
-
-const App=()=>{return jsx(React.Fragment,null,"Ello ello! :) ",jsx("br",null),jsx("p",null,"IPFS deploy!!!!"));};
-
-
-const DefaultElement=()=>jsx(React.Fragment,null,jsx(Global,{styles:css`
-      body{
-          margin: 0;
-          
-          overflow: overlay;
-        }  
-    `}),jsx(App,null));
+      
+      const {DraggableWindow, jsx, ReactDOMServer} = await import("https://cms.zed.dev:4507/code/skypack.js");
 
 
+      const target = document.createElement("div")
 
-    ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+      target.innerHTML= ReactDOMServer.renderToString( jsx(DraggableWindow, {onShare:()=>{}}) );
+   
+      document.getElementById("me").appendChild(target)
+   
+    }
+      runner();`],
+      { type: "application/javascript" });
 
-</script>
+    const mod = URL.createObjectURL(renderer);
+
+    const target = document.body.children[0];
+    target.setAttribute("src", mod);
+
+    // (async () => {
+    //   await import(mod);
+    
+    // })()
+
+  upgradeElement(document.getElementById('me'), 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js');
+  </script>
 </body>
+
 </html>

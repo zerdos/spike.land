@@ -32,42 +32,22 @@ export const getHtml = ({ HTML, css, js }) => {
 </style>
 </head>
 <body>
-<div id="zbody">
+<div id="zbody"></div>
     ${HTML}
 </div>
 <script type="module">
-    ${js}
+
 </script>
 </body>
 </html>
 `;
 };
 
-export function getDepts(code) {
-  const debts = [
-    "https://unpkg.com/react@17.0.1/umd/react.production.min.js",
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom-server.browser.production.min.js",
-    "https://unpkg.com/@emotion/react@11.1.2/dist/emotion-react.umd.min.js",
-    "https://unpkg.com/@emotion/styled@11.0.0/dist/emotion-styled.umd.min.js",
-  ];
-
-  if (code.indexOf("framer-motion") !== -1) {
-    debts.push(
-      "https://unpkg.com/framer-motion@3.1.1/dist/framer-motion.js",
-    );
-  }
-  if (code.indexOf("qrious") !== -1) {
-    debts.push(
-      "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js",
-    );
-  }
-
-  return debts;
-}
-
 export const getCodeForImport = (code) => {
-  return `async function(){
-    ${code}
+  return `
+  import ReactDOM from "https://cdn.skypack.dev/react-dom"
+  
+  ${code}
     document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
 

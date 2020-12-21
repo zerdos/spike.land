@@ -1,14 +1,14 @@
+
 /** @jsx jsx */
+import {motion} from 'https://cdn.skypack.dev/framer-motion'
 
-import ReactDOM from "https://cdn.skypack.dev/react-dom";
+import styled from 'https://cdn.skypack.dev/@emotion/styled'
+import { css, jsx, Global } from "https://cdn.skypack.dev/@emotion/react";
 import React from "https://cdn.skypack.dev/react";
+import ReactDOM from "https://cdn.skypack.dev/react-dom";
+import ReactDOMServer from "https://cdn.skypack.dev/react-dom-server";
 
-import { css, jsx } from "https://cdn.skypack.dev/@emotion/react";
-import { motion } from "https://cdn.skypack.dev/framer-motion";
 
-export { jsx };
-
-export { ReactDOM };
 
 export const DraggableWindow = ({ onShare }) => {
   return jsx(
@@ -56,7 +56,7 @@ export const DraggableWindow = ({ onShare }) => {
     `,
         },
         jsx("button", {
-          css: `
+          css: css`
               background: darkred;
               margin-top: -4px;
               margin-right: -4px;
@@ -73,7 +73,7 @@ export const DraggableWindow = ({ onShare }) => {
         }, "🌎 SHARE"),
       ),
       jsx("div", {
-        css: `  
+        css: css`  
       min-width: 200px;
       padding: 30px;
       max-width: 600px;
@@ -87,3 +87,9 @@ export const DraggableWindow = ({ onShare }) => {
     ),
   );
 };
+export {ReactDOMServer}
+// export {ReactDOM}
+export {jsx}
+// const str = ReactDOMServer.renderToString(jsx(DraggableWindow,{onShare: ()=>{}}))
+
+// console.log(str);

@@ -1,24 +1,13 @@
 import { importScript } from "./importScript.js";
-import { getDepts } from "./templates.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 import { ipfsKV } from "./ipfsKV.js";
+import ReactDOMServer from "https://cdn.skypack.dev/react-dom/server";
 
 export const shareItAsHtml = async ({ code, jsExport }) => {
-  const debts = getDepts(code);
+  const mod = createJsBlob(code);
 
-  for (let i = 0; i < debts.length; i++) {
-    await importScript(debts[i]);
-  }
-
-  const renderToString = new Function(
-    `return function(){
-        let DefaultElement;
-        ${code}
-        return ReactDOMServer.renderToString(jsx(DefaultElement));
-    }`,
-  )();
-  const HTML = renderToString();
+  const Element = (await import(mod)).default;
 
   const css = Array.from(
     window.document.querySelector("head > style[data-emotion=css]").sheet
@@ -74,4 +63,10 @@ async function save(content, type) {
   await fetch(request);
 
   return `https://code.zed.vision/${hash}`;
+}
+
+export function createJsBlob(code) {
+  const blob = new Blob([code], { type: "application/javascript" });
+
+  return URL.createObjectURL(blob);
 }
