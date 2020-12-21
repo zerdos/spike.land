@@ -39,5 +39,5 @@
     "dts": "yarn dts-gen -m @zedvision/qrious -f dist/qrious.d.ts",
     "minify": "deno fmt dist && yarn esbuild --minify dist/qrious.js --outfile=dist/qrious.min.js"
   },
-  "gitHead": "779a0943d1492b82dc9b75186e4ec384f796c86a"
+  "gitHead": "c1775cb890de5c7f2e4b8cb1d8585756371f0b09"
 }

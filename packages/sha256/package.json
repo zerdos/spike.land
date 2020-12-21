@@ -6,5 +6,6 @@
     "access": "public"
   },
   "private": false,
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "c1775cb890de5c7f2e4b8cb1d8585756371f0b09"
 }

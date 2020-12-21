@@ -19,5 +19,6 @@
   "browser": {
     "./dist/emotion-unitless.cjs.js": "./dist/emotion-unitless.browser.cjs.js",
     "./dist/emotion-unitless.esm.js": "./dist/emotion-unitless.browser.esm.js"
-  }
+  },
+  "gitHead": "c1775cb890de5c7f2e4b8cb1d8585756371f0b09"
 }

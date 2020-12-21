@@ -32,7 +32,7 @@
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "private": false,
-  "gitHead": "779a0943d1492b82dc9b75186e4ec384f796c86a",
+  "gitHead": "c1775cb890de5c7f2e4b8cb1d8585756371f0b09",
   "publishConfig": {
     "access": "public"
   }
