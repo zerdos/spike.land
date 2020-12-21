@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/cf-worker",
-    "version": "10.10.10",
+    "version": "10.10.11",
     "description": "Worker script for zed.vision/code",
     "main": "dist/worker-script.min.js",
     "files": [

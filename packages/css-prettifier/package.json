@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-css-prettifier",
-  "version": "10.10.10",
+  "version": "10.10.11",
   "description": "Simple Stylis-based CSS prettifier",
   "scripts": {
     "test:typescript": "exit 0"
@@ -15,7 +15,7 @@
   "license": "MIT",
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/css-prettifier",
   "dependencies": {
-    "@zedvision/emotion-memoize": "^10.10.10",
+    "@zedvision/emotion-memoize": "^10.10.11",
     "stylis": "^4.0.6"
   },
   "publishConfig": {
