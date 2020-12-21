@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/smart-monaco-editor",
-    "version": "8.6.10",
+    "version": "8.7.4",
     "description": "Monaco Editor with auto type downloads mostly for React",
     "exports": "./lib/editor.js",
     "private": false,
