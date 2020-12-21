@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-primitives",
-  "version": "10.10.17",
+  "version": "10.10.18",
   "private": false,
   "main": "dist/emotion-primitives.cjs.js",
   "module": "dist/emotion-primitives.esm.js",
