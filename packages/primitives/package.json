@@ -1,6 +1,6 @@
 {
   "name": "@emotion/primitives",
-  "version": "8.8.0",
+  "version": "10.10.10",
   "main": "dist/emotion-primitives.cjs.js",
   "module": "dist/emotion-primitives.esm.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-unitless",
-  "version": "8.8.0",
+  "version": "10.10.10",
   "description": "An object of css properties that don't accept values with units",
   "main": "dist/emotion-unitless.cjs.js",
   "module": "dist/emotion-unitless.esm.js",

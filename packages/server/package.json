@@ -1,6 +1,6 @@
 {
   "name": "@emotion/server",
-  "version": "8.8.0",
+  "version": "10.10.10",
   "description": "Extract and inline critical css with emotion for server side rendering.",
   "main": "dist/emotion-server.cjs.js",
   "types": "types/index.d.ts",

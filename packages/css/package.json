@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-css",
-  "version": "8.8.0",
+  "version": "10.10.10",
   "description": "The Next Generation of CSS-in-JS.",
   "main": "dist/emotion-css.cjs.js",
   "module": "dist/emotion-css.esm.js",
