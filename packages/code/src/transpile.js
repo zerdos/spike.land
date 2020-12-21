@@ -33,7 +33,7 @@ export async function ipfsAdd(code, hasToReport) {
 
 function init() {
   const worker = new Worker(
-    "/code/src/transpile.worker.js",
+    "./src/transpile.worker.js",
   );
   // WebWorkers use `postMessage` and therefore work with Comlink.
   transform = Comlink.wrap(worker);
