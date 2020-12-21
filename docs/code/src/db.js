@@ -1,4 +1,4 @@
-import { getDB } from "https://unpkg.com/@zedvision/shadb@8.7.0/dist/shaDB.js";
+import { getDB } from "https://unpkg.com/@zedvision/shadb@8.7.2/dist/shaDB.js";
 
 let db;
 
