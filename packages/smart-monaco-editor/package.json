@@ -43,6 +43,6 @@
     },
     "gitHead": "779a0943d1492b82dc9b75186e4ec384f796c86a",
     "dependencies": {
-        "tslib": "^2.0.3"
+        "tslib": "2.0.3"
     }
 }
