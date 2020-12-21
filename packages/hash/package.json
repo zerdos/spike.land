@@ -26,5 +26,5 @@
     "./dist/emotion-hash.cjs.js": "./dist/emotion-hash.browser.cjs.js",
     "./dist/emotion-hash.esm.js": "./dist/emotion-hash.browser.esm.js"
   },
-  "gitHead": "5cf086d85cffe253c123e056fe714eb6ac98bfaa"
+  "gitHead": "dce4e50d917ea28817cb04929f8ca16ceb7de068"
 }

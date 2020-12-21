@@ -5,6 +5,10 @@
   "main": "dist/emotion-css.cjs.js",
   "module": "dist/emotion-css.esm.js",
   "types": "types/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": "false",
   "files": [
     "src",
     "dist",
@@ -59,5 +63,5 @@
       "./create-instance.js"
     ]
   },
-  "gitHead": "5cf086d85cffe253c123e056fe714eb6ac98bfaa"
+  "gitHead": "dce4e50d917ea28817cb04929f8ca16ceb7de068"
 }
