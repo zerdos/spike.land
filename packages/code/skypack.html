@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WebTorrent Demo</title>
+  </head>
+  <body>
+      <div></div>
+
+    <script type="module">
+
+
+import React from 'https://cdn.skypack.dev/react';
+import ReactDOM from 'https://cdn.skypack.dev/react-dom';
+
+import {Global,jsx ,css} from 'https://cdn.skypack.dev/@emotion/react';
+import {motion} from 'https://cdn.skypack.dev/framer-motion';
+
+
+const App=()=>{return jsx(React.Fragment,null,"Ello ello! :) ",jsx("br",null),jsx("p",null,"IPFS deploy!!!!"));};
+
+
+const DefaultElement=()=>jsx(React.Fragment,null,jsx(Global,{styles:css`
+      body{
+          margin: 0;
+          
+          overflow: overlay;
+        }  
+    `}),jsx(App,null));
+
+
+
+    ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
+
+</script>
+</body>
+</html>

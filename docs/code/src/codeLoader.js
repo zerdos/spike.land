@@ -3,10 +3,11 @@ import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js"
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
+import ReactDOM from "https://cdn.skypack.dev/react-dom";
+import { DraggableWindow, jsx } from "./DraggableWindow.js";
 
 import { getProjects, saveCode } from "./data.js";
 import { shaDB } from "./db.js";
-import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { shareItAsHtml } from "./share.js";
@@ -58,16 +59,19 @@ export async function run(mode = "window") {
   }
 
   if (mode === "window") {
-    const { renderDraggableWindow } = await import("./DraggableWindow.js");
+    const onShare = async () => {
+      const link = await shareItAsHtml(
+        { code: session.transpiled },
+      );
+      window.open(link);
+    };
 
-    await renderDraggableWindow({
-      onShare: async () => {
-        const link = await shareItAsHtml(
-          { code: session.transpiled },
-        );
-        window.open(link);
-      },
-    });
+    ReactDOM.render(
+      jsx(DraggableWindow, {
+        onShare,
+      }),
+      window.document.getElementById("dragabbleWindow"),
+    );
   }
 
   const transpiled = await transpileCode(session.code);
@@ -169,14 +173,14 @@ export async function run(mode = "window") {
       ...fastError,
     ];
   }
-  await importScript(
-    "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
-  );
+  // await importScript(
+  //   "https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js",
+  // );
 
   // document.getElementById("zbody")!.setAttribute("style", "display:block");
   // dragElement(document.getElementById("zbody"));
   // await workerDomImport;
-  function restartCode(transpiled) {
+  async function restartCode(transpiled) {
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
       return 1;
@@ -202,37 +206,17 @@ export async function run(mode = "window") {
     //   }hydrated
     // }
 
-    const hydrate = new Function(
-      "importScript",
-      "session",
-      `return function(){  
-          let DefaultElement;
+    function createSourceBlob(code) {
+      const blob = new Blob([code], { type: "application/javascript" });
 
+      return URL.createObjectURL(blob);
+    }
+    const root = window.document.getElementById("zbody");
 
-          try{
-                ${codeToHydrate}
-                
-                const root = document.getElementById("zbody").children[0] || document.createElement("div");
-                ReactDOM.render(jsx(DefaultElement), root);
-                
-                document.getElementById("zbody").children[0] ||    document.getElementById("zbody").appendChild(root);        
+    const Element = (await import(createSourceBlob(codeToHydrate))).default;
 
+    ReactDOM.render(Element(), root);
 
-                
-                session.preRendered = DefaultElement;
-
-
-
-          } catch (e) {
-            if (session.lastError!==0) console.error({e});
-            session.preRendered=false;
-          }
-
-         
-      }`,
-    )(importScript, session);
-
-    hydrate();
     return !session.preRendered;
   }
 

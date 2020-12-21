@@ -3,28 +3,21 @@ importScripts("https://unpkg.com/@babel/standalone@7.12.11/babel.min.js");
 importScripts("https://unpkg.com/react@17.0.1/umd/react.production.min.js");
 
 const searchRegExp = /import/gi;
-const searchRegExpExport = /export /gi;
-const replaceWith = "///";
+const from = / from '/gi;
+const replaceWith = " from 'https://cdn.skypack.dev/";
 
 const transform = (code, hasToReport) => {
   try {
-    const safeCode = `/** @jsx jsx */ 
-    Object.assign(window, React);
-    if (window.Motion) {
-        Object.assign(window, window.Motion);
-    }
-    if (window.emotionStyled){
-      window.styled= window.emotionStyled;
-    }` + code.replaceAll(
-      searchRegExp,
+    const safeCode = `
+    ` + code.replaceAll(
+      from,
       replaceWith,
-    ).replace("export default", "DefaultElement = ")
-      .replaceAll(searchRegExpExport, "");
+    );
 
-    return Babel.transform(
+    const transformed = Babel.transform(
       safeCode,
       {
-        compact: true,
+        compact: false,
         comments: false,
         plugins: [],
         presets: [
@@ -33,6 +26,7 @@ const transform = (code, hasToReport) => {
         ],
       },
     ).code;
+    return transformed;
   } catch (e) {
     hasToReport && console.error(e);
     return "";

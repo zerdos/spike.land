@@ -66,21 +66,7 @@ export function getDepts(code) {
 }
 
 export const getCodeForImport = (code) => {
-  const debStr = JSON.stringify(getDepts(code));
-
   return `async function(){
-const {importScript} = await import("https://unpkg.com/@zedvision/code@8.6.0/dist/importScript.js");
-
-    const debts = ${debStr};
-
-for (let i = 0; i < debts.length; i++) {
-    await importScript(debts[i]);
-}
-
-
-    Object.assign(window, emotionReact);
-    let styled = window["emotionStyled"];
-    let DefaultElement;
     ${code}
     document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
