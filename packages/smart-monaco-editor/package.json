@@ -34,11 +34,15 @@
     "homepage": "https://github.com/zed-vision/monorepo",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
+        "ace-builds": "1.4.12",
         "capture-website": "1.2.6",
         "monaco-editor": "0.21.2"
     },
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "779a0943d1492b82dc9b75186e4ec384f796c86a"
+    "gitHead": "779a0943d1492b82dc9b75186e4ec384f796c86a",
+    "dependencies": {
+        "tslib": "^2.0.3"
+    }
 }

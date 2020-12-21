@@ -1,17 +1,37 @@
 import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
+import type Monaco from "monaco-editor";
+import type Ace from "ace-builds";
+
+interface ISmartMonacoEditor {
+  monaco: Monaco;
+  editor: Monaco.Editor.IStandaloneCodeEditor;
+}
+
+interface StartMonacoProps {
+  onChange: (code: string) => void;
+  code: string;
+  language: "html" | "javascript" | "typescript";
+  options: {
+    gylph: boolean;
+  };
+}
+
+declare interface SmartMonaco {
+  (props: StartMonacoProps): Promise<ISmartMonacoEditor>;
+}
 
 export const startMonaco: SmartMonaco = async (
   { onChange, code, language, options },
 ) => {
   let aceEditor: Ace.Editor = null;
   const { document } = window;
-  const container = document.getElementById("container");
+  let container = document.getElementById("container");
 
   if (!container) {
-    const el = document.getElementById("container");
-    el.id = "container";
-    document.body.appendChild(el);
+    container = document.createElement("container");
+    container.id = "container";
+    document.body.appendChild(container);
   }
 
   const modelUri = language === "typescript"
@@ -40,8 +60,11 @@ export const startMonaco: SmartMonaco = async (
       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
     );
 
-    window.document.getElementById("ace").style.setProperty("display", "block");
-    container.style.setProperty("display", "none");
+    window.document.getElementById("ace")!.style.setProperty(
+      "display",
+      "block",
+    );
+    container!.style.setProperty("display", "none");
 
     const { ace } = (window as unknown as {
       ace: {
@@ -155,8 +178,8 @@ export const startMonaco: SmartMonaco = async (
     onChange(value);
   });
   aceEditor &&
-    document.getElementById("container").replaceWith(
-      document.getElementById("ace"),
+    document.getElementById("container")!.replaceWith(
+      document.getElementById("ace")!,
     );
 
   modules.monaco.languages.typescript.typescriptDefaults
