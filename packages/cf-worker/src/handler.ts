@@ -1,5 +1,5 @@
 import { sha256 } from "../../code/src/sha256.js";
-import { getDbObj } from "../../shadb/src/getDbObj.ts";
+import { getDbObj } from "../../shadb/src/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";

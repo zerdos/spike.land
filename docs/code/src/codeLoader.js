@@ -1,11 +1,11 @@
-import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
 import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor@8.6.9/lib/editor.js";
 import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js";
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 
-import { getProjects, getUserId, saveCode } from "./data.js";
+import { getProjects, saveCode } from "./data.js";
+import { shaDB } from "./db.js";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
@@ -59,8 +59,6 @@ export async function run(mode = "window") {
 
   if (mode === "window") {
     const { renderDraggableWindow } = await import("./DraggableWindow.js");
-
-    const { shareItAsHtml } = await import("./share.js");
 
     await renderDraggableWindow({
       onShare: async () => {
@@ -239,17 +237,16 @@ export async function run(mode = "window") {
   }
 
   async function getCodeToLoad() {
-    const db = await getDB();
     const projects = await getProjects();
     const projectName = projects[0];
 
     const search = new URLSearchParams(window.location.search);
-    const keyToLoad = search.get("h") || await db.get(projectName);
+    const keyToLoad = search.get("h") || await shaDB.get(projectName);
 
     if (keyToLoad) {
       let code;
       try {
-        code = await db.get(keyToLoad);
+        code = await shaDB.get(keyToLoad);
       } catch {
         console.error("error load key: " + keyToLoad);
       }
@@ -264,8 +261,8 @@ export async function run(mode = "window") {
         const { sha256 } = await import("./sha256.js");
         const shaHash = await sha256(starter);
 
-        db.put(shaHash, starter);
-        await db.put(projectName, shaHash);
+        shaDB.put(shaHash, starter);
+        await shaDB.put(projectName, shaHash);
         return starter;
       }
 

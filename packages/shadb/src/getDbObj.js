@@ -2,7 +2,8 @@ import {
   assemble,
   diff,
   isDiff,
-} from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js"";
+} from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js";
+
 export const getDbObj = (dbPromise, isIdb = false) => {
   const sha256 = async (x) =>
     Array.from(
