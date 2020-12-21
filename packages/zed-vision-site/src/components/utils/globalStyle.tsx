@@ -3,7 +3,7 @@ import typography from "./typography.ts";
 import { normalize } from "./normalize-css.tsx";
 import { fonts } from "./fonts.ts";
 /** @jsx jsx */
-import { css, Global, jsx } from "@emotion/react";
+import { css, Global, jsx } from "@zedvision/emotion-react";
 
 const styles = typography.createStyles().replace(
   /first-child/gi,

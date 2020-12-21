@@ -1,0 +1,36 @@
+{
+  "name": "@zedvision/emotion-serialize",
+  "version": "0.0.5",
+  "description": "serialization utils for emotion",
+  "main": "dist/emotion-serialize.cjs.js",
+  "module": "dist/emotion-serialize.esm.js",
+  "types": "types/index.d.ts",
+  "license": "MIT",
+  "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/serialize",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test:typescript": "dtslint types",
+    "build": "microbundle build"
+  },
+  "dependencies": {
+    "@zedvision/emotion-hash": "^0.0.5",
+    "@zedvision/emotion-memoize": "^0.0.5",
+    "@zedvision/emotion-unitless": "^0.0.5",
+    "@zedvision/emotion-utils": "^0.0.5",
+    "csstype": "^3.0.5"
+  },
+  "devDependencies": {
+    "dtslint": "^4.0.6"
+  },
+  "files": [
+    "src",
+    "dist",
+    "types/*.d.ts"
+  ],
+  "browser": {
+    "./dist/emotion-serialize.cjs.js": "./dist/emotion-serialize.browser.cjs.js",
+    "./dist/emotion-serialize.esm.js": "./dist/emotion-serialize.browser.esm.js"
+  }
+}

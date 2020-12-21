@@ -1,7 +1,7 @@
-/// <reference types="@emotion/react/types/css-prop" />
+/// <reference types="@zedvision/emotion-react/types/css-prop" />
 
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css, jsx } from "@zedvision/emotion-react";
 
 import * as React from "react";
 import { graphql, Link } from "gatsby";

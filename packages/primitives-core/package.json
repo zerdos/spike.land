@@ -1,0 +1,47 @@
+{
+  "name": "@zedvision/emotion-primitives-core",
+  "version": "0.0.5",
+  "description": "Shared utilities for emotion primitives and native",
+  "main": "dist/emotion-primitives-core.cjs.js",
+  "module": "dist/emotion-primitives-core.esm.js",
+  "scripts": {
+    "test:typescript": "exit 0"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "css-to-react-native": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@zedvision/emotion-react": "^11.0.0-rc.0",
+    "react": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@zedvision/emotion-react": "^0.0.5",
+    "react": "17.0.1"
+  },
+  "homepage": "https://emotion.sh",
+  "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/primitives-core",
+  "keywords": [
+    "styles",
+    "emotion",
+    "react",
+    "css",
+    "css-in-js",
+    "primitives",
+    "native"
+  ],
+  "bugs": {
+    "url": "https://github.com/@zedvision/emotion-js/emotion/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "browser": {
+    "./dist/emotion-primitives-core.cjs.js": "./dist/emotion-primitives-core.browser.cjs.js",
+    "./dist/emotion-primitives-core.esm.js": "./dist/emotion-primitives-core.browser.esm.js"
+  }
+}

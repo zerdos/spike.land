@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cx all types 1`] = `
+.emotion-0 {
+  font-size: 20px;
+  background: green;
+  font-size: 20px;
+  background: darkorange;
+  font-size: 20px;
+  background: darkgreen;
+}
+
+<div
+  className="modal profile emotion-0"
+/>
+`;
+
+exports[`cx fun fun functions 1`] = `
+.emotion-0 {
+  font-size: 20px;
+  background: green;
+  font-size: 20px;
+  background: darkorange;
+  font-size: 20px;
+  background: darkgreen;
+}
+
+<div
+  className="modal profile emotion-0"
+/>
+`;
+
+exports[`cx merge 2 1`] = `
+.emotion-0 {
+  font-size: 20px;
+  background: green;
+}
+
+<div
+  className="emotion-0 modal"
+/>
+`;
+
+exports[`cx merge 3 1`] = `
+.emotion-0 {
+  font-size: 20px;
+  background: green;
+  font-size: 20px;
+  background: blue;
+}
+
+<div
+  className="modal emotion-0"
+/>
+`;
+
+exports[`cx merge 4 1`] = `
+.emotion-0 {
+  font-size: 20px;
+  background: green;
+  font-size: 20px;
+  background: blue;
+}
+
+<div
+  className="modal profile emotion-0"
+/>
+`;
+
+exports[`cx no extra whitespace 1`] = `"blockquote news"`;
+
+exports[`cx no extra whitespace 2`] = `"group news"`;
+
+exports[`cx no extra whitespace 3`] = `"author"`;
+
+exports[`cx no extra whitespace 4`] = `"someClass"`;
+
+exports[`cx no extra whitespace 5`] = `"someClass anotherClass"`;

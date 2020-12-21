@@ -1,0 +1,23 @@
+{
+  "name": "@zedvision/emotion-unitless",
+  "version": "0.0.5",
+  "description": "An object of css properties that don't accept values with units",
+  "main": "dist/emotion-unitless.cjs.js",
+  "module": "dist/emotion-unitless.esm.js",
+  "license": "MIT",
+  "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/unitless",
+  "scripts": {
+    "test:typescript": "exit 0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "browser": {
+    "./dist/emotion-unitless.cjs.js": "./dist/emotion-unitless.browser.cjs.js",
+    "./dist/emotion-unitless.esm.js": "./dist/emotion-unitless.browser.esm.js"
+  }
+}

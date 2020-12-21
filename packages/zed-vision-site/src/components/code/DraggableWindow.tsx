@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, Global, jsx } from "@emotion/react";
+import { css, Global, jsx } from "@zedvision/emotion-react";
 import { motion } from "framer-motion";
 import React from "react";
 
