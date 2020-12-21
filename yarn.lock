@@ -1248,11 +1248,6 @@
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-1.0.0.tgz#abe06a83160b10570816c913990245813a2fd6af"
   integrity sha512-mQC2b3XLDs6QCW+pDQDiyO/EdGZYOygE8s5N5rrzjSI4M3IejPE/JPndCBwRT9z982aqQNi6beWs1UeayrQxxA==
 
-"@emotion/utils@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.0.5.tgz#b3b2f7f31d68f2c288599a8fc195d6fb6c4f8a56"
-  integrity sha1-s7L38x1o8sKIWZqPwZXW+2xPilY=
-
 "@emotion/weak-memoize@^0.2.5":
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
@@ -3500,6 +3495,17 @@
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
+
+"@zedvision/emotion-cache@10.10.18":
+  version "10.10.18"
+  resolved "https://registry.yarnpkg.com/@zedvision/emotion-cache/-/emotion-cache-10.10.18.tgz#b16007dd0c7668ccd262c2d92a59ecd79fcb3eac"
+  integrity sha512-mOsvzzwvd6UA972P9rGmDMbpJOw6o67Mg9cAaIkJs8jbPCtpbf2MNGyHshzCTSOCO8EuATHxhYs4YfTesqsD0A==
+  dependencies:
+    "@zedvision/emotion-memoize" "^10.10.18"
+    "@zedvision/emotion-sheet" "^10.10.18"
+    "@zedvision/emotion-utils" "^10.10.18"
+    "@zedvision/emotion-weak-memoize" "^10.10.18"
+    stylis "^4.0.6"
 
 "@zedvision/emotion-react@10.10.10":
   version "10.10.10"
