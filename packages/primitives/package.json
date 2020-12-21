@@ -54,5 +54,5 @@
     "./dist/emotion-primitives.cjs.js": "./dist/emotion-primitives.browser.cjs.js",
     "./dist/emotion-primitives.esm.js": "./dist/emotion-primitives.browser.esm.js"
   },
-  "gitHead": "ae10058048862c5ae2744259d3cfca958f01ff98"
+  "gitHead": "9229ccd7ccded4e853f215944cfcd5fd26f1ca26"
 }
