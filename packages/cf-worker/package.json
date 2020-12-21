@@ -35,7 +35,7 @@
         "@types/uuid": "8.3.0",
         "esbuild": "0.8.26"
     },
-    "gitHead": "d9f00a1a89dd11679b1b7206f9cf08980d2f5bff",
+    "gitHead": "ae10058048862c5ae2744259d3cfca958f01ff98",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
     "license": "BSD-3-Clause",
     "private": false,

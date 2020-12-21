@@ -29,5 +29,5 @@
     "./dist/emotion-is-prop-valid.cjs.js": "./dist/emotion-is-prop-valid.browser.cjs.js",
     "./dist/emotion-is-prop-valid.esm.js": "./dist/emotion-is-prop-valid.browser.esm.js"
   },
-  "gitHead": "d9f00a1a89dd11679b1b7206f9cf08980d2f5bff"
+  "gitHead": "ae10058048862c5ae2744259d3cfca958f01ff98"
 }

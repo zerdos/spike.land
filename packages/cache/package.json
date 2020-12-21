@@ -9,7 +9,6 @@
     "./dist/emotion-cache.esm.js": "./dist/emotion-cache.browser.esm.js"
   },
   "types": "types/index.d.ts",
-  "license": "MIT",
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/cache",
   "scripts": {
     "test:typescript": "dtslint types",
@@ -29,10 +28,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "license": "BSD-3-Clause",
   "files": [
     "src",
     "dist",
     "types/*.d.ts"
   ],
-  "gitHead": "d9f00a1a89dd11679b1b7206f9cf08980d2f5bff"
+  "gitHead": "ae10058048862c5ae2744259d3cfca958f01ff98"
 }

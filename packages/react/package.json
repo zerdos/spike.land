@@ -52,6 +52,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "private":"false",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@types/react": "^17.0.0",
@@ -78,5 +79,5 @@
     ],
     "umdName": "emotionReact"
   },
-  "gitHead": "d9f00a1a89dd11679b1b7206f9cf08980d2f5bff"
+  "gitHead": "ae10058048862c5ae2744259d3cfca958f01ff98"
 }
