@@ -1,10 +1,13 @@
 /** @jsx jsx */
 
-import ReactDOM from "https://cdn.skypack.dev/react-dom";
-import React from "https://cdn.skypack.dev/react";
+import * as ReactDOM from "https://cdn.skypack.dev/react-dom";
+import * as React from "https://cdn.skypack.dev/react";
 
-import { css, jsx } from "https://cdn.skypack.dev/@emotion/react";
-import { motion } from "https://cdn.skypack.dev/framer-motion";
+import {
+  css,
+  jsx,
+} from "https://unpkg.com/@emotion/react@11.1.3/dist/emotion-react.esm.js?module";
+import { motion } from "https://unpkg.com/framer-motion@3.1.1/dist/framer-motion.es.js";
 
 export { jsx };
 

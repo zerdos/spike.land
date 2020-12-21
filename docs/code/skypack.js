@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import {motion} from 'https://cdn.skypack.dev/framer-motion'
 
-import styled from 'https://cdn.skypack.dev/@emotion/styled'
 import { css, jsx, Global } from "https://cdn.skypack.dev/@emotion/react";
 import React from "https://cdn.skypack.dev/react";
 import ReactDOM from "https://cdn.skypack.dev/react-dom";
