@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-native",
-  "version": "0.0.5",
+  "version": "8.8.0",
   "description": "Style and render React Native components using emotion",
   "main": "dist/emotion-native.cjs.js",
   "module": "dist/emotion-native.esm.js",
@@ -23,7 +23,7 @@
     "react-native": "^0.63.4"
   },
   "dependencies": {
-    "@zedvision/emotion-primitives-core": "^0.0.5"
+    "@zedvision/emotion-primitives-core": "^8.8.0"
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",

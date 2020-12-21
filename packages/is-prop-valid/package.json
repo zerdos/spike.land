@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-is-prop-valid",
-  "version": "0.0.5",
+  "version": "8.8.0",
   "description": "A function to check whether a prop is valid for HTML and SVG elements",
   "main": "dist/emotion-is-prop-valid.cjs.js",
   "module": "dist/emotion-is-prop-valid.esm.js",
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@zedvision/emotion-memoize": "^0.0.5"
+    "@zedvision/emotion-memoize": "^8.8.0"
   },
   "devDependencies": {
     "dtslint": "^4.0.6"
