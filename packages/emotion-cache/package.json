@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-cache",
-  "version": "10.10.19",
+  "version": "10.10.20",
   "description": "emotion's cache",
   "main": "dist/emotion-cache.cjs.js",
   "module": "dist/emotion-cache.esm.js",
