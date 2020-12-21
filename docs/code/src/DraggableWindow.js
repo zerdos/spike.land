@@ -6,7 +6,7 @@ import * as React from "https://cdn.skypack.dev/react";
 import {
   css,
   jsx,
-} from "https://unpkg.com/@emotion/react@11.1.3/dist/emotion-react.esm.js?module";
+} from "https://unpkg.com/@zedvision/emotion-react@11.1.3/dist/emotion-react.esm.js?module";
 import { motion } from "https://unpkg.com/framer-motion@3.1.1/dist/framer-motion.es.js";
 
 export { jsx };

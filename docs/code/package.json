@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "8.7.6",
+    "version": "10.10.18",
     "description": "zed.vison/code",
     "main": "dist/codeLoader.min.js",
     "files": [
@@ -35,7 +35,7 @@
     "devDependencies": {
         "esbuild": "0.8.26"
     },
-    "gitHead": "779a0943d1492b82dc9b75186e4ec384f796c86a",
+    "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
     "license": "BSD-3-Clause",
     "private": false,

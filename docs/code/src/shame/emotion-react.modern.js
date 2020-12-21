@@ -6,7 +6,7 @@ import {
   useLayoutEffect as s,
   useRef as r,
 } from "react";
-import l from "@emotion/cache";
+import l from "@zedvision/emotion-cache";
 import a from "@emotion/weak-memoize";
 import i from "hoist-non-react-statics";
 import { getRegisteredStyles as c, insertStyles as u } from "@emotion/utils";
@@ -96,7 +96,7 @@ const A = (e, t) => {
     -1 !== t.css.indexOf(":")
   ) {
     throw new Error(
-      `Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/react' like this: css\`${t.css}\``,
+      `Strings are not allowed as css prop values, please wrap it in a css template literal from '@zedvision/emotion-react' like this: css\`${t.css}\``,
     );
   }
   let n = {};
@@ -263,7 +263,7 @@ let S = (e) => {
             void 0 !== r.styles &&
             void 0 !== r.name &&
             console.error(
-              "You have passed styles created with `css` from `@emotion/react` package to the `cx`.\n`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component.",
+              "You have passed styles created with `css` from `@zedvision/emotion-react` package to the `cx`.\n`cx` is meant to compose class names (strings) so you should convert those styles to a class name by passing them to the `css` received from <ClassNames/> component.",
             ), (t = "");
             for (const e in r) r[e] && e && (t && (t += " "), (t += e));
           }
@@ -333,7 +333,7 @@ if (
       n = `__EMOTION_REACT_${"11.1.3".split(".")[0]}__`;
     t[n] &&
     console.warn(
-      "You are loading @emotion/react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used.",
+      "You are loading @zedvision/emotion-react when it is already loaded. Running multiple instances may cause problems. This can happen if multiple versions are used, or if multiple builds of the same version are used.",
     ), (t[n] = !0);
   }
 }

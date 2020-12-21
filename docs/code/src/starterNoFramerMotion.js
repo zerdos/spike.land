@@ -1,5 +1,5 @@
 export const starter = `import { useState } from "react";
-import { css, Global } from "@emotion/react";
+import { css, Global } from "@zedvision/emotion-react";
 
 const Slider = () => {
   const steps = 128;
