@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "8.7.2",
+    "version": "8.7.3",
     "description": "zed.vison/code",
     "main": "dist/codeLoader.min.js",
     "files": [
