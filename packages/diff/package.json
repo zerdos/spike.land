@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/diff",
-    "version": "10.10.14",
+    "version": "10.10.15",
     "description": "Diffs 2 strings",
     "exports": "./dist/diff.min.js",
     "private": false,
