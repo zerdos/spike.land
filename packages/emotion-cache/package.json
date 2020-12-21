@@ -22,7 +22,7 @@
     "stylis": "^4.0.6"
   },
   "devDependencies": {
-    "@zedvision/emotion-hash": "^10.10.19",
+    "@zedvision/emotion-hash": "^10.10.18",
     "dtslint": "^4.0.6"
   },
   "publishConfig": {
