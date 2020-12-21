@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@babel/standalone": "7.12.11",
-    "@zedvision/emotion-react": "11.1.3",
+    "@zedvision/emotion-react": "10.10.10",
     "@emotion/styled": "11.0.0",
     "diff": "5.0.0",
     "framer-motion": "3.1.1",
@@ -44,7 +44,7 @@
     "microbundle":"0.13.0",
     "@babel/core": "7.12.10",
     "@cloudflare/workers-types": "2.1.0",
-    "@emotion/cache": "11.1.3",
+    "@zedvision/emotion-cache": "10.10.18",
     "@emotion/utils": "1.0.0",
     "@types/prop-types": "15.7.3",
     "@types/react": "17.0.0",

@@ -235,7 +235,7 @@ export const startMonaco: SmartMonaco = async (
         name: "@zedvision/emotion-react/index.d.ts",
         url:
           "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/index.d.ts",
-        depend: ["@emotion/cache"],
+        depend: ["@zedvision/emotion-cache"],
       },
       {
         name: "@zedvision/emotion-react/jsx-namespace.d.ts",

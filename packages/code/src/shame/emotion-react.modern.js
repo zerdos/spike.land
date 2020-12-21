@@ -6,7 +6,7 @@ import {
   useLayoutEffect as s,
   useRef as r,
 } from "react";
-import l from "@emotion/cache";
+import l from "@zedvision/emotion-cache";
 import a from "@emotion/weak-memoize";
 import i from "hoist-non-react-statics";
 import { getRegisteredStyles as c, insertStyles as u } from "@emotion/utils";
