@@ -54,7 +54,7 @@ function saveJs(js) {
 }
 async function saveToIPFS(content, type) {
   const cid = await ipfsKV.add(content);
-  return `https://cloudflare-ipfs.com/ipfs/${cid}`;
+  return `https://ipfs.io/ipfs/${cid}`;
 }
 
 async function save(content, type) {
