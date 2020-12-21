@@ -1,0 +1,18 @@
+import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
+// import * as Comlink from "../../../dist/esm/comlink.mjs";
+
+let ipfsWorker;
+
+export const ipfsKV = {
+  add: async (data) => (ipfsWorker || await initIpfsKV()).add(data),
+};
+
+function initIpfsKV() {
+  const worker = new Worker(
+    "/code/src/ipfsKV.worker.js",
+  );
+
+  ipfsWorker = Comlink.wrap(worker);
+  return ipfsWorker;
+}
+initIpfsKV();

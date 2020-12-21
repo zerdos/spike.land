@@ -7,8 +7,8 @@ export const importScript = (src, res = []) => {
       new Promise(function (resolve, reject) {
         const s = window.document.createElement("script");
         s.src = src;
-        s.async = "async";
-        s.type = "application/javascript";
+        // s.async = "async";
+        // s.type = "application/javascript";
         s.onload = (() => {
           if (res.length === 0) {
             resolve(window);

@@ -1,4 +1,4 @@
-import { getDB } from "https://unpkg.com/@zedvision/shadb/dist/shaDB.js";
+import { shaDB } from "./db.js";
 import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 import { sha256 } from "./sha256.js";
 
@@ -11,20 +11,17 @@ export async function getZkey(hash) {
 }
 
 export async function getUserId() {
-  const shaDB = await getDB();
   const uuid = await shaDB.get("uuid");
   if (!uuid) {
     const resp = await fetch("https://code.zed.vision/register");
     const data = await resp.json();
-    shaDB.put("uuid", data.uuid);
+    await shaDB.put("uuid", data.uuid);
     return data.uuid;
   }
   return uuid;
 }
 
 export const getProjects = async () => {
-  const shaDB = await getDB();
-
   const uuid = await getUserId();
   const projects = await shaDB.get(uuid, "json");
 
@@ -62,7 +59,6 @@ export const saveCode = async (code) => {
   const projectName = projects[0];
 
   try {
-    const shaDB = await getDB();
     const prevHash = await shaDB.get(projectName);
 
     if (prevHash !== hash) {

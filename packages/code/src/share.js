@@ -3,10 +3,6 @@ import { getDepts } from "./templates.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 
-export const ipfs = async () => {
-  await importScript("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
-};
-
 export const shareItAsHtml = async ({ code, jsExport }) => {
   const debts = getDepts(code);
 

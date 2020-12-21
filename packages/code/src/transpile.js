@@ -1,4 +1,5 @@
 import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
+import { shaDB } from "./db.js";
 // import * as Comlink from "../../../dist/esm/comlink.mjs";
 
 let transform;
@@ -7,6 +8,29 @@ export async function transpileCode(code, hasToReport) {
 
   return await transform(code, hasToReport);
 }
+
+let node = null;
+
+export async function getIpfsiD() {
+  if (node) return node;
+
+  let ipfsId = await shaDB.get("ipfs");
+  if (!ipfsId) {
+    ipfsId = v4();
+
+    await shaDB.put("ipfs", ipfsId);
+  }
+
+  return ipfsId;
+}
+
+let ipfsNode;
+export async function ipfsAdd(code, hasToReport) {
+  ipfsNode = ipfsNode || await Ipfs.create({ repo: await getIpfsiD() });
+
+  return await transform(code, hasToReport);
+}
+
 function init() {
   const worker = new Worker(
     "/code/src/transpile.worker.js",

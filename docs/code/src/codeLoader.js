@@ -9,7 +9,7 @@ import { getProjects, getUserId, saveCode } from "./data.js";
 import { importScript } from "./importScript.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
-import { ipfs, shareItAsHtml } from "./share.js";
+import { shareItAsHtml } from "./share.js";
 
 const session = {
   hydrated: false,
@@ -82,11 +82,6 @@ export async function run(mode = "window") {
   });
 
   async function runner(cd) {
-    if (cd.slice(0, 100).indexOf("ipfs") !== -1) {
-      await ipfs();
-      session.ipfs = 1;
-    }
-
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
       if (session.transpiled === transpiled) return;
