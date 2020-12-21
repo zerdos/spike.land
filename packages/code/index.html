@@ -74,9 +74,17 @@
   <script type="module">
 
     import {run } from "https://unpkg.com/@zedvision/code@8.7.3/src/codeLoader.js";
-
+    
+    if (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0")) {
+        
+        (async ()=>{
+        const { run } = await import("./src/codeLoader.js");
+        run("window");
+        })();
+    }else 
+    {
     run("window");
-
+    }
   </script>
 </body>
 
