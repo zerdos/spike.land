@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/riversun/JSFrame.js#readme",
   "devDependencies": {
-    "esbuild": "0.8.25"
+    "esbuild": "0.8.26"
   },
   "dependencies": {
     "@riversun/event-emitter": "1.5.0",
