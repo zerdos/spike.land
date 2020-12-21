@@ -23,8 +23,7 @@ const ipfsKV = {
   add: async (data) => {
     ipfsNode = ipfsNode || await Ipfs.create({ repo: await getIpfsiD() });
     const { cid } = await ipfsNode.add(data);
-    console.log(cid);
-    return cid;
+    return cid.string;
   },
   get: async (key) => {
     return Promise.resolve("degjreoige");

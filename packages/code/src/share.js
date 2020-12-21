@@ -2,6 +2,7 @@ import { importScript } from "./importScript.js";
 import { getDepts } from "./templates.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
+import { ipfsKV } from "./ipfsKV.js";
 
 export const shareItAsHtml = async ({ code, jsExport }) => {
   const debts = getDepts(code);
@@ -30,9 +31,11 @@ export const shareItAsHtml = async ({ code, jsExport }) => {
 
   let js = getCodeForImport(code);
   if (jsExport) {
-    const jsLink = await saveJs(getCodeForImport(code));
+    const jsLink = await saveJs("export default  " + getCodeForImport(code));
     js = `import app from "${jsLink}";
   app();`;
+  } else {
+    js = `(${js})()`;
   }
 
   const link = await saveHtml(
@@ -43,11 +46,15 @@ export const shareItAsHtml = async ({ code, jsExport }) => {
 };
 
 function saveHtml(html) {
-  return save(html, "text/html");
+  return saveToIPFS(html, "text/html");
 }
 
 function saveJs(js) {
   return save(js, "application/javascript");
+}
+async function saveToIPFS(content, type) {
+  const cid = await ipfsKV.add(content);
+  return `https://cloudflare-ipfs.com/ipfs/${cid}`;
 }
 
 async function save(content, type) {
