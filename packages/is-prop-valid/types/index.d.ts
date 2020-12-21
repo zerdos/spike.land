@@ -1,2 +1,2 @@
-export default isPropValid
-declare const isPropValid: (string: any) => boolean
+export default isPropValid;
+declare const isPropValid: import("@emotion/memoize").Fn<boolean>;

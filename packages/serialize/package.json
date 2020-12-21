@@ -33,5 +33,5 @@
     "./dist/emotion-serialize.cjs.js": "./dist/emotion-serialize.browser.cjs.js",
     "./dist/emotion-serialize.esm.js": "./dist/emotion-serialize.browser.esm.js"
   },
-  "gitHead": "c1775cb890de5c7f2e4b8cb1d8585756371f0b09"
+  "gitHead": "d9f00a1a89dd11679b1b7206f9cf08980d2f5bff"
 }

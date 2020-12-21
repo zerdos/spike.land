@@ -233,27 +233,32 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "@zedvision/emotion-react/index.d.ts",
-        url: "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/index.d.ts",
+        url:
+          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@zedvision/emotion-react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/jsx-namespace.d.ts",
+        url:
+          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@zedvision/emotion-react/css-prop.d.ts",
-        url: "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/css-prop.d.ts",
+        url:
+          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@zedvision/emotion-react/helper.d.ts",
-        url: "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/helper.d.ts",
+        url:
+          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@zedvision/emotion-react/theming.d.ts",
-        url: "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/theming.d.ts",
+        url:
+          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {

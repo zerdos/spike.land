@@ -337,12 +337,20 @@ var startMonaco = function (_a) {
                         {
                             name: "@emotion/styled/base.d.ts",
                             url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
-                            depend: ["@zedvision/emotion-react", "@emotion/serialize", "react"],
+                            depend: [
+                                "@zedvision/emotion-react",
+                                "@emotion/serialize",
+                                "react",
+                            ],
                         },
                         {
                             name: "@emotion/styled/index.d.ts",
                             url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
-                            depend: ["@zedvision/emotion-react", "@emotion/serialize", "react"],
+                            depend: [
+                                "@zedvision/emotion-react",
+                                "@emotion/serialize",
+                                "react",
+                            ],
                         },
                         {
                             name: "@emotion/cache/index.d.ts",

@@ -1,9 +1,7 @@
-export const extractCritical: (
-  html: string
-) => {
-  html: string
-  ids: any[]
-  css: string
-}
-export const renderStylesToString: (html: string) => string
-export const renderStylesToNodeStream: () => any
+export const extractCritical: (html: string) => {
+    html: string;
+    ids: never[];
+    css: string;
+};
+export const renderStylesToString: (html: string) => string;
+export const renderStylesToNodeStream: () => any;

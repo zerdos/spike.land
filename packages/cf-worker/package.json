@@ -30,12 +30,12 @@
     "homepage": "https://code.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "@cloudflare/workers-types": "2.1.0",
+        "@cloudflare/workyers-types": "2.1.0",
         "@cloudflare/wrangler": "1.12.3",
         "@types/uuid": "8.3.0",
         "esbuild": "0.8.26"
     },
-    "gitHead": "c1775cb890de5c7f2e4b8cb1d8585756371f0b09",
+    "gitHead": "d9f00a1a89dd11679b1b7206f9cf08980d2f5bff",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
     "license": "BSD-3-Clause",
     "private": false,

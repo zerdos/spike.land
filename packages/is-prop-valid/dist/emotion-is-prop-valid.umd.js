@@ -1,22 +1,2 @@
-!(function (e, o) {
-  'object' == typeof exports && 'undefined' != typeof module
-    ? (module.exports = o(require('@emotion/memoize')))
-    : 'function' == typeof define && define.amd
-    ? define(['@emotion/memoize'], o)
-    : ((e || self).isPropValid = o(e.memoize))
-})(this, function (e) {
-  function o(e) {
-    return e && 'object' == typeof e && 'default' in e ? e : { default: e }
-  }
-  var t = o(e),
-    n = codegen.require('./props')
-  return t.default(function (e) {
-    return (
-      n.test(e) ||
-      (111 === e.charCodeAt(0) &&
-        110 === e.charCodeAt(1) &&
-        e.charCodeAt(2) < 91)
-    )
-  })
-})
+!function(e,n){"object"==typeof exports&&"undefined"!=typeof module?module.exports=n():"function"==typeof define&&define.amd?define(n):(e||self).emotionIsPropValid=n()}(this,function(){function e(e){var n=Object.create(null);return function(o){return void 0===n[o]&&(n[o]=e(o)),n[o]}}var n=codegen.require("./props");return e(function(e){return n.test(e)||111===e.charCodeAt(0)&&110===e.charCodeAt(1)&&e.charCodeAt(2)<91})});
 //# sourceMappingURL=emotion-is-prop-valid.umd.js.map
