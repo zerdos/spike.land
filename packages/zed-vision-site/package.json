@@ -1,5 +1,5 @@
 {
-  "name": "@zed-vision/zed-vision-site",
+  "name": "@zedvision/zedvision-site",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install --legacy-peer-deps",
     "build": "yarn gatsby build && cp -ar blog/. public/",
