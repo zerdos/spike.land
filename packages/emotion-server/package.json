@@ -19,7 +19,7 @@
     "build": "microbundle build"
   },
   "dependencies": {
-    "@emotion/utils": "^0.0.5",
+    "@emotion/utils": "^0.11.0",
     "html-tokenize": "^2.0.1",
     "multipipe": "^4.0.0",
     "through": "^2.3.8"
