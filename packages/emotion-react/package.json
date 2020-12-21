@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-react",
-  "version": "10.10.18",
+  "version": "10.10.19",
   "main": "dist/emotion-react.cjs.js",
   "module": "dist/emotion-react.esm.js",
   "browser": {
@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
-    "@zedvision/emotion-cache": "^10.10.18",
-    "@zedvision/emotion-serialize": "^10.10.18",
-    "@zedvision/emotion-sheet": "^10.10.18",
+    "@zedvision/emotion-cache": "^10.10.19",
+    "@zedvision/emotion-serialize": "^10.10.19",
+    "@zedvision/emotion-sheet": "^10.10.19",
     "@zedvision/emotion-utils": "^10.10.18",
     "@zedvision/emotion-weak-memoize": "^10.10.18",
     "esbuild": "^0.8.26",
@@ -56,10 +56,10 @@
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@types/react": "^17.0.0",
-    "@zedvision/emotion-css": "^10.10.15",
-    "@zedvision/emotion-css-prettifier": "^10.10.18",
-    "@zedvision/emotion-server": "^10.10.18",
-    "@zedvision/emotion-styled": "^10.10.18",
+    "@zedvision/emotion-css": "^10.10.19",
+    "@zedvision/emotion-css-prettifier": "^10.10.19",
+    "@zedvision/emotion-server": "^10.10.19",
+    "@zedvision/emotion-styled": "^10.10.19",
     "dtslint": "^4.0.6",
     "html-tag-names": "^1.1.5",
     "react": "17.0.1",

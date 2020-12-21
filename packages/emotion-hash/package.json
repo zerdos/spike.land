@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-hash",
-  "version": "10.10.18",
+  "version": "10.10.19",
   "description": "A MurmurHash2 implementation",
   "main": "dist/emotion-hash.cjs.js",
   "module": "dist/emotion-hash.esm.js",
