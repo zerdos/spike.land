@@ -1,4 +1,4 @@
-import styled from "@zedvision/emotion-styled";
+import styled from "@emotion/styled";
 
 export const Header = styled.div`
     background: #3f51b5;

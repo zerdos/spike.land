@@ -3,7 +3,7 @@ import { normalize } from "./normalize-css.tsx";
 import { fonts } from "./fonts.ts";
 
 /** @jsx jsx */
-import { css, Global, jsx } from "@zedvision/emotion-react";
+import { css, Global, jsx } from "@emotion/react";
 
 import React from "react";
 

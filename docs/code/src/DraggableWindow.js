@@ -7,7 +7,7 @@ export const DraggableWindow = () => React.createElement("div", {}, "Ello");
 import {
   css,
   jsx,
-} from "https://cdn.skypack.dev/@zedvision/emotion-react@10.10.32/dist/emotion-react.modern.js";
+} from "https://cdn.skypack.dev/@zedvision/emotion-react@10.10.34/dist/emotion-react.modern.js";
 
 export { jsx };
 

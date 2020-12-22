@@ -107,8 +107,20 @@ define("./service-worker.js",['./workbox-ac194f0a'], function (workbox) { 'use s
    */
 
   workbox.precacheAndRoute([{
+    "url": "/60279455279f06c16ede.worker.js",
+    "revision": null
+  }, {
+    "url": "/f55a1c9de97ceb28d5fd.worker.js",
+    "revision": null
+  }, {
     "url": "/render-page.js",
-    "revision": "5f3b04571358a009bbf317dc81fd7c15"
+    "revision": "32941e69bd125ff4c68a0db10479f5e2"
+  }, {
+    "url": "/static/forkMe-1a2bcb7dd2c870c3afe5d50466500c18.png",
+    "revision": "1a2bcb7dd2c870c3afe5d50466500c18"
+  }, {
+    "url": "/static/zed-profile-pic-cd941e033fafca9e98b23dae7e5a0ccc.jpg",
+    "revision": "cd941e033fafca9e98b23dae7e5a0ccc"
   }], {});
 
 });
