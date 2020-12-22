@@ -51,7 +51,7 @@ function formatter(code) {
 }
 
 export async function run(mode = "window") {
-  console.log("run");
+  console.log("Runnnner");
   session.code = formatter(await getCodeToLoad());
   session.transpiled = await transpileCode(session.code);
 
