@@ -1,12 +1,7 @@
 import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
-import type Monaco from "monaco-editor";
-import type Ace from "ace-builds";
+import type * as Monaco from "monaco-editor";
 
-interface ISmartMonacoEditor {
-  monaco: Monaco;
-  editor: Monaco.Editor.IStandaloneCodeEditor;
-}
 
 interface StartMonacoProps {
   onChange: (code: string) => void;
@@ -17,14 +12,11 @@ interface StartMonacoProps {
   };
 }
 
-declare interface SmartMonaco {
-  (props: StartMonacoProps): Promise<ISmartMonacoEditor>;
-}
-
-export const startMonaco: SmartMonaco = async (
-  { onChange, code, language, options },
+export default  async (
+  { onChange, code, language, options }: StartMonacoProps
 ) => {
-  let aceEditor: Ace.Editor = null;
+
+
   const { document } = window;
   let container = document.getElementById("container");
 
@@ -44,9 +36,9 @@ export const startMonaco: SmartMonaco = async (
     aceEl.id = "ace";
     window.document.body.appendChild(aceEl);
 
-    await importScript(
+   await importScript(
       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
-    );
+    ) 
 
     language === "typescript"
       ? await importScript(
@@ -66,17 +58,15 @@ export const startMonaco: SmartMonaco = async (
     );
     container!.style.setProperty("display", "none");
 
-    const { ace } = (window as unknown as {
-      ace: {
-        edit: (container: string) => Ace.Editor;
-      };
-    });
-
-    aceEditor = ace.edit("ace");
+        //@ts-expect-error
+ 
+    const aceEditor = window.ace.edit("ace");
     aceEditor.getSession().setMode("ace/mode/typescript");
 
     const setThemeForAce = (wait: number) =>
       setTimeout(() => {
+               //@ts-expect-error
+ 
         const aceEditor = ace.edit("ace");
         const theme = aceEditor.getTheme();
         if (theme !== "ace/theme/monokai ") {
@@ -171,12 +161,17 @@ export const startMonaco: SmartMonaco = async (
   modules.editor.onDidChangeModelContent(() =>
     onChange(modules.editor.getValue())
   );
-
+       //@ts-expect-error
+ 
   aceEditor && aceEditor.session.on("change", function () {
+           //@ts-expect-error
+ 
     const value = aceEditor.getValue();
     modules.editor.setValue(value);
     onChange(value);
   });
+        //@ts-expect-error
+ 
   aceEditor &&
     document.getElementById("container")!.replaceWith(
       document.getElementById("ace")!,

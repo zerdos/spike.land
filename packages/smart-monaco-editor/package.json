@@ -2,19 +2,15 @@
     "name": "@zedvision/smart-monaco-editor",
     "version": "10.11.1",
     "description": "Monaco Editor with auto type downloads mostly for React",
-    "exports": "./lib/editor.js",
     "private": false,
     "sideEffects": false,
+    "source": "./src/editor.ts",
+    "exports": "./dist/editor.modern.js",
     "scripts": {
+        "watch": "yarn microbundle watch",
         "npm:install": "rm -rf package-lock.json && npm install",
-        "prebuild": "deno fmt src && yarn tsc || echo done",
-        "build": "echo done",
-        "xprebuild": "deno fmt src && deno bundle --no-check --unstable --import-map ../../import_map.json src/editor.ts lib/editor.js",
-        "xxbuild": "yarn min",
-        "xxmin": "deno fmt dist && yarn esbuild --minify lib/editor.js --outfile=lib/editor.min.js ",
-        "serve-https": "file_server --cert .certs/localhost.cert --key .certs/localhost.key --host 0.0.0.0 .",
-        "clean": "rm -rf lib screenshot* && mkdir lib",
-        "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
+        "build": "microbundle build",  
+      "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
         "format": "deno fmt src"
     },
     "keywords": [
@@ -36,13 +32,12 @@
     "devDependencies": {
         "ace-builds": "1.4.12",
         "capture-website": "1.2.6",
+        "microbundle": "^0.13.0",
         "monaco-editor": "0.21.2"
     },
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
-    "dependencies": {
-        "tslib": "2.0.3"
-    }
+    "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
+
 }

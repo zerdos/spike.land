@@ -7,7 +7,6 @@ export const importScript = (src, res = []) => {
       new Promise(function (resolve, reject) {
         const s = window.document.createElement("script");
         s.src = src;
-        s.async = "async";
         s.type = "application/javascript";
         s.onload = (() => {
           if (res.length === 0) {
@@ -21,8 +20,5 @@ export const importScript = (src, res = []) => {
         s.onerror = reject;
         window.document.head.appendChild(s);
       });
-  } else if (prefix === "@zedvisi") {
-    if (!cache[src]) cache[src] = import(`https://unpkg.com/${src}`);
-    return cache[src];
   }
 };

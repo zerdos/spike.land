@@ -1,4 +1,4 @@
-import { startMonaco } from "https://unpkg.com/@zedvision/smart-monaco-editor@10.11.1/lib/editor.js";
+import startMonaco from "@zedvision/smart-monaco-editor";
 import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js";
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
@@ -11,6 +11,9 @@ import { shaDB } from "./db.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { createJsBlob, shareItAsHtml } from "./share.js";
+
+
+run("windwow");
 
 const session = {
   hydrated: false,

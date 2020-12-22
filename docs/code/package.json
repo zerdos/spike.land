@@ -6,6 +6,7 @@
     "files": [
         "**/*"
     ],
+    "source": ""
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
@@ -13,7 +14,8 @@
         "build:sw": "yarn esbuild --loader:.ts=ts src/sw.ts --outfile=sw.js",
         "obuild:sw": "deno bundle  --unstable --import-map ../../import_map.json --no-check src/sw.ts sw.js",
         "xxbuild": "cp -rf ../smart-monaco-editor/lib/editor.min.js dist/ && deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js",
-        "build": "deno fmt src && yarn build:sw",
+        "build": "microbundle build",
+        "watch": "microbundle watch",
         "minify": "yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
