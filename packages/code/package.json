@@ -6,8 +6,8 @@
     "files": [
         "**/*"
     ],
-    "exports": "./diff/code.js",
-    "source": "./src/codeRunner.js",
+    "source": "./src/codeLoader.js",
+    "exports": "./dist/codeLoader.modern.js",
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
@@ -36,7 +36,11 @@
     "homepage": "https://code.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "esbuild": "0.8.26"
+        "comlink": "^4.3.0",
+        "esbuild": "0.8.26",
+        "ipfs": "^0.52.3",
+        "prettier": "^2.2.1",
+        "react": "^17.0.1"
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
@@ -46,9 +50,14 @@
         "access": "public"
     },
     "dependencies": {
+        "@babel/standalone": "^7.12.11",
+        "@emotion/react": "^11.1.4",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
+        "framer-motion": "^3.1.1",
+        "idb": "^5.0.8",
         "react": "^17.0.1",
-        "react-dom": "^17.0.1"
+        "react-dom": "^17.0.1",
+        "react-dom-server": "^0.0.5"
     }
 }

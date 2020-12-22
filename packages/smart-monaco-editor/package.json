@@ -5,7 +5,7 @@
     "private": false,
     "sideEffects": false,
     "source": "./src/editor.ts",
-    "exports": "./dist/editor.modern.js",
+    "exports": "./dist/smart-monaco-editor.modern.js",
     "scripts": {
         "watch": "yarn microbundle watch",
         "npm:install": "rm -rf package-lock.json && npm install",
