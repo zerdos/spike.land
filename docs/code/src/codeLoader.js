@@ -4,15 +4,13 @@ import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js"
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
-
-import { DraggableWindow, jsx } from "./DraggableWindow.js";
+import { renderDraggableWindow } from "./DraggableWindow.js";
 
 import { getProjects, saveCode } from "./data.js";
 import { shaDB } from "./db.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { createJsBlob, shareItAsHtml } from "./share.js";
-
 
 const session = {
   hydrated: false,
@@ -51,7 +49,7 @@ function formatter(code) {
   }
 }
 
-export async function run(mode = "window") {
+export async function run(mode = "window", { React, ReactDOM }) {
   console.log("Runnnner");
   session.code = formatter(await getCodeToLoad());
   session.transpiled = await transpileCode(session.code);
@@ -70,12 +68,7 @@ export async function run(mode = "window") {
       window.open(link);
     };
 
-    ReactDOM.render(
-      jsx(DraggableWindow, {
-        onShare,
-      }),
-      window.document.getElementById("dragabbleWindow"),
-    );
+    renderDraggableWindow({ ReactDOM, React, onShare });
   }
 
   const transpiled = await transpileCode(session.code);
@@ -87,7 +80,7 @@ export async function run(mode = "window") {
     onChange: (c) => runner(formatter(c)),
   });
 
-  async function runner(cd) {
+  async function runner(c) {
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
       if (session.transpiled === transpiled) return;

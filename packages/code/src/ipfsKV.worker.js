@@ -19,21 +19,19 @@ importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
 
 let ipfsNode;
 
-try{
+try {
+  const ipfsKV = {
+    add: async (data) => {
+      ipfsNode = ipfsNode || await Ipfs.create();
+      const { cid } = await ipfsNode.add(Ipfs.urlSource(data));
+      return cid.string;
+    },
+    get: async (key) => {
+      return Promise.resolve("degjreoige");
+    },
+  };
 
-const ipfsKV = {
-  add: async (data) => {
-    ipfsNode = ipfsNode || await Ipfs.create();
-    const { cid } = await ipfsNode.add(Ipfs.urlSource(data));
-    return cid.string;
-  },
-  get: async (key) => {
-    return Promise.resolve("degjreoige");
-  },
-};
-
-Comlink.expose(ipfsKV);
-}
-catch{
+  Comlink.expose(ipfsKV);
+} catch {
   //just noise reducing c:)
 }

@@ -1,4 +1,4 @@
-import { openDB } from "idb"
+import { openDB } from "idb";
 import { getDbObj } from "./getDbObj";
 
 export function getDB() {

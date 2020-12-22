@@ -45,7 +45,8 @@ export const getHtml = ({ HTML, css, js }) => {
 `;
 };
 
-export const getCodeForImport = (link) => `
+export const getCodeForImport = (link) =>
+  `
 link = fetch("${link}")
     .then(data=>data.text())
             </script><script type="module">link.then(async (text) => {

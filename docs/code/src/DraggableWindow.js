@@ -1,14 +1,17 @@
-
-/** @jsx jsx */
-
-
-
 import {motion} from 'https://cdn.skypack.dev/framer-motion';
 import { css, jsx } from "https://cdn.skypack.dev/@emotion/react@11.1.4";
+/** @jsx jsx */
+ 
 
-export { jsx };
+export const RenderDraggableWindow = ({React, ReactDOM, onShare})=>{
+  ReactDOM.render(
+    jsx(DraggableWindow, {
+      onShare,
+    }),
+    window.document.getElementById("dragabbleWindow")
+  );
 
-export const DraggableWindow = ({ onShare }) => {
+function DraggableWindow({ onShare }){
   return jsx(
     "div",
     null,
@@ -82,6 +85,6 @@ export const DraggableWindow = ({ onShare }) => {
     `,
         id: "zbody",
       }),
-    ),
-  );
-};
+    
+      
+      ),null)}}

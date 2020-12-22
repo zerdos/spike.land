@@ -82,7 +82,7 @@
     const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
           (async()=>{
               const { run } = await import(isLocalhost?"./dist/codeLoader.min.modern.js":"https://unpkg.com/@zedvision/code@10.11.0/src/codeLoader.js");
-        run("window");
+        run("window", window);
         })();
   </script>
 </body>

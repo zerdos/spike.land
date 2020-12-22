@@ -3,7 +3,17 @@ import { css, Global, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import React from "react";
 
-export const DraggableWindow: React.FC<{ onShare: () => void }> = (
+
+export const RenderDraggableWincow = ({React, ReactDOM, onShare})=>{
+
+  ReactDOM.render(
+    jsx(DraggableWindow, {
+      onShare,
+    }),
+    window.document.getElementById("dragabbleWindow"),
+  );
+
+  const DraggableWindow: React.FC<{ onShare: () => void }> = (
   { onShare },
 ) => {
   const [scale, changeScale] = React.useState(100);
