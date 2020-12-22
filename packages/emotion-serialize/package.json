@@ -12,7 +12,8 @@
   },
   "scripts": {
     "test:typescript": "dtslint types",
-    "build": "microbundle build"
+    "build":  "microbundle build",
+"clean": "rm -rf dist"
   },
   "dependencies": {
     "@zedvision/emotion-hash": "^10.10.22",

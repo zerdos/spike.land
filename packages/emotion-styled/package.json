@@ -10,7 +10,8 @@
   "repository": "https://github.com/@emotion/js/emotion/tree/master/packages/styled",
   "scripts": {
     "test:typescript": "dtslint types",
-    "build": "microbundle build"
+    "build":  "microbundle build",
+"clean": "rm -rf dist"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",

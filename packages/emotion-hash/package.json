@@ -17,7 +17,8 @@
   ],
   "scripts": {
     "test:typescript": "dtslint types",
-    "build": "microbundle build"
+    "build":  "microbundle build",
+"clean": "rm -rf dist"
   },
   "devDependencies": {
     "dtslint": "^4.0.6"

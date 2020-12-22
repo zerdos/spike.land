@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "test:typescript": "dtslint types",
-    "build": "microbundle build"
+    "build":  "microbundle build",
+"clean": "rm -rf dist"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.1.2",

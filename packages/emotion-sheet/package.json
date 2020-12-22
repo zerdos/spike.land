@@ -12,7 +12,8 @@
   "license": "MIT",
   "scripts": {
     "test:typescript": "dtslint types",
-    "build": "microbundle build"
+    "build":  "microbundle build",
+"clean": "rm -rf dist"
   },
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/sheet",
   "publishConfig": {

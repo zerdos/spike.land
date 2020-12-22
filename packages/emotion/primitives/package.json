@@ -6,7 +6,8 @@
   "module": "dist/emotion-primitives.esm.js",
   "scripts": {
     "test:typescript": "exit 0",
-    "build": "microbundle build"
+    "build":  "microbundle build",
+"clean": "rm -rf dist"
   },
   "files": [
     "src",

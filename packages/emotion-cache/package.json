@@ -12,7 +12,8 @@
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/cache",
   "scripts": {
     "test:typescript": "dtslint types",
-    "build": "microbundle build"
+    "build":  "microbundle build",
+"clean": "rm -rf dist"
   },
   "dependencies": {
     "@zedvision/emotion-memoize": "^10.10.22",
