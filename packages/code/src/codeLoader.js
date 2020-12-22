@@ -73,7 +73,6 @@ export async function run(mode = "window") {
       }),
       window.document.getElementById("dragabbleWindow"),
     );
-    session.HTML = window.document.getElementById("dragabbleWindow").innerHTML;
   }
 
   const transpiled = await transpileCode(session.code);
@@ -191,6 +190,7 @@ export async function run(mode = "window") {
     const Element = (await import(createJsBlob(codeToHydrate))).default;
 
     ReactDOM.render(Element(), root);
+    session.HTML = root.innerHTML;
 
     return !session.preRendered;
   }

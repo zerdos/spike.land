@@ -32,8 +32,7 @@ export const getHtml = ({ HTML, css, js }) => {
 </style>
 </head>
 <body>
-<div id="zbody"></div>
-    ${HTML}
+<div id="zbody">    ${HTML}
 </div>
 <script type="module">
    ${js}
@@ -48,12 +47,12 @@ export const getCodeForImport = (link) => {
   import ReactDOM from "https://cdn.skypack.dev/react-dom"
    
   fetch("${link}")
-    .then(data=>data.blob())
-    .then(async(blob)=>{
-    const App = (await import(URL.createObjectURL(blob))).default;
+    .then(data=>data.text())
+    .then(async(text)=>{
+    const App = (await import(URL.createObjectURL(new Blob([text],{type: "application/javascript"})))).default;
  
     ReactDOM.render(App(), document.body.children[0]);
-  })'
+  })
   
 
 `;
