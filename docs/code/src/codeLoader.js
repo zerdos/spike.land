@@ -1,10 +1,11 @@
 import startMonaco from "@zedvision/smart-monaco-editor";
 import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js";
+
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
 
-import { DraggableWindow, jsx, ReactDOM } from "./DraggableWindow.js";
+import { DraggableWindow, jsx } from "./DraggableWindow.js";
 
 import { getProjects, saveCode } from "./data.js";
 import { shaDB } from "./db.js";

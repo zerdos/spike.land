@@ -2,8 +2,7 @@ export const defaultProps = {
   events: ["reset", ...(new Array(8).fill("+1"))],
 };
 
-export const counterExample = `import React, { FC, useState } from "react";
-import ReactDOM from "react-dom";
+export const counterExample = `import { FC, useState } from "react";
 
 const Counter: FC<{ initial?: number }> = (
   { initial = 0 },

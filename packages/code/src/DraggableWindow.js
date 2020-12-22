@@ -1,17 +1,16 @@
 
 /** @jsx jsx */
-import React from "https://cdn.skypack.dev/react";
-import ReactDOM from "https://cdn.skypack.dev/react-dom";
+
+
+
 import {motion} from 'https://cdn.skypack.dev/framer-motion';
 import { css, jsx } from "https://cdn.skypack.dev/@emotion/react@11.1.4";
 
 export { jsx };
 
-export {ReactDOM}
-
 export const DraggableWindow = ({ onShare }) => {
   return jsx(
-    React.Fragment,
+    "div",
     null,
     jsx(
       motion.div,

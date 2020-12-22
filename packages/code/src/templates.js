@@ -25,6 +25,7 @@ export const getHtml = ({ HTML, css, js }) => {
 <link rel="icon" type="image/png" href="https://zed.vision/zed-icon-big.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <meta name="Description" content="Generated with code.zed.vision">
 <style>
     ${bodyStylesFix}
@@ -32,28 +33,28 @@ export const getHtml = ({ HTML, css, js }) => {
 </style>
 </head>
 <body>
-<div id="zbody">    ${HTML}
+<div id="zbody">
+  ${HTML}
 </div>
-<script type="module">
-   ${js}
-</script>
+
+<script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
+<script>${js}</script>
 </body>
 </html>
 `;
 };
 
-export const getCodeForImport = (link) => {
-  return `
-  import ReactDOM from "https://cdn.skypack.dev/react-dom"
-   
-  fetch("${link}")
+export const getCodeForImport = (link) => `
+link = fetch("${link}")
     .then(data=>data.text())
-    .then(async(text)=>{
-    const App = (await import(URL.createObjectURL(new Blob([text],{type: "application/javascript"})))).default;
- 
-    ReactDOM.render(App(), document.body.children[0]);
-  })
-  
-
+            </script><script type="module">link.then(async (text) => {
+              const App = (
+                await import(URL.createObjectURL(
+                  new Blob([text], { type: "application/javascript" }
+                  ))
+                )).default;
+              ReactDOM.render(App(), document.body.children[0]);
+            })
+            
 `;
-};
