@@ -60,10 +60,10 @@ export default  async (
       "block",
     );
     container!.style.setProperty("display", "none");
-
-    //@ts-expect-error
     
-    const aceEditor = window.ace.edit("ace");
+    //@ts-ignore
+    aceEditor = window.ace.edit("ace") as AceEditor;
+      //@ts-expect-error
     aceEditor.getSession().setMode("ace/mode/typescript");
 
     const setThemeForAce = (wait: number) =>
@@ -82,8 +82,9 @@ export default  async (
       }, wait);
 
     setThemeForAce(100);
-
+//@ts-expect-error
     aceEditor && aceEditor.setValue(code);
+  //@ts-ignore
     aceEditor && aceEditor.blur();
   }
 
@@ -173,7 +174,7 @@ if (isMobile()){
     modules.editor.setValue(value);
     onChange(value);
   });
-  //@ts-expect-error
+
   aceEditor &&
     document.getElementById("container")!.replaceWith(
       document.getElementById("ace")!,
