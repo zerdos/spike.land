@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "mc"
   ],
   "scripts": {
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
@@ -29,8 +29,6 @@
   },
   "dependencies": {
     "@babel/standalone": "7.12.11",
-    "@zedvision/emotion-react": "10.10.20",
-    "@zedvision/emotion-styled": "10.10.20",
     "diff": "5.0.0",
     "framer-motion": "3.1.1",
     "idb": "5.0.8",
@@ -46,8 +44,6 @@
     "@types/prop-types": "15.7.3",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
-    "@zedvision/emotion-cache": "10.10.20",
-    "@zedvision/emotion-utils": "10.10.18",
     "binary-install": "0.1.0",
     "csstype": "3.0.5",
     "husky": "4.3.6",

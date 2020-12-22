@@ -49,9 +49,6 @@
       "optional": true
     }
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "private": false,
   "devDependencies": {
     "@babel/core": "^7.12.10",
