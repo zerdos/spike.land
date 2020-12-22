@@ -1,4 +1,4 @@
-# @emotion/is-prop-valid
+# @zedvision/emotion-is-prop-valid
 
 ## 1.0.0
 

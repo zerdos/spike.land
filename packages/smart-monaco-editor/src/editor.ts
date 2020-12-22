@@ -218,7 +218,8 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "@zedvision/emotion-styled/base.d.ts",
-        url: "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/base.d.ts",
+        url:
+          "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/base.d.ts",
         depend: [
           "@zedvision/emotion-react",
           "@zedvision/emotion-serialize",
@@ -227,7 +228,8 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "@zedvision/emotion-styled/index.d.ts",
-        url: "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/index.d.ts",
+        url:
+          "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/index.d.ts",
         depend: [
           "@zedvision/emotion-react",
           "@zedvision/emotion-serialize",
@@ -271,13 +273,13 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "@zedvision/emotion-serialize/index.d.ts",
-        url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@zedvision/emotion-serialize@1.0.0/types/index.d.ts",
 
         depend: ["@zedvision/emotion-utils", "csstype"],
       },
       {
         name: "@zedvision/emotion-utils/index.d.ts",
-        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@zedvision/emotion-utils@1.0.0/types/index.d.ts",
         depend: [],
       },
       {

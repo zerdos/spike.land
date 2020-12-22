@@ -1,4 +1,4 @@
-# @emotion/primitives-core
+# @zedvision/emotion-primitives-core
 
 ## 11.0.0
 

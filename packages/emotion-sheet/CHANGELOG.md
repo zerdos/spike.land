@@ -1,4 +1,4 @@
-# @emotion/sheet
+# @zedvision/emotion-sheet
 
 ## 1.0.1
 

@@ -5,7 +5,8 @@
   "main": "dist/emotion-primitives.cjs.js",
   "module": "dist/emotion-primitives.esm.js",
   "scripts": {
-    "test:typescript": "exit 0"
+    "test:typescript": "exit 0",
+    "build": "microbundle build"
   },
   "files": [
     "src",
@@ -14,8 +15,8 @@
   ],
   "dependencies": {
     "@emotion/babel-plugin": "^11.1.2",
-    "@emotion/is-prop-valid": "^1.0.0",
-    "@emotion/primitives-core": "^11.0.0"
+    "@zedvision/emotion-is-prop-valid": "^10.10.19",
+    "@zedvision/emotion-primitives-core": "^10.10.21"
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",

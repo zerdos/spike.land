@@ -1,4 +1,4 @@
-# @emotion/utils
+# @zedvision/emotion-utils
 
 ## 1.0.0
 

@@ -15,13 +15,13 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@emotion/babel-plugin": "^11.1.2",
-    "@emotion/is-prop-valid": "^1.0.0",
-    "@emotion/serialize": "^1.0.0",
-    "@emotion/utils": "^1.0.0"
+    "@zedvision/emotion-is-prop-valid": "^10.10.19",
+    "@zedvision/emotion-serialize": "^10.10.21",
+    "@zedvision/emotion-utils": "^10.10.21"
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",
-    "@zedvision/emotion-react": "^10.10.10",
+    "@zedvision/emotion-react": "^10.10.21",
     "react": ">=17.0.1"
   },
   "peerDependenciesMeta": {

@@ -4,7 +4,7 @@ import 'test-utils/next-env'
 import { jsx, css } from '@zedvision/emotion-react'
 import { serializeStyles } from '@zedvision/emotion-serialize'
 import * as renderer from 'react-test-renderer'
-const utils = require('@emotion/utils')
+const utils = require('@zedvision/emotion-utils')
 
 const spy = jest.spyOn(utils, 'insertStyles')
 

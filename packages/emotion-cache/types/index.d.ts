@@ -9,4 +9,4 @@ export type Options = {
 export default createCache;
 import { StylisPlugin } from "./types";
 declare function createCache(options: Options): EmotionCache;
-import { EmotionCache } from "../../../node_modules/@emotion/utils/types";
+import { EmotionCache } from "../../../node_modules/@zedvision/emotion-utils/types";

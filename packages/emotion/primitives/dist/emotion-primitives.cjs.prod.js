@@ -3,9 +3,9 @@
 Object.defineProperty(exports, '__esModule', { value: true })
 
 var reactPrimitives = require('react-primitives')
-var primitivesCore = require('@emotion/primitives-core')
+var primitivesCore = require('@zedvision/emotion-primitives-core')
 require('react')
-var isPropValid = require('@emotion/is-prop-valid')
+var isPropValid = require('@zedvision/emotion-is-prop-valid')
 
 function _interopDefault(e) {
   return e && e.__esModule ? e : { default: e }

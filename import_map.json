@@ -7,7 +7,7 @@
       "@zedvision/emotion-react": "./node_modules/@zedvision/emotion-react/dist/emotion-react.browser.cjs.js",
       "@emotion/styled": "./node_modules/@emotion/styled/dist/emotion-styled.browser.cjs.js",
       "@zedvision/emotion-cache": "./node_modules/@emotion/cache/dist/emotion-cache.browser.cjs.js",
-      "@emotion/serialize": "./node_modules/@emotion/serialize/dist/emotion-serialize.browser.cjs.js",
+      "@zedvision/emotion-serialize": "./node_modules/@zedvision/emotion-serialize/dist/emotion-serialize.browser.cjs.js",
       "./jsx-namespace": "./node_modules/yar@zedvision/emotion-react/types/jsx-namespace.d.ts",
       "@zedvision/smart-monaco-editor": "./packages/smart-monaco-editor/src/editor.ts",
       "@zedvision/qrious": "./node_modules/@zedvision/qrious/dist/qrious.min.js",

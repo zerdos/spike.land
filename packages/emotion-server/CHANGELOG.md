@@ -13,7 +13,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
-  - @emotion/utils@1.0.0
+  - @zedvision/emotion-utils@1.0.0
 
 ## 11.0.0-rc.0
 
@@ -25,7 +25,7 @@
 
 - Updated dependencies [[`9c4ebc16`](https://github.com/@zedvision/emotion-js/emotion/commit/9c4ebc160471097c5d04fb92dba3ed0df870bb63)]:
   - @emotion/css@11.0.0-rc.0
-  - @emotion/utils@1.0.0-rc.0
+  - @zedvision/emotion-utils@1.0.0-rc.0
 
 ## 11.0.0-next.19
 
@@ -46,7 +46,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899)]:
-  - @emotion/utils@1.0.0-next.1
+  - @zedvision/emotion-utils@1.0.0-next.1
   - @emotion/css@11.0.0-next.16
 
 ## 11.0.0-next.15
@@ -70,7 +70,7 @@
 - Updated dependencies [[`5e803106`](https://github.com/@zedvision/emotion-js/emotion/commit/5e803106d391b7c036bdf634318b80337a1d9b70), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
   - @emotion/babel-plugin@11.0.0-next.13
   - @emotion/css@11.0.0-next.13
-  - @emotion/utils@1.0.0-next.0
+  - @zedvision/emotion-utils@1.0.0-next.0
 
 ## 11.0.0-next.12
 

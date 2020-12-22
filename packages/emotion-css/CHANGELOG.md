@@ -66,14 +66,14 @@
 
 ### Patch Changes
 
-- [`6d32d82b`](https://github.com/@zedvision/emotion-js/emotion/commit/6d32d82beb45b18e5f18a37932b862ad19b17044) [#1848](https://github.com/@zedvision/emotion-js/emotion/pull/1848) Thanks [@osdiab](https://github.com/osdiab)! - Added `speedy` method to the TS type declaration of the `sheet` object available on Emotion instances. In addition to that - `StyleSheet` type is no longer exported from this package and instead `CSSStyleSheet` is available now. The `StyleSheet` type might still be imported from `@emotion/sheet`, but it has no `speedy` method and thus it's not the same as what is available in this package as `CSSStyleSheet`.
+- [`6d32d82b`](https://github.com/@zedvision/emotion-js/emotion/commit/6d32d82beb45b18e5f18a37932b862ad19b17044) [#1848](https://github.com/@zedvision/emotion-js/emotion/pull/1848) Thanks [@osdiab](https://github.com/osdiab)! - Added `speedy` method to the TS type declaration of the `sheet` object available on Emotion instances. In addition to that - `StyleSheet` type is no longer exported from this package and instead `CSSStyleSheet` is available now. The `StyleSheet` type might still be imported from `@zedvision/emotion-sheet`, but it has no `speedy` method and thus it's not the same as what is available in this package as `CSSStyleSheet`.
 
 - Updated dependencies [[`c672175b`](https://github.com/@zedvision/emotion-js/emotion/commit/c672175b52e86de43b3d4092a8fe34b2023ceae8), [`a8eb4e75`](https://github.com/@zedvision/emotion-js/emotion/commit/a8eb4e75eed26763dc4f82ddd9bb49af4552768b), [`e3d7db87`](https://github.com/@zedvision/emotion-js/emotion/commit/e3d7db87deaac95817404760112417ac1fa1b56d), [`8a896a31`](https://github.com/@zedvision/emotion-js/emotion/commit/8a896a31434a1d2f69e1f1467c446c884c929387), [`42df3f3b`](https://github.com/@zedvision/emotion-js/emotion/commit/42df3f3bc01526eed61cedba106d86b9e3807f9d), [`c5b12d90`](https://github.com/@zedvision/emotion-js/emotion/commit/c5b12d90316477e95ce3680a3c745cde328a14c1), [`4a891bf6`](https://github.com/@zedvision/emotion-js/emotion/commit/4a891bf6a30e3bb37f8f32031fa75a571c637d9c), [`5e803106`](https://github.com/@zedvision/emotion-js/emotion/commit/5e803106d391b7c036bdf634318b80337a1d9b70), [`b8476e08`](https://github.com/@zedvision/emotion-js/emotion/commit/b8476e08af4a2e8de94a112cb0daf6e8e4d56fe1), [`1e4a741d`](https://github.com/@zedvision/emotion-js/emotion/commit/1e4a741de6424d3d9c1f3ca9695e1953bed3a194), [`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899), [`0a4a22ff`](https://github.com/@zedvision/emotion-js/emotion/commit/0a4a22ffcfaa49d09a88856ef2d51e0d53e31b6d), [`5c55fd17`](https://github.com/@zedvision/emotion-js/emotion/commit/5c55fd17dcaec84d1f5d5d13ae90dd336d7e4403), [`b0ad4f0c`](https://github.com/@zedvision/emotion-js/emotion/commit/b0ad4f0c628813a42c4637857be9a969429db6f0), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`c65c5d88`](https://github.com/@zedvision/emotion-js/emotion/commit/c65c5d887002d76557eaefcb98091d795b13f9a9), [`5c7ec859`](https://github.com/@zedvision/emotion-js/emotion/commit/5c7ec85904633a11185066fa591dc8969f3f2ff2), [`a085003d`](https://github.com/@zedvision/emotion-js/emotion/commit/a085003d4c8ca284c116668d7217fb747802ed85), [`dfe79aca`](https://github.com/@zedvision/emotion-js/emotion/commit/dfe79aca696fc688f960218b16afee197926fe71), [`c7850e61`](https://github.com/@zedvision/emotion-js/emotion/commit/c7850e61211d6aa26a3388399889a6072ee2f1fe), [`105de5c8`](https://github.com/@zedvision/emotion-js/emotion/commit/105de5c8752be0983c000e1e26462dc8fcf0708d), [`39be057b`](https://github.com/@zedvision/emotion-js/emotion/commit/39be057b1a0c6b76f2cb7a455cb8bc35fe875ba0), [`b7d21373`](https://github.com/@zedvision/emotion-js/emotion/commit/b7d21373d967d0f958dd59aaaa650047e23e8e8b), [`105de5c8`](https://github.com/@zedvision/emotion-js/emotion/commit/105de5c8752be0983c000e1e26462dc8fcf0708d), [`5d692a6a`](https://github.com/@zedvision/emotion-js/emotion/commit/5d692a6a8102b3faabefb773dd0145b123668a07), [`c5b12d90`](https://github.com/@zedvision/emotion-js/emotion/commit/c5b12d90316477e95ce3680a3c745cde328a14c1), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`c6431074`](https://github.com/@zedvision/emotion-js/emotion/commit/c6431074cf52a4bb64587c86ce5d42fe2d49230b), [`828111cd`](https://github.com/@zedvision/emotion-js/emotion/commit/828111cd32d3fe8c984231201e518d1b6000bffd), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
   - @emotion/babel-plugin@11.0.0
   - @emotion/cache@11.0.0
-  - @emotion/serialize@1.0.0
-  - @emotion/sheet@1.0.0
-  - @emotion/utils@1.0.0
+  - @zedvision/emotion-serialize@1.0.0
+  - @zedvision/emotion-sheet@1.0.0
+  - @zedvision/emotion-utils@1.0.0
 
 ## 11.0.0-rc.0
 
@@ -86,16 +86,16 @@
 - Updated dependencies [[`9c4ebc16`](https://github.com/@zedvision/emotion-js/emotion/commit/9c4ebc160471097c5d04fb92dba3ed0df870bb63)]:
   - @emotion/babel-plugin@11.0.0-rc.0
   - @emotion/cache@11.0.0-rc.0
-  - @emotion/serialize@1.0.0-rc.0
-  - @emotion/sheet@1.0.0-rc.0
-  - @emotion/utils@1.0.0-rc.0
+  - @zedvision/emotion-serialize@1.0.0-rc.0
+  - @zedvision/emotion-sheet@1.0.0-rc.0
+  - @zedvision/emotion-utils@1.0.0-rc.0
 
 ## 11.0.0-next.19
 
 ### Patch Changes
 
 - Updated dependencies [[`42df3f3b`](https://github.com/@zedvision/emotion-js/emotion/commit/42df3f3bc01526eed61cedba106d86b9e3807f9d), [`42df3f3b`](https://github.com/@zedvision/emotion-js/emotion/commit/42df3f3bc01526eed61cedba106d86b9e3807f9d)]:
-  - @emotion/sheet@1.0.0-next.5
+  - @zedvision/emotion-sheet@1.0.0-next.5
   - @emotion/cache@11.0.0-next.19
 
 ## 11.0.0-next.17
@@ -103,7 +103,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`76e3dc4d`](https://github.com/@zedvision/emotion-js/emotion/commit/76e3dc4dd3e76423aa5d527b3e66fe3be1722e5a)]:
-  - @emotion/serialize@1.0.0-next.5
+  - @zedvision/emotion-serialize@1.0.0-next.5
   - @emotion/babel-plugin@11.0.0-next.17
 
 ## 11.0.0-next.16
@@ -112,9 +112,9 @@
 
 - Updated dependencies [[`a8eb4e75`](https://github.com/@zedvision/emotion-js/emotion/commit/a8eb4e75eed26763dc4f82ddd9bb49af4552768b), [`dfe98028`](https://github.com/@zedvision/emotion-js/emotion/commit/dfe98028451a27c5190fa1ba138e51ef3d6d9be1), [`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899), [`39be057b`](https://github.com/@zedvision/emotion-js/emotion/commit/39be057b1a0c6b76f2cb7a455cb8bc35fe875ba0), [`39be057b`](https://github.com/@zedvision/emotion-js/emotion/commit/39be057b1a0c6b76f2cb7a455cb8bc35fe875ba0)]:
   - @emotion/cache@11.0.0-next.16
-  - @emotion/utils@1.0.0-next.1
-  - @emotion/sheet@1.0.0-next.4
-  - @emotion/serialize@0.11.15-next.4
+  - @zedvision/emotion-utils@1.0.0-next.1
+  - @zedvision/emotion-sheet@1.0.0-next.4
+  - @zedvision/emotion-serialize@0.11.15-next.4
   - @emotion/babel-plugin@11.0.0-next.16
 
 ## 11.0.0-next.15
@@ -126,8 +126,8 @@
 ### Patch Changes
 
 - Updated dependencies [[`dc1a0c5e`](https://github.com/@zedvision/emotion-js/emotion/commit/dc1a0c5ed78b27fb7ce49b6296f2ca8631654cd1), [`5d692a6a`](https://github.com/@zedvision/emotion-js/emotion/commit/5d692a6a8102b3faabefb773dd0145b123668a07)]:
-  - @emotion/sheet@1.0.0-next.3
-  - @emotion/serialize@1.0.0-next.3
+  - @zedvision/emotion-sheet@1.0.0-next.3
+  - @zedvision/emotion-serialize@1.0.0-next.3
   - @emotion/cache@11.0.0-next.15
   - @emotion/babel-plugin@11.0.0-next.15
 
@@ -135,7 +135,7 @@
 
 ### Patch Changes
 
-- [`6d32d82b`](https://github.com/@zedvision/emotion-js/emotion/commit/6d32d82beb45b18e5f18a37932b862ad19b17044) [#1848](https://github.com/@zedvision/emotion-js/emotion/pull/1848) Thanks [@osdiab](https://github.com/osdiab)! - Added `speedy` method to the TS type declaration of the `sheet` object available on Emotion instances. In addition to that - `StyleSheet` type is no longer exported from this package and instead `CSSStyleSheet` is available now. The `StyleSheet` type might still be imported from `@emotion/sheet`, but it has no `speedy` method and thus it's not the same as what is available in this package as `CSSStyleSheet`.
+- [`6d32d82b`](https://github.com/@zedvision/emotion-js/emotion/commit/6d32d82beb45b18e5f18a37932b862ad19b17044) [#1848](https://github.com/@zedvision/emotion-js/emotion/pull/1848) Thanks [@osdiab](https://github.com/osdiab)! - Added `speedy` method to the TS type declaration of the `sheet` object available on Emotion instances. In addition to that - `StyleSheet` type is no longer exported from this package and instead `CSSStyleSheet` is available now. The `StyleSheet` type might still be imported from `@zedvision/emotion-sheet`, but it has no `speedy` method and thus it's not the same as what is available in this package as `CSSStyleSheet`.
 
 ## 11.0.0-next.13
 
@@ -153,11 +153,11 @@
 ### Patch Changes
 
 - Updated dependencies [[`91046a8c`](https://github.com/@zedvision/emotion-js/emotion/commit/91046a8c188327a65daac61583ef3c4458f30afb), [`5e803106`](https://github.com/@zedvision/emotion-js/emotion/commit/5e803106d391b7c036bdf634318b80337a1d9b70), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
-  - @emotion/sheet@1.0.0-next.2
+  - @zedvision/emotion-sheet@1.0.0-next.2
   - @emotion/babel-plugin@11.0.0-next.13
   - @emotion/cache@11.0.0-next.13
-  - @emotion/utils@1.0.0-next.0
-  - @emotion/serialize@0.11.15-next.2
+  - @zedvision/emotion-utils@1.0.0-next.0
+  - @zedvision/emotion-serialize@0.11.15-next.2
 
 ## 11.0.0-next.12
 
@@ -183,7 +183,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`e3d7db87`](https://github.com/@zedvision/emotion-js/emotion/commit/e3d7db87deaac95817404760112417ac1fa1b56d), [`5c7ec859`](https://github.com/@zedvision/emotion-js/emotion/commit/5c7ec85904633a11185066fa591dc8969f3f2ff2), [`105de5c8`](https://github.com/@zedvision/emotion-js/emotion/commit/105de5c8752be0983c000e1e26462dc8fcf0708d), [`e3d7db87`](https://github.com/@zedvision/emotion-js/emotion/commit/e3d7db87deaac95817404760112417ac1fa1b56d), [`105de5c8`](https://github.com/@zedvision/emotion-js/emotion/commit/105de5c8752be0983c000e1e26462dc8fcf0708d)]:
-  - @emotion/serialize@1.0.0-next.1
+  - @zedvision/emotion-serialize@1.0.0-next.1
   - @emotion/babel-plugin@11.0.0-next.12
   - @emotion/cache@11.0.0-next.12
 
@@ -192,7 +192,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`f08ef5a3`](https://github.com/@zedvision/emotion-js/emotion/commit/f08ef5a316c1d05bff8e7f3690781e1089a263c6)]:
-  - @emotion/serialize@0.11.15-next.4
+  - @zedvision/emotion-serialize@0.11.15-next.4
   - @emotion/babel-plugin@11.0.0-next.11
 
 ## 11.0.0-next.10
@@ -207,7 +207,7 @@
 
 - Updated dependencies [[`b8476e08`](https://github.com/@zedvision/emotion-js/emotion/commit/b8476e08af4a2e8de94a112cb0daf6e8e4d56fe1), [`1e4a741d`](https://github.com/@zedvision/emotion-js/emotion/commit/1e4a741de6424d3d9c1f3ca9695e1953bed3a194), [`dfe79aca`](https://github.com/@zedvision/emotion-js/emotion/commit/dfe79aca696fc688f960218b16afee197926fe71), [`c7850e61`](https://github.com/@zedvision/emotion-js/emotion/commit/c7850e61211d6aa26a3388399889a6072ee2f1fe), [`dfe79aca`](https://github.com/@zedvision/emotion-js/emotion/commit/dfe79aca696fc688f960218b16afee197926fe71)]:
   - @emotion/babel-plugin@11.0.0-next.10
-  - @emotion/sheet@0.10.0-next.1
+  - @zedvision/emotion-sheet@0.10.0-next.1
   - @emotion/cache@11.0.0-next.10
 
 ## 11.0.0-next.0

@@ -1,4 +1,4 @@
-# @emotion/primitives-core
+# @zedvision/emotion-primitives-core
 
 > Shared utilities for emotion primitives and native
 

@@ -44,8 +44,8 @@
   ```
 
 - Updated dependencies [[`42df3f3b`](https://github.com/@zedvision/emotion-js/emotion/commit/42df3f3bc01526eed61cedba106d86b9e3807f9d), [`4a891bf6`](https://github.com/@zedvision/emotion-js/emotion/commit/4a891bf6a30e3bb37f8f32031fa75a571c637d9c), [`1e4a741d`](https://github.com/@zedvision/emotion-js/emotion/commit/1e4a741de6424d3d9c1f3ca9695e1953bed3a194), [`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899), [`dfe79aca`](https://github.com/@zedvision/emotion-js/emotion/commit/dfe79aca696fc688f960218b16afee197926fe71), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
-  - @emotion/sheet@1.0.0
-  - @emotion/utils@1.0.0
+  - @zedvision/emotion-sheet@1.0.0
+  - @zedvision/emotion-utils@1.0.0
 
 ## 11.0.0-rc.0
 
@@ -56,8 +56,8 @@
 ### Patch Changes
 
 - Updated dependencies [[`9c4ebc16`](https://github.com/@zedvision/emotion-js/emotion/commit/9c4ebc160471097c5d04fb92dba3ed0df870bb63)]:
-  - @emotion/sheet@1.0.0-rc.0
-  - @emotion/utils@1.0.0-rc.0
+  - @zedvision/emotion-sheet@1.0.0-rc.0
+  - @zedvision/emotion-utils@1.0.0-rc.0
 
 ## 11.0.0-next.19
 
@@ -66,7 +66,7 @@
 - [`42df3f3b`](https://github.com/@zedvision/emotion-js/emotion/commit/42df3f3bc01526eed61cedba106d86b9e3807f9d) [#2028](https://github.com/@zedvision/emotion-js/emotion/pull/2028) Thanks [@Andarist](https://github.com/Andarist)! - Fixed an issue with Emotion messing up style elements already processed by previously initialized Emotion copy.
 
 - Updated dependencies [[`42df3f3b`](https://github.com/@zedvision/emotion-js/emotion/commit/42df3f3bc01526eed61cedba106d86b9e3807f9d)]:
-  - @emotion/sheet@1.0.0-next.5
+  - @zedvision/emotion-sheet@1.0.0-next.5
 
 ## 11.0.0-next.18
 
@@ -95,15 +95,15 @@
   ```
 
 - Updated dependencies [[`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899), [`39be057b`](https://github.com/@zedvision/emotion-js/emotion/commit/39be057b1a0c6b76f2cb7a455cb8bc35fe875ba0)]:
-  - @emotion/utils@1.0.0-next.1
-  - @emotion/sheet@1.0.0-next.4
+  - @zedvision/emotion-utils@1.0.0-next.1
+  - @zedvision/emotion-sheet@1.0.0-next.4
 
 ## 11.0.0-next.15
 
 ### Patch Changes
 
 - Updated dependencies [[`dc1a0c5e`](https://github.com/@zedvision/emotion-js/emotion/commit/dc1a0c5ed78b27fb7ce49b6296f2ca8631654cd1)]:
-  - @emotion/sheet@1.0.0-next.3
+  - @zedvision/emotion-sheet@1.0.0-next.3
 
 ## 11.0.0-next.13
 
@@ -121,8 +121,8 @@
 ### Patch Changes
 
 - Updated dependencies [[`91046a8c`](https://github.com/@zedvision/emotion-js/emotion/commit/91046a8c188327a65daac61583ef3c4458f30afb), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
-  - @emotion/sheet@1.0.0-next.2
-  - @emotion/utils@1.0.0-next.0
+  - @zedvision/emotion-sheet@1.0.0-next.2
+  - @zedvision/emotion-utils@1.0.0-next.0
 
 ## 11.0.0-next.12
 
@@ -140,7 +140,7 @@
 
 - [`dfe79aca`](https://github.com/@zedvision/emotion-js/emotion/commit/dfe79aca696fc688f960218b16afee197926fe71) [#1572](https://github.com/@zedvision/emotion-js/emotion/pull/1572) Thanks [@Andarist](https://github.com/Andarist)! - Use sheet's `rehydrate` method for SSRed styles which inserts rehydrated styles at correct position when used in combination with `prepend` option.
 - Updated dependencies [[`1e4a741d`](https://github.com/@zedvision/emotion-js/emotion/commit/1e4a741de6424d3d9c1f3ca9695e1953bed3a194), [`dfe79aca`](https://github.com/@zedvision/emotion-js/emotion/commit/dfe79aca696fc688f960218b16afee197926fe71)]:
-  - @emotion/sheet@0.10.0-next.1
+  - @zedvision/emotion-sheet@0.10.0-next.1
 
 ## 11.0.0-next.6
 
@@ -151,7 +151,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`4a891bf6`](https://github.com/@zedvision/emotion-js/emotion/commit/4a891bf6a30e3bb37f8f32031fa75a571c637d9c)]:
-  - @emotion/sheet@0.10.0-next.0
+  - @zedvision/emotion-sheet@0.10.0-next.0
 
 ## 11.0.0-next.0
 
@@ -173,9 +173,9 @@
 - [`4c62ae9`](https://github.com/@zedvision/emotion-js/emotion/commit/4c62ae9447959d438928e1a26f76f1487983c968) [#1698](https://github.com/@zedvision/emotion-js/emotion/pull/1698) Thanks [@Andarist](https://github.com/Andarist)! - Add LICENSE file
 - Updated dependencies [[`4c62ae9`](https://github.com/@zedvision/emotion-js/emotion/commit/4c62ae9447959d438928e1a26f76f1487983c968)]:
   - @emotion/hash@0.7.4
-  - @emotion/sheet@0.9.4
+  - @zedvision/emotion-sheet@0.9.4
   - @emotion/stylis@0.8.5
-  - @emotion/utils@0.11.3
+  - @zedvision/emotion-utils@0.11.3
   - @emotion/weak-memoize@0.2.5
 
 ## 10.0.19

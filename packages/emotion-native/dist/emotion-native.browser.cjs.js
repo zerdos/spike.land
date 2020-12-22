@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var reactNative = require('react-native');
-var primitivesCore = require('@emotion/primitives-core');
+var primitivesCore = require('@zedvision/emotion-primitives-core');
 
 function _interopNamespace(e) {
   if (e && e.__esModule) return e;

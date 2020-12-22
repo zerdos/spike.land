@@ -1,4 +1,4 @@
-# @emotion/serialize
+# @zedvision/emotion-serialize
 
 ## 1.0.0
 
@@ -21,7 +21,7 @@
 * [`a085003d`](https://github.com/@zedvision/emotion-js/emotion/commit/a085003d4c8ca284c116668d7217fb747802ed85) [#1613](https://github.com/@zedvision/emotion-js/emotion/pull/1613) Thanks [@Andarist](https://github.com/Andarist)! - Add missing `#__PURE__` annotations
 
 * Updated dependencies [[`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899), [`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
-  - @emotion/utils@1.0.0
+  - @zedvision/emotion-utils@1.0.0
 
 ## 1.0.0-rc.0
 
@@ -32,7 +32,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`9c4ebc16`](https://github.com/@zedvision/emotion-js/emotion/commit/9c4ebc160471097c5d04fb92dba3ed0df870bb63)]:
-  - @emotion/utils@1.0.0-rc.0
+  - @zedvision/emotion-utils@1.0.0-rc.0
 
 ## 1.0.0-next.5
 
@@ -45,7 +45,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`debaad9a`](https://github.com/@zedvision/emotion-js/emotion/commit/debaad9ab4bd6c80312092826d9146f3d29c0899)]:
-  - @emotion/utils@1.0.0-next.1
+  - @zedvision/emotion-utils@1.0.0-next.1
 
 ## 1.0.0-next.3
 
@@ -58,7 +58,7 @@
 ### Patch Changes
 
 - Updated dependencies [[`9e998e37`](https://github.com/@zedvision/emotion-js/emotion/commit/9e998e3755c217027ad1be0af4c64644fe14c6bf)]:
-  - @emotion/utils@1.0.0-next.0
+  - @zedvision/emotion-utils@1.0.0-next.0
 
 ## 1.0.0-next.1
 
@@ -146,7 +146,7 @@
   - @emotion/hash@0.7.4
   - @emotion/memoize@0.7.4
   - @emotion/unitless@0.7.5
-  - @emotion/utils@0.11.3
+  - @zedvision/emotion-utils@0.11.3
 
 ## 0.11.14
 

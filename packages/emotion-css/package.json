@@ -24,9 +24,9 @@
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.1.2",
-    "@emotion/serialize": "^1.0.0",
-    "@emotion/sheet": "^1.0.1",
-    "@emotion/utils": "^1.0.0",
+    "@zedvision/emotion-serialize": "^10.10.21",
+    "@zedvision/emotion-sheet": "^10.10.19",
+    "@zedvision/emotion-utils": "^10.10.21",
     "@zedvision/emotion-cache": "^10.10.21"
   },
   "peerDependencies": {

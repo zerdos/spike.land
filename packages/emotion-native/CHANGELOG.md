@@ -40,7 +40,7 @@
   ```
 
 * Updated dependencies [[`95ea2839`](https://github.com/@zedvision/emotion-js/emotion/commit/95ea2839890629748894b3942d26f608f203d3f9), [`db16ac35`](https://github.com/@zedvision/emotion-js/emotion/commit/db16ac358ded4cc04fbd649700716b7cb3b3e40a), [`95ea2839`](https://github.com/@zedvision/emotion-js/emotion/commit/95ea2839890629748894b3942d26f608f203d3f9), [`139ea336`](https://github.com/@zedvision/emotion-js/emotion/commit/139ea336c7f49a3246813238e388e164b80de4da), [`79036056`](https://github.com/@zedvision/emotion-js/emotion/commit/79036056808eefc81a77225254f7c25c2ff9d967), [`2d597857`](https://github.com/@zedvision/emotion-js/emotion/commit/2d5978579f758163663c1bfb40e7d76bc24ae26a)]:
-  - @emotion/primitives-core@11.0.0
+  - @zedvision/emotion-primitives-core@11.0.0
 
 ## 11.0.0-rc.0
 
@@ -51,14 +51,14 @@
 ### Patch Changes
 
 - Updated dependencies [[`9c4ebc16`](https://github.com/@zedvision/emotion-js/emotion/commit/9c4ebc160471097c5d04fb92dba3ed0df870bb63)]:
-  - @emotion/primitives-core@11.0.0-rc.0
+  - @zedvision/emotion-primitives-core@11.0.0-rc.0
 
 ## 11.0.0-next.19
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.19
+  - @zedvision/emotion-primitives-core@11.0.0-next.19
 
 ## 11.0.0-next.18
 
@@ -84,21 +84,21 @@
   ```
 
 - Updated dependencies [[`95ea2839`](https://github.com/@zedvision/emotion-js/emotion/commit/95ea2839890629748894b3942d26f608f203d3f9), [`db16ac35`](https://github.com/@zedvision/emotion-js/emotion/commit/db16ac358ded4cc04fbd649700716b7cb3b3e40a), [`95ea2839`](https://github.com/@zedvision/emotion-js/emotion/commit/95ea2839890629748894b3942d26f608f203d3f9)]:
-  - @emotion/primitives-core@11.0.0-next.18
+  - @zedvision/emotion-primitives-core@11.0.0-next.18
 
 ## 11.0.0-next.17
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.17
+  - @zedvision/emotion-primitives-core@11.0.0-next.17
 
 ## 11.0.0-next.16
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.16
+  - @zedvision/emotion-primitives-core@11.0.0-next.16
 
 ## 11.0.0-next.15
 
@@ -109,21 +109,21 @@
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.15
+  - @zedvision/emotion-primitives-core@11.0.0-next.15
 
 ## 11.0.0-next.14
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.14
+  - @zedvision/emotion-primitives-core@11.0.0-next.14
 
 ## 11.0.0-next.13
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.13
+  - @zedvision/emotion-primitives-core@11.0.0-next.13
 
 ## 11.0.0-next.12
 
@@ -132,7 +132,7 @@
 - [`11fc27f8`](https://github.com/@zedvision/emotion-js/emotion/commit/11fc27f8fa00661353cc7650111afaa068399aca) [#1750](https://github.com/@zedvision/emotion-js/emotion/pull/1750) Thanks [@Zn4rK](https://github.com/Zn4rK)! - Match supported components to what is exported from the latest version of React Native (0.61.5).
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.12
+  - @zedvision/emotion-primitives-core@11.0.0-next.12
 
 ## 11.0.0-next.11
 
@@ -149,28 +149,28 @@
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.10
+  - @zedvision/emotion-primitives-core@11.0.0-next.10
 
 ## 11.0.0-next.9
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.9
+  - @zedvision/emotion-primitives-core@11.0.0-next.9
 
 ## 11.0.0-next.8
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.8
+  - @zedvision/emotion-primitives-core@11.0.0-next.8
 
 ## 11.0.0-next.7
 
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.7
+  - @zedvision/emotion-primitives-core@11.0.0-next.7
 
 ## 11.0.0-next.6
 
@@ -183,7 +183,7 @@
 ### Patch Changes
 
 - Updated dependencies []:
-  - @emotion/primitives-core@11.0.0-next.6
+  - @zedvision/emotion-primitives-core@11.0.0-next.6
 
 ## 11.0.0-next.5
 
@@ -191,7 +191,7 @@
 
 - Updated dependencies []:
   - emotion-theming@11.0.0-next.5
-  - @emotion/primitives-core@11.0.0-next.5
+  - @zedvision/emotion-primitives-core@11.0.0-next.5
 
 ## 11.0.0-next.4
 
@@ -199,7 +199,7 @@
 
 - Updated dependencies []:
   - emotion-theming@11.0.0-next.4
-  - @emotion/primitives-core@11.0.0-next.4
+  - @zedvision/emotion-primitives-core@11.0.0-next.4
 
 ## 11.0.0-next.3
 
@@ -207,7 +207,7 @@
 
 - Updated dependencies []:
   - emotion-theming@11.0.0-next.3
-  - @emotion/primitives-core@11.0.0-next.3
+  - @zedvision/emotion-primitives-core@11.0.0-next.3
 
 ## 11.0.0-next.2
 
@@ -219,7 +219,7 @@
 
 - Updated dependencies [[`79036056`](https://github.com/@zedvision/emotion-js/emotion/commit/79036056808eefc81a77225254f7c25c2ff9d967)]:
   - emotion-theming@11.0.0-next.2
-  - @emotion/primitives-core@11.0.0-next.2
+  - @zedvision/emotion-primitives-core@11.0.0-next.2
 
 ## 11.0.0-next.1
 
@@ -227,7 +227,7 @@
 
 - Updated dependencies [[`1eaa3a38`](https://github.com/@zedvision/emotion-js/emotion/commit/1eaa3a389876d4a623ce66735dc6db093cb2a8e6)]:
   - emotion-theming@11.0.0-next.1
-  - @emotion/primitives-core@11.0.0-next.1
+  - @zedvision/emotion-primitives-core@11.0.0-next.1
 
 ## 11.0.0-next.0
 
@@ -239,7 +239,7 @@
 
 - Updated dependencies [[`302bdba1`](https://github.com/@zedvision/emotion-js/emotion/commit/302bdba1a6b793484c09edeb668815c5e31ea555)]:
   - emotion-theming@11.0.0-next.0
-  - @emotion/primitives-core@11.0.0-next.0
+  - @zedvision/emotion-primitives-core@11.0.0-next.0
 
 ## 10.0.27
 
@@ -248,7 +248,7 @@
 - [`4c62ae9`](https://github.com/@zedvision/emotion-js/emotion/commit/4c62ae9447959d438928e1a26f76f1487983c968) [#1698](https://github.com/@zedvision/emotion-js/emotion/pull/1698) Thanks [@Andarist](https://github.com/Andarist)! - Add LICENSE file
 - Updated dependencies [[`4c62ae9`](https://github.com/@zedvision/emotion-js/emotion/commit/4c62ae9447959d438928e1a26f76f1487983c968)]:
   - emotion-theming@10.0.27
-  - @emotion/primitives-core@10.0.27
+  - @zedvision/emotion-primitives-core@10.0.27
 
 ## 10.0.22
 
@@ -257,7 +257,7 @@
 - [`ae90f000`](https://github.com/@zedvision/emotion-js/emotion/commit/ae90f00094483ff12d8cbb80d628e30fe6d57d7a) [#841](https://github.com/@zedvision/emotion-js/emotion/pull/841) Thanks [@nitin42](https://github.com/nitin42)! - Improve error message for shorthand properties with missing units.
 
 - Updated dependencies [[`ae90f000`](https://github.com/@zedvision/emotion-js/emotion/commit/ae90f00094483ff12d8cbb80d628e30fe6d57d7a)]:
-  - @emotion/primitives-core@10.0.22
+  - @zedvision/emotion-primitives-core@10.0.22
 
 ## 10.0.14
 

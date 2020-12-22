@@ -1,9 +1,9 @@
-# @emotion/sheet
+# @zedvision/emotion-sheet
 
 > A StyleSheet for css-in-js libraries
 
 ```bash
-yarn add @emotion/sheet
+yarn add @zedvision/emotion-sheet
 ```
 
 ```jsx

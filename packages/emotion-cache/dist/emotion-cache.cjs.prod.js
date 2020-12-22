@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true })
 
-var sheet = require('@emotion/sheet')
+var sheet = require('@zedvision/emotion-sheet')
 var stylis = require('stylis')
 var weakMemoize = require('@emotion/weak-memoize')
 var memoize = require('@emotion/memoize')
