@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-serialize",
-  "version": "10.10.22",
+  "version": "10.10.24",
   "description": "serialization utils for emotion",
   "main": "dist/emotion-serialize.cjs.js",
   "module": "dist/emotion-serialize.esm.js",

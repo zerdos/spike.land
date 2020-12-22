@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-styled",
-  "version": "10.10.22",
+  "version": "10.10.24",
   "private": false,
   "description": "styled API for emotion",
   "main": "dist/emotion-styled.cjs.js",
@@ -15,8 +15,8 @@
   "dependencies": {
     "@babel/runtime": "^7.12.5",
     "@emotion/babel-plugin": "^11.1.2",
-    "@zedvision/emotion-is-prop-valid": "^10.10.22",
-    "@zedvision/emotion-serialize": "^10.10.22",
+    "@zedvision/emotion-is-prop-valid": "^10.10.24",
+    "@zedvision/emotion-serialize": "^10.10.24",
     "@zedvision/emotion-utils": "^10.10.22"
   },
   "peerDependencies": {
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@zedvision/emotion-react": "^10.10.22",
+    "@zedvision/emotion-react": "^10.10.24",
     "dtslint": "^4.0.6",
     "react": "17.0.1"
   },
