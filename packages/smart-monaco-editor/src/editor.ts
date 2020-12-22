@@ -218,7 +218,7 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "@zedvision/emotion-styled/base.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
+        url: "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/base.d.ts",
         depend: [
           "@zedvision/emotion-react",
           "@zedvision/emotion-serialize",
@@ -227,7 +227,7 @@ export const startMonaco: SmartMonaco = async (
       },
       {
         name: "@zedvision/emotion-styled/index.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/index.d.ts",
         depend: [
           "@zedvision/emotion-react",
           "@zedvision/emotion-serialize",

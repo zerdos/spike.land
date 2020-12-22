@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
+import styled from "@zedvision/emotion-styled";
 
 export const Header = styled.div`
     background: #3f51b5;
     font-family: "Roboto";
-    margin: 0;
+    margin: 0;@emotion/styled
     padding: 10px 20px 10px;
     color: white;
 `;

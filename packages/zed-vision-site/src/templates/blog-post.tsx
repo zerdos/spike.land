@@ -6,7 +6,7 @@ import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { rhythm, scale } from "../components/utils/typography";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import styled from "@emotion/styled";
+import styled from "@zedvision/emotion-styled";
 
 import { CodeBox } from "../components/codeBox/CodeBox";
 import { MDXProvider } from "@mdx-js/react";
