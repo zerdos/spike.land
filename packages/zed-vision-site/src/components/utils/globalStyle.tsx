@@ -5,7 +5,7 @@ import { fonts } from "./fonts.ts";
 /** @jsx jsx */
 import { css, Global, jsx } from "@zedvision/emotion-react";
 
-import from "react";
+import React from "react";
 
 const styles = typography.createStyles().replace(
   /first-child/gi,
