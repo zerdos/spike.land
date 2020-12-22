@@ -19,6 +19,8 @@ importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
 
 let ipfsNode;
 
+try{
+
 const ipfsKV = {
   add: async (data) => {
     ipfsNode = ipfsNode || await Ipfs.create();
@@ -31,3 +33,7 @@ const ipfsKV = {
 };
 
 Comlink.expose(ipfsKV);
+}
+catch{
+  //just noise reducing c:)
+}
