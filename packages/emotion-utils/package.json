@@ -6,7 +6,7 @@
   "module": "dist/emotion-utils.modern.js",
   "browser": {
     "./dist/emotion-utils.cjs.js": "./dist/emotion-utils.modern.js",
-    "./dist/emotion-utils.esm.js": "./dist/emotion-utils.modern.js"
+    "./dist/emotion-utils.modern.js": "./dist/emotion-utils.modern.js"
   },
   "types": "types/index.d.ts",
   "license": "MIT",

@@ -1,10 +1,10 @@
 {
   "main": "dist/emotion-react-jsx-runtime.cjs.js",
-  "module": "dist/emotion-react-jsx-runtime.esm.js",
+  "module": "dist/emotion-react-jsx-runtime.modern.js",
   "umd:main": "dist/emotion-react-jsx-runtime.umd.min.js",
   "browser": {
     "./dist/emotion-react-jsx-runtime.cjs.js": "./dist/emotion-react-jsx-runtime.browser.cjs.js",
-    "./dist/emotion-react-jsx-runtime.esm.js": "./dist/emotion-react-jsx-runtime.browser.esm.js"
+    "./dist/emotion-react-jsx-runtime.modern.js": "./dist/emotion-react-jsx-runtime.modern.js"
   },
   "types": "../types/jsx-runtime",
   "sideEffects": false,

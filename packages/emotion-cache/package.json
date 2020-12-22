@@ -6,7 +6,7 @@
   "module": "dist/emotion-cache.modern.js",
   "browser": {
     "./dist/emotion-cache.cjs.js": "./dist/emotion-cache.modern.js",
-    "./dist/emotion-cache.esm.js": "./dist/emotion-cache.modern.js"
+    "./dist/emotion-cache.modern.js": "./dist/emotion-cache.modern.js"
   },
   "types": "types/index.d.ts",
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/cache",

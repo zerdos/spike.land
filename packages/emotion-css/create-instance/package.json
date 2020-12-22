@@ -1,6 +1,6 @@
 {
   "main": "dist/emotion-css-create-instance.cjs.js",
-  "module": "dist/emotion-css-create-instance.esm.js",
+  "module": "dist/emotion-css-create-instance.modern.js",
   "umd:main": "dist/emotion-css-create-instance.umd.min.js",
   "types": "../types/create-instance",
   "preconstruct": {

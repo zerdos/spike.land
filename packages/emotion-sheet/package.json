@@ -6,7 +6,7 @@
   "module": "dist/emotion-sheet.modern.js",
   "browser": {
     "./dist/emotion-sheet.cjs.js": "./dist/emotion-sheet.modern.js",
-    "./dist/emotion-sheet.esm.js": "./dist/emotion-sheet.modern.js"
+    "./dist/emotion-sheet.modern.js": "./dist/emotion-sheet.modern.js"
   },
   "types": "types/index.d.ts",
   "license": "MIT",

@@ -5,7 +5,7 @@
   "module": "dist/emotion-react.modern.js",
   "browser": {
     "./dist/emotion-react.cjs.js": "./dist/emotion-react.modern.js",
-    "./dist/emotion-react.esm.js": "./dist/emotion-react.modern.js"
+    "./dist/emotion-react.modern.js": "./dist/emotion-react.modern.js"
   },
   "types": "types/index.d.ts",
   "files": [

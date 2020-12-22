@@ -10,7 +10,7 @@
   ],
   "author": "Mateusz Burzyński <mateuszburzynski@gmail.com> (https://github.com/Andarist)",
   "main": "dist/emotion-css-prettifier.cjs.js",
-  "module": "dist/emotion-css-prettifier.esm.js",
+  "module": "dist/emotion-css-prettifier.modern.js",
   "types": "types/index.d.ts",
   "license": "MIT",
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/css-prettifier",

@@ -25,7 +25,7 @@
   },
   "browser": {
     "./dist/emotion-hash.cjs.js": "./dist/emotion-hash.modern.js",
-    "./dist/emotion-hash.esm.js": "./dist/emotion-hash.modern.js"
+    "./dist/emotion-hash.modern.js": "./dist/emotion-hash.modern.js"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
 }

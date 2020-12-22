@@ -54,7 +54,7 @@
   "umd:main": "dist/emotion-styled.umd.min.js",
   "browser": {
     "./dist/emotion-styled.cjs.js": "./dist/emotion-styled.modern.js",
-    "./dist/emotion-styled.esm.js": "./dist/emotion-styled.modern.js"
+    "./dist/emotion-styled.modern.js": "./dist/emotion-styled.modern.js"
   },
   "preconstruct": {
     "umdName": "emotionStyled",
