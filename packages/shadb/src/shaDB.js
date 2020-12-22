@@ -1,6 +1,5 @@
-import { openDB } from "./vendor/idb.js";
-
-import { getDbObj } from "./getDbObj.js";
+import { openDB } from "idb"
+import { getDbObj } from "./getDbObj";
 
 export function getDB() {
   const dbPromise = openDB("localZedCodeStore", 1, {

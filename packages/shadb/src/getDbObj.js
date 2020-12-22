@@ -4,7 +4,7 @@ import {
   isDiff,
 } from "https://unpkg.com/@zedvision/diff@10.10.18/dist/diff.min.js";
 
-export const geyatDbObj = (dbPromise, isIdb = false) => {
+export const getDbObj = (dbPromise, isIdb = false) => {
   const sha256 = async (x) =>
     Array.from(
       new Uint8Array(

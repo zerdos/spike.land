@@ -2,14 +2,16 @@
     "name": "@zedvision/shadb",
     "version": "10.11.2",
     "description": "db layer top on idb",
-    "exports": "./dist/shaDB.js",
     "private": false,
     "sideEffects": false,
+    "source": "./src/shaDB.js",
+    "exports": "./dist/shaDB.modern.js",
     "scripts": {
+        "build": "microbundle ./src/shaDB.js",
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "prebuild": "yarn tsc || echo ok ",
-        "build": "echo done"
+        "prebuild": "yarn tsc || echo ok "
+    
     },
     "keywords": [
         "diff"
