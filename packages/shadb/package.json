@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/shadb",
-    "version": "10.11.2",
+    "version": "10.11.3",
     "description": "db layer top on idb",
     "private": false,
     "sideEffects": false,
@@ -11,7 +11,6 @@
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "prebuild": "yarn tsc || echo ok "
-    
     },
     "keywords": [
         "diff"
