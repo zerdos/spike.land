@@ -147,7 +147,7 @@ let Emotion = /* #__PURE__ */ withEmotionCache<any, any>(
   }
 )
 
-if (process.env.NODE_ENV !== 'production') {
+if (process && process.env && process.env.NODE_ENV !== 'production') {
   Emotion.displayName = 'EmotionCssPropInternal'
 }
 

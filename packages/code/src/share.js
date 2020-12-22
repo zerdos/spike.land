@@ -2,7 +2,7 @@ import { importScript } from "./importScript.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 import { ipfsKV } from "./ipfsKV.js";
-import ReactDOMServer from "https://cdn.skypack.dev/react-dom/server";
+// import ReactDOMServer from "https://cdn.skypack.dev/react-dom/server";
 
 export const shareItAsHtml = async ({ code, jsExport }) => {
   const mod = createJsBlob(code);
