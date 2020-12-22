@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-css-prettifier",
-  "version": "10.10.30",
+  "version": "10.10.31",
   "description": "Simple Stylis-based CSS prettifier",
   "scripts": {
     "test:typescript": "exit 0",

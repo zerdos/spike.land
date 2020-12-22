@@ -1,12 +1,12 @@
 {
   "name": "@zedvision/emotion-primitives",
-  "version": "10.10.18",
+  "version": "10.10.31",
   "private": false,
   "main": "dist/emotion-primitives.cjs.js",
   "module": "dist/emotion-primitives.modern.js",
   "scripts": {
     "test:typescript": "exit 0",
-    "build":  "microbundle build",
+    "build": "microbundle build",
     "clean": "rm -rf dist"
   },
   "files": [
@@ -17,7 +17,7 @@
   "dependencies": {
     "@emotion/babel-plugin": "^11.1.2",
     "@zedvision/emotion-is-prop-valid": "^10.10.30",
-    "@zedvision/emotion-primitives-core": "^10.10.30"
+    "@zedvision/emotion-primitives-core": "^10.10.31"
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",

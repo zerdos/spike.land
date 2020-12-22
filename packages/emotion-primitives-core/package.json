@@ -1,12 +1,12 @@
 {
   "name": "@zedvision/emotion-primitives-core",
-  "version": "10.10.30",
+  "version": "10.10.31",
   "description": "Shared utilities for emotion primitives and native",
   "main": "dist/emotion-primitives-core.cjs.js",
   "module": "dist/emotion-primitives-core.modern.js",
   "scripts": {
     "test:typescript": "exit 0",
-    "build":  "microbundle build",
+    "build": "microbundle build",
     "clean": "rm -rf dist"
   },
   "files": [
@@ -22,7 +22,7 @@
     "react": ">=17.0.1"
   },
   "devDependencies": {
-    "@zedvision/emotion-react": "^10.10.30",
+    "@zedvision/emotion-react": "^10.10.31",
     "react": "17.0.1"
   },
   "homepage": "https://emotion.sh",
