@@ -431,7 +431,8 @@ var startMonaco = function (_a) {
             },
             {
               name: "@zedvision/emotion-utils/index.d.ts",
-              url: "https://unpkg.com/@zedvision/emotion-utils@1.0.0/types/index.d.ts",
+              url:
+                "https://unpkg.com/@zedvision/emotion-utils@1.0.0/types/index.d.ts",
               depend: [],
             },
             {
