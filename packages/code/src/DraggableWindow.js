@@ -1,14 +1,15 @@
 /** @jsx jsx */
 
-import ReactDOM from "react-dom";
-import React from "react";
-import { css, jsx } from "@emotion/react"
+import ReactDOM =import "https://unpkg.com/react-dom@17.0.1/index.js");
+
+import React from "https://unpkg.com/react@17.0.1/cjs/react.production.min.js";
+import { css, jsx } from "https://unpkg.com/@emotion/react"
 ;
-import { motion } from "framer-motion"
+import { motion } from "https://unpkg.com/framer-motion"
 
 export { jsx };
 
-export { ReactDOM };
+export {ReactDOM}
 
 export const DraggableWindow = ({ onShare }) => {
   return jsx(

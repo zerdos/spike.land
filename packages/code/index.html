@@ -79,7 +79,7 @@
     if (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0")) {
         
         (async ()=>{
-        const { run } = await import("./dist/codeLoader.modern.js");
+        const { run } = await import("./dist/codeLoader.min.modern.js");
         run("window");
         })();
     }else 
