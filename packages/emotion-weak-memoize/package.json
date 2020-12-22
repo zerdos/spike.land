@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-weak-memoize",
-  "version": "10.10.21",
+  "version": "10.10.22",
   "description": "A memoization function that uses a WeakMap",
   "main": "dist/emotion-weak-memoize.cjs.js",
   "module": "dist/emotion-weak-memoize.esm.js",
