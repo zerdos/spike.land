@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-memoize",
-  "version": "10.10.22",
+  "version": "10.10.28",
   "description": "emotion's memoize utility",
   "main": "dist/emotion-memoize.cjs.js",
   "module": "dist/emotion-memoize.esm.js",
@@ -9,8 +9,8 @@
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/memoize",
   "scripts": {
     "test:typescript": "dtslint types",
-    "build":  "microbundle build",
-"clean": "rm -rf dist"
+    "build": "microbundle build",
+    "clean": "rm -rf dist"
   },
   "publishConfig": {
     "access": "public"
