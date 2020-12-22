@@ -5,7 +5,9 @@
   "main": "dist/emotion-primitives-core.cjs.js",
   "module": "dist/emotion-primitives-core.modern.js",
   "scripts": {
-    "test:typescript": "exit 0"
+    "test:typescript": "exit 0",
+    "build":  "microbundle build",
+    "clean": "rm -rf dist"
   },
   "files": [
     "src",
@@ -16,8 +18,8 @@
     "css-to-react-native": "^3.0.0"
   },
   "peerDependencies": {
-    "@zedvision/emotion-react": "^11.0.0-rc.0",
-    "react": ">=16.8.0"
+    "@zedvision/emotion-react": "^10.10.30",
+    "react": ">=17.0.1"
   },
   "devDependencies": {
     "@zedvision/emotion-react": "^10.10.30",
@@ -41,7 +43,7 @@
     "access": "public"
   },
   "browser": {
-    "./dist/emotion-primitives-core.cjs.js": "./dist/emotion-primitives-core.browser.cjs.js",
+    "./dist/emotion-primitives-core.cjs.js": "./dist/emotion-primitives-core.modern.js",
     "./dist/emotion-primitives-core.modern.js": "./dist/emotion-primitives-core.modern.js"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"

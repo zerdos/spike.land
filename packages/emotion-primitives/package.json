@@ -7,7 +7,7 @@
   "scripts": {
     "test:typescript": "exit 0",
     "build":  "microbundle build",
-"clean": "rm -rf dist"
+    "clean": "rm -rf dist"
   },
   "files": [
     "src",
@@ -16,8 +16,8 @@
   ],
   "dependencies": {
     "@emotion/babel-plugin": "^11.1.2",
-    "@zedvision/emotion-is-prop-valid": "^10.10.19",
-    "@zedvision/emotion-primitives-core": "^10.10.21"
+    "@zedvision/emotion-is-prop-valid": "^10.10.30",
+    "@zedvision/emotion-primitives-core": "^10.10.30"
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",

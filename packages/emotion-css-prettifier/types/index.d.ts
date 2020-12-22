@@ -1,1 +1,1 @@
-export default function prettify(styles: string, indentation?: string): string
+export default function prettify(styles: any, indentation?: string): any;

@@ -3,7 +3,9 @@
   "version": "10.10.30",
   "description": "Simple Stylis-based CSS prettifier",
   "scripts": {
-    "test:typescript": "exit 0"
+    "test:typescript": "exit 0",
+    "build": "microbundle build",
+    "clean": "rm -rf dist"
   },
   "keywords": [
     "emotion"
