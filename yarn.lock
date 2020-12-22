@@ -1232,11 +1232,6 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@emotion/utils@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-0.0.5.tgz#b3b2f7f31d68f2c288599a8fc195d6fb6c4f8a56"
-  integrity sha1-s7L38x1o8sKIWZqPwZXW+2xPilY=
-
 "@emotion/utils@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@emotion/utils/-/utils-1.0.0.tgz#abe06a83160b10570816c913990245813a2fd6af"
@@ -3489,21 +3484,6 @@
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
-
-"@zedvision/emotion-react@10.10.10":
-  version "10.10.10"
-  resolved "https://registry.yarnpkg.com/@zedvision/emotion-react/-/emotion-react-10.10.10.tgz#c70e2211c1d7aa6449c50ab4f937d6201c705baa"
-  integrity sha512-4dNEicwk4vEw9WfgvE0dfrSEIwZoc6LZdCjR0SFmKkaxYps0y2y0vjlfYYWaitTHzXSBmmwQST7GQp+gz+TLHA==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    "@zedvision/emotion-cache" "^10.10.10"
-    "@zedvision/emotion-serialize" "^10.10.10"
-    "@zedvision/emotion-sheet" "^10.10.10"
-    "@zedvision/emotion-utils" "^10.10.10"
-    "@zedvision/emotion-weak-memoize" "^10.10.10"
-    esbuild "^0.8.26"
-    hoist-non-react-statics "^3.3.2"
-    typescript "^4.1.3"
 
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"

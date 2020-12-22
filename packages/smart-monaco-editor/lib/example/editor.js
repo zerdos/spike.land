@@ -335,27 +335,27 @@ var startMonaco = function (_a) {
                             depend: [],
                         },
                         {
-                            name: "@emotion/styled/base.d.ts",
+                            name: "@zedvision/emotion-styled/base.d.ts",
                             url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
                             depend: [
                                 "@zedvision/emotion-react",
-                                "@emotion/serialize",
+                                "@zedvision/emotion-serialize",
                                 "react",
                             ],
                         },
                         {
-                            name: "@emotion/styled/index.d.ts",
+                            name: "@zedvision/emotion-styled/index.d.ts",
                             url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
                             depend: [
                                 "@zedvision/emotion-react",
-                                "@emotion/serialize",
+                                "@zedvision/emotion-serialize",
                                 "react",
                             ],
                         },
                         {
-                            name: "@emotion/cache/index.d.ts",
+                            name: "@zedvision/emotion-cache/index.d.ts",
                             url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
-                            depend: ["@emotion/utils"],
+                            depend: ["@zedvision/emotion-utils"],
                         },
                         {
                             name: "@zedvision/emotion-react/index.d.ts",
@@ -365,30 +365,30 @@ var startMonaco = function (_a) {
                         {
                             name: "@zedvision/emotion-react/jsx-namespace.d.ts",
                             url: "https://unpkg.com/@zedvision/emotion-react@11.1.2/types/jsx-namespace.d.ts",
-                            depend: ["@emotion/utils", "csstype"],
+                            depend: ["@zedvision/emotion-utils", "csstype"],
                         },
                         {
                             name: "@zedvision/emotion-react/css-prop.d.ts",
                             url: "https://unpkg.com/@zedvision/emotion-react@11.1.2/types/css-prop.d.ts",
-                            depend: ["@emotion/utils", "csstype"],
+                            depend: ["@zedvision/emotion-utils", "csstype"],
                         },
                         {
                             name: "@zedvision/emotion-react/helper.d.ts",
                             url: "https://unpkg.com/@zedvision/emotion-react@11.1.2/types/helper.d.ts",
-                            depend: ["@emotion/utils", "csstype"],
+                            depend: ["@zedvision/emotion-utils", "csstype"],
                         },
                         {
                             name: "@zedvision/emotion-react/theming.d.ts",
                             url: "https://unpkg.com/@zedvision/emotion-react@11.1.2/types/theming.d.ts",
-                            depend: ["@emotion/utils", "csstype"],
+                            depend: ["@zedvision/emotion-utils", "csstype"],
                         },
                         {
-                            name: "@emotion/serialize/index.d.ts",
+                            name: "@zedvision/emotion-serialize/index.d.ts",
                             url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
-                            depend: ["@emotion/utils", "csstype"],
+                            depend: ["@zedvision/emotion-utils", "csstype"],
                         },
                         {
-                            name: "@emotion/utils/index.d.ts",
+                            name: "@zedvision/emotion-utils/index.d.ts",
                             url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
                             depend: [],
                         },
