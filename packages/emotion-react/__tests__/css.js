@@ -6,7 +6,7 @@ import * as React from 'react'
 import { jsx, css, Global, CacheProvider, ThemeProvider } from '@zedvision/emotion-react'
 import { render } from '@testing-library/react'
 import renderer from 'react-test-renderer'
-import createCache from '@emotion/cache'
+import createCache from '@zedvision/emotion-cache'
 
 // $FlowFixMe
 console.error = jest.fn()

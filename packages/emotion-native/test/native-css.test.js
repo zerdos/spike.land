@@ -1,4 +1,4 @@
-import { css } from '@emotion/native'
+import { css } from '@zedvision/emotion-native'
 import { StyleSheet } from 'react-native'
 
 jest.mock('react-native')

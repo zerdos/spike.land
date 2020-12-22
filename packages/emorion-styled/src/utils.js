@@ -1,6 +1,6 @@
 // @flow
 import type { ElementType, StatelessFunctionalComponent } from 'react'
-import isPropValid from '@emotion/is-prop-valid'
+import isPropValid from '@zedvision/emotion-is-prop-valid'
 
 export type Interpolations = Array<any>
 

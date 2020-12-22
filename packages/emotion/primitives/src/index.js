@@ -1,6 +1,6 @@
 // @flow
 import { StyleSheet, Text, View, Image } from 'react-primitives'
-import { createCss } from '@emotion/primitives-core'
+import { createCss } from '@zedvision/emotion-primitives-core'
 
 import { styled as createStyled } from './styled'
 

@@ -1,4 +1,4 @@
-import weakMemoize from '@emotion/weak-memoize'
+import weakMemoize from '@zedvision/emotion-weak-memoize'
 
 test('it works', () => {
   let doThing = weakMemoize((obj) => {

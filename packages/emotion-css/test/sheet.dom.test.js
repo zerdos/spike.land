@@ -1,5 +1,5 @@
 // @flow
-import { sheet } from '@emotion/css'
+import { sheet } from '@zedvision/emotion-css'
 
 describe('sheet', () => {
   beforeEach(() => {

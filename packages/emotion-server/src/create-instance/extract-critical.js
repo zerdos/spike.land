@@ -1,5 +1,5 @@
 // @flow
-import type { EmotionCache } from '@emotion/utils'
+import type { EmotionCache } from '@zedvision/emotion-utils'
 
 const createExtractCritical = (cache: EmotionCache) => (html: string) => {
   // parse out ids from html

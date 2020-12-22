@@ -1,8 +1,8 @@
 // @flow
-import { type EmotionCache } from '@emotion/utils'
+import { type EmotionCache } from '@zedvision/emotion-utils'
 import * as React from 'react'
 import { useContext, forwardRef } from 'react'
-import createCache from '@emotion/cache'
+import createCache from '@zedvision/emotion-cache'
 import { isBrowser } from './utils'
 
 let EmotionCacheContext: React.Context<EmotionCache | null> = /* #__PURE__ */ React.createContext(

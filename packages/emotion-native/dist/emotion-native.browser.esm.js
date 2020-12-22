@@ -1,6 +1,6 @@
 import * as reactNative from 'react-native';
 import { StyleSheet } from 'react-native';
-import { createStyled, createCss } from '@emotion/primitives-core';
+import { createStyled, createCss } from '@zedvision/emotion-primitives-core';
 
 /**
  * a function that returns a styled component which render styles in React Native

@@ -1,5 +1,5 @@
 // @flow
-import type { StyleSheet } from '@emotion/sheet'
+import type { StyleSheet } from '@zedvision/emotion-sheet'
 
 export type RegisteredCache = { [string]: string }
 

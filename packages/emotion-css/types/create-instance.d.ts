@@ -1,16 +1,16 @@
 // Definitions by: Junyoung Clare Jang <https://github.com/Ailrun>
 // TypeScript Version: 2.8
 
-import { EmotionCache, Options } from '@emotion/cache'
-import { CSSInterpolation } from '@emotion/serialize'
-import { StyleSheet } from '@emotion/sheet'
+import { EmotionCache, Options } from '@zedvision/emotion-cache'
+import { CSSInterpolation } from '@zedvision/emotion-serialize'
+import { StyleSheet } from '@zedvision/emotion-sheet'
 
 export {
   CSSInterpolation,
   ArrayCSSInterpolation,
   ComponentSelector,
   CSSObject
-} from '@emotion/serialize'
+} from '@zedvision/emotion-serialize'
 
 export { EmotionCache, Options }
 

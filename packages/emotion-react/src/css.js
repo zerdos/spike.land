@@ -1,7 +1,7 @@
 // @flow
 
-import type { Interpolation, SerializedStyles } from '@emotion/utils'
-import { serializeStyles } from '@emotion/serialize'
+import type { Interpolation, SerializedStyles } from '@zedvision/emotion-utils'
+import { serializeStyles } from '@zedvision/emotion-serialize'
 
 function css(...args: Array<Interpolation>): SerializedStyles {
   return serializeStyles(args)

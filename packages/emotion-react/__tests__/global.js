@@ -3,7 +3,7 @@ import 'test-utils/dev-mode'
 import * as React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 import { Global, keyframes, css, CacheProvider } from '@zedvision/emotion-react'
-import createCache from '@emotion/cache'
+import createCache from '@zedvision/emotion-cache'
 
 beforeEach(() => {
   // $FlowFixMe

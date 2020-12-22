@@ -1,7 +1,7 @@
 import * as React from 'react'
 import renderer from 'react-test-renderer'
 import { ThemeProvider } from '@zedvision/emotion-react'
-import styled, { css } from '@emotion/native'
+import styled, { css } from '@zedvision/emotion-native'
 import reactNative from 'react-native'
 
 const StyleSheet = reactNative.StyleSheet

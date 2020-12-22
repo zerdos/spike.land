@@ -4,7 +4,7 @@ import { throwIfFalsy } from 'test-utils'
 import * as React from 'react'
 import { render } from 'react-dom'
 import { Global } from '@zedvision/emotion-react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 
 test('specificity with globals', () => {
   let SomeComponent = styled.p`

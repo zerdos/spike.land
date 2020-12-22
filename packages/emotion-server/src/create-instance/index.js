@@ -1,5 +1,5 @@
 // @flow
-import type { EmotionCache } from '@emotion/utils'
+import type { EmotionCache } from '@zedvision/emotion-utils'
 import createExtractCritical from './extract-critical'
 import createRenderStylesToString from './inline'
 import createRenderStylesToStream from './stream'

@@ -3,7 +3,7 @@
 > A MurmurHash2 implementation
 
 ```jsx
-import hash from '@emotion/hash'
+import hash from '@zedvision/emotion-hash'
 
 hash('some-string') // 12fj1d
 ```

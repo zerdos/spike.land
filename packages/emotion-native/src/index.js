@@ -1,5 +1,5 @@
 import * as reactNative from 'react-native'
-import { createCss } from '@emotion/primitives-core'
+import { createCss } from '@zedvision/emotion-primitives-core'
 
 import { styled } from './base'
 

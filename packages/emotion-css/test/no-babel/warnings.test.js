@@ -1,6 +1,6 @@
 // @flow
 import 'test-utils/legacy-env'
-import { css } from '@emotion/css'
+import { css } from '@zedvision/emotion-css'
 
 // $FlowFixMe
 console.error = jest.fn()

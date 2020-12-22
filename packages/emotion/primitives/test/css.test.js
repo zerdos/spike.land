@@ -1,5 +1,5 @@
 // @flow
-import { css } from '@emotion/primitives'
+import { css } from '@zedvision/emotion-primitives'
 import { StyleSheet } from 'react-native'
 
 let returnArguments = (...args) => args

@@ -2,8 +2,8 @@
 import 'test-utils/legacy-env'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { css } from '@emotion/css'
-import styled from '@emotion/styled'
+import { css } from '@zedvision/emotion-css'
+import styled from '@zedvision/emotion-styled'
 
 describe('css', () => {
   test('random expression', () => {

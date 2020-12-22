@@ -2,7 +2,7 @@
 import 'test-utils/next-env'
 import * as React from 'react'
 import renderer from 'react-test-renderer'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import { css, keyframes } from '@zedvision/emotion-react'
 
 test('nested function using css', () => {

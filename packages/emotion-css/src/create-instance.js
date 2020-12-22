@@ -1,12 +1,12 @@
 // @flow
-import createCache from '@emotion/cache'
-import { serializeStyles } from '@emotion/serialize'
+import createCache from '@zedvision/emotion-cache'
+import { serializeStyles } from '@zedvision/emotion-serialize'
 import {
   insertStyles,
   getRegisteredStyles,
   type EmotionCache,
   type SerializedStyles,
-} from '@emotion/utils'
+} from '@zedvision/emotion-utils'
 
 function insertWithoutScoping(cache, serialized: SerializedStyles) {
   if (cache.inserted[serialized.name] === undefined) {

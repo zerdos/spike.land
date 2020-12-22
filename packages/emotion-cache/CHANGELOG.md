@@ -34,7 +34,7 @@
 - [`39be057b`](https://github.com/@zedvision/emotion-js/emotion/commit/39be057b1a0c6b76f2cb7a455cb8bc35fe875ba0) [#1997](https://github.com/@zedvision/emotion-js/emotion/pull/1997) Thanks [@Andarist](https://github.com/Andarist)! - From now on an empty rule will get inserted into the DOM in non-production environments if it gets created by the user. This helps to grab used `key`s from the (JS)DOM even for caches that have not inserted any actual rules to the document yet. It allows `@emotion/jest` to find those and serialize Emotion classes properly in situations like this:
 
   ```js
-  import styled from '@emotion/styled/macro'
+  import styled from '@zedvision/emotion-styled/macro'
   import { render } from '@testing-library/react'
   const Div = styled.div``
   test('foo', () => {
@@ -85,7 +85,7 @@
 - [`39be057b`](https://github.com/@zedvision/emotion-js/emotion/commit/39be057b1a0c6b76f2cb7a455cb8bc35fe875ba0) [#1997](https://github.com/@zedvision/emotion-js/emotion/pull/1997) Thanks [@Andarist](https://github.com/Andarist)! - From now on an empty rule will get inserted into the DOM in non-production environments if it gets created by the user. This helps to grab used `key`s from the (JS)DOM even for caches that have not inserted any actual rules to the document yet. It allows `@emotion/jest` to find those and serialize Emotion classes properly in situations like this:
 
   ```js
-  import styled from '@emotion/styled/macro'
+  import styled from '@zedvision/emotion-styled/macro'
   import { render } from '@testing-library/react'
   const Div = styled.div``
   test('foo', () => {

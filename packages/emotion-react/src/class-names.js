@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
-import { getRegisteredStyles, insertStyles } from '@emotion/utils'
-import { serializeStyles } from '@emotion/serialize'
+import { getRegisteredStyles, insertStyles } from '@zedvision/emotion-utils'
+import { serializeStyles } from '@zedvision/emotion-serialize'
 import { withEmotionCache } from './context'
 import { ThemeContext } from './theming'
 import { isBrowser } from './utils'

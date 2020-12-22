@@ -2,7 +2,7 @@
 import 'test-utils/legacy-env'
 import React from 'react'
 import * as renderer from 'react-test-renderer'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import { css, ThemeProvider } from '@zedvision/emotion-react'
 
 test('theme with react-test-renderer', () => {

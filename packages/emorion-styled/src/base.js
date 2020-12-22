@@ -9,8 +9,8 @@ import {
   type PrivateStyledComponent,
 } from './utils'
 import { withEmotionCache, ThemeContext } from '@zedvision/emotion-react'
-import { getRegisteredStyles, insertStyles } from '@emotion/utils'
-import { serializeStyles } from '@emotion/serialize'
+import { getRegisteredStyles, insertStyles } from '@zedvision/emotion-utils'
+import { serializeStyles } from '@zedvision/emotion-serialize'
 
 const ILLEGAL_ESCAPE_SEQUENCE_ERROR = `You have illegal escape sequence in your template literal, most likely inside content's property value.
 Because you write your CSS inside a JavaScript string you actually have to do double escaping, so for example "content: '\\00d7';" should become "content: '\\\\00d7';".

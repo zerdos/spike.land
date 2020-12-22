@@ -7,7 +7,7 @@ import {
   TextStyle,
   View
 } from 'react-native'
-import styled, { css, ReactNativeStyle } from '@emotion/native'
+import styled, { css, ReactNativeStyle } from '@zedvision/emotion-native'
 
 declare module '@zedvision/emotion-react' {
   // tslint:disable-next-line: strict-export-declare-modifiers

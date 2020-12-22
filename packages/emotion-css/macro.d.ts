@@ -1,1 +1,1 @@
-export * from '@emotion/css'
+export * from '@zedvision/emotion-css'

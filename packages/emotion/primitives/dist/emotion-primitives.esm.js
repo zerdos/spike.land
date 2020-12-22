@@ -1,7 +1,7 @@
 import { StyleSheet, Image, Text, View } from 'react-primitives';
-import { createStyled, createCss } from '@emotion/primitives-core';
+import { createStyled, createCss } from '@zedvision/emotion-primitives-core';
 import 'react';
-import isPropValid from '@emotion/is-prop-valid';
+import isPropValid from '@zedvision/emotion-is-prop-valid';
 
 var forwardableProps = {
   // primitive props

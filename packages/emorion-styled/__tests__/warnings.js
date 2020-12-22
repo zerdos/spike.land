@@ -2,7 +2,7 @@
 import 'test-utils/legacy-env'
 import * as React from 'react'
 import { css } from '@zedvision/emotion-react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import { render } from '@testing-library/react'
 
 // $FlowFixMe

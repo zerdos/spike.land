@@ -1,5 +1,5 @@
-import createEmotionServer from '@emotion/server/create-instance'
-import { EmotionCache } from '@emotion/utils'
+import createEmotionServer from '@zedvision/emotion-server/create-instance'
+import { EmotionCache } from '@zedvision/emotion-utils'
 
 declare const cache: EmotionCache
 

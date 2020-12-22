@@ -1,6 +1,6 @@
 // @flow
-import { StyleSheet } from '@emotion/sheet'
-import { type EmotionCache, type SerializedStyles } from '@emotion/utils'
+import { StyleSheet } from '@zedvision/emotion-sheet'
+import { type EmotionCache, type SerializedStyles } from '@zedvision/emotion-utils'
 import {
   serialize,
   compile,
@@ -10,8 +10,8 @@ import {
   prefixer,
   COMMENT,
 } from 'stylis'
-import weakMemoize from '@emotion/weak-memoize'
-import memoize from '@emotion/memoize'
+import weakMemoize from '@zedvision/emotion-weak-memoize'
+import memoize from '@zedvision/emotion-memoize'
 import {
   compat,
   removeLabel,

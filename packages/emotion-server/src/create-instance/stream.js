@@ -1,5 +1,5 @@
 // @flow
-import type { EmotionCache } from '@emotion/utils'
+import type { EmotionCache } from '@zedvision/emotion-utils'
 import through from 'through'
 import tokenize from 'html-tokenize'
 import pipe from 'multipipe'

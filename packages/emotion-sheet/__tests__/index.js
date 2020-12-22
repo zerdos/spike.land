@@ -1,6 +1,6 @@
 // @flow
 import { safeQuerySelector } from 'test-utils'
-import { StyleSheet } from '@emotion/sheet'
+import { StyleSheet } from '@zedvision/emotion-sheet'
 
 const rule = 'html { color: hotpink; }'
 const rule2 = '* { box-sizing: border-box; }'

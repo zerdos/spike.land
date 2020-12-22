@@ -21,7 +21,7 @@ This package also depends on `react`, `react-native` and `prop-types` so make su
 ```js
 import React from 'react'
 import { AppRegistry } from 'react-native'
-import styled, { css } from '@emotion/native'
+import styled, { css } from '@zedvision/emotion-native'
 
 const Container = styled.View`
   display: flex;
@@ -73,7 +73,7 @@ Use `@zedvision/emotion-react` for theming support.
 
 ```js
 import React from 'react'
-import styled, { css } from '@emotion/native'
+import styled, { css } from '@zedvision/emotion-native'
 import { ThemeProvider } from '@zedvision/emotion-react'
 
 const theme = {
@@ -140,7 +140,7 @@ class App extends React.Component {
 ```js
 import React from 'react'
 import { AppRegistry, StyleSheet, Text, View } from 'react-360'
-import styled from '@emotion/native'
+import styled from '@zedvision/emotion-native'
 
 const StyledName = styled.Text`
   font-size: 40px;

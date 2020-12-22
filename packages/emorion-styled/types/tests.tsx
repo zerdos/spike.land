@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 
 // This file uses the same Theme declaration from tests-base.tsx
 

@@ -4,7 +4,7 @@ import 'test-utils/dev-mode'
 import { throwIfFalsy } from 'test-utils'
 import { jsx, CacheProvider } from '@zedvision/emotion-react'
 import { render } from 'react-dom'
-import { css, cache } from '@emotion/css'
+import { css, cache } from '@zedvision/emotion-css'
 
 test('composition works from old emotion css calls', (cb) => {
   const cls = css`

@@ -5,7 +5,7 @@ import { Text, StyleSheet } from 'react-primitives'
 import { ThemeProvider } from '@zedvision/emotion-react'
 import { render, unmountComponentAtNode } from 'react-dom'
 
-import styled from '@emotion/primitives'
+import styled from '@zedvision/emotion-primitives'
 
 jest.mock('react-primitives')
 

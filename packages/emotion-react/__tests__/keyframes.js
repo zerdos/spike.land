@@ -5,7 +5,7 @@ import { jsx, css, keyframes } from '@zedvision/emotion-react'
 import { safeQuerySelector, throwIfFalsy } from 'test-utils'
 import cases from 'jest-in-case'
 import * as renderer from 'react-test-renderer'
-import createCache from '@emotion/cache'
+import createCache from '@zedvision/emotion-cache'
 import { CacheProvider } from '@zedvision/emotion-react'
 
 cases(

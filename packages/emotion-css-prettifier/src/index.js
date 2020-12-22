@@ -1,4 +1,4 @@
-import memoize from '@emotion/memoize'
+import memoize from '@zedvision/emotion-memoize'
 import { compile, serialize, combine, tokenize } from 'stylis'
 
 // adjusted https://github.com/thysultan/stylis.js/blob/68b9043427c177b95a0fd6a2a13f5b636bf80236/src/Serializer.js#L26-L34

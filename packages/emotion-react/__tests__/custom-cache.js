@@ -1,7 +1,7 @@
 // @flow
 /** @jsx jsx */
 import 'test-utils/next-env'
-import createCache from '@emotion/cache'
+import createCache from '@zedvision/emotion-cache'
 import { jsx, CacheProvider } from '@zedvision/emotion-react'
 import renderer from 'react-test-renderer'
 

@@ -2,11 +2,11 @@
 import * as React from 'react'
 import { withEmotionCache } from './context'
 import { ThemeContext } from './theming'
-import { insertStyles } from '@emotion/utils'
+import { insertStyles } from '@zedvision/emotion-utils'
 import { isBrowser } from './utils'
 
-import { StyleSheet } from '@emotion/sheet'
-import { serializeStyles } from '@emotion/serialize'
+import { StyleSheet } from '@zedvision/emotion-sheet'
+import { serializeStyles } from '@zedvision/emotion-serialize'
 
 type Styles = Object | Array<Object>
 

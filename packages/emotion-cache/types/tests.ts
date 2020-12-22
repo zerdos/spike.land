@@ -1,4 +1,4 @@
-import createCache, { Options } from '@emotion/cache'
+import createCache, { Options } from '@zedvision/emotion-cache'
 
 declare const testOptions: Options
 

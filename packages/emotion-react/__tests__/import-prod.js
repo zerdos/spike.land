@@ -2,9 +2,9 @@
 import 'test-utils/prod-mode'
 import * as React from 'react'
 import { css, Global } from '@zedvision/emotion-react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import { render } from '@testing-library/react'
-import prettify from '@emotion/css-prettifier'
+import prettify from '@zedvision/emotion-css-prettifier'
 
 // using styled instead of the css prop because there was a really weird flow error
 // when using `jsx` from @zedvision/emotion-react and Global

@@ -3,7 +3,7 @@
 
 import * as React from 'react'
 import { useTheme, ThemeProvider, withTheme, Theme } from '@zedvision/emotion-react'
-import { Interpolation, CSSObject } from '@emotion/styled/base'
+import { Interpolation, CSSObject } from '@zedvision/emotion-styled/base'
 
 declare const theme: Theme
 

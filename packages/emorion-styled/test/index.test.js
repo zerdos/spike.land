@@ -3,7 +3,7 @@ import 'test-utils/legacy-env'
 import React from 'react'
 import * as renderer from 'react-test-renderer'
 import { css } from '@zedvision/emotion-react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 
 describe('styled', () => {

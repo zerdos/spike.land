@@ -1,4 +1,4 @@
-import { StyleSheet } from '@emotion/sheet'
+import { StyleSheet } from '@zedvision/emotion-sheet'
 
 new StyleSheet({
   key: 'abc',

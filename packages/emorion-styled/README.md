@@ -11,7 +11,7 @@ yarn add @zedvision/emotion-react @emotion/styled
 ## Usage
 
 ```jsx
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 
 let SomeComp = styled.div({
   color: 'hotpink'

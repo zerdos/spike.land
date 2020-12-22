@@ -13,7 +13,7 @@ yarn add @emotion/weak-memoize
 Because @emotion/weak-memoize uses a WeakMap the argument must be a non primitive type, e.g. objects, functions, arrays and etc. The function passed to `weakMemoize` must also only accept a single argument.
 
 ```jsx
-import weakMemoize from '@emotion/weak-memoize'
+import weakMemoize from '@zedvision/emotion-weak-memoize'
 
 let doThing = weakMemoize(({ someProperty }) => {
   return { newName: someProperty }

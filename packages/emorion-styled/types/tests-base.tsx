@@ -1,6 +1,6 @@
 import * as React from 'react'
-import styled from '@emotion/styled/base'
-import isPropValid from '@emotion/is-prop-valid'
+import styled from '@zedvision/emotion-styled/base'
+import isPropValid from '@zedvision/emotion-is-prop-valid'
 
 declare module '@zedvision/emotion-react' {
   // tslint:disable-next-line: strict-export-declare-modifiers

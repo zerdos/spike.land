@@ -1,4 +1,4 @@
-import hash from '@emotion/hash'
+import hash from '@zedvision/emotion-hash'
 
 // $ExpectType string
 hash('color: hotpink;')

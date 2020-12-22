@@ -1,6 +1,6 @@
 // @flow
 import createEmotionServer from './create-instance'
-import { cache } from '@emotion/css'
+import { cache } from '@zedvision/emotion-css'
 
 export const {
   extractCritical,

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import renderer from 'react-test-renderer'
 
 test('inserts source map', () => {

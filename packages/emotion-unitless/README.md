@@ -3,7 +3,7 @@
 > An object of css properties that don't accept values with units
 
 ```jsx
-import unitless from '@emotion/unitless'
+import unitless from '@zedvision/emotion-unitless'
 
 unitless.flex === 1
 

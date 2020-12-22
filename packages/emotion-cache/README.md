@@ -5,7 +5,7 @@
 `createCache` allows for low level customization of how styles get inserted by emotion. It's intended to be used with the [`<CacheProvider/>`](https://emotion.sh/docs/cache-provider) component to override the default cache, which is created with sensible defaults for most applications.
 
 ```javascript
-import createCache from '@emotion/cache'
+import createCache from '@zedvision/emotion-cache'
 
 export const myCache = createCache({
   key: 'my-prefix-key',

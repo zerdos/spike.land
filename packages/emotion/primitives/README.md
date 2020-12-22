@@ -24,7 +24,7 @@ This package also depends on `react`, `react-primitives` and `prop-types` so mak
 
 ```js
 import React from 'react'
-import styled, { css } from '@emotion/primitives'
+import styled, { css } from '@zedvision/emotion-primitives'
 
 import { ThemeProvider } from '@zedvision/emotion-react'
 

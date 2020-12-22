@@ -1,7 +1,7 @@
 // @flow
 import 'test-utils/legacy-env'
 import React from 'react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import { ThemeProvider } from '@zedvision/emotion-react'
 import { render, cleanup } from '@testing-library/react'
 

@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import 'test-utils/next-env'
 import { jsx, css } from '@zedvision/emotion-react'
-import { serializeStyles } from '@emotion/serialize'
+import { serializeStyles } from '@zedvision/emotion-serialize'
 import * as renderer from 'react-test-renderer'
 const utils = require('@emotion/utils')
 

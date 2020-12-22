@@ -39,11 +39,11 @@
   If you have used `@emotion/css` directly (it was always reexported from `@zedvision/emotion-react`) or you have been using its macro then you should update your code like this:
 
   ```diff
-  -import css from '@emotion/css'
+  -import css from '@zedvision/emotion-css'
   +import { css } from '@zedvision/emotion-react'
 
   // or
-  -import css from '@emotion/css/macro'
+  -import css from '@zedvision/emotion-css/macro'
   +import { css } from '@zedvision/emotion-react/macro'
   ```
 

@@ -2,7 +2,7 @@
 import 'test-utils/legacy-env'
 import React from 'react'
 import * as renderer from 'react-test-renderer'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 
 test("config merging works even if it's referenced by variable", () => {
   const Button = ({ isRed, ...rest }) => (

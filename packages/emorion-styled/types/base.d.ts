@@ -2,14 +2,14 @@
 // TypeScript Version: 3.2
 
 import * as React from 'react'
-import { ComponentSelector, Interpolation } from '@emotion/serialize'
+import { ComponentSelector, Interpolation } from '@zedvision/emotion-serialize'
 import { PropsOf, DistributiveOmit, Theme } from '@zedvision/emotion-react'
 
 export {
   ArrayInterpolation,
   CSSObject,
   FunctionInterpolation
-} from '@emotion/serialize'
+} from '@zedvision/emotion-serialize'
 
 export { ComponentSelector, Interpolation }
 

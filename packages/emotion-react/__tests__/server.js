@@ -13,11 +13,11 @@ import {
   CacheProvider,
   ClassNames,
 } from '@zedvision/emotion-react'
-import styled from '@emotion/styled'
-import createCache from '@emotion/cache'
+import styled from '@zedvision/emotion-styled'
+import createCache from '@zedvision/emotion-cache'
 import { renderToString } from 'react-dom/server'
 import HTMLSerializer from 'jest-serializer-html'
-import createEmotionServer from '@emotion/server/create-instance'
+import createEmotionServer from '@zedvision/emotion-server/create-instance'
 
 expect.addSnapshotSerializer(HTMLSerializer)
 

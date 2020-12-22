@@ -23,7 +23,7 @@ npm install --save @emotion/css
 ```
 
 ```javascript
-import { css } from '@emotion/css'
+import { css } from '@zedvision/emotion-css'
 
 const app = document.getElementById('root')
 const myStyle = css`
@@ -42,7 +42,7 @@ The `css` function accepts styles as a template literal, object, or array of obj
 
 ```jsx
 // @live
-import { css } from '@emotion/css'
+import { css } from '@zedvision/emotion-css'
 
 const color = 'darkgreen'
 
@@ -64,7 +64,7 @@ render(
 
 ```jsx
 // @live
-import { css } from '@emotion/css'
+import { css } from '@zedvision/emotion-css'
 
 const color = 'darkgreen'
 
@@ -86,7 +86,7 @@ render(
 
 ```jsx
 // @live
-import { css } from '@emotion/css'
+import { css } from '@zedvision/emotion-css'
 
 const color = 'darkgreen'
 const isDanger = true
@@ -115,7 +115,7 @@ render(
 `injectGlobal` injects styles into the global scope and is useful for applications such as css resets or font faces.
 
 ```jsx
-import { injectGlobal } from '@emotion/css'
+import { injectGlobal } from '@zedvision/emotion-css'
 
 injectGlobal`
   * {
@@ -144,7 +144,7 @@ injectGlobal`
 
 ```jsx
 // @live
-import { css, keyframes } from '@emotion/css'
+import { css, keyframes } from '@zedvision/emotion-css'
 
 const bounce = keyframes`
   from, 20%, 53%, 80%, to {
@@ -182,7 +182,7 @@ render(
 
 ```jsx
 // @live
-import { css, keyframes } from '@emotion/css'
+import { css, keyframes } from '@zedvision/emotion-css'
 
 const bounce = keyframes({
   'from, 20%, 53%, 80%, to': {
@@ -220,7 +220,7 @@ render(
 **Combining class names**
 
 ```jsx
-import { cx, css } from '@emotion/css'
+import { cx, css } from '@zedvision/emotion-css'
 
 const cls1 = css`
   font-size: 20px;
@@ -278,7 +278,7 @@ With `@emotion/css/create-instance`, you can provide custom options to Emotion's
 The main `@emotion/css` entrypoint can be thought of as a call to `@emotion/css/create-instance` with sensible defaults for most applications.
 
 ```javascript
-import createEmotion from '@emotion/css/create-instance'
+import createEmotion from '@zedvision/emotion-css/create-instance'
 
 export const {
   flush,
@@ -321,7 +321,7 @@ export const {
 ## Multiple instances in a single app example
 
 ```jsx
-import createEmotion from '@emotion/css/create-instance'
+import createEmotion from '@zedvision/emotion-css/create-instance'
 
 export const {
   flush,

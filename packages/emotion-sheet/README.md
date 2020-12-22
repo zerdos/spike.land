@@ -7,7 +7,7 @@ yarn add @emotion/sheet
 ```
 
 ```jsx
-import { StyleSheet } from '@emotion/sheet'
+import { StyleSheet } from '@zedvision/emotion-sheet'
 
 const sheet = new StyleSheet({ key: '', container: document.head })
 
@@ -68,7 +68,7 @@ This method moves given style elements into sheet's container and put them into 
 ### Example with all options
 
 ```jsx
-import { StyleSheet } from '@emotion/sheet'
+import { StyleSheet } from '@zedvision/emotion-sheet'
 
 const container = document.createElement('div')
 

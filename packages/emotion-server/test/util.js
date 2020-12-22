@@ -1,8 +1,8 @@
 // @flow
 /* eslint-env jest */
 import * as React from 'react'
-import prettify from '@emotion/css-prettifier'
-import type { Emotion } from '@emotion/css/create-instance'
+import prettify from '@zedvision/emotion-css-prettifier'
+import type { Emotion } from '@zedvision/emotion-css/create-instance'
 // $FlowFixMe
 import { renderToNodeStream } from 'react-dom/server'
 import HTMLSerializer from 'jest-serializer-html'

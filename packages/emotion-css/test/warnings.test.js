@@ -1,7 +1,7 @@
 // @flow
 import 'test-utils/legacy-env'
-import { css } from '@emotion/css'
-import createCss from '@emotion/css/create-instance'
+import { css } from '@zedvision/emotion-css'
+import createCss from '@zedvision/emotion-css/create-instance'
 import * as React from 'react'
 import renderer from 'react-test-renderer'
 

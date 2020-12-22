@@ -6,7 +6,7 @@ import {
   getRegisteredStyles,
   insertStyles,
   isBrowser
-} from '@emotion/utils'
+} from '@zedvision/emotion-utils'
 
 declare const testCache: EmotionCache
 declare const testRegisteredCache: RegisteredCache

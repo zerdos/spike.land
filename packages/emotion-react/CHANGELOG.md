@@ -85,11 +85,11 @@
   If you have used `@emotion/css` directly (it was always reexported from `@zedvision/emotion-react`) or you have been using its macro then you should update your code like this:
 
   ```diff
-  -import css from '@emotion/css'
+  -import css from '@zedvision/emotion-css'
   +import { css } from '@zedvision/emotion-react'
 
   // or
-  -import css from '@emotion/css/macro'
+  -import css from '@zedvision/emotion-css/macro'
   +import { css } from '@zedvision/emotion-react/macro'
   ```
 
@@ -303,15 +303,15 @@
   If you have used `@emotion/css` directly (it was always reexported from `@emotion/core`) or you have been using its macro then you should update your code like this:
 
   ```diff
-  -import css from '@emotion/css'
-  +import { css } from '@emotion/core'
+  -import css from '@zedvision/emotion-css'
+  +import { css } from '@zedvision/emotion-core'
 
   // or
-  -import css from '@emotion/css/macro'
-  +import { css } from '@emotion/core/macro'
+  -import css from '@zedvision/emotion-css/macro'
+  +import { css } from '@zedvision/emotion-core/macro'
   ```
 
-- [`cbb8b796`](https://github.com/@zedvision/emotion-js/emotion/commit/cbb8b7965c2923cf1922d724de556374323bff61) [#1628](https://github.com/@zedvision/emotion-js/emotion/pull/1628) Thanks [@Andarist](https://github.com/Andarist)! - `emotion-theming` has been removed and all its exports were moved to `@emotion/core` package. Please import them like this `import { useTheme, ThemeProvider, withTheme } from '@emotion/core'` from now on.
+- [`cbb8b796`](https://github.com/@zedvision/emotion-js/emotion/commit/cbb8b7965c2923cf1922d724de556374323bff61) [#1628](https://github.com/@zedvision/emotion-js/emotion/pull/1628) Thanks [@Andarist](https://github.com/Andarist)! - `emotion-theming` has been removed and all its exports were moved to `@emotion/core` package. Please import them like this `import { useTheme, ThemeProvider, withTheme } from '@zedvision/emotion-core'` from now on.
 
 ### Minor Changes
 

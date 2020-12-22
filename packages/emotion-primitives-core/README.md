@@ -16,7 +16,7 @@ This package provides two functions, `createCss` and `createStyled`.
 
 ```js
 import { StyleSheet, View, Text } from 'react-native'
-import { createCss } from '@emotion/primitives-core'
+import { createCss } from '@zedvision/emotion-primitives-core'
 
 const css = createCss(StyleSheet)
 
@@ -29,7 +29,7 @@ const css = createCss(StyleSheet)
 
 ```js
 import { StyleSheet, View, Text } from 'react-native'
-import { createStyled } from '@emotion/primitives-core'
+import { createStyled } from '@zedvision/emotion-primitives-core'
 
 const styled = createStyled(StyleSheet)
 

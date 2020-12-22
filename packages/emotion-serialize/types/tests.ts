@@ -1,4 +1,4 @@
-import { CSSObject, Keyframes, serializeStyles } from '@emotion/serialize'
+import { CSSObject, Keyframes, serializeStyles } from '@zedvision/emotion-serialize'
 
 declare const testTemplateStringsArray: TemplateStringsArray
 declare const testKeyframes: Keyframes

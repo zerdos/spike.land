@@ -9,7 +9,7 @@ import {
   keyframes,
   sheet,
   cache
-} from '@emotion/css'
+} from '@zedvision/emotion-css'
 
 flush()
 

@@ -3,7 +3,7 @@
 import 'test-utils/next-env'
 import renderer from 'react-test-renderer'
 import hoistNonReactStatics from 'hoist-non-react-statics'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 import { jsx, keyframes, css, ThemeProvider } from '@zedvision/emotion-react'
 
 describe('styled', () => {

@@ -9,7 +9,7 @@ high performance StyleSheet for css-in-js systems
 
 // usage
 
-import { StyleSheet } from '@emotion/sheet'
+import { StyleSheet } from '@zedvision/emotion-sheet'
 
 let styleSheet = new StyleSheet({ key: '', container: document.head })
 

@@ -2,9 +2,9 @@
 import * as React from 'react'
 import { withEmotionCache } from './context'
 import { ThemeContext } from './theming'
-import { getRegisteredStyles, insertStyles } from '@emotion/utils'
+import { getRegisteredStyles, insertStyles } from '@zedvision/emotion-utils'
 import { hasOwnProperty, isBrowser } from './utils'
-import { serializeStyles } from '@emotion/serialize'
+import { serializeStyles } from '@zedvision/emotion-serialize'
 
 // those identifiers come from error stacks, so they have to be valid JS identifiers
 // thus we only need to replace what is a valid character for JS, but not for CSS

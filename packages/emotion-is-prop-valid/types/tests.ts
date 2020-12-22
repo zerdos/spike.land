@@ -1,4 +1,4 @@
-import isPropValid from '@emotion/is-prop-valid'
+import isPropValid from '@zedvision/emotion-is-prop-valid'
 
 isPropValid('ref')
 

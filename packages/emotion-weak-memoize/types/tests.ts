@@ -1,4 +1,4 @@
-import weakMemoize from '@emotion/weak-memoize'
+import weakMemoize from '@zedvision/emotion-weak-memoize'
 
 interface Foo {
   bar: 'xyz'

@@ -1,5 +1,5 @@
 // @flow
-import memoize from '@emotion/memoize'
+import memoize from '@zedvision/emotion-memoize'
 
 declare var codegen: { require: (string) => RegExp }
 

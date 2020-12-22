@@ -1,4 +1,4 @@
-import memoize from '@emotion/memoize';
+import memoize from '@zedvision/emotion-memoize';
 import { serialize, compile, combine, tokenize } from 'stylis';
 
 var prettyStringify = memoize(function (indentation) {

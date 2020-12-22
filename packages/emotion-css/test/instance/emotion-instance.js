@@ -1,6 +1,6 @@
 // @flow
-import createEmotion from '@emotion/css/create-instance'
-import createEmotionServer from '@emotion/server/create-instance'
+import createEmotion from '@zedvision/emotion-css/create-instance'
+import createEmotionServer from '@zedvision/emotion-server/create-instance'
 
 function stylisPlugin(element) {
   if (element.type === 'decl' && element.value.startsWith('color:')) {
@@ -42,4 +42,4 @@ export const {
   renderStylesToNodeStream,
 } = createEmotionServer(cache)
 
-export { default } from '@emotion/styled'
+export { default } from '@zedvision/emotion-styled'

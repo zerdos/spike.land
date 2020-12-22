@@ -3,7 +3,7 @@
 import 'test-utils/legacy-env'
 import * as renderer from 'react-test-renderer'
 import { jsx, css } from '@zedvision/emotion-react'
-import styled from '@emotion/styled'
+import styled from '@zedvision/emotion-styled'
 
 import { lighten, hiDPI } from 'polished'
 

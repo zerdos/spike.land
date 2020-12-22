@@ -1,4 +1,4 @@
-import { StyleSheet } from '@emotion/sheet';
+import { StyleSheet } from '@zedvision/emotion-sheet';
 import { dealloc, alloc, next, token, from, peek, delimit, identifier, position, stringify, COMMENT, rulesheet, middleware, prefixer, serialize, compile } from 'stylis';
 import '@emotion/weak-memoize';
 import '@emotion/memoize';

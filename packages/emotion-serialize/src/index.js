@@ -3,10 +3,10 @@ import type {
   Interpolation,
   SerializedStyles,
   RegisteredCache,
-} from '@emotion/utils'
-import hashString from '@emotion/hash'
-import unitless from '@emotion/unitless'
-import memoize from '@emotion/memoize'
+} from '@zedvision/emotion-utils'
+import hashString from '@zedvision/emotion-hash'
+import unitless from '@zedvision/emotion-unitless'
+import memoize from '@zedvision/emotion-memoize'
 
 const ILLEGAL_ESCAPE_SEQUENCE_ERROR = `You have illegal escape sequence in your template literal, most likely inside content's property value.
 Because you write your CSS inside a JavaScript string you actually have to do double escaping, so for example "content: '\\00d7';" should become "content: '\\\\00d7';".

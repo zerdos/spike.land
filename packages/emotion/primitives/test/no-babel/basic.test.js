@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react'
-import styled, { css } from '@emotion/primitives'
+import styled, { css } from '@zedvision/emotion-primitives'
 import renderer from 'react-test-renderer'
 import { StyleSheet } from 'react-native'
 

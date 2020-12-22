@@ -3,8 +3,8 @@
  * @flow
  */
 import { jsx, Global } from '@zedvision/emotion-react'
-import createEmotionServer from '@emotion/server/create-instance'
-import createCache from '@emotion/cache'
+import createEmotionServer from '@zedvision/emotion-server/create-instance'
+import createCache from '@zedvision/emotion-cache'
 import { CacheProvider } from '@zedvision/emotion-react'
 import { renderToString } from 'react-dom/server'
 

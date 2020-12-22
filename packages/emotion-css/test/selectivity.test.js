@@ -1,6 +1,6 @@
 // @flow
 import 'test-utils/legacy-env'
-import { css, sheet, flush } from '@emotion/css'
+import { css, sheet, flush } from '@zedvision/emotion-css'
 
 describe('css', () => {
   afterEach(() => flush())

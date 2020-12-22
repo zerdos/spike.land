@@ -1,6 +1,6 @@
-import hashString from '@emotion/hash';
-import unitless from '@emotion/unitless';
-import memoize from '@emotion/memoize';
+import hashString from '@zedvision/emotion-hash';
+import unitless from '@zedvision/emotion-unitless';
+import memoize from '@zedvision/emotion-memoize';
 
 var ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
 var UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).";

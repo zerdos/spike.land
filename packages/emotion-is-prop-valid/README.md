@@ -7,7 +7,7 @@ yarn add @emotion/is-prop-valid
 ```
 
 ```jsx
-import isPropValid from '@emotion/is-prop-valid'
+import isPropValid from '@zedvision/emotion-is-prop-valid'
 
 isPropValid('href') // true
 
