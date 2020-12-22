@@ -3,7 +3,7 @@
   "version": "10.10.28",
   "description": "A MurmurHash2 implementation",
   "main": "dist/emotion-hash.cjs.js",
-  "module": "dist/emotion-hash.esm.js",
+  "module": "dist/emotion-hash.modern.js",
   "types": "types/index.d.ts",
   "license": "MIT",
   "repository": "https://github.com/@zedvision/emotion-js/emotion/tree/master/packages/hash",
@@ -24,8 +24,8 @@
     "dtslint": "^4.0.6"
   },
   "browser": {
-    "./dist/emotion-hash.cjs.js": "./dist/emotion-hash.browser.cjs.js",
-    "./dist/emotion-hash.esm.js": "./dist/emotion-hash.browser.esm.js"
+    "./dist/emotion-hash.cjs.js": "./dist/emotion-hash.modern.js",
+    "./dist/emotion-hash.esm.js": "./dist/emotion-hash.modern.js"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
 }

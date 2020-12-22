@@ -3,10 +3,10 @@
   "version": "10.10.28",
   "description": "emotion's stylesheet",
   "main": "dist/emotion-sheet.cjs.js",
-  "module": "dist/emotion-sheet.esm.js",
+  "module": "dist/emotion-sheet.modern.js",
   "browser": {
-    "./dist/emotion-sheet.cjs.js": "./dist/emotion-sheet.browser.cjs.js",
-    "./dist/emotion-sheet.esm.js": "./dist/emotion-sheet.browser.esm.js"
+    "./dist/emotion-sheet.cjs.js": "./dist/emotion-sheet.modern.js",
+    "./dist/emotion-sheet.esm.js": "./dist/emotion-sheet.modern.js"
   },
   "types": "types/index.d.ts",
   "license": "MIT",

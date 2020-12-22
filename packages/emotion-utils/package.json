@@ -3,10 +3,10 @@
   "version": "10.10.28",
   "description": "internal utils for emotion",
   "main": "dist/emotion-utils.cjs.js",
-  "module": "dist/emotion-utils.esm.js",
+  "module": "dist/emotion-utils.modern.js",
   "browser": {
-    "./dist/emotion-utils.cjs.js": "./dist/emotion-utils.browser.cjs.js",
-    "./dist/emotion-utils.esm.js": "./dist/emotion-utils.browser.esm.js"
+    "./dist/emotion-utils.cjs.js": "./dist/emotion-utils.modern.js",
+    "./dist/emotion-utils.esm.js": "./dist/emotion-utils.modern.js"
   },
   "types": "types/index.d.ts",
   "license": "MIT",

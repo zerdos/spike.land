@@ -1,9 +1,8 @@
 // @flow
 import memoize from '@zedvision/emotion-memoize'
+import reactPropsRegexStr from "./props"
 
-declare var codegen: { require: (string) => RegExp }
-
-const reactPropsRegex = codegen.require('./props')
+const reactPropsRegex = new RegExp(reactPropsRegexStr);
 
 // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
 const isPropValid = /* #__PURE__ */ memoize(

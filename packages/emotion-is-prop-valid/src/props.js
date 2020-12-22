@@ -475,7 +475,7 @@ const props = {
   class: true,
   autofocus: true,
 }
-// eslint-disable-next-line import/no-commonjs
-module.exports = `/^((${Object.keys(props).join(
+
+export default `/^((${Object.keys(props).join(
   '|'
 )})|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/`
