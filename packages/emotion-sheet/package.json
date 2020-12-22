@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-sheet",
-  "version": "10.10.28",
+  "version": "10.10.29",
   "description": "emotion's stylesheet",
   "main": "dist/emotion-sheet.cjs.js",
   "module": "dist/emotion-sheet.modern.js",

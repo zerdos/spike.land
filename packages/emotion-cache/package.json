@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-cache",
-  "version": "10.10.28",
+  "version": "10.10.29",
   "description": "emotion's cache",
   "main": "dist/emotion-cache.cjs.js",
   "module": "dist/emotion-cache.modern.js",
@@ -16,14 +16,14 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@zedvision/emotion-memoize": "^10.10.28",
-    "@zedvision/emotion-sheet": "^10.10.28",
-    "@zedvision/emotion-utils": "^10.10.28",
-    "@zedvision/emotion-weak-memoize": "^10.10.28",
+    "@zedvision/emotion-memoize": "^10.10.29",
+    "@zedvision/emotion-sheet": "^10.10.29",
+    "@zedvision/emotion-utils": "^10.10.29",
+    "@zedvision/emotion-weak-memoize": "^10.10.29",
     "stylis": "^4.0.6"
   },
   "devDependencies": {
-    "@zedvision/emotion-hash": "^10.10.28",
+    "@zedvision/emotion-hash": "^10.10.29",
     "dtslint": "^4.0.6"
   },
   "publishConfig": {
