@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-primitives",
-  "version": "10.10.31",
+  "version": "10.10.32",
   "private": false,
   "main": "dist/emotion-primitives.cjs.js",
   "module": "dist/emotion-primitives.modern.js",
@@ -17,7 +17,7 @@
   "dependencies": {
     "@emotion/babel-plugin": "^11.1.2",
     "@zedvision/emotion-is-prop-valid": "^10.10.30",
-    "@zedvision/emotion-primitives-core": "^10.10.31"
+    "@zedvision/emotion-primitives-core": "^10.10.32"
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",

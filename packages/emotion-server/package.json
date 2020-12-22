@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-server",
-  "version": "10.10.31",
+  "version": "10.10.32",
   "description": "Extract and inline critical css with emotion for server side rendering.",
   "main": "dist/emotion-server.cjs.js",
   "module": "dist/emotion-server.moder.js",
