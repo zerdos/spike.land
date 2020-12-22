@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-styled",
-  "version": "10.10.20",
+  "version": "10.10.21",
   "private": false,
   "description": "styled API for emotion",
   "main": "dist/emotion-styled.cjs.js",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@zedvision/emotion-react": "^10.10.20",
+    "@zedvision/emotion-react": "^10.10.21",
     "dtslint": "^4.0.6",
     "react": "17.0.1"
   },

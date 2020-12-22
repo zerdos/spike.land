@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-utils",
-  "version": "10.10.18",
+  "version": "10.10.21",
   "description": "internal utils for emotion",
   "main": "dist/emotion-utils.cjs.js",
   "module": "dist/emotion-utils.esm.js",
