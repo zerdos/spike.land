@@ -1,7 +1,7 @@
-export const starter = `import { useState } from "react";
+export const starter = `import React, { useState } from "react";
 /** @jsx jsx */
 import { motion } from "framer-motion";
-import { css, jsx, Global } from "@zedvision/emotion-react";;
+import { css, jsx, Global } from "@emotion/react";;
 
 const Slider = () => {
   const [sliderValue, setSlider] = useState(64);
