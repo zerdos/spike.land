@@ -2,7 +2,7 @@
   "name": "@zedvision/emotion-react",
   "version": "10.10.28",
   "main": "dist/emotion-react.cjs.js",
-  "module": "dist/emotion-react.esm.js",
+  "module": "dist/emotion-react.modern.js",
   "browser": {
     "./dist/emotion-react.cjs.js": "./dist/emotion-react.modern.js",
     "./dist/emotion-react.esm.js": "./dist/emotion-react.modern.js"

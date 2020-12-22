@@ -3,7 +3,7 @@
   "version": "10.10.28",
   "description": "The Next Generation of CSS-in-JS.",
   "main": "dist/emotion-css.cjs.js",
-  "module": "dist/emotion-css.esm.js",
+  "module": "dist/emotion-css.modern.js",
   "types": "types/index.d.ts",
   "publishConfig": {
     "access": "public"
