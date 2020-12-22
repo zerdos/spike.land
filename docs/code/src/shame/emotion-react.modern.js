@@ -9,9 +9,12 @@ import {
 import l from "@zedvision/emotion-cache";
 import a from "@emotion/weak-memoize";
 import i from "hoist-non-react-statics";
-import { getRegisteredStyles as c, insertStyles as u } from "@emotion/utils";
-import { serializeStyles as m } from "@emotion/serialize";
-import { StyleSheet as p } from "@emotion/sheet";
+import {
+  getRegisteredStyles as c,
+  insertStyles as u,
+} from "@zedvision/emotion-utils";
+import { serializeStyles as m } from "@zedvision/emotion-serialize";
+import { StyleSheet as p } from "@zedvision/emotion-sheet";
 let d = "undefined" != typeof document;
 const f = Object.prototype.hasOwnProperty;
 let y = n("undefined" != typeof HTMLElement ? l({ key: "css" }) : null),
