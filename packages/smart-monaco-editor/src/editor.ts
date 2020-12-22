@@ -217,71 +217,62 @@ export const startMonaco: SmartMonaco = async (
         depend: [],
       },
       {
-        name: "@zedvision/emotion-styled/base.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/base.d.ts",
+        name: "@emotion/styled/base.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
         depend: [
-          "@zedvision/emotion-react",
-          "@zedvision/emotion-serialize",
+          "@emotion/react",
+          "@emotion/serialize",
           "react",
         ],
       },
       {
-        name: "@zedvision/emotion-styled/index.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-styled@11.0.0/types/index.d.ts",
+        name: "@emotion/styled/index.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
         depend: [
-          "@zedvision/emotion-react",
-          "@zedvision/emotion-serialize",
+          "@emotion/react",
+          "@emotion/serialize",
           "react",
         ],
       },
       {
-        name: "@zedvision/emotion-cache/index.d.ts",
+        name: "@emotion/cache/index.d.ts",
         url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
-        depend: ["@zedvision/emotion-utils"],
+        depend: ["@emotion/utils"],
       },
       {
-        name: "@zedvision/emotion-react/index.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/index.d.ts",
-        depend: ["@zedvision/emotion-cache"],
+        name: "@emotion/react/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.3/types/index.d.ts",
+        depend: ["@emotion/cache"],
       },
       {
-        name: "@zedvision/emotion-react/jsx-namespace.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/jsx-namespace.d.ts",
-        depend: ["@zedvision/emotion-utils", "csstype"],
+        name: "@emotion/react/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.3/types/jsx-namespace.d.ts",
+        depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@zedvision/emotion-react/css-prop.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/css-prop.d.ts",
-        depend: ["@zedvision/emotion-utils", "csstype"],
+        name: "@emotion/react/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.3/types/css-prop.d.ts",
+        depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@zedvision/emotion-react/helper.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/helper.d.ts",
-        depend: ["@zedvision/emotion-utils", "csstype"],
+        name: "@emotion/react/helper.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.3/types/helper.d.ts",
+        depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@zedvision/emotion-react/theming.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-react@11.1.3/types/theming.d.ts",
-        depend: ["@zedvision/emotion-utils", "csstype"],
+        name: "@emotion/react/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.3/types/theming.d.ts",
+        depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@zedvision/emotion-serialize/index.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-serialize@1.0.0/types/index.d.ts",
+        name: "@emotion/serialize/index.d.ts",
+        url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
 
-        depend: ["@zedvision/emotion-utils", "csstype"],
+        depend: ["@emotion/utils", "csstype"],
       },
       {
-        name: "@zedvision/emotion-utils/index.d.ts",
-        url:
-          "https://unpkg.com/@zedvision/emotion-utils@1.0.0/types/index.d.ts",
+        name: "@emotion/utils/index.d.ts",
+        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
         depend: [],
       },
       {
