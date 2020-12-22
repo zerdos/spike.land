@@ -80,8 +80,8 @@ export default  async (
 
     setThemeForAce(100);
 
-    aceEditor.setValue(code);
-    aceEditor.blur();
+    aceEditor && aceEditor.setValue(code);
+    aceEditor && aceEditor.blur();
   }
 
   const monaco = await getMonaco();
