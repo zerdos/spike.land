@@ -2,6 +2,8 @@ import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
 import type * as Monaco from "monaco-editor";
 
+let aceEditor={};
+
 
 interface StartMonacoProps {
   onChange: (code: string) => void;
@@ -15,6 +17,7 @@ interface StartMonacoProps {
 export default  async (
   { onChange, code, language, options }: StartMonacoProps
 ) => {
+  var ace: unknown
 
 
   const { document } = window;
@@ -36,9 +39,9 @@ export default  async (
     aceEl.id = "ace";
     window.document.body.appendChild(aceEl);
 
-   await importScript(
+    await importScript(
       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
-    ) 
+    );
 
     language === "typescript"
       ? await importScript(
@@ -58,15 +61,15 @@ export default  async (
     );
     container!.style.setProperty("display", "none");
 
-        //@ts-expect-error
- 
+    //@ts-expect-error
+    
     const aceEditor = window.ace.edit("ace");
     aceEditor.getSession().setMode("ace/mode/typescript");
 
     const setThemeForAce = (wait: number) =>
       setTimeout(() => {
-               //@ts-expect-error
- 
+        //@ts-ignore
+
         const aceEditor = ace.edit("ace");
         const theme = aceEditor.getTheme();
         if (theme !== "ace/theme/monokai ") {
@@ -158,25 +161,24 @@ export default  async (
     ),
   };
 
+if (isMobile()){
   modules.editor.onDidChangeModelContent(() =>
     onChange(modules.editor.getValue())
   );
-       //@ts-expect-error
- 
+  //@ts-expect-error
   aceEditor && aceEditor.session.on("change", function () {
-           //@ts-expect-error
- 
+    //@ts-expect-error
+
     const value = aceEditor.getValue();
     modules.editor.setValue(value);
     onChange(value);
   });
-        //@ts-expect-error
- 
+  //@ts-expect-error
   aceEditor &&
     document.getElementById("container")!.replaceWith(
       document.getElementById("ace")!,
     );
-
+}
   modules.monaco.languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
       noSuggestionDiagnostics: true,
