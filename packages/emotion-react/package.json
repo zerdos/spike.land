@@ -4,8 +4,8 @@
   "main": "dist/emotion-react.cjs.js",
   "module": "dist/emotion-react.esm.js",
   "browser": {
-    "./dist/emotion-react.cjs.js": "./dist/emotion-react.browser.cjs.js",
-    "./dist/emotion-react.esm.js": "./dist/emotion-react.browser.esm.js"
+    "./dist/emotion-react.cjs.js": "./dist/emotion-react.modern.js",
+    "./dist/emotion-react.esm.js": "./dist/emotion-react.modern.js"
   },
   "types": "types/index.d.ts",
   "files": [

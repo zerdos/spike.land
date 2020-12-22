@@ -23,8 +23,8 @@
     "types/*.d.ts"
   ],
   "browser": {
-    "./dist/emotion-memoize.cjs.js": "./dist/emotion-memoize.browser.cjs.js",
-    "./dist/emotion-memoize.esm.js": "./dist/emotion-memoize.browser.esm.js"
+    "./dist/emotion-memoize.cjs.js": "./dist/emotion-memoize.modern.js",
+    "./dist/emotion-memoize.esm.js": "./dist/emotion-memoize.modern.js"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
 }

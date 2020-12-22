@@ -5,7 +5,7 @@
       "typography-theme-wordpress-2016": "./node_modules/typography-theme-wordpress-2016/dist/index.js",
       "typography": "./node_modules/typography/dist/index.js",
       "@zedvision/emotion-react": "./node_modules/@zedvision/emotion-react/dist/emotion-react.browser.cjs.js",
-      "@emotion/styled": "./node_modules/@emotion/styled/dist/emotion-styled.browser.cjs.js",
+      "@zedvision/emotion-styled": "./node_modules/@zedvision/emotion-styled/dist/emotion-styled.browser.cjs.js",
       "@zedvision/emotion-cache": "./node_modules/@emotion/cache/dist/emotion-cache.browser.cjs.js",
       "@zedvision/emotion-serialize": "./node_modules/@zedvision/emotion-serialize/dist/emotion-serialize.browser.cjs.js",
       "./jsx-namespace": "./node_modules/yar@zedvision/emotion-react/types/jsx-namespace.d.ts",

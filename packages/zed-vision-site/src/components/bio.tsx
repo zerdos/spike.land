@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "@zedvisiom/emotion-styled";
+import styled from "@zedvision/emotion-styled";
 
 import { rhythm } from "./utils/typography";
 import img from "./zed-profile-pic.jpg";

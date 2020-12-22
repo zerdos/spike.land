@@ -21,7 +21,7 @@
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",
-    "@zedvision/emotion-react": "^10.10.24",
+    "@zedvision/emotion-react": "^10.10.27",
     "react": ">=17.0.1"
   },
   "peerDependenciesMeta": {
@@ -52,8 +52,8 @@
   ],
   "umd:main": "dist/emotion-styled.umd.min.js",
   "browser": {
-    "./dist/emotion-styled.cjs.js": "./dist/emotion-styled.browser.cjs.js",
-    "./dist/emotion-styled.esm.js": "./dist/emotion-styled.browser.esm.js"
+    "./dist/emotion-styled.cjs.js": "./dist/emotion-styled.modern.js",
+    "./dist/emotion-styled.esm.js": "./dist/emotion-styled.modern.js"
   },
   "preconstruct": {
     "umdName": "emotionStyled",
