@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/smart-monaco-editor",
-    "version": "10.11.1",
+    "version": "10.11.2",
     "description": "Monaco Editor with auto type downloads mostly for React",
     "private": false,
     "sideEffects": false,
@@ -9,8 +9,8 @@
     "scripts": {
         "watch": "yarn microbundle watch",
         "npm:install": "rm -rf package-lock.json && npm install",
-        "build": "microbundle build",  
-      "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
+        "build": "microbundle build",
+        "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
         "format": "deno fmt src"
     },
     "keywords": [
@@ -39,5 +39,4 @@
         "access": "public"
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
-
 }
