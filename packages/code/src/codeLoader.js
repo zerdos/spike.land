@@ -16,6 +16,7 @@ const session = {
   hydrated: false,
   preRendered: false,
   lastErrors: 0,
+  HTML: "",
   ipfs: 0,
   transpiled: "",
   code: "",
@@ -61,7 +62,7 @@ export async function run(mode = "window") {
   if (mode === "window") {
     const onShare = async () => {
       const link = await shareItAsHtml(
-        { code: session.transpiled },
+        { code: session.transpiled, HTML: session.HTML },
       );
       window.open(link);
     };
@@ -72,6 +73,7 @@ export async function run(mode = "window") {
       }),
       window.document.getElementById("dragabbleWindow"),
     );
+    session.HTML = window.document.getElementById("dragabbleWindow").innerHTML;
   }
 
   const transpiled = await transpileCode(session.code);

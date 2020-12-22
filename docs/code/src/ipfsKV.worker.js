@@ -22,7 +22,7 @@ let ipfsNode;
 const ipfsKV = {
   add: async (data) => {
     ipfsNode = ipfsNode || await Ipfs.create();
-    const { cid } = await ipfsNode.add(data);
+    const { cid } = await ipfsNode.add(Ipfs.urlSource(data));
     return cid.string;
   },
   get: async (key) => {

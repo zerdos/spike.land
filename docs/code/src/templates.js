@@ -36,22 +36,25 @@ export const getHtml = ({ HTML, css, js }) => {
     ${HTML}
 </div>
 <script type="module">
-
+   ${js}
 </script>
 </body>
 </html>
 `;
 };
 
-export const getCodeForImport = (code) => {
+export const getCodeForImport = (link) => {
   return `
   import ReactDOM from "https://cdn.skypack.dev/react-dom"
+   
+  fetch("${link}")
+    .then(data=>data.blob())
+    .then(async(blob)=>{
+    const App = (await import(URL.createObjectURL(blob))).default;
+ 
+    ReactDOM.render(App(), document.body.children[0]);
+  })'
   
-  ${code}
-    document.body.children[0].innerHTML = ReactDOMServer.renderToString(jsx(DefaultElement));
 
-
-    await importScript("https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js")
-    ReactDOM.hydrate(jsx(DefaultElement), document.body.children[0]);
-}`;
+`;
 };

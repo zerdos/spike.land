@@ -2,9 +2,8 @@ import { importScript } from "./importScript.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 import { ipfsKV } from "./ipfsKV.js";
-// import ReactDOMServer from "https://cdn.skypack.dev/react-dom/server";
 
-export const shareItAsHtml = async ({ code, jsExport }) => {
+export const shareItAsHtml = async ({ code, HTML, jsExport }) => {
   const mod = createJsBlob(code);
 
   const Element = (await import(mod)).default;
@@ -18,17 +17,17 @@ export const shareItAsHtml = async ({ code, jsExport }) => {
 
   const { getHtml, getCodeForImport } = await import("./templates.js");
 
-  let js = getCodeForImport(code);
-  if (jsExport) {
-    const jsLink = await saveJs("export default  " + getCodeForImport(code));
-    js = `import app from "${jsLink}";
-  app();`;
-  } else {
-    js = `(${js})()`;
-  }
+  const linkToCode = await saveToIPFS(code, "application/html");
+
+  console.log({
+    HTML,
+    linkToCode,
+    css,
+    code,
+  });
 
   const link = await saveHtml(
-    getHtml({ HTML, css, js }),
+    getHtml({ HTML, css, js: getCodeForImport(linkToCode) }),
   );
 
   return link;
@@ -42,7 +41,9 @@ function saveJs(js) {
   return save(js, "application/javascript");
 }
 async function saveToIPFS(content, type) {
-  const cid = await ipfsKV.add(content);
+  const cid = await ipfsKV.add(
+    URL.createObjectURL(new Blob([content], { type })),
+  );
   return `https://ipfs.io/ipfs/${cid}`;
 }
 
