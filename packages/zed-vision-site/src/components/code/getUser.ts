@@ -2,7 +2,10 @@ export async function getUserId() {
   if (typeof window === "undefined") return "";
 
   const { getDB } = await new Function(`
-  return import("https://unpkg.com/@zedvision/shadb@8.7.0/dist/shaDB.js");
+  return async ()=> {  
+    const {getDB} = await import("https://unpkg.com/@zedvision/shadb@8.7.0/dist/shaDB.js");
+return getDB;
+  }
 `)();
 
   const shaDB = await getDB();

@@ -2,9 +2,9 @@ import {
   assemble,
   diff,
   isDiff,
-} from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js";
+} from "https://unpkg.com/@zedvision/diff@10.10.18/dist/diff.min.js";
 
-export const getDbObj = (dbPromise, isIdb = false) => {
+export const geyatDbObj = (dbPromise, isIdb = false) => {
   const sha256 = async (x) =>
     Array.from(
       new Uint8Array(

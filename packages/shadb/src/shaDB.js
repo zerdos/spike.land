@@ -1,4 +1,4 @@
-import { openDB } from "https://unpkg.com/idb/build/esm/index.js";
+import { openDB } from "./vendor/idb.js";
 
 import { getDbObj } from "./getDbObj.js";
 
