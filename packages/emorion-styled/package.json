@@ -21,7 +21,7 @@
   },
   "peerDependencies": {
     "@babel/core": "^7.12.10",
-    "@zedvision/emotion-react": "^10.10.21",
+    "@zedvision/emotion-react": "^10.10.24",
     "react": ">=17.0.1"
   },
   "peerDependenciesMeta": {
