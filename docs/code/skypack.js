@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // import {motion} from 'https://cdn.skypack.dev/framer-motion'
 
-// import { css, jsx, Global } from "https://cdn.skypack.dev/@zedvision/code/src/shame@zedvision/emotion-react";
+// import { css, jsx, Global } from "https://cdn.skypack.dev/@zedvision/code/src/shame@emotion/react";
 // import React from "https://cdn.skypack.dev/react";
 // import ReactDOM from "https://cdn.skypack.dev/react-dom";
 ///import ReactDOMServer from "https://cdn.skypack.dev/react-dom-server";

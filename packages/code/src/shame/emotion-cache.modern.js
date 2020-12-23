@@ -1,4 +1,4 @@
-import { StyleSheet as e } from "@zedvision/emotion-sheet";
+import { StyleSheet as e } from "@emotion/sheet";
 import {
   alloc as r,
   COMMENT as p,

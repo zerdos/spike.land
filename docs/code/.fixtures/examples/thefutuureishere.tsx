@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { css, Global } from "@zedvision/emotion-react";
+import { css, Global } from "@emotion/react";
 
 const pageText = `The future is here, but not evenly distributed...`;
 

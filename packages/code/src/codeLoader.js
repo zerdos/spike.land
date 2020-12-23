@@ -80,7 +80,7 @@ export async function run(mode = "window", { React, ReactDOM }) {
     onChange: (c) => runner(formatter(c)),
   });
 
-  async function runner(c) {
+  async function runner(cd) {
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
       if (session.transpiled === transpiled) return;
