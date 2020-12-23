@@ -7,7 +7,7 @@
     "npm:install": "rm -rf package-lock.json && npm install",
     "min": "deno fmt lib && yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js && rm -rf public/jsframe.js && cp lib/jsframe.min.js public/jsframe.js",
     "clean": "deno fmt src && rm -rf lib && mkdir lib",
-    "build": "yarn esbuild src/JSFrame.js --loader:.css=text --bundle --outfile=lib/jsframe.js --target=chrome58,firefox57,safari11,edge16 && yarn min"
+    "build": "yarn esbuild src/JSFrame.js --loader:.css=text --bundle --outfile=lib/jsframe.js --target=chrome58,firefox57,safari11,edge16 && yarn min && yarn microbundle lib/jsframe.js"
   },
   "repository": {
     "type": "git",
