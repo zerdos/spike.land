@@ -86,7 +86,7 @@ export async function run(mode = "window", _w) {
         open(link);
     };
 
-    await renderDraggableWindow({ ReactDOM, React, jsx, onShare });
+    await renderDraggableWindow({ ReactDOM, React, jsx, emotionReactJSXRuntime, onShare });
   }
 
   const transpiled = await transpileCode(session.code);

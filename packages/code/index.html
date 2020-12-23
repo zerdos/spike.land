@@ -18,11 +18,9 @@
   <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> -->
 
   <script>
-    const jsx = (component, props, ...children) => React.createElement(component, props, ...children)
-    
-    window.ReactJSX = {
+    window.globalThis.ReactJSX = {
       ...React,
-      jsx: (...args)=>jsx(...args)
+      jsx: (...args)=>React.createElement(...args)
     }
   </script>
   <script crossorigin src="https://unpkg.com/@emotion/react@11.1.4/jsx-runtime/dist/emotion-react-jsx-runtime.umd.min.js"></script>
