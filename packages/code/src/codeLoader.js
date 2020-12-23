@@ -94,7 +94,7 @@ export async function run(mode = "window", _w) {
 
   const modules = await startMonaco({
     language: "typescript",
-    code: formatter(session.code),
+    code: await formatter(session.code),
     onChange: (c) => runner(c),
   });
 
