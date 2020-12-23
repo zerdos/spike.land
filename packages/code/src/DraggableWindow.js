@@ -1,63 +1,62 @@
-import {motion} from 'https://cdn.skypack.dev/framer-motion';
-import { css, jsx } from "https://cdn.skypack.dev/@emotion/react@11.1.4";
-/** @jsx jsx */
- 
 
-export const RenderDraggableWindow = ({React, ReactDOM, onShare})=>{
-  ReactDOM.render(
+
+export default async ({ ReactDOM, onShare }) => {
+ const { css, jsx } = await import( "https://cdn.skypack.dev/@emotion/react@11.1.1");
+
+  ReactDDOM.render(
     jsx(DraggableWindow, {
       onShare,
     }),
-    window.document.getElementById("dragabbleWindow")
+    window.document.getElementById("dragabbleWindow"),
   );
 
-function DraggableWindow({ onShare }){
-  return jsx(
-    "div",
-    null,
-    jsx(
-      motion.div,
-      {
-        css: css`
+  function DraggableWindow({ onShare }) {
+    return jsx(
+      "div",
+      null,
+      jsx(
+        "div",
+        {
+          css: css`
             background: red;
             border: 4px solid red;
             border-radius: 8px;
           `,
-        animate: {
-          scale: 1,
-          top: 1,
-          left: 600,
+          animate: {
+            scale: 1,
+            top: 1,
+            left: 600,
+          },
+          dragElastic: 0.5,
+          dragMomentum: false,
+          initial: {
+            top: 1,
+            left: 0,
+            scale: 0.7,
+          },
+          transition: {
+            duration: 0.5,
+          },
+          drag: true,
+          dragConstraints: {
+            left: -window.innerWidth + 200,
+            right: 0,
+            bottom: window.innerHeight - 200,
+            top: 0,
+          },
         },
-        dragElastic: 0.5,
-        dragMomentum: false,
-        initial: {
-          top: 1,
-          left: 0,
-          scale: 0.7,
-        },
-        transition: {
-          duration: 0.5,
-        },
-        drag: true,
-        dragConstraints: {
-          left: -window.innerWidth + 200,
-          right: 0,
-          bottom: window.innerHeight - 200,
-          top: 0,
-        },
-      },
-      jsx(
-        "div",
-        {
-          css: `
+        jsx(
+          "div",
+          {
+            css: `
       display: block;
       with: 100%;
       text-align: right;
       background: linear-gradient(0deg, darkred, red);
     `,
-        },
-        jsx("button", {
-          css: `
+          },
+          jsx("button", {
+            css: `
               background: darkred;
               margin-top: -4px;
               margin-right: -4px;
@@ -70,11 +69,11 @@ function DraggableWindow({ onShare }){
               border: none;
               border-radius: 0px 8px 0px 0px;
             `,
-          onClick: () => onShare(),
-        }, "🌎 SHARE"),
-      ),
-      jsx("div", {
-        css: `
+            onClick: () => onShare(),
+          }, "🌎 SHARE"),
+        ),
+        jsx("div", {
+          css: `
       min-width: 200px;
       padding: 30px;
       max-width: 600px;
@@ -83,8 +82,10 @@ function DraggableWindow({ onShare }){
       border-radius: 0px 0px 8px 8px;
       overflow-y: overlay;
     `,
-        id: "zbody",
-      }),
-    
-      
-      ),null)}}
+          id: "zbody",
+        }),
+      ),
+      null,
+    );
+  }
+};

@@ -14,7 +14,7 @@ const transform = (code, hasToReport) => {
     );
 
     const transformed = Babel.transform(
-      safeCode,
+      "/** @jsx jsx */"+safeCode,
       {
         compact: false,
         comments: false,

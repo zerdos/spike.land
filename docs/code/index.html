@@ -67,7 +67,7 @@
   <div id="error"></div>
   <div id="container"></div>
   <div id="ace"></div>
-  <script type="module">
+  <!-- <script type="module">
     import {Workbox} from 'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs';
     
     if ('serviceWorker' in navigator) {
@@ -76,12 +76,12 @@
       wb.register();
     }
 
-    </script>
+    </script> -->
   
   <script type="module">
     const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
           (async()=>{
-              const { run } = await import(isLocalhost?"./dist/codeLoader.min.modern.js":"https://unpkg.com/@zedvision/code@10.11.0/src/codeLoader.js");
+              const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://unpkg.com/@zedvision/code@10.11.0/src/codeLoader.js");
         run("window", window);
         })();
   </script>

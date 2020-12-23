@@ -1,4 +1,3 @@
-
 /** @jsx jsx */
 // import {motion} from 'https://cdn.skypack.dev/framer-motion'
 
@@ -6,8 +5,6 @@
 // import React from "https://cdn.skypack.dev/react";
 // import ReactDOM from "https://cdn.skypack.dev/react-dom";
 ///import ReactDOMServer from "https://cdn.skypack.dev/react-dom-server";
-
-
 
 export const DraggableWindow = ({ onShare }) => {
   return jsx(
@@ -86,9 +83,9 @@ export const DraggableWindow = ({ onShare }) => {
     ),
   );
 };
-export {ReactDOMServer}
+export { ReactDOMServer };
 // export {ReactDOM}
-export {jsx}
+export { jsx };
 // const str = ReactDOMServer.renderToString(jsx(DraggableWindow,{onShare: ()=>{}}))
 
 // console.log(str);

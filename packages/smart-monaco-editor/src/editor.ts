@@ -2,8 +2,7 @@ import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
 import type * as Monaco from "monaco-editor";
 
-let aceEditor={};
-
+let aceEditor = {};
 
 interface StartMonacoProps {
   onChange: (code: string) => void;
@@ -14,11 +13,10 @@ interface StartMonacoProps {
   };
 }
 
-export default  async (
-  { onChange, code, language, options }: StartMonacoProps
+export default async (
+  { onChange, code, language, options }: StartMonacoProps,
 ) => {
-  var ace: unknown
-
+  var ace: unknown;
 
   const { document } = window;
   let container = document.getElementById("container");
@@ -60,10 +58,10 @@ export default  async (
       "block",
     );
     container!.style.setProperty("display", "none");
-    
+
     //@ts-ignore
     aceEditor = window.ace.edit("ace") as AceEditor;
-      //@ts-expect-error
+    //@ts-expect-error
     aceEditor.getSession().setMode("ace/mode/typescript");
 
     const setThemeForAce = (wait: number) =>
@@ -82,9 +80,9 @@ export default  async (
       }, wait);
 
     setThemeForAce(100);
-//@ts-expect-error
+    //@ts-expect-error
     aceEditor && aceEditor.setValue(code);
-  //@ts-ignore
+    //@ts-ignore
     aceEditor && aceEditor.blur();
   }
 
@@ -162,24 +160,24 @@ export default  async (
     ),
   };
 
-if (isMobile()){
-  modules.editor.onDidChangeModelContent(() =>
-    onChange(modules.editor.getValue())
-  );
-  //@ts-expect-error
-  aceEditor && aceEditor.session.on("change", function () {
-    //@ts-expect-error
-
-    const value = aceEditor.getValue();
-    modules.editor.setValue(value);
-    onChange(value);
-  });
-
-  aceEditor &&
-    document.getElementById("container")!.replaceWith(
-      document.getElementById("ace")!,
+  if (isMobile()) {
+    modules.editor.onDidChangeModelContent(() =>
+      onChange(modules.editor.getValue())
     );
-}
+    //@ts-expect-error
+    aceEditor && aceEditor.session.on("change", function () {
+      //@ts-expect-error
+
+      const value = aceEditor.getValue();
+      modules.editor.setValue(value);
+      onChange(value);
+    });
+
+    aceEditor &&
+      document.getElementById("container")!.replaceWith(
+        document.getElementById("ace")!,
+      );
+  }
   modules.monaco.languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
       noSuggestionDiagnostics: true,
