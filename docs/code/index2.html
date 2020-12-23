@@ -10,10 +10,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="Description" content="Code and share!">
 
-  <link rel="preload" href="https://unpkg.com/monaco-editor@0.21.2/min/vs/editor/editor.main.js" as="script" />
-  <link rel="prefetch" href="https://unpkg.com/monaco-editor@0.21.2/min/vs/base/worker/workerMain.js" as="worker" />
-  <link rel="prefetch" href="https://unpkg.com/monaco-editor@0.21.2/min/vs/language/typescript/tsWorker.js" as="worker" />
-  <link rel="prefetch" href="https://unpkg.com/@babel/standalone@7.12.11/babel.min.js" as="worker" />
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" crossorigin="anonymous"  />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous" crossorigin="anonymous" />
@@ -78,20 +78,12 @@
     </script>
   
   <script type="module">
-
-    const runner = async () => {
-      if (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0")) {
-        const { run } = await import("/code/dist/codeLoader.js");
-        run("editor");
-        return;
-      }
-      const { run } = await import("/code/dist/codeLoader.min.js");
-      run("editor");
-      }
-    
-    runner();
-
-  </script>
+  const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
+        (async()=>{
+            const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://unpkg.com/@zedvision/code@10.11.0/src/codeLoader.js");
+      run("editor", window);
+      })();
+</script>
 </body>
 
 </html>
