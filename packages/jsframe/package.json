@@ -1,12 +1,13 @@
 {
   "name": "@zedvision/jsframe",
-  "version": "10.11.5",
+  "version": "10.10.18",
   "description": "It is an independent lightweight multi-window library for javascript.\r - Create various popup windows.\r - Styling the appearance flexibly.",
+  "main": "lib/jsframe.min.js",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
     "min": "deno fmt lib && yarn esbuild --minify lib/jsframe.js --outfile=lib/jsframe.min.js && rm -rf public/jsframe.js && cp lib/jsframe.min.js public/jsframe.js",
     "clean": "deno fmt src && rm -rf lib && mkdir lib",
-    "build": "microbundle ./src/JSFame.js"
+    "build": "yarn esbuild src/JSFrame.js --loader:.css=text --bundle --outfile=lib/jsframe.js --target=chrome58,firefox57,safari11,edge16 && yarn min"
   },
   "repository": {
     "type": "git",
