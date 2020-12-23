@@ -9,10 +9,7 @@ import {
 import l from "@emotion/cache";
 import a from "@emotion/weak-memoize";
 import i from "hoist-non-react-statics";
-import {
-  getRegisteredStyles as c,
-  insertStyles as u,
-} from "@emotion/utils";
+import { getRegisteredStyles as c, insertStyles as u } from "@emotion/utils";
 import { serializeStyles as m } from "@emotion/serialize";
 import { StyleSheet as p } from "@emotion/sheet";
 let d = "undefined" != typeof document;

@@ -1,9 +1,6 @@
 import e from "@emotion/cache";
 import { serializeStyles as t } from "@emotion/serialize";
-import {
-  getRegisteredStyles as r,
-  insertStyles as s,
-} from "@emotion/utils";
+import { getRegisteredStyles as r, insertStyles as s } from "@emotion/utils";
 function i(e, t) {
   if (void 0 === e.inserted[t.name]) return e.insert("", t, e.sheet, !0);
 }

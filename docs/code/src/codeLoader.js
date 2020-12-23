@@ -182,19 +182,15 @@ export async function run(mode = "window", { React, ReactDOM }) {
       : transpiled;
 
     const root = window.document.createElement("div");
-    
 
-      
     const Element = (await import(createJsBlob(codeToHydrate))).default;
-
 
     ReactDOM.render(Element(), root);
 
-    document.getElementById("zbody").removeChild()
+    document.getElementById("zbody").removeChild();
     document.getElementById("zbody").appendChild(root);
 
     session.HTML = root.innerHTML;
-
 
     return !session.preRendered;
   }

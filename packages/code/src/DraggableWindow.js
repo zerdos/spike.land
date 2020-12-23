@@ -1,7 +1,7 @@
-
-
 export default async ({ ReactDOM, onShare }) => {
- const { css, jsx } = await import( "https://cdn.skypack.dev/@emotion/react@11.1.4");
+  const { css, jsx } = await import(
+    "https://cdn.skypack.dev/@emotion/react@11.1.4"
+  );
 
   ReactDOM.render(
     jsx(DraggableWindow, {
