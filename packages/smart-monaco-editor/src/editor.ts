@@ -160,10 +160,12 @@ export default async (
     ),
   };
 
+  modules.editor.onDidChangeModelContent(() =>
+  onChange(modules.editor.getValue())
+);
+
   if (isMobile()) {
-    modules.editor.onDidChangeModelContent(() =>
-      onChange(modules.editor.getValue())
-    );
+   
     //@ts-expect-error
     aceEditor && aceEditor.session.on("change", function () {
       //@ts-expect-error

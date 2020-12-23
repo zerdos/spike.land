@@ -10,7 +10,7 @@ export async function renderDraggableEditor() {
     name: `Win`,
     title: ``,
     width: (window.innerWidth / 2) - 40,
-    height: 600,
+    height: 700,
     minWidth: 300,
     minHeight: 300,
     appearanceName: "material",
@@ -25,8 +25,11 @@ export async function renderDraggableEditor() {
       backgroundColor: "rgba(255,255,255,0.8)",
       overflow: "auto",
     },
-    html: '<div id="container"></div>',
+    html: '<div id="container" />',
   });
+  // const root = document.createElement("div");
+
+  // root.setAttribute("id", "container")
   frame.setPosition(window.innerWidth - 32, 32, "RIGHT_TOP");
   frame.setControl({
     maximizeButton: "maximizeButton",
@@ -54,6 +57,7 @@ export async function renderDraggableEditor() {
   frame.control.on("dminimized", (frame, info) => {
   });
   frame.show();
+// document.querySelector("iframe").replaceWith(root);
 
   return frame;
 }
