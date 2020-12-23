@@ -4,7 +4,7 @@ import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js"
 import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
 import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
 import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
-import  renderDraggableWindow from "./DraggableWindow.js";
+import renderDraggableWindow from "./DraggableWindow.js";
 
 import { getProjects, saveCode } from "./data.js";
 import { shaDB } from "./db.js";
@@ -68,7 +68,7 @@ export async function run(mode = "window", { React, ReactDOM }) {
       window.open(link);
     };
 
-await    renderDraggableWindow({ ReactDOM, React, onShare });
+    await renderDraggableWindow({ ReactDOM, React, onShare });
   }
 
   const transpiled = await transpileCode(session.code);
@@ -181,12 +181,20 @@ await    renderDraggableWindow({ ReactDOM, React, onShare });
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
-    const root = window.document.getElementById("zbody").children[0] || document.getElementById("zbody").appendChild(document.createElement("div"));
+    const root = window.document.createElement("div");
+    
 
+      
     const Element = (await import(createJsBlob(codeToHydrate))).default;
 
+
     ReactDOM.render(Element(), root);
+
+    document.getElementById("zbody").removeChild()
+    document.getElementById("zbody").appendChild(root);
+
     session.HTML = root.innerHTML;
+
 
     return !session.preRendered;
   }
