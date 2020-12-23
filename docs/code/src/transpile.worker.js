@@ -11,11 +11,11 @@ const replaceWith = " from 'https://cdn.skypack.dev/";
 
 const transform = (code, hasToReport) => {
   try {
-        const safeCode = `
+    const safeCode = `
         ` + code.replaceAll(
-          from,
-          replaceWith,
-        );
+      from,
+      replaceWith,
+    );
 
     // console.log(safeCode);
 

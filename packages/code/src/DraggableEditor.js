@@ -57,7 +57,7 @@ export async function renderDraggableEditor() {
   frame.control.on("dminimized", (frame, info) => {
   });
   frame.show();
-// document.querySelector("iframe").replaceWith(root);
+  // document.querySelector("iframe").replaceWith(root);
 
   return frame;
 }
