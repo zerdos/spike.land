@@ -330,7 +330,9 @@
         ++x
       ) {
         for (
-          var $ = 0, C = v(e, m + 1, m = l(w = c[x])), S = e; $ < b; ++$
+          var $ = 0, C = v(e, m + 1, m = l(w = c[x])), S = e;
+          $ < b;
+          ++$
         ) {
           (S = d(w > 0 ? g[$] + " " + C : p(C, /&\f/g, g[$]))) && (u[k++] = S);
         }
@@ -561,8 +563,11 @@
               o < s.length;
               o++
             ) {
-              for (var u = 0; u < c.length; u++, i++) {e.props[i] = a[o]
-                  ? s[o].replace(/&\f/g, c[u]) : c[u] + " " + s[o];}
+              for (var u = 0; u < c.length; u++, i++) {
+                e.props[i] = a[o]
+                  ? s[o].replace(/&\f/g, c[u])
+                  : c[u] + " " + s[o];
+              }
             }
           }
         }
@@ -591,9 +596,7 @@
                   (function (r) {
                     switch (
                       function (e, r) {
-                        return (e = r.exec(e))
-                          ? e[0]
-                          : e;
+                        return (e = r.exec(e)) ? e[0] : e;
                       }(r, /(::plac\w+|:read-\w+)/)
                     ) {
                       case ":read-only":
@@ -803,8 +806,9 @@
               );
             }
         }
-        return 1 === se[e] || ie(e) || "number" != typeof r || 0 === r ? r
-        : r + "px";
+        return 1 === se[e] || ie(e) || "number" != typeof r || 0 === r
+          ? r
+          : r + "px";
       };
     function de(e, r, t) {
       if (null == t) return "";
@@ -853,8 +857,10 @@
                       n += s + "{" + o + "}";
                   }
                 } else {
-                  for (var i = 0; i < c.length; i++) {ue(c[i]) &&
-                      (n += le(s) + ":" + fe(s, c[i]) + ";");}
+                  for (var i = 0; i < c.length; i++) {
+                    ue(c[i]) &&
+                      (n += le(s) + ":" + fe(s, c[i]) + ";");
+                  }
                 }
               }
             }
@@ -891,15 +897,13 @@
         for (var o, i = ""; null !== (o = he.exec(a));) i += "-" + o[1];
         var u = function (e) {
           for (var r, t = 0, n = 0, a = e.length; a >= 4; ++n, a -= 4) {
-            r =
-              1540483477 *
+            r = 1540483477 *
                 (65535 &
                   (r = 255 & e.charCodeAt(n) | (255 & e.charCodeAt(++n)) << 8 |
                     (255 & e.charCodeAt(++n)) << 16 |
                     (255 & e.charCodeAt(++n)) << 24)) +
               (59797 * (r >>> 16) << 16),
-              t =
-                1540483477 * (65535 & (r ^= r >>> 24)) +
+              t = 1540483477 * (65535 & (r ^= r >>> 24)) +
                   (59797 * (r >>> 16) << 16) ^
                 1540483477 * (65535 & t) + (59797 * (t >>> 16) << 16);
           }
@@ -943,8 +947,9 @@
           var i = ve(
             c,
             void 0,
-            "function" == typeof a || Array.isArray(a) ? t.useContext(ae)
-            : void 0,
+            "function" == typeof a || Array.isArray(a)
+              ? t.useContext(ae)
+              : void 0,
           );
           !function (e, r, t) {
             var n = e.key + "-" + r.name;
@@ -960,8 +965,10 @@
           }(r, i, "string" == typeof s);
           o += r.key + "-" + i.name;
           var u = {};
-          for (var l in e) {re.call(e, l) && "css" !== l && l !== me &&
-              (u[l] = e[l]);}
+          for (var l in e) {
+            re.call(e, l) && "css" !== l && l !== me &&
+              (u[l] = e[l]);
+          }
           return u.ref = n, u.className = o, t.createElement(s, u);
         }),
       );

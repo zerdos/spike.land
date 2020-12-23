@@ -9,8 +9,8 @@ import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { createJsBlob, shareItAsHtml } from "./share.js";
 
-function getSession(){
- const session = {
+function getSession() {
+  const session = {
     hydrated: false,
     preRendered: false,
     lastErrors: 0,
@@ -18,25 +18,26 @@ function getSession(){
     ipfs: 0,
     transpiled: "",
     code: "",
-  }
+  };
 
   return session;
-
-} 
+}
 
 let prettier;
 let parserBabel;
 let parserHtml;
 
 async function formatter(code) {
-  
-  
-        prettier = prettier || (await import("https://unpkg.com/prettier@2.2.1/esm/standalone.mjs")).default
-        parserBabel = parserBabel || (await import("https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs")).default
-        parserHtml = parserHtml|| (await import("https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs")).default
-      
+  prettier = prettier ||
+    (await import("https://unpkg.com/prettier@2.2.1/esm/standalone.mjs"))
+      .default;
+  parserBabel = parserBabel ||
+    (await import("https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs"))
+      .default;
+  parserHtml = parserHtml ||
+    (await import("https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs"))
+      .default;
 
-  
   try {
     return prettier.format(code, {
       "arrowParens": "always",
@@ -65,11 +66,12 @@ async function formatter(code) {
 
 export async function run(mode = "window", _w) {
   console.log("Runner");
-  const {document, React, ReactDOM,emotionReactJSXRuntime,location, open} = _w;
-  const {jsx} = emotionReactJSXRuntime; 
+  const { document, React, ReactDOM, emotionReactJSXRuntime, location, open } =
+    _w;
+  const { jsx } = emotionReactJSXRuntime;
   const session = getSession();
   const codeTOLoad = await getCodeToLoad();
-  session.code =await formatter(codeTOLoad);
+  session.code = await formatter(codeTOLoad);
   session.transpiled = await transpileCode(session.code);
 
   if (mode === "editor") {
@@ -83,10 +85,12 @@ export async function run(mode = "window", _w) {
       const link = await shareItAsHtml(
         { code: session.transpiled, HTML: session.HTML },
       );
-        open(link);
+      open(link);
     };
 
-    await renderDraggableWindow({ ReactDOM, React, jsx, emotionReactJSXRuntime, onShare });
+    await renderDraggableWindow(
+      { ReactDOM, React, jsx, emotionReactJSXRuntime, onShare },
+    );
   }
 
   const transpiled = await transpileCode(session.code);
@@ -99,7 +103,7 @@ export async function run(mode = "window", _w) {
   });
 
   async function runner(c) {
-    const cd = await(formatter(c));
+    const cd = await (formatter(c));
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
       if (session.transpiled === transpiled) return;
@@ -201,10 +205,8 @@ export async function run(mode = "window", _w) {
       : transpiled;
 
     const root = document.createElement("div");
-    
 
     const Element = (await import(createJsBlob(codeToHydrate))).default;
-
 
     ReactDOM.render(Element(), root);
 

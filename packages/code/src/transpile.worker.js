@@ -9,18 +9,17 @@ const searchRegExp = /import/gi;
 const from = / from '/gi;
 const replaceWith = " from 'https://cdn.skypack.dev/";
 
-
 const transform = (code, hasToReport) => {
   try {
-    const safeCode = `
-    ` + code.replaceAll(
-      searchRegExp,
-      "////"
-    );
+        const safeCode = `
+        ` + code.replaceAll(
+          from,
+          replaceWith,
+        );
 
     // console.log(safeCode);
-      
-      const transformed = Babel.transform(
+
+    const transformed = Babel.transform(
       `/** @jsx jsx */
       ` + safeCode,
       {

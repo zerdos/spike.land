@@ -1,1 +1,1 @@
-import { css, Global } from '@emotion/react';
+import { css, Global } from "@emotion/react";

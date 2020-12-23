@@ -1,18 +1,14 @@
-export default async ({ ReactDOM,React, jsx, onShare }) => {
- 
+export default async ({ ReactDOM, React, jsx, onShare }) => {
   // const Motion = await import(
   //   "https://cdn.skypack.dev/framer-motion"
   // );
 
   // const {motion} = Motion;
 
-
   const DraggableWindow = ({ onShare }) => {
     return jsx(
       React.Fragment,
-      {
-    
-      },
+      {},
       jsx(
         "div",
         {
@@ -20,7 +16,7 @@ export default async ({ ReactDOM,React, jsx, onShare }) => {
               background: red;
               border: 4px solid red;
               border-radius: 8px;
-            `
+            `,
         },
         jsx(
           "div",
@@ -71,6 +67,4 @@ export default async ({ ReactDOM,React, jsx, onShare }) => {
     }),
     window.document.getElementById("dragabbleWindow"),
   );
-
-
-}
+};

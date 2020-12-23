@@ -14,6 +14,15 @@
   <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 
 
+  <script>
+    window.globalThis.ReactJSX = {
+      ...React,
+      jsx: (...args)=>React.createElement(...args)
+    }
+  </script>
+  <script crossorigin src="https://unpkg.com/@emotion/react@11.1.4/jsx-runtime/dist/emotion-react-jsx-runtime.umd.min.js"></script>
+
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" crossorigin="anonymous"  />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous" crossorigin="anonymous" />
@@ -61,7 +70,7 @@
 <body>
   <div id="zbox"></div>
   <div id="ace"></div>
-  <script type="module">
+  <!-- <script type="module">
     import {Workbox} from 'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs';
     
     if ('serviceWorker' in navigator) {
@@ -69,7 +78,7 @@
     
       wb.register();
     }
-    </script>
+    </script> -->
   
   <script type="module">
   const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
