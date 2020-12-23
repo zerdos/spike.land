@@ -50,7 +50,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@babel/standalone": "^7.12.11",
+        "@babel/standalone": "^7.12.12",
         "@emotion/react": "^11.1.4",
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",

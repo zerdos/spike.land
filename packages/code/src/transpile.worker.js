@@ -1,5 +1,5 @@
 importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
-importScripts("https://unpkg.com/@babel/standalone@7.12.11/babel.min.js");
+importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 
 // const searchRegExp = /import {([\[a-zA-Z0-9 ,]+])} from '([\w+])';/gi;
 // const from = / from '/gi;
