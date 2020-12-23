@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 
 
-export const RenderDraggableWincow = ({React, ReactDOM, onShare})=>{
+export const RenderDraggableWindow = ({React, ReactDOM, onShare})=>{
 
   ReactDOM.render(
     jsx(DraggableWindow, {

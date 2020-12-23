@@ -14,9 +14,9 @@
         "xbuild:sw": "workbox generateSW workbox-config.js",
         "build:sw": "yarn esbuild --loader:.ts=ts src/sw.ts --outfile=sw.js",
         "obuild:sw": "deno bundle  --unstable --import-map ../../import_map.json --no-check src/sw.ts sw.js",
-        "xxbuild": "cp -rf ../smart-monaco-editor/lib/editor.min.js dist/ && deno bundle --unstable --import-map ../../import_map.json --no-check src/codeBox.ts dist/codeLoader.js",
-        "build": "microbundle ./src/codeLoader.js || echo Ok",
-        "watch": "microbundle watch",
+        "xxbuild": "deno bundle ./src/codeLoader.js ./dist/codeLoader.js",
+        "xbuild": "microbundle ./src/codeLoader.js || echo Ok",
+        "xwatch": "microbundle watch",
         "minify": "yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [

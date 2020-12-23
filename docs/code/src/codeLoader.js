@@ -1,9 +1,6 @@
 import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.11.4/dist/smart-monaco-editor.modern.js";
-import { diff } from "https://unpkg.com/@zedvision/diff@8.6.10/dist/diff.min.js";
+import { diff } from "https://unpkg.com/@zedvision/diff@10.10.18/dist/diff.min.js";
 
-import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
-import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
-import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
 import renderDraggableWindow from "./DraggableWindow.js";
 
 import { getProjects, saveCode } from "./data.js";
@@ -12,17 +9,34 @@ import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { createJsBlob, shareItAsHtml } from "./share.js";
 
-const session = {
-  hydrated: false,
-  preRendered: false,
-  lastErrors: 0,
-  HTML: "",
-  ipfs: 0,
-  transpiled: "",
-  code: "",
-};
+function getSession(){
+ const session = {
+    hydrated: false,
+    preRendered: false,
+    lastErrors: 0,
+    HTML: "",
+    ipfs: 0,
+    transpiled: "",
+    code: "",
+  }
 
-function formatter(code) {
+  return session;
+
+} 
+
+let prettier;
+let parserBabel;
+let parserHtml;
+
+async function formatter(code) {
+  
+  
+        prettier = prettier || (await import("https://unpkg.com/prettier@2.2.1/esm/standalone.mjs")).default
+        parserBabel = parserBabel || (await import("https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs")).default
+        parserHtml = parserHtml|| (await import("https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs")).default
+      
+
+  
   try {
     return prettier.format(code, {
       "arrowParens": "always",
@@ -49,9 +63,13 @@ function formatter(code) {
   }
 }
 
-export async function run(mode = "window", { React, ReactDOM }) {
-  console.log("Runnnner");
-  session.code = formatter(await getCodeToLoad());
+export async function run(mode = "window", _w) {
+  console.log("Runner");
+  const {document, React, ReactDOM,emotionReactJSXRuntime,location, open} = _w;
+  const {jsx} = emotionReactJSXRuntime; 
+  const session = getSession();
+  const codeTOLoad = await getCodeToLoad();
+  session.code =await formatter(codeTOLoad);
   session.transpiled = await transpileCode(session.code);
 
   if (mode === "editor") {
@@ -65,10 +83,10 @@ export async function run(mode = "window", { React, ReactDOM }) {
       const link = await shareItAsHtml(
         { code: session.transpiled, HTML: session.HTML },
       );
-      window.open(link);
+        open(link);
     };
 
-    await renderDraggableWindow({ ReactDOM, React, onShare });
+    await renderDraggableWindow({ ReactDOM, React, jsx, onShare });
   }
 
   const transpiled = await transpileCode(session.code);
@@ -77,10 +95,11 @@ export async function run(mode = "window", { React, ReactDOM }) {
   const modules = await startMonaco({
     language: "typescript",
     code: formatter(session.code),
-    onChange: (c) => runner(formatter(c)),
+    onChange: (c) => runner(c),
   });
 
-  async function runner(cd) {
+  async function runner(c) {
+    const cd = await(formatter(c));
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
       if (session.transpiled === transpiled) return;
@@ -100,13 +119,13 @@ export async function run(mode = "window", { React, ReactDOM }) {
       ];
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
       session.lastErrors = err.length;
-      const errorDiv = window.document.getElementById("error");
+      const errorDiv = document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         session.code = cd;
         if (session.transpiled !== transpiled) {
           session.transpiled = transpiled;
 
-          await saveCode(formatter(cd), session.transpiled);
+          await saveCode(await formatter(cd), session.transpiled);
         }
 
         await saveCode(cd);
@@ -181,9 +200,11 @@ export async function run(mode = "window", { React, ReactDOM }) {
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
-    const root = window.document.createElement("div");
+    const root = document.createElement("div");
+    
 
     const Element = (await import(createJsBlob(codeToHydrate))).default;
+
 
     ReactDOM.render(Element(), root);
 
@@ -199,7 +220,7 @@ export async function run(mode = "window", { React, ReactDOM }) {
     const projects = await getProjects();
     const projectName = projects[0];
 
-    const search = new URLSearchParams(window.location.search);
+    const search = new URLSearchParams(location.search);
     const keyToLoad = search.get("h") || await shaDB.get(projectName);
 
     if (keyToLoad) {

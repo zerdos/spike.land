@@ -9,7 +9,7 @@ interface StartMonacoProps {
   code: string;
   language: "html" | "javascript" | "typescript";
   options: {
-    gylph: boolean;
+    gylph: boolean; 
   };
 }
 
