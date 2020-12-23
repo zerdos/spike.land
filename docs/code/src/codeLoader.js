@@ -1,4 +1,4 @@
-import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.11.4/dist/smart-monaco-editor.modern.js";
+import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.1/dist/smart-monaco-editor.modern.js";
 import { diff } from "https://unpkg.com/@zedvision/diff@10.10.18/dist/diff.min.js";
 
 import renderDraggableWindow from "./DraggableWindow.js";
