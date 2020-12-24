@@ -222,7 +222,7 @@ export async function run(mode = "window", _w) {
 
     renderEmotion(Element(), root);
 
-    document.getElementById("zbody").removeChild();
+    document.getElementById("zbody").children.length && document.getElementById("zbody").removeChild();
     document.getElementById("zbody").appendChild(root);
 
     session.HTML = root.innerHTML;
