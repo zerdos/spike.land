@@ -2898,15 +2898,8 @@ function JSFrame(model) {
         // The Android version of Chrome has a feature that refreshes the page by sliding downward
         // while touching on the screen, but when this feature is enabled, the downward movement of the window is inhibited,
         // so this feature can be explicitly turned off.
-        me.doDisablePullToRefresh();
+        JSFrame.doDisablePullToRefresh();
       }
-
-      var funcOnTouchMove = function (evt) {
-        // Call #preventDefault to prevent simultaneous ignition of mousemove
-        evt.preventDefault();
-        mouseMove.bind(this)(evt);
-      };
-      document.addEventListener("touchmove", funcOnTouchMove);
     }
   }
 
@@ -2927,7 +2920,15 @@ function JSFrame(model) {
 
   function mouseMove(e) {
     me.windowManager.windowMouseMove(e);
-  }
+  }      
+  
+  var funcOnTouchMove = function (evt) {
+    // Call #preventDefault to prevent simultaneous ignition of mousemove
+    evt.preventDefault();
+    mouseMove.bind(this)(evt);
+  };
+  document.addEventListener("touchmove", funcOnTouchMove);
+
 }
 
 JSFrame.doEnableTouchActionManipulation = function () {
