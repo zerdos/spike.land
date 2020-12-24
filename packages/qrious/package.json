@@ -40,7 +40,7 @@
     "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --outfile=dist/qrious.esm.js --target=esnext --format=esm",
     "build:umd": "yarn esbuild src/QRious.js --loader:.css=text --bundle --outfile=dist/qrious.js --target=esnext --format=iife",
     "build": "yarn build:esm && yarn build:umd && yarn minify",
-    "dts": "yarn dts-gen -m @zedvision/qrious -f dist/qrious.d.ts",
+    "dts": "yarn dts-gen -m qrious-core -f dist/qrious.d.ts",
     "minify": "deno fmt dist && yarn esbuild --minify dist/qrious.js --outfile=dist/qrious.min.js && yarn esbuild --minify dist/qrious.esm.js --outfile=dist/qrious.esm.min.js"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
