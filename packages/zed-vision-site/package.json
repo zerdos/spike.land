@@ -10,7 +10,7 @@
   },
   "private": true,
   "description": "Zed vision blog",
-  "version": "10.12.8",
+  "version": "10.12.12",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo/"
