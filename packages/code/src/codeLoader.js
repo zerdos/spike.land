@@ -9,9 +9,11 @@ import { shaDB } from "./db.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { createJsBlob, shareItAsHtml } from "./share.js";
+import { renderEmotion } from ("https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js");
 
 function getSession() {
   const session = {
+    unmount: ()=>{},
     hydrated: false,
     preRendered: false,
     lastErrors: 0,
@@ -204,10 +206,7 @@ export async function run(mode = "window", _w) {
       return hadError;
     }
 
-    const { renderEmotion } = await import(
-      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js"
-    );
-
+   
     const codeToHydrate = mode === "window"
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
@@ -218,7 +217,8 @@ export async function run(mode = "window", _w) {
         codeToHydrate,
     ))).default;
 
-    renderEmotion(Element(), root);
+    session.unmount();
+    session.unmount = renderEmotion(Element(), root);
 
     document.getElementById("zbody").children.length &&
    document.getElementById("zbody").children[0].remove()
