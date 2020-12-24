@@ -79,12 +79,11 @@ export async function getCodeToLoad() {
   const projects = await getProjects();
   const projectName = projects[0];
 
-  const search = new URLSearchParams(location.search);
+  const search = new URLSearchParams(window.location.search);
   const keyToLoad = search.get("h") || await shaDB.get(projectName);
 
   if (keyToLoad) {
-    code = await shaDB.get(keyToLoad, "string");
-    console.error("error load key: " + keyToLoad);
+   const code = await shaDB.get(keyToLoad, "string");
   
     if (code) return { code };
     
