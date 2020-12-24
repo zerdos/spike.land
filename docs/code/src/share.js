@@ -17,7 +17,7 @@ export const shareItAsHtml = async ({ code, HTML, jsExport }) => {
 
   const { getHtml, getCodeForImport } = await import("./templates.js");
 
-  const linkToCode = await saveToIPFS(code, "application/html");
+  const linkToCode = await saveToIPFS(code, "application/javascript");
 
   console.log({
     HTML,
@@ -27,7 +27,7 @@ export const shareItAsHtml = async ({ code, HTML, jsExport }) => {
   });
 
   const link = await saveHtml(
-    getHtml({ HTML, css, js: getCodeForImport(linkToCode) }),
+    getHtml({ HTML, css, link: linkToCode }),
   );
 
   return link;
