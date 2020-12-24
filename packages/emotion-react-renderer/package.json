@@ -10,7 +10,7 @@
   "source": "./src/renderer.ts",
   "exports": "./renderer",
   "scripts": {
-    "build": "esbuild --minify src/renderer.ts --minify --bundle --format=esm --define:process.env.NODE_ENV=\"production\" --outfile=dist/bundle.js",
+    "build": "esbuild --minify src/renderer.ts --minify --bundle --format=esm  --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/bundle.js",
     "xbuild": "microbundle ./src/renderer.ts"
   },
   "dependencies": {
