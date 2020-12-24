@@ -1,16 +1,15 @@
 import { shaDB } from "./db.js";
 
-import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js"; 
+import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 
 import { sha256 } from "./sha256.js";
 
 export async function getZkey(hash) {
-
   const uuid = await getUserId();
   const uKey = await sha256(uuid);
   const gKey = await sha256(hash + uKey);
   const vKey = await sha256(hash + uuid);
-  
+
   return `${hash}${uKey}${gKey}${vKey}`;
 }
 
@@ -57,7 +56,6 @@ export const getProjects = async () => {
 };
 
 export const saveCode = async (code) => {
-
   const hash = await sha256(code);
 
   const projects = await getProjects();
@@ -88,11 +86,10 @@ export async function getCodeToLoad() {
   const keyToLoad = search.get("h") || await shaDB.get(projectName);
 
   if (keyToLoad) {
-   const code = await shaDB.get(keyToLoad, "string");
-  
-    if (code) return { code };
-    
-}
+    const code = await shaDB.get(keyToLoad, "string");
 
-  return  {code: await import("./starter.js")};
+    if (code) return { code };
+  }
+
+  return { code: await import("./starter.js") };
 }

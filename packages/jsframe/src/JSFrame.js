@@ -68,7 +68,7 @@ function CBeanFrame(
   w_border_width,
   appearance,
 ) {
-  var me = CBeanFrame
+  var me = CBeanFrame;
 
   me.movable = true;
 
@@ -2920,15 +2920,14 @@ function JSFrame(model) {
 
   function mouseMove(e) {
     me.windowManager.windowMouseMove(e);
-  }      
-  
+  }
+
   var funcOnTouchMove = function (evt) {
     // Call #preventDefault to prevent simultaneous ignition of mousemove
     evt.preventDefault();
     mouseMove.bind(this)(evt);
   };
   document.addEventListener("touchmove", funcOnTouchMove);
-
 }
 
 JSFrame.doEnableTouchActionManipulation = function () {
@@ -3088,7 +3087,7 @@ JSFrame.createFrame = function (
   appearance,
   properties,
 ) {
-  var me = JSFrame
+  var me = JSFrame;
 
   if (!appearance) {
     appearance = me.createFrameAppearance();
