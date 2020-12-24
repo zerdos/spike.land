@@ -202,7 +202,7 @@ export async function run(mode = "window", _w) {
       // console.log(transpiled.error);
       return 1;
     }
-    const SRC ="https://unpkg.com/@zedvision/emotion-react-renderer@10.12.7/dist/bundle.js";
+    const SRC ="https://unpkg.com/@zedvision/emotion-react-renderer@10.12.8/dist/bundle.js";
 
 
     const { renderEmotion, jsx } = await import(
@@ -218,7 +218,7 @@ export async function run(mode = "window", _w) {
 
     const Element = (await import(createJsBlob(
           codeToHydrate.replace(`'@emotion/react'`,`'${SRC}'`)
-          .replace("'react'",`'${SRC}'`)))).default;
+          .replace("'react'",`'https://unpkg.com/@zedvision/code@10.12.9/dist/react.bundle.js'`)))).default;
 
     renderEmotion(Element(), root);
 
