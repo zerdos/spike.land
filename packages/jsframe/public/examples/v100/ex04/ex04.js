@@ -27,7 +27,7 @@
 var jsFrame = new JSFrame();
 
 function handleMaximizeWindow(e) {
-  var frame = this.parentObject;
+  var frame = JSFrame.parentObject;
   var maximizeButtonEle = {}
 
   frame._window_restoreInfo = {};
@@ -49,7 +49,7 @@ function handleMaximizeWindow(e) {
 }
 
 function handleRestoreWindow(e) {
-  var frame = this.parentObject;
+  var frame = JSFrame.parentObject;
   var restoreButtonEle = {}
 
   restoreButtonEle.style.visibility = "hidden";

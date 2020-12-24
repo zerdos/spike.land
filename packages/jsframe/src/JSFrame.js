@@ -298,16 +298,16 @@ DEF.CANVAS.HEIGHT_ADJUST_20180722 = 3;
 function CCanvas(parentElement, canvasId, left, top, width, height) {
   //Event data to be transmitted
   function EventData() {
-    this.x = 0;
-    this.y = 0;
-    this.screenX = 0;
-    this.screenY = 0;
-    this.deltaX = 0;
-    this.deltaY = 0;
-    this.isMoved = false;
-    this.targetTypeName = null;
-    this.targetUsage = null;
-    this.targetObject = null;
+    JSFrame.x = 0;
+    JSFrame.y = 0;
+    JSFrame.screenX = 0;
+    JSFrame.screenY = 0;
+    JSFrame.deltaX = 0;
+    JSFrame.deltaY = 0;
+    JSFrame.isMoved = false;
+    JSFrame.targetTypeName = null;
+    JSFrame.targetUsage = null;
+    JSFrame.targetObject = null;
   }
 
   var me = {};
@@ -399,7 +399,7 @@ CCanvas.mouseMove = function (evt) {
 
     //When the mouse cursor goes out of range,
     //the addition in the X direction and Y direction (delta X, delta Y) is set to zero.
-    //this.left=Cavas's left side edge, this.top=Canvas's top side edge.
+    //JSFrame.left=Cavas's left side edge, JSFrame.top=Canvas's top side edge.
     var tmpLeft = parseInt(newObjLeftPx, 10);
     var tmpTop = parseInt(newObjTopPx, 10);
 
@@ -540,7 +540,7 @@ CCanvas.addBean = function (bean) {
   //On the bean side, specify the parent of the bean to me.
   bean.setParentCanvas(me);
 
-  this.canvasElement.appendChild(bean.htmlElement);
+  JSFrame.canvasElement.appendChild(bean.htmlElement);
 };
 
 CCanvas.getParentElement = function () {
@@ -958,7 +958,7 @@ function CFrame(
   //override the field
   me.htmlElement.style.backgroundColor = "transparent";
 
-  me.htmlElement.oncontextmenu = this.contextMenu;
+  me.htmlElement.oncontextmenu = JSFrame.contextMenu;
 
   //The policy of Border drawing seems to be different between IE and FF.
   var caribVal = 0;
@@ -1208,20 +1208,20 @@ CFrame.canvasMouseDown = function (e) {
   //Mousedown processing of CFrame.canvas
 
   //'This' in this method indicates 'Cwindow.canvas.canvasElement'.
-  if (this.parentCFrame.parentCanvas.mouseDownSource == null) {
-    this.parentCFrame.parentCanvas.mouseDownSource = "childcanvas";
+  if (JSFrame.parentCFrame.parentCanvas.mouseDownSource == null) {
+    JSFrame.parentCFrame.parentCanvas.mouseDownSource = "childcanvas";
   }
 };
 CFrame.mouseUp = function (e) {
-  this.canvas.mouseUp(e);
+  JSFrame.canvas.mouseUp(e);
 };
 
 CFrame.close = function (e) {
   var me = {};
   //Close processing of CFrame from CloseButton
 
-  var parentCanvas = this.parentObject.parentCanvas;
-  var cframeObj = this.parentObject;
+  var parentCanvas = JSFrame.parentObject.parentCanvas;
+  var cframeObj = JSFrame.parentObject;
 
   console.log(
     'CFrame#close "' + cframeObj.title + "(@" + cframeObj.getName() + ")" +
@@ -1241,7 +1241,7 @@ CFrame.closeFrame = function (e) {
       me.windowId,
   );
 
-  var parentCanvas = this.parentCanvas;
+  var parentCanvas = JSFrame.parentCanvas;
   me.closeInternally(e, parentCanvas, me.windowId);
 };
 
@@ -1469,19 +1469,19 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
 
   var me = {};
 
-  this.jsFrame = null;
-  this.control = null;
+  JSFrame.jsFrame = null;
+  JSFrame.control = null;
 
-  this.minFrameWidth = 128;
-  this.minWindowHeight = 32;
+  JSFrame.minFrameWidth = 128;
+  JSFrame.minWindowHeight = 32;
 
-  this.eventListenerHelper = new EventListenerHelper();
+  JSFrame.eventListenerHelper = new EventListenerHelper();
 
   /**
    * If this value is true, the focus will move when tapping the iframe area,
    * but if the window do not have the focus, you can not click on the element in the iframe.
    */
-  this.overrayTransparentScreenEnabled = false;
+  JSFrame.overrayTransparentScreenEnabled = false;
 
   /**
    *  Only in the case of resizing a transparent screen can be displayed on the iframe
@@ -1494,14 +1494,14 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   // So it becomes necessary to click twice to react when you call the #setSize,I changed the value to false.
   //20181231
   //I found the way that iframe will be changed the size smoothly.so the final answer is true.
-  this.overrayTransparentScreenOnResize = true;
+  JSFrame.overrayTransparentScreenOnResize = true;
 
-  this.titleBarColorFocused = appearance.titleBarColorFocused;
+  JSFrame.titleBarColorFocused = appearance.titleBarColorFocused;
 
-  this.titleBarColorDefault = appearance.titleBarColorDefault;
+  JSFrame.titleBarColorDefault = appearance.titleBarColorDefault;
 
-  this.titleBarCaptionColorDefault = appearance.titleBarCaptionColorDefault;
-  this.titleBarCaptionColorFocused = appearance.titleBarCaptionColorFocused;
+  JSFrame.titleBarCaptionColorDefault = appearance.titleBarCaptionColorDefault;
+  JSFrame.titleBarCaptionColorFocused = appearance.titleBarCaptionColorFocused;
 
   //call super constructor
   CIfFrame.superConstructor.call(
@@ -1575,7 +1575,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
 
   me.canvas.canvasElement.appendChild(me.dframe);
 
-  this.setUseIframe = function (useIframe) {
+  JSFrame.setUseIframe = function (useIframe) {
     me.useIframe = useIframe;
     me.iframe.style.visibility = "hidden";
     me.iframe.style.position = "absolute";
@@ -2075,11 +2075,11 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
     refHtmlElement.decorator(e);
 
     //Deploy a transparent screen.
-    // Since mouseDown is pointed to this.htmlElement.onmousedown in the CBean class,
-    // this 'this' will indicate this.htmlElement.
+    // Since mouseDown is pointed to JSFrame.htmlElement.onmousedown in the CBean class,
+    // this 'this' will indicate JSFrame.htmlElement.
     //In other words,
-    //if you want to refer 'CIfFrame',you need to specify 'this.parent.'
-    //See CBeanFrame class, you can find 'this.htmlElement.parent = this'
+    //if you want to refer 'CIfFrame',you need to specify 'JSFrame.parent.'
+    //See CBeanFrame class, you can find 'JSFrame.htmlElement.parent = this'
     var refCIfFrame = refHtmlElement.parent;
 
     var refCWindowManager = refHtmlElement.parentCanvas;
@@ -2646,7 +2646,7 @@ CWindowManager.windowMouseMove = function (e) {
   }
 
   //If any one of the beans in the Canvas has moved.Do not do 'Cwindow's mouseMove'
-  if (!childWindowMoved && this.mouseDownSource != "childcanvas") {
+  if (!childWindowMoved && JSFrame.mouseDownSource != "childcanvas") {
     //Moving logic for CWindow which is holded by CWindowManager as a child window.
     me.mouseMove(e);
   }
@@ -2999,14 +2999,14 @@ JSFrame.create = function (model) {
   var presetWindow;
 
   if (presetWindowName) {
-    var presetWindowObj = this.getPresetWindow(presetWindowName);
+    var presetWindowObj = JSFrame.getPresetWindow(presetWindowName);
     presetWindow = presetWindowObj.getPresetWindow(presetParam);
-    appearance = this.createPresetStyle(
+    appearance = JSFrame.createPresetStyle(
       presetWindow.appearanceName,
       { appearanceParam: presetWindow.appearanceParam },
     );
   } else if (appearanceName) {
-    appearance = this.createPresetStyle(
+    appearance = JSFrame.createPresetStyle(
       appearanceName,
       { appearanceParam: appearanceParam },
     );
@@ -3018,7 +3018,7 @@ JSFrame.create = function (model) {
     height = model.clientHeight + windowTitleBarHeight;
   }
 
-  var frame = this.createFrame(
+  var frame = JSFrame.createFrame(
     left,
     top,
     width,
