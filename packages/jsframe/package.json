@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/jsframe",
-  "version": "10.12.26",
+  "version": "10.12.27",
   "description": "It is an independent lightweight multi-window library for javascript.\r - Create various popup windows.\r - Styling the appearance flexibly.",
   "main": "lib/jsframe.min.js",
   "scripts": {
