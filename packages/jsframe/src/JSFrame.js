@@ -2832,14 +2832,14 @@ function JSFrame(model) {
   if (!parentElement) {
     const topParentDiv = document.createElement("div");
     if (me.isWindowManagerFixed) {
-      topParentDiv.id = "jsFrame_fixed_" + JSFrame.generateUUID();
+      topParentDiv.id = "jsFrame_fixed_" + uuidv4();
       topParentDiv.setAttribute(
         "style",
         "position:fixed;" + me.hAlign + ":0px;" + me.vAlign +
           ":0px;margin:0px;padding:0px;",
       );
     } else {
-      topParentDiv.id = "jsFrame_absolute_" + JSFraJSFrame.generateUUID();
+      topParentDiv.id = "jsFrame_absolute_" + JSFrauuidv4();
       topParentDiv.setAttribute(
         "style",
         "position:absolute;" + me.hAlign + ":0px;" + me.vAlign +
@@ -2852,7 +2852,7 @@ function JSFrame(model) {
     if (me.isWindowManagerFixed) {
       //parentElement set
       var topParentDiv = document.createElement("div");
-      topParentDiv.id = "jsFrame_fixed_" + JSFrame.generateUUID();
+      topParentDiv.id = "jsFrame_fixed_" + uuidv4();
       topParentDiv.setAttribute(
         "style",
         "position:fixed;" + me.hAlign + ":0px;" + me.vAlign +
@@ -2861,7 +2861,7 @@ function JSFrame(model) {
       parentElement.appendChild(topParentDiv);
     } else {
       var topParentDiv = document.createElement("div");
-      topParentDiv.id = "jsFrame_absolute_" + JSFrame.generateUUID();
+      topParentDiv.id = "jsFrame_absolute_" + uuidv4();
       topParentDiv.setAttribute(
         "style",
         "position:absolute;" + me.hAlign + ":0px;" + me.vAlign +
@@ -2913,13 +2913,13 @@ function JSFrame(model) {
 
   me.windowManager = new CWindowManager(
     parentElement,
-    "windowManager_" + JSFrame.generateUUID(),
+    "windowManager_" + uuidv4(),
     0,
     0,
     0,
     0,
   );
-  //me.windowManager = new CWindowManager(document.body, 'windowManager_' + JSFrame.generateUUID(), 0, 0, 0, 0);
+  //me.windowManager = new CWindowManager(document.body, 'windowManager_' + uuidv4(), 0, 0, 0, 0);
   me.domPartsBuilder = null;
 
   function mouseUp(e) {
@@ -3096,7 +3096,7 @@ JSFrame.prototype.createFrame = function (
 
   appearance.initialize();
 
-  var windowId = "window_" + JSFrame.generateUUID();
+  var windowId = "window_" + uuidv4();
 
   if (!left) {
     left = 0;
@@ -3280,7 +3280,7 @@ JSFrame.prototype.showToast = function (model) {
   }
 
   var frame = me.create({
-    name: "toast_" + JSFraJSFrame.generateUUID(),
+    name: "toast_" + JSFrauuidv4(),
     width: toastWidth,
     height: toastHeight,
     movable: false,
