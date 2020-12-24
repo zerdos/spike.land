@@ -1,5 +1,13 @@
 import { shaDB } from "./db.js";
 import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
+import { sha256 } from "./sha256.js";
+
+export async function getZkey(hash) {
+  const uuid = await getUserId();
+  const uKey = await sha256(uuid);
+  const gKey = await sha256(hash + uKey);
+  const vKey = await sha256(hash + uuid);
+  return `${hash}${uKey}${gKey}${vKey}`;
 }
 
 export async function getUserId() {
@@ -75,31 +83,13 @@ export async function getCodeToLoad() {
   const keyToLoad = search.get("h") || await shaDB.get(projectName);
 
   if (keyToLoad) {
-    let code;
-    try {
-      code = await shaDB.get(keyToLoad);
-    } catch {
-      console.error("error load key: " + keyToLoad);
-    }
-
+    code = await shaDB.get(keyToLoad, "string");
+    console.error("error load key: " + keyToLoad);
+  
     if (code) return { code };
-
-    let text;
-    try {
-      const resp = await fetch("https://code.zed.vision/?h=" + keyToLoad);
-      text = await resp.json();
-    } catch (e) {
-      const { sha256 } = await import("./sha256.js");
-      const { starter } = await import("./starterNoFramerMotion.js");
-      const shaHash = await sha256(starter);
-
-      await shaDB.put(shaHash, starter);
-      await shaDB.put(projectName, shaHash);
-      return { code: starter };
-    }
-
-    return { code: text };
-  }
-
-  return starter;
+    
 }
+
+  return  {code: await import("./starter.js")};
+}
+""

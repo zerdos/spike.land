@@ -4,11 +4,13 @@ let db;
 
 export const shaDB = {
   get: async (...args) => {
-    db = db || await getDB();
-    return db.get(...args);
+    const DB = await db;
+    db=getDB();
+    return DB.get.apply(DB, args);
   },
   put: async (...args) => {
-    db = db || await getDB();
-    return db.put(...args);
+    const DB = await db;
+    db=getDB();
+    return DB.put.apply(DB, args);
   },
 };

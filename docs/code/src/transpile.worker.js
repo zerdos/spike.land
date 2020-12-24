@@ -8,7 +8,7 @@ const src =
 // const from = / from '/gi;
 
 // const replaceWith = `const { $1 } = await import('$2');`;
-const searchRegExp = /import /gi;
+const searchRegExp = /import(.+?)react';/gi;
 // const from = / from '/gi;
 const replaceWith = "/// ";
 //
