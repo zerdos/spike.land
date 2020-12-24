@@ -2945,7 +2945,7 @@ JSFrame.doEnableTouchActionManipulation = function () {
   }
 };
 
-JSFrameme.doDisablePullToRefresh = function () {
+JSFrame.doDisablePullToRefresh = function () {
   var bodyStyle = document.body.getAttribute("style");
   if (!bodyStyle) {
     bodyStyle = "";
@@ -2959,7 +2959,7 @@ JSFrameme.doDisablePullToRefresh = function () {
     document.body.setAttribute("style", bodyStyle);
   }
 };
-JSFrameme.getDomPartsBuilder = function () {
+JSFrame.getDomPartsBuilder = function () {
   var me = {};
 
   if (!me.domPartsBuilder) {
@@ -2968,7 +2968,7 @@ JSFrameme.getDomPartsBuilder = function () {
   return me.domPartsBuilder;
 };
 
-JSFrameme.create = function (model) {
+JSFrame.create = function (model) {
   var me = {};
 
   var properties = {};
@@ -3079,7 +3079,7 @@ JSFrameme.create = function (model) {
  *
  * @returns {CIfFrame}
  */
-JSFrameme.createFrame = function (
+JSFrame.createFrame = function (
   left,
   top,
   width,
@@ -3148,17 +3148,17 @@ JSFrameme.createFrame = function (
   return frame;
 };
 
-JSFrameme.containsWindowName = function (windowName) {
+JSFrame.containsWindowName = function (windowName) {
   var me = {};
   return me.windowManager.containsWindowName(windowName);
 };
 
-JSFrameme.getWindowByName = function (windowName) {
+JSFrame.getWindowByName = function (windowName) {
   var me = {};
   return me.windowManager.getWindowByName(windowName);
 };
 
-JSFrameme.createFrameAppearance = function () {
+JSFrame.createFrameAppearance = function () {
   return new CFrameAppearance();
 };
 
