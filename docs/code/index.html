@@ -75,7 +75,7 @@
   <script type="module">
     const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
     (async()=>{
-        const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://unpkg.com/@zedvision/code@10.12.20/src/codeLoader.js");
+        const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://unpkg.com/@zedvision/code@10.12.21/src/codeLoader.js");
         run("window", window);
         })();
   </script>
