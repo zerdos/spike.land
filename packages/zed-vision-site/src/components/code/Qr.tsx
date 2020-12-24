@@ -10,8 +10,10 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr;
     const connect = async () => {
-      
-      const QRious =(await new Function(`return ()=> import ("https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.esm.min.js")`)()()).default
+      const QRious =
+        (await new Function(
+          `return ()=> import ("https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.esm.min.js")`,
+        )()()).default;
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();
 

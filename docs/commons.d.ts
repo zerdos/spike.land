@@ -1,1 +1,0 @@
-declare var webpackJsonp: any;
