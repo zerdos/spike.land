@@ -201,6 +201,10 @@ export async function run(mode = "window", _w) {
       // console.log(transpiled.error);
       return 1;
     }
+    const { renderEmotion,Fragment, jsx } = await import(
+      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.6/dist/bundle.js"
+   );
+ 
 
     const codeToHydrate = mode === "window"
       ? transpiled.replace("body{", "#zbody{")
@@ -210,7 +214,7 @@ export async function run(mode = "window", _w) {
 
     const Element = (await import(createJsBlob(codeToHydrate))).default;
 
-    ReactDOM.render(Element(), root);
+    renderEmotion(jsx(Fragment,  {children: Element()}), root);
 
     document.getElementById("zbody").removeChild();
     document.getElementById("zbody").appendChild(root);
