@@ -67,10 +67,10 @@ async function formatter(code) {
 export async function run(mode = "window", _w) {
   console.log("Runner");
 
-  const { document, location, open } = _w;
+  const { document, open } = _w;
 
   const session = getSession();
-  const { getCodeToLoad } = await ("./data.js");
+  const { getCodeToLoad } = await import("./data.js");
   const { code } = await getCodeToLoad();
   session.code = code;
   session.transpiled = await transpileCode(session.code);
