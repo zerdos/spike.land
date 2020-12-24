@@ -13,7 +13,7 @@ export const Qr: React.FC = () => {
     let qr;
     const connect = async () => {
       await importScript(
-        "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.min.js",
+        "https://unpkg.com/@zedvision/qrious@10.12.3/dist/qrious.min.js",
       );
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();
