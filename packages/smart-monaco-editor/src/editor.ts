@@ -67,13 +67,13 @@ export default async (
     const setThemeForAce = (wait: number) =>
       setTimeout(() => {
         //@ts-ignore
-
-        const aceEditor = ace.edit("ace");
         const theme = aceEditor.getTheme();
         if (theme !== "ace/theme/monokai ") {
-          aceEditor.setOptions({
+        //@ts-ignore
+          aceEditor.setOptions && aceEditor.setOptions({
             fontSize: "14pt",
           });
+        //@ts-ignore
           aceEditor.setTheme("ace/theme/monokai");
           setThemeForAce(2 * wait);
         }
