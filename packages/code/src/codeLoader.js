@@ -1,7 +1,5 @@
 import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.1/dist/smart-monaco-editor.modern.js";
 
-
-
 import { diff } from "https://unpkg.com/@zedvision/diff@10.10.18/dist/diff.min.js";
 
 import renderDraggableWindow from "./DraggableWindow.js";
@@ -69,7 +67,9 @@ async function formatter(code) {
 
 export async function run(mode = "window", _w) {
   console.log("Runner");
-  const {emotionRenderer, jsx} = await import("https://unpkg.com/@zedvision/emotion-react/render/dist/bunle.js")
+  const { emotionRenderer, jsx } = await import(
+    "https://unpkg.com/@zedvision/emotion-react/render/dist/bunle.js"
+  );
   const { document, React, ReactDOM, emotionReactJSXRuntime, location, open } =
     _w;
   const session = getSession();
@@ -79,7 +79,6 @@ export async function run(mode = "window", _w) {
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
-
   }
 
   if (mode === "window") {
@@ -91,7 +90,7 @@ export async function run(mode = "window", _w) {
     };
 
     await renderDraggableWindow(
-      { onShare }
+      { onShare },
     );
   }
 

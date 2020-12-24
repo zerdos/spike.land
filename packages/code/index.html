@@ -10,21 +10,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="Description" content="Code and share!">
   
-  
-  <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-
-  <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> -->
-
-  <script>
-    window.globalThis.ReactJSX = {
-      ...React,
-      jsx: (...args)=>React.createElement(...args)
-    }
-  </script>
-  <script crossorigin src="https://unpkg.com/@emotion/react@11.1.4/jsx-runtime/dist/emotion-react-jsx-runtime.umd.min.js"></script>
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" crossorigin="anonymous"  />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous" crossorigin="anonymous" />
@@ -88,7 +73,7 @@
 
     </script -->
   <script type="module">
-    const isLocalhost =  true ;//(window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
+    const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
     (async()=>{
         const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://unpkg.com/@zedvision/code@10.12.0/src/codeLoader.js");
         run("window", window);
