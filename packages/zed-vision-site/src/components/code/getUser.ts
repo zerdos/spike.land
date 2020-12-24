@@ -1,10 +1,9 @@
 export async function getUserId() {
   if (typeof window === "undefined") return "";
 
-  const { importScript } = await import("./importScript.js");
-  const { getDB } = await importScript(
-    "https://unpkg.com/@zedvision/shadb@10.12.3/dist/shadb.umd.js",
-  );
+  const { getDB }  = await new Function(
+    `return import ("https://unpkg.com/@zedvision/shadb@10.12.20/dist/shadb.esm.js")`,
+  )();
 
   const shaDB = await getDB();
   const uuid = await shaDB.get("uuid");
