@@ -9,7 +9,7 @@ import { shaDB } from "./db.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { createJsBlob, shareItAsHtml } from "./share.js";
-import { renderEmotion } from ("https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js");
+import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
 
 function getSession() {
   const session = {

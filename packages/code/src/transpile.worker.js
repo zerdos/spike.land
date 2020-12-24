@@ -1,8 +1,8 @@
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
 importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 
-
-const src ="https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js";
+const src =
+  "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
 
 // const searchRegExp = /import {([\[a-zA-Z0-9 ,]+])} from '([\w+])';/gi;
 // const from = / from '/gi;
@@ -38,11 +38,7 @@ const transform = (code, hasToReport) => {
           ["typescript", { isTSX: true, allExtensions: true }],
         ],
       },
-    ).code;    
-    
-    
-
-
+    ).code;
 
     // console.log(transformed);
     return transformed;
