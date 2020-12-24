@@ -122,7 +122,7 @@ export async function run(mode = "window", _w) {
           : []),
         ...(await getErrors(cd)),
       ];
-      console.log({ err });
+      if (err.length) console.log({ err });
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
       session.lastErrors = err.length;
       const errorDiv = document.getElementById("error");
@@ -203,11 +203,9 @@ export async function run(mode = "window", _w) {
       hadError=true;
       return hadError;
     }
-    const SRC =
-      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js";
 
-    const { renderEmotion, jsx } = await import(
-      SRC
+    const { renderEmotion } = await import(
+      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js"
     );
 
     const codeToHydrate = mode === "window"
@@ -217,9 +215,7 @@ export async function run(mode = "window", _w) {
     const root = document.createElement("div");
 
     const Element = (await import(createJsBlob(
-      `import {jsx, React, css, Fragment, Global} from "${SRC}";
-    const {useState, useRef } = React ;
-    ` + codeToHydrate,
+        codeToHydrate,
     ))).default;
 
     renderEmotion(Element(), root);
