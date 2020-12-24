@@ -65,7 +65,7 @@ export const Qr: React.FC = () => {
         text-align: center;
     `}
     >
-      <img
+      <canvas
         css={css`
               display: block;
               box-shadow: 0 0 ${10 + counter}px 5px ${
@@ -74,7 +74,7 @@ export const Qr: React.FC = () => {
           `}
         ref={ref}
       >
-      </img>
+      </canvas>
       <p
         css={css`
               font-family: Roboto;
