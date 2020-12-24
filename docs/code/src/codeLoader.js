@@ -2,14 +2,18 @@ import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.
 
 import { diff } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js";
 
-import renderDraggableWindow from "./DraggableWindow.js";
 
 import { getProjects, saveCode } from "./data.js";
 import { shaDB } from "./db.js";
 import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
 import { createJsBlob, shareItAsHtml } from "./share.js";
-import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
+
+
+const src = "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
+
+
+
 
 function getSession() {
   const session = {
@@ -73,7 +77,6 @@ export async function run(mode = "window", _w) {
   const { document, location, open } = _w;
 
   const session = getSession();
-
   const codeTOLoad = await getCodeToLoad();
   session.code = await formatter(codeTOLoad);
   session.transpiled = await transpileCode(session.code);
@@ -91,8 +94,10 @@ export async function run(mode = "window", _w) {
       open(link);
     };
 
+
+    const {renderDraggableWindow} = await import("./DraggableWindow.js");
     await renderDraggableWindow(
-      { onShare },
+      { onShare },src
     );
   }
 
@@ -199,6 +204,7 @@ export async function run(mode = "window", _w) {
   }
 
   async function restartCode(transpiled) {
+    const { renderEmotion } = await import(src);
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
