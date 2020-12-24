@@ -111,7 +111,7 @@ export async function run(mode = "window", _w) {
       let restartError = false;
       ///yellow
       if (transpiled.length && session.lastErrors === 0) {
-        restartError = restartCode(transpiled);
+        restartError = await restartCode(transpiled);
       }
 
       const err = [
@@ -197,12 +197,14 @@ export async function run(mode = "window", _w) {
   }
 
   async function restartCode(transpiled) {
+    let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
-      return 1;
+      hadError=true;
+      return hadError;
     }
     const SRC =
-      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.12/dist/bundle.js";
+      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js";
 
     const { renderEmotion, jsx } = await import(
       SRC
@@ -215,7 +217,7 @@ export async function run(mode = "window", _w) {
     const root = document.createElement("div");
 
     const Element = (await import(createJsBlob(
-      `import {jsx, React, css} from "${SRC}";
+      `import {jsx, React, css, Fragment, Global} from "${SRC}";
     const {useState, useRef } = React ;
     ` + codeToHydrate,
     ))).default;
@@ -223,12 +225,12 @@ export async function run(mode = "window", _w) {
     renderEmotion(Element(), root);
 
     document.getElementById("zbody").children.length &&
-      document.getElementById("zbody").removeChild();
+   document.getElementById("zbody").children[0].remove()
     document.getElementById("zbody").appendChild(root);
 
     session.HTML = root.innerHTML;
 
-    return !session.preRendered;
+    return !session.HTML;
   }
 
   async function getCodeToLoad() {

@@ -33,7 +33,7 @@ const transform = (code, hasToReport) => {
         ],
       },
     ).code;
-    console.log(transformed);
+    // console.log(transformed);
     return transformed;
   } catch (e) {
     hasToReport && console.error(e);
