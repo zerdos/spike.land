@@ -37,8 +37,6 @@ export const getHtml = ({ HTML, css, js }) => {
   ${HTML}
 </div>
 
-<script crossorigin src="https://unpkg.com/react@17.0.1/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@17.0.1/umd/react-dom.production.min.js"></script>
 <script>${js}</script>
 </body>
 </html>
@@ -49,13 +47,18 @@ export const getCodeForImport = (link) =>
   `
 link = fetch("${link}")
     .then(data=>data.text())
-            </script><script type="module">link.then(async (text) => {
+            </script><script type="module">
+            const { renderEmotion } = await import(
+              "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.17/dist/bundle.js"
+            );
+          
+            link.then(async (text) => {
               const App = (
                 await import(URL.createObjectURL(
                   new Blob([text], { type: "application/javascript" }
                   ))
                 )).default;
-              ReactDOM.render(App(), document.body.children[0]);
+                renderEmotion(App(), document.body.children[0]);
             })
             
 `;
