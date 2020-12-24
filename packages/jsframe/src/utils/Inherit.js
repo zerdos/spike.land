@@ -11,7 +11,7 @@ function inherit(subClass, baseClass) {
   clazz.prototype = baseClass.prototype;
   subClass.prototype = new clazz();
 
-  subClass.prototype.constructor = subClass;
+  subClass.constructor = subClass;
   subClass.superConstructor = baseClass;
   subClass.superClass = baseClass.prototype;
 }

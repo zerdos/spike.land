@@ -204,7 +204,7 @@ var DevcontainerGenerator = /** @class */ (function () {
       });
     };
   }
-  DevcontainerGenerator.prototype.init = function () {
+  DevcontainerGenerator.init = function () {
     return __awaiter(this, void 0, void 0, function () {
       var bufferDockerfiles, bufferReadmeFiles;
       var _this = this;
@@ -269,13 +269,13 @@ var DevcontainerGenerator = /** @class */ (function () {
       });
     });
   };
-  DevcontainerGenerator.prototype.setNodeVersion = function (nodeVersion) {
+  DevcontainerGenerator.setNodeVersion = function (nodeVersion) {
     this._nodeVersion = nodeVersion;
   };
-  DevcontainerGenerator.prototype.setVscode = function () {
+  DevcontainerGenerator.setVscode = function () {
     this._vscode = true;
   };
-  DevcontainerGenerator.prototype.updateGit = function (forceFromSource) {
+  DevcontainerGenerator.updateGit = function (forceFromSource) {
     if (forceFromSource === void 0) forceFromSource = false;
     if (getDistro(this.base) === "ubuntu" && !forceFromSource) {
       this._gitVersion = "ubuntu";
@@ -283,28 +283,28 @@ var DevcontainerGenerator = /** @class */ (function () {
       this._gitVersion = softwareVersions.git;
     }
   };
-  DevcontainerGenerator.prototype.setDebianBackports = function () {
+  DevcontainerGenerator.setDebianBackports = function () {
     this._debianBackports = true;
   };
-  DevcontainerGenerator.prototype.setXfce = function () {
+  DevcontainerGenerator.setXfce = function () {
     this._xfce = true;
   };
-  DevcontainerGenerator.prototype.setDeno = function () {
+  DevcontainerGenerator.setDeno = function () {
     this._deno = true;
   };
-  DevcontainerGenerator.prototype.setK8s = function () {
+  DevcontainerGenerator.setK8s = function () {
     this._k8s = true;
   };
-  DevcontainerGenerator.prototype.setChrome = function () {
+  DevcontainerGenerator.setChrome = function () {
     this._chrome = true;
   };
-  DevcontainerGenerator.prototype.setChromium = function () {
+  DevcontainerGenerator.setChromium = function () {
     this._chromium = true;
   };
-  DevcontainerGenerator.prototype.setAndroid = function () {
+  DevcontainerGenerator.setAndroid = function () {
     this._android = true;
   };
-  DevcontainerGenerator.prototype.setRemoteDesktop = function (type) {
+  DevcontainerGenerator.setRemoteDesktop = function (type) {
     if (type === void 0) type = "xpra";
     if (type === "xpra") {
       this._xpra = true;
@@ -313,20 +313,20 @@ var DevcontainerGenerator = /** @class */ (function () {
     }
     //      if ((this._noVNC===true || this._xfce) && this._xpra===true) throw new Error("You can't have VNC and Xpra on the same image");
   };
-  DevcontainerGenerator.prototype.setZsh = function () {
+  DevcontainerGenerator.setZsh = function () {
     this._zsh = true;
   };
-  DevcontainerGenerator.prototype.setDocker = function () {
+  DevcontainerGenerator.setDocker = function () {
     this._docker = true;
   };
-  DevcontainerGenerator.prototype.setDotnet = function (version) {
+  DevcontainerGenerator.setDotnet = function (version) {
     if (version === void 0) version = "2";
     this._dotnet = version;
   };
-  DevcontainerGenerator.prototype.setCypress = function () {
+  DevcontainerGenerator.setCypress = function () {
     this._cypressVersion = softwareVersions.cypress;
   };
-  DevcontainerGenerator.prototype.generate = function () {
+  DevcontainerGenerator.generate = function () {
     return __awaiter(this, void 0, void 0, function () {
       var _a, dockerTemplates, readmeTemplates, xpraStart;
       return __generator(this, function (_b) {

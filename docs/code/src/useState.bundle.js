@@ -3,8 +3,8 @@ var _ = (e, r) =>
   w = _((ne, C) => {
     "use strict";
     var $ = Object.getOwnPropertySymbols,
-      G = Object.prototype.hasOwnProperty,
-      J = Object.prototype.propertyIsEnumerable;
+      G = Object.hasOwnProperty,
+      J = Object.propertyIsEnumerable;
     function K(e) {
       if (e == null) {
         throw new TypeError(
@@ -101,14 +101,14 @@ var _ = (e, r) =>
     function v(e, r, t) {
       this.props = e, this.context = r, this.refs = U, this.updater = t || N;
     }
-    v.prototype.isReactComponent = {};
-    v.prototype.setState = function (e, r) {
+    v.isReactComponent = {};
+    v.setState = function (e, r) {
       if (typeof e != "object" && typeof e != "function" && e != null) {
         throw Error(d(85));
       }
       this.updater.enqueueSetState(this, e, r, "setState");
     };
-    v.prototype.forceUpdate = function (e) {
+    v.forceUpdate = function (e) {
       this.updater.enqueueForceUpdate(this, e, "forceUpdate");
     };
     function F() {}
@@ -121,7 +121,7 @@ var _ = (e, r) =>
     g(O, v.prototype);
     O.isPureReactComponent = !0;
     var S = { current: null },
-      M = Object.prototype.hasOwnProperty,
+      M = Object.hasOwnProperty,
       D = { key: !0, ref: !0, __self: !0, __source: !0 };
     function L(e, r, t) {
       var u, n = {}, i = null, f = null;

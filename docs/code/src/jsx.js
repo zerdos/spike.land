@@ -628,7 +628,7 @@
           var t = document.querySelectorAll(
             "style[data-emotion]:not([data-s])",
           );
-          Array.prototype.forEach.call(
+          Array.forEach.call(
             t,
             (function (e) {
               document.head.appendChild(e), e.setAttribute("data-s", "");
@@ -638,7 +638,7 @@
         var a = e.stylisPlugins || V;
         var s, c, o = {}, i = [];
         s = e.container || document.head,
-          Array.prototype.forEach.call(
+          Array.forEach.call(
             document.querySelectorAll("style[data-emotion]"),
             (function (e) {
               var t = e.getAttribute("data-emotion").split(" ");
@@ -688,7 +688,7 @@
         };
         return p.sheet.hydrate(i), p;
       },
-      re = Object.prototype.hasOwnProperty,
+      re = Object.hasOwnProperty,
       te = t.createContext(
         "undefined" != typeof HTMLElement ? ee({ key: "css" }) : null,
       ),
@@ -722,7 +722,7 @@
             for (var r = 1; r < arguments.length; r++) {
               var t = arguments[r];
               for (var n in t) {
-                Object.prototype.hasOwnProperty.call(t, n) && (e[n] = t[n]);
+                Object.hasOwnProperty.call(t, n) && (e[n] = t[n]);
               }
             }
             return e;

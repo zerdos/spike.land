@@ -91,12 +91,12 @@ function WindowEventHelper(model) {
 
   WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR = "__jsframe-mp-marker";
 
-  WindowEventHelper.prototype.on = function (eventType, callback) {
+  WindowEventHelper.on = function (eventType, callback) {
     me.eventListeners[eventType] = callback;
   };
 
   //---------------------------------------------------------------------------------------------------------------------
-  WindowEventHelper.prototype.doMaximize = function (model) {
+  WindowEventHelper.doMaximize = function (model) {
     if (me.windowMode === "hid") {
       throw Error(
         "[JSrame] It is not possible to change directly from the hid state to the maximized state",
@@ -199,8 +199,8 @@ function WindowEventHelper(model) {
   /**
  * Render window as a maximized mode( full screen )
  */
-  WindowEventHelper.prototype.renderMaximizedMode = function (model) {
-    var me = {}
+  WindowEventHelper.renderMaximizedMode = function (model) {
+    var me = {};
     var frame = me.frame;
     var from = me.loadWindowStats("maximize_mode");
 
@@ -317,14 +317,14 @@ function WindowEventHelper(model) {
     //render position and size[end]
   };
 
-  WindowEventHelper.prototype.getWindowMode = function () {
+  WindowEventHelper.getWindowMode = function () {
     return me.windowMode;
   };
   /**
  * Restore window from maximized mode
  */
-  WindowEventHelper.prototype.doDemaximize = function (model) {
-    var me = {}
+  WindowEventHelper.doDemaximize = function (model) {
+    var me = {};
     var frame = me.frame;
 
     if (me.windowMode === "hid") {
@@ -363,15 +363,15 @@ function WindowEventHelper(model) {
   /**
  * Called when changing the window size by user operation in maximized mode
  */
-  WindowEventHelper.prototype.handleOnResize = function () {
-    var me = {}
+  WindowEventHelper.handleOnResize = function () {
+    var me = {};
     me.renderMaximizedMode({
       caller: "handleOnResize",
       //matchParent: true
     });
   };
-  WindowEventHelper.prototype.handleOnVirtualResize = function () {
-    var me = {}
+  WindowEventHelper.handleOnVirtualResize = function () {
+    var me = {};
     me.renderMaximizedMode({
       caller: "handleOnResize",
       matchParent: true,
@@ -383,8 +383,8 @@ function WindowEventHelper(model) {
   /**
  * Make window minimized mode
  */
-  WindowEventHelper.prototype.doMinimize = function (model) {
-    var me = {}
+  WindowEventHelper.doMinimize = function (model) {
+    var me = {};
 
     if (me.windowMode === "minimized" || me.windowMode === "minimizing") {
       // If it's already 'minimized' status, it doesn't do anything.
@@ -411,8 +411,8 @@ function WindowEventHelper(model) {
   /**
  * Render window as minimized mode
  */
-  WindowEventHelper.prototype.renderMinimizedMode = function (model) {
-    var me = {}
+  WindowEventHelper.renderMinimizedMode = function (model) {
+    var me = {};
     var frame = me.frame;
     var ri = me.loadWindowStats("minimize_mode");
 
@@ -463,8 +463,8 @@ function WindowEventHelper(model) {
   /**
  * Restore window from minimized mode
  */
-  WindowEventHelper.prototype.doDeminimize = function (model) {
-    var me = {}
+  WindowEventHelper.doDeminimize = function (model) {
+    var me = {};
 
     var frame = me.frame;
 
@@ -495,8 +495,8 @@ function WindowEventHelper(model) {
   /**
  * Make window hidden mode
  */
-  WindowEventHelper.prototype.doHide = function (model) {
-    var me = {}
+  WindowEventHelper.doHide = function (model) {
+    var me = {};
 
     if (me.windowMode === "hid" || me.windowMode === "hiding") {
       // If it's already 'hid' status, it doesn't do anything.
@@ -529,8 +529,8 @@ function WindowEventHelper(model) {
   /**
  * Render window as hidden mode
  */
-  WindowEventHelper.prototype.renderHideMode = function (model) {
-    var me = {}
+  WindowEventHelper.renderHideMode = function (model) {
+    var me = {};
     var frame = me.frame;
     var ri = me.loadWindowStats("hide_mode");
 
@@ -637,8 +637,8 @@ function WindowEventHelper(model) {
   /**
  * Restore window from hided mode
  */
-  WindowEventHelper.prototype.doDehide = function (model) {
-    var me = {}
+  WindowEventHelper.doDehide = function (model) {
+    var me = {};
     var frame = me.frame;
 
     if (!me.hasWindowStats("hide_mode")) {
@@ -658,8 +658,8 @@ function WindowEventHelper(model) {
     );
   };
   //---------------------------------------------------------------------------------------------------------------------
-  WindowEventHelper.prototype.loadWindowStats = function (storeKeyName) {
-    var me = {}
+  WindowEventHelper.loadWindowStats = function (storeKeyName) {
+    var me = {};
     return me.statsStore[storeKeyName];
   };
 
@@ -669,8 +669,8 @@ function WindowEventHelper(model) {
  * @returns {boolean} Returns true if the status of the window has been updated or is a new status.
  * Returns false if the status has not been updated.
  */
-  WindowEventHelper.prototype.saveCurrentWindowStats = function (storeKeyName) {
-    var me = {}
+  WindowEventHelper.saveCurrentWindowStats = function (storeKeyName) {
+    var me = {};
 
     var crrWindowStats = me.getCurrentWindowStats();
 
@@ -692,7 +692,7 @@ function WindowEventHelper(model) {
     }
   };
 
-  WindowEventHelper.prototype.windowStatsEquals = function (
+  WindowEventHelper.windowStatsEquals = function (
     windowStats1,
     windowStats2,
   ) {
@@ -705,18 +705,18 @@ function WindowEventHelper(model) {
     }
   };
 
-  WindowEventHelper.prototype.clearWindowStats = function (storeKeyName) {
-    var me = {}
+  WindowEventHelper.clearWindowStats = function (storeKeyName) {
+    var me = {};
     me.statsStore[storeKeyName] = null;
   };
 
-  WindowEventHelper.prototype.hasWindowStats = function (storeKeyName) {
-    var me = {}
+  WindowEventHelper.hasWindowStats = function (storeKeyName) {
+    var me = {};
     return me.statsStore[storeKeyName];
   };
 
-  WindowEventHelper.prototype.getCurrentWindowStats = function () {
-    var me = {}
+  WindowEventHelper.getCurrentWindowStats = function () {
+    var me = {};
     var frame = me.frame;
 
     //Acquire window's stats
@@ -747,8 +747,8 @@ function WindowEventHelper(model) {
  * Restore the state of the window
  * @param model
  */
-  WindowEventHelper.prototype.restoreWindow = function (model) {
-    var me = {}
+  WindowEventHelper.restoreWindow = function (model) {
+    var me = {};
     var frame = me.frame;
     var to = me.loadWindowStats(model.restoreMode);
     //現在の状態を一時保存する
@@ -843,8 +843,8 @@ function WindowEventHelper(model) {
     }
   };
 
-  WindowEventHelper.prototype.animateFrame = function (model) {
-    var me = {}
+  WindowEventHelper.animateFrame = function (model) {
+    var me = {};
     var needRequestFocusAfterAnimation = false;
 
     var fromAlpha = !isNaN(model.fromAlpha) ? model.fromAlpha : 1.0;
@@ -876,8 +876,8 @@ function WindowEventHelper(model) {
  * @param cmd
  * @param opt
  */
-  WindowEventHelper.prototype.doCommand = function (cmd, opt) {
-    var me = {}
+  WindowEventHelper.doCommand = function (cmd, opt) {
+    var me = {};
 
     if (cmd === "maximize") {
       me._defaultFunctionMaximize(me.frame);
@@ -902,11 +902,11 @@ function WindowEventHelper(model) {
     }
   };
 
-  WindowEventHelper.prototype._defaultFunctionMaximize = function (
+  WindowEventHelper._defaultFunctionMaximize = function (
     _frame,
     evt,
   ) {
-    var me = {}
+    var me = {};
     var model = me.opts;
 
     var param = {
@@ -938,7 +938,7 @@ function WindowEventHelper(model) {
     _frame.control.doMaximize(param);
   };
 
-  WindowEventHelper.prototype._defaultFunctionDemaximize = function (
+  WindowEventHelper._defaultFunctionDemaximize = function (
     _frame,
     evt,
   ) {
@@ -947,18 +947,18 @@ function WindowEventHelper(model) {
     );
   };
 
-  WindowEventHelper.prototype._defaultFunctionRestoreFromFullscreen = function (
+  WindowEventHelper._defaultFunctionRestoreFromFullscreen = function (
     _frame,
     evt,
   ) {
-    var me = {}
+    var me = {};
     _frame.control.doDemaximize({
       duration: me.restoreDuration ? me.restoreDuration : null,
       callback: me.restoreCallback ? me.restoreCallback : null,
     });
   };
 
-  WindowEventHelper.prototype._defaultFunctionMinimize = function (
+  WindowEventHelper._defaultFunctionMinimize = function (
     _frame,
     evt,
   ) {
@@ -966,14 +966,14 @@ function WindowEventHelper(model) {
     _frame.control.doMinimize(me.minimizeParam);
   };
 
-  WindowEventHelper.prototype._defaultFunctionDeminimize = function (
+  WindowEventHelper._defaultFunctionDeminimize = function (
     _frame,
     evt,
   ) {
     _frame.control.doDeminimize(me.deminimizeParam);
   };
 
-  WindowEventHelper.prototype._defaultFunctionHide = function (_frame, evt) {
+  WindowEventHelper._defaultFunctionHide = function (_frame, evt) {
     var param = {
       align: "CENTER_BOTTOM",
     };
@@ -983,13 +983,13 @@ function WindowEventHelper(model) {
     _frame.control.doHide(param);
   };
 
-  WindowEventHelper.prototype._defaultFunctionDehide = function (_frame, evt) {
-    var me = {}
+  WindowEventHelper._defaultFunctionDehide = function (_frame, evt) {
+    var me = {};
     _frame.control.doDehide(me.dehideParam);
   };
 
-  WindowEventHelper.prototype.setupDefaultEvents = function () {
-    var me = {}
+  WindowEventHelper.setupDefaultEvents = function () {
+    var me = {};
 
     if (me.maximizeButton) {
       //イベントはオーバーライドされる

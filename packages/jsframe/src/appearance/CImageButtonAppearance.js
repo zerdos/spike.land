@@ -12,8 +12,8 @@ function CImageButtonAppearance() {
   this.imageStore = {};
 }
 
-CImageButtonAppearance.prototype._setImage = function (src, width, height) {
-  var me = {}
+CImageButtonAppearance._setImage = function (src, width, height) {
+  var me = {};
 
   var storedImgEle = me.imageStore[src];
 
@@ -34,8 +34,8 @@ CImageButtonAppearance.prototype._setImage = function (src, width, height) {
     return imgEle;
   }
 };
-CImageButtonAppearance.prototype.setSrc = function (model) {
-  var me = {}
+CImageButtonAppearance.setSrc = function (model) {
+  var me = {};
   if (model.default) {
     me.imageDefault = me._setImage(model.default, model.width, model.height);
   }

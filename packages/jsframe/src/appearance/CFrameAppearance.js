@@ -130,13 +130,13 @@ function CFrameAppearance() {
   };
 }
 
-CFrameAppearance.prototype.getPartsBuilder = function () {
+CFrameAppearance.getPartsBuilder = function () {
   if (me._partsBuilder === null) {
     me._partsBuilder = new CDomPartsBuilder();
   }
   return me._partsBuilder;
 };
-CFrameAppearance.prototype.initialize = function () {
+CFrameAppearance.initialize = function () {
   var me = this;
   me.onInitialize();
 };
@@ -153,7 +153,7 @@ CFrameAppearance.prototype.initialize = function () {
  * @returns {CFrameComponent}
  *
  */
-CFrameAppearance.prototype.addFrameComponent = function (
+CFrameAppearance.addFrameComponent = function (
   id,
   myDomElement,
   x,

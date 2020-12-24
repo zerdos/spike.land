@@ -52,7 +52,7 @@ export const getProjects = async () => {
   return projects.list;
 };
 
-export const saveCode = async(code) => {
+export const saveCode = async (code) => {
   const hash = await sha256(code);
 
   const projects = await getProjects();

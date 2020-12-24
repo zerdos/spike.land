@@ -11,12 +11,12 @@ var CChildMenuAppearance = require("./CChildMenuAppearance.js");
 function CDomPartsBuilder() {
 }
 
-CDomPartsBuilder.prototype.buildChildMenuAppearance = function (
+CDomPartsBuilder.buildChildMenuAppearance = function (
   frameAppearance,
 ) {
   return new CChildMenuAppearance(frameAppearance);
 };
-CDomPartsBuilder.prototype.buildTextButtonAppearance = function (src) {
+CDomPartsBuilder.buildTextButtonAppearance = function (src) {
   if (src) {
     var result = mergeDeeply({ op: "clone", object1: src, concatArray: true });
     return result;
@@ -24,7 +24,7 @@ CDomPartsBuilder.prototype.buildTextButtonAppearance = function (src) {
     return new CTextButtonAppearance();
   }
 };
-CDomPartsBuilder.prototype.buildImageButtonAppearance = function (src) {
+CDomPartsBuilder.buildImageButtonAppearance = function (src) {
   if (src) {
     var clonedImageButtonAppearance = mergeDeeply(
       { op: "clone", object1: src },
@@ -35,16 +35,16 @@ CDomPartsBuilder.prototype.buildImageButtonAppearance = function (src) {
   }
 };
 
-CDomPartsBuilder.prototype.buildButton = function (btnAppearance) {
-  var me = {}
+CDomPartsBuilder.buildButton = function (btnAppearance) {
+  var me = {};
   return me.buildTextButton(btnAppearance);
 };
 
-CDomPartsBuilder.prototype.appendChildMenuTo = function (
+CDomPartsBuilder.appendChildMenuTo = function (
   childMenuAppearance,
   parentEle,
 ) {
-  var me = {}
+  var me = {};
   var ndiv = document.createElement("div");
   ndiv.classList.add("jsframe-child-menu");
   ndiv.innerHTML = childMenuAppearance.childMenuHTML;
@@ -83,7 +83,7 @@ CDomPartsBuilder.prototype.appendChildMenuTo = function (
  * @param btnAppearance
  * @returns {HTMLDivElement}
  */
-CDomPartsBuilder.prototype.buildTextButton = function (btnAppearance) {
+CDomPartsBuilder.buildTextButton = function (btnAppearance) {
   var size = btnAppearance.size;
   var width = size;
   var height = size;

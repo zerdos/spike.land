@@ -8,7 +8,7 @@ var __extends = (this && this.__extends) || (function () {
       }) ||
       function (d, b) {
         for (var p in b) {
-          if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+          if (Object.hasOwnProperty.call(b, p)) d[p] = b[p];
         }
       };
     return extendStatics(d, b);
