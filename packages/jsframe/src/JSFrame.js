@@ -1,4 +1,6 @@
 "use strict";
+import uuidv4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
+
 
 require("./JSFrame.css");
 var EventEmitter = require("@riversun/event-emitter");
@@ -3157,19 +3159,6 @@ JSFrame.prototype.getWindowByName = function (windowName) {
   return me.windowManager.getWindowByName(windowName);
 };
 
-JSFrame.prototype.generateUUID = function () {
-  var unixTime = Date.now();
-
-  var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
-    /[xy]/g,
-    function (c) {
-      var r = (unixTime + Math.random() * 16) % 16 | 0;
-      unixTime = Math.floor(unixTime / 16);
-      return (c == "x" ? r : (r & 0x3 | 0x8)).toString(16);
-    },
-  );
-  return uuid;
-};
 
 JSFrame.prototype.createFrameAppearance = function () {
   return new CFrameAppearance();
