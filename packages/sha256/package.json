@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/sha256",
-  "version": "10.11.5",
+  "version": "10.12.3",
   "exports": "./sha256.js",
   "publishConfig": {
     "access": "public"
