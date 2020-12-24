@@ -45,7 +45,7 @@ CFrameComponent.prototype.setFocusCallback = function (
   focusTakingCallback,
   focusReleasingCallback,
 ) {
-  var me = this;
+  var me = {}
   me._focusTakingCallabck = focusTakingCallback;
   me._focusReleasingCallabck = focusReleasingCallback;
 };
@@ -55,7 +55,7 @@ CFrameComponent.prototype.setFocusCallback = function (
  * @param frame
  */
 CFrameComponent.prototype.setFrame = function (frame) {
-  var me = this;
+  var me = {}
 
   me.frame = frame;
   me.htmlElement.parentObject = frame;
@@ -67,7 +67,7 @@ CFrameComponent.prototype.setFrame = function (frame) {
  * Relocate relative to parent frame when window resize event occurs
  */
 CFrameComponent.prototype.updateAlign = function () {
-  var me = this;
+  var me = {}
 
   var frameComponentAlign = me.frameComponentAlign;
 
@@ -123,14 +123,14 @@ CFrameComponent.prototype.updateAlign = function () {
 };
 
 CFrameComponent.prototype.handleTakingFocus = function () {
-  var me = this;
+  var me = {}
   if (me._focusTakingCallabck) {
     me._focusTakingCallabck();
   }
 };
 
 CFrameComponent.prototype.handleReleasingFocus = function () {
-  var me = this;
+  var me = {}
   if (me._focusReleasingCallabck) {
     me._focusReleasingCallabck();
   }

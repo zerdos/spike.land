@@ -1,5 +1,5 @@
-var CDomPartsBuilder = require("./CDomPartsBuilder.js");
-var CFrameComponent = require("./CFrameComponent.js");
+import CDomPartsBuilder from "./CDomPartsBuilder.js";
+import CFrameComponent from "./CFrameComponent.js";
 
 /**
  * CFrameAppearance class<br>
@@ -7,21 +7,21 @@ var CFrameComponent = require("./CFrameComponent.js");
  *
  */
 function CFrameAppearance() {
-  var me = this;
+  var me = {};
 
-  this.showTitleBar = true;
-  this.showCloseButton = true;
-  this.titleBarCaption = "";
-  this.titleBarCaptionFontSize = "12px";
-  this.titleBarCaptionFontWeight = "bold";
-  this.titleBarHeight = "24px";
-  this.useIframe = false;
-  this.useFrame = true;
+  me.showTitleBar = true;
+  me.showCloseButton = true;
+  me.titleBarCaption = "";
+  me.titleBarCaptionFontSize = "12px";
+  me.titleBarCaptionFontWeight = "bold";
+  me.titleBarHeight = "24px";
+  me.useIframe = false;
+  me.useFrame = true;
 
-  this.titleBarClassNameDefault = null;
-  this.titleBarClassNameFocused = null;
+  me.titleBarClassNameDefault = null;
+  me.titleBarClassNameFocused = null;
 
-  this.setUseIFrame = function (value) {
+  me.setUseIFrame = function (value) {
     me.useIframe = value;
     me.useFrame = !value;
     return me;
@@ -30,42 +30,42 @@ function CFrameAppearance() {
   /**
    * The position from the left side of the caption. If this value is null, caption will be centered.
    */
-  this.titleBarCaptionLeftMargin = "5px";
+  me.titleBarCaptionLeftMargin = "5px";
 
-  this.titleBarColorDefault = null;
-  this.titleBarColorFocused = null;
-  this.titleBarCaptionColorDefault = "";
-  this.titleBarCaptionColorFocused = "";
-  this.titleBarCaptionTextShadow = "0 1px 0 rgba(255,255,255,.7)";
-  this.titleBarCaptionTextAlign = "center";
+  me.titleBarColorDefault = null;
+  me.titleBarColorFocused = null;
+  me.titleBarCaptionColorDefault = "";
+  me.titleBarCaptionColorFocused = "";
+  me.titleBarCaptionTextShadow = "0 1px 0 rgba(255,255,255,.7)";
+  me.titleBarCaptionTextAlign = "center";
 
-  this.titleBarBorderBottomDefault = "1px solid rgba(0,0,0,0.2)";
-  this.titleBarBorderBottomFocused = null;
+  me.titleBarBorderBottomDefault = "1px solid rgba(0,0,0,0.2)";
+  me.titleBarBorderBottomFocused = null;
 
-  this.frameBorderRadius = "6px";
+  me.frameBorderRadius = "6px";
 
-  this.frameBorderWidthDefault = "1px";
-  this.frameBorderWidthFocused = this.frameBorderWidthDefault;
+  me.frameBorderWidthDefault = "1px";
+  me.frameBorderWidthFocused = me.frameBorderWidthDefault;
 
-  this.frameBorderColorDefault = "rgba(1, 1, 1, 0.2)";
-  this.frameBorderColorFocused = this.frameBorderColorDefault;
+  me.frameBorderColorDefault = "rgba(1, 1, 1, 0.2)";
+  me.frameBorderColorFocused = me.frameBorderColorDefault;
 
-  this.frameBorderStyle = "solid";
-  this.frameBoxShadow = "2px 3px 16px rgba(0,0,0,.6)";
-  this.frameBackgroundColor = "transparent";
+  me.frameBorderStyle = "solid";
+  me.frameBoxShadow = "2px 3px 16px rgba(0,0,0,.6)";
+  me.frameBackgroundColor = "transparent";
 
-  this._partsBuilder = null;
+  me._partsBuilder = null;
 
-  this.frameComponents = [];
+  me.frameComponents = [];
 
-  this.frameHeightAdjust = 1;
+  me.frameHeightAdjust = 1;
 
-  this.resizeAreaWidth = 20;
-  this.resizeAreaHeight = 20;
-  this.resizeAreaOffset = 0;
-  this.resizeAreaVisible = false;
+  me.resizeAreaWidth = 20;
+  me.resizeAreaHeight = 20;
+  me.resizeAreaOffset = 0;
+  me.resizeAreaVisible = false;
 
-  this.getFrameInnerBorderRadius = function (ref, hasFocus) {
+  me.getFrameInnerBorderRadius = function (ref, hasFocus) {
     if (!ref) {
       return null;
     }
@@ -83,7 +83,7 @@ function CFrameAppearance() {
     };
   };
 
-  this.onInitialize = function () {
+  me.onInitialize = function () {
     //Add close button if needed
     if (me.showCloseButton) {
       var partsBuilder = me.getPartsBuilder(),
@@ -126,19 +126,18 @@ function CFrameAppearance() {
     }
   };
 
-  this.onTitleBarStyleInitialize = function () {
+  me.onTitleBarStyleInitialize = function () {
   };
 }
 
 CFrameAppearance.prototype.getPartsBuilder = function () {
-  var me = this;
   if (me._partsBuilder === null) {
     me._partsBuilder = new CDomPartsBuilder();
   }
   return me._partsBuilder;
 };
 CFrameAppearance.prototype.initialize = function () {
-  var me = this;
+  var me = {}
   me.onInitialize();
 };
 
@@ -181,7 +180,7 @@ CFrameAppearance.prototype.addFrameComponent = function (
     );
   }
 
-  this.frameComponents.push(frameComponent);
+  me.frameComponents.push(frameComponent);
 
   return frameComponent;
 };
@@ -191,4 +190,4 @@ CFrameAppearance.prototype.addFrameComponent = function (
 /**
  *  End of CFrameAppearance class
  */
-module.exports = CFrameAppearance;
+export default CFrameAppearance;

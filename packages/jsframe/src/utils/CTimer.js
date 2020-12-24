@@ -19,7 +19,7 @@
  */
 var CTimer = (function () {
   function CTimer() {
-    var me = this;
+    var me = {}
 
     me._timerId = null;
     me._isRunning = false;
@@ -40,25 +40,25 @@ var CTimer = (function () {
   }
 
   CTimer.prototype.setCallback = function (callback_func) {
-    var me = this;
+    var me = {}
     me._timerMethod = callback_func;
     return me;
   };
 
   CTimer.prototype.setIntervalMillis = function (interval) {
-    var me = this;
+    var me = {}
     me._timerInterval = interval;
     return me;
   };
 
   CTimer.prototype.stopTimer = function () {
-    var me = this;
+    var me = {}
     me._isRunning = false;
     return me;
   };
 
   CTimer.prototype.startTimer = function () {
-    var me = this;
+    var me = {}
     if (me._timerInterval > 0) {
       me._timerId = setTimeout(me._internalCallback, me._timerInterval);
       me._isRunning = true;
