@@ -1,13 +1,10 @@
-export default async ({ ReactDOM, React, jsx, onShare }) => {
-  // const Motion = await import(
-  //   "https://cdn.skypack.dev/framer-motion"
-  // );
+export default  async ({onShare}) => {
 
-  // const {motion} = Motion;
+  const {emotionRenderer, jsx ,Fragment} = await import("https://unpkg.com/@zedvision/emotion-react/render/dist/bunle.js")
+ 
 
-  const DraggableWindow = ({ onShare }) => {
-    return jsx(
-      React.Fragment,
+  const DraggableWindow = ({ onShare }) => jsx(
+      Fragment,
       {},
       jsx(
         "div",
@@ -59,10 +56,10 @@ export default async ({ ReactDOM, React, jsx, onShare }) => {
         }),
       ),
     );
-  };
 
-  ReactDOM.render(
-    jsx(DraggableWindow, {
+
+  emotionRenderer(
+    DraggableWindow({
       onShare,
     }),
     window.document.getElementById("dragabbleWindow"),
