@@ -284,7 +284,7 @@ export default async (
       },
       {
         name: "@zedvision/qrious/index.d.ts",
-        url: "https://unpkg.com/@zedvision/qrious@8.5.7/dist/qrious.d.ts",
+        url: "https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.d.ts",
       },
     ];
     //# sourceMappingURL=importHelper.js.map

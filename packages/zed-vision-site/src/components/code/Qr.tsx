@@ -1,8 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React from "react";
-import { importScript } from "./importScript.js";
-
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(3);
@@ -12,9 +10,8 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr;
     const connect = async () => {
-      await importScript(
-        "https://unpkg.com/@zedvision/qrious@10.12.3/dist/qrious.min.js",
-      );
+      
+      const QRious =(await new Function(`return ()=> import ("https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.esm.min.js")`)()()).default
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();
 
@@ -35,7 +32,7 @@ export const Qr: React.FC = () => {
       if (qr) {
         qr.set(options);
       } else {
-        qr = new window.QRious(
+        qr = new QRious(
           options,
         );
       }
