@@ -1,10 +1,11 @@
 import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
 
-import  React from "react"
+import  React, {Fragment} from "react"
 import {render} from "react-dom";
 import {jsx, css, Global} from "@emotion/react"
 
 export { React}
+export {Fragment}
 
 export {jsx}
 export {css}
