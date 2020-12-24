@@ -214,7 +214,7 @@ export async function run(mode = "window", _w) {
 
     const Element = (await import(createJsBlob(codeToHydrate))).default;
 
-    renderEmotion(jsx(Fragment,  {children: Element()}), root);
+    renderEmotion(jsx(Element,{}), root);
 
     document.getElementById("zbody").removeChild();
     document.getElementById("zbody").appendChild(root);
