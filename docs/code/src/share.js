@@ -1,12 +1,7 @@
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 
-
-export const shareItAsHtml = async ({ code, HTML, jsExport }) => {
-  const mod = createJsBlob(code);
-
-  const Element = (await import(mod)).default;
-
+export const shareItAsHtml = async ({ code, HTML }) => {
   const css = Array.from(
     window.document.querySelector("head > style[data-emotion=css]").sheet
       .cssRules,
@@ -14,7 +9,7 @@ export const shareItAsHtml = async ({ code, HTML, jsExport }) => {
     HTML.includes(cssRule.substring(3, 8))
   ).join("\n  ");
 
-  const { getHtml, getCodeForImport } = await import("./templates.js");
+  const { getHtml } = await import("./templates.js");
 
   const linkToCode = await saveToIPFS(code, "application/javascript");
 
@@ -34,10 +29,6 @@ export const shareItAsHtml = async ({ code, HTML, jsExport }) => {
 
 function saveHtml(html) {
   return saveToIPFS(html, "text/html");
-}
-
-function saveJs(js) {
-  return save(js, "application/javascript");
 }
 
 let ipfsKV;
@@ -66,10 +57,4 @@ async function save(content, type) {
   await fetch(request);
 
   return `https://code.zed.vision/${hash}`;
-}
-
-export function createJsBlob(code) {
-  const blob = new Blob([code], { type: "application/javascript" });
-
-  return URL.createObjectURL(blob);
 }

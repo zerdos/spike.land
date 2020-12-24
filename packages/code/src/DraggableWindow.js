@@ -1,6 +1,6 @@
 export const renderDraggableWindow = async ({ onShare }, src) => {
   const { renderEmotion, jsx, React } = await import(
-   src
+    src
   );
 
   const DraggableWindow = ({ onShare }) =>

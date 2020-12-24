@@ -74,3 +74,40 @@ export const saveCode = async (code) => {
   // lets not save now - we will save the diff only
   // await response;
 };
+
+export async function getCodeToLoad() {
+  const projects = await getProjects();
+  const projectName = projects[0];
+
+  const search = new URLSearchParams(location.search);
+  const keyToLoad = search.get("h") || await shaDB.get(projectName);
+
+  if (keyToLoad) {
+    let code;
+    try {
+      code = await shaDB.get(keyToLoad);
+    } catch {
+      console.error("error load key: " + keyToLoad);
+    }
+
+    if (code) return { code };
+
+    let text;
+    try {
+      const resp = await fetch("https://code.zed.vision/?h=" + keyToLoad);
+      text = await resp.json();
+    } catch (e) {
+      const { sha256 } = await import("./sha256.js");
+      const { starter } = await import("./starterNoFramerMotion.js");
+      const shaHash = await sha256(starter);
+
+      await shaDB.put(shaHash, starter);
+      await shaDB.put(projectName, shaHash);
+      return { code: starter };
+    }
+
+    return { code: text };
+  }
+
+  return starter;
+}

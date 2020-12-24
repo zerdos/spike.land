@@ -1639,59 +1639,58 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
 
   me.appearance = appearance;
 
+  CIfFrame.prototype.getFrameView = function () {
+    var me = this;
+    return me.dframe;
+  };
 
-CIfFrame.prototype.getFrameView = function () {
-  var me = this;
-  return me.dframe;
-};
+  CIfFrame.prototype.getFrameAppearance = function () {
+    var me = this;
+    return me.appearance;
+  };
 
-CIfFrame.prototype.getFrameAppearance = function () {
-  var me = this;
-  return me.appearance;
-};
+  CIfFrame.prototype.setHTML = function (html) {
+    var me = this;
+    me.dframe.innerHTML = html;
+  };
+  CIfFrame.prototype.setFrameInFrame = function (enabled) {
+    // Why i had to (bother to:) ) make a setFrameInFrame
+    // The element specified at the top of the content of the parent window (for example, div element)
+    // may NOT be able to get the resize event using addEventListener.
+    // Therefore, when the resize event issued by jsFrame in the parent window occurs,
+    // its custom attribute (WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR) is attached
+    // to the element at the top of the parent window content
+    // and it is captured by the mutationObserver on the child window side.
 
-CIfFrame.prototype.setHTML = function (html) {
-  var me = this;
-  me.dframe.innerHTML = html;
-};
-CIfFrame.prototype.setFrameInFrame = function (enabled) {
-  // Why i had to (bother to:) ) make a setFrameInFrame
-  // The element specified at the top of the content of the parent window (for example, div element)
-  // may NOT be able to get the resize event using addEventListener.
-  // Therefore, when the resize event issued by jsFrame in the parent window occurs,
-  // its custom attribute (WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR) is attached
-  // to the element at the top of the parent window content
-  // and it is captured by the mutationObserver on the child window side.
+    var me = this;
 
-  var me = this;
+    var contentsEle = me.dframe ? me.dframe.firstChild : null;
 
-  var contentsEle = me.dframe ? me.dframe.firstChild : null;
-
-  if (contentsEle) {
-    // polyfill for #now
-    if (!Date.now) {
-      Date.now = function now() {
-        return new Date().getTime();
-      };
-    }
-    if (enabled) {
-      me.eventEmitter.only("resize", "fif-listener", function () {
-        contentsEle.setAttribute(
+    if (contentsEle) {
+      // polyfill for #now
+      if (!Date.now) {
+        Date.now = function now() {
+          return new Date().getTime();
+        };
+      }
+      if (enabled) {
+        me.eventEmitter.only("resize", "fif-listener", function () {
+          contentsEle.setAttribute(
+            WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
+            Date.now(),
+          );
+        });
+      } else {
+        contentsEle.removeAttribute(
           WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
-          Date.now(),
         );
-      });
-    } else {
-      contentsEle.removeAttribute(
-        WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR,
-      );
-      me.eventEmitter.only("resize", "fif-listener", function () {
-        // do nothing
-      });
+        me.eventEmitter.only("resize", "fif-listener", function () {
+          // do nothing
+        });
+      }
     }
-  }
-};
-/**
+  };
+  /**
  * Find DOM Element in the frame by querySelector<br>
  *  Examples<br>
  *      frame.$("#my_id_name");
@@ -1701,18 +1700,18 @@ CIfFrame.prototype.setFrameInFrame = function (enabled) {
  * @param {string} q selector query
  * @returns {Node}
  */
-CIfFrame.prototype.$ = function (q) {
-  var me = this;
+  CIfFrame.prototype.$ = function (q) {
+    var me = this;
 
-  if (me.useIframe) {
-    var docInIframe = me.iframe.contentWindow.document;
-    return docInIframe.querySelector(q);
-  } else {
-    return me.dframe.querySelector(q);
-  }
-};
+    if (me.useIframe) {
+      var docInIframe = me.iframe.contentWindow.document;
+      return docInIframe.querySelector(q);
+    } else {
+      return me.dframe.querySelector(q);
+    }
+  };
 
-/**
+  /**
  * Sets an event listener for the window itself or elements in the contents of the window.
  It is possible to register multiple listeners to the same event type.
 
@@ -1745,767 +1744,782 @@ CIfFrame.prototype.$ = function (q) {
  <br>
  * @param {function} callbackFunc
  */
-CIfFrame.prototype.on = function (id, eventType, callbackFunc) {
-  var me = this;
-  var component = me.getFrameComponentElement(id);
+  CIfFrame.prototype.on = function (id, eventType, callbackFunc) {
+    var me = this;
+    var component = me.getFrameComponentElement(id);
 
-  // if id indicates frame component like CTextButton,CImageButton
-  if (component) {
-    //Since we want to specify only one handler for frame components at the same time,
-    // use eventListenerHelper instead of an event listener
-    me.eventListenerHelper.addEventListener(component, eventType, function (e) {
-      callbackFunc(me, e, {
-        type: "frameComponent",
-        id: id,
-        eventType: eventType,
-        //child: childMenuEle
-      });
-    }, { listenerName: "frame-component-listener" });
-  }
-
-  if (id === "frame" || id === "window") {
-    if (eventType === "move" && !me.eventEmitter.hasListenerFuncs("move")) {
-      me.setOnMoveListener(function (e) {
-        //refCIfFrame.eventEmitter.emit('resize',);
-        me.eventEmitter.emit("move", me._getCurrentSizePos());
-      });
+    // if id indicates frame component like CTextButton,CImageButton
+    if (component) {
+      //Since we want to specify only one handler for frame components at the same time,
+      // use eventListenerHelper instead of an event listener
+      me.eventListenerHelper.addEventListener(
+        component,
+        eventType,
+        function (e) {
+          callbackFunc(me, e, {
+            type: "frameComponent",
+            id: id,
+            eventType: eventType,
+            //child: childMenuEle
+          });
+        },
+        { listenerName: "frame-component-listener" },
+      );
     }
 
-    me.eventEmitter.on(eventType, callbackFunc);
-  }
+    if (id === "frame" || id === "window") {
+      if (eventType === "move" && !me.eventEmitter.hasListenerFuncs("move")) {
+        me.setOnMoveListener(function (e) {
+          //refCIfFrame.eventEmitter.emit('resize',);
+          me.eventEmitter.emit("move", me._getCurrentSizePos());
+        });
+      }
 
-  // DOM element in iframe or DOM element on dframe
-  var domElement = me.$(id);
+      me.eventEmitter.on(eventType, callbackFunc);
+    }
 
-  if (domElement) {
-    if (
-      me.eventListenerHelper.hasEventListener(
+    // DOM element in iframe or DOM element on dframe
+    var domElement = me.$(id);
+
+    if (domElement) {
+      if (
+        me.eventListenerHelper.hasEventListener(
+          domElement,
+          eventType,
+          "frame-dom-listener",
+        )
+      ) {
+        me.eventListenerHelper.removeEventListener(
+          domElement,
+          eventType,
+          null,
+          { listenerName: "frame-dom-listener" },
+        );
+      }
+      me.eventListenerHelper.addEventListener(
         domElement,
         eventType,
-        "frame-dom-listener",
-      )
-    ) {
-      me.eventListenerHelper.removeEventListener(
-        domElement,
-        eventType,
-        null,
+        function (e) {
+          callbackFunc(me, e, {
+            type: "dom",
+            id: id,
+            eventType: eventType,
+          });
+        },
         { listenerName: "frame-dom-listener" },
       );
     }
-    me.eventListenerHelper.addEventListener(
-      domElement,
-      eventType,
-      function (e) {
-        callbackFunc(me, e, {
-          type: "dom",
-          id: id,
-          eventType: eventType,
+
+    // Search DOM element on frameComponent
+    if (!domElement) {
+      var domElementOnCanvasElement = me.canvas.canvasElement.querySelector(id);
+      if (domElementOnCanvasElement) {
+        domElementOnCanvasElement.addEventListener(eventType, function (e) {
+          callbackFunc(me, e, {
+            type: "dom",
+            id: id,
+            eventType: eventType,
+          });
         });
-      },
-      { listenerName: "frame-dom-listener" },
-    );
-  }
-
-  // Search DOM element on frameComponent
-  if (!domElement) {
-    var domElementOnCanvasElement = me.canvas.canvasElement.querySelector(id);
-    if (domElementOnCanvasElement) {
-      domElementOnCanvasElement.addEventListener(eventType, function (e) {
-        callbackFunc(me, e, {
-          type: "dom",
-          id: id,
-          eventType: eventType,
-        });
-      });
-    }
-  }
-};
-
-CIfFrame.prototype.adjustFrameBorderRadius = function () {
-  var me = this;
-
-  if (parseInt(me.frameBorderRadius, 10) > 0) {
-    var borderData = me.getFrameInnerBorderRadius(me, me._hasFocus);
-    var frameAppearance = borderData.frameAppearance;
-    var innerBorderRadius = borderData.innerBorderRadius;
-    var titleBarHeight = parseInt(frameAppearance.titleBarHeight, 10);
-
-    if (me.showTitleBar) {
-      //title bar exists
-      me.canvas.canvasElement.style.borderBottomRightRadius = innerBorderRadius;
-      me.canvas.canvasElement.style.borderBottomLeftRadius = innerBorderRadius;
-      me.iframe.style.borderBottomRightRadius = innerBorderRadius;
-      me.iframe.style.borderBottomLeftRadius = innerBorderRadius;
-
-      me.titleBar.style.borderTopLeftRadius = innerBorderRadius;
-      me.titleBar.style.borderTopRightRadius = innerBorderRadius;
-    } else {
-      //title bar not exits
-      me.canvas.canvasElement.style.borderRadius = innerBorderRadius;
-      me.iframe.style.borderRadius = innerBorderRadius;
-    }
-
-    if (me.dframe) {
-      if (titleBarHeight === 0) {
-        if (!me.dframe.style.borderTopRightRadius) {
-          me.dframe.style.borderTopRightRadius = innerBorderRadius;
-        }
-        if (!me.dframe.style.borderTopLeftRadius) {
-          me.dframe.style.borderTopLeftRadius = innerBorderRadius;
-        }
       }
-      me.dframe.style.borderBottomRightRadius = innerBorderRadius;
-      me.dframe.style.borderBottomLeftRadius = innerBorderRadius;
     }
-  }
-};
+  };
 
-CIfFrame.prototype.handleReleasingFocus = function (e) {
-  var me = this;
+  CIfFrame.prototype.adjustFrameBorderRadius = function () {
+    var me = this;
 
-  var focused = me._hasFocus;
+    if (parseInt(me.frameBorderRadius, 10) > 0) {
+      var borderData = me.getFrameInnerBorderRadius(me, me._hasFocus);
+      var frameAppearance = borderData.frameAppearance;
+      var innerBorderRadius = borderData.innerBorderRadius;
+      var titleBarHeight = parseInt(frameAppearance.titleBarHeight, 10);
 
-  me._hasFocus = false;
+      if (me.showTitleBar) {
+        //title bar exists
+        me.canvas.canvasElement.style.borderBottomRightRadius =
+          innerBorderRadius;
+        me.canvas.canvasElement.style.borderBottomLeftRadius =
+          innerBorderRadius;
+        me.iframe.style.borderBottomRightRadius = innerBorderRadius;
+        me.iframe.style.borderBottomLeftRadius = innerBorderRadius;
 
-  //update style class
-  me.titleBar.className = me.titleBarClassNameDefault;
+        me.titleBar.style.borderTopLeftRadius = innerBorderRadius;
+        me.titleBar.style.borderTopRightRadius = innerBorderRadius;
+      } else {
+        //title bar not exits
+        me.canvas.canvasElement.style.borderRadius = innerBorderRadius;
+        me.iframe.style.borderRadius = innerBorderRadius;
+      }
 
-  if (me.titleBarColorDefault) {
-    me.titleBar.style.background = me.titleBarColorDefault;
-  }
-  me.titleBar.style.color = me.titleBarCaptionColorDefault;
+      if (me.dframe) {
+        if (titleBarHeight === 0) {
+          if (!me.dframe.style.borderTopRightRadius) {
+            me.dframe.style.borderTopRightRadius = innerBorderRadius;
+          }
+          if (!me.dframe.style.borderTopLeftRadius) {
+            me.dframe.style.borderTopLeftRadius = innerBorderRadius;
+          }
+        }
+        me.dframe.style.borderBottomRightRadius = innerBorderRadius;
+        me.dframe.style.borderBottomLeftRadius = innerBorderRadius;
+      }
+    }
+  };
 
-  //border color
-  if (me.frameBorderColorDefault) {
-    me.htmlElement.style.borderColor = me.frameBorderColorDefault;
-  }
+  CIfFrame.prototype.handleReleasingFocus = function (e) {
+    var me = this;
 
-  //border width
-  if (me.frameBorderWidthDefault) {
-    me.htmlElement.style.borderWidth = me.frameBorderWidthDefault;
-    me.adjustFrameBorderRadius();
-  }
+    var focused = me._hasFocus;
 
-  if (me.htmlElement.typeName == "cifwindow") {
+    me._hasFocus = false;
+
+    //update style class
+    me.titleBar.className = me.titleBarClassNameDefault;
+
+    if (me.titleBarColorDefault) {
+      me.titleBar.style.background = me.titleBarColorDefault;
+    }
+    me.titleBar.style.color = me.titleBarCaptionColorDefault;
+
+    //border color
+    if (me.frameBorderColorDefault) {
+      me.htmlElement.style.borderColor = me.frameBorderColorDefault;
+    }
+
+    //border width
+    if (me.frameBorderWidthDefault) {
+      me.htmlElement.style.borderWidth = me.frameBorderWidthDefault;
+      me.adjustFrameBorderRadius();
+    }
+
+    if (me.htmlElement.typeName == "cifwindow") {
+      if (me.overrayTransparentScreenEnabled) {
+        me.transparence.style.width = parseInt(me.iframe.width, 10) + "px";
+        me.transparence.style.height = parseInt(me.iframe.height, 10) + "px";
+      }
+    }
+
+    //handling for child frameComponents
+    for (var frameComponentId in me.frameComponentMap) {
+      var frameComponent = me.frameComponentMap[frameComponentId];
+      frameComponent.handleReleasingFocus();
+    }
+
+    //border bottom
+    if (me.titleBarBorderBottomDefault) {
+      me.titleBar.style.borderBottom = me.titleBarBorderBottomDefault;
+    }
+
+    if (focused) {
+      me.eventEmitter.emit("blur", { target: me });
+    }
+
+    return me;
+  };
+
+  CIfFrame.prototype.handleTakingFocus = function (e) {
+    var me = this;
+    var focused = me._hasFocus;
+    me._hasFocus = true;
+    me._hasFocus = Date.now();
+
     if (me.overrayTransparentScreenEnabled) {
-      me.transparence.style.width = parseInt(me.iframe.width, 10) + "px";
-      me.transparence.style.height = parseInt(me.iframe.height, 10) + "px";
+      //close transparence screen
+      me.transparence.style.width = "0px";
+      me.transparence.style.height = "0px";
     }
-  }
 
-  //handling for child frameComponents
-  for (var frameComponentId in me.frameComponentMap) {
-    var frameComponent = me.frameComponentMap[frameComponentId];
-    frameComponent.handleReleasingFocus();
-  }
+    //update style class
+    me.titleBar.className = me.titleBarClassNameFocused;
 
-  //border bottom
-  if (me.titleBarBorderBottomDefault) {
-    me.titleBar.style.borderBottom = me.titleBarBorderBottomDefault;
-  }
+    if (me.titleBarColorFocused) {
+      me.titleBar.style.background = me.titleBarColorFocused;
+    }
+    me.titleBar.style.color = me.titleBarCaptionColorFocused;
 
-  if (focused) {
-    me.eventEmitter.emit("blur", { target: me });
-  }
+    //border color
+    if (me.frameBorderColorFocused) {
+      me.htmlElement.style.borderColor = me.frameBorderColorFocused;
+    }
 
-  return me;
-};
+    //border width
+    if (me.frameBorderWidthFocused) {
+      me.htmlElement.style.borderWidth = me.frameBorderWidthFocused;
+      me.adjustFrameBorderRadius();
+    }
 
-CIfFrame.prototype.handleTakingFocus = function (e) {
-  var me = this;
-  var focused = me._hasFocus;
-  me._hasFocus = true;
-  me._hasFocus = Date.now();
+    //border bottom
+    if (me.titleBarBorderBottomFocused) {
+      me.titleBar.style.borderBottom = me.titleBarBorderBottomFocused;
+    }
 
-  if (me.overrayTransparentScreenEnabled) {
-    //close transparence screen
-    me.transparence.style.width = "0px";
-    me.transparence.style.height = "0px";
-  }
+    //handling for child frameComponents
+    for (var frameComponentId in me.frameComponentMap) {
+      var frameComponent = me.frameComponentMap[frameComponentId];
+      frameComponent.handleTakingFocus();
+    }
 
-  //update style class
-  me.titleBar.className = me.titleBarClassNameFocused;
+    if (!focused) {
+      me.eventEmitter.emit("focus", { target: me });
+    }
 
-  if (me.titleBarColorFocused) {
-    me.titleBar.style.background = me.titleBarColorFocused;
-  }
-  me.titleBar.style.color = me.titleBarCaptionColorFocused;
-
-  //border color
-  if (me.frameBorderColorFocused) {
-    me.htmlElement.style.borderColor = me.frameBorderColorFocused;
-  }
-
-  //border width
-  if (me.frameBorderWidthFocused) {
-    me.htmlElement.style.borderWidth = me.frameBorderWidthFocused;
-    me.adjustFrameBorderRadius();
-  }
-
-  //border bottom
-  if (me.titleBarBorderBottomFocused) {
-    me.titleBar.style.borderBottom = me.titleBarBorderBottomFocused;
-  }
-
-  //handling for child frameComponents
-  for (var frameComponentId in me.frameComponentMap) {
-    var frameComponent = me.frameComponentMap[frameComponentId];
-    frameComponent.handleTakingFocus();
-  }
-
-  if (!focused) {
-    me.eventEmitter.emit("focus", { target: me });
-  }
-
-  return me;
-};
-
-CFrame.prototype.show = function (model) {
-  var me = this;
-  //me.htmlElement.style.visibility = 'visible';
-  me.htmlElement.style.display = "flex"; //hidden';
-
-  if (model && model.requestFocus == false) {
-  } else {
-    me.requestFocus();
-  }
-  return me;
-};
-
-CFrame.prototype.showModal = function (onCloseListener) {
-  var me = this;
-
-  var appearance = new CFrameAppearance();
-  appearance.showTitleBar = true;
-  appearance.showCloseButton = false;
-  appearance.frameBorderRadius = "0px";
-  appearance.frameBorderStyle = "none";
-  appearance.frameBorderWidthDefault = "0px";
-  appearance.frameBorderWidthFocused = "0px";
-  appearance.frameBoxShadow = null;
-  appearance.frameBackgroundColor = "transparent";
-  appearance.frameComponents = [];
-  appearance.frameHeightAdjust = 0;
-  appearance.titleBarHeight = "0px";
-  appearance.titleBarBorderBottomFocused = null;
-  appearance.titleBarCaptionLeftMargin = "0px";
-
-  appearance.onInitialize = function () {
+    return me;
   };
 
-  //added for modal window
-  appearance.pullUpDisabled = true;
+  CFrame.prototype.show = function (model) {
+    var me = this;
+    //me.htmlElement.style.visibility = 'visible';
+    me.htmlElement.style.display = "flex"; //hidden';
 
-  var windowManager = me.parentCanvas;
+    if (model && model.requestFocus == false) {
+    } else {
+      me.requestFocus();
+    }
+    return me;
+  };
 
-  var modalBackgroundWindowId = DEF.CFRAME.MODAL_BACKGROUND_FRAME_ID_PREFIX +
-    me.id;
+  CFrame.prototype.showModal = function (onCloseListener) {
+    var me = this;
 
-  //create background window for preventing click background
-  var modalBackgroundFrame = new CIfFrame(
-    modalBackgroundWindowId,
-    0,
-    0,
-    1,
-    1,
-    appearance,
-  );
-  modalBackgroundFrame.setSize(window.innerWidth, window.innerHeight, true);
-  modalBackgroundFrame.setResizable(false);
+    var appearance = new CFrameAppearance();
+    appearance.showTitleBar = true;
+    appearance.showCloseButton = false;
+    appearance.frameBorderRadius = "0px";
+    appearance.frameBorderStyle = "none";
+    appearance.frameBorderWidthDefault = "0px";
+    appearance.frameBorderWidthFocused = "0px";
+    appearance.frameBoxShadow = null;
+    appearance.frameBackgroundColor = "transparent";
+    appearance.frameComponents = [];
+    appearance.frameHeightAdjust = 0;
+    appearance.titleBarHeight = "0px";
+    appearance.titleBarBorderBottomFocused = null;
+    appearance.titleBarCaptionLeftMargin = "0px";
 
-  window.addEventListener("resize", function () {
+    appearance.onInitialize = function () {
+    };
+
+    //added for modal window
+    appearance.pullUpDisabled = true;
+
+    var windowManager = me.parentCanvas;
+
+    var modalBackgroundWindowId = DEF.CFRAME.MODAL_BACKGROUND_FRAME_ID_PREFIX +
+      me.id;
+
+    //create background window for preventing click background
+    var modalBackgroundFrame = new CIfFrame(
+      modalBackgroundWindowId,
+      0,
+      0,
+      1,
+      1,
+      appearance,
+    );
     modalBackgroundFrame.setSize(window.innerWidth, window.innerHeight, true);
-  });
+    modalBackgroundFrame.setResizable(false);
 
-  //remember id of modal background frame
-  me.modalBackgroundWindowId = modalBackgroundWindowId;
+    window.addEventListener("resize", function () {
+      modalBackgroundFrame.setSize(window.innerWidth, window.innerHeight, true);
+    });
 
-  // if (properties && properties.windowName) {
-  //     frame.setName(properties.windowName);
-  // }
+    //remember id of modal background frame
+    me.modalBackgroundWindowId = modalBackgroundWindowId;
 
-  modalBackgroundFrame.hide();
-  windowManager.addWindow(modalBackgroundFrame);
+    // if (properties && properties.windowName) {
+    //     frame.setName(properties.windowName);
+    // }
 
-  modalBackgroundFrame.setTitle("").getFrameView().innerHTML =
-    '<div class="jsframe-modal-window-background"></div>';
-  modalBackgroundFrame.getFrameView().style.backgroundColor = "rgba(0,0,0,0.0)";
-  modalBackgroundFrame.show();
+    modalBackgroundFrame.hide();
+    windowManager.addWindow(modalBackgroundFrame);
 
-  me.show();
+    modalBackgroundFrame.setTitle("").getFrameView().innerHTML =
+      '<div class="jsframe-modal-window-background"></div>';
+    modalBackgroundFrame.getFrameView().style.backgroundColor =
+      "rgba(0,0,0,0.0)";
+    modalBackgroundFrame.show();
 
-  if (onCloseListener) {
-    me.setOnCloseFrameListener(onCloseListener);
-  }
-};
-CFrame.prototype.getWindowManager = function () {
-  var me = this;
-  return me.parentCanvas;
-};
+    me.show();
 
-CIfFrame.prototype.hide = function () {
-  var me = this;
-  //  me.htmlElement.style.visibility = 'hidden';
-  me.htmlElement.style.display = "none"; //hidden';
-  return me;
-};
-
-//Overriding CBeanFrame.prototype.onmouseDown
-CIfFrame.prototype.onmouseDown = function (e) {
-  var refHtmlElement = this;
-
-  //Do not select it when dragging by the mouse.
-  document.body.ondrag = function () {
-    return false;
+    if (onCloseListener) {
+      me.setOnCloseFrameListener(onCloseListener);
+    }
   };
-  // document.body.onselectstart = function () {
-  //     return false;
-  // };
+  CFrame.prototype.getWindowManager = function () {
+    var me = this;
+    return me.parentCanvas;
+  };
 
-  //Override decorator with onmouseDown of parent class
-  refHtmlElement.decorator = CFrame.prototype.onmouseDown;
-  refHtmlElement.decorator(e);
+  CIfFrame.prototype.hide = function () {
+    var me = this;
+    //  me.htmlElement.style.visibility = 'hidden';
+    me.htmlElement.style.display = "none"; //hidden';
+    return me;
+  };
 
-  //Deploy a transparent screen.
-  // Since mouseDown is pointed to this.htmlElement.onmousedown in the CBean class,
-  // this 'this' will indicate this.htmlElement.
-  //In other words,
-  //if you want to refer 'CIfFrame',you need to specify 'this.parent.'
-  //See CBeanFrame class, you can find 'this.htmlElement.parent = this'
-  var refCIfFrame = refHtmlElement.parent;
+  //Overriding CBeanFrame.prototype.onmouseDown
+  CIfFrame.prototype.onmouseDown = function (e) {
+    var refHtmlElement = this;
 
-  var refCWindowManager = refHtmlElement.parentCanvas;
+    //Do not select it when dragging by the mouse.
+    document.body.ondrag = function () {
+      return false;
+    };
+    // document.body.onselectstart = function () {
+    //     return false;
+    // };
 
-  //When somewhere window(CFrame,CIfFrame) fires 'mouseDown',
-  // Close all transparency screens so that the mouse cursor can pass over any iFrame
-  for (var windowId in refCWindowManager.beanList) {
-    var objCIfFrame = refCWindowManager.beanList[windowId];
-    if (windowId == refCIfFrame.getWindowId()) {
-      //skip
-    } else {
-      objCIfFrame.handleReleasingFocus();
-    }
-  }
+    //Override decorator with onmouseDown of parent class
+    refHtmlElement.decorator = CFrame.prototype.onmouseDown;
+    refHtmlElement.decorator(e);
 
-  refCIfFrame.handleTakingFocus();
-};
-
-CIfFrame.prototype.mouseUp = function (e) {
-  var refCIfFrame = this;
-
-  if (
-    refCIfFrame.overrayTransparentScreenEnabled ||
-    refCIfFrame.overrayTransparentScreenOnResize
-  ) {
-    if (refCIfFrame.parentCanvas.onTopObject == refCIfFrame) {
-      //Minimize the window at the front.
-      refCIfFrame.transparence.style.width = "0px";
-      refCIfFrame.transparence.style.height = "0px";
-    } else {
-      //The window which is not the at the front expands the screen so that it can respond to clicks.
-
-      if (refCIfFrame.overrayTransparentScreenEnabled) {
-        refCIfFrame.transparence.style.width =
-          parseInt(refCIfFrame.iframe.width) + "px";
-        refCIfFrame.transparence.style.height =
-          parseInt(refCIfFrame.iframe.height) + "px";
-      }
-    }
-  }
-
-  refCIfFrame.decorator = CFrame.prototype.mouseUp;
-  refCIfFrame.decorator(e);
-
-  //Cancel selecting "Do not select when dragging mouse while releasing button" is canceled
-  document.body.ondrag = null;
-  document.body.onselectstart = null;
-
-  //Disable when stopping moving.(Enable transparent window only when moving.)
-  //This will work smoothly even with iframe content
-  refCIfFrame.transparence.style.pointerEvents = "none";
-};
-
-CIfFrame.prototype.setMinFrameSize = function (width, height) {
-  var me = this;
-  me.minFrameWidth = width;
-  me.minWindowHeight = height;
-};
-
-CIfFrame.prototype.resize = function (
-  deltaLeft,
-  deltaTop,
-  deltaWidth,
-  deltaHeight,
-  byUser,
-) {
-  var refCIfFrame = this;
-
-  if (!refCIfFrame.resizable && byUser) {
-    return null;
-  }
-
-  var prevSize = refCIfFrame.getSize();
-
-  //Resize processing should be overridden directly rather than adopting a decorator pattern because it has better performance.
-  var tmpLeft = parseInt(refCIfFrame.htmlElement.style.left, 10);
-  var tmpTop = parseInt(refCIfFrame.htmlElement.style.top, 10);
-  var tmpWidth = parseInt(refCIfFrame.htmlElement.style.width, 10);
-  var tmpHeight = parseInt(refCIfFrame.htmlElement.style.height, 10);
-
-  //Important logic to handle the minimum of Window well
-  if (
-    byUser &&
-    (tmpWidth + deltaWidth < refCIfFrame.minFrameWidth & deltaWidth < 0)
-  ) {
-    //Minimum adjustment of width
-    refCIfFrame.htmlElement.style.width = tmpWidth + "px";
-    deltaWidth = 0;
-  }
-
-  if (
-    byUser &&
-    (tmpHeight + deltaHeight < refCIfFrame.minWindowHeight & deltaHeight < 0)
-  ) {
-    //Minimum adjustment of height
-    refCIfFrame.htmlElement.style.height = tmpHeight + "px";
-    deltaHeight = 0;
-  }
-  refCIfFrame.htmlElement.style.left = (tmpLeft + deltaLeft) + "px";
-  refCIfFrame.htmlElement.style.top = (tmpTop + deltaTop) + "px";
-  refCIfFrame.htmlElement.style.width = (tmpWidth + deltaWidth) + "px";
-  refCIfFrame.htmlElement.style.height = (tmpHeight + deltaHeight) + "px";
-
-  var tmpCanvasWidth = parseInt(
-    refCIfFrame.canvas.canvasElement.style.width,
-    10,
-  );
-  var tmpCanvasHeight = parseInt(
-    refCIfFrame.canvas.canvasElement.style.height,
-    10,
-  );
-
-  //Since canvasElement is a (0, 0) relative coordinate with respect
-  // to the parent element, it is not necessary to change left and top.
-  refCIfFrame.canvas.canvasElement.style.width = (tmpCanvasWidth + deltaWidth) +
-    "px";
-  refCIfFrame.canvas.canvasElement.style.height =
-    (tmpCanvasHeight + deltaHeight) + "px";
-
-  //Change the size of the title bar. TitleAdjustWidth etc.
-  // The reason why you do not have to use titleAdjustWidth is
-  // because these scaling are done with differences (deltaX, deltaY).
-  //Therefore, if you adjust with the titleAdjustWidth
-  // as the initial value, the other will stretch relative.
-  refCIfFrame.titleBar.style.width =
-    (tmpCanvasWidth - refCIfFrame.ifDelta + deltaWidth + 0) + "px";
-
-  //Image resizing for iframe that is the child element of canvas
-  refCIfFrame.iframe.width =
-    (tmpCanvasWidth - refCIfFrame.ifDelta + deltaWidth + 0) + "px";
-  refCIfFrame.iframe.height =
-    (tmpCanvasHeight - refCIfFrame.ifDelta + deltaHeight +
-      refCIfFrame.frameHeightAdjust) + "px";
-
-  if (
-    refCIfFrame.overrayTransparentScreenEnabled ||
-    refCIfFrame.overrayTransparentScreenOnResize
-  ) {
     //Deploy a transparent screen.
-    refCIfFrame.transparence.style.width = parseInt(refCIfFrame.iframe.width) +
-      "px";
-    refCIfFrame.transparence.style.height =
-      parseInt(refCIfFrame.iframe.height) + "px";
-  }
+    // Since mouseDown is pointed to this.htmlElement.onmousedown in the CBean class,
+    // this 'this' will indicate this.htmlElement.
+    //In other words,
+    //if you want to refer 'CIfFrame',you need to specify 'this.parent.'
+    //See CBeanFrame class, you can find 'this.htmlElement.parent = this'
+    var refCIfFrame = refHtmlElement.parent;
 
-  //move frameComponent(like closeButton) corresponding to moving window edge for resize
-  for (var frameComponentId in refCIfFrame.frameComponentMap) {
-    var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
-    //update alignment of frameComponent corresponding to moving window edge for resize
-    frameComponent.updateAlign();
-  }
+    var refCWindowManager = refHtmlElement.parentCanvas;
 
-  for (var beanName in refCIfFrame.canvas.beanList) {
-    var tmpBean = refCIfFrame.canvas.beanList[beanName];
-
-    if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
-      if (tmpBean.htmlElement.usage == "RD") {
-        tmpBean.htmlElement.style.left =
-          (parseInt(tmpBean.htmlElement.style.left) + deltaWidth) + "px";
-        tmpBean.htmlElement.style.top =
-          (parseInt(tmpBean.htmlElement.style.top) + deltaHeight) + "px";
-      } else if (tmpBean.htmlElement.usage == "DD") {
-        tmpBean.htmlElement.style.width =
-          (parseInt(tmpBean.htmlElement.style.width) + deltaWidth) + "px";
-        tmpBean.htmlElement.style.top =
-          (parseInt(tmpBean.htmlElement.style.top) + deltaHeight) + "px";
-      } else if (tmpBean.htmlElement.usage == "RR") {
-        tmpBean.htmlElement.style.left =
-          (parseInt(tmpBean.htmlElement.style.left) + deltaWidth) + "px";
-        tmpBean.htmlElement.style.height =
-          (parseInt(tmpBean.htmlElement.style.height) + deltaHeight) + "px";
+    //When somewhere window(CFrame,CIfFrame) fires 'mouseDown',
+    // Close all transparency screens so that the mouse cursor can pass over any iFrame
+    for (var windowId in refCWindowManager.beanList) {
+      var objCIfFrame = refCWindowManager.beanList[windowId];
+      if (windowId == refCIfFrame.getWindowId()) {
+        //skip
+      } else {
+        objCIfFrame.handleReleasingFocus();
       }
     }
-  }
 
-  var crrSize = refCIfFrame.getSize();
-  if (prevSize.width !== crrSize.width || prevSize.height !== crrSize.height) {
-    refCIfFrame.eventEmitter.emit("resize", refCIfFrame._getCurrentSizePos());
-  }
-}; //resize
+    refCIfFrame.handleTakingFocus();
+  };
 
-CIfFrame.prototype._getCurrentSizePos = function () {
-  var me = this;
-  var crrSize = me.getSize();
-  var crrPos = me.getPosition();
-  return { target: me, pos: crrPos, size: crrSize };
-};
+  CIfFrame.prototype.mouseUp = function (e) {
+    var refCIfFrame = this;
 
-CIfFrame.prototype.resizeDirect = function (width, height, byUser) {
-  var refCIfFrame = this;
+    if (
+      refCIfFrame.overrayTransparentScreenEnabled ||
+      refCIfFrame.overrayTransparentScreenOnResize
+    ) {
+      if (refCIfFrame.parentCanvas.onTopObject == refCIfFrame) {
+        //Minimize the window at the front.
+        refCIfFrame.transparence.style.width = "0px";
+        refCIfFrame.transparence.style.height = "0px";
+      } else {
+        //The window which is not the at the front expands the screen so that it can respond to clicks.
 
-  if (!refCIfFrame.resizable && byUser) {
-    return null;
-  }
+        if (refCIfFrame.overrayTransparentScreenEnabled) {
+          refCIfFrame.transparence.style.width =
+            parseInt(refCIfFrame.iframe.width) + "px";
+          refCIfFrame.transparence.style.height =
+            parseInt(refCIfFrame.iframe.height) + "px";
+        }
+      }
+    }
 
-  refCIfFrame.htmlElement.style.width = width + "px";
-  refCIfFrame.htmlElement.style.height = height + "px";
+    refCIfFrame.decorator = CFrame.prototype.mouseUp;
+    refCIfFrame.decorator(e);
 
-  var tmpCanvasWidth = parseInt(refCIfFrame.canvas.canvasElement.style.width);
-  var tmpCanvasHeight = parseInt(refCIfFrame.canvas.canvasElement.style.height);
+    //Cancel selecting "Do not select when dragging mouse while releasing button" is canceled
+    document.body.ondrag = null;
+    document.body.onselectstart = null;
 
-  //Since canvasElement is a (0, 0) relative coordinate with respect
-  // to the parent element, it is not necessary to change left and top.
-  refCIfFrame.canvas.canvasElement.style.width = width + "px";
-  refCIfFrame.canvas.canvasElement.style.height =
-    (height - refCIfFrame.titleBar.style.height) + "px";
+    //Disable when stopping moving.(Enable transparent window only when moving.)
+    //This will work smoothly even with iframe content
+    refCIfFrame.transparence.style.pointerEvents = "none";
+  };
 
-  //Change the size of the title bar. TitleAdjustWidth etc.
-  // The reason why you do not have to use titleAdjustWidth is
-  // because these scaling are done with differences (deltaX, deltaY).
-  //Therefore, if you adjust with the titleAdjustWidth
-  // as the initial value, the other will stretch relative.
-  refCIfFrame.titleBar.style.width = (width - refCIfFrame.ifDelta) + "px";
+  CIfFrame.prototype.setMinFrameSize = function (width, height) {
+    var me = this;
+    me.minFrameWidth = width;
+    me.minWindowHeight = height;
+  };
 
-  //Image resizing for iframe that is the child element of canvas
-  refCIfFrame.iframe.width = width - refCIfFrame.ifDelta + "px";
-  refCIfFrame.iframe.height = height - refCIfFrame.ifDelta +
-    refCIfFrame.frameHeightAdjust + "px";
-
-  if (
-    refCIfFrame.overrayTransparentScreenEnabled ||
-    refCIfFrame.overrayTransparentScreenOnResize
+  CIfFrame.prototype.resize = function (
+    deltaLeft,
+    deltaTop,
+    deltaWidth,
+    deltaHeight,
+    byUser,
   ) {
-    //Deploy a transparent screen.
-    refCIfFrame.transparence.style.width = parseInt(refCIfFrame.iframe.width) +
+    var refCIfFrame = this;
+
+    if (!refCIfFrame.resizable && byUser) {
+      return null;
+    }
+
+    var prevSize = refCIfFrame.getSize();
+
+    //Resize processing should be overridden directly rather than adopting a decorator pattern because it has better performance.
+    var tmpLeft = parseInt(refCIfFrame.htmlElement.style.left, 10);
+    var tmpTop = parseInt(refCIfFrame.htmlElement.style.top, 10);
+    var tmpWidth = parseInt(refCIfFrame.htmlElement.style.width, 10);
+    var tmpHeight = parseInt(refCIfFrame.htmlElement.style.height, 10);
+
+    //Important logic to handle the minimum of Window well
+    if (
+      byUser &&
+      (tmpWidth + deltaWidth < refCIfFrame.minFrameWidth & deltaWidth < 0)
+    ) {
+      //Minimum adjustment of width
+      refCIfFrame.htmlElement.style.width = tmpWidth + "px";
+      deltaWidth = 0;
+    }
+
+    if (
+      byUser &&
+      (tmpHeight + deltaHeight < refCIfFrame.minWindowHeight & deltaHeight < 0)
+    ) {
+      //Minimum adjustment of height
+      refCIfFrame.htmlElement.style.height = tmpHeight + "px";
+      deltaHeight = 0;
+    }
+    refCIfFrame.htmlElement.style.left = (tmpLeft + deltaLeft) + "px";
+    refCIfFrame.htmlElement.style.top = (tmpTop + deltaTop) + "px";
+    refCIfFrame.htmlElement.style.width = (tmpWidth + deltaWidth) + "px";
+    refCIfFrame.htmlElement.style.height = (tmpHeight + deltaHeight) + "px";
+
+    var tmpCanvasWidth = parseInt(
+      refCIfFrame.canvas.canvasElement.style.width,
+      10,
+    );
+    var tmpCanvasHeight = parseInt(
+      refCIfFrame.canvas.canvasElement.style.height,
+      10,
+    );
+
+    //Since canvasElement is a (0, 0) relative coordinate with respect
+    // to the parent element, it is not necessary to change left and top.
+    refCIfFrame.canvas.canvasElement.style.width =
+      (tmpCanvasWidth + deltaWidth) +
       "px";
-    refCIfFrame.transparence.style.height =
-      parseInt(refCIfFrame.iframe.height) + "px";
-  }
+    refCIfFrame.canvas.canvasElement.style.height =
+      (tmpCanvasHeight + deltaHeight) + "px";
 
-  //move frameComponent(like closeButton) corresponding to moving window edge for resize
-  for (var frameComponentId in refCIfFrame.frameComponentMap) {
-    var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
-    //update alignment of frameComponent corresponding to moving window edge for resize
-    frameComponent.updateAlign();
-  }
+    //Change the size of the title bar. TitleAdjustWidth etc.
+    // The reason why you do not have to use titleAdjustWidth is
+    // because these scaling are done with differences (deltaX, deltaY).
+    //Therefore, if you adjust with the titleAdjustWidth
+    // as the initial value, the other will stretch relative.
+    refCIfFrame.titleBar.style.width =
+      (tmpCanvasWidth - refCIfFrame.ifDelta + deltaWidth + 0) + "px";
 
-  for (var beanName in refCIfFrame.canvas.beanList) {
-    var tmpBean = refCIfFrame.canvas.beanList[beanName];
+    //Image resizing for iframe that is the child element of canvas
+    refCIfFrame.iframe.width =
+      (tmpCanvasWidth - refCIfFrame.ifDelta + deltaWidth + 0) + "px";
+    refCIfFrame.iframe.height =
+      (tmpCanvasHeight - refCIfFrame.ifDelta + deltaHeight +
+        refCIfFrame.frameHeightAdjust) + "px";
 
-    if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
-      if (tmpBean.htmlElement.usage == "RD") {
-        tmpBean.htmlElement.style.left = width + "px"; // parseInt(tmpBean.htmlElement.style.left) + deltaWidth + 'px';
-        tmpBean.htmlElement.style.top = height + "px"; //parseInt(tmpBean.htmlElement.style.top) + deltaHeight + 'px';
-      } else if (tmpBean.htmlElement.usage == "DD") {
-        tmpBean.htmlElement.style.width = width + "px";
-        tmpBean.htmlElement.style.top = height + "px"; //heightparseInt(tmpBean.htmlElement.style.top) + deltaHeight + 'px';
-      } else if (tmpBean.htmlElement.usage == "RR") {
-        tmpBean.htmlElement.style.left = width + "px"; //+parseInt(tmpBean.htmlElement.style.left) + deltaWidth + 'px';
-        tmpBean.htmlElement.style.height = height + "px";
+    if (
+      refCIfFrame.overrayTransparentScreenEnabled ||
+      refCIfFrame.overrayTransparentScreenOnResize
+    ) {
+      //Deploy a transparent screen.
+      refCIfFrame.transparence.style.width =
+        parseInt(refCIfFrame.iframe.width) +
+        "px";
+      refCIfFrame.transparence.style.height =
+        parseInt(refCIfFrame.iframe.height) + "px";
+    }
+
+    //move frameComponent(like closeButton) corresponding to moving window edge for resize
+    for (var frameComponentId in refCIfFrame.frameComponentMap) {
+      var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
+      //update alignment of frameComponent corresponding to moving window edge for resize
+      frameComponent.updateAlign();
+    }
+
+    for (var beanName in refCIfFrame.canvas.beanList) {
+      var tmpBean = refCIfFrame.canvas.beanList[beanName];
+
+      if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
+        if (tmpBean.htmlElement.usage == "RD") {
+          tmpBean.htmlElement.style.left =
+            (parseInt(tmpBean.htmlElement.style.left) + deltaWidth) + "px";
+          tmpBean.htmlElement.style.top =
+            (parseInt(tmpBean.htmlElement.style.top) + deltaHeight) + "px";
+        } else if (tmpBean.htmlElement.usage == "DD") {
+          tmpBean.htmlElement.style.width =
+            (parseInt(tmpBean.htmlElement.style.width) + deltaWidth) + "px";
+          tmpBean.htmlElement.style.top =
+            (parseInt(tmpBean.htmlElement.style.top) + deltaHeight) + "px";
+        } else if (tmpBean.htmlElement.usage == "RR") {
+          tmpBean.htmlElement.style.left =
+            (parseInt(tmpBean.htmlElement.style.left) + deltaWidth) + "px";
+          tmpBean.htmlElement.style.height =
+            (parseInt(tmpBean.htmlElement.style.height) + deltaHeight) + "px";
+        }
       }
     }
-  }
-}; //resize
 
-/**
+    var crrSize = refCIfFrame.getSize();
+    if (
+      prevSize.width !== crrSize.width || prevSize.height !== crrSize.height
+    ) {
+      refCIfFrame.eventEmitter.emit("resize", refCIfFrame._getCurrentSizePos());
+    }
+  }; //resize
+
+  CIfFrame.prototype._getCurrentSizePos = function () {
+    var me = this;
+    var crrSize = me.getSize();
+    var crrPos = me.getPosition();
+    return { target: me, pos: crrPos, size: crrSize };
+  };
+
+  CIfFrame.prototype.resizeDirect = function (width, height, byUser) {
+    var refCIfFrame = this;
+
+    if (!refCIfFrame.resizable && byUser) {
+      return null;
+    }
+
+    refCIfFrame.htmlElement.style.width = width + "px";
+    refCIfFrame.htmlElement.style.height = height + "px";
+
+    var tmpCanvasWidth = parseInt(refCIfFrame.canvas.canvasElement.style.width);
+    var tmpCanvasHeight = parseInt(
+      refCIfFrame.canvas.canvasElement.style.height,
+    );
+
+    //Since canvasElement is a (0, 0) relative coordinate with respect
+    // to the parent element, it is not necessary to change left and top.
+    refCIfFrame.canvas.canvasElement.style.width = width + "px";
+    refCIfFrame.canvas.canvasElement.style.height =
+      (height - refCIfFrame.titleBar.style.height) + "px";
+
+    //Change the size of the title bar. TitleAdjustWidth etc.
+    // The reason why you do not have to use titleAdjustWidth is
+    // because these scaling are done with differences (deltaX, deltaY).
+    //Therefore, if you adjust with the titleAdjustWidth
+    // as the initial value, the other will stretch relative.
+    refCIfFrame.titleBar.style.width = (width - refCIfFrame.ifDelta) + "px";
+
+    //Image resizing for iframe that is the child element of canvas
+    refCIfFrame.iframe.width = width - refCIfFrame.ifDelta + "px";
+    refCIfFrame.iframe.height = height - refCIfFrame.ifDelta +
+      refCIfFrame.frameHeightAdjust + "px";
+
+    if (
+      refCIfFrame.overrayTransparentScreenEnabled ||
+      refCIfFrame.overrayTransparentScreenOnResize
+    ) {
+      //Deploy a transparent screen.
+      refCIfFrame.transparence.style.width =
+        parseInt(refCIfFrame.iframe.width) +
+        "px";
+      refCIfFrame.transparence.style.height =
+        parseInt(refCIfFrame.iframe.height) + "px";
+    }
+
+    //move frameComponent(like closeButton) corresponding to moving window edge for resize
+    for (var frameComponentId in refCIfFrame.frameComponentMap) {
+      var frameComponent = refCIfFrame.frameComponentMap[frameComponentId];
+      //update alignment of frameComponent corresponding to moving window edge for resize
+      frameComponent.updateAlign();
+    }
+
+    for (var beanName in refCIfFrame.canvas.beanList) {
+      var tmpBean = refCIfFrame.canvas.beanList[beanName];
+
+      if (tmpBean.htmlElement.typeName == "cmarkerwindow") {
+        if (tmpBean.htmlElement.usage == "RD") {
+          tmpBean.htmlElement.style.left = width + "px"; // parseInt(tmpBean.htmlElement.style.left) + deltaWidth + 'px';
+          tmpBean.htmlElement.style.top = height + "px"; //parseInt(tmpBean.htmlElement.style.top) + deltaHeight + 'px';
+        } else if (tmpBean.htmlElement.usage == "DD") {
+          tmpBean.htmlElement.style.width = width + "px";
+          tmpBean.htmlElement.style.top = height + "px"; //heightparseInt(tmpBean.htmlElement.style.top) + deltaHeight + 'px';
+        } else if (tmpBean.htmlElement.usage == "RR") {
+          tmpBean.htmlElement.style.left = width + "px"; //+parseInt(tmpBean.htmlElement.style.left) + deltaWidth + 'px';
+          tmpBean.htmlElement.style.height = height + "px";
+        }
+      }
+    }
+  }; //resize
+
+  /**
  * Focus on this frame
  */
-CIfFrame.prototype.requestFocus = function () {
-  var me = this;
+  CIfFrame.prototype.requestFocus = function () {
+    var me = this;
 
-  var beanList = me.parentCanvas.beanList;
+    var beanList = me.parentCanvas.beanList;
 
-  for (var windowId in beanList) {
-    var tmpIfWindow = beanList[windowId];
+    for (var windowId in beanList) {
+      var tmpIfWindow = beanList[windowId];
 
-    //If it's my own window, minimize the transparent screen and change the color of the title bar.
-    if (windowId == me.getWindowId()) {
-      //if this frame is a target frame
-      tmpIfWindow.handleTakingFocus();
-    } else {
-      //if this frame is NOT a target frame
-      tmpIfWindow.handleReleasingFocus();
+      //If it's my own window, minimize the transparent screen and change the color of the title bar.
+      if (windowId == me.getWindowId()) {
+        //if this frame is a target frame
+        tmpIfWindow.handleTakingFocus();
+      } else {
+        //if this frame is NOT a target frame
+        tmpIfWindow.handleReleasingFocus();
+      }
     }
-  }
 
-  me.parentCanvas.pullUp(me.id);
-};
+    me.parentCanvas.pullUp(me.id);
+  };
 
-/**
+  /**
  * URL for iframe
  * @param url
  */
-CIfFrame.prototype.setUrl = function (url) {
-  var me = this;
+  CIfFrame.prototype.setUrl = function (url) {
+    var me = this;
 
-  return new Promise(function (resolve, reject) {
-    if (url) {
-      me.setUseIframe(true);
-    } else {
-      me.setUseIframe(false);
-      resolve();
-    }
+    return new Promise(function (resolve, reject) {
+      if (url) {
+        me.setUseIframe(true);
+      } else {
+        me.setUseIframe(false);
+        resolve();
+      }
 
-    me.iframe.src = url;
+      me.iframe.src = url;
 
-    me.iframe.onload = function () {
-      var funcOnMouseMove = function (e) {
-        var clientX = e.pageX;
-        var clientY = e.pageY;
+      me.iframe.onload = function () {
+        var funcOnMouseMove = function (e) {
+          var clientX = e.pageX;
+          var clientY = e.pageY;
 
-        if (TOUCH_ENABLED) {
-          if (e.type === "touchmove") {
-            var changedTouches = e.changedTouches;
-            if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
-              var touches = e.touches;
-              if (touches.length === 1) {
+          if (TOUCH_ENABLED) {
+            if (e.type === "touchmove") {
+              var changedTouches = e.changedTouches;
+              if (TOUCH_MOVE_ONLY_WITH_ONE_FINGER) {
+                var touches = e.touches;
+                if (touches.length === 1) {
+                  clientX = changedTouches[0].pageX;
+                  clientY = changedTouches[0].pageY;
+                } else {
+                  return true;
+                }
+              } else {
                 clientX = changedTouches[0].pageX;
                 clientY = changedTouches[0].pageY;
-              } else {
-                return true;
               }
-            } else {
+            }
+          }
+          var frameLeft = me.getLeft();
+          var frameTop = me.getTop();
+          var eventFromIframe = document.createEvent("MouseEvents");
+          // Processing to make it look like mouse move even if you are moving by touch
+          eventFromIframe.initMouseEvent(
+            "mousemove",
+            true,
+            false,
+            window,
+            e.detail,
+            e.screenX,
+            e.screenY,
+            (clientX + frameLeft),
+            (clientY + frameTop),
+            e.ctrlKey,
+            e.altKey,
+            e.shiftKey,
+            e.metaKey,
+            e.button,
+            null,
+          );
+
+          //smooth dragging during iframe mode
+          me.parentCanvas.windowMouseMove(eventFromIframe);
+
+          if (me.onMouseMoveOnIframe) {
+            me.onMouseMoveOnIframe(eventFromIframe);
+          }
+        };
+        me.iframe.contentWindow.document.onmousemove = funcOnMouseMove;
+        me.iframe.contentWindow.document.ontouchmove = funcOnMouseMove;
+
+        //mouse up
+        var funcOnMouseUp = function (e) {
+          var clientX = e.pageX;
+          var clientY = e.pageY;
+
+          if (TOUCH_ENABLED) {
+            if (e.type === "touchend") {
+              var changedTouches = e.changedTouches;
               clientX = changedTouches[0].pageX;
               clientY = changedTouches[0].pageY;
             }
           }
-        }
-        var frameLeft = me.getLeft();
-        var frameTop = me.getTop();
-        var eventFromIframe = document.createEvent("MouseEvents");
-        // Processing to make it look like mouse move even if you are moving by touch
-        eventFromIframe.initMouseEvent(
-          "mousemove",
-          true,
-          false,
-          window,
-          e.detail,
-          e.screenX,
-          e.screenY,
-          (clientX + frameLeft),
-          (clientY + frameTop),
-          e.ctrlKey,
-          e.altKey,
-          e.shiftKey,
-          e.metaKey,
-          e.button,
-          null,
-        );
+          var frameLeft = me.getLeft();
+          var frameTop = me.getTop();
+          var eventFromIframe = document.createEvent("MouseEvents");
+          // Processing to make it look like mouse up even if you mouseup by touch
+          eventFromIframe.initMouseEvent(
+            "mouseup",
+            true,
+            false,
+            window,
+            e.detail,
+            e.screenX,
+            e.screenY,
+            (clientX + frameLeft),
+            (clientY + frameTop),
+            e.ctrlKey,
+            e.altKey,
+            e.shiftKey,
+            e.metaKey,
+            e.button,
+            null,
+          );
 
-        //smooth dragging during iframe mode
-        me.parentCanvas.windowMouseMove(eventFromIframe);
+          //smooth dragging during iframe mode
+          me.parentCanvas.windowMouseUp(eventFromIframe);
 
-        if (me.onMouseMoveOnIframe) {
-          me.onMouseMoveOnIframe(eventFromIframe);
-        }
-      };
-      me.iframe.contentWindow.document.onmousemove = funcOnMouseMove;
-      me.iframe.contentWindow.document.ontouchmove = funcOnMouseMove;
-
-      //mouse up
-      var funcOnMouseUp = function (e) {
-        var clientX = e.pageX;
-        var clientY = e.pageY;
-
-        if (TOUCH_ENABLED) {
-          if (e.type === "touchend") {
-            var changedTouches = e.changedTouches;
-            clientX = changedTouches[0].pageX;
-            clientY = changedTouches[0].pageY;
+          if (me.onMouseUpOnIframe) {
+            me.onMouseUpOnIframe(eventFromIframe);
           }
-        }
-        var frameLeft = me.getLeft();
-        var frameTop = me.getTop();
-        var eventFromIframe = document.createEvent("MouseEvents");
-        // Processing to make it look like mouse up even if you mouseup by touch
-        eventFromIframe.initMouseEvent(
-          "mouseup",
-          true,
-          false,
-          window,
-          e.detail,
-          e.screenX,
-          e.screenY,
-          (clientX + frameLeft),
-          (clientY + frameTop),
-          e.ctrlKey,
-          e.altKey,
-          e.shiftKey,
-          e.metaKey,
-          e.button,
-          null,
-        );
+        };
+        me.iframe.contentWindow.document.onmouseup = funcOnMouseUp;
+        me.iframe.contentWindow.document.ontouchend = funcOnMouseUp;
 
-        //smooth dragging during iframe mode
-        me.parentCanvas.windowMouseUp(eventFromIframe);
-
-        if (me.onMouseUpOnIframe) {
-          me.onMouseUpOnIframe(eventFromIframe);
-        }
+        resolve(me, me.iframe.contentWindow.document);
       };
-      me.iframe.contentWindow.document.onmouseup = funcOnMouseUp;
-      me.iframe.contentWindow.document.ontouchend = funcOnMouseUp;
+    });
+  };
 
-      resolve(me, me.iframe.contentWindow.document);
-    };
-  });
-};
-
-/**
+  /**
  * Returns DOM-document of iframe
  * @returns {*|HTMLDocument}
  */
-CIfFrame.prototype.getIfDocument = function () {
-  var me = this;
-  return me.iframe.contentWindow.document;
-};
+  CIfFrame.prototype.getIfDocument = function () {
+    var me = this;
+    return me.iframe.contentWindow.document;
+  };
 
-CIfFrame.prototype.setScrolling = function (str) {
-  var me = this;
-  me.iframe.scrolling = str;
-};
+  CIfFrame.prototype.setScrolling = function (str) {
+    var me = this;
+    me.iframe.scrolling = str;
+  };
 
-CIfFrame.prototype.getScrolling = function (str) {
-  var me = this;
-  return me.iframe.scrolling;
-};
+  CIfFrame.prototype.getScrolling = function (str) {
+    var me = this;
+    return me.iframe.scrolling;
+  };
 
-CIfFrame.prototype.setResizable = function (enabled) {
-  var me = this;
-  me.resizable = enabled;
-  me.enableMarkers(enabled);
-  return me;
-};
+  CIfFrame.prototype.setResizable = function (enabled) {
+    var me = this;
+    me.resizable = enabled;
+    me.enableMarkers(enabled);
+    return me;
+  };
 
-CIfFrame.prototype.setControl = function (model) {
-  var me = this;
+  CIfFrame.prototype.setControl = function (model) {
+    var me = this;
 
-  if (model) {
-    model.frame = me;
-    me.control = me.jsFrame.createWindowEventHelper(model);
-    me.control.setupDefaultEvents();
-  }
-};
+    if (model) {
+      model.frame = me;
+      me.control = me.jsFrame.createWindowEventHelper(model);
+      me.control.setupDefaultEvents();
+    }
+  };
 }
 /**
  * end of CIFrame class
@@ -3341,4 +3355,4 @@ JSFrame.prototype.showToast = function (model) {
 
 Object.freeze(DEF);
 
-export  {JSFrame};
+export { JSFrame };

@@ -1,7 +1,7 @@
 export async function getUserId() {
   if (typeof window === "undefined") return "";
 
-  const { getDB }  = await new Function(
+  const { getDB } = await new Function(
     `return import ("https://unpkg.com/@zedvision/shadb@10.12.20/dist/shadb.esm.js")`,
   )();
 

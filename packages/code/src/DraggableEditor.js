@@ -1,4 +1,3 @@
-
 export async function renderDraggableEditor() {
   const { JSFrame } = await import(
     "https://unpkg.com/@zedvision/jsframe@10.12.24/dist/jsframe.min.esm.js"

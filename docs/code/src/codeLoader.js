@@ -1,22 +1,16 @@
 import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.3/dist/smart-monaco-editor.modern.js";
 
 import { diff } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js";
- 
 
-import { getProjects, saveCode } from "./data.js";
-import { shaDB } from "./db.js";
-import { starter } from "./starterNoFramerMotion.js";
 import { transpileCode } from "./transpile.js";
-import { createJsBlob, shareItAsHtml } from "./share.js";
 
-
-const src = "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
+const src =
+  "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
 let renderEmotion = null;
-
 
 function getSession() {
   const session = {
-    unmount: ()=>{},
+    unmount: () => {},
     hydrated: false,
     preRendered: false,
     lastErrors: 0,
@@ -76,8 +70,9 @@ export async function run(mode = "window", _w) {
   const { document, location, open } = _w;
 
   const session = getSession();
-  const codeTOLoad = await getCodeToLoad();
-  session.code = await formatter(codeTOLoad);
+  const { getCodeToLoad } = await ("./data.js");
+  const { code } = await getCodeToLoad();
+  session.code = code;
   session.transpiled = await transpileCode(session.code);
 
   if (mode === "editor") {
@@ -87,21 +82,22 @@ export async function run(mode = "window", _w) {
 
   if (mode === "window") {
     const onShare = async () => {
+      const { shareItAsHtml } = await import("./share.js");
       const link = await shareItAsHtml(
         { code: session.transpiled, HTML: session.HTML },
       );
       open(link);
     };
 
-
-    const {renderDraggableWindow} = await import("./DraggableWindow.js");
+    const { renderDraggableWindow } = await import("./DraggableWindow.js");
     await renderDraggableWindow(
-      { onShare },src
+      { onShare },
+      src,
     );
   }
 
   const transpiled = await transpileCode(session.code);
-  restartCode(transpiled);
+  await restartCode(transpiled);
 
   let modules = await startMonaco({
     language: "typescript",
@@ -126,7 +122,7 @@ export async function run(mode = "window", _w) {
             { messageText: "Error while starting the app. Check the console!" },
           ]
           : []),
-        ...(await getErrors(cd)),
+        ...([await getErrors(cd)]),
       ];
       if (err.length) console.log({ err });
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
@@ -136,11 +132,9 @@ export async function run(mode = "window", _w) {
         session.code = cd;
         if (session.transpiled !== transpiled) {
           session.transpiled = transpiled;
-
+          const { saveCode } = await import("./data.js");
           await saveCode(await formatter(cd), session.transpiled);
         }
-
-        await saveCode(cd);
       } else {
         session.error = cd;
 
@@ -203,18 +197,17 @@ export async function run(mode = "window", _w) {
   }
 
   async function restartCode(transpiled) {
-    if (renderEmotion ===null){
-      renderEmotion= ( await import(src)).renderEmotion;
+    if (renderEmotion === null) {
+      renderEmotion = (await import(src)).renderEmotion;
     }
 
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
-      hadError=true;
+      hadError = true;
       return hadError;
     }
 
-   
     const codeToHydrate = mode === "window"
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
@@ -222,64 +215,23 @@ export async function run(mode = "window", _w) {
     const root = document.createElement("div");
 
     const Element = (await import(createJsBlob(
-        codeToHydrate,
+      codeToHydrate,
     ))).default;
 
     session.unmount();
     session.unmount = renderEmotion(Element(), root);
 
     document.getElementById("zbody").children.length &&
-   document.getElementById("zbody").children[0].remove()
+      document.getElementById("zbody").children[0].remove();
     document.getElementById("zbody").appendChild(root);
 
     session.HTML = root.innerHTML;
 
     return !session.HTML;
   }
+}
+function createJsBlob(code) {
+  const blob = new Blob([code], { type: "application/javascript" });
 
-  async function getCodeToLoad() {
-    const projects = await getProjects();
-    const projectName = projects[0];
-
-    const search = new URLSearchParams(location.search);
-    const keyToLoad = search.get("h") || await shaDB.get(projectName);
-
-    if (keyToLoad) {
-      let code;
-      try {
-        code = await shaDB.get(keyToLoad);
-      } catch {
-        console.error("error load key: " + keyToLoad);
-      }
-
-      if (code) return code;
-
-      let text;
-      try {
-        const resp = await fetch("https://code.zed.vision/?h=" + keyToLoad);
-        text = await resp.json();
-      } catch (e) {
-        const { sha256 } = await import("./sha256.js");
-        const shaHash = await sha256(starter);
-
-        await shaDB.put(shaHash, starter);
-        await shaDB.put(projectName, shaHash);
-        return starter;
-      }
-
-      return text;
-    }
-
-    return starter;
-  }
-
-  function setQueryStringParameter(name, value) {
-    const params = new URLSearchParams(window.location.search);
-    params.set(name, value);
-    window.history.replaceState(
-      {},
-      "",
-      decodeURIComponent(`${window.location.pathname}?${params}`),
-    );
-  }
+  return URL.createObjectURL(blob);
 }
