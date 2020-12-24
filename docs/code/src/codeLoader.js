@@ -202,7 +202,7 @@ export async function run(mode = "window", _w) {
       return 1;
     }
     const { renderEmotion, jsx } = await import(
-      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.6/dist/bundle.js"
+      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.7/dist/bundle.js"
    );
  
 
