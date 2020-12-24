@@ -33,8 +33,9 @@ export const getDbObj = (dbPromise, isIdb = false) => {
       if (format === "json") {
         return JSON.parse(data);
       }
-      if (format === "string") {
-        const allData = await data;
+      const allData = await data;
+        if (format === "string") {
+
         if (typeof allData === "string" && format === "string") {
           const text = allData;
           if (isDiff(text)) {
