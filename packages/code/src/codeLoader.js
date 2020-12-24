@@ -218,7 +218,7 @@ export async function run(mode = "window", _w) {
 
     const Element = (await import(createJsBlob(
           codeToHydrate.replace(`'@emotion/react'`,`'${SRC}'`)
-          .replace("'react'",`'https://unpkg.com/@zedvision/code@10.12.9/dist/react.bundle.js'`)))).default;
+          .replace("'react'",`'https://unpkg.com/@zedvision/code@10.12.10/dist/react.bundle.js'`)))).default;
 
     renderEmotion(Element(), root);
 
