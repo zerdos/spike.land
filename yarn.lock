@@ -3093,6 +3093,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
+"@types/puppeteer@^3.0.2":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-3.0.5.tgz#5ef5d023f45c0dfcc82e97548891b11b6ce868fb"
+  integrity sha512-NkphUMkpbr/us6hp1AqUh/UxX5Tf2UJU94MvaF8OOgIUPBipYodql+yRjcysJKqwnDkchp+cD/8jntI/C9StzA==
+  dependencies:
+    "@types/node" "*"
+
 "@types/q@^1.5.1":
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
@@ -5084,11 +5091,12 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001165:
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001170.tgz#0088bfecc6a14694969e391cc29d7eb6362ca6a7"
   integrity sha512-Dd4d/+0tsK0UNLrZs3CvNukqalnVTRrxb5mcQm8rHL49t7V5ZaTygwXkrq+FB+dVDf++4ri8eJnFEJAB8332PA==
 
-capture-website@1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/capture-website/-/capture-website-1.2.6.tgz#a7f47cebdb14dd0288039b5e40149b7c68215ddf"
-  integrity sha512-EZzQIhwoDgpAFJESZ4g27aXPqNt+rCExtHPpSgakzDnGtSRBeLQqvHrOngNwJ7yWtYJ6GDohWHUZ+f52hgKziw==
+capture-website@1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/capture-website/-/capture-website-1.2.7.tgz#a9003490d5c7dcd6e6644fd6d6ec3a281174bb2a"
+  integrity sha512-85Q/ZhahzxqjuQTf0VHYkArafNt+8Mi3sWDGSZjLfuPfbUu+mSEFW+FDwlQMVrgNyVGCzHwJjvxWJSkQNDYNNA==
   dependencies:
+    "@types/puppeteer" "^3.0.2"
     file-url "^3.0.0"
     puppeteer "^5.3.1"
     tough-cookie "^4.0.0"

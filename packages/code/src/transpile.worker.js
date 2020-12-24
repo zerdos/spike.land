@@ -13,7 +13,7 @@ const transform = (code, hasToReport) => {
   try {
     const safeCode = `
         ` + code.replaceAll(
-          searchRegExp,
+      searchRegExp,
       replaceWith,
     );
 

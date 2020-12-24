@@ -214,9 +214,11 @@ export async function run(mode = "window", _w) {
 
     const root = document.createElement("div");
 
-    const Element = (await import(createJsBlob(`import {jsx, React, css} from "${SRC}";
+    const Element = (await import(createJsBlob(
+      `import {jsx, React, css} from "${SRC}";
     const {useState, useRef } = React ;
-    ` + codeToHydrate))).default
+    ` + codeToHydrate,
+    ))).default;
 
     renderEmotion(Element(), root);
 
