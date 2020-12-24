@@ -1638,7 +1638,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   me.eventEmitter = new EventEmitter();
 
   me.appearance = appearance;
-}
+
 
 CIfFrame.prototype.getFrameView = function () {
   var me = this;
@@ -2506,7 +2506,7 @@ CIfFrame.prototype.setControl = function (model) {
     me.control.setupDefaultEvents();
   }
 };
-
+}
 /**
  * end of CIFrame class
  */
