@@ -1,6 +1,6 @@
 export default  async ({onShare}) => {
 
-  const {emotionRenderer, jsx ,Fragment} = await import("https://unpkg.com/@zedvision/emotion-react/render/dist/bunle.js")
+  const {emotionRenderer, jsx ,Fragment} = await import("https://unpkg.com/@zedvision/emotion-react-renderer@/dist/bunle.js")
  
 
   const DraggableWindow = ({ onShare }) => jsx(
