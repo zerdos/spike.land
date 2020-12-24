@@ -1,7 +1,7 @@
 import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.3/dist/smart-monaco-editor.modern.js";
 
 import { diff } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js";
-
+ 
 
 import { getProjects, saveCode } from "./data.js";
 import { shaDB } from "./db.js";
@@ -11,8 +11,7 @@ import { createJsBlob, shareItAsHtml } from "./share.js";
 
 
 const src = "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
-
-
+let renderEmotion = null;
 
 
 function getSession() {
@@ -204,7 +203,10 @@ export async function run(mode = "window", _w) {
   }
 
   async function restartCode(transpiled) {
-    const { renderEmotion } = await import(src);
+    if (renderEmotion ===null){
+      renderEmotion= ( await import(src)).renderEmotion;
+    }
+
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);

@@ -13,8 +13,9 @@
  * @param align relative alignment in the frame
  * @constructor
  */
+const CALIGN = require("../CCommon.js");
 function CFrameComponent(id, htmlElement, x, y, align, extra) {
-  var me = this;
+  var me = {};
 
   me.id = id;
   me.x = x;

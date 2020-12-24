@@ -6,99 +6,100 @@ var mergeDeeply = require("merge-deeply");
 var EventListenerHelper = require("event-listener-helper");
 
 function WindowEventHelper(model) {
-  this.eventListenerHelper = new EventListenerHelper();
-  this.windowMode = "default";
-  this.styleDisplay = "flex";
-  this.horizontalAlign = "left";
-  this.verticalAlign = "top";
+  const me ={}
+  me.eventListenerHelper = new EventListenerHelper();
+  me.windowMode = "default";
+  me.styleDisplay = "flex";
+  me.horizontalAlign = "left";
+  me.verticalAlign = "top";
 
-  this.keyListener = null;
+  me.keyListener = null;
 
-  this.minimizeButton = null;
-  this.maximizeButton = null;
-  this.demaximizeButton = null;
-  this.deminimizeButton = null;
+  me.minimizeButton = null;
+  me.maximizeButton = null;
+  me.demaximizeButton = null;
+  me.deminimizeButton = null;
 
-  this.opts = model;
+  me.opts = model;
 
-  this.isWindowManagerFixed = model.frame.jsFrame.isWindowManagerFixed;
+  me.isWindowManagerFixed = model.frame.jsFrame.isWindowManagerFixed;
 
   if (model.styleDisplay) {
-    this.styleDisplay = model.styleDisplay;
+    me.styleDisplay = model.styleDisplay;
   }
   if (model.minimizeButton) {
-    this.minimizeButton = model.minimizeButton;
+    me.minimizeButton = model.minimizeButton;
   }
   if (model.deminimizeButton) {
-    this.deminimizeButton = model.deminimizeButton;
+    me.deminimizeButton = model.deminimizeButton;
   }
   if (model.maximizeButton) {
-    this.maximizeButton = model.maximizeButton;
+    me.maximizeButton = model.maximizeButton;
   }
   if (model.demaximizeButton) {
-    this.demaximizeButton = model.demaximizeButton;
+    me.demaximizeButton = model.demaximizeButton;
   }
 
   if (model.hideButton) {
-    this.hideButton = model.hideButton;
+    me.hideButton = model.hideButton;
   }
   if (model.hideButtons) {
-    this.hideButtons = model.hideButtons;
+    me.hideButtons = model.hideButtons;
   }
 
-  this.maximizeParam = model.maximizeParam;
-  this.demaximizeParam = model.demaximizeParam;
-  this.minimizeParam = model.minimizeParam;
-  this.deminimizeParam = model.deminimizeParam;
-  this.hideParam = model.hideParam;
-  this.dehideParam = model.dehideParam;
+  me.maximizeParam = model.maximizeParam;
+  me.demaximizeParam = model.demaximizeParam;
+  me.minimizeParam = model.minimizeParam;
+  me.deminimizeParam = model.deminimizeParam;
+  me.hideParam = model.hideParam;
+  me.dehideParam = model.dehideParam;
 
   if (model.horizontalAlign) {
-    this.horizontalAlign = model.horizontalAlign;
+    me.horizontalAlign = model.horizontalAlign;
   }
   if (model.verticalAlign) {
-    this.verticalAlign = model.verticalAlign;
+    me.verticalAlign = model.verticalAlign;
   }
 
-  this.animationEnabled = false;
-  this.animationDuration = 100;
-  this.frame = model.frame;
-  this.hideFrameBorder = true;
-  this.hideTitleBar = true;
+  me.animationEnabled = false;
+  me.animationDuration = 100;
+  me.frame = model.frame;
+  me.hideFrameBorder = true;
+  me.hideTitleBar = true;
 
-  this.restoreKey = null;
-  this.restoreDuration = null;
-  this.restoreCallback = null;
+  me.restoreKey = null;
+  me.restoreDuration = null;
+  me.restoreCallback = null;
 
-  this.statsStore = {};
+  me.statsStore = {};
 
   if (model.animation) {
-    this.animationEnabled = model.animation;
+    me.animationEnabled = model.animation;
   }
   if (model.animationDuration) {
-    this.animationDuration = model.animationDuration;
+    me.animationDuration = model.animationDuration;
   }
-  this.eventListeners = {};
+  me.eventListeners = {};
 
   //If the user changes the window size when the window is maximized state,
   // adjust the size so that window looks maximized.
-  this.resizeListener = this.handleOnResize.bind(this);
+  me.resizeListener = me.handleOnResize.bind(this);
 
-  if (this.maximizeParam && this.maximizeParam.matchParent) {
-    this.resizeListener = this.handleOnVirtualResize.bind(this);
+  if (me.maximizeParam && me.maximizeParam.matchParent) {
+    me.resizeListener = me.handleOnVirtualResize.bind(this);
   }
-}
+
 
 WindowEventHelper.MATCH_PARENT_CHANGE_MARKER_ATTR = "__jsframe-mp-marker";
 
 WindowEventHelper.prototype.on = function (eventType, callback) {
-  var me = this;
+  
   me.eventListeners[eventType] = callback;
 };
 
 //---------------------------------------------------------------------------------------------------------------------
 WindowEventHelper.prototype.doMaximize = function (model) {
-  var me = this;
+
 
   if (me.windowMode === "hid") {
     throw Error(
@@ -318,7 +319,7 @@ WindowEventHelper.prototype.renderMaximizedMode = function (model) {
 };
 
 WindowEventHelper.prototype.getWindowMode = function () {
-  return this.windowMode;
+  return me.windowMode;
 };
 /**
  * Restore window from maximized mode
@@ -923,10 +924,10 @@ WindowEventHelper.prototype._defaultFunctionMaximize = function (_frame, evt) {
     restoreDuration: model.restoreDuration,
   };
 
-  if (this.maximizeParam) {
+  if (me.maximizeParam) {
     // write maximizeParam into param
     mergeDeeply(
-      { op: "overwrite-merge", object1: param, object2: this.maximizeParam },
+      { op: "overwrite-merge", object1: param, object2: me.maximizeParam },
     );
   }
 
@@ -956,22 +957,22 @@ WindowEventHelper.prototype._defaultFunctionRestoreFromFullscreen = function (
 
 WindowEventHelper.prototype._defaultFunctionMinimize = function (_frame, evt) {
   //'minimizeButton'が押されたときに、最小化したい場合
-  _frame.control.doMinimize(this.minimizeParam);
+  _frame.control.doMinimize(me.minimizeParam);
 };
 
 WindowEventHelper.prototype._defaultFunctionDeminimize = function (
   _frame,
   evt,
 ) {
-  _frame.control.doDeminimize(this.deminimizeParam);
+  _frame.control.doDeminimize(me.deminimizeParam);
 };
 
 WindowEventHelper.prototype._defaultFunctionHide = function (_frame, evt) {
   var param = {
     align: "CENTER_BOTTOM",
   };
-  if (this.hideParam) {
-    param = this.hideParam;
+  if (me.hideParam) {
+    param = me.hideParam;
   }
   _frame.control.doHide(param);
 };
@@ -1029,6 +1030,7 @@ WindowEventHelper.prototype.setupDefaultEvents = function () {
       }
     }
   }
+}
 };
 
 module.exports = WindowEventHelper;
