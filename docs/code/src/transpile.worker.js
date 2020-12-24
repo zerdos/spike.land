@@ -5,23 +5,23 @@ importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 // const from = / from '/gi;
 
 // const replaceWith = `const { $1 } = await import('$2');`;
-// const searchRegExp = /import/gi;
+const searchRegExp = /import /gi;
 // const from = / from '/gi;
-// const replaceWith = " from 'https://cdn.skypack.dev/";
+const replaceWith = "/// ";
 //
 const transform = (code, hasToReport) => {
   try {
-    // const safeCode = `
-    //     ` + code.replaceAll(
-    //   from,
-    //   replaceWith,
-    // );
+    const safeCode = `
+        ` + code.replaceAll(
+          searchRegExp,
+      replaceWith,
+    );
 
     // console.log(safeCode);
 
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      ` + code,
+      ` + safeCode,
       {
         compact: false,
         comments: false,
