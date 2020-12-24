@@ -1,7 +1,6 @@
-import { importScript } from "./importScript.js";
 
 export async function renderDraggableEditor() {
-  const { JSFrame } = await importScript(
+  const { JSFrame } = await import(
     "https://unpkg.com/@zedvision/jsframe@10.11.8/lib/jsframe.min.modern.js",
   );
 

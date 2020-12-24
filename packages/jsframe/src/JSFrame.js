@@ -3341,5 +3341,4 @@ JSFrame.prototype.showToast = function (model) {
 
 Object.freeze(DEF);
 
-export default JSFrame;
-window.JSFrame = JSFrame;
+export  {JSFrame};

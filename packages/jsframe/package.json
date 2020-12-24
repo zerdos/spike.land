@@ -6,7 +6,7 @@
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
     "clean": "deno fmt src && rm -rf dist && mkdir dist",
-    "build": "yarn esbuild src/JSFrame.js --minify --loader:.css=text --bundle  --format=esm --outfile=lib/jsframe.min.esm.js"
+    "build": "yarn esbuild src/JSFrame.js --minify --loader:.css=text --bundle  --format=esm --outfile=dist/jsframe.min.esm.js"
   },
   "repository": {
     "type": "git",
