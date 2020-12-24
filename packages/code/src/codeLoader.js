@@ -67,18 +67,19 @@ async function formatter(code) {
 
 export async function run(mode = "window", _w) {
   console.log("Runner");
-  const { emotionRenderer, jsx } = await import(
-    "https://unpkg.com/@zedvision/emotion-react/render/dist/bunle.js"
-  );
-  const { document, React, ReactDOM, emotionReactJSXRuntime, location, open } =
+
+  const { document, location, open } =
     _w;
+
   const session = getSession();
+
   const codeTOLoad = await getCodeToLoad();
   session.code = await formatter(codeTOLoad);
   session.transpiled = await transpileCode(session.code);
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
+    renderDraggableEditor()
   }
 
   if (mode === "window") {
