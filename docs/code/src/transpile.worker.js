@@ -5,10 +5,10 @@ importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 // const from = / from '/gi;
 
 // const replaceWith = `const { $1 } = await import('$2');`;
-const searchRegExp = /import/gi;
-const from = / from '/gi;
-const replaceWith = " from 'https://cdn.skypack.dev/";
-
+// const searchRegExp = /import/gi;
+// const from = / from '/gi;
+// const replaceWith = " from 'https://cdn.skypack.dev/";
+// 
 const transform = (code, hasToReport) => {
   try {
     const safeCode = `
