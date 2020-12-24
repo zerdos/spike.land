@@ -1,7 +1,7 @@
 import { importScript } from "./importScript.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
-import { ipfsKV } from "./ipfsKV.js";
+
 
 export const shareItAsHtml = async ({ code, HTML, jsExport }) => {
   const mod = createJsBlob(code);
@@ -40,7 +40,10 @@ function saveHtml(html) {
 function saveJs(js) {
   return save(js, "application/javascript");
 }
+
+let ipfsKV;
 async function saveToIPFS(content, type) {
+  ipfsKV = ipfsKV || (await import("./ipfsKV.js")).ipfsKV;
   const cid = await ipfsKV.add(
     URL.createObjectURL(new Blob([content], { type })),
   );
