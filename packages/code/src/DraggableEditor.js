@@ -52,7 +52,6 @@ JSFrame.create({
   JSFrame.control.on("minimized", (frame, info) => {
   });
   JSFrame.control.on("dminimized", (frame, info) => {
-  });
   JSFrame.show();
   // document.querySelector("iframe").replaceWith(root);
 

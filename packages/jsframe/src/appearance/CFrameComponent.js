@@ -15,7 +15,7 @@
  */
 const CALIGN = require("../CCommon.js");
 function CFrameComponent(id, htmlElement, x, y, align, extra) {
-  var me = {};
+  var me = this;
 
   me.id = id;
   me.x = x;
@@ -45,7 +45,7 @@ CFrameComponent.setFocusCallback = function (
   focusTakingCallback,
   focusReleasingCallback,
 ) {
-  var me = {};
+  var me = this;
   me._focusTakingCallabck = focusTakingCallback;
   me._focusReleasingCallabck = focusReleasingCallback;
 };
@@ -55,7 +55,7 @@ CFrameComponent.setFocusCallback = function (
  * @param frame
  */
 CFrameComponent.setFrame = function (frame) {
-  var me = {};
+  var me = this;
 
   me.frame = frame;
   me.htmlElement.parentObject = frame;
@@ -67,7 +67,7 @@ CFrameComponent.setFrame = function (frame) {
  * Relocate relative to parent frame when window resize event occurs
  */
 CFrameComponent.updateAlign = function () {
-  var me = {};
+  var me = this;
 
   var frameComponentAlign = me.frameComponentAlign;
 
@@ -123,14 +123,14 @@ CFrameComponent.updateAlign = function () {
 };
 
 CFrameComponent.handleTakingFocus = function () {
-  var me = {};
+  var me = this;
   if (me._focusTakingCallabck) {
     me._focusTakingCallabck();
   }
 };
 
 CFrameComponent.handleReleasingFocus = function () {
-  var me = {};
+  var me = this;
   if (me._focusReleasingCallabck) {
     me._focusReleasingCallabck();
   }

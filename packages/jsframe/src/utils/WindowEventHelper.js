@@ -6,7 +6,7 @@ var mergeDeeply = require("merge-deeply");
 var EventListenerHelper = require("event-listener-helper");
 
 function WindowEventHelper(model) {
-  const me = {};
+  const me = this;
   me.eventListenerHelper = new EventListenerHelper();
   me.windowMode = "default";
   me.styleDisplay = "flex";
@@ -200,7 +200,7 @@ function WindowEventHelper(model) {
  * Render window as a maximized mode( full screen )
  */
   WindowEventHelper.renderMaximizedMode = function (model) {
-    var me = {};
+    var me = this;
     var frame = me.frame;
     var from = me.loadWindowStats("maximize_mode");
 
@@ -324,7 +324,7 @@ function WindowEventHelper(model) {
  * Restore window from maximized mode
  */
   WindowEventHelper.doDemaximize = function (model) {
-    var me = {};
+    var me = this;
     var frame = me.frame;
 
     if (me.windowMode === "hid") {
@@ -364,14 +364,14 @@ function WindowEventHelper(model) {
  * Called when changing the window size by user operation in maximized mode
  */
   WindowEventHelper.handleOnResize = function () {
-    var me = {};
+    var me = this;
     me.renderMaximizedMode({
       caller: "handleOnResize",
       //matchParent: true
     });
   };
   WindowEventHelper.handleOnVirtualResize = function () {
-    var me = {};
+    var me = this;
     me.renderMaximizedMode({
       caller: "handleOnResize",
       matchParent: true,
@@ -384,7 +384,7 @@ function WindowEventHelper(model) {
  * Make window minimized mode
  */
   WindowEventHelper.doMinimize = function (model) {
-    var me = {};
+    var me = this;
 
     if (me.windowMode === "minimized" || me.windowMode === "minimizing") {
       // If it's already 'minimized' status, it doesn't do anything.
@@ -412,7 +412,7 @@ function WindowEventHelper(model) {
  * Render window as minimized mode
  */
   WindowEventHelper.renderMinimizedMode = function (model) {
-    var me = {};
+    var me = this;
     var frame = me.frame;
     var ri = me.loadWindowStats("minimize_mode");
 
@@ -464,7 +464,7 @@ function WindowEventHelper(model) {
  * Restore window from minimized mode
  */
   WindowEventHelper.doDeminimize = function (model) {
-    var me = {};
+    var me = this;
 
     var frame = me.frame;
 
@@ -496,7 +496,7 @@ function WindowEventHelper(model) {
  * Make window hidden mode
  */
   WindowEventHelper.doHide = function (model) {
-    var me = {};
+    var me = this;
 
     if (me.windowMode === "hid" || me.windowMode === "hiding") {
       // If it's already 'hid' status, it doesn't do anything.
@@ -530,7 +530,7 @@ function WindowEventHelper(model) {
  * Render window as hidden mode
  */
   WindowEventHelper.renderHideMode = function (model) {
-    var me = {};
+    var me = this;
     var frame = me.frame;
     var ri = me.loadWindowStats("hide_mode");
 
@@ -638,7 +638,7 @@ function WindowEventHelper(model) {
  * Restore window from hided mode
  */
   WindowEventHelper.doDehide = function (model) {
-    var me = {};
+    var me = this;
     var frame = me.frame;
 
     if (!me.hasWindowStats("hide_mode")) {
@@ -659,7 +659,7 @@ function WindowEventHelper(model) {
   };
   //---------------------------------------------------------------------------------------------------------------------
   WindowEventHelper.loadWindowStats = function (storeKeyName) {
-    var me = {};
+    var me = this;
     return me.statsStore[storeKeyName];
   };
 
@@ -670,7 +670,7 @@ function WindowEventHelper(model) {
  * Returns false if the status has not been updated.
  */
   WindowEventHelper.saveCurrentWindowStats = function (storeKeyName) {
-    var me = {};
+    var me = this;
 
     var crrWindowStats = me.getCurrentWindowStats();
 
@@ -706,17 +706,17 @@ function WindowEventHelper(model) {
   };
 
   WindowEventHelper.clearWindowStats = function (storeKeyName) {
-    var me = {};
+    var me = this;
     me.statsStore[storeKeyName] = null;
   };
 
   WindowEventHelper.hasWindowStats = function (storeKeyName) {
-    var me = {};
+    var me = this;
     return me.statsStore[storeKeyName];
   };
 
   WindowEventHelper.getCurrentWindowStats = function () {
-    var me = {};
+    var me = this;
     var frame = me.frame;
 
     //Acquire window's stats
@@ -748,7 +748,7 @@ function WindowEventHelper(model) {
  * @param model
  */
   WindowEventHelper.restoreWindow = function (model) {
-    var me = {};
+    var me = this;
     var frame = me.frame;
     var to = me.loadWindowStats(model.restoreMode);
     //現在の状態を一時保存する
@@ -844,7 +844,7 @@ function WindowEventHelper(model) {
   };
 
   WindowEventHelper.animateFrame = function (model) {
-    var me = {};
+    var me = this;
     var needRequestFocusAfterAnimation = false;
 
     var fromAlpha = !isNaN(model.fromAlpha) ? model.fromAlpha : 1.0;
@@ -877,7 +877,7 @@ function WindowEventHelper(model) {
  * @param opt
  */
   WindowEventHelper.doCommand = function (cmd, opt) {
-    var me = {};
+    var me = this;
 
     if (cmd === "maximize") {
       me._defaultFunctionMaximize(me.frame);
@@ -906,7 +906,7 @@ function WindowEventHelper(model) {
     _frame,
     evt,
   ) {
-    var me = {};
+    var me = this;
     var model = me.opts;
 
     var param = {
@@ -951,7 +951,7 @@ function WindowEventHelper(model) {
     _frame,
     evt,
   ) {
-    var me = {};
+    var me = this;
     _frame.control.doDemaximize({
       duration: me.restoreDuration ? me.restoreDuration : null,
       callback: me.restoreCallback ? me.restoreCallback : null,
@@ -984,12 +984,12 @@ function WindowEventHelper(model) {
   };
 
   WindowEventHelper._defaultFunctionDehide = function (_frame, evt) {
-    var me = {};
+    var me = this;
     _frame.control.doDehide(me.dehideParam);
   };
 
   WindowEventHelper.setupDefaultEvents = function () {
-    var me = {};
+    var me = this;
 
     if (me.maximizeButton) {
       //イベントはオーバーライドされる

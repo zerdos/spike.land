@@ -5,7 +5,7 @@
     ? define(["exports", "react/jsx-runtime", "react"], r)
     : r(
       (e = "undefined" != typeof globalThis ? globalThis : e || self)
-        .emotionReactJSXRuntime = {},
+        .emotionReactJSXRuntime = this,
       e.ReactJSX,
       e.React,
     );

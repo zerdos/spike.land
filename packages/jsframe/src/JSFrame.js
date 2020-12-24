@@ -68,7 +68,7 @@ function CBeanFrame(
   w_border_width,
   appearance,
 ) {
-  var me = {};
+  var me = CBeanFrame
 
   me.movable = true;
 
@@ -152,11 +152,11 @@ CBeanFrame.getWindowType = function () {
 };
 
 CBeanFrame.setOnMoveListener = function (listener) {
-  var me = {};
+  var me = this;
   me.onMoveListener = listener;
 };
 CBeanFrame._onMove = function (e) {
-  var me = {};
+  var me = this;
   if (me.onMoveListener) {
     me.onMoveListener(e);
   }
@@ -167,7 +167,7 @@ CBeanFrame._onMove = function (e) {
  * @param enabled
  */
 CBeanFrame.setMovable = function (enabled) {
-  var me = {};
+  var me = this;
 
   if (enabled) {
     me.htmlElement.argX = 1;
@@ -183,18 +183,18 @@ CBeanFrame.setMovable = function (enabled) {
 };
 
 CBeanFrame.setParentCanvas = function (parentCanvas) {
-  var me = {};
+  var me = this;
   me.parentCanvas = parentCanvas;
   me.htmlElement.parentCanvas = me.parentCanvas;
   return me;
 };
 CBeanFrame.setOnExternalAreaClickedListener = function (listener) {
-  var me = {};
+  var me = this;
   me.externalAreaClickedListener = listener;
   return me;
 };
 CBeanFrame.onBodyClicked = function (e) {
-  var me = {};
+  var me = this;
 
   var clickX = e.pageX;
   var clickY = e.pageY;
@@ -310,7 +310,7 @@ function CCanvas(parentElement, canvasId, left, top, width, height) {
     JSFrame.targetObject = null;
   }
 
-  var me = {};
+  var me = this;
 
   me.enablePullUp = true; // true:Pull-up sorting to bring the window to the forefront by clicking to get focus.
   me.currentObject = null;
@@ -326,7 +326,7 @@ function CCanvas(parentElement, canvasId, left, top, width, height) {
   me.parentElement = parentElement;
   me.beanList = new Array();
 
-  me.beanIdName = {}; //key:beanId value:beanName
+  me.beanIdName = this; //key:beanId value:beanName
   me.beanNameId = {}; //key:beanName value:beanId
 
   me.eventData = new EventData();
@@ -363,7 +363,7 @@ function CCanvas(parentElement, canvasId, left, top, width, height) {
 }
 
 CCanvas.mouseMove = function (evt) {
-  var me = {};
+  var me = this;
   var e = evt;
   if (TOUCH_ENABLED) {
     if (evt.type === "touchmove") {
@@ -442,14 +442,14 @@ CCanvas.mouseMove = function (evt) {
 };
 
 CCanvas.mouseUp = function (e) {
-  var me = {};
+  var me = this;
   me.currentObject = null;
   me.mouseDownSource = null;
 };
 
 //Bring the object in front
 CCanvas.pullUp = function (targetBeanId) {
-  var me = {};
+  var me = this;
 
   var tmpBeanArray = [];
 
@@ -472,7 +472,7 @@ CCanvas.pullUp = function (targetBeanId) {
 
 //Calculate the front / back information of the window accurately.
 CCanvas.pullUpSort = function (pullupObject, objectArray, baseIndex) {
-  var me = {};
+  var me = this;
 
   //Increase the index number of the target object
   pullupObject.htmlElement.style.zIndex = objectArray.length + baseIndex;
@@ -495,7 +495,7 @@ CCanvas.pullUpSort = function (pullupObject, objectArray, baseIndex) {
  * @param beanId
  */
 CCanvas.removeBean = function (beanId) {
-  var me = {};
+  var me = this;
 
   //Retrieve the target beanFrame
   var beanList = me.beanList;
@@ -513,7 +513,7 @@ CCanvas.removeBean = function (beanId) {
  * @param bean
  */
 CCanvas.addBean = function (bean) {
-  var me = {};
+  var me = this;
 
   var beanList = me.beanList;
 
@@ -544,7 +544,7 @@ CCanvas.addBean = function (bean) {
 };
 
 CCanvas.getParentElement = function () {
-  var me = {};
+  var me = this;
   return me.parentElement;
 };
 
@@ -588,7 +588,7 @@ function CFrame(
   w_border_width,
   appearance,
 ) {
-  var me = {};
+  var me = this;
 
   //call constructor of superclass
   CFrame.superConstructor.call(
@@ -1000,7 +1000,7 @@ CFrame.setTitleBarClassName = function (
   classNameForDefault,
   classNameForFocused,
 ) {
-  var me = {};
+  var me = this;
   if (classNameForDefault) {
     me.titleBarClassNameDefault = classNameForDefault;
     me.titleBarClassNameFocused = classNameForDefault;
@@ -1015,7 +1015,7 @@ CFrame.setTitleBarClassName = function (
  * @param frameComponent
  */
 CFrame.addFrameComponent = function (frameComponent) {
-  var me = {};
+  var me = this;
 
   me.frameComponentMap[frameComponent.id] = frameComponent;
   me.canvas.canvasElement.appendChild(frameComponent.htmlElement);
@@ -1027,7 +1027,7 @@ CFrame.addFrameComponent = function (frameComponent) {
  * @param frameComponent
  */
 CFrame.getFrameComponentElement = function (id) {
-  var me = {};
+  var me = this;
   if (me.frameComponentMap[id]) {
     return me.frameComponentMap[id].htmlElement;
   } else {
@@ -1036,7 +1036,7 @@ CFrame.getFrameComponentElement = function (id) {
 };
 
 CFrame.removeFrameComponentById = function (frameComponentId) {
-  var me = {};
+  var me = this;
 
   var frameComponent = me.frameComponentMap[frameComponentId];
 
@@ -1045,7 +1045,7 @@ CFrame.removeFrameComponentById = function (frameComponentId) {
 };
 
 CFrame.showFrameComponent = function (frameComponentId, display) {
-  var me = {};
+  var me = this;
   var comp = me.getFrameComponentElement(frameComponentId);
   if (comp) {
     if (display) {
@@ -1058,7 +1058,7 @@ CFrame.showFrameComponent = function (frameComponentId, display) {
 };
 
 CFrame.hideFrameComponent = function (frameComponentId) {
-  var me = {};
+  var me = this;
   var comp = me.getFrameComponentElement(frameComponentId);
   if (comp) {
     comp.style.display = "none";
@@ -1067,7 +1067,7 @@ CFrame.hideFrameComponent = function (frameComponentId) {
 };
 
 CFrame.hideAllVisibleFrameComponents = function () {
-  var me = {};
+  var me = this;
 
   var compMap = me.frameComponentMap;
   for (var key in compMap) {
@@ -1081,7 +1081,7 @@ CFrame.hideAllVisibleFrameComponents = function () {
   }
 };
 CFrame.showAllVisibleFrameComponents = function () {
-  var me = {};
+  var me = this;
   var compMap = me.frameComponentMap;
   for (var key in compMap) {
     if (compMap.hasOwnProperty(key)) {
@@ -1103,7 +1103,7 @@ CFrame.showAllVisibleFrameComponents = function () {
  * @param opt
  */
 CFrame.hideFrameComponentChildMenus = function (opt) {
-  var me = {};
+  var me = this;
 
   var compMap = me.frameComponentMap;
   for (var frameComponentId in compMap) {
@@ -1122,7 +1122,7 @@ CFrame.hideFrameComponentChildMenus = function (opt) {
 };
 
 CFrame.setTitle = function (str) {
-  var me = {};
+  var me = this;
   me.title = str;
   if (me.showTitleBar) {
     var textNode = document.createTextNode(str);
@@ -1141,7 +1141,7 @@ CFrame.resize = function (
   deltaWidth,
   deltaHeight,
 ) {
-  var me = {};
+  var me = this;
 
   var tmpLeft = parseInt(me.htmlElement.style.left, 10);
   var tmpTop = parseInt(me.htmlElement.style.top, 10);
@@ -1203,7 +1203,7 @@ CFrame.resize = function (
 };
 
 CFrame.canvasMouseDown = function (e) {
-  var me = {};
+  var me = this;
 
   //Mousedown processing of CFrame.canvas
 
@@ -1217,7 +1217,7 @@ CFrame.mouseUp = function (e) {
 };
 
 CFrame.close = function (e) {
-  var me = {};
+  var me = this;
   //Close processing of CFrame from CloseButton
 
   var parentCanvas = JSFrame.parentObject.parentCanvas;
@@ -1234,7 +1234,7 @@ CFrame.close = function (e) {
 
 CFrame.closeFrame = function (e) {
   //Close processing of CFrame
-  var me = {};
+  var me = this;
 
   console.log(
     'CFrame#closeFrame "' + me.title + "(" + me.getName() + ")" + '" @' +
@@ -1246,7 +1246,7 @@ CFrame.closeFrame = function (e) {
 };
 
 CFrame.closeInternally = function (e, parentCanvas, windowId) {
-  var me = {};
+  var me = this;
 
   if (!parentCanvas) {
     console.error("Window(" + windowId + ") may have been closed");
@@ -1266,7 +1266,7 @@ CFrame.closeInternally = function (e, parentCanvas, windowId) {
 };
 
 CFrame.setOnCloseFrameListener = function (listener) {
-  var me = {};
+  var me = this;
   me.onCloseFrameListener = listener;
 };
 
@@ -1277,7 +1277,7 @@ CFrame.contextMenu = function () {
 };
 
 CFrame.setTitleBarTextColor = function (str) {
-  var me = {};
+  var me = this;
   me.titleBar.style.color = str;
 };
 
@@ -1299,7 +1299,7 @@ CFrame.setTitleBarTextColor = function (str) {
  * @returns {CFrame}
  */
 CFrame.setPosition = function (x, y, anchor) {
-  var me = {};
+  var me = this;
 
   var frameWidth = me.getWidth();
   var frameHeight = me.getHeight();
@@ -1315,7 +1315,7 @@ CFrame._setPositionInternally = function (
   frameWidth,
   frameHeight,
 ) {
-  var me = {};
+  var me = this;
 
   if (anchor) {
     me.anchor = anchor;
@@ -1356,7 +1356,7 @@ CFrame._setPositionInternally = function (
  * @returns {{x: *, y: *, anchor: *}}
  */
 CFrame.getPosition = function () {
-  var me = {};
+  var me = this;
   var frameWidth = me.getWidth();
   var frameHeight = me.getHeight();
   var x;
@@ -1394,30 +1394,30 @@ CFrame.getPosition = function () {
 };
 
 CFrame.getLeft = function () {
-  var me = {};
+  var me = this;
   return parseInt(me.htmlElement.style.left, 10);
 };
 
 CFrame.getTop = function () {
-  var me = {};
+  var me = this;
   return parseInt(me.htmlElement.style.top, 10);
 };
 CFrame.getWidth = function () {
-  var me = {};
+  var me = this;
   return parseInt(me.htmlElement.style.width, 10);
 };
 CFrame.getHeight = function () {
-  var me = {};
+  var me = this;
   return parseInt(me.htmlElement.style.height, 10);
 };
 
 CFrame.getSize = function () {
-  var me = {};
+  var me = this;
   return { width: me.getWidth(), height: me.getHeight() };
 };
 
 CFrame.setSize = function (width, height, force) {
-  var me = {};
+  var me = this;
 
   var byUser = true;
 
@@ -1431,17 +1431,17 @@ CFrame.setSize = function (width, height, force) {
 };
 
 CFrame.getWindowId = function () {
-  var me = {};
+  var me = this;
   return me.windowId;
 };
 
 CFrame.getName = function () {
-  var me = {};
+  var me = this;
   return me.property.name;
 };
 
 CFrame.setName = function (name) {
-  var me = {};
+  var me = this;
   me.property.name = name;
 };
 /**
@@ -1467,7 +1467,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   var zindex = appearance.zindex;
   var wborderwidth = null;
 
-  var me = {};
+  var me = this;
 
   JSFrame.jsFrame = null;
   JSFrame.control = null;
@@ -1641,17 +1641,17 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   me.appearance = appearance;
 
   CIfFrame.getFrameView = function () {
-    var me = {};
+    var me = this;
     return me.dframe;
   };
 
   CIfFrame.getFrameAppearance = function () {
-    var me = {};
+    var me = this;
     return me.appearance;
   };
 
   CIfFrame.setHTML = function (html) {
-    var me = {};
+    var me = this;
     me.dframe.innerHTML = html;
   };
   CIfFrame.setFrameInFrame = function (enabled) {
@@ -1663,7 +1663,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
     // to the element at the top of the parent window content
     // and it is captured by the mutationObserver on the child window side.
 
-    var me = {};
+    var me = this;
 
     var contentsEle = me.dframe ? me.dframe.firstChild : null;
 
@@ -1702,7 +1702,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
  * @returns {Node}
  */
   CIfFrame.$ = function (q) {
-    var me = {};
+    var me = this;
 
     if (me.useIframe) {
       var docInIframe = me.iframe.contentWindow.document;
@@ -1746,7 +1746,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
  * @param {function} callbackFunc
  */
   CIfFrame.on = function (id, eventType, callbackFunc) {
-    var me = {};
+    var me = this;
     var component = me.getFrameComponentElement(id);
 
     // if id indicates frame component like CTextButton,CImageButton
@@ -1827,7 +1827,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   };
 
   CIfFrame.adjustFrameBorderRadius = function () {
-    var me = {};
+    var me = this;
 
     if (parseInt(me.frameBorderRadius, 10) > 0) {
       var borderData = me.getFrameInnerBorderRadius(me, me._hasFocus);
@@ -1868,7 +1868,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   };
 
   CIfFrame.handleReleasingFocus = function (e) {
-    var me = {};
+    var me = this;
 
     var focused = me._hasFocus;
 
@@ -1919,7 +1919,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   };
 
   CIfFrame.handleTakingFocus = function (e) {
-    var me = {};
+    var me = this;
     var focused = me._hasFocus;
     me._hasFocus = true;
     me._hasFocus = Date.now();
@@ -1968,7 +1968,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   };
 
   CFrame.show = function (model) {
-    var me = {};
+    var me = this;
     //me.htmlElement.style.visibility = 'visible';
     me.htmlElement.style.display = "flex"; //hidden';
 
@@ -1980,7 +1980,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   };
 
   CFrame.showModal = function (onCloseListener) {
-    var me = {};
+    var me = this;
 
     var appearance = new CFrameAppearance();
     appearance.showTitleBar = true;
@@ -2047,12 +2047,12 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
     }
   };
   CFrame.getWindowManager = function () {
-    var me = {};
+    var me = this;
     return me.parentCanvas;
   };
 
   CIfFrame.hide = function () {
-    var me = {};
+    var me = this;
     //  me.htmlElement.style.visibility = 'hidden';
     me.htmlElement.style.display = "none"; //hidden';
     return me;
@@ -2099,7 +2099,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   };
 
   CIfFrame.mouseUp = function (e) {
-    var refCIfFrame = {};
+    var refCIfFrame = this;
 
     if (
       refCIfFrame.overrayTransparentScreenEnabled ||
@@ -2134,7 +2134,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   };
 
   CIfFrame.setMinFrameSize = function (width, height) {
-    var me = {};
+    var me = this;
     me.minFrameWidth = width;
     me.minWindowHeight = height;
   };
@@ -2146,7 +2146,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
     deltaHeight,
     byUser,
   ) {
-    var refCIfFrame = {};
+    var refCIfFrame = this;
 
     if (!refCIfFrame.resizable && byUser) {
       return null;
@@ -2266,14 +2266,14 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
   }; //resize
 
   CIfFrame._getCurrentSizePos = function () {
-    var me = {};
+    var me = this;
     var crrSize = me.getSize();
     var crrPos = me.getPosition();
     return { target: me, pos: crrPos, size: crrSize };
   };
 
   CIfFrame.resizeDirect = function (width, height, byUser) {
-    var refCIfFrame = {};
+    var refCIfFrame = this;
 
     if (!refCIfFrame.resizable && byUser) {
       return null;
@@ -2346,7 +2346,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
  * Focus on this frame
  */
   CIfFrame.requestFocus = function () {
-    var me = {};
+    var me = this;
 
     var beanList = me.parentCanvas.beanList;
 
@@ -2371,7 +2371,7 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
  * @param url
  */
   CIfFrame.setUrl = function (url) {
-    var me = {};
+    var me = this;
 
     return new Promise(function (resolve, reject) {
       if (url) {
@@ -2491,29 +2491,29 @@ function CIfFrame(windowId, left, top, width, height, appearance) {
  * @returns {*|HTMLDocument}
  */
   CIfFrame.getIfDocument = function () {
-    var me = {};
+    var me = this;
     return me.iframe.contentWindow.document;
   };
 
   CIfFrame.setScrolling = function (str) {
-    var me = {};
+    var me = this;
     me.iframe.scrolling = str;
   };
 
   CIfFrame.getScrolling = function (str) {
-    var me = {};
+    var me = this;
     return me.iframe.scrolling;
   };
 
   CIfFrame.setResizable = function (enabled) {
-    var me = {};
+    var me = this;
     me.resizable = enabled;
     me.enableMarkers(enabled);
     return me;
   };
 
   CIfFrame.setControl = function (model) {
-    var me = {};
+    var me = this;
 
     if (model) {
       model.frame = me;
@@ -2553,7 +2553,7 @@ function CWindowManager(parentElement, canvasId, left, top, width, height) {
     width,
     height,
   );
-  var me = {};
+  var me = this;
   // document.body.addEventListener('click', function(evt) {
   document.addEventListener("click", function (evt) {
     for (var windowId in me.beanList) {
@@ -2564,13 +2564,13 @@ function CWindowManager(parentElement, canvasId, left, top, width, height) {
 }
 
 CWindowManager.getWindow = function (windowId) {
-  var me = {};
+  var me = this;
   return me.beanList[windowId];
 };
 
 //Wrapping the 'addBean' of the parent class
 CWindowManager.addWindow = function (window) {
-  var me = {};
+  var me = this;
 
   var windowId = window.getWindowId();
   var name = window.getName();
@@ -2582,7 +2582,7 @@ CWindowManager.addWindow = function (window) {
 
 //if contains window named specified name
 CWindowManager.containsWindowName = function (name) {
-  var me = {};
+  var me = this;
 
   var windowId = me.beanNameId[name];
 
@@ -2593,7 +2593,7 @@ CWindowManager.containsWindowName = function (name) {
 };
 
 CWindowManager.getWindowByName = function (name) {
-  var me = {};
+  var me = this;
   var windowId = me.beanNameId[name];
 
   if (windowId) {
@@ -2605,7 +2605,7 @@ CWindowManager.getWindowByName = function (name) {
 
 //Wrapping the 'mouseMove' method of the parent class
 CWindowManager.windowMouseMove = function (e) {
-  var me = {};
+  var me = this;
   if (me.currentObject == null) {
     return null;
   }
@@ -2654,7 +2654,7 @@ CWindowManager.windowMouseMove = function (e) {
 
 //Wrapping the method 'mouseUp' of the parent class
 CWindowManager.windowMouseUp = function (e) {
-  var me = {};
+  var me = this;
 
   //run 'mouseUp' of parent class
   me.mouseUp(e);
@@ -2674,7 +2674,7 @@ CWindowManager.windowMouseUp = function (e) {
  * @param windowId
  */
 CWindowManager.removeBean = function (windowId) {
-  var me = {};
+  var me = this;
 
   //Retrieve the target beanFrame
   var beanList = me.beanList;
@@ -2750,7 +2750,7 @@ function CMarkerWindow(
   usage,
   color,
 ) {
-  var me = {};
+  var me = this;
 
   CMarkerWindow.superConstructor.call(
     this,
@@ -2790,7 +2790,7 @@ function CMarkerWindow(
  * @constructor
  */
 function JSFrame(model) {
-  var me = {};
+  var me = this;
 
   var parentElement = null;
 
@@ -2961,7 +2961,7 @@ JSFrame.doDisablePullToRefresh = function () {
   }
 };
 JSFrame.getDomPartsBuilder = function () {
-  var me = {};
+  var me = this;
 
   if (!me.domPartsBuilder) {
     me.domPartsBuilder = new CDomPartsBuilder();
@@ -2970,7 +2970,7 @@ JSFrame.getDomPartsBuilder = function () {
 };
 
 JSFrame.create = function (model) {
-  var me = {};
+  var me = this;
 
   var properties = {};
   properties.name = model.name;
@@ -3088,7 +3088,7 @@ JSFrame.createFrame = function (
   appearance,
   properties,
 ) {
-  var me = {};
+  var me = JSFrame
 
   if (!appearance) {
     appearance = me.createFrameAppearance();
@@ -3150,12 +3150,12 @@ JSFrame.createFrame = function (
 };
 
 JSFrame.containsWindowName = function (windowName) {
-  var me = {};
+  var me = this;
   return me.windowManager.containsWindowName(windowName);
 };
 
 JSFrame.getWindowByName = function (windowName) {
-  var me = {};
+  var me = this;
   return me.windowManager.getWindowByName(windowName);
 };
 
@@ -3171,7 +3171,7 @@ JSFrame.createAnimator = function () {
  * Helper class for maximizing and minimizing windows(frames) and handling animations accordingly
  */
 JSFrame.createWindowEventHelper = function (model) {
-  var me = {};
+  var me = this;
 
   if (!model) {
     model = {};
@@ -3193,7 +3193,7 @@ JSFrame.getPresetWindow = function (presetName, param) {
   }
 };
 JSFrame.createPresetStyle = function (presetName, param) {
-  var me = {};
+  var me = this;
   var apr = me.createFrameAppearance();
   if (param && param.focusedFrameOnly) {
     apr.focusedFrameOnly = param.focusedFrameOnly;
@@ -3219,7 +3219,7 @@ JSFrame.showToast = function (model) {
     return;
   }
 
-  var me = {};
+  var me = this;
   var toastHeight = 60;
   var toastWidth = 260;
   var openCloseDurationMs = 300;

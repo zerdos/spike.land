@@ -7,7 +7,7 @@ import CFrameComponent from "./CFrameComponent.js";
  *
  */
 function CFrameAppearance() {
-  var me = {};
+  var me = this;
 
   me.showTitleBar = true;
   me.showCloseButton = true;

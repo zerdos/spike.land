@@ -36,7 +36,7 @@ CDomPartsBuilder.buildImageButtonAppearance = function (src) {
 };
 
 CDomPartsBuilder.buildButton = function (btnAppearance) {
-  var me = {};
+  var me = this;
   return me.buildTextButton(btnAppearance);
 };
 
@@ -44,7 +44,7 @@ CDomPartsBuilder.appendChildMenuTo = function (
   childMenuAppearance,
   parentEle,
 ) {
-  var me = {};
+  var me = this;
   var ndiv = document.createElement("div");
   ndiv.classList.add("jsframe-child-menu");
   ndiv.innerHTML = childMenuAppearance.childMenuHTML;

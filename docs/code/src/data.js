@@ -1,13 +1,5 @@
 import { shaDB } from "./db.js";
 import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
-import { sha256 } from "./sha256.js";
-
-export async function getZkey(hash) {
-  const uuid = await getUserId();
-  const uKey = await sha256(uuid);
-  const gKey = await sha256(hash + uKey);
-  const vKey = await sha256(hash + uuid);
-  return `${hash}${uKey}${gKey}${vKey}`;
 }
 
 export async function getUserId() {

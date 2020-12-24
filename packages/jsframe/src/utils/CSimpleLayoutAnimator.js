@@ -38,7 +38,7 @@ function CSimpleLayoutAnimator() {
  * @returns {*}
  */
 CSimpleLayoutAnimator.set = function (ciframe) {
-  var me = {};
+  var me = this;
   me.targetFrame = ciframe;
 
   me.fromWidth(ciframe.getWidth());
@@ -59,7 +59,7 @@ CSimpleLayoutAnimator.set = function (ciframe) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.get = function () {
-  var me = {};
+  var me = this;
   return me.targetFrame;
 };
 
@@ -69,7 +69,7 @@ CSimpleLayoutAnimator.get = function () {
  * @returns {*}
  */
 CSimpleLayoutAnimator.setDuration = function (durationMillis) {
-  var me = {};
+  var me = this;
 
   me.durationMillis = durationMillis;
   return me;
@@ -81,7 +81,7 @@ CSimpleLayoutAnimator.setDuration = function (durationMillis) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.setFPS = function (fps) {
-  var me = {};
+  var me = this;
   me.fps = fps;
   return me;
 };
@@ -103,7 +103,7 @@ CSimpleLayoutAnimator.setFPS = function (fps) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.fromPosition = function (x, y, anchor) {
-  var me = {};
+  var me = this;
   me.pinnedAnimationEnabled = true;
 
   me._pinX = x;
@@ -122,7 +122,7 @@ CSimpleLayoutAnimator.fromPosition = function (x, y, anchor) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.fromWidth = function (fromWidth) {
-  var me = {};
+  var me = this;
   me._crrWidth = fromWidth;
 
   return me;
@@ -134,7 +134,7 @@ CSimpleLayoutAnimator.fromWidth = function (fromWidth) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.fromHeight = function (fromHeight) {
-  var me = {};
+  var me = this;
   me._crrHeight = fromHeight;
 
   return me;
@@ -146,7 +146,7 @@ CSimpleLayoutAnimator.fromHeight = function (fromHeight) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.toWidth = function (toWidth) {
-  var me = {};
+  var me = this;
   me._toWidth = toWidth;
 
   return me;
@@ -158,7 +158,7 @@ CSimpleLayoutAnimator.toWidth = function (toWidth) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.toHeight = function (toHeight) {
-  var me = {};
+  var me = this;
   me._toHeight = toHeight;
   return me;
 };
@@ -169,7 +169,7 @@ CSimpleLayoutAnimator.toHeight = function (toHeight) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.fromAlpha = function (fromAlpha) {
-  var me = {};
+  var me = this;
   me._crrAlpha = fromAlpha;
 
   return me;
@@ -181,7 +181,7 @@ CSimpleLayoutAnimator.fromAlpha = function (fromAlpha) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.toAlpha = function (toAlpha) {
-  var me = {};
+  var me = this;
   me._toAlpha = toAlpha;
 
   return me;
@@ -192,7 +192,7 @@ CSimpleLayoutAnimator.toAlpha = function (toAlpha) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.ease = function (ease) {
-  var me = {};
+  var me = this;
   me._ease = ease;
   return me;
 };
@@ -204,7 +204,7 @@ CSimpleLayoutAnimator.ease = function (ease) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.toPosition = function (x, y) {
-  var me = {};
+  var me = this;
   me._toX = x;
   me._toY = y;
   return me;
@@ -216,7 +216,7 @@ CSimpleLayoutAnimator.toPosition = function (x, y) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.toX = function (x) {
-  var me = {};
+  var me = this;
   me._toX = x;
   return me;
 };
@@ -227,7 +227,7 @@ CSimpleLayoutAnimator.toX = function (x) {
  * @returns {*}
  */
 CSimpleLayoutAnimator.toY = function (t) {
-  var me = {};
+  var me = this;
   me._toY = t;
   return me;
 };
@@ -236,7 +236,7 @@ CSimpleLayoutAnimator.start = function (
   waitMillis,
   requestFocusEnabled,
 ) {
-  var me = {};
+  var me = this;
 
   var fromWidth = me._crrWidth;
   var fromHeight = me._crrHeight;
