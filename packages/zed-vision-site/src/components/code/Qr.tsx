@@ -6,7 +6,7 @@ import { importScript } from "./importScript.js";
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(3);
-  
+
   const [counter, setCounter] = React.useState(0);
 
   React.useEffect(() => {

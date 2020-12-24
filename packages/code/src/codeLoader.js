@@ -68,8 +68,7 @@ async function formatter(code) {
 export async function run(mode = "window", _w) {
   console.log("Runner");
 
-  const { document, location, open } =
-    _w;
+  const { document, location, open } = _w;
 
   const session = getSession();
 
@@ -79,7 +78,7 @@ export async function run(mode = "window", _w) {
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
-    renderDraggableEditor()
+    renderDraggableEditor();
   }
 
   if (mode === "window") {
@@ -108,7 +107,7 @@ export async function run(mode = "window", _w) {
     const cd = await (formatter(c));
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
-      if (session.transpiled === transpiled && transpiled!=="") return;
+      if (session.transpiled === transpiled && transpiled !== "") return;
       let restartError = false;
       ///yellow
       if (transpiled.length && session.lastErrors === 0) {
@@ -123,7 +122,7 @@ export async function run(mode = "window", _w) {
           : []),
         ...(await getErrors(cd)),
       ];
-      console.log({err})
+      console.log({ err });
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
       session.lastErrors = err.length;
       const errorDiv = document.getElementById("error");
@@ -202,13 +201,12 @@ export async function run(mode = "window", _w) {
       // console.log(transpiled.error);
       return 1;
     }
-    const SRC ="https://unpkg.com/@zedvision/emotion-react-renderer@10.12.11/dist/bundle.js";
-
+    const SRC =
+      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.11/dist/bundle.js";
 
     const { renderEmotion, jsx } = await import(
       SRC
-   );
- 
+    );
 
     const codeToHydrate = mode === "window"
       ? transpiled.replace("body{", "#zbody{")
@@ -217,12 +215,17 @@ export async function run(mode = "window", _w) {
     const root = document.createElement("div");
 
     const Element = (await import(createJsBlob(
-          codeToHydrate.replace(`'@emotion/react'`,`'${SRC}'`)
-          .replace("'react'",`'https://unpkg.com/@zedvision/code@10.12.11/dist/react.bundle.js'`)))).default;
+      codeToHydrate.replace(`'@emotion/react'`, `'${SRC}'`)
+        .replace(
+          "'react'",
+          `'https://unpkg.com/@zedvision/code@10.12.11/dist/react.bundle.js'`,
+        ),
+    ))).default;
 
     renderEmotion(Element(), root);
 
-    document.getElementById("zbody").children.length && document.getElementById("zbody").removeChild();
+    document.getElementById("zbody").children.length &&
+      document.getElementById("zbody").removeChild();
     document.getElementById("zbody").appendChild(root);
 
     session.HTML = root.innerHTML;

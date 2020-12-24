@@ -8,7 +8,7 @@ importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 // const searchRegExp = /import/gi;
 // const from = / from '/gi;
 // const replaceWith = " from 'https://cdn.skypack.dev/";
-// 
+//
 const transform = (code, hasToReport) => {
   try {
     // const safeCode = `
