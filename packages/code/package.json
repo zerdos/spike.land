@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "10.12.8",
+    "version": "10.12.9",
     "description": "zed.vison/code",
     "main": "dist/codeLoader.min.js",
     "files": [
@@ -9,6 +9,7 @@
     "source": "./src/codeLoader.js",
     "exports": "./dist/codeLoader.modern.js",
     "scripts": {
+        "useState": "esbuild --minify src/hooks/react.js --minify --bundle --format=esm  --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/react.bundle.js",
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "xbuild:sw": "workbox generateSW workbox-config.js",
