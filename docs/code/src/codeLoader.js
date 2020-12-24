@@ -254,7 +254,7 @@ export async function run(mode = "window", _w) {
         const { sha256 } = await import("./sha256.js");
         const shaHash = await sha256(starter);
 
-        shaDB.put(shaHash, starter);
+        await shaDB.put(shaHash, starter);
         await shaDB.put(projectName, shaHash);
         return starter;
       }
