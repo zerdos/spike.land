@@ -99,7 +99,7 @@ export async function run(mode = "window", _w) {
   const transpiled = await transpileCode(session.code);
   restartCode(transpiled);
 
-  const modules = await startMonaco({
+  let modules = await startMonaco({
     language: "typescript",
     code: await formatter(session.code),
     onChange: (c) => runner(c),
