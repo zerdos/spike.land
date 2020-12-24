@@ -1,4 +1,3 @@
-import { importScript } from "./importScript.js";
 import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 
