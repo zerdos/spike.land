@@ -108,7 +108,7 @@ export async function run(mode = "window", _w) {
     const cd = await (formatter(c));
     try {
       const transpiled = await transpileCode(cd, session.lastErrors);
-      if (session.transpiled === transpiled) return;
+      if (session.transpiled === transpiled && transpiled!=="") return;
       let restartError = false;
       ///yellow
       if (transpiled.length && session.lastErrors === 0) {
@@ -123,6 +123,7 @@ export async function run(mode = "window", _w) {
           : []),
         ...(await getErrors(cd)),
       ];
+      console.log({err})
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
       session.lastErrors = err.length;
       const errorDiv = document.getElementById("error");
@@ -201,8 +202,11 @@ export async function run(mode = "window", _w) {
       // console.log(transpiled.error);
       return 1;
     }
+    const SRC ="https://unpkg.com/@zedvision/emotion-react-renderer@10.12.7/dist/bundle.js";
+
+
     const { renderEmotion, jsx } = await import(
-      "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.7/dist/bundle.js"
+      SRC
    );
  
 
@@ -212,7 +216,9 @@ export async function run(mode = "window", _w) {
 
     const root = document.createElement("div");
 
-    const Element = (await import(createJsBlob(codeToHydrate))).default;
+    const Element = (await import(createJsBlob(
+          codeToHydrate.replace(`'@emotion/react'`,`'${SRC}'`)
+          .replace("'react'",`'${SRC}'`)))).default;
 
     renderEmotion(Element(), root);
 

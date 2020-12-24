@@ -11,17 +11,17 @@ importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 // 
 const transform = (code, hasToReport) => {
   try {
-    const safeCode = `
-        ` + code.replaceAll(
-      from,
-      replaceWith,
-    );
+    // const safeCode = `
+    //     ` + code.replaceAll(
+    //   from,
+    //   replaceWith,
+    // );
 
     // console.log(safeCode);
 
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      ` + safeCode,
+      ` + code,
       {
         compact: false,
         comments: false,
