@@ -1,10 +1,9 @@
 export async function renderDraggableEditor() {
   const { JSFrame } = await import(
-    "https://unpkg.com/@zedvision/jsframe@10.12.32/dist/jsframe.min.esm.js"
+    "https://unpkg.com/@zedvision/jsframe@10.12.34/dist/jsframe.min.esm.js"
   );
 
-  const jsFrame = new JSFrame();
-  const frame = jsFrame.create({
+JSFrame.create({
     name: `Win`,
     title: ``,
     width: (window.innerWidth / 2) - 40,
@@ -28,8 +27,8 @@ export async function renderDraggableEditor() {
   // const root = document.createElement("div");
 
   // root.setAttribute("id", "container")
-  frame.setPosition(window.innerWidth - 32, 32, "RIGHT_TOP");
-  frame.setControl({
+  JSFrame.setPosition(window.innerWidth - 32, 32, "RIGHT_TOP");
+  JSFrame.setControl({
     maximizeButton: "maximizeButton",
     demaximizeButton: "restoreButton",
     minimizeButton: "minimizeButton",
@@ -38,23 +37,23 @@ export async function renderDraggableEditor() {
     animation: true,
     animationDuration: 150,
   });
-  frame.control.on("hid", (frame, info) => {
-    frame.closeFrame();
+  JSFrame.control.on("hid", (frame, info) => {
+    JSFrame.closeFrame();
   });
 
   //Callback when calling after mazimization
-  frame.control.on("maximized", (frame, info) => {
-    jsFrame.showToast({
+  JSFrame.control.on("maximized", (frame, info) => {
+    JSFrame.showToast({
       text: "Maximized",
     });
   });
-  frame.control.on("demaximized", (frame, info) => {
+  JSFrame.control.on("demaximized", (frame, info) => {
   });
-  frame.control.on("minimized", (frame, info) => {
+  JSFrame.control.on("minimized", (frame, info) => {
   });
-  frame.control.on("dminimized", (frame, info) => {
+  JSFrame.control.on("dminimized", (frame, info) => {
   });
-  frame.show();
+  JSFrame.show();
   // document.querySelector("iframe").replaceWith(root);
 
   return frame;
