@@ -137,7 +137,7 @@ CFrameAppearance.prototype.getPartsBuilder = function () {
   return me._partsBuilder;
 };
 CFrameAppearance.prototype.initialize = function () {
-  var me = {}
+  var me = this;
   me.onInitialize();
 };
 

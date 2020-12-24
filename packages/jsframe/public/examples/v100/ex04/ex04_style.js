@@ -22,7 +22,7 @@
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-function getOriginalStyle_ex04_win10_style(fApr) {
+export function getOriginalStyle_ex04_win10_style(fApr) {
   fApr.showTitleBar = true;
   fApr.showCloseButton = true;
 

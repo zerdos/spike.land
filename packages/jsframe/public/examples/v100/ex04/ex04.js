@@ -22,6 +22,8 @@
  * IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
+
+ import {getOriginalStyle_ex04_win10_style} from "./ex04_style.js"
 var jsFrame = new JSFrame();
 
 function handleMaximizeWindow(e) {
@@ -67,6 +69,7 @@ function handleRestoreWindow(e) {
     frame._window_restoreInfo.height,
   );
 }
+
 
 var frame01 = jsFrame.createFrame(
   20,
