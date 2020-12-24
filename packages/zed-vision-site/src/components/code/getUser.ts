@@ -3,7 +3,7 @@ export async function getUserId() {
 
   const { importScript } = await import("./importScript.js");
   const { getDB } = await importScript(
-    "https://unpkg.com/@zedvision/shadb@10.11.3/dist/shadb.umd.js",
+    "https://unpkg.com/@zedvision/shadb@10.12.3/dist/shadb.umd.js",
   );
 
   const shaDB = await getDB();
