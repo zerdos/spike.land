@@ -91,5 +91,6 @@ export async function getCodeToLoad() {
     if (code) return { code };
   }
 
-  return { code: await import("./starter.js") };
+  const {starter} = await import("./starter.js");
+  return { code: starter};
 }

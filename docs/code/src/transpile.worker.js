@@ -4,30 +4,40 @@ importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 const src =
   "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js";
 
-// const searchRegExp = /import {([\[a-zA-Z0-9 ,]+])} from '([\w+])';/gi;
+const searchRegExp2 = /import.*from '/gi;
+const replace2 =  "$&https://cdn.skypack.dev/"
 // const from = / from '/gi;
 
 // const replaceWith = `const { $1 } = await import('$2');`;
-const searchRegExp = /import(.+?)react';/gi;
+const searchRegExp = /import.*react';/gi;
+
+const searchRegExpMotion = /import.*framer-motion';/gi;
+// const searchRegExp = /import /gi;
+
 // const from = / from '/gi;
-const replaceWith = "/// ";
+const replaceWith = "";
 //
 const transform = (code, hasToReport) => {
   try {
-    const safeCode = `
-        ` + code.replaceAll(
+    const safeCode = code.replaceAll(
       searchRegExp,
       replaceWith,
-    );
+    ).replaceAll(
+      searchRegExpMotion,
+      replaceWith,
+    ).replaceAll(searchRegExp2, replace2);
 
     // console.log(safeCode);
 
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global} from "${src}";
-      const {useState, useRef } = React ;
+      import {jsx, React, css, Fragment, Global, Motion, motion} from "${src}";
       
-      ` + safeCode,
+      ` + safeCode + `
+      
+      const {useState, useRef, useEffect} = React
+
+      `,
       {
         compact: false,
         comments: false,

@@ -72,7 +72,7 @@ export async function run(mode = "window", _w) {
   const session = getSession();
   const { getCodeToLoad } = await import("./data.js");
   const { code } = await getCodeToLoad();
-  session.code = code;
+  session.code = await formatter(code);
   session.transpiled = await transpileCode(session.code);
 
   if (mode === "editor") {
