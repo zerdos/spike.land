@@ -4,15 +4,24 @@
 <head>
   <meta charset="utf-8">
   <title>WebTorrent Demo</title>
-  
-</head>
+  <script src="https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.mjs" type="module"></script>
+<script src="https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.js" nomodule defer></script>
 
+</head>
+<style>
+  .css-1do821w { appearance: none; width: 100%; height: 40px; background: rgb(128, 127, 0); outline: none; }
+</style>
 <body>
-  <div id="zbody" src="./workerdomtest.js"></div>
+  <div  src="workerdomtest.js" id="upgrade-me">
+    <div id="zbody">
+    <input max="128" type="range" step="1" class="css-1do821w" value="64"><p>Example when the text gets bigger...</p><p>...or smallerr</p>
+    </div>
+  </div>
+
 
   <script type="module">
-  import {upgradeElement} from 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.mjs';
-  upgradeElement(document.getElementById('me'), 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js');
+    import {upgradeElement} from 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.mjs';
+    upgradeElement(document.getElementById('upgrade-me'), 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js');
   </script>
 </body>
 
