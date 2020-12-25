@@ -1,6 +1,5 @@
 import { shaDB } from "./db.js";
 
-import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js?module";
 
 export async function getZkey(hash) {
   const uuid = await getUserId();
