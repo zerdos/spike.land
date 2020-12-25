@@ -4,25 +4,15 @@ import {
   isDiff,
 } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js";
 
-export const getDbObj = (dbPromise, isIdb = false) => {
-  const sha256 = async (x) =>
-    Array.from(
-      new Uint8Array(
-        await crypto.subtle.digest(
-          "SHA-256",
-          typeof x === "string" ? new TextEncoder().encode(x) : x,
-        ),
-      ).slice(0, 4),
-    ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
+import {sha256} from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js"
+
+export const getDbObj = (db) => {
+
   const dbObj = {
     async get(key, format = "string") {
       let data;
       try {
-        if (isIdb) {
-          data = await (await dbPromise).get("codeStore", key);
-        } else {
-          data = await dbPromise.get(key);
-        }
+          data = await db.get(key);
         if (!data) {
           return null;
         }
@@ -65,7 +55,7 @@ export const getDbObj = (dbPromise, isIdb = false) => {
             if (prevSha === oldKey) {
               const diffObj = await diff(actualValue, prevValue);
               const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-              dbObj.put(prevSha, diffAsStr);
+              await dbObj.put(prevSha, diffAsStr);
             }
           }
         }
@@ -81,20 +71,18 @@ export const getDbObj = (dbPromise, isIdb = false) => {
       } else {
         str = val;
       }
-      if (isIdb) {
-        return (await dbPromise).put("codeStore", str, key);
-      } else {
-        return await dbPromise.put(key, str);
-      }
+     
+      return await db.put(key, str);
+      
     },
     async delete(key) {
-      return (await dbPromise).delete("codeStore", key);
+      return await db.delete(key);
     },
     async clear() {
-      return (await dbPromise).clear("codeStore");
+      return await db.clear();
     },
     async keys() {
-      return (await dbPromise).getAllKeys("codeStore");
+      return await db.getAllKeys();
     },
   };
   return dbObj;
