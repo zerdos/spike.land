@@ -7,7 +7,7 @@ var __commonJS = (callback, module) =>
     return module.exports;
   };
 
-// ../../node_modules/nevis/src/extend.js
+// node_modules/nevis/src/extend.js
 var require_extend = __commonJS((exports, module) => {
   "use strict";
   var Constructor = function () {
@@ -66,7 +66,7 @@ var require_extend = __commonJS((exports, module) => {
   module.exports = extend;
 });
 
-// ../../node_modules/nevis/src/nevis.js
+// node_modules/nevis/src/nevis.js
 var require_nevis = __commonJS((exports, module) => {
   "use strict";
   var extend = require_extend();
@@ -78,13 +78,13 @@ var require_nevis = __commonJS((exports, module) => {
   module.exports = Nevis;
 });
 
-// ../../node_modules/nevis/lite.js
+// node_modules/nevis/lite.js
 var require_lite = __commonJS((exports, module) => {
   "use strict";
   module.exports = require_nevis();
 });
 
-// ../../node_modules/qrious-core/src/renderer/Renderer.js
+// node_modules/qrious-core/src/renderer/Renderer.js
 var require_Renderer = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -134,7 +134,7 @@ var require_Renderer = __commonJS((exports, module) => {
   module.exports = Renderer;
 });
 
-// ../../node_modules/qrious-core/src/renderer/CanvasRenderer.js
+// node_modules/qrious-core/src/renderer/CanvasRenderer.js
 var require_CanvasRenderer = __commonJS((exports, module) => {
   "use strict";
   var Renderer = require_Renderer();
@@ -178,7 +178,7 @@ var require_CanvasRenderer = __commonJS((exports, module) => {
   module.exports = CanvasRenderer;
 });
 
-// ../../node_modules/qrious-core/src/Alignment.js
+// node_modules/qrious-core/src/Alignment.js
 var require_Alignment = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -230,7 +230,7 @@ var require_Alignment = __commonJS((exports, module) => {
   module.exports = Alignment;
 });
 
-// ../../node_modules/qrious-core/src/ErrorCorrection.js
+// node_modules/qrious-core/src/ErrorCorrection.js
 var require_ErrorCorrection = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -921,7 +921,7 @@ var require_ErrorCorrection = __commonJS((exports, module) => {
   module.exports = ErrorCorrection;
 });
 
-// ../../node_modules/qrious-core/src/Galois.js
+// node_modules/qrious-core/src/Galois.js
 var require_Galois = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -1446,7 +1446,7 @@ var require_Galois = __commonJS((exports, module) => {
   module.exports = Galois;
 });
 
-// ../../node_modules/qrious-core/src/Version.js
+// node_modules/qrious-core/src/Version.js
 var require_Version = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -1491,7 +1491,7 @@ var require_Version = __commonJS((exports, module) => {
   module.exports = Version;
 });
 
-// ../../node_modules/qrious-core/src/Frame.js
+// node_modules/qrious-core/src/Frame.js
 var require_Frame = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -2176,7 +2176,7 @@ var require_Frame = __commonJS((exports, module) => {
   module.exports = Frame;
 });
 
-// ../../node_modules/qrious-core/src/renderer/ImageRenderer.js
+// node_modules/qrious-core/src/renderer/ImageRenderer.js
 var require_ImageRenderer = __commonJS((exports, module) => {
   "use strict";
   var Renderer = require_Renderer();
@@ -2195,7 +2195,7 @@ var require_ImageRenderer = __commonJS((exports, module) => {
   module.exports = ImageRenderer;
 });
 
-// ../../node_modules/qrious-core/src/option/Option.js
+// node_modules/qrious-core/src/option/Option.js
 var require_Option = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -2219,7 +2219,7 @@ var require_Option = __commonJS((exports, module) => {
   module.exports = Option;
 });
 
-// ../../node_modules/qrious-core/src/util/Utilities.js
+// node_modules/qrious-core/src/util/Utilities.js
 var require_Utilities = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -2239,7 +2239,7 @@ var require_Utilities = __commonJS((exports, module) => {
   module.exports = Utilities;
 });
 
-// ../../node_modules/qrious-core/src/option/OptionManager.js
+// node_modules/qrious-core/src/option/OptionManager.js
 var require_OptionManager = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -2345,7 +2345,7 @@ var require_OptionManager = __commonJS((exports, module) => {
   module.exports = OptionManager;
 });
 
-// ../../node_modules/qrious-core/src/service/ServiceManager.js
+// node_modules/qrious-core/src/service/ServiceManager.js
 var require_ServiceManager = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -2371,7 +2371,7 @@ var require_ServiceManager = __commonJS((exports, module) => {
   module.exports = ServiceManager;
 });
 
-// ../../node_modules/qrious-core/src/QRious.js
+// node_modules/qrious-core/src/QRious.js
 var require_QRious = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -2448,13 +2448,13 @@ var require_QRious = __commonJS((exports, module) => {
   module.exports = QRious;
 });
 
-// ../../node_modules/qrious-core/index.js
+// node_modules/qrious-core/index.js
 var require_qrious_core = __commonJS((exports, module) => {
   "use strict";
   module.exports = require_QRious();
 });
 
-// ../../node_modules/qrious-core/src/service/Service.js
+// node_modules/qrious-core/src/service/Service.js
 var require_Service = __commonJS((exports, module) => {
   "use strict";
   var Nevis = require_lite();
@@ -2465,7 +2465,7 @@ var require_Service = __commonJS((exports, module) => {
   module.exports = Service;
 });
 
-// ../../node_modules/qrious-core/src/service/element/ElementService.js
+// node_modules/qrious-core/src/service/element/ElementService.js
 var require_ElementService = __commonJS((exports, module) => {
   "use strict";
   var Service = require_Service();
