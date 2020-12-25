@@ -60,6 +60,7 @@
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-dom-server": "^0.0.5",
+        "tslib": "^2.0.3",
         "typescript": "^4.1.3"
     }
 }
