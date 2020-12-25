@@ -37,7 +37,7 @@ export const getHtml = ({ HTML, css, link }) => {
   ${HTML}
 </div>
 <script type="module">
-import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@10.12.19/dist/bundle.js"
+import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.2/dist/bundle.js"
 fetch("${link}")
 .then(data=>data.text())
 .then(async (text) => {

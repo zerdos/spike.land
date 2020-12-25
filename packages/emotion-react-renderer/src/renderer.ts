@@ -1,5 +1,5 @@
 import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
-import Motion from "framer-motion"
+import * as Motion from "framer-motion"
 import  React, {Fragment} from "react"
 import {render, unmountComponentAtNode} from "react-dom";
 import {jsx, css, Global} from "@emotion/react"
@@ -7,6 +7,7 @@ import {jsx, css, Global} from "@emotion/react"
 export { React}
 export {Fragment}
 export { Motion}
+
 export const {motion} = Motion
 
 export {jsx}
