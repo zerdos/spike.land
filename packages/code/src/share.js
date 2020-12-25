@@ -40,7 +40,7 @@ async function saveToIPFS(content, type) {
   const cid = await ipfsKV.add(
     URL.createObjectURL(new Blob([content], { type })),
   );
-  return `https://ipfs.io/ipfs/${cid}`;
+  return `https://cloudflare-ipfs.com/ipfs/${cid}`;
 }
 
 async function save(content, type) {

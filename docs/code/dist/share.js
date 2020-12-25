@@ -22,7 +22,7 @@ let ipfsKV;
 async function saveToIPFS(content, type) {
     ipfsKV = ipfsKV || (await import("./ipfsKV.js")).ipfsKV;
     const cid = await ipfsKV.add(URL.createObjectURL(new Blob([content], { type })));
-    return `https://ipfs.io/ipfs/${cid}`;
+    return `https://cloudflare-ipfs.com/ipfs/${cid}`;
 }
 async function save(content, type) {
     const { sha256 } = await import("https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js");
