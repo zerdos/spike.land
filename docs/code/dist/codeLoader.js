@@ -1,8 +1,15 @@
+const v = {
+    emotionRenderer: "10.13.3",
+    prettier: "2.2.1",
+    editor: "10.13.14",
+    diff: "10.13.14",
+    sha256: "10.12.14"
+};
 async function transpile(code) {
     const { transpileCode } = await import("./transpile.js");
     return transpileCode(code);
 }
-const src = "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js";
+const src = `https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js`;
 let renderEmotion = null;
 function getSession() {
     const session = {
@@ -22,13 +29,13 @@ let parserBabel;
 let parserHtml;
 async function formatter(code) {
     prettier = prettier ||
-        (await import("https://unpkg.com/prettier@2.2.1/esm/standalone.mjs"))
+        (await import(`https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`))
             .default;
     parserBabel = parserBabel ||
-        (await import("https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs"))
+        (await import(`https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`))
             .default;
     parserHtml = parserHtml ||
-        (await import("https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs"))
+        (await import(`https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`))
             .default;
     try {
         return prettier.format(code, {
@@ -85,7 +92,7 @@ export async function run(mode = "window", _w) {
     }
     const transpiled = await transpile(session.code);
     await restartCode(transpiled);
-    const startMonaco = (await import("https://unpkg.com/@zedvision/smart-monaco-editor@10.13.4/dist/editor.js")).default;
+    const startMonaco = (await import(`https://unpkg.com/@zedvision/smart-monaco-editor@${v.editor}/dist/editor.js`)).default;
     let modules = await startMonaco({
         language: "typescript",
         code: session.code,
@@ -122,7 +129,7 @@ export async function run(mode = "window", _w) {
             }
             else {
                 session.error = cd;
-                const { diff } = await import("https://unpkg.com/@zedvision/diff@10.13.13/src/diff.js");
+                const { diff } = await import(`https://unpkg.com/@zedvision/diff@${v.diff}/src/diff.js`);
                 const slices = await diff(session.code, cd);
                 if (slices.c.length <= 3) {
                     session.lastErrors = 0;
@@ -153,7 +160,7 @@ export async function run(mode = "window", _w) {
             return [{ messageText: "Error with the error checking. Try to reload!" }];
         }
         const { monaco } = modules;
-        const { sha256 } = await import("https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js");
+        const { sha256 } = await import(`https://unpkg.com/@zedvision/sha256@${v.sha256}/sha256.js`);
         const shaCode = await sha256(code);
         const filename = `file:///${shaCode}.tsx`;
         const uri = monaco.Uri.parse(filename);
