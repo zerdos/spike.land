@@ -126,14 +126,10 @@ try{
         restartError = await restartCode(transpiled);
       }
 
-      const err = [
-        ...(restartError
-          ? [
-            { messageText: "Error while starting the app. Check the console!" },
-          ]
-          : []),
-        ...(await getErrors(cd)),
-      ];
+      const err= await getErrors(cd);
+
+      if (restartError) err.push( { messageText: "Error while starting the app. Check the console!" });
+
       if (err.length) console.log({ err });
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
       session.lastErrors = err.length;
@@ -185,7 +181,7 @@ try{
   }
 
   async function getErrors(code) {
-    if (!modules || !modules.monaco) return;
+    if (!modules || !modules.monaco) return [{messageText: "Error with the error checking. Try to reload!"}];
     const { monaco } = modules;
     const { sha256 } = await import("./sha256.js");
     const shaCode = await sha256(code);
