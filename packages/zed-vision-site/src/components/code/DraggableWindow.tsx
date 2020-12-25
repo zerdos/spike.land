@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React from "react";
 
 
-export const RenderDraggableWindow = ({React, ReactDOM, onShare})=>{
+export const RenderDraggableWindow = ({React, ReactDOM, onShare}) => {
 
   ReactDOM.render(
     jsx(DraggableWindow, {
@@ -121,3 +121,4 @@ const buttonCss = ({ color = "darkred", square = false }) =>
               margin-left: 20px;
               border-radius: 0px ${square ? 0 : 8}px 0px 0px;
             `;
+}

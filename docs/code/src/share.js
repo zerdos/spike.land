@@ -3,7 +3,7 @@ import { getZkey } from "./data.js";
 
 export const shareItAsHtml = async ({ code, HTML }) => {
   
-  const bodyClass = String(document.getElementById("zbody")?.getAttribute("class");
+  const bodyClass = String(document.getElementById("zbody")?.getAttribute("class"));
 
   const css = Array.from(
     window.document.querySelector("head > style[data-emotion=css]").sheet

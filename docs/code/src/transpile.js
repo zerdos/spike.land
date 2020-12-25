@@ -1,5 +1,7 @@
 import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
 import { shaDB } from "./db.js";
+import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
+
 // import * as Comlink from "../../../dist/esm/comlink.mjs";
 
 let transform;
