@@ -122,7 +122,7 @@ export async function run(mode = "window", _w) {
             }
             else {
                 session.error = cd;
-                const { diff } = await import("https://unpkg.com/@zedvision/diff@10.13.13/dist/diff.js");
+                const { diff } = await import("https://unpkg.com/@zedvision/diff@10.13.13/src/diff.js");
                 const slices = await diff(session.code, cd);
                 if (slices.c.length <= 3) {
                     session.lastErrors = 0;

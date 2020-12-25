@@ -1,7 +1,7 @@
 {
    "imports": {
       "react": "./node_modules/react/umd/react.production.min.js",
-      "diff": "./node_modules/diff/dist/diff.js",
+      "diff": "./node_modules/diff/src/diff.js",
       "typography-theme-wordpress-2016": "./node_modules/typography-theme-wordpress-2016/dist/index.js",
       "typography": "./node_modules/typography/dist/index.js",
       "@emotion/react": "./node_modules/@emotion/react/dist/emotion-react.browser.cjs.js",
