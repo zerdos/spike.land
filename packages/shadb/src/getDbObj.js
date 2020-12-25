@@ -2,7 +2,7 @@ import {
   assemble,
   diff,
   isDiff,
-} from "https://unpkg.com/@zedvision/diff@10.13.10/dist/diff.min.js";
+} from "https://unpkg.com/@zedvision/diff@10.13.13/dist/diff.js";
 
 import { sha256 } from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js";
 
