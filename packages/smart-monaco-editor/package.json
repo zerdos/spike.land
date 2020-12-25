@@ -9,7 +9,7 @@
     "scripts": {
         "watch": "yarn microbundle watch",
         "npm:install": "rm -rf package-lock.json && npm install",
-        "build": "microbundle ./src/editor.ts",
+        "build": "tsc",
         "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
         "format": "deno fmt src"
     },

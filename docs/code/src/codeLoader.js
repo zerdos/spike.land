@@ -1,4 +1,4 @@
-import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.3/dist/smart-monaco-editor.modern.js";
+import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.3/dist/editor.js";
 
 import { diff } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js";
 
