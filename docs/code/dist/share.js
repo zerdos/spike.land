@@ -1,7 +1,7 @@
 import { getZkey } from "./data.js";
 export const shareItAsHtml = async ({ code, HTML }) => {
     var _a;
-    const bodyClass = String((_a = document.getElementById("zbody")) === null || _a === void 0 ? void 0 : _a.getAttribute("class"));
+    const bodyClass = String((_a = window.document.getElementById("zbody")) === null || _a === void 0 ? void 0 : _a.getAttribute("class"));
     const css = Array.from(window.document.querySelector("head > style[data-emotion=css]").sheet
         .cssRules).map((x) => x.cssText).filter((cssRule) => HTML.includes(cssRule.substring(3, 8))).join("\n  ").replace(`.${bodyClass}`, "body");
     const { getHtml } = await import("./templates.js");
