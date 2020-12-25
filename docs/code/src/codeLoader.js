@@ -132,7 +132,7 @@ try{
             { messageText: "Error while starting the app. Check the console!" },
           ]
           : []),
-        ...([await getErrors(cd)]),
+        ...(await getErrors(cd)),
       ];
       if (err.length) console.log({ err });
       if (session.lastErrors && err.length === 0) restartCode(transpiled);

@@ -12,9 +12,11 @@ export async function getZkey(hash) {
 
   return `${hash}${uKey}${gKey}${vKey}`;
 }
-
+let uuid;
 export async function getUserId() {
-  const uuid = await shaDB.get("uuid");
+  if (uuid) return uuid;
+
+  uuid = await shaDB.get("uuid");
   if (!uuid) {
     const resp = await fetch("https://code.zed.vision/register");
     const data = await resp.json();
@@ -22,6 +24,14 @@ export async function getUserId() {
     return data.uuid;
   }
   return uuid;
+}
+
+let activeProject;
+async function getActiveProject(){
+  if (activeProject) return activeProject;
+  const projects = await getProjects();
+  activeProject = projects[0];
+  return activeProject;
 }
 
 export const getProjects = async () => {
@@ -58,8 +68,8 @@ export const getProjects = async () => {
 export const saveCode = async (code) => {
   const hash = await sha256(code);
 
-  const projects = await getProjects();
-  const projectName = projects[0];
+
+  const projectName = await getActiveProject();
 
   try {
     const prevHash = await shaDB.get(projectName);
@@ -79,8 +89,7 @@ export const saveCode = async (code) => {
 };
 
 export async function getCodeToLoad() {
-  const projects = await getProjects();
-  const projectName = projects[0];
+  const projectName = await getActiveProject();
 
   const search = new URLSearchParams(window.location.search);
   const keyToLoad = search.get("h") || await shaDB.get(projectName);
