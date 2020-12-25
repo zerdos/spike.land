@@ -6,7 +6,7 @@ export const shaDB = {
     return db.get(key, type);
   },
   put: async (key, value) => {
-    const db =await (await getDB("shaDB"))();
+    const db = await (await getDB("shaDB"))();
     return db.put(key, value);
   },
 };

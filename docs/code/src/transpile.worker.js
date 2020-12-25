@@ -5,7 +5,7 @@ const src =
   "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js";
 
 const searchRegExp2 = /import.*from '/gi;
-const replace2 =  "$&https://cdn.skypack.dev/"
+const replace2 = "$&https://cdn.skypack.dev/";
 // const from = / from '/gi;
 
 // const replaceWith = `const { $1 } = await import('$2');`;

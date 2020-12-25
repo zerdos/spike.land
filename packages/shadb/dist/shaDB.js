@@ -1,4 +1,4 @@
-import { openDB } from "https://unpkg.com/idb@5.0.8/build/esm/index.js";
+import { openDB } from "./vendor/idb.js";
 import { getDbObj } from "./getDbObj.js";
 export function getDB(storeName = "defaultStore") {
     return async () => {

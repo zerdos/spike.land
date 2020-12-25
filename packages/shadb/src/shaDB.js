@@ -1,11 +1,8 @@
 import { openDB } from "./vendor/idb.js";
 import { getDbObj } from "./getDbObj.js";
 
-export function getDB(storeName="defaultStore") {
- 
-
-  return async()=>{
-
+export function getDB(storeName = "defaultStore") {
+  return async () => {
     const dbPromise = openDB("zed-vision-alpha", 1, {
       upgrade(db) {
         db.createObjectStore(storeName);
@@ -36,6 +33,6 @@ export function getDB(storeName="defaultStore") {
       },
     };
 
-    return getDbObj(keyVal)
-  }
+    return getDbObj(keyVal);
+  };
 }

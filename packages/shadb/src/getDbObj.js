@@ -4,15 +4,14 @@ import {
   isDiff,
 } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js";
 
-import {sha256} from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js"
+import { sha256 } from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js";
 
 export const getDbObj = (db) => {
-
   const dbObj = {
     async get(key, format = "string") {
       let data;
       try {
-          data = await db.get(key);
+        data = await db.get(key);
         if (!data) {
           return null;
         }
@@ -71,9 +70,8 @@ export const getDbObj = (db) => {
       } else {
         str = val;
       }
-     
+
       return await db.put(key, str);
-      
     },
     async delete(key) {
       return await db.delete(key);

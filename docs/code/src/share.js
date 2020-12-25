@@ -2,8 +2,9 @@ import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 
 export const shareItAsHtml = async ({ code, HTML }) => {
-  
-  const bodyClass = String(document.getElementById("zbody")?.getAttribute("class"));
+  const bodyClass = String(
+    document.getElementById("zbody")?.getAttribute("class"),
+  );
 
   const css = Array.from(
     window.document.querySelector("head > style[data-emotion=css]").sheet
@@ -11,12 +12,10 @@ export const shareItAsHtml = async ({ code, HTML }) => {
   ).map((x) => x.cssText).filter((cssRule) =>
     HTML.includes(cssRule.substring(3, 8))
   ).join("\n  ").replace(`.${bodyClass}`, "body");
-  
 
   const { getHtml } = await import("./templates.js");
 
   const linkToCode = await saveToIPFS(code, "application/javascript");
-
 
   console.log({
     HTML,
@@ -25,10 +24,8 @@ export const shareItAsHtml = async ({ code, HTML }) => {
     code,
   });
 
-  
-
   const link = await saveHtml(
-    getHtml({ HTML,css , link: linkToCode }),
+    getHtml({ HTML, css, link: linkToCode }),
   );
 
   return link;

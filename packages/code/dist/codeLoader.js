@@ -103,8 +103,9 @@ export async function run(mode = "window", _w) {
                 restartError = await restartCode(transpiled);
             }
             const err = await getErrors(cd);
-            if (restartError)
+            if (restartError) {
                 err.push({ messageText: "Error while starting the app. Check the console!" });
+            }
             if (err.length)
                 console.log({ err });
             if (session.lastErrors && err.length === 0)
@@ -148,8 +149,9 @@ export async function run(mode = "window", _w) {
         }
     }
     async function getErrors(code) {
-        if (!modules || !modules.monaco)
+        if (!modules || !modules.monaco) {
             return [{ messageText: "Error with the error checking. Try to reload!" }];
+        }
         const { monaco } = modules;
         const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
         const shaCode = await sha256(code);

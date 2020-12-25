@@ -1,9 +1,7 @@
-
-
-async function transpile(code){
-  const { transpileCode } =  await import ("./transpile.js");
-return transpileCode(code)
-} 
+async function transpile(code) {
+  const { transpileCode } = await import("./transpile.js");
+  return transpileCode(code);
+}
 const src =
   "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js";
 let renderEmotion = null;
@@ -68,17 +66,15 @@ export async function run(mode = "window", _w) {
   console.log("Runner");
 
   const { document, open } = _w;
-    const session = getSession();
-try{
-
-  const { getCodeToLoad } = await import("./data.js");
-  const { code } = await getCodeToLoad();
-  session.code = await formatter(code);
-} catch (e){
-  console.error({e, message: "couldn't start"})
-  return;
-}
-
+  const session = getSession();
+  try {
+    const { getCodeToLoad } = await import("./data.js");
+    const { code } = await getCodeToLoad();
+    session.code = await formatter(code);
+  } catch (e) {
+    console.error({ e, message: "couldn't start" });
+    return;
+  }
 
   session.transpiled = await transpile(session.code);
 
@@ -106,8 +102,10 @@ try{
   const transpiled = await transpile(session.code);
   await restartCode(transpiled);
 
-  const startMonaco = (await import ("https://unpkg.com/@zedvision/smart-monaco-editor@10.13.4/dist/editor.js")).default;
-
+  const startMonaco =
+    (await import(
+      "https://unpkg.com/@zedvision/smart-monaco-editor@10.13.4/dist/editor.js"
+    )).default;
 
   let modules = await startMonaco({
     language: "typescript",
@@ -126,9 +124,13 @@ try{
         restartError = await restartCode(transpiled);
       }
 
-      const err= await getErrors(cd);
+      const err = await getErrors(cd);
 
-      if (restartError) err.push( { messageText: "Error while starting the app. Check the console!" });
+      if (restartError) {
+        err.push(
+          { messageText: "Error while starting the app. Check the console!" },
+        );
+      }
 
       if (err.length) console.log({ err });
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
@@ -144,7 +146,9 @@ try{
       } else {
         session.error = cd;
 
-        const { diff } = await import("https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js")
+        const { diff } = await import(
+          "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js"
+        );
 
         const slices = await diff(session.code, cd);
 
@@ -181,9 +185,13 @@ try{
   }
 
   async function getErrors(code) {
-    if (!modules || !modules.monaco) return [{messageText: "Error with the error checking. Try to reload!"}];
+    if (!modules || !modules.monaco) {
+      return [{ messageText: "Error with the error checking. Try to reload!" }];
+    }
     const { monaco } = modules;
-    const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
+    const { sha256 } = await import(
+      "https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js"
+    );
     const shaCode = await sha256(code);
     const filename = `file:///${shaCode}.tsx`;
     const uri = monaco.Uri.parse(filename);
