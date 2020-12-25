@@ -147,7 +147,7 @@ export async function run(mode = "window", _w) {
         session.error = cd;
 
         const { diff } = await import(
-          "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js"
+          "https://unpkg.com/@zedvision/diff@10.13.10/dist/diff.min.js"
         );
 
         const slices = await diff(session.code, cd);

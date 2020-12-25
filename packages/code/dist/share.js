@@ -1,4 +1,3 @@
-import { sha256 } from "./sha256.js";
 import { getZkey } from "./data.js";
 export const shareItAsHtml = async ({ code, HTML }) => {
     var _a;
@@ -26,6 +25,7 @@ async function saveToIPFS(content, type) {
     return `https://ipfs.io/ipfs/${cid}`;
 }
 async function save(content, type) {
+    const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
     const hash = await sha256(content);
     const request = new Request("https://code.zed.vision", {
         body: content,
