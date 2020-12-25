@@ -8,38 +8,10 @@
 </head>
 
 <body>
-  <div id="me"></div>
+  <div id="zbody" src="./workerdomtest.js"></div>
 
   <script type="module">
   import {upgradeElement} from 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/main.mjs';
-
-    const renderer = new Blob([`
-    const runner= async() =>{
-
-      
-      const {DraggableWindow, jsx, ReactDOMServer} = await import("https://cms.zed.dev:4507/code/skypack.js");
-
-
-      const target = document.createElement("div")
-
-      target.innerHTML= ReactDOMServer.renderToString( jsx(DraggableWindow, {onShare:()=>{}}) );
-   
-      document.getElementById("me").appendChild(target)
-   
-    }
-      runner();`],
-      { type: "application/javascript" });
-
-    const mod = URL.createObjectURL(renderer);
-
-    const target = document.body.children[0];
-    target.setAttribute("src", mod);
-
-    // (async () => {
-    //   await import(mod);
-    
-    // })()
-
   upgradeElement(document.getElementById('me'), 'https://unpkg.com/@ampproject/worker-dom@0.27.4/dist/worker/worker.js');
   </script>
 </body>
