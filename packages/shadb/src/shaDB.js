@@ -22,7 +22,7 @@ export function getDB(storeName="defaultStore") {
       async get(key) {
         return (await dbPromise).get(storeName, key);
       },
-      async set(key, val) {
+      async put(key, val) {
         return (await dbPromise).put(storeName, val, key);
       },
       async delete(key) {

@@ -1,9 +1,9 @@
-import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@10.12.3/dist/editor.js";
 
-import { diff } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js";
 
-import { transpileCode } from "./transpile.js";
-
+async function transpile(code){
+  const { transpileCode } =  await import ("./transpile.js");
+return transpileCode(code)
+} 
 const src =
   "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js";
 let renderEmotion = null;
@@ -73,7 +73,7 @@ export async function run(mode = "window", _w) {
   const { getCodeToLoad } = await import("./data.js");
   const { code } = await getCodeToLoad();
   session.code = await formatter(code);
-  session.transpiled = await transpileCode(session.code);
+  session.transpiled = await transpile(session.code);
 
   if (mode === "editor") {
     const { renderDraggableEditor } = await import("./DraggableEditor.js");
@@ -96,19 +96,22 @@ export async function run(mode = "window", _w) {
     );
   }
 
-  const transpiled = await transpileCode(session.code);
+  const transpiled = await transpile(session.code);
   await restartCode(transpiled);
 
+  const startMonaco = (await import ("https://unpkg.com/@zedvision/smart-monaco-editor@10.13.4/dist/editor.js")).default;
+
+  
   let modules = await startMonaco({
     language: "typescript",
-    code: await formatter(session.code),
-    onChange: (c) => runner(c),
+    code: session.code,
+    onChange: (code) => runner(code),
   });
 
   async function runner(c) {
     const cd = await (formatter(c));
     try {
-      const transpiled = await transpileCode(cd, session.lastErrors);
+      const transpiled = await transpile(cd);
       if (session.transpiled === transpiled && transpiled !== "") return;
       let restartError = false;
       ///yellow
@@ -137,6 +140,8 @@ export async function run(mode = "window", _w) {
         }
       } else {
         session.error = cd;
+
+        const { diff } = await import("https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js")
 
         const slices = await diff(session.code, cd);
 
