@@ -66,6 +66,8 @@ export const Qr: React.FC = () => {
     >
       <canvas
         css={css`
+              width: 200px;
+              height: 200px;
               display: block;
               box-shadow: 0 0 ${10 + counter}px 5px ${
           retry === 3 ? "darkorange" : retry === 2 ? "green" : "darkred"
