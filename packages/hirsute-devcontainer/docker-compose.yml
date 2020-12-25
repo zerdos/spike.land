@@ -1,5 +1,13 @@
 version: "3.7"
 services:
+  ipfs: 
+    image: ipfs/go-ipfs:latest
+    ports: 
+      - 9080:8080
+    volumes:
+      - ipfs:/ipfs
+      - ipns:/ipns
+
   devcontainer: 
     image: devimages/hirsute-devcontainer:latest
     # build:
@@ -13,9 +21,14 @@ services:
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - /var/run/docker.sock:/var/run/docker.sock
+      - ipfs:/ipfs
+      - ipns:/ipns
       - yarn:/yarn
     ports:
       - "6080:6080"
       - "5901:5901"
 volumes:
   yarn:
+  ipfs:
+  ipns:
+   
