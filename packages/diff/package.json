@@ -8,9 +8,9 @@
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "prebuild": "deno bundle --import-map ../../import_map.json --no-check --unstable src/diff.ts dist/diff.js",
-        "build": "yarn min",
-        "min": "deno fmt dist && yarn esbuild dist/diff.js --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --platform=browser --minify-syntax --outfile=dist/diff.min.js"
+        "prebuild": "yarn clean && yarn tsc || echo ok",
+        "build": "echo ok",
+        "xmin": "deno fmt dist && yarn esbuild dist/diff.ts --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --platform=browser --minify-syntax --outfile=dist/diff.min.js"
     },
     "keywords": [
         "diff"
@@ -29,6 +29,7 @@
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "dependencies": {
+        "@zedvision/sha256": "^10.12.14",
         "diff": "5.0.0",
         "esbuild": "0.8.26"
     },

@@ -1,1 +1,1 @@
-declare const sha256: (input: string | ArrayBuffer) => string;
+export function sha256(x: any): Promise<string>;
