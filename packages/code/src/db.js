@@ -1,12 +1,12 @@
-import { getDB } from "https://unpkg.com/@zedvision/shadb@10.12.39/dist/shadb.esm.js";
+import { getDB } from "https://unpkg.com/@zedvision/shadb@10.13.0/dist/shaDB.js";
 
 export const shaDB = {
-  get: async (...args) => {
-    const db = await getDB();
-    return db.get(...args);
+  get: async (key) => {
+    const db = await (await getDB("shaDB"))();
+    return db.get(key);
   },
-  put: async (...args) => {
-    const db = await getDB();
-    return db.put(...args);
+  put: async (key, value) => {
+    const db =await (await getDB("shaDB"))();
+    return db.put(key, value);
   },
 };
