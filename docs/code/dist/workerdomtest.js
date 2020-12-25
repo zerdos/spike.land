@@ -1,5 +1,5 @@
 "use strict";
-fetch("https://ipfs.io/ipfs/QmXHjhVtnuGTVuY3v9DZV4hTwTvfpbYQZZNwNPMkw8EWQj")
+fetch("https://ipfs.io/ipfs/QmUbH7mugN5Fuz4aJiWRAoMrSQvg4StqoEZZDXz8ZFxVsN")
     .then(data => data.text())
     .then(async (text) => {
     const App = (await import(URL.createObjectURL(new Blob([text], { type: "application/javascript" })))).default;
