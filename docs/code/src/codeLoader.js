@@ -68,16 +68,18 @@ export async function run(mode = "window", _w) {
   console.log("Runner");
 
   const { document, open } = _w;
+    const session = getSession();
 try{
-  const session = getSession();
+
   const { getCodeToLoad } = await import("./data.js");
   const { code } = await getCodeToLoad();
+  session.code = await formatter(code);
 } catch (e){
   console.error({e, message: "couldn't start"})
   return;
 }
 
-  session.code = await formatter(code);
+
   session.transpiled = await transpile(session.code);
 
   if (mode === "editor") {

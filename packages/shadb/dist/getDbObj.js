@@ -52,7 +52,7 @@ export const getDbObj = (db) => {
                     }
                 }
             }
-            catch {
+            catch (_a) {
                 prev = "";
             }
             if (prev !== "" && val === prev) {
