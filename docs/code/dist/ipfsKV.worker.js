@@ -1,4 +1,7 @@
 "use strict";
+import getVersions from "./versions.js"
+const v = getVersions();
+
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
 importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
 // async function getIpfsiD() {

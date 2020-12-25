@@ -1,10 +1,6 @@
-const v = {
-  emotionRenderer: "10.13.3",
-  prettier: "2.2.1",
-  editor: "10.13.14",
-  diff: "10.13.14",
-  sha256: "10.12.14"
-}
+import getVersions from "./versions.js"
+const v = getVersions();
+
 
 async function transpile(code) {
   const { transpileCode } = await import("./transpile.js");
@@ -115,7 +111,7 @@ export async function run(mode = "window", _w) {
     `https://unpkg.com/@zedvision/smart-monaco-editor@${v.editor}/dist/editor.js`
   )).default;
 
-  let modules = await startMonaco({
+  const modules = await startMonaco({
     language: "typescript",
     code: session.code,
     onChange: (code) => runner(code),
