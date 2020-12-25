@@ -151,7 +151,7 @@ export async function run(mode = "window", _w) {
         if (!modules || !modules.monaco)
             return [{ messageText: "Error with the error checking. Try to reload!" }];
         const { monaco } = modules;
-        const { sha256 } = await import("./sha256.js");
+        const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
         const shaCode = await sha256(code);
         const filename = `file:///${shaCode}.tsx`;
         const uri = monaco.Uri.parse(filename);

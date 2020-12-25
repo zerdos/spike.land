@@ -40,6 +40,8 @@ export const getProjects = async () => {
   const projects = await shaDB.get(uuid, "json");
 
   if (typeof projects === "string" || projects === null || !projects.list) {
+    const v4 = (await import 
+       ("https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js?module")).default;
     const projectId = v4();
 
     await shaDB.put(

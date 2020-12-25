@@ -1,8 +1,7 @@
 import { shaDB } from "./db.js";
-import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js?module";
-import { sha256 } from "./sha256.js";
 export async function getZkey(hash) {
     const uuid = await getUserId();
+    const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
     const uKey = await sha256(uuid);
     const gKey = await sha256(hash + uKey);
     const vKey = await sha256(hash + uuid);
@@ -33,6 +32,7 @@ export const getProjects = async () => {
     const uuid = await getUserId();
     const projects = await shaDB.get(uuid, "json");
     if (typeof projects === "string" || projects === null || !projects.list) {
+        const v4 = (await import("https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js?module")).default;
         const projectId = v4();
         await shaDB.put(uuid, JSON.stringify({
             list: [projectId],
@@ -51,6 +51,7 @@ export const getProjects = async () => {
     return projects.list;
 };
 export const saveCode = async (code) => {
+    const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
     const hash = await sha256(code);
     const projectName = await getActiveProject();
     try {
