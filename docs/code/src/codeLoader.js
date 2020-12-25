@@ -5,7 +5,7 @@ import { diff } from "https://unpkg.com/@zedvision/diff@10.12.3/dist/diff.min.js
 import { transpileCode } from "./transpile.js";
 
 const src =
-  "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.2/dist/bundle.js";
+  "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js";
 let renderEmotion = null;
 
 function getSession() {
