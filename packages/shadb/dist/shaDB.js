@@ -12,7 +12,8 @@ export function getDB(storeName = "defaultStore") {
             },
             terminated() {
             },
-        });
+        }).catch(() => {});
+        
         const keyVal = {
             async get(key) {
                 return (await dbPromise).get(storeName, key);

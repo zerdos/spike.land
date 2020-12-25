@@ -1,6 +1,6 @@
 import { shaDB } from "./db.js";
 
-import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
+import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js?module";
 
 import { sha256 } from "./sha256.js";
 

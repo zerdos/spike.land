@@ -68,10 +68,15 @@ export async function run(mode = "window", _w) {
   console.log("Runner");
 
   const { document, open } = _w;
-
+try{
   const session = getSession();
   const { getCodeToLoad } = await import("./data.js");
   const { code } = await getCodeToLoad();
+} catch (e){
+  console.error({e, message: "couldn't start"})
+  return;
+}
+
   session.code = await formatter(code);
   session.transpiled = await transpile(session.code);
 
@@ -99,14 +104,14 @@ export async function run(mode = "window", _w) {
   const transpiled = await transpile(session.code);
   await restartCode(transpiled);
 
-  const startMonaco = (await import ("https://unpkg.com/@zedvision/smart-monaco-editor@10.13.4/dist/editor.js")).default;
+  // const startMonaco = (await import ("https://unpkg.com/@zedvision/smart-monaco-editor@10.13.4/dist/editor.js")).default;
 
-  
-  let modules = await startMonaco({
-    language: "typescript",
-    code: session.code,
-    onChange: (code) => runner(code),
-  });
+
+  // let modules = await startMonaco({
+  //   language: "typescript",
+  //   code: session.code,
+  //   onChange: (code) => runner(code),
+  // });
 
   async function runner(c) {
     const cd = await (formatter(c));

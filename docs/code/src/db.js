@@ -1,4 +1,4 @@
-import { getDB } from "https://unpkg.com/@zedvision/shadb@10.13.1/dist/shaDB.js";
+import { getDB } from "https://unpkg.com/@zedvision/shadb@10.13.5/dist/shaDB.js";
 
 export const shaDB = {
   get: async (key) => {
