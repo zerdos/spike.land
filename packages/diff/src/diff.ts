@@ -1,5 +1,5 @@
 import { Diff } from "https://unpkg.com/diff@5.0.0/dist/diff.js";
-import { sha256 } from "https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js";
+import { sha256 } from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js";
 
 export const diff = async (str1: string, str2: string) => {
   const sha1Str1 = sha256(str1);

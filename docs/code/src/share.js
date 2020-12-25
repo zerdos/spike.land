@@ -44,7 +44,9 @@ async function saveToIPFS(content, type) {
 }
 
 async function save(content, type) {
-  const  { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
+  const { sha256 } = await import(
+    "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js"
+  );
 
   const hash = await sha256(content);
   const request = new Request(

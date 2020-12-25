@@ -1,7 +1,7 @@
 import { shaDB } from "./db.js";
 export async function getZkey(hash) {
     const uuid = await getUserId();
-    const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
+    const { sha256 } = await import("https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js");
     const uKey = await sha256(uuid);
     const gKey = await sha256(hash + uKey);
     const vKey = await sha256(hash + uuid);
@@ -51,7 +51,7 @@ export const getProjects = async () => {
     return projects.list;
 };
 export const saveCode = async (code) => {
-    const { sha256 } = await import("https://unpkg.com/@zedvision/code@8.6.3/dist/sha256.js");
+    const { sha256 } = await import("https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js");
     const hash = await sha256(code);
     const projectName = await getActiveProject();
     try {
