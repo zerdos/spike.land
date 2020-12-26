@@ -21,8 +21,8 @@ function saveHtml(html) {
 let ipfsKV;
 async function saveToIPFS(content, type) {
     ipfsKV = ipfsKV || (await import("./ipfsKV.js")).ipfsKV;
-    const cid = await ipfsKV.add(URL.createObjectURL(new Blob([content], { type })));
-    return type==="application/javascript"?`https://cloudflare-ipfs.com/ipfs/${cid}`:`https://ipfs.io/ipfs/${cid}`;
+    const cid = await ipfsKV.add(URL.createObjectURL(new Blob([content], { type })), { path: type === "text/html" ? "/index.html" : "/app.js" });
+    return `https://ipfs.io/ipfs/${cid}`;
 }
 async function save(content, type) {
     const { sha256 } = await import("https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js");

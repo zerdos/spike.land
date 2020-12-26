@@ -1,13 +1,12 @@
-import getVersions from "./versions.js"
+import getVersions from "./versions.js";
 const v = getVersions();
-
 
 async function transpile(code) {
   const { transpileCode } = await import("./transpile.js");
   return transpileCode(code);
 }
 const src =
-`https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js`;
+  `https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js`;
 
 let renderEmotion = null;
 
@@ -32,13 +31,19 @@ let parserHtml;
 
 async function formatter(code) {
   prettier = prettier ||
-    (await import(`https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`))
+    (await import(
+      `https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`
+    ))
       .default;
   parserBabel = parserBabel ||
-    (await import(`https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`))
+    (await import(
+      `https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`
+    ))
       .default;
   parserHtml = parserHtml ||
-    (await import(`https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`))
+    (await import(
+      `https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`
+    ))
       .default;
 
   try {

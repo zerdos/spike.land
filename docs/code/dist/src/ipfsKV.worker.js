@@ -1,7 +1,4 @@
 "use strict";
-import getVersions from "./versions.js"
-const v = getVersions();
-
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
 importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
 // async function getIpfsiD() {
@@ -19,9 +16,9 @@ importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
 let ipfsNode;
 try {
     const ipfsKV = {
-        add: async (data) => {
+        add: async (data, options) => {
             ipfsNode = ipfsNode || await Ipfs.create();
-            const { cid } = await ipfsNode.add(Ipfs.urlSource(data));
+            const { cid } = await ipfsNode.add(Ipfs.urlSource(data), options);
             return cid.string;
         },
         get: async (key) => {

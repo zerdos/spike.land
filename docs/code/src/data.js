@@ -1,5 +1,5 @@
 import { shaDB } from "./db.js";
-import getVersions from "./versions.js"
+import getVersions from "./versions.js";
 const v = getVersions();
 
 export async function getZkey(hash) {

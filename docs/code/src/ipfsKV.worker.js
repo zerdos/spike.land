@@ -21,9 +21,9 @@ let ipfsNode;
 
 try {
   const ipfsKV = {
-    add: async (data) => {
+    add: async (data, options) => {
       ipfsNode = ipfsNode || await Ipfs.create();
-      const { cid } = await ipfsNode.add(Ipfs.urlSource(data));
+      const { cid } = await ipfsNode.add(Ipfs.urlSource(data), options);
       return cid.string;
     },
     get: async (key) => {
