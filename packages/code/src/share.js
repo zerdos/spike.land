@@ -38,8 +38,8 @@ let ipfsKV;
 async function saveToIPFS(content, type) {
   ipfsKV = ipfsKV || (await import("./ipfsKV.js")).ipfsKV;
   const cid = await ipfsKV.add(
-    URL.createObjectURL(new Blob([content], { type })),
-    { path: type === "text/html" ? "/index.html" : "/app.js" },
+    URL.createObjectURL(new Blob([content], { type})),
+    { onlyHash: true , path: type === "text/html" ? "/index.html" : "/app.js" },
   );
   return `https://ipfs.io/ipfs/${cid}`;
 }
