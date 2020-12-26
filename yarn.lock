@@ -2666,11 +2666,6 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@riversun/event-emitter@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@riversun/event-emitter/-/event-emitter-1.5.0.tgz#c05d62972a843d95c9644469c5c1bf9d5ef46adc"
-  integrity sha512-+MLK1qrBHfthFfNIjboz0nWeCcbdC2zjAzDCM+eh+PZv6ZYDw7+/dszqgy4Ud+MbrvEDjmIxdPo3bG/lNE4MmA==
-
 "@rollup/plugin-alias@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.1.1.tgz#bb96cf37fefeb0a953a6566c284855c7d1cd290c"
@@ -7526,11 +7521,6 @@ event-iterator@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/event-iterator/-/event-iterator-2.0.0.tgz#10f06740cc1e9fd6bc575f334c2bc1ae9d2dbf62"
   integrity sha512-KGft0ldl31BZVV//jj+IAIGCxkvvUkkON+ScH6zfoX+l+omX6001ggyRSpI0Io2Hlro0ThXotswCtfzS8UkIiQ==
-
-event-listener-helper@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/event-listener-helper/-/event-listener-helper-1.1.2.tgz#a1f07316321a34edaacb701e6adb837778832c22"
-  integrity sha512-UHd160GSYNE7UOV292DKXRdwV7svDzfFwU9zdiyaB+3y/4rECA6tfV5QX7AHsafCPTGpnBe6bEZSyJPsdxyBYw==
 
 event-source-polyfill@^1.0.15:
   version "1.0.22"
@@ -13166,11 +13156,6 @@ meow@^8.0.0:
     trim-newlines "^3.0.0"
     type-fest "^0.18.0"
     yargs-parser "^20.2.3"
-
-merge-deeply@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/merge-deeply/-/merge-deeply-3.0.0.tgz#4f7ae0865a70e1f9eb14487fe5aa5638e8581dfa"
-  integrity sha512-16bQw49VVX33ANiqfgfQyZEZi7oE8r6o/90IHFNoKGqjqFNi/WhKSuKAx8uSH0vULJNegJNhjibKVeA9xqq5tg==
 
 merge-descriptors@1.0.1:
   version "1.0.1"
