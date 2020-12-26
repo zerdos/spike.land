@@ -12,9 +12,9 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr;
     const connect = async () => {
-      const QRious = (await importModule(
-        `https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.esm.min.js`,
-      )).defauilt;
+      const QRious = await importModule(
+        `https://unpkg.com/@zedvision/qrious@10.13.18/dist/qrious.esm.js`,
+      );
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();
 

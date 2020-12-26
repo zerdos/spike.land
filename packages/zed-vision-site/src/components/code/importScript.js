@@ -1,13 +1,21 @@
 const cache = {};
 
-export const importModule = (src) =>
-  fetch(src)
+export const importModule = async (src) => (cache &&
+  cache[src]) ||await fetch(src)
     .then((resp) => resp.text())
-    .then((text) =>
-      import(URL.createObjectURL(
+    .then(async (text) => {
+      const moduleCache = cache || {}
+      const mod = (await import(URL.createObjectURL(
         new Blob([text], { type: "application/javascript" }),
-      ))
-    );
+      )));
+      if (typeof(mod.default) !== "undefined") {
+        moduleCache[src] = mod.default;
+      } else {
+        moduleCache[src] = mod;
+      }
+
+      return moduleCache[src];
+    });
 
 export const importScript = (src, res = []) => {
   if (typeof window === "undefined") return {};
