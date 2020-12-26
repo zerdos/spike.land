@@ -3,6 +3,7 @@ import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { sha256 } from "../components/utils/sha256/sha256.ts";
 import { getUserId } from "../components/code/getUser.ts";
+import {hash} from "../components/code/hash.js";
 
 export default function () {
   let pathname = "";
@@ -19,29 +20,32 @@ export default function () {
   React.useEffect(() => {
     const runner = async () => {
       try {
-        console.log(pathname);
-        const key = pathname;
-        const uuid = await getUserId();
-        console.log(uuid);
-        const uuidHash = (await sha256(uuid)).substring(0, 8);
-        console.log(uuidHash);
-        const checkKeyUuid = (await sha256(key + uuid)).substring(0, 8);
-        const checkHashUuidHash = (await sha256(key + uuidHash)).substring(
-          0,
-          8,
-        );
-        console.log({
-          key,
-          uuidHash,
-          checkKeyUuid,
-          checkHashUuidHash,
-        });
-        const response = await fetch(
-          `https://code.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
-        );
-        const data: { success: boolean } = await response.json();
-        if (data.success) {
-          location.href = "https://zed.vision/code/";
+        // console.log(pathname);
+        // const key = pathname;
+        // const uuid = await getUserId();
+        // console.log(uuid);
+        // const uuidHash = (await sha256(uuid)).substring(0, 8);
+        // console.log(uuidHash);
+        // const checkKeyUuid = (await sha256(key + uuid)).substring(0, 8);
+        // const checkHashUuidHash = (await sha256(key + uuidHash)).substring(
+        //   0,
+        //   8,
+        // );
+        // console.log({
+        //   key,
+        //   uuidHash,
+        //   checkKeyUuid,
+        //   checkHashUuidHash,
+        // });
+        // const response = await fetch(
+        //   `https://code.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
+        // );
+        // const data: { success: boolean } = await response.json();
+       const cid = await  hash(location.href,false);
+
+
+        if (cid) {
+          location.href = "https://ipfs.io/ipfs/"+cid;
         } else {
           set404(true);
         }
