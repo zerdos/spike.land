@@ -1,5 +1,14 @@
 const cache = {};
 
+export const importModule = (src) =>
+  fetch(src)
+    .then((resp) => resp.text())
+    .then((text) =>
+      import(URL.createObjectURL(
+        new Blob([text], { type: "application/javascript" }),
+      ))
+    );
+
 export const importScript = (src, res = []) => {
   if (typeof window === "undefined") return {};
   const prefix = src.slice(0, 8);
