@@ -1,8 +1,6 @@
 {
   "name": "@devcontainer/cypress",
   "tagname": "cypress",
-  "port": "6080",
-  "testport": "7322",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
     "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
