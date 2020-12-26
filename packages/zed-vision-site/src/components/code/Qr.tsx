@@ -14,7 +14,6 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr;
     const connect = async () => {
- 
       const { sha256 } = await importModule(
         "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js",
       );
@@ -27,11 +26,11 @@ export const Qr: React.FC = () => {
 
       setCounter(20);
       // const key = data.key;
-      const key = await sha256(Math.random()+"-"+Math.random()+"-"+Math.random());
+      const key = await sha256(
+        Math.random() + "-" + Math.random() + "-" + Math.random(),
+      );
       // const key = "12345678";
       const url = `https://zed.vision/${key}`;
-
-      
 
       const options = {
         element: ref.current,
@@ -58,10 +57,9 @@ export const Qr: React.FC = () => {
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
       const toCheck = await hash(url, true);
 
-      changeList((x)=> {
+      changeList((x) => {
         return [...x, toCheck];
       });
-
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
@@ -72,42 +70,46 @@ export const Qr: React.FC = () => {
     }
   }, [counter]);
 
-  return <><a href="/code/">
-    {retry > 0 && <div
-      css={css`
+  return <>
+    <a href="/code/">
+      {retry > 0 && <div
+        css={css`
         background: blue;
         display: inline-block;
         padding: 10px 10px 0px 10px;
         border-radius: 12px;
         text-align: center;
     `}
-    >
-      <canvas
-        css={css`
+      >
+        <canvas
+          css={css`
               width: 200px;
               height: 200px;
               display: block;
-              box-shadow: 0 0 ${10 + 2*counter}px 5px ${
-          retry%4 === 3 ? "darkorange" : retry%4 === 2 ? "green" : "darkred"
-        };
+              box-shadow: 0 0 ${10 + 2 * counter}px 5px ${
+            retry % 4 === 3
+              ? "darkorange"
+              : retry % 4 === 2
+              ? "green"
+              : "darkred"
+          };
           `}
-        ref={ref}
-      >
-      </canvas>
-      <p
-        css={css`
+          ref={ref}
+        >
+        </canvas>
+        <p
+          css={css`
               font-family: Roboto;
               font-size: 20px;
               text-transform: uppercase; 
               color: white;
             `}
-      >
-        Connect device
-      </p>
-    </div>}
-   
-  </a>
-   {/* <ul>
+        >
+          Connect device
+        </p>
+      </div>}
+    </a>
+    {/* <ul>
      {
            qrtoCheck.map(x=><li key={x} >
              {x}</li>
@@ -115,5 +117,5 @@ export const Qr: React.FC = () => {
            
            }
      </ul> */}
-     </>
-}
+  </>;
+};
