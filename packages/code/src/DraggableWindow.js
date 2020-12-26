@@ -1,5 +1,5 @@
 export const renderDraggableWindow = async ({ onShare }, src) => {
-  const { renderEmotion, jsx, React } = await import(
+  const { renderEmotion, jsx, React, motion } = await import(
     src
   );
 
@@ -8,13 +8,17 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
       React.Fragment,
       {},
       jsx(
-        "div",
+        motion.div,
         {
           css: `
               background: red;
               border: 4px solid red;
               border-radius: 8px;
             `,
+
+          dragElastic: 0.5,
+          dragMomentum: false,
+            drag: true
         },
         jsx(
           "div",

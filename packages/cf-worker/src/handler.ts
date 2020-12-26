@@ -1,8 +1,9 @@
-import { sha256 } from "../../code/src/sha256.js";
 import { getDbObj } from "../../shadb/src/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
+
+import { sha256 } from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js"
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
@@ -132,6 +133,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     if (pathname === "/register") {
       const uuid = v4();
+
       const uuidHash = await sha256(uuid);
       await USERS.put(
         uuid,
