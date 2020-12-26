@@ -151,6 +151,7 @@ export async function run(mode = "window", _w) {
           session.transpiled = transpiled;
           const { saveCode } = await import("./data.js");
           await saveCode(await formatter(cd), session.transpiled);
+          localStorage.setItem("lastHappyHtml", window.document.body.innerHTML)
         }
       } else {
         session.error = cd;
