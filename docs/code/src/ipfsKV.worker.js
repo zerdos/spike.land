@@ -23,10 +23,10 @@ try {
   const ipfsKV = {
     add: async (data, options) => {
       ipfsNode = ipfsNode || await Ipfs.create();
-      const { cid } = await ipfsNode.add(
-        typeof data === "string" ? data : Ipfs.urlSource(data),
-        options,
-      );
+
+
+
+      const { cid } =  await ipfsNode.add( data, options  ) ;
 
       if (
         options && options.onlyHash
