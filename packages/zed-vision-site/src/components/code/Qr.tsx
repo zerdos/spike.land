@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 import React from "react";
-import {importModule} from "./importScripts.ts"
+import { importModule } from "./importScript.js";
+
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(3);
@@ -11,7 +12,10 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
     let qr;
     const connect = async () => {
-      const QRious = (await impportModule(`https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.esm.min.js`)).defauilt
+      const QRious =
+        (await importModule(
+          `https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.esm.min.js`,
+        )).defauilt;
       const req = await fetch("https://code.zed.vision/token");
       const data = await req.json();
 
