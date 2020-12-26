@@ -8,7 +8,7 @@ export const importModule = async (src) => (cache &&
       const url = URL.createObjectURL(
         new Blob([text], { type: "application/javascript" }),
       )
-      const mod = await(new Function(`return import("${url}")`));
+      const mod = await(new Function(`return import("${url}")`)());
       if (typeof(mod.default) !== "undefined") {
         moduleCache[src] = mod.default;
       } else {
