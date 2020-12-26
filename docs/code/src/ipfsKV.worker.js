@@ -24,9 +24,7 @@ try {
     add: async (data, options) => {
       ipfsNode = ipfsNode || await Ipfs.create();
 
-
-
-      const { cid } =  await ipfsNode.add( data, options  ) ;
+      const { cid } = await ipfsNode.add(data, options);
 
       if (
         options && options.onlyHash

@@ -18,7 +18,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
 
           dragElastic: 0.5,
           dragMomentum: false,
-            drag: true
+          drag: true,
         },
         jsx(
           "div",

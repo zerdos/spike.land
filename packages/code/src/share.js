@@ -38,7 +38,7 @@ function saveHtml(html) {
 
 async function saveToIPFS(content, type) {
   const { ipfsKV } = await import("./ipfsKV.js");
-  const cid = await ipfsKV.add( content, {} );
+  const cid = await ipfsKV.add(content, {});
   return `https://ipfs.io/ipfs/${cid}`;
 }
 
