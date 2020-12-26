@@ -37,8 +37,8 @@
   "exports": "./dist/qrious.esm.js",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
-    "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/qrious.esm.js --target=esnext",
-    "build": "yarn build:esm ",
+    "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/qrious.esm.js --target=es2018 --format=esm",
+    "build": "yarn build:esm",
     "dts": "yarn dts-gen -m qrious-core -f dist/qrious.d.ts"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
