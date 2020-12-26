@@ -1,14 +1,15 @@
 const cache = {};
 
-export const importModule = async (src) => (cache &&
-  cache[src]) ||await fetch(src)
+export const importModule = async (src) =>
+  (cache &&
+    cache[src]) || await fetch(src)
     .then((resp) => resp.text())
     .then(async (text) => {
-      const moduleCache = cache || {}
+      const moduleCache = cache || {};
       const mod = (await import(URL.createObjectURL(
         new Blob([text], { type: "application/javascript" }),
       )));
-      if (typeof(mod.default) !== "undefined") {
+      if (typeof (mod.default) !== "undefined") {
         moduleCache[src] = mod.default;
       } else {
         moduleCache[src] = mod;
