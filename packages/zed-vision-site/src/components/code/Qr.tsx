@@ -2,6 +2,8 @@
 import { css, jsx } from "@emotion/react";
 import React from "react";
 import { importModule } from "./importScript.js";
+import {hash} from "./hash.js";
+
 
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
