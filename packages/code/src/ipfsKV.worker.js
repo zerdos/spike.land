@@ -1,6 +1,6 @@
 
 
-let ipfsNode;
+
 
 try {
 
@@ -23,6 +23,8 @@ try {
         //noise canceling
       }
     }
+
+    let ipfsNode;
 
     const ipfsKV = {
       add: async (data, options) => {
@@ -54,6 +56,10 @@ try {
         {
           return ({e})
         }
+      },
+      init:async ()=>{
+        ipfsNode = ipfsNode || await (await getIpfs()).create();
+        return "ok";
       }
     };
 
