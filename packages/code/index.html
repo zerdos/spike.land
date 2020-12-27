@@ -74,7 +74,7 @@
   <script type="module">
     const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("ipfs.io"));
     (async()=>{
-        const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://unpkg.com/@zedvision/code@10.14.3/src/codeLoader.js");
+        const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://ipfs.io/ipfs/QmcwrvPEBbzf8hYDxuvqfNA1u7BzoS27zAT4dUM1rMqquv/src/codeLoader.js");
         run("window", window);
         })();
   </script>
