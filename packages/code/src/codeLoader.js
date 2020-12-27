@@ -8,8 +8,6 @@ async function transpile(code) {
 const src =
   `https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js`;
 
-let renderEmotion = null;
-
 function getSession() {
   const session = {
     unmount: () => {},
@@ -150,7 +148,7 @@ export async function run(mode = "window", _w) {
         if (session.transpiled !== transpiled) {
           session.transpiled = transpiled;
           const { saveCode } = await import("./data.js");
-          await saveCode(await formatter(cd), session.transpiled);
+          await saveCode(await formatter(cd));
         }
       } else {
         session.error = cd;
@@ -222,9 +220,6 @@ export async function run(mode = "window", _w) {
   }
 
   async function restartCode(transpiled) {
-    if (renderEmotion === null) {
-      renderEmotion = (await import(src)).renderEmotion;
-    }
 
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
@@ -244,6 +239,7 @@ export async function run(mode = "window", _w) {
     ))).default;
 
     session.unmount();
+    const {renderEmotion} = await import(src);
     session.unmount = renderEmotion(Element(), root);
 
     document.getElementById("zbody").children.length &&
