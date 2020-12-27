@@ -1,4 +1,5 @@
 export default function _default(): {
+    ipfs: string;
     emotionRenderer: string;
     prettier: string;
     editor: string;

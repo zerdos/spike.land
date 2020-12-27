@@ -1,4 +1,4 @@
-import v from "./versions.js"
+import versions from "./versions.js"
 let ipfsWorker;
 
 export const ipfsKV = {
@@ -8,12 +8,15 @@ export const ipfsKV = {
     (ipfsWorker || await initIpfsKV()).addAll(files),
 };
 
-function initIpfsKV() {
+async function initIpfsKV() {
+  const v = versions();
+  const res = await fetch( `https://ipfs.io/ipfs/${v.ipfs}/src/ipfsKV.worker.js`);
+  const workerSource = await res.text();
   const worker = new Worker(
-    `https://ipfs.io/ipfs/${v.ipfs}/src/ipfsKV.worker.js`,
+    URL.createObjectURL(new Blob([workerSource]))
   );
 
-  const {Comlink} = await import("https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs");
+  const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
   ipfsWorker = Comlink.wrap(worker);
   return ipfsWorker;
 }
