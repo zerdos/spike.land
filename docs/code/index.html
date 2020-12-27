@@ -72,9 +72,10 @@
 
     </script -->
   <script type="module">
+    import versions from "./src/versions.js"
     const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("ipfs.io"));
     (async()=>{
-        const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://ipfs.io/ipfs/QmZhJ28SpQWuG4BMebfB6XYt99kErQ5NVnpQGWgDEHsJqo/src/codeLoader.js");
+        const { run } = await import(isLocalhost?"./src/codeLoader.js":`https://ipfs.io/ipfs/${versions.ipfs}/src/codeLoader.js`);
         run("window", window);
         })();
   </script>
