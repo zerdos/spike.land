@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "ipfs:install": "yarn ipfs-npm --package-manager=yarn",
+    "ipfs:install": "yarn ipfs-npm --clone-pin --package-manager=yarn",
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
     "start": "yarn build && yarn serve",
     "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev .",
