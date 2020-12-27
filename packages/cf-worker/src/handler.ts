@@ -27,6 +27,7 @@ export function log(message: string, data: unknown = {}) {
 }
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
+  
   const { country, colo } = request.cf || { country: "", colo: "" };
 
   const url = new URL(request.url);
@@ -198,6 +199,13 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     }
     return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
+
+    if (pathname==="add"){
+        const ipfs = await import ""
+
+
+    }
+
     const zkey = String(request.headers.get("ZKEY") || "");
 
     const sha = zkey.slice(0, 8);

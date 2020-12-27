@@ -12,8 +12,9 @@ async function initIpfsKV() {
   const v = versions();
   const res = await fetch( `https://ipfs.io/ipfs/${v.ipfs}/src/ipfsKV.worker.js`);
   const workerSource = await res.text();
+  
   const worker = new Worker(
-    URL.createObjectURL(new Blob([workerSource]))
+    URL.createObjectURL(new Blob([workerSource.replace("$$ipfs$$", v.ipfs)]))
   );
 
   const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
