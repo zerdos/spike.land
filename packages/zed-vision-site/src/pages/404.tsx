@@ -3,7 +3,6 @@ import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { sha256 } from "../components/utils/sha256/sha256.ts";
 import { getUserId } from "../components/code/getUser.ts";
-import { hash } from "../components/code/hash.js";
 
 export default function () {
   let pathname = "";
@@ -41,6 +40,8 @@ export default function () {
         //   `https://code.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
         // );
         // const data: { success: boolean } = await response.json();
+        const { hash } = import("../components/code/hash.js");
+
         const cid = await hash(location.href, false);
 
         if (cid) {

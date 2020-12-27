@@ -1,0 +1,1 @@
+(this.webpackJsonp=this.webpackJsonp||[]).push([[16],{47:function(n,t,r){"use strict";r.r(t),r.d(t,"hash",(function(){return s}));var s=function(n,t){return new Function('return import("./code/src/ipfsKV.js")')().then((function(n){return n.ipfsKV})).then((function(r){return r.add(n,{onlyHash:t})}))}}}]);
