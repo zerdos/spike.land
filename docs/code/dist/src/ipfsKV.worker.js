@@ -41,7 +41,7 @@ try {
             init: async () => {
                 ipfsNode = ipfsNode || await (await getIpfs()).create();
                 return "ok";
-            }
+            },
         };
         Comlink.expose(ipfsKV);
     };

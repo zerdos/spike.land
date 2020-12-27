@@ -220,7 +220,6 @@ export async function run(mode = "window", _w) {
   }
 
   async function restartCode(transpiled) {
-
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
@@ -239,7 +238,7 @@ export async function run(mode = "window", _w) {
     ))).default;
 
     session.unmount();
-    const {renderEmotion} = await import(src);
+    const { renderEmotion } = await import(src);
     session.unmount = renderEmotion(Element(), root);
 
     document.getElementById("zbody").children.length &&

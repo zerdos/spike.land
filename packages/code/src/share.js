@@ -23,19 +23,19 @@ export const shareItAsHtml = async ({ code, HTML }) => {
     code,
   });
 
-
-
-  const res = await addAll([{path: "/app/index.html", content: getHtml({HTML, css})}, {path: "/app/app.js", content: code}])
-  const appDir =  res.find(x=>x.path==="app");
+  const res = await addAll(
+    [
+      { path: "/app/index.html", content: getHtml({ HTML, css }) },
+      { path: "/app/app.js", content: code },
+    ],
+  );
+  const appDir = res.find((x) => x.path === "app");
 
   // await saveHtml(
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
 
   return `https://ipfs.io/ipfs/${appDir.CID}`;
-
-
-  
 };
 
 function saveHtml(html) {
@@ -52,7 +52,7 @@ async function saveToIPFS(content, type) {
 
 async function addAll(files) {
   const { ipfsKV } = await import("./ipfsKV.js");
-  const result= await ipfsKV.addAll(files);
+  const result = await ipfsKV.addAll(files);
   return result;
 }
 

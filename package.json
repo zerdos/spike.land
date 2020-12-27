@@ -9,7 +9,6 @@
     "packages/*"
   ],
   "scripts": {
-    "ipfs:install": "yarn ipfs-npm --clone-pin --package-manager=yarn",
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
     "start": "yarn build && yarn serve",
     "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev .",
@@ -33,7 +32,6 @@
     "diff": "5.0.0",
     "framer-motion": "3.1.1",
     "idb": "5.0.8",
-    "ipfs-npm": "^0.16.3",
     "monaco-editor": "0.21.2",
     "normalize.css": "8.0.1",
     "react": "17.0.1",
@@ -49,7 +47,6 @@
     "binary-install": "0.1.0",
     "csstype": "3.0.5",
     "husky": "4.3.6",
-    "ipfs-npm": "0.16.3",
     "lerna": "^3.22.1",
     "microbundle": "0.13.0",
     "popmotion": "9.0.2",

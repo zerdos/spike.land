@@ -18,7 +18,6 @@
     "@types/parse-git-config": "3.0.0",
     "@types/yargs": "15.0.12",
     "ecurve": "1.0.6",
-    "ipfs-npm": "0.16.3",
     "jquery": "3.5.1",
     "lodash": "4.17.20",
     "react": "17.0.1",
@@ -30,7 +29,7 @@
     "typescript"
   ],
   "scripts": {
-    "npm:install": "rm -rf package-lock.json && yarn ipfs-npm install",
+    "npm:install": "rm -rf package-lock.json && npm install",
     "build": "tsc",
     "build-browser": "tsc -p browser && webpack"
   },

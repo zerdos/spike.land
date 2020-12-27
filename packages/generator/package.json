@@ -9,7 +9,7 @@
   ],
   "main": "lib/src/index.js",
   "scripts": {
-    "npm:install": "rm -rf package-lock.json && yarn ipfs-npm install",
+    "npm:install": "rm -rf package-lock.json && npm install",
     "build": "yarn tsc && deno fmt src"
   },
   "publishConfig": {

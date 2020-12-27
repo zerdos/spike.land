@@ -12,8 +12,11 @@ export const shareItAsHtml = async ({ code, HTML }) => {
         css,
         code,
     });
-    const res = await addAll([{ path: "/app/index.html", content: getHtml({ HTML, css }) }, { path: "/app/app.js", content: code }]);
-    const appDir = res.find(x => x.path === "app");
+    const res = await addAll([
+        { path: "/app/index.html", content: getHtml({ HTML, css }) },
+        { path: "/app/app.js", content: code },
+    ]);
+    const appDir = res.find((x) => x.path === "app");
     // await saveHtml(
     //   getHtml({ HTML, css, link: linkToCode }),
     // );

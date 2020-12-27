@@ -8,7 +8,7 @@ async function init() {
     if (ipfsWorker)
         return ipfsWorker;
     const workerCom = await (await initIpfsKV());
-    return new Promise((resolve => {
+    return new Promise(((resolve) => {
         const checkSave = () => setTimeout(async () => {
             const init = await (await (workerCom)).add("ddd");
             if (typeof init === "string") {

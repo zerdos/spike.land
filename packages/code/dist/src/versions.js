@@ -7,7 +7,7 @@ export default function () {
         diff: "10.13.14",
         sha256: "10.12.14",
         uuid: "8.3.2",
-        comlink: "4.3.0"
+        comlink: "4.3.0",
     };
     return v;
 }
