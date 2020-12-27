@@ -1,5 +1,4 @@
 "use strict";
-let ipfsNode;
 try {
     const runner = async () => {
         const versions = (await import("https://ipfs.io/ipfs/$$ipfs$$/src/versions.js")).default;
@@ -14,6 +13,7 @@ try {
                 //noise canceling
             }
         };
+        let ipfsNode;
         const ipfsKV = {
             add: async (data, options) => {
                 ipfsNode = ipfsNode || await (await getIpfs()).create();
@@ -37,6 +37,10 @@ try {
                 catch (e) {
                     return ({ e });
                 }
+            },
+            init: async () => {
+                ipfsNode = ipfsNode || await (await getIpfs()).create();
+                return "ok";
             }
         };
         Comlink.expose(ipfsKV);
