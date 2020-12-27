@@ -6,7 +6,7 @@ try {
         const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
         const getIpfs = async () => {
             try {
-                const ipfs = (await import(`https://ipfs.io/ipfs/${v.ipfs}/vendor/ipfs/ipfs.min.esm.js`)).default;
+                const ipfs = (await import(`https://ipfs.io/ipfs/${v.ipfs}/vendor/ipfs/ipfs.esm.js`)).default;
                 return ipfs;
             }
             catch (e) {

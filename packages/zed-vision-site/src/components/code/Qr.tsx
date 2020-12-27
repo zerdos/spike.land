@@ -10,6 +10,7 @@ export const Qr: React.FC = () => {
   const [qrtoCheck, changeList] = React.useState([]);
 
   const [counter, setCounter] = React.useState(0);
+  
 
   React.useEffect(() => {
     let qr;
@@ -58,7 +59,7 @@ export const Qr: React.FC = () => {
       const toCheck = await hash(url, true);
 
       changeList((x) => {
-        return [...x, toCheck];
+        return [toCheck, ...x].slice(0,5);
       });
     };
     if (typeof window !== "undefined" && retry > 0) connect();
@@ -69,6 +70,16 @@ export const Qr: React.FC = () => {
       setTimeout(() => setCounter((x: number) => x - 1), 333);
     }
   }, [counter]);
+
+  React.useEffect(() => {
+   const checker = setInterval(async()=>{
+
+      qrtoCheck.forEach(x=>fetch(x).then(async(x)=>{setRetry(0);window.location.replace(await x.text())}).catch(x=>Promise.reject(x)).finally());
+
+     
+   }, 2000);
+   return ()=>clearInterval(checker)
+  }, [qrtoCheck]);
 
   return <>
     <a href="code/">
