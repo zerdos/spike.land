@@ -8,7 +8,7 @@
     "exports": "./dist/smart-monaco-editor.modern.js",
     "scripts": {
         "watch": "yarn microbundle watch",
-        "npm:install": "rm -rf package-lock.json && npm install",
+        "npm:install": "rm -rf package-lock.json && yarn ipfs-npm install",
         "build": "tsc",
         "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",
         "format": "deno fmt src"

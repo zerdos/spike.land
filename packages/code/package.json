@@ -10,7 +10,7 @@
     "exports": "./dist/codeLoader.modern.js",
     "scripts": {
         "useState": "esbuild --minify src/hooks/react.js --minify --bundle --format=esm  --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/react.bundle.js",
-        "npm:install": "rm -rf package-lock.json && npm install",
+        "npm:install": "rm -rf package-lock.json && yarn ipfs-npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "xbuild:sw": "workbox generateSW workbox-config.js",
         "build:sw": "yarn esbuild --loader:.ts=ts src/sw.ts --outfile=sw.js",

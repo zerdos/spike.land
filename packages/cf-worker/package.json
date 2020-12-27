@@ -7,7 +7,7 @@
         "**/*"
     ],
     "scripts": {
-        "npm:install": "rm -rf package-lock.json && npm install",
+        "npm:install": "rm -rf package-lock.json && yarn ipfs-npm install",
         "dev": "yarn build && yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "xbuild": "deno bundle --unstable --import-map ../../import_map.json src/index.ts dist/worker-script.js --no-check && yarn min",

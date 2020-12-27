@@ -6,7 +6,7 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
-        "npm:install": "rm -rf package-lock.json && npm install",
+        "npm:install": "rm -rf package-lock.json && yarn ipfs-npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "prebuild": "yarn clean && yarn tsc || echo ok",
         "build": "echo ok",

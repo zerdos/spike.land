@@ -9,7 +9,7 @@
     "scripts": {
         "build": "echo ok",
         "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@5.0.8/build/esm/index.js > src/vendor/idb.js",
-        "npm:install": "rm -rf package-lock.json && npm install",
+        "npm:install": "rm -rf package-lock.json && yarn ipfs-npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "prebuild": "yarn tsc || echo ok "
     },
