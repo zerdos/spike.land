@@ -25,6 +25,4 @@ var BrowserElementService = require("./service/element/BrowserElementService");
 
 QRious.use(new BrowserElementService());
 
-export  {
-  QRious
-}
+export { QRious };

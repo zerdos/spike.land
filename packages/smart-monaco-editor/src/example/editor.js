@@ -395,8 +395,7 @@ var startMonaco = function (_a) {
             },
             {
               name: "@emotion/react/index.d.ts",
-              url:
-                "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
+              url: "https://unpkg.com/@emotion/react@11.1.2/types/index.d.ts",
               depend: ["@emotion/cache"],
             },
             {
@@ -413,14 +412,12 @@ var startMonaco = function (_a) {
             },
             {
               name: "@emotion/react/helper.d.ts",
-              url:
-                "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
+              url: "https://unpkg.com/@emotion/react@11.1.2/types/helper.d.ts",
               depend: ["@emotion/utils", "csstype"],
             },
             {
               name: "@emotion/react/theming.d.ts",
-              url:
-                "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
+              url: "https://unpkg.com/@emotion/react@11.1.2/types/theming.d.ts",
               depend: ["@emotion/utils", "csstype"],
             },
             {
@@ -431,8 +428,7 @@ var startMonaco = function (_a) {
             },
             {
               name: "@emotion/utils/index.d.ts",
-              url:
-                "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
+              url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
               depend: [],
             },
             {

@@ -11,10 +11,9 @@ try {
 
     const getIpfs = async () => {
       try {
-        const ipfs =
-          (await import(
-            `https://ipfs.io/ipfs/${v.ipfs}/vendor/ipfs/ipfs.esm.js`
-          )).default;
+        const ipfs = (await import(
+          `https://ipfs.io/ipfs/${v.ipfs}/vendor/ipfs/ipfs.esm.js`
+        )).default;
         return ipfs;
       } catch (e) {
         //noise canceling

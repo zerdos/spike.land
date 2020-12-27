@@ -9,7 +9,7 @@ interface StartMonacoProps {
   code: string;
   language: "html" | "javascript" | "typescript";
   options: {
-    gylph: boolean; 
+    gylph: boolean;
   };
 }
 
@@ -69,11 +69,11 @@ export default async (
         //@ts-ignore
         const theme = aceEditor.getTheme();
         if (theme !== "ace/theme/monokai ") {
-        //@ts-ignore
+          //@ts-ignore
           aceEditor.setOptions && aceEditor.setOptions({
             fontSize: "14pt",
           });
-        //@ts-ignore
+          //@ts-ignore
           aceEditor.setTheme("ace/theme/monokai");
           setThemeForAce(2 * wait);
         }
@@ -161,11 +161,10 @@ export default async (
   };
 
   modules.editor.onDidChangeModelContent(() =>
-  onChange(modules.editor.getValue())
-);
+    onChange(modules.editor.getValue())
+  );
 
   if (isMobile()) {
-   
     //@ts-expect-error
     aceEditor && aceEditor.session.on("change", function () {
       //@ts-expect-error
