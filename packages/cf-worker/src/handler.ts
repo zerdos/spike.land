@@ -1,8 +1,7 @@
-import { getDbObj } from "../../shadb/src/getDbObj.js";
+import { getDbObj } from "https://unpkg.com/@zedvision/shadb@10.14.1/src/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
-
 import { sha256 } from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js";
 
 var SHAKV: KVNamespace;
@@ -200,11 +199,13 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     return Response.redirect("https://zed.vision/code", 301);
   } else if (request.method === "POST") {
 
-    if (pathname==="add"){
-        const ipfs = await import ""
+    // if (pathname==="/add"){
 
+    //     const ipfNode = await ipfs.create({})
+    //     // const {cid} =  await ipfs.add("Jtraraaallleeds")
+    //     return text("helllo")
 
-    }
+    // }
 
     const zkey = String(request.headers.get("ZKEY") || "");
 
@@ -250,7 +251,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     await log("new html", { sha, uKey });
 
-    // this need restriction
+    // this need restriction:
     // such as:
     //    what are we saving - which projectID
     //    what will be the key
