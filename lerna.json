@@ -1,6 +1,6 @@
 {
   "version": "10.14.0",
-  "npmClient": "yarn",
+  "npmClient": "ipfs-npm",
   "useWorkspaces": true,
   "packages": [
     "packages/*"
