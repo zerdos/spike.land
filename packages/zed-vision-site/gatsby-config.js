@@ -1,6 +1,4 @@
 module.exports = {
-  pathPrefix: `__GATSBY_RELATIVE_PATH__`,
-  assetPrefix: '__GATSBY_RELATIVE_PATH__',
   siteMetadata: {
     title: `Zed vision`,
     author: {
