@@ -17,7 +17,6 @@ const components = {
   },
   code: CodeBox,
 };
-
 const StyledHeader = styled.h1`
   margin-top: ${rhythm(1)};
   margin-bottom: 0;

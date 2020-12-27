@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: `/ipfs/`,
   siteMetadata: {
     title: `Zed vision`,
     author: {
