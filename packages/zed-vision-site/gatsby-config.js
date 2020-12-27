@@ -6,7 +6,7 @@ module.exports = {
       summary: ` - developer experience and software quality expert`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://www.zed.vision/`,
+    siteUrl: `https://www.zed.vision`,
     social: {
       twitter: `ZoltanErdos`,
     },
@@ -42,7 +42,7 @@ module.exports = {
           `Zed Vision - Development experience, Testing, and everything between`,
         short_name: `ZedVision`,
         description: `Blog and tech experiments`,
-        start_url: `/`,
+        start_url: `index.html`,
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,
         display: `standalone`,

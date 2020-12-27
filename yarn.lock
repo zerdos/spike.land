@@ -9179,7 +9179,7 @@ got@^9.6.0:
     to-readable-stream "^1.0.0"
     url-parse-lax "^3.0.0"
 
-graceful-fs@^4.0.0, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3, graceful-fs@^4.2.4:
+graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.2, graceful-fs@^4.2.3, graceful-fs@^4.2.4:
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.4.tgz#2256bde14d3632958c465ebc96dc467ca07a29fb"
   integrity sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==
@@ -12481,15 +12481,6 @@ load-json-file@^5.3.0:
     strip-bom "^3.0.0"
     type-fest "^0.3.0"
 
-load-text-file@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/load-text-file/-/load-text-file-1.2.0.tgz#91575d6c79d512ee4725bda31560428b0775d7d5"
-  integrity sha512-IyuyKI9fsa1XqB/EHn8fM/1FpGR8FV57ll0/T9iSC3vuC4msk9hXSQc7jc6UIbvSooQIUTwYp8/X44umR4MG+Q==
-  dependencies:
-    graceful-fs "^4.0.0"
-    pify "^3.0.0 || ^4.0.0"
-    strip-bom "^3.0.0"
-
 loader-fs-cache@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/loader-fs-cache/-/loader-fs-cache-1.0.3.tgz#f08657646d607078be2f0a032f8bd69dd6f277d9"
@@ -15093,7 +15084,7 @@ pify@^3.0.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-3.0.0.tgz#e5a4acd2c101fdf3d9a4d07f0dbc4db49dd28176"
   integrity sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=
 
-"pify@^3.0.0 || ^4.0.0", pify@^4.0.1:
+pify@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/pify/-/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
@@ -16165,11 +16156,6 @@ react-dev-utils@^4.2.3:
     sockjs-client "1.1.4"
     strip-ansi "3.0.1"
     text-table "0.2.0"
-
-react-dom-server@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/react-dom-server/-/react-dom-server-0.0.5.tgz#75b6c0f5946e08e84db9dda6eca5e48fed25f723"
-  integrity sha1-dbbA9ZRuCOhNud2m7KXkj+0l9yM=
 
 react-dom@17.0.1, react-dom@^17.0.1:
   version "17.0.1"
