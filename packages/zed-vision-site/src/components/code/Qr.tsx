@@ -109,13 +109,13 @@ export const Qr: React.FC = () => {
         </p>
       </div>}
     </a>
-    {/* <ul>
+    {false && <ul>
      {
            qrtoCheck.map(x=><li key={x} >
              {x}</li>
              )
            
            }
-     </ul> */}
-  </>;
+     </ul>}
+  </>; 
 };
