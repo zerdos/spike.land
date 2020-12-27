@@ -12,7 +12,7 @@ export const ipfsKV = {
 
 function initIpfsKV() {
   const worker = new Worker(
-    "./src/ipfsKV.worker.js",
+    "https://ipfs.io/ipfs/QmZhJ28SpQWuG4BMebfB6XYt99kErQ5NVnpQGWgDEHsJqo/src/ipfsKV.worker.js",
   );
 
   ipfsWorker = Comlink.wrap(worker);
