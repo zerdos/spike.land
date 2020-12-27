@@ -110,12 +110,11 @@ export const Qr: React.FC = () => {
       </div>}
     </a>
     {false && <ul>
-     {
-           qrtoCheck.map(x=><li key={x} >
-             {x}</li>
-             )
-           
-           }
-     </ul>}
-  </>; 
+      {qrtoCheck.map((x) =>
+        <li key={x}>
+          {x}
+        </li>
+      )}
+    </ul>}
+  </>;
 };
