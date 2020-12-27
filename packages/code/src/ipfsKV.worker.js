@@ -34,9 +34,23 @@ try {
 
       return cid.string;
     },
-    get: async (key) => {
-      return Promise.resolve("degjreoige");
-    },
+    addAll: async (files)=>{
+      try{
+      ipfsNode = ipfsNode || await Ipfs.create();
+
+      const res = []
+      for await (const result of ipfsNode.addAll(files)) {
+        const {path, cid} = result
+        const CID = cid.string
+        res.push({path, CID});
+      }
+
+      return res;
+      }catch(e)
+      {
+        return ({e})
+      }
+    }
   };
 
   Comlink.expose(ipfsKV);

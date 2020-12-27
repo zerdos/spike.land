@@ -1,4 +1,4 @@
-export const getHtml = ({ HTML, css, link }) => {
+export const getHtml = ({ HTML, css }) => {
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
   //
@@ -22,7 +22,7 @@ export const getHtml = ({ HTML, css, link }) => {
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>
-<link rel="preload" href="${link}" type="text/html" as="fetch" crossorigin>
+<link rel="preload" href="./app.js" type="application/javascript" as="script" crossorigin>
 <link rel="icon" type="image/png" href="https://zed.vision/zed-icon-big.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -37,16 +37,9 @@ export const getHtml = ({ HTML, css, link }) => {
 </div>
 <script type="module">
 import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js"
-fetch("${link}")
-.then(data=>data.text())
-.then(async (text) => {
-  const App = (
-    await import(URL.createObjectURL(
-      new Blob([text], { type: "application/javascript" }
-      ))
-    )).default;
-    renderEmotion(App(), document.body.children[0]);
-})
+import App from "./app.js"
+
+renderEmotion(App(), document.body.children[0]);
 </script>
 </body>
 </html>

@@ -1,24 +1,21 @@
 export const getHtml = ({ HTML, css }) => {
-  //
-  // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
-  //
-  // let bodyStylesFix = "";
-
-  // const start = js.indexOf("body{");
-  // if (start !== -1) {
-  //   const firstBit = js.slice(start);
-  //   const last = firstBit.indexOf("}");
-  //   bodyStylesFix = firstBit.slice(0, last + 1);
-  // }
-
-  const titleStart = HTML.indexOf("<title>");
-  const titleEnd = HTML.indexOf("</title>");
-  const hasTitle = titleStart < titleEnd && titleStart >= -1;
-  const title = hasTitle
-    ? HTML.slice(titleStart, titleEnd)
-    : "(code).zed.vision :)";
-
-  return `<!DOCTYPE html>
+    //
+    // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
+    //
+    // let bodyStylesFix = "";
+    // const start = js.indexOf("body{");
+    // if (start !== -1) {
+    //   const firstBit = js.slice(start);
+    //   const last = firstBit.indexOf("}");
+    //   bodyStylesFix = firstBit.slice(0, last + 1);
+    // }
+    const titleStart = HTML.indexOf("<title>");
+    const titleEnd = HTML.indexOf("</title>");
+    const hasTitle = titleStart < titleEnd && titleStart >= -1;
+    const title = hasTitle
+        ? HTML.slice(titleStart, titleEnd)
+        : "(code).zed.vision :)";
+    return `<!DOCTYPE html>
 <html lang="en">
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>

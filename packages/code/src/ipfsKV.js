@@ -6,11 +6,13 @@ let ipfsWorker;
 export const ipfsKV = {
   add: async (data, options) =>
     (ipfsWorker || await initIpfsKV()).add(data, options),
+    addAll: async (files) =>
+    (ipfsWorker || await initIpfsKV()).addAll(files),
 };
 
 function initIpfsKV() {
   const worker = new Worker(
-    "/code/src/ipfsKV.worker.js",
+    "./src/ipfsKV.worker.js",
   );
 
   ipfsWorker = Comlink.wrap(worker);
