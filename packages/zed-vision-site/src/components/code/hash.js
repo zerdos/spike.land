@@ -10,10 +10,22 @@ async function getClient() {
   return ipfsClient;
 }
 
-const hash = async (data, onlyHash) =>
-  (await getClient()).add(data, { onlyHash });
+const hash = async (data, onlyHash) =>{
 
-const getHash = async (cid, timeout) => (await getClient()).get(cid, timeout);
+const client = await getClient();
+return [
+  await client.add(`${data}N${data}`, {onlyHash}),
+  await client.add(`${data}O${data}`, {onlyHash}),
+  await client.add(`${data}I${data}`, {onlyHash}),
+  await client.add(`${data}S${data}`, {onlyHash}),
+  await client.add(`${data}E${data}`, {onlyHash}),
+  await client.add(`${data}!${data}`, {onlyHash})
+];
+
+}
+ 
+
+const getHash = async (cid, timeout) => (await getClient()).get(cid , timeout);
 
 export { hash };
 export { getHash };
