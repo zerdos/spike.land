@@ -193,9 +193,6 @@ function _getUserId() {
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__(26);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
-var toConsumableArray = __webpack_require__(27);
-
 // CONCATENATED MODULE: ./src/components/code/importScript.js
 var cache={};var importModule=/*#__PURE__*/function(){var _ref=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee2(src){return regenerator_default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.t0=cache&&cache[src];if(_context2.t0){_context2.next=5;break;}_context2.next=4;return fetch(src).then(function(resp){return resp.text();}).then(/*#__PURE__*/function(){var _ref2=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee(text){var moduleCache,url,mod;return regenerator_default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:moduleCache=cache||{};url=URL.createObjectURL(new Blob([text],{type:"application/javascript"}));_context.next=4;return new Function("return import(\""+url+"\")")();case 4:mod=_context.sent;if(typeof mod.default!=="undefined"){moduleCache[src]=mod.default;}else{moduleCache[src]=mod;}return _context.abrupt("return",moduleCache[src]);case 7:case"end":return _context.stop();}}},_callee);}));return function(_x2){return _ref2.apply(this,arguments);};}());case 4:_context2.t0=_context2.sent;case 5:return _context2.abrupt("return",_context2.t0);case 6:case"end":return _context2.stop();}}},_callee2);}));return function importModule(_x){return _ref.apply(this,arguments);};}();var importScript=function importScript(src,res){if(res===void 0){res=[];}if(typeof window==="undefined")return{};var prefix=src.slice(0,8);if(prefix==="https://"){return window.document.head.querySelector("script[src=\""+src+"\"]")||new Promise(function(resolve,reject){var s=window.document.createElement("script");s.src=src;s.async="async";s.type="application/javascript";s.onload=function(){if(res.length===0){resolve(window);}var ret={};res.forEach(function(x){return Object.assign(ret,window[x]);});resolve(ret);};s.onerror=reject;window.document.head.appendChild(s);});}else if(prefix==="@zedvisi"){// if (!cache[src]) cache[src] = import(`https://unpkg.com/${src}`);
 // return cache[src];
@@ -204,7 +201,6 @@ var cache={};var importModule=/*#__PURE__*/function(){var _ref=Object(asyncToGen
 var hash = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/components/code/Qr.tsx
-
 
 
 
@@ -252,20 +248,16 @@ var Qr_Qr = function Qr() {
       retry = _React$useState[0],
       setRetry = _React$useState[1];
 
-  var _React$useState2 = react_default.a.useState([]),
-      qrtoCheck = _React$useState2[0],
-      changeList = _React$useState2[1];
-
-  var _React$useState3 = react_default.a.useState(0),
-      counter = _React$useState3[0],
-      setCounter = _React$useState3[1];
+  var _React$useState2 = react_default.a.useState(0),
+      counter = _React$useState2[0],
+      setCounter = _React$useState2[1];
 
   react_default.a.useEffect(function () {
     var qr;
 
     var connect = /*#__PURE__*/function () {
       var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-        var _yield$importModule, sha256, _yield$importModule2, QRious, key, url, options, toCheck;
+        var _yield$importModule, sha256, _yield$importModule2, QRious, key, url, options, toCheck, res;
 
         return regenerator_default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -326,16 +318,26 @@ var Qr_Qr = function Qr() {
 
               case 18:
                 toCheck = _context.sent;
-                changeList(function (x) {
-                  return [toCheck].concat(Object(toConsumableArray["a" /* default */])(x)).slice(0, 5);
-                });
+                _context.prev = 19;
+                _context.next = 22;
+                return Object(hash["a" /* getHash */])(toCheck, 30000);
 
-              case 20:
+              case 22:
+                res = _context.sent;
+                location.href = "https://ipfs.io/ipfs/" + toCheck;
+                _context.next = 28;
+                break;
+
+              case 26:
+                _context.prev = 26;
+                _context.t0 = _context["catch"](19);
+
+              case 28:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[19, 26]]);
       }));
 
       return function connect() {
@@ -354,65 +356,6 @@ var Qr_Qr = function Qr() {
       }, 333);
     }
   }, [counter]);
-  react_default.a.useEffect(function () {
-    var checker = setInterval( /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3() {
-      return regenerator_default.a.wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return Promise.all(qrtoCheck.map( /*#__PURE__*/function () {
-                var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(x) {
-                  var res;
-                  return regenerator_default.a.wrap(function _callee2$(_context2) {
-                    while (1) {
-                      switch (_context2.prev = _context2.next) {
-                        case 0:
-                          _context2.prev = 0;
-                          _context2.next = 3;
-                          return Object(hash["a" /* getHash */])(x, 5000);
-
-                        case 3:
-                          res = _context2.sent;
-                          console.log({
-                            res: res
-                          });
-                          setRetry(0);
-                          _context2.next = 11;
-                          break;
-
-                        case 8:
-                          _context2.prev = 8;
-                          _context2.t0 = _context2["catch"](0);
-                          return _context2.abrupt("return", 0);
-
-                        case 11:
-                        case "end":
-                          return _context2.stop();
-                      }
-                    }
-                  }, _callee2, null, [[0, 8]]);
-                }));
-
-                return function (_x) {
-                  return _ref3.apply(this, arguments);
-                };
-              }()), 2000);
-
-            case 2:
-              return _context3.abrupt("return", _context3.sent);
-
-            case 3:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    })));
-    return function () {
-      return clearInterval(checker);
-    };
-  }, [qrtoCheck]);
   return Object(emotion_react_browser_esm["c" /* jsx */])(react_default.a.Fragment, null, Object(emotion_react_browser_esm["c" /* jsx */])("a", {
     href: "code/"
   }, retry > 0 && Object(emotion_react_browser_esm["c" /* jsx */])("div", {
@@ -547,7 +490,7 @@ var pageQuery = "497448492";
 
 /***/ }),
 
-/***/ 28:
+/***/ 27:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -559,7 +502,7 @@ var helpers_extends = __webpack_require__(23);
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js
-var emotion_memoize_browser_esm = __webpack_require__(34);
+var emotion_memoize_browser_esm = __webpack_require__(33);
 
 // CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
 
@@ -784,7 +727,7 @@ var ipfsClient;function getClient(){return _getClient.apply(this,arguments);}fun
 /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
+/* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
 /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
 /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
 /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__);

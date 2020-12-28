@@ -7,7 +7,6 @@ import { getHash, hash } from "./hash.js";
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(100);
-  const [qrtoCheck, changeList] = React.useState([]);
 
   const [counter, setCounter] = React.useState(0);
 
@@ -57,9 +56,13 @@ export const Qr: React.FC = () => {
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
       const toCheck = await hash(url, true);
 
-      changeList((x) => {
-        return [toCheck, ...x].slice(0, 5);
-      });
+      try {
+        const res = await getHash(toCheck, 30000);
+
+        location.href = `https://ipfs.io/ipfs/${toCheck}`;
+      } catch {
+        //next code maybe
+      }
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
@@ -69,24 +72,6 @@ export const Qr: React.FC = () => {
       setTimeout(() => setCounter((x: number) => x - 1), 333);
     }
   }, [counter]);
-
-  React.useEffect(() => {
-    const checker = setInterval(async () =>
-      await Promise.all(
-        qrtoCheck.map(async (x) => {
-          try {
-            const res = await getHash(x, 5000);
-            console.log({ res });
-            setRetry(0);
-          } catch {
-            return 0;
-          }
-        }),
-        2000,
-      )
-    );
-    return () => clearInterval(checker);
-  }, [qrtoCheck]);
 
   return <>
     <a href="code/">
