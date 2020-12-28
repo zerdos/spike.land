@@ -90,7 +90,7 @@ const wm = new WindowManager.WindowManager({ backgroundWindow: 'green' });
 // wm.snap()
 
 // create a window    
-const win = wm.createWindow({ width: 500, height: 500, title: 'Your Editor' })
+const win = wm.createWindow({ width: 720, height: 640, title: 'Your Editor' })
 
 // set content of window
 //win.content.style.margin = '0[[c'
@@ -104,7 +104,10 @@ const isMobile = () => {
   );
 };
 
-win.content.innerHTML = `<div style="min-height: 500px;  min-width: 500px; height: ${isMobile()?"2000px":"100%"}; width:100%; display: block;" id="editor"></div>`;
+win.content.innerHTML = `<div style="min-height: 700px;  min-width: 600px; height: ${isMobile()?"2000px":"100%"}; width:100%; display: block;" id="editor"></div>`;
+if (!isMobile())
+document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section").style.overflow=""
+
 
 
 
