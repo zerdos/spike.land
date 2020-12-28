@@ -88,7 +88,7 @@ __webpack_require__.r(__webpack_exports__);
                 });
 
                 if (cid) {
-                  location.href = "https://ipfs.io/ipfs/" + cid;
+                  location.href = "https://ipfs.io/ipfs/" + cid[0];
                 } else {
                   set404(true);
                 }
