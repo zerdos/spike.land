@@ -57,7 +57,7 @@ export default function () {
           set404(true);
         }
       } catch (e) {
-        console.log("we catching errors");
+        console.log("we catching");
         set404(true);
       }
     };

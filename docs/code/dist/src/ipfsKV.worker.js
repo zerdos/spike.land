@@ -18,12 +18,11 @@ const ipfsKV = {
             const res = [];
             ipfsNode = ipfsNode || await (await getIpfs()).create();
             for await (const result of ipfsNode.addAll(files)) {
-                return result;
                 const { path, cid } = result;
                 const CID = cid.string;
                 res.push({ path, CID });
             }
-            // return res;
+            return res;
         }
         catch (e) {
             return ({ e });
@@ -32,9 +31,7 @@ const ipfsKV = {
     get: async (cid, timeout) => {
         let result = "";
         ipfsNode = ipfsNode || await Ipfs.create();
-        for await (let res of ipfsNode.cat(cid, { timeout: 30000 }))
-            ;
-        {
+        for await (let res of ipfsNode.cat(cid, { timeout: 30000 })) {
             result = result + res;
         }
         return result;
