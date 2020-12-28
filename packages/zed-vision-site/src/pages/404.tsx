@@ -13,7 +13,7 @@ export default function () {
 
   const isKey = (str: string) =>
     [...(str.slice(1, 9))].filter((x) => x < "0" || x > "f").length === 0;
-  const needToCheck = pathname.length === 9 && isKey(pathname);
+  const needToCheck = pathname.length === 8 && isKey(pathname);
 
   const [is404, set404] = React.useState(false);
 
