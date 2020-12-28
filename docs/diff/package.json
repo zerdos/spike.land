@@ -8,9 +8,8 @@
     "scripts": {
         "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "prebuild": "yarn clean && yarn tsc || echo ok",
-        "build": "echo ok",
-        "xmin": "deno fmt dist && yarn esbuild dist/diff.ts --tree-shaking=\"ignore-annotations\" --minify  --minify-identifiers --platform=browser --minify-syntax --outfile=dist/diff.min.js"
+        "prebuild": "deno fmt src",
+        "build": "echo OkOKOk"
     },
     "keywords": [
         "diff"
