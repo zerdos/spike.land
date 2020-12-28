@@ -7,6 +7,7 @@ let aceEditor = {};
 interface StartMonacoProps {
   onChange: (code: string) => void;
   code: string;
+  container: HTMLDivElement,
   language: "html" | "javascript" | "typescript";
   options: {
     gylph: boolean;
@@ -14,18 +15,10 @@ interface StartMonacoProps {
 }
 
 export default async (
-  { onChange, code, language, options }: StartMonacoProps,
+  { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
   var ace: unknown;
 
-  const { document } = window;
-  let container = document.getElementById("container");
-
-  if (!container) {
-    container = document.createElement("container");
-    container.id = "container";
-    document.body.appendChild(container);
-  }
 
   const modelUri = language === "typescript"
     ? "file:///main.tsx"
@@ -107,7 +100,7 @@ export default async (
   const modules = {
     monaco: monaco,
     editor: monaco.editor.create(
-      window.document.getElementById("container"),
+      container,
       {
         formatOnType: false,
         scrollbar: {
@@ -175,7 +168,7 @@ export default async (
     });
 
     aceEditor &&
-      document.getElementById("container")!.replaceWith(
+      container.replaceWith(
         document.getElementById("ace")!,
       );
   }

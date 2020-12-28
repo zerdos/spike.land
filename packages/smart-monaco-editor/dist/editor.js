@@ -1,15 +1,8 @@
 import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
 let aceEditor = {};
-export default async ({ onChange, code, language, options }) => {
+export default async ({ onChange, code, language, container, options }) => {
     var ace;
-    const { document } = window;
-    let container = document.getElementById("container");
-    if (!container) {
-        container = document.createElement("container");
-        container.id = "container";
-        document.body.appendChild(container);
-    }
     const modelUri = language === "typescript"
         ? "file:///main.tsx"
         : "file:///main.html";
@@ -61,7 +54,7 @@ export default async ({ onChange, code, language, options }) => {
     }
     const modules = {
         monaco: monaco,
-        editor: monaco.editor.create(window.document.getElementById("container"), {
+        editor: monaco.editor.create(container, {
             formatOnType: false,
             scrollbar: {
                 horizontal: "hidden",
@@ -117,7 +110,7 @@ export default async ({ onChange, code, language, options }) => {
             onChange(value);
         });
         aceEditor &&
-            document.getElementById("container").replaceWith(document.getElementById("ace"));
+            container.replaceWith(document.getElementById("ace"));
     }
     modules.monaco.languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({

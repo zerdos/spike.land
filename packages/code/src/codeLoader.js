@@ -116,6 +116,7 @@ export async function run(mode = "window", _w) {
 
   const modules = await startMonaco({
     language: "typescript",
+    container: document.getElementById("container"),
     code: session.code,
     onChange: (code) => runner(code),
   });
