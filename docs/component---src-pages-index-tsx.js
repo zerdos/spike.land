@@ -277,7 +277,7 @@ var Qr_Qr = function Qr() {
                 QRious = _yield$importModule2.QRious;
                 // const req = await fetch("https://code.zed.vision/token");
                 // const data = await req.json();
-                setCounter(20); // const key = data.key;
+                setCounter(40); // const key = data.key;
 
                 _context2.next = 11;
                 return sha256(Math.random() + "-" + Math.random() + "-" + Math.random());
@@ -312,7 +312,7 @@ var Qr_Qr = function Qr() {
                   return setRetry(function (x) {
                     return x - 1;
                   });
-                }, 20000);
+                }, 4000);
                 _context2.next = 18;
                 return Object(hash["b" /* hash */])(url, true);
 
@@ -334,7 +334,7 @@ var Qr_Qr = function Qr() {
                                 awaiting: dig
                               });
                               _context.next = 3;
-                              return Object(hash["a" /* getHash */])(dig, 30000);
+                              return Object(hash["a" /* getHash */])(dig, 10000);
 
                             case 3:
                               resultKey = _context.sent;

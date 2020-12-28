@@ -23,7 +23,7 @@ export const Qr: React.FC = () => {
       // const req = await fetch("https://code.zed.vision/token");
       // const data = await req.json();
 
-      setCounter(20);
+      setCounter(40);
       // const key = data.key;
       const key = await sha256(
         Math.random() + "-" + Math.random() + "-" + Math.random(),
@@ -53,14 +53,14 @@ export const Qr: React.FC = () => {
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";
       // }
-      setTimeout(() => setRetry((x) => x - 1), 20000);
+      setTimeout(() => setRetry((x) => x - 1), 4000);
 
       const toCheck = await hash(url, true);
       console.log({ toCheck });
       try {
         const res = toCheck.map(async (dig) => {
           console.log({ awaiting: dig });
-          const resultKey = await getHash(dig, 30000);
+          const resultKey = await getHash(dig, 10000);
           console.log({ result: dig });
           location.href = `https://ipfs.io/ipfs/${resultKey}`;
         });
