@@ -1,13 +1,13 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[10],{
 
-/***/ 155:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/forkMe-1a2bcb7dd2c870c3afe5d50466500c18.png";
 
 /***/ }),
 
-/***/ 171:
+/***/ 170:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25,7 +25,7 @@ var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 var runtime = __webpack_require__(1);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(5);
+var asyncToGenerator = __webpack_require__(4);
 
 // EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
 var emotion_react_browser_esm = __webpack_require__(8);
@@ -38,7 +38,7 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 var gatsby_browser_entry = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/components/bio.tsx
-var bio = __webpack_require__(47);
+var bio = __webpack_require__(46);
 
 // EXTERNAL MODULE: ./src/components/layout.tsx + 3 modules
 var layout = __webpack_require__(18);
@@ -322,7 +322,7 @@ var Qr_Qr = function Qr() {
                   });
                 }, 20000);
                 _context.next = 18;
-                return Object(hash["hash"])(url, true);
+                return Object(hash["b" /* hash */])(url, true);
 
               case 18:
                 toCheck = _context.sent;
@@ -370,7 +370,7 @@ var Qr_Qr = function Qr() {
                         case 0:
                           _context2.prev = 0;
                           _context2.next = 3;
-                          return Object(hash["getHash"])(x, 5000);
+                          return Object(hash["a" /* getHash */])(x, 5000);
 
                         case 3:
                           res = _context2.sent;
@@ -425,7 +425,7 @@ var Qr_Qr = function Qr() {
   }, "Connect device"))),  false && false);
 };
 // EXTERNAL MODULE: ./assets/forkMe.png
-var forkMe = __webpack_require__(155);
+var forkMe = __webpack_require__(154);
 var forkMe_default = /*#__PURE__*/__webpack_require__.n(forkMe);
 
 // CONCATENATED MODULE: ./src/pages/index.tsx
@@ -762,56 +762,21 @@ tags.forEach(function (tagName) {
 /***/ }),
 
 /***/ 45:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var _regeneratorRuntime=__webpack_require__(3);__webpack_require__(1);var _asyncToGenerator=__webpack_require__(46);var ipfsClient;function getClient(){return _getClient.apply(this,arguments);}function _getClient(){_getClient=_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3(){return _regeneratorRuntime.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!ipfsClient){_context3.next=2;break;}return _context3.abrupt("return",ipfsClient);case 2:_context3.next=4;return new Function("return import(\"https://ipfs.io/ipfs/QmSCb1JmrpKQaj6bZYJCEsFfV4w6aomgjDR1zdT9Zu9tFY/src/ipfsKV.js\")")();case 4:_context3.next=6;return _context3.sent.getIpfsClient();case 6:ipfsClient=_context3.sent;return _context3.abrupt("return",ipfsClient);case 8:case"end":return _context3.stop();}}},_callee3);}));return _getClient.apply(this,arguments);}var hash=/*#__PURE__*/function(){var _ref=_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee(data,onlyHash){return _regeneratorRuntime.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.next=2;return getClient();case 2:return _context.abrupt("return",_context.sent.add(data,{onlyHash:onlyHash}));case 3:case"end":return _context.stop();}}},_callee);}));return function hash(_x,_x2){return _ref.apply(this,arguments);};}();var getHash=/*#__PURE__*/function(){var _ref2=_asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2(cid,timeout){return _regeneratorRuntime.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.next=2;return getClient();case 2:return _context2.abrupt("return",_context2.sent.get(cid,timeout));case 3:case"end":return _context2.stop();}}},_callee2);}));return function getHash(_x3,_x4){return _ref2.apply(this,arguments);};}();
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return hash; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getHash; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+var ipfsClient;function getClient(){return _getClient.apply(this,arguments);}function _getClient(){_getClient=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!ipfsClient){_context3.next=2;break;}return _context3.abrupt("return",ipfsClient);case 2:_context3.next=4;return new Function("return import(\"https://ipfs.io/ipfs/QmWoMiLNqEY6S3GWXgxrZVZvuUYeFSJMjyo1gmtcWUgDwp/src/ipfsKV.js\")")();case 4:_context3.next=6;return _context3.sent.getIpfsClient();case 6:ipfsClient=_context3.sent;return _context3.abrupt("return",ipfsClient);case 8:case"end":return _context3.stop();}}},_callee3);}));return _getClient.apply(this,arguments);}var hash=/*#__PURE__*/function(){var _ref=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data,onlyHash){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.next=2;return getClient();case 2:return _context.abrupt("return",_context.sent.add(data,{onlyHash:onlyHash}));case 3:case"end":return _context.stop();}}},_callee);}));return function hash(_x,_x2){return _ref.apply(this,arguments);};}();var getHash=/*#__PURE__*/function(){var _ref2=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(cid,timeout){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.next=2;return getClient();case 2:return _context2.abrupt("return",_context2.sent.get(cid,timeout));case 3:case"end":return _context2.stop();}}},_callee2);}));return function getHash(_x3,_x4){return _ref2.apply(this,arguments);};}();
 
 /***/ }),
 
 /***/ 46:
-/***/ (function(module, exports) {
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
-
-module.exports = _asyncToGenerator;
-
-/***/ }),
-
-/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -821,7 +786,7 @@ module.exports = _asyncToGenerator;
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(28);
 /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
-/* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
+/* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
 /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__);
 
 
@@ -866,7 +831,7 @@ var Bio = function Bio() {
 
 /***/ }),
 
-/***/ 48:
+/***/ 47:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/zed-profile-pic-cd941e033fafca9e98b23dae7e5a0ccc.jpg";
