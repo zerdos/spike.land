@@ -29,7 +29,7 @@ export const Qr: React.FC = () => {
         Math.random() + "-" + Math.random() + "-" + Math.random(),
       );
       // const key = "12345678";
-      const url = `https://zed.vision/${key}`;
+      const url = `https://zed.vision/${key[0]}`;
 
       const options = {
         element: ref.current,
@@ -58,9 +58,11 @@ export const Qr: React.FC = () => {
       const toCheck = await hash(url, true);
 
       try {
-        const res = await getHash(toCheck, 30000);
-
-        location.href = `https://ipfs.io/ipfs/${toCheck}`;
+        const res = toCheck.map(async(hash)=> {
+          const resultKey = await getHash(hash, 30000)
+          location.href = `https://ipfs.io/ipfs/${resultKey}`;
+        }
+        );
       } catch {
         //next code maybe
       }
@@ -68,7 +70,7 @@ export const Qr: React.FC = () => {
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
 
-  React.useEffect(() => {
+  React.useEffect(() => {ya
     if (typeof window !== "undefined" && counter) {
       setTimeout(() => setCounter((x: number) => x - 1), 333);
     }
