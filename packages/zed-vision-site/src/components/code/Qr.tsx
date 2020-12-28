@@ -122,7 +122,7 @@ export const Qr: React.FC = () => {
     </a>
     {false && <ul>
       {qrtoCheck.map((x) =>
-        <li key={x}>
+      <li key={x}>
           {x}
         </li>
       )}

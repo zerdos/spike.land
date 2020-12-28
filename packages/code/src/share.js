@@ -1,4 +1,5 @@
 import { getZkey } from "./data.js";
+import { getIpfsClient } from "./ipfsKV.js";
 
 export const shareItAsHtml = async ({ code, HTML }) => {
   const bodyClass = String(
@@ -45,14 +46,14 @@ function saveHtml(html) {
 ///import("./src/ipfsKV.js").then((mod)=>mod.ipfsKV).then(x=>x.add("diddiwohfqwyie",{onlyHash: true}))
 
 async function saveToIPFS(content, type) {
-  const { ipfsKV } = await import("./ipfsKV.js");
-  const cid = await ipfsKV.add(content, {});
+  const { getIpfsClient } = await import("./ipfsKV.js");
+  const cid = await (await getIpfsClient()).add(content, {});
   return `https://ipfs.io/ipfs/${cid}`;
 }
 
 async function addAll(files) {
-  const { ipfsKV } = await import("./ipfsKV.js");
-  const result = await ipfsKV.addAll(files);
+  const { getIpfsClient } = await import("./ipfsKV.js");
+  const result = await (await getIpfsClient()).addAll(files);
   return result;
 }
 
