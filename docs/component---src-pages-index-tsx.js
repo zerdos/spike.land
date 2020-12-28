@@ -367,6 +367,12 @@ var Qr_Qr = function Qr() {
                     catching: "next time",
                     checkers: checkers
                   }); //next code maybe
+                } finally {
+                  checkers.num--;
+                  console.log({
+                    finally: "next time",
+                    checkers: checkers
+                  });
                 }
 
               case 21:

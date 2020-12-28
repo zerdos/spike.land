@@ -78,6 +78,10 @@ export const Qr: React.FC = () => {
       
         console.log({ catching: "next time" , checkers  });
         //next code maybe
+      } finally {
+        checkers.num--;
+      
+        console.log({ finally: "next time" , checkers  });
       }
     };
     if (typeof window !== "undefined" && retry > 0) connect();
