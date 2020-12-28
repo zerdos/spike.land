@@ -77,13 +77,13 @@ export async function run(mode = "window", _w) {
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
             .test(window.navigator.userAgent);
     };
+    const { document, open } = _w;
     win.content.innerHTML =
         `<div style="min-height: 700px;  min-width: 600px; height: ${isMobile() ? "2000px" : "100%"}; width:100%; display: block;" id="editor"></div>`;
+    console.log("Runner");
     if (!isMobile()) {
         document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section").style.overflow = "";
     }
-    console.log("Runner");
-    const { document, open } = _w;
     const session = getSession();
     try {
         const { getCodeToLoad } = await import("./data.js");
