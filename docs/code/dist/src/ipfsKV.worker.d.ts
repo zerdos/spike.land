@@ -7,5 +7,5 @@ declare namespace ipfsKV {
     }[] | {
         e: any;
     }>;
-    function get(cid: any, timeout: any): Promise<any>;
+    function get(cid: any, timeout: any): Promise<string>;
 }

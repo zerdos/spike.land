@@ -38,10 +38,13 @@ importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
         }
       },
       get: async (cid, timeout) => {
+        let result=""
         ipfsNode = ipfsNode || await Ipfs.create();
-                  const res =  await ipfsNode.cat(cid, timeout);
-                  console.log({res});
-        return res;
+        for await (let res  of   ipfsNode.cat(cid, {timeout: 30000});
+          {
+result = result  + res
+          }
+        return result;
       },
     };
     
