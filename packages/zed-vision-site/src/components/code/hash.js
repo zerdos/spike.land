@@ -7,10 +7,10 @@ const half = (data)=>{
     return (data.slice(0, halfLength));
   }
 
-  console.log({
-    slice1: data.slice(0, halfLength) ,
-    slice2: data.slice(halfLength-1, 2 * halfLength-1)
-  })
+  // console.log({
+  //   slice1: data.slice(0, halfLength) ,
+  //   slice2: data.slice(halfLength-1, 2 * halfLength-1)
+  // })
 
 
   return data;
@@ -44,7 +44,7 @@ const getHash = async (cid, timeout) => {
   const client = (await getClient());
 
   const data = await client.get(cid, timeout);
-
+return half(data);
 
 };
 
