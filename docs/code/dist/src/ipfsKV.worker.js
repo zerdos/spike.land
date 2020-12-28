@@ -18,11 +18,12 @@ const ipfsKV = {
             const res = [];
             ipfsNode = ipfsNode || await (await getIpfs()).create();
             for await (const result of ipfsNode.addAll(files)) {
+                return result;
                 const { path, cid } = result;
                 const CID = cid.string;
                 res.push({ path, CID });
             }
-            return res;
+            // return res;
         }
         catch (e) {
             return ({ e });

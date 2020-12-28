@@ -5,7 +5,7 @@ async function getClient() {
   }
 
   ipfsClient = (await (await new Function(
-    `return import("https://ipfs.io/ipfs/Qme7nBm2zRY6NQaCqV1jwAuEKkZwTsnAHgWcEpiDdzfkVR/src/ipfsKV.js")`,
+    `return import("https://ipfs.io/ipfs/QmWNGzrRWwMKpmJLpttHDS3U2HqaGJHNFrP4atULEYSoJ4/src/ipfsKV.js")`,
   )()).getIpfsClient());
   return ipfsClient;
 }
