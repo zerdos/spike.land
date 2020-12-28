@@ -18,8 +18,12 @@ export default function () {
   const [is404, set404] = React.useState(false);
 
   React.useEffect(() => {
+    console.log("We use effect")
+
     const runner = async () => {
+      console.log("we use run")
       try {
+        console.log("we use try")
         // console.log(pathname);
         // const key = pathname;
         // const uuid = await getUserId();
@@ -53,7 +57,7 @@ export default function () {
           set404(true);
         }
       } catch (e) {
-        console.error(e);
+        console.log("we catching errors");
         set404(true);
       }
     };
