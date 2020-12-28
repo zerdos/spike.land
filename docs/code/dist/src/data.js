@@ -60,12 +60,13 @@ export async function getCodeToLoad() {
         return data;
     }
     else if (typeof projectDesc === "string") {
-        return {
+        const data = {
             code: await shaDB.get(projectDesc),
             transpiled: null,
             html: null,
             versions: null,
         };
+        return data;
     }
 }
 // const search = new URLSearchParams(window.location.search);

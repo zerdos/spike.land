@@ -90,7 +90,7 @@ export async function run(mode = "window", _w) {
 
   // create a window
   const win = wm.createWindow(
-    { width: 720, height: 640, title: "Your Editor" },
+    { width: 720, height: 640,  style: {backgroundWindow: "#1e1e1e"} ,title: "Your Editor" },
   );
 
   // set content of window
