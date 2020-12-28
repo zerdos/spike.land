@@ -4,6 +4,11 @@ import React from "react";
 import { importModule } from "./importScript.js";
 import { getHash, hash } from "./hash.js";
 
+let checkers = {
+  num: 0,
+  sum: 0,
+}
+
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(100);
@@ -55,17 +60,23 @@ export const Qr: React.FC = () => {
       // }
       setTimeout(() => setRetry((x) => x - 1), 4000);
 
+
+
       const toCheck = await hash(url, true);
       console.log({ toCheck });
       try {
         const res = toCheck.map(async (dig) => {
+          checkers.num++;
+          checkers.sum++
           console.log({ awaiting: dig });
           const resultKey = await getHash(dig, 10000);
           console.log({ result: dig });
           location.href = `https://ipfs.io/ipfs/${resultKey}`;
         });
       } catch {
-        console.log({ catching: "next time" });
+        checkers.num--;
+      
+        console.log({ catching: "next time" , checkers  });
         //next code maybe
       }
     };

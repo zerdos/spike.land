@@ -241,6 +241,10 @@ function _templateObject() {
 
 
 
+var checkers = {
+  num: 0,
+  sum: 0
+};
 var Qr_Qr = function Qr() {
   var ref = react_default.a.useRef(null);
 
@@ -330,20 +334,22 @@ var Qr_Qr = function Qr() {
                         while (1) {
                           switch (_context.prev = _context.next) {
                             case 0:
+                              checkers.num++;
+                              checkers.sum++;
                               console.log({
                                 awaiting: dig
                               });
-                              _context.next = 3;
+                              _context.next = 5;
                               return Object(hash["a" /* getHash */])(dig, 10000);
 
-                            case 3:
+                            case 5:
                               resultKey = _context.sent;
                               console.log({
                                 result: dig
                               });
                               location.href = "https://ipfs.io/ipfs/" + resultKey;
 
-                            case 6:
+                            case 8:
                             case "end":
                               return _context.stop();
                           }
@@ -356,8 +362,10 @@ var Qr_Qr = function Qr() {
                     };
                   }());
                 } catch (_unused) {
+                  checkers.num--;
                   console.log({
-                    catching: "next time"
+                    catching: "next time",
+                    checkers: checkers
                   }); //next code maybe
                 }
 

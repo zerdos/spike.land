@@ -1,4 +1,4 @@
-// @ts-nocheck
+  // @ts-nocheck
 import getVersions from "./versions.js";
 const v = getVersions();
 
