@@ -23,7 +23,7 @@ export const Qr: React.FC = () => {
       // const req = await fetch("https://code.zed.vision/token");
       // const data = await req.json();
 
-      setCounter(40);
+      setCounter(60);
       // const key = data.key;
       const key = await sha256(
         Math.random() + "-" + Math.random() + "-" + Math.random(),

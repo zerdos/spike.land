@@ -277,7 +277,7 @@ var Qr_Qr = function Qr() {
                 QRious = _yield$importModule2.QRious;
                 // const req = await fetch("https://code.zed.vision/token");
                 // const data = await req.json();
-                setCounter(40); // const key = data.key;
+                setCounter(60); // const key = data.key;
 
                 _context2.next = 11;
                 return sha256(Math.random() + "-" + Math.random() + "-" + Math.random());
