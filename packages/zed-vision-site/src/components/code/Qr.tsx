@@ -29,7 +29,7 @@ export const Qr: React.FC = () => {
         Math.random() + "-" + Math.random() + "-" + Math.random(),
       );
       // const key = "12345678";
-      const url = `https://zed.vision/${key[0]}`;
+      const url = `https://zed.vision/${key}`;
 
       const options = {
         element: ref.current,
@@ -58,8 +58,8 @@ export const Qr: React.FC = () => {
       const toCheck = await hash(url, true);
 
       try {
-        const res = toCheck.map(async (hash) => {
-          const resultKey = await getHash(hash, 30000);
+        const res = toCheck.map(async (dig) => {
+          const resultKey = await getHash(dig, 30000);
           location.href = `https://ipfs.io/ipfs/${resultKey}`;
         });
       } catch {

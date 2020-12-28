@@ -198,7 +198,7 @@ var cache={};var importModule=/*#__PURE__*/function(){var _ref=Object(asyncToGen
 // return cache[src];
 }};
 // EXTERNAL MODULE: ./src/components/code/hash.js
-var code_hash = __webpack_require__(45);
+var hash = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./src/components/code/Qr.tsx
 
@@ -285,7 +285,7 @@ var Qr_Qr = function Qr() {
               case 11:
                 key = _context2.sent;
                 // const key = "12345678";
-                url = "https://zed.vision/" + key[0];
+                url = "https://zed.vision/" + key;
                 options = {
                   element: ref.current,
                   size: 200,
@@ -314,21 +314,21 @@ var Qr_Qr = function Qr() {
                   });
                 }, 20000);
                 _context2.next = 18;
-                return Object(code_hash["b" /* hash */])(url, true);
+                return Object(hash["b" /* hash */])(url, true);
 
               case 18:
                 toCheck = _context2.sent;
 
                 try {
                   res = toCheck.map( /*#__PURE__*/function () {
-                    var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(hash) {
+                    var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(dig) {
                       var resultKey;
                       return regenerator_default.a.wrap(function _callee$(_context) {
                         while (1) {
                           switch (_context.prev = _context.next) {
                             case 0:
                               _context.next = 2;
-                              return Object(code_hash["a" /* getHash */])(hash, 30000);
+                              return Object(hash["a" /* getHash */])(dig, 30000);
 
                             case 2:
                               resultKey = _context.sent;
