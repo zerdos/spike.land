@@ -3,7 +3,7 @@ import { Layout } from "../components/layout.tsx";
 import { SEO } from "../components/seo.tsx";
 import { sha256 } from "../components/utils/sha256/sha256.ts";
 import { getUserId } from "../components/code/getUser.ts";
-import { hash, getHash } from "../components/code/hash.js";
+import { getHash, hash } from "../components/code/hash.js";
 
 export default function () {
   let pathname = "";
@@ -42,10 +42,9 @@ export default function () {
         // );
         // const data: { success: boolean } = await response.json();
 
-
         const cid = await hash(location.href, false);
 
-        console.log({cid});
+        console.log({ cid });
 
         if (cid) {
           location.href = "https://ipfs.io/ipfs/" + cid;

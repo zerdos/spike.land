@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/react";
 import React from "react";
 import { importModule } from "./importScript.js";
-import { hash, getHash } from "./hash.js";
+import { getHash, hash } from "./hash.js";
 
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
@@ -10,7 +10,6 @@ export const Qr: React.FC = () => {
   const [qrtoCheck, changeList] = React.useState([]);
 
   const [counter, setCounter] = React.useState(0);
-  
 
   React.useEffect(() => {
     let qr;
@@ -59,7 +58,7 @@ export const Qr: React.FC = () => {
       const toCheck = await hash(url, true);
 
       changeList((x) => {
-        return [toCheck, ...x].slice(0,5);
+        return [toCheck, ...x].slice(0, 5);
       });
     };
     if (typeof window !== "undefined" && retry > 0) connect();
@@ -72,13 +71,13 @@ export const Qr: React.FC = () => {
   }, [counter]);
 
   React.useEffect(() => {
-   const checker = setInterval(async()=>{
-
-      qrtoCheck.forEach(async(x)=>await getHash(x, 5000)).then(async(x)=>{setRetry(0);console.log(x)}).catch(x=>Promise.reject(x));
-
-     
-   }, 2000);
-   return ()=>clearInterval(checker)
+    const checker = setInterval(async () => {
+      qrtoCheck.forEach(async (x) => await getHash(x, 5000)).then(async (x) => {
+        setRetry(0);
+        console.log(x);
+      }).catch((x) => Promise.reject(x));
+    }, 2000);
+    return () => clearInterval(checker);
   }, [qrtoCheck]);
 
   return <>
@@ -122,7 +121,7 @@ export const Qr: React.FC = () => {
     </a>
     {false && <ul>
       {qrtoCheck.map((x) =>
-      <li key={x}>
+        <li key={x}>
           {x}
         </li>
       )}
