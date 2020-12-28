@@ -10,7 +10,11 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
       jsx(
         motion.div,
         {
-          css: `
+              css: `
+              right: 20px;
+              top: 20px;
+              position: fixed;
+              z-index: 900;
               background: red;
               border: 4px solid red;
               border-radius: 8px;
@@ -25,7 +29,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
           {
             css: `
         display: block;
-        with: 100%;
+        width: auto;
         text-align: right;
         background: linear-gradient(0deg, darkred, red);
       `,
@@ -48,24 +52,22 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
           }, "🌎 SHARE"),
         ),
         jsx("div", {
-          css: `
-        min-width: 200px;
-        padding: 30px;
-        max-width: 600px;
-        background: white;
-        max-height: 800px;
-        border-radius: 0px 0px 8px 8px;
-        overflow-y: overlay;
-      `,
-          id: "zbody",
+          id: "container",
+          style: {
+            height: `70vh`,
+          width: "740px"}
         }),
       ),
     );
 
+    const element = window.document.createElement("div");
+    window.document.body.appendChild(element)
   renderEmotion(
     DraggableWindow({
       onShare,
     }),
-    window.document.getElementById("dragabbleWindow"),
+    element,
   );
+
+
 };

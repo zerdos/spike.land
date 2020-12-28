@@ -50,7 +50,7 @@ export default async (
       "display",
       "block",
     );
-    container!.style.setProperty("display", "none");
+    container.style.setProperty("display", "none");
 
     //@ts-ignore
     aceEditor = window.ace.edit("ace") as AceEditor;

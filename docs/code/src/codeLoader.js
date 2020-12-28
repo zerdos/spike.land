@@ -86,11 +86,6 @@ export async function run(mode = "window", _w) {
 
   session.transpiled = await transpile(session.code);
 
-  if (mode === "editor") {
-    const { renderDraggableEditor } = await import("./DraggableEditor.js");
-    renderDraggableEditor();
-  }
-
   if (mode === "window") {
     const onShare = async () => {
       const { shareItAsHtml } = await import("./share.js");
@@ -114,12 +109,17 @@ export async function run(mode = "window", _w) {
     `https://unpkg.com/@zedvision/smart-monaco-editor@${v.editor}/dist/editor.js`
   )).default;
 
+
+setTimeout(async()=>{
+  const container = document.getElementById("container");
   const modules = await startMonaco({
     language: "typescript",
-    container: document.getElementById("container"),
+    container:  container,
     code: session.code,
     onChange: (code) => runner(code),
   });
+
+},10);
 
   async function runner(c) {
     const cd = await (formatter(c));
@@ -242,9 +242,7 @@ export async function run(mode = "window", _w) {
     const { renderEmotion } = await import(src);
     session.unmount = renderEmotion(Element(), root);
 
-    document.getElementById("zbody").children.length &&
-      document.getElementById("zbody").children[0].remove();
-    document.getElementById("zbody").appendChild(root);
+    document.body.appendChild(root);
 
     session.HTML = root.innerHTML;
 

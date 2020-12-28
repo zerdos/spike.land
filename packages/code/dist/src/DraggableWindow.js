@@ -1,16 +1,7 @@
 export const renderDraggableWindow = async ({ onShare }, src) => {
-  const { renderEmotion, jsx, React, motion } = await import(
-    src
-  );
-
-  const DraggableWindow = ({ onShare }) =>
-    jsx(
-      React.Fragment,
-      {},
-      jsx(
-        motion.div,
-        {
-              css: `
+    const { renderEmotion, jsx, React, motion } = await import(src);
+    const DraggableWindow = ({ onShare }) => jsx(React.Fragment, {}, jsx(motion.div, {
+        css: `
               right: 20px;
               top: 20px;
               position: fixed;
@@ -19,23 +10,18 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
               border: 4px solid red;
               border-radius: 8px;
             `,
-
-          dragElastic: 0.5,
-          dragMomentum: false,
-          drag: true,
-        },
-        jsx(
-          "div",
-          {
-            css: `
+        dragElastic: 0.5,
+        dragMomentum: false,
+        drag: true,
+    }, jsx("div", {
+        css: `
         display: block;
         width: auto;
         text-align: right;
         background: linear-gradient(0deg, darkred, red);
       `,
-          },
-          jsx("button", {
-            css: `
+    }, jsx("button", {
+        css: `
                 background: darkred;
                 margin-top: -4px;
                 margin-right: -4px;
@@ -48,26 +34,17 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
                 border: none;
                 border-radius: 0px 8px 0px 0px;
               `,
-            onClick: () => onShare(),
-          }, "🌎 SHARE"),
-        ),
-        jsx("div", {
-          id: "container",
-          style: {
+        onClick: () => onShare(),
+    }, "🌎 SHARE")), jsx("div", {
+        id: "container",
+        style: {
             height: `70vh`,
-          width: "740px"}
-        }),
-      ),
-    );
-
+            width: "740px"
+        }
+    })));
     const element = window.document.createElement("div");
-    window.document.body.appendChild(element)
-  renderEmotion(
-    DraggableWindow({
-      onShare,
-    }),
-    element,
-  );
-
-
+    window.document.body.appendChild(element);
+    renderEmotion(DraggableWindow({
+        onShare,
+    }), element);
 };
