@@ -4,13 +4,13 @@ import { motion } from "framer-motion";
 import { css, jsx, Global } from "@emotion/react";;
 
 const Slider = () => {
-  const [sliderValue, setSlider] = useState(64);
+  const [sliderValue, setSlider] = useState(32);
 
   return <>
   <Global styles={css\`
       body{
           margin: 0;
-          background: rgb(\${sliderValue},\${255-sliderValue},255);
+          background: rgb(\${sliderValue},\${255-sliderValue*4},255);
           overflow: overlay;
         }  
     \`}/>
@@ -29,7 +29,7 @@ const Slider = () => {
       animate={{ fontSize: sliderValue + \`px\` }}>
       Example when the text gets bigger...
     </motion.p>
-      <motion.p animate={{fontSize:128-sliderValue+"px"}}>
+      <motion.p animate={{fontSize:64-sliderValue+"px"}}>
         ...or smaller
     </motion.p>
   </>
