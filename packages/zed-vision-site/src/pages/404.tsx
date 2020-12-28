@@ -42,7 +42,7 @@ export default function () {
         // );
         // const data: { success: boolean } = await response.json();
 
-        const cid = await hash(location.href, false);
+        const cid = await hash(url, false);
 
         console.log({ cid });
 
