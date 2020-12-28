@@ -28,7 +28,7 @@ const ipfsKV = {
             return ({ e });
         }
     },
-    init: async (cid, timeout) => {
+    get: async (cid, timeout) => {
         ipfsNode = ipfsNode || await Ipfs.create();
         ipfsNode.get(cid, timeout);
         return "ok";
