@@ -5,7 +5,7 @@ export const getIpfsClient = async () => {
     return {
         add: (data, options) => worker.add(data, options),
         addAll: (files) => worker.addAll(files),
-        get: (cid, timeout) => worker.get(cid, timeout)
+        get: (cid, timeout) => worker.get(cid, timeout),
     };
 };
 async function init() {
