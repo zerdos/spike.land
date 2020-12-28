@@ -7,7 +7,7 @@ import { getHash, hash } from "./hash.js";
 let checkers = {
   num: 0,
   sum: 0,
-}
+};
 
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
@@ -60,28 +60,31 @@ export const Qr: React.FC = () => {
       // }
       setTimeout(() => setRetry((x) => x - 1), 4000);
 
-
-
       const toCheck = await hash(url, true);
       console.log({ toCheck });
       try {
         const res = toCheck.map(async (dig) => {
           checkers.num++;
-          checkers.sum++
-          console.log({ awaiting: dig });
-          const resultKey = await getHash(dig, 10000);
-          console.log({ result: dig });
-          location.href = `https://ipfs.io/ipfs/${resultKey}`;
+          checkers.sum++;
+          console.log({ awaiting: dig, ...checkers });
+          const resultKey = new Promise(async (resolve, reject) => {
+            setTimeout(() => reject(-1), 15000);
+
+            const reslt = await getHash(dig, 10000);
+            console.log({ result: dig });
+            location.href = `https://ipfs.io/ipfs/${resultKey}`;
+            resolve(result);
+          });
         });
       } catch {
         checkers.num--;
-      
-        console.log({ catching: "next time" , checkers  });
+
+        console.log({ catching: "next time", checkers });
         //next code maybe
       } finally {
         checkers.num--;
-      
-        console.log({ finally: "next time" , checkers  });
+
+        console.log({ finally: "next time", checkers });
       }
     };
     if (typeof window !== "undefined" && retry > 0) connect();

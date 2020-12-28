@@ -40,7 +40,7 @@ const ipfsKV = {
   get: async (cid, timeout) => {
     let result = "";
     ipfsNode = ipfsNode || await Ipfs.create();
-    for await (let res of ipfsNode.cat(cid, { timeout: 30000 })) {
+    for await (let res of ipfsNode.cat(cid, { timeout })) {
       result = result + res;
     }
     return result;
