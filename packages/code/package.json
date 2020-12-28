@@ -38,10 +38,10 @@
     "homepage": "https://code.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "comlink": "^4.3.0",
+        "comlink": "4.3.0",
         "esbuild": "0.8.26",
-        "prettier": "^2.2.1",
-        "react": "^17.0.1"
+        "prettier": "2.2.1",
+        "react": "17.0.1"
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
