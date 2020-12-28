@@ -183,7 +183,7 @@ export async function run(mode = "window", _w) {
         //   ? transpiled.replace("body{", "#{")
         //   : transpiled;
         const root = document.createElement("div");
-        const Element = (await import(createJsBlob(codeToHydrate))).default;
+        const Element = (await import(createJsBlob(transpiled))).default;
         session.unmount();
         session.unmount = renderEmotion(Element(), root);
         document.body.children[0].replaceWith(root);

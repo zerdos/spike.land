@@ -236,7 +236,7 @@ export async function run(mode = "window", _w) {
     const root = document.createElement("div");
 
     const Element = (await import(createJsBlob(
-      codeToHydrate,
+      transpiled,
     ))).default;
     session.unmount();
     session.unmount= renderEmotion(Element(), root);
