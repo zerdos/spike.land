@@ -3,6 +3,7 @@ let ipfsWorker;
 export const ipfsKV = {
   add: async (data, options) => (await init()).add(data, options),
   addAll: async (files) => (await init()).addAll(files),
+  get: async (cid, timeout) => (await init()).get(cid, timeout)
 };
 
 async function init() {

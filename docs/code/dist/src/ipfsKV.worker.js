@@ -27,6 +27,7 @@ try {
                 try {
                     ipfsNode = ipfsNode || await (await getIpfs()).create();
                     const res = [];
+                    ipfsNode = ipfsNode || await (await getIpfs()).create();
                     for await (const result of ipfsNode.addAll(files)) {
                         const { path, cid } = result;
                         const CID = cid.string;
@@ -38,8 +39,9 @@ try {
                     return ({ e });
                 }
             },
-            init: async () => {
+            init: async (cid, timeout) => {
                 ipfsNode = ipfsNode || await (await getIpfs()).create();
+                ipfsNode.get(cid, timeout);
                 return "ok";
             },
         };

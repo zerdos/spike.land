@@ -1,6 +1,6 @@
 export default function () {
     const v = {
-        ipfs: "QmYWeJgvE9Nxm2qk5SZy14kJC32rRZDv89dUGfy71HvDAY",
+        ipfs: "QmUgP6zzm3KDxXRBBiQpPimnkAodzNhXDAePpt7Dy42q65",
         emotionRenderer: "10.13.3",
         prettier: "2.2.1",
         editor: "10.13.14",
