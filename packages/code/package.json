@@ -9,6 +9,7 @@
     "source": "./src/codeLoader.js",
     "exports": "./dist/codeLoader.modern.js",
     "scripts": {
+        "serve": "cd ../../ && yarn serve",
         "useState": "esbuild --minify src/hooks/react.js --minify --bundle --format=esm  --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/react.bundle.js",
         "vendor": "yarn esbuild --format=esm index.min.js --outfile=ipfs.esm.js",
         "npm:install": "rm -rf package-lock.json && npm install",

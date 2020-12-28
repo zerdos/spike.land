@@ -1,4 +1,4 @@
-  // @ts-nocheck
+// @ts-nocheck
 import getVersions from "./versions.js";
 const v = getVersions();
 
@@ -86,7 +86,7 @@ export async function run(mode = "window", _w) {
   const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
 
   // enable window snapping to screen edges and other windows when moving
-  wm.snap(false)
+  wm.snap(false);
 
   // create a window
   const win = wm.createWindow(
@@ -123,14 +123,16 @@ export async function run(mode = "window", _w) {
 
   try {
     const { getCodeToLoad } = await import("./data.js");
-    const { code } = await getCodeToLoad();
-    session.code = await formatter(code);
-  } catch (e) {
+    const { code, transpileCode, html, versions } = await getCodeToLoad();
+    session.code = code;
+    session.html = html;
+  
+  } catch (e) {   
     console.error({ e, message: "couldn't start" });
     return;
   }
 
-  session.transpiled = await transpile(session.code);
+  session.transpiled = session.transpiled || await transpile(session.code);
 
   if (mode === "window") {
     const onShare = async () => {
@@ -148,6 +150,7 @@ export async function run(mode = "window", _w) {
     );
 
     window.document.getElementById("zbody").appendChild(session.div);
+    if( session.html ) session.div.innerHTML = session.html;
   }
   const { renderEmotion } = await import(src);
   const transpiled = await transpile(session.code);
@@ -189,11 +192,17 @@ export async function run(mode = "window", _w) {
       session.lastErrors = err.length;
       // const errorDiv = document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
-        session.code = cd;
+        session.code = await formatter(cd);
         if (session.transpiled !== transpiled) {
           session.transpiled = transpiled;
           const { saveCode } = await import("./data.js");
-          await saveCode(await formatter(cd));
+
+          await saveCode({
+            code: session.code,
+            transpiled: session.transpiled,
+            html: session.HTML,
+            versions: session.devtoolHash,
+          });
         }
       } else {
         session.error = cd;
@@ -281,7 +290,7 @@ export async function run(mode = "window", _w) {
     session.unmount = renderEmotion(Element(), root);
     document.getElementById("zbody").children[0].replaceWith(root);
 
-    return !session.HTML;
+    return !!session.HTML;
   }
 }
 function createJsBlob(code) {

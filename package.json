@@ -11,7 +11,7 @@
   "scripts": {
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
     "start": "yarn build && yarn serve",
-    "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev docs/code/",
+    "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev packages/code/",
     "push": "yarn build && yarn copy && git add . && git commit -m pre-release && git push && git pull",
     "release": "cd packages/code && yarn build && cd ../smart-monaco-editor && yarn build && cd ../.. && yarn push && lerna publish patch --yes && yarn push",
     "build": "cd packages/diff && yarn build && cd ../smart-monaco-editor && yarn build && cd ../.. && yarn lerna run build --parallel --since b",
