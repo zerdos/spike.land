@@ -1,1 +1,91 @@
-(this.webpackJsonp=this.webpackJsonp||[]).push([[9],{153:function(n,e,t){"use strict";t.r(e);var r=t(7),c=t(0),a=t.n(c),u=t(8);function b(){var n=Object(r.a)(["\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    "]);return b=function(){return n},n}function o(){var n=Object(r.a)(["\n        font-size: ","px\n        "]);return o=function(){return n},n}function i(){var n=Object(r.a)(["\n        font-size: ","px\n        "]);return i=function(){return n},n}function s(){var n=Object(r.a)(["\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb("," "," 0); \n        outline: none; \n    "]);return s=function(){return n},n}var l=function(){var n=Object(c.useState)(64),e=n[0],t=n[1];return Object(u.c)(a.a.Fragment,null,Object(u.c)("input",{max:128,css:Object(u.b)(s(),255/128*e,255/128*(128-e)),type:"range","aria-label":"font size changer",value:e,step:"1",onChangeCapture:function(n){return t(Number(n.currentTarget.value))}}),Object(u.c)("p",{css:Object(u.b)(i(),.5625*e)},"Example when the text gets bigger..."),Object(u.c)("p",{css:Object(u.b)(o(),.5625*(128-e))},"...or smaller"))};e.default=function(){return Object(u.c)(a.a.Fragment,null,Object(u.c)(u.a,{styles:Object(u.b)(b())}),Object(u.c)(l,null))}}}]);
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[9],{
+
+/***/ 153:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
+
+
+function _templateObject4() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n      body{\n          margin: 0;\n          overflow: overlay;\n        }  \n    "]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n        font-size: ", "px\n        "]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n        font-size: ", "px\n        "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n        appearance: none;\n        width: 100%;\n        height: 40px; \n        background: rgb(", " ", " 0); \n        outline: none; \n    "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+
+/** @jsx jsx */
+
+
+
+var Slider = function Slider() {
+  var steps = 128;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(steps / 2),
+      sliderValue = _useState[0],
+      setSlider = _useState[1];
+
+  return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* jsx */ "c"])(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* jsx */ "c"])("input", {
+    max: steps,
+    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* css */ "b"])(_templateObject(), 255 / steps * sliderValue, 255 / steps * (steps - sliderValue)),
+    type: "range",
+    "aria-label": "font size changer",
+    value: sliderValue,
+    step: "1",
+    onChangeCapture: function onChangeCapture(e) {
+      return setSlider(Number(e.currentTarget.value));
+    }
+  }), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* jsx */ "c"])("p", {
+    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* css */ "b"])(_templateObject2(), 72 / steps * sliderValue)
+  }, "Example when the text gets bigger..."), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* jsx */ "c"])("p", {
+    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* css */ "b"])(_templateObject3(), 72 / steps * (steps - sliderValue))
+  }, "...or smaller"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* jsx */ "c"])(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* jsx */ "c"])(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* Global */ "a"], {
+    styles: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* css */ "b"])(_templateObject4())
+  }), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_2__[/* jsx */ "c"])(Slider, null));
+});
+
+/***/ })
+
+}]);

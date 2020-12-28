@@ -1,1 +1,144 @@
-(this.webpackJsonp=this.webpackJsonp||[]).push([[7],{138:function(e,n,t){"use strict";t.r(n);var r=t(3),a=t.n(r),c=(t(1),t(4)),o=t(27),u=t(0),s=t.n(u),i=t(18),l=t(17),f=t(45);n.default=function(){var e="";"undefined"!=typeof window&&(e=new URL(location.href).pathname.substr(1));var n,t=8===e.length&&(n=e,0===Object(o.a)(n.slice(1,9)).filter((function(e){return e<"0"||e>"f"})).length),r=s.a.useState(!1),u=r[0],p=r[1];return s.a.useEffect((function(){console.log("We use effect"),"undefined"!=typeof window&&(t?function(){var e=Object(c.a)(a.a.mark((function e(){var n;return a.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return console.log("we use run"),e.prev=1,console.log("we use try"),console.log("ipvs story"),e.next=6,Object(f.b)(location.href,!1);case 6:n=e.sent,console.log({cid:n}),n?location.href="https://ipfs.io/ipfs/"+n:p(!0),e.next=15;break;case 11:e.prev=11,e.t0=e.catch(1),console.log("we catching errors"),p(!0);case 15:case"end":return e.stop()}}),e,null,[[1,11]])})));return function(){return e.apply(this,arguments)}}()():p("No need to do a hash check"))}),[]),s.a.createElement(s.a.Fragment,null,!0===u&&s.a.createElement(i.a,null,s.a.createElement(l.a,{title:"404: Not Found"}),s.a.createElement("h1",null,"This page is not a page: ",e),s.a.createElement("p",null,"Let's say, its a 404 page. ",u,".")),!1===u&&s.a.createElement("div",null))}},45:function(e,n,t){"use strict";t.d(n,"b",(function(){return u})),t.d(n,"a",(function(){return s}));var r,a=t(3),c=t.n(a),o=(t(1),t(4));var u=function(){var e=Object(o.a)(c.a.mark((function e(n,t){return c.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,r();case 2:return e.abrupt("return",e.sent.hash(n,{onlyHash:t}));case 3:case"end":return e.stop()}}),e)})));return function(n,t){return e.apply(this,arguments)}}(),s=function(){var e=Object(o.a)(c.a.mark((function e(n,t){return c.a.wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,r();case 2:return e.abrupt("return",e.sent.get(n,t));case 3:case"end":return e.stop()}}),e)})));return function(n,t){return e.apply(this,arguments)}}()}}]);
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[7],{
+
+/***/ 138:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(27);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_layout_tsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
+/* harmony import */ var _components_seo_tsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(17);
+/* harmony import */ var _components_code_hash_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(45);
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var pathname = "";
+
+  if (typeof window !== "undefined") {
+    pathname = new URL(location.href).pathname.substr(1);
+  }
+
+  var isKey = function isKey(str) {
+    return Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(str.slice(1, 9)).filter(function (x) {
+      return x < "0" || x > "f";
+    }).length === 0;
+  };
+
+  var needToCheck = pathname.length === 8 && isKey(pathname);
+
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_4___default.a.useState(false),
+      is404 = _React$useState[0],
+      set404 = _React$useState[1];
+
+  react__WEBPACK_IMPORTED_MODULE_4___default.a.useEffect(function () {
+    console.log("We use effect");
+
+    var runner = /*#__PURE__*/function () {
+      var _ref = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var cid;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log("we use run");
+                _context.prev = 1;
+                console.log("we use try"); // console.log(pathname);
+                // const key = pathname;
+                // const uuid = await getUserId();
+                // console.log(uuid);
+                // const uuidHash = (await sha256(uuid)).substring(0, 8);
+                // console.log(uuidHash);
+                // const checkKeyUuid = (await sha256(key + uuid)).substring(0, 8);
+                // const checkHashUuidHash = (await sha256(key + uuidHash)).substring(
+                //   0,
+                //   8,
+                // );
+                // console.log({
+                //   key,
+                //   uuidHash,
+                //   checkKeyUuid,
+                //   checkHashUuidHash,
+                // });
+                // const response = await fetch(
+                //   `https://code.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
+                // );
+                // const data: { success: boolean } = await response.json();
+
+                console.log("ipvs story");
+                _context.next = 6;
+                return Object(_components_code_hash_js__WEBPACK_IMPORTED_MODULE_7__[/* hash */ "b"])(location.href, false);
+
+              case 6:
+                cid = _context.sent;
+                console.log({
+                  cid: cid
+                });
+
+                if (cid) {
+                  location.href = "https://ipfs.io/ipfs/" + cid;
+                } else {
+                  set404(true);
+                }
+
+                _context.next = 15;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](1);
+                console.log("we catching errors");
+                set404(true);
+
+              case 15:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 11]]);
+      }));
+
+      return function runner() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    if (typeof window !== "undefined") {
+      if (needToCheck) runner();else set404("No need to do a hash check");
+    }
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, is404 === true && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components_layout_tsx__WEBPACK_IMPORTED_MODULE_5__[/* Layout */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components_seo_tsx__WEBPACK_IMPORTED_MODULE_6__[/* SEO */ "a"], {
+    title: "404: Not Found"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("h1", null, "This page is not a page: ", pathname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("p", null, "Let's say, its a 404 page. ", is404, ".")), is404 === false && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", null));
+});
+
+/***/ }),
+
+/***/ 45:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return hash; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getHash; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+var ipfsClient;function getClient(){return _getClient.apply(this,arguments);}function _getClient(){_getClient=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!ipfsClient){_context3.next=2;break;}return _context3.abrupt("return",ipfsClient);case 2:_context3.next=4;return new Function("return import(\"https://ipfs.io/ipfs/QmS7exUuYvwCiX9aFCmiQ43JQAPPvgV4KZTmEnKZF3cwyF/src/ipfsKV.js\")")();case 4:_context3.next=6;return _context3.sent.getIpfsClient();case 6:ipfsClient=_context3.sent;case 7:case"end":return _context3.stop();}}},_callee3);}));return _getClient.apply(this,arguments);}var hash=/*#__PURE__*/function(){var _ref=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data,onlyHash){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.next=2;return ipfsClient();case 2:return _context.abrupt("return",_context.sent.hash(data,{onlyHash:onlyHash}));case 3:case"end":return _context.stop();}}},_callee);}));return function hash(_x,_x2){return _ref.apply(this,arguments);};}();var getHash=/*#__PURE__*/function(){var _ref2=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(cid,timeout){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.next=2;return ipfsClient();case 2:return _context2.abrupt("return",_context2.sent.get(cid,timeout));case 3:case"end":return _context2.stop();}}},_callee2);}));return function getHash(_x3,_x4){return _ref2.apply(this,arguments);};}();
+
+/***/ })
+
+}]);
