@@ -105,9 +105,7 @@ export async function run(mode = "window", _w) {
       );
   };
 
-
   const { document, open } = _w;
-
 
   win.content.innerHTML =
     `<div style="min-height: 700px;  min-width: 600px; height: ${
