@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/react";
 import React from "react";
 import { importModule } from "./importScript.js";
-import { hash } from "./hash.js";
+import { hash, getHash } from "./hash.js";
 
 export const Qr: React.FC = () => {
   const ref = React.useRef(null);
@@ -74,7 +74,7 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
    const checker = setInterval(async()=>{
 
-      qrtoCheck.forEach(x=>fetch(x).then(async(x)=>{setRetry(0);window.location.replace(await x.text())}).catch(x=>Promise.reject(x)).finally());
+      qrtoCheck.forEach(x=>getHash(x, 5000)).then(async(x)=>{setRetry(0);window.location.replace(x)}).catch(x=>Promise.reject(x));
 
      
    }, 2000);
