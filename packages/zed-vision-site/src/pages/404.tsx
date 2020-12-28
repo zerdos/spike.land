@@ -45,7 +45,7 @@ export default function () {
         const cid = await hash(url, false);
 
         console.log({ cid });
-
+        
         if (cid) {
           location.href = "https://ipfs.io/ipfs/" + cid;
         } else {
