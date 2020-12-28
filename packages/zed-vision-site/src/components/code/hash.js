@@ -1,4 +1,22 @@
 let ipfsClient = null;
+
+const half = (data)=>{
+  const halfLength = (data.length - data.length % 2) / 2;
+
+  if (data.slice(0, halfLength) === data.slice(halfLength-1, 2 * halfLength-1)) {
+    return (data.slice(0, halfLength));
+  }
+
+  console.log({
+    slice1: data.slice(0, halfLength) ,
+    slice2: data.slice(halfLength-1, 2 * halfLength-1)
+  })
+
+
+  return data;
+}
+
+
 async function getClient() {
   if (ipfsClient) {
     return ipfsClient;
@@ -27,12 +45,7 @@ const getHash = async (cid, timeout) => {
 
   const data = await client.get(cid, timeout);
 
-  const halfLength = (data.length - data.length % 2) / 2;
 
-  if (data.slice(0, halfLength) === data.slice(halfLength, 2 * halfLength)) {
-    return (data.slice(0, halfLength));
-  }
-  return data;
 };
 
 export { hash };
