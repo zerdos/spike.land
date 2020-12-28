@@ -382,7 +382,7 @@ var Qr_Qr = function Qr() {
         return setCounter(function (x) {
           return x - 1;
         });
-      }, 333);
+      }, 111);
     }
   }, [counter]);
   return Object(emotion_react_browser_esm["c" /* jsx */])(react_default.a.Fragment, null, Object(emotion_react_browser_esm["c" /* jsx */])("a", {

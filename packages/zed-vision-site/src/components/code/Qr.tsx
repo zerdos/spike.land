@@ -74,7 +74,7 @@ export const Qr: React.FC = () => {
 
   React.useEffect(() => {
     if (typeof window !== "undefined" && counter) {
-      setTimeout(() => setCounter((x: number) => x - 1), 333);
+      setTimeout(() => setCounter((x: number) => x - 1), 111);
     }
   }, [counter]);
 
