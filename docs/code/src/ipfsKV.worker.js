@@ -39,7 +39,7 @@ importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
       },
       get: async (cid, timeout) => {
         ipfsNode = ipfsNode || await Ipfs.create();
-                  const res =  await ipfsNode.get(cid, timeout);
+                  const res =  await ipfsNode.cat(cid, timeout);
                   console.log({res});
         return res;
       },
