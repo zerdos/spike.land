@@ -1,6 +1,7 @@
 import versions from "./versions.js";
+let worker = null;
 export const getIpfsClient = async () => {
-    const worker = await init();
+    worker = await init();
     return {
         add: (data, options) => worker.add(data, options),
         addAll: (files) => worker.addAll(files),

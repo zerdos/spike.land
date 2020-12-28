@@ -28,10 +28,11 @@ const ipfsKV = {
             return ({ e });
         }
     },
-    init: async (cid, timeout) => {
+    get: async (cid, timeout) => {
         ipfsNode = ipfsNode || await Ipfs.create();
-        ipfsNode.get(cid, timeout);
-        return "ok";
+        const res = await ipfsNode.get(cid, timeout);
+        console.log({ res });
+        return res;
     },
 };
 Comlink.expose(ipfsKV);
