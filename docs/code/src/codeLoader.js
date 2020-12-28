@@ -95,7 +95,16 @@ const win = wm.createWindow({ width: 500, height: 500, title: 'Your Editor' })
 // set content of window
 //win.content.style.margin = '0[[c'
 
-win.content.innerHTML = `<div style="min-height: 500px;  min-width: 500px; height: 2048px; width:100%; display: block;" id="editor"></div>`;
+
+const isMobile = () => {
+  if (typeof window === "undefined") return false;
+
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    window.navigator.userAgent,
+  );
+};
+
+win.content.innerHTML = `<div style="min-height: 500px;  min-width: 500px; height: ${isMobile()?"2000px":"100%"}; width:100%; display: block;" id="editor"></div>`;
 
 
 

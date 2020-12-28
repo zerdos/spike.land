@@ -513,10 +513,10 @@ __webpack_require__.d(__webpack_exports__, "y", function() { return /* binding *
 
 // UNUSED EXPORTS: angle, applyOffset, attract, attractExpo, createAnticipate, createAttractor, createBackIn, createExpoIn, decay, degreesToRadians, isPoint, isPoint3D, keyframes, mirrorEasing, mixColor, mixComplex, pointFromVector, radiansToDegrees, reverseEasing, smooth, smoothFrame, snap, spring, steps, toDecimal, velocityPerFrame
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/core-js/modules/es.array.reduce.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/core-js/modules/es.array.reduce.js
 var es_array_reduce = __webpack_require__(6);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/popmotion/node_modules/tslib/tslib.es6.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/popmotion/node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -943,16 +943,16 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
   privateMap.set(receiver, value);
   return value;
 }
-// EXTERNAL MODULE: /z/monorepo/node_modules/hey-listen/dist/hey-listen.es.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/hey-listen/dist/hey-listen.es.js
 var hey_listen_es = __webpack_require__(77);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/style-value-types/dist/style-value-types.es.js + 1 modules
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/style-value-types/dist/style-value-types.es.js + 1 modules
 var style_value_types_es = __webpack_require__(82);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/framesync/dist/framesync.es.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/framesync/dist/framesync.es.js
 var framesync_es = __webpack_require__(76);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/popmotion/dist/popmotion.es.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/popmotion/dist/popmotion.es.js
 
 
 
@@ -2148,7 +2148,7 @@ var steps = function steps(_steps, direction) {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/is-prop-valid/node_modules/@emotion/memoize/dist/memoize.browser.esm.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/@emotion/is-prop-valid/node_modules/@emotion/memoize/dist/memoize.browser.esm.js
 function memoize(fn) {
   var cache = {};
   return function (arg) {
@@ -2158,7 +2158,7 @@ function memoize(fn) {
 }
 
 /* harmony default export */ var memoize_browser_esm = (memoize);
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js
 
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
 
@@ -2180,16 +2180,16 @@ var index = memoize_browser_esm(function (prop) {
 
 "use strict";
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/extends.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@babel/runtime/helpers/extends.js
 var helpers_extends = __webpack_require__(23);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js
 var emotion_memoize_browser_esm = __webpack_require__(33);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/@emotion/styled/node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
 
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
 
@@ -2203,19 +2203,19 @@ var isPropValid = /* #__PURE__ */Object(emotion_memoize_browser_esm["a" /* defau
 /* Z+1 */
 );
 /* harmony default export */ var emotion_is_prop_valid_browser_esm = (isPropValid);
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/extends.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__(44);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/react/dist/emotion-element-4fbd89c5.browser.esm.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@emotion/react/dist/emotion-element-4fbd89c5.browser.esm.js
 var emotion_element_4fbd89c5_browser_esm = __webpack_require__(9);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js
 var emotion_utils_browser_esm = __webpack_require__(16);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js + 2 modules
 var emotion_serialize_browser_esm = __webpack_require__(19);
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
 
 
 
@@ -2370,7 +2370,7 @@ var emotion_styled_base_browser_esm_createStyled = function createStyled(tag, op
 };
 
 /* harmony default export */ var emotion_styled_base_browser_esm = (emotion_styled_base_browser_esm_createStyled);
-// CONCATENATED MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js
 
 
 
@@ -2610,23 +2610,23 @@ if (false) {}
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ CodeBox_CodeBox; });
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/regenerator/index.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__(3);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(13);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__(34);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/regenerator-runtime/runtime.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__(1);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(4);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/react/index.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ./src/components/utils/sha256/sha256.worker.ts
@@ -2918,10 +2918,10 @@ var example_defaultProps = {
   events: ["reset"].concat(Object(toConsumableArray["a" /* default */])(new Array(8).fill("+1")))
 };
 var counterExample = "import { FC, useState } from \"react\";\n\nconst Counter: FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst rootElement = document.createElement(\"div\");\n\nReactDOM.render(<Counter initial={0} />, rootElement);\ndocument.body.appendChild(rootElement);\n\n";
-// EXTERNAL MODULE: /z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
 var taggedTemplateLiteralLoose = __webpack_require__(7);
 
-// EXTERNAL MODULE: /z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
 var emotion_styled_browser_esm = __webpack_require__(27);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
@@ -2994,7 +2994,7 @@ var ResultContainer = emotion_styled_browser_esm["a" /* default */].div(_templat
 var ErrorContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject4());
 var ResultBox = emotion_styled_browser_esm["a" /* default */].div(_templateObject5());
 var ResultBoxContainer = emotion_styled_browser_esm["a" /* default */].div(_templateObject6());
-// EXTERNAL MODULE: /z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
+// EXTERNAL MODULE: /home/zed/z/monorepo/node_modules/framer-motion/dist/framer-motion.es.js
 var framer_motion_es = __webpack_require__(151);
 
 // CONCATENATED MODULE: ./src/components/codeBox/codeboxComponents.tsx
@@ -3767,7 +3767,7 @@ __webpack_require__.d(__webpack_exports__, "n", function() { return /* binding *
 
 // UNUSED EXPORTS: rgbUnit
 
-// CONCATENATED MODULE: /z/monorepo/node_modules/style-value-types/node_modules/tslib/tslib.es6.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/style-value-types/node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -4194,7 +4194,7 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
   privateMap.set(receiver, value);
   return value;
 }
-// CONCATENATED MODULE: /z/monorepo/node_modules/style-value-types/dist/style-value-types.es.js
+// CONCATENATED MODULE: /home/zed/z/monorepo/node_modules/style-value-types/dist/style-value-types.es.js
 
 
 var clamp = function clamp(min, max) {

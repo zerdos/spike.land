@@ -6,9 +6,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
               top: 20px;
               position: fixed;
               z-index: 900;
-              background: red;
-              border: 4px solid red;
-              border-radius: 8px;
+             border-radius: 8px;
             `,
         dragElastic: 0.5,
         dragMomentum: false,
@@ -22,6 +20,17 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
       `,
     }, jsx("button", {
         css: `
+            div:before{
+              content: “ ”;
+              background: inherit; 
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 0; 
+              bottom: 0;
+              box-shadow: inset 0 0 0 3000px rgba(255,255,255,0.3);
+              filter: blur(10px);
+             }
                 background: darkred;
                 margin-top: -4px;
                 margin-right: -4px;
