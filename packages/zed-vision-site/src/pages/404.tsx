@@ -12,8 +12,8 @@ export default function () {
   }
 
   const isKey = (str: string) =>
-    [...(str.slice(0, 8))].filter((x) => x < "0" || x > "f").length === 0;
-  const needToCheck = pathname.length === 8 && isKey(pathname);
+    [...(str.slice(1, 9))].filter((x) => x < "0" || x > "f").length === 0;
+  const needToCheck = pathname.length === 9 && isKey(pathname);
 
   const [is404, set404] = React.useState(false);
 
@@ -42,10 +42,11 @@ export default function () {
         // );
         // const data: { success: boolean } = await response.json();
 
-        const cid = await hash(url, false);
+        console.log("ipvs story")
+        const cid = await hash(location.href, false);
 
         console.log({ cid });
-        
+
         if (cid) {
           location.href = "https://ipfs.io/ipfs/" + cid;
         } else {
