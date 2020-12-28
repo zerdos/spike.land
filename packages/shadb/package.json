@@ -31,7 +31,7 @@
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "dependencies": {
         "esbuild": "0.8.26",
-        "idb": "^5.0.8"
+        "idb": "5.0.8"
     },
     "devDependencies": {
         "typescript": "4.1.3"

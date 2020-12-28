@@ -32,7 +32,7 @@
     "devDependencies": {
         "ace-builds": "1.4.12",
         "capture-website": "1.2.7",
-        "microbundle": "^0.13.0",
+        "microbundle": "0.13.0",
         "monaco-editor": "0.21.2"
     },
     "publishConfig": {
