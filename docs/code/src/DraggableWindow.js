@@ -10,7 +10,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
       jsx(
         motion.div,
         {
-              css: `
+          css: `
               right: 20px;
               top: 20px;
               position: fixed;
@@ -61,20 +61,17 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
           }, "🌎 SHARE"),
         ),
         jsx("div", {
-          id: "zbody"
-        },
-         ),
+          id: "zbody",
+        }),
       ),
     );
 
-    const element = window.document.createElement("div");
-    window.document.body.appendChild(element)
+  const element = window.document.createElement("div");
+  window.document.body.appendChild(element);
   renderEmotion(
     DraggableWindow({
       onShare,
     }),
     element,
   );
-
-
 };

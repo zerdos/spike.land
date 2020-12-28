@@ -53,16 +53,15 @@ export const Qr: React.FC = () => {
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";
       // }
-      setTimeout( () => setRetry(x => x - 1), 20000);
-      
+      setTimeout(() => setRetry((x) => x - 1), 20000);
+
       const toCheck = await hash(url, true);
 
       try {
-        const res = toCheck.map(async(hash)=> {
-          const resultKey = await getHash(hash, 30000)
+        const res = toCheck.map(async (hash) => {
+          const resultKey = await getHash(hash, 30000);
           location.href = `https://ipfs.io/ipfs/${resultKey}`;
-        }
-        );
+        });
       } catch {
         //next code maybe
       }
@@ -70,7 +69,7 @@ export const Qr: React.FC = () => {
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
 
-  React.useEffect(() => {ya
+  React.useEffect(() => {
     if (typeof window !== "undefined" && counter) {
       setTimeout(() => setCounter((x: number) => x - 1), 333);
     }

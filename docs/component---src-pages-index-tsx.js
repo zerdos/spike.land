@@ -365,8 +365,6 @@ var Qr_Qr = function Qr() {
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
   react_default.a.useEffect(function () {
-    ya;
-
     if (typeof window !== "undefined" && counter) {
       setTimeout(function () {
         return setCounter(function (x) {

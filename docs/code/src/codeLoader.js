@@ -16,13 +16,12 @@ function getSession() {
     preRendered: false,
     lastErrors: 0,
     rootElement: null,
-    div:document.createElement("div"),
+    div: document.createElement("div"),
     HTML: "",
     ipfs: 0,
     transpiled: "",
     code: "",
   };
-
 
   return session;
 }
@@ -75,44 +74,46 @@ async function formatter(code) {
 }
 
 export async function run(mode = "window", _w) {
-
-const {importScript} = await import("./importScript.js");
-const  {WindowManager}  = await importScript( 'https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js')
-
-
-
-// or const WindowManager = require('simple-window-manager').WindowManager
-
-// this is the window manager with one of the default options changed
-const wm = new WindowManager.WindowManager({ backgroundWindow: 'green' });
-
-// enable window snapping to screen edges and other windows when moving
-// wm.snap()
-
-// create a window    
-const win = wm.createWindow({ width: 720, height: 640, title: 'Your Editor' })
-
-// set content of window
-//win.content.style.margin = '0[[c'
-
-
-const isMobile = () => {
-  if (typeof window === "undefined") return false;
-
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    window.navigator.userAgent,
+  const { importScript } = await import("./importScript.js");
+  const { WindowManager } = await importScript(
+    "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
   );
-};
 
-win.content.innerHTML = `<div style="min-height: 700px;  min-width: 600px; height: ${isMobile()?"2000px":"100%"}; width:100%; display: block;" id="editor"></div>`;
-if (!isMobile())
-document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section").style.overflow=""
+  // or const WindowManager = require('simple-window-manager').WindowManager
 
+  // this is the window manager with one of the default options changed
+  const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
 
+  // enable window snapping to screen edges and other windows when moving
+  // wm.snap()
 
+  // create a window
+  const win = wm.createWindow(
+    { width: 720, height: 640, title: "Your Editor" },
+  );
 
+  // set content of window
+  //win.content.style.margin = '0[[c'
 
-   
+  const isMobile = () => {
+    if (typeof window === "undefined") return false;
+
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+      .test(
+        window.navigator.userAgent,
+      );
+  };
+
+  win.content.innerHTML =
+    `<div style="min-height: 700px;  min-width: 600px; height: ${
+      isMobile() ? "2000px" : "100%"
+    }; width:100%; display: block;" id="editor"></div>`;
+  if (!isMobile()) {
+    document.querySelector(
+      "body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section",
+    ).style.overflow = "";
+  }
+
   console.log("Runner");
 
   const { document, open } = _w;
@@ -154,16 +155,13 @@ document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-chi
     `https://unpkg.com/@zedvision/smart-monaco-editor@${v.editor}/dist/editor.js`
   )).default;
 
-
   const container = document.getElementById("editor");
   const modules = await startMonaco({
     language: "typescript",
-    container:  container,
+    container: container,
     code: session.code,
     onChange: (code) => runner(code),
   });
-
-
 
   async function runner(c) {
     const cd = await (formatter(c));
@@ -216,13 +214,11 @@ document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-chi
 
           return;
         }
-        console.error(err[0].messageText.toString())
+        console.error(err[0].messageText.toString());
         // errorDiv.innerHTML = err[0].messageText.toString();
 
-       
         return;
       }
-
 
       modules.monaco.editor.setTheme("vs-dark");
     } catch (err) {
@@ -280,12 +276,8 @@ document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-chi
       transpiled,
     ))).default;
     session.unmount();
-    session.unmount= renderEmotion(Element(), root);
-    document.getElementById("zbody").children[0].replaceWith(root)
-  
-  
-
-
+    session.unmount = renderEmotion(Element(), root);
+    document.getElementById("zbody").children[0].replaceWith(root);
 
     return !session.HTML;
   }

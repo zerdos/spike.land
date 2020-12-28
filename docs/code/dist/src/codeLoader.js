@@ -61,24 +61,27 @@ async function formatter(code) {
 }
 export async function run(mode = "window", _w) {
     const { importScript } = await import("./importScript.js");
-    const { WindowManager } = await importScript('https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js');
+    const { WindowManager } = await importScript("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js");
     // or const WindowManager = require('simple-window-manager').WindowManager
     // this is the window manager with one of the default options changed
-    const wm = new WindowManager.WindowManager({ backgroundWindow: 'green' });
+    const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
     // enable window snapping to screen edges and other windows when moving
     // wm.snap()
-    // create a window    
-    const win = wm.createWindow({ width: 720, height: 640, title: 'Your Editor' });
+    // create a window
+    const win = wm.createWindow({ width: 720, height: 640, title: "Your Editor" });
     // set content of window
     //win.content.style.margin = '0[[c'
     const isMobile = () => {
         if (typeof window === "undefined")
             return false;
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent);
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+            .test(window.navigator.userAgent);
     };
-    win.content.innerHTML = `<div style="min-height: 700px;  min-width: 600px; height: ${isMobile() ? "2000px" : "100%"}; width:100%; display: block;" id="editor"></div>`;
-    if (!isMobile())
+    win.content.innerHTML =
+        `<div style="min-height: 700px;  min-width: 600px; height: ${isMobile() ? "2000px" : "100%"}; width:100%; display: block;" id="editor"></div>`;
+    if (!isMobile()) {
         document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section").style.overflow = "";
+    }
     console.log("Runner");
     const { document, open } = _w;
     const session = getSession();
