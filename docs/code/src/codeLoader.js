@@ -22,7 +22,7 @@ function getSession() {
     transpiled: "",
     code: "",
   };
-  window.document.body.appendChild(session.div);
+
 
   return session;
 }
@@ -76,34 +76,36 @@ async function formatter(code) {
 
 export async function run(mode = "window", _w) {
 
-
-  const  WindowManager  = await import( 'https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js')
+const {importScript} = await import("./importScript.js");
+const  {WindowManager}  = await importScript( 'https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js')
 
 
 
 // or const WindowManager = require('simple-window-manager').WindowManager
 
 // this is the window manager with one of the default options changed
-const wm = new WindowManager({ backgroundWindow: 'green' });
+const wm = new WindowManager.WindowManager({ backgroundWindow: 'green' });
 
 // enable window snapping to screen edges and other windows when moving
-wm.snap()
+// wm.snap()
 
 // create a window    
-const win = wm.createWindow({ width: 500, height: 500, title: 'Test Window' })
+const win = wm.createWindow({ width: 500, height: 500, title: 'Your Editor' })
 
 // set content of window
-win.content.style.margin = '10px'
-win.content.innerHTML = 'This is a nifty window.'
+//win.content.style.margin = '0[[c'
+
+win.content.innerHTML = `<div style="min-height: 500px;  min-width: 500px; height: 2048px; width:100%; display: block;" id="editor"></div>`;
 
 
 
 
-
+   
   console.log("Runner");
 
   const { document, open } = _w;
   const session = getSession();
+
   try {
     const { getCodeToLoad } = await import("./data.js");
     const { code } = await getCodeToLoad();
@@ -129,6 +131,8 @@ win.content.innerHTML = 'This is a nifty window.'
       { onShare },
       src,
     );
+
+    window.document.getElementById("zbody").appendChild(session.div);
   }
   const { renderEmotion } = await import(src);
   const transpiled = await transpile(session.code);
@@ -139,7 +143,7 @@ win.content.innerHTML = 'This is a nifty window.'
   )).default;
 
 
-  const container = document.getElementById("container");
+  const container = document.getElementById("editor");
   const modules = await startMonaco({
     language: "typescript",
     container:  container,
@@ -265,7 +269,7 @@ win.content.innerHTML = 'This is a nifty window.'
     ))).default;
     session.unmount();
     session.unmount= renderEmotion(Element(), root);
-    document.body.children[0].replaceWith(root)
+    document.getElementById("zbody").children[0].replaceWith(root)
   
   
 

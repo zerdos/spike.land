@@ -36,11 +36,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
               `,
         onClick: () => onShare(),
     }, "🌎 SHARE")), jsx("div", {
-        id: "container",
-        style: {
-            height: `70vh`,
-            width: "740px"
-        }
+        id: "zbody"
     })));
     const element = window.document.createElement("div");
     window.document.body.appendChild(element);
