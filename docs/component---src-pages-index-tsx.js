@@ -318,6 +318,9 @@ var Qr_Qr = function Qr() {
 
               case 18:
                 toCheck = _context2.sent;
+                console.log({
+                  toCheck: toCheck
+                });
 
                 try {
                   res = toCheck.map( /*#__PURE__*/function () {
@@ -327,14 +330,20 @@ var Qr_Qr = function Qr() {
                         while (1) {
                           switch (_context.prev = _context.next) {
                             case 0:
-                              _context.next = 2;
+                              console.log({
+                                awaiting: dig
+                              });
+                              _context.next = 3;
                               return Object(hash["a" /* getHash */])(dig, 30000);
 
-                            case 2:
+                            case 3:
                               resultKey = _context.sent;
+                              console.log({
+                                result: dig
+                              });
                               location.href = "https://ipfs.io/ipfs/" + resultKey;
 
-                            case 4:
+                            case 6:
                             case "end":
                               return _context.stop();
                           }
@@ -346,10 +355,13 @@ var Qr_Qr = function Qr() {
                       return _ref2.apply(this, arguments);
                     };
                   }());
-                } catch (_unused) {//next code maybe
+                } catch (_unused) {
+                  console.log({
+                    catching: "next time"
+                  }); //next code maybe
                 }
 
-              case 20:
+              case 21:
               case "end":
                 return _context2.stop();
             }
@@ -732,7 +744,7 @@ tags.forEach(function (tagName) {
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
-var ipfsClient;function getClient(){return _getClient.apply(this,arguments);}function _getClient(){_getClient=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!ipfsClient){_context3.next=2;break;}return _context3.abrupt("return",ipfsClient);case 2:_context3.next=4;return new Function("return import(\"https://ipfs.io/ipfs/QmWoMiLNqEY6S3GWXgxrZVZvuUYeFSJMjyo1gmtcWUgDwp/src/ipfsKV.js\")")();case 4:_context3.next=6;return _context3.sent.getIpfsClient();case 6:ipfsClient=_context3.sent;return _context3.abrupt("return",ipfsClient);case 8:case"end":return _context3.stop();}}},_callee3);}));return _getClient.apply(this,arguments);}var hash=/*#__PURE__*/function(){var _ref=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data,onlyHash){var client;return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.next=2;return getClient();case 2:client=_context.sent;_context.next=5;return client.add(data+"N"+data,{onlyHash:onlyHash});case 5:_context.t0=_context.sent;_context.next=8;return client.add(data+"O"+data,{onlyHash:onlyHash});case 8:_context.t1=_context.sent;_context.next=11;return client.add(data+"I"+data,{onlyHash:onlyHash});case 11:_context.t2=_context.sent;_context.next=14;return client.add(data+"S"+data,{onlyHash:onlyHash});case 14:_context.t3=_context.sent;_context.next=17;return client.add(data+"E"+data,{onlyHash:onlyHash});case 17:_context.t4=_context.sent;_context.next=20;return client.add(data+"!"+data,{onlyHash:onlyHash});case 20:_context.t5=_context.sent;return _context.abrupt("return",[_context.t0,_context.t1,_context.t2,_context.t3,_context.t4,_context.t5]);case 22:case"end":return _context.stop();}}},_callee);}));return function hash(_x,_x2){return _ref.apply(this,arguments);};}();var getHash=/*#__PURE__*/function(){var _ref2=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(cid,timeout){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.next=2;return getClient();case 2:return _context2.abrupt("return",_context2.sent.get(cid,timeout));case 3:case"end":return _context2.stop();}}},_callee2);}));return function getHash(_x3,_x4){return _ref2.apply(this,arguments);};}();
+var ipfsClient=null;function getClient(){return _getClient.apply(this,arguments);}function _getClient(){_getClient=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!ipfsClient){_context3.next=2;break;}return _context3.abrupt("return",ipfsClient);case 2:_context3.next=4;return new Function("return import(\"https://ipfs.io/ipfs/QmWoMiLNqEY6S3GWXgxrZVZvuUYeFSJMjyo1gmtcWUgDwp/src/ipfsKV.js\")")();case 4:_context3.next=6;return _context3.sent.getIpfsClient();case 6:ipfsClient=_context3.sent;return _context3.abrupt("return",ipfsClient);case 8:case"end":return _context3.stop();}}},_callee3);}));return _getClient.apply(this,arguments);}var hash=/*#__PURE__*/function(){var _ref=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data,onlyHash){var client;return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.next=2;return getClient();case 2:client=_context.sent;_context.t0=Promise;_context.next=6;return client.add(data+"N"+data,{onlyHash:onlyHash});case 6:_context.t1=_context.sent;_context.next=9;return client.add(data+"O"+data,{onlyHash:onlyHash});case 9:_context.t2=_context.sent;_context.next=12;return client.add(data+"I"+data,{onlyHash:onlyHash});case 12:_context.t3=_context.sent;_context.next=15;return client.add(data+"S"+data,{onlyHash:onlyHash});case 15:_context.t4=_context.sent;_context.next=18;return client.add(data+"E"+data,{onlyHash:onlyHash});case 18:_context.t5=_context.sent;_context.next=21;return client.add(data+"!"+data,{onlyHash:onlyHash});case 21:_context.t6=_context.sent;_context.t7=[_context.t1,_context.t2,_context.t3,_context.t4,_context.t5,_context.t6];_context.next=25;return _context.t0.all.call(_context.t0,_context.t7);case 25:return _context.abrupt("return",_context.sent);case 26:case"end":return _context.stop();}}},_callee);}));return function hash(_x,_x2){return _ref.apply(this,arguments);};}();var getHash=/*#__PURE__*/function(){var _ref2=Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(cid,timeout){return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.next=2;return getClient();case 2:return _context2.abrupt("return",_context2.sent.get(cid,timeout));case 3:case"end":return _context2.stop();}}},_callee2);}));return function getHash(_x3,_x4){return _ref2.apply(this,arguments);};}();
 
 /***/ }),
 

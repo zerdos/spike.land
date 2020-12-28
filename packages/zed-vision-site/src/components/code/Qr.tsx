@@ -56,13 +56,16 @@ export const Qr: React.FC = () => {
       setTimeout(() => setRetry((x) => x - 1), 20000);
 
       const toCheck = await hash(url, true);
-
+      console.log({toCheck})
       try {
         const res = toCheck.map(async (dig) => {
+          console.log({awaiting: dig});
           const resultKey = await getHash(dig, 30000);
+          console.log({result: dig})
           location.href = `https://ipfs.io/ipfs/${resultKey}`;
         });
       } catch {
+        console.log({catching: "next time"})
         //next code maybe
       }
     };

@@ -1,4 +1,4 @@
-let ipfsClient;
+let ipfsClient = null;
 async function getClient() {
   if (ipfsClient) {
     return ipfsClient;
@@ -13,14 +13,14 @@ async function getClient() {
 const hash = async (data, onlyHash) =>{
 
 const client = await getClient();
-return [
+return (await Promise.all([
   await client.add(`${data}N${data}`, {onlyHash}),
   await client.add(`${data}O${data}`, {onlyHash}),
   await client.add(`${data}I${data}`, {onlyHash}),
   await client.add(`${data}S${data}`, {onlyHash}),
   await client.add(`${data}E${data}`, {onlyHash}),
   await client.add(`${data}!${data}`, {onlyHash})
-];
+]));
 
 }
  
