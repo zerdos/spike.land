@@ -77,7 +77,7 @@ async function formatter(code) {
 export async function run(mode = "window", _w) {
 
 
-  const { WindowManager } = await import( 'https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js')
+  const  WindowManager  = await import( 'https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js')
 
 
 
@@ -90,11 +90,11 @@ const wm = new WindowManager({ backgroundWindow: 'green' });
 wm.snap()
 
 // create a window    
-const window = wm.createWindow({ width: 500, height: 500, title: 'Test Window' })
+const win = wm.createWindow({ width: 500, height: 500, title: 'Test Window' })
 
 // set content of window
-window.content.style.margin = '10px'
-window.content.innerHTML = 'This is a nifty window.'
+win.content.style.margin = '10px'
+win.content.innerHTML = 'This is a nifty window.'
 
 
 

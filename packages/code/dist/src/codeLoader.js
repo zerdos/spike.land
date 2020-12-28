@@ -61,17 +61,17 @@ async function formatter(code) {
     }
 }
 export async function run(mode = "window", _w) {
-    const { WindowManager } = await import('https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js');
+    const WindowManager = await import('https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js');
     // or const WindowManager = require('simple-window-manager').WindowManager
     // this is the window manager with one of the default options changed
     const wm = new WindowManager({ backgroundWindow: 'green' });
     // enable window snapping to screen edges and other windows when moving
     wm.snap();
     // create a window    
-    const window = wm.createWindow({ width: 500, height: 500, title: 'Test Window' });
+    const win = wm.createWindow({ width: 500, height: 500, title: 'Test Window' });
     // set content of window
-    window.content.style.margin = '10px';
-    window.content.innerHTML = 'This is a nifty window.';
+    win.content.style.margin = '10px';
+    win.content.innerHTML = 'This is a nifty window.';
     console.log("Runner");
     const { document, open } = _w;
     const session = getSession();
