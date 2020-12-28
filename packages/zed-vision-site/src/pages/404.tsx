@@ -60,7 +60,7 @@ export default function () {
 
     if (typeof window !== "undefined") {
       if (needToCheck) runner();
-      else set404(true);
+      else set404("No need to do a hash check");
     }
   }, []);
 
@@ -69,7 +69,7 @@ export default function () {
       <SEO title="404: Not Found" />
       <h1>This page is not a page: {pathname}</h1>
       <p>
-        Let's say, its a 404 page.
+        Let's say, its a 404 page. {is404}.
       </p>
     </Layout>}
     {is404 === false && <div></div>}
