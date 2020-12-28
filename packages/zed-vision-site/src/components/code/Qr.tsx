@@ -53,7 +53,8 @@ export const Qr: React.FC = () => {
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";
       // }
-      setTimeout(() => setRetry((x: number) => x - 1), 20000);
+      setTimeout( () => setRetry(x => x - 1, 20000));
+      
       const toCheck = await hash(url, true);
 
       try {

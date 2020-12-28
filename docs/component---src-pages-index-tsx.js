@@ -311,8 +311,8 @@ var Qr_Qr = function Qr() {
                 setTimeout(function () {
                   return setRetry(function (x) {
                     return x - 1;
-                  });
-                }, 20000);
+                  }, 20000);
+                });
                 _context.next = 18;
                 return Object(hash["b" /* hash */])(url, true);
 
