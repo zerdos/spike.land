@@ -74,7 +74,7 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
    const checker = setInterval(async()=>{
 
-      qrtoCheck.forEach(x=>getHash(x, 5000)).then(async(x)=>{setRetry(0);window.location.replace(x)}).catch(x=>Promise.reject(x));
+      qrtoCheck.forEach(x=>getHash(x, 5000)).then(async(x)=>{setRetry(0);console.log(x)}).catch(x=>Promise.reject(x));
 
      
    }, 2000);
