@@ -5,6 +5,7 @@ async function transpile(code) {
   const { transpileCode } = await import("./transpile.js");
   return transpileCode(code);
 }
+
 const src =
   `https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js`;
 
@@ -14,11 +15,14 @@ function getSession() {
     hydrated: false,
     preRendered: false,
     lastErrors: 0,
+    rootElement: null,
+    div:document.createElement("div"),
     HTML: "",
     ipfs: 0,
     transpiled: "",
     code: "",
   };
+  window.document.body.appendChild(session.div);
 
   return session;
 }
@@ -101,7 +105,7 @@ export async function run(mode = "window", _w) {
       src,
     );
   }
-
+  const { renderEmotion } = await import(src);
   const transpiled = await transpile(session.code);
   await restartCode(transpiled);
 
@@ -110,7 +114,6 @@ export async function run(mode = "window", _w) {
   )).default;
 
 
-setTimeout(async()=>{
   const container = document.getElementById("container");
   const modules = await startMonaco({
     language: "typescript",
@@ -119,7 +122,7 @@ setTimeout(async()=>{
     onChange: (code) => runner(code),
   });
 
-},10);
+
 
   async function runner(c) {
     const cd = await (formatter(c));
@@ -143,7 +146,7 @@ setTimeout(async()=>{
       if (err.length) console.log({ err });
       if (session.lastErrors && err.length === 0) restartCode(transpiled);
       session.lastErrors = err.length;
-      const errorDiv = document.getElementById("error");
+      // const errorDiv = document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         session.code = cd;
         if (session.transpiled !== transpiled) {
@@ -172,15 +175,13 @@ setTimeout(async()=>{
 
           return;
         }
+        console.error(err[0].messageText.toString())
+        // errorDiv.innerHTML = err[0].messageText.toString();
 
-        errorDiv.innerHTML = err[0].messageText.toString();
-
-        errorDiv.style.display = "block";
-
+       
         return;
       }
 
-      errorDiv.style.display = "none";
 
       modules.monaco.editor.setTheme("vs-dark");
     } catch (err) {
@@ -228,23 +229,22 @@ setTimeout(async()=>{
       return hadError;
     }
 
-    const codeToHydrate = mode === "window"
-      ? transpiled.replace("body{", "#zbody{")
-      : transpiled;
+    // const codeToHydrate = mode === "window"
+    //   ? transpiled.replace("body{", "#{")
+    //   : transpiled;
 
     const root = document.createElement("div");
 
     const Element = (await import(createJsBlob(
       codeToHydrate,
     ))).default;
-
     session.unmount();
-    const { renderEmotion } = await import(src);
-    session.unmount = renderEmotion(Element(), root);
+    session.unmount= renderEmotion(Element(), root);
+    document.body.children[0].replaceWith(root)
+  
+  
 
-    document.body.appendChild(root);
 
-    session.HTML = root.innerHTML;
 
     return !session.HTML;
   }

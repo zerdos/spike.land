@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="Description" content="Code and share!">
   
-  <link rel="stylesheet" href="./normalize.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./assets/normalize.min.css" crossorigin="anonymous" />
 
   
 
@@ -31,7 +31,9 @@
     const v= versions();
     const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("ipfs.io"));
     (async()=>{
-        const { run } = await import(isLocalhost?"./src/codeLoader.js":`https://ipfs.io/ipfs/${v.ipfs}/src/codeLoader.js`);
+        const { run } = await import(isLocalhost?
+              "./src/codeLoader.js":
+              `https://ipfs.io/ipfs/${v.ipfs}/src/codeLoader.js`);
         run("window", window);
         })();
   </script>

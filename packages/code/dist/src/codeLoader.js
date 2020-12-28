@@ -11,11 +11,14 @@ function getSession() {
         hydrated: false,
         preRendered: false,
         lastErrors: 0,
+        rootElement: null,
+        div: document.createElement("div"),
         HTML: "",
         ipfs: 0,
         transpiled: "",
         code: "",
     };
+    window.document.body.appendChild(session.div);
     return session;
 }
 let prettier;
@@ -80,18 +83,17 @@ export async function run(mode = "window", _w) {
         const { renderDraggableWindow } = await import("./DraggableWindow.js");
         await renderDraggableWindow({ onShare }, src);
     }
+    const { renderEmotion } = await import(src);
     const transpiled = await transpile(session.code);
     await restartCode(transpiled);
     const startMonaco = (await import(`https://unpkg.com/@zedvision/smart-monaco-editor@${v.editor}/dist/editor.js`)).default;
-    setTimeout(async () => {
-        const container = document.getElementById("container");
-        const modules = await startMonaco({
-            language: "typescript",
-            container: container,
-            code: session.code,
-            onChange: (code) => runner(code),
-        });
-    }, 10);
+    const container = document.getElementById("container");
+    const modules = await startMonaco({
+        language: "typescript",
+        container: container,
+        code: session.code,
+        onChange: (code) => runner(code),
+    });
     async function runner(c) {
         const cd = await (formatter(c));
         try {
@@ -112,7 +114,7 @@ export async function run(mode = "window", _w) {
             if (session.lastErrors && err.length === 0)
                 restartCode(transpiled);
             session.lastErrors = err.length;
-            const errorDiv = document.getElementById("error");
+            // const errorDiv = document.getElementById("error");
             if (err.length === 0 && transpiled.length) {
                 session.code = cd;
                 if (session.transpiled !== transpiled) {
@@ -134,11 +136,10 @@ export async function run(mode = "window", _w) {
                     modules.monaco.editor.setTheme("hc-black");
                     return;
                 }
-                errorDiv.innerHTML = err[0].messageText.toString();
-                errorDiv.style.display = "block";
+                console.error(err[0].messageText.toString());
+                // errorDiv.innerHTML = err[0].messageText.toString();
                 return;
             }
-            errorDiv.style.display = "none";
             modules.monaco.editor.setTheme("vs-dark");
         }
         catch (err) {
@@ -178,16 +179,14 @@ export async function run(mode = "window", _w) {
             hadError = true;
             return hadError;
         }
-        const codeToHydrate = mode === "window"
-            ? transpiled.replace("body{", "#zbody{")
-            : transpiled;
+        // const codeToHydrate = mode === "window"
+        //   ? transpiled.replace("body{", "#{")
+        //   : transpiled;
         const root = document.createElement("div");
         const Element = (await import(createJsBlob(codeToHydrate))).default;
         session.unmount();
-        const { renderEmotion } = await import(src);
         session.unmount = renderEmotion(Element(), root);
-        document.body.appendChild(root);
-        session.HTML = root.innerHTML;
+        document.body.children[0].replaceWith(root);
         return !session.HTML;
     }
 }
