@@ -43,16 +43,23 @@ export async function getCodeToLoad() {
 
     const projectDesc = await shaDB.get(keyToLoad, "json")
 
-  
-    const data =  {
+
+    if (projectDesc!==null) {
+    return const data =  {
       code:  await shaDB.get(projectDesc.code),
      transpiled: await shaDB.get(projectDesc.transpiled) || "",
       html: await shaDB.get(projectDesc.html) || "",
       versions: await shaDB.get(projectDesc.versions) || "",
-    };
+    }
+    return data;
 
-    console.log({data})
-
+  } else if (typeof projectDesc === "string" ) { return {
+      code: await shaDB.get(projectDesc),
+      transpiled:null,
+      html:null,
+      versions:null,
+    }
+  
     return data;
   
 
@@ -73,7 +80,6 @@ export const getProjects = async () => {
       JSON.stringify({
         list: [projectId],
         [projectId]: {
-          created: Date.now(),
           lastOpen: Date.now(),
         },
       }),
