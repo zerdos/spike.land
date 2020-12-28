@@ -86,7 +86,7 @@ export async function run(mode = "window", _w) {
   const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
 
   // enable window snapping to screen edges and other windows when moving
-  // wm.snap()
+  wm.snap(false)
 
   // create a window
   const win = wm.createWindow(
@@ -268,9 +268,9 @@ export async function run(mode = "window", _w) {
       return hadError;
     }
 
-    // const codeToHydrate = mode === "window"
-    //   ? transpiled.replace("body{", "#{")
-    //   : transpiled;
+    const codeToHydrate = mode === "window"
+      ? transpiled.replace("body{", "#zbody div{")
+      : transpiled;
 
     const root = document.createElement("div");
 

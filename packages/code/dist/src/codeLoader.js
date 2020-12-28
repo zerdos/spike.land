@@ -67,7 +67,7 @@ export async function run(mode = "window", _w) {
     // this is the window manager with one of the default options changed
     const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
     // enable window snapping to screen edges and other windows when moving
-    // wm.snap()
+    wm.snap(false);
     // create a window
     const win = wm.createWindow({ width: 720, height: 640, title: "Your Editor" });
     // set content of window
@@ -202,9 +202,9 @@ export async function run(mode = "window", _w) {
             hadError = true;
             return hadError;
         }
-        // const codeToHydrate = mode === "window"
-        //   ? transpiled.replace("body{", "#{")
-        //   : transpiled;
+        const codeToHydrate = mode === "window"
+            ? transpiled.replace("body{", "#zbody div{")
+            : transpiled;
         const root = document.createElement("div");
         const Element = (await import(createJsBlob(transpiled))).default;
         session.unmount();
