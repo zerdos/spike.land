@@ -1,54 +1,37 @@
 "use strict";
-try {
-    const runner = async () => {
-        const versions = (await import("https://ipfs.io/ipfs/$$ipfs$$/src/versions.js")).default;
-        const v = versions();
-        const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
-        const getIpfs = async () => {
-            try {
-                const ipfs = (await import(`https://ipfs.io/ipfs/${v.ipfs}/vendor/ipfs/ipfs.esm.js`)).default;
-                return ipfs;
+importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
+importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
+//   };
+let ipfsNode;
+const ipfsKV = {
+    add: async (data, options) => {
+        ipfsNode = ipfsNode || await Ipfs.create();
+        const { cid } = await ipfsNode.add(data, options);
+        if (options && options.onlyHash) {
+            return (new Ipfs.CID(1, 112, cid.multihash)).toString();
+        }
+        return cid.string;
+    },
+    addAll: async (files) => {
+        try {
+            ipfsNode = ipfsNode || await Ipfs.create();
+            const res = [];
+            ipfsNode = ipfsNode || await (await getIpfs()).create();
+            for await (const result of ipfsNode.addAll(files)) {
+                const { path, cid } = result;
+                const CID = cid.string;
+                res.push({ path, CID });
             }
-            catch (e) {
-                //noise canceling
-            }
-        };
-        let ipfsNode;
-        const ipfsKV = {
-            add: async (data, options) => {
-                ipfsNode = ipfsNode || await (await getIpfs()).create();
-                const { cid } = await ipfsNode.add(data, options);
-                if (options && options.onlyHash) {
-                    return (new Ipfs.CID(1, 112, cid.multihash)).toString();
-                }
-                return cid.string;
-            },
-            addAll: async (files) => {
-                try {
-                    ipfsNode = ipfsNode || await (await getIpfs()).create();
-                    const res = [];
-                    ipfsNode = ipfsNode || await (await getIpfs()).create();
-                    for await (const result of ipfsNode.addAll(files)) {
-                        const { path, cid } = result;
-                        const CID = cid.string;
-                        res.push({ path, CID });
-                    }
-                    return res;
-                }
-                catch (e) {
-                    return ({ e });
-                }
-            },
-            init: async (cid, timeout) => {
-                ipfsNode = ipfsNode || await (await getIpfs()).create();
-                ipfsNode.get(cid, timeout);
-                return "ok";
-            },
-        };
-        Comlink.expose(ipfsKV);
-    };
-    runner();
-}
-catch (_a) {
-    //just noise reducing c:)
-}
+            return res;
+        }
+        catch (e) {
+            return ({ e });
+        }
+    },
+    init: async (cid, timeout) => {
+        ipfsNode = ipfsNode || await Ipfs.create();
+        ipfsNode.get(cid, timeout);
+        return "ok";
+    },
+};
+Comlink.expose(ipfsKV);
