@@ -72,7 +72,7 @@ export async function run(mode = "window", _w) {
         width: 720,
         height: 640,
         style: { backgroundWindow: "#1e1e1e" },
-        title: "My Editor",
+        title: "Realtime-editor",
     });
     // set content of window
     //win.content.style.margin = '0[[c'
