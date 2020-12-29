@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  ipfs: 
+    image: ipfs/go-ipfs:latest
+    ports: 
+      - 4001:4001
+      - 5001:5001
+      - 8080:8080
+    volumes:
+      - ./ipfs_data:/data/ipfs
+      - ./ipfs_staging:/export
+  devcontainer: 
+    build:
+      dockerfile: packages/hirsute-devcontainer/Dockerfile
+      context: .
+      args:
+        USER: $USER
+    ports: 
+      - 5901:5901
+      - 6080:6080
+    tmpfs:
+      - /home/$USER/tmpfs:exec
+    privileged: true
+    shm_size: 4gb
+    volumes:
+      # - $HOME:/home/$USER/host:delegated
+      - /z:/z
