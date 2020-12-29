@@ -40,7 +40,7 @@
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
         "comlink": "4.3.0",
-        "esbuild": "0.8.26",
+        "esbuild": "0.8.27",
         "prettier": "2.2.1",
         "react": "17.0.1"
     },
