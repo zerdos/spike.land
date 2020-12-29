@@ -454,7 +454,7 @@ function handleCloudRequest(request) {
         case 25:
           return [
             2, /*return*/
-            Response.redirect("https://zed.vision/code", 301),
+            Response.redirect("https://xzed.vision/code", 301),
           ];
         case 26:
           if (!(request.method === "POST")) return [3, /*break*/ 36];

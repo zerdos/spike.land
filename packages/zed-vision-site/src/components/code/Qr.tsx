@@ -97,7 +97,7 @@ export const Qr: React.FC = () => {
   }, [counter]);
 
   return <>
-    <a href="code/">
+    <a href="https://x.zed.vision/code/">
       {retry > 0 && <div
         css={css`
         background: blue;
