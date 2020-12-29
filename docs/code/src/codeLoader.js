@@ -1,7 +1,9 @@
-// @ts-nocheck
 import getVersions from "./versions.js";
 const v = getVersions();
 
+/**
+ * @param {string} code
+ */
 async function transpile(code) {
   const { transpileCode } = await import("./transpile.js");
   return transpileCode(code);
@@ -17,7 +19,7 @@ function getSession() {
     preRendered: false,
     lastErrors: 0,
     rootElement: null,
-    div: document.createElement("div"),
+    div: window.document.createElement("div"),
     HTML: "",
     ipfs: 0,
     transpiled: "",
@@ -27,22 +29,23 @@ function getSession() {
   return session;
 }
 
-let prettier;
-let parserBabel;
-let parserHtml;
 
+
+/**
+ * @param {string} code
+ */
 async function formatter(code) {
-  prettier = prettier ||
+  const prettier = 
     (await import(
       `https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`
     ))
       .default;
-  parserBabel = parserBabel ||
+const parserBabel = 
     (await import(
       `https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`
     ))
       .default;
-  parserHtml = parserHtml ||
+  const  parserHtml =
     (await import(
       `https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`
     ))
