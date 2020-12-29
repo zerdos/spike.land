@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  ipfs: 
+  ipfs:  
     image: ipfs/go-ipfs:latest
     ports: 
       - 4001:4001
