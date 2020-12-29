@@ -7,7 +7,7 @@ services:
       - 5001:5001
       - 8080:8080
     volumes:
-      - ./ipfs_data:/data/ipfs
+      - ipfs:/data/ipfs
       - .:/export
   devcontainer: 
     build:
@@ -25,3 +25,5 @@ services:
     volumes:
       # - $HOME:/home/$USER/host:delegated
       - /z:/z
+volumes: 
+  ipfs:
