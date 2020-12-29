@@ -90,7 +90,12 @@ export async function run(mode = "window", _w) {
 
   // create a window
   const win = wm.createWindow(
-    { width: 720, height: 640,  style: {backgroundWindow: "#1e1e1e"} ,title: "Your Editor" },
+    {
+      width: 720,
+      height: 640,
+      style: { backgroundWindow: "#1e1e1e" },
+      title: "Your Editor",
+    },
   );
 
   // set content of window
@@ -126,8 +131,7 @@ export async function run(mode = "window", _w) {
     const { code, transpileCode, html, versions } = await getCodeToLoad();
     session.code = code;
     session.html = html;
-  
-  } catch (e) {   
+  } catch (e) {
     console.error({ e, message: "couldn't start" });
     return;
   }
@@ -150,7 +154,7 @@ export async function run(mode = "window", _w) {
     );
 
     window.document.getElementById("zbody").appendChild(session.div);
-    if( session.html ) session.div.innerHTML = session.html;
+    if (session.html) session.div.innerHTML = session.html;
   }
   const { renderEmotion } = await import(src);
   const transpiled = await transpile(session.code);

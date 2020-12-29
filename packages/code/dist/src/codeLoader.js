@@ -69,7 +69,12 @@ export async function run(mode = "window", _w) {
     // enable window snapping to screen edges and other windows when moving
     wm.snap(false);
     // create a window
-    const win = wm.createWindow({ width: 720, height: 640, style: { backgroundWindow: "#1e1e1e" }, title: "Your Editor" });
+    const win = wm.createWindow({
+        width: 720,
+        height: 640,
+        style: { backgroundWindow: "#1e1e1e" },
+        title: "Your Editor",
+    });
     // set content of window
     //win.content.style.margin = '0[[c'
     const isMobile = () => {
