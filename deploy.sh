@@ -1,5 +1,11 @@
-curl -X PUT "https://api.cloudflare.com/client/v4/zones/1f98921051196545ebe79a450d3c71ed/dns_records/372e67954025e0ba6aaa6d586b9e0b59" \
-     -H "X-Auth-Email: user@example.com" \
-     -H "X-Auth-Key: c2547eb745079dac9320b638f5e225cf483cc5cfdda41" \
+
+CID=$(docker-compose exec ipfs ipfs add -r /export/packages -Q)
+firefox https://ipfs.io/ipfs/$CID &
+echo $CID
+curl -X PUT "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/7545e99c94fd6ff43cc0591bab13cbe1" \
+     -H "Authorization: Bearer $BBTOKEN" \
      -H "Content-Type: application/json" \
-     --data '{"type":"A","name":"example.com","content":"127.0.0.1","ttl":120,"proxied":false}'
+     --data '{"type":"TXT","name":"_dnslink.x","content":"dnslink=/ipfs/$CID","ttl":1,"proxied":false}' 
+
+
+

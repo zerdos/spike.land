@@ -10,15 +10,12 @@
   ],
   "scripts": {
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
-    "start": "yarn build && yarn serve",
-    "deploy": "docker-compose exec ipfs ipfs add -r /export/ -Q",
-    "serve": "yarn copy && file_server --cert .certs/_wildcard.zed.dev.pem --key .certs/_wildcard.zed.dev-key.pem --host cms.zed.dev packages/code/",
-    "push": "yarn build && yarn copy && git add . && git commit -m pre-release && git push && git pull",
+    "deploy": "sh deploy.sh",
+    "push": "yarn build && git add . && git commit -m pre-release && git push && git pull",
     "release": "cd packages/code && yarn build && cd ../smart-monaco-editor && yarn build && cd ../.. && yarn push && lerna publish patch --yes && yarn push",
     "build": "cd packages/diff && yarn build && cd ../smart-monaco-editor && yarn build && cd ../.. && yarn lerna run build --parallel --since b",
     "clean": "lerna run clean && cd packages/smart-monaco-editor && yarn build",
-    "copy": "rm -rf docs && mkdir -p docs/code && cp -a packages/zed-vision-site/public/. docs/ && cp -a packages/code/. ./docs/code/ && cp -a packages/diff/. docs/diff/ && rm -rf docs/code/.certs",
-    "rebuild": "yarn lerna run clean --parallel && yarn build && yarn copy",
+    "rebuild": "yarn lerna run clean --parallel && yarn build",
     "npm:install": "yarn lerna run npm:install --parallel",
     "docker:build": "yarn lerna run docker:build --parallel",
     "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"
