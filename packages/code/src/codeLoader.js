@@ -29,27 +29,22 @@ function getSession() {
   return session;
 }
 
-
-
 /**
  * @param {string} code
  */
 async function formatter(code) {
-  const prettier = 
-    (await import(
-      `https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`
-    ))
-      .default;
-const parserBabel = 
-    (await import(
-      `https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`
-    ))
-      .default;
-  const  parserHtml =
-    (await import(
-      `https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`
-    ))
-      .default;
+  const prettier = (await import(
+    `https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`
+  ))
+    .default;
+  const parserBabel = (await import(
+    `https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`
+  ))
+    .default;
+  const parserHtml = (await import(
+    `https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`
+  ))
+    .default;
 
   try {
     return prettier.format(code, {
