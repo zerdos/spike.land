@@ -2,7 +2,7 @@
   "name": "@zedvision/zedvision-site",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install --legacy-peer-deps",
-    "build": "yarn gatsby build --prefix-paths --no-uglify  && cp -ar blog/. public/",
+    "build": "yarn gatsby build --no-uglify  && cp -ar blog/. public/",
     "start-https": "yarn yarn gatsby develop",
     "start": "yarn gatsby develop",
     "serve": "yarn gatsby serve",
@@ -24,7 +24,6 @@
     "@zedvision/smart-monaco-editor": "^10.14.6",
     "framer-motion": "3.1.1",
     "gatsby": "2.29.2",
-    "gatsby-plugin-relative-paths": "1.0.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-helmet": "6.1.0",
