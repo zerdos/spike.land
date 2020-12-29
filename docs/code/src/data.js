@@ -66,8 +66,22 @@ export async function getCodeToLoad() {
   const projectName = await getActiveProject();
   const keyToLoad = await shaDB.get(projectName);
 
-  const projectDesc = await shaDB.get(keyToLoad, "json");
+  let  projectDesc
 
+try{
+ projectDesc = await shaDB.get(keyToLoad, "json");
+}
+
+catch{
+  const data = {
+    code: projectDesc,
+    transpiled: null,
+    html: null,
+    versions: null,
+  };
+  return data
+
+}
   if (projectDesc !== null) {
     const data = {
       code: await shaDB.get(projectDesc.code),
