@@ -3,7 +3,7 @@
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install --legacy-peer-deps",
     "build": "yarn gatsby build --no-uglify",
-    "deploy": "yarn build && mv public ../../docs && cd ../.. && yarn push",
+    "deploy": "yarn build && cp -far public/. ../../docs/",
     "start-https": "yarn yarn gatsby develop",
     "start": "yarn gatsby develop",
     "serve": "yarn gatsby serve",

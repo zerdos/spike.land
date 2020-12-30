@@ -528,7 +528,7 @@ var pages_BlogIndex = function BlogIndex(_ref) {
     }
   }, []);
   return Object(emotion_react_browser_esm["c" /* jsx */])(layout["a" /* Layout */], null, Object(emotion_react_browser_esm["c" /* jsx */])(seo["a" /* SEO */], {
-    title: "This is Zed vision"
+    title: "This is Zed."
   }), isMobile() === false ? Object(emotion_react_browser_esm["c" /* jsx */])("h1", null, "Link your mobile with this code: ", Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Qr, null)) : Object(emotion_react_browser_esm["c" /* jsx */])("h1", null, "This is my blog."), Object(emotion_react_browser_esm["c" /* jsx */])("a", {
     href: "https://github.com/zed-vision/monorepo"
   }, Object(emotion_react_browser_esm["c" /* jsx */])("img", {
