@@ -2,7 +2,7 @@ const { DevcontainerGenerator } = require("@devcontainer/generator");
 const { writeFile } = require("fs").promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("ubuntu:hirsute");
+  const devGenerator = new DevcontainerGenerator("hirsute");
 
   devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();
