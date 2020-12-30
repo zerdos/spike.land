@@ -23,7 +23,7 @@ async function getClient() {
   }
 
   ipfsClient = (await (await new Function(
-    `return import("https://ipfs.io/ipfs/QmPjuyQzHYwp87EVDpT24aJmYDFC4pSC2VHAbU6yNvNfUD/dist/ipfsKV.js")`,
+    `return import("https://ipfs.io/ipfs/QmeKedCDWqEnSqU7pS7PvJU6R8Y73ifXVR6cYwtXQvYbvX/src/ipfsKV.js")`,
   )()).getIpfsClient());
   return ipfsClient;
 }

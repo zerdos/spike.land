@@ -1,7 +1,7 @@
 importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
 importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
 
-//   };
+//   };ya
 
 /** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: any, arg1: { timeout: any; }) => any; }} */
 let ipfsNode;

@@ -1,6 +1,6 @@
 CID=$(ipfs add -r ./packages/code -Q) 
 
-URL="http://0.0.0.0:8080/ipfs/$CID"
+URL="https://ipfs.zed.vision/ipfs/$CID"
 
 echo $URL  
 
