@@ -305,6 +305,7 @@ export async function run(mode = "window", _w) {
    * @param {string} transpiled
    */
   async function restartCode(transpiled) {
+    session.HTML = "";
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
@@ -325,6 +326,7 @@ export async function run(mode = "window", _w) {
     session.unmount = renderEmotion(Element(), root);
     const zbody = document.getElementById("zbody");
     zbody && zbody.children[0].replaceWith(root);
+    session.HTML = session.div.innerHTML;
 
     return !!session.HTML;
   }
