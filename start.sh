@@ -1,6 +1,6 @@
 CID=$(docker-compose exec ipfs ipfs add -r /export/packages/code -Q) 
 
-URL="https://ipfs.io/ipfs/$CID"
+URL="http://0.0.0.0:8080/ipfs/$CID"
 
 echo $URL  
 
