@@ -142,7 +142,7 @@ export async function run(mode = "window", _w) {
       const link = await shareItAsHtml(
         { code: session.transpiled, HTML: session.HTML },
       );
-      console.log({link})
+      console.log({ link });
       open(link);
     };
 

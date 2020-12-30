@@ -79,7 +79,7 @@ export async function getCodeToLoad() {
     };
     return data;
   }
-  if (projectDesc !== null && projectDesc !== undefined)  {
+  if (projectDesc !== null && projectDesc !== undefined) {
     const data = {
       code: await shaDB.get(projectDesc.code),
       transpiled: await shaDB.get(projectDesc.transpiled) || "",
@@ -88,17 +88,16 @@ export async function getCodeToLoad() {
     };
 
     return data;
-  } 
+  }
 
-
-    const data = {
-      code: await shaDB.get(projectDesc) || (await import("./starter.js")).starter, 
-      transpiled: null,
-      html: null,
-      versions: null,
-    };
-    return data;
-  
+  const data = {
+    code: await shaDB.get(projectDesc) ||
+      (await import("./starter.js")).starter,
+    transpiled: null,
+    html: null,
+    versions: null,
+  };
+  return data;
 }
 // const search = new URLSearchParams(window.location.search);
 
