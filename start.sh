@@ -21,11 +21,11 @@ curl -X PUT "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e
 echo "-------------------------------------------------------------" 
 
 
-CID=$(docker-compose exec ipfs ipfs add -r /export/packages -Q) 
+CID=$(docker-compose exec ipfs ipfs add -r /export/packages/code -Q) 
 
 echo "-------------------------------------------------------------" 
 
-firefox https://ipfs.io/ipfs/$CID 
+firefox "https://ipfs.io/ipfs/$CID" &
 
 echo "-------------------------------------------------------------" 
  curl -X PUT "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/7545e99c94fd6ff43cc0591bab13cbe1" \
