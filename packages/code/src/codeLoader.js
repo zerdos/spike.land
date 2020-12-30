@@ -151,9 +151,11 @@ export async function run(mode = "window", _w) {
   if (mode === "window") {
     const onShare = async () => {
       const { shareItAsHtml } = await import("./share.js");
+
       const link = await shareItAsHtml(
         { code: session.transpiled, HTML: session.HTML },
       );
+
       console.log({ link });
       open(link);
     };
