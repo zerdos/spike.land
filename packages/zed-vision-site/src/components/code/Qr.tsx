@@ -63,7 +63,7 @@ export const Qr: React.FC = () => {
       const toCheck = await hash(url, true);
       console.log({ toCheck });
       try {
-        const res = toCheck.map(async (dig) => {
+        toCheck.map(async (dig) => {
           checkers.num++;
           console.log({ awaiting: dig, ...checkers });
           const resultKey = new Promise(async (resolve, reject) => {
