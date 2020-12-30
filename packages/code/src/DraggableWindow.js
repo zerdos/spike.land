@@ -1,8 +1,16 @@
+/**
+ * 
+ * @param {*} param0 
+ * @param {string} src 
+ */
 export const renderDraggableWindow = async ({ onShare }, src) => {
   const { renderEmotion, jsx, React, motion } = await import(
     src
   );
-
+  /**
+ * 
+ * @param {{onShare: ()=>void}} param0 
+ */
   const DraggableWindow = ({ onShare }) =>
     jsx(
       React.Fragment,

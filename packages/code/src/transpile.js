@@ -4,19 +4,27 @@ import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 
 // import * as Comlink from "../../../dist/esm/comlink.mjs";
 
+/** @type {(arg0: string, arg1: boolean) => any} */
 let transform;
+
+/**
+ *
+ * @param {string} code 
+ * @param {boolean} hasToReport 
+ */
 export async function transpileCode(code, hasToReport) {
   transform = transform || await init();
 
   return await transform(code, hasToReport);
 }
 
+/** @type {null} */
 let node = null;
 
 export async function getIpfsiD() {
   if (node) return node;
 
-  let ipfsId = await shaDB.get("ipfs");
+  let ipfsId = await shaDB.get("ipfs", "string");
   if (!ipfsId) {
     ipfsId = v4();
 
@@ -26,8 +34,15 @@ export async function getIpfsiD() {
   return ipfsId;
 }
 
+/** @type {any} */
 let ipfsNode;
+/**
+ * 
+ * @param {string} code 
+ * @param {boolean} hasToReport 
+ */
 export async function ipfsAdd(code, hasToReport) {
+  ///@ts-ignore
   ipfsNode = ipfsNode || await Ipfs.create({ repo: await getIpfsiD() });
 
   return await transform(code, hasToReport);

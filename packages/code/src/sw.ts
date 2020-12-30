@@ -2,9 +2,12 @@ importScripts(
   "https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js",
 );
 // This will trigger the importScripts() for workbox.strategies and its dependencies:
+//@ts-ignore
 const { strategies } = workbox;
 
-self.addEventListener("fetch", (event) => {
+const swSelf = self as unknown as ServiceWorkerGlobalScope;
+
+swSelf.addEventListener("fetch", (event) => {
   const { request } = event;
   const { url } = request;
   if (
@@ -17,3 +20,4 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(cacheFirst.handle({ event, request }));
   }
 });
+export {};

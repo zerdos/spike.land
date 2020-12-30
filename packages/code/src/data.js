@@ -28,6 +28,9 @@ export const getProjects = async () => {
   return projects.list;
 };
 
+/**
+ * @param {string} hash
+ */
 export async function getZkey(hash) {
   const uuid = await getUserId();
   const { sha256 } = await import(
@@ -40,11 +43,12 @@ export async function getZkey(hash) {
   return `${hash}${uKey}${gKey}${vKey}`;
 }
 
+/** @type {string} */
 let uuid;
 export async function getUserId() {
   if (uuid) return uuid;
 
-  uuid = await shaDB.get("uuid");
+  uuid = await shaDB.get("uuid", "string");
   if (!uuid) {
     const resp = await fetch("https://code.zed.vision/register");
     const data = await resp.json();
@@ -54,6 +58,7 @@ export async function getUserId() {
   return uuid;
 }
 
+/** @type {string} */
 let activeProject;
 async function getActiveProject() {
   if (activeProject) return activeProject;
@@ -64,7 +69,7 @@ async function getActiveProject() {
 
 export async function getCodeToLoad() {
   const projectName = await getActiveProject();
-  const keyToLoad = await shaDB.get(projectName);
+  const keyToLoad = await shaDB.get(projectName, "string");
 
   let projectDesc;
 
@@ -81,17 +86,17 @@ export async function getCodeToLoad() {
   }
   if (projectDesc !== null && projectDesc !== undefined) {
     const data = {
-      code: await shaDB.get(projectDesc.code),
-      transpiled: await shaDB.get(projectDesc.transpiled) || "",
-      html: await shaDB.get(projectDesc.html) || "",
-      versions: await shaDB.get(projectDesc.versions) || "",
+      code: await shaDB.get(projectDesc.code, "string"),
+      transpiled: await shaDB.get(projectDesc.transpiled, "string") || "",
+      html: await shaDB.get(projectDesc.html, "string") || "",
+      versions: await shaDB.get(projectDesc.versions, "string") || "",
     };
 
     return data;
   }
 
   const data = {
-    code: await shaDB.get(projectDesc) ||
+    code: await shaDB.get(projectDesc, "string") ||
       (await import("./starter.js")).starter,
     transpiled: null,
     html: null,
@@ -105,14 +110,17 @@ export async function getCodeToLoad() {
 // if(keyToLoad){
 //   projects.map(p=>shaDB.get())
 // }
-
+/**
+ * 
+ * @param {{code:string, html: string, transpiled: string, versions: string }} param0 
+ */
 export const saveCode = async ({ code, html, transpiled, versions }) => {
   const { sha256 } = await import(
     `https://unpkg.com/@zedvision/sha256@${v.sha256}/sha256.js`
   );
 
   const projectName = await getActiveProject();
-  const prevHash = await shaDB.get(projectName);
+  // const prevHash = await shaDB.get(projectName, "string");
 
   const desc = {
     code: await sha256(code),
@@ -124,7 +132,7 @@ export const saveCode = async ({ code, html, transpiled, versions }) => {
   const hash = await sha256(JSON.stringify(desc));
   await shaDB.put(hash, JSON.stringify(desc));
 
-  const prevData = await shaDB.get(prevHash);
+  // const prevData = await shaDB.get(prevHash, s);
   if (code) shaDB.put(desc.code, code);
   if (html) shaDB.put(desc.html, html);
   if (transpiled) shaDB.put(desc.transpiled, transpiled);

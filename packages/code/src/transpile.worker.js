@@ -1,5 +1,5 @@
-importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
-importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
+self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
+self.importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 
 const src =
   "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js";
@@ -17,6 +17,11 @@ const searchRegExpMotion = /import.*framer-motion';/gi;
 // const from = / from '/gi;
 const replaceWith = "";
 //
+
+/**
+ * @param {string} code
+ *  @param {boolean} hasToReport
+ */
 const transform = (code, hasToReport) => {
   try {
     const safeCode = code.replaceAll(
@@ -29,6 +34,7 @@ const transform = (code, hasToReport) => {
 
     // console.log(safeCode);
 
+    //@ts-ignore
     const transformed = Babel.transform(
       `/** @jsx jsx */
       import {jsx, React, css, Fragment, Global, Motion, motion} from "${src}";
@@ -58,4 +64,5 @@ const transform = (code, hasToReport) => {
   }
 };
 
+///@ts-ignore
 Comlink.expose(transform);

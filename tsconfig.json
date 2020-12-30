@@ -14,7 +14,6 @@
     "lib": ["WebWorker", "dom", "dom.iterable", "ESNext"],
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "types": [""],
     "strict": true
   }
 }

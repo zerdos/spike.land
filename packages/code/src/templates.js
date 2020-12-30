@@ -1,3 +1,7 @@
+/**
+ * @param {{HTML: string, css: string}} code
+ */
+
 export const getHtml = ({ HTML, css }) => {
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch

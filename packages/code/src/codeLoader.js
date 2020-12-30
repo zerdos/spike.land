@@ -6,7 +6,7 @@ const v = getVersions();
  */
 async function transpile(code) {
   const { transpileCode } = await import("./transpile.js");
-  return transpileCode(code);
+  return transpileCode(code, false);
 }
 
 const src =
@@ -21,6 +21,7 @@ function getSession() {
     rootElement: null,
     div: window.document.createElement("div"),
     HTML: "",
+    devtoolHash: "",
     ipfs: 0,
     transpiled: "",
     code: "",
@@ -72,6 +73,9 @@ async function formatter(code) {
   }
 }
 
+/**
+ * @param {{ document: Document; open: (url: string)=>void; }} _w
+ */
 export async function run(mode = "window", _w) {
   const { importScript } = await import("./importScript.js");
   const { WindowManager } = await importScript(
@@ -117,18 +121,26 @@ export async function run(mode = "window", _w) {
 
   console.log("Runner");
   if (!isMobile()) {
-    document.querySelector(
-      "body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section",
-    ).style.overflow = "";
+    try {
+      const element = document.querySelector(
+        "body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section",
+      );
+      if (element !== null) {
+        //@ts-ignore
+        element.style.overflow = "";
+      }
+    } catch {
+    }
   }
 
   const session = getSession();
 
   try {
     const { getCodeToLoad } = await import("./data.js");
-    const { code, transpileCode, html, versions } = await getCodeToLoad();
+    const { code, transpiled, html, versions } = await getCodeToLoad();
     session.code = code;
-    session.html = html;
+    session.transpiled = transpiled || (await transpile(code));
+    session.HTML = html;
   } catch (e) {
     console.error({ e, message: "couldn't start" });
     return;
@@ -152,8 +164,12 @@ export async function run(mode = "window", _w) {
       src,
     );
 
-    window.document.getElementById("zbody").appendChild(session.div);
-    if (session.html) session.div.innerHTML = session.html;
+    const zbody = window.document.getElementById("zbody");
+    if (zbody !== null) {
+      zbody.appendChild(session.div);
+    }
+
+    if (session.HTML) session.div.innerHTML = session.HTML;
   }
   const { renderEmotion } = await import(src);
   const transpiled = await transpile(session.code);
@@ -164,13 +180,25 @@ export async function run(mode = "window", _w) {
   )).default;
 
   const container = document.getElementById("editor");
-  const modules = await startMonaco({
-    language: "typescript",
-    container: container,
-    code: session.code,
-    onChange: (code) => runner(code),
-  });
+  const modules = await startMonaco(
+    /**
+     * @param {any} code
+     */
+    {
+      language: "typescript",
+      container: container,
+      code: session.code,
+      /**
+     * 
+     * @param {string} code 
+     */
+      onChange: (code) => runner(code),
+    },
+  );
 
+  /**
+   * @param {string} c
+   */
   async function runner(c) {
     const cd = await (formatter(c));
     try {
@@ -208,8 +236,6 @@ export async function run(mode = "window", _w) {
           });
         }
       } else {
-        session.error = cd;
-
         const { diff } = await import(
           `https://unpkg.com/@zedvision/diff@${v.diff}/src/diff.js`
         );
@@ -244,6 +270,9 @@ export async function run(mode = "window", _w) {
     }
   }
 
+  /**
+   * @param {string} code
+   */
   async function getErrors(code) {
     if (!modules || !modules.monaco) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
@@ -272,6 +301,9 @@ export async function run(mode = "window", _w) {
     ];
   }
 
+  /**
+   * @param {string} transpiled
+   */
   async function restartCode(transpiled) {
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
@@ -291,11 +323,15 @@ export async function run(mode = "window", _w) {
     ))).default;
     session.unmount();
     session.unmount = renderEmotion(Element(), root);
-    document.getElementById("zbody").children[0].replaceWith(root);
+    const zbody = document.getElementById("zbody");
+    zbody && zbody.children[0].replaceWith(root);
 
     return !!session.HTML;
   }
 }
+/**
+ * @param {BlobPart} code
+ */
 function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
 
