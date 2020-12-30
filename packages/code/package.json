@@ -53,13 +53,12 @@
         "@types/react": "^17.0.0",
         "@types/react-dom": "^17.0.0",
         "@zedvision/shadb": "10.14.4",
-        "framer-motion": "^3.1.1",
-        "idb": "^5.0.8",
         "comlink": "4.3.0",
         "esbuild": "0.8.27",
+        "framer-motion": "^3.1.1",
+        "idb": "^5.0.8",
         "prettier": "2.2.1",
         "react": "17.0.1",
         "react-dom": "^17.0.1"
-
     }
 }
