@@ -11,7 +11,7 @@
         "dev": "yarn xbuild && yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "ebuild": "yarn esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",
-        "xbuild": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min",
+        "build": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min && yarn deploy",
         "min": "deno fmt dist && yarn esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
         "deploy": "yarn wrangler publish"
     },
