@@ -34,7 +34,7 @@
     "bugs": {
         "url": "https://github.com/zed-vision/monorepo"
     },
-    "homepage": "https://code.zed.vision",
+    "homepage": "https://c.zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
         "tslib": "2.0.3",

@@ -31,7 +31,7 @@ export const getIpfsClient = async () => {
 async function init() {
   const v = versions();
   const res = await fetch(
-    `https://x.zed.vision/src/ipfsKV.worker.js`,
+    `https://code.zed.vision/src/ipfsKV.worker.js`,
   );
   const workerSource = await res.text();
   const worker = new Worker(

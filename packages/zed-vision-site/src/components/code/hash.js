@@ -23,7 +23,7 @@ async function getClient() {
   }
 
   ipfsClient = (await (await new Function(
-    `return import("https://x.zed.vision/src/ipfsKV.js")`,
+    `return import("https://code.zed.vision/src/ipfsKV.js")`,
   )()).getIpfsClient());
   return ipfsClient;
 }

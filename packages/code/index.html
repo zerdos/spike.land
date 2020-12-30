@@ -33,7 +33,7 @@
     const isLocalhost = true||  (window.location.href.includes("zed.dev") || window.location.href.includes("ipfs.io"));
     (async()=>{
         const { run } = await import(isLocalhost?
-              "./dist/codeLoader.js":
+              "./src/codeLoader.js":
               `https://ipfs.io/ipfs/${v.ipfs}/src/codeLoader.js`);
         run("window", window);
         })();
