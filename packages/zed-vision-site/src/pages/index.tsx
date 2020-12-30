@@ -65,7 +65,7 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="This is Zed vision" />
+      <SEO title="This is Zed." />
       {isMobile() === false
         ? <h1>
           Link your mobile with this code: <Qr />
