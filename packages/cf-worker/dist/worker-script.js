@@ -456,7 +456,7 @@ async function handleCloudRequest(request) {
       }
     }
     const resp = await fetch(
-      "https://unpkg.com/@zedvision/code/@11.0.2/ipfs.html",
+      "https://unpkg.com/@zedvision/code@11.0.2/index.html",
     );
     return resp;
   } else if (request.method === "POST") {

@@ -196,7 +196,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
-    const resp= await fetch("https://unpkg.com/@zedvision/code/@11.0.2/ipfs.html");
+    const resp= await fetch("https://unpkg.com/@zedvision/code@11.0.2/index.html");
 
 
     return resp;
