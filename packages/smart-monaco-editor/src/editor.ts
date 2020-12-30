@@ -7,7 +7,7 @@ import type * as Monaco from "monaco-editor";
 interface StartMonacoProps {
   onChange: (code: string) => void;
   code: string;
-  container: HTMLDivElement,
+  container: HTMLDivElement;
   language: "html" | "javascript" | "typescript";
   options: {
     gylph: boolean;
@@ -18,7 +18,6 @@ export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
   var ace: unknown;
-
 
   const modelUri = language === "typescript"
     ? "file:///main.tsx"
