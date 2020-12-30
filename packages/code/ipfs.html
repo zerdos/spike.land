@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+  <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon" 
+          type="image/png" 
+          href="https://zed.vision/zed-icon-big.png" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Instant React Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <meta name="Description" content="Code and share!">
+  
+  <link rel="stylesheet" href="https:/unpkg.com/@zedvision/code/assets/normalize.min.css"  crossorigin/>
+  <link rel="stylesheet" href="https:/unpkg.com/@zedvision/code/assets/app.css" crossorigin/>
+
+  
+
+</head>
+
+<body>  <!-- <script type="module">
+    import {Workbox} from 'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs';
+    
+    if ('serviceWorker' in navigator) {
+      const wb = new Workbox('sw.js');
+    
+      wb.register();
+    }
+
+    </script -->
+  <script type="module">
+    import versions from "./dist/versions.js"
+    const v= versions();
+    const isLocalhost = true||  (window.location.href.includes("zed.dev") || window.location.href.includes("ipfs.io"));
+    (async()=>{
+        const { run } = await import(`https:/unpkg.com/@zedvision/code/src/codeLoader.js`);
+        run("window", window);
+        })();
+  </script>
+</body>
+
+</html>
