@@ -1,4 +1,4 @@
-CID=$(docker-compose exec ipfs ipfs add -r /export/packages/code -Q) 
+CID=$(ipfs add -r ./packages/code -Q) 
 
 URL="http://0.0.0.0:8080/ipfs/$CID"
 
@@ -17,7 +17,9 @@ echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------" 
 
 
-BCID=$(docker-compose exec ipfs ipfs add -r /export/packages/zed-vision-site/public -Q)
+# BCID=$(docker-compose exec ipfs ipfs add -r /export/packages/zed-vision-site/public -Q)
+
+BCID=$(ipfs add -r ./packages/zed-vision-site/public -Q)
 
 #  curl -X GET "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/?type=TXT" \
 #      -H "Authorization: Bearer $BBTOKEN" \

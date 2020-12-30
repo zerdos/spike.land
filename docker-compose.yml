@@ -24,6 +24,6 @@ services:
     shm_size: 4gb
     volumes:
       # - $HOME:/home/$USER/host:delegated
-      - /z:/z
+      - .:/z
 volumes: 
   ipfs:
