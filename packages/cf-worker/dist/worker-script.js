@@ -455,7 +455,7 @@ async function handleCloudRequest(request) {
         return text(result);
       }
     }
-    Response.redirect("https://blog.zed.vision", 301);
+    return text("ello");
   } else if (request.method === "POST") {
     const zkey = String(request.headers.get("ZKEY") || "");
     const sha = zkey.slice(0, 8);
