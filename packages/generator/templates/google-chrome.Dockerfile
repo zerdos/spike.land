@@ -14,7 +14,7 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
   && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
   && chmod +x /usr/bin/google-chrome \
-  && chmod +x /usr/bin/google-chrome-stable
+  && chmod +x /usr/bin/google-chrome-stable  
   
 ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1

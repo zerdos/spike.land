@@ -50,10 +50,10 @@ RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.6.2
+  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.6.3
 
   
-ENV NODE_VERSION 15.5.0
+ENV NODE_VERSION 14.15.3
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -144,7 +144,7 @@ RUN  curl -sSL  https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key 
   && echo "/usr/bin/google-chrome-bin --no-sandbox" > /usr/bin/google-chrome \
   && echo "/usr/bin/google-chrome-stable-bin --no-sandbox" > /usr/bin/google-chrome-stable \
   && chmod +x /usr/bin/google-chrome \
-  && chmod +x /usr/bin/google-chrome-stable
+  && chmod +x /usr/bin/google-chrome-stable  
   
 ENV QT_X11_NO_MITSHM=1
 ENV _X11_NO_MITSHM=1
