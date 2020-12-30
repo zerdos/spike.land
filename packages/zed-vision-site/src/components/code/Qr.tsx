@@ -65,12 +65,11 @@ export const Qr: React.FC = () => {
       try {
         const res = toCheck.map(async (dig) => {
           checkers.num++;
-          checkers.sum++;
           console.log({ awaiting: dig, ...checkers });
           const resultKey = new Promise(async (resolve, reject) => {
             setTimeout(() => reject(-1), 15000);
 
-            const reslt = await getHash(dig, 10000);
+            const result = await getHash(dig, 10000);
             console.log({ result: dig });
             location.href = `https://ipfs.io/ipfs/${resultKey}`;
             resolve(result);

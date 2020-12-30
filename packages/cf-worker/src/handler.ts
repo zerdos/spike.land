@@ -196,10 +196,12 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
-    const resp= await fetch("https://unpkg.com/@zedvision/code@11.0.2/ipfs.html");
+//    const resp= await fetch("https://unpkg.com/@zedvision/code@11.0.2/ipfs.html");
 
 
-    return resp;
+    // if (request.url==="")
+    
+    Response.redirect("https://blog.zed.vision", 301);
   } else if (request.method === "POST") {
     // if (pathname==="/add"){
 
