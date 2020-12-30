@@ -171,7 +171,10 @@ export class DevcontainerGenerator {
   public async generate() {
     const { dockerTemplates, readmeTemplates } = await this.init();
 
-    this._dockerfile += dockerTemplates["base"].replace("{DISTRO}", this.base);
+    this._dockerfile += dockerTemplates["base"].replace(
+      "{DISTRO}",
+      getDistro(this.base) + ":" + this.base,
+    );
     this._readme += readmeTemplates["base"].replace("{DISTRO}", this.base);
 
     if (this._debianBackports) {

@@ -1,4 +1,4 @@
-FROM hirsute
+FROM ubuntu:hirsute
 
 ### base.Dockerfile
 ### Generator: https://github.com/zed-vision/monorepo/

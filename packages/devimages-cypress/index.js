@@ -2,7 +2,7 @@ const { DevcontainerGenerator } = require("@devcontainer/generator");
 const { writeFile } = require("fs").promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("ubuntu:focal");
+  const devGenerator = new DevcontainerGenerator("focal");
 
   devGenerator.setNodeVersion("lts");
   devGenerator.setXfce();

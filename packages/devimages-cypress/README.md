@@ -1,6 +1,6 @@
 ## Devcontainer
 
-- Base image: buildpack-deps:ubuntu:focal
+- Base image: buildpack-deps:focal
 - Node: 14.15.3
 - Yarn: 1.22.5
 - Cypress 6.2.0

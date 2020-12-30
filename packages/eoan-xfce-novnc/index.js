@@ -2,7 +2,7 @@ const { DevcontainerGenerator } = require("@devcontainer/generator");
 const { writeFile } = require("fs").promises;
 
 const run = async () => {
-  const devGenerator = new DevcontainerGenerator("ubuntu:focal"); // I know its not eoan - but eoan is not supported anymore
+  const devGenerator = new DevcontainerGenerator("focal"); // I know its not eoan - but eoan is not supported anymore
 
   devGenerator.setXfce();
   devGenerator.setRemoteDesktop("noVNC");
