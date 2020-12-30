@@ -1,16 +1,17 @@
 {
   "name": "@devcontainer/generator",
-  "version": "10.14.4",
+  "version": "10.14.7",
   "description": "generates custom devcontainer Dockerfiles",
   "files": [
     "lib/**/*",
     "templates/*",
     "versions.json"
   ],
-  "main": "lib/src/index.js",
+  "main": "index.js",
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
-    "build": "yarn tsc && deno fmt src"
+    "prebuild": "yarn tsc && deno fmt src",
+    "build": "echo done"
   },
   "publishConfig": {
     "access": "public"
