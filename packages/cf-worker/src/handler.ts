@@ -196,6 +196,24 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
+    if (pathname.slice(0,6)==="/ipfs/"){
+
+      const cache = caches.default
+      let response = await cache.match(request)
+    
+      if (!response) {
+        response = await fetch(`https://ipfs.io/${pathname}`)
+        const headers = { "Cache-Control": "public, max-age=604800, immutable" }
+        response = new Response(response.body, { ...response, headers })
+        await cache.put(request, response.clone())
+      }
+      if (response.status > 399) {
+        response = new Response(response.statusText, { status: response.status })
+      }
+      return response
+
+    }
+ 
     //    const resp= await fetch("https://unpkg.com/@zedvision/code@11.0.2/ipfs.html");
 
     // return text("ello")
@@ -283,3 +301,4 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
   return new Response("404");
 }
+
