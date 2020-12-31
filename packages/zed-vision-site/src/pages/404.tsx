@@ -42,7 +42,7 @@ export default function () {
         //   checkHashUuidHash,
         // });
         // const response = await fetch(
-        //   `https://c.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
+        //   `https://zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
         // );
         // const data: { success: boolean } = await response.json();
 

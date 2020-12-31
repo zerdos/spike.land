@@ -50,7 +50,7 @@ export async function getUserId() {
 
   uuid = await shaDB.get("uuid", "string");
   if (!uuid) {
-    const resp = await fetch("https://c.zed.vision/register");
+    const resp = await fetch("https://zed.vision/register");
     const data = await resp.json();
     await shaDB.put("uuid", data.uuid);
     return data.uuid;

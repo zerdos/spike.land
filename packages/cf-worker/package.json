@@ -28,7 +28,7 @@
     "bugs": {
         "url": "https://github.com/zed-vision/monorepo"
     },
-    "homepage": "https://c.zed.vision",
+    "homepage": "https://zed.vision",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
         "@cloudflare/workers-types": "2.1.0",

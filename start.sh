@@ -12,7 +12,7 @@ echo ####################################
      -H "Content-Type: application/json" \
      --data  $(CID=$CID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink.code","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})')
 
-echo "----  https://c.zed.vision -------" 
+echo "----  https://zed.vision -------" 
 echo "-------------------------------------------------------------" 
 echo "-------------------------------------------------------------" 
 

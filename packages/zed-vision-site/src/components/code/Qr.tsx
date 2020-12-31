@@ -25,7 +25,7 @@ export const Qr: React.FC = () => {
         `https://unpkg.com/@zedvision/qrious@10.13.20/dist/qrious.esm.js`,
       );
 
-      // const req = await fetch("https://c.zed.vision/token");
+      // const req = await fetch("https://zed.vision/token");
       // const data = await req.json();
 
       setCounter(60);
@@ -53,7 +53,7 @@ export const Qr: React.FC = () => {
           options,
         );
       }
-      //const check = await fetch(`https://c.zed.vision/check?key=${key}`);
+      //const check = await fetch(`https://zed.vision/check?key=${key}`);
       //const res = await check.json();
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";

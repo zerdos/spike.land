@@ -1,6 +1,6 @@
 export async function getHash(hash: string) {
   try {
-    const list = `https://c.zed.vision/?h=${hash}`;
+    const list = `https://zed.vision/?h=${hash}`;
     const req = await fetch(list, {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -20,7 +20,7 @@ export async function getHash(hash: string) {
 
 async function getCode(hash: string) {
   try {
-    const list = `https://c.zed.vision/?h=${hash}`;
+    const list = `https://zed.vision/?h=${hash}`;
     const req = await fetch(list, {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -37,7 +37,7 @@ async function getCode(hash: string) {
 
 async function deleteHash(apiKey: string, hash: string) {
   try {
-    const url = `https://c.zed.vision/keys/delete/?hash=${hash}`;
+    const url = `https://zed.vision/keys/delete/?hash=${hash}`;
     const req = await fetch(url, {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -54,7 +54,7 @@ async function deleteHash(apiKey: string, hash: string) {
 
 export async function getKeys(apiKey: string, prefix: string) {
   try {
-    const list = `https://c.zed.vision/keys/?prefix=${prefix}`;
+    const list = `https://zed.vision/keys/?prefix=${prefix}`;
 
     const req = await fetch(list, {
       headers: {
