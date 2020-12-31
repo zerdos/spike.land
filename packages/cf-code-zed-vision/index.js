@@ -13,7 +13,7 @@ async function handleRequest(request) {
     const cache = caches.default;
     let response = await cache.match(request)
   
-    if (!response) {
+    if (!response || response.url!=="https://unpkg.com/@zedvision/code@11.0.9/ipfs.html") {
       response = await fetch(`https://unpkg.com/@zedvision/code@11.0.9/ipfs.html`)
       await cache.put(request, response.clone())
     }
