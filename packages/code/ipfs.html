@@ -27,13 +27,10 @@
 
     </script -->
   <script type="module">
-    import versions from "https:///unpkg.com/@zedvision/code/src/versions.js"
-    const v= versions();
-    const isLocalhost = true||  (window.location.href.includes("zed.dev") || window.location.href.includes("zed.vision"));
     (async()=>{
-        const { run } = await import(`https:///unpkg.com/@zedvision/code/src/codeLoader.js`);
+        const { run } = await import(`./src/codeLoader.js`);
         run("window", window);
-        })();
+    })();
   </script>
 </body>
 
