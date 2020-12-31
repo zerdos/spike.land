@@ -1,4 +1,4 @@
-const starter = `import { useState } from 'react';
+export const starter = `import { useState } from 'react';
 /** @jsx jsx */
 import { css, jsx, Global } from '@emotion/react';
 
