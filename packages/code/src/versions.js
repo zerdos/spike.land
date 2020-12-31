@@ -1,6 +1,6 @@
 export default function () {
   const v = {
-    ipfs: ".",
+    ipfs: "QmWYS3GcnXAgPqAFHewUM4mZPNctioD1inV2e9vJgUPNec",
     code: "11.0.15",
     emotionRenderer: "10.13.3",
     shadb: "10.13.18",
