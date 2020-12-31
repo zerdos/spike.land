@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@zedvision/dts-gen": "^11.0.0",
-    "esbuild": "0.8.27",
+    "esbuild": "0.8.28",
     "qrious-core": "4.0.0"
   },
   "main": "dist/qrious.js",
