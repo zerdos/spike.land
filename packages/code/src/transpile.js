@@ -1,4 +1,5 @@
 import * as Comlink from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.mjs";
+import versions from "./versions.js";
 import { shaDB } from "./db.js";
 import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 
@@ -49,8 +50,10 @@ export async function ipfsAdd(code, hasToReport) {
 }
 
 function init() {
+  const v = versions();
+
   const worker = new Worker(
-    "./src/transpile.worker.js",
+    `https://unpkg.com/@zedvision/code@${v.code}/src/transpile.worker.js`,
   );
   // WebWorkers use `postMessage` and therefore work with Comlink.
   transform = Comlink.wrap(worker);
