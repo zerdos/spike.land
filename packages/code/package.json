@@ -2,7 +2,7 @@
     "name": "@zedvision/code",
     "version": "11.0.8",
     "description": "zed.vison/code",
-    "main": "dist/codeLoader.min.js",
+    "main": "src/codeLoader.js",
     "files": [
         "**/*"
     ],
