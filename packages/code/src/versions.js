@@ -1,6 +1,7 @@
 export default function () {
   const v = {
     ipfs: ".",
+    code: "latest",
     emotionRenderer: "10.13.3",
     shadb: "10.13.18",
     prettier: "2.2.1",

@@ -29,11 +29,11 @@
   <script type="module">
     import versions from "./dist/versions.js"
     const v = versions();
-    const isLocalhost = true || (window.location.href.includes("zed.dev") || window.location.href.includes("ipfs.io"));
+    const isLocalhost = true || (window.location.href.includes("zed.dev") || window.location.href.includes("zed.vision"));
     (async () => {
       const { run } = await import(isLocalhost ?
         "./src/codeLoader.js" :
-        `https://ipfs.io/ipfs/${v.ipfs}/src/codeLoader.js`);
+        `https://zed.vision/ipfs/${v.ipfs}/src/codeLoader.js`);
       run("window", window);
     })();
   </script>

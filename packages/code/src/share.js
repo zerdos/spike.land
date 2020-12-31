@@ -59,7 +59,7 @@ export const shareItAsHtml = async ({ code, HTML }) => {
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
 
-  return `https://ipfs.io/ipfs/${appDir.CID}`;
+  return `https://zed.vision/ipfs/${appDir.CID}`;
 };
 
 /**
@@ -78,7 +78,7 @@ function saveHtml(html) {
 async function saveToIPFS(content, type) {
   const { getIpfsClient } = await import("./ipfsKV.js");
   const cid = await (await getIpfsClient()).add(content, { onlyHash: false });
-  return `https://ipfs.io/ipfs/${cid}`;
+  return `https://zed.vision/ipfs/${cid}`;
 }
 
 /**

@@ -71,7 +71,7 @@ export const Qr: React.FC = () => {
 
             const result = await getHash(dig, 10000);
             console.log({ result: dig });
-            location.href = `https://ipfs.io/ipfs/${resultKey}`;
+            location.href = `https://zed.vision/ipfs/${resultKey}`;
             resolve(result);
           });
         });

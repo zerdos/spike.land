@@ -70,7 +70,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
           }, "🌎 SHARE"),
         ),
         jsx("div", {
-          id: "qr",
+          id: "zbody",
         }),
       ),
     );

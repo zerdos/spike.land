@@ -52,7 +52,7 @@ export default function () {
         console.log({ cid });
 
         if (cid) {
-          location.href = "https://ipfs.io/ipfs/" + cid[0];
+          location.href = "https://zed.vision/ipfs/" + cid[0];
         } else {
           set404(true);
         }
