@@ -3190,33 +3190,6 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"@zedvision/diff@10.14.4":
-  version "10.14.4"
-  resolved "https://registry.yarnpkg.com/@zedvision/diff/-/diff-10.14.4.tgz#6bcefe8529680f08473f0685a8fa64be26db64cc"
-  integrity sha512-5ILn/BTHbXomR8C8S3xnr8G14UT7g+jZ9duNjK/p5ahBwml4W3QN+zcucD1MVOICaCpmgwWvLpnzfiodj1+VRA==
-  dependencies:
-    "@zedvision/sha256" "^10.13.13"
-    diff "5.0.0"
-    esbuild "0.8.26"
-
-"@zedvision/sha256@^10.13.13":
-  version "10.13.13"
-  resolved "https://registry.yarnpkg.com/@zedvision/sha256/-/sha256-10.13.13.tgz#6bcf2183ef31c24ba1c23da9eb2061379a45cde8"
-  integrity sha512-z+ilTfhwnGJW6C9PukNcshltaIKA0Qh0WrN+bnZTMRA3xOzZ4wR8vyjBU4L+xwpMRGskyEbugSj9r8fq3+IO2g==
-
-"@zedvision/shadb@10.14.4":
-  version "10.14.4"
-  resolved "https://registry.yarnpkg.com/@zedvision/shadb/-/shadb-10.14.4.tgz#f8faa79cd0a3fbd540aba889104a01b988a6db5a"
-  integrity sha512-D+5woqvspW/xMzf9u4EfnfpZVa6KRelkxGDLKCLObNMogAzXWJB0ujJgSwGukKFoYJTwiBRtu8fKXeGyTo2+lA==
-  dependencies:
-    esbuild "0.8.26"
-    idb "5.0.8"
-
-"@zedvision/smart-monaco-editor@^10.14.6":
-  version "10.14.6"
-  resolved "https://registry.yarnpkg.com/@zedvision/smart-monaco-editor/-/smart-monaco-editor-10.14.6.tgz#b78cc6b2e5c131fe0f901ddf47b7a4dcc0e719a2"
-  integrity sha512-MB+AwLwAinqM4h+Oo4CruZtXk9E/KcrfEg+M65svTbLoX9hpjtPBMcD6ZgEXz4ogJyjnVo7rz5MpVez+ABLTvQ==
-
 "@zkochan/cmd-shim@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@zkochan/cmd-shim/-/cmd-shim-3.1.0.tgz#2ab8ed81f5bb5452a85f25758eb9b8681982fd2e"
@@ -6525,17 +6498,7 @@ es6-promisify@^5.0.0:
   dependencies:
     es6-promise "^4.0.3"
 
-esbuild@0.8.26:
-  version "0.8.26"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.26.tgz#a85491617ebd2bd35ca4bf479239487eb6819d71"
-  integrity sha512-u3MMHOOumdWoAKF+073GHPpzvVB2cM+y9VD4ZwYs1FAQ6atRPISya35dbrbOu/mM68mQ42P+nwPzQVBTfQhkvQ==
-
-esbuild@0.8.27:
-  version "0.8.27"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.27.tgz#8f7aa7d65229856c6ad11961b01b3e302fcb5e84"
-  integrity sha512-cY2i08EHYHNg0o748J+X0yBTcCO7DIZSxLWJ/6OymmML0Y2X6qkINfZcoiq5GE6EcLIfwyaZpI60JY6iBJWj5w==
-
-esbuild@^0.8.27:
+esbuild@0.8.28, esbuild@^0.8.27:
   version "0.8.28"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.28.tgz#54f1b2dda1c1a8613308a41d31f9a5ad9fbbcbed"
   integrity sha512-8u4PliPrsELMwl0X4ChPJvlNfoSh5OSpLHcAFFiipi2m/k+9i4cEjQB8rztLiiqO7kXnL+IaNU36StgnpHhOwA==

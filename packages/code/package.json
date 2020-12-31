@@ -54,7 +54,7 @@
         "@types/react-dom": "^17.0.0",
         "@zedvision/shadb": "^11.0.5",
         "comlink": "4.3.0",
-        "esbuild": "0.8.27",
+        "esbuild": "0.8.28",
         "framer-motion": "^3.1.1",
         "idb": "^5.0.8",
         "prettier": "2.2.1",

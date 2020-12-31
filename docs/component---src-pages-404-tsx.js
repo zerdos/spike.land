@@ -1,6 +1,6 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[7],{
 
-/***/ 138:
+/***/ 139:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73,7 +73,7 @@ __webpack_require__.r(__webpack_exports__);
                 //   checkHashUuidHash,
                 // });
                 // const response = await fetch(
-                //   `https://c.zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
+                //   `https://zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
                 // );
                 // const data: { success: boolean } = await response.json();
 
@@ -88,7 +88,7 @@ __webpack_require__.r(__webpack_exports__);
                 });
 
                 if (cid) {
-                  location.href = "https://ipfs.io/ipfs/" + cid[0];
+                  location.href = "https://zed.vision/ipfs/" + cid[0];
                 } else {
                   set404(true);
                 }
