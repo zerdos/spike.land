@@ -203,8 +203,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     
       if (!response) {
         response = await fetch(`https://ipfs.io/${pathname}`)
-        const headers = { "Cache-Control": "public, max-age=604800, immutable" }
-        response = new Response(response.body, { ...response, headers })
         await cache.put(request, response.clone())
       }
       if (response.status > 399) {

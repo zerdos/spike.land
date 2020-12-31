@@ -30,7 +30,7 @@ export const getHtml = ({ HTML, css }) => {
 <link rel="icon" type="image/png" href="https://zed.vision/zed-icon-big.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="Description" content="Generated with c.zed.vision">
+<meta name="Description" content="Generated with zed.vision">
 <style>
     ${css}
 </style>

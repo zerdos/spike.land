@@ -96,7 +96,7 @@ export async function run(mode = "window", _w) {
       width: 720,
       height: 640,
       style: { backgroundWindow: "#1e1e1e" },
-      title: "Live / Realime React editor",
+      title: "Live/ -- /Realime React editor",
     },
   );
 
