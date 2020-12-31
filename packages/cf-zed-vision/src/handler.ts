@@ -216,7 +216,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     // return text("ello")
 
-    if (pathname==="")
+    if (pathname==="/")
         return Response.redirect("https://blog.zed.vision", 301);
 
 

@@ -469,7 +469,7 @@ async function handleCloudRequest(request) {
       }
       return response;
     }
-    if (pathname === "") {
+    if (pathname === "/") {
       return Response.redirect("https://blog.zed.vision", 301);
     }
     return text(pathname);
