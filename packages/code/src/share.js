@@ -6,9 +6,10 @@ import { getIpfsClient } from "./ipfsKV.js";
  * @param {{
  * code: string
  * HTML: string
+ * transpiled: string
  * }} props 
  */
-export const shareItAsHtml = async ({ code, HTML }) => {
+export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
   );
@@ -32,19 +33,11 @@ export const shareItAsHtml = async ({ code, HTML }) => {
 
   const { getHtml } = await import("./templates.js");
 
-  const linkToCode = await saveToIPFS(code, "application/javascript");
-
-  console.log({
-    HTML,
-    linkToCode,
-    css,
-    code,
-  });
-
   const res = await addAll(
     [
       { path: "/app/index.html", content: getHtml({ HTML, css }) },
-      { path: "/app/app.js", content: code },
+      { path: "/app/app.js", content: transpiled },
+      { path: "/app/app.tsx", content: code },
     ],
   );
 
@@ -62,24 +55,7 @@ export const shareItAsHtml = async ({ code, HTML }) => {
   return `https://zed.vision/ipfs/${appDir.CID}/`;
 };
 
-/**
- * @param {any} html
- */
-function saveHtml(html) {
-  return saveToIPFS(html, "text/html");
-}
-
 ///import("./src/ipfsKV.js").then((mod)=>mod.ipfsKV).then(x=>x.add("diddiwohfqwyie",{onlyHash: true}))
-
-/**
- * @param {any} content
- * @param {string} type
- */
-async function saveToIPFS(content, type) {
-  const { getIpfsClient } = await import("./ipfsKV.js");
-  const cid = await (await getIpfsClient()).add(content, { onlyHash: false });
-  return `https://zed.vision/ipfs/${cid}`;
-}
 
 /**
  * @param {{ path: string; content: any; }[]} files

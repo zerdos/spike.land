@@ -153,7 +153,11 @@ export async function run(mode = "window", _w) {
       const { shareItAsHtml } = await import("./share.js");
 
       const link = await shareItAsHtml(
-        { code: session.transpiled, HTML: session.HTML },
+        {
+          code: session.code,
+          transpiled: session.transpiled,
+          HTML: session.HTML,
+        },
       );
 
       console.log({ link });
