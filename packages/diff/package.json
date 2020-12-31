@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/diff",
-    "version": "11.0.0",
+    "version": "11.0.5",
     "description": "Diffs 2 strings",
     "exports": "./src/diff.js",
     "private": false,
@@ -28,7 +28,7 @@
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "dependencies": {
-        "@zedvision/sha256": "^11.0.0",
+        "@zedvision/sha256": "^11.0.5",
         "diff": "5.0.0",
         "esbuild": "0.8.27"
     },
