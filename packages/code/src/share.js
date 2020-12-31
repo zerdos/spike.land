@@ -59,7 +59,7 @@ export const shareItAsHtml = async ({ code, HTML }) => {
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
 
-  return `https://zed.vision/ipfs/${appDir.CID}`;
+  return `https://zed.vision/ipfs/${appDir.CID}/`;
 };
 
 /**
