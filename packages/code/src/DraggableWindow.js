@@ -35,8 +35,9 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
           {
             css: `
         display: block;
-        width: auto;
         text-align: right;
+        width: 100%;
+        display: block;
         background: linear-gradient(0deg, darkred, red);
       `,
           },
@@ -69,7 +70,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
           }, "🌎 SHARE"),
         ),
         jsx("div", {
-          id: "zbody",
+          id: "qr",
         }),
       ),
     );
