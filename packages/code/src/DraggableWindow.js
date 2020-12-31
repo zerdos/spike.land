@@ -71,6 +71,32 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
         ),
         jsx("div", {
           id: "zbody",
+          css: `
+         
+            z-index: 10;
+            position: relative;
+            min-width: 300px;
+            min-height: 250px;
+            background: inherit;
+            border-radius: 2px;
+            overflow: hidden;
+            padding: 24px;
+          
+          
+          :after{
+           content: '';
+           z-index: -9;
+           background: inherit; 
+           position: absolute;
+           left: 10px;
+           right: 10px;
+           top: 10px;  
+           bottom: 10px;
+           box-shadow: inset 0 0 0 200px rgba(255,255,255,0.15);
+           filter: blur(10px);
+          }
+          
+          `,
         }),
       ),
     );
