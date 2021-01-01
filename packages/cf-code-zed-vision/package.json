@@ -12,6 +12,6 @@
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^2.2.1"
+    "prettier": "2.2.1"
   }
 }
