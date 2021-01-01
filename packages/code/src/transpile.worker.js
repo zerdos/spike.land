@@ -4,7 +4,7 @@ self.importScripts(
 );
 
 const src =
-  "https://unpkg.com/@zedvision/emotion-react-renderer@$$renderer$$/dist/bundle.js";
+  "https://unpkg.com/@zedvision/emotion-react-renderer@$$emotionRenderer$$/dist/bundle.js";
 
 const searchRegExp2 = /import.*from '/gi;
 const replace2 = "$&https://cdn.skypack.dev/";
