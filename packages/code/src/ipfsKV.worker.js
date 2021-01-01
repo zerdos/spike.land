@@ -1,5 +1,5 @@
-importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
-importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
+importScripts("https://unpkg.com/ipfs@$$ipfs$$/dist/index.min.js");
+importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
 
 //   };ya
 

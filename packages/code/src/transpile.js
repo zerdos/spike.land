@@ -22,7 +22,13 @@ async function init() {
   );
   const workerSource = await res.text();
   const worker = new Worker(
-    URL.createObjectURL(new Blob([workerSource.replace("$$ipfs$$", v.ipfs)])),
+    URL.createObjectURL(
+      new Blob([
+        workerSource.replace("$$emotionRenderer$$", v.emotionRenderer)
+          .replace("$$comlinks$$", v.ipfs)
+          .replace("$$babel$$", v.babel),
+      ]),
+    ),
   );
 
   const Comlink = await import(

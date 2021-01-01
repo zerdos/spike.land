@@ -1,8 +1,10 @@
-self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
-self.importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
+self.importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
+self.importScripts(
+  "https://unpkg.com/@babel/standalone@$$babel$$/babel.min.js",
+);
 
 const src =
-  "https://unpkg.com/@zedvision/emotion-react-renderer@11.0.20/dist/bundle.js";
+  "https://unpkg.com/@zedvision/emotion-react-renderer@$$renderer$$/dist/bundle.js";
 
 const searchRegExp2 = /import.*from '/gi;
 const replace2 = "$&https://cdn.skypack.dev/";

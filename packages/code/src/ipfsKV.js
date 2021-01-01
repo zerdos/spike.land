@@ -35,7 +35,13 @@ async function init() {
   );
   const workerSource = await res.text();
   const worker = new Worker(
-    URL.createObjectURL(new Blob([workerSource.replace("$$ipfs$$", v.ipfs)])),
+    URL.createObjectURL(
+      new Blob([
+        workerSource
+          .replace("$$ipfs$$", v.ipfs)
+          .replace("$$comlinks$$", v.comlink),
+      ]),
+    ),
   );
   const Comlink = await import(
     `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
