@@ -28,7 +28,7 @@
     "url": "https://github.com/zerdos/qrious.git"
   },
   "devDependencies": {
-    "@zedvision/dts-gen": "^11.0.10",
+    "@zedvision/dts-gen": "11.0.10",
     "esbuild": "0.8.28",
     "qrious-core": "4.0.0"
   },
