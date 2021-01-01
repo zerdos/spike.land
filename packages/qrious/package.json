@@ -28,7 +28,6 @@
     "url": "https://github.com/zerdos/qrious.git"
   },
   "devDependencies": {
-    "@zedvision/dts-gen": "^11.1.3",
     "esbuild": "0.8.28",
     "qrious-core": "4.0.0"
   },
@@ -38,8 +37,7 @@
   "scripts": {
     "npm:install": "rm -rf package-lock.json && npm install",
     "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/qrious.esm.js --target=es2018 --format=esm",
-    "build": "yarn build:esm",
-    "dts": "yarn dts-gen -m qrious-core -f dist/qrious.d.ts"
+    "build": "yarn build:esm"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
 }
