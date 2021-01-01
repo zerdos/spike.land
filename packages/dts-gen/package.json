@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/dts-gen",
-  "version": "11.0.19",
+  "version": "11.0.20",
   "description": "TypeScript Definition File Generator",
   "main": "bin/lib/index.js",
   "bin": {
