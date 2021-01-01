@@ -196,29 +196,30 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
     }
 
-    if (pathname.slice(0,6)==="/ipfs/"){
+    if (pathname.slice(0, 6) === "/ipfs/") {
+      const cache = caches.default;
+      let response = await cache.match(request);
 
-      const cache = caches.default
-      let response = await cache.match(request)
-    
       if (!response) {
-        response = await fetch(`https://ipfs.io/${pathname}`)
-        await cache.put(request, response.clone())
+        response = await fetch(`https://ipfs.io/${pathname}`);
+        await cache.put(request, response.clone());
       }
       if (response.status > 399) {
-        response = new Response(response.statusText, { status: response.status })
+        response = new Response(
+          response.statusText,
+          { status: response.status },
+        );
       }
-      return response
-
+      return response;
     }
- 
+
     //    const resp= await fetch("https://unpkg.com/@zedvision/code@11.0.2/ipfs.html");
 
     // return text("ello")
 
-    if (pathname==="/")
-        return Response.redirect("https://blog.zed.vision", 301);
-
+    if (pathname === "/") {
+      return Response.redirect("https://blog.zed.vision", 301);
+    }
 
     return text(pathname);
   } else if (request.method === "POST") {
@@ -301,4 +302,3 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
   return new Response("404");
 }
-
