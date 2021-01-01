@@ -7,7 +7,7 @@ const Hello = () => {
 
   return (
     <div css={\`color:\${name}\`}>
-      <h1>Hello Simone!</h1>
+      <h1>Hello World!</h1>
       <label>
         You can change the color:
         <input
