@@ -18,7 +18,7 @@
     "@emotion/react": "11.1.4",
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
-    "esbuild": "0.8.27",
+    "esbuild": "0.8.28",
     "framer-motion": "3.1.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
