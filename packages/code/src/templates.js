@@ -1,8 +1,11 @@
+import versions from "./versions.js";
+
 /**
  * @param {{HTML: string, css: string}} code
  */
 
 export const getHtml = ({ HTML, css }) => {
+  const v = versions();
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
   //
@@ -40,7 +43,7 @@ export const getHtml = ({ HTML, css }) => {
   ${HTML}
 </div>
 <script type="module">
-import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js"
+import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js"
 import App from "./app.js"
 
 renderEmotion(App(), document.body.children[0]);
