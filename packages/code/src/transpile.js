@@ -25,7 +25,7 @@ async function init() {
     URL.createObjectURL(
       new Blob([
         workerSource.replace("$$emotionRenderer$$", v.emotionRenderer)
-          .replace("$$comlinks$$", v.comlink)
+          .replace("$$comlink$$", v.comlink)
           .replace("$$babel$$", v.babel),
       ]),
     ),
