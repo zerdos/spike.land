@@ -39,7 +39,7 @@ async function init() {
       new Blob([
         workerSource
           .replace("$$ipfs$$", v.ipfs)
-          .replace("$$comlinks$$", v.comlink),
+          .replace("$$comlink$$", v.comlink),
       ]),
     ),
   );
