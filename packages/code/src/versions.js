@@ -2,7 +2,7 @@ export default function () {
   const v = {
     ipfs: "0.52.4-rc.4",
     babel: "7.12.12",
-    code: "11.1.1",
+    code: "11.1.3",
     emotionRenderer: "11.0.20",
     shadb: "10.13.18",
     prettier: "2.2.1",
