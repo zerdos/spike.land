@@ -6,7 +6,6 @@
     "private": false,
     "sideEffects": false,
     "scripts": {
-        "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "prebuild": "deno fmt src",
         "build": "echo OkOKOk"

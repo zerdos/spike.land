@@ -11,7 +11,6 @@
   "exports": "./renderer",
   "sideEffects": false,
   "scripts": {
-    "npm:install": "rm -rf package-lock.json && npm install",
     "build": "esbuild src/renderer.ts --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/bundle.js"
   },
   "devDependencies": {

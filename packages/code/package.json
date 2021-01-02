@@ -9,7 +9,6 @@
     "source": "./src/codeLoader.js",
     "exports": "./dist/codeLoader.modern.js",
     "scripts": {
-        "npm:install": "rm -rf package-lock.json && npm install",
         "clean": "deno fmt src",
         "xbuild:sw": "workbox generateSW workbox-config.js",
         "build:sw": "yarn esbuild --loader:.ts=ts src/sw.ts --outfile=sw.js",

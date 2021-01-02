@@ -7,7 +7,6 @@
         "**/*"
     ],
     "scripts": {
-        "npm:install": "rm -rf package-lock.json && npm install",
         "dev": "yarn xbuild && yarn wrangler preview",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "ebuild": "yarn esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",

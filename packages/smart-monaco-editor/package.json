@@ -7,7 +7,6 @@
     "source": "./src/editor.ts",
     "exports": "./dist/smart-monaco-editor.modern.js",
     "scripts": {
-        "npm:install": "rm -rf package-lock.json && npm install",
         "prebuild": "tsc && deno fmt src",
         "build": "echo ok",
         "screenshots": "rm -rf screenshot* && node scripts/screenshots.js",

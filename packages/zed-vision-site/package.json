@@ -1,7 +1,6 @@
 {
   "name": "@zedvision/zedvision-site",
   "scripts": {
-    "npm:install": "rm -rf package-lock.json && npm install --legacy-peer-deps",
     "build": "yarn gatsby build --no-uglify && cp -f -a blog/. .public/",
     "deploy": "yarn build && rm -rf ../../docs* && cp -f -a public/. ../../docs/",
     "start-https": "yarn yarn gatsby develop",

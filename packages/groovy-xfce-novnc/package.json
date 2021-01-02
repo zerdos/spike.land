@@ -2,7 +2,6 @@
   "name": "@devcontainer/groovy-xfce-novnc",
   "tagname": "groovy-xfce-novnc",
   "scripts": {
-    "npm:install": "rm -rf package-lock.json && npm install",
     "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
     "docker:build": "yarn build && docker build . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",
     "build": "node index.js"
