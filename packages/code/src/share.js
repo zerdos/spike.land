@@ -1,6 +1,3 @@
-import { getZkey } from "./data.js";
-import { getIpfsClient } from "./ipfsKV.js";
-
 /**
  * 
  * @param {{
@@ -40,6 +37,8 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
       { path: "/app/app.tsx", content: code },
     ],
   );
+
+  await Promise.all(res.map((x) => fetch(`https://zed.vision/ipfs/${x.CID}/`)));
 
   const appDir = res.find(
     /**
