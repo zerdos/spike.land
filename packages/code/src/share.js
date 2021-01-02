@@ -20,7 +20,7 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
       css = Array.from(
         // @ts-ignore
         window.document.querySelector("head > style[data-emotion=css]").sheet
-          .cssRules,
+        .cssRules,
       ).map((x) => x.cssText).filter((cssRule) =>
         HTML.includes(cssRule.substring(3, 8))
       ).join("\n  ").replace(`.${bodyClass}`, "body");
