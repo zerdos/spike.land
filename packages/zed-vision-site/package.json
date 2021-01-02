@@ -1,8 +1,8 @@
 {
   "name": "@zedvision/zedvision-site",
   "scripts": {
-    "build": "yarn gatsby build --no-uglify && cp -f -r -a blog/. .public/",
-    "deploy": "yarn build && rm -rf ../../docs* && cp -f -r -a public/. ../../docs/",
+    "build": "yarn gatsby build --no-uglify && cp -afr blog/. public",
+    "deploy": "yarn build && rm -rf ../../docs* && cp -afr public/. ../../docs",
     "start-https": "yarn yarn gatsby develop",
     "start": "yarn gatsby develop",
     "serve": "yarn gatsby serve",
