@@ -40,7 +40,7 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
 
   await Promise.all(res.map(
     /**
-   * @param {{ CID: any; }} x
+   * @param {{ CID: string; }} x
    */
     (x) => fetch(`https://zed.vision/ipfs/${x.CID}/`),
   ));
