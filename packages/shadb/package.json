@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/shadb",
-    "version": "11.1.8",
+    "version": "11.1.10",
     "description": "db layer top on idb",
     "private": false,
     "sideEffects": false,
