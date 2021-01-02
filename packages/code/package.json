@@ -17,7 +17,6 @@
         "xxbuild": "deno bundle ./src/codeLoader.js ./dist/codeLoader.js",
         "prebuild": "yarn clean",
         "build": "yarn tsc || echo Ok",
-        "xwatch": "microbundle watch",
         "minify": "yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
