@@ -28,7 +28,7 @@
     "url": "https://github.com/zerdos/qrious.git"
   },
   "devDependencies": {
-    "esbuild": "0.8.28",
+    "esbuild": "0.8.29",
     "qrious-core": "4.0.0"
   },
   "main": "dist/qrious.js",
