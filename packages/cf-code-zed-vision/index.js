@@ -11,6 +11,7 @@ async function handleRequest(request) {
 
 
     const cache = caches.default;
+ //  await cache.delete(request)
     let response = await cache.match(request)
   
     if (!response || response.url!=="https://unpkg.com/@zedvision/code@11.1.7/ipfs.html") {
