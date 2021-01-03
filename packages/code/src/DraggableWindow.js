@@ -69,9 +69,10 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
             onClick: () => onShare(),
           }, "🌎 SHARE"),
         ),
-        jsx("div", {
-          id: "zbody",
-          css: `
+        jsx(
+          "div",
+          {
+            css: `
          
             z-index: 10;
             position: relative;
@@ -81,7 +82,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
             border-radius: 2px;
             overflow: hidden;
             padding: 24px;
-          
+         
           
           :after{
            content: '';
@@ -94,10 +95,13 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
            bottom: 10px;
            box-shadow: inset 0 0 0 200px rgba(255,255,255,0.15);
            filter: blur(10px);
-          }
-          
-          `,
-        }),
+          }`,
+          },
+          jsx("div", {
+            id: "zbody",
+            css: `margin: 8px`,
+          }),
+        ),
       ),
     );
 

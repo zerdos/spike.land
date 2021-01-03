@@ -320,13 +320,13 @@ export async function run(mode = "window", _w) {
     }
 
     const codeToHydrate = mode === "window"
-      ? transpiled.replace("body{", "#zbody div{")
+      ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
     const root = document.createElement("div");
 
     const Element = (await import(createJsBlob(
-      transpiled,
+      codeToHydrate,
     ))).default;
     session.unmount();
     session.unmount = renderEmotion(Element(), root);
