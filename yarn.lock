@@ -14580,9 +14580,9 @@ strong-log-transformer@^2.0.0:
     through "^2.3.4"
 
 strtok3@^6.0.3:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-6.0.4.tgz#ede0d20fde5aa9fda56417c3558eaafccc724694"
-  integrity sha512-rqWMKwsbN9APU47bQTMEYTPcwdpKDtmf1jVhHzNW2cL1WqAxaM9iBb9t5P2fj+RV2YsErUWgQzHD5JwV0uCTEQ==
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-6.0.5.tgz#75ec3e4a5118e0aa774c82a3d1e2898845b67f40"
+  integrity sha512-enqQyimC8HLT3w18MQb3qcWl53QDxQ+eo9OPucprMsfLGBIlMlSId4GjK/xWvNOUowp/s4woyKvPBzcIbm59FA==
   dependencies:
     "@tokenizer/token" "^0.1.1"
     "@types/debug" "^4.1.5"
