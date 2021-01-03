@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/shadb",
-    "version": "11.1.10",
+    "version": "11.1.12",
     "description": "db layer top on idb",
     "private": false,
     "sideEffects": false,
@@ -8,7 +8,7 @@
     "exports": "./dist/shaDB.js",
     "scripts": {
         "build": "echo ok",
-        "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@5.0.8/build/esm/index.js > src/vendor/idb.js",    
+        "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@5.0.8/build/esm/index.js > src/vendor/idb.js",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "prebuild": "yarn tsc || echo ok "
     },
