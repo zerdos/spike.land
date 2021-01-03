@@ -7,12 +7,12 @@
         "**/*"
     ],
     "scripts": {
-        "dev": "yarn xbuild && yarn wrangler preview",
+        "dev": "yarn xbuild && wrangler preview",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
         "ebuild": "yarn esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",
         "build": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min",
         "min": "deno fmt dist && yarn esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
-        "deploy": "yarn wrangler publish"
+        "deploy": "wrangler publish"
     },
     "keywords": [
         "monaco",
@@ -31,7 +31,6 @@
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
         "@cloudflare/workers-types": "2.1.0",
-        "@cloudflare/wrangler": "1.12.3",
         "@types/uuid": "8.3.0",
         "esbuild": "0.8.29"
     },

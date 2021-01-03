@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "yarn wrangler publish",
+    "deploy": "wrangler publish",
     "format": "prettier --write '**/*.{js,css,json,md}'"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
