@@ -3,7 +3,7 @@ export const starter = `import { useState } from 'react';
 import { css, jsx, Global } from '@emotion/react';
 
 const Hello = () => {
-  const [name, setName] = useState('yellowgreen');
+  const [name, setName] = useState('red');
 
   return (
     <div css={\`color:\${name}\`}>
