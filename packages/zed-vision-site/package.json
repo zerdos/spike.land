@@ -7,7 +7,6 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean && deno fmt src"
   },
-  "private": false,
   "description": "Zed vision blog",
   "version": "11.1.14",
   "author": "Zoltan Erdos <zolika84@gmail.com>",

@@ -3,7 +3,6 @@
     "version": "11.1.12",
     "description": "Diffs 2 strings",
     "exports": "./src/diff.js",
-    "private": false,
     "sideEffects": false,
     "scripts": {
         "clean": "rm -rf dist && mkdir dist && deno fmt src",

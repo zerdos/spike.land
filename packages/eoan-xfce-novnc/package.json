@@ -21,7 +21,6 @@
   "repository": "https://github.com/zed-vision/monorepo",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
-  "private": false,
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
   "publishConfig": {
     "access": "public"

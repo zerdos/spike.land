@@ -371,41 +371,6 @@
         "signature": "5d07cdbb78f962ba84629bf5abfbe958613fe207a9c469cdaf4cd8f8b6140f32",
         "affectsGlobalScope": false
       },
-      "../../node_modules/@types/common-tags/index.d.ts": {
-        "version": "3b93231babdb3ee9470a7e6103e48bf6585c4185f96941c08a77e097f8f469ae",
-        "signature": "3b93231babdb3ee9470a7e6103e48bf6585c4185f96941c08a77e097f8f469ae",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/configstore/index.d.ts": {
-        "version": "e3cb1b4d91d7fd308d69b4af172c80c9455e2ce52970d7f6f817d2132e7a72da",
-        "signature": "e3cb1b4d91d7fd308d69b4af172c80c9455e2ce52970d7f6f817d2132e7a72da",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/debug/index.d.ts": {
-        "version": "37a4038e69fb61043e363140b58d7d517d6f99f274adad0774f226ea2ee8c903",
-        "signature": "37a4038e69fb61043e363140b58d7d517d6f99f274adad0774f226ea2ee8c903",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/eslint-visitor-keys/index.d.ts": {
-        "version": "725d9be2fd48440256f4deb00649adffdbc5ecd282b09e89d4e200663792c34c",
-        "signature": "725d9be2fd48440256f4deb00649adffdbc5ecd282b09e89d4e200663792c34c",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/estree/index.d.ts": {
-        "version": "89ccbe04e737ce613f5f04990271cfa84901446350b8551b0555ddf19319723b",
-        "signature": "89ccbe04e737ce613f5f04990271cfa84901446350b8551b0555ddf19319723b",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/events/index.d.ts": {
-        "version": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
-        "signature": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/@types/get-port/index.d.ts": {
-        "version": "00c886d849a8a4b7ceb0a8a6c7a36b168a7a44b2f93fe30c6c30dae71c05709f",
-        "signature": "00c886d849a8a4b7ceb0a8a6c7a36b168a7a44b2f93fe30c6c30dae71c05709f",
-        "affectsGlobalScope": false
-      },
       "../../node_modules/@types/node/globals.d.ts": {
         "version": "215d8d9a2c480fd460127edc048d68d9931d3b27f95132253a6e71975f060bb1",
         "signature": "215d8d9a2c480fd460127edc048d68d9931d3b27f95132253a6e71975f060bb1",
@@ -419,6 +384,11 @@
       "../../node_modules/@types/node/buffer.d.ts": {
         "version": "bc6a78961535181265845bf9b9e8a147ffd0ca275097ceb670a9b92afa825152",
         "signature": "bc6a78961535181265845bf9b9e8a147ffd0ca275097ceb670a9b92afa825152",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/events/index.d.ts": {
+        "version": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
+        "signature": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/node/child_process.d.ts": {
@@ -641,6 +611,61 @@
         "signature": "5825520e2099309182c6e2a2b3061b060d42a098c58f67d1754880a7e2cce99a",
         "affectsGlobalScope": false
       },
+      "../../node_modules/@types/keyv/index.d.ts": {
+        "version": "9e7f7ac4d964992cf1b77612ca07e5695821881aa1a9acb0ef0509f192a5ea23",
+        "signature": "9e7f7ac4d964992cf1b77612ca07e5695821881aa1a9acb0ef0509f192a5ea23",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/http-cache-semantics/index.d.ts": {
+        "version": "0bf440ab914e79e890cb15e5ffacb5e18bec678338b3eab069a5829d3d5c96e3",
+        "signature": "0bf440ab914e79e890cb15e5ffacb5e18bec678338b3eab069a5829d3d5c96e3",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/responselike/index.d.ts": {
+        "version": "3cfb0cb51cc2c2e1b313d7c4df04dbf7e5bda0a133c6b309bf6af77cf614b971",
+        "signature": "3cfb0cb51cc2c2e1b313d7c4df04dbf7e5bda0a133c6b309bf6af77cf614b971",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/cacheable-request/index.d.ts": {
+        "version": "73c05cca1bb5aa8e93efd089af51643b7ff005e47064a0e624a74ee20480a2eb",
+        "signature": "73c05cca1bb5aa8e93efd089af51643b7ff005e47064a0e624a74ee20480a2eb",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/common-tags/index.d.ts": {
+        "version": "3b93231babdb3ee9470a7e6103e48bf6585c4185f96941c08a77e097f8f469ae",
+        "signature": "3b93231babdb3ee9470a7e6103e48bf6585c4185f96941c08a77e097f8f469ae",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/configstore/index.d.ts": {
+        "version": "e3cb1b4d91d7fd308d69b4af172c80c9455e2ce52970d7f6f817d2132e7a72da",
+        "signature": "e3cb1b4d91d7fd308d69b4af172c80c9455e2ce52970d7f6f817d2132e7a72da",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/debug/index.d.ts": {
+        "version": "3cf5f191d75bbe7c92f921e5ae12004ac672266e2be2ece69f40b1d6b1b678f9",
+        "signature": "3cf5f191d75bbe7c92f921e5ae12004ac672266e2be2ece69f40b1d6b1b678f9",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/emscripten/index.d.ts": {
+        "version": "4a72ef2edbfb19987b3bc76cc56953cb19217c01c955fe6f37707b547091c024",
+        "signature": "4a72ef2edbfb19987b3bc76cc56953cb19217c01c955fe6f37707b547091c024",
+        "affectsGlobalScope": true
+      },
+      "../../node_modules/@types/eslint-visitor-keys/index.d.ts": {
+        "version": "725d9be2fd48440256f4deb00649adffdbc5ecd282b09e89d4e200663792c34c",
+        "signature": "725d9be2fd48440256f4deb00649adffdbc5ecd282b09e89d4e200663792c34c",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/estree/index.d.ts": {
+        "version": "89ccbe04e737ce613f5f04990271cfa84901446350b8551b0555ddf19319723b",
+        "signature": "89ccbe04e737ce613f5f04990271cfa84901446350b8551b0555ddf19319723b",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/get-port/index.d.ts": {
+        "version": "00c886d849a8a4b7ceb0a8a6c7a36b168a7a44b2f93fe30c6c30dae71c05709f",
+        "signature": "00c886d849a8a4b7ceb0a8a6c7a36b168a7a44b2f93fe30c6c30dae71c05709f",
+        "affectsGlobalScope": false
+      },
       "../../node_modules/@types/minimatch/index.d.ts": {
         "version": "1d1e6bd176eee5970968423d7e215bfd66828b6db8d54d17afec05a831322633",
         "signature": "1d1e6bd176eee5970968423d7e215bfd66828b6db8d54d17afec05a831322633",
@@ -816,7 +841,7 @@
         "signature": "6396a7a06f3ef0fc31a7c89330e015146b78a2256b030c698b6d404594c37b8f",
         "affectsGlobalScope": false
       },
-      "../../node_modules/form-data/index.d.ts": {
+      "../../node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": {
         "version": "cbb7029e32a6a72178cda8baa9129b1ee6d1d779a35e46c780e38b4909d42a89",
         "signature": "cbb7029e32a6a72178cda8baa9129b1ee6d1d779a35e46c780e38b4909d42a89",
         "affectsGlobalScope": false
@@ -886,9 +911,214 @@
         "signature": "6462324ef579c47415610a63f1aa8b72f5b5114f8fe8307967f9add2bca634f5",
         "affectsGlobalScope": false
       },
+      "../../node_modules/@types/semver/classes/semver.d.ts": {
+        "version": "d9e55d93aa33fad61bd5c63800972d00ba8879ec5d29f6f3bce67d16d86abc33",
+        "signature": "d9e55d93aa33fad61bd5c63800972d00ba8879ec5d29f6f3bce67d16d86abc33",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/parse.d.ts": {
+        "version": "2ac9c8332c5f8510b8bdd571f8271e0f39b0577714d5e95c1e79a12b2616f069",
+        "signature": "2ac9c8332c5f8510b8bdd571f8271e0f39b0577714d5e95c1e79a12b2616f069",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/valid.d.ts": {
+        "version": "42c21aa963e7b86fa00801d96e88b36803188018d5ad91db2a9101bccd40b3ff",
+        "signature": "42c21aa963e7b86fa00801d96e88b36803188018d5ad91db2a9101bccd40b3ff",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/clean.d.ts": {
+        "version": "d31eb848cdebb4c55b4893b335a7c0cca95ad66dee13cbb7d0893810c0a9c301",
+        "signature": "d31eb848cdebb4c55b4893b335a7c0cca95ad66dee13cbb7d0893810c0a9c301",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/inc.d.ts": {
+        "version": "77c1d91a129ba60b8c405f9f539e42df834afb174fe0785f89d92a2c7c16b77a",
+        "signature": "77c1d91a129ba60b8c405f9f539e42df834afb174fe0785f89d92a2c7c16b77a",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/diff.d.ts": {
+        "version": "c544d81603149987796b24cca297c965db427b84b2580fb27e52fb37ddc1f470",
+        "signature": "c544d81603149987796b24cca297c965db427b84b2580fb27e52fb37ddc1f470",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/major.d.ts": {
+        "version": "906c751ef5822ec0dadcea2f0e9db64a33fb4ee926cc9f7efa38afe5d5371b2a",
+        "signature": "906c751ef5822ec0dadcea2f0e9db64a33fb4ee926cc9f7efa38afe5d5371b2a",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/minor.d.ts": {
+        "version": "5387c049e9702f2d2d7ece1a74836a14b47fbebe9bbeb19f94c580a37c855351",
+        "signature": "5387c049e9702f2d2d7ece1a74836a14b47fbebe9bbeb19f94c580a37c855351",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/patch.d.ts": {
+        "version": "c68391fb9efad5d99ff332c65b1606248c4e4a9f1dd9a087204242b56c7126d6",
+        "signature": "c68391fb9efad5d99ff332c65b1606248c4e4a9f1dd9a087204242b56c7126d6",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/prerelease.d.ts": {
+        "version": "758e82e32536b66a139e34bb7e067dd860b563070f9746a0ae5cd802588f4def",
+        "signature": "758e82e32536b66a139e34bb7e067dd860b563070f9746a0ae5cd802588f4def",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/compare.d.ts": {
+        "version": "e8b02b879754d85f48489294f99147aeccc352c760d95a6fe2b6e49cd400b2fe",
+        "signature": "e8b02b879754d85f48489294f99147aeccc352c760d95a6fe2b6e49cd400b2fe",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/rcompare.d.ts": {
+        "version": "9f6908ab3d8a86c68b86e38578afc7095114e66b2fc36a2a96e9252aac3998e0",
+        "signature": "9f6908ab3d8a86c68b86e38578afc7095114e66b2fc36a2a96e9252aac3998e0",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/compare-loose.d.ts": {
+        "version": "0eedb2344442b143ddcd788f87096961cd8572b64f10b4afc3356aa0460171c6",
+        "signature": "0eedb2344442b143ddcd788f87096961cd8572b64f10b4afc3356aa0460171c6",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/compare-build.d.ts": {
+        "version": "9eb2875a1e4c583066af7d6194ea8162191b2756e5d87ccb3c562fdf74d06869",
+        "signature": "9eb2875a1e4c583066af7d6194ea8162191b2756e5d87ccb3c562fdf74d06869",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/sort.d.ts": {
+        "version": "c68baff4d8ba346130e9753cefe2e487a16731bf17e05fdacc81e8c9a26aae9d",
+        "signature": "c68baff4d8ba346130e9753cefe2e487a16731bf17e05fdacc81e8c9a26aae9d",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/rsort.d.ts": {
+        "version": "2cd15528d8bb5d0453aa339b4b52e0696e8b07e790c153831c642c3dea5ac8af",
+        "signature": "2cd15528d8bb5d0453aa339b4b52e0696e8b07e790c153831c642c3dea5ac8af",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/gt.d.ts": {
+        "version": "479d622e66283ffa9883fbc33e441f7fc928b2277ff30aacbec7b7761b4e9579",
+        "signature": "479d622e66283ffa9883fbc33e441f7fc928b2277ff30aacbec7b7761b4e9579",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/lt.d.ts": {
+        "version": "ade307876dc5ca267ca308d09e737b611505e015c535863f22420a11fffc1c54",
+        "signature": "ade307876dc5ca267ca308d09e737b611505e015c535863f22420a11fffc1c54",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/eq.d.ts": {
+        "version": "f8cdefa3e0dee639eccbe9794b46f90291e5fd3989fcba60d2f08fde56179fb9",
+        "signature": "f8cdefa3e0dee639eccbe9794b46f90291e5fd3989fcba60d2f08fde56179fb9",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/neq.d.ts": {
+        "version": "86c5a62f99aac7053976e317dbe9acb2eaf903aaf3d2e5bb1cafe5c2df7b37a8",
+        "signature": "86c5a62f99aac7053976e317dbe9acb2eaf903aaf3d2e5bb1cafe5c2df7b37a8",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/gte.d.ts": {
+        "version": "2b300954ce01a8343866f737656e13243e86e5baef51bd0631b21dcef1f6e954",
+        "signature": "2b300954ce01a8343866f737656e13243e86e5baef51bd0631b21dcef1f6e954",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/lte.d.ts": {
+        "version": "a2d409a9ffd872d6b9d78ead00baa116bbc73cfa959fce9a2f29d3227876b2a1",
+        "signature": "a2d409a9ffd872d6b9d78ead00baa116bbc73cfa959fce9a2f29d3227876b2a1",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/cmp.d.ts": {
+        "version": "b288936f560cd71f4a6002953290de9ff8dfbfbf37f5a9391be5c83322324898",
+        "signature": "b288936f560cd71f4a6002953290de9ff8dfbfbf37f5a9391be5c83322324898",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/coerce.d.ts": {
+        "version": "61178a781ef82e0ff54f9430397e71e8f365fc1e3725e0e5346f2de7b0d50dfa",
+        "signature": "61178a781ef82e0ff54f9430397e71e8f365fc1e3725e0e5346f2de7b0d50dfa",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/classes/comparator.d.ts": {
+        "version": "5349dc09f88a35d52dc0bf24c44ebfd10dcb13e052d79133a56e1ac127162a4d",
+        "signature": "5349dc09f88a35d52dc0bf24c44ebfd10dcb13e052d79133a56e1ac127162a4d",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/classes/range.d.ts": {
+        "version": "6eef5113135a0f2bbac8259909a5bbb7666bcde022c28f4ab95145623cbe1f72",
+        "signature": "6eef5113135a0f2bbac8259909a5bbb7666bcde022c28f4ab95145623cbe1f72",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/functions/satisfies.d.ts": {
+        "version": "058b8dd97b7c67b6bf33e7bda7b1e247b019b675d4b6449d14ac002091a8b4f8",
+        "signature": "058b8dd97b7c67b6bf33e7bda7b1e247b019b675d4b6449d14ac002091a8b4f8",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/max-satisfying.d.ts": {
+        "version": "89c8a7b88c378663a8124664f2d9b8c2887e186b55aa066edf6d67177ca1aa04",
+        "signature": "89c8a7b88c378663a8124664f2d9b8c2887e186b55aa066edf6d67177ca1aa04",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/min-satisfying.d.ts": {
+        "version": "5a30ba65ad753eb2ef65355dbb3011b28b192cb9df2ef0b5f595b51ca7faf353",
+        "signature": "5a30ba65ad753eb2ef65355dbb3011b28b192cb9df2ef0b5f595b51ca7faf353",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/to-comparators.d.ts": {
+        "version": "5192f9a6469f849e0863616b668fde54bcd6704394b4bfbd115691865f66d761",
+        "signature": "5192f9a6469f849e0863616b668fde54bcd6704394b4bfbd115691865f66d761",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/min-version.d.ts": {
+        "version": "f41d30972724714763a2698ae949fbc463afb203b5fa7c4ad7e4de0871129a17",
+        "signature": "f41d30972724714763a2698ae949fbc463afb203b5fa7c4ad7e4de0871129a17",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/valid.d.ts": {
+        "version": "0123340327efb174818f4b78bf6a9b12f8470754e6afac9e4d32a2ad27521f7b",
+        "signature": "0123340327efb174818f4b78bf6a9b12f8470754e6afac9e4d32a2ad27521f7b",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/outside.d.ts": {
+        "version": "9795e0a3a45d5b6f1a791ee54b7c8b58bc931e8900966cea2dff9c5bae56073b",
+        "signature": "9795e0a3a45d5b6f1a791ee54b7c8b58bc931e8900966cea2dff9c5bae56073b",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/gtr.d.ts": {
+        "version": "5890be29879d02424b7654f40592915189034948f7a18c5ad121c006d4e92811",
+        "signature": "5890be29879d02424b7654f40592915189034948f7a18c5ad121c006d4e92811",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/ltr.d.ts": {
+        "version": "0ab49086f10c75a1cb3b18bffe799dae021774146d8a2d5a4bb42dda67b64f9b",
+        "signature": "0ab49086f10c75a1cb3b18bffe799dae021774146d8a2d5a4bb42dda67b64f9b",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/intersects.d.ts": {
+        "version": "81c77839e152b8f715ec67b0a8b910bcc2d6cf916794c3519f8798c40efd12ac",
+        "signature": "81c77839e152b8f715ec67b0a8b910bcc2d6cf916794c3519f8798c40efd12ac",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/simplify.d.ts": {
+        "version": "a868a534ba1c2ca9060b8a13b0ffbbbf78b4be7b0ff80d8c75b02773f7192c29",
+        "signature": "a868a534ba1c2ca9060b8a13b0ffbbbf78b4be7b0ff80d8c75b02773f7192c29",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/ranges/subset.d.ts": {
+        "version": "464843c00fb3dd4735b28255c5c9fe713f16b8e47a3db09ba1647687440f7aef",
+        "signature": "464843c00fb3dd4735b28255c5c9fe713f16b8e47a3db09ba1647687440f7aef",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/internals/identifiers.d.ts": {
+        "version": "34baf65cfee92f110d6653322e2120c2d368ee64b3c7981dff08ed105c4f19b0",
+        "signature": "34baf65cfee92f110d6653322e2120c2d368ee64b3c7981dff08ed105c4f19b0",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/semver/index.d.ts": {
+        "version": "03d2e70c34640b553ed580286eb234835695ea1e473d837a4ced672648d453cd",
+        "signature": "03d2e70c34640b553ed580286eb234835695ea1e473d837a4ced672648d453cd",
+        "affectsGlobalScope": false
+      },
       "../../node_modules/@types/tmp/index.d.ts": {
         "version": "f26c7e4aa5603123034d9ee4459f43d49daa3d96fdd12999d45d7fa16e584cfe",
         "signature": "f26c7e4aa5603123034d9ee4459f43d49daa3d96fdd12999d45d7fa16e584cfe",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/@types/treeify/index.d.ts": {
+        "version": "e2c3fb7ba470548053dabb65521b89846fffad3a103ddc72b5115d8caa23ce8e",
+        "signature": "e2c3fb7ba470548053dabb65521b89846fffad3a103ddc72b5115d8caa23ce8e",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/typography/index.d.ts": {
@@ -969,6 +1199,15 @@
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
+      "../../node_modules/@types/cacheable-request/index.d.ts": [
+        "../../node_modules/@types/http-cache-semantics/index.d.ts",
+        "../../node_modules/@types/keyv/index.d.ts",
+        "../../node_modules/@types/node/events.d.ts",
+        "../../node_modules/@types/node/http.d.ts",
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/node/url.d.ts",
+        "../../node_modules/@types/responselike/index.d.ts"
+      ],
       "../../node_modules/@types/glob/index.d.ts": [
         "../../node_modules/@types/minimatch/index.d.ts",
         "../../node_modules/@types/node/events.d.ts",
@@ -1017,6 +1256,10 @@
       "../../node_modules/@types/istanbul-reports/index.d.ts": [
         "../../node_modules/@types/istanbul-lib-coverage/index.d.ts",
         "../../node_modules/@types/istanbul-lib-report/index.d.ts"
+      ],
+      "../../node_modules/@types/keyv/index.d.ts": [
+        "../../node_modules/@types/node/events.d.ts",
+        "../../node_modules/@types/node/index.d.ts"
       ],
       "../../node_modules/@types/lodash.curry/index.d.ts": [
         "../../node_modules/@types/lodash/index.d.ts"
@@ -1215,10 +1458,15 @@
       ],
       "../../node_modules/@types/node-fetch/index.d.ts": [
         "../../node_modules/@types/node-fetch/externals.d.ts",
+        "../../node_modules/@types/node-fetch/node_modules/form-data/index.d.ts",
         "../../node_modules/@types/node/http.d.ts",
         "../../node_modules/@types/node/index.d.ts",
-        "../../node_modules/@types/node/url.d.ts",
-        "../../node_modules/form-data/index.d.ts"
+        "../../node_modules/@types/node/url.d.ts"
+      ],
+      "../../node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": [
+        "../../node_modules/@types/node/http.d.ts",
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/node/stream.d.ts"
       ],
       "../../node_modules/@types/node/base.d.ts": [
         "../../node_modules/@types/node/assert.d.ts",
@@ -1413,10 +1661,212 @@
       "../../node_modules/@types/resolve/index.d.ts": [
         "../../node_modules/@types/node/index.d.ts"
       ],
+      "../../node_modules/@types/responselike/index.d.ts": [
+        "../../node_modules/@types/node/http.d.ts",
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/node/stream.d.ts"
+      ],
       "../../node_modules/@types/rimraf/index.d.ts": [
         "../../node_modules/@types/glob/index.d.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/classes/comparator.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/classes/range.d.ts": [
+        "../../node_modules/@types/semver/classes/comparator.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/classes/semver.d.ts": [
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/clean.d.ts": [
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/cmp.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/coerce.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/compare-build.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/compare-loose.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/compare.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/diff.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/eq.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/gt.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/gte.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/inc.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/lt.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/lte.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/major.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/minor.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/neq.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/parse.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/patch.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/prerelease.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/rcompare.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/rsort.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/satisfies.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/sort.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/valid.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/index.d.ts": [
+        "../../node_modules/@types/semver/classes/comparator.d.ts",
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/functions/clean.d.ts",
+        "../../node_modules/@types/semver/functions/cmp.d.ts",
+        "../../node_modules/@types/semver/functions/coerce.d.ts",
+        "../../node_modules/@types/semver/functions/compare-build.d.ts",
+        "../../node_modules/@types/semver/functions/compare-loose.d.ts",
+        "../../node_modules/@types/semver/functions/compare.d.ts",
+        "../../node_modules/@types/semver/functions/diff.d.ts",
+        "../../node_modules/@types/semver/functions/eq.d.ts",
+        "../../node_modules/@types/semver/functions/gt.d.ts",
+        "../../node_modules/@types/semver/functions/gte.d.ts",
+        "../../node_modules/@types/semver/functions/inc.d.ts",
+        "../../node_modules/@types/semver/functions/lt.d.ts",
+        "../../node_modules/@types/semver/functions/lte.d.ts",
+        "../../node_modules/@types/semver/functions/major.d.ts",
+        "../../node_modules/@types/semver/functions/minor.d.ts",
+        "../../node_modules/@types/semver/functions/neq.d.ts",
+        "../../node_modules/@types/semver/functions/parse.d.ts",
+        "../../node_modules/@types/semver/functions/patch.d.ts",
+        "../../node_modules/@types/semver/functions/prerelease.d.ts",
+        "../../node_modules/@types/semver/functions/rcompare.d.ts",
+        "../../node_modules/@types/semver/functions/rsort.d.ts",
+        "../../node_modules/@types/semver/functions/satisfies.d.ts",
+        "../../node_modules/@types/semver/functions/sort.d.ts",
+        "../../node_modules/@types/semver/functions/valid.d.ts",
+        "../../node_modules/@types/semver/internals/identifiers.d.ts",
+        "../../node_modules/@types/semver/ranges/gtr.d.ts",
+        "../../node_modules/@types/semver/ranges/intersects.d.ts",
+        "../../node_modules/@types/semver/ranges/ltr.d.ts",
+        "../../node_modules/@types/semver/ranges/max-satisfying.d.ts",
+        "../../node_modules/@types/semver/ranges/min-satisfying.d.ts",
+        "../../node_modules/@types/semver/ranges/min-version.d.ts",
+        "../../node_modules/@types/semver/ranges/outside.d.ts",
+        "../../node_modules/@types/semver/ranges/simplify.d.ts",
+        "../../node_modules/@types/semver/ranges/subset.d.ts",
+        "../../node_modules/@types/semver/ranges/to-comparators.d.ts",
+        "../../node_modules/@types/semver/ranges/valid.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/gtr.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/intersects.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/ltr.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/max-satisfying.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/min-satisfying.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/min-version.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/outside.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/simplify.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/subset.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/to-comparators.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/valid.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
       ],
       "../../node_modules/@types/vfile/index.d.ts": [
         "../../node_modules/@types/node/index.d.ts",
@@ -1436,11 +1886,6 @@
       ],
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
-      ],
-      "../../node_modules/form-data/index.d.ts": [
-        "../../node_modules/@types/node/http.d.ts",
-        "../../node_modules/@types/node/index.d.ts",
-        "../../node_modules/@types/node/stream.d.ts"
       ],
       "../../node_modules/vfile-message/types/index.d.ts": [
         "../../node_modules/@types/unist/index.d.ts"
@@ -1533,6 +1978,15 @@
       ]
     },
     "exportedModulesMap": {
+      "../../node_modules/@types/cacheable-request/index.d.ts": [
+        "../../node_modules/@types/http-cache-semantics/index.d.ts",
+        "../../node_modules/@types/keyv/index.d.ts",
+        "../../node_modules/@types/node/events.d.ts",
+        "../../node_modules/@types/node/http.d.ts",
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/node/url.d.ts",
+        "../../node_modules/@types/responselike/index.d.ts"
+      ],
       "../../node_modules/@types/glob/index.d.ts": [
         "../../node_modules/@types/minimatch/index.d.ts",
         "../../node_modules/@types/node/events.d.ts",
@@ -1581,6 +2035,10 @@
       "../../node_modules/@types/istanbul-reports/index.d.ts": [
         "../../node_modules/@types/istanbul-lib-coverage/index.d.ts",
         "../../node_modules/@types/istanbul-lib-report/index.d.ts"
+      ],
+      "../../node_modules/@types/keyv/index.d.ts": [
+        "../../node_modules/@types/node/events.d.ts",
+        "../../node_modules/@types/node/index.d.ts"
       ],
       "../../node_modules/@types/lodash.curry/index.d.ts": [
         "../../node_modules/@types/lodash/index.d.ts"
@@ -1779,10 +2237,15 @@
       ],
       "../../node_modules/@types/node-fetch/index.d.ts": [
         "../../node_modules/@types/node-fetch/externals.d.ts",
+        "../../node_modules/@types/node-fetch/node_modules/form-data/index.d.ts",
         "../../node_modules/@types/node/http.d.ts",
         "../../node_modules/@types/node/index.d.ts",
-        "../../node_modules/@types/node/url.d.ts",
-        "../../node_modules/form-data/index.d.ts"
+        "../../node_modules/@types/node/url.d.ts"
+      ],
+      "../../node_modules/@types/node-fetch/node_modules/form-data/index.d.ts": [
+        "../../node_modules/@types/node/http.d.ts",
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/node/stream.d.ts"
       ],
       "../../node_modules/@types/node/base.d.ts": [
         "../../node_modules/@types/node/assert.d.ts",
@@ -1977,10 +2440,212 @@
       "../../node_modules/@types/resolve/index.d.ts": [
         "../../node_modules/@types/node/index.d.ts"
       ],
+      "../../node_modules/@types/responselike/index.d.ts": [
+        "../../node_modules/@types/node/http.d.ts",
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/node/stream.d.ts"
+      ],
       "../../node_modules/@types/rimraf/index.d.ts": [
         "../../node_modules/@types/glob/index.d.ts",
         "../../node_modules/@types/node/fs.d.ts",
         "../../node_modules/@types/node/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/classes/comparator.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/classes/range.d.ts": [
+        "../../node_modules/@types/semver/classes/comparator.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/classes/semver.d.ts": [
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/clean.d.ts": [
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/cmp.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/coerce.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/compare-build.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/compare-loose.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/compare.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/diff.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/eq.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/gt.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/gte.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/inc.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/lt.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/lte.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/major.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/minor.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/neq.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/parse.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/patch.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/prerelease.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/rcompare.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/rsort.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/satisfies.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/sort.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/functions/valid.d.ts": [
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/index.d.ts": [
+        "../../node_modules/@types/semver/classes/comparator.d.ts",
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/functions/clean.d.ts",
+        "../../node_modules/@types/semver/functions/cmp.d.ts",
+        "../../node_modules/@types/semver/functions/coerce.d.ts",
+        "../../node_modules/@types/semver/functions/compare-build.d.ts",
+        "../../node_modules/@types/semver/functions/compare-loose.d.ts",
+        "../../node_modules/@types/semver/functions/compare.d.ts",
+        "../../node_modules/@types/semver/functions/diff.d.ts",
+        "../../node_modules/@types/semver/functions/eq.d.ts",
+        "../../node_modules/@types/semver/functions/gt.d.ts",
+        "../../node_modules/@types/semver/functions/gte.d.ts",
+        "../../node_modules/@types/semver/functions/inc.d.ts",
+        "../../node_modules/@types/semver/functions/lt.d.ts",
+        "../../node_modules/@types/semver/functions/lte.d.ts",
+        "../../node_modules/@types/semver/functions/major.d.ts",
+        "../../node_modules/@types/semver/functions/minor.d.ts",
+        "../../node_modules/@types/semver/functions/neq.d.ts",
+        "../../node_modules/@types/semver/functions/parse.d.ts",
+        "../../node_modules/@types/semver/functions/patch.d.ts",
+        "../../node_modules/@types/semver/functions/prerelease.d.ts",
+        "../../node_modules/@types/semver/functions/rcompare.d.ts",
+        "../../node_modules/@types/semver/functions/rsort.d.ts",
+        "../../node_modules/@types/semver/functions/satisfies.d.ts",
+        "../../node_modules/@types/semver/functions/sort.d.ts",
+        "../../node_modules/@types/semver/functions/valid.d.ts",
+        "../../node_modules/@types/semver/internals/identifiers.d.ts",
+        "../../node_modules/@types/semver/ranges/gtr.d.ts",
+        "../../node_modules/@types/semver/ranges/intersects.d.ts",
+        "../../node_modules/@types/semver/ranges/ltr.d.ts",
+        "../../node_modules/@types/semver/ranges/max-satisfying.d.ts",
+        "../../node_modules/@types/semver/ranges/min-satisfying.d.ts",
+        "../../node_modules/@types/semver/ranges/min-version.d.ts",
+        "../../node_modules/@types/semver/ranges/outside.d.ts",
+        "../../node_modules/@types/semver/ranges/simplify.d.ts",
+        "../../node_modules/@types/semver/ranges/subset.d.ts",
+        "../../node_modules/@types/semver/ranges/to-comparators.d.ts",
+        "../../node_modules/@types/semver/ranges/valid.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/gtr.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/intersects.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/ltr.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/max-satisfying.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/min-satisfying.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/min-version.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/outside.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/classes/semver.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/simplify.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/subset.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/to-comparators.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/semver/ranges/valid.d.ts": [
+        "../../node_modules/@types/semver/classes/range.d.ts",
+        "../../node_modules/@types/semver/index.d.ts"
       ],
       "../../node_modules/@types/vfile/index.d.ts": [
         "../../node_modules/@types/node/index.d.ts",
@@ -2001,11 +2666,6 @@
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
       ],
-      "../../node_modules/form-data/index.d.ts": [
-        "../../node_modules/@types/node/http.d.ts",
-        "../../node_modules/@types/node/index.d.ts",
-        "../../node_modules/@types/node/stream.d.ts"
-      ],
       "../../node_modules/vfile-message/types/index.d.ts": [
         "../../node_modules/@types/unist/index.d.ts"
       ],
@@ -2015,9 +2675,11 @@
     },
     "semanticDiagnosticsPerFile": [
       "../../node_modules/@types/base16/index.d.ts",
+      "../../node_modules/@types/cacheable-request/index.d.ts",
       "../../node_modules/@types/common-tags/index.d.ts",
       "../../node_modules/@types/configstore/index.d.ts",
       "../../node_modules/@types/debug/index.d.ts",
+      "../../node_modules/@types/emscripten/index.d.ts",
       "../../node_modules/@types/eslint-visitor-keys/index.d.ts",
       "../../node_modules/@types/estree/index.d.ts",
       "../../node_modules/@types/events/index.d.ts",
@@ -2031,12 +2693,14 @@
       "../../node_modules/@types/history/createHashHistory.d.ts",
       "../../node_modules/@types/history/createMemoryHistory.d.ts",
       "../../node_modules/@types/history/index.d.ts",
+      "../../node_modules/@types/http-cache-semantics/index.d.ts",
       "../../node_modules/@types/http-proxy/index.d.ts",
       "../../node_modules/@types/istanbul-lib-coverage/index.d.ts",
       "../../node_modules/@types/istanbul-lib-report/index.d.ts",
       "../../node_modules/@types/istanbul-reports/index.d.ts",
       "../../node_modules/@types/json-schema/index.d.ts",
       "../../node_modules/@types/json5/index.d.ts",
+      "../../node_modules/@types/keyv/index.d.ts",
       "../../node_modules/@types/lodash.curry/index.d.ts",
       "../../node_modules/@types/lodash/common/array.d.ts",
       "../../node_modules/@types/lodash/common/collection.d.ts",
@@ -2058,6 +2722,7 @@
       "../../node_modules/@types/mkdirp/index.d.ts",
       "../../node_modules/@types/node-fetch/externals.d.ts",
       "../../node_modules/@types/node-fetch/index.d.ts",
+      "../../node_modules/@types/node-fetch/node_modules/form-data/index.d.ts",
       "../../node_modules/@types/node/assert.d.ts",
       "../../node_modules/@types/node/async_hooks.d.ts",
       "../../node_modules/@types/node/base.d.ts",
@@ -2118,8 +2783,50 @@
       "../../node_modules/@types/react/jsx-runtime.d.ts",
       "../../node_modules/@types/readable-stream/index.d.ts",
       "../../node_modules/@types/resolve/index.d.ts",
+      "../../node_modules/@types/responselike/index.d.ts",
       "../../node_modules/@types/rimraf/index.d.ts",
+      "../../node_modules/@types/semver/classes/comparator.d.ts",
+      "../../node_modules/@types/semver/classes/range.d.ts",
+      "../../node_modules/@types/semver/classes/semver.d.ts",
+      "../../node_modules/@types/semver/functions/clean.d.ts",
+      "../../node_modules/@types/semver/functions/cmp.d.ts",
+      "../../node_modules/@types/semver/functions/coerce.d.ts",
+      "../../node_modules/@types/semver/functions/compare-build.d.ts",
+      "../../node_modules/@types/semver/functions/compare-loose.d.ts",
+      "../../node_modules/@types/semver/functions/compare.d.ts",
+      "../../node_modules/@types/semver/functions/diff.d.ts",
+      "../../node_modules/@types/semver/functions/eq.d.ts",
+      "../../node_modules/@types/semver/functions/gt.d.ts",
+      "../../node_modules/@types/semver/functions/gte.d.ts",
+      "../../node_modules/@types/semver/functions/inc.d.ts",
+      "../../node_modules/@types/semver/functions/lt.d.ts",
+      "../../node_modules/@types/semver/functions/lte.d.ts",
+      "../../node_modules/@types/semver/functions/major.d.ts",
+      "../../node_modules/@types/semver/functions/minor.d.ts",
+      "../../node_modules/@types/semver/functions/neq.d.ts",
+      "../../node_modules/@types/semver/functions/parse.d.ts",
+      "../../node_modules/@types/semver/functions/patch.d.ts",
+      "../../node_modules/@types/semver/functions/prerelease.d.ts",
+      "../../node_modules/@types/semver/functions/rcompare.d.ts",
+      "../../node_modules/@types/semver/functions/rsort.d.ts",
+      "../../node_modules/@types/semver/functions/satisfies.d.ts",
+      "../../node_modules/@types/semver/functions/sort.d.ts",
+      "../../node_modules/@types/semver/functions/valid.d.ts",
+      "../../node_modules/@types/semver/index.d.ts",
+      "../../node_modules/@types/semver/internals/identifiers.d.ts",
+      "../../node_modules/@types/semver/ranges/gtr.d.ts",
+      "../../node_modules/@types/semver/ranges/intersects.d.ts",
+      "../../node_modules/@types/semver/ranges/ltr.d.ts",
+      "../../node_modules/@types/semver/ranges/max-satisfying.d.ts",
+      "../../node_modules/@types/semver/ranges/min-satisfying.d.ts",
+      "../../node_modules/@types/semver/ranges/min-version.d.ts",
+      "../../node_modules/@types/semver/ranges/outside.d.ts",
+      "../../node_modules/@types/semver/ranges/simplify.d.ts",
+      "../../node_modules/@types/semver/ranges/subset.d.ts",
+      "../../node_modules/@types/semver/ranges/to-comparators.d.ts",
+      "../../node_modules/@types/semver/ranges/valid.d.ts",
       "../../node_modules/@types/tmp/index.d.ts",
+      "../../node_modules/@types/treeify/index.d.ts",
       "../../node_modules/@types/typography/index.d.ts",
       "../../node_modules/@types/unist/index.d.ts",
       "../../node_modules/@types/uuid/index.d.ts",
@@ -2131,7 +2838,6 @@
       "../../node_modules/comlink/dist/umd/comlink.d.ts",
       "../../node_modules/comlink/dist/umd/protocol.d.ts",
       "../../node_modules/csstype/index.d.ts",
-      "../../node_modules/form-data/index.d.ts",
       "../../node_modules/safe-buffer/index.d.ts",
       "../../node_modules/tslib/tslib.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",

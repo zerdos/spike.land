@@ -3,7 +3,6 @@
   "version": "11.1.12",
   "main": "src/index.js",
   "license": "MIT",
-  "private": false,
   "publishConfig": {
     "access": "public"
   },

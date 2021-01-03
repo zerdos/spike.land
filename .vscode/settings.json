@@ -12,7 +12,9 @@
     "**/node_modules": true,
     "**/bower_components": true,
     "**/*.code-search": true,
-    "**/dist": true
+    "**/dist": true,
+    "**/.yarn": true,
+    "**/.pnp.*": true
   },
   "typescript.tsserver.useSeparateSyntaxServer": true,
   "typescript.tsserver.log": "verbose",
@@ -27,15 +29,16 @@
   "deno.lint": true,
   "deno.config": "./tsconfig.json",
   "deno.import_intellisense_origins": {
-    "https://deno.land": true,
+    "https://deno.land": true
   },
   "[typescript]": {
-    "editor.defaultFormatter": "denoland.vscode-deno",
+    "editor.defaultFormatter": "denoland.vscode-deno"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "denoland.vscode-deno",
+    "editor.defaultFormatter": "denoland.vscode-deno"
   },
   "git.autofetch": true,
   "npm.packageManager": "yarn",
-  "typescript.tsdk": "./node_modules/typescript/lib"
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
