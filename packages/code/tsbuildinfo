@@ -1141,6 +1141,11 @@
         "signature": "6f56706c6828d0299f46f8b1a79ecae0757b91b48e63baf6f0c5292d02037129",
         "affectsGlobalScope": false
       },
+      "../../node_modules/@types/vfile-message/index.d.ts": {
+        "version": "5bc2e83a413fd0debbe2aadecf5593a21fcb866ecd49920aa7d4d2fa71288e10",
+        "signature": "5bc2e83a413fd0debbe2aadecf5593a21fcb866ecd49920aa7d4d2fa71288e10",
+        "affectsGlobalScope": false
+      },
       "../../node_modules/@types/websocket/index.d.ts": {
         "version": "c7e7cda216cdbb2fd27fe47a7ae0a4e0f5b0b5ebc44d51e4a2a3eca8ba68e53d",
         "signature": "c7e7cda216cdbb2fd27fe47a7ae0a4e0f5b0b5ebc44d51e4a2a3eca8ba68e53d",
@@ -1867,6 +1872,10 @@
       "../../node_modules/@types/semver/ranges/valid.d.ts": [
         "../../node_modules/@types/semver/classes/range.d.ts",
         "../../node_modules/@types/semver/index.d.ts"
+      ],
+      "../../node_modules/@types/vfile-message/index.d.ts": [
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/unist/index.d.ts"
       ],
       "../../node_modules/@types/vfile/index.d.ts": [
         "../../node_modules/@types/node/index.d.ts",
@@ -2647,6 +2656,10 @@
         "../../node_modules/@types/semver/classes/range.d.ts",
         "../../node_modules/@types/semver/index.d.ts"
       ],
+      "../../node_modules/@types/vfile-message/index.d.ts": [
+        "../../node_modules/@types/node/index.d.ts",
+        "../../node_modules/@types/unist/index.d.ts"
+      ],
       "../../node_modules/@types/vfile/index.d.ts": [
         "../../node_modules/@types/node/index.d.ts",
         "../../node_modules/@types/unist/index.d.ts",
@@ -2830,6 +2843,7 @@
       "../../node_modules/@types/typography/index.d.ts",
       "../../node_modules/@types/unist/index.d.ts",
       "../../node_modules/@types/uuid/index.d.ts",
+      "../../node_modules/@types/vfile-message/index.d.ts",
       "../../node_modules/@types/vfile/index.d.ts",
       "../../node_modules/@types/websocket/index.d.ts",
       "../../node_modules/@types/yargs-parser/index.d.ts",
