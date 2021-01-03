@@ -14,8 +14,8 @@ async function handleRequest(request) {
  //  await cache.delete(request)
     let response = await cache.match(request)
   
-    if (!response || response.url!=="https://unpkg.com/@zedvision/code@11.1.11/ipfs.html") {
-      response = await fetch(`https://unpkg.com/@zedvision/code@11.1.11/ipfs.html`)
+    if (!response || response.url!=="https://unpkg.com/@zedvision/code@11.1.13/ipfs.html") {
+      response = await fetch(`https://unpkg.com/@zedvision/code@11.1.13/ipfs.html`)
       await cache.put(request, response.clone())
     }
     if (response.status > 399) {
