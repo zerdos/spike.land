@@ -2,9 +2,9 @@
   "name": "@devcontainer/focal-devcontainer",
   "tagname": "focal-devcontainer",
   "scripts": {
-    "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`-t devimages/${p.tagname}:latest -t devimages/${p.tagname}:${p.version}`)'",
+  "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
     "docker:push": "docker push $(yarn tag:version)",
-    "docker:build": "docker build . $(yarn tag:version)",
+    "docker:build": "docker build . -t $(yarn tag:version)",
     "build": "node index.js"
   },
   "files": [
