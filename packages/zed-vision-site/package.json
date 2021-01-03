@@ -1,12 +1,11 @@
 {
   "name": "@zedvision/zedvision-site",
   "scripts": {
-    "build": "yarn gatsby build --no-uglify && cp -afr blog/. static",
+    "build": "gatsby build --no-uglify && cp -afr blog/. static",
     "deploy": "yarn build && rm -rf ../../docs* && cp -afr public/. ../../docs",
-    "start-https": "yarn yarn gatsby develop",
-    "start": "yarn gatsby develop",
-    "serve": "yarn gatsby serve",
-    "clean": "yarn gatsby clean && deno fmt src"
+    "start": "gatsby develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean && deno fmt src"
   },
   "private": false,
   "description": "Zed vision blog",
