@@ -2,8 +2,9 @@
   "name": "@devcontainer/groovy-devcontainer",
   "tagname": "groovy-devcontainer",
   "scripts": {
-    "docker:push": "docker push devimages/$npm_package_tagname:latest && docker push devimages/$npm_package_tagname:$npm_package_version",
-    "docker:build": "yarn build && docker build . -t devimages/$npm_package_tagname:latest -t devimages/$npm_package_tagname:$npm_package_version",
+    "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`-t devimages/${p.tagname}:latest -t devimages/${p.tagname}:${p.version}`)'",
+    "docker:push": "docker push $(yarn tag:version)",
+    "docker:build": "docker build . $(yarn tag:version)",
     "build": "node index.js"
   },
   "files": [
