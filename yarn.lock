@@ -3692,11 +3692,12 @@ __metadata:
   linkType: hard
 
 "@types/vfile-message@npm:*":
-  version: 2.0.0
-  resolution: "@types/vfile-message@npm:2.0.0"
+  version: 1.0.1
+  resolution: "@types/vfile-message@npm:1.0.1"
   dependencies:
-    vfile-message: "*"
-  checksum: cf8ba191e8df11b88699c02ef0a19a44c8fb0b44f04226e4df5173d69c85756605dc374cbff262909336a2297a8ce093232656f28006e74c34faf5c92d5d651b
+    "@types/node": "*"
+    "@types/unist": "*"
+  checksum: 5b73f29b77eddf09778ffac79e3f552f62b6ef5cb1085031cccd715256c0e1ae2e54dd1f6311c3d8fbaebf99b82eb8afbacd747fcc8adf50e998c56ecc8dfb99
   languageName: node
   linkType: hard
 
@@ -5623,7 +5624,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.0.0, browserslist@npm:^4.12.0, browserslist@npm:^4.12.2, browserslist@npm:^4.14.5, browserslist@npm:^4.15.0, browserslist@npm:^4.16.0":
+"browserslist@npm:^4.0.0, browserslist@npm:^4.12.0, browserslist@npm:^4.12.2, browserslist@npm:^4.14.5, browserslist@npm:^4.16.0":
   version: 4.16.0
   resolution: "browserslist@npm:4.16.0"
   dependencies:
@@ -7016,23 +7017,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js-compat@npm:^3.6.5":
+"core-js-compat@npm:^3.6.5, core-js-compat@npm:^3.8.0":
   version: 3.8.2
   resolution: "core-js-compat@npm:3.8.2"
   dependencies:
     browserslist: ^4.16.0
     semver: 7.0.0
   checksum: 57b33f456d42054d01f78a05bbc252249a5e2cd109dfac2c9fae94ad90e156ed17fc68c817444696a9546acd58c3ce66c34dfe7841628da6d6cf8fdb888e4671
-  languageName: node
-  linkType: hard
-
-"core-js-compat@npm:^3.8.0":
-  version: 3.8.1
-  resolution: "core-js-compat@npm:3.8.1"
-  dependencies:
-    browserslist: ^4.15.0
-    semver: 7.0.0
-  checksum: 964ad886a9f55399d2f33350d15f4653bfd24cb6de04606c515d0266be4101a1f435bab9a6d76b249de5f573aecb230a98468d6a8141743019abab5edd4d4281
   languageName: node
   linkType: hard
 
@@ -7051,9 +7042,9 @@ __metadata:
   linkType: hard
 
 "core-js@npm:^3.6.5":
-  version: 3.8.1
-  resolution: "core-js@npm:3.8.1"
-  checksum: e9364ce130241b65f73e0be84721f3cd704b5db77709476e2d6c1e4b56e58e3af9b46e6b51bd019865083d2d55b38a8e0888e862f75e65332c37820cb0d3c58e
+  version: 3.8.2
+  resolution: "core-js@npm:3.8.2"
+  checksum: 8fa2c580b77b9d54d3f6ee147be4d9ae01ea6d77f35f16b05962161e9bec02d846449cce4c68b9d190145edc8ded71142f6fd99e35b53fc642b20a3bf47bbd07
   languageName: node
   linkType: hard
 
@@ -7580,14 +7571,14 @@ __metadata:
   linkType: hard
 
 "debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1":
-  version: 4.3.1
-  resolution: "debug@npm:4.3.1"
+  version: 4.3.2
+  resolution: "debug@npm:4.3.2"
   dependencies:
     ms: 2.1.2
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 0d41ba5177510e8b388dfd7df143ab0f9312e4abdaba312595461511dac88e9ef8101939d33b4e6d37e10341af6a5301082e4d7d6f3deb4d57bc05fc7d296fad
+  checksum: 5543570879e2274f6725d4285a034d6e0822d35faefc6f55965933fb440e8c21eb3a0bef934e66f4b6b491f898ee2de37cab980e9d4fd61372136c19d3ce4527
   languageName: node
   linkType: hard
 
@@ -15982,9 +15973,9 @@ fsevents@~2.1.2:
   linkType: hard
 
 "peek-readable@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "peek-readable@npm:3.1.0"
-  checksum: 44d38d141610a8e90a7ae0e6faeaacd28b591bdbc4acd45c6acb9ca8ceb3d4418d6f4b6b3df951e7a0b94dfd62159127eb8e86f6ca8e5542e7041da377494c25
+  version: 3.1.1
+  resolution: "peek-readable@npm:3.1.1"
+  checksum: 74606fb7d56e3b83f7f3570bd7aa0ba6f0461781c179ad492b0029f7efc243bd4eebd848d340743e7a1f629edc1bba9974b3c6443c32a8bf34654f6504d1611a
   languageName: node
   linkType: hard
 
@@ -21168,22 +21159,22 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"vfile-message@npm:*, vfile-message@npm:^2.0.0":
-  version: 2.0.4
-  resolution: "vfile-message@npm:2.0.4"
-  dependencies:
-    "@types/unist": ^2.0.0
-    unist-util-stringify-position: ^2.0.0
-  checksum: a88f41883cb9b5adad1066803eabe6c7ce5f877dd5e5dd61cc4273ee53a2d0d62100b105778cd474ef9b7b32c06abe17f176032d24b7028d5cee8d623cc31200
-  languageName: node
-  linkType: hard
-
 "vfile-message@npm:^1.0.0":
   version: 1.1.1
   resolution: "vfile-message@npm:1.1.1"
   dependencies:
     unist-util-stringify-position: ^1.1.1
   checksum: d6c086d7c1d3c1e54351ab1f027655a0289e2e600f3fa86ea670ff230b65c79b8417ff7b515010ccab3973b6726576aed0d61f8814bceeb1296ea39862869dcd
+  languageName: node
+  linkType: hard
+
+"vfile-message@npm:^2.0.0":
+  version: 2.0.4
+  resolution: "vfile-message@npm:2.0.4"
+  dependencies:
+    "@types/unist": ^2.0.0
+    unist-util-stringify-position: ^2.0.0
+  checksum: a88f41883cb9b5adad1066803eabe6c7ce5f877dd5e5dd61cc4273ee53a2d0d62100b105778cd474ef9b7b32c06abe17f176032d24b7028d5cee8d623cc31200
   languageName: node
   linkType: hard
 
