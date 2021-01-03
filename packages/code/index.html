@@ -34,7 +34,7 @@
     const isLocalhost = true || (window.location.href.includes("zed.dev") || window.location.href.includes("zed.vision"));
     (async () => {
       const { run } = await import(isLocalhost ?
-        "./src/codeLoader.js" :
+        "./dist/codeLoader.js" :
         `https://zed.vision/ipfs/${v.ipfs}/src/codeLoader.js`);
       run("window", window);
     })();
