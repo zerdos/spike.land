@@ -39,7 +39,7 @@
     }
 
 
-    #ace,#container {
+    #container {
       position: relative;
       height: 100vh;
       width: 100%;
@@ -67,7 +67,7 @@
   <script type="module">
     import startMonaco from "./dist/editor.js"
 
-    startMonaco({language: "typescript", onChange: (c)=>console.log(c), code: `import React, { FC, useState } from "react";
+    startMonaco({language: "typescript", container: document.getElementById("container"), onChange: (c)=>console.log(c), code: `import React, { FC, useState } from "react";
 import ReactDOM from "react-dom";
 
 const Counter: FC<{ initial?: number }> = (

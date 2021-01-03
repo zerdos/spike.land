@@ -59,56 +59,24 @@ export default async ({ onChange, code, language, container, options }) => {
             model.setValue(code);
         }
     }
-    catch {
+    catch (_a) {
         model = await monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri));
     }
     const modules = {
         monaco: monaco,
-        editor: monaco.editor.create(container, {
-            formatOnType: false,
-            scrollbar: {
+        editor: monaco.editor.create(container, Object.assign({ formatOnType: false, scrollbar: {
                 horizontal: "hidden",
                 verticalHasArrows: true,
                 verticalScrollbarSize: 20,
-            },
-            minimap: {
+            }, minimap: {
                 enabled: false,
-            },
-            folding: false,
-            glyphMargin: false,
-            wordWrap: "off",
-            mouseWheelZoom: false,
-            wordWrapColumn: 80,
-            useTabStops: false,
-            dragAndDrop: false,
-            disableLayerHinting: true,
-            formatOnPaste: false,
-            disableMonospaceOptimizations: true,
-            showUnused: true,
+            }, folding: false, glyphMargin: false, wordWrap: "off", mouseWheelZoom: false, wordWrapColumn: 80, useTabStops: false, dragAndDrop: false, disableLayerHinting: true, formatOnPaste: false, disableMonospaceOptimizations: true, showUnused: true, 
             //       glyphMargin: true,
-            automaticLayout: true,
-            scrollBeyondLastLine: false,
-            autoIndent: "full",
-            accessibilitySupport: "off",
-            autoClosingQuotes: "beforeWhitespace",
-            padding: {
+            automaticLayout: true, scrollBeyondLastLine: false, autoIndent: "full", accessibilitySupport: "off", autoClosingQuotes: "beforeWhitespace", padding: {
                 bottom: 300,
-            },
-            lineNumbers: "on",
-            autoClosingBrackets: "beforeWhitespace",
-            autoClosingOvertype: "auto",
-            suggest: {},
-            codeLens: true,
-            autoSurround: "languageDefined",
+            }, lineNumbers: "on", autoClosingBrackets: "beforeWhitespace", autoClosingOvertype: "auto", suggest: {}, codeLens: true, autoSurround: "languageDefined", 
             // acceptSuggestionOnCommitCharacter: true,
-            trimAutoWhitespace: false,
-            codeActionsOnSaveTimeout: 100,
-            model,
-            value: code,
-            language: language,
-            theme: "vs-dark",
-            ...options,
-        }),
+            trimAutoWhitespace: false, codeActionsOnSaveTimeout: 100, model, value: code, language: language, theme: "vs-dark" }, options)),
     };
     modules.editor.onDidChangeModelContent(() => onChange(modules.editor.getValue()));
     // if (isMobile()) {
