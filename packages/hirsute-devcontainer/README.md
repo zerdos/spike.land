@@ -2,7 +2,7 @@
 
 - Base image: buildpack-deps:hirsute
 - Deno: 1.6.3- Node: 14.15.3
-- Yarn: 1.22.5
+- Yarn: 1.22.10
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - with Google-chrome- With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
