@@ -1379,7 +1379,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/cypress@workspace:packages/devimages-cypress"
   dependencies:
-    "@devcontainer/generator": ^11.2.13
+    "@devcontainer/generator": ^11.2.16
   languageName: unknown
   linkType: soft
 
@@ -1387,7 +1387,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^11.2.13
+    "@devcontainer/generator": ^11.2.16
   languageName: unknown
   linkType: soft
 
@@ -1395,7 +1395,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-devcontainer@workspace:packages/focal-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^11.2.13
+    "@devcontainer/generator": ^11.2.16
   languageName: unknown
   linkType: soft
 
@@ -1403,11 +1403,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-xfce-vnc@workspace:packages/focal-xfce-vnc"
   dependencies:
-    "@devcontainer/generator": ^11.2.13
+    "@devcontainer/generator": ^11.2.16
   languageName: unknown
   linkType: soft
 
-"@devcontainer/generator@^11.2.13, @devcontainer/generator@workspace:packages/generator":
+"@devcontainer/generator@^11.2.16, @devcontainer/generator@workspace:packages/generator":
   version: 0.0.0-use.local
   resolution: "@devcontainer/generator@workspace:packages/generator"
   dependencies:
@@ -1419,7 +1419,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-devcontainer@workspace:packages/groovy-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^11.2.13
+    "@devcontainer/generator": ^11.2.16
   languageName: unknown
   linkType: soft
 
@@ -1427,7 +1427,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-xfce-novnc@workspace:packages/groovy-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^11.2.13
+    "@devcontainer/generator": ^11.2.16
   languageName: unknown
   linkType: soft
 
@@ -1435,7 +1435,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/hirsute-devcontainer@workspace:packages/hirsute-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^11.2.13
+    "@devcontainer/generator": ^11.2.16
   languageName: unknown
   linkType: soft
 
@@ -4205,7 +4205,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@^11.2.15, @zedvision/code@workspace:packages/code":
+"@zedvision/code@^11.2.16, @zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
@@ -21786,7 +21786,7 @@ typescript@4.1.3:
   version: 0.0.0-use.local
   resolution: "worker@workspace:packages/cf-code-zed-vision"
   dependencies:
-    "@zedvision/code": ^11.2.15
+    "@zedvision/code": ^11.2.16
     esbuild: 0.8.29
   languageName: unknown
   linkType: soft
