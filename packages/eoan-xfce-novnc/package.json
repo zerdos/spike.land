@@ -2,7 +2,7 @@
   "name": "@devcontainer/eoan-xfce-novnc",
   "tagname": "eoan-xfce-novnc",
   "scripts": {
-  "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
+    "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
     "docker:push": "docker push $(yarn tag:version)",
     "docker:build": "docker build . -t $(yarn tag:version)",
     "build": "node index.js"
