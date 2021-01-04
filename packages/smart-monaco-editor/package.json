@@ -26,8 +26,10 @@
     },
     "homepage": "https://github.com/zed-vision/monorepo",
     "repository": "https://github.com/zed-vision/monorepo",
+    "dependencies": {
+        "monaco-editor": "0.21.2"
+    },
     "devDependencies": {
-        "monaco-editor": "0.21.2",
         "typescript": "4.1.3"
     },
     "publishConfig": {

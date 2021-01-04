@@ -8,7 +8,17 @@ interface StartMonacoProps {
     };
 }
 declare const _default: ({ onChange, code, language, container, options }: StartMonacoProps) => Promise<{
-    monaco: any;
+    monaco: {
+        editor: any;
+        Uri: {
+            parse: (str: string) => import("monaco-editor").Uri;
+        };
+        languages: {
+            typescript: {
+                typescriptDefaults: any;
+            };
+        };
+    };
     editor: any;
 } | undefined>;
 export default _default;

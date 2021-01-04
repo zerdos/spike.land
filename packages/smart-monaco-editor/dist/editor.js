@@ -125,20 +125,19 @@ export default async ({ onChange, code, language, container, options }) => {
                 url: "https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.d.ts",
             },
         ];
-        //# sourceMappingURL=importHelper.js.map
         const dts = importHelper.map(({ name, url }) => (async () => modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@")
             ? `file:///node_modules/${name}`
             : `file:///node_modules/@types/${name}/index.d.ts`))());
         modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-            target: modules.monaco.languages.typescript.ScriptTarget.ESNext,
+            target: 99,
             allowNonTsExtensions: true,
             allowUmdGlobalAccess: true,
             strict: true,
             allowJs: true,
             noEmitOnError: true,
             allowSyntheticDefaultImports: true,
-            moduleResolution: modules.monaco.languages.typescript.ModuleResolutionKind.Nodejs,
-            module: modules.monaco.languages.typescript.ModuleKind.CommonJS,
+            moduleResolution: 2,
+            module: 99,
             noEmit: true,
             typeRoots: ["node_modules/@types"],
             jsx: "react-jsx",
