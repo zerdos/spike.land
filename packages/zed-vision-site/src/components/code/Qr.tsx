@@ -30,8 +30,9 @@ export const Qr: React.FC = () => {
 
       setCounter(60);
       // const key = data.key;
+      const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = await sha256(
-        Math.random() + "-" + Math.random() + "-" + Math.random(),
+        secret
       );
       // const key = "12345678";
       const url = `https://zed.vision/${key}`;
@@ -44,7 +45,7 @@ export const Qr: React.FC = () => {
         padding: 12,
         backgroundAlpha: 0.8,
         background: "black",
-        value: url,
+        value: url
       };
       if (qr) {
         qr.set(options);
@@ -58,7 +59,7 @@ export const Qr: React.FC = () => {
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";
       // }
-      setTimeout(() => setRetry((x) => x - 1), 4000);
+      setTimeout(() => setRetry((x) => x - 1), 10000);
 
       const toCheck = await hash(url, true);
       console.log({ toCheck });
