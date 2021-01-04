@@ -94,11 +94,13 @@ export async function run(mode = "window", _w) {
         try {
             const element = document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section");
             if (element !== null) {
+                // deno-lint-ignore ban-ts-comment
                 //@ts-ignore
                 element.style.overflow = "";
             }
         }
         catch (_a) {
+            console.error({e})
         }
     }
     const session = getSession();
