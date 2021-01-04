@@ -269,7 +269,7 @@ var Qr_Qr = function Qr() {
 
     var connect = /*#__PURE__*/function () {
       var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3() {
-        var _yield$importModule, sha256, _yield$importModule2, QRious, key, url, options, toCheck;
+        var _yield$importModule, sha256, _yield$importModule2, QRious, secret, key, url, options, toCheck;
 
         return regenerator_default.a.wrap(function _callee3$(_context3) {
           while (1) {
@@ -291,10 +291,11 @@ var Qr_Qr = function Qr() {
                 // const data = await req.json();
                 setCounter(60); // const key = data.key;
 
-                _context3.next = 11;
-                return sha256(Math.random() + "-" + Math.random() + "-" + Math.random());
+                secret = Math.random() + "-" + Math.random() + "-" + Math.random();
+                _context3.next = 12;
+                return sha256(secret);
 
-              case 11:
+              case 12:
                 key = _context3.sent;
                 // const key = "12345678";
                 url = "https://zed.vision/" + key;
@@ -324,11 +325,11 @@ var Qr_Qr = function Qr() {
                   return setRetry(function (x) {
                     return x - 1;
                   });
-                }, 4000);
-                _context3.next = 18;
+                }, 10000);
+                _context3.next = 19;
                 return Object(hash["b" /* hash */])(url, true);
 
-              case 18:
+              case 19:
                 toCheck = _context3.sent;
                 console.log({
                   toCheck: toCheck
@@ -406,7 +407,7 @@ var Qr_Qr = function Qr() {
                   });
                 }
 
-              case 21:
+              case 22:
               case "end":
                 return _context3.stop();
             }

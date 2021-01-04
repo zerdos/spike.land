@@ -6235,10 +6235,6 @@ function () {
 
     this.prepareBoundingBox();
     eachAxis(function (axis) {
-      var drag = _this.props.drag; // If we're not dragging this axis, do an early return.
-
-      if (!shouldDrag(axis, drag, _this.currentDirection)) return;
-
       var axisValue = _this.getAxisMotionValue(axis);
 
       if (axisValue) {
