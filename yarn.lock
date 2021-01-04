@@ -4303,7 +4303,7 @@ __metadata:
     "@zedvision/diff": ^11.2.0
     "@zedvision/shadb": ^11.2.11
     "@zedvision/smart-monaco-editor": ^11.2.14
-    framer-motion: 3.1.1
+    framer-motion: 3.1.2
     gatsby: 2.29.3
     gatsby-image: 2.8.0
     gatsby-plugin-manifest: 2.9.1
@@ -9576,26 +9576,6 @@ __metadata:
   dependencies:
     map-cache: ^0.2.2
   checksum: f88983f4bf54f9a8847d15e54518535aecbfa9b7f0242604ca5cd027d88ea1469212b5dbb579233e769d0e2f4e6764bc6bbac44731fb78b9964942165c7c3048
-  languageName: node
-  linkType: hard
-
-"framer-motion@npm:3.1.1":
-  version: 3.1.1
-  resolution: "framer-motion@npm:3.1.1"
-  dependencies:
-    "@emotion/is-prop-valid": ^0.8.2
-    framesync: ^5.0.0
-    hey-listen: ^1.0.8
-    popmotion: ^9.0.2
-    style-value-types: ^3.2.0
-    tslib: ^1.10.0
-  peerDependencies:
-    react: ">=16.8"
-    react-dom: ">=16.8"
-  dependenciesMeta:
-    "@emotion/is-prop-valid":
-      optional: true
-  checksum: f563f915b6685d30d6afa9eb06611568acf8b1d61b23dda270c3a0a473cfbf739de625aca825be838fa2c6cfd3e550456a7b9d8c1d2a6272e7b08ef639f7b00e
   languageName: node
   linkType: hard
 

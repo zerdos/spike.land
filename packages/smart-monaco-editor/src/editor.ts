@@ -164,7 +164,7 @@ export default async (
         name: "@emotion/react/theming.d.ts",
         url: "https://unpkg.com/@emotion/react@11.1.4/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
-      },
+      },"3.1.2
       {
         name: "@emotion/serialize/index.d.ts",
         url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
@@ -178,7 +178,7 @@ export default async (
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@3.1.2/dist/framer-motion.d.ts",
+        url: "https://unpkg.com/framer-motion@3.1.3/dist/framer-motion.d.ts",
         depend: [],
       },
       {
