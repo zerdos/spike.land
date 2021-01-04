@@ -4205,7 +4205,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@workspace:packages/code":
+"@zedvision/code@11.2.7, @zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
@@ -21766,7 +21766,7 @@ typescript@4.1.3:
   version: 0.0.0-use.local
   resolution: "worker@workspace:packages/cf-code-zed-vision"
   dependencies:
-    "@zedvision/code": "workspace:packages/code"
+    "@zedvision/code": 11.2.7
     esbuild: 0.8.29
   languageName: unknown
   linkType: soft
