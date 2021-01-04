@@ -6,12 +6,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "wrangler publish",
-    "format": "prettier --write '**/*.{js,css,json,md}'"
+    "prebuild": "deno fmt src",
+    "build": "yarn esbuild --bundle src/index.js --outfile=index.js",
+    "deploy": "yarn build &&  wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "2.2.1"
+    "esbuild": "0.8.29"
+  },
+  "dependencies": {
+    "@zedvision/code": "11.2.2"
   }
 }
