@@ -13115,7 +13115,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lerna@npm:^3.22.1":
+"lerna@npm:3.22.1":
   version: 3.22.1
   resolution: "lerna@npm:3.22.1"
   dependencies:
@@ -22223,7 +22223,7 @@ typescript@4.1.3:
     framer-motion: 3.1.1
     husky: 4.3.6
     idb: 5.0.8
-    lerna: ^3.22.1
+    lerna: 3.22.1
     monaco-editor: 0.21.2
     normalize.css: 8.0.1
     popmotion: 9.0.2
