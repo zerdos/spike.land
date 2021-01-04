@@ -8,7 +8,7 @@
     "clean": "gatsby clean && deno fmt src"
   },
   "description": "Zed vision blog",
-  "version": "11.2.17",
+  "version": "11.2.18",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo/"
@@ -22,7 +22,7 @@
     "@emotion/styled": "11.0.0",
     "@zedvision/diff": "^11.2.0",
     "@zedvision/shadb": "^11.2.11",
-    "@zedvision/smart-monaco-editor": "^11.2.17",
+    "@zedvision/smart-monaco-editor": "^11.2.18",
     "framer-motion": "3.1.3",
     "gatsby": "2.29.3",
     "react": "17.0.1",
