@@ -1,67 +1,8 @@
 import { getMonaco } from "./monaco.js";
 export default async ({ onChange, code, language, container, options }) => {
-    var ace;
-    const modelUri = language === "typescript"
-        ? "file:///main.tsx"
-        : "file:///main.html";
-    // if (isMobile()) {
-    //   // some code.
-    //   const aceEl = window.document.createElement("div");
-    //   aceEl.id = "ace";
-    //   window.document.body.appendChild(aceEl);
-    //   await importScript(
-    //     "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
-    //   );
-    //   language === "typescript"
-    //     ? await importScript(
-    //       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
-    //     )
-    //     : await importScript(
-    //       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js",
-    //     );
-    //   await importScript(
-    //     "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
-    //   );
-    //   window.document.getElementById("ace")!.style.setProperty(
-    //     "display",
-    //     "block",
-    //   );
-    //   container.style.setProperty("display", "none");
-    //   //@ts-ignore
-    //   aceEditor = window.ace.edit("ace") as AceEditor;
-    //   //@ts-expect-error
-    //   aceEditor.getSession().setMode("ace/mode/typescript");
-    //   const setThemeForAce = (wait: number) =>
-    //     setTimeout(() => {
-    //       //@ts-ignore
-    //       const theme = aceEditor.getTheme();
-    //       if (theme !== "ace/theme/monokai ") {
-    //         //@ts-ignore
-    //         aceEditor.setOptions && aceEditor.setOptions({
-    //           fontSize: "14pt",
-    //         });
-    //         //@ts-ignore
-    //         aceEditor.setTheme("ace/theme/monokai");
-    //         setThemeForAce(2 * wait);
-    //       }
-    //     }, wait);
-    //   setThemeForAce(100);
-    //   //@ts-expect-error
-    //   aceEditor && aceEditor.setValue(code);
-    //   //@ts-ignore
-    //   aceEditor && aceEditor.blur();
-    // }
     const monaco = await getMonaco();
-    let model;
-    try {
-        model = monaco.editor.getModel(modelUri);
-        if (model.getValue() !== code) {
-            model.setValue(code);
-        }
-    }
-    catch (_a) {
-        model = await monaco.editor.createModel(code, language, monaco.Uri.parse(modelUri));
-    }
+    const modelUri = monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html");
+    const model = monaco.editor.getModel(modelUri) || monaco.editor.createModel(code, language, modelUri);
     const modules = {
         monaco: monaco,
         editor: monaco.editor.create(container, Object.assign({ formatOnType: false, scrollbar: {
@@ -79,19 +20,6 @@ export default async ({ onChange, code, language, container, options }) => {
             trimAutoWhitespace: false, codeActionsOnSaveTimeout: 100, model, value: code, language: language, theme: "vs-dark" }, options)),
     };
     modules.editor.onDidChangeModelContent(() => onChange(modules.editor.getValue()));
-    // if (isMobile()) {
-    //   //@ts-expect-error
-    //   aceEditor && aceEditor.session.on("change", function () {
-    //     //@ts-expect-error
-    //     const value = aceEditor.getValue();
-    //     modules.editor.setValue(value);
-    //     onChange(value);
-    //   });
-    //   aceEditor &&
-    //     container.replaceWith(
-    //       document.getElementById("ace")!,
-    //     );
-    // }
     modules.monaco.languages.typescript.typescriptDefaults
         .setDiagnosticsOptions({
         noSuggestionDiagnostics: true,

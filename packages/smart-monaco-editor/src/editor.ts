@@ -1,5 +1,4 @@
-import { importScript } from "./importScript.js";
-import { getMonaco, isMobile } from "./monaco.js";
+import { getMonaco } from "./monaco.js";
 interface StartMonacoProps {
   onChange: (code: string) => void;
   code: string;
@@ -13,24 +12,17 @@ interface StartMonacoProps {
 export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
-
   const monaco = await getMonaco();
   const modelUri = monaco.Uri.parse(
-    language === "typescript" 
-    ? "file:///main.tsx"
-    : "file:///main.html");
-
-
+    language === "typescript" ? "file:///main.tsx" : "file:///main.html",
+  );
 
   const model = monaco.editor.getModel(modelUri) || monaco.editor.createModel(
     code,
     language,
-  
-      modelUri
-    
+    modelUri,
   );
 
-  
   const modules = {
     monaco: monaco,
     editor: monaco.editor.create(
