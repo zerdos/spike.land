@@ -262,7 +262,7 @@
         "affectsGlobalScope": false
       },
       "./src/DraggableWindow.js": {
-        "version": "153984ab6fd663961671d627cabb4197953cf9b51baf39a5bd4829b41ad224ba",
+        "version": "82d6efe895a8516d273209c02f9aee2e48ae6ec99db9afe43fbe9e299cd5d3e3",
         "signature": "6aec72f50686d9f82072504703e6a188a99b7acdc975e6a3d9a4a03ada7f6988",
         "affectsGlobalScope": false
       },

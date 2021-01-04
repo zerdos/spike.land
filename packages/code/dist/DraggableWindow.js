@@ -83,7 +83,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
             background: white;
             padding:10px;
             border-radius: 12px;
-            opacity: 0.6
+            opacity: 0.9
           }
           `,
     }, jsx("div", {
