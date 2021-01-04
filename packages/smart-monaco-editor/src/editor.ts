@@ -19,9 +19,6 @@ export default async (
 ) => {
   var ace: unknown;
 
-  const modelUri = language === "typescript"
-    ? "file:///main.tsx"
-    : "file:///main.html";
 
   // if (isMobile()) {
   //   // some code.
@@ -79,23 +76,22 @@ export default async (
   // }
 
   const monaco = await getMonaco();
+  const modelUri = monaco.Uri.parse(
+    language === "typescript" 
+    ? "file:///main.tsx"
+    : "file:///main.html");
 
-  let model;
-  try {
-    model = monaco.editor.getModel(modelUri);
-    if (model.getValue() !== code) {
-      model.setValue(code);
-    }
-  } catch {
-    model = await monaco.editor.createModel(
-      code,
-      language,
-      monaco.Uri.parse(
-        modelUri,
-      ),
-    );
-  }
 
+
+  const model = monaco.editor.getModel(modelUri) || monaco.editor.createModel(
+    code,
+    language,
+  
+      modelUri
+    
+  );
+
+  
   const modules = {
     monaco: monaco,
     editor: monaco.editor.create(
