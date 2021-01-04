@@ -1,9 +1,5 @@
 import { importScript } from "./importScript.js";
 import { getMonaco, isMobile } from "./monaco.js";
-import type * as Monaco from "monaco-editor";
-
-// let aceEditor = {};
-
 interface StartMonacoProps {
   onChange: (code: string) => void;
   code: string;
@@ -17,63 +13,6 @@ interface StartMonacoProps {
 export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
-  var ace: unknown;
-
-
-  // if (isMobile()) {
-  //   // some code.
-  //   const aceEl = window.document.createElement("div");
-  //   aceEl.id = "ace";
-  //   window.document.body.appendChild(aceEl);
-
-  //   await importScript(
-  //     "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js",
-  //   );
-
-  //   language === "typescript"
-  //     ? await importScript(
-  //       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-typescript.min.js",
-  //     )
-  //     : await importScript(
-  //       "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-html.min.js",
-  //     );
-
-  //   await importScript(
-  //     "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-monokai.min.js",
-  //   );
-
-  //   window.document.getElementById("ace")!.style.setProperty(
-  //     "display",
-  //     "block",
-  //   );
-  //   container.style.setProperty("display", "none");
-
-  //   //@ts-ignore
-  //   aceEditor = window.ace.edit("ace") as AceEditor;
-  //   //@ts-expect-error
-  //   aceEditor.getSession().setMode("ace/mode/typescript");
-
-  //   const setThemeForAce = (wait: number) =>
-  //     setTimeout(() => {
-  //       //@ts-ignore
-  //       const theme = aceEditor.getTheme();
-  //       if (theme !== "ace/theme/monokai ") {
-  //         //@ts-ignore
-  //         aceEditor.setOptions && aceEditor.setOptions({
-  //           fontSize: "14pt",
-  //         });
-  //         //@ts-ignore
-  //         aceEditor.setTheme("ace/theme/monokai");
-  //         setThemeForAce(2 * wait);
-  //       }
-  //     }, wait);
-
-  //   setThemeForAce(100);
-  //   //@ts-expect-error
-  //   aceEditor && aceEditor.setValue(code);
-  //   //@ts-ignore
-  //   aceEditor && aceEditor.blur();
-  // }
 
   const monaco = await getMonaco();
   const modelUri = monaco.Uri.parse(
@@ -152,21 +91,6 @@ export default async (
     onChange(modules.editor.getValue())
   );
 
-  // if (isMobile()) {
-  //   //@ts-expect-error
-  //   aceEditor && aceEditor.session.on("change", function () {
-  //     //@ts-expect-error
-
-  //     const value = aceEditor.getValue();
-  //     modules.editor.setValue(value);
-  //     onChange(value);
-  //   });
-
-  //   aceEditor &&
-  //     container.replaceWith(
-  //       document.getElementById("ace")!,
-  //     );
-  // }
   modules.monaco.languages.typescript.typescriptDefaults
     .setDiagnosticsOptions({
       noSuggestionDiagnostics: true,
