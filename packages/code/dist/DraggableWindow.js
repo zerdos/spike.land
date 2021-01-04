@@ -56,7 +56,7 @@ export const renderDraggableWindow = async ({ onShare }, src) => {
         onClick: () => onShare(),
     }, "🌎 SHARE")), jsx("div", {
         css: `
-            max-width: 400px;
+            max-width: 500px;
             z-index: 10;
             position: relative;
             min-width: 300px;

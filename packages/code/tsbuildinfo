@@ -262,7 +262,7 @@
         "affectsGlobalScope": false
       },
       "./src/DraggableWindow.js": {
-        "version": "82d6efe895a8516d273209c02f9aee2e48ae6ec99db9afe43fbe9e299cd5d3e3",
+        "version": "3bbd06a08ebbd90ce0f0309323ee27670e757f86f28d17307638865482ec477b",
         "signature": "6aec72f50686d9f82072504703e6a188a99b7acdc975e6a3d9a4a03ada7f6988",
         "affectsGlobalScope": false
       },
@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "9080af616eaf3f825d72db2a3ee4feba2b813934e86e8b6e235b5dd3bef2e52f",
+        "version": "3c1d361260f4b9542d59800ffeb1fde04787ef672e885a30235fd681aac4e988",
         "signature": "938e3fbae69484b6e41dff912d2ba22565c1b537d99292a9d277ae005cb4bf36",
         "affectsGlobalScope": false
       },
@@ -395,10 +395,7 @@
       "moduleResolution": 2,
       "baseUrl": "./src",
       "paths": {},
-      "types": [
-        "comlink",
-        "@babel/standalone"
-      ],
+      "types": [],
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
       "allowUmdGlobalAccess": true,
@@ -523,6 +520,14 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "../../node_modules/@types/prop-types/index.d.ts",
+      "../../node_modules/@types/react/global.d.ts",
+      "../../node_modules/@types/react/index.d.ts",
+      "../../node_modules/@types/react/jsx-runtime.d.ts",
+      "../../node_modules/comlink/dist/umd/comlink.d.ts",
+      "../../node_modules/comlink/dist/umd/protocol.d.ts",
+      "../../node_modules/csstype/index.d.ts",
+      "../../node_modules/tslib/tslib.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -568,7 +573,26 @@
       "../../node_modules/typescript/lib/lib.esnext.string.d.ts",
       "../../node_modules/typescript/lib/lib.esnext.weakref.d.ts",
       "../../node_modules/typescript/lib/lib.webworker.d.ts",
-      "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts"
+      "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "./src/DraggableWindow.js",
+      "./src/codeLoader.js",
+      "./src/data.js",
+      "./src/db.js",
+      "./src/importScript.js",
+      "./src/ipfsKV.js",
+      "./src/ipfsKV.worker.js",
+      "./src/refs.d.ts",
+      "./src/share.js",
+      "./src/starter.js",
+      "./src/starterNoFramerMotion.js",
+      "./src/starterTsx.tsx",
+      "./src/starter_framer.js",
+      "./src/sw.ts",
+      "./src/templates.js",
+      "./src/transpile.js",
+      "./src/transpile.worker.js",
+      "./src/transpileWorker.d.ts",
+      "./src/versions.js"
     ]
   },
   "version": "4.1.3"
