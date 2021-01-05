@@ -3228,25 +3228,23 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
     var runner = /*#__PURE__*/function () {
       var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(c) {
-        var _yield$Function, startMonaco, monaco, model, tsWorker, modelUri, diag, comp, syntax, tsErrorMessageArr, tsErrorMessage, codeHash, tHash, hashArrValue, renderedHashContentHash, renderedHashContent, prevIndex, t, rendered, renderedHash;
-
+        var startMonaco, monaco, model, tsWorker, modelUri, diag, comp, syntax, tsErrorMessageArr, tsErrorMessage, codeHash, tHash, hashArrValue, renderedHashContentHash, renderedHashContent, prevIndex, t, rendered, renderedHash;
         return regenerator_default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (editorAttached) {
-                  _context2.next = 8;
+                  _context2.next = 7;
                   break;
                 }
 
                 setEditorAttached(true);
                 _context2.next = 4;
-                return new Function("return function(){\n            return  import(\"https://unpkg.com/@zedvision/smart-monaco-editor/dist/editor.js\")\n          }")();
+                return new Function("return import(\"https://unpkg.com/@zedvision/smart-monaco-editor/dist/editor.js\")")();
 
               case 4:
-                _yield$Function = _context2.sent;
-                startMonaco = _yield$Function.startMonaco;
-                _context2.next = 8;
+                startMonaco = _context2.sent.default;
+                _context2.next = 7;
                 return startMonaco({
                   language: "typescript",
                   code: c,
@@ -3256,109 +3254,109 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                   }
                 });
 
-              case 8:
+              case 7:
                 monaco = window["monaco"];
                 model = monaco.editor.getModel("file:///main.tsx");
-                _context2.next = 12;
+                _context2.next = 11;
                 return window["monaco"].languages.typescript.getTypeScriptWorker();
 
-              case 12:
+              case 11:
                 tsWorker = _context2.sent;
                 modelUri = model === null || model === void 0 ? void 0 : model.uri;
 
                 if (modelUri) {
-                  _context2.next = 16;
+                  _context2.next = 15;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 16:
-                _context2.next = 18;
+              case 15:
+                _context2.next = 17;
                 return tsWorker(modelUri);
 
-              case 18:
-                _context2.next = 20;
+              case 17:
+                _context2.next = 19;
                 return _context2.sent.getSemanticDiagnostics("file:///main.tsx");
 
-              case 20:
+              case 19:
                 diag = _context2.sent;
-                _context2.next = 23;
+                _context2.next = 22;
                 return tsWorker(modelUri);
 
-              case 23:
-                _context2.next = 25;
+              case 22:
+                _context2.next = 24;
                 return _context2.sent.getCompilerOptionsDiagnostics("file:///main.tsx");
 
-              case 25:
+              case 24:
                 comp = _context2.sent;
-                _context2.next = 28;
+                _context2.next = 27;
                 return tsWorker(modelUri);
 
-              case 28:
-                _context2.next = 30;
+              case 27:
+                _context2.next = 29;
                 return _context2.sent.getSyntacticDiagnostics("file:///main.tsx");
 
-              case 30:
+              case 29:
                 syntax = _context2.sent;
                 tsErrorMessageArr = [].concat(Object(toConsumableArray["a" /* default */])(diag), Object(toConsumableArray["a" /* default */])(comp), Object(toConsumableArray["a" /* default */])(syntax));
                 tsErrorMessage = tsErrorMessageArr.length === 0 ? "" : tsErrorMessageArr[0].messageText.toString();
-                _context2.next = 35;
+                _context2.next = 34;
                 return sha_hash(c);
 
-              case 35:
+              case 34:
                 codeHash = _context2.sent;
-                _context2.next = 38;
+                _context2.next = 37;
                 return transformCode(codeHash, tsErrorMessage);
 
-              case 38:
+              case 37:
                 tHash = _context2.sent;
-                _context2.next = 41;
+                _context2.next = 40;
                 return sha_hash({
                   events: [example_defaultProps.events[0]]
                 });
 
-              case 41:
+              case 40:
                 hashArrValue = _context2.sent;
 
                 if (!(!tHash || tsErrorMessage)) {
-                  _context2.next = 44;
+                  _context2.next = 43;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 44:
-                _context2.next = 46;
+              case 43:
+                _context2.next = 45;
                 return render(tHash, hashArrValue);
 
-              case 46:
+              case 45:
                 renderedHashContentHash = _context2.sent;
 
                 if (!(typeof renderedHashContentHash === "string")) {
-                  _context2.next = 53;
+                  _context2.next = 52;
                   break;
                 }
 
-                _context2.next = 50;
+                _context2.next = 49;
                 return unHash(renderedHashContentHash);
 
-              case 50:
+              case 49:
                 _context2.t0 = _context2.sent;
-                _context2.next = 54;
+                _context2.next = 53;
                 break;
 
-              case 53:
+              case 52:
                 _context2.t0 = "<p>Error</p>";
 
-              case 54:
+              case 53:
                 renderedHashContent = _context2.t0;
                 prevIndex = transformed.findIndex(function (x) {
                   return x.hash === tHash;
                 });
 
                 if (!(prevIndex > 0)) {
-                  _context2.next = 61;
+                  _context2.next = 60;
                   break;
                 }
 
@@ -3376,12 +3374,12 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
                 return _context2.abrupt("return");
 
-              case 61:
+              case 60:
                 rendered = [typeof renderedHashContent === "string" ? renderedHashContent : "<p>Error</p>"];
-                _context2.next = 64;
+                _context2.next = 63;
                 return sha_hash(rendered);
 
-              case 64:
+              case 63:
                 renderedHash = _context2.sent;
 
                 if (code === c) {
@@ -3467,7 +3465,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                   });
                 }
 
-              case 66:
+              case 65:
               case "end":
                 return _context2.stop();
             }
