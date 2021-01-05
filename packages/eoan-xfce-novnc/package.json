@@ -3,8 +3,9 @@
   "tagname": "eoan-xfce-novnc",
   "scripts": {
     "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
-    "docker:push": "docker push $(yarn tag:version)",
-    "docker:build": "docker build . -t $(yarn tag:version)",
+    "tag:latest": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:latest`)'",
+    "docker:push": "docker push $(yarn tag:version) && docker push $(yarn tag:latest)",
+    "docker:build": "docker build . -t $(yarn tag:version) -t $(yarn tag:latest)",
     "build": "node index.js"
   },
   "files": [
