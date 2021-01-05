@@ -313,8 +313,9 @@ export const CodeBox: React.FC<{
             const code = await unHash(
               transformed[0].code[0],
             );
-            const monacoEditor =  window.monaco.editor.getModel(
-              "file:///main.tsx",
+            const monaco = window["monaco"];
+            const monacoEditor =  monaco.editor.getModel(
+              monaco.URI.parse("file:///main.tsx")
             );
             monacoEditor.setValue(code);
             changeCode(code);
