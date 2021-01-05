@@ -3703,7 +3703,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
     id: "container"
   }), error ? /*#__PURE__*/react["createElement"](ErrorContainer, null, /*#__PURE__*/react["createElement"]("pre", null, error.toString()), /*#__PURE__*/react["createElement"]("button", {
     onClick: /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee8() {
-      var code, monacoEditor;
+      var code, monaco, monacoEditor;
       return regenerator_default.a.wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
@@ -3713,11 +3713,12 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
             case 2:
               code = _context8.sent;
-              monacoEditor = window.monaco.editor.getModel("file:///main.tsx");
+              monaco = window["monaco"];
+              monacoEditor = monaco.editor.getModel(monaco.Uri.parse("file:///main.tsx"));
               monacoEditor.setValue(code);
               changeCode(code);
 
-            case 6:
+            case 7:
             case "end":
               return _context8.stop();
           }
