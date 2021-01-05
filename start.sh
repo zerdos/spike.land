@@ -16,7 +16,7 @@ echo ####################################
  curl -X PUT "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/7545e99c94fd6ff43cc0591bab13cbe1" \
      -H "Authorization: Bearer $BBTOKEN" \
      -H "Content-Type: application/json" \
-     --data  $(CID=$CID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink.code","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})')
+     --data  $(CID=$CID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink.ipfs","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})')
 
 # echo "----  https://zed.vision -------" 
 # echo "-------------------------------------------------------------" 

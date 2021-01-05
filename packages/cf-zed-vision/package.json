@@ -12,7 +12,7 @@
         "ebuild": "esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",
         "build": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min",
         "min": "deno fmt dist && esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
-        "deploy": "wrangler publish"
+        "deploy": "yarn build && wrangler publish"
     },
     "keywords": [
         "monaco",
