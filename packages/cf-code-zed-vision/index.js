@@ -23,12 +23,13 @@
     event.respondWith(handleRequest(event.request));
   });
   async function handleRequest(request) {
+    const v = versions_default();
     const url = new URL(request.url);
     const {searchParams, pathname} = url;
     const cache = caches.default;
     let response = await cache.match(request);
-    if (!response || response.url !== `https://unpkg.com/@zedvision/code@${versions_default().code}/ipfs.html`) {
-      response = await fetch(`https://unpkg.com/@zedvision/code@${versions_default().code}/ipfs.html`);
+    if (!response || response.url !== `https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`) {
+      response = await fetch(`https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`);
       await cache.put(request, response.clone());
     }
     if (response.status > 399) {

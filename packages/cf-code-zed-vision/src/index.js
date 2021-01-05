@@ -8,6 +8,7 @@ addEventListener("fetch", (event) => {
  * @param {Request} request
  */
 async function handleRequest(request) {
+  const v = versions();
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
 
@@ -18,10 +19,10 @@ async function handleRequest(request) {
   if (
     !response ||
     response.url !==
-      `https://unpkg.com/@zedvision/code@${versions().code}/ipfs.html`
+      `https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`
   ) {
     response = await fetch(
-      `https://unpkg.com/@zedvision/code@${versions().code}/ipfs.html`,
+      `https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`,
     );
     await cache.put(request, response.clone());
   }
