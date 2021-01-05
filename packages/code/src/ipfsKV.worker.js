@@ -21,7 +21,7 @@ const ipfsKV = {
       options && options.onlyHash
     ) {
       //@ts-ignore
-      return (new Ipfs.CID(1, 112, cid.multihash)).toString();
+      return (new Ipfs.CID(0, 112, cid.multihash)).toString();
     }
 
     return cid.string;

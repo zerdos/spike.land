@@ -332,7 +332,7 @@
         "affectsGlobalScope": true
       },
       "./src/ipfsKV.worker.js": {
-        "version": "818d4b060120e47656833d305d847ac594a6c18488b8c9d16e0fab8628b072a9",
+        "version": "66c3c6e6fab488e1d64db0986bc4a5626da49c940ca3f9e64c3a0db62a797ccc",
         "signature": "d3c7e280d84d87740e81d1dd0566dd7ffe9bd1280bff172271aaf06d2ed08a32",
         "affectsGlobalScope": true
       },
