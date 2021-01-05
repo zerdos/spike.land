@@ -316,6 +316,11 @@
         "signature": "7be07ab31dd6a0435f10f7caaa1ba4f241850b81fc5f090d72a09f0d59c72572",
         "affectsGlobalScope": false
       },
+      "./src/hash.js": {
+        "version": "b2a0a240c46b092fed9a4a1399533a5bd2ca89c1fbc029e0be68a0f584fba4fc",
+        "signature": "71164c7f8f3e21df8315684c829099d889ecd07f788cdaefd18aa73271fb84d3",
+        "affectsGlobalScope": false
+      },
       "./src/ipfsKV.worker.js": {
         "version": "818d4b060120e47656833d305d847ac594a6c18488b8c9d16e0fab8628b072a9",
         "signature": "d3c7e280d84d87740e81d1dd0566dd7ffe9bd1280bff172271aaf06d2ed08a32",
@@ -438,6 +443,11 @@
         "./src/versions.js"
       ],
       "./src/db.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/tslib/tslib.d.ts",
+        "./src/versions.js"
+      ],
+      "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "../../node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
@@ -578,6 +588,7 @@
       "./src/codeLoader.js",
       "./src/data.js",
       "./src/db.js",
+      "./src/hash.js",
       "./src/importScript.js",
       "./src/ipfsKV.js",
       "./src/ipfsKV.worker.js",

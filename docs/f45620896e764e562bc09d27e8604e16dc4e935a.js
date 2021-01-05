@@ -2389,6 +2389,14 @@ tags.forEach(function (tagName) {
 
 /***/ }),
 
+/***/ 45:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (function(){var editor="11.3.0";var v={ipfs:"0.52.4-rc.4",babel:"7.12.12",code:"11.3.1",emotionRenderer:"11.3.0",shadb:"11.2.0",prettier:"2.2.1",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",diff:"11.2.0",sha256:"11.0.5",uuid:"8.3.2",comlink:"4.3.0"};return v;});
+
+/***/ }),
+
 /***/ 75:
 /***/ (function(module, exports) {
 
@@ -2621,7 +2629,7 @@ var defineProperty = __webpack_require__(10);
 var toConsumableArray = __webpack_require__(34);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(2);
+var runtime = __webpack_require__(3);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(5);
@@ -2629,8 +2637,9 @@ var asyncToGenerator = __webpack_require__(5);
 // EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
 var react = __webpack_require__(0);
 
-// CONCATENATED MODULE: ../code/dist/versions.js
-/* harmony default export */ var versions = (function(){var editor="11.3.0";var v={ipfs:"0.52.4-rc.4",babel:"7.12.12",code:"11.3.1",emotionRenderer:"11.3.0",shadb:"11.2.0",prettier:"2.2.1",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",diff:"11.2.0",sha256:"11.0.5",uuid:"8.3.2",comlink:"4.3.0"};return v;});
+// EXTERNAL MODULE: ../code/dist/versions.js
+var versions = __webpack_require__(45);
+
 // EXTERNAL MODULE: ./src/components/utils/sha256/sha256.worker.ts
 var sha256_worker = __webpack_require__(149);
 
@@ -3243,7 +3252,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
                 setEditorAttached(true);
                 _context2.next = 4;
-                return new Function("return import(\"" + versions().editor + "\")")();
+                return new Function("return import(\"" + Object(versions["a" /* default */])().editor + "\")")();
 
               case 4:
                 startMonaco = _context2.sent.default;

@@ -1,5 +1,9 @@
-let ipfsClient = null;
+import versions from "./versions.js";
+const v = versions();
 
+/**
+ * @param {string | any[]} data
+ */
 const half = (data) => {
   const halfLength = (data.length - data.length % 2) / 2;
 
@@ -17,19 +21,30 @@ const half = (data) => {
   return data;
 };
 
+/** @type {null | {add: (data: string)=>Promise<string>}} */
+let ipfsClient = null;
+
 async function getClient() {
   if (ipfsClient) {
     return ipfsClient;
   }
 
   ipfsClient = (await (await new Function(
-    `return import("https://unpkg.com/@zedvision/code@11.1.9/src/ipfsKV.js")`,
+    `return import("https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.js")`,
   )()).getIpfsClient());
   return ipfsClient;
 }
 
+/**
+ * @param {any} data
+ * @param {any} onlyHash
+ */
 const hash = async (data, onlyHash) => {
+  /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
   const client = await getClient();
+  if (client === null) {
+    return null;
+  }
   return (await Promise.all([
     await client.add(data, { onlyHash }),
     await client.add(`${data}N${data}`, { onlyHash }),
@@ -41,17 +56,25 @@ const hash = async (data, onlyHash) => {
   ]));
 };
 
+/**
+ * @param {any} cid
+ * @param {any} timeout
+ */
 const getHash = async (cid, timeout) => {
-  try{
+  try {
+    /** @type {{ get: (arg0: any, arg1: any) => any; } | null} */
+    const client = (await getClient());
 
-  const client = (await getClient());
-  const data = await client.get(cid, timeout);
+    if (client === null) {
+      return null;
+    }
 
-  return half(data);
-  } catch (e){
-    console.log({e})
+    const data = await client.get(cid, timeout);
+
+    return half(data);
+  } catch (e) {
+    console.log({ e });
   }
-
 };
 
 export { hash };

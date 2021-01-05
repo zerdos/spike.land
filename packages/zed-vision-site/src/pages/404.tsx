@@ -1,9 +1,6 @@
 import React from "react";
-import { Layout } from "../components/layout.tsx";
-import { SEO } from "../components/seo.tsx";
-import { sha256 } from "../components/utils/sha256/sha256.ts";
-import { getUserId } from "../components/code/getUser.ts";
-import { getHash, hash } from "../components/code/hash.js";
+import { Layout } from "../components/layout";
+import { SEO } from "../components/seo";
 
 export default function () {
   let pathname = "";
@@ -64,7 +61,7 @@ export default function () {
 
     if (typeof window !== "undefined") {
       if (needToCheck) runner();
-      else set404("No need to do a hash check");
+      else set404(true);
     }
   }, []);
 

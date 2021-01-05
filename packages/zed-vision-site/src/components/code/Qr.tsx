@@ -2,7 +2,7 @@
 import { css, jsx} from "@emotion/react";
 /** @jsx jsx */
 import React from "react";
-import { getHash, hash } from "./hash.js";
+import { getHash, hash } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
