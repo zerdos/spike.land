@@ -283,15 +283,16 @@ var Qr_Qr = function Qr() {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // const req = await fetch("https://zed.vision/token");
+                qr = null; // const req = await fetch("https://zed.vision/token");
                 // const data = await req.json();
+
                 setCounter(60); // const key = data.key;
 
                 secret = Math.random() + "-" + Math.random() + "-" + Math.random();
-                _context.next = 4;
+                _context.next = 5;
                 return Object(sha256["sha256"])(secret);
 
-              case 4:
+              case 5:
                 key = _context.sent.slice(0, 8);
                 // const key = "12345678";
                 url = "https://zed.vision/" + key;
@@ -306,26 +307,25 @@ var Qr_Qr = function Qr() {
                   value: url
                 };
 
-                if (qr) {
-                  qr.set(options);
-                } else {
+                if (qr === null) {
                   qr = new he(options);
-                } //const check = await fetch(`https://zed.vision/check?key=${key}`);
+                }
+
+                if (qr.get().value !== url) qr.set(options); //const check = await fetch(`https://zed.vision/check?key=${key}`);
                 //const res = await check.json();
                 // if (res.expired === false) {
                 //  location.href = "https://zed.vision/code/";
                 // }
-
 
                 setTimeout(function () {
                   return setRetry(function (x) {
                     return x - 1;
                   });
                 }, 10000);
-                _context.next = 11;
+                _context.next = 13;
                 return Object(hash["b" /* hash */])(url, true);
 
-              case 11:
+              case 13:
                 toCheck = _context.sent;
                 console.log({
                   toCheck: toCheck
@@ -367,7 +367,7 @@ var Qr_Qr = function Qr() {
                   });
                 }
 
-              case 14:
+              case 16:
               case "end":
                 return _context.stop();
             }

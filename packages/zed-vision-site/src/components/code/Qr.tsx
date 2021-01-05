@@ -7,7 +7,7 @@ import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
 
-let checkers = {
+const checkers = {
   num: 0,
   sum: 0,
 };
@@ -21,7 +21,7 @@ export const Qr: React.FC = () => {
   React.useEffect(() => {
   
     const connect = async () => {
-      let qr: QRious;
+      let qr: QRious | null = null;
       // const req = await fetch("https://zed.vision/token");
       // const data = await req.json();
 
@@ -35,7 +35,7 @@ export const Qr: React.FC = () => {
       const url = `https://zed.vision/${key}`;
 
       const options = {
-        element: ref.current,
+        element: ref.current!,
         size: 200,
         foregroundAlpha: .9,
         foreground: "red",
@@ -44,13 +44,14 @@ export const Qr: React.FC = () => {
         background: "black",
         value: url
       };
-      if (qr) {
-        qr.set(options);
-      } else {
-        qr = new QRious(
-          options,
+      
+      if ( qr === null) {
+          qr = new QRious(
+          options
         );
       }
+    if (qr.get().value !== url ) qr.set(options);
+      
       //const check = await fetch(`https://zed.vision/check?key=${key}`);
       //const res = await check.json();
       // if (res.expired === false) {
