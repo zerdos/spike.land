@@ -30,6 +30,7 @@ function getSession() {
   return session;
 }
 
+export const versions = v;
 /**
  * @param {string} code
  */
@@ -182,7 +183,7 @@ export async function run(mode = "window", _w) {
   await restartCode(transpiled);
 
   const startMonaco = (await import(
-    `https://unpkg.com/@zedvision/smart-monaco-editor@${v.editor}/dist/editor.js`
+    v.editor
   )).default;
 
   const container = document.getElementById("editor");

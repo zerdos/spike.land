@@ -24,6 +24,7 @@ function getSession() {
     };
     return session;
 }
+export const versions = v;
 /**
  * @param {string} code
  */
@@ -94,13 +95,11 @@ export async function run(mode = "window", _w) {
         try {
             const element = document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section");
             if (element !== null) {
-                // deno-lint-ignore ban-ts-comment
                 //@ts-ignore
                 element.style.overflow = "";
             }
         }
         catch (_a) {
-            console.error({e})
         }
     }
     const session = getSession();
@@ -139,7 +138,7 @@ export async function run(mode = "window", _w) {
     const { renderEmotion } = await import(src);
     const transpiled = await transpile(session.code);
     await restartCode(transpiled);
-    const startMonaco = (await import(`https://unpkg.com/@zedvision/smart-monaco-editor@${v.editor}/dist/editor.js`)).default;
+    const startMonaco = (await import(v.editor)).default;
     const container = document.getElementById("editor");
     const modules = await startMonaco(
     /**

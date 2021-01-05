@@ -7,7 +7,7 @@
         "**/*"
     ],
     "source": "./src/codeLoader.js",
-    "exports": "./dist/codeLoader.modern.js",
+    "exports": "./dist/codeLoader.js",
     "scripts": {
         "clean": "deno fmt src",
         "prebuild": "yarn clean",

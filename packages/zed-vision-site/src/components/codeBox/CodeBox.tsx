@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import {versions} from "@zedvision/code";
 import { transform } from "../utils/babel";
 import { render } from "../utils/renderer";
 import { hash, unHash } from "../utils/sha";
@@ -62,7 +62,7 @@ export const CodeBox: React.FC<{
       if (!editorAttached) {
         setEditorAttached(true);
         const  startMonaco  = (await (new Function(
-          `return import("https://unpkg.com/@zedvision/smart-monaco-editor/dist/editor.js")`
+          `return import("${versions.editor}")`
         )())).default;
 
         await startMonaco(
