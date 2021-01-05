@@ -4905,62 +4905,56 @@ function useTapGesture(_a, visualElement) {
       whileTap = _a.whileTap;
   var hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
   var isPressing = Object(react__WEBPACK_IMPORTED_MODULE_6__["useRef"])(false);
-  var cancelPointerEventListener = Object(react__WEBPACK_IMPORTED_MODULE_6__["useRef"])(null);
+  var cancelPointerEndListeners = Object(react__WEBPACK_IMPORTED_MODULE_6__["useRef"])(null);
 
-  function removePointerUp() {
+  function removePointerEndListener() {
     var _a;
 
-    (_a = cancelPointerEventListener.current) === null || _a === void 0 ? void 0 : _a.call(cancelPointerEventListener);
-    cancelPointerEventListener.current = null;
-  } // We load this event handler into a ref so we can later refer to
-  // onPointerUp.current which will always have reference to the latest props
+    (_a = cancelPointerEndListeners.current) === null || _a === void 0 ? void 0 : _a.call(cancelPointerEndListeners);
+    cancelPointerEndListeners.current = null;
+  }
 
-
-  var onPointerUp = Object(react__WEBPACK_IMPORTED_MODULE_6__["useRef"])(null);
-
-  onPointerUp.current = function (event, info) {
+  function checkPointerEnd() {
     var _a;
 
-    var element = visualElement.getInstance();
-    removePointerUp();
-    if (!isPressing.current || !element) return;
     isPressing.current = false;
     (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Tap, false); // Check the gesture lock - if we get it, it means no drag gesture is active
     // and we can safely fire the tap gesture.
 
     var openGestureLock = getGlobalLock(true);
-    if (!openGestureLock) return;
+    if (!openGestureLock) return false;
     openGestureLock();
+    return true;
+  }
 
-    if (!isNodeOrChild(element, event.target)) {
-      onTapCancel === null || onTapCancel === void 0 ? void 0 : onTapCancel(event, info);
-    } else {
-      onTap === null || onTap === void 0 ? void 0 : onTap(event, info);
-    }
-  };
+  function onPointerUp(event, info) {
+    if (!checkPointerEnd()) return;
+    /**
+     * We only count this as a tap gesture if the event.target is the same
+     * as, or a child of, this component's element
+     */
+
+    !isNodeOrChild(visualElement.getInstance(), event.target) ? onTapCancel === null || onTapCancel === void 0 ? void 0 : onTapCancel(event, info) : onTap === null || onTap === void 0 ? void 0 : onTap(event, info);
+  }
+
+  function onPointerCancel(event, info) {
+    if (!checkPointerEnd()) return;
+    onTapCancel === null || onTapCancel === void 0 ? void 0 : onTapCancel(event, info);
+  }
 
   function onPointerDown(event, info) {
     var _a;
 
-    removePointerUp();
-    cancelPointerEventListener.current = Object(popmotion__WEBPACK_IMPORTED_MODULE_3__[/* pipe */ "v"])(addPointerEvent(window, "pointerup", function (event, info) {
-      var _a;
-
-      return (_a = onPointerUp.current) === null || _a === void 0 ? void 0 : _a.call(onPointerUp, event, info);
-    }), addPointerEvent(window, "pointercancel", function (event, info) {
-      var _a;
-
-      return (_a = onPointerUp.current) === null || _a === void 0 ? void 0 : _a.call(onPointerUp, event, info);
-    }));
-    var element = visualElement.getInstance();
-    if (!element || isPressing.current) return;
+    removePointerEndListener();
+    if (isPressing.current) return;
     isPressing.current = true;
+    cancelPointerEndListeners.current = Object(popmotion__WEBPACK_IMPORTED_MODULE_3__[/* pipe */ "v"])(addPointerEvent(window, "pointerup", onPointerUp), addPointerEvent(window, "pointercancel", onPointerCancel));
     onTapStart === null || onTapStart === void 0 ? void 0 : onTapStart(event, info);
     (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Tap, true);
   }
 
   usePointerEvent(visualElement, "pointerdown", hasPressListeners ? onPointerDown : undefined);
-  useUnmountEffect(removePointerUp);
+  useUnmountEffect(removePointerEndListener);
 }
 
 var filterTouch = function filterTouch(listener) {
@@ -6916,11 +6910,20 @@ function AnimateLayoutContextProvider(props) {
 }
 
 function hasMoved(a, b) {
-  return hasAxisMoved(a.x, b.x) || hasAxisMoved(a.y, b.y);
+  return !isZeroBox(a) && !isZeroBox(b) && (!axisIsEqual(a.x, b.x) || !axisIsEqual(a.y, b.y));
 }
 
-function hasAxisMoved(a, b) {
-  return a.min !== b.min || a.max !== b.max;
+var zeroAxis = {
+  min: 0,
+  max: 0
+};
+
+function isZeroBox(a) {
+  return axisIsEqual(a.x, zeroAxis) && axisIsEqual(a.y, zeroAxis);
+}
+
+function axisIsEqual(a, b) {
+  return a.min === b.min && a.max === b.max;
 }
 
 var defaultTransition = {
@@ -7111,9 +7114,11 @@ var motion = /*@__PURE__*/createMotionProxy(allMotionFeatures);
  */
 
 function createDomMotionComponent(key) {
-  return createMotionComponent(key, Object(tslib__WEBPACK_IMPORTED_MODULE_1__[/* __assign */ "a"])(Object(tslib__WEBPACK_IMPORTED_MODULE_1__[/* __assign */ "a"])({}, domBaseConfig), {
+  var config = Object(tslib__WEBPACK_IMPORTED_MODULE_1__[/* __assign */ "a"])(Object(tslib__WEBPACK_IMPORTED_MODULE_1__[/* __assign */ "a"])({}, domBaseConfig), {
     defaultFeatures: allMotionFeatures
-  }));
+  });
+
+  return createMotionComponent(key, config);
 }
 /**
  * @public
