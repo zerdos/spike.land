@@ -1,5 +1,3 @@
-import getVersions from "./versions.js";
-const v = getVersions();
 /**
  * @param {string} code
  */
@@ -7,7 +5,6 @@ async function transpile(code) {
     const { transpileCode } = await import("./transpile.js");
     return transpileCode(code, false);
 }
-const src = `https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js`;
 function getSession() {
     const session = {
         unmount: () => { },
@@ -24,49 +21,31 @@ function getSession() {
     };
     return session;
 }
-export const versions = v;
 /**
- * @param {string} code
+ *
+ * @param {string} version
  */
-async function formatter(code) {
-    const prettier = (await import(`https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`))
-        .default;
-    const parserBabel = (await import(`https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`))
-        .default;
-    const parserHtml = (await import(`https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`))
-        .default;
-    try {
-        return prettier.format(code, {
-            "arrowParens": "always",
-            "bracketSpacing": true,
-            "embeddedLanguageFormatting": "auto",
-            "htmlWhitespaceSensitivity": "css",
-            "insertPragma": false,
-            "jsxBracketSameLine": true,
-            "jsxSingleQuote": false,
-            "printWidth": 80,
-            "proseWrap": "preserve",
-            "quoteProps": "as-needed",
-            "requirePragma": false,
-            "semi": true,
-            "singleQuote": true,
-            "tabWidth": 2,
-            "trailingComma": "all",
-            "useTabs": false,
-            parser: "babel-ts",
-            plugins: [parserBabel, parserHtml],
-        });
+const workBox = async (version) => {
+    // deno-lint-ignore ban-ts-comment
+    //@ts-ignore
+    const { Workbox } = await import(`https://storage.googleapis.com/workbox-cdn/releases/${version}/workbox-window.prod.mjs`);
+    if ("serviceWorker" in window.navigator) {
+        const wb = new Workbox("dist/sw.js");
+        wb.register();
     }
-    catch (_a) {
-        return code;
-    }
-}
+};
 /**
- * @param {{ document: Document; open: (url: string)=>void; }} _w
+  * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
 export async function run(mode = "window", _w) {
-    const { importScript } = await import("./importScript.js");
+    const getVersions = (await import("./versions.js")).default;
+    const v = getVersions();
+    const { formatter } = await import("./formatter.js");
+    const { importScript, importCss } = await import("./importScript.js");
+    importCss(`./assets/app.css`, "appCss");
+    importCss(`./assets/normalize.min.css`, "normalizeCss");
     const { WindowManager } = await importScript("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js");
+    workBox(v.workbox);
     // or const WindowManager = require('simple-window-manager').WindowManager
     // this is the window manager with one of the default options changed
     const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
@@ -95,6 +74,7 @@ export async function run(mode = "window", _w) {
         try {
             const element = document.querySelector("body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section");
             if (element !== null) {
+                // deno-lint-ignore ban-ts-comment
                 //@ts-ignore
                 element.style.overflow = "";
             }
@@ -128,7 +108,7 @@ export async function run(mode = "window", _w) {
             open(link);
         };
         const { renderDraggableWindow } = await import("./DraggableWindow.js");
-        await renderDraggableWindow({ onShare }, src);
+        await renderDraggableWindow({ onShare }, v.emotionRenderer);
         const zbody = window.document.getElementById("zbody");
         if (zbody !== null) {
             zbody.appendChild(session.div);
@@ -136,7 +116,7 @@ export async function run(mode = "window", _w) {
         if (session.HTML)
             session.div.innerHTML = session.HTML;
     }
-    const { renderEmotion } = await import(src);
+    const { renderEmotion } = await import(v.emotionRenderer);
     const transpiled = await transpile(session.code);
     await restartCode(transpiled);
     const startMonaco = (await import(v.editor)).default;
@@ -265,12 +245,12 @@ export async function run(mode = "window", _w) {
         zbody && zbody.children[0].replaceWith(root);
         session.HTML = session.div.innerHTML;
         return !!session.HTML;
+        /**
+         * @param {BlobPart} code
+         */
+        function createJsBlob(code) {
+            const blob = new Blob([code], { type: "application/javascript" });
+            return URL.createObjectURL(blob);
+        }
     }
-}
-/**
- * @param {BlobPart} code
- */
-function createJsBlob(code) {
-    const blob = new Blob([code], { type: "application/javascript" });
-    return URL.createObjectURL(blob);
 }

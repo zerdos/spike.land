@@ -1,4 +1,4 @@
-import versions from "@zedvision/code/dist/versions";
+import { version } from "@zedvision/code/package.json";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
@@ -8,26 +8,37 @@ addEventListener("fetch", (event) => {
  * @param {Request} request
  */
 async function handleRequest(request) {
-  const v = versions();
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
 
-  const cache = caches.default;
-  //  await cache.delete(request)
-  let response = await cache.match(request);
+  return text(`<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" type="image/png" href="https://blog.zed.vision/zed-icon-big.png" />
+  <title>Instant React Editor</title>
+  </head>
+  <body>
+    <script type="module">
+      import {run} from "https://unpkg.com/@zedvision/code@${version}/dist/codeLoader.js"
+      try{
+        run("window", window);
+      }catch(error){
+        fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
+      }
+    </script>
+  </body>
+  </html>
+`);
+}
 
-  if (
-    !response ||
-    response.url !==
-      `https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`
-  ) {
-    response = await fetch(
-      `https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`,
-    );
-    await cache.put(request, response.clone());
-  }
-  if (response.status > 399) {
-    response = new Response(response.statusText, { status: response.status });
-  }
-  return response;
+function text(resp) {
+  return new Response(resp, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+      "Access-Control-Max-Age": "86400",
+      "Content-Type": "text/html;charset=UTF-8",
+    },
+  });
 }

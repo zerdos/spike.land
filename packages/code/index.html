@@ -1,44 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://blog.zed.vision/zed-icon-big.png" />
 <title>Instant React Editor</title>
-
-<link rel="stylesheet" href="https://unpkg.com/@zedvision/code@11.0.15/assets/normalize.min.css"  crossorigin="anonymous"/>
-<link rel="stylesheet" href="https://unpkg.com/@zedvision/code@11.0.15/assets/app.css" crossorigin="anonymous"/>
-
-  <link rel="stylesheet" href="./assets/normalize.min.css" />
-  
-  <link rel="stylesheet" href="./assets/app.css" />
-
-
-
 </head>
-
 <body>
-  <!-- <script type="module">
-    import {Workbox} from 'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs';
-    
-    if ('serviceWorker' in navigator) {
-      const wb = new Workbox('sw.js');
-    
-      wb.register();
-    }
-
-    </script -->
   <script type="module">
-    import versions from "./src/versions.js"
-    const v = versions();
-    const isLocalhost = true || (window.location.href.includes("zed.dev") || window.location.href.includes("zed.vision"));
-    (async () => {
-      const { run } = await import(isLocalhost ?
-        "./src/codeLoader.js" :
-        `https://zed.vision/ipfs/${v.ipfs}/src/codeLoader.js`);
+    import {run} from "./src/codeLoader.js"
+    try{
       run("window", window);
-    })();
+    }catch(error){
+      fetch("https://zed.visin/error", {method: "POST",  body: JSON.stringify({error})})
+    }
   </script>
 </body>
-
 </html>

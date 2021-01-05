@@ -27,3 +27,21 @@ export const importScript = (src, res = []) => {
         });
     // }
 };
+/**
+ *
+ * @param {string} src
+ * @param {string} cssId
+ */
+export const importCss = (src, cssId) => {
+    if (!window.document.getElementById(cssId)) {
+        const head = window.document.getElementsByTagName("head")[0];
+        const link = window.document.createElement("link");
+        link.id = cssId;
+        link.rel = "stylesheet";
+        link.type = "text/css";
+        link.href = src;
+        link.media = "all";
+        head.appendChild(link);
+    }
+    return true;
+};

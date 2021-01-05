@@ -267,8 +267,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "3a6ef20b779e0db0764cde3fcd84a6af95ae6cb9c46e2b494512e2fd4218a6ce",
-        "signature": "90461c83653a3ff87393c17af2d7e09901deb270471c08cb3a95ef4d5e5b9fc2",
+        "version": "94b11e62ece94459f1ee3c07473cf36d87277bb50b7dc8a74b000a23fa946510",
+        "signature": "2fc826c8a796173104d61de93995d57077f863bdf944c85ac3c857bb829539c7",
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
@@ -276,9 +276,14 @@
         "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
         "affectsGlobalScope": false
       },
+      "./src/formatter.js": {
+        "version": "fe8de25920c2f5e7bf0f8c099ed65090c663286df537e1de0c9e9999b7a4f444",
+        "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
+        "affectsGlobalScope": false
+      },
       "./src/importScript.js": {
-        "version": "d7b433dd28b62dd798b2249c27add67a54678c8a91d9b8fbcdbab5dc5751a9e1",
-        "signature": "66175aff1061929aa84f11fbe6173faa5e1f223fb06611bc061925095b356485",
+        "version": "04646be480ccc129904fc73c1d96ae887c5189fa6316bdd64f0f643ed2f3992f",
+        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
       },
       "./src/db.js": {
@@ -312,9 +317,14 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "7d126da4358aa9e01655b75184307fff2054c9221a6653f70ded9bda3bab879a",
-        "signature": "7be07ab31dd6a0435f10f7caaa1ba4f241850b81fc5f090d72a09f0d59c72572",
+        "version": "4a2cd46c4e1838bd1124ad85d608ecce6e9ef179978d096adcfd8bbbb403cb90",
+        "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
+      },
+      "./src/codeRunner.js": {
+        "version": "37361c93b1a7fa6ee82085deba733c59cb56ec14f981b116b45ad8c233900402",
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "affectsGlobalScope": true
       },
       "./src/hash.js": {
         "version": "b2a0a240c46b092fed9a4a1399533a5bd2ca89c1fbc029e0be68a0f584fba4fc",
@@ -430,10 +440,16 @@
         "../../node_modules/tslib/tslib.d.ts",
         "./src/DraggableWindow.js",
         "./src/data.js",
+        "./src/formatter.js",
         "./src/importScript.js",
         "./src/share.js",
         "./src/transpile.js",
         "./src/versions.js"
+      ],
+      "./src/codeRunner.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/tslib/tslib.d.ts",
+        "./src/codeLoader.js"
       ],
       "./src/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -443,6 +459,11 @@
         "./src/versions.js"
       ],
       "./src/db.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/tslib/tslib.d.ts",
+        "./src/versions.js"
+      ],
+      "./src/formatter.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "../../node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
@@ -586,8 +607,10 @@
       "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
       "./src/DraggableWindow.js",
       "./src/codeLoader.js",
+      "./src/codeRunner.js",
       "./src/data.js",
       "./src/db.js",
+      "./src/formatter.js",
       "./src/hash.js",
       "./src/importScript.js",
       "./src/ipfsKV.js",

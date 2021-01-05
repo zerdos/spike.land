@@ -1,11 +1,14 @@
 export default function () {
   const editor = "11.3.0";
+  const emotionRenderer = "emotionRenderer";
 
   const v = {
     ipfs: "0.52.4-rc.4",
+    workbox: "6.0.2",
     babel: "7.12.12",
     code: "11.3.1",
-    emotionRenderer: "11.3.0",
+    emotionRenderer:
+      `https://unpkg.com/@zedvision/emotion-react-renderer@${emotionRenderer}/dist/bundle.js`,
     shadb: "11.2.0",
     prettier: "2.2.1",
     editor:

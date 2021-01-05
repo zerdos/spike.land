@@ -9,24 +9,10 @@
   <title>Instant React Editor</title>
   <meta name="viewport" content="width=device-width, initial-scale=0.5">
   <meta name="Description" content="Code and share!">
-  
-  <link rel="stylesheet" href="https://unpkg.com/@zedvision/code@11.3.0/assets/normalize.min.css"  crossorigin="anonymous"/>
-  <link rel="stylesheet" href="https://unpkg.com/@zedvision/code@11.3.0/assets/app.css" crossorigin="anonymous"/>
-  
-
 </head>
 
-<body>  <!-- <script type="module">
-    import {Workbox} from 'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs';
-    
-    if ('serviceWorker' in navigator) {
-      const wb = new Workbox('sw.js');
-    
-      wb.register();
-    }
-
-    </script -->
-  <script type="module">
+<body>   
+  <script>
     (async()=>{
         const { run } = await import(`https://unpkg.com/@zedvision/code@11.3.1/dist/codeLoader.js`);
         run("window", window);

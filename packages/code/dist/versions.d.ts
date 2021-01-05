@@ -1,5 +1,6 @@
 export default function _default(): {
     ipfs: string;
+    workbox: string;
     babel: string;
     code: string;
     emotionRenderer: string;
