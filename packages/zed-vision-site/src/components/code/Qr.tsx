@@ -1,8 +1,11 @@
+
+import { css, jsx} from "@emotion/react";
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
 import React from "react";
-import { importModule } from "./importScript.js";
 import { getHash, hash } from "./hash.js";
+import { QRious } from "@zedvision/qrious";
+import { sha256 } from "../utils/sha256/sha256";
+
 
 let checkers = {
   num: 0,
@@ -16,24 +19,18 @@ export const Qr: React.FC = () => {
   const [counter, setCounter] = React.useState(0);
 
   React.useEffect(() => {
-    let qr;
+  
     const connect = async () => {
-      const { sha256 } = await importModule(
-        "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js",
-      );
-      const { QRious } = await importModule(
-        `https://unpkg.com/@zedvision/qrious@10.13.20/dist/qrious.esm.js`,
-      );
-
+      let qr: QRious;
       // const req = await fetch("https://zed.vision/token");
       // const data = await req.json();
 
       setCounter(60);
       // const key = data.key;
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
-      const key = await sha256(
+      const key = (await sha256(
         secret
-      );
+      )).slice(0,8);
       // const key = "12345678";
       const url = `https://zed.vision/${key}`;
 
@@ -64,15 +61,18 @@ export const Qr: React.FC = () => {
       const toCheck = await hash(url, true);
       console.log({ toCheck });
       try {
-        toCheck.map(async (dig) => {
+        toCheck.map( (dig) => {
           checkers.num++;
           console.log({ awaiting: dig, ...checkers });
-          const resultKey = new Promise(async (resolve, reject) => {
+          const resultKey = new Promise( (resolve, reject) => {
             setTimeout(() => reject(-1), 15000);
 
-            const result = await getHash(dig, 10000);
-            console.log({ result: dig });
-            location.href = `https://zed.vision/ipfs/${resultKey}`;
+            const result =  getHash(dig, 10000).then(result=>{
+              console.log({ result: {dig, result} });
+
+              window.location.href = `https://zed.vision/ipfs/${resultKey}`;
+            });
+            
             resolve(result);
           });
         });
@@ -135,12 +135,5 @@ export const Qr: React.FC = () => {
         </p>
       </div>}
     </a>
-    {false && <ul>
-      {qrtoCheck.map((x) =>
-        <li key={x}>
-          {x}
-        </li>
-      )}
-    </ul>}
   </>;
 };

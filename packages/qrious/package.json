@@ -31,7 +31,7 @@
     "esbuild": "0.8.29",
     "qrious-core": "4.0.0"
   },
-  "main": "dist/qrious.js",
+  "main": "dist/qrious.esm.js",
   "source": "src/qrious.js",
   "exports": "./dist/qrious.esm.js",
   "scripts": {

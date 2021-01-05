@@ -1,7 +1,6 @@
 (this["webpackJsonp"] = this["webpackJsonp"] || []).push([[6],[
 /* 0 */,
-/* 1 */,
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var check = function (it) {
@@ -21,9 +20,8 @@ module.exports =
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(20)))
 
 /***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -376,6 +374,8 @@ var navigateTo = function navigateTo(to) {
 exports.navigateTo = navigateTo;
 
 /***/ }),
+/* 4 */,
+/* 5 */,
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -560,7 +560,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "prefetchPathname", function() { return prefetchPathname; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+/* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(gatsby_link__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony reexport (default from non-harmony) */ __webpack_require__.d(__webpack_exports__, "Link", function() { return gatsby_link__WEBPACK_IMPORTED_MODULE_1___default.a; });
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withAssetPrefix", function() { return gatsby_link__WEBPACK_IMPORTED_MODULE_1__["withAssetPrefix"]; });
@@ -2030,7 +2030,7 @@ module.exports = function (it) {
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var createNonEnumerableProperty = __webpack_require__(30);
 
 module.exports = function (key, value) {
@@ -2046,7 +2046,7 @@ module.exports = function (key, value) {
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var setGlobal = __webpack_require__(36);
 
 var SHARED = '__core-js_shared__';
@@ -2724,7 +2724,7 @@ module.exports = {};
 /***/ (function(module, exports, __webpack_require__) {
 
 var path = __webpack_require__(97);
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 
 var aFunction = function (variable) {
   return typeof variable == 'function' ? variable : undefined;
@@ -3038,7 +3038,7 @@ var findPath=function findPath(rawPathname){var trimmedPathname=find_path_trimPa
 /* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var getOwnPropertyDescriptor = __webpack_require__(49).f;
 var createNonEnumerableProperty = __webpack_require__(30);
 var redefine = __webpack_require__(88);
@@ -3118,7 +3118,7 @@ exports.f = NASHORN_BUG ? function propertyIsEnumerable(V) {
 /* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var isObject = __webpack_require__(29);
 
 var document = global.document;
@@ -3134,7 +3134,7 @@ module.exports = function (it) {
 /* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var createNonEnumerableProperty = __webpack_require__(30);
 var has = __webpack_require__(13);
 var setGlobal = __webpack_require__(36);
@@ -3181,7 +3181,7 @@ var TEMPLATE = String(String).split('String');
 /***/ (function(module, exports, __webpack_require__) {
 
 var NATIVE_WEAK_MAP = __webpack_require__(90);
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var isObject = __webpack_require__(29);
 var createNonEnumerableProperty = __webpack_require__(30);
 var objectHas = __webpack_require__(13);
@@ -3250,7 +3250,7 @@ module.exports = {
 /* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var inspectSource = __webpack_require__(58);
 
 var WeakMap = global.WeakMap;
@@ -3348,7 +3348,7 @@ module.exports = getBuiltIn('Reflect', 'ownKeys') || function ownKeys(it) {
 /* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 
 module.exports = global;
 
@@ -3622,7 +3622,7 @@ module.exports = function (METHOD_NAME, options) {
 /* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 var userAgent = __webpack_require__(111);
 
 var process = global.process;
@@ -3658,7 +3658,7 @@ module.exports = getBuiltIn('navigator', 'userAgent') || '';
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(52);
-var global = __webpack_require__(2);
+var global = __webpack_require__(1);
 
 module.exports = classof(global.process) == 'process';
 
@@ -3667,7 +3667,7 @@ module.exports = classof(global.process) == 'process';
 /* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports=[{plugin:__webpack_require__(171),options:{"plugins":[],"extensions":[".mdx"],"defaultLayouts":{},"gatsbyRemarkPlugins":[],"lessBabel":false,"remarkPlugins":[],"rehypePlugins":[],"mediaTypes":["text/markdown","text/x-markdown"]}},{plugin:__webpack_require__(117),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"index.html","background_color":"#f7f0eb","theme_color":"#a2466c","display":"standalone","cache_busting_mode":"none","legacy":true,"theme_color_in_head":true,"crossOrigin":"anonymous","include_favicon":true,"cacheDigest":null}},{plugin:__webpack_require__(132),options:{"plugins":[]}}];
+module.exports=[{plugin:__webpack_require__(172),options:{"plugins":[],"extensions":[".mdx"],"defaultLayouts":{},"gatsbyRemarkPlugins":[],"lessBabel":false,"remarkPlugins":[],"rehypePlugins":[],"mediaTypes":["text/markdown","text/x-markdown"]}},{plugin:__webpack_require__(117),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"index.html","background_color":"#f7f0eb","theme_color":"#a2466c","display":"standalone","cache_busting_mode":"none","legacy":true,"theme_color_in_head":true,"crossOrigin":"anonymous","include_favicon":true,"cacheDigest":null}},{plugin:__webpack_require__(132),options:{"plugins":[]}}];
 
 /***/ }),
 /* 114 */,
@@ -4063,7 +4063,7 @@ module.exports = JSON.parse("[]");
 /***/ (function(module, exports, __webpack_require__) {
 
 // prefer default export if available
-var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---src-pages-404-tsx":function componentSrcPages404Tsx(){return Promise.all(/* import() | component---src-pages-404-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 138));},"component---src-pages-codebox-tsx":function componentSrcPagesCodeboxTsx(){return Promise.all(/* import() | component---src-pages-codebox-tsx */[__webpack_require__.e(3), __webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, 148));},"component---src-pages-example-tsx":function componentSrcPagesExampleTsx(){return Promise.all(/* import() | component---src-pages-example-tsx */[__webpack_require__.e(0), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, 153));},"component---src-pages-index-tsx":function componentSrcPagesIndexTsx(){return Promise.all(/* import() | component---src-pages-index-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, 170));},"component---src-pages-offline-plugin-app-shell-fallback-tsx":function componentSrcPagesOfflinePluginAppShellFallbackTsx(){return Promise.all(/* import() | component---src-pages-offline-plugin-app-shell-fallback-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, 155));},"component---src-pages-using-typescript-tsx":function componentSrcPagesUsingTypescriptTsx(){return Promise.all(/* import() | component---src-pages-using-typescript-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, 156));},"component---src-templates-blog-post-tsx":function componentSrcTemplatesBlogPostTsx(){return Promise.all(/* import() | component---src-templates-blog-post-tsx */[__webpack_require__.e(3), __webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 157));}};
+var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---src-pages-404-tsx":function componentSrcPages404Tsx(){return Promise.all(/* import() | component---src-pages-404-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, 138));},"component---src-pages-codebox-tsx":function componentSrcPagesCodeboxTsx(){return Promise.all(/* import() | component---src-pages-codebox-tsx */[__webpack_require__.e(3), __webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, 148));},"component---src-pages-example-tsx":function componentSrcPagesExampleTsx(){return Promise.all(/* import() | component---src-pages-example-tsx */[__webpack_require__.e(0), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, 153));},"component---src-pages-index-tsx":function componentSrcPagesIndexTsx(){return Promise.all(/* import() | component---src-pages-index-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(10)]).then(__webpack_require__.bind(null, 171));},"component---src-pages-offline-plugin-app-shell-fallback-tsx":function componentSrcPagesOfflinePluginAppShellFallbackTsx(){return Promise.all(/* import() | component---src-pages-offline-plugin-app-shell-fallback-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(11)]).then(__webpack_require__.bind(null, 156));},"component---src-pages-using-typescript-tsx":function componentSrcPagesUsingTypescriptTsx(){return Promise.all(/* import() | component---src-pages-using-typescript-tsx */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(12)]).then(__webpack_require__.bind(null, 157));},"component---src-templates-blog-post-tsx":function componentSrcTemplatesBlogPostTsx(){return Promise.all(/* import() | component---src-templates-blog-post-tsx */[__webpack_require__.e(3), __webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(2), __webpack_require__.e(4), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, 158));}};
 
 /***/ }),
 /* 136 */
@@ -4125,7 +4125,8 @@ Object(_api_runner_browser__WEBPACK_IMPORTED_MODULE_0__["apiRunner"])("onService
 /* 166 */,
 /* 167 */,
 /* 168 */,
-/* 169 */
+/* 169 */,
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4179,7 +4180,7 @@ var RouteAnnouncerProps={id:"gatsby-announcer",style:{position:"absolute",top:0,
 var lib_history = __webpack_require__(15);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/gatsby-link/index.js
-var gatsby_link = __webpack_require__(5);
+var gatsby_link = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./.cache/navigation.js
 // Convert to a map for faster lookup in maybeRedirect()
@@ -4269,8 +4270,8 @@ var RouteHandler=function RouteHandler(props){return/*#__PURE__*/react_default.a
 if(pagePath&&""+pagePath!==browserLoc.pathname&&!(production_app_loader.findMatchPath(Object(strip_prefix["a" /* default */])(browserLoc.pathname,""))||pagePath==="/404.html"||pagePath.match(/^\/404\/?$/)||pagePath.match(/^\/offline-plugin-app-shell-fallback\/?$/))){Object(es["navigate"])(""+pagePath+browserLoc.search+browserLoc.hash,{replace:true});}loader["publicLoader"].loadPage(browserLoc.pathname).then(function(page){if(!page||page.status===loader["PageResourceStatus"].Error){throw new Error("page resources for "+browserLoc.pathname+" not found. Not rendering React");}window.___webpackCompilationHash=page.page.webpackCompilationHash;var SiteRoot=Object(api_runner_browser["apiRunner"])("wrapRootElement",{element:/*#__PURE__*/react_default.a.createElement(LocationHandler,null)},/*#__PURE__*/react_default.a.createElement(LocationHandler,null),function(_ref4){var result=_ref4.result;return{element:result};}).pop();var App=function App(){return/*#__PURE__*/react_default.a.createElement(GatsbyRoot,null,SiteRoot);};var renderer=Object(api_runner_browser["apiRunner"])("replaceHydrateFunction",undefined,react_dom_default.a.hydrate)[0];ready_default()(function(){renderer(/*#__PURE__*/react_default.a.createElement(App,null),typeof window!=="undefined"?document.getElementById("___gatsby"):void 0,function(){Object(api_runner_browser["apiRunner"])("onInitialClientRender");});});});});
 
 /***/ }),
-/* 170 */,
-/* 171 */
+/* 171 */,
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4300,7 +4301,7 @@ var context = __webpack_require__(63);
 var mdx_components = __webpack_require__(115);
 
 // CONCATENATED MODULE: /home/zed/z/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
-var scope_0=__webpack_require__(172).default;var scope_1=__webpack_require__(116).default;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
+var scope_0=__webpack_require__(173).default;var scope_1=__webpack_require__(116).default;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
 // CONCATENATED MODULE: /home/zed/z/node_modules/gatsby-plugin-mdx/wrap-root-element.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){Object(defineProperty["a" /* default */])(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * so, this import is weird right?
@@ -4328,7 +4329,7 @@ var MDXConsumer=Object(esm["withMDXComponents"])(function(_ref6){var componentsF
 var wrapRootElement=wrap_root_element;
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4363,4 +4364,4 @@ var Counter_Counter = function Counter(_ref) {
 /* harmony default export */ var _619e4c1544d023b87009049ac4fcd614 = __webpack_exports__["default"] = ({Counter:Counter_Counter,React:react});
 
 /***/ })
-],[[169,5,14]]]);
+],[[170,5,14]]]);
