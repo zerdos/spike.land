@@ -44,7 +44,7 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
     /**
    * @param {{ CID: string; }} x
    */
-    (x) => fetch(`https://zed.vision/ipfs/${x.CID}/`),
+    (x) => fetch(`https://code.zed.vision/ipfs/${x.CID}/`),
   ));
 
   const appDir = res.find(
