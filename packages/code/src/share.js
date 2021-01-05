@@ -56,7 +56,7 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
 
-  return `https://zed.vision/ipfs/${appDir.CID}/`;
+  return `https://code.zed.vision/ipfs/${appDir.CID}/`;
 };
 
 ///import("./src/ipfsKV.js").then((mod)=>mod.ipfsKV).then(x=>x.add("diddiwohfqwyie",{onlyHash: true}))

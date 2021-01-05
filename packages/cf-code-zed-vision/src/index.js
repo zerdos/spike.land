@@ -11,6 +11,23 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
 
+  if (pathname.slice(0, 6) === "/ipfs/") {
+    const cache = caches.default;
+    let response = await cache.match(request);
+
+    if (!response) {
+      response = await fetch(`https://ipfs.io/${pathname}`);
+      await cache.put(request, response.clone());
+    }
+    if (response.status > 399) {
+      response = new Response(
+        response.statusText,
+        { status: response.status },
+      );
+    }
+    return response;
+  }
+
   if (pathname === "/dist/sw.js") {
     return js(
       `importScripts("https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js");
@@ -28,8 +45,7 @@ async function handleRequest(request) {
               const cacheFirst = new strategies.CacheFirst();
               event.respondWith(cacheFirst.handle({ event, request }));
           }
-      });
-      export {};`,
+      });`,
     );
   }
 

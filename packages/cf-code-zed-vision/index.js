@@ -1,6 +1,6 @@
 (() => {
   // ../code/package.json
-  var version = "11.3.7";
+  var version = "11.3.8";
 
   // src/index.js
   addEventListener("fetch", (event) => {
@@ -9,6 +9,18 @@
   async function handleRequest(request) {
     const url = new URL(request.url);
     const {searchParams, pathname} = url;
+    if (pathname.slice(0, 6) === "/ipfs/") {
+      const cache = caches.default;
+      let response = await cache.match(request);
+      if (!response) {
+        response = await fetch(`https://ipfs.io/${pathname}`);
+        await cache.put(request, response.clone());
+      }
+      if (response.status > 399) {
+        response = new Response(response.statusText, {status: response.status});
+      }
+      return response;
+    }
     if (pathname === "/dist/sw.js") {
       return js(`importScripts("https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js");
       // This will trigger the importScripts() for workbox.strategies and its dependencies:
@@ -25,8 +37,7 @@
               const cacheFirst = new strategies.CacheFirst();
               event.respondWith(cacheFirst.handle({ event, request }));
           }
-      });
-      export {};`);
+      });`);
     }
     return text(`<!DOCTYPE html>
   <html lang="en">
