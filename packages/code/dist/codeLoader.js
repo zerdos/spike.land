@@ -77,7 +77,7 @@ export async function run(mode = "window", _w) {
         width: 720,
         height: 640,
         style: { backgroundWindow: "#1e1e1e" },
-        title: "React Live Editor",
+        title: "React Live",
     });
     // set content of window
     //win.content.style.margin = '0[[c'
@@ -99,7 +99,8 @@ export async function run(mode = "window", _w) {
                 element.style.overflow = "";
             }
         }
-        catch (_a) {
+        catch (e) {
+            console.error({ e });
         }
     }
     const session = getSession();

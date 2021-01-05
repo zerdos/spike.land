@@ -16,6 +16,8 @@ export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(100);
 
+  const [url, setUrl] = React.useState("");
+
   const [counter, setCounter] = React.useState(0);
 
   React.useEffect(() => {
@@ -51,7 +53,7 @@ export const Qr: React.FC = () => {
         );
       }
     if (qr.get().value !== url ) qr.set(options);
-      
+    setUrl(url);
       //const check = await fetch(`https://zed.vision/check?key=${key}`);
       //const res = await check.json();
       // if (res.expired === false) {
@@ -104,7 +106,7 @@ export const Qr: React.FC = () => {
       margin: 24px;
       text-align: center;
   `}>
-    <a href="https://code.zed.vision">
+    <a target="_blank" href={url}>
       {retry > 0 && <div
         css={css`
         background: blue;

@@ -97,7 +97,7 @@ export async function run(mode = "window", _w) {
       width: 720,
       height: 640,
       style: { backgroundWindow: "#1e1e1e" },
-      title: "React Live Editor",
+      title: "React Live",
     },
   );
 
@@ -130,7 +130,8 @@ export async function run(mode = "window", _w) {
         //@ts-ignore
         element.style.overflow = "";
       }
-    } catch {
+    } catch (e) {
+      console.error({ e });
     }
   }
 

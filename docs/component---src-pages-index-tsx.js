@@ -271,9 +271,13 @@ var Qr_Qr = function Qr() {
       retry = _React$useState[0],
       setRetry = _React$useState[1];
 
-  var _React$useState2 = react_default.a.useState(0),
-      counter = _React$useState2[0],
-      setCounter = _React$useState2[1];
+  var _React$useState2 = react_default.a.useState(""),
+      url = _React$useState2[0],
+      setUrl = _React$useState2[1];
+
+  var _React$useState3 = react_default.a.useState(0),
+      counter = _React$useState3[0],
+      setCounter = _React$useState3[1];
 
   react_default.a.useEffect(function () {
     var connect = /*#__PURE__*/function () {
@@ -311,7 +315,8 @@ var Qr_Qr = function Qr() {
                   qr = new he(options);
                 }
 
-                if (qr.get().value !== url) qr.set(options); //const check = await fetch(`https://zed.vision/check?key=${key}`);
+                if (qr.get().value !== url) qr.set(options);
+                setUrl(url); //const check = await fetch(`https://zed.vision/check?key=${key}`);
                 //const res = await check.json();
                 // if (res.expired === false) {
                 //  location.href = "https://zed.vision/code/";
@@ -322,10 +327,10 @@ var Qr_Qr = function Qr() {
                     return x - 1;
                   });
                 }, 10000);
-                _context.next = 13;
+                _context.next = 14;
                 return Object(hash["b" /* hash */])(url, true);
 
-              case 13:
+              case 14:
                 toCheck = _context.sent;
                 console.log({
                   toCheck: toCheck
@@ -370,7 +375,7 @@ var Qr_Qr = function Qr() {
                   });
                 }
 
-              case 16:
+              case 17:
               case "end":
                 return _context.stop();
             }
@@ -397,7 +402,8 @@ var Qr_Qr = function Qr() {
   return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
     css: "\n      margin: 24px;\n      text-align: center;\n  "
   }, Object(emotion_react_browser_esm["c" /* jsx */])("a", {
-    href: "https://code.zed.vision"
+    target: "_blank",
+    href: url
   }, retry > 0 && Object(emotion_react_browser_esm["c" /* jsx */])("div", {
     css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject())
   }, Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
