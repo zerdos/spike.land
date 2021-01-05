@@ -62,7 +62,7 @@ export const CodeBox: React.FC<{
       if (!editorAttached) {
         setEditorAttached(true);
         const  startMonaco  = (await (new Function(
-          `return import("${versions.editor}")`
+          `return import("${versions().editor}")`
         )())).default;
 
         await startMonaco(
