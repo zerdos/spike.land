@@ -1,4 +1,4 @@
-import { versions } from "@zedvision/code";
+import versions from "@zedvision/code/dist/versions";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
@@ -18,10 +18,10 @@ async function handleRequest(request) {
   if (
     !response ||
     response.url !==
-      `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`
+      `https://unpkg.com/@zedvision/code@${versions().code}/ipfs.html`
   ) {
     response = await fetch(
-      `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`,
+      `https://unpkg.com/@zedvision/code@${versions().code}/ipfs.html`,
     );
     await cache.put(request, response.clone());
   }

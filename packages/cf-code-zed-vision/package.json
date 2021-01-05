@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "worker",
+  "name": "@zedvision/cf-code-zed-vision",
   "version": "11.2.21",
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "index.js",

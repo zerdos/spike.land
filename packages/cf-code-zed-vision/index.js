@@ -1,8 +1,8 @@
 (() => {
-  // ../code/src/versions.js
+  // ../code/dist/versions.js
   function versions_default() {
     const editor = "11.2.18";
-    const v2 = {
+    const v = {
       ipfs: "0.52.4-rc.4",
       babel: "7.12.12",
       code: "11.2.18",
@@ -15,13 +15,8 @@
       uuid: "8.3.2",
       comlink: "4.3.0"
     };
-    return v2;
+    return v;
   }
-
-  // ../code/src/codeLoader.js
-  var v = versions_default();
-  var src = `https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js`;
-  var versions = v;
 
   // src/index.js
   addEventListener("fetch", (event) => {
@@ -32,8 +27,8 @@
     const {searchParams, pathname} = url;
     const cache = caches.default;
     let response = await cache.match(request);
-    if (!response || response.url !== `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`) {
-      response = await fetch(`https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`);
+    if (!response || response.url !== `https://unpkg.com/@zedvision/code@${versions_default().code}/ipfs.html`) {
+      response = await fetch(`https://unpkg.com/@zedvision/code@${versions_default().code}/ipfs.html`);
       await cache.put(request, response.clone());
     }
     if (response.status > 399) {

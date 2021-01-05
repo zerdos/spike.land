@@ -4205,6 +4205,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision":
+  version: 0.0.0-use.local
+  resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
+  dependencies:
+    "@cloudflare/wrangler": 1.12.3
+    "@zedvision/code": ^11.2.21
+    esbuild: 0.8.29
+  languageName: unknown
+  linkType: soft
+
 "@zedvision/cf-worker@workspace:packages/cf-zed-vision":
   version: 0.0.0-use.local
   resolution: "@zedvision/cf-worker@workspace:packages/cf-zed-vision"
@@ -21818,16 +21828,6 @@ typescript@4.1.3:
   checksum: ef76a6892bdf6a4231e6d657c13e2e960278535915d6235d9e0e3e23b65da94a56e5bed17ac5fda282370601d4cd18f4cba9552aa52f4fa9a25cc9fd3fcf58a9
   languageName: node
   linkType: hard
-
-"worker@workspace:packages/cf-code-zed-vision":
-  version: 0.0.0-use.local
-  resolution: "worker@workspace:packages/cf-code-zed-vision"
-  dependencies:
-    "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.2.21
-    esbuild: 0.8.29
-  languageName: unknown
-  linkType: soft
 
 "workerize-loader@npm:^1.3.0":
   version: 1.3.0
