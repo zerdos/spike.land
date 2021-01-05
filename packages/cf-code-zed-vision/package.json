@@ -17,6 +17,6 @@
     "esbuild": "0.8.29"
   },
   "dependencies": {
-    "@zedvision/code": "^11.2.21"
+    "@zedvision/code": "11.2.21"
   }
 }

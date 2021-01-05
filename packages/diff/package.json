@@ -26,7 +26,7 @@
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "dependencies": {
-        "@zedvision/sha256": "^11.2.0",
+        "@zedvision/sha256": "11.2.0",
         "diff": "5.0.0",
         "esbuild": "0.8.29"
     },
