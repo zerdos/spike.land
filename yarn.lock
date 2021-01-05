@@ -4217,7 +4217,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@^11.2.20, @zedvision/code@workspace:packages/code":
+"@zedvision/code@^11.2.21, @zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
@@ -4312,7 +4312,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.2.20
+    "@zedvision/code": ^11.2.21
     "@zedvision/diff": ^11.2.0
     "@zedvision/shadb": ^11.2.11
     framer-motion: 3.1.3
@@ -21824,7 +21824,7 @@ typescript@4.1.3:
   resolution: "worker@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.2.20
+    "@zedvision/code": ^11.2.21
     esbuild: 0.8.29
   languageName: unknown
   linkType: soft
