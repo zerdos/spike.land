@@ -1,4 +1,3 @@
-declare const src: "https://unpkg.com/@zedvision/emotion-react-renderer@$$emotionRenderer$$/dist/bundle.js";
 declare const searchRegExp2: RegExp;
 declare const replace2: "$&https://cdn.skypack.dev/";
 declare const searchRegExp: RegExp;

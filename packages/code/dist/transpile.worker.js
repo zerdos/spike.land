@@ -4,7 +4,6 @@
 self.importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
 // @ts-ignore
 self.importScripts("https://unpkg.com/@babel/standalone@$$babel$$/babel.min.js");
-const src = "https://unpkg.com/@zedvision/emotion-react-renderer@$$emotionRenderer$$/dist/bundle.js";
 const searchRegExp2 = /import.*from '/gi;
 const replace2 = "$&https://cdn.skypack.dev/";
 // const from = / from '/gi;
@@ -25,7 +24,7 @@ const transform = (code, hasToReport) => {
         // console.log(safeCode);
         // @ts-ignore
         const transformed = Babel.transform(`/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion} from "${src}";
+      import {jsx, React, css, Fragment, Global, Motion, motion} from "$$emotionRenderer$$";
       
       ` + safeCode + `
       

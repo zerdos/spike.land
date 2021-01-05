@@ -43,7 +43,7 @@ export const getHtml = ({ HTML, css }) => {
   ${HTML}
 </div>
 <script type="module">
-import { renderEmotion } from "https://unpkg.com/@zedvision/emotion-react-renderer@${v.emotionRenderer}/dist/bundle.js"
+import { renderEmotion } from "${v.emotionRenderer}"
 import App from "./app.js"
 
 renderEmotion(App(), document.body.children[0]);

@@ -267,7 +267,7 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "94b11e62ece94459f1ee3c07473cf36d87277bb50b7dc8a74b000a23fa946510",
+        "version": "9372d801dafadf6b5da711ac8bcbc3dc81d24c5c8ac7fc31d7bded75dae93912",
         "signature": "2fc826c8a796173104d61de93995d57077f863bdf944c85ac3c857bb829539c7",
         "affectsGlobalScope": false
       },
@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
-        "version": "3606002d0dd0006a6196dff15150169a07a7b96c7f47c8c41eb286b52efc7a44",
+        "version": "1e621f3cd595462b377c44a1c285517ab634da3b0658271fb5aad17a688ff85c",
         "signature": "86274e7bff3ca90b0ee1818a8f431ec1f488371ffe430bdba7409815ffa5bdee",
         "affectsGlobalScope": false
       },
@@ -362,8 +362,8 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.worker.js": {
-        "version": "c04696768455b5a4b07c4f994e584dc05f11ed6f85037ec152f3108a0d11eb4d",
-        "signature": "c064347d627d817ef97f014eec6d310bc0dea7161155a141795db58bbcbdf12c",
+        "version": "a1f8ddb51af70c482c4696adebc7aea965521a7e64f5ac813af768e6bc7ba3e1",
+        "signature": "22208d9cabaec6aa320d755b07e59100dd64c1a2eb6bf1cf6edba331cf6255cf",
         "affectsGlobalScope": true
       },
       "../../node_modules/comlink/dist/umd/protocol.d.ts": {
