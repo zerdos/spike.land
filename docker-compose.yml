@@ -10,16 +10,10 @@ services:
   #     - ipfs:/data/ipfs
       # - .:/export
   devcontainer: 
-    build:
-      dockerfile: packages/hirsute-devcontainer/Dockerfile
-      context: .
-      args:
-        USER: $USER
+    image: devimages/focal-devcontainer:latest
     ports: 
       - 5901:5901
       - 6080:6080
-    tmpfs:
-      - /home/$USER/tmpfs:exec
     privileged: true
     shm_size: 4gb
     volumes:
