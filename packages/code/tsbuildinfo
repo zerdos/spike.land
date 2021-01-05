@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "b4ef62c9c09c8af20031d4ef816ae4df524711f5395917e35274ea7bf6ce38f7",
+        "version": "3a315dd2829e7b4de7a6947db5e96e6cf848382782d095c671d28121fdf35627",
         "signature": "cc014f7866353e93932e07892657579702bbc28755f41b1817bfe910b1d0723c",
         "affectsGlobalScope": false
       },

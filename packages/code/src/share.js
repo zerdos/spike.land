@@ -18,13 +18,15 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
   if (cssRules) {
     try {
       css = Array.from(
+        // deno-lint-ignore ban-ts-comment
         // @ts-ignore
         window.document.querySelector("head > style[data-emotion=css]").sheet
           .cssRules,
       ).map((x) => x.cssText).filter((cssRule) =>
         HTML.includes(cssRule.substring(3, 8))
       ).join("\n  ").replace(`.${bodyClass}`, "body");
-    } catch {
+    } catch (e) {
+      console.error({ e });
     }
   }
 
