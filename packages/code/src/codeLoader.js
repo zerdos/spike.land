@@ -57,7 +57,7 @@ export async function run(mode = "window", _w) {
   if (isKey) {
     import("./hash.js").then((client) =>
       client.hash(`https://zed.vision/${pathname}`, false)
-    );
+    ).then((hash) => console.log({ hash }));
   }
 
   const { formatter } = await import("./formatter.js");
