@@ -1,6 +1,6 @@
-import typography from "./typography.ts";
-import { normalize } from "./normalize-css.tsx";
-import { fonts } from "./fonts.ts";
+import typography from "./typography";
+import { normalize } from "./normalize-css";
+import { fonts } from "./fonts";
 
 /** @jsx jsx */
 import { css, Global, jsx } from "@emotion/react";

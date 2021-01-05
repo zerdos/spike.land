@@ -65,16 +65,19 @@ export const Qr: React.FC = () => {
         toCheck.map( (dig) => {
           checkers.num++;
           console.log({ awaiting: dig, ...checkers });
-          const resultKey = new Promise( (resolve, reject) => {
+          new Promise( (resolve, reject) => {
+            
             setTimeout(() => reject(-1), 20000);
 
-            const result =  getHash(dig, 10000).then(result=>{
+            getHash(dig, 25000).then(result=>{
               console.log({ result: {dig, result} });
 
-              window.location.href = `https://zed.vision/ipfs/${resultKey}`;
+              if (result) {
+                resolve(result);
+                window.location.href = `https://zed.vision/ipfs/${result}`;
+              }
             });
             
-            resolve(result);
           });
         });
       } catch {
@@ -97,15 +100,16 @@ export const Qr: React.FC = () => {
     }
   }, [counter]);
 
-  return <>
+  return <div css={`
+      margin: 24px;
+      text-align: center;
+  `}>
     <a href="https://code.zed.vision">
       {retry > 0 && <div
         css={css`
         background: blue;
         display: inline-block;
         padding: 10px 10px 0px 10px;
-        margin-left: 60px;
-        margin-right: 60px;
         border-radius: 12px;
         text-align: center;
     `}
@@ -126,17 +130,19 @@ export const Qr: React.FC = () => {
           ref={ref}
         >
         </canvas>
-        <p
+        <span
           css={css`
+              display: block;
               font-family: Roboto;
               font-size: 20px;
               text-transform: uppercase; 
               color: white;
+              margin-bottom: 12px;
             `}
         >
           Connect device
-        </p>
+        </span>
       </div>}
     </a>
-  </>;
+  </div>;
 };

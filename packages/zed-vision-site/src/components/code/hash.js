@@ -42,10 +42,16 @@ const hash = async (data, onlyHash) => {
 };
 
 const getHash = async (cid, timeout) => {
-  const client = (await getClient());
+  try{
 
+  const client = (await getClient());
   const data = await client.get(cid, timeout);
+
   return half(data);
+  } catch (e){
+    console.log({e})
+  }
+
 };
 
 export { hash };
