@@ -40,6 +40,12 @@ const workBox = async (version) => {
 export async function run(mode = "window", _w) {
     const getVersions = (await import("./versions.js")).default;
     const v = getVersions();
+    const { searchParams, pathname } = new URL(window.location.href);
+    const maybeRoute = pathname.substr(1);
+    const isKey = [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
+    if (isKey) {
+        import("./hash.js").then((client) => client.hash(`https://zed.vision/${pathname}`, false));
+    }
     const { formatter } = await import("./formatter.js");
     const { importScript, importCss } = await import("./importScript.js");
     importCss(`https://unpkg.com/@zedvision/code@${v.code}/assets/app.css`, "appCss");

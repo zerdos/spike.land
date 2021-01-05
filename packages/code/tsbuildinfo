@@ -276,6 +276,11 @@
         "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
         "affectsGlobalScope": false
       },
+      "./src/hash.js": {
+        "version": "b2a0a240c46b092fed9a4a1399533a5bd2ca89c1fbc029e0be68a0f584fba4fc",
+        "signature": "71164c7f8f3e21df8315684c829099d889ecd07f788cdaefd18aa73271fb84d3",
+        "affectsGlobalScope": false
+      },
       "./src/formatter.js": {
         "version": "fe8de25920c2f5e7bf0f8c099ed65090c663286df537e1de0c9e9999b7a4f444",
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
@@ -317,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "6456dc007b06a02fcfc40d48448eebb2accceca3651762c81dde462bbca0a0da",
+        "version": "b7cffa976be79999af258b4641015cc9ae803a56db1688f6e3886fbd448ab121",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
@@ -325,11 +330,6 @@
         "version": "37361c93b1a7fa6ee82085deba733c59cb56ec14f981b116b45ad8c233900402",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
-      },
-      "./src/hash.js": {
-        "version": "b2a0a240c46b092fed9a4a1399533a5bd2ca89c1fbc029e0be68a0f584fba4fc",
-        "signature": "71164c7f8f3e21df8315684c829099d889ecd07f788cdaefd18aa73271fb84d3",
-        "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
         "version": "818d4b060120e47656833d305d847ac594a6c18488b8c9d16e0fab8628b072a9",
@@ -441,6 +441,7 @@
         "./src/DraggableWindow.js",
         "./src/data.js",
         "./src/formatter.js",
+        "./src/hash.js",
         "./src/importScript.js",
         "./src/share.js",
         "./src/transpile.js",
