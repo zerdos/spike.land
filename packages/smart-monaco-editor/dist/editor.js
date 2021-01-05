@@ -113,7 +113,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@3.1.2/dist/framer-motion.d.ts",
+                url: "https://unpkg.com/framer-motion@3.1.3/dist/framer-motion.d.ts",
                 depend: [],
             },
             {

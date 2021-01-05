@@ -1,4 +1,4 @@
-import {versions} from "@zedvision/code";
+import { versions } from "@zedvision/code";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
@@ -11,14 +11,14 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
 
-
   const cache = caches.default;
   //  await cache.delete(request)
   let response = await cache.match(request);
 
   if (
     !response ||
-    response.url !== `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`
+    response.url !==
+      `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`
   ) {
     response = await fetch(
       `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`,
