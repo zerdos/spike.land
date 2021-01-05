@@ -65,7 +65,7 @@ export const Qr: React.FC = () => {
           checkers.num++;
           console.log({ awaiting: dig, ...checkers });
           const resultKey = new Promise( (resolve, reject) => {
-            setTimeout(() => reject(-1), 15000);
+            setTimeout(() => reject(-1), 20000);
 
             const result =  getHash(dig, 10000).then(result=>{
               console.log({ result: {dig, result} });

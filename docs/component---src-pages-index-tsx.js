@@ -340,7 +340,7 @@ var Qr_Qr = function Qr() {
                     var resultKey = new Promise(function (resolve, reject) {
                       setTimeout(function () {
                         return reject(-1);
-                      }, 15000);
+                      }, 20000);
                       var result = Object(hash["a" /* getHash */])(dig, 10000).then(function (result) {
                         console.log({
                           result: {
