@@ -1,8 +1,9 @@
 {
   "name": "@zedvision/zedvision-site",
   "scripts": {
-    "build": "cp -afr blog/. static && gatsby build --no-uglify && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
-    "start": "yarn build && yarn serve",
+    "build": "echo skiping gatsby build because its very slow",
+    "gbuild": "cp -afr blog/. static && gatsby build --no-uglify && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
+    "start": "yarn gbuild && yarn serve",
     "serve": "(chromium \"http://ipfs.zed.vision:8080/ipfs/$(ipfs add -r -H public -Q)\")",
     "clean": "gatsby clean && deno fmt src"
   },
