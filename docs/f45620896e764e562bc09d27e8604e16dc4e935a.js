@@ -3241,7 +3241,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
                 setEditorAttached(true);
                 _context2.next = 4;
-                return new Function("return function(){\n            return  import(\"https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js\")\n          }")();
+                return new Function("return function(){\n            return  import(\"https://unpkg.com/@zedvision/smart-monaco-editor/dist/editor.js\")\n          }")();
 
               case 4:
                 _yield$Function = _context2.sent;
@@ -3250,6 +3250,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
                 return startMonaco({
                   language: "typescript",
                   code: c,
+                  container: containerRef.current,
                   onChange: function onChange(code) {
                     return changeCode(code);
                   }
@@ -3649,6 +3650,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
       }());
     }
   }, [events.length]);
+  var containerRef = react["useRef"](null);
   return /*#__PURE__*/react["createElement"](react["Fragment"], null, !!title && /*#__PURE__*/react["createElement"](Header, null, /*#__PURE__*/react["createElement"]("span", null, title), /*#__PURE__*/react["createElement"]("button", {
     onClick: /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee7() {
       var hash, dataObj, body, request;
@@ -3699,12 +3701,8 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
       }, _callee7);
     }))
   }, "Save")), /*#__PURE__*/react["createElement"](CodeContainer, {
+    ref: containerRef,
     id: "container"
-  }), /*#__PURE__*/react["createElement"](CodeContainer, {
-    style: {
-      display: "none"
-    },
-    id: "ace"
   }), error ? /*#__PURE__*/react["createElement"](ErrorContainer, null, /*#__PURE__*/react["createElement"]("pre", null, error.toString()), /*#__PURE__*/react["createElement"]("button", {
     onClick: /*#__PURE__*/Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee8() {
       var code, monacoEditor;
@@ -3717,7 +3715,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
 
             case 2:
               code = _context8.sent;
-              monacoEditor = monaco.editor.getModel("file:///main.tsx");
+              monacoEditor = window.monaco.editor.getModel("file:///main.tsx");
               monacoEditor.setValue(code);
               changeCode(code);
 

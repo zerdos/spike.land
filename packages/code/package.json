@@ -12,7 +12,7 @@
         "clean": "deno fmt src",
         "prebuild": "yarn clean",
         "build": "yarn tsc && yarn minify",
-        "minify": "yarn esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
+        "minify": "esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
         "monaco",

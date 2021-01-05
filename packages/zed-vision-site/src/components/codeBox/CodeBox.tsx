@@ -1,16 +1,16 @@
 import * as React from "react";
 
-import { transform } from "../utils/babel.ts";
-import { render } from "../utils/renderer.ts";
-import { hash, unHash } from "../utils/sha.ts";
-import { counterExample, defaultProps } from "./example.ts";
+import { transform } from "../utils/babel";
+import { render } from "../utils/renderer";
+import { hash, unHash } from "../utils/sha";
+import { counterExample, defaultProps } from "./example";
 import {
   CodeContainer,
   ErrorContainer,
   Header,
   ResultContainer,
-} from "./styledCodeBoxComps.tsx";
-import { ITransformed, ResultComponent } from "./codeboxComponents.tsx";
+} from "./styledCodeBoxComps";
+import { ITransformed, ResultComponent } from "./codeboxComponents";
 
 export const CodeBox: React.FC<{
   live?: boolean;
@@ -18,8 +18,11 @@ export const CodeBox: React.FC<{
   className?: string;
   title?: string;
 }> = ({ title, children }) => {
+
   const starterCode = children?.toString().trim() || counterExample;
   if (typeof window === "undefined") return <pre>Loading</pre>;
+
+
 
   const [{ events, hashArr }, changeProps] = React.useState({
     events: defaultProps.events,
@@ -60,7 +63,7 @@ export const CodeBox: React.FC<{
         setEditorAttached(true);
         const { startMonaco } = await (new Function(
           `return function(){
-            return  import("https://unpkg.com/@zedvision/smart-monaco-editor/lib/editor.js")
+            return  import("https://unpkg.com/@zedvision/smart-monaco-editor/dist/editor.js")
           }`,
         )());
 
@@ -68,6 +71,7 @@ export const CodeBox: React.FC<{
           {
             language: "typescript",
             code: c,
+            container: containerRef.current,
             onChange: (code: string) => changeCode(code),
           },
         );
@@ -262,6 +266,8 @@ export const CodeBox: React.FC<{
     }
   }, [events.length]);
 
+  const containerRef = React.useRef(null);
+
   return <>
     {!!title && <Header>
       <span>{title}</span>
@@ -298,8 +304,7 @@ export const CodeBox: React.FC<{
         Save
       </button>
     </Header>}
-    <CodeContainer id="container" />
-    <CodeContainer style={{ display: "none" }} id="ace" />
+    <CodeContainer ref={containerRef} id="container" />
     {error
       ? <ErrorContainer>
         <pre>
@@ -310,7 +315,7 @@ export const CodeBox: React.FC<{
             const code = await unHash(
               transformed[0].code[0],
             );
-            const monacoEditor = monaco.editor.getModel(
+            const monacoEditor =  window.monaco.editor.getModel(
               "file:///main.tsx",
             );
             monacoEditor.setValue(code);

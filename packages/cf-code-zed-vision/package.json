@@ -7,12 +7,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "deno fmt src",
-    "build": "yarn esbuild --bundle src/index.js --outfile=index.js",
+    "build": "esbuild --bundle src/index.js --outfile=index.js",
     "deploy": "yarn build &&  wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
   "license": "MIT",
   "devDependencies": {
+    "@cloudflare/wrangler": "1.12.3",
     "esbuild": "0.8.29"
   },
   "dependencies": {

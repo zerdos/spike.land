@@ -35,7 +35,7 @@
   "source": "src/qrious.js",
   "exports": "./dist/qrious.esm.js",
   "scripts": {
-    "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/qrious.esm.js --target=es2018 --format=esm",
+    "build:esm": "esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/qrious.esm.js --target=es2018 --format=esm",
     "build": "yarn build:esm"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
