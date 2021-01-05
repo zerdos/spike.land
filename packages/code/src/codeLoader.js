@@ -56,7 +56,7 @@ export async function run(mode = "window", _w) {
 
   if (isKey) {
     import("./hash.js").then(({ hash }) =>
-      hash(`https://zed.vision/${pathname}`, true)
+      hash(`https://zed.vision/${pathname}`, false)
     ).then((hash) => console.log({ hash }));
   }
 

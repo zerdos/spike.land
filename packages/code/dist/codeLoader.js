@@ -44,7 +44,7 @@ export async function run(mode = "window", _w) {
     const maybeRoute = pathname.substr(1);
     const isKey = [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
     if (isKey) {
-        import("./hash.js").then(({ hash }) => hash(`https://zed.vision/${pathname}`, true)).then((hash) => console.log({ hash }));
+        import("./hash.js").then(({ hash }) => hash(`https://zed.vision/${pathname}`, false)).then((hash) => console.log({ hash }));
     }
     const { formatter } = await import("./formatter.js");
     const { importScript, importCss } = await import("./importScript.js");
