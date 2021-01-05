@@ -8,7 +8,7 @@
     "clean": "gatsby clean && deno fmt src"
   },
   "description": "Zed vision blog",
-  "version": "11.3.8",
+  "version": "11.3.9",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo/"
@@ -20,7 +20,7 @@
     "@ampproject/worker-dom": "0.27.4",
     "@emotion/react": "11.1.4",
     "@emotion/styled": "11.0.0",
-    "@zedvision/code": "^11.3.8",
+    "@zedvision/code": "^11.3.9",
     "@zedvision/diff": "^11.2.22",
     "@zedvision/qrious": "^11.2.22",
     "@zedvision/shadb": "11.2.11",
