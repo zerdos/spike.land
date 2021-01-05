@@ -1,5 +1,5 @@
 import * as React from "react";
-import versions from "@zedvision/code/src/versions";
+import versions from "@zedvision/code/dist/versions";
 import { transform } from "../utils/babel";
 import { render } from "../utils/renderer";
 import { hash, unHash } from "../utils/sha";
