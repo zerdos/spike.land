@@ -18,6 +18,7 @@ export const importScript = (src, res = []) => {
                 }
                 const ret = {};
                 res.forEach(
+                // deno-lint-ignore ban-ts-comment
                 //@ts-ignore
                 (x) => Object.assign(ret, window[x]));
                 resolve(ret);

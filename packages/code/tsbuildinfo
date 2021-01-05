@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "./src/importScript.js": {
-        "version": "04646be480ccc129904fc73c1d96ae887c5189fa6316bdd64f0f643ed2f3992f",
+        "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
         "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
       },
