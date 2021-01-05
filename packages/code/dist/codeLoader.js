@@ -43,9 +43,9 @@ export async function run(mode = "window", _w) {
     const { searchParams, pathname } = new URL(window.location.href);
     const maybeRoute = pathname.substr(1);
     const isKey = [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
-    if (isKey) {
-        import("./hash.js").then(({ hash }) => hash(`https://zed.vision/${pathname}`, false)).then((hash) => console.log({ hash }));
-    }
+    // if (isKey) {
+    import("./hash.js").then(({ hash }) => hash(`https://zed.vision/${pathname}`, true)).then((hash) => console.log({ hash }));
+    // }
     const { formatter } = await import("./formatter.js");
     const { importScript, importCss } = await import("./importScript.js");
     importCss(`https://unpkg.com/@zedvision/code@${v.code}/assets/app.css`, "appCss");
