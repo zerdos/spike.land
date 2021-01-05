@@ -1,11 +1,11 @@
 export default function () {
-  const editor = "11.2.18";
+  const editor = "11.3.0";
 
   const v = {
     ipfs: "0.52.4-rc.4",
     babel: "7.12.12",
-    code: "11.2.18",
-    emotionRenderer: "11.2.18",
+    code: "11.3.0",
+    emotionRenderer: "11.3.0",
     shadb: "11.2.0",
     prettier: "2.2.1",
     editor:
