@@ -240,7 +240,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        background: blue;\n        display: inline-block;\n        padding: 10px 10px 0px 10px;\n        border-radius: 12px;\n        text-align: center;\n    "]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        background: blue;\n        display: inline-block;\n        padding: 10px 10px 0px 10px;\n        margin-left: 60px;\n        margin-right: 60px;\n        border-radius: 12px;\n        text-align: center;\n    "]);
 
   _templateObject = function _templateObject() {
     return data;

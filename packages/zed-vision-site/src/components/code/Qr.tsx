@@ -104,6 +104,8 @@ export const Qr: React.FC = () => {
         background: blue;
         display: inline-block;
         padding: 10px 10px 0px 10px;
+        margin-left: 60px;
+        margin-right: 60px;
         border-radius: 12px;
         text-align: center;
     `}
