@@ -315,7 +315,7 @@ export const CodeBox: React.FC<{
             );
             const monaco = window["monaco"];
             const monacoEditor =  monaco.editor.getModel(
-              monaco.URI.parse("file:///main.tsx")
+              monaco.Uri.parse("file:///main.tsx")
             );
             monacoEditor.setValue(code);
             changeCode(code);
