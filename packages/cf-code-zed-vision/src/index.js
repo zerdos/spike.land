@@ -1,4 +1,4 @@
-import versions from "@zedvision/code/src/versions.js";
+import {versions} from "@zedvision/code";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
@@ -11,7 +11,6 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
 
-  const v = versions();
 
   const cache = caches.default;
   //  await cache.delete(request)
@@ -19,10 +18,10 @@ async function handleRequest(request) {
 
   if (
     !response ||
-    response.url !== `https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`
+    response.url !== `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`
   ) {
     response = await fetch(
-      `https://unpkg.com/@zedvision/code@${v.code}/ipfs.html`,
+      `https://unpkg.com/@zedvision/code@${versions.code}/ipfs.html`,
     );
     await cache.put(request, response.clone());
   }
