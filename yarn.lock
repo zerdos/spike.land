@@ -4210,7 +4210,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.4.2
+    "@zedvision/code": ^11.4.4
     esbuild: 0.8.30
   languageName: unknown
   linkType: soft
@@ -4227,7 +4227,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@^11.4.2, @zedvision/code@workspace:packages/code":
+"@zedvision/code@^11.4.4, @zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
@@ -4235,7 +4235,7 @@ __metadata:
     "@emotion/react": 11.1.4
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
-    "@zedvision/shadb": 11.2.11
+    "@zedvision/shadb": ^11.4.3
     comlink: 4.3.0
     esbuild: 0.8.30
     framer-motion: 3.1.4
@@ -4248,7 +4248,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/diff@^11.2.22, @zedvision/diff@workspace:packages/diff":
+"@zedvision/diff@^11.4.3, @zedvision/diff@workspace:packages/diff":
   version: 0.0.0-use.local
   resolution: "@zedvision/diff@workspace:packages/diff"
   dependencies:
@@ -4274,7 +4274,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/qrious@^11.2.22, @zedvision/qrious@workspace:packages/qrious":
+"@zedvision/qrious@^11.4.3, @zedvision/qrious@workspace:packages/qrious":
   version: 0.0.0-use.local
   resolution: "@zedvision/qrious@workspace:packages/qrious"
   dependencies:
@@ -4289,7 +4289,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/shadb@11.2.11, @zedvision/shadb@workspace:packages/shadb":
+"@zedvision/shadb@^11.4.3, @zedvision/shadb@workspace:packages/shadb":
   version: 0.0.0-use.local
   resolution: "@zedvision/shadb@workspace:packages/shadb"
   dependencies:
@@ -4322,10 +4322,10 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.4.2
-    "@zedvision/diff": ^11.2.22
-    "@zedvision/qrious": ^11.2.22
-    "@zedvision/shadb": 11.2.11
+    "@zedvision/code": ^11.4.4
+    "@zedvision/diff": ^11.4.3
+    "@zedvision/qrious": ^11.4.3
+    "@zedvision/shadb": ^11.4.3
     framer-motion: 3.1.4
     gatsby: 2.30.0
     gatsby-image: 2.9.0
