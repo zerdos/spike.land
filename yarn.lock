@@ -4218,7 +4218,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.4.13
+    "@zedvision/code": ^11.4.18
     esbuild: 0.8.30
   languageName: unknown
   linkType: soft
@@ -4243,7 +4243,7 @@ __metadata:
     "@emotion/react": 11.1.4
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
-    "@zedvision/shadb": ^11.4.5
+    "@zedvision/shadb": ^11.4.16
     comlink: 4.3.0
     esbuild: 0.8.30
     framer-motion: 3.1.4
@@ -4264,7 +4264,7 @@ __metadata:
     "@emotion/react": 11.1.4
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
-    "@zedvision/shadb": ^11.4.5
+    "@zedvision/shadb": ^11.4.16
     comlink: 4.3.0
     esbuild: 0.8.30
     framer-motion: 3.1.4
@@ -4273,28 +4273,6 @@ __metadata:
     react: 17.0.1
     react-dom: 17.0.1
     tslib: 2.1.0
-    typescript: 4.1.3
-  languageName: unknown
-  linkType: soft
-
-"@zedvision/diff@portal:/home/zed/z/packages/diff::locator=zedvision%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@zedvision/diff@portal:/home/zed/z/packages/diff::locator=zedvision%40workspace%3A."
-  dependencies:
-    "@zedvision/sha256": 11.2.0
-    diff: 5.0.0
-    esbuild: 0.8.30
-    typescript: 4.1.3
-  languageName: node
-  linkType: soft
-
-"@zedvision/diff@workspace:packages/diff":
-  version: 0.0.0-use.local
-  resolution: "@zedvision/diff@workspace:packages/diff"
-  dependencies:
-    "@zedvision/sha256": 11.2.0
-    diff: 5.0.0
-    esbuild: 0.8.30
     typescript: 4.1.3
   languageName: unknown
   linkType: soft
@@ -4329,18 +4307,6 @@ __metadata:
   dependencies:
     esbuild: 0.8.30
     qrious-core: 4.0.0
-  languageName: unknown
-  linkType: soft
-
-"@zedvision/sha256@portal:/home/zed/z/packages/sha256::locator=zedvision%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "@zedvision/sha256@portal:/home/zed/z/packages/sha256::locator=zedvision%40workspace%3A."
-  languageName: node
-  linkType: soft
-
-"@zedvision/sha256@workspace:packages/sha256":
-  version: 0.0.0-use.local
-  resolution: "@zedvision/sha256@workspace:packages/sha256"
   languageName: unknown
   linkType: soft
 
@@ -4387,10 +4353,9 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.4.13
-    "@zedvision/diff": ^11.2.22
+    "@zedvision/code": ^11.4.17
     "@zedvision/qrious": ^11.2.22
-    "@zedvision/shadb": ^11.4.5
+    "@zedvision/shadb": ^11.4.16
     framer-motion: 3.1.4
     gatsby: 2.30.1
     gatsby-image: 2.9.0
