@@ -25,7 +25,10 @@ async function getClient() {
     if (ipfsClient) {
         return ipfsClient;
     }
-    ipfsClient = (await (await new Function(`return import("https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.js")`)()).getIpfsClient());
+    ipfsClient =
+        (await (await new Function(window.location.hostname === "[::1]"
+            ? `return import("./ipfsKV.js")`
+            : `return import("https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.js")`)()).getIpfsClient());
     return ipfsClient;
 }
 /**
@@ -55,7 +58,7 @@ const hash = async (data, onlyHash) => {
         console.log("cahce is fed");
     }
     if (onlyHash) {
-        noisyHashes.map(getHash);
+        noisyHashes.map((cid) => getHash(cid, 20000));
     }
     return noisyHashes;
 };
@@ -72,7 +75,9 @@ const getHash = async (cid, _timeOut) => {
             return null;
         }
         const data = await client.cat(cid, { timeout });
-        return half(data);
+        if (typeof data === "string")
+            return half(data);
+        console.error({ data });
     }
     catch (e) {
         console.log({ e });

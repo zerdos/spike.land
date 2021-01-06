@@ -24,12 +24,14 @@ export const getIpfsClient = async () => {
        *         signal?: 	AbortSignal;
         *        }}  options
        */
-        cat: (cid, options) => worker.cat(cid, options),
+        cat: (cid, { timeout }) => worker.cat(cid, { timeout }),
     };
 };
 async function init() {
     const v = versions();
-    const res = await fetch(`https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.worker.js`);
+    const res = await fetch(window.location.hostname === "[::1]"
+        ? `./src/ipfsKV.worker.js`
+        : `https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.worker.js`);
     const workerSource = await res.text();
     const worker = new Worker(URL.createObjectURL(new Blob([
         workerSource
