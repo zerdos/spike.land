@@ -1524,7 +1524,7 @@ tags.forEach(function (tagName) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(){var editor="11.3.0";var emotionRenderer="11.4.3";var v={ipfs:"0.52.4-rc.4",workbox:"6.0.2",babel:"7.12.12",code:"11.4.6",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js",shadb:"11.4.5",prettier:"2.2.1",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",diff:"11.4.3",sha256:"11.0.5",uuid:"8.3.2",comlink:"4.3.0"};return v;});
+/* harmony default export */ __webpack_exports__["a"] = (function(){var editor="11.3.0";var emotionRenderer="11.4.7";var v={ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",code:"11.4.6",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js",shadb:"11.4.5",prettier:"2.2.1",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",diff:"11.4.3",sha256:"11.0.5",uuid:"8.3.2",comlink:"4.3.0"};return v;});
 
 /***/ }),
 
@@ -2523,7 +2523,7 @@ var regenerator = __webpack_require__(4);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(10);
+var defineProperty = __webpack_require__(13);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__(34);
