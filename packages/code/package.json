@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "11.4.4",
+    "version": "11.4.5",
     "description": "zed.vison/code",
     "main": "src/codeLoader.js",
     "files": [
@@ -45,7 +45,7 @@
         "@emotion/react": "11.1.4",
         "@types/react": "17.0.0",
         "@types/react-dom": "17.0.0",
-        "@zedvision/shadb": "^11.4.3",
+        "@zedvision/shadb": "^11.4.5",
         "comlink": "4.3.0",
         "esbuild": "0.8.30",
         "framer-motion": "3.1.4",
