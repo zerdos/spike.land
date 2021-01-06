@@ -4210,7 +4210,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.4.2
+    "@zedvision/code": ^11.4.3
     esbuild: 0.8.30
   languageName: unknown
   linkType: soft
@@ -4227,7 +4227,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@^11.4.2, @zedvision/code@workspace:packages/code":
+"@zedvision/code@^11.4.3, @zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
@@ -4235,7 +4235,7 @@ __metadata:
     "@emotion/react": 11.1.4
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
-    "@zedvision/shadb": 11.2.11
+    "@zedvision/shadb": ^11.4.3
     comlink: 4.3.0
     esbuild: 0.8.30
     framer-motion: 3.1.4
@@ -4248,7 +4248,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/diff@^11.2.22, @zedvision/diff@workspace:packages/diff":
+"@zedvision/diff@^11.4.3, @zedvision/diff@workspace:packages/diff":
   version: 0.0.0-use.local
   resolution: "@zedvision/diff@workspace:packages/diff"
   dependencies:
@@ -4274,7 +4274,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/qrious@^11.2.22, @zedvision/qrious@workspace:packages/qrious":
+"@zedvision/qrious@^11.4.3, @zedvision/qrious@workspace:packages/qrious":
   version: 0.0.0-use.local
   resolution: "@zedvision/qrious@workspace:packages/qrious"
   dependencies:
@@ -4289,7 +4289,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/shadb@11.2.11, @zedvision/shadb@workspace:packages/shadb":
+"@zedvision/shadb@^11.4.3, @zedvision/shadb@workspace:packages/shadb":
   version: 0.0.0-use.local
   resolution: "@zedvision/shadb@workspace:packages/shadb"
   dependencies:
@@ -4322,12 +4322,12 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.4.2
-    "@zedvision/diff": ^11.2.22
-    "@zedvision/qrious": ^11.2.22
-    "@zedvision/shadb": 11.2.11
+    "@zedvision/code": ^11.4.3
+    "@zedvision/diff": ^11.4.3
+    "@zedvision/qrious": ^11.4.3
+    "@zedvision/shadb": ^11.4.3
     framer-motion: 3.1.4
-    gatsby: 2.30.0
+    gatsby: 2.30.1
     gatsby-image: 2.9.0
     gatsby-plugin-manifest: 2.10.0
     gatsby-plugin-mdx: 1.8.0
@@ -7001,17 +7001,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:0.3.1":
+  version: 0.3.1
+  resolution: "cookie@npm:0.3.1"
+  checksum: 5fb6caf84d4e1f5684abae2a29d019466166a452539ef43562eaba5bf2f5d40a5cf0d0b4e46614fb8e6b408fd0c718885ba6696ce976e2c53d07216152ec7091
+  languageName: node
+  linkType: hard
+
 "cookie@npm:0.4.0":
   version: 0.4.0
   resolution: "cookie@npm:0.4.0"
   checksum: 7aaef4b642c533600fdd001d963a507dfcd814267503374e51d9743475d024feeff8b0b4ddd0777a25791a2efbdfd8bc4a0fe0696104efa195e8f8584807d410
-  languageName: node
-  linkType: hard
-
-"cookie@npm:~0.4.1":
-  version: 0.4.1
-  resolution: "cookie@npm:0.4.1"
-  checksum: b8e0928e3e7aba013087974b33a6eec730b0a68b7ec00fc3c089a56ba2883bcf671252fc2ed64775aa1ca64796b6e1f6fdddba25a66808aef77614d235fd3e06
   languageName: node
   linkType: hard
 
@@ -8384,25 +8384,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"engine.io-client@npm:~3.5.0":
-  version: 3.5.0
-  resolution: "engine.io-client@npm:3.5.0"
-  dependencies:
-    component-emitter: ~1.3.0
-    component-inherit: 0.0.3
-    debug: ~3.1.0
-    engine.io-parser: ~2.2.0
-    has-cors: 1.1.0
-    indexof: 0.0.1
-    parseqs: 0.0.6
-    parseuri: 0.0.6
-    ws: ~7.4.2
-    xmlhttprequest-ssl: ~1.5.4
-    yeast: 0.1.2
-  checksum: 9b554ac29986ba75cf071dd09d4d29212ae11c737838310a43256a50cb9875f290daaacce45a573c06f07120639cf280488f452825908aa06d71b5a339442c4b
-  languageName: node
-  linkType: hard
-
 "engine.io-parser@npm:~2.2.0":
   version: 2.2.1
   resolution: "engine.io-parser@npm:2.2.1"
@@ -8416,17 +8397,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"engine.io@npm:~3.5.0":
-  version: 3.5.0
-  resolution: "engine.io@npm:3.5.0"
+"engine.io@npm:~3.4.0":
+  version: 3.4.2
+  resolution: "engine.io@npm:3.4.2"
   dependencies:
     accepts: ~1.3.4
     base64id: 2.0.0
-    cookie: ~0.4.1
+    cookie: 0.3.1
     debug: ~4.1.0
     engine.io-parser: ~2.2.0
-    ws: ~7.4.2
-  checksum: 4a2251452542b9669f014d4edeff602c95b68c21635b85510b19810f93788a87787bf0ff2686f260107ad133eda14c40ab9e9eb10bd796906865d3cd94f1d992
+    ws: ^7.1.2
+  checksum: e581ca04149a3a2216ba2d0ce481cc7dbab98c6a1ab61d706e390ec0538c2adc8017b1f429a96f414c1dd8ff184923e256667a5073c969b94c5de27988925067
   languageName: node
   linkType: hard
 
@@ -10219,9 +10200,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"gatsby@npm:2.30.0":
-  version: 2.30.0
-  resolution: "gatsby@npm:2.30.0"
+"gatsby@npm:2.30.1":
+  version: 2.30.1
+  resolution: "gatsby@npm:2.30.1"
   dependencies:
     "@babel/code-frame": ^7.10.4
     "@babel/core": ^7.12.3
@@ -10349,7 +10330,7 @@ fsevents@~2.1.2:
     shallow-compare: ^1.2.2
     signal-exit: ^3.0.3
     slugify: ^1.4.4
-    socket.io: ^2.3.0
+    socket.io: 2.3.0
     socket.io-client: 2.3.0
     source-map: ^0.7.3
     source-map-support: ^0.5.19
@@ -10381,7 +10362,7 @@ fsevents@~2.1.2:
     react-dom: ^16.4.2
   bin:
     gatsby: ./cli.js
-  checksum: adcdaa0e1b0c81b0d0c55f8f9d869b2a2bbfcc078fc6de1719db9f14953a74aadbf4e67b73819ee4b82eff4ada1fb7a51ab026880307d2756977e2ebab2a24c1
+  checksum: 5d5a085966e61c24260935c2be2ccc5632176ac3b082cc99ca268b533e16ace9bb6d2d27b19fdfe4c8ca2429b71b57897e387c3c01cb314e3b01ff4b71d903a8
   languageName: node
   linkType: hard
 
@@ -18829,25 +18810,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"socket.io-client@npm:2.4.0":
-  version: 2.4.0
-  resolution: "socket.io-client@npm:2.4.0"
-  dependencies:
-    backo2: 1.0.2
-    component-bind: 1.0.0
-    component-emitter: ~1.3.0
-    debug: ~3.1.0
-    engine.io-client: ~3.5.0
-    has-binary2: ~1.0.2
-    indexof: 0.0.1
-    parseqs: 0.0.6
-    parseuri: 0.0.6
-    socket.io-parser: ~3.3.0
-    to-array: 0.1.4
-  checksum: 75a8f9b69a0a47c41c9cff80fe5bfff02b7f75eefd4fdbe2f6b74ca0f0f408d3eccd734f5d8cc8c180859bb75b24fdb9f97110c36ac4015a0f4d2b41c891e99f
-  languageName: node
-  linkType: hard
-
 "socket.io-parser@npm:~3.3.0":
   version: 3.3.1
   resolution: "socket.io-parser@npm:3.3.1"
@@ -18870,17 +18832,17 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"socket.io@npm:^2.3.0":
-  version: 2.4.0
-  resolution: "socket.io@npm:2.4.0"
+"socket.io@npm:2.3.0":
+  version: 2.3.0
+  resolution: "socket.io@npm:2.3.0"
   dependencies:
     debug: ~4.1.0
-    engine.io: ~3.5.0
+    engine.io: ~3.4.0
     has-binary2: ~1.0.2
     socket.io-adapter: ~1.1.0
-    socket.io-client: 2.4.0
+    socket.io-client: 2.3.0
     socket.io-parser: ~3.4.0
-  checksum: 3b15cd2620c6b13b9dba2496284c739b140327a15d23263db9a151cdd0799e75f4516066b277bbc933ac67205e17ca75c9475ac5f5b03911e6f35f886d2198b2
+  checksum: 12368e2b053bbedc1b2f3735cdb2aaeca446314ab2ff72dda3aebc56b74502a2b92abf3c2f1aaa9f98a287f4e390a52fccd7846f09d12353a5691452303fa723
   languageName: node
   linkType: hard
 
@@ -22020,7 +21982,7 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"ws@npm:^7.3.0, ws@npm:~7.4.2":
+"ws@npm:^7.1.2, ws@npm:^7.3.0":
   version: 7.4.2
   resolution: "ws@npm:7.4.2"
   peerDependencies:
