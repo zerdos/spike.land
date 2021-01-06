@@ -47,12 +47,6 @@ const hash = async (data, onlyHash) => {
     }
     const noisyHashes = (await Promise.all([
         await client.add(data, { onlyHash }),
-        await client.add(`${data}N${data}`, { onlyHash }),
-        await client.add(`${data}O${data}`, { onlyHash }),
-        await client.add(`${data}I${data}`, { onlyHash }),
-        await client.add(`${data}S${data}`, { onlyHash }),
-        await client.add(`${data}E${data}`, { onlyHash }),
-        await client.add(`${data}!${data}`, { onlyHash }),
     ]));
     if (!onlyHash) {
         console.log("feeding the cache");
@@ -60,10 +54,7 @@ const hash = async (data, onlyHash) => {
         console.log("cahce is fed");
     }
     if (onlyHash) {
-        return Promise.all(noisyHashes.map((cid) => getHash(cid, 20000).then((x) => {
-            console.log({ x });
-            return x;
-        })));
+        return Promise.all(noisyHashes.map((cid) => getHash(cid, 20000)));
     }
     return noisyHashes;
 };

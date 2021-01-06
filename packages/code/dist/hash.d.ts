@@ -2,7 +2,7 @@
  * @param {any} data
  * @param {any} onlyHash
  */
-export function hash(data: any, onlyHash: any): Promise<[any, any, any, any, any, any, any] | (string | any[] | null | undefined)[] | null>;
+export function hash(data: any, onlyHash: any): Promise<any[] | null>;
 /**
  * @param {string} cid
  * @param {number|undefined} _timeOut

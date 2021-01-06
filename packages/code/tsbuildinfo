@@ -277,8 +277,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "41b03013163ecaacdc6dc504320e7f0df2324a4a606528525a06c8ad5b9cd252",
-        "signature": "55335774b2e681c5e2bdf47c08582c554cb1974469a8ad6bd273afc8b08f6e2f",
+        "version": "2f78c63ac891f574aa06edbc86422229ca7dd95aa9d88a6da1b7069a22fcb23c",
+        "signature": "57898bc64d0179c119c130acda555a603549b843b1a0979e7d4c3a678c929538",
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
