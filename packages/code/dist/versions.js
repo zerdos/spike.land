@@ -5,7 +5,7 @@ export default function () {
         ipfs: "0.52.3",
         workbox: "6.0.2",
         babel: "7.12.12",
-        code: "11.4.8",
+        code: "11.4.11",
         emotionRenderer: `https://unpkg.com/@zedvision/emotion-react-renderer@${emotionRenderer}/dist/bundle.js`,
         shadb: "11.4.5",
         prettier: "2.2.1",

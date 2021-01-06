@@ -71,10 +71,11 @@ const ipfsKV = {
       for await (const result of ipfsNode.cat(cid, options)) {
         res.push(new TextDecoder("utf-8").decode(result));
       }
+      console.log("CAT CAT", res);
 
       return res.join("");
     } catch (e) {
-      return ({ e });
+      return (JSON.stringify({ e }));
     }
   },
 };

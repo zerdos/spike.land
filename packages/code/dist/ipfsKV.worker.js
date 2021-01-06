@@ -84,10 +84,11 @@ const ipfsKV = {
                 }
                 finally { if (e_2) throw e_2.error; }
             }
+            console.log("CAT CAT", res);
             return res.join("");
         }
         catch (e) {
-            return ({ e });
+            return (JSON.stringify({ e }));
         }
     },
 };
