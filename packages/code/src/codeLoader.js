@@ -59,8 +59,8 @@ export async function run(mode = "window", _w) {
   Object.assign(window, await import("./hash.js"));
 
   if (isKey) {
-    import("./hash.js").then(({ sendSignal }) =>
-      sendSignal(`https://zed.vision/${pathname}`)
+    await import("./hash.js").then(({ sendSignal }) =>
+      sendSignal(`https://zed.vision/${maybeRoute}`)
     );
   }
 

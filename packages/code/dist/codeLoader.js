@@ -45,7 +45,7 @@ export async function run(mode = "window", _w) {
     const isKey = [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
     Object.assign(window, await import("./hash.js"));
     if (isKey) {
-        import("./hash.js").then(({ sendSignal }) => sendSignal(`https://zed.vision/${pathname}`));
+        await import("./hash.js").then(({ sendSignal }) => sendSignal(`https://zed.vision/${maybeRoute}`));
     }
     const { formatter } = await import("./formatter.js");
     const { importScript, importCss } = await import("./importScript.js");
