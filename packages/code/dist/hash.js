@@ -4,10 +4,7 @@ const v = versions();
  *
  * @param {string} cid
  */
-const feedTheCache = (cid) => console.log(cid);
-// fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(
-// console.log
-// );
+const feedTheCache = (cid) => fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(console.log);
 /**
  * @param {string | any[]} data
  */
