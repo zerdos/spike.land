@@ -171,7 +171,7 @@ export async function run(mode = "window", _w) {
     window.document.body.appendChild(element);
 
     const { DraggableWindow } = await import(
-      "./QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js"
+      v.DraggableWindow
     );
     renderEmotion(jsx(DraggableWindow, { onShare }), element);
 

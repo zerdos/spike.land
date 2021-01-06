@@ -267,8 +267,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "d6855b0c4ca1ed92ee7f16707eee5e54acf6eefbbfc59b9a21db7b182d181db9",
-        "signature": "c9fec3c02a391f897042258c0e30dc2a2c9327ad502d942e326091e710fd1125",
+        "version": "44b762c98ef684a7367f796016b0787a598f9d9d84a58808014d195ef1f7ccac",
+        "signature": "98ef2611920b0eda51eff29b28a51267150bef0f0cb34ccd6a058e966e9cdb0f",
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
@@ -321,13 +321,8 @@
         "signature": "cc014f7866353e93932e07892657579702bbc28755f41b1817bfe910b1d0723c",
         "affectsGlobalScope": false
       },
-      "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js": {
-        "version": "b74dc5b6ea5546489fdb5ed332cd32b7eaa70417de95f9fd7c32c3fd16dc5919",
-        "signature": "f5c7cff168d97bacee5a4b4d0c91f1b3f3d0ce5ea2f7b2f92c3f07a709f45cfd",
-        "affectsGlobalScope": false
-      },
       "./src/codeLoader.js": {
-        "version": "a764ddde78f57449390355343ba3558814aae9a805ef18acf8078ec4280b00ca",
+        "version": "df372196bd77a93c06cbdd408f2b9a305d98aa458084eb462973a6c4be2852fd",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
@@ -440,14 +435,9 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
-      "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_modules/tslib/tslib.d.ts"
-      ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
-        "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js",
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
@@ -616,7 +606,6 @@
       "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
       "./node_modules/tslib/tslib.d.ts",
       "./src/DraggableWindow.js",
-      "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js",
       "./src/codeLoader.js",
       "./src/codeRunner.js",
       "./src/data.js",
