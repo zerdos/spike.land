@@ -6,10 +6,10 @@ export default function () {
     ipfs: "0.52.4-rc.4",
     workbox: "6.0.2",
     babel: "7.12.12",
-    code: "11.4.4",
+    code: "11.4.6",
     emotionRenderer:
       `https://unpkg.com/@zedvision/emotion-react-renderer@${emotionRenderer}/dist/bundle.js`,
-    shadb: "11.4.3",
+    shadb: "11.4.5",
     prettier: "2.2.1",
     editor:
       `https://unpkg.com/@zedvision/smart-monaco-editor@${editor}/dist/editor.js`,
