@@ -4,7 +4,7 @@
  */
 export function hash(data: any, onlyHash: any): Promise<[any, any, any, any, any, any, any] | null>;
 /**
- * @param {any} cid
- * @param {any} timeout
+ * @param {string} cid
+ * @param {number|undefined} _timeOut
  */
-export function getHash(cid: any, timeout: any): Promise<string | any[] | null | undefined>;
+export function getHash(cid: string, _timeOut: number | undefined): Promise<string | any[] | null | undefined>;

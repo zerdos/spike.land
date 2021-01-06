@@ -3,20 +3,28 @@ import { __asyncValues } from "tslib";
 importScripts("https://unpkg.com/ipfs@$$ipfs$$/dist/index.min.js");
 importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
 //   };ya
+// deno-lint-ignore ban-ts-comment
+// @ts-ignore
+/**
+ * {
+ * create: ()=> Promise<{add: (data: s)=>void }>
+ * }
+ */
+// deno-lint-ignore ban-ts-comment
+// @ts-ignore
+const IPFS = (() => globalThis.Ipfs)();
 /** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: any, arg1: { timeout: any; }) => any; }} */
 let ipfsNode;
 const ipfsKV = {
     /**
-   * @param {any} data
-   * @param {{ onlyHash: any; }} options
+   * @param {string} data
+   * @param {{ onlyHash: boolean; }} options
    */
     add: async (data, options) => {
-        //@ts-ignore
-        ipfsNode = ipfsNode || await Ipfs.create();
+        ipfsNode = ipfsNode || await IPFS.create();
         const { cid } = await ipfsNode.add(data, options);
         if (options && options.onlyHash) {
-            //@ts-ignore
-            return (new Ipfs.CID(0, 112, cid.multihash)).toString();
+            return (new IPFS.CID(0, 112, cid.multihash)).toString();
         }
         return cid.string;
     },
@@ -27,11 +35,8 @@ const ipfsKV = {
     addAll: async (files) => {
         var e_1, _a;
         try {
-            //@ts-ignore
-            ipfsNode = ipfsNode || await Ipfs.create();
+            ipfsNode = ipfsNode || await IPFS.create();
             const res = [];
-            //@ts-ignore
-            ipfsNode = ipfsNode || await (await getIpfs()).create();
             try {
                 for (var _b = __asyncValues(ipfsNode.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
                     const result = _c.value;
@@ -56,17 +61,18 @@ const ipfsKV = {
     /**
      *
      * @param {string} cid
-     * @param {number} timeout
+     * @param {any} options
      */
-    get: async (cid, timeout) => {
+    cat: async (cid, options) => {
         var e_2, _a;
-        let result = "";
-        //@ts-ignore
-        ipfsNode = ipfsNode || await Ipfs.create();
+        ipfsNode = ipfsNode || await IPFS.create();
+        const res = [];
         try {
-            for (var _b = __asyncValues(ipfsNode.cat(cid, { timeout })), _c; _c = await _b.next(), !_c.done;) {
-                let res = _c.value;
-                result = result + res;
+            for (var _b = __asyncValues(ipfsNode.cat(cid, options)), _c; _c = await _b.next(), !_c.done;) {
+                const result = _c.value;
+                const { path, cid } = result;
+                const CID = cid.string;
+                res.push({ path, CID });
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -76,8 +82,10 @@ const ipfsKV = {
             }
             finally { if (e_2) throw e_2.error; }
         }
-        return result;
+        return res;
     },
 };
-//@ts-ignore
+// deno-lint-ignore ban-ts-comment
+// @ts-ignore
+// deno-lint-ignore no-undef
 Comlink.expose(ipfsKV);

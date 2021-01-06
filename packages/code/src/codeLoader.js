@@ -54,6 +54,8 @@ export async function run(mode = "window", _w) {
   const maybeRoute = pathname.substr(1);
   const isKey = [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 
+  Object.assign(window, await import("./hash.js"));
+
   if (isKey) {
     import("./hash.js").then(({ hash }) =>
       hash(`https://zed.vision/${pathname}`, false)

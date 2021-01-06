@@ -22,9 +22,14 @@ export const getIpfsClient = async () => {
     /**
    * 
    * @param {string} cid 
-   * @param {number} timeout 
+   * @param {{
+   *          offset?: number;
+   *          length?: number;
+   *          timeout?: 	number;
+   *         signal?: 	AbortSignal;
+    *        }}  options 
    */
-    get: (cid, timeout) => worker.get(cid, timeout),
+    get: (cid, options) => worker.get(cid, options),
   };
 };
 

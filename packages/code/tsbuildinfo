@@ -277,8 +277,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "b2a0a240c46b092fed9a4a1399533a5bd2ca89c1fbc029e0be68a0f584fba4fc",
-        "signature": "71164c7f8f3e21df8315684c829099d889ecd07f788cdaefd18aa73271fb84d3",
+        "version": "a2ad4ed0a0edf7076ddd96f92c0e221fdbcc08898c5a1fb03c1e2ec74c071950",
+        "signature": "7e7893d3bf7fb880270ce72305571e55cb06367b8cb7c1a1311e15e102758138",
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
@@ -312,8 +312,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
-        "version": "59d14f52e0e9c5e19a0133b0045870f2c7dca5b22d6376c04b6b8668bb1e0e19",
-        "signature": "ed7958631f66265cd8a0b4f24faf27bd493494d1c0a63f9322c1d07bb8d07df1",
+        "version": "408dd729aba30da93245eb541da9ad4f1dfb27ab971c81b0785a7396a4b2b2d9",
+        "signature": "1e045daff495b3008b4115fab0032b02ad0ac913eab8c21c2d912c96d8093a24",
         "affectsGlobalScope": false
       },
       "./src/share.js": {
@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "aee9bee34f5abad7288de23974207fbed8a3b5661445ba2d70a6c3f23b96871c",
+        "version": "d33b34ed6c32f316c0777ef2f3fbeb825b3cc056beac4e6f47dc79936e850aa7",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
@@ -332,8 +332,8 @@
         "affectsGlobalScope": true
       },
       "./src/ipfsKV.worker.js": {
-        "version": "66c3c6e6fab488e1d64db0986bc4a5626da49c940ca3f9e64c3a0db62a797ccc",
-        "signature": "d3c7e280d84d87740e81d1dd0566dd7ffe9bd1280bff172271aaf06d2ed08a32",
+        "version": "1ddea3a16940ce126e4f2b449c6c7a86635c1f1005ae78ce174ea5bcacf50a18",
+        "signature": "59ee30cfbc79c2d04684266bb5e53cae01305d9de9eae0dbcb83164d7dd69da2",
         "affectsGlobalScope": true
       },
       "./src/refs.d.ts": {

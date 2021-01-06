@@ -1,6 +1,11 @@
 import versions from "./versions.js";
 const v = versions();
 /**
+ *
+ * @param {string} cid
+ */
+const feedTheCache = (cid) => fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(console.log);
+/**
  * @param {string | any[]} data
  */
 const half = (data) => {
@@ -28,12 +33,14 @@ async function getClient() {
  * @param {any} onlyHash
  */
 const hash = async (data, onlyHash) => {
+    console.log("asking for client");
     /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
     const client = await getClient();
     if (client === null) {
+        console.log("no client - exiting");
         return null;
     }
-    return (await Promise.all([
+    const noisyHashes = (await Promise.all([
         await client.add(data, { onlyHash }),
         await client.add(`${data}N${data}`, { onlyHash }),
         await client.add(`${data}O${data}`, { onlyHash }),
@@ -42,19 +49,29 @@ const hash = async (data, onlyHash) => {
         await client.add(`${data}E${data}`, { onlyHash }),
         await client.add(`${data}!${data}`, { onlyHash }),
     ]));
+    if (!onlyHash) {
+        console.log("feeding the cache");
+        await Promise.all(noisyHashes.map(feedTheCache));
+        console.log("cahce is fed");
+    }
+    if (onlyHash) {
+        noisyHashes.map(getHash);
+    }
+    return noisyHashes;
 };
 /**
- * @param {any} cid
- * @param {any} timeout
+ * @param {string} cid
+ * @param {number|undefined} _timeOut
  */
-const getHash = async (cid, timeout) => {
+const getHash = async (cid, _timeOut) => {
+    const timeout = _timeOut || 20000;
     try {
         /** @type {{ get: (arg0: any, arg1: any) => any; } | null} */
         const client = (await getClient());
         if (client === null) {
             return null;
         }
-        const data = await client.get(cid, timeout);
+        const data = await client.get(cid, { timeout });
         return half(data);
     }
     catch (e) {
