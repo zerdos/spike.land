@@ -5,7 +5,8 @@ import { waitForSignalAndJump } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
-st ref = React.useRef(null);
+export const Qr: React.FC = () => {
+  const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(100);
 
   const [url, setUrl] = React.useState("");

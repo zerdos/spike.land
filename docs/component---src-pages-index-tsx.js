@@ -208,10 +208,7 @@ var versions = __webpack_require__(45);
 var v=Object(versions["a" /* default */])();/**
  *
  * @param {string} cid
- */var feedTheCache=function feedTheCache(cid){return console.log(cid);};// fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(
-// console.log
-// );
-/**
+ */var feedTheCache=function feedTheCache(cid){return fetch("https://code.zed.vision/ipfs/"+cid).then(function(resp){return resp.text();}).then(console.log);};/**
  * @param {string | any[]} data
  */var half=function half(data){var halfLength=(data.length-data.length%2)/2;if(data.slice(0,halfLength-1)===data.slice(halfLength+1,2*halfLength)){return data.slice(0,halfLength);}// console.log({
 //   slice1: data.slice(0, halfLength) ,
@@ -278,10 +275,6 @@ function _templateObject() {
 
 
 
-var checkers = {
-  num: 0,
-  sum: 0
-};
 var Qr_Qr = function Qr() {
   var ref = react_default.a.useRef(null);
 
@@ -728,7 +721,7 @@ tags.forEach(function (tagName) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(){var editor="11.3.0";var emotionRenderer="11.4.7";var v={ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",code:"11.4.8",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js",shadb:"11.4.5",prettier:"2.2.1",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",diff:"11.4.3",sha256:"11.0.5",uuid:"8.3.2",comlink:"4.3.0"};return v;});
+/* harmony default export */ __webpack_exports__["a"] = (function(){var editor="11.3.0";var emotionRenderer="11.4.7";var v={ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",code:"11.4.17",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js",shadb:"11.4.16",prettier:"2.2.1",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",uuid:"8.3.2",comlink:"4.3.0"};return v;});
 
 /***/ }),
 
