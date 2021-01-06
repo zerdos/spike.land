@@ -7,8 +7,8 @@
     "exports": "./dist/shaDB.js",
     "scripts": {
         "build": "echo ok",
-        "bundle:IDB": "deno bundle https://unpkg.com/idb@5.0.8/build/esm/index.js > src/vendor/idb.js",
-        "clean": "rm -rf dist && mkdir dist && deno fmt src",
+        "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@5.0.8/build/esm/index.js > src/vendor/idb.js",
+        "clean": "rm -rf dist src/vendor && mkdir dist && mkdir src/vendor && yarn bundle:IDB && deno fmt src",
         "prebuild": "yarn tsc || echo ok "
     },
     "keywords": [

@@ -23,71 +23,6 @@ const transactionDoneMap = new WeakMap();
 const transactionStoreNamesMap = new WeakMap();
 const transformCache = new WeakMap();
 const reverseTransformCache = new WeakMap();
-function cacheDonePromiseForTransaction(tx) {
-  if (transactionDoneMap.has(tx)) return;
-  const done = new Promise((resolve, reject) => {
-    const unlisten = () => {
-      tx.removeEventListener("complete", complete);
-      tx.removeEventListener("error", error);
-      tx.removeEventListener("abort", error);
-    };
-    const complete = () => {
-      resolve();
-      unlisten();
-    };
-    const error = () => {
-      reject(tx.error || new DOMException("AbortError", "AbortError"));
-      unlisten();
-    };
-    tx.addEventListener("complete", complete);
-    tx.addEventListener("error", error);
-    tx.addEventListener("abort", error);
-  });
-  transactionDoneMap.set(tx, done);
-}
-const unwrap1 = (value) => reverseTransformCache.get(value);
-const readMethods = [
-  "get",
-  "getKey",
-  "getAll",
-  "getAllKeys",
-  "count",
-];
-const writeMethods = [
-  "put",
-  "add",
-  "delete",
-  "clear",
-];
-const cachedMethods = new Map();
-function getMethod(target, prop) {
-  if (
-    !(target instanceof IDBDatabase && !(prop in target) &&
-      typeof prop === "string")
-  ) {
-    return;
-  }
-  if (cachedMethods.get(prop)) return cachedMethods.get(prop);
-  const targetFuncName = prop.replace(/FromIndex$/, "");
-  const useIndex = prop !== targetFuncName;
-  const isWrite = writeMethods.includes(targetFuncName);
-  if (
-    !(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) ||
-    !(isWrite || readMethods.includes(targetFuncName))
-  ) {
-    return;
-  }
-  const method = async function (storeName, ...args) {
-    const tx = this.transaction(storeName, isWrite ? "readwrite" : "readonly");
-    let target1 = tx.store;
-    if (useIndex) target1 = target1.index(args.shift());
-    const returnVal = await target1[targetFuncName](...args);
-    if (isWrite) await tx.done;
-    return returnVal;
-  };
-  cachedMethods.set(prop, method);
-  return method;
-}
 function promisifyRequest(request) {
   const promise = new Promise((resolve, reject) => {
     const unlisten = () => {
@@ -113,6 +48,28 @@ function promisifyRequest(request) {
   });
   reverseTransformCache.set(promise, request);
   return promise;
+}
+function cacheDonePromiseForTransaction(tx) {
+  if (transactionDoneMap.has(tx)) return;
+  const done = new Promise((resolve, reject) => {
+    const unlisten = () => {
+      tx.removeEventListener("complete", complete);
+      tx.removeEventListener("error", error);
+      tx.removeEventListener("abort", error);
+    };
+    const complete = () => {
+      resolve();
+      unlisten();
+    };
+    const error = () => {
+      reject(tx.error || new DOMException("AbortError", "AbortError"));
+      unlisten();
+    };
+    tx.addEventListener("complete", complete);
+    tx.addEventListener("error", error);
+    tx.addEventListener("abort", error);
+  });
+  transactionDoneMap.set(tx, done);
 }
 let idbProxyTraps = {
   get(target, prop, receiver) {
@@ -189,6 +146,7 @@ function wrap1(value) {
   }
   return newValue;
 }
+const unwrap1 = (value) => reverseTransformCache.get(value);
 const u = unwrap1, w = wrap1;
 export { u as unwrap, w as wrap };
 function openDB1(
@@ -220,6 +178,48 @@ function deleteDB1(name, { blocked } = {}) {
   const request = indexedDB.deleteDatabase(name);
   if (blocked) request.addEventListener("blocked", () => blocked());
   return wrap1(request).then(() => undefined);
+}
+const readMethods = [
+  "get",
+  "getKey",
+  "getAll",
+  "getAllKeys",
+  "count",
+];
+const writeMethods = [
+  "put",
+  "add",
+  "delete",
+  "clear",
+];
+const cachedMethods = new Map();
+function getMethod(target, prop) {
+  if (
+    !(target instanceof IDBDatabase && !(prop in target) &&
+      typeof prop === "string")
+  ) {
+    return;
+  }
+  if (cachedMethods.get(prop)) return cachedMethods.get(prop);
+  const targetFuncName = prop.replace(/FromIndex$/, "");
+  const useIndex = prop !== targetFuncName;
+  const isWrite = writeMethods.includes(targetFuncName);
+  if (
+    !(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) ||
+    !(isWrite || readMethods.includes(targetFuncName))
+  ) {
+    return;
+  }
+  const method = async function (storeName, ...args) {
+    const tx = this.transaction(storeName, isWrite ? "readwrite" : "readonly");
+    let target1 = tx.store;
+    if (useIndex) target1 = target1.index(args.shift());
+    const returnVal = await target1[targetFuncName](...args);
+    if (isWrite) await tx.done;
+    return returnVal;
+  };
+  cachedMethods.set(prop, method);
+  return method;
 }
 replaceTraps((oldTraps) => ({
   ...oldTraps,
