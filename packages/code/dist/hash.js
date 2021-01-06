@@ -38,20 +38,20 @@ async function getClient() {
  * @param {any} onlyHash
  */
 const hash = async (data, onlyHash) => {
-    console.log("asking for client");
+    //  console.log("asking for client");
     /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
     const client = await getClient();
     if (client === null) {
-        console.log("no client - exiting");
+        //  console.log("no client - exiting");
         return null;
     }
     const noisyHashes = (await Promise.all([
         await client.add(`${data}`, { onlyHash }),
     ]));
     if (!onlyHash) {
-        console.log("feeding the cache");
+        // console.log("feeding the cache");
         await Promise.all(noisyHashes.map(feedTheCache));
-        console.log("cahce is fed");
+        //console.log("cahce is fed");
     }
     if (onlyHash) {
         const res = await Promise.all(noisyHashes.map((cid) => getHash(cid, 20000).then((x) => ({ success: x === data }))));

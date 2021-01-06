@@ -343,7 +343,7 @@ var Qr_Qr = function Qr() {
                   return setRetry(function (x) {
                     return x - 1;
                   });
-                }, 10000); // const toCheck = await hash(url, true);
+                }, 20000); // const toCheck = await hash(url, true);
 
                 _context.next = 14;
                 return waitForSignal(url);
@@ -353,7 +353,7 @@ var Qr_Qr = function Qr() {
                 success = _yield$waitForSignal.success;
 
                 if (success) {
-                  window.location = url;
+                  window.location.href = url;
                 }
 
               case 17:
