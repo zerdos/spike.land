@@ -29,5 +29,7 @@ declare namespace ipfsKV {
         length?: number | undefined;
         timeout?: number | undefined;
         signal?: AbortSignal | undefined;
-    }): Promise<string>;
+    }): Promise<string | {
+        e: any;
+    }>;
 }

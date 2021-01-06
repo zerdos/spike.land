@@ -267,7 +267,7 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "362490b47d423c4a937a077d2b76e89e9eef086961a7e9664659c0f3b3fb075c",
+        "version": "2fdb57da48bd9051b42b28322c99c1fb83731263583731ff07d86f524e1af221",
         "signature": "2fc826c8a796173104d61de93995d57077f863bdf944c85ac3c857bb829539c7",
         "affectsGlobalScope": false
       },
@@ -332,8 +332,8 @@
         "affectsGlobalScope": true
       },
       "./src/ipfsKV.worker.js": {
-        "version": "8b6651ebdf5b80b702f95a43e8d2fb009f27265900d215109b7b6cfb0c696a20",
-        "signature": "7c64106f9e854e5fce560f27c54eb67e1636016dccf327bbf62a2d59a04d0e19",
+        "version": "f2c08d33fe6e7cbe7dad12c9a9fbcfeef2e16e79523a38eeb0606e614cc7c6b7",
+        "signature": "5b107e9dbacacca9f6b658c152d5371fc05922d7958b8b2e97718232c7a7ecb8",
         "affectsGlobalScope": true
       },
       "./src/refs.d.ts": {

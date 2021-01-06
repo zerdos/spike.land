@@ -1,6 +1,6 @@
 export default function () {
     const editor = "11.3.0";
-    const emotionRenderer = "11.4.3";
+    const emotionRenderer = "11.4.7";
     const v = {
         ipfs: "0.52.4-rc.4",
         workbox: "6.0.2",

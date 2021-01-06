@@ -62,22 +62,27 @@ const ipfsKV = {
       */
     cat: async (cid, options) => {
         var e_2, _a;
-        ipfsNode = ipfsNode || await IPFS.create();
-        const res = [];
         try {
-            for (var _b = __asyncValues(ipfsNode.cat(cid, options)), _c; _c = await _b.next(), !_c.done;) {
-                const result = _c.value;
-                res.push(new TextDecoder("utf-8").decode(result));
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
+            ipfsNode = ipfsNode || await IPFS.create();
+            const res = [];
             try {
-                if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+                for (var _b = __asyncValues(ipfsNode.cat(cid, options)), _c; _c = await _b.next(), !_c.done;) {
+                    const result = _c.value;
+                    res.push(new TextDecoder("utf-8").decode(result));
+                }
             }
-            finally { if (e_2) throw e_2.error; }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+            return res.join("");
         }
-        return res.join("");
+        catch (e) {
+            return ({ e });
+        }
     },
 };
 // deno-lint-ignore ban-ts-comment

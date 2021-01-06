@@ -58,14 +58,18 @@ const ipfsKV = {
      *        }}  options 
     */
   cat: async (cid, options) => {
-    ipfsNode = ipfsNode || await IPFS.create();
-    const res = [];
+    try {
+      ipfsNode = ipfsNode || await IPFS.create();
+      const res = [];
 
-    for await (const result of ipfsNode.cat(cid, options)) {
-      res.push(new TextDecoder("utf-8").decode(result));
+      for await (const result of ipfsNode.cat(cid, options)) {
+        res.push(new TextDecoder("utf-8").decode(result));
+      }
+
+      return res.join("");
+    } catch (e) {
+      return ({ e });
     }
-
-    return res.join("");
   },
 };
 
