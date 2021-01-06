@@ -4239,7 +4239,7 @@ __metadata:
     comlink: 4.3.0
     esbuild: 0.8.30
     framer-motion: 3.1.4
-    idb: 5.0.8
+    idb: 6.0.0
     prettier: 2.2.1
     react: 17.0.1
     react-dom: 17.0.1
@@ -4294,7 +4294,7 @@ __metadata:
   resolution: "@zedvision/shadb@workspace:packages/shadb"
   dependencies:
     esbuild: 0.8.30
-    idb: 5.0.8
+    idb: 6.0.0
     typescript: 4.1.3
   languageName: unknown
   linkType: soft
@@ -11633,10 +11633,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"idb@npm:5.0.8":
-  version: 5.0.8
-  resolution: "idb@npm:5.0.8"
-  checksum: 8024ed59a8f7759e5d9d67ca046aed9426a54ad1ccf60d0e023bcd0bf38bafad200fa14aba0d19faff76fb42ba2971dd8c14e151ca53d7e162b26ff7ecc0201f
+"idb@npm:6.0.0":
+  version: 6.0.0
+  resolution: "idb@npm:6.0.0"
+  checksum: 9250243fa964781371dfcacf387e0b3a4fcc36b38d19acb414de88c648f2072527693e45307669cab2a7b77fe5c96e1615958af3d78f4942af5d0e492d148af5
   languageName: node
   linkType: hard
 
@@ -22289,7 +22289,7 @@ typescript@4.1.3:
     diff: 5.0.0
     framer-motion: 3.1.4
     husky: 4.3.6
-    idb: 5.0.8
+    idb: 6.0.0
     lerna: 3.22.1
     monaco-editor: 0.21.2
     normalize.css: 8.0.1
