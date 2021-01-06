@@ -1,7 +1,7 @@
 import { css, jsx } from "@emotion/react";
 /** @jsx jsx */
 import React from "react";
-import { waitSignalAndJump } from "@zedvision/code/dist/hash";
+import { waitForSignalAndJump } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
@@ -59,7 +59,7 @@ export const Qr: React.FC = () => {
       setTimeout(() => setRetry((x) => x - 1), 20000);
 
       // const toCheck = await hash(url, true);
-      await waitSignalAndJump(url);
+      await waitForSignalAndJump(url);
       
     };
     if (typeof window !== "undefined" && retry > 0) connect();

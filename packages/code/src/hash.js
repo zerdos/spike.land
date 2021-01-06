@@ -128,7 +128,7 @@ export const sendSignal = (signal) => {
 /**
  * @param {string} url
  */
-const waitSignalAndJump = async (url) => {
+export const waitForSignalAndJump = async (url) => {
   const { success } = await waitForSignal(url);
   if (success) {
     window.location.href = url;

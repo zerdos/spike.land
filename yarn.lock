@@ -1418,7 +1418,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@devcontainer/generator@11.2.16, @devcontainer/generator@workspace:packages/generator":
+"@devcontainer/generator@portal:/home/zed/z/packages/generator::locator=zedvision%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@devcontainer/generator@portal:/home/zed/z/packages/generator::locator=zedvision%40workspace%3A."
+  dependencies:
+    typescript: 4.1.3
+  languageName: node
+  linkType: soft
+
+"@devcontainer/generator@workspace:packages/generator":
   version: 0.0.0-use.local
   resolution: "@devcontainer/generator@workspace:packages/generator"
   dependencies:
@@ -4227,7 +4235,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@^11.4.10, @zedvision/code@workspace:packages/code":
+"@zedvision/code@portal:/home/zed/z/packages/code::locator=zedvision%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@zedvision/code@portal:/home/zed/z/packages/code::locator=zedvision%40workspace%3A."
+  dependencies:
+    "@babel/standalone": 7.12.12
+    "@emotion/react": 11.1.4
+    "@types/react": 17.0.0
+    "@types/react-dom": 17.0.0
+    "@zedvision/shadb": ^11.4.5
+    comlink: 4.3.0
+    esbuild: 0.8.30
+    framer-motion: 3.1.4
+    idb: 5.0.8
+    prettier: 2.2.1
+    react: 17.0.1
+    react-dom: 17.0.1
+    tslib: 2.1.0
+    typescript: 4.1.3
+  languageName: node
+  linkType: soft
+
+"@zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
@@ -4248,7 +4277,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/diff@^11.2.22, @zedvision/diff@workspace:packages/diff":
+"@zedvision/diff@portal:/home/zed/z/packages/diff::locator=zedvision%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@zedvision/diff@portal:/home/zed/z/packages/diff::locator=zedvision%40workspace%3A."
+  dependencies:
+    "@zedvision/sha256": 11.2.0
+    diff: 5.0.0
+    esbuild: 0.8.30
+    typescript: 4.1.3
+  languageName: node
+  linkType: soft
+
+"@zedvision/diff@workspace:packages/diff":
   version: 0.0.0-use.local
   resolution: "@zedvision/diff@workspace:packages/diff"
   dependencies:
@@ -4274,7 +4314,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/qrious@^11.2.22, @zedvision/qrious@workspace:packages/qrious":
+"@zedvision/qrious@portal:/home/zed/z/packages/qrious::locator=zedvision%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@zedvision/qrious@portal:/home/zed/z/packages/qrious::locator=zedvision%40workspace%3A."
+  dependencies:
+    esbuild: 0.8.30
+    qrious-core: 4.0.0
+  languageName: node
+  linkType: soft
+
+"@zedvision/qrious@workspace:packages/qrious":
   version: 0.0.0-use.local
   resolution: "@zedvision/qrious@workspace:packages/qrious"
   dependencies:
@@ -4283,13 +4332,29 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/sha256@11.2.0, @zedvision/sha256@workspace:packages/sha256":
+"@zedvision/sha256@portal:/home/zed/z/packages/sha256::locator=zedvision%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@zedvision/sha256@portal:/home/zed/z/packages/sha256::locator=zedvision%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"@zedvision/sha256@workspace:packages/sha256":
   version: 0.0.0-use.local
   resolution: "@zedvision/sha256@workspace:packages/sha256"
   languageName: unknown
   linkType: soft
 
-"@zedvision/shadb@^11.4.5, @zedvision/shadb@workspace:packages/shadb":
+"@zedvision/shadb@portal:/home/zed/z/packages/shadb::locator=zedvision%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@zedvision/shadb@portal:/home/zed/z/packages/shadb::locator=zedvision%40workspace%3A."
+  dependencies:
+    esbuild: 0.8.30
+    idb: 5.0.8
+    typescript: 4.1.3
+  languageName: node
+  linkType: soft
+
+"@zedvision/shadb@workspace:packages/shadb":
   version: 0.0.0-use.local
   resolution: "@zedvision/shadb@workspace:packages/shadb"
   dependencies:
