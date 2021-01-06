@@ -1,13 +1,8 @@
 const diff = async (str1, str2) => {
-  const { Diff } = await import(
-    "https://unpkg.com/diff@5.0.0/lib/index.es6.js"
-  );
-  const { sha256 } = await import(
-    "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js"
-  );
+  const { diffChars } = await import("./vendor/diff.min.js");
+  const { sha256 } = await import("./sha256.js");
   const sha1Str1 = sha256(str1);
-  const diff1 = new Diff();
-  const res = diff1.diff(str1, str2);
+  const res = diffChars(str1, str2);
   return {
     b: await sha1Str1,
     c: res.map((x) => x.added ? x.value : x.removed ? -x.count : x.count),

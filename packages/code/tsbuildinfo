@@ -267,8 +267,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "92ef595d2d6b7ae28c795fc29df5ca2215de6ba42d31c87d607b53a871c5835a",
-        "signature": "2fc826c8a796173104d61de93995d57077f863bdf944c85ac3c857bb829539c7",
+        "version": "27e5f73dfc49c56d6438a86ad9b141f019ba757332cea34d0385d493eb924546",
+        "signature": "c9fec3c02a391f897042258c0e30dc2a2c9327ad502d942e326091e710fd1125",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "2226a0b3e1a103450e167df168da0311ae5a512e73352273a640f92d64370272",
+        "version": "7ef3992c515a9bae4b9f4a6523ec7bca62ead4da0dcfc5cb78fc21f1a958f251",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },

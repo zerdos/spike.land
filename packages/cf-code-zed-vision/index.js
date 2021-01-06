@@ -1,6 +1,6 @@
 (() => {
   // ../code/package.json
-  var version = "11.4.15";
+  var version = "11.4.16";
 
   // src/index.js
   addEventListener("fetch", (event) => {

@@ -180,7 +180,7 @@ export async function run(mode = "window", _w) {
                 }
             }
             else {
-                const { diff } = await import(`https://unpkg.com/@zedvision/diff@${v.shadb}/src/diff.js`);
+                const { diff } = await import(`https://unpkg.com/@zedvision/shadb@${v.shadb}/src/diff.js`);
                 const slices = await diff(session.code, cd);
                 if (slices.c.length <= 3) {
                     session.lastErrors = 0;
