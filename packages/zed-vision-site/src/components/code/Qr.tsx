@@ -1,11 +1,9 @@
-
-import { css, jsx} from "@emotion/react";
+import { css, jsx } from "@emotion/react";
 /** @jsx jsx */
 import React from "react";
 import { getHash, hash } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
-
 
 const checkers = {
   num: 0,
@@ -21,7 +19,6 @@ export const Qr: React.FC = () => {
   const [counter, setCounter] = React.useState(0);
 
   React.useEffect(() => {
-  
     const connect = async () => {
       let qr: QRious | null = null;
       // const req = await fetch("https://zed.vision/token");
@@ -31,8 +28,8 @@ export const Qr: React.FC = () => {
       // const key = data.key;
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(
-        secret
-      )).slice(0,8);
+        secret,
+      )).slice(0, 8);
       // const key = "12345678";
       const url = `https://zed.vision/${key}`;
 
@@ -44,16 +41,16 @@ export const Qr: React.FC = () => {
         padding: 12,
         backgroundAlpha: 0.8,
         background: "black",
-        value: url
+        value: url,
       };
-      
-      if ( qr === null) {
-          qr = new QRious(
-          options
+
+      if (qr === null) {
+        qr = new QRious(
+          options,
         );
       }
-    if (qr.get().value !== url ) qr.set(options);
-    setUrl(url);
+      if (qr.get().value !== url) qr.set(options);
+      setUrl(url);
       //const check = await fetch(`https://zed.vision/check?key=${key}`);
       //const res = await check.json();
       // if (res.expired === false) {
@@ -64,22 +61,20 @@ export const Qr: React.FC = () => {
       const toCheck = await hash(url, true);
       console.log({ toCheck });
       try {
-        toCheck.map( (dig) => {
+        toCheck.map((dig) => {
           checkers.num++;
           console.log({ awaiting: dig, ...checkers });
-          new Promise( (resolve, reject) => {
-            
+          new Promise((resolve, reject) => {
             setTimeout(() => reject(-1), 20000);
 
-            getHash(dig, 25000).then(result=>{
-              console.log({ result: {dig, result} });
+            getHash(dig, 25000).then((result) => {
+              console.log({ result: { dig, result } });
 
               if (result) {
                 resolve(result);
                 window.location.href = `https://zed.vision/ipfs/${result}`;
               }
             });
-            
           });
         });
       } catch {
@@ -102,10 +97,12 @@ export const Qr: React.FC = () => {
     }
   }, [counter]);
 
-  return <div css={`
+  return <div
+    css={`
       margin: 24px;
       text-align: center;
-  `}>
+  `}
+  >
     <a target="_blank" href={url}>
       {retry > 0 && <div
         css={css`

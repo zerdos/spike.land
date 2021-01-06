@@ -18,11 +18,8 @@ export const CodeBox: React.FC<{
   className?: string;
   title?: string;
 }> = ({ title, children }) => {
-
   const starterCode = children?.toString().trim() || counterExample;
   if (typeof window === "undefined") return <pre>Loading</pre>;
-
-
 
   const [{ events, hashArr }, changeProps] = React.useState({
     events: defaultProps.events,
@@ -61,8 +58,8 @@ export const CodeBox: React.FC<{
     const runner = async (c: string) => {
       if (!editorAttached) {
         setEditorAttached(true);
-        const  startMonaco  = (await (new Function(
-          `return import("${versions().editor}")`
+        const startMonaco = (await (new Function(
+          `return import("${versions().editor}")`,
         )())).default;
 
         await startMonaco(
@@ -314,8 +311,8 @@ export const CodeBox: React.FC<{
               transformed[0].code[0],
             );
             const monaco = window["monaco"];
-            const monacoEditor =  monaco.editor.getModel(
-              monaco.Uri.parse("file:///main.tsx")
+            const monacoEditor = monaco.editor.getModel(
+              monaco.Uri.parse("file:///main.tsx"),
             );
             monacoEditor.setValue(code);
             changeCode(code);
