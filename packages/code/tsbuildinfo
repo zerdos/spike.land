@@ -292,8 +292,8 @@
         "affectsGlobalScope": false
       },
       "./src/db.js": {
-        "version": "0445b4275ce0a0fcebe5e86ba638b5c1a995e0ac7470fc5dd0273a72672bfd8e",
-        "signature": "67b5b67704eb9e4b17cd11380829c871579c8134b75edfc24bd7c4f4f1ae83ec",
+        "version": "bf199392df77b0f26fe3fc91f420aac18c53f6ee7a4afe9cd66cc8c876e65baf",
+        "signature": "7a320d61a39f1cbcaae85f654160d9c82a1124c606fc10cdbf827a58f35d42b3",
         "affectsGlobalScope": false
       },
       "./src/starter.js": {
@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "68c5dd39625f33e747e5e8896a361c9e3e34561687a64369dea17c168101376f",
+        "version": "97064adf9bb46bc5a632d9e8c97d2348f6ec24ba1a24b528d04cc2149fb79ba9",
         "signature": "a2979cfb816c83c93ee5a60c7c73e93cc53ca190958ea17413efd18b64fcd164",
         "affectsGlobalScope": false
       },
@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "0e0099dcd74cf5b36221b8cdfd3e4a2207a9ab6f73d0588a482d6deae04668cc",
+        "version": "2226a0b3e1a103450e167df168da0311ae5a512e73352273a640f92d64370272",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
@@ -609,7 +609,19 @@
       "./src/DraggableWindow.js",
       "./src/codeLoader.js",
       "./src/codeRunner.js",
-      "./src/data.js",
+      [
+        "./src/data.js",
+        [
+          {
+            "file": "./src/data.js",
+            "start": 3089,
+            "length": 8,
+            "code": 2339,
+            "category": 1,
+            "messageText": "Property 'prevHash' does not exist on type 'Promise<any>'."
+          }
+        ]
+      ],
       "./src/db.js",
       "./src/formatter.js",
       "./src/hash.js",

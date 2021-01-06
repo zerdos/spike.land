@@ -56,7 +56,6 @@
     "@zedvision/cf-worker": "portal:/home/zed/z/packages/cf-zed-vision",
     "@zedvision/code": "portal:/home/zed/z/packages/code",
     "@devcontainer/cypress": "portal:/home/zed/z/packages/devimages-cypress",
-    "@zedvision/diff": "portal:/home/zed/z/packages/diff",
     "@zedvision/emotion-react-renderer": "portal:/home/zed/z/packages/emotion-react-renderer",
     "@devcontainer/eoan-xfce-novnc": "portal:/home/zed/z/packages/eoan-xfce-novnc",
     "@devcontainer/focal-devcontainer": "portal:/home/zed/z/packages/focal-devcontainer",
@@ -66,7 +65,6 @@
     "@devcontainer/groovy-xfce-novnc": "portal:/home/zed/z/packages/groovy-xfce-novnc",
     "@devcontainer/hirsute-devcontainer": "portal:/home/zed/z/packages/hirsute-devcontainer",
     "@zedvision/qrious": "portal:/home/zed/z/packages/qrious",
-    "@zedvision/sha256": "portal:/home/zed/z/packages/sha256",
     "@zedvision/shadb": "portal:/home/zed/z/packages/shadb",
     "@zedvision/smart-monaco-editor": "portal:/home/zed/z/packages/smart-monaco-editor",
     "@zedvision/zedvision-site": "portal:/home/zed/z/packages/zed-vision-site"

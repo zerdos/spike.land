@@ -1,4 +1,16 @@
 import versions from "./versions.js";
+
+export const sha256 =
+  /**
+ * @param {string} str
+ */
+  async (str) => {
+    const { sha256 } = await import(
+      `https://unpkg.com/@zedvision/shadb@${versions().shadb}/src/sha256.js`
+    );
+    return sha256(str);
+  };
+
 export const shaDB = {
   /**
  * @param {string} key

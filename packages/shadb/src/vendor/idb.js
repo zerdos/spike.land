@@ -214,9 +214,10 @@ function getMethod(target, prop) {
     const tx = this.transaction(storeName, isWrite ? "readwrite" : "readonly");
     let target1 = tx.store;
     if (useIndex) target1 = target1.index(args.shift());
-    const returnVal = await target1[targetFuncName](...args);
-    if (isWrite) await tx.done;
-    return returnVal;
+    return (await Promise.all([
+      target1[targetFuncName](...args),
+      isWrite && tx.done,
+    ]))[0];
   };
   cachedMethods.set(prop, method);
   return method;

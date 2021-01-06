@@ -1,4 +1,4 @@
-import { shaDB } from "./db.js";
+import { sha256, shaDB } from "./db.js";
 import getVersions from "./versions.js";
 const v = getVersions();
 
@@ -33,9 +33,6 @@ export const getProjects = async () => {
  */
 export async function getZkey(hash) {
   const uuid = await getUserId();
-  const { sha256 } = await import(
-    `https://unpkg.com/@zedvision/sha256@${v.sha256}/sha256.js`
-  );
   const uKey = await sha256(uuid);
   const gKey = await sha256(hash + uKey);
   const vKey = await sha256(hash + uuid);
@@ -115,10 +112,6 @@ export async function getCodeToLoad() {
  * @param {{code:string, html: string, transpiled: string, versions: string }} param0 
  */
 export const saveCode = async ({ code, html, transpiled, versions }) => {
-  const { sha256 } = await import(
-    `https://unpkg.com/@zedvision/sha256@${v.sha256}/sha256.js`
-  );
-
   const projectName = await getActiveProject();
   // const prevHash = await shaDB.get(projectName, "string");
 

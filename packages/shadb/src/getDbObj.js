@@ -1,10 +1,6 @@
-import {
-  assemble,
-  diff,
-  isDiff,
-} from "https://unpkg.com/@zedvision/diff@10.13.14/src/diff.js";
+import { assemble, diff, isDiff } from "./diff.js";
 
-import { sha256 } from "https://unpkg.com/@zedvision/sha256@10.12.14/sha256.js";
+import { sha256 } from "./sha256.js";
 
 export const getDbObj = (db) => {
   const dbObj = {

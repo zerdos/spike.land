@@ -5,13 +5,7 @@ import { waitForSignalAndJump } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
-const checkers = {
-  num: 0,
-  sum: 0,
-};
-
-export const Qr: React.FC = () => {
-  const ref = React.useRef(null);
+st ref = React.useRef(null);
   const [retry, setRetry] = React.useState(100);
 
   const [url, setUrl] = React.useState("");
@@ -56,11 +50,10 @@ export const Qr: React.FC = () => {
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";
       // }
-      setTimeout(() => setRetry((x) => x - 1), 20000);
+      setTimeout(() => setRetry((x: number) => x - 1), 20000);
 
       // const toCheck = await hash(url, true);
       await waitForSignalAndJump(url);
-      
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);

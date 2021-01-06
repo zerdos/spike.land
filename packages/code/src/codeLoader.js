@@ -246,7 +246,7 @@ export async function run(mode = "window", _w) {
         }
       } else {
         const { diff } = await import(
-          `https://unpkg.com/@zedvision/diff@${v.diff}/src/diff.js`
+          `https://unpkg.com/@zedvision/diff@${v.shadb}/src/diff.js`
         );
 
         const slices = await diff(session.code, cd);
@@ -288,7 +288,7 @@ export async function run(mode = "window", _w) {
     }
     const { monaco } = modules;
     const { sha256 } = await import(
-      `https://unpkg.com/@zedvision/sha256@${v.sha256}/sha256.js`
+      `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/sha256.js`
     );
     const shaCode = await sha256(code);
     const filename = `file:///${shaCode}.tsx`;

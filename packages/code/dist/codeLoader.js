@@ -180,7 +180,7 @@ export async function run(mode = "window", _w) {
                 }
             }
             else {
-                const { diff } = await import(`https://unpkg.com/@zedvision/diff@${v.diff}/src/diff.js`);
+                const { diff } = await import(`https://unpkg.com/@zedvision/diff@${v.shadb}/src/diff.js`);
                 const slices = await diff(session.code, cd);
                 if (slices.c.length <= 3) {
                     session.lastErrors = 0;
@@ -213,7 +213,7 @@ export async function run(mode = "window", _w) {
             return [{ messageText: "Error with the error checking. Try to reload!" }];
         }
         const { monaco } = modules;
-        const { sha256 } = await import(`https://unpkg.com/@zedvision/sha256@${v.sha256}/sha256.js`);
+        const { sha256 } = await import(`https://unpkg.com/@zedvision/shadb@${v.shadb}/src/sha256.js`);
         const shaCode = await sha256(code);
         const filename = `file:///${shaCode}.tsx`;
         const uri = monaco.Uri.parse(filename);
