@@ -52,9 +52,9 @@ const hash = async (data, onlyHash) => {
         await client.add(`${data}!${data}`, { onlyHash }),
     ]));
     if (!onlyHash) {
-        console.log("feeding the cache");
-        await Promise.all(noisyHashes.map(feedTheCache));
-        console.log("cahce is fed");
+        //  console.log("feeding the cache");
+        //await Promise.all(noisyHashes.map(feedTheCache));
+        // console.log("cahce is fed");
     }
     if (onlyHash) {
         return Promise.all(noisyHashes.map((cid) => getHash(cid, 20000).then((x) => {
