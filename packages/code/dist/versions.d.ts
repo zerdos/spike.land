@@ -1,13 +1,13 @@
 export default function _default(): {
+    code: string;
+    shadb: string;
     ipfs: string;
     workbox: string;
     babel: string;
-    code: string;
-    DraggableWindow: string;
-    emotionRenderer: string;
-    shadb: string;
     prettier: string;
-    editor: string;
     uuid: string;
     comlink: string;
+    editor: string;
+    DraggableWindow: string;
+    emotionRenderer: string;
 };
