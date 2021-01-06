@@ -117,7 +117,7 @@ export async function run(mode = "window", _w) {
         };
         const element = window.document.createElement("div");
         window.document.body.appendChild(element);
-        const { DraggableWindow } = await import("./QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js");
+        const { DraggableWindow } = await import(v.DraggableWindow);
         renderEmotion(jsx(DraggableWindow, { onShare }), element);
         const zbody = window.document.getElementById("zbody");
         if (zbody !== null) {
