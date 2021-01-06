@@ -356,10 +356,10 @@
         "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
         "affectsGlobalScope": false
       },
-      "./src/sw.ts": {
-        "version": "6bb5b247d9a36657d94aa855e7b59b55b9bb4da31d18dfdd95c4e03b3cb139fb",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": false
+      "./src/sw.js": {
+        "version": "134b2e519ccee3c12eae63ec18a6e2a473cad2778710d69e52a44bb069b75c03",
+        "signature": "536de57f655406aa030ee0d0f931cc9b94c10ac56b3d735be1fed01ba904ebe0",
+        "affectsGlobalScope": true
       },
       "./src/transpile.worker.js": {
         "version": "a1f8ddb51af70c482c4696adebc7aea965521a7e64f5ac813af768e6bc7ba3e1",
@@ -509,7 +509,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
-      "./src/sw.ts": [
+      "./src/sw.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
@@ -622,7 +622,7 @@
       "./src/starterNoFramerMotion.js",
       "./src/starterTsx.tsx",
       "./src/starter_framer.js",
-      "./src/sw.ts",
+      "./src/sw.js",
       "./src/templates.js",
       "./src/transpile.js",
       "./src/transpile.worker.js",

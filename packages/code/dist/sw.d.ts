@@ -1,1 +1,1 @@
-export {};
+declare const strategies: any;

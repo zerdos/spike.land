@@ -1,9 +1,15 @@
+"use strict";
 importScripts("https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js");
 // This will trigger the importScripts() for workbox.strategies and its dependencies:
+// deno-lint-ignore ban-ts-comment
 //@ts-ignore
+// deno-lint-ignore no-undef
 const { strategies } = workbox;
-const swSelf = self;
-swSelf.addEventListener("fetch", (event) => {
+// deno-lint-ignore ban-ts-comment
+// @ts-ignore
+self.addEventListener("fetch", /**
+* @param {{ respondWith?: any; request?: any; }} event
+*/ (event) => {
     const { request } = event;
     const { url } = request;
     if (!url.endsWith("sw.js") &&
@@ -14,4 +20,3 @@ swSelf.addEventListener("fetch", (event) => {
         event.respondWith(cacheFirst.handle({ event, request }));
     }
 });
-export {};
