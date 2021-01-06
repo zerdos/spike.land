@@ -16,10 +16,10 @@ const feedTheCache = (cid) =>
  */
 
 const half = (data) => {
-  const halfLength = (data.length - data.length % 2) / 2;
+  const halfLength = (data.length - (data.length % 2)) / 2;
 
   if (
-    data.slice(0, halfLength) === data.slice(halfLength - 1, 2 * halfLength - 1)
+    data.slice(0, halfLength - 1) === data.slice(halfLength + 1, 2 * halfLength)
   ) {
     return (data.slice(0, halfLength));
   }
@@ -77,7 +77,14 @@ const hash = async (data, onlyHash) => {
     console.log("cahce is fed");
   }
   if (onlyHash) {
-    noisyHashes.map((cid) => getHash(cid, 20000));
+    return Promise.all(
+      noisyHashes.map((cid) =>
+        getHash(cid, 20000).then((x) => {
+          console.log({ x });
+          return x;
+        })
+      ),
+    );
   }
   return noisyHashes;
 };
