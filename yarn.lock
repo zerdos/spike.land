@@ -70,29 +70,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.12.10, @babel/core@npm:^7.11.1, @babel/core@npm:^7.12.3":
-  version: 7.12.10
-  resolution: "@babel/core@npm:7.12.10"
-  dependencies:
-    "@babel/code-frame": ^7.10.4
-    "@babel/generator": ^7.12.10
-    "@babel/helper-module-transforms": ^7.12.1
-    "@babel/helpers": ^7.12.5
-    "@babel/parser": ^7.12.10
-    "@babel/template": ^7.12.7
-    "@babel/traverse": ^7.12.10
-    "@babel/types": ^7.12.10
-    convert-source-map: ^1.7.0
-    debug: ^4.1.0
-    gensync: ^1.0.0-beta.1
-    json5: ^2.1.2
-    lodash: ^4.17.19
-    semver: ^5.4.1
-    source-map: ^0.5.0
-  checksum: 4d7b892764009b80ac36b193ee37dd27a04244113dfa7510a937e81999e4b0f8ad3237f809792975abab5e07b44a7f7c36bb21e6f9957cdf54cd91cbf149c411
-  languageName: node
-  linkType: hard
-
 "@babel/core@npm:7.12.9":
   version: 7.12.9
   resolution: "@babel/core@npm:7.12.9"
@@ -114,6 +91,29 @@ __metadata:
     semver: ^5.4.1
     source-map: ^0.5.0
   checksum: beefb9f490cfff7cafc02e5a11148297a71260ee18f5fdf6e14bf5694bc28431eec3813a91d0f0fc8c6122c5133d90d3261dadf45cb914d7d340a5b3077fd9bd
+  languageName: node
+  linkType: hard
+
+"@babel/core@npm:^7.11.1, @babel/core@npm:^7.12.3":
+  version: 7.12.10
+  resolution: "@babel/core@npm:7.12.10"
+  dependencies:
+    "@babel/code-frame": ^7.10.4
+    "@babel/generator": ^7.12.10
+    "@babel/helper-module-transforms": ^7.12.1
+    "@babel/helpers": ^7.12.5
+    "@babel/parser": ^7.12.10
+    "@babel/template": ^7.12.7
+    "@babel/traverse": ^7.12.10
+    "@babel/types": ^7.12.10
+    convert-source-map: ^1.7.0
+    debug: ^4.1.0
+    gensync: ^1.0.0-beta.1
+    json5: ^2.1.2
+    lodash: ^4.17.19
+    semver: ^5.4.1
+    source-map: ^0.5.0
+  checksum: 4d7b892764009b80ac36b193ee37dd27a04244113dfa7510a937e81999e4b0f8ad3237f809792975abab5e07b44a7f7c36bb21e6f9957cdf54cd91cbf149c411
   languageName: node
   linkType: hard
 
@@ -5095,7 +5095,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.19.0, axios@npm:^0.19.2":
+"axios@npm:^0.19.0":
   version: 0.19.2
   resolution: "axios@npm:0.19.2"
   dependencies:
@@ -5450,17 +5450,6 @@ __metadata:
     tar: ^5.0.5
     universal-url: ^2.0.0
   checksum: d906863edda7ab5dc3cba61e6821f21a12b64a8e07f7aeca529723ea2651cea68286ee0a571729932355381ed5f2057b5669352c1bd1851078e9d905f3a00ed3
-  languageName: node
-  linkType: hard
-
-"binary-install@npm:0.1.0":
-  version: 0.1.0
-  resolution: "binary-install@npm:0.1.0"
-  dependencies:
-    axios: ^0.19.2
-    rimraf: ^3.0.2
-    tar: ^6.0.2
-  checksum: f570dc0e83cab146e862d98aa9fbaea2a5e3cf6c3ba604266c3983610bcef0e778c7c5a3ba267073019e62686458c6c5f6b94300871e9df015d26cd40f01bb22
   languageName: node
   linkType: hard
 
@@ -8034,13 +8023,6 @@ __metadata:
   version: 25.2.6
   resolution: "diff-sequences@npm:25.2.6"
   checksum: 332484fc00f6beca726d8dbc13095f6006527002bef936a07b4e6bbec681fbaac484e1a7ea4e9ab0d53e375d1cde9e642c8cce31dfe6329cfdf8f01f26b17505
-  languageName: node
-  linkType: hard
-
-"diff@npm:5.0.0":
-  version: 5.0.0
-  resolution: "diff@npm:5.0.0"
-  checksum: ef241d3b20017b8a1a6f20d184035b836de662203638e16eb57267653a56392ea82e1f9c12b28836e6e22aa25c28c59847aaeb35dd65e77e75c822c7e848e7e8
   languageName: node
   linkType: hard
 
@@ -14958,13 +14940,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"normalize.css@npm:8.0.1":
-  version: 8.0.1
-  resolution: "normalize.css@npm:8.0.1"
-  checksum: de6c137a14291c00fee60a1e9e9ab4b78f93d48dd7ab5baa2783dd62bf19b456403bf0585ad201bb84ed184348fd49b467ccfc707068bf342123d00d31801e98
-  languageName: node
-  linkType: hard
-
 "npm-bundled@npm:^1.0.1":
   version: 1.1.1
   resolution: "npm-bundled@npm:1.1.1"
@@ -16179,7 +16154,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"popmotion@npm:9.0.2, popmotion@npm:^9.0.2":
+"popmotion@npm:^9.0.2":
   version: 9.0.2
   resolution: "popmotion@npm:9.0.2"
   dependencies:
@@ -22314,27 +22289,15 @@ typescript@4.1.3:
   version: 0.0.0-use.local
   resolution: "zedvision@workspace:."
   dependencies:
-    "@babel/core": 7.12.10
-    "@babel/standalone": 7.12.12
     "@cloudflare/workers-types": 2.1.0
     "@types/prop-types": 15.7.3
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
     "@yarnpkg/plugin-node-modules": 2.3.0
-    binary-install: 0.1.0
     csstype: 3.0.5
-    diff: 5.0.0
-    framer-motion: 3.1.4
     husky: 4.3.6
-    idb: 5.0.8
     lerna: 3.22.1
-    monaco-editor: 0.21.2
-    normalize.css: 8.0.1
-    popmotion: 9.0.2
-    react: 17.0.1
-    react-dom: 17.0.1
     typescript: 4.1.3
-    uuid: 8.3.2
     yarn: 1.22.10
   languageName: unknown
   linkType: soft
