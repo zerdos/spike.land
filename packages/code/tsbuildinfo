@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "97064adf9bb46bc5a632d9e8c97d2348f6ec24ba1a24b528d04cc2149fb79ba9",
+        "version": "fecf4f09f4a00f9db87e6460e2ffa505dc912133303767990c2377b68b007132",
         "signature": "a2979cfb816c83c93ee5a60c7c73e93cc53ca190958ea17413efd18b64fcd164",
         "affectsGlobalScope": false
       },
@@ -609,19 +609,7 @@
       "./src/DraggableWindow.js",
       "./src/codeLoader.js",
       "./src/codeRunner.js",
-      [
-        "./src/data.js",
-        [
-          {
-            "file": "./src/data.js",
-            "start": 3089,
-            "length": 8,
-            "code": 2339,
-            "category": 1,
-            "messageText": "Property 'prevHash' does not exist on type 'Promise<any>'."
-          }
-        ]
-      ],
+      "./src/data.js",
       "./src/db.js",
       "./src/formatter.js",
       "./src/hash.js",

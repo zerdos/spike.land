@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/cf-worker",
-    "version": "11.4.14",
+    "version": "11.4.15",
     "description": "Worker script for zed.vision",
     "main": "dist/worker-script.min.js",
     "files": [
@@ -9,8 +9,8 @@
     "scripts": {
         "dev": "yarn xbuild && wrangler preview",
         "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "ebuild": "esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",
-        "build": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min",
+        "xebuild": "esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",
+        "xbuild": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min",
         "min": "deno fmt dist && esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
         "deploy": "yarn build && wrangler publish"
     },

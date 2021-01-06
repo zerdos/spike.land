@@ -119,8 +119,7 @@ export const saveCode = async ({ code, html, transpiled, versions }) => {
     code: await sha256(code),
     html: await sha256(html || ""),
     transpiled: await sha256(transpiled),
-    versions: await sha256(versions || "")
-      .prevHash,
+    versions: await sha256(versions || ""),
   };
   const hash = await sha256(JSON.stringify(desc));
   await shaDB.put(hash, JSON.stringify(desc));
