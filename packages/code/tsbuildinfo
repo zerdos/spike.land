@@ -271,14 +271,14 @@
         "signature": "c9fec3c02a391f897042258c0e30dc2a2c9327ad502d942e326091e710fd1125",
         "affectsGlobalScope": false
       },
-      "./src/hash.js": {
-        "version": "c23f06c83bc4ad2f0f93d3bce01577d44718edf2a21a8beb3273b53a8b7a07d4",
-        "signature": "7dd7e569b923e606a3c545da700d2a197f8e34499db657b38a976a56b141d70e",
-        "affectsGlobalScope": false
-      },
       "./src/transpile.js": {
         "version": "b411fa9c37dc32e44cdad2fff62ffee4480d2259e47131ffae81fcb3426b243e",
         "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
+        "affectsGlobalScope": false
+      },
+      "./src/hash.js": {
+        "version": "c23f06c83bc4ad2f0f93d3bce01577d44718edf2a21a8beb3273b53a8b7a07d4",
+        "signature": "7dd7e569b923e606a3c545da700d2a197f8e34499db657b38a976a56b141d70e",
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
@@ -321,8 +321,13 @@
         "signature": "cc014f7866353e93932e07892657579702bbc28755f41b1817bfe910b1d0723c",
         "affectsGlobalScope": false
       },
+      "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js": {
+        "version": "b74dc5b6ea5546489fdb5ed332cd32b7eaa70417de95f9fd7c32c3fd16dc5919",
+        "signature": "f5c7cff168d97bacee5a4b4d0c91f1b3f3d0ce5ea2f7b2f92c3f07a709f45cfd",
+        "affectsGlobalScope": false
+      },
       "./src/codeLoader.js": {
-        "version": "7ef3992c515a9bae4b9f4a6523ec7bca62ead4da0dcfc5cb78fc21f1a958f251",
+        "version": "a764ddde78f57449390355343ba3558814aae9a805ef18acf8078ec4280b00ca",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
@@ -435,10 +440,14 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
+      "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./node_modules/tslib/tslib.d.ts"
+      ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
-        "./src/DraggableWindow.js",
+        "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js",
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
@@ -607,6 +616,7 @@
       "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
       "./node_modules/tslib/tslib.d.ts",
       "./src/DraggableWindow.js",
+      "./src/QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js",
       "./src/codeLoader.js",
       "./src/codeRunner.js",
       "./src/data.js",

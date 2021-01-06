@@ -103,6 +103,7 @@ export async function run(mode = "window", _w) {
         return;
     }
     session.transpiled = session.transpiled || await transpile(session.code);
+    const { renderEmotion, jsx } = await import(v.emotionRenderer);
     if (mode === "window") {
         const onShare = async () => {
             const { shareItAsHtml } = await import("./share.js");
@@ -114,8 +115,10 @@ export async function run(mode = "window", _w) {
             console.log({ link });
             open(link);
         };
-        const { renderDraggableWindow } = await import("./DraggableWindow.js");
-        await renderDraggableWindow({ onShare }, v.emotionRenderer);
+        const element = window.document.createElement("div");
+        window.document.body.appendChild(element);
+        const { DraggableWindow } = await import("./QmYoSvDr4PxivZv7Xq4hcnqriPpGs6qmNVeYAkj5TVTrKq/app.js");
+        renderEmotion(jsx(DraggableWindow, { onShare }), element);
         const zbody = window.document.getElementById("zbody");
         if (zbody !== null) {
             zbody.appendChild(session.div);
@@ -123,7 +126,6 @@ export async function run(mode = "window", _w) {
         if (session.HTML)
             session.div.innerHTML = session.HTML;
     }
-    const { renderEmotion } = await import(v.emotionRenderer);
     const transpiled = await transpile(session.code);
     await restartCode(transpiled);
     const startMonaco = (await import(v.editor)).default;
