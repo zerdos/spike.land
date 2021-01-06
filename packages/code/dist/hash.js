@@ -43,7 +43,7 @@ const hash = async (data, onlyHash) => {
     const client = await getClient();
     if (client === null) {
         //  console.log("no client - exiting");
-        return null;
+        return { success: false };
     }
     const noisyHashes = (await Promise.all([
         await client.add(`${data}`, { onlyHash }),
@@ -69,7 +69,7 @@ const getHash = async (cid, _timeOut) => {
         /** @type {{ cat: (arg0: any, arg1: any) => any; } | null} */
         const client = (await getClient());
         if (client === null) {
-            return null;
+            return { success: false };
         }
         const data = await client.cat(cid, { timeout });
         if (typeof data === "string")
@@ -84,11 +84,20 @@ const getHash = async (cid, _timeOut) => {
  * @param {string} signal => Promise<{success: boolean}>
  */
 export const waitForSignal = (signal) => {
-    return hash(signal, true);
+    return hash(signal, true).catch(() => ({ success: false }));
 };
 /**
  * @param {string} signal => Promise<{success: boolean}>
  */
 export const sendSignal = (signal) => {
     return hash(signal, false);
+};
+/**
+ * @param {string} url
+ */
+const waitSignalAndJump = async (url) => {
+    const { success } = await waitForSignal(url);
+    if (success) {
+        window.location.href = url;
+    }
 };

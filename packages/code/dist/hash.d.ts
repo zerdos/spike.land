@@ -1,6 +1,8 @@
 export function waitForSignal(signal: string): Promise<{
     success: boolean;
-} | null>;
+} | {
+    success: boolean;
+}>;
 export function sendSignal(signal: string): Promise<{
     success: boolean;
-} | null>;
+}>;
