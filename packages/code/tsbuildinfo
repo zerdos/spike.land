@@ -231,9 +231,9 @@
         "signature": "1e61418f41d404e744b6536af9f8c6f6674dd4d54c12335cd0c4f7eded69cf3f",
         "affectsGlobalScope": true
       },
-      "../../node_modules/tslib/tslib.d.ts": {
-        "version": "9eb0ae9fa333acfc2dcbe6a7eaa2ab8be46b97ca259982c797c39167823235d5",
-        "signature": "9eb0ae9fa333acfc2dcbe6a7eaa2ab8be46b97ca259982c797c39167823235d5",
+      "./node_modules/tslib/tslib.d.ts": {
+        "version": "55d7868222288a4054166fecbfbaeee46dd3b1b58e4a118e40e9c8c13a9fbe84",
+        "signature": "55d7868222288a4054166fecbfbaeee46dd3b1b58e4a118e40e9c8c13a9fbe84",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/react/global.d.ts": {
@@ -433,11 +433,11 @@
       ],
       "./src/DraggableWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/DraggableWindow.js",
         "./src/data.js",
         "./src/formatter.js",
@@ -449,90 +449,90 @@
       ],
       "./src/codeRunner.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/codeLoader.js"
       ],
       "./src/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
         "./src/starter.js",
         "./src/versions.js"
       ],
       "./src/db.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/formatter.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/ipfsKV.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/ipfsKV.worker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/share.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/ipfsKV.js",
         "./src/templates.js"
       ],
       "./src/starter.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/starterNoFramerMotion.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/starterTsx.tsx": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/starter_framer.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/sw.ts": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/transpile.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/transpile.worker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/transpileWorker.d.ts": [
         "../../node_modules/comlink/dist/umd/comlink.d.ts"
       ],
       "./src/versions.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ]
     },
     "exportedModulesMap": {
@@ -559,7 +559,6 @@
       "../../node_modules/comlink/dist/umd/comlink.d.ts",
       "../../node_modules/comlink/dist/umd/protocol.d.ts",
       "../../node_modules/csstype/index.d.ts",
-      "../../node_modules/tslib/tslib.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -606,6 +605,7 @@
       "../../node_modules/typescript/lib/lib.esnext.weakref.d.ts",
       "../../node_modules/typescript/lib/lib.webworker.d.ts",
       "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "./node_modules/tslib/tslib.d.ts",
       "./src/DraggableWindow.js",
       "./src/codeLoader.js",
       "./src/codeRunner.js",
