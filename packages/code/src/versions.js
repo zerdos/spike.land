@@ -3,7 +3,7 @@ export default function () {
   const emotionRenderer = "11.4.7";
 
   const v = {
-    ipfs: "0.52.4-rc.4",
+    ipfs: "0.52.3",
     workbox: "6.0.2",
     babel: "7.12.12",
     code: "11.4.6",

@@ -14,17 +14,23 @@ const ipfsKV = {
  * @param {{ onlyHash: boolean; }} options
  */
   add: async (data, options) => {
-    ipfsNode = ipfsNode || await IPFS.create();
+    try {
+      ipfsNode = ipfsNode || await IPFS.create({ slient: true });
 
-    const { cid } = await ipfsNode.add(data, options);
+      // console.log(await ipfsNode.config.getAll())
 
-    if (
-      options && options.onlyHash
-    ) {
-      return (new IPFS.CID(0, 112, cid.multihash)).toString();
+      const { cid } = await ipfsNode.add(data, options);
+
+      if (
+        options && options.onlyHash
+      ) {
+        return (new IPFS.CID(0, 112, cid.multihash)).toString();
+      }
+
+      return cid.string;
+    } catch (e) {
+      console.info({ e });
     }
-
-    return cid.string;
   },
   /**
    * 
@@ -32,7 +38,7 @@ const ipfsKV = {
    */
   addAll: async (files) => {
     try {
-      ipfsNode = ipfsNode || await IPFS.create();
+      ipfsNode = ipfsNode || await IPFS.create({ slient: true });
       const res = [];
 
       for await (const result of ipfsNode.addAll(files)) {
@@ -59,7 +65,7 @@ const ipfsKV = {
     */
   cat: async (cid, options) => {
     try {
-      ipfsNode = ipfsNode || await IPFS.create();
+      ipfsNode = ipfsNode || await IPFS.create({ slient: true });
       const res = [];
 
       for await (const result of ipfsNode.cat(cid, options)) {

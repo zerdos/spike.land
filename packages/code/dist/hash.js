@@ -4,10 +4,10 @@ const v = versions();
  *
  * @param {string} cid
  */
-const feedTheCache = (cid) => console.log({ cid });
-//fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(
-//console.log,
-//);
+const feedTheCache = (cid) => console.log(cid);
+// fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(
+// console.log
+// );
 /**
  * @param {string | any[]} data
  */
@@ -46,7 +46,7 @@ const hash = async (data, onlyHash) => {
         return null;
     }
     const noisyHashes = (await Promise.all([
-        await client.add(data, { onlyHash }),
+        await client.add(`${data}`, { onlyHash }),
     ]));
     if (!onlyHash) {
         console.log("feeding the cache");
@@ -54,9 +54,10 @@ const hash = async (data, onlyHash) => {
         console.log("cahce is fed");
     }
     if (onlyHash) {
-        return Promise.all(noisyHashes.map((cid) => getHash(cid, 20000)));
+        const res = await Promise.all(noisyHashes.map((cid) => getHash(cid, 20000).then((x) => ({ success: x === data }))));
+        return res[0];
     }
-    return noisyHashes;
+    return { success: true };
 };
 /**
  * @param {string} cid
@@ -79,5 +80,15 @@ const getHash = async (cid, _timeOut) => {
         console.log({ e });
     }
 };
-export { hash };
-export { getHash };
+/**
+ * @param {string} signal => Promise<{success: boolean}>
+ */
+export const waitForSignal = (signal) => {
+    return hash(signal, true);
+};
+/**
+ * @param {string} signal => Promise<{success: boolean}>
+ */
+export const sendSignal = (signal) => {
+    return hash(signal, false);
+};

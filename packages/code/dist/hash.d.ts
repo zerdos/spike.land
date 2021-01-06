@@ -1,10 +1,6 @@
-/**
- * @param {any} data
- * @param {any} onlyHash
- */
-export function hash(data: any, onlyHash: any): Promise<any[] | null>;
-/**
- * @param {string} cid
- * @param {number|undefined} _timeOut
- */
-export function getHash(cid: string, _timeOut: number | undefined): Promise<string | any[] | null | undefined>;
+export function waitForSignal(signal: string): Promise<{
+    success: boolean;
+} | null>;
+export function sendSignal(signal: string): Promise<{
+    success: boolean;
+} | null>;

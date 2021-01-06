@@ -1,7 +1,7 @@
 import { css, jsx } from "@emotion/react";
 /** @jsx jsx */
 import React from "react";
-import { getHash, hash } from "@zedvision/code/dist/hash";
+import { waitForSignal } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
@@ -58,34 +58,10 @@ export const Qr: React.FC = () => {
       // }
       setTimeout(() => setRetry((x) => x - 1), 10000);
 
-      const toCheck = await hash(url, true);
-      console.log({ toCheck });
-      try {
-        toCheck.map((dig) => {
-          checkers.num++;
-          console.log({ awaiting: dig, ...checkers });
-          new Promise((resolve, reject) => {
-            setTimeout(() => reject(-1), 20000);
-
-            getHash(dig, 25000).then((result) => {
-              console.log({ result: { dig, result } });
-
-              if (result) {
-                resolve(result);
-                window.location.href = `https://zed.vision/ipfs/${result}`;
-              }
-            });
-          });
-        });
-      } catch {
-        checkers.num--;
-
-        console.log({ catching: "next time", checkers });
-        //next code maybe
-      } finally {
-        checkers.num--;
-
-        console.log({ finally: "next time", checkers });
+      // const toCheck = await hash(url, true);
+      const {success} = await waitForSignal(url);
+      if ( success ) {
+        window.location = url;
       }
     };
     if (typeof window !== "undefined" && retry > 0) connect();

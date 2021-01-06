@@ -1,3 +1,5 @@
+import { sendSignal } from "./hash.js";
+
 /**
  * @param {string} code
  */
@@ -57,9 +59,9 @@ export async function run(mode = "window", _w) {
   Object.assign(window, await import("./hash.js"));
 
   if (isKey) {
-    import("./hash.js").then(({ hash }) =>
-      hash(`https://zed.vision/${pathname}`, false)
-    ).then((hash) => console.log({ hash }));
+    import("./hash.js").then(({ sendSignal }) =>
+      sendSignal(`https://zed.vision/${pathname}`)
+    );
   }
 
   const { formatter } = await import("./formatter.js");

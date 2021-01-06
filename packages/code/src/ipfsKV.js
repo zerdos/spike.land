@@ -11,7 +11,13 @@ export const getIpfsClient = async () => {
  * @param {{ onlyHash: boolean; }} options
  */
 
-    add: (data, options) => worker.add(data, options),
+    add: (data, options) => {
+      try {
+        return worker.add(data, options);
+      } catch (e) {
+        console.log({ "Comlink-add": e });
+      }
+    },
 
     /**
    * 
@@ -29,31 +35,41 @@ export const getIpfsClient = async () => {
    *         signal?: 	AbortSignal;
     *        }}  options 
    */
-    cat: (cid, { timeout }) => worker.cat(cid, { timeout }),
+    cat: (cid, { timeout }) => {
+      try {
+        return worker.cat(cid, { timeout });
+      } catch (e) {
+        console.log({ "comlink-cat": e });
+      }
+    },
   };
 };
 
 async function init() {
-  const v = versions();
+  try {
+    const v = versions();
 
-  const res = await fetch(
-    window.location.hostname === "[::1]"
-      ? `./src/ipfsKV.worker.js`
-      : `https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.worker.js`,
-  );
-  const workerSource = await res.text();
-  const worker = new Worker(
-    URL.createObjectURL(
-      new Blob([
-        workerSource
-          .replace("$$ipfs$$", v.ipfs)
-          .replace("$$comlink$$", v.comlink),
-      ]),
-    ),
-  );
-  const Comlink = await import(
-    `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
-  );
+    const res = await fetch(
+      window.location.hostname === "[::1]"
+        ? `./src/ipfsKV.worker.js`
+        : `https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.worker.js`,
+    );
+    const workerSource = await res.text();
+    const worker = new Worker(
+      URL.createObjectURL(
+        new Blob([
+          workerSource
+            .replace("$$ipfs$$", v.ipfs)
+            .replace("$$comlink$$", v.comlink),
+        ]),
+      ),
+    );
+    const Comlink = await import(
+      `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
+    );
 
-  return Comlink.wrap(worker);
+    return Comlink.wrap(worker);
+  } catch (e) {
+    console.log({ "COMLINK": e });
+  }
 }
