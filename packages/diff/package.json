@@ -28,7 +28,7 @@
     "dependencies": {
         "@zedvision/sha256": "11.2.0",
         "diff": "5.0.0",
-        "esbuild": "0.8.29"
+        "esbuild": "0.8.30"
     },
     "devDependencies": {
         "typescript": "4.1.3"

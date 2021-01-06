@@ -4211,7 +4211,7 @@ __metadata:
   dependencies:
     "@cloudflare/wrangler": 1.12.3
     "@zedvision/code": ^11.4.0
-    esbuild: 0.8.29
+    esbuild: 0.8.30
   languageName: unknown
   linkType: soft
 
@@ -4222,7 +4222,7 @@ __metadata:
     "@cloudflare/workers-types": 2.1.0
     "@cloudflare/wrangler": 1.12.3
     "@types/uuid": 8.3.0
-    esbuild: 0.8.29
+    esbuild: 0.8.30
     uuid: 8.3.2
   languageName: unknown
   linkType: soft
@@ -4237,7 +4237,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@zedvision/shadb": 11.2.11
     comlink: 4.3.0
-    esbuild: 0.8.29
+    esbuild: 0.8.30
     framer-motion: 3.1.4
     idb: 5.0.8
     prettier: 2.2.1
@@ -4254,7 +4254,7 @@ __metadata:
   dependencies:
     "@zedvision/sha256": 11.2.0
     diff: 5.0.0
-    esbuild: 0.8.29
+    esbuild: 0.8.30
     typescript: 4.1.3
   languageName: unknown
   linkType: soft
@@ -4266,7 +4266,7 @@ __metadata:
     "@emotion/react": 11.1.4
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
-    esbuild: 0.8.29
+    esbuild: 0.8.30
     framer-motion: 3.1.4
     react: 17.0.1
     react-dom: 17.0.1
@@ -4278,7 +4278,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/qrious@workspace:packages/qrious"
   dependencies:
-    esbuild: 0.8.29
+    esbuild: 0.8.30
     qrious-core: 4.0.0
   languageName: unknown
   linkType: soft
@@ -4293,7 +4293,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/shadb@workspace:packages/shadb"
   dependencies:
-    esbuild: 0.8.29
+    esbuild: 0.8.30
     idb: 5.0.8
     typescript: 4.1.3
   languageName: unknown
@@ -8580,12 +8580,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.8.29":
-  version: 0.8.29
-  resolution: "esbuild@npm:0.8.29"
+"esbuild@npm:0.8.30":
+  version: 0.8.30
+  resolution: "esbuild@npm:0.8.30"
   bin:
     esbuild: bin/esbuild
-  checksum: 44600db4dd589bf49c3cdd390ebc3178f5c01ca8282299fda03e6723e806f2878703cc76488bf7caeeb0ac7183c526c6539d173478dd05a88d3f0a23ff132d11
+  checksum: 065d9845c3dd63167e63c4a791e9dc4ff6c942253f79de289687062f7930113362f4c8d0c277e94ae7864c44860dec33548d4595eeebf5715e01b4eed54cee5f
   languageName: node
   linkType: hard
 
