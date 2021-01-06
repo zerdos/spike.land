@@ -1,6 +1,6 @@
 import versions from "./versions.js";
 
-/** @type {{ add: (arg0: any, arg1: any) => any; addAll: (arg0: any) => any; get: (arg0: any, arg1: any) => any; }} */
+/** @type {{ add: (arg0: any, arg1: any) => any; addAll: (arg0: any) => any; cat: (arg0: any, arg1: any) => any; }} */
 let worker;
 export const getIpfsClient = async () => {
   worker = await init();
@@ -29,7 +29,7 @@ export const getIpfsClient = async () => {
    *         signal?: 	AbortSignal;
     *        }}  options 
    */
-    get: (cid, options) => worker.get(cid, options),
+    cat: (cid, options) => worker.cat(cid, options),
   };
 };
 

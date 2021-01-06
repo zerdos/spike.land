@@ -66,12 +66,12 @@ const hash = async (data, onlyHash) => {
 const getHash = async (cid, _timeOut) => {
     const timeout = _timeOut || 20000;
     try {
-        /** @type {{ get: (arg0: any, arg1: any) => any; } | null} */
+        /** @type {{ cat: (arg0: any, arg1: any) => any; } | null} */
         const client = (await getClient());
         if (client === null) {
             return null;
         }
-        const data = await client.get(cid, { timeout });
+        const data = await client.cat(cid, { timeout });
         return half(data);
     }
     catch (e) {

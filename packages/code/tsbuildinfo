@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "a2ad4ed0a0edf7076ddd96f92c0e221fdbcc08898c5a1fb03c1e2ec74c071950",
+        "version": "48ac8fe56fd3cdf5e0074a39071f690dabb673d84f1862af2e7ef3c22e47b7db",
         "signature": "7e7893d3bf7fb880270ce72305571e55cb06367b8cb7c1a1311e15e102758138",
         "affectsGlobalScope": false
       },
@@ -312,8 +312,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
-        "version": "408dd729aba30da93245eb541da9ad4f1dfb27ab971c81b0785a7396a4b2b2d9",
-        "signature": "1e045daff495b3008b4115fab0032b02ad0ac913eab8c21c2d912c96d8093a24",
+        "version": "709c22c79d73618f60461fce8c6b47fd288d9a4d937530a427ee0862c3dc1be6",
+        "signature": "5a632d99369b63a9c545c1e3c2239e32456a52ffc5b3b681d6b87af2f4f02d4e",
         "affectsGlobalScope": false
       },
       "./src/share.js": {
@@ -332,8 +332,8 @@
         "affectsGlobalScope": true
       },
       "./src/ipfsKV.worker.js": {
-        "version": "1ddea3a16940ce126e4f2b449c6c7a86635c1f1005ae78ce174ea5bcacf50a18",
-        "signature": "59ee30cfbc79c2d04684266bb5e53cae01305d9de9eae0dbcb83164d7dd69da2",
+        "version": "8b6651ebdf5b80b702f95a43e8d2fb009f27265900d215109b7b6cfb0c696a20",
+        "signature": "7c64106f9e854e5fce560f27c54eb67e1636016dccf327bbf62a2d59a04d0e19",
         "affectsGlobalScope": true
       },
       "./src/refs.d.ts": {
