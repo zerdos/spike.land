@@ -78,9 +78,9 @@ var addMethods=__webpack_require__(76);var methods=[];module.exports=function(){
 /* unused harmony export velocityPerFrame */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return velocityPerSecond; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return wrap; });
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(44);
 /* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(78);
 /* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(79);
 /* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(77);
@@ -1272,7 +1272,7 @@ var steps = function steps(_steps, direction) {
 
 /***/ }),
 
-/***/ 175:
+/***/ 176:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1306,7 +1306,7 @@ var index = memoize_browser_esm(function (prop) {
 
 /***/ }),
 
-/***/ 43:
+/***/ 44:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1818,7 +1818,7 @@ module.exports = addMethods;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cancelSync; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getFrameData; });
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__);
 
 var defaultTimestep = 1 / 60 * 1000;
@@ -1994,7 +1994,7 @@ if (false) {}
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return scale; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return vh; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return vw; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(43);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(44);
 
 
 var clamp = function clamp(min, max) {
@@ -2297,20 +2297,20 @@ var complex = {
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ CodeBox_CodeBox; });
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(7);
+var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(12);
+var defineProperty = __webpack_require__(9);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
-var toConsumableArray = __webpack_require__(46);
+var toConsumableArray = __webpack_require__(31);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(3);
+var runtime = __webpack_require__(1);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(8);
+var asyncToGenerator = __webpack_require__(3);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
 var react = __webpack_require__(0);
@@ -2608,10 +2608,10 @@ var example_defaultProps = {
 };
 var counterExample = "import { FC, useState } from \"react\";\n\nconst Counter: FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst rootElement = document.createElement(\"div\");\n\nReactDOM.render(<Counter initial={0} />, rootElement);\ndocument.body.appendChild(rootElement);\n\n";
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(5);
+var taggedTemplateLiteralLoose = __webpack_require__(7);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
-var emotion_styled_browser_esm = __webpack_require__(31);
+var emotion_styled_browser_esm = __webpack_require__(32);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
 

@@ -1,4 +1,4 @@
-(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[10],{
+(this["webpackJsonp"] = this["webpackJsonp"] || []).push([[11],{
 
 /***/ 155:
 /***/ (function(module, exports, __webpack_require__) {
@@ -15,7 +15,7 @@ module.exports = __webpack_require__.p + "static/forkMe-1a2bcb7dd2c870c3afe5d504
 
 /***/ }),
 
-/***/ 172:
+/***/ 173:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23,17 +23,17 @@ module.exports = __webpack_require__.p + "static/forkMe-1a2bcb7dd2c870c3afe5d504
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(5);
+var taggedTemplateLiteralLoose = __webpack_require__(7);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(7);
+var regenerator = __webpack_require__(2);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/regenerator-runtime/runtime.js
-var runtime = __webpack_require__(3);
+var runtime = __webpack_require__(1);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(8);
+var asyncToGenerator = __webpack_require__(3);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
 var emotion_react_browser_esm = __webpack_require__(15);
@@ -46,7 +46,7 @@ var react_default = /*#__PURE__*/__webpack_require__.n(react);
 var gatsby_browser_entry = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./src/components/bio.tsx
-var bio = __webpack_require__(44);
+var bio = __webpack_require__(45);
 
 // EXTERNAL MODULE: ./src/components/layout.tsx + 3 modules
 var layout = __webpack_require__(17);
@@ -61,18 +61,18 @@ var seo = __webpack_require__(16);
 var shaDB = {
   get: function () {
     var _get = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(key, type) {
-      var _yield$Function, getDB, db;
+      var _yield$import, getDB, db;
 
       return regenerator_default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return new Function("return  import(\"https://unpkg.com/@zedvision/shadb@10.13.18/src/shaDB.js\")")();
+              return __webpack_require__.e(/* import() */ 6).then(__webpack_require__.bind(null, 178));
 
             case 2:
-              _yield$Function = _context.sent;
-              getDB = _yield$Function.getDB;
+              _yield$import = _context.sent;
+              getDB = _yield$import.getDB;
               _context.next = 6;
               return getDB("shaDB");
 
@@ -101,18 +101,18 @@ var shaDB = {
   }(),
   put: function () {
     var _put = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(key, value) {
-      var _yield$Function2, getDB, db;
+      var _yield$import2, getDB, db;
 
       return regenerator_default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return new Function("return import(\"https://unpkg.com/@zedvision/shadb@10.13.18/src/shaDB.js\")")();
+              return __webpack_require__.e(/* import() */ 6).then(__webpack_require__.bind(null, 178));
 
             case 2:
-              _yield$Function2 = _context2.sent;
-              getDB = _yield$Function2.getDB;
+              _yield$import2 = _context2.sent;
+              getDB = _yield$import2.getDB;
               _context2.next = 6;
               return getDB("shaDB");
 
@@ -160,7 +160,7 @@ function _getUserId() {
 
           case 2:
             _context3.next = 4;
-            return shaDB.get("uuid");
+            return shaDB.get("uuid", "string");
 
           case 4:
             uuid = _context3.sent;
@@ -522,17 +522,17 @@ var pageQuery = "497448492";
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Bio; });
-/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(31);
+/* harmony import */ var _emotion_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(32);
 /* harmony import */ var _utils_typography__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(23);
-/* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(45);
+/* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(46);
 /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_4__);
 
 
@@ -577,7 +577,7 @@ var Bio = function Bio() {
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/zed-profile-pic-cd941e033fafca9e98b23dae7e5a0ccc.jpg";
