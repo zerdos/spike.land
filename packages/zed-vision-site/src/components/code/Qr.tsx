@@ -54,7 +54,7 @@ export const Qr: React.FC = () => {
       setTimeout(() => setRetry((x: number) => x - 1), 4000);
 
       // const toCheck = await hash(url, true);
-      setTimeout(async()=>await waitForSignalAndJump(url));
+      setTimeout(async () => await waitForSignalAndJump(url));
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
