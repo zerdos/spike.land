@@ -1,7 +1,7 @@
 export default function () {
     const code = "11.5.1";
     const shadb = "11.4.16";
-    const editor = "11.3.0";
+    const editor = "11.5.6";
     const emotionRenderer = "11.4.7";
     const v = {
         code,
