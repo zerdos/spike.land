@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "17edc4566e18ea996955f5e6993a956af52391068c9d07b573ac9cf7974e179c",
+        "version": "8e45fcb4f8fa2d4da02aaed296cb61c773fdbadae2a059d4972b572cb6b49411",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },

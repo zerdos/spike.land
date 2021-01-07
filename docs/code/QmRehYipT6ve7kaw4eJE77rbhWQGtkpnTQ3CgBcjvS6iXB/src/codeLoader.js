@@ -52,7 +52,7 @@ export async function run(mode = "window", _w) {
   const { searchParams, pathname } = new URL(window.location.href);
 
   const maybeRoute = pathname.substr(1);
-  const isKey = [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
+  const isKey = maybeRoute.length ===8 && [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 
   if (isKey) {
     await import("./hash.js").then(({ sendSignal }) =>
