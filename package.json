@@ -36,7 +36,7 @@
     "@zedvision/cf-worker": "portal:/home/zed/z/packages/cf-zed-vision",
     "@zedvision/code": "portal:/home/zed/z/packages/code",
     "@devcontainer/cypress": "portal:/home/zed/z/packages/devimages-cypress",
-   "@zedvision/emotion-react-renderer": "portal:/home/zed/z/packages/emotion-react-renderer",
+    "@zedvision/emotion-react-renderer": "portal:/home/zed/z/packages/emotion-react-renderer",
     "@devcontainer/eoan-xfce-novnc": "portal:/home/zed/z/packages/eoan-xfce-novnc",
     "@devcontainer/focal-devcontainer": "portal:/home/zed/z/packages/focal-devcontainer",
     "@devcontainer/focal-xfce-vnc": "portal:/home/zed/z/packages/focal-xfce-vnc",
