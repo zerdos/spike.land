@@ -4736,27 +4736,27 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/gatsby-starter-blog@workspace:packages/my-gatsby-project"
   dependencies:
-    gatsby: ^2.30.1
-    gatsby-image: ^2.9.0
-    gatsby-plugin-feed: ^2.11.0
-    gatsby-plugin-google-analytics: ^2.9.0
-    gatsby-plugin-manifest: ^2.10.0
-    gatsby-plugin-offline: ^3.8.0
-    gatsby-plugin-react-helmet: ^3.8.0
-    gatsby-plugin-sharp: ^2.12.0
-    gatsby-remark-copy-linked-files: ^2.8.0
-    gatsby-remark-images: ^3.9.0
-    gatsby-remark-prismjs: ^3.11.0
-    gatsby-remark-responsive-iframe: ^2.9.0
-    gatsby-remark-smartypants: ^2.8.0
-    gatsby-source-filesystem: ^2.9.0
-    gatsby-transformer-remark: ^2.14.0
-    gatsby-transformer-sharp: ^2.10.0
+    gatsby: 2.30.1
+    gatsby-image: 2.9.0
+    gatsby-plugin-feed: 2.11.0
+    gatsby-plugin-google-analytics: 2.9.0
+    gatsby-plugin-manifest: 2.10.0
+    gatsby-plugin-offline: 3.8.0
+    gatsby-plugin-react-helmet: 3.8.0
+    gatsby-plugin-sharp: 2.12.0
+    gatsby-remark-copy-linked-files: 2.8.0
+    gatsby-remark-images: 3.9.0
+    gatsby-remark-prismjs: 3.11.0
+    gatsby-remark-responsive-iframe: 2.9.0
+    gatsby-remark-smartypants: 2.8.0
+    gatsby-source-filesystem: 2.9.0
+    gatsby-transformer-remark: 2.14.0
+    gatsby-transformer-sharp: 2.10.0
     prettier: 2.2.1
-    prismjs: ^1.23.0
-    react: ^17.0.1
-    react-dom: ^17.0.1
-    react-helmet: ^6.1.0
+    prismjs: 1.23.0
+    react: 17.0.1
+    react-dom: 17.0.1
+    react-helmet: 6.1.0
     typeface-merriweather: 1.1.13
     typeface-montserrat: 1.1.13
   languageName: unknown
@@ -10930,7 +10930,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-image@npm:2.9.0, gatsby-image@npm:^2.9.0":
+"gatsby-image@npm:2.9.0":
   version: 2.9.0
   resolution: "gatsby-image@npm:2.9.0"
   dependencies:
@@ -10995,7 +10995,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-feed@npm:^2.11.0":
+"gatsby-plugin-feed@npm:2.11.0":
   version: 2.11.0
   resolution: "gatsby-plugin-feed@npm:2.11.0"
   dependencies:
@@ -11012,7 +11012,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-google-analytics@npm:^2.9.0":
+"gatsby-plugin-google-analytics@npm:2.9.0":
   version: 2.9.0
   resolution: "gatsby-plugin-google-analytics@npm:2.9.0"
   dependencies:
@@ -11026,7 +11026,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-manifest@npm:2.10.0, gatsby-plugin-manifest@npm:^2.10.0":
+"gatsby-plugin-manifest@npm:2.10.0":
   version: 2.10.0
   resolution: "gatsby-plugin-manifest@npm:2.10.0"
   dependencies:
@@ -11088,7 +11088,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-offline@npm:^3.8.0":
+"gatsby-plugin-offline@npm:3.8.0":
   version: 3.8.0
   resolution: "gatsby-plugin-offline@npm:3.8.0"
   dependencies:
@@ -11123,7 +11123,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-react-helmet@npm:3.8.0, gatsby-plugin-react-helmet@npm:^3.8.0":
+"gatsby-plugin-react-helmet@npm:3.8.0":
   version: 3.8.0
   resolution: "gatsby-plugin-react-helmet@npm:3.8.0"
   dependencies:
@@ -11151,7 +11151,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-sharp@npm:^2.12.0":
+"gatsby-plugin-sharp@npm:2.12.0":
   version: 2.12.0
   resolution: "gatsby-plugin-sharp@npm:2.12.0"
   dependencies:
@@ -11311,7 +11311,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-remark-copy-linked-files@npm:^2.8.0":
+"gatsby-remark-copy-linked-files@npm:2.8.0":
   version: 2.8.0
   resolution: "gatsby-remark-copy-linked-files@npm:2.8.0"
   dependencies:
@@ -11329,7 +11329,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-remark-images@npm:^3.9.0":
+"gatsby-remark-images@npm:3.9.0":
   version: 3.9.0
   resolution: "gatsby-remark-images@npm:3.9.0"
   dependencies:
@@ -11351,7 +11351,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-remark-prismjs@npm:^3.11.0":
+"gatsby-remark-prismjs@npm:3.11.0":
   version: 3.11.0
   resolution: "gatsby-remark-prismjs@npm:3.11.0"
   dependencies:
@@ -11365,7 +11365,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-remark-responsive-iframe@npm:^2.9.0":
+"gatsby-remark-responsive-iframe@npm:2.9.0":
   version: 2.9.0
   resolution: "gatsby-remark-responsive-iframe@npm:2.9.0"
   dependencies:
@@ -11380,7 +11380,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-remark-smartypants@npm:^2.8.0":
+"gatsby-remark-smartypants@npm:2.8.0":
   version: 2.8.0
   resolution: "gatsby-remark-smartypants@npm:2.8.0"
   dependencies:
@@ -11394,7 +11394,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-source-filesystem@npm:2.9.0, gatsby-source-filesystem@npm:^2.9.0":
+"gatsby-source-filesystem@npm:2.9.0":
   version: 2.9.0
   resolution: "gatsby-source-filesystem@npm:2.9.0"
   dependencies:
@@ -11439,7 +11439,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-transformer-remark@npm:^2.14.0":
+"gatsby-transformer-remark@npm:2.14.0":
   version: 2.14.0
   resolution: "gatsby-transformer-remark@npm:2.14.0"
   dependencies:
@@ -11470,7 +11470,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-transformer-sharp@npm:^2.10.0":
+"gatsby-transformer-sharp@npm:2.10.0":
   version: 2.10.0
   resolution: "gatsby-transformer-sharp@npm:2.10.0"
   dependencies:
@@ -11488,7 +11488,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby@npm:2.30.1, gatsby@npm:^2.30.1":
+"gatsby@npm:2.30.1":
   version: 2.30.1
   resolution: "gatsby@npm:2.30.1"
   dependencies:
@@ -18622,7 +18622,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"prismjs@npm:^1.23.0":
+"prismjs@npm:1.23.0":
   version: 1.23.0
   resolution: "prismjs@npm:1.23.0"
   dependencies:
@@ -19123,7 +19123,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-dom@npm:17.0.1, react-dom@npm:^17.0.1":
+"react-dom@npm:17.0.1":
   version: 17.0.1
   resolution: "react-dom@npm:17.0.1"
   dependencies:
@@ -19150,7 +19150,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-helmet@npm:6.1.0, react-helmet@npm:^6.1.0":
+"react-helmet@npm:6.1.0":
   version: 6.1.0
   resolution: "react-helmet@npm:6.1.0"
   dependencies:
@@ -19240,7 +19240,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react@npm:17.0.1, react@npm:^17.0.1":
+"react@npm:17.0.1":
   version: 17.0.1
   resolution: "react@npm:17.0.1"
   dependencies:
