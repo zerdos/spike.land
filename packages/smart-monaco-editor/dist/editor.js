@@ -126,8 +126,8 @@ export default async ({ onChange, code, language, container, options }) => {
             },
         ];
         const dts = importHelper.map(({ name, url }) => (async () => modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@")
-            ? `file:///${name}`
-            : `file:///@types/${name}/index.d.ts`))());
+            ? `file:///node_modules/${name}`
+            : `file:///node_modules/@types/${name}/index.d.ts`))());
         modules.monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
             target: 99,
             allowNonTsExtensions: true,
