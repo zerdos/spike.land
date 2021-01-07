@@ -92,9 +92,10 @@ export async function run(mode = "window", _w) {
   // create a window
   const win = wm.createWindow(
     {
+      titlebarHeight: "42px",
       width: 720,
+      backgroundWindow: "#1e1e1e",
       height: 640,
-      style: { backgroundWindow: "#1e1e1e" },
       title: "React Live",
     },
   );
