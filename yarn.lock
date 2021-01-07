@@ -1390,7 +1390,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/cypress@workspace:packages/devimages-cypress"
   dependencies:
-    "@devcontainer/generator": 11.2.16
+    "@devcontainer/generator": ^11.5.3
   languageName: unknown
   linkType: soft
 
@@ -1398,7 +1398,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": 11.2.16
+    "@devcontainer/generator": ^11.5.3
   languageName: unknown
   linkType: soft
 
@@ -1406,7 +1406,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-devcontainer@workspace:packages/focal-devcontainer"
   dependencies:
-    "@devcontainer/generator": 11.2.16
+    "@devcontainer/generator": ^11.5.3
   languageName: unknown
   linkType: soft
 
@@ -1414,7 +1414,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-xfce-vnc@workspace:packages/focal-xfce-vnc"
   dependencies:
-    "@devcontainer/generator": 11.2.16
+    "@devcontainer/generator": ^11.5.3
   languageName: unknown
   linkType: soft
 
@@ -1438,7 +1438,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-devcontainer@workspace:packages/groovy-devcontainer"
   dependencies:
-    "@devcontainer/generator": 11.2.16
+    "@devcontainer/generator": ^11.5.3
   languageName: unknown
   linkType: soft
 
@@ -1446,7 +1446,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-xfce-novnc@workspace:packages/groovy-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": 11.2.16
+    "@devcontainer/generator": ^11.5.3
   languageName: unknown
   linkType: soft
 
@@ -1454,7 +1454,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/hirsute-devcontainer@workspace:packages/hirsute-devcontainer"
   dependencies:
-    "@devcontainer/generator": 11.2.16
+    "@devcontainer/generator": ^11.5.3
   languageName: unknown
   linkType: soft
 
@@ -4674,7 +4674,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.5.2
+    "@zedvision/code": ^11.5.3
     esbuild: 0.8.31
   languageName: unknown
   linkType: soft
@@ -4823,9 +4823,9 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.5.2
-    "@zedvision/qrious": ^11.5.0
-    "@zedvision/shadb": ^11.5.2
+    "@zedvision/code": ^11.5.3
+    "@zedvision/qrious": ^11.5.3
+    "@zedvision/shadb": ^11.5.3
     framer-motion: 3.1.4
     gatsby: 2.30.1
     gatsby-image: 2.9.0

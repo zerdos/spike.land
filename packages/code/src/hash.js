@@ -129,8 +129,14 @@ export const sendSignal = (signal) => {
  * @param {string} url
  */
 export const waitForSignalAndJump = async (url) => {
-  const { success } = await waitForSignal(url);
-  if (success) {
-    window.location.href = url;
+  try {
+    const { success } = await waitForSignal(url);
+    if (success) {
+      window.location.href = url;
+    }
+  } catch (e) {
+    console.log({ msg: "SignalAndJump errror", e });
+  } finally {
+    console.log({ msg: "SignalAndJump Final" });
   }
 };
