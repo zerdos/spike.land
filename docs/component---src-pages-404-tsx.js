@@ -5,20 +5,10 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var _babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(34);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(18);
-/* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(17);
-
-
-
-
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(16);
 
 
 
@@ -29,97 +19,9 @@ __webpack_require__.r(__webpack_exports__);
     pathname = new URL(location.href).pathname.substr(1);
   }
 
-  var isKey = function isKey(str) {
-    return Object(_babel_runtime_helpers_esm_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(str.slice(1, 9)).filter(function (x) {
-      return x < "0" || x > "f";
-    }).length === 0;
-  };
-
-  var needToCheck = pathname.length === 8 && isKey(pathname);
-
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_4___default.a.useState(false),
-      is404 = _React$useState[0],
-      set404 = _React$useState[1];
-
-  react__WEBPACK_IMPORTED_MODULE_4___default.a.useEffect(function () {
-    console.log("We use effect");
-
-    var runner = /*#__PURE__*/function () {
-      var _ref = Object(_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var cid;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                console.log("we use run");
-                _context.prev = 1;
-                console.log("we use try"); // console.log(pathname);
-                // const key = pathname;
-                // const uuid = await getUserId();
-                // console.log(uuid);
-                // const uuidHash = (await sha256(uuid)).substring(0, 8);
-                // console.log(uuidHash);
-                // const checkKeyUuid = (await sha256(key + uuid)).substring(0, 8);
-                // const checkHashUuidHash = (await sha256(key + uuidHash)).substring(
-                //   0,
-                //   8,
-                // );
-                // console.log({
-                //   key,
-                //   uuidHash,
-                //   checkKeyUuid,
-                //   checkHashUuidHash,
-                // });
-                // const response = await fetch(
-                //   `https://zed.vision/connect?key=${key}${uuidHash}${checkKeyUuid}${checkHashUuidHash}`,
-                // );
-                // const data: { success: boolean } = await response.json();
-
-                console.log("ipvs story");
-                _context.next = 6;
-                return hash(location.href, false);
-
-              case 6:
-                cid = _context.sent;
-                console.log({
-                  cid: cid
-                });
-
-                if (cid) {
-                  location.href = "https://zed.vision/ipfs/" + cid[0];
-                } else {
-                  set404(true);
-                }
-
-                _context.next = 15;
-                break;
-
-              case 11:
-                _context.prev = 11;
-                _context.t0 = _context["catch"](1);
-                console.log("we catching");
-                set404(true);
-
-              case 15:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[1, 11]]);
-      }));
-
-      return function runner() {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
-    if (typeof window !== "undefined") {
-      if (needToCheck) runner();else set404(true);
-    }
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_4___default.a.Fragment, null, is404 === true && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components_layout__WEBPACK_IMPORTED_MODULE_5__[/* Layout */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(_components_seo__WEBPACK_IMPORTED_MODULE_6__[/* SEO */ "a"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layout__WEBPACK_IMPORTED_MODULE_1__[/* Layout */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_seo__WEBPACK_IMPORTED_MODULE_2__[/* SEO */ "a"], {
     title: "404: Not Found"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("h1", null, "This page is not a page: ", pathname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("p", null, "Let's say, its a 404 page. ", is404, ".")), is404 === false && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement("div", null));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This page is not a page: ", pathname), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Let's say, its a 404 page.")));
 });
 
 /***/ })

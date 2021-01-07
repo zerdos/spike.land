@@ -78,9 +78,9 @@ var addMethods=__webpack_require__(76);var methods=[];module.exports=function(){
 /* unused harmony export velocityPerFrame */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return velocityPerSecond; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return wrap; });
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43);
 /* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(78);
 /* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(79);
 /* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(77);
@@ -1306,229 +1306,7 @@ var index = memoize_browser_esm(function (prop) {
 
 /***/ }),
 
-/***/ 27:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/extends.js
-var helpers_extends = __webpack_require__(23);
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
-var react = __webpack_require__(0);
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js
-var emotion_memoize_browser_esm = __webpack_require__(33);
-
-// CONCATENATED MODULE: /home/zed/z/node_modules/@emotion/styled/node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
-
-var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
-
-var isPropValid = /* #__PURE__ */Object(emotion_memoize_browser_esm["a" /* default */])(function (prop) {
-  return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111
-  /* o */
-  && prop.charCodeAt(1) === 110
-  /* n */
-  && prop.charCodeAt(2) < 91;
-}
-/* Z+1 */
-);
-/* harmony default export */ var emotion_is_prop_valid_browser_esm = (isPropValid);
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(44);
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-element-4fbd89c5.browser.esm.js
-var emotion_element_4fbd89c5_browser_esm = __webpack_require__(9);
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/utils/dist/emotion-utils.browser.esm.js
-var emotion_utils_browser_esm = __webpack_require__(16);
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js + 2 modules
-var emotion_serialize_browser_esm = __webpack_require__(19);
-
-// CONCATENATED MODULE: /home/zed/z/node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
-
-
-
-
-
-
-var testOmitPropsOnStringTag = emotion_is_prop_valid_browser_esm;
-
-var testOmitPropsOnComponent = function testOmitPropsOnComponent(key) {
-  return key !== 'theme';
-};
-
-var getDefaultShouldForwardProp = function getDefaultShouldForwardProp(tag) {
-  return typeof tag === 'string' && // 96 is one less than the char code
-  // for "a" so this is checking that
-  // it's a lowercase character
-  tag.charCodeAt(0) > 96 ? testOmitPropsOnStringTag : testOmitPropsOnComponent;
-};
-
-var composeShouldForwardProps = function composeShouldForwardProps(tag, options, isReal) {
-  var shouldForwardProp;
-
-  if (options) {
-    var optionsShouldForwardProp = options.shouldForwardProp;
-    shouldForwardProp = tag.__emotion_forwardProp && optionsShouldForwardProp ? function (propName) {
-      return tag.__emotion_forwardProp(propName) && optionsShouldForwardProp(propName);
-    } : optionsShouldForwardProp;
-  }
-
-  if (typeof shouldForwardProp !== 'function' && isReal) {
-    shouldForwardProp = tag.__emotion_forwardProp;
-  }
-
-  return shouldForwardProp;
-};
-
-var ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
-
-var emotion_styled_base_browser_esm_createStyled = function createStyled(tag, options) {
-  if (false) {}
-
-  var isReal = tag.__emotion_real === tag;
-  var baseTag = isReal && tag.__emotion_base || tag;
-  var identifierName;
-  var targetClassName;
-
-  if (options !== undefined) {
-    identifierName = options.label;
-    targetClassName = options.target;
-  }
-
-  var shouldForwardProp = composeShouldForwardProps(tag, options, isReal);
-  var defaultShouldForwardProp = shouldForwardProp || getDefaultShouldForwardProp(baseTag);
-  var shouldUseAs = !defaultShouldForwardProp('as');
-  return function () {
-    var args = arguments;
-    var styles = isReal && tag.__emotion_styles !== undefined ? tag.__emotion_styles.slice(0) : [];
-
-    if (identifierName !== undefined) {
-      styles.push("label:" + identifierName + ";");
-    }
-
-    if (args[0] == null || args[0].raw === undefined) {
-      styles.push.apply(styles, args);
-    } else {
-      if (false) {}
-
-      styles.push(args[0][0]);
-      var len = args.length;
-      var i = 1;
-
-      for (; i < len; i++) {
-        if (false) {}
-
-        styles.push(args[i], args[0][i]);
-      }
-    } // $FlowFixMe: we need to cast StatelessFunctionalComponent to our PrivateStyledComponent class
-
-
-    var Styled = Object(emotion_element_4fbd89c5_browser_esm["e" /* w */])(function (props, cache, ref) {
-      var finalTag = shouldUseAs && props.as || baseTag;
-      var className = '';
-      var classInterpolations = [];
-      var mergedProps = props;
-
-      if (props.theme == null) {
-        mergedProps = {};
-
-        for (var key in props) {
-          mergedProps[key] = props[key];
-        }
-
-        mergedProps.theme = Object(react["useContext"])(emotion_element_4fbd89c5_browser_esm["b" /* T */]);
-      }
-
-      if (typeof props.className === 'string') {
-        className = Object(emotion_utils_browser_esm["a" /* getRegisteredStyles */])(cache.registered, classInterpolations, props.className);
-      } else if (props.className != null) {
-        className = props.className + " ";
-      }
-
-      var serialized = Object(emotion_serialize_browser_esm["a" /* serializeStyles */])(styles.concat(classInterpolations), cache.registered, mergedProps);
-      var rules = Object(emotion_utils_browser_esm["b" /* insertStyles */])(cache, serialized, typeof finalTag === 'string');
-      className += cache.key + "-" + serialized.name;
-
-      if (targetClassName !== undefined) {
-        className += " " + targetClassName;
-      }
-
-      var finalShouldForwardProp = shouldUseAs && shouldForwardProp === undefined ? getDefaultShouldForwardProp(finalTag) : defaultShouldForwardProp;
-      var newProps = {};
-
-      for (var _key in props) {
-        if (shouldUseAs && _key === 'as') continue;
-
-        if ( // $FlowFixMe
-        finalShouldForwardProp(_key)) {
-          newProps[_key] = props[_key];
-        }
-      }
-
-      newProps.className = className;
-      newProps.ref = ref;
-      var ele = /*#__PURE__*/Object(react["createElement"])(finalTag, newProps);
-      return ele;
-    });
-    Styled.displayName = identifierName !== undefined ? identifierName : "Styled(" + (typeof baseTag === 'string' ? baseTag : baseTag.displayName || baseTag.name || 'Component') + ")";
-    Styled.defaultProps = tag.defaultProps;
-    Styled.__emotion_real = Styled;
-    Styled.__emotion_base = baseTag;
-    Styled.__emotion_styles = styles;
-    Styled.__emotion_forwardProp = shouldForwardProp;
-    Object.defineProperty(Styled, 'toString', {
-      value: function value() {
-        if (targetClassName === undefined && "production" !== 'production') {
-          return 'NO_COMPONENT_SELECTOR';
-        } // $FlowFixMe: coerce undefined to string
-
-
-        return "." + targetClassName;
-      }
-    });
-
-    Styled.withComponent = function (nextTag, nextOptions) {
-      return createStyled(nextTag, Object(esm_extends["a" /* default */])({}, options, {}, nextOptions, {
-        shouldForwardProp: composeShouldForwardProps(Styled, nextOptions, true)
-      })).apply(void 0, styles);
-    };
-
-    return Styled;
-  };
-};
-
-/* harmony default export */ var emotion_styled_base_browser_esm = (emotion_styled_base_browser_esm_createStyled);
-// CONCATENATED MODULE: /home/zed/z/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js
-
-
-
-
-
-
-
-var tags = ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', // SVG
-'circle', 'clipPath', 'defs', 'ellipse', 'foreignObject', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'svg', 'text', 'tspan'];
-var newStyled = emotion_styled_base_browser_esm.bind();
-tags.forEach(function (tagName) {
-  // $FlowFixMe: we can ignore this because its exposed type is defined by the CreateStyled type
-  newStyled[tagName] = newStyled(tagName);
-});
-/* harmony default export */ var emotion_styled_browser_esm = __webpack_exports__["a"] = (newStyled);
-
-/***/ }),
-
-/***/ 45:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (function(){var code="11.5.1";var shadb="11.4.16";var editor="11.3.0";var emotionRenderer="11.4.7";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",DraggableWindow:"https://blog.zed.vision/ipfs/QmPszD6UC3kYc3WRCttGFKqnqvSUvrSxvVbAouNRSQTsHF/app.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;});
-
-/***/ }),
-
-/***/ 46:
+/***/ 43:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2040,7 +1818,7 @@ module.exports = addMethods;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cancelSync; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getFrameData; });
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
 /* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__);
 
 var defaultTimestep = 1 / 60 * 1000;
@@ -2216,7 +1994,7 @@ if (false) {}
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return scale; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return vh; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return vw; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(46);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(43);
 
 
 var clamp = function clamp(min, max) {
@@ -2519,26 +2297,26 @@ var complex = {
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ CodeBox_CodeBox; });
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(4);
+var regenerator = __webpack_require__(7);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(13);
+var defineProperty = __webpack_require__(12);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
-var toConsumableArray = __webpack_require__(34);
+var toConsumableArray = __webpack_require__(46);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__(3);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(5);
+var asyncToGenerator = __webpack_require__(8);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
 var react = __webpack_require__(0);
 
 // EXTERNAL MODULE: ../code/dist/versions.js
-var versions = __webpack_require__(45);
+var versions = __webpack_require__(75);
 
 // EXTERNAL MODULE: ./src/components/utils/sha256/sha256.worker.ts
 var sha256_worker = __webpack_require__(150);
@@ -2830,10 +2608,10 @@ var example_defaultProps = {
 };
 var counterExample = "import { FC, useState } from \"react\";\n\nconst Counter: FC<{ initial?: number }> = (\n  { initial = 0 },\n) => {\n  const [clicks, setClicks] = useState(initial);\n\n  return <div>\n    <p>Clicks: {clicks}</p>\n    <button onClick={() => setClicks(clicks + 1)}>+</button>\n    <button onClick={() => setClicks(clicks - 1)}>-</button>\n  </div>;\n};\n\nconst rootElement = document.createElement(\"div\");\n\nReactDOM.render(<Counter initial={0} />, rootElement);\ndocument.body.appendChild(rootElement);\n\n";
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(7);
+var taggedTemplateLiteralLoose = __webpack_require__(5);
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
-var emotion_styled_browser_esm = __webpack_require__(27);
+var emotion_styled_browser_esm = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./src/components/codeBox/styledCodeBoxComps.tsx
 
