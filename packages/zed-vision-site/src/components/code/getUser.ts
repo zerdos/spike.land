@@ -1,15 +1,12 @@
 export const shaDB = {
-  get: async (key, type) => {
-    const { getDB } = await (new Function(
-      `return  import("https://unpkg.com/@zedvision/shadb@10.13.18/src/shaDB.js")`,
-    )());
+  get: async (key: string, type: "string" | "json") => {
+    const { getDB } = await import(`@zedvision/shadb/src/shaDB.js`);
     const db = await (await getDB("shaDB"))();
     return db.get(key, type);
   },
-  put: async (key, value) => {
-    const { getDB } = await (new Function(
-      `return import("https://unpkg.com/@zedvision/shadb@10.13.18/src/shaDB.js")`,
-    )());
+  put: async (key: string, value: string) => {
+    const { getDB } = await import(`@zedvision/shadb/src/shaDB.js`);
+
     const db = await (await getDB("shaDB"))();
     return db.put(key, value);
   },
@@ -18,7 +15,7 @@ export const shaDB = {
 export async function getUserId() {
   if (typeof window === "undefined") return "";
 
-  const uuid = await shaDB.get("uuid");
+  const uuid = await shaDB.get("uuid", "string");
   if (!uuid) {
     const resp = await fetch("https://zed.vision/register");
     const data = await resp.json();
