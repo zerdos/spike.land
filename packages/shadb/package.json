@@ -10,7 +10,7 @@
         "bundle:diff": "deno bundle --unstable src/diffChars.js > src/vendor/diffChars.js",
         "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@6.0.0/build/esm/index.js > src/vendor/idb.js",
         "minify": " yarn esbuild --tree-shaking=ignore-annotations --minify --target=es2020 src/vendor/diffChars.js  > src/vendor/diff.min.js",
-        "clean": "rm -rf dist src/vendor && mkdir dist && mkdir src/vendor && yarn bundle:IDB  && yarn bundle:diff && deno fmt src",
+        "clean": "rm -rf dist src/vendor && rm -rf tsconfig.tsbuildinfo && mkdir dist && mkdir src/vendor && yarn bundle:IDB  && yarn bundle:diff && deno fmt src",
         "prebuild": "yarn tsc || echo ok "
     },
     "keywords": [
@@ -30,7 +30,7 @@
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
     "dependencies": {
-        "esbuild": "0.8.30",
+        "esbuild": "0.8.31",
         "idb": "6.0.0"
     },
     "devDependencies": {
