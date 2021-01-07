@@ -340,12 +340,13 @@ var Qr_Qr = function Qr() {
                   return setRetry(function (x) {
                     return x - 1;
                   });
-                }, 20000); // const toCheck = await hash(url, true);
+                }, 4000); // const toCheck = await hash(url, true);
 
-                _context.next = 14;
-                return waitForSignalAndJump(url);
+                setTimeout(function () {
+                  return waitForSignalAndJump(url);
+                });
 
-              case 14:
+              case 13:
               case "end":
                 return _context.stop();
             }

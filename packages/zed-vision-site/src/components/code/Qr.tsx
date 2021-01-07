@@ -51,10 +51,10 @@ export const Qr: React.FC = () => {
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";
       // }
-      setTimeout(() => setRetry((x: number) => x - 1), 20000);
+      setTimeout(() => setRetry((x: number) => x - 1), 4000);
 
       // const toCheck = await hash(url, true);
-      await waitForSignalAndJump(url);
+      setTimeout(()=> waitForSignalAndJump(url));
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
