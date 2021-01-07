@@ -214,6 +214,7 @@ export default async (
         moduleResolution: 2, //nodeJS
         module: 99,
         noEmit: true,
+
         typeRoots: ["node_modules/@types"],
         jsx: "react-jsx",
         esModuleInterop: true,
