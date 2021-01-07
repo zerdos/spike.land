@@ -62,6 +62,7 @@ export async function run(mode = "window", _w) {
     const win = wm.createWindow({
         titlebarHeight: "42px",
         width: 720,
+        closable: false,
         backgroundWindow: "#1e1e1e",
         height: 640,
         title: "React Live",
