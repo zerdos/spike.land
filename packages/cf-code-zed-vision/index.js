@@ -1,6 +1,6 @@
 (() => {
-  // ../code/ipfs.json
-  var cid = "QmVwxfKeAe9ipPr8Zf6bJNtTB7H4dyrphUeoFuFK2p5RqN";
+  // ../code/package.json
+  var version = "11.5.10";
 
   // src/index.js
   addEventListener("fetch", (event) => {
@@ -66,7 +66,7 @@
   </head>
   <body>
     <script type="module">
-      import {run} from "https://blog.zed.vision/code/${cid}/src/codeLoader.js"
+      import {run} from "https://unpkg.com/@zedvision/code@${version}/dist/codeLoader.js"
       try{
         run("window", window);
       }catch(error){
