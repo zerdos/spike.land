@@ -1,6 +1,6 @@
 (() => {
   // ../code/ipfs.json
-  var cid = "QmRehYipT6ve7kaw4eJE77rbhWQGtkpnTQ3CgBcjvS6iXB";
+  var cid = "QmVwxfKeAe9ipPr8Zf6bJNtTB7H4dyrphUeoFuFK2p5RqN";
 
   // src/index.js
   addEventListener("fetch", (event) => {
