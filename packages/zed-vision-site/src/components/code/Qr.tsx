@@ -66,7 +66,7 @@ export const Qr: React.FC = () => {
   }, [counter]);
 
   return <div
-    css={`
+    css={css`
       margin: 24px;
       text-align: center;
   `}

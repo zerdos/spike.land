@@ -1,5 +1,3 @@
-/// <reference types="@emotion/react/types/css-prop" />
-
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
@@ -46,7 +44,7 @@ interface Props {
       }[];
     };
   };
-  location: Location;
+  location: string;
 }
 
 const BlogIndex: React.FC<Props> = ({ data }) => {
@@ -93,9 +91,6 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
                       `}
               >
                 <Link
-                  css={css`    
-                    box-shadow: "none";
-                  `}
                   to={node.fields.slug}
                 >
                   {title}

@@ -12,9 +12,18 @@ module.exports = {
     },
   },
   plugins: [
-    `gatsby-plugin-remove-fingerprints`,
-    `gatsby-plugin-remove-generator`,
     `gatsby-plugin-workerize-loader`,
+    {
+      resolve: `gatsby-plugin-emotion`,
+      options: {
+        // Accepts the following options, all of which are defined by `@emotion/babel-plugin` plugin.
+        // The values for each key in this example are the defaults the plugin uses.
+        sourceMap: true,
+        autoLabel: "dev-only",
+        labelFormat: `[local]`,
+        cssPropOptimization: true,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -32,7 +41,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
     },
-    `gatsby-plugin-react-helmet`,
+
     {
       resolve: `gatsby-plugin-manifest`,
 
@@ -42,12 +51,12 @@ module.exports = {
           `Zed Vision - Development experience, Testing, and everything between`,
         short_name: `ZedVision`,
         description: `Blog and tech experiments`,
-        start_url: `index.html`,
+        start_url: `/`,
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,
-        display: `standalone`,
-        cache_busting_mode: `none`,
+        display: `minimal-ui`,
       },
     },
+    `gatsby-plugin-react-helmet`
   ],
 };

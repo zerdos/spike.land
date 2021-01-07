@@ -65,12 +65,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 };
 
 exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
-  // if (getConfig().mode === "production") {
-  const config = getConfig();
-  config.plugins.push(new GenerateSW({}));
-  actions.replaceWebpackConfig({
-    ...config,
-    devtool: false,
-  });
-  // de}
+  if (getConfig().mode === "production") {
+    const config = getConfig();
+    config.plugins.push(new GenerateSW({}));
+    actions.replaceWebpackConfig({
+      ...config,
+      devtool: false,
+    });
+  }
 };
