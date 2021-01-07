@@ -1,4 +1,5 @@
 import { version } from "@zedvision/code/package.json";
+import { cid } from "@zedvision/code/ipfs.json";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
@@ -76,7 +77,7 @@ async function handleRequest(request) {
   </head>
   <body>
     <script type="module">
-      import {run} from "https://unpkg.com/@zedvision/code@${version}/dist/codeLoader.js"
+      import {run} from "https://zed.vision/ipfs/${cid}/src/codeLoader.js"
       try{
         run("window", window);
       }catch(error){
