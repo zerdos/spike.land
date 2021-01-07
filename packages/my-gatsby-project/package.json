@@ -2,7 +2,7 @@
   "name": "@zedvision/gatsby-starter-blog",
   "private": true,
   "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "11.5.3",
+  "version": "11.5.5",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
