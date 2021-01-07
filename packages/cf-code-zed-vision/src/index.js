@@ -77,7 +77,7 @@ async function handleRequest(request) {
   </head>
   <body>
     <script type="module">
-      import {run} from "https://zed.vision/ipfs/${cid}/src/codeLoader.js"
+      import {run} from "https://blog.zed.vision/code/${cid}/src/codeLoader.js"
       try{
         run("window", window);
       }catch(error){
