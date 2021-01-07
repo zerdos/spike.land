@@ -197,8 +197,8 @@ export default async (
             url,
           )).text(),
           name.includes("@")
-            ? `file:///node_modules/${name}`
-            : `file:///node_modules/@types/${name}/index.d.ts`,
+            ? `file:///${name}`
+            : `file:///@types/${name}/index.d.ts`,
         ))()
     );
 
