@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "fecf4f09f4a00f9db87e6460e2ffa505dc912133303767990c2377b68b007132",
+        "version": "ef4e69e21cd3770be2d52d31baceec07b49cac75fbe912bbccf482db2531e781",
         "signature": "a2979cfb816c83c93ee5a60c7c73e93cc53ca190958ea17413efd18b64fcd164",
         "affectsGlobalScope": false
       },
@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "86b5745389db2c46411943b5269870e0621d50493c3a0b64b0146743221c7989",
+        "version": "17edc4566e18ea996955f5e6993a956af52391068c9d07b573ac9cf7974e179c",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
@@ -357,8 +357,8 @@
         "affectsGlobalScope": false
       },
       "./src/sw.js": {
-        "version": "134b2e519ccee3c12eae63ec18a6e2a473cad2778710d69e52a44bb069b75c03",
-        "signature": "536de57f655406aa030ee0d0f931cc9b94c10ac56b3d735be1fed01ba904ebe0",
+        "version": "d508939d727b3e2e203d9a4caae1be7710baca17a7f12ba132324688b4310bd8",
+        "signature": "1c2428c24f7661d66a3c7c9f5c413acae3b526e3f246c5b007ad1a6f5404a4f4",
         "affectsGlobalScope": true
       },
       "./src/transpile.worker.js": {
@@ -455,6 +455,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
+        "./src/hash.js",
         "./src/starter.js",
         "./src/versions.js"
       ],

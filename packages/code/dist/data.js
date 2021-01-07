@@ -1,4 +1,5 @@
 import { sha256, shaDB } from "./db.js";
+import { sendSignal } from "./hash.js";
 import getVersions from "./versions.js";
 const v = getVersions();
 export const getProjects = async () => {
@@ -94,6 +95,9 @@ export async function getCodeToLoad() {
  * @param {{code:string, html: string, transpiled: string, versions: string }} param0
  */
 export const saveCode = async ({ code, html, transpiled, versions }) => {
+    if (!sendSignal) {
+        setTimeout(async () => Object.assign(window, await import("./hash.js")));
+    }
     const projectName = await getActiveProject();
     // const prevHash = await shaDB.get(projectName, "string");
     const desc = {

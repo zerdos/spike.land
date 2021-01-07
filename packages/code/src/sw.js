@@ -1,12 +1,22 @@
 importScripts(
   "https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js",
 );
+
 // This will trigger the importScripts() for workbox.strategies and its dependencies:
 // deno-lint-ignore ban-ts-comment
 //@ts-ignore
 // deno-lint-ignore no-undef
-const { strategies } = workbox;
+const { strategies, registerRoute } = workbox;
 
+registerRoute(
+  /**
+   * 
+   * @param {{url: {origin: string}}} opts 
+   */
+  ({ url }) =>
+    url.origin === "https://unpkg.com" ||
+    url.origin === "https://blog.zed.vision",
+);
 // deno-lint-ignore ban-ts-comment
 // @ts-ignore
 self.addEventListener(
@@ -19,10 +29,11 @@ self.addEventListener(
     if (
       !url.endsWith("sw.js") &&
       (url.endsWith(".js") && url.endsWith(".html") || url.endsWith(".woff") ||
+        url.endsWith(".jpg") ||
         url.endsWith(".png") || url.endsWith(".ts"))
     ) {
       // Using the previously-initialized strategies will work as expected.
-      const cacheFirst = new strategies.CacheFirst();
+      const cacheFirst = new strategies.StaleWhileRevalidate();
       event.respondWith(cacheFirst.handle({ event, request }));
     }
   },
