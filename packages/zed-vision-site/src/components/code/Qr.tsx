@@ -9,7 +9,7 @@ export const Qr: React.FC = () => {
   const ref = React.useRef(null);
   const [retry, setRetry] = React.useState(100);
 
-  const [url, setUrl] = React.useState("");
+  const [lastUrl, setUrl] = React.useState("");
 
   const [counter, setCounter] = React.useState(0);
 
@@ -26,6 +26,7 @@ export const Qr: React.FC = () => {
         secret,
       )).slice(0, 8);
       // const key = "12345678";
+      setTimeout(async () => lastUrl && waitForSignalAndJump(lastUrl));
       const url = `https://zed.vision/${key}`;
 
       const options = {
@@ -51,7 +52,7 @@ export const Qr: React.FC = () => {
       // if (res.expired === false) {
       //  location.href = "https://zed.vision/code/";
       // }
-      setTimeout(() => setRetry((x: number) => x - 1), 4000);
+      setTimeout(() => setRetry((x: number) => x - 1), 10000);
 
       // const toCheck = await hash(url, true);
       setTimeout(async () => await waitForSignalAndJump(url));
@@ -61,7 +62,7 @@ export const Qr: React.FC = () => {
 
   React.useEffect(() => {
     if (typeof window !== "undefined" && counter) {
-      setTimeout(() => setCounter((x: number) => x - 1), 111);
+      setTimeout(() => setCounter((x: number) => x - 1), 277);
     }
   }, [counter]);
 
@@ -71,7 +72,7 @@ export const Qr: React.FC = () => {
       text-align: center;
   `}
   >
-    <a target="_blank" href={url}>
+    <a target="_blank" href={lastUrl}>
       {retry > 0 && <div
         css={css`
         background: blue;
