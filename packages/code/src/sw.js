@@ -1,3 +1,6 @@
+// deno-lint-ignore ban-ts-comment
+//@ts-ignore
+// deno-lint-ignore no-undef
 importScripts(
   "https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js",
 );
