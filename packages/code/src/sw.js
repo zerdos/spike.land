@@ -37,6 +37,7 @@ self.addEventListener(
         url.endsWith(".png") || url.endsWith(".ts")
       )
     ) {
+      console.log("workbox cache!", { url });
       // Using the previously-initialized strategies will work as expected.
       // @ts-ignore
       const cacheFirst = new workbox.strategies.CacheFirst();
