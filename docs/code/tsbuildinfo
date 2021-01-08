@@ -346,11 +346,6 @@
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
-      "./src/codeRunner.js": {
-        "version": "37361c93b1a7fa6ee82085deba733c59cb56ec14f981b116b45ad8c233900402",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": true
-      },
       "./src/ipfsKV.worker.js": {
         "version": "52ef651cd1b52bb6adcbbf1e7a76534cb9fd23bc790badc4e94c4c64c762c077",
         "signature": "7c64106f9e854e5fce560f27c54eb67e1636016dccf327bbf62a2d59a04d0e19",
@@ -465,11 +460,6 @@
         "./src/sendSignalToQrCode.js",
         "./src/transpile.js",
         "./src/versions.js"
-      ],
-      "./src/codeRunner.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_modules/tslib/tslib.d.ts",
-        "./src/codeLoader.js"
       ],
       "./src/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -649,7 +639,6 @@
       "./node_modules/tslib/tslib.d.ts",
       "./src/DraggableWindow.js",
       "./src/codeLoader.js",
-      "./src/codeRunner.js",
       "./src/data.js",
       "./src/db.js",
       "./src/formatter.js",
