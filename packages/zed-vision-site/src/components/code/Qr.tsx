@@ -1,7 +1,7 @@
 import { css, jsx } from "@emotion/react";
 /** @jsx jsx */
 import React from "react";
-import { waitForSignalAndJump } from "@zedvision/code/dist/hash";
+import { waitForSignalAndRun } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
@@ -26,7 +26,9 @@ export const Qr: React.FC = () => {
         secret,
       )).slice(0, 8);
       // const key = "12345678";
-      setTimeout(async () => lastUrl && waitForSignalAndJump(lastUrl));
+      lastUrl && waitForSignalAndRun({signal:lastUrl, onSignal:()=>{
+        window.location.href = lastUrl
+      }});
       const url = `https://zed.vision/${key}`;
 
       const options = {
@@ -55,7 +57,10 @@ export const Qr: React.FC = () => {
       setTimeout(() => setRetry((x: number) => x - 1), 10000);
 
       // const toCheck = await hash(url, true);
-      setTimeout(async () => await waitForSignalAndJump(url));
+      waitForSignalAndRun({signal:url, onSignal:()=>{
+        window.location.href = url;
+      }});
+
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
