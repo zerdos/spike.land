@@ -130,7 +130,7 @@ export const saveCode = (opts) => {
     (async (codeToSave) => {
       if (codeToSave !== toSave.code) return null;
       if (toSave.code === saved.code && saved.url !== null) return saved.url;
-      if (toSave.semafor) saveCode(opts);
+      if (toSave.semafor) return saveCode(opts);
 
       toSave.code = codeToSave;
       toSave.semafor = true;

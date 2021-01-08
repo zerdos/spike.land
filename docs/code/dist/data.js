@@ -109,7 +109,7 @@ export const saveCode = (opts) => {
         if (toSave.code === saved.code && saved.url !== null)
             return saved.url;
         if (toSave.semafor)
-            saveCode(opts);
+            return saveCode(opts);
         toSave.code = codeToSave;
         toSave.semafor = true;
         const { shareItAsHtml } = await import("./share.js");
