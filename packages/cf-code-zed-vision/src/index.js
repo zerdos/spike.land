@@ -63,7 +63,7 @@ async function handleRequest(request) {
           url.origin === "https://code.com" ||
           url.origin === "https://blog.zed.vision",
         // @ts-ignore
-        new workbox.stsrategies.CacheFirst(),
+        new workbox.strategies.CacheFirst(),
       );
       // @ts-ignore
       self.addEventListener(
