@@ -60,7 +60,7 @@ async function handleRequest(request) {
         ({ url }) =>
           url.origin === "https://unpkg.com" ||
           url.origin === "https://zed.vision" ||
-          url.origin === "https://code.com" ||
+          url.origin === "https://code.zed.vision" ||
           url.origin === "https://blog.zed.vision",
         // @ts-ignore
         new workbox.strategies.CacheFirst(),
