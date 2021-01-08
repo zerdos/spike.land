@@ -50,7 +50,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "csstype",
-                url: "https://unpkg.com/csstype@3.0.5/index.d.ts",
+                url: "https://unpkg.com/csstype@3.0.6/index.d.ts",
                 depend: [],
             },
             {
