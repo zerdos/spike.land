@@ -140,3 +140,29 @@ export const waitForSignalAndJump = async (url) => {
     console.log({ msg: "SignalAndJump Final" });
   }
 };
+
+/**
+ * @param {{signal: string, onSignal: ()=>any, onError?: ()=>any, onExpired?: ()=>any }} opts
+ */
+export const waitForSignalAndRun = async (
+  { signal, onSignal, onError, onExpired },
+) => {
+  try {
+    const { success } = await waitForSignal(signal);
+    if (success) {
+      if (typeof onSignal === "function") {
+        return onSignal();
+      }
+      return 0;
+    }
+    return 1;
+  } catch (e) {
+    if (typeof onError === "function") {
+      return onError();
+    }
+    return 1;
+  } finally {
+    if (typeof onExpired === "function") return onExpired();
+    return -1;
+  }
+};
