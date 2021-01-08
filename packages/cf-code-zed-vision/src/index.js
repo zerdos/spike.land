@@ -29,7 +29,7 @@ async function handleRequest(request) {
     return response;
   }
 
-  if (pathname === "/dist/sw.js") {
+  if (pathname.endsWith("sw.js")) {
     return js(
       `// deno-lint-ignore ban-ts-comment
       //@ts-ignore
@@ -87,7 +87,7 @@ async function handleRequest(request) {
   </head>
   <body>
     <script type="module">
-      import {run} from "https://unpkg.com/@zedvision/code@${version}/dist/codeLoader.js"
+      import {run} from "https://blog.zed.vision/code/src/codeLoader.js"
       try{
         run("window", window);
       }catch(error){

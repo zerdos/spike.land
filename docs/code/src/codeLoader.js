@@ -36,7 +36,7 @@ const workBox = async (version) => {
   );
 
   if ("serviceWorker" in window.navigator) {
-    const wb = new Workbox("dist/sw.js");
+    const wb = new Workbox("src/sw.js");
 
     wb.register();
   }
