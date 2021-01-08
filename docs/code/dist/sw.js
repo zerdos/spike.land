@@ -14,7 +14,7 @@ routing.registerRoute(
  * @param {{url: {origin: string}}} opts
  */
 ({ url }) => url.origin === "https://unpkg.com" ||
-    url.origin === "https://blog.zed.vision", new strategies.StaleWhileRevalidate());
+    url.origin === "https://blog.zed.vision", new strategies.CacheFirst());
 // deno-lint-ignore ban-ts-comment
 // @ts-ignore
 self.addEventListener("fetch", /**
@@ -27,7 +27,7 @@ self.addEventListener("fetch", /**
         url.endsWith(".jpg") || url.endsWith(".css") ||
         url.endsWith(".png") || url.endsWith(".ts"))) {
         // Using the previously-initialized strategies will work as expected.
-        const cacheFirst = new strategies.StaleWhileRevalidate();
+        const cacheFirst = new strategies.CacheFirst();
         event.respondWith(cacheFirst.handle({ event, request }));
     }
 });

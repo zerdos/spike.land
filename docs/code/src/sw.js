@@ -19,7 +19,7 @@ routing.registerRoute(
   ({ url }) =>
     url.origin === "https://unpkg.com" ||
     url.origin === "https://blog.zed.vision",
-  new strategies.StaleWhileRevalidate(),
+  new strategies.CacheFirst(),
 );
 // deno-lint-ignore ban-ts-comment
 // @ts-ignore
@@ -39,7 +39,7 @@ self.addEventListener(
       )
     ) {
       // Using the previously-initialized strategies will work as expected.
-      const cacheFirst = new strategies.StaleWhileRevalidate();
+      const cacheFirst = new strategies.CacheFirst();
       event.respondWith(cacheFirst.handle({ event, request }));
     }
   },
