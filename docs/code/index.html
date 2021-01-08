@@ -1,12 +1,18 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <script type="text/javascript">
-  window.location = "https://code.zed.vision";
-  </script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="icon" type="image/png" href="https://blog.zed.vision/zed-icon-big.png" />
+<title>Instant React Editor</title>
 </head>
 <body>
-  <h1> Code....
-  </h1>
+  <script type="module">
+    import {run} from "./src/codeLoader.js"
+    try{
+      run("window", window);
+    }catch(error){
+      fetch("https://zed.visin/error", {method: "POST",  body: JSON.stringify({error})})
+    }
+  </script>
 </body>
 </html>

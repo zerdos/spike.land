@@ -1,0 +1,24 @@
+  <!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <body>
+        <div id="qr-reader" style="width:400px"></div>
+
+        <!-- include the library -->
+        <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+
+        <script type="module">
+            function onScanSuccess(qrCodeMessage) {
+              
+              alert(qrCodeMessage);
+
+              /** decoded message */ }
+                var html5QrcodeScanner = new Html5QrcodeScanner(
+                    "qr-reader", { fps: 10, qrbox: 250 });
+                html5QrcodeScanner.render(onScanSuccess);
+
+        </script>
+    </body>
+</html>
