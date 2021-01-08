@@ -4674,7 +4674,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.5.14
+    "@zedvision/code": ^11.5.15
     esbuild: 0.8.31
   languageName: unknown
   linkType: soft
@@ -4823,7 +4823,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.5.14
+    "@zedvision/code": ^11.5.15
     "@zedvision/qrious": ^11.5.3
     "@zedvision/shadb": ^11.5.3
     framer-motion: 3.1.4
@@ -8244,7 +8244,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:3.0.5, csstype@npm:^3.0.2":
+"csstype@npm:3.0.6":
+  version: 3.0.6
+  resolution: "csstype@npm:3.0.6"
+  checksum: ebdca96d26e1af5604658e6876af29ac1e218750efb587684f2b2b13bb062a397b351586d285f911e6985e03112e56c2aee127d35ae7354cc7d25f3000e22556
+  languageName: node
+  linkType: hard
+
+"csstype@npm:^3.0.2":
   version: 3.0.5
   resolution: "csstype@npm:3.0.5"
   checksum: d15967edea15457961ab1e3f1c4080c83792a595055551a087923b2fb67fffaddaa2eedafe10f665d12dc3f493af03c08322c9410fcd58e3dcf48104de15043c
@@ -24799,7 +24806,7 @@ typescript@4.1.3:
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
     "@yarnpkg/plugin-node-modules": 2.3.0
-    csstype: 3.0.5
+    csstype: 3.0.6
     lerna: 3.22.1
     typescript: 4.1.3
     yarn: 1.22.10

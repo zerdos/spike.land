@@ -241,7 +241,7 @@
         "signature": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
         "affectsGlobalScope": true
       },
-      "../../node_modules/csstype/index.d.ts": {
+      "../../node_modules/@types/react/node_modules/csstype/index.d.ts": {
         "version": "ea58e4cbcf3d760a15f9300978a360c46360f544b355c737b60c733a385b8858",
         "signature": "ea58e4cbcf3d760a15f9300978a360c46360f544b355c737b60c733a385b8858",
         "affectsGlobalScope": false
@@ -423,7 +423,7 @@
       "../../node_modules/@types/react/index.d.ts": [
         "../../node_modules/@types/prop-types/index.d.ts",
         "../../node_modules/@types/react/global.d.ts",
-        "../../node_modules/csstype/index.d.ts"
+        "../../node_modules/@types/react/node_modules/csstype/index.d.ts"
       ],
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
@@ -540,7 +540,7 @@
       "../../node_modules/@types/react/index.d.ts": [
         "../../node_modules/@types/prop-types/index.d.ts",
         "../../node_modules/@types/react/global.d.ts",
-        "../../node_modules/csstype/index.d.ts"
+        "../../node_modules/@types/react/node_modules/csstype/index.d.ts"
       ],
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
@@ -557,9 +557,9 @@
       "../../node_modules/@types/react/global.d.ts",
       "../../node_modules/@types/react/index.d.ts",
       "../../node_modules/@types/react/jsx-runtime.d.ts",
+      "../../node_modules/@types/react/node_modules/csstype/index.d.ts",
       "../../node_modules/comlink/dist/umd/comlink.d.ts",
       "../../node_modules/comlink/dist/umd/protocol.d.ts",
-      "../../node_modules/csstype/index.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
