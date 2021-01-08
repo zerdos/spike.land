@@ -94,7 +94,7 @@ export async function run(mode = "window", _w) {
                 if (session.transpiled !== transpiled) {
                     session.transpiled = transpiled;
                     const { saveCode } = await import("./data.js");
-                    await saveCode({
+                    saveCode({
                         code: session.code,
                         transpiled: session.transpiled,
                         html: session.HTML,

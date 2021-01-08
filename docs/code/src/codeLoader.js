@@ -114,7 +114,7 @@ export async function run(mode = "window", _w) {
           session.transpiled = transpiled;
           const { saveCode } = await import("./data.js");
 
-          await saveCode({
+          saveCode({
             code: session.code,
             transpiled: session.transpiled,
             html: session.HTML,
