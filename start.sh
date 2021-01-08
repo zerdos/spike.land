@@ -8,9 +8,9 @@ URL="http://[::1]:8080/ipfs/$CID"
 #      --data  $(CID=$BCID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})') &)
 
 #rm -rf docs/code/$(cat code.CID)
-mkdir -p docs/code
-cp -ar packages/code docs/code/$CID
-echo  $(CID=$CID node -pe 'JSON.stringify({"cid": process.env["CID"]})') >packages/code/ipfs.json
+#mkdir -p docs/code
+#cp -ar packages/code docs/code/$CID
+#echo  $(CID=$CID node -pe 'JSON.stringify({"cid": process.env["CID"]})') >packages/code/ipfs.json
 
 echo $CID >code.CID
 
