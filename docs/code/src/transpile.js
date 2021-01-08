@@ -18,7 +18,7 @@ async function init() {
   const v = versions();
 
   const res = await fetch(
-    `https://unpkg.com/@zedvision/code@${v.code}/src/transpile.worker.js`,
+    `https://blog.zed.vision/code/src/transpile.worker.js`,
   );
   const workerSource = await res.text();
   const worker = new Worker(

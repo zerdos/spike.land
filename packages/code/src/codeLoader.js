@@ -66,11 +66,11 @@ export async function run(mode = "window", _w) {
   const { importScript, importCss } = await import("./importScript.js");
 
   importCss(
-    `https://unpkg.com/@zedvision/code@${v.code}/assets/app.css`,
+    `https://blog.zed.vision/code/assets/app.css`,
     "appCss",
   );
   importCss(
-    `https://unpkg.com/@zedvision/code@${v.code}/assets/normalize.min.css`,
+    `https://blog.zed.vision/code/assets/normalize.min.css`,
     "normalizeCss",
   );
 

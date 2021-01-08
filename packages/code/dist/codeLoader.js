@@ -49,8 +49,8 @@ export async function run(mode = "window", _w) {
     }
     const { formatter } = await import("./formatter.js");
     const { importScript, importCss } = await import("./importScript.js");
-    importCss(`https://unpkg.com/@zedvision/code@${v.code}/assets/app.css`, "appCss");
-    importCss(`https://unpkg.com/@zedvision/code@${v.code}/assets/normalize.min.css`, "normalizeCss");
+    importCss(`https://blog.zed.vision/code/assets/app.css`, "appCss");
+    importCss(`https://blog.zed.vision/code/assets/normalize.min.css`, "normalizeCss");
     const { WindowManager } = await importScript("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js");
     workBox(v.workbox);
     // or const WindowManager = require('simple-window-manager').WindowManager

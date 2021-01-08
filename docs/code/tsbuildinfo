@@ -272,12 +272,12 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "b411fa9c37dc32e44cdad2fff62ffee4480d2259e47131ffae81fcb3426b243e",
+        "version": "b109209c2d89f7df4895adb130503111f9a9520662f52c24ee258883986078ca",
         "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "f6cb5824b1142e6f4d35c428bada9662056b7590dd73a994128460bcdd8830f7",
+        "version": "f268c373dd439c070f4b031c766cefcba44f5feba6da01ce65f8757d663c35e5",
         "signature": "4e54a6edff5d44c7503cdb7471ba71fdd53d5775604e6f361eabbe3eeb47b548",
         "affectsGlobalScope": false
       },
@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
-        "version": "c866cc71f74af65a482e275a487100a7a62df6d15beec75cf41ac2371124dd6d",
+        "version": "3af6679617ba7718744e28146934189d2cbb0cdf87983eefcd6358fb49455c9a",
         "signature": "0fb98cd11d39373642a8cfe54615ccbe8ad4913da67c611a3337d02f82851924",
         "affectsGlobalScope": false
       },
@@ -322,7 +322,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "b79d9304a11c5d3b49a541d66ba62659349cbe990ed43d6663c9599f3b96a27a",
+        "version": "417c540c4c210ec1f4868aada84c70a6fd67f2e04127b9e1bdfaaa4840c3501a",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },

@@ -52,7 +52,7 @@ async function init() {
     const res = await fetch(
       window.location.hostname === "[::1]"
         ? `./src/ipfsKV.worker.js`
-        : `https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.worker.js`,
+        : `https://blog.zed.vision/code/src/ipfsKV.worker.js`,
     );
     const workerSource = await res.text();
     const worker = new Worker(

@@ -30,7 +30,7 @@ async function getClient() {
     }
     ipfsClient = (await (await new Function(window.location.hostname === "[::1]"
         ? `return import("./ipfsKV.js")`
-        : `return import("https://unpkg.com/@zedvision/code@${v.code}/src/ipfsKV.js")`)()).getIpfsClient());
+        : `return import("https://blog.zed.vision/code/src/ipfsKV.js")`)()).getIpfsClient());
     return ipfsClient;
 }
 /**
