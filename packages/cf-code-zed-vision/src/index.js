@@ -58,8 +58,8 @@ async function handleRequest(request) {
          */
         ({ url }) =>
           url.origin === "https://unpkg.com" ||
-          url.origin === "https://blog.zed.vision",
-      );
+          url.origin === "https://blog.zed.vision"
+      ,   new strategies.StaleWhileRevalidate());
       // deno-lint-ignore ban-ts-comment
       // @ts-ignore
       self.addEventListener(
@@ -70,9 +70,9 @@ async function handleRequest(request) {
           const { request } = event;
           const { url } = request;
           if (
-            !url.endsWith("sw.js") &&
-            (url.endsWith(".js") && url.endsWith(".html") || url.endsWith(".woff") ||
-              url.endsWith(".jpg") ||
+            !url.endsWith("sw.js") &&  (
+              url.endsWith(".js") ||  url.endsWith(".json") || url.endsWith(".map")  || url.endsWith(".html") || url.endsWith(".woff") ||
+              url.endsWith(".jpg") || url.endsWith(".css") ||
               url.endsWith(".png") || url.endsWith(".ts"))
           ) {
             // Using the previously-initialized strategies will work as expected.
@@ -81,6 +81,7 @@ async function handleRequest(request) {
           }
         },
       );
+        
       `,
     );
   }
