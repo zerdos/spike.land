@@ -31,7 +31,10 @@ async function handleRequest(request) {
 
   if (pathname === "/dist/sw.js") {
     return js(
-      `importScripts(
+      `// deno-lint-ignore ban-ts-comment
+      //@ts-ignore
+      // deno-lint-ignore no-undef
+      importScripts(
         "https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js",
       );
       
@@ -39,12 +42,17 @@ async function handleRequest(request) {
       // deno-lint-ignore ban-ts-comment
       //@ts-ignore
       // deno-lint-ignore no-undef
-      const { strategies, registerRoute } = workbox;
+      const { strategies, routing } = workbox;
       
-      
-      registerRoute(
-        ({url}) => url.origin === 'https://unpkg.com' ||
-                   url.origin === 'https://blog.zed.vision')
+      routing.registerRoute(
+        /**
+         * 
+         * @param {{url: {origin: string}}} opts 
+         */
+        ({ url }) =>
+          url.origin === "https://unpkg.com" ||
+          url.origin === "https://blog.zed.vision",
+      );
       // deno-lint-ignore ban-ts-comment
       // @ts-ignore
       self.addEventListener(
@@ -56,15 +64,17 @@ async function handleRequest(request) {
           const { url } = request;
           if (
             !url.endsWith("sw.js") &&
-            (url.endsWith(".js") && url.endsWith(".html") || url.endsWith(".woff") ||  url.endsWith(".jpg") ||
-              url.endsWith(".png") || url.endsWith(".ts") || url.endsWith(".tsx"))
+            (url.endsWith(".js") && url.endsWith(".html") || url.endsWith(".woff") ||
+              url.endsWith(".jpg") ||
+              url.endsWith(".png") || url.endsWith(".ts"))
           ) {
             // Using the previously-initialized strategies will work as expected.
             const cacheFirst = new strategies.StaleWhileRevalidate();
             event.respondWith(cacheFirst.handle({ event, request }));
           }
         },
-      );`,
+      );
+      `,
     );
   }
 

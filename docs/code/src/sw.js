@@ -9,9 +9,9 @@ importScripts(
 // deno-lint-ignore ban-ts-comment
 //@ts-ignore
 // deno-lint-ignore no-undef
-const { strategies, registerRoute } = workbox;
+const { strategies, routing } = workbox;
 
-registerRoute(
+routing.registerRoute(
   /**
    * 
    * @param {{url: {origin: string}}} opts 

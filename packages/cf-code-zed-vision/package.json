@@ -3,11 +3,11 @@
   "name": "@zedvision/cf-code-zed-vision",
   "version": "11.5.12",
   "description": "A template for kick starting a Cloudflare Workers project",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "deno fmt src",
-    "build": "esbuild --bundle src/index.js --outfile=index.js",
+    "build": "esbuild --bundle src/index.js --outfile=dist/index.js",
     "deploy": "yarn build && wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
