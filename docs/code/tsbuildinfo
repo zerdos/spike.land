@@ -297,7 +297,7 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "6a7e9c742151b5cc672537ad6b715fbaedb66b6abcc4d708d417043b17f7ec94",
+        "version": "fd9f2fee638be6b87790f858174df0af036d54daffc11ad1e3050ba18f5fdb00",
         "signature": "cc014f7866353e93932e07892657579702bbc28755f41b1817bfe910b1d0723c",
         "affectsGlobalScope": false
       },
@@ -327,7 +327,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "079f96c18b627e5d9e9effd29823a0ff83b44aa58ff631ca8824d6de302f536a",
+        "version": "6f20344b66335f87ed74e278ded604bf999d8b9e9b9a98347721d39808b66f4a",
         "signature": "426b4037c58630a0d2c769e8fe786ccff2017ec888fcd1955e7e0d13521571d5",
         "affectsGlobalScope": false
       },
