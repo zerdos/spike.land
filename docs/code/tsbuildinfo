@@ -327,7 +327,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "9089fa016bb1e17f308b861e3b738c800a9918215371b803ff1454acac964ff9",
+        "version": "079f96c18b627e5d9e9effd29823a0ff83b44aa58ff631ca8824d6de302f536a",
         "signature": "426b4037c58630a0d2c769e8fe786ccff2017ec888fcd1955e7e0d13521571d5",
         "affectsGlobalScope": false
       },

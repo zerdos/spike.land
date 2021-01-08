@@ -85,7 +85,7 @@ export async function getCodeToLoad() {
     return data;
 }
 const saved = {
-    code: null,
+    code: "",
     html: null,
     transpiled: null,
     url: null,
@@ -103,7 +103,7 @@ const toSave = {
 export const saveCode = (opts) => {
     const { code, html, transpiled, versions } = opts;
     toSave.code = code;
-    setTimeout(() => (async (codeToSave) => {
+    const tryToSave = (() => setTimeout(() => (async (codeToSave) => {
         if (codeToSave !== toSave.code)
             return null;
         if (toSave.code === saved.code && saved.url !== null)
@@ -139,5 +139,5 @@ export const saveCode = (opts) => {
         console.log({ html, code, transpiled, url });
         toSave.semafor = false;
         return url;
-    })(code), 200);
+    })(code), 200))();
 };
