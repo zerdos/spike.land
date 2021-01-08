@@ -1,10 +1,10 @@
 import { importScript } from "./importScript.js";
 
 export const getMonaco = async () => {
-  const vsPath = "https://blog.zed.vision/vs";
+  const vsPath = "https://blog.zed.vision/monaco-editor/min/vs";
 
   const { require } = await importScript(
-    "https://blog.zed.vision/vs/loader.js",
+    `${vsPath}/loader.js`,
   );
 
   require.config({ paths: { "vs": vsPath } });
