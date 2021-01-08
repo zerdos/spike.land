@@ -1,6 +1,5 @@
 import { version } from "@zedvision/code/package.json";
 import { cid } from "@zedvision/code/ipfs.json";
-import gateways from "https://ipfs.github.io/public-gateway-checker/gateways.json";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
