@@ -1,5 +1,6 @@
 import { version } from "@zedvision/code/package.json";
 import { cid } from "@zedvision/code/ipfs.json";
+import gateways from "https://ipfs.github.io/public-gateway-checker/gateways.json";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
@@ -17,7 +18,14 @@ async function handleRequest(request) {
     let response = await cache.match(request);
 
     if (!response) {
-      response = await fetch(`https://ipfs.io/${pathname}`);
+      //https://ipfs.github.io/public-gateway-checker/gateways.json
+      const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
+        0.5 - Math.random()
+      ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) =>
+        fetch(x)
+      );
+
+      response = await raceToSuccess(randpom5GatwawsFetch);
       await cache.put(request, response.clone());
     }
     if (response.status > 399) {
@@ -120,3 +128,90 @@ function text(resp) {
     },
   });
 }
+
+/**
+ * 
+ * @param{Promise<any>[]} promises 
+ */
+function raceToSuccess(promises) {
+  let numRejected = 0;
+
+  return new Promise(
+    (resolve, reject) =>
+      promises.forEach(
+        (promise) =>
+          promise
+            .then(resolve)
+            .catch(
+              () => {
+                if (++numRejected === promises.length) reject();
+              },
+            ),
+      ),
+  );
+}
+
+const publicIpfsGateways = [
+  "https://ipfs.io/ipfs/:hash",
+  "https://dweb.link/ipfs/:hash",
+  "https://gateway.ipfs.io/ipfs/:hash",
+  "https://ipfs.infura.io/ipfs/:hash",
+  "https://ninetailed.ninja/ipfs/:hash",
+  "https://ipfs.globalupload.io/:hash",
+  "https://10.via0.com/ipfs/:hash",
+  "https://ipfs.eternum.io/ipfs/:hash",
+  "https://hardbin.com/ipfs/:hash",
+  "https://gateway.blocksec.com/ipfs/:hash",
+  "https://cloudflare-ipfs.com/ipfs/:hash",
+  "https://cf-ipfs.com/ipfs/:hash",
+  "https://ipns.co/ipfs/:hash",
+  "https://ipfs.mrh.io/ipfs/:hash",
+  "https://gateway.originprotocol.com/ipfs/:hash",
+  "https://gateway.pinata.cloud/ipfs/:hash",
+  "https://ipfs.doolta.com/ipfs/:hash",
+  "https://ipfs.sloppyta.co/ipfs/:hash",
+  "https://ipfs.busy.org/ipfs/:hash",
+  "https://ipfs.greyh.at/ipfs/:hash",
+  "https://gateway.serph.network/ipfs/:hash",
+  "https://jorropo.ovh/ipfs/:hash",
+  "https://jorropo.net/ipfs/:hash",
+  "https://gateway.temporal.cloud/ipfs/:hash",
+  "https://ipfs.fooock.com/ipfs/:hash",
+  "https://cdn.cwinfo.net/ipfs/:hash",
+  "https://ipfs.privacytools.io/ipfs/:hash",
+  "https://permaweb.io/ipfs/:hash",
+  "https://ipfs.stibarc.com/ipfs/:hash",
+  "https://ipfs.best-practice.se/ipfs/:hash",
+  "https://2read.net/ipfs/:hash",
+  "https://ipfs.2read.net/ipfs/:hash",
+  "https://storjipfs-gateway.com/ipfs/:hash",
+  "https://ipfs.runfission.com/ipfs/:hash",
+  "https://trusti.id/ipfs/:hash",
+  "https://apac.trusti.id/ipfs/:hash",
+  "https://ipfs.overpi.com/ipfs/:hash",
+  "https://ipfs.lc/ipfs/:hash",
+  "https://ipfs.leiyun.org/ipfs/:hash",
+  "https://ipfs.ink/ipfs/:hash",
+  "https://ipfs.jes.xxx/ipfs/:hash",
+  "https://ipfs.oceanprotocol.com/ipfs/:hash",
+  "https://d26g9c7mfuzstv.cloudfront.net/ipfs/:hash",
+  "https://ipfsgateway.makersplace.com/ipfs/:hash",
+  "https://gateway.ravenland.org/ipfs/:hash",
+  "https://ipfs.smartsignature.io/ipfs/:hash",
+  "https://ipfs.funnychain.co/ipfs/:hash",
+  "https://ipfs.telos.miami/ipfs/:hash",
+  "https://robotizing.net/ipfs/:hash",
+  "https://ipfs.mttk.net/ipfs/:hash",
+  "https://ipfs.fleek.co/ipfs/:hash",
+  "https://ipfs.jbb.one/ipfs/:hash",
+  "https://ipfs.yt/ipfs/:hash",
+  "https://jacl.tech/ipfs/:hash",
+  "https://hashnews.k1ic.com/ipfs/:hash",
+  "https://ipfs.vip/ipfs/:hash",
+  "https://ipfs.k1ic.com/ipfs/:hash",
+  "https://ipfs.drink.cafe/ipfs/:hash",
+  "https://ipfs.azurewebsites.net/ipfs/:hash",
+  "https://gw.ipfspin.com/ipfs/:hash",
+  "https://ipfs.kavin.rocks/ipfs/:hash",
+  "https://ipfs.denarius.io/ipfs/:hash",
+];
