@@ -205,13 +205,15 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       let response = await cache.match(request);
 
       if (!response) {
-          //https://ipfs.github.io/public-gateway-checker/gateways.json
-      const randpom5GatwawsFetch =publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0,5).map(gw=>gw.replace("/ipfs/:hash",pathname )) ;
-      
-      
-      response = await raceToSuccess(randpom5GatwawsFetch);
- 
-      await cache.put(request, response.clone());
+    //https://ipfs.github.io/public-gateway-checker/gateways.json
+    const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
+    0.5 - Math.random()
+  ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) =>
+    fetch(x).then(res=>res.status===200?res:(()=>{ throw new Error("Not found")})())
+  );
+
+  response = await raceToSuccess(randpom5GatwawsFetch);
+  await cache.put(request, response.clone());
       }
       if (response.status > 399) {
         response = new Response(

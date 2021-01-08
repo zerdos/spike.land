@@ -21,7 +21,11 @@ async function handleRequest(request) {
       const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
         0.5 - Math.random()
       ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) =>
-        fetch(x)
+        fetch(x).then((res) =>
+          res.status === 200 ? res : (() => {
+            throw new Error("Not found");
+          })()
+        )
       );
 
       response = await raceToSuccess(randpom5GatwawsFetch);
