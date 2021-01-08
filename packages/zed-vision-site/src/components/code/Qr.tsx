@@ -26,9 +26,12 @@ export const Qr: React.FC = () => {
         secret,
       )).slice(0, 8);
       // const key = "12345678";
-      lastUrl && waitForSignalAndRun({signal:lastUrl, onSignal:()=>{
-        window.location.href = lastUrl
-      }});
+      lastUrl && waitForSignalAndRun({
+        signal: lastUrl,
+        onSignal: () => {
+          window.location.href = lastUrl;
+        },
+      });
       const url = `https://zed.vision/${key}`;
 
       const options = {
@@ -57,10 +60,12 @@ export const Qr: React.FC = () => {
       setTimeout(() => setRetry((x: number) => x - 1), 10000);
 
       // const toCheck = await hash(url, true);
-      waitForSignalAndRun({signal:url, onSignal:()=>{
-        window.location.href = url;
-      }});
-
+      waitForSignalAndRun({
+        signal: url,
+        onSignal: () => {
+          window.location.href = url;
+        },
+      });
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
