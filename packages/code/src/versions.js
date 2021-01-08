@@ -1,4 +1,4 @@
-export default function () {
+function versions() {
   const code = "11.5.15";
   const shadb = "11.4.16";
   const editor = "11.5.15";
@@ -23,3 +23,6 @@ export default function () {
 
   return v;
 }
+
+export const v = versions();
+export default versions;

@@ -1,3 +1,7 @@
+import { openWindows } from "./openWindows.js";
+import { renderPreviewWindow } from "./renderPreviewWindow.js";
+import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
+import { v } from "./versions.js";
 /**
  * @param {string} code
  */
@@ -25,116 +29,16 @@ function getSession() {
 }
 
 /**
- * 
- * @param {string} version 
- */
-const workBox = async (version) => {
-  // deno-lint-ignore ban-ts-comment
-  //@ts-ignore
-  const { Workbox } = await import(
-    `https://storage.googleapis.com/workbox-cdn/releases/${version}/workbox-window.prod.mjs`
-  );
-
-  if ("serviceWorker" in window.navigator) {
-    const wb = new Workbox("src/sw.js");
-
-    wb.register();
-  }
-};
-
-/**
   * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
 export async function run(mode = "window", _w) {
-  const getVersions = (await import("./versions.js")).default;
-  const v = getVersions();
-
-  const { searchParams, pathname } = new URL(window.location.href);
-
-  const maybeRoute = pathname.substr(1);
-  const isKey = maybeRoute.length === 8 &&
-    [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
-
-  if (isKey) {
-    await import("./hash.js").then(({ sendSignal }) =>
-      sendSignal(`https://zed.vision/${maybeRoute}`)
-    );
-  }
+  await sendSignalToQrCode();
 
   const { formatter } = await import("./formatter.js");
 
-  const { importScript, importCss } = await import("./importScript.js");
+  await openWindows(v);
 
-  importCss(
-    `https://blog.zed.vision/code/assets/app.css`,
-    "appCss",
-  );
-  importCss(
-    `https://blog.zed.vision/code/assets/normalize.min.css`,
-    "normalizeCss",
-  );
-
-  const { WindowManager } = await importScript(
-    "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
-  );
-
-  workBox(v.workbox);
-
-  // or const WindowManager = require('simple-window-manager').WindowManager
-
-  // this is the window manager with one of the default options changed
-  const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
-
-  // enable window snapping to screen edges and other windows when moving
-  wm.snap(false);
-
-  // create a window
-  const win = wm.createWindow(
-    {
-      titlebarHeight: "42px",
-      width: 720,
-      closable: false,
-      borderRadius: "0px",
-      backgroundWindow: "#1e1e1e",
-      height: 640,
-      title: "React Live",
-    },
-  );
-
-  // set content of window
-  //win.content.style.margin = '0[[c'
-
-  const isMobile = () => {
-    if (typeof window === "undefined") return false;
-
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-      .test(
-        window.navigator.userAgent,
-      );
-  };
-
-  const { document, open } = _w;
-
-  win.content.innerHTML =
-    `<div style="min-height: 700px;  min-width: 600px; height: ${
-      isMobile() ? "2000px" : "100%"
-    }; width:100%; display: block;" id="editor"></div>`;
-
-  console.log("Runner");
-  if (!isMobile()) {
-    try {
-      const element = document.querySelector(
-        "body > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > section",
-      );
-      if (element !== null) {
-        // deno-lint-ignore ban-ts-comment
-        //@ts-ignore
-        element.style.overflow = "";
-      }
-    } catch (e) {
-      console.error({ e });
-    }
-  }
+  const { open } = _w;
 
   const session = getSession();
 
@@ -153,46 +57,15 @@ export async function run(mode = "window", _w) {
 
   const { renderEmotion, jsx } = await import(v.emotionRenderer);
 
-  if (mode === "window") {
-    const onShare = async () => {
-      const { shareItAsHtml } = await import("./share.js");
+  await renderPreviewWindow(mode, session, open, v, renderEmotion, jsx);
 
-      const link = await shareItAsHtml(
-        {
-          code: session.code,
-          transpiled: session.transpiled,
-          HTML: session.HTML,
-        },
-      );
-
-      console.log({ link });
-      open(link);
-    };
-
-    const element = window.document.createElement("div");
-    window.document.body.appendChild(element);
-
-    const { DraggableWindow } = await import(
-      v.DraggableWindow
-    );
-    renderEmotion(jsx(DraggableWindow, { onShare }), element);
-
-    const zbody = window.document.getElementById("zbody");
-    if (zbody !== null) {
-      zbody.appendChild(session.div);
-    }
-
-    if (session.HTML) session.div.innerHTML = session.HTML;
-  }
-
-  const transpiled = await transpile(session.code);
-  await restartCode(transpiled);
+  await restartPreview(restartCode, session);
 
   const startMonaco = (await import(
     v.editor
   )).default;
 
-  const container = document.getElementById("editor");
+  const container = window.document.getElementById("editor");
   const modules = await startMonaco(
     /**
      * @param {any} code
@@ -330,14 +203,14 @@ export async function run(mode = "window", _w) {
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
-    const root = document.createElement("div");
+    const root = window.document.createElement("div");
 
     const Element = (await import(createJsBlob(
       codeToHydrate,
     ))).default;
     session.unmount();
     session.unmount = renderEmotion(Element(), root);
-    const zbody = document.getElementById("zbody");
+    const zbody = window.document.getElementById("zbody");
     zbody && zbody.children[0].replaceWith(root);
     session.HTML = session.div.innerHTML;
 
@@ -352,4 +225,12 @@ export async function run(mode = "window", _w) {
       return URL.createObjectURL(blob);
     }
   }
+}
+
+/**
+ * @param {{ (transpiled: string): Promise<boolean>; (arg0: any): any; }} restartCode
+ * @param {{ unmount?: () => void; hydrated?: boolean; preRendered?: boolean; lastErrors?: number; rootElement?: null; div?: HTMLDivElement; HTML?: string; devtoolHash?: string; ipfs?: number; transpiled: any; code?: string; }} session
+ */
+async function restartPreview(restartCode, session) {
+  await restartCode(session.transpiled);
 }
