@@ -1,1 +1,0 @@
-deno run --allow-read --allow-net --allow-write  ./save_keys.ts
