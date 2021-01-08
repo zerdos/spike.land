@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "847eeb23492b82d64672ad9013cf006f8de0cbf5c9367f0aaed91b897e39f856",
+        "version": "47661207990e32781126354ea6c8c408329aad002d1642af0d8886b27475bb8f",
         "signature": "df62d61fb6ff8fba6267a8f032868c000805f1f1d6fd3b403fcd337f05a968f2",
         "affectsGlobalScope": false
       },
@@ -316,16 +316,6 @@
         "signature": "29a10b46e9dba9479ee073da037a568b3036fdc09be3892aa23056314b69f030",
         "affectsGlobalScope": false
       },
-      "./src/transpile.js": {
-        "version": "b109209c2d89f7df4895adb130503111f9a9520662f52c24ee258883986078ca",
-        "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
-        "affectsGlobalScope": false
-      },
-      "./src/formatter.js": {
-        "version": "fe8de25920c2f5e7bf0f8c099ed65090c663286df537e1de0c9e9999b7a4f444",
-        "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
-        "affectsGlobalScope": false
-      },
       "./src/db.js": {
         "version": "bf199392df77b0f26fe3fc91f420aac18c53f6ee7a4afe9cd66cc8c876e65baf",
         "signature": "7a320d61a39f1cbcaae85f654160d9c82a1124c606fc10cdbf827a58f35d42b3",
@@ -337,12 +327,22 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "e0d4cab1c5af846139cba106a1f8415df95d39fbf7d97bcc3367c09df45545e7",
+        "version": "5e446ec37ebeb0c35cd0770bca328e398c4018456b8fbcfa2f1a79244d37592b",
         "signature": "426b4037c58630a0d2c769e8fe786ccff2017ec888fcd1955e7e0d13521571d5",
         "affectsGlobalScope": false
       },
+      "./src/transpile.js": {
+        "version": "b109209c2d89f7df4895adb130503111f9a9520662f52c24ee258883986078ca",
+        "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
+        "affectsGlobalScope": false
+      },
+      "./src/formatter.js": {
+        "version": "fe8de25920c2f5e7bf0f8c099ed65090c663286df537e1de0c9e9999b7a4f444",
+        "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
+        "affectsGlobalScope": false
+      },
       "./src/codeLoader.js": {
-        "version": "83626cba9190acc0be14c9b56e64079517c4d62f27f3b250dae3090b05da7b0a",
+        "version": "16edf04bfcbff0f9d88bba7ef1b13b2e45e8db5bad5b54f0ab1596b5e064b0b5",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },

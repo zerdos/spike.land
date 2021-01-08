@@ -91,7 +91,8 @@ const saved = {
     url: null,
 };
 const toSave = {
-    code: null,
+    code: "",
+    semafor: false,
     html: null,
     transpiled: null,
 };
@@ -101,12 +102,16 @@ const toSave = {
  */
 export const saveCode = (opts) => {
     const { code, html, transpiled, versions } = opts;
-    Object.assign(toSave, opts);
-    setTimeout(async () => {
-        if (code !== toSave.code)
+    toSave.code = code;
+    setTimeout(() => (async (codeToSave) => {
+        if (codeToSave !== toSave.code)
             return null;
         if (toSave.code === saved.code && saved.url !== null)
             return saved.url;
+        if (toSave.semafor)
+            saveCode(opts);
+        toSave.code = codeToSave;
+        toSave.semafor = true;
         const { shareItAsHtml } = await import("./share.js");
         const sharePromise = shareItAsHtml({ code, HTML: html, transpiled });
         const projectName = await getActiveProject();
@@ -131,10 +136,8 @@ export const saveCode = (opts) => {
         await shaDB.put(projectName, hash);
         const url = await sharePromise;
         Object.assign(saved, { html, code, transpiled, url });
+        console.log({ html, code, transpiled, url });
+        toSave.semafor = false;
         return url;
-        // setQueryStringParameter("h", hash);
-        //const response = fetch(request);
-        // lets not save now - we will save the diff only
-        // await response;
-    }, 200);
+    })(code), 200);
 };

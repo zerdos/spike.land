@@ -2,6 +2,7 @@ import { openWindows } from "./openWindows.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { v } from "./versions.js";
+import { getCodeToLoad, saveCode } from "./data.js";
 /**
  * @param {string} code
  */
@@ -43,7 +44,6 @@ export async function run(mode = "window", _w) {
   const session = getSession();
 
   try {
-    const { getCodeToLoad } = await import("./data.js");
     const { code, transpiled, html, versions } = await getCodeToLoad();
     session.code = code;
     session.transpiled = transpiled || (await transpile(code));
@@ -112,7 +112,6 @@ export async function run(mode = "window", _w) {
         session.code = await formatter(cd);
         if (session.transpiled !== transpiled) {
           session.transpiled = transpiled;
-          const { saveCode } = await import("./data.js");
 
           saveCode({
             code: session.code,

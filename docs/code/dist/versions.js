@@ -13,7 +13,7 @@ function versions() {
         uuid: "8.3.2",
         comlink: "4.3.0",
         editor: `https://unpkg.com/@zedvision/smart-monaco-editor@${editor}/dist/editor.js`,
-        DraggableWindow: "https://blog.zed.vision/ipfs/QmPszD6UC3kYc3WRCttGFKqnqvSUvrSxvVbAouNRSQTsHF/app.js",
+        DraggableWindow: "/ipfs/QmPszD6UC3kYc3WRCttGFKqnqvSUvrSxvVbAouNRSQTsHF/app.js",
         emotionRenderer: `https://unpkg.com/@zedvision/emotion-react-renderer@${emotionRenderer}/dist/bundle.js`,
     };
     return v;
