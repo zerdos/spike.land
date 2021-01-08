@@ -17,18 +17,13 @@
 //   if (process.env.NODE_ENV !== `production`) return;
 // };
 
-
+// custom typefaces
 import "typeface-montserrat"
 import "typeface-merriweather"
-import "normalize.css"
-
-// // custom CSS styles
-// import "./src/style.css"
-
-// // Highlighting for code blocks
-// import "prismjs/themes/prism.css"
-// custom typefaces
 // normalize CSS across browsers
+import "normalize.css"
+// custom CSS styles
+import "./src/style.css"
 
 // Highlighting for code blocks
 import "prismjs/themes/prism.css"
