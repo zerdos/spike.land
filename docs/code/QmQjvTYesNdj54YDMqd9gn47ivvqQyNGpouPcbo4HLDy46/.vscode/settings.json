@@ -1,0 +1,10 @@
+{
+    "cSpell.words": [
+        "comlink",
+        "SHAKV"
+    ],
+    "deno.enable": true,
+    "deno.config": "./tsconfig.json",
+    "deno.unstable": true,
+    "files.autoSave": "onFocusChange"
+}

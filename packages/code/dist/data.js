@@ -1,5 +1,4 @@
 import { sha256, shaDB } from "./db.js";
-import { sendSignal } from "./hash.js";
 import getVersions from "./versions.js";
 const v = getVersions();
 export const getProjects = async () => {
@@ -85,41 +84,57 @@ export async function getCodeToLoad() {
     };
     return data;
 }
-// const search = new URLSearchParams(window.location.search);
-// const keyToLoad = search.get("h") || await db.get(projectName);
-// if(keyToLoad){
-//   projects.map(p=>shaDB.get())
-// }
+const saved = {
+    code: null,
+    html: null,
+    transpiled: null,
+    url: null,
+};
+const toSave = {
+    code: null,
+    html: null,
+    transpiled: null,
+};
 /**
  *
- * @param {{code:string, html: string, transpiled: string, versions: string }} param0
+ * @param {{code:string, html: string, transpiled: string, versions: string }} opts
  */
-export const saveCode = async ({ code, html, transpiled, versions }) => {
-    if (!sendSignal) {
-        setTimeout(async () => Object.assign(window, await import("./hash.js")));
-    }
-    const projectName = await getActiveProject();
-    // const prevHash = await shaDB.get(projectName, "string");
-    const desc = {
-        code: await sha256(code),
-        html: await sha256(html || ""),
-        transpiled: await sha256(transpiled),
-        versions: await sha256(versions || ""),
-    };
-    const hash = await sha256(JSON.stringify(desc));
-    await shaDB.put(hash, JSON.stringify(desc));
-    // const prevData = await shaDB.get(prevHash, s);
-    if (code)
-        shaDB.put(desc.code, code);
-    if (html)
-        shaDB.put(desc.html, html);
-    if (transpiled)
-        shaDB.put(desc.transpiled, transpiled);
-    if (versions)
-        shaDB.put(desc.versions, versions);
-    await shaDB.put(projectName, hash);
-    // setQueryStringParameter("h", hash);
-    //const response = fetch(request);
-    // lets not save now - we will save the diff only
-    // await response;
+export const saveCode = (opts) => {
+    const { code, html, transpiled, versions } = opts;
+    Object.assign(toSave, opts);
+    setTimeout(async () => {
+        if (code !== toSave.code)
+            return null;
+        if (toSave.code === saved.code && saved.url !== null)
+            return saved.url;
+        const { shareItAsHtml } = await import("./share.js");
+        const sharePromise = shareItAsHtml({ code, HTML: html, transpiled });
+        const projectName = await getActiveProject();
+        // const prevHash = await shaDB.get(projectName, "string");
+        const desc = {
+            code: await sha256(code),
+            html: await sha256(html || ""),
+            transpiled: await sha256(transpiled),
+            versions: await sha256(versions || ""),
+        };
+        const hash = await sha256(JSON.stringify(desc));
+        await shaDB.put(hash, JSON.stringify(desc));
+        // const prevData = await shaDB.get(prevHash, s);
+        if (code)
+            shaDB.put(desc.code, code);
+        if (html)
+            shaDB.put(desc.html, html);
+        if (transpiled)
+            shaDB.put(desc.transpiled, transpiled);
+        if (versions)
+            shaDB.put(desc.versions, versions);
+        await shaDB.put(projectName, hash);
+        const url = await sharePromise;
+        Object.assign(saved, { html, code, transpiled, url });
+        return url;
+        // setQueryStringParameter("h", hash);
+        //const response = fetch(request);
+        // lets not save now - we will save the diff only
+        // await response;
+    }, 200);
 };

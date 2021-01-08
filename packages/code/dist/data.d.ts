@@ -10,9 +10,9 @@ export function getCodeToLoad(): Promise<{
     versions: any;
 }>;
 export function getProjects(): Promise<any>;
-export function saveCode({ code, html, transpiled, versions }: {
+export function saveCode(opts: {
     code: string;
     html: string;
     transpiled: string;
     versions: string;
-}): Promise<void>;
+}): void;

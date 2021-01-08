@@ -301,11 +301,6 @@
         "signature": "2e336c3ecd70956927790025e12507a40718107790a1c73e2a97b0e2898d4839",
         "affectsGlobalScope": false
       },
-      "./src/data.js": {
-        "version": "ef4e69e21cd3770be2d52d31baceec07b49cac75fbe912bbccf482db2531e781",
-        "signature": "a2979cfb816c83c93ee5a60c7c73e93cc53ca190958ea17413efd18b64fcd164",
-        "affectsGlobalScope": false
-      },
       "./src/templates.js": {
         "version": "1e621f3cd595462b377c44a1c285517ab634da3b0658271fb5aad17a688ff85c",
         "signature": "86274e7bff3ca90b0ee1818a8f431ec1f488371ffe430bdba7409815ffa5bdee",
@@ -317,8 +312,13 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "fd9f2fee638be6b87790f858174df0af036d54daffc11ad1e3050ba18f5fdb00",
+        "version": "6a7e9c742151b5cc672537ad6b715fbaedb66b6abcc4d708d417043b17f7ec94",
         "signature": "cc014f7866353e93932e07892657579702bbc28755f41b1817bfe910b1d0723c",
+        "affectsGlobalScope": false
+      },
+      "./src/data.js": {
+        "version": "e0d4cab1c5af846139cba106a1f8415df95d39fbf7d97bcc3367c09df45545e7",
+        "signature": "426b4037c58630a0d2c769e8fe786ccff2017ec888fcd1955e7e0d13521571d5",
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
@@ -456,6 +456,7 @@
         "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
         "./src/hash.js",
+        "./src/share.js",
         "./src/starter.js",
         "./src/versions.js"
       ],

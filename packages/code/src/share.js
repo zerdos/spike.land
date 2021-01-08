@@ -40,12 +40,12 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
     ],
   );
 
-  await Promise.all(res.map(
-    /**
-   * @param {{ CID: string; }} x
-   */
-    (x) => fetch(`https://code.zed.vision/ipfs/${x.CID}/`),
-  ));
+  // await Promise.all(res.map(
+  //   /**
+  //  * @param {{ CID: string; }} x
+  //  */
+  //   (x) => fetch(`https://code.zed.vision/ipfs/${x.CID}/`),
+  // ));
 
   const appDir = res.find(
     /**
