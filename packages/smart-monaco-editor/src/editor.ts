@@ -178,12 +178,12 @@ export default async (
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@3.1.4/dist/framer-motion.d.ts",
+        url: "https://unpkg.com/framer-motion@3.2.0/dist/framer-motion.d.ts",
         depend: [],
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/popmotion@9.0.2/lib/index.d.ts",
+        url: "https://unpkg.com/popmotion@9.1.0/lib/index.d.ts",
       },
       {
         name: "@zedvision/qrious/index.d.ts",

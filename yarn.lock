@@ -4725,7 +4725,7 @@ __metadata:
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
     esbuild: 0.8.31
-    framer-motion: 3.1.4
+    framer-motion: 3.2.0
     react: 17.0.1
     react-dom: 17.0.1
     typescript: 4.1.3
@@ -4826,7 +4826,7 @@ __metadata:
     "@zedvision/code": ^11.5.15
     "@zedvision/qrious": ^11.5.3
     "@zedvision/shadb": ^11.5.3
-    framer-motion: 3.1.4
+    framer-motion: 3.2.0
     gatsby: 2.30.1
     gatsby-image: 2.9.0
     gatsby-plugin-emotion: ^5.2.0
@@ -8244,17 +8244,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:3.0.6":
+"csstype@npm:3.0.6, csstype@npm:^3.0.2":
   version: 3.0.6
   resolution: "csstype@npm:3.0.6"
   checksum: ebdca96d26e1af5604658e6876af29ac1e218750efb587684f2b2b13bb062a397b351586d285f911e6985e03112e56c2aee127d35ae7354cc7d25f3000e22556
-  languageName: node
-  linkType: hard
-
-"csstype@npm:^3.0.2":
-  version: 3.0.5
-  resolution: "csstype@npm:3.0.5"
-  checksum: d15967edea15457961ab1e3f1c4080c83792a595055551a087923b2fb67fffaddaa2eedafe10f665d12dc3f493af03c08322c9410fcd58e3dcf48104de15043c
   languageName: node
   linkType: hard
 
@@ -10659,15 +10652,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:3.1.4":
-  version: 3.1.4
-  resolution: "framer-motion@npm:3.1.4"
+"framer-motion@npm:3.2.0":
+  version: 3.2.0
+  resolution: "framer-motion@npm:3.2.0"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: ^5.0.0
     hey-listen: ^1.0.8
-    popmotion: ^9.0.2
-    style-value-types: ^3.2.0
+    popmotion: ^9.1.0
+    style-value-types: ^4.0.1
     tslib: ^1.10.0
   peerDependencies:
     react: ">=16.8"
@@ -10675,7 +10668,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 45dd1815705cb7fdf226975b55a7de06ba1c38037ecf85df0af6696b2cc768c44d16154d12b855214e789fdcbf708d17a9406b0c63a5348beb258bb4d25f2399
+  checksum: 25bbc12d28f9229f1b1270e21d40ede60ebd5d18db4a49fbf84464920702a412e559fb413e415ab38ed25380d2cdf4c9308d0a6cd511e7ab768ed57d948606a5
   languageName: node
   linkType: hard
 
@@ -18075,15 +18068,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"popmotion@npm:^9.0.2":
-  version: 9.0.2
-  resolution: "popmotion@npm:9.0.2"
+"popmotion@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "popmotion@npm:9.1.0"
   dependencies:
     framesync: 5.0.0
     hey-listen: ^1.0.8
-    style-value-types: 3.2.0
+    style-value-types: ^4.0.1
     tslib: ^1.10.0
-  checksum: 4d7add564aa85d328fba7c884e25fb591693d1e3081440ed6e9308f24da889f4a1549cd55857d3d42c9a564fa6a257c152d1e58fa797d70da1d97f8a8400c655
+  checksum: a8f0018217d85e0e0e0bbc82a224dad2494ae5a73b5b06208298fee0ea035d742e2707a6f41051d2f3662099cddf526a1425d8452c073df748c9dd77bb97f3d2
   languageName: node
   linkType: hard
 
@@ -21783,13 +21776,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"style-value-types@npm:3.2.0, style-value-types@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "style-value-types@npm:3.2.0"
+"style-value-types@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "style-value-types@npm:4.0.1"
   dependencies:
     hey-listen: ^1.0.8
     tslib: ^1.10.0
-  checksum: 630a8011abc3c677339efc0782c12691b20b8eb616b49ad09ac49e7f1d18564489712225b501146d143b0f6eaa840caf64887b8f3ccdc9a5b0bb9bd4a60a0f0d
+  checksum: ea10874c76075a65058edbf59299bbdcd86512d0a206c9e444f0234f0dab0b801cdfa19cb6984cc7c18b4fd93147811f32b39edb8192129922ce8bc2019e8327
   languageName: node
   linkType: hard
 
@@ -23797,8 +23790,8 @@ typescript@4.1.3:
   linkType: hard
 
 "webpack@npm:^4.44.1":
-  version: 4.44.2
-  resolution: "webpack@npm:4.44.2"
+  version: 4.45.0
+  resolution: "webpack@npm:4.45.0"
   dependencies:
     "@webassemblyjs/ast": 1.9.0
     "@webassemblyjs/helper-module-context": 1.9.0
@@ -23830,7 +23823,7 @@ typescript@4.1.3:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: cb4a9051d64df00494d18afd379d26669b96309f3f41e89e55b8531d99d67060bf8b262a996dbcdc2cda99adfb6c1c2bd9966630d329b09f9f9aa9fc732a3259
+  checksum: 2b6aaa7ded24ecb08f4e82a6587e2d494d12ca08ce9cce19d6540a254638144b3b3c5a4607a198cd1834a8907c2cc45370e990599571980da0fcdcd7fc54942a
   languageName: node
   linkType: hard
 
