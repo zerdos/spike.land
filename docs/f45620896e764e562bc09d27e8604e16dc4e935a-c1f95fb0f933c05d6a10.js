@@ -2315,7 +2315,7 @@ var asyncToGenerator = __webpack_require__(4);
 // EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
 var react = __webpack_require__(0);
 
-// EXTERNAL MODULE: ../code/dist/versions.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@zedvision/code/dist/versions.js
 var versions = __webpack_require__(72);
 
 // EXTERNAL MODULE: ./src/components/utils/sha256/sha256.worker.ts

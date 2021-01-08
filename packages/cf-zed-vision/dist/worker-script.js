@@ -460,9 +460,7 @@ async function handleCloudRequest(request) {
       if (!response) {
         const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
           0.5 - Math.random()
-        ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
-          x,
-        ) => fetch(x));
+        ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname));
         response = await raceToSuccess(randpom5GatwawsFetch);
         await cache.put(request, response.clone());
       }
@@ -541,6 +539,16 @@ async function handleCloudRequest(request) {
     });
   }
   return new Response("404");
+}
+function raceToSuccess(promises) {
+  let numRejected = 0;
+  return new Promise((resolve, reject) =>
+    promises.forEach((promise) =>
+      promise.then(resolve).catch(() => {
+        if ((++numRejected) === promises.length) reject();
+      })
+    )
+  );
 }
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
