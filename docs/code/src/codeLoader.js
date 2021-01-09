@@ -39,7 +39,7 @@ export async function run(mode = "window", _w, code = "") {
   const { open } = _w;
 
   const session = getSession();
-  session.code = code;
+  session.code = await formatter(code);
   if (!code) {
     try {
       const { code, transpiled, html, versions } = await getCodeToLoad();
