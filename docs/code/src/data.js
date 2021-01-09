@@ -164,7 +164,7 @@ export const saveCode =
 
         const { shareItAsHtml } = await import("./share.js");
         const sharePromise = shareItAsHtml(
-          { code, html, transpiled, versions: JSON.stringify(versions) },
+          { code, html, transpiled, versions },
         );
 
         const projectName = await getActiveProject();

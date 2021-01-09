@@ -12,9 +12,13 @@ export function renderPreviewWindow(
   const onShare = async () => {
     const { shareItAsHtml } = await import("./share.js");
 
-    const link = await shareItAsHtml(session);
+    const link = await shareItAsHtml({
+      code: session.code,
+      versions: session.versions,
+      transpiled: session.transpiled,
+      html: session.html,
+    });
 
-    console.log({ link });
     open(link);
   };
 

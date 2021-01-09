@@ -52,3 +52,26 @@ renderEmotion(App(), document.body.children[0]);
 </html>
 `;
 };
+
+/**
+ * @param {string} codeLoaderVersion
+ */
+export const getEditorHTML = (codeLoaderVersion) =>
+  `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="icon" type="image/png" href="https://blog.zed.vision/zed-icon-big.png" />
+<title>Instant React Editor</title>
+</head>
+<body>
+  <script type="module">
+    import {run} from "https://unpkg.com/@zedvision/code@${codeLoaderVersion}/src/codeLoader.js"
+    try{
+      run("window", window);
+    }catch(error){
+      fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
+    }
+  </script>
+</body>
+</html>`;

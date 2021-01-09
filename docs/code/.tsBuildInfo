@@ -272,8 +272,8 @@
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
-        "version": "5a9e974b9bbe04e2786a8df6457ed9d667960508365697d0dbcbc6234e0e081f",
-        "signature": "777244194aa68982fa0d754ebc2b19ab09405ed1bac643bb5fbe5937545f23c1",
+        "version": "f943aaf947393cd883519771022d3e8e15c36d668872454e9de0977c9477a778",
+        "signature": "070dedd838f0fa6cf016568a7a2e280fe391243b478a63e2ca0d778f55a936bf",
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
@@ -282,12 +282,12 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "b8ec940114141ab85f3ad40129653422205f1180e322ff512f6ab9189a1193e1",
+        "version": "3e1c746294ec841b5909b9c4b48469ec6d4aba1f9f8eb9dd8cd281cbf6e138e6",
         "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
-        "version": "a9f1d4126281d5f550d20cc6b79d61e7cf4d2061c2009975410e854e9a23b80d",
+        "version": "b586c52625dc7dd2a82c0068ec39c2d670cdfe8386722e8da728a1766076198f",
         "signature": "608cfe0ec75d5731a86860a9943b16fa17fe5a5b39ee2fefa9e202413269e43b",
         "affectsGlobalScope": false
       },
@@ -307,7 +307,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "57540887e35a29fa8f73fce2ec767e95012438e3eb459dcbc3b2734e49009cb8",
+        "version": "88d2b4ff742d37ee05c282bd2d5224c9682a1296ebb09d92d524171d7411201a",
         "signature": "0c50fc345b47d8e1287e3155e87db43737efc4b4d78bacd219ddebeb338d5c29",
         "affectsGlobalScope": false
       },
@@ -337,7 +337,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "cd28ac2b82f38b021685ea11db5bf345fa5bb4c2902332a6396125f8354c1170",
+        "version": "60052b81f896cb16ae2e59e9ba721a335edce37aff3329cd97534ceace3f9619",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },

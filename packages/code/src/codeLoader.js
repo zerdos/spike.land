@@ -1,9 +1,3 @@
-import { renderPreviewWindow } from "./renderPreviewWindow.js";
-import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
-import { v } from "./versions.js";
-import { getCodeToLoad, saveCode } from "./data.js";
-import { transpileCode } from "./transpile.js";
-
 function getSession() {
   const session = {
     i: 0,
@@ -27,6 +21,12 @@ function getSession() {
   * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
 export async function run(mode = "window", _w, code = "") {
+  const { renderPreviewWindow } = await import("./renderPreviewWindow.js");
+  const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
+  const { v } = await import("./versions.js");
+  const { getCodeToLoad, saveCode } = await import("./data.js");
+  const { transpileCode } = await import("./transpile.js");
+
   await sendSignalToQrCode();
 
   const { formatter } = await import("./formatter.js");
@@ -65,7 +65,7 @@ export async function run(mode = "window", _w, code = "") {
     v.emotionRenderer
   );
 
-  await renderPreviewWindow(
+  await await renderPreviewWindow(
     mode,
     session,
     open,

@@ -25,14 +25,15 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
             console.error({ e });
         }
     }
-    const { getHtml } = await import("./templates.js");
+    const { getHtml, getEditorHTML } = await import("./templates.js");
     const allContent = [
         { path: "/app/index.html", content: getHtml({ html, css }) },
         { path: "/app/app.js", content: transpiled },
         { path: "/app/app.tsx", content: code },
+        { path: "/app/edit/index.html", content: getEditorHTML(versions.code) },
         {
             path: "/app/versions.js",
-            content: `export const v=JSON.parse("${versions}");`,
+            content: `export const v=JSON.parse("${JSON.stringify(versions)}");`,
         },
     ];
     const sha = await sha256(JSON.stringify(allContent));

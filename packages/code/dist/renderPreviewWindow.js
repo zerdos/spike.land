@@ -3,8 +3,12 @@
 export function renderPreviewWindow(mode, session, open, renderEmotion, jsx, DraggableWindow) {
     const onShare = async () => {
         const { shareItAsHtml } = await import("./share.js");
-        const link = await shareItAsHtml(session);
-        console.log({ link });
+        const link = await shareItAsHtml({
+            code: session.code,
+            versions: session.versions,
+            transpiled: session.transpiled,
+            html: session.html,
+        });
         open(link);
     };
     let preview = window.document.getElementById("preview");
