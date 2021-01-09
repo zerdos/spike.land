@@ -1,10 +1,8 @@
 function versions() {
-    const code = "11.5.17";
     const shadb = "11.4.16";
     const editor = "11.5.20";
-    const emotionRenderer = "11.5.16";
+    const emotionRenderer = "11.5.21";
     const v = {
-        code,
         shadb,
         ipfs: "0.52.3",
         workbox: "6.0.2",
@@ -13,7 +11,6 @@ function versions() {
         uuid: "8.3.2",
         comlink: "4.3.0",
         editor: `https://unpkg.com/@zedvision/smart-monaco-editor@${editor}/dist/editor.js`,
-        DraggableWindow: "./DraggableWindow.js",
         emotionRenderer: `https://unpkg.com/@zedvision/emotion-react-renderer@${emotionRenderer}/dist/bundle.js`,
     };
     return v;

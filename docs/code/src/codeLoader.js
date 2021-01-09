@@ -55,9 +55,19 @@ export async function run(mode = "window", _w) {
 
   session.transpiled = session.transpiled || await transpile(session.code);
 
-  const { renderEmotion, jsx } = await import(v.emotionRenderer);
+  const { renderEmotion, jsx, DraggableWindow } = await import(
+    v.emotionRenderer
+  );
 
-  await renderPreviewWindow(mode, session, open, v, renderEmotion, jsx);
+  await renderPreviewWindow(
+    mode,
+    session,
+    open,
+    v,
+    renderEmotion,
+    jsx,
+    DraggableWindow,
+  );
 
   await restartPreview(restartCode, session);
 

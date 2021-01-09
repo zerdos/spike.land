@@ -282,8 +282,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "1f603d861bc34bfeb34f6fd87f76bdc5f5bc24cd409adb84e32c36dd040443c4",
-        "signature": "68838644e4800bd2f45a8199c0f7e5da767d94cb650e2c6875e5bcc0092b6637",
+        "version": "ac427cad3d6bd15078dd9f4baa45748ee17697f41ef145a7049dc0f13ba4d4e1",
+        "signature": "69e1e9ead0e122c6e4bc0dd92e82952ab8a913fed0b930c561e2fd96591a5068",
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
@@ -302,8 +302,8 @@
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
-        "version": "39ba5cf45f6d5d1300f3a9bad84f7e04bd0e7c6492ffd65f24d18c9997e91cfc",
-        "signature": "f3fccf44ac1b2d6c235880331059567bd3d302dc6dd72e3d085c5363dccb384c",
+        "version": "54e7a6481b831a0199537a60d2e44bedbe1565a70a431a9f68637a90608959fa",
+        "signature": "11d252f6f7d253b51f245ddbdf6cafadcba64f5143609ceec3a80d751c10ac13",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
@@ -342,7 +342,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "5172a4dfb066bf632357c77535069c1bbf2b6d7c7f7e2589fa92ee9c6ac9c97f",
+        "version": "e951f929a3a71e0c46a6811e81d9cf5461b449b361dab3c275c54b1ea5857c64",
         "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
         "affectsGlobalScope": false
       },
