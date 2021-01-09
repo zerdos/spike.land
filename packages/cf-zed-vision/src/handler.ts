@@ -205,15 +205,21 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       let response = await cache.match(request);
 
       if (!response) {
-    //https://ipfs.github.io/public-gateway-checker/gateways.json
-    const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
-    0.5 - Math.random()
-  ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) =>
-    fetch(x).then(res=>res.status===200?res:(()=>{ throw new Error("Not found")})())
-  );
+        //https://ipfs.github.io/public-gateway-checker/gateways.json
+        const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
+          0.5 - Math.random()
+        ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
+          x,
+        ) =>
+          fetch(x).then((res) =>
+            res.status === 200 ? res : (() => {
+              throw new Error("Not found");
+            })()
+          )
+        );
 
-  response = await raceToSuccess(randpom5GatwawsFetch);
-  await cache.put(request, response.clone());
+        response = await raceToSuccess(randpom5GatwawsFetch);
+        await cache.put(request, response.clone());
       }
       if (response.status > 399) {
         response = new Response(
@@ -321,8 +327,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   return new Response("404");
 }
 
-
-
 /**
  * 
  * @param{Promise<any>[]} promises 
@@ -344,7 +348,6 @@ function raceToSuccess(promises) {
       ),
   );
 }
-
 
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
@@ -379,4 +382,5 @@ const publicIpfsGateways = [
   "https://ipfs.drink.cafe/ipfs/:hash",
   "https://ipfs.azurewebsites.net/ipfs/:hash",
   "https://gw.ipfspin.com/ipfs/:hash",
-  "https://ipfs.denarius.io/ipfs/:hash"]
+  "https://ipfs.denarius.io/ipfs/:hash",
+];
