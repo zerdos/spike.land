@@ -287,7 +287,7 @@
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
-        "version": "b0782aa60dba54996be67ba0014ba5bce15e93c4a4201f350f864383e7249bf9",
+        "version": "8cb9a61c1897b964b18dce49d374b1dad3253666b5a94f367dd4853ef8f9746d",
         "signature": "414da80805a8c47a214ef15e029f45575878e0c1d975f3806d3ecf172aa9c7ab",
         "affectsGlobalScope": false
       },

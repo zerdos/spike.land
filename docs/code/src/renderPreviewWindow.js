@@ -9,39 +9,37 @@ export async function renderPreviewWindow(
   jsx,
   DraggableWindow,
 ) {
-  if (mode === "window") {
-    const onShare = async () => {
-      const { shareItAsHtml } = await import("./share.js");
+  const onShare = async () => {
+    const { shareItAsHtml } = await import("./share.js");
 
-      const link = await shareItAsHtml(
-        {
-          code: session.code,
-          transpiled: session.transpiled,
-          HTML: session.HTML,
-        },
-      );
+    const link = await shareItAsHtml(
+      {
+        code: session.code,
+        transpiled: session.transpiled,
+        HTML: session.HTML,
+      },
+    );
 
-      console.log({ link });
-      open(link);
-    };
+    console.log({ link });
+    open(link);
+  };
 
-    let preview = window.document.getElementById("preview");
+  let preview = window.document.getElementById("preview");
 
-    if (!preview) {
-      const element = window.document.createElement("div");
-      window.document.body.appendChild(element);
-      preview = element;
-    }
+  if (!preview) {
+    const element = window.document.createElement("div");
+    window.document.body.appendChild(element);
+    preview = element;
+  }
 
-    renderEmotion(jsx(DraggableWindow, { onShare }), preview);
+  renderEmotion(jsx(DraggableWindow, { onShare }), preview);
 
-    const zbody = window.document.getElementById("zbody");
-    if (zbody !== null) {
-      zbody.appendChild(session.div);
-    }
+  const zbody = window.document.getElementById("zbody");
+  if (zbody !== null) {
+    zbody.appendChild(session.div);
+  }
 
-    if (session.HTML) {
-      session.div.innerHTML = session.HTML;
-    }
+  if (session.HTML) {
+    session.div.innerHTML = session.HTML;
   }
 }
