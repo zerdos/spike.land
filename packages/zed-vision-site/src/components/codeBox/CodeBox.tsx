@@ -1,7 +1,5 @@
-import * as React from "react";
+import React from "react";
 
-import { css, jsx } from "@emotion/react";
-/** @jsx jsx */
 import { counterExample } from "./example";
 import { Header } from "./styledCodeBoxComps";
 
@@ -34,10 +32,7 @@ export const CodeBox: React.FC<{
       </button>
     </Header>}
     <div
-      css={css`
-      width: 100%;
-      height: 70vh;
-    `}
+      style={{width:"100%", height: "70vh"}}
       id="editor"
     />
   </>;
