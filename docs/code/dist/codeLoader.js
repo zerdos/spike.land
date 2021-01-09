@@ -44,9 +44,7 @@ export async function run(mode = "window", _w, code = "") {
             return;
         }
     }
-    const { v } = pathname.endsWith("/edit/")
-        ? await import(".." + "/versions.js")
-        : await import("./versions.js");
+    const { v } = await import("./versions.js");
     if (mode === "window") {
         const { openWindows } = await import("./openWindows.js");
         await openWindows(v);
