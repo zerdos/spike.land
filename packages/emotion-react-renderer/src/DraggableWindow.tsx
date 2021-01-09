@@ -2,7 +2,6 @@
 import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import React from "react";
-import ReactDOM from "react-dom";
 
 export const DraggableWindow: React.FC<{ onShare: () => void }> = ({
   onShare,
