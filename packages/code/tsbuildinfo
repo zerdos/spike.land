@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
-        "version": "3af6679617ba7718744e28146934189d2cbb0cdf87983eefcd6358fb49455c9a",
+        "version": "d1eaf9e85b56fa0659ee36d77eea0de427a1dd674faa7309fa9ef85c6ddd9215",
         "signature": "0fb98cd11d39373642a8cfe54615ccbe8ad4913da67c611a3337d02f82851924",
         "affectsGlobalScope": false
       },
@@ -333,7 +333,7 @@
       },
       "./src/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+        "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {

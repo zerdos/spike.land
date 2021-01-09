@@ -48,6 +48,9 @@ export const getIpfsClient = async () => {
 async function init() {
   try {
     const v = versions();
+    const Comlink = await import(
+      `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
+    );
 
     const res = await fetch(
       window.location.hostname === "[::1]"
@@ -63,9 +66,6 @@ async function init() {
             .replace("$$comlink$$", v.comlink),
         ]),
       ),
-    );
-    const Comlink = await import(
-      `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
     );
 
     return Comlink.wrap(worker);

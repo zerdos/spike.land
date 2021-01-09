@@ -44,6 +44,7 @@ export const getIpfsClient = async () => {
 async function init() {
     try {
         const v = versions();
+        const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
         const res = await fetch(window.location.hostname === "[::1]"
             ? `./src/ipfsKV.worker.js`
             : `https://blog.zed.vision/code/src/ipfsKV.worker.js`);
@@ -53,7 +54,6 @@ async function init() {
                 .replace("$$ipfs$$", v.ipfs)
                 .replace("$$comlink$$", v.comlink),
         ])));
-        const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
         return Comlink.wrap(worker);
     }
     catch (e) {
