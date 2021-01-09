@@ -9,7 +9,7 @@ let transform;
  * @param {boolean} hasToReport 
  */
 export async function transpileCode(code, hasToReport) {
-  transform = transform || await init();
+  transform = transform || await (await init());
 
   return await transform(code, hasToReport);
 }

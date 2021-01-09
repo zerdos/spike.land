@@ -317,7 +317,7 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "b109209c2d89f7df4895adb130503111f9a9520662f52c24ee258883986078ca",
+        "version": "aa0a39720bcf01009d6d85bb3ce47ec52d6ad94e320e23bb3300ac9ff4439eda",
         "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
         "affectsGlobalScope": false
       },
