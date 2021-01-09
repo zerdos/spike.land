@@ -9,7 +9,7 @@ export const CodeBox: React.FC<{
   className?: string;
   title?: string;
 }> = ({ title, children }) => {
-  const starterCode = children?.toString().trim() || counterExample;
+  const starterCode = children?.toString().trim();
   if (typeof window === "undefined") return <pre>Loading</pre>;
 
   React.useEffect(() => {
@@ -34,11 +34,11 @@ export const CodeBox: React.FC<{
     
     <div
       style={{width:"100%", height: "600px", position: "relative"}}
-    >
+    > <div id="preview"></div>
       <div style={{width:"100%", height: "100%"}} id="editor">
 
       </div>
-      <div id="preview"></div>
+
     </div>
     
   </>
