@@ -287,8 +287,8 @@
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
-        "version": "8cb9a61c1897b964b18dce49d374b1dad3253666b5a94f367dd4853ef8f9746d",
-        "signature": "414da80805a8c47a214ef15e029f45575878e0c1d975f3806d3ecf172aa9c7ab",
+        "version": "b7cffb92abfd37b1727e09c117b59851275d749c61792a4894f22c9fa9913fc3",
+        "signature": "0819e4bb0d82100b33bf073d25a677839e776106b2be38ab82604710e6d0d68b",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
@@ -342,7 +342,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "90fbfdb581c09609af7912f66fb40341c9fe559ad8e40e3046b50ca59653ef5d",
+        "version": "1ea5ba31797f6866742174b08c683e21f67ae4b6bc4828fac9a95d21c64acd37",
         "signature": "59f233f947ad629e5405c563816a892e02f2dc21d350fbf358e2f2e9c90ed089",
         "affectsGlobalScope": false
       },

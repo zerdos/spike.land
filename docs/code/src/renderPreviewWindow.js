@@ -4,7 +4,6 @@ export async function renderPreviewWindow(
   mode,
   session,
   open,
-  v,
   renderEmotion,
   jsx,
   DraggableWindow,
@@ -32,7 +31,13 @@ export async function renderPreviewWindow(
     preview = element;
   }
 
-  renderEmotion(jsx(DraggableWindow, { onShare }), preview);
+  renderEmotion(
+    jsx(DraggableWindow, {
+      onShare,
+      position: mode === "windoow" ? "fixed" : "absolute",
+    }),
+    preview,
+  );
 
   const zbody = window.document.getElementById("zbody");
   if (zbody !== null) {

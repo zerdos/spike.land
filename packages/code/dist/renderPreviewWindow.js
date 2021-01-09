@@ -1,5 +1,5 @@
 //@ts-nocheck
-export async function renderPreviewWindow(mode, session, open, v, renderEmotion, jsx, DraggableWindow) {
+export async function renderPreviewWindow(mode, session, open, renderEmotion, jsx, DraggableWindow) {
     const onShare = async () => {
         const { shareItAsHtml } = await import("./share.js");
         const link = await shareItAsHtml({
@@ -16,7 +16,10 @@ export async function renderPreviewWindow(mode, session, open, v, renderEmotion,
         window.document.body.appendChild(element);
         preview = element;
     }
-    renderEmotion(jsx(DraggableWindow, { onShare }), preview);
+    renderEmotion(jsx(DraggableWindow, {
+        onShare,
+        position: mode === "windoow" ? "fixed" : "absolute",
+    }), preview);
     const zbody = window.document.getElementById("zbody");
     if (zbody !== null) {
         zbody.appendChild(session.div);
