@@ -47,7 +47,10 @@ export async function run(mode = "window", _w, code = "") {
       session.code = code;
       session.transpiled = await transpileCode(code) || transpiled;
       session.div.innerHTML = html;
-      session.versions = versions && JSON.parse(versions);
+      session.versions = versions;
+      if (typeof versions === "string" && versions !== "") {
+        session.versions = JSON.parse(versions);
+      }
     } catch (e) {
       console.error({ e, message: "couldn't start" });
       return;
