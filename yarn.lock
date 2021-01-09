@@ -20745,13 +20745,13 @@ fsevents@~2.3.1:
   linkType: hard
 
 "socket.io-parser@npm:~3.3.0":
-  version: 3.3.1
-  resolution: "socket.io-parser@npm:3.3.1"
+  version: 3.3.2
+  resolution: "socket.io-parser@npm:3.3.2"
   dependencies:
     component-emitter: ~1.3.0
     debug: ~3.1.0
     isarray: 2.0.1
-  checksum: 1267a6520f4515260601a3d436037a15426ac8a64ebb6ff8d7de2f79bc415d0be85b7049a32d1531c47cb0c068438d38a91a26e7799fdf9b18bf6743b29f3049
+  checksum: 170431a74064f5bf0c9335fd95931ebb3ef0bbc80efe7f966e54e5df5122105d11f4190e83bb24b5c2cecbb86c7321e7d5791686b56a85f5458cd24a47d434da
   languageName: node
   linkType: hard
 
@@ -22422,13 +22422,13 @@ fsevents@~2.3.1:
   linkType: hard
 
 "tsutils@npm:^3.17.1":
-  version: 3.19.0
-  resolution: "tsutils@npm:3.19.0"
+  version: 3.19.1
+  resolution: "tsutils@npm:3.19.1"
   dependencies:
     tslib: ^1.8.1
   peerDependencies:
     typescript: ">=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta"
-  checksum: 39f744520462a870e66b44442e26a144c1dc8a640c938a7da3260a531fa15285612bca4243538eb470d83f7200a328fb93f6ef4ca880c21a40365f2299076f90
+  checksum: 410d9931359db7a2bb974260b59789f2cf587f3e90bfb4c012747bdbcbb07fff18782c626c5ff71e792e5be3ab91f50176b5cdf419f4ffcffba8e288266261bf
   languageName: node
   linkType: hard
 
