@@ -64,13 +64,11 @@ async function getActiveProject() {
   return activeProject;
 }
 
-/**
- * 
- * @param {string} rootURL 
- */
-export async function getIPFSCodeToLoad(rootURL) {
-  const codePromise = fetch(rootURL + "/app.tsx").then((x) => x.text());
-  const { v } = await import(rootURL + "/versions.js");
+export async function getIPFSCodeToLoad() {
+  const rootUrl = window.location.href.slice(0, -5);
+
+  const codePromise = fetch(rootUrl + "app.tsx").then((x) => x.text());
+  const { v } = await import(rootUrl + "versions.js");
 
   const ret = {
     code: await codePromise,

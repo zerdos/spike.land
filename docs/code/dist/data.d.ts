@@ -3,11 +3,7 @@
  */
 export function getZkey(hash: string): Promise<string>;
 export function getUserId(): Promise<any>;
-/**
- *
- * @param {string} rootURL
- */
-export function getIPFSCodeToLoad(rootURL: string): Promise<{
+export function getIPFSCodeToLoad(): Promise<{
     code: string;
     versions: any;
     transpiled: string;
