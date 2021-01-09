@@ -189,7 +189,9 @@ export async function run(mode = "window", _w, code = "") {
         const root = window.document.createElement("div");
         if (session.i > counter)
             return false;
-        const Element = (await import(createJsBlob(codeToHydrate))).default;
+        const objUrl = createJsBlob(codeToHydrate);
+        const Element = (await import(objUrl)).default;
+        URL.revokeObjectURL(objUrl);
         session.unmount();
         session.unmount = renderEmotion(Element(), root);
         const zbody = window.document.getElementById("zbody");
