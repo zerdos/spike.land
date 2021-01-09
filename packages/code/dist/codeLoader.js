@@ -19,32 +19,37 @@ function getSession() {
   * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
 export async function run(mode = "window", _w, code = "") {
+    const { pathname } = new URL(window.location.href);
     const { renderPreviewWindow } = await import("./renderPreviewWindow.js");
     const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
-    const { v } = await import("./versions.js");
-    const { getCodeToLoad, saveCode } = await import("./data.js");
+    const { getCodeToLoad, getIPFSCodeToLoad, saveCode } = await import("./data.js");
     const { transpileCode } = await import("./transpile.js");
     await sendSignalToQrCode();
     const { formatter } = await import("./formatter.js");
-    if (mode === "window") {
-        const { openWindows } = await import("./openWindows.js");
-        await openWindows(v);
-    }
     const { open } = _w;
     const session = getSession();
     session.code = code ? await formatter(code) : "";
     if (!code) {
         try {
-            const { code, transpiled, html, versions } = await getCodeToLoad();
+            const { code, transpiled, html, versions } = pathname.endsWith("/edit/")
+                ? await getIPFSCodeToLoad("../")
+                : await getCodeToLoad();
             session.code = code;
             session.transpiled = await transpileCode(code) || transpiled;
             session.div.innerHTML = html;
-            session.versions = versions ? JSON.parse(versions) : Object.assign({}, v);
+            session.versions = versions && JSON.parse(versions);
         }
         catch (e) {
             console.error({ e, message: "couldn't start" });
             return;
         }
+    }
+    const { v } = pathname.endsWith("/edit/")
+        ? await import(".." + "/versions.js")
+        : await import("./versions.js");
+    if (mode === "window") {
+        const { openWindows } = await import("./openWindows.js");
+        await openWindows(v);
     }
     session.versions = session.versions || Object.assign({}, v);
     if (session.transpiled === "") {
