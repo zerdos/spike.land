@@ -337,7 +337,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "60052b81f896cb16ae2e59e9ba721a335edce37aff3329cd97534ceace3f9619",
+        "version": "792d909790c1676f215c39b118a365e4c958b87097701269ad0856be61721c87",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },

@@ -133,6 +133,7 @@ export async function run(mode = "window", _w, code = "") {
         if (session.i > counter) return;
         session.code = await formatter(cd);
         if (session.i > counter) return;
+        session.versions = { ...v };
 
         saveCode(session, counter);
       } else {

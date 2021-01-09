@@ -108,6 +108,7 @@ export async function run(mode = "window", _w, code = "") {
                 session.code = await formatter(cd);
                 if (session.i > counter)
                     return;
+                session.versions = Object.assign({}, v);
                 saveCode(session, counter);
             }
             else {
