@@ -262,8 +262,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "5a804baf2e3c402ae7ccba79ce5849ddf1be3f831cd5e820b90f21b873b6690f",
-        "signature": "44d38bfcbc367ec244ad5d256fc1ab7909d9c2a88599a7e62fba67cb8b6501ce",
+        "version": "6211a9005b13ae7d909ef2b77cdc917fb402410904d95c58d033188e08d30f7e",
+        "signature": "1f572277b43c47ecdf597b689bf3f3fce7b235c66dfa7aa734bb6f71efc32ece",
         "affectsGlobalScope": false
       },
       "./src/db.js": {
@@ -307,7 +307,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "741394599a2bab4ed2577ac07a44c1e9f801d5c6f3797aa9cd592a33d8db3374",
+        "version": "1b2ee76f880920dc6f5629f03ee5460b4a62b6bf2a5b58c2bbb538dd6fa82f02",
         "signature": "91221b360f8b1101667b142629c8973433917bc3e48f9627c9c7b2315945d488",
         "affectsGlobalScope": false
       },
