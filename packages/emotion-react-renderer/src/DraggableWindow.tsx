@@ -21,7 +21,7 @@ export const DraggableWindow: React.FC<{ onShare: () => void, position?: string 
             border-radius: 8px;
             right: 20px;
             top: 20px;
-            position: position?position:"fixed";
+            position: ${position?position:"fixed"};
             z-index: 900;
             overflow: hidden;
             overflow-y: overlay;

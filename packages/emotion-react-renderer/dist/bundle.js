@@ -13,7 +13,7 @@ Add a <Suspense fallback=...> component higher in the tree to provide a loading 
             border-radius: 8px;
             right: 20px;
             top: 20px;
-            position: position?position:"fixed";
+            position: ${t||"fixed"};
             z-index: 900;
             overflow: hidden;
             overflow-y: overlay;
