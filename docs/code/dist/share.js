@@ -33,7 +33,7 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
         { path: "/app/edit/index.html", content: getEditorHTML(versions.code) },
         {
             path: "/app/versions.js",
-            content: `export const v=JSON.parse("${JSON.stringify(versions)}");`,
+            content: `export const v=JSON.parse('${JSON.stringify(versions)}');`,
         },
     ];
     const sha = await sha256(JSON.stringify(allContent));
