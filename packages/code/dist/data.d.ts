@@ -11,20 +11,16 @@ export function getCodeToLoad(): Promise<{
 }>;
 export function getProjects(): Promise<any>;
 export function saveCode(opts: {
-    code: string;
-    html: string;
-    transpiled: string;
-    versions: string;
-}): void;
-declare const versions: {
-    shadb: string;
-    ipfs: string;
-    workbox: string;
-    babel: string;
-    prettier: string;
-    uuid: string;
-    comlink: string;
-    editor: string;
-    emotionRenderer: string;
-};
-export {};
+    i?: number | undefined;
+    unmount?: (() => void) | undefined;
+    hydrated?: boolean | undefined;
+    preRendered?: boolean | undefined;
+    lastErrors?: number | undefined;
+    rootElement?: null | undefined;
+    div?: HTMLDivElement | undefined;
+    html: any;
+    versions: any;
+    ipfs?: number | undefined;
+    transpiled: any;
+    code: any;
+}, counter: number): void;

@@ -5,6 +5,7 @@ import { getCodeToLoad, saveCode } from "./data.js";
 import { transpileCode } from "./transpile.js";
 function getSession() {
     const session = {
+        i: 0,
         unmount: () => { },
         hydrated: false,
         preRendered: false,
@@ -53,7 +54,7 @@ export async function run(mode = "window", _w, code = "") {
     }
     const { renderEmotion, jsx, DraggableWindow } = await import(v.emotionRenderer);
     await renderPreviewWindow(mode, session, open, renderEmotion, jsx, DraggableWindow);
-    await restartPreview(restartCode, session);
+    await restartCode(session.transpiled, session.i);
     const startMonaco = (await import(v.editor)).default;
     const container = window.document.getElementById("editor");
     const modules = await startMonaco(
@@ -74,39 +75,44 @@ export async function run(mode = "window", _w, code = "") {
      * @param {string} c
      */
     async function runner(c) {
+        session.i++;
+        const counter = session.i;
         const cd = await (formatter(c));
         try {
             const transpiled = await transpileCode(cd);
-            if (session.transpiled === transpiled && transpiled !== "")
-                return;
             let restartError = false;
             ///yellow
-            if (transpiled.length && session.lastErrors === 0) {
-                restartError = await restartCode(transpiled);
+            if (transpiled.length && session.lastErrors < 2) {
+                if (counter < session.i)
+                    return;
+                restartError = await restartCode(transpiled, counter);
             }
+            if (session.i > counter)
+                return;
             const err = await getErrors(cd);
+            if (session.i > counter)
+                return;
             if (restartError) {
                 err.push({ messageText: "Error while starting the app. Check the console!" });
             }
             if (err.length)
                 console.log({ err });
-            if (session.lastErrors && err.length === 0)
-                restartCode(transpiled);
+            if (session.lastErrors && err.length === 0) {
+                restartCode(transpiled, counter);
+            }
             session.lastErrors = err.length;
             // const errorDiv = document.getElementById("error");
             if (err.length === 0 && transpiled.length) {
+                if (session.i > counter)
+                    return;
                 session.code = await formatter(cd);
-                if (session.transpiled !== transpiled) {
-                    session.transpiled = transpiled;
-                    saveCode({
-                        code: session.code,
-                        transpiled: session.transpiled,
-                        html: session.html,
-                        versions: JSON.stringify(session.versions),
-                    });
-                }
+                if (session.i > counter)
+                    return;
+                saveCode(session, counter);
             }
             else {
+                if (session.i > counter)
+                    return;
                 const { diff } = await import(`https://unpkg.com/@zedvision/shadb@${v.shadb}/src/diff.js`);
                 const slices = await diff(session.code, cd);
                 if (slices.c.length <= 3) {
@@ -159,9 +165,11 @@ export async function run(mode = "window", _w, code = "") {
     }
     /**
      * @param {string} transpiled
+     * @param {number} counter
      */
-    async function restartCode(transpiled) {
+    async function restartCode(transpiled, counter) {
         session.html = "";
+        session.transpiled = "";
         let hadError = false;
         if (typeof transpiled !== "string" || transpiled === "") {
             // console.log(transpiled.error);
@@ -172,13 +180,17 @@ export async function run(mode = "window", _w, code = "") {
             ? transpiled.replace("body{", "#zbody{")
             : transpiled;
         const root = window.document.createElement("div");
+        if (session.i > counter)
+            return false;
         const Element = (await import(createJsBlob(codeToHydrate))).default;
         session.unmount();
         session.unmount = renderEmotion(Element(), root);
         const zbody = window.document.getElementById("zbody");
         zbody && zbody.children[0].replaceWith(root);
-        session.html = session.div.innerHTML;
-        return !!session.html;
+        session.div = root;
+        session.html = root.innerHTML;
+        session.transpiled = transpiled;
+        return !session.html;
         /**
          * @param {BlobPart} code
          */
@@ -187,11 +199,4 @@ export async function run(mode = "window", _w, code = "") {
             return URL.createObjectURL(blob);
         }
     }
-}
-/**
- * @param {{ (transpiled: string): Promise<boolean>; (arg0: any): any; }} restartCode
- * @param {{ unmount?: () => void; hydrated?: boolean; preRendered?: boolean; lastErrors?: number; rootElement?: null; div?: HTMLDivElement; HTML?: string; devtoolHash?: string; ipfs?: number; transpiled: any; code?: string; }} session
- */
-async function restartPreview(restartCode, session) {
-    await restartCode(session.transpiled);
 }

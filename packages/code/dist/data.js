@@ -96,11 +96,12 @@ const toSave = {
     html: null,
     transpiled: null,
 };
+export const saveCode = 
 /**
- *
- * @param {{code:string, html: string, transpiled: string, versions: string }} opts
- */
-export const saveCode = (opts) => {
+* @param {{ i?: number; unmount?: () => void; hydrated?: boolean; preRendered?: boolean; lastErrors?: number; rootElement?: null; div?: HTMLDivElement; html: any; versions: any; ipfs?: number; transpiled: any; code: any; }} opts
+* @param {number} counter
+*/
+(opts, counter) => {
     const { code, html, transpiled, versions } = opts;
     toSave.code = code;
     // deno-lint-ignore ban-ts-comment
@@ -108,7 +109,9 @@ export const saveCode = (opts) => {
     function tryToSave(opts) {
         // console.log("tryyy to save!")
         return setTimeout(async () => {
-            const { code, html, transpiled, versions } = opts;
+            const { code, html, transpiled, versions, i } = opts;
+            if (i > counter)
+                return;
             if (opts.code !== toSave.code) {
                 return null;
             }
@@ -122,14 +125,14 @@ export const saveCode = (opts) => {
             toSave.code = opts.code;
             toSave.semafor = true;
             const { shareItAsHtml } = await import("./share.js");
-            const sharePromise = shareItAsHtml({ code, html, transpiled, versions });
+            const sharePromise = shareItAsHtml({ code, html, transpiled, versions: JSON.stringify(versions) });
             const projectName = await getActiveProject();
             // const prevHash = await shaDB.get(projectName, "string");
             const desc = {
                 code: await sha256(code),
                 html: await sha256(html),
                 transpiled: await sha256(transpiled),
-                versions: await sha256(versions),
+                versions: await sha256(JSON.stringify(versions)),
             };
             const hash = await sha256(JSON.stringify(desc));
             await shaDB.put(hash, JSON.stringify(desc));
@@ -144,7 +147,7 @@ export const saveCode = (opts) => {
                 shaDB.put(desc.transpiled, transpiled);
             }
             if (versions) {
-                shaDB.put(desc.versions, versions);
+                shaDB.put(desc.versions, JSON.stringify(versions));
             }
             await shaDB.put(projectName, hash);
             const url = await sharePromise;

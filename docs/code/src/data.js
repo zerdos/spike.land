@@ -116,74 +116,77 @@ const toSave = {
   transpiled: null,
 };
 
-/**
- * 
- * @param {{code:string, html: string, transpiled: string, versions: string }} opts 
+export const saveCode =
+  /**
+ * @param {{ i?: number; unmount?: () => void; hydrated?: boolean; preRendered?: boolean; lastErrors?: number; rootElement?: null; div?: HTMLDivElement; html: any; versions: any; ipfs?: number; transpiled: any; code: any; }} opts
+ * @param {number} counter
  */
+  (opts, counter) => {
+    const { code, html, transpiled, versions } = opts;
+    toSave.code = code;
 
-export const saveCode = (opts) => {
-  const { code, html, transpiled, versions } = opts;
-  toSave.code = code;
+    // deno-lint-ignore ban-ts-comment
+    //@ts-ignore
+    function tryToSave(opts) {
+      // console.log("tryyy to save!")
 
-  // deno-lint-ignore ban-ts-comment
-  //@ts-ignore
-  function tryToSave(opts) {
-    // console.log("tryyy to save!")
+      return setTimeout(async () => {
+        const { code, html, transpiled, versions, i } = opts;
+        if (i > counter) return;
+        if (opts.code !== toSave.code) {
+          return null;
+        }
+        if (toSave.code === saved.code && saved.url !== null) {
+          return saved.url;
+        }
+        if (toSave.semafor) {
+          return tryToSave(opts);
+        }
+        // console.log("SAAAVEEE");
+        toSave.code = opts.code;
+        toSave.semafor = true;
 
-    return setTimeout(async () => {
-      const { code, html, transpiled, versions } = opts;
-      if (opts.code !== toSave.code) {
-        return null;
-      }
-      if (toSave.code === saved.code && saved.url !== null) {
-        return saved.url;
-      }
-      if (toSave.semafor) {
-        return tryToSave(opts);
-      }
-      // console.log("SAAAVEEE");
-      toSave.code = opts.code;
-      toSave.semafor = true;
+        const { shareItAsHtml } = await import("./share.js");
+        const sharePromise = shareItAsHtml(
+          { code, html, transpiled, versions: JSON.stringify(versions) },
+        );
 
-      const { shareItAsHtml } = await import("./share.js");
-      const sharePromise = shareItAsHtml({ code, html, transpiled, versions });
+        const projectName = await getActiveProject();
+        // const prevHash = await shaDB.get(projectName, "string");
+        const desc = {
+          code: await sha256(code),
+          html: await sha256(html),
+          transpiled: await sha256(transpiled),
+          versions: await sha256(JSON.stringify(versions)),
+        };
 
-      const projectName = await getActiveProject();
-      // const prevHash = await shaDB.get(projectName, "string");
-      const desc = {
-        code: await sha256(code),
-        html: await sha256(html),
-        transpiled: await sha256(transpiled),
-        versions: await sha256(versions),
-      };
+        const hash = await sha256(JSON.stringify(desc));
+        await shaDB.put(hash, JSON.stringify(desc));
 
-      const hash = await sha256(JSON.stringify(desc));
-      await shaDB.put(hash, JSON.stringify(desc));
+        // const prevData = await shaDB.get(prevHash, s);
+        if (code) {
+          shaDB.put(desc.code, code);
+        }
+        if (html) {
+          shaDB.put(desc.html, html);
+        }
+        if (transpiled) {
+          shaDB.put(desc.transpiled, transpiled);
+        }
+        if (versions) {
+          shaDB.put(desc.versions, JSON.stringify(versions));
+        }
 
-      // const prevData = await shaDB.get(prevHash, s);
-      if (code) {
-        shaDB.put(desc.code, code);
-      }
-      if (html) {
-        shaDB.put(desc.html, html);
-      }
-      if (transpiled) {
-        shaDB.put(desc.transpiled, transpiled);
-      }
-      if (versions) {
-        shaDB.put(desc.versions, versions);
-      }
+        await shaDB.put(projectName, hash);
+        const url = await sharePromise;
+        Object.assign(saved, { html, code, transpiled, url });
 
-      await shaDB.put(projectName, hash);
-      const url = await sharePromise;
-      Object.assign(saved, { html, code, transpiled, url });
+        // console.log({ html, code, transpiled, url });
 
-      // console.log({ html, code, transpiled, url });
+        toSave.semafor = false;
+        return url;
+      }, 1000);
+    }
 
-      toSave.semafor = false;
-      return url;
-    }, 1000);
-  }
-
-  tryToSave(opts);
-};
+    tryToSave(opts);
+  };
