@@ -1,4 +1,4 @@
-import { jsx, React, css, motion } from "https://unpkg.com/@zedvision/emotion-react-renderer@11.4.7/dist/bundle.js";
+import { jsx, React, css, motion } from "https://unpkg.com/@zedvision/emotion-react-renderer@11.5.15/dist/bundle.js";
 export const DraggableWindow = ({
   onShare,
   children
@@ -24,7 +24,7 @@ export const DraggableWindow = ({
       scale: scale / 100 * 1.1
     },
     animate: {
-      scale: scale / 100
+      scale: scale / 100cd
     },
     dragElastic: 0.5,
     dragMomentum: false,

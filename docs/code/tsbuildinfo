@@ -262,8 +262,8 @@
         "affectsGlobalScope": false
       },
       "./src/DraggableWindow.js": {
-        "version": "3bbd06a08ebbd90ce0f0309323ee27670e757f86f28d17307638865482ec477b",
-        "signature": "6aec72f50686d9f82072504703e6a188a99b7acdc975e6a3d9a4a03ada7f6988",
+        "version": "5ec023cef37fac0910f06ed1856cdf3cc3401b26ec211992df92f3a696794bc3",
+        "signature": "f5c7cff168d97bacee5a4b4d0c91f1b3f3d0ce5ea2f7b2f92c3f07a709f45cfd",
         "affectsGlobalScope": false
       },
       "./src/workBox.js": {
@@ -273,7 +273,7 @@
       },
       "./src/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+        "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {
@@ -282,8 +282,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "47661207990e32781126354ea6c8c408329aad002d1642af0d8886b27475bb8f",
-        "signature": "df62d61fb6ff8fba6267a8f032868c000805f1f1d6fd3b403fcd337f05a968f2",
+        "version": "f1135248124386cfaad392cebbbdd801dc4b03ff6cbc45037e6f8f325e1e6639",
+        "signature": "68838644e4800bd2f45a8199c0f7e5da767d94cb650e2c6875e5bcc0092b6637",
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
