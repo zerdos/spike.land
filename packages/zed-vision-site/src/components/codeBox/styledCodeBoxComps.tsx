@@ -3,15 +3,9 @@ import styled from "@emotion/styled";
 export const Header = styled.div`
     background: #3f51b5;
     font-family: "Roboto";
-    margin: 0;@emotion/styled
+    margin: 0;
     padding: 10px 20px 10px;
     color: white;
-`;
-
-export const CodeContainer = styled.div`
-    display: block;
-    width: 100%;
-    height: 70vh;
 `;
 
 export const ResultContainer = styled.div`
