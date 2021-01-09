@@ -40,7 +40,6 @@ export const DraggableWindow = ({
           background: grey;
         color:white;
         padding: 7px;
-        background: 
         font-family: Roboto;
         font-weight: 600;
       `
