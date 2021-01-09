@@ -46,6 +46,10 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
        */
         (x) => x.path === "app");
         rootUrl = `https://code.zed.vision/ipfs/${appDir.CID}/`;
+        const { pathname } = new URL(window.location.href);
+        if (pathname.endsWith("/edit/")) {
+            history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
+        }
         shaDB.put(sha, rootUrl);
     }
     console.log(rootUrl);
