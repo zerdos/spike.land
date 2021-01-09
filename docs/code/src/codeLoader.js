@@ -82,7 +82,7 @@ export async function run(mode = "window", _w, code = "") {
 
   const container = window.document.getElementById("editor");
   // @ts-ignore
-  if (mode === "preview") container?.style.height = "70vh";
+  // if (mode === "preview") container?.style.height = "70vh";
   const modules = await startMonaco(
     /**
      * @param {any} code

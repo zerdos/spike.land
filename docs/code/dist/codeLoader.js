@@ -57,8 +57,7 @@ export async function run(mode = "window", _w, code = "") {
     const startMonaco = (await import(v.editor)).default;
     const container = window.document.getElementById("editor");
     // @ts-ignore
-    if (mode === "preview")
-        container === null || container === void 0 ? void 0 : container.style.height = "70vh";
+    // if (mode === "preview") container?.style.height = "70vh";
     const modules = await startMonaco(
     /**
      * @param {any} code

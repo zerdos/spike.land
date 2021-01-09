@@ -36,5 +36,5 @@ export const CodeBox: React.FC<{
       id="editor"
     />
     <div id="preview"></div>;
-  </>;
+  </>
 };
