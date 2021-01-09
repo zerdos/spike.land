@@ -50,6 +50,22 @@ async function getActiveProject() {
     activeProject = projects[0];
     return activeProject;
 }
+/**
+ *
+ * @param {string} rootURL
+ */
+async function getIPFSCodeToLoad(rootURL) {
+    const codePromise = fetch(rootURL + "/app.tsx").then((x) => x.text());
+    const { v } = await import(rootURL + "/versions.js");
+    const ret = {
+        code: await codePromise,
+        versions: v,
+        transpiled: "",
+        html: "",
+    };
+    console.log({ ret });
+    return ret;
+}
 export async function getCodeToLoad() {
     const projectName = await getActiveProject();
     const keyToLoad = await shaDB.get(projectName, "string");
@@ -92,7 +108,7 @@ const saved = {
 };
 const toSave = {
     code: "",
-    semafor: false,
+    semaphore: false,
     html: null,
     transpiled: null,
 };
@@ -107,7 +123,6 @@ export const saveCode =
     // deno-lint-ignore ban-ts-comment
     //@ts-ignore
     function tryToSave(opts) {
-        // console.log("tryyy to save!")
         return setTimeout(async () => {
             const { code, html, transpiled, versions, i } = opts;
             if (i > counter)
@@ -118,12 +133,11 @@ export const saveCode =
             if (toSave.code === saved.code && saved.url !== null) {
                 return saved.url;
             }
-            if (toSave.semafor) {
+            if (toSave.semaphore) {
                 return tryToSave(opts);
             }
-            // console.log("SAAAVEEE");
             toSave.code = opts.code;
-            toSave.semafor = true;
+            toSave.semaphore = true;
             const { shareItAsHtml } = await import("./share.js");
             const sharePromise = shareItAsHtml({ code, html, transpiled, versions: JSON.stringify(versions) });
             const projectName = await getActiveProject();
@@ -153,7 +167,7 @@ export const saveCode =
             const url = await sharePromise;
             Object.assign(saved, { html, code, transpiled, url });
             // console.log({ html, code, transpiled, url });
-            toSave.semafor = false;
+            toSave.semaphore = false;
             return url;
         }, 1000);
     }

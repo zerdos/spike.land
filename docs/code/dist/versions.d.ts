@@ -1,4 +1,5 @@
 export namespace v {
+    export { code };
     export { shadb };
     export const ipfs: string;
     export const workbox: string;
@@ -10,8 +11,10 @@ export namespace v {
     export const emotionRenderer: string;
 }
 export default versions;
+declare const code: "11.6.3";
 declare const shadb: "11.4.16";
 declare function versions(): {
+    code: string;
     shadb: string;
     ipfs: string;
     workbox: string;

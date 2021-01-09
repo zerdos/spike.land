@@ -1,8 +1,19 @@
 {
     "cSpell.words": [
+        "Erdos",
         "SHAKV",
+        "Zkey",
+        "Zoltan",
         "comlink",
-        "transpiled"
+        "deno",
+        "esbuild",
+        "ipfs",
+        "outfile",
+        "prebuild",
+        "shadb",
+        "transpiled",
+        "zbody",
+        "zedvision"
     ],
     "deno.enable": true,
     "deno.config": "./tsconfig.json",
