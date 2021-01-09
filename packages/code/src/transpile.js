@@ -6,12 +6,11 @@ let transform;
 /**
  *
  * @param {string} code 
- * @param {boolean} hasToReport 
  */
-export async function transpileCode(code, hasToReport) {
+export async function transpileCode(code) {
   transform = transform || await (await init());
 
-  return await transform(code, hasToReport);
+  return await transform(code, false);
 }
 
 async function init() {

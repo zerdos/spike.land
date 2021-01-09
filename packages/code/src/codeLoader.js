@@ -2,13 +2,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { v } from "./versions.js";
 import { getCodeToLoad, saveCode } from "./data.js";
-/**
- * @param {string} code
- */
-export async function transpile(code) {
-  const { transpileCode } = await import("./transpile.js");
-  return await transpileCode(code, false);
-}
+import { transpileCode } from "./transpile.js";
 
 function getSession() {
   const session = {
@@ -50,7 +44,7 @@ export async function run(mode = "window", _w, code = "") {
     try {
       const { code, transpiled, html, versions } = await getCodeToLoad();
       session.code = code;
-      session.transpiled = (await transpile(code)) || transpiled;
+      session.transpiled = await transpileCode(code) || transpiled;
       session.div.innerHTML = html;
     } catch (e) {
       console.error({ e, message: "couldn't start" });
@@ -59,7 +53,7 @@ export async function run(mode = "window", _w, code = "") {
   }
 
   if (session.transpiled === "") {
-    const transpiled = await transpile(session.code);
+    const transpiled = await transpileCode(session.code);
     console.log(transpiled);
     session.transpiled = transpiled;
   }
@@ -106,7 +100,7 @@ export async function run(mode = "window", _w, code = "") {
   async function runner(c) {
     const cd = await (formatter(c));
     try {
-      const transpiled = await transpile(cd);
+      const transpiled = await transpileCode(cd);
       if (session.transpiled === transpiled && transpiled !== "") return;
       let restartError = false;
       ///yellow

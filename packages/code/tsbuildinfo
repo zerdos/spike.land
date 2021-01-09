@@ -317,8 +317,8 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "b68aeb714ce2578b1be3eb90fb3c01bc9f45a31b601b5d44229705148f45209f",
-        "signature": "e8f50719178e0f7b1cb6f55442f7a3691ea9100ab35e3d731fa5e718a0d9d78c",
+        "version": "488b03c29fc363d24050e5cd3c72555d83303b0b381b0d64644d50c0f74b4d3f",
+        "signature": "a7d55b589d3766f29543e968c584142e45de8459615621ffa14c002fc02297d6",
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
@@ -342,8 +342,8 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "fb6eb5a8d995c7a803639b83ea7d1777f61e20af4f54df6ed57c8f9c95f2c2d0",
-        "signature": "59f233f947ad629e5405c563816a892e02f2dc21d350fbf358e2f2e9c90ed089",
+        "version": "d60b14e785267f0bb51bf49b68a6a56044535a762d9a9c574e17382b52161d33",
+        "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {

@@ -1,6 +1,5 @@
 /**
  *
  * @param {string} code
- * @param {boolean} hasToReport
  */
-export function transpileCode(code: string, hasToReport: boolean): Promise<any>;
+export function transpileCode(code: string): Promise<any>;
