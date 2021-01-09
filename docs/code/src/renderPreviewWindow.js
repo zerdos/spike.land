@@ -12,13 +12,7 @@ export function renderPreviewWindow(
   const onShare = async () => {
     const { shareItAsHtml } = await import("./share.js");
 
-    const link = await shareItAsHtml(
-      {
-        code: session.code,
-        transpiled: session.transpiled,
-        html: session.html,
-      },
-    );
+    const link = await shareItAsHtml(session);
 
     console.log({ link });
     open(link);
@@ -35,7 +29,7 @@ export function renderPreviewWindow(
   renderEmotion(
     jsx(DraggableWindow, {
       onShare,
-      position: mode === "windoow" ? "fixed" : "absolute",
+      position: mode === "window" ? "fixed" : "absolute",
     }),
     preview,
   );
