@@ -31,10 +31,15 @@ export const CodeBox: React.FC<{
         Save
       </button>
     </Header>}
+    
     <div
-      style={{width:"100%", height: "70vh"}}
-      id="editor"
-    />
-    <div id="preview"></div>
+      style={{width:"100%", height: "600px", position: "relative"}}
+    >
+      <div style={{width:"100%", height: "100%"}} id="editor">
+
+      </div>
+      <div id="preview"></div>
+    </div>
+    
   </>
 };
