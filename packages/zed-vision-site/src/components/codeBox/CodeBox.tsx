@@ -1,6 +1,7 @@
 import * as React from "react";
-import versions from "@zedvision/code/dist/versions";
-import { transform } from "../utils/babel";
+
+import startMonaco from "@zedvision/smart-monaco-editor/dist/editor"
+
 import { render } from "../utils/renderer";
 import { hash, unHash } from "../utils/sha";
 import { counterExample, defaultProps } from "./example";
@@ -46,7 +47,13 @@ export const CodeBox: React.FC<{
       }
 
       try {
-        return transform(codeHash);
+
+        const {transpileCode} = await new Function(
+          `return import("https://blog.code.zed.vision/code/src/transpile.js")`,
+        )();
+
+
+        return transpileCode(unHash(codeHash), false);
       } catch (e) {
         const errorMessage = await unHash(e);
         changeWorkerRenderedComponent((s) => ({ ...s, error: errorMessage }));
@@ -58,9 +65,7 @@ export const CodeBox: React.FC<{
     const runner = async (c: string) => {
       if (!editorAttached) {
         setEditorAttached(true);
-        const startMonaco = (await (new Function(
-          `return import("${versions().editor}")`,
-        )())).default;
+    
 
         await startMonaco(
           {

@@ -4,7 +4,7 @@
     "description": "Monaco Editor with auto type downloads mostly for React",
     "sideEffects": false,
     "source": "./src/editor.ts",
-    "exports": "./dist/smart-monaco-editor.modern.js",
+    "exports": "./dist/editor.js",
     "scripts": {
         "prebuild": "tsc && deno fmt src",
         "build": "echo ok",

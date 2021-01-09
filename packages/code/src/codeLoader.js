@@ -6,7 +6,7 @@ import { getCodeToLoad, saveCode } from "./data.js";
 /**
  * @param {string} code
  */
-async function transpile(code) {
+export async function transpile(code) {
   const { transpileCode } = await import("./transpile.js");
   return transpileCode(code, false);
 }

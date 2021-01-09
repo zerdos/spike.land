@@ -342,8 +342,8 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "e951f929a3a71e0c46a6811e81d9cf5461b449b361dab3c275c54b1ea5857c64",
-        "signature": "271eadc5ee111778eb0b6a39e298749c7a1e0ec2db39739c23d4f28932f35c0a",
+        "version": "d48daf5da1951ac0fe720e1f2df3bcdee19c70eafb8a1bc8bd0183c359d939a4",
+        "signature": "2cc4480c90db5ce00baa757462d0c864c41caa1fa2325b50ebdf005b8331c8e3",
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
