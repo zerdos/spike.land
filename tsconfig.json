@@ -16,6 +16,6 @@
     "moduleResolution": "node",
     "strict": true
   },
-  "exclude": ["**dist", "**docs", "**node_modules", "***release"]
+  "exclude": ["packages/cf-code-zed-vision/dist", "packages/zed-vision-site", "node_modules", "packages/monaco-editor"]
 }
  
