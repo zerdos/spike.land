@@ -5,13 +5,6 @@ __metadata:
   version: 4
   cacheKey: 7
 
-"@ampproject/worker-dom@npm:0.27.4":
-  version: 0.27.4
-  resolution: "@ampproject/worker-dom@npm:0.27.4"
-  checksum: 63892a7c91a4e00e9829941d412ee44aef59075367e9b5784e0a2ed535b3eb53888638e5cd68731b8cc4fb602ec8990274f1e9762566483f1543801811e24fc9
-  languageName: node
-  linkType: hard
-
 "@arcanis/slice-ansi@npm:^1.0.2":
   version: 1.0.2
   resolution: "@arcanis/slice-ansi@npm:1.0.2"
@@ -633,7 +626,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-syntax-jsx@npm:7.12.1, @babel/plugin-syntax-jsx@npm:^7.12.1, @babel/plugin-syntax-jsx@npm:^7.2.0":
+"@babel/plugin-syntax-jsx@npm:7.12.1, @babel/plugin-syntax-jsx@npm:^7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-syntax-jsx@npm:7.12.1"
   dependencies:
@@ -1030,7 +1023,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-react-jsx@npm:^7.12.1, @babel/plugin-transform-react-jsx@npm:^7.12.10, @babel/plugin-transform-react-jsx@npm:^7.12.12, @babel/plugin-transform-react-jsx@npm:^7.12.5":
+"@babel/plugin-transform-react-jsx@npm:^7.12.10, @babel/plugin-transform-react-jsx@npm:^7.12.12, @babel/plugin-transform-react-jsx@npm:^7.12.5":
   version: 7.12.12
   resolution: "@babel/plugin-transform-react-jsx@npm:7.12.12"
   dependencies:
@@ -1458,17 +1451,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@emotion/babel-plugin-jsx-pragmatic@npm:^0.1.5":
-  version: 0.1.5
-  resolution: "@emotion/babel-plugin-jsx-pragmatic@npm:0.1.5"
-  dependencies:
-    "@babel/plugin-syntax-jsx": ^7.2.0
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 3957a41cac694c3c57d663f224b3484462002ab9665a5560f263e52b5f77b5b00cddf6588f24bff9efd26084ae6b2bf0a89fcb4ae093c4a1e19c22f46ce24a15
-  languageName: node
-  linkType: hard
-
 "@emotion/babel-plugin@npm:^11.0.0":
   version: 11.1.2
   resolution: "@emotion/babel-plugin@npm:11.1.2"
@@ -1488,20 +1470,6 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
   checksum: 2b8000817a013a40aef75abd85836dfbaf812159b13f3fadd1651763549cd9fb65465dd3d3300773be0d75da735947c31a349762930e816de7453f283fc47545
-  languageName: node
-  linkType: hard
-
-"@emotion/babel-preset-css-prop@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@emotion/babel-preset-css-prop@npm:11.0.0"
-  dependencies:
-    "@babel/plugin-transform-react-jsx": ^7.12.1
-    "@babel/runtime": ^7.7.2
-    "@emotion/babel-plugin": ^11.0.0
-    "@emotion/babel-plugin-jsx-pragmatic": ^0.1.5
-  peerDependencies:
-    "@babel/core": ^7.0.0
-  checksum: 269ed1774d16d9d4547cffc8e15d740062e7a71296703d004bf5fb0d6e9c8b5a59136fe5ab0a17aaf31ed3cb133b14a833a90ba0efeb4e2fa879152951cb10f8
   languageName: node
   linkType: hard
 
@@ -3741,13 +3709,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/base16@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@types/base16@npm:1.0.2"
-  checksum: 0befdc73be877d530dd9964c45e5ab55859ea08ed2f06caf2b51343ee2051f000c2814eeda6fa66359fc38a26f4163b752184d7ca606ebd9b71daea336965a23
-  languageName: node
-  linkType: hard
-
 "@types/cacheable-request@npm:^6.0.1":
   version: 6.0.1
   resolution: "@types/cacheable-request@npm:6.0.1"
@@ -3925,16 +3886,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.curry@npm:^4.1.6":
-  version: 4.1.6
-  resolution: "@types/lodash.curry@npm:4.1.6"
-  dependencies:
-    "@types/lodash": "*"
-  checksum: 7e4e1dc62569c9c66a4b27c9d592af4264de47f94a89a3ccec518f97e6c1733c3f92aa1b5f06b5443d66c0e7ae9a316d3a97984226512e305deb3d2bf9b6040f
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*, @types/lodash@npm:^4.14.92":
+"@types/lodash@npm:^4.14.92":
   version: 4.14.167
   resolution: "@types/lodash@npm:4.14.167"
   checksum: 40778f83a86392625b3d52c15f59171a0f6a35436128b8fb1e37f89162f7950dc98570f27bc99ce1e2e04084e64da41cb45146d091d5181e12c6733bcf16fac6
@@ -4034,7 +3986,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prop-types@npm:*, @types/prop-types@npm:15.7.3, @types/prop-types@npm:^15.7.3":
+"@types/prop-types@npm:*, @types/prop-types@npm:15.7.3":
   version: 15.7.3
   resolution: "@types/prop-types@npm:15.7.3"
   checksum: bd0eab69d5120ad3784d0c9985f902653d5924707a7f2b3702a330e762dfd61b6494954cb54ad0c52b918ffd6f1e7e27c9270e4442bc15250de348596f2f60cb
@@ -4822,7 +4774,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/zedvision-site@workspace:packages/zed-vision-site"
   dependencies:
-    "@ampproject/worker-dom": 0.27.4
     "@emotion/react": ^11.1.4
     "@emotion/styled": ^11.0.0
     "@mdx-js/mdx": 1.6.22
@@ -4839,22 +4790,15 @@ __metadata:
     framer-motion: 3.2.0
     gatsby: 2.30.1
     gatsby-image: 2.9.0
-    gatsby-plugin-emotion: ^5.2.0
     gatsby-plugin-manifest: 2.10.0
     gatsby-plugin-mdx: 1.8.0
     gatsby-plugin-react-helmet: 3.8.0
-    gatsby-plugin-remove-fingerprints: 0.0.2
-    gatsby-plugin-remove-generator: 1.0.7
-    gatsby-plugin-typography: 2.10.0
-    gatsby-plugin-workerize-loader: 1.5.0
     gatsby-source-filesystem: 2.9.0
-    monaco-editor: 0.21.2
     normalize.css: 8.0.1
     prettier: 2.2.1
     react: 17.0.1
     react-dom: 17.0.1
     react-helmet: 6.1.0
-    react-json-tree: 0.13.0
     react-typography: 0.16.19
     typeface-merriweather: 1.1.13
     typeface-montserrat: 1.1.13
@@ -5849,13 +5793,6 @@ __metadata:
   version: 1.0.0
   resolution: "balanced-match@npm:1.0.0"
   checksum: f515a605fe1b59f476f7477c5e1d53ad55b4f42982fca1d57b6701906f4ad1f1ac90fd6587d92cc1af2edb43eecf979214dd847ee410a6de9db4ebf0dd128d62
-  languageName: node
-  linkType: hard
-
-"base16@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "base16@npm:1.0.0"
-  checksum: adc3f12a6b363a2bfa4062d45e2782791737f7ceb0857c027486fc90fd3fc8eaf1829c55cc7a4afd6e482105282ffc18362bc10b2a4c788f3102de3054558eba
   languageName: node
   linkType: hard
 
@@ -7272,7 +7209,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"color@npm:^3.0.0, color@npm:^3.1.2, color@npm:^3.1.3":
+"color@npm:^3.0.0, color@npm:^3.1.3":
   version: 3.1.3
   resolution: "color@npm:3.1.3"
   dependencies:
@@ -10991,20 +10928,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-emotion@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "gatsby-plugin-emotion@npm:5.2.0"
-  dependencies:
-    "@babel/runtime": ^7.11.2
-    "@emotion/babel-preset-css-prop": ^11.0.0
-  peerDependencies:
-    "@babel/core": ^7.11.6
-    "@emotion/react": ^11.0.0
-    gatsby: ^2.0.0
-  checksum: 0b779062d0b920c1844ead48f0321121da09efb332aafc157f222dc31e06dbfc4778d1e2cc0757b27ba5848e3872623df0a0c9d5758209cf49f3c52c4e48d5d5
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-feed@npm:2.11.0":
   version: 2.11.0
   resolution: "gatsby-plugin-feed@npm:2.11.0"
@@ -11145,22 +11068,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-remove-fingerprints@npm:0.0.2":
-  version: 0.0.2
-  resolution: "gatsby-plugin-remove-fingerprints@npm:0.0.2"
-  checksum: 2e5b738b6a971e6c135c4a428f96c3c4e0841ad363f06e7451b02da66d28164afad5695b00a039fd0c7f3ef0c133d8bd41c38333ba6e1d7a3e223d2bca3d9293
-  languageName: node
-  linkType: hard
-
-"gatsby-plugin-remove-generator@npm:1.0.7":
-  version: 1.0.7
-  resolution: "gatsby-plugin-remove-generator@npm:1.0.7"
-  peerDependencies:
-    gatsby: 2.x.x
-  checksum: 416ba273218d79343caa44a60ad8d6b400971c131b889e54e857eb4a06f3d08efc0e2f855f905df55df0f46fde5d0fd56099a36759f2164398443cc429a3ef56
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-sharp@npm:2.12.0":
   version: 2.12.0
   resolution: "gatsby-plugin-sharp@npm:2.12.0"
@@ -11205,21 +11112,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-typography@npm:2.10.0":
-  version: 2.10.0
-  resolution: "gatsby-plugin-typography@npm:2.10.0"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-  peerDependencies:
-    gatsby: ^2.0.0
-    react: ^16.4.2
-    react-dom: ^16.4.2
-    react-typography: ^0.16.1 || ^1.0.0-alpha.0
-    typography: ^0.16.0 || ^1.0.0-alpha.0
-  checksum: d226fc1f7a53b5a6c3636e08b04707c2fadd7c1af6404f337fc700bad906c662308509bfcb7b416cbd1a4a26f799991404d77424915ff0f334e309bb1dba4278
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-utils@npm:^0.7.0":
   version: 0.7.0
   resolution: "gatsby-plugin-utils@npm:0.7.0"
@@ -11228,17 +11120,6 @@ fsevents@~2.3.1:
   peerDependencies:
     gatsby: ^2.24.79
   checksum: f557f221cc3a26fc324308c1af9a8292eedd9cba6ec0cfc79d6b548c2b2ee9c93d13e9d2e0c22c3d3cb176a5a8549f96b4f88b81d0952ecfa17c469498ed9820
-  languageName: node
-  linkType: hard
-
-"gatsby-plugin-workerize-loader@npm:1.5.0":
-  version: 1.5.0
-  resolution: "gatsby-plugin-workerize-loader@npm:1.5.0"
-  dependencies:
-    workerize-loader: ^1.3.0
-  peerDependencies:
-    gatsby: ^2.0.0
-  checksum: 1fe49364337b258af8af8f5309a0cdbdd43052b46dac6aa1948876a3f24c285ccca33fb0b6dcdd92deb101aa6fd60f09b647d14aaf9209001420c6e5ac81d9b8
   languageName: node
   linkType: hard
 
@@ -14918,17 +14799,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "loader-utils@npm:2.0.0"
-  dependencies:
-    big.js: ^5.2.2
-    emojis-list: ^3.0.0
-    json5: ^2.1.2
-  checksum: a1c2e48781e1501e126a32c39bc1fb1a7e2f02bd99e5aeb8853ddaf3c121fffefcc4579367f97ca6890b58369e571af1c9ec82e4e20db238d560ab359ff25c33
-  languageName: node
-  linkType: hard
-
 "locate-path@npm:^2.0.0":
   version: 2.0.0
   resolution: "locate-path@npm:2.0.0"
@@ -14990,13 +14860,6 @@ fsevents@~2.3.1:
   version: 4.5.0
   resolution: "lodash.clonedeep@npm:4.5.0"
   checksum: 41e2fe4c57c56a66a4775a6ddeebe9272f0ce4d257d97b3cb8724a9b01eeec9b09ce7e8603d6926baf5f48c287d988f0de4bf5aa244ea86b1f22c1e6f203cc27
-  languageName: node
-  linkType: hard
-
-"lodash.curry@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "lodash.curry@npm:4.1.1"
-  checksum: 081f9214b5d65030e66d0219c330de5a07089096f20362fc965c671b70b2bdb7b8f4cbac45546f79afed3bf17ae46434ffea9db1dbcbe043a09b722e2834ac3d
   languageName: node
   linkType: hard
 
@@ -19092,20 +18955,6 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"react-base16-styling@npm:^0.8.0":
-  version: 0.8.0
-  resolution: "react-base16-styling@npm:0.8.0"
-  dependencies:
-    "@types/base16": ^1.0.2
-    "@types/lodash.curry": ^4.1.6
-    base16: ^1.0.0
-    color: ^3.1.2
-    csstype: ^3.0.2
-    lodash.curry: ^4.1.1
-  checksum: 1676a94077dbdd60bd5c7d7fbcf54be5b90fdcb7d0c03f0a27da51bc88348fa0aac45a6f6edaf0aec4fa480d2e9daaa036c33a7eaffda82fd414cf18f32c1cfc
-  languageName: node
-  linkType: hard
-
 "react-dev-utils@npm:^4.2.3":
   version: 4.2.3
   resolution: "react-dev-utils@npm:4.2.3"
@@ -19200,20 +19049,6 @@ fsevents@~2.3.1:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 11bcf1267a314a522615f626f3ce3727a3a24cdbf61c4d452add3550a7875326669631326cfb1ba3e92b6f72244c32ffecf93ad21c0cad8455d3e169d0e3f060
-  languageName: node
-  linkType: hard
-
-"react-json-tree@npm:0.13.0":
-  version: 0.13.0
-  resolution: "react-json-tree@npm:0.13.0"
-  dependencies:
-    "@types/prop-types": ^15.7.3
-    prop-types: ^15.7.2
-    react-base16-styling: ^0.8.0
-  peerDependencies:
-    "@types/react": ^16.3.18
-    react: ^16.3.0
-  checksum: 7706cf56c5e4fe367ca1739f993e6ba59414734fce68600dfd4007e81a9240b6b19d8e3076e88634ad6e374aa65f627944c92cca29b2c0ff4a8241838031390d
   languageName: node
   linkType: hard
 
@@ -24309,17 +24144,6 @@ typescript@4.1.3:
   dependencies:
     errno: ~0.1.7
   checksum: ef76a6892bdf6a4231e6d657c13e2e960278535915d6235d9e0e3e23b65da94a56e5bed17ac5fda282370601d4cd18f4cba9552aa52f4fa9a25cc9fd3fcf58a9
-  languageName: node
-  linkType: hard
-
-"workerize-loader@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "workerize-loader@npm:1.3.0"
-  dependencies:
-    loader-utils: ^2.0.0
-  peerDependencies:
-    webpack: "*"
-  checksum: b0fd5fe03dfecc88cf79259b19911a39e92e59a8c55abe7a284c4fcb50610eb1cf908e4703f4e09ca569b58c50c385e65d01e0a536da1715cf76094447da9585
   languageName: node
   linkType: hard
 
