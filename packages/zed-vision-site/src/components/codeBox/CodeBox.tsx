@@ -21,25 +21,21 @@ export const CodeBox: React.FC<{
       run("embedded", window, starterCode);
     }
 
-    if (typeof window !== undefined) start();
+    start();
   }, []);
 
-  return <>
+  return <div>
     {!!title && <Header>
       <span>{title}</span>
       <button>
         Save
       </button>
     </Header>}
-    
-    <div
-      style={{width:"100%", height: "600px", position: "relative"}}
-    > <div id="preview"></div>
-      <div style={{width:"100%", height: "100%"}} id="editor">
 
-      </div>
+    <div style={{ position: "relative" }}>
+      <div style={{ height: "0px" }} id="preview" />
 
+      <div style={{ width: "100%", height: "600px" }} id="editor" />
     </div>
-    
-  </>
+  </div>;
 };
