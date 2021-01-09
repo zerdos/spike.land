@@ -16,6 +16,9 @@ export async function transpileCode(code, hasToReport) {
 
 async function init() {
   const v = versions();
+  const Comlink = await import(
+    `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
+  );
 
   const res = await fetch(
     `https://blog.zed.vision/code/src/transpile.worker.js`,
@@ -31,9 +34,6 @@ async function init() {
     ),
   );
 
-  const Comlink = await import(
-    `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
-  );
   // WebWorkers use `postMessage` and therefore work with Comlink.
   transform = Comlink.wrap(worker);
   return transform;
