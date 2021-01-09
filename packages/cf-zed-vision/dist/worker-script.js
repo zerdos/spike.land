@@ -458,7 +458,7 @@ async function handleCloudRequest(request) {
       const cache = caches.default;
       let response = await cache.match(request);
       if (!response) {
-        const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
+        const randpom5GatewaysFetch = publicIpfsGateways.sort(() =>
           0.5 - Math.random()
         ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
           x,
@@ -469,7 +469,7 @@ async function handleCloudRequest(request) {
             })()
           )
         );
-        response = await raceToSuccess(randpom5GatwawsFetch);
+        response = await raceToSuccess(randpom5GatewaysFetch);
         await cache.put(request, response.clone());
       }
       if (response.status > 399) {

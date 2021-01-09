@@ -1,7 +1,7 @@
 function versions() {
     const shadb = "11.4.16";
-    const editor = "11.6.1";
-    const emotionRenderer = "11.5.24";
+    const editor = "11.6.3";
+    const emotionRenderer = "11.6.3";
     const v = {
         shadb,
         ipfs: "0.52.3",

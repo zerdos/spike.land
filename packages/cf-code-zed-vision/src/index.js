@@ -1,5 +1,5 @@
-import { version } from "@zedvision/code/package.json";
-import { cid } from "@zedvision/code/ipfs.json";
+// import { version } from "@zedvision/code/package.json";
+// import { cid } from "@zedvision/code/ipfs.json";
 
 addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
@@ -18,7 +18,7 @@ async function handleRequest(request) {
 
     if (!response) {
       //https://ipfs.github.io/public-gateway-checker/gateways.json
-      const randpom5GatwawsFetch = publicIpfsGateways.sort(() =>
+      const randpom5GatewaysFetch = publicIpfsGateways.sort(() =>
         0.5 - Math.random()
       ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) =>
         fetch(x).then((res) =>
@@ -28,7 +28,7 @@ async function handleRequest(request) {
         )
       );
 
-      response = await raceToSuccess(randpom5GatwawsFetch);
+      response = await raceToSuccess(randpom5GatewaysFetch);
       await cache.put(request, response.clone());
     }
     if (response.status > 399) {
