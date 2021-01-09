@@ -8,4 +8,4 @@ export function transpile(code: string): Promise<any>;
 export function run(mode: string | undefined, _w: {
     document: Document;
     open: (url: string) => void;
-}): Promise<void>;
+}, code?: string): Promise<void>;

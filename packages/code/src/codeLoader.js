@@ -1,4 +1,3 @@
-import { openWindows } from "./openWindows.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { v } from "./versions.js";
@@ -32,25 +31,31 @@ function getSession() {
 /**
   * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
-export async function run(mode = "window", _w) {
+export async function run(mode = "window", _w, code = "") {
   await sendSignalToQrCode();
 
   const { formatter } = await import("./formatter.js");
 
-  await openWindows(v);
+  if (mode === "window") {
+    const { openWindows } = await import("./openWindows.js");
+
+    await openWindows(v);
+  }
 
   const { open } = _w;
 
   const session = getSession();
-
-  try {
-    const { code, transpiled, html, versions } = await getCodeToLoad();
-    session.code = code;
-    session.transpiled = (await transpile(code)) || code;
-    session.div.innerHTML = html;
-  } catch (e) {
-    console.error({ e, message: "couldn't start" });
-    return;
+  session.code = code;
+  if (!code) {
+    try {
+      const { code, transpiled, html, versions } = await getCodeToLoad();
+      session.code = code;
+      session.transpiled = (await transpile(code)) || transpiled;
+      session.div.innerHTML = html;
+    } catch (e) {
+      console.error({ e, message: "couldn't start" });
+      return;
+    }
   }
 
   session.transpiled = session.transpiled || await transpile(session.code);

@@ -266,21 +266,6 @@
         "signature": "f5c7cff168d97bacee5a4b4d0c91f1b3f3d0ce5ea2f7b2f92c3f07a709f45cfd",
         "affectsGlobalScope": false
       },
-      "./src/workBox.js": {
-        "version": "66407a2efe8917e858c768ffe5994dd178032c704b235ee5a9e5905c6ff13fd7",
-        "signature": "8fcfdbf72d7cbc7e46f4bd2ef8dcc7c2e2938fdea138d026547c3a202ad9bfa8",
-        "affectsGlobalScope": false
-      },
-      "./src/importScript.js": {
-        "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
-        "affectsGlobalScope": false
-      },
-      "./src/openWindows.js": {
-        "version": "ab92b4ce41806bbf903a415d4ea7159b3790b91b04ca61f8e69fc6bf9e7dde62",
-        "signature": "f75cae6f4e387be87aa8e3a0875a048d03157da7756d51f56850b0c41c177383",
-        "affectsGlobalScope": false
-      },
       "./src/versions.js": {
         "version": "ac427cad3d6bd15078dd9f4baa45748ee17697f41ef145a7049dc0f13ba4d4e1",
         "signature": "69e1e9ead0e122c6e4bc0dd92e82952ab8a913fed0b930c561e2fd96591a5068",
@@ -302,8 +287,8 @@
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
-        "version": "54e7a6481b831a0199537a60d2e44bedbe1565a70a431a9f68637a90608959fa",
-        "signature": "11d252f6f7d253b51f245ddbdf6cafadcba64f5143609ceec3a80d751c10ac13",
+        "version": "b0782aa60dba54996be67ba0014ba5bce15e93c4a4201f350f864383e7249bf9",
+        "signature": "414da80805a8c47a214ef15e029f45575878e0c1d975f3806d3ecf172aa9c7ab",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
@@ -341,9 +326,24 @@
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
         "affectsGlobalScope": false
       },
+      "./src/workBox.js": {
+        "version": "66407a2efe8917e858c768ffe5994dd178032c704b235ee5a9e5905c6ff13fd7",
+        "signature": "8fcfdbf72d7cbc7e46f4bd2ef8dcc7c2e2938fdea138d026547c3a202ad9bfa8",
+        "affectsGlobalScope": false
+      },
+      "./src/importScript.js": {
+        "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
+        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+        "affectsGlobalScope": false
+      },
+      "./src/openWindows.js": {
+        "version": "ab92b4ce41806bbf903a415d4ea7159b3790b91b04ca61f8e69fc6bf9e7dde62",
+        "signature": "f75cae6f4e387be87aa8e3a0875a048d03157da7756d51f56850b0c41c177383",
+        "affectsGlobalScope": false
+      },
       "./src/codeLoader.js": {
-        "version": "d48daf5da1951ac0fe720e1f2df3bcdee19c70eafb8a1bc8bd0183c359d939a4",
-        "signature": "2cc4480c90db5ce00baa757462d0c864c41caa1fa2325b50ebdf005b8331c8e3",
+        "version": "8e0b98734a5c75b02348b161df17ebafef4ce96bdf4d431e5a05199d9b4d743f",
+        "signature": "59f233f947ad629e5405c563816a892e02f2dc21d350fbf358e2f2e9c90ed089",
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {

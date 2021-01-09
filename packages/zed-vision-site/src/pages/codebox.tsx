@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { CodeBox } from "../components/codeBox/CodeBox.tsx";
-import { Layout } from "../components/layout.tsx";
-import { SEO } from "../components/seo.tsx";
+import { CodeBox } from "../components/codeBox/CodeBox";
+import { Layout } from "../components/layout";
+import { SEO } from "../components/seo";
 
 export default function Page() {
   return <Layout>
