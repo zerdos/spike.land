@@ -16,3 +16,15 @@ export function saveCode(opts: {
     transpiled: string;
     versions: string;
 }): void;
+declare const versions: {
+    shadb: string;
+    ipfs: string;
+    workbox: string;
+    babel: string;
+    prettier: string;
+    uuid: string;
+    comlink: string;
+    editor: string;
+    emotionRenderer: string;
+};
+export {};

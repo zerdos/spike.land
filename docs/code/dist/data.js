@@ -1,11 +1,11 @@
 import { sha256, shaDB } from "./db.js";
 import getVersions from "./versions.js";
-const v = getVersions();
+const versions = getVersions();
 export const getProjects = async () => {
     const uuid = await getUserId();
     const projects = await shaDB.get(uuid, "json");
     if (typeof projects === "string" || projects === null || !projects.list) {
-        const v4 = (await import(`https://unpkg.com/uuid@${v.uuid}/dist/esm-browser/v4.js`)).default;
+        const v4 = (await import(`https://unpkg.com/uuid@${versions.uuid}/dist/esm-browser/v4.js`)).default;
         const projectId = v4();
         await shaDB.put(uuid, JSON.stringify({
             list: [projectId],
@@ -103,6 +103,7 @@ const toSave = {
 export const saveCode = (opts) => {
     const { code, html, transpiled, versions } = opts;
     toSave.code = code;
+    // deno-lint-ignore ban-ts-comment
     //@ts-ignore
     function tryToSave(opts) {
         // console.log("tryyy to save!")
@@ -121,14 +122,14 @@ export const saveCode = (opts) => {
             toSave.code = opts.code;
             toSave.semafor = true;
             const { shareItAsHtml } = await import("./share.js");
-            const sharePromise = shareItAsHtml({ code, HTML: html, transpiled });
+            const sharePromise = shareItAsHtml({ code, html, transpiled, versions });
             const projectName = await getActiveProject();
             // const prevHash = await shaDB.get(projectName, "string");
             const desc = {
                 code: await sha256(code),
-                html: await sha256(html || ""),
+                html: await sha256(html),
                 transpiled: await sha256(transpiled),
-                versions: await sha256(versions || ""),
+                versions: await sha256(versions),
             };
             const hash = await sha256(JSON.stringify(desc));
             await shaDB.put(hash, JSON.stringify(desc));

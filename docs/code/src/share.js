@@ -2,11 +2,12 @@
  * 
  * @param {{
  * code: string
- * HTML: string
+ * html: string
  * transpiled: string
+ * versions: any
  * }} props 
  */
-export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
+export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
   );
@@ -23,7 +24,7 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
         window.document.querySelector("head > style[data-emotion=css]").sheet
           .cssRules,
       ).map((x) => x.cssText).filter((cssRule) =>
-        HTML.includes(cssRule.substring(3, 8))
+        html.includes(cssRule.substring(3, 8))
       ).join("\n  ").replace(`.${bodyClass}`, "body");
     } catch (e) {
       console.error({ e });
@@ -34,9 +35,13 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
 
   const res = await addAll(
     [
-      { path: "/app/index.html", content: getHtml({ HTML, css }) },
+      { path: "/app/index.html", content: getHtml({ html, css }) },
       { path: "/app/app.js", content: transpiled },
       { path: "/app/app.tsx", content: code },
+      {
+        path: "/app/versions.js",
+        content: `export const v=JSON.parse(${versions});`,
+      },
     ],
   );
 

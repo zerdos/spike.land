@@ -1,10 +1,10 @@
 import versions from "./versions.js";
 
 /**
- * @param {{HTML: string, css: string}} code
+ * @param {{html: string, css: string}} code
  */
 
-export const getHtml = ({ HTML, css }) => {
+export const getHtml = ({ html, css }) => {
   const v = versions();
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
@@ -18,11 +18,11 @@ export const getHtml = ({ HTML, css }) => {
   //   bodyStylesFix = firstBit.slice(0, last + 1);
   // }
 
-  const titleStart = HTML.indexOf("<title>");
-  const titleEnd = HTML.indexOf("</title>");
+  const titleStart = html.indexOf("<title>");
+  const titleEnd = html.indexOf("</title>");
   const hasTitle = titleStart < titleEnd && titleStart >= -1;
   const title = hasTitle
-    ? HTML.slice(titleStart, titleEnd)
+    ? html.slice(titleStart, titleEnd)
     : "(code).zed.vision :)";
 
   return `<!DOCTYPE html>
@@ -40,7 +40,7 @@ export const getHtml = ({ HTML, css }) => {
 </head>
 <body>
 <div id="zbody">
-  ${HTML}
+  ${html}
 </div>
 <script type="module">
 import { renderEmotion } from "${v.emotionRenderer}"

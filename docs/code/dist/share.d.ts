@@ -1,5 +1,6 @@
-export function shareItAsHtml({ transpiled, code, HTML }: {
+export function shareItAsHtml({ transpiled, code, html, versions }: {
     code: string;
-    HTML: string;
+    html: string;
     transpiled: string;
+    versions: any;
 }): Promise<string>;

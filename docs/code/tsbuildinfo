@@ -272,8 +272,8 @@
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
-        "version": "1e621f3cd595462b377c44a1c285517ab634da3b0658271fb5aad17a688ff85c",
-        "signature": "86274e7bff3ca90b0ee1818a8f431ec1f488371ffe430bdba7409815ffa5bdee",
+        "version": "5a9e974b9bbe04e2786a8df6457ed9d667960508365697d0dbcbc6234e0e081f",
+        "signature": "777244194aa68982fa0d754ebc2b19ab09405ed1bac643bb5fbe5937545f23c1",
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
@@ -282,13 +282,13 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "fd9f2fee638be6b87790f858174df0af036d54daffc11ad1e3050ba18f5fdb00",
-        "signature": "cc014f7866353e93932e07892657579702bbc28755f41b1817bfe910b1d0723c",
+        "version": "c9f1ff92ff59347e810ea675a0e4a6dd4b1f4c3db94d08d4c736c4bd7e7db03d",
+        "signature": "028a21296976f96e588f3e546b4f5227ea2065a877671f460a9727f7ce569daf",
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
-        "version": "b7cffb92abfd37b1727e09c117b59851275d749c61792a4894f22c9fa9913fc3",
-        "signature": "0819e4bb0d82100b33bf073d25a677839e776106b2be38ab82604710e6d0d68b",
+        "version": "2d000bea75d227a98d7b29197af8e7b803b3ddca5d2b911d8c0f98b0d475dd7f",
+        "signature": "608cfe0ec75d5731a86860a9943b16fa17fe5a5b39ee2fefa9e202413269e43b",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
@@ -312,8 +312,8 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "6f20344b66335f87ed74e278ded604bf999d8b9e9b9a98347721d39808b66f4a",
-        "signature": "426b4037c58630a0d2c769e8fe786ccff2017ec888fcd1955e7e0d13521571d5",
+        "version": "d04d8ded8925bb623b3b2d7867c23e816f5396e0036168c6f2b65d946044470e",
+        "signature": "3995e7a218d9e82beb94f46ae13112b9d3a26bd3cbb3a1311379e4151b008c4e",
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
@@ -342,7 +342,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "79ea542acaf155c885530bc921472fb3483938b63e30f2dd7ed3b80ec765d8c3",
+        "version": "6aadb23dd8a75dfeeaaa7744ee89c5a6e4f1fef61895550370893a4990113da2",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
@@ -465,7 +465,6 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
-        "./src/hash.js",
         "./src/share.js",
         "./src/starter.js",
         "./src/versions.js"

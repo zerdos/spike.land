@@ -1,11 +1,12 @@
+// deno-lint-ignore-file
 //@ts-nocheck
-export async function renderPreviewWindow(mode, session, open, renderEmotion, jsx, DraggableWindow) {
+export function renderPreviewWindow(mode, session, open, renderEmotion, jsx, DraggableWindow) {
     const onShare = async () => {
         const { shareItAsHtml } = await import("./share.js");
         const link = await shareItAsHtml({
             code: session.code,
             transpiled: session.transpiled,
-            HTML: session.HTML,
+            html: session.html,
         });
         console.log({ link });
         open(link);
@@ -24,7 +25,7 @@ export async function renderPreviewWindow(mode, session, open, renderEmotion, js
     if (zbody !== null) {
         zbody.appendChild(session.div);
     }
-    if (session.HTML) {
-        session.div.innerHTML = session.HTML;
+    if (session.html) {
+        session.div.innerHTML = session.html;
     }
 }

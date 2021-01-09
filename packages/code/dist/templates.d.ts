@@ -1,4 +1,4 @@
-export function getHtml({ HTML, css }: {
-    HTML: string;
+export function getHtml({ html, css }: {
+    html: string;
     css: string;
 }): string;

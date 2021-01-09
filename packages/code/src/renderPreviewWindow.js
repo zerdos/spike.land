@@ -1,6 +1,7 @@
+// deno-lint-ignore-file
 //@ts-nocheck
 
-export async function renderPreviewWindow(
+export function renderPreviewWindow(
   mode,
   session,
   open,
@@ -15,7 +16,7 @@ export async function renderPreviewWindow(
       {
         code: session.code,
         transpiled: session.transpiled,
-        HTML: session.HTML,
+        html: session.html,
       },
     );
 
@@ -44,7 +45,7 @@ export async function renderPreviewWindow(
     zbody.appendChild(session.div);
   }
 
-  if (session.HTML) {
-    session.div.innerHTML = session.HTML;
+  if (session.html) {
+    session.div.innerHTML = session.html;
   }
 }

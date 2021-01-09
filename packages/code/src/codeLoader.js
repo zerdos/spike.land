@@ -12,8 +12,8 @@ function getSession() {
     lastErrors: 0,
     rootElement: null,
     div: window.document.createElement("div"),
-    HTML: "",
-    devtoolHash: "",
+    html: "",
+    versions: {},
     ipfs: 0,
     transpiled: "",
     code: "",
@@ -39,22 +39,22 @@ export async function run(mode = "window", _w, code = "") {
   const { open } = _w;
 
   const session = getSession();
-  session.code = await formatter(code);
+  session.code = code ? await formatter(code) : "";
   if (!code) {
     try {
       const { code, transpiled, html, versions } = await getCodeToLoad();
       session.code = code;
       session.transpiled = await transpileCode(code) || transpiled;
       session.div.innerHTML = html;
+      session.versions = versions ? JSON.parse(versions) : { ...v };
     } catch (e) {
       console.error({ e, message: "couldn't start" });
       return;
     }
   }
+  session.versions = session.versions || { ...v };
 
   if (session.transpiled === "") {
-    const test = await transpileCode("export default ()=><h1>Hello</h1>");
-    console.log(test);
     const transpiled = await transpileCode(session.code);
     console.log(transpiled);
     session.transpiled = transpiled;
@@ -130,8 +130,8 @@ export async function run(mode = "window", _w, code = "") {
           saveCode({
             code: session.code,
             transpiled: session.transpiled,
-            html: session.HTML,
-            versions: session.devtoolHash,
+            html: session.html,
+            versions: JSON.stringify(session.versions),
           });
         }
       } else {
@@ -204,7 +204,7 @@ export async function run(mode = "window", _w, code = "") {
    * @param {string} transpiled
    */
   async function restartCode(transpiled) {
-    session.HTML = "";
+    session.html = "";
     let hadError = false;
     if (typeof transpiled !== "string" || transpiled === "") {
       // console.log(transpiled.error);
@@ -225,9 +225,9 @@ export async function run(mode = "window", _w, code = "") {
     session.unmount = renderEmotion(Element(), root);
     const zbody = window.document.getElementById("zbody");
     zbody && zbody.children[0].replaceWith(root);
-    session.HTML = session.div.innerHTML;
+    session.html = session.div.innerHTML;
 
-    return !!session.HTML;
+    return !!session.html;
 
     /**
      * @param {BlobPart} code

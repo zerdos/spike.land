@@ -2,11 +2,12 @@
  *
  * @param {{
  * code: string
- * HTML: string
+ * html: string
  * transpiled: string
+ * versions: any
  * }} props
  */
-export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
+export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
     var _a;
     const bodyClass = String((_a = window.document.getElementById("zbody")) === null || _a === void 0 ? void 0 : _a.getAttribute("class"));
     let css = "";
@@ -17,7 +18,7 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
             // deno-lint-ignore ban-ts-comment
             // @ts-ignore
             window.document.querySelector("head > style[data-emotion=css]").sheet
-                .cssRules).map((x) => x.cssText).filter((cssRule) => HTML.includes(cssRule.substring(3, 8))).join("\n  ").replace(`.${bodyClass}`, "body");
+                .cssRules).map((x) => x.cssText).filter((cssRule) => html.includes(cssRule.substring(3, 8))).join("\n  ").replace(`.${bodyClass}`, "body");
         }
         catch (e) {
             console.error({ e });
@@ -25,9 +26,13 @@ export const shareItAsHtml = async ({ transpiled, code, HTML }) => {
     }
     const { getHtml } = await import("./templates.js");
     const res = await addAll([
-        { path: "/app/index.html", content: getHtml({ HTML, css }) },
+        { path: "/app/index.html", content: getHtml({ html, css }) },
         { path: "/app/app.js", content: transpiled },
         { path: "/app/app.tsx", content: code },
+        {
+            path: "/app/versions.js",
+            content: `export const v=JSON.parse(${versions});`,
+        },
     ]);
     await Promise.all(res.map(
     /**
