@@ -53,6 +53,8 @@ export async function run(mode = "window", _w, code = "") {
   }
 
   if (session.transpiled === "") {
+    const test = await transpileCode("export default ()=><h1>Hello</h1>");
+    console.log(test);
     const transpiled = await transpileCode(session.code);
     console.log(transpiled);
     session.transpiled = transpiled;
