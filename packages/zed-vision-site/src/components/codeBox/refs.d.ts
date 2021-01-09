@@ -16,3 +16,9 @@ declare module "@zedvision/qrious" {
     get: () => IQROptions;
   }
 }
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    css: any;
+  }
+}

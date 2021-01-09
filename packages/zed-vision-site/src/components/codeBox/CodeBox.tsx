@@ -1,9 +1,10 @@
-import React from "react";
+import { jsx, css } from "@emotion/react";
 
-import { counterExample } from "./example";
-import { Header } from "./styledCodeBoxComps";
+/** @jsx jsx */
+import {FC, useEffect} from "react";
 
-export const CodeBox: React.FC<{
+
+export const CodeBox: FC<{
   live?: boolean;
   toRender?: boolean;
   className?: string;
@@ -12,7 +13,7 @@ export const CodeBox: React.FC<{
   const starterCode = children?.toString().trim();
   if (typeof window === "undefined") return <pre>Loading</pre>;
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function start() {
       const { run } = await new Function(
         `return import("https://blog.zed.vision/code/src/codeLoader.js")`,
@@ -25,12 +26,18 @@ export const CodeBox: React.FC<{
   }, []);
 
   return <div>
-    {!!title && <Header>
+        {!!title && <div css={css`
+                        background: #3f51b5;
+                        font-family: "Roboto";
+                        margin: 0;
+                        padding: 10px 20px 10px;
+                       color: white;
+        `}>
       <span>{title}</span>
       <button>
         Save
       </button>
-    </Header>}
+    </div>}
 
     <div style={{ position: "relative" }}>
       <div style={{ height: "0px" }} id="preview" />
