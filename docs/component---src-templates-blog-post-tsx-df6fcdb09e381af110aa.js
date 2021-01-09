@@ -105,10 +105,10 @@ module.exports = _isNativeReflectConstruct;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
 var taggedTemplateLiteralLoose = __webpack_require__("fhSp");
 
-// EXTERNAL MODULE: /z/node_modules/react/index.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
 var react = __webpack_require__("ERkP");
 
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
@@ -126,23 +126,23 @@ var seo = __webpack_require__("H8eV");
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__("cINY");
 
-// EXTERNAL MODULE: /z/node_modules/gatsby-plugin-mdx/index.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/gatsby-plugin-mdx/index.js
 var gatsby_plugin_mdx = __webpack_require__("0yTM");
 
-// EXTERNAL MODULE: /z/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
 var emotion_styled_browser_esm = __webpack_require__("TMWK");
 
-// EXTERNAL MODULE: /z/node_modules/@babel/runtime/regenerator/index.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__("VtSi");
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
-// EXTERNAL MODULE: /z/node_modules/regenerator-runtime/runtime.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__("3yYM");
 
-// EXTERNAL MODULE: /z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("QsI/");
 
-// EXTERNAL MODULE: /z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
 var emotion_react_browser_esm = __webpack_require__("f7k3");
 
 // CONCATENATED MODULE: ./src/components/codeBox/CodeBox.tsx
@@ -222,7 +222,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
     id: "editor"
   })));
 };
-// EXTERNAL MODULE: /z/node_modules/@mdx-js/react/dist/esm.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@mdx-js/react/dist/esm.js
 var esm = __webpack_require__("ZVZ0");
 
 // CONCATENATED MODULE: ./src/templates/blog-post.tsx

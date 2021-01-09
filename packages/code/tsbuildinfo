@@ -431,7 +431,7 @@
       "allowUmdGlobalAccess": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
-      "pathsBasePath": "/z/packages/code",
+      "pathsBasePath": "/home/zed/z/packages/code",
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
