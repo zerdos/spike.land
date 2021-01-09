@@ -1,8 +1,7 @@
-import { jsx, css } from "@emotion/react";
+import { css, jsx } from "@emotion/react";
 
 /** @jsx jsx */
-import {FC, useEffect} from "react";
-
+import { FC, useEffect } from "react";
 
 export const CodeBox: FC<{
   live?: boolean;
@@ -26,13 +25,15 @@ export const CodeBox: FC<{
   }, []);
 
   return <div>
-        {!!title && <div css={css`
-                        background: #3f51b5;
-                        font-family: "Roboto";
-                        margin: 0;
-                        padding: 10px 20px 10px;
-                       color: white;
-        `}>
+    {!!title && <div
+      css={css`
+            background: #3f51b5;
+            font-family: "Roboto";
+            margin: 0;
+            padding: 10px 20px 10px;
+            color: white;
+        `}
+    >
       <span>{title}</span>
       <button>
         Save

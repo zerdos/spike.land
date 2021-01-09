@@ -45,6 +45,6 @@ module.exports = {
         display: `minimal-ui`,
       },
     },
-    `gatsby-plugin-react-helmet`
+    `gatsby-plugin-react-helmet`,
   ],
 };

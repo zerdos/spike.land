@@ -6,8 +6,9 @@
     "source": "./src/editor.ts",
     "exports": "./dist/editor.js",
     "scripts": {
-        "prebuild": "tsc && deno fmt src",
+        "prebuild": "yarn clean && tsc && deno fmt src",
         "build": "echo ok",
+        "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format",
         "format": "deno fmt src"
     },
     "keywords": [

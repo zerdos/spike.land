@@ -3,7 +3,9 @@ import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import React from "react";
 
-export const DraggableWindow: React.FC<{ onShare: () => void, position?: string }> = ({
+export const DraggableWindow: React.FC<
+  { onShare: () => void; position?: string }
+> = ({
   onShare,
   position,
   children,
@@ -21,7 +23,7 @@ export const DraggableWindow: React.FC<{ onShare: () => void, position?: string 
             border-radius: 8px;
             right: 20px;
             top: 20px;
-            position: ${position?position:"fixed"};
+            position: ${position ? position : "fixed"};
             z-index: 900;
             overflow: hidden;
             overflow-y: overlay;
