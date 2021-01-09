@@ -7,7 +7,7 @@ import { getCodeToLoad, saveCode } from "./data.js";
  */
 export async function transpile(code) {
   const { transpileCode } = await import("./transpile.js");
-  return transpileCode(code, false);
+  return await transpileCode(code, false);
 }
 
 function getSession() {
@@ -58,7 +58,11 @@ export async function run(mode = "window", _w, code = "") {
     }
   }
 
-  session.transpiled = session.transpiled || await transpile(session.code);
+  if (session.transpiled === "") {
+    const transpiled = await transpile(session.code);
+    console.log(transpiled);
+    session.transpiled = transpiled;
+  }
 
   const { renderEmotion, jsx, DraggableWindow } = await import(
     v.emotionRenderer
