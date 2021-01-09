@@ -1,11 +1,9 @@
 import * as React from "react";
 
-import {jsx, css} from "@emotion/react"
+import { css, jsx } from "@emotion/react";
 /** @jsx jsx */
 import { counterExample } from "./example";
-import {
-  Header,
-} from "./styledCodeBoxComps";
+import { Header } from "./styledCodeBoxComps";
 
 export const CodeBox: React.FC<{
   live?: boolean;
@@ -16,20 +14,17 @@ export const CodeBox: React.FC<{
   const starterCode = children?.toString().trim() || counterExample;
   if (typeof window === "undefined") return <pre>Loading</pre>;
 
-
   React.useEffect(() => {
     async function start() {
-   
+      const { run } = await new Function(
+        `return import("https://blog.zed.vision/code/src/codeLoader.js")`,
+      )();
 
-        const {run} = await new Function(
-          `return import("https://blog.zed.vision/code/src/codeLoader.js")`,
-        )();
+      run("embedded", window, starterCode);
+    }
 
-        run("embedded", window, starterCode)
-        }
-
-        if (typeof window !==undefined) start();
-      }, [])
+    if (typeof window !== undefined) start();
+  }, []);
 
   return <>
     {!!title && <Header>
@@ -38,11 +33,12 @@ export const CodeBox: React.FC<{
         Save
       </button>
     </Header>}
-    <div css={css`
+    <div
+      css={css`
       width: 100%;
       height: 70vh;
-    `} id="editor" />
-    
-    
+    `}
+      id="editor"
+    />
   </>;
 };
