@@ -7,7 +7,8 @@ let transform;
  */
 export async function transpileCode(code) {
     transform = transform || await (await init());
-    return await transform(code, false);
+    const transformed = await transform(code, false);
+    return transformed;
 }
 async function init() {
     const v = versions();
@@ -23,4 +24,3 @@ async function init() {
     transform = Comlink.wrap(worker);
     return transform;
 }
-init();
