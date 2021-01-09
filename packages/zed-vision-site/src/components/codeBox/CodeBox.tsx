@@ -35,6 +35,6 @@ export const CodeBox: React.FC<{
       style={{width:"100%", height: "70vh"}}
       id="editor"
     />
-    <div id="preview"></div>;
+    <div id="preview"></div>
   </>
 };
