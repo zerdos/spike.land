@@ -38,7 +38,7 @@ export async function run(mode = "window", _w) {
     try {
         const { code, transpiled, html, versions } = await getCodeToLoad();
         session.code = code;
-        session.transpiled = transpiled || (await transpile(code));
+        session.transpiled = (await transpile(code)) || code;
         session.div.innerHTML = html;
     }
     catch (e) {
