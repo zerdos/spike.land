@@ -271,6 +271,11 @@
         "signature": "69e1e9ead0e122c6e4bc0dd92e82952ab8a913fed0b930c561e2fd96591a5068",
         "affectsGlobalScope": false
       },
+      "./src/db.js": {
+        "version": "bf199392df77b0f26fe3fc91f420aac18c53f6ee7a4afe9cd66cc8c876e65baf",
+        "signature": "7a320d61a39f1cbcaae85f654160d9c82a1124c606fc10cdbf827a58f35d42b3",
+        "affectsGlobalScope": false
+      },
       "./src/templates.js": {
         "version": "5a9e974b9bbe04e2786a8df6457ed9d667960508365697d0dbcbc6234e0e081f",
         "signature": "777244194aa68982fa0d754ebc2b19ab09405ed1bac643bb5fbe5937545f23c1",
@@ -282,8 +287,8 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "c9f1ff92ff59347e810ea675a0e4a6dd4b1f4c3db94d08d4c736c4bd7e7db03d",
-        "signature": "028a21296976f96e588f3e546b4f5227ea2065a877671f460a9727f7ce569daf",
+        "version": "b8ec940114141ab85f3ad40129653422205f1180e322ff512f6ab9189a1193e1",
+        "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
@@ -299,11 +304,6 @@
       "./src/sendSignalToQrCode.js": {
         "version": "d8d760b51909862dd0a65d5cfadcdf4c255d36c2bff8cd17786c15adff1dc94d",
         "signature": "29a10b46e9dba9479ee073da037a568b3036fdc09be3892aa23056314b69f030",
-        "affectsGlobalScope": false
-      },
-      "./src/db.js": {
-        "version": "bf199392df77b0f26fe3fc91f420aac18c53f6ee7a4afe9cd66cc8c876e65baf",
-        "signature": "7a320d61a39f1cbcaae85f654160d9c82a1124c606fc10cdbf827a58f35d42b3",
         "affectsGlobalScope": false
       },
       "./src/starter.js": {
@@ -516,6 +516,7 @@
       "./src/share.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
+        "./src/db.js",
         "./src/ipfsKV.js",
         "./src/templates.js"
       ],

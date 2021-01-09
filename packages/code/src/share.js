@@ -1,3 +1,5 @@
+import { sha256, shaDB } from "./db.js";
+
 /**
  * 
  * @param {{
@@ -32,38 +34,43 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
   }
 
   const { getHtml } = await import("./templates.js");
+  const allContent = [
+    { path: "/app/index.html", content: getHtml({ html, css }) },
+    { path: "/app/app.js", content: transpiled },
+    { path: "/app/app.tsx", content: code },
+    {
+      path: "/app/versions.js",
+      content: `export const v=JSON.parse("${versions}");`,
+    },
+  ];
 
-  const res = await addAll(
-    [
-      { path: "/app/index.html", content: getHtml({ html, css }) },
-      { path: "/app/app.js", content: transpiled },
-      { path: "/app/app.tsx", content: code },
-      {
-        path: "/app/versions.js",
-        content: `export const v=JSON.parse(${versions});`,
-      },
-    ],
-  );
+  const sha = await sha256(JSON.stringify(allContent));
+  let rootUrl = await shaDB.get(sha, "string");
 
-  await Promise.all(res.map(
-    /**
-   * @param {{ CID: string; }} x
-   */
-    (x) => fetch(`https://code.zed.vision/ipfs/${x.CID}/`),
-  ));
+  if (rootUrl === null) {
+    const res = await addAll(
+      allContent,
+    );
 
-  const appDir = res.find(
-    /**
+    const appDir = res.find(
+      /**
      * @param {{ path: string; }} x
      */
-    (x) => x.path === "app",
-  );
+      (x) => x.path === "app",
+    );
+
+    rootUrl = `https://code.zed.vision/ipfs/${appDir.CID}/`;
+
+    shaDB.put(sha, rootUrl);
+  }
+  console.log(rootUrl);
+  await fetch(rootUrl).then((x) => x.text());
 
   // await saveHtml(
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
 
-  return `https://code.zed.vision/ipfs/${appDir.CID}/`;
+  return rootUrl;
 };
 
 ///import("./src/ipfsKV.js").then((mod)=>mod.ipfsKV).then(x=>x.add("diddiwohfqwyie",{onlyHash: true}))

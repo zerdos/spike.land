@@ -3,4 +3,4 @@ export function shareItAsHtml({ transpiled, code, html, versions }: {
     html: string;
     transpiled: string;
     versions: any;
-}): Promise<string>;
+}): Promise<any>;
