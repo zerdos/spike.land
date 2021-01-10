@@ -38,15 +38,15 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
         waitForSignalAndRun({
           signal: lastUrl,
           onSignal: () => {
-            console.log("signal Received", {lastUrl})
+            console.log("signal Received", { lastUrl });
             window.location.href = lastUrl;
           },
-          onError: ()=> {
-            console.log("Error while waiting for the signal", {lastUrl});
+          onError: () => {
+            console.log("Error while waiting for the signal", { lastUrl });
           },
-          onExpired: ()=>{
-            console.log("expired", {lastUrl});
-          }
+          onExpired: () => {
+            console.log("expired", { lastUrl });
+          },
         });
       const url = `https://zed.vision/${key}`;
 
@@ -103,15 +103,15 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
       waitForSignalAndRun({
         signal: url,
         onSignal: () => {
-          console.log("signal received", {url});
+          console.log("signal received", { url });
           window.location.href = url;
         },
-        onError: ()=> {
-          console.log("Error while waiting for the signal", {url});
+        onError: () => {
+          console.log("Error while waiting for the signal", { url });
         },
-        onExpired: ()=>{
-          console.log("expired", {url});
-        }
+        onExpired: () => {
+          console.log("expired", { url });
+        },
       });
     };
     if (typeof window !== "undefined" && retry > 0) connect();
@@ -119,8 +119,7 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
 
   return (
     <div
-    onClick={() => location.href = lastUrl}
-
+      onClick={() => window.open(lastUrl)}
       css={css`
       margin: 24px;
       text-align: center;
@@ -128,7 +127,6 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
   `}
     >
       <Cube
-
         size={220}
         sides={[
           <canvas ref={side1}></canvas>,

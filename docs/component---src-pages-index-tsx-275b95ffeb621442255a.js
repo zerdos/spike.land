@@ -197,7 +197,7 @@ var typography = __webpack_require__("cINY");
 var defineProperty = __webpack_require__("zjfJ");
 
 // CONCATENATED MODULE: ../code/dist/versions.js
-function versions(){var code="11.6.10";var shadb="11.4.16";var editor="11.6.3";var emotionRenderer="11.6.3";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
+function versions(){var code="11.6.13";var shadb="11.4.16";var editor="11.6.3";var emotionRenderer="11.6.3";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
 // CONCATENATED MODULE: ../code/dist/hash.js
 var hash_v=dist_versions();/**
  *
@@ -480,7 +480,7 @@ var Qr_Qr = function Qr(_ref) {
   }, [retry]);
   return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
     onClick: function onClick() {
-      return location.href = lastUrl;
+      return window.open(lastUrl);
     },
     css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject())
   }, Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Cube, {
