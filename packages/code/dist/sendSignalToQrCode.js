@@ -4,6 +4,6 @@ export async function sendSignalToQrCode() {
     const isKey = maybeRoute.length === 8 &&
         [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
     if (isKey) {
-        await import("./hash.js").then(({ sendSignal }) => sendSignal(`https://zed.vision/${maybeRoute}`));
+        await (import("./hash.js").then(({ sendSignal }) => sendSignal(`https://zed.vision/${maybeRoute}`)));
     }
 }

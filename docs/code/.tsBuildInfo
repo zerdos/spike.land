@@ -297,7 +297,7 @@
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
-        "version": "d8d760b51909862dd0a65d5cfadcdf4c255d36c2bff8cd17786c15adff1dc94d",
+        "version": "83ebfc430704778cdd7bba8d588fe89b73f82e3847a03c7b2141203120b9ab01",
         "signature": "29a10b46e9dba9479ee073da037a568b3036fdc09be3892aa23056314b69f030",
         "affectsGlobalScope": false
       },
