@@ -38,14 +38,14 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
         waitForSignalAndRun({
           signal: lastUrl,
           onSignal: () => {
-            console,log("signal Received", {lastUrl})
+            console.log("signal Received", {lastUrl})
             window.location.href = lastUrl;
           },
           onError: ()=> {
             console.log("Error while waiting for the signal", {lastUrl});
           },
           onExpired: ()=>{
-            console.log("exporired", {lastUrl});
+            console.log("expired", {lastUrl});
           }
         });
       const url = `https://zed.vision/${key}`;
@@ -98,7 +98,7 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
       }
 
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
-      setUrl(lastUrl);
+      setUrl(url);
       // const toCheck = await hash(url, true);
       waitForSignalAndRun({
         signal: url,
@@ -110,7 +110,7 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
           console.log("Error while waiting for the signal", {url});
         },
         onExpired: ()=>{
-          console.log("exporired", {url});
+          console.log("expired", {url});
         }
       });
     };
