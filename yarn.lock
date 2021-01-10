@@ -4651,7 +4651,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.6.10
+    "@zedvision/code": ^11.6.11
     esbuild: 0.8.31
   languageName: unknown
   linkType: soft
@@ -4805,7 +4805,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.6.10
+    "@zedvision/code": ^11.6.11
     "@zedvision/qrious": ^11.5.3
     "@zedvision/shadb": ^11.5.3
     framer-motion: 3.2.0

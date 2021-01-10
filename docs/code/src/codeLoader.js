@@ -149,23 +149,26 @@ export async function run(mode = "window", _w, code = "") {
         saveCode(session, counter);
       } else {
         if (session.i > counter) return;
-        const { diff } = await import(
-          `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/diff.js`
-        );
 
-        const slices = await diff(session.code, cd);
+        if (cd.length < 1000 && session.code.length < 1000) {
+          const { diff } = await import(
+            `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/diff.js`
+          );
 
-        if (slices.c.length <= 3) {
-          session.lastErrors = 0;
+          const slices = await diff(session.code, cd);
 
-          return;
-        }
+          if (slices.c.length <= 3) {
+            session.lastErrors = 0;
 
-        if (slices.c.length == 4) {
-          session.lastErrors = 0;
-          modules.monaco.editor.setTheme("hc-black");
+            return;
+          }
 
-          return;
+          if (slices.c.length == 4) {
+            session.lastErrors = 0;
+            modules.monaco.editor.setTheme("hc-black");
+
+            return;
+          }
         }
         console.error(err[0].messageText.toString());
         // errorDiv.innerHTML = err[0].messageText.toString();
