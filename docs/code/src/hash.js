@@ -53,28 +53,16 @@ async function getClient() {
  * @param {any} onlyHash
  */
 const hash = async (data, onlyHash) => {
-  //  console.log("asking for client");
   /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
   const client = await getClient();
   if (client === null) {
-    //  console.log("no client - exiting");
-
     return { success: false };
   }
   const noisyHashes = (await Promise.all([
     await client.add(`${data}`, { onlyHash }),
-    // await client.add(`${data}N${data}`, { onlyHash }),
-    // await client.add(`${data}O${data}`, { onlyHash }),
-    // await client.add(`${data}I${data}`, { onlyHash }),
-    // await client.add(`${data}S${data}`, { onlyHash }),
-    // await client.add(`${data}E${data}`, { onlyHash }),
-    // await client.add(`${data}!${data}`, { onlyHash }),
   ]));
   if (!onlyHash) {
-    // console.log("feeding the cache");
-
     await Promise.all(noisyHashes.map(feedTheCache));
-    //console.log("cahce is fed");
   }
   if (onlyHash) {
     const res = await Promise.all(
@@ -135,7 +123,7 @@ export const waitForSignalAndJump = async (url) => {
       window.location.href = url;
     }
   } catch (e) {
-    console.log({ msg: "SignalAndJump errror", e });
+    console.log({ msg: "SignalAndJump error", e });
   } finally {
     console.log({ msg: "SignalAndJump Final" });
   }
