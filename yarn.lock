@@ -4680,6 +4680,7 @@ __metadata:
   resolution: "@zedvision/code@portal:/home/zed/z/packages/code::locator=zedvision%40workspace%3A."
   dependencies:
     "@babel/standalone": 7.12.12
+    cids: ^1.1.4
     comlink: 4.3.0
     esbuild: 0.8.31
     prettier: 2.2.1
