@@ -105,6 +105,8 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
 
   return (
     <div
+    onClick={() => location.href = lastUrl}
+
       css={css`
       margin: 24px;
       text-align: center;
@@ -112,7 +114,7 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
   `}
     >
       <Cube
-        onClick={() => location.href = lastUrl}
+
         size={220}
         sides={[
           <canvas ref={side1}></canvas>,
