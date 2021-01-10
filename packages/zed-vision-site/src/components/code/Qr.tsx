@@ -38,8 +38,15 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
         waitForSignalAndRun({
           signal: lastUrl,
           onSignal: () => {
+            console,log("signal Received", {lastUrl})
             window.location.href = lastUrl;
           },
+          onError: ()=> {
+            console.log("Error while waiting for the signal", {lastUrl});
+          },
+          onExpired: ()=>{
+            console.log("exporired", {lastUrl});
+          }
         });
       const url = `https://zed.vision/${key}`;
 
@@ -96,8 +103,15 @@ export const Qr: React.FC<{ color?: string }> = ({ color }) => {
       waitForSignalAndRun({
         signal: url,
         onSignal: () => {
+          console.log("signal received", {url});
           window.location.href = url;
         },
+        onError: ()=> {
+          console.log("Error while waiting for the signal", {url});
+        },
+        onExpired: ()=>{
+          console.log("exporired", {url});
+        }
       });
     };
     if (typeof window !== "undefined" && retry > 0) connect();
