@@ -4651,7 +4651,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.6.6
+    "@zedvision/code": ^11.6.10
     esbuild: 0.8.31
   languageName: unknown
   linkType: soft
@@ -4805,7 +4805,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.6.6
+    "@zedvision/code": ^11.6.10
     "@zedvision/qrious": ^11.5.3
     "@zedvision/shadb": ^11.5.3
     framer-motion: 3.2.0
@@ -17543,12 +17543,14 @@ fsevents@~2.3.1:
   linkType: hard
 
 "parse-path@npm:^4.0.0":
-  version: 4.0.2
-  resolution: "parse-path@npm:4.0.2"
+  version: 4.0.3
+  resolution: "parse-path@npm:4.0.3"
   dependencies:
     is-ssh: ^1.3.0
     protocols: ^1.4.0
-  checksum: b1c8d4752f7b0bf731eb35fd34f724da066f448a9d5ed00b6b63b6e42859a71dc262713f4dca8df4489a03435358e28a082a26dd6397b48e5a683c91dbbae7dd
+    qs: ^6.9.4
+    query-string: ^6.13.8
+  checksum: efc641ae5bf4794c2ae856dcce17886b95a1dc5f0447a5762d44a0a10785b53ba964c0b6fde745ecd32da36f992a8dc4a76624be9c9ff67f1f345fd396fdb4ae
   languageName: node
   linkType: hard
 
@@ -18867,7 +18869,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"query-string@npm:^6.13.1, query-string@npm:^6.13.3":
+"query-string@npm:^6.13.1, query-string@npm:^6.13.3, query-string@npm:^6.13.8":
   version: 6.13.8
   resolution: "query-string@npm:6.13.8"
   dependencies:
@@ -23151,11 +23153,11 @@ typescript@4.1.3:
   linkType: hard
 
 "uri-js@npm:^4.2.2":
-  version: 4.4.0
-  resolution: "uri-js@npm:4.4.0"
+  version: 4.4.1
+  resolution: "uri-js@npm:4.4.1"
   dependencies:
     punycode: ^2.1.0
-  checksum: 970577344101f43aa64d1e6ab7f78ff0371df0ff7731de66da268125c2703e7bf70693afd0b76c96325e247466b49b4b081d9f54339e9520b2b9c02b598542a6
+  checksum: 7d8ae8e2d7b82480d7d337f3e53c9a89ffdc7ebb1c31f212da3df6349f2fd1e6a4361f5fb27369ecab33fa37aa85edc53aec6eb7c9a7c3207a9e0944e8c48802
   languageName: node
   linkType: hard
 
