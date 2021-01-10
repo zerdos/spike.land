@@ -12,7 +12,8 @@
         "clean": "rm -rf dist .tsBuildInfo && deno fmt src",
         "prebuild": "yarn clean",
         "build": "yarn tsc && yarn minify",
-        "minify": "esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
+        "minify": "esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js",
+        "cids": "yarn esbuild --bundle --target=es2018 --format=esm src/mhash.js --outfile=src/vendor/cids.js"
     },
     "keywords": [
         "monaco",
@@ -43,6 +44,7 @@
     },
     "dependencies": {
         "@babel/standalone": "7.12.12",
+        "cids": "^1.1.4",
         "comlink": "4.3.0",
         "prettier": "2.2.1"
     }

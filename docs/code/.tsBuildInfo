@@ -292,7 +292,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "bad0ee710df9720d49fc6db4a22e3702b570552088ab9c9b97e18fe21e762e06",
+        "version": "3220a9d238eba447cefae260c3c238cb38dc15308c34e1fe3ac0e713b74e9eb8",
         "signature": "4e54a6edff5d44c7503cdb7471ba71fdd53d5775604e6f361eabbe3eeb47b548",
         "affectsGlobalScope": false
       },
@@ -346,6 +346,21 @@
         "signature": "7c64106f9e854e5fce560f27c54eb67e1636016dccf327bbf62a2d59a04d0e19",
         "affectsGlobalScope": true
       },
+      "../../node_modules/multicodec/dist/src/generated-types.d.ts": {
+        "version": "7461cdfeed4a18eeab1e26625d21e8965bd6cd7e537931cfbc6b3154c77a33fc",
+        "signature": "7461cdfeed4a18eeab1e26625d21e8965bd6cd7e537931cfbc6b3154c77a33fc",
+        "affectsGlobalScope": false
+      },
+      "../../node_modules/cids/dist/src/index.d.ts": {
+        "version": "8d75b05b9fa0321f8f3ffb4524bafc0da4a0ed7403adb41e49aad6df72419168",
+        "signature": "8d75b05b9fa0321f8f3ffb4524bafc0da4a0ed7403adb41e49aad6df72419168",
+        "affectsGlobalScope": false
+      },
+      "./src/mhash.js": {
+        "version": "d4456419f733da7c3543da13fab4a5fd38353244f7074ffacb94e9e9ddd9d847",
+        "signature": "037945774d760fbbe13caa1583034c5807de92779e2ce6e0387e8e53f45991c6",
+        "affectsGlobalScope": false
+      },
       "./src/refs.d.ts": {
         "version": "0c3c4a44f23c27d369aedf5ccc8c91a23fbca26ef0dc1e787e272bb1fac4e1da",
         "signature": "0c3c4a44f23c27d369aedf5ccc8c91a23fbca26ef0dc1e787e272bb1fac4e1da",
@@ -389,6 +404,11 @@
       "./src/transpileWorker.d.ts": {
         "version": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
         "signature": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
+        "affectsGlobalScope": false
+      },
+      "./src/vendor/cids.js": {
+        "version": "7f70a5ad917878f816c91b71048cc506b4e1565c0d8f60c478ff2a526bf34323",
+        "signature": "d18f79aa6ddec0adbe8167e04c327114d118e13eaaac8862920ed4fdb935557e",
         "affectsGlobalScope": false
       }
     },
@@ -438,6 +458,10 @@
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
       ],
+      "../../node_modules/cids/dist/src/index.d.ts": [
+        "../../node_modules/cids/dist/src/index.d.ts",
+        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
+      ],
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
       ],
@@ -486,6 +510,11 @@
       ],
       "./src/ipfsKV.worker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./node_modules/tslib/tslib.d.ts"
+      ],
+      "./src/mhash.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/cids/dist/src/index.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/openWindows.js": [
@@ -548,6 +577,10 @@
       "./src/transpileWorker.d.ts": [
         "../../node_modules/comlink/dist/umd/comlink.d.ts"
       ],
+      "./src/vendor/cids.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./node_modules/tslib/tslib.d.ts"
+      ],
       "./src/versions.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
@@ -566,6 +599,10 @@
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
       ],
+      "../../node_modules/cids/dist/src/index.d.ts": [
+        "../../node_modules/cids/dist/src/index.d.ts",
+        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
+      ],
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
       ],
@@ -578,9 +615,11 @@
       "../../node_modules/@types/react/global.d.ts",
       "../../node_modules/@types/react/index.d.ts",
       "../../node_modules/@types/react/jsx-runtime.d.ts",
+      "../../node_modules/cids/dist/src/index.d.ts",
       "../../node_modules/comlink/dist/umd/comlink.d.ts",
       "../../node_modules/comlink/dist/umd/protocol.d.ts",
       "../../node_modules/csstype/index.d.ts",
+      "../../node_modules/multicodec/dist/src/generated-types.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -636,6 +675,7 @@
       "./src/importScript.js",
       "./src/ipfsKV.js",
       "./src/ipfsKV.worker.js",
+      "./src/mhash.js",
       "./src/openWindows.js",
       "./src/refs.d.ts",
       "./src/renderPreviewWindow.js",
@@ -650,6 +690,7 @@
       "./src/transpile.js",
       "./src/transpile.worker.js",
       "./src/transpileWorker.d.ts",
+      "./src/vendor/cids.js",
       "./src/versions.js",
       "./src/workBox.js"
     ]
