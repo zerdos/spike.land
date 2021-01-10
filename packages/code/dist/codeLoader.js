@@ -31,7 +31,7 @@ export async function run(mode = "window", _w, code = "") {
     session.code = code ? await formatter(code) : "";
     if (!code) {
         try {
-            const { code, transpiled, html, versions } = pathname.endsWith("/edit/")
+            const { code, transpiled, html, versions } = (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
                 ? await getIPFSCodeToLoad()
                 : await getCodeToLoad();
             session.code = code;

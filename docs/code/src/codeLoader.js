@@ -41,9 +41,10 @@ export async function run(mode = "window", _w, code = "") {
   session.code = code ? await formatter(code) : "";
   if (!code) {
     try {
-      const { code, transpiled, html, versions } = pathname.endsWith("/edit/")
-        ? await getIPFSCodeToLoad()
-        : await getCodeToLoad();
+      const { code, transpiled, html, versions } =
+        (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
+          ? await getIPFSCodeToLoad()
+          : await getCodeToLoad();
       session.code = code;
       session.transpiled = await transpileCode(code) || transpiled;
       session.div.innerHTML = html;

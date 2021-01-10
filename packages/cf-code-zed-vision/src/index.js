@@ -13,33 +13,37 @@ async function handleRequest(request) {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
 
-  if (pathname.slice(0, 6) === "/ipfs/") {
-    //@ts-ignore
-    const cache = caches.default;
-    let response = await cache.match(request);
+  if (pathname.endsWith) {
+    if (pathname.slice(0, 6) === "/ipfs/") {
+      //@ts-ignore
+      const cache = caches.default;
+      let response = await cache.match(request);
 
-    if (!response) {
-      //https://ipfs.github.io/public-gateway-checker/gateways.json
-      const random5GatewaysFetch = publicIpfsGateways.sort(() =>
-        0.5 - Math.random()
-      ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) =>
-        fetch(x).then((res) =>
-          res.status === 200 ? res : (() => {
-            throw new Error("Not found");
-          })()
-        )
-      );
+      if (!response) {
+        //https://ipfs.github.io/public-gateway-checker/gateways.json
+        const random5GatewaysFetch = publicIpfsGateways.sort(() =>
+          0.5 - Math.random()
+        ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
+          x,
+        ) =>
+          fetch(x).then((res) =>
+            res.status === 200 ? res : (() => {
+              throw new Error("Not found");
+            })()
+          )
+        );
 
-      response = await raceToSuccess(random5GatewaysFetch);
-      await cache.put(request, response.clone());
+        response = await raceToSuccess(random5GatewaysFetch);
+        await cache.put(request, response.clone());
+      }
+      if (response.status > 399) {
+        response = new Response(
+          response.statusText,
+          { status: response.status },
+        );
+      }
+      return response;
     }
-    if (response.status > 399) {
-      response = new Response(
-        response.statusText,
-        { status: response.status },
-      );
-    }
-    return response;
   }
 
   if (pathname.endsWith("sw.js")) {

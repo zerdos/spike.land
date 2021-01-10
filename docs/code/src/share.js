@@ -64,7 +64,7 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
 
     const { pathname } = new URL(window.location.href);
 
-    if (pathname.endsWith("/edit/")) {
+    if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
       history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
     }
 
