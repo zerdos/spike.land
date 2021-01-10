@@ -25,13 +25,9 @@ export const Qr = ( ) => {
       let qr5: QRious | null = null;
       let qr6: QRious | null = null;
 
-      // const req = await fetch("https://zed.vision/token");
-      // const data = await req.json();
-      // const key = data.key;
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
-      // const key = "12345678";
       lastUrl &&
         waitForSignalAndRun({
           signal: lastUrl,

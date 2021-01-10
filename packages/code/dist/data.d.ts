@@ -1,7 +1,3 @@
-/**
- * @param {string} hash
- */
-export function getZkey(hash: string): Promise<string>;
 export function getUserId(): Promise<any>;
 export function getIPFSCodeToLoad(): Promise<{
     code: string;

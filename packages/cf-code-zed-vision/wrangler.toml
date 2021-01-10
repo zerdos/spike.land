@@ -9,7 +9,8 @@ kv_namespaces = [
   { binding = "USERS",    id = "0f2452fdee904dd5a0d401a896bc5e34", preview_id="0f2452fdee904dd5a0d401a896bc5e34" },
   { binding = "LOGS",     id = "96d2b68314364220a82bf70190531856", preview_id="96d2b68314364220a82bf70190531856" },
   { binding = "PROJECTS", id = "23b1f3012e0b43019882d02029f1a089", preview_id="23b1f3012e0b43019882d02029f1a089" },
-  { binding = "USERKEYS", id = "9993093187e949feb4fc0cd13654d762", preview_id="9993093187e949feb4fc0cd13654d762" }
+  { binding = "USERKEYS", id = "9993093187e949feb4fc0cd13654d762", preview_id="9993093187e949feb4fc0cd13654d762" },
+  { binding = "SIGNALS",  id = "19214ae7063d4c9badf84b0f04ad60c7", preview_id="19214ae7063d4c9badf84b0f04ad60c7" }
 ]
 [dev]
 port=9000

@@ -28,18 +28,6 @@ export const getProjects = async () => {
   return projects.list;
 };
 
-/**
- * @param {string} hash
- */
-export async function getZkey(hash) {
-  const uuid = await getUserId();
-  const uKey = await sha256(uuid);
-  const gKey = await sha256(hash + uKey);
-  const vKey = await sha256(hash + uuid);
-
-  return `${hash}${uKey}${gKey}${vKey}`;
-}
-
 /** @type {string} */
 let uuid;
 export async function getUserId() {

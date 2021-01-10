@@ -291,24 +291,24 @@
         "signature": "608cfe0ec75d5731a86860a9943b16fa17fe5a5b39ee2fefa9e202413269e43b",
         "affectsGlobalScope": false
       },
-      "./src/hash.js": {
-        "version": "3220a9d238eba447cefae260c3c238cb38dc15308c34e1fe3ac0e713b74e9eb8",
-        "signature": "4e54a6edff5d44c7503cdb7471ba71fdd53d5775604e6f361eabbe3eeb47b548",
-        "affectsGlobalScope": false
-      },
-      "./src/sendSignalToQrCode.js": {
-        "version": "83ebfc430704778cdd7bba8d588fe89b73f82e3847a03c7b2141203120b9ab01",
-        "signature": "29a10b46e9dba9479ee073da037a568b3036fdc09be3892aa23056314b69f030",
-        "affectsGlobalScope": false
-      },
       "./src/starter.js": {
         "version": "100fb9406aca460801eefa2f2bef83d926bf1d5db11bec6b12fd70ee0a6a17fb",
         "signature": "2e336c3ecd70956927790025e12507a40718107790a1c73e2a97b0e2898d4839",
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "075390f9ca0c1411273264f6133c5cd388abe010b829df02059f60889b2d3176",
-        "signature": "91221b360f8b1101667b142629c8973433917bc3e48f9627c9c7b2315945d488",
+        "version": "d9defd147e48dcdd88c3331db39f1bfb87357dc560ee8871646b0655a3782477",
+        "signature": "c6e12aa9b8a89f0a937eb871bcd928e883137067430ee3764e88ea0d5db6237e",
+        "affectsGlobalScope": false
+      },
+      "./src/hash.js": {
+        "version": "3220a9d238eba447cefae260c3c238cb38dc15308c34e1fe3ac0e713b74e9eb8",
+        "signature": "4e54a6edff5d44c7503cdb7471ba71fdd53d5775604e6f361eabbe3eeb47b548",
+        "affectsGlobalScope": false
+      },
+      "./src/sendSignalToQrCode.js": {
+        "version": "341fc441aba6dfb5b0f1d8d5878e395e87a6682d29ed52b1c06f676dbb100438",
+        "signature": "01c00c6b02cba6ec315aa2b9c4846489bc41f6f44dc23f80d1886e462165d19d",
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
@@ -531,6 +531,8 @@
       "./src/sendSignalToQrCode.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
+        "./src/data.js",
+        "./src/db.js",
         "./src/hash.js"
       ],
       "./src/share.js": [
