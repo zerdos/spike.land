@@ -1215,12 +1215,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var typeface_montserrat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typeface_montserrat__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var typeface_merriweather__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("bNRn");
 /* harmony import */ var typeface_merriweather__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(typeface_merriweather__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var normalize_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("16WD");
-/* harmony import */ var normalize_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(normalize_css__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _src_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("OMi8");
-/* harmony import */ var _src_style_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_src_style_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var prismjs_themes_prism_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("U/75");
-/* harmony import */ var prismjs_themes_prism_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prismjs_themes_prism_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _src_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("OMi8");
+/* harmony import */ var _src_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_src_style_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var normalize_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("16WD");
+/* harmony import */ var normalize_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(normalize_css__WEBPACK_IMPORTED_MODULE_3__);
 // exports.disableCorePrefetching = () => true;
 // const gatsbyBrowser = {
 //   initialPath: "index.html",
@@ -1240,6 +1238,7 @@ __webpack_require__.r(__webpack_exports__);
 // normalize CSS across browsers
 // custom CSS styles
 // Highlighting for code blocks
+//import "prismjs/themes/prism.css";
 
 
 /***/ }),
@@ -2032,13 +2031,6 @@ var store = __webpack_require__("xgf2");
   copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 });
 
-
-/***/ }),
-
-/***/ "U/75":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 

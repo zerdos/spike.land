@@ -193,8 +193,11 @@ function _getUserId() {
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__("cINY");
 
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__("zjfJ");
+
 // CONCATENATED MODULE: ../code/dist/versions.js
-function versions(){var code="11.6.7";var shadb="11.4.16";var editor="11.6.3";var emotionRenderer="11.6.3";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
+function versions(){var code="11.6.10";var shadb="11.4.16";var editor="11.6.3";var emotionRenderer="11.6.3";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
 // CONCATENATED MODULE: ../code/dist/hash.js
 var hash_v=dist_versions();/**
  *
@@ -262,24 +265,18 @@ function _sha() {
   }));
   return _sha.apply(this, arguments);
 }
+// EXTERNAL MODULE: /home/zed/z/node_modules/normalize.css/normalize.css
+var normalize = __webpack_require__("16WD");
+
 // CONCATENATED MODULE: ./src/components/code/Qr.tsx
 
 
 
 
 
-function _templateObject4() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n              display: block;\n              font-family: Roboto;\n              font-size: 20px;\n              text-transform: uppercase; \n              color: white;\n              margin-bottom: 12px;\n            "]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
 
 function _templateObject3() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n              width: 200px;\n              height: 200px;\n              display: block;\n              box-shadow: 0 0 ", "px 5px ", ";\n          "]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        \n            width: ", "px; \n            height: ", "px; \n            padding: 0px; \n            margin: 10px;      \n          \n              \n          @keyframes spincube {\n            from,to {\n              transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);\n            }\n            16% {\n              transform: rotateY(-90deg);\n            }\n            33% {\n              transform: rotateY(-90deg) rotateZ(90deg);\n            }\n            50% {\n              transform: rotateY(-180deg) rotateZ(90deg);\n            }\n            66% {\n              transform: rotateY(-270deg) rotateX(90deg);\n            }\n            83% {\n              transform: rotateX(90deg);\n            }\n          }\n\n            .cubespinner {\n\n              animation-name: spincube;\n              animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n              animation-iteration-count: infinite;\n              animation-duration: 20s;\n\n              transform-style: preserve-3d;\n\n              transform-origin: ", "px ", "px 0;\n            }\n\n            .cubespinner div {\n              position: absolute;\n              width: ", "px;\n              height: ", "px;\n              border: 0;\n              background: rgba(255,255,255,0.8);\n              box-shadow: inset 0 0 20px rgba(255,0,0,0.6);\n              line-height: 80px;\n              vertical-align: middle;\n              text-align: center;\n              font-size: 80px;\n            }\n\n            .cubespinner .face1 {\n              transform: translateZ(", "px);\n            }\n            .cubespinner .face2 {\n              transform: rotateY(90deg) translateZ(", "px);\n            }\n            .cubespinner .face3 {\n              transform: rotateY(90deg) rotateX(90deg) translateZ(", "px);\n            }\n            .cubespinner .face4 {\n              transform: rotateY(180deg) rotateZ(90deg) translateZ(", "px);\n            }\n            .cubespinner .face5 {\n              transform: rotateY(-90deg) rotateZ(90deg) translateZ(", "px);\n            }\n            .cubespinner .face6 {\n              transform: rotateX(-90deg) translateZ(", "px);\n            }\n            "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -289,7 +286,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        background: blue;\n        display: inline-block;\n        padding: 10px 10px 0px 10px;\n        border-radius: 12px;\n        text-align: center;\n    "]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])([" \n      color: #333;\n      border-radius: 18px;\n      padding: 0px;\n      background: rgba( 0, 0, 25, 0.4 );\n      border: solid 1px rgba(24,24,24,0.7);\n      background-clip: padding-box;\n      backdrop-filter: blur(10px ); display: inline-block; "]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -299,7 +296,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n      margin: 24px;\n      text-align: center;\n  "]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n      margin: 24px;\n      text-align: center;\n      box-sizing: inherit; }\n  "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -308,6 +305,10 @@ function _templateObject() {
   return data;
 }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 /** @jsx jsx */
 
@@ -315,8 +316,15 @@ function _templateObject() {
 
 
 
-var Qr_Qr = function Qr() {
-  var ref = react_default.a.useRef(null);
+
+var Qr_Qr = function Qr(_ref) {
+  var color = _ref.color;
+  var side1 = react_default.a.useRef(null);
+  var side2 = react_default.a.useRef(null);
+  var side3 = react_default.a.useRef(null);
+  var side4 = react_default.a.useRef(null);
+  var side5 = react_default.a.useRef(null);
+  var side6 = react_default.a.useRef(null);
 
   var _React$useState = react_default.a.useState(100),
       retry = _React$useState[0],
@@ -326,28 +334,28 @@ var Qr_Qr = function Qr() {
       lastUrl = _React$useState2[0],
       setUrl = _React$useState2[1];
 
-  var _React$useState3 = react_default.a.useState(0),
-      counter = _React$useState3[0],
-      setCounter = _React$useState3[1];
-
   react_default.a.useEffect(function () {
     var connect = /*#__PURE__*/function () {
-      var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-        var qr, secret, key, url, options;
+      var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
+        var qr1, qr2, qr3, qr4, qr5, qr6, secret, key, url, options;
         return regenerator_default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                qr = null; // const req = await fetch("https://zed.vision/token");
+                qr1 = null;
+                qr2 = null;
+                qr3 = null;
+                qr4 = null;
+                qr5 = null;
+                qr6 = null; // const req = await fetch("https://zed.vision/token");
                 // const data = await req.json();
-
-                setCounter(60); // const key = data.key;
+                // const key = data.key;
 
                 secret = Math.random() + "-" + Math.random() + "-" + Math.random();
-                _context.next = 5;
+                _context.next = 9;
                 return sha256(secret);
 
-              case 5:
+              case 9:
                 key = _context.sent.slice(0, 8);
                 // const key = "12345678";
                 lastUrl && waitForSignalAndRun({
@@ -358,32 +366,69 @@ var Qr_Qr = function Qr() {
                 });
                 url = "https://zed.vision/" + key;
                 options = {
-                  element: ref.current,
-                  size: 200,
-                  foregroundAlpha: .9,
+                  element: side1.current,
+                  size: 220,
+                  foregroundAlpha: 0.9,
                   foreground: "red",
-                  padding: 12,
-                  backgroundAlpha: 0.8,
+                  padding: 10,
                   background: "black",
                   value: url
                 };
 
-                if (qr === null) {
-                  qr = new he(options);
+                if (qr1 === null) {
+                  qr1 = new he(options);
+                  qr2 = new he(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#FFA52C",
+                    element: side2.current
+                  }));
+                  qr3 = new he(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "yellow",
+                    element: side3.current
+                  }));
+                  qr4 = new he(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#35CB4A",
+                    element: side4.current
+                  }));
+                  qr5 = new he(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#3C99DC",
+                    element: side5.current
+                  }));
+                  qr6 = new he(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#DF3BCF",
+                    element: side6.current
+                  }));
                 }
 
-                if (qr.get().value !== url) qr.set(options);
-                setUrl(url); //const check = await fetch(`https://zed.vision/check?key=${key}`);
-                //const res = await check.json();
-                // if (res.expired === false) {
-                //  location.href = "https://zed.vision/code/";
-                // }
+                if (qr1.get().value !== url) {
+                  qr1.set(options);
+                  qr2.set(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#FFA52C",
+                    element: side2.current
+                  }));
+                  qr3.set(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "yellow",
+                    element: side3.current
+                  }));
+                  qr4.set(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#35CB4A",
+                    element: side4.current
+                  }));
+                  qr5.set(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#3C99DC",
+                    element: side5.current
+                  }));
+                  qr6.set(_objectSpread(_objectSpread({}, options), {}, {
+                    foreground: "#DF3BCF",
+                    element: side6.current
+                  }));
+                }
 
                 setTimeout(function () {
                   return setRetry(function (x) {
                     return x - 1;
                   });
-                }, 10000); // const toCheck = await hash(url, true);
+                }, 20000);
+                setUrl(lastUrl); // const toCheck = await hash(url, true);
 
                 waitForSignalAndRun({
                   signal: url,
@@ -392,7 +437,7 @@ var Qr_Qr = function Qr() {
                   }
                 });
 
-              case 14:
+              case 18:
               case "end":
                 return _context.stop();
             }
@@ -401,34 +446,60 @@ var Qr_Qr = function Qr() {
       }));
 
       return function connect() {
-        return _ref.apply(this, arguments);
+        return _ref2.apply(this, arguments);
       };
     }();
 
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
-  react_default.a.useEffect(function () {
-    if (typeof window !== "undefined" && counter) {
-      setTimeout(function () {
-        return setCounter(function (x) {
-          return x - 1;
-        });
-      }, 277);
-    }
-  }, [counter]);
   return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
     css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject())
-  }, Object(emotion_react_browser_esm["c" /* jsx */])("a", {
-    target: "_blank",
-    href: lastUrl
-  }, retry > 0 && Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+  }, Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Cube, {
+    onClick: function onClick() {
+      return location.href = lastUrl;
+    },
+    size: 220,
+    sides: [Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+      ref: side1
+    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+      ref: side2
+    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+      ref: side3
+    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+      ref: side4
+    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+      ref: side5
+    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+      ref: side6
+    })]
+  }));
+}; //@ts-ignore
+
+var Qr_Cube = function Cube(_ref3) {
+  var sides = _ref3.sides,
+      size = _ref3.size;
+  return Object(emotion_react_browser_esm["c" /* jsx */])("section", {
     css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2())
-  }, Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3(), 10 + 2 * counter, retry % 4 === 3 ? "darkorange" : retry % 4 === 2 ? "green" : "darkred"),
-    ref: ref
-  }), Object(emotion_react_browser_esm["c" /* jsx */])("span", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject4())
-  }, "Connect device"))));
+  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "stage",
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3(), size, size, size / 2, size / 2, size, size, size / 2, size / 2, size / 2, size / 2, size / 2, size / 2)
+  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "cubespinner"
+  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "face1"
+  }, sides[0]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "face2"
+  }, sides[1]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "face3"
+  }, sides[2]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "face4"
+  }, sides[3]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "face5"
+  }, sides[4]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    className: "face6"
+  }, sides[5]))), Object(emotion_react_browser_esm["c" /* jsx */])("h3", {
+    css: "font-size: 24px; color:white; font-family: Roboto; padding: 10px 0 0 0"
+  }, "Scan to connect!"));
 };
 // EXTERNAL MODULE: ./assets/forkMe.png
 var forkMe = __webpack_require__("7jdZ");
