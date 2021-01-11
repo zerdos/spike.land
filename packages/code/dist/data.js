@@ -11,7 +11,7 @@ export const getProjects = async () => {
             signal: userData.signal,
             onSignal: async (getData) => {
                 const data = await getData();
-                await shaDB.put(uuid, Object.assign(Object.assign({}, userData), { signal: null }));
+                await shaDB.put(uuid, JSON.stringify(Object.assign(Object.assign({}, userData), { signal: null })));
                 window.location.href = data.rootUrl;
             },
         });
