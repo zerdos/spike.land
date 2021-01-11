@@ -3716,7 +3716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokenizer/token@npm:^0.1.0, @tokenizer/token@npm:^0.1.1":
+"@tokenizer/token@npm:^0.1.1":
   version: 0.1.1
   resolution: "@tokenizer/token@npm:0.1.1"
   checksum: f495a1fe58da2cec4a45f02d302864484ecf3d00e343470b00ebcafd3248c3f252e0450e603838962f0ac3019477ad466b097134bc332d3f76441fc408a1dcfb
@@ -6002,9 +6002,9 @@ __metadata:
   linkType: hard
 
 "binary-extensions@npm:^2.0.0":
-  version: 2.1.0
-  resolution: "binary-extensions@npm:2.1.0"
-  checksum: 12bee2817930b211b88f6de5da2edb64f924ffde79e01516fcb17005a39e75374fae1ce1a9c58b52557a4d81eb6eb7a804cbe7170ea3a553919a7ce0053e2e4f
+  version: 2.2.0
+  resolution: "binary-extensions@npm:2.2.0"
+  checksum: 0f5f5685f344b035c4f98d06fa288962d262294a1441c1481ac99e895037bde971ebe6e09a4bd8aa18ab2525bfc00b1ad4af71dbf9e933a72e0df6919706a728
   languageName: node
   linkType: hard
 
@@ -6724,9 +6724,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001109, caniuse-lite@npm:^1.0.30001173":
-  version: 1.0.30001173
-  resolution: "caniuse-lite@npm:1.0.30001173"
-  checksum: e90b1f29f437708dcb0cab352cb932a3437ae4826dbae3a0f20eaf112b9151aba490cfd8a0f693b08c254c3075baa69a375c235ec5dd002e345283f98981190a
+  version: 1.0.30001174
+  resolution: "caniuse-lite@npm:1.0.30001174"
+  checksum: c81a3dc8374b63c0084d70a0d9affdb2360457c4a7f758d59e8d175e6fb0c6d2f412914ff18fbdeceaf30ff5b9a3b120c39f0b0c68f380dd5406d02a611217ef
   languageName: node
   linkType: hard
 
@@ -17868,10 +17868,10 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"peek-readable@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "peek-readable@npm:3.1.1"
-  checksum: 74606fb7d56e3b83f7f3570bd7aa0ba6f0461781c179ad492b0029f7efc243bd4eebd848d340743e7a1f629edc1bba9974b3c6443c32a8bf34654f6504d1611a
+"peek-readable@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "peek-readable@npm:3.1.2"
+  checksum: 97c6634ba22d58b246fda352129d628e0d7bd2492383891710a03f8486ca3c52fc83c179f44eb2b473dbdc3e710eaa6ffd399cc072e3bc8584646970b9f93ae2
   languageName: node
   linkType: hard
 
@@ -19560,13 +19560,13 @@ fsevents@~2.3.1:
   linkType: hard
 
 "regjsparser@npm:^0.6.4":
-  version: 0.6.4
-  resolution: "regjsparser@npm:0.6.4"
+  version: 0.6.6
+  resolution: "regjsparser@npm:0.6.6"
   dependencies:
     jsesc: ~0.5.0
   bin:
     regjsparser: bin/parser
-  checksum: cf7838462ebe0256ef25618eab5981dc080501efde6458906a47ee1c017c93f7e27723d4a56f658014d5c8381a60d189e19f05198ef343e106343642471b1594
+  checksum: 3d04357a7a29e3d3f04845aca75822cc5b050acd55f23fa10742a4533962198d051ed451e4e1dcdb01037d6806feec8c340438750f4d5135debb8884769a3a50
   languageName: node
   linkType: hard
 
@@ -21673,13 +21673,13 @@ fsevents@~2.3.1:
   linkType: hard
 
 "strtok3@npm:^6.0.3":
-  version: 6.0.6
-  resolution: "strtok3@npm:6.0.6"
+  version: 6.0.7
+  resolution: "strtok3@npm:6.0.7"
   dependencies:
     "@tokenizer/token": ^0.1.1
     "@types/debug": ^4.1.5
-    peek-readable: ^3.1.1
-  checksum: 80387643fbeb72a16a5b4d0886d49abd04fbbffa0f97cd4f4e950031af1cf4f6af5ff6dd6ceeeaa5481386a93cda755f44500d9a087421cce52e2c9aaddc7202
+    peek-readable: ^3.1.2
+  checksum: 9cc3fab6989e781230c5188e9b0d760a82d8f1b6a63bc2dfd845054af69dff2e5296e9494de933b2a8b4dc5c7139cdac0d747b50adb478bd89b25fc6ca357871
   languageName: node
   linkType: hard
 
@@ -22310,12 +22310,12 @@ fsevents@~2.3.1:
   linkType: hard
 
 "token-types@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "token-types@npm:2.0.0"
+  version: 2.1.0
+  resolution: "token-types@npm:2.1.0"
   dependencies:
-    "@tokenizer/token": ^0.1.0
+    "@tokenizer/token": ^0.1.1
     ieee754: ^1.1.13
-  checksum: 1239d4c6375aad8536ada2caa7e8bf1776e7554bbb47a2f8b346280322b1f480691fcd393071633969fae7b351fd1e7c5c4a1c6463321a184ca88a277af92e0e
+  checksum: 788671b1b5b2de983655e7886940802e2b05ea587b7d3cb3ba724cafb2f1028895657d77a353ba7d85ff6a2aaa9691f9fc3bde07a20cac4c39c871004a766a91
   languageName: node
   linkType: hard
 
