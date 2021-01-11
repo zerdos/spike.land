@@ -4711,7 +4711,7 @@ __metadata:
     "@types/react": 17.0.0
     "@types/react-dom": 17.0.0
     esbuild: 0.8.31
-    framer-motion: 3.2.0
+    framer-motion: 3.2.1
     react: 17.0.1
     react-dom: 17.0.1
     typescript: 4.1.3
@@ -10641,9 +10641,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:3.2.0":
-  version: 3.2.0
-  resolution: "framer-motion@npm:3.2.0"
+"framer-motion@npm:3.2.1":
+  version: 3.2.1
+  resolution: "framer-motion@npm:3.2.1"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: ^5.0.0
@@ -10657,7 +10657,7 @@ __metadata:
   dependenciesMeta:
     "@emotion/is-prop-valid":
       optional: true
-  checksum: 25bbc12d28f9229f1b1270e21d40ede60ebd5d18db4a49fbf84464920702a412e559fb413e415ab38ed25380d2cdf4c9308d0a6cd511e7ab768ed57d948606a5
+  checksum: 6a21a6502edc589938fda78238144648d3ae9197d2fc8455f7ed825c85cbe85f641ef1cf5e2371dadb3017331c1abef8737c81587cb055f01b2f99b71025c98b
   languageName: node
   linkType: hard
 
