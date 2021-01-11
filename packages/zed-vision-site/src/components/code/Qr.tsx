@@ -157,9 +157,15 @@ const Cube = ({ sides, size }) => {
   return (
     <div
       css={css`
-        color: #ecf0f1;
-        backdrop-filter: blur(10px ); 
+      position: relative;
         display: inline-block; 
+        perspective: 900px;
+
+  perspective-origin: 40% 50% ;
+
+
+  /* transform-origin:  100px 200px 0px;  */
+  
         `}
     >
       <div css={spinCubeCss(size)}>
@@ -219,52 +225,41 @@ const Cube = ({ sides, size }) => {
   );
 };
 
-const r1 = Math.random() * 360 - 180;
-const r2 = Math.random() * 360 - 180;
-const r3 = Math.random() * 360 - 180;
-const r4 = Math.random() * 360 - 180;
-const r5 = Math.random() * 720 - 360;
-const r6 = Math.random() * 720 - 360;
-const r7 = Math.random() * 720 - 360;
-const r8 = Math.random() * 360 - 180;
-const r9 = Math.random() * 360 - 180;
-const r10 = Math.random() * 360 - 180;
+const randoms = new Array(3).fill(0).map((x, i) => (Math.random()*360 - 180)*(i===2? 2:1) );
+const r=randoms;
 
 const spinCubeCss = (size: number) =>
   css`
-  position: relative;
+
   width: ${size}px; 
   height: ${size}px;
   animation-name: spincube;
   animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
   animation-iteration-count: infinite;
   animation-duration: 10s;
-    /* perspective: 900px; */
-
   transform-style: preserve-3d;
-  transform-origin:  ${size / 2}px  ${size / 2}px; 
   
  
       
       
   @keyframes spincube {
     from,to {
-      transform: rotateX(${r9}deg) rotateY(${r8}deg) rotateZ(${r4}deg);
+      transform: rotateX(${r[1]}deg) rotateY(${r[2]}deg) rotateZ(${r[0]}deg);
     }
     16% {
-      transform: rotateX(${r1}deg) rotateY(${r2}deg) rotateZ(${r2}deg); 
+      transform: rotateX(${r[1]}deg) rotateY(${r[0]}deg) rotateZ(${r[0]}deg);
     }
     33% {
-      transform: rotateX(${r2}deg) rotateY(${r4}deg) rotateZ(${r3}deg);
+      transform: rotateX(${r[2]}deg) rotateY(${r[0]}deg) rotateZ(${r[1]}deg);
        }
     50% {
-     transform: rotateX(${r5}deg) rotateY(${r6}deg) rotateZ(${r1}deg);
+     transform: rotateX(${r[2]}deg) rotateY(${r[1]}deg) rotateZ(${r[0]}deg);
     }
     66% {
-     transform: rotateX(${r7}deg) rotateY(${r3}deg) rotateZ(${r5}deg);
+     transform: rotateX(${r[0]}deg) rotateY(${r[1]}deg) rotateZ(${r[2]}deg);
       }
     83% {
-     transform: rotateX(${r6}deg) rotateY(${r5}deg)  rotateZ(${r10}deg);
+     transform: rotateX(${r[0]}deg) rotateY(${r[2]}deg) rotateZ(${r[1]}deg);
      }
   }
 
