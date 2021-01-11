@@ -62,12 +62,12 @@ const hash = async (data, onlyHash) => {
 const getHash = async (cid, _timeOut) => {
     const timeout = _timeOut || 20000;
     try {
-        /** @type {{ cat: (arg0: any, arg1: any) => any; } | null} */
+        /** @type {{ get: (arg0: any, arg1: any) => any; } | null} */
         const client = (await getClient());
         if (client === null) {
             return { success: false };
         }
-        const data = await client.cat(cid, { timeout });
+        const data = await client.get(cid, { timeout });
         if (typeof data === "string")
             return half(data);
         console.error({ data });
@@ -106,14 +106,17 @@ export const waitForSignalAndJump = async (url) => {
     }
 };
 /**
- * @param {{signal: string, onSignal: ()=>any, onError?: ()=>any, onExpired?: ()=>any }} opts
+ * @param {{signal: string, onSignal: (getData: ()=> any)=>any, onError?: ()=>any, onExpired?: ()=>any }} opts
  */
 export const waitForSignalAndRun = async ({ signal, onSignal, onError, onExpired }) => {
     try {
         const { success } = await waitForSignal(signal);
         if (success) {
             if (typeof onSignal === "function") {
-                return onSignal();
+                return onSignal(async () => {
+                    const char = await getNextChar(signal);
+                    return char;
+                });
             }
             return 0;
         }
@@ -131,3 +134,32 @@ export const waitForSignalAndRun = async ({ signal, onSignal, onError, onExpired
         return -1;
     }
 };
+export const getNextChar = 
+/**
+* @param {string} signal
+*/
+async (signal) => {
+    const chars = [..."0123456789abcdef"];
+    const nextChar = await raceToSuccess(chars.map((x) => waitForSignal(signal + x).then((s) => {
+        if (s.success)
+            return x;
+        throw new Error("nope");
+    })));
+    return nextChar;
+};
+/**
+ * @param {any[]} promises
+ */
+function raceToSuccess(promises) {
+    let numRejected = 0;
+    return new Promise(
+    /**
+     * @param {Promise<any>} promise
+     */
+    (resolve, reject) => promises.forEach((promise) => promise
+        .then(resolve)
+        .catch(() => {
+        if (++numRejected === promises.length)
+            reject();
+    })));
+}

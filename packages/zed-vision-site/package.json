@@ -1,7 +1,7 @@
 {
   "name": "@zedvision/zedvision-site",
   "scripts": {
-    "build": "echo skiping gatsby build because its very slow",
+    "build": "echo skipping gatsby build because its very slow",
     "develop": "gatsby develop",
     "gbuild": "cp -afr blog/. static && gatsby build --no-uglify && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
     "start": "yarn gbuild && yarn serve",

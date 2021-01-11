@@ -1,3 +1,5 @@
+import { CSSObject } from "@emotion/react";
+
 declare module "gatsby";
 declare module "@zedvision/qrious" {
   interface IQROptions {
@@ -19,6 +21,6 @@ declare module "@zedvision/qrious" {
 
 declare namespace JSX {
   interface IntrinsicElements {
-    css: any;
+    css?: CSSObject;
   }
 }

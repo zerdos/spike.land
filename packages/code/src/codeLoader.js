@@ -23,6 +23,8 @@ function getSession() {
 export async function run(mode = "window", _w, code = "") {
   const { pathname } = new URL(window.location.href);
 
+  setTimeout(async () => Object.assign(window, await (import("./hash.js"))));
+
   const { renderPreviewWindow } = await import("./renderPreviewWindow.js");
   const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
 

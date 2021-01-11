@@ -9,7 +9,8 @@ export function sendSignal(signal: string): Promise<{
 export function waitForSignalAndJump(url: string): Promise<void>;
 export function waitForSignalAndRun({ signal, onSignal, onError, onExpired }: {
     signal: string;
-    onSignal: () => any;
-    onError?: () => any;
-    onExpired?: () => any;
+    onSignal: (getData: () => any) => any;
+    onError?: (() => any) | undefined;
+    onExpired?: (() => any) | undefined;
 }): Promise<any>;
+export function getNextChar(signal: string): Promise<any>;

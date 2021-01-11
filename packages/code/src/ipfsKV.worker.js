@@ -5,7 +5,7 @@ importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
 // @ts-ignore
 const IPFS = (() => globalThis.Ipfs)();
 
-/** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (cid: string, options: { offset?: number;  length?: number; timeout?: 	number;         signal?: 	AbortSignal;        } ) => AsyncIterable<Uint8Array> }} */
+/** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; get: (cid: string, options: { offset?: number;  length?: number; timeout?: 	number;         signal?: 	AbortSignal;        } ) => AsyncIterable<Uint8Array> }} */
 let ipfsNode;
 
 const ipfsKV = {
@@ -63,12 +63,12 @@ const ipfsKV = {
     *         signal?: 	AbortSignal;
      *        }}  options 
     */
-  cat: async (cid, options) => {
+  get: async (cid, options) => {
     try {
       ipfsNode = ipfsNode || await IPFS.create({ slient: true });
       const res = [];
 
-      for await (const result of ipfsNode.cat(cid, options)) {
+      for await (const result of ipfsNode.get(cid, options)) {
         res.push(new TextDecoder("utf-8").decode(result));
       }
       console.log("CAT CAT", res);

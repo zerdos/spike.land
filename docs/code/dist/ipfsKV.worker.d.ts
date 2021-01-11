@@ -1,5 +1,5 @@
 declare const IPFS: any;
-/** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (cid: string, options: { offset?: number;  length?: number; timeout?: 	number;         signal?: 	AbortSignal;        } ) => AsyncIterable<Uint8Array> }} */
+/** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; get: (cid: string, options: { offset?: number;  length?: number; timeout?: 	number;         signal?: 	AbortSignal;        } ) => AsyncIterable<Uint8Array> }} */
 declare let ipfsNode: {
     add: (arg0: any, arg1: any) => PromiseLike<{
         cid: any;
@@ -7,7 +7,7 @@ declare let ipfsNode: {
         cid: any;
     };
     addAll: (arg0: any) => any;
-    cat: (cid: string, options: {
+    get: (cid: string, options: {
         offset?: number;
         length?: number;
         timeout?: number;
@@ -24,7 +24,7 @@ declare namespace ipfsKV {
     }[] | {
         e: any;
     }>;
-    function cat(cid: string, options: {
+    function get(cid: string, options: {
         offset?: number | undefined;
         length?: number | undefined;
         timeout?: number | undefined;
