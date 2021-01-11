@@ -72,7 +72,7 @@ export const Qr = () => {
             setCubeState(-1);
           }, 6000);
 
-          const data = JSON.parse(await getData());
+          const data = await getData();
 
           const rootUrl = data.rootUrl;
           window.location.href = rootUrl;
