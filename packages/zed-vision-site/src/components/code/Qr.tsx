@@ -51,6 +51,7 @@ export const Qr = () => {
 
   React.useEffect(() => {
     const connect = async () => {
+    
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
@@ -59,11 +60,12 @@ export const Qr = () => {
       setUrl({ last: urls.current, current: url });
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
     };
-    if (typeof window !== "undefined" && retry > 0) connect();
+    if (typeof window !== "undefined" && retry > 0 && cubeState===1) connect();
   }, [retry]);
 
   React.useEffect(() => {
     const setSignal = (url: string) => {
+      if (cubeState!==1) return;
       waitForSignalAndRun({
         signal: url,
         onSignal: async (getData) => {
@@ -72,7 +74,11 @@ export const Qr = () => {
             setCubeState(-1);
           }, 6000);
 
+          const cl = setInterval(()=>setUrl(Math.random()+" ------------------------" + Math.random(),100));
+
+
           const data = await getData();
+          clearInterval(cl);
 
           const rootUrl = data.rootUrl;
           window.location.href = rootUrl;
