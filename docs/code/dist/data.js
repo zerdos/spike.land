@@ -3,19 +3,16 @@ import getVersions from "./versions.js";
 const versions = getVersions();
 export const getProjects = async () => {
     const uuid = await getUserId();
-    const projects = await shaDB.get(uuid, "json");
-    if (typeof projects === "string" || projects === null || !projects.list) {
+    const userData = await shaDB.get(uuid, "json");
+    if (typeof userData === "string" || userData === null || !userData.list) {
         const v4 = (await import(`https://unpkg.com/uuid@${versions.uuid}/dist/esm-browser/v4.js`)).default;
         const projectId = v4();
-        await shaDB.put(uuid, JSON.stringify({
-            list: [projectId],
-            [projectId]: {
+        await shaDB.put(uuid, JSON.stringify(Object.assign(Object.assign({}, userData), { list: [projectId], [projectId]: {
                 lastOpen: Date.now(),
-            },
-        }));
+            } })));
         return [projectId];
     }
-    return projects.list;
+    return userData.list;
 };
 /** @type {string} */
 let uuid;

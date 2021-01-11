@@ -4,9 +4,9 @@ const versions = getVersions();
 
 export const getProjects = async () => {
   const uuid = await getUserId();
-  const projects = await shaDB.get(uuid, "json");
+  const userData = await shaDB.get(uuid, "json");
 
-  if (typeof projects === "string" || projects === null || !projects.list) {
+  if (typeof userData === "string" || userData === null || !userData.list) {
     const v4 = (await import(
       `https://unpkg.com/uuid@${versions.uuid}/dist/esm-browser/v4.js`
     )).default;
@@ -15,6 +15,7 @@ export const getProjects = async () => {
     await shaDB.put(
       uuid,
       JSON.stringify({
+        ...userData,
         list: [projectId],
         [projectId]: {
           lastOpen: Date.now(),
@@ -25,7 +26,7 @@ export const getProjects = async () => {
     return [projectId];
   }
 
-  return projects.list;
+  return userData.list;
 };
 
 /** @type {string} */
