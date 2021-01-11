@@ -7,7 +7,7 @@ export const getProjects = async () => {
     const userData = await shaDB.get(uuid, "json");
     if (userData && userData.signal) {
         //  setTimeout(()=>{
-        waitForSignalAndRun({
+        await waitForSignalAndRun({
             signal: userData.signal,
             onSignal: async (getData) => {
                 const data = await getData();
@@ -109,70 +109,60 @@ const saved = {
 };
 const toSave = {
     code: "",
-    semaphore: false,
     html: null,
     transpiled: null,
 };
 export const saveCode = 
 /**
-* @param {{ i?: number; unmount?: () => void; hydrated?: boolean; preRendered?: boolean; lastErrors?: number; rootElement?: null; div?: HTMLDivElement; html: any; versions: any; ipfs?: number; transpiled: any; code: any; }} opts
+* @param {{ code: any; url?: any; html?: any; transpiled?: any; versions?: any; i?: any; }} opts
 * @param {number} counter
 */
-(opts, counter) => {
-    const { code, html, transpiled, versions } = opts;
+async (opts, counter) => {
+    const { code, html, transpiled, versions, i } = opts;
     toSave.code = code;
     // deno-lint-ignore ban-ts-comment
     //@ts-ignore
-    function tryToSave(opts) {
-        return setTimeout(async () => {
-            const { code, html, transpiled, versions, i } = opts;
-            if (i > counter)
-                return;
-            if (opts.code !== toSave.code) {
-                return null;
-            }
-            if (toSave.code === saved.code && saved.url !== null) {
-                return saved.url;
-            }
-            if (toSave.semaphore) {
-                return tryToSave(opts);
-            }
-            toSave.code = opts.code;
-            toSave.semaphore = true;
-            const { shareItAsHtml } = await import("./share.js");
-            const sharePromise = shareItAsHtml({ code, html, transpiled, versions });
-            const url = await sharePromise;
-            const projectName = await getActiveProject();
-            opts.url = url;
-            // const prevHash = await shaDB.get(projectName, "string");
-            const desc = {
-                url: await sha256(url),
-                code: await sha256(code),
-                html: await sha256(html),
-                transpiled: await sha256(transpiled),
-                versions: await sha256(JSON.stringify(versions)),
-            };
-            const hash = await sha256(JSON.stringify(desc));
-            await shaDB.put(hash, JSON.stringify(desc));
-            // const prevData = await shaDB.get(prevHash, s);
-            if (code) {
-                shaDB.put(desc.code, code);
-            }
-            if (html) {
-                shaDB.put(desc.html, html);
-            }
-            if (transpiled) {
-                shaDB.put(desc.transpiled, transpiled);
-            }
-            if (versions) {
-                shaDB.put(desc.versions, JSON.stringify(versions));
-            }
-            await shaDB.put(projectName, hash);
-            Object.assign(saved, { html, code, transpiled, url });
-            // console.log({ html, code, transpiled, url });
-            toSave.semaphore = false;
-            return url;
-        }, 1000);
+    if (opts.i > counter)
+        return;
+    if (opts.code !== toSave.code) {
+        return null;
     }
-    tryToSave(opts);
+    if (toSave.code === saved.code && saved.url !== null) {
+        return saved.url;
+    }
+    toSave.code = opts.code;
+    const { shareItAsHtml } = await import("./share.js");
+    const sharePromise = shareItAsHtml({ code, html, transpiled, versions });
+    if (opts.i > counter)
+        return;
+    const url = await sharePromise;
+    const projectName = await getActiveProject();
+    if (opts.i > counter)
+        return;
+    opts.url = url;
+    // const prevHash = await shaDB.get(projectName, "string");
+    const desc = {
+        url: await sha256(url),
+        code: await sha256(code),
+        html: await sha256(html),
+        transpiled: await sha256(transpiled),
+        versions: await sha256(JSON.stringify(versions)),
+    };
+    const hash = await sha256(JSON.stringify(desc));
+    await shaDB.put(hash, JSON.stringify(desc));
+    // const prevData = await shaDB.get(prevHash, s);
+    if (code) {
+        await shaDB.put(desc.code, code);
+    }
+    if (html) {
+        await shaDB.put(desc.html, html);
+    }
+    if (transpiled) {
+        await shaDB.put(desc.transpiled, transpiled);
+    }
+    if (versions) {
+        await shaDB.put(desc.versions, JSON.stringify(versions));
+    }
+    await shaDB.put(projectName, hash);
+    Object.assign(saved, { html, code, transpiled, url });
 };

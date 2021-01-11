@@ -14,16 +14,10 @@ export function getCodeToLoad(): Promise<{
 }>;
 export function getProjects(): Promise<any>;
 export function saveCode(opts: {
-    i?: number | undefined;
-    unmount?: (() => void) | undefined;
-    hydrated?: boolean | undefined;
-    preRendered?: boolean | undefined;
-    lastErrors?: number | undefined;
-    rootElement?: null | undefined;
-    div?: HTMLDivElement | undefined;
-    html: any;
-    versions: any;
-    ipfs?: number | undefined;
-    transpiled: any;
     code: any;
-}, counter: number): void;
+    url?: any;
+    html?: any;
+    transpiled?: any;
+    versions?: any;
+    i?: any;
+}, counter: number): Promise<null | undefined>;
