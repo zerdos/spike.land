@@ -125,7 +125,7 @@ export const Qr = () => {
       transform: translateX(0px);
     }
    to {
-      transform: translatey(-1000px);
+      transform: translateY(-1000px);
     }
     };
     
@@ -290,7 +290,7 @@ export default () => (
       styles={css`
       body{
           background: #333;
-           overflow: visble;
+           overflow: visible;
           margin: 300px;
           width: 0px;
           text-align: center;
