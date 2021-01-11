@@ -1,18 +1,26 @@
 declare const IPFS: any;
-/** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; get: (cid: string, options: { offset?: number;  length?: number; timeout?: 	number;         signal?: 	AbortSignal;        } ) => AsyncIterable<Uint8Array> }} */
+/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
 declare let ipfsNode: {
-    add: (arg0: any, arg1: any) => PromiseLike<{
+    add: (arg0: string, arg1: {
+        onlyHash: boolean;
+    }) => PromiseLike<{
         cid: any;
     }> | {
         cid: any;
     };
     addAll: (arg0: any) => any;
-    get: (cid: string, options: {
-        offset?: number;
-        length?: number;
-        timeout?: number;
-        signal?: AbortSignal;
-    }) => AsyncIterable<Uint8Array>;
+    cat: (arg0: string, arg1: {
+        offset?: number | undefined;
+        length?: number | undefined;
+        timeout?: number | undefined;
+        signal?: AbortSignal | undefined;
+    }) => any;
+    get: (arg0: string, arg1: {
+        offset?: number | undefined;
+        length?: number | undefined;
+        timeout?: number | undefined;
+        signal?: AbortSignal | undefined;
+    }) => any;
 };
 declare namespace ipfsKV {
     function add(data: string, options: {
@@ -24,7 +32,13 @@ declare namespace ipfsKV {
     }[] | {
         e: any;
     }>;
-    function get(cid: string, options: {
+    function cat(cid: string, options: {
+        offset?: number | undefined;
+        length?: number | undefined;
+        timeout?: number | undefined;
+        signal?: AbortSignal | undefined;
+    }): Promise<string>;
+    function getData(cid: string, options: {
         offset?: number | undefined;
         length?: number | undefined;
         timeout?: number | undefined;

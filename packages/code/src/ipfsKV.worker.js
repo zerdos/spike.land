@@ -5,7 +5,7 @@ importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
 // @ts-ignore
 const IPFS = (() => globalThis.Ipfs)();
 
-/** @type {{ add: (arg0: any, arg1: any) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; get: (cid: string, options: { offset?: number;  length?: number; timeout?: 	number;         signal?: 	AbortSignal;        } ) => AsyncIterable<Uint8Array> }} */
+/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
 let ipfsNode;
 
 const ipfsKV = {
@@ -15,7 +15,7 @@ const ipfsKV = {
  */
   add: async (data, options) => {
     try {
-      ipfsNode = ipfsNode || await IPFS.create({ slient: true });
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
 
       // console.log(await ipfsNode.config.getAll())
 
@@ -38,7 +38,7 @@ const ipfsKV = {
    */
   addAll: async (files) => {
     try {
-      ipfsNode = ipfsNode || await IPFS.create({ slient: true });
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
       const res = [];
 
       for await (const result of ipfsNode.addAll(files)) {
@@ -63,12 +63,44 @@ const ipfsKV = {
     *         signal?: 	AbortSignal;
      *        }}  options 
     */
-  get: async (cid, options) => {
+  cat: async (cid, options) => {
     try {
-      ipfsNode = ipfsNode || await IPFS.create({ slient: true });
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
       const res = [];
 
+      console.log("GET DATA");
+
+      for await (const result of ipfsNode.cat(cid, options)) {
+        console.log("RES", result);
+        res.push(new TextDecoder("utf-8").decode(result));
+      }
+      console.log("CAT CAT", res);
+
+      return res.join("");
+    } catch (e) {
+      return (JSON.stringify({ e }));
+    }
+  },
+
+  /**
+   * 
+   * @param {string} cid 
+   * @param {{
+    *          offset?: number;
+    *          length?: number;
+    *          timeout?: 	number;
+    *         signal?: 	AbortSignal;
+     *        }}  options 
+    */
+  getData: async (cid, options) => {
+    try {
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+      const res = [];
+
+      console.log("GET DATA");
+
       for await (const result of ipfsNode.get(cid, options)) {
+        console.log("RES", result);
         res.push(new TextDecoder("utf-8").decode(result));
       }
       console.log("CAT CAT", res);

@@ -21,7 +21,23 @@ export function getIpfsClient(): Promise<{
    *         signal?: 	AbortSignal;
     *        }}  options
    */
-    get: (cid: string, { timeout }: {
+    cat: (cid: string, { timeout }: {
+        offset?: number;
+        length?: number;
+        timeout?: number;
+        signal?: AbortSignal;
+    }) => any;
+    /**
+   *
+   * @param {string} cid
+   * @param {{
+   *          offset?: number;
+   *          length?: number;
+   *          timeout?: 	number;
+   *         signal?: 	AbortSignal;
+    *        }}  options
+   */
+    getData: (cid: string, { timeout }: {
         offset?: number;
         length?: number;
         timeout?: number;

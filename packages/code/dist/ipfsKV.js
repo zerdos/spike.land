@@ -1,5 +1,5 @@
 import versions from "./versions.js";
-/** @type {{ add: (arg0: any, arg1: any) => any; addAll: (arg0: any) => any; get: (arg0: any, arg1: any) => any; }} */
+/** @type {{ add: (arg0: any, arg1: { onlyHash: boolean; }) => any; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { timeout: number | undefined; }) => any; getData: (arg0: string, arg1: { timeout: number | undefined; }) => any; }} */
 let worker;
 export const getIpfsClient = async () => {
     worker = await init();
@@ -31,9 +31,27 @@ export const getIpfsClient = async () => {
        *         signal?: 	AbortSignal;
         *        }}  options
        */
-        get: (cid, { timeout }) => {
+        cat: (cid, { timeout }) => {
             try {
-                return worker.get(cid, { timeout });
+                return worker.cat(cid, { timeout });
+            }
+            catch (e) {
+                console.log({ "comlink-cat": e });
+            }
+        },
+        /**
+       *
+       * @param {string} cid
+       * @param {{
+       *          offset?: number;
+       *          length?: number;
+       *          timeout?: 	number;
+       *         signal?: 	AbortSignal;
+        *        }}  options
+       */
+        getData: (cid, { timeout }) => {
+            try {
+                return worker.getData(cid, { timeout });
             }
             catch (e) {
                 console.log({ "comlink-cat": e });
