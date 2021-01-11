@@ -14,8 +14,8 @@ export async function sendSignalToQrCode(rootUrl) {
   if (isKey) {
     await (import("./hash.js").then(async ({ sendSignal }) => {
       const signal = `https://zed.vision/${maybeRoute}`;
-      await addDataToSignal("c -" + signal, {});
-      sendSignal(
+
+      await sendSignal(
         signal,
         JSON.stringify({
           rootUrl,
@@ -29,31 +29,31 @@ export async function sendSignalToQrCode(rootUrl) {
   }
 }
 
-/**
- * 
- * @param {string} signal 
- * @param {any} _data 
- */
-export const addDataToSignal = async (signal, _data) => {
-  const data = {
-    signal: signal,
-    message: "hello",
-    signals: {
-      test: "sksjdhdohwodofhwqddddddw",
-    },
-  };
-  const dataAsString = JSON.stringify(data);
-  const hash = await sha256(dataAsString);
-  const ZKEY = await getZkey(hash);
+// /**
+//  *
+//  * @param {string} signal
+//  * @param {any} _data
+//  */
+// export const addDataToSignal = async (signal, _data) => {
+//   const data = {
+//     signal: signal,
+//     message: "hello",
+//     signals: {
+//       test: "sksjdhdohwodofhwqddddddw",
+//     },
+//   };
+//   const dataAsString = JSON.stringify(data);
+//   const hash = await sha256(dataAsString);
+//   const ZKEY = await getZkey(hash);
 
-  return fetch("https://zed.vision", {
-    body: dataAsString,
-    method: "POST",
-    headers: {
-      ZKEY,
-    },
-  });
-};
+//   return fetch("https://zed.vision", {
+//     body: dataAsString,
+//     method: "POST",
+//     headers: {
+//       ZKEY,
+//     },
+//   });
+// };
 
 /**
  * @param {string} hash

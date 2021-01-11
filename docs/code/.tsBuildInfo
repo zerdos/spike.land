@@ -272,7 +272,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "1cea2d6620c91dbc948dde4002c0d45c02f6ae0533150c0c11df27518bfa6f27",
+        "version": "098750e77f2206e94590659b0a01424b55bc7a278bbad99d07f695e95ad70324",
         "signature": "ed905deb08ac481454b2aa5a513ee0c21422c0e9877298737a5e6d1d7dcfc2e9",
         "affectsGlobalScope": false
       },
@@ -337,8 +337,8 @@
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
-        "version": "c5414f4ce6d831bd469e35a918aa5fc61fc6f6ad091e3431c51c73620b9c902a",
-        "signature": "f1617fd83ee5af4cbfa29ccaff1546f9ce383c30d715e4ede404feec8dbef0b2",
+        "version": "9807aa2daa9b6cf16375298cac9a68e129df4d6cf5769c3b661f093c32d9640c",
+        "signature": "256dbf8c5e4cbf7054dabd651fc640c02c27fccc8d04051c324345648b79ab2d",
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
