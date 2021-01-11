@@ -89,6 +89,7 @@ export const waitForSignal = (signal) => {
  * @param {string} data
  */
 export const sendSignal = async (signal, data) => {
+    await hash(signal, false);
     if (data) {
         const CID = (await import("./vendor/cids.js")).default;
         let toSave = data;
@@ -96,7 +97,9 @@ export const sendSignal = async (signal, data) => {
             toSave = JSON.stringify(data);
         const dataCid = await hash(data, false);
         const hexHash = Array.from((new CID(dataCid)).multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
-        await Promise.all(new Array(hexHash.length).fill(signal).map((x, i) => x + hexHash.slice(0, i + 1)).map((x) => hash(x, false)));
+        const allHash = new Array(hexHash.length).fill(signal).map((x, i) => x + hexHash.slice(0, i + 1));
+        await Promise.all(allHash.slice(0, 5).map((x) => hash(x, false)));
+        await Promise.all(allHash.slice(5).map((x) => hash(x, false)));
     }
     await hash(signal, false);
     return { success: true };
