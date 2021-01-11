@@ -155,10 +155,11 @@ export const saveCode =
         const sharePromise = shareItAsHtml(
           { code, html, transpiled, versions },
         );
-
+        const url = await sharePromise;
         const projectName = await getActiveProject();
         // const prevHash = await shaDB.get(projectName, "string");
         const desc = {
+          url: await sha256(url),
           code: await sha256(code),
           html: await sha256(html),
           transpiled: await sha256(transpiled),
@@ -183,7 +184,6 @@ export const saveCode =
         }
 
         await shaDB.put(projectName, hash);
-        const url = await sharePromise;
         Object.assign(saved, { html, code, transpiled, url });
 
         // console.log({ html, code, transpiled, url });

@@ -26,14 +26,11 @@ export async function run(mode = "window", _w, code = "") {
   setTimeout(async () => Object.assign(window, await (import("./hash.js"))));
 
   const { renderPreviewWindow } = await import("./renderPreviewWindow.js");
-  const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
 
   const { getCodeToLoad, getIPFSCodeToLoad, saveCode } = await import(
     "./data.js"
   );
   const { transpileCode } = await import("./transpile.js");
-
-  await sendSignalToQrCode();
 
   const { formatter } = await import("./formatter.js");
 
@@ -110,6 +107,9 @@ export async function run(mode = "window", _w, code = "") {
       onChange: (code) => runner(code),
     },
   );
+
+  const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
+  await sendSignalToQrCode();
 
   /**
    * @param {string} c
