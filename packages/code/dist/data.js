@@ -5,16 +5,20 @@ const versions = getVersions();
 export const getProjects = async () => {
     const uuid = await getUserId();
     const userData = await shaDB.get(uuid, "json");
+    let appHash = null;
     if (userData && userData.signal) {
         //  setTimeout(()=>{
-        await waitForSignalAndRun({
+        appHash = await new Promise((resolve) => waitForSignalAndRun({
             signal: userData.signal,
             onSignal: async (getData) => {
                 const data = await getData();
                 await shaDB.put(uuid, JSON.stringify(Object.assign(Object.assign({}, userData), { signal: null })));
-                window.location.href = data.rootUrl;
+                const app = await fetch(`${data.rootUrl}/app.tsx`).then((res) => res.text());
+                const appHash = await sha256(app);
+                await shaDB.put(appHash, app);
+                resolve(appHash);
             },
-        });
+        }));
         //})
     }
     if (typeof userData === "string" || userData === null || !userData.list) {
@@ -23,8 +27,12 @@ export const getProjects = async () => {
         await shaDB.put(uuid, JSON.stringify(Object.assign(Object.assign({}, userData), { list: [projectId], [projectId]: {
                 lastOpen: Date.now(),
             } })));
+        if (appHash !== null)
+            await shaDB.put(projectId, appHash);
         return [projectId];
     }
+    if (appHash !== null)
+        await shaDB.put(userData.list[0], appHash);
     return userData.list;
 };
 /** @type {string} */

@@ -7,19 +7,32 @@ export const getProjects = async () => {
   const uuid = await getUserId();
   const userData = await shaDB.get(uuid, "json");
 
+  let appHash = null;
   if (userData && userData.signal) {
     //  setTimeout(()=>{
 
-    await waitForSignalAndRun(
-      {
-        signal: userData.signal,
-        onSignal: async (getData) => {
-          const data = await getData();
-          await shaDB.put(uuid, JSON.stringify({ ...userData, signal: null }));
+    appHash = await new Promise((resolve) =>
+      waitForSignalAndRun(
+        {
+          signal: userData.signal,
+          onSignal: async (getData) => {
+            const data = await getData();
+            await shaDB.put(
+              uuid,
+              JSON.stringify({ ...userData, signal: null }),
+            );
 
-          window.location.href = data.rootUrl;
+            const app = await fetch(`${data.rootUrl}/app.tsx`).then((res) =>
+              res.text()
+            );
+
+            const appHash = await sha256(app);
+            await shaDB.put(appHash, app);
+
+            resolve(appHash);
+          },
         },
-      },
+      )
     );
     //})
   }
@@ -41,9 +54,11 @@ export const getProjects = async () => {
       }),
     );
 
+    if (appHash !== null) await shaDB.put(projectId, appHash);
     return [projectId];
   }
 
+  if (appHash !== null) await shaDB.put(userData.list[0], appHash);
   return userData.list;
 };
 
