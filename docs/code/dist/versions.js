@@ -1,5 +1,5 @@
 function versions() {
-    const code = "11.6.16";
+    const code = "11.7.0";
     const shadb = "11.4.16";
     const editor = "11.6.16";
     const emotionRenderer = "11.6.16";
