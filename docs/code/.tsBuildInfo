@@ -272,7 +272,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "8570e511ed3d6898e058a7707f587bb719a5e0a075f7b8efd8d035093705af33",
+        "version": "dd5e23e3aed2e8df6093c405d364303389fbea38949b0b67e8c17f8b56b6fbb7",
         "signature": "ed905deb08ac481454b2aa5a513ee0c21422c0e9877298737a5e6d1d7dcfc2e9",
         "affectsGlobalScope": false
       },
@@ -496,7 +496,6 @@
         "./src/versions.js"
       ],
       "./src/hash.js": [
-        "../../node_modules/@types/prop-types/index.d.ts",
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
         "./src/vendor/cids.js",
