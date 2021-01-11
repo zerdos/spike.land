@@ -14,7 +14,7 @@ export async function sendSignalToQrCode(rootUrl) {
   if (isKey) {
     await (import("./hash.js").then(async ({ sendSignal }) => {
       const signal = `https://zed.vision/${maybeRoute}`;
-      await addDataToSignal(signal, {});
+      await addDataToSignal("c -" + signal, {});
       sendSignal(
         signal,
         JSON.stringify({
