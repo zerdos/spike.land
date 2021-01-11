@@ -4,7 +4,7 @@ import React from "react";
 import { waitForSignalAndRun } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
-import {getUserId, shaDB} from "./getUser"
+import { getUserId, shaDB } from "./getUser";
 
 export const Qr = () => {
   const side1 = React.useRef<HTMLCanvasElement>(null);
@@ -52,7 +52,6 @@ export const Qr = () => {
 
   React.useEffect(() => {
     const connect = async () => {
-    
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
@@ -61,38 +60,33 @@ export const Qr = () => {
       setUrl({ last: urls.current, current: url });
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
     };
-    if (typeof window !== "undefined" && retry > 0 && cubeState===1) connect();
+    if (typeof window !== "undefined" && retry > 0 && cubeState === 1) {
+      connect();
+    }
   }, [retry]);
 
   React.useEffect(() => {
     const setSignal = (url: string) => {
-      if (cubeState!==1) return;
+      if (cubeState !== 1) return;
       waitForSignalAndRun({
         signal: url,
         onSignal: async () => {
-          
+          const uuid = await getUserId();
+          const userData = await shaDB.get(uuid, "json");
+          await shaDB.put(uuid, {
+            ...userData,
+            signal: url,
+          });
 
-const uuid = await getUserId();
-const userdata = await shaDB.get("uuid", "json");
-await shaDB.put(uuid, {
-  ...userdata,
-  signal: url
-});
-
-          setTimeout(()=> window.location.href="https://blog.zed.vision/code/", 2000);
-          setTimeout(()=>setCubeState(0));
-
-        
-
-          
+          setTimeout(
+            () => window.location.href = "https://blog.zed.vision/code/",
+            2000,
+          );
+          setTimeout(() => setCubeState(0));
 
           setTimeout(() => {
             setCubeState(-1);
           }, 6000);
-
-          
-
-
         },
         onError: () => {
           console.log("Error while waiting for the signal", { url });

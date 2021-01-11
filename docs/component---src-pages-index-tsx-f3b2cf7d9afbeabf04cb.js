@@ -60,7 +60,7 @@ var shaDB = {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return __webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, "4gTr"));
+              return __webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, "UUf3"));
 
             case 2:
               _yield$import = _context.sent;
@@ -100,7 +100,7 @@ var shaDB = {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return __webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, "4gTr"));
+              return __webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, "UUf3"));
 
             case 2:
               _yield$import2 = _context2.sent;
@@ -193,11 +193,14 @@ function _getUserId() {
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__("cINY");
 
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+var defineProperty = __webpack_require__("zjfJ");
+
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__("fGyu");
 
 // CONCATENATED MODULE: ../code/dist/versions.js
-function versions(){var code="11.7.0";var shadb="11.4.16";var editor="11.6.16";var emotionRenderer="11.6.16";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
+function versions(){var code="11.7.2";var shadb="11.7.2";var editor="11.6.16";var emotionRenderer="11.6.16";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
 // CONCATENATED MODULE: ../code/dist/hash.js
 // import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
 var hash_v=dist_versions();/**
@@ -224,7 +227,7 @@ return data;};/** @type {null | {add: (data: string)=>Promise<string>}} */var ip
  */var waitForSignal=function waitForSignal(signal){return hash(signal,true).catch(function(){return{success:false};});};/**
  * @param {string} signal
  * @param {string} data
- */var sendSignal=/*#__PURE__*/function(){var _ref3=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee3(signal,data){var CID,toSave,dataCid,hexHash;return regenerator_default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!data){_context3.next=12;break;}_context3.next=3;return __webpack_require__.e(/* import() */ 5).then(__webpack_require__.bind(null, "60a2"));case 3:CID=_context3.sent.default;toSave=data;if(typeof data!=="string")toSave=JSON.stringify(data);_context3.next=8;return hash(data,false);case 8:dataCid=_context3.sent;hexHash=Array.from(new CID(dataCid).multihash).map(function(b){return("00"+b.toString(16)).slice(-2);}).join("");_context3.next=12;return Promise.all(new Array(hexHash.length).fill(signal).map(function(x,i){return x+hexHash.slice(0,i+1);}).map(function(x){return hash(x,false);}));case 12:_context3.next=14;return hash(signal,false);case 14:return _context3.abrupt("return",{success:true});case 15:case"end":return _context3.stop();}}},_callee3);}));return function sendSignal(_x5,_x6){return _ref3.apply(this,arguments);};}();/**
+ */var sendSignal=/*#__PURE__*/function(){var _ref3=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee3(signal,data){var CID,toSave,dataCid,hexHash,allHash;return regenerator_default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:_context3.next=2;return hash(signal,false);case 2:if(!data){_context3.next=17;break;}_context3.next=5;return __webpack_require__.e(/* import() */ 5).then(__webpack_require__.bind(null, "60a2"));case 5:CID=_context3.sent.default;toSave=data;if(typeof data!=="string")toSave=JSON.stringify(data);_context3.next=10;return hash(data,false);case 10:dataCid=_context3.sent;hexHash=Array.from(new CID(dataCid).multihash).map(function(b){return("00"+b.toString(16)).slice(-2);}).join("");allHash=new Array(hexHash.length).fill(signal).map(function(x,i){return x+hexHash.slice(0,i+1);});_context3.next=15;return Promise.all(allHash.slice(0,5).map(function(x){return hash(x,false);}));case 15:_context3.next=17;return Promise.all(allHash.slice(5).map(function(x){return hash(x,false);}));case 17:alert(signal+" "+data);return _context3.abrupt("return",{success:true});case 19:case"end":return _context3.stop();}}},_callee3);}));return function sendSignal(_x5,_x6){return _ref3.apply(this,arguments);};}();/**
  * @param {string} url
  */var waitForSignalAndJump=/*#__PURE__*/function(){var _ref4=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee4(url){var res;return regenerator_default.a.wrap(function _callee4$(_context4){while(1){switch(_context4.prev=_context4.next){case 0:_context4.prev=0;_context4.next=3;return waitForSignal(url);case 3:res=_context4.sent;if(typeof res==="string"||res.success){window.location.href=url;}_context4.next=10;break;case 7:_context4.prev=7;_context4.t0=_context4["catch"](0);console.log({msg:"SignalAndJump error",e:_context4.t0});case 10:_context4.prev=10;console.log({msg:"SignalAndJump Final"});return _context4.finish(10);case 13:case"end":return _context4.stop();}}},_callee4,null,[[0,7,10,13]]);}));return function waitForSignalAndJump(_x7){return _ref4.apply(this,arguments);};}();/**
  * @param {{signal: string, onSignal: (getData: ()=> any)=>any, onError?: ()=>any, onExpired?: ()=>any }} opts
@@ -288,6 +291,7 @@ function _sha() {
   return _sha.apply(this, arguments);
 }
 // CONCATENATED MODULE: ./src/components/code/Qr.tsx
+
 
 
 
@@ -384,7 +388,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        position: absolute;\n         animation-name:", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: 1;\n  animation-duration: 8s;\n   transform-style: preserve-3d;\n  transform-origin:  center center; \n"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        position: absolute;\n         animation-name:", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: 1;\n  animation-duration: 4s;\n   transform-style: preserve-3d;\n  transform-origin:  center center; \n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -403,8 +407,13 @@ function _templateObject() {
   return data;
 }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 /** @jsx jsx */
+
 
 
 
@@ -495,7 +504,9 @@ var Qr_Qr = function Qr() {
       };
     }();
 
-    if (typeof window !== "undefined" && retry > 0 && cubeState === 1) connect();
+    if (typeof window !== "undefined" && retry > 0 && cubeState === 1) {
+      connect();
+    }
   }, [retry]);
   react_default.a.useEffect(function () {
     var setSignal = function setSignal(url) {
@@ -503,30 +514,39 @@ var Qr_Qr = function Qr() {
       waitForSignalAndRun({
         signal: url,
         onSignal: function () {
-          var _onSignal = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(getData) {
-            var cl, data, rootUrl, start;
+          var _onSignal = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2() {
+            var uuid, userdata;
             return regenerator_default.a.wrap(function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
-                    setCubeState(0);
+                    _context2.next = 2;
+                    return getUserId();
+
+                  case 2:
+                    uuid = _context2.sent;
+                    _context2.next = 5;
+                    return shaDB.get("uuid", "json");
+
+                  case 5:
+                    userdata = _context2.sent;
+                    _context2.next = 8;
+                    return shaDB.put(uuid, _objectSpread(_objectSpread({}, userdata), {}, {
+                      signal: url
+                    }));
+
+                  case 8:
+                    setTimeout(function () {
+                      return window.location.href = "https://blog.zed.vision/code/";
+                    }, 2000);
+                    setTimeout(function () {
+                      return setCubeState(0);
+                    });
                     setTimeout(function () {
                       setCubeState(-1);
                     }, 6000);
-                    cl = setInterval(function () {
-                      return setUrl(Math.random() + " ------------------------" + Math.random(), 100);
-                    });
-                    _context2.next = 5;
-                    return getData();
 
-                  case 5:
-                    data = _context2.sent;
-                    clearInterval(cl);
-                    rootUrl = data.rootUrl;
-                    start = rootUrl.indexOf("/ipfs/");
-                    window.location.href = rootUrl.slice(start);
-
-                  case 10:
+                  case 11:
                   case "end":
                     return _context2.stop();
                 }
@@ -534,7 +554,7 @@ var Qr_Qr = function Qr() {
             }, _callee2);
           }));
 
-          function onSignal(_x) {
+          function onSignal() {
             return _onSignal.apply(this, arguments);
           }
 
@@ -744,3 +764,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
+//# sourceMappingURL=component---src-pages-index-tsx-f3b2cf7d9afbeabf04cb.js.map

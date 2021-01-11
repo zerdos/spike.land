@@ -200,7 +200,7 @@ var defineProperty = __webpack_require__("zjfJ");
 var toConsumableArray = __webpack_require__("fGyu");
 
 // CONCATENATED MODULE: ../code/dist/versions.js
-function versions(){var code="11.7.0";var shadb="11.4.16";var editor="11.6.16";var emotionRenderer="11.6.16";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
+function versions(){var code="11.7.2";var shadb="11.7.2";var editor="11.6.16";var emotionRenderer="11.6.16";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
 // CONCATENATED MODULE: ../code/dist/hash.js
 // import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
 var hash_v=dist_versions();/**
@@ -227,7 +227,7 @@ return data;};/** @type {null | {add: (data: string)=>Promise<string>}} */var ip
  */var waitForSignal=function waitForSignal(signal){return hash(signal,true).catch(function(){return{success:false};});};/**
  * @param {string} signal
  * @param {string} data
- */var sendSignal=/*#__PURE__*/function(){var _ref3=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee3(signal,data){var CID,toSave,dataCid,hexHash,allHash;return regenerator_default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:_context3.next=2;return hash(signal,false);case 2:if(!data){_context3.next=17;break;}_context3.next=5;return __webpack_require__.e(/* import() */ 5).then(__webpack_require__.bind(null, "60a2"));case 5:CID=_context3.sent.default;toSave=data;if(typeof data!=="string")toSave=JSON.stringify(data);_context3.next=10;return hash(data,false);case 10:dataCid=_context3.sent;hexHash=Array.from(new CID(dataCid).multihash).map(function(b){return("00"+b.toString(16)).slice(-2);}).join("");allHash=new Array(hexHash.length).fill(signal).map(function(x,i){return x+hexHash.slice(0,i+1);});_context3.next=15;return Promise.all(allHash.slice(0,5).map(function(x){return hash(x,false);}));case 15:_context3.next=17;return Promise.all(allHash.slice(5).map(function(x){return hash(x,false);}));case 17:_context3.next=19;return hash(signal,false);case 19:return _context3.abrupt("return",{success:true});case 20:case"end":return _context3.stop();}}},_callee3);}));return function sendSignal(_x5,_x6){return _ref3.apply(this,arguments);};}();/**
+ */var sendSignal=/*#__PURE__*/function(){var _ref3=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee3(signal,data){var CID,toSave,dataCid,hexHash,allHash;return regenerator_default.a.wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:_context3.next=2;return hash(signal,false);case 2:if(!data){_context3.next=17;break;}_context3.next=5;return __webpack_require__.e(/* import() */ 5).then(__webpack_require__.bind(null, "60a2"));case 5:CID=_context3.sent.default;toSave=data;if(typeof data!=="string")toSave=JSON.stringify(data);_context3.next=10;return hash(data,false);case 10:dataCid=_context3.sent;hexHash=Array.from(new CID(dataCid).multihash).map(function(b){return("00"+b.toString(16)).slice(-2);}).join("");allHash=new Array(hexHash.length).fill(signal).map(function(x,i){return x+hexHash.slice(0,i+1);});_context3.next=15;return Promise.all(allHash.slice(0,5).map(function(x){return hash(x,false);}));case 15:_context3.next=17;return Promise.all(allHash.slice(5).map(function(x){return hash(x,false);}));case 17:alert(signal+" "+data);return _context3.abrupt("return",{success:true});case 19:case"end":return _context3.stop();}}},_callee3);}));return function sendSignal(_x5,_x6){return _ref3.apply(this,arguments);};}();/**
  * @param {string} url
  */var waitForSignalAndJump=/*#__PURE__*/function(){var _ref4=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee4(url){var res;return regenerator_default.a.wrap(function _callee4$(_context4){while(1){switch(_context4.prev=_context4.next){case 0:_context4.prev=0;_context4.next=3;return waitForSignal(url);case 3:res=_context4.sent;if(typeof res==="string"||res.success){window.location.href=url;}_context4.next=10;break;case 7:_context4.prev=7;_context4.t0=_context4["catch"](0);console.log({msg:"SignalAndJump error",e:_context4.t0});case 10:_context4.prev=10;console.log({msg:"SignalAndJump Final"});return _context4.finish(10);case 13:case"end":return _context4.stop();}}},_callee4,null,[[0,7,10,13]]);}));return function waitForSignalAndJump(_x7){return _ref4.apply(this,arguments);};}();/**
  * @param {{signal: string, onSignal: (getData: ()=> any)=>any, onError?: ()=>any, onExpired?: ()=>any }} opts
@@ -504,7 +504,9 @@ var Qr_Qr = function Qr() {
       };
     }();
 
-    if (typeof window !== "undefined" && retry > 0 && cubeState === 1) connect();
+    if (typeof window !== "undefined" && retry > 0 && cubeState === 1) {
+      connect();
+    }
   }, [retry]);
   react_default.a.useEffect(function () {
     var setSignal = function setSignal(url) {
@@ -512,32 +514,34 @@ var Qr_Qr = function Qr() {
       waitForSignalAndRun({
         signal: url,
         onSignal: function () {
-          var _onSignal = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(getData) {
-            var uuid, userdata;
+          var _onSignal = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2() {
+            var uuid, userData;
             return regenerator_default.a.wrap(function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
-                    setCubeState(0);
-                    _context2.next = 3;
+                    _context2.next = 2;
                     return getUserId();
 
-                  case 3:
+                  case 2:
                     uuid = _context2.sent;
-                    _context2.next = 6;
-                    return shaDB.get("uuid", "json");
+                    _context2.next = 5;
+                    return shaDB.get(uuid, "json");
 
-                  case 6:
-                    userdata = _context2.sent;
-                    _context2.next = 9;
-                    return shaDB.put(uuid, _objectSpread(_objectSpread({}, userdata), {}, {
+                  case 5:
+                    userData = _context2.sent;
+                    _context2.next = 8;
+                    return shaDB.put(uuid, _objectSpread(_objectSpread({}, userData), {}, {
                       signal: url
                     }));
 
-                  case 9:
+                  case 8:
                     setTimeout(function () {
                       return window.location.href = "https://blog.zed.vision/code/";
                     }, 2000);
+                    setTimeout(function () {
+                      return setCubeState(0);
+                    });
                     setTimeout(function () {
                       setCubeState(-1);
                     }, 6000);
@@ -550,7 +554,7 @@ var Qr_Qr = function Qr() {
             }, _callee2);
           }));
 
-          function onSignal(_x) {
+          function onSignal() {
             return _onSignal.apply(this, arguments);
           }
 
@@ -760,4 +764,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-e968f38e4b2ff9e04767.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-52b8e25c0ec2dcf81ec8.js.map
