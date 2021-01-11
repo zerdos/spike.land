@@ -89,3 +89,4 @@ var Slider = function Slider() {
 /***/ })
 
 }]);
+//# sourceMappingURL=component---src-pages-example-tsx-8a7f2f055934af0794d2.js.map

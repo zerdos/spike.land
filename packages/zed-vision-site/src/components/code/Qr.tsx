@@ -4,6 +4,7 @@ import React from "react";
 import { waitForSignalAndRun } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
+import {getUserId, shaDB} from "./getUser"
 
 export const Qr = () => {
   const side1 = React.useRef<HTMLCanvasElement>(null);
@@ -74,18 +75,17 @@ export const Qr = () => {
             setCubeState(-1);
           }, 6000);
 
-          const cl = setInterval(()=>setUrl(Math.random()+" ------------------------" + Math.random(),100));
+          getData();
 
+          const uuid = await getUserId();
+          const userdata = await shaDB.get("uuid", "json");
+          await shaDB.put(uuid, {
+            ...userdata,
+            signal: url
+          });
 
-          const data = await getData();
-          clearInterval(cl);
+          window.location.href="/code/";
 
-          const rootUrl = data.rootUrl;
-
-          const start = rootUrl.indexOf("/ipfs/");
-
-          
-          window.location.href = rootUrl.slice(start);
         },
         onError: () => {
           console.log("Error while waiting for the signal", { url });
@@ -145,7 +145,7 @@ export const Qr = () => {
          animation-name:${cubeState ? "none" : "byecube"};
   animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
   animation-iteration-count: 1;
-  animation-duration: 8s;
+  animation-duration: 4s;
    transform-style: preserve-3d;
   transform-origin:  center center; 
 `}
