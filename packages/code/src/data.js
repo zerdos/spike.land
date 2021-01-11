@@ -1,10 +1,27 @@
 import { sha256, shaDB } from "./db.js";
+import { waitForSignalAndRun } from "./hash.js";
 import getVersions from "./versions.js";
 const versions = getVersions();
 
 export const getProjects = async () => {
   const uuid = await getUserId();
   const userData = await shaDB.get(uuid, "json");
+
+  if (userData && userData.signal) {
+    //  setTimeout(()=>{
+
+    waitForSignalAndRun(
+      {
+        signal: userData.signal,
+        onSignal: async (getData) => {
+          const data = await getData();
+          await shaDB.put(uuid, { ...userData, signal: null });
+          window.location.href = data.rootUrl;
+        },
+      },
+    );
+    //})
+  }
 
   if (typeof userData === "string" || userData === null || !userData.list) {
     const v4 = (await import(

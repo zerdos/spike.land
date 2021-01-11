@@ -307,7 +307,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "595e77696546dc7d1bfc6dd8e7cdfd9d926366188563f18008b61c8dc372828f",
+        "version": "1095350f2aa53fd48a2a8f9a616fe2e5542b2c911ef90f5edad422e063ac5825",
         "signature": "e7901e34af47aa825f2d8bdd397211b03074fe01a72a074591fdc9ceb922002c",
         "affectsGlobalScope": false
       },
@@ -481,6 +481,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
+        "./src/hash.js",
         "./src/share.js",
         "./src/starter.js",
         "./src/versions.js"
