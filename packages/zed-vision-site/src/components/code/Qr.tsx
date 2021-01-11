@@ -33,7 +33,8 @@ export const Qr = ( ) => {
           signal: lastUrl,
           onSignal: () => {
             console.log("signal Received", { lastUrl });
-            window.location.href = lastUrl;
+            setCubeState(false)
+            setTimeout(()=> {window.location.href = lastUrl}, 2000);
           },
           onError: () => {
             console.log("Error while waiting for the signal", { lastUrl });
@@ -98,7 +99,8 @@ export const Qr = ( ) => {
         signal: url,
         onSignal: () => {
           console.log("signal received", { url });
-          window.location.href = url;
+          setCubeState(false)
+          setTimeout(()=> {window.location.href = lastUrl}, 2000);
         },
         onError: () => {
           console.log("Error while waiting for the signal", { url });
@@ -111,26 +113,55 @@ export const Qr = ( ) => {
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
 
+  
+  const [cubeState, setCubeState] = React.useState(true);
+
   return (
     <div
-      onClick={() => window.open(lastUrl)}
       css={css`
-      margin: 24px;
-      text-align: center;
-      box-sizing: inherit; }
-  `}
-    >
-      <Cube
-        size={220}
-        sides={[
-          <canvas ref={side1}></canvas>,
-          <canvas ref={side2}></canvas>,
-          <canvas ref={side3}></canvas>,
-          <canvas ref={side4}></canvas>,
-          <canvas ref={side5}></canvas>,
-          <canvas ref={side6}></canvas>,
-        ]}
-      />
+      display: inline-block;
+       position: relative;
+   
+   border-radius: 18px;
+    padding: 0;
+    
+    background: rgba( 0, 0, 25, 0.4 );
+    border: solid 1px rgba(255,255,255,0.1);
+    background-clip: padding-box;
+    backdrop-filter: blur(10px ); display: inline-block;
+
+   
+   @keyframes byecube {
+     from {
+      transform: translateX(0px);
+    }
+   to {
+      transform: translatey(-1000px);
+    }
+    };
+    
+    `}>
+      <div
+        css={css`position: absolute;
+         animation-name:${cubeState ? 'none' : 'byecube'};
+  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
+  animation-iteration-count: 1;
+  animation-duration: 4s;
+   transform-style: preserve-3d;
+  transform-origin:  center center; 
+`}>
+        <Cube
+          size={220}
+          sides={[
+            <canvas ref={side1}></canvas>,
+            <canvas ref={side2}></canvas>,
+            <canvas ref={side3}></canvas>,
+            <canvas ref={side4}></canvas>,
+            <canvas ref={side5}></canvas>,
+            <canvas ref={side6}></canvas>,
+          ]}
+        />
+      </div>
     </div>
   );
 };
