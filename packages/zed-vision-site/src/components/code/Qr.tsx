@@ -5,105 +5,78 @@ import { waitForSignalAndRun } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
+
 export const Qr = () => {
-  const side1 = React.useRef(null);
-  const side2 = React.useRef(null);
-  const side3 = React.useRef(null);
-  const side4 = React.useRef(null);
-  const side5 = React.useRef(null);
-  const side6 = React.useRef(null);
+  const side1 = React.useRef<HTMLCanvasElement>(null);
+  const side2 = React.useRef<HTMLCanvasElement>(null);
+  const side3 = React.useRef<HTMLCanvasElement>(null);
+  const side4 = React.useRef<HTMLCanvasElement>(null);
+  const side5 = React.useRef<HTMLCanvasElement>(null);
+  const side6 = React.useRef<HTMLCanvasElement>(null);
 
   const [retry, setRetry] = React.useState(100);
-  const [lastUrl, setUrl] = React.useState("");
+  const [urls, setUrl] = React.useState({current: "", last: ""});
 
+
+  const [cubeSides, setQrCube] = React.useState<{
+    [key: string]: QRious 
+  }>({});
+
+
+
+
+  const setQR = (side: number,color: string, element:HTMLCanvasElement | null) =>{
+
+    const options = {
+      size: 220,
+      element: element!,
+      foregroundAlpha: 0.9,
+      foreground: color,
+      backgroundAlpha: 1,
+      padding: 10,
+      background: "black",
+      value: urls.current,
+    };
+
+    const qr = `qr${side}`
+
+    if (typeof cubeSides[qr] === "undefined") {
+      cubeSides[qr] =  new QRious(options);
+    } 
+    
+    if(cubeSides[qr].get().value !== urls.current) {
+      cubeSides[qr].value = urls.current;
+    }
+
+    return cubeSides[qr];
+
+  }
+
+  
   React.useEffect(() => {
     const connect = async () => {
-      let qr1: QRious | null = null;
-      let qr2: QRious | null = null;
-      let qr3: QRious | null = null;
-      let qr4: QRious | null = null;
-      let qr5: QRious | null = null;
-      let qr6: QRious | null = null;
-
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
-      lastUrl &&
-        waitForSignalAndRun({
-          signal: lastUrl,
-          onSignal: () => {
-            console.log("signal Received", { lastUrl });
-            setCubeState(false);
-            setTimeout(() => {
-              window.location.href = lastUrl;
-            }, 2000);
-          },
-          onError: () => {
-            console.log("Error while waiting for the signal", { lastUrl });
-          },
-          onExpired: () => {
-            console.log("expired", { lastUrl });
-          },
-        });
+
       const url = `https://zed.vision/${key}`;
 
-      const options = {
-        element: side1.current!,
-        size: 220,
-        foregroundAlpha: 0.9,
-        foreground: "red",
-        padding: 10,
-        background: "black",
-        value: url,
-      };
-
-      if (qr1 === null) {
-        qr1 = new QRious(options);
-        qr2 = new QRious({
-          ...options,
-          foreground: "#FFA52C",
-          element: side2.current,
-        });
-        qr3 = new QRious({
-          ...options,
-          foreground: "yellow",
-          element: side3.current,
-        });
-        qr4 = new QRious({
-          ...options,
-          foreground: "#35CB4A",
-          element: side4.current,
-        });
-        qr5 = new QRious({
-          ...options,
-          foreground: "#3C99DC",
-          element: side5.current,
-        });
-        qr6 = new QRious({
-          ...options,
-          foreground: "#DF3BCF",
-          element: side6.current,
-        });
-      }
-      if (qr1.get().value !== url) {
-        qr1.set(options);
-        qr2.set({ ...options, foreground: "#FFA52C", element: side2.current });
-        qr3.set({ ...options, foreground: "yellow", element: side3.current });
-        qr4.set({ ...options, foreground: "#35CB4A", element: side4.current });
-        qr5.set({ ...options, foreground: "#3C99DC", element: side5.current });
-        qr6.set({ ...options, foreground: "#DF3BCF", element: side6.current });
-      }
-
+      setUrl({last: urls.current, current: url})
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
-      setUrl(url);
-      // const toCheck = await hash(url, true);
+ 
+    };
+    if (typeof window !== "undefined" && retry > 0) connect();
+  }, [retry]);
+
+  React.useEffect(() => {
+    const setSignal = (url: string) =>{
       waitForSignalAndRun({
         signal: url,
         onSignal: () => {
-          console.log("signal received", { url });
+          console.log("signal Received", { url });
           setCubeState(false);
           setTimeout(() => {
-            window.location.href = lastUrl;
+            window.location.href = url
           }, 2000);
         },
         onError: () => {
@@ -113,9 +86,25 @@ export const Qr = () => {
           console.log("expired", { url });
         },
       });
+    }
+        
+    const setSignals =  () => {
+      urls.last && setSignal(urls.last);
+      urls.current && setSignal(urls.current);
+
+      setQrCube({
+         qr1: setQR(1, "red", side1.current),
+         qr2: setQR(2, "#FFA52C", side2.current),
+         qr3: setQR(3, "yellow", side3.current),
+         qr4: setQR(4, "#35CB4A", side4.current),
+         qr5: setQR(5, "#3C99DC", side5.current),
+         qr6: setQR(6, "#DF3BCF", side6.current)
+      })
+
     };
-    if (typeof window !== "undefined" && retry > 0) connect();
-  }, [retry]);
+    if (typeof window !== "undefined" && retry > 0) setSignals();
+
+  }, [urls]);
 
   const [cubeState, setCubeState] = React.useState(true);
 
@@ -235,9 +224,9 @@ const r2 = Math.random() * 360 - 180;
 const r3 = Math.random() * 360 - 180;
 const r4 = Math.random() * 360 - 180;
 
-const r5 = Math.random() * 360 - 180;
-const r6 = Math.random() * 360 - 180;
-const r7 = Math.random() * 360 - 180;
+const r5 = Math.random() * 720 - 360;
+const r6 = Math.random() * 720 - 360;
+const r7 = Math.random() * 720 - 360;
 
 const r8 = Math.random() * 360 - 180;
 const r9 = Math.random() * 360 - 180;

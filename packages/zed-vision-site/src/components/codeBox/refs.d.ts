@@ -1,7 +1,7 @@
 declare module "gatsby";
 declare module "@zedvision/qrious" {
   interface IQROptions {
-    element: Element;
+    element: HTMLCanvasElement;
     size: number;
     foregroundAlpha: number;
     foreground: string;
@@ -12,7 +12,7 @@ declare module "@zedvision/qrious" {
   }
   export class QRious {
     constructor(opts: IQROptions);
-    set: (opts: IQROptions) => void;
+    value: string;
     get: () => IQROptions;
   }
 }
