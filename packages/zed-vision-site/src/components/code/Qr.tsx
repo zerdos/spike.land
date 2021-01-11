@@ -225,8 +225,10 @@ const Cube = ({ sides, size }) => {
   );
 };
 
-const randoms = new Array(3).fill(0).map((x, i) => (Math.random()*360 - 180)*(i===2? 2:1) );
-const r=randoms;
+const randoms = new Array(3).fill(0).map((x, i) =>
+  (Math.random() * 360 - 180) * (i === 2 ? 2 : 1)
+);
+const r = randoms;
 
 const spinCubeCss = (size: number) =>
   css`
