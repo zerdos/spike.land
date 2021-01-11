@@ -9,7 +9,7 @@ export async function sendSignalToQrCode() {
         await (import("./hash.js").then(async ({ sendSignal }) => {
             const signal = `https://zed.vision/${maybeRoute}`;
             await addDataToSignal(signal, {});
-            sendSignal(signal);
+            sendSignal(signal, "Hello from Mobile");
         }));
     }
 }

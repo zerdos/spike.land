@@ -1,5 +1,7 @@
 import versions from "./versions.js";
 
+// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
+
 const v = versions();
 
 /**
@@ -7,7 +9,10 @@ const v = versions();
  * @param {string} cid 
  */
 
-const feedTheCache = (cid) => console.log(cid);
+const feedTheCache = (cid) => {
+  // console.log(cid);
+  return cid;
+};
 // fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(
 //   console.log,
 // );
@@ -63,18 +68,17 @@ const hash = async (data, onlyHash) => {
     await client.add(`${data}`, { onlyHash }),
   ]));
   if (!onlyHash) {
-    await Promise.all(noisyHashes.map(feedTheCache));
-  }
-  if (onlyHash) {
-    const res = await Promise.all(
-      noisyHashes.map((cid) =>
-        getHash(cid, 20000).then((x) => ({ success: x === data }))
-      ),
-    );
-    return res[0];
+    const data = await Promise.all(noisyHashes.map(feedTheCache));
+    return data[0];
   }
 
-  return { success: true };
+  const res = await Promise.all(
+    noisyHashes.map((cid) =>
+      getHash(cid, 20000).then((x) => ({ success: x === data }))
+    ),
+  );
+
+  return res[0];
 };
 
 /**
@@ -108,10 +112,26 @@ export const waitForSignal = (signal) => {
 };
 
 /**
- * @param {string} signal => Promise<{success: boolean}>
+ * @param {string} signal 
+ * @param {string} data
  */
-export const sendSignal = (signal) => {
-  return hash(signal, false);
+export const sendSignal = async (signal, data) => {
+  if (data) {
+    const CID = (await import("./vendor/cids.js")).default;
+
+    const dataCid = await hash(data, false);
+    const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
+      ("00" + b.toString(16)).slice(-2)
+    ).join("");
+
+    await Promise.all(
+      new Array(hexHash.length).fill(signal).map((x, i) =>
+        x + hexHash.slice(0, i + 1)
+      ).map((x) => hash(x, false)),
+    );
+  }
+  await hash(signal, false);
+  return { success: true };
 };
 
 /**
@@ -119,8 +139,8 @@ export const sendSignal = (signal) => {
  */
 export const waitForSignalAndJump = async (url) => {
   try {
-    const { success } = await waitForSignal(url);
-    if (success) {
+    const res = await waitForSignal(url);
+    if (typeof res === "string" || res.success) {
       window.location.href = url;
     }
   } catch (e) {
@@ -137,13 +157,21 @@ export const waitForSignalAndRun = async (
   { signal, onSignal, onError, onExpired },
 ) => {
   try {
-    const { success } = await waitForSignal(signal);
-    if (success) {
+    const res = await waitForSignal(signal);
+    if (typeof res === "string" || res.success) {
       if (typeof onSignal === "function") {
+        const CID = (await import("./vendor/cids.js")).default;
         return onSignal(
           async () => {
-            const char = await getNextChar(signal);
-            return char;
+            let hashHex = "";
+            while (hashHex.length < 68) {
+              console.log(`Getting ${hashHex.length} from 68 `);
+              hashHex += await getNextChar(signal + hashHex);
+            }
+
+            const cid = new CID(0, 112, fromHexString(hashHex));
+
+            return getHash(cid.toString(), 20000);
           },
         );
       }
@@ -171,6 +199,7 @@ export const getNextChar =
     const nextChar = await raceToSuccess(
       chars.map((x) =>
         waitForSignal(signal + x).then((s) => {
+          if (typeof s === "string") return x;
           if (s.success) return x;
           throw new Error("nope");
         })
@@ -203,3 +232,26 @@ function raceToSuccess(promises) {
       ),
   );
 }
+
+/**
+ * @param {string} hexString
+ */
+const fromHexString = (hexString) =>
+  new Uint8Array(
+    /**
+   * @param {string} byte
+   */
+    //@ts-ignore
+    hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)),
+  );
+
+// const toHexString = bytes =>
+//   bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
+
+// console.log(toHexString(new Uint8Array([0, 1, 2, 42, 100, 101, 102, 255])))
+// console.log(fromHexString('1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24'))
+
+// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
+// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID("Qme7vFQnRzk2AoEgWMkQ8PDujZmUb3BoR1kEtSa1s83fQP")).then(x=>Array.from(x.multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join(""))
+
+///  waitForSignalAndRun( {signal, onSignal: async (data)=> {const nextChar = await(getData()); console.log(nextChar)  }})

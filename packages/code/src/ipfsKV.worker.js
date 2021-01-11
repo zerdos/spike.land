@@ -68,13 +68,10 @@ const ipfsKV = {
       ipfsNode = ipfsNode || await IPFS.create({ silent: true });
       const res = [];
 
-      console.log("GET DATA");
-
       for await (const result of ipfsNode.cat(cid, options)) {
         console.log("RES", result);
         res.push(new TextDecoder("utf-8").decode(result));
       }
-      console.log("CAT CAT", res);
 
       return res.join("");
     } catch (e) {
@@ -97,13 +94,10 @@ const ipfsKV = {
       ipfsNode = ipfsNode || await IPFS.create({ silent: true });
       const res = [];
 
-      console.log("GET DATA");
-
       for await (const result of ipfsNode.get(cid, options)) {
         console.log("RES", result);
         res.push(new TextDecoder("utf-8").decode(result));
       }
-      console.log("CAT CAT", res);
 
       return res.join("");
     } catch (e) {

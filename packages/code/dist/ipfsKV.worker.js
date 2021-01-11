@@ -71,7 +71,6 @@ const ipfsKV = {
         try {
             ipfsNode = ipfsNode || await IPFS.create({ silent: true });
             const res = [];
-            console.log("GET DATA");
             try {
                 for (var _b = __asyncValues(ipfsNode.cat(cid, options)), _c; _c = await _b.next(), !_c.done;) {
                     const result = _c.value;
@@ -86,7 +85,6 @@ const ipfsKV = {
                 }
                 finally { if (e_2) throw e_2.error; }
             }
-            console.log("CAT CAT", res);
             return res.join("");
         }
         catch (e) {
@@ -108,7 +106,6 @@ const ipfsKV = {
         try {
             ipfsNode = ipfsNode || await IPFS.create({ silent: true });
             const res = [];
-            console.log("GET DATA");
             try {
                 for (var _b = __asyncValues(ipfsNode.get(cid, options)), _c; _c = await _b.next(), !_c.done;) {
                     const result = _c.value;
@@ -123,7 +120,6 @@ const ipfsKV = {
                 }
                 finally { if (e_3) throw e_3.error; }
             }
-            console.log("CAT CAT", res);
             return res.join("");
         }
         catch (e) {

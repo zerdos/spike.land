@@ -1,9 +1,9 @@
-export function waitForSignal(signal: string): Promise<{
+export function waitForSignal(signal: string): Promise<string | {
     success: boolean;
 } | {
     success: boolean;
 }>;
-export function sendSignal(signal: string): Promise<{
+export function sendSignal(signal: string, data: string): Promise<{
     success: boolean;
 }>;
 export function waitForSignalAndJump(url: string): Promise<void>;

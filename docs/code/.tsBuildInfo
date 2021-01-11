@@ -266,9 +266,14 @@
         "signature": "45c40122fd6543d6f073882f27f3cd5d142578d9b7c7e4ce9993cb130c2c2892",
         "affectsGlobalScope": false
       },
+      "./src/vendor/cids.js": {
+        "version": "7f70a5ad917878f816c91b71048cc506b4e1565c0d8f60c478ff2a526bf34323",
+        "signature": "d18f79aa6ddec0adbe8167e04c327114d118e13eaaac8862920ed4fdb935557e",
+        "affectsGlobalScope": false
+      },
       "./src/hash.js": {
-        "version": "51614a857be6cac22c8c3bedfdb358ff8bf8cef11e8b8108f5ca4a1ca34d53fd",
-        "signature": "5bc667b545675501dc34dd1b4ad0e2fe8a28b1a8d5499401e796e8f23e1544d4",
+        "version": "c1adda8bf2915d2863f3be3e586908ec1048356b9b0fdf126875e7178deaa004",
+        "signature": "ed905deb08ac481454b2aa5a513ee0c21422c0e9877298737a5e6d1d7dcfc2e9",
         "affectsGlobalScope": false
       },
       "./src/db.js": {
@@ -307,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
-        "version": "341fc441aba6dfb5b0f1d8d5878e395e87a6682d29ed52b1c06f676dbb100438",
+        "version": "5582d9f0988f55293bb21a3634b3113f6866cce55868267b64fa2a4aa3cc34d4",
         "signature": "01c00c6b02cba6ec315aa2b9c4846489bc41f6f44dc23f80d1886e462165d19d",
         "affectsGlobalScope": false
       },
@@ -342,7 +347,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
-        "version": "fa28c90d4fad9618901d7053720bb9d70a48e95d409391d2ab735ece354a6b1e",
+        "version": "6fa8a6c33976fe7f6417cbe14c059779ad205bd2c7d9619be7a5f4ff539929dc",
         "signature": "2d272e85b13e508fd6961cbe7689fe4e96ba0c9e6ed9288a426a66d1212df579",
         "affectsGlobalScope": true
       },
@@ -404,11 +409,6 @@
       "./src/transpileWorker.d.ts": {
         "version": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
         "signature": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
-        "affectsGlobalScope": false
-      },
-      "./src/vendor/cids.js": {
-        "version": "7f70a5ad917878f816c91b71048cc506b4e1565c0d8f60c478ff2a526bf34323",
-        "signature": "d18f79aa6ddec0adbe8167e04c327114d118e13eaaac8862920ed4fdb935557e",
         "affectsGlobalScope": false
       }
     },
@@ -498,6 +498,7 @@
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
+        "./src/vendor/cids.js",
         "./src/versions.js"
       ],
       "./src/importScript.js": [
