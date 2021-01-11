@@ -71,11 +71,13 @@ export const Qr = () => {
         signal: url,
         onSignal: async (getData) => {
           setCubeState(0);
+          
+          setTimeout(()=> getData(), 10);
           setTimeout(() => {
             setCubeState(-1);
           }, 6000);
 
-          getData();
+          
 
           const uuid = await getUserId();
           const userdata = await shaDB.get("uuid", "json");
@@ -84,7 +86,7 @@ export const Qr = () => {
             signal: url
           });
 
-          window.location.href="/code/";
+          window.location.href="https://blog.zed.vision/code/";
 
         },
         onError: () => {
