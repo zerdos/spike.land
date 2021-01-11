@@ -1,5 +1,5 @@
 const path = require(`path`);
-const { GenerateSW } = require("workbox-webpack-plugin");
+const { InjectManifest } = require("workbox-webpack-plugin");
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -65,12 +65,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 };
 
 exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
-  if (getConfig().mode === "production") {
+ // if (getConfig().mode === "production") {
     const config = getConfig();
-    config.plugins.push(new GenerateSW({}));
+    config.plugins.push(   new InjectManifest({
+      swSrc: './src/sw.js',
+    }));
     actions.replaceWebpackConfig({
       ...config,
       devtool: false,
     });
-  }
+ // }
 };

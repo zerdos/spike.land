@@ -43,5 +43,11 @@ self.addEventListener(
       const cacheFirst = new workbox.strategies.CacheFirst();
       event.respondWith(cacheFirst.handle({ event, request }));
     }
+    if (url.indexOf("/ipfs/") !== -1) {
+      const request = fetch(url.replace("blog.", "").replace("code.", ""));
+      // @ts-ignore
+      const cacheFirst = new workbox.strategies.CacheFirst();
+      event.respondWith(cacheFirst.handle({ event, request }));
+    }
   },
 );
