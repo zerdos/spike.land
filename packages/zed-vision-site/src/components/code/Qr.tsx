@@ -5,7 +5,6 @@ import { waitForSignalAndRun } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
-
 export const Qr = () => {
   const side1 = React.useRef<HTMLCanvasElement>(null);
   const side2 = React.useRef<HTMLCanvasElement>(null);
@@ -15,18 +14,17 @@ export const Qr = () => {
   const side6 = React.useRef<HTMLCanvasElement>(null);
 
   const [retry, setRetry] = React.useState(100);
-  const [urls, setUrl] = React.useState({current: "", last: ""});
-
+  const [urls, setUrl] = React.useState({ current: "", last: "" });
 
   const [cubeSides, setQrCube] = React.useState<{
-    [key: string]: QRious 
+    [key: string]: QRious;
   }>({});
 
-
-
-
-  const setQR = (side: number,color: string, element:HTMLCanvasElement | null) =>{
-
+  const setQR = (
+    side: number,
+    color: string,
+    element: HTMLCanvasElement | null,
+  ) => {
     const options = {
       size: 220,
       element: element!,
@@ -38,45 +36,41 @@ export const Qr = () => {
       value: urls.current,
     };
 
-    const qr = `qr${side}`
+    const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      cubeSides[qr] =  new QRious(options);
-    } 
-    
-    if(cubeSides[qr].get().value !== urls.current) {
+      cubeSides[qr] = new QRious(options);
+    }
+
+    if (cubeSides[qr].get().value !== urls.current) {
       cubeSides[qr].value = urls.current;
     }
 
     return cubeSides[qr];
+  };
 
-  }
-
-  
   React.useEffect(() => {
     const connect = async () => {
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
-
       const url = `https://zed.vision/${key}`;
 
-      setUrl({last: urls.current, current: url})
+      setUrl({ last: urls.current, current: url });
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
- 
     };
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
 
   React.useEffect(() => {
-    const setSignal = (url: string) =>{
+    const setSignal = (url: string) => {
       waitForSignalAndRun({
         signal: url,
         onSignal: () => {
           console.log("signal Received", { url });
           setCubeState(false);
           setTimeout(() => {
-            window.location.href = url
+            window.location.href = url;
           }, 2000);
         },
         onError: () => {
@@ -86,24 +80,22 @@ export const Qr = () => {
           console.log("expired", { url });
         },
       });
-    }
-        
-    const setSignals =  () => {
+    };
+
+    const setSignals = () => {
       urls.last && setSignal(urls.last);
       urls.current && setSignal(urls.current);
 
       setQrCube({
-         qr1: setQR(1, "red", side1.current),
-         qr2: setQR(2, "#FFA52C", side2.current),
-         qr3: setQR(3, "yellow", side3.current),
-         qr4: setQR(4, "#35CB4A", side4.current),
-         qr5: setQR(5, "#3C99DC", side5.current),
-         qr6: setQR(6, "#DF3BCF", side6.current)
-      })
-
+        qr1: setQR(1, "red", side1.current),
+        qr2: setQR(2, "#FFA52C", side2.current),
+        qr3: setQR(3, "yellow", side3.current),
+        qr4: setQR(4, "#35CB4A", side4.current),
+        qr5: setQR(5, "#3C99DC", side5.current),
+        qr6: setQR(6, "#DF3BCF", side6.current),
+      });
     };
     if (typeof window !== "undefined" && retry > 0) setSignals();
-
   }, [urls]);
 
   const [cubeState, setCubeState] = React.useState(true);
@@ -164,9 +156,11 @@ const Cube = ({ sides, size }) => {
 
   return (
     <div
-      css={css` color: #ecf0f1;
- 
-      backdrop-filter: blur(10px ); display: inline-block; `}
+      css={css`
+        color: #ecf0f1;
+        backdrop-filter: blur(10px ); 
+        display: inline-block; 
+        `}
     >
       <div css={spinCubeCss(size)}>
         <div
@@ -178,14 +172,17 @@ const Cube = ({ sides, size }) => {
         </div>
         <div
           css={css`
-            transform: rotateY(90deg) translateZ(${size / 2}px);
+            transform: rotateY(90deg) 
+                       translateZ(${size / 2}px);
             `}
         >
           {sides[1]}
         </div>
         <div
           css={css`
-                transform: rotateY(90deg) rotateX(90deg) translateZ(${size /
+                transform: rotateY(90deg) 
+                           rotateX(90deg) 
+                           translateZ(${size /
             2}px);
                 `}
         >
@@ -193,23 +190,26 @@ const Cube = ({ sides, size }) => {
         </div>
         <div
           css={css` 
-                transform: translateZ( -${size /
-            2}px) rotateY(180deg) rotateZ(90deg);
+                transform: translateZ( -${size / 2}px) 
+                           rotateY(180deg) 
+                           rotateZ(90deg);
             `}
         >
           {sides[3]}
         </div>
         <div
           css={css` 
-                transform: rotateY(-90deg) rotateZ(90deg) translateZ(${size /
-            2}px);
+                transform: rotateY(-90deg) 
+                           rotateZ(90deg) 
+                           translateZ(${size / 2}px);
                 `}
         >
           {sides[4]}
         </div>
         <div
           css={css`
-            transform: rotateX(-90deg) translateZ(${size / 2}px);
+            transform: rotateX(-90deg) 
+                       translateZ(${size / 2}px);
             `}
         >
           {sides[5]}
@@ -223,11 +223,9 @@ const r1 = Math.random() * 360 - 180;
 const r2 = Math.random() * 360 - 180;
 const r3 = Math.random() * 360 - 180;
 const r4 = Math.random() * 360 - 180;
-
 const r5 = Math.random() * 720 - 360;
 const r6 = Math.random() * 720 - 360;
 const r7 = Math.random() * 720 - 360;
-
 const r8 = Math.random() * 360 - 180;
 const r9 = Math.random() * 360 - 180;
 const r10 = Math.random() * 360 - 180;
