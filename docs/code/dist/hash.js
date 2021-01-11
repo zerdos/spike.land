@@ -101,7 +101,7 @@ export const sendSignal = async (signal, data) => {
         await Promise.all(allHash.slice(0, 5).map((x) => hash(x, false)));
         await Promise.all(allHash.slice(5).map((x) => hash(x, false)));
     }
-    await hash(signal, false);
+    alert(`${signal} ${data}`);
     return { success: true };
 };
 /**

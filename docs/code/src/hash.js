@@ -143,7 +143,7 @@ export const sendSignal = async (signal, data) => {
       allHash.slice(5).map((x) => hash(x, false)),
     );
   }
-  await hash(signal, false);
+  alert(`${signal} ${data}`);
   return { success: true };
 };
 
