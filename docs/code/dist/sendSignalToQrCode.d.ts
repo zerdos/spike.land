@@ -1,4 +1,7 @@
-export function sendSignalToQrCode(): Promise<void>;
+/**
+ * @param {string} rootUrl
+ */
+export function sendSignalToQrCode(rootUrl: string): Promise<void>;
 /**
  * @param {string} hash
  */

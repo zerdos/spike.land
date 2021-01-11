@@ -66,12 +66,20 @@ export const Qr = () => {
     const setSignal = (url: string) => {
       waitForSignalAndRun({
         signal: url,
-        onSignal: () => {
+        onSignal: async (getData) => {
           console.log("signal Received", { url });
-          setCubeState(false);
+          setCubeState(0);
           setTimeout(() => {
-            window.location.href = url;
+            setCubeState(-1);
+           
           }, 2000);
+
+          const data = await getData();
+
+          const rootUrl = data.rootUrl;
+          window.location.href=rootUrl;
+
+
         },
         onError: () => {
           console.log("Error while waiting for the signal", { url });
@@ -98,7 +106,9 @@ export const Qr = () => {
     if (typeof window !== "undefined" && retry > 0) setSignals();
   }, [urls]);
 
-  const [cubeState, setCubeState] = React.useState(true);
+  const [cubeState, setCubeState] = React.useState(1);
+
+  if (cubeState===-1) return <></>;
 
   return (
     <div

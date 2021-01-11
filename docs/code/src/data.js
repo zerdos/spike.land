@@ -63,6 +63,7 @@ export async function getIPFSCodeToLoad() {
 
   const ret = {
     code: code,
+    url: rootUrl,
     versions: v,
     transpiled: "",
     html: "",
@@ -157,6 +158,7 @@ export const saveCode =
         );
         const url = await sharePromise;
         const projectName = await getActiveProject();
+        opts.url = url;
         // const prevHash = await shaDB.get(projectName, "string");
         const desc = {
           url: await sha256(url),

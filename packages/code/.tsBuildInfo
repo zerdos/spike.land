@@ -307,8 +307,8 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "5fa2ef2c31e2426db3dd83ef364c165b29bbd11ec59a48052eeb76254c8af70e",
-        "signature": "c6e12aa9b8a89f0a937eb871bcd928e883137067430ee3764e88ea0d5db6237e",
+        "version": "89a578c85fda0355e9395f04adf851808616141d728701a7115bf7b42e4b4a1c",
+        "signature": "e7901e34af47aa825f2d8bdd397211b03074fe01a72a074591fdc9ceb922002c",
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
@@ -337,12 +337,12 @@
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
-        "version": "5582d9f0988f55293bb21a3634b3113f6866cce55868267b64fa2a4aa3cc34d4",
-        "signature": "01c00c6b02cba6ec315aa2b9c4846489bc41f6f44dc23f80d1886e462165d19d",
+        "version": "6529ab2a51f1ebc9025e9eab5846dc1226bfab2300c0d8bb85fc34d8124937f1",
+        "signature": "f1617fd83ee5af4cbfa29ccaff1546f9ce383c30d715e4ede404feec8dbef0b2",
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "7d8d823f0619e3bf78cd221a0bf0cb8dac2dd631d0c49117d0a8bbe93848a009",
+        "version": "32cdc93e693ac02fbad5ffc6d3e128ebe58ff4ca11dce7a68114040fa5cd0585",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },

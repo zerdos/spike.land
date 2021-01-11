@@ -1,7 +1,10 @@
 import { getUserId } from "./data.js";
 import { sha256 } from "./db.js";
 
-export async function sendSignalToQrCode() {
+/**
+ * @param {string} rootUrl
+ */
+export async function sendSignalToQrCode(rootUrl) {
   const { pathname } = new URL(window.location.href);
 
   const maybeRoute = pathname.substr(1);
@@ -12,7 +15,16 @@ export async function sendSignalToQrCode() {
     await (import("./hash.js").then(async ({ sendSignal }) => {
       const signal = `https://zed.vision/${maybeRoute}`;
       await addDataToSignal(signal, {});
-      sendSignal(signal, "Hello from Mobile");
+      sendSignal(
+        signal,
+        JSON.stringify({
+          rootUrl,
+          signals: {
+            onChange: "url",
+            onLogout: "url",
+          },
+        }),
+      );
     }));
   }
 }

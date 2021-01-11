@@ -8,6 +8,7 @@ function getSession() {
     rootElement: null,
     div: window.document.createElement("div"),
     html: "",
+    url: "",
     versions: {},
     ipfs: 0,
     transpiled: "",
@@ -109,7 +110,10 @@ export async function run(mode = "window", _w, code = "") {
   );
 
   const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
-  await sendSignalToQrCode();
+  if (!session.url) {
+    await saveCode(session, session.i);
+  }
+  await sendSignalToQrCode(session.url);
 
   /**
    * @param {string} c

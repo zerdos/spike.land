@@ -1,6 +1,7 @@
 export function getUserId(): Promise<any>;
 export function getIPFSCodeToLoad(): Promise<{
     code: string;
+    url: string;
     versions: any;
     transpiled: string;
     html: string;
