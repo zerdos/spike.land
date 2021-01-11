@@ -73,10 +73,10 @@ export const Qr = () => {
         onSignal: async () => {
           const uuid = await getUserId();
           const userData = await shaDB.get(uuid, "json");
-          await shaDB.put(uuid, {
+          await shaDB.put(uuid, JSON.stringify({
             ...userData,
             signal: url,
-          });
+          }));
 
           setTimeout(
             () => window.location.href = "https://blog.zed.vision/code/",
