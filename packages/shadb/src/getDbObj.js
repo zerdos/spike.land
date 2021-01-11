@@ -16,7 +16,12 @@ export const getDbObj = (db) => {
         //key not found that we write - its ok.
       }
       if (format === "json") {
-        return JSON.parse(data);
+        try{
+        const json =  JSON.parse(data);
+        return json;
+        } catch{
+          return data;
+        }
       }
       const allData = await data;
       if (format === "string") {
