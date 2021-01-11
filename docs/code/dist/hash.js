@@ -72,7 +72,7 @@ const getHash = async (cid, _timeOut) => {
         const data = await client.cat(cid, { timeout });
         if (typeof data === "string")
             return half(data);
-        console.error({ data });
+        // console.error({ data });
     }
     catch (e) {
         console.log({ e });

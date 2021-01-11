@@ -67,19 +67,15 @@ export const Qr = () => {
       waitForSignalAndRun({
         signal: url,
         onSignal: async (getData) => {
-          console.log("signal Received", { url });
           setCubeState(0);
           setTimeout(() => {
             setCubeState(-1);
-           
-          }, 2000);
+          }, 6000);
 
-          const data = await getData();
+          const data = JSON.parse(await getData());
 
           const rootUrl = data.rootUrl;
-          window.location.href=rootUrl;
-
-
+          window.location.href = rootUrl;
         },
         onError: () => {
           console.log("Error while waiting for the signal", { url });
@@ -108,7 +104,7 @@ export const Qr = () => {
 
   const [cubeState, setCubeState] = React.useState(1);
 
-  if (cubeState===-1) return <></>;
+  if (cubeState === -1) return <></>;
 
   return (
     <div
@@ -139,7 +135,7 @@ export const Qr = () => {
          animation-name:${cubeState ? "none" : "byecube"};
   animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
   animation-iteration-count: 1;
-  animation-duration: 4s;
+  animation-duration: 8s;
    transform-style: preserve-3d;
   transform-origin:  center center; 
 `}
