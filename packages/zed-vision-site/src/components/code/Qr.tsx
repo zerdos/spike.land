@@ -235,13 +235,13 @@ const r2 = Math.random() * 360 - 180;
 const r3 = Math.random() * 360 - 180;
 const r4 = Math.random() * 360 - 180;
 
-const r5 = Math.random() * 720 - 360;
-const r6 = Math.random() * 720 - 360;
-const r7 = Math.random() * 720 - 360;
+const r5 = Math.random() * 360 - 180;
+const r6 = Math.random() * 360 - 180;
+const r7 = Math.random() * 360 - 180;
 
 const r8 = Math.random() * 360 - 180;
 const r9 = Math.random() * 360 - 180;
-const r10 = Math.random() * 720 - 360;
+const r10 = Math.random() * 360 - 180;
 
 const spinCubeCss = (size: number) =>
   css`
