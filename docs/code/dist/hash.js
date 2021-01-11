@@ -91,6 +91,9 @@ export const waitForSignal = (signal) => {
 export const sendSignal = async (signal, data) => {
     if (data) {
         const CID = (await import("./vendor/cids.js")).default;
+        let toSave = data;
+        if (typeof data !== "string")
+            toSave = JSON.stringify(data);
         const dataCid = await hash(data, false);
         const hexHash = Array.from((new CID(dataCid)).multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
         await Promise.all(new Array(hexHash.length).fill(signal).map((x, i) => x + hexHash.slice(0, i + 1)).map((x) => hash(x, false)));
@@ -131,7 +134,22 @@ export const waitForSignalAndRun = async ({ signal, onSignal, onError, onExpired
                         hashHex += await getNextChar(signal + hashHex);
                     }
                     const cid = new CID(0, 112, fromHexString(hashHex));
-                    return getHash(cid.toString(), 20000);
+                    const data = await getHash(cid.toString(), 20000);
+                    /**
+                     * @param {string | any[] | { success: boolean; } | undefined} d
+                     */
+                    const parse = (d) => {
+                        try {
+                            if (typeof d !== "string")
+                                return d;
+                            const ret = JSON.parse(d);
+                            return ret;
+                        }
+                        catch (e) {
+                            return d;
+                        }
+                    };
+                    return parse(data);
                 });
             }
             return 0;

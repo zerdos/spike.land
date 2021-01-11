@@ -1,3 +1,4 @@
+import { string } from "prop-types";
 import versions from "./versions.js";
 
 // import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
@@ -119,6 +120,10 @@ export const sendSignal = async (signal, data) => {
   if (data) {
     const CID = (await import("./vendor/cids.js")).default;
 
+    let toSave = data;
+
+    if (typeof data !== "string") toSave = JSON.stringify(data);
+
     const dataCid = await hash(data, false);
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
@@ -171,7 +176,23 @@ export const waitForSignalAndRun = async (
 
             const cid = new CID(0, 112, fromHexString(hashHex));
 
-            return getHash(cid.toString(), 20000);
+            const data = await getHash(cid.toString(), 20000);
+
+            /**
+             * @param {string | any[] | { success: boolean; } | undefined} d
+             */
+            const parse = (d) => {
+              try {
+                if (typeof d !== "string") return d;
+
+                const ret = JSON.parse(d);
+                return ret;
+              } catch (e) {
+                return d;
+              }
+            };
+
+            return parse(data);
           },
         );
       }
