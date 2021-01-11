@@ -81,7 +81,11 @@ export const Qr = () => {
           clearInterval(cl);
 
           const rootUrl = data.rootUrl;
-          window.location.href = rootUrl;
+
+          const start = rootUrl.indexOf("/ipfs/");
+
+          
+          window.location.href = rootUrl.slice(start);
         },
         onError: () => {
           console.log("Error while waiting for the signal", { url });
