@@ -69,24 +69,27 @@ export const Qr = () => {
       if (cubeState!==1) return;
       waitForSignalAndRun({
         signal: url,
-        onSignal: async (getData) => {
+        onSignal: async () => {
           setCubeState(0);
+
+
+const uuid = await getUserId();
+const userdata = await shaDB.get("uuid", "json");
+await shaDB.put(uuid, {
+  ...userdata,
+  signal: url
+});
+
+          setTimeout(()=> window.location.href="https://blog.zed.vision/code/", 2000);
+
           
-          setTimeout(()=> getData(), 10);
+
           setTimeout(() => {
             setCubeState(-1);
           }, 6000);
 
           
 
-          const uuid = await getUserId();
-          const userdata = await shaDB.get("uuid", "json");
-          await shaDB.put(uuid, {
-            ...userdata,
-            signal: url
-          });
-
-          window.location.href="https://blog.zed.vision/code/";
 
         },
         onError: () => {
