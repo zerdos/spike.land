@@ -18,50 +18,19 @@ Lets see an example, a classic Counter app.
 ```javascript live=true title=Counter
 import * as React from "react";
 
-const initialState = {
-  counter: 0,
-};
+const Counter = ()=>{
 
-const actions: {
-  [key: string]: (s: typeof initialState) => typeof initialState
-} = {
-  "reset": (s) => ({ ...s, counter: initialState.counter }),
-  "+1": (s) => ({ ...s, counter: s.counter + 1 }),
-  "-1": (s) => ({ ...s, counter: s.counter - 1 }),
-};
+const [counter, setCounter] = React.useState(0);
 
-export const Counter: React.FC<{
-  events: string[];
-  onEvent?: (str: string) => void;
-}> = (
-  { events = ["reset"], onEvent },
-  ) => {
-    const [pastEvents, setEvents] = React.useState(events);
+return <>
+    <h1>Counter value: {counter}</h1>
+   
+    <button onClick={()=>setCounter(x=>x+1)}>+1</button>
+    </>
 
-    const calculatedState = pastEvents.reduce(
-      (prevValue, currentValue) => actions[currentValue](prevValue),
-      { counter: initialState.counter },
-    );
+}
 
-    return <div>
-      <button {...update("-1")}>-</button>
-      {calculatedState.counter}
-      <button {...update("+1")}>+</button>
-    </div>;
-
-    function update(action: string) {
-      return {
-        "data-onclick": action,
-        onClick: (ev: React.MouseEvent) => {
-          ev.stopPropagation();
-          setEvents((e) => [...e, action]);
-          if (onEvent) onEvent(action);
-        },
-      };
-    }
-  };
-
-  export default ()=><Counter events={[]} />
+export default ()=><Counter/>;
 
 ```
 
