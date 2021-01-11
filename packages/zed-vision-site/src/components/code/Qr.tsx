@@ -1,11 +1,11 @@
-import { css, jsx, Global } from "@emotion/react";
+import { css, Global, jsx } from "@emotion/react";
 /** @jsx jsx */
 import React from "react";
 import { waitForSignalAndRun } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
-export const Qr = ( ) => {
+export const Qr = () => {
   const side1 = React.useRef(null);
   const side2 = React.useRef(null);
   const side3 = React.useRef(null);
@@ -33,8 +33,10 @@ export const Qr = ( ) => {
           signal: lastUrl,
           onSignal: () => {
             console.log("signal Received", { lastUrl });
-            setCubeState(false)
-            setTimeout(()=> {window.location.href = lastUrl}, 2000);
+            setCubeState(false);
+            setTimeout(() => {
+              window.location.href = lastUrl;
+            }, 2000);
           },
           onError: () => {
             console.log("Error while waiting for the signal", { lastUrl });
@@ -99,8 +101,10 @@ export const Qr = ( ) => {
         signal: url,
         onSignal: () => {
           console.log("signal received", { url });
-          setCubeState(false)
-          setTimeout(()=> {window.location.href = lastUrl}, 2000);
+          setCubeState(false);
+          setTimeout(() => {
+            window.location.href = lastUrl;
+          }, 2000);
         },
         onError: () => {
           console.log("Error while waiting for the signal", { url });
@@ -113,7 +117,6 @@ export const Qr = ( ) => {
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
 
-  
   const [cubeState, setCubeState] = React.useState(true);
 
   return (
@@ -121,14 +124,11 @@ export const Qr = ( ) => {
       css={css`
       display: inline-block;
        position: relative;
+       padding: 100px;
+       margin: 100px;
    
    border-radius: 18px;
     padding: 0;
-    
-    background: rgba( 0, 0, 25, 0.4 );
-    border: solid 1px rgba(255,255,255,0.1);
-    background-clip: padding-box;
-    backdrop-filter: blur(10px ); display: inline-block;
 
    
    @keyframes byecube {
@@ -140,16 +140,19 @@ export const Qr = ( ) => {
     }
     };
     
-    `}>
+    `}
+    >
       <div
-        css={css`position: absolute;
-         animation-name:${cubeState ? 'none' : 'byecube'};
+        css={css`
+        position: absolute;
+         animation-name:${cubeState ? "none" : "byecube"};
   animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
   animation-iteration-count: 1;
   animation-duration: 4s;
    transform-style: preserve-3d;
   transform-origin:  center center; 
-`}>
+`}
+      >
         <Cube
           size={220}
           sides={[
@@ -166,7 +169,6 @@ export const Qr = ( ) => {
   );
 };
 
-
 //@ts-ignore
 const Cube = ({ sides, size }) => {
   //@ts-ignore
@@ -174,44 +176,56 @@ const Cube = ({ sides, size }) => {
   return (
     <div
       css={css` color: #ecf0f1;
-      border-radius: 18px;
-      padding: 0;
-      
-      background: rgba( 0, 0, 25, 0.4 );
-      border: solid 1px rgba(255,255,255,0.1);
-      background-clip: padding-box;
-      backdrop-filter: blur(10px ); display: inline-block; `}>
+ 
+      backdrop-filter: blur(10px ); display: inline-block; `}
+    >
       <div css={spinCubeCss(size)}>
-        
-          <div css={css`transform: translateZ(${size / 2}px);`}>{sides[0]}
-          </div>
-          <div css={`transform: rotateY(90deg) translateZ(${size / 2}px);`}>
-            {sides[1]}
-          </div>
-          <div
-            css={` transform: rotateY(90deg) rotateX(90deg) translateZ(${
-              size / 2
-            }px);`}>
-            {sides[2]}
-          </div>
-          <div
-            css={css` transform: translateZ( -${
-              size / 2
-            }px) rotateY(180deg) rotateZ(90deg) ;`}>
-            {sides[3]}
-          </div>
-          <div
-            css={` transform: rotateY(-90deg) rotateZ(90deg) translateZ(${
-              size / 2
-            }px);`}>
-            {sides[4]}
-          </div>
-          <div css={`  transform: rotateX(-90deg) translateZ(${size / 2}px);`}>
-            {sides[5]}
-          </div>
-
-          
+        <div
+          css={css`
+              transform: translateZ(${size / 2}px);
+              `}
+        >
+          {sides[0]}
         </div>
+        <div
+          css={css`
+            transform: rotateY(90deg) translateZ(${size / 2}px);
+            `}
+        >
+          {sides[1]}
+        </div>
+        <div
+          css={css`
+                transform: rotateY(90deg) rotateX(90deg) translateZ(${size /
+            2}px);
+                `}
+        >
+          {sides[2]}
+        </div>
+        <div
+          css={css` 
+                transform: translateZ( -${size /
+            2}px) rotateY(180deg) rotateZ(90deg);
+            `}
+        >
+          {sides[3]}
+        </div>
+        <div
+          css={css` 
+                transform: rotateY(-90deg) rotateZ(90deg) translateZ(${size /
+            2}px);
+                `}
+        >
+          {sides[4]}
+        </div>
+        <div
+          css={css`
+            transform: rotateX(-90deg) translateZ(${size / 2}px);
+            `}
+        >
+          {sides[5]}
+        </div>
+      </div>
     </div>
   );
 };
@@ -223,10 +237,14 @@ const r4 = Math.random() * 360 - 180;
 
 const r5 = Math.random() * 720 - 360;
 const r6 = Math.random() * 720 - 360;
-const r7 = Math.random() * 360 - 180;
-const r8 = Math.random() * 360 - 180;
+const r7 = Math.random() * 720 - 360;
 
-const spinCubeCss = (size: number) => css`
+const r8 = Math.random() * 360 - 180;
+const r9 = Math.random() * 360 - 180;
+const r10 = Math.random() * 720 - 360;
+
+const spinCubeCss = (size: number) =>
+  css`
   position: relative;
   width: ${size}px; 
   height: ${size}px;
@@ -244,23 +262,22 @@ const spinCubeCss = (size: number) => css`
       
   @keyframes spincube {
     from,to {
-      transform: rotateX(0deg) rotateY(deg) rotateZ(0deg);
+      transform: rotateX(${r9}deg) rotateY(${r8}deg) rotateZ(${r4}deg);
     }
     16% {
-      transform: rotateX(${r1}deg) rotateY(${r2}deg); 
+      transform: rotateX(${r1}deg) rotateY(${r2}deg) rotateZ(${r2}deg); 
     }
     33% {
-      transform: rotateY(${r4}deg) rotateZ(${r3}deg);
+      transform: rotateX(${r2}deg) rotateY(${r4}deg) rotateZ(${r3}deg);
        }
     50% {
-     transform:  rotateZ(${r5}deg) rotateX(${6}deg);
-     
+     transform: rotateX(${r5}deg) rotateY(${r6}deg) rotateZ(${r1}deg);
     }
     66% {
      transform: rotateX(${r7}deg) rotateY(${r3}deg) rotateZ(${r5}deg);
       }
     83% {
-     transform: rotateY(${r8}deg) rotateX(${r6}deg);;
+     transform: rotateX(${r6}deg) rotateY(${r5}deg)  rotateZ(${r10}deg);
      }
   }
 

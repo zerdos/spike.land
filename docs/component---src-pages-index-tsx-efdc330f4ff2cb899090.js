@@ -272,8 +272,58 @@ function _sha() {
 
 
 
-function _templateObject6() {
+function _templateObject11() {
   var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n      body{\n          background: #333;\n           overflow: visble;\n          margin: 300px;\n          width: 0px;\n          text-align: center;\n         }  \n    "]);
+
+  _templateObject11 = function _templateObject11() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject10() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n  position: relative;\n  width: ", "px; \n  height: ", "px;\n  animation-name: spincube;\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: infinite;\n  animation-duration: 10s;\n    /* perspective: 900px; */\n\n  transform-style: preserve-3d;\n  transform-origin:  ", "px  ", "px; \n  \n \n      \n      \n  @keyframes spincube {\n    from,to {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    16% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg); \n    }\n    33% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n       }\n    50% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    66% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n    83% {\n     transform: rotateX(", "deg) rotateY(", "deg)  rotateZ(", "deg);\n     }\n  }\n\n  \n\n\n\n   div{\n    position: absolute;\n    width: ", "px;\n    height: ", "px;\n    border: 0;\n    background: rgba(255,255,255,0.8);\n    box-shadow: inset 0 0 20px rgba(255,0,0,0.6);\n  }\n"]);
+
+  _templateObject10 = function _templateObject10() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject9() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n            transform: rotateX(-90deg) translateZ(", "px);\n            "]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])([" \n                transform: rotateY(-90deg) rotateZ(90deg) translateZ(", "px);\n                "]);
+
+  _templateObject8 = function _templateObject8() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject7() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])([" \n                transform: translateZ( -", "px) rotateY(180deg) rotateZ(90deg);\n            "]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                transform: rotateY(90deg) rotateX(90deg) translateZ(", "px);\n                "]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -283,7 +333,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n  position: relative;\n  width: ", "px; \n  height: ", "px; \n \n      \n      \n  @keyframes spincube {\n    from,to {\n      transform: rotateX(0deg) rotateY(deg) rotateZ(0deg);\n    }\n    16% {\n      transform: rotateX(", "deg) rotateY(", "deg); \n    }\n    33% {\n      transform: rotateY(", "deg) rotateZ(", "deg);\n       }\n    50% {\n     transform:  rotateZ(", "deg) rotateX(", "deg);\n     \n    }\n    66% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n    83% {\n     transform: rotateY(", "deg) rotateX(", "deg);;\n     }\n  }\n\n  \n\n    animation-name: spincube;\n    animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n    animation-iteration-count: infinite;\n    animation-duration: 10s;\n    perspective: 900px;\n\n    transform-style: preserve-3d;\n\n    transform-origin:  ", "px  ", "px \n  }\n\n   div {\n    position: absolute;\n    width: ", "px;\n    height: ", "px;\n    border: 0;\n    background: rgba(255,255,255,0.8);\n    box-shadow: inset 0 0 20px rgba(255,0,0,0.6);\n  }\n"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n            transform: rotateY(90deg) translateZ(", "px);\n            "]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -293,7 +343,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])([" transform: translateZ( -", "px) rotateY(180deg) rotateZ(90deg) ;"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n              transform: translateZ(", "px);\n              "]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -303,7 +353,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["transform: translateZ(", "px);"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])([" color: #ecf0f1;\n \n      backdrop-filter: blur(10px ); display: inline-block; "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -313,7 +363,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])([" color: #ecf0f1;\n      border-radius: 18px;\n      padding: 0;\n      \n      background: rgba( 0, 0, 25, 0.4 );\n      border: solid 1px rgba(255,255,255,0.1);\n      background-clip: padding-box;\n      backdrop-filter: blur(10px ); display: inline-block; "]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        position: absolute;\n         animation-name:", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: 1;\n  animation-duration: 4s;\n   transform-style: preserve-3d;\n  transform-origin:  center center; \n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -323,7 +373,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n      margin: 24px;\n      text-align: center;\n      box-sizing: inherit; }\n  "]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n      display: inline-block;\n       position: relative;\n       padding: 100px;\n       margin: 100px;\n   \n   border-radius: 18px;\n    padding: 0;\n\n   \n   @keyframes byecube {\n     from {\n      transform: translateX(0px);\n    }\n   to {\n      transform: translatey(-1000px);\n    }\n    };\n    \n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -372,24 +422,23 @@ var Qr_Qr = function Qr() {
                 qr3 = null;
                 qr4 = null;
                 qr5 = null;
-                qr6 = null; // const req = await fetch("https://zed.vision/token");
-                // const data = await req.json();
-                // const key = data.key;
-
+                qr6 = null;
                 secret = Math.random() + "-" + Math.random() + "-" + Math.random();
                 _context.next = 9;
                 return sha256(secret);
 
               case 9:
                 key = _context.sent.slice(0, 8);
-                // const key = "12345678";
                 lastUrl && waitForSignalAndRun({
                   signal: lastUrl,
                   onSignal: function onSignal() {
                     console.log("signal Received", {
                       lastUrl: lastUrl
                     });
-                    window.location.href = lastUrl;
+                    setCubeState(false);
+                    setTimeout(function () {
+                      window.location.href = lastUrl;
+                    }, 2000);
                   },
                   onError: function onError() {
                     console.log("Error while waiting for the signal", {
@@ -474,7 +523,10 @@ var Qr_Qr = function Qr() {
                     console.log("signal received", {
                       url: url
                     });
-                    window.location.href = url;
+                    setCubeState(false);
+                    setTimeout(function () {
+                      window.location.href = lastUrl;
+                    }, 2000);
                   },
                   onError: function onError() {
                     console.log("Error while waiting for the signal", {
@@ -503,11 +555,15 @@ var Qr_Qr = function Qr() {
 
     if (typeof window !== "undefined" && retry > 0) connect();
   }, [retry]);
+
+  var _React$useState3 = react_default.a.useState(true),
+      cubeState = _React$useState3[0],
+      setCubeState = _React$useState3[1];
+
   return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    onClick: function onClick() {
-      return window.open(lastUrl);
-    },
     css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject())
+  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2(), cubeState ? "none" : "byecube")
   }, Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Cube, {
     size: 220,
     sides: [Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
@@ -523,7 +579,7 @@ var Qr_Qr = function Qr() {
     }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
       ref: side6
     })]
-  }));
+  })));
 }; //@ts-ignore
 
 var Qr_Cube = function Cube(_ref2) {
@@ -531,25 +587,22 @@ var Qr_Cube = function Cube(_ref2) {
       size = _ref2.size;
   //@ts-ignore
   return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2())
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3())
   }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    className: "stage",
     css: Qr_spinCubeCss(size)
   }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    className: "cubespinner"
-  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3(), size / 2)
-  }, sides[0]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: "transform: rotateY(90deg) translateZ(" + size / 2 + "px);"
-  }, sides[1]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: " transform: rotateY(90deg) rotateX(90deg) translateZ(" + size / 2 + "px);"
-  }, sides[2]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
     css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject4(), size / 2)
+  }, sides[0]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject5(), size / 2)
+  }, sides[1]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject6(), size / 2)
+  }, sides[2]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject7(), size / 2)
   }, sides[3]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: " transform: rotateY(-90deg) rotateZ(90deg) translateZ(" + size / 2 + "px);"
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject8(), size / 2)
   }, sides[4]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: "  transform: rotateX(-90deg) translateZ(" + size / 2 + "px);"
-  }, sides[5]))));
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject9(), size / 2)
+  }, sides[5])));
 };
 
 var r1 = Math.random() * 360 - 180;
@@ -558,16 +611,18 @@ var r3 = Math.random() * 360 - 180;
 var r4 = Math.random() * 360 - 180;
 var r5 = Math.random() * 720 - 360;
 var r6 = Math.random() * 720 - 360;
-var r7 = Math.random() * 360 - 180;
+var r7 = Math.random() * 720 - 360;
 var r8 = Math.random() * 360 - 180;
+var r9 = Math.random() * 360 - 180;
+var r10 = Math.random() * 720 - 360;
 
 var Qr_spinCubeCss = function spinCubeCss(size) {
-  return Object(emotion_react_browser_esm["b" /* css */])(_templateObject5(), size, size, r1, r2, r4, r3, r5, 6, r7, r3, r5, r8, r6, size / 2, size / 2, size, size);
+  return Object(emotion_react_browser_esm["b" /* css */])(_templateObject10(), size, size, size / 2, size / 2, r9, r8, r4, r1, r2, r2, r2, r4, r3, r5, r6, r1, r7, r3, r5, r6, r5, r10, size, size);
 };
 
 /* harmony default export */ var code_Qr = (function () {
   return Object(emotion_react_browser_esm["c" /* jsx */])(react_default.a.Fragment, null, Object(emotion_react_browser_esm["c" /* jsx */])(emotion_react_browser_esm["a" /* Global */], {
-    styles: Object(emotion_react_browser_esm["b" /* css */])(_templateObject6())
+    styles: Object(emotion_react_browser_esm["b" /* css */])(_templateObject11())
   }), Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Qr, null));
 });
 // EXTERNAL MODULE: ./assets/forkMe.png
