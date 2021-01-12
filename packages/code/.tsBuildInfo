@@ -231,9 +231,9 @@
         "signature": "1e61418f41d404e744b6536af9f8c6f6674dd4d54c12335cd0c4f7eded69cf3f",
         "affectsGlobalScope": true
       },
-      "../../node_modules/tslib/tslib.d.ts": {
-        "version": "4576b4e61049f5ffd7c9e935cf88832e089265bdb15ffc35077310042cbbbeea",
-        "signature": "4576b4e61049f5ffd7c9e935cf88832e089265bdb15ffc35077310042cbbbeea",
+      "./node_modules/tslib/tslib.d.ts": {
+        "version": "55d7868222288a4054166fecbfbaeee46dd3b1b58e4a118e40e9c8c13a9fbe84",
+        "signature": "55d7868222288a4054166fecbfbaeee46dd3b1b58e4a118e40e9c8c13a9fbe84",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/react/global.d.ts": {
@@ -467,7 +467,7 @@
       ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
@@ -479,7 +479,7 @@
       ],
       "./src/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
         "./src/hash.js",
         "./src/share.js",
@@ -488,111 +488,111 @@
       ],
       "./src/db.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/formatter.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/vendor/cids.js",
         "./src/versions.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/ipfsKV.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/ipfsKV.worker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/mhash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "../../node_modules/cids/dist/src/index.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/importScript.js",
         "./src/workBox.js"
       ],
       "./src/renderPreviewWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/share.js"
       ],
       "./src/sendSignalToQrCode.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/data.js",
         "./src/db.js",
         "./src/hash.js"
       ],
       "./src/share.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
         "./src/ipfsKV.js",
         "./src/templates.js"
       ],
       "./src/starter.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/starterNoFramerMotion.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/starterTsx.tsx": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/starter_framer.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/sw.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/transpile.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts",
+        "./node_modules/tslib/tslib.d.ts",
         "./src/versions.js"
       ],
       "./src/transpile.worker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/transpileWorker.d.ts": [
         "../../node_modules/comlink/dist/umd/comlink.d.ts"
       ],
       "./src/vendor/cids.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/versions.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ],
       "./src/workBox.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/tslib/tslib.d.ts"
+        "./node_modules/tslib/tslib.d.ts"
       ]
     },
     "exportedModulesMap": {
@@ -625,7 +625,6 @@
       "../../node_modules/comlink/dist/umd/protocol.d.ts",
       "../../node_modules/csstype/index.d.ts",
       "../../node_modules/multicodec/dist/src/generated-types.d.ts",
-      "../../node_modules/tslib/tslib.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -672,6 +671,7 @@
       "../../node_modules/typescript/lib/lib.esnext.weakref.d.ts",
       "../../node_modules/typescript/lib/lib.webworker.d.ts",
       "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "./node_modules/tslib/tslib.d.ts",
       "./src/codeLoader.js",
       "./src/data.js",
       "./src/db.js",

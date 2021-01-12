@@ -200,7 +200,7 @@ var defineProperty = __webpack_require__("zjfJ");
 var toConsumableArray = __webpack_require__("fGyu");
 
 // CONCATENATED MODULE: ../code/dist/versions.js
-function versions(){var code="11.7.3";var shadb="11.7.2";var editor="11.6.16";var emotionRenderer="11.6.16";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
+function versions(){var code="11.7.4";var shadb="11.7.4";var editor="11.6.16";var emotionRenderer="11.6.16";var v={code:code,shadb:shadb,ipfs:"0.52.3",workbox:"6.0.2",babel:"7.12.12",prettier:"2.2.1",uuid:"8.3.2",comlink:"4.3.0",editor:"https://unpkg.com/@zedvision/smart-monaco-editor@"+editor+"/dist/editor.js",emotionRenderer:"https://unpkg.com/@zedvision/emotion-react-renderer@"+emotionRenderer+"/dist/bundle.js"};return v;}var v=versions();/* harmony default export */ var dist_versions = (versions);
 // CONCATENATED MODULE: ../code/dist/hash.js
 // import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
 var hash_v=dist_versions();/**
@@ -764,4 +764,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-3173e8ec32d24efe6eef.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-d191c09562cdafdf5cc3.js.map
