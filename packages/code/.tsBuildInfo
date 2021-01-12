@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "098750e77f2206e94590659b0a01424b55bc7a278bbad99d07f695e95ad70324",
+        "version": "7a36bdd1d08d851099019026a483f81153292e52aff9aa14ec41e37d4e83a27f",
         "signature": "ed905deb08ac481454b2aa5a513ee0c21422c0e9877298737a5e6d1d7dcfc2e9",
         "affectsGlobalScope": false
       },
@@ -347,7 +347,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfs.shared.worker.js": {
-        "version": "9b2689b1612d35a701cb51908a1378b947df1df23fe01b85aca51bc9bb98892f",
+        "version": "19e122331d9523449fa1e630a4d2d2bae466aed1d2a4c2b65d95b7f8bb7b954e",
         "signature": "1e0d8f36f617893c03c2cf3601936144dab6bb240acabad41ede2f46de388703",
         "affectsGlobalScope": true
       },
@@ -510,6 +510,7 @@
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
+        "./src/ipfs.client.js",
         "./src/vendor/cids.js",
         "./src/versions.js"
       ],

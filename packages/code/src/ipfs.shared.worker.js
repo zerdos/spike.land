@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
 importScripts(
   "https://unpkg.com/ipfs-message-port-server@0.4.3/dist/index.min.js",

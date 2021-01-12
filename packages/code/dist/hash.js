@@ -1,5 +1,5 @@
 import versions from "./versions.js";
-// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
+// @ts-ignore
 const v = versions();
 /**
  *
@@ -10,9 +10,6 @@ const feedTheCache = (cid) => {
     // console.log(cid);
     return cid;
 };
-// fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text()).then(
-//   console.log,
-// );
 /**
  * @param {string | any[]} data
  */
@@ -27,16 +24,9 @@ const half = (data) => {
     // })
     return data;
 };
-/** @type {null | {add: (data: string)=>Promise<string>}} */
-let ipfsClient = null;
 async function getClient() {
-    if (ipfsClient) {
-        return ipfsClient;
-    }
-    ipfsClient = (await (await new Function(window.location.hostname === "[::1]"
-        ? `return import("./ipfsKV.js")`
-        : `return import("https://blog.zed.vision/code/src/ipfsKV.js")`)()).getIpfsClient());
-    return ipfsClient;
+    const { getIpfs } = await import("./ipfs.client.js");
+    return getIpfs();
 }
 /**
  * @param {any} data
@@ -44,12 +34,10 @@ async function getClient() {
  */
 const hash = async (data, onlyHash) => {
     /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
-    const client = await getClient();
-    if (client === null) {
-        return { success: false };
-    }
+    const ipfs = await getClient();
     const noisyHashes = (await Promise.all([
-        await client.add(`${data}`, { onlyHash }),
+        // @ts-ignore
+        await ipfs.add(`${data}`, { onlyHash }),
     ]));
     if (!onlyHash) {
         const data = await Promise.all(noisyHashes.map(feedTheCache));
@@ -66,11 +54,9 @@ const getHash = async (cid, _timeOut) => {
     const timeout = _timeOut || 20000;
     try {
         /** @type {{ cat: (arg0: any, arg1: any) => any; } | null} */
-        const client = (await getClient());
-        if (client === null) {
-            return { success: false };
-        }
-        const data = await client.cat(cid, { timeout });
+        const ipfs = await getClient();
+        // @ts-ignore
+        const data = await ipfs.cat(cid, { timeout });
         if (typeof data === "string")
             return half(data);
         // console.error({ data });
@@ -93,6 +79,7 @@ export const sendSignal = async (signal, data) => {
     await hash(signal, false);
     if (data) {
         const CID = (await import("./vendor/cids.js")).default;
+        // @ts-ignore
         let toSave = data;
         if (typeof data !== "string")
             toSave = JSON.stringify(data);
