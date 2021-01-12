@@ -217,16 +217,14 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
             })()
           )
         );
-          try{
+        try {
+          response = await raceToSuccess(random5GatewaysFetch);
+          if (typeof response === "undefined") return text("Please try again");
 
-          
-        response = await raceToSuccess(random5GatewaysFetch);
-        if (typeof response ==="undefined") return text("Please try again");
-
-        await cache.put(request, response.clone());
-          }catch{
-            return text("please try again");
-          }
+          await cache.put(request, response.clone());
+        } catch {
+          return text("please try again");
+        }
       }
       if (response.status > 399) {
         response = new Response(

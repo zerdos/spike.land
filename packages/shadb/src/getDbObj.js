@@ -16,10 +16,10 @@ export const getDbObj = (db) => {
         //key not found that we write - its ok.
       }
       if (format === "json") {
-        try{
-        const json =  JSON.parse(data);
-        return json;
-        } catch{
+        try {
+          const json = JSON.parse(data);
+          return json;
+        } catch {
           return data;
         }
       }
