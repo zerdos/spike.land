@@ -21,12 +21,20 @@ export const getIpfs = async () => {
   console.log(workerSrc);
 
   if (typeof SharedWorker !== "undefined") {
-    console.log("FROM WORKER YEAAH");
     const worker = new SharedWorker(workerSrc);
     ipfs = IpfsMessagePortClient.from(worker.port);
   } else {
     const worker = new Worker(workerSrc);
-    ipfs = IpfsMessagePortClient.from(worker);
+    const { port1, port2 } = new MessageChannel();
+
+    port1.onmessage = function (e) {
+      worker.postMessage(e.data, [e.data]);
+    };
+    worker.onmessage = function (e) {
+      port1.postMessage(e.data, [e.data]);
+    };
+
+    ipfs = IpfsMessagePortClient.from(port2);
   }
 
   return ipfs;
