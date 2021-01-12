@@ -115,7 +115,7 @@ const ipfsKV = {
 self.addEventListener(
   "connect",
   // @ts-ignore
-  (e) => Comlink.expose(transform, e.ports[0]),
+  (e) => Comlink.expose(ipfsKV, e.ports[0]),
 );
 
 // deno-lint-ignore no-undef
