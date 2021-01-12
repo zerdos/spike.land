@@ -48,8 +48,8 @@ async function init() {
     //@ts-ignore
     worker.postMessage(msg, [port1]);
 
-    const swProxy = await Comlink.wrap(port2);
-    return swProxy;
+    const transform = await Comlink.wrap(port2);
+    return transform;
   }
 
   const worker = new SharedWorker(workerSrc);
