@@ -23,7 +23,9 @@ async function init() {
 
   const workerSrc = window.location.hostname === "blog.zed.vision"
     ? `https://blog.zed.vision/code/src/transpile.worker.js`
-    : `${location.href}src/transpile.worker.js`;
+    : window.location.hostname === "[::1]"
+    ? `${location.href}/src/transpile.worker.js`
+    : `${location.origin}/src/transpile.worker.js`;
 
   //@ts-ignore
   if (typeof SharedWorker === "undefined") {

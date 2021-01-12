@@ -16,7 +16,9 @@ async function init() {
     const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
     const workerSrc = window.location.hostname === "blog.zed.vision"
         ? `https://blog.zed.vision/code/src/transpile.worker.js`
-        : `${location.href}src/transpile.worker.js`;
+        : window.location.hostname === "[::1]"
+            ? `${location.href}/src/transpile.worker.js`
+            : `${location.origin}/src/transpile.worker.js`;
     //@ts-ignore
     if (typeof SharedWorker === "undefined") {
         const worker = new Worker(workerSrc);
