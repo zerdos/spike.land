@@ -9,16 +9,16 @@ addEventListener("activate", () => clients.claim());
 // deno-lint-ignore ban-ts-comment
 // @ts-ignore
 const IPFS = (() => globalThis.Ipfs)();
-/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; pubsub: { subscribe: (arg0: string, arg1: (msg: any) => void) => void; }; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
-let ipfsNode;
+/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; pubsub: { subscribe: (arg0: string, arg1: (msg: any) => void) => void; }; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */ let ipfsNode;
 const ipfsKV = {
+    ipfsNode: null,
     /**
    * @param {string} data
    * @param {{ onlyHash: boolean; }} options
    */
     add: async (data, options) => {
         try {
-            ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+            ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
             // console.log(await ipfsNode.config.getAll())
             const { cid } = await ipfsNode.add(data, options);
             if (options && options.onlyHash) {
@@ -37,7 +37,7 @@ const ipfsKV = {
     addAll: async (files) => {
         var e_1, _a;
         try {
-            ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+            ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
             const res = [];
             try {
                 for (var _b = __asyncValues(ipfsNode.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
@@ -73,7 +73,7 @@ const ipfsKV = {
     cat: async (cid, options) => {
         var e_2, _a;
         try {
-            ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+            ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
             const res = [];
             try {
                 for (var _b = __asyncValues(ipfsNode.cat(cid, options)), _c; _c = await _b.next(), !_c.done;) {
@@ -103,7 +103,8 @@ const ipfsKV = {
     async (topic) => {
         var e_3, _a;
         try {
-            ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+            ipfsKV.ipfsNode = ipfsKV.ipfsNode ||
+                await IPFS.create({ silent: true });
             const res = [];
             const receiveMsg = 
             /**
@@ -147,7 +148,7 @@ const ipfsKV = {
     getData: async (cid, options) => {
         var e_4, _a;
         try {
-            ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+            ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
             const res = [];
             try {
                 for (var _b = __asyncValues(ipfsNode.get(cid, options)), _c; _c = await _b.next(), !_c.done;) {

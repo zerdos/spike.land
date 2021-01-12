@@ -287,7 +287,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
-        "version": "3ad40ee956fb521ce6f2506a44141d033149da5c3288418bc6e25ee807bc0150",
+        "version": "a11815b7f111be2ba8b203a109f8b71410584537d8bc7fcfb15177224c377971",
         "signature": "c1346054e773e88a2752e995387f5994cfd58107e234c54010a253e5797663ea",
         "affectsGlobalScope": false
       },
@@ -347,8 +347,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
-        "version": "2fead82231b22006780f542622d703a2bbd1a974dc41227ad279a6eeccc7fb88",
-        "signature": "47b60412d999bdce18709cd9045a9760df06f0604f2d4ee437c1ecb1d63d0e06",
+        "version": "01b3d1cc422142730c485cad24dd1aaf8b8cf9a555d274c75d3483e1b132ca9d",
+        "signature": "0590e86219422af7a72e8bfa9f9afb5e8995c397c01017a4e6159aad1376fa42",
         "affectsGlobalScope": true
       },
       "../../node_modules/multicodec/dist/src/generated-types.d.ts": {
