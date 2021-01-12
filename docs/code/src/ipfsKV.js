@@ -71,9 +71,9 @@ async function init() {
     );
 
     const worker = new SharedWorker(
-      window.location.hostname === "[::1]"
-        ? `./src/ipfsKV.worker.js`
-        : `https://blog.zed.vision/code/src/ipfsKV.worker.js`,
+      // window.location.hostname === "[::1]"
+      `./src/ipfsKV.worker.js`,
+      // : `https://blog.zed.vision/code/src/ipfsKV.worker.js`,
     );
 
     worker.port.start();
