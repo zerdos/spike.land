@@ -46,7 +46,13 @@ async function handleRequest(request) {
     }
   }
 
-  return await fetch(`https://blog.zed.vision/code${pathname}`);
+  const maybeRoute = pathname.substr(1).slice(0, 8);
+  const isKey = maybeRoute.length === 8 &&
+    [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
+
+  return await fetch(
+    `https://blog.zed.vision/code${isKey ? pathname.slice(9) : pathname}`,
+  );
 }
 
 //   if (pathname.endsWith("sw.js")) {
