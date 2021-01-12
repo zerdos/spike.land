@@ -266,8 +266,8 @@
         "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
       },
-      "./src/ipfs.client.js": {
-        "version": "8b4b5e9ea980db6e1e4ff9945b2405dad3dd35a3ce1636078866c4e6444a6751",
+      "./src/ipfsClient.js": {
+        "version": "7a75f06701810478d48536e53833de9b90df70fabdf718bee5392a64e69b1357",
         "signature": "84ec3c66307f94cd18aaf53d6be7841ad415bbed71a780403d229d3a816e93f3",
         "affectsGlobalScope": false
       },
@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "7a36bdd1d08d851099019026a483f81153292e52aff9aa14ec41e37d4e83a27f",
+        "version": "8e10966619ab0cfe875030297382bba4ec2e439e789ce817cc01e0f2fccbec34",
         "signature": "ed905deb08ac481454b2aa5a513ee0c21422c0e9877298737a5e6d1d7dcfc2e9",
         "affectsGlobalScope": false
       },
@@ -297,7 +297,7 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "6a4f4ab0f6c32c094d179c89f6cb9ff60a68ede7d26194712443cf1e649b9f64",
+        "version": "a0ba94657dd7316b0b761a295ed3842c098b7e0a3837cdbfeafb40127018a55e",
         "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
@@ -342,11 +342,11 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "de98e205c0bc38529176573e9de3ea7a893332e54439f3f02281d4e1e3f8fa17",
+        "version": "4f7266e3c3c049f0a6282ae6d613a9091f10399d07a3005c01c990abd27a8b24",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
-      "./src/ipfs.shared.worker.js": {
+      "./src/ipfsWorker.js": {
         "version": "19e122331d9523449fa1e630a4d2d2bae466aed1d2a4c2b65d95b7f8bb7b954e",
         "signature": "1e0d8f36f617893c03c2cf3601936144dab6bb240acabad41ede2f46de388703",
         "affectsGlobalScope": true
@@ -471,7 +471,7 @@
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
-        "./src/ipfs.client.js",
+        "./src/ipfsClient.js",
         "./src/openWindows.js",
         "./src/renderPreviewWindow.js",
         "./src/sendSignalToQrCode.js",
@@ -500,7 +500,7 @@
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
-        "./src/ipfs.client.js",
+        "./src/ipfsClient.js",
         "./src/vendor/cids.js",
         "./src/versions.js"
       ],
@@ -508,12 +508,12 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
-      "./src/ipfs.client.js": [
+      "./src/ipfsClient.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
         "./src/importScript.js"
       ],
-      "./src/ipfs.shared.worker.js": [
+      "./src/ipfsWorker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
@@ -544,7 +544,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
-        "./src/ipfs.client.js",
+        "./src/ipfsClient.js",
         "./src/templates.js"
       ],
       "./src/starter.js": [
@@ -680,8 +680,8 @@
       "./src/formatter.js",
       "./src/hash.js",
       "./src/importScript.js",
-      "./src/ipfs.client.js",
-      "./src/ipfs.shared.worker.js",
+      "./src/ipfsClient.js",
+      "./src/ipfsWorker.js",
       "./src/mhash.js",
       "./src/openWindows.js",
       "./src/refs.d.ts",

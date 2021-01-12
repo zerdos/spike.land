@@ -1,5 +1,5 @@
 import { sha256, shaDB } from "./db.js";
-import { getIpfs } from "./ipfs.client.js";
+import { getIpfs } from "./ipfsClient.js";
 
 /**
  * 

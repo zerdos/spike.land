@@ -24,7 +24,7 @@ function getSession() {
 export async function run(mode = "window", _w, code = "") {
   const { pathname } = new URL(window.location.href);
 
-  const ipfs = await import("./ipfs.client.js").then((x) => x.getIpfs());
+  const ipfs = await import("./ipfsClient.js").then((x) => x.getIpfs());
   //@ts-ignore
   window.ipfs = ipfs;
 

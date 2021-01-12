@@ -25,7 +25,7 @@ const half = (data) => {
     return data;
 };
 async function getClient() {
-    const { getIpfs } = await import("./ipfs.client.js");
+    const { getIpfs } = await import("./ipfsClient.js");
     return getIpfs();
 }
 /**

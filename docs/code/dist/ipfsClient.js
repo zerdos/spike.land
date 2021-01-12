@@ -8,11 +8,10 @@ export const getIpfs = async () => {
     // @ts-ignore
     const { IpfsMessagePortClient } = await importScript("https://unpkg.com/ipfs-message-port-client@0.4.3/dist/index.min.js");
     const workerSrc = window.location.hostname === "blog.zed.vision"
-        ? `https://blog.zed.vision/code/src/ipfs.shared.worker.js`
+        ? `https://blog.zed.vision/code/src/ipfsWorker.js`
         : window.location.hostname === "[::1]"
-            ? `${location.href}src/ipfs.shared.worker.js`
-            : `${location.origin}/src/ipfs.shared.worker.js`;
-    console.log(workerSrc);
+            ? `${location.href}src/ipfsWorker.js`
+            : `${location.origin}/src/ipfsWorker.js`;
     if (typeof SharedWorker !== "undefined") {
         const worker = new SharedWorker(workerSrc);
         ipfs = IpfsMessagePortClient.from(worker.port);
