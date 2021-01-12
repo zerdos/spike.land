@@ -351,16 +351,6 @@
         "signature": "1e0d8f36f617893c03c2cf3601936144dab6bb240acabad41ede2f46de388703",
         "affectsGlobalScope": true
       },
-      "./src/ipfsKV.js": {
-        "version": "a11815b7f111be2ba8b203a109f8b71410584537d8bc7fcfb15177224c377971",
-        "signature": "c1346054e773e88a2752e995387f5994cfd58107e234c54010a253e5797663ea",
-        "affectsGlobalScope": false
-      },
-      "./src/ipfsKV.worker.js": {
-        "version": "2fead82231b22006780f542622d703a2bbd1a974dc41227ad279a6eeccc7fb88",
-        "signature": "47b60412d999bdce18709cd9045a9760df06f0604f2d4ee437c1ecb1d63d0e06",
-        "affectsGlobalScope": true
-      },
       "../../node_modules/multicodec/dist/src/generated-types.d.ts": {
         "version": "7461cdfeed4a18eeab1e26625d21e8965bd6cd7e537931cfbc6b3154c77a33fc",
         "signature": "7461cdfeed4a18eeab1e26625d21e8965bd6cd7e537931cfbc6b3154c77a33fc",
@@ -524,15 +514,6 @@
         "./src/importScript.js"
       ],
       "./src/ipfs.shared.worker.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_modules/tslib/tslib.d.ts"
-      ],
-      "./src/ipfsKV.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_modules/tslib/tslib.d.ts",
-        "./src/versions.js"
-      ],
-      "./src/ipfsKV.worker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts"
       ],
@@ -701,8 +682,6 @@
       "./src/importScript.js",
       "./src/ipfs.client.js",
       "./src/ipfs.shared.worker.js",
-      "./src/ipfsKV.js",
-      "./src/ipfsKV.worker.js",
       "./src/mhash.js",
       "./src/openWindows.js",
       "./src/refs.d.ts",
