@@ -65,7 +65,7 @@ async function init() {
         const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
         const worker = new SharedWorker(
         // window.location.hostname === "[::1]"
-        `./src/ipfsKV.worker.js`);
+        `src/ipfsKV.worker.js`);
         worker.port.start();
         const { port1, port2 } = new MessageChannel();
         const msg = {
