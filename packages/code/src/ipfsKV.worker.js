@@ -10,17 +10,17 @@ addEventListener("activate", () => clients.claim());
 // @ts-ignore
 const IPFS = (() => globalThis.Ipfs)();
 
-/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; pubsub: { subscribe: (arg0: string, arg1: (msg: any) => void) => void; }; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */ let ipfsNode;
+/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; pubsub: { subscribe: (arg0: string, arg1: (msg: any) => void) => void; }; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
+let ipfsNode;
 
 const ipfsKV = {
-  ipfsNode: null,
   /**
  * @param {string} data
  * @param {{ onlyHash: boolean; }} options
  */
   add: async (data, options) => {
     try {
-      ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
 
       // console.log(await ipfsNode.config.getAll())
 
@@ -43,7 +43,7 @@ const ipfsKV = {
    */
   addAll: async (files) => {
     try {
-      ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
       const res = [];
 
       for await (const result of ipfsNode.addAll(files)) {
@@ -70,7 +70,7 @@ const ipfsKV = {
     */
   cat: async (cid, options) => {
     try {
-      ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
       const res = [];
 
       for await (const result of ipfsNode.cat(cid, options)) {
@@ -91,8 +91,7 @@ const ipfsKV = {
    */
     async (topic) => {
       try {
-        ipfsKV.ipfsNode = ipfsKV.ipfsNode ||
-          await IPFS.create({ silent: true });
+        ipfsNode = ipfsNode || await IPFS.create({ silent: true });
         const res = [];
 
         const receiveMsg =
@@ -129,7 +128,7 @@ const ipfsKV = {
   // @ts-ignore
   getData: async (cid, options) => {
     try {
-      ipfsKV.ipfsNode = ipfsKV.ipfsNode || await IPFS.create({ silent: true });
+      ipfsNode = ipfsNode || await IPFS.create({ silent: true });
       const res = [];
 
       for await (const result of ipfsNode.get(cid, options)) {
