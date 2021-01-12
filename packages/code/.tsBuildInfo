@@ -287,7 +287,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
-        "version": "e08730be60242f91f92103b44dc684ac80913a7f9cf8724850050e17d7642aae",
+        "version": "74582926cedf46b923f9f1353021a3d99642bb30dbe5ac9aa3659cbc275dafd6",
         "signature": "8fa4cc030cc955a82ab4bfe08a76f59a8989edf282c3643ba5199244ec316be0",
         "affectsGlobalScope": false
       },
@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "f7e7efa3ce24954896464878888d800618488f7f1201812d3792c516bf25b939",
+        "version": "30efd7e2b11bcdbdfe7873f65e6e35ac2dc4a1a0cd379c7afc006ac8699cd68a",
         "signature": "a7d55b589d3766f29543e968c584142e45de8459615621ffa14c002fc02297d6",
         "affectsGlobalScope": false
       },
@@ -347,7 +347,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
-        "version": "af0e6d08763339e6bc9aae8e2726c3d0d722230035e34b1b6f0e66baef3d9f8c",
+        "version": "1a6e1c746d4b03daa3550ec1cb284b4a8659b92a4502fa00824fa8b72eff7a1d",
         "signature": "2d272e85b13e508fd6961cbe7689fe4e96ba0c9e6ed9288a426a66d1212df579",
         "affectsGlobalScope": true
       },
@@ -392,7 +392,7 @@
         "affectsGlobalScope": true
       },
       "./src/transpile.worker.js": {
-        "version": "9b3e358b2b21dd02138c690da2117df9edd894f36486ca00cfb9eb5abce10b0f",
+        "version": "de639976e5fa44c894898858f7c1ffde4e6c4f87c4e829d3d06505b28ccf5687",
         "signature": "22208d9cabaec6aa320d755b07e59100dd64c1a2eb6bf1cf6edba331cf6255cf",
         "affectsGlobalScope": true
       },

@@ -70,20 +70,10 @@ async function init() {
       `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
     );
 
-    const res = await fetch(
+    const worker = new SharedWorker(
       window.location.hostname === "[::1]"
         ? `./src/ipfsKV.worker.js`
         : `https://blog.zed.vision/code/src/ipfsKV.worker.js`,
-    );
-    const workerSource = await res.text();
-    const worker = new SharedWorker(
-      URL.createObjectURL(
-        new Blob([
-          workerSource
-            .replace("$$ipfs$$", v.ipfs)
-            .replace("$$comlink$$", v.comlink),
-        ]),
-      ),
     );
 
     worker.port.start();

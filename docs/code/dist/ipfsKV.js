@@ -63,15 +63,9 @@ async function init() {
     try {
         const v = versions();
         const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
-        const res = await fetch(window.location.hostname === "[::1]"
+        const worker = new SharedWorker(window.location.hostname === "[::1]"
             ? `./src/ipfsKV.worker.js`
             : `https://blog.zed.vision/code/src/ipfsKV.worker.js`);
-        const workerSource = await res.text();
-        const worker = new SharedWorker(URL.createObjectURL(new Blob([
-            workerSource
-                .replace("$$ipfs$$", v.ipfs)
-                .replace("$$comlink$$", v.comlink),
-        ])));
         worker.port.start();
         const { port1, port2 } = new MessageChannel();
         const msg = {

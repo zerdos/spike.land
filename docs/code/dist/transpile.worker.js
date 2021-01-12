@@ -1,9 +1,9 @@
 "use strict";
 // deno-lint-ignore-file
 // @ts-ignore
-self.importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
+self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
 // @ts-ignore
-self.importScripts("https://unpkg.com/@babel/standalone@$$babel$$/babel.min.js");
+self.importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 // @ts-ignore
 addEventListener("install", () => skipWaiting());
 // @ts-ignore
@@ -28,7 +28,7 @@ const transform = (code, hasToReport) => {
         // console.log(safeCode);
         // @ts-ignore
         const transformed = Babel.transform(`/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion} from "$$emotionRenderer$$";
+      import {jsx, React, css, Fragment, Global, Motion, motion} from "https://unpkg.com/@zedvision/emotion-react-renderer@11.6.16/dist/bundle.js";
       
       ` + safeCode + `
       

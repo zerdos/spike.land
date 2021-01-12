@@ -1,5 +1,5 @@
-importScripts("https://unpkg.com/ipfs@$$ipfs$$/dist/index.min.js");
-importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
+importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
+importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
 
 // @ts-ignore
 addEventListener("install", () => skipWaiting());
@@ -112,7 +112,7 @@ const ipfsKV = {
 };
 // deno-lint-ignore no-undef
 // @ts-ignore
-self.addEventListener("connect", (e) => {
+addEventListener("connect", (e) => {
   var port = e.ports[0];
 
   // @ts-ignore
@@ -128,7 +128,7 @@ self.addEventListener("connect", (e) => {
 
 // deno-lint-ignore no-undef
 // @ts-ignore
-self.addEventListener("message", (event) => {
+addEventListener("message", (event) => {
   if (event.data.comlinkInit) {
     //@ts
     // @ts-ignore
