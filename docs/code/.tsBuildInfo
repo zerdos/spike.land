@@ -272,8 +272,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "ab123443d9ffd37ac24bd23b4aec0dc9cfdf9bd06d2375594ba40e87b4419237",
-        "signature": "3dcb518281d1fd732c8913934ec28181616039f5dd1016df367105820b3cfc95",
+        "version": "ac29ad586541b2c5e2170412653ff6c6c302e6f04a909a3818b02bcb94101406",
+        "signature": "c4c03886e9b78d81c807c9da2e2575558bb4529bbf2672c558900a8791c33002",
         "affectsGlobalScope": false
       },
       "./src/vendor/cids.js": {
