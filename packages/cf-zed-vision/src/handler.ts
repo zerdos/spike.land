@@ -1,8 +1,8 @@
-import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.4.16/src/getDbObj.js";
+import { getDbObj} from "https://unpkg.com/@zedvision/shadb@11.7.4/src/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
-import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.4.16/src/sha256.js";
+import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.7.4/src/sha256.js";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;

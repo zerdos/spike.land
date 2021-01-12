@@ -45,8 +45,6 @@
     "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "baseUrl": "src",                       /* Base directory to resolve non-absolute module names. */
     "paths": {
-      // "https://unpkg.com/comlink@4.3.0/*": ["../../node_modules/comlink/"]
-      // "https://unpkg.com/@zedvision/shadb@10.13.18/*": ["shadb/"]
     },                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [".", "../../../node_modules"],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": ["./comlink/dist/esm"],                       /* List of folders to include type definitions from. */
