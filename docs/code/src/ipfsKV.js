@@ -104,7 +104,7 @@ async function init() {
       return swProxy;
     }
 
-    const worker = new SharedWorker(workerSrc);
+    const worker = new SharedWorker(workerSrc + "?cacheBuster=42");
     worker.port.start();
 
     const swProxy = await Comlink.wrap(worker.port);
