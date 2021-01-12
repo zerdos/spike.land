@@ -11,16 +11,25 @@ export async function transpileCode(code) {
     return transformed;
 }
 async function init() {
+    console.log("INIT INIT");
     const v = versions();
     const Comlink = await import(`https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`);
-    const res = await fetch(`https://blog.zed.vision/code/src/transpile.worker.js`);
+    const res = await fetch(window.location.hostname === "[::1]"
+        ? `./src/transpile.worker.js`
+        : `https://blog.zed.vision/code/src/transpile.worker.js`);
     const workerSource = await res.text();
-    const worker = new Worker(URL.createObjectURL(new Blob([
+    const worker = new SharedWorker(URL.createObjectURL(new Blob([
         workerSource.replace("$$emotionRenderer$$", v.emotionRenderer)
             .replace("$$comlink$$", v.comlink)
             .replace("$$babel$$", v.babel),
     ])));
-    // WebWorkers use `postMessage` and therefore work with Comlink.
-    transform = Comlink.wrap(worker);
-    return transform;
+    worker.port.start();
+    const { port1, port2 } = new MessageChannel();
+    const msg = {
+        comlinkInit: true,
+        port: port1,
+    };
+    worker.port.postMessage(msg, [port1]);
+    const swProxy = await Comlink.wrap(port2);
+    return swProxy;
 }

@@ -4,6 +4,10 @@
 self.importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
 // @ts-ignore
 self.importScripts("https://unpkg.com/@babel/standalone@$$babel$$/babel.min.js");
+// @ts-ignore
+addEventListener("install", () => skipWaiting());
+// @ts-ignore
+addEventListener("activate", () => clients.claim());
 const searchRegExp2 = /import.*from '/gi;
 const replace2 = "$&https://cdn.skypack.dev/";
 // const from = / from '/gi;
@@ -48,5 +52,21 @@ const transform = (code, hasToReport) => {
         return "";
     }
 };
-///@ts-ignore
-Comlink.expose(transform);
+const BabeWorker = {
+    transform: /**
+    * @param {string} code
+    */ (code) => transform(code, false),
+};
+// @ts-ignore
+self.addEventListener("connect", (e) => {
+    var port = e.ports[0];
+    // @ts-ignore
+    port.onmessage = function (event) {
+        if (event.data.comlinkInit) {
+            //@ts
+            // @ts-ignore
+            Comlink.expose(transform, event.data.port);
+            return;
+        }
+    };
+});

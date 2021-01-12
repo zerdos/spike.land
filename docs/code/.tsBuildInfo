@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "e24c3fd0ac83149843ce444b058a08aae52637215ba297a3dbd8da801785d0ad",
+        "version": "f7e7efa3ce24954896464878888d800618488f7f1201812d3792c516bf25b939",
         "signature": "a7d55b589d3766f29543e968c584142e45de8459615621ffa14c002fc02297d6",
         "affectsGlobalScope": false
       },
@@ -392,8 +392,8 @@
         "affectsGlobalScope": true
       },
       "./src/transpile.worker.js": {
-        "version": "a1f8ddb51af70c482c4696adebc7aea965521a7e64f5ac813af768e6bc7ba3e1",
-        "signature": "22208d9cabaec6aa320d755b07e59100dd64c1a2eb6bf1cf6edba331cf6255cf",
+        "version": "8eb98b12b7660c895a2cc369637c75c9fdd52fba58f4103c908c90a77fdddb0c",
+        "signature": "79f5b2f3ddd1b8b1d9b0141bff64639c1dac2a605605d461a0d1544408eb2cf5",
         "affectsGlobalScope": true
       },
       "../../node_modules/comlink/dist/umd/protocol.d.ts": {
