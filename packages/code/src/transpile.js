@@ -37,25 +37,25 @@ async function init() {
     : `${location.origin}/src/transpile.worker.js`;
 
   //@ts-ignore
-  if (typeof SharedWorker === "undefined") {
-    const worker = new Worker(workerSrc);
-    const { port1, port2 } = new MessageChannel();
-    const msg = {
-      comlinkInit: true,
-      port: port1,
-    };
+  // if (typeof SharedWorker === "undefined") {
+  const worker = new Worker(workerSrc);
+  const { port1, port2 } = new MessageChannel();
+  const msg = {
+    comlinkInit: true,
+    port: port1,
+  };
 
-    //@ts-ignore
-    worker.postMessage(msg, [port1]);
+  //@ts-ignore
+  worker.postMessage(msg, [port1]);
 
-    const transform = await Comlink.wrap(port2);
-    return transform;
-  }
-
-  const worker = new SharedWorker(workerSrc);
-  worker.port.start();
-
-  transform = await Comlink.wrap(worker.port);
-
+  transform = await Comlink.wrap(port2);
   return transform;
+  // }
+
+  // const worker = new SharedWorker(workerSrc);
+  // worker.port.start();
+
+  // transform = await Comlink.wrap(worker.port);
+
+  // return transform;
 }
