@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "7dec3250ecba6ef3d9d6bc030a7f641455dda417f236a50997d2c85a1c7dff1c",
+        "version": "f521ab0ecde047e09908fa3132c273b38bf44e3e30d50962d17d7c69a808feb5",
         "signature": "a7d55b589d3766f29543e968c584142e45de8459615621ffa14c002fc02297d6",
         "affectsGlobalScope": false
       },

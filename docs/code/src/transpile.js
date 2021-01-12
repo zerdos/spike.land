@@ -23,7 +23,7 @@ async function init() {
 
   const worker = new SharedWorker(
     // window.location.hostname === "[::1]"
-    `./src/transpile.worker.js`,
+    `src/transpile.worker.js`,
     // : `https://blog.zed.vision/code/src/transpile.worker.js`,
   );
 
