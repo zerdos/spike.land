@@ -7,7 +7,7 @@ import { sha256 } from "./db.js";
 export async function sendSignalToQrCode(rootUrl) {
   const { pathname } = new URL(window.location.href);
 
-  const maybeRoute = pathname.substr(1);
+  const maybeRoute = pathname.substr(1).slice(0, 8);
   const isKey = maybeRoute.length === 8 &&
     [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 
