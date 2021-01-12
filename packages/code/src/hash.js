@@ -50,7 +50,7 @@ const hash = async (data, onlyHash) => {
 
   const noisyHashes = (await Promise.all([
     // @ts-ignore
-    await ipfs.add(`${data}`, { onlyHash }),
+    await ipfs.add(`${data}`, { onlyHash }).then((d) => d.cid.toString()),
   ]));
   if (!onlyHash) {
     const data = await Promise.all(noisyHashes.map(feedTheCache));
@@ -109,7 +109,7 @@ export const sendSignal = async (signal, data) => {
     if (typeof data !== "string") toSave = JSON.stringify(data);
 
     //@ts-ignore
-    const dataCid = (await hash(data, false)).cid.toString();
+    const dataCid = await hash(data, false);
 
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
