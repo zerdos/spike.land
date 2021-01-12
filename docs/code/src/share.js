@@ -82,8 +82,6 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
   return rootUrl;
 };
 
-///import("./src/ipfsKV.js").then((mod)=>mod.ipfsKV).then(x=>x.add("diddiwohfqwyie",{onlyHash: true}))
-
 /**
  * @param {{ path: string; content: any; }[]} files
  */
