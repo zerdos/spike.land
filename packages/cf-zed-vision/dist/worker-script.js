@@ -452,7 +452,7 @@ async function handleCloudRequest(request) {
         if (result.indexOf("export") === 0) return js(result);
         return text(result);
       }
-      return Response.redirect(`https://code.zed.vision/${maybeRoute}`, 301);
+      return Response.redirect(`https://code.zed.vision/${maybeRoute}/`, 301);
     }
     if (pathname.slice(0, 6) === "/ipfs/") {
       const cache = caches.default;
