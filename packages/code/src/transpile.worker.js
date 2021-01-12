@@ -71,13 +71,6 @@ const transform = (code, hasToReport) => {
   }
 };
 
-const BabeWorker = {
-  transform: /**
-  * @param {string} code
-  */
-    (code) => transform(code, false),
-};
-
 // @ts-ignore
 self.addEventListener("connect", (e) => {
   var port = e.ports[0];

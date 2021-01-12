@@ -2,6 +2,10 @@
 import { __asyncValues } from "tslib";
 importScripts("https://unpkg.com/ipfs@$$ipfs$$/dist/index.min.js");
 importScripts("https://unpkg.com/comlink@$$comlink$$/dist/umd/comlink.js");
+// @ts-ignore
+addEventListener("install", () => skipWaiting());
+// @ts-ignore
+addEventListener("activate", () => clients.claim());
 // deno-lint-ignore ban-ts-comment
 // @ts-ignore
 const IPFS = (() => globalThis.Ipfs)();
@@ -127,7 +131,17 @@ const ipfsKV = {
         }
     },
 };
-// deno-lint-ignore ban-ts-comment
-// @ts-ignore
 // deno-lint-ignore no-undef
-Comlink.expose(ipfsKV);
+// @ts-ignore
+self.addEventListener("connect", (e) => {
+    var port = e.ports[0];
+    // @ts-ignore
+    port.onmessage = function (event) {
+        if (event.data.comlinkInit) {
+            //@ts
+            // @ts-ignore
+            Comlink.expose(ipfsKV, event.data.port);
+            return;
+        }
+    };
+});

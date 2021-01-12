@@ -76,7 +76,7 @@ async function init() {
         : `https://blog.zed.vision/code/src/ipfsKV.worker.js`,
     );
     const workerSource = await res.text();
-    const worker = new Worker(
+    const worker = new SharedWorker(
       URL.createObjectURL(
         new Blob([
           workerSource
@@ -86,7 +86,17 @@ async function init() {
       ),
     );
 
-    return Comlink.wrap(worker);
+    worker.port.start();
+
+    const { port1, port2 } = new MessageChannel();
+    const msg = {
+      comlinkInit: true,
+      port: port1,
+    };
+    worker.port.postMessage(msg, [port1]);
+
+    const swProxy = await Comlink.wrap(port2);
+    return swProxy;
   } catch (e) {
     console.log({ "COMLINK": e });
   }

@@ -8,6 +8,3 @@ declare const replaceWith: "";
  *  @param {boolean} hasToReport
  */
 declare function transform(code: string, hasToReport: boolean): any;
-declare namespace BabeWorker {
-    function transform(code: string): any;
-}
