@@ -1,6 +1,6 @@
 import versions from "./versions.js";
 
-/** @type {{ add: (arg0: any, arg1: { onlyHash: boolean; }) => any; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { timeout: number | undefined; }) => any; getData: (arg0: string, arg1: { timeout: number | undefined; }) => any; }} */
+/** @type {{ add: (arg0: any, arg1: { onlyHash: boolean; }) => any; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { timeout: number | undefined; }) => any; getData: (arg0: string, arg1: { timeout: number | undefined; }) => any; pubsubSubscribe: (arg0: string) => any; }} */
 let worker;
 export const getIpfsClient = async () => {
   worker = await init();
@@ -60,6 +60,18 @@ export const getIpfsClient = async () => {
         console.log({ "comlink-cat": e });
       }
     },
+    pubsubSubscribe:
+      /**
+     * 
+     * @param {string} topic 
+     */
+      (topic) => {
+        try {
+          return worker.pubsubSubscribe(topic);
+        } catch (e) {
+          console.log({ "comlink-cat": e });
+        }
+      },
   };
 };
 

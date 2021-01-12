@@ -1,5 +1,5 @@
 declare const IPFS: any;
-/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
+/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; pubsub: { subscribe: (arg0: string, arg1: (msg: any) => void) => void; }; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
 declare let ipfsNode: {
     add: (arg0: string, arg1: {
         onlyHash: boolean;
@@ -15,6 +15,9 @@ declare let ipfsNode: {
         timeout?: number | undefined;
         signal?: AbortSignal | undefined;
     }) => any;
+    pubsub: {
+        subscribe: (arg0: string, arg1: (msg: any) => void) => void;
+    };
     get: (arg0: string, arg1: {
         offset?: number | undefined;
         length?: number | undefined;
@@ -38,6 +41,11 @@ declare namespace ipfsKV {
         timeout?: number | undefined;
         signal?: AbortSignal | undefined;
     }): Promise<string>;
+    /**
+   *
+   * @param {string} topic
+   */
+    function pubsubSubscribe(topic: string): Promise<string>;
     function getData(cid: string, options: {
         offset?: number | undefined;
         length?: number | undefined;

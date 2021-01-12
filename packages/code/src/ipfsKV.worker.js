@@ -10,7 +10,7 @@ addEventListener("activate", () => clients.claim());
 // @ts-ignore
 const IPFS = (() => globalThis.Ipfs)();
 
-/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
+/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; pubsub: { subscribe: (arg0: string, arg1: (msg: any) => void) => void; }; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
 let ipfsNode;
 
 const ipfsKV = {
@@ -84,6 +84,37 @@ const ipfsKV = {
     }
   },
 
+  pubsubSubscribe:
+    /**
+   * 
+   * @param {string} topic 
+   */
+    async (topic) => {
+      try {
+        ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+        const res = [];
+
+        const receiveMsg =
+          /**
+       * 
+       * @param {*} msg 
+       */
+          (msg) => console.log(msg.data.toString());
+
+        ipfsNode.pubsub.subscribe(topic, receiveMsg);
+
+        // @ts-ignore
+        for await (const result of ipfsNode.cat(cid, options)) {
+          console.log("RES", result);
+          res.push(new TextDecoder("utf-8").decode(result));
+        }
+
+        return res.join("");
+      } catch (e) {
+        return (JSON.stringify({ e }));
+      }
+    },
+
   /**
    * 
    * @param {string} cid 
@@ -94,6 +125,7 @@ const ipfsKV = {
     *         signal?: 	AbortSignal;
      *        }}  options 
     */
+  // @ts-ignore
   getData: async (cid, options) => {
     try {
       ipfsNode = ipfsNode || await IPFS.create({ silent: true });
@@ -109,6 +141,7 @@ const ipfsKV = {
       return (JSON.stringify({ e }));
     }
   },
+  // @ts-ignore
 };
 // deno-lint-ignore no-undef
 // @ts-ignore

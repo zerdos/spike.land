@@ -43,4 +43,5 @@ export function getIpfsClient(): Promise<{
         timeout?: number;
         signal?: AbortSignal;
     }) => any;
+    pubsubSubscribe: (topic: string) => any;
 }>;

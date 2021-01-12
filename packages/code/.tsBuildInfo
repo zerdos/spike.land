@@ -287,8 +287,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.js": {
-        "version": "eca039eaab3f83ed83fc2330b0a0fb1659e45e19e2182e243917a1ecec7a4618",
-        "signature": "8fa4cc030cc955a82ab4bfe08a76f59a8989edf282c3643ba5199244ec316be0",
+        "version": "969877a95f997cf87175d909a3728332deefc55d88f4c95a9a3afbc80b9064db",
+        "signature": "c1346054e773e88a2752e995387f5994cfd58107e234c54010a253e5797663ea",
         "affectsGlobalScope": false
       },
       "./src/share.js": {
@@ -347,8 +347,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
-        "version": "3e57be76d597c3bababe076f9abb6f349c257cab4b004c89ff8f0fd881641ba0",
-        "signature": "2d272e85b13e508fd6961cbe7689fe4e96ba0c9e6ed9288a426a66d1212df579",
+        "version": "2fead82231b22006780f542622d703a2bbd1a974dc41227ad279a6eeccc7fb88",
+        "signature": "47b60412d999bdce18709cd9045a9760df06f0604f2d4ee437c1ecb1d63d0e06",
         "affectsGlobalScope": true
       },
       "../../node_modules/multicodec/dist/src/generated-types.d.ts": {

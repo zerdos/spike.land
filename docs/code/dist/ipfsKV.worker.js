@@ -9,7 +9,7 @@ addEventListener("activate", () => clients.claim());
 // deno-lint-ignore ban-ts-comment
 // @ts-ignore
 const IPFS = (() => globalThis.Ipfs)();
-/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
+/** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => PromiseLike<{ cid: any; }> | { cid: any; }; addAll: (arg0: any) => any; cat: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; pubsub: { subscribe: (arg0: string, arg1: (msg: any) => void) => void; }; get: (arg0: string, arg1: { offset?: number | undefined; length?: number | undefined; timeout?: number | undefined; signal?: AbortSignal | undefined; }) => any; }} */
 let ipfsNode;
 const ipfsKV = {
     /**
@@ -95,23 +95,26 @@ const ipfsKV = {
             return (JSON.stringify({ e }));
         }
     },
+    pubsubSubscribe: 
     /**
-     *
-     * @param {string} cid
-     * @param {{
-      *          offset?: number;
-      *          length?: number;
-      *          timeout?: 	number;
-      *         signal?: 	AbortSignal;
-       *        }}  options
-      */
-    getData: async (cid, options) => {
+   *
+   * @param {string} topic
+   */
+    async (topic) => {
         var e_3, _a;
         try {
             ipfsNode = ipfsNode || await IPFS.create({ silent: true });
             const res = [];
+            const receiveMsg = 
+            /**
+         *
+         * @param {*} msg
+         */
+            (msg) => console.log(msg.data.toString());
+            ipfsNode.pubsub.subscribe(topic, receiveMsg);
             try {
-                for (var _b = __asyncValues(ipfsNode.get(cid, options)), _c; _c = await _b.next(), !_c.done;) {
+                // @ts-ignore
+                for (var _b = __asyncValues(ipfsNode.cat(cid, options)), _c; _c = await _b.next(), !_c.done;) {
                     const result = _c.value;
                     console.log("RES", result);
                     res.push(new TextDecoder("utf-8").decode(result));
@@ -123,6 +126,42 @@ const ipfsKV = {
                     if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
                 }
                 finally { if (e_3) throw e_3.error; }
+            }
+            return res.join("");
+        }
+        catch (e) {
+            return (JSON.stringify({ e }));
+        }
+    },
+    /**
+     *
+     * @param {string} cid
+     * @param {{
+      *          offset?: number;
+      *          length?: number;
+      *          timeout?: 	number;
+      *         signal?: 	AbortSignal;
+       *        }}  options
+      */
+    // @ts-ignore
+    getData: async (cid, options) => {
+        var e_4, _a;
+        try {
+            ipfsNode = ipfsNode || await IPFS.create({ silent: true });
+            const res = [];
+            try {
+                for (var _b = __asyncValues(ipfsNode.get(cid, options)), _c; _c = await _b.next(), !_c.done;) {
+                    const result = _c.value;
+                    console.log("RES", result);
+                    res.push(new TextDecoder("utf-8").decode(result));
+                }
+            }
+            catch (e_4_1) { e_4 = { error: e_4_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+                }
+                finally { if (e_4) throw e_4.error; }
             }
             return res.join("");
         }
