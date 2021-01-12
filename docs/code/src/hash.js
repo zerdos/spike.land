@@ -108,7 +108,9 @@ export const sendSignal = async (signal, data) => {
 
     if (typeof data !== "string") toSave = JSON.stringify(data);
 
-    const dataCid = await hash(data, false);
+    //@ts-ignore
+    const dataCid = (await hash(data, false)).cid.toString();
+
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
     ).join("");
