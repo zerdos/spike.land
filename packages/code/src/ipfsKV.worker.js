@@ -112,19 +112,11 @@ const ipfsKV = {
 };
 // deno-lint-ignore no-undef
 // @ts-ignore
-addEventListener("connect", (e) => {
-  var port = e.ports[0];
-
+self.addEventListener(
+  "connect",
   // @ts-ignore
-  port.onmessage = function (event) {
-    if (event.data.comlinkInit) {
-      //@ts
-      // @ts-ignore
-      Comlink.expose(ipfsKV, event.data.port);
-      return;
-    }
-  };
-});
+  ({ ports }) => Comlink.expose(transform, ports[0]),
+);
 
 // deno-lint-ignore no-undef
 // @ts-ignore
