@@ -5,6 +5,19 @@ importScripts(
   "https://unpkg.com/ipfs-message-port-server@0.4.3/dist/index.min.js",
 );
 
+let normalWorkerPort = null;
+
+// @ts-ignore
+self.addEventListener("message", (event) => {
+  if (event.data.clientInit) {
+    //@ts
+    // @ts-ignore
+    normalWorkerPort = event.data.port;
+
+    return;
+  }
+});
+
 const main = async () => {
   //@ts-ignore
   const connections = [];
@@ -22,19 +35,16 @@ const main = async () => {
   //@ts-ignore
   self.onconnect = ({ ports }) => server.connect(ports[0]);
   //@ts-ignore
+
+  // @ts-ignore
+
+  if (normalWorkerPort) {
+    server.connect(normalWorkerPort);
+  }
+
   for (const port of connections.splice(0)) {
     server.connect(port);
   }
-
-  const channel = new MessageChannel();
-  onmessage = (e) => {
-    channel.port1.postMessage(e.data);
-  };
-
-  channel.port2.onmessage = (e) => {
-    postMessage(e.data);
-  };
-  server.connect(channel.port2);
 };
 
 main();

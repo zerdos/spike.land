@@ -18,22 +18,22 @@ export const getIpfs = async () => {
     ? `${location.href}src/ipfsWorker.js`
     : `${location.origin}/src/ipfsWorker.js`;
 
-  if (typeof SharedWorker !== "undefined") {
-    const worker = new SharedWorker(workerSrc);
-    ipfs = IpfsMessagePortClient.from(worker.port);
-  } else {
-    const worker = new Worker(workerSrc);
-    const { port1, port2 } = new MessageChannel();
+  // if (typeof SharedWorker !== "undefined") {
+  //   const worker = new SharedWorker(workerSrc);
+  //   ipfs = IpfsMessagePortClient.from(worker.port);
+  //   return ipfs;
+  // }
+  const worker = new Worker(workerSrc);
 
-    port1.onmessage = function (e) {
-      worker.postMessage(e.data, [e.data]);
-    };
-    worker.onmessage = function (e) {
-      port1.postMessage(e.data, [e.data]);
-    };
+  const { port1, port2 } = new MessageChannel();
+  const msg = {
+    clientInit: true,
+    port: port1,
+  };
 
-    ipfs = IpfsMessagePortClient.from(port2);
-  }
+  worker.postMessage(msg, [port1]);
+
+  ipfs = IpfsMessagePortClient.from(port2);
 
   return ipfs;
 };
