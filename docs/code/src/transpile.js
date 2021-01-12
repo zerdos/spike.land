@@ -1,21 +1,30 @@
 import versions from "./versions.js";
 
-/** @type {(arg0: string, arg1: boolean) => any} */
-let transform;
+/** @type {((arg0: string, arg1: boolean) => any) | null} */
+let transform = null;
 
 /**
  *
  * @param {string} code 
+ * @returns {Promise<string>}
  */
 export async function transpileCode(code) {
-  transform = transform || await (await init());
-  const transformed = await transform(code, false);
-
-  return transformed;
+  if (transform === null) {
+    await init();
+    return transpileCode(code);
+  }
+  try {
+    const transformed = await transform(code, false);
+    return transformed;
+  } catch {
+    return "";
+  }
 }
 
 async function init() {
-  console.log("INIT INIT");
+  if (transform) {
+    console.log("INIT INIT");
+  }
   const v = versions();
   const Comlink = await import(
     `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
@@ -46,6 +55,7 @@ async function init() {
   const worker = new SharedWorker(workerSrc);
   worker.port.start();
 
-  const swProxy = await Comlink.wrap(worker.port);
-  return swProxy;
+  transform = await Comlink.wrap(worker.port);
+
+  return transform;
 }
