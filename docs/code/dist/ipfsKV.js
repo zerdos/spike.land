@@ -66,7 +66,7 @@ async function init() {
         const workerSrc = window.location.hostname === "blog.zed.vision"
             ? `https://blog.zed.vision/code/src/ipfsKV.worker.js`
             : window.location.hostname === "[::1]"
-                ? `${location.href}/src/ipfsKV.worker.js`
+                ? `${location.href}src/ipfsKV.worker.js`
                 : `${location.origin}/src/ipfsKV.worker.js`;
         //@ts-ignore
         if (typeof SharedWorker === "undefined") {
