@@ -5,6 +5,18 @@ self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
 // @ts-ignore
 self.importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
 // @ts-ignore
+if (!String.prototype.replaceAll) {
+    // @ts-ignore
+    String.prototype.replaceAll = function (str, newStr) {
+        // If a regex pattern
+        if (Object.prototype.toString.call(str).toLowerCase() === "[object regexp]") {
+            return this.replace(str, newStr);
+        }
+        // If a string
+        return this.replace(new RegExp(str, "g"), newStr);
+    };
+}
+// @ts-ignore
 addEventListener("install", () => skipWaiting());
 // @ts-ignore
 addEventListener("activate", () => clients.claim());
@@ -24,6 +36,7 @@ const replaceWith = "";
  */
 const transform = (code, hasToReport) => {
     try {
+        // @ts-ignore
         const safeCode = code.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExpMotion, replaceWith).replaceAll(searchRegExp2, replace2);
         // console.log(safeCode);
         // @ts-ignore

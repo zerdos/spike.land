@@ -89,7 +89,7 @@ async function addAll(files) {
   const ipfs = await getIpfs();
 
   const res = [];
-  for await (const result of ipfs.addAll(files)) {
+  for await (let result of ipfs.addAll(files)) {
     const { path, cid } = result;
     const CID = cid.toString();
     res.push({ path, CID });

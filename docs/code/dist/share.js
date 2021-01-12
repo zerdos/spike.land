@@ -1,4 +1,10 @@
-import { __asyncValues } from "tslib";
+var __asyncValues = (this && this.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 import { sha256, shaDB } from "./db.js";
 import { getIpfs } from "./ipfsClient.js";
 /**
@@ -72,7 +78,7 @@ async function addAll(files) {
     const res = [];
     try {
         for (var _b = __asyncValues(ipfs.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
-            const result = _c.value;
+            let result = _c.value;
             const { path, cid } = result;
             const CID = cid.toString();
             res.push({ path, CID });
