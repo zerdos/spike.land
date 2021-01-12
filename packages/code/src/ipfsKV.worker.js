@@ -125,3 +125,14 @@ self.addEventListener("connect", (e) => {
     }
   };
 });
+
+// deno-lint-ignore no-undef
+// @ts-ignore
+self.addEventListener("message", (event) => {
+  if (event.data.comlinkInit) {
+    //@ts
+    // @ts-ignore
+    Comlink.expose(ipfsKV, event.data.port);
+    return;
+  }
+});

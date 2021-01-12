@@ -85,3 +85,13 @@ self.addEventListener("connect", (e) => {
     }
   };
 });
+
+// @ts-ignore
+self.addEventListener("message", (event) => {
+  if (event.data.comlinkInit) {
+    //@ts
+    // @ts-ignore
+    Comlink.expose(transform, event.data.port);
+    return;
+  }
+});

@@ -347,7 +347,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
-        "version": "5c3f1a2bc2eb62912f1888ac0a5899d719f38d44ab51025bef451e3e559b2cf5",
+        "version": "af0e6d08763339e6bc9aae8e2726c3d0d722230035e34b1b6f0e66baef3d9f8c",
         "signature": "2d272e85b13e508fd6961cbe7689fe4e96ba0c9e6ed9288a426a66d1212df579",
         "affectsGlobalScope": true
       },
@@ -392,7 +392,7 @@
         "affectsGlobalScope": true
       },
       "./src/transpile.worker.js": {
-        "version": "e41c9507cc9fc3568244da038f48909b386aef38c8e3232d92d3d57d6e09180e",
+        "version": "9b3e358b2b21dd02138c690da2117df9edd894f36486ca00cfb9eb5abce10b0f",
         "signature": "22208d9cabaec6aa320d755b07e59100dd64c1a2eb6bf1cf6edba331cf6255cf",
         "affectsGlobalScope": true
       },
