@@ -7,7 +7,8 @@ const main = async () => {
     const connections = [];
     // queue connections that occur while node was starting.
     self.onconnect = ({ ports }) => connections.push(...ports);
-    const ipfs = await IPFS.create();
+    const ipfs = await Ipfs.create();
+    const { IPFSService, Server } = IpfsMessagePortServer;
     const service = new IPFSService(ipfs);
     const server = new Server(service);
     // connect new ports and queued ports with the server.

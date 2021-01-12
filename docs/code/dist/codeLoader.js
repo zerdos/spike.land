@@ -21,6 +21,9 @@ function getSession() {
  */
 export async function run(mode = "window", _w, code = "") {
     const { pathname } = new URL(window.location.href);
+    const ipfs = await import("./ipfs.client.js").then((x) => x.getIpfs());
+    //@ts-ignore
+    window.ipfs = ipfs;
     setTimeout(async () => Object.assign(window, await (import("./hash.js"))));
     const { renderPreviewWindow } = await import("./renderPreviewWindow.js");
     const { getCodeToLoad, getIPFSCodeToLoad, saveCode } = await import("./data.js");

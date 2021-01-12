@@ -261,6 +261,16 @@
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
       },
+      "./src/importScript.js": {
+        "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
+        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+        "affectsGlobalScope": false
+      },
+      "./src/ipfs.client.js": {
+        "version": "b5d86f01f30b4f84f28e5449b732b1dd20fac414dc21ac542a9b55f948280253",
+        "signature": "84ec3c66307f94cd18aaf53d6be7841ad415bbed71a780403d229d3a816e93f3",
+        "affectsGlobalScope": false
+      },
       "./src/versions.js": {
         "version": "ab123443d9ffd37ac24bd23b4aec0dc9cfdf9bd06d2375594ba40e87b4419237",
         "signature": "3dcb518281d1fd732c8913934ec28181616039f5dd1016df367105820b3cfc95",
@@ -286,13 +296,8 @@
         "signature": "070dedd838f0fa6cf016568a7a2e280fe391243b478a63e2ca0d778f55a936bf",
         "affectsGlobalScope": false
       },
-      "./src/ipfsKV.js": {
-        "version": "a11815b7f111be2ba8b203a109f8b71410584537d8bc7fcfb15177224c377971",
-        "signature": "c1346054e773e88a2752e995387f5994cfd58107e234c54010a253e5797663ea",
-        "affectsGlobalScope": false
-      },
       "./src/share.js": {
-        "version": "2f0a0f4f76bc25a6c6b2830625ad14531fcbcc47df17c2fd59025c9cc6b96a6f",
+        "version": "6a4f4ab0f6c32c094d179c89f6cb9ff60a68ede7d26194712443cf1e649b9f64",
         "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
@@ -326,11 +331,6 @@
         "signature": "8fcfdbf72d7cbc7e46f4bd2ef8dcc7c2e2938fdea138d026547c3a202ad9bfa8",
         "affectsGlobalScope": false
       },
-      "./src/importScript.js": {
-        "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
-        "affectsGlobalScope": false
-      },
       "./src/openWindows.js": {
         "version": "ab92b4ce41806bbf903a415d4ea7159b3790b91b04ca61f8e69fc6bf9e7dde62",
         "signature": "f75cae6f4e387be87aa8e3a0875a048d03157da7756d51f56850b0c41c177383",
@@ -342,19 +342,19 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "32cdc93e693ac02fbad5ffc6d3e128ebe58ff4ca11dce7a68114040fa5cd0585",
+        "version": "de98e205c0bc38529176573e9de3ea7a893332e54439f3f02281d4e1e3f8fa17",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
-      "./src/ipfs.client.js": {
-        "version": "cbe77fe5f79f440a05cd29c80ce266b94e8db40e6b3d770fe21aff96e1e80a48",
-        "signature": "84ec3c66307f94cd18aaf53d6be7841ad415bbed71a780403d229d3a816e93f3",
-        "affectsGlobalScope": false
-      },
       "./src/ipfs.shared.worker.js": {
-        "version": "4f58399921452096dd587ff446ae7f7fa2344af2e8c984bf8478a71a1efe3391",
+        "version": "9b2689b1612d35a701cb51908a1378b947df1df23fe01b85aca51bc9bb98892f",
         "signature": "1e0d8f36f617893c03c2cf3601936144dab6bb240acabad41ede2f46de388703",
         "affectsGlobalScope": true
+      },
+      "./src/ipfsKV.js": {
+        "version": "a11815b7f111be2ba8b203a109f8b71410584537d8bc7fcfb15177224c377971",
+        "signature": "c1346054e773e88a2752e995387f5994cfd58107e234c54010a253e5797663ea",
+        "affectsGlobalScope": false
       },
       "./src/ipfsKV.worker.js": {
         "version": "2fead82231b22006780f542622d703a2bbd1a974dc41227ad279a6eeccc7fb88",
@@ -481,6 +481,7 @@
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
+        "./src/ipfs.client.js",
         "./src/openWindows.js",
         "./src/renderPreviewWindow.js",
         "./src/sendSignalToQrCode.js",
@@ -561,7 +562,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_modules/tslib/tslib.d.ts",
         "./src/db.js",
-        "./src/ipfsKV.js",
+        "./src/ipfs.client.js",
         "./src/templates.js"
       ],
       "./src/starter.js": [

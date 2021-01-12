@@ -10,9 +10,11 @@ export const getIpfs = async () => {
     const workerSrc = window.location.hostname === "blog.zed.vision"
         ? `https://blog.zed.vision/code/src/ipfs.shared.worker.js`
         : window.location.hostname === "[::1]"
-            ? `${location.href}src/ipfsKV.worker.js`
-            : `${location.origin}/src/ipfsKV.worker.js`;
+            ? `${location.href}src/ipfs.shared.worker.js`
+            : `${location.origin}/src/ipfs.shared.worker.js`;
+    console.log(workerSrc);
     if (typeof SharedWorker !== "undefined") {
+        console.log("FROM WORKER YEAAH");
         const worker = new SharedWorker(workerSrc);
         ipfs = IpfsMessagePortClient.from(worker.port);
     }

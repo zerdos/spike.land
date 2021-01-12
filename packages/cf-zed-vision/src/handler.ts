@@ -4,6 +4,7 @@ import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
 import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.7.4/src/sha256.js";
 
+
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
 var LOGS: KVNamespace;

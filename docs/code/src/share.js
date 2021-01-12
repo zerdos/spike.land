@@ -1,4 +1,5 @@
 import { sha256, shaDB } from "./db.js";
+import { getIpfs } from "./ipfs.client.js";
 
 /**
  * 
@@ -59,6 +60,7 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
      */
       (x) => x.path === "app",
     );
+    if (typeof appDir === "undefined") return null;
 
     rootUrl = `https://code.zed.vision/ipfs/${appDir.CID}/`;
 
@@ -86,7 +88,14 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
  * @param {{ path: string; content: any; }[]} files
  */
 async function addAll(files) {
-  const { getIpfsClient } = await import("./ipfsKV.js");
-  const result = await (await getIpfsClient()).addAll(files);
-  return result;
+  const ipfs = await getIpfs();
+
+  const res = [];
+  for await (const result of ipfs.addAll(files)) {
+    const { path, cid } = result;
+    const CID = cid.toString();
+    res.push({ path, CID });
+  }
+
+  return res;
 }

@@ -1,4 +1,6 @@
+import { __asyncValues } from "tslib";
 import { sha256, shaDB } from "./db.js";
+import { getIpfs } from "./ipfs.client.js";
 /**
  *
  * @param {{
@@ -45,6 +47,8 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
        * @param {{ path: string; }} x
        */
         (x) => x.path === "app");
+        if (typeof appDir === "undefined")
+            return null;
         rootUrl = `https://code.zed.vision/ipfs/${appDir.CID}/`;
         const { pathname } = new URL(window.location.href);
         if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
@@ -64,7 +68,23 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
  * @param {{ path: string; content: any; }[]} files
  */
 async function addAll(files) {
-    const { getIpfsClient } = await import("./ipfsKV.js");
-    const result = await (await getIpfsClient()).addAll(files);
-    return result;
+    var e_1, _a;
+    const ipfs = await getIpfs();
+    const res = [];
+    try {
+        for (var _b = __asyncValues(ipfs.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
+            const result = _c.value;
+            const { path, cid } = result;
+            const CID = cid.toString();
+            res.push({ path, CID });
+        }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b.return)) await _a.call(_b);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    return res;
 }
