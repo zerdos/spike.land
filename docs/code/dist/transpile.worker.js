@@ -55,7 +55,7 @@ const transform = (code, hasToReport) => {
 // @ts-ignore
 self.addEventListener("connect", 
 // @ts-ignore
-({ ports }) => Comlink.expose(transform, ports[0]));
+(e) => Comlink.expose(transform, e.ports[0]));
 // @ts-ignore
 self.addEventListener("message", (event) => {
     if (event.data.comlinkInit) {
