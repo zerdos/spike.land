@@ -227,8 +227,8 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "df9b41ec263e5bda436c6a3adfdea605192c98f53015a4ccc661043c872de00b",
-        "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
+        "version": "89f3503433fac57a16d7761f235b1ee0adaa7649d740674f781209a35626a243",
+        "signature": "50ec110e14960c76ab8b2ffaf972a76d883507cbf4defe051365d3b0166afa31",
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
@@ -252,7 +252,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "4f7266e3c3c049f0a6282ae6d613a9091f10399d07a3005c01c990abd27a8b24",
+        "version": "c5f8edc10b4da364254a1344d2c02d70d73a5f019db4f0b22435fa97cedb362b",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
@@ -302,8 +302,8 @@
         "affectsGlobalScope": true
       },
       "./src/transpile.worker.js": {
-        "version": "13b475990860addd628f49d81857a80fa9fccb578a57d30ff6a8b9c110b96574",
-        "signature": "22208d9cabaec6aa320d755b07e59100dd64c1a2eb6bf1cf6edba331cf6255cf",
+        "version": "db3f0369ae95363160a9022c809b41e8124722f3eb58fcf979af6a53c44dfb07",
+        "signature": "461ec477bbdb9c42f51b8ff2499cf6fc3a644ea4e5c9765c857381ab603c9ac6",
         "affectsGlobalScope": true
       },
       "../../node_modules/comlink/dist/umd/protocol.d.ts": {

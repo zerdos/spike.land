@@ -5,6 +5,8 @@ declare const searchRegExpMotion: RegExp;
 declare const replaceWith: "";
 /**
  * @param {string} code
- *  @param {boolean} hasToReport
+ *  @param {{emotionRenderer: string}} v
  */
-declare function transform(code: string, hasToReport: boolean): any;
+declare function transform(code: string, v: {
+    emotionRenderer: string;
+}): any;

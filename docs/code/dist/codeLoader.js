@@ -29,6 +29,7 @@ export async function run(mode = "window", _w, code = "") {
     const { getCodeToLoad, getIPFSCodeToLoad, saveCode } = await import("./data.js");
     const { transpileCode } = await import("./transpile.js");
     const { formatter } = await import("./formatter.js");
+    const { v } = await import("./versions.js");
     const { open } = _w;
     const session = getSession();
     session.code = code ? await formatter(code) : "";
@@ -38,7 +39,7 @@ export async function run(mode = "window", _w, code = "") {
                 ? await getIPFSCodeToLoad()
                 : await getCodeToLoad();
             session.code = code;
-            session.transpiled = await transpileCode(code) || transpiled;
+            session.transpiled = await transpileCode(code, (versions && versions.emotionRenderer) || v.emotionRenderer) || transpiled;
             session.div.innerHTML = html;
             session.versions = versions;
             if (typeof versions === "string" && versions !== "") {
@@ -50,14 +51,13 @@ export async function run(mode = "window", _w, code = "") {
             return;
         }
     }
-    const { v } = await import("./versions.js");
     if (mode === "window") {
         const { openWindows } = await import("./openWindows.js");
         await openWindows(v);
     }
     session.versions = session.versions || Object.assign({}, v);
     if (session.transpiled === "") {
-        const transpiled = await transpileCode(session.code);
+        const transpiled = await transpileCode(session.code, v.emotionRenderer);
         console.log(transpiled);
         session.transpiled = transpiled;
     }
@@ -93,7 +93,7 @@ export async function run(mode = "window", _w, code = "") {
         const counter = session.i;
         const cd = await (formatter(c));
         try {
-            const transpiled = await transpileCode(cd);
+            const transpiled = await transpileCode(cd, v.emotionRenderer);
             let restartError = false;
             ///yellow
             if (transpiled.length && session.lastErrors < 2) {

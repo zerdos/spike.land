@@ -1,20 +1,24 @@
-import versions from "./versions.js";
+import { v } from "./versions.js";
 
-/** @type {((arg0: string, arg1: boolean) => any) | null} */
+/** @type {((arg0: string, arg1: { emotionRenderer: string; }) => any) | null} */
 let transform = null;
 
 /**
  *
  * @param {string} code 
+ * @param {string} emotionRenderer
  * @returns {Promise<string>}
  */
-export async function transpileCode(code) {
+export async function transpileCode(code, emotionRenderer) {
   if (transform === null) {
     await init();
-    return transpileCode(code);
+    return transpileCode(code, emotionRenderer);
   }
   try {
-    const transformed = await transform(code, false);
+    const transformed = await transform(
+      code,
+      { emotionRenderer: emotionRenderer || v.emotionRenderer },
+    );
     return transformed;
   } catch {
     return "";
@@ -25,7 +29,6 @@ async function init() {
   if (transform) {
     console.log("INIT INIT");
   }
-  const v = versions();
   const Comlink = await import(
     `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
   );

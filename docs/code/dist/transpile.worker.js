@@ -1,9 +1,9 @@
 "use strict";
 // deno-lint-ignore-file
 // @ts-ignore
-self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js");
+self.importScripts(`https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js`);
 // @ts-ignore
-self.importScripts("https://unpkg.com/@babel/standalone@7.12.12/babel.min.js");
+self.importScripts(`https://unpkg.com/@babel/standalone@7.12.12/babel.min.js`);
 // @ts-ignore
 if (!String.prototype.replaceAll) {
     // @ts-ignore
@@ -32,16 +32,16 @@ const replaceWith = "";
 //
 /**
  * @param {string} code
- *  @param {boolean} hasToReport
+ *  @param {{emotionRenderer: string}} v
  */
-const transform = (code, hasToReport) => {
+const transform = (code, v) => {
     try {
         // @ts-ignore
         const safeCode = code.replaceAll(searchRegExp, replaceWith).replaceAll(searchRegExpMotion, replaceWith).replaceAll(searchRegExp2, replace2);
         // console.log(safeCode);
         // @ts-ignore
         const transformed = Babel.transform(`/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion} from "https://unpkg.com/@zedvision/emotion-react-renderer@11.6.16/dist/bundle.js";
+      import {jsx, React, css, Fragment, Global, Motion, motion} from "${v.emotionRenderer}";
       
       ` + safeCode + `
       
@@ -61,7 +61,7 @@ const transform = (code, hasToReport) => {
         return transformed;
     }
     catch (e) {
-        hasToReport && console.error(e);
+        console.error(e);
         return "";
     }
 };
