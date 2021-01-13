@@ -69,30 +69,29 @@ export const Qr = () => {
     const setSignal = async (url: string) => {
       if (cubeState !== 1) return;
 
-     const getData = await fetchSignal(url, 5);
-     getData();
+      const getData = await fetchSignal(url, 5);
+      getData();
 
-     const uuid = await getUserId();
-     const userData = await shaDB.get(uuid, "json");
-     await shaDB.put(
-       uuid,
-       JSON.stringify({
-         ...userData,
-         signal: url,
-       }),
-     );
+      const uuid = await getUserId();
+      const userData = await shaDB.get(uuid, "json");
+      await shaDB.put(
+        uuid,
+        JSON.stringify({
+          ...userData,
+          signal: url,
+        }),
+      );
 
-     setTimeout(
-       () => window.location.href = "https://blog.zed.vision/code/",
-       2000,
-     );
-     setTimeout(() => setCubeState(0));
+      setTimeout(
+        () => window.location.href = "https://blog.zed.vision/code/",
+        2000,
+      );
+      setTimeout(() => setCubeState(0));
 
-     setTimeout(() => {
-       setCubeState(-1);
-     }, 6000);
-
-    }
+      setTimeout(() => {
+        setCubeState(-1);
+      }, 6000);
+    };
 
     const setSignals = () => {
       urls.last && setSignal(urls.last);
