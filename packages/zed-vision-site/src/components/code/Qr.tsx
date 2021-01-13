@@ -80,9 +80,9 @@ export const Qr = () => {
       Loader(side5.current!, 220);
       Loader(side6.current!, 220);
 
-      const data = await getData();
+      const signalData = await getData();
 
-      console.log(data);
+      setCubeState(-1);
 
       const uuid = await getUserId();
       const userData = await shaDB.get(uuid, "json");
@@ -90,14 +90,15 @@ export const Qr = () => {
         uuid,
         JSON.stringify({
           ...userData,
-          signal: url,
+          signal: signalData,
         }),
       );
+      fetch(`${signalData.rootUrl}/app.tsx`)
 
-      // setTimeout(
-      //   () => window.location.href = "https://blog.zed.vision/code/",
-      //   2000,
-      // );
+      setTimeout(
+        () => window.location.href = "https://blog.zed.vision/code/",
+        2000,
+      );
       // setTimeout(() => setCubeState(0));
 
       // setTimeout(() => {
@@ -156,7 +157,7 @@ export const Qr = () => {
       <div
         css={css`
         position: absolute;
-         animation-name:${cubeState || true ? "none" : "byecube"};
+         animation-name:${(cubeState === 1|| cubeState===0) ? "none" : "byecube"};
   animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
   animation-iteration-count: 1;
   animation-duration: 4s;
