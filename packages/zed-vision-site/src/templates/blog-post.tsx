@@ -1,4 +1,5 @@
-import * as React from "react";
+import { css, jsx } from "@emotion/react";
+/** @jsx jsx */
 import { graphql, Link } from "gatsby";
 
 import { Bio } from "../components/bio";
@@ -6,7 +7,6 @@ import { Layout } from "../components/layout";
 import { SEO } from "../components/seo";
 import { rhythm, scale } from "../components/utils/typography";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import styled from "@emotion/styled";
 
 import { CodeBox } from "../components/codeBox/CodeBox";
 import { MDXProvider } from "@mdx-js/react";
@@ -17,23 +17,7 @@ const components = {
   },
   code: CodeBox,
 };
-const StyledHeader = styled.h1`
-  margin-top: ${rhythm(1)};
-  margin-bottom: 0;
-`;
-
 const { fontSize, lineHeight } = scale(1 / 5);
-
-const StyledDate = styled.p`
-  font-size: ${fontSize};
-  line-height: ${lineHeight};
-  display: block;
-  margin-bottom: ${rhythm(1)};
-`;
-
-const Hr = styled.hr`
-  margin-bottom: ${rhythm(1)};
-`;
 
 interface Props {
   data: {
@@ -93,41 +77,58 @@ const BlogPostTemplate = ({ data, pageContext }: Props) => {
     </MDXProvider>;
 
   return (
-    <React.Fragment>
-      <Layout>
-        <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.description || post.excerpt}
-        />
-        <header>
-          <StyledHeader>{post.frontmatter.title}</StyledHeader>
-          <StyledDate>{post.frontmatter.date}</StyledDate>
-        </header>
-        <BlogPost></BlogPost>
-        <Hr></Hr>
-        <footer>
-          <Bio></Bio>
-        </footer>
-        <nav>
-          <ul>
-            {previous && (
-              <li>
-                <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
-                </Link>
-              </li>
-            )}
-            {next && (
-              <li>
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
-                </Link>
-              </li>
-            )}
-          </ul>
-        </nav>
-      </Layout>
-    </React.Fragment>
+    <Layout>
+      <SEO
+        title={post.frontmatter.title}
+        description={post.frontmatter.description || post.excerpt}
+      />
+      <header>
+        <div
+          css={css`
+                  margin-top: ${rhythm(1)};
+                  margin-bottom: 0;
+                  `}
+        >
+          {post.frontmatter.title}
+        </div>
+        <p
+          css={css`
+                    font-size: ${fontSize};
+                    line-height: ${lineHeight};
+                    display: block;
+                    margin-bottom: ${rhythm(1)};`}
+        >
+          {post.frontmatter.date}
+        </p>
+      </header>
+      <BlogPost></BlogPost>
+      <hr
+        css={css`
+                  margin-bottom: ${rhythm(1)};
+                  `}
+      />
+      <footer>
+        <Bio></Bio>
+      </footer>
+      <nav>
+        <ul>
+          {previous && (
+            <li>
+              <Link to={previous.fields.slug} rel="prev">
+                ← {previous.frontmatter.title}
+              </Link>
+            </li>
+          )}
+          {next && (
+            <li>
+              <Link to={next.fields.slug} rel="next">
+                {next.frontmatter.title} →
+              </Link>
+            </li>
+          )}
+        </ul>
+      </nav>
+    </Layout>
   );
 };
 

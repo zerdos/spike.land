@@ -1,23 +1,8 @@
-import * as React from "react";
-import styled from "@emotion/styled";
+import { css, jsx } from "@emotion/react";
+/** @jsx jsx */
 
 import { rhythm } from "./utils/typography";
 import img from "./zed-profile-pic.jpg";
-
-const Container = styled.div`
-  margin-top: ${rhythm(2.5)};
-  display: flex;
-  margin-bottom: ${rhythm(2.5)};
-`;
-
-const StyledImgDiv = styled.div`
-  margin-right: ${rhythm(1 / 2)};
-  margin-bottom: 0;
-  overflow: hidden;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-`;
 
 const objectives = [
   `a bit less
@@ -32,13 +17,28 @@ export const Bio = () => {
   if (typeof window === "undefined") random = 0.4; //have a consistent ssr
 
   return (
-    <Container>
-      <StyledImgDiv>
+    <div
+      css={css`
+                margin-top: ${rhythm(2.5)};
+                display: flex;
+                margin-bottom: ${rhythm(2.5)};
+    `}
+    >
+      <div
+        css={css`
+                  margin-right: ${rhythm(1 / 2)};
+                  margin-bottom: 0;
+                  overflow: hidden;
+                  width: 50px;
+                  height: 50px;
+                  border-radius: 25px;
+        `}
+      >
         <img
           alt="Zoltan Erdos"
           src={img}
         />
-      </StyledImgDiv>
+      </div>
       <p>
         Written by <strong>
           Zoltan Erdos
@@ -49,6 +49,6 @@ export const Bio = () => {
           Follow me on Twitter
         </a>
       </p>
-    </Container>
+    </div>
   );
 };

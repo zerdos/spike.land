@@ -1527,15 +1527,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/is-prop-valid@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@emotion/is-prop-valid@npm:1.0.0"
-  dependencies:
-    "@emotion/memoize": ^0.7.4
-  checksum: 1d217723ad7d800ec53482645155378800b21b6a95f3af174be64bd715051e1632f5494ac48afaa15023d062ff635a0d4ed8c2e7a1d09c79c024c4a69e6c4db3
-  languageName: node
-  linkType: hard
-
 "@emotion/memoize@npm:0.7.4":
   version: 0.7.4
   resolution: "@emotion/memoize@npm:0.7.4"
@@ -1590,28 +1581,6 @@ __metadata:
   version: 1.0.1
   resolution: "@emotion/sheet@npm:1.0.1"
   checksum: 59a52b6d546d92db2f44a1e46659fa8b7e11545c20270cdf61bc9ddd24a774d148e873dc355f85025cd11912df4945794ca9a266799fdaf0c4c815ac83cda456
-  languageName: node
-  linkType: hard
-
-"@emotion/styled@npm:^11.0.0":
-  version: 11.0.0
-  resolution: "@emotion/styled@npm:11.0.0"
-  dependencies:
-    "@babel/runtime": ^7.7.2
-    "@emotion/babel-plugin": ^11.0.0
-    "@emotion/is-prop-valid": ^1.0.0
-    "@emotion/serialize": ^1.0.0
-    "@emotion/utils": ^1.0.0
-  peerDependencies:
-    "@babel/core": ^7.0.0
-    "@emotion/react": ^11.0.0-rc.0
-    react: ">=16.8.0"
-  peerDependenciesMeta:
-    "@babel/core":
-      optional: true
-    "@types/react":
-      optional: true
-  checksum: 42d81040a5f593005516b68822278ca0130511881657bd8c791d265d30d6022374d07147b893439828343c99d2ba36c9609226ad7f0ee0eec2234424aea7cfa9
   languageName: node
   linkType: hard
 
@@ -4658,7 +4627,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.12.3
-    "@zedvision/code": ^11.8.0
+    "@zedvision/code": ^11.8.1
     esbuild: 0.8.31
   languageName: unknown
   linkType: soft
@@ -4806,7 +4775,6 @@ __metadata:
   resolution: "@zedvision/zedvision-site@workspace:packages/zed-vision-site"
   dependencies:
     "@emotion/react": ^11.1.4
-    "@emotion/styled": ^11.0.0
     "@mdx-js/mdx": 1.6.22
     "@mdx-js/react": 1.6.22
     "@types/mdx-js__react": 1.5.3
@@ -4814,7 +4782,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.8.0
+    "@zedvision/code": ^11.8.1
     "@zedvision/qrious": ^11.6.12
     "@zedvision/shadb": ^11.7.4
     gatsby: 2.30.1

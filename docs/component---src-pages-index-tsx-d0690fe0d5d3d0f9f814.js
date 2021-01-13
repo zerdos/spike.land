@@ -27,7 +27,7 @@ var runtime = __webpack_require__("3yYM");
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("QsI/");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 12 modules
 var emotion_react_browser_esm = __webpack_require__("f7k3");
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js

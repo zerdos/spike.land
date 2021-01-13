@@ -108,8 +108,8 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
 var taggedTemplateLiteralLoose = __webpack_require__("fhSp");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
-var react = __webpack_require__("ERkP");
+// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 12 modules
+var emotion_react_browser_esm = __webpack_require__("f7k3");
 
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__("Wbzz");
@@ -129,9 +129,6 @@ var typography = __webpack_require__("cINY");
 // EXTERNAL MODULE: /home/zed/z/node_modules/gatsby-plugin-mdx/index.js
 var gatsby_plugin_mdx = __webpack_require__("0yTM");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/styled/dist/emotion-styled.browser.esm.js + 2 modules
-var emotion_styled_browser_esm = __webpack_require__("TMWK");
-
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__("VtSi");
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
@@ -142,8 +139,8 @@ var runtime = __webpack_require__("3yYM");
 // EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("QsI/");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js
-var emotion_react_browser_esm = __webpack_require__("f7k3");
+// EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
+var react = __webpack_require__("ERkP");
 
 // CONCATENATED MODULE: ./src/components/codeBox/CodeBox.tsx
 
@@ -229,7 +226,7 @@ var esm = __webpack_require__("ZVZ0");
 
 
 function _templateObject3() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n  margin-bottom: ", ";\n"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                  margin-bottom: ", ";\n                  "]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -239,7 +236,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n  font-size: ", ";\n  line-height: ", ";\n  display: block;\n  margin-bottom: ", ";\n"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                    font-size: ", ";\n                    line-height: ", ";\n                    display: block;\n                    margin-bottom: ", ";"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -249,7 +246,7 @@ function _templateObject2() {
 }
 
 function blog_post_templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n  margin-top: ", ";\n  margin-bottom: 0;\n"]);
+  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                  margin-top: ", ";\n                  margin-bottom: 0;\n                  "]);
 
   blog_post_templateObject = function _templateObject() {
     return data;
@@ -259,6 +256,7 @@ function blog_post_templateObject() {
 }
 
 
+/** @jsx jsx */
 
 
 
@@ -270,18 +268,14 @@ function blog_post_templateObject() {
 
 var components = {
   pre: function PreComp(props) {
-    return /*#__PURE__*/react["createElement"]("div", props);
+    return Object(emotion_react_browser_esm["c" /* jsx */])("div", props);
   },
   code: CodeBox_CodeBox
 };
-var StyledHeader = emotion_styled_browser_esm["a" /* default */].h1(blog_post_templateObject(), Object(typography["a" /* rhythm */])(1));
 
 var _scale = Object(typography["b" /* scale */])(1 / 5),
     fontSize = _scale.fontSize,
     lineHeight = _scale.lineHeight;
-
-var StyledDate = emotion_styled_browser_esm["a" /* default */].p(_templateObject2(), fontSize, lineHeight, Object(typography["a" /* rhythm */])(1));
-var Hr = emotion_styled_browser_esm["a" /* default */].hr(_templateObject3(), Object(typography["a" /* rhythm */])(1));
 
 var blog_post_BlogPostTemplate = function BlogPostTemplate(_ref) {
   var data = _ref.data,
@@ -291,21 +285,27 @@ var blog_post_BlogPostTemplate = function BlogPostTemplate(_ref) {
       next = pageContext.next;
 
   var BlogPost = function BlogPost() {
-    return /*#__PURE__*/react["createElement"](esm["MDXProvider"], {
+    return Object(emotion_react_browser_esm["c" /* jsx */])(esm["MDXProvider"], {
       components: components
-    }, /*#__PURE__*/react["createElement"](gatsby_plugin_mdx["MDXRenderer"], null, post.body));
+    }, Object(emotion_react_browser_esm["c" /* jsx */])(gatsby_plugin_mdx["MDXRenderer"], null, post.body));
   };
 
-  return /*#__PURE__*/react["createElement"](react["Fragment"], null, /*#__PURE__*/react["createElement"](layout["a" /* Layout */], null, /*#__PURE__*/react["createElement"](seo["a" /* SEO */], {
+  return Object(emotion_react_browser_esm["c" /* jsx */])(layout["a" /* Layout */], null, Object(emotion_react_browser_esm["c" /* jsx */])(seo["a" /* SEO */], {
     title: post.frontmatter.title,
     description: post.frontmatter.description || post.excerpt
-  }), /*#__PURE__*/react["createElement"]("header", null, /*#__PURE__*/react["createElement"](StyledHeader, null, post.frontmatter.title), /*#__PURE__*/react["createElement"](StyledDate, null, post.frontmatter.date)), /*#__PURE__*/react["createElement"](BlogPost, null), /*#__PURE__*/react["createElement"](Hr, null), /*#__PURE__*/react["createElement"]("footer", null, /*#__PURE__*/react["createElement"](bio["a" /* Bio */], null)), /*#__PURE__*/react["createElement"]("nav", null, /*#__PURE__*/react["createElement"]("ul", null, previous && /*#__PURE__*/react["createElement"]("li", null, /*#__PURE__*/react["createElement"](gatsby_browser_entry["Link"], {
+  }), Object(emotion_react_browser_esm["c" /* jsx */])("header", null, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
+    css: Object(emotion_react_browser_esm["b" /* css */])(blog_post_templateObject(), Object(typography["a" /* rhythm */])(1))
+  }, post.frontmatter.title), Object(emotion_react_browser_esm["c" /* jsx */])("p", {
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2(), fontSize, lineHeight, Object(typography["a" /* rhythm */])(1))
+  }, post.frontmatter.date)), Object(emotion_react_browser_esm["c" /* jsx */])(BlogPost, null), Object(emotion_react_browser_esm["c" /* jsx */])("hr", {
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3(), Object(typography["a" /* rhythm */])(1))
+  }), Object(emotion_react_browser_esm["c" /* jsx */])("footer", null, Object(emotion_react_browser_esm["c" /* jsx */])(bio["a" /* Bio */], null)), Object(emotion_react_browser_esm["c" /* jsx */])("nav", null, Object(emotion_react_browser_esm["c" /* jsx */])("ul", null, previous && Object(emotion_react_browser_esm["c" /* jsx */])("li", null, Object(emotion_react_browser_esm["c" /* jsx */])(gatsby_browser_entry["Link"], {
     to: previous.fields.slug,
     rel: "prev"
-  }, "\u2190 ", previous.frontmatter.title)), next && /*#__PURE__*/react["createElement"]("li", null, /*#__PURE__*/react["createElement"](gatsby_browser_entry["Link"], {
+  }, "\u2190 ", previous.frontmatter.title)), next && Object(emotion_react_browser_esm["c" /* jsx */])("li", null, Object(emotion_react_browser_esm["c" /* jsx */])(gatsby_browser_entry["Link"], {
     to: next.fields.slug,
     rel: "next"
-  }, next.frontmatter.title, " \u2192"))))));
+  }, next.frontmatter.title, " \u2192")))));
 };
 
 /* harmony default export */ var blog_post = __webpack_exports__["default"] = (blog_post_BlogPostTemplate);
@@ -412,4 +412,4 @@ module.exports = _iterableToArray;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-edd96a0f0e954e36d627.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-ac71acfab37bc09d72c7.js.map
