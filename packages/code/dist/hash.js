@@ -39,7 +39,7 @@ async function getClient() {
  * @param {any} data
  * @param {any} onlyHash
  */
-const hash = async (data, onlyHash) => {
+const hash = async (data, { onlyHash, signal }) => {
     /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
     const ipfs = await getClient();
     const noisyHashes = (await Promise.all([
@@ -50,23 +50,30 @@ const hash = async (data, onlyHash) => {
         const data = await Promise.all(noisyHashes.map(feedTheCache));
         return data[0];
     }
-    const res = await Promise.all(noisyHashes.map((cid) => getHash(cid, 20000).then((x) => ({ success: x === data }))));
+    const res = await Promise.all(noisyHashes.map((cid) => getHash(cid, signal).then((x) => ({ success: x === data }))));
     return res[0];
 };
 /**
  * @param {string} cid
- * @param {number|undefined} _timeOut
+ * @param {AbortSignal} signal
  */
-const getHash = async (cid, _timeOut) => {
+const getHash = async (cid, signal) => {
     var e_1, _a;
-    const timeout = _timeOut || 20000;
+    signal.onabort = function () {
+        aborted = 1;
+    };
+    let aborted = 0;
     try {
         /** @type {{ cat: (arg0: any, arg1: any) => any; } | null} */
         const ipfs = await getClient();
+        if (aborted)
+            return "";
         // @ts-ignore
-        const data = await ipfs.cat(cid, { timeout });
+        const data = await ipfs.cat(cid);
         /** @type {Uint8Array | null} */
         let resultUintArr = null;
+        if (aborted)
+            return "";
         try {
             for (var data_1 = __asyncValues(data), data_1_1; data_1_1 = await data_1.next(), !data_1_1.done;) {
                 let res = data_1_1.value;
@@ -86,6 +93,8 @@ const getHash = async (cid, _timeOut) => {
             }
             finally { if (e_1) throw e_1.error; }
         }
+        if (aborted)
+            return "";
         //@ts-ignore
         const result = new TextDecoder().decode(resultUintArr);
         if (typeof result === "string")
@@ -98,9 +107,10 @@ const getHash = async (cid, _timeOut) => {
 };
 /**
  * @param {string} signal => Promise<{success: boolean}>
+ * @param {AbortSignal} abortSignal
  */
-const _waitForSignal = (signal) => {
-    return hash(signal, true).then((x) => (typeof x === "string" || (x && x.success))
+const _waitForSignal = (signal, abortSignal) => {
+    return hash(signal, { onlyHash: true, signal: abortSignal }).then((x) => (typeof x === "string" || (x && x.success))
         ? { success: true }
         : { success: false }).catch(() => ({ success: false }));
 };
@@ -132,12 +142,13 @@ export const sendSignal = async (signal, data) => {
  */
 export const fetchSignal = async (signal, _retry) => {
     const retry = (typeof _retry === "number") ? _retry : 5;
+    const abort = new AbortController();
     let isSignalReceived = null;
     try {
         if (retry === 0)
             throw new Error("No more retry");
         console.log(`Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`);
-        const res = await _waitForSignal(signal);
+        const res = await _waitForSignal(signal, abort.signal);
         if (!res.success)
             return fetchSignal(signal, retry - 1);
         isSignalReceived = true;
@@ -146,11 +157,11 @@ export const fetchSignal = async (signal, _retry) => {
             const CID = (await import("./vendor/cids.js")).default;
             let hashHex = "";
             while (hashHex.length < 68) {
-                console.log(`Getting ${hashHex.length} from 68 `);
+                console.log(`Getting ${hashHex.length + 1} from 68 `);
                 hashHex += await getNextChar(signal + hashHex);
             }
             const cid = new CID(0, 112, fromHexString(hashHex));
-            const data = await getHash(cid.toString(), 20000);
+            const data = await getHash(cid.toString(), abort.signal);
             /**
                * @param {string | any[] | { success: boolean; } | undefined} d
                */
@@ -186,11 +197,14 @@ export const getNextChar =
 */
 async (signal) => {
     const chars = [..."0123456789abcdef"];
-    const nextChar = await raceToSuccess(chars.map((x) => _waitForSignal(signal + x).then((s) => {
+    const controller = new AbortController();
+    const raceArray = chars.map((x) => _waitForSignal(signal + x, controller.signal).then((s) => {
         if (s.success)
             return x;
         throw new Error("nope");
-    })));
+    }));
+    const nextChar = await raceToSuccess(raceArray);
+    controller.abort();
     return nextChar;
 };
 /**
