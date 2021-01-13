@@ -44,7 +44,7 @@
     },
     "dependencies": {
         "@babel/standalone": "7.12.12",
-        "cids": "^1.1.4",
+        "cids": "^1.1.5",
         "comlink": "4.3.0",
         "prettier": "2.2.1"
     }

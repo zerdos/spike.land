@@ -4649,7 +4649,7 @@ __metadata:
   resolution: "@zedvision/code@portal:/home/zed/z/packages/code::locator=zedvision%40workspace%3A."
   dependencies:
     "@babel/standalone": 7.12.12
-    cids: ^1.1.4
+    cids: ^1.1.5
     comlink: 4.3.0
     esbuild: 0.8.31
     prettier: 2.2.1
@@ -4663,7 +4663,7 @@ __metadata:
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
     "@babel/standalone": 7.12.12
-    cids: ^1.1.4
+    cids: ^1.1.5
     comlink: 4.3.0
     esbuild: 0.8.31
     prettier: 2.2.1
@@ -6959,15 +6959,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cids@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "cids@npm:1.1.4"
+"cids@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "cids@npm:1.1.5"
   dependencies:
     multibase: ^3.0.1
     multicodec: ^2.1.0
-    multihashes: ^3.0.1
-    uint8arrays: ^1.1.0
-  checksum: 94ddd43216e6cea928b92e84cf08df652f7b45959e1b709294fddc94b04d6922ef836b73c1683d0395246dee22c7e9680c2196b5c4eaf26d3f430398513f9d17
+    multihashes: ^3.1.0
+    uint8arrays: ^2.0.5
+  checksum: 30d9343f87cd6e2300b87224302e42302fe12e795598ea9f22843288ed91a5b1b8b14e637521c1963347f7a3d0368a7851309b4a879b66bf50489876a84452db
   languageName: node
   linkType: hard
 
@@ -16108,12 +16108,12 @@ fsevents@~2.3.1:
   linkType: hard
 
 "multibase@npm:^3.0.0, multibase@npm:^3.0.1, multibase@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "multibase@npm:3.1.0"
+  version: 3.1.1
+  resolution: "multibase@npm:3.1.1"
   dependencies:
     "@multiformats/base-x": ^4.0.1
-    web-encoding: ^1.0.4
-  checksum: 3802a1f6d51983585d0724a73cc0e1372bae878d0c62ded48824cd529c0eb2e40cd0f36787d8e9f1f3bf7ee067863599a538334c1a85efc9e88bf4cc66126072
+    web-encoding: ^1.0.6
+  checksum: 9dd836b360f39fcf3b0ca2d31951ac813a38c5a4c7f82f9af48cb415904621cd5907ee56dc29fa35f2fadef256d7baa507f4cbfe7ea06e96695762ad452ca43a
   languageName: node
   linkType: hard
 
@@ -16146,14 +16146,14 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"multihashes@npm:^3.0.1":
-  version: 3.1.0
-  resolution: "multihashes@npm:3.1.0"
+"multihashes@npm:^3.1.0":
+  version: 3.1.1
+  resolution: "multihashes@npm:3.1.1"
   dependencies:
     multibase: ^3.1.0
-    uint8arrays: ^1.0.0
+    uint8arrays: ^2.0.5
     varint: ^6.0.0
-  checksum: f9cdca52da276a7a8567d5829080bdac52cfb3fd8bc8301d8259b6822098201ee218230cf0097b595f7ed43d13eef5a01f6f48a780d09695dd3d124329f3c0dd
+  checksum: fd0ac6b3a01e6be167abd165a92f590ffb91fa773944cc24ecd918cf2737066f3d93663d78167fd5bd167a4e4ee835dc7fb4366f24950314bad040c566497681
   languageName: node
   linkType: hard
 
@@ -18854,9 +18854,9 @@ fsevents@~2.3.1:
   linkType: hard
 
 "qs@npm:^6.9.4":
-  version: 6.9.4
-  resolution: "qs@npm:6.9.4"
-  checksum: beba62d1e1c66e9888cc08a488eb95771c252a92289a96bff4b767a49e4e7afe9487d7ee3269b856292d8281b855ac5eac927c2e77f845e407ee4fe54743fea7
+  version: 6.9.5
+  resolution: "qs@npm:6.9.5"
+  checksum: 890913a6f7421a10d4a1e8fafa2e55d24b34df6a2e358ac95de038f71837e52e08a650f4196ffff0267e4d1ab16dd2d554dc17b8e17fa6e8622b27c8796bcc93
   languageName: node
   linkType: hard
 
@@ -22676,13 +22676,23 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"uint8arrays@npm:1.1.0, uint8arrays@npm:^1.0.0, uint8arrays@npm:^1.1.0":
+"uint8arrays@npm:1.1.0":
   version: 1.1.0
   resolution: "uint8arrays@npm:1.1.0"
   dependencies:
     multibase: ^3.0.0
     web-encoding: ^1.0.2
   checksum: 2a1d01f491c40c02fd31b0d64b82684b41d08377432fdce8d6a3766f3e94bcaa728217330938e01f41e2f78588443fcce3e5269f4d708b947764e641abef02ea
+  languageName: node
+  linkType: hard
+
+"uint8arrays@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "uint8arrays@npm:2.0.5"
+  dependencies:
+    multibase: ^3.0.0
+    web-encoding: ^1.0.5
+  checksum: 97f27c7a9f00357ad80f7d26545be7665963ef757e0b5f785c1cae48a4bc5fb3fb0a3e3c34db396e422d388d6b80b6d2b0c7d5f36b9a8c85af99632d95d12d3b
   languageName: node
   linkType: hard
 
@@ -23565,7 +23575,7 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"web-encoding@npm:^1.0.2, web-encoding@npm:^1.0.4":
+"web-encoding@npm:^1.0.2, web-encoding@npm:^1.0.5, web-encoding@npm:^1.0.6":
   version: 1.0.6
   resolution: "web-encoding@npm:1.0.6"
   checksum: 60e5b3c9f6064f3ff49f2c9fcb2fee607e3cd1d00ab0fc19f754c63b9cada47c39e4aa4c22c4b6d371af8e649e0805774d8ef6083307e6250e33c3ad7bdcc0f9
@@ -23602,8 +23612,8 @@ typescript@4.1.3:
   linkType: hard
 
 "webpack-dev-server@npm:^3.11.0":
-  version: 3.11.1
-  resolution: "webpack-dev-server@npm:3.11.1"
+  version: 3.11.2
+  resolution: "webpack-dev-server@npm:3.11.2"
   dependencies:
     ansi-html: 0.0.7
     bonjour: ^3.5.0
@@ -23645,7 +23655,7 @@ typescript@4.1.3:
       optional: true
   bin:
     webpack-dev-server: bin/webpack-dev-server.js
-  checksum: ddd2212abe1065e13a6d350267e09312a41a59f08ed4ef6e34952907f8323cc35ade868b951c8acd9909406d890d65b6463a910883f89470b7d64606432a0f08
+  checksum: 6bf6803810e70f77c50b08b040aa2e8d8e844572e18ad57c624f0cda36cc316fb700a3f765401097c4088d922b41381a44760bd3ed1f196e84a97ba938513130
   languageName: node
   linkType: hard
 

@@ -940,7 +940,7 @@ var require_constants2 = __commonJS((exports, module) => {
 // ../../node_modules/uint8arrays/to-string.js
 var require_to_string = __commonJS((exports, module) => {
   "use strict";
-  var { names } = require_constants();
+  var { encoding: getCodec } = require_src2();
   var { TextDecoder: TextDecoder2 } = require_lib_browser();
   var utf8Decoder = new TextDecoder2("utf8");
   function uint8ArrayToAsciiString(array) {
@@ -957,11 +957,7 @@ var require_to_string = __commonJS((exports, module) => {
     if (encoding === "ascii") {
       return uint8ArrayToAsciiString(array);
     }
-    const codec = names[encoding];
-    if (!codec) {
-      throw new Error("Unknown base");
-    }
-    return codec.encode(array);
+    return getCodec(encoding).encode(array);
   }
   module.exports = toString;
 });
@@ -969,7 +965,7 @@ var require_to_string = __commonJS((exports, module) => {
 // ../../node_modules/uint8arrays/from-string.js
 var require_from_string = __commonJS((exports, module) => {
   "use strict";
-  var { names } = require_constants();
+  var { encoding: getCodec } = require_src2();
   var { TextEncoder: TextEncoder2 } = require_lib_browser();
   var utf8Encoder = new TextEncoder2();
   function asciiStringToUint8Array(string) {
@@ -986,11 +982,7 @@ var require_from_string = __commonJS((exports, module) => {
     if (encoding === "ascii") {
       return asciiStringToUint8Array(string);
     }
-    const codec = names[encoding];
-    if (!codec) {
-      throw new Error("Unknown base");
-    }
-    return codec.decode(string);
+    return getCodec(encoding).decode(string);
   }
   module.exports = fromString;
 });
@@ -1024,7 +1016,8 @@ var require_src3 = __commonJS((exports, module) => {
   var uint8ArrayConcat = require_concat();
   var codes = {};
   for (const key in names) {
-    codes[names[key]] = key;
+    const name = key;
+    codes[names[name]] = name;
   }
   function toHexString(hash) {
     if (!(hash instanceof Uint8Array)) {
@@ -1635,12 +1628,70 @@ var require_int_table = __commonJS((exports, module) => {
   module.exports = Object.freeze(nameTable);
 });
 
+// ../../node_modules/multicodec/node_modules/uint8arrays/to-string.js
+var require_to_string2 = __commonJS((exports, module) => {
+  "use strict";
+  var { names } = require_constants();
+  var { TextDecoder: TextDecoder2 } = require_lib_browser();
+  var utf8Decoder = new TextDecoder2("utf8");
+  function uint8ArrayToAsciiString(array) {
+    let string = "";
+    for (let i = 0; i < array.length; i++) {
+      string += String.fromCharCode(array[i]);
+    }
+    return string;
+  }
+  function toString(array, encoding = "utf8") {
+    if (encoding === "utf8" || encoding === "utf-8") {
+      return utf8Decoder.decode(array);
+    }
+    if (encoding === "ascii") {
+      return uint8ArrayToAsciiString(array);
+    }
+    const codec = names[encoding];
+    if (!codec) {
+      throw new Error("Unknown base");
+    }
+    return codec.encode(array);
+  }
+  module.exports = toString;
+});
+
+// ../../node_modules/multicodec/node_modules/uint8arrays/from-string.js
+var require_from_string2 = __commonJS((exports, module) => {
+  "use strict";
+  var { names } = require_constants();
+  var { TextEncoder: TextEncoder2 } = require_lib_browser();
+  var utf8Encoder = new TextEncoder2();
+  function asciiStringToUint8Array(string) {
+    const array = new Uint8Array(string.length);
+    for (let i = 0; i < string.length; i++) {
+      array[i] = string.charCodeAt(i);
+    }
+    return array;
+  }
+  function fromString(string, encoding = "utf8") {
+    if (encoding === "utf8" || encoding === "utf-8") {
+      return utf8Encoder.encode(string);
+    }
+    if (encoding === "ascii") {
+      return asciiStringToUint8Array(string);
+    }
+    const codec = names[encoding];
+    if (!codec) {
+      throw new Error("Unknown base");
+    }
+    return codec.decode(string);
+  }
+  module.exports = fromString;
+});
+
 // ../../node_modules/multicodec/src/util.js
 var require_util2 = __commonJS((exports, module) => {
   "use strict";
   var varint = require_varint();
-  var uint8ArrayToString = require_to_string();
-  var uint8ArrayFromString = require_from_string();
+  var uint8ArrayToString = require_to_string2();
+  var uint8ArrayFromString = require_from_string2();
   module.exports = {
     numberToUint8Array,
     uint8ArrayToNumber,
@@ -1678,6 +1729,24 @@ var require_varint_table = __commonJS((exports, module) => {
   module.exports = Object.freeze(varintTable);
 });
 
+// ../../node_modules/multicodec/node_modules/uint8arrays/concat.js
+var require_concat2 = __commonJS((exports, module) => {
+  "use strict";
+  function concat(arrays, length) {
+    if (!length) {
+      length = arrays.reduce((acc, curr) => acc + curr.length, 0);
+    }
+    const output = new Uint8Array(length);
+    let offset = 0;
+    for (const arr of arrays) {
+      output.set(arr, offset);
+      offset += arr.length;
+    }
+    return output;
+  }
+  module.exports = concat;
+});
+
 // ../../node_modules/multicodec/src/constants.js
 var require_constants3 = __commonJS((exports, module) => {
   "use strict";
@@ -1710,7 +1779,7 @@ var require_src4 = __commonJS((exports, module) => {
   var intTable = require_int_table();
   var codecNameToCodeVarint = require_varint_table();
   var util = require_util2();
-  var uint8ArrayConcat = require_concat();
+  var uint8ArrayConcat = require_concat2();
   function addPrefix(multicodecStrOrCode, data) {
     let prefix;
     if (multicodecStrOrCode instanceof Uint8Array) {
@@ -1853,6 +1922,9 @@ var require_src5 = __commonJS((exports, module) => {
   var symbol = Symbol.for("@ipld/js-cid/CID");
   var CID2 = class {
     constructor(version, codec, multihash, multibaseName) {
+      this.version;
+      this.codec;
+      this.multihash;
       Object.defineProperty(this, symbol, { value: true });
       if (CID2.isCID(version)) {
         const cid = version;

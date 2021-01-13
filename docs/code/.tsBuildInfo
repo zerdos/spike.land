@@ -212,7 +212,7 @@
         "affectsGlobalScope": false
       },
       "./src/vendor/cids.js": {
-        "version": "7f70a5ad917878f816c91b71048cc506b4e1565c0d8f60c478ff2a526bf34323",
+        "version": "c26d234b28a06c0b761ad757ba847c7502ab505dbd3bbeb6f666346cd7740bc2",
         "signature": "d18f79aa6ddec0adbe8167e04c327114d118e13eaaac8862920ed4fdb935557e",
         "affectsGlobalScope": false
       },
@@ -291,14 +291,19 @@
         "signature": "7461cdfeed4a18eeab1e26625d21e8965bd6cd7e537931cfbc6b3154c77a33fc",
         "affectsGlobalScope": false
       },
+      "../../node_modules/multicodec/dist/src/base-table.d.ts": {
+        "version": "de333665713e8995c99a8eca9fd7b9ae2ce3981b830fcc70e15928c36f2088fb",
+        "signature": "de333665713e8995c99a8eca9fd7b9ae2ce3981b830fcc70e15928c36f2088fb",
+        "affectsGlobalScope": false
+      },
       "../../node_modules/cids/dist/src/index.d.ts": {
-        "version": "8d75b05b9fa0321f8f3ffb4524bafc0da4a0ed7403adb41e49aad6df72419168",
-        "signature": "8d75b05b9fa0321f8f3ffb4524bafc0da4a0ed7403adb41e49aad6df72419168",
+        "version": "30b319653f89d2c05244fb0c2a331bbeed15407eac81b940ddb45cc22f8fa759",
+        "signature": "30b319653f89d2c05244fb0c2a331bbeed15407eac81b940ddb45cc22f8fa759",
         "affectsGlobalScope": false
       },
       "./src/mhash.js": {
         "version": "d4456419f733da7c3543da13fab4a5fd38353244f7074ffacb94e9e9ddd9d847",
-        "signature": "037945774d760fbbe13caa1583034c5807de92779e2ce6e0387e8e53f45991c6",
+        "signature": "5949fd65947c99ee0f75335a6fb04fa47b8c54cd86c1440cdaac46460668dd37",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
@@ -393,10 +398,14 @@
       ],
       "../../node_modules/cids/dist/src/index.d.ts": [
         "../../node_modules/cids/dist/src/index.d.ts",
+        "../../node_modules/multicodec/dist/src/base-table.d.ts",
         "../../node_modules/multicodec/dist/src/generated-types.d.ts"
       ],
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
+      ],
+      "../../node_modules/multicodec/dist/src/base-table.d.ts": [
+        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
       ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -517,10 +526,14 @@
       ],
       "../../node_modules/cids/dist/src/index.d.ts": [
         "../../node_modules/cids/dist/src/index.d.ts",
+        "../../node_modules/multicodec/dist/src/base-table.d.ts",
         "../../node_modules/multicodec/dist/src/generated-types.d.ts"
       ],
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
+      ],
+      "../../node_modules/multicodec/dist/src/base-table.d.ts": [
+        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
       ],
       "./src/transpileWorker.d.ts": [
         "../../node_modules/comlink/dist/umd/comlink.d.ts"
@@ -535,6 +548,7 @@
       "../../node_modules/comlink/dist/umd/comlink.d.ts",
       "../../node_modules/comlink/dist/umd/protocol.d.ts",
       "../../node_modules/csstype/index.d.ts",
+      "../../node_modules/multicodec/dist/src/base-table.d.ts",
       "../../node_modules/multicodec/dist/src/generated-types.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
