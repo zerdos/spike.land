@@ -9,7 +9,7 @@ const v = versions();
  */
 
 const feedTheCache = (cid) => {
-  fetch(`https://zed.vision/ipfs/${cid}`).then((resp) => resp.text());
+  //fetch(`https://zed.vision/ipfs/${cid}`).then((resp) => resp.text());
   // console.log(cid);
   return cid;
 };
