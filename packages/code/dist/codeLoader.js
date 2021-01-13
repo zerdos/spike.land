@@ -36,7 +36,7 @@ export async function run(mode = "window", _w, code = "") {
     if (!code) {
         try {
             const { code, transpiled, html, versions } = (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
-                ? await getIPFSCodeToLoad()
+                ? await getIPFSCodeToLoad(undefined)
                 : await getCodeToLoad();
             session.code = code;
             session.transpiled = await transpileCode(code, (versions && versions.emotionRenderer) || v.emotionRenderer) || transpiled;

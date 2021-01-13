@@ -3,30 +3,17 @@ import { fetchSignal } from "./hash.js";
 import getVersions from "./versions.js";
 const versions = getVersions();
 
+/** @type {string} */
+let uuid;
 export const getProjects = async () => {
-  const uuid = await getUserId();
+  uuid = await getUserId();
   const userData = await shaDB.get(uuid, "json");
 
   let appHash = null;
   if (userData && userData.signal) {
-    //  setTimeout(()=>{
+    //  setTimeout(()
 
-    appHash = await fetchSignal(userData.signal, 5).then((getData) => getData())
-      .then(async (data) => {
-        await shaDB.put(
-          uuid,
-          JSON.stringify({ ...userData, signal: null }),
-        );
-
-        const app = await fetch(`${data.rootUrl}/app.tsx`).then((res) =>
-          res.text()
-        );
-
-        const appHash = await sha256(app);
-        await shaDB.put(appHash, app);
-        return appHash;
-      });
-    //})
+    return userData.signal;
   }
 
   if (typeof userData === "string" || userData === null || !userData.list) {
@@ -54,8 +41,6 @@ export const getProjects = async () => {
   return userData.list;
 };
 
-/** @type {string} */
-let uuid;
 export async function getUserId() {
   if (uuid) return uuid;
 
@@ -74,12 +59,16 @@ let activeProject;
 async function getActiveProject() {
   if (activeProject) return activeProject;
   const projects = await getProjects();
+  if (projects.rootUrl) return projects;
   activeProject = projects[0];
   return activeProject;
 }
 
-export async function getIPFSCodeToLoad() {
-  const rootUrl = window.location.href.endsWith("/edit/")
+/**
+ * @param {string|undefined} _rootUrl
+ */
+export async function getIPFSCodeToLoad(_rootUrl) {
+  const rootUrl = _rootUrl || window.location.href.endsWith("/edit/")
     ? window.location.href.slice(0, -5)
     : window.location.href.slice(0, -4);
 
@@ -100,6 +89,9 @@ export async function getIPFSCodeToLoad() {
 
 export async function getCodeToLoad() {
   const projectName = await getActiveProject();
+  if (projectName.rootUrl) {
+    return getIPFSCodeToLoad(projectName.rootUrl);
+  }
   const keyToLoad = await shaDB.get(projectName, "string");
 
   let projectDesc;

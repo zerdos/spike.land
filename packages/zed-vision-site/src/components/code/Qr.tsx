@@ -93,6 +93,7 @@ export const Qr = () => {
           signal: signalData,
         }),
       );
+
       fetch(`${signalData.rootUrl}/app.tsx`)
 
       setTimeout(
@@ -123,8 +124,6 @@ export const Qr = () => {
   }, [urls]);
 
   const [cubeState, setCubeState] = React.useState(1);
-
-  if (cubeState === -1) return <></>;
 
   return (
     <div

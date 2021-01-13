@@ -1,5 +1,8 @@
 export function getUserId(): Promise<any>;
-export function getIPFSCodeToLoad(): Promise<{
+/**
+ * @param {string|undefined} _rootUrl
+ */
+export function getIPFSCodeToLoad(_rootUrl: string | undefined): Promise<{
     code: string;
     url: string;
     versions: any;

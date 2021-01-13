@@ -247,8 +247,8 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "118dc7599bcfe82edc78fc8b497a318cac9b0fd70862192b05c38741405a04d2",
-        "signature": "e2f17b4c4033e179c8d3a82c5656c26c775d89f18fe647129cedfecc7d043f90",
+        "version": "8d9deff567d7c2d106b7ed4a6045534ba96c3713993856337addaff4b40f439b",
+        "signature": "1e5b90cd29667f473e852099e8dd1f5e2424a7056408f3479d2f8de4e60e16f5",
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "c5f8edc10b4da364254a1344d2c02d70d73a5f019db4f0b22435fa97cedb362b",
+        "version": "1b507acad2569f217ec08a26264d01094c598acbbb15131cc1ef8adcd3d1aff5",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
