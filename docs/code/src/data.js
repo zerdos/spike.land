@@ -1,5 +1,5 @@
 import { sha256, shaDB } from "./db.js";
-import { waitForSignalAndRun } from "./hash.js";
+import { fetchSignal } from "./hash.js";
 import getVersions from "./versions.js";
 const versions = getVersions();
 
@@ -11,29 +11,21 @@ export const getProjects = async () => {
   if (userData && userData.signal) {
     //  setTimeout(()=>{
 
-    appHash = await new Promise((resolve) =>
-      waitForSignalAndRun(
-        {
-          signal: userData.signal,
-          onSignal: async (getData) => {
-            const data = await getData();
-            await shaDB.put(
-              uuid,
-              JSON.stringify({ ...userData, signal: null }),
-            );
+    appHash = await fetchSignal(userData.signal, 5).then((getData) => getData())
+      .then(async (data) => {
+        await shaDB.put(
+          uuid,
+          JSON.stringify({ ...userData, signal: null }),
+        );
 
-            const app = await fetch(`${data.rootUrl}/app.tsx`).then((res) =>
-              res.text()
-            );
+        const app = await fetch(`${data.rootUrl}/app.tsx`).then((res) =>
+          res.text()
+        );
 
-            const appHash = await sha256(app);
-            await shaDB.put(appHash, app);
-
-            resolve(appHash);
-          },
-        },
-      )
-    );
+        const appHash = await sha256(app);
+        await shaDB.put(appHash, app);
+        return appHash;
+      });
     //})
   }
 

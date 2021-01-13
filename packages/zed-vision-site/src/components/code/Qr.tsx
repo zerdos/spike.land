@@ -1,7 +1,7 @@
 import { css, Global, jsx } from "@emotion/react";
 /** @jsx jsx */
 import React from "react";
-import { waitForSignalAndRun } from "@zedvision/code/dist/hash";
+import { fetchSignal } from "@zedvision/code/dist/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 import { getUserId, shaDB } from "./getUser";
@@ -66,39 +66,33 @@ export const Qr = () => {
   }, [retry]);
 
   React.useEffect(() => {
-    const setSignal = (url: string) => {
+    const setSignal = async (url: string) => {
       if (cubeState !== 1) return;
-      waitForSignalAndRun({
-        signal: url,
-        onSignal: async () => {
-          const uuid = await getUserId();
-          const userData = await shaDB.get(uuid, "json");
-          await shaDB.put(
-            uuid,
-            JSON.stringify({
-              ...userData,
-              signal: url,
-            }),
-          );
 
-          setTimeout(
-            () => window.location.href = "https://blog.zed.vision/code/",
-            2000,
-          );
-          setTimeout(() => setCubeState(0));
+     const getData = await fetchSignal(url, 5);
+     getData();
 
-          setTimeout(() => {
-            setCubeState(-1);
-          }, 6000);
-        },
-        onError: () => {
-          console.log("Error while waiting for the signal", { url });
-        },
-        onExpired: () => {
-          console.log("expired", { url });
-        },
-      });
-    };
+     const uuid = await getUserId();
+     const userData = await shaDB.get(uuid, "json");
+     await shaDB.put(
+       uuid,
+       JSON.stringify({
+         ...userData,
+         signal: url,
+       }),
+     );
+
+     setTimeout(
+       () => window.location.href = "https://blog.zed.vision/code/",
+       2000,
+     );
+     setTimeout(() => setCubeState(0));
+
+     setTimeout(() => {
+       setCubeState(-1);
+     }, 6000);
+
+    }
 
     const setSignals = () => {
       urls.last && setSignal(urls.last);

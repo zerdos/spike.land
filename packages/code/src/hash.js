@@ -9,7 +9,7 @@ const v = versions();
  */
 
 const feedTheCache = (cid) => {
-  fetch(`https://code.zed.vision/ipfs/${cid}`).then((resp) => resp.text());
+  fetch(`https://zed.vision/ipfs/${cid}`).then((resp) => resp.text());
   // console.log(cid);
   return cid;
 };
@@ -78,7 +78,19 @@ const getHash = async (cid, _timeOut) => {
 
     // @ts-ignore
     const data = await ipfs.cat(cid, { timeout });
-    if (typeof data === "string") return half(data);
+    /** @type {Uint8Array | null} */
+    let resultUintArr = null;
+    for await (let res of data) {
+      if (resultUintArr !== null) {
+        //@ts-ignore
+        resultUintArr.concat(res);
+      } else {
+        resultUintArr = res;
+      }
+    }
+    //@ts-ignore
+    const result = new TextDecoder().decode(resultUintArr);
+    if (typeof result === "string") return half(result);
     // console.error({ data });
   } catch (e) {
     console.log({ e });
@@ -89,8 +101,12 @@ const getHash = async (cid, _timeOut) => {
  * @param {string} signal => Promise<{success: boolean}>
  */
 
-export const waitForSignal = (signal) => {
-  return hash(signal, true).catch(() => ({ success: false }));
+const _waitForSignal = (signal) => {
+  return hash(signal, true).then((x) =>
+    (typeof x === "string" || (x && x.success))
+      ? { success: true }
+      : { success: false }
+  ).catch(() => ({ success: false }));
 };
 
 /**
@@ -127,78 +143,72 @@ export const sendSignal = async (signal, data) => {
       allHash.slice(5).map((x) => hash(x, false)),
     );
   }
-  alert(`v3   ${signal} ${data}`);
   return { success: true };
 };
 
 /**
- * @param {string} url
+ * @param {string} signal
+ * @param {number} _retry
+ * @returns {Promise<()=>Promise<any>>} result
  */
-export const waitForSignalAndJump = async (url) => {
-  try {
-    const res = await waitForSignal(url);
-    if (typeof res === "string" || res.success) {
-      window.location.href = url;
-    }
-  } catch (e) {
-    console.log({ msg: "SignalAndJump error", e });
-  } finally {
-    console.log({ msg: "SignalAndJump Final" });
-  }
-};
-
-/**
- * @param {{signal: string, onSignal: (getData: ()=> any)=>any, onError?: ()=>any, onExpired?: ()=>any }} opts
- */
-export const waitForSignalAndRun = async (
-  { signal, onSignal, onError, onExpired },
+export const fetchSignal = async (
+  signal,
+  _retry,
 ) => {
+  const retry = (typeof _retry === "number") ? _retry : 5;
+
+  let isSignalReceived = null;
   try {
-    const res = await waitForSignal(signal);
-    if (typeof res === "string" || res.success) {
-      if (typeof onSignal === "function") {
-        const CID = (await import("./vendor/cids.js")).default;
-        return onSignal(
-          async () => {
-            let hashHex = "";
-            while (hashHex.length < 68) {
-              console.log(`Getting ${hashHex.length} from 68 `);
-              hashHex += await getNextChar(signal + hashHex);
-            }
+    if (retry === 0) throw new Error("No more retry");
+    console.log(
+      `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
+    );
+    const res = await _waitForSignal(signal);
+    if (!res.success) return fetchSignal(signal, retry - 1);
 
-            const cid = new CID(0, 112, fromHexString(hashHex));
+    isSignalReceived = true;
+    console.log(`Signal received!`, { res });
 
-            const data = await getHash(cid.toString(), 20000);
-
-            /**
-             * @param {string | any[] | { success: boolean; } | undefined} d
-             */
-            const parse = (d) => {
-              try {
-                if (typeof d !== "string") return d;
-
-                const ret = JSON.parse(d);
-                return ret;
-              } catch (e) {
-                return d;
-              }
-            };
-
-            return parse(data);
-          },
-        );
+    const getData = async () => {
+      const CID = (await import("./vendor/cids.js")).default;
+      let hashHex = "";
+      while (hashHex.length < 68) {
+        console.log(`Getting ${hashHex.length} from 68 `);
+        hashHex += await getNextChar(signal + hashHex);
       }
-      return 0;
-    }
-    return 1;
+
+      const cid = new CID(0, 112, fromHexString(hashHex));
+
+      const data = await getHash(cid.toString(), 20000);
+
+      /**
+         * @param {string | any[] | { success: boolean; } | undefined} d
+         */
+      const parse = (d) => {
+        try {
+          if (typeof d !== "string") return d;
+
+          const ret = JSON.parse(d);
+          return ret;
+        } catch (e) {
+          return d;
+        }
+      };
+
+      return parse(data);
+    };
+
+    return getData;
   } catch (e) {
-    if (typeof onError === "function") {
-      return onError();
-    }
-    return 1;
+    isSignalReceived = false;
+    console.log(`Bad news! No signal, and it seems there is an error.`);
+    throw new Error("No signal, and it seems there is an error");
   } finally {
-    if (typeof onExpired === "function") return onExpired();
-    return -1;
+    if (isSignalReceived === null) {
+      console.log(
+        "What WHAT? This is unexpected, we are in the finally part - without error.",
+      );
+    }
   }
 };
 
@@ -211,8 +221,7 @@ export const getNextChar =
 
     const nextChar = await raceToSuccess(
       chars.map((x) =>
-        waitForSignal(signal + x).then((s) => {
-          if (typeof s === "string") return x;
+        _waitForSignal(signal + x).then((s) => {
           if (s.success) return x;
           throw new Error("nope");
         })
@@ -267,4 +276,4 @@ const fromHexString = (hexString) =>
 // import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
 // import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID("Qme7vFQnRzk2AoEgWMkQ8PDujZmUb3BoR1kEtSa1s83fQP")).then(x=>Array.from(x.multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join(""))
 
-///  waitForSignalAndRun( {signal, onSignal: async (data)=> {const nextChar = await(getData()); console.log(nextChar)  }})
+///  fetchSignal( {signal, onSignal: async (data)=> {const nextChar = await(getData()); console.log(nextChar)  }})
