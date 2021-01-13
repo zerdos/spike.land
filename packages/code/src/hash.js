@@ -9,7 +9,22 @@ const v = versions();
  */
 
 const feedTheCache = (cid) => {
-  //fetch(`https://zed.vision/ipfs/${cid}`).then((resp) => resp.text());
+  const controller = new AbortController();
+
+  const random5GatewaysFetch = publicIpfsGateways.sort(() =>
+    0.5 - Math.random()
+  ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`)).map((
+    x,
+  ) =>
+    fetch(x, { signal: controller.signal }).then((res) =>
+      res.status === 200 ? res : (() => {
+        throw new Error("Not found");
+      })()
+    )
+  );
+
+  raceToSuccess(random5GatewaysFetch).then(() => controller.abort());
+
   // console.log(cid);
   return cid;
 };
@@ -80,6 +95,7 @@ const getHash = async (cid, signal) => {
     const ipfs = await getClient();
     if (aborted) return "";
     // @ts-ignore
+
     const data = await ipfs.cat(cid);
     /** @type {Uint8Array | null} */
     let resultUintArr = null;
@@ -281,6 +297,23 @@ const fromHexString = (hexString) =>
     hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)),
   );
 
+/**
+ * @param {string} pathname
+ */
+const random5GatewaysFetch = (pathname) => {
+  publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) =>
+    gw.replace("/ipfs/:hash", pathname)
+  ).map((
+    x,
+  ) =>
+    fetch(x).then((res) =>
+      res.status === 200 ? res : (() => {
+        throw new Error("Not found");
+      })()
+    )
+  );
+};
+
 // const toHexString = bytes =>
 //   bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
 
@@ -291,3 +324,38 @@ const fromHexString = (hexString) =>
 // import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID("Qme7vFQnRzk2AoEgWMkQ8PDujZmUb3BoR1kEtSa1s83fQP")).then(x=>Array.from(x.multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join(""))
 
 ///  fetchSignal( {signal, onSignal: async (data)=> {const nextChar = await(getData()); console.log(nextChar)  }})
+const publicIpfsGateways = [
+  "https://ipfs.io/ipfs/:hash",
+  "https://dweb.link/ipfs/:hash",
+  "https://gateway.ipfs.io/ipfs/:hash",
+  "https://ipfs.infura.io/ipfs/:hash",
+  "https://ninetailed.ninja/ipfs/:hash",
+  "https://10.via0.com/ipfs/:hash",
+  "https://ipfs.eternum.io/ipfs/:hash",
+  "https://hardbin.com/ipfs/:hash",
+  "https://cloudflare-ipfs.com/ipfs/:hash",
+  "https://cf-ipfs.com/ipfs/:hash",
+  "https://gateway.pinata.cloud/ipfs/:hash",
+  "https://ipfs.sloppyta.co/ipfs/:hash",
+  "https://ipfs.greyh.at/ipfs/:hash",
+  "https://jorropo.ovh/ipfs/:hash",
+  "https://jorropo.net/ipfs/:hash",
+  "https://gateway.temporal.cloud/ipfs/:hash",
+  "https://ipfs.runfission.com/ipfs/:hash",
+  "https://trusti.id/ipfs/:hash",
+  "https://ipfs.overpi.com/ipfs/:hash",
+  "https://ipfs.ink/ipfs/:hash",
+  "https://gateway.ravenland.org/ipfs/:hash",
+  "https://ipfs.smartsignature.io/ipfs/:hash",
+  "https://ipfs.telos.miami/ipfs/:hash",
+  "https://robotizing.net/ipfs/:hash",
+  "https://ipfs.mttk.net/ipfs/:hash",
+  "https://ipfs.fleek.co/ipfs/:hash",
+  "https://ipfs.jbb.one/ipfs/:hash",
+  "https://jacl.tech/ipfs/:hash",
+  "https://ipfs.k1ic.com/ipfs/:hash",
+  "https://ipfs.drink.cafe/ipfs/:hash",
+  "https://ipfs.azurewebsites.net/ipfs/:hash",
+  "https://gw.ipfspin.com/ipfs/:hash",
+  "https://ipfs.denarius.io/ipfs/:hash",
+];
