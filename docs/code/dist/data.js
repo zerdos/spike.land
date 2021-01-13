@@ -52,9 +52,10 @@ async function getActiveProject() {
  * @param {string|undefined} _rootUrl
  */
 export async function getIPFSCodeToLoad(_rootUrl) {
-    const rootUrl = _rootUrl || window.location.href.endsWith("/edit/")
-        ? window.location.href.slice(0, -5)
-        : window.location.href.slice(0, -4);
+    const rootUrl = _rootUrl ||
+        (window.location.href.endsWith("/edit/")
+            ? window.location.href.slice(0, -5)
+            : window.location.href.slice(0, -4));
     const { v } = await import(rootUrl + "versions.js");
     const codeReq = await fetch(rootUrl + "app.tsx");
     const code = await codeReq.text();
