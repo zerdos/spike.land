@@ -39,7 +39,7 @@ const hash = async (data, { onlyHash, signal, timeout }) => {
   );
 
   if (!onlyHash) {
-    console.log(`adding data to ipfs: ${data} `);
+    // console.log(`adding data to ipfs: ${data} `);
     await feedTheCache(cid);
 
     return cid;
@@ -208,14 +208,14 @@ export const fetchSignal =
     let isSignalReceived = null;
     try {
       if (retry === 0) throw new Error("No more retry");
-      console.log(
-        `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
-      );
+      // console.log(
+      //   `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
+      // );
       const res = await _waitForSignal(signal, abort.signal);
       if (!res.success) return fetchSignal(signal, retry - 1);
 
       isSignalReceived = true;
-      console.log(`Signal received!`, { res });
+      // console.log(`Signal received!`, { res });
 
       const getData =
         /**
@@ -276,10 +276,10 @@ export const fetchSignal =
 
               if (!ret) throw new Error("No data");
 
-              console.log(
-                `got the result and putting it to cache, the delay was: ${delay}`,
-                { ret },
-              );
+              // console.log(
+              //   `got the result and putting it to cache, the delay was: ${delay}`,
+              //   { ret },
+              // );
               //@ts-ignore
               signalDataCache[signal] = ret;
 
@@ -295,7 +295,7 @@ export const fetchSignal =
       return getData;
     } catch (e) {
       isSignalReceived = false;
-      console.log(`Bad news! No signal, and it seems there is an error.`);
+      //   console.log(`Bad news! No signal, and it seems there is an error.`);
     }
   };
 
@@ -334,7 +334,7 @@ export const getCharAt =
     );
     //@ts-ignore
     if (signalCache[signal][i]) return signalCache[signal][i];
-    console.log(`${signal} data hash char ${i}: ${nextChar}`);
+    //  console.log(`${signal} data hash char ${i}: ${nextChar}`);
     //@ts-ignore
     signalCache[signal][i] = nextChar;
     controller.abort();
