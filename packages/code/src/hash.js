@@ -85,11 +85,14 @@ const getHash = async (cid, signal) => {
 
     cidLock.semaphore++;
 
+    // @ts-ignore
     if (!cidLock[cid]) {
       // console.log(`in :  ${cidLock.semaphore}   cat cat cat `);
+      // @ts-ignore
       cidLock[cid] = ipfs.cat(cid, { timeout: 300 });
     }
 
+    // @ts-ignore
     const data = await cidLock[cid];
 
     // @ts-ignore
@@ -118,6 +121,7 @@ const getHash = async (cid, signal) => {
     // console.error({ data });
   } catch (e) {
     cidLock.semaphore--;
+    // @ts-ignore
     cidLock[cid] = null;
     // console.log({});
   }
@@ -432,6 +436,7 @@ const fromHexString = (hexString) =>
 /**
  * @param {string} pathname
  */
+// @ts-ignore
 // @ts-ignore
 const random5GatewaysFetch = (pathname) => {
   publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) =>
