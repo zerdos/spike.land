@@ -18,11 +18,11 @@ export const getIpfs = async () => {
     ? `${location.href}src/ipfsWorker.js`
     : `${location.origin}/src/ipfsWorker.js`;
 
-  if (typeof SharedWorker !== "undefined") {
-    const worker = new SharedWorker(workerSrc);
-    ipfs = IpfsMessagePortClient.from(worker.port);
-    return ipfs;
-  }
+  // if (typeof SharedWorker !== "undefined") {
+  //   const worker = new SharedWorker(workerSrc);
+  //   ipfs = IpfsMessagePortClient.from(worker.port);
+  //   return ipfs;
+  // }
   const worker = new Worker(workerSrc);
 
   const { port1, port2 } = new MessageChannel();

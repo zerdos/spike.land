@@ -202,13 +202,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "34b9a9d45d461e5674a17b50cc61d33d7ea27086a179f1c33fcaff04e98e9743",
+        "version": "73a80ff2dfb7ad06d2ff544820f21c0eabbe1be72c63b628928b88502f89fc80",
         "signature": "84ec3c66307f94cd18aaf53d6be7841ad415bbed71a780403d229d3a816e93f3",
-        "affectsGlobalScope": false
-      },
-      "./src/versions.js": {
-        "version": "de885a58b25bc274983c5b9354d15ca8617d4aff5735481ce667f93c674904d2",
-        "signature": "87c5835e9708260e9927376dbaa9ed8b78d83ceec5ddde82be714639e1886c12",
         "affectsGlobalScope": false
       },
       "./src/vendor/cids.js": {
@@ -217,8 +212,13 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "4da048c0b5a94c76f96d79d307e3c43b42db91d415da5f6811027fba7c46e249",
-        "signature": "d69f9b27ac0f7713d135651e006b759ee129ea96e54ff87b7b2a60949af86d18",
+        "version": "88422f73156e63c0c5c128e8ec3b3e9fb6d5e5250b2ea5e1e05b4a000c0bdb9c",
+        "signature": "d5a6f3676576ac3aaf8f9c6ff356409e634657db7310fb51752a057a78e14d98",
+        "affectsGlobalScope": false
+      },
+      "./src/versions.js": {
+        "version": "de885a58b25bc274983c5b9354d15ca8617d4aff5735481ce667f93c674904d2",
+        "signature": "87c5835e9708260e9927376dbaa9ed8b78d83ceec5ddde82be714639e1886c12",
         "affectsGlobalScope": false
       },
       "./src/db.js": {
@@ -232,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "ae7a4981b519b20461cc258721533714a1505a74f963ba26655c4cef3bb1e050",
+        "version": "2e2169f55c02aea01b0e5d4fcff4a1cf3662e9e192e331edff14c213db50b30d",
         "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "27624c01ba17cf7ac14cff0be154823fa3dadb6baa8e41a6819c81da246a3e58",
+        "version": "50dcadca9d0e06a4fede5fcc5ee4103ef7b5a9f881cb40dd462141d276e83381",
         "signature": "19df299943abd33b7d1ff906a395043f22d76ad28c278045626d50b846510c17",
         "affectsGlobalScope": true
       },
@@ -438,8 +438,7 @@
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/ipfsClient.js",
-        "./src/vendor/cids.js",
-        "./src/versions.js"
+        "./src/vendor/cids.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"

@@ -78,7 +78,7 @@ async function addAll(files) {
     const res = [];
     try {
         for (var _b = __asyncValues(ipfs.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
-            let result = _c.value;
+            const result = _c.value;
             const { path, cid } = result;
             const CID = cid.toString();
             res.push({ path, CID });
