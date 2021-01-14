@@ -10,12 +10,20 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
 const feedTheCache = (cid) => {
-    const controller = new AbortController();
+    // const controller = new AbortController();
     fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text()).then(console.log);
-    const random5GatewaysFetch = publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`)).map((x) => fetch(x, { signal: controller.signal }).then((res) => res.status === 200 ? res.text() : (() => {
-        throw new Error("Not found");
-    })()).then(console.log));
-    raceToSuccess(random5GatewaysFetch).then(() => controller.abort());
+    // const random5GatewaysFetch = publicIpfsGateways.sort(() =>
+    //   0.5 - Math.random()
+    // ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`)).map((
+    //   x,
+    // ) =>
+    //   fetch(x, { signal: controller.signal }).then((res) =>
+    //     res.status === 200 ? res.text() : (() => {
+    //       throw new Error("Not found");
+    //     })()
+    //   ).then(console.log)
+    // );
+    // raceToSuccess(random5GatewaysFetch).then(() => controller.abort());
     // console.log(cid);
     return cid;
 };
@@ -30,17 +38,15 @@ async function getClient() {
 const hash = async (data, { onlyHash, signal }) => {
     /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
     const ipfs = await getClient();
-    const noisyHashes = (await Promise.all([
-        // @ts-ignore
-        await ipfs.add(`${data}`, { onlyHash }).then((d) => d.cid.toString()),
-    ]));
+    //@ts-ignore
+    const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) => d.cid.toString());
     if (!onlyHash) {
         console.log(`adding data to ipfs: ${data} `);
-        const returnData = await Promise.all(noisyHashes.map(feedTheCache));
-        return returnData[0];
+        await feedTheCache(cid);
+        return cid;
     }
-    const res = await Promise.all(noisyHashes.map((cid) => getHash(cid, signal).then((x) => ({ success: x === data }))));
-    return res[0];
+    const res = await getHash(cid, signal).then((x) => ({ success: x === data }));
+    return res;
 };
 const cidCache = {};
 /**
@@ -62,7 +68,13 @@ const getHash = async (cid, signal) => {
         if (aborted)
             return "";
         // @ts-ignore
-        const data = await ipfs.cat(cid, { timeout: 2500 });
+        if (cidCache[cid])
+            return cidCache[cid];
+        // @ts-ignore
+        const data = await ipfs.cat(cid, { timeout: 1500 });
+        // @ts-ignore
+        if (cidCache[cid])
+            return cidCache[cid];
         /** @type {Uint8Array | null} */
         let resultUintArr = null;
         if (aborted)
@@ -148,13 +160,23 @@ export const fetchSignal = async (signal, _retry) => {
             return fetchSignal(signal, retry - 1);
         isSignalReceived = true;
         console.log(`Signal received!`, { res });
-        const getData = async () => {
+        const getData = 
+        /**
+       *
+       * @param {number} retry
+       * @returns *
+       */
+        // @ts-ignore
+        async (retry = 10) => {
             //@ts-ignore
             if (signalDataCache[signal])
                 return signalDataCache[signal];
+            if (retry === 0)
+                return "";
             /**
-           * @param {number} delay
-           */
+         * @param {number} delay
+         */
+            // @ts-ignore
             const run = async (delay) => {
                 //@ts-ignore
                 if (signalDataCache[signal])
@@ -164,18 +186,46 @@ export const fetchSignal = async (signal, _retry) => {
                     const CID = (await import("./vendor/cids.js")).default;
                     const hashArr = new Array(68).fill(0).map((_x, i) => i);
                     const arrToShort = [...hashArr];
-                    const random5Res = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
-                    await Promise.all(random5Res);
-                    const random5Res2 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => getCharAt(signal, i));
-                    await Promise.all(random5Res2);
-                    const random5Res3 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
-                    await Promise.all(random5Res3);
-                    const random10res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
-                    await Promise.all(random10res1);
-                    const random15Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
-                    await Promise.all(random15Res1);
-                    const random25Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
-                    await Promise.all(random25Res1);
+                    for (let k = 0; k < 9; k++) {
+                        const random5Res = arrToShort.sort(() => 0.5 - Math.random())
+                            .slice(0, 5 + k * 3).map((i) => getCharAt(signal, i));
+                        console.log(`ROUND ${k}:`);
+                        await Promise.all(random5Res);
+                    }
+                    console.log(`And now the rest`);
+                    // const random5Res2 = arrToShort.sort(() => 0.5 - Math.random()).slice(
+                    //   0,
+                    //   5,
+                    // ).map((i) => getCharAt(signal, i));
+                    // await Promise.all(random5Res2);
+                    // const random5Res3 = arrToShort.sort(() => 0.5 - Math.random()).slice(
+                    //   0,
+                    //   5,
+                    // ).map((i) =>
+                    //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
+                    // );
+                    // await Promise.all(random5Res3);
+                    // const random10res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(
+                    //   0,
+                    //   5,
+                    // ).map((i) =>
+                    //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
+                    // );
+                    // await Promise.all(random10res1);
+                    // const random15Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(
+                    //   0,
+                    //   5,
+                    // ).map((i) =>
+                    //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
+                    // );
+                    // await Promise.all(random15Res1);
+                    // const random25Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(
+                    //   0,
+                    //   5,
+                    // ).map((i) =>
+                    //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
+                    // );
+                    // await Promise.all(random25Res1);
                     const restRes = hashArr.map((i) => getCharAt(signal, i));
                     const hashHex = (await Promise.all(restRes)).join("");
                     //@ts-ignore
@@ -187,8 +237,8 @@ export const fetchSignal = async (signal, _retry) => {
                     if (signalDataCache[signal])
                         return signalDataCache[signal];
                     /**
-                   * @param {string | any[] | { success: boolean; } | undefined} d
-                   */
+                 * @param {string | any[] | { success: boolean; } | undefined} d
+                 */
                     const parse = (d) => {
                         try {
                             if (typeof d !== "string")
@@ -209,23 +259,10 @@ export const fetchSignal = async (signal, _retry) => {
                     return ret;
                 }
                 catch (e) {
-                    console.log("error while getting the data", { e });
+                    return getData(retry - 1);
                 }
             };
-            /**
-             * @param {number} delay
-             */
-            const runWithDelay = async (delay) => wait(delay).then((delay) => run(delay));
-            const res = await raceToSuccess([
-                runWithDelay(0),
-                runWithDelay(500),
-                runWithDelay(1000),
-                runWithDelay(1500),
-                runWithDelay(4000),
-                runWithDelay(8000),
-                runWithDelay(12000),
-            ]);
-            return res;
+            return run(0);
         };
         return getData;
     }
@@ -279,22 +316,6 @@ async (signal, i) => {
     controller.abort();
     return nextChar;
 };
-export const getNextChar = 
-/**
-* @param {string} signal
-*/
-async (signal) => {
-    const chars = [..."0123456789abcdef"];
-    const controller = new AbortController();
-    const raceArray = chars.map((x) => _waitForSignal(signal + x, controller.signal).then((s) => {
-        if (s.success)
-            return x;
-        throw new Error("nope");
-    }));
-    const nextChar = await raceToSuccess(raceArray);
-    controller.abort();
-    return nextChar;
-};
 /**
  * @param {any[]} promises
  */
@@ -314,6 +335,7 @@ function raceToSuccess(promises) {
 /**
        * @param {number} delay
        */
+// @ts-ignore
 function wait(delay) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -333,6 +355,7 @@ hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
 /**
  * @param {string} pathname
  */
+// @ts-ignore
 const random5GatewaysFetch = (pathname) => {
     publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) => fetch(x).then((res) => res.status === 200 ? res : (() => {
         throw new Error("Not found");

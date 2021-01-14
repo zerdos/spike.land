@@ -3,4 +3,3 @@ export function sendSignal(signal: string, data: string): Promise<{
 }>;
 export function fetchSignal(signal: string, _retry: number): Promise<() => Promise<any>>;
 export function getCharAt(signal: string, i: number): Promise<any>;
-export function getNextChar(signal: string): Promise<any>;
