@@ -14,7 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "@cloudflare/wrangler": "1.12.3",
-    "esbuild": "0.8.31"
+    "esbuild": "0.8.32"
   },
   "dependencies": {
     "@zedvision/code": "^11.8.4"
