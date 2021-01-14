@@ -212,7 +212,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "0d4c64faae6cfde3f0d494530e068ed3f19703cbe0a62414ae13ad1d109931e1",
+        "version": "0b8777ffaebede438a06ed65ccf39c03375b15a4ecb6a91fc5e96232b4f66ae3",
         "signature": "f25981536c971c1b4c12d34de8c9f9cceba49b2377ff2ee357c22a0a02abfadd",
         "affectsGlobalScope": false
       },

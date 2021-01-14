@@ -228,59 +228,6 @@ export const fetchSignal = async (
             const CID = (await import("./vendor/cids.js")).default;
 
             const hashArr = new Array(68).fill(0).map((_x, i) => i);
-            // const arrToShort = [...hashArr];
-
-            // for (let k = 0; k < 9; k++) {
-            //   const random5Res = arrToShort.sort(() => 0.5 - Math.random())
-            //     .slice(
-            //       0,
-            //       5 + k * 3,
-            //     ).map((i) => getCharAt(signal, i));
-
-            //   console.log(`ROUND ${k}:`);
-            //   await Promise.all(random5Res);
-            // }
-            console.log(`And now the rest`);
-            // const random5Res2 = arrToShort.sort(() => 0.5 - Math.random()).slice(
-            //   0,
-            //   5,
-            // ).map((i) => getCharAt(signal, i));
-            // await Promise.all(random5Res2);
-
-            // const random5Res3 = arrToShort.sort(() => 0.5 - Math.random()).slice(
-            //   0,
-            //   5,
-            // ).map((i) =>
-            //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
-            // );
-            // await Promise.all(random5Res3);
-
-            // const random10res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(
-            //   0,
-            //   5,
-            // ).map((i) =>
-            //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
-            // );
-
-            // await Promise.all(random10res1);
-
-            // const random15Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(
-            //   0,
-            //   5,
-            // ).map((i) =>
-            //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
-            // );
-
-            // await Promise.all(random15Res1);
-
-            // const random25Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(
-            //   0,
-            //   5,
-            // ).map((i) =>
-            //   wait(Math.random() * 200).then(() => getCharAt(signal, i))
-            // );
-
-            // await Promise.all(random25Res1);
 
             const restRes = hashArr.map((i) => getCharAt(signal, i));
 
