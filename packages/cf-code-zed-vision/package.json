@@ -13,7 +13,7 @@
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
   "license": "MIT",
   "devDependencies": {
-    "@cloudflare/wrangler": "1.12.3",
+    "@cloudflare/wrangler": "1.13.0",
     "esbuild": "0.8.32"
   },
   "dependencies": {
