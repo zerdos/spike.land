@@ -30,7 +30,7 @@ async function getClient() {
 }
 
 // @ts-ignore
-const getHash = async (data, { onlyHash, signal, timeout }) => {
+const hash = async (data, { onlyHash, signal, timeout }) => {
   const ipfs = await getClient();
 
   // @ts-ignore
@@ -44,13 +44,16 @@ const getHash = async (data, { onlyHash, signal, timeout }) => {
 
     return cid;
   }
+  try {
+    // @ts-ignore
+    const res = await getHash(cid, { signal, timeout, onlyHash }).then((x) => ({
+      success: x === data,
+    }));
 
-  // @ts-ignore
-  const res = await hash(cid, { signal, timeout, onlyHash }).then((x) => ({
-    success: x === data,
-  }));
-
-  return res;
+    return res;
+  } catch {
+    return { success: false };
+  }
 };
 
 const cidCache = {};
@@ -136,7 +139,7 @@ const getHash = async (cid, { signal, timeout }) => {
 
 const _waitForSignal = async (signal, abortSignal) => {
   // @ts-ignore
-  return hash(signal, { onlyHash: true, signal: abortSignal, timeout: 20000 })
+  return hash(signal, { onlyHash: true, signal: abortSignal, timeout: 5000 })
     // @ts-ignore
     .then((x) =>
       (typeof x === "string" || (x && x.success))
@@ -186,116 +189,115 @@ export const sendSignal = async (signal, data) => {
 };
 
 const signalDataCache = {};
-/**
+
+// @ts-ignore
+export const fetchSignal =
+  /**
  * @param {string} signal
  * @param {number} _retry
- * @returns {Promise<()=>Promise<any>>} result
+ * @returns ()=>any
  */
-export const fetchSignal = async (
-  signal,
-  _retry,
-) => {
-  const retry = (typeof _retry === "number") ? _retry : 5;
-  const abort = new AbortController();
+  // @ts-ignore
+  async (
+    signal,
+    _retry,
+  ) => {
+    const retry = (typeof _retry === "number") ? _retry : 999;
+    const abort = new AbortController();
 
-  let isSignalReceived = null;
-  try {
-    if (retry === 0) throw new Error("No more retry");
-    console.log(
-      `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
-    );
-    const res = await _waitForSignal(signal, abort.signal);
-    if (!res.success) return fetchSignal(signal, retry - 1);
+    let isSignalReceived = null;
+    try {
+      if (retry === 0) throw new Error("No more retry");
+      console.log(
+        `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
+      );
+      const res = await _waitForSignal(signal, abort.signal);
+      if (!res.success) return fetchSignal(signal, retry - 1);
 
-    isSignalReceived = true;
-    console.log(`Signal received!`, { res });
+      isSignalReceived = true;
+      console.log(`Signal received!`, { res });
 
-    const getData =
-
-      /**
+      const getData =
+        /**
      * 
      * @param {number} retry 
      * @returns *
      */
-      // @ts-ignore
-      async (retry = 20) => {
-        //@ts-ignore
+        // @ts-ignore
+        async (retry = 20) => {
+          //@ts-ignore
 
-        if (signalDataCache[signal]) return signalDataCache[signal];
-        if (retry === 0) return "";
-        /**
+          if (signalDataCache[signal]) return signalDataCache[signal];
+          if (retry === 0) return "";
+          /**
      * @param {number} delay
      */
-        // @ts-ignore
-        const run = async (delay) => {
-          //@ts-ignore
-          if (signalDataCache[signal]) return signalDataCache[signal];
-          console.log(`delay: ${delay}`);
-
-          try {
-            const CID = (await import("./vendor/cids.js")).default;
-            const hashArr = new Array(68).fill(0).map((_x, i) => i);
-            const restRes = hashArr.map((i) => getCharAt(signal, i));
-            const hashHex = (await Promise.all(restRes)).join("");
-
+          // @ts-ignore
+          const run = async (delay) => {
             //@ts-ignore
             if (signalDataCache[signal]) return signalDataCache[signal];
-            const cid = new CID(0, 112, fromHexString(hashHex));
+            console.log(`delay: ${delay}`);
 
-            const data = await getHash(
-              cid.toString(),
-              // @ts-ignore
-              { signal: abort.signal, timeout },
-            );
-            //@ts-ignore
-            if (signalDataCache[signal]) return signalDataCache[signal];
-            /**
+            try {
+              const CID = (await import("./vendor/cids.js")).default;
+              const hashArr = new Array(68).fill(0).map((_x, i) => i);
+              const restRes = hashArr.map((i) => getCharAt(signal, i));
+              const hashHex = (await Promise.all(restRes)).join("");
+
+              //@ts-ignore
+
+              if (signalDataCache[signal]) return signalDataCache[signal];
+              const cid = new CID(0, 112, fromHexString(hashHex));
+
+              const data = await getHash(
+                cid.toString(),
+                // @ts-ignore
+                { signal: abort.signal, timeout: 1500 },
+              );
+
+              //@ts-ignore
+              if (signalDataCache[signal]) return signalDataCache[signal];
+
+              /**
          * @param {string | any[] | { success: boolean; } | undefined} d
          */
-            const parse = (d) => {
-              try {
-                if (typeof d !== "string") return d;
+              const parse = (d) => {
+                try {
+                  if (typeof d !== "string") return d;
 
-                const ret = JSON.parse(d);
-                return ret;
-              } catch (e) {
-                return d;
-              }
-            };
+                  const ret = JSON.parse(d);
+                  return ret;
+                } catch (e) {
+                  return d;
+                }
+              };
 
-            const ret = parse(data);
+              const ret = parse(data);
 
-            if (!ret) throw new Error("No data");
+              if (!ret) throw new Error("No data");
 
-            console.log(
-              `got the result and putting it to cache, the delay was: ${delay}`,
-              { ret },
-            );
-            //@ts-ignore
-            signalDataCache[signal] = ret;
+              console.log(
+                `got the result and putting it to cache, the delay was: ${delay}`,
+                { ret },
+              );
+              //@ts-ignore
+              signalDataCache[signal] = ret;
 
-            return ret;
-          } catch (e) {
-            return getData(retry - 1);
-          }
+              return ret;
+            } catch (e) {
+              return getData(retry - 1);
+            }
+          };
+
+          return run(0);
         };
 
-        return run(0);
-      };
-
-    return getData;
-  } catch (e) {
-    isSignalReceived = false;
-    console.log(`Bad news! No signal, and it seems there is an error.`);
-    throw new Error("No signal, and it seems there is an error");
-  } finally {
-    if (isSignalReceived === null) {
-      console.log(
-        "What WHAT? This is unexpected, we are in the finally part - without error.",
-      );
+      return getData;
+    } catch (e) {
+      isSignalReceived = false;
+      console.log(`Bad news! No signal, and it seems there is an error.`);
     }
-  }
-};
+  };
 
 const signalCache = {};
 
@@ -388,36 +390,6 @@ const fromHexString = (hexString) =>
     hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)),
   );
 
-/**
- * @param {string} pathname
- */
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
-const random5GatewaysFetch = (pathname) => {
-  publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) =>
-    gw.replace("/ipfs/:hash", pathname)
-  ).map((
-    x,
-  ) =>
-    fetch(x).then((res) =>
-      res.status === 200 ? res : (() => {
-        throw new Error("Not found");
-      })()
-    )
-  );
-};
-
-// const toHexString = bytes =>
-//   bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
-
-// console.log(toHexString(new Uint8Array([0, 1, 2, 42, 100, 101, 102, 255])))
-// console.log(fromHexString('1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24'))
-
-// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
-// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID("Qme7vFQnRzk2AoEgWMkQ8PDujZmUb3BoR1kEtSa1s83fQP")).then(x=>Array.from(x.multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join(""))
-
-///  fetchSignal( {signal, onSignal: async (data)=> {const nextChar = await(getData()); console.log(nextChar)  }})
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",

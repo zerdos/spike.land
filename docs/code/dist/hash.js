@@ -32,7 +32,7 @@ async function getClient() {
     return getIpfs();
 }
 // @ts-ignore
-const getHash = async (data, { onlyHash, signal, timeout }) => {
+const hash = async (data, { onlyHash, signal, timeout }) => {
     const ipfs = await getClient();
     // @ts-ignore
     const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) => d.cid.toString());
@@ -41,11 +41,16 @@ const getHash = async (data, { onlyHash, signal, timeout }) => {
         await feedTheCache(cid);
         return cid;
     }
-    // @ts-ignore
-    const res = await hash(cid, { signal, timeout, onlyHash }).then((x) => ({
-        success: x === data,
-    }));
-    return res;
+    try {
+        // @ts-ignore
+        const res = await getHash(cid, { signal, timeout, onlyHash }).then((x) => ({
+            success: x === data,
+        }));
+        return res;
+    }
+    catch (_a) {
+        return { success: false };
+    }
 };
 const cidCache = {};
 const cidLock = {
@@ -132,7 +137,7 @@ const getHash = async (cid, { signal, timeout }) => {
  */
 const _waitForSignal = async (signal, abortSignal) => {
     // @ts-ignore
-    return hash(signal, { onlyHash: true, signal: abortSignal, timeout: 20000 })
+    return hash(signal, { onlyHash: true, signal: abortSignal, timeout: 5000 })
         // @ts-ignore
         .then((x) => (typeof x === "string" || (x && x.success))
         ? { success: true }
@@ -165,13 +170,16 @@ export const sendSignal = async (signal, data) => {
     return { success: true };
 };
 const signalDataCache = {};
+// @ts-ignore
+export const fetchSignal = 
 /**
- * @param {string} signal
- * @param {number} _retry
- * @returns {Promise<()=>Promise<any>>} result
- */
-export const fetchSignal = async (signal, _retry) => {
-    const retry = (typeof _retry === "number") ? _retry : 5;
+* @param {string} signal
+* @param {number} _retry
+* @returns ()=>any
+*/
+// @ts-ignore
+async (signal, _retry) => {
+    const retry = (typeof _retry === "number") ? _retry : 999;
     const abort = new AbortController();
     let isSignalReceived = null;
     try {
@@ -185,10 +193,10 @@ export const fetchSignal = async (signal, _retry) => {
         console.log(`Signal received!`, { res });
         const getData = 
         /**
-       *
-       * @param {number} retry
-       * @returns *
-       */
+     *
+     * @param {number} retry
+     * @returns *
+     */
         // @ts-ignore
         async (retry = 20) => {
             //@ts-ignore
@@ -197,8 +205,8 @@ export const fetchSignal = async (signal, _retry) => {
             if (retry === 0)
                 return "";
             /**
-         * @param {number} delay
-         */
+       * @param {number} delay
+       */
             // @ts-ignore
             const run = async (delay) => {
                 //@ts-ignore
@@ -216,13 +224,13 @@ export const fetchSignal = async (signal, _retry) => {
                     const cid = new CID(0, 112, fromHexString(hashHex));
                     const data = await getHash(cid.toString(), 
                     // @ts-ignore
-                    { signal: abort.signal, timeout });
+                    { signal: abort.signal, timeout: 1500 });
                     //@ts-ignore
                     if (signalDataCache[signal])
                         return signalDataCache[signal];
                     /**
-                 * @param {string | any[] | { success: boolean; } | undefined} d
-                 */
+               * @param {string | any[] | { success: boolean; } | undefined} d
+               */
                     const parse = (d) => {
                         try {
                             if (typeof d !== "string")
@@ -253,12 +261,6 @@ export const fetchSignal = async (signal, _retry) => {
     catch (e) {
         isSignalReceived = false;
         console.log(`Bad news! No signal, and it seems there is an error.`);
-        throw new Error("No signal, and it seems there is an error");
-    }
-    finally {
-        if (isSignalReceived === null) {
-            console.log("What WHAT? This is unexpected, we are in the finally part - without error.");
-        }
     }
 };
 const signalCache = {};
@@ -336,24 +338,6 @@ const fromHexString = (hexString) => new Uint8Array(
 */
 //@ts-ignore
 hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
-/**
- * @param {string} pathname
- */
-// @ts-ignore
-// @ts-ignore
-// @ts-ignore
-const random5GatewaysFetch = (pathname) => {
-    publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((x) => fetch(x).then((res) => res.status === 200 ? res : (() => {
-        throw new Error("Not found");
-    })()));
-};
-// const toHexString = bytes =>
-//   bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
-// console.log(toHexString(new Uint8Array([0, 1, 2, 42, 100, 101, 102, 255])))
-// console.log(fromHexString('1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24'))
-// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID(1,112,fromHexString("1220ea7802d96f792f9015d67fd65eac5b2ecc4a1b8682e9c73f76fd3ec7efc1af24"))).then(x=>Array.from(x.multihash))
-// import("./code/src/vendor/cids.js").then(m=>m.default).then(CID=>new CID("Qme7vFQnRzk2AoEgWMkQ8PDujZmUb3BoR1kEtSa1s83fQP")).then(x=>Array.from(x.multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join(""))
-///  fetchSignal( {signal, onSignal: async (data)=> {const nextChar = await(getData()); console.log(nextChar)  }})
 const publicIpfsGateways = [
     "https://ipfs.io/ipfs/:hash",
     "https://dweb.link/ipfs/:hash",

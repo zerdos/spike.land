@@ -212,8 +212,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "22f43c1539c9ae712cbb5e322583808b3f241978371e3f4652b3d8663a7dcb98",
-        "signature": "f25981536c971c1b4c12d34de8c9f9cceba49b2377ff2ee357c22a0a02abfadd",
+        "version": "855e354cb0c484de61b1380690aa7670f92967a70cd59dcf357171ecc8e36ff8",
+        "signature": "07483ca5707c38fb7ff43002a33fff10db974b7bc35c311f7eecdeff4414e231",
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
