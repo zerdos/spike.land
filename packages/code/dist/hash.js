@@ -11,10 +11,10 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 };
 const feedTheCache = (cid) => {
     const controller = new AbortController();
-    fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text());
-    const random5GatewaysFetch = publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`)).map((x) => fetch(x, { signal: controller.signal }).then((res) => res.status === 200 ? res : (() => {
+    fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text()).then(console.log);
+    const random5GatewaysFetch = publicIpfsGateways.sort(() => 0.5 - Math.random()).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`)).map((x) => fetch(x, { signal: controller.signal }).then((res) => res.status === 200 ? res.text() : (() => {
         throw new Error("Not found");
-    })()));
+    })()).then(console.log));
     raceToSuccess(random5GatewaysFetch).then(() => controller.abort());
     // console.log(cid);
     return cid;
@@ -62,7 +62,7 @@ const getHash = async (cid, signal) => {
         if (aborted)
             return "";
         // @ts-ignore
-        const data = await ipfs.cat(cid);
+        const data = await ipfs.cat(cid, { timeout: 2500 });
         /** @type {Uint8Array | null} */
         let resultUintArr = null;
         if (aborted)
@@ -162,8 +162,22 @@ export const fetchSignal = async (signal, _retry) => {
                 console.log(`delay: ${delay}`);
                 try {
                     const CID = (await import("./vendor/cids.js")).default;
-                    const hashArr = new Array(68).fill(0).map((_x, i) => wait(Math.random() * 1000).then(() => getCharAt(signal, i)));
-                    const hashHex = (await Promise.all(hashArr)).join("");
+                    const hashArr = new Array(68).fill(0).map((_x, i) => i);
+                    const arrToShort = [...hashArr];
+                    const random5Res = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
+                    await Promise.all(random5Res);
+                    const random5Res2 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => getCharAt(signal, i));
+                    await Promise.all(random5Res2);
+                    const random5Res3 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
+                    await Promise.all(random5Res3);
+                    const random10res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
+                    await Promise.all(random10res1);
+                    const random15Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
+                    await Promise.all(random15Res1);
+                    const random25Res1 = arrToShort.sort(() => 0.5 - Math.random()).slice(0, 5).map((i) => wait(Math.random() * 200).then(() => getCharAt(signal, i)));
+                    await Promise.all(random25Res1);
+                    const restRes = hashArr.map((i) => getCharAt(signal, i));
+                    const hashHex = (await Promise.all(restRes)).join("");
                     //@ts-ignore
                     if (signalDataCache[signal])
                         return signalDataCache[signal];
@@ -187,6 +201,8 @@ export const fetchSignal = async (signal, _retry) => {
                         }
                     };
                     const ret = parse(data);
+                    if (!ret)
+                        throw new Error("No data");
                     console.log(`got the result and putting it to cache, the delay was: ${delay}`, { ret });
                     //@ts-ignore
                     signalDataCache[signal] = ret;
@@ -204,7 +220,7 @@ export const fetchSignal = async (signal, _retry) => {
                 runWithDelay(0),
                 runWithDelay(500),
                 runWithDelay(1000),
-                runWithDelay(3000),
+                runWithDelay(1500),
                 runWithDelay(4000),
                 runWithDelay(8000),
                 runWithDelay(12000),
@@ -242,12 +258,21 @@ async (signal, i) => {
     const chars = [..."0123456789abcdef"];
     const controller = new AbortController();
     const prefix = new Array(i).fill("x").join("");
+    //@ts-ignore
+    if (signalCache[signal][i])
+        return signalCache[signal][i];
     const raceArray = chars.map((x) => _waitForSignal(signal + prefix + x, controller.signal).then((s) => {
         if (s.success)
             return x;
         throw new Error("nope");
     }));
+    //@ts-ignore
+    if (signalCache[signal][i])
+        return signalCache[signal][i];
     const nextChar = await raceToSuccess(raceArray);
+    //@ts-ignore
+    if (signalCache[signal][i])
+        return signalCache[signal][i];
     console.log(`${signal} data hash char ${i}: ${nextChar}`);
     //@ts-ignore
     signalCache[signal][i] = nextChar;

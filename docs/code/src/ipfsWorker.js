@@ -25,10 +25,10 @@ const main = async () => {
   self.onconnect = ({ ports }) => connections.push(...ports);
 
   const ipfs = await Ipfs.create(
-    {
-      EXPERIMENTAL: { ipnsPubsub: true, sharding: false },
-      relay: { enabled: true, hop: { enabled: true, active: true } },
-    },
+    // {
+    //   EXPERIMENTAL: { ipnsPubsub: true, sharding: false },
+    //   relay: { enabled: true, hop: { enabled: true, active: true } },
+    // },
   );
 
   self.ipfsNode = ipfs;

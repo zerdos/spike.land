@@ -17,10 +17,12 @@ const main = async () => {
     const connections = [];
     // queue connections that occur while node was starting.
     self.onconnect = ({ ports }) => connections.push(...ports);
-    const ipfs = await Ipfs.create({
-        EXPERIMENTAL: { ipnsPubsub: true, sharding: false },
-        relay: { enabled: true, hop: { enabled: true, active: true } },
-    });
+    const ipfs = await Ipfs.create(
+    // {
+    //   EXPERIMENTAL: { ipnsPubsub: true, sharding: false },
+    //   relay: { enabled: true, hop: { enabled: true, active: true } },
+    // },
+    );
     self.ipfsNode = ipfs;
     // setInterval(()=>{
     //   ipfs.pubsub.publish("zolika84", Math.random()+"ddd")
