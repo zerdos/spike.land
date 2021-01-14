@@ -72,7 +72,7 @@ export async function run(mode = "window", _w, code = "") {
     await openWindows(v);
   }
 
-  session.versions = session.versions || { ...v };
+  session.versions = v;
 
   if (session.transpiled === "") {
     const transpiled = await transpileCode(session.code, v.emotionRenderer);

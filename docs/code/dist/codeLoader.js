@@ -55,7 +55,7 @@ export async function run(mode = "window", _w, code = "") {
         const { openWindows } = await import("./openWindows.js");
         await openWindows(v);
     }
-    session.versions = session.versions || Object.assign({}, v);
+    session.versions = v;
     if (session.transpiled === "") {
         const transpiled = await transpileCode(session.code, v.emotionRenderer);
         console.log(transpiled);
