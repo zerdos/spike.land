@@ -5,10 +5,7 @@
 
 const feedTheCache = (cid) => {
   // const controller = new AbortController();
-  fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text()).then(
-    console.log,
-  );
-
+  // fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text());
   // const random5GatewaysFetch = publicIpfsGateways.sort(() =>
   //   0.5 - Math.random()
   // ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`)).map((
@@ -57,10 +54,14 @@ const hash = async (data, { onlyHash, signal }) => {
 };
 
 const cidCache = {};
+const cidLock = {
+  semaphore: 0,
+};
 /**
  * @param {string} cid
  * @param {AbortSignal} signal
  */
+
 const getHash = async (cid, signal) => {
   //@ts-ignore
   if (cidCache[cid]) return cidCache[cid];
@@ -74,15 +75,28 @@ const getHash = async (cid, signal) => {
     if (aborted) return "";
     // @ts-ignore
 
+    //@ts-ignore
     if (cidCache[cid]) return cidCache[cid];
     // @ts-ignore
-    const data = await ipfs.cat(cid, { timeout: 1500 });
+
+    while (cidLock.semaphore > 128) {
+      await wait(Math.random() * 100);
+    }
+
+    cidLock.semaphore++;
+
+    if (!cidLock[cid]) {
+      // console.log(`in :  ${cidLock.semaphore}   cat cat cat `);
+      cidLock[cid] = ipfs.cat(cid, { timeout: 300 });
+    }
+
+    const data = await cidLock[cid];
+
     // @ts-ignore
     if (cidCache[cid]) return cidCache[cid];
 
     /** @type {Uint8Array | null} */
     let resultUintArr = null;
-    if (aborted) return "";
 
     for await (let res of data) {
       if (resultUintArr !== null) {
@@ -92,15 +106,19 @@ const getHash = async (cid, signal) => {
         resultUintArr = res;
       }
     }
-    if (aborted) return "";
 
     //@ts-ignore
     const result = new TextDecoder().decode(resultUintArr);
     //@ts-ignore
     cidCache[cid] = result;
+
+    cidLock.semaphore--;
+
     return result;
     // console.error({ data });
   } catch (e) {
+    cidLock.semaphore--;
+    cidLock[cid] = null;
     // console.log({});
   }
 };
@@ -188,7 +206,7 @@ export const fetchSignal = async (
      * @returns *
      */
       // @ts-ignore
-      async (retry = 10) => {
+      async (retry = 20) => {
         //@ts-ignore
 
         if (signalDataCache[signal]) return signalDataCache[signal];
@@ -206,18 +224,18 @@ export const fetchSignal = async (
             const CID = (await import("./vendor/cids.js")).default;
 
             const hashArr = new Array(68).fill(0).map((_x, i) => i);
-            const arrToShort = [...hashArr];
+            // const arrToShort = [...hashArr];
 
-            for (let k = 0; k < 9; k++) {
-              const random5Res = arrToShort.sort(() => 0.5 - Math.random())
-                .slice(
-                  0,
-                  5 + k * 3,
-                ).map((i) => getCharAt(signal, i));
+            // for (let k = 0; k < 9; k++) {
+            //   const random5Res = arrToShort.sort(() => 0.5 - Math.random())
+            //     .slice(
+            //       0,
+            //       5 + k * 3,
+            //     ).map((i) => getCharAt(signal, i));
 
-              console.log(`ROUND ${k}:`);
-              await Promise.all(random5Res);
-            }
+            //   console.log(`ROUND ${k}:`);
+            //   await Promise.all(random5Res);
+            // }
             console.log(`And now the rest`);
             // const random5Res2 = arrToShort.sort(() => 0.5 - Math.random()).slice(
             //   0,
