@@ -212,7 +212,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "0b8777ffaebede438a06ed65ccf39c03375b15a4ecb6a91fc5e96232b4f66ae3",
+        "version": "22f43c1539c9ae712cbb5e322583808b3f241978371e3f4652b3d8663a7dcb98",
         "signature": "f25981536c971c1b4c12d34de8c9f9cceba49b2377ff2ee357c22a0a02abfadd",
         "affectsGlobalScope": false
       },
@@ -327,7 +327,7 @@
         "affectsGlobalScope": false
       },
       "./src/sw.js": {
-        "version": "6efc0fec63452d3a0314b2025751d505a52a1eedbfb6b07eafbb44bf2010c4fe",
+        "version": "6d479f343fef0f5d35d555ac4ea5ea38f79b82dccff57989cd8909278b1cc033",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

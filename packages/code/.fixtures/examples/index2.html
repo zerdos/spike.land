@@ -8,21 +8,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Instant React Editor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="Description" content="Code and share!">
-  
+  <meta name="Description" content="Code and share!">  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" crossorigin="anonymous"  />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossorigin="anonymous" crossorigin="anonymous" />
-  
 
-  <style>
-  
+<style>
     img {
       box-shadow: 0 0 10px 5px #666;
     }
 
-
-  
   </style>
 </head>
 
@@ -37,8 +32,6 @@
     //   wb.register();
     // }
 
-   
-
     const WindowManager = await import("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js");
     const wm = new WindowManager({ backgroundWindow: 'green' });
     // enable window snapping to screen edges and other windows when moving
@@ -48,8 +41,7 @@
     // set content of window
     window.content.style.margin = '10px';
     window.content.innerHTML = 'This is a nifty window.';
-  
-  
+    
     const isLocalhost = (window.location.href.includes("zed.dev") || window.location.href.includes("0.0.0.0"));
     (async()=>{
         const { run } = await import(isLocalhost?"./src/codeLoader.js":"https://unpkg.com/@zedvision/code@10.14.0/src/codeLoader.js");

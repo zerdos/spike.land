@@ -31,21 +31,20 @@ async function getClient() {
     const { getIpfs } = await import("./ipfsClient.js");
     return getIpfs();
 }
-/**
- * @param {any} data
- * @param {any} onlyHash
- */
-const hash = async (data, { onlyHash, signal }) => {
-    /** @type {{ add: (arg0: string, arg1: { onlyHash: any; }) => any; } | null} */
+// @ts-ignore
+const getHash = async (data, { onlyHash, signal, timeout }) => {
     const ipfs = await getClient();
-    //@ts-ignore
+    // @ts-ignore
     const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) => d.cid.toString());
     if (!onlyHash) {
         console.log(`adding data to ipfs: ${data} `);
         await feedTheCache(cid);
         return cid;
     }
-    const res = await getHash(cid, signal).then((x) => ({ success: x === data }));
+    // @ts-ignore
+    const res = await hash(cid, { signal, timeout, onlyHash }).then((x) => ({
+        success: x === data,
+    }));
     return res;
 };
 const cidCache = {};
@@ -56,7 +55,8 @@ const cidLock = {
  * @param {string} cid
  * @param {AbortSignal} signal
  */
-const getHash = async (cid, signal) => {
+// @ts-ignore
+const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
     //@ts-ignore
     if (cidCache[cid])
@@ -83,7 +83,7 @@ const getHash = async (cid, signal) => {
         if (!cidLock[cid]) {
             // console.log(`in :  ${cidLock.semaphore}   cat cat cat `);
             // @ts-ignore
-            cidLock[cid] = ipfs.cat(cid, { timeout: 300 });
+            cidLock[cid] = ipfs.cat(cid, { timeout: timeout || 300 });
         }
         // @ts-ignore
         const data = await cidLock[cid];
@@ -131,7 +131,10 @@ const getHash = async (cid, signal) => {
  * @param {AbortSignal} abortSignal
  */
 const _waitForSignal = async (signal, abortSignal) => {
-    return hash(signal, { onlyHash: true, signal: abortSignal }).then((x) => (typeof x === "string" || (x && x.success))
+    // @ts-ignore
+    return hash(signal, { onlyHash: true, signal: abortSignal, timeout: 20000 })
+        // @ts-ignore
+        .then((x) => (typeof x === "string" || (x && x.success))
         ? { success: true }
         : { success: false }).catch(() => ({ success: false }));
 };
@@ -140,6 +143,7 @@ const _waitForSignal = async (signal, abortSignal) => {
  * @param {string} data
  */
 export const sendSignal = async (signal, data) => {
+    // @ts-ignore
     await hash(signal, false);
     if (data) {
         const CID = (await import("./vendor/cids.js")).default;
@@ -151,8 +155,12 @@ export const sendSignal = async (signal, data) => {
         const dataCid = await hash(data, false);
         const hexHash = Array.from((new CID(dataCid)).multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
         const allHash = new Array(hexHash.length).fill(signal).map((x, i) => x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1));
-        await Promise.all(allHash.slice(0, 5).map((x) => hash(x, false)));
-        await Promise.all(allHash.slice(5).map((x) => hash(x, false)));
+        await Promise.all(
+        // @ts-ignore
+        allHash.slice(0, 5).map((x) => hash(x, false)));
+        await Promise.all(
+        // @ts-ignore
+        allHash.slice(5).map((x) => hash(x, false)));
     }
     return { success: true };
 };
@@ -206,7 +214,9 @@ export const fetchSignal = async (signal, _retry) => {
                     if (signalDataCache[signal])
                         return signalDataCache[signal];
                     const cid = new CID(0, 112, fromHexString(hashHex));
-                    const data = await getHash(cid.toString(), abort.signal);
+                    const data = await getHash(cid.toString(), 
+                    // @ts-ignore
+                    { signal: abort.signal, timeout });
                     //@ts-ignore
                     if (signalDataCache[signal])
                         return signalDataCache[signal];
@@ -307,8 +317,8 @@ function raceToSuccess(promises) {
     })));
 }
 /**
-       * @param {number} delay
-       */
+ * @param {number} delay
+ */
 // @ts-ignore
 function wait(delay) {
     return new Promise((resolve) => {
@@ -329,6 +339,7 @@ hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
 /**
  * @param {string} pathname
  */
+// @ts-ignore
 // @ts-ignore
 // @ts-ignore
 const random5GatewaysFetch = (pathname) => {
