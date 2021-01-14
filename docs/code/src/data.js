@@ -1,6 +1,5 @@
-import { starter } from "starter.js";
+import { starter } from "./starter.js";
 import { sha256, shaDB } from "./db.js";
-import { fetchSignal } from "./hash.js";
 import getVersions from "./versions.js";
 const versions = getVersions();
 
