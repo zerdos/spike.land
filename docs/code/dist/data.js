@@ -1,3 +1,4 @@
+import { starter } from "starter.js";
 import { sha256, shaDB } from "./db.js";
 import getVersions from "./versions.js";
 const versions = getVersions();
@@ -124,7 +125,7 @@ export const saveCode =
 */
 async (opts, counter) => {
     const { code, html, transpiled, versions, i } = opts;
-    toSave.code = code;
+    toSave.code = code || starter;
     // deno-lint-ignore ban-ts-comment
     //@ts-ignore
     if (opts.i > counter)
