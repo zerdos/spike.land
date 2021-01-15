@@ -7,7 +7,7 @@ function versions() {
     const v = {
         code,
         shadb,
-        ipfs: `https://unpkg.com/ipfs@${ipfs}/dist/ipfs.js`,
+        ipfs: `https://unpkg.com/@zedvision/ipfs@${ipfs}/dist/ipfs.js`,
         workbox: "6.0.2",
         babel: "7.12.12",
         prettier: "2.2.1",
