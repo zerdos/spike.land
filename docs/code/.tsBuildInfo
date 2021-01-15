@@ -212,7 +212,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "da7d066dc7e3b578c03aca31815480c19e659aa4a5ae1123e27b17de5ae615b2",
+        "version": "02c8ce8836d1576c2486048a00b71fed5147670151397993b9f98a2caea9cbe4",
         "signature": "4a706a2d70341d4b17d3915bb33f0fb153457a73dd90819d5281de283e22c865",
         "affectsGlobalScope": false
       },

@@ -6,7 +6,7 @@ const workerSrc = window.location.hostname === "blog.zed.vision"
         : `${location.origin}/src/ipfsWorker.js`;
 /** @type {MessagePort} */
 let port;
-if (false && typeof SharedWorker !== "undefined") {
+if (typeof SharedWorker !== "undefined") {
     // deno-lint-ignore ban-ts-comment
     //@ts-ignore
     const ipfsWorker = new SharedWorker(workerSrc, { name: "ipfs shared worker", type: "module" });

@@ -5092,7 +5092,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.13.0
-    "@zedvision/code": ^11.9.7
+    "@zedvision/code": ^11.9.8
     esbuild: 0.8.32
   languageName: unknown
   linkType: soft
@@ -5180,11 +5180,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/ipfs@^11.9.7, @zedvision/ipfs@workspace:packages/ipfs":
+"@zedvision/ipfs@^11.9.8, @zedvision/ipfs@workspace:packages/ipfs":
   version: 0.0.0-use.local
   resolution: "@zedvision/ipfs@workspace:packages/ipfs"
   dependencies:
-    "@zedvision/ipfs": ^11.9.7
+    "@zedvision/ipfs": ^11.9.8
     cids: ^1.1.5
     esbuild: ^0.8.32
     ipfs: ^0.53.0
@@ -5259,7 +5259,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.9.7
+    "@zedvision/code": ^11.9.8
     "@zedvision/qrious": ^11.8.5
     "@zedvision/shadb": ^11.8.5
     gatsby: 2.30.2
