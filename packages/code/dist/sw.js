@@ -22,7 +22,7 @@ self.addEventListener("fetch", /**
 */ (event) => {
     const { request } = event;
     const { url } = request;
-    if (!url.endsWith("sw.js") && (url.endsWith(".js") || url.endsWith(".json") || url.endsWith(".map") ||
+    if (!url.endsWith("sw.js") && !url.endsWith("Worker.js") && (url.endsWith(".js") || url.endsWith(".json") || url.endsWith(".map") ||
         url.endsWith(".html") || url.endsWith(".woff") ||
         url.endsWith(".jpg") || url.endsWith(".css") ||
         url.endsWith(".png") || url.endsWith(".ts"))) {

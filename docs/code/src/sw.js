@@ -30,7 +30,7 @@ self.addEventListener(
     const { request } = event;
     const { url } = request;
     if (
-      !url.endsWith("sw.js") && (
+      !url.endsWith("sw.js") && !url.endsWith("Worker.js") && (
         url.endsWith(".js") || url.endsWith(".json") || url.endsWith(".map") ||
         url.endsWith(".html") || url.endsWith(".woff") ||
         url.endsWith(".jpg") || url.endsWith(".css") ||

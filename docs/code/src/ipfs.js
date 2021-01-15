@@ -6,10 +6,11 @@ import {
   IpfsClient,
   IPFSService,
   Server,
-} from "https://unpkg.com/@zedvision/ipfs@11.9.2/dist/ipfs.js";
+} from "https://unpkg.com/@zedvision/ipfs@11.9.4/dist/ipfs.js";
 
 export { IpfsClient };
 export { IPFSService };
 export { Server };
 export { Ipfs };
 export { CID };
+1;
