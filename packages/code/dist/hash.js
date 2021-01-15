@@ -201,7 +201,6 @@ async (signal, _retry) => {
                     return signalDataCache[signal];
                 console.log(`delay: ${delay}`);
                 try {
-                    const CID = (await import("./vendor/cids.js")).default;
                     const hashArr = new Array(68).fill(0).map((_x, i) => i);
                     const restRes = hashArr.map((i) => getCharAt(signal, i));
                     const hashHex = (await Promise.all(restRes)).join("");

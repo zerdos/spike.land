@@ -1,5 +1,4 @@
-
-import {ipfsClient, CID} from "./ipfsClient.js";
+import { CID, ipfsClient } from "./ipfsClient.js";
 
 /**
  * 
@@ -156,7 +155,6 @@ export const sendSignal = async (signal, data) => {
   await hash(signal);
 
   if (data) {
-
     // @ts-ignore
     let toSave = data;
 

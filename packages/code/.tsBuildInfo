@@ -202,7 +202,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "e40ea2202b30719932cd43143bc699369b3a665c286246874d0f69b35bfd3a53",
+        "version": "67101c8eb38acbd8c9871509a3bbf2b1af6fe802f37a4ad44c0e311abbf4ce24",
         "signature": "07483ca5707c38fb7ff43002a33fff10db974b7bc35c311f7eecdeff4414e231",
         "affectsGlobalScope": false
       },
@@ -532,19 +532,7 @@
       "./src/data.js",
       "./src/db.js",
       "./src/formatter.js",
-      [
-        "./src/hash.js",
-        [
-          {
-            "file": "./src/hash.js",
-            "start": 5291,
-            "length": 18,
-            "messageText": "Cannot find module './vendor/cids.js' or its corresponding type declarations.",
-            "category": 1,
-            "code": 2307
-          }
-        ]
-      ],
+      "./src/hash.js",
       "./src/importScript.js",
       [
         "./src/ipfsClient.js",
