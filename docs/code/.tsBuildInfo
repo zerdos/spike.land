@@ -197,7 +197,7 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "645167565c5fe4126543a1500a6a9f614c1e8cca0e6fe2d976d9a13babaa7adb",
+        "version": "6cc8a4e93c599ec9a3386234dd6476ce5ba2086a5f59f04482695de75d1881d2",
         "signature": "9c50aa2cd292157ed17b1d81bf92fa75c02395976e8a92035747c2a013fa595a",
         "affectsGlobalScope": false
       },
@@ -277,9 +277,9 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "c86bbf94bd6cf073ad431f082cbab2cfc6a501efefe47744f5b040eb8a3687cc",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": false
+        "version": "915d7e9b90a2b4805eb8d2466003837bf7487b14f7172a4acfb7a4bc52927f3f",
+        "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
+        "affectsGlobalScope": true
       },
       "./src/refs.d.ts": {
         "version": "8bc0544d70a3f9ba20602c4fbe26cce2b65a8b31628c227f85f73cc816109e6c",
@@ -418,8 +418,7 @@
         "./src/versions.js"
       ],
       "./src/ipfsWorker.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/versions.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
