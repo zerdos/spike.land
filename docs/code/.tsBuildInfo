@@ -207,7 +207,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "71c1932d797f62fc1083c7e08a00afde5144ee9774c0c4594ad00161a40d0529",
+        "version": "5b8a304b0a475cea39f890f8ff442b2c1deedb3177f663ed7cfa00a2b5f67067",
         "signature": "07483ca5707c38fb7ff43002a33fff10db974b7bc35c311f7eecdeff4414e231",
         "affectsGlobalScope": false
       },
@@ -282,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "4281bdf0c2a57fc78624c98559b9745747248441e04b298f6fb06dcb2ebdbd03",
+        "version": "c663efc38319513d0b0745ce8a77b6cb1267ffcded36d6b0783e975e6c0a640b",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -407,8 +407,7 @@
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/ipfsClient.js",
-        "./src/refs.d.ts"
+        "./src/ipfsClient.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
