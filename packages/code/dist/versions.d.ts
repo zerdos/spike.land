@@ -11,7 +11,7 @@ export namespace v {
     export const emotionRenderer: string;
 }
 export default versions;
-declare const code: "11.9.0";
+declare const code: "11.9.7";
 declare const shadb: "11.8.5";
 declare function versions(): {
     code: string;

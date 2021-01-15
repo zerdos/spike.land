@@ -7,3 +7,8 @@ const Ipfs = {create: (opts)=>IPFS.create(opts)}
 export {IPFSService}
 export {Server}
 export {Ipfs}
+
+
+globalThis.Ipfs = Ipfs
+globalThis.IPFSService = IPFSService;
+globalThis.Server = Server;
