@@ -27,7 +27,7 @@ let exp;
 export const getClient = async () => {
     if (exp)
         return exp;
-    const { CID, IpfsClient, } = await import(v.ipfs);
+    const { CID, IpfsClient, } = await import(v.ipfsClient);
     exp = { ipfsClient: IpfsClient.from(port), CID };
     return exp;
 };

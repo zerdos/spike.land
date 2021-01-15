@@ -1,7 +1,7 @@
 export namespace v {
     export { code };
     export { shadb };
-    export const ipfs: string;
+    export const ipfsClient: string;
     export const workbox: string;
     export const babel: string;
     export const prettier: string;
@@ -16,7 +16,7 @@ declare const shadb: "11.8.5";
 declare function versions(): {
     code: string;
     shadb: string;
-    ipfs: string;
+    ipfsClient: string;
     workbox: string;
     babel: string;
     prettier: string;

@@ -81,7 +81,7 @@ const cidLock = {
 const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
     // @ts-ignore
-    const { getClient } = await import(v.ipfs);
+    const { getClient } = await import(v.ipfsClient);
     const { ipfsClient } = await getClient();
     // @ts-ignore
     if (cidCache[cid])
@@ -149,7 +149,7 @@ export const sendSignal = async (signal, data) => {
         return "no webpack please";
     await hash(signal);
     // @ts-ignore
-    const { getClient } = await import(v.ipfs);
+    const { getClient } = await import(v.ipfsClient);
     const { CID } = await getClient();
     // @ts-ignore
     if (data) {
@@ -204,7 +204,7 @@ async (signal, _retry) => {
             if (signalDataCache[signal])
                 return signalDataCache[signal];
             // @ts-ignore
-            const { getClient } = await import(v.ipfs);
+            const { getClient } = await import(v.ipfsClient);
             const { CID } = await getClient();
             // @ts-ignore
             if (retry === 0)
@@ -286,7 +286,7 @@ async (signal, i) => {
     //@ts-ignore
     if (signalCache[signal][i])
         return signalCache[signal][i];
-    const { raceToSuccess } = await import(v.ipfs);
+    const { raceToSuccess } = await import(v.ipfsClient);
     const chars = [..."0123456789abcdef"];
     const controller = new AbortController();
     const prefix = new Array(i).fill("x").join("");

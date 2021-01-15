@@ -2,12 +2,12 @@ function versions() {
     const code = "11.9.7";
     const shadb = "11.8.5";
     const editor = "11.9.0";
-    const ipfs = "11.9.8";
+    const ipfsClient = "11.9.9";
     const emotionRenderer = "11.8.5";
     const v = {
         code,
         shadb,
-        ipfs: `https://unpkg.com/@zedvision/ipfs@${ipfs}/dist/ipfs.client.js`,
+        ipfsClient: `https://unpkg.com/@zedvision/ipfs@${ipfs}/dist/ipfs.client.js`,
         workbox: "6.0.2",
         babel: "7.12.12",
         prettier: "2.2.1",

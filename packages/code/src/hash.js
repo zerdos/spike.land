@@ -92,7 +92,7 @@ const cidLock = {
 const getHash = async (cid, { signal, timeout }) => {
   // @ts-ignore
   const { getClient } = await import(
-    v.ipfs
+    v.ipfsClient
   );
 
   const { ipfsClient } = await getClient();
@@ -166,7 +166,7 @@ export const sendSignal = async (signal, data) => {
   await hash(signal);
   // @ts-ignore
   const { getClient } = await import(
-    v.ipfs
+    v.ipfsClient
   );
   const { CID } = await getClient();
 
@@ -244,7 +244,7 @@ export const fetchSignal =
 
           // @ts-ignore
           const { getClient } = await import(
-            v.ipfs
+            v.ipfsClient
           );
           const { CID } = await getClient();
 
@@ -337,7 +337,7 @@ export const getCharAt =
     if (signalCache[signal][i]) return signalCache[signal][i];
 
     const { raceToSuccess } = await import(
-      v.ipfs
+      v.ipfsClient
     );
 
     const chars = [..."0123456789abcdef"];
