@@ -197,7 +197,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "e560db3d493c9e99a47b80ebf0a0a878a29cf7672b14739d61753d2109570ad0",
+        "version": "86a5c3299a3cb91336fbb560699a60ef20fbfe8149b202e026bd8ecc504e723f",
         "signature": "6d23d837b932577f709b8dc3957d0857328a316656bbb4f2f041277b3cf68690",
         "affectsGlobalScope": false
       },
@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "b2d770d91f2183e8a5b514393d8a6282a62a06f39a77db4c28d2d0b08e7f2791",
+        "version": "e664944062df7fe927af3b68f137e3e1437bc820d8859d9a71536b8836649395",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -539,9 +539,9 @@
         [
           {
             "file": "./src/ipfsClient.js",
-            "start": 32,
-            "length": 35,
-            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs' or its corresponding type declarations.",
+            "start": 37,
+            "length": 55,
+            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs@11.9.1/dist/ipfs.js' or its corresponding type declarations.",
             "category": 1,
             "code": 2307
           }
@@ -552,9 +552,9 @@
         [
           {
             "file": "./src/ipfsWorker.js",
-            "start": 33,
-            "length": 35,
-            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs' or its corresponding type declarations.",
+            "start": 38,
+            "length": 55,
+            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs@11.9.1/dist/ipfs.js' or its corresponding type declarations.",
             "category": 1,
             "code": 2307
           }

@@ -5074,7 +5074,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.13.0
-    "@zedvision/code": ^11.9.0
+    "@zedvision/code": ^11.9.1
     esbuild: 0.8.32
   languageName: unknown
   linkType: soft
@@ -5171,10 +5171,11 @@ __metadata:
     ipfs: ^0.52.3
     ipfs-message-port-client: 0.4.4
     ipfs-message-port-server: 0.5.0
+    typescript: ^4.1.3
   languageName: unknown
   linkType: soft
 
-"@zedvision/monaco-editor@11.8.9, @zedvision/monaco-editor@workspace:packages/monaco-editor":
+"@zedvision/monaco-editor@^11.9.1, @zedvision/monaco-editor@workspace:packages/monaco-editor":
   version: 0.0.0-use.local
   resolution: "@zedvision/monaco-editor@workspace:packages/monaco-editor"
   languageName: unknown
@@ -5222,7 +5223,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/smart-monaco-editor@workspace:packages/smart-monaco-editor"
   dependencies:
-    "@zedvision/monaco-editor": 11.8.9
+    "@zedvision/monaco-editor": ^11.9.1
     typescript: 4.1.3
   languageName: unknown
   linkType: soft
@@ -5239,7 +5240,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.9.0
+    "@zedvision/code": ^11.9.1
     "@zedvision/qrious": ^11.8.5
     "@zedvision/shadb": ^11.8.5
     gatsby: 2.30.2
@@ -26393,7 +26394,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-typescript@4.1.3:
+"typescript@4.1.3, typescript@^4.1.3":
   version: 4.1.3
   resolution: "typescript@npm:4.1.3"
   bin:
@@ -26403,7 +26404,7 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.1.3#builtin<compat/typescript>":
+"typescript@patch:typescript@4.1.3#builtin<compat/typescript>, typescript@patch:typescript@^4.1.3#builtin<compat/typescript>":
   version: 4.1.3
   resolution: "typescript@patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=cc6730"
   bin:

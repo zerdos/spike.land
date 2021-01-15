@@ -1,4 +1,4 @@
-import { Ipfs, IpfsServer } from "https://unpkg.com/@zedvision/ipfs";
+import { Ipfs, IpfsServer, } from "https://unpkg.com/@zedvision/ipfs@11.9.1/dist/ipfs.js";
 /** @type {null} */
 let normalWorkerPort = null;
 // @ts-ignore

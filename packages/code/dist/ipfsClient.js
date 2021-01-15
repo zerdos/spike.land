@@ -1,4 +1,4 @@
-import { CID, IpfsClient } from "https://unpkg.com/@zedvision/ipfs";
+import { CID, IpfsClient, } from "https://unpkg.com/@zedvision/ipfs@11.9.1/dist/ipfs.js";
 const workerSrc = window.location.hostname === "blog.zed.vision"
     ? `https://blog.zed.vision/code/src/ipfsWorker.js`
     : window.location.hostname === "[::1]"

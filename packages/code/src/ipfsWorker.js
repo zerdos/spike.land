@@ -1,4 +1,7 @@
-import { Ipfs, IpfsServer } from "https://unpkg.com/@zedvision/ipfs";
+import {
+  Ipfs,
+  IpfsServer
+} from "https://unpkg.com/@zedvision/ipfs@11.9.1/dist/ipfs.js";
 
 /** @type {null} */
 let normalWorkerPort = null;
@@ -35,6 +38,15 @@ const main = async () => {
   // setInterval(()=>{
   //   ipfs.pubsub.publish("zolika84", Math.random()+"ddd")
   // }, 1000)
+
+
+  const ipfs = await Ipfs.create(
+    // {
+    //   EXPERIMENTAL: { ipnsPubsub: true, sharding: false },
+    //   relay: { enabled: true, hop: { enabled: true, active: true } },
+    // },
+  );
+
 
   const { IPFSService, Server } = IpfsServer;
 
