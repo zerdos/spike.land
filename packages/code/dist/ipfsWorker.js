@@ -1,4 +1,4 @@
-import { Ipfs, IPFSService, Server, } from "https://unpkg.com/@zedvision/ipfs@11.9.3/dist/ipfs.js";
+import { Ipfs, IPFSService, Server, } from "https://unpkg.com/@zedvision/ipfs@11.9.4/dist/ipfs.js";
 /** @type {null} */
 let ipfs;
 self.addEventListener("message", async (event) => {

@@ -282,13 +282,13 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "c663efc38319513d0b0745ce8a77b6cb1267ffcded36d6b0783e975e6c0a640b",
+        "version": "933feb4ce014ae5b476b5b5fe5f35de09ab5575d6fa44906c201cb1bcc395a70",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
-        "version": "680f84d85820b7802433522445217ff9ce617af8f9aefcd06726bfe1b4a0e5b2",
-        "signature": "680f84d85820b7802433522445217ff9ce617af8f9aefcd06726bfe1b4a0e5b2",
+        "version": "b17206cc9d6f4783efa39d478ad8e502825444a7e985cfb70ba55577a116bec6",
+        "signature": "b17206cc9d6f4783efa39d478ad8e502825444a7e985cfb70ba55577a116bec6",
         "affectsGlobalScope": true
       },
       "./src/starterNoFramerMotion.js": {
