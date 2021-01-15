@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/ipfs",
-  "version": "11.9.3",
+  "version": "11.9.4",
   "sideEffects": false,
   "source": "./src/ipfs.js",
   "exports": "./dist/ipfs.js",
