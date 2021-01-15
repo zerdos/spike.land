@@ -265,6 +265,7 @@ async (signal, _retry) => {
     }
     catch (e) {
         isSignalReceived = false;
+        throw new Error("no signal");
         //   console.log(`Bad news! No signal, and it seems there is an error.`);
     }
 };
