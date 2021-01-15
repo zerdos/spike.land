@@ -5180,10 +5180,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/ipfs@workspace:packages/ipfs":
+"@zedvision/ipfs@11.9.6, @zedvision/ipfs@workspace:packages/ipfs":
   version: 0.0.0-use.local
   resolution: "@zedvision/ipfs@workspace:packages/ipfs"
   dependencies:
+    "@zedvision/ipfs": 11.9.6
     cids: ^1.1.5
     esbuild: ^0.8.32
     ipfs: ^0.53.0
