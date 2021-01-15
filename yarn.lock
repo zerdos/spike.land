@@ -3787,12 +3787,12 @@ __metadata:
   linkType: hard
 
 "@octokit/types@npm:^6.0.0, @octokit/types@npm:^6.0.3":
-  version: 6.3.0
-  resolution: "@octokit/types@npm:6.3.0"
+  version: 6.3.1
+  resolution: "@octokit/types@npm:6.3.1"
   dependencies:
     "@octokit/openapi-types": ^2.3.0
     "@types/node": ">= 8"
-  checksum: 6e4e6157a092dda70c45d52b1f852819d4e16fa2be541e5d222cb300694846f3f382d0a23f767d6f247ba68046a27a144ec76906520057a7d92a8e4e15f1629b
+  checksum: ea2fbb183decfda0b75912b8a143b02ce84645976a236bd44bbbea03aec8bb898e404a4ae66fd25492dc584ff082731390a37de6ce3c6cae242bde5ea4da6f1c
   languageName: node
   linkType: hard
 
@@ -5092,7 +5092,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:packages/cf-code-zed-vision"
   dependencies:
     "@cloudflare/wrangler": 1.13.0
-    "@zedvision/code": ^11.9.5
+    "@zedvision/code": ^11.9.7
     esbuild: 0.8.32
   languageName: unknown
   linkType: soft
@@ -5180,11 +5180,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/ipfs@11.9.6, @zedvision/ipfs@workspace:packages/ipfs":
+"@zedvision/ipfs@^11.9.7, @zedvision/ipfs@workspace:packages/ipfs":
   version: 0.0.0-use.local
   resolution: "@zedvision/ipfs@workspace:packages/ipfs"
   dependencies:
-    "@zedvision/ipfs": 11.9.6
+    "@zedvision/ipfs": ^11.9.7
     cids: ^1.1.5
     esbuild: ^0.8.32
     ipfs: ^0.53.0
@@ -5259,7 +5259,7 @@ __metadata:
     "@types/react-dom": 17.0.0
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    "@zedvision/code": ^11.9.5
+    "@zedvision/code": ^11.9.7
     "@zedvision/qrious": ^11.8.5
     "@zedvision/shadb": ^11.8.5
     gatsby: 2.30.2
@@ -25245,9 +25245,9 @@ fsevents@~2.3.1:
   linkType: hard
 
 "streaming-iterables@npm:^5.0.2, streaming-iterables@npm:^5.0.3":
-  version: 5.0.3
-  resolution: "streaming-iterables@npm:5.0.3"
-  checksum: 165a3c941d1311dd9385528826c4ddbd61b8ccb2d7008c615b27c588bf6f27c254d8f3c644b4d7c70f56946a53ec3d86b3252fe1782daa47aa991f7a57a5f922
+  version: 5.0.4
+  resolution: "streaming-iterables@npm:5.0.4"
+  checksum: fdf837358a3dabebb844088d12007f1e3d973f5eacf1ccf10892d03edc36aba104b10b6c8e4681f827ff225160b07f9b430efe647838661a182e4c869b6ea8b6
   languageName: node
   linkType: hard
 
