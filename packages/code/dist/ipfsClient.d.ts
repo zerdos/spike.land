@@ -1,1 +1,2 @@
-export function getIpfs(): Promise<any>;
+export const ipfsClient: any;
+export { CID };

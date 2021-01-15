@@ -1,10 +1,6 @@
-// @ts-nocheck
+import { Ipfs, IpfsServer } from "https://unpkg.com/@zedvision/ipfs";
 
-importScripts("https://unpkg.com/ipfs@0.52.3/dist/index.min.js");
-importScripts(
-  "https://unpkg.com/ipfs-message-port-server@0.4.3/dist/index.min.js",
-);
-
+/** @type {null} */
 let normalWorkerPort = null;
 
 // @ts-ignore
@@ -20,8 +16,10 @@ self.addEventListener("message", (event) => {
 
 const main = async () => {
   //@ts-ignore
+  /** @type {any[]} */
   const connections = [];
   // queue connections that occur while node was starting.
+  // @ts-ignore
   self.onconnect = ({ ports }) => connections.push(...ports);
 
   const ipfs = await Ipfs.create(
@@ -31,12 +29,14 @@ const main = async () => {
     // },
   );
 
+  // @ts-ignore
   self.ipfsNode = ipfs;
 
   // setInterval(()=>{
   //   ipfs.pubsub.publish("zolika84", Math.random()+"ddd")
   // }, 1000)
-  const { IPFSService, Server } = IpfsMessagePortServer;
+
+  const { IPFSService, Server } = IpfsServer;
 
   const service = new IPFSService(ipfs);
   const server = new Server(service);

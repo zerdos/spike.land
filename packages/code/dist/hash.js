@@ -1,7 +1,3 @@
-/**
- *
- * @param {string} cid
- */
 var __asyncValues = (this && this.__asyncValues) || function (o) {
     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
     var m = o[Symbol.asyncIterator], i;
@@ -9,6 +5,11 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
+import { CID, ipfsClient } from "./ipfsClient.js";
+/**
+ *
+ * @param {string} cid
+ */
 const feedTheCache = (cid) => {
     // const controller = new AbortController();
     // fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text());
@@ -27,13 +28,18 @@ const feedTheCache = (cid) => {
     // console.log(cid);
     return cid;
 };
-async function getClient() {
-    const { getIpfs } = await import("./ipfsClient.js");
-    return getIpfs();
-}
-// @ts-ignore
-const hash = async (data, { onlyHash, signal, timeout }) => {
-    const ipfs = await getClient();
+const hash = 
+/**
+* @param {string} data
+* @param {{
+* signal: AbortSignal
+* timeout: number
+* onlyHash: boolean
+* }} [options]
+*/
+async (data, options) => {
+    const opts = options || { onlyHash: true, signal: null, timeout: 1500 };
+    const { onlyHash, signal, timeout } = opts;
     // @ts-ignore
     const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) => d.cid.toString());
     if (!onlyHash) {
@@ -52,18 +58,26 @@ const hash = async (data, { onlyHash, signal, timeout }) => {
         return { success: false };
     }
 };
+/**
+ * @type {
+  * [string]
+  * }
+  */
 const cidCache = {};
+/**
+ * @type {
+ * [string]
+ * }
+ */
 const cidLock = {
     semaphore: 0,
 };
 /**
- * @param {string} cid
- * @param {AbortSignal} signal
+ * @param {string | number} cid
+ * @param {{signal: AbortSignal; timeout: number}}  options
  */
-// @ts-ignore
 const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
-    //@ts-ignore
     if (cidCache[cid])
         return cidCache[cid];
     signal.onabort = function () {
@@ -71,42 +85,24 @@ const getHash = async (cid, { signal, timeout }) => {
     };
     let aborted = 0;
     try {
-        /** @type {{ cat: (arg0: any, arg1: any) => any; } | null} */
-        const ipfs = await getClient();
         if (aborted)
             return "";
-        // @ts-ignore
-        //@ts-ignore
-        if (cidCache[cid])
+        if (typeof cidCache[cid] !== "undefined" && cidCache[cid] !== "") {
             return cidCache[cid];
-        // @ts-ignore
+        }
         while (cidLock.semaphore > 128) {
             await wait(Math.random() * 100);
         }
         cidLock.semaphore++;
-        // @ts-ignore
-        if (!cidLock[cid]) {
-            // console.log(`in :  ${cidLock.semaphore}   cat cat cat `);
-            // @ts-ignore
-            cidLock[cid] = ipfs.cat(cid, { timeout: timeout || 300 });
-        }
-        // @ts-ignore
-        const data = await cidLock[cid];
-        // @ts-ignore
+        const data = await ipfsClient.cat(cid, { timeout: timeout || 300 });
         if (cidCache[cid])
             return cidCache[cid];
-        /** @type {Uint8Array | null} */
-        let resultUintArr = null;
+        /** @type {number[]} */
+        const resultUintArr = [];
         try {
             for (var data_1 = __asyncValues(data), data_1_1; data_1_1 = await data_1.next(), !data_1_1.done;) {
-                let res = data_1_1.value;
-                if (resultUintArr !== null) {
-                    //@ts-ignore
-                    resultUintArr.concat(res);
-                }
-                else {
-                    resultUintArr = res;
-                }
+                const res = data_1_1.value;
+                resultUintArr.concat(res);
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -116,19 +112,14 @@ const getHash = async (cid, { signal, timeout }) => {
             }
             finally { if (e_1) throw e_1.error; }
         }
-        //@ts-ignore
-        const result = new TextDecoder().decode(resultUintArr);
-        //@ts-ignore
+        const result = new TextDecoder().decode(new Uint8Array(resultUintArr));
         cidCache[cid] = result;
         cidLock.semaphore--;
         return result;
-        // console.error({ data });
     }
     catch (e) {
         cidLock.semaphore--;
-        // @ts-ignore
         cidLock[cid] = null;
-        // console.log({});
     }
 };
 /**
@@ -148,24 +139,18 @@ const _waitForSignal = async (signal, abortSignal) => {
  * @param {string} data
  */
 export const sendSignal = async (signal, data) => {
-    // @ts-ignore
-    await hash(signal, false);
+    await hash(signal);
     if (data) {
-        const CID = (await import("./vendor/cids.js")).default;
         // @ts-ignore
         let toSave = data;
         if (typeof data !== "string")
             toSave = JSON.stringify(data);
         //@ts-ignore
-        const dataCid = await hash(data, false);
+        const dataCid = await hash(data);
         const hexHash = Array.from((new CID(dataCid)).multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
         const allHash = new Array(hexHash.length).fill(signal).map((x, i) => x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1));
-        await Promise.all(
-        // @ts-ignore
-        allHash.slice(0, 5).map((x) => hash(x, false)));
-        await Promise.all(
-        // @ts-ignore
-        allHash.slice(5).map((x) => hash(x, false)));
+        await Promise.all(allHash.slice(0, 5).map((x) => hash(x)));
+        await Promise.all(allHash.slice(5).map((x) => hash(x)));
     }
     return { success: true };
 };

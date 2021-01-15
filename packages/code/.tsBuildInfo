@@ -196,23 +196,13 @@
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
       },
-      "./src/importScript.js": {
-        "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
-        "affectsGlobalScope": false
-      },
       "./src/ipfsClient.js": {
-        "version": "2781bd8c4e74599e7fbc18063508995e2fb71855ae7ea489fe2f50dc3985a11b",
-        "signature": "84ec3c66307f94cd18aaf53d6be7841ad415bbed71a780403d229d3a816e93f3",
-        "affectsGlobalScope": false
-      },
-      "./src/vendor/cids.js": {
-        "version": "c26d234b28a06c0b761ad757ba847c7502ab505dbd3bbeb6f666346cd7740bc2",
-        "signature": "d18f79aa6ddec0adbe8167e04c327114d118e13eaaac8862920ed4fdb935557e",
+        "version": "e560db3d493c9e99a47b80ebf0a0a878a29cf7672b14739d61753d2109570ad0",
+        "signature": "6d23d837b932577f709b8dc3957d0857328a316656bbb4f2f041277b3cf68690",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "1a6d118c6aa5e4d7c478565675371e23066772d0bb348d2a91536decac4fcde8",
+        "version": "e40ea2202b30719932cd43143bc699369b3a665c286246874d0f69b35bfd3a53",
         "signature": "07483ca5707c38fb7ff43002a33fff10db974b7bc35c311f7eecdeff4414e231",
         "affectsGlobalScope": false
       },
@@ -232,7 +222,7 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "2e2169f55c02aea01b0e5d4fcff4a1cf3662e9e192e331edff14c213db50b30d",
+        "version": "6aca5e03102507638989dd7b3dfd479737fa6e611becb545be8df54d1f8c9d93",
         "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
@@ -266,6 +256,11 @@
         "signature": "8fcfdbf72d7cbc7e46f4bd2ef8dcc7c2e2938fdea138d026547c3a202ad9bfa8",
         "affectsGlobalScope": false
       },
+      "./src/importScript.js": {
+        "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
+        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+        "affectsGlobalScope": false
+      },
       "./src/openWindows.js": {
         "version": "ab92b4ce41806bbf903a415d4ea7159b3790b91b04ca61f8e69fc6bf9e7dde62",
         "signature": "f75cae6f4e387be87aa8e3a0875a048d03157da7756d51f56850b0c41c177383",
@@ -277,33 +272,13 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "37f4f564c1bf8117fdf002393f5552d4426aadbfcc5a4879a21a3072ac2f5291",
+        "version": "0d64f1437c1dd4bd0475ff94a9d7d519d8532013768a143f399c04823ab2d448",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "9518b4c179eb88798dc2b6fca853a7c5e8b6ab7b714be4044dbb4d1e47aec380",
-        "signature": "19df299943abd33b7d1ff906a395043f22d76ad28c278045626d50b846510c17",
-        "affectsGlobalScope": true
-      },
-      "../../node_modules/multicodec/dist/src/generated-types.d.ts": {
-        "version": "7461cdfeed4a18eeab1e26625d21e8965bd6cd7e537931cfbc6b3154c77a33fc",
-        "signature": "7461cdfeed4a18eeab1e26625d21e8965bd6cd7e537931cfbc6b3154c77a33fc",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/multicodec/dist/src/base-table.d.ts": {
-        "version": "de333665713e8995c99a8eca9fd7b9ae2ce3981b830fcc70e15928c36f2088fb",
-        "signature": "de333665713e8995c99a8eca9fd7b9ae2ce3981b830fcc70e15928c36f2088fb",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/cids/dist/src/index.d.ts": {
-        "version": "30b319653f89d2c05244fb0c2a331bbeed15407eac81b940ddb45cc22f8fa759",
-        "signature": "30b319653f89d2c05244fb0c2a331bbeed15407eac81b940ddb45cc22f8fa759",
-        "affectsGlobalScope": false
-      },
-      "./src/mhash.js": {
-        "version": "d4456419f733da7c3543da13fab4a5fd38353244f7074ffacb94e9e9ddd9d847",
-        "signature": "5949fd65947c99ee0f75335a6fb04fa47b8c54cd86c1440cdaac46460668dd37",
+        "version": "b2d770d91f2183e8a5b514393d8a6282a62a06f39a77db4c28d2d0b08e7f2791",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
@@ -396,23 +371,14 @@
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
       ],
-      "../../node_modules/cids/dist/src/index.d.ts": [
-        "../../node_modules/cids/dist/src/index.d.ts",
-        "../../node_modules/multicodec/dist/src/base-table.d.ts",
-        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
-      ],
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
-      ],
-      "../../node_modules/multicodec/dist/src/base-table.d.ts": [
-        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
       ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
-        "./src/ipfsClient.js",
         "./src/openWindows.js",
         "./src/renderPreviewWindow.js",
         "./src/sendSignalToQrCode.js",
@@ -436,22 +402,16 @@
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/ipfsClient.js",
-        "./src/vendor/cids.js"
+        "./src/ipfsClient.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/ipfsClient.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/importScript.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/ipfsWorker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./src/mhash.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "../../node_modules/cids/dist/src/index.d.ts"
       ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -503,9 +463,6 @@
       "./src/transpileWorker.d.ts": [
         "../../node_modules/comlink/dist/umd/comlink.d.ts"
       ],
-      "./src/vendor/cids.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/versions.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
@@ -522,16 +479,8 @@
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
       ],
-      "../../node_modules/cids/dist/src/index.d.ts": [
-        "../../node_modules/cids/dist/src/index.d.ts",
-        "../../node_modules/multicodec/dist/src/base-table.d.ts",
-        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
-      ],
       "../../node_modules/comlink/dist/umd/comlink.d.ts": [
         "../../node_modules/comlink/dist/umd/protocol.d.ts"
-      ],
-      "../../node_modules/multicodec/dist/src/base-table.d.ts": [
-        "../../node_modules/multicodec/dist/src/generated-types.d.ts"
       ],
       "./src/transpileWorker.d.ts": [
         "../../node_modules/comlink/dist/umd/comlink.d.ts"
@@ -542,12 +491,9 @@
       "../../node_modules/@types/react/global.d.ts",
       "../../node_modules/@types/react/index.d.ts",
       "../../node_modules/@types/react/jsx-runtime.d.ts",
-      "../../node_modules/cids/dist/src/index.d.ts",
       "../../node_modules/comlink/dist/umd/comlink.d.ts",
       "../../node_modules/comlink/dist/umd/protocol.d.ts",
       "../../node_modules/csstype/index.d.ts",
-      "../../node_modules/multicodec/dist/src/base-table.d.ts",
-      "../../node_modules/multicodec/dist/src/generated-types.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -586,16 +532,63 @@
       "./src/data.js",
       "./src/db.js",
       "./src/formatter.js",
-      "./src/hash.js",
+      [
+        "./src/hash.js",
+        [
+          {
+            "file": "./src/hash.js",
+            "start": 5291,
+            "length": 18,
+            "messageText": "Cannot find module './vendor/cids.js' or its corresponding type declarations.",
+            "category": 1,
+            "code": 2307
+          }
+        ]
+      ],
       "./src/importScript.js",
-      "./src/ipfsClient.js",
-      "./src/ipfsWorker.js",
-      "./src/mhash.js",
+      [
+        "./src/ipfsClient.js",
+        [
+          {
+            "file": "./src/ipfsClient.js",
+            "start": 32,
+            "length": 35,
+            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs' or its corresponding type declarations.",
+            "category": 1,
+            "code": 2307
+          }
+        ]
+      ],
+      [
+        "./src/ipfsWorker.js",
+        [
+          {
+            "file": "./src/ipfsWorker.js",
+            "start": 33,
+            "length": 35,
+            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs' or its corresponding type declarations.",
+            "category": 1,
+            "code": 2307
+          }
+        ]
+      ],
       "./src/openWindows.js",
       "./src/refs.d.ts",
       "./src/renderPreviewWindow.js",
       "./src/sendSignalToQrCode.js",
-      "./src/share.js",
+      [
+        "./src/share.js",
+        [
+          {
+            "file": "./src/share.js",
+            "start": 48,
+            "length": 4,
+            "messageText": "Module '\"/home/zed/z/packages/code/src/ipfsClient\"' has no default export.",
+            "category": 1,
+            "code": 1192
+          }
+        ]
+      ],
       "./src/starter.js",
       "./src/starterNoFramerMotion.js",
       "./src/starterTsx.tsx",
@@ -605,7 +598,6 @@
       "./src/transpile.js",
       "./src/transpile.worker.js",
       "./src/transpileWorker.d.ts",
-      "./src/vendor/cids.js",
       "./src/versions.js",
       "./src/workBox.js"
     ]

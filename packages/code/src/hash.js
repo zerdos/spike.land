@@ -1,3 +1,6 @@
+
+import {ipfsClient, CID} from "./ipfsClient.js";
+
 /**
  * 
  * @param {string} cid 
@@ -24,65 +27,81 @@ const feedTheCache = (cid) => {
   return cid;
 };
 
-async function getClient() {
-  const { getIpfs } = await import("./ipfsClient.js");
-  return getIpfs();
-}
+const hash =
 
-// @ts-ignore
-const hash = async (data, { onlyHash, signal, timeout }) => {
-  const ipfs = await getClient();
+  /**
+ * @param {string} data
+ * @param {{
+  * signal: AbortSignal
+  * timeout: number
+  * onlyHash: boolean
+  * }} [options]
+  */
+  async (data, options) => {
+    const opts = options || { onlyHash: true, signal: null, timeout: 1500 };
 
-  // @ts-ignore
-  const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) =>
-    d.cid.toString()
-  );
+    const { onlyHash, signal, timeout } = opts;
 
-  if (!onlyHash) {
-    // console.log(`adding data to ipfs: ${data} `);
-    await feedTheCache(cid);
-
-    return cid;
-  }
-  try {
     // @ts-ignore
-    const res = await getHash(cid, { signal, timeout, onlyHash }).then((x) => ({
-      success: x === data,
-    }));
+    const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) =>
+      d.cid.toString()
+    );
 
-    return res;
-  } catch {
-    return { success: false };
-  }
-};
+    if (!onlyHash) {
+      // console.log(`adding data to ipfs: ${data} `);
+      await feedTheCache(cid);
+
+      return cid;
+    }
+    try {
+      // @ts-ignore
+      const res = await getHash(cid, { signal, timeout, onlyHash }).then((
+        x,
+      ) => ({
+        success: x === data,
+      }));
+
+      return res;
+    } catch {
+      return { success: false };
+    }
+  };
+
+/**
+ * @type {
+  * [string]  
+  * }
+  */
 
 const cidCache = {};
+
+/**
+ * @type {
+ * [string]  
+ * }
+ */
 const cidLock = {
   semaphore: 0,
 };
 
 /**
- * @param {string} cid
- * @param {AbortSignal} signal
+ * @param {string | number} cid
+ * @param {{signal: AbortSignal; timeout: number}}  options
  */
-
-// @ts-ignore
 const getHash = async (cid, { signal, timeout }) => {
-  //@ts-ignore
   if (cidCache[cid]) return cidCache[cid];
   signal.onabort = function () {
     aborted = 1;
   };
   let aborted = 0;
   try {
-    /** @type {{ cat: (arg0: any, arg1: any) => any; } | null} */
-    const ipfs = await getClient();
     if (aborted) return "";
-    // @ts-ignore
 
-    //@ts-ignore
-    if (cidCache[cid]) return cidCache[cid];
-    // @ts-ignore
+    if (
+      typeof cidCache[cid] !== "undefined" && cidCache[cid] !== ""
+    ) {
+      return cidCache[cid];
+    }
 
     while (cidLock.semaphore > 128) {
       await wait(Math.random() * 100);
@@ -90,45 +109,26 @@ const getHash = async (cid, { signal, timeout }) => {
 
     cidLock.semaphore++;
 
-    // @ts-ignore
-    if (!cidLock[cid]) {
-      // console.log(`in :  ${cidLock.semaphore}   cat cat cat `);
-      // @ts-ignore
-      cidLock[cid] = ipfs.cat(cid, { timeout: timeout || 300 });
-    }
+    const data = await ipfsClient.cat(cid, { timeout: timeout || 300 });
 
-    // @ts-ignore
-    const data = await cidLock[cid];
-
-    // @ts-ignore
     if (cidCache[cid]) return cidCache[cid];
 
-    /** @type {Uint8Array | null} */
-    let resultUintArr = null;
+    /** @type {number[]} */
+    const resultUintArr = [];
 
-    for await (let res of data) {
-      if (resultUintArr !== null) {
-        //@ts-ignore
-        resultUintArr.concat(res);
-      } else {
-        resultUintArr = res;
-      }
+    for await (const res of data) {
+      resultUintArr.concat(res);
     }
 
-    //@ts-ignore
-    const result = new TextDecoder().decode(resultUintArr);
-    //@ts-ignore
+    const result = new TextDecoder().decode(new Uint8Array(resultUintArr));
     cidCache[cid] = result;
 
     cidLock.semaphore--;
 
     return result;
-    // console.error({ data });
   } catch (e) {
     cidLock.semaphore--;
-    // @ts-ignore
     cidLock[cid] = null;
-    // console.log({});
   }
 };
 
@@ -153,11 +153,9 @@ const _waitForSignal = async (signal, abortSignal) => {
  * @param {string} data
  */
 export const sendSignal = async (signal, data) => {
-  // @ts-ignore
-  await hash(signal, false);
+  await hash(signal);
 
   if (data) {
-    const CID = (await import("./vendor/cids.js")).default;
 
     // @ts-ignore
     let toSave = data;
@@ -165,7 +163,7 @@ export const sendSignal = async (signal, data) => {
     if (typeof data !== "string") toSave = JSON.stringify(data);
 
     //@ts-ignore
-    const dataCid = await hash(data, false);
+    const dataCid = await hash(data);
 
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
@@ -176,13 +174,11 @@ export const sendSignal = async (signal, data) => {
     );
 
     await Promise.all(
-      // @ts-ignore
-      allHash.slice(0, 5).map((x) => hash(x, false)),
+      allHash.slice(0, 5).map((x) => hash(x)),
     );
 
     await Promise.all(
-      // @ts-ignore
-      allHash.slice(5).map((x) => hash(x, false)),
+      allHash.slice(5).map((x) => hash(x)),
     );
   }
   return { success: true };
@@ -239,7 +235,6 @@ export const fetchSignal =
             console.log(`delay: ${delay}`);
 
             try {
-              const CID = (await import("./vendor/cids.js")).default;
               const hashArr = new Array(68).fill(0).map((_x, i) => i);
               const restRes = hashArr.map((i) => getCharAt(signal, i));
               const hashHex = (await Promise.all(restRes)).join("");
