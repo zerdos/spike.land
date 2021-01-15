@@ -3,6 +3,7 @@ import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
 import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.7.4/src/sha256.js";
+import { publicIpfsGateways, raceToSuccess} from "https://unpkg.com/@zedvision/ipfs/11.9.9/src/gateways.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
@@ -332,60 +333,3 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   return new Response("404");
 }
 
-/**
- * 
- * @param{Promise<any>[]} promises 
- */
-function raceToSuccess(promises) {
-  let numRejected = 0;
-
-  return new Promise(
-    (resolve, reject) =>
-      promises.forEach(
-        (promise) =>
-          promise
-            .then(resolve)
-            .catch(
-              () => {
-                if (++numRejected === promises.length) reject();
-              },
-            ),
-      ),
-  );
-}
-
-const publicIpfsGateways = [
-  "https://ipfs.io/ipfs/:hash",
-  "https://dweb.link/ipfs/:hash",
-  "https://gateway.ipfs.io/ipfs/:hash",
-  "https://ipfs.infura.io/ipfs/:hash",
-  "https://ninetailed.ninja/ipfs/:hash",
-  "https://10.via0.com/ipfs/:hash",
-  "https://ipfs.eternum.io/ipfs/:hash",
-  "https://hardbin.com/ipfs/:hash",
-  "https://cloudflare-ipfs.com/ipfs/:hash",
-  "https://cf-ipfs.com/ipfs/:hash",
-  "https://gateway.pinata.cloud/ipfs/:hash",
-  "https://ipfs.sloppyta.co/ipfs/:hash",
-  "https://ipfs.greyh.at/ipfs/:hash",
-  "https://jorropo.ovh/ipfs/:hash",
-  "https://jorropo.net/ipfs/:hash",
-  "https://gateway.temporal.cloud/ipfs/:hash",
-  "https://ipfs.runfission.com/ipfs/:hash",
-  "https://trusti.id/ipfs/:hash",
-  "https://ipfs.overpi.com/ipfs/:hash",
-  "https://ipfs.ink/ipfs/:hash",
-  "https://gateway.ravenland.org/ipfs/:hash",
-  "https://ipfs.smartsignature.io/ipfs/:hash",
-  "https://ipfs.telos.miami/ipfs/:hash",
-  "https://robotizing.net/ipfs/:hash",
-  "https://ipfs.mttk.net/ipfs/:hash",
-  "https://ipfs.fleek.co/ipfs/:hash",
-  "https://ipfs.jbb.one/ipfs/:hash",
-  "https://jacl.tech/ipfs/:hash",
-  "https://ipfs.k1ic.com/ipfs/:hash",
-  "https://ipfs.drink.cafe/ipfs/:hash",
-  "https://ipfs.azurewebsites.net/ipfs/:hash",
-  "https://gw.ipfspin.com/ipfs/:hash",
-  "https://ipfs.denarius.io/ipfs/:hash",
-];
