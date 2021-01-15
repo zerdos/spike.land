@@ -49,7 +49,8 @@ export async function run(mode = "window", _w, code = "") {
       session.code = code;
       session.transpiled = await transpileCode(
         code,
-        (versions && versions.emotionRenderer) || v.emotionRenderer,
+        //(versions && versions.emotionRenderer) ||
+        v.emotionRenderer,
       ) || transpiled;
       session.div.innerHTML = html;
       session.versions = versions;

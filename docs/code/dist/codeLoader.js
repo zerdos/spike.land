@@ -36,7 +36,9 @@ export async function run(mode = "window", _w, code = "") {
                 ? await getIPFSCodeToLoad(undefined)
                 : await getCodeToLoad();
             session.code = code;
-            session.transpiled = await transpileCode(code, (versions && versions.emotionRenderer) || v.emotionRenderer) || transpiled;
+            session.transpiled = await transpileCode(code, 
+            //(versions && versions.emotionRenderer) ||
+            v.emotionRenderer) || transpiled;
             session.div.innerHTML = html;
             session.versions = versions;
             if (typeof versions === "string" && versions !== "") {
