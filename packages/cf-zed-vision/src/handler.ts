@@ -3,7 +3,7 @@ import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
 import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.7.4/src/sha256.js";
-import { publicIpfsGateways, raceToSuccess} from "https://unpkg.com/@zedvision/ipfs/11.9.9/src/gateways.ts";
+import { publicIpfsGateways, raceToSuccess} from "https://unpkg.com/@zedvision/ipfs@11.9.9/src/gateways.ts";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
@@ -209,7 +209,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         //https://ipfs.github.io/public-gateway-checker/gateways.json
         const random5GatewaysFetch = publicIpfsGateways.sort(() =>
           0.5 - Math.random()
-        ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
+        ).slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", pathname)).map((
           x,
         ) =>
           fetch(x).then((res) =>

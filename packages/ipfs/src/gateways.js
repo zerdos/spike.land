@@ -31,10 +31,11 @@ export const publicIpfsGateways = [
     "https://ipfs.drink.cafe/ipfs/:hash",
     "https://ipfs.azurewebsites.net/ipfs/:hash",
     "https://gw.ipfspin.com/ipfs/:hash",
-    "https://ipfs.denarius.io/ipfs/:hash",
+    "https://ipfs.denarius.io/ipfs/:hash"
   ];
-  
-ion raceToSuccess(promises:Promise<any>[]) {
+
+
+export function raceToSuccess(promises) {
     let numRejected = 0;
   
     return new Promise(

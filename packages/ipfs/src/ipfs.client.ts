@@ -2,7 +2,7 @@
 
 import * as IPFS from "ipfs/dist/index.min.js"
 import IpfsClient from "ipfs-message-port-client"
-import {publicIpfsGateways, raceToSuccess} from "./gateways"
+import {publicIpfsGateways, raceToSuccess} from "./gateways.js"
 
 const CID = IPFS.CID;
 
