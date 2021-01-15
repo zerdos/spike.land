@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/smart-monaco-editor",
-    "version": "11.9.0",
+    "version": "11.9.1",
     "description": "Monaco Editor with auto type downloads mostly for React",
     "sideEffects": false,
     "source": "./src/editor.ts",
@@ -28,7 +28,7 @@
     "homepage": "https://github.com/zed-vision/monorepo",
     "repository": "https://github.com/zed-vision/monorepo",
     "dependencies": {
-        "@zedvision/monaco-editor": "11.8.9"
+        "@zedvision/monaco-editor": "^11.9.1"
     },
     "devDependencies": {
         "typescript": "4.1.3"

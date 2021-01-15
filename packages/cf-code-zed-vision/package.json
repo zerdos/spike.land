@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@zedvision/cf-code-zed-vision",
-  "version": "11.9.0",
+  "version": "11.9.1",
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "dist/index.js",
   "scripts": {
@@ -17,6 +17,6 @@
     "esbuild": "0.8.32"
   },
   "dependencies": {
-    "@zedvision/code": "^11.9.0"
+    "@zedvision/code": "^11.9.1"
   }
 }
