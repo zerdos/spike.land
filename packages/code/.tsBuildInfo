@@ -198,7 +198,7 @@
       },
       "./src/ipfs.js": {
         "version": "46944f34a133939e4f640fea9d5612dcaafce8256c46f188ce9bfd4e02909f99",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "signature": "f76c054b1a796d91728abe80a440c3fff06299f06d5820479142991fe44b2dad",
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
@@ -207,7 +207,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "67101c8eb38acbd8c9871509a3bbf2b1af6fe802f37a4ad44c0e311abbf4ce24",
+        "version": "5b8a304b0a475cea39f890f8ff442b2c1deedb3177f663ed7cfa00a2b5f67067",
         "signature": "07483ca5707c38fb7ff43002a33fff10db974b7bc35c311f7eecdeff4414e231",
         "affectsGlobalScope": false
       },
@@ -282,13 +282,13 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "c02d1e555bab25b3e56cad163f72b8599f51ebdcba268323af4e9a29af98e2f9",
+        "version": "ecf55b429fd9254ac4a1ccb2221c513d4f1836ec96910ff1e1002566ace27699",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
-        "version": "0c3c4a44f23c27d369aedf5ccc8c91a23fbca26ef0dc1e787e272bb1fac4e1da",
-        "signature": "0c3c4a44f23c27d369aedf5ccc8c91a23fbca26ef0dc1e787e272bb1fac4e1da",
+        "version": "747fc9d4e66a6edf8c30ea79e243db24788561d4c2707846a3da0da22a7a989b",
+        "signature": "747fc9d4e66a6edf8c30ea79e243db24788561d4c2707846a3da0da22a7a989b",
         "affectsGlobalScope": true
       },
       "./src/starterNoFramerMotion.js": {
@@ -413,7 +413,8 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/ipfs.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/refs.d.ts"
       ],
       "./src/ipfsClient.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -421,7 +422,7 @@
       ],
       "./src/ipfsWorker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/ipfs.js"
+        "./src/refs.d.ts"
       ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",

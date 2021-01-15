@@ -28,7 +28,7 @@ const feedTheCache = (cid) => {
 
 const hash =
 
-  /**
+  /**p
  * @param {string} data
  * @param {{
   * signal: AbortSignal
@@ -41,6 +41,7 @@ const hash =
 
     const { onlyHash, signal, timeout } = opts;
 
+    // deno-lint-ignore ban-ts-comment
     // @ts-ignore
     const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) =>
       d.cid.toString()
@@ -53,6 +54,7 @@ const hash =
       return cid;
     }
     try {
+      // deno-lint-ignore ban-ts-comment
       // @ts-ignore
       const res = await getHash(cid, { signal, timeout, onlyHash }).then((
         x,
