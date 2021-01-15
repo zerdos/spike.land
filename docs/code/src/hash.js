@@ -1,3 +1,7 @@
+const ipfs = (typeof window === "undefined")
+  ? "@zedvision/ipfs"
+  : "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
+
 /**
  * 
  * @param {string} cid 
@@ -90,7 +94,7 @@ const cidLock = {
 const getHash = async (cid, { signal, timeout }) => {
   // @ts-ignore
   const { ipfsClient } = await import(
-    "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js"
+    ipfs
   );
 
   // @ts-ignore
@@ -158,11 +162,10 @@ const _waitForSignal = async (signal, abortSignal) => {
  * @param {string} data
  */
 export const sendSignal = async (signal, data) => {
+  if (typeof window === "undefined") return "no webpack please";
   await hash(signal);
   // @ts-ignore
-  const { CID } = await import(
-    "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js"
-  );
+  const { CID } = await import(ipfs);
 
   // @ts-ignore
   if (data) {
@@ -197,6 +200,7 @@ const signalDataCache = {};
 
 // @ts-ignore
 export const fetchSignal =
+
   /**
  * @param {string} signal
  * @param {number} _retry
@@ -207,6 +211,7 @@ export const fetchSignal =
     signal,
     _retry,
   ) => {
+    if (typeof window === "undefined") return "no webpack please";
     const retry = (typeof _retry === "number") ? _retry : 999;
     const abort = new AbortController();
 
@@ -236,7 +241,7 @@ export const fetchSignal =
 
           // @ts-ignore
           const { CID } = await import(
-            "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js"
+            ipfs
           );
 
           // @ts-ignore

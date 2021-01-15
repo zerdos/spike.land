@@ -197,8 +197,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "a07aa2724e7975b00a700b35805887ee6c92417dd6173c5bf5cb2672c8eb7487",
-        "signature": "07483ca5707c38fb7ff43002a33fff10db974b7bc35c311f7eecdeff4414e231",
+        "version": "76f3a9b20cd4d932386eb92bd8b68cf32f529d925019ba972f4053a5194e350f",
+        "signature": "9f3634b0aa15f10c82dc1ba0b80c64b78e8bad3e1dc33e3c3b74dd42e32f1045",
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
@@ -401,8 +401,7 @@
         "./src/versions.js"
       ],
       "./src/hash.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/refs.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"

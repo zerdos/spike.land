@@ -1,7 +1,3 @@
-/**
- *
- * @param {string} cid
- */
 var __asyncValues = (this && this.__asyncValues) || function (o) {
     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
     var m = o[Symbol.asyncIterator], i;
@@ -9,6 +5,13 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
+const ipfs = (typeof window === "undefined")
+    ? "@zedvision/ipfs"
+    : "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
+/**
+ *
+ * @param {string} cid
+ */
 const feedTheCache = (cid) => {
     // const controller = new AbortController();
     // fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text());
@@ -80,7 +83,7 @@ const cidLock = {
 const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
     // @ts-ignore
-    const { ipfsClient } = await import("https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js");
+    const { ipfsClient } = await import(ipfs);
     // @ts-ignore
     if (cidCache[cid])
         return cidCache[cid];
@@ -143,9 +146,11 @@ const _waitForSignal = async (signal, abortSignal) => {
  * @param {string} data
  */
 export const sendSignal = async (signal, data) => {
+    if (typeof window === "undefined")
+        return "no webpack please";
     await hash(signal);
     // @ts-ignore
-    const { CID } = await import("https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js");
+    const { CID } = await import(ipfs);
     // @ts-ignore
     if (data) {
         // @ts-ignore
@@ -171,6 +176,8 @@ export const fetchSignal =
 */
 // @ts-ignore
 async (signal, _retry) => {
+    if (typeof window === "undefined")
+        return "no webpack please";
     const retry = (typeof _retry === "number") ? _retry : 999;
     const abort = new AbortController();
     let isSignalReceived = null;
@@ -197,7 +204,7 @@ async (signal, _retry) => {
             if (signalDataCache[signal])
                 return signalDataCache[signal];
             // @ts-ignore
-            const { CID } = await import("https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js");
+            const { CID } = await import(ipfs);
             // @ts-ignore
             if (retry === 0)
                 return "";
