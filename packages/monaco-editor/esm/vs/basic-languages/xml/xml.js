@@ -2,6 +2,7 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+import { languages } from '../fillers/monaco-editor-core.js';
 export var conf = {
     comments: {
         blockComment: ['<!--', '-->']
@@ -16,6 +17,19 @@ export var conf = {
         { open: '<', close: '>' },
         { open: "'", close: "'" },
         { open: '"', close: '"' }
+    ],
+    onEnterRules: [
+        {
+            beforeText: new RegExp("<([_:\\w][_:\\w-.\\d]*)([^/>]*(?!/)>)[^<]*$", 'i'),
+            afterText: /^<\/([_:\w][_:\w-.\d]*)\s*>$/i,
+            action: {
+                indentAction: languages.IndentAction.IndentOutdent
+            }
+        },
+        {
+            beforeText: new RegExp("<(\\w[\\w\\d]*)([^/>]*(?!/)>)[^<]*$", 'i'),
+            action: { indentAction: languages.IndentAction.Indent }
+        }
     ]
 };
 export var language = {

@@ -170,7 +170,7 @@ export var language = {
                     }
                 }
             ],
-            [/(?<![a-zA-Z0-9_$])([_$]*[A-Z][a-zA-Z0-9_$]*)/, 'type.identifier'],
+            [/[A-Z_$][\w\$]*/, 'type.identifier'],
             // [/[A-Z][\w\$]*/, 'identifier'],
             // whitespace
             { include: '@whitespace' },

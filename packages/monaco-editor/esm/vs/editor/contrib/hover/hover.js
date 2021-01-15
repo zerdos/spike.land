@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 import * as nls from '../../../nls.js';
 import { KeyChord } from '../../../base/common/keyCodes.js';
-import { DisposableStore, MutableDisposable } from '../../../base/common/lifecycle.js';
+import { DisposableStore } from '../../../base/common/lifecycle.js';
 import { EditorAction, registerEditorAction, registerEditorContribution } from '../../browser/editorExtensions.js';
 import { Range } from '../../common/core/range.js';
 import { EditorContextKeys } from '../../common/editorContextKeys.js';
@@ -34,10 +34,10 @@ let ModesHoverController = class ModesHoverController {
         this._modeService = _modeService;
         this._themeService = _themeService;
         this._toUnhook = new DisposableStore();
-        this._contentWidget = new MutableDisposable();
-        this._glyphWidget = new MutableDisposable();
         this._isMouseDown = false;
         this._hoverClicked = false;
+        this._contentWidget = null;
+        this._glyphWidget = null;
         this._hookEvents();
         this._didChangeConfigurationHandler = this._editor.onDidChangeConfiguration((e) => {
             if (e.hasChanged(48 /* hover */)) {
@@ -46,18 +46,6 @@ let ModesHoverController = class ModesHoverController {
             }
         });
         this._hoverVisibleKey = EditorContextKeys.hoverVisible.bindTo(_contextKeyService);
-    }
-    get contentWidget() {
-        if (!this._contentWidget.value) {
-            this._createHoverWidgets();
-        }
-        return this._contentWidget.value;
-    }
-    get glyphWidget() {
-        if (!this._glyphWidget.value) {
-            this._createHoverWidgets();
-        }
-        return this._glyphWidget.value;
     }
     static get(editor) {
         return editor.getContribution(ModesHoverController.ID);
@@ -86,8 +74,9 @@ let ModesHoverController = class ModesHoverController {
         this._toUnhook.clear();
     }
     _onModelDecorationsChanged() {
-        this.contentWidget.onModelDecorationsChanged();
-        this.glyphWidget.onModelDecorationsChanged();
+        var _a, _b;
+        (_a = this._contentWidget) === null || _a === void 0 ? void 0 : _a.onModelDecorationsChanged();
+        (_b = this._glyphWidget) === null || _b === void 0 ? void 0 : _b.onModelDecorationsChanged();
     }
     _onEditorScrollChanged(e) {
         if (e.scrollTopChanged || e.scrollLeftChanged) {
@@ -115,21 +104,21 @@ let ModesHoverController = class ModesHoverController {
         this._isMouseDown = false;
     }
     _onEditorMouseMove(mouseEvent) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f, _g;
         let targetType = mouseEvent.target.type;
-        if (this._isMouseDown && this._hoverClicked && this.contentWidget.isColorPickerVisible()) {
+        if (this._isMouseDown && this._hoverClicked && ((_a = this._contentWidget) === null || _a === void 0 ? void 0 : _a.isColorPickerVisible())) {
             return;
         }
         if (this._isHoverSticky && targetType === 9 /* CONTENT_WIDGET */ && mouseEvent.target.detail === ModesContentHoverWidget.ID) {
             // mouse moved on top of content hover widget
             return;
         }
-        if (this._isHoverSticky && !((_b = (_a = mouseEvent.event.browserEvent.view) === null || _a === void 0 ? void 0 : _a.getSelection()) === null || _b === void 0 ? void 0 : _b.isCollapsed)) {
+        if (this._isHoverSticky && !((_c = (_b = mouseEvent.event.browserEvent.view) === null || _b === void 0 ? void 0 : _b.getSelection()) === null || _c === void 0 ? void 0 : _c.isCollapsed)) {
             // selected text within content hover widget
             return;
         }
         if (!this._isHoverSticky && targetType === 9 /* CONTENT_WIDGET */ && mouseEvent.target.detail === ModesContentHoverWidget.ID
-            && ((_c = this._contentWidget.value) === null || _c === void 0 ? void 0 : _c.isColorPickerVisible())) {
+            && ((_d = this._contentWidget) === null || _d === void 0 ? void 0 : _d.isColorPickerVisible())) {
             // though the hover is not sticky, the color picker needs to.
             return;
         }
@@ -146,25 +135,28 @@ let ModesHoverController = class ModesHoverController {
             }
         }
         if (targetType === 6 /* CONTENT_TEXT */) {
-            this.glyphWidget.hide();
+            (_e = this._glyphWidget) === null || _e === void 0 ? void 0 : _e.hide();
             if (this._isHoverEnabled && mouseEvent.target.range) {
                 // TODO@rebornix. This should be removed if we move Color Picker out of Hover component.
                 // Check if mouse is hovering on color decorator
-                const hoverOnColorDecorator = [...((_d = mouseEvent.target.element) === null || _d === void 0 ? void 0 : _d.classList.values()) || []].find(className => className.startsWith('ced-colorBox'))
+                const hoverOnColorDecorator = [...((_f = mouseEvent.target.element) === null || _f === void 0 ? void 0 : _f.classList.values()) || []].find(className => className.startsWith('ced-colorBox'))
                     && mouseEvent.target.range.endColumn - mouseEvent.target.range.startColumn === 1;
-                if (hoverOnColorDecorator) {
-                    // shift the mouse focus by one as color decorator is a `before` decoration of next character.
-                    this.contentWidget.startShowingAt(new Range(mouseEvent.target.range.startLineNumber, mouseEvent.target.range.startColumn + 1, mouseEvent.target.range.endLineNumber, mouseEvent.target.range.endColumn + 1), 0 /* Delayed */, false);
+                const showAtRange = (hoverOnColorDecorator // shift the mouse focus by one as color decorator is a `before` decoration of next character.
+                    ? new Range(mouseEvent.target.range.startLineNumber, mouseEvent.target.range.startColumn + 1, mouseEvent.target.range.endLineNumber, mouseEvent.target.range.endColumn + 1)
+                    : mouseEvent.target.range);
+                if (!this._contentWidget) {
+                    this._contentWidget = new ModesContentHoverWidget(this._editor, this._hoverVisibleKey, this._instantiationService, this._themeService);
                 }
-                else {
-                    this.contentWidget.startShowingAt(mouseEvent.target.range, 0 /* Delayed */, false);
-                }
+                this._contentWidget.startShowingAt(showAtRange, 0 /* Delayed */, false);
             }
         }
         else if (targetType === 2 /* GUTTER_GLYPH_MARGIN */) {
-            this.contentWidget.hide();
+            (_g = this._contentWidget) === null || _g === void 0 ? void 0 : _g.hide();
             if (this._isHoverEnabled && mouseEvent.target.position) {
-                this.glyphWidget.startShowingAt(mouseEvent.target.position.lineNumber);
+                if (!this._glyphWidget) {
+                    this._glyphWidget = new ModesGlyphHoverWidget(this._editor, this._modeService, this._openerService);
+                }
+                this._glyphWidget.startShowingAt(mouseEvent.target.position.lineNumber);
             }
         }
         else {
@@ -178,25 +170,30 @@ let ModesHoverController = class ModesHoverController {
         }
     }
     _hideWidgets() {
-        if (!this._glyphWidget.value || !this._contentWidget.value || (this._isMouseDown && this._hoverClicked && this._contentWidget.value.isColorPickerVisible())) {
+        var _a, _b, _c;
+        if ((this._isMouseDown && this._hoverClicked && ((_a = this._contentWidget) === null || _a === void 0 ? void 0 : _a.isColorPickerVisible()))) {
             return;
         }
-        this._glyphWidget.value.hide();
-        this._contentWidget.value.hide();
+        (_b = this._glyphWidget) === null || _b === void 0 ? void 0 : _b.hide();
+        (_c = this._contentWidget) === null || _c === void 0 ? void 0 : _c.hide();
     }
-    _createHoverWidgets() {
-        this._contentWidget.value = new ModesContentHoverWidget(this._editor, this._hoverVisibleKey, this._instantiationService, this._themeService);
-        this._glyphWidget.value = new ModesGlyphHoverWidget(this._editor, this._modeService, this._openerService);
+    isColorPickerVisible() {
+        var _a;
+        return ((_a = this._contentWidget) === null || _a === void 0 ? void 0 : _a.isColorPickerVisible()) || false;
     }
     showContentHover(range, mode, focus) {
-        this.contentWidget.startShowingAt(range, mode, focus);
+        if (!this._contentWidget) {
+            this._contentWidget = new ModesContentHoverWidget(this._editor, this._hoverVisibleKey, this._instantiationService, this._themeService);
+        }
+        this._contentWidget.startShowingAt(range, mode, focus);
     }
     dispose() {
+        var _a, _b;
         this._unhookEvents();
         this._toUnhook.dispose();
         this._didChangeConfigurationHandler.dispose();
-        this._glyphWidget.dispose();
-        this._contentWidget.dispose();
+        (_a = this._glyphWidget) === null || _a === void 0 ? void 0 : _a.dispose();
+        (_b = this._contentWidget) === null || _b === void 0 ? void 0 : _b.dispose();
     }
 };
 ModesHoverController.ID = 'editor.contrib.hover';

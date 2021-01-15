@@ -18,6 +18,7 @@ class CyclicDependencyError extends Error {
 }
 export class InstantiationService {
     constructor(services = new ServiceCollection(), strict = false, parent) {
+        this._activeInstantiations = new Set();
         this._services = services;
         this._strict = strict;
         this._parent = parent;
@@ -112,11 +113,23 @@ export class InstantiationService {
     _getOrCreateServiceInstance(id, _trace) {
         let thing = this._getServiceInstanceOrDescriptor(id);
         if (thing instanceof SyncDescriptor) {
-            return this._createAndCacheServiceInstance(id, thing, _trace.branch(id, true));
+            return this._safeCreateAndCacheServiceInstance(id, thing, _trace.branch(id, true));
         }
         else {
             _trace.branch(id, false);
             return thing;
+        }
+    }
+    _safeCreateAndCacheServiceInstance(id, desc, _trace) {
+        if (this._activeInstantiations.has(id)) {
+            throw new Error(`illegal state - RECURSIVELY instantiating service '${id}'`);
+        }
+        this._activeInstantiations.add(id);
+        try {
+            return this._createAndCacheServiceInstance(id, desc, _trace);
+        }
+        finally {
+            this._activeInstantiations.delete(id);
         }
     }
     _createAndCacheServiceInstance(id, desc, _trace) {

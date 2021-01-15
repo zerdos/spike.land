@@ -84,19 +84,22 @@ export { HTMLDataProvider };
  * Generate Documentation used in hover/complete
  * From `documentation` and `references`
  */
-export function generateDocumentation(item, doesSupportMarkdown) {
+export function generateDocumentation(item, settings, doesSupportMarkdown) {
+    if (settings === void 0) { settings = {}; }
     var result = {
         kind: doesSupportMarkdown ? 'markdown' : 'plaintext',
         value: ''
     };
-    if (item.description) {
+    if (item.description && settings.documentation !== false) {
         var normalizedDescription = normalizeMarkupContent(item.description);
         if (normalizedDescription) {
             result.value += normalizedDescription.value;
         }
     }
-    if (item.references && item.references.length > 0) {
-        result.value += "\n\n";
+    if (item.references && item.references.length > 0 && settings.references !== false) {
+        if (result.value.length) {
+            result.value += "\n\n";
+        }
         if (doesSupportMarkdown) {
             result.value += item.references.map(function (r) {
                 return "[" + r.name + "](" + r.url + ")";

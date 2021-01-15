@@ -158,10 +158,10 @@ var LanguageServiceDefaultsImpl = /** @class */ (function () {
             // already scheduled
             return;
         }
-        this._onDidExtraLibsChangeTimeout = setTimeout(function () {
+        this._onDidExtraLibsChangeTimeout = Number(setTimeout(function () {
             _this._onDidExtraLibsChangeTimeout = -1;
             _this._onDidExtraLibsChange.fire(undefined);
-        }, 0);
+        }, 0));
     };
     LanguageServiceDefaultsImpl.prototype.getCompilerOptions = function () {
         return this._compilerOptions;

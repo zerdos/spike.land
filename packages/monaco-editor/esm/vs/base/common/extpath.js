@@ -1,5 +1,10 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+import { isWindows } from './platform.js';
 import { startsWithIgnoreCase } from './strings.js';
-import { sep, posix } from './path.js';
+import { sep, posix, normalize } from './path.js';
 /**
  * Takes a Windows OS path and changes backward slashes to forward slashes.
  * This should only be done for OS paths from Windows (or user provided paths potentially from Windows).
@@ -36,4 +41,24 @@ export function isEqualOrParent(base, parentCandidate, ignoreCase, separator = s
         parentCandidate += separator;
     }
     return base.indexOf(parentCandidate) === 0;
+}
+export function isWindowsDriveLetter(char0) {
+    return char0 >= 65 /* A */ && char0 <= 90 /* Z */ || char0 >= 97 /* a */ && char0 <= 122 /* z */;
+}
+export function isRootOrDriveLetter(path) {
+    const pathNormalized = normalize(path);
+    if (isWindows) {
+        if (path.length > 3) {
+            return false;
+        }
+        return hasDriveLetter(pathNormalized) &&
+            (path.length === 2 || pathNormalized.charCodeAt(2) === 92 /* Backslash */);
+    }
+    return pathNormalized === posix.sep;
+}
+export function hasDriveLetter(path) {
+    if (isWindows) {
+        return isWindowsDriveLetter(path.charCodeAt(0)) && path.charCodeAt(1) === 58 /* Colon */;
+    }
+    return false;
 }

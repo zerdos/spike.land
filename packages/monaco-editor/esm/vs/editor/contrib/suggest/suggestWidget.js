@@ -619,10 +619,13 @@ let SuggestWidget = class SuggestWidget {
             // happens when running tests
             return;
         }
-        let height = size === null || size === void 0 ? void 0 : size.height;
-        let width = size === null || size === void 0 ? void 0 : size.width;
         const bodyBox = dom.getClientArea(document.body);
         const info = this.getLayoutInfo();
+        if (!size) {
+            size = info.defaultSize;
+        }
+        let height = size.height;
+        let width = size.width;
         // status bar
         this._status.element.style.lineHeight = `${info.itemHeight}px`;
         if (this._state === 2 /* Empty */ || this._state === 1 /* Loading */) {
@@ -637,16 +640,12 @@ let SuggestWidget = class SuggestWidget {
             // showing items
             // width math
             const maxWidth = bodyBox.width - info.borderHeight - 2 * info.horizontalPadding;
-            if (width === undefined) {
-                width = info.defaultSize.width;
-            }
             if (width > maxWidth) {
                 width = maxWidth;
             }
             const preferredWidth = this._completionModel ? this._completionModel.stats.pLabelLen * info.typicalHalfwidthCharacterWidth : width;
             // height math
             const fullHeight = info.statusBarHeight + this._list.contentHeight + info.borderHeight;
-            const preferredHeight = info.defaultSize.height;
             const minHeight = info.itemHeight + info.statusBarHeight;
             const editorBox = dom.getDomNodePagePosition(this.editor.getDomNode());
             const cursorBox = this.editor.getScrolledVisiblePosition(this.editor.getPosition());
@@ -654,13 +653,10 @@ let SuggestWidget = class SuggestWidget {
             const maxHeightBelow = Math.min(bodyBox.height - cursorBottom - info.verticalPadding, fullHeight);
             const maxHeightAbove = Math.min(editorBox.top + cursorBox.top - info.verticalPadding, fullHeight);
             let maxHeight = Math.min(Math.max(maxHeightAbove, maxHeightBelow) + info.borderHeight, fullHeight);
-            if (height && height === ((_a = this._cappedHeight) === null || _a === void 0 ? void 0 : _a.capped)) {
+            if (height === ((_a = this._cappedHeight) === null || _a === void 0 ? void 0 : _a.capped)) {
                 // Restore the old (wanted) height when the current
                 // height is capped to fit
                 height = this._cappedHeight.wanted;
-            }
-            if (height === undefined) {
-                height = Math.min(preferredHeight, fullHeight);
             }
             if (height < minHeight) {
                 height = minHeight;
@@ -678,13 +674,13 @@ let SuggestWidget = class SuggestWidget {
                 this.element.enableSashes(false, true, true, false);
                 maxHeight = maxHeightBelow;
             }
-            this.element.preferredSize = new dom.Dimension(preferredWidth, preferredHeight);
+            this.element.preferredSize = new dom.Dimension(preferredWidth, info.defaultSize.height);
             this.element.maxSize = new dom.Dimension(maxWidth, maxHeight);
             this.element.minSize = new dom.Dimension(220, minHeight);
             // Know when the height was capped to fit and remember
             // the wanted height for later. This is required when going
             // left to widen suggestions.
-            this._cappedHeight = size && height === fullHeight
+            this._cappedHeight = height === fullHeight
                 ? { wanted: (_c = (_b = this._cappedHeight) === null || _b === void 0 ? void 0 : _b.wanted) !== null && _c !== void 0 ? _c : size.height, capped: height }
                 : undefined;
         }

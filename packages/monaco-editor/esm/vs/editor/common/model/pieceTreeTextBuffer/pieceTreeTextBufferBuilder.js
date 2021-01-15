@@ -44,7 +44,8 @@ export class PieceTreeTextBufferFactory {
                 chunks[i] = new StringBuffer(str, newLineStart);
             }
         }
-        return new PieceTreeTextBuffer(chunks, this._bom, eol, this._containsRTL, this._containsUnusualLineTerminators, this._isBasicASCII, this._normalizeEOL);
+        const textBuffer = new PieceTreeTextBuffer(chunks, this._bom, eol, this._containsRTL, this._containsUnusualLineTerminators, this._isBasicASCII, this._normalizeEOL);
+        return { textBuffer: textBuffer, disposable: textBuffer };
     }
 }
 export class PieceTreeTextBufferBuilder {

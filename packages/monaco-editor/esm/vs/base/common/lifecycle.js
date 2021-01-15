@@ -7,30 +7,41 @@ import { Iterable } from './iterator.js';
  * extend Disposable or use a DisposableStore. This means there are a lot of false positives.
  */
 const TRACK_DISPOSABLES = false;
-const __is_disposable_tracked__ = '__is_disposable_tracked__';
+let disposableTracker = null;
+if (TRACK_DISPOSABLES) {
+    const __is_disposable_tracked__ = '__is_disposable_tracked__';
+    disposableTracker = new class {
+        trackDisposable(x) {
+            const stack = new Error('Potentially leaked disposable').stack;
+            setTimeout(() => {
+                if (!x[__is_disposable_tracked__]) {
+                    console.log(stack);
+                }
+            }, 3000);
+        }
+        markTracked(x) {
+            if (x && x !== Disposable.None) {
+                try {
+                    x[__is_disposable_tracked__] = true;
+                }
+                catch (_a) {
+                    // noop
+                }
+            }
+        }
+    };
+}
 function markTracked(x) {
-    if (!TRACK_DISPOSABLES) {
+    if (!disposableTracker) {
         return;
     }
-    if (x && x !== Disposable.None) {
-        try {
-            x[__is_disposable_tracked__] = true;
-        }
-        catch (_a) {
-            // noop
-        }
-    }
+    disposableTracker.markTracked(x);
 }
-function trackDisposable(x) {
-    if (!TRACK_DISPOSABLES) {
+export function trackDisposable(x) {
+    if (!disposableTracker) {
         return x;
     }
-    const stack = new Error('Potentially leaked disposable').stack;
-    setTimeout(() => {
-        if (!x[__is_disposable_tracked__]) {
-            console.log(stack);
-        }
-    }, 3000);
+    disposableTracker.trackDisposable(x);
     return x;
 }
 export class MultiDisposeError extends Error {
@@ -72,7 +83,7 @@ export function dispose(arg) {
 }
 export function combinedDisposable(...disposables) {
     disposables.forEach(markTracked);
-    return trackDisposable({ dispose: () => dispose(disposables) });
+    return toDisposable(() => dispose(disposables));
 }
 export function toDisposable(fn) {
     const self = trackDisposable({

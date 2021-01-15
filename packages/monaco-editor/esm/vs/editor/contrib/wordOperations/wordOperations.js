@@ -35,7 +35,7 @@ export class MoveWordCommand extends EditorCommand {
             return this._moveTo(sel, outPosition, this._inSelectionMode);
         });
         model.pushStackElement();
-        editor._getViewModel().setCursorStates('moveWordCommand', 0 /* NotSet */, result.map(r => CursorState.fromModelSelection(r)));
+        editor._getViewModel().setCursorStates('moveWordCommand', 3 /* Explicit */, result.map(r => CursorState.fromModelSelection(r)));
         if (result.length === 1) {
             const pos = new Position(result[0].positionLineNumber, result[0].positionColumn);
             editor.revealPosition(pos, 0 /* Smooth */);

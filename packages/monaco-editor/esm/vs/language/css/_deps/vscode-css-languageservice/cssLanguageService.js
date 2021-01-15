@@ -47,7 +47,6 @@ function createFacade(parser, completion, hover, navigation, codeActions, valida
         findDocumentSymbols: navigation.findDocumentSymbols.bind(navigation),
         doCodeActions: codeActions.doCodeActions.bind(codeActions),
         doCodeActions2: codeActions.doCodeActions2.bind(codeActions),
-        findColorSymbols: function (d, s) { return navigation.findDocumentColors(d, s).map(function (s) { return s.range; }); },
         findDocumentColors: navigation.findDocumentColors.bind(navigation),
         getColorPresentations: navigation.getColorPresentations.bind(navigation),
         doRename: navigation.doRename.bind(navigation),

@@ -42,7 +42,7 @@ export function raceCancellation(promise, token, defaultValue) {
     return Promise.race([promise, new Promise(resolve => token.onCancellationRequested(() => resolve(defaultValue)))]);
 }
 /**
- * A helper to delay execution of a task that is being requested often.
+ * A helper to delay (debounce) execution of a task that is being requested often.
  *
  * Following the throttler, now imagine the mail man wants to optimize the number of
  * trips proactively. The trip itself can be long, so he decides not to make the trip

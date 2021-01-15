@@ -68,7 +68,7 @@ var DiagnosticsAdapter = /** @class */ (function () {
             .then(function (diagnostics) {
             var markers = diagnostics.map(function (d) { return toDiagnostics(resource, d); });
             var model = editor.getModel(resource);
-            if (model.getModeId() === languageId) {
+            if (model && model.getModeId() === languageId) {
                 editor.setModelMarkers(model, languageId, markers);
             }
         })

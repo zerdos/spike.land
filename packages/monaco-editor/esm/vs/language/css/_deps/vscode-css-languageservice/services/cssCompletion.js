@@ -310,7 +310,7 @@ var CSSCompletion = /** @class */ (function () {
             }
             return this.settings.completion.triggerPropertyValueCompletion;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(CSSCompletion.prototype, "isCompletePropertyWithSemicolonEnabled", {
@@ -322,7 +322,7 @@ var CSSCompletion = /** @class */ (function () {
             }
             return this.settings.completion.completePropertyWithSemicolon;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     CSSCompletion.prototype.getCompletionsForDeclarationValue = function (node, result) {
@@ -730,9 +730,12 @@ var CSSCompletion = /** @class */ (function () {
     CSSCompletion.prototype.getCompletionsForSelector = function (ruleSet, isNested, result) {
         var _this = this;
         var existingNode = this.findInNodePath(nodes.NodeType.PseudoSelector, nodes.NodeType.IdentifierSelector, nodes.NodeType.ClassSelector, nodes.NodeType.ElementNameSelector);
-        if (!existingNode && this.offset - this.currentWord.length > 0 && this.textDocument.getText()[this.offset - this.currentWord.length - 1] === ':') {
+        if (!existingNode && this.hasCharacterAtPosition(this.offset - this.currentWord.length - 1, ':')) {
             // after the ':' of a pseudo selector, no node generated for just ':'
             this.currentWord = ':' + this.currentWord;
+            if (this.hasCharacterAtPosition(this.offset - this.currentWord.length - 1, ':')) {
+                this.currentWord = ':' + this.currentWord; // for '::'
+            }
             this.defaultReplaceRange = Range.create(Position.create(this.position.line, this.position.character - this.currentWord.length), this.position);
         }
         var pseudoClasses = this.cssDataManager.getPseudoClasses();
@@ -1010,6 +1013,10 @@ var CSSCompletion = /** @class */ (function () {
             }
         });
         return result;
+    };
+    CSSCompletion.prototype.hasCharacterAtPosition = function (offset, char) {
+        var text = this.textDocument.getText();
+        return (offset >= 0 && offset < text.length) && text.charAt(offset) === char;
     };
     CSSCompletion.prototype.doesSupportMarkdown = function () {
         var _a, _b, _c;

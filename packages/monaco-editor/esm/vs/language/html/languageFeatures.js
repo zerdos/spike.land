@@ -67,7 +67,10 @@ var DiagnosticsAdapter = /** @class */ (function () {
             .then(function (worker) {
             return worker.doValidation(resource.toString()).then(function (diagnostics) {
                 var markers = diagnostics.map(function (d) { return toDiagnostics(resource, d); });
-                editor.setModelMarkers(editor.getModel(resource), languageId, markers);
+                var model = editor.getModel(resource);
+                if (model && model.getModeId() === languageId) {
+                    editor.setModelMarkers(model, languageId, markers);
+                }
             });
         })
             .then(undefined, function (err) {

@@ -133,13 +133,26 @@ export class Separator extends Action {
     }
 }
 Separator.ID = 'vs.actions.separator';
-export class SubmenuAction extends Action {
-    constructor(id, label, _actions, cssClass) {
-        super(id, label, cssClass, !!(_actions === null || _actions === void 0 ? void 0 : _actions.length));
-        this._actions = _actions;
+export class SubmenuAction {
+    constructor(id, label, actions, cssClass) {
+        this.tooltip = '';
+        this.enabled = true;
+        this.checked = false;
+        this.id = id;
+        this.label = label;
+        this.class = cssClass;
+        this._actions = actions;
+    }
+    dispose() {
+        // there is NOTHING to dispose and the SubmenuAction should
+        // never have anything to dispose as it is a convenience type
+        // to bridge into the rendering world.
     }
     get actions() {
         return this._actions;
+    }
+    run() {
+        return __awaiter(this, void 0, void 0, function* () { });
     }
 }
 export class EmptySubmenuAction extends Action {

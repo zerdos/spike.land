@@ -20,7 +20,7 @@ var DiagnosticsAdapter = /** @class */ (function () {
             var handle;
             _this._listener[model.uri.toString()] = model.onDidChangeContent(function () {
                 clearTimeout(handle);
-                handle = setTimeout(function () { return _this._doValidate(model.uri, modeId); }, 500);
+                handle = Number(setTimeout(function () { return _this._doValidate(model.uri, modeId); }, 500));
             });
             _this._doValidate(model.uri, modeId);
         };

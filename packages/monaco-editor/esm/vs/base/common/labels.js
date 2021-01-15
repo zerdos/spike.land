@@ -8,6 +8,7 @@ import { startsWithIgnoreCase, rtrim } from './strings.js';
 import { Schemas } from './network.js';
 import { isLinux, isWindows } from './platform.js';
 import { isEqual, basename, relativePath } from './resources.js';
+import { hasDriveLetter, isRootOrDriveLetter } from './extpath.js';
 /**
  * @deprecated use LabelService instead
  */
@@ -58,13 +59,10 @@ export function getBaseLabel(resource) {
     }
     const base = basename(resource) || (resource.scheme === Schemas.file ? resource.fsPath : resource.path) /* can be empty string if '/' is passed in */;
     // convert c: => C:
-    if (hasDriveLetter(base)) {
+    if (isWindows && isRootOrDriveLetter(base)) {
         return normalizeDriveLetter(base);
     }
     return base;
-}
-function hasDriveLetter(path) {
-    return !!(isWindows && path && path[1] === ':');
 }
 export function normalizeDriveLetter(path) {
     if (hasDriveLetter(path)) {

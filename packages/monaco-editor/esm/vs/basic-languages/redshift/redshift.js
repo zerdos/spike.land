@@ -53,6 +53,7 @@ export var language = {
         'BINARY',
         'BLANKSASNULL',
         'BOTH',
+        'BY',
         'BYTEDICT',
         'BZIP2',
         'CASE',

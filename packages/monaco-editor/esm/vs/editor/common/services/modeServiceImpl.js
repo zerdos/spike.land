@@ -27,15 +27,16 @@ class LanguageSelection extends Disposable {
         this._onDidChange.fire(this.languageIdentifier);
     }
 }
-export class ModeServiceImpl {
+export class ModeServiceImpl extends Disposable {
     constructor(warnOnOverwrite = false) {
-        this._onDidCreateMode = new Emitter();
+        super();
+        this._onDidCreateMode = this._register(new Emitter());
         this.onDidCreateMode = this._onDidCreateMode.event;
-        this._onLanguagesMaybeChanged = new Emitter();
+        this._onLanguagesMaybeChanged = this._register(new Emitter());
         this.onLanguagesMaybeChanged = this._onLanguagesMaybeChanged.event;
         this._instantiatedModes = {};
-        this._registry = new LanguagesRegistry(true, warnOnOverwrite);
-        this._registry.onDidChange(() => this._onLanguagesMaybeChanged.fire());
+        this._registry = this._register(new LanguagesRegistry(true, warnOnOverwrite));
+        this._register(this._registry.onDidChange(() => this._onLanguagesMaybeChanged.fire()));
     }
     isRegisteredMode(mimetypeOrModeId) {
         return this._registry.isRegisteredMode(mimetypeOrModeId);

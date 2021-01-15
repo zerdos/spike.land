@@ -511,13 +511,13 @@ class SemanticTokensResponse {
         this._provider.releaseDocumentSemanticTokens(this.resultId);
     }
 }
-class ModelSemanticColoring extends Disposable {
+export class ModelSemanticColoring extends Disposable {
     constructor(model, themeService, stylingProvider) {
         super();
         this._isDisposed = false;
         this._model = model;
         this._semanticStyling = stylingProvider;
-        this._fetchDocumentSemanticTokens = this._register(new RunOnceScheduler(() => this._fetchDocumentSemanticTokensNow(), 300));
+        this._fetchDocumentSemanticTokens = this._register(new RunOnceScheduler(() => this._fetchDocumentSemanticTokensNow(), ModelSemanticColoring.FETCH_DOCUMENT_SEMANTIC_TOKENS_DELAY));
         this._currentDocumentResponse = null;
         this._currentDocumentRequestCancellationTokenSource = null;
         this._documentProvidersChangeListeners = [];
@@ -586,7 +586,8 @@ class ModelSemanticColoring extends Disposable {
             contentChangeListener.dispose();
             this._setDocumentSemanticTokens(provider, res || null, styling, pendingChanges);
         }, (err) => {
-            if (!err || typeof err.message !== 'string' || err.message.indexOf('busy') === -1) {
+            const isExpectedError = err && (errors.isPromiseCanceledError(err) || (typeof err.message === 'string' && err.message.indexOf('busy') !== -1));
+            if (!isExpectedError) {
                 errors.onUnexpectedError(err);
             }
             // Semantic tokens eats up all errors and considers errors to mean that the result is temporarily not available
@@ -614,6 +615,11 @@ class ModelSemanticColoring extends Disposable {
     }
     _setDocumentSemanticTokens(provider, tokens, styling, pendingChanges) {
         const currentResponse = this._currentDocumentResponse;
+        const rescheduleIfNeeded = () => {
+            if (pendingChanges.length > 0 && !this._fetchDocumentSemanticTokens.isScheduled()) {
+                this._fetchDocumentSemanticTokens.schedule();
+            }
+        };
         if (this._currentDocumentResponse) {
             this._currentDocumentResponse.dispose();
             this._currentDocumentResponse = null;
@@ -631,6 +637,7 @@ class ModelSemanticColoring extends Disposable {
         }
         if (!tokens) {
             this._model.setSemanticTokens(null, true);
+            rescheduleIfNeeded();
             return;
         }
         if (ModelSemanticColoring._isSemanticTokensEdits(tokens)) {
@@ -693,17 +700,17 @@ class ModelSemanticColoring extends Disposable {
                         }
                     }
                 }
-                if (!this._fetchDocumentSemanticTokens.isScheduled()) {
-                    this._fetchDocumentSemanticTokens.schedule();
-                }
             }
             this._model.setSemanticTokens(result, true);
-            return;
         }
-        this._model.setSemanticTokens(null, true);
+        else {
+            this._model.setSemanticTokens(null, true);
+        }
+        rescheduleIfNeeded();
     }
     _getSemanticColoringProvider() {
         const result = DocumentSemanticTokensProviderRegistry.ordered(this._model);
         return (result.length > 0 ? result[0] : null);
     }
 }
+ModelSemanticColoring.FETCH_DOCUMENT_SEMANTIC_TOKENS_DELAY = 300;

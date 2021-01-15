@@ -26,6 +26,7 @@ import { ignoreBracketsInToken } from '../modes/supports.js';
 import { BracketsUtils } from '../modes/supports/richEditBrackets.js';
 import { TokensStore, countEOL, TokensStore2 } from './tokensStore.js';
 import { Color } from '../../../base/common/color.js';
+import { PieceTreeTextBuffer } from './pieceTreeTextBuffer/pieceTreeTextBuffer.js';
 function createTextBufferBuilder() {
     return new PieceTreeTextBufferBuilder();
 }
@@ -118,7 +119,9 @@ export class TextModel extends Disposable {
         }
         this._undoRedoService = undoRedoService;
         this._attachedEditorCount = 0;
-        this._buffer = createTextBuffer(source, creationOptions.defaultEOL);
+        const { textBuffer, disposable } = createTextBuffer(source, creationOptions.defaultEOL);
+        this._buffer = textBuffer;
+        this._bufferDisposable = disposable;
         this._options = TextModel.resolveOptions(this._buffer, creationOptions);
         const bufferLineCount = this._buffer.getLineCount();
         const bufferTextLength = this._buffer.getValueLengthInRange(new Range(1, 1, bufferLineCount, this._buffer.getLineLength(bufferLineCount) + 1), 0 /* TextDefined */);
@@ -191,10 +194,13 @@ export class TextModel extends Disposable {
         this._tokenization.dispose();
         this._isDisposed = true;
         super.dispose();
+        this._bufferDisposable.dispose();
         this._isDisposing = false;
         // Manually release reference to previous text buffer to avoid large leaks
         // in case someone leaks a TextModel reference
-        this._buffer = createTextBuffer('', this._options.defaultEOL);
+        const emptyDisposedTextBuffer = new PieceTreeTextBuffer([], '', '\n', false, false, true, true);
+        emptyDisposedTextBuffer.dispose();
+        this._buffer = emptyDisposedTextBuffer;
     }
     _assertNotDisposed() {
         if (this._isDisposed) {
@@ -214,8 +220,8 @@ export class TextModel extends Disposable {
             // There's nothing to do
             return;
         }
-        const textBuffer = createTextBuffer(value, this._options.defaultEOL);
-        this.setValueFromTextBuffer(textBuffer);
+        const { textBuffer, disposable } = createTextBuffer(value, this._options.defaultEOL);
+        this._setValueFromTextBuffer(textBuffer, disposable);
     }
     _createContentChanged2(range, rangeOffset, rangeLength, text, isUndoing, isRedoing, isFlush) {
         return {
@@ -232,17 +238,15 @@ export class TextModel extends Disposable {
             isFlush: isFlush
         };
     }
-    setValueFromTextBuffer(textBuffer) {
+    _setValueFromTextBuffer(textBuffer, textBufferDisposable) {
         this._assertNotDisposed();
-        if (textBuffer === null) {
-            // There's nothing to do
-            return;
-        }
         const oldFullModelRange = this.getFullModelRange();
         const oldModelValueLength = this.getValueLengthInRange(oldFullModelRange);
         const endLineNumber = this.getLineCount();
         const endColumn = this.getLineMaxColumn(endLineNumber);
         this._buffer = textBuffer;
+        this._bufferDisposable.dispose();
+        this._bufferDisposable = textBufferDisposable;
         this._increaseVersionId();
         // Flush all tokens
         this._tokens.flush();

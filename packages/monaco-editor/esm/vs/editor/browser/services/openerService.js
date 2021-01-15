@@ -21,6 +21,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import * as dom from '../../../base/browser/dom.js';
+import { CancellationToken } from '../../../base/common/cancellation.js';
 import { LinkedList } from '../../../base/common/linkedList.js';
 import { ResourceMap } from '../../../base/common/map.js';
 import { parse } from '../../../base/common/marshalling.js';
@@ -110,7 +111,7 @@ let OpenerService = class OpenerService {
         this._validators = new LinkedList();
         this._resolvers = new LinkedList();
         this._resolvedUriTargets = new ResourceMap(uri => uri.with({ path: null, fragment: null, query: null }).toString());
-        this._externalOpenerProviders = new LinkedList();
+        this._externalOpeners = new LinkedList();
         // Default external opener is going through window.open()
         this._defaultExternalOpener = {
             openExternal: (href) => __awaiter(this, void 0, void 0, function* () {
@@ -156,8 +157,8 @@ let OpenerService = class OpenerService {
     setDefaultExternalOpener(externalOpener) {
         this._defaultExternalOpener = externalOpener;
     }
-    registerExternalOpenerProvider(provide) {
-        const remove = this._externalOpenerProviders.push(provide);
+    registerExternalOpener(opener) {
+        const remove = this._externalOpeners.push(opener);
         return { dispose: remove };
     }
     open(target, options) {
@@ -208,13 +209,13 @@ let OpenerService = class OpenerService {
                 // open URI using the toString(noEncode)+encodeURI-trick
                 href = encodeURI(resolved.toString(true));
             }
-            for (const provider of this._externalOpenerProviders) {
-                const opener = yield provider.provideExternalOpener(resource);
-                if (opener) {
-                    return opener.openExternal(href);
+            for (const opener of this._externalOpeners) {
+                const didOpen = yield opener.openExternal(href, { sourceUri: uri }, CancellationToken.None);
+                if (didOpen) {
+                    return true;
                 }
             }
-            return this._defaultExternalOpener.openExternal(href);
+            return this._defaultExternalOpener.openExternal(href, { sourceUri: uri }, CancellationToken.None);
         });
     }
     dispose() {

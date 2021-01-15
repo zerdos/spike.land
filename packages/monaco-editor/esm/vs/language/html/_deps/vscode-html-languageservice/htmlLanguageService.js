@@ -12,7 +12,7 @@ import { findDocumentHighlights } from './services/htmlHighlighting.js';
 import { findDocumentSymbols } from './services/htmlSymbolsProvider.js';
 import { doRename } from './services/htmlRename.js';
 import { findMatchingTagPosition } from './services/htmlMatchingTagPosition.js';
-import { findOnTypeRenameRanges } from './services/htmlSyncedRegions.js';
+import { findLinkedEditingRanges } from './services/htmlLinkedEditing.js';
 import { getFoldingRanges } from './services/htmlFolding.js';
 import { getSelectionRanges } from './services/htmlSelectionRange.js';
 import { HTMLDataProvider } from './languageFacts/dataProvider.js';
@@ -42,7 +42,8 @@ export function getLanguageService(options) {
         doTagComplete: htmlCompletion.doTagComplete.bind(htmlCompletion),
         doRename: doRename,
         findMatchingTagPosition: findMatchingTagPosition,
-        findOnTypeRenameRanges: findOnTypeRenameRanges
+        findOnTypeRenameRanges: findLinkedEditingRanges,
+        findLinkedEditingRanges: findLinkedEditingRanges
     };
 }
 export function newHTMLDataProvider(id, customData) {

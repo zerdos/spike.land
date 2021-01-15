@@ -15,7 +15,7 @@ var CSSHover = /** @class */ (function () {
         this.cssDataManager = cssDataManager;
         this.selectorPrinting = new SelectorPrinting(cssDataManager);
     }
-    CSSHover.prototype.doHover = function (document, position, stylesheet) {
+    CSSHover.prototype.doHover = function (document, position, stylesheet, settings) {
         function getRange(node) {
             return Range.create(document.positionAt(node.offset), document.positionAt(node.end));
         }
@@ -51,7 +51,7 @@ var CSSHover = /** @class */ (function () {
                 var propertyName = node.getFullPropertyName();
                 var entry = this.cssDataManager.getProperty(propertyName);
                 if (entry) {
-                    var contents = languageFacts.getEntryDescription(entry, this.doesSupportMarkdown());
+                    var contents = languageFacts.getEntryDescription(entry, this.doesSupportMarkdown(), settings);
                     if (contents) {
                         hover = {
                             contents: contents,
@@ -68,7 +68,7 @@ var CSSHover = /** @class */ (function () {
                 var atRuleName = node.getText();
                 var entry = this.cssDataManager.getAtDirective(atRuleName);
                 if (entry) {
-                    var contents = languageFacts.getEntryDescription(entry, this.doesSupportMarkdown());
+                    var contents = languageFacts.getEntryDescription(entry, this.doesSupportMarkdown(), settings);
                     if (contents) {
                         hover = {
                             contents: contents,
@@ -87,7 +87,7 @@ var CSSHover = /** @class */ (function () {
                     ? this.cssDataManager.getPseudoElement(selectorName)
                     : this.cssDataManager.getPseudoClass(selectorName);
                 if (entry) {
-                    var contents = languageFacts.getEntryDescription(entry, this.doesSupportMarkdown());
+                    var contents = languageFacts.getEntryDescription(entry, this.doesSupportMarkdown(), settings);
                     if (contents) {
                         hover = {
                             contents: contents,

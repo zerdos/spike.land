@@ -2,8 +2,8 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { Range } from '../_deps/vscode-languageserver-types/main.js';
-export function findOnTypeRenameRanges(document, position, htmlDocument) {
+import { Range } from '../htmlLanguageTypes.js';
+export function findLinkedEditingRanges(document, position, htmlDocument) {
     var offset = document.offsetAt(position);
     var node = htmlDocument.findNodeAt(offset);
     var tagLength = node.tag ? node.tag.length : 0;

@@ -7,7 +7,7 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
@@ -164,7 +164,7 @@ var SCSSParser = /** @class */ (function (_super) {
             }
             return _this._parseInterpolation();
         };
-        while (this.accept(TokenType.Ident) || node.addChild(indentInterpolation()) || (hasContent && this.acceptRegexp(/[\w-]/))) {
+        while (this.accept(TokenType.Ident) || node.addChild(indentInterpolation()) || (hasContent && this.acceptRegexp(/^[\w-]/))) {
             hasContent = true;
             if (this.hasWhitespace()) {
                 break;
@@ -237,13 +237,17 @@ var SCSSParser = /** @class */ (function (_super) {
             || this._tryParseRuleset(true) // nested ruleset
             || _super.prototype._parseRuleSetDeclaration.call(this); // try css ruleset declaration as last so in the error case, the ast will contain a declaration
     };
-    SCSSParser.prototype._parseDeclaration = function (resyncStopTokens) {
+    SCSSParser.prototype._parseDeclaration = function (stopTokens) {
+        var custonProperty = this._tryParseCustomPropertyDeclaration(stopTokens);
+        if (custonProperty) {
+            return custonProperty;
+        }
         var node = this.create(nodes.Declaration);
         if (!node.setProperty(this._parseProperty())) {
             return null;
         }
         if (!this.accept(TokenType.Colon)) {
-            return this.finish(node, ParseError.ColonExpected, [TokenType.Colon], resyncStopTokens);
+            return this.finish(node, ParseError.ColonExpected, [TokenType.Colon], stopTokens || [TokenType.SemiColon]);
         }
         if (this.prevToken) {
             node.colonPosition = this.prevToken.offset;
@@ -732,6 +736,11 @@ var SCSSParser = /** @class */ (function (_super) {
         if (!this.accept(TokenType.Colon) || !node.setValue(this._parseExpr(true))) {
             return this.finish(node, ParseError.VariableValueExpected, [], [TokenType.Comma, TokenType.ParenthesisR]);
         }
+        if (this.accept(TokenType.Exclamation)) {
+            if (this.hasWhitespace() || !this.acceptIdent('default')) {
+                return this.finish(node, ParseError.UnknownKeyword);
+            }
+        }
         return this.finish(node);
     };
     SCSSParser.prototype._parseForward = function () {
@@ -742,6 +751,26 @@ var SCSSParser = /** @class */ (function (_super) {
         this.consumeToken();
         if (!node.addChild(this._parseStringLiteral())) {
             return this.finish(node, ParseError.StringLiteralExpected);
+        }
+        if (this.acceptIdent('with')) {
+            if (!this.accept(TokenType.ParenthesisL)) {
+                return this.finish(node, ParseError.LeftParenthesisExpected, [TokenType.ParenthesisR]);
+            }
+            // First variable statement, no comma.
+            if (!node.getParameters().addChild(this._parseModuleConfigDeclaration())) {
+                return this.finish(node, ParseError.VariableNameExpected);
+            }
+            while (this.accept(TokenType.Comma)) {
+                if (this.peek(TokenType.ParenthesisR)) {
+                    break;
+                }
+                if (!node.getParameters().addChild(this._parseModuleConfigDeclaration())) {
+                    return this.finish(node, ParseError.VariableNameExpected);
+                }
+            }
+            if (!this.accept(TokenType.ParenthesisR)) {
+                return this.finish(node, ParseError.RightParenthesisExpected);
+            }
         }
         if (!this.peek(TokenType.SemiColon) && !this.peek(TokenType.EOF)) {
             if (!this.peekRegExp(TokenType.Ident, /as|hide|show/)) {
@@ -774,6 +803,7 @@ var SCSSParser = /** @class */ (function (_super) {
         node.setIdentifier(this._parseIdent());
         while (node.addChild(this._parseVariable() || this._parseIdent())) {
             // Consume all variables and idents ahead.
+            this.accept(TokenType.Comma);
         }
         // More than just identifier 
         return node.getChildren().length > 1 ? node : null;

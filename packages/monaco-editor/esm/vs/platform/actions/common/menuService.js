@@ -44,20 +44,20 @@ let Menu = class Menu {
         this._build();
         // rebuild this menu whenever the menu registry reports an
         // event for this MenuId
-        const scheduler1 = new RunOnceScheduler(() => this._build(), 50);
-        this._dispoables.add(scheduler1);
+        const rebuildMenuSoon = new RunOnceScheduler(() => this._build(), 50);
+        this._dispoables.add(rebuildMenuSoon);
         this._dispoables.add(MenuRegistry.onDidChangeMenu(e => {
             if (e.has(_id)) {
-                scheduler1.schedule();
+                rebuildMenuSoon.schedule();
             }
         }));
         // when context keys change we need to check if the menu also
         // has changed
-        const scheduler2 = new RunOnceScheduler(() => this._onDidChange.fire(this), 50);
-        this._dispoables.add(scheduler2);
+        const fireChangeSoon = new RunOnceScheduler(() => this._onDidChange.fire(this), 50);
+        this._dispoables.add(fireChangeSoon);
         this._dispoables.add(_contextKeyService.onDidChangeContext(e => {
             if (e.affectsSome(this._contextKeys)) {
-                scheduler2.schedule();
+                fireChangeSoon.schedule();
             }
         }));
     }
@@ -82,14 +82,16 @@ let Menu = class Menu {
             group[1].push(item);
             // keep keys for eventing
             Menu._fillInKbExprKeys(item.when, this._contextKeys);
-            // keep precondition keys for event if applicable
-            if (isIMenuItem(item) && item.command.precondition) {
-                Menu._fillInKbExprKeys(item.command.precondition, this._contextKeys);
-            }
-            // keep toggled keys for event if applicable
-            if (isIMenuItem(item) && item.command.toggled) {
-                const toggledExpression = item.command.toggled.condition || item.command.toggled;
-                Menu._fillInKbExprKeys(toggledExpression, this._contextKeys);
+            if (isIMenuItem(item)) {
+                // keep precondition keys for event if applicable
+                if (item.command.precondition) {
+                    Menu._fillInKbExprKeys(item.command.precondition, this._contextKeys);
+                }
+                // keep toggled keys for event if applicable
+                if (item.command.toggled) {
+                    const toggledExpression = item.command.toggled.condition || item.command.toggled;
+                    Menu._fillInKbExprKeys(toggledExpression, this._contextKeys);
+                }
             }
         }
         this._onDidChange.fire(this);

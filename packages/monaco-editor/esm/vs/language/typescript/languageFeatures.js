@@ -205,7 +205,7 @@ var DiagnosticsAdapter = /** @class */ (function (_super) {
             var handle;
             var changeSubscription = model.onDidChangeContent(function () {
                 clearTimeout(handle);
-                handle = setTimeout(function () { return _this._doValidate(model); }, 500);
+                handle = Number(setTimeout(function () { return _this._doValidate(model); }, 500));
             });
             _this._listener[model.uri.toString()] = {
                 dispose: function () {

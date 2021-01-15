@@ -305,7 +305,7 @@ let ParameterHintsWidget = class ParameterHintsWidget extends Disposable {
         const height = Math.max(this.editor.getLayoutInfo().height / 4, 250);
         const maxHeight = `${height}px`;
         this.domNodes.element.style.maxHeight = maxHeight;
-        const wrapper = this.domNodes.element.getElementsByClassName('wrapper');
+        const wrapper = this.domNodes.element.getElementsByClassName('phwrapper');
         if (wrapper.length) {
             wrapper[0].style.maxHeight = maxHeight;
         }

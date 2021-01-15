@@ -17,8 +17,10 @@ import { IContextKeyService } from '../../contextkey/common/contextkey.js';
 import { ICommandService } from '../../commands/common/commands.js';
 import { toDisposable } from '../../../base/common/lifecycle.js';
 import { Emitter } from '../../../base/common/event.js';
+import { ThemeIcon } from '../../theme/common/themeService.js';
 import { Iterable } from '../../../base/common/iterator.js';
 import { LinkedList } from '../../../base/common/linkedList.js';
+import { CSSIcon } from '../../../base/common/codicons.js';
 export function isIMenuItem(item) {
     return item.command !== undefined;
 }
@@ -171,6 +173,9 @@ let MenuItemAction = class MenuItemAction {
         this.item = item;
         this.alt = alt ? new MenuItemAction(alt, undefined, options, contextKeyService, _commandService) : undefined;
         this._options = options;
+        if (ThemeIcon.isThemeIcon(item.icon)) {
+            this.class = CSSIcon.asClassName(item.icon);
+        }
     }
     dispose() {
         // there is NOTHING to dispose and the MenuItemAction should

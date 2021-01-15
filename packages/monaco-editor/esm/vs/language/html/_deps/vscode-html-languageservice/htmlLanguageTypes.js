@@ -2,9 +2,9 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { MarkupKind } from './_deps/vscode-languageserver-types/main.js';
+import { MarkupKind } from '../vscode-languageserver-types/main.js';
 export { TextDocument } from '../vscode-languageserver-textdocument/lib/esm/main.js';
-export * from './_deps/vscode-languageserver-types/main.js';
+export * from '../vscode-languageserver-types/main.js';
 export var TokenType;
 (function (TokenType) {
     TokenType[TokenType["StartCommentTag"] = 0] = "StartCommentTag";

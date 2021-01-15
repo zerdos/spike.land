@@ -31,7 +31,7 @@ export class ColorContribution extends Disposable {
             return;
         }
         const hoverController = this._editor.getContribution(ModesHoverController.ID);
-        if (!hoverController.contentWidget.isColorPickerVisible()) {
+        if (!hoverController.isColorPickerVisible()) {
             const range = new Range(mouseEvent.target.range.startLineNumber, mouseEvent.target.range.startColumn + 1, mouseEvent.target.range.endLineNumber, mouseEvent.target.range.endColumn + 1);
             hoverController.showContentHover(range, 0 /* Delayed */, false);
         }

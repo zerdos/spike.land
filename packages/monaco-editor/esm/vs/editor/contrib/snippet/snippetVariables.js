@@ -118,6 +118,9 @@ export class ModelBasedVariableResolver {
         else if (name === 'TM_FILEPATH' && this._labelService) {
             return this._labelService.getUriLabel(this._model.uri);
         }
+        else if (name === 'RELATIVE_FILEPATH' && this._labelService) {
+            return this._labelService.getUriLabel(this._model.uri, { relative: true, noPrefix: true });
+        }
         return undefined;
     }
 }
