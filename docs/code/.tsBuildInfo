@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "bd03da2d09fc3c3f8dc8ba7ea1bed022d6450468384720979b23944a1f0b3bb1",
+        "version": "5ad09bc9a75b323fd3303f7762b4b116cd82e422a02f58b687479d7b8ef41d00",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -413,7 +413,7 @@
       ],
       "./src/ipfsWorker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/refs.d.ts"
+        "./src/versions.js"
       ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",

@@ -1,15 +1,28 @@
-import {
-  Ipfs,
-  IPFSService,
-  Server,
-} from "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js";
-/** @type {null} */
+import { v } from "./versions";
 
-let ipfs;
+const getIpfs = async () => {
+  const {
+    Ipfs,
+    IPFSService,
+    Server,
+  } = await import(v.ipfs);
+
+  const ipfs = await Ipfs.create();
+  return {
+    ipfs,
+    IPFSService,
+    Server,
+  };
+};
+
+/** @type {{ ipfs: any; IPFSService: any; Server: any; }} */
+let mods;
 
 self.addEventListener("message", async (event) => {
   if (event.data.clientInit) {
-    ipfs = ipfs || await Ipfs.create();
+    mods = mods || await getIpfs();
+
+    const { ipfs, IPFSService, Server } = mods;
 
     const service = new IPFSService(ipfs);
     const server = new Server(service);
@@ -24,7 +37,9 @@ self.addEventListener(
  * @param {*} event 
  */
   async (event) => {
-    ipfs = ipfs || await Ipfs.create();
+    mods = mods || await getIpfs();
+
+    const { ipfs, IPFSService, Server } = mods;
 
     const service = new IPFSService(ipfs);
     const server = new Server(service);
