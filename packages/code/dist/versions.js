@@ -2,7 +2,7 @@ function versions() {
     const code = "11.9.7";
     const shadb = "11.8.5";
     const editor = "11.9.0";
-    const ipfs = "11.9.7";
+    const ipfs = "11.9.8";
     const emotionRenderer = "11.8.5";
     const v = {
         code,
