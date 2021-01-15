@@ -1,5 +1,5 @@
 import { sha256, shaDB } from "./db.js";
-import ipfs from "./ipfsClient.js";
+import { ipfsClient } from "./ipfsClient.js";
 
 /**
  * 
@@ -67,6 +67,7 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
     const { pathname } = new URL(window.location.href);
 
     if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
+      // deno-lint-ignore no-undef
       history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
     }
 
@@ -87,7 +88,7 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
  */
 async function addAll(files) {
   const res = [];
-  for await (const result of ipfs.addAll(files)) {
+  for await (const result of ipfsClient.addAll(files)) {
     const { path, cid } = result;
     const CID = cid.toString();
     res.push({ path, CID });

@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "11.9.0",
+    "version": "11.9.2",
     "description": "code.zed.vision",
     "main": "src/codeLoader.js",
     "files": [
@@ -11,9 +11,8 @@
     "scripts": {
         "clean": "rm -rf dist .tsBuildInfo && deno fmt src",
         "prebuild": "yarn clean",
-        "build": "yarn tsc && yarn minify",
-        "minify": "esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js",
-        "cids": "yarn esbuild --bundle --target=es2018 --format=esm src/mhash.js --outfile=src/vendor/cids.js"
+        "build": "yarn tsc",
+        "minify": "esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
     "keywords": [
         "monaco",
@@ -36,7 +35,7 @@
         "tslib": "2.1.0",
         "typescript": "4.1.3"
     },
-    "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
+    "gitHead": "4ce53f6c1ec82734658b26195f6410696b8d2d9b",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
     "license": "BSD-3-Clause",
     "publishConfig": {
@@ -44,7 +43,6 @@
     },
     "dependencies": {
         "@babel/standalone": "7.12.12",
-        "cids": "^1.1.5",
         "comlink": "4.3.0",
         "prettier": "2.2.1"
     }

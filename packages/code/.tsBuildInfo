@@ -196,8 +196,13 @@
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
       },
+      "./src/ipfs.js": {
+        "version": "46944f34a133939e4f640fea9d5612dcaafce8256c46f188ce9bfd4e02909f99",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
       "./src/ipfsClient.js": {
-        "version": "86a5c3299a3cb91336fbb560699a60ef20fbfe8149b202e026bd8ecc504e723f",
+        "version": "efa8320b6ac30024eb09ab6453583d4cf11faed7a236b441902100064e283f66",
         "signature": "6d23d837b932577f709b8dc3957d0857328a316656bbb4f2f041277b3cf68690",
         "affectsGlobalScope": false
       },
@@ -222,7 +227,7 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "6aca5e03102507638989dd7b3dfd479737fa6e611becb545be8df54d1f8c9d93",
+        "version": "da24ad079521608f5e6689a999fa4fcec7fab58accd728cde59a425f465246ac",
         "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
@@ -277,7 +282,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "e664944062df7fe927af3b68f137e3e1437bc820d8859d9a71536b8836649395",
+        "version": "c02d1e555bab25b3e56cad163f72b8599f51ebdcba268323af4e9a29af98e2f9",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -407,11 +412,16 @@
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
-      "./src/ipfsClient.js": [
+      "./src/ipfs.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
+      "./src/ipfsClient.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/ipfs.js"
+      ],
       "./src/ipfsWorker.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/ipfs.js"
       ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -534,49 +544,14 @@
       "./src/formatter.js",
       "./src/hash.js",
       "./src/importScript.js",
-      [
-        "./src/ipfsClient.js",
-        [
-          {
-            "file": "./src/ipfsClient.js",
-            "start": 37,
-            "length": 55,
-            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs@11.9.1/dist/ipfs.js' or its corresponding type declarations.",
-            "category": 1,
-            "code": 2307
-          }
-        ]
-      ],
-      [
-        "./src/ipfsWorker.js",
-        [
-          {
-            "file": "./src/ipfsWorker.js",
-            "start": 38,
-            "length": 55,
-            "messageText": "Cannot find module 'https://unpkg.com/@zedvision/ipfs@11.9.1/dist/ipfs.js' or its corresponding type declarations.",
-            "category": 1,
-            "code": 2307
-          }
-        ]
-      ],
+      "./src/ipfs.js",
+      "./src/ipfsClient.js",
+      "./src/ipfsWorker.js",
       "./src/openWindows.js",
       "./src/refs.d.ts",
       "./src/renderPreviewWindow.js",
       "./src/sendSignalToQrCode.js",
-      [
-        "./src/share.js",
-        [
-          {
-            "file": "./src/share.js",
-            "start": 48,
-            "length": 4,
-            "messageText": "Module '\"/home/zed/z/packages/code/src/ipfsClient\"' has no default export.",
-            "category": 1,
-            "code": 1192
-          }
-        ]
-      ],
+      "./src/share.js",
       "./src/starter.js",
       "./src/starterNoFramerMotion.js",
       "./src/starterTsx.tsx",

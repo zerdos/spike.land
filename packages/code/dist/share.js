@@ -6,7 +6,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
 import { sha256, shaDB } from "./db.js";
-import ipfs from "./ipfsClient.js";
+import { ipfsClient } from "./ipfsClient.js";
 /**
  *
  * @param {{
@@ -58,6 +58,7 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
         rootUrl = `https://code.zed.vision/ipfs/${appDir.CID}/`;
         const { pathname } = new URL(window.location.href);
         if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
+            // deno-lint-ignore no-undef
             history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
         }
         shaDB.put(sha, rootUrl);
@@ -76,7 +77,7 @@ async function addAll(files) {
     var e_1, _a;
     const res = [];
     try {
-        for (var _b = __asyncValues(ipfs.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
+        for (var _b = __asyncValues(ipfsClient.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
             const result = _c.value;
             const { path, cid } = result;
             const CID = cid.toString();

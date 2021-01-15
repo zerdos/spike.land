@@ -1,7 +1,7 @@
-import {
-  CID,
-  IpfsClient,
-} from "./ipfs.js";
+// deno-lint-ignore-file
+// deno-lint-ignore ban-ts-comment
+//@ts-ignore
+import { CID, IpfsClient } from "./ipfs.js";
 
 const workerSrc = window.location.hostname === "blog.zed.vision"
   ? `https://blog.zed.vision/code/src/ipfsWorker.js`
@@ -12,6 +12,8 @@ const workerSrc = window.location.hostname === "blog.zed.vision"
 let port;
 
 if (typeof SharedWorker !== "undefined") {
+  // deno-lint-ignore ban-ts-comment
+  //@ts-ignore
   const ipfsWorker = new SharedWorker(
     workerSrc,
     { name: "ipfs shared worker", type: "module" },
