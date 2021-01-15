@@ -89,7 +89,11 @@ export async function run(mode = "window", _w, code = "") {
     DraggableWindow,
   );
 
-  await restartCode(session.transpiled, session.i);
+  const freshlyTranspiled = await transpileCode(
+    session.code,
+    v.emotionRenderer,
+  );
+  await restartCode(freshlyTranspiled, session.i);
 
   const startMonaco = (await import(
     v.editor

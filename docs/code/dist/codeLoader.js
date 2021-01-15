@@ -60,7 +60,8 @@ export async function run(mode = "window", _w, code = "") {
     }
     const { renderEmotion, jsx, DraggableWindow } = await import(v.emotionRenderer);
     await await renderPreviewWindow(mode, session, open, renderEmotion, jsx, DraggableWindow);
-    await restartCode(session.transpiled, session.i);
+    const freshlyTranspiled = await transpileCode(session.code, v.emotionRenderer);
+    await restartCode(freshlyTranspiled, session.i);
     const startMonaco = (await import(v.editor)).default;
     const container = window.document.getElementById("editor");
     const modules = await startMonaco(
