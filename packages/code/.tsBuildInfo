@@ -212,7 +212,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "991eda46b5b87ab98be2981a966211ff15317cbe6cb9884ccf1e5a9c3e0092f8",
+        "version": "da7d066dc7e3b578c03aca31815480c19e659aa4a5ae1123e27b17de5ae615b2",
         "signature": "4a706a2d70341d4b17d3915bb33f0fb153457a73dd90819d5281de283e22c865",
         "affectsGlobalScope": false
       },
@@ -262,7 +262,7 @@
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {
-        "version": "ab92b4ce41806bbf903a415d4ea7159b3790b91b04ca61f8e69fc6bf9e7dde62",
+        "version": "a5063aa77b419a93fba3e7006f588165436a391bcf771febfcc0d5b35fc49fdd",
         "signature": "f75cae6f4e387be87aa8e3a0875a048d03157da7756d51f56850b0c41c177383",
         "affectsGlobalScope": false
       },
@@ -277,28 +277,18 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "5ad09bc9a75b323fd3303f7762b4b116cd82e422a02f58b687479d7b8ef41d00",
+        "version": "c86bbf94bd6cf073ad431f082cbab2cfc6a501efefe47744f5b040eb8a3687cc",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
-        "version": "50788811394d3a3b0619f99e1d5e00ec6a9dcb425ac35f15551c25804d87aef9",
-        "signature": "50788811394d3a3b0619f99e1d5e00ec6a9dcb425ac35f15551c25804d87aef9",
+        "version": "8bc0544d70a3f9ba20602c4fbe26cce2b65a8b31628c227f85f73cc816109e6c",
+        "signature": "8bc0544d70a3f9ba20602c4fbe26cce2b65a8b31628c227f85f73cc816109e6c",
         "affectsGlobalScope": true
-      },
-      "./src/starterNoFramerMotion.js": {
-        "version": "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
-        "signature": "ca3e9a331b66b37839d1867093df10a1bb8e4cb10109cf927dfaf5255921cefc",
-        "affectsGlobalScope": false
       },
       "./src/starterTsx.tsx": {
         "version": "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
         "signature": "d0ae6cdcd1e2554c7cd10ef35c11ed3c93959eb7b7e4be525ce2cdcbbc896055",
-        "affectsGlobalScope": false
-      },
-      "./src/starter_framer.js": {
-        "version": "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
-        "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
         "affectsGlobalScope": false
       },
       "./src/sw.js": {
@@ -307,8 +297,8 @@
         "affectsGlobalScope": true
       },
       "./src/transpile.worker.js": {
-        "version": "db3f0369ae95363160a9022c809b41e8124722f3eb58fcf979af6a53c44dfb07",
-        "signature": "461ec477bbdb9c42f51b8ff2499cf6fc3a644ea4e5c9765c857381ab603c9ac6",
+        "version": "e5507f836d073ace3e6daf19c8b8d883e2f4ec3c9a2848bafb84d3dcfe4a17cd",
+        "signature": "6079521e7b15292801db3a7d091f69cdc671fc949af71bba96ed04cffbbf91eb",
         "affectsGlobalScope": true
       },
       "../../node_modules/comlink/dist/umd/protocol.d.ts": {
@@ -324,6 +314,16 @@
       "./src/transpileWorker.d.ts": {
         "version": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
         "signature": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
+        "affectsGlobalScope": false
+      },
+      "./src/examples/starterNoFramerMotion.js": {
+        "version": "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
+        "signature": "ca3e9a331b66b37839d1867093df10a1bb8e4cb10109cf927dfaf5255921cefc",
+        "affectsGlobalScope": false
+      },
+      "./src/examples/starter_framer.js": {
+        "version": "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
+        "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
         "affectsGlobalScope": false
       }
     },
@@ -396,6 +396,12 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
+      "./src/examples/starterNoFramerMotion.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./src/examples/starter_framer.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
       "./src/formatter.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
@@ -418,6 +424,7 @@
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.js",
+        "./src/refs.d.ts",
         "./src/workBox.js"
       ],
       "./src/renderPreviewWindow.js": [
@@ -439,13 +446,7 @@
       "./src/starter.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
-      "./src/starterNoFramerMotion.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/starterTsx.tsx": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./src/starter_framer.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/sw.js": [
@@ -533,6 +534,8 @@
       "./src/codeLoader.js",
       "./src/data.js",
       "./src/db.js",
+      "./src/examples/starterNoFramerMotion.js",
+      "./src/examples/starter_framer.js",
       "./src/formatter.js",
       "./src/hash.js",
       "./src/importScript.js",
@@ -544,9 +547,7 @@
       "./src/sendSignalToQrCode.js",
       "./src/share.js",
       "./src/starter.js",
-      "./src/starterNoFramerMotion.js",
       "./src/starterTsx.tsx",
-      "./src/starter_framer.js",
       "./src/sw.js",
       "./src/templates.js",
       "./src/transpile.js",

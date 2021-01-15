@@ -1,4 +1,4 @@
-import { v } from "./versions";
+import { v } from "./versions.js";
 
 const getIpfs = async () => {
   const {

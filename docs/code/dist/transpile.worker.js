@@ -21,7 +21,7 @@ addEventListener("install", () => skipWaiting());
 // @ts-ignore
 addEventListener("activate", () => clients.claim());
 const searchRegExp2 = /import.*from '/gi;
-const replace2 = "$&https://cdn.skypack.dev/";
+const replace2 = "https://cdn.skypack.dev/";
 // const from = / from '/gi;
 // const replaceWith = `const { $1 } = await import('$2');`;
 const searchRegExp = /import.*react';/gi;

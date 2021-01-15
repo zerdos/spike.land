@@ -1,5 +1,5 @@
 declare const searchRegExp2: RegExp;
-declare const replace2: "$&https://cdn.skypack.dev/";
+declare const replace2: "https://cdn.skypack.dev/";
 declare const searchRegExp: RegExp;
 declare const searchRegExpMotion: RegExp;
 declare const replaceWith: "";

@@ -1,10 +1,13 @@
 import { workBox } from "./workBox.js";
+import { importCss, importScript } from "./importScript.js";
 
 /**
  * @param {{ code?: string; shadb?: string; ipfs?: string; workbox: any; babel?: string; prettier?: string; uuid?: string; comlink?: string; editor?: string; DraggableWindow?: string; emotionRenderer?: string; }} v
  */
 export async function openWindows(v) {
-  const { importScript, importCss } = await import("./importScript.js");
+  const { WindowManager } = await import(
+    "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js"
+  );
 
   importCss(
     `https://blog.zed.vision/code/assets/app.css`,
@@ -15,12 +18,8 @@ export async function openWindows(v) {
     "normalizeCss",
   );
 
-  const { WindowManager } = await importScript(
-    "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
-  );
-
   workBox(v.workbox);
-  const wm = new WindowManager.WindowManager({ backgroundWindow: "green" });
+  const wm = new WindowManager({ backgroundWindow: "green" });
 
   wm.snap(false);
 
