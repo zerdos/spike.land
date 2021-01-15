@@ -1,3 +1,7 @@
+/**
+ *
+ * @param {string} cid
+ */
 var __asyncValues = (this && this.__asyncValues) || function (o) {
     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
     var m = o[Symbol.asyncIterator], i;
@@ -5,11 +9,6 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
-import { CID, ipfsClient } from "./ipfsClient.js";
-/**
- *
- * @param {string} cid
- */
 const feedTheCache = (cid) => {
     // const controller = new AbortController();
     // fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text());
@@ -80,6 +79,9 @@ const cidLock = {
  */
 const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
+    // @ts-ignore
+    const { ipfsClient } = await import("https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js");
+    // @ts-ignore
     if (cidCache[cid])
         return cidCache[cid];
     signal.onabort = function () {
@@ -142,6 +144,9 @@ const _waitForSignal = async (signal, abortSignal) => {
  */
 export const sendSignal = async (signal, data) => {
     await hash(signal);
+    // @ts-ignore
+    const { CID } = await import("https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js");
+    // @ts-ignore
     if (data) {
         // @ts-ignore
         let toSave = data;
@@ -191,6 +196,9 @@ async (signal, _retry) => {
             //@ts-ignore
             if (signalDataCache[signal])
                 return signalDataCache[signal];
+            // @ts-ignore
+            const { CID } = await import("https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js");
+            // @ts-ignore
             if (retry === 0)
                 return "";
             /**
@@ -330,6 +338,7 @@ const fromHexString = (hexString) => new Uint8Array(
 */
 //@ts-ignore
 hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+// @ts-ignore
 const publicIpfsGateways = [
     "https://ipfs.io/ipfs/:hash",
     "https://dweb.link/ipfs/:hash",

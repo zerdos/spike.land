@@ -1,5 +1,3 @@
-import { CID, ipfsClient } from "./ipfsClient.js";
-
 /**
  * 
  * @param {string} cid 
@@ -90,6 +88,12 @@ const cidLock = {
  * @param {{signal: AbortSignal; timeout: number}}  options
  */
 const getHash = async (cid, { signal, timeout }) => {
+  // @ts-ignore
+  const { ipfsClient } = await import(
+    "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js"
+  );
+
+  // @ts-ignore
   if (cidCache[cid]) return cidCache[cid];
   signal.onabort = function () {
     aborted = 1;
@@ -155,7 +159,12 @@ const _waitForSignal = async (signal, abortSignal) => {
  */
 export const sendSignal = async (signal, data) => {
   await hash(signal);
+  // @ts-ignore
+  const { CID } = await import(
+    "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js"
+  );
 
+  // @ts-ignore
   if (data) {
     // @ts-ignore
     let toSave = data;
@@ -224,6 +233,13 @@ export const fetchSignal =
           //@ts-ignore
 
           if (signalDataCache[signal]) return signalDataCache[signal];
+
+          // @ts-ignore
+          const { CID } = await import(
+            "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js"
+          );
+
+          // @ts-ignore
           if (retry === 0) return "";
           /**
      * @param {number} delay
@@ -386,6 +402,7 @@ const fromHexString = (hexString) =>
     hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)),
   );
 
+// @ts-ignore
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",
