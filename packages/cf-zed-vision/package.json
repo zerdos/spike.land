@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/cf-worker",
-    "version": "11.9.9",
+    "version": "11.9.10",
     "description": "Worker script for zed.vision",
     "main": "dist/worker-script.min.js",
     "files": [
@@ -33,7 +33,7 @@
         "@cloudflare/workers-types": "2.1.0",
         "@cloudflare/wrangler": "1.13.0",
         "@types/uuid": "8.3.0",
-        "@zedvision/ipfs": "^11.9.9",
+        "@zedvision/ipfs": "^11.9.10",
         "esbuild": "0.8.32"
     },
     "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
