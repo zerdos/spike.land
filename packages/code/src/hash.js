@@ -1,6 +1,4 @@
-const ipfs = (typeof window === "undefined")
-  ? "@zedvision/ipfs"
-  : "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
+const ipfs = "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
 
 /**
  * 

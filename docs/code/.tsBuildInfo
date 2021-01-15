@@ -197,7 +197,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "76f3a9b20cd4d932386eb92bd8b68cf32f529d925019ba972f4053a5194e350f",
+        "version": "b22f7cf6471c0e2fb8280c8f7cceafa0f10ca8c420cbbf744e63dbb90bc1615f",
         "signature": "9f3634b0aa15f10c82dc1ba0b80c64b78e8bad3e1dc33e3c3b74dd42e32f1045",
         "affectsGlobalScope": false
       },

@@ -5,9 +5,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
-const ipfs = (typeof window === "undefined")
-    ? "@zedvision/ipfs"
-    : "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
+const ipfs = "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
 /**
  *
  * @param {string} cid

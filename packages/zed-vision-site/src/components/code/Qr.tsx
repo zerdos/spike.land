@@ -2,7 +2,7 @@ import React from "react";
 /** @jsx jsx */
 //@ts-ignore
 import { css, Global, jsx } from "@emotion/react";
-import { fetchSignal } from "@zedvision/code/dist/hash";
+
 import { getUserId, shaDB } from "./getUser";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
@@ -70,7 +70,9 @@ export const Qr = () => {
     const setSignal = async (url: string) => {
       if (cubeState !== 1) return;
 
-      const getData = await fetchSignal(url, 5);
+      const {fetchSignal} = await new Function(`return import("https://blog.zed.vision/code/src/hash.js")`)()
+
+      const getData = await fetchSignal (url, 5);
       setCubeState(0);
 
       Loader(side1.current!, 220);
@@ -334,10 +336,10 @@ export default () => (
   </>
 );
 
-const Loader = (c: HTMLCanvasElement, size) => {
+const Loader = (c: HTMLCanvasElement, size: number) => {
   var w = c.width = size,
     h = c.height = size,
-    ctx = c.getContext("2d"),
+    ctx = c.getContext("2d")!,
     opts = {
       len: 12,
       count: 50,
@@ -362,22 +364,21 @@ const Loader = (c: HTMLCanvasElement, size) => {
       hueChange: 0.1,
     },
     tick = 0,
-    lines = [],
+    lines: Line[] = [],
     dieX = w / 2 / opts.len,
     dieY = h / 2 / opts.len,
     baseRad = Math.PI * 2 / 6;
 
-  ctx.fillStyle = "transparent";
+    ctx.fillStyle = "transparent";
   ctx.fillRect(0, 0, w, h);
 
   function loop() {
     window.requestAnimationFrame(loop);
 
     ++tick;
-
     ctx.globalCompositeOperation = "source-over";
     ctx.shadowBlur = 0;
-    ctx.fillStyle = "rgba(0,0,0,alp)".replace("alp", opts.repaintAlpha);
+    ctx.fillStyle = "rgba(0,0,0,alp)".replace("alp",String(opts.repaintAlpha));
     ctx.fillRect(0, 0, w, h);
     ctx.globalCompositeOperation = "lighter";
 
@@ -389,10 +390,22 @@ const Loader = (c: HTMLCanvasElement, size) => {
       line.step();
     });
   }
-  function Line() {
-    this.reset();
-  }
-  Line.prototype.reset = function () {
+
+  class Line {
+    x= 0
+    y =0
+    addedX=0
+    addedY=0
+    rad=0
+    lightInputMultiplier=0
+    color=""
+    time=0
+    targetTime=0
+    cumulativeTime=0
+    constructor(){
+      this.reset()
+    }
+    reset() {
     this.x = 0;
     this.y = 0;
     this.addedX = 0;
@@ -403,12 +416,12 @@ const Loader = (c: HTMLCanvasElement, size) => {
     this.lightInputMultiplier = opts.baseLightInputMultiplier +
       opts.addedLightInputMultiplier * Math.random();
 
-    this.color = opts.color.replace("hue", tick * opts.hueChange);
+    this.color = opts.color.replace("hue", String(tick * opts.hueChange));
     this.cumulativeTime = 0;
 
     this.beginPhase();
-  };
-  Line.prototype.beginPhase = function () {
+  }
+beginPhase() {
     this.x += this.addedX;
     this.y += this.addedY;
 
@@ -425,8 +438,8 @@ const Loader = (c: HTMLCanvasElement, size) => {
     ) {
       this.reset();
     }
-  };
-  Line.prototype.step = function () {
+  }
+  step(){
     ++this.time;
     ++this.cumulativeTime;
 
@@ -442,9 +455,9 @@ const Loader = (c: HTMLCanvasElement, size) => {
     ctx.shadowBlur = prop * opts.shadowToTimePropMult;
     ctx.fillStyle = ctx.shadowColor = this.color.replace(
       "light",
-      opts.baseLight +
+      String(opts.baseLight +
         opts.addedLight *
-          Math.sin(this.cumulativeTime * this.lightInputMultiplier),
+          Math.sin(this.cumulativeTime * this.lightInputMultiplier))
     );
     ctx.fillRect(
       opts.cx + (this.x + x) * opts.len,
@@ -466,5 +479,6 @@ const Loader = (c: HTMLCanvasElement, size) => {
       );
     }
   };
+  }
   loop();
 };
