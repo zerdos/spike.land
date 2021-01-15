@@ -1,4 +1,4 @@
-import { Ipfs, IPFSService, Server, } from "https://unpkg.com/@zedvision/ipfs@11.9.2/dist/ipfs.js";
+import { Ipfs, IPFSService, Server, } from "https://unpkg.com/@zedvision/ipfs@11.9.3/dist/ipfs.js";
 /** @type {null} */
 let ipfs;
 self.addEventListener("message", async (event) => {
@@ -10,9 +10,9 @@ self.addEventListener("message", async (event) => {
     }
 });
 self.addEventListener("connect", /**
- *
- * @param {*} event
- */ async (event) => {
+*
+* @param {*} event
+*/ async (event) => {
     ipfs = ipfs || await Ipfs.create();
     const service = new IPFSService(ipfs);
     const server = new Server(service);

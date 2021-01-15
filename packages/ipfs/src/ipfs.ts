@@ -9,5 +9,5 @@ import CID from "cids"
 export {IpfsClient}
 export {IPFSService}
 export {Server}
-export {Ipfs as IPFS}
+export {Ipfs}
 export {CID}

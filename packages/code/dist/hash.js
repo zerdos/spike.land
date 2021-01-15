@@ -6,6 +6,8 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
 import { CID, ipfsClient } from "./ipfsClient.js";
+import { Ipfs, IPFSService, Server, } from "https://unpkg.com/@zedvision/ipfs@11.9.3/dist/ipfs.js";
+console.log({ Ipfs, Server, IPFSService });
 /**
  *
  * @param {string} cid
