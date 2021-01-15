@@ -6,7 +6,7 @@ import {
   IpfsClient,
   IPFSService,
   Server,
-} from "https://unpkg.com/@zedvision/ipfs@11.9.4/dist/ipfs.js";
+} from "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js";
 
 export { IpfsClient };
 export { IPFSService };

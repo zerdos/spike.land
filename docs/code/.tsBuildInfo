@@ -197,8 +197,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfs.js": {
-        "version": "79e928c0a2394fb2fd8374c5146320d9b8c00196dde95754d4b1fca4de57c821",
-        "signature": "66e5c06737f2b1d05d120eb97d7a23115999e4aa8225d5256f837cac6ad5b209",
+        "version": "d433c747f75750d9f1cf330c0f6c330d992654c3a007202807c90d1f96961034",
+        "signature": "d649a624b06db444d9b4b03e605d830f90604ab1cd20d57c392d2708a3737926",
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
@@ -282,13 +282,13 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsWorker.js": {
-        "version": "933feb4ce014ae5b476b5b5fe5f35de09ab5575d6fa44906c201cb1bcc395a70",
+        "version": "bd03da2d09fc3c3f8dc8ba7ea1bed022d6450468384720979b23944a1f0b3bb1",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
-        "version": "b17206cc9d6f4783efa39d478ad8e502825444a7e985cfb70ba55577a116bec6",
-        "signature": "b17206cc9d6f4783efa39d478ad8e502825444a7e985cfb70ba55577a116bec6",
+        "version": "50788811394d3a3b0619f99e1d5e00ec6a9dcb425ac35f15551c25804d87aef9",
+        "signature": "50788811394d3a3b0619f99e1d5e00ec6a9dcb425ac35f15551c25804d87aef9",
         "affectsGlobalScope": true
       },
       "./src/starterNoFramerMotion.js": {
@@ -307,7 +307,7 @@
         "affectsGlobalScope": false
       },
       "./src/sw.js": {
-        "version": "16180492a7474d236011d8864eb3b9cd9bf9bad15bb97cfd6ffd3e8678b4fb22",
+        "version": "0f74ccadcd5641ac78b5c4125c66e48234e300d0c95046b71355537aff892a76",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
