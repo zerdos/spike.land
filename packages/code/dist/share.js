@@ -6,7 +6,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
 import { sha256, shaDB } from "./db.js";
-import { ipfsClient } from "./ipfsClient.js";
+import { getClient } from "./ipfsClient.js";
 /**
  *
  * @param {{
@@ -76,6 +76,7 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
 async function addAll(files) {
     var e_1, _a;
     const res = [];
+    const { ipfsClient } = await getClient();
     try {
         for (var _b = __asyncValues(ipfsClient.addAll(files)), _c; _c = await _b.next(), !_c.done;) {
             const result = _c.value;

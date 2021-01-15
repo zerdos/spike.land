@@ -5,7 +5,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
-const ipfs = "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
+import { v } from "./versions.js";
 /**
  *
  * @param {string} cid
@@ -81,7 +81,8 @@ const cidLock = {
 const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
     // @ts-ignore
-    const { ipfsClient } = await import(ipfs);
+    const { getClient } = await import(v.ipfs);
+    const { ipfsClient } = await getClient();
     // @ts-ignore
     if (cidCache[cid])
         return cidCache[cid];
@@ -148,7 +149,8 @@ export const sendSignal = async (signal, data) => {
         return "no webpack please";
     await hash(signal);
     // @ts-ignore
-    const { CID } = await import(ipfs);
+    const { getClient } = await import(v.ipfs);
+    const { CID } = await getClient();
     // @ts-ignore
     if (data) {
         // @ts-ignore
@@ -202,7 +204,8 @@ async (signal, _retry) => {
             if (signalDataCache[signal])
                 return signalDataCache[signal];
             // @ts-ignore
-            const { CID } = await import(ipfs);
+            const { getClient } = await import(v.ipfs);
+            const { CID } = await getClient();
             // @ts-ignore
             if (retry === 0)
                 return "";

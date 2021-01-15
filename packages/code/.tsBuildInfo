@@ -196,14 +196,14 @@
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
       },
-      "./src/hash.js": {
-        "version": "b22f7cf6471c0e2fb8280c8f7cceafa0f10ca8c420cbbf744e63dbb90bc1615f",
-        "signature": "9f3634b0aa15f10c82dc1ba0b80c64b78e8bad3e1dc33e3c3b74dd42e32f1045",
+      "./src/versions.js": {
+        "version": "a28c58cf2c91ca23d569ecbf521ed03c506e941524af2afb9f07be01f9971a47",
+        "signature": "9c50aa2cd292157ed17b1d81bf92fa75c02395976e8a92035747c2a013fa595a",
         "affectsGlobalScope": false
       },
-      "./src/versions.js": {
-        "version": "0f57dd293bc4b051c3a352aad3f65f8e8f2c5981e6f2826ca92de97771fbcf3a",
-        "signature": "9c50aa2cd292157ed17b1d81bf92fa75c02395976e8a92035747c2a013fa595a",
+      "./src/hash.js": {
+        "version": "1e53e115f1e3c06771a4418a063d46cc194e7453c68fd6d35e4a667dc978dd86",
+        "signature": "9f3634b0aa15f10c82dc1ba0b80c64b78e8bad3e1dc33e3c3b74dd42e32f1045",
         "affectsGlobalScope": false
       },
       "./src/db.js": {
@@ -212,8 +212,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "d199ebe3f09101bbb99784fa5ab4c0a49ea83a99a252db91a4ce1c2280617a1b",
-        "signature": "ba17fa8d9f6c3675417d3989470bbcc9baa3d420499143525189fd2fc12481d7",
+        "version": "991eda46b5b87ab98be2981a966211ff15317cbe6cb9884ccf1e5a9c3e0092f8",
+        "signature": "4a706a2d70341d4b17d3915bb33f0fb153457a73dd90819d5281de283e22c865",
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
@@ -222,7 +222,7 @@
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "da24ad079521608f5e6689a999fa4fcec7fab58accd728cde59a425f465246ac",
+        "version": "7301c3458a71709cac7f987903563412546656ecbf41df2bb8d50e51ab039831",
         "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
         "affectsGlobalScope": false
       },
@@ -401,14 +401,15 @@
         "./src/versions.js"
       ],
       "./src/hash.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/versions.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/ipfsClient.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/refs.d.ts"
+        "./src/versions.js"
       ],
       "./src/ipfsWorker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",

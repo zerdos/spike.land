@@ -1,7 +1,4 @@
-import {
-  CID,
-  IpfsClient,
-} from "https://unpkg.com/@zedvision/ipfs@11.9.6/dist/ipfs.js";
+import { v } from "./versions.js";
 
 const workerSrc = window.location.hostname === "blog.zed.vision"
   ? `https://blog.zed.vision/code/src/ipfsWorker.js`
@@ -9,6 +6,7 @@ const workerSrc = window.location.hostname === "blog.zed.vision"
   ? `${location.href}src/ipfsWorker.js`
   : `${location.origin}/src/ipfsWorker.js`;
 
+/** @type {MessagePort} */
 let port;
 
 if (false && typeof SharedWorker !== "undefined") {
@@ -33,5 +31,16 @@ if (false && typeof SharedWorker !== "undefined") {
   port = port2;
 }
 
-export const ipfsClient = IpfsClient.from(port);
-export { CID };
+/** @type {any} */
+let exp;
+
+export const getClient = async () => {
+  if (exp) return exp;
+
+  const {
+    CID,
+    IpfsClient,
+  } = await import(v.ipfs);
+
+  exp = { ipfsClient: IpfsClient.from(port), CID };
+};

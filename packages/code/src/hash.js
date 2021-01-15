@@ -1,4 +1,4 @@
-const ipfs = "https://unpkg.com/ipfs@11.9.6/dist/ipfs.js";
+import { v } from "./versions.js";
 
 /**
  * 
@@ -91,9 +91,11 @@ const cidLock = {
  */
 const getHash = async (cid, { signal, timeout }) => {
   // @ts-ignore
-  const { ipfsClient } = await import(
-    ipfs
+  const { getClient } = await import(
+    v.ipfs
   );
+
+  const { ipfsClient } = await getClient();
 
   // @ts-ignore
   if (cidCache[cid]) return cidCache[cid];
@@ -163,7 +165,10 @@ export const sendSignal = async (signal, data) => {
   if (typeof window === "undefined") return "no webpack please";
   await hash(signal);
   // @ts-ignore
-  const { CID } = await import(ipfs);
+  const { getClient } = await import(
+    v.ipfs
+  );
+  const { CID } = await getClient();
 
   // @ts-ignore
   if (data) {
@@ -238,9 +243,10 @@ export const fetchSignal =
           if (signalDataCache[signal]) return signalDataCache[signal];
 
           // @ts-ignore
-          const { CID } = await import(
-            ipfs
+          const { getClient } = await import(
+            v.ipfs
           );
+          const { CID } = await getClient();
 
           // @ts-ignore
           if (retry === 0) return "";
