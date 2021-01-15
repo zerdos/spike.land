@@ -1,17 +1,14 @@
-// deno-lint-ignore-file
-// deno-lint-ignore ban-ts-comment
-//@ts-ignore
 import { CID, IpfsClient } from "./ipfs.js";
 
 const workerSrc = window.location.hostname === "blog.zed.vision"
   ? `https://blog.zed.vision/code/src/ipfsWorker.js`
   : window.location.hostname === "[::1]"
-  ? `${location.href}/src/ipfsWorker.js`
+  ? `${location.href}src/ipfsWorker.js`
   : `${location.origin}/src/ipfsWorker.js`;
 
 let port;
 
-if (typeof SharedWorker !== "undefined") {
+if (false && typeof SharedWorker !== "undefined") {
   // deno-lint-ignore ban-ts-comment
   //@ts-ignore
   const ipfsWorker = new SharedWorker(

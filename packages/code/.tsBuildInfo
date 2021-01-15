@@ -197,13 +197,13 @@
         "affectsGlobalScope": false
       },
       "./src/ipfs.js": {
-        "version": "46944f34a133939e4f640fea9d5612dcaafce8256c46f188ce9bfd4e02909f99",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "version": "0a71114924ac14d9c71103c1d3d1869a9572b6a179930f4e523f217aa2fd1cd5",
+        "signature": "8e724f6f63fd2fe6539fd2e19695474b2a1f3ed1dac1f4c326bd578a7c664c51",
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "efa8320b6ac30024eb09ab6453583d4cf11faed7a236b441902100064e283f66",
-        "signature": "6d23d837b932577f709b8dc3957d0857328a316656bbb4f2f041277b3cf68690",
+        "version": "5c2ffe32d7b30da42366927aa0889f90cbef3eff2d8c84057e4df136c82ee013",
+        "signature": "ed3c1ce007e0e3648c97f02ef54e533d390c0be699165a6bdf9c07601e69f535",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
