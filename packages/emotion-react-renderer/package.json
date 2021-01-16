@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-react-renderer",
-  "version": "11.9.5",
+  "version": "11.10.0",
   "main": "src/index.js",
   "license": "MIT",
   "publishConfig": {
@@ -20,7 +20,7 @@
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "esbuild": "0.8.32",
-    "typescript":"4.2.0-beta"
+    "typescript": "4.2.0-beta"
   },
   "dependencies": {
     "@emotion/react": "11.1.4",
