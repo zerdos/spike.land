@@ -1,5 +1,5 @@
 import { getUserId } from "./data.js";
-import { sha256 } from "./db.js";
+import { sha256 } from "./shadb/src/sha256.js";
 
 /**
  * @param {string} rootUrl

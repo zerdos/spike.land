@@ -1,6 +1,6 @@
 // deno-lint-ignore-file
 
-import { getClient } from "./ipfsClient.js";
+import { CID, fromHexString, ipfsClient, raceToSuccess } from "./ipfsClient.js";
 
 /**
  * @type {
@@ -29,12 +29,10 @@ const cidLock = {
 };
 
 /**
- * @param {string | number} cid
+ * @param {string} cid
  * @param {{signal: AbortSignal; timeout: number}}  options
  */
 const getHash = async (cid, { signal, timeout }) => {
-  const { ipfsClient } = await getClient();
-
   if (cidCache[cid]) return cidCache[cid];
   signal.onabort = function () {
     aborted = 1;
@@ -63,7 +61,7 @@ const getHash = async (cid, { signal, timeout }) => {
     const resultUintArr = [];
 
     for await (const res of data) {
-      resultUintArr.concat(res);
+      resultUintArr.concat(...res);
     }
 
     const result = new TextDecoder().decode(new Uint8Array(resultUintArr));
@@ -96,8 +94,6 @@ const getHash = async (cid, { signal, timeout }) => {
  */
 export const sendSignal = async (signal, data) => {
   if (typeof window === "undefined") return "no webpack please";
-
-  const { CID, ipfsClient } = await getClient();
 
   await ipfsClient.add(signal);
 
@@ -142,8 +138,6 @@ export const fetchSignal =
 
     try {
       if (retry === 0) throw new Error("No more retry");
-
-      const { CID, ipfsClient, fromHexString } = await getClient();
 
       const res = await ipfsClient.add(signal, { onlyHash: true });
       const resCID = res.cid.toString();
@@ -206,10 +200,6 @@ export const fetchSignal =
       return getData;
 
       /**
-       * @param {string} hexString
-       */
-
-      /**
        * @param {string} signal
        * @param {number} i
        */
@@ -219,8 +209,6 @@ export const fetchSignal =
         }
 
         if (signalCache[signal][i]) return signalCache[signal][i];
-
-        const { raceToSuccess } = await getClient();
 
         const chars = [..."0123456789abcdef"];
 

@@ -1,0 +1,10 @@
+{
+  "name": "devimages",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "docker:build": "yarn lerna run docker:build --parallel",
+    "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"
+  },
+  "license": "MIT"
+}

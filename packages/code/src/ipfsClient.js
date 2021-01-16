@@ -1,3 +1,10 @@
+import {
+  CID,
+  fromHexString,
+  IpfsClient,
+  raceToSuccess,
+} from "./workers/ipfs/dist/ipfs.client.js";
+
 // deno-lint-ignore-file
 import { v } from "./versions.js";
 
@@ -27,25 +34,8 @@ if (typeof SharedWorker !== "undefined") {
 
   port = port2;
 }
+export const ipfsClient = IpfsClient.from(port);
 
-/** @type {any} */
-let exp;
-
-export const getClient = async () => {
-  if (exp) return exp;
-
-  const {
-    CID,
-    IpfsClient,
-    raceToSuccess,
-    fromHexString,
-  } = await import(v.ipfsClient);
-
-  exp = {
-    ipfsClient: IpfsClient.from(port),
-    CID,
-    raceToSuccess,
-    fromHexString,
-  };
-  return exp;
-};
+export { CID };
+export { raceToSuccess };
+export { fromHexString };

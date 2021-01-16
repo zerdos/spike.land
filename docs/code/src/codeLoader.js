@@ -1,3 +1,15 @@
+import { sha256 } from "./shadb/src/sha256.js";
+import { diff } from "./shadb/src/diff.js";
+import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
+import { renderPreviewWindow } from "./renderPreviewWindow.js";
+import { fetchSignal, sendSignal } from "./hash.js";
+import { openWindows } from "./openWindows.js";
+import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
+import { transpileCode } from "./transpile.js";
+import { formatter } from "./formatter.js";
+import { v } from "./versions.js";
+import startMonaco from "./smart-monaco-editor/dist/editor.js";
+
 function getSession() {
   const session = {
     i: 0,
@@ -6,7 +18,7 @@ function getSession() {
     preRendered: false,
     lastErrors: 0,
     rootElement: null,
-    div: window.document.createElement("div"),
+    div: document.createElement("div"),
     html: "",
     url: "",
     versions: {},
@@ -24,17 +36,7 @@ function getSession() {
 export async function run(mode = "window", _w, code = "") {
   const { pathname } = new URL(window.location.href);
 
-  setTimeout(async () => Object.assign(window, await (import("./hash.js"))));
-
-  const { renderPreviewWindow } = await import("./renderPreviewWindow.js");
-
-  const { getCodeToLoad, getIPFSCodeToLoad, saveCode } = await import(
-    "./data.js"
-  );
-  const { transpileCode } = await import("./transpile.js");
-
-  const { formatter } = await import("./formatter.js");
-  const { v } = await import("./versions.js");
+  setTimeout(async () => Object.assign(window, { sendSignal, fetchSignal }));
 
   const { open } = _w;
 
@@ -64,8 +66,6 @@ export async function run(mode = "window", _w, code = "") {
   }
 
   if (mode === "window") {
-    const { openWindows } = await import("./openWindows.js");
-
     await openWindows(v);
   }
 
@@ -96,11 +96,10 @@ export async function run(mode = "window", _w, code = "") {
   );
   await restartCode(freshlyTranspiled, session.i);
 
-  const startMonaco = (await import(
-    v.editor
-  )).default;
-
   const container = window.document.getElementById("editor");
+  if (container === null) return "No editor window";
+  else {
+  }
   const modules = await startMonaco(
     /**
      * @param {any} code
@@ -117,7 +116,6 @@ export async function run(mode = "window", _w, code = "") {
     },
   );
 
-  const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
   if (!session.url) {
     await saveCode(session, session.i);
   }
@@ -166,10 +164,6 @@ export async function run(mode = "window", _w, code = "") {
         if (session.i > counter) return;
 
         if (cd.length < 1000 && session.code.length < 1000) {
-          const { diff } = await import(
-            `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/diff.js`
-          );
-
           const slices = await diff(session.code, cd);
 
           if (slices.c.length <= 3) {
@@ -209,9 +203,7 @@ export async function run(mode = "window", _w, code = "") {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
     const { monaco } = modules;
-    const { sha256 } = await import(
-      `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/sha256.js`
-    );
+
     const shaCode = await sha256(code);
     const filename = `file:///${shaCode}.tsx`;
     const uri = monaco.Uri.parse(filename);

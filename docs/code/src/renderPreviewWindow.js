@@ -1,6 +1,8 @@
 // deno-lint-ignore-file
 //@ts-nocheck
 
+import { shareItAsHtml } from "./share.js";
+
 export function renderPreviewWindow(
   mode,
   session,
@@ -10,8 +12,6 @@ export function renderPreviewWindow(
   DraggableWindow,
 ) {
   const onShare = async () => {
-    const { shareItAsHtml } = await import("./share.js");
-
     const link = await shareItAsHtml({
       code: session.code,
       versions: session.versions,

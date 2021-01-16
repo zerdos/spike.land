@@ -1,5 +1,6 @@
-import { sha256, shaDB } from "./db.js";
-import { getClient } from "./ipfsClient.js";
+import { shaDB } from "./shadb/src/shaDB.js";
+import { sha256 } from "./shadb/src/sha256.js";
+import { ipfsClient } from "./ipfsClient.js";
 
 /**
  * 
@@ -88,7 +89,6 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
  */
 async function addAll(files) {
   const res = [];
-  const { ipfsClient } = await getClient();
 
   for await (const result of ipfsClient.addAll(files)) {
     const { path, cid } = result;

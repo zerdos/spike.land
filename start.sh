@@ -1,4 +1,4 @@
-CID=$(ipfs add -r -H ./packages/code -Q) 
+CID=$(ipfs add -r -H ./packages -Q) 
 URL="http://[::1]:8080/ipfs/$CID"
 
 

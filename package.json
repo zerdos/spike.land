@@ -6,7 +6,13 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/code",
+    "packages/cf-zed-vision",
+    "packages/cf-code-zed-vision",
+    "packages/code/src/workers/ipfs",
+    "packages/code/src/shadb",
+    "packages/code/src/smart-monaco-editor",
+    "packages/zed-vision-site"
   ],
   "scripts": {
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",

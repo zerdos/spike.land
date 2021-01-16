@@ -1,5 +1,9 @@
+import { sha256 } from "./shadb/src/sha256.js";
+
+import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
+
 import { starter } from "./starter.js";
-import { sha256, shaDB } from "./db.js";
+import { shaDB } from "./shadb/src/shaDB.js";
 import getVersions from "./versions.js";
 const versions = getVersions();
 
@@ -17,9 +21,6 @@ export const getProjects = async () => {
   }
 
   if (typeof userData === "string" || userData === null || !userData.list) {
-    const v4 = (await import(
-      `https://unpkg.com/uuid@${versions.uuid}/dist/esm-browser/v4.js`
-    )).default;
     const projectId = v4();
 
     await shaDB.put(
