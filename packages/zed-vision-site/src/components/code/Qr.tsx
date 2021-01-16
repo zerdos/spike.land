@@ -70,9 +70,11 @@ export const Qr = () => {
     const setSignal = async (url: string) => {
       if (cubeState !== 1) return;
 
-      const {fetchSignal} = await new Function(`return import("https://blog.zed.vision/code/src/hash.js")`)()
+      const { fetchSignal } = await new Function(
+        `return import("https://blog.zed.vision/code/src/hash.js")`,
+      )();
 
-      const getData = await fetchSignal (url, 5);
+      const getData = await fetchSignal(url, 5);
       setCubeState(0);
 
       Loader(side1.current!, 220);
@@ -369,7 +371,7 @@ const Loader = (c: HTMLCanvasElement, size: number) => {
     dieY = h / 2 / opts.len,
     baseRad = Math.PI * 2 / 6;
 
-    ctx.fillStyle = "transparent";
+  ctx.fillStyle = "transparent";
   ctx.fillRect(0, 0, w, h);
 
   function loop() {
@@ -378,7 +380,7 @@ const Loader = (c: HTMLCanvasElement, size: number) => {
     ++tick;
     ctx.globalCompositeOperation = "source-over";
     ctx.shadowBlur = 0;
-    ctx.fillStyle = "rgba(0,0,0,alp)".replace("alp",String(opts.repaintAlpha));
+    ctx.fillStyle = "rgba(0,0,0,alp)".replace("alp", String(opts.repaintAlpha));
     ctx.fillRect(0, 0, w, h);
     ctx.globalCompositeOperation = "lighter";
 
@@ -392,93 +394,95 @@ const Loader = (c: HTMLCanvasElement, size: number) => {
   }
 
   class Line {
-    x= 0
-    y =0
-    addedX=0
-    addedY=0
-    rad=0
-    lightInputMultiplier=0
-    color=""
-    time=0
-    targetTime=0
-    cumulativeTime=0
-    constructor(){
-      this.reset()
-    }
-    reset() {
-    this.x = 0;
-    this.y = 0;
-    this.addedX = 0;
-    this.addedY = 0;
-
-    this.rad = 0;
-
-    this.lightInputMultiplier = opts.baseLightInputMultiplier +
-      opts.addedLightInputMultiplier * Math.random();
-
-    this.color = opts.color.replace("hue", String(tick * opts.hueChange));
-    this.cumulativeTime = 0;
-
-    this.beginPhase();
-  }
-beginPhase() {
-    this.x += this.addedX;
-    this.y += this.addedY;
-
-    this.time = 0;
-    this.targetTime = (opts.baseTime + opts.addedTime * Math.random()) | 0;
-
-    this.rad += baseRad * (Math.random() < .5 ? 1 : -1);
-    this.addedX = Math.cos(this.rad);
-    this.addedY = Math.sin(this.rad);
-
-    if (
-      Math.random() < opts.dieChance || this.x > dieX || this.x < -dieX ||
-      this.y > dieY || this.y < -dieY
-    ) {
+    x = 0;
+    y = 0;
+    addedX = 0;
+    addedY = 0;
+    rad = 0;
+    lightInputMultiplier = 0;
+    color = "";
+    time = 0;
+    targetTime = 0;
+    cumulativeTime = 0;
+    constructor() {
       this.reset();
     }
-  }
-  step(){
-    ++this.time;
-    ++this.cumulativeTime;
+    reset() {
+      this.x = 0;
+      this.y = 0;
+      this.addedX = 0;
+      this.addedY = 0;
 
-    if (this.time >= this.targetTime) {
+      this.rad = 0;
+
+      this.lightInputMultiplier = opts.baseLightInputMultiplier +
+        opts.addedLightInputMultiplier * Math.random();
+
+      this.color = opts.color.replace("hue", String(tick * opts.hueChange));
+      this.cumulativeTime = 0;
+
       this.beginPhase();
     }
+    beginPhase() {
+      this.x += this.addedX;
+      this.y += this.addedY;
 
-    var prop = this.time / this.targetTime,
-      wave = Math.sin(prop * Math.PI / 2),
-      x = this.addedX * wave,
-      y = this.addedY * wave;
+      this.time = 0;
+      this.targetTime = (opts.baseTime + opts.addedTime * Math.random()) | 0;
 
-    ctx.shadowBlur = prop * opts.shadowToTimePropMult;
-    ctx.fillStyle = ctx.shadowColor = this.color.replace(
-      "light",
-      String(opts.baseLight +
-        opts.addedLight *
-          Math.sin(this.cumulativeTime * this.lightInputMultiplier))
-    );
-    ctx.fillRect(
-      opts.cx + (this.x + x) * opts.len,
-      opts.cy + (this.y + y) * opts.len,
-      2,
-      2,
-    );
+      this.rad += baseRad * (Math.random() < .5 ? 1 : -1);
+      this.addedX = Math.cos(this.rad);
+      this.addedY = Math.sin(this.rad);
 
-    if (Math.random() < opts.sparkChance) {
-      ctx.fillRect(
-        opts.cx + (this.x + x) * opts.len +
-          Math.random() * opts.sparkDist * (Math.random() < .5 ? 1 : -1) -
-          opts.sparkSize / 2,
-        opts.cy + (this.y + y) * opts.len +
-          Math.random() * opts.sparkDist * (Math.random() < .5 ? 1 : -1) -
-          opts.sparkSize / 2,
-        opts.sparkSize,
-        opts.sparkSize,
-      );
+      if (
+        Math.random() < opts.dieChance || this.x > dieX || this.x < -dieX ||
+        this.y > dieY || this.y < -dieY
+      ) {
+        this.reset();
+      }
     }
-  };
+    step() {
+      ++this.time;
+      ++this.cumulativeTime;
+
+      if (this.time >= this.targetTime) {
+        this.beginPhase();
+      }
+
+      var prop = this.time / this.targetTime,
+        wave = Math.sin(prop * Math.PI / 2),
+        x = this.addedX * wave,
+        y = this.addedY * wave;
+
+      ctx.shadowBlur = prop * opts.shadowToTimePropMult;
+      ctx.fillStyle = ctx.shadowColor = this.color.replace(
+        "light",
+        String(
+          opts.baseLight +
+            opts.addedLight *
+              Math.sin(this.cumulativeTime * this.lightInputMultiplier),
+        ),
+      );
+      ctx.fillRect(
+        opts.cx + (this.x + x) * opts.len,
+        opts.cy + (this.y + y) * opts.len,
+        2,
+        2,
+      );
+
+      if (Math.random() < opts.sparkChance) {
+        ctx.fillRect(
+          opts.cx + (this.x + x) * opts.len +
+            Math.random() * opts.sparkDist * (Math.random() < .5 ? 1 : -1) -
+            opts.sparkSize / 2,
+          opts.cy + (this.y + y) * opts.len +
+            Math.random() * opts.sparkDist * (Math.random() < .5 ? 1 : -1) -
+            opts.sparkSize / 2,
+          opts.sparkSize,
+          opts.sparkSize,
+        );
+      }
+    }
   }
   loop();
 };
