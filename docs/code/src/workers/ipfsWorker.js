@@ -1,6 +1,6 @@
 // @ts-ignore
 self.importScripts(
-  "https://unpkg.com/@zedvision/ipfs@11.9.8/dist/ipfs.server.js",
+  "https://unpkg.com/@zedvision/ipfs@11.10.3/dist/ipfs.server.js",
 );
 
 // @ts-ignore

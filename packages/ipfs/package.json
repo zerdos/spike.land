@@ -15,8 +15,8 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "build:client": "yarn esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm  --tree-shaking=ignore-annotations  --outdir=dist",
-    "build:server": "yarn esbuild  src/ipfs.server.ts --bundle --platform=browser --minify --format=iife  --tree-shaking=ignore-annotations --outdir=dist",
+    "build:client": "yarn esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm  --tree-shaking=ignore-annotations  --outfile=dist/ipfs.client.js",
+    "build:server": "yarn esbuild  src/ipfs.server.ts --bundle --platform=browser --minify --format=iife  --tree-shaking=ignore-annotations --outfile=dist/ipfs.server.js",
     "build": "yarn build:client && yarn build:server"
   },
   "license": "MIT",

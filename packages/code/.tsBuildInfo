@@ -262,13 +262,13 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "f70e5890581d8a2c3ef37f54a43046e46904707ce056e8b2e9c80100a6faaeb9",
+        "version": "42a4823d620d319a4cb164c099dff0c193a0c55cd32bca1c466d5736b499702f",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
-        "version": "ca09f7e70fa5aa9a114117e11e0c05a55656fbec24e3b695aca03620a1d7c5a3",
-        "signature": "ca09f7e70fa5aa9a114117e11e0c05a55656fbec24e3b695aca03620a1d7c5a3",
+        "version": "e4e4b5e322198172c6c0687bd5e2a9f1179534f90cfa43d3b6f0ac85a521104b",
+        "signature": "e4e4b5e322198172c6c0687bd5e2a9f1179534f90cfa43d3b6f0ac85a521104b",
         "affectsGlobalScope": true
       },
       "./src/starterTsx.tsx": {
@@ -287,7 +287,7 @@
         "affectsGlobalScope": false
       },
       "./src/workers/ipfsWorker.js": {
-        "version": "8f8e062b02c696637ca915b6dd98b1001a755432114106e6a0ca8f883f22b164",
+        "version": "083414a03cd2a5d61ac00cd1e6ced0a445c7ddbfd10046ae52393d6b8e11438e",
         "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
         "affectsGlobalScope": true
       },

@@ -1,6 +1,6 @@
 "use strict";
 // @ts-ignore
-self.importScripts("https://unpkg.com/@zedvision/ipfs@11.9.8/dist/ipfs.server.js");
+self.importScripts("https://unpkg.com/@zedvision/ipfs@11.10.3/dist/ipfs.server.js");
 // @ts-ignore
 const { Ipfs, IPFSService, Server } = self;
 /** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => Promise<any>; }} */
