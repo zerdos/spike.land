@@ -17,11 +17,24 @@ export default async (
     language === "typescript" ? "file:///main.tsx" : "file:///main.html",
   );
 
-  const model = monaco.editor.getModel(modelUri) || monaco.editor.createModel(
-    code,
-    language,
-    modelUri,
-  );
+  const createModel = () =>
+    monaco.editor.createModel(
+      code,
+      language,
+      modelUri,
+    );
+
+  const getModel = () => {
+    try {
+      let model = monaco.editor.getModel(modelUri);
+      if (model) return model;
+      return createModel();
+    } catch {
+      return createModel();
+    }
+  };
+
+  const model = getModel();
 
   const modules = {
     monaco: monaco,

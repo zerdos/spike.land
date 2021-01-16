@@ -2,7 +2,19 @@ import { getMonaco } from "./monaco.js";
 export default async ({ onChange, code, language, container, options }) => {
     const monaco = await getMonaco();
     const modelUri = monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html");
-    const model = monaco.editor.getModel(modelUri) || monaco.editor.createModel(code, language, modelUri);
+    const createModel = () => monaco.editor.createModel(code, language, modelUri);
+    const getModel = () => {
+        try {
+            let model = monaco.editor.getModel(modelUri);
+            if (model)
+                return model;
+            return createModel();
+        }
+        catch (_a) {
+            return createModel();
+        }
+    };
+    const model = getModel();
     const modules = {
         monaco: monaco,
         editor: monaco.editor.create(container, Object.assign({ formatOnType: false, scrollbar: {
