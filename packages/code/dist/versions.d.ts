@@ -9,6 +9,7 @@ export namespace v {
     export const comlink: string;
     export const editor: string;
     export const emotionRenderer: string;
+    export const workerPrefix: string;
 }
 export default versions;
 declare const code: "11.10.1";
@@ -24,4 +25,5 @@ declare function versions(): {
     comlink: string;
     editor: string;
     emotionRenderer: string;
+    workerPrefix: string;
 };

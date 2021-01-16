@@ -1,9 +1,5 @@
 import { v } from "./versions.js";
-const workerSrc = window.location.hostname === "blog.zed.vision"
-    ? `https://blog.zed.vision/code/src/ipfsWorker.js`
-    : window.location.hostname === "[::1]"
-        ? `${location.href}src/ipfsWorker.js`
-        : `${location.origin}/src/ipfsWorker.js`;
+const workerSrc = `${v.workerPrefix}/ipfsWorker.js`;
 /** @type {MessagePort} */
 let port;
 if (typeof SharedWorker !== "undefined") {

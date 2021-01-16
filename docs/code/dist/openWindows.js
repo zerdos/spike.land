@@ -7,7 +7,7 @@ export async function openWindows(v) {
     const { WindowManager } = await import("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js");
     importCss(`https://blog.zed.vision/code/assets/app.css`, "appCss");
     importCss(`https://blog.zed.vision/code/assets/normalize.min.css`, "normalizeCss");
-    workBox(v.workbox);
+    workBox();
     const wm = new WindowManager({ backgroundWindow: "green" });
     wm.snap(false);
     const win = wm.createWindow({

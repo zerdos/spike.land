@@ -41,16 +41,6 @@
         "signature": "d42f4141bd9ce82b4e2902f26acb00c183e321be19a38bbc0e76a922c1724c94",
         "affectsGlobalScope": true
       },
-      "../../node_modules/typescript/lib/lib.webworker.d.ts": {
-        "version": "4052231f482121b500ebea5d02e4be164bb7850e397d8be1fff43a93cd2fd60d",
-        "signature": "4052231f482121b500ebea5d02e4be164bb7850e397d8be1fff43a93cd2fd60d",
-        "affectsGlobalScope": true
-      },
-      "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts": {
-        "version": "7fac8cb5fc820bc2a59ae11ef1c5b38d3832c6d0dfaec5acdb5569137d09a481",
-        "signature": "7fac8cb5fc820bc2a59ae11ef1c5b38d3832c6d0dfaec5acdb5569137d09a481",
-        "affectsGlobalScope": true
-      },
       "../../node_modules/typescript/lib/lib.es2015.core.d.ts": {
         "version": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
         "signature": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
@@ -197,8 +187,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "57a790e886bca5be7456ea53079ff1425b71bdb69917ca214a7ba6b024b872cc",
-        "signature": "ccafb12a6cb217809c5ed49f9cc813cbef3e21fc1e835d23fea9ae5fcd44ae57",
+        "version": "4e0e16ce3f5f90fa63e4e1962bd159468bb53986a96e963e00705296660c8dde",
+        "signature": "8bbee370cba7c2f1ef343d2f89a1c3551e5f65712909974d883231d43775ae15",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
@@ -212,7 +202,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "2d5daa7afa64ad7ff85c3d5d13cc68b5a51390fa622f15ebfe88a7f66762509e",
+        "version": "2fff22bd69111c355d9bf5a5dbd92e6e18605d4f5e13997b96622e45295d75ff",
         "signature": "4a706a2d70341d4b17d3915bb33f0fb153457a73dd90819d5281de283e22c865",
         "affectsGlobalScope": false
       },
@@ -242,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "89f3503433fac57a16d7761f235b1ee0adaa7649d740674f781209a35626a243",
+        "version": "141f2a284972afc139dfdb96ec9cd495f2006908702487f3c550929c97035e27",
         "signature": "50ec110e14960c76ab8b2ffaf972a76d883507cbf4defe051365d3b0166afa31",
         "affectsGlobalScope": false
       },
@@ -252,17 +242,17 @@
         "affectsGlobalScope": false
       },
       "./src/workBox.js": {
-        "version": "66407a2efe8917e858c768ffe5994dd178032c704b235ee5a9e5905c6ff13fd7",
-        "signature": "8fcfdbf72d7cbc7e46f4bd2ef8dcc7c2e2938fdea138d026547c3a202ad9bfa8",
+        "version": "953f6bdb77b1b0038af87d70f01a22c91889c7b7479d05912e21166a4cc5cef1",
+        "signature": "28f1bcb8fcfb43e1ec98d1a07e178d80ba0c9c05f49a53d6967c6620e2514fd7",
         "affectsGlobalScope": false
       },
       "./src/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
+        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {
-        "version": "a5063aa77b419a93fba3e7006f588165436a391bcf771febfcc0d5b35fc49fdd",
+        "version": "5cded3c1eeb7ff4c585fc82cb49672ac2ff4ab649414b6f483eeff3f968733fb",
         "signature": "f75cae6f4e387be87aa8e3a0875a048d03157da7756d51f56850b0c41c177383",
         "affectsGlobalScope": false
       },
@@ -276,11 +266,6 @@
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
-      "./src/ipfsWorker.js": {
-        "version": "0725511512d030d45b8ba6b0a196b37fd592d5b6c415e8f149137aff0affe15e",
-        "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
-        "affectsGlobalScope": true
-      },
       "./src/refs.d.ts": {
         "version": "ca09f7e70fa5aa9a114117e11e0c05a55656fbec24e3b695aca03620a1d7c5a3",
         "signature": "ca09f7e70fa5aa9a114117e11e0c05a55656fbec24e3b695aca03620a1d7c5a3",
@@ -289,31 +274,6 @@
       "./src/starterTsx.tsx": {
         "version": "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
         "signature": "d0ae6cdcd1e2554c7cd10ef35c11ed3c93959eb7b7e4be525ce2cdcbbc896055",
-        "affectsGlobalScope": false
-      },
-      "./src/sw.js": {
-        "version": "0f74ccadcd5641ac78b5c4125c66e48234e300d0c95046b71355537aff892a76",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": true
-      },
-      "./src/transpile.worker.js": {
-        "version": "e5507f836d073ace3e6daf19c8b8d883e2f4ec3c9a2848bafb84d3dcfe4a17cd",
-        "signature": "6079521e7b15292801db3a7d091f69cdc671fc949af71bba96ed04cffbbf91eb",
-        "affectsGlobalScope": true
-      },
-      "../../node_modules/comlink/dist/umd/protocol.d.ts": {
-        "version": "8b51bf0307af4de46a981eaaf8ff99b76fdd424b4b185c92bb6ce149ba7430ec",
-        "signature": "8b51bf0307af4de46a981eaaf8ff99b76fdd424b4b185c92bb6ce149ba7430ec",
-        "affectsGlobalScope": false
-      },
-      "../../node_modules/comlink/dist/umd/comlink.d.ts": {
-        "version": "e68b7e9cb314ef99931b20576350fea7c6405bdb77ea80fece3d4987514c5e84",
-        "signature": "e68b7e9cb314ef99931b20576350fea7c6405bdb77ea80fece3d4987514c5e84",
-        "affectsGlobalScope": false
-      },
-      "./src/transpileWorker.d.ts": {
-        "version": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
-        "signature": "52a6442b75709a87ece46797f54f0b9071def7c28910aee0d5a3b81e9cc142dd",
         "affectsGlobalScope": false
       },
       "./src/examples/starterNoFramerMotion.js": {
@@ -325,6 +285,21 @@
         "version": "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
         "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
         "affectsGlobalScope": false
+      },
+      "./src/workers/ipfsWorker.js": {
+        "version": "8f8e062b02c696637ca915b6dd98b1001a755432114106e6a0ca8f883f22b164",
+        "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
+        "affectsGlobalScope": true
+      },
+      "./src/workers/sw.js": {
+        "version": "c1698a5ad84fc5d2ad369b58b34efc4a215abfe4ae7f744a2c61d557da8648a2",
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "affectsGlobalScope": true
+      },
+      "./src/workers/transpile.worker.js": {
+        "version": "e5507f836d073ace3e6daf19c8b8d883e2f4ec3c9a2848bafb84d3dcfe4a17cd",
+        "signature": "6079521e7b15292801db3a7d091f69cdc671fc949af71bba96ed04cffbbf91eb",
+        "affectsGlobalScope": true
       }
     },
     "options": {
@@ -337,9 +312,7 @@
         "lib.es2018.regexp.d.ts",
         "lib.es2018.asynciterable.d.ts",
         "lib.es2018.d.ts",
-        "lib.es2019.d.ts",
-        "lib.webworker.importscripts.d.ts",
-        "lib.webworker.d.ts"
+        "lib.es2019.d.ts"
       ],
       "allowJs": true,
       "checkJs": true,
@@ -350,14 +323,17 @@
       "tsBuildInfoFile": "./.tsBuildInfo",
       "isolatedModules": true,
       "strict": true,
+      "noImplicitAny": true,
+      "strictNullChecks": true,
+      "strictFunctionTypes": true,
+      "alwaysStrict": true,
       "moduleResolution": 2,
       "baseUrl": "./src",
       "paths": {},
       "types": [],
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
-      "allowUmdGlobalAccess": true,
-      "skipLibCheck": true,
+      "skipLibCheck": false,
       "forceConsistentCasingInFileNames": true,
       "pathsBasePath": "/home/zed/z/packages/code",
       "configFilePath": "./tsconfig.json"
@@ -370,9 +346,6 @@
       ],
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
-      ],
-      "../../node_modules/comlink/dist/umd/comlink.d.ts": [
-        "../../node_modules/comlink/dist/umd/protocol.d.ts"
       ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -417,9 +390,6 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
-      "./src/ipfsWorker.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.js",
@@ -448,9 +418,6 @@
       "./src/starterTsx.tsx": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
-      "./src/sw.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
@@ -459,16 +426,20 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
-      "./src/transpile.worker.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./src/transpileWorker.d.ts": [
-        "../../node_modules/comlink/dist/umd/comlink.d.ts"
-      ],
       "./src/versions.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/versions.js"
+      ],
+      "./src/workers/ipfsWorker.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./src/workers/sw.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./src/workers/transpile.worker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ]
     },
@@ -480,12 +451,6 @@
       ],
       "../../node_modules/@types/react/jsx-runtime.d.ts": [
         "../../node_modules/@types/react/index.d.ts"
-      ],
-      "../../node_modules/comlink/dist/umd/comlink.d.ts": [
-        "../../node_modules/comlink/dist/umd/protocol.d.ts"
-      ],
-      "./src/transpileWorker.d.ts": [
-        "../../node_modules/comlink/dist/umd/comlink.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -493,8 +458,6 @@
       "../../node_modules/@types/react/global.d.ts",
       "../../node_modules/@types/react/index.d.ts",
       "../../node_modules/@types/react/jsx-runtime.d.ts",
-      "../../node_modules/comlink/dist/umd/comlink.d.ts",
-      "../../node_modules/comlink/dist/umd/protocol.d.ts",
       "../../node_modules/csstype/index.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
@@ -528,8 +491,6 @@
       "../../node_modules/typescript/lib/lib.es2019.string.d.ts",
       "../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
       "../../node_modules/typescript/lib/lib.es5.d.ts",
-      "../../node_modules/typescript/lib/lib.webworker.d.ts",
-      "../../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
       "./src/codeLoader.js",
       "./src/data.js",
       "./src/db.js",
@@ -539,7 +500,6 @@
       "./src/hash.js",
       "./src/importScript.js",
       "./src/ipfsClient.js",
-      "./src/ipfsWorker.js",
       "./src/openWindows.js",
       "./src/refs.d.ts",
       "./src/renderPreviewWindow.js",
@@ -547,13 +507,13 @@
       "./src/share.js",
       "./src/starter.js",
       "./src/starterTsx.tsx",
-      "./src/sw.js",
       "./src/templates.js",
       "./src/transpile.js",
-      "./src/transpile.worker.js",
-      "./src/transpileWorker.d.ts",
       "./src/versions.js",
-      "./src/workBox.js"
+      "./src/workBox.js",
+      "./src/workers/ipfsWorker.js",
+      "./src/workers/sw.js",
+      "./src/workers/transpile.worker.js"
     ]
   },
   "version": "4.2.0-dev"

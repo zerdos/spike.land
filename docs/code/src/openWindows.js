@@ -18,7 +18,7 @@ export async function openWindows(v) {
     "normalizeCss",
   );
 
-  workBox(v.workbox);
+  workBox();
   const wm = new WindowManager({ backgroundWindow: "green" });
 
   wm.snap(false);

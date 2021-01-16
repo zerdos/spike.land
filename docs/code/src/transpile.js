@@ -33,15 +33,9 @@ async function init() {
     `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
   );
 
-  const workerSrc = window.location.hostname === "blog.zed.vision"
-    ? `https://blog.zed.vision/code/src/transpile.worker.js`
-    : window.location.hostname === "[::1]"
-    ? `${location.href}src/transpile.worker.js`
-    : `${location.origin}/src/transpile.worker.js`;
-
   //@ts-ignore
   if (typeof SharedWorker === "undefined") {
-    const worker = new Worker(workerSrc);
+    const worker = new Worker(`${v.workerPrefix}/transpile.worker.js`);
     const { port1, port2 } = new MessageChannel();
     const msg = {
       comlinkInit: true,
@@ -55,7 +49,7 @@ async function init() {
     return transform;
   }
 
-  const worker = new SharedWorker(workerSrc);
+  const worker = new SharedWorker(`${v.workerPrefix}/transpile.worker.js`);
   worker.port.start();
 
   transform = await Comlink.wrap(worker.port);

@@ -30,8 +30,9 @@ self.addEventListener(
     const { request } = event;
     const { url } = request;
     if (
-      !url.endsWith("sw.js") && !url.endsWith("Worker.js") && (
-        url.endsWith(".js") || url.endsWith(".json") || url.endsWith(".map") ||
+      !url.endsWith("sw.js") && (
+        url.endsWith(".js") || url.endsWith(".mjs") || url.endsWith(".json") ||
+        url.endsWith(".map") ||
         url.endsWith(".html") || url.endsWith(".woff") ||
         url.endsWith(".jpg") || url.endsWith(".css") ||
         url.endsWith(".png") || url.endsWith(".ts")
@@ -43,7 +44,6 @@ self.addEventListener(
       const cacheFirst = new workbox.strategies.CacheFirst();
       event.respondWith(cacheFirst.handle({ event, request }));
     } else if (
-      !url.endsWith("sw.js") && !url.endsWith("Worker.js") &&
       url.indexOf("/ipfs/") !== -1
     ) {
       const request = fetch(url.replace("blog.", "").replace("code.", ""));
