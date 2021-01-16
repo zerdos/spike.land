@@ -1,9 +1,9 @@
 function versions() {
-    const code = "11.9.7";
-    const shadb = "11.8.5";
-    const editor = "11.9.0";
-    const ipfsClient = "11.9.9";
-    const emotionRenderer = "11.8.5";
+    const code = "11.10.1";
+    const shadb = "11.10.0";
+    const editor = "11.10.0";
+    const ipfsClient = "11.10.0";
+    const emotionRenderer = "11.10.0";
     const v = {
         code,
         shadb,

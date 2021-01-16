@@ -197,8 +197,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "29c25b68b0affddbc26aad1de8618ad8bb44eeaba1132ead2b356d8ebf079eb2",
-        "signature": "f3376f6bff16fb8dac36156a835ef23fa734be0dacc7f3fe690e1863bf814e32",
+        "version": "57a790e886bca5be7456ea53079ff1425b71bdb69917ca214a7ba6b024b872cc",
+        "signature": "ccafb12a6cb217809c5ed49f9cc813cbef3e21fc1e835d23fea9ae5fcd44ae57",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
@@ -207,7 +207,7 @@
         "affectsGlobalScope": false
       },
       "./src/db.js": {
-        "version": "bf199392df77b0f26fe3fc91f420aac18c53f6ee7a4afe9cd66cc8c876e65baf",
+        "version": "b54c46fecf7e3d584e5f99397dc9e161f48f02a1a36dfaa4fa9bcece2314f5fb",
         "signature": "7a320d61a39f1cbcaae85f654160d9c82a1124c606fc10cdbf827a58f35d42b3",
         "affectsGlobalScope": false
       },
@@ -282,8 +282,8 @@
         "affectsGlobalScope": true
       },
       "./src/refs.d.ts": {
-        "version": "8bc0544d70a3f9ba20602c4fbe26cce2b65a8b31628c227f85f73cc816109e6c",
-        "signature": "8bc0544d70a3f9ba20602c4fbe26cce2b65a8b31628c227f85f73cc816109e6c",
+        "version": "ca09f7e70fa5aa9a114117e11e0c05a55656fbec24e3b695aca03620a1d7c5a3",
+        "signature": "ca09f7e70fa5aa9a114117e11e0c05a55656fbec24e3b695aca03620a1d7c5a3",
         "affectsGlobalScope": true
       },
       "./src/starterTsx.tsx": {

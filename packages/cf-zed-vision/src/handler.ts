@@ -1,12 +1,12 @@
-import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.7.4/src/getDbObj.js";
+import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
-import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.7.4/src/sha256.js";
+import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/sha256.js";
 import {
   publicIpfsGateways,
   raceToSuccess,
-} from "https://unpkg.com/@zedvision/ipfs@11.9.9/src/gateways.ts";
+} from "https://unpkg.com/@zedvision/ipfs@11.10.0/src/gateways.js";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;

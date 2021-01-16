@@ -1,4 +1,4 @@
-import versions from "./versions.js";
+import { v } from "./versions.js";
 
 export const sha256 =
   /**
@@ -6,7 +6,7 @@ export const sha256 =
  */
   async (str) => {
     const { sha256 } = await import(
-      `https://unpkg.com/@zedvision/shadb@${versions().shadb}/src/sha256.js`
+      `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/sha256.js`
     );
     return sha256(str);
   };
@@ -18,7 +18,7 @@ export const shaDB = {
  */
   get: async (key, type) => {
     const { getDB } = await import(
-      `https://unpkg.com/@zedvision/shadb@${versions().shadb}/src/shaDB.js`
+      `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/shaDB.js`
     );
     const db = await (await getDB("shaDB"))();
     return db.get(key, type);
@@ -30,7 +30,7 @@ export const shaDB = {
  */
   put: async (key, value) => {
     const { getDB } = await import(
-      `https://unpkg.com/@zedvision/shadb@${versions().shadb}/src/shaDB.js`
+      `https://unpkg.com/@zedvision/shadb@${v.shadb}/src/shaDB.js`
     );
     const db = await (await getDB("shaDB"))();
     return db.put(key, value);
