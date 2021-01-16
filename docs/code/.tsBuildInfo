@@ -192,12 +192,12 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "386e7b42828ae8a686cdc45a658f10405a13bc5fc0f926414c862f11186cfba6",
+        "version": "b4e17496869782ccffe63848a12e3adfc86bd74d6345efba2aa241fdf6fc4fee",
         "signature": "4a706a2d70341d4b17d3915bb33f0fb153457a73dd90819d5281de283e22c865",
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "1548d5d388fed2bec3580e2055c140c8a0156592ce50525e7dbc2cfcccf321a1",
+        "version": "c88da1e5e966f398a264708d0b86ad5d3d2a724b65271c2fcfe01aed8bf1bb82",
         "signature": "d52c0b02c9aa3d46638b673a9eb0f79e2784c716324fedff004815a1ac4f1123",
         "affectsGlobalScope": false
       },
@@ -262,13 +262,13 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "55102969055a5c1b4c4ee812a49292004d45868025f073c7a738b11390b3977e",
+        "version": "f70e5890581d8a2c3ef37f54a43046e46904707ce056e8b2e9c80100a6faaeb9",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
       "./src/refs.d.ts": {
-        "version": "e4e4b5e322198172c6c0687bd5e2a9f1179534f90cfa43d3b6f0ac85a521104b",
-        "signature": "e4e4b5e322198172c6c0687bd5e2a9f1179534f90cfa43d3b6f0ac85a521104b",
+        "version": "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
+        "signature": "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
         "affectsGlobalScope": true
       },
       "./src/starterTsx.tsx": {
@@ -497,19 +497,7 @@
       "./src/examples/starterNoFramerMotion.js",
       "./src/examples/starter_framer.js",
       "./src/formatter.js",
-      [
-        "./src/hash.js",
-        [
-          {
-            "file": "./src/hash.js",
-            "start": 3581,
-            "length": 13,
-            "messageText": "Cannot find name 'fromHexString'.",
-            "category": 1,
-            "code": 2304
-          }
-        ]
-      ],
+      "./src/hash.js",
       "./src/importScript.js",
       "./src/ipfsClient.js",
       "./src/openWindows.js",

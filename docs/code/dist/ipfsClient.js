@@ -24,7 +24,12 @@ let exp;
 export const getClient = async () => {
     if (exp)
         return exp;
-    const { CID, IpfsClient, raceToSuccess, } = await import(v.ipfsClient);
-    exp = { ipfsClient: IpfsClient.from(port), CID, raceToSuccess };
+    const { CID, IpfsClient, raceToSuccess, fromHexString, } = await import(v.ipfsClient);
+    exp = {
+        ipfsClient: IpfsClient.from(port),
+        CID,
+        raceToSuccess,
+        fromHexString,
+    };
     return exp;
 };

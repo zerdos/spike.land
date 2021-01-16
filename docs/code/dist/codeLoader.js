@@ -20,8 +20,6 @@ function getSession() {
   * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
 export async function run(mode = "window", _w, code = "") {
-    //@ts-ignore;
-    window.MSGesture = () => { };
     const { pathname } = new URL(window.location.href);
     setTimeout(async () => Object.assign(window, await (import("./hash.js"))));
     const { renderPreviewWindow } = await import("./renderPreviewWindow.js");

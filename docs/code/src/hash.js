@@ -143,7 +143,7 @@ export const fetchSignal =
     try {
       if (retry === 0) throw new Error("No more retry");
 
-      const { CID, ipfsClient } = await getClient();
+      const { CID, ipfsClient, fromHexString } = await getClient();
 
       const res = await ipfsClient.add(signal, { onlyHash: true });
       const resCID = res.cid.toString();
