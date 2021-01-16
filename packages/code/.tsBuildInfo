@@ -161,7 +161,7 @@
         "signature": "2ad234885a4240522efccd77de6c7d99eecf9b4de0914adb9a35c0c22433f993",
         "affectsGlobalScope": true
       },
-      "../node_modules/@types/react/jsx-runtime.d.ts": {
+      "../../node_modules/@types/react/jsx-runtime.d.ts": {
         "version": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
@@ -171,18 +171,13 @@
         "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
         "affectsGlobalScope": false
       },
-      "../node_modules/diff/lib/diff/base.js": {
-        "version": "4e1d8ebadbcb65ba7da865ec7f1f6aeaadf2c763b2f11054074ac475376a9127",
-        "signature": "0f9346d2b7e88995cef2316539d49b8ad6eb8b1e03e72c90ba94e7ade930333e",
-        "affectsGlobalScope": true
-      },
-      "../node_modules/diff/lib/diff/character.js": {
-        "version": "e8c614f9a59cc80ab1e95483dcc38b0c2689cc6e02c65705bb9c3092f496b998",
-        "signature": "35a29b4caec7448490a387a5833e3f65c895d5477f98eb1e7043ef9ecff60b07",
-        "affectsGlobalScope": true
+      "./src/shadb/src/vendor/diffMin.js": {
+        "version": "7c29e120ed31ff2ca77e728098dc5eda708dd70636343bd519334c07ed0d704b",
+        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
+        "affectsGlobalScope": false
       },
       "./src/shadb/src/diff.js": {
-        "version": "29ec7028607a54fd98da68d40e20c6efa50d5c74723a575fca70325da8188121",
+        "version": "81b70dbae8b4759cb2e3e5b775cc7ddc87cd21074cb0df66e65603daf11a2149",
         "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
         "affectsGlobalScope": false
       },
@@ -281,11 +276,6 @@
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
         "affectsGlobalScope": false
       },
-      "./src/smart-monaco-editor/dist/editor.d.ts": {
-        "version": "2ced639bb81f14b7981e4207c54869e9c5a31fac8acbef3c6fe27cbcf339dd9c",
-        "signature": "2ced639bb81f14b7981e4207c54869e9c5a31fac8acbef3c6fe27cbcf339dd9c",
-        "affectsGlobalScope": false
-      },
       "./src/codeLoader.js": {
         "version": "79a9ec6e84a3988c74bb2a0120dbbaad6fa69d650db0ebba00a294f600355a26",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
@@ -381,33 +371,8 @@
         "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
         "affectsGlobalScope": false
       },
-      "./src/shadb/src/vendor/diffMin.js": {
-        "version": "7c29e120ed31ff2ca77e728098dc5eda708dd70636343bd519334c07ed0d704b",
-        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
-        "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/monaco.d.ts": {
-        "version": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/editor.js": {
-        "version": "47c32d3fc68dd011cc721b0460300dc55264074364c030fbf103e20a5f9325d8",
-        "signature": "688e6bf6b8568a4bd9c2ca9d67edf36a621200a114efe7cfb4eea0134e90deb0",
-        "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/monaco.js": {
-        "version": "8cc960f61f89f366bbf56c047a19efe069736403a85149f5edd7a342b989a08a",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/scripts/screenshots.js": {
-        "version": "cdd78e46016185dd439d189b3323e46c1fef9afd4c2dc9a91fc6f2d57063ca52",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": true
-      },
       "./src/smart-monaco-editor/src/monaco.js": {
-        "version": "c689315c5fba4be4dd9951a2fcd645a9ceaf0454a0c75ff8cbbc5efeb05bb49a",
+        "version": "541b728a3006b0a0e96bce05bf972a499ed84ca7505518286497f0975d0a08f3",
         "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
         "affectsGlobalScope": false
       },
@@ -477,7 +442,7 @@
     },
     "referencedMap": {
       "./src/codeLoader.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
@@ -486,12 +451,11 @@
         "./src/sendSignalToQrCode.js",
         "./src/shadb/src/diff.js",
         "./src/shadb/src/sha256.js",
-        "./src/smart-monaco-editor/dist/editor.d.ts",
         "./src/transpile.js",
         "./src/versions.js"
       ],
       "./src/data.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/src/sha256.js",
         "./src/shadb/src/shaDB.js",
         "./src/share.js",
@@ -499,147 +463,136 @@
         "./src/versions.js"
       ],
       "./src/examples/starterNoFramerMotion.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/examples/starter_framer.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/formatter.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
       "./src/hash.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/ipfsClient.js"
       ],
       "./src/importScript.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/ipfsClient.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js",
         "./src/workers/ipfs/dist/ipfs.client.d.ts"
       ],
       "./src/openWindows.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.d.ts",
         "./src/workBox.js"
       ],
       "./src/renderPreviewWindow.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/share.js"
       ],
       "./src/sendSignalToQrCode.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/data.js",
         "./src/hash.js",
         "./src/shadb/src/sha256.js"
       ],
       "./src/shadb/dist/diff.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/dist/sha256.d.ts",
         "./src/shadb/dist/vendor/diff.min.d.ts"
       ],
       "./src/shadb/dist/diffChars.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/dist/getDbObj.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/dist/diff.d.ts",
         "./src/shadb/dist/sha256.d.ts"
       ],
       "./src/shadb/dist/sha256.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/dist/shaDB.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/dist/getDbObj.d.ts",
         "./src/shadb/dist/vendor/idb.d.ts"
       ],
       "./src/shadb/dist/vendor/diffChars.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/dist/vendor/idb.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/diff.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
-        "../node_modules/diff/lib/diff/character.js",
-        "./src/shadb/src/sha256.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/shadb/src/sha256.js",
+        "./src/shadb/src/vendor/diffMin.js"
       ],
       "./src/shadb/src/diffChars.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/getDbObj.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/src/diff.js",
         "./src/shadb/src/sha256.js"
       ],
       "./src/shadb/src/sha256.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/shaDB.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/src/getDbObj.js",
         "./src/shadb/src/vendor/idb.js"
       ],
       "./src/shadb/src/vendor/diffChars.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/vendor/diffMin.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/vendor/idb.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/share.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/ipfsClient.js",
         "./src/shadb/src/sha256.js",
         "./src/shadb/src/shaDB.js",
         "./src/templates.js"
       ],
-      "./src/smart-monaco-editor/dist/editor.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/smart-monaco-editor/dist/monaco.d.ts"
-      ],
-      "./src/smart-monaco-editor/dist/monaco.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/importScript.d.ts"
-      ],
       "./src/smart-monaco-editor/src/monaco.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.d.ts"
       ],
       "./src/starter.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/templates.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
       "./src/transpile.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
       "./src/versions.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
       "./src/workers/ipfs/dist/ipfs.client.d.ts": [
         "./src/workers/ipfs/dist/gateways.d.ts"
       ],
       "./src/workers/ipfs/dist/ipfs.client.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workers/ipfs/src/gateways.js": [
-        "../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "../node_modules/diff/lib/diff/character.js": [
-        "../node_modules/diff/lib/diff/base.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ]
     },
     "exportedModulesMap": {
@@ -648,6 +601,7 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
+      "../../node_modules/@types/react/jsx-runtime.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -714,11 +668,6 @@
       "./src/shadb/src/vendor/diffMin.js",
       "./src/shadb/src/vendor/idb.js",
       "./src/share.js",
-      "./src/smart-monaco-editor/dist/editor.d.ts",
-      "./src/smart-monaco-editor/dist/editor.js",
-      "./src/smart-monaco-editor/dist/monaco.d.ts",
-      "./src/smart-monaco-editor/dist/monaco.js",
-      "./src/smart-monaco-editor/dist/scripts/screenshots.js",
       "./src/smart-monaco-editor/src/monaco.js",
       "./src/smart-monaco-editor/src/scripts/screenshots.js",
       "./src/starter.js",
@@ -734,12 +683,13 @@
       "./src/workers/ipfs/src/gateways.js",
       "./src/workers/ipfsWorker.js",
       "./src/workers/sw.js",
-      "./src/workers/transpile.worker.js",
-      "../node_modules/@types/react/jsx-runtime.d.ts",
-      "../node_modules/diff/lib/diff/base.js",
-      "../node_modules/diff/lib/diff/character.js"
+      "./src/workers/transpile.worker.js"
     ],
     "affectedFilesPendingEmit": [
+      [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        1
+      ],
       [
         "../../node_modules/typescript/lib/lib.es2015.d.ts",
         1
@@ -897,26 +847,6 @@
         1
       ],
       [
-        "./src/smart-monaco-editor/dist/editor.d.ts",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/editor.js",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/monaco.d.ts",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/monaco.js",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/scripts/screenshots.js",
-        1
-      ],
-      [
         "./src/smart-monaco-editor/src/monaco.js",
         1
       ],
@@ -978,18 +908,6 @@
       ],
       [
         "./src/workers/transpile.worker.js",
-        1
-      ],
-      [
-        "../node_modules/@types/react/jsx-runtime.d.ts",
-        1
-      ],
-      [
-        "../node_modules/diff/lib/diff/base.js",
-        1
-      ],
-      [
-        "../node_modules/diff/lib/diff/character.js",
         1
       ]
     ]
