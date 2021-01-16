@@ -5,61 +5,8 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
+// deno-lint-ignore-file
 import { v } from "./versions.js";
-/**
- *
- * @param {string} cid
- */
-const feedTheCache = (cid) => {
-    // const controller = new AbortController();
-    // fetch(`https://zed.vision/ipfs/${cid}`).then((x) => x.text());
-    // const random5GatewaysFetch = publicIpfsGateways.sort(() =>
-    //   0.5 - Math.random()
-    // ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`)).map((
-    //   x,
-    // ) =>
-    //   fetch(x, { signal: controller.signal }).then((res) =>
-    //     res.status === 200 ? res.text() : (() => {
-    //       throw new Error("Not found");
-    //     })()
-    //   ).then(console.log)
-    // );
-    // raceToSuccess(random5GatewaysFetch).then(() => controller.abort());
-    // console.log(cid);
-    return cid;
-};
-const hash = 
-/**p
-* @param {string} data
-* @param {{
-* signal: AbortSignal
-* timeout: number
-* onlyHash: boolean
-* }} [options]
-*/
-async (data, options) => {
-    const opts = options || { onlyHash: true, signal: null, timeout: 1500 };
-    const { onlyHash, signal, timeout } = opts;
-    // deno-lint-ignore ban-ts-comment
-    // @ts-ignore
-    const cid = await ipfs.add(`${data}`, { onlyHash }).then((d) => d.cid.toString());
-    if (!onlyHash) {
-        // console.log(`adding data to ipfs: ${data} `);
-        await feedTheCache(cid);
-        return cid;
-    }
-    try {
-        // deno-lint-ignore ban-ts-comment
-        // @ts-ignore
-        const res = await getHash(cid, { signal, timeout, onlyHash }).then((x) => ({
-            success: x === data,
-        }));
-        return res;
-    }
-    catch (_a) {
-        return { success: false };
-    }
-};
 /**
  * @type {
   * [string]
@@ -80,10 +27,8 @@ const cidLock = {
  */
 const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
-    // @ts-ignore
     const { getClient } = await import(v.ipfsClient);
     const { ipfsClient } = await getClient();
-    // @ts-ignore
     if (cidCache[cid])
         return cidCache[cid];
     signal.onabort = function () {
@@ -129,55 +74,34 @@ const getHash = async (cid, { signal, timeout }) => {
     }
 };
 /**
- * @param {string} signal => Promise<{success: boolean}>
- * @param {AbortSignal} abortSignal
- */
-const _waitForSignal = async (signal, abortSignal) => {
-    // @ts-ignore
-    return hash(signal, { onlyHash: true, signal: abortSignal, timeout: 5000 })
-        // @ts-ignore
-        .then((x) => (typeof x === "string" || (x && x.success))
-        ? { success: true }
-        : { success: false }).catch(() => ({ success: false }));
-};
-/**
  * @param {string} signal
  * @param {string} data
  */
 export const sendSignal = async (signal, data) => {
     if (typeof window === "undefined")
         return "no webpack please";
-    await hash(signal);
-    // @ts-ignore
     const { getClient } = await import(v.ipfsClient);
-    const { CID } = await getClient();
-    // @ts-ignore
+    const { CID, ipfsClient } = await getClient();
+    await ipfsClient.add(signal);
     if (data) {
-        // @ts-ignore
         let toSave = data;
         if (typeof data !== "string")
             toSave = JSON.stringify(data);
-        //@ts-ignore
-        const dataCid = await hash(data);
+        const dataCid = (await ipfsClient.add(data)).cid.toString();
         const hexHash = Array.from((new CID(dataCid)).multihash).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
         const allHash = new Array(hexHash.length).fill(signal).map((x, i) => x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1));
-        await Promise.all(allHash.slice(0, 5).map((x) => hash(x)));
-        await Promise.all(allHash.slice(5).map((x) => hash(x)));
+        await Promise.all(allHash.slice(0, 5).map((x) => ipfsClient.add(x)));
+        await Promise.all(allHash.slice(5).map((x) => ipfsClient.add(x)));
     }
     return { success: true };
 };
-const signalDataCache = {};
-// @ts-ignore
 export const fetchSignal = 
 /**
 * @param {string} signal
 * @param {number} _retry
-* @returns ()=>any
+* @returns {Promise<()=>any>}
 */
-// @ts-ignore
 async (signal, _retry) => {
-    if (typeof window === "undefined")
-        return "no webpack please";
     const retry = (typeof _retry === "number") ? _retry : 999;
     const abort = new AbortController();
     let isSignalReceived = null;
@@ -187,8 +111,13 @@ async (signal, _retry) => {
         // console.log(
         //   `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
         // );
-        const res = await _waitForSignal(signal, abort.signal);
-        if (!res.success)
+        const { getClient } = await import(v.ipfsClient);
+        const { CID, ipfsClient } = await getClient();
+        const res = await ipfsClient.add(signal, { onlyHash: true });
+        const resCID = res.cid.toString();
+        const success = (await getHash(resCID, { timeout: 500, signal: abort.signal })) ===
+            signal;
+        if (!success)
             return fetchSignal(signal, retry - 1);
         isSignalReceived = true;
         // console.log(`Signal received!`, { res });
@@ -196,42 +125,22 @@ async (signal, _retry) => {
         /**
      *
      * @param {number} retry
-     * @returns *
+     * @returns {Promise<any>}
      */
-        // @ts-ignore
-        async (retry = 20) => {
-            //@ts-ignore
-            if (signalDataCache[signal])
-                return signalDataCache[signal];
-            // @ts-ignore
-            const { getClient } = await import(v.ipfsClient);
-            const { CID } = await getClient();
-            // @ts-ignore
+        (retry = 20) => {
             if (retry === 0)
-                return "";
+                throw new Error("Cant fetch data");
             /**
        * @param {number} delay
        */
-            // @ts-ignore
             const run = async (delay) => {
-                //@ts-ignore
-                if (signalDataCache[signal])
-                    return signalDataCache[signal];
                 console.log(`delay: ${delay}`);
                 try {
                     const hashArr = new Array(68).fill(0).map((_x, i) => i);
                     const restRes = hashArr.map((i) => getCharAt(signal, i));
                     const hashHex = (await Promise.all(restRes)).join("");
-                    //@ts-ignore
-                    if (signalDataCache[signal])
-                        return signalDataCache[signal];
                     const cid = new CID(0, 112, fromHexString(hashHex));
-                    const data = await getHash(cid.toString(), 
-                    // @ts-ignore
-                    { signal: abort.signal, timeout: 1500 });
-                    //@ts-ignore
-                    if (signalDataCache[signal])
-                        return signalDataCache[signal];
+                    const data = await getHash(cid.toString(), { signal: abort.signal, timeout: 1500 });
                     /**
                * @param {string | any[] | { success: boolean; } | undefined} d
                */
@@ -249,12 +158,6 @@ async (signal, _retry) => {
                     const ret = parse(data);
                     if (!ret)
                         throw new Error("No data");
-                    // console.log(
-                    //   `got the result and putting it to cache, the delay was: ${delay}`,
-                    //   { ret },
-                    // );
-                    //@ts-ignore
-                    signalDataCache[signal] = ret;
                     return ret;
                 }
                 catch (e) {
@@ -264,6 +167,40 @@ async (signal, _retry) => {
             return run(0);
         };
         return getData;
+        /**
+         * @param {string} signal
+         * @param {number} i
+         */
+        async function getCharAt(signal, i) {
+            //@ts-ignore
+            if (!signalCache[signal]) {
+                //@ts-ignore
+                signalCache[signal] = {};
+            }
+            //@ts-ignore
+            if (signalCache[signal][i])
+                return signalCache[signal][i];
+            const { raceToSuccess } = await import(v.ipfsClient);
+            const chars = [..."0123456789abcdef"];
+            const controller = new AbortController();
+            const prefix = new Array(i).fill("x").join("");
+            //@ts-ignore
+            if (signalCache[signal][i])
+                return signalCache[signal][i];
+            const raceArray = chars.map((x) => ipfsClient.cat(signal + prefix + x, { timeout: 1500 }));
+            //@ts-ignore
+            if (signalCache[signal][i])
+                return signalCache[signal][i];
+            const nextChar = await raceToSuccess(raceArray);
+            //@ts-ignore
+            if (signalCache[signal][i])
+                return signalCache[signal][i];
+            //  console.log(`${signal} data hash char ${i}: ${nextChar}`);
+            //@ts-ignore
+            signalCache[signal][i] = nextChar;
+            controller.abort();
+            return nextChar;
+        }
     }
     catch (e) {
         isSignalReceived = false;
@@ -272,49 +209,9 @@ async (signal, _retry) => {
     }
 };
 const signalCache = {};
-export const getCharAt = 
-/**
-* @param {string} signal
-* @param {number} i
-*/
-async (signal, i) => {
-    //@ts-ignore
-    if (!signalCache[signal]) {
-        //@ts-ignore
-        signalCache[signal] = {};
-    }
-    //@ts-ignore
-    if (signalCache[signal][i])
-        return signalCache[signal][i];
-    const { raceToSuccess } = await import(v.ipfsClient);
-    const chars = [..."0123456789abcdef"];
-    const controller = new AbortController();
-    const prefix = new Array(i).fill("x").join("");
-    //@ts-ignore
-    if (signalCache[signal][i])
-        return signalCache[signal][i];
-    const raceArray = chars.map((x) => _waitForSignal(signal + prefix + x, controller.signal).then((s) => {
-        if (s.success)
-            return x;
-        throw new Error("nope");
-    }));
-    //@ts-ignore
-    if (signalCache[signal][i])
-        return signalCache[signal][i];
-    const nextChar = await raceToSuccess(raceArray);
-    //@ts-ignore
-    if (signalCache[signal][i])
-        return signalCache[signal][i];
-    //  console.log(`${signal} data hash char ${i}: ${nextChar}`);
-    //@ts-ignore
-    signalCache[signal][i] = nextChar;
-    controller.abort();
-    return nextChar;
-};
 /**
  * @param {number} delay
  */
-// @ts-ignore
 function wait(delay) {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -329,6 +226,4 @@ const fromHexString = (hexString) => new Uint8Array(
 /**
 * @param {string} byte
 */
-//@ts-ignore
-hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
-// @ts-ignore
+(hexString.match(/.{1,2}/g) || []).map((byte) => parseInt(byte, 16)));
