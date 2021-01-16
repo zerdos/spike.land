@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/ipfs",
-  "version": "11.10.0",
+  "version": "11.10.3",
   "sideEffects": false,
   "source": "./src/ipfs.js",
   "exports": "./dist/ipfs.js",
@@ -30,7 +30,7 @@
   },
   "gitHead": "4ce53f6c1ec82734658b26195f6410696b8d2d9b",
   "dependencies": {
-    "@zedvision/ipfs": "^11.10.0",
+    "@zedvision/ipfs": "^11.10.3",
     "cids": "1.1.5",
     "esbuild": "0.8.32",
     "ipfs": "0.53.0",
