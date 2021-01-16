@@ -24,14 +24,13 @@ self.addEventListener(
  * 
  * @param {*} event 
  */
-  async (event) => {
+  async ({ ports }) => {
     // @ts-ignore
     ipfs = ipfs || await Ipfs.create();
 
     // @ts-ignore
     const service = new IPFSService(ipfs);
     const server = new Server(service);
-    const { ports } = event.data;
 
     server.connect(ports[0]);
   },
