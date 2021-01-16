@@ -5187,12 +5187,12 @@ __metadata:
   resolution: "@zedvision/ipfs@workspace:packages/ipfs"
   dependencies:
     "@zedvision/ipfs": ^11.9.10
-    cids: ^1.1.5
-    esbuild: ^0.8.32
-    ipfs: ^0.53.0
+    cids: 1.1.5
+    esbuild: 0.8.32
+    ipfs: 0.53.0
     ipfs-message-port-client: 0.4.4
     ipfs-message-port-server: 0.5.0
-    typescript: ^4.1.3
+    typescript: 4.1.3
   languageName: unknown
   linkType: soft
 
@@ -7761,7 +7761,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cids@npm:^1.0.0, cids@npm:^1.1.5":
+"cids@npm:1.1.5, cids@npm:^1.0.0, cids@npm:^1.1.5":
   version: 1.1.5
   resolution: "cids@npm:1.1.5"
   dependencies:
@@ -10464,7 +10464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.8.32, esbuild@npm:^0.8.32":
+"esbuild@npm:0.8.32":
   version: 0.8.32
   resolution: "esbuild@npm:0.8.32"
   bin:
@@ -15381,7 +15381,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"ipfs@npm:^0.53.0":
+"ipfs@npm:0.53.0":
   version: 0.53.0
   resolution: "ipfs@npm:0.53.0"
   dependencies:
@@ -18872,11 +18872,11 @@ fsevents@~2.3.1:
   linkType: hard
 
 "mime@npm:^2.0.3, mime@npm:^2.2.0, mime@npm:^2.4.4, mime@npm:^2.4.6":
-  version: 2.4.7
-  resolution: "mime@npm:2.4.7"
+  version: 2.5.0
+  resolution: "mime@npm:2.5.0"
   bin:
     mime: cli.js
-  checksum: ec0290ce2011f47ce99f93758b68f188e69c10676d2a1a0386518b921b47dc9c411d58237a82d5122971e5f945d57409894f84d37a5a9c57a0f00be78714d75e
+  checksum: 19f6f7046cea23d39fb75ee6b99caf1781303a5cbf189c0f209d5b70e4b467642b64106a9f9d3ffce08b6ddfdcfaa95fb60e449c12ae29fb979c229b978e420b
   languageName: node
   linkType: hard
 
@@ -23875,8 +23875,8 @@ fsevents@~2.3.1:
   linkType: hard
 
 "rollup@npm:^2.25.0":
-  version: 2.36.1
-  resolution: "rollup@npm:2.36.1"
+  version: 2.36.2
+  resolution: "rollup@npm:2.36.2"
   dependencies:
     fsevents: ~2.1.2
   dependenciesMeta:
@@ -23884,7 +23884,7 @@ fsevents@~2.3.1:
       optional: true
   bin:
     rollup: dist/bin/rollup
-  checksum: bb48730bf382d6439012a1504a8ca2f676657b472e9fbf72f726701c3091325229e1501c75088f4feebf6c9eb54cfc01353a11b50d3b0b9fa23764aaf5fca38c
+  checksum: 65a892680d0da59b77a8174d90ff203bd8f4a34a5ec9d230d9bbf735ecad700426f1e079ed1953cd24bc9c0fcf77aed7219da77db11347222814e8d9364c60cd
   languageName: node
   linkType: hard
 
@@ -26620,7 +26620,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"typescript@4.1.3, typescript@^4.1.3":
+typescript@4.1.3:
   version: 4.1.3
   resolution: "typescript@npm:4.1.3"
   bin:
@@ -26630,7 +26630,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.1.3#builtin<compat/typescript>, typescript@patch:typescript@^4.1.3#builtin<compat/typescript>":
+"typescript@patch:typescript@4.1.3#builtin<compat/typescript>":
   version: 4.1.3
   resolution: "typescript@patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=cc6730"
   bin:
@@ -28560,9 +28560,9 @@ fsevents@~2.3.1:
   linkType: hard
 
 "xstate@npm:^4.11.0, xstate@npm:^4.14.0, xstate@npm:^4.9.1":
-  version: 4.15.4
-  resolution: "xstate@npm:4.15.4"
-  checksum: 8a04ebd0c5f023805edf9f7ac46abb429a4b134273338c865656c83d762b32b9d2bcd73a46b428ecf347c9950f327e6e16c9366a712a0b421a96ca1bb6518afc
+  version: 4.16.0
+  resolution: "xstate@npm:4.16.0"
+  checksum: 651996c4ea7b6cc2466709c093819320a1dc924b524dbbe1d8a39545ad63555fb75514e638b6cf01df80423ac07cc767f332ac3f13dda9e7d19d093e3f1cae56
   languageName: node
   linkType: hard
 
