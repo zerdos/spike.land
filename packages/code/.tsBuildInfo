@@ -161,7 +161,7 @@
         "signature": "2ad234885a4240522efccd77de6c7d99eecf9b4de0914adb9a35c0c22433f993",
         "affectsGlobalScope": true
       },
-      "../../node_modules/@types/react/jsx-runtime.d.ts": {
+      "../node_modules/@types/react/jsx-runtime.d.ts": {
         "version": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
@@ -171,13 +171,18 @@
         "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
         "affectsGlobalScope": false
       },
-      "./src/shadb/src/vendor/diffMin.js": {
-        "version": "7c29e120ed31ff2ca77e728098dc5eda708dd70636343bd519334c07ed0d704b",
-        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
-        "affectsGlobalScope": false
+      "../node_modules/diff/lib/diff/base.js": {
+        "version": "4e1d8ebadbcb65ba7da865ec7f1f6aeaadf2c763b2f11054074ac475376a9127",
+        "signature": "0f9346d2b7e88995cef2316539d49b8ad6eb8b1e03e72c90ba94e7ade930333e",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/diff/lib/diff/character.js": {
+        "version": "e8c614f9a59cc80ab1e95483dcc38b0c2689cc6e02c65705bb9c3092f496b998",
+        "signature": "35a29b4caec7448490a387a5833e3f65c895d5477f98eb1e7043ef9ecff60b07",
+        "affectsGlobalScope": true
       },
       "./src/shadb/src/diff.js": {
-        "version": "81b70dbae8b4759cb2e3e5b775cc7ddc87cd21074cb0df66e65603daf11a2149",
+        "version": "29ec7028607a54fd98da68d40e20c6efa50d5c74723a575fca70325da8188121",
         "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
         "affectsGlobalScope": false
       },
@@ -376,6 +381,11 @@
         "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
         "affectsGlobalScope": false
       },
+      "./src/shadb/src/vendor/diffMin.js": {
+        "version": "7c29e120ed31ff2ca77e728098dc5eda708dd70636343bd519334c07ed0d704b",
+        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
+        "affectsGlobalScope": false
+      },
       "./src/smart-monaco-editor/dist/monaco.d.ts": {
         "version": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
         "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
@@ -456,10 +466,8 @@
       ],
       "allowJs": true,
       "jsx": 4,
-      "composite": true,
       "tsBuildInfoFile": "./.tsBuildInfo",
       "noEmit": true,
-      "isolatedModules": true,
       "types": [],
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
@@ -469,7 +477,7 @@
     },
     "referencedMap": {
       "./src/codeLoader.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/data.js",
         "./src/formatter.js",
         "./src/hash.js",
@@ -483,176 +491,155 @@
         "./src/versions.js"
       ],
       "./src/data.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/src/sha256.js",
         "./src/shadb/src/shaDB.js",
         "./src/share.js",
         "./src/starter.js",
         "./src/versions.js"
       ],
-      "./src/db.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/examples/starterNoFramerMotion.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/examples/starter_framer.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/formatter.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
       "./src/hash.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/ipfsClient.js"
       ],
       "./src/importScript.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/ipfsClient.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js",
         "./src/workers/ipfs/dist/ipfs.client.d.ts"
       ],
       "./src/openWindows.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.d.ts",
         "./src/workBox.js"
       ],
       "./src/renderPreviewWindow.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/share.js"
       ],
       "./src/sendSignalToQrCode.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/data.js",
         "./src/hash.js",
         "./src/shadb/src/sha256.js"
       ],
       "./src/shadb/dist/diff.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/dist/sha256.d.ts",
         "./src/shadb/dist/vendor/diff.min.d.ts"
       ],
       "./src/shadb/dist/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/dist/getDbObj.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/dist/diff.d.ts",
         "./src/shadb/dist/sha256.d.ts"
       ],
       "./src/shadb/dist/sha256.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/dist/shaDB.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/dist/getDbObj.d.ts",
         "./src/shadb/dist/vendor/idb.d.ts"
       ],
       "./src/shadb/dist/vendor/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/dist/vendor/idb.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/diff.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/shadb/src/sha256.js",
-        "./src/shadb/src/vendor/diffMin.js"
+        "../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/diff/lib/diff/character.js",
+        "./src/shadb/src/sha256.js"
       ],
       "./src/shadb/src/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/getDbObj.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/src/diff.js",
         "./src/shadb/src/sha256.js"
       ],
       "./src/shadb/src/sha256.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/shaDB.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/shadb/src/getDbObj.js",
         "./src/shadb/src/vendor/idb.js"
       ],
       "./src/shadb/src/vendor/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/vendor/diffMin.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/shadb/src/vendor/idb.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/share.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/ipfsClient.js",
         "./src/shadb/src/sha256.js",
         "./src/shadb/src/shaDB.js",
         "./src/templates.js"
       ],
       "./src/smart-monaco-editor/dist/editor.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/smart-monaco-editor/dist/monaco.d.ts"
       ],
       "./src/smart-monaco-editor/dist/monaco.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.d.ts"
-      ],
-      "./src/smart-monaco-editor/dist/scripts/screenshots.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/smart-monaco-editor/src/monaco.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.d.ts"
       ],
-      "./src/smart-monaco-editor/src/scripts/screenshots.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/starter.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/templates.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
       "./src/transpile.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
       ],
       "./src/versions.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/versions.js"
-      ],
-      "./src/workers/ipfs/dist/gateways.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workers/ipfs/dist/ipfs.client.d.ts": [
         "./src/workers/ipfs/dist/gateways.d.ts"
       ],
       "./src/workers/ipfs/dist/ipfs.client.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./src/workers/ipfs/dist/ipfs.server.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workers/ipfs/src/gateways.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../node_modules/@types/react/jsx-runtime.d.ts"
       ],
-      "./src/workers/ipfsWorker.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./src/workers/sw.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./src/workers/transpile.worker.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      "../node_modules/diff/lib/diff/character.js": [
+        "../node_modules/diff/lib/diff/base.js"
       ]
     },
     "exportedModulesMap": {
@@ -661,7 +648,6 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "../../node_modules/@types/react/jsx-runtime.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
       "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
       "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
@@ -748,13 +734,12 @@
       "./src/workers/ipfs/src/gateways.js",
       "./src/workers/ipfsWorker.js",
       "./src/workers/sw.js",
-      "./src/workers/transpile.worker.js"
+      "./src/workers/transpile.worker.js",
+      "../node_modules/@types/react/jsx-runtime.d.ts",
+      "../node_modules/diff/lib/diff/base.js",
+      "../node_modules/diff/lib/diff/character.js"
     ],
     "affectedFilesPendingEmit": [
-      [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        1
-      ],
       [
         "../../node_modules/typescript/lib/lib.es2015.d.ts",
         1
@@ -993,6 +978,18 @@
       ],
       [
         "./src/workers/transpile.worker.js",
+        1
+      ],
+      [
+        "../node_modules/@types/react/jsx-runtime.d.ts",
+        1
+      ],
+      [
+        "../node_modules/diff/lib/diff/base.js",
+        1
+      ],
+      [
+        "../node_modules/diff/lib/diff/character.js",
         1
       ]
     ]
