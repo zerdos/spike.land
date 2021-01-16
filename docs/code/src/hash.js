@@ -1,5 +1,6 @@
 // deno-lint-ignore-file
-import { v } from "./versions.js";
+
+import { getClient } from "./ipfsClient.js";
 
 /**
  * @type {
@@ -24,10 +25,6 @@ const cidLock = {
  * @param {{signal: AbortSignal; timeout: number}}  options
  */
 const getHash = async (cid, { signal, timeout }) => {
-  const { getClient } = await import(
-    v.ipfsClient
-  );
-
   const { ipfsClient } = await getClient();
 
   if (cidCache[cid]) return cidCache[cid];
@@ -79,9 +76,7 @@ const getHash = async (cid, { signal, timeout }) => {
  */
 export const sendSignal = async (signal, data) => {
   if (typeof window === "undefined") return "no webpack please";
-  const { getClient } = await import(
-    v.ipfsClient
-  );
+
   const { CID, ipfsClient } = await getClient();
 
   await ipfsClient.add(signal);
@@ -128,77 +123,68 @@ export const fetchSignal =
     let isSignalReceived = null;
     try {
       if (retry === 0) throw new Error("No more retry");
-      // console.log(
-      //   `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
-      // );
-      const { getClient } = await import(
-        v.ipfsClient
-      );
+
       const { CID, ipfsClient } = await getClient();
 
       const res = await ipfsClient.add(signal, { onlyHash: true });
       const resCID = res.cid.toString();
-      const success =
-        (await getHash(resCID, { timeout: 500, signal: abort.signal })) ===
-          signal;
-      if (!success) return fetchSignal(signal, retry - 1);
+      await getHash(resCID, { timeout: 500, signal: abort.signal });
 
       isSignalReceived = true;
-      // console.log(`Signal received!`, { res });
 
-      const getData =
-        /**
+      /**
      * 
      * @param {number} retry 
      * @returns {Promise<any>}
      */
-        (retry = 20) => {
-          if (retry === 0) throw new Error("Cant fetch data");
-          /**
+      function getData(retry = 20) {
+        if (retry === 0) throw new Error("Cant fetch data");
+
+        /**
      * @param {number} delay
      */
 
-          const run = async (delay) => {
-            console.log(`delay: ${delay}`);
+        async function run(delay) {
+          console.log(`delay: ${delay}`);
 
-            try {
-              const hashArr = new Array(68).fill(0).map((_x, i) => i);
-              const restRes = hashArr.map((i) => getCharAt(signal, i));
-              const hashHex = (await Promise.all(restRes)).join("");
+          try {
+            const hashArr = new Array(68).fill(0).map((_x, i) => i);
+            const restRes = hashArr.map((i) => getCharAt(signal, i));
+            const hashHex = (await Promise.all(restRes)).join("");
 
-              const cid = new CID(0, 112, fromHexString(hashHex));
+            const cid = new CID(0, 112, fromHexString(hashHex));
 
-              const data = await getHash(
-                cid.toString(),
-                { signal: abort.signal, timeout: 1500 },
-              );
+            const data = await getHash(
+              cid.toString(),
+              { signal: abort.signal, timeout: 1500 },
+            );
 
-              /**
+            /**
          * @param {string | any[] | { success: boolean; } | undefined} d
          */
-              const parse = (d) => {
-                try {
-                  if (typeof d !== "string") return d;
+            const parse = (d) => {
+              try {
+                if (typeof d !== "string") return d;
 
-                  const ret = JSON.parse(d);
-                  return ret;
-                } catch (e) {
-                  return d;
-                }
-              };
+                const ret = JSON.parse(d);
+                return ret;
+              } catch (e) {
+                return d;
+              }
+            };
 
-              const ret = parse(data);
+            const ret = parse(data);
 
-              if (!ret) throw new Error("No data");
+            if (!ret) throw new Error("No data");
 
-              return ret;
-            } catch (e) {
-              return getData(retry - 1);
-            }
-          };
+            return ret;
+          } catch (e) {
+            return getData(retry - 1);
+          }
+        }
 
-          return run(0);
-        };
+        return run(0);
+      }
 
       return getData;
 
@@ -215,9 +201,7 @@ export const fetchSignal =
         //@ts-ignore
         if (signalCache[signal][i]) return signalCache[signal][i];
 
-        const { raceToSuccess } = await import(
-          v.ipfsClient
-        );
+        const { raceToSuccess } = await getClient();
 
         const chars = [..."0123456789abcdef"];
 

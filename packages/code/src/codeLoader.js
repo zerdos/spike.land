@@ -23,7 +23,7 @@ function getSession() {
  */
 export async function run(mode = "window", _w, code = "") {
   //@ts-ignore;
-  window.MSGesture = window.PointerEvent;
+  window.MSGesture = () => {};
   const { pathname } = new URL(window.location.href);
 
   setTimeout(async () => Object.assign(window, await (import("./hash.js"))));

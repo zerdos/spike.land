@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 import { v } from "./versions.js";
 
 const workerSrc = `${v.workerPrefix}/ipfsWorker.js`;
@@ -36,8 +37,9 @@ export const getClient = async () => {
   const {
     CID,
     IpfsClient,
+    raceToSuccess,
   } = await import(v.ipfsClient);
 
-  exp = { ipfsClient: IpfsClient.from(port), CID };
+  exp = { ipfsClient: IpfsClient.from(port), CID, raceToSuccess };
   return exp;
 };

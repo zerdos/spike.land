@@ -191,19 +191,19 @@
         "signature": "8bbee370cba7c2f1ef343d2f89a1c3551e5f65712909974d883231d43775ae15",
         "affectsGlobalScope": false
       },
+      "./src/ipfsClient.js": {
+        "version": "386e7b42828ae8a686cdc45a658f10405a13bc5fc0f926414c862f11186cfba6",
+        "signature": "4a706a2d70341d4b17d3915bb33f0fb153457a73dd90819d5281de283e22c865",
+        "affectsGlobalScope": false
+      },
       "./src/hash.js": {
-        "version": "a4dc7ca64b2ad47912e3a568bd41e4315a7461f94ce75bf4b70884fa16bd0ac0",
+        "version": "7bbcdfc890308be75aff14dc8c5b2fc84647d74266f34ec4dc7d421920efd163",
         "signature": "d52c0b02c9aa3d46638b673a9eb0f79e2784c716324fedff004815a1ac4f1123",
         "affectsGlobalScope": false
       },
       "./src/db.js": {
         "version": "b54c46fecf7e3d584e5f99397dc9e161f48f02a1a36dfaa4fa9bcece2314f5fb",
         "signature": "7a320d61a39f1cbcaae85f654160d9c82a1124c606fc10cdbf827a58f35d42b3",
-        "affectsGlobalScope": false
-      },
-      "./src/ipfsClient.js": {
-        "version": "2fff22bd69111c355d9bf5a5dbd92e6e18605d4f5e13997b96622e45295d75ff",
-        "signature": "4a706a2d70341d4b17d3915bb33f0fb153457a73dd90819d5281de283e22c865",
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
@@ -262,7 +262,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "42a4823d620d319a4cb164c099dff0c193a0c55cd32bca1c466d5736b499702f",
+        "version": "55102969055a5c1b4c4ee812a49292004d45868025f073c7a738b11390b3977e",
         "signature": "318fc8fc527a11083d12b36ea6846a19c113aa675ca3fe8ecd2374578ac93da1",
         "affectsGlobalScope": false
       },
@@ -381,7 +381,7 @@
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/versions.js"
+        "./src/ipfsClient.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"

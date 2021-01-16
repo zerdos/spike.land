@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 var __asyncValues = (this && this.__asyncValues) || function (o) {
     if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
     var m = o[Symbol.asyncIterator], i;
@@ -5,8 +6,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
-// deno-lint-ignore-file
-import { v } from "./versions.js";
+import { getClient } from "./ipfsClient.js";
 /**
  * @type {
   * [string]
@@ -27,7 +27,6 @@ const cidLock = {
  */
 const getHash = async (cid, { signal, timeout }) => {
     var e_1, _a;
-    const { getClient } = await import(v.ipfsClient);
     const { ipfsClient } = await getClient();
     if (cidCache[cid])
         return cidCache[cid];
@@ -80,7 +79,6 @@ const getHash = async (cid, { signal, timeout }) => {
 export const sendSignal = async (signal, data) => {
     if (typeof window === "undefined")
         return "no webpack please";
-    const { getClient } = await import(v.ipfsClient);
     const { CID, ipfsClient } = await getClient();
     await ipfsClient.add(signal);
     if (data) {
@@ -108,32 +106,23 @@ async (signal, _retry) => {
     try {
         if (retry === 0)
             throw new Error("No more retry");
-        // console.log(
-        //   `Waiting for "${signal}"  (the content to be available on IPFS = we know what will be it's address)`,
-        // );
-        const { getClient } = await import(v.ipfsClient);
         const { CID, ipfsClient } = await getClient();
         const res = await ipfsClient.add(signal, { onlyHash: true });
         const resCID = res.cid.toString();
-        const success = (await getHash(resCID, { timeout: 500, signal: abort.signal })) ===
-            signal;
-        if (!success)
-            return fetchSignal(signal, retry - 1);
+        await getHash(resCID, { timeout: 500, signal: abort.signal });
         isSignalReceived = true;
-        // console.log(`Signal received!`, { res });
-        const getData = 
         /**
-     *
-     * @param {number} retry
-     * @returns {Promise<any>}
-     */
-        (retry = 20) => {
+       *
+       * @param {number} retry
+       * @returns {Promise<any>}
+       */
+        function getData(retry = 20) {
             if (retry === 0)
                 throw new Error("Cant fetch data");
             /**
-       * @param {number} delay
-       */
-            const run = async (delay) => {
+         * @param {number} delay
+         */
+            async function run(delay) {
                 console.log(`delay: ${delay}`);
                 try {
                     const hashArr = new Array(68).fill(0).map((_x, i) => i);
@@ -142,8 +131,8 @@ async (signal, _retry) => {
                     const cid = new CID(0, 112, fromHexString(hashHex));
                     const data = await getHash(cid.toString(), { signal: abort.signal, timeout: 1500 });
                     /**
-               * @param {string | any[] | { success: boolean; } | undefined} d
-               */
+                 * @param {string | any[] | { success: boolean; } | undefined} d
+                 */
                     const parse = (d) => {
                         try {
                             if (typeof d !== "string")
@@ -163,9 +152,9 @@ async (signal, _retry) => {
                 catch (e) {
                     return getData(retry - 1);
                 }
-            };
+            }
             return run(0);
-        };
+        }
         return getData;
         /**
          * @param {string} signal
@@ -180,7 +169,7 @@ async (signal, _retry) => {
             //@ts-ignore
             if (signalCache[signal][i])
                 return signalCache[signal][i];
-            const { raceToSuccess } = await import(v.ipfsClient);
+            const { raceToSuccess } = await getClient();
             const chars = [..."0123456789abcdef"];
             const controller = new AbortController();
             const prefix = new Array(i).fill("x").join("");
