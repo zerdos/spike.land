@@ -7,8 +7,8 @@
   "private": true,
   "workspaces": [
     "packages/code",
-    "packages/cf-zed-vision",
-    "packages/cf-code-zed-vision",
+    "cloudflare/cf-zed-vision",
+    "cloudflare/cf-code-zed-vision",
     "packages/code/src/workers/ipfs",
     "packages/code/src/shadb",
     "packages/code/src/smart-monaco-editor",

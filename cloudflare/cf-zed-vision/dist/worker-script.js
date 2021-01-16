@@ -493,8 +493,9 @@ async function handleCloudRequest(request) {
     }
     const maybeRoute = pathname.substr(1);
     const isKey = [
-      ...maybeRoute,
-    ].filter((x) => x < "0" || x > "f").length === 0;
+          ...maybeRoute,
+        ].filter((x) => x < "0" || x > "f").length === 0 &&
+      maybeRoute.length === 8;
     if (maybeRoute && isKey) {
       const shaDB = getDbObj(SHAKV);
       const result = await shaDB.get(maybeRoute);
