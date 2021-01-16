@@ -12,7 +12,8 @@
     "Zoltan Erdos <zolika84@gmail.com>"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist && yarn types",
+    "types": "yarn tsc -d",
     "build:client": "yarn esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm  --tree-shaking=ignore-annotations  --outfile=dist/ipfs.client.js",
     "build:server": "yarn esbuild  src/ipfs.server.ts --bundle --platform=browser --minify --format=iife  --tree-shaking=ignore-annotations --outfile=dist/ipfs.server.js",
     "build": "yarn build:client && yarn build:server"
