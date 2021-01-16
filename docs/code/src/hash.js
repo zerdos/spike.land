@@ -16,6 +16,14 @@ const cidCache = {};
  * }
  */
 
+const signalCache = {};
+
+/**
+ * @type {
+ * [string]  
+ * }
+ */
+
 const cidLock = {
   semaphore: 0,
 };
@@ -68,6 +76,18 @@ const getHash = async (cid, { signal, timeout }) => {
     cidLock.semaphore--;
     cidLock[cid] = null;
   }
+
+  /**
+ * @param {number} delay
+ */
+
+  function wait(delay) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(delay);
+      }, delay);
+    });
+  }
 };
 
 /**
@@ -86,7 +106,7 @@ export const sendSignal = async (signal, data) => {
 
     if (typeof data !== "string") toSave = JSON.stringify(data);
 
-    const dataCid = (await ipfsClient.add(data)).cid.toString();
+    const dataCid = (await ipfsClient.add(toSave)).cid.toString();
 
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
@@ -120,7 +140,6 @@ export const fetchSignal =
     const retry = (typeof _retry === "number") ? _retry : 999;
     const abort = new AbortController();
 
-    let isSignalReceived = null;
     try {
       if (retry === 0) throw new Error("No more retry");
 
@@ -129,8 +148,6 @@ export const fetchSignal =
       const res = await ipfsClient.add(signal, { onlyHash: true });
       const resCID = res.cid.toString();
       await getHash(resCID, { timeout: 500, signal: abort.signal });
-
-      isSignalReceived = true;
 
       /**
      * 
@@ -189,16 +206,18 @@ export const fetchSignal =
       return getData;
 
       /**
+       * @param {string} hexString
+       */
+
+      /**
        * @param {string} signal
        * @param {number} i
        */
       async function getCharAt(signal, i) {
-        //@ts-ignore
         if (!signalCache[signal]) {
-          //@ts-ignore
           signalCache[signal] = {};
         }
-        //@ts-ignore
+
         if (signalCache[signal][i]) return signalCache[signal][i];
 
         const { raceToSuccess } = await getClient();
@@ -207,54 +226,25 @@ export const fetchSignal =
 
         const controller = new AbortController();
         const prefix = new Array(i).fill("x").join("");
-        //@ts-ignore
 
         if (signalCache[signal][i]) return signalCache[signal][i];
         const raceArray = chars.map((x) =>
           ipfsClient.cat(signal + prefix + x, { timeout: 1500 })
         );
-        //@ts-ignore
+
         if (signalCache[signal][i]) return signalCache[signal][i];
         const nextChar = await raceToSuccess(
           raceArray,
         );
-        //@ts-ignore
+
         if (signalCache[signal][i]) return signalCache[signal][i];
-        //  console.log(`${signal} data hash char ${i}: ${nextChar}`);
-        //@ts-ignore
+
         signalCache[signal][i] = nextChar;
         controller.abort();
 
         return nextChar;
       }
     } catch (e) {
-      isSignalReceived = false;
       throw new Error("no signal");
-      //   console.log(`Bad news! No signal, and it seems there is an error.`);
     }
   };
-
-const signalCache = {};
-
-/**
- * @param {number} delay
- */
-
-function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(delay);
-    }, delay);
-  });
-}
-
-/**
- * @param {string} hexString
- */
-const fromHexString = (hexString) =>
-  new Uint8Array(
-    /**
-   * @param {string} byte
-   */
-    (hexString.match(/.{1,2}/g) || []).map((byte) => parseInt(byte, 16)),
-  );

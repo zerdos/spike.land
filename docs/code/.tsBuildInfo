@@ -197,7 +197,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "7bbcdfc890308be75aff14dc8c5b2fc84647d74266f34ec4dc7d421920efd163",
+        "version": "1548d5d388fed2bec3580e2055c140c8a0156592ce50525e7dbc2cfcccf321a1",
         "signature": "d52c0b02c9aa3d46638b673a9eb0f79e2784c716324fedff004815a1ac4f1123",
         "affectsGlobalScope": false
       },
@@ -497,7 +497,19 @@
       "./src/examples/starterNoFramerMotion.js",
       "./src/examples/starter_framer.js",
       "./src/formatter.js",
-      "./src/hash.js",
+      [
+        "./src/hash.js",
+        [
+          {
+            "file": "./src/hash.js",
+            "start": 3581,
+            "length": 13,
+            "messageText": "Cannot find name 'fromHexString'.",
+            "category": 1,
+            "code": 2304
+          }
+        ]
+      ],
       "./src/importScript.js",
       "./src/ipfsClient.js",
       "./src/openWindows.js",
