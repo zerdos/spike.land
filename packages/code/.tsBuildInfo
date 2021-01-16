@@ -187,7 +187,7 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "4e0e16ce3f5f90fa63e4e1962bd159468bb53986a96e963e00705296660c8dde",
+        "version": "dfc951b6e1ee8d11d64d80d926dfbcabceb3a011b6477d4c43a628a32684b9ce",
         "signature": "8bbee370cba7c2f1ef343d2f89a1c3551e5f65712909974d883231d43775ae15",
         "affectsGlobalScope": false
       },
