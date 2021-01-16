@@ -1,9 +1,9 @@
 // deno-lint-ignore-file
 // @ts-ignore
-self.importScripts(`https://unpkg.com/comlink@4.3.0/dist/umd/comlink.js`);
+self.importScripts("../../node_legacy/comlink/comlink.min.js");
 // @ts-ignore
 self.importScripts(
-  `https://unpkg.com/@babel/standalone@7.12.12/babel.min.js`,
+  "../../node_legacy/@babel/standalone/babel.min.js"
 );
 
 // @ts-ignore

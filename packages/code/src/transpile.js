@@ -1,3 +1,4 @@
+import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
 import { v } from "./versions.js";
 
 /** @type {((arg0: string, arg1: { emotionRenderer: string; }) => any) | null} */
@@ -29,9 +30,6 @@ async function init() {
   if (transform) {
     console.log("INIT INIT");
   }
-  const Comlink = await import(
-    `https://unpkg.com/comlink@${v.comlink}/dist/esm/comlink.mjs`
-  );
 
   //@ts-ignore
   if (typeof SharedWorker === "undefined") {
@@ -45,14 +43,14 @@ async function init() {
     //@ts-ignore
     worker.postMessage(msg, [port1]);
 
-    transform = await Comlink.wrap(port2);
+    transform = await wrap(port2);
     return transform;
   }
 
   const worker = new SharedWorker(`${v.workerPrefix}/transpile.worker.js`);
   worker.port.start();
 
-  transform = await Comlink.wrap(worker.port);
+  transform = await wrap(worker.port);
 
   return transform;
 }

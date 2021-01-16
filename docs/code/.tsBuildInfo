@@ -267,7 +267,7 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "141f2a284972afc139dfdb96ec9cd495f2006908702487f3c550929c97035e27",
+        "version": "e05c472c5e30740c2db7d25bf62b82a1a0ddeadfb17aab44ee2d52457fc935f4",
         "signature": "50ec110e14960c76ab8b2ffaf972a76d883507cbf4defe051365d3b0166afa31",
         "affectsGlobalScope": false
       },
@@ -392,7 +392,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/transpile.worker.js": {
-        "version": "e5507f836d073ace3e6daf19c8b8d883e2f4ec3c9a2848bafb84d3dcfe4a17cd",
+        "version": "2b1fc9a13227e27321bfd4804d8e5017b6cca0551a1f88f4910f04c17ef3f3f3",
         "signature": "6079521e7b15292801db3a7d091f69cdc671fc949af71bba96ed04cffbbf91eb",
         "affectsGlobalScope": true
       },
