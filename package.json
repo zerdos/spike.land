@@ -29,24 +29,8 @@
     "@yarnpkg/plugin-node-modules": "2.3.0",
     "csstype": "3.0.6",
     "lerna": "3.22.1",
-    "typescript": "4.1.3",
+    "typescript":"4.2.0-beta",
     "yarn": "1.22.10"
-  },
-  "resolutions": {
-    "@zedvision/cf-worker": "portal:/home/zed/z/packages/cf-zed-vision",
-    "@zedvision/code": "portal:/home/zed/z/packages/code",
-    "@devcontainer/cypress": "portal:/home/zed/z/packages/devimages-cypress",
-    "@zedvision/emotion-react-renderer": "portal:/home/zed/z/packages/emotion-react-renderer",
-    "@devcontainer/eoan-xfce-novnc": "portal:/home/zed/z/packages/eoan-xfce-novnc",
-    "@devcontainer/focal-devcontainer": "portal:/home/zed/z/packages/focal-devcontainer",
-    "@devcontainer/focal-xfce-vnc": "portal:/home/zed/z/packages/focal-xfce-vnc",
-    "@devcontainer/generator": "portal:/home/zed/z/packages/generator",
-    "@devcontainer/groovy-devcontainer": "portal:/home/zed/z/packages/groovy-devcontainer",
-    "@devcontainer/groovy-xfce-novnc": "portal:/home/zed/z/packages/groovy-xfce-novnc",
-    "@devcontainer/hirsute-devcontainer": "portal:/home/zed/z/packages/hirsute-devcontainer",
-    "@zedvision/qrious": "portal:/home/zed/z/packages/qrious",
-    "@zedvision/shadb": "portal:/home/zed/z/packages/shadb",
-    "@zedvision/smart-monaco-editor": "portal:/home/zed/z/packages/smart-monaco-editor",
-    "@zedvision/zedvision-site": "portal:/home/zed/z/packages/zed-vision-site"
   }
 }
+
