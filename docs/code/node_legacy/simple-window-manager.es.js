@@ -3017,4 +3017,3 @@ class WindowManager
   */
 
 export { WindowManager };
-//# sourceMappingURL=simple-window-manager.es.js.map

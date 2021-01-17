@@ -1,14 +1,8 @@
-import { v } from "./versions.js";
+import { Workbox } from "../node_legacy/workbox-window.prod.mjs";
 
-export async function workBox() {
-  // deno-lint-ignore ban-ts-comment
-  //@ts-ignore
-  const { Workbox } = await import(
-    `https://storage.googleapis.com/workbox-cdn/releases/${v.workbox}/workbox-window.prod.mjs`
-  );
-
+export function workBox() {
   if ("serviceWorker" in window.navigator) {
-    const wb = new Workbox(`${v.workerPrefix}/sw.js`);
+    const wb = new Workbox(`src/workers/sw.js`);
 
     wb.register();
   }

@@ -257,12 +257,12 @@
         "affectsGlobalScope": false
       },
       "./src/workBox.js": {
-        "version": "953f6bdb77b1b0038af87d70f01a22c91889c7b7479d05912e21166a4cc5cef1",
-        "signature": "28f1bcb8fcfb43e1ec98d1a07e178d80ba0c9c05f49a53d6967c6620e2514fd7",
+        "version": "eb730c3bcb031d3a2f0475cad33332d8901991344f6b5cc7103c9ef7fff99121",
+        "signature": "f770a1dc1735f5c18b1bdfbb05889308ee78ecffec3805c116f75be276e59da4",
         "affectsGlobalScope": false
       },
       "./node_legacy/simple-window-manager.es.js": {
-        "version": "c3f7bd3ecb6463c25a9f3bf9e25878cd45a7c7a2be3e60122798b6efcea8e8e3",
+        "version": "f2e0ed428948b7eb357558e1c94aded9c36224ce1651bea9a9c37c59e982b479",
         "signature": "966db95bf6a8931389b718a143261bc299d8bec864051f3e43d6fdb9bced6eec",
         "affectsGlobalScope": false
       },
@@ -665,8 +665,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/versions.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workers/ipfs/dist/ipfs.client.d.ts": [
         "./src/workers/ipfs/dist/gateways.d.ts"
