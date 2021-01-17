@@ -10,6 +10,7 @@ URL="http://[::1]:8080/ipfs/$CID"
 # mkdir -p docs/code
 # cp -ar packages/code docs/code/$CID
 echo "export const cid = '$CID';" > cloudflare/cf-zed-vision/src/ipfs.ts
+echo "export const cid = '$CID';" > cloudflare/cf-code-zed-vision/src/ipfs.ts
 echo  $(CID=$CID node -pe 'JSON.stringify({"cid": process.env["CID"]})') > cloudflare/cf-code-zed-vision/src/ipfs.json
 
 echo $CID > code.CID
