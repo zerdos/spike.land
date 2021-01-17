@@ -50,7 +50,7 @@ async function handleRequest(request) {
     }
     return response;
   }
-  return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 307);
+  return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 302);
 }
 
 /**

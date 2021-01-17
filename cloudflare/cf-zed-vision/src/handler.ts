@@ -250,11 +250,11 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     // return text("ello")
 
     if (pathname === "/") {
-      return Response.redirect("https://blog.zed.vision", 307);
+      return Response.redirect("https://blog.zed.vision", 302);
     }
 
     if (pathname === "/code" || pathname === "/code/") {
-      return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 307);
+      return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 302);
     }
 
     return text(pathname);
