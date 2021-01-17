@@ -267,6 +267,7 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 const v41 = () => v4();
+const cid = "QmbMpYXQBdbEkYkGHhFUwSe7MUhtehkU8FJLn2BaDZF9Bw";
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",
@@ -503,7 +504,10 @@ async function handleCloudRequest(request) {
         if (result.indexOf("export") === 0) return js(result);
         return text(result);
       }
-      return Response.redirect(`https://code.zed.vision/${maybeRoute}/`, 301);
+      return Response.redirect(
+        `https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`,
+        307,
+      );
     }
     if (pathname.slice(0, 6) === "/ipfs/") {
       const cache = caches.default;
@@ -536,13 +540,10 @@ async function handleCloudRequest(request) {
       return response;
     }
     if (pathname === "/") {
-      return Response.redirect("https://blog.zed.vision", 301);
+      return Response.redirect("https://blog.zed.vision", 307);
     }
     if (pathname === "/code") {
-      return Response.redirect("https://code.zed.vision", 301);
-    }
-    if (pathname === "/code/") {
-      return Response.redirect("https://code.zed.vision", 301);
+      return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 307);
     }
     return text(pathname);
   } else if (request.method === "POST") {

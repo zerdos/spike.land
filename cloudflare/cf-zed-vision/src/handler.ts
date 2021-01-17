@@ -3,6 +3,8 @@ import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
 import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/sha256.js";
+import {cid} from "./ipfs.ts"
+
 import {
   publicIpfsGateways,
   raceToSuccess,
@@ -201,7 +203,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         if (result.indexOf("export") === 0) return js(result);
         return text(result);
       }
-      return Response.redirect(`https://code.zed.vision/${maybeRoute}/`, 301);
+      return Response.redirect(`https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`, 307);
     }
 
     if (pathname.slice(0, 6) === "/ipfs/") {
@@ -245,14 +247,11 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     // return text("ello")
 
     if (pathname === "/") {
-      return Response.redirect("https://blog.zed.vision", 301);
+      return Response.redirect("https://blog.zed.vision", 307);
     }
 
     if (pathname === "/code") {
-      return Response.redirect("https://code.zed.vision", 301);
-    }
-    if (pathname === "/code/") {
-      return Response.redirect("https://code.zed.vision", 301);
+      return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 307);
     }
 
     return text(pathname);
@@ -320,6 +319,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     //                - or babel it
     //                - or render it to html
     //                - then the result :)
+
     const maybeRoute = pathname.substr(1);
 
     await SHAKV.put(smallerKey, myBuffer);

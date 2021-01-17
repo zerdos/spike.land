@@ -1,8 +1,7 @@
 import { importScript } from "../../importScript.js";
 
 export const getMonaco = async () => {
-  const vsPath =
-    `${window.location.href}../code/node_legacy/monaco-editor/min/vs`;
+  const vsPath = `${window.location.pathname}node_legacy/monaco-editor/min/vs`;
 
   const { require } = await importScript(
     `${vsPath}/loader.js`,

@@ -1,6 +1,5 @@
-CID=$(ipfs add -r -H ./packages -Q) 
+CID=$(ipfs add -r -H ./packages/code -Q) 
 URL="http://[::1]:8080/ipfs/$CID"
-
 
 #  curl -X GET "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/?type=TXT" \
 #      -H "Authorization: Bearer $BBTOKEN" \
@@ -8,13 +7,13 @@ URL="http://[::1]:8080/ipfs/$CID"
 #      --data  $(CID=$BCID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})') &)
 
 # rm -rf docs/code/$(cat code.CID)
-#mkdir -p docs/code
-#cp -ar packages/code docs/code/$CID
+# mkdir -p docs/code
+# cp -ar packages/code docs/code/$CID
+echo "export const cid = '$CID';" > cloudflare/cf-zed-vision/src/ipfs.ts
 echo  $(CID=$CID node -pe 'JSON.stringify({"cid": process.env["CID"]})') > cloudflare/cf-code-zed-vision/src/ipfs.json
 
-echo $CID >code.CID
-
-echo $URL  
+echo $CID > code.CID
+echo $URL
 
 (firefox  $URL)&
 #################################
@@ -36,6 +35,3 @@ echo ####################################
 
 
 # echo "-------------------------------------------------------------" 
-
-
-

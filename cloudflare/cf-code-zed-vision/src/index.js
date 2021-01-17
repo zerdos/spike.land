@@ -17,8 +17,14 @@ async function handleRequest(request) {
   const publicIpfsGW = [...publicIpfsGateways];
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
+  const maybeRoute = pathname.slice(1, 9);
+  const isKey =
+    [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0 &&
+    maybeRoute.length === 8;
 
-  if (pathname.slice(0, 6) === "/ipfs/") {
+  const contentPath = isKey ? pathname.slice(9) : pathname;
+
+  if (contentPath.slice(0, 6) === "/ipfs/") {
     //@ts-ignore
     const cache = caches.default;
     let response = await cache.match(request);
@@ -27,7 +33,7 @@ async function handleRequest(request) {
       //https://ipfs.github.io/public-gateway-checker/gateways.json
       const random5GatewaysFetch = publicIpfsGateways.sort(() =>
         0.5 - Math.random()
-      ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
+      ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", contentPath)).map((
         x,
       ) =>
         fetch(x).then((res) =>
@@ -40,7 +46,7 @@ async function handleRequest(request) {
       response = await raceToSuccess(random5GatewaysFetch);
       await cache.put(request, response.clone());
     }
-    if (response.status > 399) {
+    if (response.status !== 200) {
       response = new Response(
         response.statusText,
         { status: response.status },
@@ -48,43 +54,7 @@ async function handleRequest(request) {
     }
     return response;
   }
-  const maybeRoute = pathname.substr(1);
-  const isKey =
-    [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0 &&
-    maybeRoute.length === 8;
-
-  //@ts-ignore
-  const cache = caches.default;
-  let response = await cache.match(request);
-
-  if (!response) {
-    //https://ipfs.github.io/public-gateway-checker/gateways.json
-    const random5GatewaysFetch = publicIpfsGW.sort(() => 0.5 - Math.random())
-      .slice(0, 5).map((gw) =>
-        gw.replace(
-          "/ipfs/:hash",
-          `/ipfs/${cid}/code${isKey ? pathname.slice(9) : pathname}`,
-        )
-      ).map((
-        x,
-      ) =>
-        fetch(x).then((res) =>
-          res.status === 200 ? res : (() => {
-            throw new Error("Not found");
-          })()
-        )
-      );
-
-    response = await raceToSuccess(random5GatewaysFetch);
-    await cache.put(request, response.clone());
-  }
-  if (response.status > 399) {
-    response = new Response(
-      response.statusText,
-      { status: response.status },
-    );
-  }
-  return response;
+  return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 307);
 }
 
 /**

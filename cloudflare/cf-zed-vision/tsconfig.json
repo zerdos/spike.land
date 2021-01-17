@@ -10,6 +10,7 @@
       "noEmit": true,
       "preserveConstEnums": true,
       "moduleResolution": "node",
+      "resolveJsonModule": true,
       "sourceMap": true,
       "esModuleInterop": true,
       "types": ["@cloudflare/workers-types"]
