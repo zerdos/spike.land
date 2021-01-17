@@ -5312,6 +5312,11 @@ cli-width@^3.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-3.0.0.tgz#a2f48437a2caa9a22436e794bf071ec9e61cedf6"
   integrity sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==
 
+clicked@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/clicked/-/clicked-3.2.3.tgz#bd32f775ca9e4a9acbc918439ead29276117f70b"
+  integrity sha512-5HmonYPwMciRc5sNEfbUSCJA690MMC9bkMdLPxASBz0H3S8uCxoMHP7o6y95TNCWUSl7DZyejQPzeg0uvmq7Ng==
+
 clipanion@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/clipanion/-/clipanion-2.6.2.tgz#820e7440812052442455b248f927b187ed732f71"
@@ -7471,7 +7476,7 @@ event-target-shim@^5.0.0:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-eventemitter3@^3.1.0:
+eventemitter3@^3.0.0, eventemitter3@^3.1.0:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
@@ -17152,6 +17157,14 @@ simple-swizzle@^0.2.2:
   integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   dependencies:
     is-arrayish "^0.3.1"
+
+simple-window-manager@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/simple-window-manager/-/simple-window-manager-2.1.2.tgz#23d2800b79ad01053bae55ee75607eab95f58378"
+  integrity sha512-+pzutR1UQb/76Xc/huYgHbm42d/md/RzZl4Hl0eESRKHmBdI+qmOoDAFG7fbIPQOeS8+r63pO8rnxJPVS5JGTg==
+  dependencies:
+    clicked "^3.2.3"
+    eventemitter3 "^3.0.0"
 
 single-trailing-newline@^1.0.0:
   version "1.0.0"

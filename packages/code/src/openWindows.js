@@ -1,21 +1,9 @@
 import { workBox } from "./workBox.js";
-import { importCss } from "./importScript.js";
+import { WindowManager } from "../node_legacy/simple-window-manager.es.js";
 
-export async function openWindows(v) {
-  const { WindowManager } = await import(
-    "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js"
-  );
-
-  importCss(
-    `https://blog.zed.vision/code/assets/app.css`,
-    "appCss",
-  );
-  importCss(
-    `https://blog.zed.vision/code/assets/normalize.min.css`,
-    "normalizeCss",
-  );
-
+export function openWindows() {
   workBox();
+
   const wm = new WindowManager({ backgroundWindow: "green" });
 
   wm.snap(false);
