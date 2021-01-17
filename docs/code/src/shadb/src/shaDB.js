@@ -44,7 +44,6 @@ export const shaDB = {
  * @param {"string" | "json"} type 
  */
   get: async (key, type) => {
-
     const db = await (await getDB("shaDB"))();
     return db.get(key, type);
   },

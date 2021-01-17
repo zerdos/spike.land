@@ -374,11 +374,13 @@ jsonDiff.castInput = function (value) {
         return typeof v === "undefined" ? undefinedReplacement : v;
       }
       : _this$options$stringi;
-  return typeof value === "string" ? value : JSON.stringify(
-    canonicalize(value, null, null, stringifyReplacer),
-    stringifyReplacer,
-    "  ",
-  );
+  return typeof value === "string"
+    ? value
+    : JSON.stringify(
+      canonicalize(value, null, null, stringifyReplacer),
+      stringifyReplacer,
+      "  ",
+    );
 };
 jsonDiff.equals = function (left, right) {
   return Diff.prototype.equals.call(
@@ -844,12 +846,14 @@ function formatPatch(diff) {
     "===================================================================",
   );
   ret.push(
-    "--- " + diff.oldFileName +
-      (typeof diff.oldHeader === "undefined" ? "" : "\t" + diff.oldHeader),
+    "--- " + diff.oldFileName + (typeof diff.oldHeader === "undefined"
+      ? ""
+      : "\t" + diff.oldHeader),
   );
   ret.push(
-    "+++ " + diff.newFileName +
-      (typeof diff.newHeader === "undefined" ? "" : "\t" + diff.newHeader),
+    "+++ " + diff.newFileName + (typeof diff.newHeader === "undefined"
+      ? ""
+      : "\t" + diff.newHeader),
   );
   for (var i = 0; i < diff.hunks.length; i++) {
     var hunk = diff.hunks[i];

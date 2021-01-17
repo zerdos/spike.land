@@ -1,5 +1,5 @@
-import { diffChars} from "./vendor/diffMin.js"
-import {sha256} from "./sha256.js"
+import { diffChars } from "./vendor/diffMin.js";
+import { sha256 } from "./sha256.js";
 
 export const diff = async (str1, str2) => {
   const sha1Str1 = sha256(str1);
@@ -10,8 +10,6 @@ export const diff = async (str1, str2) => {
     c: res.map((x) => x.added ? x.value : x.removed ? -x.count : x.count),
   };
 };
-
-
 
 export const isDiff = (str) => {
   if (str.length < 10) {
@@ -31,7 +29,6 @@ export const isDiff = (str) => {
   }
   return false;
 };
-
 
 export const assemble = (oldValue, instructions) => {
   const instArr = JSON.parse(instructions);

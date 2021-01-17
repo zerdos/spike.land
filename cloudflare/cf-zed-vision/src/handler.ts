@@ -3,7 +3,7 @@ import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
 import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/sha256.js";
-import {cid} from "./ipfs.ts"
+import { cid } from "./ipfs.ts";
 
 import {
   publicIpfsGateways,
@@ -194,8 +194,8 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     const maybeRoute = pathname.substr(1);
     const isKey = [...maybeRoute].filter((x) =>
-      x < "0" || x > "f"
-    ).length === 0 && maybeRoute.length===8;
+          x < "0" || x > "f"
+        ).length === 0 && maybeRoute.length === 8;
     if (maybeRoute && isKey) {
       const shaDB = getDbObj(SHAKV);
       const result = (await shaDB.get(maybeRoute)) as string | null;
@@ -203,7 +203,10 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         if (result.indexOf("export") === 0) return js(result);
         return text(result);
       }
-      return Response.redirect(`https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`, 307);
+      return Response.redirect(
+        `https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`,
+        307,
+      );
     }
 
     if (pathname.slice(0, 6) === "/ipfs/") {
@@ -250,7 +253,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return Response.redirect("https://blog.zed.vision", 307);
     }
 
-    if (pathname === "/code" || pathname=== "/code/") {
+    if (pathname === "/code" || pathname === "/code/") {
       return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 307);
     }
 
