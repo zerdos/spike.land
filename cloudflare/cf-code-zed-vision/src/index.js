@@ -48,7 +48,11 @@ async function handleRequest(request) {
       response = await raceToSuccess(random5GatewaysFetch);
       await cache.put(request, response.clone());
     }
-    const resp = new Response(response.body, response);
+    // const resp = new Response(response.body, response);
+    const arrBuff = await response.clone().arrayBuffer();
+    const resp = new Response(arrBuff, response);
+    const respCID = await getCID(arrBuff);
+
     resp.headers.set("access-control-allow-origin", "*");
     resp.headers.set(
       "access-control-allow-methods",
@@ -56,7 +60,8 @@ async function handleRequest(request) {
     );
     resp.headers.set("access-control-max-age", "86400");
     resp.headers.delete("content-security-policy");
-
+    resp.headers.delete("feature-policy");
+    resp.headers.set("x-cid", respCID);
     return resp;
   }
   return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 302);
@@ -91,17 +96,24 @@ function text(resp) {
 }
 
 /**
- * @param {string } str
+ * @param {ArrayBuffer | Uint8Array | Int8Array | Int16Array | Int32Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView} buff
  */
-const getCID = async (str) => {
-  const myText = new TextEncoder().encode(str);
-
+const getCID = async (buff) => {
   const myDigest = await crypto.subtle.digest(
     {
       name: "SHA-256",
     },
-    myText, // The data you want to hash as an ArrayBuffer
+    buff, // The data you want to hash as an ArrayBuffer
   );
 
-  return CID(0, 112, myDigest);
+  const uintArr = new Uint8Array(myDigest);
+
+  let cid;
+  try {
+    cid = new CID(0, 112, uintArr);
+  } catch {
+    cid = "exception";
+  }
+
+  return cid;
 };
