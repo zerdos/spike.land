@@ -46,12 +46,6 @@ async function handleRequest(request) {
       response = await raceToSuccess(random5GatewaysFetch);
       await cache.put(request, response.clone());
     }
-    if (response.status !== 200) {
-      response = new Response(
-        response.statusText,
-        { status: response.status },
-      );
-    }
     return response;
   }
   return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 307);
