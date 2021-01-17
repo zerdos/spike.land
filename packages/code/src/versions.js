@@ -2,7 +2,6 @@ function versions() {
   const shadb = "11.10.0";
   const editor = "11.10.0";
   const ipfsClient = "11.10.4";
-  const emotionRenderer = "11.10.0";
 
   const v = {
     shadb,
@@ -15,8 +14,6 @@ function versions() {
     comlink: "4.3.0",
     editor:
       `https://unpkg.com/@zedvision/smart-monaco-editor@${editor}/dist/editor.js`,
-    emotionRenderer:
-      `https://unpkg.com/@zedvision/emotion-react-renderer@${emotionRenderer}/dist/bundle.js`,
     workerPrefix: window.location.hostname === "blog.zed.vision"
       ? `https://blog.zed.vision/code/src/workers`
       : window.location.hostname === "[::1]"

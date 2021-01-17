@@ -1,24 +1,21 @@
 import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
 import { v } from "./versions.js";
 
-/** @type {((arg0: string, arg1: { emotionRenderer: string; }) => any) | null} */
 let transform = null;
 
 /**
  *
  * @param {string} code 
- * @param {string} emotionRenderer
  * @returns {Promise<string>}
  */
-export async function transpileCode(code, emotionRenderer) {
+export async function transpileCode(code) {
   if (transform === null) {
     await init();
-    return transpileCode(code, emotionRenderer);
+    return transpileCode(code);
   }
   try {
     const transformed = await transform(
       code,
-      { emotionRenderer: emotionRenderer || v.emotionRenderer },
     );
     return transformed;
   } catch {

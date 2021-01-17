@@ -2,6 +2,11 @@ import { sha256 } from "./shadb/src/sha256.js";
 import { diff } from "./shadb/src/diff.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
+import {
+  DraggableWindow,
+  jsx,
+  renderEmotion,
+} from "./emotion-react-renderer/dist/renderer.js";
 import { fetchSignal, sendSignal } from "./hash.js";
 import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
@@ -51,8 +56,6 @@ export async function run(mode = "window", _w, code = "") {
       session.code = code;
       session.transpiled = await transpileCode(
         code,
-        //(versions && versions.emotionRenderer) ||
-        v.emotionRenderer,
       ) || transpiled;
       session.div.innerHTML = html;
       session.versions = versions;
@@ -72,14 +75,10 @@ export async function run(mode = "window", _w, code = "") {
   session.versions = v;
 
   if (session.transpiled === "") {
-    const transpiled = await transpileCode(session.code, v.emotionRenderer);
+    const transpiled = await transpileCode(session.code);
     console.log(transpiled);
     session.transpiled = transpiled;
   }
-
-  const { renderEmotion, jsx, DraggableWindow } = await import(
-    v.emotionRenderer
-  );
 
   await await renderPreviewWindow(
     mode,
@@ -92,7 +91,6 @@ export async function run(mode = "window", _w, code = "") {
 
   const freshlyTranspiled = await transpileCode(
     session.code,
-    v.emotionRenderer,
   );
   await restartCode(freshlyTranspiled, session.i);
 
@@ -129,7 +127,7 @@ export async function run(mode = "window", _w, code = "") {
     const counter = session.i;
     const cd = await (formatter(c));
     try {
-      const transpiled = await transpileCode(cd, v.emotionRenderer);
+      const transpiled = await transpileCode(cd);
 
       let restartError = false;
       ///yellow

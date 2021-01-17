@@ -12,6 +12,7 @@
     "packages/code/src/workers/ipfs",
     "packages/code/src/shadb",
     "packages/code/src/smart-monaco-editor",
+    "packages/code/src/emotion-react-renderer",
     "packages/zed-vision-site"
   ],
   "scripts": {

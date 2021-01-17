@@ -1,9 +1,6 @@
 import { workBox } from "./workBox.js";
-import { importCss, importScript } from "./importScript.js";
+import { importCss } from "./importScript.js";
 
-/**
- * @param {{ code?: string; shadb?: string; ipfs?: string; workbox: any; babel?: string; prettier?: string; uuid?: string; comlink?: string; editor?: string; DraggableWindow?: string; emotionRenderer?: string; }} v
- */
 export async function openWindows(v) {
   const { WindowManager } = await import(
     "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js"

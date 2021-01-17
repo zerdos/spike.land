@@ -43,7 +43,7 @@ export const getHtml = ({ html, css }) => {
   ${html}
 </div>
 <script type="module">
-import { renderEmotion } from "${v.emotionRenderer}"
+import { renderEmotion } from "${window.location.href}code/emotion-react/renderer/dist/renderer.js"
 import App from "./app.js"
 
 renderEmotion(App(), document.body.children[0]);

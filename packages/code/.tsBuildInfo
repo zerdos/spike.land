@@ -202,8 +202,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "a1ad323e3318ceb03d0c59e873ad04cd29cc31dba9b862ac970552b64e3b98b4",
-        "signature": "ca43c7520f95b5e99235de8c32fe1980ae530d436c74377b5aa8a1be636b5ac7",
+        "version": "7f9e20ba6229718936ddd600029126c817136ee3d1699bfbbfd6ac5609ec8b19",
+        "signature": "fcaf61dc432626dd151f6ab8c1704ee8058a68805796bc91b2cb97647388e7e5",
         "affectsGlobalScope": false
       },
       "./src/workers/ipfs/dist/gateways.d.ts": {
@@ -222,8 +222,8 @@
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
-        "version": "f943aaf947393cd883519771022d3e8e15c36d668872454e9de0977c9477a778",
-        "signature": "984c4405088500e977ac240c515be6278eaee21c4c18a0a550dc49aa0d55c0d8",
+        "version": "a8a134d0f2e5ae96697c48b4d853e5d882ea1389dfe0d50f96ffae7ed685360d",
+        "signature": "056b3e9612d4bafb69dda4cb58b42721dfafd6d52d8a5a06aa9d0885645f06f7",
         "affectsGlobalScope": false
       },
       "./src/share.js": {
@@ -251,6 +251,11 @@
         "signature": "608cfe0ec75d5731a86860a9943b16fa17fe5a5b39ee2fefa9e202413269e43b",
         "affectsGlobalScope": false
       },
+      "./src/emotion-react-renderer/dist/renderer.js": {
+        "version": "89eaf1539d40a2e1d6aa889956d7c930637d130ba237c88fbf843b431963f6be",
+        "signature": "d6e56eadaccf79cb3409115830f9dc69420c6b33c25c6d6865bcc0fc90580f00",
+        "affectsGlobalScope": false
+      },
       "./src/workBox.js": {
         "version": "953f6bdb77b1b0038af87d70f01a22c91889c7b7479d05912e21166a4cc5cef1",
         "signature": "28f1bcb8fcfb43e1ec98d1a07e178d80ba0c9c05f49a53d6967c6620e2514fd7",
@@ -262,13 +267,13 @@
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {
-        "version": "5cded3c1eeb7ff4c585fc82cb49672ac2ff4ab649414b6f483eeff3f968733fb",
-        "signature": "f75cae6f4e387be87aa8e3a0875a048d03157da7756d51f56850b0c41c177383",
+        "version": "5923299676fcaf2f8e511227e3cbd210a4eb20c4b6b18d81836922ad0caf7bea",
+        "signature": "4fb92c6ff270981568eb9e0899ceb441525aebb07c18aa958fa32547030a68a0",
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "e05c472c5e30740c2db7d25bf62b82a1a0ddeadfb17aab44ee2d52457fc935f4",
-        "signature": "50ec110e14960c76ab8b2ffaf972a76d883507cbf4defe051365d3b0166afa31",
+        "version": "87b229124a7867120f72cf2e413c6ccbd7644da6b61c01fce07017681846b7c2",
+        "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
@@ -282,7 +287,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "79a9ec6e84a3988c74bb2a0120dbbaad6fa69d650db0ebba00a294f600355a26",
+        "version": "187cccf66e8869189497f05290c36384f1851934122f0c7cae230bf27a954357",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -294,6 +299,21 @@
       "./src/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
         "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
+        "affectsGlobalScope": false
+      },
+      "./src/emotion-react-renderer/dist/DraggableWindow.js": {
+        "version": "2af4d70af0183fd00b01a74525373bfddce6f49ad23d3c6e8b0bf16caebd0f1b",
+        "signature": "26a9ba2938e42f3c1834f0ef0bf83619fe4eeb07e308a12ec8fcb420d9de56ea",
+        "affectsGlobalScope": false
+      },
+      "./src/emotion-react-renderer/dist/bundle.js": {
+        "version": "89eaf1539d40a2e1d6aa889956d7c930637d130ba237c88fbf843b431963f6be",
+        "signature": "d6e56eadaccf79cb3409115830f9dc69420c6b33c25c6d6865bcc0fc90580f00",
+        "affectsGlobalScope": false
+      },
+      "./src/emotion-react-renderer/dist/draggableWindowBundle.js": {
+        "version": "2af4d70af0183fd00b01a74525373bfddce6f49ad23d3c6e8b0bf16caebd0f1b",
+        "signature": "26a9ba2938e42f3c1834f0ef0bf83619fe4eeb07e308a12ec8fcb420d9de56ea",
         "affectsGlobalScope": false
       },
       "./src/examples/starterNoFramerMotion.js": {
@@ -422,8 +442,8 @@
         "affectsGlobalScope": true
       },
       "./src/workers/transpile.worker.js": {
-        "version": "2b1fc9a13227e27321bfd4804d8e5017b6cca0551a1f88f4910f04c17ef3f3f3",
-        "signature": "6079521e7b15292801db3a7d091f69cdc671fc949af71bba96ed04cffbbf91eb",
+        "version": "6501ba1e96553e4f6b08c767f95077ee6bec390536a8c0c223300e26a63b937d",
+        "signature": "7117ba628ae877499cfbefa16a068618d67b7399abe543ea96294a280a4b8b50",
         "affectsGlobalScope": true
       },
       "./src/workers/ipfs/dist/gateways.js": {
@@ -474,6 +494,7 @@
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/data.js",
+        "./src/emotion-react-renderer/dist/renderer.js",
         "./src/formatter.js",
         "./src/hash.js",
         "./src/openWindows.js",
@@ -492,6 +513,18 @@
         "./src/share.js",
         "./src/starter.js",
         "./src/versions.js"
+      ],
+      "./src/emotion-react-renderer/dist/DraggableWindow.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./src/emotion-react-renderer/dist/bundle.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./src/emotion-react-renderer/dist/draggableWindowBundle.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./src/emotion-react-renderer/dist/renderer.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/examples/starterNoFramerMotion.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -679,6 +712,10 @@
       "./src/codeLoader.js",
       "./src/data.js",
       "./src/db.js",
+      "./src/emotion-react-renderer/dist/DraggableWindow.js",
+      "./src/emotion-react-renderer/dist/bundle.js",
+      "./src/emotion-react-renderer/dist/draggableWindowBundle.js",
+      "./src/emotion-react-renderer/dist/renderer.js",
       "./src/examples/starterNoFramerMotion.js",
       "./src/examples/starter_framer.js",
       "./src/formatter.js",
@@ -768,6 +805,22 @@
       ],
       [
         "./src/db.js",
+        1
+      ],
+      [
+        "./src/emotion-react-renderer/dist/DraggableWindow.js",
+        1
+      ],
+      [
+        "./src/emotion-react-renderer/dist/bundle.js",
+        1
+      ],
+      [
+        "./src/emotion-react-renderer/dist/draggableWindowBundle.js",
+        1
+      ],
+      [
+        "./src/emotion-react-renderer/dist/renderer.js",
         1
       ],
       [

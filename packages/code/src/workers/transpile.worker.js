@@ -43,9 +43,8 @@ const replaceWith = "";
 
 /**
  * @param {string} code
- *  @param {{emotionRenderer: string}} v
  */
-const transform = (code, v) => {
+const transform = (code) => {
   try {
     // @ts-ignore
     const safeCode = code.replaceAll(
@@ -61,7 +60,7 @@ const transform = (code, v) => {
     // @ts-ignore
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion} from "${v.emotionRenderer}";
+      import {jsx, React, css, Fragment, Global, Motion, motion} from "${location.href}../../../emotion-react-renderer/dist/renderer.js";
       
       ` + safeCode + `
       
