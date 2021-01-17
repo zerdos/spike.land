@@ -16,9 +16,7 @@ function versions() {
       `https://unpkg.com/@zedvision/smart-monaco-editor@${editor}/dist/editor.js`,
     workerPrefix: window.location.hostname === "blog.zed.vision"
       ? `https://blog.zed.vision/code/src/workers`
-      : window.location.hostname === "[::1]"
-      ? `${location.href}src/workers`
-      : `${location.origin}/src/workers`,
+      : `${location.href}src/workers`,
   };
 
   return v;

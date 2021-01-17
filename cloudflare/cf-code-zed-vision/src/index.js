@@ -1,5 +1,6 @@
 //import { version } from "@zedvision/code/package.json";
 import { cid } from "./ipfs.json";
+import { CID } from "@zedvision/ipfs/dist/ipfs.client.js";
 import {
   publicIpfsGateways,
   raceToSuccess,
@@ -38,6 +39,7 @@ async function handleRequest(request) {
       ) =>
         fetch(x).then((res) =>
           res.status === 200 ? res : (() => {
+            res.arrayBuffer();
             throw new Error("Not found");
           })()
         )
@@ -78,3 +80,19 @@ function text(resp) {
     },
   });
 }
+
+/**
+ * @param {string } str
+ */
+const getCID = async (str) => {
+  const myText = new TextEncoder().encode(str);
+
+  const myDigest = await crypto.subtle.digest(
+    {
+      name: "SHA-256",
+    },
+    myText, // The data you want to hash as an ArrayBuffer
+  );
+
+  return CID(0, 112, myDigest);
+};
