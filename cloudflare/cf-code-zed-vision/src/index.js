@@ -48,6 +48,16 @@ async function handleRequest(request) {
       response = await raceToSuccess(random5GatewaysFetch);
       await cache.put(request, response.clone());
     }
+    response = new Response(response.body, response);
+    response.headers.set("access-control-allow-origin", "*");
+    response.headers.set(
+      "access-control-allow-methods",
+      "GET,HEAD,POST,OPTIONS",
+    );
+    response.headers.set("access-control-max-age", "86400");
+    response.headers.remove("content-security-policy");
+    response.headers.set("content-security-policy", "default-src");
+
     return response;
   }
   return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 302);
