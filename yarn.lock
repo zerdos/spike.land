@@ -18683,10 +18683,10 @@ typeface-montserrat@1.1.13:
   resolved "https://registry.yarnpkg.com/typeface-montserrat/-/typeface-montserrat-1.1.13.tgz#2a16729c174dd1a8c3fec05a851b7725412606cc"
   integrity sha512-Pklkyj0e+K+6I/t0M6JBDBphpfJkF1k+3qd8qDnp9aVtCC7oGBQWTAcL6+5eArfGe7h73uPwyal73hEkf9YCUA==
 
-typescript@4.2.0-beta:
-  version "4.2.0-beta"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.0-beta.tgz#75326e43625718f4a325f5725a105a1b3f1a7b45"
-  integrity sha512-0nYjpkQ6bKjHoJTQkUHcDtGLNenqc5rfTcl3ISUnJXPkGa0115FcVJABmodfMKHLyDBmzDr8IGLbDv5m7sbYgw==
+typescript@4.2.0-dev.20210115:
+  version "4.2.0-dev.20210115"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.0-dev.20210115.tgz#f3d1e4fdadf92701716daf08f54bac121023849b"
+  integrity sha512-sDBExKD8Ht4dsLHxNgxPmfFcw5HJVPpi+NxT0CL31IPvJSoUdnIrQbE3SMjIjheqURFYY2AB1ehzOB3O0lNsLw==
 
 typical@^6.0.0:
   version "6.0.1"
