@@ -174,7 +174,7 @@ export async function run(mode = "window", _w, code = "") {
 
           if (slices.c.length == 4) {
             session.lastErrors = 0;
-            modules.monaco.editor.setTheme("hc-black");
+            monaco.editor.setTheme("hc-black");
 
             return;
           }
@@ -185,11 +185,11 @@ export async function run(mode = "window", _w, code = "") {
         return;
       }
 
-      modules.monaco.editor.setTheme("vs-dark");
+      monaco.editor.setTheme("vs-dark");
     } catch (err) {
-      modules.monaco.editor.setTheme("vs-light");
+      monaco.editor.setTheme("vs-light");
       setTimeout(() => {
-        modules.monaco.editor.setTheme("hc-black");
+        monaco.editor.setTheme("hc-black");
       }, 50);
       console.error(err);
     }
@@ -199,10 +199,9 @@ export async function run(mode = "window", _w, code = "") {
    * @param {string} code
    */
   async function getErrors(code) {
-    if (!modules || !modules.monaco) {
+    if (!monaco) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
-    const { monaco } = modules;
 
     const shaCode = await sha256(code);
     const filename = `file:///${shaCode}.tsx`;
