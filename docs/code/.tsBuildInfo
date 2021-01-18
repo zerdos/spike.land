@@ -181,6 +181,31 @@
         "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
         "affectsGlobalScope": false
       },
+      "./node_legacy/rng.js": {
+        "version": "0e1abdc73fa79ff64006ec6675b06a193f55eac039595cc3867e6567e46f2dd7",
+        "signature": "8a57a361e1c00ef0ee97a851599e81a868a5b7e6aafc85657b2e458f29a4e473",
+        "affectsGlobalScope": false
+      },
+      "./node_legacy/regex.js": {
+        "version": "9a546763c108d7eeb7283ce26c7a6845a44bd67132005eb32fd1feeca49d1b3f",
+        "signature": "6e3c84675fd73bd46789621567357e69a3c9aac6b1a92a52232c5b5d77044262",
+        "affectsGlobalScope": false
+      },
+      "./node_legacy/validate.js": {
+        "version": "4a782f41298704c0029c245203430b3e4511365bf05a3addacdbae59d9c664fa",
+        "signature": "931c1c8b462c5cae0b58438e6ff2ba4534a3e82c7f504aaaf52a481fe024119a",
+        "affectsGlobalScope": false
+      },
+      "./node_legacy/stringify.js": {
+        "version": "b3e05d40408725c571660f7f1bfdb1b20fde769c5142f23273a95815b2ca5d01",
+        "signature": "f6a4e105dfc9e9af071ecba39daa242f6d0d771bcbb89544628d77ced4a2998c",
+        "affectsGlobalScope": false
+      },
+      "./node_legacy/v4.js": {
+        "version": "971f818a59ef77ee2c213dfea32dc4494823f9b8bd45be19fd81cf49b09f44e5",
+        "signature": "1775551aec3cad1f70e4f4e7ccb2c4b5078772fb5cab4292a09f61c6dcb28276",
+        "affectsGlobalScope": false
+      },
       "./src/starter.js": {
         "version": "100fb9406aca460801eefa2f2bef83d926bf1d5db11bec6b12fd70ee0a6a17fb",
         "signature": "2e336c3ecd70956927790025e12507a40718107790a1c73e2a97b0e2898d4839",
@@ -232,7 +257,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "3e82dcd238a21b3a34ed3ff9c170de2e12870b15d4dada558d567c16c50cccf4",
+        "version": "de577264f549acb1d7ccabf9b732bd1209def49148f5b6a443f84e888e57e4e2",
         "signature": "993ce1c5d7c06ef9cdbfaf8c80a68ba81ba01f7639402af90d70623a47b27a87",
         "affectsGlobalScope": false
       },
@@ -279,11 +304,6 @@
       "./src/formatter.js": {
         "version": "6ffca9b1d40b34a17f0ba0aa0ab8a6b095c09c202cf1bf3ff61b33c644cc25ea",
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
-        "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/editor.d.ts": {
-        "version": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
-        "signature": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
@@ -391,30 +411,10 @@
         "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
         "affectsGlobalScope": false
       },
-      "./src/smart-monaco-editor/dist/monaco.d.ts": {
-        "version": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/editor.js": {
-        "version": "e399fb618896c587d6265000c7ea18cbfe4e2bcbd781ad78b31240073a39d312",
-        "signature": "688e6bf6b8568a4bd9c2ca9d67edf36a621200a114efe7cfb4eea0134e90deb0",
-        "affectsGlobalScope": false
-      },
       "./src/importScript.d.ts": {
         "version": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/monaco.js": {
-        "version": "5e0258ef425bc23888eb413c71963f531dbb51f021f9ffc820576dab13c7a9e0",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./src/smart-monaco-editor/dist/scripts/screenshots.js": {
-        "version": "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": true
       },
       "./src/smart-monaco-editor/src/monaco.js": {
         "version": "a1bf9049edc149ed1edfb78efa7046148d75b564362e21244f4f7b08d408b3f4",
@@ -486,8 +486,27 @@
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
+      "./node_legacy/regex.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./node_legacy/rng.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
       "./node_legacy/simple-window-manager.es.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./node_legacy/stringify.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./node_legacy/validate.js"
+      ],
+      "./node_legacy/v4.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./node_legacy/rng.js",
+        "./node_legacy/stringify.js"
+      ],
+      "./node_legacy/validate.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./node_legacy/regex.js"
       ],
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -500,12 +519,12 @@
         "./src/sendSignalToQrCode.js",
         "./src/shadb/src/diff.js",
         "./src/shadb/src/sha256.js",
-        "./src/smart-monaco-editor/dist/editor.d.ts",
         "./src/transpile.js",
         "./src/versions.js"
       ],
       "./src/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./node_legacy/v4.js",
         "./src/shadb/src/sha256.js",
         "./src/shadb/src/shaDB.js",
         "./src/share.js",
@@ -622,14 +641,6 @@
         "./src/shadb/src/shaDB.js",
         "./src/templates.js"
       ],
-      "./src/smart-monaco-editor/dist/editor.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/smart-monaco-editor/dist/monaco.d.ts"
-      ],
-      "./src/smart-monaco-editor/dist/monaco.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/importScript.d.ts"
-      ],
       "./src/smart-monaco-editor/src/monaco.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.d.ts"
@@ -700,7 +711,12 @@
       "../../node_modules/typescript/lib/lib.es2019.string.d.ts",
       "../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
       "../../node_modules/typescript/lib/lib.es5.d.ts",
+      "./node_legacy/regex.js",
+      "./node_legacy/rng.js",
       "./node_legacy/simple-window-manager.es.js",
+      "./node_legacy/stringify.js",
+      "./node_legacy/v4.js",
+      "./node_legacy/validate.js",
       "./src/codeLoader.js",
       "./src/data.js",
       "./src/db.js",
@@ -738,11 +754,6 @@
       "./src/shadb/src/vendor/diffMin.js",
       "./src/shadb/src/vendor/idb.js",
       "./src/share.js",
-      "./src/smart-monaco-editor/dist/editor.d.ts",
-      "./src/smart-monaco-editor/dist/editor.js",
-      "./src/smart-monaco-editor/dist/monaco.d.ts",
-      "./src/smart-monaco-editor/dist/monaco.js",
-      "./src/smart-monaco-editor/dist/scripts/screenshots.js",
       "./src/smart-monaco-editor/src/monaco.js",
       "./src/smart-monaco-editor/src/scripts/screenshots.js",
       "./src/starter.js",
@@ -786,7 +797,27 @@
         1
       ],
       [
+        "./node_legacy/regex.js",
+        1
+      ],
+      [
+        "./node_legacy/rng.js",
+        1
+      ],
+      [
         "./node_legacy/simple-window-manager.es.js",
+        1
+      ],
+      [
+        "./node_legacy/stringify.js",
+        1
+      ],
+      [
+        "./node_legacy/v4.js",
+        1
+      ],
+      [
+        "./node_legacy/validate.js",
         1
       ],
       [
@@ -935,26 +966,6 @@
       ],
       [
         "./src/share.js",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/editor.d.ts",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/editor.js",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/monaco.d.ts",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/monaco.js",
-        1
-      ],
-      [
-        "./src/smart-monaco-editor/dist/scripts/screenshots.js",
         1
       ],
       [

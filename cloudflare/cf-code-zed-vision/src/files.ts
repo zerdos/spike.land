@@ -622,10 +622,15 @@ export const files = {
     "QmNZakKRLQBUJSY8XvTCnCJoU3vWGCYEiCkFDV3WuZmtJZ",
   "node_legacy/parser-html.mjs":
     "QmNQPbdnaiQz91ZKa11kCAByJS1bjj39W1XZWranQ3dMYp",
+  "node_legacy/regex.js": "QmZWiPyB2csudjP2xX6W4P1PHhZQnvMkCdBagQvCM7jMpA",
+  "node_legacy/rng.js": "QmTqi8yzgAq7WJUXtTAX3ccr5meWBaHuGtXx581S1B9kS4",
   "node_legacy/simple-window-manager.es.js":
     "QmcvtuWHJa3nkqaBfFMriqZz3N15RDeGErhF26tjPThxgM",
   "node_legacy/standalone.mjs":
     "QmbkuH4RqHi2cUk3w7PMD9LDNaSkEaYA9Pcy9Wv6rTnwYk",
+  "node_legacy/stringify.js": "Qmd56eDfKFpGXVEuPxrN3A3jewVkunFfdqpTdE7LCtSp2h",
+  "node_legacy/v4.js": "QmUhNN2k5hbHdHWURhNAQPQLgN455FJSsf3Z8njyYMukfm",
+  "node_legacy/validate.js": "QmRi1pudKp7sivw3M8Hk3EAsSRcLExsGZqiuJQCXTWjYgY",
   "node_legacy/workbox-sw.js": "QmZvvd3tM19b9a5b9hn3JiDjnu2jHnUq9qrHtz2c7yJMga",
   "node_legacy/workbox-sw.js.map":
     "QmYrZKmyENAJi6h5mFoq2CVyZzr4syiuehcFqorzAtQttK",
@@ -635,7 +640,7 @@ export const files = {
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmQ2eT5JPeQApGrVmehPy98neQh2QWZvkfW1QNEHtCXaKL",
   "src/codeLoader.js": "Qmes9BZyoxDBhxQjQMgGEsQ5Wu1TbYmYbiuZ7qhZb7MNCN",
-  "src/data.js": "QmaQTFDx5Bg8P7cDm16knnxa6XZ8AG4uj9hzrkE1o4pagc",
+  "src/data.js": "QmQ7uJfT6RmjJC6UmMsrA2x5JvSp5TQcCfwJ7rtLpqLdKW",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX",
@@ -714,7 +719,7 @@ export const files = {
   "src/smart-monaco-editor/dist/editor.d.ts":
     "QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK",
   "src/smart-monaco-editor/dist/editor.js":
-    "QmPM5fRdgoHgXnZxj7Sg4G3bhTZwpwTqB2mazF81jM36Qb",
+    "QmTkyhRG8Jvpa57vLdDoq7T8tTB32G3gQESXcV9tGyLGjw",
   "src/smart-monaco-editor/dist/monaco.d.ts":
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "src/smart-monaco-editor/dist/monaco.js":
@@ -727,12 +732,50 @@ export const files = {
     "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "src/smart-monaco-editor/index.html":
     "QmVQxvRvunUpXoZqC67ZUPoNSRpvyB4dKNmEQTtntCNqms",
+  "src/smart-monaco-editor/node_legacy/@emotion/cache@11.0.0/types/index.d.ts":
+    "QmbU6AEriS6BJNd4Q641JsLje1Jsp3uEMCkrPe26ELC1hU",
+  "src/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/css-prop.d.ts":
+    "QmUcnyJAw2D1r2jkjmmBPMy8mfADpq7QLupGSUWd2FqTph",
+  "src/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/helper.d.ts":
+    "QmZWidrabVbgSH4NAjf2jMGpbj5z4uaV4w3TDeEcNnFWHp",
+  "src/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/index.d.ts":
+    "QmXydMGFamqNH3tu9jDZywaDWPA6Zh97U43J8edwkevcss",
+  "src/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/jsx-namespace.d.ts":
+    "QmbYpB837VEQtbdcUfEgFD577VDc7124mGmZySg1PukXJ2",
+  "src/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/theming.d.ts":
+    "QmSXQkhMdDW8VtwmtTBnF4n7RGjvG6yJinn14X7cQ9sfDh",
+  "src/smart-monaco-editor/node_legacy/@emotion/serialize@1.0.0/types/index.d.ts":
+    "QmVUyC84vxrP54tiu5TkaLCXoiKxYDWtNK4Mur6mK92cDf",
+  "src/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types/base.d.ts":
+    "QmQbBjodYQo93Y7jpURfF54XBFnVHnwG1JiZKX3T8XT8ps",
+  "src/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types/index.d.ts":
+    "QmYrcFMTAfVLeWSGLjP97nW2Tb5dFskLoyBaGKt3fco5jy",
+  "src/smart-monaco-editor/node_legacy/@emotion/utils@1.0.0/types/index.d.ts":
+    "QmenPwd49zhDm7ptjQ82NntT8mBnXnosFQbcqZVdB9dFRz",
+  "src/smart-monaco-editor/node_legacy/@types/prop-types@15.7.3/index.d.ts":
+    "QmQFKbKRdEeVFgSh24WpoqiXLb4jDDNzcQn8HgfkRNVF5j",
+  "src/smart-monaco-editor/node_legacy/@types/react-dom@17.0.0/index.d.ts":
+    "QmWGv3U2cn7KwND5Sxmgw75awkXJGgyxSksW37JQGWBGfq",
+  "src/smart-monaco-editor/node_legacy/@types/react@17.0.0/global.d.ts":
+    "QmYWoAkGksDA6zVMcctQpA8xWdGGnhk6NkT17TPLoCLsn4",
+  "src/smart-monaco-editor/node_legacy/@types/react@17.0.0/index.d.ts":
+    "QmYM43xyPLpVHep2LdYXCJahGMeYPasBxWMQyLMwqfxyv7",
+  "src/smart-monaco-editor/node_legacy/@zedvision/qrious@10.12.14/dist/qrious.d.ts":
+    "QmY8cwFxtfD1dPVtvXhWR5uvMpaFVN8VJ2JXNbR2U2hYne",
+  "src/smart-monaco-editor/node_legacy/csstype@3.0.6/index.d.ts":
+    "QmQVBHSqpuMYatdfySzFExa4iEzodFwgHZYt61tpxbKgjy",
+  "src/smart-monaco-editor/node_legacy/framer-motion@3.2.1/dist/framer-motion.d.ts":
+    "QmQzrPRB4JXwbbPUA6XfFHcTjqVPJsgdtPVVxCFPqhzLwT",
+  "src/smart-monaco-editor/node_legacy/popmotion@9.1.0/index.d.ts":
+    "QmcnSbNrD6noC7PjBmoNWpvom5K2YXpDhtP5an6iYFtNHT",
+  "src/smart-monaco-editor/node_legacy/popmotion@9.1.0/lib/index.d.ts":
+    "QmcnSbNrD6noC7PjBmoNWpvom5K2YXpDhtP5an6iYFtNHT",
   "src/smart-monaco-editor/package.json":
     "Qmd4t5HYPjrhNLe8icrVBo6DSCJDjzNm4aSN1rgWYaxooT",
   "src/smart-monaco-editor/src/editor.d.ts":
     "QmXFYH4YMX7W5dDHwbLZS5NqtCSqRf6n9NcmaEZjFsLBtF",
   "src/smart-monaco-editor/src/editor.ts":
-    "QmUL1csnFNNNrNQPgYkXeWj4QVUH65Wh3yhUjn62gEP6iR",
+    "QmSX1eCR6u33NTDAmV4HhXRV7D9BBr9c3zqQ31mHbThp9h",
   "src/smart-monaco-editor/src/monaco.d.ts":
     "QmdsjvXNr9ufGi4osAtDQuo4tji41DfCKzbCNhLo7F5Gc1",
   "src/smart-monaco-editor/src/monaco.js":
@@ -746,7 +789,7 @@ export const files = {
   "src/smart-monaco-editor/tsconfig.json":
     "QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8",
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
-    "QmesdUy5yMyDpXE1pAcqVBcQf4HHhtTxMmVNec2qgC16H3",
+    "QmdtRLdo3QxSFc9U8tyMxVX53jJfGPHjoFqCwXoq8N89gb",
   "src/starter.js": "QmQN8pfPkYDNrM6TQ69cxrRarHUZyECR7k9dVM76DP1b4T",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "src/templates.js": "QmZpg8VY2dzzzKjr547W48fS1fPLEkrit6CivrCtvLvkeY",
@@ -1032,7 +1075,7 @@ export const files = {
   "node_legacy/monaco-editor/min-maps":
     "QmRAa5yuHV88NiX2QaCh3pAQcAHERkt93AegWUge9qAaC8",
   "node_legacy/monaco-editor": "QmcnxLLS3N99aZUWs39MvLVrFbjCaTcs5HGgusThGZphvu",
-  "node_legacy": "QmYc7d7dMuvPSqpBWJ4St6pFWAZ982v1dyDGD9EBZaXmNU",
+  "node_legacy": "QmT2YH2fJDHWFjEaqCC99ocCzWxintyXDSVRqDQoiCFLVX",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/emotion-react-renderer/dist":
     "QmeJEWVM2SczjoywzLE6nkoejskamp8Q4wyEtTU9x7qpGB",
@@ -1052,21 +1095,69 @@ export const files = {
   "src/smart-monaco-editor/dist/scripts":
     "QmUZruQhR3JEi3knevKng6AKpxN3vcswuRrCp4DiW9aYMM",
   "src/smart-monaco-editor/dist":
-    "QmWs2hGWL4JJSW1NMviaqp6zAxi53scknjYZxPZr9pkygJ",
+    "QmYdCBihHj9hDN6znBDFhC1WRvPbJeMmpPeJsiK2ea5AYm",
+  "src/smart-monaco-editor/node_legacy/@emotion/cache@11.0.0/types":
+    "QmaBV765kzydYPuJuDPPYNQscAYAh9Re1m2FAmQozeDPRK",
+  "src/smart-monaco-editor/node_legacy/@emotion/cache@11.0.0":
+    "QmWvW4MP24WZDYznoxwYByrdd3GWZk3krtL8gZ8YZmydAr",
+  "src/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types":
+    "QmbkDsDCKADwTsgjBh1DLjtupDqS5LDJhdzmdPzLnXrash",
+  "src/smart-monaco-editor/node_legacy/@emotion/react@11.1.4":
+    "QmaDuZuy2EYQapPqUHaKFGhhyGEAHfr8e1qKQW8rgpWvJB",
+  "src/smart-monaco-editor/node_legacy/@emotion/serialize@1.0.0/types":
+    "QmdVBX1iSMuG9oNoWPd8syQndRcdBM7bNnGhN4ZbVs5Jid",
+  "src/smart-monaco-editor/node_legacy/@emotion/serialize@1.0.0":
+    "QmWBRs7P8bB8WbTmfZ8HuzZFgp1WALvxuzSTbn41zoJE3a",
+  "src/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types":
+    "QmRSg34T9wojDZCxvaYHWPWzyw6XTi7qH7mxWMXvpeUaBd",
+  "src/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0":
+    "Qmab1ffk5pGFpHf113QQB5tvnCX3u8yNXNqtBrtKPjfj16",
+  "src/smart-monaco-editor/node_legacy/@emotion/utils@1.0.0/types":
+    "QmcP9P7bUBx6vSaQb6koNjyniZKfoLVy6BavcN1iHhcM4s",
+  "src/smart-monaco-editor/node_legacy/@emotion/utils@1.0.0":
+    "QmRCRyiNNcfdtTUnDQJKjSKTFdzRFR79ogYRhkYY7Cq1Be",
+  "src/smart-monaco-editor/node_legacy/@emotion":
+    "QmUKw5AQwdarxmwtP2YY3k589NBqadCi1cnAj2Y57ZBmFB",
+  "src/smart-monaco-editor/node_legacy/@types/prop-types@15.7.3":
+    "QmQb5ghenEXDof2wEYQM96iR8smhxGgFgasuA5FUQqhq42",
+  "src/smart-monaco-editor/node_legacy/@types/react-dom@17.0.0":
+    "QmU9BfxaKaxMxdQjv6DpExHh5vdD17UQYaRqHcQu4ccT28",
+  "src/smart-monaco-editor/node_legacy/@types/react@17.0.0":
+    "QmcrEssVDFs2nyCiZkYkGwC9kd6vrqsyjviH3BAGtr46b9",
+  "src/smart-monaco-editor/node_legacy/@types":
+    "QmcketVS55FSzt3dBsAJ6ANLNQpfzjXiUMvp9eVctjV38B",
+  "src/smart-monaco-editor/node_legacy/@zedvision/qrious@10.12.14/dist":
+    "QmVr2gYmRGvQaHm4cbQt11LsXYQq4nMLG4H4MKYgJFvgc7",
+  "src/smart-monaco-editor/node_legacy/@zedvision/qrious@10.12.14":
+    "QmXJmZqywmjXZaXd4DHrhHLmVj5EDtuAA4gGvbnGXanhvK",
+  "src/smart-monaco-editor/node_legacy/@zedvision":
+    "QmQqBzB3Xs73A4pZwJpBKV8pcBp81oxYo6dHeDa2PCHF6u",
+  "src/smart-monaco-editor/node_legacy/csstype@3.0.6":
+    "QmeELsBj4WDAfjqUszuLQEwsqqNU3uMaRgXncMLDR2aTuA",
+  "src/smart-monaco-editor/node_legacy/framer-motion@3.2.1/dist":
+    "Qmb8zDmS584bU8SrzeaAABveNUoR1icsf7cDFwHowhj5QK",
+  "src/smart-monaco-editor/node_legacy/framer-motion@3.2.1":
+    "QmSe3TigZe53h6qj4zLwryzmV4GTCtzZXr55txZVvQaVxT",
+  "src/smart-monaco-editor/node_legacy/popmotion@9.1.0/lib":
+    "QmcTWhLGHLE7VnEzwMU3it5j9VXvsUkHxFHrh9fpFcY1kX",
+  "src/smart-monaco-editor/node_legacy/popmotion@9.1.0":
+    "QmWLiXTz9Dw79a9SBJzKm2gu2YmA7gXdeRMU5hUKNqiRLX",
+  "src/smart-monaco-editor/node_legacy":
+    "QmaGs8wu2iqAy6yDeeq7xjrdvD5brv9iWhNDZWC63GtWgC",
   "src/smart-monaco-editor/node_modules":
     "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/smart-monaco-editor/src/scripts":
     "Qme94rT99UbaVwYxeK2ERakcHAABqofabkBbiSUuKztFzg",
   "src/smart-monaco-editor/src":
-    "QmSaiU1Wk9e2A3DYdHdrQE83FYsiKy28c8nCKD1E1dThn1",
-  "src/smart-monaco-editor": "QmVoPDDp5jwJ4i7s2qrYGvpi9Wb9BjDhH3c9zBDsysZqMA",
+    "QmSQUM9Zkyn5Y6RQTfPKqf5VP5xhKVi76sxsVHLqNHcJvP",
+  "src/smart-monaco-editor": "QmaYLAsZeAaz6xNnSXVVwnR2K4X9HXyHjLY91hEPDzRTNw",
   "src/workers/ipfs/dist": "QmXRShoseu2G8qdzjnaQJUeDjdz3UEv2EUd68oohq19Q6B",
   "src/workers/ipfs/node_modules":
     "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/workers/ipfs/src": "QmaY2UrSpouuMkzxxMj4mBCJrP1v8mXQeYf7jhqP29jeY6",
   "src/workers/ipfs": "QmZPHzZKnwNdQgCCKCvJSjmF2THxV2gYbpRMvc96NsYuaP",
   "src/workers": "QmR7raGw9bFr352HENjo5ZtTeeXcytavUSf1We8DtJHyMA",
-  "src": "QmWqNrSQp6rfTnFhBoA1nAsAKnxv9fj7bM78yNLARTq6GV",
-  "": "QmRpN8oh2n2dx3LStgbhZfAZ1JdtsQQQdQJQjYShva7Lcs",
+  "src": "QmQG2MK4fSTt28jSVqRRW78752QvtMQWB2YEL4CCutD9YD",
+  "": "QmVms8odStHejUobj8paFMnD85uLcASJb19gMBWDKvhHS2",
   "foo": "bar",
 };
