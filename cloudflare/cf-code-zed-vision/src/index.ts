@@ -40,7 +40,7 @@ async function handleRequest(request: Request) {
       const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
       response = await cache.match(req);
 
-      if (response) return response;
+      if (response) return alterHeaders(response, pathname);
       else {
         // return text("no cache");
         const random5GatewaysFetch = publicIpfsGateways.sort(() =>
@@ -63,11 +63,11 @@ async function handleRequest(request: Request) {
 
         const resp = await alterHeaders(response, pathname);
         await cache.put(req, resp.clone());
-        return response;
+        return resp;
       }
     }
 
-    if (response) return response;
+    if (response) return alterHeaders(response, pathname);
 
     response = await cache.match(request);
 
@@ -128,21 +128,23 @@ async function alterHeaders(response: Response, pathname: string) {
   resp.headers.delete("content-security-policy");
   resp.headers.delete("feature-policy");
   resp.headers.delete("access-control-expose-headers");
-  if (pathname.endsWith("mjs") || pathname.endsWith("js")) {
+  if (pathname.endsWith(".mjs") || pathname.endsWith(".js")) {
     resp.headers.delete("content-type");
     resp.headers.set(
       "content-type",
       "application/javascript;charset=UTF-8",
     );
   }
-  if (pathname.endsWith("css")) {
+  if (pathname.endsWith(".css")) {
     resp.headers.delete("content-type");
     resp.headers.set(
       "content-type",
       "text/css;charset=UTF-8",
     );
   }
-  return resp;
+  return new Response(arrBuff, {
+    headers: resp.headers,
+  });
 }
 
 export function js(resp: string) {

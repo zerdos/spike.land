@@ -29,7 +29,7 @@ async function init() {
   }
 
   //@ts-ignore
-  if (typeof SharedWorker === "undefined") {
+  if (false && typeof SharedWorker === "undefined") {
     const worker = new Worker(`${v.workerPrefix}/transpile.worker.js`);
     const { port1, port2 } = new MessageChannel();
     const msg = {
