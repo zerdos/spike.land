@@ -1,7 +1,5 @@
-// deno-lint-ignore-file
-// @ts-ignore
 importScripts(
-  "https://unpkg.com/workbox-sw@6.0.2/build/workbox-sw.js",
+  "../../node_legacy/workbox-sw.js",
 );
 
 // @ts-ignore

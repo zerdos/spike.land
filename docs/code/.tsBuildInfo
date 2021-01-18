@@ -427,12 +427,12 @@
         "affectsGlobalScope": true
       },
       "./src/workers/ipfsWorker.js": {
-        "version": "083414a03cd2a5d61ac00cd1e6ced0a445c7ddbfd10046ae52393d6b8e11438e",
+        "version": "979697da41858945127bde2e942af60984dc187dd3d00ae9359f2a3ca921e969",
         "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
         "affectsGlobalScope": true
       },
       "./src/workers/sw.js": {
-        "version": "c1698a5ad84fc5d2ad369b58b34efc4a215abfe4ae7f744a2c61d557da8648a2",
+        "version": "b7cd6bb8929f684fde6974fd46e1257790d61f99bbd24e29ee7cdbfb646d87f3",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

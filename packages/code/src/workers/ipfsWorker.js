@@ -1,7 +1,6 @@
-// @ts-ignore
-self.importScripts(
-  "https://unpkg.com/@zedvision/ipfs@11.10.3/dist/ipfs.server.js",
-);
+importScripts(
+  "./ipfs/dist/ipfs.server.js"
+  );
 
 // @ts-ignore
 const { Ipfs, IPFSService, Server } = self;
