@@ -26,7 +26,7 @@
   "git.autorefresh": true,
   "deno.import_intellisense_autodiscovery": false,
   "deno.unstable": true,
-  "deno.lint": true,
+  "deno.lint": false,
   "deno.config": "./tsconfig.json",
   "deno.import_intellisense_origins": {
     "https://deno.land": true

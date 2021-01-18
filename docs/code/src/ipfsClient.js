@@ -13,7 +13,7 @@ const workerSrc = `${v.workerPrefix}/ipfsWorker.js`;
 /** @type {MessagePort} */
 let port;
 
-if (typeof SharedWorker !== "undefined") {
+if (false && typeof SharedWorker !== "undefined") {
   // deno-lint-ignore ban-ts-comment
   //@ts-ignore
   const ipfsWorker = new SharedWorker(
