@@ -139,7 +139,7 @@ export async function fetchSignal(
 
     await getHash(resCID, { timeout: 500 });
 
-    return async () => parse(await getData(resCID, 20));
+    return async () => parse(await getData(signal, 20));
   } catch (e) {
     throw new Error("no signal");
   }
@@ -201,7 +201,7 @@ async function getData(signal, retry) {
 
     if (signalCache[signal][i]) return signalCache[signal][i];
     const raceArray = chars.map(async (x) =>
-      await ipfsClient.cat(signal + prefix + x, { timeout: 1500 })
+      await fetchSignal(signal + prefix + x, 5)
     );
 
     if (signalCache[signal][i]) return signalCache[signal][i];

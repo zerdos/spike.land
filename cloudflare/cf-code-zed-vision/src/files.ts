@@ -617,7 +617,7 @@ export const files = {
   "src/examples/starter_framer.js":
     "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
   "src/formatter.js": "QmWnFrxvNhB6vdhbn6HqP21eWHYfSj7fL3nFZytwyWnHZB",
-  "src/hash.js": "QmcYFEo5WZXc4ZTC9ntZdHPqaR472dj9Jrarhp7yVRXH4f",
+  "src/hash.js": "QmbaDYJZaq4sxsyxbR7cjgWMkBWM2QqybUj3hAeomVJNh7",
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "src/ipfsClient.js": "QmQqWqjiJr5JLJ7b3vSnxWRYAVGFR3dEBpUiz4b7fG8gSg",
@@ -1102,7 +1102,7 @@ export const files = {
   "src/workers/ipfs/src": "QmaY2UrSpouuMkzxxMj4mBCJrP1v8mXQeYf7jhqP29jeY6",
   "src/workers/ipfs": "QmYJvNpdqWCLqkJfQQwXFKyYNFkkefc4tJcFfQ7pjx9hBg",
   "src/workers": "QmaGUzPfGzWgqqV1pqVxGLDx4VEw4yCh7AFqubbxPECbqy",
-  "src": "Qmc1DYpgmNm2rD6Dc9kCQDrMQ2hcpzdzmUnv6cCJAiqo2h",
-  "": "QmNhHVPZFkownyciyJhvUKu6smfr2cdNM21bXaJAbm71nB",
+  "src": "QmZqmmfzmT8mZj4CeiJpAS2Bj1SsaRhh89HEnPwEwJG2P8",
+  "": "QmdT2ap7zQ67DbmzairPD3Bh2f2CD1zzKDSzFsLeDzLBnV",
   "foo": "bar",
 };
