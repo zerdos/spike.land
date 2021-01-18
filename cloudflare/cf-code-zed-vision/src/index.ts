@@ -5,7 +5,7 @@ import {
   publicIpfsGateways,
   raceToSuccess,
 } from "@zedvision/ipfs/src/gateways.js";
-import { cid } from "./ipfs";
+import { cid } from "./cid";
 
 //@ts-ignore
 addEventListener("fetch", (event) => {

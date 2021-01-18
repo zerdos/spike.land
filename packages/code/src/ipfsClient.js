@@ -5,7 +5,6 @@ import {
   raceToSuccess,
 } from "./workers/ipfs/dist/ipfs.client.js";
 
-// deno-lint-ignore-file
 import { v } from "./versions.js";
 
 const workerSrc = `${v.workerPrefix}/ipfsWorker.js`;
@@ -13,9 +12,7 @@ const workerSrc = `${v.workerPrefix}/ipfsWorker.js`;
 /** @type {MessagePort} */
 let port;
 
-if (false && typeof SharedWorker !== "undefined") {
-  // deno-lint-ignore ban-ts-comment
-  //@ts-ignore
+if (typeof SharedWorker !== "undefined") {
   const ipfsWorker = new SharedWorker(
     workerSrc,
   );
