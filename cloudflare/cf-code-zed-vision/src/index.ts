@@ -58,7 +58,11 @@ async function handleRequest(request: Request) {
           );
 
         response = await raceToSuccess(random5GatewaysFetch);
-        await cache.put(req, response!.clone());
+
+        if (response === undefined) return text("error");
+
+        const resp = await alterHeaders(response, pathname);
+        await cache.put(req, resp.clone());
         return response;
       }
     }
@@ -82,46 +86,18 @@ async function handleRequest(request: Request) {
         );
 
       response = await raceToSuccess(random5GatewaysFetch);
-      const arrBuff = await response!.clone().arrayBuffer();
-      const resp = new Response(arrBuff, response);
-      const respCID = await getCID(arrBuff);
 
-      resp.headers.set("access-control-allow-origin", "*");
-      resp.headers.set(
-        "access-control-allow-methods",
-        "GET,HEAD,POST,OPTIONS",
-      );
-      resp.headers.set("access-control-max-age", "86400");
-      resp.headers.delete("content-security-policy");
-      resp.headers.delete("feature-policy");
-      if (pathname.endsWith("mjs") || pathname.endsWith("js")) {
-        resp.headers.set(
-          "content-type",
-          "application/javascript;charset=UTF-8",
-        );
-      }
+      if (response === undefined) return text("error");
 
-      resp.headers.set("x-cid", respCID);
-      await cache.put(request, resp!.clone());
+      const resp = await alterHeaders(response, pathname);
+
+      await cache.put(request, resp.clone());
       return resp;
     }
-    // const resp = new Response(response.body, response);
-    const arrBuff = await response!.clone().arrayBuffer();
-    const resp = new Response(arrBuff, response);
-    const respCID = await getCID(arrBuff);
 
-    resp.headers.set("access-control-allow-origin", "*");
-    resp.headers.set(
-      "access-control-allow-methods",
-      "GET,HEAD,POST,OPTIONS",
-    );
-    resp.headers.set("access-control-max-age", "86400");
-    resp.headers.delete("content-security-policy");
-    resp.headers.delete("feature-policy");
-    if (pathname.endsWith("mjs") || pathname.endsWith("js")) {
-      resp.headers.set("content-type", "application/javascript;charset=UTF-8");
-    }
-    resp.headers.set("x-cid", respCID);
+    const resp = await alterHeaders(response, pathname);
+    // const resp = new Response(response.body, response);
+
     return resp;
   }
   return text(`<!doctype html>
@@ -136,6 +112,38 @@ async function handleRequest(request: Request) {
     </h1>
   </body>
   </html>`);
+}
+
+async function alterHeaders(response: Response, pathname: string) {
+  const arrBuff = await response!.clone().arrayBuffer();
+
+  const resp = new Response(arrBuff, response);
+  //  const respCID = await getCID(arrBuff);
+
+  resp.headers.set("access-control-allow-origin", "*");
+  resp.headers.set(
+    "access-control-allow-methods",
+    "GET,HEAD,POST,OPTIONS",
+  );
+  resp.headers.set("access-control-max-age", "86400");
+  resp.headers.delete("content-security-policy");
+  resp.headers.delete("feature-policy");
+  resp.headers.delete("access-control-expose-headers");
+  if (pathname.endsWith("mjs") || pathname.endsWith("js")) {
+    resp.headers.delete("content-type");
+    resp.headers.set(
+      "content-type",
+      "application/javascript;charset=UTF-8",
+    );
+  }
+  if (pathname.endsWith("css")) {
+    resp.headers.delete("content-type");
+    resp.headers.set(
+      "content-type",
+      "text/css;charset=UTF-8",
+    );
+  }
+  return resp;
 }
 
 export function js(resp: string) {
