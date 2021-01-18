@@ -33,32 +33,33 @@ async function handleRequest(request: Request) {
     let response: Response | undefined;
 
     if (contentPath.slice(0, 52) === `/ipfs/${cid}`) {
-      const file = contentPath.slice(53);
+      const file = contentPath.slice(53) || "index.html";
 
       //@ts-ignore
       const cid2 = files[file]!;
-      const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
-      response = await cache.match(req);
+      return text(cid2);
+      // const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
+      // response = await cache.match(req);
 
-      if (response) return response;
-      else {
-        const random5GatewaysFetch = publicIpfsGateways.sort(() =>
-          0.5 - Math.random()
-        ).slice(0, 5).map((gw: string) =>
-          gw.replace("/ipfs/:hash", `/ipfs/${cid2}`)
-        )
-          .map((x: string) =>
-            fetch(x).then((res) =>
-              res.status === 200 ? res : (() => {
-                res.arrayBuffer();
-                throw new Error("Not found");
-              })()
-            )
-          );
+      // if (response) return response;
+      // else {
+      //   const random5GatewaysFetch = publicIpfsGateways.sort(() =>
+      //     0.5 - Math.random()
+      //   ).slice(0, 5).map((gw: string) =>
+      //     gw.replace("/ipfs/:hash", `/ipfs/${cid2}`)
+      //   )
+      //     .map((x: string) =>
+      //       fetch(x).then((res) =>
+      //         res.status === 200 ? res : (() => {
+      //           res.arrayBuffer();
+      //           throw new Error("Not found");
+      //         })()
+      //       )
+      //     );
 
-        response = await raceToSuccess(random5GatewaysFetch);
-        await cache.put(request, response!.clone());
-      }
+      //   response = await raceToSuccess(random5GatewaysFetch);
+      //   await cache.put(request, response!.clone());
+      // }
     }
 
     if (response) return response;
@@ -100,7 +101,7 @@ async function handleRequest(request: Request) {
       }
 
       resp.headers.set("x-cid", respCID);
-      await cache.put(request, response!.clone());
+      await cache.put(request, resp!.clone());
       return resp;
     }
     // const resp = new Response(response.body, response);

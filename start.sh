@@ -27,7 +27,7 @@ echo $URL
 
 # | awk '{print "echo " $2 " > "$3 ";"}' >cids/commands.sh
 
-ipfs add -r packages/code | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | grep "/" | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/cf-code-zed-vision/src/files.ts
+ipfs add -r packages/code | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/cf-code-zed-vision/src/files.ts
 # cp -r packages/code cids/code
 # cd cids && sh comma/nds.sh
 
