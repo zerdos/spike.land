@@ -21,7 +21,7 @@
     "flow-bin": "^0.142.0",
     "jest": "^26.6.3",
     "jsdom": "^16.4.0",
-    "mdn-browser-compat-data": "git+https://github.com/mdn/browser-compat-data.git#50a17da8e7568cdd6f78eace6f9250c1a7211810",
+    "mdn-browser-compat-data": "git+https://github.com/mdn/browser-compat-data.git#675f7aee200afb461ee7f633af974192b45a1d98",
     "mdn-data": "git+https://github.com/mdn/data.git#75f9f8f97d0ed35665885478828276b824f9baa0",
     "prettier": "^2.2.1",
     "request": "^2.88.2",
