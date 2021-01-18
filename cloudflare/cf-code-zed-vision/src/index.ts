@@ -63,7 +63,18 @@ async function handleRequest(request: Request) {
     resp.headers.set("x-cid", respCID);
     return resp;
   }
-  return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 302);
+  return text(`<!doctype html>
+  <html>
+  <head>
+    <script type="text/javascript">
+    window.location = "https://code.zed.vision/ipfs/${cid}/";
+    </script>
+  </head>
+  <body>
+    <h1> Code....
+    </h1>
+  </body>
+  </html>`);
 }
 
 export function js(resp: string) {
