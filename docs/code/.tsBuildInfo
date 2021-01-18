@@ -306,16 +306,6 @@
         "signature": "26a9ba2938e42f3c1834f0ef0bf83619fe4eeb07e308a12ec8fcb420d9de56ea",
         "affectsGlobalScope": false
       },
-      "./src/emotion-react-renderer/dist/bundle.js": {
-        "version": "89eaf1539d40a2e1d6aa889956d7c930637d130ba237c88fbf843b431963f6be",
-        "signature": "d6e56eadaccf79cb3409115830f9dc69420c6b33c25c6d6865bcc0fc90580f00",
-        "affectsGlobalScope": false
-      },
-      "./src/emotion-react-renderer/dist/draggableWindowBundle.js": {
-        "version": "2af4d70af0183fd00b01a74525373bfddce6f49ad23d3c6e8b0bf16caebd0f1b",
-        "signature": "26a9ba2938e42f3c1834f0ef0bf83619fe4eeb07e308a12ec8fcb420d9de56ea",
-        "affectsGlobalScope": false
-      },
       "./src/examples/starterNoFramerMotion.js": {
         "version": "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
         "signature": "ca3e9a331b66b37839d1867093df10a1bb8e4cb10109cf927dfaf5255921cefc",
@@ -525,12 +515,6 @@
       "./src/emotion-react-renderer/dist/DraggableWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
-      "./src/emotion-react-renderer/dist/bundle.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./src/emotion-react-renderer/dist/draggableWindowBundle.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/emotion-react-renderer/dist/renderer.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
@@ -721,8 +705,6 @@
       "./src/data.js",
       "./src/db.js",
       "./src/emotion-react-renderer/dist/DraggableWindow.js",
-      "./src/emotion-react-renderer/dist/bundle.js",
-      "./src/emotion-react-renderer/dist/draggableWindowBundle.js",
       "./src/emotion-react-renderer/dist/renderer.js",
       "./src/examples/starterNoFramerMotion.js",
       "./src/examples/starter_framer.js",
@@ -821,14 +803,6 @@
       ],
       [
         "./src/emotion-react-renderer/dist/DraggableWindow.js",
-        1
-      ],
-      [
-        "./src/emotion-react-renderer/dist/bundle.js",
-        1
-      ],
-      [
-        "./src/emotion-react-renderer/dist/draggableWindowBundle.js",
         1
       ],
       [
