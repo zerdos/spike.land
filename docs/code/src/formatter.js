@@ -1,22 +1,13 @@
+import prettier from "../node_legacy/standalone.mjs";
+import parserBabel from "../node_legacy/parser-babel.mjs";
+import parserHtml from "../node_legacy/parser-html.mjs";
+
 /**
  * @param {string} code
  */
 export async function formatter(code) {
   const getVersions = (await import("./versions.js")).default;
   const v = getVersions();
-
-  const prettier = (await import(
-    `https://unpkg.com/prettier@${v.prettier}/esm/standalone.mjs`
-  ))
-    .default;
-  const parserBabel = (await import(
-    `https://unpkg.com/prettier@${v.prettier}/esm/parser-babel.mjs`
-  ))
-    .default;
-  const parserHtml = (await import(
-    `https://unpkg.com/prettier@${v.prettier}/esm/parser-html.mjs`
-  ))
-    .default;
 
   try {
     return prettier.format(code, {

@@ -202,8 +202,8 @@
         "affectsGlobalScope": false
       },
       "./src/versions.js": {
-        "version": "f2a64e0f28986d114ae0ab881369e1c8259055974717c6d85339b0a632de8c31",
-        "signature": "fcaf61dc432626dd151f6ab8c1704ee8058a68805796bc91b2cb97647388e7e5",
+        "version": "8815c9133fd9d464ded7cc359b5760480b812877e3a78104bc7e579e168b1597",
+        "signature": "0a226648f8a1842c11ed68f646bee86ab391bc4484ca1c02a5dd4450295354f3",
         "affectsGlobalScope": false
       },
       "./src/workers/ipfs/dist/gateways.d.ts": {
@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
-        "version": "fe8de25920c2f5e7bf0f8c099ed65090c663286df537e1de0c9e9999b7a4f444",
+        "version": "6ffca9b1d40b34a17f0ba0aa0ab8a6b095c09c202cf1bf3ff61b33c644cc25ea",
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
         "affectsGlobalScope": false
       },
