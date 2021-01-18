@@ -37,10 +37,28 @@ async function handleRequest(request: Request) {
 
       //@ts-ignore
       const cid2 = files[file]!;
-      const req = new Request(`https://cf-ipfs.com/ipfs/${cid2}`);
+      const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
       response = await cache.match(req);
 
       if (response) return response;
+      else {
+        const random5GatewaysFetch = publicIpfsGateways.sort(() =>
+          0.5 - Math.random()
+        ).slice(0, 5).map((gw: string) =>
+          gw.replace("/ipfs/:hash", `/ipfs/${cid2}`)
+        )
+          .map((x: string) =>
+            fetch(x).then((res) =>
+              res.status === 200 ? res : (() => {
+                res.arrayBuffer();
+                throw new Error("Not found");
+              })()
+            )
+          );
+
+        response = await raceToSuccess(random5GatewaysFetch);
+        await cache.put(request, response!.clone());
+      }
     }
 
     if (response) return response;
@@ -62,7 +80,28 @@ async function handleRequest(request: Request) {
         );
 
       response = await raceToSuccess(random5GatewaysFetch);
+      const arrBuff = await response!.clone().arrayBuffer();
+      const resp = new Response(arrBuff, response);
+      const respCID = await getCID(arrBuff);
+
+      resp.headers.set("access-control-allow-origin", "*");
+      resp.headers.set(
+        "access-control-allow-methods",
+        "GET,HEAD,POST,OPTIONS",
+      );
+      resp.headers.set("access-control-max-age", "86400");
+      resp.headers.delete("content-security-policy");
+      resp.headers.delete("feature-policy");
+      if (pathname.endsWith("mjs") || pathname.endsWith("js")) {
+        resp.headers.set(
+          "content-type",
+          "application/javascript;charset=UTF-8",
+        );
+      }
+
+      resp.headers.set("x-cid", respCID);
       await cache.put(request, response!.clone());
+      return resp;
     }
     // const resp = new Response(response.body, response);
     const arrBuff = await response!.clone().arrayBuffer();
@@ -77,6 +116,9 @@ async function handleRequest(request: Request) {
     resp.headers.set("access-control-max-age", "86400");
     resp.headers.delete("content-security-policy");
     resp.headers.delete("feature-policy");
+    if (pathname.endsWith("mjs") || pathname.endsWith("js")) {
+      resp.headers.set("content-type", "application/javascript;charset=UTF-8");
+    }
     resp.headers.set("x-cid", respCID);
     return resp;
   }
