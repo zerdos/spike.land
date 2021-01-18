@@ -7,7 +7,7 @@ import {
   jsx,
   renderEmotion,
 } from "./emotion-react-renderer/dist/renderer.js";
-import { fetchSignal, sendSignal } from "./hash.js";
+import { fetchSignal, sendSignal, sha256ToCID } from "./hash.js";
 import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
 import { transpileCode } from "./transpile.js";
@@ -41,7 +41,9 @@ function getSession() {
 export async function run(mode = "window", _w, code = "") {
   const { pathname } = new URL(window.location.href);
 
-  setTimeout(async () => Object.assign(window, { sendSignal, fetchSignal }));
+  setTimeout(async () =>
+    Object.assign(window, { sendSignal, fetchSignal, sha256ToCID })
+  );
 
   const { open } = _w;
 

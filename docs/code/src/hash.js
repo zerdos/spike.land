@@ -103,6 +103,7 @@ export const sendSignal = async (signal, data) => {
     if (typeof data !== "string") toSave = JSON.stringify(data);
 
     const dataCid = (await ipfsClient.add(toSave)).cid.toString();
+    console.log((new CID(dataCid)).multihash);
 
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
@@ -122,6 +123,9 @@ export const sendSignal = async (signal, data) => {
   }
   return { success: true };
 };
+
+export const sha256ToCID = (str) =>
+  (new CID(0, 112, fromHexString("1220" + str))).toString();
 
 export const fetchSignal =
   /**
