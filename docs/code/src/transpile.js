@@ -28,8 +28,7 @@ async function init() {
     console.log("INIT INIT");
   }
 
-  //@ts-ignore
-  if (false && typeof SharedWorker === "undefined") {
+  if (typeof SharedWorker === "undefined") {
     const worker = new Worker(`${v.workerPrefix}/transpile.worker.js`);
     const { port1, port2 } = new MessageChannel();
     const msg = {
@@ -37,7 +36,6 @@ async function init() {
       port: port1,
     };
 
-    //@ts-ignore
     worker.postMessage(msg, [port1]);
 
     transform = await wrap(port2);

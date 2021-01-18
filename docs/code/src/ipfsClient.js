@@ -18,11 +18,10 @@ if (false && typeof SharedWorker !== "undefined") {
   //@ts-ignore
   const ipfsWorker = new SharedWorker(
     workerSrc,
-    { name: "ipfs shared worker", type: "module" },
   );
   port = ipfsWorker.port;
 } else {
-  const worker = new Worker(workerSrc, { type: "module" });
+  const worker = new Worker(workerSrc);
 
   const { port1, port2 } = new MessageChannel();
   const msg = {
