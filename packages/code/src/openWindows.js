@@ -16,7 +16,7 @@ export function openWindows() {
       borderRadius: "0px",
       backgroundWindow: "#1e1e1e",
       height: 640,
-      title: "React Live",
+      title: "React Live :)",
     },
   );
 
