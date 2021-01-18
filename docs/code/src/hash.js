@@ -1,5 +1,3 @@
-// deno-lint-ignore-file
-
 import { CID, fromHexString, ipfsClient, raceToSuccess } from "./ipfsClient.js";
 
 /**
@@ -30,17 +28,12 @@ const cidLock = {
 
 /**
  * @param {string} cid
- * @param {{signal: AbortSignal; timeout: number}}  options
+ * @param {timeout: number}}  options
  */
-const getHash = async (cid, { signal, timeout }) => {
+const getHash = async (cid, { timeout }) => {
   if (cidCache[cid]) return cidCache[cid];
-  signal.onabort = function () {
-    aborted = 1;
-  };
-  let aborted = 0;
-  try {
-    if (aborted) return "";
 
+  try {
     if (
       typeof cidCache[cid] !== "undefined" && cidCache[cid] !== ""
     ) {
@@ -145,98 +138,94 @@ export const fetchSignal =
 
       const res = await ipfsClient.add(signal, { onlyHash: true });
       const resCID = res.cid.toString();
-      await getHash(resCID, { timeout: 500, signal: abort.signal });
-
-      /**
-     * 
-     * @param {number} retry 
-     * @returns {Promise<any>}
-     */
-      function getData(retry = 20) {
-        if (retry === 0) throw new Error("Cant fetch data");
-
-        /**
-     * @param {number} delay
-     */
-
-        async function run(delay) {
-          console.log(`delay: ${delay}`);
-
-          try {
-            const hashArr = new Array(68).fill(0).map((_x, i) => i);
-            const restRes = hashArr.map((i) => getCharAt(signal, i));
-            const hashHex = (await Promise.all(restRes)).join("");
-
-            const cid = new CID(0, 112, fromHexString(hashHex));
-
-            const data = await getHash(
-              cid.toString(),
-              { signal: abort.signal, timeout: 1500 },
-            );
-
-            /**
-         * @param {string | any[] | { success: boolean; } | undefined} d
-         */
-            const parse = (d) => {
-              try {
-                if (typeof d !== "string") return d;
-
-                const ret = JSON.parse(d);
-                return ret;
-              } catch (e) {
-                return d;
-              }
-            };
-
-            const ret = parse(data);
-
-            if (!ret) throw new Error("No data");
-
-            return ret;
-          } catch (e) {
-            return getData(retry - 1);
-          }
-        }
-
-        return run(0);
-      }
-
-      return getData;
-
-      /**
-       * @param {string} signal
-       * @param {number} i
-       */
-      async function getCharAt(signal, i) {
-        if (!signalCache[signal]) {
-          signalCache[signal] = {};
-        }
-
-        if (signalCache[signal][i]) return signalCache[signal][i];
-
-        const chars = [..."0123456789abcdef"];
-
-        const controller = new AbortController();
-        const prefix = new Array(i).fill("x").join("");
-
-        if (signalCache[signal][i]) return signalCache[signal][i];
-        const raceArray = chars.map((x) =>
-          ipfsClient.cat(signal + prefix + x, { timeout: 1500 })
-        );
-
-        if (signalCache[signal][i]) return signalCache[signal][i];
-        const nextChar = await raceToSuccess(
-          raceArray,
-        );
-
-        if (signalCache[signal][i]) return signalCache[signal][i];
-
-        signalCache[signal][i] = nextChar;
-        controller.abort();
-
-        return nextChar;
-      }
+      await getHash(resCID, { timeout: 500 });
+      return async () => parse(await getData(signal, 20));
     } catch (e) {
       throw new Error("no signal");
     }
   };
+
+/****
+   * 
+   * 
+   * 
+   * UTILS
+   * 
+   * 
+   * 
+   * 
+   */
+
+/**
+     * 
+     * @param {string} signal
+     * @param {number} retry 
+     * @returns {Promise<any>}
+     */
+
+async function getData(signal, retry) {
+  if (retry === 0) throw new Error("Cant fetch data");
+
+  try {
+    const hashArr = new Array(68).fill(0).map((_x, i) => i);
+    const restRes = hashArr.map((i) => getCharAt(signal, i));
+    const hashHex = (await Promise.all(restRes)).join("");
+
+    const cid = new CID(0, 112, fromHexString(hashHex));
+
+    return await getHash(
+      cid.toString(),
+      { timeout: 1500 },
+    );
+  } catch (e) {
+    return getData(signal, retry - 1);
+  }
+
+  /**
+       * @param {string} signal
+       * @param {number} i
+       */
+  async function getCharAt(signal, i) {
+    if (!signalCache[signal]) {
+      signalCache[signal] = {};
+    }
+
+    if (signalCache[signal][i]) return signalCache[signal][i];
+
+    const chars = [..."0123456789abcdef"];
+
+    const controller = new AbortController();
+    const prefix = new Array(i).fill("x").join("");
+
+    if (signalCache[signal][i]) return signalCache[signal][i];
+    const raceArray = chars.map(async (x) =>
+      await ipfsClient.cat(signal + prefix + x, { timeout: 1500 })
+    );
+
+    if (signalCache[signal][i]) return signalCache[signal][i];
+    const nextChar = await raceToSuccess(
+      raceArray,
+    );
+
+    if (signalCache[signal][i]) return signalCache[signal][i];
+
+    signalCache[signal][i] = nextChar;
+    controller.abort();
+
+    return nextChar;
+  }
+}
+
+/**
+         * @param {sting} d
+         */
+function parse(d) {
+  try {
+    if (typeof d !== "string") return d;
+
+    const ret = JSON.parse(d);
+    return ret;
+  } catch (e) {
+    return d;
+  }
+}
