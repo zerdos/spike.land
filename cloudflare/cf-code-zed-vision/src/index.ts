@@ -1,5 +1,6 @@
 //import { version } from "@zedvision/code/package.json";
 import CID from "cids";
+import { files } from "./files";
 import {
   publicIpfsGateways,
   raceToSuccess,
@@ -28,7 +29,23 @@ async function handleRequest(request: Request) {
   if (contentPath.slice(0, 6) === "/ipfs/") {
     //@ts-ignore
     const cache = caches.default;
-    let response: Response | undefined = await cache.match(request);
+
+    let response: Response | undefined;
+
+    if (contentPath.slice(0, 52) === `/ipfs/${cid}`) {
+      const file = contentPath.slice(53);
+
+      //@ts-ignore
+      const cid2 = files[file]!;
+      const req = new Request(`https://cf-ipfs.com/ipfs/${cid2}`);
+      response = await cache.match(req);
+
+      if (response) return response;
+    }
+
+    if (response) return response;
+
+    response = await cache.match(request);
 
     if (response === undefined) {
       //https://ipfs.github.io/public-gateway-checker/gateways.json

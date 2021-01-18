@@ -21,13 +21,17 @@ echo $URL
 
 (firefox  $URL)&
 
-rm -rf cids/code
-mkdir -p cids
-ipfs add -r packages/code | awk '{print "echo " $2 " > "$3 ";"}' >cids/commands.sh
-cp -r packages/code cids/code
-cd cids && sh commands.sh
+# rm -rf cids/code
+# mkdir -p cids
+# ipfs add -r packages/code > files.txt
 
-#################################
+# | awk '{print "echo " $2 " > "$3 ";"}' >cids/commands.sh
+
+ipfs add -r packages/code | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | grep "/" | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/cf-code-zed-vision/src/files.ts
+# cp -r packages/code cids/code
+# cd cids && sh comma/nds.sh
+
+#################################cloudflare/cf-code-zed-vision
 echo #################################### 
  curl -X PUT "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/7545e99c94fd6ff43cc0591bab13cbe1" \
      -H "Authorization: Bearer $BBTOKEN" \
