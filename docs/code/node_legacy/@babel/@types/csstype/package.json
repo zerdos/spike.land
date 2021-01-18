@@ -22,7 +22,7 @@
     "jest": "^26.6.3",
     "jsdom": "^16.4.0",
     "mdn-browser-compat-data": "git+https://github.com/mdn/browser-compat-data.git#50a17da8e7568cdd6f78eace6f9250c1a7211810",
-    "mdn-data": "git+https://github.com/mdn/data.git#75f9f8f97d0ed35665885478828276b824f9baa0",
+    "mdn-data": "git+https://github.com/mdn/data.git#b19721ca7cf7a1089e4162ed05e9944fbcd53011",
     "prettier": "^2.2.1",
     "request": "^2.88.2",
     "ts-jest": "^26.4.4",
