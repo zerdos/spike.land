@@ -128,11 +128,15 @@ async function alterHeaders(response: Response, pathname: string) {
   resp.headers.delete("content-security-policy");
   resp.headers.delete("feature-policy");
   resp.headers.delete("access-control-expose-headers");
+  resp.headers.delete("expect-ct");
+  resp.headers.delete("server");
+  resp.headers.delete("strict-transport-security");
+  resp.headers.delete("x-content-type-options");
   if (pathname.endsWith(".mjs") || pathname.endsWith(".js")) {
     resp.headers.delete("content-type");
     resp.headers.set(
       "content-type",
-      "application/javascript;charset=UTF-8",
+      "text/javascript;charset=UTF-8",
     );
   }
   if (pathname.endsWith(".css")) {
