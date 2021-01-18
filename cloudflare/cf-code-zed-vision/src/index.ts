@@ -40,7 +40,7 @@ async function handleRequest(request: Request) {
       const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
       response = await cache.match(req);
 
-      if (response) return alterHeaders(response, pathname);
+      if (response) return await alterHeaders(response, pathname);
       else {
         // return text("no cache");
         const random5GatewaysFetch = publicIpfsGateways.sort(() =>
@@ -67,8 +67,6 @@ async function handleRequest(request: Request) {
       }
     }
 
-    if (response) return alterHeaders(response, pathname);
-
     response = await cache.match(request);
 
     if (response === undefined) {
@@ -94,10 +92,7 @@ async function handleRequest(request: Request) {
       return resp;
     }
 
-    const resp = await alterHeaders(response, pathname);
-    // const resp = new Response(response.body, response);
-
-    return resp;
+    return await alterHeaders(response, pathname);
   }
   return text(`<!doctype html>
   <html>
