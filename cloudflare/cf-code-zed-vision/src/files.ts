@@ -20,48 +20,6 @@ export const files = {
   "index.html": "QmbCNHE9uBxaMzKb4DWqGnK9KzSrhw6ooohh5vizwpyFLr",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
-  "node_legacy/@babel/@types/csstype/LICENSE":
-    "QmZ9fseCz1pfFHux7muviXzDBKHF2eC4UAkyvHr34cNB9X",
-  "node_legacy/@babel/@types/csstype/README.md":
-    "QmPAGzEWQDxqKrZYoJm5AuBMdb6ch58YBcg4XrGGBXZDLz",
-  "node_legacy/@babel/@types/csstype/index.d.ts":
-    "QmQVBHSqpuMYatdfySzFExa4iEzodFwgHZYt61tpxbKgjy",
-  "node_legacy/@babel/@types/csstype/index.js.flow":
-    "QmaBdMT1oLabsFSSb4P41yhUv45Pp5dw2q8RH9jVtMtRc2",
-  "node_legacy/@babel/@types/csstype/package.json":
-    "QmZrvXJT5SoFhyjxLNZFg3Er4sEMupXkj9J2n2uokskLjr",
-  "node_legacy/@babel/@types/react/LICENSE":
-    "QmUTmHFik6fBSpJj8QxxdHV7BNbBuT6JpshoB8kjqCUwmU",
-  "node_legacy/@babel/@types/react/README.md":
-    "QmTj3jDPGkQ3UGW431Lq4oMZSgARfWHJ9pRZ65PB3pyV1e",
-  "node_legacy/@babel/@types/react/experimental.d.ts":
-    "QmTditSoEGdSVwjuiDM7iJGYNNEsxfrwP2Y2F4vsrTDBCi",
-  "node_legacy/@babel/@types/react/global.d.ts":
-    "QmYWoAkGksDA6zVMcctQpA8xWdGGnhk6NkT17TPLoCLsn4",
-  "node_legacy/@babel/@types/react/index.d.ts":
-    "QmYM43xyPLpVHep2LdYXCJahGMeYPasBxWMQyLMwqfxyv7",
-  "node_legacy/@babel/@types/react/jsx-dev-runtime.d.ts":
-    "QmXkiNDEBDb5JzUX374dKEX6Eeb8TY7JdDbYqVdmR4faVB",
-  "node_legacy/@babel/@types/react/jsx-runtime.d.ts":
-    "QmXkiNDEBDb5JzUX374dKEX6Eeb8TY7JdDbYqVdmR4faVB",
-  "node_legacy/@babel/@types/react/package.json":
-    "QmXoctn2SpWp2k66sbKN893Ms9D2AXojvmjLYKETTtrxqR",
-  "node_legacy/@babel/@types/react-dom/LICENSE":
-    "QmUTmHFik6fBSpJj8QxxdHV7BNbBuT6JpshoB8kjqCUwmU",
-  "node_legacy/@babel/@types/react-dom/README.md":
-    "QmUpvTKGPfghe3Cc31q4dca4fhqf85g8TAdg7BMZ3A5TvX",
-  "node_legacy/@babel/@types/react-dom/experimental.d.ts":
-    "QmZk5GydHWngtYkUJzdA7gygUZtQJG3FBkzzwvVGtMJ8Ap",
-  "node_legacy/@babel/@types/react-dom/index.d.ts":
-    "QmWGv3U2cn7KwND5Sxmgw75awkXJGgyxSksW37JQGWBGfq",
-  "node_legacy/@babel/@types/react-dom/node-stream/index.d.ts":
-    "QmdMuhJLS8zNjak6og3pxzqpmnPDBLbew5vyYfVEM76qmF",
-  "node_legacy/@babel/@types/react-dom/package.json":
-    "QmcNczN2yEqUh1TJTVWeAHvw3pnWHUXojW2ps2pz4dmbNf",
-  "node_legacy/@babel/@types/react-dom/server/index.d.ts":
-    "QmNsCC6Hq5uW2aoKiyRL5vfkxdSNagjspu2CJuAfgY5tZq",
-  "node_legacy/@babel/@types/react-dom/test-utils/index.d.ts":
-    "QmeWaCcEa449gZ454nQg1oK7zXVZMNwfkwqtA2nFrJJc1N",
   "node_legacy/@babel/standalone/LICENSE":
     "QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc",
   "node_legacy/@babel/standalone/README.md":
@@ -831,24 +789,11 @@ export const files = {
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "assets": "QmbYYAWatTsdjhjf2LCLM1oyUdrazGx1VEzp5zgf7n2DUc",
-  "node_legacy/@babel/@types/csstype":
-    "QmWU7D5cy7riYJsRWvJavMyzoziid8kHLwUYvsUCvXSYSh",
-  "node_legacy/@babel/@types/react":
-    "QmdpY31YCrngCkCgmPkhAt7FQbqv2obyTnc9nU6hDuSH3n",
-  "node_legacy/@babel/@types/react-dom/node-stream":
-    "QmQMqc8ngDH3hSG2wdpxZ5rPwUXznZ8QmGGgjAGEdg2XrQ",
-  "node_legacy/@babel/@types/react-dom/server":
-    "QmUMJXYY3ZmvcYcQRztvRFrQBnLYwFgtUGiocC4mSCNwBR",
-  "node_legacy/@babel/@types/react-dom/test-utils":
-    "QmQaHQZxh28YGknuBArVYDaeSxTsWkMkYJ58tU6jbL4gzm",
-  "node_legacy/@babel/@types/react-dom":
-    "QmaD9A3GAy24JDtmbJLqMkG8mjGN6BkrrUedVqa748kL3z",
-  "node_legacy/@babel/@types": "QmVi4Ncusrt5wKaG5fs2jG1QVH1Z9Z5TmW4uP4eqPh8v8H",
   "node_legacy/@babel/standalone/test":
     "Qmdbni8ySNyYHkWS2SgxoLVBT4or3F6nBe61F8FBDwDthg",
   "node_legacy/@babel/standalone":
     "QmeQ1gDZFjKQFLkVYWURPyJjhSV4Q84T5AaraV4Dtzsjgq",
-  "node_legacy/@babel": "QmW37MbVKUvzzMXVZkwqCJoSHucjS7vDCu3HMfAsHRyi9m",
+  "node_legacy/@babel": "QmQhFnhgvSEwfGYsxau3hLPFtzNhKY8E39v9ob66qNpHz6",
   "node_legacy/comlink": "QmTQek4dMBFHR9YmfaC39AHc561J1AyV7zmgPhgtTsP4q7",
   "node_legacy/ipfs/dist/src": "QmYAUdjvoYnA3SE4riK9hBDhdZjr4GWMm9FuM6syBfxztN",
   "node_legacy/ipfs/dist": "QmdvQ91wEBkvBNTLWezJYLT1cgmaCgj2WJ1x2xGSggJrdv",
@@ -1075,7 +1020,7 @@ export const files = {
   "node_legacy/monaco-editor/min-maps":
     "QmQueeHK42SVpGUPGuBG6zCNwGvkHMZkFua1RF7jDCZxjk",
   "node_legacy/monaco-editor": "QmeaRmtz4VoToM7V4CqzoQizQLnrQS35RMgTB5ZaM8sFJ3",
-  "node_legacy": "QmQqRDoPvNfBwUZq93YEMjjADKmBDM5cmJ3T7qZD5B2MoC",
+  "node_legacy": "QmVZxyYeBh9sK7saPbnFA3KgoDZX4nzfdTBcKT2MJVVBRy",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/emotion-react-renderer/dist":
     "QmeJEWVM2SczjoywzLE6nkoejskamp8Q4wyEtTU9x7qpGB",
@@ -1158,6 +1103,6 @@ export const files = {
   "src/workers/ipfs": "QmZPHzZKnwNdQgCCKCvJSjmF2THxV2gYbpRMvc96NsYuaP",
   "src/workers": "QmR7raGw9bFr352HENjo5ZtTeeXcytavUSf1We8DtJHyMA",
   "src": "QmQc7oACWQwnSiAehgunqAB4LHzqEc7wUpRUZ3BmYMw1HP",
-  "": "QmaHmu1Gs8Tic8F4gBEN7uhVjGYaJM5SoY6pPGkkaFEc1s",
+  "": "QmWZwsYt6J18fbTzGA3zhT9gu6fdPnQtc2JVLz7iovLDo5",
   "foo": "bar",
 };
