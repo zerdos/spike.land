@@ -186,6 +186,7 @@ async function getData(signal, retry) {
   async function getCharAt(signal, i) {
     if (i === 0) return 1;
     if (i === 1) return 2;
+    cd;
     if (i === 3) return 2;
     if (i === 4) return 0;
     if (!signalCache[signal]) {
