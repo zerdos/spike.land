@@ -120,48 +120,46 @@ export const sendSignal = async (signal, data) => {
 export const sha256ToCID = (str) =>
   (new CID(0, 112, fromHexString("1220" + str))).toString();
 
-export const fetchSignal =
-  /**
+/**
  * @param {string} signal
  * @param {number} _retry
  * @returns {Promise<()=>any>}
  */
-  async (
-    signal,
-    _retry,
-  ) => {
-    const retry = (typeof _retry === "number") ? _retry : 999;
-    const abort = new AbortController();
 
-    try {
-      if (retry === 0) throw new Error("No more retry");
+export async function fetchSignal(
+  signal,
+  _retry,
+) {
+  const retry = (typeof _retry === "number") ? _retry : 999;
+  try {
+    if (retry === 0) throw new Error("No more retry");
 
-      const res = await ipfsClient.add(signal, { onlyHash: true });
-      const resCID = res.cid.toString();
-      await getHash(resCID, { timeout: 500 });
-      return async () => parse(await getData(signal, 20));
-    } catch (e) {
-      throw new Error("no signal");
-    }
-  };
+    const res = await ipfsClient.add(signal, { onlyHash: true });
+    const resCID = res.cid.toString();
 
-/****
-   * 
-   * 
-   * 
-   * UTILS
-   * 
-   * 
-   * 
-   * 
-   */
+    await getHash(resCID, { timeout: 500 });
+
+    return async () => parse(await getData(resCID, 20));
+  } catch (e) {
+    throw new Error("no signal");
+  }
+} /****
+ * 
+ * 
+ * 
+ * UTILS
+ * 
+ * 
+ * 
+ * 
+ */
 
 /**
-     * 
-     * @param {string} signal
-     * @param {number} retry 
-     * @returns {Promise<any>}
-     */
+ * 
+ * @param {string} signal
+ * @param {number} retry 
+ * @returns {Promise<any>}
+ */
 
 async function getData(signal, retry) {
   if (retry === 0) throw new Error("Cant fetch data");
@@ -186,6 +184,10 @@ async function getData(signal, retry) {
        * @param {number} i
        */
   async function getCharAt(signal, i) {
+    if (i === 0) return 1;
+    if (i === 1) return 2;
+    if (i === 3) return 2;
+    if (i === 4) return 0;
     if (!signalCache[signal]) {
       signalCache[signal] = {};
     }
