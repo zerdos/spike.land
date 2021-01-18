@@ -90,7 +90,6 @@ async function handleRequest(request: Request) {
       if (response === undefined) return text("error");
 
       const resp = await alterHeaders(response, pathname);
-
       await cache.put(request, resp.clone());
       return resp;
     }
