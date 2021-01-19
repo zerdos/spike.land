@@ -25,7 +25,7 @@ async function handleRequest(request: Request) {
     maybeRoute.length === 8;
 
   const contentPath = isKey ? pathname.slice(9) : pathname;
-
+  if (isKey) return text(contentPath);
   if (contentPath.slice(0, 6) === "/ipfs/") {
     const cache = caches.default;
 
@@ -42,7 +42,7 @@ async function handleRequest(request: Request) {
       if (response) return await alterHeaders(response, pathname);
       else {
         // return text("no cache");
-        const random5GatewaysFetch = publicIpfsGateways.sort(() =>
+        const random5GatewaysFetch = publicIpfsGW.sort(() =>
           0.5 - Math.random()
         ).slice(0, 5).map((gw: string) =>
           gw.replace("/ipfs/:hash", `/ipfs/${cid2}/`)
@@ -70,9 +70,8 @@ async function handleRequest(request: Request) {
 
     if (response === undefined) {
       //https://ipfs.github.io/public-gateway-checker/gateways.json
-      const random5GatewaysFetch = publicIpfsGateways.sort(() =>
-        0.5 - Math.random()
-      ).slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", contentPath))
+      const random5GatewaysFetch = publicIpfsGW.sort(() => 0.5 - Math.random())
+        .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", contentPath))
         .map((x: string) =>
           fetch(x).then((res) =>
             res.status === 200 ? res : (() => {
