@@ -783,8 +783,8 @@ export const files = {
   "src/workers/ipfsWorker.js": "QmU8BfCMo5UGoJLekkmfce7aVdJJXGdyysocud6jE6zHe3",
   "src/workers/sw.js": "QmT3nPRc7UJyDYVwBVxPoAxrKEQVVDeH4UZ66vyybJnvpR",
   "src/workers/transpile.worker.js":
-    "QmUCHZ1UmHevxwNqsDYz8uTNs5TdiNCGFsuc1H5uzLAqpf",
-  "src/workers/tsconfig.json": "QmXYJq1mVyQPZk4cxwDrFoj5XEBBs3rgRApV6zQ1mq3FAH",
+    "QmcYzjZT7cP5fD2jZXa1YLZWQBupWik5tXwEGXVGBPj1Zr",
+  "src/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
   "tsconfig.json": "QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
@@ -1101,8 +1101,8 @@ export const files = {
     "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/workers/ipfs/src": "QmaY2UrSpouuMkzxxMj4mBCJrP1v8mXQeYf7jhqP29jeY6",
   "src/workers/ipfs": "QmYJvNpdqWCLqkJfQQwXFKyYNFkkefc4tJcFfQ7pjx9hBg",
-  "src/workers": "QmaGUzPfGzWgqqV1pqVxGLDx4VEw4yCh7AFqubbxPECbqy",
-  "src": "QmQHiMGy5w4ygEjEAdMeCbbfj1dtEa3AvxMiXUFtTmzfTr",
-  "": "Qma8pt5CA4M8oAQHif8oKZ9vq6CA1GfHPnGH8QS4A5iT3R",
+  "src/workers": "Qme9PNq6SXVCLYvYeYtDH7ju1fLPUEgHa2zLwgHUBZ7gSi",
+  "src": "Qmc1DanRHWSKdRUoANRvKmkbMawZH7tShbzLLGuWQQHsXe",
+  "": "QmWpMbGym9u678iToQByfF4v8nE7dd9pXFpYNLbarVNM13",
   "foo": "bar",
 };

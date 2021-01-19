@@ -70,7 +70,7 @@ const transform = (code) => {
       {
         compact: false,
         comments: false,
-        plugins: [],
+        // plugins: [Babel.availablePlugins["proposal-async-generator-functions"]],
         presets: [
           "react",
           "es2017",
