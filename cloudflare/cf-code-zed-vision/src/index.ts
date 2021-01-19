@@ -27,7 +27,6 @@ async function handleRequest(request: Request) {
   const contentPath = isKey ? pathname.slice(9) : pathname;
 
   if (contentPath.slice(0, 6) === "/ipfs/") {
-    //@ts-ignore
     const cache = caches.default;
 
     let response: Response | undefined;
@@ -46,7 +45,7 @@ async function handleRequest(request: Request) {
         const random5GatewaysFetch = publicIpfsGateways.sort(() =>
           0.5 - Math.random()
         ).slice(0, 5).map((gw: string) =>
-          gw.replace("/ipfs/:hash", `/ipfs/${cid2}`)
+          gw.replace("/ipfs/:hash", `/ipfs/${cid2}/`)
         )
           .map((x: string) =>
             fetch(x).then((res) =>
