@@ -262,8 +262,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "e40394810a76e9d3e85159bea63f647bc4babfb8bdf1fe6341730a975a132343",
-        "signature": "96f55f2c7d1c42c562b48dc1acd93dec0448328503dcac9c8a361da161ccc42b",
+        "version": "64330c5d706f43e3930e9f8a19acf2c83d5021bc9e0ce6b51134d015f3765659",
+        "signature": "a6912dbe20fe601ba715ee2dfd0ec892ffa2ebfe110e56d1f70213245bf40b67",
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {

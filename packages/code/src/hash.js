@@ -8,9 +8,9 @@ import {
 
 const log = (msg) => {
   // return;
-  if (typeof mgs === "string") console.log(msg);
-  else if (typeof msg === "object") console.table({ msg });
-  else console.log(msg);
+  // if (typeof mgs === "string") console.log(msg);
+  // else if (typeof msg === "object") console.table({ msg });
+  // else console.log(msg);
 };
 
 /**
@@ -18,8 +18,6 @@ const log = (msg) => {
   * [string]  
   * }
   */
-
-const cidCache = {};
 
 /**
  * @type {
@@ -30,81 +28,6 @@ const cidCache = {};
 const signalCache = {};
 
 /**
- * @type {
- * [string]  
- * }
- */
-
-const cidLock = {
-  semaphore: 0,
-};
-
-/**
- * @param {string} cid
- * @param {timeout: number}}  options
- */
-const getHash = async (cid, { timeout }) => {
-  if (cidCache[cid]) return cidCache[cid];
-
-  let now;
-
-  try {
-    if (
-      typeof cidCache[cid] !== "undefined" && cidCache[cid] !== ""
-    ) {
-      return cidCache[cid];
-    }
-
-    await wait(Math.random() * 100);
-
-    while (cidLock.semaphore > 128) {
-      await wait(Math.random() * 100);
-    }
-
-    log(`++semaphore: ${++cidLock.semaphore}`);
-    now = Date.now();
-    await wait(Math.random() * 100);
-
-    if (cidCache[cid]) {
-      const duration = Date.now() - now;
-      log(
-        `--during the waiting someone else find the result (${duration}): ${--cidLock
-          .semaphore}`,
-      );
-      return cidCache[cid];
-    }
-
-    const data = await ipfsCat(cid, { timeout: timeout || 300 });
-    const duration = Date.now() - now;
-
-    cidCache[cid] = data;
-    const duration2 = Date.now() - now;
-    log(
-      `--semaphore success first time - (${duration}): ${--cidLock.semaphore}`,
-    );
-    return data;
-  } catch (e) {
-    const duration = Date.now() - now;
-    log(`--semaphore No result(${duration}): ${--cidLock.semaphore}`);
-
-    cidLock[cid] = null;
-    throw Error("Not found");
-  }
-
-  /**
- * @param {number} delay
- */
-
-  function wait(delay) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(delay);
-      }, delay);
-    });
-  }
-};
-
-/**
  * @param {string} signal 
  * @param {string} data
  */
@@ -113,9 +36,9 @@ export const sendSignal = async (signal, data) => {
 
   log(`sending signal: ${signal}`);
 
-  await ipfsClient.add(signal);
+  const { path } = await ipfsClient.add(signal);
 
-  log(`signal sent`);
+  log(`signal sent --- ${path}`);
 
   if (data) {
     log(`sending data as well....`);
@@ -126,7 +49,6 @@ export const sendSignal = async (signal, data) => {
     log(toSave);
 
     const dataCid = (await ipfsClient.add(toSave)).cid.toString();
-    log((new CID(dataCid)).multihash);
 
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
@@ -136,17 +58,15 @@ export const sendSignal = async (signal, data) => {
       x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1)
     );
 
-    log(allHash);
+    log({ allHash });
 
     log("adding the fist 5");
     await Promise.all(
-      allHash.slice(0, 5).map(async (x) => await ipfsClient.add(x)),
-    );
+      allHash.map(async (x) => {
+        const { path } = await ipfsClient.add(x);
 
-    log(`first 5 chunk uploaded`);
-
-    await Promise.all(
-      allHash.slice(5).map(async (x) => await ipfsClient.add(x)),
+        log(path);
+      }),
     );
 
     log(`rest is uploaded`);
@@ -154,8 +74,8 @@ export const sendSignal = async (signal, data) => {
   return { success: true };
 };
 
-export const sha256ToCID = (str) =>
-  (new CID(0, 112, fromHexString("1220" + str))).toString();
+// export const sha256ToCID = (str) =>
+//   (new CID(0, 112, fromHexString("1220" + str))).toString();
 
 /**
  * @param {string} signal
@@ -180,7 +100,7 @@ export async function fetchSignal(
 
     log(`CID to wait: ${resCID}`);
 
-    const resData = await getHash(resCID, { timeout: 500 });
+    const resData = await ipfsCat(resCID, { timeout: 1500 });
 
     log(`${resCID} downloaded - ${resData}`);
     return async () => parse(await getData(signal, 20));
@@ -206,6 +126,18 @@ export async function fetchSignal(
  * @returns {Promise<any>}
  */
 
+/**
+ * @param {number} delay
+ */
+
+function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(delay);
+    }, delay);
+  });
+}
+
 async function getData(signal, retry) {
   if (retry === 0) throw new Error("Cant fetch data");
   log(`GET data, retry: ${retry}`);
@@ -217,7 +149,7 @@ async function getData(signal, retry) {
 
     const cid = new CID(0, 112, fromHexString(hashHex));
     log(`We got the data, its hash: ${cid.toString()}`);
-    return await getHash(
+    return await ipfsCat(
       cid.toString(),
       { timeout: 1500 },
     );
@@ -266,8 +198,8 @@ async function getData(signal, retry) {
 }
 
 /**
-         * @param {sting} d
-         */
+ * @param {sting} d
+ */
 function parse(d) {
   try {
     if (typeof d !== "string") return d;
