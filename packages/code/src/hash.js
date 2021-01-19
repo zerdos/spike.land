@@ -1,4 +1,17 @@
-import { CID, fromHexString, ipfsClient, raceToSuccess } from "./ipfsClient.js";
+import {
+  CID,
+  fromHexString,
+  ipfsCat,
+  ipfsClient,
+  raceToSuccess,
+} from "./ipfsClient.js";
+
+const log = (msg) => {
+  // return;
+  if (typeof mgs === "string") console.log(msg);
+  else if (typeof msg === "object") console.table({ msg });
+  else console.log(msg);
+};
 
 /**
  * @type {
@@ -33,6 +46,8 @@ const cidLock = {
 const getHash = async (cid, { timeout }) => {
   if (cidCache[cid]) return cidCache[cid];
 
+  let now;
+
   try {
     if (
       typeof cidCache[cid] !== "undefined" && cidCache[cid] !== ""
@@ -40,32 +55,40 @@ const getHash = async (cid, { timeout }) => {
       return cidCache[cid];
     }
 
+    await wait(Math.random() * 100);
+
     while (cidLock.semaphore > 128) {
       await wait(Math.random() * 100);
     }
 
-    cidLock.semaphore++;
+    log(`++semaphore: ${++cidLock.semaphore}`);
+    now = Date.now();
+    await wait(Math.random() * 100);
 
-    const data = await ipfsClient.cat(cid, { timeout: timeout || 300 });
-
-    if (cidCache[cid]) return cidCache[cid];
-
-    /** @type {number[]} */
-    const resultUintArr = [];
-
-    for await (const res of data) {
-      resultUintArr.concat(...res);
+    if (cidCache[cid]) {
+      const duration = Date.now() - now;
+      log(
+        `--during the waiting someone else find the result (${duration}): ${--cidLock
+          .semaphore}`,
+      );
+      return cidCache[cid];
     }
 
-    const result = new TextDecoder().decode(new Uint8Array(resultUintArr));
-    cidCache[cid] = result;
+    const data = await ipfsCat(cid, { timeout: timeout || 300 });
+    const duration = Date.now() - now;
 
-    cidLock.semaphore--;
-
-    return result;
+    cidCache[cid] = data;
+    const duration2 = Date.now() - now;
+    log(
+      `--semaphore success first time - (${duration}): ${--cidLock.semaphore}`,
+    );
+    return data;
   } catch (e) {
-    cidLock.semaphore--;
+    const duration = Date.now() - now;
+    log(`--semaphore No result(${duration}): ${--cidLock.semaphore}`);
+
     cidLock[cid] = null;
+    throw Error("Not found");
   }
 
   /**
@@ -88,15 +111,22 @@ const getHash = async (cid, { timeout }) => {
 export const sendSignal = async (signal, data) => {
   if (typeof window === "undefined") return "no webpack please";
 
+  log(`sending signal: ${signal}`);
+
   await ipfsClient.add(signal);
 
+  log(`signal sent`);
+
   if (data) {
+    log(`sending data as well....`);
     let toSave = data;
 
     if (typeof data !== "string") toSave = JSON.stringify(data);
 
+    log(toSave);
+
     const dataCid = (await ipfsClient.add(toSave)).cid.toString();
-    console.log((new CID(dataCid)).multihash);
+    log((new CID(dataCid)).multihash);
 
     const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
       ("00" + b.toString(16)).slice(-2)
@@ -106,13 +136,20 @@ export const sendSignal = async (signal, data) => {
       x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1)
     );
 
+    log(allHash);
+
+    log("adding the fist 5");
     await Promise.all(
-      allHash.slice(0, 5).map((x) => ipfsClient.add(x)),
+      allHash.slice(0, 5).map(async (x) => await ipfsClient.add(x)),
     );
 
+    log(`first 5 chunk uploaded`);
+
     await Promise.all(
-      allHash.slice(5).map((x) => ipfsClient.add(x)),
+      allHash.slice(5).map(async (x) => await ipfsClient.add(x)),
     );
+
+    log(`rest is uploaded`);
   }
   return { success: true };
 };
@@ -131,16 +168,24 @@ export async function fetchSignal(
   _retry,
 ) {
   const retry = (typeof _retry === "number") ? _retry : 999;
+  log(`retry: ${retry}`);
   try {
-    if (retry === 0) throw new Error("No more retry");
+    if (retry === 0) {
+      throw new Error("No more retry");
+    }
 
     const res = await ipfsClient.add(signal, { onlyHash: true });
+
     const resCID = res.cid.toString();
 
-    await getHash(resCID, { timeout: 500 });
+    log(`CID to wait: ${resCID}`);
 
+    const resData = await getHash(resCID, { timeout: 500 });
+
+    log(`${resCID} downloaded - ${resData}`);
     return async () => parse(await getData(signal, 20));
   } catch (e) {
+    if (retry > 1) return fetchSignal(signal, retry - 1);
     throw new Error("no signal");
   }
 } /****
@@ -163,6 +208,7 @@ export async function fetchSignal(
 
 async function getData(signal, retry) {
   if (retry === 0) throw new Error("Cant fetch data");
+  log(`GET data, retry: ${retry}`);
 
   try {
     const hashArr = new Array(68).fill(0).map((_x, i) => i);
@@ -170,7 +216,7 @@ async function getData(signal, retry) {
     const hashHex = (await Promise.all(restRes)).join("");
 
     const cid = new CID(0, 112, fromHexString(hashHex));
-
+    log(`We got the data, its hash: ${cid.toString()}`);
     return await getHash(
       cid.toString(),
       { timeout: 1500 },
@@ -184,26 +230,26 @@ async function getData(signal, retry) {
        * @param {number} i
        */
   async function getCharAt(signal, i) {
-    if (i === 0) return 1;
-    if (i === 1) return 2;
-    cd;
-    if (i === 3) return 2;
-    if (i === 4) return 0;
     if (!signalCache[signal]) {
-      signalCache[signal] = {};
+      signalCache[signal] = {
+        "0": "1",
+        "1": "2",
+        "2": "2",
+        "3": "0",
+      };
     }
 
     if (signalCache[signal][i]) return signalCache[signal][i];
 
     const chars = [..."0123456789abcdef"];
 
-    const controller = new AbortController();
     const prefix = new Array(i).fill("x").join("");
 
     if (signalCache[signal][i]) return signalCache[signal][i];
-    const raceArray = chars.map(async (x) =>
-      await fetchSignal(signal + prefix + x, 5)
-    );
+    const raceArray = chars.map(async (xx) => {
+      await wait(Math.random() * 1000);
+      return await fetchSignal(signal + prefix + xx, 1).then(() => xx);
+    });
 
     if (signalCache[signal][i]) return signalCache[signal][i];
     const nextChar = await raceToSuccess(
@@ -213,7 +259,7 @@ async function getData(signal, retry) {
     if (signalCache[signal][i]) return signalCache[signal][i];
 
     signalCache[signal][i] = nextChar;
-    controller.abort();
+    log(signalCache[signal]);
 
     return nextChar;
   }
@@ -232,3 +278,4 @@ function parse(d) {
     return d;
   }
 }
+export { ipfsCat };

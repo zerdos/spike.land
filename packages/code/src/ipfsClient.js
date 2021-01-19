@@ -1,8 +1,11 @@
 import {
+  all,
   CID,
   fromHexString,
   IpfsClient,
   raceToSuccess,
+  uint8ArrayConcat,
+  uint8ArrayToString,
 } from "./workers/ipfs/dist/ipfs.client.js";
 
 import { v } from "./versions.js";
@@ -30,8 +33,22 @@ if (typeof SharedWorker !== "undefined") {
 
   port = port2;
 }
+
 export const ipfsClient = IpfsClient.from(port);
 
+export const ipfsCat = async (cid, options) => {
+  const res = ipfsClient.cat(cid, options);
+
+  const result = uint8ArrayConcat(
+    await all(res),
+  );
+  const resultStr = uint8ArrayToString(result);
+  return resultStr;
+};
+
 export { CID };
+export { all };
+export { uint8ArrayConcat };
+export { uint8ArrayToString };
 export { raceToSuccess };
 export { fromHexString };

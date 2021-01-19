@@ -597,7 +597,7 @@ export const files = {
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmbZd3v9kji28hp18DDgZ71CtFk6dD756WiqLB8AQAxEA8",
-  "src/codeLoader.js": "QmPKfw23ntDSW1NWeJyvLbNnw6Mz1AqbhQM4fjCxpXM7iv",
+  "src/codeLoader.js": "QmRQZaXzUuXMaLTFiLXSkigxNYU9eCbHg6vX5keBm4F8WU",
   "src/data.js": "QmQ7uJfT6RmjJC6UmMsrA2x5JvSp5TQcCfwJ7rtLpqLdKW",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -617,10 +617,10 @@ export const files = {
   "src/examples/starter_framer.js":
     "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
   "src/formatter.js": "QmWnFrxvNhB6vdhbn6HqP21eWHYfSj7fL3nFZytwyWnHZB",
-  "src/hash.js": "QmWDf9SE1imGBc5zwpAkD66oD326oPFBwFQGpmMpZMeH26",
+  "src/hash.js": "QmWyfgNvqasa2bkVN3nzThy6CYnwh4edZhac162mpNizeS",
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
-  "src/ipfsClient.js": "QmQqWqjiJr5JLJ7b3vSnxWRYAVGFR3dEBpUiz4b7fG8gSg",
+  "src/ipfsClient.js": "QmZCc4taccAaUMQe1tR1FsVvthKzySgnagA8WWyEuoTS1E",
   "src/openWindows.js": "QmSworV47vWhXxUphNMMVsiCUMvm9bjMFKEZDXAAbwJkoD",
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
@@ -761,19 +761,63 @@ export const files = {
   "src/workers/ipfs/dist/gateways.js":
     "QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK",
   "src/workers/ipfs/dist/ipfs.client.d.ts":
-    "QmWS9QuitocbrTURXm5wABCFTYCkfAZMPLH4159F6Eoya3",
+    "QmbsTxQFrbcEWv1r1YZEp5zDgrA8BC84QUKRXxL7Yq1qCG",
   "src/workers/ipfs/dist/ipfs.client.js":
-    "QmV9YnQ5Kbp3js6QHPC4L3dGt5NshZr4xUaMf8QASanDRL",
+    "QmS3NgCZ9CqWKTxmhmFgKbarKFK5GXHuNqEJZiLtohYLod",
   "src/workers/ipfs/dist/ipfs.server.d.ts":
     "QmehfY8Fwd6g979memvTZG7Zx2o6QcVLi6iSNJTBDvmdY7",
   "src/workers/ipfs/dist/ipfs.server.js":
     "QmUxKobsyqyFmfVKpLz4vhthe2ED8NGUgM7DS1oKUeT6mG",
+  "src/workers/ipfs/node_modules/uint8arrays/CHANGELOG.md":
+    "QmRXtm2JnFnryHFiWSSY1VE7Jygo4NV2nJSMtrvQE6JZSz",
+  "src/workers/ipfs/node_modules/uint8arrays/README.md":
+    "QmY9MLGfvXbn6xuHNzDFrLTg2CVzqjxzCK5XHwSWCXqwtY",
+  "src/workers/ipfs/node_modules/uint8arrays/compare.js":
+    "QmWZfqfuJ42bPx5TG5gKr7c4VGfCuV9to38sqUtu7q1W6z",
+  "src/workers/ipfs/node_modules/uint8arrays/concat.js":
+    "QmNVrP4rvag3nDR48q41KEQuomBGfpTpRvd9sLyWRbMjE6",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/compare.d.ts":
+    "QmY9sxA5ALg2sSzzMzyncNMnXwVBpxAK4LJsfSocPfM317",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/compare.d.ts.map":
+    "QmT3hMw3SXQ1KEcmDcZaN1KG2kH6mE3kHvZHjq8qUn58zD",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/concat.d.ts":
+    "QmZwTsvTpg1ETMSzAe4HQNpnA5ZbGqEc3JvzhRG9wAT8EE",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/concat.d.ts.map":
+    "QmUc64sLfa3eMAiHwRD1tBgrcKrjRyBJgS7dGVMG1LrS2A",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/equals.d.ts":
+    "QmSfLrAjZpbn8dWXdaFqCVcQ6KRS2RY5ws6utacjkLsxSd",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/equals.d.ts.map":
+    "QmcYFBPZDKUCRWVpZhycpEAgscw8iGBrfWfggzZAsH2AhE",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/from-string.d.ts":
+    "QmQN6cdTcBr8e4KsBRQhwg3qfzbGT1gQ7FMncff2G5a7nS",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/from-string.d.ts.map":
+    "QmeYgvsKqtjhszvVEAixg1J4trSxbiXSUhDVuXh9hhPQie",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/index.d.ts":
+    "QmdsyZfRU4mwVnh4hUp83BPNqwFKS6qYnfCZuZ2njqaJGS",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/index.d.ts.map":
+    "Qmdkob61reTPKyrLXxE6QWPasX7K9ksTLjwQvUAbJqwj14",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/index.min.js":
+    "QmQiz5vD4CYTaT9ajVTB1HshpL3T9MoVzmV8hCUBnGPeo6",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/to-string.d.ts":
+    "QmaqHtbgosbT5vG3t7vRCRtnQV2aQyvJpZ5nN6vuUGEeWJ",
+  "src/workers/ipfs/node_modules/uint8arrays/dist/to-string.d.ts.map":
+    "QmaCbyAgABHUuroousZqgiTSCCDrTv6gys8FJZr5EQBzHZ",
+  "src/workers/ipfs/node_modules/uint8arrays/equals.js":
+    "QmdosQNTM8QV98QJbLytNepyGHwqtrqpoo9Qb1DSZcTpgR",
+  "src/workers/ipfs/node_modules/uint8arrays/from-string.js":
+    "QmQP5bZHZbeEiHrn6HbVXEWXuThbqh7fMqBoHEvypQCaCg",
+  "src/workers/ipfs/node_modules/uint8arrays/index.js":
+    "QmSv8uLYAvhDAj8zBytYaGVFfo6G7pBbgCQyDffSowRiCf",
+  "src/workers/ipfs/node_modules/uint8arrays/package.json":
+    "QmYt6PHciBJ8oVyt4jfMzRjrz8jR2H8wUaXJxc5f3wnaqf",
+  "src/workers/ipfs/node_modules/uint8arrays/to-string.js":
+    "QmVrsJ8sxzw72wdf5ve6ZaVmrAKMeQrXTFKKt6JJMk928J",
   "src/workers/ipfs/package.json":
-    "QmUp9vJzXpmAgDSJmS9f8BRmYYXiiPJvRG6aBfxx213zN3",
+    "QmYmMcXmmsnvpmYxCJWgZMMrtUod4e59ELoREaoDgZ5e9W",
   "src/workers/ipfs/src/gateways.js":
     "QmVGZy8bP96dMrzL4vTg7ppfpJVAFbtUZ1Go57fvsParbe",
   "src/workers/ipfs/src/ipfs.client.ts":
-    "QmcaF3rgV1NmSYzBEV7FJy1jFWx27BNLTr7QycKKbaLwr7",
+    "QmayNUg9fJ7i8ziZsuMHnjnwtB1NFHYrHHmxuReoMefUsf",
   "src/workers/ipfs/src/ipfs.server.ts":
     "QmPYR7RSLFHvYdJshHE6ZfAMqZGm7XUfSjcQdbCsNvUgQ7",
   "src/workers/ipfs/src/ref.d.ts":
@@ -1096,13 +1140,17 @@ export const files = {
   "src/smart-monaco-editor/src":
     "QmSQUM9Zkyn5Y6RQTfPKqf5VP5xhKVi76sxsVHLqNHcJvP",
   "src/smart-monaco-editor": "QmTJro9yZUBE7s3wEJqDa8V1pV6QUqQ8if5hLwrN25whCB",
-  "src/workers/ipfs/dist": "QmXRShoseu2G8qdzjnaQJUeDjdz3UEv2EUd68oohq19Q6B",
+  "src/workers/ipfs/dist": "Qmabyr2R5UxPMtLTSsmwXDhkYj5YMam52XhGS8t24wnCyP",
+  "src/workers/ipfs/node_modules/uint8arrays/dist":
+    "QmWCCvXXpTSh5kHfj3VyPtx9dTroDWWPVwTf3pu7doJaZx",
+  "src/workers/ipfs/node_modules/uint8arrays":
+    "QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN",
   "src/workers/ipfs/node_modules":
-    "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "src/workers/ipfs/src": "QmaY2UrSpouuMkzxxMj4mBCJrP1v8mXQeYf7jhqP29jeY6",
-  "src/workers/ipfs": "QmYJvNpdqWCLqkJfQQwXFKyYNFkkefc4tJcFfQ7pjx9hBg",
-  "src/workers": "Qme9PNq6SXVCLYvYeYtDH7ju1fLPUEgHa2zLwgHUBZ7gSi",
-  "src": "Qmc1DanRHWSKdRUoANRvKmkbMawZH7tShbzLLGuWQQHsXe",
-  "": "QmcD7tJf2oJ5MkhMmkoykC5x1MXF7KBY6W6mhWp5gzRm8G",
+    "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
+  "src/workers/ipfs/src": "Qmam8ZQ4kUQburfKv7nBXpeJHYvYyLPE2Gm2hBxreC8i9g",
+  "src/workers/ipfs": "QmaBkHnSrc7Q1BXJbLGsDwvYuX1UJQd1fmWwaakRf4uPrp",
+  "src/workers": "QmXAuBaFzYAXV8kYY4sT9ebQyGfexB9px9KTU7t82c2jJp",
+  "src": "QmZg8LCSBgfBJMhXJZZDKgGRtXFWuwS8PcV1zBU3UBEMH1",
+  "": "QmdwWuSSAQADmHsAtCiQvgJJNd7aU2bu4ydzHwz4gptaEx",
   "foo": "bar",
 };
