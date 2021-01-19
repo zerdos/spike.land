@@ -17,13 +17,13 @@ export async function sendSignalToQrCode(rootUrl) {
 
     await sendSignal(
       signal,
-      JSON.stringify({
+      {
         rootUrl,
         signals: {
           onChange: "url",
           onLogout: "url",
         },
-      }),
+      },
     );
   }
 }
