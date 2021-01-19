@@ -31,14 +31,16 @@ async function handleRequest(request: Request) {
 
     let response: Response | undefined;
 
-    if (contentPath.slice(0, 52) === `/ipfs/${cid}`) {
+    if (
+      contentPath.length > 52 && contentPath.slice(0, 52) === `/ipfs/${cid}`
+    ) {
       const file = contentPath.slice(53) || "index.html";
 
       //@ts-ignore
       const cid2 = files[file]!;
 
       return Response.redirect(
-        `https://code.zed.vision/ipfs/${cid2}/`,
+        `https://code.zed.vision/ipfs/${cid2}`,
         302,
       );
       // const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
