@@ -58,6 +58,8 @@ export const Qr = () => {
 
       const url = `https://zed.vision/${key}`;
 
+      console.log(`waiting for url: ${url}`);
+
       setUrl({ last: urls.current, current: url });
       setTimeout(() => setRetry((x: number) => x - 1), 20000);
     };

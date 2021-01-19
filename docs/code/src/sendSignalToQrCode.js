@@ -12,20 +12,19 @@ export async function sendSignalToQrCode(rootUrl) {
     [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 
   if (isKey) {
-    await (import("./hash.js").then(async ({ sendSignal }) => {
-      const signal = `https://zed.vision/${maybeRoute}`;
+    const { sendSignal } = await import("./hash.js");
+    const signal = `https://zed.vision/${maybeRoute}`;
 
-      await sendSignal(
-        signal,
-        JSON.stringify({
-          rootUrl,
-          signals: {
-            onChange: "url",
-            onLogout: "url",
-          },
-        }),
-      );
-    }));
+    await sendSignal(
+      signal,
+      JSON.stringify({
+        rootUrl,
+        signals: {
+          onChange: "url",
+          onLogout: "url",
+        },
+      }),
+    );
   }
 }
 
