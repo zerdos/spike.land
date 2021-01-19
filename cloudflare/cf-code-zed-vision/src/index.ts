@@ -39,10 +39,14 @@ async function handleRequest(request: Request) {
       //@ts-ignore
       const cid2 = files[file]!;
 
-      return Response.redirect(
+      const response = await fetch(
         `https://code.zed.vision/ipfs/${cid2}/`,
-        302,
       );
+
+      const resp = alterHeaders(response, contentPath);
+
+      return resp;
+
       // const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
       // response = await cache.match(req);
 
