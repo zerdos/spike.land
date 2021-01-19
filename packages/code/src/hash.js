@@ -7,7 +7,6 @@ import {
 } from "./ipfsClient.js";
 
 const log = (msg) => {
-  return;
   if (typeof mgs === "string") console.log(msg);
   else if (typeof msg === "object") console.table({ msg });
   else console.log(msg);
