@@ -25,7 +25,7 @@ async function handleRequest(request: Request) {
     maybeRoute.length === 8;
 
   const contentPath = isKey ? pathname.slice(9) : pathname;
-  if (isKey) return text(contentPath);
+  // if (isKey) return text(contentPath);
   if (contentPath.slice(0, 6) === "/ipfs/") {
     const cache = caches.default;
 
@@ -66,7 +66,9 @@ async function handleRequest(request: Request) {
       }
     }
 
-    response = await cache.match(request);
+    const req = new Request(`https://code.zed.vision${contentPath}`);
+
+    response = await cache.match(req);
 
     if (response === undefined) {
       //https://ipfs.github.io/public-gateway-checker/gateways.json
@@ -86,7 +88,7 @@ async function handleRequest(request: Request) {
       if (response === undefined) return text("error");
 
       const resp = await alterHeaders(response, pathname);
-      await cache.put(request, resp.clone());
+      await cache.put(req, resp.clone());
       return resp;
     }
 
