@@ -1,5 +1,5 @@
 export const files = {
-  "assets/app.css": "QmdumnLemYHH9pLCiUXqCuNebvH6EFn4dF5UuWaqNC9BYd",
+  "assets/app.css": "Qmbh94S3j1gDwhW9eMQ16ZKeZe3sRSQCYqWtCRVARU8HYM",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "QmVB1APqxwoFrkjZ9B2kYmukzGPdVrdct1JdxhkPbeY28Q",
   "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf":
@@ -12,7 +12,7 @@ export const files = {
   "assets/roboto.css": "QmafZGaL6TznhmwtJ78ggkm7phbCiuEVXcTxfLwbZG6PoT",
   "assets/social-media-computer-icons-share-icon-png":
     "QmcsMurTbnEVPqP42x15FiisSjQdXJ7vGGHhf279UtwPxE",
-  "assets/syntiwave.jpg": "QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT",
+  "assets/synthwave.jpg": "QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT",
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
@@ -788,7 +788,7 @@ export const files = {
   "tsconfig.json": "QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "assets": "QmbYYAWatTsdjhjf2LCLM1oyUdrazGx1VEzp5zgf7n2DUc",
+  "assets": "QmcLAE4ZmMJ1GT977zHKnX7zzcwVRS25cYzFTTiA9hxtyd",
   "node_legacy/@babel/standalone/test":
     "Qmdbni8ySNyYHkWS2SgxoLVBT4or3F6nBe61F8FBDwDthg",
   "node_legacy/@babel/standalone":
@@ -1103,6 +1103,6 @@ export const files = {
   "src/workers/ipfs": "QmYJvNpdqWCLqkJfQQwXFKyYNFkkefc4tJcFfQ7pjx9hBg",
   "src/workers": "Qme9PNq6SXVCLYvYeYtDH7ju1fLPUEgHa2zLwgHUBZ7gSi",
   "src": "Qmc1DanRHWSKdRUoANRvKmkbMawZH7tShbzLLGuWQQHsXe",
-  "": "QmWpMbGym9u678iToQByfF4v8nE7dd9pXFpYNLbarVNM13",
+  "": "QmcD7tJf2oJ5MkhMmkoykC5x1MXF7KBY6W6mhWp5gzRm8G",
   "foo": "bar",
 };
