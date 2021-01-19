@@ -2026,7 +2026,7 @@ var store = __webpack_require__("xgf2");
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.8.2',
+  version: '3.8.3',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 });
@@ -4454,4 +4454,4 @@ module.exports = function (METHOD_NAME, options) {
 /***/ })
 
 },[["UxWs",3,12,14]]]);
-//# sourceMappingURL=app-77b2334d2ab1e76f25bc.js.map
+//# sourceMappingURL=app-7ae0916c698e57050bdf.js.map
