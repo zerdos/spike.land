@@ -137,7 +137,9 @@ async function getData(signal, retry) {
 
   try {
     const hashArr = new Array(68).fill(0).map((_x, i) => i);
-    const restRes = hashArr.map((i) => getCharAt(signal, i));
+    const restRes = hashArr.map((i) =>
+      wait(Math.random() * 2000).then(() => getCharAt(signal, i))
+    );
     const hashHex = (await Promise.all(restRes)).join("");
 
     const cid = new CID(0, 112, fromHexString(hashHex));
@@ -171,17 +173,15 @@ async function getData(signal, retry) {
     const prefix = new Array(i).fill("x").join("");
 
     if (signalCache[signal][i]) return signalCache[signal][i];
-    const raceArray = chars.map(async (xx) => {
-      await wait(Math.random() * 1000);
-      return await fetchSignal(signal + prefix + xx, 1).then(() => xx);
-    });
 
-    if (signalCache[signal][i]) return signalCache[signal][i];
+    log(`fetching char ${i}`);
     const nextChar = await raceToSuccess(
-      raceArray,
+      chars.map(async (xx) => {
+        await wait(Math.random() * 1000);
+        if (signalCache[signal][i]) return signalCache[signal][i];
+        return await fetchSignal(signal + prefix + xx, 1).then(() => xx);
+      }),
     );
-
-    if (signalCache[signal][i]) return signalCache[signal][i];
 
     signalCache[signal][i] = nextChar;
     log(signalCache[signal]);
