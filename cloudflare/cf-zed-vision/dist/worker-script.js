@@ -267,7 +267,7 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 const v41 = () => v4();
-const cid = "QmQE23KG1KTq1vaMpZeK1adHDwK3bCBiL6FBtgEwh6Hrdw";
+const cid = "Qma8pt5CA4M8oAQHif8oKZ9vq6CA1GfHPnGH8QS4A5iT3R";
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",
