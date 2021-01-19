@@ -39,42 +39,42 @@ async function handleRequest(request: Request) {
       //@ts-ignore
       const cid2 = files[file]!;
 
-      const response = await fetch(
-        `https://code.zed.vision/ipfs/${cid2}/`,
-      );
+      // const response = await fetch(
+      //   `https://code.zed.vision/ipfs/${cid2}/`,
+      // );
 
-      const resp = alterHeaders(response, contentPath);
+      // const resp = alterHeaders(response, contentPath);
 
-      return resp;
+      // return resp;
 
-      // const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
-      // response = await cache.match(req);
+      const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
+      response = await cache.match(req);
 
-      // if (response) return await alterHeaders(response, pathname);
-      // else {
-      //   // return text("no cache");
-      //   const random5GatewaysFetch = publicIpfsGW.sort(() =>
-      //     0.5 - Math.random()
-      //   ).slice(0, 5).map((gw: string) =>
-      //     gw.replace("/ipfs/:hash", `/ipfs/${cid2}/`)
-      //   )
-      //     .map((x: string) =>
-      //       fetch(x).then((res) =>
-      //         res.status === 200 ? res : (() => {
-      //           res.arrayBuffer();
-      //           throw new Error("Not found");
-      //         })()
-      //       )
-      //     );
+      if (response) return await alterHeaders(response, pathname);
+      else {
+        // return text("no cache");
+        const random5GatewaysFetch = publicIpfsGW.sort(() =>
+          0.5 - Math.random()
+        ).slice(0, 5).map((gw: string) =>
+          gw.replace("/ipfs/:hash", `/ipfs/${cid2}/`)
+        )
+          .map((x: string) =>
+            fetch(x).then((res) =>
+              res.status === 200 ? res : (() => {
+                res.arrayBuffer();
+                throw new Error("Not found");
+              })()
+            )
+          );
 
-      //   response = await raceToSuccess(random5GatewaysFetch);
+        response = await raceToSuccess(random5GatewaysFetch);
 
-      //   if (response === undefined) return text("error");
+        if (response === undefined) return text("error");
 
-      //   const resp = await alterHeaders(response, pathname);
-      //   await cache.put(req, resp.clone());
-      //   return resp;
-      // }
+        const resp = await alterHeaders(response, pathname);
+        await cache.put(req, resp.clone());
+        return resp;
+      }
     }
 
     const req = new Request(`https://code.zed.vision${contentPath}`);
