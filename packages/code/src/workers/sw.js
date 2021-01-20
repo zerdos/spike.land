@@ -1,7 +1,7 @@
 importScripts(
   "../../node_legacy/workbox-sw.js",
 );
-importScripts("./files.umd.js")
+// importScripts("./files.umd.js")
 
 // @ts-ignore
 workbox.loadModule("workbox-strategies");
@@ -27,16 +27,15 @@ self.addEventListener(
  */
   (event) => {
     const { request } = event;
-    const { url } = request;
-    const filePath = (new URL(url)).pathname.slice(53);
-    const cid = files[filePath];
-    if (cid){
-      const request = fetch(`/ipfs/${cid}`)
-      // @ts-ignore
-      const cacheFirst = new workbox.strategies.CacheFirst();
-      event.respondWith(cacheFirst.handle({ event, request }));
-    }
-    else if (
+    const { url} = request;
+    // const {origin, pathname} = new URL(url);
+    // const filePath = pathname.slice(53);
+    // const cid = files[filePath];
+    // if (cid){
+    //   const cacheFirst = new workbox.strategies.CacheFirst();
+    //   event.respondWith(fetch(`${origin}/ipfs/${cid}`));
+    // }
+   if (
       !url.endsWith("sw.js") && (
         url.endsWith(".js") || url.endsWith(".mjs") || url.endsWith(".json") ||
         url.endsWith(".map") ||
