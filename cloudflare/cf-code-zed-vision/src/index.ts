@@ -143,6 +143,7 @@ async function alterHeaders(response: Response, pathname: string) {
       "text/css;charset=UTF-8",
     );
   } else if (pathname.endsWith(".jpg")) {
+    resp.headers.delete("content-type");
     resp.headers.set("content-type", "image/jpeg");
   } else if (pathname.indexOf(".") === -1) {
     resp.headers.delete("content-type"),
