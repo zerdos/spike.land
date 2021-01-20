@@ -137,9 +137,16 @@ async function getData(signal, retry) {
 
   const signalPath = pathname.slice(1);
 
-  return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
-    x.text()
-  ).then((cid) => ipfsCat(cid));
+  const res = await fetch(`https://zed.vision/signal?signal=${signalPath}`);
+
+  const cid = await res.text();
+
+  const content = await ipfsCat(cid);
+  return content;
+
+  // return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
+  //   x.text()
+  // ).then((cid) => ipfsCat(cid));
 }
 
 // if (retry === 0) throw new Error("Cant fetch data");
