@@ -230,3 +230,7 @@ replaceTraps((oldTraps) => ({
     !!getMethod(target, prop) || oldTraps.has(target, prop),
 }));
 export { deleteDB1 as deleteDB, openDB1 as openDB };
+const unwrap2 = unwrap1;
+const wrap2 = wrap1;
+const deleteDB2 = deleteDB1;
+const openDB2 = openDB1;

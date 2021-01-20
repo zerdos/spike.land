@@ -3,7 +3,7 @@
 self.importScripts("../../node_legacy/comlink/comlink.min.js");
 // @ts-ignore
 self.importScripts(
-  "../../node_legacy/@babel/standalone/babel.min.js"
+  "../../node_legacy/@babel/standalone/babel.min.js",
 );
 
 // @ts-ignore

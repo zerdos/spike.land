@@ -5,7 +5,7 @@ export { spring } from "./animations/generators/spring";
 export { keyframes } from "./animations/generators/keyframes";
 export { angle } from "./utils/angle";
 export { applyOffset } from "./utils/apply-offset";
-export { createAttractor, attract, attractExpo } from "./utils/attract";
+export { attract, attractExpo, createAttractor } from "./utils/attract";
 export { clamp } from "./utils/clamp";
 export { degreesToRadians } from "./utils/degrees-to-radians";
 export { distance } from "./utils/distance";
@@ -26,9 +26,30 @@ export { toDecimal } from "./utils/to-decimal";
 export { velocityPerFrame } from "./utils/velocity-per-frame";
 export { velocityPerSecond } from "./utils/velocity-per-second";
 export { wrap } from "./utils/wrap";
-export { linear, easeIn, easeInOut, easeOut, circIn, circInOut, circOut, backIn, backInOut, backOut, anticipate, bounceIn, bounceInOut, bounceOut, } from "./easing";
+export {
+  anticipate,
+  backIn,
+  backInOut,
+  backOut,
+  bounceIn,
+  bounceInOut,
+  bounceOut,
+  circIn,
+  circInOut,
+  circOut,
+  easeIn,
+  easeInOut,
+  easeOut,
+  linear,
+} from "./easing";
 export { cubicBezier } from "./easing/cubic-bezier";
 export { steps } from "./easing/steps";
-export { mirrorEasing, reverseEasing, createExpoIn, createBackIn, createAnticipate, } from "./easing/utils";
+export {
+  createAnticipate,
+  createBackIn,
+  createExpoIn,
+  mirrorEasing,
+  reverseEasing,
+} from "./easing/utils";
 export * from "./animations/types";
 export * from "./easing/types";

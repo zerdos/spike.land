@@ -1,9 +1,9 @@
-import {} from 'react'
-import { Interpolation } from '@emotion/serialize'
-import { Theme } from '.'
+import {} from "react";
+import { Interpolation } from "@emotion/serialize";
+import { Theme } from ".";
 
-declare module 'react' {
+declare module "react" {
   interface Attributes {
-    css?: Interpolation<Theme>
+    css?: Interpolation<Theme>;
   }
 }

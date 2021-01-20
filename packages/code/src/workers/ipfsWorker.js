@@ -1,6 +1,6 @@
 importScripts(
-  "./ipfs/dist/ipfs.server.js"
-  );
+  "./ipfs/dist/ipfs.server.js",
+);
 
 // @ts-ignore
 const { Ipfs, IPFSService, Server } = self;

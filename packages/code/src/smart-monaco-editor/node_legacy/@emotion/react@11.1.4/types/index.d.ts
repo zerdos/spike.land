@@ -1,7 +1,7 @@
 // Definitions by: Junyoung Clare Jang <https://github.com/Ailrun>
 // TypeScript Version: 3.4
 
-import { EmotionCache } from '@emotion/cache'
+import { EmotionCache } from "@emotion/cache";
 import {
   ArrayInterpolation,
   ComponentSelector,
@@ -10,19 +10,19 @@ import {
   FunctionInterpolation,
   Interpolation,
   Keyframes,
-  SerializedStyles
-} from '@emotion/serialize'
+  SerializedStyles,
+} from "@emotion/serialize";
 import {
   ClassAttributes,
   Context,
-  Provider,
+  createElement,
   FC,
+  Provider,
   ReactElement,
   ReactNode,
   Ref,
-  createElement
-} from 'react'
-import { EmotionJSX } from './jsx-namespace'
+} from "react";
+import { EmotionJSX } from "./jsx-namespace";
 
 export {
   ArrayInterpolation,
@@ -31,42 +31,42 @@ export {
   EmotionCache,
   FunctionInterpolation,
   Interpolation,
-  SerializedStyles
-}
+  SerializedStyles,
+};
 
-export * from './theming'
-export * from './helper'
+export * from "./theming";
+export * from "./helper";
 
 // tslint:disable-next-line: no-empty-interface
 export interface Theme {}
 
-export const ThemeContext: Context<object>
-export const CacheProvider: Provider<EmotionCache>
+export const ThemeContext: Context<object>;
+export const CacheProvider: Provider<EmotionCache>;
 export function withEmotionCache<Props, RefType = any>(
-  func: (props: Props, context: EmotionCache, ref: Ref<RefType>) => ReactNode
-): FC<Props & ClassAttributes<RefType>>
+  func: (props: Props, context: EmotionCache, ref: Ref<RefType>) => ReactNode,
+): FC<Props & ClassAttributes<RefType>>;
 
 export function css(
   template: TemplateStringsArray,
   ...args: Array<CSSInterpolation>
-): SerializedStyles
-export function css(...args: Array<CSSInterpolation>): SerializedStyles
+): SerializedStyles;
+export function css(...args: Array<CSSInterpolation>): SerializedStyles;
 
 export interface GlobalProps {
-  styles: Interpolation<Theme>
+  styles: Interpolation<Theme>;
 }
 
 /**
  * @desc
  * JSX generic are supported only after TS@2.9
  */
-export function Global(props: GlobalProps): ReactElement
+export function Global(props: GlobalProps): ReactElement;
 
 export function keyframes(
   template: TemplateStringsArray,
   ...args: Array<CSSInterpolation>
-): Keyframes
-export function keyframes(...args: Array<CSSInterpolation>): Keyframes
+): Keyframes;
+export function keyframes(...args: Array<CSSInterpolation>): Keyframes;
 
 export interface ArrayClassNamesArg extends Array<ClassNamesArg> {}
 export type ClassNamesArg =
@@ -75,24 +75,24 @@ export type ClassNamesArg =
   | string
   | boolean
   | { [className: string]: boolean | null | undefined }
-  | ArrayClassNamesArg
+  | ArrayClassNamesArg;
 
 export interface ClassNamesContent {
-  css(template: TemplateStringsArray, ...args: Array<CSSInterpolation>): string
-  css(...args: Array<CSSInterpolation>): string
-  cx(...args: Array<ClassNamesArg>): string
-  theme: Theme
+  css(template: TemplateStringsArray, ...args: Array<CSSInterpolation>): string;
+  css(...args: Array<CSSInterpolation>): string;
+  cx(...args: Array<ClassNamesArg>): string;
+  theme: Theme;
 }
 export interface ClassNamesProps {
-  children(content: ClassNamesContent): ReactNode
+  children(content: ClassNamesContent): ReactNode;
 }
 /**
  * @desc
  * JSX generic are supported only after TS@2.9
  */
-export function ClassNames(props: ClassNamesProps): ReactElement
+export function ClassNames(props: ClassNamesProps): ReactElement;
 
-export const jsx: typeof createElement
+export const jsx: typeof createElement;
 export namespace jsx {
   namespace JSX {
     interface Element extends EmotionJSX.Element {}
@@ -104,10 +104,10 @@ export namespace jsx {
     type LibraryManagedAttributes<C, P> = EmotionJSX.LibraryManagedAttributes<
       C,
       P
-    >
+    >;
     interface IntrinsicAttributes extends EmotionJSX.IntrinsicAttributes {}
     interface IntrinsicClassAttributes<T>
       extends EmotionJSX.IntrinsicClassAttributes<T> {}
-    type IntrinsicElements = EmotionJSX.IntrinsicElements
+    type IntrinsicElements = EmotionJSX.IntrinsicElements;
   }
 }

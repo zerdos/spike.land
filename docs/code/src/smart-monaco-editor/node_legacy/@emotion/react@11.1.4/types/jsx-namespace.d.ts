@@ -1,22 +1,24 @@
-import 'react'
-import { Interpolation } from '@emotion/serialize'
-import { Theme } from './index'
+import "react";
+import { Interpolation } from "@emotion/serialize";
+import { Theme } from "./index";
 
-type WithConditionalCSSProp<P> = 'className' extends keyof P
-  ? string extends P['className' & keyof P]
-    ? { css?: Interpolation<Theme> }
-    : {}
+type WithConditionalCSSProp<P> = "className" extends keyof P
+  ? string extends P["className" & keyof P] ? { css?: Interpolation<Theme> }
   : {}
+  : {};
 
 // unpack all here to avoid infinite self-referencing when defining our own JSX namespace
-type ReactJSXElement = JSX.Element
-type ReactJSXElementClass = JSX.ElementClass
-type ReactJSXElementAttributesProperty = JSX.ElementAttributesProperty
-type ReactJSXElementChildrenAttribute = JSX.ElementChildrenAttribute
-type ReactJSXLibraryManagedAttributes<C, P> = JSX.LibraryManagedAttributes<C, P>
-type ReactJSXIntrinsicAttributes = JSX.IntrinsicAttributes
-type ReactJSXIntrinsicClassAttributes<T> = JSX.IntrinsicClassAttributes<T>
-type ReactJSXIntrinsicElements = JSX.IntrinsicElements
+type ReactJSXElement = JSX.Element;
+type ReactJSXElementClass = JSX.ElementClass;
+type ReactJSXElementAttributesProperty = JSX.ElementAttributesProperty;
+type ReactJSXElementChildrenAttribute = JSX.ElementChildrenAttribute;
+type ReactJSXLibraryManagedAttributes<C, P> = JSX.LibraryManagedAttributes<
+  C,
+  P
+>;
+type ReactJSXIntrinsicAttributes = JSX.IntrinsicAttributes;
+type ReactJSXIntrinsicClassAttributes<T> = JSX.IntrinsicClassAttributes<T>;
+type ReactJSXIntrinsicElements = JSX.IntrinsicElements;
 
 export namespace EmotionJSX {
   interface Element extends ReactJSXElement {}
@@ -25,8 +27,9 @@ export namespace EmotionJSX {
     extends ReactJSXElementAttributesProperty {}
   interface ElementChildrenAttribute extends ReactJSXElementChildrenAttribute {}
 
-  type LibraryManagedAttributes<C, P> = WithConditionalCSSProp<P> &
-    ReactJSXLibraryManagedAttributes<C, P>
+  type LibraryManagedAttributes<C, P> =
+    & WithConditionalCSSProp<P>
+    & ReactJSXLibraryManagedAttributes<C, P>;
 
   interface IntrinsicAttributes extends ReactJSXIntrinsicAttributes {}
   interface IntrinsicClassAttributes<T>
@@ -34,7 +37,7 @@ export namespace EmotionJSX {
 
   type IntrinsicElements = {
     [K in keyof ReactJSXIntrinsicElements]: ReactJSXIntrinsicElements[K] & {
-      css?: Interpolation<Theme>
-    }
-  }
+      css?: Interpolation<Theme>;
+    };
+  };
 }

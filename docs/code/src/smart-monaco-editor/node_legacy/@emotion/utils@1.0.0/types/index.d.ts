@@ -2,50 +2,50 @@
 // TypeScript Version: 2.2
 
 export interface RegisteredCache {
-  [key: string]: string
+  [key: string]: string;
 }
 
 export interface StyleSheet {
-  container: HTMLElement
-  nonce?: string
-  key: string
-  insert(rule: string): void
-  flush(): void
-  tags: Array<HTMLStyleElement>
+  container: HTMLElement;
+  nonce?: string;
+  key: string;
+  insert(rule: string): void;
+  flush(): void;
+  tags: Array<HTMLStyleElement>;
 }
 
 export interface EmotionCache {
   inserted: {
-    [key: string]: string | true
-  }
-  registered: RegisteredCache
-  sheet: StyleSheet
-  key: string
-  compat?: true
-  nonce?: string
+    [key: string]: string | true;
+  };
+  registered: RegisteredCache;
+  sheet: StyleSheet;
+  key: string;
+  compat?: true;
+  nonce?: string;
   insert(
     selector: string,
     serialized: SerializedStyles,
     sheet: StyleSheet,
-    shouldCache: boolean
-  ): string | void
+    shouldCache: boolean,
+  ): string | void;
 }
 
 export interface SerializedStyles {
-  name: string
-  styles: string
-  map?: string
-  next?: SerializedStyles
+  name: string;
+  styles: string;
+  map?: string;
+  next?: SerializedStyles;
 }
 
-export const isBrowser: boolean
+export const isBrowser: boolean;
 export function getRegisteredStyles(
   registered: RegisteredCache,
   registeredStyles: Array<string>,
-  classNames: string
-): string
+  classNames: string,
+): string;
 export function insertStyles(
   cache: EmotionCache,
   serialized: SerializedStyles,
-  isStringTag: boolean
-): string | void
+  isStringTag: boolean,
+): string | void;
