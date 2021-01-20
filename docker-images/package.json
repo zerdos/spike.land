@@ -1,10 +1,17 @@
 {
   "name": "devimages",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "docker:build": "yarn lerna run docker:build --parallel",
     "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lerna": "^3.22.1"
+  }
 }
