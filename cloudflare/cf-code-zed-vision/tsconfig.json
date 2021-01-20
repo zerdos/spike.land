@@ -6,7 +6,6 @@
       "module": "amd",
       "lib": ["esnext", "webworker"],
       "alwaysStrict": true,
-      "outFile": "dist/index.js",
       "strict": true,
       "noEmit": false,
       "preserveConstEnums": true,
