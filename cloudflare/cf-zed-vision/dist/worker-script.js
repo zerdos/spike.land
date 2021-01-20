@@ -365,11 +365,9 @@ async function handleCloudRequest(request) {
           success: true,
         });
       }
-      if (key) {
-        const maybeSignal = await sha256(key);
-        const msg = await SIGNALS.get(maybeSignal);
-        return text(msg);
-      }
+      const maybeSignal = await sha256(signal);
+      const msg = await SIGNALS.get(maybeSignal);
+      return text(msg);
       return text("error....");
     }
     if (pathname === "/connect") {
