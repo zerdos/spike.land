@@ -33,10 +33,10 @@ async function handleRequest(request: Request) {
     let response: Response | undefined;
 
     if (
-      contentPath.length > 53 && contentPath.slice(0, 52) === `/ipfs/${cid}`
+      contentPath.slice(0, 52) === `/ipfs/${cid}`
     ) {
-      //@ts-ignore
       const file = contentPath.slice(53) || "index.html";
+      //@ts-ignore
       const cid2 = files[file]!;
 
       // const response = await fetch(
