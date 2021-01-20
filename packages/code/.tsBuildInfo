@@ -242,8 +242,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "1cd82bcd72e5482de14c3f93b807aeb841d8bea490149c8b9dcb4e686b3b1971",
-        "signature": "b2d5f0c74351c121e845f38c591acd2af018204f719fbf1f939384749ebc9306",
+        "version": "89f95f1a993c68fdb509c49914742a7c7f3bcfa8ed05a48c547fa27ca821e1ae",
+        "signature": "53f4ff690e5d4a0f380b90cdda71ad7ef8949ab2f7208aa1ce271d1930a897bf",
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
@@ -262,8 +262,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "27b6a9e9f6477e7f55bc9adbb6e6e3da857399aa968cb7adcd1d1027e4989de2",
-        "signature": "a6912dbe20fe601ba715ee2dfd0ec892ffa2ebfe110e56d1f70213245bf40b67",
+        "version": "4c917e7f8968fef7cd03ff30db47803b474427fd5c23c0ba064bc73421007701",
+        "signature": "038dda34bb5c8beb6876638b1f6eead23d8bbb3e0ea4dc8a7d743d7178e6ff1b",
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "3a4dad20d4821ef9419421ed4cca15b386951fdec1a21665c5b299577df658a5",
+        "version": "181cca3b5c07ec6f9ba2626eb6509be4dbb557725d8cb6bfc246412eb11587d5",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -472,8 +472,8 @@
         "affectsGlobalScope": true
       },
       "./src/workers/ipfs/dist/ipfs.client.js": {
-        "version": "8a004f0157a64afa2fb12b1b123f7fe6094a2eeaeb101dc683a8c5602e9b4068",
-        "signature": "3c60b6e48295be52638a80a946505f9c8b581cd99008b4d9506831076bcbd637",
+        "version": "128f506de8da643be3822f82eb75ddb6f7fb05b5f259af80e72bb1552e7b201a",
+        "signature": "06a9b346db18349e3e691a725e338d67f84128e159fbf247d126491963cbb9d7",
         "affectsGlobalScope": false
       },
       "./src/workers/ipfs/dist/ipfs.server.js": {

@@ -3,6 +3,7 @@ import {
   CID,
   fromHexString,
   IpfsClient,
+  multihashes,
   raceToSuccess,
   uint8ArrayConcat,
   uint8ArrayToString,
@@ -51,4 +52,5 @@ export { all };
 export { uint8ArrayConcat };
 export { uint8ArrayToString };
 export { raceToSuccess };
+export { multihashes };
 export { fromHexString };

@@ -3,6 +3,7 @@ import {
   fromHexString,
   ipfsCat,
   ipfsClient,
+  multihashes,
   raceToSuccess,
 } from "./ipfsClient.js";
 
@@ -204,3 +205,4 @@ function parse(d) {
   }
 }
 export { ipfsCat };
+export { multihashes };
