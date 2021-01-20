@@ -36,142 +36,6 @@ export const files = {
     "QmXxvh5CjqR5b2gDgeGLpi52sJT57bmnse9JaofpHCm5i3",
   "node_legacy/comlink/comlink.min.mjs":
     "QmQaWVwJtXHsDocKk3FzJBaNA6VUhuiqbhTgUgVfBJRHiZ",
-  "node_legacy/ipfs/CHANGELOG.md":
-    "QmR7n57AAu9LWnG5SrbhdGYkkFosXUCMBuyQMXb9zgo8F5",
-  "node_legacy/ipfs/README.md":
-    "QmPqW8dQSrEUnJR2M4Arwk42iNoqFpF1a1CR11ntbab1ch",
-  "node_legacy/ipfs/dist/index.min.js":
-    "Qmf8UzMwbDoatpss7FACVL1fcR8QkPK6kUCbUvAfQ2N7wM",
-  "node_legacy/ipfs/dist/index.min.js.LICENSE.txt":
-    "QmSgtBgxRMqSnJAK9Lkn5necqaTtcWzH7mY2bXkqH7QSTs",
-  "node_legacy/ipfs/dist/src/cli.d.ts":
-    "QmXZPqWpB37Ge4pw6JrYghKJeCCDtkxZd9uZUKnSbucMmV",
-  "node_legacy/ipfs/dist/src/cli.d.ts.map":
-    "Qmd6YQrboQhqoZBZHzEUd1wGe3ZW4LpuGWsWvgFTyhj5rE",
-  "node_legacy/ipfs/dist/src/index.d.ts":
-    "QmduDHodVek1Qmk61JobR5szpAj7RDidoNkhfJTLLTj3oM",
-  "node_legacy/ipfs/dist/src/index.d.ts.map":
-    "Qme8AciEXCfQy8eZhwMhpFcCdE7cH12URucWDFHGEHPHRP",
-  "node_legacy/ipfs/dist/tsconfig.tsbuildinfo":
-    "QmXkYZ1uFPvszQcSaNweLLtciUj6M14BtdnCjL6YALBu3J",
-  "node_legacy/ipfs/node_modules/lru-cache/LICENSE":
-    "QmYgnjmy99it9ojz9x3NxMGoTiHys7sGLCYVcvwM2UizPd",
-  "node_legacy/ipfs/node_modules/lru-cache/README.md":
-    "QmQhDELJ8uETbwxkBkqQqtgikuZAphX2ecPwUp8pa7PVrB",
-  "node_legacy/ipfs/node_modules/lru-cache/index.js":
-    "Qmb3mQTfaKYro74cF8MsPCsv8ZgtLqFaKCreRm5yXVhTiU",
-  "node_legacy/ipfs/node_modules/lru-cache/package.json":
-    "QmZNGS31JbPNuftbkJQJjMwo3upRDYRdhAg1KdVfJ1XWEH",
-  "node_legacy/ipfs/node_modules/semver/CHANGELOG.md":
-    "QmY93Qf5JxcK2CHC9vzRY7hVEm8K6qgcoNTmKePV1r6hov",
-  "node_legacy/ipfs/node_modules/semver/LICENSE":
-    "QmYgnjmy99it9ojz9x3NxMGoTiHys7sGLCYVcvwM2UizPd",
-  "node_legacy/ipfs/node_modules/semver/README.md":
-    "QmWXkzxRQsbPXYMZMbTnCbitWNWHooDdEcFXqosYfMRkWT",
-  "node_legacy/ipfs/node_modules/semver/bin/semver.js":
-    "QmQuD1TRfLQv21uBWWGeynvXriEjE7gfKUFrrmeDGVvrsq",
-  "node_legacy/ipfs/node_modules/semver/classes/comparator.js":
-    "QmeDdemzFkuBQBkFTCb6djFB4EsKLZeGhZrqyX7Ar67717",
-  "node_legacy/ipfs/node_modules/semver/classes/index.js":
-    "QmUGhA7uptJ9qsGXGAxT7JXPXhHDK92EYC25pZvF7TBJ6A",
-  "node_legacy/ipfs/node_modules/semver/classes/range.js":
-    "QmUUWyS42mnWTnz4CuL6tvU2pMj2jmCdgzmvDkiccMHsHM",
-  "node_legacy/ipfs/node_modules/semver/classes/semver.js":
-    "QmU2HBiiq3VBpVujQhK5YwCW9nTnyuiLYdcqYsM3MzPheo",
-  "node_legacy/ipfs/node_modules/semver/functions/clean.js":
-    "QmX4wLunWawFZhcjMV6eXMVpH5KJGtQwVAvTENMTajAsXL",
-  "node_legacy/ipfs/node_modules/semver/functions/cmp.js":
-    "QmRziijeEBoaxLRYvEkWkgKnPigH6pkXaSdKinaSfKVa4N",
-  "node_legacy/ipfs/node_modules/semver/functions/coerce.js":
-    "QmdrFib3aZhBUJ5wugE9xVTPsgx21b3J642d6waR1JKYn5",
-  "node_legacy/ipfs/node_modules/semver/functions/compare-build.js":
-    "QmQdjsxtGrxsV4kaSoeQszo3EoVzaQMpQVBAMYazxnK31y",
-  "node_legacy/ipfs/node_modules/semver/functions/compare-loose.js":
-    "QmUVREJCW585Tpr5snSEdXjNntPWC7TUmdc6Su1Gkruuh9",
-  "node_legacy/ipfs/node_modules/semver/functions/compare.js":
-    "QmaMRJWxiivfkUxAdZi6C12cWK9A3wBezSpSL9w8STEpEr",
-  "node_legacy/ipfs/node_modules/semver/functions/diff.js":
-    "QmTw9khYZoQDq7xApfBbynG2eK4qY9WFunw79zTKQnhJu7",
-  "node_legacy/ipfs/node_modules/semver/functions/eq.js":
-    "QmdkUsCjpAyKf4WBSRdiCijhYQqyvvk8ukV64UVHL8oafA",
-  "node_legacy/ipfs/node_modules/semver/functions/gt.js":
-    "QmawVv12tbr6W85TyMSLsJ9wNCTTBFXhBMiKdS7kNT1gaq",
-  "node_legacy/ipfs/node_modules/semver/functions/gte.js":
-    "QmQKbnRUNV5XaEoTz2GZZHTZfckqWdtRLoBLSAUg2VGgZQ",
-  "node_legacy/ipfs/node_modules/semver/functions/inc.js":
-    "Qma33MTwEDbRdK9m76H3GD79f2DDiqx3nfgSvahtwQ7xm1",
-  "node_legacy/ipfs/node_modules/semver/functions/lt.js":
-    "QmSa4qGbSd4QaqAwVPYdHv3a1MnTfRVNhZQP3jHfzMAuPi",
-  "node_legacy/ipfs/node_modules/semver/functions/lte.js":
-    "QmWYfuTmM68JohuqSCuutwuLxBF6qKRKRdNi5Rvyubk1uZ",
-  "node_legacy/ipfs/node_modules/semver/functions/major.js":
-    "QmZSX5tqFgm4Kvt4frGTCQ9nMGfNyDVirWP1rSWuhWix5j",
-  "node_legacy/ipfs/node_modules/semver/functions/minor.js":
-    "QmXkNN1XREV55YXAXxE73YV2CzC1yFqrAEszv388K81Ngi",
-  "node_legacy/ipfs/node_modules/semver/functions/neq.js":
-    "Qmcgo7maNNDCMVfS7ovrVX1nnEapTkeu6Virb7KQmEHTas",
-  "node_legacy/ipfs/node_modules/semver/functions/parse.js":
-    "QmQeRv1cwSzMdeZNutC2xeRSSnMsStJSM83fTn1chDomhS",
-  "node_legacy/ipfs/node_modules/semver/functions/patch.js":
-    "QmUDAwuBf6dcxbKPpanFihP5v5JKvWZBB1YrnipybjT8SV",
-  "node_legacy/ipfs/node_modules/semver/functions/prerelease.js":
-    "QmQUd63E5EGvff7FMy1jiZZvPLhuaCNiMiuZYCR9FxLNPJ",
-  "node_legacy/ipfs/node_modules/semver/functions/rcompare.js":
-    "QmPT7jzcZbZfzx3Vydr3RWfjzi78HmtLgqCxeLKrBuMYPP",
-  "node_legacy/ipfs/node_modules/semver/functions/rsort.js":
-    "QmNurxuj3ZHJ8c52GJXdqNbZ12SuFMc2q6UWDNfzJ4hibu",
-  "node_legacy/ipfs/node_modules/semver/functions/satisfies.js":
-    "QmY944f3fwHo2LD6PxNAeABG5hekb7icbxrvrvmCN8BGb9",
-  "node_legacy/ipfs/node_modules/semver/functions/sort.js":
-    "QmTVyg7X7Jw6zJrXb1Tm78D58BaAC9ZEUZN9Knyr2irbd2",
-  "node_legacy/ipfs/node_modules/semver/functions/valid.js":
-    "QmZMdhxfULQeitiE88hAFfAomatnN1fpG6eKsa7J9nSThd",
-  "node_legacy/ipfs/node_modules/semver/index.js":
-    "QmW2q5QyDBfWUN45irbfqurgF5okTuzZh5CJNDZC1TvrCh",
-  "node_legacy/ipfs/node_modules/semver/internal/constants.js":
-    "QmefxeWwFMLS4TUNTmiqmQej49p75sSKCep9GNMKU2NmHU",
-  "node_legacy/ipfs/node_modules/semver/internal/debug.js":
-    "QmU4YKnQipxfQw2Kc5JpnZrQAttxKnzwv83GAnQaZUqJbN",
-  "node_legacy/ipfs/node_modules/semver/internal/identifiers.js":
-    "QmVppTdjeKTEhSS4tnFhfUFy7nLrhFEfc7pzt8FjU4n5fE",
-  "node_legacy/ipfs/node_modules/semver/internal/parse-options.js":
-    "QmZt39N8eSkiLGopoDe2eARUCcWETmLwJRnhYWAfZ4gEq6",
-  "node_legacy/ipfs/node_modules/semver/internal/re.js":
-    "QmbR6qnPgjqQBreNUoejKLr1CKMLsakdXCRVEFC6zyK3GK",
-  "node_legacy/ipfs/node_modules/semver/package.json":
-    "QmXWCWagcqT5Jycm1LSpJ1qZvdTyQ1jh6zCikrUPv1wjg7",
-  "node_legacy/ipfs/node_modules/semver/preload.js":
-    "QmTMnbSBEu21KkCkfsyFXY65or1fPVb3sgLgBVcqKAzBdg",
-  "node_legacy/ipfs/node_modules/semver/range.bnf":
-    "QmTdmj4AyNZcMQKTJKbCs36HDPabHVyXQ6z8xsbPHt4sa3",
-  "node_legacy/ipfs/node_modules/semver/ranges/gtr.js":
-    "QmT6xFM9yGATDT4yLCg8DTFu1kB8JXoxXc7FHKyAW9isgv",
-  "node_legacy/ipfs/node_modules/semver/ranges/intersects.js":
-    "QmPneChbok7QCcw7UtpjKtBkqUdVTE1bHg3vj5Et6gv419",
-  "node_legacy/ipfs/node_modules/semver/ranges/ltr.js":
-    "QmYyq45cdEAFLAwLEEtLr9aiDFJDVCDC9WTqCSo7Pg3H7s",
-  "node_legacy/ipfs/node_modules/semver/ranges/max-satisfying.js":
-    "QmdKamc3g9YzJGVWZ5yM2JtNPgaPXhANmjoyzCB7LQJPkk",
-  "node_legacy/ipfs/node_modules/semver/ranges/min-satisfying.js":
-    "QmeNtpvdfFtxkd73VCH4qaLwzLTdREPXQs49FZoFZz6CXW",
-  "node_legacy/ipfs/node_modules/semver/ranges/min-version.js":
-    "QmUzp6Y4ccFZCz52ms7puCLWbzXvLbLv7cy9kxSwccqvtZ",
-  "node_legacy/ipfs/node_modules/semver/ranges/outside.js":
-    "QmRNTrLG5WdN4b4SroTSAbNEpBoGV8ZLkLtP1BEyFAMqmY",
-  "node_legacy/ipfs/node_modules/semver/ranges/simplify.js":
-    "QmNqHm7mAiKNwx35w2gCtojtYBDkhTC8Fzt3MKeSLzkQp2",
-  "node_legacy/ipfs/node_modules/semver/ranges/subset.js":
-    "QmVYbe9g3rfpHzsqdFXQwYdfPxhPqqwm4ukoYnWkRzLkhZ",
-  "node_legacy/ipfs/node_modules/semver/ranges/to-comparators.js":
-    "Qme7zP4Mr48ujjaJPH3RKC8bTm5fRkFnEL3FrXs2Bm2DXr",
-  "node_legacy/ipfs/node_modules/semver/ranges/valid.js":
-    "QmUdKKpekFWGhdkt3FesmCar3urtkgW2F4WcujPSEMKYKk",
-  "node_legacy/ipfs/package.json":
-    "QmaVwjR8x3Jj7L3XBX9dv91DUBtAeVtLjyu5M8zCzBoX3G",
-  "node_legacy/ipfs/src/cli.js":
-    "QmRSoqMRBkUeyPLUGmTWgpx6jCpBCPwzDXDFcpUfKN6kso",
-  "node_legacy/ipfs/src/index.js":
-    "QmdvJUvmZE54beuJozuHxUqVrRZ9D3LTrKnMv1uoeA76u2",
   "node_legacy/ipfs-message-port-client/CHANGELOG.md":
     "QmbHzj97YThEZEG4Wki5B3SP3faGLbF7im78U82fMf2o9o",
   "node_legacy/ipfs-message-port-client/README.md":
@@ -767,7 +631,7 @@ export const files = {
   "src/workers/ipfs/dist/ipfs.server.d.ts":
     "QmehfY8Fwd6g979memvTZG7Zx2o6QcVLi6iSNJTBDvmdY7",
   "src/workers/ipfs/dist/ipfs.server.js":
-    "QmUxKobsyqyFmfVKpLz4vhthe2ED8NGUgM7DS1oKUeT6mG",
+    "QmVmSipTZcmBxXecMxUrbAAZxz2t2hkDvBYkTG6NW8az2T",
   "src/workers/ipfs/node_modules/uint8arrays/CHANGELOG.md":
     "QmRXtm2JnFnryHFiWSSY1VE7Jygo4NV2nJSMtrvQE6JZSz",
   "src/workers/ipfs/node_modules/uint8arrays/README.md":
@@ -813,7 +677,7 @@ export const files = {
   "src/workers/ipfs/node_modules/uint8arrays/to-string.js":
     "QmVrsJ8sxzw72wdf5ve6ZaVmrAKMeQrXTFKKt6JJMk928J",
   "src/workers/ipfs/package.json":
-    "QmcXt2qoq1Xp5m67nveSvzYWs4aqTx4HHUyuePFAt1iYSQ",
+    "Qmf6h2NeNJLuELK5nrz78adzJqqbQ76H4gLPxATtwxq1aS",
   "src/workers/ipfs/src/gateways.js":
     "QmVGZy8bP96dMrzL4vTg7ppfpJVAFbtUZ1Go57fvsParbe",
   "src/workers/ipfs/src/ipfs.client.ts":
@@ -839,26 +703,6 @@ export const files = {
     "QmeQ1gDZFjKQFLkVYWURPyJjhSV4Q84T5AaraV4Dtzsjgq",
   "node_legacy/@babel": "QmQhFnhgvSEwfGYsxau3hLPFtzNhKY8E39v9ob66qNpHz6",
   "node_legacy/comlink": "QmTQek4dMBFHR9YmfaC39AHc561J1AyV7zmgPhgtTsP4q7",
-  "node_legacy/ipfs/dist/src": "QmYAUdjvoYnA3SE4riK9hBDhdZjr4GWMm9FuM6syBfxztN",
-  "node_legacy/ipfs/dist": "QmdvQ91wEBkvBNTLWezJYLT1cgmaCgj2WJ1x2xGSggJrdv",
-  "node_legacy/ipfs/node_modules/lru-cache":
-    "QmZ7zzPHogjPLe2kBQVj7sziZGcNmb8MgJYzT5mpboGKb7",
-  "node_legacy/ipfs/node_modules/semver/bin":
-    "QmfQbAdjNAcAYUbCXboMHZ9oY2bDtVSFWWMyGnYo8SS5W3",
-  "node_legacy/ipfs/node_modules/semver/classes":
-    "QmRfyhpkUsXkMsPSoHXPVMQiX4jBq2pWpj2BgtZ4yJYScS",
-  "node_legacy/ipfs/node_modules/semver/functions":
-    "Qmazmq7B6QnkYqbdL2DFKEML3qqoP8tx2aFpF6eoLajYka",
-  "node_legacy/ipfs/node_modules/semver/internal":
-    "QmXR5WYAnzYUBTCp1kurcVVs1RQ55GjnoUKJHbDBB7t7oc",
-  "node_legacy/ipfs/node_modules/semver/ranges":
-    "QmdsJBXUVPwQ9ERx2Zd7RF8NMzKZCQRXo4tScmiGDKayri",
-  "node_legacy/ipfs/node_modules/semver":
-    "QmZNjrGXyCQVMEGwzr4SfnoeeHN9koerabn2rAyASf7gc8",
-  "node_legacy/ipfs/node_modules":
-    "QmdDgU3Pun5ZSDP9sFD5BASP1s3aW4xUkbC2c6xtqrDLxb",
-  "node_legacy/ipfs/src": "QmYdcvCbpKGq2bT7Y35cnhGDAmFdULQ99bcQRre7C3iFDL",
-  "node_legacy/ipfs": "QmUeKqrtNkaEKuib4DiQySmBES89TgtWy83ksHpQpkukxQ",
   "node_legacy/ipfs-message-port-client/dist/src/client":
     "QmZup1QoUb9PRv51TDmWAZMi7P9DUMcMwsY9iSzZYj59UE",
   "node_legacy/ipfs-message-port-client/dist/src":
@@ -1064,7 +908,7 @@ export const files = {
   "node_legacy/monaco-editor/min-maps":
     "QmQueeHK42SVpGUPGuBG6zCNwGvkHMZkFua1RF7jDCZxjk",
   "node_legacy/monaco-editor": "QmeaRmtz4VoToM7V4CqzoQizQLnrQS35RMgTB5ZaM8sFJ3",
-  "node_legacy": "QmVZxyYeBh9sK7saPbnFA3KgoDZX4nzfdTBcKT2MJVVBRy",
+  "node_legacy": "QmX6VaPTh7rmAr3vhTDU3aJUuGjJe5vLLtA9V4D8CMzw7N",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/emotion-react-renderer/dist":
     "QmeJEWVM2SczjoywzLE6nkoejskamp8Q4wyEtTU9x7qpGB",
@@ -1140,7 +984,7 @@ export const files = {
   "src/smart-monaco-editor/src":
     "QmSQUM9Zkyn5Y6RQTfPKqf5VP5xhKVi76sxsVHLqNHcJvP",
   "src/smart-monaco-editor": "QmQQQSKw9QWbTNyrJ6e6Y231pK7mACW1n9SDWUWeCLZvK9",
-  "src/workers/ipfs/dist": "Qmabyr2R5UxPMtLTSsmwXDhkYj5YMam52XhGS8t24wnCyP",
+  "src/workers/ipfs/dist": "QmWAfDLFZWaTuEd8eiAKvXfYAgi4VRBACWx7DvFxWS8L1Q",
   "src/workers/ipfs/node_modules/uint8arrays/dist":
     "QmWCCvXXpTSh5kHfj3VyPtx9dTroDWWPVwTf3pu7doJaZx",
   "src/workers/ipfs/node_modules/uint8arrays":
@@ -1148,9 +992,9 @@ export const files = {
   "src/workers/ipfs/node_modules":
     "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
   "src/workers/ipfs/src": "Qmam8ZQ4kUQburfKv7nBXpeJHYvYyLPE2Gm2hBxreC8i9g",
-  "src/workers/ipfs": "QmQtS8dUADAwFxhFByZGnJYSqeUgofgLJSr5B2kg9S5Njq",
-  "src/workers": "QmefQEsF85jMtit4T53VokjCttrERCwZ67Dit8AabyWP5C",
-  "src": "QmexXEsY9qwuNiwCZr3JPidbJtXTbLjXfZkrBBX9hbtcxa",
-  "": "QmUtzU45qjw5NUprCYP6aRyhmXx4xrwVpVZoJtfiJfKp47",
+  "src/workers/ipfs": "QmadDwCLERDDcw2eaZX7yZaqfUuFuR8xoUJpKrZXiNHBNQ",
+  "src/workers": "QmddnK6Py7aJUcWbXo14gcX9px5ce3C8YByXoeo5wnKmPC",
+  "src": "QmTj3bVtXzdAnXH2AEBTmP2bqLdueHs3APxJXFW1Zi4Diy",
+  "": "QmSF1yiDTbHLbd8kaQkCenU9kpGbkS5NbpL85w8JibmXr5",
   "foo": "bar",
 };
