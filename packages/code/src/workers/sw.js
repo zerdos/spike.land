@@ -28,7 +28,15 @@ self.addEventListener(
   (event) => {
     const { request } = event;
     const { url } = request;
-    if (
+    const filePath = (new URL(url)).pathname.slice(53);
+    const cid = files[filePath];
+    if (cid){
+      const request = fetch(`/ipfs/${cid}`)
+      // @ts-ignore
+      const cacheFirst = new workbox.strategies.CacheFirst();
+      event.respondWith(cacheFirst.handle({ event, request }));
+    }
+    else if (
       !url.endsWith("sw.js") && (
         url.endsWith(".js") || url.endsWith(".mjs") || url.endsWith(".json") ||
         url.endsWith(".map") ||
@@ -37,11 +45,6 @@ self.addEventListener(
         url.endsWith(".png") || url.endsWith(".ts")
       )
     ) {
-      
-      const cid = (new URL(url)).pathname.slice(53);
-      if (files[cid]) {
-        event.respondWith(fetch(`/ipfs/${cid}`));
-      }
  //     console.log(url)
    //   console.log("workbox cache!", { url });
       // Using the previously-initialized strategies will work as expected.
