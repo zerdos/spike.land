@@ -13,23 +13,25 @@ const workerSrc = `./src/workers/ipfsWorker.js`;
 /** @type {MessagePort} */
 let port;
 
-if (typeof SharedWorker !== "undefined") {
-  const ipfsWorker = new SharedWorker(
-    workerSrc,
-  );
-  port = ipfsWorker.port;
-} else {
-  const worker = new Worker(workerSrc);
+if (typeof window !== "undefined") {
+  if (typeof SharedWorker !== "undefined") {
+    const ipfsWorker = new SharedWorker(
+      workerSrc,
+    );
+    port = ipfsWorker.port;
+  } else {
+    const worker = new Worker(workerSrc);
 
-  const { port1, port2 } = new MessageChannel();
-  const msg = {
-    clientInit: true,
-    port: port1,
-  };
+    const { port1, port2 } = new MessageChannel();
+    const msg = {
+      clientInit: true,
+      port: port1,
+    };
 
-  worker.postMessage(msg, [port1]);
+    worker.postMessage(msg, [port1]);
 
-  port = port2;
+    port = port2;
+  }
 }
 
 export const ipfsClient = IpfsClient.from(port);
