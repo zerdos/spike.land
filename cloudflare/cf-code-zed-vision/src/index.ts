@@ -32,7 +32,9 @@ async function handleRequest(request: Request) {
 
     let response = await cache.match(request);
 
-    if (response) return await alterHeaders(response, pathname);
+    if (response && response.status == 200) {
+      return await alterHeaders(response, pathname);
+    }
 
     if (
       contentPath.slice(0, 52) === `/ipfs/${cid}`
