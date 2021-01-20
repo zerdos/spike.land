@@ -562,10 +562,10 @@ export const shasums = {
     "15855dde524dbbb3ffb666ccc87de4dc8a4b2f22840128fc0e65abb0ded8a77f",
   "src/smart-monaco-editor/dist/editor.js":
     "4247f235d2bc76739e2014d7d5d7642ade88d8d087508d45ec542df6fb7157aa",
-  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
-    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
   "src/smart-monaco-editor/dist/scripts/screenshots.js":
     "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
+  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
+    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
   "src/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "src/smart-monaco-editor/dist/monaco.d.ts":
