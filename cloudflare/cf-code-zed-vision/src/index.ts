@@ -54,7 +54,9 @@ async function handleRequest(request: Request) {
         const cid2 = files[file]!;
         // return text("no cache");
 
-        const response = await fetch(`https://zed.vision/ipfs/${cid}`);
+        const response = await fetch(
+          `https://zed-vision.zed-vision.workers.dev/ipfs/${cid2}`,
+        );
 
         const resp = await alterHeaders(response, pathname);
         await cache.put(request, resp.clone());
