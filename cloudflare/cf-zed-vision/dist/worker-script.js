@@ -265,7 +265,7 @@ const getDbObj = (db) => {
   };
   return dbObj;
 };
-const cid = "QmZ2nKcsqkFTzyHBEHV99NJka4g6YgXeqRa2YXcRS4Fhut";
+const cid = "QmerT5jaEKjKACSBKKGMtSNrRoifX3LDE4qppUmrv372qL";
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",

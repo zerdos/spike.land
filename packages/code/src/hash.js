@@ -43,27 +43,34 @@ export const sendSignal = async (signal, data) => {
     log(toSave);
 
     const dataCid = (await ipfsClient.add(toSave)).cid.toString();
+    fetch(`https://zed.vision/ipfs/${dataCid}`);
 
-    const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
-      ("00" + b.toString(16)).slice(-2)
-    ).join("");
+    const { pathname } = new URL(signal);
 
-    const allHash = new Array(hexHash.length).fill(signal).map((x, i) =>
-      x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1)
+    const fetch = await fetch(
+      `https://zed.vision/signal/?cid=${dataCid}&signal=${pathname}`,
     );
 
-    log({ allHash });
+    // const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
+    //   ("00" + b.toString(16)).slice(-2)
+    // ).join("");
 
-    log("adding the fist 5");
-    await Promise.all(
-      allHash.map(async (x) => {
-        const { path } = await ipfsClient.add(x);
+    // const allHash = new Array(hexHash.length).fill(signal).map((x, i) =>
+    //   x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1)
+    // );
 
-        log(path);
-      }),
-    );
+    // log({ allHash });
 
-    log(`rest is uploaded`);
+    // log("adding the fist 5");
+    // await Promise.all(
+    //   allHash.map(async (x) => {
+    //     const { path } = await ipfsClient.add(x);
+
+    //     log(path);
+    //   }),
+    // );
+
+    // log(`rest is uploaded`);
   }
   return { success: true };
 };
