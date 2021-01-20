@@ -54,10 +54,12 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         await SIGNALS.put(signal, cid,    { expirationTtl: 86400 * 7 },);
         return json({success: true})
       }
+      if (signal.length===8){
+        const msg = await SIGNALS.get(signal);
+        return text(msg)
+       
+      }
       // if (key) {
-        const maybeSignal = await sha256(signal)
-        const msg = await SIGNALS.get(maybeSignal);
-         return text(msg)
       // }
      return text("error....")
     }

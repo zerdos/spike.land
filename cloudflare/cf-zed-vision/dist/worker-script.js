@@ -265,7 +265,7 @@ const getDbObj = (db) => {
   };
   return dbObj;
 };
-const cid = "QmYaDteaXJDdWtUfTXr6vyAyDG8ZysdgZ1o4NUDa5eVoTC";
+const cid = "QmZCZzoYVoFLn9263HiKBp6A1xx6MAVUCztfzQbWZkj9vp";
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",
@@ -365,9 +365,10 @@ async function handleCloudRequest(request) {
           success: true,
         });
       }
-      const maybeSignal = await sha256(signal);
-      const msg = await SIGNALS.get(maybeSignal);
-      return text(msg);
+      if (signal.length === 8) {
+        const msg = await SIGNALS.get(signal);
+        return text(msg);
+      }
       return text("error....");
     }
     if (pathname === "/connect") {
