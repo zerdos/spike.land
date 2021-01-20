@@ -314,6 +314,7 @@ function raceToSuccess(promises) {
 var SHAKV;
 var USERS;
 var LOGS;
+var SIGNALS;
 var USERKEYS;
 var API_KEY;
 let now = 0;
@@ -351,6 +352,23 @@ async function handleCloudRequest(request) {
   } else if (request.method === "GET") {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
+    }
+    if (pathname === "/signal") {
+      const cid1 = searchParams.get("cid");
+      const signal = searchParams.get("signal");
+      const key = searchParams.get("key");
+      if (cid1.length === 46 && signal.length === 8) {
+        await SIGNALS.put(signal, cid1);
+        return json({
+          success: true,
+        });
+      }
+      if (key) {
+        const maybeSignal = await sha256(key);
+        const msg = await SIGNALS.get(maybeSignal);
+        return text(msg);
+      }
+      return text("error....");
     }
     if (pathname === "/connect") {
       if (searchParams.get("key")) {

@@ -13,6 +13,7 @@ import {
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;
 var LOGS: KVNamespace;
+var SIGNALS: KVNamespace;
 var USERKEYS: KVNamespace;
 
 var API_KEY: string;
@@ -44,6 +45,23 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
     }
+    if (pathname === "/signal") {
+      const cid = searchParams.get("cid")!;
+      const signal = searchParams.get("signal")!;
+      const key = searchParams.get("key")
+
+      if (cid.length===46 && signal.length ===8) {
+        await SIGNALS.put(signal, cid);
+        return json({success: true})
+      }
+      if (key) {
+        const maybeSignal = await sha256(key)
+        const msg = await SIGNALS.get(maybeSignal);
+         return text(msg)
+      }
+     return text("error....")
+    }
+    
     if (pathname === "/connect") {
       if (searchParams.get("key")) {
         const key = searchParams.get("key")!;
