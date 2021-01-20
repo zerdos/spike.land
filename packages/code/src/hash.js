@@ -36,7 +36,7 @@ export const sendSignal = async (signal, data) => {
     log(toSave);
 
     const dataCid = (await ipfsClient.add(toSave)).cid.toString();
-    fetch(`https://zed.vision/ipfs/${dataCid}`);
+    await fetch(`https://zed.vision/ipfs/${dataCid}`);
 
     const { pathname } = new URL(signal);
 
