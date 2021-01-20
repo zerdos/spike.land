@@ -1,5 +1,3 @@
-import versions from "./versions.js";
-
 /**
  * @param {{html: string, css: string}} code
  */

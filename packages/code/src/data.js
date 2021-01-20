@@ -4,8 +4,6 @@ import v4 from "../node_legacy/v4.js";
 
 import { starter } from "./starter.js";
 import { shaDB } from "./shadb/src/shaDB.js";
-import getVersions from "./versions.js";
-const versions = getVersions();
 
 /** @type {string} */
 let uuid;

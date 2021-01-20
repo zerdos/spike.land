@@ -11,7 +11,7 @@ import { ipfsClient } from "./ipfsClient.js";
  * versions: any
  * }} props 
  */
-export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
+export const shareItAsHtml = async ({ transpiled, code, html }) => {
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
   );
@@ -41,10 +41,6 @@ export const shareItAsHtml = async ({ transpiled, code, html, versions }) => {
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
     { path: "/app/edit/index.html", content: getEditorHTML(versions.code) },
-    {
-      path: "/app/versions.js",
-      content: `export const v=JSON.parse('${JSON.stringify(versions)}');`,
-    },
   ];
 
   const sha = await sha256(JSON.stringify(allContent));

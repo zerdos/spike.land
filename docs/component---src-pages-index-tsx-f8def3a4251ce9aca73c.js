@@ -1390,16 +1390,24 @@ var Qr_Qr = function Qr() {
                 return _context2.abrupt("return");
 
               case 2:
-                _context2.next = 4;
-                return new Function("return import(\"https://blog.zed.vision/code/src/hash.js\")")();
+                if (!(typeof window === "undefined")) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                return _context2.abrupt("return");
 
               case 4:
+                _context2.next = 6;
+                return new Function("return import(\"https://blog.zed.vision/code/src/hash.js\")")();
+
+              case 6:
                 _yield$Function = _context2.sent;
                 fetchSignal = _yield$Function.fetchSignal;
-                _context2.next = 8;
+                _context2.next = 10;
                 return fetchSignal(url, 35);
 
-              case 8:
+              case 10:
                 getData = _context2.sent;
                 setCubeState(0);
                 Loader(side1.current, 220);
@@ -1408,28 +1416,28 @@ var Qr_Qr = function Qr() {
                 Loader(side4.current, 220);
                 Loader(side5.current, 220);
                 Loader(side6.current, 220);
-                _context2.next = 18;
+                _context2.next = 20;
                 return getData();
 
-              case 18:
+              case 20:
                 signalData = _context2.sent;
                 setCubeState(-1);
-                _context2.next = 22;
+                _context2.next = 24;
                 return getUserId();
 
-              case 22:
+              case 24:
                 uuid = _context2.sent;
-                _context2.next = 25;
+                _context2.next = 27;
                 return shaDB.get(uuid, "json");
 
-              case 25:
+              case 27:
                 userData = _context2.sent;
-                _context2.next = 28;
+                _context2.next = 30;
                 return shaDB.put(uuid, JSON.stringify(_objectSpread(_objectSpread({}, userData), {}, {
                   signal: signalData
                 })));
 
-              case 28:
+              case 30:
                 fetch(signalData.rootUrl + "/app.tsx");
                 setTimeout(function () {
                   return window.location.href = "https://blog.zed.vision/code/";
@@ -1438,7 +1446,7 @@ var Qr_Qr = function Qr() {
                 //   setCubeState(-1);
                 // }, 6000);
 
-              case 30:
+              case 32:
               case "end":
                 return _context2.stop();
             }
@@ -1767,4 +1775,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-cefdd93b85ca3283f2f7.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-f8def3a4251ce9aca73c.js.map

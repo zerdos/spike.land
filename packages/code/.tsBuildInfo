@@ -226,11 +226,6 @@
         "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
         "affectsGlobalScope": false
       },
-      "./src/versions.js": {
-        "version": "8815c9133fd9d464ded7cc359b5760480b812877e3a78104bc7e579e168b1597",
-        "signature": "0a226648f8a1842c11ed68f646bee86ab391bc4484ca1c02a5dd4450295354f3",
-        "affectsGlobalScope": false
-      },
       "./src/workers/ipfs/dist/gateways.d.ts": {
         "version": "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
         "signature": "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
@@ -242,22 +237,22 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "480e0e42b58f4ed2a14d520816ac252ba2e9784b52fc748fc03dfeadcaf4cdf9",
+        "version": "fa6b379fe7ba8704591403c2bbc3c678c1459b0e0bbdf77fcfc17741960e256a",
         "signature": "0ec746e62f4f1a6c38296332f541e17a1efcd7242f21d6025bd0ebf6e53e3e14",
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
-        "version": "a8a134d0f2e5ae96697c48b4d853e5d882ea1389dfe0d50f96ffae7ed685360d",
+        "version": "47a1aa8056992fbba263bc1ca8aea3c2fbf5e36d579c7833d27abb15e11f27e9",
         "signature": "056b3e9612d4bafb69dda4cb58b42721dfafd6d52d8a5a06aa9d0885645f06f7",
         "affectsGlobalScope": false
       },
       "./src/share.js": {
-        "version": "87468af8cdc718143dbd9adec43829b7f25c0c0d6632af3eddbaf377a274d601",
-        "signature": "4999af14cdfb7784c4c42c33949d4a6832ddeebd0f6975b13e2b6a9f327831f8",
+        "version": "7f17c783de98a7728a6988423262b3294babf5a23c1fd2e67144b1c539132a1c",
+        "signature": "b2259dde5db40aa1b6340669ebe783b0a742d9fba2ac62c79e2df427680f6eae",
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "de577264f549acb1d7ccabf9b732bd1209def49148f5b6a443f84e888e57e4e2",
+        "version": "f7e25ea9191936496533578d4cacb43f902aa58196e56d2f735743e7bb14a073",
         "signature": "993ce1c5d7c06ef9cdbfaf8c80a68ba81ba01f7639402af90d70623a47b27a87",
         "affectsGlobalScope": false
       },
@@ -297,12 +292,12 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "1cf37e36ab15702382e4e2a88c01892dfa560634ad1c002efa57d380d7ad7978",
+        "version": "1db3acb5f6a6b66404a911a9855b307fa6080d9e0fa3d09526fe384c59ff4789",
         "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
-        "version": "6ffca9b1d40b34a17f0ba0aa0ab8a6b095c09c202cf1bf3ff61b33c644cc25ea",
+        "version": "a65e9f5e35f77fb41f2ff08d40c7e706570fd61660cf8861b44f35bc0038f0d9",
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
         "affectsGlobalScope": false
       },
@@ -452,7 +447,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "219a388458f08619cc20ee2caa5f456ae68d7937b8b115cdbe2ef69f19e57a03",
+        "version": "c19231421872be1c9fa006967bc960a0ebf16650cf54bca1c3770b2476fcb4c2",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -555,8 +550,7 @@
         "./src/shadb/src/diff.js",
         "./src/shadb/src/sha256.js",
         "./src/smart-monaco-editor/dist/editor.d.ts",
-        "./src/transpile.js",
-        "./src/versions.js"
+        "./src/transpile.js"
       ],
       "./src/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -564,8 +558,7 @@
         "./src/shadb/src/sha256.js",
         "./src/shadb/src/shaDB.js",
         "./src/share.js",
-        "./src/starter.js",
-        "./src/versions.js"
+        "./src/starter.js"
       ],
       "./src/emotion-react-renderer/dist/DraggableWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -580,8 +573,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/formatter.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/versions.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -592,7 +584,6 @@
       ],
       "./src/ipfsClient.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/versions.js",
         "./src/workers/ipfs/dist/ipfs.client.d.ts"
       ],
       "./src/openWindows.js": [
@@ -693,14 +684,9 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/templates.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/versions.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/transpile.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/versions.js"
-      ],
-      "./src/versions.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
@@ -808,7 +794,6 @@
       "./src/starter.js",
       "./src/templates.js",
       "./src/transpile.js",
-      "./src/versions.js",
       "./src/workBox.js",
       "./src/workers/files.umd.js",
       "./src/workers/ipfs/dist/gateways.d.ts",
@@ -1057,10 +1042,6 @@
       ],
       [
         "./src/transpile.js",
-        1
-      ],
-      [
-        "./src/versions.js",
         1
       ],
       [

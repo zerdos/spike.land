@@ -6,9 +6,6 @@ import parserHtml from "../node_legacy/parser-html.mjs";
  * @param {string} code
  */
 export async function formatter(code) {
-  const getVersions = (await import("./versions.js")).default;
-  const v = getVersions();
-
   try {
     return prettier.format(code, {
       "arrowParens": "always",

@@ -1,5 +1,4 @@
 import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
-import { v } from "./versions.js";
 
 let transform = null;
 
@@ -29,7 +28,7 @@ async function init() {
   }
 
   if (typeof SharedWorker === "undefined") {
-    const worker = new Worker(`${v.workerPrefix}/transpile.worker.js`);
+    const worker = new Worker(`./transpile.worker.js`);
     const { port1, port2 } = new MessageChannel();
     const msg = {
       comlinkInit: true,
@@ -42,7 +41,7 @@ async function init() {
     return transform;
   }
 
-  const worker = new SharedWorker(`${v.workerPrefix}/transpile.worker.js`);
+  const worker = new SharedWorker(`./transpile.worker.js`);
   worker.port.start();
 
   transform = await wrap(worker.port);
