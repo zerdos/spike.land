@@ -45,25 +45,23 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
     }
-    if (pathname.slice(0,7) === "/signal") {
+    if (pathname.slice(0, 7) === "/signal") {
       const cid = searchParams.get("cid") || "";
       const signal = searchParams.get("signal") || "";
-      const key = searchParams.get("key") || ""
+      const key = searchParams.get("key") || "";
 
-      if (cid.length===46 && signal.length ===8) {
-        await SIGNALS.put(signal, cid,    { expirationTtl: 86400 * 7 },);
-        return json({success: true})
-      }
-      else if (signal.length===8){
+      if (cid.length === 46 && signal.length === 8) {
+        await SIGNALS.put(signal, cid, { expirationTtl: 86400 * 7 });
+        return json({ success: true });
+      } else if (signal.length === 8) {
         const msg = await SIGNALS.get(signal);
-         return text(msg)
-       
+        return text(msg);
       }
       // if (key) {
       // }
-     return text("error....")
+      return text("error....");
     }
-    
+
     if (pathname === "/connect") {
       if (searchParams.get("key")) {
         const key = searchParams.get("key")!;

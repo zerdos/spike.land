@@ -237,8 +237,8 @@
         "affectsGlobalScope": false
       },
       "./src/workers/ipfs/dist/ipfs.client.d.ts": {
-        "version": "5967adb93608d8f0637d0705f815a53e271cbbc0f1bb2102169a0b78954a14dc",
-        "signature": "5967adb93608d8f0637d0705f815a53e271cbbc0f1bb2102169a0b78954a14dc",
+        "version": "e065b7d50e418c5681f2577aef1981608d0d10b605143189bc436444ab169188",
+        "signature": "e065b7d50e418c5681f2577aef1981608d0d10b605143189bc436444ab169188",
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
@@ -452,7 +452,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "6ba2312770650f21a58ec05e5272e5e3c6890a4470115315c1ab62a98690718f",
+        "version": "219a388458f08619cc20ee2caa5f456ae68d7937b8b115cdbe2ef69f19e57a03",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

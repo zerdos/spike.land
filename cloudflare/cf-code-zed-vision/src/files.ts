@@ -618,7 +618,7 @@ export const files = {
   "src/transpile.js": "QmVRuceYLB6ytYLYanLTZ2dxVJCdVH9VttrjSEj2jDMn2m",
   "src/versions.js": "QmY7WStUTGSpEKwvWxk22aSosFZJm3SKsufcWMt21FPmRg",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmZqCFg71XiUxmVVdWydzA1SNmhuMamBbmX3XQPNC3hRef",
+  "src/workers/files.umd.js": "QmQ7GNFJga511cG8rzGxpfLRogpk1PeZDh2yLudVUNfzpn",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -626,7 +626,7 @@ export const files = {
   "src/workers/ipfs/dist/gateways.js":
     "QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK",
   "src/workers/ipfs/dist/ipfs.client.d.ts":
-    "QmeuqfeVyDu6aPiAmTLM4v15KA4rG9JgMrwkgcE6wxmo6i",
+    "QmNTfjByecWhbC7Nf86yBBNtujp2CuAdMbu7VaPLg9oaGL",
   "src/workers/ipfs/dist/ipfs.client.js":
     "QmRDnR89KKLFhecw5YU2kpWchqwNkpJtP1fpXTVhViNpdS",
   "src/workers/ipfs/dist/ipfs.server.d.ts":
@@ -987,7 +987,7 @@ export const files = {
   "src/smart-monaco-editor/src":
     "QmSQUM9Zkyn5Y6RQTfPKqf5VP5xhKVi76sxsVHLqNHcJvP",
   "src/smart-monaco-editor": "Qme7aJghKqc8m6yNpVbFTzrCvEX55A9Den1Dt1rmnGLjK2",
-  "src/workers/ipfs/dist": "QmaS2Pk3foxsA8v59WeYstngj1oWhDQVyCJiz1ck2WXKiQ",
+  "src/workers/ipfs/dist": "QmYsJwzxNaxVeHDLhH58yVXUT3G1DrqjXHsWpLuYLQWY6M",
   "src/workers/ipfs/node_modules/uint8arrays/dist":
     "QmWCCvXXpTSh5kHfj3VyPtx9dTroDWWPVwTf3pu7doJaZx",
   "src/workers/ipfs/node_modules/uint8arrays":
@@ -995,9 +995,9 @@ export const files = {
   "src/workers/ipfs/node_modules":
     "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
   "src/workers/ipfs/src": "QmXwwQWFjGECDW8qa5PwTzybTszbzz8cCGJpzfj1vhVXpK",
-  "src/workers/ipfs": "QmZVqoyDhJozUPVewNEPxH1fLt1DNdFao3vQnBPmpUYDgT",
-  "src/workers": "QmPxUdWF8gyLLA6bd81cwyqGQYyexDm7UHLrx3rFSdBBxp",
-  "src": "QmXYH68YE1CQnuSUATzg7bX8m3ixd4xQR4c5vmH4XxkZmJ",
-  "": "QmfEFxeZKaXFePoHz6JypaM3wZPYkrquqfegcRFG5jcP1M",
+  "src/workers/ipfs": "QmRg34MUd83fDXUTDzjdZxvtrBPg94WwRnsL1YUA2YQBHv",
+  "src/workers": "QmTtgKQ321h8yzkyNki6bx2Ddtk9j1g7FgqcJi8C33guDu",
+  "src": "QmTCHWbuw6ZRfGoZoe4Lm8qkiG2eqLxng9DHvZwZ5K9AeT",
+  "": "QmdSTMYoDRyPNjHZsgbZHrUsSauby1Fcsxq9KFVdqYBqpo",
   "foo": "bar",
 };
