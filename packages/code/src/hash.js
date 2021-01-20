@@ -208,8 +208,10 @@ function parse(d) {
     if (typeof d !== "string") return d;
 
     const ret = JSON.parse(d);
+    console.log({ ret });
     return ret;
   } catch (e) {
+    console.log({ d });
     return d;
   }
 }
