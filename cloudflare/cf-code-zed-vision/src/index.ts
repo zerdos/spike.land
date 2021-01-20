@@ -7,7 +7,7 @@ import {
 } from "@zedvision/ipfs/src/gateways.js";
 import { cid } from "./cid";
 
-var SHAKV: KVNamespace;
+var IPFS: KVNamespace;
 
 addEventListener("fetch", (event: FetchEvent) => {
   event.respondWith(handleRequest(event.request));
@@ -53,7 +53,7 @@ async function handleRequest(request: Request) {
       else {
         let response;
 
-        const content = await SHAKV.get(cid2);
+        const content = await IPFS.get(cid2);
         if (content !== null) {
           response = new Response(content);
         } else {
@@ -61,7 +61,7 @@ async function handleRequest(request: Request) {
             `https://zed-vision.zed-vision.workers.dev/ipfs/${cid2}`,
           );
           const arrBuff = await response.clone().arrayBuffer();
-          await SHAKV.put(cid2, arrBuff);
+          await IPFS.put(cid2, arrBuff);
         }
 
         const resp = await alterHeaders(response, pathname);
