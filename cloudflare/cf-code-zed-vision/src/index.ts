@@ -64,9 +64,9 @@ async function handleRequest(request: Request) {
       }
     }
 
-    const req = new Request(`https://code.zed.vision${contentPath}`);
+    // const req = new Request(`https://code.zed.vision${contentPath}`);
 
-    response = await cache.match(req);
+    response = await cache.match(request);
 
     if (response === undefined) {
       //https://ipfs.github.io/public-gateway-checker/gateways.json
@@ -86,7 +86,7 @@ async function handleRequest(request: Request) {
       if (response === undefined) return text("error");
 
       const resp = await alterHeaders(response, pathname);
-      await cache.put(req, resp.clone());
+      await cache.put(request, resp.clone());
       return resp;
     }
 
