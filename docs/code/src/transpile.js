@@ -28,7 +28,7 @@ async function init() {
   }
 
   if (typeof SharedWorker === "undefined") {
-    const worker = new Worker(`./transpile.worker.js`);
+    const worker = new Worker(`./src/workers/transpile.worker.js`);
     const { port1, port2 } = new MessageChannel();
     const msg = {
       comlinkInit: true,
@@ -41,7 +41,7 @@ async function init() {
     return transform;
   }
 
-  const worker = new SharedWorker(`./transpile.worker.js`);
+  const worker = new SharedWorker(`./src/workers/transpile.worker.js`);
   worker.port.start();
 
   transform = await wrap(worker.port);

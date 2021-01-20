@@ -66,7 +66,7 @@ export async function run(mode = "window", _w, code = "") {
   }
 
   if (mode === "window") {
-    await openWindows(v);
+    await openWindows();
   }
 
   if (session.transpiled === "") {

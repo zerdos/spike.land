@@ -4,7 +4,7 @@ import React from "react";
 import { css, Global, jsx } from "@emotion/react";
 
 import { getUserId, shaDB } from "./getUser";
-import {fetchSignal} from "@zedvision/code/src/hash"
+import { fetchSignal } from "@zedvision/code/src/hash";
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
