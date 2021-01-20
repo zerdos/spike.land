@@ -16,6 +16,7 @@ export const Qr = () => {
   const side6 = React.useRef<HTMLCanvasElement>(null);
 
   const [retry, setRetry] = React.useState(100);
+  const [secrets, setSecrets] = React.useState({})
   const [urls, setUrl] = React.useState({ current: "", last: "" });
 
   const [cubeSides, setQrCube] = React.useState<{
@@ -56,7 +57,10 @@ export const Qr = () => {
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
+
+
       const url = `https://zed.vision/${key}`;
+      setSecrets(s=> {...s, [url]: secret});
 
       console.log(`waiting for url: ${url}`);
 
