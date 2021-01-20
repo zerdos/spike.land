@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "e51d537f82105569d00064f1a2ffd1c57bf4a99252abedcca4de894821d1bb40",
+    "9eaf985209b135324195984569c7ab9f1c776012af2c811e512caaa077ddacaa",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -491,7 +491,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "846f210a1750c6a8e240fa67ee6813bd0bf6d1d6c5bb2b8238069fad287f4a7e",
+    "480e0e42b58f4ed2a14d520816ac252ba2e9784b52fc748fc03dfeadcaf4cdf9",
   "src/transpile.js":
     "1cf37e36ab15702382e4e2a88c01892dfa560634ad1c002efa57d380d7ad7978",
   "src/smart-monaco-editor/index.html":
@@ -603,7 +603,7 @@ export const shasums = {
   "src/templates.js":
     "a8a134d0f2e5ae96697c48b4d853e5d882ea1389dfe0d50f96ffae7ed685360d",
   "src/codeLoader.js":
-    "181cca3b5c07ec6f9ba2626eb6509be4dbb557725d8cb6bfc246412eb11587d5",
+    "3a4dad20d4821ef9419421ed4cca15b386951fdec1a21665c5b299577df658a5",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "e53b82070402f08c8a2730c51f9ccfebdb0dff481bce3e83c250bcd380acef8b",
+    "c2cb1d5d9a2371e8983d4f4b10d1954946f76a4f466c32660173a55b790ea7bc",
   "src/workers/ipfs/package.json":
     "4bf2ac1c34f4a379705fa83683b194d8d31b988d481c82055b526236346ead0b",
   "src/workers/ipfs/node_modules/uint8arrays/compare.js":
@@ -695,7 +695,7 @@ export const shasums = {
   "src/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "src/hash.js":
-    "1d2938d2f21548a40f9b3a21a4f23222404145342abccae0af34d533bf1b4f88",
+    "7fd5091f6cd191c8751e36f6538d9fdf469927993648d2f23d420303bc6d33e8",
   "src/importScript.js":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "src/importScript.d.ts":

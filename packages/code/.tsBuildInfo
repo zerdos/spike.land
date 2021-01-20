@@ -242,8 +242,8 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "846f210a1750c6a8e240fa67ee6813bd0bf6d1d6c5bb2b8238069fad287f4a7e",
-        "signature": "1cbb7c76c2fe635087866f0445a88bcc083674b434841be2e91fb17faf671e0a",
+        "version": "480e0e42b58f4ed2a14d520816ac252ba2e9784b52fc748fc03dfeadcaf4cdf9",
+        "signature": "0ec746e62f4f1a6c38296332f541e17a1efcd7242f21d6025bd0ebf6e53e3e14",
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
@@ -262,8 +262,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "1d2938d2f21548a40f9b3a21a4f23222404145342abccae0af34d533bf1b4f88",
-        "signature": "038dda34bb5c8beb6876638b1f6eead23d8bbb3e0ea4dc8a7d743d7178e6ff1b",
+        "version": "085f804ccc9b9491662a186fbb5770a5932de5cc21ba5b4c4e4e7421b2d614c4",
+        "signature": "a6912dbe20fe601ba715ee2dfd0ec892ffa2ebfe110e56d1f70213245bf40b67",
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
@@ -312,7 +312,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "181cca3b5c07ec6f9ba2626eb6509be4dbb557725d8cb6bfc246412eb11587d5",
+        "version": "3a4dad20d4821ef9419421ed4cca15b386951fdec1a21665c5b299577df658a5",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -452,7 +452,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "e53b82070402f08c8a2730c51f9ccfebdb0dff481bce3e83c250bcd380acef8b",
+        "version": "c2cb1d5d9a2371e8983d4f4b10d1954946f76a4f466c32660173a55b790ea7bc",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

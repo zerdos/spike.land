@@ -1,11 +1,4 @@
-import {
-  CID,
-  fromHexString,
-  ipfsCat,
-  ipfsClient,
-  multihashes,
-  raceToSuccess,
-} from "./ipfsClient.js";
+import { ipfsCat, ipfsClient } from "./ipfsClient.js";
 
 const log = (msg) => {
   if (typeof mgs === "string") console.log(msg);
@@ -221,4 +214,3 @@ function parse(d) {
   }
 }
 export { ipfsCat };
-export { multihashes };

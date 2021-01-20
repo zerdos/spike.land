@@ -461,7 +461,7 @@ export const files = {
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmT74FXX6XEeUP39aKpLVTx1MWr3pE5ucKHP35sSMJSHyd",
-  "src/codeLoader.js": "QmRJBauasyif2i97UcEE2bd1gZxSnBEA3xW2PP8hT1zJDK",
+  "src/codeLoader.js": "QmRQZaXzUuXMaLTFiLXSkigxNYU9eCbHg6vX5keBm4F8WU",
   "src/data.js": "QmQ7uJfT6RmjJC6UmMsrA2x5JvSp5TQcCfwJ7rtLpqLdKW",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -481,10 +481,10 @@ export const files = {
   "src/examples/starter_framer.js":
     "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
   "src/formatter.js": "QmWnFrxvNhB6vdhbn6HqP21eWHYfSj7fL3nFZytwyWnHZB",
-  "src/hash.js": "QmPdB3pCdZDXGe1ywcJjfx3yYjHPgg7cFCj6xxzdCkswh6",
+  "src/hash.js": "QmUD8DcsTccXnZ26HvA8DmmZ3TYjb6GeQCnvcbGJssLoCw",
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
-  "src/ipfsClient.js": "QmdNwH79owgg4ibGm5s8kgkNaHvs5hyM18rCACVQZ5zKYw",
+  "src/ipfsClient.js": "Qmf9rkYXU3zwEb8CHp9mCDquDeEu9Pcv4xBneuTV4U6DcE",
   "src/openWindows.js": "QmNhtrMUYGPFpEr7GzGr4tzYSh3m1nFK39sDU3E8sU8vad",
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
@@ -618,7 +618,7 @@ export const files = {
   "src/transpile.js": "QmVRuceYLB6ytYLYanLTZ2dxVJCdVH9VttrjSEj2jDMn2m",
   "src/versions.js": "QmY7WStUTGSpEKwvWxk22aSosFZJm3SKsufcWMt21FPmRg",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmWsPNP5S7C45FpSH9qTkdQDRDRugJmH3Coq29byApr8B8",
+  "src/workers/files.umd.js": "QmV9LhPTDeVXUtLnbhPPnSui4LTsoWhd9X5TAj1FfFRKTa",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -996,8 +996,8 @@ export const files = {
     "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
   "src/workers/ipfs/src": "QmXwwQWFjGECDW8qa5PwTzybTszbzz8cCGJpzfj1vhVXpK",
   "src/workers/ipfs": "QmZVqoyDhJozUPVewNEPxH1fLt1DNdFao3vQnBPmpUYDgT",
-  "src/workers": "QmeofVK4tZ4Q5hcsv8pKq2EijDm6DpmtuGh77MdgWWj2Sh",
-  "src": "QmWfChgACyyVM4SJaqoPvBexdBKLSPNaZB34CCoxedk2x3",
-  "": "QmdrrFukVKBYFYtLB6468DztgKh8wqTxi5GNcgMrCE9KrH",
+  "src/workers": "QmYYtXxUsBuy1Q8HCCtjxp6EcspFzy4A2mqZQBFSXzRpTG",
+  "src": "QmPfpz317F3aL1Czvfj6HxZdnvRm31fuPDbRbVPakDpnn4",
+  "": "QmbGnCKfaZFuqv5SuDMM3r6YsfTWXwsabN2PhQu8fSW3C3",
   "foo": "bar",
 };
