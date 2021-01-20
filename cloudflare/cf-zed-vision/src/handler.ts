@@ -56,7 +56,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       }
       if (signal.length===8){
         const msg = await SIGNALS.get(signal);
-        return text(msg)
+         return text(msg)
        
       }
       // if (key) {
