@@ -617,7 +617,8 @@ export const files = {
   "src/templates.js": "QmZpg8VY2dzzzKjr547W48fS1fPLEkrit6CivrCtvLvkeY",
   "src/transpile.js": "QmVRuceYLB6ytYLYanLTZ2dxVJCdVH9VttrjSEj2jDMn2m",
   "src/versions.js": "QmY7WStUTGSpEKwvWxk22aSosFZJm3SKsufcWMt21FPmRg",
-  "src/workBox.js": "QmXBC3W7YbyiLmTvJMuTfdxBd7Uoot2S3pHrrcq8qijEMw",
+  "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
+  "src/workers/files.umd.js": "QmX9iB6mT42EZrpnp1aC7Z8D7Z5vgerJNyqEYRVHEhCF5B",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -689,7 +690,9 @@ export const files = {
   "src/workers/ipfs/tsconfig.json":
     "QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg",
   "src/workers/ipfsWorker.js": "QmX3XZKpsQcDGVY58j8ojS4F89bDEp3vBzKgrTWgoruttV",
-  "src/workers/sw.js": "QmT3nPRc7UJyDYVwBVxPoAxrKEQVVDeH4UZ66vyybJnvpR",
+  "src/workers/shasums.umd.js":
+    "QmTcSv4DXa6USZDdqotYWUdEhRB8voN9hrDdSjsPAvWgjq",
+  "src/workers/sw.js": "QmeTphWqF5NAo7nwGgvVU7hkhp6Sok1M1NxZC3MZmdUnuB",
   "src/workers/transpile.worker.js":
     "Qmev8yJdXxob29yKNvM3kJ5R19ESSoewmrGKr7xWffZDaZ",
   "src/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -993,8 +996,8 @@ export const files = {
     "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
   "src/workers/ipfs/src": "QmXwwQWFjGECDW8qa5PwTzybTszbzz8cCGJpzfj1vhVXpK",
   "src/workers/ipfs": "QmPSoY2ob6DEkHQEShFnE2hKf1QX6GYZR65iwpjkdkcpXJ",
-  "src/workers": "QmRaK1NUm1CwFMsFo7gj14xEgyfx2Dn2fE8V6HyLQ68KRN",
-  "src": "QmTcVo9S84GiaS6B6PjLCMfddQR2tzjzUgB52PBWeYsJ9G",
-  "": "QmU1aedVh8Xsbo3pebY1QxNXFhJo9maHXTKwSYHDTiyD8i",
+  "src/workers": "QmScvNzxUjk1gtuV9SAxCMXXYZSaHugwRDa5yp1ZH38rJV",
+  "src": "QmRTn9eRhAVLQ7Jp8LF38m4AuAzmu2MmVWEryCQy6oNmj3",
+  "": "QmTVm7KX6bKX4c5u7tycD61bcCZx36eJDNUXiiM9JoXRQt",
   "foo": "bar",
 };

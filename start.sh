@@ -1,5 +1,8 @@
-find ./packages/code -type f -exec sha256sum {} \; | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"foo\":\"bar\" }"}' > cloudflare/cf-code-zed-vision/src/shasums.ts;
+rm -rf ./packages/code/src/workers/files.umd.js
+ipfs add -r packages/code > ipfs.txt
+cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "globalThis.files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/src/workers/files.umd.js
 
+find ./packages/code -type f -exec sha256sum {} \; | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"foo\":\"bar\" }"}' > cloudflare/cf-code-zed-vision/src/shasums.ts;
 
 CID=$(ipfs add -r ./packages/code -Q) 
 URL="http://[::1]:8080/ipfs/$CID"
@@ -28,7 +31,9 @@ echo $URL
 # ipfs add -r packages/code > files.txt
 
 # | awk '{print "echo " $2 " > "$3 ";"}' >cids/commands.sh
-ipfs add -r packages/code | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/cf-code-zed-vision/src/files.ts
+ipfs add -r packages/code > ipfs.txt
+cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/cf-code-zed-vision/src/files.ts
+
 # cp -r packages/code cids/code
 # cd cids && sh comma/nds.sh
 

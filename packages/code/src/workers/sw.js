@@ -1,6 +1,7 @@
 importScripts(
   "../../node_legacy/workbox-sw.js",
 );
+importScripts("./shasums.umd.js")
 
 // @ts-ignore
 workbox.loadModule("workbox-strategies");

@@ -1,5 +1,4 @@
 //import { version } from "@zedvision/code/package.json";
-import CID from "cids";
 import { files } from "./files";
 import { shasums } from "./shasums";
 import {

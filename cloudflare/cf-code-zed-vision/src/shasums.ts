@@ -573,7 +573,7 @@ export const shasums = {
   "src/smart-monaco-editor/dist/monaco.js":
     "5e0258ef425bc23888eb413c71963f531dbb51f021f9ffc820576dab13c7a9e0",
   "src/workBox.js":
-    "eb730c3bcb031d3a2f0475cad33332d8901991344f6b5cc7103c9ef7fff99121",
+    "1d74e1381c9ba6afd5372ec87254ff264620c768aecdfcc5c8965f3988958d54",
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/starter.js":
@@ -610,6 +610,8 @@ export const shasums = {
     "64df1fb712ea653b59c0e831d339e8bcb6dbb9f0e24cab092c71fccba0570ee4",
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
+  "src/workers/files.umd.js":
+    "3fa9fb9f2aea7d3b0d706a87bbda32c9c9a61c43f3b9106d7f99811413dd1740",
   "src/workers/ipfs/package.json":
     "80550175bc6ee9aa247b4ede34175dbb5def39be220922546e4eda854ffb14a1",
   "src/workers/ipfs/node_modules/uint8arrays/compare.js":
@@ -683,11 +685,13 @@ export const shasums = {
   "src/workers/ipfs/src/ipfs.server.ts":
     "2db3760389e020f403492e0ce127959fa735be6a5d12f1d213bf6c500f7383a7",
   "src/workers/sw.js":
-    "b7cd6bb8929f684fde6974fd46e1257790d61f99bbd24e29ee7cdbfb646d87f3",
+    "8e4657ba483528d67fd1860874aef42249176d417d7476311d9362f7b1eb7a20",
   "src/workers/ipfsWorker.js":
     "1d13855216815fbd43d0af466e83d765d1986664779b7c7c32ef60ecf7607415",
   "src/workers/transpile.worker.js":
     "86dc79d7215b4a3759dd389c22d11044931c266b3f95e967cabe6c995d562750",
+  "src/workers/shasums.umd.js":
+    "e4cfd1717f046ec5907d7ed7fb959cd37730eb06c600ed141d5af900175adea5",
   "src/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "src/hash.js":
