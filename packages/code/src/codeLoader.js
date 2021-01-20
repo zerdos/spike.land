@@ -12,7 +12,6 @@ import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
 import { transpileCode } from "./transpile.js";
 import { formatter } from "./formatter.js";
-import { v } from "./versions.js";
 import startMonaco from "./smart-monaco-editor/dist/editor.js";
 
 function getSession() {
@@ -60,10 +59,6 @@ export async function run(mode = "window", _w, code = "") {
         code,
       ) || transpiled;
       session.div.innerHTML = html;
-      session.versions = versions;
-      if (typeof versions === "string" && versions !== "") {
-        session.versions = JSON.parse(versions);
-      }
     } catch (e) {
       console.error({ e, message: "couldn't start" });
       return;
@@ -73,8 +68,6 @@ export async function run(mode = "window", _w, code = "") {
   if (mode === "window") {
     await openWindows(v);
   }
-
-  session.versions = v;
 
   if (session.transpiled === "") {
     const transpiled = await transpileCode(session.code);
@@ -157,7 +150,6 @@ export async function run(mode = "window", _w, code = "") {
         if (session.i > counter) return;
         session.code = await formatter(cd);
         if (session.i > counter) return;
-        session.versions = { ...v };
 
         saveCode(session, counter);
       } else {

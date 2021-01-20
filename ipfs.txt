@@ -237,7 +237,7 @@ added QmYrZKmyENAJi6h5mFoq2CVyZzr4syiuehcFqorzAtQttK code/node_legacy/workbox-sw
 added QmT29Y78zyhb8a7WWc2BEhS2XpZij6bJhJZnLnbKTKsE5m code/node_legacy/workbox-window.prod.mjs
 added QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY code/node_legacy/workbox-window.prod.mjs.map
 added QmTdCdhhkMYk21oB6XBodEKoXEUVQoH9RWgkUUgYnxrxsk code/package.json
-added QmRQZaXzUuXMaLTFiLXSkigxNYU9eCbHg6vX5keBm4F8WU code/src/codeLoader.js
+added Qmc4zXw6MHDvTXNQd8uQEwfsok8TEVhesFw33mHJfk7HoQ code/src/codeLoader.js
 added QmWXz8TChNvc7zSnhsW8gGZTfsac8nxVnvhKXGkWy58KjF code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX code/src/emotion-react-renderer/dist/DraggableWindow.js
@@ -248,7 +248,7 @@ added QmWSfHLfX7spZkr87PrHM3jpwMrbbzhB2PjLgFzYM5metv code/src/emotion-react-rend
 added QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA code/src/emotion-react-renderer/tsconfig.json
 added QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs code/src/examples/starterNoFramerMotion.js
 added QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF code/src/examples/starter_framer.js
-added QmSMKVSqWuVosWbsyDdaPFsBAwGkKQAuaA3pPHHvyTSR3h code/src/formatter.js
+added QmXArukccKkWgDVKtZWCsNcV2gmYhPLursST8CP1x4GVBi code/src/formatter.js
 added QmbitMiMtxY1dMgh7M5NPASYtMg5ja48U65MFh4rPEJf4r code/src/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/src/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/src/importScript.js
@@ -284,7 +284,7 @@ added QmXDjtDjFxzUemcTkNDbQqSimHTNDcpLsfxq5PhbwmuXSf code/src/shadb/src/vendor/d
 added QmdrnoscF7ihtuyZCd1iv7g6Zpvem23yNn6AHU6xTaV5XU code/src/shadb/src/vendor/idb.js
 added QmSweNRyD6aAUjpMnt8zKE5LAxvvLoZPy9Qj3r4THEhaUd code/src/shadb/tsconfig.json
 added QmcRFXziVoutjAY7kstF4fS8qdDcQuKxr1jBfUcFk6EbFu code/src/shadb/tsconfig.tsbuildinfo
-added QmX1gxuVT2f59GcHpvnYMAQZF3asuQjXsGAFgG23WLABpD code/src/share.js
+added QmPfysS4qMX6NZdX4XPx9kbe1HHVMYkoNijGKCnWGnAoeU code/src/share.js
 added QmQAGWaCTkwWF9GMjvoLgCMMgec8bKWRgzB29yti3b5zAL code/src/smart-monaco-editor/LICENSE.md
 added Qme5mqxxvVorXuV6y3Wit23U9pUhaMfSDR2YDx1esCCruY code/src/smart-monaco-editor/README.md
 added QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK code/src/smart-monaco-editor/dist/editor.d.ts
@@ -329,7 +329,7 @@ added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
 added QmSeUG4MEkQ4vVQ2wQnahH52xYpmgLHoQSjU4ZzmcGCaiL code/src/templates.js
 added QmPHX9oLPeBetqYi3ps8xQoBpNf2jhgmZAtrsMhgzkmtf1 code/src/transpile.js
 added QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68 code/src/workBox.js
-added QmYT55n56NFroGf8ovgUG7dLBJVJcCYSHZQEpfKZHMiTwX code/src/workers/files.umd.js
+added QmSXCu5mACSdGiMVT3AU6oTJA35crE2yfEtysVG8WoJQPc code/src/workers/files.umd.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/src/workers/ipfs/dist/gateways.js
@@ -530,6 +530,6 @@ added QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN code/src/workers/ipfs/node_
 added QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8 code/src/workers/ipfs/node_modules
 added QmXwwQWFjGECDW8qa5PwTzybTszbzz8cCGJpzfj1vhVXpK code/src/workers/ipfs/src
 added Qmf12wpxjfMoncRCNg7TghFtmXdGfouCs6eRfLpP8pZ4vi code/src/workers/ipfs
-added QmP4chBJbk8kzychrpn3QmLXqeBR6Y4vB6hLSSxTo8fKWq code/src/workers
-added QmXdtoPVyVKKhRkb6MNBK7YYCDBuDi2deNvMVZwACjXpje code/src
-added Qme8vNtB4UjdfpRqRT4vpJzDdY4pURmSnf1VLospCcbrba code
+added QmbZxkNYobuHPkXfKUU4dkr4CRdYE3rmPv6EFxwF5cmEyh code/src/workers
+added QmR3q7KnUwstKd7q9x7DsntdV2ZC5Y9rJiBvMAkcHciqMF code/src
+added QmPvvQasZDTvwCdgfdLRxVei6ny9Dib3USzCorcJtSfLJV code
