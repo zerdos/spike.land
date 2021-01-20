@@ -8,8 +8,7 @@ import { ipfsClient } from "./ipfsClient.js";
  * code: string
  * html: string
  * transpiled: string
- * versions: any
- * }} props 
+* }} props 
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
   const bodyClass = String(
@@ -40,7 +39,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     { path: "/app/index.html", content: getHtml({ html, css }) },
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
-    { path: "/app/edit/index.html", content: getEditorHTML(versions.code) },
+    { path: "/app/edit/index.html", content: getEditorHTML() },
   ];
 
   const sha = await sha256(JSON.stringify(allContent));

@@ -3,7 +3,6 @@
  */
 
 export const getHtml = ({ html, css }) => {
-  const v = versions();
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
   //
@@ -51,10 +50,7 @@ renderEmotion(App(), document.body.children[0]);
 `;
 };
 
-/**
- * @param {string} codeLoaderVersion
- */
-export const getEditorHTML = (codeLoaderVersion) =>
+export const getEditorHTML = () =>
   `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +60,7 @@ export const getEditorHTML = (codeLoaderVersion) =>
 </head>
 <body>
   <script type="module">
-    import {run} from "https://unpkg.com/@zedvision/code@${codeLoaderVersion}/src/codeLoader.js"
+    import {run} from "${location.href}src/codeLoader.js"
     try{
       run("window", window);
     }catch(error){

@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "96987f776c6795a94239b6ed822e5124eafbb83309768207cec0f946ce554486",
+    "3ded71c2338a7d688d7f52edb6c687cb0b14bb20b07e03627e4cb61f6fdc2133",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -491,7 +491,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "8004433577a6328d749e57525059915a007c66a835e5ce385c5374a97d53dc53",
+    "9529deab134847952974cba31679a2479bb6039d72e42f0fd967eab8fb09fb94",
   "src/transpile.js":
     "21530fe943b02493178c7237a60d9b0fc6c5c2dc53b3be5c1d5feb68a1e8a824",
   "src/smart-monaco-editor/index.html":
@@ -601,7 +601,7 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "1a573cdbda66e62a00b2bc4199e9257c3a405b0aab4a3b7859820d32ef41dcb5",
   "src/templates.js":
-    "47a1aa8056992fbba263bc1ca8aea3c2fbf5e36d579c7833d27abb15e11f27e9",
+    "e37d279d48e50feac94f2a0fbb8cda375559001db9d91f6cb5c5752591e6a731",
   "src/codeLoader.js":
     "868446aafec5fd4f09d162fc173900ae680596b89f280e91c39ea84f535f3708",
   "src/db.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "74017c236f17c9f3bee06829eca9759ff9493ae8ca706c2a66858ee7722886f7",
+    "f6f278812a42e937bec21818016513139eab1dfbb56b2e1b906bd1fdb466b259",
   "src/workers/ipfs/package.json":
     "589c5b2623c4cac8723cebc430778a027b1f1571816002d4845cd63f173b7f4c",
   "src/workers/ipfs/node_modules/uint8arrays/compare.js":
@@ -703,7 +703,7 @@ export const shasums = {
   "src/renderPreviewWindow.js":
     "59326061012f45a2a0cb829f7efb8087fe9145e10a0ce66b5a8c29cd2749df18",
   "src/share.js":
-    "7f17c783de98a7728a6988423262b3294babf5a23c1fd2e67144b1c539132a1c",
+    "ffebfe500a0d0d457f3bd99eb1bc15029391b2dbd16929864326e0c94e50eb13",
   "src/shadb/src/sha256.js":
     "4867914563a93849c3e414c4ba728ebfa48bbd71bfdbe05b6dbf42284fbd6369",
   "src/shadb/src/getDbObj.js":

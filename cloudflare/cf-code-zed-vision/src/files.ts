@@ -484,7 +484,7 @@ export const files = {
   "src/hash.js": "QmbitMiMtxY1dMgh7M5NPASYtMg5ja48U65MFh4rPEJf4r",
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
-  "src/ipfsClient.js": "QmWoMACWbNhihppGaCvGyCxwHnCgK4rfvmXgJrzeJnGpNT",
+  "src/ipfsClient.js": "QmXG6WTSa8WPCqrw1wsdD4aiHb5FYufEDEJJyxKEB8733j",
   "src/openWindows.js": "QmNhtrMUYGPFpEr7GzGr4tzYSh3m1nFK39sDU3E8sU8vad",
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
@@ -533,7 +533,7 @@ export const files = {
   "src/shadb/tsconfig.json": "QmSweNRyD6aAUjpMnt8zKE5LAxvvLoZPy9Qj3r4THEhaUd",
   "src/shadb/tsconfig.tsbuildinfo":
     "QmcRFXziVoutjAY7kstF4fS8qdDcQuKxr1jBfUcFk6EbFu",
-  "src/share.js": "QmPfysS4qMX6NZdX4XPx9kbe1HHVMYkoNijGKCnWGnAoeU",
+  "src/share.js": "Qmf7hs1E4hbGcVzd9FosQVc366akpF5dtrBBfvyfVYKz78",
   "src/smart-monaco-editor/LICENSE.md":
     "QmQAGWaCTkwWF9GMjvoLgCMMgec8bKWRgzB29yti3b5zAL",
   "src/smart-monaco-editor/README.md":
@@ -614,10 +614,10 @@ export const files = {
     "QmUq8DyLjpYvzBnKkQtUijucparW3E8T25Xttk7xC8YmEx",
   "src/starter.js": "QmQN8pfPkYDNrM6TQ69cxrRarHUZyECR7k9dVM76DP1b4T",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
-  "src/templates.js": "QmSeUG4MEkQ4vVQ2wQnahH52xYpmgLHoQSjU4ZzmcGCaiL",
+  "src/templates.js": "QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmXWBTwx9woWZdXm8fStKLHsKagbU93iadQM6AFkmF79PZ",
+  "src/workers/files.umd.js": "QmcEzyGCDUG2NUXF85MPaZVo5jgoNYLJ9NUEXd1JtjzJuU",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -995,8 +995,8 @@ export const files = {
     "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
   "src/workers/ipfs/src": "QmXwwQWFjGECDW8qa5PwTzybTszbzz8cCGJpzfj1vhVXpK",
   "src/workers/ipfs": "Qmf12wpxjfMoncRCNg7TghFtmXdGfouCs6eRfLpP8pZ4vi",
-  "src/workers": "QmeNfhz2mJhzW46L864Xa3buAo7JYH45TDm5CSW4uUJcjb",
-  "src": "QmcWSV4JQRLdqvoMVJrt3VgnEVYH4WedA2kmygyPbXxQBd",
-  "": "QmZs7x5bJdSmeHSABPk8svsQdrSm8oQisM3M5TBYAmm7Ex",
+  "src/workers": "QmXkgXb6vAjXorhxczw8keRLQ8ijYPm4Wa1rJyU65qdTA7",
+  "src": "QmavAjqLBmGTpgFdG7n4PTt8fWtmbSZvhqGwasv2i2fSws",
+  "": "QmYJSMaZoE9LuPraFbYgn5MenwgB2uTVggCgxTa3KTD2cM",
   "foo": "bar",
 };
