@@ -353,7 +353,7 @@ async function handleCloudRequest(request) {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
     }
-    if (pathname === "/signal") {
+    if (pathname.slice(0, 7) === "/signal") {
       const cid1 = searchParams.get("cid") || "";
       const signal = searchParams.get("signal") || "";
       const key = searchParams.get("key") || "";

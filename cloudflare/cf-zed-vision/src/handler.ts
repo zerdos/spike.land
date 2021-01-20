@@ -45,7 +45,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
     }
-    if (pathname === "/signal") {
+    if (pathname.slice(0,7) === "/signal") {
       const cid = searchParams.get("cid") || "";
       const signal = searchParams.get("signal") || "";
       const key = searchParams.get("key") || ""
