@@ -46,15 +46,15 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       return text("User-agent: * Disallow: /");
     }
     if (pathname === "/signal") {
-      const cid = searchParams.get("cid")!;
-      const signal = searchParams.get("signal")!;
-      const key = searchParams.get("key")
+      const cid = searchParams.get("cid") || "";
+      const signal = searchParams.get("signal") || "";
+      const key = searchParams.get("key") || ""
 
       if (cid.length===46 && signal.length ===8) {
         await SIGNALS.put(signal, cid,    { expirationTtl: 86400 * 7 },);
         return json({success: true})
       }
-      if (signal.length===8){
+      else if (signal.length===8){
         const msg = await SIGNALS.get(signal);
          return text(msg)
        
