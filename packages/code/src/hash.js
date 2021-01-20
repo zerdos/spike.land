@@ -138,7 +138,7 @@ async function getData(signal, retry) {
   const signalPath = pathname.slice(1);
 
   return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
-    x.body()
+    x.text()
   ).then((cid) => ipfsCat(cid));
 }
 
