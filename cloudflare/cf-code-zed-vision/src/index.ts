@@ -7,8 +7,6 @@ import {
 } from "@zedvision/ipfs/src/gateways.js";
 import { cid } from "./cid";
 
-var IPFSKV: KVNamespace;
-
 addEventListener("fetch", (event: FetchEvent) => {
   event.respondWith(handleRequest(event.request));
 });
