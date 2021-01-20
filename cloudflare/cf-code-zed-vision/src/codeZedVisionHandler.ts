@@ -1,6 +1,7 @@
 //import { version } from "@zedvision/code/package.json";
 import CID from "cids";
 import { files } from "./files";
+import { shasums } from "./shasums";
 import {
   publicIpfsGateways,
   raceToSuccess,
@@ -59,7 +60,15 @@ async function handleRequest(request: Request) {
             `https://zed-vision.zed-vision.workers.dev/ipfs/${cid2}`,
           );
           const arrBuff = await response.clone().arrayBuffer();
-          await IPFSKV.put(cid2, arrBuff);
+          const shaSum = await sha256(arrBuff);
+          //@ts-ignore
+          if (shaSum === shasums[file]!) {
+            await IPFSKV.put(cid2, arrBuff);
+          } else {
+            return text(
+              "its 2021, but transferring and getting a file its still difficult. Please try again.",
+            );
+          }
         }
 
         const resp = await alterHeaders(response, pathname);
@@ -130,30 +139,12 @@ function text(resp: string) {
   });
 }
 
-const getCID = async (buff: ArrayBuffer) => {
-  const myDigest = await crypto.subtle.digest(
-    {
-      name: "SHA-256",
-    },
-    buff, // The data you want to hash as an ArrayBuffer
-  );
-
-  const uintArr = new Uint8Array(myDigest);
-
-  let cid;
-  try {
-    cid = new CID("base58btc", "dag-pb", uintArr);
-    return cid.toString();
-  } catch {
-    const fromHexString = (hexString: string) =>
-      new Uint8Array(
-        (hexString.match(/.{1,2}/g) || []).map((byte) => parseInt(byte, 16)),
-      );
-
-    const shaStr = Array.from(uintArr).map((b) =>
-      ("00" + b.toString(16)).slice(-2)
-    )
-      .join("");
-    return shaStr;
-  }
-};
+const sha256 = async (x) =>
+  Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        typeof x === "string" ? new TextEncoder().encode(x) : x,
+      ),
+    ),
+  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");

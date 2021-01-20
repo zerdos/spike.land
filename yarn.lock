@@ -12177,9 +12177,9 @@ libp2p-interfaces@^0.7.1:
     uint8arrays "^1.1.0"
 
 libp2p-interfaces@^0.8.0, libp2p-interfaces@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/libp2p-interfaces/-/libp2p-interfaces-0.8.1.tgz#426c0d599f169aa7a599d7707e7b82cec1baba40"
-  integrity sha512-46ttBnPMmg3/I8hPQE08uJtmI6CB2O/+xnOqYJ+yW8m1mqpMNJvQd/yTkoMyNXxJnGhAzC1Vn7IxVrisQhOmNA==
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/libp2p-interfaces/-/libp2p-interfaces-0.8.2.tgz#57ecc410d2971987a80bf3c15949f96e1bc7f558"
+  integrity sha512-jiE7ms1Hl64zQvCzu+fFrNygi+9LEmMLjeiUBeaiw55HL2vtntRG/PEBDWeh4e2HisVtfLXfRDqnouMMkcBt+Q==
   dependencies:
     "@types/bl" "^2.1.0"
     abort-controller "^3.0.0"
@@ -16742,9 +16742,9 @@ rollup-plugin-terser@^7.0.0:
     terser "^5.0.0"
 
 rollup@^2.25.0:
-  version "2.37.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.37.0.tgz#5baf631dc224a56d7eb88dd11b20aa28c1e8dc6f"
-  integrity sha512-cbxuxkMGCQV+TnVh+yZSUerbVb5i8soRydbzHYoMNojgt7MMi+jDLLs24U9HHCssKkwkXmsj+LXcOZMldTbz2w==
+  version "2.37.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.37.1.tgz#aa7aadffd75c80393f9314f9857e851b0ffd34e7"
+  integrity sha512-V3ojEeyGeSdrMSuhP3diBb06P+qV4gKQeanbDv+Qh/BZbhdZ7kHV0xAt8Yjk4GFshq/WjO7R4c7DFM20AwTFVQ==
   optionalDependencies:
     fsevents "~2.1.2"
 
