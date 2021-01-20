@@ -47,7 +47,7 @@ export const sendSignal = async (signal, data) => {
 
     const { pathname } = new URL(signal);
 
-    const fetch = await fetch(
+    await fetch(
       `https://zed.vision/signal/?cid=${dataCid}&signal=${pathname}`,
     );
 
