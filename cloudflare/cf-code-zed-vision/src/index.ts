@@ -7,8 +7,9 @@ import {
 } from "@zedvision/ipfs/src/gateways.js";
 import { cid } from "./cid";
 
-//@ts-ignore
-addEventListener("fetch", (event) => {
+var SHAKV: KVNamespace;
+
+addEventListener("fetch", (event: FetchEvent) => {
   event.respondWith(handleRequest(event.request));
 });
 /**
@@ -35,6 +36,8 @@ async function handleRequest(request: Request) {
       contentPath.length > 53 && contentPath.slice(0, 52) === `/ipfs/${cid}`
     ) {
       //@ts-ignore
+      const file = contentPath.slice(53) || "index.html";
+      const cid2 = files[file]!;
 
       // const response = await fetch(
       //   `https://code.zed.vision/ipfs/${cid2}/`,
@@ -48,15 +51,18 @@ async function handleRequest(request: Request) {
 
       if (response) return await alterHeaders(response, pathname);
       else {
-        const file = contentPath.slice(53) || "index.html";
+        let response;
 
-        //@ts-ignore
-        const cid2 = files[file]!;
-        // return text("no cache");
-
-        const response = await fetch(
-          `https://zed-vision.zed-vision.workers.dev/ipfs/${cid2}`,
-        );
+        const content = await SHAKV.get(cid2);
+        if (content !== null) {
+          response = new Response(content);
+        } else {
+          response = await fetch(
+            `https://zed-vision.zed-vision.workers.dev/ipfs/${cid2}`,
+          );
+          const arrBuff = await response.clone().arrayBuffer();
+          await SHAKV.put(cid2, arrBuff);
+        }
 
         const resp = await alterHeaders(response, pathname);
         await cache.put(request, resp.clone());
