@@ -7,7 +7,7 @@ import {
 } from "@zedvision/ipfs/src/gateways.js";
 import { cid } from "./cid";
 
-var IPFS: KVNamespace;
+var IPFSKV: KVNamespace;
 
 addEventListener("fetch", (event: FetchEvent) => {
   event.respondWith(handleRequest(event.request));
@@ -36,20 +36,14 @@ async function handleRequest(request: Request) {
       return await alterHeaders(response, pathname);
     }
 
+    // this file belongs to the latest zed.vision deployment
+    // so lets search and cache it in CF KV as well
     if (
       contentPath.slice(0, 52) === `/ipfs/${cid}`
     ) {
       const file = contentPath.slice(53) || "index.html";
       //@ts-ignore
       const cid2 = files[file]!;
-
-      // const response = await fetch(
-      //   `https://code.zed.vision/ipfs/${cid2}/`,
-      // );
-
-      // const resp = alterHeaders(response, contentPath);
-
-      // return resp;
 
       response = await cache.match(request);
 
@@ -58,7 +52,7 @@ async function handleRequest(request: Request) {
       } else {
         let response;
 
-        const content = await IPFS.get(cid2);
+        const content = await IPFSKV.get(cid2);
         if (content !== null) {
           response = new Response(content);
         } else {
@@ -66,7 +60,7 @@ async function handleRequest(request: Request) {
             `https://zed-vision.zed-vision.workers.dev/ipfs/${cid2}`,
           );
           const arrBuff = await response.clone().arrayBuffer();
-          await IPFS.put(cid2, arrBuff);
+          await IPFSKV.put(cid2, arrBuff);
         }
 
         const resp = await alterHeaders(response, pathname);
@@ -78,36 +72,34 @@ async function handleRequest(request: Request) {
     // const req = new Request(`https://code.zed.vision${contentPath}`);
 
     response = await cache.match(request);
-
-    if (response === undefined) {
-      //https://ipfs.github.io/public-gateway-checker/gateways.json
-      const random5GatewaysFetch = publicIpfsGW.sort(() => 0.5 - Math.random())
-        .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", contentPath))
-        .map((x: string) =>
-          fetch(x).then((res) =>
-            res.status === 200 ? res : (() => {
-              res.arrayBuffer();
-              throw new Error("Not found");
-            })()
-          )
-        );
-
-      response = await raceToSuccess(random5GatewaysFetch);
-
-      if (response === undefined) return text("error");
-
-      const resp = await alterHeaders(response, pathname);
-      await cache.put(request, resp.clone());
-      return resp;
+    if (response && response.status == 200) {
+      return await alterHeaders(response, pathname);
     }
 
-    return await alterHeaders(response, pathname);
+    const random5GatewaysFetch = publicIpfsGW.sort(() => 0.5 - Math.random())
+      .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", contentPath))
+      .map((x: string) =>
+        fetch(x).then((res) =>
+          res.status === 200 ? res : (() => {
+            res.arrayBuffer();
+            throw new Error("Not found");
+          })()
+        )
+      );
+
+    response = await raceToSuccess(random5GatewaysFetch);
+
+    if (response === undefined) return text("error");
+
+    const resp = await alterHeaders(response, pathname);
+    await cache.put(request, resp.clone());
+    return resp;
   }
   return text(`<!doctype html>
   <html>
   <head>
     <script type="text/javascript">
-    window.location = "https://code.zed.vision/ipfs/${cid}/";
+    window.location = "/ipfs/${cid}/";
     </script>
   </head>
   <body>
@@ -138,6 +130,7 @@ async function alterHeaders(response: Response, pathname: string) {
 
   resp.headers.delete("server");
   resp.headers.delete("strict-transport-security");
+  resp.headers.delete("X-Frame-Options");
   resp.headers.delete("x-content-type-options");
   if (pathname.endsWith(".mjs") || pathname.endsWith(".js")) {
     resp.headers.delete("content-type");
