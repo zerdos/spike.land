@@ -140,63 +140,72 @@ function wait(delay) {
 }
 
 async function getData(signal, retry) {
-  if (retry === 0) throw new Error("Cant fetch data");
-  log(`GET data, retry: ${retry}`);
+  const { pathname } = new URL(signal);
 
-  try {
-    const hashArr = new Array(68).fill(0).map((_x, i) => i);
-    const restRes = hashArr.map((i) =>
-      wait(Math.random() * 2000).then(() => getCharAt(signal, i))
-    );
-    const hashHex = (await Promise.all(restRes)).join("");
+  const signalPath = pathname.slice(1);
 
-    const cid = new CID(0, 112, fromHexString(hashHex));
-    log(`We got the data, its hash: ${cid.toString()}`);
-    return await ipfsCat(
-      cid.toString(),
-      { timeout: 1500 },
-    );
-  } catch (e) {
-    return getData(signal, retry - 1);
-  }
+  return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
+    x.body()
+  ).then((cid) => ipfsCat(cid));
+}
 
-  /**
+// if (retry === 0) throw new Error("Cant fetch data");
+// log(`GET data, retry: ${retry}`);
+
+// try {
+//   const hashArr = new Array(68).fill(0).map((_x, i) => i);
+//   const restRes = hashArr.map((i) =>
+//     wait(Math.random() * 2000).then(() => getCharAt(signal, i))
+//   );
+//   const hashHex = (await Promise.all(restRes)).join("");
+
+//   const cid = new CID(0, 112, fromHexString(hashHex));
+//   log(`We got the data, its hash: ${cid.toString()}`);
+//   return await ipfsCat(
+//     cid.toString(),
+//     { timeout: 1500 },
+//   );
+// } catch (e) {
+//   return getData(signal, retry - 1);
+// }
+
+/**
        * @param {string} signal
        * @param {number} i
        */
-  async function getCharAt(signal, i) {
-    if (!signalCache[signal]) {
-      signalCache[signal] = {
-        "0": "1",
-        "1": "2",
-        "2": "2",
-        "3": "0",
-      };
-    }
+//   async function getCharAt(signal, i) {
+//     if (!signalCache[signal]) {
+//       signalCache[signal] = {
+//         "0": "1",
+//         "1": "2",
+//         "2": "2",
+//         "3": "0",
+//       };
+//     }
 
-    if (signalCache[signal][i]) return signalCache[signal][i];
+//     if (signalCache[signal][i]) return signalCache[signal][i];
 
-    const chars = [..."0123456789abcdef"];
+//     const chars = [..."0123456789abcdef"];
 
-    const prefix = new Array(i).fill("x").join("");
+//     const prefix = new Array(i).fill("x").join("");
 
-    if (signalCache[signal][i]) return signalCache[signal][i];
+//     if (signalCache[signal][i]) return signalCache[signal][i];
 
-    log(`fetching char ${i}`);
-    const nextChar = await raceToSuccess(
-      chars.map(async (xx) => {
-        await wait(Math.random() * 1000);
-        if (signalCache[signal][i]) return signalCache[signal][i];
-        return await fetchSignal(signal + prefix + xx, 1).then(() => xx);
-      }),
-    );
+//     log(`fetching char ${i}`);
+//     const nextChar = await raceToSuccess(
+//       chars.map(async (xx) => {
+//         await wait(Math.random() * 1000);
+//         if (signalCache[signal][i]) return signalCache[signal][i];
+//         return await fetchSignal(signal + prefix + xx, 1).then(() => xx);
+//       }),
+//     );
 
-    signalCache[signal][i] = nextChar;
-    log(signalCache[signal]);
+//     signalCache[signal][i] = nextChar;
+//     log(signalCache[signal]);
 
-    return nextChar;
-  }
-}
+//     return nextChar;
+//   }
+// }
 
 /**
  * @param {sting} d
