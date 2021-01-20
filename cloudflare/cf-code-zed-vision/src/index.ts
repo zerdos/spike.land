@@ -53,8 +53,9 @@ async function handleRequest(request: Request) {
 
       response = await cache.match(request);
 
-      if (response) return await alterHeaders(response, pathname);
-      else {
+      if (response && response.status === 200) {
+        return await alterHeaders(response, pathname);
+      } else {
         let response;
 
         const content = await IPFS.get(cid2);
