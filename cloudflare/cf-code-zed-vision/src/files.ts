@@ -633,49 +633,49 @@ export const files = {
   "src/workers/ipfs/dist/ipfs.server.js":
     "QmVmSipTZcmBxXecMxUrbAAZxz2t2hkDvBYkTG6NW8az2T",
   "src/workers/ipfs/node_modules/uint8arrays/CHANGELOG.md":
-    "QmNwhALiwgmQK9BGPk3afS1UA94FszAE1VoFPocDzMaYh4",
+    "QmRXtm2JnFnryHFiWSSY1VE7Jygo4NV2nJSMtrvQE6JZSz",
   "src/workers/ipfs/node_modules/uint8arrays/README.md":
-    "QmasfagrgsL1PJwamYELjZ77bFRw5A2wnaN8e3wA4X51jD",
+    "QmY9MLGfvXbn6xuHNzDFrLTg2CVzqjxzCK5XHwSWCXqwtY",
   "src/workers/ipfs/node_modules/uint8arrays/compare.js":
-    "QmZedxsDwzHiP5SniKBrdDVkVv2parkmm42TwiMXXB1mUX",
+    "QmWZfqfuJ42bPx5TG5gKr7c4VGfCuV9to38sqUtu7q1W6z",
   "src/workers/ipfs/node_modules/uint8arrays/concat.js":
-    "QmUW51oyi47TCkRxan4HJZ4GAipWsQhiRt4C7KDxMfjR5s",
+    "QmNVrP4rvag3nDR48q41KEQuomBGfpTpRvd9sLyWRbMjE6",
   "src/workers/ipfs/node_modules/uint8arrays/dist/compare.d.ts":
-    "QmeNBWaiVCWjmwo1dre8YGkgqg3Bwfmvm5awdMBL4Qu6pF",
+    "QmY9sxA5ALg2sSzzMzyncNMnXwVBpxAK4LJsfSocPfM317",
   "src/workers/ipfs/node_modules/uint8arrays/dist/compare.d.ts.map":
     "QmT3hMw3SXQ1KEcmDcZaN1KG2kH6mE3kHvZHjq8qUn58zD",
   "src/workers/ipfs/node_modules/uint8arrays/dist/concat.d.ts":
-    "QmUdUHLZU3naL95jJzqkMWKWJ8oxVYE6aXRHfzmj1NsSnC",
+    "QmZwTsvTpg1ETMSzAe4HQNpnA5ZbGqEc3JvzhRG9wAT8EE",
   "src/workers/ipfs/node_modules/uint8arrays/dist/concat.d.ts.map":
     "QmUc64sLfa3eMAiHwRD1tBgrcKrjRyBJgS7dGVMG1LrS2A",
   "src/workers/ipfs/node_modules/uint8arrays/dist/equals.d.ts":
-    "QmUyNGSA9WFQM4qpox557edLdC49JZsVdQL6tvq7dcGqju",
+    "QmSfLrAjZpbn8dWXdaFqCVcQ6KRS2RY5ws6utacjkLsxSd",
   "src/workers/ipfs/node_modules/uint8arrays/dist/equals.d.ts.map":
     "QmcYFBPZDKUCRWVpZhycpEAgscw8iGBrfWfggzZAsH2AhE",
   "src/workers/ipfs/node_modules/uint8arrays/dist/from-string.d.ts":
-    "QmUJU21JGVWFXr2XBVAm5qnL6hF1JmDXxxyY8HYccZdk4E",
+    "QmQN6cdTcBr8e4KsBRQhwg3qfzbGT1gQ7FMncff2G5a7nS",
   "src/workers/ipfs/node_modules/uint8arrays/dist/from-string.d.ts.map":
     "QmeYgvsKqtjhszvVEAixg1J4trSxbiXSUhDVuXh9hhPQie",
   "src/workers/ipfs/node_modules/uint8arrays/dist/index.d.ts":
-    "QmVhBhi5pmT9ZooxBiYZkyJR1MPQW3G6pR4gzdSGZNsDZr",
+    "QmdsyZfRU4mwVnh4hUp83BPNqwFKS6qYnfCZuZ2njqaJGS",
   "src/workers/ipfs/node_modules/uint8arrays/dist/index.d.ts.map":
     "Qmdkob61reTPKyrLXxE6QWPasX7K9ksTLjwQvUAbJqwj14",
   "src/workers/ipfs/node_modules/uint8arrays/dist/index.min.js":
-    "QmbLZWfCPSf11wQb9EE3kt4jfgwBgbG2AKGVEFQxNfvQE3",
+    "QmQiz5vD4CYTaT9ajVTB1HshpL3T9MoVzmV8hCUBnGPeo6",
   "src/workers/ipfs/node_modules/uint8arrays/dist/to-string.d.ts":
-    "QmRRBYpEkSMvg12LCuJ3faRTmjghocXRnuPKhMVMCup5z6",
+    "QmaqHtbgosbT5vG3t7vRCRtnQV2aQyvJpZ5nN6vuUGEeWJ",
   "src/workers/ipfs/node_modules/uint8arrays/dist/to-string.d.ts.map":
     "QmaCbyAgABHUuroousZqgiTSCCDrTv6gys8FJZr5EQBzHZ",
   "src/workers/ipfs/node_modules/uint8arrays/equals.js":
-    "QmUNfDf3pStyQHJeiSu25MAzZHZjCVbqbGo58eaec4kvMm",
+    "QmdosQNTM8QV98QJbLytNepyGHwqtrqpoo9Qb1DSZcTpgR",
   "src/workers/ipfs/node_modules/uint8arrays/from-string.js":
-    "QmZFB6aSoqQVDV3FuiFZbMQ3UHTwo5ErmekuhhD7k3AYPZ",
+    "QmQP5bZHZbeEiHrn6HbVXEWXuThbqh7fMqBoHEvypQCaCg",
   "src/workers/ipfs/node_modules/uint8arrays/index.js":
-    "QmS1ytjmgToBswLARWPZHmHj7VHZgyN2DXxb2FzdptMGRd",
+    "QmSv8uLYAvhDAj8zBytYaGVFfo6G7pBbgCQyDffSowRiCf",
   "src/workers/ipfs/node_modules/uint8arrays/package.json":
     "QmYt6PHciBJ8oVyt4jfMzRjrz8jR2H8wUaXJxc5f3wnaqf",
   "src/workers/ipfs/node_modules/uint8arrays/to-string.js":
-    "QmNr5stMKGjDNyKn6s1y5pSnWeKNfJdCbDjprYfKP3S1eG",
+    "QmVrsJ8sxzw72wdf5ve6ZaVmrAKMeQrXTFKKt6JJMk928J",
   "src/workers/ipfs/package.json":
     "QmYho424n9qttRiLi4Cjq21YWLZ5W5VE1sJtSnvrsLem8o",
   "src/workers/ipfs/src/gateways.js":
@@ -986,15 +986,15 @@ export const files = {
   "src/smart-monaco-editor": "QmTDVuKm45s94YirFAEiJbcykEinQ1qjzF2oakm5tKmqAw",
   "src/workers/ipfs/dist": "QmZxMtaKrBDkniqrERHYzvZkxkN29ob8xQRRCxXDSLpUMm",
   "src/workers/ipfs/node_modules/uint8arrays/dist":
-    "QmTk6jwfQDE1mumQNBPjLfrqgruWp7HGvDQJ4WCA8dxvZR",
+    "QmWCCvXXpTSh5kHfj3VyPtx9dTroDWWPVwTf3pu7doJaZx",
   "src/workers/ipfs/node_modules/uint8arrays":
-    "QmQiVJ8qBozDHx9vjYgpo7jtWDJ328gxumVKBffZnDX25p",
+    "QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN",
   "src/workers/ipfs/node_modules":
-    "QmdxPQrAS1tJQDPiZhkcqdB4ToUSpoYJEKUFqivvoNHGmv",
+    "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
   "src/workers/ipfs/src": "QmcUgQ5FbyuVJ4bUNd4CtR47xTPHoTxovTv6d3x49HMJHH",
-  "src/workers/ipfs": "QmcLGBJgwtoc8sMWygnp7YM4T4p46YjayoKnGjWYbBgrwQ",
-  "src/workers": "QmZA3dMoApJ6MX24nUkPE9TZr3tEFwSA35g2moVhWGMX8R",
-  "src": "QmNj7MSndyDjsMNL9f9omntqrG4T15YRZY5hcwHQ7ndghk",
-  "": "QmaAMZHXvPFzWJYt9ZntExuPPbHrK3xag1zqK88fPZ4C7u",
+  "src/workers/ipfs": "QmfSRhhNPhpigNs2jqTVg6sCihn2hQQwsX42pdw136Nzgk",
+  "src/workers": "QmW4vjhB9wx13JuS6hgS8jb5eRmxe82re5hX9vcxWRooGK",
+  "src": "QmVwu3m9smWpY6hJbdCDxreZ7K7CxPBVMH25UGfMa2Q1Zq",
+  "": "QmXLUCorMXK3ZhB4ugRSE3D3Pb4fGdaJrZyzogzUiKSPU9",
   "foo": "bar",
 };

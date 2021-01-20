@@ -34,10 +34,7 @@ async function handleRequest(request: Request) {
     if (
       contentPath.length > 53 && contentPath.slice(0, 52) === `/ipfs/${cid}`
     ) {
-      const file = contentPath.slice(53) || "index.html";
-
       //@ts-ignore
-      const cid2 = files[file]!;
 
       // const response = await fetch(
       //   `https://code.zed.vision/ipfs/${cid2}/`,
@@ -47,32 +44,20 @@ async function handleRequest(request: Request) {
 
       // return resp;
 
-      const req = new Request(`https://code.zed.vision/ipfs/${cid2}`);
-      response = await cache.match(req);
+      response = await cache.match(request);
 
       if (response) return await alterHeaders(response, pathname);
       else {
+        const file = contentPath.slice(53) || "index.html";
+
+        //@ts-ignore
+        const cid2 = files[file]!;
         // return text("no cache");
-        const random5GatewaysFetch = publicIpfsGW.sort(() =>
-          0.5 - Math.random()
-        ).slice(0, 5).map((gw: string) =>
-          gw.replace("/ipfs/:hash", `/ipfs/${cid2}/`)
-        )
-          .map((x: string) =>
-            fetch(x).then((res) =>
-              res.status === 200 ? res : (() => {
-                res.arrayBuffer();
-                throw new Error("Not found");
-              })()
-            )
-          );
 
-        response = await raceToSuccess(random5GatewaysFetch);
-
-        if (response === undefined) return text("error");
+        const response = await fetch(`https://zed.vision/ipfs/${cid}`);
 
         const resp = await alterHeaders(response, pathname);
-        await cache.put(req, resp.clone());
+        await cache.put(request, resp.clone());
         return resp;
       }
     }
