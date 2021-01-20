@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/ipfs",
-  "version": "11.10.10",
+  "version": "11.10.11",
   "sideEffects": false,
   "files": [
     "*/*"
