@@ -48,7 +48,7 @@ export const sendSignal = async (signal, data) => {
     const { pathname } = new URL(signal);
 
     await fetch(
-      `https://zed.vision/signal/?cid=${dataCid}&signal=${pathname}`,
+      `https://zed.vision/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`,
     );
 
     // const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
