@@ -330,7 +330,7 @@ added QmZpg8VY2dzzzKjr547W48fS1fPLEkrit6CivrCtvLvkeY code/src/templates.js
 added QmVRuceYLB6ytYLYanLTZ2dxVJCdVH9VttrjSEj2jDMn2m code/src/transpile.js
 added QmY7WStUTGSpEKwvWxk22aSosFZJm3SKsufcWMt21FPmRg code/src/versions.js
 added QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68 code/src/workBox.js
-added QmX9iB6mT42EZrpnp1aC7Z8D7Z5vgerJNyqEYRVHEhCF5B code/src/workers/files.umd.js
+added QmPjTBF3uotqkXvAVtTUzgZb5DBa9T1rGaprMuJq6yb9pU code/src/workers/files.umd.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/src/workers/ipfs/dist/gateways.js
@@ -368,7 +368,7 @@ added QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo code/src/workers/ipfs/src/r
 added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/src/workers/ipfs/tsconfig.json
 added QmX3XZKpsQcDGVY58j8ojS4F89bDEp3vBzKgrTWgoruttV code/src/workers/ipfsWorker.js
 added QmTcSv4DXa6USZDdqotYWUdEhRB8voN9hrDdSjsPAvWgjq code/src/workers/shasums.umd.js
-added QmeTphWqF5NAo7nwGgvVU7hkhp6Sok1M1NxZC3MZmdUnuB code/src/workers/sw.js
+added QmdLDSTRtafTodhK1YDaPgqnwMNf7bUiUPk7BKL59DSanG code/src/workers/sw.js
 added Qmev8yJdXxob29yKNvM3kJ5R19ESSoewmrGKr7xWffZDaZ code/src/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/src/workers/tsconfig.json
 added QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY code/tsconfig.json
@@ -531,6 +531,6 @@ added QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN code/src/workers/ipfs/node_
 added QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8 code/src/workers/ipfs/node_modules
 added QmXwwQWFjGECDW8qa5PwTzybTszbzz8cCGJpzfj1vhVXpK code/src/workers/ipfs/src
 added QmPSoY2ob6DEkHQEShFnE2hKf1QX6GYZR65iwpjkdkcpXJ code/src/workers/ipfs
-added QmScvNzxUjk1gtuV9SAxCMXXYZSaHugwRDa5yp1ZH38rJV code/src/workers
-added QmRTn9eRhAVLQ7Jp8LF38m4AuAzmu2MmVWEryCQy6oNmj3 code/src
-added QmTVm7KX6bKX4c5u7tycD61bcCZx36eJDNUXiiM9JoXRQt code
+added Qmc9xzvJisvMQQ5YzrXTe2J68M1bRfgGJiLWaQMM6huAXm code/src/workers
+added QmdT2UUQyu4EF9zywQDZRKVzqFYYoe26G2DnaU41pV6Hfv code/src
+added QmdEfQnYvKsBapMXCSDMnVtNMozBSkxJsoLU2W8ooaxBLt code
