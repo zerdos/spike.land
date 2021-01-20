@@ -607,7 +607,7 @@ export const shasums = {
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
-    "7dd41df4647d5b3692b68e74472607ce166c3b123ea315fd3445918c6d3d7a8a",
+    "64df1fb712ea653b59c0e831d339e8bcb6dbb9f0e24cab092c71fccba0570ee4",
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/ipfs/package.json":

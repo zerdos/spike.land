@@ -292,7 +292,7 @@
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {
-        "version": "7dd41df4647d5b3692b68e74472607ce166c3b123ea315fd3445918c6d3d7a8a",
+        "version": "64df1fb712ea653b59c0e831d339e8bcb6dbb9f0e24cab092c71fccba0570ee4",
         "signature": "1a3f443a1e5252a67cb9936384000e79fe880395c49cf121a22bed1e332ab287",
         "affectsGlobalScope": false
       },
