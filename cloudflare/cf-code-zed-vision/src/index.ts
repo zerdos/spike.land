@@ -30,7 +30,9 @@ async function handleRequest(request: Request) {
   if (contentPath.slice(0, 6) === "/ipfs/") {
     const cache = caches.default;
 
-    let response: Response | undefined;
+    let response = await cache.match(request);
+
+    if (response) return await alterHeaders(response, pathname);
 
     if (
       contentPath.slice(0, 52) === `/ipfs/${cid}`
