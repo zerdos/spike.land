@@ -136,14 +136,20 @@ async function alterHeaders(response: Response, pathname: string) {
       "content-type",
       "text/javascript;charset=UTF-8",
     );
-  }
-  if (pathname.endsWith(".css")) {
+  } else if (pathname.endsWith(".css")) {
     resp.headers.delete("content-type");
     resp.headers.set(
       "content-type",
       "text/css;charset=UTF-8",
     );
+  } else if (pathname.indexOf(".") === -1) {
+    resp.headers.delete("content-type"),
+      resp.headers.set(
+        "content-type",
+        "text/html;charset=UTF-8",
+      );
   }
+
   return new Response(arrBuff, {
     headers: resp.headers,
   });
