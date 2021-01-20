@@ -1339,9 +1339,9 @@
     tslib "~2.0.1"
 
 "@grpc/grpc-js@^1.1.8":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.2.3.tgz#35dcbca3cb7415ef5ac6e73d44080ebcb44a4be5"
-  integrity sha512-hMjS4/TiGFtvMxjmM3mgXCw6VIGeI0EWTNzdcV6R+qqCh33dLDcK1wVceAABXKZ+Fia1nETU49RBesOiukQjGA==
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-1.2.4.tgz#04f0bbefb2636296d17e821f3d52152fbe2f6989"
+  integrity sha512-z+EI20HYHLd3/uERtwOqP8Q4EPhGbz5RKUpiyo6xPWfR3pcjpf8sfNvY9XytDQ4xo1wNz7NqH1kh2UBonwzbfg==
   dependencies:
     "@types/node" "^12.12.47"
     google-auth-library "^6.1.1"
@@ -2993,9 +2993,9 @@
   integrity sha512-g+f/qj/cNcqKkc3tFqlXOYjrmZA+jNBiDzbP3kH+B+otKFqAdPgVTGP1IeKRdMml/aE69as5S4FqtxAbl+LaMw==
 
 "@types/node@^12.12.47":
-  version "12.19.14"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.14.tgz#59e5029a3c2aea34f68b717955381692fd47cafb"
-  integrity sha512-2U9uLN46+7dv9PiS8VQJcHhuoOjiDPZOLAt0WuA1EanEknIMae+2QbMhayF7cgGqjvRVIfNpt+6jLPczJZFiRw==
+  version "12.19.15"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.19.15.tgz#0de7e978fb43db62da369db18ea088a63673c182"
+  integrity sha512-lowukE3GUI+VSYSu6VcBXl14d61Rp5hA1D+61r16qnwC0lYNSqdxcvRh0pswejorHfS+HgwBasM8jLXz0/aOsw==
 
 "@types/node@^13.7.0":
   version "13.13.40"
@@ -11400,9 +11400,9 @@ it-map@^1.0.2, it-map@^1.0.4:
   integrity sha512-LZgYdb89XMo8cFUp6jF0cn5j3gF7wcZnKRVFS3qHHn0bPB2rpToh2vIkTBKduZLZxRRjWx1VW/udd98x+j2ulg==
 
 it-multipart@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/it-multipart/-/it-multipart-1.0.5.tgz#74191fd45fab2636349f6535d3edea3a17526e73"
-  integrity sha512-HW0/ycdwqM1Xz1cwkBUwmU2HTxrJrUdVZBIgX5/fNzEjIgbnL3oZUysG2NeKNbIA0vt4wnqLK6fAps/nvQ0AbA==
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/it-multipart/-/it-multipart-1.0.6.tgz#afe6722932e11e87108edc26f10d703410207948"
+  integrity sha512-+hIfEx0zev3EiXwMfaDWzmj3STasVriq7pvFzNU7/saN8mR+A31/TzLGAnreeSEWCz4e3/enxU/ndk67Gsbong==
   dependencies:
     buffer "^5.5.0"
     buffer-indexof "^1.1.1"
@@ -11416,9 +11416,9 @@ it-pair@^1.0.0:
     get-iterator "^1.0.2"
 
 it-parallel-batch@^1.0.3:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/it-parallel-batch/-/it-parallel-batch-1.0.6.tgz#680aa9fe15002c6d00606a577e45f6211ea70f5e"
-  integrity sha512-ym2o1bZHZAl2euR79ojKsvVJt77DGQrmSTgDf+g3ERF/Agp2+VI9VM3ikQ9T1BBdgbSIylPeatNGMIyZgz7J7g==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/it-parallel-batch/-/it-parallel-batch-1.0.7.tgz#cd4a8e82940285497bb35114ab3f0d7ce1738582"
+  integrity sha512-7yySu14TSAEhTBboPi2AarxA2L/CDv8kasd8xqZPgbZ0UMO60MCMChiPK+qPT7tA2yqyHo88MZZOZ8MMCQ32tA==
   dependencies:
     it-batch "^1.0.6"
 
