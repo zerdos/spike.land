@@ -38,7 +38,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
-  log("request", { searchParams, pathname, country, colo });
+  await log("request", { searchParams, pathname, country, colo });
   if (request.method === "GET" && psk && psk == API_KEY) {
     return handleAdmin(request, searchParams, pathname, SHAKV);
   } else if (request.method === "GET") {
@@ -51,7 +51,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       const key = searchParams.get("key")
 
       if (cid.length===46 && signal.length ===8) {
-        await SIGNALS.put(signal, cid);
+        await SIGNALS.put(signal, cid,    { expirationTtl: 86400 * 7 },);
         return json({success: true})
       }
       if (key) {

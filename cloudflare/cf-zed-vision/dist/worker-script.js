@@ -341,7 +341,7 @@ async function handleCloudRequest(request) {
   const url = new URL(request.url);
   const { searchParams, pathname } = url;
   const psk = String(request.headers.get("API_KEY") || "");
-  log("request", {
+  await log("request", {
     searchParams,
     pathname,
     country,
@@ -358,7 +358,9 @@ async function handleCloudRequest(request) {
       const signal = searchParams.get("signal");
       const key = searchParams.get("key");
       if (cid1.length === 46 && signal.length === 8) {
-        await SIGNALS.put(signal, cid1);
+        await SIGNALS.put(signal, cid1, {
+          expirationTtl: 86400 * 7,
+        });
         return json({
           success: true,
         });
