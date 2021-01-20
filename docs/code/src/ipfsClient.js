@@ -3,7 +3,6 @@ import {
   CID,
   fromHexString,
   IpfsClient,
-  multihashes,
   raceToSuccess,
   uint8ArrayConcat,
   uint8ArrayToString,
@@ -37,8 +36,8 @@ if (typeof SharedWorker !== "undefined") {
 
 export const ipfsClient = IpfsClient.from(port);
 
-export const ipfsCat = async (cid, options) => {
-  const res = ipfsClient.cat(cid, options);
+export const ipfsCat = async (cid) => {
+  const res = ipfsClient.cat(cid);
 
   const result = uint8ArrayConcat(
     await all(res),
@@ -52,5 +51,4 @@ export { all };
 export { uint8ArrayConcat };
 export { uint8ArrayToString };
 export { raceToSuccess };
-export { multihashes };
 export { fromHexString };
