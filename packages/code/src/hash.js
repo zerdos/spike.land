@@ -100,15 +100,22 @@ export async function fetchSignal(
 
       console.log(`https://zed.vision/signal?signal=${signal}`);
 
-      const resData = fetch(`https://zed.vision/signal?signal=${signal}`).then(
+      const cid = fetch(`https://zed.vision/signal?signal=${signal}`).then(
         (x) => x.text(),
       );
-      if (resData === "404") {
+
+      if (cid === "404") {
         await wait(Math.random() * 2000);
-        fetchSignal(signal, retry - 1);
+        return fetchSignal(signal, retry - 1);
       }
 
-      log(`${resCID} downloaded - ${resData}`);
+      log(`${cid} is available`);
+
+      const resData = fetch(`https://code.zed.vision/ipfs/${cid}`).then((x) =>
+        x()
+      );
+
+      log(`${cid} downloaded - ${resData}`);
       return async () => parse(resData);
     } catch (e) {
       await wait(Math.random() * 2000);
