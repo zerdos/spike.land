@@ -121,16 +121,20 @@ async function handleRequest(request: Request) {
   return text(`<!doctype html>
   <html>
   <head>
-    <script type="text/javascript">
-    <script src="https://code.zed.vision/ipfs/${
+  <script src="https://code.zed.vision/ipfs/${
     files["src/workers/files.umd.js"]
   }"></script>
-    window.location = "/ipfs/${cid}/";
-    </script>
+
   </head>
   <body>
     <h1> Code....
     </h1>
+    <script type="text/javascript">
+    addEventListener("load", ()=>{
+      window.location = "/ipfs/${cid}/";
+    });
+      </script>
+  
   </body>
   </html>`);
 }
