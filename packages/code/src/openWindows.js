@@ -1,8 +1,8 @@
 import { workBox } from "./workBox.js";
 
-export function openWindows() {
+export async function openWindows() {
   workBox();
-  const { WindowManager } = import(
+  const { WindowManager } = await import(
     "../node_legacy/simple-window-manager.es.js"
   );
   const wm = new WindowManager({ backgroundWindow: "green" });

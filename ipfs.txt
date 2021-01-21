@@ -253,7 +253,7 @@ added Qme3eproEVUGrmqhWou5NzUVqzv8iWg7cUwHPPfTjCTZ4t code/src/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/src/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/src/importScript.js
 added QmTjjhptV5UYnbKqN8HtGfuskZWiUz252ycqBbfwZaSbFk code/src/ipfsClient.js
-added QmR8npR2khQ19DDN2rSzSEdgHtTDa64Bs56ZF5LM55pm6B code/src/openWindows.js
+added QmaAwoa2pGbqtMGv8tpgCpD2EfvvjPnKS8H7HXmjge1z3M code/src/openWindows.js
 added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/src/refs.d.ts
 added QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu code/src/renderPreviewWindow.js
 added QmbTohLR8xF5ytkhpMNYuXeBw5LjHpaTPPm69ELkspkNy1 code/src/sendSignalToQrCode.js
@@ -329,7 +329,7 @@ added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
 added QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix code/src/templates.js
 added QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp code/src/transpile.js
 added QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68 code/src/workBox.js
-added QmaKsY25UBvm3Sp5jaamyndwjSfaBtEtqaJ3CbJksrhrG7 code/src/workers/files.umd.js
+added QmbWB3Gq86ii9YdJjaWthPJ3pxc3ts4kfaKWCKRP85Y7Jh code/src/workers/files.umd.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/src/workers/ipfs/dist/gateways.js
@@ -786,6 +786,6 @@ added QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN code/src/workers/ipfs/node_
 added QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ code/src/workers/ipfs/node_modules
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmZiN8p432yhQcYZWqiAGXsLVzFatk7ijmGuWq2otrk99s code/src/workers/ipfs
-added QmaPRMuiwfTjaPeSCwrPK2GrkvjTyFPxmRUhZAsPmWFike code/src/workers
-added QmNR5hLaQNMKB8KYv5d6G2u7XQdVovNgnyEkCADceZe442 code/src
-added QmUJEW35w9LoyzgaaUkvJjWLLnkkVAL1RYnfaWiYmM1jER code
+added QmdJc1ca5KDAxbpmAzSPTVyJHycBWDS6HkpRnQEDvzLwT1 code/src/workers
+added QmebNQzAKYo25vne1gufbQ1N9EgctQww6fWn7V9vGY9X7k code/src
+added QmPeSjTpSYTwQX64qx1ZLHiraiUv778UWda9UphGBLVwNn code
