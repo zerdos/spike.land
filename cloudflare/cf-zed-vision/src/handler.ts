@@ -235,9 +235,9 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         //https://ipfs.github.io/public-gateway-checker/gateways.json
         const random5GatewaysFetch = publicIpfsGateways.sort(() =>
           0.5 - Math.random()
-        ).slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", pathname))
+        ).slice(0, 8).map((gw: string) => gw.replace("/ipfs/:hash", pathname))
           .map((
-            x,
+            x: string
           ) =>
             fetch(x).then((res) =>
               res.status === 200 ? res : (() => {

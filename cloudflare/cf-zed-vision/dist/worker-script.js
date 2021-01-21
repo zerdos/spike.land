@@ -519,7 +519,7 @@ async function handleCloudRequest(request) {
       if (!response) {
         const random5GatewaysFetch = publicIpfsGateways.sort(() =>
           0.5 - Math.random()
-        ).slice(0, 5).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
+        ).slice(0, 8).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
           x,
         ) =>
           fetch(x).then((res) =>
