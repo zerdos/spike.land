@@ -98,12 +98,14 @@ export async function fetchSignal(
 
       console.log(`https://zed.vision/signal?signal=${smallSignal}`);
 
-      const cid = fetch(`https://zed.vision/signal?signal=${smallSignal}`).then(
+      const cid = await fetch(
+        `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math.random()}`,
+      ).then(
         (x) => x.text(),
       );
 
       console.log(cid);
-      if (cid === "404") {
+      if (String(cid) === "404") {
         await wait(Math.random() * 4000);
         return fetchSignal(signal, retry - 1);
       }
