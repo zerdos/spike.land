@@ -108,12 +108,13 @@ export async function edit(name) {
   });
 
   const projectSha = await sha256(project);
+  await shaDB.put(projectSha, project);
 
   await addNewProject(name, projectSha);
 
   console.log("done");
 
-  //  location.href = "https://code.zed.vision";
+  location.href = "https://code.zed.vision";
 }
 
 /**
