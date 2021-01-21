@@ -461,7 +461,7 @@ export const files = {
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
-  "src/codeLoader.js": "QmSDHAYaYTWB5Vgc4wfWeP591VgLykibvQMe9M3p7BbfSB",
+  "src/codeLoader.js": "QmcRnnjMVKXzMZ7MLGMKwC4tKve3BhV3kqFPR8gtBwscxe",
   "src/data.js": "QmZEe5w15U5dkXp5WgQfYzn4ThC1NPq7mY3USx5STuYj4g",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -485,7 +485,7 @@ export const files = {
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "src/ipfsClient.js": "QmTjjhptV5UYnbKqN8HtGfuskZWiUz252ycqBbfwZaSbFk",
-  "src/openWindows.js": "QmaAwoa2pGbqtMGv8tpgCpD2EfvvjPnKS8H7HXmjge1z3M",
+  "src/openWindows.js": "QmaFJ2syAPAnym6TDDZ4yXHJVBTZrcNtE4crhw2QnA5Wqn",
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
     "QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu",
@@ -617,7 +617,7 @@ export const files = {
   "src/templates.js": "QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmdjKnuP4B3brKnPfJ7K23CViTDUJjxYzprf4SMejoXvXq",
+  "src/workers/files.umd.js": "QmPbSdEb462bggA2XBxVfUdgc88oqa2b8ZpZLKufCvzLNw",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -1507,8 +1507,8 @@ export const files = {
     "QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmZiN8p432yhQcYZWqiAGXsLVzFatk7ijmGuWq2otrk99s",
-  "src/workers": "QmSJJN2hM9cu5YTMBMBAevWQM97Y5k8cuJseBdiia7zb1H",
-  "src": "QmX4z8yt49PPcPgArJWJezCPu2QtoSP8raHJhUSmuGNnpi",
-  "": "QmccRCpFuKFx1ktzBpJKKRLPN7RNXAAQPeTevKFFF59foN",
+  "src/workers": "Qmbkv78kUiYryLRQtNG1ZyjLQtJEnW3uKDZwnM8bX3cDiE",
+  "src": "QmPgq81c9vEbWhKZ8gwZKHWH3WT8fP8Q8McGAvp8qPERVp",
+  "": "QmW4r368Xpks4YsdLaJhSEBwy5Ctc8SHrLSNUNpGHroJHx",
   "foo": "bar",
 };

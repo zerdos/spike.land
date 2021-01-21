@@ -21,23 +21,11 @@ export async function openWindows() {
     },
   );
 
-  const isMobile = () => {
-    if (typeof window === "undefined") {
-      return false;
-    }
-
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-      .test(
-        window.navigator.userAgent,
-      );
-  };
-
   win.content.innerHTML =
     `<div style="min-height: 700px;  min-width: 600px; height: ${
       isMobile() ? "2000px" : "100%"
     }; width:100%; display: block;" id="editor"></div>`;
 
-  console.log("Runner");
   if (!isMobile()) {
     try {
       const element = window.document.querySelector(
@@ -52,4 +40,15 @@ export async function openWindows() {
       console.error({ e });
     }
   }
+}
+
+function isMobile() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+    .test(
+      window.navigator.userAgent,
+    );
 }
