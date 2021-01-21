@@ -257,7 +257,7 @@ added QmTjjhptV5UYnbKqN8HtGfuskZWiUz252ycqBbfwZaSbFk code/src/ipfsClient.js
 added QmXwq3AHyeNWrdG2WrVzkaujrJZzzJtyxaHAdRivSrjoKU code/src/openWindows.js
 added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/src/refs.d.ts
 added QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu code/src/renderPreviewWindow.js
-added QmZDvkqx1TGBHvYEAvJqXVX3SV7wox2LYykZQqJvErtZDZ code/src/sendSignalToQrCode.js
+added QmRPVz9SunVXAHE9aVnYTbUEbpU9iKyjVJntyf3ZamuG3b code/src/sendSignalToQrCode.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/src/shadb/dist/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/src/shadb/dist/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/src/shadb/dist/diffChars.d.ts
@@ -329,7 +329,7 @@ added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
 added QmQZHdckLmmYq3BPJNUzv7akszJzB9EYr2LRa5xtSLigqH code/src/templates.js
 added QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp code/src/transpile.js
 added QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68 code/src/workBox.js
-added Qmc8XwL3fDZPke6HeZMbpVNmRgJSTv9NP6skFKqCaUp2zP code/src/workers/files.umd.js
+added QmVXtDcdVYygz2xGnXcaHeNYENxYiy1YDuWQdTS7FsZHX9 code/src/workers/files.umd.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/src/workers/ipfs/dist/gateways.js
@@ -504,6 +504,6 @@ added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/src/workers/ipfs/dist
 added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_legacy
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF code/src/workers/ipfs
-added Qmd5JhXJKv9D7qVRubKVQCPSmPLFERhjADbHp4TnYAHACa code/src/workers
-added QmZqzkMXkVBKBCSaUYLVBchHnV6Nfv9JSSVAwaeYVxgFB4 code/src
-added QmSowWzSvxpg4vF1Rep9VqTBCya3DwYCxm9d6GQmWAzzdG code
+added QmQ5bcXWEfr7F9CKfuFEnDZBwi6yFVTmj5Hg2G6zgQHHzb code/src/workers
+added QmXSKvGCcuiLEX8Zbmwfp8g7nf1xsRHqeASNy8uSBNcisw code/src
+added QmaDrd2weYN5Lg6DDwYkQMneWL6ZLi8twawhnX7Sk6yHTw code

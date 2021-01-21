@@ -118,6 +118,9 @@ async function handleRequest(request: Request) {
     await cache.put(request, resp.clone());
     return resp;
   }
+  if (pathname === `/${cid}.js`) {
+    return js(`export const files = JSON.parse("${JSON.stringify(files)}")`);
+  }
   return text(`<!doctype html>
   <html>
   <head>
