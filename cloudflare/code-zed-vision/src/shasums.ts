@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "aa416f99b34686b2091d87d721cfedf4f5e1403ed16773e88859d5efe48bdbe4",
+    "cc6929476c34a365c049ffd1237cbc266994f689cad87c45bcbd3c7faef2985c",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -577,7 +577,7 @@ export const shasums = {
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
-    "809801191505a647a8415dc12aa4b77c94ba04830c4d9d513bf9d0248f9ccfbe",
+    "52e7d32be8224944f7b5a85172d7651800a3b280fc6bf2157dd55d616827256e",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "952d5b067bd16d1685a2ab6e909227d13eeb23ec39ad42b13103de36e8ac74f9",
   "src/workers/files.umd.js":
-    "ed6463cb97acd2a6fae206dfbe46915570b32a48322c74422757fbdef90259ce",
+    "5367d6991c5e695ac46883748c21d774958f92766fa764731e58816d228b09d5",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":

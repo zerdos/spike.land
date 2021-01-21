@@ -45,7 +45,7 @@ async function addNewProject(projectName, hash) {
   const projectId = v4();
   const updated = {
     ...userData,
-    project: {
+    projects: {
       ...userData.projects,
       [projectName]: {
         projectId,
