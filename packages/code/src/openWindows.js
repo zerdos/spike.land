@@ -23,7 +23,7 @@ export async function openWindows() {
 
   win.content.innerHTML =
     `<div style="min-height: 20px;  min-width: 600px; height: ${
-      isMobile() ? "2000px" : "calc(100% - 22px);"
+      isMobile() ? "2000px" : "calc(100% - 25px);"
     }; width:100%; display: block;" id="editor"></div>`;
 
   if (!isMobile()) {
