@@ -1,8 +1,8 @@
 rm -rf ./packages/code/src/workers/files.umd.js
-ipfs add -r packages/code > ipfs.txt
+ipfs add -r --ignore=node_modules packages/code > ipfs.txt
 cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "globalThis.files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/src/workers/files.umd.js
 
-find ./packages/code -type f -exec sha256sum {} \; | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"foo\":\"bar\" }"}' > cloudflare/cf-code-zed-vision/src/shasums.ts;
+find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"foo\":\"bar\" }"}' > cloudflare/code-zed-vision/src/shasums.ts;
 
 CID=$(ipfs add -r ./packages/code -Q) 
 URL="http://[::1]:8080/ipfs/$CID"
@@ -15,9 +15,9 @@ URL="http://[::1]:8080/ipfs/$CID"
 # rm -rf docs/code/$(cat code.CID)
 # mkdir -p docs/code
 # cp -ar packages/code docs/code/$CID
-echo "export const cid = '$CID';" > cloudflare/cf-zed-vision/src/cid.ts
-echo "export const cid = '$CID';" > cloudflare/cf-code-zed-vision/src/cid.ts
-# echo  $(CID=$CID node -pe 'JSON.stringify({"cid": process.env["CID"]})') > cloudflare/cf-code-zed-vision/src/ipfs.json
+echo "export const cid = '$CID';" > cloudflare/zed-vision/src/cid.ts
+echo "export const cid = '$CID';" > cloudflare/code-zed-vision/src/cid.ts
+# echo  $(CID=$CID node -pe 'JSON.stringify({"cid": process.env["CID"]})') > cloudflare/code-zed-vision/src/ipfs.json
 
 
 
@@ -31,13 +31,12 @@ echo $URL
 # ipfs add -r packages/code > files.txt
 
 # | awk '{print "echo " $2 " > "$3 ";"}' >cids/commands.sh
-ipfs add -r packages/code > ipfs.txt
-cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/cf-code-zed-vision/src/files.ts
+cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/code-zed-vision/src/files.ts
 
 # cp -r packages/code cids/code
 # cd cids && sh comma/nds.sh
 
-#################################cloudflare/cf-code-zed-vision
+#################################cloudflare/code-zed-vision
 echo #################################### 
  curl -X PUT "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/7545e99c94fd6ff43cc0591bab13cbe1" \
      -H "Authorization: Bearer $BBTOKEN" \

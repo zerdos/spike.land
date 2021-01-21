@@ -1,6 +1,0 @@
-{
-    "extends": "../../tsconfig",
-    "compilerOptions": {
-        "lib": ["WebWorker", "WebWorker.ImportScripts", "ES2019","ES2019.Object", "ES2019.Array", "ES2018.AsyncGenerator", "ES2016.Array.Include", "ES2017.TypedArrays", "ES2020.Symbol.WellKnown"]
-    }
-}

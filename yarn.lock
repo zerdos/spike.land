@@ -11345,6 +11345,11 @@ it-drain@^1.0.1, it-drain@^1.0.3:
   resolved "https://registry.yarnpkg.com/it-drain/-/it-drain-1.0.3.tgz#2a3e6e667f65f5711faedb40ffb5358927609e93"
   integrity sha512-KxwHBEpWW+0/EkGCOPR2MaHanvBW2A76tOC5CiitoJGLd8J56FxM6jJX3uow20v5qMidX5lnKgwH5oCIyYDszQ==
 
+it-filter@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/it-filter/-/it-filter-1.0.1.tgz#073517f0bf7dd23afadbdbe90d97e5247cc3b9c9"
+  integrity sha512-emxG4SEhhk9O2TCCTBd23NDjd5641e2hAwaGBQ5jZrUAtBTjkqit5FW423fSc1H+OOQk2wBiKU4y/JrEpkxFiA==
+
 it-first@^1.0.1, it-first@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/it-first/-/it-first-1.0.4.tgz#359f2bf216686ec7498827991dc7fd503283b32b"
@@ -11398,6 +11403,13 @@ it-map@^1.0.2, it-map@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/it-map/-/it-map-1.0.4.tgz#d413d2b0c3d8d9703df9e8a915ad96cb74a837ac"
   integrity sha512-LZgYdb89XMo8cFUp6jF0cn5j3gF7wcZnKRVFS3qHHn0bPB2rpToh2vIkTBKduZLZxRRjWx1VW/udd98x+j2ulg==
+
+it-merge@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/it-merge/-/it-merge-1.0.0.tgz#b12310933ee79381eca2288245572a4f8d252030"
+  integrity sha512-bs40LMjG/9JMOcJ7pgyGLoOeWBpw28ZoMmZIk/1NCa5SUxd4elXCuadAr2qSjPiHz2GxrqoWGFAP7SePGddatw==
+  dependencies:
+    it-pushable "^1.4.0"
 
 it-multipart@^1.0.5:
   version "1.0.6"
@@ -11462,6 +11474,11 @@ it-reader@^2.0.0, it-reader@^2.1.0:
   integrity sha512-hSysqWTO9Tlwc5EGjVf8JYZzw0D2FsxD/g+eNNWrez9zODxWt6QlN6JAMmycK72Mv4jHEKEXoyzUN4FYGmJaZw==
   dependencies:
     bl "^4.0.0"
+
+it-take@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/it-take/-/it-take-1.0.0.tgz#2319a39d91463b4bf6151289126aa44889eda903"
+  integrity sha512-zfr2iAtekTGhHVWzCqqqgDnHhmzdzfCW92L0GvbaSFlvc3n2Ep/sponzmlNl2Kg39N5Py+02v+Aypc+i2c+9og==
 
 it-tar@^1.2.2:
   version "1.2.2"
@@ -12198,9 +12215,9 @@ libp2p-interfaces@^0.8.0, libp2p-interfaces@^0.8.1:
     uint8arrays "^1.1.0"
 
 libp2p-kad-dht@^0.20.1:
-  version "0.20.4"
-  resolved "https://registry.yarnpkg.com/libp2p-kad-dht/-/libp2p-kad-dht-0.20.4.tgz#2a1f61e86a10942ef16a7553a91ff96e598c55a0"
-  integrity sha512-7v4+3bdcoGUyR/8Y5G/Ok9UyhuqghpXFZq5VpW3oph5WtR348snTaBTPkI/8xkQmBxvLIAMxuomp7cMrQaTUyw==
+  version "0.20.5"
+  resolved "https://registry.yarnpkg.com/libp2p-kad-dht/-/libp2p-kad-dht-0.20.5.tgz#452c305400375d48fbb0ef990ac8351b6dd7fc82"
+  integrity sha512-qyTKvlaQThmCsVi8fSodRoh/FsAUzACPM6SPcRuCGRZX0RePY9JNd5LvPvuC03j2g1IKPLl0W4JkUNXW8ejhbA==
   dependencies:
     abort-controller "^3.0.0"
     async "^2.6.2"
@@ -12369,9 +12386,9 @@ libp2p-websockets@^0.15.0:
     p-timeout "^3.2.0"
 
 libp2p@^0.30.0:
-  version "0.30.1"
-  resolved "https://registry.yarnpkg.com/libp2p/-/libp2p-0.30.1.tgz#9b0973e0c625343286e371ef3e25dd1386e1ba72"
-  integrity sha512-xqXkl79JIBwlZMbeNz5+/BFoxVXTnBZ7qYIqNzlnCohvDX8/nGrSujZ+s58RFlJ7bwAi7aq8fw/71CJWCBEBLg==
+  version "0.30.2"
+  resolved "https://registry.yarnpkg.com/libp2p/-/libp2p-0.30.2.tgz#6bfb128de9332fa9734bbe0d7713bf71817952a6"
+  integrity sha512-L+4A4hmn4MGgkvq26LMu168Z8DenCtSN3b8bomGQyDcJd5dXuTqWKWbpRiuEkBM+ZJs6/4shrSpQ+zU4EFk+DA==
   dependencies:
     abort-controller "^3.0.0"
     aggregate-error "^3.0.1"
@@ -12387,10 +12404,16 @@ libp2p@^0.30.0:
     ipfs-utils "^5.0.1"
     it-all "^1.0.1"
     it-buffer "^0.1.2"
+    it-drain "^1.0.3"
+    it-filter "^1.0.1"
+    it-first "^1.0.4"
     it-handshake "^1.0.1"
     it-length-prefixed "^3.0.1"
+    it-map "^1.0.4"
+    it-merge "1.0.0"
     it-pipe "^1.1.0"
     it-protocol-buffers "^0.2.0"
+    it-take "1.0.0"
     libp2p-crypto "^0.18.0"
     libp2p-interfaces "^0.8.1"
     libp2p-utils "^0.2.2"
