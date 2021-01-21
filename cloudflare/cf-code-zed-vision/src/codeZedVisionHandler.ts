@@ -56,9 +56,22 @@ async function handleRequest(request: Request) {
         if (content !== null) {
           response = new Response(content);
         } else {
-          response = await fetch(
-            `https://cf-ipfs.com/ipfs/${cid2}`,
-          );
+          const random5GatewaysFetch = publicIpfsGW.sort(() =>
+            0.5 - Math.random()
+          )
+            .slice(0, 5).map((gw: string) =>
+              gw.replace("/ipfs/:hash", contentPath)
+            )
+            .map((x: string) =>
+              fetch(x).then((res) =>
+                res.status === 200 ? res : (() => {
+                  res.arrayBuffer();
+                  throw new Error("Not found");
+                })()
+              )
+            );
+
+          response = await raceToSuccess(random5GatewaysFetch);
           const arrBuff = await response.clone().arrayBuffer();
           const shaSum = await sha256(arrBuff);
           //@ts-ignore
