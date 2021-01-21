@@ -38,8 +38,9 @@ if (typeof window !== "undefined") {
 
 export const ipfsClient = IpfsClient.from(port);
 
-export const ipfsCat = async (cid) => {
-  const res = ipfsClient.cat(cid);
+export const ipfsCat = async (cid, opts) => {
+  const options = opts || {};
+  const res = ipfsClient.cat(cid, options);
 
   const result = uint8ArrayConcat(
     await all(res),

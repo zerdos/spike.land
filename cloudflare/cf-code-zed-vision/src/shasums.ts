@@ -491,7 +491,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "41fdab4a374d840acf34fb7eecc80d29a3025ae11fdace61dc146c8e063aaa13",
+    "95cfc821d41d933682c827121aca9d47795565b502f31fe2de076d28202e63c5",
   "src/transpile.js":
     "21530fe943b02493178c7237a60d9b0fc6c5c2dc53b3be5c1d5feb68a1e8a824",
   "src/smart-monaco-editor/index.html":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "478dd8501e9b86a82b1f526f3856f06336ca1c798a3e27b7902712b19476be58",
+    "9729685ccdc5591f1b26868b75ca8e4ad89ec20ece186c7938549419010ffe8a",
   "src/workers/ipfs/package.json":
     "68befc4803295761c151a14712fae7721486df9f3a3e644322d921397a02eb1c",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
