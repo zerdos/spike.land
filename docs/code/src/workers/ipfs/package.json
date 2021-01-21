@@ -32,7 +32,6 @@
   },
   "gitHead": "4ce53f6c1ec82734658b26195f6410696b8d2d9b",
   "dependencies": {
-    "cids": "1.1.5",
     "esbuild": "0.8.33",
     "ipfs": "0.53.1",
     "ipfs-message-port-client": "0.4.5",

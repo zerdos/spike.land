@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "1bff84a05bb9694edfad205de9dc668714a90a12a32b1436b3cca7eefc2a385c",
+    "1d94bcfed5c8b64a37628a757fdb9d20354822a0b2147fb2f618403c59157d82",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -611,9 +611,9 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "ab4259fc801cfcc53a54abcb501b4cb79dce8257acedb7f3814061e7d78c5140",
+    "64b759a9dcb047badc514537ba5793a401a28228deccde921258d8715e201547",
   "src/workers/ipfs/package.json":
-    "96c1eb0a2a5c2ce2fbcb5dcb44bc1f69b7c6703de736ef053da193135e398655",
+    "e50983adcebe00215207f06aed1a62eaf9fb97c5f9097c0b0af1fb1c87b210f6",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
     "e3f13b47f43c2a39172f596d1a1fd95cdd5ebe66318753b9bfd71af6c2c1c78e",
   "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
@@ -1025,7 +1025,7 @@ export const shasums = {
   "src/workers/ipfs/src/gateways.js":
     "e66c53fa5e754c9ff898ecdcfb26244c2f8add2654d7122685cf96ae3e0e16fd",
   "src/workers/ipfs/src/ipfs.client.ts":
-    "138825c43aff6e77dea24862bc091e424a8211904dd792cc6bb98f667b6d81d8",
+    "e3b271b3ccc24a7e76047751bdae46d2135d4aa4aacb53bc89d9e6f27fa54a30",
   "src/workers/ipfs/src/ipfs.server.ts":
     "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "src/workers/sw.js":

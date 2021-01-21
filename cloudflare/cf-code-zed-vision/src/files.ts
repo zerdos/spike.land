@@ -617,7 +617,7 @@ export const files = {
   "src/templates.js": "QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmaBcxwQqkbeBqEaoAcwihTT85JbeM1xNtQZE6hPoUYrWX",
+  "src/workers/files.umd.js": "QmPkFpJnQw2sisxXW83DtgnQ5vF6QW9dxoRqwSap7Pxv4u",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -1021,11 +1021,11 @@ export const files = {
   "src/workers/ipfs/node_modules/uint8arrays/to-string.js":
     "QmVrsJ8sxzw72wdf5ve6ZaVmrAKMeQrXTFKKt6JJMk928J",
   "src/workers/ipfs/package.json":
-    "QmWKjbzEDYpnXTbykydkr4zUv6fsjc8RcC4aDNvzgmwVYo",
+    "QmesWtF6TRCQp43uXPZmrSjKANWKu6DCpPWmV3Xp8YAMTT",
   "src/workers/ipfs/src/gateways.js":
     "QmVGZy8bP96dMrzL4vTg7ppfpJVAFbtUZ1Go57fvsParbe",
   "src/workers/ipfs/src/ipfs.client.ts":
-    "QmcSXJzFcaCZvoWhxpyjLvuj3x7MiuHrMhWyU913cczjh5",
+    "QmPHeiaXEFPhPXsg2DpZkdb7NYp9GZ1MCarVFMRdg83Ada",
   "src/workers/ipfs/src/ipfs.server.ts":
     "QmdcUyYNDxR9fKZ6jfuRa6Uzb8vS6BJWiAGaQfUjpoVjrW",
   "src/workers/ipfs/src/ref.d.ts":
@@ -1505,10 +1505,10 @@ export const files = {
     "QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN",
   "src/workers/ipfs/node_modules":
     "QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ",
-  "src/workers/ipfs/src": "QmdR7MasU1f3ejMeArKqsZ9V7z59pZ6J4Mj5XgA7xbAt22",
-  "src/workers/ipfs": "QmPcuPXUWuPvPD5Q3kfPiPuShiLBkJRTaXA8ZrJVXJrVhU",
-  "src/workers": "QmWwP9x33xtvaK88Z4FWMqYGWcxZ4gXeWxrWMhmBPbujvz",
-  "src": "QmR4X54UbWchj2zmCE1SGAwjDFJhPiUEh6VWDjyvUFowq6",
-  "": "QmaTd4hDdwSLuZwBkuLUf3ftnaEwoTN3uKcZ1Y6RD6cjqE",
+  "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
+  "src/workers/ipfs": "QmaUkLUhLhJEGi4TUS4PWTQAoShFcud8S2s5iEJ9SmPnCb",
+  "src/workers": "QmTAebYJEbLkFMbgKSEchGZqYN3w5tupDoH9dvJTmDHvJt",
+  "src": "QmYTUU4eVAuV7GcAdKUNLKGMmF8z5sb5oo3CJK3zGZer2u",
+  "": "QmXww6ap4Thr1AYkgMFWBWsyUXRUyHRcBVMq9u8dWF8po3",
   "foo": "bar",
 };

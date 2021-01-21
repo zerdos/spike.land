@@ -329,7 +329,7 @@ added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
 added QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix code/src/templates.js
 added QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp code/src/transpile.js
 added QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68 code/src/workBox.js
-added QmaBcxwQqkbeBqEaoAcwihTT85JbeM1xNtQZE6hPoUYrWX code/src/workers/files.umd.js
+added QmPkFpJnQw2sisxXW83DtgnQ5vF6QW9dxoRqwSap7Pxv4u code/src/workers/files.umd.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/src/workers/ipfs/dist/gateways.js
@@ -531,9 +531,9 @@ added QmQP5bZHZbeEiHrn6HbVXEWXuThbqh7fMqBoHEvypQCaCg code/src/workers/ipfs/node_
 added QmSv8uLYAvhDAj8zBytYaGVFfo6G7pBbgCQyDffSowRiCf code/src/workers/ipfs/node_modules/uint8arrays/index.js
 added QmYt6PHciBJ8oVyt4jfMzRjrz8jR2H8wUaXJxc5f3wnaqf code/src/workers/ipfs/node_modules/uint8arrays/package.json
 added QmVrsJ8sxzw72wdf5ve6ZaVmrAKMeQrXTFKKt6JJMk928J code/src/workers/ipfs/node_modules/uint8arrays/to-string.js
-added QmWKjbzEDYpnXTbykydkr4zUv6fsjc8RcC4aDNvzgmwVYo code/src/workers/ipfs/package.json
+added QmesWtF6TRCQp43uXPZmrSjKANWKu6DCpPWmV3Xp8YAMTT code/src/workers/ipfs/package.json
 added QmVGZy8bP96dMrzL4vTg7ppfpJVAFbtUZ1Go57fvsParbe code/src/workers/ipfs/src/gateways.js
-added QmcSXJzFcaCZvoWhxpyjLvuj3x7MiuHrMhWyU913cczjh5 code/src/workers/ipfs/src/ipfs.client.ts
+added QmPHeiaXEFPhPXsg2DpZkdb7NYp9GZ1MCarVFMRdg83Ada code/src/workers/ipfs/src/ipfs.client.ts
 added QmdcUyYNDxR9fKZ6jfuRa6Uzb8vS6BJWiAGaQfUjpoVjrW code/src/workers/ipfs/src/ipfs.server.ts
 added QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo code/src/workers/ipfs/src/ref.d.ts
 added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/src/workers/ipfs/tsconfig.json
@@ -784,8 +784,8 @@ added QmNPbmCbsKfTDHgKJtRCsiR4mpzRE2PaMdWRsXijqstAwr code/src/workers/ipfs/node_
 added QmWCCvXXpTSh5kHfj3VyPtx9dTroDWWPVwTf3pu7doJaZx code/src/workers/ipfs/node_modules/uint8arrays/dist
 added QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN code/src/workers/ipfs/node_modules/uint8arrays
 added QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ code/src/workers/ipfs/node_modules
-added QmdR7MasU1f3ejMeArKqsZ9V7z59pZ6J4Mj5XgA7xbAt22 code/src/workers/ipfs/src
-added QmPcuPXUWuPvPD5Q3kfPiPuShiLBkJRTaXA8ZrJVXJrVhU code/src/workers/ipfs
-added QmWwP9x33xtvaK88Z4FWMqYGWcxZ4gXeWxrWMhmBPbujvz code/src/workers
-added QmR4X54UbWchj2zmCE1SGAwjDFJhPiUEh6VWDjyvUFowq6 code/src
-added QmaTd4hDdwSLuZwBkuLUf3ftnaEwoTN3uKcZ1Y6RD6cjqE code
+added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
+added QmaUkLUhLhJEGi4TUS4PWTQAoShFcud8S2s5iEJ9SmPnCb code/src/workers/ipfs
+added QmTAebYJEbLkFMbgKSEchGZqYN3w5tupDoH9dvJTmDHvJt code/src/workers
+added QmYTUU4eVAuV7GcAdKUNLKGMmF8z5sb5oo3CJK3zGZer2u code/src
+added QmXww6ap4Thr1AYkgMFWBWsyUXRUyHRcBVMq9u8dWF8po3 code
