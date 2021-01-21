@@ -80,7 +80,7 @@ export const Qr = () => {
       //   `return import("https://blog.zed.vision/code/src/hash.js")`,
       // )();
 
-      const getData = await fetchSignal(url, 35);
+      const getData = await fetchSignal(url, 7);
       setCubeState(0);
 
       Loader(side1.current!, 220);
