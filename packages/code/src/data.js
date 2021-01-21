@@ -100,8 +100,11 @@ export async function edit(name) {
   const hash = await sha256(appCode);
 
   await shaDB.put(hash, appCode);
+  const project = JSON.stringify({ code: hash, transpiled: "", html: url });
 
-  await addNewProject(name, hash);
+  const projectSha = await sha256(project);
+
+  await addNewProject(name, projectSha);
 
   console.log("done");
 

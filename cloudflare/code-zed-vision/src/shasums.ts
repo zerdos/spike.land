@@ -577,7 +577,7 @@ export const shasums = {
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
-    "ee79af2e7d86315cac6b167fbafee88e3418d2bfd642e5cfe5e951cd590a7c77",
+    "3caeabef9bb41695992e5734813c14bea4c8273f95e0e9423ff72600ebd33350",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "952d5b067bd16d1685a2ab6e909227d13eeb23ec39ad42b13103de36e8ac74f9",
   "src/workers/files.umd.js":
-    "52f8efb7a9de319b30e4249f0ebababdf4a1aa2db5a087f98fb1b7e1aca0dd0b",
+    "fb4cfd9d50f87e0fd9de62f44445a1735092d0f2f212a973c1c3d7090b32aa0f",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":
