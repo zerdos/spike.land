@@ -30,14 +30,14 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "44f91ba490f64cad329c1998157361fa118762e1dee65c3e8ce6469953c22fa4",
+    "90ac2ccaf2d7ca421520787900a325b678a2feaf050690afa29986212903c7d1",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "index.html":
-    "dd140232b4cea64dbf6a819d0d51f19009b2951854b02b7ce84b3d9765a7bd13",
+    "16324bfd54c576b0453762eef69bc3e81727e0a20ce0182ac7fd058ce6f0837b",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   ".vscode/setttings.json":
@@ -577,7 +577,7 @@ export const shasums = {
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
-    "c1ea69ad309faca39d4a0e85e1bb45be2463a8ff92ef7ae5051788e449eeeab3",
+    "bb6e7386f025c085b6305c7bcd097604669e45f2995e00f0e6fe7b94f4a0e60c",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1eb98dcef0ec83be9a7db4b324f01a9e3cdd524482a5fede505083e1dfac6215",
   "src/workers/files.umd.js":
-    "e0a0a8d9609cf5dd41a195a309b2a7248063d36883d880ce8a825f302b0bc84c",
+    "4ee42abff7ba273b4b9d8adb47e5207be3cf29f3005bf52e01b88161058921ab",
   "src/workers/ipfs/package.json":
     "68befc4803295761c151a14712fae7721486df9f3a3e644322d921397a02eb1c",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":

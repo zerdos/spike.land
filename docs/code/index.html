@@ -17,7 +17,7 @@
        /// it's likely that we have caching issues. So giving a push to it.
        /// 
         setTimeout(()=>{
-
+          
           if (!window.monaco) {
             forceCacheToLoad();
           }
@@ -27,6 +27,7 @@
     })
 
     function forceCacheToLoad(){
+      console.log("Cache Forcing");
          Object.keys(files).filter(x=>x.indexOf(".j")>-1).map(x=>fetch(x).catch(()=>fetch(`/ipfs/${files[x]}`)));
     }
 
