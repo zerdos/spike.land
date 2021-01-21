@@ -118,7 +118,7 @@ async function handleRequest(request: Request) {
     await cache.put(request, resp.clone());
     return resp;
   }
-  if (pathname === `/${cid}.js`) {
+  if (pathname === `/${cid}.starjs`) {
     return js(`export const files = JSON.parse("${JSON.stringify(files)}")`);
   }
   return text(`<!doctype html>
