@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "1d94bcfed5c8b64a37628a757fdb9d20354822a0b2147fb2f618403c59157d82",
+    "ec5f0cedb124c6983cdb83ef4c38bf159605b09c2f9dc99443bdd3db1670f8df",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -491,7 +491,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "9b60432a6814908615f3b07981db44ad614f62902765e40cb6f7e64b3ca97676",
+    "41fdab4a374d840acf34fb7eecc80d29a3025ae11fdace61dc146c8e063aaa13",
   "src/transpile.js":
     "21530fe943b02493178c7237a60d9b0fc6c5c2dc53b3be5c1d5feb68a1e8a824",
   "src/smart-monaco-editor/index.html":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "64b759a9dcb047badc514537ba5793a401a28228deccde921258d8715e201547",
+    "7ca66adfa6c42edf7e11189345fc8d4b9b8c321632554ba26f3dc0c4c23fdf03",
   "src/workers/ipfs/package.json":
     "e50983adcebe00215207f06aed1a62eaf9fb97c5f9097c0b0af1fb1c87b210f6",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
@@ -999,7 +999,7 @@ export const shasums = {
   "src/workers/ipfs/node_modules/uint8arrays/README.md":
     "d1c41a24417f250300dead589f8602117e64e37cba4f74c3c527d85064b28cfb",
   "src/workers/ipfs/dist/ipfs.client.js":
-    "a72ebff3f7a6404503860fb2d39b3b1c325d3dfbd8834eed510690e136c2cb65",
+    "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
   "src/workers/ipfs/dist/ipfs.server.js":
     "c3906575a0da7e93fcab6707e64cefaa04601097d39121e93559aebdb4e0247b",
   "src/workers/ipfs/dist/ipfs.server.d.ts":

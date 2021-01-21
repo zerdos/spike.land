@@ -1,6 +1,5 @@
 import {
   all,
-  CID,
   fromHexString,
   IpfsClient,
   raceToSuccess,
@@ -49,7 +48,6 @@ export const ipfsCat = async (cid) => {
   return resultStr;
 };
 
-export { CID };
 export { all };
 export { uint8ArrayConcat };
 export { uint8ArrayToString };
