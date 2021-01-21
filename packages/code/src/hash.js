@@ -112,9 +112,9 @@ export async function fetchSignal(
 
       log(`${cid} is available`);
 
-      const resData = fetch(`https://code.zed.vision/ipfs/${cid}`).then((x) =>
-        x()
-      );
+      const resData = await fetch(`https://code.zed.vision/ipfs/${cid}`).then((
+        x,
+      ) => x.text());
 
       log(`${cid} downloaded - ${resData}`);
       return async () => parse(resData);
