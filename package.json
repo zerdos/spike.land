@@ -18,7 +18,7 @@
   "scripts": {
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
     "start": "sh start.sh",
-    "push": "yarn start && ((yarn lerna run deploy &) || echo deployed) && yarn build && cp -ar packages/code docs/ && git add . && git commit -m pre-release && git push && git pull",
+    "push": "yarn start && yarn lerna run deploy && yarn build && cp -ar packages/code docs/ && git add . && git commit -m pre-release && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
     "pre:build": "yarn lerna run prebuild --parallel --since b",
     "build": "yarn pre:build && yarn lerna run build --parallel --since b",
