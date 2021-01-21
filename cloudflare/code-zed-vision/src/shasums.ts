@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "51a302ad932be230a4aa7f71a1c34c59ec99b0581eb9f1c7aaa0ed5ef642bf6a",
+    "3806474312a59d99b5686d8195085d6760c9805860eca416621eed86edeeed8b",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -43,7 +43,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "9e99df67af9668124e3105d6a41946a0964c5ec6e56054ff6c6322234f33349a",
+    "ed270c61c06f4b9ac6f1915de44af16a14f829e650701a7673488427586b09e2",
   "node_legacy/stringify.js":
     "b3e05d40408725c571660f7f1bfdb1b20fde769c5142f23273a95815b2ca5d01",
   "node_legacy/validate.js":
@@ -593,7 +593,7 @@ export const shasums = {
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "2af4d70af0183fd00b01a74525373bfddce6f49ad23d3c6e8b0bf16caebd0f1b",
   "src/emotion-react-renderer/package.json":
-    "57686dced36164268feabf2fb5ca5b29f34858025b235067d09ccbf6a325e957",
+    "a048e1d79f28745a2dba300222594decc9d2d5858ca6a24bfa219cf1a8b4330d",
   "src/emotion-react-renderer/tsconfig.json":
     "970e709dee7e1b7c5410feb805961be59bde3c521cdf5f60820cccd3fa085d00",
   "src/emotion-react-renderer/src/renderer.ts":
@@ -611,9 +611,9 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "571b7c5a2b92ecb74a586f81d311145a02261bbf613b72abac464091e0b8cf47",
+    "5425cf07e1e2d74f4aeaf02b2186ba55390ae8c47fb5bc08573f884eb6de956a",
   "src/workers/ipfs/package.json":
-    "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
+    "aeea94c87d8596c1b7ce0b3c848ac3d8e3b66cf495b2f56047113de409335722",
   "src/workers/ipfs/.gitignore":
     "dba27c31aad935787bb275c3e5e4e957708f15386de599eff1db476022cd7e4c",
   "src/workers/ipfs/dist/ipfs.client.js":

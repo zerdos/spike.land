@@ -118,6 +118,28 @@ async function handleRequest(request: Request) {
     await cache.put(request, resp.clone());
     return resp;
   }
+  if (pathname === "/clear") {
+    return new Response(
+      `<!doctype html>
+    <html>
+    <head>
+    </head>
+    <script type="text/javascript">
+    window.location = "/ipfs/${cid}/";
+    </script>
+    </html>`,
+      {
+        headers: {
+          "Clear-Site-Data": "*",
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "no-cache",
+          "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+          "Access-Control-Max-Age": "86400",
+          "Content-Type": "text/html;charset=UTF-8",
+        },
+      },
+    );
+  }
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
