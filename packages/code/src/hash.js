@@ -104,8 +104,9 @@ export async function fetchSignal(
         (x) => x.text(),
       );
 
+      console.log(cid);
       if (cid === "404") {
-        await wait(Math.random() * 2000);
+        await wait(Math.random() * 4000);
         return fetchSignal(signal, retry - 1);
       }
 
@@ -118,7 +119,7 @@ export async function fetchSignal(
       log(`${cid} downloaded - ${resData}`);
       return async () => parse(resData);
     } catch (e) {
-      await wait(Math.random() * 2000);
+      await wait(Math.random() * 4000);
 
       if (retry > 1) return fetchSignal(signal, retry - 1);
       throw new Error("no signal");
