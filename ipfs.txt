@@ -335,7 +335,7 @@ added QmYUzn9XSFiduCLmzj4Ewcn5GnxwPaDKYDGAxdakydncmg code/src/smart-monaco-edito
 added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/src/smart-monaco-editor/tsconfig.json
 added QmTvPhFvNDpBME8am5MbAXDBAijNHpx3F7Aq11BzdRRHB5 code/src/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
-added QmeNwyApHj4pyuBv7m17PkTyKTbm66dBAybTKQjb4qvn6q code/src/templates.js
+added QmYkDeqsmyfVhokhZPgjGLVu1AUc9bb44Y4MaN3bARNke3 code/src/templates.js
 added QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp code/src/transpile.js
 added QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68 code/src/workBox.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
@@ -518,5 +518,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF code/src/workers/ipfs
 added QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD code/src/workers
-added QmXftPKaV9GWX7HQiGk5q23JAfyLJsb8TcNjNV2yqEVyDn code/src
-added QmQvRBkdGKWBuAsbmy2QZBtknMiPXxk6hg9QNjJ94sfcGh code
+added QmQwbSvgBSQZ4PN5ZrNhxY9JukhuCU96BDcKFYQCFmCr7S code/src
+added QmesrfDyH7bNqbetSUuHjPWeax4cCnVcBJNzDK7ov2aPx3 code

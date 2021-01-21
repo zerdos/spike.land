@@ -62,7 +62,7 @@ export const getEditorHTML = () =>
 </head>
 <body>
   <script type="module">
-    import {edit} from "${location.href}src/data.js"
+    import {edit} from "${location.pathname}/src/data.js"
     try{
       edit("${location.pathname.slice(42, 52)}");
     }catch(error){

@@ -625,7 +625,7 @@ export const files = {
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
     "QmTvPhFvNDpBME8am5MbAXDBAijNHpx3F7Aq11BzdRRHB5",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
-  "src/templates.js": "QmeNwyApHj4pyuBv7m17PkTyKTbm66dBAybTKQjb4qvn6q",
+  "src/templates.js": "QmYkDeqsmyfVhokhZPgjGLVu1AUc9bb44Y4MaN3bARNke3",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
   "src/workers/ipfs/README.md":
@@ -962,7 +962,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
   "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
-  "src": "QmXftPKaV9GWX7HQiGk5q23JAfyLJsb8TcNjNV2yqEVyDn",
-  "": "QmQvRBkdGKWBuAsbmy2QZBtknMiPXxk6hg9QNjJ94sfcGh",
+  "src": "QmQwbSvgBSQZ4PN5ZrNhxY9JukhuCU96BDcKFYQCFmCr7S",
+  "": "QmesrfDyH7bNqbetSUuHjPWeax4cCnVcBJNzDK7ov2aPx3",
   "foo": "bar",
 };
