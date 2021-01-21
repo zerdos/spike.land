@@ -57,7 +57,7 @@ export const getEditorHTML = () =>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="https://zed.vision/zed-icon-big.png" />
 <title>Instant React Editor</title>
 </head>
 <body>

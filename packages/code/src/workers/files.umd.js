@@ -336,7 +336,7 @@ globalThis.files = {
 "src/smart-monaco-editor/tsconfig.json": "QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8",
 "src/smart-monaco-editor/tsconfig.tsbuildinfo": "QmTvPhFvNDpBME8am5MbAXDBAijNHpx3F7Aq11BzdRRHB5",
 "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
-"src/templates.js": "QmRhgZQrtrC1mtJTkRSWtBgzwqAD9PAvP3eeHcRZBycAko",
+"src/templates.js": "QmeNwyApHj4pyuBv7m17PkTyKTbm66dBAybTKQjb4qvn6q",
 "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
 "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
 "src/workers/ipfs/README.md": "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
@@ -519,6 +519,6 @@ globalThis.files = {
 "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
 "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
 "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
-"src": "QmS8SHnZ2YUULqMe1GqVPSEDT7yNn98Ay5pxQGM19rtBK1",
-"": "QmaLciZTZqyTBqJK2fC6iRxG3LVJTdisD3L91dzydQMdaP",
+"src": "QmSYVaJNqimGs2nAQjB2JBrma4D6E8GaSv2yS6Qcfghnc4",
+"": "QmeMkGeiYZjf4QJDjuCgnQ9JKWE4pX1Db2cHQsyAFsJMJG",
  "foo":"bar" }
