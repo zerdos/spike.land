@@ -266,7 +266,7 @@ added QmWyhyMT7B8vJWGm6kMXrXBhS7pgx4Dqv8TRepBqDxyW7e code/src/qrious/src/QRious.
 added QmaquwSn36sfzcn6seaTvR6YPhJoFVQvh9z9174tzTEjgi code/src/qrious/src/service/element/BrowserElementService.js
 added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/src/refs.d.ts
 added QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu code/src/renderPreviewWindow.js
-added QmcJroKVgYwZsXGh3a37nWXvaW761PkpGxH7v4sjn1SYm4 code/src/sendSignalToQrCode.js
+added QmXK2Z1ywfWEUiMigvAPLd9MUrL8xUpQeeuM4Ve7F3HMmv code/src/sendSignalToQrCode.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/src/shadb/dist/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/src/shadb/dist/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/src/shadb/dist/diffChars.d.ts
@@ -518,5 +518,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF code/src/workers/ipfs
 added QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD code/src/workers
-added QmSYVaJNqimGs2nAQjB2JBrma4D6E8GaSv2yS6Qcfghnc4 code/src
-added QmeMkGeiYZjf4QJDjuCgnQ9JKWE4pX1Db2cHQsyAFsJMJG code
+added QmXftPKaV9GWX7HQiGk5q23JAfyLJsb8TcNjNV2yqEVyDn code/src
+added QmQvRBkdGKWBuAsbmy2QZBtknMiPXxk6hg9QNjJ94sfcGh code

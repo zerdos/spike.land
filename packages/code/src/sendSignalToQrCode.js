@@ -39,7 +39,7 @@ export async function sendSignalToQrCode(rootUrl) {
 //     signal: signal,
 //     message: "hello",
 //     signals: {
-//       test: "sksjdhdohwodofhwqddddddw",
+//       test: "",
 //     },
 //   };
 //   const dataAsString = JSON.stringify(data);

@@ -267,7 +267,7 @@ globalThis.files = {
 "src/qrious/src/service/element/BrowserElementService.js": "QmaquwSn36sfzcn6seaTvR6YPhJoFVQvh9z9174tzTEjgi",
 "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
 "src/renderPreviewWindow.js": "QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu",
-"src/sendSignalToQrCode.js": "QmcJroKVgYwZsXGh3a37nWXvaW761PkpGxH7v4sjn1SYm4",
+"src/sendSignalToQrCode.js": "QmXK2Z1ywfWEUiMigvAPLd9MUrL8xUpQeeuM4Ve7F3HMmv",
 "src/shadb/dist/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
 "src/shadb/dist/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
 "src/shadb/dist/diffChars.d.ts": "QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4",
@@ -519,6 +519,6 @@ globalThis.files = {
 "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
 "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
 "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
-"src": "QmSYVaJNqimGs2nAQjB2JBrma4D6E8GaSv2yS6Qcfghnc4",
-"": "QmeMkGeiYZjf4QJDjuCgnQ9JKWE4pX1Db2cHQsyAFsJMJG",
+"src": "QmXftPKaV9GWX7HQiGk5q23JAfyLJsb8TcNjNV2yqEVyDn",
+"": "QmQvRBkdGKWBuAsbmy2QZBtknMiPXxk6hg9QNjJ94sfcGh",
  "foo":"bar" }
