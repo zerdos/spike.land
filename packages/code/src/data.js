@@ -61,7 +61,9 @@ async function addNewProject(projectName, hash) {
     ],
   };
 
-  await shaDB.put(projectName, hash);
+  await shaDB.put(uuid, JSON.stringify(updated));
+
+  await shaDB.put(projectId, hash);
 }
 
 export async function getUserId() {
@@ -88,6 +90,7 @@ async function getActiveProject() {
 }
 
 export async function edit(name) {
+  console.log(name);
   const rootUrl =
     (window.location.href.endsWith("/edit/")
       ? window.location.href.slice(0, -5)
@@ -100,11 +103,9 @@ export async function edit(name) {
 
   await addNewProject(name, hash);
 
-  if (window.location.host === "blog.zed.vision") {
-    location.href = "https://blog.zed.vision/code";
-    return;
-  }
-  location.href = "https://code.zed.vision";
+  console.log("done");
+
+  //  location.href = "https://code.zed.vision";
 }
 
 /**
