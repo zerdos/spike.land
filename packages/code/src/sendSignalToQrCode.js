@@ -20,7 +20,7 @@ export async function sendSignalToQrCode(rootUrl) {
   await sendSignal(
     signal,
     {
-      rootUrl: `https://code.zed.vision/${pathname}/edit/`,
+      rootUrl: `https://code.zed.vision/${pathname}edit/`,
       signals: {
         onChange: "url",
         onLogout: "url",
