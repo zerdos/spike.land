@@ -603,7 +603,7 @@ export const shasums = {
   "src/templates.js":
     "e37d279d48e50feac94f2a0fbb8cda375559001db9d91f6cb5c5752591e6a731",
   "src/codeLoader.js":
-    "868446aafec5fd4f09d162fc173900ae680596b89f280e91c39ea84f535f3708",
+    "f490e86d02138da66e3af27c35536e58d115673abec429907fbba08efbe7d9b2",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "3a0299e053ef23dfba0f1320cc906fd97fdc7588c876177baeff7db011f0d104",
+    "d546dc70b464be7e7c1ac5181484e1418a00a3a8188aec8948dd9328cb9d8aca",
   "src/workers/ipfs/package.json":
     "68befc4803295761c151a14712fae7721486df9f3a3e644322d921397a02eb1c",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":

@@ -44,6 +44,10 @@ export async function run(mode = "window", _w, code = "") {
     Object.assign(window, { sendSignal, fetchSignal, ipfsCat })
   );
 
+  if (mode === "window") {
+    await openWindows();
+  }
+
   const { open } = _w;
 
   const session = getSession();
@@ -63,10 +67,6 @@ export async function run(mode = "window", _w, code = "") {
       console.error({ e, message: "couldn't start" });
       return;
     }
-  }
-
-  if (mode === "window") {
-    await openWindows();
   }
 
   if (session.transpiled === "") {
