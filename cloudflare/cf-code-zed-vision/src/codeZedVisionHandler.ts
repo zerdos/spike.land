@@ -57,7 +57,7 @@ async function handleRequest(request: Request) {
           response = new Response(content);
         } else {
           response = await fetch(
-            `https://zed-vision.zed-vision.workers.dev/ipfs/${cid2}`,
+            `https://cf-ipfs.com/ipfs/${cid2}`,
           );
           const arrBuff = await response.clone().arrayBuffer();
           const shaSum = await sha256(arrBuff);
@@ -66,7 +66,9 @@ async function handleRequest(request: Request) {
             await IPFSKV.put(cid2, arrBuff);
           } else {
             return text(
-              "its 2021, but transferring and getting a file its still difficult. Please try again.",
+              `its 2021, but transferring and getting a file its still difficult. Please try again... received content: ${
+                new TextDecoder().decode(arrBuff)
+              }`,
             );
           }
         }
