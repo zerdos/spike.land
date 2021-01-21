@@ -8,7 +8,7 @@ import { getCodeToLoad, saveCode } from "./data.js";
 export async function sendSignalToQrCode(rootUrl) {
   const { searchParams } = new URL(window.location.href);
 
-  const maybeRoute = searchParams.get("signalToQr") | "";
+  const maybeRoute = searchParams.get("signalToQr") || "";
   const isKey = maybeRoute.length === 8 &&
     [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 
