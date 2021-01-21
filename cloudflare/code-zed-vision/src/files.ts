@@ -461,7 +461,7 @@ export const files = {
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
-  "src/codeLoader.js": "Qma1v1eRrms2irHPGKU9JU5phxnaj2mXdW1EBBSWU3F47Z",
+  "src/codeLoader.js": "Qmdwg5umoxupZkWqAAvVWA4CSbh86s6Z8TBegVLS577YE4",
   "src/data.js": "QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -482,7 +482,7 @@ export const files = {
   "src/examples/starter_framer.js":
     "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
   "src/formatter.js": "QmXArukccKkWgDVKtZWCsNcV2gmYhPLursST8CP1x4GVBi",
-  "src/hash.js": "QmYPrHKwXb6qSBhsMceTpATkE8xPi8uvY8hnL14jQ5sisZ",
+  "src/hash.js": "QmPH679QTdSahQgyhuVa96AkKvxzHsqrdFGDYZojDZEXcj",
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "src/ipfsClient.js": "QmNXn2zNEBL8e2cksn6Gy9stsAiaxFUGxiKSeHkoLKVhbQ",
@@ -945,7 +945,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
   "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
-  "src": "QmTrMD5na2wpgpHRea1FgsaztAfsgEezBDoub3JCbMw1nL",
-  "": "QmQAjbABnDtzzC8EjwqQ3pTLBGXZn7f26CWc8yX84wkuTC",
+  "src": "QmeGnfNgAzq78XeSGM8NHwjhTj7um86DePQ1nm5k9tAm1R",
+  "": "QmbE3S9cNYdCS131iRgZEJ6xTUraJFJNrm4mYNHkM8LNeo",
   "foo": "bar",
 };

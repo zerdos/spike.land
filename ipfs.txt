@@ -237,7 +237,7 @@ added QmYrZKmyENAJi6h5mFoq2CVyZzr4syiuehcFqorzAtQttK code/node_legacy/workbox-sw
 added QmT29Y78zyhb8a7WWc2BEhS2XpZij6bJhJZnLnbKTKsE5m code/node_legacy/workbox-window.prod.mjs
 added QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY code/node_legacy/workbox-window.prod.mjs.map
 added QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q code/package.json
-added Qma1v1eRrms2irHPGKU9JU5phxnaj2mXdW1EBBSWU3F47Z code/src/codeLoader.js
+added Qmdwg5umoxupZkWqAAvVWA4CSbh86s6Z8TBegVLS577YE4 code/src/codeLoader.js
 added QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX code/src/emotion-react-renderer/dist/DraggableWindow.js
@@ -250,7 +250,7 @@ added QmRju4JLXE5iNjjqVER1hHqCUBbRGXDvw3WasFUKEvbs7P code/src/examples/app.tsx
 added QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs code/src/examples/starterNoFramerMotion.js
 added QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF code/src/examples/starter_framer.js
 added QmXArukccKkWgDVKtZWCsNcV2gmYhPLursST8CP1x4GVBi code/src/formatter.js
-added QmYPrHKwXb6qSBhsMceTpATkE8xPi8uvY8hnL14jQ5sisZ code/src/hash.js
+added QmPH679QTdSahQgyhuVa96AkKvxzHsqrdFGDYZojDZEXcj code/src/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/src/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/src/importScript.js
 added QmNXn2zNEBL8e2cksn6Gy9stsAiaxFUGxiKSeHkoLKVhbQ code/src/ipfsClient.js
@@ -504,5 +504,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF code/src/workers/ipfs
 added QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD code/src/workers
-added QmTrMD5na2wpgpHRea1FgsaztAfsgEezBDoub3JCbMw1nL code/src
-added QmQAjbABnDtzzC8EjwqQ3pTLBGXZn7f26CWc8yX84wkuTC code
+added QmeGnfNgAzq78XeSGM8NHwjhTj7um86DePQ1nm5k9tAm1R code/src
+added QmbE3S9cNYdCS131iRgZEJ6xTUraJFJNrm4mYNHkM8LNeo code

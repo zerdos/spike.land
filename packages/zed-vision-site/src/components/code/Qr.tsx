@@ -94,26 +94,10 @@ export const Qr = () => {
 
       setCubeState(-1);
 
-      // const uuid = await getUserId();
-      // const userData = await shaDB.get(uuid, "json");
-      // await shaDB.put(
-      //   uuid,
-      //   JSON.stringify({
-      //     ...userData,
-      //     signal: signalData,
-      //   }),
-      // );
-
-
       setTimeout(
         () => window.location.href = signalData.rootUrl,
         2000,
       );
-      // setTimeout(() => setCubeState(0));
-
-      // setTimeout(() => {
-      //   setCubeState(-1);
-      // }, 6000);
     };
 
     const setSignals = () => {
