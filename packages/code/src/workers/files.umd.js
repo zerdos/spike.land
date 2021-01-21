@@ -11,7 +11,7 @@ globalThis.files = {
 "assets/triangle-geometry.png": "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
 "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
 "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-"index.html": "Qmf1dm52EMvkYbHCwWw5hCazpdGeWk4UPPhjEYPWtti3D4",
+"index.html": "QmR5YTPn7gRkGNndd8w6WDJisSf73dBkS6ZKd7FU5CR4F1",
 "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
 "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
 "node_legacy/@babel/standalone/LICENSE": "QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc",
@@ -520,5 +520,5 @@ globalThis.files = {
 "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
 "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
 "src": "QmNjPDrRdygvpeYMQQy5LMVNhgMLZZaYsVemj33AoDA78L",
-"": "QmbHM8XN3eYRiLYNd4Rm4zcXwQiXjeGqNNNi5jHTQBHPLv",
+"": "QmeKo5izLLRBPfn3iwYieqnEARwZUEatg1VD3RhwruKGwM",
  "foo":"bar" }

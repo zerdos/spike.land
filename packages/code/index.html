@@ -30,7 +30,7 @@
 
     async function forceCacheToLoad(){
       const cid = location.pathname.slice(-47, -1)
-      const files = await import (`./${cid}.js`);
+      const files = await import (`/ipfs/${cid}.js`);
       
       Object.keys(files).filter(x=>x.indexOf(".j")>-1).map(x=>fetch(x).catch(()=>fetch(`/ipfs/${files[x]}`)));
     }
