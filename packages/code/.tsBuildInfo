@@ -252,7 +252,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "5e1276d1ca717befc0c941a9229fd11d41b8b2f80799cee71ed0fa14149e0245",
+        "version": "707b79aeac827bec00e85445cd766b966cc2339104f6e7879ebac5a22354d694",
         "signature": "a6912dbe20fe601ba715ee2dfd0ec892ffa2ebfe110e56d1f70213245bf40b67",
         "affectsGlobalScope": false
       },
@@ -442,7 +442,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "18df688cadb3f19c209e624dfb82a7fd20ad6c81c576431a774f0afb1683bac5",
+        "version": "47c4ba74c6519908663b93caab4db66a70eb3232b2caf9aca8a5797929b67a7a",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -571,7 +571,8 @@
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/ipfsClient.js"
+        "./src/ipfsClient.js",
+        "./src/shadb/src/sha256.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"

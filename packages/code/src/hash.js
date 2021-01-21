@@ -1,4 +1,5 @@
 import { ipfsCat, ipfsClient } from "./ipfsClient.js";
+import { sha256 } from "./shadb/src/sha256.js";
 
 const log = (msg) => {
   if (typeof mgs === "string") console.log(msg);
@@ -81,7 +82,35 @@ export async function fetchSignal(
   signal,
   _retry,
 ) {
+  if (typeof window === "undefined") return;
   const retry = (typeof _retry === "number") ? _retry : 999;
+
+  if (window.location.hostname !== "code.zed.vision") {
+    try {
+      if (retry === 0) {
+        throw new Error("No more retry");
+      }
+
+      const res = new URL(signal);
+      const { pathname } = res;
+      const signal = pathname.slice(1);
+
+      log(`signal to wait: ${signal}`);
+
+      const resData = fetch(`https://zed.vision/signal?signal=${signal}`).then(
+        (x) => x.text(),
+      );
+
+      log(`${resCID} downloaded - ${resData}`);
+      return async () => parse(resData);
+    } catch (e) {
+      await wait(Math.random() * 2000);
+
+      if (retry > 1) return fetchSignal(signal, retry - 1);
+      throw new Error("no signal");
+    }
+  }
+
   log(`retry: ${retry}`);
   try {
     if (retry === 0) {
@@ -89,7 +118,6 @@ export async function fetchSignal(
     }
 
     const res = await ipfsClient.add(signal, { onlyHash: true });
-
     const resCID = res.cid.toString();
 
     log(`CID to wait: ${resCID}`);
