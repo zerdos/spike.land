@@ -72,14 +72,12 @@ export async function getIPFSCodeToLoad(_rootUrl) {
       ? window.location.href.slice(0, -5)
       : window.location.href.slice(0, -4));
 
-  const { v } = await import(rootUrl + "versions.js");
   const codeReq = await fetch(rootUrl + "app.tsx");
   const code = await codeReq.text();
 
   const ret = {
     code: code,
     url: rootUrl,
-    versions: v,
     transpiled: "",
     html: "",
   };

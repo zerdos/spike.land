@@ -37,7 +37,7 @@ export const shasums = {
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "index.html":
-    "37c92814c85aa83a95531ed588570e1bad6af5fb3f505be5156ff357adcbdf57",
+    "b3c783d19e56274c0c7d415aaef9e5d6bfaf7d6c93429bcd4910fabd151412b6",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   ".vscode/setttings.json":
@@ -579,7 +579,7 @@ export const shasums = {
   "src/starter.js":
     "100fb9406aca460801eefa2f2bef83d926bf1d5db11bec6b12fd70ee0a6a17fb",
   "src/data.js":
-    "f7e25ea9191936496533578d4cacb43f902aa58196e56d2f735743e7bb14a073",
+    "ee3331205c39e8c74b075e913be611d81c8811ed8ac51fcd04ea0c68feb06017",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "da3bd10e28df09117608c9592432098e8d1e7ee584f1809088971872d49ba468",
+    "519b0607d378437feadcef3fed3c063cec3a2a42f2f853e5383158b4416d5ad0",
   "src/workers/ipfs/package.json":
     "68befc4803295761c151a14712fae7721486df9f3a3e644322d921397a02eb1c",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
