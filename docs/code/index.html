@@ -10,6 +10,27 @@
 <title>Instant React Editor</title>
 </head>
 <body>
+  <script>
+    addEventListener("load", ()=>{
+       /// 
+       /// if after body init - monaco editor still haven't started (the app haven't started)
+       /// it's likely that we have caching issues. So giving a push to it.
+       /// 
+        setTimeout(()=>{
+
+          if (!window.monaco) {
+            forceCacheToLoad();
+          }
+
+        }, 3000  )
+
+    })
+
+    function forceCacheToLoad(){
+         Object.keys(files).filter(x=>x.indexOf(".j")>-1).map(x=>fetch(x).catch(()=>fetch(`/ipfs/${files[x]}`)));
+    }
+
+  </script>
   <script type="module">
 
     import {run} from "./src/codeLoader.js"
