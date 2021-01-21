@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "4d14222e6e824a8b75a996e908798726e2e26df2b6ab35e716df4da033a96c56",
+    "483149e67144beead1f3a46a669db1f48ba14b972cc5c8b438e21a53cf10d7ed",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -603,7 +603,7 @@ export const shasums = {
   "src/templates.js":
     "a785d32ab477f0b0116c9e1a324ae167f62a9806713a42c447ca60aebc1596b3",
   "src/codeLoader.js":
-    "c4a50b44d96432936c73298bf9a10b9739a97a2bf9af92051ef2a821b5cc3a2d",
+    "6c53c4281e0311d2e15f27845f8cca02e7142991e23b918289ebbf6d55bd021c",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "952d5b067bd16d1685a2ab6e909227d13eeb23ec39ad42b13103de36e8ac74f9",
   "src/workers/files.umd.js":
-    "998e3aceba0ffe8c5e6c7228fca878763c3a684628bc07110d5c2f4cffd1bf47",
+    "e3e4a47432f69b4d69db13f720e1a9506d894ce8624487869f450e5c0770a16c",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":
@@ -657,11 +657,43 @@ export const shasums = {
   "src/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "src/hash.js":
-    "57553430e3b60c55130ee0a614e754cf5117ddcdbfaa6f322940a77c9c319e8d",
+    "cf1d72a4ad0fbd43a86fd25ccd044c569b2bf3f4eb9dfe6a72de320e9ed10da2",
   "src/importScript.js":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "src/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+  "src/qrious/.gitattributes":
+    "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9",
+  "src/qrious/.gitignore":
+    "295aa1f18923880afebb2e08aa70a8c4f285cc52baea238b8d2864d10e45d825",
+  "src/qrious/demo.html":
+    "ad5e15d5d4d4a1874dd1ab235ac6b79a9708b88c4ae09b9d978a45c5639b2764",
+  "src/qrious/.editorconfig":
+    "6d6796f174b736bcd7a68999e30d2f19a3719ad92355dcc0cfdfce8a66864553",
+  "src/qrious/LICENSE.md":
+    "573aa60568eb0d6829453b85a9bcae84763de76638bc16e6a198a9535871191a",
+  "src/qrious/package.json":
+    "1817c96bdcd3714a1ec181d3189803ba951ee617520f82e2198642674b239e89",
+  "src/qrious/.npmignore":
+    "deb0ea9992b95bd087fe4416021275058abf5e562f014812252d6b387d409c05",
+  "src/qrious/src/QRious.js":
+    "95ce3faba4f4a3b1038fac8bd71ea6a1616a78f3294d7dd6d7cbb5772712651d",
+  "src/qrious/src/service/element/BrowserElementService.js":
+    "e5e7218210536d54aba78f60488db9692856450c969e84bfaecba23874d8724d",
+  "src/qrious/.travis.yml":
+    "a6c20fd700038a92afd59314fd80dfbafd0a3e6d29dbb12c5fd43f7c97349316",
+  "src/qrious/.eslintignore":
+    "4562251cbbae7291c62fb26d1cdcf780ce00ab6f1bcda46703b227a6493e8a27",
+  "src/qrious/README.md":
+    "1bb14e444eadba993e485101022d3d951eff5a38e2e8cd970e1f6c2b4444bb02",
+  "src/qrious/demo_min.html":
+    "35b38e78a87fd8d13678422781fc013787378e06db77bda20ce59791c4067bf9",
+  "src/qrious/.eslintrc.json":
+    "a57bf20731edd312e02bab62f7933ebca6422f6cc800743fd1bd743a8467abef",
+  "src/qrious/AUTHORS.md":
+    "7a47b76060c5f745b1b096c0854a01f8e7ddb3f8e42f55d794c3540d72b3f218",
+  "src/qrious/dist/qrious.esm.js":
+    "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "src/renderPreviewWindow.js":
     "59326061012f45a2a0cb829f7efb8087fe9145e10a0ce66b5a8c29cd2749df18",
   "src/share.js":

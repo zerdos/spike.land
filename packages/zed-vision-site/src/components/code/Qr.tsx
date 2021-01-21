@@ -2,29 +2,11 @@ import React from "react";
 /** @jsx jsx */
 //@ts-ignore
 import { css, Global, jsx } from "@emotion/react";
+import {fetchSignal} from "@zedvision/code/src/hash.js"
 
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
-
-const log = (msg) => {
-  if (typeof mgs === "string") console.log(msg);
-  else if (typeof msg === "object") console.table({ msg });
-  else console.log(msg);
-};
-
-function parse(d) {
-  try {
-    if (typeof d !== "string") return d;
-
-    const ret = JSON.parse(d);
-    console.log({ ret });
-    return ret;
-  } catch (e) {
-    console.log({ d });
-    return d;
-  }
-}
 
 
 export const Qr = () => {
@@ -496,64 +478,3 @@ const Loader = (c: HTMLCanvasElement, size: number) => {
   loop();
 };
 
-
-
-export async function fetchSignal(
-  signal,
-  _retry,
-) {
-  if (typeof window === "undefined") return;
-  const retry = (typeof _retry === "number") ? _retry : 999;
-  console.log("retrying hash fetch");
-
-  if (window.location.hostname !== "code.zed.vision") {
-    console.log("we are NOT on code.zed.vision");
-
-    try {
-      if (retry === 0) {
-        throw new Error("No more retry");
-      }
-
-      const res = new URL(signal);
-      const { pathname } = res;
-      const signal = pathname.slice(1);
-
-      log(`signal to wait: ${signal}`);
-
-      console.log(`https://zed.vision/signal?signal=${signal}`);
-
-      const cid = fetch(`https://zed.vision/signal?signal=${signal}`).then(
-        (x) => x.text(),
-      );
-
-      console.log(cid);
-      if (cid === "404") {
-      
-        await wait(Math.random() * 4000);
-        return fetchSignal(signal, retry - 1);
-      }
-
-      log(`${cid} is available`);
-
-      const resData = fetch(`https://code.zed.vision/ipfs/${cid}`).then((x) =>
-        x()
-      );
-
-      log(`${cid} downloaded - ${resData}`);
-      return async () => parse(resData);
-    } catch (e) {
-      await wait(Math.random() * 4000);
-
-      if (retry > 1) return fetchSignal(signal, retry - 1);
-      throw new Error("no signal");
-    }
-  }
-}
-
-function wait(delay) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(delay);
-    }, delay);
-  });
-}

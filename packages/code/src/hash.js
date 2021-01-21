@@ -92,15 +92,13 @@ export async function fetchSignal(
         throw new Error("No more retry");
       }
 
-      const res = new URL(signal);
-      const { pathname } = res;
-      const signal = pathname.slice(1);
+      const smallSignal = signal.slice(-8);
 
-      log(`signal to wait: ${signal}`);
+      log(`signal to wait: ${smallSignal}`);
 
-      console.log(`https://zed.vision/signal?signal=${signal}`);
+      console.log(`https://zed.vision/signal?signal=${smallSignal}`);
 
-      const cid = fetch(`https://zed.vision/signal?signal=${signal}`).then(
+      const cid = fetch(`https://zed.vision/signal?signal=${smallSignal}`).then(
         (x) => x.text(),
       );
 

@@ -252,7 +252,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "3296ebf909b6a6250c01f01ed05ac54d52cfd2f74322a7b052c06e3980163896",
+        "version": "cf1d72a4ad0fbd43a86fd25ccd044c569b2bf3f4eb9dfe6a72de320e9ed10da2",
         "signature": "b6b66d6bd9956ebe04ebd50e82d2674063b2ecf39bbf49bbcc9dce250f05f290",
         "affectsGlobalScope": false
       },
@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "c4a50b44d96432936c73298bf9a10b9739a97a2bf9af92051ef2a821b5cc3a2d",
+        "version": "5564272106ad81ed34dcf6a4c2d4bfb742465d2a63e58c145ca759b2fd73b78f",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -329,6 +329,21 @@
       "./src/examples/starter_framer.js": {
         "version": "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
         "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
+        "affectsGlobalScope": false
+      },
+      "./src/qrious/dist/qrious.esm.js": {
+        "version": "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
+        "signature": "6e59ec44bffb32a68612a031a9d57d2eb7cddc10506777d9621a7aca88cbe2a9",
+        "affectsGlobalScope": false
+      },
+      "./src/qrious/src/service/element/BrowserElementService.js": {
+        "version": "e5e7218210536d54aba78f60488db9692856450c969e84bfaecba23874d8724d",
+        "signature": "e2d2aac4afe4afa2bab207283a7c4764fea14170fca102e557f866bf8f9b09c1",
+        "affectsGlobalScope": true
+      },
+      "./src/qrious/src/QRious.js": {
+        "version": "95ce3faba4f4a3b1038fac8bd71ea6a1616a78f3294d7dd6d7cbb5772712651d",
+        "signature": "f837536bb54b00160f5caa8872696a5e9600c900e28cfdf9abb92b484b4baf3a",
         "affectsGlobalScope": false
       },
       "./src/shadb/dist/vendor/diffMin.d.ts": {
@@ -442,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "998e3aceba0ffe8c5e6c7228fca878763c3a684628bc07110d5c2f4cffd1bf47",
+        "version": "e3e4a47432f69b4d69db13f720e1a9506d894ce8624487869f450e5c0770a16c",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -584,6 +599,13 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_legacy/simple-window-manager.es.js",
         "./src/workBox.js"
+      ],
+      "./src/qrious/dist/qrious.esm.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./src/qrious/src/QRious.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/qrious/src/service/element/BrowserElementService.js"
       ],
       "./src/renderPreviewWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -751,6 +773,9 @@
       "./src/importScript.js",
       "./src/ipfsClient.js",
       "./src/openWindows.js",
+      "./src/qrious/dist/qrious.esm.js",
+      "./src/qrious/src/QRious.js",
+      "./src/qrious/src/service/element/BrowserElementService.js",
       "./src/renderPreviewWindow.js",
       "./src/sendSignalToQrCode.js",
       "./src/shadb/dist/diff.d.ts",
@@ -896,6 +921,18 @@
       ],
       [
         "./src/openWindows.js",
+        1
+      ],
+      [
+        "./src/qrious/dist/qrious.esm.js",
+        1
+      ],
+      [
+        "./src/qrious/src/QRious.js",
+        1
+      ],
+      [
+        "./src/qrious/src/service/element/BrowserElementService.js",
         1
       ],
       [

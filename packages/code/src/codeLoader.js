@@ -109,6 +109,12 @@ export async function run(mode = "window", _w, code = "") {
     },
   );
 
+  monaco.editor.createModel(
+    "define module './hash.js';",
+    "typescript",
+    monaco.Uri.parse("file:///refs.d.ts"),
+  );
+
   if (!session.url) {
     await saveCode(session, session.i);
   }
