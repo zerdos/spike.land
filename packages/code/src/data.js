@@ -41,7 +41,7 @@ export const getProjects = async () => {
 
 async function addNewProject(projectName, hash) {
   uuid = await getUserId();
-  const userData = await shaDB.get(uuid, "json");
+  const userData = await shaDB.get(uuid, "json") || { list: [] };
   const projectId = v4();
   const updated = {
     ...userData,
