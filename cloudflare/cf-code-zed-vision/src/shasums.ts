@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "6a29de8e798087eaec9998caa172f8e7b6d2461dec7cb82b3089eca37fb1c0be",
+    "859a884c20578ca400be60cfdc84f63bfa5636115b0ccdb7f35bd61d0b6aba3d",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -43,7 +43,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "6970511d01b0b03ffb187875a18a37b4af358b38c65b71bc38e42b6feda3fc57",
+    "87dbba071d999e3f45c7b7a8b6c8704251c2fe7b6ac18a5907918834c09750d6",
   "node_legacy/stringify.js":
     "b3e05d40408725c571660f7f1bfdb1b20fde769c5142f23273a95815b2ca5d01",
   "node_legacy/validate.js":
@@ -497,7 +497,7 @@ export const shasums = {
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
-    "2ed86d8a0139a9a36b06cbb02d9add946b731cb16906f3ec5a830435aa8521ee",
+    "e0e47ca049f2c3b6dbf81d4afb3c019b9a9a286fcbf1c43c4cfa770991c63bba",
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
     "a2b899553b8fc002c2ef011d77c0a21b6f336735511f2f075529ce48157c643a",
   "src/smart-monaco-editor/favicon.ico":
@@ -593,7 +593,7 @@ export const shasums = {
   "src/emotion-react-renderer/dist/renderer.js":
     "89eaf1539d40a2e1d6aa889956d7c930637d130ba237c88fbf843b431963f6be",
   "src/emotion-react-renderer/package.json":
-    "fdc87f0af0e005cac931f8c4f2484d4c413d1521985f015a5a51869223611b63",
+    "25e55cab3cba454493794f4925f14aafa3fb16c77da402819858e3cd558c50cd",
   "src/emotion-react-renderer/tsconfig.json":
     "970e709dee7e1b7c5410feb805961be59bde3c521cdf5f60820cccd3fa085d00",
   "src/emotion-react-renderer/src/renderer.ts":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "9d982755ae3c429b995af8896698ca01bcc6e9152a4f7ebd030904260556ee56",
+    "cb034ee3f8a7a146b75d8e64c309df74d50f76a9c2a8b05c2c6f93f4408583da",
   "src/workers/ipfs/package.json":
     "2ab85f93d10bbec50a1a24e17e75cc88f977f48bdfdda0d6262e34aa4ea8ec7e",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
@@ -1097,7 +1097,7 @@ export const shasums = {
   "src/shadb/dist/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "src/shadb/package.json":
-    "184a80f125c73e5c4b9a2000c1905d445d3b5ed24369992b0d8b0fc67aa00e5d",
+    "daaf2a19b45f568c24cff6d96d64d24a71b9d49cbe7305acf68a1bf72d358004",
   "tsconfig.json":
     "09ea48a6a9fcc074847b04f90771ae7732fee992b7bf18278fa042e3ee9ea1c3",
   "foo": "bar",
