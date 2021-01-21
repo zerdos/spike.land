@@ -461,7 +461,7 @@ export const files = {
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
-  "src/codeLoader.js": "QmcMhsEin97fGDfn155AyMFadh7oXssFJNn7E9LDnSgzmi",
+  "src/codeLoader.js": "QmYP8HTTcWAsumujmRu6PpZyqxzqGvEExVAitAD31sziJj",
   "src/data.js": "QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -473,7 +473,7 @@ export const files = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "QmfXRFvz4dXzLdRYznK6isrynfqg8DvBViRfFEK8KnBSmH",
   "src/emotion-react-renderer/src/renderer.ts":
-    "QmRpSExrraxqLXtqGHdMCPauSVn8ijVghpmf2SmgWKiwNQ",
+    "QmQVjYGxnEhAfQNzbbfcLMJmagfs5sBkJKVjdVi8Hjy3mi",
   "src/emotion-react-renderer/tsconfig.json":
     "QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA",
   "src/examples/app.tsx": "QmRju4JLXE5iNjjqVER1hHqCUBbRGXDvw3WasFUKEvbs7P",
@@ -884,9 +884,9 @@ export const files = {
   "src/emotion-react-renderer/dist":
     "Qme5XNmCToindZrUoxTpjdP8ydY2CpKdWzNYafyxUpt5DF",
   "src/emotion-react-renderer/src":
-    "Qmefpn86rafx41r64VYT9GQFPrEosdZV8MTXFhctsgENvG",
+    "QmVSzquyAHah16xWEGMHoGTgEj3ZLNDenkoTCtQVuzaNDe",
   "src/emotion-react-renderer":
-    "Qma1qqT61h1jMCPf4GbP1gK8EGCZMduzNDo1fi8mpK8nfd",
+    "QmVvtXnac8a7vEv7anh587fhXoQrJoi7jRM7QrAqY8Gxzz",
   "src/examples": "QmPysz1ZmDwk5yvsZtiKsnUekFXZiAERnPJh1Z8G5GZ5f7",
   "src/qrious/dist": "QmXzecEjL8DUyY3QpjncnCf6pRpVmhcph3whb4t6RAiaVV",
   "src/qrious/src/service/element":
@@ -962,7 +962,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
   "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
-  "src": "QmPBiDDMvR8sSUbtNH7aQrXJj2DFq12Hs4gzcRcKXYv864",
-  "": "QmRC6K8bdf9vupBW6ZUBHQp7DUmeDUNx5g1ALKGng8VCkH",
+  "src": "QmdqSyLgrmkcoXYVodujzmNmdmuexUmFkX2Zkez8ZuQAX8",
+  "": "QmPaX8ZV4yNroxiZ1FjN1M9qpDrG7FVoqkJKFsJgDf53Vm",
   "foo": "bar",
 };

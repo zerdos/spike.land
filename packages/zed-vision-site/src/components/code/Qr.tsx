@@ -2,12 +2,10 @@ import React from "react";
 /** @jsx jsx */
 //@ts-ignore
 import { css, Global, jsx } from "@emotion/react";
-import {fetchSignal} from "@zedvision/code/src/hash.js"
+import { fetchSignal } from "@zedvision/code/src/hash.js";
 
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
-
-
 
 export const Qr = () => {
   const side1 = React.useRef<HTMLCanvasElement>(null);
@@ -477,4 +475,3 @@ const Loader = (c: HTMLCanvasElement, size: number) => {
   }
   loop();
 };
-

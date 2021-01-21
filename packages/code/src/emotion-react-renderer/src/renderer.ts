@@ -5,7 +5,6 @@ import ReactDOM from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
 import { DraggableWindow } from "./DraggableWindow.tsx";
 
-
 export { DraggableWindow };
 export { React };
 export { Fragment };

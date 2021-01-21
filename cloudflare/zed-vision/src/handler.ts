@@ -1,4 +1,4 @@
-import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/getDbObj.js"
+import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
@@ -55,7 +55,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         return json({ success: true });
       } else if (signal.length === 8) {
         const msg = await SIGNALS.get(signal);
-        if (msg===null) return text("404")
+        if (msg === null) return text("404");
         return text(msg);
       }
       // if (key) {
