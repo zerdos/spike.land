@@ -512,7 +512,22 @@ var log=function log(msg){if(typeof mgs==="string")console.log(msg);else if(type
  */var signalCache={};/**
  * @param {string} signal 
  * @param {string} data
- */var sendSignal=/*#__PURE__*/function(){var _ref=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee(signal,data){var _yield$ipfsClient$add,path,toSave,dataCid,_URL,pathname;return regenerator_default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(!(typeof window==="undefined")){_context.next=2;break;}return _context.abrupt("return","no webpack please");case 2:log("sending signal: "+signal);_context.next=5;return ipfsClient.add(signal);case 5:_yield$ipfsClient$add=_context.sent;path=_yield$ipfsClient$add.path;log("signal sent --- "+path);if(!data){_context.next=21;break;}log("sending data as well....");toSave=data;if(typeof data!=="string")toSave=JSON.stringify(data);log(toSave);_context.next=15;return ipfsClient.add(toSave);case 15:dataCid=_context.sent.cid.toString();_context.next=18;return fetch("https://zed.vision/ipfs/"+dataCid);case 18:_URL=new URL(signal),pathname=_URL.pathname;_context.next=21;return fetch("https://zed.vision/signal/?cid="+dataCid+"&signal="+pathname.slice(1));case 21:return _context.abrupt("return",{success:true});case 22:case"end":return _context.stop();}}},_callee);}));return function sendSignal(_x,_x2){return _ref.apply(this,arguments);};}();// export const sha256ToCID = (str) =>
+ */var sendSignal=/*#__PURE__*/function(){var _ref=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee(signal,data){var toSave,dataCid,_URL,pathname,_yield$ipfsClient$add,path;return regenerator_default.a.wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:if(!(typeof window==="undefined")){_context.next=2;break;}return _context.abrupt("return","no webpack please");case 2:log("sending signal: "+signal);if(!data){_context.next=15;break;}log("sending data as well....");toSave=data;if(typeof data!=="string")toSave=JSON.stringify(data);log(toSave);_context.next=10;return ipfsClient.add(toSave);case 10:dataCid=_context.sent.cid.toString();_URL=new URL(signal),pathname=_URL.pathname;_context.next=14;return fetch("https://zed.vision/signal/?cid="+dataCid+"&signal="+pathname.slice(1));case 14:fetch("https://zed.vision/ipfs/"+dataCid);// const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
+//   ("00" + b.toString(16)).slice(-2)
+// ).join("");
+// const allHash = new Array(hexHash.length).fill(signal).map((x, i) =>
+//   x + new Array(i).fill("x").join("") + hexHash.slice(i, i + 1)
+// );
+// log({ allHash });
+// log("adding the fist 5");
+// await Promise.all(
+//   allHash.map(async (x) => {
+//     const { path } = await ipfsClient.add(x);
+//     log(path);
+//   }),
+// );
+// log(`rest is uploaded`);
+case 15:_context.next=17;return ipfsClient.add(signal);case 17:_yield$ipfsClient$add=_context.sent;path=_yield$ipfsClient$add.path;log("signal sent --- "+path);return _context.abrupt("return",{success:true});case 21:case"end":return _context.stop();}}},_callee);}));return function sendSignal(_x,_x2){return _ref.apply(this,arguments);};}();// export const sha256ToCID = (str) =>
 //   (new CID(0, 112, fromHexString("1220" + str))).toString();
 /**
  * @param {string} signal
@@ -582,7 +597,7 @@ var log=function log(msg){if(typeof mgs==="string")console.log(msg);else if(type
 // }
 /**
  * @param {sting} d
- */function _getData(){_getData=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee4(signal,retry){var _URL2,pathname,signalPath,res,cid,content;return regenerator_default.a.wrap(function _callee4$(_context4){while(1){switch(_context4.prev=_context4.next){case 0:_URL2=new URL(signal),pathname=_URL2.pathname;signalPath=pathname.slice(1);_context4.next=4;return fetch("https://zed.vision/signal?signal="+signalPath);case 4:res=_context4.sent;_context4.next=7;return res.text();case 7:cid=_context4.sent;_context4.next=10;return ipfsCat(cid);case 10:content=_context4.sent;return _context4.abrupt("return",content);case 12:case"end":return _context4.stop();}}},_callee4);}));return _getData.apply(this,arguments);}function parse(d){try{if(typeof d!=="string")return d;var ret=JSON.parse(d);console.log({ret:ret});return ret;}catch(e){console.log({d:d});return d;}}
+ */function _getData(){_getData=Object(asyncToGenerator["a" /* default */])(/*#__PURE__*/regenerator_default.a.mark(function _callee4(signal,retry){var _URL2,pathname,signalPath,res,cid,data,content;return regenerator_default.a.wrap(function _callee4$(_context4){while(1){switch(_context4.prev=_context4.next){case 0:_URL2=new URL(signal),pathname=_URL2.pathname;signalPath=pathname.slice(1);_context4.next=4;return fetch("https://zed.vision/signal?signal="+signalPath);case 4:res=_context4.sent;_context4.next=7;return res.text();case 7:cid=_context4.sent;_context4.next=10;return fetch("https://code.zed.vision/ipfs/"+cid);case 10:data=_context4.sent;_context4.next=13;return data.text();case 13:content=_context4.sent;return _context4.abrupt("return",content);case 15:case"end":return _context4.stop();}}},_callee4);}));return _getData.apply(this,arguments);}function parse(d){try{if(typeof d!=="string")return d;var ret=JSON.parse(d);console.log({ret:ret});return ret;}catch(e){console.log({d:d});return d;}}
 // CONCATENATED MODULE: /home/zed/z/node_modules/@zedvision/qrious/dist/qrious.esm.js
 var c = function c(i, e) {
   return function () {
@@ -2148,4 +2163,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-e8c8462906f88d9b7b97.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-0aac88837f5a76724297.js.map
