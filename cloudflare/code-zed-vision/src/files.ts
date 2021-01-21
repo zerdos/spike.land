@@ -462,7 +462,7 @@ export const files = {
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
   "src/codeLoader.js": "QmZ9vH1svZH1ykL4md5WG4cCfB1AQs2ytKojdVvczBsBJA",
-  "src/data.js": "QmXL6byqPV91t81pAtvtXqu9tpKjafqpnZxXAHBsmaVCYU",
+  "src/data.js": "QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX",
@@ -945,7 +945,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
   "src/workers": "QmVF23hYaaK4bpMrg3WZLgXtPUQS6oAHWKP4xfpg2VXPRU",
-  "src": "QmeVBpicbFjWG2ZaKjNK9wZZ16oq1y2NmrUu57v8M7yJDE",
-  "": "QmXBpT7kyg9xuFXiPNGmF2bWnf3HbMGWfyxpjrAjAmAmfb",
+  "src": "QmbbpEpYsNzdCjnp8DRs9sg4rByZTLKDbzZf9rfgcvNMGF",
+  "": "QmNjTXi6wNpfYRN1i9Dz2QvdKQ9wsV3WK4rmfPBuFXXNcm",
   "foo": "bar",
 };
