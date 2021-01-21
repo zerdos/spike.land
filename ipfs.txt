@@ -238,7 +238,7 @@ added QmT29Y78zyhb8a7WWc2BEhS2XpZij6bJhJZnLnbKTKsE5m code/node_legacy/workbox-wi
 added QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY code/node_legacy/workbox-window.prod.mjs.map
 added QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q code/package.json
 added QmYP8HTTcWAsumujmRu6PpZyqxzqGvEExVAitAD31sziJj code/src/codeLoader.js
-added QmeRsgMm2YPQPNWBPpjfcq1MZC2KdMdoc97U2G92Vj4pPD code/src/data.js
+added QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX code/src/emotion-react-renderer/dist/DraggableWindow.js
 added QmX4unXEXsJ9wPz3DGNPgeya8cr1LrazFViqqJrRPAV264 code/src/emotion-react-renderer/dist/renderer.js
@@ -266,7 +266,7 @@ added QmWyhyMT7B8vJWGm6kMXrXBhS7pgx4Dqv8TRepBqDxyW7e code/src/qrious/src/QRious.
 added QmaquwSn36sfzcn6seaTvR6YPhJoFVQvh9z9174tzTEjgi code/src/qrious/src/service/element/BrowserElementService.js
 added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/src/refs.d.ts
 added QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu code/src/renderPreviewWindow.js
-added QmcmuuFH7AHsundY7hv59Y8k7wn15KK7SiVB9h5YD9sQsW code/src/sendSignalToQrCode.js
+added QmcJroKVgYwZsXGh3a37nWXvaW761PkpGxH7v4sjn1SYm4 code/src/sendSignalToQrCode.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/src/shadb/dist/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/src/shadb/dist/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/src/shadb/dist/diffChars.d.ts
@@ -518,5 +518,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF code/src/workers/ipfs
 added QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD code/src/workers
-added QmaY1ygTPLgLnuCGTYCAHfweTpgCXDX74N8AetPwfPHnps code/src
-added QmeBCFZd9QWHQoSwaaoWWr6GwSt4tmJsJzYARUJV17WoQh code
+added QmS8SHnZ2YUULqMe1GqVPSEDT7yNn98Ay5pxQGM19rtBK1 code/src
+added QmaLciZTZqyTBqJK2fC6iRxG3LVJTdisD3L91dzydQMdaP code
