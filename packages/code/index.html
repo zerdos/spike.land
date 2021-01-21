@@ -10,7 +10,6 @@
 </head>
 <body>
   <script>
-    addEventListener("load", ()=>{
 
       
 
@@ -19,6 +18,8 @@
        /// it's likely that we have caching issues. So giving a push to it.
        /// 
         setTimeout(()=>{
+
+          console.log("use force to load the rest")
           
           if (!window.monaco) {
             forceCacheToLoad();
@@ -26,7 +27,6 @@
 
         }, 3000  )
 
-    })
 
     async function forceCacheToLoad(){
       const cid = location.pathname.slice(-47, -1)
