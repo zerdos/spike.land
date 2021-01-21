@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "d5b55aac5a06ab83138ed352cabd044360448819f5c173da6ce99f7807754e4a",
+    "6a29de8e798087eaec9998caa172f8e7b6d2461dec7cb82b3089eca37fb1c0be",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -560,18 +560,18 @@ export const shasums = {
     "8711dcab5ce3512aa9b981fbed7af1d623457c576ce3bb7604253e8690241ab9",
   "src/smart-monaco-editor/LICENSE.md":
     "15855dde524dbbb3ffb666ccc87de4dc8a4b2f22840128fc0e65abb0ded8a77f",
-  "src/smart-monaco-editor/dist/monaco.js":
-    "5e0258ef425bc23888eb413c71963f531dbb51f021f9ffc820576dab13c7a9e0",
-  "src/smart-monaco-editor/dist/scripts/screenshots.js":
-    "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
-  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
-    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
   "src/smart-monaco-editor/dist/editor.js":
     "4247f235d2bc76739e2014d7d5d7642ade88d8d087508d45ec542df6fb7157aa",
   "src/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "src/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
+    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+  "src/smart-monaco-editor/dist/scripts/screenshots.js":
+    "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
+  "src/smart-monaco-editor/dist/monaco.js":
+    "5e0258ef425bc23888eb413c71963f531dbb51f021f9ffc820576dab13c7a9e0",
   "src/workBox.js":
     "1d74e1381c9ba6afd5372ec87254ff264620c768aecdfcc5c8965f3988958d54",
   "src/starterTsx.tsx":
@@ -611,9 +611,349 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "31d8e152237b286e4a3288399ba49084db6ac7a42f1b3613336f9a1da7ad01f7",
+    "9d982755ae3c429b995af8896698ca01bcc6e9152a4f7ebd030904260556ee56",
   "src/workers/ipfs/package.json":
     "2ab85f93d10bbec50a1a24e17e75cc88f977f48bdfdda0d6262e34aa4ea8ec7e",
+  "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
+    "e3f13b47f43c2a39172f596d1a1fd95cdd5ebe66318753b9bfd71af6c2c1c78e",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "0a5ac934df3408dd6f2a142c71d0de6d039151fb07cb95dcb1410d5ba5aaf38d",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "79e57e96bacaaca40f94dd149e51626a7ad84e5deaa9329e8161207705b77351",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/Targets/ProjectItemsSchema.xaml.lcl":
+    "d68ddd32ad106c5420038b9dde72313bc592007b4df244483099911bd880952a",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "67b6a097aaf456b85dcd05ac771bab106716787552fc14e8e876d43e96aec362",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/Targets/TypeScriptCompile.xaml.lcl":
+    "f1f1c670316ecf2fdb5eef90f47061478d9bdf61943359dfe52928157fbdc1ad",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "f9e321be0648ef99c2f5f3d83ec6ed3ff1cc8e70f830d88cb49439f09c8065fa",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ITA/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "50ce62cdbc1b67ecb08d2985d9a3c8857d1601cc64d3c5be53f4e71f34a15f34",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ITA/Targets/TypeScriptCompile.xaml.lcl":
+    "95cc123f5fa48812d42ddf78001744a887e9c07c3494204ad3be69175a98a7ea",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ITA/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "31a7042ff9005da40e8554232917f5216981d93fefb83b90e3db8701c151c465",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ITA/Targets/ProjectItemsSchema.xaml.lcl":
+    "41f901d489037e01acc8a6fd23b29a22deaa02bd767b5787d3728a572bce4b0e",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ITA/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "4c5bbbfa7d34c195a0e9962b64b9916c11d52b89e6baa6ffe5a117fc56875446",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ITA/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "027f4ac2256a33a97367a9809d28e79abf57d6193cae40d1c7798cca511ff9bb",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/RUS/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "5447f00e572f4220144a95dce62125d78d73aacc4438a62fa976a148823f525b",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/RUS/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "5596f7e642309ad0affe4d6b6a699c2bcda3112af4734c496f9ec6173a7895de",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/RUS/Targets/TypeScriptCompile.xaml.lcl":
+    "e632a788c61151d91506426ac2c340de665defb10c7225781bfa44ffb404d171",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/RUS/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "13aaeef4812a331d0bc1434f32385e960dd8c328f74c762b15ec72b6ee156666",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/RUS/Targets/ProjectItemsSchema.xaml.lcl":
+    "a56c68c30eafd1bb8e2380854a6c7d92feba925eaebe0e55549cad2c175449fe",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/RUS/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "51fcff962fc383580e454116e5391e28121548d3549a19c0e7b4fc9f097ce42c",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHT/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "e7df4af70c60886bc00422caefda6d43b802252576dbb3bad1fd9f92a1264bd9",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHT/Targets/TypeScriptCompile.xaml.lcl":
+    "486995dbd598cb298beab4cfadb4af23fd069f7b4e9e2e6871d3f423933d7eaf",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHT/Targets/ProjectItemsSchema.xaml.lcl":
+    "0d59907fb132c4be6415daeaf8f0be8acb45eb2da7a652cd1891410bb27d2083",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHT/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "305b28c193ee5f32439b0ac35ec9d851866b720ca0f73c2f3023849f8fbbfe56",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHT/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "8b25b4f8c9d98e491cff343609cc22e6eb491601e3944632ad3e7ac4d207de35",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHT/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "587eb66584da53682a8747a54a6c1563ab28dda830281b10386d4409faee6257",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/JPN/Targets/TypeScriptCompile.xaml.lcl":
+    "b4d4a8bfa5fa33411770dbab437145fdb3f96ac30bb11f300059344222b04f36",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/JPN/Targets/ProjectItemsSchema.xaml.lcl":
+    "7a132999acfa74588bf05d0ab5f0fb3f7996dbdc75530f256432f29ba192a1cf",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/JPN/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "949f249f804b9a7208dba9cdbac79724c2fb9aae3ef8087407f0ae270f613f2b",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/JPN/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "d8918569d77c66a9d65715b3925f27bfb985dac0843608c0e5fbf1e5568fa430",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/JPN/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "4c4cf734cbeebfd39f4721aa2681f2111c74173f7fd127061fdd158d2a816e2b",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/JPN/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "39a72abd228f9347dc495eb34c28ef834c06286157be673ebc5469d886a48cd5",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHS/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "ad2748e7e2ee8ac0516065f4b1148989aa39440b8b116a82de5f3cbe493a6b3d",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHS/Targets/ProjectItemsSchema.xaml.lcl":
+    "9f67b190b006b71b331a66d9e17c789643c8acd49a4d39984c229fcb870e45eb",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHS/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "233a250858c5b05aca234d4db99ffdeac5be9f997c6888ec5ff960bbd86ed5d7",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHS/Targets/TypeScriptCompile.xaml.lcl":
+    "8973d40deedc69a27a8d9c166ad39d381b118bb6a068df482e0b6950e773619a",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHS/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "46197de67d4db8309af1298af1d42fa15a01ac0962dded1e52477403f20bfcd7",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CHS/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "25d5b3a36ed5aaf35b75609b4d45fe5dc9baeb0d262731e45f6e101deb73e2f4",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ESN/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "2cfe4891e418c571e4afd636a3243d468961d68c7cf1614d6724c3818c49f1bb",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ESN/Targets/TypeScriptCompile.xaml.lcl":
+    "6ccab183c6272f0ba0ff742aecd82fe7ac000787a9ae423899ec3f644daeaa74",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ESN/Targets/ProjectItemsSchema.xaml.lcl":
+    "f37c386f3ee6ba871663ffef6896b928b7e9ae8a2a8eb1a98da3bb1b97c1f13c",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ESN/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "c6d3d3312586d547186009358ec79ea8be237aa8adb76c1032e340b06f182352",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ESN/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "e0b7604b821b0c43cac105677fe74861111585b4bd924b85d75db85f7cd84f41",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/ESN/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "f8a0dc046c6c700204abdb79482867c463ac4736dee09796bfd627e0bf0cbf26",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/KOR/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "b23c0308ff100d1f6f69419f3c7411a3b07f92ccafd9bf1549ca350ee87fcacd",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/KOR/Targets/TypeScriptCompile.xaml.lcl":
+    "3650d758d39e9f13e07d049d2847d18fb304991370d89f2314e74d147207ab3a",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/KOR/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "ed1e7015fc957d45e02c22261a6d10aff43a012228dcac0889c0c24776e09ee5",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/KOR/Targets/ProjectItemsSchema.xaml.lcl":
+    "c468c778380fd3ae664f98c2bfd60ce41c108313ba536e01e6cafb8fd466a0e8",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/KOR/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "1e253a22eb1b614a599cb26dc465f655f07227f2e761589b080c3f7adb7a412f",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/KOR/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "f0ea9483a4ee4e8dc8de4c1932b5141b718d3c7913b9f2d3f464f54cc4902737",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/FRA/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "c3200129628f432c760e2010879483a764b5356a1825a828343afdac774eb88c",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/FRA/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "1b6b99f2ef91447347d2b195b18c6f4ba8eb5cad949ccec1c0d9ca46c08251ce",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/FRA/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "098c6aab908bc7d254baa8f68ae8b979ff46cd2d5082da410970484f27720216",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/FRA/Targets/TypeScriptCompile.xaml.lcl":
+    "c44c56bf40e1bc2ed8a9d9a3624e270df774d42b4d187985b894e40dfbec1bb0",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/FRA/Targets/ProjectItemsSchema.xaml.lcl":
+    "e26da4d234650b101bf16292e0c75764e0dd38cad91281c965fd2c7d40a7adf0",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/FRA/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "c2bdaff40baa5b717e730fac7b1e088a4aef0b031e1cdab0f22902eb2c4bfda9",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PLK/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "368cb13bdb527847028624428f9f8c90c7a010ff4e042a2e33d48826797f27fe",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PLK/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "9a11669cb9bb408dc30617f4dd69a0e2decb6ff1802654bbf66063a1dba2994f",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PLK/Targets/TypeScriptCompile.xaml.lcl":
+    "e4bf60df5b3ebcebd53b48bdcc0753a6f7ec1957b67c046ea1fd36b5e8226696",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PLK/Targets/ProjectItemsSchema.xaml.lcl":
+    "b52bb746942b4ea7d1dc002355102250ada7d522a7c417541127e5b82b2bc05d",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PLK/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "4814111e569a689b4a722e449aa373043cd3ae00f345cdfc08e23c93b8946f62",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PLK/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "2eea1a965ee0815f81b2e6d2a97fdb72dec4e681d2a0acef824c1fe3c7f3fdf7",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CSY/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "8b1baea5ab433b5eab0c80aa0026a63b517001174c343edc6f51457cb41c7e0d",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CSY/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "e6752f32b76e41a18350b15c6e0fd3d72ddaf5772c4e8a82bd4f841ec54969b2",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CSY/Targets/ProjectItemsSchema.xaml.lcl":
+    "049da9ef9ceda4b6f6ce8db56dbc3dcd34636ffebacabf1f4a6a41174100871f",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CSY/Targets/TypeScriptCompile.xaml.lcl":
+    "28b38046d42023890e3abaf4365603b63904a87b9da4b92af9deb5f4d7eacd2d",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CSY/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "d39a8d4c5889711b5febc9b145fa72b2f3f088974ccd13457c34563148f9fe1b",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/CSY/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "3b63e27fcfa8b3e48a528b0acb634e564b8949f9fb3207531cbab400b15b9c97",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/DEU/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "e70a3048149c550f5f851bec1b452501100dcbe6aa49398dee6b8d990d1b239e",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/DEU/Targets/ProjectItemsSchema.xaml.lcl":
+    "5dbf79dfe97b1efe9938612f973a1ae6318b503bc19c72a239781b9e1b1993ec",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/DEU/Targets/TypeScriptCompile.xaml.lcl":
+    "a2bb704a43e7d740c4c187924aa1fe70234cc3a9fca64c1afcdc4a35c306f8f3",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/DEU/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "d3fee348fcac6bfe20488e03d097c767b904fc43ceec253fab0f269449149595",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/DEU/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "5a8a15e3c32fa876c416aa48363eb1d3ef65e1158710cdd4793a72d9408f61c1",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/DEU/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "126b2fedd4e9b8db38f9bbf95d1da9a72785181be50d84991917bd6716eca5cb",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PTB/TypeScriptDebugEngine/TypeScriptDebugEngine.dll.lcl":
+    "46c5e3b1cb9ed1272fef4c8a1dffa11c621047c0c4b08ca2624f473238aa25ea",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PTB/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
+    "36b32ef41e7743b495a96dca1a4807895c0a1920d2ec1aa50fbe8b427e94b263",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PTB/Targets/TypeScriptProjectProperties.xaml.lcl":
+    "208de9d179a89608dea041cbc35c74a3ee1ada8cc9dfbe33fe9eb3836bc74c42",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PTB/Targets/ProjectItemsSchema.xaml.lcl":
+    "4f97c426c33aa7416b3eb8a8c8221eddf001e824f3ebf2c6545f5676a75e56f6",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PTB/Targets/TypeScriptCompile.xaml.lcl":
+    "83b4b48e52577d24da1814bb57eb5dc7243ccccab4759627efb6e19d15f28666",
+  "src/workers/ipfs/node_modules/typescript/loc/lcl/PTB/TypeScriptTasks/TypeScript.Tasks.dll.lcl":
+    "163a7f1bba742b762203cb5d3efba8227ceee3efae7540fb99b805ee94d98f3e",
+  "src/workers/ipfs/node_modules/typescript/AUTHORS.md":
+    "ca873b8d2e79ec24b7050dc6373efa096a5217eb1caf2fcdb91f04393e3e3e70",
+  "src/workers/ipfs/node_modules/typescript/bin/tsserver":
+    "a088f0c3419bcb2f7b860ad42e4c9f25ead067eda70af6a10d0a7d453954aada",
+  "src/workers/ipfs/node_modules/typescript/bin/tsc":
+    "8d5fa5bd883fec0979fc2004f1fe1d99aef40570155d550eadc0b03b55513bf0",
+  "src/workers/ipfs/node_modules/typescript/README.md":
+    "2f891c13884fc498e1b4bfd572b73ea2c0142c2cbc957f8917674e749c2cf5b6",
+  "src/workers/ipfs/node_modules/typescript/package.json":
+    "88abb140a117498724550448aa1ba1cc7fb02cf734202c28c75e67a0c6410ead",
+  "src/workers/ipfs/node_modules/typescript/CopyrightNotice.txt":
+    "0d9e78b962c1f6215aa974365d263c50683b6855db45c6c0ed67ee1002974dc6",
+  "src/workers/ipfs/node_modules/typescript/ThirdPartyNoticeText.txt":
+    "0a64d2681a1e3c7ccd1c2a146a68812d4a23e66ca7cc1dea0e30dbd81e80c369",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.proxy.d.ts":
+    "7207e317a2cb07a177e7d963ab7b8c0e85dde7f9ddb50351f830239bf597569e",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2017.intl.d.ts":
+    "12a310447c5d23c7d0d5ca2af606e3bd08afda69100166730ab92c62999ebb9d",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2019.full.d.ts":
+    "1f03b495671c3a1bd24510f38b8947f0991dfd6bf0278c68eca14af15b306e1f",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts":
+    "9d122b7e8c1a5c72506eea50c0973cba55b92b5532d5cafa8a6ce2c547d57551",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2018.full.d.ts":
+    "32b8443be144970b813b9dd72dcdba2059fbdfdae4d3a50c4d8a158ed6057bbe",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.webworker.importscripts.d.ts":
+    "7fac8cb5fc820bc2a59ae11ef1c5b38d3832c6d0dfaec5acdb5569137d09a481",
+  "src/workers/ipfs/node_modules/typescript/lib/typescriptServices.d.ts":
+    "034ee0c7c37f77ff2a5aff3d2a728f75e27e66d2e6dc5dcd95190c6676aaac39",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2019.symbol.d.ts":
+    "2ad234885a4240522efccd77de6c7d99eecf9b4de0914adb9a35c0c22433f993",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2018.regexp.d.ts":
+    "c80df75850fea5caa2afe43b9949338ce4e2de086f91713e9af1a06f973872b8",
+  "src/workers/ipfs/node_modules/typescript/lib/watchGuard.js":
+    "b6c3f1afc4a48a25b50fd0b8792a0a9bba8db3d0fc831dc485b8f5899d150400",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2019.object.d.ts":
+    "6c51b5dd26a2c31dbf37f00cfc32b2aa6a92e19c995aefb5b97a3a64f1ac99de",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2017.string.d.ts":
+    "6a6b173e739a6a99629a8594bfb294cc7329bfb7b227f12e1f7c11bc163b8577",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es5.d.ts":
+    "9622e8bd7cc72a7dab819a8011ecbf81d443638082e5cb99ecf2e75ff56ffc9d",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2018.d.ts":
+    "5f4e733ced4e129482ae2186aae29fde948ab7182844c3a5a51dd346182c7b06",
+  "src/workers/ipfs/node_modules/typescript/lib/protocol.d.ts":
+    "8ccc346cc744e6f92fd71598901238e0300fe6a38453e533178170c480dc0401",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.sharedmemory.d.ts":
+    "e7e8e1d368290e9295ef18ca23f405cf40d5456fa9f20db6373a61ca45f75f40",
+  "src/workers/ipfs/node_modules/typescript/lib/pl/diagnosticMessages.generated.json":
+    "9ce1bcfb509e56fd45597f43b776c21e7bd8fe17c879a8100de019a2d58905eb",
+  "src/workers/ipfs/node_modules/typescript/lib/es/diagnosticMessages.generated.json":
+    "aa540952a555639bf48cf8022dfa6f422a278b067f49146c7ce054bf18429763",
+  "src/workers/ipfs/node_modules/typescript/lib/tsserverlibrary.d.ts":
+    "625166431576b7ca0ec779b87d3c9e317a6bbe15d56b89579f3b213c62a6e11b",
+  "src/workers/ipfs/node_modules/typescript/lib/tsserverlibrary.js":
+    "657d227f149b59c1fce5ac5850afca8754d5f7902a68d9d3fa1e4924786efaa7",
+  "src/workers/ipfs/node_modules/typescript/lib/cancellationToken.js":
+    "a6855b68bc2c8aef437dc6261a169c9f1cdeaa54df37cd8a30c6b3da0363aa07",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.d.ts":
+    "dc47c4fa66b9b9890cf076304de2a9c5201e94b740cffdf09f87296d877d71f6",
+  "src/workers/ipfs/node_modules/typescript/lib/README.md":
+    "fe4985dbec74b8a7f7baa94498ca4fc9a6e5773e68312d53a62e8fe0dab9b810",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.promise.d.ts":
+    "7435b75fdf3509622e79622dbe5091cf4b09688410ee2034e4fc17d0c99d0862",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.collection.d.ts":
+    "43fb1d932e4966a39a41b464a12a81899d9ae5f2c829063f5571b6b87e6d2f9c",
+  "src/workers/ipfs/node_modules/typescript/lib/typescript.d.ts":
+    "e219a21f5ad8412f7123ea70e59e1287e7fca5c41157be496847f7959fc1e0c4",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.d.ts":
+    "e21c071ca3e1b4a815d5f04a7475adcaeea5d64367e840dd0154096d705c3940",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.bigint.d.ts":
+    "7b5a10e3c897fabece5a51aa85b4111727d7adb53c2734b5d37230ff96802a09",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.d.ts":
+    "2dc8c927c9c162a773c6bb3cdc4f3286c23f10eedc67414028f9cb5951610f60",
+  "src/workers/ipfs/node_modules/typescript/lib/typescriptServices.js":
+    "3796c8f67be2dae240c444c74db23f914bdc60a4737c96a1176e2261062b9bf5",
+  "src/workers/ipfs/node_modules/typescript/lib/cs/diagnosticMessages.generated.json":
+    "e5bc1a95aca0f6e884d6a649c562b5a20c39b8893d347cc7bc85551be0d6ec49",
+  "src/workers/ipfs/node_modules/typescript/lib/zh-cn/diagnosticMessages.generated.json":
+    "1d25d3c26029138122ba93bc66db19e38659a34597d55b156d2285ee2e4382c1",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2016.array.include.d.ts":
+    "3be5a1453daa63e031d266bf342f3943603873d890ab8b9ada95e22389389006",
+  "src/workers/ipfs/node_modules/typescript/lib/typingsInstaller.js":
+    "c97abb080fc728af421a4a95b2076d9d8eb52d9bb120a0f9ae9cf5d8b4f08dfd",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.generator.d.ts":
+    "cdccba9a388c2ee3fd6ad4018c640a471a6c060e96f1232062223063b0a5ac6a",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.reflect.d.ts":
+    "cb609802a8698aa28b9c56331d4b53f590ca3c1c3a255350304ae3d06017779d",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2016.full.d.ts":
+    "2dfbb27de6bf0db1018122b054d26cf1fc47bc1979d096aec101b08a42c63b13",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2018.intl.d.ts":
+    "df9c8a72ca8b0ed62f5470b41208a0587f0f73f0a7db28e5a1272cf92537518e",
+  "src/workers/ipfs/node_modules/typescript/lib/zh-tw/diagnosticMessages.generated.json":
+    "8b41f850b94ac3c021362c1d7b5c489b966a648daa2ba9a4f50e5100657f6c7e",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2019.d.ts":
+    "e6b724280c694a9f588847f754198fb96c43d805f065c3a5b28bbc9594541c84",
+  "src/workers/ipfs/node_modules/typescript/lib/fr/diagnosticMessages.generated.json":
+    "b5a6b9de05f31d7efb1404efaebad3a7bc7620d7431871cc266874bfda59ca4b",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2017.full.d.ts":
+    "d2f31f19e1ba6ed59be9259d660a239d9a3fcbbc8e038c6b2009bde34b175fed",
+  "src/workers/ipfs/node_modules/typescript/lib/tsserver.js":
+    "bec7ae53306f1aeaafe8cc7b66ba392ef3cdacca592634f53933089ea87e28df",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2017.d.ts":
+    "8a12173c586e95f4433e0c6dc446bc88346be73ffe9ca6eec7aa63c8f3dca7f9",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2017.typedarrays.d.ts":
+    "b0124885ef82641903d232172577f2ceb5d3e60aed4da1153bab4221e1f6dd4e",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.esnext.d.ts":
+    "fc7a21dd3ee27fd0a9ff1c46534efcd9c3cec51a445b479bb326d871c0aa8302",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.webworker.iterable.d.ts":
+    "68a7c5288f9d9d63044702a31bbcdcc48ade654c1160c90b400c2bfa441158ea",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.core.d.ts":
+    "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.esnext.promise.d.ts":
+    "cd6efb9467a8b6338ece2e2855e37765700f2cd061ca54b01b33878cf5c7677e",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.symbol.wellknown.d.ts":
+    "936d7d2e8851af9ccfa5333b15e877a824417d352b1d7fd06388639dc69ef80a",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.esnext.string.d.ts":
+    "fb4416144c1bf0323ccbc9afb0ab289c07312214e8820ad17d709498c865a3fe",
+  "src/workers/ipfs/node_modules/typescript/lib/de/diagnosticMessages.generated.json":
+    "c911e668cb04c82eb8244568d7fd3597e39027702184a40000110f2c3d9c7bda",
+  "src/workers/ipfs/node_modules/typescript/lib/ja/diagnosticMessages.generated.json":
+    "2d07ea10baa20c24f49479320caae96ed0792c839d0124a1592c23336866193c",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.iterable.d.ts":
+    "8b2a5df1ce95f78f6b74f1a555ccdb6baab0486b42d8345e0871dd82811f9b9a",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.dom.iterable.d.ts":
+    "d42f4141bd9ce82b4e2902f26acb00c183e321be19a38bbc0e76a922c1724c94",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.esnext.full.d.ts":
+    "d96fa8a56871904776165ceb8e00bd56127e1a017bb2664cae76223b5f815141",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.intl.d.ts":
+    "31e8df2398e328077079c17ea4f1664bad0a34adf8b0608837e504e310e329a1",
+  "src/workers/ipfs/node_modules/typescript/lib/ru/diagnosticMessages.generated.json":
+    "652267a810964e3f83fbc9fa263d6d9b3a2c1234da1e2b4dc3528eb5fc5d4991",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2018.asynciterable.d.ts":
+    "a40c4d82bf13fcded295ac29f354eb7d40249613c15e07b53f2fc75e45e16359",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2018.promise.d.ts":
+    "bb2d3fb05a1d2ffbca947cc7cbc95d23e1d053d6595391bd325deb265a18d36c",
+  "src/workers/ipfs/node_modules/typescript/lib/tsc.js":
+    "2f65d8ccc209308d4c5f797ff221cd983b03d3c844a5a9ea80e32055ae82a480",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.string.d.ts":
+    "faf0221ae0465363c842ce6aa8a0cbda5d9296940a8e26c86e04cc4081eea21e",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.esnext.weakref.d.ts":
+    "1e61418f41d404e744b6536af9f8c6f6674dd4d54c12335cd0c4f7eded69cf3f",
+  "src/workers/ipfs/node_modules/typescript/lib/typesMap.json":
+    "b51973e51598301f7c7b9ca0dbeacf8fc3089f50fed9b2ab42a788382c083418",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2019.array.d.ts":
+    "9d57b2b5d15838ed094aa9ff1299eecef40b190722eb619bac4616657a05f951",
+  "src/workers/ipfs/node_modules/typescript/lib/ko/diagnosticMessages.generated.json":
+    "cab59cc50a8ca09cdf1cbe0139901288554063e5f9b8fad6103d653a7ca50e47",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es6.d.ts":
+    "721cec59c3fef87aaf480047d821fb758b3ec9482c4129a54631e6e25e432a31",
+  "src/workers/ipfs/node_modules/typescript/lib/pt-br/diagnosticMessages.generated.json":
+    "5627b07057c7db56bb0722c0c79396f73b976ce53aa8438b76d2949dd84edbe8",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2019.string.d.ts":
+    "93544ca2f26a48716c1b6c5091842cad63129daac422dfa4bc52460465f22bb1",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2017.object.d.ts":
+    "17bb1fc99591b00515502d264fa55dc8370c45c5298f4a5c2083557dccba5a2a",
+  "src/workers/ipfs/node_modules/typescript/lib/it/diagnosticMessages.generated.json":
+    "4189dba757151c8542fb12685887377593c72c494852a6309b3f4d56f199d96e",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.esnext.intl.d.ts":
+    "89bf2b7a601b73ea4311eda9c41f86a58994fec1bee3b87c4a14d68d9adcdcbd",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2016.d.ts":
+    "7a387c58583dfca701b6c85e0adaf43fb17d590fb16d5b2dc0a2fbd89f35c467",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2020.full.d.ts":
+    "f58c6d0669d1ee04b2fcb0e87fb949b6828602f3f29c7bf6c76a214f16fd50d5",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts":
+    "0eb85d6c590b0d577919a79e0084fa1744c1beba6fd0d4e951432fa1ede5510a",
+  "src/workers/ipfs/node_modules/typescript/lib/tr/diagnosticMessages.generated.json":
+    "a3616182cfe0df57b1f995a45e8c9bb1168ab0f717fdabd61544faad43072559",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.dom.d.ts":
+    "abadddbf660adeec27e9a56584907d52fa1d6e1e1dc49f639a921baa951b7a84",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts":
+    "7ce9f0bde3307ca1f944119f6365f2d776d281a393b576a18a2f2893a2d75c98",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.webworker.d.ts":
+    "d236c5185ed53b51f7aae967ffdc8556aa1e38a2a116ed984cf40808f5724499",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.symbol.d.ts":
+    "3013574108c36fd3aaca79764002b3717da09725a36a6fc02eac386593110f93",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.es2015.promise.d.ts":
+    "2bb4b3927299434052b37851a47bf5c39764f2ba88a888a107b32262e9292b7c",
+  "src/workers/ipfs/node_modules/typescript/lib/lib.scripthost.d.ts":
+    "097a57355ded99c68e6df1b738990448e0bf170e606707df5a7c0481ff2427cd",
+  "src/workers/ipfs/node_modules/typescript/lib/typescript.js":
+    "5bd3602e2c79c8b3c878cdaa68cc3dafd064e1c25397c742fb71ea6760f272ef",
+  "src/workers/ipfs/node_modules/typescript/LICENSE.txt":
+    "a7d00bfd54525bc694b6e32f64c7ebcf5e6b7ae3657be5cc12767bce74654a47",
   "src/workers/ipfs/node_modules/uint8arrays/compare.js":
     "2daa6554a239894e6d9689627243fcf120aa8750fcfdf6a34dd160c87af98c16",
   "src/workers/ipfs/node_modules/uint8arrays/equals.js":
@@ -658,16 +998,16 @@ export const shasums = {
     "d066b5719b9911b6316c48de23fa16460c1204aaf4ec59afd348f36ff726037f",
   "src/workers/ipfs/node_modules/uint8arrays/README.md":
     "d1c41a24417f250300dead589f8602117e64e37cba4f74c3c527d85064b28cfb",
-  "src/workers/ipfs/dist/ipfs.client.d.ts":
-    "e065b7d50e418c5681f2577aef1981608d0d10b605143189bc436444ab169188",
-  "src/workers/ipfs/dist/ipfs.server.d.ts":
-    "76d7811bbc1c539548c9bd65597ce5b8660e388d72b7cbf90aff95ae4b3deaa1",
-  "src/workers/ipfs/dist/gateways.js":
-    "908a3ed7447294f9d7e3de059995f60aeb832e30f06af2118fc292482829b3e6",
+  "src/workers/ipfs/dist/ipfs.client.js":
+    "a72ebff3f7a6404503860fb2d39b3b1c325d3dfbd8834eed510690e136c2cb65",
   "src/workers/ipfs/dist/ipfs.server.js":
     "85daf0a4cc8d791389bf0a311d5be31ac18099e2ec7e6f4d8328d194c60cefdb",
-  "src/workers/ipfs/dist/ipfs.client.js":
-    "128f506de8da643be3822f82eb75ddb6f7fb05b5f259af80e72bb1552e7b201a",
+  "src/workers/ipfs/dist/ipfs.server.d.ts":
+    "76d7811bbc1c539548c9bd65597ce5b8660e388d72b7cbf90aff95ae4b3deaa1",
+  "src/workers/ipfs/dist/ipfs.client.d.ts":
+    "e065b7d50e418c5681f2577aef1981608d0d10b605143189bc436444ab169188",
+  "src/workers/ipfs/dist/gateways.js":
+    "908a3ed7447294f9d7e3de059995f60aeb832e30f06af2118fc292482829b3e6",
   "src/workers/ipfs/dist/gateways.d.ts":
     "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
   "src/workers/ipfs/README.md":
@@ -708,12 +1048,12 @@ export const shasums = {
     "4867914563a93849c3e414c4ba728ebfa48bbd71bfdbe05b6dbf42284fbd6369",
   "src/shadb/src/getDbObj.js":
     "f901cbc13ae33ec49796331f4561fe7a390da8e035a566bc16c44840527c45a9",
-  "src/shadb/src/vendor/diffChars.js":
-    "b4162d007765561bb2c4d926566c3fbf27715f5deb70f7b987dd9a2f307e307d",
   "src/shadb/src/vendor/diffMin.js":
     "4083719d03e7ba3db6d959811c90e2d0f5d1c3bebc1de389b07bfd3803734e02",
   "src/shadb/src/vendor/idb.js":
     "d8a8aa5f7adfad283311ece35f83b8b25760356d41c15cd69b08682287ea14bd",
+  "src/shadb/src/vendor/diffChars.js":
+    "b4162d007765561bb2c4d926566c3fbf27715f5deb70f7b987dd9a2f307e307d",
   "src/shadb/src/diff.js":
     "08194010155dbb534dbf64aaf51c3ad0af972ce04936a98003b47ea75d4b0b56",
   "src/shadb/src/diffChars.js":
@@ -724,38 +1064,38 @@ export const shasums = {
     "2c8a794b37626e56ab43db3d7b6232a8a9dda9702142fb8a67d19caf2d6f7a89",
   "src/shadb/tsconfig.tsbuildinfo":
     "669feb00fae5a639a036061383a422cc9edebc1982a4e4767c95ac01c0cfcf06",
-  "src/shadb/dist/sha256.js":
-    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
-  "src/shadb/dist/vendor/diffChars.d.ts":
-    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
-  "src/shadb/dist/vendor/diffMin.js":
-    "43d1f239704c26af851b802d257b637dd7d9a8719ddb0f317ec3641e8801c88d",
-  "src/shadb/dist/vendor/idb.d.ts":
-    "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
-  "src/shadb/dist/vendor/idb.js":
-    "2aa52ffdf9a5ec1ee952b41dc54bd13822b3ddc67f531f4743154c75fc33b6a6",
   "src/shadb/dist/vendor/diffMin.d.ts":
     "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
+  "src/shadb/dist/vendor/idb.js":
+    "2aa52ffdf9a5ec1ee952b41dc54bd13822b3ddc67f531f4743154c75fc33b6a6",
+  "src/shadb/dist/vendor/diffMin.js":
+    "43d1f239704c26af851b802d257b637dd7d9a8719ddb0f317ec3641e8801c88d",
   "src/shadb/dist/vendor/diffChars.js":
     "7d8f62c0ddf5f2abc2ddeae42f8a460853065d7da33005bbae97c504de3437ee",
+  "src/shadb/dist/vendor/diffChars.d.ts":
+    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
+  "src/shadb/dist/vendor/idb.d.ts":
+    "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
   "src/shadb/dist/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
-  "src/shadb/dist/diffChars.d.ts":
-    "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
+  "src/shadb/dist/shaDB.d.ts":
+    "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "src/shadb/dist/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "src/shadb/dist/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
+  "src/shadb/dist/diffChars.d.ts":
+    "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "src/shadb/dist/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-  "src/shadb/dist/shaDB.d.ts":
-    "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
-  "src/shadb/dist/sha256.d.ts":
-    "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "src/shadb/dist/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
+  "src/shadb/dist/sha256.d.ts":
+    "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "src/shadb/dist/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
+  "src/shadb/dist/sha256.js":
+    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "src/shadb/package.json":
     "184a80f125c73e5c4b9a2000c1905d445d3b5ed24369992b0d8b0fc67aa00e5d",
   "tsconfig.json":
