@@ -119,15 +119,11 @@ async function handleRequest(request: Request) {
     return resp;
   }
   if (pathname === `/${cid}.js`) {
-    return js(`export const files = JSON.parse("${JSON.stringify(files)}")`);
+    return js(`export const files = ${JSON.stringify(files)}`);
   }
   return text(`<!doctype html>
   <html>
   <head>
-  <script src="https://code.zed.vision/ipfs/${
-    files["src/workers/files.umd.js"]
-  }"></script>
-
   </head>
   <body>
     <h1> Code....

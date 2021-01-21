@@ -17,7 +17,7 @@ export const files = {
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "QmShARLeUYm6Z8MnXWMcaURhDrkVd3hphoVaT1SNpaJkm1",
+  "index.html": "QmP62b7KBM3KjWhDJKJbBvWEkfeYaHGzBfgVzsLdWrFoRM",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "node_legacy/@babel/standalone/LICENSE":
@@ -946,6 +946,6 @@ export const files = {
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
   "src/workers": "QmVF23hYaaK4bpMrg3WZLgXtPUQS6oAHWKP4xfpg2VXPRU",
   "src": "QmStEtaP3F2emKMoRV9aRmG3RkFRSRwBZY2vmEVbFXfmpT",
-  "": "QmVJunMwsZfdGc8qeMYaRYeWVPUfJeToyskzWsc2x7HkEV",
+  "": "Qma4SHsm6jkB9o9QTtkLnN1s8ykVi8AkCitScjyP49EEMa",
   "foo": "bar",
 };

@@ -6,12 +6,14 @@
   <link rel="stylesheet" href="assets/app.css" />
   <link rel="stylesheet" href="assets/roboto.css" />
   <link rel="stylesheet" href="assets/normalize.min.css" />
-  <script src="./src/workers/files.umd.js"></script>
 <title>Instant React Editor</title>
 </head>
 <body>
   <script>
     addEventListener("load", ()=>{
+
+      
+
        /// 
        /// if after body init - monaco editor still haven't started (the app haven't started)
        /// it's likely that we have caching issues. So giving a push to it.
@@ -26,9 +28,11 @@
 
     })
 
-    function forceCacheToLoad(){
-      console.log("Cache Forcing");
-         Object.keys(files).filter(x=>x.indexOf(".j")>-1).map(x=>fetch(x).catch(()=>fetch(`/ipfs/${files[x]}`)));
+    async function forceCacheToLoad(){
+      const cid = location.pathname.slice(6,52);
+      const files = await import (`./${cid}.js`);
+      
+      Object.keys(files).filter(x=>x.indexOf(".j")>-1).map(x=>fetch(x).catch(()=>fetch(`/ipfs/${files[x]}`)));
     }
 
   </script>
