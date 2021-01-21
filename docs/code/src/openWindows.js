@@ -16,14 +16,14 @@ export async function openWindows() {
       closable: false,
       borderRadius: "0px",
       backgroundWindow: "#1e1e1e",
-      height: 640,
+      height: 800,
       title: "app.tsx",
     },
   );
 
   win.content.innerHTML =
-    `<div style="min-height: 700px;  min-width: 600px; height: ${
-      isMobile() ? "2000px" : "100%"
+    `<div style="min-height: 200px;  min-width: 600px; height: ${
+      isMobile() ? "2000px" : "95%"
     }; width:100%; display: block;" id="editor"></div>`;
 
   if (!isMobile()) {
