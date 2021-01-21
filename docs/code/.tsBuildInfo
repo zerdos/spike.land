@@ -447,12 +447,12 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "01fa85f3ca87451e2335d26d2f58b28ca169585253897ee901cd85ce29a9b628",
+        "version": "ab4259fc801cfcc53a54abcb501b4cb79dce8257acedb7f3814061e7d78c5140",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
       "./src/workers/ipfsWorker.js": {
-        "version": "0ccf40b1ed268e47d3b9a98e2c9285edfaeb68eac11f65da3bceba15ee2a52fe",
+        "version": "42a75a42ed04e60ee4ab0c91e2e678115a640214c622aaf83ad89fe7c6e5c772",
         "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
         "affectsGlobalScope": true
       },

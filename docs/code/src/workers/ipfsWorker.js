@@ -3,7 +3,7 @@ importScripts(
 );
 
 importScripts(
-  "./ipfs/node_legacy/server.min.js"
+  "./ipfs/dist/ipfs.server.js"
 );
 
 // @ts-ignore

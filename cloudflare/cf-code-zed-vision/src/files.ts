@@ -484,7 +484,7 @@ export const files = {
   "src/hash.js": "QmbitMiMtxY1dMgh7M5NPASYtMg5ja48U65MFh4rPEJf4r",
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
-  "src/ipfsClient.js": "QmQ1xc4aTAEbKaxdYivjQYfvU52QxyAVJm7aPhQQPrwURP",
+  "src/ipfsClient.js": "QmSA3dS8TfNNQ6nSXBtLE73p8HFcxLu8rRL8NaQdpVHcFT",
   "src/openWindows.js": "QmNhtrMUYGPFpEr7GzGr4tzYSh3m1nFK39sDU3E8sU8vad",
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
@@ -617,7 +617,7 @@ export const files = {
   "src/templates.js": "QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmWbPbdGzQw2sSewLCHvUasWFXYaYsV9nEK4QcEbtqBfCW",
+  "src/workers/files.umd.js": "QmaBcxwQqkbeBqEaoAcwihTT85JbeM1xNtQZE6hPoUYrWX",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -631,7 +631,7 @@ export const files = {
   "src/workers/ipfs/dist/ipfs.server.d.ts":
     "QmehfY8Fwd6g979memvTZG7Zx2o6QcVLi6iSNJTBDvmdY7",
   "src/workers/ipfs/dist/ipfs.server.js":
-    "QmVmSipTZcmBxXecMxUrbAAZxz2t2hkDvBYkTG6NW8az2T",
+    "QmZBVJyLM1r4wZHySwQ3hxKUQCZXsV3fL63BScffj7L2BJ",
   "src/workers/ipfs/node_legacy/ipfs.min.js":
     "QmWQMs9pJDk38iaxBKSgCXbwuPXgRqsqHQtTabqQHoRhKF",
   "src/workers/ipfs/node_legacy/server.min.js":
@@ -1032,7 +1032,7 @@ export const files = {
     "QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo",
   "src/workers/ipfs/tsconfig.json":
     "QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg",
-  "src/workers/ipfsWorker.js": "QmeMLa8hZ7ZrN7pwc922S4s2z938MyyJffoVnpi7jVgJHN",
+  "src/workers/ipfsWorker.js": "QmVzkTMiCNd7aaxBVhDNaTVBCkHYZa1Rv2V5vXsX5MPzxh",
   "src/workers/shasums.umd.js":
     "QmTcSv4DXa6USZDdqotYWUdEhRB8voN9hrDdSjsPAvWgjq",
   "src/workers/sw.js": "Qmcv8TPiQZfzg6PtsyD412nMbgm5zLnV54Y1kDS6EgEsdi",
@@ -1330,7 +1330,7 @@ export const files = {
   "src/smart-monaco-editor/src":
     "QmSQUM9Zkyn5Y6RQTfPKqf5VP5xhKVi76sxsVHLqNHcJvP",
   "src/smart-monaco-editor": "QmbBieby1z8kXdYMUNsb82YX5dJ8ePJKAqgfw29w2X9wfM",
-  "src/workers/ipfs/dist": "QmQpK2pcFWjTmCXSrwtob8xXM4hNcW74rvqwJVKhhMJyXV",
+  "src/workers/ipfs/dist": "QmUULZgSKjRetCtNZQNefSp65cLy27BW9JVsHEP3QaSBE3",
   "src/workers/ipfs/node_legacy":
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "src/workers/ipfs/node_modules/typescript/bin":
@@ -1506,9 +1506,9 @@ export const files = {
   "src/workers/ipfs/node_modules":
     "QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ",
   "src/workers/ipfs/src": "QmdR7MasU1f3ejMeArKqsZ9V7z59pZ6J4Mj5XgA7xbAt22",
-  "src/workers/ipfs": "QmYPn14VG4wpPjqwoDo976J19sFkd3bVAVdUC2itSjyNqE",
-  "src/workers": "QmVCeMNdjybLA6aBhaBgVZokqYcw5kHSGUmFZqnZaZaF4g",
-  "src": "QmNtvyjSdkAxFtmEEG3vaaRJkCyotfrjfiQvhMtFfSV6hN",
-  "": "QmZ6fJEGeaVfguBiqYdNMhj84k3pfLw7AZHzJ1z3Q9PzHc",
+  "src/workers/ipfs": "QmPcuPXUWuPvPD5Q3kfPiPuShiLBkJRTaXA8ZrJVXJrVhU",
+  "src/workers": "QmWwP9x33xtvaK88Z4FWMqYGWcxZ4gXeWxrWMhmBPbujvz",
+  "src": "QmR4X54UbWchj2zmCE1SGAwjDFJhPiUEh6VWDjyvUFowq6",
+  "": "QmaTd4hDdwSLuZwBkuLUf3ftnaEwoTN3uKcZ1Y6RD6cjqE",
   "foo": "bar",
 };

@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "49fa482ae473b1fba776cd62624fc83805012d665df132655451762902f61c6c",
+    "1bff84a05bb9694edfad205de9dc668714a90a12a32b1436b3cca7eefc2a385c",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -491,7 +491,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "7ec1c6409d34adbb47d9d8da579f8277a415b362b2bfc4b6652a4aab3c42b13c",
+    "9b60432a6814908615f3b07981db44ad614f62902765e40cb6f7e64b3ca97676",
   "src/transpile.js":
     "21530fe943b02493178c7237a60d9b0fc6c5c2dc53b3be5c1d5feb68a1e8a824",
   "src/smart-monaco-editor/index.html":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "01fa85f3ca87451e2335d26d2f58b28ca169585253897ee901cd85ce29a9b628",
+    "ab4259fc801cfcc53a54abcb501b4cb79dce8257acedb7f3814061e7d78c5140",
   "src/workers/ipfs/package.json":
     "96c1eb0a2a5c2ce2fbcb5dcb44bc1f69b7c6703de736ef053da193135e398655",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
@@ -1001,7 +1001,7 @@ export const shasums = {
   "src/workers/ipfs/dist/ipfs.client.js":
     "a72ebff3f7a6404503860fb2d39b3b1c325d3dfbd8834eed510690e136c2cb65",
   "src/workers/ipfs/dist/ipfs.server.js":
-    "85daf0a4cc8d791389bf0a311d5be31ac18099e2ec7e6f4d8328d194c60cefdb",
+    "c3906575a0da7e93fcab6707e64cefaa04601097d39121e93559aebdb4e0247b",
   "src/workers/ipfs/dist/ipfs.server.d.ts":
     "76d7811bbc1c539548c9bd65597ce5b8660e388d72b7cbf90aff95ae4b3deaa1",
   "src/workers/ipfs/dist/ipfs.client.d.ts":
@@ -1031,7 +1031,7 @@ export const shasums = {
   "src/workers/sw.js":
     "8867fb0d081bf438054e94db48c188823614df8727285dcbe89e99eddd0f8cd4",
   "src/workers/ipfsWorker.js":
-    "0ccf40b1ed268e47d3b9a98e2c9285edfaeb68eac11f65da3bceba15ee2a52fe",
+    "42a75a42ed04e60ee4ab0c91e2e678115a640214c622aaf83ad89fe7c6e5c772",
   "src/workers/transpile.worker.js":
     "86dc79d7215b4a3759dd389c22d11044931c266b3f95e967cabe6c995d562750",
   "src/workers/shasums.umd.js":
