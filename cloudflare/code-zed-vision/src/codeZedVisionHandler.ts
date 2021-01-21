@@ -125,16 +125,9 @@ async function handleRequest(request: Request) {
   <html>
   <head>
   </head>
-  <body>
-    <h1> Code....
-    </h1>
-    <script type="text/javascript">
-    addEventListener("load", ()=>{
-      window.location = "/ipfs/${cid}/";
-    });
-      </script>
-  
-  </body>
+  <script type="text/javascript">
+  window.location = "/ipfs/${cid}/";
+  </script>
   </html>`);
 }
 
