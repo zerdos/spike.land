@@ -287,7 +287,7 @@
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {
-        "version": "64df1fb712ea653b59c0e831d339e8bcb6dbb9f0e24cab092c71fccba0570ee4",
+        "version": "78eb6ce1ea4bb9dacb3778f0fde8f46250b1ea641a9cba799e002f0a09b315e0",
         "signature": "1a3f443a1e5252a67cb9936384000e79fe880395c49cf121a22bed1e332ab287",
         "affectsGlobalScope": false
       },
@@ -447,7 +447,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "943cc16644056f9a9edf7c919e4192580619c3624b8f1f0c1ed25dd71a56b66d",
+        "version": "7593e2413511a377ab28bd23cd4c86a65bb47aacdb9b8b9f61e574dcc9ebda3c",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

@@ -1,9 +1,10 @@
 import { workBox } from "./workBox.js";
-import { WindowManager } from "../node_legacy/simple-window-manager.es.js";
 
 export function openWindows() {
   workBox();
-
+  const { WindowManager } = import(
+    "../node_legacy/simple-window-manager.es.js"
+  );
   const wm = new WindowManager({ backgroundWindow: "green" });
 
   wm.snap(false);
@@ -16,7 +17,7 @@ export function openWindows() {
       borderRadius: "0px",
       backgroundWindow: "#1e1e1e",
       height: 640,
-      title: "app.tsx :)",
+      title: "app.tsx",
     },
   );
 
