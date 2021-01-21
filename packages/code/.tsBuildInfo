@@ -257,7 +257,7 @@
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
-        "version": "b13e488a8d59891cacd2bc4e82f0daf7bb68f04799b0e451645412193e47229e",
+        "version": "69641ba9f6295925f3e2bad271bfdd186c007340a84db387a50aaedd5dfaf03a",
         "signature": "256dbf8c5e4cbf7054dabd651fc640c02c27fccc8d04051c324345648b79ab2d",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "bceff1f1ba1c8253ba3cb3899306c835d0a719bf83670b72429a82d53960c7cc",
+        "version": "4988f96d0f0df23f79e9015fcb02bf4337b47cce97d9828f03d4adcfbf24155e",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
