@@ -121,13 +121,10 @@ export const Qr = () => {
   return (
     <div
       css={css`
-      display: inline-block;
+        display: inline-block;
        position: relative;
-       padding: 100px;
        margin: 100px;
-   
-   border-radius: 18px;
-    padding: 0;
+       overflow: visible;
 
    
    @keyframes byecube {
