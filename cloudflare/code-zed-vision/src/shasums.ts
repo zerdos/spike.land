@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "b0141fe19072dfe7acacb52434f7ff75785ef7676fd009afe3eff2c4fa5124df",
+    "9cd611a10145b55c3a3a578f5022830dbf14eaad7e83e34ec4e886882e44ad40",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -603,15 +603,15 @@ export const shasums = {
   "src/templates.js":
     "5ff46b2d74314df6b944126eb9ccfe69058af32dbda0bc77c63c19cab38b1754",
   "src/codeLoader.js":
-    "5564272106ad81ed34dcf6a4c2d4bfb742465d2a63e58c145ca759b2fd73b78f",
+    "837d4272421e0a2e7c8c0dcc32e759a5559de7cf96c425e471c8e2d589502e55",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
     "e59e27243ab0238ed5c97f05395e5976e0e0558961d0bb5f51634644fd3b5492",
   "src/sendSignalToQrCode.js":
-    "6568a93a84066a1ccb2434a11e2ce18fb1f9293b9848f16edf4cc396b4ace543",
+    "fedda57f6cc7d977e1dfc6f78842b00396df8bd93cca33968812edf4d2097e91",
   "src/workers/files.umd.js":
-    "6080014422940431e17167d0a382bd86b4c2dc8bf6fb3bea59160d6bd62a90f9",
+    "0144163edc48293978e4dbb6a59234d78f6969079fbe1fd087ea16384f8cf73a",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":

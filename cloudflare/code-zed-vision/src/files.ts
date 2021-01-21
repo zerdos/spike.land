@@ -461,7 +461,7 @@ export const files = {
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
-  "src/codeLoader.js": "QmYP8HTTcWAsumujmRu6PpZyqxzqGvEExVAitAD31sziJj",
+  "src/codeLoader.js": "QmcC6TCKkATGMuZcvVwgL4w9ADj9HdY34DpKgSxXhKyHRw",
   "src/data.js": "QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -501,7 +501,7 @@ export const files = {
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
     "QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu",
-  "src/sendSignalToQrCode.js": "QmczYmnb85dcWoJUerXa7udztB8nJrVnQ9yKK1bLNfUGR7",
+  "src/sendSignalToQrCode.js": "QmdGAWiVQhwdpasRtKW1hFNQJ8ua3ESuqC8UQvREJoEF8X",
   "src/shadb/dist/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
   "src/shadb/dist/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
   "src/shadb/dist/diffChars.d.ts":
@@ -962,7 +962,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
   "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
-  "src": "QmNrXBGpv3L48JUDqjzyAGHEGHexVTbRQQpi72UeDQpPMP",
-  "": "QmNri7WEwoypCm414zjU7hcHh4VCBB2FAcWUveMKP3Sq3Z",
+  "src": "QmXAVUfGCWCqfvEtMSvP9tweakVHk6K9UE7ivzfNjG2A2B",
+  "": "QmXKKVtNRn1vUNsbQyxNKvm7o1uVY1YnK1yfgqBDgKgAFy",
   "foo": "bar",
 };

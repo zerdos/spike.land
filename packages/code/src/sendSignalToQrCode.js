@@ -5,7 +5,7 @@ import { getCodeToLoad, saveCode } from "./data.js";
 /**
  * @param {string} rootUrl
  */
-export async function sendSignalToQrCode(rootUrl) {
+export async function sendSignalToQrCode(session) {
   const { searchParams, pathname } = new URL(window.location.href);
 
   const maybeRoute = searchParams.get("signalToQr") || "";
@@ -14,13 +14,15 @@ export async function sendSignalToQrCode(rootUrl) {
 
   if (!isKey) return;
 
+  await saveCode(session);
+
   const { sendSignal } = await import("./hash.js");
   const signal = `https://zed.vision/${maybeRoute}`;
 
   await sendSignal(
     signal,
     {
-      rootUrl: `https://code.zed.vision/${pathname}edit/`,
+      rootUrl: `${session.url}edit/`,
       signals: {
         onChange: "url",
         onLogout: "url",

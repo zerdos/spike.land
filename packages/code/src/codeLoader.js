@@ -118,7 +118,7 @@ export async function run(mode = "window", _w, code = "") {
   if (!session.url) {
     await saveCode(session, session.i);
   }
-  await sendSignalToQrCode(session.url);
+  await sendSignalToQrCode(session);
 
   /**
    * @param {string} c
