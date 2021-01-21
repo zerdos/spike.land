@@ -56,22 +56,21 @@ async function handleRequest(request: Request) {
         if (content !== null) {
           response = new Response(content);
         } else {
-          return text("Sad.");
-          // response = await fetch(
-          //   `https://cf-ipfs.com/ipfs/${cid2}`,
-          // );
-          // const arrBuff = await response.clone().arrayBuffer();
-          // const shaSum = await sha256(arrBuff);
-          // //@ts-ignore
-          // if (shaSum === shasums[file]!) {
-          //   await IPFSKV.put(cid2, arrBuff);
-          // } else {
-          //   return text(
-          //     `its 2021, but transferring and getting a file its still difficult. Please try again... received content: ${
-          //       new TextDecoder().decode(arrBuff)
-          //     }`,
-          //   );
-          // }
+          response = await fetch(
+            `https://cf-ipfs.com/ipfs/${cid2}`,
+          );
+          const arrBuff = await response.clone().arrayBuffer();
+          const shaSum = await sha256(arrBuff);
+          //@ts-ignore
+          if (shaSum === shasums[file]!) {
+            await IPFSKV.put(cid2, arrBuff);
+          } else {
+            return text(
+              `its 2021, but transferring and getting a file its still difficult. Please try again... received content: ${
+                new TextDecoder().decode(arrBuff)
+              }`,
+            );
+          }
         }
 
         const resp = await alterHeaders(response, pathname);
@@ -79,7 +78,6 @@ async function handleRequest(request: Request) {
         return resp;
       }
     }
-    return text("saDDDDD");
 
     // const req = new Request(`https://code.zed.vision${contentPath}`);
 
