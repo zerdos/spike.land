@@ -13,9 +13,6 @@ let workerSrc = `./src/workers/ipfsWorker.js`;
 let port;
 
 if (typeof window !== "undefined") {
-  if (window.location.host === "blog.zed.vision") {
-    workerSrc = "https://blog.zed.vision/code/src/workers/ipfsWorker.js";
-  }
   if (false && typeof SharedWorker !== "undefined") {
     const ipfsWorker = new SharedWorker(
       workerSrc,

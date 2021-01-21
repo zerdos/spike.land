@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "c94b9b6f84de8803a4c50af7131b098928af3ff72a334ea02a17172ed1edb0bf",
+    "1c2b2a9c6894e2488692554a73b6a9efb74a87885d65bb5e3883b809d4dbb957",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -491,7 +491,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "7f1b461a4c59c678073f3cdcbb8ed22c654f135eadab27bfb2ddc8aa00b47703",
+    "9c96ddc8ad1db917feebda58a2d2f2de773936251427b4be2440f560b4072023",
   "src/transpile.js":
     "21530fe943b02493178c7237a60d9b0fc6c5c2dc53b3be5c1d5feb68a1e8a824",
   "src/smart-monaco-editor/index.html":
@@ -601,7 +601,7 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "1a573cdbda66e62a00b2bc4199e9257c3a405b0aab4a3b7859820d32ef41dcb5",
   "src/templates.js":
-    "5bd10495227707b1411391eacfd9aaae617cfbe1f212d341e957679adbadbd18",
+    "a785d32ab477f0b0116c9e1a324ae167f62a9806713a42c447ca60aebc1596b3",
   "src/codeLoader.js":
     "178cbe7a74543251160c3b771c5893fa1257d823ffd8b0f8195d22549b827255",
   "src/db.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "952d5b067bd16d1685a2ab6e909227d13eeb23ec39ad42b13103de36e8ac74f9",
   "src/workers/files.umd.js":
-    "a5d0407c154d13942a114065f87e0f968cea03e5e0d653d1c16fffc4383171ec",
+    "18df688cadb3f19c209e624dfb82a7fd20ad6c81c576431a774f0afb1683bac5",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":
@@ -647,7 +647,7 @@ export const shasums = {
   "src/workers/ipfs/src/ipfs.server.ts":
     "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "src/workers/sw.js":
-    "d7245a1df45b90c10083b87b71c2e0c9549aa816d310dd1669929eb08fa691d0",
+    "b9f4ba27f0255bfc266c048d6aa101196174777d16667cc8fc939f72b566f3c6",
   "src/workers/ipfsWorker.js":
     "42a75a42ed04e60ee4ab0c91e2e678115a640214c622aaf83ad89fe7c6e5c772",
   "src/workers/transpile.worker.js":

@@ -1,4 +1,4 @@
-import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/getDbObj.js";
+import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/getDbObj.js"
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";

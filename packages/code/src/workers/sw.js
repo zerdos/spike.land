@@ -7,20 +7,6 @@ importScripts(
 workbox.loadModule("workbox-strategies");
 
 // @ts-ignore
-workbox.routing.registerRoute(
-  /**
-   * 
-   * @param {{url: {origin: string}}} opts 
-   */
-  ({ url }) =>
-    url.origin === "https://unpkg.com" ||
-    url.origin === "https://zed.vision" ||
-    url.origin === "https://code.zed.vision" ||
-    url.origin === "https://blog.zed.vision",
-  // @ts-ignore
-  new workbox.strategies.CacheFirst(),
-);
-// @ts-ignore
 self.addEventListener(
   "fetch", /**
  * @param {{ respondWith?: any; request?: any; }} event
