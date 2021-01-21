@@ -17,7 +17,7 @@ if (typeof window !== "undefined") {
   if (window.location.host === "blog.zed.vision") {
     workerSrc = "https://blog.zed.vision/code/src/workers/ipfsWorker.js";
   }
-  if (typeof SharedWorker !== "undefined") {
+  if (false && typeof SharedWorker !== "undefined") {
     const ipfsWorker = new SharedWorker(
       workerSrc,
     );

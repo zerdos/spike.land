@@ -237,7 +237,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "79e0d441de1c06b654c1a7ec34c98187841dfe288d094bea606d4408b220e499",
+        "version": "9b60432a6814908615f3b07981db44ad614f62902765e40cb6f7e64b3ca97676",
         "signature": "0ec746e62f4f1a6c38296332f541e17a1efcd7242f21d6025bd0ebf6e53e3e14",
         "affectsGlobalScope": false
       },
@@ -447,12 +447,12 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "3ea1bf31f8879e415d07657a577595c47ff7d87028d60e26d69663400f3efb22",
+        "version": "01fa85f3ca87451e2335d26d2f58b28ca169585253897ee901cd85ce29a9b628",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
       "./src/workers/ipfsWorker.js": {
-        "version": "1d13855216815fbd43d0af466e83d765d1986664779b7c7c32ef60ecf7607415",
+        "version": "0ccf40b1ed268e47d3b9a98e2c9285edfaeb68eac11f65da3bceba15ee2a52fe",
         "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
         "affectsGlobalScope": true
       },
@@ -482,8 +482,8 @@
         "affectsGlobalScope": false
       },
       "./src/workers/ipfs/dist/ipfs.server.js": {
-        "version": "85daf0a4cc8d791389bf0a311d5be31ac18099e2ec7e6f4d8328d194c60cefdb",
-        "signature": "e326cf6f40e357a683f7fb695b4216c757a238012dbceb5428c63364171af066",
+        "version": "c3906575a0da7e93fcab6707e64cefaa04601097d39121e93559aebdb4e0247b",
+        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
       "./src/workers/ipfs/src/gateways.js": {

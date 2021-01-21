@@ -491,7 +491,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "79e0d441de1c06b654c1a7ec34c98187841dfe288d094bea606d4408b220e499",
+    "7ec1c6409d34adbb47d9d8da579f8277a415b362b2bfc4b6652a4aab3c42b13c",
   "src/transpile.js":
     "21530fe943b02493178c7237a60d9b0fc6c5c2dc53b3be5c1d5feb68a1e8a824",
   "src/smart-monaco-editor/index.html":
@@ -611,9 +611,9 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "3ea1bf31f8879e415d07657a577595c47ff7d87028d60e26d69663400f3efb22",
+    "01fa85f3ca87451e2335d26d2f58b28ca169585253897ee901cd85ce29a9b628",
   "src/workers/ipfs/package.json":
-    "2ab85f93d10bbec50a1a24e17e75cc88f977f48bdfdda0d6262e34aa4ea8ec7e",
+    "96c1eb0a2a5c2ce2fbcb5dcb44bc1f69b7c6703de736ef053da193135e398655",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
     "e3f13b47f43c2a39172f596d1a1fd95cdd5ebe66318753b9bfd71af6c2c1c78e",
   "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
@@ -1010,6 +1010,10 @@ export const shasums = {
     "908a3ed7447294f9d7e3de059995f60aeb832e30f06af2118fc292482829b3e6",
   "src/workers/ipfs/dist/gateways.d.ts":
     "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
+  "src/workers/ipfs/node_legacy/ipfs.min.js":
+    "2d608ef59d1e8323dd3e4233f63cd755416ee4c16f968d5aed9bb1b7b1d1000a",
+  "src/workers/ipfs/node_legacy/server.min.js":
+    "2d608ef59d1e8323dd3e4233f63cd755416ee4c16f968d5aed9bb1b7b1d1000a",
   "src/workers/ipfs/README.md":
     "0bf1511957b70f8d3bb45bd98e3c8cac94c7fde4b0c40ffe265f601ca5c72cfb",
   "src/workers/ipfs/.vscode/settings.json":
@@ -1023,11 +1027,11 @@ export const shasums = {
   "src/workers/ipfs/src/ipfs.client.ts":
     "138825c43aff6e77dea24862bc091e424a8211904dd792cc6bb98f667b6d81d8",
   "src/workers/ipfs/src/ipfs.server.ts":
-    "2db3760389e020f403492e0ce127959fa735be6a5d12f1d213bf6c500f7383a7",
+    "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "src/workers/sw.js":
     "8867fb0d081bf438054e94db48c188823614df8727285dcbe89e99eddd0f8cd4",
   "src/workers/ipfsWorker.js":
-    "1d13855216815fbd43d0af466e83d765d1986664779b7c7c32ef60ecf7607415",
+    "0ccf40b1ed268e47d3b9a98e2c9285edfaeb68eac11f65da3bceba15ee2a52fe",
   "src/workers/transpile.worker.js":
     "86dc79d7215b4a3759dd389c22d11044931c266b3f95e967cabe6c995d562750",
   "src/workers/shasums.umd.js":
