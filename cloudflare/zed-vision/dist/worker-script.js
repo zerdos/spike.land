@@ -129,7 +129,7 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 const v41 = () => v4();
-const cid = "QmQsL4bdBDJnctdmnAHGAZvfRr22gkoAGPmY2PzqaGpNPe";
+const cid = "QmPPfqHo8YHEwRHYYqbbz4ZTds9E8iQBBhmobeakz7vSQS";
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",
@@ -358,6 +358,7 @@ async function handleCloudRequest(request) {
         });
       } else if (signal.length === 8) {
         const msg = await SIGNALS.get(signal);
+        if (msg === null) throw new Error("500");
         return text(msg);
       }
       return text("error....");

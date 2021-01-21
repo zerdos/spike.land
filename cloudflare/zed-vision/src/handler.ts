@@ -55,6 +55,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         return json({ success: true });
       } else if (signal.length === 8) {
         const msg = await SIGNALS.get(signal);
+        if (msg===null) throw new Error("500")
         return text(msg);
       }
       // if (key) {

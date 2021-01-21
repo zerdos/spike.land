@@ -82,8 +82,11 @@ export async function fetchSignal(
 ) {
   if (typeof window === "undefined") return;
   const retry = (typeof _retry === "number") ? _retry : 999;
+  console.log("retrying hash fetch");
 
   if (window.location.hostname !== "code.zed.vision") {
+    console.log("we are NOT on code.zed.vision");
+
     try {
       if (retry === 0) {
         throw new Error("No more retry");
@@ -94,6 +97,8 @@ export async function fetchSignal(
       const signal = pathname.slice(1);
 
       log(`signal to wait: ${signal}`);
+
+      console.log(`https://zed.vision/signal?signal=${signal}`);
 
       const resData = fetch(`https://zed.vision/signal?signal=${signal}`).then(
         (x) => x.text(),

@@ -252,7 +252,7 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "f5a5a4e5f22708fb444578cba11e962ebb430df9ef2bb4542b5c0b0ebeb5fa8d",
+        "version": "049226d9b8d72c86f2676a40719ddbefa381019afd3d489c0b4f186e59eb4ea1",
         "signature": "b6b66d6bd9956ebe04ebd50e82d2674063b2ecf39bbf49bbcc9dce250f05f290",
         "affectsGlobalScope": false
       },
@@ -442,7 +442,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "44df9ad4e7642f6eddb5fd68cf2832bda457cb143920defe081d205ece69e913",
+        "version": "ef1974bf28de5dc159cae53faeca24a61d10098445e3dfda219862313e902397",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
