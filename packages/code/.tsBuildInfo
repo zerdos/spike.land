@@ -447,7 +447,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "9729685ccdc5591f1b26868b75ca8e4ad89ec20ece186c7938549419010ffe8a",
+        "version": "da3bd10e28df09117608c9592432098e8d1e7ee584f1809088971872d49ba468",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
