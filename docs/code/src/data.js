@@ -2,7 +2,6 @@ import { sha256 } from "./shadb/src/sha256.js";
 
 import v4 from "../node_legacy/v4.js";
 
-import { starter } from "./starter.js";
 import { shaDB } from "./shadb/src/shaDB.js";
 
 /** @type {string} */
@@ -163,7 +162,7 @@ export async function getCodeToLoad() {
 
   const data = {
     code: await shaDB.get(projectDesc, "string") ||
-      (await import("./starter.js")).starter,
+      await getStarter(),
     transpiled: null,
     html: null,
     versions: null,
@@ -192,7 +191,7 @@ export const saveCode =
  */
   async (opts, counter) => {
     const { code, html, transpiled, versions, i } = opts;
-    toSave.code = code || starter;
+    toSave.code = code || await getStarter();
 
     // deno-lint-ignore ban-ts-comment
     //@ts-ignore
@@ -247,3 +246,7 @@ export const saveCode =
     await shaDB.put(projectName, hash);
     Object.assign(saved, { html, code, transpiled, url });
   };
+
+function getStarter() {
+  return fetch(`./src/examples/app.tsx`).then((res) => res.text());
+}

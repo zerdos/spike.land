@@ -206,11 +206,6 @@
         "signature": "1775551aec3cad1f70e4f4e7ccb2c4b5078772fb5cab4292a09f61c6dcb28276",
         "affectsGlobalScope": false
       },
-      "./src/starter.js": {
-        "version": "100fb9406aca460801eefa2f2bef83d926bf1d5db11bec6b12fd70ee0a6a17fb",
-        "signature": "2e336c3ecd70956927790025e12507a40718107790a1c73e2a97b0e2898d4839",
-        "affectsGlobalScope": false
-      },
       "./src/shadb/src/vendor/idb.js": {
         "version": "d8a8aa5f7adfad283311ece35f83b8b25760356d41c15cd69b08682287ea14bd",
         "signature": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
@@ -252,7 +247,7 @@
         "affectsGlobalScope": false
       },
       "./src/data.js": {
-        "version": "41e7ad19b91a7813f71cc0c99d47c5f280fd3ae73816a0c27b52fe30cf8d9af2",
+        "version": "bb6e7386f025c085b6305c7bcd097604669e45f2995e00f0e6fe7b94f4a0e60c",
         "signature": "d834f852b6ccf399e52f39dbfcb251dd77b62ff41bf2dfa36f1e97be191e81cd",
         "affectsGlobalScope": false
       },
@@ -447,7 +442,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "1c489d12a6a237ac218c8dda68dbff3170ba67180c9273f09466afbae76a1b37",
+        "version": "e0a0a8d9609cf5dd41a195a309b2a7248063d36883d880ce8a825f302b0bc84c",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -557,8 +552,7 @@
         "./node_legacy/v4.js",
         "./src/shadb/src/sha256.js",
         "./src/shadb/src/shaDB.js",
-        "./src/share.js",
-        "./src/starter.js"
+        "./src/share.js"
       ],
       "./src/emotion-react-renderer/dist/DraggableWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -680,9 +674,6 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/importScript.d.ts"
       ],
-      "./src/starter.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./src/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
@@ -791,7 +782,6 @@
       "./src/smart-monaco-editor/dist/scripts/screenshots.js",
       "./src/smart-monaco-editor/src/monaco.js",
       "./src/smart-monaco-editor/src/scripts/screenshots.js",
-      "./src/starter.js",
       "./src/templates.js",
       "./src/transpile.js",
       "./src/workBox.js",
@@ -1030,10 +1020,6 @@
       ],
       [
         "./src/smart-monaco-editor/src/scripts/screenshots.js",
-        1
-      ],
-      [
-        "./src/starter.js",
         1
       ],
       [
