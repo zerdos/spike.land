@@ -141,7 +141,8 @@ async function getData(signal, retry) {
 
   const cid = await res.text();
 
-  const content = await ipfsCat(cid);
+  const data = await fetch(`https://code.zed.vision/ipfs/${cid}`);
+  const content = await data.text();
   return content;
 
   // return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
