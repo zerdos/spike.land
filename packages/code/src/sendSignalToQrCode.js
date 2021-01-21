@@ -12,6 +12,8 @@ export async function sendSignalToQrCode(rootUrl) {
   const isKey = maybeRoute.length === 8 &&
     [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 
+  if (!isKey) return;
+
   const project = await getCodeToLoad();
 
   const { url } = await saveCode(project);

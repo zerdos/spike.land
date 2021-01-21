@@ -462,7 +462,7 @@ export const files = {
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
   "src/codeLoader.js": "QmZ9vH1svZH1ykL4md5WG4cCfB1AQs2ytKojdVvczBsBJA",
-  "src/data.js": "QmXmrQUdoVVM9AXg3gu13dFxNTK88Nc8Upm92gZhqN6DQg",
+  "src/data.js": "QmYX8U6hnp4VF9kVkcTN5GpLYxg1CcStZ7buTHm9BGMvNb",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX",
@@ -490,7 +490,7 @@ export const files = {
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
     "QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu",
-  "src/sendSignalToQrCode.js": "QmR9iLJ2C8AbnEGacUXf9eb7GLvXgAweDANqUvdDnSYcA8",
+  "src/sendSignalToQrCode.js": "QmZDvkqx1TGBHvYEAvJqXVX3SV7wox2LYykZQqJvErtZDZ",
   "src/shadb/dist/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
   "src/shadb/dist/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
   "src/shadb/dist/diffChars.d.ts":
@@ -617,7 +617,7 @@ export const files = {
   "src/templates.js": "QmQZHdckLmmYq3BPJNUzv7akszJzB9EYr2LRa5xtSLigqH",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmPAanjs8o6ygyPjcUj8dcs55Gke81LUpTStbKpzCqdiqm",
+  "src/workers/files.umd.js": "Qmc8XwL3fDZPke6HeZMbpVNmRgJSTv9NP6skFKqCaUp2zP",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -945,8 +945,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
-  "src/workers": "QmQQPUMZBqGAf1FM3pFnP9S8gefRa1z3ZRrWNfVvtF52aT",
-  "src": "QmcqsYdLc819UoVXUYUw7zdkV2ANkUycKTEYvncbENh1cn",
-  "": "QmZLxWrLHWtpxMYHteF2ucAHGqEhjyPEPgPDVT7XPaQKdd",
+  "src/workers": "Qmd5JhXJKv9D7qVRubKVQCPSmPLFERhjADbHp4TnYAHACa",
+  "src": "QmZqzkMXkVBKBCSaUYLVBchHnV6Nfv9JSSVAwaeYVxgFB4",
+  "": "QmSowWzSvxpg4vF1Rep9VqTBCya3DwYCxm9d6GQmWAzzdG",
   "foo": "bar",
 };

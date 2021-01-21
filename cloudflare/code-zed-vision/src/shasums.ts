@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "d5d36ffd3c74f6a6d983fb931e7f7bcb2cea8c60e2c2b8162dde29ffed83f18f",
+    "ab90f75628478aaba1c0f2d84c0a1649c907589b54023c0fde30815fe7c772a5",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -577,7 +577,7 @@ export const shasums = {
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
-    "fdc456c50e3544beb42c2d7e1b9518fc51c594c0cf4ea0401a0ebdbaccec6fb5",
+    "ee79af2e7d86315cac6b167fbafee88e3418d2bfd642e5cfe5e951cd590a7c77",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -609,9 +609,9 @@ export const shasums = {
   "src/openWindows.js":
     "e59e27243ab0238ed5c97f05395e5976e0e0558961d0bb5f51634644fd3b5492",
   "src/sendSignalToQrCode.js":
-    "1eb98dcef0ec83be9a7db4b324f01a9e3cdd524482a5fede505083e1dfac6215",
+    "cf57a6b2148087ff769053d5e96f157ff9b1fb01a89147a9ca9c12e7bf324b6f",
   "src/workers/files.umd.js":
-    "f7c32e2d118972bf0d8e6002294ffb6e60fe56d6770f4c0caac5cfbb79f2d0f4",
+    "c8b8813512bd5fd6166ef190f2387814caf3ec032c0df47909d1425cb98012cf",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":
