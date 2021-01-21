@@ -95,20 +95,19 @@ export const Qr = () => {
 
       setCubeState(-1);
 
-      const uuid = await getUserId();
-      const userData = await shaDB.get(uuid, "json");
-      await shaDB.put(
-        uuid,
-        JSON.stringify({
-          ...userData,
-          signal: signalData,
-        }),
-      );
+      // const uuid = await getUserId();
+      // const userData = await shaDB.get(uuid, "json");
+      // await shaDB.put(
+      //   uuid,
+      //   JSON.stringify({
+      //     ...userData,
+      //     signal: signalData,
+      //   }),
+      // );
 
-      fetch(`${signalData.rootUrl}/app.tsx`);
 
       setTimeout(
-        () => window.location.href = "https://blog.zed.vision/code/",
+        () => window.location.href = signalData.rootUrl,
         2000,
       );
       // setTimeout(() => setCubeState(0));

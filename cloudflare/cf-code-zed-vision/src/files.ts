@@ -462,7 +462,7 @@ export const files = {
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
   "src/codeLoader.js": "QmZ9vH1svZH1ykL4md5WG4cCfB1AQs2ytKojdVvczBsBJA",
-  "src/data.js": "QmYChjjKrbYcn1VmdeeCeahdjadVPAPnQyHqT4AgJDFTts",
+  "src/data.js": "QmNfsizQ62fhaLrfNfeEotFsych66oDXFS7XnmjeGMxqze",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX",
@@ -489,7 +489,7 @@ export const files = {
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
     "QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu",
-  "src/sendSignalToQrCode.js": "QmbTohLR8xF5ytkhpMNYuXeBw5LjHpaTPPm69ELkspkNy1",
+  "src/sendSignalToQrCode.js": "QmZKMwts1ZsN86zEn7YK2PJXDKzYcWYnVRPBwZLTS4HFrY",
   "src/shadb/dist/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
   "src/shadb/dist/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
   "src/shadb/dist/diffChars.d.ts":
@@ -617,7 +617,7 @@ export const files = {
   "src/templates.js": "QmbbHgU51zh5JuuAPLsxHngGsyEmjYX3o8LA8dtDph18UJ",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmaxJNeXB4qB3SEu6ZprQ9Wq8p7F6LdQQ2NpKbjM56HKzb",
+  "src/workers/files.umd.js": "QmRuLXa31eK1aQuMi8tiqkyYPwGwLfsLtBuw2ZtikNyvaQ",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -1507,8 +1507,8 @@ export const files = {
     "QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmZiN8p432yhQcYZWqiAGXsLVzFatk7ijmGuWq2otrk99s",
-  "src/workers": "QmT8KczHALy1wVepACY6YN5TDX5PtYJxuUQVzBzTsc7Vb1",
-  "src": "QmWciTFEbUARp8nGhsiYQgRB3QGm25WsfprLNM97agWijN",
-  "": "QmVMex72qp962XcZVJGWMu3FDUqTYHXSB7Tb2Hs4N5MRQh",
+  "src/workers": "QmWS5uW81Nt47jQLVpd7XsJMAD4hqRb6SKP8PNeVwEgiuo",
+  "src": "QmQM2CZuTrMcZ6r7yHHFz1nMxQBqHmy32o75gxeskbBcWN",
+  "": "QmRmqtQYuM7ksvraVKLi45foPwzfU98eCMT4fHSdjzn3gm",
   "foo": "bar",
 };

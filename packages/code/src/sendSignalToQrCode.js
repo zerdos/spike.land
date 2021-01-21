@@ -1,5 +1,6 @@
 import { getUserId } from "./data.js";
 import { sha256 } from "./shadb/src/sha256.js";
+import { getCodeToLoad, saveCode } from "./data.js";
 
 /**
  * @param {string} rootUrl
@@ -11,6 +12,10 @@ export async function sendSignalToQrCode(rootUrl) {
   const isKey = maybeRoute.length === 8 &&
     [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 
+  const project = await getCodeToLoad();
+
+  const { url } = await saveCode(project);
+
   if (isKey) {
     const { sendSignal } = await import("./hash.js");
     const signal = `https://zed.vision/${maybeRoute}`;
@@ -18,7 +23,7 @@ export async function sendSignalToQrCode(rootUrl) {
     await sendSignal(
       signal,
       {
-        rootUrl,
+        rootUrl: url + "/edit",
         signals: {
           onChange: "url",
           onLogout: "url",
