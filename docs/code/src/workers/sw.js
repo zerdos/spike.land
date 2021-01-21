@@ -50,10 +50,10 @@ self.addEventListener(
       // @ts-ignore
       const cacheFirst = new workbox.strategies.CacheFirst();
       event.respondWith(cacheFirst.handle({ event, request }));
-    } else if ( url.indexOf("code."==="-1") && 
+    } else if ( url.indexOf("code.")===-1 && 
       url.indexOf("/ipfs/") !== -1
     ) {
-      const request = fetch(url.replace("blog.", "").replace("code.", ""));
+      const request = fetch(url.replace("blog.", ""));
       // @ts-ignore
       const cacheFirst = new workbox.strategies.CacheFirst();
       event.respondWith(cacheFirst.handle({ event, request }));
