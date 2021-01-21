@@ -49,6 +49,7 @@ async function handleRequest(request: Request) {
       if (response && response.status === 200) {
         return await alterHeaders(response, pathname);
       } else {
+        text(`${file}      ${cid2}`);
         let response;
 
         const content = await IPFSKV.get(cid2, "arrayBuffer");
