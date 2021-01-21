@@ -358,7 +358,7 @@ async function handleCloudRequest(request) {
         });
       } else if (signal.length === 8) {
         const msg = await SIGNALS.get(signal);
-        if (msg === null) throw text("404");
+        if (msg === null) return text("404");
         return text(msg);
       }
       return text("error....");
