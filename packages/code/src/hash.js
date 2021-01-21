@@ -136,6 +136,7 @@ export async function fetchSignal(
 
     const res = await ipfsClient.add(signal, { onlyHash: true });
     const resCID = res.cid.toString();
+    cd;
 
     log(`CID to wait: ${resCID}`);
 
