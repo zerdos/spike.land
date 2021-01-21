@@ -99,7 +99,8 @@ export async function fetchSignal(
       console.log(`https://zed.vision/signal?signal=${smallSignal}`);
 
       const cid = await fetch(
-        `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math.random()}`,
+        `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math
+          .random() * 10000}`,
       ).then(
         (x) => x.text(),
       );
