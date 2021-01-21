@@ -103,6 +103,10 @@ export async function fetchSignal(
       const resData = fetch(`https://zed.vision/signal?signal=${signal}`).then(
         (x) => x.text(),
       );
+      if (resData === "404") {
+        await wait(Math.random() * 2000);
+        fetchSignal(signal, retry - 1);
+      }
 
       log(`${resCID} downloaded - ${resData}`);
       return async () => parse(resData);
