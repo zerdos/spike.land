@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "ec5f0cedb124c6983cdb83ef4c38bf159605b09c2f9dc99443bdd3db1670f8df",
+    "80956f95dd23e8e8cc24f7738056d0962104c603491c0b9ab38f76f53f80d227",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -43,7 +43,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "87dbba071d999e3f45c7b7a8b6c8704251c2fe7b6ac18a5907918834c09750d6",
+    "9e99df67af9668124e3105d6a41946a0964c5ec6e56054ff6c6322234f33349a",
   "node_legacy/stringify.js":
     "b3e05d40408725c571660f7f1bfdb1b20fde769c5142f23273a95815b2ca5d01",
   "node_legacy/validate.js":
@@ -497,7 +497,7 @@ export const shasums = {
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
-    "e0e47ca049f2c3b6dbf81d4afb3c019b9a9a286fcbf1c43c4cfa770991c63bba",
+    "3eb5a476a861d2bf96d343e7483d5f40b561e8361a98983c19c1f8b24c4af1b0",
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
     "2cb0da412a308b0b7716c649c04fce434609b7910c2da9650fc581323a344f46",
   "src/smart-monaco-editor/favicon.ico":
@@ -593,7 +593,7 @@ export const shasums = {
   "src/emotion-react-renderer/dist/renderer.js":
     "89eaf1539d40a2e1d6aa889956d7c930637d130ba237c88fbf843b431963f6be",
   "src/emotion-react-renderer/package.json":
-    "25e55cab3cba454493794f4925f14aafa3fb16c77da402819858e3cd558c50cd",
+    "57686dced36164268feabf2fb5ca5b29f34858025b235067d09ccbf6a325e957",
   "src/emotion-react-renderer/tsconfig.json":
     "970e709dee7e1b7c5410feb805961be59bde3c521cdf5f60820cccd3fa085d00",
   "src/emotion-react-renderer/src/renderer.ts":
@@ -611,9 +611,9 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "7ca66adfa6c42edf7e11189345fc8d4b9b8c321632554ba26f3dc0c4c23fdf03",
+    "4d9225c09d661b3dccb05eccda0b3ef70e029e9aad2436712c19aecd4dece532",
   "src/workers/ipfs/package.json":
-    "e50983adcebe00215207f06aed1a62eaf9fb97c5f9097c0b0af1fb1c87b210f6",
+    "68befc4803295761c151a14712fae7721486df9f3a3e644322d921397a02eb1c",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":
     "e3f13b47f43c2a39172f596d1a1fd95cdd5ebe66318753b9bfd71af6c2c1c78e",
   "src/workers/ipfs/node_modules/typescript/loc/lcl/TRK/TypeScriptLanguageService/Microsoft.CodeAnalysis.TypeScript.EditorFeatures.dll.lcl":
@@ -1101,7 +1101,7 @@ export const shasums = {
   "src/shadb/dist/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "src/shadb/package.json":
-    "daaf2a19b45f568c24cff6d96d64d24a71b9d49cbe7305acf68a1bf72d358004",
+    "f5b7d092c493e8b7b88bdda631cfa94cb783fa36b1ef7cd0826b488138062d12",
   "tsconfig.json":
     "09ea48a6a9fcc074847b04f90771ae7732fee992b7bf18278fa042e3ee9ea1c3",
   "foo": "bar",
