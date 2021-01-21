@@ -237,8 +237,8 @@ added QmYrZKmyENAJi6h5mFoq2CVyZzr4syiuehcFqorzAtQttK code/node_legacy/workbox-sw
 added QmT29Y78zyhb8a7WWc2BEhS2XpZij6bJhJZnLnbKTKsE5m code/node_legacy/workbox-window.prod.mjs
 added QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY code/node_legacy/workbox-window.prod.mjs.map
 added QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q code/package.json
-added QmTkLoECMpSR68pNKtYm9FNaaSb7ikHVFDSEX9FJqBV77t code/src/codeLoader.js
-added QmZEe5w15U5dkXp5WgQfYzn4ThC1NPq7mY3USx5STuYj4g code/src/data.js
+added QmZ9vH1svZH1ykL4md5WG4cCfB1AQs2ytKojdVvczBsBJA code/src/codeLoader.js
+added QmYChjjKrbYcn1VmdeeCeahdjadVPAPnQyHqT4AgJDFTts code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX code/src/emotion-react-renderer/dist/DraggableWindow.js
 added QmX4unXEXsJ9wPz3DGNPgeya8cr1LrazFViqqJrRPAV264 code/src/emotion-react-renderer/dist/renderer.js
@@ -326,10 +326,10 @@ added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/src/smart-monaco-edito
 added QmTvPhFvNDpBME8am5MbAXDBAijNHpx3F7Aq11BzdRRHB5 code/src/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQN8pfPkYDNrM6TQ69cxrRarHUZyECR7k9dVM76DP1b4T code/src/starter.js
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
-added QmZwa6XkQzzCuWirSc3q9j421VUvxKnRcBp4n9TXzTQB7n code/src/templates.js
+added QmbbHgU51zh5JuuAPLsxHngGsyEmjYX3o8LA8dtDph18UJ code/src/templates.js
 added QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp code/src/transpile.js
 added QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68 code/src/workBox.js
-added QmNtRoqB4Vn3TTJUubFBMbaU5echXcQUMxx8u8PVx9J7uF code/src/workers/files.umd.js
+added QmaxJNeXB4qB3SEu6ZprQ9Wq8p7F6LdQQ2NpKbjM56HKzb code/src/workers/files.umd.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/src/workers/ipfs/dist/gateways.js
@@ -786,6 +786,6 @@ added QmT7LfTSybFyg46BQAfrDdZT8keH3mZmCbjKC3u3nUzAWN code/src/workers/ipfs/node_
 added QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ code/src/workers/ipfs/node_modules
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmZiN8p432yhQcYZWqiAGXsLVzFatk7ijmGuWq2otrk99s code/src/workers/ipfs
-added QmTLFuEqmTiSMxWSqoX35JejGbjNvRT1EFdkvZF9NeadiD code/src/workers
-added QmNS6bJsYL9e2B7SbLy3CkwhHHGthaFFW89z5fY5YKhdQE code/src
-added QmXXDvJKYuXVzeh1wNeLEZzD94MjTXfoe8U9NcRyoZF8c6 code
+added QmT8KczHALy1wVepACY6YN5TDX5PtYJxuUQVzBzTsc7Vb1 code/src/workers
+added QmWciTFEbUARp8nGhsiYQgRB3QGm25WsfprLNM97agWijN code/src
+added QmVMex72qp962XcZVJGWMu3FDUqTYHXSB7Tb2Hs4N5MRQh code

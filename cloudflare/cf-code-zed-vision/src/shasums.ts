@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "13cc6c2276e9dd28689ab2e5421a97b24a61da7847b4c5c064b60158238a6b7a",
+    "6751eb42d5f2d2e68cae9b76a7438019104a6deb3b79bf7efb66d9f870a76c65",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -579,7 +579,7 @@ export const shasums = {
   "src/starter.js":
     "100fb9406aca460801eefa2f2bef83d926bf1d5db11bec6b12fd70ee0a6a17fb",
   "src/data.js":
-    "ee3331205c39e8c74b075e913be611d81c8811ed8ac51fcd04ea0c68feb06017",
+    "c900fe6f4775665137e50d1d96662208ed0ff4f2d1a0a51f3465bba8136c491c",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -601,9 +601,9 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "1a573cdbda66e62a00b2bc4199e9257c3a405b0aab4a3b7859820d32ef41dcb5",
   "src/templates.js":
-    "6b0e39d529f81bf7a6f5b3f23dcdf17929b6bc3d59b9da81d0e636f28a748a9d",
+    "4d8004c3b7f8fca064ebfac2aace7a6f750ef00933a9519ddcb4bd3a160c6b03",
   "src/codeLoader.js":
-    "3de6714a2c707cc74c9824dfcbd59a37cd551923635621bca9ef2ea079958247",
+    "178cbe7a74543251160c3b771c5893fa1257d823ffd8b0f8195d22549b827255",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "a245cbfa3fda0c80bb55d4b4280dc1b7ce0c344e424465b7dbe0a18e37393b2e",
   "src/workers/files.umd.js":
-    "30e7bb00685089a0b4461b3d00626f7bc709a76fd1bf19959be7b0688a38da6b",
+    "94ce584ae1ff6402576c63a41b11e144f3f1cc34287b54204037364a8bbf3106",
   "src/workers/ipfs/package.json":
     "68befc4803295761c151a14712fae7721486df9f3a3e644322d921397a02eb1c",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":

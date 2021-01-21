@@ -62,9 +62,9 @@ export const getEditorHTML = () =>
 </head>
 <body>
   <script type="module">
-    import {run} from "${location.href}src/codeLoader.js"
+    import {edit} from "${location.href}src/data.js"
     try{
-      run("window", window);
+      edit("${location.pathname.slice(42, 10)}");
     }catch(error){
       fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
     }

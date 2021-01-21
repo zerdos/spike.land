@@ -40,6 +40,31 @@ export const getProjects = async () => {
   return userData.list;
 };
 
+async function addNewProject(projectName, hash) {
+  uuid = await getUserId();
+  const userData = await shaDB.get(uuid, "json");
+  const projectId = v4();
+  const updated = {
+    ...userData,
+    project: {
+      ...userData.projects,
+      [projectName]: {
+        projectId,
+        lastOpen: Date.now(),
+      },
+    },
+    [projectId]: {
+      lastOpen: Date.now(),
+    },
+    list: [
+      projectId,
+      ...userData.list,
+    ],
+  };
+
+  await shaDB.put(projectName, hash);
+}
+
 export async function getUserId() {
   if (uuid) return uuid;
 
@@ -61,6 +86,26 @@ async function getActiveProject() {
   if (projects.rootUrl) return projects;
   activeProject = projects[0];
   return activeProject;
+}
+
+export async function edit(name) {
+  const rootUrl =
+    (window.location.href.endsWith("/edit/")
+      ? window.location.href.slice(0, -5)
+      : window.location.href.slice(0, -4));
+
+  const appCode = await fetch(`${rootUrl}/app.tsx`).then((res) => res.text());
+  const hash = await sha256(appCode);
+
+  await shaDB.put(hash, appCode);
+
+  await addNewProject(name, hash);
+
+  if (window.location.host === "blog.zed.vision") {
+    location.href = "https://blog.zed.vision/code";
+    return;
+  }
+  location.href = "https://code.zed.vision";
 }
 
 /**
