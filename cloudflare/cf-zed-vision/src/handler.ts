@@ -237,7 +237,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           0.5 - Math.random()
         ).slice(0, 8).map((gw: string) => gw.replace("/ipfs/:hash", pathname))
           .map((
-            x: string
+            x: string,
           ) =>
             fetch(x).then((res) =>
               res.status === 200 ? res : (() => {

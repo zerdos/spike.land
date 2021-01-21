@@ -1,15 +1,11 @@
-import CID from "cids";
 import all from "it-all";
 import IpfsClient from "ipfs-message-port-client";
-import multihashes from "multihashes";
 import { publicIpfsGateways, raceToSuccess } from "./gateways.js";
 import uint8ArrayFromString from "uint8arrays/from-string";
 import uint8ArrayToString from "uint8arrays/to-string";
 import uint8ArrayConcat from "uint8arrays/concat";
 export { IpfsClient };
 export declare const fromHexString: (hexString: string) => Uint8Array;
-export { CID };
-export { multihashes };
 export { all };
 export { publicIpfsGateways };
 export { raceToSuccess };

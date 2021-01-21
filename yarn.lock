@@ -10085,9 +10085,9 @@ ipaddr.js@1.9.1, ipaddr.js@^1.9.0:
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
 ipfs-bitswap@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/ipfs-bitswap/-/ipfs-bitswap-4.0.0.tgz#1c9e67d98d1356ea0e23e805e9c71b7f262027a3"
-  integrity sha512-KQjRX6h2bU0DgHxCFTAgn0JJPs3sF2eTwn5kD54M1A+KeKmHG21EVyXo/ZSO2iDWgERmL66WnA+jX7xM1p2k+Q==
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/ipfs-bitswap/-/ipfs-bitswap-4.0.1.tgz#1475f7c027c286ebe3575cdb624214c1b7adc73d"
+  integrity sha512-nK5IsRM5kZLo+b3i1qvLApajRIyJwmh4OD18K97ugJcKRwkIAUCrsggn5y05FPMmq/1zDwMWMDs2fio9hrmtDA==
   dependencies:
     abort-controller "^3.0.0"
     any-signal "^2.1.1"

@@ -23,10 +23,6 @@ export const sendSignal = async (signal, data) => {
 
   log(`sending signal: ${signal}`);
 
-  const { path } = await ipfsClient.add(signal);
-
-  log(`signal sent --- ${path}`);
-
   if (data) {
     log(`sending data as well....`);
     let toSave = data;
@@ -36,13 +32,13 @@ export const sendSignal = async (signal, data) => {
     log(toSave);
 
     const dataCid = (await ipfsClient.add(toSave)).cid.toString();
-    await fetch(`https://zed.vision/ipfs/${dataCid}`);
-
     const { pathname } = new URL(signal);
 
     await fetch(
       `https://zed.vision/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`,
     );
+
+    fetch(`https://zed.vision/ipfs/${dataCid}`);
 
     // const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
     //   ("00" + b.toString(16)).slice(-2)
@@ -65,6 +61,10 @@ export const sendSignal = async (signal, data) => {
 
     // log(`rest is uploaded`);
   }
+
+  const { path } = await ipfsClient.add(signal);
+  log(`signal sent --- ${path}`);
+
   return { success: true };
 };
 
