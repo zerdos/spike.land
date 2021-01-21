@@ -577,7 +577,7 @@ export const shasums = {
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
-    "bb6e7386f025c085b6305c7bcd097604669e45f2995e00f0e6fe7b94f4a0e60c",
+    "5775affa62aec81adb50168f28185d3cb32ea3e9efffb7aadb89cb6ff98499a7",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1eb98dcef0ec83be9a7db4b324f01a9e3cdd524482a5fede505083e1dfac6215",
   "src/workers/files.umd.js":
-    "f2b68c223016341cd7fb47572f5b7c9cacedbb622a5c07d07f8bf17785a414ca",
+    "4a9fcb390b2c300c09c380f906eebc2219243afe9353290515cf99164736f595",
   "src/workers/ipfs/package.json":
     "68befc4803295761c151a14712fae7721486df9f3a3e644322d921397a02eb1c",
   "src/workers/ipfs/node_modules/typescript/CODE_OF_CONDUCT.md":

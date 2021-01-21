@@ -245,6 +245,7 @@ export const saveCode =
 
     await shaDB.put(projectName, hash);
     Object.assign(saved, { html, code, transpiled, url });
+    return saved;
   };
 
 function getStarter() {
