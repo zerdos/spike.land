@@ -215,12 +215,12 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           x < "0" || x > "f"
         ).length === 0 && maybeRoute.length === 8;
     if (maybeRoute && isKey) {
-      const shaDB = getDbObj(SHAKV);
-      const result = (await shaDB.get(maybeRoute)) as string | null;
-      if (result !== null) {
-        if (result.indexOf("export") === 0) return js(result);
-        return text(result);
-      }
+      // const shaDB = getDbObj(SHAKV);
+      // const result = (await shaDB.get(maybeRoute)) as string | null;
+      // if (result !== null) {
+      //   if (result.indexOf("export") === 0) return js(result);
+      //   return text(result);
+      // }
       return Response.redirect(
         `https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`,
         307,

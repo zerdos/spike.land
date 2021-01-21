@@ -19,14 +19,6 @@ function text(resp) {
     },
   });
 }
-function js(resp) {
-  return new Response(resp, {
-    headers: {
-      ...corsHeaders,
-      "Content-Type": "application/javascript;charset=UTF-8",
-    },
-  });
-}
 function handleOptions(request) {
   const headers = request.headers;
   if (
@@ -137,6 +129,52 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 const v41 = () => v4();
+const cid = "QmaL5U25qVEvSMHwzFTypwWSokayLBvHNpuZE7r6tyw8GR";
+const publicIpfsGateways = [
+  "https://ipfs.io/ipfs/:hash",
+  "https://dweb.link/ipfs/:hash",
+  "https://gateway.ipfs.io/ipfs/:hash",
+  "https://ipfs.infura.io/ipfs/:hash",
+  "https://ninetailed.ninja/ipfs/:hash",
+  "https://10.via0.com/ipfs/:hash",
+  "https://ipfs.eternum.io/ipfs/:hash",
+  "https://hardbin.com/ipfs/:hash",
+  "https://cloudflare-ipfs.com/ipfs/:hash",
+  "https://cf-ipfs.com/ipfs/:hash",
+  "https://gateway.pinata.cloud/ipfs/:hash",
+  "https://ipfs.sloppyta.co/ipfs/:hash",
+  "https://ipfs.greyh.at/ipfs/:hash",
+  "https://jorropo.ovh/ipfs/:hash",
+  "https://jorropo.net/ipfs/:hash",
+  "https://gateway.temporal.cloud/ipfs/:hash",
+  "https://ipfs.runfission.com/ipfs/:hash",
+  "https://trusti.id/ipfs/:hash",
+  "https://ipfs.overpi.com/ipfs/:hash",
+  "https://ipfs.ink/ipfs/:hash",
+  "https://gateway.ravenland.org/ipfs/:hash",
+  "https://ipfs.smartsignature.io/ipfs/:hash",
+  "https://ipfs.telos.miami/ipfs/:hash",
+  "https://robotizing.net/ipfs/:hash",
+  "https://ipfs.mttk.net/ipfs/:hash",
+  "https://ipfs.fleek.co/ipfs/:hash",
+  "https://ipfs.jbb.one/ipfs/:hash",
+  "https://jacl.tech/ipfs/:hash",
+  "https://ipfs.k1ic.com/ipfs/:hash",
+  "https://ipfs.drink.cafe/ipfs/:hash",
+  "https://ipfs.azurewebsites.net/ipfs/:hash",
+  "https://gw.ipfspin.com/ipfs/:hash",
+  "https://ipfs.denarius.io/ipfs/:hash",
+];
+function raceToSuccess(promises) {
+  let numRejected = 0;
+  return new Promise((resolve, reject) =>
+    promises.forEach((promise) =>
+      promise.then(resolve).catch(() => {
+        if ((++numRejected) === promises.length) reject();
+      })
+    )
+  );
+}
 const diff = async (str1, str2) => {
   const { diffChars } = await import("./vendor/diff.min.js");
   const { sha256: sha2561 } = await import("./sha256.js");
@@ -265,52 +303,6 @@ const getDbObj = (db) => {
   };
   return dbObj;
 };
-const cid = "QmaL5U25qVEvSMHwzFTypwWSokayLBvHNpuZE7r6tyw8GR";
-const publicIpfsGateways = [
-  "https://ipfs.io/ipfs/:hash",
-  "https://dweb.link/ipfs/:hash",
-  "https://gateway.ipfs.io/ipfs/:hash",
-  "https://ipfs.infura.io/ipfs/:hash",
-  "https://ninetailed.ninja/ipfs/:hash",
-  "https://10.via0.com/ipfs/:hash",
-  "https://ipfs.eternum.io/ipfs/:hash",
-  "https://hardbin.com/ipfs/:hash",
-  "https://cloudflare-ipfs.com/ipfs/:hash",
-  "https://cf-ipfs.com/ipfs/:hash",
-  "https://gateway.pinata.cloud/ipfs/:hash",
-  "https://ipfs.sloppyta.co/ipfs/:hash",
-  "https://ipfs.greyh.at/ipfs/:hash",
-  "https://jorropo.ovh/ipfs/:hash",
-  "https://jorropo.net/ipfs/:hash",
-  "https://gateway.temporal.cloud/ipfs/:hash",
-  "https://ipfs.runfission.com/ipfs/:hash",
-  "https://trusti.id/ipfs/:hash",
-  "https://ipfs.overpi.com/ipfs/:hash",
-  "https://ipfs.ink/ipfs/:hash",
-  "https://gateway.ravenland.org/ipfs/:hash",
-  "https://ipfs.smartsignature.io/ipfs/:hash",
-  "https://ipfs.telos.miami/ipfs/:hash",
-  "https://robotizing.net/ipfs/:hash",
-  "https://ipfs.mttk.net/ipfs/:hash",
-  "https://ipfs.fleek.co/ipfs/:hash",
-  "https://ipfs.jbb.one/ipfs/:hash",
-  "https://jacl.tech/ipfs/:hash",
-  "https://ipfs.k1ic.com/ipfs/:hash",
-  "https://ipfs.drink.cafe/ipfs/:hash",
-  "https://ipfs.azurewebsites.net/ipfs/:hash",
-  "https://gw.ipfspin.com/ipfs/:hash",
-  "https://ipfs.denarius.io/ipfs/:hash",
-];
-function raceToSuccess(promises) {
-  let numRejected = 0;
-  return new Promise((resolve, reject) =>
-    promises.forEach((promise) =>
-      promise.then(resolve).catch(() => {
-        if ((++numRejected) === promises.length) reject();
-      })
-    )
-  );
-}
 var SHAKV;
 var USERS;
 var LOGS;
@@ -516,12 +508,6 @@ async function handleCloudRequest(request) {
         ].filter((x) => x < "0" || x > "f").length === 0 &&
       maybeRoute.length === 8;
     if (maybeRoute && isKey) {
-      const shaDB = getDbObj(SHAKV);
-      const result = await shaDB.get(maybeRoute);
-      if (result !== null) {
-        if (result.indexOf("export") === 0) return js(result);
-        return text(result);
-      }
       return Response.redirect(
         `https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`,
         307,
