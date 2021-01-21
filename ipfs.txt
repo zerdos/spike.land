@@ -250,7 +250,7 @@ added QmRju4JLXE5iNjjqVER1hHqCUBbRGXDvw3WasFUKEvbs7P code/src/examples/app.tsx
 added QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs code/src/examples/starterNoFramerMotion.js
 added QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF code/src/examples/starter_framer.js
 added QmXArukccKkWgDVKtZWCsNcV2gmYhPLursST8CP1x4GVBi code/src/formatter.js
-added QmajnCheu59MsZbCTytdcnJtw6BcqWvk2vXGNYAhQgVxtX code/src/hash.js
+added QmT5YoWKS22dsqWCCtGWWPsYxxZDeZeP2dy8PAsr8PBuaS code/src/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/src/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/src/importScript.js
 added QmNXn2zNEBL8e2cksn6Gy9stsAiaxFUGxiKSeHkoLKVhbQ code/src/ipfsClient.js
@@ -518,5 +518,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF code/src/workers/ipfs
 added QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD code/src/workers
-added QmaRYtxCD9bfspYRrgtydSg3pqHS5kXLu8hxLUv8LCsUgd code/src
-added QmSvkUhmWAPKgPu33NKmhKuKnNnV9hkNUNv1rsweHxvyqU code
+added QmNjPDrRdygvpeYMQQy5LMVNhgMLZZaYsVemj33AoDA78L code/src
+added QmV3i6YFeHPw9NmUHFBVfxzCXgXf65jfTTYDrz5wvc9TVP code
