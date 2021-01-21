@@ -122,6 +122,9 @@ async function handleRequest(request: Request) {
   <html>
   <head>
     <script type="text/javascript">
+    <script src="https://code.zed.vision/ipfs/${
+    files["src/workers/files.umd.js"]
+  }"></script>
     window.location = "/ipfs/${cid}/";
     </script>
   </head>
