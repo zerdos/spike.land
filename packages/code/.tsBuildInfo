@@ -252,8 +252,8 @@
         "affectsGlobalScope": false
       },
       "./src/hash.js": {
-        "version": "707b79aeac827bec00e85445cd766b966cc2339104f6e7879ebac5a22354d694",
-        "signature": "a6912dbe20fe601ba715ee2dfd0ec892ffa2ebfe110e56d1f70213245bf40b67",
+        "version": "f5a5a4e5f22708fb444578cba11e962ebb430df9ef2bb4542b5c0b0ebeb5fa8d",
+        "signature": "b6b66d6bd9956ebe04ebd50e82d2674063b2ecf39bbf49bbcc9dce250f05f290",
         "affectsGlobalScope": false
       },
       "./src/sendSignalToQrCode.js": {
@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "178cbe7a74543251160c3b771c5893fa1257d823ffd8b0f8195d22549b827255",
+        "version": "c4a50b44d96432936c73298bf9a10b9739a97a2bf9af92051ef2a821b5cc3a2d",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -442,7 +442,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "0deab1796ddbd92811cfa705f3a004aba7289b281c745bc17f6c64c1246f62fa",
+        "version": "f15391db3cbf558bdc3fe0801e6e287b743128c3278c9ec345eadaffac415d40",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -571,8 +571,7 @@
       ],
       "./src/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/ipfsClient.js",
-        "./src/shadb/src/sha256.js"
+        "./src/ipfsClient.js"
       ],
       "./src/importScript.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"

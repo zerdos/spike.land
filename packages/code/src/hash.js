@@ -1,6 +1,3 @@
-import { ipfsCat, ipfsClient } from "./ipfsClient.js";
-import { sha256 } from "./shadb/src/sha256.js";
-
 const log = (msg) => {
   if (typeof mgs === "string") console.log(msg);
   else if (typeof msg === "object") console.table({ msg });
@@ -22,6 +19,7 @@ const signalCache = {};
 export const sendSignal = async (signal, data) => {
   if (typeof window === "undefined") return "no webpack please";
 
+  const { ipfsClient } = await import("./ipfsClient.js");
   log(`sending signal: ${signal}`);
 
   if (data) {
@@ -116,6 +114,8 @@ export async function fetchSignal(
     if (retry === 0) {
       throw new Error("No more retry");
     }
+
+    const { ipfsClient, ipfsCat } = await import("./ipfsClient.js");
 
     const res = await ipfsClient.add(signal, { onlyHash: true });
     const resCID = res.cid.toString();
@@ -251,4 +251,3 @@ function parse(d) {
     return d;
   }
 }
-export { ipfsCat };

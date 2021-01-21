@@ -7,7 +7,7 @@ import {
   jsx,
   render,
 } from "./emotion-react-renderer/dist/renderer.js";
-import { fetchSignal, ipfsCat, sendSignal } from "./hash.js";
+import { fetchSignal, sendSignal } from "./hash.js";
 import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
 import { transpileCode } from "./transpile.js";
@@ -42,9 +42,7 @@ export async function run(mode = "window", _w, code = "") {
 
   const { pathname } = new URL(window.location.href);
 
-  setTimeout(async () =>
-    Object.assign(window, { sendSignal, fetchSignal, ipfsCat })
-  );
+  setTimeout(async () => Object.assign(window, { sendSignal, fetchSignal }));
 
   if (mode === "window") {
     await openWindows();
