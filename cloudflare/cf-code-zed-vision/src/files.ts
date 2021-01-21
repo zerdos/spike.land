@@ -484,7 +484,7 @@ export const files = {
   "src/hash.js": "QmbitMiMtxY1dMgh7M5NPASYtMg5ja48U65MFh4rPEJf4r",
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
-  "src/ipfsClient.js": "QmUocQEB5hRDcELnCjoCSuVZrc86Ke8EryZRFbF9AnTj5K",
+  "src/ipfsClient.js": "QmVDDm9XGjSyy3xrfeGAzhUhHGThyGkF35uQDxTkZ7r33Z",
   "src/openWindows.js": "QmNhtrMUYGPFpEr7GzGr4tzYSh3m1nFK39sDU3E8sU8vad",
   "src/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "src/renderPreviewWindow.js":
@@ -617,7 +617,7 @@ export const files = {
   "src/templates.js": "QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmWT4WeEu9NF19JkuSWfZej8A5HWiAew7vJdrHZprkmB29",
+  "src/workers/files.umd.js": "Qma9tiA5y6UPpu8MUQ1cmpLSQ5Y44tvX41V6JiaG4ZPx3e",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -677,7 +677,7 @@ export const files = {
   "src/workers/ipfs/node_modules/uint8arrays/to-string.js":
     "QmVrsJ8sxzw72wdf5ve6ZaVmrAKMeQrXTFKKt6JJMk928J",
   "src/workers/ipfs/package.json":
-    "QmTHNaBSymnesYUAMA9iFC4wBfTT61pn6JhKNKgdMghayX",
+    "QmUmdw6D5iRhPaWnkJ9esEZ4bfdmLRgjcrKQsXAxoYLj4M",
   "src/workers/ipfs/src/gateways.js":
     "QmVGZy8bP96dMrzL4vTg7ppfpJVAFbtUZ1Go57fvsParbe",
   "src/workers/ipfs/src/ipfs.client.ts":
@@ -994,9 +994,9 @@ export const files = {
   "src/workers/ipfs/node_modules":
     "QmS8K7mjr3yq7xFmRnHvRkDQ1gr6fSNHEzaz4DpJb8kCd8",
   "src/workers/ipfs/src": "QmXwwQWFjGECDW8qa5PwTzybTszbzz8cCGJpzfj1vhVXpK",
-  "src/workers/ipfs": "Qmf12wpxjfMoncRCNg7TghFtmXdGfouCs6eRfLpP8pZ4vi",
-  "src/workers": "QmVyFLkTZdSAavCyjAUWG1bHJq58x8vapshjHaFKm61nZr",
-  "src": "QmXcVK4qHcFnMNihV7rcJQi1PyEQ2FqdSeTEUcAvr24U6d",
-  "": "QmZ9cxSsWVevqdGmQPdoyBybjoyYnNHWXKCD4pDDWvkBPp",
+  "src/workers/ipfs": "QmfPuCpNRUbz2vXfPXV7RN8LCaJVFGYjm19BdZq8wbrYrj",
+  "src/workers": "QmdNDpXMEd2ZLB4Dym4GwtWAP2gDG3WDsRBg4T5MQPuYdG",
+  "src": "QmRct4E7tKQztg3WEPMeK42tPZkyG6Lx4f9nbDY7gSxLVC",
+  "": "QmYVSKYdZuB13b8EKx1rT88eKcR43ySaKQocxfJXPSRntm",
   "foo": "bar",
 };
