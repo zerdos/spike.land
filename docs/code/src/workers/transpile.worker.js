@@ -60,12 +60,15 @@ const transform = (code) => {
     // @ts-ignore
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion} from "${location.href}../../../emotion-react-renderer/dist/renderer.js";
+      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "${location.href}../../../emotion-react-renderer/dist/renderer.js";
       
       ` + safeCode + `
       
-      const {useState, useRef, useEffect} = React
 
+      
+      const {useState, useRef, useEffect} = React
+      
+      export {render}
       `,
       {
         compact: false,

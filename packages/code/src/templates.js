@@ -40,10 +40,12 @@ export const getHtml = ({ html, css }) => {
   ${html}
 </div>
 <script type="module">
-import { renderEmotion } from "${window.location.href}code/emotion-react/renderer/dist/renderer.js"
 import App from "./app.js"
+import {render} from "./app.js"
 
-renderEmotion(App(), document.body.children[0]);
+
+
+render(App(), document.body.children[0]);
 </script>
 </body>
 </html>

@@ -5,7 +5,7 @@ import { renderPreviewWindow } from "./renderPreviewWindow.js";
 import {
   DraggableWindow,
   jsx,
-  renderEmotion,
+  render,
 } from "./emotion-react-renderer/dist/renderer.js";
 import { fetchSignal, ipfsCat, sendSignal } from "./hash.js";
 import { openWindows } from "./openWindows.js";
@@ -81,7 +81,7 @@ export async function run(mode = "window", _w, code = "") {
     mode,
     session,
     open,
-    renderEmotion,
+    render,
     jsx,
     DraggableWindow,
   );
@@ -243,10 +243,13 @@ export async function run(mode = "window", _w, code = "") {
       codeToHydrate,
     );
 
-    const Element = (await import(objUrl)).default;
+    const mod = (await import(objUrl));
+    const Element = mod.default;
+    const { render } = mod;
+
     URL.revokeObjectURL(objUrl);
     session.unmount();
-    session.unmount = renderEmotion(Element(), root);
+    session.unmount = render(Element(), root);
     const zbody = window.document.getElementById("zbody");
     zbody && zbody.children[0].replaceWith(root);
     session.div = root;

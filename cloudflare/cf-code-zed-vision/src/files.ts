@@ -461,19 +461,19 @@ export const files = {
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmSzjEYPa5n1SNzmUJuLsZFdLQLseDfo4YyTdwzM95PS3q",
-  "src/codeLoader.js": "QmcH5VM7Fha7xh4UkATs6vzXmmmgmHmXcmt9eSy2ka9KAu",
+  "src/codeLoader.js": "QmTkLoECMpSR68pNKtYm9FNaaSb7ikHVFDSEX9FJqBV77t",
   "src/data.js": "QmZEe5w15U5dkXp5WgQfYzn4ThC1NPq7mY3USx5STuYj4g",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "Qmatqd4HAF76oyBRpW7tGEMt1rDW2TNijeNVhxZg8GwbTX",
   "src/emotion-react-renderer/dist/renderer.js":
-    "QmZ3ALpiydQ75zpZH3xJS94NSJQP2vZ32K5zeCoCwDwC18",
+    "QmX4unXEXsJ9wPz3DGNPgeya8cr1LrazFViqqJrRPAV264",
   "src/emotion-react-renderer/package.json":
     "QmSGJVhzTivgdwchZ5AoZSF1PgV83G9i1DXyB8mp6iiv2C",
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "QmfXRFvz4dXzLdRYznK6isrynfqg8DvBViRfFEK8KnBSmH",
   "src/emotion-react-renderer/src/renderer.ts":
-    "QmWSfHLfX7spZkr87PrHM3jpwMrbbzhB2PjLgFzYM5metv",
+    "QmRpSExrraxqLXtqGHdMCPauSVn8ijVghpmf2SmgWKiwNQ",
   "src/emotion-react-renderer/tsconfig.json":
     "QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA",
   "src/examples/starterNoFramerMotion.js":
@@ -614,10 +614,10 @@ export const files = {
     "QmTvPhFvNDpBME8am5MbAXDBAijNHpx3F7Aq11BzdRRHB5",
   "src/starter.js": "QmQN8pfPkYDNrM6TQ69cxrRarHUZyECR7k9dVM76DP1b4T",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
-  "src/templates.js": "QmRTcrCiSBmM2h1wZkXcJpreZ6qiArdUfoWW9vUnrdN8ix",
+  "src/templates.js": "QmZwa6XkQzzCuWirSc3q9j421VUvxKnRcBp4n9TXzTQB7n",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmW2E7Si5i2xaR7TdUUhwY6J7dgRu7yrjY5zJzhK7qEcdE",
+  "src/workers/files.umd.js": "QmNtRoqB4Vn3TTJUubFBMbaU5echXcQUMxx8u8PVx9J7uF",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -1037,7 +1037,7 @@ export const files = {
     "QmTcSv4DXa6USZDdqotYWUdEhRB8voN9hrDdSjsPAvWgjq",
   "src/workers/sw.js": "Qmea5yH32uw2TfGq6vMhp1smHvGJ3nGx6RsVHsc4efQSY9",
   "src/workers/transpile.worker.js":
-    "Qmev8yJdXxob29yKNvM3kJ5R19ESSoewmrGKr7xWffZDaZ",
+    "QmSX2qLhymbiH8AqKshiFgPUjJfjfwFFrsbNx16dh7qzX8",
   "src/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
   "tsconfig.json": "QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -1257,13 +1257,13 @@ export const files = {
   "node_legacy": "QmX6VaPTh7rmAr3vhTDU3aJUuGjJe5vLLtA9V4D8CMzw7N",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/emotion-react-renderer/dist":
-    "QmeJEWVM2SczjoywzLE6nkoejskamp8Q4wyEtTU9x7qpGB",
+    "Qme5XNmCToindZrUoxTpjdP8ydY2CpKdWzNYafyxUpt5DF",
   "src/emotion-react-renderer/node_modules":
     "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "src/emotion-react-renderer/src":
-    "QmaiAYipMcBDMfSAaAebzpvBVShAvL5gHbicUw5RgcUVTz",
+    "Qmefpn86rafx41r64VYT9GQFPrEosdZV8MTXFhctsgENvG",
   "src/emotion-react-renderer":
-    "QmRxJq3yxRuNgK58ssuCZtsjDgSzLL74fHr5GCXYtejEnU",
+    "QmUoJ4eXzbmRdxRYJ88nNrsV4XEgH67HQEwr8ZZvH2Efrd",
   "src/examples": "QmZDutnUy26UNWoF3AYZd16bU2tVp2JDdmjNN1ScCDRGXy",
   "src/shadb/dist/vendor": "QmTZzgTNwYe9ioj2zaZmme3LZLscde4D54r8J6HpaaHJ5x",
   "src/shadb/dist": "QmPs9fBmE8aZQd62NYjBoWBvdwKZkf45nu81byMAEgmwuQ",
@@ -1507,8 +1507,8 @@ export const files = {
     "QmNQaS7UCS2GVgwcHdrQDN4rkAWKFTGRjzxWpQk1wUmEVQ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmZiN8p432yhQcYZWqiAGXsLVzFatk7ijmGuWq2otrk99s",
-  "src/workers": "QmUAjDhKnQAsQ2bNJttEDHVNtuUBxCtV6e4XsyFgDUNM9y",
-  "src": "QmZjnPtawBjnTJdD3sLGu3Dyi44NhxofvVx5xmcmeWtYQQ",
-  "": "QmQehRw9R5XEM2Wm7TysYeW6vAnGsmFexJEcRF4hVT7Xof",
+  "src/workers": "QmTLFuEqmTiSMxWSqoX35JejGbjNvRT1EFdkvZF9NeadiD",
+  "src": "QmNS6bJsYL9e2B7SbLy3CkwhHHGthaFFW89z5fY5YKhdQE",
+  "": "QmXXDvJKYuXVzeh1wNeLEZzD94MjTXfoe8U9NcRyoZF8c6",
   "foo": "bar",
 };

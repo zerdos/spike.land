@@ -242,8 +242,8 @@
         "affectsGlobalScope": false
       },
       "./src/templates.js": {
-        "version": "e37d279d48e50feac94f2a0fbb8cda375559001db9d91f6cb5c5752591e6a731",
-        "signature": "79022a94306aa6550a7242c4ca5f725e8bf8d21a2bcc7005b2a826ff651921cb",
+        "version": "6b0e39d529f81bf7a6f5b3f23dcdf17929b6bc3d59b9da81d0e636f28a748a9d",
+        "signature": "64c8f92e4d2113df194f8abbc2e0f219dc8795f291bb0c36ecdcf6ef618b9d56",
         "affectsGlobalScope": false
       },
       "./src/share.js": {
@@ -272,8 +272,8 @@
         "affectsGlobalScope": false
       },
       "./src/emotion-react-renderer/dist/renderer.js": {
-        "version": "89eaf1539d40a2e1d6aa889956d7c930637d130ba237c88fbf843b431963f6be",
-        "signature": "d6e56eadaccf79cb3409115830f9dc69420c6b33c25c6d6865bcc0fc90580f00",
+        "version": "1d9c84bd8ad165eaf51c33a428e9207c05533eee90698f3394185b7ffeb99b30",
+        "signature": "f688e3790877cd13bbf3ae1b661b72764fed26b989822a1732891195f24424be",
         "affectsGlobalScope": false
       },
       "./src/workBox.js": {
@@ -307,7 +307,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "4866a7a69bea586a14b19209645b5e0a784c69fe7860dce9cafcc6bed08b8281",
+        "version": "178cbe7a74543251160c3b771c5893fa1257d823ffd8b0f8195d22549b827255",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -447,7 +447,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "366d88b2a1a9d38c80c4a89a5e30a9bc55a6ebe69d5c82bbfcafccaa4eaffdc5",
+        "version": "30e7bb00685089a0b4461b3d00626f7bc709a76fd1bf19959be7b0688a38da6b",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -467,7 +467,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/transpile.worker.js": {
-        "version": "86dc79d7215b4a3759dd389c22d11044931c266b3f95e967cabe6c995d562750",
+        "version": "4855318ceec05984016fdad80b60389f2f08cd9222c44e8e8a9196b0467c391e",
         "signature": "7117ba628ae877499cfbefa16a068618d67b7399abe543ea96294a280a4b8b50",
         "affectsGlobalScope": true
       },
