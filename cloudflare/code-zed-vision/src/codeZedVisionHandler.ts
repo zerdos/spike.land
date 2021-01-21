@@ -121,14 +121,25 @@ async function handleRequest(request: Request) {
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
-  return text(`<!doctype html>
+  return new Response(
+    `<!doctype html>
   <html>
   <head>
   </head>
   <script type="text/javascript">
   window.location = "/ipfs/${cid}/";
   </script>
-  </html>`);
+  </html>`,
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-cache",
+        "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+        "Access-Control-Max-Age": "86400",
+        "Content-Type": "text/html;charset=UTF-8",
+      },
+    },
+  );
 }
 
 export function js(resp: string) {
