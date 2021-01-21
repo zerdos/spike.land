@@ -601,7 +601,7 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "1a573cdbda66e62a00b2bc4199e9257c3a405b0aab4a3b7859820d32ef41dcb5",
   "src/templates.js":
-    "4d8004c3b7f8fca064ebfac2aace7a6f750ef00933a9519ddcb4bd3a160c6b03",
+    "5bd10495227707b1411391eacfd9aaae617cfbe1f212d341e957679adbadbd18",
   "src/codeLoader.js":
     "178cbe7a74543251160c3b771c5893fa1257d823ffd8b0f8195d22549b827255",
   "src/db.js":
@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1eb98dcef0ec83be9a7db4b324f01a9e3cdd524482a5fede505083e1dfac6215",
   "src/workers/files.umd.js":
-    "9b0e77daecee3cf2076216a1d43d84d59ae34424a3849a633597595c1141bc1c",
+    "906179470460bdaf05e78b6e868491d33226080c722c5ad9db265334e099bf4e",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":

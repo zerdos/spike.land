@@ -64,7 +64,7 @@ export const getEditorHTML = () =>
   <script type="module">
     import {edit} from "${location.href}src/data.js"
     try{
-      edit("${location.pathname.slice(42, 10)}");
+      edit("${location.pathname.slice(42, 52)}");
     }catch(error){
       fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
     }

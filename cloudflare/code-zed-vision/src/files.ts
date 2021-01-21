@@ -614,10 +614,10 @@ export const files = {
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
     "QmTvPhFvNDpBME8am5MbAXDBAijNHpx3F7Aq11BzdRRHB5",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
-  "src/templates.js": "QmbbHgU51zh5JuuAPLsxHngGsyEmjYX3o8LA8dtDph18UJ",
+  "src/templates.js": "QmQZHdckLmmYq3BPJNUzv7akszJzB9EYr2LRa5xtSLigqH",
   "src/transpile.js": "QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp",
   "src/workBox.js": "QmUNb95Uy4M1qwMACE8oBvhEP2SYyUCc5gHaAYBs5YpV68",
-  "src/workers/files.umd.js": "QmUSsWjoGoBygMHNLTourwZxnmPMLPj7mGBasRNCaUtPvH",
+  "src/workers/files.umd.js": "QmbPMDprH2yX4sitHcFVGStY8zAaSuLXQzL7RRUiJEhteU",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -945,8 +945,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
-  "src/workers": "QmbRTZ8LDhmmEbn6vXcB3NzSSNMPWoiC4GxsGv3G1Cxrcf",
-  "src": "Qme5Hqdc7vUPLUSM9Ca1rsmmtcQmntMsJSYDVsH5BXwWsC",
-  "": "QmPduw5Zbqb1kGMhyT5KTSuWbvoey1XzhsEbcpyRNCnfP4",
+  "src/workers": "QmUZuRzvbdAqpNLjAdAWaxQ6hZEPQArqcXGLNMMRXhL4Rd",
+  "src": "QmRoSP9mytkoDteGi8xYCMZHaCsHiLq73Tw1rJNFtfvy3d",
+  "": "QmcAS3znFjaP4ShnyeRYyuoype4FLNdRkpMm6qqZ49PWAT",
   "foo": "bar",
 };
