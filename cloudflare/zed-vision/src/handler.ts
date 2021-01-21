@@ -223,7 +223,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       //   return text(result);
       // }
       return Response.redirect(
-        `https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`,
+        `https://code.zed.vision/ipfs/${cid}/?signalToQr=${maybeRoute}`,
         307,
       );
     }

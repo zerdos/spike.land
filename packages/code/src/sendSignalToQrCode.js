@@ -6,9 +6,9 @@ import { getCodeToLoad, saveCode } from "./data.js";
  * @param {string} rootUrl
  */
 export async function sendSignalToQrCode(rootUrl) {
-  const { pathname } = new URL(window.location.href);
+  const { searchParams } = new URL(window.location.href);
 
-  const maybeRoute = pathname.substr(1).slice(0, 8);
+  const maybeRoute = searchParams.get("signalToQr") | "";
   const isKey = maybeRoute.length === 8 &&
     [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0;
 

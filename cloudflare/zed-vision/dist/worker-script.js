@@ -129,7 +129,7 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 const v41 = () => v4();
-const cid = "QmavKU9qgkn1pJvwUBzsWSJDNCotEnamX5uqVYcU4CGqLi";
+const cid = "QmfRq5kXccdrXDLBJdRfWBeDziPFnNvDkyto6UPiPRpxpo";
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",
@@ -510,7 +510,7 @@ async function handleCloudRequest(request) {
       maybeRoute.length === 8;
     if (maybeRoute && isKey) {
       return Response.redirect(
-        `https://code.zed.vision/${maybeRoute}/ipfs/${cid}/`,
+        `https://code.zed.vision/ipfs/${cid}/?signalToQr=${maybeRoute}`,
         307,
       );
     }
