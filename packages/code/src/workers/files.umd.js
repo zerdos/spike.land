@@ -251,7 +251,7 @@ globalThis.files = {
 "src/examples/starterNoFramerMotion.js": "QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs",
 "src/examples/starter_framer.js": "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
 "src/formatter.js": "QmXArukccKkWgDVKtZWCsNcV2gmYhPLursST8CP1x4GVBi",
-"src/hash.js": "QmT5YoWKS22dsqWCCtGWWPsYxxZDeZeP2dy8PAsr8PBuaS",
+"src/hash.js": "QmR7CskGvjaJUxwnk63tNrmSmLeg4HDo6aYz3xBr57p9Hc",
 "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
 "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
 "src/ipfsClient.js": "QmNXn2zNEBL8e2cksn6Gy9stsAiaxFUGxiKSeHkoLKVhbQ",
@@ -519,6 +519,6 @@ globalThis.files = {
 "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
 "src/workers/ipfs": "QmSKnk75qLtX4DtfB6R3xtuUG3jYtnwPkpLa1zCjFe6fmF",
 "src/workers": "QmcD7NdsHTDMMrLpNj7V8RHXTL1VonJH99ZM8o4sVAjTiD",
-"src": "QmPKX6a4CRaCdWSPrmTDtQivqHVW9NEm7Y1WraFEBEfM3r",
-"": "QmQV2HGhZdEq1Nwo3nkxyZsXyoUg1u1rcSjVVvSt5BNnbV",
+"src": "QmYo8PYz7eLawFb3UETMFYVkD2YXjhk1jpNtmgnY8dXFFa",
+"": "QmS4uJUWm334PDCvQXd412HbQVrErsjaN5yQdvAWthUrvh",
  "foo":"bar" }

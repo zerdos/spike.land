@@ -62,7 +62,7 @@ export const sendSignal = async (signal, data) => {
   }
 
   const { path } = await ipfsClient.add(signal);
-  log(`signal sent --- ${path}`);
+  //  log(`signal sent --- ${path}`);
 
   return { success: true };
 };
@@ -82,10 +82,10 @@ export async function fetchSignal(
 ) {
   if (typeof window === "undefined") return;
   const retry = (typeof _retry === "number") ? _retry : 999;
-  console.log("retrying hash fetch");
+  // console.log("retrying hash fetch");
 
   if (window.location.hostname !== "code.zed.vision") {
-    console.log("we are NOT on code.zed.vision");
+    //   console.log("we are NOT on code.zed.vision");
 
     try {
       if (retry === 0) {
@@ -94,9 +94,9 @@ export async function fetchSignal(
 
       const smallSignal = signal.slice(-8);
 
-      log(`signal to wait: ${smallSignal}`);
+      ////    log(`signal to wait: ${smallSignal}`);
 
-      console.log(`https://zed.vision/signal?signal=${smallSignal}`);
+      // console.log(`https://zed.vision/signal?signal=${smallSignal}`);
 
       const cid = await fetch(
         `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math
@@ -111,13 +111,13 @@ export async function fetchSignal(
         return fetchSignal(signal, retry - 1);
       }
 
-      log(`${cid} is available`);
+      //    log(`${cid} is available`);
 
       const resData = await fetch(`https://code.zed.vision/ipfs/${cid}`).then((
         x,
       ) => x.text());
 
-      log(`${cid} downloaded - ${resData}`);
+      //  log(`${cid} downloaded - ${resData}`);
       return async () => parse(resData);
     } catch (e) {
       await wait(Math.random() * 4000);
@@ -127,7 +127,7 @@ export async function fetchSignal(
     }
   }
 
-  log(`retry: ${retry}`);
+  // log(`retry: ${retry}`);
   try {
     if (retry === 0) {
       throw new Error("No more retry");
@@ -137,13 +137,12 @@ export async function fetchSignal(
 
     const res = await ipfsClient.add(signal, { onlyHash: true });
     const resCID = res.cid.toString();
-    cd;
 
-    log(`CID to wait: ${resCID}`);
-
+    //  log(`CID to wait: ${resCID}`);
+    //
     const resData = await ipfsCat(resCID, { timeout: 1500 });
 
-    log(`${resCID} downloaded - ${resData}`);
+    //log(`${resCID} downloaded - ${resData}`);
     return async () => parse(await getData(signal, 20));
   } catch (e) {
     if (retry > 1) return fetchSignal(signal, retry - 1);
@@ -263,10 +262,10 @@ function parse(d) {
     if (typeof d !== "string") return d;
 
     const ret = JSON.parse(d);
-    console.log({ ret });
+    //   console.log({ ret });
     return ret;
   } catch (e) {
-    console.log({ d });
+    //    console.log({ d });
     return d;
   }
 }
