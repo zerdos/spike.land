@@ -14,25 +14,19 @@ export async function sendSignalToQrCode(rootUrl) {
 
   if (!isKey) return;
 
-  const project = await getCodeToLoad();
+  const { sendSignal } = await import("./hash.js");
+  const signal = `https://zed.vision/${maybeRoute}`;
 
-  const { url } = await saveCode(project);
-
-  if (isKey) {
-    const { sendSignal } = await import("./hash.js");
-    const signal = `https://zed.vision/${maybeRoute}`;
-
-    await sendSignal(
-      signal,
-      {
-        rootUrl: url + "/edit",
-        signals: {
-          onChange: "url",
-          onLogout: "url",
-        },
+  await sendSignal(
+    signal,
+    {
+      rootUrl: rootUrl + "/edit",
+      signals: {
+        onChange: "url",
+        onLogout: "url",
       },
-    );
-  }
+    },
+  );
 }
 
 // /**

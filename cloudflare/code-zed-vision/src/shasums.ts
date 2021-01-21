@@ -577,7 +577,7 @@ export const shasums = {
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
-    "3103d1d0693d60c694d8d8641c25f284cfc0b6f44d6cfedc0f084e82190cdda6",
+    "66e25a695851a9f95e2f68f1a04322033a234962221b53eca1b19962ce50a5dc",
   "src/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "src/examples/starterNoFramerMotion.js":
@@ -609,9 +609,9 @@ export const shasums = {
   "src/openWindows.js":
     "e59e27243ab0238ed5c97f05395e5976e0e0558961d0bb5f51634644fd3b5492",
   "src/sendSignalToQrCode.js":
-    "a119c9568b5b285d2eccade86ffb1b6783481a46ba009dd2fcdf73996c39824a",
+    "24ee73f8002ece8cf5e15bfa3834d50c13ab1b4cc30b4f1d733a83c9b8a5a663",
   "src/workers/files.umd.js":
-    "f57782cc5a758854479f53e31c00315341f0e1495315479e84fc6a8cc41a6600",
+    "f0367cf6ad0d90a5f9d9e7d1d4fab41949ca7a2334c6892d3b268b4cdfcc34d8",
   "src/workers/ipfs/package.json":
     "c07655b09b83f26f8b8385d2d519c5acedb4fcab84fce91f2d4c2a666d660e4b",
   "src/workers/ipfs/.gitignore":
