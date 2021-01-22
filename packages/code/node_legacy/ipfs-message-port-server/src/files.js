@@ -1,8 +1,8 @@
-'use strict'
+"use strict";
 
 /* eslint-env browser */
 
-const { encodeCID } = require('ipfs-message-port-protocol/src/cid')
+const { encodeCID } = require("ipfs-message-port-protocol/src/cid");
 
 /**
  * @typedef {import('ipfs-message-port-protocol/src/dag').EncodedCID} EncodedCID
@@ -19,8 +19,8 @@ exports.FilesService = class FilesService {
    *
    * @param {IPFS} ipfs
    */
-  constructor (ipfs) {
-    this.ipfs = ipfs
+  constructor(ipfs) {
+    this.ipfs = ipfs;
   }
 
   /**
@@ -49,10 +49,10 @@ exports.FilesService = class FilesService {
    * @param {StatQuery} input
    * @returns {Promise<StatResult>}
    */
-  async stat (input) {
-    const stat = await this.ipfs.files.stat(input.path, input)
+  async stat(input) {
+    const stat = await this.ipfs.files.stat(input.path, input);
     /** @type {Transferable[]} */
-    const transfer = []
-    return { stat: { ...stat, cid: encodeCID(stat.cid, transfer) }, transfer }
+    const transfer = [];
+    return { stat: { ...stat, cid: encodeCID(stat.cid, transfer) }, transfer };
   }
-}
+};

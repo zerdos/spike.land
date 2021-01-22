@@ -1,13 +1,13 @@
-'use strict'
+"use strict";
 
 /* eslint-env browser */
 
 const {
   decodeIterable,
   encodeIterable,
-  decodeCallback
-} = require('ipfs-message-port-protocol/src/core')
-const { decodeCID, encodeCID } = require('ipfs-message-port-protocol/src/cid')
+  decodeCallback,
+} = require("ipfs-message-port-protocol/src/core");
+const { decodeCID, encodeCID } = require("ipfs-message-port-protocol/src/cid");
 
 /**
  * @typedef {import("./ipfs").IPFS} IPFS
@@ -99,8 +99,8 @@ exports.CoreService = class CoreService {
    *
    * @param {IPFS} ipfs
    */
-  constructor (ipfs) {
-    this.ipfs = ipfs
+  constructor(ipfs) {
+    this.ipfs = ipfs;
   }
 
   /**
@@ -111,8 +111,8 @@ exports.CoreService = class CoreService {
    * @param {AddAllQuery} query
    * @returns {AddAllResult}
    */
-  addAll (query) {
-    const { input } = query
+  addAll(query) {
+    const { input } = query;
     const {
       chunker,
       cidVersion,
@@ -126,14 +126,14 @@ exports.CoreService = class CoreService {
       trickle,
       wrapWithDirectory,
       timeout,
-      signal
-    } = query
+      signal,
+    } = query;
 
-    let progressCallback
+    let progressCallback;
 
     if (progress) {
-      const fn = decodeCallback(progress)
-      progressCallback = (bytes, fileName) => fn([bytes, fileName])
+      const fn = decodeCallback(progress);
+      progressCallback = (bytes, fileName) => fn([bytes, fileName]);
     }
 
     const options = {
@@ -149,11 +149,11 @@ exports.CoreService = class CoreService {
       wrapWithDirectory,
       timeout,
       progress: progressCallback,
-      signal
-    }
+      signal,
+    };
 
-    const content = decodeAddAllInput(input)
-    return encodeAddAllResult(this.ipfs.addAll(content, options))
+    const content = decodeAddAllInput(input);
+    return encodeAddAllResult(this.ipfs.addAll(content, options));
   }
 
   /**
@@ -164,8 +164,8 @@ exports.CoreService = class CoreService {
    * @param {AddQuery} query
    * @returns {Promise<AddResult>}
    */
-  async add (query) {
-    const { input } = query
+  async add(query) {
+    const { input } = query;
     const {
       chunker,
       cidVersion,
@@ -179,14 +179,14 @@ exports.CoreService = class CoreService {
       trickle,
       wrapWithDirectory,
       timeout,
-      signal
-    } = query
+      signal,
+    } = query;
 
-    let progressCallback
+    let progressCallback;
 
     if (progress) {
-      const fn = decodeCallback(progress)
-      progressCallback = (bytes, fileName) => fn([bytes, fileName])
+      const fn = decodeCallback(progress);
+      progressCallback = (bytes, fileName) => fn([bytes, fileName]);
     }
 
     const options = {
@@ -202,11 +202,11 @@ exports.CoreService = class CoreService {
       wrapWithDirectory,
       timeout,
       progress: progressCallback,
-      signal
-    }
+      signal,
+    };
 
-    const content = decodeAddInput(input)
-    return encodeAddResult(await this.ipfs.add(content, options))
+    const content = decodeAddInput(input);
+    return encodeAddResult(await this.ipfs.add(content, options));
   }
 
   /**
@@ -224,11 +224,16 @@ exports.CoreService = class CoreService {
    * @param {CatQuery} query
    * @returns {CatResult}
    */
-  cat (query) {
-    const { path, offset, length, timeout, signal } = query
-    const location = typeof path === 'string' ? path : decodeCID(path)
-    const content = this.ipfs.cat(location, { offset, length, timeout, signal })
-    return encodeCatResult(content)
+  cat(query) {
+    const { path, offset, length, timeout, signal } = query;
+    const location = typeof path === "string" ? path : decodeCID(path);
+    const content = this.ipfs.cat(location, {
+      offset,
+      length,
+      timeout,
+      signal,
+    });
+    return encodeCatResult(content);
   }
 
   /**
@@ -246,58 +251,62 @@ exports.CoreService = class CoreService {
    * @param {LsQuery} query
    * @returns {LsResult}
    */
-  ls (query) {
-    const { path, recursive, preload, timeout, signal } = query
-    const location = typeof path === 'string' ? path : decodeCID(path)
-    const entries = this.ipfs.ls(location, { recursive, preload, timeout, signal })
-    return encodeLsResult(entries)
+  ls(query) {
+    const { path, recursive, preload, timeout, signal } = query;
+    const location = typeof path === "string" ? path : decodeCID(path);
+    const entries = this.ipfs.ls(location, {
+      recursive,
+      preload,
+      timeout,
+      signal,
+    });
+    return encodeLsResult(entries);
   }
-}
+};
 // @returns {string|ArrayBufferView|ArrayBuffer|Blob|AsyncIterable<string>|AsyncIterable<ArrayBufferView>|AsyncIterable<ArrayBuffer>|AsyncIterable<Blob>|AsyncIterable<FileObject>}
 
 /**
  * @param {MultiFileInput} input
  * @returns {AsyncIterable<string|ArrayBufferView|ArrayBuffer|Blob|FileObject>}
  */
-const decodeAddAllInput = input =>
-  decodeIterable(input, decodeFileInput)
+const decodeAddAllInput = (input) => decodeIterable(input, decodeFileInput);
 
 /**
  * @param {SingleFileInput} input
  * @returns {string|ArrayBufferView|ArrayBuffer|Blob|FileObject}
  */
-const decodeAddInput = input =>
+const decodeAddInput = (input) =>
   matchInput(
     input,
     /**
      * @param {*} data
      * @returns {*}
      */
-    data => {
-      if (data.type === 'RemoteIterable') {
-        return { content: decodeIterable(data, decodeFileInput) }
+    (data) => {
+      if (data.type === "RemoteIterable") {
+        return { content: decodeIterable(data, decodeFileInput) };
       } else {
-        return decodeFileInput(data)
+        return decodeFileInput(data);
       }
-    }
-  )
+    },
+  );
 
 /**
  * @param {ArrayBufferView|ArrayBuffer|string|Blob|FileInput} input
  * @returns {string|ArrayBuffer|ArrayBufferView|Blob|FileObject}
  */
-const decodeFileInput = input =>
-  matchInput(input, file => ({
+const decodeFileInput = (input) =>
+  matchInput(input, (file) => ({
     ...file,
-    content: file.content && decodeFileContent(file.content)
-  }))
+    content: file.content && decodeFileContent(file.content),
+  }));
 
 /**
  * @param {FileContent} content
  * @returns {DecodedFileContent}
  */
-const decodeFileContent = content =>
-  matchInput(content, input => decodeIterable(input, identity))
+const decodeFileContent = (content) =>
+  matchInput(content, (input) => decodeIterable(input, identity));
 
 /**
  * @template I,O
@@ -307,71 +316,73 @@ const decodeFileContent = content =>
  */
 const matchInput = (input, decode) => {
   if (
-    typeof input === 'string' ||
+    typeof input === "string" ||
     input instanceof ArrayBuffer ||
     input instanceof Blob ||
     ArrayBuffer.isView(input)
   ) {
-    return input
+    return input;
   } else {
-    return decode(input)
+    return decode(input);
   }
-}
+};
 
 /**
  * @param {AsyncIterable<FileOutput>} out
  * @returns {AddAllResult}
  */
-const encodeAddAllResult = out => {
+const encodeAddAllResult = (out) => {
   /** @type {Transferable[]} */
-  const transfer = []
+  const transfer = [];
   return {
     data: encodeIterable(out, encodeFileOutput, transfer),
-    transfer
-  }
-}
+    transfer,
+  };
+};
 
 /**
  * @param {FileOutput} out
  * @returns {AddResult}
  */
-const encodeAddResult = out => {
+const encodeAddResult = (out) => {
   /** @type {Transferable[]} */
-  const transfer = []
+  const transfer = [];
   return {
     data: encodeFileOutput(out, transfer),
-    transfer
-  }
-}
+    transfer,
+  };
+};
 
 /**
  *
  * @param {AsyncIterable<Uint8Array>} content
  * @returns {CatResult}
  */
-const encodeCatResult = content => {
+const encodeCatResult = (content) => {
   /** @type {Transferable[]} */
-  const transfer = []
-  return { data: encodeIterable(content, moveBuffer, transfer), transfer }
-}
+  const transfer = [];
+  return { data: encodeIterable(content, moveBuffer, transfer), transfer };
+};
 
 /**
  *
  * @param {AsyncIterable<LsEntry>} entries
  * @returns {LsResult}
  */
-const encodeLsResult = entries => {
+const encodeLsResult = (entries) => {
   /** @type {Transferable[]} */
-  const transfer = []
-  return { data: encodeIterable(entries, encodeLsEntry, transfer), transfer }
-}
+  const transfer = [];
+  return { data: encodeIterable(entries, encodeLsEntry, transfer), transfer };
+};
 
 /**
  *
  * @param {LsEntry} entry
  * @returns {EncodedLsEntry}
  */
-const encodeLsEntry = ({ depth, name, path, size, cid, type, mode, mtime }) => ({
+const encodeLsEntry = (
+  { depth, name, path, size, cid, type, mode, mtime },
+) => ({
   cid: encodeCID(cid),
   type,
   name,
@@ -379,8 +390,8 @@ const encodeLsEntry = ({ depth, name, path, size, cid, type, mode, mtime }) => (
   mode,
   mtime,
   size,
-  depth
-})
+  depth,
+});
 
 /**
  * Adds underlying `ArrayBuffer` to the transfer list.
@@ -390,9 +401,9 @@ const encodeLsEntry = ({ depth, name, path, size, cid, type, mode, mtime }) => (
  * @returns {Uint8Array}
  */
 const moveBuffer = (buffer, transfer) => {
-  transfer.push(buffer.buffer)
-  return buffer
-}
+  transfer.push(buffer.buffer);
+  return buffer;
+};
 
 /**
  *
@@ -402,12 +413,12 @@ const moveBuffer = (buffer, transfer) => {
 
 const encodeFileOutput = (file, _transfer) => ({
   ...file,
-  cid: encodeCID(file.cid)
-})
+  cid: encodeCID(file.cid),
+});
 
 /**
  * @template T
  * @param {T} v
  * @returns {T}
  */
-const identity = v => v
+const identity = (v) => v;

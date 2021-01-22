@@ -15,20 +15,25 @@
  * @param {Transferable[]} [transfer]
  * @returns {EncodedBlock}
  */
-export function encodeBlock({ cid, data }: import("ipld-block/src"), transfer?: Transferable[] | undefined): EncodedBlock;
+export function encodeBlock(
+  { cid, data }: import("ipld-block/src"),
+  transfer?: Transferable[] | undefined,
+): EncodedBlock;
 /**
  * @param {EncodedBlock} encodedBlock
  * @returns {Block}
  */
-export function decodeBlock({ cid, data }: EncodedBlock): import("ipld-block/src");
+export function decodeBlock(
+  { cid, data }: EncodedBlock,
+): import("ipld-block/src");
 export var Block: typeof import("ipld-block/src");
 export type EncodedCID = {
-    codec: string;
-    multihash: Uint8Array;
-    version: number;
+  codec: string;
+  multihash: Uint8Array;
+  version: number;
 };
 export type EncodedBlock = {
-    data: Uint8Array;
-    cid: EncodedCID;
+  data: Uint8Array;
+  cid: EncodedCID;
 };
 //# sourceMappingURL=block.d.ts.map

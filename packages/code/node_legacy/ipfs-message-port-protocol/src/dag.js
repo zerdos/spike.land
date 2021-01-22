@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-const { encodeCID, decodeCID, CID } = require('./cid')
+const { encodeCID, decodeCID, CID } = require("./cid");
 
 /**
  * @typedef {import('./data').JSONValue} JSONValue
@@ -32,13 +32,13 @@ const decodeNode = ({ dagNode, cids }) => {
   // this, but it removes a need of traversing node first on client
   // and now on server.
   for (const cid of cids) {
-    decodeCID(cid)
+    decodeCID(cid);
   }
 
-  return dagNode
-}
+  return dagNode;
+};
 
-exports.decodeNode = decodeNode
+exports.decodeNode = decodeNode;
 
 /**
  * Encodes DAG node for over the message channel transfer by collecting all
@@ -54,11 +54,11 @@ exports.decodeNode = decodeNode
  */
 const encodeNode = (dagNode, transfer) => {
   /** @type {CID[]} */
-  const cids = []
-  collectNode(dagNode, cids, transfer)
-  return { dagNode, cids }
-}
-exports.encodeNode = encodeNode
+  const cids = [];
+  collectNode(dagNode, cids, transfer);
+  return { dagNode, cids };
+};
+exports.encodeNode = encodeNode;
 
 /**
  * Recursively traverses passed `value` and collects encountered `CID` instances
@@ -71,26 +71,26 @@ exports.encodeNode = encodeNode
  * @returns {void}
  */
 const collectNode = (value, cids, transfer) => {
-  if (value != null && typeof value === 'object') {
+  if (value != null && typeof value === "object") {
     if (CID.isCID(value)) {
-      cids.push(value)
-      encodeCID(value, transfer)
+      cids.push(value);
+      encodeCID(value, transfer);
     } else if (value instanceof ArrayBuffer) {
       if (transfer) {
-        transfer.push(value)
+        transfer.push(value);
       }
     } else if (ArrayBuffer.isView(value)) {
       if (transfer) {
-        transfer.push(value.buffer)
+        transfer.push(value.buffer);
       }
     } else if (Array.isArray(value)) {
       for (const member of value) {
-        collectNode(member, cids, transfer)
+        collectNode(member, cids, transfer);
       }
     } else {
       for (const member of Object.values(value)) {
-        collectNode(member, cids, transfer)
+        collectNode(member, cids, transfer);
       }
     }
   }
-}
+};

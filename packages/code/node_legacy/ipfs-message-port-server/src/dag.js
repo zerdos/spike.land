@@ -1,8 +1,10 @@
-'use strict'
+"use strict";
 
-const { encodeCID, decodeCID } = require('ipfs-message-port-protocol/src/cid')
-const { decodeNode, encodeNode } = require('ipfs-message-port-protocol/src/dag')
-const collect = require('it-all')
+const { encodeCID, decodeCID } = require("ipfs-message-port-protocol/src/cid");
+const { decodeNode, encodeNode } = require(
+  "ipfs-message-port-protocol/src/dag",
+);
+const collect = require("it-all");
 
 /**
  * @typedef {import('./ipfs').IPFS} IPFS
@@ -21,8 +23,8 @@ exports.DAGService = class DAGService {
   /**
    * @param {IPFS} ipfs
    */
-  constructor (ipfs) {
-    this.ipfs = ipfs
+  constructor(ipfs) {
+    this.ipfs = ipfs;
   }
 
   /**
@@ -38,14 +40,14 @@ exports.DAGService = class DAGService {
    * @param {PutDag} query
    * @returns {Promise<EncodedCID>}
    */
-  async put (query) {
-    const dagNode = decodeNode(query.dagNode)
+  async put(query) {
+    const dagNode = decodeNode(query.dagNode);
 
     const cid = await this.ipfs.dag.put(dagNode, {
       ...query,
-      cid: query.cid ? decodeCID(query.cid) : undefined
-    })
-    return encodeCID(cid)
+      cid: query.cid ? decodeCID(query.cid) : undefined,
+    });
+    return encodeCID(cid);
   }
 
   /**
@@ -64,21 +66,21 @@ exports.DAGService = class DAGService {
    * @param {GetDAG} query
    * @returns {Promise<GetResult>}
    */
-  async get (query) {
-    const { cid, path, localResolve, timeout, signal } = query
+  async get(query) {
+    const { cid, path, localResolve, timeout, signal } = query;
     const { value, remainderPath } = await this.ipfs.dag.get(
       decodeCID(cid),
       {
         path,
         localResolve,
         timeout,
-        signal
-      }
-    )
+        signal,
+      },
+    );
 
     /** @type {Transferable[]} */
-    const transfer = []
-    return { remainderPath, value: encodeNode(value, transfer), transfer }
+    const transfer = [];
+    return { remainderPath, value: encodeNode(value, transfer), transfer };
   }
 
   /**
@@ -95,14 +97,16 @@ exports.DAGService = class DAGService {
    * @param {ResolveQuery} query
    * @returns {Promise<ResolveResult>}
    */
-  async resolve (query) {
-    const { cid, remainderPath } =
-      await this.ipfs.dag.resolve(decodePathOrCID(query.cid), query)
+  async resolve(query) {
+    const { cid, remainderPath } = await this.ipfs.dag.resolve(
+      decodePathOrCID(query.cid),
+      query,
+    );
 
     return {
       cid: encodeCID(cid),
-      remainderPath
-    }
+      remainderPath,
+    };
   }
 
   /**
@@ -116,31 +120,31 @@ exports.DAGService = class DAGService {
    * @param {EnumerateDAG} query
    * @returns {Promise<string[]>}
    */
-  async tree (query) {
-    const { cid, path, recursive, timeout, signal } = query
+  async tree(query) {
+    const { cid, path, recursive, timeout, signal } = query;
     const result = await this.ipfs.dag.tree(decodeCID(cid), {
       path,
       recursive,
       timeout,
-      signal
-    })
-    const entries = await collect(result)
+      signal,
+    });
+    const entries = await collect(result);
 
-    return entries
+    return entries;
   }
-}
+};
 
 /**
  * @param {EncodedCID|string} input
  * @returns {CID|string}
  */
 const decodePathOrCID = (input) => {
-  if (typeof input === 'string') {
-    return input
+  if (typeof input === "string") {
+    return input;
   } else {
-    return decodeCID(input)
+    return decodeCID(input);
   }
-}
+};
 
 /**
  * @param {EncodedDAGNode} value

@@ -1,11 +1,11 @@
-'use strict'
+"use strict";
 /* eslint-env browser */
 
-const MessageTransport = require('./client/transport')
-const BlockClient = require('./block')
-const DAGClient = require('./dag')
-const CoreClient = require('./core')
-const FilesClient = require('./files')
+const MessageTransport = require("./client/transport");
+const BlockClient = require("./block");
+const DAGClient = require("./dag");
+const CoreClient = require("./core");
+const FilesClient = require("./files");
 
 /**
  * @typedef {import('./client').MessageTransport} MessageTransport
@@ -18,12 +18,12 @@ class IPFSClient extends CoreClient {
   /**
    * @param {MessageTransport} transport
    */
-  constructor (transport) {
-    super(transport)
-    this.transport = transport
-    this.dag = new DAGClient(this.transport)
-    this.files = new FilesClient(this.transport)
-    this.block = new BlockClient(this.transport)
+  constructor(transport) {
+    super(transport);
+    this.transport = transport;
+    this.dag = new DAGClient(this.transport);
+    this.files = new FilesClient(this.transport);
+    this.block = new BlockClient(this.transport);
   }
 
   /**
@@ -33,8 +33,8 @@ class IPFSClient extends CoreClient {
    * @param {IPFSClient} self
    * @param {MessagePort} port
    */
-  static attach (self, port) {
-    self.transport.connect(port)
+  static attach(self, port) {
+    self.transport.connect(port);
   }
 
   /**
@@ -45,8 +45,8 @@ class IPFSClient extends CoreClient {
    *
    * @returns {IPFSClient}
    */
-  static detached () {
-    return new IPFSClient(new MessageTransport(undefined))
+  static detached() {
+    return new IPFSClient(new MessageTransport(undefined));
   }
 
   /**
@@ -56,12 +56,12 @@ class IPFSClient extends CoreClient {
    * @param {MessagePort} port
    * @returns {IPFSClient}
    */
-  static from (port) {
-    return new IPFSClient(new MessageTransport(port))
+  static from(port) {
+    return new IPFSClient(new MessageTransport(port));
   }
 }
 
-module.exports = IPFSClient
+module.exports = IPFSClient;
 
 /**
  * @typedef {Object} MessagePortOptions

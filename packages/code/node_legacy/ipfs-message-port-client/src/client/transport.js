@@ -1,7 +1,7 @@
-'use strict'
+"use strict";
 
-const { decodeError } = require('ipfs-message-port-protocol/src/error')
-const { DisconnectError, TimeoutError, AbortError } = require('./error')
+const { decodeError } = require("ipfs-message-port-protocol/src/error");
+const { DisconnectError, TimeoutError, AbortError } = require("./error");
 
 /**
  * RPC Transport over `MessagePort` that can execute queries. It takes care of
@@ -19,26 +19,26 @@ module.exports = class MessageTransport {
    *
    * @param {MessagePort} [port]
    */
-  constructor (port) {
-    this.port = null
+  constructor(port) {
+    this.port = null;
     // Assigining a random enough identifier to the transport, to ensure that
     // query.id will be unique when multiple tabs are communicating with a
     // a server in the SharedWorker.
     this.id = Math.random()
       .toString(32)
-      .slice(2)
+      .slice(2);
 
     // Local unique id on the transport which is incremented for each query.
-    this.nextID = 0
+    this.nextID = 0;
 
     // Dictionary of pending requests
     /** @type {Record<string, Query<any, any>>} */
-    this.queries = Object.create(null)
+    this.queries = Object.create(null);
 
     // If port is provided connect this transport to it. If not transport can
     // queue queries and execute those once it's connected.
     if (port) {
-      this.connect(port)
+      this.connect(port);
     }
   }
 
@@ -50,28 +50,33 @@ module.exports = class MessageTransport {
    * @param {Query<I, O>} query
    * @returns {Promise<O>}
    */
-  execute (query) {
-    const id = `${this.id}@${this.nextID++}`
-    this.queries[id] = query
+  execute(query) {
+    const id = `${this.id}@${this.nextID++}`;
+    this.queries[id] = query;
 
     // If query has a timeout set a timer.
     if (query.timeout > 0 && query.timeout < Infinity) {
-      query.timerID = setTimeout(MessageTransport.timeout, query.timeout, this, id)
+      query.timerID = setTimeout(
+        MessageTransport.timeout,
+        query.timeout,
+        this,
+        id,
+      );
     }
 
     if (query.signal) {
-      query.signal.addEventListener('abort', () => this.abort(id), {
-        once: true
-      })
+      query.signal.addEventListener("abort", () => this.abort(id), {
+        once: true,
+      });
     }
 
     // If transport is connected (it has port) post a query, otherwise it
     // will remain in the pending queries queue.
     if (this.port) {
-      MessageTransport.postQuery(this.port, id, query)
+      MessageTransport.postQuery(this.port, id, query);
     }
 
-    return query.result
+    return query.result;
   }
 
   /**
@@ -81,19 +86,19 @@ module.exports = class MessageTransport {
    *
    * @param {MessagePort} port
    */
-  connect (port) {
+  connect(port) {
     if (this.port) {
-      throw new Error('Transport is already open')
+      throw new Error("Transport is already open");
     } else {
-      this.port = port
-      this.port.addEventListener('message', this)
-      this.port.start()
+      this.port = port;
+      this.port.addEventListener("message", this);
+      this.port.start();
 
       // Go ever pending queries (that were submitted before transport was
       // connected) and post them. This loop is safe because messages will not
       // arrive while this loop is running so no mutation can occur.
       for (const [id, query] of Object.entries(this.queries)) {
-        MessageTransport.postQuery(port, id, query)
+        MessageTransport.postQuery(port, id, query);
       }
     }
   }
@@ -104,18 +109,18 @@ module.exports = class MessageTransport {
    *
    * Once disconnected transport can not be reconnected back.
    */
-  disconnect () {
-    const error = new DisconnectError()
+  disconnect() {
+    const error = new DisconnectError();
     for (const [id, query] of Object.entries(this.queries)) {
-      query.fail(error)
-      this.abort(id)
+      query.fail(error);
+      this.abort(id);
     }
 
     // Note that reference to port is kept that ensures that attempt to
     // reconnect will throw an error.
     if (this.port) {
-      this.port.removeEventListener('message', this)
-      this.port.close()
+      this.port.removeEventListener("message", this);
+      this.port.close();
     }
   }
 
@@ -126,14 +131,14 @@ module.exports = class MessageTransport {
    * @param {MessageTransport} self
    * @param {string} id
    */
-  static timeout (self, id) {
-    const { queries } = self
-    const query = queries[id]
+  static timeout(self, id) {
+    const { queries } = self;
+    const query = queries[id];
     if (query) {
-      delete queries[id]
-      query.fail(new TimeoutError('request timed out'))
+      delete queries[id];
+      query.fail(new TimeoutError("request timed out"));
       if (self.port) {
-        self.port.postMessage({ type: 'abort', id })
+        self.port.postMessage({ type: "abort", id });
       }
     }
   }
@@ -144,19 +149,19 @@ module.exports = class MessageTransport {
    *
    * @param {string} id
    */
-  abort (id) {
-    const { queries } = this
-    const query = queries[id]
+  abort(id) {
+    const { queries } = this;
+    const query = queries[id];
     if (query) {
-      delete queries[id]
+      delete queries[id];
 
-      query.fail(new AbortError())
+      query.fail(new AbortError());
       if (this.port) {
-        this.port.postMessage({ type: 'abort', id })
+        this.port.postMessage({ type: "abort", id });
       }
 
       if (query.timerID != null) {
-        clearTimeout(query.timerID)
+        clearTimeout(query.timerID);
       }
     }
   }
@@ -168,18 +173,18 @@ module.exports = class MessageTransport {
    * @param {string} id
    * @param {Query<any, any>} query
    */
-  static postQuery (port, id, query) {
+  static postQuery(port, id, query) {
     port.postMessage(
       {
-        type: 'query',
+        type: "query",
         namespace: query.namespace,
         method: query.method,
         id,
-        input: query.toJSON()
+        input: query.toJSON(),
       },
       // @ts-ignore - TS seems to want second arg to postMessage to not be undefined
-      [...new Set(query.transfer() || [])]
-    )
+      [...new Set(query.transfer() || [])],
+    );
   }
 
   /**
@@ -187,27 +192,27 @@ module.exports = class MessageTransport {
    *
    * @param {MessageEvent} event
    */
-  handleEvent (event) {
-    const { id, result } = event.data
-    const query = this.queries[id]
+  handleEvent(event) {
+    const { id, result } = event.data;
+    const query = this.queries[id];
     // If query with a the given ID is found it is completed with the result,
     // otherwise it is cancelled.
     // Note: query may not be found when it was aborted on the client and at the
     // same time server posted response.
     if (query) {
-      delete this.queries[id]
+      delete this.queries[id];
       if (result.ok) {
-        query.succeed(result.value)
+        query.succeed(result.value);
       } else {
-        query.fail(decodeError(result.error))
+        query.fail(decodeError(result.error));
       }
 
       if (query.timerID != null) {
-        clearTimeout(query.timerID)
+        clearTimeout(query.timerID);
       }
     }
   }
-}
+};
 
 /**
  * @template I,O

@@ -8,10 +8,17 @@ export default function rng() {
   if (!getRandomValues) {
     // getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
     // find the complete implementation of crypto (msCrypto) on IE11.
-    getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
+    getRandomValues =
+      typeof crypto !== "undefined" && crypto.getRandomValues &&
+        crypto.getRandomValues.bind(crypto) ||
+      typeof msCrypto !== "undefined" &&
+        typeof msCrypto.getRandomValues === "function" &&
+        msCrypto.getRandomValues.bind(msCrypto);
 
     if (!getRandomValues) {
-      throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+      throw new Error(
+        "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported",
+      );
     }
   }
 

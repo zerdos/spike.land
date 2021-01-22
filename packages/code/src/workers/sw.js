@@ -4,7 +4,7 @@ importScripts(
 importScripts("/ipfs.js");
 // importScripts("./files.umd.js")
 
-const {files, cid} = globalThis;
+const { files, cid } = globalThis;
 
 // @ts-ignore
 workbox.loadModule("workbox-precaching");
@@ -14,36 +14,23 @@ workbox.loadModule("workbox-precaching");
 //   `/ipfs/${files["src/codeLoader.js"]}`,
 // ]);
 
-
-
 // workbox.precaching.addRoute(
 //   Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
 //  { urlManipulation: ({url}) => {
-//     return [`/ipfs/${cid}/${url}`, 
-    
-  
-  
+//     return [`/ipfs/${cid}/${url}`,
+
 //   ];
 //   }}
 // )
-
-
-
-
-
-
 
 // workbox.precaching.precacheAndRoute([
 //   {url: '/src/data.js', revision: files["src/data.js"]},
 //   `/ipfs/${files["src/data.js"]}`,
 // ]);
 
-
-
 // const addRoute = workbox.precaching;
 // addRoute(
 //   {url: "index.html", files["index.html"] )
-
 
 // const {Router, Routing, RegExpRoute} = workbox.routing;
 // const router = new Router();
@@ -73,7 +60,7 @@ workbox.loadModule("workbox-precaching");
 //     //   const cacheFirst = new workbox.strategies.CacheFirst();
 //     //   event.respondWith(fetch(`${origin}/ipfs/${cid}`));
 //     // }
-//      if ( 
+//      if (
 //       url.indexOf("/ipfs/") !== -1 && files[url.slice(53+url.indexOf("/ipfs/"))]
 //     ) {
 //       console.log("IPFS cache!")
@@ -84,7 +71,7 @@ workbox.loadModule("workbox-precaching");
 //       event.respondWith(cacheFirst.handle({ event, request }));
 //     }
 //     else {
-//       console.log("no cache", url.slice(53 + url.indexOf("/ipfs/"))); 
+//       console.log("no cache", url.slice(53 + url.indexOf("/ipfs/")));
 //     }
 //   }
 // );

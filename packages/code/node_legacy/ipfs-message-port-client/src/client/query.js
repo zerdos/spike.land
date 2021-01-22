@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /**
  * Represents server query, encapsulating inputs to the server endpoint and
@@ -12,19 +12,19 @@ module.exports = class Query {
    * @param {string} method - remote method this is a query of.
    * @param {QueryInput<I>} input - query input.
    */
-  constructor (namespace, method, input) {
+  constructor(namespace, method, input) {
     /** @type {Promise<O>} */
     this.result = new Promise((resolve, reject) => {
-      this.succeed = resolve
-      this.fail = reject
-      this.signal = input.signal
-      this.input = input
-      this.namespace = namespace
-      this.method = method
-      this.timeout = input.timeout == null ? Infinity : input.timeout
+      this.succeed = resolve;
+      this.fail = reject;
+      this.signal = input.signal;
+      this.input = input;
+      this.namespace = namespace;
+      this.method = method;
+      this.timeout = input.timeout == null ? Infinity : input.timeout;
       /** @type {number|null} */
-      this.timerID = null
-    })
+      this.timerID = null;
+    });
   }
 
   /**
@@ -32,8 +32,8 @@ module.exports = class Query {
    *
    * @returns {Object}
    */
-  toJSON () {
-    return this.input
+  toJSON() {
+    return this.input;
   }
 
   /**
@@ -41,10 +41,10 @@ module.exports = class Query {
    *
    * @returns {Transferable[]|void}
    */
-  transfer () {
-    return this.input.transfer
+  transfer() {
+    return this.input.transfer;
   }
-}
+};
 
 /**
  * @typedef {Object} QueryOptions

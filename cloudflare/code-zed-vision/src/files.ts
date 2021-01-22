@@ -24,7 +24,7 @@ export const files = {
   "node_legacy/@babel/standalone/LICENSE":
     "QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc",
   "node_legacy/@babel/standalone/README.md":
-    "Qmd7fqhRTRNoZVVTMt3YuJjUzLUDjajmyyYdQigncNqkAE",
+    "QmV18L3zWuKHtn3spzbA1kw75z9Y35GTX2awRvw8RbpDtg",
   "node_legacy/@babel/standalone/babel.js":
     "QmYsHEj7QyeLRK17JqduUcZo73AxxYLZTJ1T5ZMyrFPQqC",
   "node_legacy/@babel/standalone/babel.min.js":
@@ -32,59 +32,59 @@ export const files = {
   "node_legacy/@babel/standalone/package.json":
     "QmdKc28DprNXfJdbv9MRbxBQ8GXxbfDXebJXDruZdM7HHU",
   "node_legacy/@babel/standalone/test/babel.js":
-    "QmSVHZ25VdQAypNkJWq97qUuv5bcULo5hGWvqgjkZLVYtk",
+    "QmU9MLBmqmBr2TAAS5RTwrmTzhiBdD1qswZDksfcp6QzgE",
   "node_legacy/comlink/comlink.min.js":
-    "QmXxvh5CjqR5b2gDgeGLpi52sJT57bmnse9JaofpHCm5i3",
+    "QmQzvUvopsHv6N1mhbQpVVT6PwZj9zLJUE4L4BA3CxCwrQ",
   "node_legacy/comlink/comlink.min.mjs":
-    "QmQaWVwJtXHsDocKk3FzJBaNA6VUhuiqbhTgUgVfBJRHiZ",
+    "QmUsHbNdKZvSFn4ApwxVeYTYV8DJTe3HdDkjvi9ZExUn9Y",
   "node_legacy/ipfs-message-port-client/CHANGELOG.md":
-    "QmbHzj97YThEZEG4Wki5B3SP3faGLbF7im78U82fMf2o9o",
+    "QmUq6Tyne3kbYL4f8J7UAYTdgbLxdNbeqj58cYwpCvzXAc",
   "node_legacy/ipfs-message-port-client/README.md":
-    "QmTQvQXKaWPSk1W4J6Ebohkk3Z7aBoxPDa28VWsPs1hbcf",
+    "QmQUmsZToya8C5Pu41CCQQtHuAahn8xUVU8FR53vq9QX35",
   "node_legacy/ipfs-message-port-client/dist/index.min.js":
-    "Qmafe9mxRXaKs8AYq8PuSMz4YXebcKkGSBCLqrePoMuJwT",
+    "QmbSanH476btwoTTic5uk38MDBVvU5wXH29qeLXLrEZLgh",
   "node_legacy/ipfs-message-port-client/dist/src/block.d.ts":
-    "QmVt74d56eTUzDj5Hgy1HdpYtQV9bpJtT1QMUE8E43Nei3",
+    "QmUWVkbpcyRLKY3yFJXnRRgG5G4dCEEUsP8FFHWtN2YkRd",
   "node_legacy/ipfs-message-port-client/dist/src/block.d.ts.map":
     "QmPvz7CqN3RLhzbufMB8wK444BZCSkGvWq9AJK4ECHX93z",
   "node_legacy/ipfs-message-port-client/dist/src/client/error.d.ts":
-    "QmdssZCqQLdsyc2CyDjpK7T1qrXVKgLsMieZgUsABVk861",
+    "QmSJQU16sAy7NuEinHpMgrHZwZZQaBFCj8XB6PS2aU1921",
   "node_legacy/ipfs-message-port-client/dist/src/client/error.d.ts.map":
     "QmQewEQUzFyyVw8k9fAwaFPwvKkfV3fRLjLqY2M3iZ8yoJ",
   "node_legacy/ipfs-message-port-client/dist/src/client/query.d.ts":
-    "QmPvUit71cE2hdCm6N4sRkEzbjjgRh6ed5LrqJk8wom1DD",
+    "QmYRKS8caS91hFcYbhTkwX2KWPBapbQoQRHuNbsPNoijzt",
   "node_legacy/ipfs-message-port-client/dist/src/client/query.d.ts.map":
     "QmaEEUreywjiUq93qJDNT8HN72ALJSESTrwxaRtCdvDtBU",
   "node_legacy/ipfs-message-port-client/dist/src/client/service.d.ts":
-    "QmfTyWfZudpdUnkZRYdgcABpmTb652rYEjAvGQGJaTNq44",
+    "QmRnxKaZrDGtdUnrYMNmGBvXsnA8fD8ggfpDYZLdPFNjke",
   "node_legacy/ipfs-message-port-client/dist/src/client/service.d.ts.map":
     "QmdNJQNA8G5qwQoPh9ey9bzUqw8pE7qV5zgbQqxC6WXjph",
   "node_legacy/ipfs-message-port-client/dist/src/client/transport.d.ts":
-    "QmRNuxuKJi8ePyEFjykgmwt7oyvPhcnPQdj97kMYjT993Z",
+    "QmV1qVFBd6gJxbW4uPD67ko1MmtqBsmam1V94LrAv9hyEB",
   "node_legacy/ipfs-message-port-client/dist/src/client/transport.d.ts.map":
     "QmSnKrhz5dojaJkK19wAQQrySRTXoXx4wXMQvQVQmJcPet",
   "node_legacy/ipfs-message-port-client/dist/src/client.d.ts":
-    "Qmey6tX1Zi1C1aJ1bqL4UNowTpCmswABTCbRZjGtgzqc36",
+    "QmUUHVrXqWauAcqXHUaCmcw71gYptp7sK5cAsBCDPhm42f",
   "node_legacy/ipfs-message-port-client/dist/src/client.d.ts.map":
     "QmYUyubPoTDrazxwtPRFnYGWq2SMoFLYmX1nbgZDmteipP",
   "node_legacy/ipfs-message-port-client/dist/src/core.d.ts":
-    "QmccPy1Bm4VukW2BmPLZ9xmwccTo9BnT1ti2TQPRYDaazJ",
+    "QmQPRVcyWpBP6bwRdFocM4v6Lpt36e9iDD35d4wwcq6WzV",
   "node_legacy/ipfs-message-port-client/dist/src/core.d.ts.map":
     "QmRAVrwJ6gt5eHfHPPJ8KaPEHojZCZ3kHqMctxjF4P1wjj",
   "node_legacy/ipfs-message-port-client/dist/src/dag.d.ts":
-    "Qma5p9dR95ct3hhDEJB6A8q9NTTGYd9vjzwpf4iWYnq5Hx",
+    "QmeimNBbcYuqNHMaCvJ6rSySuvYuANKDPQcc1boc8P4sdG",
   "node_legacy/ipfs-message-port-client/dist/src/dag.d.ts.map":
     "QmZo4hzo424dXHx11L3625TT72CQiTYGJVF7HaqnPsSB7c",
   "node_legacy/ipfs-message-port-client/dist/src/files.d.ts":
-    "QmQ3xYDLmQMZDeUHpouUAFE1WitssvteKgt9QUyus5rV2p",
+    "QmXuKVxkVXwEVTwnqwQSiqWTFh5xPKuS5u3yAWBvY9c7NQ",
   "node_legacy/ipfs-message-port-client/dist/src/files.d.ts.map":
     "QmW6SQBewAS4J7d1ReDwMtrD57mDuF93oBAsWrUUwcZEzW",
   "node_legacy/ipfs-message-port-client/dist/src/index.d.ts":
-    "QmYUDye3KLNfMK7vSuvHHpvTYKzKNf9oWbveW8rM5YyUkr",
+    "QmezmdfkS48XhQ7wcKjxyR4NoyogMvQm2rSf4iK89vTTuJ",
   "node_legacy/ipfs-message-port-client/dist/src/index.d.ts.map":
     "QmQJrfPuGGSYoTVsa1b3pqtFoNdBZbxFKr24oj2y4w7ors",
   "node_legacy/ipfs-message-port-client/dist/src/interface.d.ts":
-    "QmbiL6NibHU72iuGgow7HVwMcZniiHBg1A7yP9e2YvwDRT",
+    "QmSXTycPbcP1gP1uvmXXjtmAU31g7A3tNVeetW9J4Ly6S5",
   "node_legacy/ipfs-message-port-client/dist/src/interface.d.ts.map":
     "QmU9hRnTB1QEZQALwteoEZLTxhtSKThouZJPxyLke3BHdL",
   "node_legacy/ipfs-message-port-client/dist/tsconfig.tsbuildinfo":
@@ -92,63 +92,63 @@ export const files = {
   "node_legacy/ipfs-message-port-client/package.json":
     "QmVXhgNs2u1wuxewRi7M2RyCyhRdLfdPgu469GKxTvi6sC",
   "node_legacy/ipfs-message-port-client/src/block.js":
-    "QmP2JzzDqhjW8jESuRSuG4Si15AtT1c4jrWKb3hpYMfbXx",
+    "QmSW4Ck3dNWoF4Exqy884kCCS7AZUgWmGj6Vwg9r1pAXaL",
   "node_legacy/ipfs-message-port-client/src/client/error.js":
-    "QmaATcHDww5PX95Bu1eG5oMCsMosX7YSpCPk4wV8dg5EYE",
+    "QmTbGgaCwY4JDiv2Qv4Y4MwieKjmphDP6DHewJ6seFFxm2",
   "node_legacy/ipfs-message-port-client/src/client/query.js":
-    "QmTpyK4YjhMEEJHMWiUFsjWS1tEtnBSqCyC59YhXaBBCjP",
+    "QmQY3Rj4re78mfr2RAQHB9qYMBMoyFjydro2UPaGqRUkYX",
   "node_legacy/ipfs-message-port-client/src/client/service.js":
-    "QmZ8ZxL2gjEfBkiAyFRhioN1LnaCcz9mSp2yjdmtatUfQL",
+    "QmXchTXDvKJyHvgqYxD9wSAfoxvEgu6nu5QQwKPcUNWJCj",
   "node_legacy/ipfs-message-port-client/src/client/transport.js":
-    "QmUZ32NHeiVNPG8PucNv6jP9kTMcvH3kHVxakaMk7xrVaj",
+    "QmWanpJwoykjvXpjqMfjaMoS2Vm5Cm8UwSGfmSS11TQuco",
   "node_legacy/ipfs-message-port-client/src/client.js":
-    "QmS1qMcTmr7KNtrYxbyoPxkKMiF1i5RtGS2r1mNiiPU7Xb",
+    "QmQ6R54rfxetZgtDEb98Xxvazy4kWqhw386YyoLH3dbHBZ",
   "node_legacy/ipfs-message-port-client/src/core.js":
-    "Qmaev7Ug41FGDs3PXhkNnLAAmGqvk3KrCn1URtHFQnAkrx",
+    "QmdnVG4msum227JzZcRo795kvmo5PvakxjtWMtSKngqJKN",
   "node_legacy/ipfs-message-port-client/src/dag.js":
-    "QmVtPUfymB171teNH9KE1MxQbgb4m1YwqccTSo69wikCVv",
+    "QmU4if7NHvttPqF5tYrHU2Mt5YA5mCNV2NtX5oerjqBf7J",
   "node_legacy/ipfs-message-port-client/src/files.js":
-    "QmPRJxJN7pDhqWWmECFqNchjDJWP15KvPXKZdCrTJ81jeq",
+    "QmYSnnScYoafgZgdr3AsTtyFa2KgLztnqEbjkUNZDF4KBT",
   "node_legacy/ipfs-message-port-client/src/index.js":
-    "QmVvazEJWAuKcVtPcsfXahWybrvnHNaU39TbNycaLs8DDB",
+    "Qmc3gjvhbNEeQGQnaXWUdZsFjtedg1RGxYb5zXbohFfwZz",
   "node_legacy/ipfs-message-port-client/src/interface.ts":
-    "Qmdm6SvYvpnCFH6m3nMnvq1UxbBMJqxJzJtUag6dCUVFMq",
+    "QmbFuh3ScfRCZKqVgGHDDkDHQATnp8xY1eN9LHGgKvRy3B",
   "node_legacy/ipfs-message-port-protocol/CHANGELOG.md":
-    "QmP7xWa7rTtfCzvhZcnQGag7deHDxhS84UevSBqqXVs1fd",
+    "QmaitWezQsZVfoAqaEUPkYKExCGDz4ZVtJCRDfQPxuY6Ut",
   "node_legacy/ipfs-message-port-protocol/README.md":
-    "QmTmxXmRU3VFGBM4cQUBdvSyDuxKhZvMx52Kowq4hcP83y",
+    "QmZDxHpq3YjMwsUMfU9V7deMSc8xc9NsvSoTnbTeyza9N7",
   "node_legacy/ipfs-message-port-protocol/dist/index.min.js":
-    "QmXu8xAV9M9mz4uTxBFbSQo7NwYXMrLfGJShzBreDoXn3k",
+    "QmboZCmk6dJAKpMsydwb3tzpQhWLk6SytoMGDs6rYyV7JN",
   "node_legacy/ipfs-message-port-protocol/dist/src/block.d.ts":
-    "QmSVenf1M3upECV3F1BT7ifuebfhLubNuofAR82VudnBj2",
+    "QmecrcJmkX9rEJ5ef7EkksvmmVAdrumshEitVAAjMbsqDS",
   "node_legacy/ipfs-message-port-protocol/dist/src/block.d.ts.map":
     "Qme7wUPuJgWdjrjy2p6j3oEVmzn7ZUmz9CtNmEjdEW9AFt",
   "node_legacy/ipfs-message-port-protocol/dist/src/cid.d.ts":
-    "QmbimqEjFfTqGAb4fnQ7emnixeYCqT2zDSVvY9XtvwdSLD",
+    "QmVpYZRSrmQzUCtmqRJX8uadUJ8zGpv3h6R9Rpv9FdBPD2",
   "node_legacy/ipfs-message-port-protocol/dist/src/cid.d.ts.map":
     "QmWGsjSLL6kHhghXbeB9ymTBbabb7dZRLkNqtpYCSyxdwD",
   "node_legacy/ipfs-message-port-protocol/dist/src/core.d.ts":
-    "QmdqG3uDx4pGK1wGrFtfasPM8kG5acoech7qkPtW5iBjUU",
+    "QmeJYfxSzWM2fNwL8Gf4XpQtuFzyUcL1QKQugsSRdndw5q",
   "node_legacy/ipfs-message-port-protocol/dist/src/core.d.ts.map":
     "QmdsiTaqTXndRQATkLSovCxCNvtzoTALLfDzxRVYvpcQiQ",
   "node_legacy/ipfs-message-port-protocol/dist/src/dag.d.ts":
-    "QmRUMUDBK4B3R6sVojitKRt2abJtmwryDUS9NegStjmVpx",
+    "QmVqcasp2e3cp829HYac9ABJiLQcCSjHuxWjf2L9eubTeW",
   "node_legacy/ipfs-message-port-protocol/dist/src/dag.d.ts.map":
     "Qma8ZsmVDeepnwKgra89zRgK1Cu7iKcQLNXpjCx4BL9wXC",
   "node_legacy/ipfs-message-port-protocol/dist/src/data.d.ts":
-    "QmTdgy2AZsMVE5khtEHqZcrPzUcU5BatNgwPi3AWsQVxCJ",
+    "QmNWwGLhv3ojiNTCMYpYRF9XEXfcGgqvnmHpeD6SkyH393",
   "node_legacy/ipfs-message-port-protocol/dist/src/data.d.ts.map":
     "QmeFr1wqj9eFNttfysqqrdJidnuAh2HpS7xVPjcuWhJMLj",
   "node_legacy/ipfs-message-port-protocol/dist/src/error.d.ts":
-    "QmSEERnqGWEsMr3jnsFMRUHVY3qcPrfGmjuMhWNoEqdrPb",
+    "QmaegXnQtmoBaRdx7NfQ3gZCH2He8HvpaBuMBgc4fLctcR",
   "node_legacy/ipfs-message-port-protocol/dist/src/error.d.ts.map":
     "QmNMoPQc1RGQ3DMSFHKRQLMTuUDbzgaH1LoaDdAKf9XgfL",
   "node_legacy/ipfs-message-port-protocol/dist/src/index.d.ts":
-    "QmNRKuQHKK9z4bVdRy3vemtviyzAtzAiL52PnoNdhDg9gk",
+    "Qmev5QfxHsAUmgBqdiWcaodnbZSAoUP1gmVmTwM8FH7348",
   "node_legacy/ipfs-message-port-protocol/dist/src/index.d.ts.map":
     "Qme8AciEXCfQy8eZhwMhpFcCdE7cH12URucWDFHGEHPHRP",
   "node_legacy/ipfs-message-port-protocol/dist/src/rpc.d.ts":
-    "QmeJiftgYf5iSf7jVLCCKrNuBsfsx14FNWugHcm2quCjED",
+    "QmeFcw7QGmdxg6VY9DNVqQzbCeBaGxuM237VZpH9qGLBsi",
   "node_legacy/ipfs-message-port-protocol/dist/src/rpc.d.ts.map":
     "Qmdm1zVmD4w4KEPp7hYLYS5ZnaSm2VzMWXege7DsA4tevp",
   "node_legacy/ipfs-message-port-protocol/dist/tsconfig.tsbuildinfo":
@@ -156,57 +156,57 @@ export const files = {
   "node_legacy/ipfs-message-port-protocol/package.json":
     "QmXxfqU3s8979NJrV4oroGn3rPoHzXqKUGEVQvYFrJWA3h",
   "node_legacy/ipfs-message-port-protocol/src/block.js":
-    "QmPmmDAXB758s1ARWKffcQaxk4B47zPY9YEH2RzqLSVbVe",
+    "QmWzZAqjdrf8PSNobDwLdBJsdyfP5BB7V2UjGsG4LdKNMp",
   "node_legacy/ipfs-message-port-protocol/src/cid.js":
-    "Qmese1XU8n6sjYQjWxgYb5oC2fDXTNneUUfSay41H6J4DQ",
+    "QmbZ5yYK2ggguW6swvnMbT8HLHs1E1WxgEuftg8nLimG3t",
   "node_legacy/ipfs-message-port-protocol/src/core.js":
-    "QmX6zzXJJqS7BXiUUdufYhMc6rbeQ6TUy5QHFHr9GdpJwk",
+    "QmQAykQTfEtDHB3UCqvFSyAPFK3KSTCgkpHeDMqTZJZ6Sr",
   "node_legacy/ipfs-message-port-protocol/src/dag.js":
-    "QmUq3ueh72oVr9gKZqMrLgVEHyiVYWWquCp89iQoyFVkVr",
+    "QmfUsi6ShpH7y6FpJLvHLPAyL81R7RpfASBcfo9AK4Rwt2",
   "node_legacy/ipfs-message-port-protocol/src/data.ts":
-    "QmS3DySRey4HkfYgJcXgUQ3EUDKc4LdjLrSZhuqj1rTTDp",
+    "QmVUwxsZhtjqwGafu7hnMZKq9VicvjfPnGQTQ4BvZhLyjb",
   "node_legacy/ipfs-message-port-protocol/src/error.js":
-    "QmTmEF1Zug2xa6BagRpSqxMXK9NrtQPatYSG1YAxqLWmQK",
+    "QmNSG2karhxy5SRrq9mfN9We7vKVRwYZAp6yW13s17vDoe",
   "node_legacy/ipfs-message-port-protocol/src/index.js":
     "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "node_legacy/ipfs-message-port-protocol/src/rpc.ts":
-    "Qmez23fBYWB3df5ByWTdkUUZrKXywzPFsYjdf4UdVgSCUd",
+    "QmVpcmcHLNnaksnneZhMF9SNWZL8TXbktXtcrhoGhrJpuq",
   "node_legacy/ipfs-message-port-server/CHANGELOG.md":
-    "QmUb6EPE1AfrdmpqEJHADspfqS1hSSqTs59MzFb1GGtAPt",
+    "QmRmmWZNGJaUWDmL1C5LyAqATLCmGW7qyPiMHfn6JLzFz4",
   "node_legacy/ipfs-message-port-server/README.md":
-    "QmVRMYbkAp5HqcPvWdrtQZ9h14w5BgzgsN7VzBxfgYW94E",
+    "QmPLYzjhR7Unhr6hAfGEr5fDEBb6bTzaviDf9ofLY7Ym5U",
   "node_legacy/ipfs-message-port-server/dist/index.min.js":
-    "QmQnP9m71YVty4Wr1VL8tCAv3P6v9cG7gaA1cGk4W7JxMZ",
+    "QmPuAmUFYqAk7T6wrPWbooinUyfYyWCJUmaCDLaHnuPRX9",
   "node_legacy/ipfs-message-port-server/dist/src/block.d.ts":
-    "QmcLa4WbBgVEXFiraNB12vvF8kKm5cmiLzKhyQRTUR9gx9",
+    "QmPkKfpabCqTmbmQDyT9LHn5TWmiwgUiPRznMHY1SGPczN",
   "node_legacy/ipfs-message-port-server/dist/src/block.d.ts.map":
     "QmZ9oZiRczq8L6oqciu4JumTz6ftBy89oQF6ZLwkcK1kp4",
   "node_legacy/ipfs-message-port-server/dist/src/core.d.ts":
-    "QmbtCXG6EAyaaFdqDdtWqkxdZnguK1ZftjnHxNMFVqqRPm",
+    "QmWMnernUrxDkWM6BDigCtAh5e2eJctyF2F5cHHabvA6CU",
   "node_legacy/ipfs-message-port-server/dist/src/core.d.ts.map":
     "QmRxjN11sya71haCMM2UUztJFr2ZdVhTDzjR8SobhKLVdA",
   "node_legacy/ipfs-message-port-server/dist/src/dag.d.ts":
-    "QmeKPpPYfj6Ce4ps79MtUfEUZsLPQ3hSJzVCbS3vJyVWGA",
+    "QmTmNw2gbLMZo219WRg5BYac27gNaKhnjeEsvRJX1zaRdg",
   "node_legacy/ipfs-message-port-server/dist/src/dag.d.ts.map":
     "QmZmFCNRErT8E6E2XSmwWj6HT1NnSY8iA93W6n1p6mmxyh",
   "node_legacy/ipfs-message-port-server/dist/src/files.d.ts":
-    "QmRSSkUZ6UtnRSsuCmCwoUsoL2sGAQh36s3RQBCZk33SQ8",
+    "QmdxURyDqBtg9zg9ZGz494LiKUo33ZVeBjHcDgmvSspvbx",
   "node_legacy/ipfs-message-port-server/dist/src/files.d.ts.map":
     "QmcHWcyi2fLfqqzDNanASJ657S9kVZAFiCEAyMz8rzoUKR",
   "node_legacy/ipfs-message-port-server/dist/src/index.d.ts":
-    "QmUBBjnhLn3zgaX9XS6XXEnmSXA6aJRMhQWKDFRcxUHqo7",
+    "QmaHjeaa72gJ9eSoPHEHRpcUjTjWQjz8TsoSonPzgJN1vQ",
   "node_legacy/ipfs-message-port-server/dist/src/index.d.ts.map":
     "Qme8AciEXCfQy8eZhwMhpFcCdE7cH12URucWDFHGEHPHRP",
   "node_legacy/ipfs-message-port-server/dist/src/ipfs.d.ts":
-    "QmR7cB6sHzPUUwFQfZc51f9S7dLrNv11wcZfhRgMW3XgYF",
+    "QmUGhC2wh3gBgVCrx2tUcE9DExFnjob8BFFKMm4rPgko2s",
   "node_legacy/ipfs-message-port-server/dist/src/ipfs.d.ts.map":
     "QmZVgFECqULeWjwuu332CgHC4DN1xj71Hoq31xXkveNKkT",
   "node_legacy/ipfs-message-port-server/dist/src/server.d.ts":
-    "Qmce3uPgWoxmvHirbg4uf8w1is9HeK5VYgFcMTv24fqSgp",
+    "QmSEDTnEyZuphyQv9ypUMVxnC9d3Ck3Vu5XCkfwre8gPZn",
   "node_legacy/ipfs-message-port-server/dist/src/server.d.ts.map":
     "QmQbVgoCyef9VusSrBCG1m6mbbsVbDwVWPiriyfdi3Hbh6",
   "node_legacy/ipfs-message-port-server/dist/src/service.d.ts":
-    "QmSkwRVtdgtKqB3gZw8ZFTPBGbC4aT7dfGD9yk25nqGPTG",
+    "QmS7wvmAd7ecfeXK1Tzp4bKYWFo1JZDJhPfkArC8B4rJ1R",
   "node_legacy/ipfs-message-port-server/dist/src/service.d.ts.map":
     "QmZNt3LU7HXu5CrvEByPxiQJdm9yv6SfhSHeEzPKSr4tvT",
   "node_legacy/ipfs-message-port-server/dist/tsconfig.tsbuildinfo":
@@ -214,203 +214,203 @@ export const files = {
   "node_legacy/ipfs-message-port-server/package.json":
     "QmesLEDq9JrCY78TBekbmeCxB4vgAhC1CAQzo87XoJe1GW",
   "node_legacy/ipfs-message-port-server/src/block.js":
-    "QmdvQDazwMrzhC9wg8XtBU5djALdejVXy7MmHBb7cfMiai",
+    "QmXttM5tparJqJ8L3NVzg1dW7xeWw7qhCHHKakz3JDfSyp",
   "node_legacy/ipfs-message-port-server/src/core.js":
-    "QmQoju6R8A1LmiqYLNkAbsDPuAmYiNjDgUzbFETqTKYpbo",
+    "QmWTYMkNW1H5qayyqCQs1v8muagN6upyN6s95LzPGxMYMA",
   "node_legacy/ipfs-message-port-server/src/dag.js":
-    "QmdbbkdTdV8yMQfJszDexEyYCtnVWjEfJUeHC3AZhZYKw8",
+    "QmTDonUhPQsVNiERqrg447azfrFhAHgMei1sVXfZFUiyZ1",
   "node_legacy/ipfs-message-port-server/src/files.js":
-    "QmY1HZAFj8Ds5HjcP9neF36tieF7krZFiiHPJ4AqX2GPNS",
+    "QmbZHM4ZrnbUypKNeFJge6yKHwmdGcTPnbq4EayCqrVsGT",
   "node_legacy/ipfs-message-port-server/src/index.js":
-    "QmT7qMsy1ZkwMjtAzS3YntD4mmrCxRAcEedZqGbUR7HH7c",
+    "QmTUGjQzu4uKBDXdBptyM1bHB23f8jbhVuFxaCk5FbYG6F",
   "node_legacy/ipfs-message-port-server/src/ipfs.ts":
-    "QmcBdwFFhnCjn6QCYByqYjfg2KtZEkazysfYCmtHS97bao",
+    "QmQKg5riZgL6guTjrVzobTq45FcVDzRycwkr5JgoJKXpD8",
   "node_legacy/ipfs-message-port-server/src/server.js":
-    "QmS892z6Pta4c6BFkNvijtJtneCpfVNyqxrjGvAFbCNqGW",
+    "QmQVGV8mY4bWrr17knNQQ85ypuNhz1ay8aEZHib9t85c1T",
   "node_legacy/ipfs-message-port-server/src/service.js":
-    "QmbbwNuvEyzN2kADS1Dm5nT9FvLPmkKbKnJjevCVGdHxAH",
+    "QmRhSC4xzYCejn1fXKbG5MaeprRRXSPQkGBJzL2ryVGJtA",
   "node_legacy/monaco-editor/min/vs/base/browser/ui/codicons/codicon/codicon.ttf":
     "QmNiTPD7q8ucTwfMqePmN45DarksfCAJytgSJutKP5WjGc",
   "node_legacy/monaco-editor/min/vs/base/worker/workerMain.js":
-    "QmTDpYEJ5ub39WupE5qAM8PSpcfe8yQ8HkvEnJVV3nb4hr",
+    "QmUFFAHk9QjdjJfPzagugNcYGeqP4PxbWnj6HkNm9jYjC3",
   "node_legacy/monaco-editor/min/vs/basic-languages/abap/abap.js":
-    "QmZy6PR7T1ZPe7unYGwmjojCAuT3RUw5MjeyjxgtPQA9CF",
+    "QmZFkpZqXwUFY3T4kPpBsuAZ8mT9gi8YEFYKoLcsV7tA4V",
   "node_legacy/monaco-editor/min/vs/basic-languages/apex/apex.js":
-    "QmQowotZtoMKgQUa3cwXkUzc2Pu1zFvNsxkyyZg3dYhuta",
+    "QmcCdEaPbcyhgAvB3m7ueXUwJXpNoEaWcH2dRMA1xou8rB",
   "node_legacy/monaco-editor/min/vs/basic-languages/azcli/azcli.js":
-    "QmY41sFTcGShHs16S9n6X6LubsJgsMunNXog6JG9kNBLco",
+    "QmZTN2xXAofV9PKCCGChWsbkbNvkvWUavYFmT4rM5hpNH4",
   "node_legacy/monaco-editor/min/vs/basic-languages/bat/bat.js":
-    "QmZreRNh5wQs5eggoNRKCwApGGpTSLbTQFBseoRBtPJBae",
+    "QmXDJ1V11EqVuoexobiqkdwBNAasJcgLcGpUYJqe9L6o7R",
   "node_legacy/monaco-editor/min/vs/basic-languages/cameligo/cameligo.js":
-    "QmU84iKcckBD8WYZ4F522hev7TFLQqGRpL8xo6j3UDATGh",
+    "QmVpMuxhBzj1S5k31YXmQvdFvCgzEYQiLCHmLyhyKqJJVV",
   "node_legacy/monaco-editor/min/vs/basic-languages/clojure/clojure.js":
-    "QmZbt5WYvFchJTh58UWArnqBq6fjXhqiXJ9NqTnYMnagdt",
+    "QmeqLMhR7aeeKMZtPF6WuDdDrfAKm4J2LHdgXYFrQwFauZ",
   "node_legacy/monaco-editor/min/vs/basic-languages/coffee/coffee.js":
-    "QmT7BRZvRBpYbiGWhzbxnNWiqW2ERiVYdW9RogenBU5ktw",
+    "QmdKB6rCwgAenbnvr21x2APtabiF8s31eYUwMefH4J8tHf",
   "node_legacy/monaco-editor/min/vs/basic-languages/cpp/cpp.js":
-    "QmYiz2mBbLQ1CR7MqxRD2UBTUGGCFAx99aZQixSk2yPZHQ",
+    "QmWvRmNf4PGQ6kbp2X6MFTcmotjfZVgonobF2E3CdUKc7o",
   "node_legacy/monaco-editor/min/vs/basic-languages/csharp/csharp.js":
-    "QmeetU4ynH1tWtv2bF9AR6u8HaiLkvvpSXWFPrU5t3kEab",
+    "QmRg9X8xW8KekFgxK4tynhr7dgXLKwXsCr7tMBUw31Rh2r",
   "node_legacy/monaco-editor/min/vs/basic-languages/csp/csp.js":
-    "QmSMVtKVDYmvZedmF9BVwLkkS8HHjf2Vx3s7NKhrFbqc5a",
+    "QmUPzSLKKj8ivJTdRUBYFZJb2Q2yiB6VZPg8FYHPUGgbJK",
   "node_legacy/monaco-editor/min/vs/basic-languages/css/css.js":
-    "QmapJZuR1uH3VqkGDukeghzfyVncGc5jnjozYVwrsYCP3J",
+    "QmadEpbXqVyX4ErQ9qvb6GhACSqMfDUV1WhvnYg5LW2s8S",
   "node_legacy/monaco-editor/min/vs/basic-languages/dart/dart.js":
-    "QmYr9g3ztrrxxcCoSPAszABo5pw7fS3Z93aBRM6TLmARgS",
+    "QmXMHLEmQzUew27DKC9WuJFbYWg9pjdYUMhca31Nt6HbSG",
   "node_legacy/monaco-editor/min/vs/basic-languages/dockerfile/dockerfile.js":
-    "QmW4GCgdh8kowzG914L3GpEwo4UWmBLCpt8VKXX6KDssn5",
+    "QmXVvNdgsigcK3eRtenJp8ia2eHJJ6L3uyneYA8nidMgmZ",
   "node_legacy/monaco-editor/min/vs/basic-languages/ecl/ecl.js":
-    "QmPViH5SGTCNDFJpeJGfZfXb6LXTrKmkJu16RbtyWLbhgo",
+    "QmQH9nP2doHnQvoeMawGFaWu7TCVEAHpJwFyc9yU6tJcsq",
   "node_legacy/monaco-editor/min/vs/basic-languages/fsharp/fsharp.js":
-    "QmQTUkoo2UaF7RXSViZTnQpd6N9FbxkTpyd9DfvjrhmB81",
+    "QmUkwA8WmdjbSZ34LmjNe6R6k5Ft1EVaRpLpSVP7hmZ9Kx",
   "node_legacy/monaco-editor/min/vs/basic-languages/go/go.js":
-    "QmdjiGXvjY2eSft5DAqV5uJmwjTt723NdRmBB7XeAmfnb5",
+    "QmS5esLpJkxipDxjAPUJJvdE2jbnoY67S4aMFkLcxuonUa",
   "node_legacy/monaco-editor/min/vs/basic-languages/graphql/graphql.js":
-    "QmRZtAUeuYCMf9fvADAYw5AHx7EzkAR7C9it4PbxJstajZ",
+    "QmZ5ZXHq6nehocF8RuHgu5hPzLvDtq5mZQ29Fju5ue3Wfb",
   "node_legacy/monaco-editor/min/vs/basic-languages/handlebars/handlebars.js":
-    "QmQQJqDL4bJEkbLC1ycw2dyR74LyEXAvyVPJ7QbFVK4jqe",
+    "QmPGKyew9wMki65Si2M9pjaxFkVGBbaJyRB67i4mEaWn8C",
   "node_legacy/monaco-editor/min/vs/basic-languages/hcl/hcl.js":
-    "Qmd1Ez1n8KLTGEQETdGwx61zoJo7nL5rjTxHrLeEwy6d4T",
+    "QmXboLLLni5Yp2aKMQnjHvH2yykWSHayX4PdmvqNBhBDKo",
   "node_legacy/monaco-editor/min/vs/basic-languages/html/html.js":
-    "Qmcqx6zN8QiWa1DgmGYG59ipTJAkzXTJFJZCYsUz6aqQ4f",
+    "QmWcDG5urt7RMzpxTzCiaUanBz8KEUREEkkx8nGsv37BvP",
   "node_legacy/monaco-editor/min/vs/basic-languages/ini/ini.js":
-    "QmSsgU8FtrqsEf9SvTmSc86jb2Ff8BdZ1j3XadRWtEJhm2",
+    "QmZDXUYG6u1y6VYjtdS3wFvnif8FDB2GzV2Uoq7vDWCXRP",
   "node_legacy/monaco-editor/min/vs/basic-languages/java/java.js":
-    "QmNNMPNY6GpUSSY3RbuqNFn71kVYXMkyBpTZFHaJsUbya4",
+    "Qmbnh4EBxBJ8w6CeNd1EmAGVfHPVg155DSGCRLiVHynB82",
   "node_legacy/monaco-editor/min/vs/basic-languages/javascript/javascript.js":
-    "QmPtqVvqNhoT9FaV9FsKE4bF8mSJdGMYVjPhhEmno52XBr",
+    "Qmdguk5bHN2f97zz7eVetPpa7RTTX4Lf4gxbmoEJgAdq7C",
   "node_legacy/monaco-editor/min/vs/basic-languages/julia/julia.js":
-    "QmUMTdS3KZM7UnKB3YZRGUapQsBvmYJ4WaYgXqdhAAGiWQ",
+    "QmUzHfeKF1Kz87WG7iPz1g1zPDmqUTLH2fzNGNaHmnmTzi",
   "node_legacy/monaco-editor/min/vs/basic-languages/kotlin/kotlin.js":
-    "QmYhXpKvhBeNUnjjzgnwZZCGpQVz4y399hZoD1HgkiZgLN",
+    "QmYFXjuVVYW8hqDkN6YE6JpTxtirsBxisw3NeaDJnYu8rF",
   "node_legacy/monaco-editor/min/vs/basic-languages/less/less.js":
-    "QmUFXaBTq8NUQHEQtYxwxCxuxUGG57P7stGSjepvhE5kjR",
+    "QmeYgZTRJ8aPPnJk1G6vojHPjRk4Az7aHDYZorP9D9iaiF",
   "node_legacy/monaco-editor/min/vs/basic-languages/lexon/lexon.js":
-    "QmdeEAuaCLn5RTBLTPHbARAU7sS6LyrDNmgFFpmGuSezn1",
+    "Qmd7M1B6GCu2eD21ZrqfbdoYbrjZfVHCCwBVSBRAtvorKH",
   "node_legacy/monaco-editor/min/vs/basic-languages/lua/lua.js":
-    "Qmb7iXxVpRYvoLekj79hw5SMSbhenLxqqAJ2DZ5CytpeUH",
+    "QmYdtU9ypLHHyU5SAEZTtKDKwzJ9thtmtgcZBY6pneWgFa",
   "node_legacy/monaco-editor/min/vs/basic-languages/m3/m3.js":
-    "Qmb7r49wirgFTv8RhmqrK189Z9pygNypW1mxdEQvb3j81E",
+    "QmXw8qydketMwHhFe35ZAn1vFiAno91ZkywuPSTTmaug5v",
   "node_legacy/monaco-editor/min/vs/basic-languages/markdown/markdown.js":
-    "QmVb49MR33miTT56p7SBrw9srwjnjpL7Xk52iT5MMpk6La",
+    "QmSGfh3PrR4fq8DL78GKQggMgur4uQegFgHy3BtFA8A8Eu",
   "node_legacy/monaco-editor/min/vs/basic-languages/mips/mips.js":
-    "Qmcv1tQZrWdsx7UzPbTteKWaAfQtjdZW1ZkH3aCLxR1FZX",
+    "Qmb1qgoDgczooDVx6NbTUZRqixwD4emF6VvU6PbMvXQYhR",
   "node_legacy/monaco-editor/min/vs/basic-languages/msdax/msdax.js":
-    "QmdcwuXnjyp5DjU6X6153SLoS21MkDpLgjJqTUwsWrcWN4",
+    "QmT6EGZgFms4Ezzg5jqrhHi38zfU41myXwUQxPjEcR1FTY",
   "node_legacy/monaco-editor/min/vs/basic-languages/mysql/mysql.js":
-    "QmUZE73WxRv5moKbpo2Wn9NaEoQ2WUDmHs2DdQWiRYc6dh",
+    "QmRgtSha7dCVnfJqaEpUunK2Q4StGz7r7jxtys55fC8Qff",
   "node_legacy/monaco-editor/min/vs/basic-languages/objective-c/objective-c.js":
-    "QmXWKPWnijuq9MfWtespRgkQd86AchPR1evuJWFdK7Rg4m",
+    "QmVaYsb3J6RJH65apeaNrNcceXPPMgqwpJ2beq7tx8NzYr",
   "node_legacy/monaco-editor/min/vs/basic-languages/pascal/pascal.js":
-    "QmW5VHZHFCX6Zx2MwDHdjhVA54oLUcQj5teQWtaeS51i6h",
+    "QmR6C7usYK7MNQ4vmz3HQG1T3DBrevWTTRYxFoxE7kDscx",
   "node_legacy/monaco-editor/min/vs/basic-languages/pascaligo/pascaligo.js":
-    "QmZKqRk7P28u3X9cxx6jhWWAz2fYuPtaH4YvsXxLtuzTwc",
+    "QmS9BBXZtWsM5UyDM65Z9tWfcNYu3rYP4NjVjX6eYaPr29",
   "node_legacy/monaco-editor/min/vs/basic-languages/perl/perl.js":
-    "QmTXhF2HYejHnCubth3cQPavt7oqw4HYju4uPM9bsS82sa",
+    "QmdqAeciXXVREvQwLJ1ToDVvXVriYaigpQTtPfdXgPDj6C",
   "node_legacy/monaco-editor/min/vs/basic-languages/pgsql/pgsql.js":
-    "QmVs4W4K8ZnPgj5RAVN5WcKW6RkVLTj73DZb93m4HMVbvr",
+    "QmVH36tbPWxeV2DMYmxHZGJKGtwhyyuYwSCrBsKiTSbemU",
   "node_legacy/monaco-editor/min/vs/basic-languages/php/php.js":
-    "QmS5LvQD9dbcoi1eo98N8fQ1rqqncCHRT8VRDiaUeQcqJw",
+    "QmWhwoK59ocejfuZj8qMETSTou3bWurVPPKiiTgvcBj3Ls",
   "node_legacy/monaco-editor/min/vs/basic-languages/postiats/postiats.js":
-    "QmQhgFULE1g2bFP6ozTDATvYsbm1LXMLz9gJs3YPcpdStq",
+    "QmbDG5yTQZhH5QfPCEoZTmzJsKn3QSBzmi1QfQFR3AzZnH",
   "node_legacy/monaco-editor/min/vs/basic-languages/powerquery/powerquery.js":
-    "QmbGnRX7oSWaHcFUi1PQDjdZ7JZYV7KUUwqXRKzNvkudcr",
+    "QmPPrNqERHgbgLzfkrwT3D2fUH5YLoL9omAUUbTP9TMTZa",
   "node_legacy/monaco-editor/min/vs/basic-languages/powershell/powershell.js":
-    "QmYqJkevR362KJfVjfD8wd6anv1QDx1QyqHkTvAJUdpL7o",
+    "QmVvNiybBgEYikaDz2huyHNnAMLw6o3FhqBnKAaCmLHrJa",
   "node_legacy/monaco-editor/min/vs/basic-languages/pug/pug.js":
-    "QmaycLXRykyu8BsJ8BWGHiShtEG1gcaAVuqM8vYdJgLXXh",
+    "QmamyRXx8XVppHWvZxZWCh112gcaDf7bCESUutPyotrdbU",
   "node_legacy/monaco-editor/min/vs/basic-languages/python/python.js":
-    "QmU4dC2bvzZF3jAYCmiemSxyt8odemZytA9XyNxt2ZMoWE",
+    "QmTFrAfkoMeyoLWB47Xe1bLy7nkA2xZjxNNrEknhhUvJBf",
   "node_legacy/monaco-editor/min/vs/basic-languages/r/r.js":
-    "Qme3yKnDekAiVeuVaLz4tNsRDJwRYVHgmjYykW3HB5HAXz",
+    "Qmao8D4L1ZYsTLM1w2yM3kq4SvRgcwj9xPktR93QhPRTyc",
   "node_legacy/monaco-editor/min/vs/basic-languages/razor/razor.js":
-    "QmQ8v4ZPRPizJGSoSWzZGz5QtDcAEsmdL1Q3ebvzpw5Ue2",
+    "QmNwCi4YqzVZzGUwCB3eVg7LCAYwYyaHBmvFpaQcJF7SpF",
   "node_legacy/monaco-editor/min/vs/basic-languages/redis/redis.js":
-    "QmWMaQqvhWnSpfw9XzPJw7FmnoYpzzMFjzftnZThVR7TsB",
+    "QmQXsYkWv1nwEjCFMyDVBSdsFrzSXPTupoMraLSGrcxsF5",
   "node_legacy/monaco-editor/min/vs/basic-languages/redshift/redshift.js":
-    "Qmbjhr4W9rbTheLF9DANu2YGt4odApzNc3F2BjynohCY4U",
+    "QmbkYiy4CvSsqQZjpJc6FgCbcUGdtkXLgJxJQhaZC9n5ti",
   "node_legacy/monaco-editor/min/vs/basic-languages/restructuredtext/restructuredtext.js":
-    "QmcStCWgnmrvt8ysUagsrnLXLEJSuP18CkEpU8hoB5Y6vt",
+    "QmcUWoeFjgyqyKSftJHDwaYdFUjNXCEm1z95RK34rBgTZC",
   "node_legacy/monaco-editor/min/vs/basic-languages/ruby/ruby.js":
-    "QmZzNCw5FYaZy5UfHACYpk9xBqkrJjc3oKBJScbry1G6YT",
+    "QmXLJ9Zhkcsh2bM9n4p5Cwg3k8ZwVpwrrukFEBG7g1RDXm",
   "node_legacy/monaco-editor/min/vs/basic-languages/rust/rust.js":
-    "QmYibjrupckDcvTNJEJV6JkV9U8Ac4GzPNTZox29ZhsSqc",
+    "QmTRThLUwCMfDjH2wDcDGEXGLF2oigxTroZfwuBtkKE2sr",
   "node_legacy/monaco-editor/min/vs/basic-languages/sb/sb.js":
-    "QmeLadb12mF3pGujuDzuqgJVqjV3v78hy9oZHSHX414fpF",
+    "QmfEbXETeeYRkJVfktYAh51mfC4qJzD1ZUV43VckKMJy6x",
   "node_legacy/monaco-editor/min/vs/basic-languages/scala/scala.js":
-    "QmTnyn86mTBVyyzbgMMiWwjF735DuWryN9XL8P4stdasW3",
+    "QmdgwsSevzBx3dSJjrBNqgdARJ1s5TMyXiB2oaVXMpUroo",
   "node_legacy/monaco-editor/min/vs/basic-languages/scheme/scheme.js":
-    "QmbiMTKy3kafW4yCCAaQWedTYAD7VLC1NtBs4s5CSA1TRH",
+    "QmbJCZuFHw1MQjn3Bh7KTGscHkNiMjbwD2B6UQGarXcZiS",
   "node_legacy/monaco-editor/min/vs/basic-languages/scss/scss.js":
-    "QmVRqS4oCFWYhibS5s1GySoXC6gvsZvhVSfHYcfj7NdKAx",
+    "Qmd4uVipGnHD6nQF2bdwKRCpRQ7sYKnryEq6UyYAkz1jxM",
   "node_legacy/monaco-editor/min/vs/basic-languages/shell/shell.js":
-    "QmbRb3ZHnjaNzUbC9CFuFPTeUpLHv5hwjL3N3dgfgrUJaW",
+    "QmVKg2uvWPtD9srpG9WKim1CmKSfbP8TBv71qEf9roQ8bs",
   "node_legacy/monaco-editor/min/vs/basic-languages/solidity/solidity.js":
-    "QmYBiWNNFDWsbH2AWCKWDjgt5YDiZps7hDtnesr1R8d3TB",
+    "QmbCNVcnX8wntud9T8Uq7kfvLNL3Q65qwTS6usDxhKeb18",
   "node_legacy/monaco-editor/min/vs/basic-languages/sophia/sophia.js":
-    "QmbnzjGDogDrgudKizj74tLXYYqAjG8LDtbEFweSCCUMWR",
+    "QmZYH395WYrar35h5PH8pJBDcegxVtmEkVjC7Yosj5e9qx",
   "node_legacy/monaco-editor/min/vs/basic-languages/sql/sql.js":
-    "QmatRehwTn6XWKuzC7WBPifBWaGe6usb39sgP9UbkSRnW1",
+    "QmeWS2mdWwr4SKAtB13cvGruk4rmwYjSakPJR4zAKZNPyS",
   "node_legacy/monaco-editor/min/vs/basic-languages/st/st.js":
-    "QmWQ76yjV2h4wqaqBXj5vad5BYi6vKmav277TKtuwMywoT",
+    "QmSoNKSLsvLxyJSwNK5AqjWPgJd8b2CXZ4vX6eNpSfacHw",
   "node_legacy/monaco-editor/min/vs/basic-languages/swift/swift.js":
-    "QmdyQcCau6GtCYYBtY5mqe1SDPCzDhHzAYXktig4Y1sV7D",
+    "QmZPosVaVJPWhUkyWRpmjdqurTRa1ssxjHA8QSM34H1ajV",
   "node_legacy/monaco-editor/min/vs/basic-languages/systemverilog/systemverilog.js":
-    "QmNV7rsp34bKidwL3MvN8Loa73KiGsR69B2B8wt6MrwRfZ",
+    "Qme87Uh1qFCFvDE6FMgdEHspHbjTfxkiJn96arLgMpfdgZ",
   "node_legacy/monaco-editor/min/vs/basic-languages/tcl/tcl.js":
-    "QmNVNUTU4FXsucKmN7jHdrkoJUKTD65VHfhGt9FGnm47WJ",
+    "QmdCzYWegu14LfYnjz4UZZGpiAtYhLYyspMPtm2VNbwX1d",
   "node_legacy/monaco-editor/min/vs/basic-languages/twig/twig.js":
-    "QmUEAuZTyYrNNLptmX5GfeDoNzAyjV3SPZEq1XxADk63gc",
+    "QmW8rhcCwQB7gC5AGDCXeR2jnUYwqr4weCaETNvmVKTbfR",
   "node_legacy/monaco-editor/min/vs/basic-languages/typescript/typescript.js":
-    "Qmf7bS5fKUFszke3rQvnwVEehJDPpGFAuGmAzgVYbGPmjC",
+    "QmQ1Crjdww6QTSQqqhXiE2sm9jHDpRKXFoT4KgiKV7qhWt",
   "node_legacy/monaco-editor/min/vs/basic-languages/vb/vb.js":
-    "QmNgbrb2QCQtH6tRsqLHfwFpKMjWTJ6saju613LVGc9gNz",
+    "QmXuPTjQVeRTQ2iWKKyGLAubzJHPDVdLebxs325moWdkbD",
   "node_legacy/monaco-editor/min/vs/basic-languages/xml/xml.js":
-    "QmPJPZqPm4KjL3zBX5GsHfgwrLu5LfyaPpuPXBNfUScYDd",
+    "QmfG5GEMc9wkzJ7FxgemKVfd6TzAXn43KWKXK9PMQHoUBU",
   "node_legacy/monaco-editor/min/vs/basic-languages/yaml/yaml.js":
-    "QmQwp7xVWhP3BYkRV7yuxN62sAUcdgJxqb3JxCSdpasyo7",
+    "QmfUCo7tZHXvCMRz3G7kkZD3gG5DxobQTgQEUtaskzv1Hs",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.css":
     "QmZWFNbmB5HLfwq4QP8RKsPG6zHLDKgrkdDYN3ymPrUKzu",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.js":
     "QmTkA1GXJSnUQM9fPdWaLLr6a1LDb21GbYDe36KULRU9sL",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.de.js":
-    "QmWpPcpDZNdZVs3eVzAFNYPKob3GRtWb8G11THjqpLyVeM",
+    "QmNrrmzkY8kd6tUMV28zWq7kV2Md399hMrkybY5GxSAwj8",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.es.js":
-    "QmajV8VccGMLcf7Kjtw4pGFPFHxgTQBXkNdxvWfpJW8SoU",
+    "QmUMh7KQR53MfAbtCnRhzeGRUXWUzTRQ99k7saBAeomZmz",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.fr.js":
-    "QmNu7PKbbcxV7abMXJoe1XJHa3yfCge8jtBxEakNAzS2Y4",
+    "QmYDDUsPLQvr3hMCCdWTcXLzNrYwoSqspT3HnsFD15Y8vd",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.it.js":
-    "QmaCB3SbTD7abhzUVGZ8Qh34EtRherEYC1MNzNtk5HT2qJ",
+    "QmRk93Av3u7uD1FHiHSLr4HVo5HWLXFLZm8MZdtwF2AsdP",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.ja.js":
-    "Qme95wg8vo4G7Jwz2TuDtpmgUhACWgPSq6LZrcTJfTfcLE",
+    "QmaHnTvzRDA97ck1eDZ7DNsWUuUqGtFsK3YvLSbqaL3gHx",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.js":
-    "QmebVHG4SueJ6uevY7eV13vejzwsMKNmg8bWbYNMCNQv4e",
+    "QmS5fsNEasUqmayahezzUnpeD4FjauMFfxs6dyLPe7oY9g",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.ko.js":
-    "QmdBEgZ8mQjD2WLSxeF1qtjg7SHR8q3vaQjtAovvxSZEf8",
+    "QmWmAmQ2ygqqryJbQizQg7E4BKW2upN5vL8Zni5vPY2vvf",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.ru.js":
-    "QmYS4ts9H7b7YXGo8S14cFgjcHKCALBgXvGEisLKjxWCKT",
+    "QmVAWv6kBj9Mk8M5ezoUc95Prv55FSu2a9kUgqHHrRnXjB",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.zh-cn.js":
-    "QmXGn1VEShfsRBNQg3f6yfg68faDE7qcE6neciqHcK2tUF",
+    "QmV5dsTsuhBh9peECfchYP1oxTcr7dLZET4EH1vHNKAt23",
   "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.zh-tw.js":
-    "QmcWLspKBDrrfswKfBR2D3puYqq3SpE843mqmr5EU2FMK5",
+    "QmPs9Y5QZgyY7rD8a7V6DKLam8V5R9dPbeuj3cws7LKs1s",
   "node_legacy/monaco-editor/min/vs/language/css/cssMode.js":
     "QmWBQS2KhHcfBen4LKkm3VGaVdqtQuFFJ1YFy2SRvj4FsE",
   "node_legacy/monaco-editor/min/vs/language/css/cssWorker.js":
     "QmUbtq2bbGWW1FRLByE2uhbyLvBvwp27J7p71orLJV65Ff",
   "node_legacy/monaco-editor/min/vs/language/html/htmlMode.js":
-    "Qma1LPqeYP5JfC3jQrNVqbDW5sPAg31F1TSY83iiQfix7b",
+    "QmVFUdVKwvSKcb8zadUFB7sMgwX5KH16mH4TGArfsvH7ZR",
   "node_legacy/monaco-editor/min/vs/language/html/htmlWorker.js":
-    "QmQ3FpPSTThYt2nDBvbwrFhSCk4SJMgi5FP9dvsbJ17grh",
+    "QmRY687hzG2uTd8wQq6am2KFwYbT5Ss8Htk11TvJKoDbG5",
   "node_legacy/monaco-editor/min/vs/language/json/jsonMode.js":
-    "QmRThgxZ2N5jEYJWrWAMijcmhQZ3eiCX84K1Jd5ta1fhzX",
+    "QmVDaMPaKqTh61dAEfJm8wnUsbhD2Mq1nhEHuNKi3NMMJm",
   "node_legacy/monaco-editor/min/vs/language/json/jsonWorker.js":
-    "QmcEbJYiJyBPENjne9d11g9Nrtt57xTSZ43xhxDRQFZxDY",
+    "QmaB91DSyHvC9FjcttXfW76njN2WguFNLEqTDhUbFXi5WM",
   "node_legacy/monaco-editor/min/vs/language/typescript/tsMode.js":
-    "QmWV3kzWDU56oAJUydmjGyaUnS19fHQ51F39RgMNtXHe6e",
+    "QmYTk2qzWqhnsevobGL6TDuASPsBKbh4Zix8smrAuasQXr",
   "node_legacy/monaco-editor/min/vs/language/typescript/tsWorker.js":
     "QmYKGudEpMPegen7soyXBDsVZ3DYmr4yWZTGLSwjjv8a4i",
   "node_legacy/monaco-editor/min/vs/loader.js":
-    "QmUAWmVBLSCXRVodDf2YQAvUgJbKAi8X2TBs3mwGPvxoSc",
+    "QmYwbZPV8WMWZvpW5br2LqmBCRrJ17TrPV7mKohpdjyfu7",
   "node_legacy/monaco-editor/min-maps/vs/base/worker/workerMain.js.map":
     "QmYadh9JYvX5joq1keNqTAr6VMMBrwcds2XbWqEeySo445",
   "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.js.map":
@@ -438,27 +438,27 @@ export const files = {
   "node_legacy/monaco-editor/min-maps/vs/loader.js.map":
     "QmTjTFnCNWdurh7ejmnTp6PB5ffmr1r2ttqGhFxmvmhYn7",
   "node_legacy/monaco-editor/monaco.d.ts":
-    "QmYR7g6GMzz9JHRaTD3H6FpLVR4wiZDjMf7GaDZc4kEuQZ",
+    "QmUjPjKFub8iLaw5anZPmPqj3F9jmT2Y54HNZWUaNFicxr",
   "node_legacy/monaco-editor/package.json":
     "QmZcryZqRY2N7kTaE3fQuEuPirbWDCvMeBVzV5QRdP28u4",
   "node_legacy/parser-babel.mjs":
-    "QmNZakKRLQBUJSY8XvTCnCJoU3vWGCYEiCkFDV3WuZmtJZ",
+    "QmXgjmDHhzpi7LYN8mzo4YAbGQd3EehKba86Xyd3WFg7xB",
   "node_legacy/parser-html.mjs":
-    "QmNQPbdnaiQz91ZKa11kCAByJS1bjj39W1XZWranQ3dMYp",
-  "node_legacy/regex.js": "QmZWiPyB2csudjP2xX6W4P1PHhZQnvMkCdBagQvCM7jMpA",
-  "node_legacy/rng.js": "QmTqi8yzgAq7WJUXtTAX3ccr5meWBaHuGtXx581S1B9kS4",
+    "QmPAgv3DCfuE9kF98vZCWsvMJJnNpir5xdSBfds64ibbbH",
+  "node_legacy/regex.js": "QmW6Zb7r6mgzB4j2XMMFUToUfcHEbfHFwdZ9X31DSuJuZE",
+  "node_legacy/rng.js": "QmUKMfibnQYF7LUYiTpSTWkD1KwkBY9sRyhf2Ky5GuauHp",
   "node_legacy/simple-window-manager.es.js":
-    "QmcvtuWHJa3nkqaBfFMriqZz3N15RDeGErhF26tjPThxgM",
+    "QmSkRETmFZ3t2dzUsPoeTS5o4MMkS5csX5hHJeEERsCrrv",
   "node_legacy/standalone.mjs":
     "QmbkuH4RqHi2cUk3w7PMD9LDNaSkEaYA9Pcy9Wv6rTnwYk",
-  "node_legacy/stringify.js": "Qmd56eDfKFpGXVEuPxrN3A3jewVkunFfdqpTdE7LCtSp2h",
-  "node_legacy/v4.js": "QmUhNN2k5hbHdHWURhNAQPQLgN455FJSsf3Z8njyYMukfm",
-  "node_legacy/validate.js": "QmRi1pudKp7sivw3M8Hk3EAsSRcLExsGZqiuJQCXTWjYgY",
-  "node_legacy/workbox-sw.js": "QmZvvd3tM19b9a5b9hn3JiDjnu2jHnUq9qrHtz2c7yJMga",
+  "node_legacy/stringify.js": "QmeihdRRQBZGtbfhHjXBeTjBhvzSyTcXJpmEFHJs7J5jUp",
+  "node_legacy/v4.js": "QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb",
+  "node_legacy/validate.js": "QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT",
+  "node_legacy/workbox-sw.js": "QmZhAftVTJY5kj5yZvrnowExBg1kxgGANkx9pepaGsfyCv",
   "node_legacy/workbox-sw.js.map":
     "QmYrZKmyENAJi6h5mFoq2CVyZzr4syiuehcFqorzAtQttK",
   "node_legacy/workbox-window.prod.mjs":
-    "QmT29Y78zyhb8a7WWc2BEhS2XpZij6bJhJZnLnbKTKsE5m",
+    "QmSgZf1jFzFeKu3mfPt2k8uQBxi53ENYX7VRgYxyWhAuHj",
   "node_legacy/workbox-window.prod.mjs.map":
     "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
   "package.json": "QmPZndj9t8Cr2VfsYxDvXXw8JYXV8PHWqWn94Tut4PvfGV",
@@ -477,7 +477,7 @@ export const files = {
     "QmQVjYGxnEhAfQNzbbfcLMJmagfs5sBkJKVjdVi8Hjy3mi",
   "src/emotion-react-renderer/tsconfig.json":
     "QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA",
-  "src/examples/app.tsx": "QmRju4JLXE5iNjjqVER1hHqCUBbRGXDvw3WasFUKEvbs7P",
+  "src/examples/app.tsx": "QmV7vp3R622aUiZd7ukKfdLfkzBhn8oKdUKHXKiZsZw7Ui",
   "src/examples/starterNoFramerMotion.js":
     "QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs",
   "src/examples/starter_framer.js":
@@ -488,13 +488,13 @@ export const files = {
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "src/ipfsClient.js": "QmNXn2zNEBL8e2cksn6Gy9stsAiaxFUGxiKSeHkoLKVhbQ",
   "src/openWindows.js": "QmXwq3AHyeNWrdG2WrVzkaujrJZzzJtyxaHAdRivSrjoKU",
-  "src/qrious/AUTHORS.md": "QmSJ3JoGKdJEiHBDC8j6uXHzXHkLBmG3SJgzbPfrWDTBoA",
-  "src/qrious/LICENSE.md": "QmVECYZZPoi7YkMEWKtQDu7G9ZXb4fH4QtKfHHc89fEy8h",
-  "src/qrious/README.md": "QmQLgHRuBzYPfTvqX3efJdPwVzzJPAXK7rKtXUvseL3FnD",
+  "src/qrious/AUTHORS.md": "QmWzBXD5ULj9EAVt7ffrffyZ15pUwjDXpoquHnoaRBaQpx",
+  "src/qrious/LICENSE.md": "QmXnJhxWq2q5UxAx84U6BRKp4xg7bQQ4MjnJZmVWk6ywVR",
+  "src/qrious/README.md": "QmY8EC8WdbApQxMYr8VnE7QpujW5Vt5qgF7hDsBg6RuGE8",
   "src/qrious/demo.html": "Qmdcpx9zVreub9xBE6QxhfGtZ7Sodsnyx9KCyMyLhqibn2",
   "src/qrious/demo_min.html": "Qmc6Me5Zv7VBGoAbQp3xe8fDEGW28SFCrKYG6yWz4h4SLQ",
   "src/qrious/dist/qrious.esm.js":
-    "QmejgC7EcywbuiajeGdfwHgxdD8Tn7Tq6yCqFsLqTZ8jVV",
+    "QmeJ2mkaNUfWrS1rr6NmSU4rYzV3a52RTGjJAWit59dnz4",
   "src/qrious/package.json": "QmWuJiMpmDqUaJsRaM2uB14CCyF2BCKZzjmmAy2i9g4bsd",
   "src/qrious/src/QRious.js": "QmWyhyMT7B8vJWGm6kMXrXBhS7pgx4Dqv8TRepBqDxyW7e",
   "src/qrious/src/service/element/BrowserElementService.js":
@@ -659,10 +659,10 @@ export const files = {
     "QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo",
   "src/workers/ipfs/tsconfig.json":
     "QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg",
-  "src/workers/ipfsWorker.js": "QmVzkTMiCNd7aaxBVhDNaTVBCkHYZa1Rv2V5vXsX5MPzxh",
+  "src/workers/ipfsWorker.js": "QmX5UdE5UyETFtJWyE1CZGWv9erxTJHWNWju7y7GbnambK",
   "src/workers/shasums.umd.js":
-    "QmTcSv4DXa6USZDdqotYWUdEhRB8voN9hrDdSjsPAvWgjq",
-  "src/workers/sw.js": "QmZ1Dq8KCwCsj9Bt323aMvwdZrSnRrPebTAAajdS7j4D1P",
+    "QmZRi154mJGuG6wriiZCxvVjNoj2fNYGRDn1KJsKJy7D2c",
+  "src/workers/sw.js": "QmXBMp2msevCFhMTBCvFHRq5Hi4dZVpYqKz69tf8bVQQ3P",
   "src/workers/transpile.worker.js":
     "QmSX2qLhymbiH8AqKshiFgPUjJfjfwFFrsbNx16dh7qzX8",
   "src/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -671,39 +671,39 @@ export const files = {
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "assets": "QmcLAE4ZmMJ1GT977zHKnX7zzcwVRS25cYzFTTiA9hxtyd",
   "node_legacy/@babel/standalone/test":
-    "Qmdbni8ySNyYHkWS2SgxoLVBT4or3F6nBe61F8FBDwDthg",
+    "QmWWWLKmada8efNn6Q3dkck2vCC6uCEcMarW1DuKTpp17o",
   "node_legacy/@babel/standalone":
-    "QmeQ1gDZFjKQFLkVYWURPyJjhSV4Q84T5AaraV4Dtzsjgq",
-  "node_legacy/@babel": "QmQhFnhgvSEwfGYsxau3hLPFtzNhKY8E39v9ob66qNpHz6",
-  "node_legacy/comlink": "QmTQek4dMBFHR9YmfaC39AHc561J1AyV7zmgPhgtTsP4q7",
+    "QmQy3Bma1iBoLnQqsPDoEoooBbMRA17uwTPvhqP82KtxVa",
+  "node_legacy/@babel": "QmdtRfBeZw1CytNk7aYZLZXDChmridNt6UKzqLShm5o6G5",
+  "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy/ipfs-message-port-client/dist/src/client":
-    "QmZup1QoUb9PRv51TDmWAZMi7P9DUMcMwsY9iSzZYj59UE",
+    "QmQ3Td4DsTeRsvo6LFpwdh1SV5uAyr49pShjHrNY2muM2X",
   "node_legacy/ipfs-message-port-client/dist/src":
-    "QmRRhUpVVPhAujdbqRbTC4EUioCVZERCuwpPdx9Zk5SFkX",
+    "QmYevEng7i9YkGfHP93tziNcbxK1RZVGkxSTjVS5Gji1na",
   "node_legacy/ipfs-message-port-client/dist":
-    "QmcvYWqnmkLmoS8D262vTMbkVDvNycFrzMQzPcerJquNuQ",
+    "QmcrExXDpPggXqB3PKGKUpcepuzjHNxnRfPDXWp2Gz4TL4",
   "node_legacy/ipfs-message-port-client/src/client":
-    "Qma7mVuyQwQ3384fJov2cuWjR6CXVE5k1WWBsJ6iUXzSqj",
+    "QmQBWbefZoDQG2hhRXyWjrRAUdpEQb8Bmx4tQy6aHFAkdW",
   "node_legacy/ipfs-message-port-client/src":
-    "QmUyymcxnh6hpkekqTbcphh4zQqifBuopgjK8Buypn28ej",
+    "QmNzRnsBZwZb84WGDfQribuCv5YcrW15HK5fEKTrGWDWsP",
   "node_legacy/ipfs-message-port-client":
-    "QmbeYVX62aoKMEo5svQUkdfjxQQD5v8BgKuz591gJsKhuW",
+    "QmV3TQWgufQdKT3Zd7kmjH3ZbkjRWyCRzQeCJJLNsSMtM7",
   "node_legacy/ipfs-message-port-protocol/dist/src":
-    "QmRAQWWth3CGqTDMp58Eof9aPdaPLkzaryaZaYQEAawHvq",
+    "QmXr2ZSJ3Nc4jnLhDHkDAxoy1Hfh2mYzyxtdrL88Cc1Gc6",
   "node_legacy/ipfs-message-port-protocol/dist":
-    "QmdvcKmKmVyxCfDDNjpQtSH7PzUgLrBNoVFMeaxsJNz1zh",
+    "Qmcxt8kXZApWpnNBYUM1pX415VdqjWXWBoonaboSeJboYW",
   "node_legacy/ipfs-message-port-protocol/src":
-    "QmfLuvmz977mG2dziie5e8GkWKshjXJMbADpg3KC1xkBpN",
+    "QmP4KTorzecP4eZBVWzKrVosky6WmvoyEL6TMUGNDxR8jE",
   "node_legacy/ipfs-message-port-protocol":
-    "QmPXHMM3CJFjh2viwWzPh6Vn3dHFyJBJe8NRzy26XSKTjr",
+    "QmTTMCC4Ra2zWbRLJKuUUubeTYsRrwBEDkBfFVxidQXRMR",
   "node_legacy/ipfs-message-port-server/dist/src":
-    "QmQdTdnQGHJY3fut5GXQa8tsZVpGC1Rj7wT61fpd1Viukd",
+    "QmRrSbLBuq6G8Mz1WuL2HVFZU5MQuhLdXQ7GNd7jQtpEYX",
   "node_legacy/ipfs-message-port-server/dist":
-    "QmTCu7LVcSrpLJ4Zf6JqDuSFjb6NsiQdBAUsT7ZJT2orzW",
+    "QmdfdLzgJsftaDvBjZ41qMYdZCjtgSGvLo18Jbdq9PLKgg",
   "node_legacy/ipfs-message-port-server/src":
-    "QmPLf9dLYAtMwu3KN9kB4mXXN6icfpYCBn1ENMDGkqHLQV",
+    "QmWLL769pVAv36kRuYHF62XnTnoogCwXCCi6WRYH28BG3M",
   "node_legacy/ipfs-message-port-server":
-    "QmRQnASzHAxFVbJ4KjoDJ5B9SMuPzcT6fMaAL6UM9FAX8s",
+    "QmSpEkukdvkAMxRJuW2pXAnFwUHYaQExTzWARdmFqzK7uQ",
   "node_legacy/monaco-editor/min/vs/base/browser/ui/codicons/codicon":
     "QmRDaTDHFannojUDz7oBNzTewktam3SmeCaQZo7U7Wj9op",
   "node_legacy/monaco-editor/min/vs/base/browser/ui/codicons":
@@ -713,163 +713,163 @@ export const files = {
   "node_legacy/monaco-editor/min/vs/base/browser":
     "QmfGWbFf3Qi9sxWLRqXhSxgw2YGwpm71KmUoQ8c5MHsoLE",
   "node_legacy/monaco-editor/min/vs/base/worker":
-    "QmXnDo5uno5jHemotFEwqKCdsX6VHQYLcgZPp5SNzt6fej",
+    "QmcJ46sc8oA972pAcbBvfD34ueaJFQW5whvxSuQXQ8uYWs",
   "node_legacy/monaco-editor/min/vs/base":
-    "QmNmzsjJThufrreBDu3cRr7jqbp3oTkFJXLkhctQJhgmaE",
+    "QmVy5jBcmVfN9vEmYztp8tSoHzkHZY8zcUGY5reafjz1v8",
   "node_legacy/monaco-editor/min/vs/basic-languages/abap":
-    "QmdhF24bCgD1Gi277bvSAi6ifCWSY9qoAix2uHoTszytJC",
+    "QmdD1PHzo83oaZBpMBmxpvVzTcCsWQHvxgKpcQecpLmAMY",
   "node_legacy/monaco-editor/min/vs/basic-languages/apex":
-    "QmNvtWkUdA3GCA9oP4sAC3M7PQKj6ZnTjZh5sbtCyDMrHY",
+    "QmTjnGzVTrGc98JXd2CQQiyzM2rNDUqgMqVcFo98C9Em8K",
   "node_legacy/monaco-editor/min/vs/basic-languages/azcli":
-    "QmaxFy73jESANtUuxFa7t7AJAgB95T2wDdGT5hgVmfh5e8",
+    "QmNNttjyvAQJ2ezkVZ1uLEY7jeHaLMN6Eaus21g6GxxBNK",
   "node_legacy/monaco-editor/min/vs/basic-languages/bat":
-    "QmbQC3TRNGK42P2N7VxbYPmu9wyDuu2S9QsoypRGpXwQBx",
+    "Qmd3gdbgmF4uxSxQeMA7RzuDFX1zhPFWu7G61HkXDvqMWR",
   "node_legacy/monaco-editor/min/vs/basic-languages/cameligo":
-    "Qmd4f9ruA9hTm1zNGx2bj8z87c8taRVhF7ZNk6KSn7psb7",
+    "QmWgUMqHjFewF9aWDMqPyUEHNJ1Ym1Z5zeEwB99JwL6Bth",
   "node_legacy/monaco-editor/min/vs/basic-languages/clojure":
-    "QmZ2segwJ2pSrGkF32XV5ukTxZpzUxbRc7PtgzLVWGDMna",
+    "QmZkZfcsi1VPHc6pRQgLNoCDo5rnxn2bmDa1AxePMg2pQ5",
   "node_legacy/monaco-editor/min/vs/basic-languages/coffee":
-    "QmURjzsjdH91ArPkkvMc7XNHD4qyppbrpgmuvgadD3csPP",
+    "QmPURt8baQoBhYmrTAs8NL8HkGZi8PZ19PfSB2pVQLdXfy",
   "node_legacy/monaco-editor/min/vs/basic-languages/cpp":
-    "QmShu7xvR3kgCzKUwRNRCKdS28iZmZat819APStmdepKT5",
+    "QmXnmDVMxGDeArrvjvCF5AdrwFLEzvJ8pPLuUjRaUEyARK",
   "node_legacy/monaco-editor/min/vs/basic-languages/csharp":
-    "QmWnBWSUg9dGQNrpEthxEjFQqJF5UXyQyVPibb7PAqkW1A",
+    "QmSMaVZMSq4E6aFFWKvg99BHB1LFYLKZXGUaCFijNSS6dC",
   "node_legacy/monaco-editor/min/vs/basic-languages/csp":
-    "QmXzt6rfskVaJbq4x3Es3XXV8MUAp8G2vabPTMXKWtsKVQ",
+    "QmQUzb89MH5KxyxUnTmdJGF2b99BDXDtTFRZiPN2o55nJa",
   "node_legacy/monaco-editor/min/vs/basic-languages/css":
-    "QmUAE8knW4nvPGzz1F1sk1yYXShtP5dtm6ryJawacmm5E4",
+    "Qmbsi8m64DACNhACHijXKjY72gdyoU3w6CALEtNY8Rrf4t",
   "node_legacy/monaco-editor/min/vs/basic-languages/dart":
-    "QmVtfgKTtAxU2tu7KcqNxZpTKFQtChhg9ZTmRWbFVbn4Vw",
+    "QmZei8VbbN3TDFR2GRWMQqSwde9MZXa5dQCWpGJPzDYmh1",
   "node_legacy/monaco-editor/min/vs/basic-languages/dockerfile":
-    "QmU9hX2UFMQuwbJn2Yc7HtXRsyqGFvHg82WSMKUbTE86iN",
+    "QmcYwm2cwNnMojJPte7UhUSFBAvNcJtEhT4Abf8QY2F1eD",
   "node_legacy/monaco-editor/min/vs/basic-languages/ecl":
-    "QmRbPFCFrTVDCix98aP39uyoBJUqUxbB7iRwPFRgKpceRN",
+    "QmNM7SxnJSqZ5EBeZq1upNvjHzPRidaqVjauMM6HczkkVk",
   "node_legacy/monaco-editor/min/vs/basic-languages/fsharp":
-    "QmPmhXdaUeh5gpxeMd85oNt9SPKp2kE9eMmppMBuWoqL8u",
+    "QmXf5yfYtVpEbbEkitYmvEo56Y2f1YYZiwAmyUnYAybzHR",
   "node_legacy/monaco-editor/min/vs/basic-languages/go":
-    "QmSNy6aZPaxLygqWNDzQqbpRwzyryXFjfeWJPD9tvDta1c",
+    "QmUp5rFQAq9WjQ8tatvWFD7g2jFmQtTAv6Q8z3UtsRgB5v",
   "node_legacy/monaco-editor/min/vs/basic-languages/graphql":
-    "QmYvZNYASpx7oSF5WbcmQ3BJdf7gCd4oCnC76QpN8pNKd7",
+    "QmXR6Lws4HHjEXmeQTPD3eNT6WQC5kR7Abumym5DsHitne",
   "node_legacy/monaco-editor/min/vs/basic-languages/handlebars":
-    "QmdZ5bvQ3pFngcv91tkqjcBEMn5xquVvvzDydC73mRTQ72",
+    "QmWkee9R4z8U3KwVRVzpMjzkBmN2YKvUFjUH8WmRVmctCx",
   "node_legacy/monaco-editor/min/vs/basic-languages/hcl":
-    "Qmc3XPQGeYEv9JiKJBsyunPLuz49P9xBZsKG3pLZpzTb9h",
+    "QmePzWfav1VLiaKDS2qnSHdYGp39XdY714jw9CxzZJp1vQ",
   "node_legacy/monaco-editor/min/vs/basic-languages/html":
-    "QmU8k4jBmmH5k6eRiLyLqMh4yETbqLdXpcGYupWNffd6C9",
+    "QmY9B726m4hGxzKhTTBzDfJE6vXCNhkQkJ7H3dPTV6qssw",
   "node_legacy/monaco-editor/min/vs/basic-languages/ini":
-    "QmWW9TtoDzRaTGNDsgvmt7nXrSMAxgm8dyaoWbyyoVwiuv",
+    "Qmbj2JSV5Pfkwhm3YFE1bF1dpbkPhrALNnSgDfiEviVrGZ",
   "node_legacy/monaco-editor/min/vs/basic-languages/java":
-    "QmYPCMmeTSD7sasrQxS3zNAndozLtEKZAzvKbJWaZdvuix",
+    "QmQcdjyRJuXVcjCp3jRaxTVgxgu7w7DRec1WdpNfebo1GL",
   "node_legacy/monaco-editor/min/vs/basic-languages/javascript":
-    "QmNbDyH7wvTCHbMF4XL5yaJ3XyQHyiajBn6dxTjsmvgj9N",
+    "QmTSDaDyxvY1uBiRr59brYUSyKNdmpUs8g9NuhEyxjpp52",
   "node_legacy/monaco-editor/min/vs/basic-languages/julia":
-    "QmcivMLAWGf6MjDsoSSgndinDxWx8Jg3FbvCEUMvnKe97e",
+    "QmXuNDEHH4acTrGBu3LzwL4zKkks8HWvxzzXEdcXCmom4k",
   "node_legacy/monaco-editor/min/vs/basic-languages/kotlin":
-    "QmV51mYveXU67fpQZbmAJSGXihsENeFr1zmYkip2m3WKL2",
+    "QmdQ7XYQ8Wd21DKb4fjztkSrWQasfgiDqEoZtZVXEXmT6N",
   "node_legacy/monaco-editor/min/vs/basic-languages/less":
-    "QmVmJjT1D5uT8yHPmwRKn7MJzGuWET5Un5258mpG9FY5ka",
+    "QmZ6pkVFYqShAnWSBy5X63u32iB4TsLEsKV4hnRXiS8Lip",
   "node_legacy/monaco-editor/min/vs/basic-languages/lexon":
-    "QmbvpNepamFkmvVMSsXe5kWJGeagtFHMVHzG6i9jLffshX",
+    "QmbuGxBZNg24ssFVbJxMZxifwgVRS6H47NxUVPQw9fqFck",
   "node_legacy/monaco-editor/min/vs/basic-languages/lua":
-    "QmYBgYVcY1teAYZAfV5JYonh1LGeUjwvyJRZuCWBvRa2YC",
+    "QmaUan8TETJwft881McTA6w2JCciJkkH64ddiUVLEfF5HT",
   "node_legacy/monaco-editor/min/vs/basic-languages/m3":
-    "Qme4fEW6HX3pgHVSiNcQ7e5GqhxiP8grkvex3RCovJoqky",
+    "QmdaifCwD9qBT1UYzyptJxW8NBBwPk8KnJuss9ffD1jvqu",
   "node_legacy/monaco-editor/min/vs/basic-languages/markdown":
-    "QmTBeEeXk895ptanSKsJLJT558hn8ZcGaBhhSVG4pixk6d",
+    "QmcPECs4cgKq2z6j38282GtBzEANxcmbQhoP5RUpvB89Vh",
   "node_legacy/monaco-editor/min/vs/basic-languages/mips":
-    "QmZ6gYxAEkxU8xKa4bzLtVAfupoX18AvTqgpH9rHyJvN82",
+    "QmT7iLvmzG6Tm8ncANRmMQ1e7u9uLaeHkEALUjKVKyVKwp",
   "node_legacy/monaco-editor/min/vs/basic-languages/msdax":
-    "QmYehJfnnN9bKAjyK3jH4kr98fWC5SL89T7yxY9mxkg4Zm",
+    "QmTxaJASuwFj9nFsTAyWqsjr3BW513aHegxoM33ULNcLiZ",
   "node_legacy/monaco-editor/min/vs/basic-languages/mysql":
-    "QmVi3m87T1jZp9z9qwyWuXgRTcj5WA8wQkMno22Tf8bLDA",
+    "QmYLBnpm7Cmy7WpWFwksSYQ8sRjNbpLAHwYd1zu7j2wS4j",
   "node_legacy/monaco-editor/min/vs/basic-languages/objective-c":
-    "QmPW8GaUJyad9oKNVuSyhakybBSjqRHV9NhyH8Vn9DYiFc",
+    "Qmb2r5AhCKpWEUfqiAtAVwPJCJLrPZP3rxaG3k9jJePhw8",
   "node_legacy/monaco-editor/min/vs/basic-languages/pascal":
-    "QmUbLCyVAaTzqQZRjGJoanixymqQRe1BycVQvjP1NxMqUL",
+    "QmXsTNe1A6xFuGjSusq5f9abfVJ7T6JGZu7x6eDBFSp8oi",
   "node_legacy/monaco-editor/min/vs/basic-languages/pascaligo":
-    "QmRPGwPikWr8gqL795BeYNhcUTXgNiRsogNhXBTmWkLWG3",
+    "QmNnrp7JKh3vQJk1KuJ4Sqte7EJsfbbrwvy5xpUNoMHQBy",
   "node_legacy/monaco-editor/min/vs/basic-languages/perl":
-    "QmdzPJZLY2pRZf7m9g9kfTK2sUPoc1cVX2KCh8oz67Eh3W",
+    "QmY5xRh6PtH7Ctwy2VA4prLagXHGQY24NEbViHi1xu2H9E",
   "node_legacy/monaco-editor/min/vs/basic-languages/pgsql":
-    "QmcMt61wp9FLkeNyKcnayqLHm7oUUwZxuHcYkZJTkmTLQF",
+    "QmcoFfEojNbWawGomuEQ4iYejtiWgVPsCSYQmpFbhbPver",
   "node_legacy/monaco-editor/min/vs/basic-languages/php":
-    "QmVk5m1u8ipSNh6Gp71mignUFT4A2AGCTjVjqqVmi2PvaX",
+    "QmaPk1cEE3AgDyrUAVM4aqhREnUQd4LasVcJFq5oJbKFe6",
   "node_legacy/monaco-editor/min/vs/basic-languages/postiats":
-    "QmVHM9oANdB4q9bSMpAg2EgM58FWn6cAYGcWkJYmEatgNX",
+    "QmXpQ4nbyF4cn4MueK5qq5yc3HwXPPwu9nAtEJae8Ae2wE",
   "node_legacy/monaco-editor/min/vs/basic-languages/powerquery":
-    "QmazjgHmZ9BxyQaerWaqd5tpkak1H8EcSWgYNmPviKhbq7",
+    "QmRCnhtNiJWHtsiaQep87m1fQ3mXjY4ZNtuoi5nRULztDy",
   "node_legacy/monaco-editor/min/vs/basic-languages/powershell":
-    "QmVEjag9xQc767fcr3dmwZqXoYpM4EZRWv5hKEQQgLj4iH",
+    "QmQf5s1rG9smTGNvAbg92KYC6t43bvnFRBoUrHxGqi61HA",
   "node_legacy/monaco-editor/min/vs/basic-languages/pug":
-    "QmXH8msnkosCFwBTTu3snvN5kRfHD9XN2uxEThr5s8zvyQ",
+    "QmbWi1Bwxbgjgwv1Y3eytsKHRZS8Rx3PgA1us6hsaYr23s",
   "node_legacy/monaco-editor/min/vs/basic-languages/python":
-    "QmeBstJ9SNezyD46ctTkPt722cPrMq1jAyocvJviXmCAne",
+    "QmWxGykjwKHmK2cKEPomWCwyB6r2NZEdwN2k7zFexJWkUT",
   "node_legacy/monaco-editor/min/vs/basic-languages/r":
-    "QmXDoBFCawo8P73JP95itwu5XLUgcXP7p5ESC4s2ptGSxg",
+    "QmQr3X6U6dXejx2TeTJztPkrN9SezQv45ob18JAoBuV9DE",
   "node_legacy/monaco-editor/min/vs/basic-languages/razor":
-    "QmevpfMPxpVgTNx5khSmgLJvwWM97mfhRKvD2BNJfH8vRK",
+    "QmcG59EmpE9xSfFRRXXSG9wGB1CdCzAA9beX8LPFfMfoR2",
   "node_legacy/monaco-editor/min/vs/basic-languages/redis":
-    "QmNYuWiohuPWWjuWksQihTf4wyCXpZitS22Q2F9Zn7WEVv",
+    "Qmc6rBb2ssmt2RzisLUFScC7VFQRvssMbG8httBEVZXoiN",
   "node_legacy/monaco-editor/min/vs/basic-languages/redshift":
-    "QmRwGxW3JfMaSxPp1HLxqgudEvCAhRViDKVBBmvWUxCJdH",
+    "Qmc4HpE18351d6E6L3wi7XQxZvb4SmK1sHQLFC2nEkdVZi",
   "node_legacy/monaco-editor/min/vs/basic-languages/restructuredtext":
-    "QmaJJkoH5bAdk44aSd6La9fv6pp7rBCWaMYMAyM3NeW81G",
+    "QmXpuCKdfNF79YNgyJd8r9ETFa8D9bQtmt12punafZnud2",
   "node_legacy/monaco-editor/min/vs/basic-languages/ruby":
-    "QmPcNxpnmwHY5RLduDsfbdaTgdeGgab2WMzeZqoT7uoYwm",
+    "QmWRS8EfEuwxwvyJEBwjaJeaHd12cVZ6invTZgdr9zRY1c",
   "node_legacy/monaco-editor/min/vs/basic-languages/rust":
-    "QmQxZQGN5H3Hc62BGDmWkkfNvbJZzNTt9hxz5aeUDgFFs6",
+    "QmcvPfV4jTahRsUZHSjm5iy8bb9mURHAUnSYkw8dsAQstH",
   "node_legacy/monaco-editor/min/vs/basic-languages/sb":
-    "QmWxXcMDQc75toYz7MqVQmCHjm7HqFf2VA8ruuJvwarXGH",
+    "QmcB4xyRe3fkzt7BMkmQagQGR4px83mMLqzeZQnjZmU7Tj",
   "node_legacy/monaco-editor/min/vs/basic-languages/scala":
-    "QmWm9ecveEw7FzmM4n74UGJp7CxQ2rM5r4VfUMXxDWEvBs",
+    "QmezSQWgnnUQdavh7wKJeXoLm7kCHt5VqsUSjNtvC7ii6Q",
   "node_legacy/monaco-editor/min/vs/basic-languages/scheme":
-    "QmZnPhA5Z6seiaAjqQWJFgwpPF1CedEbCmgyDRkED6BiVk",
+    "QmZSN1RLK3u3oYTmSraKrekea8Wg5cauiU6td9e2VUz29z",
   "node_legacy/monaco-editor/min/vs/basic-languages/scss":
-    "QmPDiEAwBo2GvfAzsy4wuS8HfnEg6bhFD8FXExmbZoraJK",
+    "QmevN6zCrdjn1LNvMC8e4MJSyMNyXR2HbTQ7Q8tgantYqM",
   "node_legacy/monaco-editor/min/vs/basic-languages/shell":
-    "QmXi23r773GX3UiK99N5nxJKJEYX3WKDSVic7Wvd7omxrp",
+    "QmYpPiFnrdrhNhrvX7AvLYTDeTb7ivN1HBk7Fpg3mLVZjx",
   "node_legacy/monaco-editor/min/vs/basic-languages/solidity":
-    "QmYatCWQNfpkamevRwfPKeMnf9si1tpfETTZS2JjC9aUr5",
+    "QmVw6HLsUWBoD5N5ALgWiJPhfLmoW6Uoh1Qc3HarabH7L4",
   "node_legacy/monaco-editor/min/vs/basic-languages/sophia":
-    "QmSEU5hP4NWbTaWVEnDFJi8r9oSpVq7Ycb7QntFqhkxaHA",
+    "QmQvU8QfGx1dDcSC11KX2JWsWF67J2pzX7fQXsd7oNLZE1",
   "node_legacy/monaco-editor/min/vs/basic-languages/sql":
-    "QmV4TDHJauXLeB2afqonFtgUPh8s95EAT5j95VdAaPdL85",
+    "Qmd8cgNP3Wh9eXyhGCEpSzMW6bfvNGyw97aUfPDL2PWBi5",
   "node_legacy/monaco-editor/min/vs/basic-languages/st":
-    "QmP3bhF61vHS12XYTknowQYP5z3ALQoQo19kWfhRJ7QDr1",
+    "QmVFdZk8rBqWGrwsr7DyhEVQZmhgkq2aVCS4GBJY87g5Rq",
   "node_legacy/monaco-editor/min/vs/basic-languages/swift":
-    "QmaPYcPu9X2PuVgeUwBDfagsNmaRqwEHUboceSrVftyZiR",
+    "QmVS3sfPq5sRdkdmr3xgd5Rre5wg3r1d2gSRxNPFFHSDJv",
   "node_legacy/monaco-editor/min/vs/basic-languages/systemverilog":
-    "QmVFwum1sixYEB4krgsUReyHniQ1GWUiUXijYAnGEwFCaS",
+    "QmVNjnudJtNAa2r5K5BDMGtWsRiQfD2tNCZCYp9txSPdn8",
   "node_legacy/monaco-editor/min/vs/basic-languages/tcl":
-    "QmfARxmPVWAYuVLmsXCwkk315joAeht7jXz7693u28ptx2",
+    "QmZidpArXZtSBzjbe75DhpceaEbob2Yi6gxrPyMJ84VWEs",
   "node_legacy/monaco-editor/min/vs/basic-languages/twig":
-    "QmZPHGkzaXfqAABXQUa6cDvR6ZhV5RBwg9phZR155vJ2cN",
+    "QmTBnhVucBks3khJDfrTnKpuKLkDkrNuUQhVECV6xSwe5Y",
   "node_legacy/monaco-editor/min/vs/basic-languages/typescript":
-    "QmTg2B2eAsiLYe69KqhdQw1AVtdJwYKuUYyeyrLCBkYB66",
+    "QmQTonhaNaPKtAqzTZ7CUysVSoJfHD78u5c47HvUniq7Zq",
   "node_legacy/monaco-editor/min/vs/basic-languages/vb":
-    "QmQ6Y1g1N3vCgA6bjtVn863BePevZPWgfNTfARaMvCjUGG",
+    "QmcHTAmPTEPy6TFuAWzPffP8U8zmHdZbHjSY2Biy7DCy12",
   "node_legacy/monaco-editor/min/vs/basic-languages/xml":
-    "QmeQ5714oEi36YTxm5eiLLbuhrUnY4ZPDdBXH17vVUyCLQ",
+    "Qmdc9EQ5FJGYYRhwqX8KohpEJYeUrVEGncfFwmW4KQ2wBc",
   "node_legacy/monaco-editor/min/vs/basic-languages/yaml":
-    "QmUd2WPxAB1RSV1XWLXFHYAXehxEhNKQpbJ3zz7umZEFed",
+    "QmdXaTF1Y9KEUNN4tZejgRBiuboMrT4TPd2TdTMsmbXHrT",
   "node_legacy/monaco-editor/min/vs/basic-languages":
-    "Qmc8mbJnMDLZhQwGtG8RfJJs1TgAnqiprLn5uXf6sVcZYj",
+    "QmRrt8dUbKmQWEj1uC9rpp4prJGjFKnJtkDGg8ibjoCJgn",
   "node_legacy/monaco-editor/min/vs/editor":
-    "QmVUFqWPXS1FAn3RaWeMPnwKyvioXcaRBRN1ovQXfp4Lco",
+    "QmYYEXfBuLaErv7roYNbmxQ82YbGSsXBeM8g4ZFtJjP2iA",
   "node_legacy/monaco-editor/min/vs/language/css":
     "QmPDnPXa8zWX5YR5EG1b3dZTsxzkM5WpLQ6SgVUFCDgMPe",
   "node_legacy/monaco-editor/min/vs/language/html":
-    "QmTiGyK6pmfpxMHD6yDg8xQgLMNtYsMeAd8YeLzWEkSrTq",
+    "Qmegnn9B9NxFxrw7yWUbyFbGXzv3f1uDzDzd57zJYASdZG",
   "node_legacy/monaco-editor/min/vs/language/json":
-    "QmVtB8VTKSAcmyDex98sCTWwNwBNK5hufJo9CP6dqkERXo",
+    "QmRXC5S6FkSErKu7PYqKJZpBNrisBki8CTaSSYv3dfosCM",
   "node_legacy/monaco-editor/min/vs/language/typescript":
-    "QmUzSLvk4bGTNtMJ3CMXrD5esEJomL4kuQUkc4QHiZCFpc",
+    "QmcjPNQNCMSz7s6Tz4LEunRWapUSUNavvQayNBmhwXownn",
   "node_legacy/monaco-editor/min/vs/language":
-    "Qmd3Ze4ABrkuNrc1Hr5rwMHQyLKFusgJvkqgBsVjn7R22d",
+    "QmfDG82fuB948xyGbZa69d6NQYLQntDUF1opv7SodRKtek",
   "node_legacy/monaco-editor/min/vs":
-    "QmQZVEsJzjJEGB62w18pbKtKnDkyueYfPj1sK5kvRsYaBr",
+    "QmcDA2N6FzhcBmFpFq7APhbCFTA3wby9N97pWZYTVxLhyR",
   "node_legacy/monaco-editor/min":
-    "QmPJtimwMPUVq2HQvQAyA4p5CuLtxtMUhHpLBKg4ViM1Um",
+    "QmXeYgsttkzqXhevs2YjyxSRFncA1TUzm4x5s8ozrhrWg5",
   "node_legacy/monaco-editor/min-maps/vs/base/worker":
     "QmYRoYuqj7s3BniW4aGfKYtrSrPirhAfMbeZSm8c4LH1R2",
   "node_legacy/monaco-editor/min-maps/vs/base":
@@ -880,21 +880,21 @@ export const files = {
     "QmVD3qzMtKhaCSdESxNKGAA48KvjPHgznV6e5ygpY1nUjC",
   "node_legacy/monaco-editor/min-maps":
     "QmWS6URBS2wPhcuKFEZrRK4uhR8SbKZhqH8CNnUq5qKLNQ",
-  "node_legacy/monaco-editor": "QmQt4dedt4JAQn7AMnXmLqtZ24GDg9cibi6KYTzgjiTgDA",
-  "node_legacy": "QmU5XCza6Pd17Gw9XsaPhJRcUiVi3aTnngQuDQMWt5KD3K",
+  "node_legacy/monaco-editor": "QmY14onogVrjRUmQt2xhNPfMEwv9fd4MYuwtqY5stuizgA",
+  "node_legacy": "QmeGgHMjq4Z7eMPCd5t6MFLKBKdtxp7HiVXiYCyP2kD3ET",
   "src/emotion-react-renderer/dist":
     "QmWbJmMEBC8cUqtq2QvL8JXZsEUk3PnHXdAmUhxUrd8gr9",
   "src/emotion-react-renderer/src":
     "QmVSzquyAHah16xWEGMHoGTgEj3ZLNDenkoTCtQVuzaNDe",
   "src/emotion-react-renderer":
     "QmW29vkGzWGfi3ryEkFH1DhdrgH1ucMQkaiFD8LATykDBM",
-  "src/examples": "QmPysz1ZmDwk5yvsZtiKsnUekFXZiAERnPJh1Z8G5GZ5f7",
-  "src/qrious/dist": "QmXzecEjL8DUyY3QpjncnCf6pRpVmhcph3whb4t6RAiaVV",
+  "src/examples": "QmYEqZisoSCx5q8mwPVoRetHzjMqvQuyxBj4C22Jrqze1Y",
+  "src/qrious/dist": "QmWoqUkHfQ9sv4ZQb5vnRzpfXPz6V1zxCzDq5xcxvifKob",
   "src/qrious/src/service/element":
     "QmcP8FAooT6RDNr8SELNUQgQiGAfEXFULUoJ5FQCF4t7hN",
   "src/qrious/src/service": "QmVdYoXyeaPxymoWj9gaAWww2DJQTStjYtzqeZ9EdPH2bK",
   "src/qrious/src": "QmPS8uZ98ntMQpiUEdff7aszmuKLGS9r3grQFrrdYGy3qu",
-  "src/qrious": "QmQryLCaZ48YTiU4gEgWRr5A3bNBLhaHPzkhXyr2mmwLVJ",
+  "src/qrious": "QmWm79cwwN22UxgUnkAJfAXQrrVqfy1a5xYWjqaMfj4SyT",
   "src/shadb/dist/vendor": "QmTZzgTNwYe9ioj2zaZmme3LZLscde4D54r8J6HpaaHJ5x",
   "src/shadb/dist": "QmPs9fBmE8aZQd62NYjBoWBvdwKZkf45nu81byMAEgmwuQ",
   "src/shadb/src/vendor": "QmZcc5JirQ5ySPiELM4nJaVBLsKVL3vvNg2KE5uj7rGSr3",
@@ -958,8 +958,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
-  "src/workers": "QmTwg4KgXJox3RChkZKt9fYMDZcMWtPaZdFFRuP3rfXuLH",
-  "src": "QmcEkvYsnDysXyaqtyas9vDeh3FPsHCGTswsRVzGikNNAT",
-  "": "QmQuo6uETNwd5NnDM9WMDen7RTfSnX9nZd8RGqRznNkMqB",
+  "src/workers": "QmSN8QnRxpJQ5svN4Vtu4YdiJVvyzhGan5DFY1qF43UmYd",
+  "src": "QmZYfFZr3vPtrp5rGxkya3uBq1JbJhNoiJPLqDwmuLQQ2D",
+  "": "QmV7pz8rARBoFWmK45wNM45kFwwmzKjxT88KpVXEjS6QAW",
   "foo": "bar",
 };

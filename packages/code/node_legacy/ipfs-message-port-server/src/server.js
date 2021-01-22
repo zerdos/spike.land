@@ -1,8 +1,8 @@
-'use strict'
+"use strict";
 
 /* eslint-env browser */
 
-const { encodeError } = require('ipfs-message-port-protocol/src/error')
+const { encodeError } = require("ipfs-message-port-protocol/src/error");
 
 /**
  * @typedef {import('ipfs-message-port-protocol/src/data').EncodedError} EncodedError
@@ -97,28 +97,28 @@ const Query = class Query {
    * @param {Method<T>} method
    * @param {Inn<T>} input
    */
-  constructor (namespace, method, input) {
+  constructor(namespace, method, input) {
     this.result = new Promise((resolve, reject) => {
-      this.succeed = resolve
-      this.fail = reject
-      this.namespace = namespace
-      this.method = method
-      this.input = input
+      this.succeed = resolve;
+      this.fail = reject;
+      this.namespace = namespace;
+      this.method = method;
+      this.input = input;
 
-      this.abortController = new AbortController()
-      this.signal = this.abortController.signal
-    })
+      this.abortController = new AbortController();
+      this.signal = this.abortController.signal;
+    });
   }
 
   /**
    * Aborts this query if it is still pending.
    */
-  abort () {
-    this.abortController.abort()
-    this.fail(new AbortError())
+  abort() {
+    this.abortController.abort();
+    this.fail(new AbortError());
   }
-}
-exports.Query = Query
+};
+exports.Query = Query;
 
 /**
  * @template T
@@ -135,26 +135,26 @@ exports.Server = class Server {
   /**
    * @param {MultiService<T>} services
    */
-  constructor (services) {
-    this.services = services
+  constructor(services) {
+    this.services = services;
     /** @type {Record<string, Query<T>>} */
-    this.queries = Object.create(null)
+    this.queries = Object.create(null);
   }
 
   /**
    * @param {MessagePort} port
    */
-  connect (port) {
-    port.addEventListener('message', this)
-    port.start()
+  connect(port) {
+    port.addEventListener("message", this);
+    port.start();
   }
 
   /**
    * @param {MessagePort} port
    */
-  disconnect (port) {
-    port.removeEventListener('message', this)
-    port.close()
+  disconnect(port) {
+    port.removeEventListener("message", this);
+    port.close();
   }
 
   /**
@@ -163,24 +163,24 @@ exports.Server = class Server {
    * @param {MessageEvent} event
    * @returns {void}
    */
-  handleEvent (event) {
+  handleEvent(event) {
     /** @type {Message<T>} */
-    const data = event.data
+    const data = event.data;
     switch (data.type) {
-      case 'query': {
+      case "query": {
         this.handleQuery(
           data.id,
           new Query(data.namespace, data.method, data.input),
           /** @type {MessagePort} */
-          (event.target)
-        )
-        return undefined
+          (event.target),
+        );
+        return undefined;
       }
-      case 'abort': {
-        return this.abort(data.id)
+      case "abort": {
+        return this.abort(data.id);
       }
       default: {
-        throw new UnsupportedMessageError(event)
+        throw new UnsupportedMessageError(event);
       }
     }
   }
@@ -190,11 +190,11 @@ exports.Server = class Server {
    *
    * @param {string} id
    */
-  abort (id) {
-    const query = this.queries[id]
+  abort(id) {
+    const query = this.queries[id];
     if (query) {
-      delete this.queries[id]
-      query.abort()
+      delete this.queries[id];
+      query.abort();
     }
   }
 
@@ -205,26 +205,26 @@ exports.Server = class Server {
    * @param {Query<T>} query
    * @param {MessagePort} port
    */
-  async handleQuery (id, query, port) {
-    this.queries[id] = query
-    await this.run(query)
-    delete this.queries[id]
+  async handleQuery(id, query, port) {
+    this.queries[id] = query;
+    await this.run(query);
+    delete this.queries[id];
     if (!query.signal.aborted) {
       try {
-        const value = await query.result
-        const transfer = [...new Set(value.transfer || [])]
-        delete value.transfer
+        const value = await query.result;
+        const transfer = [...new Set(value.transfer || [])];
+        delete value.transfer;
 
         port.postMessage(
-          { type: 'result', id, result: { ok: true, value } },
-          transfer
-        )
+          { type: "result", id, result: { ok: true, value } },
+          transfer,
+        );
       } catch (error) {
         port.postMessage({
-          type: 'result',
+          type: "result",
           id,
-          result: { ok: false, error: encodeError(error) }
-        })
+          result: { ok: false, error: encodeError(error) },
+        });
       }
     }
   }
@@ -233,24 +233,27 @@ exports.Server = class Server {
    * @param {Query<T>} query
    * @returns {void}
    */
-  run (query) {
-    const { services } = this
-    const { namespace, method } = query
+  run(query) {
+    const { services } = this;
+    const { namespace, method } = query;
 
-    const service = services[namespace]
+    const service = services[namespace];
     if (service) {
-      if (typeof service[method] === 'function') {
+      if (typeof service[method] === "function") {
         try {
-          const result = service[method]({ ...query.input, signal: query.signal })
-          Promise.resolve(result).then(query.succeed, query.fail)
+          const result = service[method]({
+            ...query.input,
+            signal: query.signal,
+          });
+          Promise.resolve(result).then(query.succeed, query.fail);
         } catch (error) {
-          query.fail(error)
+          query.fail(error);
         }
       } else {
-        query.fail(new RangeError(`Method '${method}' is not found`))
+        query.fail(new RangeError(`Method '${method}' is not found`));
       }
     } else {
-      query.fail(new RangeError(`Namespace '${namespace}' is not found`))
+      query.fail(new RangeError(`Namespace '${namespace}' is not found`));
     }
   }
 
@@ -258,32 +261,33 @@ exports.Server = class Server {
    * @param {RPCQuery<T>} data
    * @returns {Out<T>}
    */
-  execute (data) {
-    const query = new Query(data.namespace, data.method, data.input)
-    this.run(query)
+  execute(data) {
+    const query = new Query(data.namespace, data.method, data.input);
+    this.run(query);
 
-    return query.result
+    return query.result;
   }
-}
+};
 
-const UnsupportedMessageError = class UnsupportedMessageError extends RangeError {
+const UnsupportedMessageError = class UnsupportedMessageError
+  extends RangeError {
   /**
    * @param {MessageEvent} event
    */
-  constructor (event) {
-    super('Unexpected message was received by the server')
-    this.event = event
+  constructor(event) {
+    super("Unexpected message was received by the server");
+    this.event = event;
   }
 
-  get name () {
-    return this.constructor.name
+  get name() {
+    return this.constructor.name;
   }
-}
-exports.UnsupportedMessageError = UnsupportedMessageError
+};
+exports.UnsupportedMessageError = UnsupportedMessageError;
 
 const AbortError = class AbortError extends Error {
-  get name () {
-    return this.constructor.name
+  get name() {
+    return this.constructor.name;
   }
-}
-exports.AbortError = AbortError
+};
+exports.AbortError = AbortError;

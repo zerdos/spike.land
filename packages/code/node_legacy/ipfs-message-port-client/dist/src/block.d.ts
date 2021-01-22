@@ -13,11 +13,11 @@ declare const BlockClient_base: typeof import("./client");
  * @extends {Client<BlockService>}
  */
 declare class BlockClient extends BlockClient_base {
-    /**
+  /**
      * @param {MessageTransport} transport
      */
-    constructor(transport: MessageTransport);
-    /**
+  constructor(transport: MessageTransport);
+  /**
      * Get a raw IPFS block.
      *
      * @param {CID} cid - A CID that corresponds to the desired block
@@ -29,12 +29,15 @@ declare class BlockClient extends BlockClient_base {
      * worker if passed.
      * @returns {Promise<Block>}
      */
-    get(cid: CID, options?: {
-        timeout?: number | undefined;
-        signal?: AbortSignal | undefined;
-        transfer?: Transferable[] | undefined;
-    } | undefined): Promise<Block>;
-    /**
+  get(
+    cid: CID,
+    options?: {
+      timeout?: number | undefined;
+      signal?: AbortSignal | undefined;
+      transfer?: Transferable[] | undefined;
+    } | undefined,
+  ): Promise<Block>;
+  /**
      * Stores input as an IPFS block.
      *
      * @param {Block|Uint8Array} block - A Block or Uint8Array of block data
@@ -56,18 +59,21 @@ declare class BlockClient extends BlockClient_base {
      * worker if passed.
      * @returns {Promise<Block>}
      */
-    put(block: Block | Uint8Array, options?: {
-        cid?: import("cids") | undefined;
-        format?: string | undefined;
-        mhtype?: string | undefined;
-        version?: 0 | 1 | undefined;
-        mhlen?: number | undefined;
-        pin?: boolean | undefined;
-        timeout?: number | undefined;
-        signal?: AbortSignal | undefined;
-        transfer?: Transferable[] | undefined;
-    } | undefined): Promise<Block>;
-    /**
+  put(
+    block: Block | Uint8Array,
+    options?: {
+      cid?: import("cids") | undefined;
+      format?: string | undefined;
+      mhtype?: string | undefined;
+      version?: 0 | 1 | undefined;
+      mhlen?: number | undefined;
+      pin?: boolean | undefined;
+      timeout?: number | undefined;
+      signal?: AbortSignal | undefined;
+      transfer?: Transferable[] | undefined;
+    } | undefined,
+  ): Promise<Block>;
+  /**
      * Remove one or more IPFS block(s).
      *
      * @param {CID|CID[]} cids - Block(s) to be removed
@@ -85,17 +91,20 @@ declare class BlockClient extends BlockClient_base {
      * @property {CID} cid
      * @property {Error|void} [error]
      */
-    rm(cids: CID | CID[], options?: {
-        force?: boolean | undefined;
-        quiet?: boolean | undefined;
-        timeout?: number | undefined;
-        signal?: AbortSignal | undefined;
-        transfer?: Transferable[] | undefined;
-    } | undefined): AsyncIterable<{
-        cid: CID;
-        error?: void | Error | undefined;
-    }>;
-    /**
+  rm(
+    cids: CID | CID[],
+    options?: {
+      force?: boolean | undefined;
+      quiet?: boolean | undefined;
+      timeout?: number | undefined;
+      signal?: AbortSignal | undefined;
+      transfer?: Transferable[] | undefined;
+    } | undefined,
+  ): AsyncIterable<{
+    cid: CID;
+    error?: void | Error | undefined;
+  }>;
+  /**
      * Returns information about a raw IPFS block.
      *
      * @param {CID} cid - Block to get information about.
@@ -111,28 +120,41 @@ declare class BlockClient extends BlockClient_base {
      * @property {CID} cid
      * @property {number} size
      */
-    stat(cid: CID, options?: {
-        timeout?: number | undefined;
-        signal?: AbortSignal | undefined;
-        transfer?: Transferable[] | undefined;
-    } | undefined): Promise<{
-        cid: CID;
-        size: number;
-    }>;
+  stat(
+    cid: CID,
+    options?: {
+      timeout?: number | undefined;
+      signal?: AbortSignal | undefined;
+      transfer?: Transferable[] | undefined;
+    } | undefined,
+  ): Promise<{
+    cid: CID;
+    size: number;
+  }>;
 }
 declare namespace BlockClient {
-    export { CID, Block, EncodedBlock, EncodedRmEntry, BlockService, MessageTransport };
+  export {
+    Block,
+    BlockService,
+    CID,
+    EncodedBlock,
+    EncodedRmEntry,
+    MessageTransport,
+  };
 }
 type CID = import("cids");
 type Block = any;
 type MessageTransport = import("./client/transport");
 type EncodedBlock = {
-    data: Uint8Array;
-    cid: import("ipfs-message-port-protocol/src/block").EncodedCID;
+  data: Uint8Array;
+  cid: import("ipfs-message-port-protocol/src/block").EncodedCID;
 };
 type EncodedRmEntry = {
-    cid: import("ipfs-message-port-server/src/block").EncodedCID;
-    error?: Error | import("ipfs-message-port-protocol/src/error").ErrorData | undefined;
+  cid: import("ipfs-message-port-server/src/block").EncodedCID;
+  error?:
+    | Error
+    | import("ipfs-message-port-protocol/src/error").ErrorData
+    | undefined;
 };
 type BlockService = import("ipfs-message-port-server/src/block").BlockService;
 //# sourceMappingURL=block.d.ts.map

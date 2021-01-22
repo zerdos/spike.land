@@ -1,9 +1,9 @@
 importScripts(
-  "./ipfs/node_legacy/ipfs.min.js"
+  "./ipfs/node_legacy/ipfs.min.js",
 );
 
 importScripts(
-  "./ipfs/dist/ipfs.server.js"
+  "./ipfs/dist/ipfs.server.js",
 );
 
 // @ts-ignore

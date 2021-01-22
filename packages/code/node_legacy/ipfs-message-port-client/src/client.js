@@ -1,8 +1,8 @@
-'use strict'
+"use strict";
 
 /* eslint-env browser */
 
-const Service = require('./client/service')
+const Service = require("./client/service");
 
 /**
  * @template T
@@ -39,11 +39,11 @@ module.exports = class Client {
    * @param {ProcedureNames<T>} methods
    * @param {MessageTransport} transport
    */
-  constructor (namespace, methods, transport) {
+  constructor(namespace, methods, transport) {
     /** @type {RemoteService<T>} */
-    this.remote = (new Service(namespace, methods, transport))
+    this.remote = (new Service(namespace, methods, transport));
   }
-}
+};
 
 /**
  * @typedef {import('./client/transport')} MessageTransport

@@ -1,12 +1,12 @@
-'use strict'
+"use strict";
 
-const collect = require('it-all')
-const { encodeError } = require('ipfs-message-port-protocol/src/error')
-const { decodeCID, encodeCID } = require('ipfs-message-port-protocol/src/cid')
+const collect = require("it-all");
+const { encodeError } = require("ipfs-message-port-protocol/src/error");
+const { decodeCID, encodeCID } = require("ipfs-message-port-protocol/src/cid");
 const {
   decodeBlock,
-  encodeBlock
-} = require('ipfs-message-port-protocol/src/block')
+  encodeBlock,
+} = require("ipfs-message-port-protocol/src/block");
 
 /**
  * @typedef {import('./ipfs').IPFS} IPFS
@@ -23,8 +23,8 @@ exports.BlockService = class BlockService {
   /**
    * @param {IPFS} ipfs
    */
-  constructor (ipfs) {
-    this.ipfs = ipfs
+  constructor(ipfs) {
+    this.ipfs = ipfs;
   }
 
   /**
@@ -40,12 +40,12 @@ exports.BlockService = class BlockService {
    * @param {GetQuery} query
    * @returns {Promise<GetResult>}
    */
-  async get (query) {
-    const cid = decodeCID(query.cid)
-    const block = await this.ipfs.block.get(cid, query)
+  async get(query) {
+    const cid = decodeCID(query.cid);
+    const block = await this.ipfs.block.get(cid, query);
     /** @type {Transferable[]} */
-    const transfer = []
-    return { transfer, block: encodeBlock(block, transfer) }
+    const transfer = [];
+    return { transfer, block: encodeBlock(block, transfer) };
   }
 
   /**
@@ -69,18 +69,18 @@ exports.BlockService = class BlockService {
    * @param {PutQuery} query
    * @returns {Promise<PutResult>}
    */
-  async put (query) {
-    const input = query.block
+  async put(query) {
+    const input = query.block;
     /** @type {Uint8Array|Block} */
-    const block = input instanceof Uint8Array ? input : decodeBlock(input)
+    const block = input instanceof Uint8Array ? input : decodeBlock(input);
     const result = await this.ipfs.block.put(block, {
       ...query,
-      cid: query.cid ? decodeCID(query.cid) : query.cid
-    })
+      cid: query.cid ? decodeCID(query.cid) : query.cid,
+    });
 
     /** @type {Transferable[]} */
-    const transfer = []
-    return { transfer, block: encodeBlock(result, transfer) }
+    const transfer = [];
+    return { transfer, block: encodeBlock(result, transfer) };
   }
 
   /**
@@ -101,14 +101,14 @@ exports.BlockService = class BlockService {
    * @param {RmQuery} query
    * @returns {Promise<RmResult>}
    */
-  async rm (query) {
+  async rm(query) {
     /** @type {Transferable[]} */
-    const transfer = []
+    const transfer = [];
     const result = await collect(
-      this.ipfs.block.rm(query.cids.map(decodeCID), query)
-    )
+      this.ipfs.block.rm(query.cids.map(decodeCID), query),
+    );
 
-    return result.map(entry => encodeRmEntry(entry, transfer))
+    return result.map((entry) => encodeRmEntry(entry, transfer));
   }
 
   /**
@@ -126,12 +126,12 @@ exports.BlockService = class BlockService {
    * @param {StatQuery} query
    * @returns {Promise<StatResult>}
    */
-  async stat (query) {
-    const cid = decodeCID(query.cid)
-    const result = await this.ipfs.block.stat(cid, query)
-    return { ...result, cid: encodeCID(result.cid) }
+  async stat(query) {
+    const cid = decodeCID(query.cid);
+    const result = await this.ipfs.block.stat(cid, query);
+    return { ...result, cid: encodeCID(result.cid) };
   }
-}
+};
 
 /**
  * @param {Object} entry
@@ -141,10 +141,10 @@ exports.BlockService = class BlockService {
  * @returns {RmEntry}
  */
 const encodeRmEntry = (entry, transfer) => {
-  const cid = encodeCID(entry.cid, transfer)
+  const cid = encodeCID(entry.cid, transfer);
   if (entry.error) {
-    return { cid, error: encodeError(entry.error) }
+    return { cid, error: encodeError(entry.error) };
   } else {
-    return { cid }
+    return { cid };
   }
-}
+};

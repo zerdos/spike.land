@@ -10,11 +10,11 @@ declare const FilesClient_base: typeof import("./client");
  * @extends {Client<FilesService>}
  */
 declare class FilesClient extends FilesClient_base {
-    /**
+  /**
      * @param {MessageTransport} transport
      */
-    constructor(transport: MessageTransport);
-    /**
+  constructor(transport: MessageTransport);
+  /**
      * @typedef {Object} Stat
      * @property {CID} cid Content identifier.
      * @property {number} size File size in bytes.
@@ -35,58 +35,61 @@ declare class FilesClient extends FilesClient_base {
      * @param {AbortSignal} [options.signal]
      * @returns {Promise<Stat>}
      */
-    stat(pathOrCID: string | import("cids"), options?: {
-        hash?: boolean | undefined;
-        size?: boolean | undefined;
-        withLocal?: boolean | undefined;
-        timeout?: number | undefined;
-        signal?: AbortSignal | undefined;
-    } | undefined): Promise<{
-        /**
+  stat(
+    pathOrCID: string | import("cids"),
+    options?: {
+      hash?: boolean | undefined;
+      size?: boolean | undefined;
+      withLocal?: boolean | undefined;
+      timeout?: number | undefined;
+      signal?: AbortSignal | undefined;
+    } | undefined,
+  ): Promise<{
+    /**
          * Content identifier.
          */
-        cid: import("cids");
-        /**
+    cid: import("cids");
+    /**
          * File size in bytes.
          */
-        size: number;
-        /**
+    size: number;
+    /**
          * Size of the DAGNodes making up the file in bytes.
          */
-        cumulativeSize: number;
-        type: "directory" | "file";
-        /**
+    cumulativeSize: number;
+    type: "directory" | "file";
+    /**
          * Number of files making up directory (when a direcotry)
          * or number of blocks that make up the file (when a file)
          */
-        blocks: number;
-        /**
+    blocks: number;
+    /**
          * True when locality information is present
          */
-        withLocality: boolean;
-        /**
+    withLocality: boolean;
+    /**
          * True if the queried dag is fully present locally
          */
-        local: boolean;
-        /**
+    local: boolean;
+    /**
          * Cumulative size of the data present locally
          */
-        sizeLocal: number;
-    }>;
+    sizeLocal: number;
+  }>;
 }
 declare namespace FilesClient {
-    export { FilesService, EncodedStat, MessageTransport };
+  export { EncodedStat, FilesService, MessageTransport };
 }
 type MessageTransport = import("./client/transport");
 type FilesService = import("ipfs-message-port-server/src/files").FilesService;
 type EncodedStat = {
-    cid: import("ipfs-message-port-server/src/files").EncodedCID;
-    size: number;
-    cumulativeSize: number;
-    type: "file" | "directory";
-    blocks: number;
-    withLocality: boolean;
-    local: boolean;
-    sizeLocal: number;
+  cid: import("ipfs-message-port-server/src/files").EncodedCID;
+  size: number;
+  cumulativeSize: number;
+  type: "file" | "directory";
+  blocks: number;
+  withLocality: boolean;
+  local: boolean;
+  sizeLocal: number;
 };
 //# sourceMappingURL=files.d.ts.map

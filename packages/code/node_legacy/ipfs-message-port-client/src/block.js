@@ -1,12 +1,12 @@
-'use strict'
+"use strict";
 
-const Client = require('./client')
-const { encodeCID, decodeCID } = require('ipfs-message-port-protocol/src/cid')
-const { decodeError } = require('ipfs-message-port-protocol/src/error')
+const Client = require("./client");
+const { encodeCID, decodeCID } = require("ipfs-message-port-protocol/src/cid");
+const { decodeError } = require("ipfs-message-port-protocol/src/error");
 const {
   encodeBlock,
-  decodeBlock
-} = require('ipfs-message-port-protocol/src/block')
+  decodeBlock,
+} = require("ipfs-message-port-protocol/src/block");
 
 /**
  * @typedef {import('cids')} CID
@@ -25,8 +25,8 @@ class BlockClient extends Client {
   /**
    * @param {MessageTransport} transport
    */
-  constructor (transport) {
-    super('block', ['put', 'get', 'rm', 'stat'], transport)
+  constructor(transport) {
+    super("block", ["put", "get", "rm", "stat"], transport);
   }
 
   /**
@@ -41,13 +41,13 @@ class BlockClient extends Client {
    * worker if passed.
    * @returns {Promise<Block>}
    */
-  async get (cid, options = {}) {
-    const { transfer } = options
+  async get(cid, options = {}) {
+    const { transfer } = options;
     const { block } = await this.remote.get({
       ...options,
-      cid: encodeCID(cid, transfer)
-    })
-    return decodeBlock(block)
+      cid: encodeCID(cid, transfer),
+    });
+    return decodeBlock(block);
   }
 
   /**
@@ -72,17 +72,17 @@ class BlockClient extends Client {
    * worker if passed.
    * @returns {Promise<Block>}
    */
-  async put (block, options = {}) {
-    const { transfer } = options
+  async put(block, options = {}) {
+    const { transfer } = options;
     // @ts-ignore - ipfs-unixfs-importer passes `progress` which causing errors
     // because functions can't be transferred.
-    delete options.progress
+    delete options.progress;
     const result = await this.remote.put({
       ...options,
       cid: options.cid == null ? undefined : encodeCID(options.cid, transfer),
-      block: block instanceof Uint8Array ? block : encodeBlock(block, transfer)
-    })
-    return decodeBlock(result.block)
+      block: block instanceof Uint8Array ? block : encodeBlock(block, transfer),
+    });
+    return decodeBlock(result.block);
   }
 
   /**
@@ -103,16 +103,16 @@ class BlockClient extends Client {
    * @property {CID} cid
    * @property {Error|void} [error]
    */
-  async * rm (cids, options = {}) {
-    const { transfer } = options
+  async *rm(cids, options = {}) {
+    const { transfer } = options;
     const entries = await this.remote.rm({
       ...options,
       cids: Array.isArray(cids)
-        ? cids.map(cid => encodeCID(cid, transfer))
-        : [encodeCID(cids, transfer)]
-    })
+        ? cids.map((cid) => encodeCID(cid, transfer))
+        : [encodeCID(cids, transfer)],
+    });
 
-    yield * entries.map(decodeRmEntry)
+    yield* entries.map(decodeRmEntry);
   }
 
   /**
@@ -131,14 +131,14 @@ class BlockClient extends Client {
    * @property {CID} cid
    * @property {number} size
    */
-  async stat (cid, options = {}) {
-    const { transfer } = options
+  async stat(cid, options = {}) {
+    const { transfer } = options;
     const result = await this.remote.stat({
       ...options,
-      cid: encodeCID(cid, transfer)
-    })
+      cid: encodeCID(cid, transfer),
+    });
 
-    return { ...result, cid: decodeCID(result.cid) }
+    return { ...result, cid: decodeCID(result.cid) };
   }
 }
 
@@ -146,13 +146,13 @@ class BlockClient extends Client {
  * @param {EncodedRmEntry} entry
  * @returns {RmEntry}
  */
-const decodeRmEntry = entry => {
-  const cid = decodeCID(entry.cid)
+const decodeRmEntry = (entry) => {
+  const cid = decodeCID(entry.cid);
   if (entry.error) {
-    return { cid, error: decodeError(entry.error) }
+    return { cid, error: decodeError(entry.error) };
   } else {
-    return { cid }
+    return { cid };
   }
-}
+};
 
-module.exports = BlockClient
+module.exports = BlockClient;

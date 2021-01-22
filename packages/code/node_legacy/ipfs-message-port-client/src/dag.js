@@ -1,8 +1,10 @@
-'use strict'
+"use strict";
 
-const Client = require('./client')
-const { encodeCID, decodeCID } = require('ipfs-message-port-protocol/src/cid')
-const { encodeNode, decodeNode } = require('ipfs-message-port-protocol/src/dag')
+const Client = require("./client");
+const { encodeCID, decodeCID } = require("ipfs-message-port-protocol/src/cid");
+const { encodeNode, decodeNode } = require(
+  "ipfs-message-port-protocol/src/dag",
+);
 
 /**
  * @typedef {import('cids')} CID
@@ -22,8 +24,8 @@ class DAGClient extends Client {
   /**
    * @param {MessageTransport} transport
    */
-  constructor (transport) {
-    super('dag', ['put', 'get', 'resolve', 'tree'], transport)
+  constructor(transport) {
+    super("dag", ["put", "get", "resolve", "tree"], transport);
   }
 
   /**
@@ -39,16 +41,16 @@ class DAGClient extends Client {
    * @param {AbortSignal} [options.signal] - Can be used to cancel any long running requests started as a result of this call.
    * @returns {Promise<CID>}
    */
-  async put (dagNode, options = {}) {
-    const { cid } = options
+  async put(dagNode, options = {}) {
+    const { cid } = options;
 
     const encodedCID = await this.remote.put({
       ...options,
       cid: cid != null ? encodeCID(cid) : undefined,
-      dagNode: encodeNode(dagNode, options.transfer)
-    })
+      dagNode: encodeNode(dagNode, options.transfer),
+    });
 
-    return decodeCID(encodedCID)
+    return decodeCID(encodedCID);
   }
 
   /**
@@ -61,13 +63,13 @@ class DAGClient extends Client {
    * @param {AbortSignal} [options.signal]
    * @returns {Promise<DAGEntry>}
    */
-  async get (cid, options = {}) {
+  async get(cid, options = {}) {
     const { value, remainderPath } = await this.remote.get({
       ...options,
-      cid: encodeCID(cid, options.transfer)
-    })
+      cid: encodeCID(cid, options.transfer),
+    });
 
-    return { value: decodeNode(value), remainderPath }
+    return { value: decodeNode(value), remainderPath };
   }
 
   /**
@@ -83,13 +85,13 @@ class DAGClient extends Client {
    * @param {AbortSignal} [options.signal]
    * @returns {Promise<ResolveResult>}
    */
-  async resolve (cid, options = {}) {
+  async resolve(cid, options = {}) {
     const { cid: encodedCID, remainderPath } = await this.remote.resolve({
       ...options,
-      cid: encodeCIDOrPath(cid, options.transfer)
-    })
+      cid: encodeCIDOrPath(cid, options.transfer),
+    });
 
-    return { cid: decodeCID(encodedCID), remainderPath }
+    return { cid: decodeCID(encodedCID), remainderPath };
   }
 
   /**
@@ -104,13 +106,13 @@ class DAGClient extends Client {
    * @param {AbortSignal} [options.signal]
    * @returns {AsyncIterable<string>}
    */
-  async * tree (cid, options = {}) {
+  async *tree(cid, options = {}) {
     const paths = await this.remote.tree({
       ...options,
-      cid: encodeCID(cid, options.transfer)
-    })
+      cid: encodeCID(cid, options.transfer),
+    });
 
-    yield * paths
+    yield* paths;
   }
 }
 
@@ -120,11 +122,11 @@ class DAGClient extends Client {
  * @returns {string|EncodedCID}
  */
 const encodeCIDOrPath = (input, transfer) => {
-  if (typeof input === 'string') {
-    return input
+  if (typeof input === "string") {
+    return input;
   } else {
-    return encodeCID(input, transfer)
+    return encodeCID(input, transfer);
   }
-}
+};
 
-module.exports = DAGClient
+module.exports = DAGClient;

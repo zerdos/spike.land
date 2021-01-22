@@ -1,17 +1,19 @@
-'use strict'
+"use strict";
 
 /* eslint-env browser */
 
-const Client = require('./client')
-const { encodeCID, decodeCID, CID } = require('ipfs-message-port-protocol/src/cid')
+const Client = require("./client");
+const { encodeCID, decodeCID, CID } = require(
+  "ipfs-message-port-protocol/src/cid",
+);
 const {
   decodeIterable,
   encodeIterable,
-  encodeCallback
-} = require('ipfs-message-port-protocol/src/core')
+  encodeCallback,
+} = require("ipfs-message-port-protocol/src/core");
 /** @type {<T>(stream:ReadableStream<T>) => AsyncIterable<T>} */
 // @ts-ignore - browser-stream-to-it has not types
-const iterateReadableStream = require('browser-readablestream-to-it')
+const iterateReadableStream = require("browser-readablestream-to-it");
 
 /**
  * @template T
@@ -62,8 +64,8 @@ class CoreClient extends Client {
   /**
    * @param {MessageTransport} transport
    */
-  constructor (transport) {
-    super('core', ['add', 'addAll', 'cat', 'ls'], transport)
+  constructor(transport) {
+    super("core", ["add", "addAll", "cat", "ls"], transport);
   }
 
   /**
@@ -75,12 +77,12 @@ class CoreClient extends Client {
    *
    * @type {import('.').Implements<typeof import('ipfs-core/src/components/add-all')>}
    */
-  async * addAll (input, options = {}) {
-    const { timeout, signal } = options
-    const transfer = [...(options.transfer || [])]
+  async *addAll(input, options = {}) {
+    const { timeout, signal } = options;
+    const transfer = [...(options.transfer || [])];
     const progress = options.progress
       ? encodeCallback(options.progress, transfer)
-      : undefined
+      : undefined;
 
     const result = await this.remote.addAll({
       ...options,
@@ -88,9 +90,9 @@ class CoreClient extends Client {
       progress,
       transfer,
       timeout,
-      signal
-    })
-    yield * decodeIterable(result.data, decodeAddedData)
+      signal,
+    });
+    yield* decodeIterable(result.data, decodeAddedData);
   }
 
   /**
@@ -102,12 +104,12 @@ class CoreClient extends Client {
    *
    * @type {import('.').Implements<typeof import('ipfs-core/src/components/add')>}
    */
-  async add (input, options = {}) {
-    const { timeout, signal } = options
-    const transfer = [...(options.transfer || [])]
+  async add(input, options = {}) {
+    const { timeout, signal } = options;
+    const transfer = [...(options.transfer || [])];
     const progress = options.progress
       ? encodeCallback(options.progress, transfer)
-      : undefined
+      : undefined;
 
     const result = await this.remote.add({
       ...options,
@@ -115,10 +117,10 @@ class CoreClient extends Client {
       progress,
       transfer,
       timeout,
-      signal
-    })
+      signal,
+    });
 
-    return decodeAddedData(result.data)
+    return decodeAddedData(result.data);
   }
 
   /**
@@ -132,10 +134,10 @@ class CoreClient extends Client {
    * @param {AbortSignal} [options.signal]
    * @returns {AsyncIterable<Uint8Array>}
    */
-  async * cat (inputPath, options = {}) {
-    const input = CID.isCID(inputPath) ? encodeCID(inputPath) : inputPath
-    const result = await this.remote.cat({ ...options, path: input })
-    yield * decodeIterable(result.data, identity)
+  async *cat(inputPath, options = {}) {
+    const input = CID.isCID(inputPath) ? encodeCID(inputPath) : inputPath;
+    const result = await this.remote.cat({ ...options, path: input });
+    yield* decodeIterable(result.data, identity);
   }
 
   /**
@@ -149,11 +151,11 @@ class CoreClient extends Client {
    * @param {AbortSignal} [options.signal]
    * @returns {AsyncIterable<LsEntry>}
    */
-  async * ls (inputPath, options = {}) {
-    const input = CID.isCID(inputPath) ? encodeCID(inputPath) : inputPath
-    const result = await this.remote.ls({ ...options, path: input })
+  async *ls(inputPath, options = {}) {
+    const input = CID.isCID(inputPath) ? encodeCID(inputPath) : inputPath;
+    const result = await this.remote.ls({ ...options, path: input });
 
-    yield * decodeIterable(result.data, decodeLsEntry)
+    yield* decodeIterable(result.data, decodeLsEntry);
   }
 }
 
@@ -169,15 +171,17 @@ const decodeAddedData = ({ path, cid, mode, mtime, size }) => {
     cid: decodeCID(cid),
     mode,
     mtime,
-    size
-  }
-}
+    size,
+  };
+};
 
 /**
  * @param {EncodedLsEntry} encodedEntry
  * @returns {LsEntry}
  */
-const decodeLsEntry = ({ depth, name, path, size, cid, type, mode, mtime }) => ({
+const decodeLsEntry = (
+  { depth, name, path, size, cid, type, mode, mtime },
+) => ({
   cid: decodeCID(cid),
   type,
   name,
@@ -185,15 +189,15 @@ const decodeLsEntry = ({ depth, name, path, size, cid, type, mode, mtime }) => (
   mode,
   mtime,
   size,
-  depth
-})
+  depth,
+});
 
 /**
  * @template T
  * @param {T} v
  * @returns {T}
  */
-const identity = (v) => v
+const identity = (v) => v;
 
 /**
  * Encodes input passed to the `ipfs.add` via the best possible strategy for the
@@ -206,48 +210,48 @@ const identity = (v) => v
 const encodeAddInput = (input, transfer) => {
   // We want to get a Blob as input. If we got it we're set.
   if (input instanceof Blob) {
-    return input
-  } else if (typeof input === 'string') {
-    return input
+    return input;
+  } else if (typeof input === "string") {
+    return input;
   } else if (input instanceof ArrayBuffer) {
-    return input
+    return input;
   } else if (ArrayBuffer.isView(input)) {
     // Note we are not adding `input.buffer` into transfer list, it's on user.
-    return input
+    return input;
   } else {
     // If input is (async) iterable or `ReadableStream` or "FileObject" it will
     // be encoded via own specific encoder.
-    const iterable = asIterable(input)
+    const iterable = asIterable(input);
     if (iterable) {
-      return encodeIterable(iterable, encodeIterableContent, transfer)
+      return encodeIterable(iterable, encodeIterableContent, transfer);
     }
 
-    const asyncIterable = asAsyncIterable(input)
+    const asyncIterable = asAsyncIterable(input);
     if (asyncIterable) {
       return encodeIterable(
         asyncIterable,
         encodeAsyncIterableContent,
-        transfer
-      )
+        transfer,
+      );
     }
 
-    const readableStream = asReadableStream(input)
+    const readableStream = asReadableStream(input);
     if (readableStream) {
       return encodeIterable(
         iterateReadableStream(readableStream),
         encodeAsyncIterableContent,
-        transfer
-      )
+        transfer,
+      );
     }
 
-    const file = asFileObject(input)
+    const file = asFileObject(input);
     if (file) {
-      return encodeFileObject(file, transfer)
+      return encodeFileObject(file, transfer);
     }
 
-    throw TypeError('Unexpected input: ' + typeof input)
+    throw TypeError("Unexpected input: " + typeof input);
   }
-}
+};
 
 /**
  * Encodes input passed to the `ipfs.add` via the best possible strategy for the
@@ -260,31 +264,31 @@ const encodeAddInput = (input, transfer) => {
 const encodeAddAllInput = (input, transfer) => {
   // If input is (async) iterable or `ReadableStream` or "FileObject" it will
   // be encoded via own specific encoder.
-  const iterable = asIterable(input)
+  const iterable = asIterable(input);
   if (iterable) {
-    return encodeIterable(iterable, encodeIterableContent, transfer)
+    return encodeIterable(iterable, encodeIterableContent, transfer);
   }
 
-  const asyncIterable = asAsyncIterable(input)
+  const asyncIterable = asAsyncIterable(input);
   if (asyncIterable) {
     return encodeIterable(
       asyncIterable,
       encodeAsyncIterableContent,
-      transfer
-    )
+      transfer,
+    );
   }
 
-  const readableStream = asReadableStream(input)
+  const readableStream = asReadableStream(input);
   if (readableStream) {
     return encodeIterable(
       iterateReadableStream(readableStream),
       encodeAsyncIterableContent,
-      transfer
-    )
+      transfer,
+    );
   }
 
-  throw TypeError('Unexpected input: ' + typeof input)
-}
+  throw TypeError("Unexpected input: " + typeof input);
+};
 
 /**
  * Function encodes individual item of some `AsyncIterable` by choosing most
@@ -296,22 +300,22 @@ const encodeAddAllInput = (input, transfer) => {
  */
 const encodeAsyncIterableContent = (content, transfer) => {
   if (content instanceof ArrayBuffer) {
-    return content
+    return content;
   } else if (ArrayBuffer.isView(content)) {
-    return content
+    return content;
   } else if (content instanceof Blob) {
-    return { path: '', content }
-  } else if (typeof content === 'string') {
-    return { path: '', content }
+    return { path: "", content };
+  } else if (typeof content === "string") {
+    return { path: "", content };
   } else {
-    const file = asFileObject(content)
+    const file = asFileObject(content);
     if (file) {
-      return encodeFileObject(file, transfer)
+      return encodeFileObject(file, transfer);
     } else {
-      throw TypeError('Unexpected input: ' + typeof content)
+      throw TypeError("Unexpected input: " + typeof content);
     }
   }
-}
+};
 
 /**
  * @param {number|Bytes|Blob|string|FileObject|void} content
@@ -319,25 +323,25 @@ const encodeAsyncIterableContent = (content, transfer) => {
  * @returns {FileInput|ArrayBuffer|ArrayBufferView}
  */
 const encodeIterableContent = (content, transfer) => {
-  if (typeof content === 'number') {
-    throw TypeError('Iterable of numbers is not supported')
+  if (typeof content === "number") {
+    throw TypeError("Iterable of numbers is not supported");
   } else if (content instanceof ArrayBuffer) {
-    return content
+    return content;
   } else if (ArrayBuffer.isView(content)) {
-    return content
+    return content;
   } else if (content instanceof Blob) {
-    return { path: '', content }
-  } else if (typeof content === 'string') {
-    return { path: '', content }
+    return { path: "", content };
+  } else if (typeof content === "string") {
+    return { path: "", content };
   } else {
-    const file = asFileObject(content)
+    const file = asFileObject(content);
     if (file) {
-      return encodeFileObject(file, transfer)
+      return encodeFileObject(file, transfer);
     } else {
-      throw TypeError('Unexpected input: ' + typeof content)
+      throw TypeError("Unexpected input: " + typeof content);
     }
   }
-}
+};
 
 /**
  * @param {FileObject} file
@@ -349,9 +353,9 @@ const encodeFileObject = ({ path, mode, mtime, content }, transfer) => {
     path,
     mode,
     mtime,
-    content: content ? encodeFileContent(content, transfer) : undefined
-  }
-}
+    content: content ? encodeFileContent(content, transfer) : undefined,
+  };
+};
 
 /**
  *
@@ -361,40 +365,40 @@ const encodeFileObject = ({ path, mode, mtime, content }, transfer) => {
  */
 const encodeFileContent = (content, transfer) => {
   if (content == null) {
-    return ''
+    return "";
   } else if (content instanceof ArrayBuffer || ArrayBuffer.isView(content)) {
-    return content
+    return content;
   } else if (content instanceof Blob) {
-    return content
-  } else if (typeof content === 'string') {
-    return content
+    return content;
+  } else if (typeof content === "string") {
+    return content;
   } else {
-    const iterable = asIterable(content)
+    const iterable = asIterable(content);
     if (iterable) {
-      return encodeIterable(iterable, encodeIterableContent, transfer)
+      return encodeIterable(iterable, encodeIterableContent, transfer);
     }
 
-    const asyncIterable = asAsyncIterable(content)
+    const asyncIterable = asAsyncIterable(content);
     if (asyncIterable) {
       return encodeIterable(
         asyncIterable,
         encodeAsyncIterableContent,
-        transfer
-      )
+        transfer,
+      );
     }
 
-    const readableStream = asReadableStream(content)
+    const readableStream = asReadableStream(content);
     if (readableStream) {
       return encodeIterable(
         iterateReadableStream(readableStream),
         encodeAsyncIterableContent,
-        transfer
-      )
+        transfer,
+      );
     }
 
-    throw TypeError('Unexpected input: ' + typeof content)
+    throw TypeError("Unexpected input: " + typeof content);
   }
-}
+};
 
 /**
  * Pattern matches given input as `Iterable<I>` and returns back either matched
@@ -406,13 +410,13 @@ const encodeFileContent = (content, transfer) => {
  */
 const asIterable = (input) => {
   /** @type {*} */
-  const object = input
-  if (object && typeof object[Symbol.iterator] === 'function') {
-    return object
+  const object = input;
+  if (object && typeof object[Symbol.iterator] === "function") {
+    return object;
   } else {
-    return null
+    return null;
   }
-}
+};
 
 /**
  * Pattern matches given `input` as `AsyncIterable<I>` and returns back either
@@ -424,13 +428,13 @@ const asIterable = (input) => {
  */
 const asAsyncIterable = (input) => {
   /** @type {*} */
-  const object = input
-  if (object && typeof object[Symbol.asyncIterator] === 'function') {
-    return object
+  const object = input;
+  if (object && typeof object[Symbol.asyncIterator] === "function") {
+    return object;
   } else {
-    return null
+    return null;
   }
-}
+};
 
 /**
  * Pattern matches given `input` as `ReadableStream` and return back either
@@ -440,12 +444,12 @@ const asAsyncIterable = (input) => {
  * @returns {ReadableStream<Uint8Array>|null}
  */
 const asReadableStream = (input) => {
-  if (input && typeof input.getReader === 'function') {
-    return input
+  if (input && typeof input.getReader === "function") {
+    return input;
   } else {
-    return null
+    return null;
   }
-}
+};
 
 /**
  * Pattern matches given input as "FileObject" and returns back eithr matched
@@ -455,11 +459,11 @@ const asReadableStream = (input) => {
  * @returns {FileObject|null}
  */
 const asFileObject = (input) => {
-  if (typeof input === 'object' && (input.path || input.content)) {
-    return input
+  if (typeof input === "object" && (input.path || input.content)) {
+    return input;
   } else {
-    return null
+    return null;
   }
-}
+};
 
-module.exports = CoreClient
+module.exports = CoreClient;

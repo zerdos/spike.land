@@ -33,17 +33,32 @@ export function decodeNode({ dagNode, cids }: EncodedDAGNode): DAGNode;
  * @param {Transferable[]} [transfer]
  * @returns {EncodedDAGNode}
  */
-export function encodeNode(dagNode: DAGNode, transfer?: Transferable[] | undefined): EncodedDAGNode;
-export type JSONValue = string | number | boolean | import("./data").JSONArray | import("./data").JSONObject | null;
+export function encodeNode(
+  dagNode: DAGNode,
+  transfer?: Transferable[] | undefined,
+): EncodedDAGNode;
+export type JSONValue =
+  | string
+  | number
+  | boolean
+  | import("./data").JSONArray
+  | import("./data").JSONObject
+  | null;
 export type StringEncoded<T> = string;
 export type EncodedCID = {
-    codec: string;
-    multihash: Uint8Array;
-    version: number;
+  codec: string;
+  multihash: Uint8Array;
+  version: number;
 };
-export type DAGNode = string | number | boolean | import("./data").JSONArray | import("./data").JSONObject | null;
+export type DAGNode =
+  | string
+  | number
+  | boolean
+  | import("./data").JSONArray
+  | import("./data").JSONObject
+  | null;
 export type EncodedDAGNode = {
-    dagNode: DAGNode;
-    cids: import("cids")[];
+  dagNode: DAGNode;
+  cids: import("cids")[];
 };
 //# sourceMappingURL=dag.d.ts.map

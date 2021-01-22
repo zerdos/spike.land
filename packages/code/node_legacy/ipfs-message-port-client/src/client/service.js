@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-const Query = require('./query')
+const Query = require("./query");
 
 /**
  * Service represents an API to a remote service `T`. It will have all the
@@ -14,23 +14,23 @@ module.exports = class Service {
    * @param {ProcedureNames<T>} methods - Method names of the remote API.
    * @param {MessageTransport} transport - Transport to issue queries over.
    */
-  constructor (namespace, methods, transport) {
-    this.transport = transport
+  constructor(namespace, methods, transport) {
+    this.transport = transport;
     // Type script does not like using classes as some dicitionaries, so
     // we explicitly type it as dictionary.
     /** @type {Object.<ProcedureNames<T>, Function>} */
-    const api = this
+    const api = this;
     for (const method of methods) {
       /**
        * @template I, O
        * @param {I} input
        * @returns {Promise<O>}
        */
-      api[method] = input =>
-        this.transport.execute(new Query(namespace, method.toString(), input))
+      api[method] = (input) =>
+        this.transport.execute(new Query(namespace, method.toString(), input));
     }
   }
-}
+};
 
 /**
  * @typedef {import('./transport')} MessageTransport

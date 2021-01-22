@@ -31,15 +31,15 @@ export function decodeError(error: EncodedError): Error;
  */
 export type EncodedError = Error | ErrorData;
 export type ErrorExtension = {
-    code?: string | undefined;
-    detail?: string | undefined;
+  code?: string | undefined;
+  detail?: string | undefined;
 };
 export type ExtendedError = Error & ErrorExtension;
 export type ErrorData = {
-    name: string;
-    message: string;
-    stack: string | undefined;
-    code: string | undefined;
-    detail: string | undefined;
+  name: string;
+  message: string;
+  stack: string | undefined;
+  code: string | undefined;
+  detail: string | undefined;
 };
 //# sourceMappingURL=error.d.ts.map

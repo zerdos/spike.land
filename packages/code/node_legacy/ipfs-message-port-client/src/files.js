@@ -1,8 +1,8 @@
-'use strict'
+"use strict";
 
 /* eslint-env browser */
-const Client = require('./client')
-const { decodeCID, CID } = require('ipfs-message-port-protocol/src/cid')
+const Client = require("./client");
+const { decodeCID, CID } = require("ipfs-message-port-protocol/src/cid");
 
 /**
  * @typedef {import('ipfs-message-port-server/src/files').FilesService} FilesService
@@ -18,8 +18,8 @@ class FilesClient extends Client {
   /**
    * @param {MessageTransport} transport
    */
-  constructor (transport) {
-    super('files', ['stat'], transport)
+  constructor(transport) {
+    super("files", ["stat"], transport);
   }
 
   /**
@@ -43,20 +43,20 @@ class FilesClient extends Client {
    * @param {AbortSignal} [options.signal]
    * @returns {Promise<Stat>}
    */
-  async stat (pathOrCID, options = {}) {
-    const { size, hash, withLocal, timeout, signal } = options
+  async stat(pathOrCID, options = {}) {
+    const { size, hash, withLocal, timeout, signal } = options;
     const { stat } = await this.remote.stat({
       path: encodeLocation(pathOrCID),
       size,
       hash,
       withLocal,
       timeout,
-      signal
-    })
-    return decodeStat(stat)
+      signal,
+    });
+    return decodeStat(stat);
   }
 }
-module.exports = FilesClient
+module.exports = FilesClient;
 
 /**
  * Turns content address (path or CID) into path.
@@ -64,14 +64,14 @@ module.exports = FilesClient
  * @param {string|CID} pathOrCID
  * @returns {string}
  */
-const encodeLocation = pathOrCID =>
-  CID.isCID(pathOrCID) ? `/ipfs/${pathOrCID.toString()}` : pathOrCID
+const encodeLocation = (pathOrCID) =>
+  CID.isCID(pathOrCID) ? `/ipfs/${pathOrCID.toString()}` : pathOrCID;
 
 /**
  *
  * @param {EncodedStat} data
  * @returns {Stat}
  */
-const decodeStat = data => {
-  return { ...data, cid: decodeCID(data.cid) }
-}
+const decodeStat = (data) => {
+  return { ...data, cid: decodeCID(data.cid) };
+};

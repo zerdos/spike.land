@@ -13,7 +13,10 @@
  * @param {Transferable[]} [transfer]
  * @returns {EncodedCID}
  */
-export function encodeCID(cid: import("cids"), transfer?: Transferable[] | undefined): EncodedCID;
+export function encodeCID(
+  cid: import("cids"),
+  transfer?: Transferable[] | undefined,
+): EncodedCID;
 /**
  * Decodes encoded CID (well sort of instead it makes nasty mutations to turn
  * structure cloned CID back into itself).
@@ -24,8 +27,8 @@ export function encodeCID(cid: import("cids"), transfer?: Transferable[] | undef
 export function decodeCID(encodedCID: EncodedCID): import("cids");
 export var CID: typeof import("cids");
 export type EncodedCID = {
-    codec: string;
-    multihash: Uint8Array;
-    version: number;
+  codec: string;
+  multihash: Uint8Array;
+  version: number;
 };
 //# sourceMappingURL=cid.d.ts.map

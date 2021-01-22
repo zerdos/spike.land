@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /* eslint-env browser */
 
@@ -26,25 +26,25 @@
  * @param {ExtendedError} error
  * @returns {EncodedError}
  */
-const encodeError = error => {
-  const { name, message, stack, code, detail } = error
-  return { name, message, stack, code, detail }
-}
-exports.encodeError = encodeError
+const encodeError = (error) => {
+  const { name, message, stack, code, detail } = error;
+  return { name, message, stack, code, detail };
+};
+exports.encodeError = encodeError;
 
 /**
  * @param {EncodedError} error
  * @returns {Error}
  */
-const decodeError = error => {
+const decodeError = (error) => {
   if (error instanceof Error) {
-    return error
+    return error;
   } else {
-    const { name, message, stack, code } = error
-    return Object.assign(createError(name, message), { name, stack, code })
+    const { name, message, stack, code } = error;
+    return Object.assign(createError(name, message), { name, stack, code });
   }
-}
-exports.decodeError = decodeError
+};
+exports.decodeError = decodeError;
 
 /**
  * Create error by error name.
@@ -55,23 +55,23 @@ exports.decodeError = decodeError
  */
 const createError = (name, message) => {
   switch (name) {
-    case 'RangeError': {
-      return new RangeError(message)
+    case "RangeError": {
+      return new RangeError(message);
     }
-    case 'ReferenceError': {
-      return ReferenceError(message)
+    case "ReferenceError": {
+      return ReferenceError(message);
     }
-    case 'SyntaxError': {
-      return new SyntaxError(message)
+    case "SyntaxError": {
+      return new SyntaxError(message);
     }
-    case 'TypeError': {
-      return new TypeError(message)
+    case "TypeError": {
+      return new TypeError(message);
     }
-    case 'URIError': {
-      return new URIError(message)
+    case "URIError": {
+      return new URIError(message);
     }
     default: {
-      return new Error(message)
+      return new Error(message);
     }
   }
-}
+};

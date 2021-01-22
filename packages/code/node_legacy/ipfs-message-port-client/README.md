@@ -8,8 +8,11 @@
 [![Dependency Status](https://david-dm.org/ipfs/js-ipfs/status.svg?path=packages/ipfs-message-port-client)](https://david-dm.org/ipfs/js-ipfs?path=packages/ipfs-message-port-client)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
 
-> A client library for the IPFS API over [message channel][]. This client library provides (subset) of [IPFS API](https://github.com/ipfs/js-ipfs/tree/master/docs/core-api) enabling applications to work with js-ipfs running in the different JS e.g. [SharedWorker][].
-
+> A client library for the IPFS API over [message channel][message channel].
+> This client library provides (subset) of
+> [IPFS API](https://github.com/ipfs/js-ipfs/tree/master/docs/core-api) enabling
+> applications to work with js-ipfs running in the different JS e.g.
+> [SharedWorker][SharedWorker].
 
 ## Lead Maintainer <!-- omit in toc -->
 
@@ -31,7 +34,9 @@ $ npm install --save ipfs-message-port-client
 
 ## Usage
 
-This client library works with IPFS node over the [message channel][] and assumes that IPFS node is provided via `ipfs-message-port-server` on the other end.
+This client library works with IPFS node over the
+[message channel][message channel] and assumes that IPFS node is provided via
+`ipfs-message-port-server` on the other end.
 
 It provides following API subset:
 
@@ -42,26 +47,25 @@ It provides following API subset:
 - [`ipfs.cat`](https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/FILES.md#ipfscatipfspath-options)
 - [`ipfs.files.stat`](https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/FILES.md#ipfsfilesstatpath-options)
 
-A client can be instantiated from the [`MessagePort`][] instance. The primary
-goal of this library is to allow sharing a node across browsing contexts (tabs,
-iframes) and therefore most likely `ipfs-message-port-server` will be in a
-separate JS bundle and loaded in the [SharedWorker][].
-
+A client can be instantiated from the [`MessagePort`][`MessagePort`] instance.
+The primary goal of this library is to allow sharing a node across browsing
+contexts (tabs, iframes) and therefore most likely `ipfs-message-port-server`
+will be in a separate JS bundle and loaded in the [SharedWorker][SharedWorker].
 
 ```js
-const IPFSClient = require('ipfs-message-port-client')
+const IPFSClient = require("ipfs-message-port-client");
 // URL to the script containing ipfs-message-port-server.
-const IPFS_SERVER_URL = '/bundle/ipfs-worker.js'
+const IPFS_SERVER_URL = "/bundle/ipfs-worker.js";
 
 const main = async () => {
-  const worker = new SharedWorker(IPFS_SERVER_URL)
-  const ipfs = IPFSClient.from(worker.port)
-  const data = ipfs.cat('/ipfs/QmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n')
+  const worker = new SharedWorker(IPFS_SERVER_URL);
+  const ipfs = IPFSClient.from(worker.port);
+  const data = ipfs.cat("/ipfs/QmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n");
 
   for await (const chunk of data) {
-    console.log(chunk)
+    console.log(chunk);
   }
-}
+};
 ```
 
 It is also possible to instantiate a detached client, which can be attached to
@@ -72,33 +76,33 @@ from another JS context (e.g. iframe)
 > attached (unless they time out or are aborted in the meantime).
 
 ```js
-const IPFSClient = require('ipfs-message-port-client')
+const IPFSClient = require("ipfs-message-port-client");
 
-
-const ipfs = IPFSClient.detached()
+const ipfs = IPFSClient.detached();
 
 const main = async () => {
-  const data = ipfs.cat('/ipfs/QmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n')
+  const data = ipfs.cat("/ipfs/QmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n");
 
   for await (const chunk of data) {
-    console.log(chunk)
+    console.log(chunk);
   }
-}
+};
 
-window.onload = main
-window.onmessage = ({ports}) => {
-  IPFSClient.attach(ports[0])
-}
+window.onload = main;
+window.onmessage = ({ ports }) => {
+  IPFSClient.attach(ports[0]);
+};
 ```
 
 ### Notes on Performance
 
-Since client works with IPFS node over [message channel][] all the data passed
-is copied via [structured cloning algorithm][], which may lead to suboptimal
-results (especially with large binary data). In order to avoid unnecessary
-copying all API options have being extended with optional `transfer` property
-that can be supplied [Transferable][]s which will be used to move corresponding
-values instead of copying.
+Since client works with IPFS node over [message channel][message channel] all
+the data passed is copied via
+[structured cloning algorithm][structured cloning algorithm], which may lead to
+suboptimal results (especially with large binary data). In order to avoid
+unnecessary copying all API options have being extended with optional `transfer`
+property that can be supplied [Transferable][Transferable]s which will be used
+to move corresponding values instead of copying.
 
 > **Note:** Transferring data will empty it on the sender side which can lead to
 > errors if that data is used again later. To avoid these errors transfer option
@@ -111,36 +115,40 @@ values instead of copying.
 const example = async (data) => {
   // Passing `data.buffer` will cause underlying `ArrayBuffer` to be
   // transferred emptying `data` in JS context.
-  ipfs.add(data, { transfer: [data.buffer] })
-}
+  ipfs.add(data, { transfer: [data.buffer] });
+};
 ```
 
-It is however recommended to prefer web native [Blob][] / [File][] instances as
-most web APIs provide them as option & can be send across without copying
-underlying memory.
+It is however recommended to prefer web native [Blob][Blob] / [File][File]
+instances as most web APIs provide them as option & can be send across without
+copying underlying memory.
 
 ```js
 const example = async (url) => {
-  const request = await fetch(url)
-  const blob = await request.blob()
-  ipfs.add(blob)
-}
+  const request = await fetch(url);
+  const blob = await request.blob();
+  ipfs.add(blob);
+};
 ```
 
-[message channel]:https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel
-[SharedWorker]:https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker
-[`MessagePort`]:https://developer.mozilla.org/en-US/docs/Web/API/MessagePort
-[structured cloning algorithm]:https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm
-[Transferable]:https://developer.mozilla.org/en-US/docs/Web/API/Transferable
-[Blob]:https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob
-[File]:https://developer.mozilla.org/en-US/docs/Web/API/File
-
+[message channel]: https://developer.mozilla.org/en-US/docs/Web/API/MessageChannel
+[SharedWorker]: https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker
+[`MessagePort`]: https://developer.mozilla.org/en-US/docs/Web/API/MessagePort
+[structured cloning algorithm]: https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm
+[Transferable]: https://developer.mozilla.org/en-US/docs/Web/API/Transferable
+[Blob]: https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob
+[File]: https://developer.mozilla.org/en-US/docs/Web/API/File
 
 ## Contribute
 
-Contributions welcome. Please check out [the issues](https://github.com/ipfs/js-ipfs/issues).
+Contributions welcome. Please check out
+[the issues](https://github.com/ipfs/js-ipfs/issues).
 
-Check out our [contributing document](https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md) for more information on how we work, and about contributing in general. Please be aware that all interactions related to this repo are subject to the IPFS [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
+Check out our
+[contributing document](https://github.com/ipfs/community/blob/master/CONTRIBUTING_JS.md)
+for more information on how we work, and about contributing in general. Please
+be aware that all interactions related to this repo are subject to the IPFS
+[Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
 
 ## License
 

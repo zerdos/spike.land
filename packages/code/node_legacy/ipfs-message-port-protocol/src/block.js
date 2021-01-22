@@ -1,7 +1,7 @@
-'use strict'
+"use strict";
 
-const { encodeCID, decodeCID } = require('./cid')
-const Block = require('ipld-block')
+const { encodeCID, decodeCID } = require("./cid");
+const Block = require("ipld-block");
 
 /**
  * @typedef {import('./cid').EncodedCID} EncodedCID
@@ -23,20 +23,20 @@ const Block = require('ipld-block')
  */
 const encodeBlock = ({ cid, data }, transfer) => {
   if (transfer) {
-    transfer.push(data.buffer)
+    transfer.push(data.buffer);
   }
-  return { cid: encodeCID(cid, transfer), data }
-}
-exports.encodeBlock = encodeBlock
+  return { cid: encodeCID(cid, transfer), data };
+};
+exports.encodeBlock = encodeBlock;
 
 /**
  * @param {EncodedBlock} encodedBlock
  * @returns {Block}
  */
 const decodeBlock = ({ cid, data }) => {
-  return new Block(data, decodeCID(cid))
-}
+  return new Block(data, decodeCID(cid));
+};
 
-exports.decodeBlock = decodeBlock
+exports.decodeBlock = decodeBlock;
 
-exports.Block = Block
+exports.Block = Block;

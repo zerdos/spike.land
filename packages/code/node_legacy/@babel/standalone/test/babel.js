@@ -99,15 +99,13 @@
     });
 
     it("throws on invalid preset name", () => {
-      expect(() =>
-        Babel.transform("var foo", { presets: ["lolfail"] }),
-      ).toThrow(/Invalid preset specified in Babel options: "lolfail"/);
+      expect(() => Babel.transform("var foo", { presets: ["lolfail"] }))
+        .toThrow(/Invalid preset specified in Babel options: "lolfail"/);
     });
 
     it("throws on invalid plugin name", () => {
-      expect(() =>
-        Babel.transform("var foo", { plugins: ["lolfail"] }),
-      ).toThrow(/Invalid plugin specified in Babel options: "lolfail"/);
+      expect(() => Babel.transform("var foo", { plugins: ["lolfail"] }))
+        .toThrow(/Invalid plugin specified in Babel options: "lolfail"/);
     });
 
     describe("env preset", () => {
@@ -199,22 +197,21 @@
 
     describe("regressions", () => {
       it("#11534 - supports quantifiers in unicode regexps", () => {
-        expect(() =>
-          Babel.transform("/a*/u", { presets: ["es2015"] }),
-        ).not.toThrow();
+        expect(() => Babel.transform("/a*/u", { presets: ["es2015"] })).not
+          .toThrow();
       });
       it("#11628 - supports stage-0 passing importAssertionsVersion to stage-1", () => {
         expect(() =>
           Babel.transform("const getMessage = () => 'Hello World'", {
             presets: [["stage-0", { decoratorsBeforeExport: false }]],
-          }),
+          })
         ).not.toThrow();
       });
       it("#11897 - [...map.keys()] in Babel source should be transformed correctly", () => {
         expect(() =>
           Babel.transform("for (let el of []) { s => el }", {
             plugins: ["transform-block-scoping"],
-          }),
+          })
         ).not.toThrow();
       });
     });

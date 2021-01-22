@@ -1,6 +1,6 @@
-'use strict'
+"use strict";
 
-const CID = require('cids')
+const CID = require("cids");
 
 /**
  * @typedef {Object} EncodedCID
@@ -20,11 +20,11 @@ const CID = require('cids')
  */
 const encodeCID = (cid, transfer) => {
   if (transfer) {
-    transfer.push(cid.multihash.buffer)
+    transfer.push(cid.multihash.buffer);
   }
-  return cid
-}
-exports.encodeCID = encodeCID
+  return cid;
+};
+exports.encodeCID = encodeCID;
 
 /**
  * Decodes encoded CID (well sort of instead it makes nasty mutations to turn
@@ -33,18 +33,18 @@ exports.encodeCID = encodeCID
  * @param {EncodedCID} encodedCID
  * @returns {CID}
  */
-const decodeCID = encodedCID => {
+const decodeCID = (encodedCID) => {
   /** @type {CID} */
-  const cid = (encodedCID)
-  Object.setPrototypeOf(cid.multihash, Uint8Array.prototype)
-  Object.setPrototypeOf(cid, CID.prototype)
+  const cid = (encodedCID);
+  Object.setPrototypeOf(cid.multihash, Uint8Array.prototype);
+  Object.setPrototypeOf(cid, CID.prototype);
   // TODO: Figure out a way to avoid `Symbol.for` here as it can get out of
   // sync with cids implementation.
   // See: https://github.com/moxystudio/js-class-is/issues/25
-  Object.defineProperty(cid, Symbol.for('@ipld/js-cid/CID'), { value: true })
+  Object.defineProperty(cid, Symbol.for("@ipld/js-cid/CID"), { value: true });
 
-  return cid
-}
-exports.decodeCID = decodeCID
+  return cid;
+};
+exports.decodeCID = decodeCID;
 
-exports.CID = CID
+exports.CID = CID;
