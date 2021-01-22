@@ -9,8 +9,15 @@ const {files, cid} = globalThis;
 // @ts-ignore
 workbox.loadModule("workbox-precaching");
 
+// workbox.precaching.precacheAndRoute([
+//   {url: '/src/codeLoader.js', revision: files["src/codeLoader.js"]},
+//   `/ipfs/${files["src/codeLoader.js"]}`,
+// ]);
+
+
+
 workbox.precaching.precacheAndRoute([
-  {url: '/src/codeLoader.js', revision: files["src/codeLoader.js"]},
+  {url: '/src/codeLoader.js', revision: "lelleldld"},
   `/ipfs/${files["src/codeLoader.js"]}`,
 ]);
 
