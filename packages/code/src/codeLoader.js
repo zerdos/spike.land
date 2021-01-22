@@ -38,7 +38,7 @@ function getSession() {
   * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
 export async function run(mode = "window", _w, code = "") {
-  console.log("Runner");
+  console.log("Runner!");
 
   const { pathname } = new URL(window.location.href);
 
