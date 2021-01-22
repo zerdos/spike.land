@@ -9,10 +9,11 @@ const {files, cid} = globalThis;
 // @ts-ignore
 workbox.loadModule("workbox-precaching");
 
-workbox.precaching.addRoute([
-  {url: '/src/codeLoader.js', revision: "lelleldld"},
-  `/ipfs/${files["src/codeLoader.js"]}`,
-]);
+Object.keys(files).map(x=> workbox.precaching.addRoute([
+  {url: x, revision: files[x]},
+  `/ipfs/${files[x]}`,
+])
+)
 
 // const addRoute = workbox.precaching;
 // addRoute(
