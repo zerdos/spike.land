@@ -13,7 +13,7 @@ workbox.loadModule("workbox-routing");
 const {Router, Routing, RegExpRoute} = workbox.routing;
 const router = new Router();
 
-router.registerRoute(new RegExpRoute( new RegExp(`/ipfs/${cid}/*`), async ({request, url, event}) => {
+router.registerRoute(new RegExpRoute( new RegExp(cid +"\/*")), async ({request, url, event}) => {
     console.log("URL ASYnc");
     const pathCID = files[url.slice(53 + url.indexOf("/ipfs/"))];
     const response = await fetch(`https://code.zed.vision/ipfs/${pathCID}`).then(r=>r.arrayBuffer());
@@ -21,7 +21,7 @@ router.registerRoute(new RegExpRoute( new RegExp(`/ipfs/${cid}/*`), async ({requ
     const cacheFirst = new workbox.strategies.CacheFirst();
     return cacheFirst.handle({ event, request, url, response });
 }
-));
+);
 
 // // @ts-ignore
 // self.addEventListener(
