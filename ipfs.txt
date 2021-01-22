@@ -10,7 +10,7 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmR5YTPn7gRkGNndd8w6WDJisSf73dBkS6ZKd7FU5CR4F1 code/index.html
+added QmT2cbcUvbHosMzYMmxQoH8iWmiVBfiWbqTKZry9Vuj9fm code/index.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
 added QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc code/node_legacy/@babel/standalone/LICENSE
@@ -517,4 +517,4 @@ added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmQj1KN4pKFrXDeeQYduhEG3qDrsZB7XehNuPXf9e623Fz code/src/workers
 added QmTLMuqmdzvzMRJUtadjjLWaniT47qBYTAn6gbBwuBFTJg code/src
-added QmdzUmNPVUKhf8qvZV9hjpy7v8FexFiLMk4YWTkpBPBb1R code
+added QmaoGiJrAC6X6uyqBmAjacHmEMy39zVKhpXitXR1Cc5W8m code
