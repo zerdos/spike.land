@@ -4,7 +4,7 @@ importScripts(
 importScripts("/ipfs.js");
 // importScripts("./files.umd.js")
 
-const {files} = globalThis;
+const {files, cid} = globalThis;
 
 // @ts-ignore
 workbox.loadModule("workbox-strategies");
