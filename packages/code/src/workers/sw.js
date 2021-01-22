@@ -18,7 +18,7 @@ workbox.loadModule("workbox-precaching");
 
 workbox.precaching.precacheAndRoute(
   
-  Object.keys(files).map(x=>x.length).map(x=>({url: x, revision: files[x]})),
+  Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
  { urlManipulation: ({url}) => {
   
 
