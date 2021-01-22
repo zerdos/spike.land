@@ -150,20 +150,7 @@ async function handleRequest(request: Request) {
     </head>
     <body>
       <script type="module">
-        import {run} from "/ipfs/${cid}/src/codeLoader.js"
-        try{
-    
-            run("window", window);
-          
-        }catch(error){
-                
-          fetch("${
-      files["src/codeLoader.js"]
-    }").then(()=>import("/ipfs/${cid}/src/codeLoader.js")
-            .then(({run})=>run("window", window)))
-          console.error({error});
-          fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
-        }
+       location.href="/ipfs/${cid}";
       </script>
     </body>
     </html>`,
