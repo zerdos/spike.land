@@ -10,6 +10,7 @@ const {files, cid} = globalThis;
 workbox.loadModule("workbox-strategies");
 workbox.loadModule("workbox-routing");
 
+const {Router, Routing, RegExpRoute} = workbox.routing;
 const router = new Router();
 
 router.registerRoute(new RegExpRoute( new RegExp(`/ipfs/${cid}/*`), async ({request, url, event}) => {
