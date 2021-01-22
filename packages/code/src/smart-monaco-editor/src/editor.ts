@@ -191,7 +191,7 @@ export default async (
       },
       {
         name: "framer-motion",
-        url: "framer-motion@3.2.1/dist/framer-motion.d.ts",
+        url: "@types/framer-motion.d.ts",
         depend: [],
       },
       {
