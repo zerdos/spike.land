@@ -43,7 +43,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "ed270c61c06f4b9ac6f1915de44af16a14f829e650701a7673488427586b09e2",
+    "f6b5e57ba8849f729dc210a18527cbbb591bea858b7e9bf620c57a16428baf14",
   "node_legacy/stringify.js":
     "b3e05d40408725c571660f7f1bfdb1b20fde769c5142f23273a95815b2ca5d01",
   "node_legacy/validate.js":
@@ -593,7 +593,7 @@ export const shasums = {
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "2af4d70af0183fd00b01a74525373bfddce6f49ad23d3c6e8b0bf16caebd0f1b",
   "src/emotion-react-renderer/package.json":
-    "a048e1d79f28745a2dba300222594decc9d2d5858ca6a24bfa219cf1a8b4330d",
+    "0b9908dcfb5f94afd9e80119d3735a7d9d1f57b4d9449d423a8d1e2cc097a2d0",
   "src/emotion-react-renderer/tsconfig.json":
     "970e709dee7e1b7c5410feb805961be59bde3c521cdf5f60820cccd3fa085d00",
   "src/emotion-react-renderer/src/renderer.ts":
@@ -611,9 +611,9 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "5425cf07e1e2d74f4aeaf02b2186ba55390ae8c47fb5bc08573f884eb6de956a",
+    "b750569e835ebba0a80f42187b6c25bd212c6dc6db3c434b4ae29ed0ac943ba8",
   "src/workers/ipfs/package.json":
-    "aeea94c87d8596c1b7ce0b3c848ac3d8e3b66cf495b2f56047113de409335722",
+    "d1062891648dcc1c8000285deb9f4375ebb910c51da72a700198866811ebbc02",
   "src/workers/ipfs/.gitignore":
     "dba27c31aad935787bb275c3e5e4e957708f15386de599eff1db476022cd7e4c",
   "src/workers/ipfs/dist/ipfs.client.js":
@@ -673,7 +673,7 @@ export const shasums = {
   "src/qrious/LICENSE.md":
     "573aa60568eb0d6829453b85a9bcae84763de76638bc16e6a198a9535871191a",
   "src/qrious/package.json":
-    "1817c96bdcd3714a1ec181d3189803ba951ee617520f82e2198642674b239e89",
+    "6c41feb67ef129b0e1d8ebec06e48e6c06bfb42e486ac16e6c38985b9cbe2bc8",
   "src/qrious/.npmignore":
     "deb0ea9992b95bd087fe4416021275058abf5e562f014812252d6b387d409c05",
   "src/qrious/src/QRious.js":
@@ -751,7 +751,7 @@ export const shasums = {
   "src/shadb/dist/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "src/shadb/package.json":
-    "f5b7d092c493e8b7b88bdda631cfa94cb783fa36b1ef7cd0826b488138062d12",
+    "2c43aad174139e658d4e97f2ddd5a1936968b2eebcfbb8575f46568d77679353",
   "tsconfig.json":
     "09ea48a6a9fcc074847b04f90771ae7732fee992b7bf18278fa042e3ee9ea1c3",
   "foo": "bar",

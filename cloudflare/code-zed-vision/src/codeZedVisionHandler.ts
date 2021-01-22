@@ -178,7 +178,6 @@ export function js(resp: string) {
 function text(resp: string) {
   return new Response(resp, {
     headers: {
-      "Clear-Site-Data": "*",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
       "Access-Control-Max-Age": "86400",
