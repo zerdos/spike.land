@@ -12,7 +12,7 @@ globalThis.files = {
 "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
 "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
 "index.html": "QmT2cbcUvbHosMzYMmxQoH8iWmiVBfiWbqTKZry9Vuj9fm",
-"index2.html": "QmT2cbcUvbHosMzYMmxQoH8iWmiVBfiWbqTKZry9Vuj9fm",
+"index2.html": "Qmf4BAuKqV35jYtww2LBtNofinkucFAsgggPpaxVtncfAE",
 "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
 "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
 "node_legacy/@babel/standalone/LICENSE": "QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc",
@@ -519,5 +519,5 @@ globalThis.files = {
 "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
 "src/workers": "QmfPeHGiXqqRTnqWuy4CCtUHgAMqsFyQzia56n8kTRDYRr",
 "src": "QmRVwXorWmwbayHWzBBJmqnRPTFSJ8PsHC72ixKmxrc5YV",
-"": "Qmee4RFWB7ewu8M43Dp9V4PDUgBQq9QrC9cfxZy5BWJMJ7",
+"": "QmY73RzyWbY9DzcT3WRjQoL6NECwdFUqSPu4R1fgHUMLe2",
  "foo":"bar" }
