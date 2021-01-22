@@ -130,7 +130,7 @@ async function handleRequest(request: Request) {
     </html>`,
       {
         headers: {
-          "Clear-Site-Data": "*",
+          //          "Clear-Site-Data": "*",
           "Access-Control-Allow-Origin": "*",
           "Cache-Control": "no-cache",
           "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
@@ -149,7 +149,15 @@ async function handleRequest(request: Request) {
     );
   }
   if (pathname === `/cid.js`) {
-    return js(`export const cid = "${cid}"`);
+    return new Response(`export const cid = "${cid}"`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-cache",
+        "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+        "Access-Control-Max-Age": "86400",
+        "Content-Type": "application/javascript;charset=UTF-8",
+      },
+    });
   }
   return new Response(
     `<!doctype html>
@@ -163,7 +171,6 @@ async function handleRequest(request: Request) {
     {
       headers: {
         "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-cache",
         "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
         "Access-Control-Max-Age": "86400",
         "Content-Type": "text/html;charset=UTF-8",
