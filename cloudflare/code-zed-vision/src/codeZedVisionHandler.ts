@@ -150,7 +150,7 @@ async function handleRequest(request: Request) {
     </head>
     <body>
       <script type="module">
-       location.href="/ipfs/${cid}";
+       location.href="/ipfs/${cid}/";
       </script>
     </body>
     </html>`,
