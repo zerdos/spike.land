@@ -16,10 +16,16 @@ workbox.loadModule("workbox-precaching");
 
 
 
-workbox.precaching.precacheAndRoute([
-  {url: '/src/codeLoader.js', revision: "lelleldld"},
-  `/ipfs/${files["src/codeLoader.js"]}`,
-]);
+workbox.precaching.precacheAndRoute(
+  
+  Object.keys().map(x=>({url: x, revision: files[x]})),
+ { urlManipulation: ({url}) => {
+  
+
+
+    return [`/ipfs/${cid}/${url}`, `/ipfs/${files[url]}`];
+  }}
+)
 
 // workbox.precaching.precacheAndRoute([
 //   {url: '/src/data.js', revision: files["src/data.js"]},
