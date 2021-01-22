@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "a5a1e53b8d81a93738b841c802d82b5c5d174a48c7280ce55e0fd807516a3dfa",
+    "940a704f40a4313499942ac984d7d44496a156bdf426099d440998b954f43d3a",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -575,7 +575,7 @@ export const shasums = {
   "src/smart-monaco-editor/dist/editor.js":
     "e8dd2647299bd5811e6c9ae9ec8da3d943ad53146ed1487ccd5b2af691e76d73",
   "src/workBox.js":
-    "6d91df63a9af9e62bea81c60e7b2c5b9c819dbfd385491d886b19cd0ec1140da",
+    "d84687c447578a2ff264ad8dbc4ca7c8cf651d40b6ed0de552c09d22aab16506",
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
@@ -613,7 +613,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "9ccb0693c025555db8c778c59ff6a7ab2a964b2f4fce91417b669a0f1f2cf4e6",
+    "c09ed841cb9caa5a646d8d05f827a0c05d391caa49c4612a101b82b53f7740bc",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
