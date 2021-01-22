@@ -10,20 +10,17 @@ const {files, cid} = globalThis;
 workbox.loadModule("workbox-strategies");
 workbox.loadModule("workbox-routing");
 
-registerRoute(
-  new RegExp(`/ipfs/${cid}/*`),
-  async ({url, request, event, params}) => {
-    const pathCID = files[url.slice(53 + url.indexOf("/ipfs/"))];
-    const request = fetch(`https://code.zed.vision/ipfs/${pathCID}`);
+const router = new Router();
 
-    const response = await fetch(request);
-    const responseBody = await response.text();
-    
-    return new Response(responseBody, {
-      headers: response.headers,
-    });
-  } 
-);
+router.registerRoute(new RegExpRoute( new RegExp(`/ipfs/${cid}/*`), async ({request, url, event}) => {
+    console.log("URL ASYnc");
+    const pathCID = files[url.slice(53 + url.indexOf("/ipfs/"))];
+    const response = await fetch(`https://code.zed.vision/ipfs/${pathCID}`).then(r=>r.arrayBuffer());
+
+    const cacheFirst = new workbox.strategies.CacheFirst();
+    return cacheFirst.handle({ event, request, url, response });
+}
+));
 
 // // @ts-ignore
 // self.addEventListener(
