@@ -16,17 +16,22 @@ workbox.loadModule("workbox-precaching");
 
 
 
-workbox.precaching.addRoute(
-  Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
- { urlManipulation: ({url}) => {
-    return [`/ipfs/${cid}/${url}`, 
+// workbox.precaching.addRoute(
+//   Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
+//  { urlManipulation: ({url}) => {
+//     return [`/ipfs/${cid}/${url}`, 
     
-  //  `/ipfs/${files[url]}`
   
   
-  ];
-  }}
-)
+//   ];
+//   }}
+// )
+
+
+
+
+
+
 
 // workbox.precaching.precacheAndRoute([
 //   {url: '/src/data.js', revision: files["src/data.js"]},
