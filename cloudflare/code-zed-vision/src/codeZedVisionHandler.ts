@@ -127,7 +127,7 @@ async function handleRequest(request: Request) {
     <script type="text/javascript">
     
     if ("serviceWorker" in window.navigator) {
-      window.navigator.serviceWorker.controller.unregister();
+      // window.navigator.serviceWorker.controller.unregister();
       const wb = new Workbox("${files["src/workers/sw.js"]}");
   
       wb.register();
