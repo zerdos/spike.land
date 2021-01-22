@@ -9,11 +9,17 @@ const {files, cid} = globalThis;
 // @ts-ignore
 workbox.loadModule("workbox-precaching");
 
-Object.keys(files).map(x=> workbox.precaching.precacheAndRoute([
-  {url: x, revision: files[x]},
-  `/ipfs/${files[x]}`,
-])
-)
+workbox.precaching.precacheAndRoute([
+  {url: '/src/codeLoader.js', revision: files["src/codeLoader.js"]},
+  `/ipfs/${files["src/codeLoader.js"]}`,
+]);
+
+workbox.precaching.precacheAndRoute([
+  {url: '/src/data.js', revision: files["src/data.js"]},
+  `/ipfs/${files["src/data.js"]}`,
+]);
+
+
 
 // const addRoute = workbox.precaching;
 // addRoute(
