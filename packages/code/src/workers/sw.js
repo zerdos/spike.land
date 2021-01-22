@@ -7,21 +7,30 @@ importScripts("/ipfs.js");
 const {files, cid} = globalThis;
 
 // @ts-ignore
-workbox.loadModule("workbox-strategies");
-workbox.loadModule("workbox-routing");
+workbox.loadModule("workbox-precaching");
 
-const {Router, Routing, RegExpRoute} = workbox.routing;
-const router = new Router();
+workbox.precaching.precacheAndRoute([
+  {url: '/src/codeLoader.js', revision: "lelleldld"},
+  `/ipfs/${files["src/codeLoader.js"]}`,
+]);
 
-router.registerRoute(new RegExpRoute( new RegExp(cid +"\/*")), async ({request, url, event}) => {
-    console.log("URL ASYnc");
-    const pathCID = files[url.slice(53 + url.indexOf("/ipfs/"))];
-    const response = await fetch(`https://code.zed.vision/ipfs/${pathCID}`).then(r=>r.arrayBuffer());
+// const addRoute = workbox.precaching;
+// addRoute(
+//   {url: "index.html", files["index.html"] )
 
-    const cacheFirst = new workbox.strategies.CacheFirst();
-    return cacheFirst.handle({ event, request, url, response });
-}
-);
+
+// const {Router, Routing, RegExpRoute} = workbox.routing;
+// const router = new Router();
+
+// router.registerRoute(new RegExpRoute( new RegExp(cid +"\/*")), async ({request, url, event}) => {
+//     console.log("URL ASYnc");
+//     const pathCID = files[url.slice(53 + url.indexOf("/ipfs/"))];
+//     const response = await fetch(`https://code.zed.vision/ipfs/${pathCID}`).then(r=>r.arrayBuffer());
+
+//     const cacheFirst = new workbox.strategies.CacheFirst();
+//     return cacheFirst.handle({ event, request, url, response });
+// }
+// );
 
 // // @ts-ignore
 // self.addEventListener(
