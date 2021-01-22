@@ -355,7 +355,7 @@ added QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo code/src/workers/ipfs/src/r
 added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/src/workers/ipfs/tsconfig.json
 added QmVzkTMiCNd7aaxBVhDNaTVBCkHYZa1Rv2V5vXsX5MPzxh code/src/workers/ipfsWorker.js
 added QmTcSv4DXa6USZDdqotYWUdEhRB8voN9hrDdSjsPAvWgjq code/src/workers/shasums.umd.js
-added QmaQiygB1519MuggCAD84pyrTRdkue6BhUTC8zFf4rVxLZ code/src/workers/sw.js
+added Qmezo1Sn5uWwWDeUmY4RUn3qMhuUmTMAMykXntLZQdTcsM code/src/workers/sw.js
 added QmSX2qLhymbiH8AqKshiFgPUjJfjfwFFrsbNx16dh7qzX8 code/src/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/src/workers/tsconfig.json
 added QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY code/tsconfig.json
@@ -515,6 +515,6 @@ added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/src/workers/ipfs/dist
 added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_legacy
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
-added QmSGoiBQk38yQ8SkSQkuydSnjBTiSGaqkTkp54GCdMoS6K code/src/workers
-added QmbjyfBhTDf2jRmrDjnhwKmicsPRobWDCuCoqWvmeoxrsg code/src
-added QmPPDj6Vf6rnpF295PmYoVSC1KmrcEpBAiniduKKL6gn2P code
+added QmRPP2wKY8s85TDXutwSqjCu8NyHMPWLiX6NraeMtH4iVU code/src/workers
+added QmV5Nk2Ngrzfp2NjfkNbuiSfDKjDs1Mt7nvMGXeVWLq6L8 code/src
+added QmV63zEnSo4B8iRkbPSTjxZMeKkfc3JsdVhTejMuYkBCaJ code
