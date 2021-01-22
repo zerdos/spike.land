@@ -293,8 +293,8 @@ added QmRGpEFyhuqLyPYt67ZFftdPK9PMf8UXuvHfXVhZyQ3YAJ code/src/shadb/src/vendor/d
 added QmXDjtDjFxzUemcTkNDbQqSimHTNDcpLsfxq5PhbwmuXSf code/src/shadb/src/vendor/diffMin.js
 added QmdrnoscF7ihtuyZCd1iv7g6Zpvem23yNn6AHU6xTaV5XU code/src/shadb/src/vendor/idb.js
 added QmSweNRyD6aAUjpMnt8zKE5LAxvvLoZPy9Qj3r4THEhaUd code/src/shadb/tsconfig.json
-added QmfVuhqQSTcAgMnYK8MJ8K2tehUXMMJRY31wUJaZAqh13m code/src/shadb/tsconfig.tsbuildinfo
-added QmYcbt8Y4tr2pEXdCUx3vUvKTYYmTjevW8zd3fLje656da code/src/share.js
+added QmYe9m185xM3a8wESdAzFw1wdCY7Aho3qEHBXdwy3rg2JN code/src/shadb/tsconfig.tsbuildinfo
+added QmTAEUvnEomrC9RA5dHkJvDXUkx5dsULD44rUVBQw2wPX5 code/src/share.js
 added QmQAGWaCTkwWF9GMjvoLgCMMgec8bKWRgzB29yti3b5zAL code/src/smart-monaco-editor/LICENSE.md
 added Qme5mqxxvVorXuV6y3Wit23U9pUhaMfSDR2YDx1esCCruY code/src/smart-monaco-editor/README.md
 added QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK code/src/smart-monaco-editor/dist/editor.d.ts
@@ -333,7 +333,7 @@ added QmUXoLQ9zNGWxd1c1yNBjSf4RoTwFMEbLcq8hL2ewCd6ba code/src/smart-monaco-edito
 added QmS5gMBfgk8pSufk8fk4D9VXz74GvEaKgB8sP1dJTDKMtQ code/src/smart-monaco-editor/src/scripts/screenshots.d.ts
 added QmYUzn9XSFiduCLmzj4Ewcn5GnxwPaDKYDGAxdakydncmg code/src/smart-monaco-editor/src/scripts/screenshots.js
 added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/src/smart-monaco-editor/tsconfig.json
-added QmTvPhFvNDpBME8am5MbAXDBAijNHpx3F7Aq11BzdRRHB5 code/src/smart-monaco-editor/tsconfig.tsbuildinfo
+added QmZgEfDhGQ5HY81UY63CEgUEQudwednt56B8ngcu3PoscA code/src/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
 added QmYkDeqsmyfVhokhZPgjGLVu1AUc9bb44Y4MaN3bARNke3 code/src/templates.js
 added QmcqWzx4L1c3dfG7jrwQqy23wrx9mn6jgjoEAxmGyfEsPp code/src/transpile.js
@@ -483,7 +483,7 @@ added QmTZzgTNwYe9ioj2zaZmme3LZLscde4D54r8J6HpaaHJ5x code/src/shadb/dist/vendor
 added QmPs9fBmE8aZQd62NYjBoWBvdwKZkf45nu81byMAEgmwuQ code/src/shadb/dist
 added QmZcc5JirQ5ySPiELM4nJaVBLsKVL3vvNg2KE5uj7rGSr3 code/src/shadb/src/vendor
 added QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ code/src/shadb/src
-added QmPWJDWX6LPzUbGpiMAxxEDvvbFAtTivKR552cnxjnqTj2 code/src/shadb
+added QmW4Z9fDQgT7R61zEABGFGDucGbkvNjWf42sovXLVqgtUp code/src/shadb
 added QmUZruQhR3JEi3knevKng6AKpxN3vcswuRrCp4DiW9aYMM code/src/smart-monaco-editor/dist/scripts
 added QmYdCBihHj9hDN6znBDFhC1WRvPbJeMmpPeJsiK2ea5AYm code/src/smart-monaco-editor/dist
 added QmUEN3GDGpShVYbF8hWwkgFWdCFf4MGFXggEBLLJCW7MHn code/src/smart-monaco-editor/node_legacy/@emotion/cache@11.0.0/types
@@ -512,11 +512,11 @@ added QmTnZe14NmEVosHmhQG1c1L8wvCDnfoaNzcdqszV9RnvBX code/src/smart-monaco-edito
 added QmeDfigXf5xKxJVjmtujdYmYS4wzjeprCaP2BNuCQPkjcG code/src/smart-monaco-editor/node_legacy
 added Qme94rT99UbaVwYxeK2ERakcHAABqofabkBbiSUuKztFzg code/src/smart-monaco-editor/src/scripts
 added QmSQUM9Zkyn5Y6RQTfPKqf5VP5xhKVi76sxsVHLqNHcJvP code/src/smart-monaco-editor/src
-added QmbwhueVf6gWTnB4rmCBibVe91iyjwWKjL7n8XLQRTRsEC code/src/smart-monaco-editor
+added QmVsxbJAyuDZJXMfnbTYc4PCUuUWaKqK77azYp2TpJq5CA code/src/smart-monaco-editor
 added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/src/workers/ipfs/dist
 added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_legacy
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added Qmf9ccWRmu4KUYnGfR3SGiYCXNc9me6StNmcwzW2VbBXJs code/src/workers/ipfs
 added QmcYhnRWpGCRZdCcGG4DFkecZxsvss4skakxUrUWX33y3V code/src/workers
-added QmUA9EpHii8Qb73ZvmK1zXCHBqT8NU6Dnq2aoVzTVx3Vzb code/src
-added QmbBasvWoS4rqqHFSzAwmXhZwYoCvAeNWUE8bcLdRj5GLd code
+added QmcgdCmq4N62iCn4sB9VdBSW5grALo34ZivZHCRecSqtyg code/src
+added QmaAuxF9acNKaub1cgnXUiCEiAnJBjCavH7QCFAzBJNrB9 code

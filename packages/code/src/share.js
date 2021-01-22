@@ -26,10 +26,28 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
         // @ts-ignore
         window.document.querySelector("head > style[data-emotion=css]").sheet
           .cssRules,
-      ).map((x) => x.cssText).filter((cssRule) =>
-        html.includes(cssRule.substring(1, 13)) ||
-        cssRule.substring(1, 13) === bodyClass
-      ).join("\n  ").replace(`.${bodyClass}`, "body");
+      ).map((x) => x.cssText).filter((cssRule) => {
+        const selector = cssRule.substring(5, 10);
+        const isSelectorBody = bodyClass.indexOf(selector) !== -1;
+        const isInGeneratedHtml = html.indexOf(selector) !== -1;
+
+        const shouldInclude = isSelectorBody || isInGeneratedHtml;
+
+        return shouldInclude;
+      }).join("\n  ").replace(`.${bodyClass}`, "body");
+    } catch (e) {
+      console.error({ e });
+    }
+
+    try {
+      css += Array.from(
+        // deno-lint-ignore ban-ts-comment
+        // @ts-ignore
+        window.document.querySelector("head > style[data-emotion=css-global]")
+          .sheet
+          .cssRules,
+      ).map((x) => x.cssText)
+        .join("\n  ").replace(`#zbody`, "body");
     } catch (e) {
       console.error({ e });
     }
