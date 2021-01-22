@@ -18,6 +18,7 @@ export const files = {
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmT2cbcUvbHosMzYMmxQoH8iWmiVBfiWbqTKZry9Vuj9fm",
+  "index2.html": "QmT2cbcUvbHosMzYMmxQoH8iWmiVBfiWbqTKZry9Vuj9fm",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "node_legacy/@babel/standalone/LICENSE":
@@ -661,7 +662,7 @@ export const files = {
   "src/workers/ipfsWorker.js": "QmVzkTMiCNd7aaxBVhDNaTVBCkHYZa1Rv2V5vXsX5MPzxh",
   "src/workers/shasums.umd.js":
     "QmTcSv4DXa6USZDdqotYWUdEhRB8voN9hrDdSjsPAvWgjq",
-  "src/workers/sw.js": "QmdTNnU6JP6ebHT3xjv8pCRb9honajsPFvVybvvGYSVpiW",
+  "src/workers/sw.js": "QmR17xE1K1Uu3wBojBzjTa733um5MhNHbxgEsGVQ98vm3Y",
   "src/workers/transpile.worker.js":
     "QmSX2qLhymbiH8AqKshiFgPUjJfjfwFFrsbNx16dh7qzX8",
   "src/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -957,8 +958,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
-  "src/workers": "QmWDL3xYMLqPuKMk75B5Y9GPqzwUZaGt3dTP4dNmL4qMkv",
-  "src": "QmZednDHetPfSyi8gGTG9iDVg7RR2xzzzVseK6UuKkAuZx",
-  "": "QmbNyZMqKz1GiaN9fDFrWGFoHUvrW7GeLSq5zf9xsWEiHN",
+  "src/workers": "QmfPeHGiXqqRTnqWuy4CCtUHgAMqsFyQzia56n8kTRDYRr",
+  "src": "QmRVwXorWmwbayHWzBBJmqnRPTFSJ8PsHC72ixKmxrc5YV",
+  "": "Qmee4RFWB7ewu8M43Dp9V4PDUgBQq9QrC9cfxZy5BWJMJ7",
   "foo": "bar",
 };

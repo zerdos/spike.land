@@ -17,12 +17,8 @@ workbox.loadModule("workbox-precaching");
 
 
 workbox.precaching.precacheAndRoute(
-  
   Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
  { urlManipulation: ({url}) => {
-  
-
-
     return [`/ipfs/${cid}/${url}`, `/ipfs/${files[url]}`];
   }}
 )

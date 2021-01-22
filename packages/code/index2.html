@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+  <link rel="stylesheet" href="assets/app.css" />
+  <link rel="stylesheet" href="assets/roboto.css" />
+  <link rel="stylesheet" href="assets/normalize.min.css" />
+<title>Instant React Editor</title>
+</head>
+<body>
+  <!-- <script>
+
+      
+
+       /// 
+       /// if after body init - monaco editor still haven't started (the app haven't started)
+       /// it's likely that we have caching issues. So giving a push to it.
+       /// 
+        setTimeout(()=>{
+
+          console.log("use force to load the rest")
+          
+          if (!window.monaco) {
+            forceCacheToLoad();
+          }
+
+        }, 3000  )
+
+
+    async function forceCacheToLoad(){
+      const cid = location.pathname.slice(-47, -1)
+      const files = await import (`/ipfs/${cid}.js`);
+      
+      Object.keys(files).filter(x=>x.indexOf(".j")>-1).map(x=>fetch(x).catch(()=>fetch(`/ipfs/${files[x]}`)));
+    }
+
+  </script> -->
+  <script type="module">
+
+    import {run} from "./src/codeLoader.js"
+    try{
+      console.log("start!")
+      run("window", window);
+    }catch(error){
+      console.error({error});
+      fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
+    }
+  </script>
+</body>
+</html>
