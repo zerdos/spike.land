@@ -143,7 +143,7 @@ async function handleRequest(request: Request) {
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
-  if (pathname === `/ipfs.umd.js`) {
+  if (pathname === `/.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
   if (pathname === `/cid.js`) {
