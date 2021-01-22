@@ -12,7 +12,7 @@ globalThis.files = {
 "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
 "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
 "index.html": "QmT2cbcUvbHosMzYMmxQoH8iWmiVBfiWbqTKZry9Vuj9fm",
-"index2.html": "Qmf4BAuKqV35jYtww2LBtNofinkucFAsgggPpaxVtncfAE",
+"index2.html": "QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd",
 "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
 "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
 "node_legacy/@babel/standalone/LICENSE": "QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc",
@@ -519,5 +519,5 @@ globalThis.files = {
 "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
 "src/workers": "QmW4szUJdnF3BBBSzYsrD7VLkXGPK4jmEXrv1mHmkUkws7",
 "src": "QmTvhEULn13SfL6Q2cbkDj72US6eMySTUBCGGxGm1bm6A4",
-"": "QmST4KTrLpCYMgjKRqTPJiXvVeHhNrMRnSBjGUzGacyBwb",
+"": "QmanEkWEBQ6QJQehybgDR3FxyptqVbSMVwL9ds6Ke282MS",
  "foo":"bar" }

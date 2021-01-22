@@ -120,22 +120,35 @@ async function handleRequest(request: Request) {
   }
   if (pathname === "/clear") {
     return new Response(
-      `<!doctype html>
-    <html>
-    <head>
-    </head>
-    <script type="text/javascript">
-    
-    if ("serviceWorker" in window.navigator) {
-      // window.navigator.serviceWorker.controller.unregister();
-      const wb = new Workbox("${files["src/workers/sw.js"]}");
-  
-      wb.register();
-    }
+      `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+  <link rel="stylesheet" href="assets/app.css" />
+  <link rel="stylesheet" href="assets/roboto.css" />
+  <link rel="stylesheet" href="assets/normalize.min.css" />
+<title>Instant React Editor</title>
+</head>
+<body>
+  <script type="module">
+    import {run} from "/ipfs/${cid}/src/codeLoader.js"
+    try{
 
-    window.location = "/ipfs/${cid}/";
-    </script>
-    </html>`,
+        run("window", window);
+      
+    }catch(error){
+            
+      fetch("${
+        files["src/codeLoader.js"]
+      }").then(()=>import("/ipfs/${cid}/src/codeLoader.js")
+        .then(({run})=>run("window", window)))
+      console.error({error});
+      fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
+    }
+  </script>
+</body>
+</html>`,
       {
         headers: {
           //          "Clear-Site-Data": "*",

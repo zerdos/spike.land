@@ -11,7 +11,7 @@ added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geomet
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
 added QmT2cbcUvbHosMzYMmxQoH8iWmiVBfiWbqTKZry9Vuj9fm code/index.html
-added Qmf4BAuKqV35jYtww2LBtNofinkucFAsgggPpaxVtncfAE code/index2.html
+added QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd code/index2.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
 added QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc code/node_legacy/@babel/standalone/LICENSE
@@ -518,4 +518,4 @@ added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmW4szUJdnF3BBBSzYsrD7VLkXGPK4jmEXrv1mHmkUkws7 code/src/workers
 added QmTvhEULn13SfL6Q2cbkDj72US6eMySTUBCGGxGm1bm6A4 code/src
-added QmST4KTrLpCYMgjKRqTPJiXvVeHhNrMRnSBjGUzGacyBwb code
+added QmanEkWEBQ6QJQehybgDR3FxyptqVbSMVwL9ds6Ke282MS code
