@@ -27,7 +27,8 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
         window.document.querySelector("head > style[data-emotion=css]").sheet
           .cssRules,
       ).map((x) => x.cssText).filter((cssRule) =>
-        html.includes(cssRule.substring(3, 8))
+        html.includes(cssRule.substring(1, 13)) ||
+        cssRule.substring(1, 13) === bodyClass
       ).join("\n  ").replace(`.${bodyClass}`, "body");
     } catch (e) {
       console.error({ e });
