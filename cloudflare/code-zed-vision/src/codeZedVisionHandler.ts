@@ -143,6 +143,9 @@ async function handleRequest(request: Request) {
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
+  if (pathname === `/cid.js`) {
+    return js(`export const cid = "${cid}"`);
+  }
   return new Response(
     `<!doctype html>
   <html>
