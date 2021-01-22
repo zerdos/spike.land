@@ -14,10 +14,10 @@ workbox.precaching.precacheAndRoute([
   `/ipfs/${files["src/codeLoader.js"]}`,
 ]);
 
-workbox.precaching.precacheAndRoute([
-  {url: '/src/data.js', revision: files["src/data.js"]},
-  `/ipfs/${files["src/data.js"]}`,
-]);
+// workbox.precaching.precacheAndRoute([
+//   {url: '/src/data.js', revision: files["src/data.js"]},
+//   `/ipfs/${files["src/data.js"]}`,
+// ]);
 
 
 
