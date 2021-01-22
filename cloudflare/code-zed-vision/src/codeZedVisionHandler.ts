@@ -118,49 +118,6 @@ async function handleRequest(request: Request) {
     await cache.put(request, resp.clone());
     return resp;
   }
-  if (pathname === "/clear") {
-    return new Response(
-      `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" type="image/png" href="/ipfs/${cid}/assets/zed-icon-big.png" />
-  <link rel="stylesheet" href="/ipfs/${cid}/assets/app.css" />
-  <link rel="stylesheet" href="/ipfs/${cid}/assets/roboto.css" />
-  <link rel="stylesheet" href="/ipfs/${cid}/assets/normalize.min.css" />
-<title>Instant React Editor</title>
-</head>
-<body>
-  <script type="module">
-    import {run} from "/ipfs/${cid}/src/codeLoader.js"
-    try{
-
-        run("window", window);
-      
-    }catch(error){
-            
-      fetch("${
-        files["src/codeLoader.js"]
-      }").then(()=>import("/ipfs/${cid}/src/codeLoader.js")
-        .then(({run})=>run("window", window)))
-      console.error({error});
-      fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
-    }
-  </script>
-</body>
-</html>`,
-      {
-        headers: {
-          //          "Clear-Site-Data": "*",
-          "Access-Control-Allow-Origin": "*",
-          "Cache-Control": "no-cache",
-          "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-          "Access-Control-Max-Age": "86400",
-          "Content-Type": "text/html;charset=UTF-8",
-        },
-      },
-    );
-  }
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
@@ -185,10 +142,10 @@ async function handleRequest(request: Request) {
     <html lang="en">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
-      <link rel="stylesheet" href="assets/app.css" />
-      <link rel="stylesheet" href="assets/roboto.css" />
-      <link rel="stylesheet" href="assets/normalize.min.css" />
+      <link rel="icon" type="image/png" href="/ipfs/${cid}/assets/zed-icon-big.png" />
+      <link rel="stylesheet" href="/ipfs/${cid}/assets/app.css" />
+      <link rel="stylesheet" href="/ipfs/${cid}/assets/roboto.css" />
+      <link rel="stylesheet" href="/ipfs/${cid}/assets/normalize.min.css" />
     <title>Instant React Editor</title>
     </head>
     <body>
