@@ -146,6 +146,9 @@ async function handleRequest(request: Request) {
   if (pathname === `/cid.js`) {
     return js(`export const cid = "${cid}"`);
   }
+  if (pathname === `/cid.umd.js`) {
+    return js(`globalThis.cid = "${cid}"`);
+  }
   return new Response(
     `<!doctype html>
   <html>

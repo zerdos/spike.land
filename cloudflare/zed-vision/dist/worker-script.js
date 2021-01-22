@@ -129,7 +129,6 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 const v41 = () => v4();
-const cid = "QmPbWxbaccmCxziQYdG5n3XzvjTfNi8Goy99HFjjoTKUWz";
 const publicIpfsGateways = [
   "https://ipfs.io/ipfs/:hash",
   "https://dweb.link/ipfs/:hash",
@@ -346,11 +345,11 @@ async function handleCloudRequest(request) {
       return text("User-agent: * Disallow: /");
     }
     if (pathname.slice(0, 7) === "/signal") {
-      const cid1 = searchParams.get("cid") || "";
+      const cid = searchParams.get("cid") || "";
       const signal = searchParams.get("signal") || "";
       const key = searchParams.get("key") || "";
-      if (cid1.length === 46 && signal.length === 8) {
-        await SIGNALS.put(signal, cid1, {
+      if (cid.length === 46 && signal.length === 8) {
+        await SIGNALS.put(signal, cid, {
           expirationTtl: 86400 * 7,
         });
         return json({
@@ -510,7 +509,7 @@ async function handleCloudRequest(request) {
       maybeRoute.length === 8;
     if (maybeRoute && isKey) {
       return Response.redirect(
-        `https://code.zed.vision/ipfs/${cid}/?signalToQr=${maybeRoute}`,
+        `https://code.zed.vision/?signalToQr=${maybeRoute}`,
         307,
       );
     }
@@ -548,7 +547,7 @@ async function handleCloudRequest(request) {
       return Response.redirect("https://blog.zed.vision", 302);
     }
     if (pathname === "/code" || pathname === "/code/") {
-      return Response.redirect(`https://code.zed.vision/ipfs/${cid}/`, 302);
+      return Response.redirect(`https://code.zed.vision`, 302);
     }
     return text(pathname);
   } else if (request.method === "POST") {

@@ -611,7 +611,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "b1714d597d2172c6fb624504a6a0a8e86998a927d39f7716de41bd51b557d88d",
+    "29ad0bacc749dac6d8ca6479f16bfa69184f86b010c66c9c22d7f76f159a67f1",
   "src/workers/ipfs/package.json":
     "d1062891648dcc1c8000285deb9f4375ebb910c51da72a700198866811ebbc02",
   "src/workers/ipfs/.gitignore":
@@ -647,7 +647,7 @@ export const shasums = {
   "src/workers/ipfs/src/ipfs.server.ts":
     "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "src/workers/sw.js":
-    "b9f4ba27f0255bfc266c048d6aa101196174777d16667cc8fc939f72b566f3c6",
+    "c78140ae7f399d602c4d16c6b27744cdfa3767acb39d7af85b5f7184d6d5132b",
   "src/workers/ipfsWorker.js":
     "42a75a42ed04e60ee4ab0c91e2e678115a640214c622aaf83ad89fe7c6e5c772",
   "src/workers/transpile.worker.js":
