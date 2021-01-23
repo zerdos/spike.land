@@ -79,6 +79,46 @@ async function handleRequest(request: Request) {
       return resp;
     }
   }
+  if (pathname === `/sw.js`) {
+    return new Response(
+      `importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
+importScripts("/ipfs.js");
+
+workbox.loadModule("workbox-precaching");
+
+const { files, cid, reverseMap } = globalThis;
+
+workbox.precaching.addRoute(
+  Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
+ { urlManipulation: ({url}) => {
+
+  console.log(url);
+
+  const urls =  ["/ipfs/" + cid + "/" + url,
+
+  ];
+
+  if (url.indexOf("/ipfs/")) {
+    const start = url.indexOf("/ipfs/");
+    const reverseCID = url.slice(start+6, start +52);
+    if (reverseMap[cid]) {
+      urls.push("/ipfs/" + cid + "/"  + reverseMap[reverseCID])
+    }
+  } 
+  return urls;
+  }}
+);`,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "no-cache",
+          "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+          "Access-Control-Max-Age": "86400",
+          "Content-Type": "application/javascript;charset=UTF-8",
+        },
+      },
+    );
+  }
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
