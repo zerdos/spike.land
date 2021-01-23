@@ -31,7 +31,7 @@ async function workBox() {
       if (!event.isUpdate || !window.monaco) {
         console.log('Service worker activated for the first time!');
 
-        const {run} = await import ("src/codeLoader.js")
+        const {run} = await import ("./src/codeLoader.js")
         run("window", window);
    
       }
