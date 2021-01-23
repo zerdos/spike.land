@@ -27,7 +27,7 @@ async function init() {
     console.log("INIT INIT");
   }
 
-  if (typeof SharedWorker === "undefined") {
+  if (true || typeof SharedWorker === "undefined") {
     const worker = new Worker(`./src/workers/transpile.worker.js`);
     const { port1, port2 } = new MessageChannel();
     const msg = {

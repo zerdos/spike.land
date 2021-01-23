@@ -34,11 +34,17 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
         const shouldInclude = isSelectorBody || isInGeneratedHtml;
 
         return shouldInclude;
-      }).join("\n  ").replace(`.${bodyClass}`, "body");
+      }).join("\n  ").replace(`#zbody`, "body");
     } catch (e) {
       console.error({ e });
     }
+  }
 
+  const globalCssRules = window.document.querySelector(
+    "head > style[data-emotion=css-global]",
+  );
+
+  if (globalCssRules) {
     try {
       css += Array.from(
         // deno-lint-ignore ban-ts-comment

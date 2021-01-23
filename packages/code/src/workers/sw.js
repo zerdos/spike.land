@@ -1,7 +1,7 @@
 importScripts(
   "../../node_legacy/workbox-sw.js",
 );
-importScripts("/ipfs.js");
+// importScripts("/ipfs.js");
 // importScripts("./files.umd.js")
 
 const { files, cid } = globalThis;

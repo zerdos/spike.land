@@ -495,7 +495,7 @@ export const shasums = {
   "src/ipfsClient.js":
     "9c96ddc8ad1db917feebda58a2d2f2de773936251427b4be2440f560b4072023",
   "src/transpile.js":
-    "21530fe943b02493178c7237a60d9b0fc6c5c2dc53b3be5c1d5feb68a1e8a824",
+    "b19795b72c788f4030afec641000ac3d20edf74686e3d1d449dbc7ce6ddc8579",
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
@@ -585,7 +585,7 @@ export const shasums = {
   "src/examples/starterNoFramerMotion.js":
     "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "src/examples/app.tsx":
-    "d1bc86f16474ea71eed118e7f99dcb1af528313e358b8cfcbb7ea6c0e42c9dea",
+    "a6c829508051e31b5a1c7cf2c69a82dfd7d2aa66715f6c8b7b2205a1c08d1b06",
   "src/formatter.js":
     "a65e9f5e35f77fb41f2ff08d40c7e706570fd61660cf8861b44f35bc0038f0d9",
   "src/refs.d.ts":
@@ -613,7 +613,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "a719832c5a9d6c218a4530be59309b9d1f491c871f644a07b80701efca95bda2",
+    "875fa15bdf947d5f44e1b11f26cf3102f454a3d2c96b411341736a90469886a9",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
@@ -649,7 +649,7 @@ export const shasums = {
   "src/workers/ipfs/src/ipfs.server.ts":
     "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "src/workers/sw.js":
-    "8385b321b265f4dde015aa0146fdaeb61f7d6d0e01441fe4d1ce0b81eb64faf3",
+    "27f3a86ee40784941c110f10a385f53d818e24262cd2494480db80e849ebb21c",
   "src/workers/ipfsWorker.js":
     "1b4c1fd14a7bf7d571e90b1ff8ebbeaf86e4f06d1a37dc7c5cc6fc9d6834435b",
   "src/workers/transpile.worker.js":
@@ -699,7 +699,7 @@ export const shasums = {
   "src/renderPreviewWindow.js":
     "59326061012f45a2a0cb829f7efb8087fe9145e10a0ce66b5a8c29cd2749df18",
   "src/share.js":
-    "6379a0b44effc7f04f063b9661c0436705c786383b55d5777e7a4e024642f2c3",
+    "9eb7ee095939227f05b29bb12788bda4fb7153f48171907fc227813bd6ee5289",
   "src/shadb/src/sha256.js":
     "4867914563a93849c3e414c4ba728ebfa48bbd71bfdbe05b6dbf42284fbd6369",
   "src/shadb/src/getDbObj.js":
