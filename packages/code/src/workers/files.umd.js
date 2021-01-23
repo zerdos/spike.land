@@ -234,7 +234,7 @@ globalThis.files = {
 "node_legacy/workbox-window.prod.mjs": "QmSgZf1jFzFeKu3mfPt2k8uQBxi53ENYX7VRgYxyWhAuHj",
 "node_legacy/workbox-window.prod.mjs.map": "QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY",
 "package.json": "QmPZndj9t8Cr2VfsYxDvXXw8JYXV8PHWqWn94Tut4PvfGV",
-"src/codeLoader.js": "QmWKVPVsC5KGXyAwaFwvLKnXwadZecXEJJBJ9BcHvLVSFz",
+"src/codeLoader.js": "QmX1MVYZqV6DLfcnPHsq8d5v6c7HWFbWwtoKnz9PWgbPWb",
 "src/data.js": "QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf",
 "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
 "src/emotion-react-renderer/dist/DraggableWindow.js": "Qmd1LVpChst8NBf9EybFWkXyKXiJeZvjYVb8NR4vDf7aQq",
@@ -513,6 +513,6 @@ globalThis.files = {
 "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
 "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
 "src/workers": "QmYCUAjVwCLwkWdetzFiYEhcby1sdK6QizBN6UrDBTUX97",
-"src": "QmZQsefLqCohv3671RuzXHar1zUZ8r3qNi95zr2C6R7vXb",
-"": "QmSYmAA55KL2JppG5EToJGskBMEELoewypQ5MztsshpadU",
+"src": "QmQvF4orEYQNiz9XipCCJyitEzZWmg9TWfTFthE9MY7keo",
+"": "QmSgho3siPK4JGBiRJbgJcEVCyj9rxq6c2PFv511J1ghsv",
  "foo":"bar" }
