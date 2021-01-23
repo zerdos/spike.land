@@ -248,7 +248,7 @@ added QmNwbA46c7bRTXeZtxbvcja1g5Pq4G9m59ZfFWQc4sUiQR code/src/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/src/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/src/importScript.js
 added Qmb8GxidnERUJmTzcu6NzQeYhqDUT4YQYpEstvQkGekSQW code/src/ipfsClient.js
-added QmXwq3AHyeNWrdG2WrVzkaujrJZzzJtyxaHAdRivSrjoKU code/src/openWindows.js
+added QmYeEWXY65LNhPfj7sLwCpLiiwpKjKro8bHzUNHx1y8Fmu code/src/openWindows.js
 added QmWzBXD5ULj9EAVt7ffrffyZ15pUwjDXpoquHnoaRBaQpx code/src/qrious/AUTHORS.md
 added Qmf71mxCKmPQnJZadhscUSszFDFkNBZFkbEenEKyPgLFTc code/src/qrious/LICENSE.md
 added QmdPbXiPxjM7xyoJvMkgbwjZ7awWtbZjo4vvDr3y5C36pB code/src/qrious/README.md
@@ -331,7 +331,7 @@ added QmX7MGph4JXJGjfYVxkD1Xp4SMHEYNE2xonCMUgshnaZ2K code/src/smart-monaco-edito
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
 added QmYkDeqsmyfVhokhZPgjGLVu1AUc9bb44Y4MaN3bARNke3 code/src/templates.js
 added QmRknV85AcHiNKRvF5dk2yqN8Xr8aDUXzjrhJjpYYb7EWQ code/src/transpile.js
-added QmaHmefsUvkpoZZztzTG2oQr1yYNphuDyB4e5F4uveNTAw code/src/workBox.js
+added QmSkBN9VQbgSCpgZYf2pecxZEXBYnhVvX2LEiqaHUELyA6 code/src/workBox.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/src/workers/ipfs/dist/gateways.js
@@ -510,5 +510,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmV1bjouWLNjcy2mov9VnV5JDREzT9w174TLbCHVM9MDfS code/src/workers
-added QmX5PqxnedHZ3RH8AzTMGMfejCBNUrjiC8qGHeZMvcpuN6 code/src
-added QmXJbgJ6ZtoUeNZCzrLpgz38fnPBpKpZbDhSwCzVJ4BML2 code
+added QmPhmMjzrDkKF86rVoNDHLw83kG9KMRaRPwRFTzsT3oueS code/src
+added QmWM7engUoUgRexn9gVCAo8q64cbtSDdaRBaHsaBQoP5Wg code

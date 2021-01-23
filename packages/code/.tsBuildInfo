@@ -271,18 +271,13 @@
         "signature": "3cde35f273e944520e2669f207bc7e9873bdfd2b39f4b5e0e33b8067ece33ed9",
         "affectsGlobalScope": false
       },
-      "./src/workBox.js": {
-        "version": "cbf0182e295572a00e780759744c41b6a53d1f9b9c9496ac5df3acc83a177758",
-        "signature": "28f1bcb8fcfb43e1ec98d1a07e178d80ba0c9c05f49a53d6967c6620e2514fd7",
-        "affectsGlobalScope": false
-      },
       "./node_legacy/simple-window-manager.es.js": {
         "version": "47b3562229b947845e4d9b2724242a682d2d6b7cc935c3801e23f0de21678e00",
         "signature": "532996bc0a50dfc6b68a03c5a5dae4ae947518c7d0b318257277e6fde3f1bb95",
         "affectsGlobalScope": false
       },
       "./src/openWindows.js": {
-        "version": "e59e27243ab0238ed5c97f05395e5976e0e0558961d0bb5f51634644fd3b5492",
+        "version": "5fa246f99dd987b0fe7e4736b35a1f64d99b2e788f6c83d989680a2ff158b815",
         "signature": "a593a3e3bc43b890da9a5ee27fbd683359d233cb84c7faf9d612b2d24429ddad",
         "affectsGlobalScope": false
       },
@@ -314,6 +309,11 @@
       "./src/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
         "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
+        "affectsGlobalScope": false
+      },
+      "./src/workBox.js": {
+        "version": "f36f0b3257922537dcb11ae1383d4351c753b1dcdf6fe97e2798e9e92f09d836",
+        "signature": "28f1bcb8fcfb43e1ec98d1a07e178d80ba0c9c05f49a53d6967c6620e2514fd7",
         "affectsGlobalScope": false
       },
       "./src/emotion-react-renderer/dist/DraggableWindow.js": {
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "bd855c1f4106f07b7716b6eb29134782ca5d66dee5eafa82b5889e748a4d78ac",
+        "version": "9c3cc0ba1ab6c9ac349dc4f761f8895290fd2aac0b6e4839cc6ab26dcb88d4e3",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -597,8 +597,7 @@
       ],
       "./src/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_legacy/simple-window-manager.es.js",
-        "./src/workBox.js"
+        "./node_legacy/simple-window-manager.es.js"
       ],
       "./src/qrious/dist/qrious.esm.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"

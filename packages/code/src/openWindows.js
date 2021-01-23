@@ -1,7 +1,4 @@
-import { workBox } from "./workBox.js";
-
 export async function openWindows() {
-  workBox();
   const { WindowManager } = await import(
     "../node_legacy/simple-window-manager.es.js"
   );

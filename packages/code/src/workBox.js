@@ -3,7 +3,7 @@ export async function workBox() {
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
     );
-
+    wb.register();
     wb.addEventListener("activated", (event) => {
       // `event.isUpdate` will be true if another version of the service
       // worker was controlling the page when this version was registered.
@@ -24,7 +24,5 @@ export async function workBox() {
       window.navigator.serviceWorker.controller &&
       window.navigator.serviceWorker.controller.unregister();
     const wb = new Workbox(`./src/workers/sw.js`);
-
-    wb.register();
   }
 }
