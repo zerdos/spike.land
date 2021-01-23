@@ -18,25 +18,22 @@ async function workBox() {
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
     );
+    const {navigator, location} = window;
 
-    window.navigator.serviceWorker &&
-      window.navigator.serviceWorker.controller &&
-      window.navigator.serviceWorker.controller.unregister();
-    const wb = new Workbox(`${window.location.pathname}src/workers/sw.js`);
+    // navigator.serviceWorker &&
+    //   navigator.serviceWorker.controller &&
+    //   navigator.serviceWorker.controller.unregister();
 
-    wb.addEventListener('activated', (event) => {
-      // `event.isUpdate` will be true if another version of the service
-      // worker was controlling the page when this version was registered.
-      if (!event.isUpdate && !window.monaco) {
+    const wb = new Workbox(location.pathname + "src/workers/sw.js");
+
+    wb.addEventListener('activated', async (event) => {
+
+      if (!event.isUpdate || !window.monaco) {
         console.log('Service worker activated for the first time!');
 
-        (async()=>{
-          const {run} = await import ("src/codeLoader.js")
-          run("window", window);
-        })
-    
-        // If your service worker is configured to precache assets, those
-        // assets should all be available now.
+        const {run} = await import ("src/codeLoader.js")
+        run("window", window);
+   
       }
     });
 

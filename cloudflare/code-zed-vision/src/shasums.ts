@@ -29,8 +29,6 @@ export const shasums = {
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  ".tsBuildInfo":
-    "e50699865cb6f8b1d36f30fb51bd8763a0e2539de101e2b0a8e3d0de1ff2905f",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -39,7 +37,7 @@ export const shasums = {
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "index.html":
-    "b0f482c5e60233f223f68420155ade005c793c32f8da748ab1d6056d3cb618c6",
+    "f4ec8792d2ee5cd623b45bf5b0034274bceb564686366dc0b130145984260d5f",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   ".vscode/setttings.json":
@@ -599,7 +597,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "cd308c5d32aaa1057907b675a6396bc8ce8eaafd4ff867ab46795c6311f9daa0",
+    "2ff637c2cc1346526ea0d5aece8b12320f38d7a7b949979eaf8eaf2670998870",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
