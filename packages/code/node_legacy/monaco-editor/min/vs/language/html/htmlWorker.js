@@ -246,9 +246,8 @@ define(
                   L.undefined(n.code)) &&
                 (L.undefined(n.codeDescription) ||
                   L.string(
-                    null === (t = n.codeDescription) || void 0 === t
-                      ? void 0
-                      : t.href,
+                    null === (t = n.codeDescription) || void 0 === t ? void 0
+                    : t.href,
                   )) &&
                 (L.string(n.source) || L.undefined(n.source)) &&
                 (L.undefined(n.relatedInformation) ||
@@ -404,9 +403,8 @@ define(
               (void 0 === t.documentChanges ||
                 t.documentChanges.every(
                   (function (e) {
-                    return L.string(e.kind)
-                      ? f.is(e) || g.is(e) || b.is(e)
-                      : m.is(e);
+                    return L.string(e.kind) ? f.is(e) || g.is(e) || b.is(e)
+                    : m.is(e);
                   }),
                 ));
           };
@@ -422,7 +420,9 @@ define(
           return e.prototype.insert = function (e, t, n) {
             var i, r;
             if (
-              void 0 === n ? i = d.insert(e, t) : u.is(n)
+              void 0 === n
+                ? i = d.insert(e, t)
+                : u.is(n)
                 ? (r = n, i = p.insert(e, t, n))
                 : (this.assertChangeAnnotations(this.changeAnnotations),
                   r = this.changeAnnotations.manage(n),
@@ -452,9 +452,7 @@ define(
             e.prototype.delete = function (e, t) {
               var n, i;
               if (
-                void 0 === t
-                  ? n = d.del(e)
-                  : u.is(t)
+                void 0 === t ? n = d.del(e) : u.is(t)
                   ? (i = t, n = p.del(e, t))
                   : (this.assertChangeAnnotations(this.changeAnnotations),
                     i = this.changeAnnotations.manage(t),
@@ -616,7 +614,9 @@ define(
                 h.is(t) || u.is(t) ? i = t : n = t,
                   void 0 === i
                     ? r = f.create(e, n)
-                    : (a = u.is(i) ? i : this._changeAnnotations.manage(i),
+                    : (a = u.is(i)
+                      ? i
+                      : this._changeAnnotations.manage(i),
                       r = f.create(e, n, a)),
                   this._workspaceEdit.documentChanges.push(r),
                   void 0 !== a
@@ -638,9 +638,7 @@ define(
                 h.is(n) || u.is(n) ? r = n : i = n,
                   void 0 === r
                     ? a = g.create(e, t, i)
-                    : (o = u.is(r)
-                      ? r
-                      : this._changeAnnotations.manage(r),
+                    : (o = u.is(r) ? r : this._changeAnnotations.manage(r),
                       a = g.create(e, t, i, o)),
                   this._workspaceEdit.documentChanges.push(a),
                   void 0 !== o
@@ -660,10 +658,10 @@ define(
               var i, r, a;
               if (
                 h.is(t) || u.is(t) ? i = t : n = t,
-                  void 0 === i ? r = b.create(e, n) : (a = u.is(i)
-                    ? i
-                    : this._changeAnnotations.manage(i),
-                    r = b.create(e, n, a)),
+                  void 0 === i
+                    ? r = b.create(e, n)
+                    : (a = u.is(i) ? i : this._changeAnnotations.manage(i),
+                      r = b.create(e, n, a)),
                   this._workspaceEdit.documentChanges.push(r),
                   void 0 !== a
               ) {
@@ -1009,8 +1007,7 @@ define(
                     (function (e, t) {
                       var n = e.range.start.line - t.range.start.line;
                       return 0 === n
-                        ? e.range.start.character - t.range.start.character
-                        : n;
+                        ? e.range.start.character - t.range.start.character : n;
                     }),
                   ),
                   a = i.length,
@@ -1100,7 +1097,7 @@ define(
             },
             e.prototype.offsetAt = function (e) {
               var t = this.getLineOffsets();
-              if (e.line >= t.length) return this._content.length;
+              if (e.line >= t.length)return this._content.length;
               if (e.line < 0) return 0;
               var n = t[e.line],
                 i = e.line + 1 < t.length ? t[e.line + 1]
@@ -1226,11 +1223,15 @@ define(
                   u = Math.max(l.end.line, 0),
                   p = this._lineOffsets,
                   m = r(s.text, !1, c);
-                if (u - h === m.length) {for (
-                    var f = 0, g = m.length; f < g; f++
+                if (u - h === m.length) {
+                  for (
+                    var f = 0, g = m.length;
+                    f < g;
+                    f++
                   ) {
                     p[f + h + 1] = m[f];
-                  }} else {
+                  }
+                } else {
                   m.length < 1e4 ? p.splice.apply(p, [h + 1, u - h].concat(m))
                   : this._lineOffsets = p = p.slice(0, h + 1).concat(
                     m,
@@ -1273,9 +1274,7 @@ define(
             if (e.line >= t.length) return this._content.length;
             if (e.line < 0) return 0;
             var n = t[e.line],
-              i = e.line + 1 < t.length
-                ? t[e.line + 1]
-                : this._content.length;
+              i = e.line + 1 < t.length ? t[e.line + 1] : this._content.length;
             return Math.max(Math.min(n + e.character, i), n);
           },
           Object.defineProperty(e.prototype, "lineCount", {
@@ -1350,8 +1349,7 @@ define(
                   (function (e, t) {
                     var n = e.range.start.line - t.range.start.line;
                     return 0 === n
-                      ? e.range.start.character - t.range.start.character
-                      : n;
+                      ? e.range.start.character - t.range.start.character : n;
                   }),
                 );
               s < l.length;
@@ -1748,10 +1746,13 @@ var __createBinding = this && this.__createBinding ||
                       )
                       : M());
             case i.ScannerState.WithinTag:
-              return y.skipWhitespace() ? (g = !0, L(t, i.TokenType.Whitespace))
-              : g &&
-                  (_ = y.advanceIfRegExp(/^[^\s"'></=\x00-\x0F\x7F\x80-\x9F]*/)
-                      .toLowerCase()).length > 0
+              return y.skipWhitespace()
+                ? (g = !0, L(t, i.TokenType.Whitespace))
+                : g &&
+                    (_ = y.advanceIfRegExp(
+                        /^[^\s"'></=\x00-\x0F\x7F\x80-\x9F]*/,
+                      )
+                        .toLowerCase()).length > 0
                 ? (T = i.ScannerState.AfterAttributeName,
                   g = !1,
                   L(t, i.TokenType.AttributeName))
@@ -1766,7 +1767,8 @@ var __createBinding = this && this.__createBinding ||
                   : "style" === b
                   ? i.ScannerState.WithinStyleContent
                   : i.ScannerState.WithinContent,
-                  L(t, i.TokenType.StartTagClose)) : m && y.peekChar() === l
+                  L(t, i.TokenType.StartTagClose))
+                : m && y.peekChar() === l
                 ? (T = i.ScannerState.WithinContent,
                   L(
                     t,
@@ -1910,7 +1912,7 @@ var __createBinding = this && this.__createBinding ||
         t.binarySearch = function (e, t, n) {
           for (var i = 0, r = e.length - 1; i <= r;) {
             var a = (i + r) / 2 | 0, o = n(e[a], t);
-            if (o < 0)i = a + 1;
+            if (o < 0) i = a + 1;
             else {
               if (!(o > 0)) return a;
               r = a - 1;
@@ -2008,10 +2010,9 @@ var __createBinding = this && this.__createBinding ||
             configurable: !0,
           }),
             e.prototype.isSameTag = function (e) {
-              return void 0 === this.tag
-                ? void 0 === e
-                : void 0 !== e && this.tag.length === e.length &&
-                  this.tag.toLowerCase() === e;
+              return void 0 === this.tag ? void 0 === e
+              : void 0 !== e && this.tag.length === e.length &&
+                this.tag.toLowerCase() === e;
             },
             Object.defineProperty(e.prototype, "firstChild", {
               get: function () {
@@ -2039,7 +2040,7 @@ var __createBinding = this && this.__createBinding ||
               if (t >= 0) {
                 var n = this.children[t];
                 if (e > n.start) {
-                  if (e < n.end)return n.findNodeBefore(e);
+                  if (e < n.end) return n.findNodeBefore(e);
                   var r = n.lastChild;
                   return r && r.end === n.end ? n.findNodeBefore(e) : n;
                 }
@@ -4417,7 +4418,7 @@ var __createBinding = this && this.__createBinding ||
           return i;
         },
         t.repeat = function (e, t) {
-          for (var n = ""; t > 0;)1 == (1 & t) && (n += e), e += e, t >>>= 1;
+          for (var n = ""; t > 0;) 1 == (1 & t) && (n += e), e += e, t >>>= 1;
           return n;
         };
       var n = "a".charCodeAt(0),
@@ -4608,14 +4609,12 @@ var __awaiter = this && this.__awaiter || function (e, t, n, i) {
         }
         function l(e) {
           var t;
-          e.done
-            ? r(e.value)
-            : (t = e.value,
-              t instanceof n ? t : new n(
-                (function (e) {
-                  e(t);
-                }),
-              )).then(o, s);
+          e.done ? r(e.value) : (t = e.value,
+            t instanceof n ? t : new n(
+              (function (e) {
+                e(t);
+              }),
+            )).then(o, s);
         }
         l((i = i.apply(e, t || [])).next());
       }),
@@ -4652,7 +4651,8 @@ var __awaiter = this && this.__awaiter || function (e, t, n, i) {
                     ? i.return
                     : a[0]
                     ? i.throw || ((r = i.return) && r.call(i), 0)
-                    : i.next) && !(r = r.call(i, a[1])).done
+                    : i.next) &&
+                  !(r = r.call(i, a[1])).done
               ) {
                 return r;
               }
@@ -4773,8 +4773,9 @@ var __awaiter = this && this.__awaiter || function (e, t, n, i) {
                                     : e;
                                 }(e.getText(l.range)),
                               )
-                              ? "." !== c && ".." !== c ? [3, 2]
-                              : (r.isIncomplete = !0, [3, 4])
+                              ? "." !== c && ".." !== c
+                                ? [3, 2]
+                                : (r.isIncomplete = !0, [3, 4])
                               : [3, 4])
                           : [3, 5];
                       case 2:
@@ -4798,7 +4799,9 @@ var __awaiter = this && this.__awaiter || function (e, t, n, i) {
                           [4, this.providePathSuggestions(l.value, d, e, t)];
                       case 3:
                         for (
-                          h = f.sent(), u = 0, p = h; u < p.length; u++
+                          h = f.sent(), u = 0, p = h;
+                          u < p.length;
+                          u++
                         ) {
                           m = p[u], r.items.push(m);
                         }
@@ -4923,14 +4926,12 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
       }
       function l(e) {
         var t;
-        e.done
-          ? r(e.value)
-          : (t = e.value,
-            t instanceof n ? t : new n(
-              (function (e) {
-                e(t);
-              }),
-            )).then(o, s);
+        e.done ? r(e.value) : (t = e.value,
+          t instanceof n ? t : new n(
+            (function (e) {
+              e(t);
+            }),
+          )).then(o, s);
       }
       l((i = i.apply(e, t || [])).next());
     }),
@@ -4967,7 +4968,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                     ? i.return
                     : a[0]
                     ? i.throw || ((r = i.return) && r.call(i), 0)
-                    : i.next) && !(r = r.call(i, a[1])).done
+                    : i.next) &&
+                  !(r = r.call(i, a[1])).done
               ) {
                 return r;
               }
@@ -5094,11 +5096,10 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                         return c.trys.push([1, , 3, 4]),
                           [4, a.computeCompletions(e, i)];
                       case 2:
-                        return l = c.sent(),
-                          [2, {
-                            isIncomplete: s.isIncomplete || l.isIncomplete,
-                            items: l.items.concat(s.items),
-                          }];
+                        return l = c.sent(), [2, {
+                          isIncomplete: s.isIncomplete || l.isIncomplete,
+                          items: l.items.concat(s.items),
+                        }];
                       case 3:
                         return this.completionParticipants = o, [7];
                       case 4:
@@ -5229,15 +5230,14 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
               void 0 === t && (t = _);
               for (var n = _; n < t && "<" !== b[n];) n++;
               var r = k(e, n),
-                s =
-                  m(
-                      b,
-                      t,
-                      i.ScannerState.AfterAttributeName,
-                      i.TokenType.DelimiterAssign,
-                    )
-                    ? ""
-                    : '="$1"',
+                s = m(
+                    b,
+                    t,
+                    i.ScannerState.AfterAttributeName,
+                    i.TokenType.DelimiterAssign,
+                  )
+                  ? ""
+                  : '="$1"',
                 l = Object.create(null);
               return f.forEach(
                 (function (e) {
@@ -5352,9 +5352,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                 (function (e) {
                   e.provideValues(T, w).forEach(
                     (function (e) {
-                      var t = o
-                        ? '"' + e.name + '"'
-                        : e.name;
+                      var t = o ? '"' + e.name + '"' : e.name;
                       d.items.push({
                         label: e.name,
                         filterText: t,
@@ -5372,9 +5370,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
             }
             function C(e) {
               return _ === y.getTokenEnd() && (U = y.scan()) === e &&
-                  y.getTokenOffset() === _
-                ? y.getTokenEnd()
-                : _;
+                  y.getTokenOffset() === _ ? y.getTokenEnd() : _;
             }
             function I() {
               for (var n = 0, i = u; n < i.length; n++) {
@@ -5558,21 +5554,17 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
               ) {
                 return this.supportsMarkdown = !0, this.supportsMarkdown;
               }
-              var r =
-                null ===
-                    (n =
-                      null ===
-                          (t =
-                            null ===
-                                (e =
-                                  this.lsOptions.clientCapabilities
-                                    .textDocument) || void 0 === e
-                              ? void 0
-                              : e.completion) || void 0 === t
-                        ? void 0
-                        : t.completionItem) || void 0 === n
-                  ? void 0
-                  : n.documentationFormat;
+              var r = null ===
+                    (n = null ===
+                          (t = null ===
+                                (e = this.lsOptions.clientCapabilities
+                                  .textDocument) || void 0 === e
+                            ? void 0
+                            : e.completion) || void 0 === t
+                      ? void 0
+                      : t.completionItem) || void 0 === n
+                ? void 0
+                : n.documentationFormat;
               this.supportsMarkdown = Array.isArray(r) &&
                 -1 !== r.indexOf(i.MarkupKind.Markdown);
             }
@@ -5651,9 +5643,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                           if (n.name.toLowerCase() === e.toLowerCase()) {
                             var r = a.generateDocumentation(n, c, h);
                             r || (r = {
-                              kind: h
-                                ? "markdown"
-                                : "plaintext",
+                              kind: h ? "markdown" : "plaintext",
                               value: "",
                             }), i = { contents: r, range: t };
                           }
@@ -5705,9 +5695,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                           (function (e) {
                             if (t === e.name && e.description) {
                               var i = a.generateDocumentation(e, c, h);
-                              r = i
-                                ? { contents: i, range: n }
-                                : null;
+                              r = i ? { contents: i, range: n } : null;
                             }
                           }),
                         ), r
@@ -5751,7 +5739,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
               return function (e, t) {
                 var n = function (e) {
                   for (
-                    var t = u - 1, n = "&"; t >= 0 && s.isLetterOrDigit(e, t);
+                    var t = u - 1, n = "&";
+                    t >= 0 && s.isLetterOrDigit(e, t);
                   ) {
                     t--;
                   }
@@ -5814,9 +5803,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                             (function (e) {
                               if (n === e.name && e.description) {
                                 var t = a.generateDocumentation(e, c, h);
-                                o = t
-                                  ? { contents: t, range: i }
-                                  : null;
+                                o = t ? { contents: t, range: i } : null;
                               }
                             }),
                           ), o
@@ -5840,14 +5827,12 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
           },
             e.prototype.convertContents = function (e) {
               if (!this.doesSupportMarkdown()) {
-                if ("string" == typeof e)return e;
+                if ("string" == typeof e) return e;
                 if ("kind" in e) return { kind: "plaintext", value: e.value };
                 if (!Array.isArray(e)) return e.value;
                 e.map(
                   (function (e) {
-                    return "string" == typeof e
-                      ? e
-                      : e.value;
+                    return "string" == typeof e ? e : e.value;
                   }),
                 );
               }
@@ -5861,20 +5846,17 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                 ) {
                   return this.supportsMarkdown = !0, this.supportsMarkdown;
                 }
-                var a =
-                  null ===
-                      (n =
-                        null ===
-                            (t =
-                              null ===
+                var a = null ===
+                      (n = null ===
+                            (t = null ===
                                   (e = this.lsOptions.clientCapabilities) ||
                                 void 0 === e
-                                ? void 0
-                                : e.textDocument) || void 0 === t
-                          ? void 0
-                          : t.hover) || void 0 === n
-                    ? void 0
-                    : n.contentFormat;
+                              ? void 0
+                              : e.textDocument) || void 0 === t
+                        ? void 0
+                        : t.hover) || void 0 === n
+                  ? void 0
+                  : n.contentFormat;
                 this.supportsMarkdown = Array.isArray(a) &&
                   -1 !== a.indexOf(i.MarkupKind.Markdown);
               }
@@ -5889,11 +5871,13 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
     if ("object" == typeof module && "object" == typeof module.exports) {
       var t = e(require, exports);
       void 0 !== t && (module.exports = t);
-    } else {"function" == typeof define && define.amd &&
+    } else {
+      "function" == typeof define && define.amd &&
         define("vscode-html-languageservice/beautify/beautify", [
           "require",
           "exports",
-        ], e);}
+        ], e);
+    }
   }(
     (function (e, t) {
       "use strict";
@@ -6063,16 +6047,14 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
             return 0 === this.__items.length;
           },
           i.prototype.last = function () {
-            return this.is_empty()
-              ? null
-              : this.__items[this.__items.length - 1];
+            return this.is_empty() ? null
+            : this.__items[this.__items.length - 1];
           },
           i.prototype.push = function (e) {
             this.__items.push(e);
             var t = e.lastIndexOf("\n");
-            -1 !== t
-              ? this.__character_count = e.length - t
-              : this.__character_count += e.length;
+            -1 !== t ? this.__character_count = e.length - t
+            : this.__character_count += e.length;
           },
           i.prototype.pop = function () {
             var e = null;
@@ -6210,8 +6192,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                 this.current_line.trim();
             }
             this.previous_line = this.__lines.length > 1
-              ? this.__lines[this.__lines.length - 2]
-              : null;
+              ? this.__lines[this.__lines.length - 2] : null;
           },
           a.prototype.just_added_newline = function () {
             return this.current_line.is_empty();
@@ -6536,7 +6517,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
           },
           p.prototype.foundNestedPseudoClass = function () {
             for (var e = 0, t = 1, n = this._input.peek(t); n;) {
-              if ("{" === n) return !0;
+              if ("{" === n)return !0;
               if ("(" === n) e += 1;
               else if (")" === n) {
                 if (0 === e) return !1;
@@ -6561,7 +6542,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
             this._indentLevel > 0 && this._indentLevel--;
           },
           p.prototype.beautify = function () {
-            if (this._options.disabled) return this._source_text;
+            if (this._options.disabled)return this._source_text;
             var e = this._source_text, t = this._options.eol;
             "auto" === t &&
               (t = "\n", e && s.test(e || "") && (t = e.match(s)[0]));
@@ -6698,8 +6679,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                       this.indent(),
                       this._ch = this._input.next(),
                       ")" === this._ch || '"' === this._ch || "'" === this._ch
-                        ? this._input.back()
-                        : this._ch &&
+                        ? this._input.back() : this._ch &&
                           (this.print_string(this._ch + this.eatString(")")),
                             m && (m--, this.outdent())))
                     : (this.preserveSingleSpace(i),
@@ -6718,9 +6698,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                       : this._output.add_new_line())
                   : ">" !== this._ch && "+" !== this._ch && "~" !== this._ch ||
                       g || 0 !== m
-                  ? "]" === this._ch
-                    ? this.print_string(this._ch)
-                    : "[" === this._ch
+                  ? "]" === this._ch ? this.print_string(this._ch)
+                  : "[" === this._ch
                     ? (this.preserveSingleSpace(i), this.print_string(this._ch))
                     : "=" === this._ch
                     ? (this.eatWhitespace(),
@@ -6766,8 +6745,9 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
           ]);
           this.brace_style = "collapse";
           for (var r = 0; r < n.length; r++) {
-            "expand" !== n[r] ? this.brace_style = "collapse"
-            : this.brace_style = n[r];
+            "expand" !== n[r]
+              ? this.brace_style = "collapse"
+              : this.brace_style = n[r];
           }
         }
         r.prototype = new i(), e.exports.Options = r;
@@ -6894,11 +6874,13 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
               : this.__items[e];
           },
           i.prototype.has_match = function (e) {
-            for (var t = this.__items.length - 1; t >= 0; t--) {if (
+            for (var t = this.__items.length - 1; t >= 0; t--) {
+              if (
                 this.__items[t].match(e)
               ) {
                 return !0;
-              }}
+              }
+            }
             return !1;
           },
           i.prototype.set_indent = function (e, t) {
@@ -7079,7 +7061,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
           },
           a.prototype.remove_indent = function (e) {
             for (
-              var t = this.__lines.length; e < t;
+              var t = this.__lines.length;
+              e < t;
             ) {
               this.__lines[e]._remove_indent(), e++;
             }
@@ -7487,7 +7470,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
           r.prototype.__split = function (e, t) {
             e.lastIndex = 0;
             for (
-              var n = 0, i = [], r = e.exec(t); r;
+              var n = 0, i = [], r = e.exec(t);
+              r;
             ) {
               i.push(t.substring(n, r.index)),
                 n = r.index + r[0].length,
@@ -7629,7 +7613,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
           },
           a.prototype.read_options = function (e) {
             var t = this._create();
-            for (var n in r) t._disabled[n] = -1 === e.templating.indexOf(n);
+            for (var n in r)t._disabled[n] = -1 === e.templating.indexOf(n);
             return t._update(), t;
           },
           a.prototype.exclude = function (e) {
@@ -7641,7 +7625,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
             e = this._match_pattern ? this._input.read(this._starting_pattern)
             : this._input.read(this._starting_pattern, this.__template_pattern);
             for (
-              var t = this._read_template(); t;
+              var t = this._read_template();
+              t;
             ) {
               this._match_pattern
                 ? t += this._input.read(this._match_pattern)
@@ -7680,7 +7665,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
               (e = e || this.__patterns.php.read()),
                 this._disabled.erb || this._excluded.erb || "%" !== n ||
                 (e = e || this.__patterns.erb.read());
-            } else {"{" === t &&
+            } else {
+              "{" === t &&
                 (this._disabled.handlebars || this._excluded.handlebars ||
                   (e =
                     (e = (e = e || this.__patterns.handlebars_comment.read()) ||
@@ -7691,7 +7677,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                     (e = e || this.__patterns.django_value.read()),
                     this._excluded.django ||
                     (e = (e = e || this.__patterns.django_comment.read()) ||
-                      this.__patterns.django.read())));}
+                      this.__patterns.django.read())));
+            }
             return e;
           },
           e.exports.TemplatablePattern = a;
@@ -7822,18 +7809,16 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
             this._tag_stack = null;
           var a = new i(t, "html");
           this._options = a,
-            this._is_wrap_attributes_force =
-              "force" ===
-                this._options.wrap_attributes.substr(0, "force".length),
+            this._is_wrap_attributes_force = "force" ===
+              this._options.wrap_attributes.substr(0, "force".length),
             this._is_wrap_attributes_force_expand_multiline =
               "force-expand-multiline" === this._options.wrap_attributes,
             this._is_wrap_attributes_force_aligned =
               "force-aligned" === this._options.wrap_attributes,
             this._is_wrap_attributes_aligned_multiple =
               "aligned-multiple" === this._options.wrap_attributes,
-            this._is_wrap_attributes_preserve =
-              "preserve" ===
-                this._options.wrap_attributes.substr(0, "preserve".length),
+            this._is_wrap_attributes_preserve = "preserve" ===
+              this._options.wrap_attributes.substr(0, "preserve".length),
             this._is_wrap_attributes_preserve_aligned =
               "preserve-aligned" === this._options.wrap_attributes;
         }
@@ -7871,7 +7856,7 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
             t && (this._printer.indent_level = t.indent_level);
           },
           m.prototype.beautify = function () {
-            if (this._options.disabled) return this._source_text;
+            if (this._options.disabled)return this._source_text;
             var e = this._source_text, t = this._options.eol;
             "auto" === this._options.eol &&
               (t = "\n", e && s.test(e) && (t = e.match(s)[0]));
@@ -8011,7 +7996,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                   (d[2] || -1 !== d[3].indexOf("\n")) &&
                   (d = d[3].match(/[ \t]+$/)) && (t.whitespace_before = d[0]);
               }
-              if (a) {if (r) {
+              if (a) {
+                if (r) {
                   var h = function () {
                     this.eol = "\n";
                   };
@@ -8021,7 +8007,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                   var u = t.whitespace_before;
                   u && (a = a.replace(new RegExp("\n(" + u + ")?", "g"), "\n")),
                     a = c + a.replace(/\n/g, "\n" + c);
-                }}
+                }
+              }
               s && (a = a ? s + a + "\n" + l : s + l),
                 e.print_newline(!1),
                 a &&
@@ -8136,9 +8123,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                   this._calcluate_parent_multiline(e, n));
             } else if (n.is_end_tag) {
               var a = !1;
-              a =
-                (a = n.start_tag_token &&
-                  n.start_tag_token.multiline_content) ||
+              a = (a = n.start_tag_token &&
+                n.start_tag_token.multiline_content) ||
                 !n.is_inline_element &&
                   !(i.is_inline_element || i.is_unformatted) &&
                   !(r.type === o.TAG_CLOSE && n.start_tag_token === i) &&
@@ -8232,13 +8218,10 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                   (t = t || this._tag_stack.try_pop("caption", ["table"])) ||
                   this._tag_stack.try_pop("colgroup", ["table"])
                 : "tbody" === e.tag_name || "tfoot" === e.tag_name
-                ? t =
-                  (t =
-                    (t =
-                      (t = t ||
-                        this._tag_stack.try_pop("caption", ["table"])) ||
-                      this._tag_stack.try_pop("colgroup", ["table"])) ||
-                    this._tag_stack.try_pop("thead", ["table"])) ||
+                ? t = (t = (t = (t = t ||
+                  this._tag_stack.try_pop("caption", ["table"])) ||
+                  this._tag_stack.try_pop("colgroup", ["table"])) ||
+                  this._tag_stack.try_pop("thead", ["table"])) ||
                   this._tag_stack.try_pop("tbody", ["table"])
                 : "tr" === e.tag_name
                 ? t =
@@ -8252,15 +8235,14 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                     "tfoot",
                   ])
                 : "th" !== e.tag_name && "td" !== e.tag_name ||
-                  (t =
-                    (t = t ||
-                      this._tag_stack.try_pop("td", [
-                        "table",
-                        "thead",
-                        "tbody",
-                        "tfoot",
-                        "tr",
-                      ])) ||
+                  (t = (t = t ||
+                    this._tag_stack.try_pop("td", [
+                      "table",
+                      "thead",
+                      "tbody",
+                      "tfoot",
+                      "tr",
+                    ])) ||
                     this._tag_stack.try_pop("th", [
                       "table",
                       "thead",
@@ -8485,9 +8467,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                   (n =
                     (n =
                       (n =
-                        (n =
-                          (n = (n = n || this._read_open_handlebars(i, t)) ||
-                            this._read_attribute(i, e, t)) ||
+                        (n = (n = (n = n || this._read_open_handlebars(i, t)) ||
+                          this._read_attribute(i, e, t)) ||
                           this._read_close(i, t)) ||
                         this._read_raw_content(i, e, t)) ||
                       this._read_content_word(i)) ||
@@ -8678,15 +8659,11 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
       }
       function o(e, t, n) {
         var i = a(e, t, null);
-        return "string" == typeof i
-          ? i.length > 0
-            ? i.split(",").map(
-              (function (e) {
-                return e.trim().toLowerCase();
-              }),
-            )
-            : []
-          : n;
+        return "string" == typeof i ? i.length > 0 ? i.split(",").map(
+          (function (e) {
+            return e.trim().toLowerCase();
+          }),
+        ) : [] : n;
       }
       function s(e, t) {
         return !0 === a(e, "templating", t) ? ["auto"] : ["none"];
@@ -8821,9 +8798,7 @@ var __extends = this && this.__extends || function () {
                 this.query = e.query || l,
                 this.fragment = e.fragment || l)
               : (this.scheme = function (e, t) {
-                return e || t
-                  ? e
-                  : "file";
+                return e || t ? e : "file";
               }(e, d),
                 this.authority = t || l,
                 this.path = function (e, t) {
@@ -8891,9 +8866,7 @@ var __extends = this && this.__extends || function () {
             return void 0 === t ? t = this.scheme : null === t && (t = l),
               void 0 === n ? n = this.authority : null === n && (n = l),
               void 0 === i ? i = this.path : null === i && (i = l),
-              void 0 === r
-                ? r = this.query
-                : null === r && (r = l),
+              void 0 === r ? r = this.query : null === r && (r = l),
               void 0 === a ? a = this.fragment : null === a && (a = l),
               t === this.scheme && n === this.authority && i === this.path &&
                 r === this.query && a === this.fragment
@@ -9025,8 +8998,9 @@ var __extends = this && this.__extends || function () {
     function g(e) {
       for (var t = void 0, n = 0; n < e.length; n++) {
         var i = e.charCodeAt(n);
-        35 === i || 63 === i ? (void 0 === t && (t = e.substr(0, n)), t += m[i])
-        : void 0 !== t && (t += e[n]);
+        35 === i || 63 === i
+          ? (void 0 === t && (t = e.substr(0, n)), t += m[i])
+          : void 0 !== t && (t += e[n]);
       }
       return void 0 !== t ? t : e;
     }
@@ -9063,8 +9037,9 @@ var __extends = this && this.__extends || function () {
                 i += n(h.substr(d + 1), !1)),
             i += "@";
         }
-        -1 === (d = (a = a.toLowerCase()).indexOf(":")) ? i += n(a, !1)
-        : (i += n(a.substr(0, d), !1), i += a.substr(d));
+        -1 === (d = (a = a.toLowerCase()).indexOf(":"))
+          ? i += n(a, !1)
+          : (i += n(a.substr(0, d), !1), i += a.substr(d));
       }
       if (o) {
         if (
@@ -9160,9 +9135,8 @@ var __extends = this && this.__extends || function () {
                   : /^\#/i.test(t)
                   ? e + t
                   : /^\/\//i.test(t)
-                  ? (i.startsWith(e, "https://")
-                    ? "https"
-                    : "http") + ":" + t.replace(/^\s*/g, "")
+                  ? (i.startsWith(e, "https://") ? "https" : "http") + ":" +
+                    t.replace(/^\s*/g, "")
                   : n
                   ? n.resolveReference(t, r || e)
                   : t;
@@ -9213,7 +9187,7 @@ var __extends = this && this.__extends || function () {
                 (u = t.resolveReference(u, e.uri)),
                   h = !1,
                   d = void 0;
-              } else if ("id" === d) { 
+              } else if ("id" === d) {
                 p[o(l.getTokenText())] = l.getTokenOffset();
               }
           }
@@ -9551,9 +9525,8 @@ var __extends = this && this.__extends || function () {
                 }
               } else {
                 p <
-                    (b =
-                      e.positionAt(a.getTokenOffset() + a.getTokenLength())
-                        .line) &&
+                    (b = e.positionAt(a.getTokenOffset() + a.getTokenLength())
+                      .line) &&
                   h({
                     startLine: p,
                     endLine: b,
@@ -14751,14 +14724,12 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
       }
       function l(e) {
         var t;
-        e.done
-          ? r(e.value)
-          : (t = e.value,
-            t instanceof n ? t : new n(
-              (function (e) {
-                e(t);
-              }),
-            )).then(o, s);
+        e.done ? r(e.value) : (t = e.value,
+          t instanceof n ? t : new n(
+            (function (e) {
+              e(t);
+            }),
+          )).then(o, s);
       }
       l((i = i.apply(e, t || [])).next());
     }),
@@ -14795,7 +14766,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, i) {
                     ? i.return
                     : a[0]
                     ? i.throw || ((r = i.return) && r.call(i), 0)
-                    : i.next) && !(r = r.call(i, a[1])).done
+                    : i.next) &&
+                  !(r = r.call(i, a[1])).done
               ) {
                 return r;
               }

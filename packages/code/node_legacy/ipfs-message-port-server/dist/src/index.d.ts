@@ -396,19 +396,16 @@ export var Server: {
                     input:
                       & I
                       & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-                    result: O extends Promise<infer T_1>
-                      ? Promise<
-                        T_1 extends Record<string, unknown>
-                          ? 
-                            & T_1
-                            & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                          : T_1
-                      >
+                    result: O extends Promise<infer T_1> ? Promise<
+                      T_1 extends Record<string, unknown> ? 
+                        & T_1
+                        & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                        : T_1
+                    >
                       : Promise<
-                        O extends Record<string, unknown>
-                          ? 
-                            & O
-                            & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                        O extends Record<string, unknown> ? 
+                          & O
+                          & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                           : O
                       >;
                   } & import("ipfs-message-port-protocol/src/rpc").QueryOptions

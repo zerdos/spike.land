@@ -211,8 +211,7 @@ A list of QRious contributors can be found in
 
 ## License
 
-Copyright © 2017 Alasdair Mercer 
-Copyright © 2010 Tom Zerucha
+Copyright © 2017 Alasdair Mercer Copyright © 2010 Tom Zerucha
 
 See [LICENSE.md](https://github.com/neocotic/qrious/blob/master/LICENSE.md) for
 more information on our GPLv3 license.

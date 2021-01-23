@@ -1537,7 +1537,9 @@ var K = c((u0, F) => {
           case 3:
             for (t = 0, x = 0; x < a; x++, t++) {
               for (
-                t === 3 && (t = 0), e = t, r = 0; r < a; r++, e++
+                t === 3 && (t = 0), e = t, r = 0;
+                r < a;
+                r++, e++
               ) {
                 e === 3 && (e = 0),
                   !e && !this._isMasked(r, x) && (s[r + x * a] ^= 1);
@@ -1630,11 +1632,7 @@ var K = c((u0, F) => {
         for (b += b << 2, b <<= 1; b > f * f;) b -= f * f, q++;
         for (s += q * o.N4, r = 0; r < f; r++) {
           for (t = 0, a[0] = 0, i = 0, x = 0; x < f; x++) {
-            e = n[r + f * x],
-              i === e
-                ? a[t]++
-                : a[++t] = 1,
-              i = e;
+            e = n[r + f * x], i === e ? a[t]++ : a[++t] = 1, i = e;
           }
           s += this._getBadness(t);
         }
@@ -1689,16 +1687,14 @@ var K = c((u0, F) => {
           r = _.FINAL_FORMAT[t + (this._level - 1 << 3)];
         var x = this.buffer, s = this.width;
         for (e = 0; e < 8; e++, r >>= 1) {
-          r & 1 && (x[s - 1 - e + s * 8] = 1,
-            e < 6
-              ? x[8 + s * e] = 1
-              : x[8 + s * (e + 1)] = 1);
+          r & 1 &&
+            (x[s - 1 - e + s * 8] = 1,
+              e < 6 ? x[8 + s * e] = 1 : x[8 + s * (e + 1)] = 1);
         }
         for (e = 0; e < 7; e++, r >>= 1) {
-          r & 1 && (x[8 + s * (s - 7 + e)] = 1,
-            e
-              ? x[6 - e + s * 8] = 1
-              : x[7 + s * 8] = 1);
+          r & 1 &&
+            (x[8 + s * (s - 7 + e)] = 1,
+              e ? x[6 - e + s * 8] = 1 : x[7 + s * 8] = 1);
         }
       },
       _interleaveBlocks: function () {
@@ -1727,7 +1723,8 @@ var K = c((u0, F) => {
         if (r > 1) {
           for (i = ye.BLOCK[r], t = x - 7;;) {
             for (
-              e = x - 7; e > i - 3 && (this._addAlignment(e, t), !(e < i));
+              e = x - 7;
+              e > i - 3 && (this._addAlignment(e, t), !(e < i));
             ) {
               e -= i;
             }
@@ -1784,8 +1781,9 @@ var K = c((u0, F) => {
       _insertTimingRowAndColumn: function () {
         var i, e = this.buffer, t = this.width;
         for (i = 0; i < t - 14; i++) {
-          i & 1 ? (this._setMask(8 + i, 6), this._setMask(6, 8 + i))
-          : (e[8 + i + t * 6] = 1, e[6 + t * (8 + i)] = 1);
+          i & 1
+            ? (this._setMask(8 + i, 6), this._setMask(6, 8 + i))
+            : (e[8 + i + t * 6] = 1, e[6 + t * (8 + i)] = 1);
         }
       },
       _insertVersion: function () {
@@ -1793,9 +1791,7 @@ var K = c((u0, F) => {
         if (s > 6) {
           for (i = Ce.BLOCK[s - 7], e = 17, t = 0; t < 6; t++) {
             for (r = 0; r < 3; r++, e--) {
-              1 & (e > 11
-                  ? s >> e - 12
-                  : i >> e)
+              1 & (e > 11 ? s >> e - 12 : i >> e)
                 ? (x[5 - t + a * (2 - r + a - 11)] = 1,
                   x[2 - r + a - 11 + a * (5 - t)] = 1)
                 : (this._setMask(5 - t, 2 - r + a - 11),
@@ -1817,8 +1813,7 @@ var K = c((u0, F) => {
           s = this.width,
           a = s - 1,
           n = s - 1,
-          f =
-            (this._dataBlock + this._eccBlock) *
+          f = (this._dataBlock + this._eccBlock) *
               (this._neccBlock1 + this._neccBlock2) + this._neccBlock2;
         for (e = 0; e < f; e++) {
           for (i = this._stringBuffer[e], t = 0; t < 8; t++, i <<= 1) {
@@ -1850,8 +1845,10 @@ var K = c((u0, F) => {
       _syncMask: function () {
         var i, e, t = this.width;
         for (e = 0; e < t; e++) {
-          for (i = 0; i <= e; i++) {this.buffer[i + t * e] &&
-              this._setMask(i, e);}
+          for (i = 0; i <= e; i++) {
+            this.buffer[i + t * e] &&
+              this._setMask(i, e);
+          }
         }
       },
     }, {
@@ -2000,9 +1997,7 @@ var Y = c((d0, J) => {
         var r = "_" + i.name,
           x = t[r],
           s = i.transform(
-            e != null
-              ? e
-              : i.defaultValue,
+            e != null ? e : i.defaultValue,
           );
         return t[r] = s, s !== x;
       },

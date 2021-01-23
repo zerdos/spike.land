@@ -182,7 +182,7 @@
         "affectsGlobalScope": false
       },
       "./node_legacy/rng.js": {
-        "version": "0d1e56cf636a3386fa22e2d57fcfd2128835cd9bbc8064099c6d756fdca4b7ef",
+        "version": "5b409e33c343f7bef5d0d39689575dba7b22e3de13b1799388ee636d4e0adc5d",
         "signature": "8a57a361e1c00ef0ee97a851599e81a868a5b7e6aafc85657b2e458f29a4e473",
         "affectsGlobalScope": false
       },
@@ -197,7 +197,7 @@
         "affectsGlobalScope": false
       },
       "./node_legacy/stringify.js": {
-        "version": "9b1785ef051bfa45aff76edc4badbd1ef0ee8e39e752dcfed3672db400b36a08",
+        "version": "62988dd8c0b632da4eada03ad7b41365903c96930e01417ac8aa0ec255293637",
         "signature": "f6a4e105dfc9e9af071ecba39daa242f6d0d771bcbb89544628d77ced4a2998c",
         "affectsGlobalScope": false
       },
@@ -332,7 +332,7 @@
         "affectsGlobalScope": false
       },
       "./src/qrious/dist/qrious.esm.js": {
-        "version": "68153787cf339038dc71f89b139090cfdfb7204f5cc7dca8fcbf4d88101128a4",
+        "version": "ac193b6b27441794add8a08823c9e274dc2eb03d83657ca46a3de4be27af621e",
         "signature": "6e59ec44bffb32a68612a031a9d57d2eb7cddc10506777d9621a7aca88cbe2a9",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "8c3da5c932b9d0584d0f92f10528937f00c6f884896db278adeed0901bb5ff60",
+        "version": "a719832c5a9d6c218a4530be59309b9d1f491c871f644a07b80701efca95bda2",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

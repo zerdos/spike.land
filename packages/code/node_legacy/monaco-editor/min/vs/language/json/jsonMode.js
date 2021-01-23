@@ -215,9 +215,7 @@ define(
                             break;
                           case 117:
                             var s = m(4, !0);
-                            s >= 0
-                              ? t += String.fromCharCode(s)
-                              : h = 4;
+                            s >= 0 ? t += String.fromCharCode(s) : h = 4;
                             break;
                           default:
                             h = 5;
@@ -789,8 +787,8 @@ define(
             isAtPropertyKey: c,
             matches: function (e) {
               for (var t = 0, r = 0; t < e.length && r < n.length; r++) {
-                if (e[t] === n[r] || "*" === e[t])t++;
-                else if ("**" !== e[t])return !1;
+                if (e[t] === n[r] || "*" === e[t]) t++;
+                else if ("**" !== e[t]) return !1;
               }
               return t === e.length;
             },
@@ -926,7 +924,7 @@ define(
           }
         },
         t.getNodePath = function e(t) {
-          if (!t.parent || !t.parent.children)return [];
+          if (!t.parent || !t.parent.children) return [];
           var n = e(t.parent);
           if ("property" === t.parent.type) {
             var r = t.parent.children[0].value;
@@ -967,7 +965,7 @@ define(
             if (Array.isArray(i)) {
               for (var a = 0; a < i.length && i[a].offset <= n; a++) {
                 var s = e(i[a], n, r);
-                if (s)return s;
+                if (s) return s;
               }
             }
             return t;
@@ -996,13 +994,15 @@ define(
     if ("object" == typeof module && "object" == typeof module.exports) {
       var t = e(require, exports);
       void 0 !== t && (module.exports = t);
-    } else {"function" == typeof define && define.amd &&
+    } else {
+      "function" == typeof define && define.amd &&
         define("jsonc-parser/impl/edit", [
           "require",
           "exports",
           "./format",
           "./parser",
-        ], e);}
+        ], e);
+    }
   }(
     (function (e, t) {
       "use strict";
@@ -1031,8 +1031,9 @@ define(
                   p = void 0,
                   h = f.parent.offset + f.parent.length;
                 if (d > 0) p = (S = u.children[d - 1]).offset + S.length;
-                else if (p = u.offset + 1, u.children.length > 1) {h =
-                    u.children[1].offset;}
+                else if (p = u.offset + 1, u.children.length > 1) {
+                  h = u.children[1].offset;
+                }
                 return i(e, { offset: p, length: h - p, content: "" }, o);
               }
               return i(e, {
@@ -1125,18 +1126,15 @@ define(
               return i(e, g, o);
             }
             throw new Error(
-              "Can not " + (void 0 === n
-                ? "remove"
-                : o.isArrayInsertion
-                ? "insert"
-                : "modify") +
+              "Can not " +
+                (void 0 === n ? "remove"
+                : o.isArrayInsertion ? "insert" : "modify") +
                 " Array index " + v + " as length is not sufficient",
             );
           }
           throw new Error(
-            "Can not add " + ("number" != typeof l
-              ? "index"
-              : "property") + " to parent of type " + u.type,
+            "Can not add " + ("number" != typeof l ? "index" : "property") +
+              " to parent of type " + u.type,
           );
         }
         if (void 0 === n) throw new Error("Can not delete in empty document");
@@ -1539,9 +1537,8 @@ define(
                   E.undefined(n.code)) &&
                 (E.undefined(n.codeDescription) ||
                   E.string(
-                    null === (t = n.codeDescription) || void 0 === t
-                      ? void 0
-                      : t.href,
+                    null === (t = n.codeDescription) || void 0 === t ? void 0
+                    : t.href,
                   )) &&
                 (E.string(n.source) || E.undefined(n.source)) &&
                 (E.undefined(n.relatedInformation) ||
@@ -1697,9 +1694,8 @@ define(
               (void 0 === t.documentChanges ||
                 t.documentChanges.every(
                   (function (e) {
-                    return E.string(e.kind)
-                      ? m.is(e) || g.is(e) || v.is(e)
-                      : h.is(e);
+                    return E.string(e.kind) ? m.is(e) || g.is(e) || v.is(e)
+                    : h.is(e);
                   }),
                 ));
           };
@@ -1715,7 +1711,9 @@ define(
           return e.prototype.insert = function (e, t, n) {
             var r, o;
             if (
-              void 0 === n ? r = l.insert(e, t) : d.is(n)
+              void 0 === n
+                ? r = l.insert(e, t)
+                : d.is(n)
                 ? (o = n, r = p.insert(e, t, n))
                 : (this.assertChangeAnnotations(this.changeAnnotations),
                   o = this.changeAnnotations.manage(n),
@@ -1745,9 +1743,7 @@ define(
             e.prototype.delete = function (e, t) {
               var n, r;
               if (
-                void 0 === t
-                  ? n = l.del(e)
-                  : d.is(t)
+                void 0 === t ? n = l.del(e) : d.is(t)
                   ? (r = t, n = p.del(e, t))
                   : (this.assertChangeAnnotations(this.changeAnnotations),
                     r = this.changeAnnotations.manage(t),
@@ -1951,10 +1947,10 @@ define(
               var r, o, i;
               if (
                 f.is(t) || d.is(t) ? r = t : n = t,
-                  void 0 === r ? o = v.create(e, n) : (i = d.is(r)
-                    ? r
-                    : this._changeAnnotations.manage(r),
-                    o = v.create(e, n, i)),
+                  void 0 === r
+                    ? o = v.create(e, n)
+                    : (i = d.is(r) ? r : this._changeAnnotations.manage(r),
+                      o = v.create(e, n, i)),
                   this._workspaceEdit.documentChanges.push(o),
                   void 0 !== i
               ) {
@@ -2300,8 +2296,7 @@ define(
                     (function (e, t) {
                       var n = e.range.start.line - t.range.start.line;
                       return 0 === n
-                        ? e.range.start.character - t.range.start.character
-                        : n;
+                        ? e.range.start.character - t.range.start.character : n;
                     }),
                   ),
                   i = r.length,
@@ -2381,7 +2376,7 @@ define(
             e.prototype.positionAt = function (e) {
               e = Math.max(Math.min(e, this._content.length), 0);
               var t = this.getLineOffsets(), n = 0, o = t.length;
-              if (0 === o)return r.create(0, e);
+              if (0 === o) return r.create(0, e);
               for (; n < o;) {
                 var i = Math.floor((n + o) / 2);
                 t[i] > e ? o = i : n = i + 1;
@@ -2391,7 +2386,7 @@ define(
             },
             e.prototype.offsetAt = function (e) {
               var t = this.getLineOffsets();
-              if (e.line >= t.length) return this._content.length;
+              if (e.line >= t.length)return this._content.length;
               if (e.line < 0) return 0;
               var n = t[e.line],
                 r = e.line + 1 < t.length ? t[e.line + 1]
@@ -2517,11 +2512,15 @@ define(
                   d = Math.max(c.end.line, 0),
                   p = this._lineOffsets,
                   h = o(s.text, !1, u);
-                if (d - f === h.length) {for (
-                    var m = 0, g = h.length; m < g; m++
+                if (d - f === h.length) {
+                  for (
+                    var m = 0, g = h.length;
+                    m < g;
+                    m++
                   ) {
                     p[m + f + 1] = h[m];
-                  }} else {
+                  }
+                } else {
                   h.length < 1e4 ? p.splice.apply(p, [f + 1, d - f].concat(h))
                   : this._lineOffsets = p = p.slice(0, f + 1).concat(
                     h,
@@ -2551,7 +2550,7 @@ define(
           e.prototype.positionAt = function (e) {
             e = Math.max(Math.min(e, this._content.length), 0);
             var t = this.getLineOffsets(), n = 0, r = t.length;
-            if (0 === r)return { line: 0, character: e };
+            if (0 === r) return { line: 0, character: e };
             for (; n < r;) {
               var o = Math.floor((n + r) / 2);
               t[o] > e ? r = o : n = o + 1;
@@ -2564,9 +2563,7 @@ define(
             if (e.line >= t.length) return this._content.length;
             if (e.line < 0) return 0;
             var n = t[e.line],
-              r = e.line + 1 < t.length
-                ? t[e.line + 1]
-                : this._content.length;
+              r = e.line + 1 < t.length ? t[e.line + 1] : this._content.length;
             return Math.max(Math.min(n + e.character, r), n);
           },
           Object.defineProperty(e.prototype, "lineCount", {
@@ -2641,8 +2638,7 @@ define(
                   (function (e, t) {
                     var n = e.range.start.line - t.range.start.line;
                     return 0 === n
-                      ? e.range.start.character - t.range.start.character
-                      : n;
+                      ? e.range.start.character - t.range.start.character : n;
                   }),
                 );
               s < c.length;
@@ -3204,9 +3200,8 @@ var __extends = this && this.__extends || function () {
           },
           e.prototype.compare = function (e) {
             var t = this.hasProblems();
-            return t !== e.hasProblems()
-              ? t ? -1 : 1
-              : this.enumValueMatch !== e.enumValueMatch
+            return t !== e.hasProblems() ? t ? -1 : 1
+            : this.enumValueMatch !== e.enumValueMatch
               ? e.enumValueMatch ? -1 : 1
               : this.primaryValueMatches !== e.primaryValueMatches
               ? this.primaryValueMatches - e.primaryValueMatches
@@ -3251,7 +3246,7 @@ var __extends = this && this.__extends || function () {
             var t = function (n) {
               var r = e(n), o = n.children;
               if (Array.isArray(o)) {
-                for (var i = 0; i < o.length && r; i++) { 
+                for (var i = 0; i < o.length && r; i++) {
                   r = t(o[i]);
                 }
               }
@@ -3276,7 +3271,9 @@ var __extends = this && this.__extends || function () {
                   return o.Diagnostic.create(
                     i,
                     t.message,
-                    null !== (r = t.severity) && void 0 !== r ? r : n,
+                    null !== (r = t.severity) && void 0 !== r
+                      ? r
+                      : n,
                     t.code,
                   );
                 }),
@@ -3308,9 +3305,8 @@ var __extends = this && this.__extends || function () {
                   if (!a[I = f[l]]) {
                     var d = e.parent && "property" === e.parent.type &&
                         e.parent.keyNode,
-                      p = d
-                        ? { offset: d.offset, length: d.length }
-                        : { offset: e.offset, length: 1 };
+                      p = d ? { offset: d.offset, length: d.length }
+                      : { offset: e.offset, length: 1 };
                     n.problems.push({
                       location: p,
                       message: i(
@@ -3323,12 +3319,15 @@ var __extends = this && this.__extends || function () {
                 }
               }
               var h = function (e) {
-                for (var t = s.indexOf(e); t >= 0;) {s.splice(t, 1),
-                    t = s.indexOf(e);}
+                for (var t = s.indexOf(e); t >= 0;) {
+                  s.splice(t, 1), t = s.indexOf(e);
+                }
               };
               if (t.properties) {
                 for (
-                  var g = 0, b = Object.keys(t.properties); g < b.length; g++
+                  var g = 0, b = Object.keys(t.properties);
+                  g < b.length;
+                  g++
                 ) {
                   h(I = b[g]);
                   var x = t.properties[I];
@@ -3442,27 +3441,28 @@ var __extends = this && this.__extends || function () {
                 });
               if (t.dependencies) {
                 for (
-                  var L = 0, D = Object.keys(t.dependencies); L < D.length; L++
+                  var L = 0, D = Object.keys(t.dependencies);
+                  L < D.length;
+                  L++
                 ) {
                   if (a[B = D[L]]) {
                     var F = t.dependencies[B];
                     if (Array.isArray(F)) {
                       for (var V = 0, K = F; V < K.length; V++) {
                         var U = K[V];
-                        a[U]
-                          ? n.propertiesValueMatches++
-                          : n.problems.push({
-                            location: { offset: e.offset, length: e.length },
-                            message: i(
-                              "RequiredDependentPropWarning",
-                              "Object is missing property {0} required by property {1}.",
-                              U,
-                              B,
-                            ),
-                          });
+                        a[U] ? n.propertiesValueMatches++ : n.problems.push({
+                          location: { offset: e.offset, length: e.length },
+                          message: i(
+                            "RequiredDependentPropWarning",
+                            "Object is missing property {0} required by property {1}.",
+                            U,
+                            B,
+                          ),
+                        });
                       }
-                    } else if (x = m(F)) {S(e, x, N = new y(), o),
-                        n.mergePropertyMatch(N);}
+                    } else if (x = m(F)) {
+                      S(e, x, N = new y(), o), n.mergePropertyMatch(N);
+                    }
                   }
                 }
               }
@@ -3480,9 +3480,8 @@ var __extends = this && this.__extends || function () {
               if (Array.isArray(t.items)) {
                 for (var a = t.items, s = 0; s < a.length; s++) {
                   var c = m(a[s]), u = new y();
-                  (h = e.items[s])
-                    ? (S(h, c, u, o), n.mergePropertyMatch(u))
-                    : e.items.length >= a.length && n.propertiesValueMatches++;
+                  (h = e.items[s]) ? (S(h, c, u, o), n.mergePropertyMatch(u))
+                  : e.items.length >= a.length && n.propertiesValueMatches++;
                 }
                 if (e.items.length > a.length) {
                   if ("object" == typeof t.additionalItems) {
@@ -3850,19 +3849,17 @@ var __extends = this && this.__extends || function () {
           }
           if (r.isDefined(t.const)) {
             A = b(c);
-            r.equals(A, t.const)
-              ? n.enumValueMatch = !0
-              : (n.problems.push({
-                location: { offset: c.offset, length: c.length },
-                code: o.ErrorCode.EnumValueMismatch,
-                message: t.errorMessage ||
-                  i(
-                    "constWarning",
-                    "Value must be {0}.",
-                    JSON.stringify(t.const),
-                  ),
-              }),
-                n.enumValueMatch = !1), n.enumValues = [t.const];
+            r.equals(A, t.const) ? n.enumValueMatch = !0 : (n.problems.push({
+              location: { offset: c.offset, length: c.length },
+              code: o.ErrorCode.EnumValueMismatch,
+              message: t.errorMessage ||
+                i(
+                  "constWarning",
+                  "Value must be {0}.",
+                  JSON.stringify(t.const),
+                ),
+            }),
+              n.enumValueMatch = !1), n.enumValues = [t.const];
           }
           t.deprecationMessage && c.parent &&
             n.problems.push({
@@ -3919,7 +3916,7 @@ var __extends = this && this.__extends || function () {
           var i = g.getTokenOffset(),
             a = g.getTokenOffset() + g.getTokenLength();
           if (i === a && i > 0) {
-            for (i--; i > 0 && /\s/.test(m.charAt(i));)i--;
+            for (i--; i > 0 && /\s/.test(m.charAt(i));) i--;
             a = i + 1;
           }
           if (b(e, t, i, a), n && T(n, !1), r.length + o.length > 0) {
@@ -4077,15 +4074,13 @@ var __extends = this && this.__extends || function () {
                     );
                 }
                 var a = j(t);
-                a
-                  ? t.items.push(a)
-                  : x(
-                    i("PropertyExpected", "Value expected"),
-                    o.ErrorCode.ValueExpected,
-                    void 0,
-                    [],
-                    [4, 5],
-                  ), n = !0;
+                a ? t.items.push(a) : x(
+                  i("PropertyExpected", "Value expected"),
+                  o.ErrorCode.ValueExpected,
+                  void 0,
+                  [],
+                  [4, 5],
+                ), n = !0;
               }
               return 4 !== g.getToken()
                 ? x(
@@ -4128,15 +4123,13 @@ var __extends = this && this.__extends || function () {
                     );
                 }
                 var s = k(t, n);
-                s
-                  ? t.properties.push(s)
-                  : x(
-                    i("PropertyExpected", "Property expected"),
-                    o.ErrorCode.PropertyExpected,
-                    void 0,
-                    [],
-                    [2, 5],
-                  ), r = !0;
+                s ? t.properties.push(s) : x(
+                  i("PropertyExpected", "Property expected"),
+                  o.ErrorCode.PropertyExpected,
+                  void 0,
+                  [],
+                  [2, 5],
+                ), r = !0;
               }
               return 2 !== g.getToken()
                 ? x(
@@ -4274,7 +4267,7 @@ var __extends = this && this.__extends || function () {
             .replace(/[\*]/g, ".*");
         },
         t.repeat = function (e, t) {
-          for (var n = ""; t > 0;)1 == (1 & t) && (n += e), e += e, t >>>= 1;
+          for (var n = ""; t > 0;) 1 == (1 & t) && (n += e), e += e, t >>>= 1;
           return n;
         };
     }),
@@ -4687,7 +4680,7 @@ var __extends = this && this.__extends || function () {
                         !0;
                     }),
                   );
-                } else { 
+                } else {
                   t.items.forEach(l);
                 }
               }
@@ -4741,7 +4734,8 @@ var __extends = this && this.__extends || function () {
                             (g = !0,
                               this.addSchemaValueCompletions(x, f, i, a));
                         }
-                        if (h.schema.patternProperties && !g) {for (
+                        if (h.schema.patternProperties && !g) {
+                          for (
                             var v = 0,
                               y = Object.keys(h.schema.patternProperties);
                             v < y.length;
@@ -4753,7 +4747,8 @@ var __extends = this && this.__extends || function () {
                               var x = h.schema.patternProperties[b];
                               this.addSchemaValueCompletions(x, f, i, a);
                             }
-                          }}
+                          }
+                        }
                         if (h.schema.additionalProperties && !g) {
                           x = h.schema.additionalProperties;
                           this.addSchemaValueCompletions(x, f, i, a);
@@ -4768,7 +4763,8 @@ var __extends = this && this.__extends || function () {
                       this.addBooleanValueCompletion(!1, f, i)),
                     a.null && this.addNullValueCompletion(f, i);
                 }
-              } elsethis.addSchemaValueCompletions(e.schema, "", i, a);
+              }
+              elsethis.addSchemaValueCompletions(e.schema, "", i, a);
             },
             e.prototype.getContributedValueCompletions = function (
               e,
@@ -5186,7 +5182,7 @@ var __extends = this && this.__extends || function () {
                       ? a + 1
                       : a;
                 }
-                if (n >= s.offset) return a;
+                if (n >= s.offset)return a;
               }
               return 0;
             },
@@ -5382,7 +5378,9 @@ var __extends = this && this.__extends || function () {
               }
               function n(e, t) {
                 for (
-                  var n, r = "", o = 0, i = -1, a = 0, s = 0; s <= e.length; ++s
+                  var n, r = "", o = 0, i = -1, a = 0, s = 0;
+                  s <= e.length;
+                  ++s
                 ) {
                   if (s < e.length) n = e.charCodeAt(s);
                   else {
@@ -5440,11 +5438,7 @@ var __extends = this && this.__extends || function () {
                       (r = a + "/" + r, o = 47 === a.charCodeAt(0));
                   }
                   return r = n(r, !o),
-                    o
-                      ? r.length > 0 ? "/" + r : "/"
-                      : r.length > 0
-                      ? r
-                      : ".";
+                    o ? r.length > 0 ? "/" + r : "/" : r.length > 0 ? r : ".";
                 },
                 normalize: function (e) {
                   if (t(e), 0 === e.length) return ".";
@@ -5452,9 +5446,7 @@ var __extends = this && this.__extends || function () {
                     o = 47 === e.charCodeAt(e.length - 1);
                   return 0 !== (e = n(e, !r)).length || r || (e = "."),
                     e.length > 0 && o && (e += "/"),
-                    r
-                      ? "/" + e
-                      : e;
+                    r ? "/" + e : e;
                 },
                 isAbsolute: function (e) {
                   return t(e), e.length > 0 && 47 === e.charCodeAt(0);
@@ -5478,9 +5470,7 @@ var __extends = this && this.__extends || function () {
                   );
                   for (
                     var c = n.length - s,
-                      u = a < c
-                        ? a
-                        : c,
+                      u = a < c ? a : c,
                       l = -1,
                       f = 0;
                     f <= u;
@@ -5493,9 +5483,10 @@ var __extends = this && this.__extends || function () {
                         }
                         if (0 === f) return n.slice(s + f);
                       } else {
-                        a > u && (47 === e.charCodeAt(o + f)
-                          ? l = f
-                          : 0 === f && (l = 0));
+                        a > u &&
+                          (47 === e.charCodeAt(o + f)
+                            ? l = f
+                            : 0 === f && (l = 0));
                       }
                       break;
                     }
@@ -5505,14 +5496,15 @@ var __extends = this && this.__extends || function () {
                   }
                   var p = "";
                   for (
-                    f = o + l + 1; f <= i; ++f
+                    f = o + l + 1;
+                    f <= i;
+                    ++f
                   ) {
                     f !== i && 47 !== e.charCodeAt(f) ||
                       (0 === p.length ? p += ".." : p += "/..");
                   }
-                  return p.length > 0
-                    ? p + n.slice(s + l)
-                    : (s += l, 47 === n.charCodeAt(s) && ++s, n.slice(s));
+                  return p.length > 0 ? p + n.slice(s + l)
+                  : (s += l, 47 === n.charCodeAt(s) && ++s, n.slice(s));
                 },
                 _makeLong: function (e) {
                   return e;
@@ -5733,9 +5725,7 @@ var __extends = this && this.__extends || function () {
                               case "https":
                               case "http":
                               case "file":
-                                t
-                                  ? t[0] !== f && (t = f + t)
-                                  : t = f;
+                                t ? t[0] !== f && (t = f + t) : t = f;
                             }
                             return t;
                           }(this.scheme, n || l),
@@ -5796,13 +5786,10 @@ var __extends = this && this.__extends || function () {
                       return void 0 === t
                         ? t = this.scheme
                         : null === t && (t = l),
-                        void 0 === n
-                          ? n = this.authority
-                          : null === n && (n = l),
+                        void 0 === n ? n = this.authority
+                        : null === n && (n = l),
                         void 0 === r ? r = this.path : null === r && (r = l),
-                        void 0 === o
-                          ? o = this.query
-                          : null === o && (o = l),
+                        void 0 === o ? o = this.query : null === o && (o = l),
                         void 0 === i ? i = this.fragment
                         : null === i && (i = l),
                         t === this.scheme && n === this.authority &&
@@ -5936,10 +5923,9 @@ var __extends = this && this.__extends || function () {
                   } else {
                     void 0 === n && (n = e.substr(0, o));
                     var a = g[i];
-                    void 0 !== a
-                      ? (-1 !== r &&
-                        (n += encodeURIComponent(e.substring(r, o)), r = -1),
-                        n += a) : -1 === r && (r = o);
+                    void 0 !== a ? (-1 !== r &&
+                      (n += encodeURIComponent(e.substring(r, o)), r = -1),
+                      n += a) : -1 === r && (r = o);
                   }
                 }
                 return -1 !== r && (n += encodeURIComponent(e.substring(r))),
@@ -6047,7 +6033,9 @@ var __extends = this && this.__extends || function () {
                 var r = Array(e), o = 0;
                 for (t = 0; t < n; t++) {
                   for (
-                    var i = arguments[t], a = 0, s = i.length; a < s; a++, o++
+                    var i = arguments[t], a = 0, s = i.length;
+                    a < s;
+                    a++, o++
                   ) {
                     r[o] = i[a];
                   }
@@ -6145,7 +6133,9 @@ var __extends = this && this.__extends || function () {
           }
           return e.prototype.matchesPattern = function (e) {
             for (
-              var t = !1, n = 0; n < this.patternRegExps.length; n++
+              var t = !1, n = 0;
+              n < this.patternRegExps.length;
+              n++
             ) {
               this.patternRegExps[n].test(e) && (t = this.isInclude[n]);
             }
@@ -6205,8 +6195,10 @@ var __extends = this && this.__extends || function () {
           e.prototype.getSectionRecursive = function (e, t) {
             if (!t || "boolean" == typeof t || 0 === e.length) return t;
             var n = e.shift();
-            if (t.properties && (t.properties[n], 1)) {return this
-                .getSectionRecursive(e, t.properties[n]);}
+            if (t.properties && (t.properties[n], 1)) {
+              return this
+                .getSectionRecursive(e, t.properties[n]);
+            }
             if (t.patternProperties) {
               for (
                 var r = 0, o = Object.keys(t.patternProperties);
@@ -6219,8 +6211,10 @@ var __extends = this && this.__extends || function () {
                 }
               }
             } else {
-              if ("object" == typeof t.additionalProperties) {return this
-                  .getSectionRecursive(e, t.additionalProperties);}
+              if ("object" == typeof t.additionalProperties) {
+                return this
+                  .getSectionRecursive(e, t.additionalProperties);
+              }
               if (n.match("[0-9]+")) {
                 if (Array.isArray(t.items)) {
                   var a = parseInt(n, 10);
@@ -6262,7 +6256,7 @@ var __extends = this && this.__extends || function () {
             configurable: !0,
           }),
           e.prototype.dispose = function () {
-            for (; this.callOnDispose.length > 0;)this.callOnDispose.pop()();
+            for (; this.callOnDispose.length > 0;) this.callOnDispose.pop()();
           },
           e.prototype.onResourceChange = function (e) {
             for (
@@ -6334,7 +6328,9 @@ var __extends = this && this.__extends || function () {
                 this.registeredSchemasIds[e] = !0;
             }
             for (
-              var t = 0, n = this.contributionAssociations; t < n.length; t++
+              var t = 0, n = this.contributionAssociations;
+              t < n.length;
+              t++
             ) {
               var r = n[t];
               this.filePatternAssociations.push(r);
@@ -6503,7 +6499,9 @@ var __extends = this && this.__extends || function () {
                       ),
                         function () {
                           for (
-                            var e = [], t = 0; t < arguments.length; t++
+                            var e = [], t = 0;
+                            t < arguments.length;
+                            t++
                           ) {
                             e[t] = arguments[t];
                           }
@@ -6524,7 +6522,9 @@ var __extends = this && this.__extends || function () {
                         ),
                         function () {
                           for (
-                            var e = [], t = 0; t < arguments.length; t++
+                            var e = [], t = 0;
+                            t < arguments.length;
+                            t++
                           ) {
                             e[t] = arguments[t];
                           }
@@ -6640,13 +6640,11 @@ var __extends = this && this.__extends || function () {
             }
             return this.getSchemaForResource(e.uri, t).then(
               (function (e) {
-                return e
-                  ? t.getMatchingSchemas(e.schema).filter(
-                    (function (e) {
-                      return !e.inverted;
-                    }),
-                  )
-                  : [];
+                return e ? t.getMatchingSchemas(e.schema).filter(
+                  (function (e) {
+                    return !e.inverted;
+                  }),
+                ) : [];
               }),
             );
           },
@@ -6720,23 +6718,15 @@ var __extends = this && this.__extends || function () {
                 },
                 m = function (n) {
                   var i = o ? f(o.trailingCommas) : r.DiagnosticSeverity.Error,
-                    c = o
-                      ? f(o.comments)
-                      : s.commentSeverity,
+                    c = o ? f(o.comments) : s.commentSeverity,
                     p = (null == o ? void 0 : o.schemaValidation)
-                      ? f(o.schemaValidation)
-                      : r.DiagnosticSeverity.Warning,
-                    m = (null == o
-                        ? void 0
-                        : o.schemaRequest)
-                      ? f(o.schemaRequest)
-                      : r.DiagnosticSeverity.Warning;
+                      ? f(o.schemaValidation) : r.DiagnosticSeverity.Warning,
+                    m = (null == o ? void 0 : o.schemaRequest)
+                      ? f(o.schemaRequest) : r.DiagnosticSeverity.Warning;
                   if (n) {
                     if (n.errors.length && t.root && m) {
                       var g = t.root,
-                        v = "object" === g.type
-                          ? g.properties[0]
-                          : void 0;
+                        v = "object" === g.type ? g.properties[0] : void 0;
                       if (v && "$schema" === v.keyNode.value) {
                         var y = v.valueNode || v,
                           b = r.Range.create(
@@ -6870,9 +6860,9 @@ var __extends = this && this.__extends || function () {
       Object.defineProperty(t, "__esModule", { value: !0 }),
         t.colorFrom256RGB = t.colorFromHex = t.hexDigit = void 0;
       function n(e) {
-        return e < 48 ? 0 : e <= 57
-          ? e - 48
-          : (e < 97 && (e += 32), e >= 97 && e <= 102 ? e - 97 + 10 : 0);
+        return e < 48 ? 0
+        : e <= 57 ? e - 48
+        : (e < 97 && (e += 32), e >= 97 && e <= 102 ? e - 97 + 10 : 0);
       }
       t.hexDigit = n,
         t.colorFromHex = function (e) {
@@ -6998,9 +6988,8 @@ var __extends = this && this.__extends || function () {
                             if (u > 0) {
                               u--;
                               var o = i.Location.create(e.uri, s(e, t)),
-                                c = n
-                                  ? n + "." + t.keyNode.value
-                                  : t.keyNode.value;
+                                c = n ? n + "." + t.keyNode.value
+                                : t.keyNode.value;
                               S.push({
                                 name: a.getKeyLabel(t),
                                 kind: a.getSymbolKind(r.type),
@@ -7136,19 +7125,15 @@ var __extends = this && this.__extends || function () {
             e.prototype.getKeyLabel = function (e) {
               var t = e.keyNode.value;
               return t && (t = t.replace(/[\n]/g, "↵")),
-                t && t.trim()
-                  ? t
-                  : '"' + t + '"';
+                t && t.trim() ? t : '"' + t + '"';
             },
             e.prototype.getDetail = function (e) {
               if (e) {
                 return "boolean" === e.type || "number" === e.type ||
                     "null" === e.type || "string" === e.type ? String(e.value)
-                : "array" === e.type
-                  ? e.children.length ? void 0 : "[]"
-                  : "object" === e.type
-                  ? e.children.length ? void 0 : "{}"
-                  : void 0;
+                : "array" === e.type ? e.children.length ? void 0 : "[]"
+                : "object" === e.type ? e.children.length ? void 0 : "{}"
+                : void 0;
               }
             },
             e.prototype.findDocumentColors = function (e, t, r) {
@@ -7158,8 +7143,7 @@ var __extends = this && this.__extends || function () {
                   if (i) {
                     for (
                       var c = r && "number" == typeof r.resultLimit
-                          ? r.resultLimit
-                          : Number.MAX_VALUE,
+                          ? r.resultLimit : Number.MAX_VALUE,
                         u = {},
                         l = 0,
                         f = t.getMatchingSchemas(i.schema);
@@ -7669,9 +7653,8 @@ var __extends = this && this.__extends || function () {
           var s = i.properties[a];
           "boolean" == typeof s && (s = i.properties[a] = {});
           var c = r[a];
-          c
-            ? s.description = c
-            : console.log(a + ": localize('schema.json." + a + '\', "")');
+          c ? s.description = c
+          : console.log(a + ": localize('schema.json." + a + '\', "")');
         }
       }
     }),
@@ -7772,8 +7755,10 @@ var __extends = this && this.__extends || function () {
         var y = t && t.rangeLimit;
         if ("number" != typeof y || o.length <= y) return o;
         t && t.onRangeLimitExceeded && t.onRangeLimitExceeded(e.uri);
-        for (var b = [], x = 0, C = i; x < C.length; x++) {(E = C[x]) < 30 &&
-            (b[E] = (b[E] || 0) + 1);}
+        for (var b = [], x = 0, C = i; x < C.length; x++) {
+          (E = C[x]) < 30 &&
+            (b[E] = (b[E] || 0) + 1);
+        }
         var S = 0, T = 0;
         for (v = 0; v < b.length; v++) {
           var A = b[v];
@@ -7826,7 +7811,8 @@ var __extends = this && this.__extends || function () {
         return t.map(
           (function (t) {
             for (
-              var r = e.offsetAt(t), a = o.getNodeFromOffset(r, !0), c = []; a;
+              var r = e.offsetAt(t), a = o.getNodeFromOffset(r, !0), c = [];
+              a;
             ) {
               switch (a.type) {
                 case "string":
@@ -7850,8 +7836,10 @@ var __extends = this && this.__extends || function () {
               }
               a = a.parent;
             }
-            for (var d = void 0, p = c.length - 1; p >= 0; p--) {d = n
-                .SelectionRange.create(c[p], d);}
+            for (var d = void 0, p = c.length - 1; p >= 0; p--) {
+              d = n
+                .SelectionRange.create(c[p], d);
+            }
             return d || (d = n.SelectionRange.create(n.Range.create(t, t))), d;
           }),
         );
@@ -7910,9 +7898,8 @@ var __extends = this && this.__extends || function () {
             var s;
             if (
               "property" === a.type && "$ref" === a.keyNode.value &&
-              "string" === (null === (s = a.valueNode) || void 0 === s
-                  ? void 0
-                  : s.type)
+              "string" ===
+                (null === (s = a.valueNode) || void 0 === s ? void 0 : s.type)
             ) {
               var c = a.valueNode.value,
                 u = function (e, t) {
@@ -8368,9 +8355,8 @@ var __createBinding = this && this.__createBinding ||
           e;
       }();
       function d(e) {
-        return "string" == typeof e
-          ? { value: e }
-          : (t = e) && "object" == typeof t && "string" == typeof t.kind
+        return "string" == typeof e ? { value: e }
+        : (t = e) && "object" == typeof t && "string" == typeof t.kind
           ? "plaintext" === e.kind
             ? { value: e.value.replace(/[\\`*_{}[\]()#+\-.!]/g, "\\$&") }
             : { value: e.value }
@@ -8706,9 +8692,7 @@ var __createBinding = this && this.__createBinding ||
                       g = t.TOKEN_VALUE_NULL, d = !1;
                       break;
                     case 10:
-                      var y = p
-                        ? p.type
-                        : 0;
+                      var y = p ? p.type : 0;
                       g = d || 1 === y
                         ? t.TOKEN_VALUE_STRING
                         : t.TOKEN_PROPERTY_NAME, d = !1;
@@ -8818,7 +8802,7 @@ var __createBinding = this && this.__createBinding ||
         };
       }
       function s(e) {
-        for (; e.length;)e.pop().dispose();
+        for (; e.length;) e.pop().dispose();
       }
       Object.defineProperty(t, "__esModule", { value: !0 }),
         t.setupMode = void 0,

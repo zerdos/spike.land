@@ -73,19 +73,16 @@ export type Method<T_1> = import("ipfs-message-port-protocol/src/rpc").Values<
             input:
               & I
               & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-            result: O extends Promise<infer T_2>
-              ? Promise<
-                T_2 extends Record<string, unknown>
-                  ? 
-                    & T_2
-                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                  : T_2
-              >
+            result: O extends Promise<infer T_2> ? Promise<
+              T_2 extends Record<string, unknown> ? 
+                & T_2
+                & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                : T_2
+            >
               : Promise<
-                O extends Record<string, unknown>
-                  ? 
-                    & O
-                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                O extends Record<string, unknown> ? 
+                  & O
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                   : O
               >; /**
      * @param {Namespace<T>} namespace
@@ -110,19 +107,16 @@ export type Namespace<T_1> =
               input:
                 & I
                 & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-              result: O extends Promise<infer T_2>
-                ? Promise<
-                  T_2 extends Record<string, unknown>
-                    ? 
-                      & T_2
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                    : T_2
-                >
+              result: O extends Promise<infer T_2> ? Promise<
+                T_2 extends Record<string, unknown> ? 
+                  & T_2
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  : T_2
+              >
                 : Promise<
-                  O extends Record<string, unknown>
-                    ? 
-                      & O
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  O extends Record<string, unknown> ? 
+                    & O
+                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                     : O
                 >; /**
      * @param {Namespace<T>} namespace
@@ -142,14 +136,12 @@ export type ServiceQuery<T_1> = {
         namespace: NS;
         method: M;
         input: I & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-        result: O extends Promise<infer T_2>
-          ? Promise<
-            T_2 extends Record<string, unknown>
-              ? 
-                & T_2
-                & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-              : T_2
-          >
+        result: O extends Promise<infer T_2> ? Promise<
+          T_2 extends Record<string, unknown> ? 
+            & T_2
+            & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+            : T_2
+        >
           : Promise<
             O extends Record<string, unknown>
               ? O & import("ipfs-message-port-protocol/src/rpc").TransferOptions
@@ -176,19 +168,16 @@ export type RPCQuery<T_1> = {
               input:
                 & I
                 & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-              result: O extends Promise<infer T_2>
-                ? Promise<
-                  T_2 extends Record<string, unknown>
-                    ? 
-                      & T_2
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                    : T_2
-                >
+              result: O extends Promise<infer T_2> ? Promise<
+                T_2 extends Record<string, unknown> ? 
+                  & T_2
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  : T_2
+              >
                 : Promise<
-                  O extends Record<string, unknown>
-                    ? 
-                      & O
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  O extends Record<string, unknown> ? 
+                    & O
+                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                     : O
                 >; /**
          * @param {Namespace<T>} namespace
@@ -213,19 +202,16 @@ export type RPCQuery<T_1> = {
               input:
                 & I
                 & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-              result: O extends Promise<infer T_2>
-                ? Promise<
-                  T_2 extends Record<string, unknown>
-                    ? 
-                      & T_2
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                    : T_2
-                >
+              result: O extends Promise<infer T_2> ? Promise<
+                T_2 extends Record<string, unknown> ? 
+                  & T_2
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  : T_2
+              >
                 : Promise<
-                  O extends Record<string, unknown>
-                    ? 
-                      & O
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  O extends Record<string, unknown> ? 
+                    & O
+                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                     : O
                 >; /**
          * @param {Namespace<T>} namespace
@@ -251,19 +237,16 @@ export type RPCQuery<T_1> = {
               input:
                 & I
                 & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-              result: O extends Promise<infer T_2>
-                ? Promise<
-                  T_2 extends Record<string, unknown>
-                    ? 
-                      & T_2
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                    : T_2
-                >
+              result: O extends Promise<infer T_2> ? Promise<
+                T_2 extends Record<string, unknown> ? 
+                  & T_2
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  : T_2
+              >
                 : Promise<
-                  O extends Record<string, unknown>
-                    ? 
-                      & O
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  O extends Record<string, unknown> ? 
+                    & O
+                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                     : O
                 >; /**
          * @param {Namespace<T>} namespace
@@ -288,19 +271,16 @@ export type RPCQuery<T_1> = {
               input:
                 & I
                 & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-              result: O extends Promise<infer T_2>
-                ? Promise<
-                  T_2 extends Record<string, unknown>
-                    ? 
-                      & T_2
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                    : T_2
-                >
+              result: O extends Promise<infer T_2> ? Promise<
+                T_2 extends Record<string, unknown> ? 
+                  & T_2
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  : T_2
+              >
                 : Promise<
-                  O extends Record<string, unknown>
-                    ? 
-                      & O
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  O extends Record<string, unknown> ? 
+                    & O
+                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                     : O
                 >; /**
          * @param {Namespace<T>} namespace
@@ -324,19 +304,16 @@ export type RPCQuery<T_1> = {
               input:
                 & I
                 & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-              result: O extends Promise<infer T_2>
-                ? Promise<
-                  T_2 extends Record<string, unknown>
-                    ? 
-                      & T_2
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                    : T_2
-                >
+              result: O extends Promise<infer T_2> ? Promise<
+                T_2 extends Record<string, unknown> ? 
+                  & T_2
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  : T_2
+              >
                 : Promise<
-                  O extends Record<string, unknown>
-                    ? 
-                      & O
-                      & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                  O extends Record<string, unknown> ? 
+                    & O
+                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                     : O
                 >; /**
          * @param {Namespace<T>} namespace
@@ -361,19 +338,16 @@ export type Inn<T_1> = import("ipfs-message-port-protocol/src/rpc").Values<
             input:
               & I
               & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-            result: O extends Promise<infer T_2>
-              ? Promise<
-                T_2 extends Record<string, unknown>
-                  ? 
-                    & T_2
-                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                  : T_2
-              >
+            result: O extends Promise<infer T_2> ? Promise<
+              T_2 extends Record<string, unknown> ? 
+                & T_2
+                & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                : T_2
+            >
               : Promise<
-                O extends Record<string, unknown>
-                  ? 
-                    & O
-                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                O extends Record<string, unknown> ? 
+                  & O
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                   : O
               >; /**
      * @param {Namespace<T>} namespace
@@ -397,19 +371,16 @@ export type Out<T_1> = import("ipfs-message-port-protocol/src/rpc").Values<
             input:
               & I
               & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-            result: O extends Promise<infer T_2>
-              ? Promise<
-                T_2 extends Record<string, unknown>
-                  ? 
-                    & T_2
-                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-                  : T_2
-              >
+            result: O extends Promise<infer T_2> ? Promise<
+              T_2 extends Record<string, unknown> ? 
+                & T_2
+                & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                : T_2
+            >
               : Promise<
-                O extends Record<string, unknown>
-                  ? 
-                    & O
-                    & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+                O extends Record<string, unknown> ? 
+                  & O
+                  & import("ipfs-message-port-protocol/src/rpc").TransferOptions
                   : O
               >; /**
      * @param {Namespace<T>} namespace
@@ -443,12 +414,11 @@ export type NamespacedQuery<T_1, K> = {
     namespace: K;
     method: M;
     input: I & import("ipfs-message-port-protocol/src/rpc").QueryOptions;
-    result: O extends Promise<infer T_2>
-      ? Promise<
-        T_2 extends Record<string, unknown>
-          ? T_2 & import("ipfs-message-port-protocol/src/rpc").TransferOptions
-          : T_2
-      >
+    result: O extends Promise<infer T_2> ? Promise<
+      T_2 extends Record<string, unknown>
+        ? T_2 & import("ipfs-message-port-protocol/src/rpc").TransferOptions
+        : T_2
+    >
       : Promise<
         O extends Record<string, unknown>
           ? O & import("ipfs-message-port-protocol/src/rpc").TransferOptions

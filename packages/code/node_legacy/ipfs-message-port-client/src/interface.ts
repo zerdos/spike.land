@@ -41,41 +41,37 @@ type WithExtendedOptions<Params, Ext> = Params extends [...End] ? []
     [a1?: infer A1, a2?: infer A2, options?: infer Options, ...end: End]
     ? [a1?: A1, a2?: A2, options?: Options & Ext]
   : // (a1: A1, a2: A2, a3:A3 options?: Options) -> (a1: A1, a2: A2, a3:A3, options?: Options & Ext)
-  Params extends
-    [
-      a1: infer A1,
-      a2: infer A2,
-      a3: infer A3,
-      options?: infer Options,
-      ...end: End,
-    ] ? [a1: A1, a2: A2, a3: A3, options?: Options & Ext]
+  Params extends [
+    a1: infer A1,
+    a2: infer A2,
+    a3: infer A3,
+    options?: infer Options,
+    ...end: End,
+  ] ? [a1: A1, a2: A2, a3: A3, options?: Options & Ext]
   : // (a1: A1, a2: A2, a3?:A3 options?: Options) -> (a1: A1, a2: A2, a3?:A3, options?: Options & Ext)
-  Params extends
-    [
-      a1: infer A1,
-      a2: infer A2,
-      a3?: infer A3,
-      options?: infer Options,
-      ...end: End,
-    ] ? [a1: A1, a2: A2, a3?: A3, options?: Options & Ext]
+  Params extends [
+    a1: infer A1,
+    a2: infer A2,
+    a3?: infer A3,
+    options?: infer Options,
+    ...end: End,
+  ] ? [a1: A1, a2: A2, a3?: A3, options?: Options & Ext]
   : // (a1: A1, a2?: A2, a3?:A3 options?: Options) -> (a1: A1, a2?: A2, a3?:A3, options?: Options & Ext)
-  Params extends
-    [
-      a1: infer A1,
-      a2?: infer A2,
-      a3?: infer A3,
-      options?: infer Options,
-      ...end: End,
-    ] ? [a1: A1, a2?: A2, a3?: A3, options?: Options & Ext]
+  Params extends [
+    a1: infer A1,
+    a2?: infer A2,
+    a3?: infer A3,
+    options?: infer Options,
+    ...end: End,
+  ] ? [a1: A1, a2?: A2, a3?: A3, options?: Options & Ext]
   : // (a1?: A1, a2?: A2, a3?:A3 options?: Options) -> (a1?: A1, a2?: A2, a3?:A3, options?: Options & Ext)
-  Params extends
-    [
-      a1?: infer A1,
-      a2?: infer A2,
-      a3?: infer A3,
-      options?: infer Options,
-      ...end: End,
-    ] ? [a1?: A1, a2?: A2, a3?: A3, options?: Options & Ext]
+  Params extends [
+    a1?: infer A1,
+    a2?: infer A2,
+    a3?: infer A3,
+    options?: infer Options,
+    ...end: End,
+  ] ? [a1?: A1, a2?: A2, a3?: A3, options?: Options & Ext]
   : never;
 
 export type APIMethodWithExtraOptions<

@@ -23,14 +23,12 @@ var __awaiter = this && this.__awaiter || function (e, t, n, r) {
         }
         function l(e) {
           var t;
-          e.done
-            ? i(e.value)
-            : (t = e.value,
-              t instanceof n ? t : new n(
-                (function (e) {
-                  e(t);
-                }),
-              )).then(s, a);
+          e.done ? i(e.value) : (t = e.value,
+            t instanceof n ? t : new n(
+              (function (e) {
+                e(t);
+              }),
+            )).then(s, a);
         }
         l((r = r.apply(e, t || [])).next());
       }),
@@ -67,7 +65,8 @@ var __awaiter = this && this.__awaiter || function (e, t, n, r) {
                     ? r.return
                     : o[0]
                     ? r.throw || ((i = r.return) && i.call(r), 0)
-                    : r.next) && !(i = i.call(r, o[1])).done
+                    : r.next) &&
+                  !(i = i.call(r, o[1])).done
               ) {
                 return i;
               }
@@ -348,14 +347,12 @@ __awaiter = this && this.__awaiter || function (e, t, n, r) {
       }
       function l(e) {
         var t;
-        e.done
-          ? i(e.value)
-          : (t = e.value,
-            t instanceof n ? t : new n(
-              (function (e) {
-                e(t);
-              }),
-            )).then(s, a);
+        e.done ? i(e.value) : (t = e.value,
+          t instanceof n ? t : new n(
+            (function (e) {
+              e(t);
+            }),
+          )).then(s, a);
       }
       l((r = r.apply(e, t || [])).next());
     }),
@@ -392,7 +389,8 @@ __awaiter = this && this.__awaiter || function (e, t, n, r) {
                     ? r.return
                     : o[0]
                     ? r.throw || ((i = r.return) && i.call(r), 0)
-                    : r.next) && !(i = i.call(r, o[1])).done
+                    : r.next) &&
+                  !(i = i.call(r, o[1])).done
               ) {
                 return i;
               }
@@ -847,8 +845,7 @@ define(
                         u.sent().getCompletionsAtPosition(s.toString(), a),
                       ];
                     case 2:
-                      return !(l = u.sent()) || e.isDisposed() ? [2]
-                      : [2, {
+                      return !(l = u.sent()) || e.isDisposed() ? [2] : [2, {
                         suggestions: l.entries.map(
                           (function (i) {
                             var l, u = o;
@@ -1013,38 +1010,36 @@ define(
                         a.sent().getSignatureHelpItems(n.toString(), r),
                       ];
                     case 2:
-                      return !(i = a.sent()) || e.isDisposed()
-                        ? [2]
-                        : (o = {
-                          activeSignature: i.selectedItemIndex,
-                          activeParameter: i.argumentIndex,
-                          signatures: [],
-                        },
-                          i.items.forEach(
-                            (function (e) {
-                              var t = { label: "", parameters: [] };
-                              t.documentation = { value: s(e.documentation) },
-                                t.label += s(e.prefixDisplayParts),
-                                e.parameters.forEach(
-                                  (function (n, r, i) {
-                                    var o = s(n.displayParts),
-                                      a = {
-                                        label: o,
-                                        documentation: {
-                                          value: s(n.documentation),
-                                        },
-                                      };
-                                    t.label += o,
-                                      t.parameters.push(a),
-                                      r < i.length - 1 &&
-                                      (t.label += s(e.separatorDisplayParts));
-                                  }),
-                                ),
-                                t.label += s(e.suffixDisplayParts),
-                                o.signatures.push(t);
-                            }),
-                          ),
-                          [2, { value: o, dispose: function () {} }]);
+                      return !(i = a.sent()) || e.isDisposed() ? [2] : (o = {
+                        activeSignature: i.selectedItemIndex,
+                        activeParameter: i.argumentIndex,
+                        signatures: [],
+                      },
+                        i.items.forEach(
+                          (function (e) {
+                            var t = { label: "", parameters: [] };
+                            t.documentation = { value: s(e.documentation) },
+                              t.label += s(e.prefixDisplayParts),
+                              e.parameters.forEach(
+                                (function (n, r, i) {
+                                  var o = s(n.displayParts),
+                                    a = {
+                                      label: o,
+                                      documentation: {
+                                        value: s(n.documentation),
+                                      },
+                                    };
+                                  t.label += o,
+                                    t.parameters.push(a),
+                                    r < i.length - 1 &&
+                                    (t.label += s(e.separatorDisplayParts));
+                                }),
+                              ),
+                              t.label += s(e.suffixDisplayParts),
+                              o.signatures.push(t);
+                          }),
+                        ),
+                        [2, { value: o, dispose: function () {} }]);
                   }
                 }),
               );
@@ -1095,9 +1090,7 @@ define(
                           contents: [{
                             value: "```typescript\n" + l + "\n```\n",
                           }, {
-                            value: o + (a
-                              ? "\n\n" + a
-                              : ""),
+                            value: o + (a ? "\n\n" + a : ""),
                           }],
                         }]);
                   }
@@ -1135,21 +1128,19 @@ define(
                         a.sent().getOccurrencesAtPosition(n.toString(), i),
                       ];
                     case 2:
-                      return !(o = a.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          2,
-                          o.map(
-                            (function (t) {
-                              return {
-                                range: s._textSpanToRange(e, t.textSpan),
-                                kind: t.isWriteAccess
-                                  ? r.languages.DocumentHighlightKind.Write
-                                  : r.languages.DocumentHighlightKind.Text,
-                              };
-                            }),
-                          ),
-                        ];
+                      return !(o = a.sent()) || e.isDisposed() ? [2] : [
+                        2,
+                        o.map(
+                          (function (t) {
+                            return {
+                              range: s._textSpanToRange(e, t.textSpan),
+                              kind: t.isWriteAccess
+                                ? r.languages.DocumentHighlightKind.Write
+                                : r.languages.DocumentHighlightKind.Text,
+                            };
+                          }),
+                        ),
+                      ];
                   }
                 }),
               );
@@ -1186,18 +1177,16 @@ define(
                         p.sent().getDefinitionAtPosition(n.toString(), i),
                       ];
                     case 2:
-                      return !(o = p.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          4,
-                          this._libFiles.fetchLibFilesIfNecessary(
-                            o.map(
-                              (function (e) {
-                                return r.Uri.parse(e.fileName);
-                              }),
-                            ),
+                      return !(o = p.sent()) || e.isDisposed() ? [2] : [
+                        4,
+                        this._libFiles.fetchLibFilesIfNecessary(
+                          o.map(
+                            (function (e) {
+                              return r.Uri.parse(e.fileName);
+                            }),
                           ),
-                        ];
+                        ),
+                      ];
                     case 3:
                       if (p.sent(), e.isDisposed()) return [2];
                       for (s = [], a = 0, l = o; a < l.length; a++) {
@@ -1246,18 +1235,16 @@ define(
                         p.sent().getReferencesAtPosition(n.toString(), i),
                       ];
                     case 2:
-                      return !(o = p.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          4,
-                          this._libFiles.fetchLibFilesIfNecessary(
-                            o.map(
-                              (function (e) {
-                                return r.Uri.parse(e.fileName);
-                              }),
-                            ),
+                      return !(o = p.sent()) || e.isDisposed() ? [2] : [
+                        4,
+                        this._libFiles.fetchLibFilesIfNecessary(
+                          o.map(
+                            (function (e) {
+                              return r.Uri.parse(e.fileName);
+                            }),
                           ),
-                        ];
+                        ),
+                      ];
                     case 3:
                       if (p.sent(), e.isDisposed()) return [2];
                       for (s = [], a = 0, l = o; a < l.length; a++) {
@@ -1314,7 +1301,9 @@ define(
                           };
                           if (n.childItems && n.childItems.length > 0) {
                             for (
-                              var l = 0, u = n.childItems; l < u.length; l++
+                              var l = 0, u = n.childItems;
+                              l < u.length;
+                              l++
                             ) {
                               var c = u[l];
                               i(t, c, a.name);
@@ -1459,16 +1448,14 @@ define(
                         ),
                       ];
                     case 2:
-                      return !(s = l.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          2,
-                          s.map(
-                            (function (t) {
-                              return a._convertTextChanges(e, t);
-                            }),
-                          ),
-                        ];
+                      return !(s = l.sent()) || e.isDisposed() ? [2] : [
+                        2,
+                        s.map(
+                          (function (t) {
+                            return a._convertTextChanges(e, t);
+                          }),
+                        ),
+                      ];
                   }
                 }),
               );
@@ -1516,16 +1503,14 @@ define(
                         ),
                       ];
                     case 2:
-                      return !(s = l.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          2,
-                          s.map(
-                            (function (t) {
-                              return a._convertTextChanges(e, t);
-                            }),
-                          ),
-                        ];
+                      return !(s = l.sent()) || e.isDisposed() ? [2] : [
+                        2,
+                        s.map(
+                          (function (t) {
+                            return a._convertTextChanges(e, t);
+                          }),
+                        ),
+                      ];
                   }
                 }),
               );
@@ -1777,7 +1762,7 @@ define(
         t.getTypeScriptWorker = function () {
           return new Promise(
             (function (e, t) {
-              if (!s) return t("TypeScript not registered!");
+              if (!s)return t("TypeScript not registered!");
               e(s);
             }),
           );
