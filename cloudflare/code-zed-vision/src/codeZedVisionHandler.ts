@@ -148,10 +148,10 @@ async function handleRequest(request: Request) {
     <html lang="en">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
-      <link rel="stylesheet" href="assets/app.css" />
-      <link rel="stylesheet" href="assets/roboto.css" />
-      <link rel="stylesheet" href="assets/normalize.min.css" />
+      <link rel="icon" type="image/png" href="/ipfs/${cid}/assets/zed-icon-big.png" />
+      <link rel="stylesheet" href="/ipfs/${cid}/assets/app.css" />
+      <link rel="stylesheet" href="/ipfs/${cid}/assets/roboto.css" />
+      <link rel="stylesheet" href="/ipfs/${cid}/assets/normalize.min.css" />
     <title>Instant React Editor</title>
     </head>
     <body>
