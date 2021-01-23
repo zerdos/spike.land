@@ -232,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "./src/ipfsClient.js": {
-        "version": "9c96ddc8ad1db917feebda58a2d2f2de773936251427b4be2440f560b4072023",
+        "version": "2a59427f019efd1708b7c43afd01a8167300f4b36fb69922ca0777da1a7f4505",
         "signature": "a49c898c9ffa6f5ba5e0f906515d29cefda94fdbec896fdd81e96ee4de1d3765",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "173c075ef393f17c5c4f92e5d6178b40ab06e2131d8ef16830f1003149cff336",
+        "version": "57a8953f8fca88898bc250d2d64a5b79cf26f49c563536853b892eb81125dd97",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

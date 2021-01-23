@@ -483,7 +483,7 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "9c96ddc8ad1db917feebda58a2d2f2de773936251427b4be2440f560b4072023",
+    "2a59427f019efd1708b7c43afd01a8167300f4b36fb69922ca0777da1a7f4505",
   "src/transpile.js":
     "0641754d309f8115e5dc4e07bfc28726c8b3d57ad79e6d713dbd58f80bb6561f",
   "src/smart-monaco-editor/index.html":
@@ -603,7 +603,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "173c075ef393f17c5c4f92e5d6178b40ab06e2131d8ef16830f1003149cff336",
+    "57a8953f8fca88898bc250d2d64a5b79cf26f49c563536853b892eb81125dd97",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":

@@ -249,7 +249,7 @@ added QmWcaaZFJLVKDFMneB43W98QQ3QSifrmwupLamwFMvd3pg code/src/formatter.js
 added QmNwbA46c7bRTXeZtxbvcja1g5Pq4G9m59ZfFWQc4sUiQR code/src/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/src/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/src/importScript.js
-added QmNXn2zNEBL8e2cksn6Gy9stsAiaxFUGxiKSeHkoLKVhbQ code/src/ipfsClient.js
+added Qmb8GxidnERUJmTzcu6NzQeYhqDUT4YQYpEstvQkGekSQW code/src/ipfsClient.js
 added QmXwq3AHyeNWrdG2WrVzkaujrJZzzJtyxaHAdRivSrjoKU code/src/openWindows.js
 added QmWzBXD5ULj9EAVt7ffrffyZ15pUwjDXpoquHnoaRBaQpx code/src/qrious/AUTHORS.md
 added Qmf71mxCKmPQnJZadhscUSszFDFkNBZFkbEenEKyPgLFTc code/src/qrious/LICENSE.md
@@ -512,5 +512,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmRZBWE6r12FUgLL2F8S5wmUJuPn3FbezKiRo8bnVX9Ksj code/src/workers
-added QmYjXXTbpbH8TNbT1rQc4wQ9xyAY4e46cZquDUkb72XL1A code/src
-added QmWKCkTJyMeMNDUwuJ6sj7KUDKYqY4tJ3NxRZMQ6jsVGXR code
+added QmTKeA3WwzKnhc1Z9criCc8NwEcf1fPx8D75mUv4GC1AKt code/src
+added Qme2oMsQxY2U4t6AYdB7tnyiZXnG4Ze2SNcjBdanayVuPz code

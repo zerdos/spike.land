@@ -13,7 +13,7 @@ let workerSrc = `./src/workers/ipfsWorker.js`;
 let port;
 
 if (typeof window !== "undefined") {
-  if (false && typeof SharedWorker !== "undefined") {
+  if (typeof SharedWorker !== "undefined") {
     const ipfsWorker = new SharedWorker(
       workerSrc,
     );
