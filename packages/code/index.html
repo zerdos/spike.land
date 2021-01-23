@@ -26,13 +26,14 @@ async function workBox() {
 
     const wb = new Workbox(location.pathname + "src/workers/sw.js");
 
+
+//    navigator.serviceWorker.controller && startApp();
+
     wb.addEventListener('activated', async (event) => {
 
+      startApp();
       if (!event.isUpdate || !window.monaco) {
-        console.log('Service worker activated for the first time!');
-
-        const {run} = await import ("./src/codeLoader.js")
-        run("window", window);
+          // startApp();
    
       }
     });
@@ -41,6 +42,16 @@ async function workBox() {
 
     wb.register();
   }
+  try{
+    startApp();
+  } catch(e) {
+    console.log({e});
+  }
+}
+
+async function startApp(){
+  const {run} = await import ("./src/codeLoader.js")
+  run("window", window);
 }
 
   </script>

@@ -10,7 +10,7 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmSHs5JXpMuyyrauUGFkbUjZh9TNBEGJrgDDsC7GRqpZXi code/index.html
+added Qmcpdvoa89wHHPjGpCS4uYemotfDarPaVez3D5JjXEE37t code/index.html
 added QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd code/index2.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
@@ -511,4 +511,4 @@ added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmeGAvCoocL9q2cVh2hjRmck9sTyQxcQRFribDD1JzFcxL code/src/workers
 added QmbiJmAdb8zuZ8YmYM8YvNp7Mtf3umuZanqdAxGU535nVj code/src
-added QmZbpfXCbecC2eQgabnGtP3L8WZG7DPiSYMGZvDEyR52zW code
+added Qmc3ygKpskLHFw6CtCc49dkZaDjDGmEdiYAdqjhP75HNn2 code

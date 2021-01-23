@@ -17,7 +17,7 @@ export const files = {
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "QmSHs5JXpMuyyrauUGFkbUjZh9TNBEGJrgDDsC7GRqpZXi",
+  "index.html": "Qmcpdvoa89wHHPjGpCS4uYemotfDarPaVez3D5JjXEE37t",
   "index2.html": "QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
@@ -947,6 +947,6 @@ export const files = {
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
   "src/workers": "QmeGAvCoocL9q2cVh2hjRmck9sTyQxcQRFribDD1JzFcxL",
   "src": "QmbiJmAdb8zuZ8YmYM8YvNp7Mtf3umuZanqdAxGU535nVj",
-  "": "QmZbpfXCbecC2eQgabnGtP3L8WZG7DPiSYMGZvDEyR52zW",
+  "": "Qmc3ygKpskLHFw6CtCc49dkZaDjDGmEdiYAdqjhP75HNn2",
   "foo": "bar",
 };
