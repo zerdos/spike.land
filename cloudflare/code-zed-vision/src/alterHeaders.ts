@@ -11,7 +11,7 @@ export async function alterHeaders(response: Response, pathname: string) {
   resp.headers.delete("access-control-max-age");
   resp.headers.delete("content-security-policy");
   resp.headers.delete("feature-policy");
-  resp.headers.set("cache-control", "immutable");
+  resp.headers.set("cache-control", "public, max-age=604800, immutable");
   resp.headers.delete("access-control-expose-headers");
   resp.headers.delete("expect-ct");
   resp.headers.delete("report-to");
@@ -19,7 +19,7 @@ export async function alterHeaders(response: Response, pathname: string) {
 
   resp.headers.delete("server");
   resp.headers.delete("strict-transport-security");
-  resp.headers.delete("expect-ct");
+  resp.headers.delete("accept-ranges");
   resp.headers.delete("strict-transport-security");
   resp.headers.delete("X-Frame-Options");
   resp.headers.delete("x-content-type-options");
