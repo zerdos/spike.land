@@ -148,15 +148,58 @@ async function handleRequest(request: Request) {
     <html lang="en">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <link rel="icon" type="image/png" href="/ipfs/${cid}/assets/zed-icon-big.png" />
-      <link rel="stylesheet" href="/ipfs/${cid}/assets/app.css" />
-      <link rel="stylesheet" href="/ipfs/${cid}/assets/roboto.css" />
-      <link rel="stylesheet" href="/ipfs/${cid}/assets/normalize.min.css" />
+      <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+      <link rel="stylesheet" href="assets/app.css" />
+      <link rel="stylesheet" href="assets/roboto.css" />
+      <link rel="stylesheet" href="assets/normalize.min.css" />
     <title>Instant React Editor</title>
     </head>
     <body>
       <script type="module">
-       location.href="/ipfs/${cid}/";
+    
+    workBox();
+    
+    async function workBox() {
+      if ("serviceWorker" in window.navigator) {
+        const { Workbox } = await import(
+          "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
+        );
+        const {navigator, location} = window;
+    
+        // navigator.serviceWorker &&
+        //   navigator.serviceWorker.controller &&
+        //   navigator.serviceWorker.controller.unregister();
+    
+        const wb = new Workbox(location.pathname + "src/workers/sw.js");
+    
+    
+    //    navigator.serviceWorker.controller && startApp();
+    
+        wb.addEventListener('activated', async (event) => {
+    
+          startApp();
+          if (!event.isUpdate || !window.monaco) {
+              // startApp();
+       
+          }
+        });
+    
+    
+    
+        wb.register();
+      }
+      try{
+        startApp();
+      } catch(e) {
+        console.log({e});
+      }
+    }
+    
+    async function startApp(){
+      const {run} = await import ("./src/codeLoader.js")
+      run("window", window);
+    }
+    
       </script>
     </body>
     </html>`,
