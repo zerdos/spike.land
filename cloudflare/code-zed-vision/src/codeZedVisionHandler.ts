@@ -155,34 +155,34 @@ async function handleRequest(request: Request) {
     </head>
     <body>
     <script type="module">
+    workBox();
 
-    window.location.href="/ipfs/${cid}/"
-    // workBox();
     
-    // async function workBox() {
-    //   if ("serviceWorker" in window.navigator) {
-    //     const { Workbox } = await import(
-    //       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
-    //     );
-    //     const {navigator, location} = window;
+    async function workBox() {
+      if ("serviceWorker" in window.navigator) {
+        const { Workbox } = await import(
+          "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
+        );
+        const {navigator, location} = window;
     
-    //     // navigator.serviceWorker &&
-    //     //   navigator.serviceWorker.controller &&
-    //     //   navigator.serviceWorker.controller.unregister();
+        // navigator.serviceWorker &&
+        //   navigator.serviceWorker.controller &&
+        //   navigator.serviceWorker.controller.unregister();
     
-    //     const wb = new Workbox("/sw.js");
+        const wb = new Workbox("/sw.js");
     
     
-    // //    navigator.serviceWorker.controller && startApp();
+    //    navigator.serviceWorker.controller && startApp();
     
-    //     wb.addEventListener('activated', async (event) => {
+        wb.addEventListener('activated', async (event) => {
+          window.location.href="/ipfs/${cid}/"
     
-    //       if (!event.isUpdate || !window.monaco) {
-    //         location.reload()
-    //           // startApp();
+          if (!event.isUpdate || !window.monaco) {
+            location.reload()
+              // startApp();
        
-    //       }
-    //     });
+          }
+        });
     
     //     wb.register();
     //   }

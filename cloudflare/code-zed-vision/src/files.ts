@@ -474,7 +474,7 @@ export const files = {
   "src/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "src/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "src/ipfsClient.js": "Qmb8GxidnERUJmTzcu6NzQeYhqDUT4YQYpEstvQkGekSQW",
-  "src/openWindows.js": "QmYeEWXY65LNhPfj7sLwCpLiiwpKjKro8bHzUNHx1y8Fmu",
+  "src/openWindows.js": "QmXZsT3CSB3CPK2dkeZSLTQQyL5bALZveBeBQoXaqGZuUp",
   "src/qrious/AUTHORS.md": "QmWzBXD5ULj9EAVt7ffrffyZ15pUwjDXpoquHnoaRBaQpx",
   "src/qrious/LICENSE.md": "Qmf71mxCKmPQnJZadhscUSszFDFkNBZFkbEenEKyPgLFTc",
   "src/qrious/README.md": "QmdPbXiPxjM7xyoJvMkgbwjZ7awWtbZjo4vvDr3y5C36pB",
@@ -615,7 +615,7 @@ export const files = {
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "src/templates.js": "QmYkDeqsmyfVhokhZPgjGLVu1AUc9bb44Y4MaN3bARNke3",
   "src/transpile.js": "QmRknV85AcHiNKRvF5dk2yqN8Xr8aDUXzjrhJjpYYb7EWQ",
-  "src/workBox.js": "QmSkBN9VQbgSCpgZYf2pecxZEXBYnhVvX2LEiqaHUELyA6",
+  "src/workBox.js": "QmNcLDHE9fGi6brqFbjErhkjePyALeFrfzVjGtz5r3Vn7w",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -946,7 +946,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
   "src/workers": "QmV1bjouWLNjcy2mov9VnV5JDREzT9w174TLbCHVM9MDfS",
-  "src": "QmPhmMjzrDkKF86rVoNDHLw83kG9KMRaRPwRFTzsT3oueS",
-  "": "QmWM7engUoUgRexn9gVCAo8q64cbtSDdaRBaHsaBQoP5Wg",
+  "src": "QmVxNsu4VM1TGAVTwfLC4ayZmTJKyR3tkixGK48sNBcS9V",
+  "": "QmeWE7S1PR5sTf83WjKQYmHbM6wfpQEovm7ZKdJTevGNvN",
   "foo": "bar",
 };
