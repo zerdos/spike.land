@@ -185,7 +185,7 @@ async function handleRequest(request: Request) {
        
           }
         });
-    
+      }
     
       </script>
     </body>
