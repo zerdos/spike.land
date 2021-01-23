@@ -5,21 +5,13 @@ workbox.loadModule("workbox-precaching");
 
 const { files, cid, reverseMap } = globalThis;
 
-// @ts-ignore
-
-
-// workbox.precaching.precacheAndRoute([
-//   {url: '/src/codeLoader.js', revision: files["src/codeLoader.js"]},
-//   `/ipfs/${files["src/codeLoader.js"]}`,
-// ]);
-
 workbox.precaching.addRoute(
   Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
  { urlManipulation: ({url}) => {
 
-console.log(url);
+  console.log(url);
 
-  const urls =  [`/ipfs/${cid}/${url}`,
+  const urls =  ["/ipfs/" + cid + "/" + url,
 
   ];
 
@@ -27,15 +19,9 @@ console.log(url);
     const start = url.indexOf("/ipfs/");
     const reverseCID = url.slice(start+6, start +52);
     if (reverseMap[cid]) {
-      urls.push(`/ipfs/${cid}/${reverseMap[reverseCID]}`)
+      urls.push("/ipfs/" + cid + "/"  + reverseMap[reverseCID])
     }
   } 
-
-  
-     
-
-
-
   return urls;
   }}
 )
