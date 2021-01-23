@@ -51,14 +51,14 @@ export async function run(mode = "window", _w, code = "") {
   const { open } = _w;
 
   const session = getSession();
-  session.code = code ? await formatter(code) : "";
+
   if (!code) {
     try {
       const { code, transpiled, html, versions } =
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad();
-      session.code = await formatter(code);
+      session.code = code;
       session.transpiled = await transpileCode(
         code,
       ) || transpiled;
@@ -69,6 +69,7 @@ export async function run(mode = "window", _w, code = "") {
     }
   }
 
+  session.code = await formatter(code);
   if (session.transpiled === "") {
     const transpiled = await transpileCode(session.code);
     console.log(transpiled);
