@@ -233,12 +233,10 @@ added QmbkuH4RqHi2cUk3w7PMD9LDNaSkEaYA9Pcy9Wv6rTnwYk code/node_legacy/standalone
 added QmRBevsDvKdofdKgReQKM3gCwqVn9kUTRXkW97GrsHLCmr code/node_legacy/stringify.js
 added QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb code/node_legacy/v4.js
 added QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT code/node_legacy/validate.js
-added QmZhAftVTJY5kj5yZvrnowExBg1kxgGANkx9pepaGsfyCv code/node_legacy/workbox-sw.js
-added QmYrZKmyENAJi6h5mFoq2CVyZzr4syiuehcFqorzAtQttK code/node_legacy/workbox-sw.js.map
 added QmSgZf1jFzFeKu3mfPt2k8uQBxi53ENYX7VRgYxyWhAuHj code/node_legacy/workbox-window.prod.mjs
 added QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY code/node_legacy/workbox-window.prod.mjs.map
 added QmPZndj9t8Cr2VfsYxDvXXw8JYXV8PHWqWn94Tut4PvfGV code/package.json
-added QmTLTifNttsRTC1qSmje6NFYEDiCtcAynZcr8HVxFCxbNY code/src/codeLoader.js
+added Qmea731zEZf54gHPSHWiJdcxwGqgVwLBmoHwPzGoRDVhXF code/src/codeLoader.js
 added QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added Qmd1LVpChst8NBf9EybFWkXyKXiJeZvjYVb8NR4vDf7aQq code/src/emotion-react-renderer/dist/DraggableWindow.js
@@ -337,7 +335,7 @@ added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/src/smart-monaco-edito
 added QmX7MGph4JXJGjfYVxkD1Xp4SMHEYNE2xonCMUgshnaZ2K code/src/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
 added QmYkDeqsmyfVhokhZPgjGLVu1AUc9bb44Y4MaN3bARNke3 code/src/templates.js
-added QmQxkDqoVRmWatRtBCKAkAYDcZ1oTkY3Z4FcHgF8D75V2o code/src/transpile.js
+added QmRknV85AcHiNKRvF5dk2yqN8Xr8aDUXzjrhJjpYYb7EWQ code/src/transpile.js
 added QmVa16pFYTcNB5wuAdb7j2YwpSauM9oEjvLzXcMr1YmqMH code/src/workBox.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
@@ -356,7 +354,7 @@ added QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo code/src/workers/ipfs/src/r
 added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/src/workers/ipfs/tsconfig.json
 added QmX5UdE5UyETFtJWyE1CZGWv9erxTJHWNWju7y7GbnambK code/src/workers/ipfsWorker.js
 added QmZRi154mJGuG6wriiZCxvVjNoj2fNYGRDn1KJsKJy7D2c code/src/workers/shasums.umd.js
-added QmbQijVMyg2H4AREdC6Br4B7mW4CkQ9ZsNLxjMivZxwwQG code/src/workers/sw.js
+added QmUBRftmGefaiMVF38rYnEmAwwQ6i59xMrC483zYKNRK9g code/src/workers/sw.js
 added QmSX2qLhymbiH8AqKshiFgPUjJfjfwFFrsbNx16dh7qzX8 code/src/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/src/workers/tsconfig.json
 added QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY code/tsconfig.json
@@ -470,7 +468,7 @@ added QmPePiiaqLJifhM3KmDLM9Ki6fTVVhpbV5vkZiZUJ6JQpQ code/node_legacy/monaco-edi
 added QmVD3qzMtKhaCSdESxNKGAA48KvjPHgznV6e5ygpY1nUjC code/node_legacy/monaco-editor/min-maps/vs
 added QmWS6URBS2wPhcuKFEZrRK4uhR8SbKZhqH8CNnUq5qKLNQ code/node_legacy/monaco-editor/min-maps
 added QmNmd5vm8JDYkYaPGLuaph41Q2FRXS89mAntwV6HU8euwh code/node_legacy/monaco-editor
-added QmQWoh8YgVpP1dZA9ogxypYYzJqWHkF6LtDWCDDU9aaqK7 code/node_legacy
+added QmNcSfDJzH7wEXPTdSPN43VZgbT7Vs2w4bfZSfiK43hftk code/node_legacy
 added QmWbJmMEBC8cUqtq2QvL8JXZsEUk3PnHXdAmUhxUrd8gr9 code/src/emotion-react-renderer/dist
 added QmVSzquyAHah16xWEGMHoGTgEj3ZLNDenkoTCtQVuzaNDe code/src/emotion-react-renderer/src
 added QmW29vkGzWGfi3ryEkFH1DhdrgH1ucMQkaiFD8LATykDBM code/src/emotion-react-renderer
@@ -516,6 +514,6 @@ added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/src/workers/ipfs/dist
 added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_legacy
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
-added QmaMbjrWxqL6xuUXDPfqrbrZwVoy7kmkAGKrwooh3dXnu3 code/src/workers
-added Qmdn8T1XgYc3xR2VRo76Gun9v9U2vLZJSJqps98G9Saqko code/src
-added QmeJ6zCvEALExHcmqAxKd61EPfnA7CkhNwr7H6e2hhCJSN code
+added QmYCUAjVwCLwkWdetzFiYEhcby1sdK6QizBN6UrDBTUX97 code/src/workers
+added QmYoyvL9gJnqwUvFSUDfpZ1NKaBkUhTUg92r4i2ydxR6DH code/src
+added QmUY1gTQXDixCaw4MUymYJrjQwuBAgA2C4Dk4qXqnKF4iF code

@@ -123,7 +123,9 @@ async function handleRequest(request: Request) {
   }
   if (pathname === `/ipfs.js`) {
     return js(
-      `globalThis.cid = "${cid}"; globalThis.files = ${JSON.stringify(files)}`,
+      `globalThis.cid = "${cid}"; globalThis.files = ${
+        JSON.stringify(files)
+      }; globalThis.reverseMap = Object.keys(globalThis.files).forEach((key)=>this[globalThis.files[key]]=key);`,
     );
   }
   if (pathname === `/cid.js`) {

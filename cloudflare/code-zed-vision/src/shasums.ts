@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "4addb71f2d8b55e3cba308c1dca1ec184e695a1871d229295f61b2e5d2c1101e",
+    "66e8680da1e1943ec179cf304fb4ed14ff99ebd1cc73d779dbf981941de82920",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -52,8 +52,6 @@ export const shasums = {
     "5e1fd0815d1716f660416ab6152889f7bd8786db6bd35e6dc42e0be396aabce9",
   "node_legacy/workbox-window.prod.mjs.map":
     "943ac6425bd4441b16c679e81f62831e80070ef9994ceb42803465f33b3321e2",
-  "node_legacy/workbox-sw.js.map":
-    "930016b2259e1c287eb1a5d35377a260b9f89695886a118de6bfa840d3f8fada",
   "node_legacy/monaco-editor/min-maps/vs/base/worker/workerMain.js.map":
     "49172f988d1a9dfdc4a878de54fe685755f44d870aa68ed28ee819ed0b1bebc5",
   "node_legacy/monaco-editor/min-maps/vs/loader.js.map":
@@ -478,8 +476,6 @@ export const shasums = {
     "ae961b11f46fcf22eb5bd9091040cc9dd93247ca44e0bcd157dc3bb4787f2730",
   "node_legacy/v4.js":
     "20ec0b2fe1ac4fe061ae8804f15f2e110d782f29709f8d2d55dc966b81f4fd13",
-  "node_legacy/workbox-sw.js":
-    "1cbc97f480f2d05bb96e12d51cc4c2c9621af24c3393e73a391ffe54065719f9",
   "node_legacy/@babel/standalone/package.json":
     "481bcd70f0473e5c74e855d40ee7c24ee1b1aa79df366d38cc363a4fb18d61b4",
   "node_legacy/@babel/standalone/test/babel.js":
@@ -495,7 +491,7 @@ export const shasums = {
   "src/ipfsClient.js":
     "9c96ddc8ad1db917feebda58a2d2f2de773936251427b4be2440f560b4072023",
   "src/transpile.js":
-    "1492cbac7e07b5fa5db85d8a6b7c5692c46980b87528522e78a4486ae1efa102",
+    "0641754d309f8115e5dc4e07bfc28726c8b3d57ad79e6d713dbd58f80bb6561f",
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
@@ -605,7 +601,7 @@ export const shasums = {
   "src/templates.js":
     "5ff46b2d74314df6b944126eb9ccfe69058af32dbda0bc77c63c19cab38b1754",
   "src/codeLoader.js":
-    "2ca53d9d14fb6186d055a38b48061085180d141136f9fe86064d2b287f459890",
+    "0b86655419a86c7694a07b5defd89cab7778f43cb1a1b5fb92d9408448cd4a64",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -613,7 +609,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "bda1cdd33913206329fa1d9b6e2cb685ab403e638a96ea690ceab6ef1462bf24",
+    "f0f1de4839f7f9efcd43b9e1c62127ea3add4615ccfcf8ca4a6652a6933785e1",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
@@ -649,7 +645,7 @@ export const shasums = {
   "src/workers/ipfs/src/ipfs.server.ts":
     "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "src/workers/sw.js":
-    "27f3a86ee40784941c110f10a385f53d818e24262cd2494480db80e849ebb21c",
+    "36cf7087ed26e114e5e030c425ecc7432593bce92f6a2eef9637ee458326872b",
   "src/workers/ipfsWorker.js":
     "1b4c1fd14a7bf7d571e90b1ff8ebbeaf86e4f06d1a37dc7c5cc6fc9d6834435b",
   "src/workers/transpile.worker.js":

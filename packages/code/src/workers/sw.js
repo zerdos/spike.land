@@ -1,13 +1,12 @@
-importScripts(
-  "../../node_legacy/workbox-sw.js",
-);
-// importScripts("/ipfs.js");
-// importScripts("./files.umd.js")
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
+importScripts("/ipfs.js");
+
+workbox.loadModule("workbox-precaching");
 
 const { files, cid } = globalThis;
 
 // @ts-ignore
-workbox.loadModule("workbox-precaching");
+
 
 // workbox.precaching.precacheAndRoute([
 //   {url: '/src/codeLoader.js', revision: files["src/codeLoader.js"]},
