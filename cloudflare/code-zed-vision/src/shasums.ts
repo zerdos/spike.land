@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "232bd80172a40812d33f06adbf5f829a983e05da2342a677beeb2f2f54dee9a6",
+    "7c2160fc891ade31b8d292b3ecfb7c2e4ea6b8a7e00c5544c0cedbde563e500d",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -388,8 +388,6 @@ export const shasums = {
     "94e2a062b47efaad6f634c47c50eba098f3b5c41a7d89209a0a941f462ed6fc1",
   "node_legacy/ipfs-message-port-server/package.json":
     "ba034db408cdf4debf7db0f0c0c8267f21ddd28f2140eede6d06bc08db28c5ad",
-  "node_legacy/standalone.mjs":
-    "977da9290aa10bf2043ba5561aad9d0abe037a20608fe25715ec46f9a89aac1b",
   "node_legacy/ipfs-message-port-client/dist/index.min.js":
     "ca2b2a03aae1acef632620c6e568e90a7a57164d3114a713a8389419671a4474",
   "node_legacy/ipfs-message-port-client/dist/tsconfig.tsbuildinfo":
@@ -466,10 +464,6 @@ export const shasums = {
     "e3c94e7c9b0c693c2a035e0b20e3beb4be36ebdb36fbfca08653b4d66d3554f4",
   "node_legacy/ipfs-message-port-client/README.md":
     "7d9acb3617d3066b5ebd4fcab78ac2e2931c224df51806e1af185ac01051d1e4",
-  "node_legacy/parser-html.mjs":
-    "7b4aa1947d4687da2b022264d5d14de2bbe81da5d0ca3e63e370a43f7abd7353",
-  "node_legacy/parser-babel.mjs":
-    "cd655021b2ab42940b881fbd75b8410c5ea245847b23f16d48545256f75358ee",
   "node_legacy/comlink/comlink.min.mjs":
     "04d9d2cec4361d0669d57a63e239f55d0d733dd10dd389f2ff0303041809f129",
   "node_legacy/comlink/comlink.min.js":
@@ -583,7 +577,7 @@ export const shasums = {
   "src/examples/app.tsx":
     "a6c829508051e31b5a1c7cf2c69a82dfd7d2aa66715f6c8b7b2205a1c08d1b06",
   "src/formatter.js":
-    "ab798344a308bdf60b4fbe56c9f39460acb5adea08f613c886f9967d88e58d24",
+    "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
   "src/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -601,7 +595,7 @@ export const shasums = {
   "src/templates.js":
     "5ff46b2d74314df6b944126eb9ccfe69058af32dbda0bc77c63c19cab38b1754",
   "src/codeLoader.js":
-    "0b86655419a86c7694a07b5defd89cab7778f43cb1a1b5fb92d9408448cd4a64",
+    "4e8ad8febd19f77800b0b1d364ae20e42e1d379718e3fd2b8789be63378a3b51",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -609,7 +603,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "1c2930d9ab350b471c15ef66df7ed00fc758348957dd70c29f1bdd61c0f54db6",
+    "7344917a04f5478f41d93b4332ba831974bd300699a8b464cfed0b1edc248fd1",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":

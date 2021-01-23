@@ -224,19 +224,16 @@ added QmTm3ppJoshcu6GSXEpfk2YRx5ftn4WvTPdrpGoFpJUpop code/node_legacy/monaco-edi
 added QmTjTFnCNWdurh7ejmnTp6PB5ffmr1r2ttqGhFxmvmhYn7 code/node_legacy/monaco-editor/min-maps/vs/loader.js.map
 added QmUjPjKFub8iLaw5anZPmPqj3F9jmT2Y54HNZWUaNFicxr code/node_legacy/monaco-editor/monaco.d.ts
 added QmZcryZqRY2N7kTaE3fQuEuPirbWDCvMeBVzV5QRdP28u4 code/node_legacy/monaco-editor/package.json
-added Qmf96xRAoQvVjdwRGUswhGmAN23aWKNgEEYucUXNj8bxQR code/node_legacy/parser-babel.mjs
-added QmXdPvbczowV6q7fLRSWanCRuwHvy8Zto3VU7VshAienqp code/node_legacy/parser-html.mjs
 added QmW6Zb7r6mgzB4j2XMMFUToUfcHEbfHFwdZ9X31DSuJuZE code/node_legacy/regex.js
 added Qma7h4zLfzavfQ5XWHVmdPgXEMT5tZE9o9syWfHQfRjzdS code/node_legacy/rng.js
 added QmSkRETmFZ3t2dzUsPoeTS5o4MMkS5csX5hHJeEERsCrrv code/node_legacy/simple-window-manager.es.js
-added QmbkuH4RqHi2cUk3w7PMD9LDNaSkEaYA9Pcy9Wv6rTnwYk code/node_legacy/standalone.mjs
 added QmRBevsDvKdofdKgReQKM3gCwqVn9kUTRXkW97GrsHLCmr code/node_legacy/stringify.js
 added QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb code/node_legacy/v4.js
 added QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT code/node_legacy/validate.js
 added QmSgZf1jFzFeKu3mfPt2k8uQBxi53ENYX7VRgYxyWhAuHj code/node_legacy/workbox-window.prod.mjs
 added QmRTrYSzfnFKPQESDgH6t26Fb2AzZpn51PcCor3Rh9zomY code/node_legacy/workbox-window.prod.mjs.map
 added QmPZndj9t8Cr2VfsYxDvXXw8JYXV8PHWqWn94Tut4PvfGV code/package.json
-added Qmea731zEZf54gHPSHWiJdcxwGqgVwLBmoHwPzGoRDVhXF code/src/codeLoader.js
+added QmWKVPVsC5KGXyAwaFwvLKnXwadZecXEJJBJ9BcHvLVSFz code/src/codeLoader.js
 added QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added Qmd1LVpChst8NBf9EybFWkXyKXiJeZvjYVb8NR4vDf7aQq code/src/emotion-react-renderer/dist/DraggableWindow.js
@@ -248,7 +245,7 @@ added QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA code/src/emotion-react-rend
 added QmT5yUxG2so3ddoG8CuABVg9hyWtxqQHRMarWKHobUM454 code/src/examples/app.tsx
 added QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs code/src/examples/starterNoFramerMotion.js
 added QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF code/src/examples/starter_framer.js
-added QmRW3Trph8qhnKSHPteqN2PGvWaCJRg4RDWx9JHxwqXrtg code/src/formatter.js
+added QmWcaaZFJLVKDFMneB43W98QQ3QSifrmwupLamwFMvd3pg code/src/formatter.js
 added QmNwbA46c7bRTXeZtxbvcja1g5Pq4G9m59ZfFWQc4sUiQR code/src/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/src/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/src/importScript.js
@@ -468,7 +465,7 @@ added QmPePiiaqLJifhM3KmDLM9Ki6fTVVhpbV5vkZiZUJ6JQpQ code/node_legacy/monaco-edi
 added QmVD3qzMtKhaCSdESxNKGAA48KvjPHgznV6e5ygpY1nUjC code/node_legacy/monaco-editor/min-maps/vs
 added QmWS6URBS2wPhcuKFEZrRK4uhR8SbKZhqH8CNnUq5qKLNQ code/node_legacy/monaco-editor/min-maps
 added QmNmd5vm8JDYkYaPGLuaph41Q2FRXS89mAntwV6HU8euwh code/node_legacy/monaco-editor
-added QmNcSfDJzH7wEXPTdSPN43VZgbT7Vs2w4bfZSfiK43hftk code/node_legacy
+added QmZ4LUJunXp74g2wS9Wdj5RJxsXrLpTjQyq2D5FHYPutRz code/node_legacy
 added QmWbJmMEBC8cUqtq2QvL8JXZsEUk3PnHXdAmUhxUrd8gr9 code/src/emotion-react-renderer/dist
 added QmVSzquyAHah16xWEGMHoGTgEj3ZLNDenkoTCtQVuzaNDe code/src/emotion-react-renderer/src
 added QmW29vkGzWGfi3ryEkFH1DhdrgH1ucMQkaiFD8LATykDBM code/src/emotion-react-renderer
@@ -515,5 +512,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmYCUAjVwCLwkWdetzFiYEhcby1sdK6QizBN6UrDBTUX97 code/src/workers
-added QmTg5upUF6qtoDveRsG7YaijawvVbbNq1RsFrrTYp8KHHm code/src
-added QmcUNWCiUS7tQwmMdJ6K52VerobKboy3dgY4AMaCmo3gre code
+added QmZQsefLqCohv3671RuzXHar1zUZ8r3qNi95zr2C6R7vXb code/src
+added QmSYmAA55KL2JppG5EToJGskBMEELoewypQ5MztsshpadU code

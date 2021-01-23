@@ -1,11 +1,11 @@
-import prettier from "../node_legacy/standalone.mjs";
-import parserBabel from "../node_legacy/parser-babel.mjs";
-import parserHtml from "../node_legacy/parser-html.mjs";
+import prettier from "https://unpkg.com/prettier@2.2.1/esm/standalone.mjs";
+import parserBabel from "https://unpkg.com/prettier@2.2.1/esm/parser-babel.mjs";
+import parserHtml from "https://unpkg.com/prettier@2.2.1/esm/parser-html.mjs";
 
 /**
  * @param {string} code
  */
-export async function formatter(code) {
+export function formatter(code) {
   try {
     return prettier.format(code, {
       "arrowParens": "always",

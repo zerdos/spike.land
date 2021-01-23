@@ -292,8 +292,8 @@
         "affectsGlobalScope": false
       },
       "./src/formatter.js": {
-        "version": "2eab49a0bd75ca307995b57377c1dc83f5d894d328372a35b723f808510bbd59",
-        "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
+        "version": "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
+        "signature": "9561ad5c1daa2243187c0187cc53256ced5dc0af90d36f7e3ff06734eb716c92",
         "affectsGlobalScope": false
       },
       "./src/smart-monaco-editor/dist/editor.d.ts": {
@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "0b86655419a86c7694a07b5defd89cab7778f43cb1a1b5fb92d9408448cd4a64",
+        "version": "d3c191141caf3ebeed9eda157db9617c9fb0e950c7d164b0978ae35e0976d58c",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "1c2930d9ab350b471c15ef66df7ed00fc758348957dd70c29f1bdd61c0f54db6",
+        "version": "7344917a04f5478f41d93b4332ba831974bd300699a8b464cfed0b1edc248fd1",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
