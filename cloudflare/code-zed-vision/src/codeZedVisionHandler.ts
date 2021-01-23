@@ -170,37 +170,22 @@ async function handleRequest(request: Request) {
         //   navigator.serviceWorker.controller.unregister();
     
         const wb = new Workbox("/sw.js");
+        window.location.href="/ipfs/${cid}/"
     
     
     //    navigator.serviceWorker.controller && startApp();
     
         wb.addEventListener('activated', async (event) => {
-          window.location.href="/ipfs/${cid}/"
+
+
     
           if (!event.isUpdate || !window.monaco) {
-            location.reload()
-              // startApp();
+            window.location.reload()
+            
        
           }
         });
     
-    //     wb.register();
-    //   }
-    //   try{
-    //     startApp();
-    //   } catch(e) {
-    //     console.log({e});
-    //   }
-    // }
-    
-    // async function startApp(){
-    //   try{
-    //   const {run} = await import ("./src/codeLoader.js")
-    //   run("window", window);
-    //   } catch(e) {
-    //     console.log("some error", {e});
-    //   }
-    // }
     
       </script>
     </body>
