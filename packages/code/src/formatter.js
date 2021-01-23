@@ -27,7 +27,10 @@ export async function formatter(code) {
       parser: "babel-ts",
       plugins: [parserBabel, parserHtml],
     });
-  } catch {
+  } catch (e) {
+    console.log("PRETTIER ERROR YAY");
+
+    console.log({ e });
     return code;
   }
 }

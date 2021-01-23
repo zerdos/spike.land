@@ -583,7 +583,7 @@ export const shasums = {
   "src/examples/app.tsx":
     "a6c829508051e31b5a1c7cf2c69a82dfd7d2aa66715f6c8b7b2205a1c08d1b06",
   "src/formatter.js":
-    "a65e9f5e35f77fb41f2ff08d40c7e706570fd61660cf8861b44f35bc0038f0d9",
+    "ab798344a308bdf60b4fbe56c9f39460acb5adea08f613c886f9967d88e58d24",
   "src/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -609,7 +609,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "f0f1de4839f7f9efcd43b9e1c62127ea3add4615ccfcf8ca4a6652a6933785e1",
+    "1c2930d9ab350b471c15ef66df7ed00fc758348957dd70c29f1bdd61c0f54db6",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
