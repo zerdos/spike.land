@@ -11,15 +11,14 @@ workbox.precaching.precacheAndRoute(
 
   console.log(url);
 
-  const urls =  ["/ipfs/" + cid + "/" + url,
+  const {pathname} = url;
+  const urls =  [ new URL("https://code.zed.vision/ipfs/" + cid + "/" + url)];
 
-  ];
-
-  if (url.indexOf("/ipfs/")) {
-    const start = url.indexOf("/ipfs/");
-    const reverseCID = url.slice(start+6, start +52);
+  if (pathname.indexOf("/ipfs/")) {
+    const start = pathname.indexOf("/ipfs/");
+    const reverseCID = pathname.slice(start+6, start +52);
     if (reverseMap[cid]) {
-      urls.push("/ipfs/" + cid + "/"  + reverseMap[reverseCID])
+      urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/"  + reverseMap[reverseCID]))
     }
   } 
   return urls;
