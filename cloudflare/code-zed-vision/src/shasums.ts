@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "5c0e8182b3d733015f47ac52893be782f444a0fa4e7edd33f54eb8b2edb22f09",
+    "4addb71f2d8b55e3cba308c1dca1ec184e695a1871d229295f61b2e5d2c1101e",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -495,7 +495,7 @@ export const shasums = {
   "src/ipfsClient.js":
     "9c96ddc8ad1db917feebda58a2d2f2de773936251427b4be2440f560b4072023",
   "src/transpile.js":
-    "5d249dc0afcbba7b1534bd8926338c792b7b7536d4e5fc0e30006e8bc48f6670",
+    "1492cbac7e07b5fa5db85d8a6b7c5692c46980b87528522e78a4486ae1efa102",
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
@@ -605,7 +605,7 @@ export const shasums = {
   "src/templates.js":
     "5ff46b2d74314df6b944126eb9ccfe69058af32dbda0bc77c63c19cab38b1754",
   "src/codeLoader.js":
-    "d99db7a12de6c349462986b23c4731e5acbce3dcfb1a7b2ec50886825680ae9d",
+    "2ca53d9d14fb6186d055a38b48061085180d141136f9fe86064d2b287f459890",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -613,7 +613,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "6a9bc953b5555f5f88cd682ca6aa0f9fb905b5607b397d5c174cf1e33aa3e025",
+    "bda1cdd33913206329fa1d9b6e2cb685ab403e638a96ea690ceab6ef1462bf24",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":

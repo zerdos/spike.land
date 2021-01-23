@@ -58,22 +58,15 @@ export async function run(mode = "window", _w, code = "") {
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad();
-      session.code = code;
+      session.code = await formatter(code);
       session.transpiled = await transpileCode(
-        code,
+        session.code,
       ) || transpiled;
       session.div.innerHTML = html;
     } catch (e) {
       console.error({ e, message: "couldn't start" });
       return;
     }
-  }
-
-  session.code = await formatter(code);
-  if (session.transpiled === "") {
-    const transpiled = await transpileCode(session.code);
-    console.log(transpiled);
-    session.transpiled = transpiled;
   }
 
   await await renderPreviewWindow(

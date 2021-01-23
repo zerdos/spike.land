@@ -286,14 +286,14 @@
         "signature": "a593a3e3bc43b890da9a5ee27fbd683359d233cb84c7faf9d612b2d24429ddad",
         "affectsGlobalScope": false
       },
+      "./src/transpile.js": {
+        "version": "0641754d309f8115e5dc4e07bfc28726c8b3d57ad79e6d713dbd58f80bb6561f",
+        "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
+        "affectsGlobalScope": false
+      },
       "./src/formatter.js": {
         "version": "a65e9f5e35f77fb41f2ff08d40c7e706570fd61660cf8861b44f35bc0038f0d9",
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
-        "affectsGlobalScope": false
-      },
-      "./src/transpile.js": {
-        "version": "5d249dc0afcbba7b1534bd8926338c792b7b7536d4e5fc0e30006e8bc48f6670",
-        "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
       "./src/smart-monaco-editor/dist/editor.d.ts": {
@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "11af5b0b159051bb267eb565205b50dcf702fe1406d2e9bbcaccf8026f79f50d",
+        "version": "0b86655419a86c7694a07b5defd89cab7778f43cb1a1b5fb92d9408448cd4a64",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "6a9bc953b5555f5f88cd682ca6aa0f9fb905b5607b397d5c174cf1e33aa3e025",
+        "version": "bda1cdd33913206329fa1d9b6e2cb685ab403e638a96ea690ceab6ef1462bf24",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -700,8 +700,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/transpile.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/formatter.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
