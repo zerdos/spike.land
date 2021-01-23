@@ -22,107 +22,62 @@ addEventListener("fetch", (event: FetchEvent) => {
 async function handleRequest(request: Request) {
   const publicIpfsGW = [...publicIpfsGateways];
   const url = new URL(request.url);
-  const { searchParams, pathname } = url;
-  const maybeRoute = pathname.slice(1, 9);
-  const isKey =
-    [...maybeRoute].filter((x) => x < "0" || x > "f").length === 0 &&
-    maybeRoute.length === 8;
+  const { pathname } = url;
 
-  const contentPath = isKey ? pathname.slice(9) : pathname;
-  // if (isKey) return text(contentPath);
-  if (contentPath.slice(0, 6) === "/ipfs/") {
+  if (
+    pathname.slice(0, 52) === `/ipfs/${cid}`
+  ) {
+    const file = pathname.slice(53) || "index.html";
+    //@ts-ignore
+    const cid2 = files[file]!;
+
     const cache = caches.default;
-
     let response = await cache.match(request);
 
-    if (response && response.status == 200) {
-      return await alterHeaders(response, pathname);
-    }
-
-    // this file belongs to the latest zed.vision deployment
-    // so lets search and cache it in CF KV as well
-    if (
-      contentPath.slice(0, 52) === `/ipfs/${cid}`
-    ) {
-      const file = contentPath.slice(53) || "index.html";
+    if (response && response.status === 200) {
       //@ts-ignore
-      const cid2 = files[file]!;
+      return await alterHeaders(response, reverseMap[cid] || pathname);
+    } else {
+      // text(`${file}  ${cid2}`);
+      let response;
 
-      response = await cache.match(request);
-
-      if (response && response.status === 200) {
-        //@ts-ignore
-        return await alterHeaders(response, reverseMap[cid] || pathname);
+      const content = await IPFSKV.get(cid2, "arrayBuffer");
+      if (content !== null) {
+        response = new Response(content);
       } else {
-        // text(`${file}  ${cid2}`);
-        let response;
-
-        const content = await IPFSKV.get(cid2, "arrayBuffer");
-        if (content !== null) {
-          response = new Response(content);
-        } else {
-          const random5GatewaysFetch = publicIpfsGW.sort(() =>
-            0.5 - Math.random()
-          )
-            .slice(0, 5).map((gw: string) =>
-              gw.replace("/ipfs/:hash", contentPath)
-            )
-            .map((x: string) =>
-              fetch(x).then((res) =>
-                res.status === 200 ? res : (() => {
-                  res.arrayBuffer();
-                  throw new Error("Not found");
-                })()
-              )
-            );
-
-          response = await raceToSuccess(random5GatewaysFetch);
-          const arrBuff = await response.clone().arrayBuffer();
-          const shaSum = await sha256(arrBuff);
-          //@ts-ignore
-          if (shaSum === shasums[file]!) {
-            await IPFSKV.put(cid2, arrBuff);
-          } else {
-            return text(
-              `its 2021, but transferring and getting a file its still difficult. Please try again... received content: ${
-                new TextDecoder().decode(arrBuff)
-              }`,
-            );
-          }
-        }
-
-        //@ts-ignore
-        const resp = await alterHeaders(response, reverseMap[cid2] || pathname);
-        await cache.put(request, resp.clone());
-        return resp;
-      }
-    }
-
-    // const req = new Request(`https://code.zed.vision${contentPath}`);
-
-    response = await cache.match(request);
-    if (response && response.status == 200) {
-      return await alterHeaders(response, pathname);
-    }
-
-    const random5GatewaysFetch = publicIpfsGW.sort(() => 0.5 - Math.random())
-      .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", contentPath))
-      .map((x: string) =>
-        fetch(x).then((res) =>
-          res.status === 200 ? res : (() => {
-            res.arrayBuffer();
-            throw new Error("Not found");
-          })()
+        const random5GatewaysFetch = publicIpfsGW.sort(() =>
+          0.5 - Math.random()
         )
-      );
+          .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", pathname))
+          .map((x: string) =>
+            fetch(x).then((res) =>
+              res.status === 200 ? res : (() => {
+                res.arrayBuffer();
+                throw new Error("Not found");
+              })()
+            )
+          );
 
-    response = await raceToSuccess(random5GatewaysFetch);
+        response = await raceToSuccess(random5GatewaysFetch);
+        const arrBuff = await response.clone().arrayBuffer();
+        const shaSum = await sha256(arrBuff);
+        //@ts-ignore
+        if (shaSum === shasums[file]!) {
+          await IPFSKV.put(cid2, arrBuff);
+        } else {
+          return text(
+            `its 2021, but transferring and getting a file its still difficult. Please try again... received content: ${
+              new TextDecoder().decode(arrBuff)
+            }`,
+          );
+        }
+      }
 
-    if (response === undefined) return text("error");
-
-    const resp = await alterHeaders(response, pathname);
-    await cache.put(request, resp.clone());
-    return resp;
+      //@ts-ignore
+      const resp = await alterHeaders(response, reverseMap[cid2] || pathname);
+      await cache.put(request, resp.clone());
+      return resp;
+    }
   }
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
