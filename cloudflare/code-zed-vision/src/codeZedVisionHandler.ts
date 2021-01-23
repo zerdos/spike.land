@@ -148,10 +148,10 @@ async function handleRequest(request: Request) {
     <html lang="en">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      <link rel="icon" type="image/png" href="/ipfs/${cid}/assets/zed-icon-big.png" />
-      <link rel="stylesheet" href="/ipfs/${cid}/assets/app.css" />
-      <link rel="stylesheet" href="/ipfs/${cid}/assets/roboto.css" />
-      <link rel="stylesheet" href="/ipfs/${cid}/assets/normalize.min.css" />
+      <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+      <link rel="stylesheet" href="assets/app.css" />
+      <link rel="stylesheet" href="assets/roboto.css" />
+      <link rel="stylesheet" href="assets/normalize.min.css" />
     <title>Instant React Editor</title>
     </head>
     <body>
@@ -170,21 +170,19 @@ async function handleRequest(request: Request) {
         //   navigator.serviceWorker.controller &&
         //   navigator.serviceWorker.controller.unregister();
     
-        const wb = new Workbox(location.pathname + "src/workers/sw.js");
+        const wb = new Workbox("/sw.js");
     
     
     //    navigator.serviceWorker.controller && startApp();
     
         wb.addEventListener('activated', async (event) => {
     
-          startApp();
           if (!event.isUpdate || !window.monaco) {
+            location.reload()
               // startApp();
        
           }
         });
-    
-    
     
         wb.register();
       }
@@ -196,8 +194,12 @@ async function handleRequest(request: Request) {
     }
     
     async function startApp(){
+      try{
       const {run} = await import ("./src/codeLoader.js")
       run("window", window);
+      } catch(e) {
+        console.log("some error", {e});
+      }
     }
     
       </script>

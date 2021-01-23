@@ -24,21 +24,19 @@ async function workBox() {
     //   navigator.serviceWorker.controller &&
     //   navigator.serviceWorker.controller.unregister();
 
-    const wb = new Workbox(location.pathname + "src/workers/sw.js");
+    const wb = new Workbox("/sw.js");
 
 
 //    navigator.serviceWorker.controller && startApp();
 
     wb.addEventListener('activated', async (event) => {
 
-      startApp();
       if (!event.isUpdate || !window.monaco) {
+        location.reload()
           // startApp();
    
       }
     });
-
-
 
     wb.register();
   }
@@ -50,8 +48,12 @@ async function workBox() {
 }
 
 async function startApp(){
+  try{
   const {run} = await import ("./src/codeLoader.js")
   run("window", window);
+  } catch(e) {
+    console.log("some error", {e});
+  }
 }
 
   </script>

@@ -39,7 +39,7 @@ export const shasums = {
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "index.html":
-    "2fda3d7fff1af2a347ca022e209f6446a1a0afa7f1cfbf1570d315b94c940626",
+    "91fa8b58068c741a35afc7cc69eb5e895d5b19d0a032837937065200cab17909",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   ".vscode/setttings.json":
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "e4e484b71edb11b76b8b870941282e9ddb37c9d1297aa25e9819ed42c19f7046",
+    "59dedf1d93f48e4b0bf6c36dfb5028abde907e39361b4f25cd49d5aa192273db",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
