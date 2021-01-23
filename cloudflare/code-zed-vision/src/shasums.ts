@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "46da2026016dff81add6ec77b87dc84eeda64f3c1adea2eaea5da679ec3a72ff",
+    "334afc8b2756d24105564d457be3323776efa21d194cf56d57fb32b9d636e32b",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -50,8 +50,6 @@ export const shasums = {
     "62988dd8c0b632da4eada03ad7b41365903c96930e01417ac8aa0ec255293637",
   "node_legacy/validate.js":
     "5e1fd0815d1716f660416ab6152889f7bd8786db6bd35e6dc42e0be396aabce9",
-  "node_legacy/workbox-window.prod.mjs.map":
-    "943ac6425bd4441b16c679e81f62831e80070ef9994ceb42803465f33b3321e2",
   "node_legacy/monaco-editor/min-maps/vs/base/worker/workerMain.js.map":
     "49172f988d1a9dfdc4a878de54fe685755f44d870aa68ed28ee819ed0b1bebc5",
   "node_legacy/monaco-editor/min-maps/vs/loader.js.map":
@@ -328,8 +326,6 @@ export const shasums = {
     "1d8cea514bc23255f2706d5fc9cc6bb96878804eeb6f5cef41f06739de4eae84",
   "node_legacy/rng.js":
     "5b409e33c343f7bef5d0d39689575dba7b22e3de13b1799388ee636d4e0adc5d",
-  "node_legacy/workbox-window.prod.mjs":
-    "d5e50e6a87d86ea858c186e20b78125d5518d88a73179039e9abcf6fbde5b417",
   "node_legacy/ipfs-message-port-server/src/dag.js":
     "7158019f7f2e95d19a8f6627b77c3224968f6959fd449ec036fafb7844f5379a",
   "node_legacy/ipfs-message-port-server/src/service.js":
@@ -565,7 +561,7 @@ export const shasums = {
   "src/smart-monaco-editor/dist/monaco.js":
     "5e0258ef425bc23888eb413c71963f531dbb51f021f9ffc820576dab13c7a9e0",
   "src/workBox.js":
-    "12f80b2072da9f81c6a63d6e13baddce4e17cac5949a8cd55f35afd3553e1f73",
+    "0f66ead6d41f0be469d7955a7d97d7c6fe84e22c4cba5a5fe5febb63468d7f2a",
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
@@ -603,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "d6192dd1924f8b529d2ee91c50bdf1f40e70c5e147e4abafdbe8ee75e6eab8e3",
+    "018e7313d8ae0bc3c0a679d71599088be219eb26d18491ecde917a2b2fd72904",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
