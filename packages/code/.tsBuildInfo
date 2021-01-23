@@ -272,7 +272,7 @@
         "affectsGlobalScope": false
       },
       "./src/workBox.js": {
-        "version": "0cea13001e216f9b35c9d3416958201f26bfa2358ef25fd0a3e1ca2b48a0b7a5",
+        "version": "cbf0182e295572a00e780759744c41b6a53d1f9b9c9496ac5df3acc83a177758",
         "signature": "28f1bcb8fcfb43e1ec98d1a07e178d80ba0c9c05f49a53d6967c6620e2514fd7",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "5b1d16c92fdd36dffb05633b0dbe7859aaa5fcc903b212572f649b9d96b6b008",
+        "version": "186bc1ae619223639ef9cc139eff7d2b72bc8dd33f59a9dd18b7946bb3798275",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -472,7 +472,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/sw.js": {
-        "version": "f1e4dcb012a1da5ffcdc1a9bf0a6caf0a513437829d5dfe4177d5ac6dbcd5d33",
+        "version": "89abd318146846bde7e352acca070a6298775bba396efd9aa158081073e8a313",
         "signature": "1183d5cc98d1d9bfcfa9bcfad30b82eb2bb876cd18cfff3e51e1b015c6ca057d",
         "affectsGlobalScope": true
       },
@@ -703,7 +703,8 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/codeLoader.js"
       ],
       "./src/workers/ipfs/dist/ipfs.client.d.ts": [
         "./src/workers/ipfs/dist/gateways.d.ts"

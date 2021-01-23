@@ -1,5 +1,5 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
-importScripts("/ipfs.js");
+importScripts("https://code.zed.vision/ipfs.js");
 
 workbox.loadModule("workbox-precaching");
 
