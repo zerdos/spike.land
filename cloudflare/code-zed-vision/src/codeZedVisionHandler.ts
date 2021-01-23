@@ -157,50 +157,51 @@ async function handleRequest(request: Request) {
     <body>
     <script type="module">
 
-    workBox();
+    window.location.href="/ipfs/${cid}/"
+    // workBox();
     
-    async function workBox() {
-      if ("serviceWorker" in window.navigator) {
-        const { Workbox } = await import(
-          "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
-        );
-        const {navigator, location} = window;
+    // async function workBox() {
+    //   if ("serviceWorker" in window.navigator) {
+    //     const { Workbox } = await import(
+    //       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
+    //     );
+    //     const {navigator, location} = window;
     
-        // navigator.serviceWorker &&
-        //   navigator.serviceWorker.controller &&
-        //   navigator.serviceWorker.controller.unregister();
+    //     // navigator.serviceWorker &&
+    //     //   navigator.serviceWorker.controller &&
+    //     //   navigator.serviceWorker.controller.unregister();
     
-        const wb = new Workbox("/sw.js");
+    //     const wb = new Workbox("/sw.js");
     
     
-    //    navigator.serviceWorker.controller && startApp();
+    // //    navigator.serviceWorker.controller && startApp();
     
-        wb.addEventListener('activated', async (event) => {
+    //     wb.addEventListener('activated', async (event) => {
     
-          if (!event.isUpdate || !window.monaco) {
-            location.reload()
-              // startApp();
+    //       if (!event.isUpdate || !window.monaco) {
+    //         location.reload()
+    //           // startApp();
        
-          }
-        });
+    //       }
+    //     });
     
-        wb.register();
-      }
-      try{
-        startApp();
-      } catch(e) {
-        console.log({e});
-      }
-    }
+    //     wb.register();
+    //   }
+    //   try{
+    //     startApp();
+    //   } catch(e) {
+    //     console.log({e});
+    //   }
+    // }
     
-    async function startApp(){
-      try{
-      const {run} = await import ("./src/codeLoader.js")
-      run("window", window);
-      } catch(e) {
-        console.log("some error", {e});
-      }
-    }
+    // async function startApp(){
+    //   try{
+    //   const {run} = await import ("./src/codeLoader.js")
+    //   run("window", window);
+    //   } catch(e) {
+    //     console.log("some error", {e});
+    //   }
+    // }
     
       </script>
     </body>

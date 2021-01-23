@@ -9,53 +9,43 @@
 <title>Instant React Editor</title>
 </head>
 <body>
+  <script>
+
+      
+
+       /// 
+       /// if after body init - monaco editor still haven't started (the app haven't started)
+       /// it's likely that we have caching issues. So giving a push to it.
+       /// 
+        setTimeout(()=>{
+
+          console.log("use force to load the rest")
+          
+          if (!window.monaco) {
+            forceCacheToLoad();
+          }
+
+        }, 3000  )
+
+
+    async function forceCacheToLoad(){
+      const cid = location.pathname.slice(-47, -1)
+      const files = await import (`./${cid}.js`);
+      
+      Object.keys(files).filter(x=>x.indexOf(".j")>-1).map(x=>fetch(x).catch(()=>fetch(`/ipfs/${files[x]}`)));
+    }
+
+  </script>
   <script type="module">
 
-workBox();
-
-async function workBox() {
-  if ("serviceWorker" in window.navigator) {
-    const { Workbox } = await import(
-      "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
-    );
-    const {navigator, location} = window;
-
-    // navigator.serviceWorker &&
-    //   navigator.serviceWorker.controller &&
-    //   navigator.serviceWorker.controller.unregister();
-
-    const wb = new Workbox("/sw.js");
-
-
-//    navigator.serviceWorker.controller && startApp();
-
-    wb.addEventListener('activated', async (event) => {
-
-      if (!event.isUpdate || !window.monaco) {
-        location.reload()
-          // startApp();
-   
-      }
-    });
-
-    wb.register();
-  }
-  try{
-    startApp();
-  } catch(e) {
-    console.log({e});
-  }
-}
-
-async function startApp(){
-  try{
-  const {run} = await import ("./src/codeLoader.js")
-  run("window", window);
-  } catch(e) {
-    console.log("some error", {e});
-  }
-}
-
+    import {run} from "./src/codeLoader.js"
+    try{
+      console.log("start!")
+      run("window", window);
+    }catch(error){
+      console.error({error});
+      fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
+    }
   </script>
 </body>
 </html>

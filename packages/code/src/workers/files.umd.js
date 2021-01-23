@@ -11,7 +11,7 @@ globalThis.files = {
 "assets/triangle-geometry.png": "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
 "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
 "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-"index.html": "QmaWgmrnBtFY6X4oKUUr2qmBq3bdbixGE7NuxNV9CD8Xz2",
+"index.html": "Qmf1dm52EMvkYbHCwWw5hCazpdGeWk4UPPhjEYPWtti3D4",
 "index2.html": "QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd",
 "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
 "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
@@ -512,5 +512,5 @@ globalThis.files = {
 "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
 "src/workers": "QmYFWUdeWDBmmBPr4jGxbHDwmW8YesJbbwQVw3bmqDZS1i",
 "src": "QmUes2CKVin3LTMmgC3oGMUhcLuqnfevvqqDjNxGVm1Bkp",
-"": "QmPYjCRJuBA8KH5NW5AZbyJZmsLrQQrKFrjEen4Zc4nLzS",
+"": "QmRuRVPTm1x52iymLfHQFAnGZ6cZrZ6NiW2P7dkQPCcW3u",
  "foo":"bar" }
