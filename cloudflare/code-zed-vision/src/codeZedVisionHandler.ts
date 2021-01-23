@@ -8,6 +8,10 @@ import {
 import { cid } from "./cid";
 import { alterHeaders } from "./alterHeaders";
 
+const reverseMap = {};
+//@ts-ignore
+Object.keys(files).forEach((k) => reverseMap[files[k]] = k);
+
 addEventListener("fetch", (event: FetchEvent) => {
   event.respondWith(handleRequest(event.request));
 });
@@ -47,9 +51,10 @@ async function handleRequest(request: Request) {
       response = await cache.match(request);
 
       if (response && response.status === 200) {
-        return await alterHeaders(response, pathname);
+        //@ts-ignore
+        return await alterHeaders(response, reverseMap[cid] || pathname);
       } else {
-        text(`${file}      ${cid2}`);
+        // text(`${file}  ${cid2}`);
         let response;
 
         const content = await IPFSKV.get(cid2, "arrayBuffer");
@@ -86,7 +91,8 @@ async function handleRequest(request: Request) {
           }
         }
 
-        const resp = await alterHeaders(response, pathname);
+        //@ts-ignore
+        const resp = await alterHeaders(response, reverseMap[cid2] || pathname);
         await cache.put(request, resp.clone());
         return resp;
       }
