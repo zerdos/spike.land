@@ -112,7 +112,7 @@ async function handleRequest(request: Request) {
       
       const { files, cid, reverseMap } = globalThis;
       
-      workbox.precaching.addRoute(
+      workbox.precaching.precacheAndRoute(
         Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
        { urlManipulation: ({url}) => {
       
