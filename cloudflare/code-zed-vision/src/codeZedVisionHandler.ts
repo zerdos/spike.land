@@ -79,6 +79,30 @@ async function handleRequest(request: Request) {
       return resp;
     }
   }
+
+  if (pathname === `/${cid}.js`) {
+    return js(`export const files = ${JSON.stringify(files)}`);
+  }
+  if (pathname === `/ipfs.js`) {
+    return js(
+      `globalThis.cid = "${cid}"; 
+      globalThis.files = ${JSON.stringify(files)}; 
+      globalThis.reverseMap = {}; 
+      Object.keys(globalThis.files).forEach(k=>globalThis.reverseMap[globalThis.files[k]]=k);`,
+    );
+  }
+  if (pathname === `/cid.js`) {
+    return new Response(`export const cid = "${cid}"`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-cache",
+        "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+        "Access-Control-Max-Age": "86400",
+        "Content-Type": "application/javascript;charset=UTF-8",
+      },
+    });
+  }
+
   if (pathname === `/sw.js`) {
     return new Response(
       `importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
@@ -119,28 +143,6 @@ workbox.precaching.addRoute(
       },
     );
   }
-  if (pathname === `/${cid}.js`) {
-    return js(`export const files = ${JSON.stringify(files)}`);
-  }
-  if (pathname === `/ipfs.js`) {
-    return js(
-      `globalThis.cid = "${cid}"; 
-      globalThis.files = ${JSON.stringify(files)}; 
-      globalThis.reverseMap = {}; 
-      Object.keys(globalThis.files).forEach(k=>globalThis.reverseMap[globalThis.files[k]]=k);`,
-    );
-  }
-  if (pathname === `/cid.js`) {
-    return new Response(`export const cid = "${cid}"`, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-cache",
-        "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-        "Access-Control-Max-Age": "86400",
-        "Content-Type": "application/javascript;charset=UTF-8",
-      },
-    });
-  }
   return new Response(
     `<!DOCTYPE html>
     <html lang="en">
@@ -161,6 +163,7 @@ workbox.precaching.addRoute(
     {
       headers: {
         "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-cache",
         "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
         "Access-Control-Max-Age": "86400",
         "Content-Type": "text/html;charset=UTF-8",
