@@ -286,14 +286,14 @@
         "signature": "a593a3e3bc43b890da9a5ee27fbd683359d233cb84c7faf9d612b2d24429ddad",
         "affectsGlobalScope": false
       },
-      "./src/transpile.js": {
-        "version": "b19795b72c788f4030afec641000ac3d20edf74686e3d1d449dbc7ce6ddc8579",
-        "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
-        "affectsGlobalScope": false
-      },
       "./src/formatter.js": {
         "version": "a65e9f5e35f77fb41f2ff08d40c7e706570fd61660cf8861b44f35bc0038f0d9",
         "signature": "ec629e25a185541dd64106611ca4d85315e565302a1f8b02c43072afae9e445b",
+        "affectsGlobalScope": false
+      },
+      "./src/transpile.js": {
+        "version": "5d249dc0afcbba7b1534bd8926338c792b7b7536d4e5fc0e30006e8bc48f6670",
+        "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
       "./src/smart-monaco-editor/dist/editor.d.ts": {
@@ -302,7 +302,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "ef8178019e28b79a5f82d3c0db8d07ac187a4b4e1382624a91d13ae031e5a96a",
+        "version": "d14e65aa6cee43a81049c40cf103c71b61e797acb66dd82ed49a2fdd8cfa4def",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "875fa15bdf947d5f44e1b11f26cf3102f454a3d2c96b411341736a90469886a9",
+        "version": "c0f8b93b0d19c20d6721cf91b7747cd5e824793a39119866b6f7bb1c7ef2fd2f",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -700,7 +700,8 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/transpile.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./src/formatter.js"
       ],
       "./src/workBox.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"

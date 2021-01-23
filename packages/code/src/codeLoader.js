@@ -58,7 +58,7 @@ export async function run(mode = "window", _w, code = "") {
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad();
-      session.code = code;
+      session.code = await formatter(code);
       session.transpiled = await transpileCode(
         code,
       ) || transpiled;

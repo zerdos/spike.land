@@ -1,5 +1,5 @@
 import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
-
+import { formatter } from "./formatter.js";
 let transform = null;
 
 /**
@@ -10,11 +10,11 @@ let transform = null;
 export async function transpileCode(code) {
   if (transform === null) {
     await init();
-    return transpileCode(code);
+    return transpileCode(await formatter(code));
   }
   try {
     const transformed = await transform(
-      code,
+      await formatter(code),
     );
     return transformed;
   } catch {
