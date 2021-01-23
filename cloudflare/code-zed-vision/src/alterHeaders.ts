@@ -8,9 +8,10 @@ export async function alterHeaders(response: Response, pathname: string) {
     "access-control-allow-methods",
     "GET,HEAD,POST,OPTIONS",
   );
-  resp.headers.set("access-control-max-age", "86400");
+  resp.headers.delete("access-control-max-age");
   resp.headers.delete("content-security-policy");
   resp.headers.delete("feature-policy");
+  resp.headers.set("cache-control", "immutable");
   resp.headers.delete("access-control-expose-headers");
   resp.headers.delete("expect-ct");
   resp.headers.delete("report-to");
