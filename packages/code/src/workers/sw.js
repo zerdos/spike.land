@@ -3,7 +3,7 @@ importScripts("/ipfs.js");
 
 workbox.loadModule("workbox-precaching");
 
-const { files, cid } = globalThis;
+const { files, cid, reverseMap } = globalThis;
 
 // @ts-ignore
 
@@ -13,14 +13,32 @@ const { files, cid } = globalThis;
 //   `/ipfs/${files["src/codeLoader.js"]}`,
 // ]);
 
-// workbox.precaching.addRoute(
-//   Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
-//  { urlManipulation: ({url}) => {
-//     return [`/ipfs/${cid}/${url}`,
+workbox.precaching.addRoute(
+  Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
+ { urlManipulation: ({url}) => {
 
-//   ];
-//   }}
-// )
+console.log(url);
+
+  const urls =  [`/ipfs/${cid}/${url}`,
+
+  ];
+
+  if (url.indexOf("/ipfs/")) {
+    const start = url.indexOf("/ipfs/");
+    const reverseCID = url.slice(start+6, start +52);
+    if (reverseMap[cid]) {
+      urls.push(`/ipfs/${cid}/${reverseMap[reverseCID]}`)
+    }
+  } 
+
+  
+     
+
+
+
+  return urls;
+  }}
+)
 
 // workbox.precaching.precacheAndRoute([
 //   {url: '/src/data.js', revision: files["src/data.js"]},
