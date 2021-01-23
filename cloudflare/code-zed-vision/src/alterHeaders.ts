@@ -19,6 +19,8 @@ export async function alterHeaders(response: Response, pathname: string) {
 
   resp.headers.delete("server");
   resp.headers.delete("strict-transport-security");
+  resp.headers.delete("expect-ct");
+  resp.headers.delete("strict-transport-security");
   resp.headers.delete("X-Frame-Options");
   resp.headers.delete("x-content-type-options");
   if (pathname.endsWith(".mjs") || pathname.endsWith(".js")) {
