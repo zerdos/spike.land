@@ -1,8 +1,8 @@
 /**
- * @param {{html: string, css: string}} code
+ * @param {{html: string, css: string}} opts
+ * @returns  {string}
  */
-
-export const getHtml = ({ html, css }) => {
+export function getHtml({ html, css }) {
   //
   // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
   //
@@ -23,7 +23,7 @@ export const getHtml = ({ html, css }) => {
     : "(code).zed.vision :)";
 
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>
 <link rel="preload" href="./app.js" type="application/javascript" as="script" crossorigin>
@@ -50,8 +50,13 @@ render(App(), document.body.children[0]);
 </body>
 </html>
 `;
-};
+}
 
+/**
+ * 
+ * @param {string}} cid 
+ * @returns {string}
+ */
 export const getEditorHTML = (cid) =>
   `<!DOCTYPE html>
 <html lang="en">

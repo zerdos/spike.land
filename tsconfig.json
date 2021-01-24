@@ -1,12 +1,9 @@
 {
-  // This is based on https://deno.land/manual/getting_started/typescript#custom-typescript-compiler-options
-  // then the defaults are removed.
- 
- 
   "compilerOptions": {
     "jsx": "react",
     "allowJs": true,
     "checkJs": true,
+    "noEmit": true,
     "target": "esnext",
     "module": "esnext",
     "lib": ["WebWorker", "dom", "dom.iterable", "ESNext"],
@@ -14,6 +11,5 @@
     "moduleResolution": "node",
     "strict": true
   },
-  "exclude": ["packages/cf-code-zed-vision/dist", "packages/zed-vision-site", "node_modules", "packages/code/node_legacy/monaco-editor"]
+  "exclude": ["cloudflare/code-zed-vision/dist","cloudflare/zed-vision/dist", "packages/zed-vision-site", "node_modules", "packages/code/node_legacy/monaco-editor", "docs"]
 }
- 
