@@ -449,7 +449,7 @@ export const files = {
   "node_legacy/v4.js": "QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb",
   "node_legacy/validate.js": "QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT",
   "package.json": "QmPZndj9t8Cr2VfsYxDvXXw8JYXV8PHWqWn94Tut4PvfGV",
-  "src/codeLoader.js": "QmYmPEtsqJGVweLphnJ5cNRm8HTsvB2S7hA7diP66CV3az",
+  "src/codeLoader.js": "QmUiwauJJSVgbVwvnK4Vi8zvSV9eDS43gVPr3wyqnxNxcY",
   "src/data.js": "QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf",
   "src/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
@@ -946,7 +946,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
   "src/workers": "QmZ4fYvj4cL9UJ36pJmUVb8HEfcSyzbayP2DZ2TG6qmYUg",
-  "src": "QmVK9mBwq9Uz4ytRdhp8mWFSdNXCctLc9mnWoY6V7SLHir",
-  "": "QmSciz81rX5639ghWkS9ufqxdo4rHqw6gcbPTZ4NwYxBZn",
+  "src": "QmQP445RrYw7vm8W1s7XKTGa8Xf232cJYezkHHeFkznya8",
+  "": "QmX6tx1woRkDJNakjmrYJfsLoahAsMzd4jME84JNbFaFd4",
   "foo": "bar",
 };
