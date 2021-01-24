@@ -135,6 +135,66 @@ async function handleRequest(request: Request) {
       },
     );
   }
+  if (pathname === `/sw.html`) {
+    return new Response(
+      `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="icon" type="image/png" href="/ipfs/${cid}/assets/zed-icon-big.png" />
+        <link rel="stylesheet" href="/ipfs/${cid}/assets/app.css" />
+        <link rel="stylesheet" href="/ipfs/${cid}/assets/roboto.css" />
+        <link rel="stylesheet" href="/ipfs/${cid}/assets/normalize.min.css" />
+      <title>Instant React Editor</title>
+      </head>
+      <body>
+      <script type="module">
+      workBox();
+  
+      
+      async function workBox() {
+        if ("serviceWorker" in window.navigator) {
+          const { Workbox } = await import(
+            "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
+          );
+          const {navigator, location} = window;
+      
+          // navigator.serviceWorker &&
+          //   navigator.serviceWorker.controller &&
+          //   navigator.serviceWorker.controller.unregister();
+      
+          const wb = new Workbox("/sw.js");
+      
+      
+      //    navigator.serviceWorker.controller && startApp();
+      
+          wb.addEventListener('activated', async (event) => {
+  
+  
+      
+            if (!event.isUpdate || !window.monaco) {
+              window.location.reload()
+              
+         
+            }
+          });
+        }
+      }
+      
+        </script>
+      </body>
+      </html>`,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "no-cache",
+          "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+          "Access-Control-Max-Age": "86400",
+          "Content-Type": "text/html;charset=UTF-8",
+        },
+      },
+    );
+  }
   return new Response(
     `<!DOCTYPE html>
     <html lang="en">
