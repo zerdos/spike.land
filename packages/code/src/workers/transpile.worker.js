@@ -6,6 +6,12 @@ self.importScripts(
   "../../node_legacy/@babel/standalone/babel.min.js",
 );
 
+importScripts("https://code.zed.vision/ipfs.js");
+
+
+const {cid}  = globalThis;
+
+
 // @ts-ignore
 if (!String.prototype.replaceAll) {
   // @ts-ignore
@@ -60,7 +66,7 @@ const transform = (code) => {
     // @ts-ignore
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "/ipfs/    /src/emotion-react-renderer/dist/renderer.js";
+      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "/ipfs/${cid}/src/emotion-react-renderer/dist/renderer.js";
       
       ` + safeCode + `
       
