@@ -26,7 +26,7 @@ async function handleRequest(request: Request) {
 
   if (pathname.slice(0, 6) === `/ipfs/`) {
     let customCID = pathname.slice(6);
-    const reversePath = reverseMap[customCID];
+    const reversePath = reverseMap[customCID] || pathname;
 
     if (
       pathname.slice(0, 52) === `/ipfs/${cid}`
