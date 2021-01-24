@@ -237,8 +237,8 @@ added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added QmQPPUCAwhuyA4urN77XktyKKiKU8nbiBLhtPD82Kqam21 code/src/emotion-react-renderer/dist/DraggableWindow.js
 added QmSDuXVDvgBhkNeirJJshK6pf8UqroKbhtCZ5GCWZ7T6gg code/src/emotion-react-renderer/dist/renderer.js
 added QmajYAoQQbYsc9bJyAsP1YX7iZcVkhwv5SMeDCPz1gnaEa code/src/emotion-react-renderer/package.json
-added QmfURUTy1MGSVFWvx5AAYkrH6AgyTVpVgRRRajhhMwPMtD code/src/emotion-react-renderer/src/DraggableWindow.tsx
-added QmQVjYGxnEhAfQNzbbfcLMJmagfs5sBkJKVjdVi8Hjy3mi code/src/emotion-react-renderer/src/renderer.ts
+added Qmana9ZxBTpD1yihJ84bVDUb1BgWm8oK1tgrfsxXYY6u5c code/src/emotion-react-renderer/src/DraggableWindow.tsx
+added QmQNdoLdcbKsbgVXbybqtoCxGDRRzzuCjrpnKTfcgSfR9z code/src/emotion-react-renderer/src/renderer.ts
 added QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA code/src/emotion-react-renderer/tsconfig.json
 added QmT5yUxG2so3ddoG8CuABVg9hyWtxqQHRMarWKHobUM454 code/src/examples/app.tsx
 added QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs code/src/examples/starterNoFramerMotion.js
@@ -350,7 +350,7 @@ added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/src/workers/ipfs/tscon
 added QmX5UdE5UyETFtJWyE1CZGWv9erxTJHWNWju7y7GbnambK code/src/workers/ipfsWorker.js
 added QmZRi154mJGuG6wriiZCxvVjNoj2fNYGRDn1KJsKJy7D2c code/src/workers/shasums.umd.js
 added QmQ7Vq8grvgM4mW3oi42iYb8vKeN8P46pLvHFvy4tkBCcZ code/src/workers/sw.js
-added QmcZLdBXj5BYHgEhJwmNq2ZEoszhKWwoBRXVghkD4n2G1X code/src/workers/transpile.worker.js
+added QmcePEjMmXkRC9RweQhrzj66kBrQ6Sk4m1f2un3ho8CRpA code/src/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/src/workers/tsconfig.json
 added QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -465,8 +465,8 @@ added QmWS6URBS2wPhcuKFEZrRK4uhR8SbKZhqH8CNnUq5qKLNQ code/node_legacy/monaco-edi
 added QmNmd5vm8JDYkYaPGLuaph41Q2FRXS89mAntwV6HU8euwh code/node_legacy/monaco-editor
 added QmY2TXCWcJcZngN5BWysbDFuAmVox9DMGZKdUkXLT621E7 code/node_legacy
 added QmeGrbwX5LFaAr5rDS18h7izH3X4MSyirBmf7X8k6UZryL code/src/emotion-react-renderer/dist
-added QmSsRw3Gk77BWZAAakctAuWo7xHiBtQppHuyX9WAohcLri code/src/emotion-react-renderer/src
-added QmWbiiFGxeFk3JqqXoBnGtEa1mi6MgZ5Gzf9MbXv6GT6Si code/src/emotion-react-renderer
+added Qma9o1V19rdr87xZBYTkh1X1exe9cvGqT6Rhr5gaLfFxnB code/src/emotion-react-renderer/src
+added QmPHTEXFHNbyfhaX1Yj7VTurfPxZcThWUxcD4FAHvd9PMV code/src/emotion-react-renderer
 added QmasbQ63fdpt8XKSug4SkL8u4oQMWuaVd7xob5f8dfXDqM code/src/examples
 added QmQeLhgtbob32M7FbtGELAfqLDgzq4LqasUpN2kUp6vGVa code/src/qrious/dist
 added QmcP8FAooT6RDNr8SELNUQgQiGAfEXFULUoJ5FQCF4t7hN code/src/qrious/src/service/element
@@ -509,6 +509,6 @@ added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/src/workers/ipfs/dist
 added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_legacy
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
-added QmSHh2wGFNTbr2XetJfbRFJHWc6BtABigcr3osne9tATdD code/src/workers
-added QmexHpJZe48YmMgUTNTuT66dtcB3uR8QSAfEnEKJoF2eTx code/src
-added QmV8keWisnckCCvZfRkoMLgekCyXPWVM5rMzW2A6xN6jzG code
+added Qmd8uZwUCGqB4jVRTtS3HEymh4Lbe26zApPx3sneFDRSBg code/src/workers
+added QmRPrDVx7xFsMAXjxyL1PKorrBXA3iEvp8e44k9D8VYtya code/src
+added QmNRH4CD4598ze9CRYoEbrBR6ksWZJCcpiWBYxHSPqsxfS code

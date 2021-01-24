@@ -6,10 +6,11 @@ self.importScripts(
   "../../node_legacy/@babel/standalone/babel.min.js",
 );
 
-importScripts("https://code.zed.vision/ipfs.js");
+self.importScripts("https://code.zed.vision/ipfs.js");
 
 
 const {cid}  = globalThis;
+const {Comlink, Babel} = self;
 
 
 // @ts-ignore
@@ -29,9 +30,9 @@ if (!String.prototype.replaceAll) {
 }
 
 // @ts-ignore
-addEventListener("install", () => skipWaiting());
-// @ts-ignore
-addEventListener("activate", () => clients.claim());
+// addEventListener("install", () => skipWaiting());
+// // @ts-ignore
+// addEventListener("activate", () => clients.claim());
 
 const searchRegExp2 = /import.*from '/gi;
 const replace2 = "https://cdn.skypack.dev/";
@@ -63,7 +64,6 @@ const transform = (code) => {
 
     // console.log(safeCode);
 
-    // @ts-ignore
     const transformed = Babel.transform(
       `/** @jsx jsx */
       import {jsx, React, css, Fragment, Global, Motion, motion, render} from /ipfs/${cid}/emotion-react-renderer/dist/renderer.js";
@@ -96,18 +96,13 @@ const transform = (code) => {
   }
 };
 
-// @ts-ignore
 self.addEventListener(
   "connect",
-  // @ts-ignore
   (e) => Comlink.expose(transform, e.ports[0]),
 );
 
-// @ts-ignore
 self.addEventListener("message", (event) => {
   if (event.data.comlinkInit) {
-    //@ts
-    // @ts-ignore
     Comlink.expose(transform, event.data.port);
     return;
   }

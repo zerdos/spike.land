@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "c3a87634dc391d2148388ccbe1649f2f7f0dbd5064c9b14ad45b267a881dd6a9",
+    "902c710c6a242306961364a07b82182b0aeccffee738f24ee85b4c9dc495092a",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -585,9 +585,9 @@ export const shasums = {
   "src/emotion-react-renderer/tsconfig.json":
     "970e709dee7e1b7c5410feb805961be59bde3c521cdf5f60820cccd3fa085d00",
   "src/emotion-react-renderer/src/renderer.ts":
-    "4b7383870e1551b1ae469545b8098839f3a194dd34a38b830dac8e2e98f59132",
+    "2a4dde14ef05bd924d762ab4e53034ceedf45f527d16b5be9436f22d8c9bb1e2",
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
-    "373ffe45aace9280d4dc3fbf758204143d8d5d1eac01e8326ec4621b3d93c8be",
+    "0252cc7b4a1c67d896da906c36864479f59360d0808f1a96de2e9eb1540c55c4",
   "src/templates.js":
     "c973e0ee80929290350044d4b063c0ef8b47e4f153c31189f9ec70df8881b5d1",
   "src/codeLoader.js":
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "2d6f6905ec8ad66de83d8f65d12e942b6f4a50a1c5fd50e500a8bd3435fc596e",
+    "12ff85e6ddbea1ba7ae9f4233467d8dafdd3ff89dea6ce810f6091ebaff78083",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
@@ -639,7 +639,7 @@ export const shasums = {
   "src/workers/ipfsWorker.js":
     "1b4c1fd14a7bf7d571e90b1ff8ebbeaf86e4f06d1a37dc7c5cc6fc9d6834435b",
   "src/workers/transpile.worker.js":
-    "73d0aa79e4d7a7f9b0f0f21e672917ea7f83d53cf886f20ea57d31f0108141ce",
+    "5128e86f55a9467b3c25b06354b6ba8a013aa5066bf4bf603aaef72273a2754b",
   "src/workers/shasums.umd.js":
     "b6fc131ae28dd74f43fe768b90683349ba3f87737f6bf76ed11f6bc12bba6095",
   "src/workers/tsconfig.json":

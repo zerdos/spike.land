@@ -163,8 +163,8 @@ const buttonCss = ({ color = "darkred", square = false }) =>
   <>
     <DraggableWindow onShare={() => {}}>
       <h1>
-        Ello Belllodddddddddddddddd dddddddddddddd
-        ddddddddddddcccccccccccccccccccddddd d dddd dds
+        Lorem ipsum
+        dddddddddddd ccccccccccccccccccc ddddd d dddd dds
       </h1>
     </DraggableWindow>
   </>
