@@ -1,3 +1,5 @@
+import { cid } from "https://code.zed.vision/cid.js";
+
 /**
  * @param {{html: string, css: string}} code
  */
@@ -27,7 +29,7 @@ export const getHtml = ({ html, css }) => {
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>
 <link rel="preload" href="./app.js" type="application/javascript" as="script" crossorigin>
-<link rel="icon" type="image/png" href="https://zed.vision/zed-icon-big.png" />
+<link rel="icon" type="image/png" href="https://code.zed.vision/zed-icon-big.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="Generated with zed.vision">
@@ -62,7 +64,7 @@ export const getEditorHTML = () =>
 </head>
 <body>
   <script type="module">
-    import {edit} from "${location.pathname}/src/data.js"
+    import {edit} from "/ipfs/${cid}/src/data.js"
     try{
       edit("${location.pathname.slice(42, 52)}");
     }catch(error){
