@@ -89,52 +89,52 @@ async function handleRequest(request: Request) {
     });
   }
 
-  if (pathname === `/sw.js`) {
-    return new Response(
-      `importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
-      importScripts("https://code.zed.vision/ipfs.js");
-      
-      workbox.loadModule("workbox-precaching");
-      
-      const { files, cid, reverseMap } = globalThis;
-      
-      workbox.precaching.addRoute(
-          Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] })),
-          {
-              urlManipulation: ({ url }) => {
-      
-                  const { pathname } = url;
-                  const urls = [];
-      
-                  if (pathname.indexOf("/ipfs/") === -1 && reverseMap[pathname]) {
-                      urls.push(new URL("https://code.zed.vision/ipfs/" + reverseMap[pathname]))
-                      urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/" + pathname));
-                  }
-      
-                  if (pathname.indexOf("/ipfs/")) {
-                      const start = pathname.indexOf("/ipfs/");
-                      const reverseCID = pathname.slice(start + 6, start + 52);
-              
-                      if (reverseMap[cid]) {
-                          urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/" + reverseMap[reverseCID]))
-                      }
-                  }
-                  return urls;
-              }
-          }
-      )
-      `,
-      {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Cache-Control": "no-cache",
-          "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-          "Access-Control-Max-Age": "86400",
-          "Content-Type": "application/javascript;charset=UTF-8",
-        },
-      },
-    );
-  }
+  // if (pathname === `/sw.js`) {
+  //   return new Response(
+  //     `importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
+  //     importScripts("https://code.zed.vision/ipfs.js");
+
+  //     workbox.loadModule("workbox-precaching");
+
+  //     const { files, cid, reverseMap } = globalThis;
+
+  //     workbox.precaching.addRoute(
+  //         Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] })),
+  //         {
+  //             urlManipulation: ({ url }) => {
+
+  //                 const { pathname } = url;
+  //                 const urls = [];
+
+  //                 if (pathname.indexOf("/ipfs/") === -1 && reverseMap[pathname]) {
+  //                     urls.push(new URL("https://code.zed.vision/ipfs/" + reverseMap[pathname]))
+  //                     urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/" + pathname));
+  //                 }
+
+  //                 if (pathname.indexOf("/ipfs/")) {
+  //                     const start = pathname.indexOf("/ipfs/");
+  //                     const reverseCID = pathname.slice(start + 6, start + 52);
+
+  //                     if (reverseMap[cid]) {
+  //                         urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/" + reverseMap[reverseCID]))
+  //                     }
+  //                 }
+  //                 return urls;
+  //             }
+  //         }
+  //     )
+  //     `,
+  //     {
+  //       headers: {
+  //         "Access-Control-Allow-Origin": "*",
+  //         "Cache-Control": "no-cache",
+  //         "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+  //         "Access-Control-Max-Age": "86400",
+  //         "Content-Type": "application/javascript;charset=UTF-8",
+  //       },
+  //     },
+  //   );
+  // }
   if (pathname === `/sw.html`) {
     return new Response(
       `<!DOCTYPE html>
@@ -153,6 +153,9 @@ async function handleRequest(request: Request) {
   
       
       async function workBox() {
+        console.log("Yooo");
+
+
         if ("serviceWorker" in window.navigator) {
           const { Workbox } = await import(
             "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
@@ -170,16 +173,21 @@ async function handleRequest(request: Request) {
       
           wb.addEventListener('activated', async (event) => {
 
+            const {run} = await import("./src/codeLoader.js");
+            run("window", window);
+
             console.log("it is activated")
+
   
   
       
             if (!event.isUpdate || !window.monaco) {
-              window.location.reload()
+           
               
          
             }
           });
+          wb.register();
         }
       }
       
@@ -196,6 +204,13 @@ async function handleRequest(request: Request) {
         },
       },
     );
+  }
+  //@ts-ignore
+  if (files[pathname.slice(1)]) {
+    url.pathname = "/ipfs/" + cid + pathname;
+
+    const req = new Request(url.toString());
+    return handleRequest(req);
   }
   return new Response(
     `<!DOCTYPE html>

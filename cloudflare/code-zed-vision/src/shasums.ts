@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "18667f1414e4d5d64e2a0c81b222f3ec35cbdf90838b2470d74bf0ca569de331",
+    "4e4a0957b0ca7ed814770a43d3efc89f29b4fcae401439fe2de8589026c03fb5",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -39,7 +39,7 @@ export const shasums = {
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "index.html":
-    "cf94ca1733ecfe47f9c4ce3048275336e2228646162b6bd033b8c04d119bfb36",
+    "6c320edd572b619b0c31d9b8b7e61539922854fa071b0edeb8d6976ba94a9841",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   ".vscode/setttings.json":
@@ -561,7 +561,7 @@ export const shasums = {
   "src/smart-monaco-editor/dist/monaco.js":
     "5e0258ef425bc23888eb413c71963f531dbb51f021f9ffc820576dab13c7a9e0",
   "src/workBox.js":
-    "f36f0b3257922537dcb11ae1383d4351c753b1dcdf6fe97e2798e9e92f09d836",
+    "2f6eda1cba93db9988d11fc12006fb9ab900b2bd9fbb7b76f2e8989d6d55dbe4",
   "src/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "src/data.js":
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "c409318ae687eb62baafbf11e42c18d7fbf6d58c0632eed8cd98dc936d998c99",
+    "26509c1394d98179f1babde4e2a9789bcf44b7b2455864220d5e691c8d9bd705",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":

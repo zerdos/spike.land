@@ -17,7 +17,7 @@ export const files = {
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "Qmf1dm52EMvkYbHCwWw5hCazpdGeWk4UPPhjEYPWtti3D4",
+  "index.html": "QmUUC2yVMVXEArgBwk3whFHbmoXXzVNX8SDp8SR4eoMXcg",
   "index2.html": "QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
@@ -615,7 +615,7 @@ export const files = {
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "src/templates.js": "QmYkDeqsmyfVhokhZPgjGLVu1AUc9bb44Y4MaN3bARNke3",
   "src/transpile.js": "QmRknV85AcHiNKRvF5dk2yqN8Xr8aDUXzjrhJjpYYb7EWQ",
-  "src/workBox.js": "QmNcLDHE9fGi6brqFbjErhkjePyALeFrfzVjGtz5r3Vn7w",
+  "src/workBox.js": "QmYCvWAxNWc5kXmRG3CQNtLx8HbDtZqUo2rv7yULHVhEFX",
   "src/workers/ipfs/README.md":
     "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "src/workers/ipfs/dist/gateways.d.ts":
@@ -946,7 +946,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
   "src/workers": "QmWbpZt9xJESqbUQqicqNCjzm5UAz1TL21wvX7nuE9SrtW",
-  "src": "QmQKennWhJRFv5etH1FiqNsB4oi8ZjrbWp5qDPpGqCTsin",
-  "": "QmUw1C7fRA44XGkhxni71Jc1cUrKYprp7LYm7pmaggj5at",
+  "src": "QmUhwMjz1NX5ck2geh9Dv5ET8RvK6iDK7HFchafnWVWXyc",
+  "": "QmTFYJBkpKHY5kD6nbNZA3kT28MKovvvTY9tricHNrz4kC",
   "foo": "bar",
 };

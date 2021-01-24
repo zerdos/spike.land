@@ -312,8 +312,8 @@
         "affectsGlobalScope": false
       },
       "./src/workBox.js": {
-        "version": "f36f0b3257922537dcb11ae1383d4351c753b1dcdf6fe97e2798e9e92f09d836",
-        "signature": "28f1bcb8fcfb43e1ec98d1a07e178d80ba0c9c05f49a53d6967c6620e2514fd7",
+        "version": "e29a8661d759e758bc074f25f1dcb4f84a4e4eaa3ff122802128bb6c6301f56e",
+        "signature": "29a7a1ee53b4c7335142956fa80da7fd2d6fba356687c46504e76b05c064cac9",
         "affectsGlobalScope": false
       },
       "./src/emotion-react-renderer/dist/DraggableWindow.js": {
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "c409318ae687eb62baafbf11e42c18d7fbf6d58c0632eed8cd98dc936d998c99",
+        "version": "26509c1394d98179f1babde4e2a9789bcf44b7b2455864220d5e691c8d9bd705",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -702,8 +702,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workBox.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./src/codeLoader.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./src/workers/ipfs/dist/ipfs.client.d.ts": [
         "./src/workers/ipfs/dist/gateways.d.ts"
