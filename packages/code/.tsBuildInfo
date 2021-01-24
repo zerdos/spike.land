@@ -266,11 +266,6 @@
         "signature": "608cfe0ec75d5731a86860a9943b16fa17fe5a5b39ee2fefa9e202413269e43b",
         "affectsGlobalScope": false
       },
-      "./src/emotion-react-renderer/dist/renderer.js": {
-        "version": "68fdc55a714de58dae557573ab2f02c8c7c2901fbe07be473e9e7cb0c5426a4c",
-        "signature": "3cde35f273e944520e2669f207bc7e9873bdfd2b39f4b5e0e33b8067ece33ed9",
-        "affectsGlobalScope": false
-      },
       "./node_legacy/simple-window-manager.es.js": {
         "version": "47b3562229b947845e4d9b2724242a682d2d6b7cc935c3801e23f0de21678e00",
         "signature": "532996bc0a50dfc6b68a03c5a5dae4ae947518c7d0b318257277e6fde3f1bb95",
@@ -282,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./src/transpile.js": {
-        "version": "3a32bb9967ab76a4f6a091b7e9ad3d76f931796b60da3d45ecc1c01772f5f981",
+        "version": "7861591991e44f1606dac65687cf561cfe70e9360709fe3889234863353690c1",
         "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
@@ -297,7 +292,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "d3c191141caf3ebeed9eda157db9617c9fb0e950c7d164b0978ae35e0976d58c",
+        "version": "372d7d9dabba6cd937aacf173b718a0fb7184a9e054266367bf69665b20c35d3",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -319,6 +314,11 @@
       "./src/emotion-react-renderer/dist/DraggableWindow.js": {
         "version": "79d3eff7ec0477f31471e5d782533420ec7192e3ecc9b0d558d385d2cae67943",
         "signature": "f468bbd2b88ce77fc0e7fa29c2fc811b7614eb658943112c08be8a884e4a8513",
+        "affectsGlobalScope": false
+      },
+      "./src/emotion-react-renderer/dist/renderer.js": {
+        "version": "68fdc55a714de58dae557573ab2f02c8c7c2901fbe07be473e9e7cb0c5426a4c",
+        "signature": "3cde35f273e944520e2669f207bc7e9873bdfd2b39f4b5e0e33b8067ece33ed9",
         "affectsGlobalScope": false
       },
       "./src/examples/starterNoFramerMotion.js": {
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "42c9761e0a02676ddffe709049047219a0780debc7413d89b27989dad369a85a",
+        "version": "9f4e464589284d0e2cf7cb10376cc4599b2d8499c68282e1f9a8a8f006ce9077",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
@@ -477,7 +477,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/transpile.worker.js": {
-        "version": "15b865e87590fc9cd2f5c3d535560468560e18e480aaaaacb3070d4d495c0aed",
+        "version": "510273e3c777b300937e296712e69143adc486a9bd47e386c66e37804b93136c",
         "signature": "72f783b673b152a1c56043d22cdb2b140375a3597be07beb8a4a75543717236c",
         "affectsGlobalScope": true
       },
@@ -551,7 +551,6 @@
       "./src/codeLoader.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./src/data.js",
-        "./src/emotion-react-renderer/dist/renderer.js",
         "./src/formatter.js",
         "./src/hash.js",
         "./src/openWindows.js",

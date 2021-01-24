@@ -1,5 +1,4 @@
 import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
-import { cid } from "https://code.zed.vision/cid.js";
 
 const workerSrc = `./src/workers/transpile.worker.js`;
 

@@ -481,7 +481,7 @@ export const shasums = {
   "src/ipfsClient.js":
     "2a59427f019efd1708b7c43afd01a8167300f4b36fb69922ca0777da1a7f4505",
   "src/transpile.js":
-    "3a32bb9967ab76a4f6a091b7e9ad3d76f931796b60da3d45ecc1c01772f5f981",
+    "7861591991e44f1606dac65687cf561cfe70e9360709fe3889234863353690c1",
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
@@ -591,7 +591,7 @@ export const shasums = {
   "src/templates.js":
     "34a9193ea218cf751bfe15dd79cee5c75bf8bf6aa023bb6bf9ebd21251118550",
   "src/codeLoader.js":
-    "d3c191141caf3ebeed9eda157db9617c9fb0e950c7d164b0978ae35e0976d58c",
+    "372d7d9dabba6cd937aacf173b718a0fb7184a9e054266367bf69665b20c35d3",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "42c9761e0a02676ddffe709049047219a0780debc7413d89b27989dad369a85a",
+    "9f4e464589284d0e2cf7cb10376cc4599b2d8499c68282e1f9a8a8f006ce9077",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
@@ -639,7 +639,7 @@ export const shasums = {
   "src/workers/ipfsWorker.js":
     "1b4c1fd14a7bf7d571e90b1ff8ebbeaf86e4f06d1a37dc7c5cc6fc9d6834435b",
   "src/workers/transpile.worker.js":
-    "15b865e87590fc9cd2f5c3d535560468560e18e480aaaaacb3070d4d495c0aed",
+    "510273e3c777b300937e296712e69143adc486a9bd47e386c66e37804b93136c",
   "src/workers/shasums.umd.js":
     "b6fc131ae28dd74f43fe768b90683349ba3f87737f6bf76ed11f6bc12bba6095",
   "src/workers/tsconfig.json":

@@ -6,7 +6,7 @@ import {
   DraggableWindow,
   jsx,
   render,
-} from "./emotion-react-renderer/dist/renderer.js";
+} from "/src/emotion-react-renderer/dist/renderer.js";
 import { fetchSignal, sendSignal } from "./hash.js";
 import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
