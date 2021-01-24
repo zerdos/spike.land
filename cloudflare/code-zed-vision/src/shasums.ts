@@ -595,11 +595,11 @@ export const shasums = {
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
-    "5fa246f99dd987b0fe7e4736b35a1f64d99b2e788f6c83d989680a2ff158b815",
+    "e599a98bc0997d534b27797cbf86289c88fa3021d0bf3fae799f3fa52bdf241a",
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "779d40959b3f6c500c1aa26b7c501d4c491d13e23cacf1b2d1f72e03d8e857d3",
+    "947bfcb5fd07e45edef352cc65449da445a6b30eb6606d142b9867ef6227dce9",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
