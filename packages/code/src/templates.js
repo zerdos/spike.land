@@ -1,5 +1,3 @@
-import { cid } from "https://code.zed.vision/cid.js";
-
 /**
  * @param {{html: string, css: string}} code
  */
@@ -54,7 +52,7 @@ render(App(), document.body.children[0]);
 `;
 };
 
-export const getEditorHTML = () =>
+export const getEditorHTML = (cid) =>
   `<!DOCTYPE html>
 <html lang="en">
 <head>

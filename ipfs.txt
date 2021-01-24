@@ -288,7 +288,7 @@ added QmXDjtDjFxzUemcTkNDbQqSimHTNDcpLsfxq5PhbwmuXSf code/src/shadb/src/vendor/d
 added QmdrnoscF7ihtuyZCd1iv7g6Zpvem23yNn6AHU6xTaV5XU code/src/shadb/src/vendor/idb.js
 added QmSweNRyD6aAUjpMnt8zKE5LAxvvLoZPy9Qj3r4THEhaUd code/src/shadb/tsconfig.json
 added QmYe9m185xM3a8wESdAzFw1wdCY7Aho3qEHBXdwy3rg2JN code/src/shadb/tsconfig.tsbuildinfo
-added QmRiTbB4QeCs66KmaoXivdfptZxkqjJcquzDFb2Nwc7Bbm code/src/share.js
+added QmeHMGLVP5zEx57M4askEKnRNgs3MRTDi3Y7XmEbVT95Qi code/src/share.js
 added QmQAGWaCTkwWF9GMjvoLgCMMgec8bKWRgzB29yti3b5zAL code/src/smart-monaco-editor/LICENSE.md
 added Qme5mqxxvVorXuV6y3Wit23U9pUhaMfSDR2YDx1esCCruY code/src/smart-monaco-editor/README.md
 added QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK code/src/smart-monaco-editor/dist/editor.d.ts
@@ -329,8 +329,8 @@ added QmYUzn9XSFiduCLmzj4Ewcn5GnxwPaDKYDGAxdakydncmg code/src/smart-monaco-edito
 added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/src/smart-monaco-editor/tsconfig.json
 added QmX7MGph4JXJGjfYVxkD1Xp4SMHEYNE2xonCMUgshnaZ2K code/src/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
-added QmY5wbfxMJhQejuVrRqar159mSiyPeagWjyLBjSasTgT5c code/src/templates.js
-added QmdyM5mQqEds4MgqT5tB3D1xRAiGCx5XscMw7twDk44k2C code/src/transpile.js
+added QmcLAkTcpZ29QTGfwpTq5SWA3GtsHof4QrEfsDJo2hQjtA code/src/templates.js
+added QmVDU9wHPnjtn8JGUPx6yFqFjWDm1FnSn3T64vaMARrXok code/src/transpile.js
 added QmNPf2EGKEnBtd5M3zDLPoNRWes2ofCJMhDAuXFYvRvPd9 code/src/workBox.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/src/workers/ipfs/dist/gateways.d.ts
@@ -510,5 +510,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmWbpZt9xJESqbUQqicqNCjzm5UAz1TL21wvX7nuE9SrtW code/src/workers
-added QmWsURFt5cSLFFMKykrou5KFM2SmCN5aje1JR36EsGxtem code/src
-added QmXHFQQ6NGSWsuMkutrM1J6yKXN78wv6casJMy2dWbrvz1 code
+added QmQ4k2k56u2UH6Zax121oAUxDLeDgJN8GKHKB8bisgSsYo code/src
+added QmZM6LN298J2aTWcJamnWtQyqdMTgYUFXLeTDZfYNrBKHb code

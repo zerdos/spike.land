@@ -2,6 +2,8 @@ import { shaDB } from "./shadb/src/shaDB.js";
 import { sha256 } from "./shadb/src/sha256.js";
 import { ipfsClient } from "./ipfsClient.js";
 
+import { cid } from "https://code.zed.vision/cid.js";
+
 /**
  * 
  * @param {{
@@ -64,7 +66,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     { path: "/app/index.html", content: getHtml({ html, css }) },
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
-    { path: "/app/edit/index.html", content: getEditorHTML() },
+    { path: "/app/edit/index.html", content: getEditorHTML(cid) },
   ];
 
   const sha = await sha256(JSON.stringify(allContent));
