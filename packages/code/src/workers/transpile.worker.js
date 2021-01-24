@@ -66,7 +66,7 @@ const transform = (code) => {
 
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion, render} from /ipfs/${cid}/emotion-react-renderer/dist/renderer.js";
+      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "./ipfs/${cid}/emotion-react-renderer/dist/renderer.js";
       
       ` + safeCode + `
       
