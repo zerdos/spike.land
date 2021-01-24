@@ -1,16 +1,16 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/react";
-import { motion } from "framer-motion";
-import React from "react";
+import { css, jsx } from '@emotion/react';
+import { motion } from 'framer-motion';
+import React from 'react';
 
-export const DraggableWindow: React.FC<
-  { onShare: () => void; position?: string }
-> = ({
-  onShare,
-  position,
-  children,
-}) => {
+const breakPoints = [640, 750, 1024, 1920];
+
+export const DraggableWindow: React.FC<{
+  onShare: () => void;
+  position?: string;
+}> = ({ onShare, position, children }) => {
   const [scale, changeScale] = React.useState(100);
+  const [width, setWidth] = React.useState(breakPoints[0]);
   const ref = React.useRef<HTMLDivElement>(null);
 
   return (
@@ -18,55 +18,67 @@ export const DraggableWindow: React.FC<
       ref={ref}
       css={`
             max-width: 50%;
-            // background: red;
-            // border: 4px solid; 
-            border-radius: 8px;
             right: 20px;
             top: 20px;
-            position: ${position ? position : "fixed"};
-            z-index: 900;
+            white-space: normal;
+            position: ${position ? position : 'fixed'};
             overflow: hidden;
             overflow-y: overlay;
-            border-radius: 8px;
           `}
       whileDrag={{
         scale: (scale / 100) * 1.1,
       }}
       animate={{
         scale: scale / 100,
+        width: width,
       }}
       dragElastic={0.5}
       dragMomentum={false}
-      drag={true}
-    >
+      drag={true}>
       <div
         css={css`
-      display: block;
-      width: 100%;
-      text-align: right;
-    `}
-      >
+                display: block;
+                font-family: Roboto;
+                font-weight: 600;
+                text-align: right;
+            `}>
         <span
           css={css`
-          background: grey;
-        color:white;
-        padding: 7px;
-        background: 
-        font-family: Roboto;
-        font-weight: 600;
-      `}
-        >
+            color: white;
+            display: inline-block;
+            margin-right: 20px;
+            span{
+              margin: 4px
+            }
+        `}>
+          {breakPoints.map(size=> <span
+          key = {size}
+            
+            css={width===size? css`
+            background: green;
+            padding: 7px;
+            border-radius: 10px;
+            font-size: 20px
+          `: ``}
+            onClick={() => setWidth(size)}>
+            {size}px
+          </span>)}
+        </span>
+        <span
+          css={css`
+            background: grey;
+            color: white;
+            padding: 7px;
+        `}>
           <span
             css="font-size: 20px; margin: 5px"
-            onClick={() => changeScale((x) => x - 10)}
-          >
+            onClick={() => changeScale((x) => x - 10)}>
             -
           </span>
-          <span>{scale}%</span>
+          <motion.span drag>{scale}%</motion.span>
           <span
             css="font-size: 20px; margin: 5px"
-            onClick={() => changeScale((x) => x + 10)}
-          >
+            onClick={() => changeScale((x) => x + 10)}>
             +
           </span>
         </span>
@@ -76,8 +88,7 @@ export const DraggableWindow: React.FC<
           onClick={() => {
             console.log(ref.current!.clientHeight);
             onShare();
-          }}
-        >
+          }}>
           🌎 Export
         </button>
       </div>
@@ -112,8 +123,7 @@ export const DraggableWindow: React.FC<
             border-radius: 12px;
             opacity: 0.9
           }
-    `}
-      >
+    `}>
         <div id="zbody" css={`margin: 8px`}>
           {children}
         </div>
@@ -122,17 +132,28 @@ export const DraggableWindow: React.FC<
   );
 };
 
-const buttonCss = ({ color = "darkred", square = false }) =>
+const buttonCss = ({ color = 'darkred', square = false }) =>
   css`
-              background: ${color};
-             
-              color: white;
-              cursor: pointer;
-              font-weight: bold;
-              font-family: Roboto;
-              padding: 8px 8px;
-              outline: none;
-              border: none; 
-              margin-left: 20px;
-              border-radius: 0px ${square ? 0 : 8}px 0px 0px;
-            `;
+    background: ${color};
+    
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: Roboto;
+    padding: 8px 8px;
+    outline: none;
+    border: none; 
+    margin-left: 20px;
+    border-radius: 0px ${square ? 0 : 8}px 0px 0px;
+`;
+
+/* export default () => (
+  <>
+    <DraggableWindow onShare={() => {}}>
+      <h1>
+        Ello Belllodddddddddddddddd dddddddddddddd
+        ddddddddddddcccccccccccccccccccddddd d dddd dds
+      </h1>
+    </DraggableWindow>
+  </>
+); */

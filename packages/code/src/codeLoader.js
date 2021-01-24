@@ -69,7 +69,7 @@ export async function run(mode = "window", _w, code = "") {
     }
   }
 
-  await await renderPreviewWindow(
+  await renderPreviewWindow(
     mode,
     session,
     open,
