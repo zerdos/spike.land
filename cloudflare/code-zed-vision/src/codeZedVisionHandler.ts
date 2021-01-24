@@ -169,6 +169,8 @@ async function handleRequest(request: Request) {
       //    navigator.serviceWorker.controller && startApp();
       
           wb.addEventListener('activated', async (event) => {
+
+            console.log("it is activated")
   
   
       
