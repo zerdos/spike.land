@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "b0975b437711cf787d41cce6943e91a2160a400d34c016c4e50daf71b11e7059",
+    "6d9cab6d6357de38cc745cc70c8f8b1995fa4516000a60a09bd628d8cbb74d5f",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -589,7 +589,7 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "1a573cdbda66e62a00b2bc4199e9257c3a405b0aab4a3b7859820d32ef41dcb5",
   "src/templates.js":
-    "673c2c1fb71476131f76410e74087cd2ab52a57016f291c719a51a068510429b",
+    "34a9193ea218cf751bfe15dd79cee5c75bf8bf6aa023bb6bf9ebd21251118550",
   "src/codeLoader.js":
     "d3c191141caf3ebeed9eda157db9617c9fb0e950c7d164b0978ae35e0976d58c",
   "src/db.js":
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "87ade437a45439b700065a95e0cc766a894549a117c3c57baa28882ecfac352e",
+    "7278ea8914fa70ac9ed9dbc035c36f8cb10c1bb1a3d89c4f1a7b2cd0174cde4d",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
@@ -639,7 +639,7 @@ export const shasums = {
   "src/workers/ipfsWorker.js":
     "1b4c1fd14a7bf7d571e90b1ff8ebbeaf86e4f06d1a37dc7c5cc6fc9d6834435b",
   "src/workers/transpile.worker.js":
-    "4855318ceec05984016fdad80b60389f2f08cd9222c44e8e8a9196b0467c391e",
+    "c5b9f9c57064e5dc6065e7debe2e0c8c52d7175145bd3aeca7e0e536154f8216",
   "src/workers/shasums.umd.js":
     "b6fc131ae28dd74f43fe768b90683349ba3f87737f6bf76ed11f6bc12bba6095",
   "src/workers/tsconfig.json":
@@ -685,7 +685,7 @@ export const shasums = {
   "src/renderPreviewWindow.js":
     "59326061012f45a2a0cb829f7efb8087fe9145e10a0ce66b5a8c29cd2749df18",
   "src/share.js":
-    "41f54ca33423d01c12a49fd00c48b156a3f9b9e95074fd9b5aa934974d17c842",
+    "c6d82c3fc88eddb5098a1bdc54bb92cd800389227d2c67a8c105834dbff836ba",
   "src/shadb/src/sha256.js":
     "4867914563a93849c3e414c4ba728ebfa48bbd71bfdbe05b6dbf42284fbd6369",
   "src/shadb/src/getDbObj.js":

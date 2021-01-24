@@ -533,7 +533,7 @@ export const files = {
   "src/shadb/tsconfig.json": "QmSweNRyD6aAUjpMnt8zKE5LAxvvLoZPy9Qj3r4THEhaUd",
   "src/shadb/tsconfig.tsbuildinfo":
     "QmYe9m185xM3a8wESdAzFw1wdCY7Aho3qEHBXdwy3rg2JN",
-  "src/share.js": "QmeHMGLVP5zEx57M4askEKnRNgs3MRTDi3Y7XmEbVT95Qi",
+  "src/share.js": "QmSecn3oGHWisrFPkNJp8FQN2x7EHUjBb6PeTwjjK3suhR",
   "src/smart-monaco-editor/LICENSE.md":
     "QmQAGWaCTkwWF9GMjvoLgCMMgec8bKWRgzB29yti3b5zAL",
   "src/smart-monaco-editor/README.md":
@@ -613,7 +613,7 @@ export const files = {
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
     "QmX7MGph4JXJGjfYVxkD1Xp4SMHEYNE2xonCMUgshnaZ2K",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
-  "src/templates.js": "QmcLAkTcpZ29QTGfwpTq5SWA3GtsHof4QrEfsDJo2hQjtA",
+  "src/templates.js": "QmSXMxwj7LKmDGNoCUAGMu9RoYe5t6ie54tthw16esZzAn",
   "src/transpile.js": "QmVDU9wHPnjtn8JGUPx6yFqFjWDm1FnSn3T64vaMARrXok",
   "src/workBox.js": "QmNPf2EGKEnBtd5M3zDLPoNRWes2ofCJMhDAuXFYvRvPd9",
   "src/workers/ipfs/README.md":
@@ -651,7 +651,7 @@ export const files = {
     "QmZRi154mJGuG6wriiZCxvVjNoj2fNYGRDn1KJsKJy7D2c",
   "src/workers/sw.js": "QmQ7Vq8grvgM4mW3oi42iYb8vKeN8P46pLvHFvy4tkBCcZ",
   "src/workers/transpile.worker.js":
-    "QmSX2qLhymbiH8AqKshiFgPUjJfjfwFFrsbNx16dh7qzX8",
+    "QmTWXedj5VgaPWMUkuzGhrhZtydKP1eQP9Wu5afvBX555V",
   "src/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
   "tsconfig.json": "QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -945,8 +945,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
-  "src/workers": "QmWbpZt9xJESqbUQqicqNCjzm5UAz1TL21wvX7nuE9SrtW",
-  "src": "QmQ4k2k56u2UH6Zax121oAUxDLeDgJN8GKHKB8bisgSsYo",
-  "": "QmZM6LN298J2aTWcJamnWtQyqdMTgYUFXLeTDZfYNrBKHb",
+  "src/workers": "QmRvoJQKtvjufVCny6B2kEm8vkRoHphJgwrro6otpmcvxz",
+  "src": "QmSps2A2kDhDvKcZL2qqPbS9fvhyHDuCBiCSZZCgmCbkwU",
+  "": "QmRmkm4Nnq2aHJsuTYf9q24fUvm6WBzCFexsoasSrmFoDp",
   "foo": "bar",
 };
