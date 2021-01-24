@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "9352481e369ebb325fc84690eba2385478d08fb5e8d7ae593c21a85d918f98f7",
+    "7c735e3eca72afc049cb414fd250caea335389a7a3b1223b6f21e4799499bcce",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "3ca0e3b8c7a254f7538f955a93e7f182e0c785d817fdb3a32e57cde46546fd8f",
+    "dcdeed3f31ba9a27fa1f4ed43607df79b46c238b6f9f453b0fe05a06375242a8",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
@@ -639,7 +639,7 @@ export const shasums = {
   "src/workers/ipfsWorker.js":
     "1b4c1fd14a7bf7d571e90b1ff8ebbeaf86e4f06d1a37dc7c5cc6fc9d6834435b",
   "src/workers/transpile.worker.js":
-    "510273e3c777b300937e296712e69143adc486a9bd47e386c66e37804b93136c",
+    "4c1fe425c8fb64ca8cb6075c1899a94c40e486006689be8acd539e5fbddc00f8",
   "src/workers/shasums.umd.js":
     "b6fc131ae28dd74f43fe768b90683349ba3f87737f6bf76ed11f6bc12bba6095",
   "src/workers/tsconfig.json":

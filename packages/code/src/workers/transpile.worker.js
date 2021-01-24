@@ -66,7 +66,7 @@ const transform = (code) => {
     // @ts-ignore
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "/src/emotion-react-renderer/dist/renderer.js";
+      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "https://code.zed.vision/src/emotion-react-renderer/dist/renderer.js";
       
       ` + safeCode + `
       

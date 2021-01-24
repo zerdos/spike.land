@@ -350,7 +350,7 @@ added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/src/workers/ipfs/tscon
 added QmX5UdE5UyETFtJWyE1CZGWv9erxTJHWNWju7y7GbnambK code/src/workers/ipfsWorker.js
 added QmZRi154mJGuG6wriiZCxvVjNoj2fNYGRDn1KJsKJy7D2c code/src/workers/shasums.umd.js
 added QmQ7Vq8grvgM4mW3oi42iYb8vKeN8P46pLvHFvy4tkBCcZ code/src/workers/sw.js
-added QmcLJNmyVekPAL8LXyZoXDqi12AdwpPoMSMmFNiGkJ6XVu code/src/workers/transpile.worker.js
+added QmWCUpQtXqWeET6unf3pJEALGbm3MtkwgfzfVJ34gGo8iS code/src/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/src/workers/tsconfig.json
 added QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -509,6 +509,6 @@ added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/src/workers/ipfs/dist
 added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_legacy
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
-added QmZ4fYvj4cL9UJ36pJmUVb8HEfcSyzbayP2DZ2TG6qmYUg code/src/workers
-added QmQP445RrYw7vm8W1s7XKTGa8Xf232cJYezkHHeFkznya8 code/src
-added QmX6tx1woRkDJNakjmrYJfsLoahAsMzd4jME84JNbFaFd4 code
+added QmXZpGgxqVMFP7z3ThTDbbuECaMA1DXwn5hsznwh4TFWZv code/src/workers
+added QmdncCScFr7xZ4Lvz2RSL7RrxCLV9emdgVRVCLJRj8RVWY code/src
+added QmTYVNBGX3nPzGUADrrgLV1q3zPCro4zmvCmi93N6P2EPh code
