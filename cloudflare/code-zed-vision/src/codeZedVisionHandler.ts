@@ -25,92 +25,45 @@ async function handleRequest(request: Request) {
   const { pathname } = url;
 
   if (pathname.slice(0, 6) === `/ipfs/`) {
+    let customCID = pathname.slice(6);
+    const reversePath = reverseMap[customCID];
+
     if (
       pathname.slice(0, 52) === `/ipfs/${cid}`
     ) {
-      const file = pathname.slice(53) || "index.html";
+      const path = pathname.slice(53);
       //@ts-ignore
-      const cid2 = files[file]!;
+      customCID = files[path];
+    }
 
-      const cache = caches.default;
-      let response = await cache.match(request);
+    if (reversePath) url.pathname = `/ipfs/${cid}/${reversePath}`;
 
-      if (response && response.status === 200) {
-        return await alterHeaders(response, reverseMap[cid] || pathname);
-      } else {
-        // text(`${file}  ${cid2}`);
-        let response;
+    const cacheKey = new Request(url.toString(), request);
+    const cache = caches.default;
 
-        const content = await IPFSKV.get(cid2, "arrayBuffer");
-        if (content !== null) {
-          response = new Response(content);
-        } else {
-          const random5GatewaysFetch = publicIpfsGW.sort(() =>
-            0.5 - Math.random()
-          )
-            .slice(0, 5).map((gw: string) =>
-              gw.replace("/ipfs/:hash", pathname)
-            )
-            .map((x: string) =>
-              fetch(x).then((res) =>
-                res.status === 200 ? res : (() => {
-                  res.arrayBuffer();
-                  throw new Error("Not found");
-                })()
-              )
-            );
+    let response = await cache.match(cacheKey);
 
-          response = await raceToSuccess(random5GatewaysFetch);
-          const arrBuff = await response.clone().arrayBuffer();
-          const shaSum = await sha256(arrBuff);
-          //@ts-ignore
-          if (shaSum === shasums[file]!) {
-            await IPFSKV.put(cid2, arrBuff);
-          } else {
-            return text(
-              `its 2021, but transferring and getting a file its still difficult. Please try again... received content: ${
-                new TextDecoder().decode(arrBuff)
-              }`,
-            );
-          }
-        }
-
-        const resp = await alterHeaders(response, reverseMap[cid2] || pathname);
-        await cache.put(request, resp.clone());
-        return resp;
-      }
-    } else {
-      let customCID = pathname.slice(6, 52);
-      const reversePath = reverseMap[customCID];
-      if (reversePath) url.pathname = `/ipfs/${cid}/${reversePath}`;
-
-      const cacheKey = new Request(url.toString(), request);
-      const cache = caches.default;
-
-      let response = await cache.match(cacheKey);
-
-      if (response && response.status == 200) {
-        return await alterHeaders(response, reversePath);
-      }
-
-      const content = await IPFSKV.get(customCID);
-
-      if (content) response = new Response(content);
-      else {
-        response = await fetchCid(customCID);
-
-        if (!response) {
-          return text("Error, 404");
-        }
-
-        const contentToSave = await response.clone().text();
-        await IPFSKV.put(customCID, contentToSave);
-      }
-
-      await cache.put(request, response.clone());
-
+    if (response && response.status == 200) {
       return await alterHeaders(response, reversePath);
     }
+
+    const content = await IPFSKV.get(pathname);
+
+    if (content) response = new Response(content);
+    else {
+      response = await fetchCid(customCID);
+
+      if (!response) {
+        return text("Error, 404");
+      }
+
+      const contentToSave = await response.clone().text();
+      await IPFSKV.put(customCID, contentToSave);
+    }
+
+    await cache.put(request, response.clone());
+
+    return await alterHeaders(response, reversePath);
   }
 
   if (pathname === `/${cid}.js`) {
@@ -268,11 +221,11 @@ const sha256 = async (x: ArrayBuffer) =>
     ),
   ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
 
-async function fetchCid(cid: string) {
+async function fetchCid(path: string) {
   const random5GatewaysFetch = publicIpfsGateways.sort(() =>
     0.5 - Math.random()
   )
-    .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", `/ipfs/${cid}`))
+    .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", path))
     .map((x: string) =>
       fetch(x).then((res) =>
         res.status === 200 ? res : (() => {
