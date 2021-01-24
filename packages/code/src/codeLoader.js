@@ -54,7 +54,7 @@ export async function run(mode = "window", _w, code = "") {
 
   if (!code) {
     try {
-      const { code, transpiled, html, versions } =
+      const { code, transpiled, html } =
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad();
@@ -85,9 +85,8 @@ export async function run(mode = "window", _w, code = "") {
 
   const container = window.document.getElementById("editor");
   if (container === null) return "No editor window";
-  else {
-  }
-  const modules = await startMonaco(
+
+  await startMonaco(
     /**
      * @param {any} code
      */
@@ -102,6 +101,8 @@ export async function run(mode = "window", _w, code = "") {
       onChange: (code) => runner(code),
     },
   );
+
+  const { monaco } = window;
 
   monaco.editor.createModel(
     "define module './hash.js';",

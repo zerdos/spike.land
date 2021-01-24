@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "b04976a21d4ec47b7e2efe52b1220288615bf2e085b9d3671e3c2c29945558e5",
+    "f174b8a19d42255f9080277b0510976c03b6248224d46edde2c2f2bcad98ae98",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -589,9 +589,9 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "1a573cdbda66e62a00b2bc4199e9257c3a405b0aab4a3b7859820d32ef41dcb5",
   "src/templates.js":
-    "b9a04403db5d09daca563ae5fce14b68399c8010422533d8ac2f6c3cebbe7d3e",
+    "c973e0ee80929290350044d4b063c0ef8b47e4f153c31189f9ec70df8881b5d1",
   "src/codeLoader.js":
-    "e11377947b4b1af5058cf09becaf6bf5df0d257f445730a729623e6ad6c0a414",
+    "d3428d78cd67de5e63b4ae91b3ce3de9fc1caa926d5e030d924b22255551ac22",
   "src/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "src/openWindows.js":
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "db70acf76733dc948cad5a4d5e9b33985b8c72a7d380bf80a8c8d1898eadf4eb",
+    "bbe9c3ff63eee93b6ed9f5d678ef39a009b831ed8f9ca71a0e5bd21654335822",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":

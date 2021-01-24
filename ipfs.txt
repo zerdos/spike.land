@@ -231,7 +231,7 @@ added QmRBevsDvKdofdKgReQKM3gCwqVn9kUTRXkW97GrsHLCmr code/node_legacy/stringify.
 added QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb code/node_legacy/v4.js
 added QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT code/node_legacy/validate.js
 added QmUrjjo6zB8Hp1YLPi9xocxwbyTdgpsZ24T6hwYwBCwrE4 code/package.json
-added QmUiwauJJSVgbVwvnK4Vi8zvSV9eDS43gVPr3wyqnxNxcY code/src/codeLoader.js
+added QmbXsez1zpQxu2LbK9LEVXARXPv9hn4uJ5BwPEBuMBvsUU code/src/codeLoader.js
 added QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added Qmd1LVpChst8NBf9EybFWkXyKXiJeZvjYVb8NR4vDf7aQq code/src/emotion-react-renderer/dist/DraggableWindow.js
@@ -329,7 +329,7 @@ added QmYUzn9XSFiduCLmzj4Ewcn5GnxwPaDKYDGAxdakydncmg code/src/smart-monaco-edito
 added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/src/smart-monaco-editor/tsconfig.json
 added QmYzfRXuBwRw4nNpqTzts1y2JAo4HLgq9iPYebBcGCKsTv code/src/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
-added QmPCPNQFgpeT5oXFT55nYVuYyN7vTrGofH3XPC2jMR4GGy code/src/templates.js
+added QmWSt41VoKvyHGZPBqQSMEJiMjVDU8HdbbefpgTtyFfEG3 code/src/templates.js
 added QmYGwmxD1aJH2PiEJ22dRtio3qUniGjpWzwmdEngMEYmfe code/src/transpile.js
 added QmNPf2EGKEnBtd5M3zDLPoNRWes2ofCJMhDAuXFYvRvPd9 code/src/workBox.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
@@ -510,5 +510,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmXZpGgxqVMFP7z3ThTDbbuECaMA1DXwn5hsznwh4TFWZv code/src/workers
-added QmTct4UtoQ6dVWghj6pNLnNtjpswUNCKdjWQMkDEDtxSQc code/src
-added QmdWAHrZPks6gCZer5ayJN8iWxshY7rAA5HdVymPAiPUxq code
+added QmeC3yyTczPuHDkTvUU18iB38DPchWbDV86gH3eDWHTub5 code/src
+added Qmd9hgWP2mfwV4HK44E4pepYtoYq78JwUADrcr4agNq9w6 code
