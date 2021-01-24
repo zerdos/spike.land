@@ -59,7 +59,7 @@ const transform = (code) => {
     ).replaceAll(
       searchRegExpMotion,
       replaceWith,
-    ).replaceAll(searchRegExp2, replace2);
+  ).replaceAll(searchRegExp2, replace2);
 
     // console.log(safeCode);
 

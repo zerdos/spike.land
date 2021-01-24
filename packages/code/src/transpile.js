@@ -1,7 +1,7 @@
 import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
 import { cid } from "https://code.zed.vision/cid.js";
 
-const workerSrc = `/ipfs/${cid}/src/workers/transpile.worker.js`;
+const workerSrc = `./src/workers/transpile.worker.js`;
 
 let transform = null;
 
