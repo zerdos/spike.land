@@ -459,7 +459,7 @@ export const files = {
   "src/emotion-react-renderer/package.json":
     "QmajYAoQQbYsc9bJyAsP1YX7iZcVkhwv5SMeDCPz1gnaEa",
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
-    "QmQYEZ9JwR1zjStjG4vZ8opYetzAeNRbAeYSdioQwZvgq5",
+    "QmfURUTy1MGSVFWvx5AAYkrH6AgyTVpVgRRRajhhMwPMtD",
   "src/emotion-react-renderer/src/renderer.ts":
     "QmQVjYGxnEhAfQNzbbfcLMJmagfs5sBkJKVjdVi8Hjy3mi",
   "src/emotion-react-renderer/tsconfig.json":
@@ -872,9 +872,9 @@ export const files = {
   "src/emotion-react-renderer/dist":
     "QmeGrbwX5LFaAr5rDS18h7izH3X4MSyirBmf7X8k6UZryL",
   "src/emotion-react-renderer/src":
-    "QmYvXSYNjzXABXQafwefSV5a6v3WsKwQ8rW1Em7fESbmQM",
+    "QmSsRw3Gk77BWZAAakctAuWo7xHiBtQppHuyX9WAohcLri",
   "src/emotion-react-renderer":
-    "QmP2FsK7n3X8Bt4dR2ytN2wq69Q8HHuWdndmfiMMNQs86R",
+    "QmWbiiFGxeFk3JqqXoBnGtEa1mi6MgZ5Gzf9MbXv6GT6Si",
   "src/examples": "QmasbQ63fdpt8XKSug4SkL8u4oQMWuaVd7xob5f8dfXDqM",
   "src/qrious/dist": "QmQeLhgtbob32M7FbtGELAfqLDgzq4LqasUpN2kUp6vGVa",
   "src/qrious/src/service/element":
@@ -946,7 +946,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
   "src/workers": "QmXZpGgxqVMFP7z3ThTDbbuECaMA1DXwn5hsznwh4TFWZv",
-  "src": "QmVjiX5UvRm7icw7hs2YB1tFSk1g81SQET6FF7WRD2ZobM",
-  "": "QmPXb7WBzzYEg8GSPT9LubEiPY44WsSwvBzAfiAAeTZxKf",
+  "src": "QmcjF1GdxrAbsu8osAAHfrwwdbpvSwBw5Gi3xwMiFHg4jc",
+  "": "QmQorXY4owwP8kGNET29MpFDmFBnpjYAKf18u7wKZfME3P",
   "foo": "bar",
 };

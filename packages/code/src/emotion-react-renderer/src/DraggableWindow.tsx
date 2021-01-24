@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
-import { motion } from 'framer-motion';
-import React from 'react';
+import { css, jsx } from "@emotion/react";
+import { motion } from "framer-motion";
+import React from "react";
 
 const breakPoints = [640, 750, 1024, 1920];
 
@@ -21,7 +21,7 @@ export const DraggableWindow: React.FC<{
             right: 20px;
             top: 20px;
             white-space: normal;
-            position: ${position ? position : 'fixed'};
+            position: ${position ? position : "fixed"};
             overflow: hidden;
             overflow-y: overlay;
           `}
@@ -34,14 +34,16 @@ export const DraggableWindow: React.FC<{
       }}
       dragElastic={0.5}
       dragMomentum={false}
-      drag={true}>
+      drag={true}
+    >
       <div
         css={css`
                 display: block;
                 font-family: Roboto;
                 font-weight: 600;
                 text-align: right;
-            `}>
+            `}
+      >
         <span
           css={css`
             color: white;
@@ -50,35 +52,43 @@ export const DraggableWindow: React.FC<{
             span{
               margin: 4px
             }
-        `}>
-          {breakPoints.map(size=> <span
-          key = {size}
-            
-            css={width===size? css`
+        `}
+        >
+          {breakPoints.map((size) =>
+            <span
+              key={size}
+              css={width === size
+                ? css`
             background: green;
             padding: 7px;
             border-radius: 10px;
             font-size: 20px
-          `: ``}
-            onClick={() => setWidth(size)}>
-            {size}px
-          </span>)}
+          `
+                : ``}
+              onClick={() => setWidth(size)}
+            >
+              {size}px
+            </span>
+          )}
         </span>
         <span
           css={css`
             background: grey;
             color: white;
             padding: 7px;
-        `}>
+        `}
+        >
           <span
             css="font-size: 20px; margin: 5px"
-            onClick={() => changeScale((x) => x - 10)}>
+            onClick={() => changeScale((x) => x - 10)}
+          >
             -
           </span>
           <motion.span drag>{scale}%</motion.span>
           <span
             css="font-size: 20px; margin: 5px"
-            onClick={() => changeScale((x) => x + 10)}>
+            onClick={() => changeScale((x) => x + 10)}
+          >
             +
           </span>
         </span>
@@ -88,7 +98,8 @@ export const DraggableWindow: React.FC<{
           onClick={() => {
             console.log(ref.current!.clientHeight);
             onShare();
-          }}>
+          }}
+        >
           🌎 Export
         </button>
       </div>
@@ -123,7 +134,8 @@ export const DraggableWindow: React.FC<{
             border-radius: 12px;
             opacity: 0.9
           }
-    `}>
+    `}
+      >
         <div id="zbody" css={`margin: 8px`}>
           {children}
         </div>
@@ -132,7 +144,7 @@ export const DraggableWindow: React.FC<{
   );
 };
 
-const buttonCss = ({ color = 'darkred', square = false }) =>
+const buttonCss = ({ color = "darkred", square = false }) =>
   css`
     background: ${color};
     
