@@ -7,7 +7,7 @@ export async function workBox() {
     );
 
     const { controller } = serviceWorker;
-    if (controller) {
+    if (controller && controller.unregister) {
       await controller.unregister();
     }
 
