@@ -5,25 +5,25 @@ workbox.loadModule("workbox-precaching");
 
 const { files, cid, reverseMap } = globalThis;
 
-workbox.precaching.precacheAndRoute(
-  Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
- { urlManipulation: ({url}) => {
+// workbox.precaching.precacheAndRoute(
+//   Object.keys(files).filter(x=>x.length).map(x=>({url: x, revision: files[x]})),
+//  { urlManipulation: ({url}) => {
 
-  console.log(url);
+//   console.log(url);
 
-  const {pathname} = url;
-  const urls =  [ new URL("https://code.zed.vision/ipfs/" + cid + "/" + url)];
+//   const {pathname} = url;
+//   const urls =  [ new URL("https://code.zed.vision/ipfs/" + cid + "/" + url)];
 
-  if (pathname.indexOf("/ipfs/")) {
-    const start = pathname.indexOf("/ipfs/");
-    const reverseCID = pathname.slice(start+6, start +52);
-    if (reverseMap[cid]) {
-      urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/"  + reverseMap[reverseCID]))
-    }
-  } 
-  return urls;
-  }}
-)
+//   if (pathname.indexOf("/ipfs/")) {
+//     const start = pathname.indexOf("/ipfs/");
+//     const reverseCID = pathname.slice(start+6, start +52);
+//     if (reverseMap[cid]) {
+//       urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/"  + reverseMap[reverseCID]))
+//     }
+//   } 
+//   return urls;
+//   }}
+// )
 
 // workbox.precaching.precacheAndRoute([
 //   {url: '/src/data.js', revision: files["src/data.js"]},
