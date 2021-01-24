@@ -17,7 +17,6 @@ export const DraggableWindow: React.FC<{
     <motion.div
       ref={ref}
       css={`
-            max-width: 50%;
             right: 20px;
             top: 20px;
             white-space: normal;

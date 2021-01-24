@@ -312,12 +312,12 @@
         "affectsGlobalScope": false
       },
       "./src/emotion-react-renderer/dist/DraggableWindow.js": {
-        "version": "9ebf5585ba7b5faf28889707d70ef34a25cd9b87f4f71918dad5f97d73dc478d",
+        "version": "ebe09cd344aaad120a6f23f042abc63bd6b23d95f434e83694b3d4b4e00fdb3b",
         "signature": "c245e2df8be273107e44e096ade63ff419629ceacf252933421090c0ca449f23",
         "affectsGlobalScope": false
       },
       "./src/emotion-react-renderer/dist/renderer.js": {
-        "version": "30140fb115ad070a270b9f66a1595316eefccadbbaa0113a1d98c75b9633d1ca",
+        "version": "278a1356ce44fb0817e7ee03392f0a099b80d115e122425110eab0b29a185926",
         "signature": "247ef2684afc60cde91ab5045798070dbce28e56c2761c180a86b92b1ed32bd8",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "e6596aebc8867edea25b30ea4792c0fec0a0472304ccb5227cee8065a41eb282",
+        "version": "25534d192e46c2fba797600ff037bd50abcd976634524337720b782f7fc396d6",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },
