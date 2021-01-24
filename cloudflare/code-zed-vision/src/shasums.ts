@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "48d7ee65753b8faf9fffe7812f6718bfdba971e41db83a6e7a4268dd77e68e73",
+    "7e249db9d3dfb85a51de004359fbac334e27c5a38e0b07cae5d36dca855ce72d",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
