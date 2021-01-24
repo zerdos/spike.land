@@ -1,4 +1,8 @@
 import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
+import { cid } from "https://code.zed.vision/cid.js";
+
+const workerSrc = `/ipfs/${cid}/src/workers/transpile.worker.js`;
+
 let transform = null;
 
 /**
@@ -27,7 +31,7 @@ async function init() {
   }
 
   if (typeof SharedWorker === "undefined") {
-    const worker = new Worker(`/src/workers/transpile.worker.js`);
+    const worker = new Worker(workerSrc);
     const { port1, port2 } = new MessageChannel();
     const msg = {
       comlinkInit: true,
@@ -40,7 +44,7 @@ async function init() {
     return transform;
   }
 
-  const worker = new SharedWorker(`/src/workers/transpile.worker.js`);
+  const worker = new SharedWorker(workerSrc);
   worker.port.start();
 
   transform = await wrap(worker.port);

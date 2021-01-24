@@ -29,6 +29,8 @@ export const shasums = {
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  ".tsBuildInfo":
+    "0b835b6d559ae0e8674283ee295743918848afba0e4a57b107624804f6f2c096",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -477,9 +479,9 @@ export const shasums = {
   "node_legacy/@babel/standalone/babel.min.js":
     "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "src/ipfsClient.js":
-    "dde0d9055f5210ad6a31381406c13d75a74547ea7257783b79f4656888aa5800",
+    "2a59427f019efd1708b7c43afd01a8167300f4b36fb69922ca0777da1a7f4505",
   "src/transpile.js":
-    "bfd3c25f84a71857ffe496fddf848b874529a7ab4376ed3183aec928536def17",
+    "f9835962eb39fc27d2a96890a54c178cac5c4d92780bca682ecb9fc152990a15",
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
@@ -587,7 +589,7 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "1a573cdbda66e62a00b2bc4199e9257c3a405b0aab4a3b7859820d32ef41dcb5",
   "src/templates.js":
-    "bd5ebe087101857b27891227f006937c99222d3d36341a063f4130bf7df4d0a9",
+    "ad44cd58641dbd02b7735b7d7f000c6d7c17e0cb16bbc154560e1ba805b705c1",
   "src/codeLoader.js":
     "d3c191141caf3ebeed9eda157db9617c9fb0e950c7d164b0978ae35e0976d58c",
   "src/db.js":
@@ -597,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "d433f6b39a0635592084e69d67aeb5d3762fcde92cd72c8a43d8d7044d27459f",
+    "715b5c8b43af5b3d98b1360798efe3ecfc057bee62885526193f0c3f2a61f284",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
