@@ -30,7 +30,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "3ef1f2a25bfff890051bbe0914a7e1d635a95394d10e924e3ec264748db0caf9",
+    "b8df81c67ccedf5ba1d955af767816a6c383db65453fd4e51109f62bee8101b4",
   "index2.html":
     "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -577,9 +577,9 @@ export const shasums = {
   "src/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "src/emotion-react-renderer/dist/renderer.js":
-    "30140fb115ad070a270b9f66a1595316eefccadbbaa0113a1d98c75b9633d1ca",
+    "278a1356ce44fb0817e7ee03392f0a099b80d115e122425110eab0b29a185926",
   "src/emotion-react-renderer/dist/DraggableWindow.js":
-    "9ebf5585ba7b5faf28889707d70ef34a25cd9b87f4f71918dad5f97d73dc478d",
+    "ebe09cd344aaad120a6f23f042abc63bd6b23d95f434e83694b3d4b4e00fdb3b",
   "src/emotion-react-renderer/package.json":
     "0a22f07c8f892b2aed7a84fd1d565143ffbd7eab9b7dcf315a70e94f6548955e",
   "src/emotion-react-renderer/tsconfig.json":
@@ -599,7 +599,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "25534d192e46c2fba797600ff037bd50abcd976634524337720b782f7fc396d6",
+    "844064f3f84d135fd09ad8a008141809a8478a0aab758340daf1053dac10b145",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
