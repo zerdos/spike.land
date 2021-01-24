@@ -17,7 +17,7 @@ addEventListener("fetch", (event: FetchEvent) => {
 });
 /**
  * Respond with hello worker text
- * @param {Request} request
+ * @param {Request} request}
  */
 async function handleRequest(request: Request) {
   const publicIpfsGW = [...publicIpfsGateways];
@@ -93,8 +93,11 @@ async function handleRequest(request: Request) {
     url.pathname = "/ipfs/" + cid + pathname;
 
     const req = new Request(url.toString());
-    return handleRequest(req);
+    const resp: Response = await handleRequest(req);
+    resp.headers.delete("cache-control");
+    return resp;
   }
+  return text("Error: nop");
 }
 
 export function js(resp: string) {
