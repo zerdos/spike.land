@@ -2,11 +2,6 @@ import { sha256 } from "./shadb/src/sha256.js";
 import { diff } from "./shadb/src/diff.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
-import {
-  DraggableWindow,
-  jsx,
-  render,
-} from "https:/code.zed.vision/src/emotion-react-renderer/dist/renderer.js";
 import { fetchSignal, sendSignal } from "./hash.js";
 import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
@@ -48,9 +43,8 @@ export async function run(mode = "window", _w, code = "") {
     await openWindows();
   }
 
-  const { open } = _w;
-
   const session = getSession();
+  session.mode = mode;
 
   if (!code) {
     try {
@@ -70,12 +64,7 @@ export async function run(mode = "window", _w, code = "") {
   }
 
   await renderPreviewWindow(
-    mode,
     session,
-    open,
-    render,
-    jsx,
-    DraggableWindow,
   );
 
   const freshlyTranspiled = await transpileCode(

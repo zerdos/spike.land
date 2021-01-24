@@ -231,7 +231,7 @@ added QmRBevsDvKdofdKgReQKM3gCwqVn9kUTRXkW97GrsHLCmr code/node_legacy/stringify.
 added QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb code/node_legacy/v4.js
 added QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT code/node_legacy/validate.js
 added QmUrjjo6zB8Hp1YLPi9xocxwbyTdgpsZ24T6hwYwBCwrE4 code/package.json
-added QmbkCcpFsuHQWpHfV7Rcs2YoehPbScWdQqiwmWhugucZZy code/src/codeLoader.js
+added QmYqGuvxF3NETjQznyMmqDM7bLVXhC8PJjDGZiErXQMnNW code/src/codeLoader.js
 added QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf code/src/data.js
 added QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH code/src/db.js
 added QmQPPUCAwhuyA4urN77XktyKKiKU8nbiBLhtPD82Kqam21 code/src/emotion-react-renderer/dist/DraggableWindow.js
@@ -259,7 +259,7 @@ added QmWuJiMpmDqUaJsRaM2uB14CCyF2BCKZzjmmAy2i9g4bsd code/src/qrious/package.jso
 added QmWyhyMT7B8vJWGm6kMXrXBhS7pgx4Dqv8TRepBqDxyW7e code/src/qrious/src/QRious.js
 added QmaquwSn36sfzcn6seaTvR6YPhJoFVQvh9z9174tzTEjgi code/src/qrious/src/service/element/BrowserElementService.js
 added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/src/refs.d.ts
-added QmRLs3SMWp9GMjBXMSY5NuAso9qdJ2tY5UBmLa4SKpybhu code/src/renderPreviewWindow.js
+added QmNSQCTeckopSHqV82rsMYhbi7wPbHzAQxjXoq3YgwN11p code/src/renderPreviewWindow.js
 added QmeZxocsjhuRy2v7WdzGegZDsiHVPpZw7WNAqyb5j2mN3G code/src/sendSignalToQrCode.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/src/shadb/dist/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/src/shadb/dist/diff.js
@@ -510,5 +510,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added QmXZpGgxqVMFP7z3ThTDbbuECaMA1DXwn5hsznwh4TFWZv code/src/workers
-added QmcjF1GdxrAbsu8osAAHfrwwdbpvSwBw5Gi3xwMiFHg4jc code/src
-added QmQorXY4owwP8kGNET29MpFDmFBnpjYAKf18u7wKZfME3P code
+added QmY1RhEXcDhUB2NGcawWEsHM4uLnMxbv4zMYqVVFjha3EA code/src
+added QmdTeZfGRsc9HZa8xwGigGbcuA6ZrByi4JcrLMGeqXrcn7 code

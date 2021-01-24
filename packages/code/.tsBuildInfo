@@ -262,8 +262,8 @@
         "affectsGlobalScope": false
       },
       "./src/renderPreviewWindow.js": {
-        "version": "59326061012f45a2a0cb829f7efb8087fe9145e10a0ce66b5a8c29cd2749df18",
-        "signature": "608cfe0ec75d5731a86860a9943b16fa17fe5a5b39ee2fefa9e202413269e43b",
+        "version": "d9464ccf3e1e24044da28dd5bb16a7d1a75494c2ceda49ad7459dce38ec2d886",
+        "signature": "b4f1bf90bff0c83fea60eb6f5c9f49457bdd94f9e8a0ac7c856d2103d4dfd8d7",
         "affectsGlobalScope": false
       },
       "./node_legacy/simple-window-manager.es.js": {
@@ -292,7 +292,7 @@
         "affectsGlobalScope": false
       },
       "./src/codeLoader.js": {
-        "version": "de456c79ba8a0230a308b4f26ab5b40dd30d961c0499a4628ebf46d46c41d151",
+        "version": "7023bc31eb9795ef9acb4deab40300a01fd49173c8bda8a7864c1e04c489942a",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -457,7 +457,7 @@
         "affectsGlobalScope": true
       },
       "./src/workers/files.umd.js": {
-        "version": "9ce647090ead6885428fd9eb01169cc6977ad45a47beebd446e909e08cfd17a6",
+        "version": "4d21577b808dbfe228adffa3d3bdb2a4a8c4e1480cace5f489c9bc625c1b174f",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": true
       },

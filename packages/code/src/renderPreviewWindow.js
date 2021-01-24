@@ -2,15 +2,17 @@
 //@ts-nocheck
 
 import { shareItAsHtml } from "./share.js";
+import { cid } from "https://code.zed.vision/cid.js";
 
-export function renderPreviewWindow(
-  mode,
+export async function renderPreviewWindow(
   session,
-  open,
-  renderEmotion,
-  jsx,
-  DraggableWindow,
 ) {
+  const {
+    DraggableWindow,
+    jsx,
+    render,
+  } = await import(`/ipfs/${cid}/src/emotion-react-renderer/dist/renderer.js`);
+
   const onShare = async () => {
     const link = await shareItAsHtml({
       code: session.code,
@@ -30,10 +32,10 @@ export function renderPreviewWindow(
     preview = element;
   }
 
-  renderEmotion(
+  render(
     jsx(DraggableWindow, {
       onShare,
-      position: mode === "window" ? "fixed" : "absolute",
+      position: session.mode === "window" ? "fixed" : "absolute",
     }),
     preview,
   );
