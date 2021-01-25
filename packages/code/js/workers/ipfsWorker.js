@@ -1,8 +1,8 @@
-importScripts(
+self.importScripts(
   "./ipfs/node_legacy/ipfs.min.js",
 );
 
-importScripts(
+self.importScripts(
   "./ipfs/dist/ipfs.server.js",
 );
 
