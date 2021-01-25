@@ -1,6 +1,14 @@
 import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
+import { cid } from "https://code.zed.vision/cid.js";
 
-const workerSrc = `./src/workers/transpile.worker.js`;
+const { pathname } = window.location;
+let transpilerCid = cid;
+
+if (pathname.indexOf("/ipfs/")) {
+  transpilerCid = pathname.slice(6, 52);
+}
+
+const workerSrc = `/ipfs/${transpilerCid}/src/workers/transpile.worker.js`;
 
 let transform = null;
 
