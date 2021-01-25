@@ -61,7 +61,7 @@ const transform = (code) => {
     // console.log(safeCode);
 
 
-    let rendererSrc = `./emotion-react-renderer/dist/renderer.js`;
+    let rendererSrc = `https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`;
 
 // if (self.location.pathname.indexOf("/ipfs/") !== -1) {
 //   const cid = self.location.pathname.slice(6, 52);
