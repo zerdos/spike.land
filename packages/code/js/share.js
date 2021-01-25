@@ -12,6 +12,19 @@ import { ipfsClient } from "./ipfsClient.js";
 * }} props 
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
+
+  let cid;
+
+  const { pathname } = window.location;
+
+  if (pathname.indexOf("/ipfs/") !== -1) {
+    cid = pathname.slice(6, 52);
+  } else {
+    cid = (await import ("code.zed.vision/cid.js")).cid
+  }
+  
+
+
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
   );
