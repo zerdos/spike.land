@@ -7,6 +7,7 @@
   "private": true,
   "workspaces": [
     "packages/code",
+    "packages/monaco-editor",
     "cloudflare/zed-vision",
     "cloudflare/code-zed-vision",
     "packages/code/src/workers/ipfs",

@@ -3,6 +3,13 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
-    "packages/*"
+    "packages/code",
+    "cloudflare/zed-vision",
+    "cloudflare/code-zed-vision",
+    "packages/code/src/workers/ipfs",
+    "packages/code/src/shadb",
+    "packages/code/src/smart-monaco-editor",
+    "packages/code/src/emotion-react-renderer",
+    "packages/zed-vision-site"
   ]
 }
