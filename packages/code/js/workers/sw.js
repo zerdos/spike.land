@@ -15,7 +15,7 @@ workbox.precaching.addRoute(
             const urls = [];
 
             if (pathname.slice(0,4)==="/sw/"){
-                urls.push(new URL("https://code.zed.vision/ipfs/"+cid+"/"+pathname.slice(5)))
+                urls.push(new URL("https://code.zed.vision/ipfs/"+cid+"/"+pathname.slice(4)))
             }else if (pathname.indexOf("/ipfs/") === -1 && reverseMap[pathname]) {
                 urls.push(new URL("https://code.zed.vision/ipfs/" + reverseMap[pathname]))
                 urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/" + pathname));
