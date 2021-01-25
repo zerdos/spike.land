@@ -4,7 +4,7 @@ self.importScripts("https://code.zed.vision/cid.umd.js");
 const {cid} = globalThis;
 let currentCid = cid;
 
-const { pathname } = window.location;
+const { pathname } = location;
 
 if (pathname.indexOf("/ipfs/") !== -1) {
     currentCid = pathname.slice(6, 52);
