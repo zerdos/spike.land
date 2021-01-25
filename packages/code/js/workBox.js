@@ -1,15 +1,15 @@
 export async function workBox() {
   if ("serviceWorker" in window.navigator) {
-    const { serviceWorker } = window.navigator;
+    // const { serviceWorker } = window.navigator;
 
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
     );
 
-    const { controller } = serviceWorker;
-    if (controller && controller.unregister) {
-      await controller.unregister();
-    }
+    // const { controller } = serviceWorker;
+    // if (controller && controller.unregister) {
+    //   await controller.unregister();
+    // }
 
     const wb = new Workbox(`./js/workers/sw.js`);
 

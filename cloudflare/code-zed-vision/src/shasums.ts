@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "9f44ffaa64026df93f73e87d4d475dcd47f620820b3b490ae53c918dc32f5c1e",
+    "36ecd3e2ecf2582a90271d62a110c9b56b4708595d381abe490e7b9c2de2c1ea",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
@@ -113,7 +113,7 @@ export const shasums = {
   "js/smart-monaco-editor/dist/scripts/screenshots.d.ts":
     "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
   "js/workBox.js":
-    "2b076fb654904ffbae80a3630cf1afb80504abdc264e1448bd3b04f1fc2ecaf5",
+    "b4d6bd281b2a4926e7e9f05de80baddf1bc5e05d374f5de3fb93e385180ff07b",
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/data.js":
@@ -151,7 +151,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/files.umd.js":
-    "d7683d66c8cb833c6e237ac3e11ec5a277d8c80fb5cc8798591ba6688ac72969",
+    "e114195b5c469e26791e55fc873845c08caf002f5fb30e66bef6e02387bacfab",
   "js/workers/ipfs/package.json":
     "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
   "js/workers/ipfs/.gitignore":
