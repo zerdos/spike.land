@@ -153,7 +153,7 @@ export const files = {
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmTuqg1hZd4kUvZtK6CzsYGvkBuVnmcmxr2MKHyCmpibXM",
   "js/transpile.js": "QmYWif6baGGsC3ePNG3fHh4omfGVGXs45Jwqec8xU96gsw",
-  "js/workers/fileCids.json": "QmTxLgr52YtKbiCQLjqqceTosSZdTPm7WaFvDRrXdF8A1e",
+  "js/workers/fileCids.json": "QmUq7qnraDhbBu9pZmc3VM5ekJ1gRrUuGb4rLzFvsaBRgG",
   "js/workers/ipfs/README.md": "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "js/workers/ipfs/dist/gateways.d.ts":
     "QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk",
@@ -184,9 +184,9 @@ export const files = {
   "js/workers/ipfs/tsconfig.json":
     "QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg",
   "js/workers/ipfsWorker.js": "QmaxWHcdZkGZUmftuYPDSXZqKFEtQymzmufhMF2pHi8ZzA",
-  "js/workers/shaSums.json": "QmUirF4MkrG3XcvmhvBtkKK686PM6VWx7FnuYBnDENpw1i",
+  "js/workers/shaSums.json": "QmXdcW8GM8QNkmeyyeEWsvXeCFiWCEN4B383Lhhi8tuFS6",
   "js/workers/transpile.worker.js":
-    "QmTzzJE7hj64ohCMqmtittFptR2CPdvaT6af14TtZQTxqA",
+    "QmNTCkZipsTgWuriDUm26ryppbDCB41u5s1sqk3wS62C4N",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "node_legacy/comlink/comlink.min.js":
@@ -472,8 +472,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "js/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "js/workers/ipfs": "QmQVYgddBKDCUQwbJw4opc7UAbgyrJqsLybm6fha6hZ7Mq",
-  "js/workers": "QmRhdCjmsWHX1k79PnmSeMek8BqoXmgeGbApwHiyNzoYcc",
-  "js": "Qmd7DjZe4ErtZtc9nwngAkZpE9A9xh4T2nVciGS7Rk5xmE",
+  "js/workers": "QmWo34AqgEQfzqdyHfTctm6FjkdeR27vC7TagH1kPUonJw",
+  "js": "QmZVQoGqBHzQ7qspkMMjNsTknkCegQP9zAbJm5dYXgN2fv",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy/ipfs-message-port-client/dist/src/client":
     "QmQ3Td4DsTeRsvo6LFpwdh1SV5uAyr49pShjHrNY2muM2X",
@@ -504,6 +504,6 @@ export const files = {
   "node_legacy/ipfs-message-port-server":
     "QmW3RctEn78UZUsdffPNVMWxEsLmwCDDCWs4AexqUZMkC5",
   "node_legacy": "QmWaLEd76ufXhgRk2MPiRjRd6hEpusR7wbXV3dU2JqDTcy",
-  "": "QmYxXp67Beu9Fy6QtzSreKbxWfBo4rMtZvCnQhvzQuQWqM",
+  "": "Qmbikmoewg9aNDLxdHgQU2cQJtqLVdq7VRsZCijXAHBArn",
   "foo": "bar",
 };
