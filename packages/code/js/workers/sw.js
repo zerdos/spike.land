@@ -7,7 +7,7 @@ workbox.loadModule("workbox-precaching");
 const { files, cid, reverseMap } = globalThis;
 
 workbox.precaching.addRoute(
-    Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] })),
+    Object.keys(files).filter(x => x.length).map(x => ({ url: "/sw/"+x, revision: files[x] })),
     {
         urlManipulation: ({ url }) => {
 
