@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "5b902fa9a866b43abd7e6679a1a5293a616f1e2a5bf89aedfcae7066c6957cb4",
+    "6c351d43f6333b5384e9b4a095ee2517f1f6fac89b2fc0f3c7dbd771f0dc3265",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
@@ -117,7 +117,7 @@ export const shasums = {
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/data.js":
-    "c2878cfa5da45d81be5db20842e9d070e50d687a654c2285093959c2adf0364f",
+    "cc99aace7cc56dc4fd3ea591b9c8205b944b4d4fc6953ac4b2cd2b07c3d41436",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/examples/starterNoFramerMotion.js":
@@ -193,9 +193,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/files.json":
-    "dada240511a3c08de7fb7fa7b1f64e92c1814a3d421813e52bcba938bebad5a9",
-  "js/workers/files.json.js":
-    "4b1315cd3ada01e2a8e612aa99033d432e68f5422fcd0c64a88a6616e38eb028",
+    "386bd532336e6090d1d08d89a741a6d09f9e62476c966037dafea3d283a90526",
   "js/hash.js":
     "9344c3462e55e797fe5c32bb925ed262ab945ad6c99bd7e5268ece34667f3327",
   "js/importScript.js":

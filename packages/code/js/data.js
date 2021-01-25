@@ -196,11 +196,11 @@ const toSave = {
 export const saveCode =
 
   /**
- * @param {{ code: any; url?: any; html?: any; transpiled?: any; versions?: any; i?: any; }} opts
+ * @param {{ code: any; url?: any; html?: any; transpiled?: any; versions?: any; i?: number; }} opts
  * @param {number} counter
  */
   async (opts, counter) => {
-    const { code, html, transpiled, versions, i } = opts;
+    const { code, html, transpiled, versions } = opts;
     toSave.code = code || await getStarter();
 
     // deno-lint-ignore ban-ts-comment
