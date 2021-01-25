@@ -1,8 +1,18 @@
+import { shasums } from "./shasums";
+
 export async function alterHeaders(response: Response, pathname: string) {
   const arrBuff = await response!.clone().arrayBuffer();
+  ///@ts-ignore
+  const sha = shasums[pathname];
+  const shaCalculated = await sha256(arrBuff);
 
   const resp = new Response(arrBuff, response);
   //  const respCID = await getCID(arrBuff);
+
+  if (sha) {
+    resp.headers.set("x-sha256", sha);
+  }
+  resp.headers.set("x-calc-sha256", shaCalculated);
   resp.headers.set("access-control-allow-origin", "*");
   resp.headers.set(
     "access-control-allow-methods",
@@ -38,7 +48,7 @@ export async function alterHeaders(response: Response, pathname: string) {
   } else if (pathname.endsWith(".jpg")) {
     resp.headers.delete("content-type");
     resp.headers.set("content-type", "image/jpeg");
-  } else if (pathname.indexOf(".") === -1) {
+  } else if (pathname.indexOf(".") === -1 || pathname.endsWith(".html")) {
     resp.headers.delete("content-type"),
       resp.headers.set(
         "content-type",
@@ -50,3 +60,13 @@ export async function alterHeaders(response: Response, pathname: string) {
     headers: resp.headers,
   });
 }
+
+export const sha256 = async (x: ArrayBuffer | string) =>
+  Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        typeof x === "string" ? new TextEncoder().encode(x) : x,
+      ),
+    ),
+  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");

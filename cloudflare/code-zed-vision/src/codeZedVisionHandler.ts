@@ -6,7 +6,7 @@ import {
   raceToSuccess,
 } from "@zedvision/ipfs/src/gateways.js";
 import { cid } from "./cid";
-import { alterHeaders } from "./alterHeaders";
+import { alterHeaders, sha256 } from "./alterHeaders";
 
 const reverseMap: { [key: string]: string } = {};
 //@ts-ignore
@@ -20,13 +20,15 @@ addEventListener("fetch", (event: FetchEvent) => {
  * @param {Request} request}
  */
 async function handleRequest(request: Request) {
-  const publicIpfsGW = [...publicIpfsGateways];
   const url = new URL(request.url);
   const { pathname } = url;
 
   if (pathname.slice(0, 6) === `/ipfs/`) {
     let customCID = pathname.slice(6);
-    const reversePath = reverseMap[customCID] || pathname;
+    const reversePath = reverseMap[customCID] || pathname.slice(53) ||
+      "index.html";
+    //@ts-ignore
+    const sha = shasums[reversePath];
 
     if (
       pathname.slice(0, 52) === `/ipfs/${cid}`
@@ -44,16 +46,28 @@ async function handleRequest(request: Request) {
     let response = await cache.match(cacheKey);
 
     if (response && response.status == 200) {
-      return await alterHeaders(response, reversePath);
+      const resp = response.clone();
+      if (sha) {
+        const content = await response.arrayBuffer();
+        const shaContent = sha256(content);
+        if (sha !== shaContent) {
+          response = undefined;
+        }
+        cache.delete(cacheKey);
+      }
+      if (response) return await alterHeaders(response, reversePath);
     }
 
-    const content = await IPFSKV.get(customCID, "arrayBuffer");
-    if (content !== null && reverseMap[customCID]) {
+    let content = await IPFSKV.get(customCID);
+    if (content !== null && sha) {
       const file = reverseMap[customCID];
       const contentSHA = await sha256(content);
       //@ts-ignore
-      if (shasums[file] === contentSHA) {
+      if (shasums[file] === sha) {
         await IPFS.put(customCID, content);
+      } else {
+        await IPFSKV.delete(customCID);
+        content = null;
       }
     }
 
@@ -102,6 +116,7 @@ async function handleRequest(request: Request) {
 
     const req = new Request(url.toString());
     const resp: Response = await handleRequest(req);
+
     resp.headers.delete("cache-control");
     return resp;
   }
@@ -129,16 +144,6 @@ function text(resp: string) {
     },
   });
 }
-
-const sha256 = async (x: ArrayBuffer) =>
-  Array.from(
-    new Uint8Array(
-      await crypto.subtle.digest(
-        "SHA-256",
-        typeof x === "string" ? new TextEncoder().encode(x) : x,
-      ),
-    ),
-  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
 
 async function fetchCid(path: string) {
   const random5GatewaysFetch = publicIpfsGateways.sort(() =>
