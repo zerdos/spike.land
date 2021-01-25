@@ -391,18 +391,13 @@
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": true
       },
-      "./js/workers/files.umd.js": {
-        "version": "3565dbf0a17294bc0e78202b0f308d2a86abf6c5d09cba7c803888481ed33a13",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": true
-      },
       "./js/workers/ipfsWorker.js": {
         "version": "5c542de2dcb6fafbfbf2b1f786a0cff8e20865125eb39e548121c827c00b0b2f",
         "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
         "affectsGlobalScope": true
       },
       "./js/workers/sw.js": {
-        "version": "8516ff71ad2f5667bbc2bde7296d77dbe347221bcb4e154d305c5ca4bcec0383",
+        "version": "fed2bc2dc68b15f98a107649eb5e6db553df228e8ba9fc3a507035b91e1ac34e",
         "signature": "3529072dbf23e9ece1fea7adbe8e09dc5a903585b51c179355c7a61c25b0aa94",
         "affectsGlobalScope": true
       },
@@ -689,7 +684,6 @@
       "./js/templates.js",
       "./js/transpile.js",
       "./js/workBox.js",
-      "./js/workers/files.umd.js",
       "./js/workers/ipfs/dist/gateways.d.ts",
       "./js/workers/ipfs/dist/gateways.js",
       "./js/workers/ipfs/dist/ipfs.client.d.ts",
@@ -877,10 +871,6 @@
       ],
       [
         "./js/workBox.js",
-        1
-      ],
-      [
-        "./js/workers/files.umd.js",
         1
       ],
       [
