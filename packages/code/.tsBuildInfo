@@ -306,11 +306,6 @@
         "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
         "affectsGlobalScope": false
       },
-      "./js/workBox.js": {
-        "version": "b4d6bd281b2a4926e7e9f05de80baddf1bc5e05d374f5de3fb93e385180ff07b",
-        "signature": "29a7a1ee53b4c7335142956fa80da7fd2d6fba356687c46504e76b05c064cac9",
-        "affectsGlobalScope": false
-      },
       "./js/emotion-react-renderer/dist/DraggableWindow.js": {
         "version": "ebe09cd344aaad120a6f23f042abc63bd6b23d95f434e83694b3d4b4e00fdb3b",
         "signature": "c245e2df8be273107e44e096ade63ff419629ceacf252933421090c0ca449f23",
@@ -396,11 +391,6 @@
         "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
         "affectsGlobalScope": true
       },
-      "./js/workers/sw.js": {
-        "version": "de23168b419bc6551d9f93747f0812a618d2e1c92328b96f12cad013e7e37eda",
-        "signature": "8dceebe21eda4edb56e273006cb2e6c6b245c03846e631ef1449ebd5e157a456",
-        "affectsGlobalScope": true
-      },
       "./js/workers/transpile.worker.js": {
         "version": "c348c5177f4dc69778459ddecc5ad8ec222a60daa312f9cd42e1c61448db2bd5",
         "signature": "f71837ecc31ca73d0324e6fe314148d14ba00f484594ab6262464401527ad59f",
@@ -425,6 +415,11 @@
         "version": "e66c53fa5e754c9ff898ecdcfb26244c2f8add2654d7122685cf96ae3e0e16fd",
         "signature": "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
         "affectsGlobalScope": false
+      },
+      "./sw.js": {
+        "version": "de23168b419bc6551d9f93747f0812a618d2e1c92328b96f12cad013e7e37eda",
+        "signature": "8dceebe21eda4edb56e273006cb2e6c6b245c03846e631ef1449ebd5e157a456",
+        "affectsGlobalScope": true
       }
     },
     "options": {
@@ -573,9 +568,6 @@
       "./js/transpile.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
-      "./js/workBox.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./js/workers/ipfs/dist/ipfs.client.d.ts": [
         "./js/workers/ipfs/dist/gateways.d.ts"
       ],
@@ -683,7 +675,6 @@
       "./js/smart-monaco-editor/src/scripts/screenshots.js",
       "./js/templates.js",
       "./js/transpile.js",
-      "./js/workBox.js",
       "./js/workers/ipfs/dist/gateways.d.ts",
       "./js/workers/ipfs/dist/gateways.js",
       "./js/workers/ipfs/dist/ipfs.client.d.ts",
@@ -691,14 +682,14 @@
       "./js/workers/ipfs/dist/ipfs.server.js",
       "./js/workers/ipfs/src/gateways.js",
       "./js/workers/ipfsWorker.js",
-      "./js/workers/sw.js",
       "./js/workers/transpile.worker.js",
       "./node_legacy/regex.js",
       "./node_legacy/rng.js",
       "./node_legacy/simple-window-manager.es.js",
       "./node_legacy/stringify.js",
       "./node_legacy/v4.js",
-      "./node_legacy/validate.js"
+      "./node_legacy/validate.js",
+      "./sw.js"
     ],
     "affectedFilesPendingEmit": [
       [
@@ -870,10 +861,6 @@
         1
       ],
       [
-        "./js/workBox.js",
-        1
-      ],
-      [
         "./js/workers/ipfs/dist/gateways.d.ts",
         1
       ],
@@ -902,10 +889,6 @@
         1
       ],
       [
-        "./js/workers/sw.js",
-        1
-      ],
-      [
         "./js/workers/transpile.worker.js",
         1
       ],
@@ -931,6 +914,10 @@
       ],
       [
         "./node_legacy/validate.js",
+        1
+      ],
+      [
+        "./sw.js",
         1
       ]
     ]
