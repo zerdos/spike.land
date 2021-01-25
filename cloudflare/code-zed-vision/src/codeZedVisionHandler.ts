@@ -27,7 +27,8 @@ async function handleRequest(request: Request) {
     let customCID = pathname.slice(6);
     const reversePath = reverseMap[customCID] ||
       (pathname.slice(0, 52) === `/ipfs/${cid}` && (pathname.slice(53) ||
-        "index.html"));
+        "index.html")) ||
+      pathname;
     //@ts-ignore
     const sha = reversePath && shasums[reversePath];
 
