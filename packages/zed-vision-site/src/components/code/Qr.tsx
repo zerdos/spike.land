@@ -249,7 +249,9 @@ const Cube = ({ sides, size: _size, animate }) => {
   );
 };
 
-const randoms = new Array(3).fill(0).map((x, i) =>
+if (typeof window === "undefined") Math.random = ()=>0.4 //elegant solution to ever changing builds.
+
+const randoms =  new Array(3).fill(0).map((x, i) =>
   (Math.random() * 360 - 180) * (i === 2 ? 2 : 1)
 );
 const r = randoms;
