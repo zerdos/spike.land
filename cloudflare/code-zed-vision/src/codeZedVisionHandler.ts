@@ -58,15 +58,15 @@ async function handleRequest(request: Request) {
       if (response) return await alterHeaders(response, reversePath);
     }
 
-    let content = await IPFSKV.get(customCID);
+    let content = await IPFS.get(customCID);
     if (content !== null && sha) {
       const file = reverseMap[customCID];
       const contentSHA = await sha256(content);
       //@ts-ignore
       if (shasums[file] === contentSHA) {
-        await IPFS.put(customCID, content);
+        // await IPFS.put(customCID, content);
       } else {
-        await IPFSKV.delete(customCID);
+        await IPFS.delete(customCID);
         content = null;
       }
     }
@@ -84,7 +84,7 @@ async function handleRequest(request: Request) {
         const check = await sha256(contentToSave);
         if (check !== sha) return text(":(");
       }
-      await IPFSKV.put(customCID, contentToSave);
+      await IPFS.put(customCID, contentToSave);
     }
 
     await cache.put(request, response.clone());
