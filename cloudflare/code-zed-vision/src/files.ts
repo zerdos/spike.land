@@ -154,7 +154,7 @@ export const files = {
   "js/templates.js": "QmTuqg1hZd4kUvZtK6CzsYGvkBuVnmcmxr2MKHyCmpibXM",
   "js/transpile.js": "QmQym7S7gTrvapZAgm9M1DZC1uX3vvDg4mvjQ8tJ39UemW",
   "js/workBox.js": "QmPW5HfyHgQDTxxrfTYkTHQUEC8BGcRm8wRd72fiW7UcuD",
-  "js/workers/files.json": "QmfDdU5SsMWpBndaGmZvPJS2tEr4e8nPi62kq9nxDtVXKz",
+  "js/workers/fileCids.json": "QmWLncXQTpefqbJsJYcEEVxMfWdiSe3vFv43yQrwLP4An6",
   "js/workers/ipfs/README.md": "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "js/workers/ipfs/dist/gateways.d.ts":
     "QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk",
@@ -185,7 +185,8 @@ export const files = {
   "js/workers/ipfs/tsconfig.json":
     "QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg",
   "js/workers/ipfsWorker.js": "QmaxWHcdZkGZUmftuYPDSXZqKFEtQymzmufhMF2pHi8ZzA",
-  "js/workers/sw.js": "QmQL3d8FmFzyQhYYgxkgr3KAnNfVVShqmQEEeN8X4nZPGb",
+  "js/workers/shaSums.json": "QmdneZ9EEmoHwGu39eby3Q7zP8CJ9gW5WXWJhGBxc6no6P",
+  "js/workers/sw.js": "QmT5RxfdYL45gPRQ7CzkoyZkw9W88LSa22Z9QdHcVun5qy",
   "js/workers/transpile.worker.js":
     "QmeFNc6KQ5xjkycmxnMEf3S9RLk8b9VJes5ExhZiDWNmPG",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -472,8 +473,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "js/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "js/workers/ipfs": "QmQVYgddBKDCUQwbJw4opc7UAbgyrJqsLybm6fha6hZ7Mq",
-  "js/workers": "QmUZLPPVZHvev7UjDj274SgLFyTJnzokRCfesoimP3m5zv",
-  "js": "QmS7jgNvvaUZovEvyCwHcQVt4fR9zhmbqUhAQacyK6SRi4",
+  "js/workers": "QmSEYPrgUczhfLyqST2kjgYfrh9xjpVoEwLbwrxsmeCPsy",
+  "js": "QmWezYGrVN32hFb5KVDRBkdKmvhmrf2y1oYtUSaFsQBw7E",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy/ipfs-message-port-client/dist/src/client":
     "QmQ3Td4DsTeRsvo6LFpwdh1SV5uAyr49pShjHrNY2muM2X",
@@ -504,6 +505,6 @@ export const files = {
   "node_legacy/ipfs-message-port-server":
     "QmW3RctEn78UZUsdffPNVMWxEsLmwCDDCWs4AexqUZMkC5",
   "node_legacy": "QmWaLEd76ufXhgRk2MPiRjRd6hEpusR7wbXV3dU2JqDTcy",
-  "": "QmbEhtZrtyqkLqHJdyPD97Lt6iZZTJ4FMdTkGYmTawXQvx",
+  "": "QmcyWnxXsX9XiFGKiV4rwek62ejmpBrdfxdiChzktR1Yd2",
   "foo": "bar",
 };
