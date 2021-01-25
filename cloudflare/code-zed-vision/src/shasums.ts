@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "656d895043e2a75d878495821594931dc4ebcebca4da62d7b02f4db9fc8fc8aa",
+    "a24922b71c8a68d272209258fbd561d34a6edef26bb7214e51278c8459646b64",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -41,7 +41,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "7847d9f9d5212de05b1c0478ef692cb073f6d140f418fcb87ebef35d4dca94c5",
+    "2ed5eec0eb66490d0259cca7e8d276a699bb9d98627c891516ad67e7bd31c100",
   "node_legacy/stringify.js":
     "62988dd8c0b632da4eada03ad7b41365903c96930e01417ac8aa0ec255293637",
   "node_legacy/validate.js":
@@ -269,9 +269,9 @@ export const shasums = {
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
-    "f22ef0cf11623c3f6087f69fcf38b7878629887b42ca29a791830973d446babf",
+    "ef2a0c7ad6a6e28a5338d13687131458a43db8da59130c897da6e491b6ae460f",
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
-    "49a7dcb146e736afd4d6ed238ecab3a273713d87213e25025d024225f72c194c",
+    "c32b5868b42d5cb6e016a9695090bb3f3574f58d1561230ed52bd3a6f1669309",
   "src/smart-monaco-editor/favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "src/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types/index.d.ts":
@@ -317,7 +317,7 @@ export const shasums = {
   "src/smart-monaco-editor/tsconfig.json":
     "15f4a12913cc682803bda260f5e975cc8f0fd605f2af043d557feb206ab2a64f",
   "src/smart-monaco-editor/src/monaco.js":
-    "cb7cabfd55ee65493e5ee4c6252c6f06127d7717bdf2235da66b6ab009f2e7cc",
+    "5c4a9f43d74747f5934cfb7836026d527158dc309d79e30cfb9bc090ec1defaa",
   "src/smart-monaco-editor/src/editor.d.ts":
     "bf48f0b5d56228afec9f56af6915ff59f7bbac9cfece964102d1f32732616351",
   "src/smart-monaco-editor/src/monaco.d.ts":
@@ -332,18 +332,18 @@ export const shasums = {
     "d2472af600e6265d504721e1cf41b6ebb4228944a515d9dc7312c0a1e6cef4c5",
   "src/smart-monaco-editor/LICENSE.md":
     "15855dde524dbbb3ffb666ccc87de4dc8a4b2f22840128fc0e65abb0ded8a77f",
-  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
-    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-  "src/smart-monaco-editor/dist/scripts/screenshots.js":
-    "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
-  "src/smart-monaco-editor/dist/editor.js":
-    "e8dd2647299bd5811e6c9ae9ec8da3d943ad53146ed1487ccd5b2af691e76d73",
   "src/smart-monaco-editor/dist/monaco.js":
-    "757262e88e3913bad9046380b303ca7302e1059c5993c8efbe7008b6528e7bd3",
-  "src/smart-monaco-editor/dist/monaco.d.ts":
-    "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
+    "031c186fe6e085d4e6d598dffa7b5f54b040301c874f92bdfdfcae74d6a13700",
   "src/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+  "src/smart-monaco-editor/dist/monaco.d.ts":
+    "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
+  "src/smart-monaco-editor/dist/scripts/screenshots.js":
+    "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
+  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
+    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+  "src/smart-monaco-editor/dist/editor.js":
+    "e8dd2647299bd5811e6c9ae9ec8da3d943ad53146ed1487ccd5b2af691e76d73",
   "src/workBox.js":
     "c29f28a9ee5bf0857b49fc9c138cbd25bdc0d1e995b03d15c83cf62f9649c1bf",
   "src/starterTsx.tsx":
@@ -365,7 +365,7 @@ export const shasums = {
   "src/emotion-react-renderer/dist/DraggableWindow.js":
     "ebe09cd344aaad120a6f23f042abc63bd6b23d95f434e83694b3d4b4e00fdb3b",
   "src/emotion-react-renderer/package.json":
-    "b40e239fbb782cf21823d5516731e97a6fbfec554214aa92c97360843693b51d",
+    "cd52de2841b88bfe2c6e3fde9b4e5470eaaa3ad6e38ca577dc96095b0d6ab0b6",
   "src/emotion-react-renderer/tsconfig.json":
     "970e709dee7e1b7c5410feb805961be59bde3c521cdf5f60820cccd3fa085d00",
   "src/emotion-react-renderer/src/renderer.ts":
@@ -383,7 +383,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "504adadbe6c9db3741eae0c598c42f3c4cb1b0e4612608a4de7e88592a6fab13",
+    "6b9708eae100fb42573a0fd9fe093def283d8afbffced030c3c1f28609b4db11",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
@@ -523,7 +523,7 @@ export const shasums = {
   "src/shadb/dist/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "src/shadb/package.json":
-    "9ede5e459d6eb82b79c169dd5c4c8a72dd672267d96a88661844d05ad369a3ac",
+    "7f8513cc41d0961303108c449060e09be4a49721ee14cf7bdba3e5aef7c7963b",
   "tsconfig.json":
     "09ea48a6a9fcc074847b04f90771ae7732fee992b7bf18278fa042e3ee9ea1c3",
   "foo": "bar",
