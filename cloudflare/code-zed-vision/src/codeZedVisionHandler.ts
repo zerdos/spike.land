@@ -125,6 +125,17 @@ async function handleRequest(request: Request) {
       },
     });
   }
+  if (pathname === `/cid.umd.js`) {
+    return new Response(`globalThis.cid = "${cid}"`, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-cache",
+        "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+        "Access-Control-Max-Age": "86400",
+        "Content-Type": "application/javascript;charset=UTF-8",
+      },
+    });
+  }
   //@ts-ignore
   if (files[pathname.slice(1)]) {
     url.pathname = "/ipfs/" + cid + pathname;

@@ -1,5 +1,15 @@
 self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
-self.importScripts('./files.umd.js')
+self.importScripts("https://code.zed.vision/cid.umd.js");
+
+const {cid} = globalThis;
+let currentCid = cid;
+
+const { pathname } = window.location;
+
+if (pathname.indexOf("/ipfs/") !== -1) {
+    currentCid = pathname.slice(6, 52);
+}
+
 
 
 
@@ -11,6 +21,14 @@ self.workbox.setConfig({
 self.workbox.loadModule("workbox-precaching");
 
 const { files } = globalThis;
+
+fetch(`/ipfs/${currentCid}/js/workers/files.umd.js`).then(x=>x.text()).then(source => {
+    new Function(source)();
+    console.log(globalThis);
+}
+
+)
+
 const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] }));
 
 self.workbox.precaching.precacheAndRoute(

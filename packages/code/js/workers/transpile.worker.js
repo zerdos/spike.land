@@ -6,7 +6,7 @@ self.importScripts(
   "https://unpkg.com/@babel/standalone@7.12.12/babel.min.js",
 );
 
-self.importScripts("https://code.zed.vision/ipfs.js");
+self.importScripts("https://code.zed.vision/cid.umd.js");
 
 
 const {cid}  = globalThis;
