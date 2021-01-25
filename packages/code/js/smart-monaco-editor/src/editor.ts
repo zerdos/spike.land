@@ -206,7 +206,7 @@ export default async (
     const dts = importHelper.map(({ name, url }) =>
       (async () =>
         modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(`./src/smart-monaco-editor/node_legacy/${url}`))
+          await (await fetch(`./js/smart-monaco-editor/node_legacy/${url}`))
             .text(),
           name.includes("@")
             ? `file:///node_modules/${name}`

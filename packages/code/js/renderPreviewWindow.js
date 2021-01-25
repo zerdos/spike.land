@@ -11,7 +11,7 @@ export async function renderPreviewWindow(
     DraggableWindow,
     jsx,
     render,
-  } = await import(`/ipfs/${cid}/src/emotion-react-renderer/dist/renderer.js`);
+  } = await import(`/ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`);
 
   const onShare = async () => {
     const link = await shareItAsHtml({

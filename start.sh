@@ -1,6 +1,6 @@
-rm -rf ./packages/code/src/workers/files.umd.js
+rm -rf ./packages/code/js/workers/files.umd.js
 ipfs add -r --ignore=node_modules packages/code > ipfs.txt
-cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "globalThis.files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/src/workers/files.umd.js
+cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "globalThis.files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/js/workers/files.umd.js
 
 find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"foo\":\"bar\" }"}' > cloudflare/code-zed-vision/src/shasums.ts;
 

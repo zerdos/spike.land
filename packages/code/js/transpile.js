@@ -8,7 +8,7 @@ if (pathname.indexOf("/ipfs/") !== -1) {
   transpilerCid = pathname.slice(6, 52);
 }
 
-const workerSrc = `/ipfs/${transpilerCid}/src/workers/transpile.worker.js`;
+const workerSrc = `/ipfs/${transpilerCid}/js/workers/transpile.worker.js`;
 
 let transform = null;
 

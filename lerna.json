@@ -6,10 +6,10 @@
     "packages/code",
     "cloudflare/zed-vision",
     "cloudflare/code-zed-vision",
-    "packages/code/src/workers/ipfs",
-    "packages/code/src/shadb",
-    "packages/code/src/smart-monaco-editor",
-    "packages/code/src/emotion-react-renderer",
+    "packages/code/js/workers/ipfs",
+    "packages/code/js/shadb",
+    "packages/code/js/smart-monaco-editor",
+    "packages/code/js/emotion-react-renderer",
     "packages/zed-vision-site"
   ]
 }

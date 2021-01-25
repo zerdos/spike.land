@@ -2,7 +2,7 @@ import React from "react";
 /** @jsx jsx */
 //@ts-ignore
 import { css, Global, jsx } from "@emotion/react";
-import { fetchSignal } from "@zedvision/code/src/hash.js";
+import { fetchSignal } from "@zedvision/code/js/hash.js";
 
 import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
@@ -77,7 +77,7 @@ export const Qr = () => {
       // if (typeof window === "undefined") return;
 
       // const { fetchSignal } = await new Function(
-      //   `return import("https://blog.zed.vision/code/src/hash.js")`,
+      //   `return import("https://blog.zed.vision/code/js/hash.js")`,
       // )();
 
       const getData = await fetchSignal(url, 7);
@@ -249,9 +249,9 @@ const Cube = ({ sides, size: _size, animate }) => {
   );
 };
 
-if (typeof window === "undefined") Math.random = ()=>0.4 //elegant solution to ever changing builds.
+if (typeof window === "undefined") Math.random = () => 0.4; //elegant solution to ever changing builds.
 
-const randoms =  new Array(3).fill(0).map((x, i) =>
+const randoms = new Array(3).fill(0).map((x, i) =>
   (Math.random() * 360 - 180) * (i === 2 ? 2 : 1)
 );
 const r = randoms;

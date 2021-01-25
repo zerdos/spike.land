@@ -11,7 +11,7 @@ export async function workBox() {
       await controller.unregister();
     }
 
-    const wb = new Workbox(`./src/workers/sw.js`);
+    const wb = new Workbox(`./js/workers/sw.js`);
 
     wb.addEventListener("activated", (event) => {
       // `event.isUpdate` will be true if another version of the service

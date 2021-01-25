@@ -7,7 +7,7 @@ import {
   uint8ArrayToString,
 } from "./workers/ipfs/dist/ipfs.client.js";
 
-let workerSrc = `./src/workers/ipfsWorker.js`;
+let workerSrc = `./js/workers/ipfsWorker.js`;
 
 /** @type {MessagePort} */
 let port;

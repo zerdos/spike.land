@@ -10,8 +10,8 @@
 </head>
 <body>
   <script type="module">
-    import {run} from "./src/codeLoader.js"
-    import {workBox} from "./src/workBox.js"
+    import {run} from "./js/codeLoader.js"
+    import {workBox} from "./js/workBox.js"
     try{
       workBox().then(()=>run("window", window));
     }catch(error){
