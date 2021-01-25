@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "f61ae1f9d10793f491c19af10e763f91113bf7cf426d7ac96191dc5201750c0c",
+    "7d7f483585282c243c45b6b59a920613d0a865e872e90c776dfbd1d3e8276a6e",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
@@ -46,218 +46,6 @@ export const shasums = {
     "62988dd8c0b632da4eada03ad7b41365903c96930e01417ac8aa0ec255293637",
   "node_legacy/validate.js":
     "5e1fd0815d1716f660416ab6152889f7bd8786db6bd35e6dc42e0be396aabce9",
-  "node_legacy/monaco-editor/min-maps/vs/base/worker/workerMain.js.map":
-    "49172f988d1a9dfdc4a878de54fe685755f44d870aa68ed28ee819ed0b1bebc5",
-  "node_legacy/monaco-editor/min-maps/vs/loader.js.map":
-    "206a2d588655b4a2a51a9ac61b038ef96aeeae1573e9a046c2cf511b70827f50",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.zh-cn.js.map":
-    "a3386676022969fdd8756760cb4e7e680b691799afe020ae22090377ce8c9f73",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.ru.js.map":
-    "2183c206b7c40c5ff9519dd475ce38cef00d57cfe5bf6e179eddf434dce924c0",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.ko.js.map":
-    "08bb66a95f395d6c282e7957ae55f7d428e85cd98a546c70a6e00cd85bd27b12",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.it.js.map":
-    "e49fc79d138109565e0b966fb07232bfa4376e98c9fcecf0a44e867a7623fbe5",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.js.map":
-    "d3a409950206ece7c07aa1cf8204db18a971203709f9359bf093b91e519107e7",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.de.js.map":
-    "11d8b0666b79ca3fcc86c22b6226ed07efb0cac89c112f63aab205f95f7fd781",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.zh-tw.js.map":
-    "ba321461053adb32e07c6f8d64ef3f0c29328140100a757519bdeedbc35bb0c0",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.fr.js.map":
-    "4c25a8f1fb9a80d41a8a1a7258ddbf3c202ff8bece6524c9206720d209d8da88",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.ja.js.map":
-    "cd6624fe27a583fe39b3cdfc7ec8df4ffceeb694aac3fc23ecb84c0223162133",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.js.map":
-    "5cbd0c19093c2d700434e748fff20e2cec88aa45c1a2d14a8f5f62dcc2acc71d",
-  "node_legacy/monaco-editor/min-maps/vs/editor/editor.main.nls.es.js.map":
-    "a7478afcc23edf26ea8088de94f058f08add7065dd10f20a0baef36071dad590",
-  "node_legacy/monaco-editor/monaco.d.ts":
-    "e830e57f7807fe4aff4bb8d7c5db7e6e73a53d5f7b12dada50422e1df6061fad",
-  "node_legacy/monaco-editor/min/vs/base/worker/workerMain.js":
-    "fc794f9f3826ff3267ea291f6f8a5319b4ab0176e9dc1a85196bbde45ee32746",
-  "node_legacy/monaco-editor/min/vs/base/browser/ui/codicons/codicon/codicon.ttf":
-    "873a366fdbeffc5edd5c30cd0a1f910763b0243e93fb375579397b48f2c0b610",
-  "node_legacy/monaco-editor/min/vs/basic-languages/vb/vb.js":
-    "df1d81f87007986c639dbe14e51817815340429e52dd6b918022e98f6fb8d942",
-  "node_legacy/monaco-editor/min/vs/basic-languages/clojure/clojure.js":
-    "47600ce83b5046f8ff1a43c7e345af3df079db302fd95c137b98a11ab025a3eb",
-  "node_legacy/monaco-editor/min/vs/basic-languages/rust/rust.js":
-    "8c760568bd27f8894de7aca2e666d62b4860a349c63f06cde1cf495dc10bfb6a",
-  "node_legacy/monaco-editor/min/vs/basic-languages/bat/bat.js":
-    "e505e83c8b157f4e84ca9fc07960302e56cdced8b228a28ed52a1da8e0fa99f0",
-  "node_legacy/monaco-editor/min/vs/basic-languages/less/less.js":
-    "499a37938d960092eb59167837782ddc59c470940033298fee55cc5e460d1520",
-  "node_legacy/monaco-editor/min/vs/basic-languages/markdown/markdown.js":
-    "75e29643cc3fbb4c3f0b4389d71836f9e3fde9f91e401f0b9a7556f15c7bc2f9",
-  "node_legacy/monaco-editor/min/vs/basic-languages/yaml/yaml.js":
-    "78a4eb4f71dd18009a6bbc0e5786ea90c5c091e575c74baf1327b1b83e22756f",
-  "node_legacy/monaco-editor/min/vs/basic-languages/perl/perl.js":
-    "a0a11eee4798114fd9c19f0c148dde4dd99a1df1fae313560ab7ea86f7c7998e",
-  "node_legacy/monaco-editor/min/vs/basic-languages/cpp/cpp.js":
-    "645b1f1a5c0e133fc7ae505e136eebafbdddfdbc98d7367abf74a7943b56b5a6",
-  "node_legacy/monaco-editor/min/vs/basic-languages/hcl/hcl.js":
-    "0c77bb978e5fe7fa3472eafe5e3590282cbeb0d2476cd1fbf5e466250a3744fe",
-  "node_legacy/monaco-editor/min/vs/basic-languages/swift/swift.js":
-    "aef523c7c687983f648bdbd837e0734578680f44864beee92f08a38a648345e8",
-  "node_legacy/monaco-editor/min/vs/basic-languages/javascript/javascript.js":
-    "e119e12df03a6373c97b752a4d3c0b981a7b3bb94a7afd2feaef4254a6d58122",
-  "node_legacy/monaco-editor/min/vs/basic-languages/razor/razor.js":
-    "10fea0686008e6fc166273d5186abb31b27505762080fa1247bd8b8c58904299",
-  "node_legacy/monaco-editor/min/vs/basic-languages/solidity/solidity.js":
-    "49ff9b0c920f7c602cb0f77d56b5fcc7350e38e6ab2a5bc78439ce5e6a7507ad",
-  "node_legacy/monaco-editor/min/vs/basic-languages/handlebars/handlebars.js":
-    "d2be1bdabff290c2876e56879e367f1f7093e563ee0232a4d348ea3c7a7beff4",
-  "node_legacy/monaco-editor/min/vs/basic-languages/dockerfile/dockerfile.js":
-    "618b3fae5122a796738dcd1a7ec144ca18a48eca3a1b0206b44d69838fc4f265",
-  "node_legacy/monaco-editor/min/vs/basic-languages/sophia/sophia.js":
-    "8d6c07a82f3457793d144f930a46ce04e36c60607681cea91878a2e354834233",
-  "node_legacy/monaco-editor/min/vs/basic-languages/scheme/scheme.js":
-    "a4f0c976b6b54e46d61b43d56f7cd1f2e63befe378409d6348ddbe1e838e559d",
-  "node_legacy/monaco-editor/min/vs/basic-languages/go/go.js":
-    "8ddd97f38a5fa4e6e1be277ca0426ccb1fc359a153c6024af4aef731cb6a0f97",
-  "node_legacy/monaco-editor/min/vs/basic-languages/powerquery/powerquery.js":
-    "27553c09f297ab42145ec146bba86bd38bcf0083f5cd3f1fd60dd3bda941712a",
-  "node_legacy/monaco-editor/min/vs/basic-languages/coffee/coffee.js":
-    "51f76353fc610df2c68d4d9a10dbb91653f33b2cfb94df6857cbed73a41189e0",
-  "node_legacy/monaco-editor/min/vs/basic-languages/azcli/azcli.js":
-    "4fe360fb8edb7fa57797ff9e5e44d0aca9373ccfe698f3ac02f637d83a40aeb5",
-  "node_legacy/monaco-editor/min/vs/basic-languages/sql/sql.js":
-    "3030ada2f9667f80be9677784ca03457cfead56e4a9ad86124a0c7896e992ac1",
-  "node_legacy/monaco-editor/min/vs/basic-languages/restructuredtext/restructuredtext.js":
-    "609532d251a6d9c5da5b0d9f743d7affe90b83a72805fd6cc21fa9fbad52acbe",
-  "node_legacy/monaco-editor/min/vs/basic-languages/ini/ini.js":
-    "d8280cb2539b5df38cfb21e94562eee560e69782bdedcdcd9d6cd311938c277c",
-  "node_legacy/monaco-editor/min/vs/basic-languages/ruby/ruby.js":
-    "ddd8fd501e16819f9478ca57c51a550af8652b97bcf39d291d2fca0d3b4f8c1f",
-  "node_legacy/monaco-editor/min/vs/basic-languages/mips/mips.js":
-    "f8eb5d4908cb2c081cc5c507b0b2bbe8c470b8dfc741ce532bc57e24021bc273",
-  "node_legacy/monaco-editor/min/vs/basic-languages/pug/pug.js":
-    "f626d2bec22dc9c3359e5dbc5367293d9b5e94ce27340a409edd92f34c29e00c",
-  "node_legacy/monaco-editor/min/vs/basic-languages/scss/scss.js":
-    "cef957f54cf2c9a02627c41c4e0906fa07072224880d2f18ba1f50dd09740fd4",
-  "node_legacy/monaco-editor/min/vs/basic-languages/tcl/tcl.js":
-    "d4cc30b3c4b03e5711259ae2a9ea57a2e19c7e19fd398d4775f5153f8bf59581",
-  "node_legacy/monaco-editor/min/vs/basic-languages/graphql/graphql.js":
-    "2b85cf1de95551baa8cead0c50e865c26b5721921b5a200100a8cbb16ea23463",
-  "node_legacy/monaco-editor/min/vs/basic-languages/html/html.js":
-    "9128bcccbd46afb1e61a68b5bac201adfe8ea97f05154289ccb9fea80959fb86",
-  "node_legacy/monaco-editor/min/vs/basic-languages/m3/m3.js":
-    "aa2c3d7ce061048cb210ac3646a5352a8bbb53a4bb78663197303895567bf448",
-  "node_legacy/monaco-editor/min/vs/basic-languages/st/st.js":
-    "9460b137ad554a689925d0189594df1a4eeff1368be541a3e2865027661933be",
-  "node_legacy/monaco-editor/min/vs/basic-languages/dart/dart.js":
-    "3a1226194d8e1f78004aafba0dfa37a8ee19fb70e5f9bc0f2d1a0a0c5d42a843",
-  "node_legacy/monaco-editor/min/vs/basic-languages/redshift/redshift.js":
-    "a29cfd24f38200b310527ab86fd146c956aa3080af9e700a46f5a521cd59a089",
-  "node_legacy/monaco-editor/min/vs/basic-languages/scala/scala.js":
-    "e7790641c81ad246ff4cf0339416ad622e5ba95dd0ca300de184f43cacf0d363",
-  "node_legacy/monaco-editor/min/vs/basic-languages/lexon/lexon.js":
-    "8e56ae905961ee43deb38af263682e9e09d14f432f0f6d90b2332b606afafe1a",
-  "node_legacy/monaco-editor/min/vs/basic-languages/mysql/mysql.js":
-    "c8eb3039c12b4807efb3fb0307c89fb01376b253ae8e20249e9a447f3b29c1ca",
-  "node_legacy/monaco-editor/min/vs/basic-languages/kotlin/kotlin.js":
-    "3071def20414d1ad2935e75b35f0a6391bc7ec13983c54410d4ab387b1b84d85",
-  "node_legacy/monaco-editor/min/vs/basic-languages/shell/shell.js":
-    "bf7100f0e54f7aacaa9afdbb69ee4a33140fc50981349b01357b40929673dc28",
-  "node_legacy/monaco-editor/min/vs/basic-languages/apex/apex.js":
-    "ae2ddad3eff641e900062bcc3f07d251ab8993a5b427b3bb8aafb0f5b8b60852",
-  "node_legacy/monaco-editor/min/vs/basic-languages/twig/twig.js":
-    "40e53fe7c26a50691ace05440fef848a6157324fb06c9ccaf5fddcb5e82abfa5",
-  "node_legacy/monaco-editor/min/vs/basic-languages/php/php.js":
-    "0656673aaed019ffd9cb6e73e8b0c5aa2dbe44c58783f7a2d988dde55848268f",
-  "node_legacy/monaco-editor/min/vs/basic-languages/xml/xml.js":
-    "bac72946b0e5940eb09f09991a997fd433e7edce529943052ad3e89f62a31753",
-  "node_legacy/monaco-editor/min/vs/basic-languages/fsharp/fsharp.js":
-    "7d6bc8ed5a3d8a4fbbd474f761a6fce369d515c55b8dbc02bca0ba58afe5a51b",
-  "node_legacy/monaco-editor/min/vs/basic-languages/ecl/ecl.js":
-    "01ecb175af26597ca869e24b2052065d1988d09249f1228225eefb782737fa1e",
-  "node_legacy/monaco-editor/min/vs/basic-languages/r/r.js":
-    "04fc0ca321937c1e7e6f3c794100fbd84df430e96bb4db607776014d16f6dd3f",
-  "node_legacy/monaco-editor/min/vs/basic-languages/css/css.js":
-    "9e3b06dfe35c061d166801198eb5354dcbbdcce78cc16301ad575040dfac2cf0",
-  "node_legacy/monaco-editor/min/vs/basic-languages/sb/sb.js":
-    "94486161c92e82bb1cb2c82422712d45367803b10758cad3c4d8be3d5581133b",
-  "node_legacy/monaco-editor/min/vs/basic-languages/lua/lua.js":
-    "e21825af0ffa94e593b7589eb5c6b0407a767eeb8b6781d3c82e0ab661c017e7",
-  "node_legacy/monaco-editor/min/vs/basic-languages/objective-c/objective-c.js":
-    "f281cf6726a4d02ba3e0310c5192a0c746db4bc8b04005b3b36c1e29049cc832",
-  "node_legacy/monaco-editor/min/vs/basic-languages/postiats/postiats.js":
-    "75c47568690d7454c2c24a9415ce3d9a373817a1abafc86777d2195893fcf6a0",
-  "node_legacy/monaco-editor/min/vs/basic-languages/java/java.js":
-    "567a2f06d8647adc85dfd22d3044d04d9cfd8d0f8eeaa63087778b3ab5690a51",
-  "node_legacy/monaco-editor/min/vs/basic-languages/redis/redis.js":
-    "d661c391c0320b5eeddd631705e75d21b7a79b74612695f102f144f6a5ab6ebb",
-  "node_legacy/monaco-editor/min/vs/basic-languages/python/python.js":
-    "e176340d692a17d287895532b834c76f48321debca2a2f37a5743215f19e35d0",
-  "node_legacy/monaco-editor/min/vs/basic-languages/typescript/typescript.js":
-    "37fcbfb2a6626c24acc85c4507963da1d9937e9cf7099ea6acbff69e5c288670",
-  "node_legacy/monaco-editor/min/vs/basic-languages/pascal/pascal.js":
-    "28825d57955601503bbe8bd9a18a8dcb57d434256a1773970663874b95f994b6",
-  "node_legacy/monaco-editor/min/vs/basic-languages/pgsql/pgsql.js":
-    "618fb2336ff21f6035920c4096d1d61cf8109557b31a3f2a19349095130aaed9",
-  "node_legacy/monaco-editor/min/vs/basic-languages/powershell/powershell.js":
-    "6cb596e771475697eff0bb784d6cf2ec4fc0496fd0d3e0d3e1cd19ad569fd3b6",
-  "node_legacy/monaco-editor/min/vs/basic-languages/cameligo/cameligo.js":
-    "144202d43040d3a1310e8264391b672897e4998b21ab0c5c2936cd51c5a8ef79",
-  "node_legacy/monaco-editor/min/vs/basic-languages/csp/csp.js":
-    "9a9b050b00c3725b5d6258a2e1c1b40b1fcfce93e3b00996efaa0f517f4957bf",
-  "node_legacy/monaco-editor/min/vs/basic-languages/abap/abap.js":
-    "ec8dcbed9b6e46e7261d348ea3a3f609126be4ccfec45c995f13c05d8a7eb337",
-  "node_legacy/monaco-editor/min/vs/basic-languages/msdax/msdax.js":
-    "178311ec1e1e0c2c6035e2f128ed405c59832ba01432421ef36515ad20bec34a",
-  "node_legacy/monaco-editor/min/vs/basic-languages/pascaligo/pascaligo.js":
-    "1b0d59a3e34e7f71f4f3c4767918192029b22c52d4e4819c51651eb7bfb0e09c",
-  "node_legacy/monaco-editor/min/vs/basic-languages/julia/julia.js":
-    "7387839d63f14d0084ba384d479f8022b9fe96c285e92e0c2fa15248816382a4",
-  "node_legacy/monaco-editor/min/vs/basic-languages/systemverilog/systemverilog.js":
-    "a91ac349915529333c34fd8b497984c3fcf8ab57599c4f66848430954c7111bc",
-  "node_legacy/monaco-editor/min/vs/basic-languages/csharp/csharp.js":
-    "c6876eb6cb5e8c2500c069b59423bb3e197dd80749109968469de7b603c21ee5",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.de.js":
-    "af0e5d554fd86713dd041f07995cb81a0bd32ac46e3269c0e050879f93049c78",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.es.js":
-    "d9b7d020a4b8d92a6f8c822dac21fb438c9064bbf07162f66039d239e36bef10",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.ja.js":
-    "0eabbed4ea1853e167b26b223503494fd471efb0aaeda59bbdc057ba2eb56cc4",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.js":
-    "fc28069c1250c710ce0cfd2d4885b02d5629199836a205e15c2716f0fa8d821f",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.zh-cn.js":
-    "9475638ee1dc8f4fcf98acdbe50ab95c0e76ad03f688ab112f9eee9f50b23f13",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.ko.js":
-    "80e3f8ba55172fe3c22a71f6b09c4a27a8d4464f6bd62e9c12ae6a59c3e17039",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.zh-tw.js":
-    "ae404e26e49c91c09096063a0c9ee29da946250f9035d7f461eb21e239a2504e",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.js":
-    "c69cef1d13356eafe1ca41501325f9f4da8c54a981807ed536527b6aadea727c",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.fr.js":
-    "68801dd5830632a461825f8e919f8f06bd975d11bc76276fbc5b877779ec5c0e",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.ru.js":
-    "a8ed807235d0b1ea4a3b183967c38c8a47ec35d050f613069978580355bc6823",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.nls.it.js":
-    "e14301d4a69a0b26a84bd1d803e8bf07e0e64ce782b80b0555277c0701d8ee8c",
-  "node_legacy/monaco-editor/min/vs/editor/editor.main.css":
-    "0961a4dbd10fa99f53b11c8bd0b10ecf53c806636847977c883a89d2f4a33151",
-  "node_legacy/monaco-editor/min/vs/loader.js":
-    "a170b9d41b7f565c146d6058d16d539bd47ac862afb243679c4760fd23b5afdf",
-  "node_legacy/monaco-editor/min/vs/language/html/htmlMode.js":
-    "0f7500a8827350c50fde6e915df9f2585a5fcaa744158f18804e0e72fc483bc4",
-  "node_legacy/monaco-editor/min/vs/language/html/htmlWorker.js":
-    "52543e8b99a145d61cc19b86d1af719e4770846220973f1eb575a6f6952debb8",
-  "node_legacy/monaco-editor/min/vs/language/css/cssWorker.js":
-    "08216cafecaa3adc460a8614b2f989f3c60137296ade7e855541c2b0cfea8cd0",
-  "node_legacy/monaco-editor/min/vs/language/css/cssMode.js":
-    "3cb585e9135f4f8c1a665200288f00ae3e0b04849d3bcff187f9a0c1a7e3f5ca",
-  "node_legacy/monaco-editor/min/vs/language/typescript/tsMode.js":
-    "adf050ba88445aaab98357608ce08c054c265cd6f50da09f745d632b210344c7",
-  "node_legacy/monaco-editor/min/vs/language/typescript/tsWorker.js":
-    "ff52499dc8d652f891a46ce26f4dac16e82c8d8d8546eace0c35f1702e451fd4",
-  "node_legacy/monaco-editor/min/vs/language/json/jsonMode.js":
-    "6843815aadd3172f0018e7d20d6266807ff214b07b82658d44dd7d759994f7e4",
-  "node_legacy/monaco-editor/min/vs/language/json/jsonWorker.js":
-    "f463b720c5c507d259a0d46aba6128ec8552b3c5c08398783f92d0b1cb3470bd",
-  "node_legacy/monaco-editor/package.json":
-    "d997f3e9934a4c747416d22aca7c9e3eb1fee2aee2ae6ae8a99818743201adcd",
   "node_legacy/regex.js":
     "588085eac134e133ca4e3186299ab663ee479c4ceb7e7c43abaadbb17056e2d4",
   "node_legacy/simple-window-manager.es.js":
@@ -483,7 +271,7 @@ export const shasums = {
   "src/smart-monaco-editor/package.json":
     "bd14fe8f7151f312c18f6ad7edf9862f07dcbdee64ea4143526e5e4713867006",
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
-    "54aaf594a9a3f9ff680891a87a378de69ed5c55d5a0ee93dd87c66c034043e06",
+    "33d38007a7f941ef7a50afddfc78ef65e9704fa3998daa61829eecbc0c78c9f0",
   "src/smart-monaco-editor/favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "src/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types/index.d.ts":
@@ -529,7 +317,7 @@ export const shasums = {
   "src/smart-monaco-editor/tsconfig.json":
     "15f4a12913cc682803bda260f5e975cc8f0fd605f2af043d557feb206ab2a64f",
   "src/smart-monaco-editor/src/monaco.js":
-    "a1bf9049edc149ed1edfb78efa7046148d75b564362e21244f4f7b08d408b3f4",
+    "cb7cabfd55ee65493e5ee4c6252c6f06127d7717bdf2235da66b6ab009f2e7cc",
   "src/smart-monaco-editor/src/editor.d.ts":
     "bf48f0b5d56228afec9f56af6915ff59f7bbac9cfece964102d1f32732616351",
   "src/smart-monaco-editor/src/monaco.d.ts":
@@ -544,18 +332,18 @@ export const shasums = {
     "d2472af600e6265d504721e1cf41b6ebb4228944a515d9dc7312c0a1e6cef4c5",
   "src/smart-monaco-editor/LICENSE.md":
     "15855dde524dbbb3ffb666ccc87de4dc8a4b2f22840128fc0e65abb0ded8a77f",
+  "src/smart-monaco-editor/dist/scripts/screenshots.js":
+    "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
+  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
+    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+  "src/smart-monaco-editor/dist/monaco.js":
+    "757262e88e3913bad9046380b303ca7302e1059c5993c8efbe7008b6528e7bd3",
+  "src/smart-monaco-editor/dist/editor.js":
+    "e8dd2647299bd5811e6c9ae9ec8da3d943ad53146ed1487ccd5b2af691e76d73",
   "src/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "src/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-  "src/smart-monaco-editor/dist/editor.js":
-    "e8dd2647299bd5811e6c9ae9ec8da3d943ad53146ed1487ccd5b2af691e76d73",
-  "src/smart-monaco-editor/dist/monaco.js":
-    "5e0258ef425bc23888eb413c71963f531dbb51f021f9ffc820576dab13c7a9e0",
-  "src/smart-monaco-editor/dist/scripts/screenshots.d.ts":
-    "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-  "src/smart-monaco-editor/dist/scripts/screenshots.js":
-    "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
   "src/workBox.js":
     "c29f28a9ee5bf0857b49fc9c138cbd25bdc0d1e995b03d15c83cf62f9649c1bf",
   "src/starterTsx.tsx":
@@ -595,7 +383,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "77b36bf28d0a0832a91f55f930300e48997152bac27732b1a087b935b5c61966",
+    "e5543136fc7d42579d251993d95fb3e7feeef0e6808cae0d2ef3323589452795",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
