@@ -17,14 +17,14 @@ self.workbox.setConfig({
   
 self.workbox.loadModule("workbox-precaching");
 
-const { files } = globalThis;
-
 fetch(`/ipfs/${currentCid}/js/workers/files.umd.js`).then(x=>x.text()).then(source => {
     new Function(source)();
     console.log(globalThis);
     }
 
 )
+
+const {files} = globalThis;
 
 const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] }));
 
