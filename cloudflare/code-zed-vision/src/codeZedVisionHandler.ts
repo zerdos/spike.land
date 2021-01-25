@@ -79,7 +79,11 @@ async function handleRequest(request: Request) {
         return text("Error, 404");
       }
 
-      const contentToSave = await response.clone().text();
+      const contentToSave = await response.clone().arrayBuffer();
+      if (sha) {
+        const check = await sha256(contentToSave);
+        if (check !== sha) return text(":(");
+      }
       await IPFSKV.put(customCID, contentToSave);
     }
 
