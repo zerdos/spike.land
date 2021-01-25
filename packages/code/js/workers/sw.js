@@ -2,6 +2,12 @@ self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/wo
 self.importScripts("https://code.zed.vision/ipfs.js");
 
 const {workbox} = self;
+
+workbox.setConfig({
+    debug: true,
+  });
+
+  
 workbox.loadModule("workbox-precaching");
 
 const { files, cid, reverseMap } = globalThis;
