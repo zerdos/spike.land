@@ -128,6 +128,10 @@ export const shasums = {
     "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
   "js/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
+  "js/emotion-react-renderer/dist/renderer.js":
+    "278a1356ce44fb0817e7ee03392f0a099b80d115e122425110eab0b29a185926",
+  "js/emotion-react-renderer/dist/DraggableWindow.js":
+    "ebe09cd344aaad120a6f23f042abc63bd6b23d95f434e83694b3d4b4e00fdb3b",
   "js/emotion-react-renderer/package.json":
     "d51411dadae799f46660633031acc3d2c097263ef9d60db1cfb1ed3cb01ac557",
   "js/emotion-react-renderer/tsconfig.json":
@@ -147,7 +151,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/files.umd.js":
-    "25aa9fee71fca1cbca1b5bd88b1ba35738270a5f321fed4578e2bd52f979bdd7",
+    "8284803b945bec88b017879e85bd69eaf153edb8c68d5d0463d788be0236195b",
   "js/workers/ipfs/package.json":
     "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
   "js/workers/ipfs/.gitignore":

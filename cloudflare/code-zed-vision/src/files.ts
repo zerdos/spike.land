@@ -21,6 +21,10 @@ export const files = {
   "js/codeLoader.js": "QmUXsWzdjDNyodpZWT7qq4ASdtSp9Q1LRpjtSQeyMiQHDt",
   "js/data.js": "QmRKJPktSjMy6qREy5yZPwHgMtFJgDvKSDR6g54UwEPmFf",
   "js/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
+  "js/emotion-react-renderer/dist/DraggableWindow.js":
+    "QmZhh4sxJ4vwxnamCH8aKBwM3QvgHJNn1vFosBmqmG7zPr",
+  "js/emotion-react-renderer/dist/renderer.js":
+    "QmRAXorK5TCJbj76XM1W6PJijPRfUvsNZZpaZVwXhdfPXn",
   "js/emotion-react-renderer/package.json":
     "QmSwM3YFeheYdXAShsie5ZpkosTQrw58aAMorJKGb82Td2",
   "js/emotion-react-renderer/src/DraggableWindow.tsx":
@@ -405,9 +409,11 @@ export const files = {
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "assets": "QmT4bGu3g4GDyEk5sMdjDwogQkuRfiv4Rq75Kuo6SpgaPa",
+  "js/emotion-react-renderer/dist":
+    "QmPEexfAf4hdGgb7oa5P2WqF9U4o682RhxEAcJeq53DRLD",
   "js/emotion-react-renderer/src":
     "Qmb8CgdT9fYQGmqzDhTrt3hZ5JhkaUFmYQHRTYrqCxx8kn",
-  "js/emotion-react-renderer": "QmV26GwZNNXMLpBYUgYUPPH8Qb7ebXE19zhcxqHKfzc8Zc",
+  "js/emotion-react-renderer": "QmeYizutpiCU3b3tXXW5FkCRSPe7zyUgbLFe1Z7wxE6t5F",
   "js/examples": "QmasbQ63fdpt8XKSug4SkL8u4oQMWuaVd7xob5f8dfXDqM",
   "js/qrious/dist": "QmQeLhgtbob32M7FbtGELAfqLDgzq4LqasUpN2kUp6vGVa",
   "js/qrious/src/service/element":
@@ -478,7 +484,7 @@ export const files = {
   "js/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "js/workers/ipfs": "QmQVYgddBKDCUQwbJw4opc7UAbgyrJqsLybm6fha6hZ7Mq",
   "js/workers": "QmTNYoHP3aLJLaKEYf8fEksKuDAxXxmnY71JemkWD9Pwvt",
-  "js": "QmPQqBdyx86bD7GSWEtyD3B2bSSrrmUBfoyQc3my4zAuNU",
+  "js": "QmbUcjxKvNXs4DT1q7VBjFqRHKaSBavk9W6DAYMeJyctRi",
   "node_legacy/@babel/standalone/test":
     "QmWWWLKmada8efNn6Q3dkck2vCC6uCEcMarW1DuKTpp17o",
   "node_legacy/@babel/standalone":
@@ -514,6 +520,6 @@ export const files = {
   "node_legacy/ipfs-message-port-server":
     "QmW3RctEn78UZUsdffPNVMWxEsLmwCDDCWs4AexqUZMkC5",
   "node_legacy": "QmcxR8fYKp4pKSbYcyUPiyFC4y3RVndtHnS4S3kEhiGBsr",
-  "": "QmbQ66pzBDJMxAZx3ToAu9Yce2YDvboRaPNwuZYMu826Yu",
+  "": "QmZfPBYZTVa2aHvaiZA82hdqr34cMvJVmJY5tkTsBuiwnG",
   "foo": "bar",
 };
