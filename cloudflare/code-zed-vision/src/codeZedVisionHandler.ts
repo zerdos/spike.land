@@ -83,7 +83,7 @@ async function handleRequest(request: Request) {
       const contentToSave = await response.clone().arrayBuffer();
       if (sha) {
         const check = await sha256(contentToSave);
-        if (check !== sha) return text(":(");
+        if (check !== sha) return text(`path :${reversePath}, sha: ${sha}`);
       }
       await IPFS.put(customCID, contentToSave);
     }
