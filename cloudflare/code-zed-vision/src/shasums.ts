@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "11d44c0a67e960f6c1023e98c8e98b3bc4eea187645a815d5ae6066d5843ad0f",
+    "d704aec870709ad0c22fcde6525a8f006f45cebd19412c9fac230bac393355af",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
