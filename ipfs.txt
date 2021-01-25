@@ -111,7 +111,7 @@ added QmdcUyYNDxR9fKZ6jfuRa6Uzb8vS6BJWiAGaQfUjpoVjrW code/js/workers/ipfs/src/ip
 added QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo code/js/workers/ipfs/src/ref.d.ts
 added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/js/workers/ipfs/tsconfig.json
 added QmaxWHcdZkGZUmftuYPDSXZqKFEtQymzmufhMF2pHi8ZzA code/js/workers/ipfsWorker.js
-added QmdCPPzXfKjEQ1x1foTyYmu2yxuDoPcFbLcvynFewoq2TH code/js/workers/sw.js
+added QmajZdnNTWuhxyo8ogdBiidLaJAmQhdVKUo8SocMfR3gwZ code/js/workers/sw.js
 added Qmbnvi6VfhtYvSwrBVaVrGCmqmZuGs7ZbErVFEJqVfSLwT code/js/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/js/workers/tsconfig.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
@@ -274,8 +274,8 @@ added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/js/workers/ipfs/dist
 added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/js/workers/ipfs/node_legacy
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/js/workers/ipfs/src
 added QmQVYgddBKDCUQwbJw4opc7UAbgyrJqsLybm6fha6hZ7Mq code/js/workers/ipfs
-added QmYEGTBeZUzf1QzDbm2wJJpjTNjbiXHp6VRKHbkd4q5Hmq code/js/workers
-added QmRBSHxhLmsc89pSq2mPpk4WHkFkuUyEHRztBJJ6ZAko6P code/js
+added Qmexqn9w6UjKrCpwpAAUEwd9nMxryJpRYs9vjCSuQPeKMr code/js/workers
+added QmQUtSHgBeV8vpDkUZtgu5pw6Es7muUJVULTf2MAxx1vJ8 code/js
 added QmWWWLKmada8efNn6Q3dkck2vCC6uCEcMarW1DuKTpp17o code/node_legacy/@babel/standalone/test
 added QmQy3Bma1iBoLnQqsPDoEoooBbMRA17uwTPvhqP82KtxVa code/node_legacy/@babel/standalone
 added QmdtRfBeZw1CytNk7aYZLZXDChmridNt6UKzqLShm5o6G5 code/node_legacy/@babel
@@ -295,4 +295,4 @@ added QmPkR6pt39uVMWdUWyXi1ED5GaP86eZBqwe7vj1YRHRQte code/node_legacy/ipfs-messa
 added QmWLL769pVAv36kRuYHF62XnTnoogCwXCCi6WRYH28BG3M code/node_legacy/ipfs-message-port-server/src
 added QmW3RctEn78UZUsdffPNVMWxEsLmwCDDCWs4AexqUZMkC5 code/node_legacy/ipfs-message-port-server
 added QmcxR8fYKp4pKSbYcyUPiyFC4y3RVndtHnS4S3kEhiGBsr code/node_legacy
-added QmfVuj81CUxnGDecKa6fL6areNnACuQ1FwyRat8WbG6HMU code
+added QmRjADT3Dh6jmyzrbtkurWjF34J2gVBKMKKKMtfbbLKJkL code
