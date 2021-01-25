@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "c17094242fedaaa7528a3a5e0378b2e8523ddc3ec073671e998b375bbb22f87a",
+    "83124052c375f424694df141edf8c0569243ccb0a730c8edbec1f7c192cfaafa",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
@@ -151,7 +151,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/files.umd.js":
-    "373044afbc3d5b1ad54ee4ccc8eacf396ec6f6f023e83a736f2318ab5c0869df",
+    "1ee6901a94c3b5590d6c89b05360701145cef5543b33a5dca56507671179363c",
   "js/workers/ipfs/package.json":
     "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
   "js/workers/ipfs/.gitignore":
@@ -187,7 +187,7 @@ export const shasums = {
   "js/workers/ipfs/src/ipfs.server.ts":
     "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "js/workers/sw.js":
-    "24e10c1d8e8113ba562bd6b963997609348d3b1d2ea6cde5fd9275cc3aeb543e",
+    "f66a7c9930f164301c219cced111b828e0801174f3d89fd416bcbc8d1e88d835",
   "js/workers/ipfsWorker.js":
     "5c542de2dcb6fafbfbf2b1f786a0cff8e20865125eb39e548121c827c00b0b2f",
   "js/workers/transpile.worker.js":

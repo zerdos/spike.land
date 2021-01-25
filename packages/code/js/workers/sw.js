@@ -10,9 +10,6 @@ if (pathname.indexOf("/ipfs/") !== -1) {
     currentCid = pathname.slice(6, 52);
 }
 
-
-
-
 self.workbox.setConfig({
     debug: true,
   });
@@ -25,7 +22,7 @@ const { files } = globalThis;
 fetch(`/ipfs/${currentCid}/js/workers/files.umd.js`).then(x=>x.text()).then(source => {
     new Function(source)();
     console.log(globalThis);
-}
+    }
 
 )
 
@@ -39,6 +36,11 @@ self.workbox.precaching.precacheAndRoute(
             return [url]
         }
     }
+
+);
+self.workbox.precaching.cleanupOutdatedCaches();
+
+
     // {
     //     urlManipulation: ({ url }) => {
 
@@ -61,5 +63,3 @@ self.workbox.precaching.precacheAndRoute(
     //         return urls;
     //     }
     // }
-)
-self.workbox.precaching.cleanupOutdatedCaches()
