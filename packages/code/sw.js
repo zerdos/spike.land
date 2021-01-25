@@ -17,6 +17,9 @@ self.workbox.setConfig({
 
 
 self.workbox.loadModule("workbox-precaching");
+self.workbox.loadModule("workbox-strategies");
+self.workbox.loadModule("workbox-cacheable-response");
+
 
 
 const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: `/${x}`, revision: files[x] }));
@@ -48,3 +51,19 @@ else {
 
     )
 }
+
+
+self.workbox.routing.registerRoute(
+  ({url}) => url.origin.indexOf('zed.vision') ===-1,
+  new self.workbox.routing.CacheFirst({
+    cacheName: 'cdn-cache',
+    plugins: [
+      new self.workbox.cacheableResponse.CacheableResponsePlugin({
+        statuses: [200, 404],
+        headers: {
+          'X-Is-Cacheable': 'true',
+        },
+      })
+    ]
+  })
+);
