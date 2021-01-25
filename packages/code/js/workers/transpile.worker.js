@@ -6,10 +6,6 @@ self.importScripts(
   "https://unpkg.com/@babel/standalone@7.12.12/babel.min.js",
 );
 
-self.importScripts("https://code.zed.vision/cid.umd.js");
-
-
-const {cid}  = globalThis;
 const {Comlink, Babel} = self;
 
 
@@ -64,9 +60,17 @@ const transform = (code) => {
 
     // console.log(safeCode);
 
+
+    let rendererSrc = `/js/emotion-react-renderer/dist/renderer.js`;
+
+if (self.location.pathname.indexOf("/ipfs/") !== -1) {
+  const cid = self.location.slice(6, 52);
+  rendererSrc =  `/ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
+}
+
     const transformed = Babel.transform(
       `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "https://code.zed.vision/ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js";
+      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "${rendererSrc}";
       
       ` + safeCode + `
       

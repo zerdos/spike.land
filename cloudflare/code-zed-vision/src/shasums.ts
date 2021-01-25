@@ -150,7 +150,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/shaSums.json":
-    "4f7359a4cf0bb233b511a8af5871d93bfeb3295318624651b9052640e1bf2daa",
+    "97ad5c54b897d6837bcbf6cad05ad684597f3e9e85b1e24e17170708a4c6e30f",
   "js/workers/ipfs/package.json":
     "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
   "js/workers/ipfs/.gitignore":
@@ -188,11 +188,11 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "5c542de2dcb6fafbfbf2b1f786a0cff8e20865125eb39e548121c827c00b0b2f",
   "js/workers/transpile.worker.js":
-    "c348c5177f4dc69778459ddecc5ad8ec222a60daa312f9cd42e1c61448db2bd5",
+    "b526bd13db31ef01a06c9d3f62e8c8f0b19e92f3b2a4ae711ddd758958717454",
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "1e454aed6033c69b402248245558851cb65e1d800ab3f14104a3e3694a1385af",
+    "f3c7317aa1e0d34a2d0c3c22c176154a8b72273f0852ac026a46518bd0c9356d",
   "js/hash.js":
     "9344c3462e55e797fe5c32bb925ed262ab945ad6c99bd7e5268ece34667f3327",
   "js/importScript.js":
