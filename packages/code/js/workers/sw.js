@@ -14,7 +14,13 @@ const { files } = globalThis;
 const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] }));
 
 self.workbox.precaching.precacheAndRoute(
-    routes
+    routes, {
+        urlManipulation: ({url})=>{
+            const {pathname} = url;
+            if (pathname === "/") url.pathname = "index.html";
+            return [url]
+        }
+    }
     // {
     //     urlManipulation: ({ url }) => {
 
@@ -38,3 +44,4 @@ self.workbox.precaching.precacheAndRoute(
     //     }
     // }
 )
+self.workbox.precaching.cleanupOutdatedCaches()
