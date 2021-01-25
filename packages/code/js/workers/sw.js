@@ -18,8 +18,9 @@ self.workbox.setConfig({
 self.workbox.loadModule("workbox-precaching");
 
 fetch(`/ipfs/${currentCid}/js/workers/shaSums.json`).then(x => x.json()).then(files => {
-    const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] }));
+    const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: "/"+x, revision: files[x] }));
 
+    console.log(routes);
     self.workbox.precaching.precacheAndRoute(
         routes, {
         urlManipulation: ({ url }) => {
