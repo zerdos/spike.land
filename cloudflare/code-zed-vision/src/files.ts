@@ -154,7 +154,7 @@ export const files = {
   "js/templates.js": "QmTuqg1hZd4kUvZtK6CzsYGvkBuVnmcmxr2MKHyCmpibXM",
   "js/transpile.js": "QmQym7S7gTrvapZAgm9M1DZC1uX3vvDg4mvjQ8tJ39UemW",
   "js/workBox.js": "QmPW5HfyHgQDTxxrfTYkTHQUEC8BGcRm8wRd72fiW7UcuD",
-  "js/workers/fileCids.json": "QmSDsiAcmW3Rksq5ynjUUfjYsBUW261dfin28x7k6ZWN6r",
+  "js/workers/fileCids.json": "QmPnw825yc2jUHK6R8Ajm7d5vewqixZcoa8n78dSWyDJae",
   "js/workers/ipfs/README.md": "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "js/workers/ipfs/dist/gateways.d.ts":
     "QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk",
@@ -185,8 +185,8 @@ export const files = {
   "js/workers/ipfs/tsconfig.json":
     "QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg",
   "js/workers/ipfsWorker.js": "QmaxWHcdZkGZUmftuYPDSXZqKFEtQymzmufhMF2pHi8ZzA",
-  "js/workers/shaSums.json": "Qma78inVxfj84QRa1QomsBfnR4GV5M36QkTExSGSeJiTaD",
-  "js/workers/sw.js": "QmZ6ZQFCEsBpduWet6cG9mScBJsSaWNnkR8A7RNk65BvFt",
+  "js/workers/shaSums.json": "QmQikve7t3uy16owSxw3KgFDYwK7asqrSdAcfDes6Lh8mi",
+  "js/workers/sw.js": "QmcKKp5SKTozjxPYhrVDNYFXYqkwQxn5MDhJmJMrUXCT7x",
   "js/workers/transpile.worker.js":
     "QmeFNc6KQ5xjkycmxnMEf3S9RLk8b9VJes5ExhZiDWNmPG",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -473,8 +473,8 @@ export const files = {
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "js/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "js/workers/ipfs": "QmQVYgddBKDCUQwbJw4opc7UAbgyrJqsLybm6fha6hZ7Mq",
-  "js/workers": "QmSMmpEhzLVCh2fA3K46X1Uy1GBei13U2fLqazqW1MNdNu",
-  "js": "QmShht9TpgXCHn11GR2qmQxt68G9sZH4ABc2KxFkpqYama",
+  "js/workers": "QmZrgo2wm9sv25SRyVEuCgFAjQkujA8DUorD5zNsNxF7i4",
+  "js": "Qmdmk4NMaVnmjBp6ZXaXRP51DqbSHER3d6gPTPRramsc8Y",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy/ipfs-message-port-client/dist/src/client":
     "QmQ3Td4DsTeRsvo6LFpwdh1SV5uAyr49pShjHrNY2muM2X",
@@ -505,6 +505,6 @@ export const files = {
   "node_legacy/ipfs-message-port-server":
     "QmW3RctEn78UZUsdffPNVMWxEsLmwCDDCWs4AexqUZMkC5",
   "node_legacy": "QmWaLEd76ufXhgRk2MPiRjRd6hEpusR7wbXV3dU2JqDTcy",
-  "": "QmUfkrFpdr5rUfALmc9sfox6TrsoLGKag2JeyVwzooyxsJ",
+  "": "QmQm1aDa4fNmkBc52v7Y9juxHtYfVfLxJc4RgzncDRgxwk",
   "foo": "bar",
 };
