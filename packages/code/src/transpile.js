@@ -4,7 +4,7 @@ import { cid } from "https://code.zed.vision/cid.js";
 const { pathname } = window.location;
 let transpilerCid = cid;
 
-if (pathname.indexOf("/ipfs/")) {
+if (pathname.indexOf("/ipfs/") !== -1) {
   transpilerCid = pathname.slice(6, 52);
 }
 

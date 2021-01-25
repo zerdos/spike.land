@@ -265,7 +265,7 @@ export const shasums = {
   "src/ipfsClient.js":
     "2a59427f019efd1708b7c43afd01a8167300f4b36fb69922ca0777da1a7f4505",
   "src/transpile.js":
-    "f05a0dd663ef926c05632d17b3f8958a6d13bf35097409f504739c5b7a8baaa6",
+    "32bd6b337eb9202ded89e1a667b1a8981744640d91a86be379cbe6f8c7530cec",
   "src/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "src/smart-monaco-editor/package.json":
@@ -383,7 +383,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "6b9708eae100fb42573a0fd9fe093def283d8afbffced030c3c1f28609b4db11",
+    "60cc47f7beedcba6beb1b61c25c3a65bdb25884d86ab479b4520a4f2c74cae69",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":
