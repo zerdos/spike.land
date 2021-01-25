@@ -61,12 +61,12 @@ const transform = (code) => {
     // console.log(safeCode);
 
 
-    let rendererSrc = `/js/emotion-react-renderer/dist/renderer.js`;
+    let rendererSrc = `./emotion-react-renderer/dist/renderer.js`;
 
-if (self.location.pathname.indexOf("/ipfs/") !== -1) {
-  const cid = self.location.pathname.slice(6, 52);
-  rendererSrc =  `/ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
-}
+// if (self.location.pathname.indexOf("/ipfs/") !== -1) {
+//   const cid = self.location.pathname.slice(6, 52);
+//   rendererSrc =  `./ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
+// }
 
     const transformed = Babel.transform(
       `/** @jsx jsx */
