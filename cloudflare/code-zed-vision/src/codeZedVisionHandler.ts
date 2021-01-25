@@ -47,7 +47,15 @@ async function handleRequest(request: Request) {
       return await alterHeaders(response, reversePath);
     }
 
-    const content = await IPFSKV.get(pathname);
+    const content = await IPFSKV.get(customCID, "arrayBuffer");
+    if (content !== null && reverseMap[customCID]) {
+      const file = reverseMap[customCID];
+      const contentSHA = await sha256(content);
+      //@ts-ignore
+      if (shasums[file] === contentSHA) {
+        await IPFS.put(customCID, content);
+      }
+    }
 
     if (content) response = new Response(content);
     else {
