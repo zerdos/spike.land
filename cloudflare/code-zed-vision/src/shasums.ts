@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "21cd1523d7ddf7687fcdc4ed9750c74035baef25be5f7cbcc8cd40159a1102ea",
+    "85bc8706cdf3f6c090b3ea19011ba9388853a6164737334f1cd318e61ba938d8",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
@@ -151,7 +151,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/files.umd.js":
-    "7a7bfd04708f938b41f814581ce63a6d8e4aaddf4be16d7a1f4309dd1cac3502",
+    "ba840488ad037fa5709f86428d939d6c4dc115d234d6c8f9497b1122067681b6",
   "js/workers/ipfs/package.json":
     "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
   "js/workers/ipfs/.gitignore":
@@ -187,7 +187,7 @@ export const shasums = {
   "js/workers/ipfs/src/ipfs.server.ts":
     "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "js/workers/sw.js":
-    "49eff28cb64c3e82f962f98d570f93a5d6a4af6581b4e99a103f4823830391a8",
+    "42e8510a50528c4747f7f4ff3eb496d0b568b738ff3f47e3c8c8264c5de9c525",
   "js/workers/ipfsWorker.js":
     "5c542de2dcb6fafbfbf2b1f786a0cff8e20865125eb39e548121c827c00b0b2f",
   "js/workers/transpile.worker.js":
@@ -476,18 +476,6 @@ export const shasums = {
     "ae961b11f46fcf22eb5bd9091040cc9dd93247ca44e0bcd157dc3bb4787f2730",
   "node_legacy/v4.js":
     "20ec0b2fe1ac4fe061ae8804f15f2e110d782f29709f8d2d55dc966b81f4fd13",
-  "node_legacy/@babel/standalone/package.json":
-    "481bcd70f0473e5c74e855d40ee7c24ee1b1aa79df366d38cc363a4fb18d61b4",
-  "node_legacy/@babel/standalone/test/babel.js":
-    "2c6a4c6f92b83aee53838b8ca1677f868a0eb212fce9ab51c4434fc3a0033a20",
-  "node_legacy/@babel/standalone/README.md":
-    "5fd7f2dda9284b80ef1195e9559602b015b7ae818e9ec4d4142152143bfba609",
-  "node_legacy/@babel/standalone/LICENSE":
-    "117da2af0d4ce0fe1c8e19b5cff9dcd806adf973d328d27b11d4448c4ff24f76",
-  "node_legacy/@babel/standalone/babel.js":
-    "6101503b39529102bbd715b36fd4b0632760509298b5b6d19ae448d888983cba",
-  "node_legacy/@babel/standalone/babel.min.js":
-    "fde920ff6f23aa6188b4266fa1a13786e22f78880646420d7b3643596ad889c4",
   "tsconfig.json":
     "b691ec70b6c06803686429c72962e70dacc6a23070ff01813d76ca22284bbc21",
   "foo": "bar",
