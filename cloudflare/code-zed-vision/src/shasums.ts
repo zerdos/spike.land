@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "36ecd3e2ecf2582a90271d62a110c9b56b4708595d381abe490e7b9c2de2c1ea",
+    "11d44c0a67e960f6c1023e98c8e98b3bc4eea187645a815d5ae6066d5843ad0f",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
@@ -117,7 +117,7 @@ export const shasums = {
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/data.js":
-    "3103d1d0693d60c694d8d8641c25f284cfc0b6f44d6cfedc0f084e82190cdda6",
+    "c2878cfa5da45d81be5db20842e9d070e50d687a654c2285093959c2adf0364f",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/examples/starterNoFramerMotion.js":
@@ -151,7 +151,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/files.umd.js":
-    "e114195b5c469e26791e55fc873845c08caf002f5fb30e66bef6e02387bacfab",
+    "1b9059f88d872b519faaeeabea18c42ebff923ddc9e2d4bc18af5813032c8599",
   "js/workers/ipfs/package.json":
     "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
   "js/workers/ipfs/.gitignore":
