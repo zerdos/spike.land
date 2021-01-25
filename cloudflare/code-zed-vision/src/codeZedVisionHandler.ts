@@ -60,7 +60,7 @@ async function handleRequest(request: Request) {
       if (response) return await alterHeaders(response, reversePath);
     }
 
-    let content = await IPFS.get(customCID);
+    let content = await IPFS.get(customCID, "arrayBuffer");
     if (content !== null && sha) {
       const file = reverseMap[customCID];
       const contentSHA = await sha256(content);
@@ -85,13 +85,15 @@ async function handleRequest(request: Request) {
       if (sha) {
         const check = await sha256(contentToSave);
         if (check !== sha) {
+          const textContent = new TextDecoder().decode(contentToSave);
+
           return text(`
         path: ${reversePath} 
         sha: ${sha}  
         sha-check: ${check}
         cid: /ipfs/${customCID}
         
-        content: ${contentToSave}
+        content: ${textContent}
         `);
         }
       }
