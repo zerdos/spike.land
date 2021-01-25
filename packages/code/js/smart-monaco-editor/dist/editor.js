@@ -137,7 +137,7 @@ export default async ({ onChange, code, language, container, options }) => {
                 url: "@zedvision/qrious@10.12.14/dist/qrious.d.ts",
             },
         ];
-        const dts = importHelper.map(({ name, url }) => (async () => modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(`./src/smart-monaco-editor/node_legacy/${url}`))
+        const dts = importHelper.map(({ name, url }) => (async () => modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(`./js/smart-monaco-editor/node_legacy/${url}`))
             .text(), name.includes("@")
             ? `file:///node_modules/${name}`
             : `file:///node_modules/@types/${name}/index.d.ts`))());

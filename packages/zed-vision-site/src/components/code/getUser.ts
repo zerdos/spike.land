@@ -1,11 +1,11 @@
 export const shaDB = {
   get: async (key: string, type: "string" | "json") => {
-    const { getDB } = await import(`@zedvision/shadb/dist/shaDB.js`);
+    const { getDB } = await import(`@zedvision/shadb/src/shaDB.js`);
     const db = await (await getDB("shaDB"))();
     return db.get(key, type);
   },
   put: async (key: string, value: string) => {
-    const { getDB } = await import(`@zedvision/shadb/dist/shaDB.js`);
+    const { getDB } = await import(`@zedvision/shadb/src/shaDB.js`);
 
     const db = await (await getDB("shaDB"))();
     return db.put(key, value);
