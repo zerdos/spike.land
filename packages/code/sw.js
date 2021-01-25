@@ -20,8 +20,6 @@ self.workbox.loadModule("workbox-precaching");
 self.workbox.loadModule("workbox-strategies");
 self.workbox.loadModule("workbox-cacheable-response");
 
-
-
 const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: `/${x}`, revision: files[x] }));
 
 if (cid === currentCid) {
