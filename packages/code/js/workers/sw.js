@@ -1,19 +1,19 @@
 self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
 self.importScripts('./files.umd.js')
 
-const {workbox} = self;
 
-workbox.setConfig({
+
+self.workbox.setConfig({
     debug: true,
   });
 
   
-workbox.loadModule("workbox-precaching");
+self.workbox.loadModule("workbox-precaching");
 
-const { files, cid, reverseMap } = globalThis;
+const { files } = globalThis;
 const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: x, revision: files[x] }));
 
-workbox.precaching.precacheAndRoute(
+self.workbox.precaching.precacheAndRoute(
     routes
     // {
     //     urlManipulation: ({ url }) => {
