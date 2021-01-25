@@ -63,7 +63,7 @@ async function handleRequest(request: Request) {
       const file = reverseMap[customCID];
       const contentSHA = await sha256(content);
       //@ts-ignore
-      if (shasums[file] === sha) {
+      if (shasums[file] === contentSHA) {
         await IPFS.put(customCID, content);
       } else {
         await IPFSKV.delete(customCID);
