@@ -20,7 +20,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
   if (pathname.indexOf("/ipfs/") !== -1) {
     cid = pathname.slice(6, 52);
   } else {
-    cid = (await import ("code.zed.vision/cid.js")).cid
+    cid = (await import ("https://code.zed.vision/cid.js")).cid
   }
   
 
