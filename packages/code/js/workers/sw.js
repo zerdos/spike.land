@@ -14,12 +14,12 @@ workbox.precaching.addRoute(
             const { pathname } = url;
             const urls = [];
 
-            if (pathname.indexOf("/ipfs/") === -1 && reverseMap[pathname]) {
+            if (pathname.slice(0,4)==="/sw/"){
+                urls.push(new URL("https://code.zed.vision/ipfs/"+cid+"/"+pathname.slice(5)))
+            }else if (pathname.indexOf("/ipfs/") === -1 && reverseMap[pathname]) {
                 urls.push(new URL("https://code.zed.vision/ipfs/" + reverseMap[pathname]))
                 urls.push(new URL("https://code.zed.vision/ipfs/" + cid + "/" + pathname));
-            }
-
-            if (pathname.indexOf("/ipfs/")) {
+            } else if (pathname.slice(0,6) === "/ipfs/") {
                 const start = pathname.indexOf("/ipfs/");
                 const reverseCID = pathname.slice(start + 6, start + 52);
         
