@@ -28,6 +28,7 @@ export function getHtml({ html, css }) {
 <title>${title}</title>
 <link rel="preload" href="./app.js" type="application/javascript" as="script" crossorigin>
 <link rel="icon" type="image/png" href="https://code.zed.vision/zed-icon-big.png" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="Generated with zed.vision">

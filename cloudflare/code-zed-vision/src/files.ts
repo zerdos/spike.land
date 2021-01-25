@@ -8,7 +8,6 @@ export const files = {
     "Qmd8qKxYJaKoiR9EsxgQqwkD5XBzayCHKwNJuhQuUF5ApJ",
   "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
     "QmRbTrHtUz6mKUsu7FFzfUBcr4VuoCt9TtpMnJG1P135bS",
-  "assets/normalize.min.css": "QmVaRzLwnw3Nnoq8KHNBSTun6m3v2WvVaUbRpukVpcGJUX",
   "assets/roboto.css": "QmafZGaL6TznhmwtJ78ggkm7phbCiuEVXcTxfLwbZG6PoT",
   "assets/social-media-computer-icons-share-icon-png":
     "QmcsMurTbnEVPqP42x15FiisSjQdXJ7vGGHhf279UtwPxE",
@@ -17,8 +16,7 @@ export const files = {
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "QmUUC2yVMVXEArgBwk3whFHbmoXXzVNX8SDp8SR4eoMXcg",
-  "index2.html": "QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd",
+  "index.html": "QmPV13Tx8SVioex9VMEaaDsJQ3fQemnQGhxKE23VfaZPyo",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "node_legacy/@babel/standalone/LICENSE":
@@ -613,7 +611,7 @@ export const files = {
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
     "QmVRjWvD8nZN41RX2Jx7CRMkAxxPupkgNgFHbEeYgDSUX3",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
-  "src/templates.js": "QmWSt41VoKvyHGZPBqQSMEJiMjVDU8HdbbefpgTtyFfEG3",
+  "src/templates.js": "QmTuqg1hZd4kUvZtK6CzsYGvkBuVnmcmxr2MKHyCmpibXM",
   "src/transpile.js": "QmYGwmxD1aJH2PiEJ22dRtio3qUniGjpWzwmdEngMEYmfe",
   "src/workBox.js": "QmNPf2EGKEnBtd5M3zDLPoNRWes2ofCJMhDAuXFYvRvPd9",
   "src/workers/ipfs/README.md":
@@ -656,7 +654,7 @@ export const files = {
   "tsconfig.json": "QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "assets": "QmcLAE4ZmMJ1GT977zHKnX7zzcwVRS25cYzFTTiA9hxtyd",
+  "assets": "QmT4bGu3g4GDyEk5sMdjDwogQkuRfiv4Rq75Kuo6SpgaPa",
   "node_legacy/@babel/standalone/test":
     "QmWWWLKmada8efNn6Q3dkck2vCC6uCEcMarW1DuKTpp17o",
   "node_legacy/@babel/standalone":
@@ -946,7 +944,7 @@ export const files = {
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
   "src/workers": "Qmctr777wXcejVVskSUKtjaKWoQFD3pA2hGNTkkUpWQ3W9",
-  "src": "QmS5ph6BiwcPtiGQbLwde7vA6Nmv8h9fdHujipJCVeiE9B",
-  "": "QmcWexdUgDGuyegQP6DnmAFSKBPuF2h3kz9NxztU41Tqaq",
+  "src": "QmZV3GLgCJPPVZG96C9XQzsujcijfnbX2uXumQJUkrJRbZ",
+  "": "QmUAf4G11MVpWGXdCqv8X5ThMxegMUkpjqpXKGax3dAKj6",
   "foo": "bar",
 };

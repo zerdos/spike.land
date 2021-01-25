@@ -1,6 +1,4 @@
 export const shasums = {
-  "assets/normalize.min.css":
-    "28fd65b09540b7463753db3b2e283a69a14b6a1422c59c3a9cedede1d2cb3cd7",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/triangle-geometry.png":
@@ -30,16 +28,14 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "543a0c514f49b9736a7fee56cb0c2a2aee5ac684c4391900ad8ab517592e57e2",
-  "index2.html":
-    "a4e7e11765c8212f6426d77ca1f222064839be9637e59ce85cad9431be906c97",
+    "a1d4ea113fc7146b677da444219b0161ba7fc88c120edab553dc8191524bddc6",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "index.html":
-    "6c320edd572b619b0c31d9b8b7e61539922854fa071b0edeb8d6976ba94a9841",
+    "a0bfb3097af95d11a13c7c092a6a408b38d99cb8c4ea62634ed094e493b6ec4f",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   ".vscode/setttings.json":
@@ -589,7 +585,7 @@ export const shasums = {
   "src/emotion-react-renderer/src/DraggableWindow.tsx":
     "59755281195934fbfd39ac6af5325692245ed4f520844ed0cfb909ec183eda1b",
   "src/templates.js":
-    "c973e0ee80929290350044d4b063c0ef8b47e4f153c31189f9ec70df8881b5d1",
+    "b0e690835c6875c690a9f4bf8830a304a780a274bbe52727d14b8430df5321ad",
   "src/codeLoader.js":
     "7023bc31eb9795ef9acb4deab40300a01fd49173c8bda8a7864c1e04c489942a",
   "src/db.js":
@@ -599,7 +595,7 @@ export const shasums = {
   "src/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "src/workers/files.umd.js":
-    "646533a0c141c3df812318a90e536a577ede0b475c9ad57846f6c1f1fefd5aa9",
+    "b43ee450aba5fa5a9ab4e2a8254b08f1e2f32611474f1b06e7958063399541ac",
   "src/workers/ipfs/package.json":
     "acac34dc556269acff2deb77547309f094cb94473e8b2e1f72338b4e438a2242",
   "src/workers/ipfs/.gitignore":

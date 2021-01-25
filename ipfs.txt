@@ -3,15 +3,13 @@ added QmVB1APqxwoFrkjZ9B2kYmukzGPdVrdct1JdxhkPbeY28Q code/assets/fonts/KFOlCnqEu
 added QmSuFCECZFdYirnXLK6xfaZWPmqP77LsRCnrdsmU9KVoMT code/assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf
 added Qmd8qKxYJaKoiR9EsxgQqwkD5XBzayCHKwNJuhQuUF5ApJ code/assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf
 added QmRbTrHtUz6mKUsu7FFzfUBcr4VuoCt9TtpMnJG1P135bS code/assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf
-added QmVaRzLwnw3Nnoq8KHNBSTun6m3v2WvVaUbRpukVpcGJUX code/assets/normalize.min.css
 added QmafZGaL6TznhmwtJ78ggkm7phbCiuEVXcTxfLwbZG6PoT code/assets/roboto.css
 added QmcsMurTbnEVPqP42x15FiisSjQdXJ7vGGHhf279UtwPxE code/assets/social-media-computer-icons-share-icon-png
 added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmUUC2yVMVXEArgBwk3whFHbmoXXzVNX8SDp8SR4eoMXcg code/index.html
-added QmedxQEiYx4VFnVGV9bGN3LsR95QpPU9hSiAroh2fzZhkd code/index2.html
+added QmPV13Tx8SVioex9VMEaaDsJQ3fQemnQGhxKE23VfaZPyo code/index.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
 added QmZqNk275fZv9p2XtmVbDu5cwqnkhKrrFN3wbYJqGzpznc code/node_legacy/@babel/standalone/LICENSE
@@ -329,7 +327,7 @@ added QmYUzn9XSFiduCLmzj4Ewcn5GnxwPaDKYDGAxdakydncmg code/src/smart-monaco-edito
 added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/src/smart-monaco-editor/tsconfig.json
 added QmVRjWvD8nZN41RX2Jx7CRMkAxxPupkgNgFHbEeYgDSUX3 code/src/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/src/starterTsx.tsx
-added QmWSt41VoKvyHGZPBqQSMEJiMjVDU8HdbbefpgTtyFfEG3 code/src/templates.js
+added QmTuqg1hZd4kUvZtK6CzsYGvkBuVnmcmxr2MKHyCmpibXM code/src/templates.js
 added QmYGwmxD1aJH2PiEJ22dRtio3qUniGjpWzwmdEngMEYmfe code/src/transpile.js
 added QmNPf2EGKEnBtd5M3zDLPoNRWes2ofCJMhDAuXFYvRvPd9 code/src/workBox.js
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/src/workers/ipfs/README.md
@@ -355,7 +353,7 @@ added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/src/workers/tsconfig.j
 added QmdYYNAMVJJgs9nYR2tc4oVC6Fxcwcv7K1b8QH4H2372EY code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscode
-added QmcLAE4ZmMJ1GT977zHKnX7zzcwVRS25cYzFTTiA9hxtyd code/assets
+added QmT4bGu3g4GDyEk5sMdjDwogQkuRfiv4Rq75Kuo6SpgaPa code/assets
 added QmWWWLKmada8efNn6Q3dkck2vCC6uCEcMarW1DuKTpp17o code/node_legacy/@babel/standalone/test
 added QmQy3Bma1iBoLnQqsPDoEoooBbMRA17uwTPvhqP82KtxVa code/node_legacy/@babel/standalone
 added QmdtRfBeZw1CytNk7aYZLZXDChmridNt6UKzqLShm5o6G5 code/node_legacy/@babel
@@ -510,5 +508,5 @@ added QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ code/src/workers/ipfs/node_
 added QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1 code/src/workers/ipfs/src
 added QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3 code/src/workers/ipfs
 added Qmctr777wXcejVVskSUKtjaKWoQFD3pA2hGNTkkUpWQ3W9 code/src/workers
-added QmS5ph6BiwcPtiGQbLwde7vA6Nmv8h9fdHujipJCVeiE9B code/src
-added QmcWexdUgDGuyegQP6DnmAFSKBPuF2h3kz9NxztU41Tqaq code
+added QmZV3GLgCJPPVZG96C9XQzsujcijfnbX2uXumQJUkrJRbZ code/src
+added QmUAf4G11MVpWGXdCqv8X5ThMxegMUkpjqpXKGax3dAKj6 code
