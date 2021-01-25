@@ -55,7 +55,7 @@ else {
 
 self.workbox.routing.registerRoute(
   ({url}) => url.origin.indexOf('zed.vision') ===-1,
-  new self.workbox.routing.CacheFirst({
+  new self.workbox.strategies.CacheFirst({
     cacheName: 'cdn-cache',
     plugins: [
       new self.workbox.cacheableResponse.CacheableResponsePlugin({
