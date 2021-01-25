@@ -84,7 +84,16 @@ async function handleRequest(request: Request) {
       const contentToSave = await response.clone().arrayBuffer();
       if (sha) {
         const check = await sha256(contentToSave);
-        if (check !== sha) return text(`path :${reversePath}, sha: ${sha}`);
+        if (check !== sha) {
+          return text(`
+        path: ${reversePath} 
+        sha: ${sha}  
+        sha-check: ${check}
+        cid: /ipfs/${customCID}
+        
+        content: ${contentToSave}
+        `);
+        }
       }
       await IPFS.put(customCID, contentToSave);
     }
