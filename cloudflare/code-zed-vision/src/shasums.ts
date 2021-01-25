@@ -28,7 +28,7 @@ export const shasums = {
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   ".tsBuildInfo":
-    "6c351d43f6333b5384e9b4a095ee2517f1f6fac89b2fc0f3c7dbd771f0dc3265",
+    "aac353a0e82cf00f1b3650681b756664b32a94bfe9340645bbbe9a844183676e",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
@@ -193,7 +193,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/files.json":
-    "386bd532336e6090d1d08d89a741a6d09f9e62476c966037dafea3d283a90526",
+    "5002279a7eb016e98c6341596aa0f1f5f334d8e3e5d7d90ba7af7ff0b09d2d91",
   "js/hash.js":
     "9344c3462e55e797fe5c32bb925ed262ab945ad6c99bd7e5268ece34667f3327",
   "js/importScript.js":
