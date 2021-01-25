@@ -11,13 +11,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { createCSSRule, asCSSUrl, ModifierKeyEmitter } from '../../../base/browser/dom.js';
+import './menuEntryActionViewItem.css';
+import { asCSSUrl, ModifierKeyEmitter } from '../../../base/browser/dom.js';
 import { domEvent } from '../../../base/browser/event.js';
 import { Separator } from '../../../base/common/actions.js';
-import { IdGenerator } from '../../../base/common/idGenerator.js';
 import { toDisposable, MutableDisposable, DisposableStore } from '../../../base/common/lifecycle.js';
 import { localize } from '../../../nls.js';
-import { MenuItemAction } from '../common/actions.js';
+import { MenuItemAction, SubmenuItemAction } from '../common/actions.js';
 import { IContextMenuService } from '../../contextview/browser/contextView.js';
 import { IKeybindingService } from '../../keybinding/common/keybinding.js';
 import { INotificationService } from '../../notification/common/notification.js';
@@ -41,8 +41,7 @@ function asDisposable(groups) {
     return disposables;
 }
 function fillInActions(groups, target, useAlternativeActions, isPrimaryGroup = group => group === 'navigation') {
-    for (let tuple of groups) {
-        let [group, actions] = tuple;
+    for (let [group, actions] of groups) {
         if (useAlternativeActions) {
             actions = actions.map(a => (a instanceof MenuItemAction) && !!a.alt ? a.alt : a);
         }
@@ -59,8 +58,6 @@ function fillInActions(groups, target, useAlternativeActions, isPrimaryGroup = g
         }
     }
 }
-const ids = new IdGenerator('menu-item-action-item-icon-');
-const ICON_PATH_TO_CSS_RULES = new Map();
 let MenuEntryActionViewItem = class MenuEntryActionViewItem extends ActionViewItem {
     constructor(_action, _keybindingService, _notificationService) {
         super(undefined, _action, { icon: !!(_action.class || _action.item.icon), label: !_action.class && !_action.item.icon });
@@ -77,11 +74,13 @@ let MenuEntryActionViewItem = class MenuEntryActionViewItem extends ActionViewIt
     onClick(event) {
         event.preventDefault();
         event.stopPropagation();
-        this.actionRunner.run(this._commandAction, this._context)
-            .then(undefined, err => this._notificationService.error(err));
+        this.actionRunner
+            .run(this._commandAction, this._context)
+            .catch(err => this._notificationService.error(err));
     }
     render(container) {
         super.render(container);
+        container.classList.add('menu-entry');
         this._updateItemClass(this._action.item);
         let mouseOver = false;
         let alternativeKeyDown = this._altKey.keyStatus.altKey || ((isWindows || isLinux) && this._altKey.keyStatus.shiftKey);
@@ -137,44 +136,36 @@ let MenuEntryActionViewItem = class MenuEntryActionViewItem extends ActionViewIt
         }
     }
     _updateItemClass(item) {
-        var _a, _b;
+        var _a;
         this._itemClassDispose.value = undefined;
+        const { element, label } = this;
+        if (!element || !label) {
+            return;
+        }
         const icon = this._commandAction.checked && ((_a = item.toggled) === null || _a === void 0 ? void 0 : _a.icon) ? item.toggled.icon : item.icon;
+        if (!icon) {
+            return;
+        }
         if (ThemeIcon.isThemeIcon(icon)) {
             // theme icons
             const iconClass = ThemeIcon.asClassName(icon);
-            if (this.label && iconClass) {
-                this.label.classList.add(...iconClass.split(' '));
-                this._itemClassDispose.value = toDisposable(() => {
-                    if (this.label) {
-                        this.label.classList.remove(...iconClass.split(' '));
-                    }
-                });
-            }
+            label.classList.add(...iconClass.split(' '));
+            this._itemClassDispose.value = toDisposable(() => {
+                label.classList.remove(...iconClass.split(' '));
+            });
         }
-        else if (icon) {
-            // icon path
-            let iconClass;
-            if ((_b = icon.dark) === null || _b === void 0 ? void 0 : _b.scheme) {
-                const iconPathMapKey = icon.dark.toString();
-                if (ICON_PATH_TO_CSS_RULES.has(iconPathMapKey)) {
-                    iconClass = ICON_PATH_TO_CSS_RULES.get(iconPathMapKey);
-                }
-                else {
-                    iconClass = ids.nextId();
-                    createCSSRule(`.icon.${iconClass}`, `background-image: ${asCSSUrl(icon.light || icon.dark)}`);
-                    createCSSRule(`.vs-dark .icon.${iconClass}, .hc-black .icon.${iconClass}`, `background-image: ${asCSSUrl(icon.dark)}`);
-                    ICON_PATH_TO_CSS_RULES.set(iconPathMapKey, iconClass);
-                }
-                if (this.label) {
-                    this.label.classList.add('icon', ...iconClass.split(' '));
-                    this._itemClassDispose.value = toDisposable(() => {
-                        if (this.label) {
-                            this.label.classList.remove('icon', ...iconClass.split(' '));
-                        }
-                    });
-                }
+        else {
+            // icon path/url
+            if (icon.light) {
+                label.style.setProperty('--menu-entry-icon-light', asCSSUrl(icon.light));
             }
+            if (icon.dark) {
+                label.style.setProperty('--menu-entry-icon-dark', asCSSUrl(icon.dark));
+            }
+            this._itemClassDispose.value = toDisposable(() => {
+                label.style.removeProperty('--menu-entry-icon-light');
+                label.style.removeProperty('--menu-entry-icon-dark');
+            });
         }
     }
 };
@@ -184,32 +175,43 @@ MenuEntryActionViewItem = __decorate([
 ], MenuEntryActionViewItem);
 export { MenuEntryActionViewItem };
 let SubmenuEntryActionViewItem = class SubmenuEntryActionViewItem extends DropdownMenuActionViewItem {
-    constructor(action, _notificationService, _contextMenuService) {
-        var _a;
-        let classNames;
-        if (action.item.icon) {
-            if (ThemeIcon.isThemeIcon(action.item.icon)) {
-                classNames = ThemeIcon.asClassName(action.item.icon);
-            }
-            else if ((_a = action.item.icon.dark) === null || _a === void 0 ? void 0 : _a.scheme) {
-                const iconPathMapKey = action.item.icon.dark.toString();
-                if (ICON_PATH_TO_CSS_RULES.has(iconPathMapKey)) {
-                    classNames = ['icon', ICON_PATH_TO_CSS_RULES.get(iconPathMapKey)];
+    constructor(action, contextMenuService) {
+        super(action, { getActions: () => action.actions }, contextMenuService, {
+            menuAsChild: true,
+            classNames: ThemeIcon.isThemeIcon(action.item.icon) ? ThemeIcon.asClassName(action.item.icon) : undefined,
+        });
+    }
+    render(container) {
+        super.render(container);
+        if (this.element) {
+            container.classList.add('menu-entry');
+            const { icon } = this._action.item;
+            if (icon && !ThemeIcon.isThemeIcon(icon)) {
+                if (icon.light) {
+                    this.element.style.setProperty('--menu-entry-icon-light', asCSSUrl(icon.light));
                 }
-                else {
-                    const className = ids.nextId();
-                    classNames = ['icon', className];
-                    createCSSRule(`.icon.${className}`, `background-image: ${asCSSUrl(action.item.icon.light || action.item.icon.dark)}`);
-                    createCSSRule(`.vs-dark .icon.${className}, .hc-black .icon.${className}`, `background-image: ${asCSSUrl(action.item.icon.dark)}`);
-                    ICON_PATH_TO_CSS_RULES.set(iconPathMapKey, className);
+                if (icon.dark) {
+                    this.element.style.setProperty('--menu-entry-icon-dark', asCSSUrl(icon.dark));
                 }
             }
         }
-        super(action, action.actions, _contextMenuService, { classNames: classNames, menuAsChild: true });
     }
 };
 SubmenuEntryActionViewItem = __decorate([
-    __param(1, INotificationService),
-    __param(2, IContextMenuService)
+    __param(1, IContextMenuService)
 ], SubmenuEntryActionViewItem);
 export { SubmenuEntryActionViewItem };
+/**
+ * Creates action view items for menu actions or submenu actions.
+ */
+export function createActionViewItem(instaService, action) {
+    if (action instanceof MenuItemAction) {
+        return instaService.createInstance(MenuEntryActionViewItem, action);
+    }
+    else if (action instanceof SubmenuItemAction) {
+        return instaService.createInstance(SubmenuEntryActionViewItem, action);
+    }
+    else {
+        return undefined;
+    }
+}

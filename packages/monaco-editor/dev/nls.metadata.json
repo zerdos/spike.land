@@ -342,9 +342,6 @@
 		"vs/editor/contrib/codelens/codelensController": [
 			"showLensOnLine"
 		],
-		"vs/editor/contrib/contextmenu/contextmenu": [
-			"action.showContextMenu.label"
-		],
 		"vs/editor/contrib/comment/comment": [
 			"comment.line",
 			{
@@ -363,9 +360,27 @@
 				]
 			}
 		],
-		"vs/editor/contrib/cursorUndo/cursorUndo": [
-			"cursor.undo",
-			"cursor.redo"
+		"vs/editor/contrib/contextmenu/contextmenu": [
+			"action.showContextMenu.label"
+		],
+		"vs/editor/contrib/folding/folding": [
+			"unfoldAction.label",
+			"unFoldRecursivelyAction.label",
+			"foldAction.label",
+			"toggleFoldAction.label",
+			"foldRecursivelyAction.label",
+			"foldAllBlockComments.label",
+			"foldAllMarkerRegions.label",
+			"unfoldAllMarkerRegions.label",
+			"foldAllAction.label",
+			"unfoldAllAction.label",
+			"foldLevelAction.label",
+			"foldBackgroundBackground",
+			"editorGutter.foldingControlForeground"
+		],
+		"vs/editor/contrib/format/formatActions": [
+			"formatDocument.label",
+			"formatSelection.label"
 		],
 		"vs/editor/contrib/find/findController": [
 			"startFindAction",
@@ -390,29 +405,14 @@
 				]
 			}
 		],
-		"vs/editor/contrib/folding/folding": [
-			"unfoldAction.label",
-			"unFoldRecursivelyAction.label",
-			"foldAction.label",
-			"toggleFoldAction.label",
-			"foldRecursivelyAction.label",
-			"foldAllBlockComments.label",
-			"foldAllMarkerRegions.label",
-			"unfoldAllMarkerRegions.label",
-			"foldAllAction.label",
-			"unfoldAllAction.label",
-			"foldLevelAction.label",
-			"foldBackgroundBackground",
-			"editorGutter.foldingControlForeground"
+		"vs/editor/contrib/cursorUndo/cursorUndo": [
+			"cursor.undo",
+			"cursor.redo"
 		],
 		"vs/editor/contrib/fontZoom/fontZoom": [
 			"EditorFontZoomIn.label",
 			"EditorFontZoomOut.label",
 			"EditorFontZoomReset.label"
-		],
-		"vs/editor/contrib/format/formatActions": [
-			"formatDocument.label",
-			"formatSelection.label"
 		],
 		"vs/editor/contrib/gotoSymbol/goToCommands": [
 			"peek.submenu",
@@ -480,6 +480,9 @@
 			"generic.noResult",
 			"ref.title"
 		],
+		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
+			"multipleResults"
+		],
 		"vs/editor/contrib/gotoError/gotoError": [
 			"markerAction.next.label",
 			"nextMarkerIcon",
@@ -531,9 +534,6 @@
 			"detectIndentation",
 			"editor.reindentlines",
 			"editor.reindentselectedlines"
-		],
-		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
-			"multipleResults"
 		],
 		"vs/editor/contrib/inPlaceReplace/inPlaceReplace": [
 			"InPlaceReplaceAction.previous.label",
@@ -722,6 +722,17 @@
 		"vs/editor/contrib/wordOperations/wordOperations": [
 			"deleteInsideWord"
 		],
+		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
+			"wordHighlight",
+			"wordHighlightStrong",
+			"wordHighlightBorder",
+			"wordHighlightStrongBorder",
+			"overviewRulerWordHighlightForeground",
+			"overviewRulerWordHighlightStrongForeground",
+			"wordHighlight.next.label",
+			"wordHighlight.previous.label",
+			"wordHighlight.trigger.label"
+		],
 		"vs/editor/common/standaloneStrings": [
 			"noSelection",
 			"singleSelectionRange",
@@ -780,17 +791,6 @@
 				]
 			},
 			"selectAll"
-		],
-		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
-			"wordHighlight",
-			"wordHighlightStrong",
-			"wordHighlightBorder",
-			"wordHighlightStrongBorder",
-			"overviewRulerWordHighlightForeground",
-			"overviewRulerWordHighlightStrongForeground",
-			"wordHighlight.next.label",
-			"wordHighlight.previous.label",
-			"wordHighlight.trigger.label"
 		],
 		"vs/platform/theme/common/colorRegistry": [
 			"foreground",
@@ -1089,6 +1089,10 @@
 				]
 			}
 		],
+		"vs/editor/contrib/folding/foldingDecorations": [
+			"foldingExpandedIcon",
+			"foldingCollapsedIcon"
+		],
 		"vs/editor/contrib/find/findWidget": [
 			"findSelectionIcon",
 			"findCollapsedIcon",
@@ -1116,10 +1120,6 @@
 			"ariaSearchNoResultWithLineNum",
 			"ariaSearchNoResultWithLineNumNoCurrentMatch",
 			"ctrlEnter.keybindingChanged"
-		],
-		"vs/editor/contrib/folding/foldingDecorations": [
-			"foldingExpandedIcon",
-			"foldingCollapsedIcon"
 		],
 		"vs/editor/contrib/format/format": [
 			"hint11",
@@ -1954,9 +1954,6 @@
 		"vs/editor/contrib/codelens/codelensController": [
 			"Show CodeLens Commands For Current Line"
 		],
-		"vs/editor/contrib/contextmenu/contextmenu": [
-			"Show Editor Context Menu"
-		],
 		"vs/editor/contrib/comment/comment": [
 			"Toggle Line Comment",
 			"&&Toggle Line Comment",
@@ -1965,22 +1962,8 @@
 			"Toggle Block Comment",
 			"Toggle &&Block Comment"
 		],
-		"vs/editor/contrib/cursorUndo/cursorUndo": [
-			"Cursor Undo",
-			"Cursor Redo"
-		],
-		"vs/editor/contrib/find/findController": [
-			"Find",
-			"&&Find",
-			"Find With Selection",
-			"Find Next",
-			"Find Next",
-			"Find Previous",
-			"Find Previous",
-			"Find Next Selection",
-			"Find Previous Selection",
-			"Replace",
-			"&&Replace"
+		"vs/editor/contrib/contextmenu/contextmenu": [
+			"Show Editor Context Menu"
 		],
 		"vs/editor/contrib/folding/folding": [
 			"Unfold",
@@ -1997,14 +1980,31 @@
 			"Background color behind folded ranges. The color must not be opaque so as not to hide underlying decorations.",
 			"Color of the folding control in the editor gutter."
 		],
+		"vs/editor/contrib/format/formatActions": [
+			"Format Document",
+			"Format Selection"
+		],
+		"vs/editor/contrib/find/findController": [
+			"Find",
+			"&&Find",
+			"Find With Selection",
+			"Find Next",
+			"Find Next",
+			"Find Previous",
+			"Find Previous",
+			"Find Next Selection",
+			"Find Previous Selection",
+			"Replace",
+			"&&Replace"
+		],
+		"vs/editor/contrib/cursorUndo/cursorUndo": [
+			"Cursor Undo",
+			"Cursor Redo"
+		],
 		"vs/editor/contrib/fontZoom/fontZoom": [
 			"Editor Font Zoom In",
 			"Editor Font Zoom Out",
 			"Editor Font Zoom Reset"
-		],
-		"vs/editor/contrib/format/formatActions": [
-			"Format Document",
-			"Format Selection"
 		],
 		"vs/editor/contrib/gotoSymbol/goToCommands": [
 			"Peek",
@@ -2047,6 +2047,9 @@
 			"No results for '{0}'",
 			"References"
 		],
+		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
+			"Click to show {0} definitions."
+		],
 		"vs/editor/contrib/gotoError/gotoError": [
 			"Go to Next Problem (Error, Warning, Info)",
 			"Icon for goto next marker.",
@@ -2071,9 +2074,6 @@
 			"Detect Indentation from Content",
 			"Reindent Lines",
 			"Reindent Selected Lines"
-		],
-		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
-			"Click to show {0} definitions."
 		],
 		"vs/editor/contrib/inPlaceReplace/inPlaceReplace": [
 			"Replace with Previous Value",
@@ -2192,6 +2192,17 @@
 		"vs/editor/contrib/wordOperations/wordOperations": [
 			"Delete Word"
 		],
+		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
+			"Background color of a symbol during read-access, like reading a variable. The color must not be opaque so as not to hide underlying decorations.",
+			"Background color of a symbol during write-access, like writing to a variable. The color must not be opaque so as not to hide underlying decorations.",
+			"Border color of a symbol during read-access, like reading a variable.",
+			"Border color of a symbol during write-access, like writing to a variable.",
+			"Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
+			"Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
+			"Go to Next Symbol Highlight",
+			"Go to Previous Symbol Highlight",
+			"Trigger Symbol Highlight"
+		],
 		"vs/editor/common/standaloneStrings": [
 			"No selection",
 			"Line {0}, Column {1} ({2} selected)",
@@ -2235,17 +2246,6 @@
 			"Redo",
 			"&&Select All",
 			"Select All"
-		],
-		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
-			"Background color of a symbol during read-access, like reading a variable. The color must not be opaque so as not to hide underlying decorations.",
-			"Background color of a symbol during write-access, like writing to a variable. The color must not be opaque so as not to hide underlying decorations.",
-			"Border color of a symbol during read-access, like reading a variable.",
-			"Border color of a symbol during write-access, like writing to a variable.",
-			"Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
-			"Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
-			"Go to Next Symbol Highlight",
-			"Go to Previous Symbol Highlight",
-			"Trigger Symbol Highlight"
 		],
 		"vs/platform/theme/common/colorRegistry": [
 			"Overall foreground color. This color is only used if not overridden by a component.",
@@ -2523,6 +2523,10 @@
 		"vs/base/browser/ui/actionbar/actionViewItems": [
 			"{0} ({1})"
 		],
+		"vs/editor/contrib/folding/foldingDecorations": [
+			"Icon for expanded ranges in the editor glyph margin.",
+			"Icon for collapsed ranges in the editor glyph margin."
+		],
 		"vs/editor/contrib/find/findWidget": [
 			"Icon for 'Find in Selection' in the editor find widget.",
 			"Icon to indicate that the editor find widget is collapsed.",
@@ -2550,10 +2554,6 @@
 			"{0} found for '{1}', at {2}",
 			"{0} found for '{1}'",
 			"Ctrl+Enter now inserts line break instead of replacing all. You can modify the keybinding for editor.action.replaceAll to override this behavior."
-		],
-		"vs/editor/contrib/folding/foldingDecorations": [
-			"Icon for expanded ranges in the editor glyph margin.",
-			"Icon for collapsed ranges in the editor glyph margin."
 		],
 		"vs/editor/contrib/format/format": [
 			"Made 1 formatting edit on line {0}",

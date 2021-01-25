@@ -318,25 +318,23 @@ export function anyScore(pattern, lowPattern, _patternPos, word, lowWord, _wordP
             break;
         }
     }
-    return [score, matches, _wordPos];
+    return [score, _wordPos, matches];
 }
 //#region --- fuzzyScore ---
 export function createMatches(score) {
     if (typeof score === 'undefined') {
         return [];
     }
-    const matches = score[1].toString(2);
-    const wordStart = score[2];
     const res = [];
-    for (let pos = wordStart; pos < _maxLen; pos++) {
-        if (matches[matches.length - (pos + 1)] === '1') {
-            const last = res[res.length - 1];
-            if (last && last.end === pos) {
-                last.end = pos + 1;
-            }
-            else {
-                res.push({ start: pos, end: pos + 1 });
-            }
+    const wordPos = score[1];
+    for (let i = score.length - 1; i > 1; i--) {
+        const pos = score[i] + wordPos;
+        const last = res[res.length - 1];
+        if (last && last.end === pos) {
+            last.end = pos + 1;
+        }
+        else {
+            res.push({ start: pos, end: pos + 1 });
         }
     }
     return res;
@@ -455,7 +453,7 @@ export var FuzzyScore;
     /**
      * No matches and value `-100`
      */
-    FuzzyScore.Default = Object.freeze([-100, 0, 0]);
+    FuzzyScore.Default = ([-100, 0]);
     function isDefault(score) {
         return !score || (score[0] === -100 && score[1] === 0 && score[2] === 0);
     }
@@ -532,8 +530,7 @@ export function fuzzyScore(pattern, patternLow, patternStart, word, wordLow, wor
     }
     row--;
     column--;
-    const topScore = _table[row][column];
-    let matches = 0;
+    const result = [_table[row][column], wordStart];
     let backwardsDiagLength = 0;
     let maxMatchColumn = 0;
     while (row >= 1) {
@@ -573,18 +570,17 @@ export function fuzzyScore(pattern, patternLow, patternStart, word, wordLow, wor
         }
         row--;
         column = diagColumn - 1;
-        matches += Math.pow(2, (column + wordStart));
+        result.push(column);
     }
-    let finalScore = topScore;
     if (wordLen === patternLen) {
         // the word matches the pattern with all characters!
         // giving the score a total match boost (to come up ahead other words)
-        finalScore += 2;
+        result[0] += 2;
     }
     // Add 1 penalty for each skipped character in the word
     const skippedCharsCount = maxMatchColumn - patternLen;
-    finalScore -= skippedCharsCount;
-    return [finalScore, matches, wordStart];
+    result[0] -= skippedCharsCount;
+    return result;
 }
 function _fillInMaxWordMatchPos(patternLen, wordLen, patternStart, wordStart, patternLow, wordLow) {
     let patternPos = patternLen - 1;

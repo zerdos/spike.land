@@ -28,8 +28,7 @@ import { registerSingleton } from '../../../platform/instantiation/common/extens
 import { registerEditorContribution } from '../../browser/editorExtensions.js';
 import { registerColor, contrastBorder, activeContrastBorder } from '../../../platform/theme/common/colorRegistry.js';
 import { Codicon } from '../../../base/common/codicons.js';
-import { MenuItemAction, SubmenuItemAction } from '../../../platform/actions/common/actions.js';
-import { MenuEntryActionViewItem, SubmenuEntryActionViewItem } from '../../../platform/actions/browser/menuEntryActionViewItem.js';
+import { createActionViewItem } from '../../../platform/actions/browser/menuEntryActionViewItem.js';
 export const IPeekViewService = createDecorator('IPeekViewService');
 registerSingleton(IPeekViewService, class {
     constructor() {
@@ -90,8 +89,11 @@ let PeekViewWidget = class PeekViewWidget extends ZoneWidget {
         objects.mixin(this.options, defaultOptions, false);
     }
     dispose() {
-        super.dispose();
-        this._onDidClose.fire(this);
+        if (!this.disposed) {
+            this.disposed = true; // prevent consumers who dispose on onDidClose from looping
+            super.dispose();
+            this._onDidClose.fire(this);
+        }
     }
     style(styles) {
         let options = this.options;
@@ -156,15 +158,8 @@ let PeekViewWidget = class PeekViewWidget extends ZoneWidget {
     }
     _getActionBarOptions() {
         return {
-            actionViewItemProvider: action => {
-                if (action instanceof MenuItemAction) {
-                    return this.instantiationService.createInstance(MenuEntryActionViewItem, action);
-                }
-                else if (action instanceof SubmenuItemAction) {
-                    return this.instantiationService.createInstance(SubmenuEntryActionViewItem, action);
-                }
-                return undefined;
-            }
+            actionViewItemProvider: createActionViewItem.bind(undefined, this.instantiationService),
+            orientation: 0 /* HORIZONTAL */
         };
     }
     _onTitleClick(event) {

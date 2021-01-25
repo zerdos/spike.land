@@ -36,19 +36,25 @@ class StatusBarViewItem extends MenuEntryActionViewItem {
     }
 }
 let SuggestWidgetStatus = class SuggestWidgetStatus {
-    constructor(container, instantiationService, menuService, contextKeyService) {
-        this._disposables = new DisposableStore();
+    constructor(container, instantiationService, _menuService, _contextKeyService) {
+        this._menuService = _menuService;
+        this._contextKeyService = _contextKeyService;
+        this._menuDisposables = new DisposableStore();
         this.element = dom.append(container, dom.$('.suggest-status-bar'));
         const actionViewItemProvider = (action => {
-            return action instanceof MenuItemAction
-                ? instantiationService.createInstance(StatusBarViewItem, action)
-                : undefined;
+            return action instanceof MenuItemAction ? instantiationService.createInstance(StatusBarViewItem, action) : undefined;
         });
-        const leftActions = new ActionBar(this.element, { actionViewItemProvider });
-        const rightActions = new ActionBar(this.element, { actionViewItemProvider });
-        const menu = menuService.createMenu(suggestWidgetStatusbarMenu, contextKeyService);
-        leftActions.domNode.classList.add('left');
-        rightActions.domNode.classList.add('right');
+        this._leftActions = new ActionBar(this.element, { actionViewItemProvider });
+        this._rightActions = new ActionBar(this.element, { actionViewItemProvider });
+        this._leftActions.domNode.classList.add('left');
+        this._rightActions.domNode.classList.add('right');
+    }
+    dispose() {
+        this._menuDisposables.dispose();
+        this.element.remove();
+    }
+    show() {
+        const menu = this._menuService.createMenu(suggestWidgetStatusbarMenu, this._contextKeyService);
         const renderMenu = () => {
             const left = [];
             const right = [];
@@ -60,17 +66,16 @@ let SuggestWidgetStatus = class SuggestWidgetStatus {
                     right.push(...actions);
                 }
             }
-            leftActions.clear();
-            leftActions.push(left);
-            rightActions.clear();
-            rightActions.push(right);
+            this._leftActions.clear();
+            this._leftActions.push(left);
+            this._rightActions.clear();
+            this._rightActions.push(right);
         };
-        this._disposables.add(menu.onDidChange(() => renderMenu()));
-        this._disposables.add(menu);
+        this._menuDisposables.add(menu.onDidChange(() => renderMenu()));
+        this._menuDisposables.add(menu);
     }
-    dispose() {
-        this._disposables.dispose();
-        this.element.remove();
+    hide() {
+        this._menuDisposables.clear();
     }
 };
 SuggestWidgetStatus = __decorate([

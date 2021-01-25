@@ -23,8 +23,8 @@ export class HorizontalScrollbar extends AbstractScrollbar {
             scrollByPage: options.scrollByPage
         });
         if (options.horizontalHasArrows) {
-            let arrowDelta = (options.arrowSize - ARROW_IMG_SIZE) / 2;
-            let scrollbarDelta = (options.horizontalScrollbarSize - ARROW_IMG_SIZE) / 2;
+            const arrowDelta = (options.arrowSize - ARROW_IMG_SIZE) / 2;
+            const scrollbarDelta = (options.horizontalScrollbarSize - ARROW_IMG_SIZE) / 2;
             this._createArrow({
                 className: 'scra',
                 icon: scrollbarButtonLeftIcon,

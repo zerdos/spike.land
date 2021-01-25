@@ -8,7 +8,7 @@ import { dirname } from '../../../base/common/resources.js';
 import { Text } from './snippetParser.js';
 import { LanguageConfigurationRegistry } from '../../common/modes/languageConfigurationRegistry.js';
 import { getLeadingWhitespace, commonPrefixLength, isFalsyOrWhitespace, splitLines } from '../../../base/common/strings.js';
-import { isSingleFolderWorkspaceIdentifier, toWorkspaceIdentifier, WORKSPACE_EXTENSION } from '../../../platform/workspaces/common/workspaces.js';
+import { toWorkspaceIdentifier, WORKSPACE_EXTENSION, isSingleFolderWorkspaceIdentifier } from '../../../platform/workspaces/common/workspaces.js';
 import { normalizeDriveLetter } from '../../../base/common/labels.js';
 import { generateUuid } from '../../../base/common/uuid.js';
 export class CompositeSnippetVariableResolver {
@@ -246,7 +246,7 @@ export class WorkspaceBasedVariableResolver {
     }
     _resolveWorkspaceName(workspaceIdentifier) {
         if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
-            return path.basename(workspaceIdentifier.path);
+            return path.basename(workspaceIdentifier.uri.path);
         }
         let filename = path.basename(workspaceIdentifier.configPath.path);
         if (filename.endsWith(WORKSPACE_EXTENSION)) {
@@ -256,7 +256,7 @@ export class WorkspaceBasedVariableResolver {
     }
     _resoveWorkspacePath(workspaceIdentifier) {
         if (isSingleFolderWorkspaceIdentifier(workspaceIdentifier)) {
-            return normalizeDriveLetter(workspaceIdentifier.fsPath);
+            return normalizeDriveLetter(workspaceIdentifier.uri.fsPath);
         }
         let filename = path.basename(workspaceIdentifier.configPath.path);
         let folderpath = workspaceIdentifier.configPath.fsPath;

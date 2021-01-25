@@ -252,9 +252,6 @@ let MarkerNavigationWidget = class MarkerNavigationWidget extends PeekViewWidget
     _fillTitleIcon(container) {
         this._icon = dom.append(container, dom.$(''));
     }
-    _getActionBarOptions() {
-        return Object.assign(Object.assign({}, super._getActionBarOptions()), { orientation: 0 /* HORIZONTAL */ });
-    }
     _fillBody(container) {
         this._parentContainer = container;
         container.classList.add('marker-widget');

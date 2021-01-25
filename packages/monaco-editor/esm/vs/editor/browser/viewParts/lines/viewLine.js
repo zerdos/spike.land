@@ -33,7 +33,7 @@ const canUseFastRenderedViewLine = (function () {
     return true;
 })();
 let monospaceAssumptionsAreValid = true;
-const alwaysRenderInlineSelection = (browser.isEdge);
+const alwaysRenderInlineSelection = (browser.isEdgeLegacy);
 export class DomReadingContext {
     constructor(domNode, endNode) {
         this._domNode = domNode;
