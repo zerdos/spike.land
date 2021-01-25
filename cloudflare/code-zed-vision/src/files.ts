@@ -532,7 +532,7 @@ export const files = {
     "QmdrnoscF7ihtuyZCd1iv7g6Zpvem23yNn6AHU6xTaV5XU",
   "src/shadb/tsconfig.json": "QmSweNRyD6aAUjpMnt8zKE5LAxvvLoZPy9Qj3r4THEhaUd",
   "src/shadb/tsconfig.tsbuildinfo":
-    "QmVG97P9PM2B3VPjWWHmonDgfZtQuMXYgM49MKmmrr58Tb",
+    "QmQPSd9XtXyLMndjLw7jgmVWiUKovH3HrCoj9cNhdf6p9d",
   "src/share.js": "QmSecn3oGHWisrFPkNJp8FQN2x7EHUjBb6PeTwjjK3suhR",
   "src/smart-monaco-editor/LICENSE.md":
     "QmQAGWaCTkwWF9GMjvoLgCMMgec8bKWRgzB29yti3b5zAL",
@@ -611,7 +611,7 @@ export const files = {
   "src/smart-monaco-editor/tsconfig.json":
     "QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8",
   "src/smart-monaco-editor/tsconfig.tsbuildinfo":
-    "QmYzfRXuBwRw4nNpqTzts1y2JAo4HLgq9iPYebBcGCKsTv",
+    "QmVRjWvD8nZN41RX2Jx7CRMkAxxPupkgNgFHbEeYgDSUX3",
   "src/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "src/templates.js": "QmWSt41VoKvyHGZPBqQSMEJiMjVDU8HdbbefpgTtyFfEG3",
   "src/transpile.js": "QmYGwmxD1aJH2PiEJ22dRtio3qUniGjpWzwmdEngMEYmfe",
@@ -886,7 +886,7 @@ export const files = {
   "src/shadb/dist": "QmPs9fBmE8aZQd62NYjBoWBvdwKZkf45nu81byMAEgmwuQ",
   "src/shadb/src/vendor": "QmZcc5JirQ5ySPiELM4nJaVBLsKVL3vvNg2KE5uj7rGSr3",
   "src/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
-  "src/shadb": "QmSizaV4YcU84Aa5iYqXvEqfEZLEbfmQRpkoVUgnfkAHZ8",
+  "src/shadb": "QmPD4WA5KwtTgW4kPrCv8areBEeYZHcrC7tWC6r5PVEym4",
   "src/smart-monaco-editor/dist/scripts":
     "QmUZruQhR3JEi3knevKng6AKpxN3vcswuRrCp4DiW9aYMM",
   "src/smart-monaco-editor/dist":
@@ -939,14 +939,14 @@ export const files = {
     "Qme94rT99UbaVwYxeK2ERakcHAABqofabkBbiSUuKztFzg",
   "src/smart-monaco-editor/src":
     "QmdLrJeHHhaB8kPwzDpcn9PFAeJavdpvmgRcykvpqnHi6g",
-  "src/smart-monaco-editor": "QmTtSWwErKhAVmdueBPMt2pK3AeBueVdzEHhpeodYEjwJj",
+  "src/smart-monaco-editor": "Qmc6aBBCKLvY6FCaRXqjahtdPwCydbYEemQvJsBdnbKrPJ",
   "src/workers/ipfs/dist": "QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS",
   "src/workers/ipfs/node_legacy":
     "QmSxTFf8YACtJvwT4M2s7sJ4yv4PFB4LYViYLt7vMyMtHJ",
   "src/workers/ipfs/src": "QmUqoKmHckW1HgxPr5nprzQiwHLgsuryoGeuHFjJiYCeo1",
   "src/workers/ipfs": "QmRJdk7syiVkfPZ5gtdr5WGmLikwV6iH5KBfZ2p7QXxPv3",
   "src/workers": "QmaN73ZERq9YQXnfeCMnAZogaL1zWhmPoGX5VuXMp4fSoW",
-  "src": "QmPQg29oY2Q4pZn6rqv6fu9wcX9eoqSzbsaHcnMUvcYThj",
-  "": "QmdU4zSSUquSBGY6BXqcDLUgoE4FUrXDQ79spnHLeakUNc",
+  "src": "QmeiLh8jhVC2qppjJMUXTXYFLKiJXF8QVf8zeNsHAw7gyL",
+  "": "QmcGXX9kgGLmeZPXHanbB4bg5671wgLm3D9e4o3cHwDP8L",
   "foo": "bar",
 };
