@@ -59,10 +59,7 @@ self.workbox.routing.registerRoute(
     cacheName: 'cdn-cache',
     plugins: [
       new self.workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [200, 404],
-        headers: {
-          'X-Is-Cacheable': 'true',
-        },
+        statuses: [200]
       })
     ]
   })
