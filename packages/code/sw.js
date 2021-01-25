@@ -15,7 +15,7 @@ self.workbox.setConfig({
     debug: true,
 });
 
-
+self.workbox.loadModule("workbox-routing");
 self.workbox.loadModule("workbox-precaching");
 self.workbox.loadModule("workbox-strategies");
 self.workbox.loadModule("workbox-cacheable-response");
@@ -54,7 +54,7 @@ else {
 
 
 self.workbox.routing.registerRoute(
-  ({url}) => url.origin.indexOf('zed.vision') ===-1,
+  ({url}) => url.origin.indexOf('zed.vision') === -1,
   new self.workbox.strategies.CacheFirst({
     cacheName: 'cdn-cache',
     plugins: [
