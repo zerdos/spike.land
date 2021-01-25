@@ -22,7 +22,14 @@ const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: "/" + x
 
 if (cid === currentCid) {
     self.workbox.precaching.precacheAndRoute(
-        routes
+        routes,
+                   {
+                urlManipulation: ({ url }) => {
+                    const { pathname } = url;
+                    if (pathname === "/") url.pathname = "index.html";
+                    return [url]
+                }
+            }
     )
 }
 else {
