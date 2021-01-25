@@ -10,7 +10,7 @@ export async function renderPreviewWindow(
     DraggableWindow,
     jsx,
     render,
-  } = await import(`./emotion-react-renderer/dist/renderer.js`);
+  } = await import(`https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`);
 
   const onShare = async () => {
     const link = await shareItAsHtml({

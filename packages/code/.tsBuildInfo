@@ -261,13 +261,8 @@
         "signature": "baacf004b19e26fd386f5427f34f1faab3c22df69f9086e202d24832ba8b5531",
         "affectsGlobalScope": false
       },
-      "./js/emotion-react-renderer/dist/renderer.js": {
-        "version": "278a1356ce44fb0817e7ee03392f0a099b80d115e122425110eab0b29a185926",
-        "signature": "247ef2684afc60cde91ab5045798070dbce28e56c2761c180a86b92b1ed32bd8",
-        "affectsGlobalScope": false
-      },
       "./js/renderPreviewWindow.js": {
-        "version": "f1340104b7a50a43cda6347f6b27bd2db061048cbd1ea9ade4c9836112f73b86",
+        "version": "7b5ce5a7365087f4cddcc7aba64023af54f5d02aa2cc95c903f067a306be743b",
         "signature": "b4f1bf90bff0c83fea60eb6f5c9f49457bdd94f9e8a0ac7c856d2103d4dfd8d7",
         "affectsGlobalScope": false
       },
@@ -314,6 +309,11 @@
       "./js/emotion-react-renderer/dist/DraggableWindow.js": {
         "version": "ebe09cd344aaad120a6f23f042abc63bd6b23d95f434e83694b3d4b4e00fdb3b",
         "signature": "c245e2df8be273107e44e096ade63ff419629ceacf252933421090c0ca449f23",
+        "affectsGlobalScope": false
+      },
+      "./js/emotion-react-renderer/dist/renderer.js": {
+        "version": "278a1356ce44fb0817e7ee03392f0a099b80d115e122425110eab0b29a185926",
+        "signature": "247ef2684afc60cde91ab5045798070dbce28e56c2761c180a86b92b1ed32bd8",
         "affectsGlobalScope": false
       },
       "./js/examples/starterNoFramerMotion.js": {
@@ -505,7 +505,6 @@
       ],
       "./js/renderPreviewWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/emotion-react-renderer/dist/renderer.js",
         "./js/share.js"
       ],
       "./js/sendSignalToQrCode.js": [
