@@ -1,7 +1,7 @@
 self.importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js');
-self.importScripts("https://code.zed.vision/cid.umd.js");
+self.importScripts("https://code.zed.vision/ipfs.js");
 
-const { cid } = globalThis;
+const { cid, files } = globalThis;
 let currentCid = cid;
 
 const { pathname } = self.location;
@@ -17,18 +17,27 @@ self.workbox.setConfig({
 
 self.workbox.loadModule("workbox-precaching");
 
+
+const routes  = Object.keys(files).filter(x => x.length).map(x => ({ url: "/"+x, revision: files[x] }));
+
+if (cid === currentCid) self.workbox.precaching.precacheAndRoute(
+    routes
+)
+
 const install = async () => fetch(`/ipfs/${currentCid}/js/workers/shaSums.json`).then(x => x.json()).then(files => {
     const routes = Object.keys(files).filter(x => x.length).map(x => ({ url: "/"+x, revision: files[x] }));
 
     console.log(routes);
     self.workbox.precaching.precacheAndRoute(
-        routes, {
-        urlManipulation: ({ url }) => {
-            const { pathname } = url;
-            if (pathname === "/") url.pathname = "index.html";
-            return [url]
-        }
-    }
+        routes,
+        
+    //     {
+    //     urlManipulation: ({ url }) => {
+    //         const { pathname } = url;
+    //         if (pathname === "/") url.pathname = "index.html";
+    //         return [url]
+    //     }
+    // }
 
     );
     self.workbox.precaching.cleanupOutdatedCaches();

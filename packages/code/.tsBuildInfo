@@ -397,8 +397,8 @@
         "affectsGlobalScope": true
       },
       "./js/workers/sw.js": {
-        "version": "b9a32442e7d36078de481f13f92c30090b59dc4fef8ade3fb70f002cc9881f67",
-        "signature": "ae59645446c0c716cd510055e058bed3ecba980056a8623999f957ac145812bf",
+        "version": "c8a583c117b8e445268ec5e0382669d0d1f1bec077913755010c29ea9caaf333",
+        "signature": "c5f56607d9c9d6c8ad296cfd0e4e69049822377243574d85043279f08a5fa04d",
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
