@@ -11,9 +11,9 @@ if (pathname.indexOf("/ipfs/") !== -1) {
     currentCid = pathname.slice(6, 52);
 }
 
-self.workbox.setConfig({
-    debug: true,
-});
+// self.workbox.setConfig({
+//     debug: true,
+// });
 
 self.workbox.loadModule("workbox-routing");
 self.workbox.loadModule("workbox-precaching");

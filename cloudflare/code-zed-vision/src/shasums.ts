@@ -27,14 +27,14 @@ export const shasums = {
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   ".gitignore":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "sw.js": "91adc4a27f5125b4e328c934d6b26be29c086efd97c32265ebb5b60b7f978f07",
+  "sw.js": "2fe59382b36c96342f11226211f90b637401658bad9fe0f0deab1c4b4ff0af4e",
   ".tsBuildInfo":
-    "dbf8e2768dedca63f047d5a5c7f00722b8889a12b5ada791a326dc281e6a9200",
+    "5fdf7bb069e97193370e318eb48d503f554622314f3cc9e0ccfb465aff4a289e",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
-    "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
+    "daf733b6619795c7dc8745acfe721be1e3a8e1ab0d1902729fc059c28c518c98",
   "js/transpile.js":
-    "1750d2fbbb7077f6e2f936ea9a0857e0eda8875b7f09630a24bc47bfca2af00f",
+    "04f79249f67503673cbf4f694e471c1efabdc7b2ca40122ca98977b463925983",
   "js/smart-monaco-editor/index.html":
     "19e6c85fa78904591eeb4a37b70bb3a2bc217625daa545a3503c5ff4256dd592",
   "js/smart-monaco-editor/package.json":
@@ -150,7 +150,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/shaSums.json":
-    "38c6e15d1370a34e9c2d9672a023a91c2d73f0b8f651a8124fbf912767f6e0b0",
+    "603aff048d964debb703095c8e368b20a6288504853cf813831f5eee3355cedc",
   "js/workers/ipfs/package.json":
     "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
   "js/workers/ipfs/.gitignore":
@@ -192,7 +192,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "9e785c898e20ede3f3e948a7c127a3bf98c09768557662a7517e20d941098d79",
+    "77f4f1eb8ce36546132eaeeef3354b2bb22dbd253e0733459bffc9a8f02e2247",
   "js/hash.js":
     "9344c3462e55e797fe5c32bb925ed262ab945ad6c99bd7e5268ece34667f3327",
   "js/importScript.js":
@@ -234,7 +234,7 @@ export const shasums = {
   "js/renderPreviewWindow.js":
     "cb3c006d794864900cfb6d3c57c253b2f1bf005c6bab628725e05a3953586f53",
   "js/share.js":
-    "c6d82c3fc88eddb5098a1bdc54bb92cd800389227d2c67a8c105834dbff836ba",
+    "85e1045537244ad1526191c19f4000e0ae53ae3dd51ecc1e0dac26d1a4ee8868",
   "js/shadb/src/sha256.js":
     "4867914563a93849c3e414c4ba728ebfa48bbd71bfdbe05b6dbf42284fbd6369",
   "js/shadb/src/getDbObj.js":

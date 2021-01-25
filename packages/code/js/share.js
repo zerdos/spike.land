@@ -2,7 +2,6 @@ import { shaDB } from "./shadb/src/shaDB.js";
 import { sha256 } from "./shadb/src/sha256.js";
 import { ipfsClient } from "./ipfsClient.js";
 
-import { cid } from "https://code.zed.vision/cid.js";
 
 /**
  * 

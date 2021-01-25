@@ -7,12 +7,22 @@ import {
   uint8ArrayToString,
 } from "./workers/ipfs/dist/ipfs.client.js";
 
-let workerSrc = `./js/workers/ipfsWorker.js`;
+
 
 /** @type {MessagePort} */
 let port;
 
 if (typeof window !== "undefined") {
+
+
+  let workerSrc = `./js/workers/ipfsWorker.js`;
+
+  const { pathname } = window.location;
+  if (pathname.indexOf("/ipfs/") !== -1) {
+    const cid = pathname.slice(6, 52);
+    workerSrc =  `/ipfs/${cid}/js/workers/ipfsWorker.js`;
+  }
+  
   if (typeof SharedWorker !== "undefined") {
     const ipfsWorker = new SharedWorker(
       workerSrc,

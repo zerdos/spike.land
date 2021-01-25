@@ -232,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "./js/ipfsClient.js": {
-        "version": "5b934bc325e9ee4f044a6d1c664df59dd26a238a6e35d39b42338939c998a732",
+        "version": "daf733b6619795c7dc8745acfe721be1e3a8e1ab0d1902729fc059c28c518c98",
         "signature": "a49c898c9ffa6f5ba5e0f906515d29cefda94fdbec896fdd81e96ee4de1d3765",
         "affectsGlobalScope": false
       },
@@ -242,7 +242,7 @@
         "affectsGlobalScope": false
       },
       "./js/share.js": {
-        "version": "c6d82c3fc88eddb5098a1bdc54bb92cd800389227d2c67a8c105834dbff836ba",
+        "version": "85e1045537244ad1526191c19f4000e0ae53ae3dd51ecc1e0dac26d1a4ee8868",
         "signature": "8cfc095f8a3a103d8fdfc6ed1a3bb0f34f6aff7e830b00792983fd490a2b538b",
         "affectsGlobalScope": false
       },
@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./js/transpile.js": {
-        "version": "1750d2fbbb7077f6e2f936ea9a0857e0eda8875b7f09630a24bc47bfca2af00f",
+        "version": "04f79249f67503673cbf4f694e471c1efabdc7b2ca40122ca98977b463925983",
         "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
@@ -417,7 +417,7 @@
         "affectsGlobalScope": false
       },
       "./sw.js": {
-        "version": "91adc4a27f5125b4e328c934d6b26be29c086efd97c32265ebb5b60b7f978f07",
+        "version": "2fe59382b36c96342f11226211f90b637401658bad9fe0f0deab1c4b4ff0af4e",
         "signature": "8dceebe21eda4edb56e273006cb2e6c6b245c03846e631ef1449ebd5e157a456",
         "affectsGlobalScope": true
       }
