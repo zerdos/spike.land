@@ -27,5 +27,6 @@
     "framer-motion": "3.2.2-rc.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
-  }
+  },
+  "gitHead": "12815f92581c029760fde4f16e6a1e724795545a"
 }

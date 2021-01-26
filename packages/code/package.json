@@ -37,7 +37,7 @@
         "tslib": "2.1.0",
         "typescript": "4.2.0-dev.20210125"
     },
-    "gitHead": "4ce53f6c1ec82734658b26195f6410696b8d2d9b",
+    "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
     "license": "BSD-3-Clause",
     "publishConfig": {
