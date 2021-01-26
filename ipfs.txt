@@ -92,9 +92,9 @@ added QmYUzn9XSFiduCLmzj4Ewcn5GnxwPaDKYDGAxdakydncmg code/js/smart-monaco-editor
 added QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8 code/js/smart-monaco-editor/tsconfig.json
 added QmPsQyE3zMFs89FPkn2yA5p98bsVbW2VcgT3RDVeZEXM8M code/js/smart-monaco-editor/tsconfig.tsbuildinfo
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/js/starterTsx.tsx
-added QmTuqg1hZd4kUvZtK6CzsYGvkBuVnmcmxr2MKHyCmpibXM code/js/templates.js
+added QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe code/js/templates.js
 added QmYWif6baGGsC3ePNG3fHh4omfGVGXs45Jwqec8xU96gsw code/js/transpile.js
-added Qmf7KAfpqmTGDBLKKUEHfB9LbdvCQZhfX71BhwfhJA1ULG code/js/workers/fileCids.json
+added QmZisAv4NehKRCYWaA3jUnBtUkrTQK9ctEg22621tpaJnD code/js/workers/fileCids.json
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/js/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/js/workers/ipfs/dist/gateways.d.ts
 added QmNVuHYaC7MuqYnsRJ2J9kY7TotGALZ868F2jx4ryvmETK code/js/workers/ipfs/dist/gateways.js
@@ -108,7 +108,7 @@ added QmPHeiaXEFPhPXsg2DpZkdb7NYp9GZ1MCarVFMRdg83Ada code/js/workers/ipfs/src/ip
 added QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo code/js/workers/ipfs/src/ref.d.ts
 added QmYHbMSMqJLVt643gR6twoh1Fh2pmRefGPr9GEfXQSemHg code/js/workers/ipfs/tsconfig.json
 added QmaihZ6yoSUSvKePkUbuu3EJAJwQhXZdcGWSPDsh8mqg9m code/js/workers/ipfsWorker.js
-added QmXeivbAv8uZSfX5vEj3A12MjKzAxEE17uCQNxNdsyHkiJ code/js/workers/shaSums.json
+added QmZkcVL5qysjfbxjjE4k5voMEHHQNWDPozkgr36G7CSKz3 code/js/workers/shaSums.json
 added QmQdsM6sidjLVrxFUZik8mQxDD6LtsAyDGKgQ4jaZFJC7J code/js/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/js/workers/tsconfig.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
@@ -169,8 +169,8 @@ added Qmdvk94XTiPoGWaXZYrXg5FDcSBTMeGW1H25ggYYwD9gaP code/js/smart-monaco-editor
 added QmXLKBxQmafNmqJyFg9h4XzHVcabJmXD5k8zdJX33seNRS code/js/workers/ipfs/dist
 added QmcawjRt9hNpM5V2RSvd446Ntkd21gMaa2GnQsHq3Y4BpT code/js/workers/ipfs/src
 added QmW2u14KGQ1oVQKxRvhXkGpN6i18FbHuDo5nTNeh5PxzPN code/js/workers/ipfs
-added QmVcyYaPrJUwEf4jg5EJbLzyLe7rJfyFqLNo6bCLVrSpGg code/js/workers
-added QmWLFE9PzeiMdGVKMsVjDEs89mer3vc9fVHzQJcbHsKZiR code/js
+added QmNMyRZcgFBjFapKz1Xdfuw6299BpifHA1h4VXCXosHCNX code/js/workers
+added QmeujnmhCADkqyKzhuYT8yCLeJ2uuxidFZVvpjaKkz6vSP code/js
 added QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R code/node_legacy/comlink
 added QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1 code/node_legacy
-added QmNdvBxukhsbBgReZdfhXsMt6cmZaB5Hcj1gp2xFfZPLmb code
+added QmZtovb1ZVdq8gZNv5DXW2pCVfzDRoKkmeNdenvntdku1t code

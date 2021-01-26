@@ -68,7 +68,7 @@ export const getEditorHTML = (cid) =>
 </head>
 <body>
   <script type="module">
-    import {edit} from "/ipfs/${cid}/src/data.js"
+    import {edit} from "/ipfs/${cid}/js/data.js"
     try{
       edit("${location.pathname.slice(42, 52)}");
     }catch(error){

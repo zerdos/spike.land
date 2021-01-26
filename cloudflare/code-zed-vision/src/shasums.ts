@@ -101,18 +101,18 @@ export const shasums = {
     "26b0e247b3161f427e3401e6a8512cc5d66c9372fcc108ff1c1cdbf22e5d2f28",
   "js/smart-monaco-editor/LICENSE.md":
     "15855dde524dbbb3ffb666ccc87de4dc8a4b2f22840128fc0e65abb0ded8a77f",
-  "js/smart-monaco-editor/dist/editor.js":
-    "1df35df04b6e1022ee0a9efcea57cff0753fcc270d4e2e59162ae7eab974c927",
-  "js/smart-monaco-editor/dist/monaco.d.ts":
-    "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-  "js/smart-monaco-editor/dist/editor.d.ts":
-    "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "js/smart-monaco-editor/dist/monaco.js":
     "d16032dd97343ea8fdba3b0ac34fc536df7e7f617a29c512c02dae724fc1a69c",
   "js/smart-monaco-editor/dist/scripts/screenshots.d.ts":
     "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
   "js/smart-monaco-editor/dist/scripts/screenshots.js":
     "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
+  "js/smart-monaco-editor/dist/editor.js":
+    "1df35df04b6e1022ee0a9efcea57cff0753fcc270d4e2e59162ae7eab974c927",
+  "js/smart-monaco-editor/dist/editor.d.ts":
+    "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+  "js/smart-monaco-editor/dist/monaco.d.ts":
+    "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/data.js":
@@ -140,7 +140,7 @@ export const shasums = {
   "js/emotion-react-renderer/src/DraggableWindow.tsx":
     "59755281195934fbfd39ac6af5325692245ed4f520844ed0cfb909ec183eda1b",
   "js/templates.js":
-    "b0e690835c6875c690a9f4bf8830a304a780a274bbe52727d14b8430df5321ad",
+    "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
   "js/codeLoader.js":
     "7023bc31eb9795ef9acb4deab40300a01fd49173c8bda8a7864c1e04c489942a",
   "js/db.js":
@@ -150,7 +150,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/shaSums.json":
-    "913b54081d411d69ad753ef682869a82bb4f1e5202654b0ea0b838957d4b9243",
+    "33c1de9994a0a19cd4ea0812b636a62969b387f9aff31ec53e5fb4b0a217e784",
   "js/workers/ipfs/package.json":
     "afb190ef13441ba58eea86633668162f3fbc9d0ac76811df8b9414486d0715ce",
   "js/workers/ipfs/.gitignore":
@@ -186,7 +186,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "6fbc5b712fb2509f5c54266e74da22caeebfc656dd8a1c0e08b504efa28f0e14",
+    "66402ceee50294333532a8482aae867cfd41d3d5ceb3af3e4602644a44c06c32",
   "js/hash.js":
     "9344c3462e55e797fe5c32bb925ed262ab945ad6c99bd7e5268ece34667f3327",
   "js/importScript.js":
