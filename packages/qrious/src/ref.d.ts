@@ -1,4 +1,4 @@
-declare module "@zedvision/qrious" {
+declare module "qrious-core" {
   interface IQROptions {
     element: HTMLCanvasElement;
     size: number;

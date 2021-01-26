@@ -2,9 +2,10 @@ import React from "react";
 /** @jsx jsx */
 //@ts-ignore
 import { css, Global, jsx } from "@emotion/react";
-import { fetchSignal } from "@zedvision/code/js/hash.js";
+import { fetchSignal } from "@zedvision/code/js/hash";
 
-import { QRious } from "@zedvision/qrious";
+//@ts-ignore
+import { QRious } from "@zedvision/qrious/dist/qrious.esm";
 import { sha256 } from "../utils/sha256/sha256";
 
 export const Qr = () => {

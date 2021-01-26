@@ -257,7 +257,7 @@
         "affectsGlobalScope": false
       },
       "./js/sendSignalToQrCode.js": {
-        "version": "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
+        "version": "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
         "signature": "baacf004b19e26fd386f5427f34f1faab3c22df69f9086e202d24832ba8b5531",
         "affectsGlobalScope": false
       },
@@ -324,21 +324,6 @@
       "./js/examples/starter_framer.js": {
         "version": "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
         "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
-        "affectsGlobalScope": false
-      },
-      "./js/qrious/dist/qrious.esm.js": {
-        "version": "ac193b6b27441794add8a08823c9e274dc2eb03d83657ca46a3de4be27af621e",
-        "signature": "6e59ec44bffb32a68612a031a9d57d2eb7cddc10506777d9621a7aca88cbe2a9",
-        "affectsGlobalScope": false
-      },
-      "./js/qrious/src/service/element/BrowserElementService.js": {
-        "version": "e5e7218210536d54aba78f60488db9692856450c969e84bfaecba23874d8724d",
-        "signature": "e2d2aac4afe4afa2bab207283a7c4764fea14170fca102e557f866bf8f9b09c1",
-        "affectsGlobalScope": true
-      },
-      "./js/qrious/src/QRious.js": {
-        "version": "95ce3faba4f4a3b1038fac8bd71ea6a1616a78f3294d7dd6d7cbb5772712651d",
-        "signature": "f837536bb54b00160f5caa8872696a5e9600c900e28cfdf9abb92b484b4baf3a",
         "affectsGlobalScope": false
       },
       "./js/shadb/dist/vendor/diffMin.d.ts": {
@@ -541,13 +526,6 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./node_legacy/simple-window-manager.es.js"
       ],
-      "./js/qrious/dist/qrious.esm.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/qrious/src/QRious.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/qrious/src/service/element/BrowserElementService.js"
-      ],
       "./js/renderPreviewWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./js/share.js"
@@ -723,9 +701,6 @@
       "./js/importScript.js",
       "./js/ipfsClient.js",
       "./js/openWindows.js",
-      "./js/qrious/dist/qrious.esm.js",
-      "./js/qrious/src/QRious.js",
-      "./js/qrious/src/service/element/BrowserElementService.js",
       "./js/renderPreviewWindow.js",
       "./js/sendSignalToQrCode.js",
       "./js/shadb/dist/diff.d.ts",
@@ -846,18 +821,6 @@
       ],
       [
         "./js/openWindows.js",
-        1
-      ],
-      [
-        "./js/qrious/dist/qrious.esm.js",
-        1
-      ],
-      [
-        "./js/qrious/src/QRious.js",
-        1
-      ],
-      [
-        "./js/qrious/src/service/element/BrowserElementService.js",
         1
       ],
       [

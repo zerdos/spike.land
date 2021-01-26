@@ -6,15 +6,12 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/code",
-    "packages/monaco-editor",
+    "packages/*",
     "cloudflare/zed-vision",
     "cloudflare/code-zed-vision",
-    "packages/code/js/workers/ipfs",
     "packages/code/js/shadb",
     "packages/code/js/smart-monaco-editor",
-    "packages/code/js/emotion-react-renderer",
-    "packages/zed-vision-site"
+    "packages/code/js/emotion-react-renderer"
   ],
   "scripts": {
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",

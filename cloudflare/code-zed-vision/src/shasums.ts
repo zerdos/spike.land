@@ -29,7 +29,7 @@ export const shasums = {
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "sw.js": "5be5cfaa349e0b78e90615fd9edda3b4e7299fcb43fb94c224ef7e314e442622",
   ".tsBuildInfo":
-    "022123111433954d07409d661716207631b9299fa90914e64cdc6a409fa83287",
+    "a14671d416cb1e58ff0b410e7800fafaf06ead3d4655ee036e9451ba5c021e1b",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "c0f3343462885073c968afa8fe96b8913195f635862ff778330ffc87c8d4a1e6",
@@ -78,9 +78,9 @@ export const shasums = {
   "js/openWindows.js":
     "e599a98bc0997d534b27797cbf86289c88fa3021d0bf3fae799f3fa52bdf241a",
   "js/sendSignalToQrCode.js":
-    "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
+    "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/shaSums.json":
-    "7c1b899f0be0ed89dd191155f18fb7404606d32422f5422fd45d81e7368a5ce1",
+    "e9359f4f8954852c680b3606ca44be2a533430f68dc99ded6ef86644c18d585d",
   "js/workers/ipfs/package.json":
     "24584b9bba9427e09e69daec53312b094e23b8cc5d9dbce2e317c7f50f3ab497",
   "js/workers/ipfs/.gitignore":
@@ -112,45 +112,13 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "96d0a62718cfcc5d8d3df57558214063099be0619a3bdfa058aca68345865dab",
+    "14513a31c76195d8f1cf1a499600f5c151fc6adf474c78f0c05ce4c57734f37b",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
-  "js/qrious/.gitattributes":
-    "a79691a93b46e49ce460c26ef22afcc03d6eca1e63bf2edbc20e96159510f6c9",
-  "js/qrious/.gitignore":
-    "295aa1f18923880afebb2e08aa70a8c4f285cc52baea238b8d2864d10e45d825",
-  "js/qrious/demo.html":
-    "ad5e15d5d4d4a1874dd1ab235ac6b79a9708b88c4ae09b9d978a45c5639b2764",
-  "js/qrious/.editorconfig":
-    "6d6796f174b736bcd7a68999e30d2f19a3719ad92355dcc0cfdfce8a66864553",
-  "js/qrious/LICENSE.md":
-    "f8cc6ef0c55eb3c1a9e9f91089458dfcc6f3772abf9d13130eac82bb3311b637",
-  "js/qrious/package.json":
-    "6c41feb67ef129b0e1d8ebec06e48e6c06bfb42e486ac16e6c38985b9cbe2bc8",
-  "js/qrious/.npmignore":
-    "deb0ea9992b95bd087fe4416021275058abf5e562f014812252d6b387d409c05",
-  "js/qrious/src/QRious.js":
-    "95ce3faba4f4a3b1038fac8bd71ea6a1616a78f3294d7dd6d7cbb5772712651d",
-  "js/qrious/src/service/element/BrowserElementService.js":
-    "e5e7218210536d54aba78f60488db9692856450c969e84bfaecba23874d8724d",
-  "js/qrious/.travis.yml":
-    "a6c20fd700038a92afd59314fd80dfbafd0a3e6d29dbb12c5fd43f7c97349316",
-  "js/qrious/.eslintignore":
-    "4562251cbbae7291c62fb26d1cdcf780ce00ab6f1bcda46703b227a6493e8a27",
-  "js/qrious/README.md":
-    "748726e1c3b1f0315f7f5314e40b19585c1390a8b36a6b14cedfea68b7ee0899",
-  "js/qrious/demo_min.html":
-    "35b38e78a87fd8d13678422781fc013787378e06db77bda20ce59791c4067bf9",
-  "js/qrious/.eslintrc.json":
-    "a57bf20731edd312e02bab62f7933ebca6422f6cc800743fd1bd743a8467abef",
-  "js/qrious/AUTHORS.md":
-    "28450b28de481cd205d5f6722e5cd4e550e67a4d1057bc5e5127c201b95401d4",
-  "js/qrious/dist/qrious.esm.js":
-    "ac193b6b27441794add8a08823c9e274dc2eb03d83657ca46a3de4be27af621e",
   "js/renderPreviewWindow.js":
     "fb125cbd79fbf5501d80b6b6442bb0c22e5af81299153240bf165f1e412ca660",
   "js/share.js":

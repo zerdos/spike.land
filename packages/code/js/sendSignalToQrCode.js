@@ -1,12 +1,12 @@
 import { getUserId } from "./data.js";
 import { sha256 } from "./shadb/src/sha256.js";
-import { getCodeToLoad, saveCode } from "./data.js";
+import { saveCode } from "./data.js";
 
 /**
  * @param {string} rootUrl
  */
 export async function sendSignalToQrCode(session) {
-  const { searchParams, pathname } = new URL(window.location.href);
+  const { searchParams } = new URL(window.location.href);
 
   const maybeRoute = searchParams.get("signalToQr") || "";
   const isKey = maybeRoute.length === 8 &&
