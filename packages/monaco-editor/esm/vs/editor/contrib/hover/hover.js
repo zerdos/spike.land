@@ -104,21 +104,21 @@ let ModesHoverController = class ModesHoverController {
         this._isMouseDown = false;
     }
     _onEditorMouseMove(mouseEvent) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f;
         let targetType = mouseEvent.target.type;
-        if (this._isMouseDown && this._hoverClicked && ((_a = this._contentWidget) === null || _a === void 0 ? void 0 : _a.isColorPickerVisible())) {
+        if (this._isMouseDown && this._hoverClicked) {
             return;
         }
         if (this._isHoverSticky && targetType === 9 /* CONTENT_WIDGET */ && mouseEvent.target.detail === ModesContentHoverWidget.ID) {
             // mouse moved on top of content hover widget
             return;
         }
-        if (this._isHoverSticky && !((_c = (_b = mouseEvent.event.browserEvent.view) === null || _b === void 0 ? void 0 : _b.getSelection()) === null || _c === void 0 ? void 0 : _c.isCollapsed)) {
+        if (this._isHoverSticky && !((_b = (_a = mouseEvent.event.browserEvent.view) === null || _a === void 0 ? void 0 : _a.getSelection()) === null || _b === void 0 ? void 0 : _b.isCollapsed)) {
             // selected text within content hover widget
             return;
         }
         if (!this._isHoverSticky && targetType === 9 /* CONTENT_WIDGET */ && mouseEvent.target.detail === ModesContentHoverWidget.ID
-            && ((_d = this._contentWidget) === null || _d === void 0 ? void 0 : _d.isColorPickerVisible())) {
+            && ((_c = this._contentWidget) === null || _c === void 0 ? void 0 : _c.isColorPickerVisible())) {
             // though the hover is not sticky, the color picker needs to.
             return;
         }
@@ -135,11 +135,11 @@ let ModesHoverController = class ModesHoverController {
             }
         }
         if (targetType === 6 /* CONTENT_TEXT */) {
-            (_e = this._glyphWidget) === null || _e === void 0 ? void 0 : _e.hide();
+            (_d = this._glyphWidget) === null || _d === void 0 ? void 0 : _d.hide();
             if (this._isHoverEnabled && mouseEvent.target.range) {
                 // TODO@rebornix. This should be removed if we move Color Picker out of Hover component.
                 // Check if mouse is hovering on color decorator
-                const hoverOnColorDecorator = [...((_f = mouseEvent.target.element) === null || _f === void 0 ? void 0 : _f.classList.values()) || []].find(className => className.startsWith('ced-colorBox'))
+                const hoverOnColorDecorator = [...((_e = mouseEvent.target.element) === null || _e === void 0 ? void 0 : _e.classList.values()) || []].find(className => className.startsWith('ced-colorBox'))
                     && mouseEvent.target.range.endColumn - mouseEvent.target.range.startColumn === 1;
                 const showAtRange = (hoverOnColorDecorator // shift the mouse focus by one as color decorator is a `before` decoration of next character.
                     ? new Range(mouseEvent.target.range.startLineNumber, mouseEvent.target.range.startColumn + 1, mouseEvent.target.range.endLineNumber, mouseEvent.target.range.endColumn + 1)
@@ -151,7 +151,7 @@ let ModesHoverController = class ModesHoverController {
             }
         }
         else if (targetType === 2 /* GUTTER_GLYPH_MARGIN */) {
-            (_g = this._contentWidget) === null || _g === void 0 ? void 0 : _g.hide();
+            (_f = this._contentWidget) === null || _f === void 0 ? void 0 : _f.hide();
             if (this._isHoverEnabled && mouseEvent.target.position) {
                 if (!this._glyphWidget) {
                     this._glyphWidget = new ModesGlyphHoverWidget(this._editor, this._modeService, this._openerService);
@@ -174,6 +174,7 @@ let ModesHoverController = class ModesHoverController {
         if ((this._isMouseDown && this._hoverClicked && ((_a = this._contentWidget) === null || _a === void 0 ? void 0 : _a.isColorPickerVisible()))) {
             return;
         }
+        this._hoverClicked = false;
         (_b = this._glyphWidget) === null || _b === void 0 ? void 0 : _b.hide();
         (_c = this._contentWidget) === null || _c === void 0 ? void 0 : _c.hide();
     }

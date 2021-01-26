@@ -281,11 +281,6 @@
 		"vs/editor/browser/widget/codeEditorWidget": [
 			"cursors.maximum"
 		],
-		"vs/editor/browser/widget/diffEditorWidget": [
-			"diffInsertIcon",
-			"diffRemoveIcon",
-			"diff.tooLarge"
-		],
 		"vs/editor/contrib/anchorSelect/anchorSelect": [
 			"selectionAnchor",
 			"anchorSet",
@@ -293,6 +288,15 @@
 			"goToSelectionAnchor",
 			"selectFromAnchorToCursor",
 			"cancelSelectionAnchor"
+		],
+		"vs/editor/contrib/caretOperations/caretOperations": [
+			"caret.moveLeft",
+			"caret.moveRight"
+		],
+		"vs/editor/browser/widget/diffEditorWidget": [
+			"diffInsertIcon",
+			"diffRemoveIcon",
+			"diff.tooLarge"
 		],
 		"vs/editor/contrib/bracketMatching/bracketMatching": [
 			"overviewRulerBracketMatchForeground",
@@ -304,10 +308,6 @@
 					"&& denotes a mnemonic"
 				]
 			}
-		],
-		"vs/editor/contrib/caretOperations/caretOperations": [
-			"caret.moveLeft",
-			"caret.moveRight"
 		],
 		"vs/editor/contrib/caretOperations/transpose": [
 			"transposeLetters.label"
@@ -342,6 +342,13 @@
 		"vs/editor/contrib/codelens/codelensController": [
 			"showLensOnLine"
 		],
+		"vs/editor/contrib/contextmenu/contextmenu": [
+			"action.showContextMenu.label"
+		],
+		"vs/editor/contrib/cursorUndo/cursorUndo": [
+			"cursor.undo",
+			"cursor.redo"
+		],
 		"vs/editor/contrib/comment/comment": [
 			"comment.line",
 			{
@@ -359,28 +366,6 @@
 					"&& denotes a mnemonic"
 				]
 			}
-		],
-		"vs/editor/contrib/contextmenu/contextmenu": [
-			"action.showContextMenu.label"
-		],
-		"vs/editor/contrib/folding/folding": [
-			"unfoldAction.label",
-			"unFoldRecursivelyAction.label",
-			"foldAction.label",
-			"toggleFoldAction.label",
-			"foldRecursivelyAction.label",
-			"foldAllBlockComments.label",
-			"foldAllMarkerRegions.label",
-			"unfoldAllMarkerRegions.label",
-			"foldAllAction.label",
-			"unfoldAllAction.label",
-			"foldLevelAction.label",
-			"foldBackgroundBackground",
-			"editorGutter.foldingControlForeground"
-		],
-		"vs/editor/contrib/format/formatActions": [
-			"formatDocument.label",
-			"formatSelection.label"
 		],
 		"vs/editor/contrib/find/findController": [
 			"startFindAction",
@@ -405,14 +390,29 @@
 				]
 			}
 		],
-		"vs/editor/contrib/cursorUndo/cursorUndo": [
-			"cursor.undo",
-			"cursor.redo"
-		],
 		"vs/editor/contrib/fontZoom/fontZoom": [
 			"EditorFontZoomIn.label",
 			"EditorFontZoomOut.label",
 			"EditorFontZoomReset.label"
+		],
+		"vs/editor/contrib/folding/folding": [
+			"unfoldAction.label",
+			"unFoldRecursivelyAction.label",
+			"foldAction.label",
+			"toggleFoldAction.label",
+			"foldRecursivelyAction.label",
+			"foldAllBlockComments.label",
+			"foldAllMarkerRegions.label",
+			"unfoldAllMarkerRegions.label",
+			"foldAllAction.label",
+			"unfoldAllAction.label",
+			"foldLevelAction.label",
+			"foldBackgroundBackground",
+			"editorGutter.foldingControlForeground"
+		],
+		"vs/editor/contrib/format/formatActions": [
+			"formatDocument.label",
+			"formatSelection.label"
 		],
 		"vs/editor/contrib/gotoSymbol/goToCommands": [
 			"peek.submenu",
@@ -719,9 +719,6 @@
 			"unusualLineTerminators.fix",
 			"unusualLineTerminators.ignore"
 		],
-		"vs/editor/contrib/wordOperations/wordOperations": [
-			"deleteInsideWord"
-		],
 		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
 			"wordHighlight",
 			"wordHighlightStrong",
@@ -732,6 +729,32 @@
 			"wordHighlight.next.label",
 			"wordHighlight.previous.label",
 			"wordHighlight.trigger.label"
+		],
+		"vs/editor/browser/editorExtensions": [
+			{
+				"key": "miUndo",
+				"comment": [
+					"&& denotes a mnemonic"
+				]
+			},
+			"undo",
+			{
+				"key": "miRedo",
+				"comment": [
+					"&& denotes a mnemonic"
+				]
+			},
+			"redo",
+			{
+				"key": "miSelectAll",
+				"comment": [
+					"&& denotes a mnemonic"
+				]
+			},
+			"selectAll"
+		],
+		"vs/editor/contrib/wordOperations/wordOperations": [
+			"deleteInsideWord"
 		],
 		"vs/editor/common/standaloneStrings": [
 			"noSelection",
@@ -768,29 +791,6 @@
 			"accessibilityHelpMessage",
 			"toggleHighContrast",
 			"bulkEditServiceSummary"
-		],
-		"vs/editor/browser/editorExtensions": [
-			{
-				"key": "miUndo",
-				"comment": [
-					"&& denotes a mnemonic"
-				]
-			},
-			"undo",
-			{
-				"key": "miRedo",
-				"comment": [
-					"&& denotes a mnemonic"
-				]
-			},
-			"redo",
-			{
-				"key": "miSelectAll",
-				"comment": [
-					"&& denotes a mnemonic"
-				]
-			},
-			"selectAll"
 		],
 		"vs/platform/theme/common/colorRegistry": [
 			"foreground",
@@ -1089,10 +1089,6 @@
 				]
 			}
 		],
-		"vs/editor/contrib/folding/foldingDecorations": [
-			"foldingExpandedIcon",
-			"foldingCollapsedIcon"
-		],
 		"vs/editor/contrib/find/findWidget": [
 			"findSelectionIcon",
 			"findCollapsedIcon",
@@ -1120,6 +1116,10 @@
 			"ariaSearchNoResultWithLineNum",
 			"ariaSearchNoResultWithLineNumNoCurrentMatch",
 			"ctrlEnter.keybindingChanged"
+		],
+		"vs/editor/contrib/folding/foldingDecorations": [
+			"foldingExpandedIcon",
+			"foldingCollapsedIcon"
 		],
 		"vs/editor/contrib/format/format": [
 			"hint11",
@@ -1913,11 +1913,6 @@
 		"vs/editor/browser/widget/codeEditorWidget": [
 			"The number of cursors has been limited to {0}."
 		],
-		"vs/editor/browser/widget/diffEditorWidget": [
-			"Line decoration for inserts in the diff editor.",
-			"Line decoration for removals in the diff editor.",
-			"Cannot compare files because one file is too large."
-		],
 		"vs/editor/contrib/anchorSelect/anchorSelect": [
 			"Selection Anchor",
 			"Anchor set at {0}:{1}",
@@ -1926,15 +1921,20 @@
 			"Select from Anchor to Cursor",
 			"Cancel Selection Anchor"
 		],
+		"vs/editor/contrib/caretOperations/caretOperations": [
+			"Move Selected Text Left",
+			"Move Selected Text Right"
+		],
+		"vs/editor/browser/widget/diffEditorWidget": [
+			"Line decoration for inserts in the diff editor.",
+			"Line decoration for removals in the diff editor.",
+			"Cannot compare files because one file is too large."
+		],
 		"vs/editor/contrib/bracketMatching/bracketMatching": [
 			"Overview ruler marker color for matching brackets.",
 			"Go to Bracket",
 			"Select to Bracket",
 			"Go to &&Bracket"
-		],
-		"vs/editor/contrib/caretOperations/caretOperations": [
-			"Move Selected Text Left",
-			"Move Selected Text Right"
 		],
 		"vs/editor/contrib/caretOperations/transpose": [
 			"Transpose Letters"
@@ -1954,6 +1954,13 @@
 		"vs/editor/contrib/codelens/codelensController": [
 			"Show CodeLens Commands For Current Line"
 		],
+		"vs/editor/contrib/contextmenu/contextmenu": [
+			"Show Editor Context Menu"
+		],
+		"vs/editor/contrib/cursorUndo/cursorUndo": [
+			"Cursor Undo",
+			"Cursor Redo"
+		],
 		"vs/editor/contrib/comment/comment": [
 			"Toggle Line Comment",
 			"&&Toggle Line Comment",
@@ -1962,8 +1969,23 @@
 			"Toggle Block Comment",
 			"Toggle &&Block Comment"
 		],
-		"vs/editor/contrib/contextmenu/contextmenu": [
-			"Show Editor Context Menu"
+		"vs/editor/contrib/find/findController": [
+			"Find",
+			"&&Find",
+			"Find With Selection",
+			"Find Next",
+			"Find Next",
+			"Find Previous",
+			"Find Previous",
+			"Find Next Selection",
+			"Find Previous Selection",
+			"Replace",
+			"&&Replace"
+		],
+		"vs/editor/contrib/fontZoom/fontZoom": [
+			"Editor Font Zoom In",
+			"Editor Font Zoom Out",
+			"Editor Font Zoom Reset"
 		],
 		"vs/editor/contrib/folding/folding": [
 			"Unfold",
@@ -1983,28 +2005,6 @@
 		"vs/editor/contrib/format/formatActions": [
 			"Format Document",
 			"Format Selection"
-		],
-		"vs/editor/contrib/find/findController": [
-			"Find",
-			"&&Find",
-			"Find With Selection",
-			"Find Next",
-			"Find Next",
-			"Find Previous",
-			"Find Previous",
-			"Find Next Selection",
-			"Find Previous Selection",
-			"Replace",
-			"&&Replace"
-		],
-		"vs/editor/contrib/cursorUndo/cursorUndo": [
-			"Cursor Undo",
-			"Cursor Redo"
-		],
-		"vs/editor/contrib/fontZoom/fontZoom": [
-			"Editor Font Zoom In",
-			"Editor Font Zoom Out",
-			"Editor Font Zoom Reset"
 		],
 		"vs/editor/contrib/gotoSymbol/goToCommands": [
 			"Peek",
@@ -2189,9 +2189,6 @@
 			"Fix this file",
 			"Ignore problem for this file"
 		],
-		"vs/editor/contrib/wordOperations/wordOperations": [
-			"Delete Word"
-		],
 		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
 			"Background color of a symbol during read-access, like reading a variable. The color must not be opaque so as not to hide underlying decorations.",
 			"Background color of a symbol during write-access, like writing to a variable. The color must not be opaque so as not to hide underlying decorations.",
@@ -2202,6 +2199,17 @@
 			"Go to Next Symbol Highlight",
 			"Go to Previous Symbol Highlight",
 			"Trigger Symbol Highlight"
+		],
+		"vs/editor/browser/editorExtensions": [
+			"&&Undo",
+			"Undo",
+			"&&Redo",
+			"Redo",
+			"&&Select All",
+			"Select All"
+		],
+		"vs/editor/contrib/wordOperations/wordOperations": [
+			"Delete Word"
 		],
 		"vs/editor/common/standaloneStrings": [
 			"No selection",
@@ -2238,14 +2246,6 @@
 			"Press Alt+F1 for Accessibility Options.",
 			"Toggle High Contrast Theme",
 			"Made {0} edits in {1} files"
-		],
-		"vs/editor/browser/editorExtensions": [
-			"&&Undo",
-			"Undo",
-			"&&Redo",
-			"Redo",
-			"&&Select All",
-			"Select All"
 		],
 		"vs/platform/theme/common/colorRegistry": [
 			"Overall foreground color. This color is only used if not overridden by a component.",
@@ -2523,10 +2523,6 @@
 		"vs/base/browser/ui/actionbar/actionViewItems": [
 			"{0} ({1})"
 		],
-		"vs/editor/contrib/folding/foldingDecorations": [
-			"Icon for expanded ranges in the editor glyph margin.",
-			"Icon for collapsed ranges in the editor glyph margin."
-		],
 		"vs/editor/contrib/find/findWidget": [
 			"Icon for 'Find in Selection' in the editor find widget.",
 			"Icon to indicate that the editor find widget is collapsed.",
@@ -2554,6 +2550,10 @@
 			"{0} found for '{1}', at {2}",
 			"{0} found for '{1}'",
 			"Ctrl+Enter now inserts line break instead of replacing all. You can modify the keybinding for editor.action.replaceAll to override this behavior."
+		],
+		"vs/editor/contrib/folding/foldingDecorations": [
+			"Icon for expanded ranges in the editor glyph margin.",
+			"Icon for collapsed ranges in the editor glyph margin."
 		],
 		"vs/editor/contrib/format/format": [
 			"Made 1 formatting edit on line {0}",

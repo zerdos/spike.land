@@ -340,10 +340,7 @@ export class ModesContentHoverWidget extends Widget {
         this._colorPicker = null;
     }
     isColorPickerVisible() {
-        if (this._colorPicker) {
-            return true;
-        }
-        return false;
+        return !!this._colorPicker;
     }
     onContentsChanged() {
         this._hover.onContentsChanged();

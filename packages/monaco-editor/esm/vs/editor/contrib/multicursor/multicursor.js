@@ -851,10 +851,6 @@ export class SelectionHighlighter extends Disposable {
             };
         });
         this.decorations = this.editor.deltaDecorations(this.decorations, decorations);
-        const currentFindState = CommonFindController.get(this.editor).getState();
-        if (currentFindState.isRegex || currentFindState.matchCase || currentFindState.wholeWord) {
-            CommonFindController.get(this.editor).highlightFindOptions(true);
-        }
     }
     dispose() {
         this._setState(null);

@@ -105,7 +105,9 @@ export class SimpleEditorProgressService {
         return SimpleEditorProgressService.NULL_PROGRESS_RUNNER;
     }
     showWhile(promise, delay) {
-        return Promise.resolve(undefined);
+        return __awaiter(this, void 0, void 0, function* () {
+            yield promise;
+        });
     }
 }
 SimpleEditorProgressService.NULL_PROGRESS_RUNNER = {

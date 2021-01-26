@@ -295,8 +295,9 @@ class ResourceNavigator extends Disposable {
     onFocusFromKeyboard(event) {
         const focus = this.widget.getFocus();
         this.widget.setSelection(focus, event.browserEvent);
-        const preserveFocus = typeof event.browserEvent.preserveFocus === 'boolean' ? event.browserEvent.preserveFocus : true;
-        const pinned = !preserveFocus;
+        const selectionKeyboardEvent = event.browserEvent;
+        const preserveFocus = typeof selectionKeyboardEvent.preserveFocus === 'boolean' ? selectionKeyboardEvent.preserveFocus : true;
+        const pinned = typeof selectionKeyboardEvent.pinned === 'boolean' ? selectionKeyboardEvent.pinned : !preserveFocus;
         const sideBySide = false;
         this._open(this.getSelectedElement(), preserveFocus, pinned, sideBySide, event.browserEvent);
     }
@@ -304,8 +305,9 @@ class ResourceNavigator extends Disposable {
         if (event.elements.length !== 1) {
             return;
         }
-        const preserveFocus = typeof event.browserEvent.preserveFocus === 'boolean' ? event.browserEvent.preserveFocus : true;
-        const pinned = !preserveFocus;
+        const selectionKeyboardEvent = event.browserEvent;
+        const preserveFocus = typeof selectionKeyboardEvent.preserveFocus === 'boolean' ? selectionKeyboardEvent.preserveFocus : true;
+        const pinned = typeof selectionKeyboardEvent.pinned === 'boolean' ? selectionKeyboardEvent.pinned : !preserveFocus;
         const sideBySide = false;
         this._open(this.getSelectedElement(), preserveFocus, pinned, sideBySide, event.browserEvent);
     }
