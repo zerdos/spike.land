@@ -25,7 +25,7 @@ echo "export const cid = '$CID';" > cloudflare/code-zed-vision/src/cid.ts
 echo $CID > code.CID
 echo $URL
 
-(firefox  $URL)&
+(google-chrome  $URL)&
 
 # rm -rf cids/code
 # mkdir -p cids
