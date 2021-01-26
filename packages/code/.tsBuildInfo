@@ -411,13 +411,8 @@
         "signature": "688e6bf6b8568a4bd9c2ca9d67edf36a621200a114efe7cfb4eea0134e90deb0",
         "affectsGlobalScope": false
       },
-      "./js/importScript.d.ts": {
-        "version": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
-        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
-        "affectsGlobalScope": false
-      },
       "./js/smart-monaco-editor/dist/monaco.js": {
-        "version": "d16032dd97343ea8fdba3b0ac34fc536df7e7f617a29c512c02dae724fc1a69c",
+        "version": "506f66f52cbc344a4b8ed07f9fd317535d8e5bbb6336cc1d2bf0ebe4cab19d8b",
         "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
         "affectsGlobalScope": false
       },
@@ -608,8 +603,7 @@
         "./js/smart-monaco-editor/dist/monaco.d.ts"
       ],
       "./js/smart-monaco-editor/dist/monaco.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/importScript.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./js/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -697,7 +691,6 @@
       "./js/examples/starter_framer.js",
       "./js/formatter.js",
       "./js/hash.js",
-      "./js/importScript.d.ts",
       "./js/importScript.js",
       "./js/ipfsClient.js",
       "./js/openWindows.js",
@@ -805,10 +798,6 @@
       ],
       [
         "./js/hash.js",
-        1
-      ],
-      [
-        "./js/importScript.d.ts",
         1
       ],
       [

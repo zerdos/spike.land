@@ -15,7 +15,7 @@
   "devDependencies": {
     "@cloudflare/wrangler": "1.13.0",
     "@zedvision/ipfs": "^11.10.20",
-    "esbuild": "0.8.34"
+    "esbuild": "0.8.36"
   },
   "dependencies": {
     "@zedvision/code": "^11.10.21"
