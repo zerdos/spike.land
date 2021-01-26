@@ -286,11 +286,6 @@
         "signature": "9561ad5c1daa2243187c0187cc53256ced5dc0af90d36f7e3ff06734eb716c92",
         "affectsGlobalScope": false
       },
-      "./js/smart-monaco-editor/dist/editor.d.ts": {
-        "version": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
-        "signature": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
-        "affectsGlobalScope": false
-      },
       "./js/codeLoader.js": {
         "version": "7023bc31eb9795ef9acb4deab40300a01fd49173c8bda8a7864c1e04c489942a",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
@@ -307,13 +302,13 @@
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/DraggableWindow.js": {
-        "version": "ebe09cd344aaad120a6f23f042abc63bd6b23d95f434e83694b3d4b4e00fdb3b",
-        "signature": "c245e2df8be273107e44e096ade63ff419629ceacf252933421090c0ca449f23",
+        "version": "ee0c4910a116d863e491524876688c8d18942a3db8d6063f16e2ec219b54e842",
+        "signature": "5b484a7afb7fd05e00099957687af422e31cae748ddfaa04b2f0a45f0f80abff",
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/renderer.js": {
-        "version": "278a1356ce44fb0817e7ee03392f0a099b80d115e122425110eab0b29a185926",
-        "signature": "247ef2684afc60cde91ab5045798070dbce28e56c2761c180a86b92b1ed32bd8",
+        "version": "2fd7e93cb7a27c8d1ba5ac10239281f5865cdfb9d8bef71dfb974f535948bc0c",
+        "signature": "1df12213123b80e5d524907d741b0f4e3b73cb07f708977338c300ab61961b07",
         "affectsGlobalScope": false
       },
       "./js/examples/starterNoFramerMotion.js": {
@@ -341,6 +336,71 @@
         "signature": "f837536bb54b00160f5caa8872696a5e9600c900e28cfdf9abb92b484b4baf3a",
         "affectsGlobalScope": false
       },
+      "./js/shadb/dist/vendor/diffMin.d.ts": {
+        "version": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
+        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/sha256.d.ts": {
+        "version": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+        "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/diff.js": {
+        "version": "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
+        "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/diffChars.js": {
+        "version": "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
+        "signature": "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/diff.d.ts": {
+        "version": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+        "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/getDbObj.js": {
+        "version": "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
+        "signature": "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/sha256.js": {
+        "version": "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
+        "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/vendor/idb.d.ts": {
+        "version": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
+        "signature": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/getDbObj.d.ts": {
+        "version": "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
+        "signature": "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/shaDB.js": {
+        "version": "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
+        "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/vendor/diffChars.js": {
+        "version": "7d8f62c0ddf5f2abc2ddeae42f8a460853065d7da33005bbae97c504de3437ee",
+        "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/vendor/diffMin.js": {
+        "version": "43d1f239704c26af851b802d257b637dd7d9a8719ddb0f317ec3641e8801c88d",
+        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
+        "affectsGlobalScope": false
+      },
+      "./js/shadb/dist/vendor/idb.js": {
+        "version": "2aa52ffdf9a5ec1ee952b41dc54bd13822b3ddc67f531f4743154c75fc33b6a6",
+        "signature": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
+        "affectsGlobalScope": false
+      },
       "./js/shadb/src/diffChars.js": {
         "version": "1fb4524349730817b14957d52a56899a05f40f0ea49c24b96e5149c3b6db56fc",
         "signature": "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
@@ -351,30 +411,10 @@
         "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
         "affectsGlobalScope": false
       },
-      "./js/smart-monaco-editor/dist/monaco.d.ts": {
-        "version": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./js/smart-monaco-editor/dist/editor.js": {
-        "version": "1df35df04b6e1022ee0a9efcea57cff0753fcc270d4e2e59162ae7eab974c927",
-        "signature": "688e6bf6b8568a4bd9c2ca9d67edf36a621200a114efe7cfb4eea0134e90deb0",
-        "affectsGlobalScope": false
-      },
       "./js/importScript.d.ts": {
         "version": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
-      },
-      "./js/smart-monaco-editor/dist/monaco.js": {
-        "version": "d16032dd97343ea8fdba3b0ac34fc536df7e7f617a29c512c02dae724fc1a69c",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./js/smart-monaco-editor/dist/scripts/screenshots.js": {
-        "version": "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": true
       },
       "./js/smart-monaco-editor/src/monaco.js": {
         "version": "529ebfdb80b57c19c2bdb6ca5f42fa6fbc65417984f98b09246ae47bcbdf8b93",
@@ -397,7 +437,7 @@
         "affectsGlobalScope": true
       },
       "./js/workers/ipfs/dist/gateways.js": {
-        "version": "908a3ed7447294f9d7e3de059995f60aeb832e30f06af2118fc292482829b3e6",
+        "version": "1e2195b1f00e52ae49219ad1d947f8f45b775140779ca5e92f5bac8989715320",
         "signature": "f51c0c5f8ed66ab9053408265aa498c50bd62b948d8614f5d7c634396902b4c5",
         "affectsGlobalScope": true
       },
@@ -405,11 +445,6 @@
         "version": "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
         "signature": "8b4fa4b2f50c2e5aeb35b26f03099c54749a79284946e8ac5b9c079eaee42a38",
         "affectsGlobalScope": false
-      },
-      "./js/workers/ipfs/dist/ipfs.server.js": {
-        "version": "c3906575a0da7e93fcab6707e64cefaa04601097d39121e93559aebdb4e0247b",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": true
       },
       "./js/workers/ipfs/src/gateways.js": {
         "version": "e66c53fa5e754c9ff898ecdcfb26244c2f8add2654d7122685cf96ae3e0e16fd",
@@ -456,7 +491,6 @@
         "./js/sendSignalToQrCode.js",
         "./js/shadb/src/diff.js",
         "./js/shadb/src/sha256.js",
-        "./js/smart-monaco-editor/dist/editor.d.ts",
         "./js/transpile.js"
       ],
       "./js/data.js": [
@@ -513,6 +547,36 @@
         "./js/hash.js",
         "./js/shadb/src/sha256.js"
       ],
+      "./js/shadb/dist/diff.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./js/shadb/dist/sha256.d.ts",
+        "./js/shadb/dist/vendor/diffMin.d.ts"
+      ],
+      "./js/shadb/dist/diffChars.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./js/shadb/dist/getDbObj.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./js/shadb/dist/diff.d.ts",
+        "./js/shadb/dist/sha256.d.ts"
+      ],
+      "./js/shadb/dist/sha256.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./js/shadb/dist/shaDB.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./js/shadb/dist/getDbObj.d.ts",
+        "./js/shadb/dist/vendor/idb.d.ts"
+      ],
+      "./js/shadb/dist/vendor/diffChars.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./js/shadb/dist/vendor/diffMin.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./js/shadb/dist/vendor/idb.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
       "./js/shadb/src/diff.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./js/shadb/src/sha256.js",
@@ -549,14 +613,6 @@
         "./js/shadb/src/sha256.js",
         "./js/shadb/src/shaDB.js",
         "./js/templates.js"
-      ],
-      "./js/smart-monaco-editor/dist/editor.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/smart-monaco-editor/dist/monaco.d.ts"
-      ],
-      "./js/smart-monaco-editor/dist/monaco.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/importScript.d.ts"
       ],
       "./js/smart-monaco-editor/src/monaco.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -657,6 +713,19 @@
       "./js/qrious/src/service/element/BrowserElementService.js",
       "./js/renderPreviewWindow.js",
       "./js/sendSignalToQrCode.js",
+      "./js/shadb/dist/diff.d.ts",
+      "./js/shadb/dist/diff.js",
+      "./js/shadb/dist/diffChars.js",
+      "./js/shadb/dist/getDbObj.d.ts",
+      "./js/shadb/dist/getDbObj.js",
+      "./js/shadb/dist/sha256.d.ts",
+      "./js/shadb/dist/sha256.js",
+      "./js/shadb/dist/shaDB.js",
+      "./js/shadb/dist/vendor/diffChars.js",
+      "./js/shadb/dist/vendor/diffMin.d.ts",
+      "./js/shadb/dist/vendor/diffMin.js",
+      "./js/shadb/dist/vendor/idb.d.ts",
+      "./js/shadb/dist/vendor/idb.js",
       "./js/shadb/src/diff.js",
       "./js/shadb/src/diffChars.js",
       "./js/shadb/src/getDbObj.js",
@@ -666,11 +735,6 @@
       "./js/shadb/src/vendor/diffMin.js",
       "./js/shadb/src/vendor/idb.js",
       "./js/share.js",
-      "./js/smart-monaco-editor/dist/editor.d.ts",
-      "./js/smart-monaco-editor/dist/editor.js",
-      "./js/smart-monaco-editor/dist/monaco.d.ts",
-      "./js/smart-monaco-editor/dist/monaco.js",
-      "./js/smart-monaco-editor/dist/scripts/screenshots.js",
       "./js/smart-monaco-editor/src/monaco.js",
       "./js/smart-monaco-editor/src/scripts/screenshots.js",
       "./js/templates.js",
@@ -679,7 +743,6 @@
       "./js/workers/ipfs/dist/gateways.js",
       "./js/workers/ipfs/dist/ipfs.client.d.ts",
       "./js/workers/ipfs/dist/ipfs.client.js",
-      "./js/workers/ipfs/dist/ipfs.server.js",
       "./js/workers/ipfs/src/gateways.js",
       "./js/workers/ipfsWorker.js",
       "./js/workers/transpile.worker.js",
@@ -789,6 +852,58 @@
         1
       ],
       [
+        "./js/shadb/dist/diff.d.ts",
+        1
+      ],
+      [
+        "./js/shadb/dist/diff.js",
+        1
+      ],
+      [
+        "./js/shadb/dist/diffChars.js",
+        1
+      ],
+      [
+        "./js/shadb/dist/getDbObj.d.ts",
+        1
+      ],
+      [
+        "./js/shadb/dist/getDbObj.js",
+        1
+      ],
+      [
+        "./js/shadb/dist/sha256.d.ts",
+        1
+      ],
+      [
+        "./js/shadb/dist/sha256.js",
+        1
+      ],
+      [
+        "./js/shadb/dist/shaDB.js",
+        1
+      ],
+      [
+        "./js/shadb/dist/vendor/diffChars.js",
+        1
+      ],
+      [
+        "./js/shadb/dist/vendor/diffMin.d.ts",
+        1
+      ],
+      [
+        "./js/shadb/dist/vendor/diffMin.js",
+        1
+      ],
+      [
+        "./js/shadb/dist/vendor/idb.d.ts",
+        1
+      ],
+      [
+        "./js/shadb/dist/vendor/idb.js",
+        1
+      ],
+      [
         "./js/shadb/src/diff.js",
         1
       ],
@@ -825,26 +940,6 @@
         1
       ],
       [
-        "./js/smart-monaco-editor/dist/editor.d.ts",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/editor.js",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/monaco.d.ts",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/monaco.js",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/scripts/screenshots.js",
-        1
-      ],
-      [
         "./js/smart-monaco-editor/src/monaco.js",
         1
       ],
@@ -874,10 +969,6 @@
       ],
       [
         "./js/workers/ipfs/dist/ipfs.client.js",
-        1
-      ],
-      [
-        "./js/workers/ipfs/dist/ipfs.server.js",
         1
       ],
       [
@@ -922,5 +1013,5 @@
       ]
     ]
   },
-  "version": "4.2.0-dev.20210125"
+  "version": "4.2.0-dev.20210126"
 }

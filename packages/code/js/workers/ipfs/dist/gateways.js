@@ -37,20 +37,16 @@ exports.publicIpfsGateways = [
     "https://ipfs.denarius.io/ipfs/:hash",
 ];
 function raceToSuccess(promises) {
-    var numRejected = 0;
+    let numRejected = 0;
     return new Promise(
     /**
        * @param {Promise<any>} promise
        */
-    function (resolve, reject) {
-        return promises.forEach(function (promise) {
-            return promise
-                .then(resolve)
-                .catch(function () {
-                if (++numRejected === promises.length)
-                    reject();
-            });
-        });
-    });
+    (resolve, reject) => promises.forEach((promise) => promise
+        .then(resolve)
+        .catch(() => {
+        if (++numRejected === promises.length)
+            reject();
+    })));
 }
 exports.raceToSuccess = raceToSuccess;
