@@ -29,7 +29,7 @@ export const shasums = {
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "sw.js": "d2de8c342bd91265667d32f8955913788ece8f2f5f403599f6d3d72420976076",
   ".tsBuildInfo":
-    "9251063d57201a311da8ecf242d562c926b52feabbdbf3466b053652fb972566",
+    "6526f7b8c9eda12edc5a4f2e4f6ca7af3be61efc683f1130d916e1651aca7ae2",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "daf733b6619795c7dc8745acfe721be1e3a8e1ab0d1902729fc059c28c518c98",
@@ -150,7 +150,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/shaSums.json":
-    "ad54566a8543293cd9ad6b8281375e85922aecbfa0b0d5946ced902011f7998b",
+    "368366bc82c9a757d98997ff5f7106da82ee546afa5b94123ea5e918787ac86c",
   "js/workers/ipfs/package.json":
     "24584b9bba9427e09e69daec53312b094e23b8cc5d9dbce2e317c7f50f3ab497",
   "js/workers/ipfs/.gitignore":
@@ -182,9 +182,9 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "02fbb4e75b480d40b7064bfde790323c68ba563a283843b68abfd3fcb6345758",
+    "0daf154922c06bcbae3fb9a4da89b4bcba11ae5ac67ec311db10870a7b84a405",
   "js/hash.js":
-    "385b163035139245dcfd04ea777b4d3562fbb106f0de87fcfb971885b82e537b",
+    "92b63011c8cb74dfe1400a219e28d54b246d2af2db28838463b2ab5a0d158703",
   "js/importScript.js":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/importScript.d.ts":

@@ -6,13 +6,7 @@ const log = (msg) => {
   else console.log(msg);
 };
 
-/**
- * @type {
- * [string]  
- * }
- */
-
-const signalCache = {};
+// const signalCache = {};
 
 /**
  * @param {string} signal 
@@ -115,7 +109,7 @@ export async function fetchSignal(
       ) => x.text());
 
       //  log(`${cid} downloaded - ${resData}`);
-      return async () => parse(resData);
+      return  () => parse(resData);
     } catch (e) {
       await wait(3000);
 
@@ -137,13 +131,23 @@ export async function fetchSignal(
     //
      await ipfsCat(resCID, { timeout: 1500 });
 
+     const smallSignal = signal.slice(-8);
+
+     const cid = await fetch(
+       `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math
+         .random() * 10000}`,
+     ).then(
+       (x) => x.text(),
+     );
+
     const resData = await fetch(`https://code.zed.vision/ipfs/${cid}`).then((
       x,
     ) => x.text());
 
 
+  
     //log(`${resCID} downloaded - ${resData}`);
-    return async () => parse(resData);
+    return  () => parse(resData);
   } catch (e) {
     if (retry > 1) return fetchSignal(signal, retry - 1);
     throw new Error("no signal");
@@ -178,23 +182,23 @@ function wait(delay) {
   });
 }
 
-async function getData(signal, retry) {
-  const { pathname } = new URL(signal);
+// async function getData(signal, retry) {
+//   const { pathname } = new URL(signal);
 
-  const signalPath = pathname.slice(1);
+//   const signalPath = pathname.slice(1);
 
-  const res = await fetch(`https://zed.vision/signal?signal=${signalPath}`);
+//   const res = await fetch(`https://zed.vision/signal?signal=${signalPath}`);
 
-  const cid = await res.text();
+//   const cid = await res.text();
 
-  const data = await fetch(`https://code.zed.vision/ipfs/${cid}`);
-  const content = await data.text();
-  return content;
+//   const data = await fetch(`https://code.zed.vision/ipfs/${cid}`);
+//   const content = await data.text();
+//   return content;
 
-  // return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
-  //   x.text()
-  // ).then((cid) => ipfsCat(cid));
-}
+//   // return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
+//   //   x.text()
+//   // ).then((cid) => ipfsCat(cid));
+// }
 
 // if (retry === 0) throw new Error("Cant fetch data");
 // log(`GET data, retry: ${retry}`);
