@@ -56,7 +56,7 @@
 "js/workers/ipfsWorker.js": "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
 "js/workers/transpile.worker.js": "c7cfaaf127618ca8bc980b2b73bbe258f4b5db425a9c6cfa3b0d7bc09892e766",
 "js/workers/tsconfig.json": "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
-"js/workers/fileCids.json": "e6bfb7f0a0aaaad413a50f59f63295de03892855b7b3f25d136b1c2966937c2e",
+"js/workers/fileCids.json": "eebbe411454ea46abc9968a9bf95776ae03fbf9034e7da60378bd54ec861a1e5",
 "js/hash.js": "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
 "js/importScript.js": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
 "js/importScript.d.ts": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
