@@ -61,7 +61,7 @@ export async function sendSignal(signal, data) {
   }
 
   const { path } = await ipfsClient.add(signal);
-  //  log(`signal sent --- ${path}`);
+   log(`signal sent --- ${path}`);
 
   return { success: true };
 } // export const sha256ToCID = (str) =>
@@ -135,10 +135,15 @@ export async function fetchSignal(
 
     //  log(`CID to wait: ${resCID}`);
     //
-    const resData = await ipfsCat(resCID, { timeout: 1500 });
+     await ipfsCat(resCID, { timeout: 1500 });
+
+    const resData = await fetch(`https://code.zed.vision/ipfs/${cid}`).then((
+      x,
+    ) => x.text());
+
 
     //log(`${resCID} downloaded - ${resData}`);
-    return async () => parse(await getData(signal, 20));
+    return async () => parse(resData);
   } catch (e) {
     if (retry > 1) return fetchSignal(signal, retry - 1);
     throw new Error("no signal");
