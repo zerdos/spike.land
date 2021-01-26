@@ -1,13 +1,14 @@
 self.importScripts(
-  "./ipfs/node_legacy/ipfs.min.js",
+  "https://unpkg.com/ipfs@0.53.2/dist/index.min.js",
 );
 
 self.importScripts(
-  "./ipfs/dist/ipfs.server.js",
+  "https://unpkg.com/ipfs-message-port-server@0.5.0/dist/index.min.js",
 );
 
 // @ts-ignore
-const { Ipfs, IPFSService, Server } = self;
+const { Ipfs, IpfsMessagePortServer } = self;
+const {  IPFSService, Server} = IpfsMessagePortServer
 
 /** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => Promise<any>; }} */
 let ipfs;

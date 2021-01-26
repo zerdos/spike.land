@@ -14,12 +14,9 @@
   "scripts": {
     "clean": "rm -rf dist && yarn types",
     "types": "yarn tsc -d",
-    "cp:ipfs": "cp ../../../../../node_modules/ipfs/dist/index.min.js node_legacy/ipfs.min.js",
-    "cp:server": "cp ../../../../../node_modules/ipfs/dist/index.min.js node_legacy/server.min.js",
     "build:client": "yarn esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm --outfile=dist/ipfs.client.js",
     "build:server": "yarn esbuild  src/ipfs.server.ts --bundle --platform=browser --minify --format=iife --outfile=dist/ipfs.server.js",
-    "cp": "rm -rf node_legacy/* && yarn cp:ipfs && yarn cp:server",
-    "build": "yarn build:client && yarn build:server"
+    "build": "yarn build:client"
   },
   "license": "MIT",
   "bugs": {

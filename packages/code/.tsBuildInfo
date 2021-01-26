@@ -387,8 +387,8 @@
         "affectsGlobalScope": true
       },
       "./js/workers/ipfsWorker.js": {
-        "version": "5c542de2dcb6fafbfbf2b1f786a0cff8e20865125eb39e548121c827c00b0b2f",
-        "signature": "52e761caa2694692a44dd49e5787709cd29f5a0641c04775bccb5c8d35d93629",
+        "version": "309552b65da838480770b1521b9e280071db3d29a61d41ef01254c2046717dea",
+        "signature": "69538fefbd1361b7ebfcd8bd0964a2dd1978841a8af062f798ae0d2305edda54",
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {

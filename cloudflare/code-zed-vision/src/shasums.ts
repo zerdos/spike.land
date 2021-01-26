@@ -29,7 +29,7 @@ export const shasums = {
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "sw.js": "c197efcfd4309cfbb78a20a99824f19a6ad1d9d781f425a11129ac128e996df9",
   ".tsBuildInfo":
-    "f0a8d18ab67015ae77150df3666aea39a42c6c30d5f826b0cc42508ece07d1d6",
+    "ec2dcf90d821bfacb4d117ee86e32b5164780914756e4fddbda025e31d7b3949",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "daf733b6619795c7dc8745acfe721be1e3a8e1ab0d1902729fc059c28c518c98",
@@ -150,9 +150,9 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/shaSums.json":
-    "cc8389734331127f99509ad07efaa5b904cd48c022827606440885211dc3e9c3",
+    "9a9696eb0d6dc910c0ae7a9ab04e025e2d3e5c35854c530cef1873f958924fa5",
   "js/workers/ipfs/package.json":
-    "d053ee2eeb3ebcea664298757dae14db174e06102c2a160f376acb4153ae996f",
+    "4d32b94c2e02d64559820720e1106f284653dd4c5ab7928fa4ee20859a6014e0",
   "js/workers/ipfs/.gitignore":
     "dba27c31aad935787bb275c3e5e4e957708f15386de599eff1db476022cd7e4c",
   "js/workers/ipfs/dist/ipfs.client.d.ts":
@@ -167,10 +167,6 @@ export const shasums = {
     "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
   "js/workers/ipfs/dist/ipfs.client.js":
     "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
-  "js/workers/ipfs/node_legacy/ipfs.min.js":
-    "2d608ef59d1e8323dd3e4233f63cd755416ee4c16f968d5aed9bb1b7b1d1000a",
-  "js/workers/ipfs/node_legacy/server.min.js":
-    "2d608ef59d1e8323dd3e4233f63cd755416ee4c16f968d5aed9bb1b7b1d1000a",
   "js/workers/ipfs/README.md":
     "0bf1511957b70f8d3bb45bd98e3c8cac94c7fde4b0c40ffe265f601ca5c72cfb",
   "js/workers/ipfs/.vscode/settings.json":
@@ -183,16 +179,14 @@ export const shasums = {
     "e66c53fa5e754c9ff898ecdcfb26244c2f8add2654d7122685cf96ae3e0e16fd",
   "js/workers/ipfs/src/ipfs.client.ts":
     "e3b271b3ccc24a7e76047751bdae46d2135d4aa4aacb53bc89d9e6f27fa54a30",
-  "js/workers/ipfs/src/ipfs.server.ts":
-    "0a5812d9ebad6d02c199d0625efbdb59d2ccb07bf7731f52f167069658a303a4",
   "js/workers/ipfsWorker.js":
-    "5c542de2dcb6fafbfbf2b1f786a0cff8e20865125eb39e548121c827c00b0b2f",
+    "309552b65da838480770b1521b9e280071db3d29a61d41ef01254c2046717dea",
   "js/workers/transpile.worker.js":
     "10072ccc19fd029338ee5ef1b3b3b757ad53c177d64f6e92a7ae7571c4e58f81",
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "af173efce62d06ee12711bb23adddf5f0639f83d256d2e0455dd06e41b2f2ead",
+    "a59d970e918bc157932958c7374d70214979fcdddfa3fdbea3ecd6f5ff36262a",
   "js/hash.js":
     "9344c3462e55e797fe5c32bb925ed262ab945ad6c99bd7e5268ece34667f3327",
   "js/importScript.js":
@@ -275,200 +269,8 @@ export const shasums = {
     "588085eac134e133ca4e3186299ab663ee479c4ceb7e7c43abaadbb17056e2d4",
   "node_legacy/simple-window-manager.es.js":
     "47b3562229b947845e4d9b2724242a682d2d6b7cc935c3801e23f0de21678e00",
-  "node_legacy/ipfs-message-port-protocol/src/index.js":
-    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-  "node_legacy/ipfs-message-port-protocol/src/cid.js":
-    "f6164782450424cda3ccae1b7ba609f1a1ab2712009332d4c75401b9a086347b",
-  "node_legacy/ipfs-message-port-protocol/src/data.ts":
-    "579d78c976c617e3ffa55762fdb93c6d8a8e36960fbf68ca25eadd0b3dbb6bbf",
-  "node_legacy/ipfs-message-port-protocol/src/block.js":
-    "5ddd3e5335a0e96378025fb7134f7303f787190e0fa9e0d18295911f98669a3b",
-  "node_legacy/ipfs-message-port-protocol/src/rpc.ts":
-    "f499efa8445d2c84fb83a7483baad0334b83cbd444c0e144f085cd6a04c538e9",
-  "node_legacy/ipfs-message-port-protocol/src/error.js":
-    "6bf3d1909c079d73bdae0c773ad1944a2dcffcabb69bf05713ad08ad150b53bb",
-  "node_legacy/ipfs-message-port-protocol/src/dag.js":
-    "3fcdd2826f0e851444c27ab8d44f5ce3dcae1f77c719b6a0a55a0d4f88c1a253",
-  "node_legacy/ipfs-message-port-protocol/src/core.js":
-    "859c55db38f6bc8f6281f9ebdb001d52d62911af5dd195eb9d8c320af30e60a4",
-  "node_legacy/ipfs-message-port-protocol/dist/src/core.d.ts.map":
-    "55d14c7e9f8a076b10d4b8010b94bcbe7cf2fcac4d4f18b74e469ea8ebc295b3",
-  "node_legacy/ipfs-message-port-protocol/dist/src/rpc.d.ts.map":
-    "cc2343fd452e12a003f5f6cc7d124a4302e111a930676d9e6dde666bc93a14e9",
-  "node_legacy/ipfs-message-port-protocol/dist/src/error.d.ts.map":
-    "7744e16111a23bb2b54c9a98af553540992b8f25f131ff89cc8f64494e86a734",
-  "node_legacy/ipfs-message-port-protocol/dist/src/data.d.ts.map":
-    "094dca06f18ccbb30d9704f3e3498b296d9c84da25622fd3aa7ef161eb24fad3",
-  "node_legacy/ipfs-message-port-protocol/dist/src/dag.d.ts":
-    "b61ed0701169a8bc01e1e91f28f45ba8f6d62db0753c31830692cae64cad3b80",
-  "node_legacy/ipfs-message-port-protocol/dist/src/dag.d.ts.map":
-    "aac71e3daba744984e5a544b3c53e4999b75ea0050c730b8dccecc5738f0bb40",
-  "node_legacy/ipfs-message-port-protocol/dist/src/rpc.d.ts":
-    "c4971516b7ebd35e2afb847596875c07d26490e1254bc4e5739cbd9ffd99f514",
-  "node_legacy/ipfs-message-port-protocol/dist/src/core.d.ts":
-    "25a15211eabff526a06c386d69802f02c4dbafc1c318f959e2803851af24c9e6",
-  "node_legacy/ipfs-message-port-protocol/dist/src/block.d.ts.map":
-    "8f62005d650ea586a2a068cfe375d06f96553b70debf0b746d9034fd82305e39",
-  "node_legacy/ipfs-message-port-protocol/dist/src/error.d.ts":
-    "dafd0fc243150e767b95bf51183837db3b8c006ce60be5a74daa4821ff01a215",
-  "node_legacy/ipfs-message-port-protocol/dist/src/index.d.ts.map":
-    "1ab3c8c80dff24fdc4f3d2f113076d20c482fc8dd07bc8b65eccb11f386920b0",
-  "node_legacy/ipfs-message-port-protocol/dist/src/cid.d.ts":
-    "6b3cbdf8a58a7a8e60eb131b15931955cf325eb2f24baba6d7f5e7b6319122c4",
-  "node_legacy/ipfs-message-port-protocol/dist/src/index.d.ts":
-    "0e8b11590b21959ecb552c242c5054b96a925509beac5d903453964cf096994c",
-  "node_legacy/ipfs-message-port-protocol/dist/src/cid.d.ts.map":
-    "d1f939b8a03abd8c56c22e7245995ec01d3f66fc683a0f518cd822b176dd191f",
-  "node_legacy/ipfs-message-port-protocol/dist/src/data.d.ts":
-    "02d501debdd790f1aa83d424122a68166cde2d8cebf7f3d207248e4c46ac25b0",
-  "node_legacy/ipfs-message-port-protocol/dist/src/block.d.ts":
-    "4fde20e9817b1168e32a148fdef2578993a49a1328380f184a0e437d983b3a56",
-  "node_legacy/ipfs-message-port-protocol/dist/index.min.js":
-    "8a7e8fd1e2b1abe1f56c1c95a4c6673c73e1b47cbb6e679993305b494714246a",
-  "node_legacy/ipfs-message-port-protocol/dist/tsconfig.tsbuildinfo":
-    "bf7214069d7f34b67a380cec9199bf2e1d05737e1bcdb53a4e0fbb2c726ead0c",
-  "node_legacy/ipfs-message-port-protocol/package.json":
-    "17890096eb51ec42a535f7db9aa9d4edf6674c1b68f57259c31af01c5ca272df",
-  "node_legacy/ipfs-message-port-protocol/CHANGELOG.md":
-    "38c0154368eb448375d3418a0eaa9c7ceb915130d2880004450e331f63fabcf5",
-  "node_legacy/ipfs-message-port-protocol/README.md":
-    "1d8cea514bc23255f2706d5fc9cc6bb96878804eeb6f5cef41f06739de4eae84",
   "node_legacy/rng.js":
     "5b409e33c343f7bef5d0d39689575dba7b22e3de13b1799388ee636d4e0adc5d",
-  "node_legacy/ipfs-message-port-server/src/dag.js":
-    "7158019f7f2e95d19a8f6627b77c3224968f6959fd449ec036fafb7844f5379a",
-  "node_legacy/ipfs-message-port-server/src/service.js":
-    "fe072b6291ccd436e725de0980aadebb71469ef8d4a24615fc2e889a74f9623f",
-  "node_legacy/ipfs-message-port-server/src/block.js":
-    "99df200e1369afaae052c8ee6fc7ad0c813c1628b25111b36ce9641b8da26203",
-  "node_legacy/ipfs-message-port-server/src/server.js":
-    "ab5dd16c6acadb64bd9830305630d9ff009d85359dffa16f0df043aae553417b",
-  "node_legacy/ipfs-message-port-server/src/ipfs.ts":
-    "7852790bd5ed4717aa4f11c932aee102eab4ae363fc470793d63bbf5a5f00729",
-  "node_legacy/ipfs-message-port-server/src/core.js":
-    "9e3b8332f525638974585af77efdfcca31573fb797389c399ac44f3c989cae07",
-  "node_legacy/ipfs-message-port-server/src/files.js":
-    "3df837c1240f775a987187bd5aff94f3bdbecb80b3dcbf6e2e4b189a4be47f30",
-  "node_legacy/ipfs-message-port-server/src/index.js":
-    "639164c306e00b0c497606998470a93fb36c963cb248c409457b264e87461605",
-  "node_legacy/ipfs-message-port-server/dist/src/dag.d.ts":
-    "f8e75e9a810e5f0e9dab625c63ba183217e3d3d8fca9fe96c580d867e636eb91",
-  "node_legacy/ipfs-message-port-server/dist/src/core.d.ts":
-    "90e631a5e4ab909846730508cd6b540ea139013e92435f373106bb0bea9bb201",
-  "node_legacy/ipfs-message-port-server/dist/src/ipfs.d.ts.map":
-    "d8d6584997670cf17fd0946ab33d52dc38043cb48267d7532ad076e3768e38ac",
-  "node_legacy/ipfs-message-port-server/dist/src/block.d.ts":
-    "314e5524cf02321b3c374f6e10b5c287db594e918b21a363b2fb17f957c487b9",
-  "node_legacy/ipfs-message-port-server/dist/src/server.d.ts.map":
-    "232fbb31a450469730e51b94220cefb50abe3ab9e81af09fb7297bed0d5155c7",
-  "node_legacy/ipfs-message-port-server/dist/src/files.d.ts.map":
-    "81f360e7f9a8f4627da13eaf328833c3d35139bbe3f5e9316012bbddbefc3149",
-  "node_legacy/ipfs-message-port-server/dist/src/server.d.ts":
-    "12eea5308847d1d21ab089100cf89547b62295e0792d77eb374367cd2c7981a9",
-  "node_legacy/ipfs-message-port-server/dist/src/index.d.ts":
-    "8aada32bc3af7130743cfd985e3eb986360b7afea465137e8dcafb51aebc7efd",
-  "node_legacy/ipfs-message-port-server/dist/src/core.d.ts.map":
-    "bd8729be795576bd5df6024f38667e72d00689812f54464bed62ee46677af306",
-  "node_legacy/ipfs-message-port-server/dist/src/block.d.ts.map":
-    "e1cc6b7b6a875ddd590db1aaea690ccb6fbf22a89fcda13e63e98df8d7eb14ba",
-  "node_legacy/ipfs-message-port-server/dist/src/service.d.ts.map":
-    "788d44eae7ac365a098e64d8b787841408bdeaa99e6cf4cc19dcf0cbbb64f49e",
-  "node_legacy/ipfs-message-port-server/dist/src/index.d.ts.map":
-    "1ab3c8c80dff24fdc4f3d2f113076d20c482fc8dd07bc8b65eccb11f386920b0",
-  "node_legacy/ipfs-message-port-server/dist/src/dag.d.ts.map":
-    "096ae15227078da95e1b19c0555fcd0692206114a95ba72cf322fa17774021f9",
-  "node_legacy/ipfs-message-port-server/dist/src/ipfs.d.ts":
-    "8e2c9b555882d7c0a7b2acc8eb8773718bd5d8be8e9a82fb8d2f246f85d99f6a",
-  "node_legacy/ipfs-message-port-server/dist/src/service.d.ts":
-    "3589a922f4e8b7f0cbc4e5a845732227fca1d1dbdba79abf4eeb6f88e934f93b",
-  "node_legacy/ipfs-message-port-server/dist/src/files.d.ts":
-    "62c61e4d62896ad15db11e7b46d020109ec0b490945509b00a5fe08ff683a9ea",
-  "node_legacy/ipfs-message-port-server/dist/tsconfig.tsbuildinfo":
-    "9ee7d49d0404e0693c065682f49e33f89fa5127901cf27caf25e9846c2f3ea0e",
-  "node_legacy/ipfs-message-port-server/dist/index.min.js":
-    "571b851cb43ab8c804ff71ad4ba240ba11adf89ff1e75478015273dfcae32961",
-  "node_legacy/ipfs-message-port-server/README.md":
-    "244bfa1382eb5889eaa835c23aa358b57bff39c79cd54d872f611ec5dd2fa0e5",
-  "node_legacy/ipfs-message-port-server/CHANGELOG.md":
-    "94e2a062b47efaad6f634c47c50eba098f3b5c41a7d89209a0a941f462ed6fc1",
-  "node_legacy/ipfs-message-port-server/package.json":
-    "ba034db408cdf4debf7db0f0c0c8267f21ddd28f2140eede6d06bc08db28c5ad",
-  "node_legacy/ipfs-message-port-client/dist/index.min.js":
-    "ca2b2a03aae1acef632620c6e568e90a7a57164d3114a713a8389419671a4474",
-  "node_legacy/ipfs-message-port-client/dist/tsconfig.tsbuildinfo":
-    "e08d6d1a497d208986dad3d7be48c7879335aff00bbaa806e6c19480cbb56767",
-  "node_legacy/ipfs-message-port-client/dist/src/block.d.ts":
-    "1a8719507af19c83e88e1ae68b7da5c9961b4c5eebf088394ce3ae753ff56d4c",
-  "node_legacy/ipfs-message-port-client/dist/src/client.d.ts":
-    "09d9e6df58b1e2507e8a48e88bab7c6311d40ca2945af3548bde6afb8771051e",
-  "node_legacy/ipfs-message-port-client/dist/src/interface.d.ts.map":
-    "4493e1504070efeb6f60f0084ace04be4de3f593dfff666bfd319c4b0769c2a7",
-  "node_legacy/ipfs-message-port-client/dist/src/interface.d.ts":
-    "426daed7461b05951a2bafddc7c60ed743bb6a243695832353aff68091dade10",
-  "node_legacy/ipfs-message-port-client/dist/src/block.d.ts.map":
-    "d231565694ad8d3af4f0c3b0e15a6394c6a92348be459872533a9f5c8d195386",
-  "node_legacy/ipfs-message-port-client/dist/src/dag.d.ts.map":
-    "9faabe383cea00b565d3576fdca2e10afed7bc23bbe30fe75c05d47500d36335",
-  "node_legacy/ipfs-message-port-client/dist/src/core.d.ts.map":
-    "a95beeb2e2d6a20568936f2bc799eee9fb170e95e14f5c0ac3728768ba8037f5",
-  "node_legacy/ipfs-message-port-client/dist/src/index.d.ts":
-    "acce1e6a3c807c11dd3d489f256964c646c4b91db2747f409385269546d66837",
-  "node_legacy/ipfs-message-port-client/dist/src/dag.d.ts":
-    "4e9f272481a4fa324de2020f10a3daea8dfbd901a892df8d47d72d40886bae91",
-  "node_legacy/ipfs-message-port-client/dist/src/files.d.ts.map":
-    "46f4a5ebfd22ae84215ed7d7fa2b2ad8a3bd5e538ef345559c537cf6be4d5fd2",
-  "node_legacy/ipfs-message-port-client/dist/src/core.d.ts":
-    "969e8306c6e513a7d06a1333b379b7d7efc454d5de855e24bc05937b623b0144",
-  "node_legacy/ipfs-message-port-client/dist/src/client.d.ts.map":
-    "1989e805a3cb92602afed95beb6516a79b6bba5fbe970488d561d181bfdd8c92",
-  "node_legacy/ipfs-message-port-client/dist/src/client/error.d.ts":
-    "bf3a1937a010ced8bb7872aa8ad0604315c6e2e1a13070971a8fa3645538b35e",
-  "node_legacy/ipfs-message-port-client/dist/src/client/query.d.ts":
-    "e45604894f322667709c99c09b64162e2f04b25dd661e2df08acb784aeca4f38",
-  "node_legacy/ipfs-message-port-client/dist/src/client/query.d.ts.map":
-    "2cda4af16a191467ba1e3694b19c7f2abc873d7a6eee7fd65f1f8eca760d690c",
-  "node_legacy/ipfs-message-port-client/dist/src/client/transport.d.ts":
-    "64c8ec4e3c2104ed51c5122ac32f4e28ea0fef611756472e2e6c902b438ab753",
-  "node_legacy/ipfs-message-port-client/dist/src/client/service.d.ts.map":
-    "005a2220c20756f8fc232cf2dca567666730ff61e777ce594b87d1a21604e5ab",
-  "node_legacy/ipfs-message-port-client/dist/src/client/error.d.ts.map":
-    "6aa598af1ca08f793372bcbd21000f7b8cfc8d756a7fbb40f9307934065c5965",
-  "node_legacy/ipfs-message-port-client/dist/src/client/service.d.ts":
-    "8b305b8e9284204a71ac38a555eaa3ccf35b7b1a5a3bd895d323d46a9afe8de3",
-  "node_legacy/ipfs-message-port-client/dist/src/client/transport.d.ts.map":
-    "034a4b5fcdecaa3176d17de393551e20973a868adce8a2bb41094a348b7453bf",
-  "node_legacy/ipfs-message-port-client/dist/src/index.d.ts.map":
-    "6a410aebdd6ac470e1c181de1a9e808aaa40f60bc1c9ef3da02d6a3ae86b8aa7",
-  "node_legacy/ipfs-message-port-client/dist/src/files.d.ts":
-    "026c821fac115dc290ecfc94fe25057925b1458c4623be7fb779b4620b202bf4",
-  "node_legacy/ipfs-message-port-client/package.json":
-    "5db1fee9f42b43b9e50111c2068d6ffcba3f70c857b2bcb9b31e4e13c8ed9000",
-  "node_legacy/ipfs-message-port-client/CHANGELOG.md":
-    "0279b546c703d5e89b7170ccee1bbe0027ba1ed0c26fad776fca334a6421ea78",
-  "node_legacy/ipfs-message-port-client/src/files.js":
-    "55f0f46b4ea954455affbf91e606d61973b7896a321e24fdb825eeea1ff3c0f3",
-  "node_legacy/ipfs-message-port-client/src/interface.ts":
-    "be49404b6711bf1a16e29948f889447bf49681c8f7e13e98fd398b9771e5c94e",
-  "node_legacy/ipfs-message-port-client/src/index.js":
-    "7e0a3d7c128e71fca215dc590692f3b0b5e9d006d35ae9f6ac2a984066f75b61",
-  "node_legacy/ipfs-message-port-client/src/client.js":
-    "2b9206a0c98e311c62afb934f00b8c695470bec495f18363606819e585623bfd",
-  "node_legacy/ipfs-message-port-client/src/core.js":
-    "888863746fbd154e11d8e67925af7df5d420bf4d3e0c11478a6227a4b08fa2b8",
-  "node_legacy/ipfs-message-port-client/src/dag.js":
-    "08b125b7dcd510ac2950c5d106c76d6ff3aa4aa7499075473a6375e3db548392",
-  "node_legacy/ipfs-message-port-client/src/block.js":
-    "b65ce518e3606334f0185f8319705eeabef27edc3af315bb3fa28e14d6bbf5a0",
-  "node_legacy/ipfs-message-port-client/src/client/query.js":
-    "1dd5ef3deed556f8ca87005c322010c440014a174fa8168c8790173aebb39cc9",
-  "node_legacy/ipfs-message-port-client/src/client/service.js":
-    "f702087abf97200d5a682ed9efc3b84ec49c40d5fb21018fdb461df53d831442",
-  "node_legacy/ipfs-message-port-client/src/client/error.js":
-    "48459f0d6700a72bd08245f708eca4c6a98abcfae67269fffaee7e2176ec26ef",
-  "node_legacy/ipfs-message-port-client/src/client/transport.js":
-    "e3c94e7c9b0c693c2a035e0b20e3beb4be36ebdb36fbfca08653b4d66d3554f4",
-  "node_legacy/ipfs-message-port-client/README.md":
-    "7d9acb3617d3066b5ebd4fcab78ac2e2931c224df51806e1af185ac01051d1e4",
   "node_legacy/comlink/comlink.min.mjs":
     "04d9d2cec4361d0669d57a63e239f55d0d733dd10dd389f2ff0303041809f129",
   "node_legacy/comlink/comlink.min.js":
