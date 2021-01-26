@@ -6,8 +6,7 @@ self.importScripts(
   "https://unpkg.com/@babel/standalone@7.12.12/babel.min.js",
 );
 
-const {Comlink, Babel} = self;
-
+const { Comlink, Babel } = self;
 
 // @ts-ignore
 if (!String.prototype.replaceAll) {
@@ -56,17 +55,17 @@ const transform = (code) => {
     ).replaceAll(
       searchRegExpMotion,
       replaceWith,
-  ).replaceAll(searchRegExp2, replace2);
+    ).replaceAll(searchRegExp2, replace2);
 
     // console.log(safeCode);
 
+    let rendererSrc =
+      `https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`;
 
-    let rendererSrc = `https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`;
-
-// if (self.location.pathname.indexOf("/ipfs/") !== -1) {
-//   const cid = self.location.pathname.slice(6, 52);
-//   rendererSrc =  `./ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
-// }
+    // if (self.location.pathname.indexOf("/ipfs/") !== -1) {
+    //   const cid = self.location.pathname.slice(6, 52);
+    //   rendererSrc =  `./ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
+    // }
 
     const transformed = Babel.transform(
       `/** @jsx jsx */

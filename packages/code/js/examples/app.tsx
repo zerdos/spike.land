@@ -1,6 +1,5 @@
-import { useState } from 'react';
-import { Global } from '@emotion/react';
-
+import { useState } from "react";
+import { Global } from "@emotion/react";
 
 const Hello = () => {
   const [color, setColor] = useState("navy");

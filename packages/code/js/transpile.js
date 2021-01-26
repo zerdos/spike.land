@@ -6,9 +6,8 @@ let workerSrc = `/js/workers/transpile.worker.js`;
 
 if (pathname.indexOf("/ipfs/") !== -1) {
   const cid = pathname.slice(6, 52);
-  workerSrc =  `/ipfs/${cid}/js/workers/transpile.worker.js`;
+  workerSrc = `/ipfs/${cid}/js/workers/transpile.worker.js`;
 }
-
 
 let transform = null;
 

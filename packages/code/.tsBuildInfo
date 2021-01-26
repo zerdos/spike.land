@@ -232,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "./js/ipfsClient.js": {
-        "version": "daf733b6619795c7dc8745acfe721be1e3a8e1ab0d1902729fc059c28c518c98",
+        "version": "c0f3343462885073c968afa8fe96b8913195f635862ff778330ffc87c8d4a1e6",
         "signature": "a49c898c9ffa6f5ba5e0f906515d29cefda94fdbec896fdd81e96ee4de1d3765",
         "affectsGlobalScope": false
       },
@@ -242,7 +242,7 @@
         "affectsGlobalScope": false
       },
       "./js/share.js": {
-        "version": "384313a2530faead5a58755fa0b2ccf6a51cd70ba5660708e6c749d3f703f4a8",
+        "version": "0eedf99ee9db3f8bcfe861b42dc68069a3b619347eb32476d3a84befbb6d63be",
         "signature": "8cfc095f8a3a103d8fdfc6ed1a3bb0f34f6aff7e830b00792983fd490a2b538b",
         "affectsGlobalScope": false
       },
@@ -252,7 +252,7 @@
         "affectsGlobalScope": false
       },
       "./js/hash.js": {
-        "version": "92b63011c8cb74dfe1400a219e28d54b246d2af2db28838463b2ab5a0d158703",
+        "version": "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
         "signature": "d68edd2b8a5fc887504c82ebdb34fd2be579631eba710d42d09b04f40720ff48",
         "affectsGlobalScope": false
       },
@@ -262,7 +262,7 @@
         "affectsGlobalScope": false
       },
       "./js/renderPreviewWindow.js": {
-        "version": "7b5ce5a7365087f4cddcc7aba64023af54f5d02aa2cc95c903f067a306be743b",
+        "version": "fb125cbd79fbf5501d80b6b6442bb0c22e5af81299153240bf165f1e412ca660",
         "signature": "b4f1bf90bff0c83fea60eb6f5c9f49457bdd94f9e8a0ac7c856d2103d4dfd8d7",
         "affectsGlobalScope": false
       },
@@ -277,7 +277,7 @@
         "affectsGlobalScope": false
       },
       "./js/transpile.js": {
-        "version": "04f79249f67503673cbf4f694e471c1efabdc7b2ca40122ca98977b463925983",
+        "version": "7cd43a701f4f7e4e7b5d89b5c1c371707c37410263c7282d6e3f2b8c016172f8",
         "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
@@ -422,7 +422,7 @@
         "affectsGlobalScope": false
       },
       "./js/smart-monaco-editor/dist/editor.js": {
-        "version": "1df35df04b6e1022ee0a9efcea57cff0753fcc270d4e2e59162ae7eab974c927",
+        "version": "75ebf120ad1902f121ab426ce0767661164e879b944ec4f7a63712c8636a1c1c",
         "signature": "688e6bf6b8568a4bd9c2ca9d67edf36a621200a114efe7cfb4eea0134e90deb0",
         "affectsGlobalScope": false
       },
@@ -436,28 +436,13 @@
         "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
         "affectsGlobalScope": false
       },
-      "./js/smart-monaco-editor/dist/scripts/screenshots.js": {
-        "version": "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": true
-      },
-      "./js/smart-monaco-editor/src/monaco.js": {
-        "version": "529ebfdb80b57c19c2bdb6ca5f42fa6fbc65417984f98b09246ae47bcbdf8b93",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./js/smart-monaco-editor/src/scripts/screenshots.js": {
-        "version": "71c1739d947cc62cc759ab58aafdaa95cdb0851fd6c53e6296d95f7f620837a9",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
-        "affectsGlobalScope": true
-      },
       "./js/workers/ipfsWorker.js": {
-        "version": "309552b65da838480770b1521b9e280071db3d29a61d41ef01254c2046717dea",
+        "version": "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
         "signature": "69538fefbd1361b7ebfcd8bd0964a2dd1978841a8af062f798ae0d2305edda54",
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "10072ccc19fd029338ee5ef1b3b3b757ad53c177d64f6e92a7ae7571c4e58f81",
+        "version": "c7cfaaf127618ca8bc980b2b73bbe258f4b5db425a9c6cfa3b0d7bc09892e766",
         "signature": "c3a13bfaf8d8a569c668296b226ed29b835da2b2c91e44e38d175adbf57aae73",
         "affectsGlobalScope": true
       },
@@ -477,7 +462,7 @@
         "affectsGlobalScope": false
       },
       "./sw.js": {
-        "version": "d2de8c342bd91265667d32f8955913788ece8f2f5f403599f6d3d72420976076",
+        "version": "5be5cfaa349e0b78e90615fd9edda3b4e7299fcb43fb94c224ef7e314e442622",
         "signature": "8dceebe21eda4edb56e273006cb2e6c6b245c03846e631ef1449ebd5e157a456",
         "affectsGlobalScope": true
       }
@@ -648,10 +633,6 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./js/importScript.d.ts"
       ],
-      "./js/smart-monaco-editor/src/monaco.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/importScript.d.ts"
-      ],
       "./js/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
@@ -773,9 +754,6 @@
       "./js/smart-monaco-editor/dist/editor.js",
       "./js/smart-monaco-editor/dist/monaco.d.ts",
       "./js/smart-monaco-editor/dist/monaco.js",
-      "./js/smart-monaco-editor/dist/scripts/screenshots.js",
-      "./js/smart-monaco-editor/src/monaco.js",
-      "./js/smart-monaco-editor/src/scripts/screenshots.js",
       "./js/templates.js",
       "./js/transpile.js",
       "./js/workers/ipfs/dist/gateways.d.ts",
@@ -992,18 +970,6 @@
       ],
       [
         "./js/smart-monaco-editor/dist/monaco.js",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/scripts/screenshots.js",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/src/monaco.js",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/src/scripts/screenshots.js",
         1
       ],
       [

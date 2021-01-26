@@ -2,7 +2,6 @@ import { shaDB } from "./shadb/src/shaDB.js";
 import { sha256 } from "./shadb/src/sha256.js";
 import { ipfsClient } from "./ipfsClient.js";
 
-
 /**
  * 
  * @param {{
@@ -12,7 +11,6 @@ import { ipfsClient } from "./ipfsClient.js";
 * }} props 
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
-
   let cid;
 
   const { pathname } = window.location;
@@ -20,10 +18,8 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
   if (pathname.indexOf("/ipfs/") !== -1) {
     cid = pathname.slice(6, 52);
   } else {
-    cid = (await import ("https://code.zed.vision/cid.js")).cid
+    cid = (await import("https://code.zed.vision/cid.js")).cid;
   }
-  
-
 
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),

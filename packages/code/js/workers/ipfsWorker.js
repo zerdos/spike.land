@@ -8,7 +8,7 @@ self.importScripts(
 
 // @ts-ignore
 const { Ipfs, IpfsMessagePortServer } = self;
-const {  IPFSService, Server} = IpfsMessagePortServer
+const { IPFSService, Server } = IpfsMessagePortServer;
 
 /** @type {{ add: (arg0: string, arg1: { onlyHash: boolean; }) => Promise<any>; }} */
 let ipfs;

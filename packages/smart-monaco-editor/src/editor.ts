@@ -107,32 +107,32 @@ export default async (
     const importHelper = [
       {
         name: "react",
-        url: "@types/react@17.0.0/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.0/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "global",
-        url: "@types/react@17.0.0/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.0/global.d.ts",
         depend: [],
       },
       {
         name: "prop-types",
-        url: "@types/prop-types@15.7.3/index.d.ts",
+        url: "https://unpkg.com/@types/prop-types@15.7.3/index.d.ts",
         depend: [],
       },
       {
         name: "react-dom",
-        url: "@types/react-dom@17.0.0/index.d.ts",
+        url: "https://unpkg.com/@types/react-dom@17.0.0/index.d.ts",
         depend: [],
       },
       {
         name: "csstype",
-        url: "csstype@3.0.6/index.d.ts",
+        url: "https://unpkg.com/csstype@3.0.6/index.d.ts",
         depend: [],
       },
       {
         name: "@emotion/styled/base.d.ts",
-        url: "@emotion/styled@11.0.0/types/base.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -141,7 +141,7 @@ export default async (
       },
       {
         name: "@emotion/styled/index.d.ts",
-        url: "@emotion/styled@11.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -150,64 +150,66 @@ export default async (
       },
       {
         name: "@emotion/cache/index.d.ts",
-        url: "@emotion/cache@11.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
         name: "@emotion/react/index.d.ts",
-        url: "@emotion/react@11.1.4/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.4/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace.d.ts",
-        url: "@emotion/react@11.1.4/types/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.4/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/css-prop.d.ts",
-        url: "@emotion/react@11.1.4/types/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.4/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper.d.ts",
-        url: "@emotion/react@11.1.4/types/helper.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.4/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/theming.d.ts",
-        url: "@emotion/react@11.1.4/types/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.4/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/serialize/index.d.ts",
-        url: "@emotion/serialize@1.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
 
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/utils/index.d.ts",
-        url: "@emotion/utils@1.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/utils@1.0.0/types/index.d.ts",
         depend: [],
       },
       {
         name: "framer-motion",
-        url: "@types/framer-motion.d.ts",
+        url:
+          "https://unpkg.com/framer-motion@3.2.3-rc.1/dist/framer-motion.d.ts",
         depend: [],
       },
       {
         name: "popmotion",
-        url: "popmotion@9.1.0/lib/index.d.ts",
+        url: "https://unpkg.com/popmotion@9.1.0/lib/index.d.ts",
       },
       {
         name: "@zedvision/qrious/index.d.ts",
-        url: "@zedvision/qrious@10.12.14/dist/qrious.d.ts",
+        url: "https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.d.ts",
       },
     ];
     const dts = importHelper.map(({ name, url }) =>
       (async () =>
         modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(
-          await (await fetch(`./js/smart-monaco-editor/node_legacy/${url}`))
-            .text(),
+          await (await fetch(
+            url,
+          )).text(),
           name.includes("@")
             ? `file:///node_modules/${name}`
             : `file:///node_modules/@types/${name}/index.d.ts`,

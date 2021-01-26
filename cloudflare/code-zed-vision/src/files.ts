@@ -33,16 +33,16 @@ export const files = {
     "QmQNdoLdcbKsbgVXbybqtoCxGDRRzzuCjrpnKTfcgSfR9z",
   "js/emotion-react-renderer/tsconfig.json":
     "QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA",
-  "js/examples/app.tsx": "QmT5yUxG2so3ddoG8CuABVg9hyWtxqQHRMarWKHobUM454",
+  "js/examples/app.tsx": "QmV7vp3R622aUiZd7ukKfdLfkzBhn8oKdUKHXKiZsZw7Ui",
   "js/examples/starterNoFramerMotion.js":
     "QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs",
   "js/examples/starter_framer.js":
     "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
   "js/formatter.js": "QmWcaaZFJLVKDFMneB43W98QQ3QSifrmwupLamwFMvd3pg",
-  "js/hash.js": "QmZeQU6UzqsL9iQV5gdP5cDgyNKJ3taFJEuVEgV4HYUUYr",
+  "js/hash.js": "QmV81USwcxTDLfeeSeQECvhWGKBWsFoDcxwLhifKhPHtc8",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
-  "js/ipfsClient.js": "QmbufiqDBXFQ3CRxdSanT5r3iRGGbUEhzkwJTkcThRmEtS",
+  "js/ipfsClient.js": "QmQJqY3ZMbpHLHoCnQQJnf39cwi7jKYqTSc2U89qDPq519",
   "js/openWindows.js": "QmYDbjLyo4iF1SWgfrDZfKiSupeXDiQVKn81AvGdMBHdwh",
   "js/qrious/AUTHORS.md": "QmWzBXD5ULj9EAVt7ffrffyZ15pUwjDXpoquHnoaRBaQpx",
   "js/qrious/LICENSE.md": "Qmf71mxCKmPQnJZadhscUSszFDFkNBZFkbEenEKyPgLFTc",
@@ -56,7 +56,7 @@ export const files = {
   "js/qrious/src/service/element/BrowserElementService.js":
     "QmaquwSn36sfzcn6seaTvR6YPhJoFVQvh9z9174tzTEjgi",
   "js/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
-  "js/renderPreviewWindow.js": "QmcKPKbJ6z4dUAynU7fsezzbRge8vzjrQpjDmtd4ZuuJY5",
+  "js/renderPreviewWindow.js": "QmRCxGpwrALhhyFSJ5Xvv5nCehR9Kn4d4iBeCLQdtdJf6J",
   "js/sendSignalToQrCode.js": "QmeZxocsjhuRy2v7WdzGegZDsiHVPpZw7WNAqyb5j2mN3G",
   "js/shadb/dist/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
   "js/shadb/dist/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
@@ -98,89 +98,19 @@ export const files = {
   "js/shadb/tsconfig.json": "QmSweNRyD6aAUjpMnt8zKE5LAxvvLoZPy9Qj3r4THEhaUd",
   "js/shadb/tsconfig.tsbuildinfo":
     "QmS59UA9t2rh8mic1YcVUT1PefysNxpKkGcUJdJ7pC9zL2",
-  "js/share.js": "QmYccfavc4WD6QPpF7UiGNKzSjR65EV1LrEVcDnmhaXzxK",
-  "js/smart-monaco-editor/LICENSE.md":
-    "QmQAGWaCTkwWF9GMjvoLgCMMgec8bKWRgzB29yti3b5zAL",
-  "js/smart-monaco-editor/README.md":
-    "Qme5mqxxvVorXuV6y3Wit23U9pUhaMfSDR2YDx1esCCruY",
+  "js/share.js": "QmTqK8JZfiPdnnfdX77Zt3HP7Qwj8brv5GS25v59ETb3So",
   "js/smart-monaco-editor/dist/editor.d.ts":
     "QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK",
   "js/smart-monaco-editor/dist/editor.js":
-    "QmQ2ewWmA31zGwYKBKcjyjiNbuTd42eH7Rs5SfQaTbkhPV",
+    "QmfGC43Dt83QnPmqDeKsASLxocfWC95prFtdDYpzoLYugH",
   "js/smart-monaco-editor/dist/monaco.d.ts":
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "js/smart-monaco-editor/dist/monaco.js":
     "QmXVgMopyWJwthfjK9o12MqbLvWT1GXAkuGWbBzXnhFz6w",
-  "js/smart-monaco-editor/dist/scripts/screenshots.d.ts":
-    "QmS5gMBfgk8pSufk8fk4D9VXz74GvEaKgB8sP1dJTDKMtQ",
-  "js/smart-monaco-editor/dist/scripts/screenshots.js":
-    "QmZj5ZmAy4A2ow36UjUkWKkK1HXKL1tMofYxTYLVoSMJoD",
-  "js/smart-monaco-editor/favicon.ico":
-    "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "js/smart-monaco-editor/index.html":
-    "QmVQxvRvunUpXoZqC67ZUPoNSRpvyB4dKNmEQTtntCNqms",
-  "js/smart-monaco-editor/node_legacy/@emotion/cache@11.0.0/types/index.d.ts":
-    "QmUCj2Y8UvRu3qr495TxRWLjotqJVpGW4m2f373ML9J4q9",
-  "js/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/css-prop.d.ts":
-    "QmcqPuhFmv4w5Uaa1zarPmNPW2rEUEuTVpRbkMvkpuRTu2",
-  "js/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/helper.d.ts":
-    "QmTgJLTGDTZvVBrNvXmtPZT9W4ekHjXDM4ao62wLddJFo2",
-  "js/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/index.d.ts":
-    "Qma8jqDFMjj4MFpsCgZu2BA4PoRBgJpqNRjvG1S7JRwNLN",
-  "js/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/jsx-namespace.d.ts":
-    "QmNjM3vwg7JVnPCgNY55nxr6MDNnZfnR46xhNkqMRRWrSH",
-  "js/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types/theming.d.ts":
-    "QmRR1zmJ1QThGaMQP9CZyo89ny6b6cnN6T4EsNfVuMgMBZ",
-  "js/smart-monaco-editor/node_legacy/@emotion/serialize@1.0.0/types/index.d.ts":
-    "QmTe7sNkKt6fppui5WQ6KTp4dXAChyirJpmfaiwja8EFLu",
-  "js/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types/base.d.ts":
-    "QmcrDAZs3J1SbebjXv1XmfK5BEdrYAqy4E7vEVFVqjM4RV",
-  "js/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types/index.d.ts":
-    "QmWD3WGSdBRhBbmmv1P4JJyA4XMfazmV8CkY7pFrnVYMeb",
-  "js/smart-monaco-editor/node_legacy/@emotion/utils@1.0.0/types/index.d.ts":
-    "QmbvhexADU4v3XaaBXJxD4X1g7DMxFPsCWvytbsqvHpAKq",
-  "js/smart-monaco-editor/node_legacy/@types/framer-motion.d.ts":
-    "QmbiNzDjbM9doX5U9qMgmP3e1yJkVfA1TFMWgbdvxwvLq7",
-  "js/smart-monaco-editor/node_legacy/@types/prop-types@15.7.3/index.d.ts":
-    "QmXaJ9waDpQDB5rY24AWJwebJhXAvPZ8Zg6xyardJjkVeY",
-  "js/smart-monaco-editor/node_legacy/@types/react-dom@17.0.0/index.d.ts":
-    "QmUp6zxmTL2cBSqSummQCsVUr8ksVPku73xR47jjGqPyTL",
-  "js/smart-monaco-editor/node_legacy/@types/react@17.0.0/global.d.ts":
-    "QmRoYgDX13hcDWSUDRNxFZcnPyTqWzzkhJNF9X29Vxrr6g",
-  "js/smart-monaco-editor/node_legacy/@types/react@17.0.0/index.d.ts":
-    "QmXfhdDibqw2JGSQdiSz55jT81znjCU7yvQ4dmGW5UeKkx",
-  "js/smart-monaco-editor/node_legacy/@zedvision/qrious@10.12.14/dist/qrious.d.ts":
-    "QmY8cwFxtfD1dPVtvXhWR5uvMpaFVN8VJ2JXNbR2U2hYne",
-  "js/smart-monaco-editor/node_legacy/csstype@3.0.6/index.d.ts":
-    "QmW9j7PM3CWM83KSKZi7fkGLXVV8MBY7gEyFfHNbde8RjQ",
-  "js/smart-monaco-editor/node_legacy/popmotion@9.1.0/index.d.ts":
-    "QmfVp3E9UrnADC6nJMc46brtFfymJLfhTn42Av9ftYQUaB",
-  "js/smart-monaco-editor/node_legacy/popmotion@9.1.0/lib/index.d.ts":
-    "QmfVp3E9UrnADC6nJMc46brtFfymJLfhTn42Av9ftYQUaB",
-  "js/smart-monaco-editor/package.json":
-    "QmSkKP34WqkixSVtJ7bwH97WHjXoUqWt5oHGXg1R1chVPJ",
-  "js/smart-monaco-editor/src/editor.d.ts":
-    "QmXFYH4YMX7W5dDHwbLZS5NqtCSqRf6n9NcmaEZjFsLBtF",
-  "js/smart-monaco-editor/src/editor.ts":
-    "QmVQRmDXkP7Nuf4Vu8W3wF39Zx7pXtLBvZwBK9i4LL4irC",
-  "js/smart-monaco-editor/src/monaco.d.ts":
-    "QmdsjvXNr9ufGi4osAtDQuo4tji41DfCKzbCNhLo7F5Gc1",
-  "js/smart-monaco-editor/src/monaco.js":
-    "QmZcSRNpULJ3T8BScxgY8iP32XSjSw1xT2wiTk5SzxqQzr",
-  "js/smart-monaco-editor/src/refs.d.ts":
-    "QmUXoLQ9zNGWxd1c1yNBjSf4RoTwFMEbLcq8hL2ewCd6ba",
-  "js/smart-monaco-editor/src/scripts/screenshots.d.ts":
-    "QmS5gMBfgk8pSufk8fk4D9VXz74GvEaKgB8sP1dJTDKMtQ",
-  "js/smart-monaco-editor/src/scripts/screenshots.js":
-    "QmYUzn9XSFiduCLmzj4Ewcn5GnxwPaDKYDGAxdakydncmg",
-  "js/smart-monaco-editor/tsconfig.json":
-    "QmTqtxpjAgAVTAsFTHNuHE2cRCXSzKzfsrVwhFSaGsqea8",
-  "js/smart-monaco-editor/tsconfig.tsbuildinfo":
-    "QmWsVTdEfZdrWaxp5Qw7pKzR4jVF8Cu52FjBeTUrXUKZWg",
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
-  "js/transpile.js": "QmYWif6baGGsC3ePNG3fHh4omfGVGXs45Jwqec8xU96gsw",
-  "js/workers/fileCids.json": "QmQH9NvCwKwtXvUDQFgRMb3WU4tdenjE467dZ2Xa7cbTG7",
+  "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
+  "js/workers/fileCids.json": "QmVFMNrqpCamcK5UPVjKKZ8KkVwu8rA2xzek13f7V4R514",
   "js/workers/ipfs/README.md": "QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw",
   "js/workers/ipfs/dist/gateways.d.ts":
     "QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk",
@@ -200,10 +130,10 @@ export const files = {
     "QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo",
   "js/workers/ipfs/tsconfig.json":
     "Qme5DYXuyguxUxihGJ91XiVHwN8pfSZSatWYwQjTJPbdow",
-  "js/workers/ipfsWorker.js": "QmaihZ6yoSUSvKePkUbuu3EJAJwQhXZdcGWSPDsh8mqg9m",
-  "js/workers/shaSums.json": "QmR1nU5T3wvfCPwcqFNsadWhXYqP5RTnTZPVFNuVNB7ErB",
+  "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
+  "js/workers/shaSums.json": "QmRbnyQj6EYnczKaNpo1BPu3zP4hYjuMw2ZFQTDeT5aqEd",
   "js/workers/transpile.worker.js":
-    "QmQdsM6sidjLVrxFUZik8mQxDD6LtsAyDGKgQ4jaZFJC7J",
+    "QmQeW7mBkknR6Td5Vc82fp2HAKir1QdgFfCbMoMx3jzrQ1",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "node_legacy/comlink/comlink.min.js":
@@ -218,7 +148,7 @@ export const files = {
   "node_legacy/v4.js": "QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb",
   "node_legacy/validate.js": "QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT",
   "package.json": "QmUPBfHfm3ADqvfSTckb8aN5hmiHYvVzm1Y8PeJmGqjNbz",
-  "sw.js": "QmRvedxspyRsr57r6w4Lp1haQaGYsR3XFefds49SdxMfS2",
+  "sw.js": "QmYQNWLd1warMHgqvxJQYhztCvUBuGuWSZHnHBNY4mXY53",
   "tsconfig.json": "QmUHwsx3is1DU1BNYHJxvvhSrCoD3rxDdhn4cgc6jYXFqB",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
@@ -228,7 +158,7 @@ export const files = {
   "js/emotion-react-renderer/src":
     "Qmb8CgdT9fYQGmqzDhTrt3hZ5JhkaUFmYQHRTYrqCxx8kn",
   "js/emotion-react-renderer": "QmVJDfGGkC3Bsxt8Bu9Kjdi4EZu6bBrB2UhQsykdGcCiBf",
-  "js/examples": "QmasbQ63fdpt8XKSug4SkL8u4oQMWuaVd7xob5f8dfXDqM",
+  "js/examples": "QmYEqZisoSCx5q8mwPVoRetHzjMqvQuyxBj4C22Jrqze1Y",
   "js/qrious/dist": "QmQeLhgtbob32M7FbtGELAfqLDgzq4LqasUpN2kUp6vGVa",
   "js/qrious/src/service/element":
     "QmcP8FAooT6RDNr8SELNUQgQiGAfEXFULUoJ5FQCF4t7hN",
@@ -240,66 +170,17 @@ export const files = {
   "js/shadb/src/vendor": "QmZcc5JirQ5ySPiELM4nJaVBLsKVL3vvNg2KE5uj7rGSr3",
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmWJyPhsCQe2wpbqjL9mmHWY97qSFQFafmfTURQUQCgED7",
-  "js/smart-monaco-editor/dist/scripts":
-    "QmUZruQhR3JEi3knevKng6AKpxN3vcswuRrCp4DiW9aYMM",
   "js/smart-monaco-editor/dist":
-    "QmWy99hhfPhF7fD3WkBXgUPZU3mD1JSryp49Vs7UCFAN9X",
-  "js/smart-monaco-editor/node_legacy/@emotion/cache@11.0.0/types":
-    "QmUEN3GDGpShVYbF8hWwkgFWdCFf4MGFXggEBLLJCW7MHn",
-  "js/smart-monaco-editor/node_legacy/@emotion/cache@11.0.0":
-    "QmRrpV1ht67hartnVdCGUL6HoZ3VSqxoCJihFi3Qunud26",
-  "js/smart-monaco-editor/node_legacy/@emotion/react@11.1.4/types":
-    "QmanceJtx35wfrY3dqZfRGiFZg7birgBaL65fkJRmRNZiF",
-  "js/smart-monaco-editor/node_legacy/@emotion/react@11.1.4":
-    "QmYv3i1pQ5bjKy3iEEWX66FfxNsUe1GC522xbt4XRdwwyU",
-  "js/smart-monaco-editor/node_legacy/@emotion/serialize@1.0.0/types":
-    "QmUnre3UQbzpYq1XmEdf5cD24wcsBqWNnHkH75Z9SvsNPR",
-  "js/smart-monaco-editor/node_legacy/@emotion/serialize@1.0.0":
-    "QmbohaYyrYyu47WW4W3BRV5pxJQY5mVyAiQce9Bn1pQzCT",
-  "js/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0/types":
-    "QmS5uFuLqN8AGfAiDTZnbjKbueGKve723gjTyVjTBaaz8F",
-  "js/smart-monaco-editor/node_legacy/@emotion/styled@11.0.0":
-    "QmQgjmWjt2jnyXUyLhMGRCDDWzeTPFpxAPtqyzYxadDENh",
-  "js/smart-monaco-editor/node_legacy/@emotion/utils@1.0.0/types":
-    "QmUXun6ie598RTouvr2WWASvmZZqErUtHuPXxd1LtdaFZ3",
-  "js/smart-monaco-editor/node_legacy/@emotion/utils@1.0.0":
-    "QmaWRA2PvGCN9iJefsPvvhtEPVgSH1jNWQsZAXYgcWqVhF",
-  "js/smart-monaco-editor/node_legacy/@emotion":
-    "QmdkLmXqY4cR3eCHDkEu6wr26oG12tRr7XRVpeNqieU11j",
-  "js/smart-monaco-editor/node_legacy/@types/prop-types@15.7.3":
-    "QmR4pDyXHid6f9yeQLtTVnCtpjmo43m7JAPwTd1Jbjj3Ta",
-  "js/smart-monaco-editor/node_legacy/@types/react-dom@17.0.0":
-    "QmRb3L5eSa6HX9KGJKyecoLnfSPNd6tzZdAMg6oQJj2Bsq",
-  "js/smart-monaco-editor/node_legacy/@types/react@17.0.0":
-    "QmdafiC1ixpU9mcYwH52sYg6yqMJtbAfRtCYzdh7aFD2Tm",
-  "js/smart-monaco-editor/node_legacy/@types":
-    "QmfVpWFFoyKAKZbfzoVjcR51rKM5psMfreg7QPPgaCdd1i",
-  "js/smart-monaco-editor/node_legacy/@zedvision/qrious@10.12.14/dist":
-    "QmVr2gYmRGvQaHm4cbQt11LsXYQq4nMLG4H4MKYgJFvgc7",
-  "js/smart-monaco-editor/node_legacy/@zedvision/qrious@10.12.14":
-    "QmXJmZqywmjXZaXd4DHrhHLmVj5EDtuAA4gGvbnGXanhvK",
-  "js/smart-monaco-editor/node_legacy/@zedvision":
-    "QmQqBzB3Xs73A4pZwJpBKV8pcBp81oxYo6dHeDa2PCHF6u",
-  "js/smart-monaco-editor/node_legacy/csstype@3.0.6":
-    "Qme2hqcm1oQ6yWugA5iMA1qF5vHLNttgYHk9o6pTwSbf3M",
-  "js/smart-monaco-editor/node_legacy/popmotion@9.1.0/lib":
-    "QmTaZJ5REPK49oBHT76FsF8LX952W1mhEKgEzv81pqy997",
-  "js/smart-monaco-editor/node_legacy/popmotion@9.1.0":
-    "QmTnZe14NmEVosHmhQG1c1L8wvCDnfoaNzcdqszV9RnvBX",
-  "js/smart-monaco-editor/node_legacy":
-    "QmeggxxSfuAMXckECWSebkqkBy7VT4SrCpcy69o38zbc78",
-  "js/smart-monaco-editor/src/scripts":
-    "Qme94rT99UbaVwYxeK2ERakcHAABqofabkBbiSUuKztFzg",
-  "js/smart-monaco-editor/src":
-    "QmZTvJ9C3Wctgh3DHJBkvu4iMTYJKraFb1QB7qqePPyodq",
-  "js/smart-monaco-editor": "QmRZH8p8R5ueuzdGHs6Wtb7mYY2MXRYeY5ByRe3m8XV6TF",
+    "QmVM2qHTJPpmVWm4RADMQtKnfTBQrLzCv8rZqk96XaRvXA",
+  "js/smart-monaco-editor": "QmfBGnXEvQyKTLpyPe29TVrrobe9B7rHdDTaRrjCZgZazt",
+  "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "js/workers/ipfs/dist": "QmRxSA8JsWgf8QGpmQQLfx9VdcGM2AtT9gE4p8G2xBxGbT",
   "js/workers/ipfs/src": "QmcawjRt9hNpM5V2RSvd446Ntkd21gMaa2GnQsHq3Y4BpT",
   "js/workers/ipfs": "QmXttqzbzzqWn7ntmbwmPRZxbTxyATSxe4WBjhmjBnN8gR",
-  "js/workers": "QmTH7HewiFDDmk5bXdcyAVH64NBCzn5z7DRrcJ4pdGRZEU",
-  "js": "QmRfPRnhxb6qFarFN24uf9jfdfCJ7GvNnv6qwUBTM42USm",
+  "js/workers": "QmPKePe5XU2FcStvDtK7DjjJFN2SWyQBvGk2YCcZ37ubQv",
+  "js": "QmTb9noUPTW15qzKzbRRaU3SFeh7x56qZj1YqBnSjRZxVp",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmS3LJ32rpp6Gf7gRvQYghXSE4PQ8T1jJVTZp7Uvw6T8WR",
+  "": "QmbZuXjFFJsvrvAR31HjNDrChQecM72X9EYbBNBo4u3FLN",
   "foo": "bar",
 };

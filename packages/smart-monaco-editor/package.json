@@ -6,10 +6,9 @@
     "source": "./src/editor.ts",
     "exports": "./dist/editor.js",
     "scripts": {
-        "cp:types": "cp ../../../../node_modules/framer-motion/dist/framer-motion.d.ts ./node_legacy/@types",
         "prebuild": "yarn clean && tsc && deno fmt src",
-        "build": "echo ok",
-        "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format && yarn cp:types",
+        "build": "rm -rf ../code/js/smart-monaco-editor && mkdir -p ../code/js/smart-monaco-editor && cp -ar dist ../code/js/smart-monaco-editor/",
+        "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format",
         "format": "deno fmt src"
     },
     "keywords": [
@@ -28,12 +27,6 @@
     },
     "homepage": "https://github.com/zed-vision/monorepo",
     "repository": "https://github.com/zed-vision/monorepo",
-    "dependencies": {
-        "@emotion/react": "11.1.4",
-        "@types/react": "17.0.0",
-        "@types/react-dom": "17.0.0",
-        "framer-motion": "3.2.2-rc.1"
-    },
     "devDependencies": {
         "typescript": "4.2.0-dev.20210126"
     },
