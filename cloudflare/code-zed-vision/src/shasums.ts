@@ -101,18 +101,18 @@ export const shasums = {
     "26b0e247b3161f427e3401e6a8512cc5d66c9372fcc108ff1c1cdbf22e5d2f28",
   "js/smart-monaco-editor/LICENSE.md":
     "15855dde524dbbb3ffb666ccc87de4dc8a4b2f22840128fc0e65abb0ded8a77f",
-  "js/smart-monaco-editor/dist/editor.d.ts":
-    "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
-  "js/smart-monaco-editor/dist/monaco.d.ts":
-    "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
+  "js/smart-monaco-editor/dist/editor.js":
+    "1df35df04b6e1022ee0a9efcea57cff0753fcc270d4e2e59162ae7eab974c927",
   "js/smart-monaco-editor/dist/scripts/screenshots.d.ts":
     "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
   "js/smart-monaco-editor/dist/scripts/screenshots.js":
     "df96726b60edcad2c225dfab976bf64ad78bab81070a16ea86c2965b81a9f781",
   "js/smart-monaco-editor/dist/monaco.js":
     "d16032dd97343ea8fdba3b0ac34fc536df7e7f617a29c512c02dae724fc1a69c",
-  "js/smart-monaco-editor/dist/editor.js":
-    "1df35df04b6e1022ee0a9efcea57cff0753fcc270d4e2e59162ae7eab974c927",
+  "js/smart-monaco-editor/dist/editor.d.ts":
+    "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+  "js/smart-monaco-editor/dist/monaco.d.ts":
+    "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/data.js":
@@ -150,7 +150,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "1b3a7c3ae3017eb1e38a67db331a16bccaaa5b6a7c75f4d60776a37f7fd4c18f",
   "js/workers/shaSums.json":
-    "97e4d45ed6d76ca031702fd4c4658dccf19c1e6e32072e94bba67f2948895f46",
+    "23f0659d1f1aec1992ee50aa29a6f6e55a0aa9aa4dfe79a382d68c71c459a4be",
   "js/workers/ipfs/package.json":
     "24584b9bba9427e09e69daec53312b094e23b8cc5d9dbce2e317c7f50f3ab497",
   "js/workers/ipfs/.gitignore":
@@ -182,7 +182,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "9bf75113dded2ea585c1f5baced93b075a00c9e668f6bfb7405060ea003df32c",
+    "090ce2c94004c57c597af663a16d3dceeb67e5666ad4d50ba65565c13a77767d",
   "js/hash.js":
     "9344c3462e55e797fe5c32bb925ed262ab945ad6c99bd7e5268ece34667f3327",
   "js/importScript.js":
