@@ -477,7 +477,7 @@
         "affectsGlobalScope": false
       },
       "./sw.js": {
-        "version": "c197efcfd4309cfbb78a20a99824f19a6ad1d9d781f425a11129ac128e996df9",
+        "version": "d2de8c342bd91265667d32f8955913788ece8f2f5f403599f6d3d72420976076",
         "signature": "8dceebe21eda4edb56e273006cb2e6c6b245c03846e631ef1449ebd5e157a456",
         "affectsGlobalScope": true
       }
