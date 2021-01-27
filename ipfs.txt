@@ -28,7 +28,7 @@ added QmV81USwcxTDLfeeSeQECvhWGKBWsFoDcxwLhifKhPHtc8 code/js/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/js/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/js/importScript.js
 added QmXeKE5HoAVixTnjFvWSUjd9nu66ebBPyjMctkAdYMGZUJ code/js/ipfsClient.js
-added QmQMTdZGHXoxvNqzKEBtK1SUbXqTp4ymNECUXjRphqaHtn code/js/openWindows.js
+added QmRFXB57XQqNfJafKifWBJaNiqauyrx2YzrQagmF49vfRB code/js/openWindows.js
 added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/js/refs.d.ts
 added QmRCxGpwrALhhyFSJ5Xvv5nCehR9Kn4d4iBeCLQdtdJf6J code/js/renderPreviewWindow.js
 added QmbPW349Hw2pWWbHnVuiyem8Dc6zSqD1kPzLCVPeLnGpgL code/js/sendSignalToQrCode.js
@@ -63,9 +63,9 @@ added QmTqK8JZfiPdnnfdX77Zt3HP7Qwj8brv5GS25v59ETb3So code/js/share.js
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/js/starterTsx.tsx
 added QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe code/js/templates.js
 added QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD code/js/transpile.js
-added QmVboqtuiSXQfqRJw2dr4B5Dck2vXF3HWNoXCWqGH5KUkL code/js/workers/fileCids.json
+added Qmd6xoeQTi9BeRfza3RnUVFXj5dDbNhq7JVBB1ftGN61FQ code/js/workers/fileCids.json
 added QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2 code/js/workers/ipfsWorker.js
-added QmaT414u7LKFbEWcbWC6Fx6mLZsbatorfzXzqojXw1ex42 code/js/workers/shaSums.json
+added QmbHvJShqsPJJor7GQMoSUvRGAWz1HFCbRo1oseKGDJdKc code/js/workers/shaSums.json
 added QmQeW7mBkknR6Td5Vc82fp2HAKir1QdgFfCbMoMx3jzrQ1 code/js/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/js/workers/tsconfig.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
@@ -98,11 +98,11 @@ added QmZcc5JirQ5ySPiELM4nJaVBLsKVL3vvNg2KE5uj7rGSr3 code/js/shadb/src/vendor
 added QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ code/js/shadb/src
 added QmfC2r39avJeWf6dp5kkoNswhaUfnQkotp6oEoPya6ZJQd code/js/shadb
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/js/workers/dist
-added QmVpKrcD8ga4nNmzoxvSfMSYeVhKi5C2riUS9vxedGzq2X code/js/workers
-added QmbLWSSKu8M5WbJXzFE8nUTVYfE5u4ALzn658vMU9wkzP2 code/js
+added Qmf33LSkHoTWfJa937yuaXoe6rM1q4KbQ9XE7zbHYaVv8G code/js/workers
+added QmNaFhs8ozymqU2meFPoEwbXRc5XgFkP7hL9naPaqwzggb code/js
 added QmUwiLGnKwEpzG4uKQ3Py3WSxEcLDzsVe6FDx8dq9jnSRB code/modules/smart-monaco-editor/dist
 added QmSWruNRppq3U9NBph1R3QbzNkbBKTEkd4KBsokzkakowQ code/modules/smart-monaco-editor
 added Qmd7yWmduPzpnb2NbFGCtj5fcbmcmbMEEvWrR1jBVqitw9 code/modules
 added QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R code/node_legacy/comlink
 added QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1 code/node_legacy
-added QmX1dLr6A87WWDYCvsptmQujDL1FdhVkeaqpfstq8WFWRY code
+added QmT3DvAb4TJXNG3YDRbX5MXF8xSnnEXQinksHBgLjkuUqq code
