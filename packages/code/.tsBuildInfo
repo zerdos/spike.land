@@ -281,6 +281,11 @@
         "signature": "9561ad5c1daa2243187c0187cc53256ced5dc0af90d36f7e3ff06734eb716c92",
         "affectsGlobalScope": false
       },
+      "./modules/smart-monaco-editor/dist/editor.d.ts": {
+        "version": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+        "signature": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+        "affectsGlobalScope": false
+      },
       "./js/codeLoader.js": {
         "version": "19a4bb6e3206aba3a62ee656fa58b82735ae97db0b42a76725bfb289aab58436",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
@@ -431,7 +436,8 @@
         "./js/sendSignalToQrCode.js",
         "./js/shadb/src/diff.js",
         "./js/shadb/src/sha256.js",
-        "./js/transpile.js"
+        "./js/transpile.js",
+        "./modules/smart-monaco-editor/dist/editor.d.ts"
       ],
       "./js/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -647,6 +653,7 @@
       "./js/workers/ipfsWorker.js",
       "./js/workers/transpile.worker.js",
       "./modules/ipfs.client.js",
+      "./modules/smart-monaco-editor/dist/editor.d.ts",
       "./node_legacy/regex.js",
       "./node_legacy/rng.js",
       "./node_legacy/simple-window-manager.es.js",
@@ -834,6 +841,10 @@
       ],
       [
         "./modules/ipfs.client.js",
+        1
+      ],
+      [
+        "./modules/smart-monaco-editor/dist/editor.d.ts",
         1
       ],
       [

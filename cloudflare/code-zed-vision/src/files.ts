@@ -79,14 +79,22 @@ export const files = {
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
   "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
-  "js/workers/fileCids.json": "QmdPjH8UaUt1ZypJKUE138kJNpqYuhS4idQDA5WKY8Vtye",
+  "js/workers/fileCids.json": "QmS7y4WUU2GwmeFZBfRYRdmH4qi7YSejom594PuubaCFrg",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "Qmf87adNx7h81tSZhPNjMuzdhT8gQY8rTzLej25dowK15Z",
+  "js/workers/shaSums.json": "QmfNMeuXZsPvSDHu8CShA5dRZocfapRT4Zc7YRmqEmvDua",
   "js/workers/transpile.worker.js":
     "QmRoCjYQHCYLzC94rrp6EM6rpLoyPsmVVhAQZtgzLSSbp7",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "modules/ipfs.client.js": "Qmdp2HBvcvTJPkYqHHJ75RauWt8koyoqqVAhmPWGP8Q5i6",
+  "modules/smart-monaco-editor/dist/editor.d.ts":
+    "QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK",
+  "modules/smart-monaco-editor/dist/editor.js":
+    "QmQJqkN5GmzqGKB1w1TAc4LHZtq93wMgHCVig6DdDdUWRb",
+  "modules/smart-monaco-editor/dist/monaco.d.ts":
+    "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
+  "modules/smart-monaco-editor/dist/monaco.js":
+    "QmcCeG9BJcaeK379TMHKZybhT7LPZ3FnfEs9X2hiTW24C9",
   "node_legacy/comlink/comlink.min.js":
     "QmQzvUvopsHv6N1mhbQpVVT6PwZj9zLJUE4L4BA3CxCwrQ",
   "node_legacy/comlink/comlink.min.mjs":
@@ -111,11 +119,15 @@ export const files = {
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmRvKWGtua7uUxEUScccAU21Rr5qtvFM2Ka24X2bFoEuR4",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "QmY5fXDyBAettWBbBYGz23ymJ9syCdS22YsteKBPm6kFgq",
-  "js": "QmNk81ihWAW5uFyxMjzEv5NSGqCb6cDQnsdvWCzSYoy2sG",
-  "modules": "QmSdQRFXg3vDM8Bh17ABtnuoVsz71dqqRchu2BpGXWysT9",
+  "js/workers": "QmUAGTiEkBNEup3e29X5vffniLwhYXVfi6PSYQBbCe4v56",
+  "js": "QmNUbpBnV6D1peb2McuA4VE1tsAAqtgc8d9rbbJoaHWa2x",
+  "modules/smart-monaco-editor/dist":
+    "QmUwiLGnKwEpzG4uKQ3Py3WSxEcLDzsVe6FDx8dq9jnSRB",
+  "modules/smart-monaco-editor":
+    "QmSWruNRppq3U9NBph1R3QbzNkbBKTEkd4KBsokzkakowQ",
+  "modules": "Qmd7yWmduPzpnb2NbFGCtj5fcbmcmbMEEvWrR1jBVqitw9",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmXgvfMDK7XNw93ZZAn35zadSbbWAfXvnd48eQiR9j3toT",
+  "": "QmPEBYniQzgoUf6ky9NTcjeff5tQ28MARY8nTrtD4BCErt",
   "foo": "bar",
 };
