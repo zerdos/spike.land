@@ -25,6 +25,8 @@ export const shasums = {
     "25f91b5e650018c910838c5259fbdccdb023007136adaa4b19e00bf341d06ace",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
+  "modules/DraggableWindow.js":
+    "58a5cfd54cf833c66a43d3382294fd454da31eaf39ab815b0739560047ba2198",
   "modules/ipfs.client.js":
     "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -35,6 +37,8 @@ export const shasums = {
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/editor.js":
     "ccaaf26fa25b2424e7391281ce140d8fe20f8867583edbf33c653e6e46c15f1b",
+  "modules/renderer.js":
+    "e180e2edbaa6bd5b3f27e957df1a6db1771be9a797787321c8b98eb7e9ae756c",
   "sw.js": "b3c970860fada297ad8e347c8fd08008fc305e38d669e2dc2374f04c8a2ad791",
   ".tsBuildInfo":
     "6d89183ec371ce140a5333455dd265c969836e59e3b76b546f67a1b03790b42f",
@@ -68,7 +72,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/shaSums.json":
-    "b46ac9553740eb08f7eb51bd52e1b32b6e8685836a09aef2f3ab1b597a83735a",
+    "9ffebdda28e298b090dec697ca2abb049b3a3c0c1f3a5580c56432324894453e",
   "js/workers/ipfsWorker.js":
     "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
   "js/workers/transpile.worker.js":
@@ -76,7 +80,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "0ef955868251920ed4e1752ee7b696950c8d086fe5e94d16722a6bbb620025e5",
+    "03f585a22e3eb2e8c6fd04770d63c9417e5c96467ee37638bca1c5b41cd3aedf",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":
