@@ -22,8 +22,11 @@ export default async ({ onChange, code, language, container, options }) => {
                 verticalHasArrows: true,
                 verticalScrollbarSize: 20,
             }, minimap: {
-                enabled: false,
-            }, folding: false, glyphMargin: false, wordWrap: "off", mouseWheelZoom: false, wordWrapColumn: 80, useTabStops: false, dragAndDrop: false, disableLayerHinting: true, formatOnPaste: false, disableMonospaceOptimizations: true, showUnused: true, 
+                enabled: true,
+                side: "right",
+                size: "fit",
+                showSlider: "always",
+            }, folding: true, glyphMargin: false, wordWrap: "off", mouseWheelZoom: false, wordWrapColumn: 80, useTabStops: false, dragAndDrop: true, disableLayerHinting: true, formatOnPaste: false, showUnused: true, 
             //       glyphMargin: true,
             automaticLayout: true, scrollBeyondLastLine: false, autoIndent: "full", accessibilitySupport: "off", autoClosingQuotes: "beforeWhitespace", padding: {
                 bottom: 300,
@@ -125,7 +128,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@3.2.3-rc.1/dist/framer-motion.d.ts",
+                url: "https://unpkg.com/framer-motion@3.2.2-rc.1/dist/framer-motion.d.ts",
                 depend: [],
             },
             {
