@@ -79,9 +79,9 @@ export const files = {
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
   "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
-  "js/workers/fileCids.json": "QmPnKdveRbgRUkyQNM9YFgfjzQgzwipvyuDio5FWKPxctF",
+  "js/workers/fileCids.json": "QmRTaKqTjvw6bSZv532JqAr5s4AfbidDfbAcTYXeUXKSDa",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "QmfT7oBxcnT4jtWVPUQAq8rbBtQUYeQ87wDpRvZ6HKaTTV",
+  "js/workers/shaSums.json": "QmY7JoaZzZbPR3x1rhWvBnASXLZpJ6i8MmMSPK76czQFae",
   "js/workers/transpile.worker.js":
     "QmRoCjYQHCYLzC94rrp6EM6rpLoyPsmVVhAQZtgzLSSbp7",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -122,8 +122,8 @@ export const files = {
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmRvKWGtua7uUxEUScccAU21Rr5qtvFM2Ka24X2bFoEuR4",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "QmdTL7RoTGFhAgKrTb1ALXHgBEc1f8Uz5dx9W37GpyEo1n",
-  "js": "QmNNM3C92dqacrTEXhgZwutnKfnw62rXQArPF1hRvHcY2D",
+  "js/workers": "QmPD1u1pv1VkgpLLnvocZG9AHDnLzDLy8wC5CVvLHv1onL",
+  "js": "QmTscxPAh1GiLfNetQ5mAZaud7Mw77Bz7PaLa7mRGBw4if",
   "modules/smart-monaco-editor/dist":
     "QmUwiLGnKwEpzG4uKQ3Py3WSxEcLDzsVe6FDx8dq9jnSRB",
   "modules/smart-monaco-editor":
@@ -131,6 +131,6 @@ export const files = {
   "modules": "QmVrL6Ah8RQLSCVZ9jzxSvBAjjGxE6vkS7Ps5EVwa6YVqi",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmPqGMWyAg43GZT9DHrje3pdEZC1BbTGVUggnR16oS8WgK",
+  "": "QmWcEEAexptrZ52MrtwB2gjRS8VUnWXXijqV3aCwnoVFfq",
   "foo": "bar",
 };
