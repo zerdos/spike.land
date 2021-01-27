@@ -281,13 +281,13 @@
         "signature": "9561ad5c1daa2243187c0187cc53256ced5dc0af90d36f7e3ff06734eb716c92",
         "affectsGlobalScope": false
       },
-      "./js/smart-monaco-editor/dist/editor.d.ts": {
-        "version": "2ced639bb81f14b7981e4207c54869e9c5a31fac8acbef3c6fe27cbcf339dd9c",
-        "signature": "2ced639bb81f14b7981e4207c54869e9c5a31fac8acbef3c6fe27cbcf339dd9c",
+      "./modules/smart-monaco-editor/dist/editor.d.ts": {
+        "version": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+        "signature": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
         "affectsGlobalScope": false
       },
       "./js/codeLoader.js": {
-        "version": "7023bc31eb9795ef9acb4deab40300a01fd49173c8bda8a7864c1e04c489942a",
+        "version": "19a4bb6e3206aba3a62ee656fa58b82735ae97db0b42a76725bfb289aab58436",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -298,7 +298,7 @@
       },
       "./js/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+        "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/DraggableWindow.js": {
@@ -396,21 +396,6 @@
         "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
         "affectsGlobalScope": false
       },
-      "./js/smart-monaco-editor/dist/monaco.d.ts": {
-        "version": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
-      "./js/smart-monaco-editor/dist/editor.js": {
-        "version": "679ea3439796ec8d4c6fa9d987d0ce6dfee14a3256d4c7ec47aed8353f100ed2",
-        "signature": "688e6bf6b8568a4bd9c2ca9d67edf36a621200a114efe7cfb4eea0134e90deb0",
-        "affectsGlobalScope": false
-      },
-      "./js/smart-monaco-editor/dist/monaco.js": {
-        "version": "dbcdc50414cbfaf3b0c1662b38f2a018211cf11aaa434a1ca2dd24264be0b785",
-        "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-        "affectsGlobalScope": false
-      },
       "./js/workers/ipfsWorker.js": {
         "version": "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
         "signature": "69538fefbd1361b7ebfcd8bd0964a2dd1978841a8af062f798ae0d2305edda54",
@@ -461,8 +446,8 @@
         "./js/sendSignalToQrCode.js",
         "./js/shadb/src/diff.js",
         "./js/shadb/src/sha256.js",
-        "./js/smart-monaco-editor/dist/editor.d.ts",
-        "./js/transpile.js"
+        "./js/transpile.js",
+        "./modules/smart-monaco-editor/dist/editor.d.ts"
       ],
       "./js/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -578,13 +563,6 @@
         "./js/shadb/src/shaDB.js",
         "./js/templates.js"
       ],
-      "./js/smart-monaco-editor/dist/editor.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/smart-monaco-editor/dist/monaco.d.ts"
-      ],
-      "./js/smart-monaco-editor/dist/monaco.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
       "./js/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
@@ -688,15 +666,12 @@
       "./js/shadb/src/vendor/diffMin.js",
       "./js/shadb/src/vendor/idb.js",
       "./js/share.js",
-      "./js/smart-monaco-editor/dist/editor.d.ts",
-      "./js/smart-monaco-editor/dist/editor.js",
-      "./js/smart-monaco-editor/dist/monaco.d.ts",
-      "./js/smart-monaco-editor/dist/monaco.js",
       "./js/templates.js",
       "./js/transpile.js",
       "./js/workers/ipfsWorker.js",
       "./js/workers/transpile.worker.js",
       "./modules/ipfs.client.js",
+      "./modules/smart-monaco-editor/dist/editor.d.ts",
       "./node_legacy/regex.js",
       "./node_legacy/rng.js",
       "./node_legacy/simple-window-manager.es.js",
@@ -875,22 +850,6 @@
         1
       ],
       [
-        "./js/smart-monaco-editor/dist/editor.d.ts",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/editor.js",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/monaco.d.ts",
-        1
-      ],
-      [
-        "./js/smart-monaco-editor/dist/monaco.js",
-        1
-      ],
-      [
         "./js/templates.js",
         1
       ],
@@ -908,6 +867,10 @@
       ],
       [
         "./modules/ipfs.client.js",
+        1
+      ],
+      [
+        "./modules/smart-monaco-editor/dist/editor.d.ts",
         1
       ],
       [
@@ -940,5 +903,5 @@
       ]
     ]
   },
-  "version": "4.2.0-dev.20210126"
+  "version": "4.2.0-dev.20210127"
 }

@@ -42,7 +42,7 @@
     "react-typography": "0.16.19",
     "typeface-merriweather": "1.1.13",
     "typeface-montserrat": "1.1.13",
-    "typescript": "4.2.0-dev.20210126",
+    "typescript": "4.2.0-dev.20210127",
     "typography": "0.16.19",
     "typography-theme-wordpress-2016": "0.16.19",
     "workbox-webpack-plugin": "6.0.2"

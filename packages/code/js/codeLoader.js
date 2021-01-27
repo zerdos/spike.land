@@ -7,7 +7,7 @@ import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
 import { transpileCode } from "./transpile.js";
 import { formatter } from "./formatter.js";
-import startMonaco from "./smart-monaco-editor/dist/editor.js";
+import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 
 function getSession() {
   const session = {
