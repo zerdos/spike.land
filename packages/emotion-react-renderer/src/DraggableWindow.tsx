@@ -5,6 +5,7 @@ import Fab from "@material-ui/core/Fab";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 import Slider from "@material-ui/core/Slider";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import React from "react";
 
 const breakPoints = [640, 750, 1024, 1920];
@@ -24,40 +25,41 @@ export const DraggableWindow: React.FC<{
   const marks = [
     {
       value: 30,
-      label: '30%',
+      label: "30%",
     },
     {
       value: 100,
-      label: '100%',
+      label: "100%",
     },
     {
       value: 250,
-      label: '250%',
+      label: "250%",
     },
   ];
 
   return (
-    <motion.div
-      ref={ref}
-      css={css`
+    <React.Fragment>
+      <CssBaseline />
+      <motion.div
+        ref={ref}
+        css={css`
             right: 20px;
             top: 20px;
             white-space: normal;
             position: ${position ? position : "fixed"};
           `}
-      dragElastic={0.5}
-      onDrag={(e) => {
-        dragHelper.drag = true;
-      }}
-      onDragEnd={(e) => {
-        dragHelper.drag = false;
-      }}
-      dragMomentum={false}
-      drag={true}
-    >
-
-      <div
-        css={css`
+        dragElastic={0.5}
+        onDrag={(e) => {
+          dragHelper.drag = true;
+        }}
+        onDragEnd={(e) => {
+          dragHelper.drag = false;
+        }}
+        dragMomentum={false}
+        drag={true}
+      >
+        <div
+          css={css`
           background: rgb(204,204,204, 06);
           border-radius: 20px;
           display: block;
@@ -66,71 +68,74 @@ export const DraggableWindow: React.FC<{
           right: 0;
           top: 0;
       `}
-      >
-        <div
-          css={css`
+        >
+          <div
+            css={css`
                 display: flex;
             `}
-        >
-
-          <ToggleButtonGroup
-            value={width}
-            exclusive
-            onChange={(_e, newSize) => setWidth(newSize)}
           >
-            {breakPoints.map((size) =>
-              <ToggleButton
-                key={size}
-                value={size}
+            <ToggleButtonGroup
+              value={width}
+              exclusive
+              onChange={(_e, newSize) => setWidth(newSize)}
+            >
+              {breakPoints.map((size) =>
+                <ToggleButton
+                  key={size}
+                  value={size}
+                >
+                  {size}px
+                </ToggleButton>
+              )}
+            </ToggleButtonGroup>
+
+            <div
+              css={css`
+                margin-left: 40px;
+                margin-right: 40px;
+                vertical-align: middle;
+                display: inline-block;
+                width: 200px;
+          `}
+            >
+              <Slider
+                value={scale}
+                onChange={(_e, v) => {
+                  if (typeof v === "object") {
+                    return;
+                  }
+                  _e.stopPropagation();
+                  changeScale(v);
+                }}
+                step={10}
+                marks={marks}
+                min={30}
+                max={250}
               >
-                {size}px
-              </ToggleButton>
-            )}
-          </ToggleButtonGroup>
+                {scale}%
+              </Slider>
+            </div>
+            <div>
+            </div>
 
-          <div css={css`
-          margin-left: 40px;
-          margin-right: 40px;
-          vertical-align: middle;
-          display: inline-block;
-          width: 200px;
-          `}>
-
-            <Slider
-              value={scale}
-              onChange={(_e, v) => {
-                _e.stopPropagation();
-                changeScale(v);
+            <Fab
+              variant="extended"
+              onClick={() => {
+                console.log(ref.current!.clientHeight);
+                onShare();
               }}
-              step={10}
-              marks={marks}
-              min={30}
-              max={250}
-            >{scale}%</Slider>
-          </div>
-          <div>
-
-
-          </div>
-
-          <Fab
-            variant="extended"
-            onClick={() => {
-              console.log(ref.current!.clientHeight);
-              onShare();
-            }}
-          >
-            Export
+            >
+              Export
             </Fab>
+          </div>
         </div>
-      </div>
-      <motion.div
-        animate={{
-          transformOrigin: "top right",
-          width,
-          scale: scale / 100,
-        }}
-        css={css`  
+        <motion.div
+          animate={{
+            transformOrigin: "top right",
+            width,
+            scale: scale / 100,
+          }}
+          css={css`  
             top: 60px;
             max-width: 100%;
             z-index: 10;
@@ -148,11 +153,11 @@ export const DraggableWindow: React.FC<{
            z-index: -9;
            background: inherit; 
            position: absolute;
-           left: 10px;
-           right: 10px;
-           top: 80px;  
-           bottom: 80px;
-           box-shadow: inset 0 0 0 200px rgba(255,255,255,0.15);
+           left: 16px;
+           right: 16px;
+           top: 16px;  
+           bottom: 16px;
+           box-shadow: inset 0 0 0 200px rgba(255,255,255,0.35);
            filter: blur(10px);
           }
           >div{
@@ -162,17 +167,18 @@ export const DraggableWindow: React.FC<{
             opacity: 0.9;
           }
     `}
-      >
-        <div
-          id="zbody"
-          css={css`
+        >
+          <div
+            id="zbody"
+            css={css`
             margin: 8px;
           `}
-        >
-          {children}
-        </div>
+          >
+            {children}
+          </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </React.Fragment>
   );
 };
 

@@ -60,11 +60,11 @@ const transform = (code) => {
     // console.log(safeCode);
 
     let rendererSrc =
-      `https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`;
+      `https://code.zed.vision/modules/renderer.js`;
 
     if (self.location.hostname.indexOf("::1") !== -1) {
       const cid = self.location.pathname.slice(6, 52);
-      rendererSrc =  `http://[::1]:8080/ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
+      rendererSrc =  `http://[::1]:8080/ipfs/${cid}/modules/renderer.js`;
     }
 
     const transformed = Babel.transform(

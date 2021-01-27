@@ -998,39 +998,6 @@
   dependencies:
     binary-install "0.0.1"
 
-"@date-io/core@^2.10.6":
-  version "2.10.6"
-  resolved "https://registry.yarnpkg.com/@date-io/core/-/core-2.10.6.tgz#1a6e671b590a08af8bd0784f3a93670e5d2d5bd7"
-  integrity sha512-MGYt4GEB/4ZMdSbj6FS7/gPBvuhHUwnn5O6t8PlkSqGF1310qxypVyK4CZg5RQgev25L3R5eLVdNTyYrJOL8Rw==
-
-"@date-io/date-fns@^2.10.6":
-  version "2.10.6"
-  resolved "https://registry.yarnpkg.com/@date-io/date-fns/-/date-fns-2.10.6.tgz#d0afee6452d80112017f42af4912ba22d95b11b6"
-  integrity sha512-jUiIbs4VCmACy2Ml2xu3tqf0AUSZu4qQ3cRz8SoG4YPzeg1fqII8y/gTa7GJkXiH0bUKUWaf/G2dfJa9tUnmJA==
-  dependencies:
-    "@date-io/core" "^2.10.6"
-
-"@date-io/dayjs@^2.10.6":
-  version "2.10.6"
-  resolved "https://registry.yarnpkg.com/@date-io/dayjs/-/dayjs-2.10.6.tgz#8ac598813f349090d5af677184c37a8804a1081f"
-  integrity sha512-hAJXEt+cLUYn+5l84Mo0P2BXtyQcQSSKrzGUYFAuQL9zYS2BlXH3s/fXOygv+saxaMR0wCVtVAT9h7yC1Usnew==
-  dependencies:
-    "@date-io/core" "^2.10.6"
-
-"@date-io/luxon@^2.10.6":
-  version "2.10.6"
-  resolved "https://registry.yarnpkg.com/@date-io/luxon/-/luxon-2.10.6.tgz#7bb1cb834e62c69ca0c223a9a7fe1609ff11a1d6"
-  integrity sha512-tSi8k0WoVzYGmQB5bvQ8G4MUS9xomvCh72XiQOm0gjII9Wm0PIclzI4sLlyhwmqTUYnuyaRdQAMK1UaY3iBBUA==
-  dependencies:
-    "@date-io/core" "^2.10.6"
-
-"@date-io/moment@^2.10.6":
-  version "2.10.6"
-  resolved "https://registry.yarnpkg.com/@date-io/moment/-/moment-2.10.6.tgz#09fd03aed71d5df62bd9fa27446b6483093f767d"
-  integrity sha512-oIo24tW/l5kFxYV2B3Hc0joYKh59p7X7S36u0/inmf+Rk0Z8B4nU9jxuAgx5gbkFY2NVLwo1kr4l0CO2POtkYA==
-  dependencies:
-    "@date-io/core" "^2.10.6"
-
 "@emotion/babel-plugin-jsx-pragmatic@^0.1.5":
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.5.tgz#27debfe9c27c4d83574d509787ae553bf8a34d7e"
@@ -2185,24 +2152,6 @@
   integrity sha512-b9WnCARLzy3tRmSShn5iV6EYpWNLmrv9P+1ebAGxkHYvOi7ZHsk6NeL61FNx+sJ9nSrLnk+N7rTYI0h03XViPA==
   dependencies:
     "@babel/runtime" "^7.4.4"
-
-"@material-ui/lab@next":
-  version "5.0.0-alpha.24"
-  resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-5.0.0-alpha.24.tgz#d7c386b500298382bed91bb4148e2034447537f7"
-  integrity sha512-4B5Y3kHZrBfNtckkZ5mnYz3+0vOeu8t+2Ks9DqPTQuCoyXwz7iTVkvBMcAvNEweaQrWfRubUNeP17Rn5z6VjmA==
-  dependencies:
-    "@babel/runtime" "^7.4.4"
-    "@date-io/date-fns" "^2.10.6"
-    "@date-io/dayjs" "^2.10.6"
-    "@date-io/luxon" "^2.10.6"
-    "@date-io/moment" "^2.10.6"
-    "@material-ui/system" "5.0.0-alpha.24"
-    "@material-ui/utils" "5.0.0-alpha.24"
-    clsx "^1.0.4"
-    prop-types "^15.7.2"
-    react-is "^16.8.0 || ^17.0.0"
-    react-transition-group "^4.4.1"
-    rifm "^0.12.0"
 
 "@material-ui/styled-engine@5.0.0-alpha.24":
   version "5.0.0-alpha.24"
@@ -13651,7 +13600,7 @@ react-side-effect@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.1.tgz#66c5701c3e7560ab4822a4ee2742dee215d72eb3"
   integrity sha512-2FoTQzRNTncBVtnzxFOk2mCpcfxQpenBMbk5kSVBg5UcPqV9fRbgY2zhb7GTWWOlpFmAxhClBDlIq8Rsubz1yQ==
 
-react-transition-group@^4.4.0, react-transition-group@^4.4.1:
+react-transition-group@^4.4.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
   integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
@@ -14345,11 +14294,6 @@ rgba-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/rgba-regex/-/rgba-regex-1.0.0.tgz#43374e2e2ca0968b0ef1523460b7d730ff22eeb3"
   integrity sha1-QzdOLiyglosO8VI0YLfXMP8i7rM=
-
-rifm@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/rifm/-/rifm-0.12.0.tgz#8d3a9dc0de9c190e0de9bdc8861a91a221dc1341"
-  integrity sha512-PqOl+Mo2lyqrKiD34FPlnQ+ksD3F+a62TQlphiZshgriyHdfjn6jGyqUZhd+s3nsMYXwXYDdjrrv8wX7QsOG3g==
 
 rimraf@2.6.3:
   version "2.6.3"

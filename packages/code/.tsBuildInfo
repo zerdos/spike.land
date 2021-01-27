@@ -257,13 +257,13 @@
         "affectsGlobalScope": false
       },
       "./js/renderPreviewWindow.js": {
-        "version": "360b826342232e776776e46bfbf69ed3a0850da2d23cad79db6c2cfbf9adeb57",
+        "version": "0aa5f9d40b036dcb9340e8f60209c7379f02ce52f98ca33947990eb339d9ebf9",
         "signature": "b4f1bf90bff0c83fea60eb6f5c9f49457bdd94f9e8a0ac7c856d2103d4dfd8d7",
         "affectsGlobalScope": false
       },
       "./node_legacy/simple-window-manager.es.js": {
         "version": "47b3562229b947845e4d9b2724242a682d2d6b7cc935c3801e23f0de21678e00",
-        "signature": "c7a900517ef755f77f06d40a6cd7ee27532117825dfba65c7eb4b7b743517f7f",
+        "signature": "532996bc0a50dfc6b68a03c5a5dae4ae947518c7d0b318257277e6fde3f1bb95",
         "affectsGlobalScope": false
       },
       "./js/openWindows.js": {
@@ -281,11 +281,6 @@
         "signature": "9561ad5c1daa2243187c0187cc53256ced5dc0af90d36f7e3ff06734eb716c92",
         "affectsGlobalScope": false
       },
-      "./modules/smart-monaco-editor/dist/editor.d.ts": {
-        "version": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
-        "signature": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
-        "affectsGlobalScope": false
-      },
       "./js/codeLoader.js": {
         "version": "19a4bb6e3206aba3a62ee656fa58b82735ae97db0b42a76725bfb289aab58436",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
@@ -299,16 +294,6 @@
       "./js/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
         "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
-        "affectsGlobalScope": false
-      },
-      "./js/emotion-react-renderer/dist/DraggableWindow.js": {
-        "version": "6f950f09c746f0ce8733de097bb55817c2ecb1ef470a2bc15837a0ddd3b1fb6f",
-        "signature": "f4abdcb89a4e96e9379946980db0d8e84646cdb1bddc0d9d1618e29c00ffa7dc",
-        "affectsGlobalScope": false
-      },
-      "./js/emotion-react-renderer/dist/renderer.js": {
-        "version": "0ebbfb717fa5676e00ffadd9dd3614f29a0006f036885590da653dcdb38fa14f",
-        "signature": "989ffe28721a9c7c4815357aab2546ca8b1302f450c6fca07bd5857c6b379241",
         "affectsGlobalScope": false
       },
       "./js/examples/starterNoFramerMotion.js": {
@@ -402,7 +387,7 @@
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "fd1996a5275ee5aef27c98ce2580c7c2273ca5a52f48ed248f5f0586da9530d6",
+        "version": "6012fdbfd41db27e9bc5abe1c764897a985ad09ef4e4645769fea741ff0c284b",
         "signature": "c3a13bfaf8d8a569c668296b226ed29b835da2b2c91e44e38d175adbf57aae73",
         "affectsGlobalScope": true
       },
@@ -446,8 +431,7 @@
         "./js/sendSignalToQrCode.js",
         "./js/shadb/src/diff.js",
         "./js/shadb/src/sha256.js",
-        "./js/transpile.js",
-        "./modules/smart-monaco-editor/dist/editor.d.ts"
+        "./js/transpile.js"
       ],
       "./js/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -455,12 +439,6 @@
         "./js/shadb/src/shaDB.js",
         "./js/share.js",
         "./node_legacy/v4.js"
-      ],
-      "./js/emotion-react-renderer/dist/DraggableWindow.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/emotion-react-renderer/dist/renderer.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./js/examples/starterNoFramerMotion.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -633,8 +611,6 @@
       "./js/codeLoader.js",
       "./js/data.js",
       "./js/db.js",
-      "./js/emotion-react-renderer/dist/DraggableWindow.js",
-      "./js/emotion-react-renderer/dist/renderer.js",
       "./js/examples/starterNoFramerMotion.js",
       "./js/examples/starter_framer.js",
       "./js/formatter.js",
@@ -671,7 +647,6 @@
       "./js/workers/ipfsWorker.js",
       "./js/workers/transpile.worker.js",
       "./modules/ipfs.client.js",
-      "./modules/smart-monaco-editor/dist/editor.d.ts",
       "./node_legacy/regex.js",
       "./node_legacy/rng.js",
       "./node_legacy/simple-window-manager.es.js",
@@ -715,14 +690,6 @@
       ],
       [
         "./js/db.js",
-        1
-      ],
-      [
-        "./js/emotion-react-renderer/dist/DraggableWindow.js",
-        1
-      ],
-      [
-        "./js/emotion-react-renderer/dist/renderer.js",
         1
       ],
       [
@@ -867,10 +834,6 @@
       ],
       [
         "./modules/ipfs.client.js",
-        1
-      ],
-      [
-        "./modules/smart-monaco-editor/dist/editor.d.ts",
         1
       ],
       [

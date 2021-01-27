@@ -12,7 +12,6 @@
         "clean": "rm -rf dist .tsBuildInfo && deno fmt js/*.js && mkdir -p modules",
         "start": "cd ../.. && yarn start",
         "push": "cd ../.. && yarn push",
-        "prebuild": "yarn clean",
         "build": "yarn tsc",
         "minify": "esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
     },
