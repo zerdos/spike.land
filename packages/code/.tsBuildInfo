@@ -263,7 +263,7 @@
       },
       "./node_legacy/simple-window-manager.es.js": {
         "version": "47b3562229b947845e4d9b2724242a682d2d6b7cc935c3801e23f0de21678e00",
-        "signature": "532996bc0a50dfc6b68a03c5a5dae4ae947518c7d0b318257277e6fde3f1bb95",
+        "signature": "c7a900517ef755f77f06d40a6cd7ee27532117825dfba65c7eb4b7b743517f7f",
         "affectsGlobalScope": false
       },
       "./js/openWindows.js": {
@@ -302,13 +302,13 @@
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/DraggableWindow.js": {
-        "version": "cd18a0628a8693bab2e2f4906781b9caa32daa11899283f49d29fc5f7d127d1e",
-        "signature": "5b484a7afb7fd05e00099957687af422e31cae748ddfaa04b2f0a45f0f80abff",
+        "version": "6f950f09c746f0ce8733de097bb55817c2ecb1ef470a2bc15837a0ddd3b1fb6f",
+        "signature": "f4abdcb89a4e96e9379946980db0d8e84646cdb1bddc0d9d1618e29c00ffa7dc",
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/renderer.js": {
-        "version": "31b506f062d0322c495bdf408c0aeb469873c609ae55544ea6e8fd208e77117d",
-        "signature": "be0f9a5ea2925415f08d59aeca89ed36d799ad12fdc8c3aaba2277817dc39407",
+        "version": "0ebbfb717fa5676e00ffadd9dd3614f29a0006f036885590da653dcdb38fa14f",
+        "signature": "989ffe28721a9c7c4815357aab2546ca8b1302f450c6fca07bd5857c6b379241",
         "affectsGlobalScope": false
       },
       "./js/examples/starterNoFramerMotion.js": {

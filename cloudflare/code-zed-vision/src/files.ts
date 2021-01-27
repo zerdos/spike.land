@@ -22,17 +22,19 @@ export const files = {
   "js/data.js": "QmdzoaDrVt9tCJEEUnMub9EnJr5xwcRd6rgz7xXafwUyCA",
   "js/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "js/emotion-react-renderer/dist/DraggableWindow.js":
-    "QmPvCvS8494aTcUa6JTcAVKEvE5JSEdgBRTUxubAUZ3cWf",
+    "QmQv8neFzU8S37VKJdW578Lfu9sRmRWpYs83m8gu4oZitv",
   "js/emotion-react-renderer/dist/renderer.js":
-    "QmX238fZFzqSxhYtZmF717LvXhJVLb8eBw1jSwoo19nK1c",
+    "QmXEbxbYUvcRWUxACJqFeiKoaczF2t3cxiPh8tJM4TvG2V",
   "js/emotion-react-renderer/package.json":
-    "QmThQnM7tK235fRSHJAUo5f1brDkjJbAFnBJChNEQkVdFP",
+    "QmfVA7R7hmLQbWLzhL9cTqzZV4YyfVFySWS6aJho2g7h12",
   "js/emotion-react-renderer/src/DraggableWindow.tsx":
-    "QmNVwuATjK3JF1bEnNbVSGGQMGuKKGn8HZ9VvSp7Z6vGQX",
+    "QmaiD9TnS1pGg7ZU8WL1PxXaEGN4j5odBp4MYAYVpvtnf2",
   "js/emotion-react-renderer/src/renderer.ts":
     "QmQNdoLdcbKsbgVXbybqtoCxGDRRzzuCjrpnKTfcgSfR9z",
   "js/emotion-react-renderer/tsconfig.json":
     "QmVf1pkrppvUoQ7dmSQ5XH7WM1PY7SqAwxR3TR8pT2oGVA",
+  "js/emotion-react-renderer/yarn-error.log":
+    "QmbBD5xDKGK4V7n1y6Yi7ssjCyT83XFhuN5DanTdKv9Tyx",
   "js/examples/app.tsx": "QmV7vp3R622aUiZd7ukKfdLfkzBhn8oKdUKHXKiZsZw7Ui",
   "js/examples/starterNoFramerMotion.js":
     "QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs",
@@ -91,9 +93,9 @@ export const files = {
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
   "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
-  "js/workers/fileCids.json": "QmPsvVxPJ19YWKuiP1jXWYk7tHCywxcZQwCDDzsuBsDVi1",
+  "js/workers/fileCids.json": "QmX8M93TFAAUAc4dgGyzgjgvsgSUAquC8x2ZyuKvRE5KoY",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "QmSwgGZ6RtoiPaiPNicWtPAyffeVobdMBNwcZPQ4YMpS8D",
+  "js/workers/shaSums.json": "QmP57qXhQxytmQx8VN9Uxkyc5jAuv4WmMEMjDKzRjo5igB",
   "js/workers/transpile.worker.js":
     "QmXKw8Mv5yNeLZQ2hHqy6hZKHKaAQD6g6YnketK47CT5uQ",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -125,10 +127,10 @@ export const files = {
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "assets": "QmT4bGu3g4GDyEk5sMdjDwogQkuRfiv4Rq75Kuo6SpgaPa",
   "js/emotion-react-renderer/dist":
-    "QmXKFrGexUsMFq8gZwdASs47kqQ71sgVfmthLAyXdSpYt2",
+    "QmeunoqhG9N7d8irfym8sVwoqLTrw3FcmTnpeDxj5QSyPK",
   "js/emotion-react-renderer/src":
-    "QmUgbgVvYGJsPiApYSJLJKfENyEU69PvLjhzHEtafhmfRP",
-  "js/emotion-react-renderer": "Qmd74T1pbeMoMt4GqNqGmHg6G1cbmWEWjW5yVxyp26bKuu",
+    "QmcNTKvhaS91YAfMFpd1d73sRtHtTpm61UBkPV1QdnnPUF",
+  "js/emotion-react-renderer": "QmazoLx8dmgWHmyaFtLS3vJRKdNtGD9mU3eRAWWcfHQvoU",
   "js/examples": "QmYEqZisoSCx5q8mwPVoRetHzjMqvQuyxBj4C22Jrqze1Y",
   "js/shadb/dist/vendor": "QmTZzgTNwYe9ioj2zaZmme3LZLscde4D54r8J6HpaaHJ5x",
   "js/shadb/dist": "QmPs9fBmE8aZQd62NYjBoWBvdwKZkf45nu81byMAEgmwuQ",
@@ -136,8 +138,8 @@ export const files = {
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmfC2r39avJeWf6dp5kkoNswhaUfnQkotp6oEoPya6ZJQd",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "QmcWEwfdZvXDEv5JcRFr37hG1rE6Ffv1kJggtgm9KZDAoV",
-  "js": "Qmd9a9cwE1atR3GWcSQvZCZUFVeK6X3Pu8p8ne94R6AeTm",
+  "js/workers": "QmWmjaBVYgL49Cn9xBhBzyJkjNeNY46ra1EdCbpFLhYhi1",
+  "js": "QmYSqywibPAGqgGetJSpq13cgAHpfbjrVnKREyjofSTjHn",
   "modules/smart-monaco-editor/dist":
     "QmUwiLGnKwEpzG4uKQ3Py3WSxEcLDzsVe6FDx8dq9jnSRB",
   "modules/smart-monaco-editor":
@@ -145,6 +147,6 @@ export const files = {
   "modules": "Qmd7yWmduPzpnb2NbFGCtj5fcbmcmbMEEvWrR1jBVqitw9",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmfBQTZ7isCVe21UStMwfGB6SE6qYBnCYJ75Mg3RszYWg3",
+  "": "QmXn2dj6UeCzxzcM8o189EzsNnTn2tv8WYifpfUant2rBE",
   "foo": "bar",
 };
