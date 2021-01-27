@@ -67,7 +67,7 @@ added QmdySJ5M3vWcXF2ACCDX7LREDq166Vi37yaXMRv8Hmqa3r code/js/smart-monaco-editor
 added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/js/starterTsx.tsx
 added QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe code/js/templates.js
 added QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD code/js/transpile.js
-added QmdXjty935mLvv4BbKmadWZ4uLfncgxukM3N5TEVccVVF3 code/js/workers/fileCids.json
+added QmYQRND5BggcCAiKN5Wk8idmwwMgAAKZzpueK2VLuLRinU code/js/workers/fileCids.json
 added QmbdTTJXo4rWcSfDFooCBXWGYtCnbixPpSJh9hjAQ6KMFw code/js/workers/ipfs/README.md
 added QmaqVQHmb2ESQaLajE5YAbgw1PzYPRwpLbwEFLJfEBARWk code/js/workers/ipfs/dist/gateways.d.ts
 added QmSS9aZ9LZHSvGR5Xs2xknQWtLavb28LNcR7ynsjvRdQAy code/js/workers/ipfs/dist/gateways.js
@@ -79,7 +79,7 @@ added QmPHeiaXEFPhPXsg2DpZkdb7NYp9GZ1MCarVFMRdg83Ada code/js/workers/ipfs/src/ip
 added QmZV7knX51sBSfDb7mFNcghGtF3RKyczc6z4Uz7zXS25zo code/js/workers/ipfs/src/ref.d.ts
 added Qme5DYXuyguxUxihGJ91XiVHwN8pfSZSatWYwQjTJPbdow code/js/workers/ipfs/tsconfig.json
 added QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2 code/js/workers/ipfsWorker.js
-added QmeXfQtLt4si7TBk9nTqWUfF1GhK14162XcqyvQJSPMoKQ code/js/workers/shaSums.json
+added QmPvw6xjK4ABj4USu6yKynS7m7bY4XfgXKEdFYcBXuZpu8 code/js/workers/shaSums.json
 added QmQeW7mBkknR6Td5Vc82fp2HAKir1QdgFfCbMoMx3jzrQ1 code/js/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/js/workers/tsconfig.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
@@ -112,8 +112,8 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/js/workers/dist
 added QmRxSA8JsWgf8QGpmQQLfx9VdcGM2AtT9gE4p8G2xBxGbT code/js/workers/ipfs/dist
 added QmcawjRt9hNpM5V2RSvd446Ntkd21gMaa2GnQsHq3Y4BpT code/js/workers/ipfs/src
 added QmeCTguAgUMugjgveD851iMabKSNUAk4UYBGp32jJ7bF42 code/js/workers/ipfs
-added QmbD7oJfSjEzcetgnAKHJyY5sbRc2hV2EN5fuuULrmAvpj code/js/workers
-added QmUwL5PjpXcLZgV76FnrXqRt4wTmTtKCfPLqXs1xbXHSLY code/js
+added Qmedjgj4ESAtu67TcMwm2DykyghRFArM41YQ6ke571auoJ code/js/workers
+added QmUet5itcLKDc8mfhYmGZp72WYjuHdZEiESM6eHcV4hax1 code/js
 added QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R code/node_legacy/comlink
 added QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1 code/node_legacy
-added QmWSL7yFB4JrYCPY6gUGkTTz4JDiUWpHuZMRBzgy875QMv code
+added QmYJyTx8yAR5quNGXMvC2AQRsEUJNLE4yR7rfg6Km4NRvj code
