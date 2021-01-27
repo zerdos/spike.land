@@ -62,10 +62,10 @@ const transform = (code) => {
     let rendererSrc =
       `https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`;
 
-    // if (self.location.pathname.indexOf("/ipfs/") !== -1) {
-    //   const cid = self.location.pathname.slice(6, 52);
-    //   rendererSrc =  `./ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
-    // }
+    if (self.location.hostname.indexOf("::1") !== -1) {
+      const cid = self.location.pathname.slice(6, 52);
+      rendererSrc =  `http://[::1]:8080/ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
+    }
 
     const transformed = Babel.transform(
       `/** @jsx jsx */

@@ -22,13 +22,13 @@ export const files = {
   "js/data.js": "QmdzoaDrVt9tCJEEUnMub9EnJr5xwcRd6rgz7xXafwUyCA",
   "js/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "js/emotion-react-renderer/dist/DraggableWindow.js":
-    "QmdhZtAKwvdK83pyTZVEiEMvowBnMXWBj8LrC8pEvyk381",
+    "QmPvCvS8494aTcUa6JTcAVKEvE5JSEdgBRTUxubAUZ3cWf",
   "js/emotion-react-renderer/dist/renderer.js":
-    "QmaCJ4Gk9H5VskTB5K5aG5G61xWn22s5tcLUZMNstMftv9",
+    "QmX238fZFzqSxhYtZmF717LvXhJVLb8eBw1jSwoo19nK1c",
   "js/emotion-react-renderer/package.json":
     "QmThQnM7tK235fRSHJAUo5f1brDkjJbAFnBJChNEQkVdFP",
   "js/emotion-react-renderer/src/DraggableWindow.tsx":
-    "QmfQCeiQ8csdm6eY4RefC7aCxukb39B8pC4rjSYTDvVrL3",
+    "QmNVwuATjK3JF1bEnNbVSGGQMGuKKGn8HZ9VvSp7Z6vGQX",
   "js/emotion-react-renderer/src/renderer.ts":
     "QmQNdoLdcbKsbgVXbybqtoCxGDRRzzuCjrpnKTfcgSfR9z",
   "js/emotion-react-renderer/tsconfig.json":
@@ -45,7 +45,7 @@ export const files = {
   "js/ipfsClient.js": "QmXeKE5HoAVixTnjFvWSUjd9nu66ebBPyjMctkAdYMGZUJ",
   "js/openWindows.js": "QmRFXB57XQqNfJafKifWBJaNiqauyrx2YzrQagmF49vfRB",
   "js/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
-  "js/renderPreviewWindow.js": "QmRCxGpwrALhhyFSJ5Xvv5nCehR9Kn4d4iBeCLQdtdJf6J",
+  "js/renderPreviewWindow.js": "QmeuqcZdLQ66Awbkiu818y55bfUtJqqmSjLKy6YZ6dgUv1",
   "js/sendSignalToQrCode.js": "QmbPW349Hw2pWWbHnVuiyem8Dc6zSqD1kPzLCVPeLnGpgL",
   "js/shadb/dist/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
   "js/shadb/dist/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
@@ -91,11 +91,11 @@ export const files = {
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
   "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
-  "js/workers/fileCids.json": "Qmd6xoeQTi9BeRfza3RnUVFXj5dDbNhq7JVBB1ftGN61FQ",
+  "js/workers/fileCids.json": "QmYsQ7NApuDFzBVKJ5TkxtXryK52Fe47xrYRuRAQuMVKuG",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "QmbHvJShqsPJJor7GQMoSUvRGAWz1HFCbRo1oseKGDJdKc",
+  "js/workers/shaSums.json": "QmPco1m8iCWWpPfwvqvsLM2oUBaVpB5rKoxKnfqSEWj8Ub",
   "js/workers/transpile.worker.js":
-    "QmQeW7mBkknR6Td5Vc82fp2HAKir1QdgFfCbMoMx3jzrQ1",
+    "QmXKw8Mv5yNeLZQ2hHqy6hZKHKaAQD6g6YnketK47CT5uQ",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "modules/ipfs.client.js": "Qmdp2HBvcvTJPkYqHHJ75RauWt8koyoqqVAhmPWGP8Q5i6",
@@ -125,10 +125,10 @@ export const files = {
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "assets": "QmT4bGu3g4GDyEk5sMdjDwogQkuRfiv4Rq75Kuo6SpgaPa",
   "js/emotion-react-renderer/dist":
-    "QmZCuVYDCtq6RD3DgYidi4osyhrabkrcNTKKmGsPysnkby",
+    "QmXKFrGexUsMFq8gZwdASs47kqQ71sgVfmthLAyXdSpYt2",
   "js/emotion-react-renderer/src":
-    "Qmb8CgdT9fYQGmqzDhTrt3hZ5JhkaUFmYQHRTYrqCxx8kn",
-  "js/emotion-react-renderer": "Qmci5JCYNZs7Pwnk7DuJwkrJs2JRSh3ywLS5SQ1vuP7NzW",
+    "QmUgbgVvYGJsPiApYSJLJKfENyEU69PvLjhzHEtafhmfRP",
+  "js/emotion-react-renderer": "Qmd74T1pbeMoMt4GqNqGmHg6G1cbmWEWjW5yVxyp26bKuu",
   "js/examples": "QmYEqZisoSCx5q8mwPVoRetHzjMqvQuyxBj4C22Jrqze1Y",
   "js/shadb/dist/vendor": "QmTZzgTNwYe9ioj2zaZmme3LZLscde4D54r8J6HpaaHJ5x",
   "js/shadb/dist": "QmPs9fBmE8aZQd62NYjBoWBvdwKZkf45nu81byMAEgmwuQ",
@@ -136,8 +136,8 @@ export const files = {
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmfC2r39avJeWf6dp5kkoNswhaUfnQkotp6oEoPya6ZJQd",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "Qmf33LSkHoTWfJa937yuaXoe6rM1q4KbQ9XE7zbHYaVv8G",
-  "js": "QmNaFhs8ozymqU2meFPoEwbXRc5XgFkP7hL9naPaqwzggb",
+  "js/workers": "Qmc6TGSEs1XejYJgKdQWNUMbjhuqtnn3DYQyMsEEfMpkav",
+  "js": "QmcoXdQ1DdbsshxLuMgKnsnRo9P3QcYqRL8ftuR11eio5z",
   "modules/smart-monaco-editor/dist":
     "QmUwiLGnKwEpzG4uKQ3Py3WSxEcLDzsVe6FDx8dq9jnSRB",
   "modules/smart-monaco-editor":
@@ -145,6 +145,6 @@ export const files = {
   "modules": "Qmd7yWmduPzpnb2NbFGCtj5fcbmcmbMEEvWrR1jBVqitw9",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmT3DvAb4TJXNG3YDRbX5MXF8xSnnEXQinksHBgLjkuUqq",
+  "": "QmPQEPpyqqnahbHroGyvzVbRk6F2aJ224UXzJPDBVutKBu",
   "foo": "bar",
 };

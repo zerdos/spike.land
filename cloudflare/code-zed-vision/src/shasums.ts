@@ -37,7 +37,7 @@ export const shasums = {
     "4a1002f805aa55b9f9eb4f2669a46edf48ac74ddd54ea783154da2adb3a2694b",
   "sw.js": "512e4fa76bdb9627babe8fb0d3dfcf370a795b591416147546e30ed105481546",
   ".tsBuildInfo":
-    "c467624fb7c5772620b1275aeed88a9c9c4fccff909c8da1f9d2a1ef563a325f",
+    "ae6f498b9bb58d8cc7803a3fd69eab9f5d370a46e71c842f750d19bde03848f2",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
@@ -58,9 +58,9 @@ export const shasums = {
   "js/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "js/emotion-react-renderer/dist/DraggableWindow.js":
-    "ee0c4910a116d863e491524876688c8d18942a3db8d6063f16e2ec219b54e842",
+    "cd18a0628a8693bab2e2f4906781b9caa32daa11899283f49d29fc5f7d127d1e",
   "js/emotion-react-renderer/dist/renderer.js":
-    "2fd7e93cb7a27c8d1ba5ac10239281f5865cdfb9d8bef71dfb974f535948bc0c",
+    "31b506f062d0322c495bdf408c0aeb469873c609ae55544ea6e8fd208e77117d",
   "js/emotion-react-renderer/package.json":
     "bf10161e8ce38ac234707386464fe890e627583950f3759786beeb806f474e7e",
   "js/emotion-react-renderer/tsconfig.json":
@@ -68,7 +68,7 @@ export const shasums = {
   "js/emotion-react-renderer/src/renderer.ts":
     "2a4dde14ef05bd924d762ab4e53034ceedf45f527d16b5be9436f22d8c9bb1e2",
   "js/emotion-react-renderer/src/DraggableWindow.tsx":
-    "59755281195934fbfd39ac6af5325692245ed4f520844ed0cfb909ec183eda1b",
+    "f2486b78e04a6b1e542cb95c4d4433bd7386a913e399189873dc79d9dfcb9508",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
   "js/codeLoader.js":
@@ -80,15 +80,15 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/shaSums.json":
-    "d85bbf72d168a3f7e7b63523aef09cb5c32bf08c4187f34a4f5f945532ae3ae8",
+    "9633a618621c12494ed996faad5ace18e46db93ad90c4aabc9d4159862221400",
   "js/workers/ipfsWorker.js":
     "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
   "js/workers/transpile.worker.js":
-    "c7cfaaf127618ca8bc980b2b73bbe258f4b5db425a9c6cfa3b0d7bc09892e766",
+    "fd1996a5275ee5aef27c98ce2580c7c2273ca5a52f48ed248f5f0586da9530d6",
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "3598b519d78b65ec904df1574c2f9254fa9a247e4198bce9eabb6acfc3672ae4",
+    "7ef09b3e5a3b7c89dd6f5f64116e8ca0745f7e9b3f9ac43d671367133ff165cd",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":
@@ -96,7 +96,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/renderPreviewWindow.js":
-    "fb125cbd79fbf5501d80b6b6442bb0c22e5af81299153240bf165f1e412ca660",
+    "360b826342232e776776e46bfbf69ed3a0850da2d23cad79db6c2cfbf9adeb57",
   "js/share.js":
     "0eedf99ee9db3f8bcfe861b42dc68069a3b619347eb32476d3a84befbb6d63be",
   "js/shadb/src/sha256.js":

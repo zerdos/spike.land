@@ -257,7 +257,7 @@
         "affectsGlobalScope": false
       },
       "./js/renderPreviewWindow.js": {
-        "version": "fb125cbd79fbf5501d80b6b6442bb0c22e5af81299153240bf165f1e412ca660",
+        "version": "360b826342232e776776e46bfbf69ed3a0850da2d23cad79db6c2cfbf9adeb57",
         "signature": "b4f1bf90bff0c83fea60eb6f5c9f49457bdd94f9e8a0ac7c856d2103d4dfd8d7",
         "affectsGlobalScope": false
       },
@@ -302,13 +302,13 @@
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/DraggableWindow.js": {
-        "version": "ee0c4910a116d863e491524876688c8d18942a3db8d6063f16e2ec219b54e842",
+        "version": "cd18a0628a8693bab2e2f4906781b9caa32daa11899283f49d29fc5f7d127d1e",
         "signature": "5b484a7afb7fd05e00099957687af422e31cae748ddfaa04b2f0a45f0f80abff",
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/renderer.js": {
-        "version": "2fd7e93cb7a27c8d1ba5ac10239281f5865cdfb9d8bef71dfb974f535948bc0c",
-        "signature": "1df12213123b80e5d524907d741b0f4e3b73cb07f708977338c300ab61961b07",
+        "version": "31b506f062d0322c495bdf408c0aeb469873c609ae55544ea6e8fd208e77117d",
+        "signature": "be0f9a5ea2925415f08d59aeca89ed36d799ad12fdc8c3aaba2277817dc39407",
         "affectsGlobalScope": false
       },
       "./js/examples/starterNoFramerMotion.js": {
@@ -402,7 +402,7 @@
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "c7cfaaf127618ca8bc980b2b73bbe258f4b5db425a9c6cfa3b0d7bc09892e766",
+        "version": "fd1996a5275ee5aef27c98ce2580c7c2273ca5a52f48ed248f5f0586da9530d6",
         "signature": "c3a13bfaf8d8a569c668296b226ed29b835da2b2c91e44e38d175adbf57aae73",
         "affectsGlobalScope": true
       },

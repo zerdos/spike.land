@@ -24,11 +24,7 @@ export const DraggableWindow: React.FC<{
             overflow: hidden;
             overflow-y: overlay;
           `}
-      whileDrag={{
-        scale: (scale / 100) * 1.1,
-      }}
       animate={{
-        scale: scale / 100,
         width: width,
       }}
       dragElastic={0.5}
@@ -78,14 +74,20 @@ export const DraggableWindow: React.FC<{
         `}
         >
           <span
-            css="font-size: 20px; margin: 5px"
+            css={css`
+                  font-size: 20px; 
+                  margin: 5px;
+                `}
             onClick={() => changeScale((x) => x - 10)}
           >
             -
           </span>
           <motion.span drag>{scale}%</motion.span>
           <span
-            css="font-size: 20px; margin: 5px"
+            css={css`
+                font-size: 20px; 
+                margin: 5px;
+              `}
             onClick={() => changeScale((x) => x + 10)}
           >
             +
@@ -131,11 +133,15 @@ export const DraggableWindow: React.FC<{
             background: white;
             padding:10px;
             border-radius: 12px;
-            opacity: 0.9
+            opacity: 0.9;
           }
     `}
       >
-        <div id="zbody" css={`margin: 8px`}>
+        <div id="zbody" css={css`
+            margin: 8px;
+            transform-origin: top right;
+            transform: scale(${scale/100});
+          `}>
           {children}
         </div>
       </div>

@@ -6,12 +6,20 @@ import { shareItAsHtml } from "./share.js";
 export async function renderPreviewWindow(
   session,
 ) {
+  let rendererSrc =
+    `https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`;
+
+  if (window.location.hostname.indexOf("::1") !== -1) {
+    const cid = window.location.pathname.slice(6, 52);
+    rendererSrc = `/ipfs/${cid}/js/emotion-react-renderer/dist/renderer.js`;
+  }
+
   const {
     DraggableWindow,
     jsx,
     render,
   } = await import(
-    `https://code.zed.vision/js/emotion-react-renderer/dist/renderer.js`
+    rendererSrc
   );
 
   const onShare = async () => {
