@@ -76,11 +76,11 @@ export const shasums = {
   "js/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "js/openWindows.js":
-    "e599a98bc0997d534b27797cbf86289c88fa3021d0bf3fae799f3fa52bdf241a",
+    "09f9ebe87979ae93674028ca7b112eefa25fcbc3b88d53d21c973d706cf44ab6",
   "js/sendSignalToQrCode.js":
     "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/shaSums.json":
-    "2a73b7a9c214fe911aa22075a9f42705f14effef00629e6f23945e5d8d39ded3",
+    "a3af6b387f4ea1822029915e5770bd2a507cf036e41c60cb728bfc25ddf245ff",
   "js/workers/ipfsWorker.js":
     "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
   "js/workers/transpile.worker.js":
@@ -88,7 +88,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "d65c234e9be1de4bdda42612ac4defccb4d595950b4307c7d67c949208e02afb",
+    "d8e6d0fd4944cb735a82ab304b02680794ef4aa24b987c6e6ef68c3ff92cf17f",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":
