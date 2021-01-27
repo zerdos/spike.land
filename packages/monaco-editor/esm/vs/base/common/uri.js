@@ -120,7 +120,7 @@ export class URI {
             && typeof thing.path === 'string'
             && typeof thing.query === 'string'
             && typeof thing.scheme === 'string'
-            && typeof thing.fsPath === 'function'
+            && typeof thing.fsPath === 'string'
             && typeof thing.with === 'function'
             && typeof thing.toString === 'function';
     }

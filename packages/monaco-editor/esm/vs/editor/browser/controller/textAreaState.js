@@ -5,6 +5,7 @@
 import * as strings from '../../../base/common/strings.js';
 import { Position } from '../../common/core/position.js';
 import { Range } from '../../common/core/range.js';
+export const _debugComposition = false;
 export class TextAreaState {
     constructor(value, selectionStart, selectionEnd, selectionStartPosition, selectionEndPosition) {
         this.value = value;
@@ -23,7 +24,9 @@ export class TextAreaState {
         return new TextAreaState(this.value, this.value.length, this.value.length, null, null);
     }
     writeToTextArea(reason, textArea, select) {
-        // console.log(Date.now() + ': writeToTextArea ' + reason + ': ' + this.toString());
+        if (_debugComposition) {
+            console.log('writeToTextArea ' + reason + ': ' + this.toString());
+        }
         textArea.setValue(reason, this.value);
         if (select) {
             textArea.setSelectionRange(reason, this.selectionStart, this.selectionEnd);
@@ -64,9 +67,11 @@ export class TextAreaState {
                 replaceCharCnt: 0
             };
         }
-        // console.log('------------------------deduceInput');
-        // console.log('PREVIOUS STATE: ' + previousState.toString());
-        // console.log('CURRENT STATE: ' + currentState.toString());
+        if (_debugComposition) {
+            console.log('------------------------deduceInput');
+            console.log('PREVIOUS STATE: ' + previousState.toString());
+            console.log('CURRENT STATE: ' + currentState.toString());
+        }
         let previousValue = previousState.value;
         let previousSelectionStart = previousState.selectionStart;
         let previousSelectionEnd = previousState.selectionEnd;
@@ -88,8 +93,10 @@ export class TextAreaState {
         previousSelectionStart -= prefixLength;
         currentSelectionEnd -= prefixLength;
         previousSelectionEnd -= prefixLength;
-        // console.log('AFTER DIFFING PREVIOUS STATE: <' + previousValue + '>, selectionStart: ' + previousSelectionStart + ', selectionEnd: ' + previousSelectionEnd);
-        // console.log('AFTER DIFFING CURRENT STATE: <' + currentValue + '>, selectionStart: ' + currentSelectionStart + ', selectionEnd: ' + currentSelectionEnd);
+        if (_debugComposition) {
+            console.log('AFTER DIFFING PREVIOUS STATE: <' + previousValue + '>, selectionStart: ' + previousSelectionStart + ', selectionEnd: ' + previousSelectionEnd);
+            console.log('AFTER DIFFING CURRENT STATE: <' + currentValue + '>, selectionStart: ' + currentSelectionStart + ', selectionEnd: ' + currentSelectionEnd);
+        }
         if (couldBeEmojiInput && currentSelectionStart === currentSelectionEnd && previousValue.length > 0) {
             // on OSX, emojis from the emoji picker are inserted at random locations
             // the only hints we can use is that the selection is immediately after the inserted emoji
@@ -143,7 +150,9 @@ export class TextAreaState {
             }
             // no current selection
             const replacePreviousCharacters = (previousPrefix.length - prefixLength);
-            // console.log('REMOVE PREVIOUS: ' + (previousPrefix.length - prefixLength) + ' chars');
+            if (_debugComposition) {
+                console.log('REMOVE PREVIOUS: ' + (previousPrefix.length - prefixLength) + ' chars');
+            }
             return {
                 text: currentValue,
                 replaceCharCnt: replacePreviousCharacters

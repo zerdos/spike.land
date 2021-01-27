@@ -1,6 +1,6 @@
 /*!-----------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.21.1(0540478dc7256a30e4e0cd5c5e6aa42e2a08c57b)
+ * Version: 0.21.1(7b0cfdd04ad530a9c8d782c618afd79290be3d64)
  * Released under the MIT license
  * https://github.com/microsoft/vscode/blob/master/LICENSE.txt
  *-----------------------------------------------------------*/
@@ -7602,7 +7602,7 @@ define(__m[13/*vs/base/common/uri*/], __M([0/*require*/,1/*exports*/,2/*vs/base/
                 && typeof thing.path === 'string'
                 && typeof thing.query === 'string'
                 && typeof thing.scheme === 'string'
-                && typeof thing.fsPath === 'function'
+                && typeof thing.fsPath === 'string'
                 && typeof thing.with === 'function'
                 && typeof thing.toString === 'function';
         }

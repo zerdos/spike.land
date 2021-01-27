@@ -16,7 +16,7 @@ import { onUnexpectedExternalError } from '../../../base/common/errors.js';
 import { URI } from '../../../base/common/uri.js';
 import { DocumentSemanticTokensProviderRegistry, DocumentRangeSemanticTokensProviderRegistry } from '../modes.js';
 import { IModelService } from './modelService.js';
-import { CommandsRegistry } from '../../../platform/commands/common/commands.js';
+import { CommandsRegistry, ICommandService } from '../../../platform/commands/common/commands.js';
 import { assertType } from '../../../base/common/types.js';
 import { encodeSemanticTokensDto } from './semanticTokensDto.js';
 import { Range } from '../core/range.js';
@@ -53,7 +53,8 @@ CommandsRegistry.registerCommand('_provideDocumentSemanticTokensLegend', (access
     }
     const provider = _getDocumentSemanticTokensProvider(model);
     if (!provider) {
-        return undefined;
+        // there is no provider => fall back to a document range semantic tokens provider
+        return accessor.get(ICommandService).executeCommand('_provideDocumentRangeSemanticTokensLegend', uri);
     }
     return provider.getLegend();
 }));
@@ -66,8 +67,8 @@ CommandsRegistry.registerCommand('_provideDocumentSemanticTokens', (accessor, ..
     }
     const r = getDocumentSemanticTokens(model, null, CancellationToken.None);
     if (!r) {
-        // there is no provider
-        return undefined;
+        // there is no provider => fall back to a document range semantic tokens provider
+        return accessor.get(ICommandService).executeCommand('_provideDocumentRangeSemanticTokens', uri, model.getFullModelRange());
     }
     const { provider, request } = r;
     let result;

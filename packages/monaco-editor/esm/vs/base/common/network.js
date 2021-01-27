@@ -40,6 +40,7 @@ export var Schemas;
     Schemas.vscodeCustomEditor = 'vscode-custom-editor';
     Schemas.vscodeNotebook = 'vscode-notebook';
     Schemas.vscodeNotebookCell = 'vscode-notebook-cell';
+    Schemas.vscodeNotebookCellMetadata = 'vscode-notebook-cell-metadata';
     Schemas.vscodeSettings = 'vscode-settings';
     Schemas.webviewPanel = 'webview-panel';
     /**

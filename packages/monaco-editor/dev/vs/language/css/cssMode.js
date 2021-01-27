@@ -12608,7 +12608,7 @@ var __extends = (this && this.__extends) || (function () {
                 label: "@use",
                 documentation: localize("scss.builtin.@use", "Loads mixins, functions, and variables from other Sass stylesheets as 'modules', and combines CSS from multiple stylesheets together."),
                 references: [{ name: 'Sass documentation', url: 'https://sass-lang.com/documentation/at-rules/use' }],
-                insertText: "@use '$0';",
+                insertText: "@use $0;",
                 insertTextFormat: cssLanguageTypes_1.InsertTextFormat.Snippet,
                 kind: cssLanguageTypes_1.CompletionItemKind.Keyword
             },
@@ -12616,7 +12616,7 @@ var __extends = (this && this.__extends) || (function () {
                 label: "@forward",
                 documentation: localize("scss.builtin.@forward", "Loads a Sass stylesheet and makes its mixins, functions, and variables available when this stylesheet is loaded with the @use rule."),
                 references: [{ name: 'Sass documentation', url: 'https://sass-lang.com/documentation/at-rules/forward' }],
-                insertText: "@forward '$0';",
+                insertText: "@forward $0;",
                 insertTextFormat: cssLanguageTypes_1.InsertTextFormat.Snippet,
                 kind: cssLanguageTypes_1.CompletionItemKind.Keyword
             },
@@ -14201,7 +14201,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | <baseline-position> | <content-distribution> | <overflow-position>? <content-position>",
-                "relevance": 59,
+                "relevance": 60,
                 "description": "Aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how 'justify-content' aligns individual items within the main-axis.",
                 "restrictions": [
                     "enum"
@@ -14232,7 +14232,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | stretch | <baseline-position> | [ <overflow-position>? <self-position> ]",
-                "relevance": 81,
+                "relevance": 83,
                 "description": "Aligns flex items along the cross axis of the current line of the flex container.",
                 "restrictions": [
                     "enum"
@@ -14303,7 +14303,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | stretch | <baseline-position> | <overflow-position>? [ <self-position> | left | right ] | legacy | legacy && [ left | right | center ]",
-                "relevance": 50,
+                "relevance": 51,
                 "description": "Defines the default justify-self for all items of the box, giving them the default way of justifying each box along the appropriate axis",
                 "restrictions": [
                     "enum"
@@ -14311,13 +14311,6 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "justify-self",
-                "browsers": [
-                    "E16",
-                    "FF45",
-                    "S10.1",
-                    "C57",
-                    "O44"
-                ],
                 "values": [
                     {
                         "name": "auto"
@@ -14413,7 +14406,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | normal | stretch | <baseline-position> | <overflow-position>? <self-position>",
-                "relevance": 69,
+                "relevance": 70,
                 "description": "Allows the default alignment along the cross axis to be overridden for individual flex items.",
                 "restrictions": [
                     "enum"
@@ -14430,7 +14423,7 @@ var __extends = (this && this.__extends) || (function () {
                 ],
                 "values": [],
                 "syntax": "initial | inherit | unset | revert",
-                "relevance": 51,
+                "relevance": 52,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14502,7 +14495,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<single-animation>#",
-                "relevance": 79,
+                "relevance": 80,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14554,7 +14547,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<single-animation-direction>#",
-                "relevance": 55,
+                "relevance": 56,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14569,7 +14562,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "animation-duration",
                 "syntax": "<time>#",
-                "relevance": 64,
+                "relevance": 65,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14602,7 +14595,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<single-animation-fill-mode>#",
-                "relevance": 61,
+                "relevance": 62,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14645,7 +14638,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "[ none | <keyframes-name> ]#",
-                "relevance": 64,
+                "relevance": 65,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14685,7 +14678,7 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "animation-timing-function",
-                "syntax": "<timing-function>#",
+                "syntax": "<easing-function>#",
                 "relevance": 68,
                 "references": [
                     {
@@ -14780,7 +14773,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<attachment>#",
-                "relevance": 53,
+                "relevance": 54,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14947,7 +14940,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<bg-image>#",
-                "relevance": 88,
+                "relevance": 89,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -14978,7 +14971,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "background-position",
                 "syntax": "<bg-position>#",
-                "relevance": 87,
+                "relevance": 88,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15010,7 +15003,7 @@ var __extends = (this && this.__extends) || (function () {
                 ],
                 "status": "experimental",
                 "syntax": "[ center | [ [ left | right | x-start | x-end ]? <length-percentage>? ]! ]#",
-                "relevance": 54,
+                "relevance": 53,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15058,7 +15051,7 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "background-repeat",
                 "values": [],
                 "syntax": "<repeat-style>#",
-                "relevance": 85,
+                "relevance": 86,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15087,7 +15080,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<bg-size>#",
-                "relevance": 85,
+                "relevance": 86,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15143,7 +15136,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border",
                 "syntax": "<line-width> || <line-style> || <color>",
-                "relevance": 95,
+                "relevance": 96,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15167,7 +15160,7 @@ var __extends = (this && this.__extends) || (function () {
                     "C69",
                     "O56"
                 ],
-                "syntax": "<'border-top-width'> || <'border-top-style'> || <'color'>",
+                "syntax": "<'border-top-width'> || <'border-top-style'> || <color>",
                 "relevance": 50,
                 "references": [
                     {
@@ -15192,7 +15185,7 @@ var __extends = (this && this.__extends) || (function () {
                     "C69",
                     "O56"
                 ],
-                "syntax": "<'border-top-width'> || <'border-top-style'> || <'color'>",
+                "syntax": "<'border-top-width'> || <'border-top-style'> || <color>",
                 "relevance": 50,
                 "references": [
                     {
@@ -15345,7 +15338,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-bottom",
                 "syntax": "<line-width> || <line-style> || <color>",
-                "relevance": 88,
+                "relevance": 89,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15378,7 +15371,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-bottom-left-radius",
                 "syntax": "<length-percentage>{1,2}",
-                "relevance": 74,
+                "relevance": 75,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15394,7 +15387,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-bottom-right-radius",
                 "syntax": "<length-percentage>{1,2}",
-                "relevance": 73,
+                "relevance": 74,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15467,7 +15460,7 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "border-color",
                 "values": [],
                 "syntax": "<color>{1,4}",
-                "relevance": 86,
+                "relevance": 87,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15534,7 +15527,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-image-outset",
                 "syntax": "[ <length> | <number> ]{1,4}",
-                "relevance": 50,
+                "relevance": 51,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15655,7 +15648,7 @@ var __extends = (this && this.__extends) || (function () {
                     "C69",
                     "O56"
                 ],
-                "syntax": "<'border-top-width'> || <'border-top-style'> || <'color'>",
+                "syntax": "<'border-top-width'> || <'border-top-style'> || <color>",
                 "relevance": 50,
                 "references": [
                     {
@@ -15680,7 +15673,7 @@ var __extends = (this && this.__extends) || (function () {
                     "C69",
                     "O56"
                 ],
-                "syntax": "<'border-top-width'> || <'border-top-style'> || <'color'>",
+                "syntax": "<'border-top-width'> || <'border-top-style'> || <color>",
                 "relevance": 50,
                 "references": [
                     {
@@ -15833,7 +15826,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-left",
                 "syntax": "<line-width> || <line-style> || <color>",
-                "relevance": 82,
+                "relevance": 83,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15897,7 +15890,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-radius",
                 "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
-                "relevance": 91,
+                "relevance": 92,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -15993,7 +15986,7 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "border-style",
                 "values": [],
                 "syntax": "<line-style>{1,4}",
-                "relevance": 79,
+                "relevance": 80,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16008,7 +16001,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-top",
                 "syntax": "<line-width> || <line-style> || <color>",
-                "relevance": 87,
+                "relevance": 88,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16026,7 +16019,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-top-color",
                 "syntax": "<color>",
-                "relevance": 71,
+                "relevance": 72,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16041,7 +16034,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-top-left-radius",
                 "syntax": "<length-percentage>{1,2}",
-                "relevance": 74,
+                "relevance": 75,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16057,7 +16050,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "border-top-right-radius",
                 "syntax": "<length-percentage>{1,2}",
-                "relevance": 72,
+                "relevance": 73,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16105,7 +16098,7 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "border-width",
                 "values": [],
                 "syntax": "<line-width>{1,4}",
-                "relevance": 81,
+                "relevance": 82,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16127,7 +16120,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<length> | <percentage> | auto",
-                "relevance": 89,
+                "relevance": 90,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16185,7 +16178,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | <shadow>#",
-                "relevance": 89,
+                "relevance": 90,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16420,7 +16413,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | left | right | both | inline-start | inline-end",
-                "relevance": 84,
+                "relevance": 85,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -16514,7 +16507,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "color",
                 "syntax": "<color>",
-                "relevance": 94,
+                "relevance": 95,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17070,7 +17063,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "[ [ <url> [ <x> <y> ]? , ]* [ auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out | grab | grabbing ] ]",
-                "relevance": 91,
+                "relevance": 92,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17097,7 +17090,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "ltr | rtl",
-                "relevance": 68,
+                "relevance": 69,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17369,7 +17362,7 @@ var __extends = (this && this.__extends) || (function () {
                         "description": "No paint is applied in this layer."
                     }
                 ],
-                "relevance": 74,
+                "relevance": 75,
                 "description": "Paints the interior of the given graphical element.",
                 "restrictions": [
                     "color",
@@ -17470,7 +17463,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | <filter-function-list>",
-                "relevance": 64,
+                "relevance": 65,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17500,7 +17493,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]",
-                "relevance": 77,
+                "relevance": 78,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17527,7 +17520,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "content | <'width'>",
-                "relevance": 62,
+                "relevance": 63,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17562,7 +17555,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "row | row-reverse | column | column-reverse",
-                "relevance": 78,
+                "relevance": 80,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17607,7 +17600,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<'flex-direction'> || <'flex-wrap'>",
-                "relevance": 58,
+                "relevance": 59,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17622,7 +17615,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "flex-grow",
                 "syntax": "<number>",
-                "relevance": 71,
+                "relevance": 73,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17637,7 +17630,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "flex-shrink",
                 "syntax": "<number>",
-                "relevance": 69,
+                "relevance": 71,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17666,7 +17659,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "nowrap | wrap | wrap-reverse",
-                "relevance": 74,
+                "relevance": 76,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -17939,7 +17932,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<family-name>",
-                "relevance": 92,
+                "relevance": 93,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -18436,7 +18429,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | <feature-tag-value>#",
-                "relevance": 55,
+                "relevance": 54,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -18473,7 +18466,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | normal | none",
-                "relevance": 51,
+                "relevance": 50,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -18708,7 +18701,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | none | [ <common-lig-values> || <discretionary-lig-values> || <historical-lig-values> || <contextual-alt-values> || stylistic(<feature-value-name>) || historical-forms || styleset(<feature-value-name>#) || character-variant(<feature-value-name>#) || swash(<feature-value-name>) || ornaments(<feature-value-name>) || annotation(<feature-value-name>) || [ small-caps | all-small-caps | petite-caps | all-petite-caps | unicase | titling-caps ] || <numeric-figure-values> || <numeric-spacing-values> || <numeric-fraction-values> || ordinal || slashed-zero || <east-asian-variant-values> || <east-asian-width-values> || ruby ]",
-                "relevance": 63,
+                "relevance": 64,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -19282,7 +19275,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "[ row | column ] || dense",
-                "relevance": 50,
+                "relevance": 51,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -19315,7 +19308,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<track-size>+",
-                "relevance": 50,
+                "relevance": 51,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -19348,7 +19341,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<grid-line> [ / <grid-line> ]?",
-                "relevance": 51,
+                "relevance": 52,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -19456,7 +19449,7 @@ var __extends = (this && this.__extends) || (function () {
                 ],
                 "status": "obsolete",
                 "syntax": "<'grid-row-gap'> <'grid-column-gap'>?",
-                "relevance": 1,
+                "relevance": 2,
                 "description": "Shorthand that specifies the gutters between grid columns and grid rows in one declaration. Replaced by 'gap' property.",
                 "restrictions": [
                     "length"
@@ -19666,13 +19659,6 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "grid-template-columns",
-                "browsers": [
-                    "E16",
-                    "FF52",
-                    "S10.1",
-                    "C57",
-                    "O44"
-                ],
                 "values": [
                     {
                         "name": "none",
@@ -19704,7 +19690,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | <track-list> | <auto-track-list> | subgrid <line-name-list>?",
-                "relevance": 55,
+                "relevance": 56,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -19721,13 +19707,6 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "grid-template-rows",
-                "browsers": [
-                    "E16",
-                    "FF52",
-                    "S10.1",
-                    "C57",
-                    "O44"
-                ],
                 "values": [
                     {
                         "name": "none",
@@ -20097,7 +20076,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]",
-                "relevance": 82,
+                "relevance": 84,
                 "description": "Aligns flex items along the main axis of the current line of the flex container.",
                 "restrictions": [
                     "enum"
@@ -20149,7 +20128,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | <length>",
-                "relevance": 79,
+                "relevance": 80,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -20219,7 +20198,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | <number> | <length> | <percentage>",
-                "relevance": 92,
+                "relevance": 93,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -20301,7 +20280,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<'list-style-type'> || <'list-style-position'> || <'list-style-image'>",
-                "relevance": 84,
+                "relevance": 85,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -20430,7 +20409,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<counter-style> | <string> | none",
-                "relevance": 74,
+                "relevance": 75,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -20626,7 +20605,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<length> | <percentage> | auto",
-                "relevance": 90,
+                "relevance": 91,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -20989,7 +20968,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<viewport-length>",
-                "relevance": 84,
+                "relevance": 85,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -21007,7 +20986,7 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF41",
-                    "S10.1",
+                    "S12.1",
                     "C57",
                     "O44"
                 ],
@@ -21052,7 +21031,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<viewport-length>",
-                "relevance": 89,
+                "relevance": 90,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -21108,7 +21087,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<viewport-length>",
-                "relevance": 88,
+                "relevance": 89,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -21164,7 +21143,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<viewport-length>",
-                "relevance": 87,
+                "relevance": 88,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -23341,10 +23320,12 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "-ms-grid-columns",
                 "browsers": [
-                    "E12",
+                    "E",
                     "IE10"
                 ],
-                "relevance": 50,
+                "status": "nonstandard",
+                "syntax": "none | <track-list> | <auto-track-list>",
+                "relevance": 0,
                 "description": "Lays out the columns of the grid."
             },
             {
@@ -23429,10 +23410,12 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "-ms-grid-rows",
                 "browsers": [
-                    "E12",
+                    "E",
                     "IE10"
                 ],
-                "relevance": 50,
+                "status": "nonstandard",
+                "syntax": "none | <track-list> | <auto-track-list>",
+                "relevance": 0,
                 "description": "Lays out the columns of the grid."
             },
             {
@@ -25306,7 +25289,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "fill | contain | cover | none | scale-down",
-                "relevance": 61,
+                "relevance": 64,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25328,7 +25311,7 @@ var __extends = (this && this.__extends) || (function () {
                     "O19"
                 ],
                 "syntax": "<position>",
-                "relevance": 52,
+                "relevance": 53,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25450,7 +25433,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "order",
                 "syntax": "<integer>",
-                "relevance": 61,
+                "relevance": 62,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25800,7 +25783,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "[ <'outline-color'> || <'outline-style'> || <'outline-width'> ]",
-                "relevance": 87,
+                "relevance": 88,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25848,7 +25831,7 @@ var __extends = (this && this.__extends) || (function () {
                     "O9.5"
                 ],
                 "syntax": "<length>",
-                "relevance": 59,
+                "relevance": 65,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25869,7 +25852,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | <'border-style'>",
-                "relevance": 60,
+                "relevance": 61,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25885,7 +25868,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "outline-width",
                 "syntax": "<line-width>",
-                "relevance": 60,
+                "relevance": 61,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25923,7 +25906,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "[ visible | hidden | clip | scroll | auto ]{1,2}",
-                "relevance": 92,
+                "relevance": 93,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -25981,7 +25964,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "visible | hidden | clip | scroll | auto",
-                "relevance": 79,
+                "relevance": 80,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26061,7 +26044,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "padding-bottom",
                 "syntax": "<length> | <percentage>",
-                "relevance": 88,
+                "relevance": 89,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26130,7 +26113,7 @@ var __extends = (this && this.__extends) || (function () {
                     "O56"
                 ],
                 "syntax": "<'padding-left'>",
-                "relevance": 51,
+                "relevance": 53,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26185,7 +26168,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "padding-right",
                 "syntax": "<length> | <percentage>",
-                "relevance": 88,
+                "relevance": 89,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26239,7 +26222,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | always | avoid | left | right | recto | verso",
-                "relevance": 52,
+                "relevance": 51,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26359,7 +26342,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | <length>",
-                "relevance": 55,
+                "relevance": 56,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26430,7 +26413,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | none | visiblePainted | visibleFill | visibleStroke | visible | painted | fill | stroke | all | inherit",
-                "relevance": 80,
+                "relevance": 81,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26594,7 +26577,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<length> | <percentage> | auto",
-                "relevance": 90,
+                "relevance": 91,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -26725,8 +26708,11 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "ruby-position",
                 "browsers": [
-                    "E12",
-                    "FF38"
+                    "E84",
+                    "FF38",
+                    "S6.1",
+                    "C84",
+                    "O70"
                 ],
                 "values": [
                     {
@@ -26915,6 +26901,7 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF36",
+                    "S14",
                     "C61",
                     "O48"
                 ],
@@ -27067,7 +27054,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | [ x | y | block | inline | both ] [ mandatory | proximity ]?",
-                "relevance": 50,
+                "relevance": 51,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27216,7 +27203,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "[ <url> [ format( <string># ) ]? | local( <family-name> ) ]#",
-                "relevance": 67,
+                "relevance": 65,
                 "description": "@font-face descriptor. Specifies the resource containing font data. It is required, whether the font is downloadable or locally installed.",
                 "restrictions": [
                     "enum",
@@ -27252,7 +27239,7 @@ var __extends = (this && this.__extends) || (function () {
                         "description": "No paint is applied in this layer."
                     }
                 ],
-                "relevance": 63,
+                "relevance": 64,
                 "description": "Paints along the outline of the given graphical element.",
                 "restrictions": [
                     "color",
@@ -27268,7 +27255,7 @@ var __extends = (this && this.__extends) || (function () {
                         "description": "Indicates that no dashing is used."
                     }
                 ],
-                "relevance": 58,
+                "relevance": 59,
                 "description": "Controls the pattern of dashes and gaps used to stroke paths.",
                 "restrictions": [
                     "length",
@@ -27340,7 +27327,7 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "stroke-opacity",
-                "relevance": 51,
+                "relevance": 52,
                 "description": "Specifies the opacity of the painting operation used to stroke the current object.",
                 "restrictions": [
                     "number(0-1)"
@@ -27348,7 +27335,7 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "stroke-width",
-                "relevance": 60,
+                "relevance": 61,
                 "description": "Specifies the width of the stroke on the current object.",
                 "restrictions": [
                     "percentage",
@@ -27439,7 +27426,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | fixed",
-                "relevance": 61,
+                "relevance": 60,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27503,7 +27490,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "start | end | left | right | center | justify | match-parent",
-                "relevance": 93,
+                "relevance": 94,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27547,7 +27534,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | start | end | left | right | center | justify",
-                "relevance": 50,
+                "relevance": 51,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27622,7 +27609,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<'text-decoration-line'> || <'text-decoration-style'> || <'text-decoration-color'> || <'text-decoration-thickness'>",
-                "relevance": 91,
+                "relevance": 92,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27685,7 +27672,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | [ underline || overline || line-through || blink ] | spelling-error | grammar-error",
-                "relevance": 50,
+                "relevance": 51,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27821,7 +27808,7 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF41",
-                    "S5.1",
+                    "S14",
                     "C48",
                     "O15"
                 ],
@@ -27831,7 +27818,7 @@ var __extends = (this && this.__extends) || (function () {
                         "browsers": [
                             "E79",
                             "FF41",
-                            "S5.1",
+                            "S14",
                             "C48",
                             "O15"
                         ],
@@ -27842,7 +27829,7 @@ var __extends = (this && this.__extends) || (function () {
                         "browsers": [
                             "E79",
                             "FF41",
-                            "S5.1",
+                            "S14",
                             "C48",
                             "O15"
                         ],
@@ -27879,7 +27866,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "[ clip | ellipsis | <string> ]{1,2}",
-                "relevance": 81,
+                "relevance": 82,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27940,7 +27927,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | <shadow-t>#",
-                "relevance": 74,
+                "relevance": 75,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -27974,7 +27961,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | capitalize | uppercase | lowercase | full-width | full-size-kana",
-                "relevance": 84,
+                "relevance": 85,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28073,7 +28060,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | none | [ [ pan-x | pan-left | pan-right ] || [ pan-y | pan-up | pan-down ] || pinch-zoom ] | manipulation",
-                "relevance": 65,
+                "relevance": 66,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28177,7 +28164,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "none | <transform-list>",
-                "relevance": 88,
+                "relevance": 89,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28192,7 +28179,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "transform-origin",
                 "syntax": "[ <length-percentage> | left | center | right | top | bottom ] | [ [ <length-percentage> | left | center | right ] && [ <length-percentage> | top | center | bottom ] ] <length>?",
-                "relevance": 74,
+                "relevance": 75,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28233,7 +28220,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "flat | preserve-3d",
-                "relevance": 54,
+                "relevance": 55,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28258,7 +28245,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "<single-transition>#",
-                "relevance": 87,
+                "relevance": 88,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28276,7 +28263,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "transition-delay",
                 "syntax": "<time>#",
-                "relevance": 62,
+                "relevance": 63,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28330,8 +28317,8 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "transition-timing-function",
-                "syntax": "<timing-function>#",
-                "relevance": 60,
+                "syntax": "<easing-function>#",
+                "relevance": 61,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28372,7 +28359,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | embed | isolate | bidi-override | isolate-override | plaintext",
-                "relevance": 57,
+                "relevance": 58,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28726,9 +28713,8 @@ var __extends = (this && this.__extends) || (function () {
                         "description": "The element imposes no constraint on the selection."
                     }
                 ],
-                "status": "nonstandard",
                 "syntax": "auto | text | none | contain | all",
-                "relevance": 24,
+                "relevance": 75,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -28784,7 +28770,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "baseline | sub | super | text-top | text-bottom | middle | top | bottom | <percentage> | <length>",
-                "relevance": 91,
+                "relevance": 92,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -29177,7 +29163,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "status": "nonstandard",
-                "syntax": "none | button | button-bevel | caret | checkbox | default-button | inner-spin-button | listbox | listitem | media-controls-background | media-controls-fullscreen-background | media-current-time-display | media-enter-fullscreen-button | media-exit-fullscreen-button | media-fullscreen-button | media-mute-button | media-overlay-play-button | media-play-button | media-seek-back-button | media-seek-forward-button | media-slider | media-sliderthumb | media-time-remaining-display | media-toggle-closed-captions-button | media-volume-slider | media-volume-slider-container | media-volume-sliderthumb | menulist | menulist-button | menulist-text | menulist-textfield | meter | progress-bar | progress-bar-value | push-button | radio | searchfield | searchfield-cancel-button | searchfield-decoration | searchfield-results-button | searchfield-results-decoration | slider-horizontal | slider-vertical | sliderthumb-horizontal | sliderthumb-vertical | square-button | textarea | textfield",
+                "syntax": "none | button | button-bevel | caret | checkbox | default-button | inner-spin-button | listbox | listitem | media-controls-background | media-controls-fullscreen-background | media-current-time-display | media-enter-fullscreen-button | media-exit-fullscreen-button | media-fullscreen-button | media-mute-button | media-overlay-play-button | media-play-button | media-seek-back-button | media-seek-forward-button | media-slider | media-sliderthumb | media-time-remaining-display | media-toggle-closed-captions-button | media-volume-slider | media-volume-slider-container | media-volume-sliderthumb | menulist | menulist-button | menulist-text | menulist-textfield | meter | progress-bar | progress-bar-value | push-button | radio | searchfield | searchfield-cancel-button | searchfield-decoration | searchfield-results-button | searchfield-results-decoration | slider-horizontal | slider-vertical | sliderthumb-horizontal | sliderthumb-vertical | square-button | textarea | textfield | -apple-pay-button",
                 "relevance": 0,
                 "description": "Changes the appearance of buttons and other controls to resemble native controls.",
                 "restrictions": [
@@ -31001,7 +30987,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | pre | nowrap | pre-wrap | pre-line | break-spaces",
-                "relevance": 88,
+                "relevance": 89,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -31123,7 +31109,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | break-all | keep-all | break-word",
-                "relevance": 72,
+                "relevance": 74,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -31144,7 +31130,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | <length-percentage>",
-                "relevance": 57,
+                "relevance": 58,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -31170,13 +31156,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "normal | break-word",
-                "relevance": 77,
-                "references": [
-                    {
-                        "name": "MDN Reference",
-                        "url": "https://developer.mozilla.org/docs/Web/CSS/overflow-wrap"
-                    }
-                ],
+                "relevance": 78,
                 "description": "Specifies whether the UA may break within a word to prevent overflow when an otherwise-unbreakable string is too long to fit.",
                 "restrictions": [
                     "enum"
@@ -31228,7 +31208,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | <integer>",
-                "relevance": 91,
+                "relevance": 92,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -31255,7 +31235,7 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "syntax": "auto | <number> | <percentage>",
-                "relevance": 74,
+                "relevance": 70,
                 "references": [
                     {
                         "name": "MDN Reference",
@@ -31328,7 +31308,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "-moz-force-broken-image-icon",
                 "status": "nonstandard",
-                "syntax": "<integer>",
+                "syntax": "<integer [0,1]>",
                 "relevance": 0,
                 "browsers": [
                     "FF1"
@@ -31507,7 +31487,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "-webkit-border-before",
                 "status": "nonstandard",
-                "syntax": "<'border-width'> || <'border-style'> || <'color'>",
+                "syntax": "<'border-width'> || <'border-style'> || <color>",
                 "relevance": 0,
                 "browsers": [
                     "E79",
@@ -31526,7 +31506,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "-webkit-border-before-color",
                 "status": "nonstandard",
-                "syntax": "<'color'>",
+                "syntax": "<color>",
                 "relevance": 0,
                 "description": "The -webkit-border-before-color CSS property sets the color of the individual logical block start border in a single place in the style sheet."
             },
@@ -31693,13 +31673,29 @@ var __extends = (this && this.__extends) || (function () {
                 "description": "The -webkit-mask-repeat-y property specifies whether and how a mask image is repeated (tiled) vertically."
             },
             {
+                "name": "align-tracks",
+                "status": "experimental",
+                "syntax": "[ normal | <baseline-position> | <content-distribution> | <overflow-position>? <content-position> ]#",
+                "relevance": 50,
+                "browsers": [
+                    "FF77"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/align-tracks"
+                    }
+                ],
+                "description": "The align-tracks CSS property sets the alignment in the masonry axis for grid containers that have masonry in their block axis."
+            },
+            {
                 "name": "appearance",
                 "status": "experimental",
-                "syntax": "none | auto | button | textfield | menulist-button | <compat-auto>",
+                "syntax": "none | auto | textfield | menulist-button | <compat-auto>",
                 "relevance": 60,
                 "browsers": [
                     "E84",
-                    "FF1",
+                    "FF80",
                     "S3",
                     "C84",
                     "O70"
@@ -31716,11 +31712,11 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "aspect-ratio",
                 "status": "experimental",
                 "syntax": "auto | <ratio>",
-                "relevance": 50,
+                "relevance": 52,
                 "browsers": [
-                    "E79",
-                    "FF71",
-                    "C79"
+                    "E88",
+                    "FF83",
+                    "C88"
                 ],
                 "references": [
                     {
@@ -31735,12 +31731,6 @@ var __extends = (this && this.__extends) || (function () {
                 "status": "obsolete",
                 "syntax": "<angle> | [ [ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards",
                 "relevance": 0,
-                "references": [
-                    {
-                        "name": "MDN Reference",
-                        "url": "https://developer.mozilla.org/docs/Web/CSS/azimuth"
-                    }
-                ],
                 "description": "In combination with elevation, the azimuth CSS property enables different audio sources to be positioned spatially for aural presentation. This is important in that it provides a natural way to tell several voices apart, as each can be positioned to originate at a different location on the sound stage. Stereo output produce a lateral sound stage, while binaural headphones and multi-speaker setups allow for a fully three-dimensional stage."
             },
             {
@@ -31764,13 +31754,13 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "border-block",
-                "syntax": "<'border-top-width'> || <'border-top-style'> || <'color'>",
+                "syntax": "<'border-top-width'> || <'border-top-style'> || <color>",
                 "relevance": 50,
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31787,8 +31777,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31805,8 +31795,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31823,8 +31813,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31839,7 +31829,8 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "<length-percentage>{1,2}",
                 "relevance": 50,
                 "browsers": [
-                    "FF66"
+                    "FF66",
+                    "C89"
                 ],
                 "references": [
                     {
@@ -31854,7 +31845,8 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "<length-percentage>{1,2}",
                 "relevance": 50,
                 "browsers": [
-                    "FF66"
+                    "FF66",
+                    "C89"
                 ],
                 "references": [
                     {
@@ -31866,13 +31858,13 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "border-inline",
-                "syntax": "<'border-top-width'> || <'border-top-style'> || <'color'>",
+                "syntax": "<'border-top-width'> || <'border-top-style'> || <color>",
                 "relevance": 50,
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31889,8 +31881,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31907,8 +31899,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31925,8 +31917,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -31941,7 +31933,8 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "<length-percentage>{1,2}",
                 "relevance": 50,
                 "browsers": [
-                    "FF66"
+                    "FF66",
+                    "C89"
                 ],
                 "references": [
                     {
@@ -31956,7 +31949,8 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "<length-percentage>{1,2}",
                 "relevance": 50,
                 "browsers": [
-                    "FF66"
+                    "FF66",
+                    "C89"
                 ],
                 "references": [
                     {
@@ -32142,11 +32136,31 @@ var __extends = (this && this.__extends) || (function () {
                 "description": "The color-adjust property is a non-standard CSS extension that can be used to force printing of background colors and images in browsers based on the WebKit engine."
             },
             {
+                "name": "content-visibility",
+                "syntax": "visible | auto | hidden",
+                "relevance": 50,
+                "browsers": [
+                    "E85",
+                    "C85",
+                    "O71"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/content-visibility"
+                    }
+                ],
+                "description": "Controls whether or not an element renders its contents at all, along with forcing a strong set of containments, allowing user agents to potentially omit large swathes of layout and rendering work until it becomes needed."
+            },
+            {
                 "name": "counter-set",
                 "syntax": "[ <custom-ident> <integer>? ]+ | none",
                 "relevance": 50,
                 "browsers": [
-                    "FF68"
+                    "E85",
+                    "FF68",
+                    "C85",
+                    "O71"
                 ],
                 "references": [
                     {
@@ -32212,7 +32226,25 @@ var __extends = (this && this.__extends) || (function () {
                         "url": "https://developer.mozilla.org/docs/Web/CSS/font-smooth"
                     }
                 ],
-                "description": ""
+                "description": "The font-smooth CSS property controls the application of anti-aliasing when fonts are rendered."
+            },
+            {
+                "name": "forced-color-adjust",
+                "status": "experimental",
+                "syntax": "auto | none",
+                "relevance": 50,
+                "browsers": [
+                    "E79",
+                    "C79",
+                    "IE10"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/forced-color-adjust"
+                    }
+                ],
+                "description": "Allows authors to opt certain elements out of forced colors mode. This then restores the control of those values to CSS"
             },
             {
                 "name": "gap",
@@ -32283,7 +32315,10 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "<'top'>{1,4}",
                 "relevance": 50,
                 "browsers": [
-                    "FF66"
+                    "E79",
+                    "FF66",
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32300,8 +32335,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF63",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32318,8 +32353,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF63",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32336,8 +32371,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF63",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32354,8 +32389,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF63",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32372,8 +32407,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF63",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32390,8 +32425,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF63",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32400,6 +32435,22 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "description": "The inset-inline-start CSS property defines the logical inline start inset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the top, right, bottom, or left property depending on the values defined for writing-mode, direction, and text-orientation."
+            },
+            {
+                "name": "justify-tracks",
+                "status": "experimental",
+                "syntax": "[ normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ] ]#",
+                "relevance": 50,
+                "browsers": [
+                    "FF77"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/justify-tracks"
+                    }
+                ],
+                "description": "The justify-tracks CSS property sets the alignment in the masonry axis for grid containers that have masonry in their inline axis"
             },
             {
                 "name": "line-clamp",
@@ -32433,8 +32484,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32451,8 +32502,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32498,6 +32549,18 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "mask-border",
                 "syntax": "<'mask-border-source'> || <'mask-border-slice'> [ / <'mask-border-width'>? [ / <'mask-border-outset'> ]? ]? || <'mask-border-repeat'> || <'mask-border-mode'>",
                 "relevance": 50,
+                "browsers": [
+                    "E79",
+                    "S3.1",
+                    "C1",
+                    "O15"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/mask-border"
+                    }
+                ],
                 "description": "The mask-border CSS property lets you create a mask along the edge of an element's border.\n\nThis property is a shorthand for mask-border-source, mask-border-slice, mask-border-width, mask-border-outset, mask-border-repeat, and mask-border-mode. As with all shorthand properties, any omitted sub-values will be set to their initial value."
             },
             {
@@ -32510,30 +32573,90 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "mask-border-outset",
                 "syntax": "[ <length> | <number> ]{1,4}",
                 "relevance": 50,
+                "browsers": [
+                    "E79",
+                    "S3.1",
+                    "C1",
+                    "O15"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/mask-border-outset"
+                    }
+                ],
                 "description": "The mask-border-outset CSS property specifies the distance by which an element's mask border is set out from its border box."
             },
             {
                 "name": "mask-border-repeat",
                 "syntax": "[ stretch | repeat | round | space ]{1,2}",
                 "relevance": 50,
+                "browsers": [
+                    "E79",
+                    "S3.1",
+                    "C1",
+                    "O15"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/mask-border-repeat"
+                    }
+                ],
                 "description": "The mask-border-repeat CSS property defines how the edge regions of a source image are adjusted to fit the dimensions of an element's mask border."
             },
             {
                 "name": "mask-border-slice",
                 "syntax": "<number-percentage>{1,4} fill?",
                 "relevance": 50,
+                "browsers": [
+                    "E79",
+                    "S3.1",
+                    "C1",
+                    "O15"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/mask-border-slice"
+                    }
+                ],
                 "description": "The mask-border-slice CSS property divides the image specified by mask-border-source into regions. These regions are used to form the components of an element's mask border."
             },
             {
                 "name": "mask-border-source",
                 "syntax": "none | <image>",
                 "relevance": 50,
+                "browsers": [
+                    "E79",
+                    "S3.1",
+                    "C1",
+                    "O15"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/mask-border-source"
+                    }
+                ],
                 "description": "The mask-border-source CSS property specifies the source image used to create an element's mask border.\n\nThe mask-border-slice property is used to divide the source image into regions, which are then dynamically applied to the final mask border."
             },
             {
                 "name": "mask-border-width",
                 "syntax": "[ <length-percentage> | <number> | auto ]{1,4}",
                 "relevance": 50,
+                "browsers": [
+                    "E79",
+                    "S3.1",
+                    "C1",
+                    "O15"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/mask-border-width"
+                    }
+                ],
                 "description": "The mask-border-width CSS property specifies the width of an element's mask border."
             },
             {
@@ -32570,6 +32693,35 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "description": "The mask-composite CSS property represents a compositing operation used on the current mask layer with the mask layers below it."
+            },
+            {
+                "name": "masonry-auto-flow",
+                "status": "experimental",
+                "syntax": "[ pack | next ] || [ definite-first | ordered ]",
+                "relevance": 50,
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/masonry-auto-flow"
+                    }
+                ],
+                "description": "The masonry-auto-flow CSS property modifies how items are placed when using masonry in CSS Grid Layout."
+            },
+            {
+                "name": "math-style",
+                "syntax": "normal | compact",
+                "relevance": 50,
+                "browsers": [
+                    "FF83",
+                    "C83"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/math-style"
+                    }
+                ],
+                "description": "The math-style property indicates whether MathML equations should render with normal or compact height."
             },
             {
                 "name": "max-lines",
@@ -32633,7 +32785,7 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": "offset-path",
-                "syntax": "none | ray( [ <angle> && <size>? && contain? ] ) | <path()> | <url> | [ <basic-shape> || <geometry-box> ]",
+                "syntax": "none | ray( [ <angle> && <size> && contain? ] ) | <path()> | <url> | [ <basic-shape> || <geometry-box> ]",
                 "relevance": 50,
                 "browsers": [
                     "E79",
@@ -32683,7 +32835,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "overflow-anchor",
                 "syntax": "auto | none",
-                "relevance": 51,
+                "relevance": 52,
                 "browsers": [
                     "E79",
                     "FF66",
@@ -32841,8 +32993,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32859,8 +33011,8 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF66",
-                    "C69",
-                    "O56"
+                    "C87",
+                    "O73"
                 ],
                 "references": [
                     {
@@ -32903,6 +33055,7 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF45",
+                    "S11",
                     "C59",
                     "O46"
                 ],
@@ -32930,7 +33083,7 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E84",
                     "FF63",
-                    "S10.1",
+                    "S12.1",
                     "C84",
                     "O70"
                 ],
@@ -32972,6 +33125,21 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "description": "The scrollbar-color CSS property sets the color of the scrollbar track and thumb."
+            },
+            {
+                "name": "scrollbar-gutter",
+                "syntax": "auto | [ stable | always ] && both? && force?",
+                "relevance": 50,
+                "browsers": [
+                    "C88"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/scrollbar-gutter"
+                    }
+                ],
+                "description": "The scrollbar-gutter CSS property allows authors to reserve space for the scrollbar, preventing unwanted layout changes as the content grows while also avoiding unnecessary visuals when scrolling isn't needed."
             },
             {
                 "name": "scrollbar-width",
@@ -33394,7 +33562,7 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "scroll-snap-align",
                 "syntax": "[ none | start | end | center ]{1,2}",
-                "relevance": 50,
+                "relevance": 51,
                 "browsers": [
                     "E79",
                     "FF68",
@@ -33476,7 +33644,7 @@ var __extends = (this && this.__extends) || (function () {
                 "name": "text-decoration-skip",
                 "status": "experimental",
                 "syntax": "none | [ objects || [ spaces | [ leading-spaces || trailing-spaces ] ] || edges || box-decoration ]",
-                "relevance": 52,
+                "relevance": 53,
                 "browsers": [
                     "S12.1",
                     "C57",
@@ -33513,8 +33681,10 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "auto | from-font | <length> | <percentage> ",
                 "relevance": 50,
                 "browsers": [
+                    "E87",
                     "FF70",
-                    "S12.1"
+                    "S12.1",
+                    "C87"
                 ],
                 "references": [
                     {
@@ -33623,8 +33793,10 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "auto | <length> | <percentage> ",
                 "relevance": 50,
                 "browsers": [
+                    "E87",
                     "FF70",
-                    "S12.1"
+                    "S12.1",
+                    "C87"
                 ],
                 "references": [
                     {
@@ -33692,6 +33864,27 @@ var __extends = (this && this.__extends) || (function () {
                 "syntax": "none | [ crop || cross ]",
                 "relevance": 50,
                 "description": "The marks CSS at-rule descriptor, used with the @page at-rule, adds crop and/or cross marks to the presentation of the document. Crop marks indicate where the page should be cut. Cross marks are used to align sheets."
+            },
+            {
+                "name": "syntax",
+                "status": "experimental",
+                "syntax": "<string>",
+                "relevance": 50,
+                "description": "Specifies the syntax of the custom property registration represented by the @property rule, controlling how the property’s value is parsed at computed value time."
+            },
+            {
+                "name": "inherits",
+                "status": "experimental",
+                "syntax": "true | false",
+                "relevance": 50,
+                "description": "Specifies the inherit flag of the custom property registration represented by the @property rule, controlling whether or not the property inherits by default."
+            },
+            {
+                "name": "initial-value",
+                "status": "experimental",
+                "syntax": "<string>",
+                "relevance": 50,
+                "description": "Specifies the initial value of the custom property registration represented by the @property rule, controlling the property’s initial value."
             },
             {
                 "name": "max-zoom",
@@ -34350,12 +34543,6 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "FF4"
                 ],
-                "references": [
-                    {
-                        "name": "MDN Reference",
-                        "url": "https://developer.mozilla.org/docs/Web/CSS/:-moz-ui-invalid"
-                    }
-                ],
                 "description": "Non-standard. Represents any validated form element whose value isn't valid "
             },
             {
@@ -34711,6 +34898,11 @@ var __extends = (this && this.__extends) || (function () {
                 "description": "Non-standard. Applies to all scrollbar pieces. Indicates whether or not the window containing the scrollbar is currently active."
             },
             {
+                "name": ":current",
+                "status": "experimental",
+                "description": "The :current CSS pseudo-class selector is a time-dimensional pseudo-class that represents the element, or an ancestor of the element, that is currently being displayed"
+            },
+            {
                 "name": ":blank",
                 "status": "experimental",
                 "references": [
@@ -34754,11 +34946,10 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": ":focus-visible",
-                "status": "experimental",
                 "browsers": [
                     "E79",
-                    "FF4",
-                    "C67",
+                    "FF85",
+                    "C86",
                     "O54"
                 ],
                 "references": [
@@ -34771,7 +34962,6 @@ var __extends = (this && this.__extends) || (function () {
             },
             {
                 "name": ":focus-within",
-                "status": "experimental",
                 "browsers": [
                     "E79",
                     "FF52",
@@ -34804,7 +34994,7 @@ var __extends = (this && this.__extends) || (function () {
                 "browsers": [
                     "E79",
                     "FF78",
-                    "S9",
+                    "S14",
                     "C68",
                     "O55"
                 ],
@@ -34815,6 +35005,26 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "description": "The :is() CSS pseudo-class function takes a selector list as its argument, and selects any element that can be selected by one of the selectors in that list. This is useful for writing large selectors in a more compact form."
+            },
+            {
+                "name": ":local-link",
+                "status": "experimental",
+                "description": "The :local-link CSS pseudo-class represents an link to the same document"
+            },
+            {
+                "name": ":nth-col",
+                "status": "experimental",
+                "description": "The :nth-col() CSS pseudo-class is designed for tables and grids. It accepts the An+B notation such as used with the :nth-child selector, using this to target every nth column. "
+            },
+            {
+                "name": ":nth-last-col",
+                "status": "experimental",
+                "description": "The :nth-last-col() CSS pseudo-class is designed for tables and grids. It accepts the An+B notation such as used with the :nth-child selector, using this to target every nth column before it, therefore counting back from the end of the set of columns."
+            },
+            {
+                "name": ":paused",
+                "status": "experimental",
+                "description": "The :paused CSS pseudo-class selector is a resource state pseudo-class that will match an audio, video, or similar resource that is capable of being “played” or “paused”, when that element is “paused”."
             },
             {
                 "name": ":placeholder-shown",
@@ -34828,10 +35038,41 @@ var __extends = (this && this.__extends) || (function () {
                 "description": "The :placeholder-shown CSS pseudo-class represents any <input> or <textarea> element that is currently displaying placeholder text."
             },
             {
+                "name": ":playing",
+                "status": "experimental",
+                "description": "The :playing CSS pseudo-class selector is a resource state pseudo-class that will match an audio, video, or similar resource that is capable of being “played” or “paused”, when that element is “playing”. "
+            },
+            {
+                "name": ":target-within",
+                "status": "experimental",
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/:target-within"
+                    }
+                ],
+                "description": "The :target-within CSS pseudo-class represents an element that is a target element or contains an element that is a target. A target element is a unique element with an id matching the URL's fragment."
+            },
+            {
+                "name": ":user-invalid",
+                "status": "experimental",
+                "browsers": [
+                    "FF4"
+                ],
+                "references": [
+                    {
+                        "name": "MDN Reference",
+                        "url": "https://developer.mozilla.org/docs/Web/CSS/:user-invalid"
+                    }
+                ],
+                "description": "The :user-invalid CSS pseudo-class represents any validated form element whose value isn't valid based on their validation constraints, after the user has interacted with it."
+            },
+            {
                 "name": ":where",
                 "status": "experimental",
                 "browsers": [
                     "FF78",
+                    "S14",
                     "C72"
                 ],
                 "references": [
@@ -34841,6 +35082,11 @@ var __extends = (this && this.__extends) || (function () {
                     }
                 ],
                 "description": "The :where() CSS pseudo-class function takes a selector list as its argument, and selects any element that can be selected by one of the selectors in that list."
+            },
+            {
+                "name": ":picture-in-picture",
+                "status": "experimental",
+                "description": "The :picture-in-picture CSS pseudo-class matches the element which is currently in picture-in-picture mode."
             }
         ],
         "pseudoElements": [
@@ -35136,16 +35382,9 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "::-webkit-file-upload-button",
                 "browsers": [
-                    "E79",
-                    "S3",
-                    "C1",
-                    "O15"
-                ],
-                "references": [
-                    {
-                        "name": "MDN Reference",
-                        "url": "https://developer.mozilla.org/docs/Web/CSS/::-webkit-file-upload-button"
-                    }
+                    "C",
+                    "O",
+                    "S6"
                 ]
             },
             {
@@ -35578,10 +35817,10 @@ var __extends = (this && this.__extends) || (function () {
             {
                 "name": "::marker",
                 "browsers": [
-                    "E80",
+                    "E86",
                     "FF68",
                     "S11.1",
-                    "C80"
+                    "C86"
                 ],
                 "references": [
                     {

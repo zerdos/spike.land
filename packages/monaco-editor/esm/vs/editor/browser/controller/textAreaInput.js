@@ -9,7 +9,7 @@ import { Emitter } from '../../../base/common/event.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 import * as platform from '../../../base/common/platform.js';
 import * as strings from '../../../base/common/strings.js';
-import { TextAreaState } from './textAreaState.js';
+import { TextAreaState, _debugComposition } from './textAreaState.js';
 import { Position } from '../../common/core/position.js';
 import { Selection } from '../../common/core/selection.js';
 import { BrowserFeatures } from '../../../base/browser/canIUse.js';
@@ -100,6 +100,9 @@ export class TextAreaInput extends Disposable {
             this._onKeyUp.fire(e);
         }));
         this._register(dom.addDisposableListener(textArea.domNode, 'compositionstart', (e) => {
+            if (_debugComposition) {
+                console.log(`[compositionstart]`, e);
+            }
             if (this._isDoingComposition) {
                 return;
             }
@@ -113,6 +116,9 @@ export class TextAreaInput extends Disposable {
                 && this._textAreaState.value.substr(this._textAreaState.selectionStart - 1, 1) === e.data) {
                 // Handling long press case on macOS + arrow key => pretend the character was selected
                 if (lastKeyDown.code === 'ArrowRight' || lastKeyDown.code === 'ArrowLeft') {
+                    if (_debugComposition) {
+                        console.log(`[compositionstart] Handling long press case on macOS + arrow key`, e);
+                    }
                     moveOneCharacterLeft = true;
                 }
             }
@@ -145,12 +151,18 @@ export class TextAreaInput extends Disposable {
             return [newState, typeInput];
         };
         this._register(dom.addDisposableListener(textArea.domNode, 'compositionupdate', (e) => {
+            if (_debugComposition) {
+                console.log(`[compositionupdate]`, e);
+            }
             const [newState, typeInput] = deduceComposition(e.data || '');
             this._textAreaState = newState;
             this._onType.fire(typeInput);
             this._onCompositionUpdate.fire(e);
         }));
         this._register(dom.addDisposableListener(textArea.domNode, 'compositionend', (e) => {
+            if (_debugComposition) {
+                console.log(`[compositionend]`, e);
+            }
             // https://github.com/microsoft/monaco-editor/issues/1663
             // On iOS 13.2, Chinese system IME randomly trigger an additional compositionend event with empty data
             if (!this._isDoingComposition) {
