@@ -35,7 +35,7 @@ export const shasums = {
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "modules/smart-monaco-editor/dist/monaco.js":
     "4a1002f805aa55b9f9eb4f2669a46edf48ac74ddd54ea783154da2adb3a2694b",
-  "sw.js": "5be5cfaa349e0b78e90615fd9edda3b4e7299fcb43fb94c224ef7e314e442622",
+  "sw.js": "512e4fa76bdb9627babe8fb0d3dfcf370a795b591416147546e30ed105481546",
   ".tsBuildInfo":
     "36edb77c45782957c8174809174fc65b7939eae09bfb25806b8de3d5db464479",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -80,7 +80,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/shaSums.json":
-    "7dc0f5a4c0d7f4a11135f291d34d24089d6d2fec24552d9b9d49ff747a3557aa",
+    "b587740a04165558511bcacd17e34de94583b138b842a8f7c9a4aaccb5e365f9",
   "js/workers/ipfsWorker.js":
     "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
   "js/workers/transpile.worker.js":
@@ -88,7 +88,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "f6656cceffff74255ba79c5c768f47638def0c4fabcae0475397c0ca4d038acd",
+    "b3dbf9c55a2c684e45fad02ab966f1defe12ec26a7037cf1107737ec050d8412",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":

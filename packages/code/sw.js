@@ -32,8 +32,16 @@ if (cid === currentCid) {
     {
       urlManipulation: ({ url }) => {
         const { pathname } = url;
-        if (pathname === "/") url.pathname = "index.html";
-        return [url];
+        if (pathname === "/") url.pathname = "/index.html";
+        const fileName = pathname.slice(1);
+        const fileCid = files[fileName];
+
+        const urlList = [url];
+        if (fileCid) {
+          urlList.push(new URL(`https://code.zed.vision/ipfs/${fileCid}`), new URL(`https://cf-ipfs.com/ipfs/${fileCid}`))
+        }
+
+        return urlList;
       },
     },
   );
