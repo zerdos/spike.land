@@ -52,7 +52,7 @@ export const shasums = {
   "js/examples/starterNoFramerMotion.js":
     "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "js/examples/app.tsx":
-    "d1bc86f16474ea71eed118e7f99dcb1af528313e358b8cfcbb7ea6c0e42c9dea",
+    "9655d8bf9668ae3d94e304b8d8beca040d7d09da5d2d5c6df0c75055e8c47cd6",
   "js/formatter.js":
     "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
   "js/refs.d.ts":
@@ -68,7 +68,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/shaSums.json":
-    "d468703cc424a2500cc96205f76041518449fa5d13e88d82f1f35f602701eb25",
+    "6874874cb073e206c52f8f76258b99f63491bb6a6628fdda44ceefe27f2a75c9",
   "js/workers/ipfsWorker.js":
     "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
   "js/workers/transpile.worker.js":
@@ -76,7 +76,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "8b9f7ce810e90132e35a52a82eeb8e45a7b3df5b3767999a24137e1abb391c66",
+    "b3b989d2c8e509879d5ed62b05684bb053eb08e5fe81cc1a016431451fa8f7a5",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":

@@ -21,7 +21,7 @@ export const files = {
   "js/codeLoader.js": "QmZtHq1QsjNjZ4rFF7bfg9AAadJqpY36XhjAnAvynNAQhw",
   "js/data.js": "QmdzoaDrVt9tCJEEUnMub9EnJr5xwcRd6rgz7xXafwUyCA",
   "js/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
-  "js/examples/app.tsx": "QmV7vp3R622aUiZd7ukKfdLfkzBhn8oKdUKHXKiZsZw7Ui",
+  "js/examples/app.tsx": "QmZhGjVVHez2TSGnX8Ho81uyPQa8oT6rvGaF5hL14QfehY",
   "js/examples/starterNoFramerMotion.js":
     "QmWVABuMCi74dqH3AiGtWU1SEBzvmhiRCADWYCupQZYuAs",
   "js/examples/starter_framer.js":
@@ -79,9 +79,9 @@ export const files = {
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
   "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
-  "js/workers/fileCids.json": "QmRTaKqTjvw6bSZv532JqAr5s4AfbidDfbAcTYXeUXKSDa",
+  "js/workers/fileCids.json": "QmRPYJUH41vGHWj7ZbDNW2BP7rhFiZFUcsrDHnja58rRvq",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "QmY7JoaZzZbPR3x1rhWvBnASXLZpJ6i8MmMSPK76czQFae",
+  "js/workers/shaSums.json": "QmNuAnFGh7UcPienzeJXFAtW4HgyZZS6oo6VDQvWbvy31F",
   "js/workers/transpile.worker.js":
     "QmRoCjYQHCYLzC94rrp6EM6rpLoyPsmVVhAQZtgzLSSbp7",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -115,15 +115,15 @@ export const files = {
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "assets": "QmT4bGu3g4GDyEk5sMdjDwogQkuRfiv4Rq75Kuo6SpgaPa",
-  "js/examples": "QmYEqZisoSCx5q8mwPVoRetHzjMqvQuyxBj4C22Jrqze1Y",
+  "js/examples": "QmRMBmsceAToZNqjNeCQ4DFch6ofVCuEdsE1xJpu9fhM4q",
   "js/shadb/dist/vendor": "QmTZzgTNwYe9ioj2zaZmme3LZLscde4D54r8J6HpaaHJ5x",
   "js/shadb/dist": "QmPs9fBmE8aZQd62NYjBoWBvdwKZkf45nu81byMAEgmwuQ",
   "js/shadb/src/vendor": "QmZcc5JirQ5ySPiELM4nJaVBLsKVL3vvNg2KE5uj7rGSr3",
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmRvKWGtua7uUxEUScccAU21Rr5qtvFM2Ka24X2bFoEuR4",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "QmPD1u1pv1VkgpLLnvocZG9AHDnLzDLy8wC5CVvLHv1onL",
-  "js": "QmTscxPAh1GiLfNetQ5mAZaud7Mw77Bz7PaLa7mRGBw4if",
+  "js/workers": "QmfVNRCTjaYRJ5xKHVTz3fHbncuB8Q23knnSuvdoby2Cyo",
+  "js": "QmWVUZwqENBEky18nHhydryX1iG9AE5nZNkhdSYxjvwGPP",
   "modules/smart-monaco-editor/dist":
     "QmUwiLGnKwEpzG4uKQ3Py3WSxEcLDzsVe6FDx8dq9jnSRB",
   "modules/smart-monaco-editor":
@@ -131,6 +131,6 @@ export const files = {
   "modules": "QmVrL6Ah8RQLSCVZ9jzxSvBAjjGxE6vkS7Ps5EVwa6YVqi",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmWcEEAexptrZ52MrtwB2gjRS8VUnWXXijqV3aCwnoVFfq",
+  "": "Qmc1PfhFG2jYJwirJBu9PT2uZ9r2r4zXYbFdV7EEKXqvZC",
   "foo": "bar",
 };
