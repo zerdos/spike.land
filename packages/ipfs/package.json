@@ -12,11 +12,11 @@
     "Zoltan Erdos <zolika84@gmail.com>"
   ],
   "scripts": {
-    "clean": "rm -rf dist && yarn types",
+    "clean": "rm -rf dist && yarn types && yarn types && yarn build",
     "types": "yarn tsc -d",
     "build:client": "yarn esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm --outfile=dist/ipfs.client.js",
-    "build:server": "yarn esbuild  src/ipfs.server.ts --bundle --platform=browser --minify --format=iife --outfile=dist/ipfs.server.js",
-    "build": "yarn build:client"
+    "prebuild": "yarn build:client && cp -f dist/ipfs.client.js ../code/modules/ipfs.client.js",
+    "build": "echo done"
   },
   "license": "MIT",
   "bugs": {

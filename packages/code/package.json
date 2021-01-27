@@ -9,7 +9,7 @@
     "source": "./src/codeLoader.js",
     "exports": "./dist/codeLoader.js",
     "scripts": {
-        "clean": "rm -rf dist .tsBuildInfo && deno fmt src/*.js",
+        "clean": "rm -rf dist .tsBuildInfo && deno fmt js/*.js && mkdir -p modules",
         "start": "cd ../.. && yarn start",
         "push": "cd ../.. && yarn push",
         "prebuild": "yarn clean",

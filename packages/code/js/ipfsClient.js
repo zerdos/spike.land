@@ -5,7 +5,7 @@ import {
   raceToSuccess,
   uint8ArrayConcat,
   uint8ArrayToString,
-} from "./workers/ipfs/dist/ipfs.client.js";
+} from "../modules/ipfs.client.js";
 
 /** @type {MessagePort} */
 let port;

@@ -221,19 +221,14 @@
         "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
         "affectsGlobalScope": false
       },
-      "./js/workers/ipfs/dist/gateways.d.ts": {
-        "version": "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
-        "signature": "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
-        "affectsGlobalScope": false
-      },
-      "./js/workers/ipfs/dist/ipfs.client.d.ts": {
-        "version": "6be375caa009446112051476fe3a57e6457d4182d78f4d186aed5dc9434fc0f5",
-        "signature": "6be375caa009446112051476fe3a57e6457d4182d78f4d186aed5dc9434fc0f5",
+      "./modules/ipfs.client.js": {
+        "version": "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
+        "signature": "8b4fa4b2f50c2e5aeb35b26f03099c54749a79284946e8ac5b9c079eaee42a38",
         "affectsGlobalScope": false
       },
       "./js/ipfsClient.js": {
-        "version": "c0f3343462885073c968afa8fe96b8913195f635862ff778330ffc87c8d4a1e6",
-        "signature": "a49c898c9ffa6f5ba5e0f906515d29cefda94fdbec896fdd81e96ee4de1d3765",
+        "version": "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
+        "signature": "83a9e4784a6daec1ba86a8828cfb0cee12bf5d2e7647b279c521ee6b10c68921",
         "affectsGlobalScope": false
       },
       "./js/templates.js": {
@@ -287,8 +282,8 @@
         "affectsGlobalScope": false
       },
       "./js/smart-monaco-editor/dist/editor.d.ts": {
-        "version": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
-        "signature": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
+        "version": "2ced639bb81f14b7981e4207c54869e9c5a31fac8acbef3c6fe27cbcf339dd9c",
+        "signature": "2ced639bb81f14b7981e4207c54869e9c5a31fac8acbef3c6fe27cbcf339dd9c",
         "affectsGlobalScope": false
       },
       "./js/codeLoader.js": {
@@ -303,7 +298,7 @@
       },
       "./js/importScript.js": {
         "version": "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-        "signature": "74df80c7ce69e4c5d3b72417e47cd7c1d0f4e554fefa7c48ca43f328f7d743df",
+        "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
       },
       "./js/emotion-react-renderer/dist/DraggableWindow.js": {
@@ -407,12 +402,12 @@
         "affectsGlobalScope": false
       },
       "./js/smart-monaco-editor/dist/editor.js": {
-        "version": "75ebf120ad1902f121ab426ce0767661164e879b944ec4f7a63712c8636a1c1c",
+        "version": "679ea3439796ec8d4c6fa9d987d0ce6dfee14a3256d4c7ec47aed8353f100ed2",
         "signature": "688e6bf6b8568a4bd9c2ca9d67edf36a621200a114efe7cfb4eea0134e90deb0",
         "affectsGlobalScope": false
       },
       "./js/smart-monaco-editor/dist/monaco.js": {
-        "version": "506f66f52cbc344a4b8ed07f9fd317535d8e5bbb6336cc1d2bf0ebe4cab19d8b",
+        "version": "dbcdc50414cbfaf3b0c1662b38f2a018211cf11aaa434a1ca2dd24264be0b785",
         "signature": "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
         "affectsGlobalScope": false
       },
@@ -425,21 +420,6 @@
         "version": "c7cfaaf127618ca8bc980b2b73bbe258f4b5db425a9c6cfa3b0d7bc09892e766",
         "signature": "c3a13bfaf8d8a569c668296b226ed29b835da2b2c91e44e38d175adbf57aae73",
         "affectsGlobalScope": true
-      },
-      "./js/workers/ipfs/dist/gateways.js": {
-        "version": "1e2195b1f00e52ae49219ad1d947f8f45b775140779ca5e92f5bac8989715320",
-        "signature": "f51c0c5f8ed66ab9053408265aa498c50bd62b948d8614f5d7c634396902b4c5",
-        "affectsGlobalScope": true
-      },
-      "./js/workers/ipfs/dist/ipfs.client.js": {
-        "version": "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
-        "signature": "8b4fa4b2f50c2e5aeb35b26f03099c54749a79284946e8ac5b9c079eaee42a38",
-        "affectsGlobalScope": false
-      },
-      "./js/workers/ipfs/src/gateways.js": {
-        "version": "e66c53fa5e754c9ff898ecdcfb26244c2f8add2654d7122685cf96ae3e0e16fd",
-        "signature": "cf362fc8a73de409069bd6b64ffdb58b272525eec768534dda2b8bee65932faa",
-        "affectsGlobalScope": false
       },
       "./sw.js": {
         "version": "5be5cfaa349e0b78e90615fd9edda3b4e7299fcb43fb94c224ef7e314e442622",
@@ -515,7 +495,7 @@
       ],
       "./js/ipfsClient.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/workers/ipfs/dist/ipfs.client.d.ts"
+        "./modules/ipfs.client.js"
       ],
       "./js/openWindows.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -611,13 +591,7 @@
       "./js/transpile.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
-      "./js/workers/ipfs/dist/ipfs.client.d.ts": [
-        "./js/workers/ipfs/dist/gateways.d.ts"
-      ],
-      "./js/workers/ipfs/dist/ipfs.client.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/workers/ipfs/src/gateways.js": [
+      "./modules/ipfs.client.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./node_legacy/regex.js": [
@@ -643,11 +617,7 @@
         "./node_legacy/regex.js"
       ]
     },
-    "exportedModulesMap": {
-      "./js/workers/ipfs/dist/ipfs.client.d.ts": [
-        "./js/workers/ipfs/dist/gateways.d.ts"
-      ]
-    },
+    "exportedModulesMap": {},
     "semanticDiagnosticsPerFile": [
       "../../node_modules/@types/react/jsx-runtime.d.ts",
       "../../node_modules/typescript/lib/lib.dom.d.ts",
@@ -724,13 +694,9 @@
       "./js/smart-monaco-editor/dist/monaco.js",
       "./js/templates.js",
       "./js/transpile.js",
-      "./js/workers/ipfs/dist/gateways.d.ts",
-      "./js/workers/ipfs/dist/gateways.js",
-      "./js/workers/ipfs/dist/ipfs.client.d.ts",
-      "./js/workers/ipfs/dist/ipfs.client.js",
-      "./js/workers/ipfs/src/gateways.js",
       "./js/workers/ipfsWorker.js",
       "./js/workers/transpile.worker.js",
+      "./modules/ipfs.client.js",
       "./node_legacy/regex.js",
       "./node_legacy/rng.js",
       "./node_legacy/simple-window-manager.es.js",
@@ -933,31 +899,15 @@
         1
       ],
       [
-        "./js/workers/ipfs/dist/gateways.d.ts",
-        1
-      ],
-      [
-        "./js/workers/ipfs/dist/gateways.js",
-        1
-      ],
-      [
-        "./js/workers/ipfs/dist/ipfs.client.d.ts",
-        1
-      ],
-      [
-        "./js/workers/ipfs/dist/ipfs.client.js",
-        1
-      ],
-      [
-        "./js/workers/ipfs/src/gateways.js",
-        1
-      ],
-      [
         "./js/workers/ipfsWorker.js",
         1
       ],
       [
         "./js/workers/transpile.worker.js",
+        1
+      ],
+      [
+        "./modules/ipfs.client.js",
         1
       ],
       [
