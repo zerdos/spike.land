@@ -3,9 +3,12 @@ import * as Motion from "framer-motion";
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
+
 //@ts-ignore
+import { DraggableWindow } from "./DraggableWindow";
 
 export { DraggableWindow };
+
 export { React };
 export { Fragment };
 export { Motion };

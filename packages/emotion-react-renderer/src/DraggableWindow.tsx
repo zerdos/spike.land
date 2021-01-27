@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import React from "react";
+
 import { css, jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 import Fab from "@material-ui/core/Fab";
@@ -6,7 +8,6 @@ import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 import Slider from "@material-ui/core/Slider";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import React from "react";
 
 const breakPoints = [640, 750, 1024, 1920];
 
@@ -14,10 +15,14 @@ const dragHelper = {
   drag: false,
 };
 
-export const DraggableWindow: React.FC<{
+interface DraggableWindowProps {
   onShare: () => void;
   position?: string;
-}> = ({ onShare, position, children }) => {
+}
+
+export const DraggableWindow: React.FC<DraggableWindowProps> = (
+  { onShare, position, children },
+) => {
   const [scale, changeScale] = React.useState(100);
   const [width, setWidth] = React.useState(breakPoints[0]);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -181,29 +186,15 @@ export const DraggableWindow: React.FC<{
     </React.Fragment>
   );
 };
+interface IRenderProps extends DraggableWindowProps {
+  children: React.ReactNode;
+}
 
-const buttonCss = ({ color = "darkred", square = false }) =>
-  css`
-    background: ${color};
-    
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    font-family: Roboto;
-    padding: 8px 8px;
-    outline: none;
-    border: none; 
-    margin-left: 20px;
-    border-radius: 0px ${square ? 0 : 8}px 0px 0px;
-`;
-
-/* export default () => (
-  <>
-    <DraggableWindow onShare={() => {}}>
-      <h1>
-        Lorem ipsum
-        dddddddddddd ccccccccccccccccccc ddddd d dddd dds
-      </h1>
-    </DraggableWindow>
-  </>
-); */
+export const renderDraggableWindow = (
+  props: DraggableWindowProps,
+  element: HTMLElement,
+) =>
+  render(
+    <DraggableWindow {...props}>{props.children}</DraggableWindow>,
+    element,
+  );

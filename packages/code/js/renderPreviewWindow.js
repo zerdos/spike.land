@@ -21,6 +21,12 @@ export async function renderPreviewWindow(
     rendererSrc
   );
 
+  // const {
+  //   DraggableWindow
+  // } = await import(
+  //   rendererSrc + "/DraggableWindow.js"
+  // );
+
   const onShare = async () => {
     const link = await shareItAsHtml({
       code: session.code,
