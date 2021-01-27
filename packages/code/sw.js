@@ -17,6 +17,12 @@ if (pathname.indexOf("/ipfs/") !== -1) {
 //     debug: true,
 // });
 
+self.addEventListener('activate', () => {
+
+  fetch("/cid.json").then((x) => x.json()).then(console.log)
+  console.log('V1 now ready to handle fetches!');
+});
+
 self.workbox.loadModule("workbox-routing");
 self.workbox.loadModule("workbox-precaching");
 self.workbox.loadModule("workbox-strategies");

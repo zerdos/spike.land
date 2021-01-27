@@ -105,6 +105,9 @@ async function handleRequest(request: Request) {
     return await alterHeaders(response, reversePath);
   }
 
+  if (pathname === `/cid.json`) {
+    return json({ cid });
+  }
   if (pathname === `/${cid}.js`) {
     return js(`export const files = ${JSON.stringify(files)}`);
   }
@@ -159,6 +162,18 @@ export function js(resp: string) {
       "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
       "Access-Control-Max-Age": "86400",
       "Content-Type": "application/javascript;charset=UTF-8",
+    },
+  });
+}
+
+export function json(obj: Object) {
+  return new Response(JSON.stringify(obj), {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Cache-Control": "no-cache",
+      "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+      "Access-Control-Max-Age": "86400",
+      "Content-Type": "application/json;charset=UTF-8",
     },
   });
 }
