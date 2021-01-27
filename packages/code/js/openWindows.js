@@ -37,13 +37,6 @@ export async function openWindows() {
       console.error({ e });
     }
   }
-}
-
-function isMobile() {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
   (function (global) {
     if (typeof (global) === "undefined") {
       throw new Error("window is undefined");
@@ -79,6 +72,12 @@ function isMobile() {
       };
     };
   })(window);
+}
+
+function isMobile() {
+  if (typeof window === "undefined") {
+    return false;
+  }
 
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
     .test(
