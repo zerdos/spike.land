@@ -9,8 +9,7 @@
   ],
   "main": "index.js",
   "scripts": {
-    "prebuild": "yarn tsc && deno fmt src",
-    "build": "echo done"
+    "build": "yarn tsc && deno fmt src"
   },
   "publishConfig": {
     "access": "public"
