@@ -155,6 +155,7 @@ export function js(resp: string) {
   return new Response(resp, {
     headers: {
       "Access-Control-Allow-Origin": "*",
+      "Cache-Control": "no-cache",
       "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
       "Access-Control-Max-Age": "86400",
       "Content-Type": "application/javascript;charset=UTF-8",
