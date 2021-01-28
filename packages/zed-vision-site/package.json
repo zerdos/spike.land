@@ -2,7 +2,7 @@
   "name": "@zedvision/zedvision-site",
   "scripts": {
     "develop": "gatsby develop",
-    "build": "cp -afr blog/. static && gatsby build --no-uglify && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
+    "gbuild": "cp -afr blog/. static && gatsby build --no-uglify && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
     "start": "yarn gbuild && yarn serve",
     "serve": "(chromium \"http://ipfs.zed.vision:8080/ipfs/$(ipfs add -r -H public -Q)\")",
     "clean": "gatsby clean && deno fmt src"
@@ -42,7 +42,7 @@
     "react-typography": "0.16.19",
     "typeface-merriweather": "1.1.13",
     "typeface-montserrat": "1.1.13",
-    "typescript": "4.2.0-dev.20210127",
+    "typescript": "4.2.0-dev.20210128",
     "typography": "0.16.19",
     "typography-theme-wordpress-2016": "0.16.19",
     "workbox-webpack-plugin": "6.0.2"

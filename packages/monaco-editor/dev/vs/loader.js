@@ -1,6 +1,6 @@
 /*!-----------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.21.1(7b0cfdd04ad530a9c8d782c618afd79290be3d64)
+ * Version: 0.21.1(9519a5cb5a5a8299f1f51ee6ab96d65e734ebc0e)
  * Released under the MIT license
  * https://github.com/microsoft/vscode/blob/master/LICENSE.txt
  *-----------------------------------------------------------*/
@@ -748,8 +748,8 @@ var AMDLoader;
                         // nothing
                     }
                 };
-                require.resolve = function resolve(request) {
-                    return Module._resolveFilename(request, mod);
+                require.resolve = function resolve(request, options) {
+                    return Module._resolveFilename(request, mod, false, options);
                 };
                 require.main = process.mainModule;
                 require.extensions = Module._extensions;

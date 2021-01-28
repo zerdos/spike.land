@@ -69,7 +69,7 @@ export const shasums = {
     "cacbf0df6efde964c86ac8d7c021ef07d1a3e6b69c73dff3aa58d72a642f79fa",
   "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
   ".tsBuildInfo":
-    "1d40912bb921c8e8986a282f8ffd11f06d9ffc4a560859e0b19a1a312993d97d",
+    "4046754c85ba2184deed639361d9456800a784cadee8dd587e1b8d58f9149a60",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
@@ -124,7 +124,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "2c2adca9ab483ac48b9ee8bb10de536e7e1e4f017499e05855e990f90d925e81",
+    "c8fb3a71f568fa2d06d456cf86a2b9446bc862c9ca14911b662e0f7bcd58f7cc",
   "tsconfig.json":
     "1ca38cf88d9ae0ede84b6b903f629ee7532a1403bd1ff5045ea62c854aea9207",
   "foo": "bar",

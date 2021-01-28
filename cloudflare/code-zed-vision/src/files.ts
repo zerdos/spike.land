@@ -39,7 +39,7 @@ export const files = {
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
   "js/transpile.js": "QmQRJPpTNznUXhu7QgpyZJC3KTHNwbL7qYU3XaJdyUBGiF",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "QmTCKh5Gt2iicjML5ksruy3cvCRU2A9ajydwn7fnkCNHYM",
+  "js/workers/shaSums.json": "Qmc7TJ2Q6yAGm1zQBnjhWwYSuwBpwu4B6gqtqXAdh9Vs1K",
   "js/workers/transpile.worker.js":
     "QmRoCjYQHCYLzC94rrp6EM6rpLoyPsmVVhAQZtgzLSSbp7",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -75,7 +75,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmQvwZBWXeTmVqjfipWeA5k2L7MMQd4ooqEe7qVAJs8VwV",
   "modules/vendor/idb.d.ts": "QmRDw3SijUK8mQZ2H5CzJtKk8zknGsCz4mz58EzsjEC738",
   "modules/vendor/idb.js": "QmeDaTt5WPt58TYHpMzMyURp7hMdfUiKm6AbwEtZsQGoc9",
-  "package.json": "QmSEiphwNJtprTMk5YLNmWVkyPbP38rgoyzGKEdUn34GxF",
+  "package.json": "QmXedzNkCQcPmHdeGfvEmvsC6nXQf1wxfVaLKUWGgo3mVm",
   "sw.js": "QmPmhcAfrmVKyXaB1wAkyyfgUm47XB9PFxRTG8oetM1WzB",
   "tsconfig.json": "Qmbm41S33ChiijTcV2dLrrWHZTFwgzHvE5gGVScAWh5rcf",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -83,14 +83,14 @@ export const files = {
   "assets": "QmT4bGu3g4GDyEk5sMdjDwogQkuRfiv4Rq75Kuo6SpgaPa",
   "js/examples": "QmRMBmsceAToZNqjNeCQ4DFch6ofVCuEdsE1xJpu9fhM4q",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "QmNgzuwGAmNSBaPwXztcdMQVgbFQ1c5AhwMbobz5jfP1Vi",
-  "js": "QmVYtRgV5DNGSyCeTKkXgqDKKGfwfcLtFCVP2uCvyccZEE",
+  "js/workers": "QmbJKauC3n4jn1UeDtcbsCKRK1sDdE3jsoswQ5GSHyWpQQ",
+  "js": "Qma9n6iGKoUFmMcVgLCjRc83XFrZX8C2Z9LiAcyK662DQW",
   "modules/smart-monaco-editor/dist":
     "QmaqSupFSBdv6sWiEBaSAEcjG7xEjfQesdJiGHDZJqLk8E",
   "modules/smart-monaco-editor":
     "QmbbBKPKVM5t7Vmy7qukzozoYwfxbyh2jqYa6DwVJM8uBn",
   "modules/vendor": "QmTZzgTNwYe9ioj2zaZmme3LZLscde4D54r8J6HpaaHJ5x",
   "modules": "QmWhRbeUnpKtumReav1xmsbS4duEeriGipRmaL7gJWj3a3",
-  "": "QmSKBt46kgBPpnd1mtNCrTU8TjDmJU6SDW8S8vaRdsxbcH",
+  "": "QmRGnTmKv4E4kUQJrxgCY7iC8FGb8bM88cuGwAPSv38DGs",
   "foo": "bar",
 };

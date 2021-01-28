@@ -2,6 +2,7 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+var _a;
 import './media/diffReview.css';
 import * as nls from '../../../nls.js';
 import * as dom from '../../../base/browser/dom.js';
@@ -584,11 +585,19 @@ export class DiffReview extends Disposable {
             cell.appendChild(spacer);
             let lineContent;
             if (modifiedLine !== 0) {
-                cell.insertAdjacentHTML('beforeend', this._renderLine(modifiedModel, modifiedOptions, modifiedModelOpts.tabSize, modifiedLine));
+                let html = this._renderLine(modifiedModel, modifiedOptions, modifiedModelOpts.tabSize, modifiedLine);
+                if (DiffReview._ttPolicy) {
+                    html = DiffReview._ttPolicy.createHTML(html);
+                }
+                cell.insertAdjacentHTML('beforeend', html);
                 lineContent = modifiedModel.getLineContent(modifiedLine);
             }
             else {
-                cell.insertAdjacentHTML('beforeend', this._renderLine(originalModel, originalOptions, originalModelOpts.tabSize, originalLine));
+                let html = this._renderLine(originalModel, originalOptions, originalModelOpts.tabSize, originalLine);
+                if (DiffReview._ttPolicy) {
+                    html = DiffReview._ttPolicy.createHTML(html);
+                }
+                cell.insertAdjacentHTML('beforeend', html);
                 lineContent = originalModel.getLineContent(originalLine);
             }
             if (lineContent.length === 0) {
@@ -631,6 +640,7 @@ export class DiffReview extends Disposable {
         return r.html;
     }
 }
+DiffReview._ttPolicy = (_a = window.trustedTypes) === null || _a === void 0 ? void 0 : _a.createPolicy('diffReview', { createHTML: value => value });
 // theming
 registerThemingParticipant((theme, collector) => {
     const lineNumbers = theme.getColor(editorLineNumbers);

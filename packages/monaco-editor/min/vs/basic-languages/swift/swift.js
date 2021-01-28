@@ -1,9 +1,3 @@
-/*!-----------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * monaco-languages version: 2.1.1(aec8eea5e854f01a5d1f1ccf919f4353fad3b7ad)
- * Released under the MIT license
- * https://github.com/Microsoft/monaco-languages/blob/master/LICENSE.md
- *-----------------------------------------------------------------------------*/
 /*!---------------------------------------------------------------------------------------------
  *  Copyright (C) David Owens II, owensd.io. All rights reserved.
  *--------------------------------------------------------------------------------------------*/

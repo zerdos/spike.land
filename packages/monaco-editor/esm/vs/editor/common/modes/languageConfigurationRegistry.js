@@ -593,7 +593,7 @@ export class LanguageConfigurationRegistryImpl {
                 appendText = '';
             }
         }
-        else if (indentAction === IndentAction.Indent) {
+        else if (indentAction === IndentAction.Indent || indentAction === IndentAction.IndentOutdent) {
             appendText = '\t' + appendText;
         }
         let indentation = this.getIndentationAtPosition(model, range.startLineNumber, range.startColumn);

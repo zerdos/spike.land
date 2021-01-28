@@ -870,6 +870,10 @@ export class ModifierKeyEmitter extends Emitter {
             metaKey: false
         };
         this._subscriptions.add(domEvent(document.body, 'keydown', true)(e => {
+            // if keydown event is repeated, ignore it #112347
+            if (e.repeat) {
+                return;
+            }
             const event = new StandardKeyboardEvent(e);
             if (e.altKey && !this._keyStatus.altKey) {
                 this._keyStatus.lastKeyPressed = 'alt';

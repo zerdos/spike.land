@@ -301,24 +301,24 @@ export function anyScore(pattern, lowPattern, _patternPos, word, lowWord, _wordP
     if (result) {
         return result;
     }
-    let matches = 0;
+    let matches = [];
     let score = 0;
     let idx = _wordPos;
     for (let patternPos = 0; patternPos < lowPattern.length && patternPos < _maxLen; ++patternPos) {
         const wordPos = lowWord.indexOf(lowPattern.charAt(patternPos), idx);
         if (wordPos >= 0) {
             score += 1;
-            matches += Math.pow(2, wordPos);
+            matches.unshift(wordPos);
             idx = wordPos + 1;
         }
-        else if (matches !== 0) {
+        else if (matches.length > 0) {
             // once we have started matching things
             // we need to match the remaining pattern
             // characters
             break;
         }
     }
-    return [score, _wordPos, matches];
+    return [score, _wordPos, ...matches];
 }
 //#region --- fuzzyScore ---
 export function createMatches(score) {

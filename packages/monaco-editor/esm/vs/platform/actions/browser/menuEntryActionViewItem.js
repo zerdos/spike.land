@@ -162,7 +162,9 @@ let MenuEntryActionViewItem = class MenuEntryActionViewItem extends ActionViewIt
             if (icon.dark) {
                 label.style.setProperty('--menu-entry-icon-dark', asCSSUrl(icon.dark));
             }
+            label.classList.add('icon');
             this._itemClassDispose.value = toDisposable(() => {
+                label.classList.remove('icon');
                 label.style.removeProperty('--menu-entry-icon-light');
                 label.style.removeProperty('--menu-entry-icon-dark');
             });
@@ -187,6 +189,7 @@ let SubmenuEntryActionViewItem = class SubmenuEntryActionViewItem extends Dropdo
             container.classList.add('menu-entry');
             const { icon } = this._action.item;
             if (icon && !ThemeIcon.isThemeIcon(icon)) {
+                this.element.classList.add('icon');
                 if (icon.light) {
                     this.element.style.setProperty('--menu-entry-icon-light', asCSSUrl(icon.light));
                 }
