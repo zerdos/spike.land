@@ -1,12 +1,10 @@
 /** @jsx jsx */
-import React from "react";
 
-import { css, jsx } from "@emotion/react";
-import { motion } from "framer-motion";
 import Fab from "@material-ui/core/Fab";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 import Slider from "@material-ui/core/Slider";
+import {render, React, jsx, css, motion} from "./renderer"
 // import CssBaseline from "@material-ui/core/CssBaseline";
 
 const breakPoints = [640, 750, 1024, 1920];

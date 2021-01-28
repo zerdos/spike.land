@@ -11,8 +11,8 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist .tsbuildinfo && deno fmt src",
-    "build:renderer": "esbuild src/renderer.ts --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=esnext --outfile=dist/renderer.js",
-    "build:draggableWindow": "esbuild src/DraggableWindow.tsx --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=esnext --outfile=dist/DraggableWindow.js",
+    "build:renderer": "esbuild src/renderer.ts --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.js",
+    "build:draggableWindow": "esbuild src/DraggableWindow.tsx --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/DraggableWindow.js",
     "prebuild": "yarn build:renderer && yarn build:draggableWindow && cp -rf dist/* ../code/modules/",
     "build": "echo done in prebuld"
   },
@@ -26,7 +26,6 @@
     "@emotion/react": "11.1.4",
     "@emotion/styled": "11.0.0",
     "@material-ui/core": "next",
-    "@material-ui/icons": "next",
     "framer-motion": "3.2.2-rc.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
