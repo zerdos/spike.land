@@ -1,3 +1,4 @@
+rm -rf packages/code/js/workers/shaSums.json
 find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"foo\":\"bar\" }"}' > cloudflare/code-zed-vision/src/shasums.ts;
 find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "{"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/js/workers/shaSums.json
 

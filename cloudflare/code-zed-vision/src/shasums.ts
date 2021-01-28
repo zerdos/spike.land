@@ -68,7 +68,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/shaSums.json":
-    "79f7b263409a2811f249f75f853db61c636635d3b64ecd053118f3b461570771",
+    "791fc4c86e47cb869add2df99ad18eddadd8c45d8088cc94a2525d11cb3f40d9",
   "js/workers/ipfsWorker.js":
     "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
   "js/workers/transpile.worker.js":
@@ -76,7 +76,7 @@ export const shasums = {
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
   "js/workers/fileCids.json":
-    "bc49df555b6fbecc2973ad396344f9c863aa65132cc1411cacc15c7c58bc6a4b",
+    "533b6fee79213df4f4f217cfd9c322288ce629e342903d06d157b7f3dd9c24ad",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":
