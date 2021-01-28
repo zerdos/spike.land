@@ -35,7 +35,7 @@ export const shasums = {
     "ccaaf26fa25b2424e7391281ce140d8fe20f8867583edbf33c653e6e46c15f1b",
   "modules/renderer.js":
     "cacbf0df6efde964c86ac8d7c021ef07d1a3e6b69c73dff3aa58d72a642f79fa",
-  "sw.js": "b3c970860fada297ad8e347c8fd08008fc305e38d669e2dc2374f04c8a2ad791",
+  "sw.js": "ed04a79589099576f3413ce1524e3a2fdeb10898574c965fbf4954f4990e6d91",
   ".tsBuildInfo":
     "b959dd225f64ff12384702455ccddc91e44ac0860b6984ab93026cf94313f923",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -142,7 +142,7 @@ export const shasums = {
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "index.html":
-    "534129b57a82a7bf4326f1a8e6b351bad64b46f92b1e5801528ffdffd5e3d934",
+    "0ff7acf96793e17a3149ddc4bb1a228d2273c8b81a6b09f1b4c93bb4a4491d9a",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   ".vscode/setttings.json":

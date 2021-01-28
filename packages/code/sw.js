@@ -7,7 +7,7 @@ const { cid, files } = globalThis;
 
 let currentCid = cid;
 
-const { pathname } = self.location;
+const { pathname, hostname } = self.location;
 
 if (pathname.indexOf("/ipfs/") !== -1) {
   currentCid = pathname.slice(6, 52);
@@ -42,7 +42,8 @@ if (cid === currentCid) {
         const fileName = pathname.slice(1);
         const fileCid = files[fileName];
 
-        const urlList = [url];
+
+        const urlList = [new URL(`https://code.zed.vision/ipfs/${currentCid}/${fileName}`)];
         if (fileCid) {
           urlList.push(new URL(`https://code.zed.vision/ipfs/${fileCid}`), new URL(`https://cf-ipfs.com/ipfs/${fileCid}`))
         }
@@ -56,7 +57,7 @@ if (cid === currentCid) {
     .then((files) => {
       const routes = Object.keys(files).filter((x) =>
         x.length && x.indexOf(".") !== -1
-      ).map((x) => ({ url: `/ipfs/${currentCid}/x`, revision: files[x] }));
+      ).map((x) => ({ url: `/ipfs/${currentCid}`, revision: files[x] }));
 
       self.workbox.precaching.precacheAndRoute(
         routes,

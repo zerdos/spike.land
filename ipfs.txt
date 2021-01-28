@@ -9,7 +9,7 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmZ28oywyBm2snCry73VCmPur51JX3hhdJh3tCQYRPDPtT code/index.html
+added Qmf8fqinceJbD9ZtoiJFn7cGfur86rdpH1jQ1NPUB2CwFa code/index.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
 added QmZtHq1QsjNjZ4rFF7bfg9AAadJqpY36XhjAnAvynNAQhw code/js/codeLoader.js
 added QmdzoaDrVt9tCJEEUnMub9EnJr5xwcRd6rgz7xXafwUyCA code/js/data.js
@@ -58,7 +58,7 @@ added QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7 code/js/starterTsx.tsx
 added QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe code/js/templates.js
 added QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD code/js/transpile.js
 added QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2 code/js/workers/ipfsWorker.js
-added QmNts2GukES76wUmkHwDGEv6gFyB157JrNpfoHXgsCfSrW code/js/workers/shaSums.json
+added QmU62jnM1KkLzaUGvdQ3E98AiLn7v3KPpmKJnBiPhpVP5C code/js/workers/shaSums.json
 added QmRoCjYQHCYLzC94rrp6EM6rpLoyPsmVVhAQZtgzLSSbp7 code/js/workers/transpile.worker.js
 added QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ code/js/workers/tsconfig.json
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
@@ -78,7 +78,7 @@ added QmRBevsDvKdofdKgReQKM3gCwqVn9kUTRXkW97GrsHLCmr code/node_legacy/stringify.
 added QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb code/node_legacy/v4.js
 added QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT code/node_legacy/validate.js
 added QmSEiphwNJtprTMk5YLNmWVkyPbP38rgoyzGKEdUn34GxF code/package.json
-added QmUWiq3UmVNnrU4nBHQyemGeL3TwoPtvRM8BiZRJRK8Vwf code/sw.js
+added QmYAXnZZhunkMrvuBPYKfYfwCdsiZnXdroP25N4L6Boh3v code/sw.js
 added QmUHwsx3is1DU1BNYHJxvvhSrCoD3rxDdhn4cgc6jYXFqB code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscode
@@ -90,11 +90,11 @@ added QmZcc5JirQ5ySPiELM4nJaVBLsKVL3vvNg2KE5uj7rGSr3 code/js/shadb/src/vendor
 added QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ code/js/shadb/src
 added QmRvKWGtua7uUxEUScccAU21Rr5qtvFM2Ka24X2bFoEuR4 code/js/shadb
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/js/workers/dist
-added QmRQzfi8BmEvwvTeRAYZQPTLGQscbHQPZHGcH3h9RF6WAr code/js/workers
-added QmbtaPfCc21N5FSEim1vpJxqyUAavzMZofURHNwfCpku5P code/js
+added Qmc5B73rA9GjpduNhayRxSB45ATgbZLuwjK2EEGrnpk5yp code/js/workers
+added QmexrYi4fR64cgw67LrFfUywZi7Ff6GDrajMsHD7ssqqYP code/js
 added QmaqSupFSBdv6sWiEBaSAEcjG7xEjfQesdJiGHDZJqLk8E code/modules/smart-monaco-editor/dist
 added QmbbBKPKVM5t7Vmy7qukzozoYwfxbyh2jqYa6DwVJM8uBn code/modules/smart-monaco-editor
 added QmS5tYneNd6fZ5bCU8KEB9Lo5XUeMBuvRN2S5XGZbeH8PU code/modules
 added QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R code/node_legacy/comlink
 added QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1 code/node_legacy
-added QmV7F4svufHxkjXhD9er5svGNYqRTVNA1Hi3hdbLWjxCtM code
+added QmdfkSUxiSEWpEQJaUcWAyuFoEH65E3cCn9ytQjezRFvSV code

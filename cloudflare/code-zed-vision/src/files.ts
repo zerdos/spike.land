@@ -16,7 +16,7 @@ export const files = {
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "QmZ28oywyBm2snCry73VCmPur51JX3hhdJh3tCQYRPDPtT",
+  "index.html": "Qmf8fqinceJbD9ZtoiJFn7cGfur86rdpH1jQ1NPUB2CwFa",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "js/codeLoader.js": "QmZtHq1QsjNjZ4rFF7bfg9AAadJqpY36XhjAnAvynNAQhw",
   "js/data.js": "QmdzoaDrVt9tCJEEUnMub9EnJr5xwcRd6rgz7xXafwUyCA",
@@ -80,7 +80,7 @@ export const files = {
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
   "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "QmNts2GukES76wUmkHwDGEv6gFyB157JrNpfoHXgsCfSrW",
+  "js/workers/shaSums.json": "QmU62jnM1KkLzaUGvdQ3E98AiLn7v3KPpmKJnBiPhpVP5C",
   "js/workers/transpile.worker.js":
     "QmRoCjYQHCYLzC94rrp6EM6rpLoyPsmVVhAQZtgzLSSbp7",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -109,7 +109,7 @@ export const files = {
   "node_legacy/v4.js": "QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb",
   "node_legacy/validate.js": "QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT",
   "package.json": "QmSEiphwNJtprTMk5YLNmWVkyPbP38rgoyzGKEdUn34GxF",
-  "sw.js": "QmUWiq3UmVNnrU4nBHQyemGeL3TwoPtvRM8BiZRJRK8Vwf",
+  "sw.js": "QmYAXnZZhunkMrvuBPYKfYfwCdsiZnXdroP25N4L6Boh3v",
   "tsconfig.json": "QmUHwsx3is1DU1BNYHJxvvhSrCoD3rxDdhn4cgc6jYXFqB",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
@@ -121,8 +121,8 @@ export const files = {
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmRvKWGtua7uUxEUScccAU21Rr5qtvFM2Ka24X2bFoEuR4",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "QmRQzfi8BmEvwvTeRAYZQPTLGQscbHQPZHGcH3h9RF6WAr",
-  "js": "QmbtaPfCc21N5FSEim1vpJxqyUAavzMZofURHNwfCpku5P",
+  "js/workers": "Qmc5B73rA9GjpduNhayRxSB45ATgbZLuwjK2EEGrnpk5yp",
+  "js": "QmexrYi4fR64cgw67LrFfUywZi7Ff6GDrajMsHD7ssqqYP",
   "modules/smart-monaco-editor/dist":
     "QmaqSupFSBdv6sWiEBaSAEcjG7xEjfQesdJiGHDZJqLk8E",
   "modules/smart-monaco-editor":
@@ -130,6 +130,6 @@ export const files = {
   "modules": "QmS5tYneNd6fZ5bCU8KEB9Lo5XUeMBuvRN2S5XGZbeH8PU",
   "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
   "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmV7F4svufHxkjXhD9er5svGNYqRTVNA1Hi3hdbLWjxCtM",
+  "": "QmdfkSUxiSEWpEQJaUcWAyuFoEH65E3cCn9ytQjezRFvSV",
   "foo": "bar",
 };
