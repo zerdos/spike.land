@@ -34,6 +34,8 @@ echo $URL
 
 # | awk '{print "echo " $2 " > "$3 ";"}' >cids/commands.sh
 cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "export const files = {"}{print $0}END{print " \"foo\":\"bar\" }"}' >  cloudflare/code-zed-vision/src/files.ts
+deno fmt cloudflare/code-zed-vision/src/files.ts  cloudflare/code-zed-vision/src/cid.ts
+
 
 # cp -r packages/code cids/code
 # cd cids && sh comma/nds.sh
