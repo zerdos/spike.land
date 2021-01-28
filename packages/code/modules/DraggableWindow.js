@@ -111,7 +111,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 vertical-align: middle;
                 display: inline-block;
                 width: 200px;
-          `},gt(Fh,{value:n,onChange:(c,f)=>{typeof f!="object"&&(c.stopPropagation(),o(f))},step:10,marks:u,min:30,max:250},n,"%")),gt(Lh,{variant:"extended",onClick:()=>{console.log(s.current.clientHeight),e()}},"Export")),gt(jv.div,{animate:{transformOrigin:"top right",width:i,scale:n/100},css:jn`  
+          `},gt(Fh,{value:n,onChange:(c,f)=>{typeof f!="object"&&(c.stopPropagation(),o(f))},step:10,marks:u,min:30,max:250},n,"%")),gt(Lh,{variant:"extended",onClick:()=>{console.log(s.current.clientHeight),e()}},"Publish")),gt(jv.div,{animate:{transformOrigin:"top right",width:i,scale:n/100},css:jn`  
             top: 60px;
             max-width: 100%;
             z-index: 10;

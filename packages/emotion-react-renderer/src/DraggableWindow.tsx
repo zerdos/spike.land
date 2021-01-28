@@ -121,7 +121,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             onShare();
           }}
         >
-          Export
+          Publish
         </Fab>
       </div>
       <motion.div
