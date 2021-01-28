@@ -102,7 +102,7 @@ export const shasums = {
   "js/codeLoader.js":
     "4225e76da10c6c876dbc1d2e75deed6b83e2970d7604a7f4fa9d75f84430b5c1",
   "js/openWindows.js":
-    "7373133d90fb9dd1c4ff38981ac1aa51992cf612208883d1f6199f8e3652adca",
+    "e5fc53efbbb0490246ff7076261c943c9c73553ae567dc5fdf20d198ef881ce7",
   "js/sendSignalToQrCode.js":
     "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
   "js/workers/ipfsWorker.js":
