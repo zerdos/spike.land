@@ -1,5 +1,5 @@
 import { getUserId } from "./data.js";
-import { sha256 } from "./shadb/src/sha256.js";
+import { sha256 } from "../modules/sha256.js";
 import { saveCode } from "./data.js";
 
 /**

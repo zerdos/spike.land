@@ -7,7 +7,7 @@ const { cid, files } = globalThis;
 
 let currentCid = cid;
 
-const { pathname, hostname } = self.location;
+const { pathname } = self.location;
 
 if (pathname.indexOf("/ipfs/") !== -1) {
   currentCid = pathname.slice(6, 52);

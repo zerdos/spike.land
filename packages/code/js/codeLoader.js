@@ -1,5 +1,5 @@
-import { sha256 } from "./shadb/src/sha256.js";
-import { diff } from "./shadb/src/diff.js";
+import { sha256 } from "../modules/sha256.js";
+import { diff } from "../modules/diff.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
 import { fetchSignal, sendSignal } from "./hash.js";

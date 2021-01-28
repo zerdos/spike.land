@@ -166,33 +166,18 @@
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
       },
-      "./js/shadb/src/sha256.js": {
-        "version": "4867914563a93849c3e414c4ba728ebfa48bbd71bfdbe05b6dbf42284fbd6369",
+      "./modules/sha256.d.ts": {
+        "version": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
         "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
         "affectsGlobalScope": false
       },
-      "./js/shadb/src/vendor/diffMin.js": {
-        "version": "4083719d03e7ba3db6d959811c90e2d0f5d1c3bebc1de389b07bfd3803734e02",
-        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/src/diff.js": {
-        "version": "08194010155dbb534dbf64aaf51c3ad0af972ce04936a98003b47ea75d4b0b56",
+      "./modules/diff.d.ts": {
+        "version": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
         "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
         "affectsGlobalScope": false
       },
-      "./js/shadb/src/vendor/idb.js": {
-        "version": "d8a8aa5f7adfad283311ece35f83b8b25760356d41c15cd69b08682287ea14bd",
-        "signature": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/src/getDbObj.js": {
-        "version": "f901cbc13ae33ec49796331f4561fe7a390da8e035a566bc16c44840527c45a9",
-        "signature": "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/src/shaDB.js": {
-        "version": "028bf3e22fa0f905b4c8d4b032bd72b6f16162f0f07f8cccee52354364f23090",
+      "./modules/shaDB.d.ts": {
+        "version": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
         "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
         "affectsGlobalScope": false
       },
@@ -212,12 +197,12 @@
         "affectsGlobalScope": false
       },
       "./js/share.js": {
-        "version": "0eedf99ee9db3f8bcfe861b42dc68069a3b619347eb32476d3a84befbb6d63be",
+        "version": "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
         "signature": "8cfc095f8a3a103d8fdfc6ed1a3bb0f34f6aff7e830b00792983fd490a2b538b",
         "affectsGlobalScope": false
       },
       "./js/data.js": {
-        "version": "4ea8e9b4c622c166501b235d2fc4f12bf86bc665fc13a14fca0cf251081aa93c",
+        "version": "b5ee12cb939f865d7c4dfcafb95c8198e37975d3b964fb7671b68eaaeda30e86",
         "signature": "fb26d64786caba2a0d3e923bba5aba6d0c695511f17859d4be3094adaf89bada",
         "affectsGlobalScope": false
       },
@@ -227,7 +212,7 @@
         "affectsGlobalScope": false
       },
       "./js/sendSignalToQrCode.js": {
-        "version": "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
+        "version": "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
         "signature": "baacf004b19e26fd386f5427f34f1faab3c22df69f9086e202d24832ba8b5531",
         "affectsGlobalScope": false
       },
@@ -257,13 +242,8 @@
         "affectsGlobalScope": false
       },
       "./js/codeLoader.js": {
-        "version": "19a4bb6e3206aba3a62ee656fa58b82735ae97db0b42a76725bfb289aab58436",
+        "version": "4225e76da10c6c876dbc1d2e75deed6b83e2970d7604a7f4fa9d75f84430b5c1",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
-        "affectsGlobalScope": false
-      },
-      "./js/db.js": {
-        "version": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": false
       },
       "./js/importScript.js": {
@@ -281,81 +261,6 @@
         "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
         "affectsGlobalScope": false
       },
-      "./js/shadb/dist/vendor/diffMin.d.ts": {
-        "version": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
-        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/sha256.d.ts": {
-        "version": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-        "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/diff.js": {
-        "version": "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
-        "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/diffChars.js": {
-        "version": "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
-        "signature": "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/diff.d.ts": {
-        "version": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-        "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/getDbObj.js": {
-        "version": "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
-        "signature": "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/sha256.js": {
-        "version": "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
-        "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/vendor/idb.d.ts": {
-        "version": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
-        "signature": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/getDbObj.d.ts": {
-        "version": "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
-        "signature": "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/shaDB.js": {
-        "version": "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
-        "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/vendor/diffChars.js": {
-        "version": "7d8f62c0ddf5f2abc2ddeae42f8a460853065d7da33005bbae97c504de3437ee",
-        "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/vendor/diffMin.js": {
-        "version": "43d1f239704c26af851b802d257b637dd7d9a8719ddb0f317ec3641e8801c88d",
-        "signature": "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/dist/vendor/idb.js": {
-        "version": "2aa52ffdf9a5ec1ee952b41dc54bd13822b3ddc67f531f4743154c75fc33b6a6",
-        "signature": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/src/diffChars.js": {
-        "version": "1fb4524349730817b14957d52a56899a05f40f0ea49c24b96e5149c3b6db56fc",
-        "signature": "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
-        "affectsGlobalScope": false
-      },
-      "./js/shadb/src/vendor/diffChars.js": {
-        "version": "b4162d007765561bb2c4d926566c3fbf27715f5deb70f7b987dd9a2f307e307d",
-        "signature": "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
-        "affectsGlobalScope": false
-      },
       "./js/workers/ipfsWorker.js": {
         "version": "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
         "signature": "69538fefbd1361b7ebfcd8bd0964a2dd1978841a8af062f798ae0d2305edda54",
@@ -367,8 +272,8 @@
         "affectsGlobalScope": true
       },
       "./sw.js": {
-        "version": "ed04a79589099576f3413ce1524e3a2fdeb10898574c965fbf4954f4990e6d91",
-        "signature": "7f17a3bcabd7bc0a2c46cf2ce2e958e55a64047a69f497a8797893b9a2a5111d",
+        "version": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
+        "signature": "8dceebe21eda4edb56e273006cb2e6c6b245c03846e631ef1449ebd5e157a456",
         "affectsGlobalScope": true
       }
     },
@@ -386,6 +291,7 @@
       ],
       "allowJs": true,
       "jsx": 4,
+      "outDir": "./dist",
       "tsBuildInfoFile": "./.tsBuildInfo",
       "noEmit": true,
       "types": [],
@@ -404,16 +310,16 @@
         "./js/openWindows.js",
         "./js/renderPreviewWindow.js",
         "./js/sendSignalToQrCode.js",
-        "./js/shadb/src/diff.js",
-        "./js/shadb/src/sha256.js",
         "./js/transpile.js",
+        "./modules/diff.d.ts",
+        "./modules/sha256.d.ts",
         "./modules/smart-monaco-editor/dist/editor.d.ts"
       ],
       "./js/data.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/shadb/src/sha256.js",
-        "./js/shadb/src/shaDB.js",
-        "./js/share.js"
+        "./js/share.js",
+        "./modules/sha256.d.ts",
+        "./modules/shaDB.d.ts"
       ],
       "./js/examples/starterNoFramerMotion.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -446,74 +352,14 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./js/data.js",
         "./js/hash.js",
-        "./js/shadb/src/sha256.js"
-      ],
-      "./js/shadb/dist/diff.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/shadb/dist/sha256.d.ts",
-        "./js/shadb/dist/vendor/diffMin.d.ts"
-      ],
-      "./js/shadb/dist/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/dist/getDbObj.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/shadb/dist/diff.d.ts",
-        "./js/shadb/dist/sha256.d.ts"
-      ],
-      "./js/shadb/dist/sha256.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/dist/shaDB.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/shadb/dist/getDbObj.d.ts",
-        "./js/shadb/dist/vendor/idb.d.ts"
-      ],
-      "./js/shadb/dist/vendor/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/dist/vendor/diffMin.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/dist/vendor/idb.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/src/diff.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/shadb/src/sha256.js",
-        "./js/shadb/src/vendor/diffMin.js"
-      ],
-      "./js/shadb/src/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/src/getDbObj.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/shadb/src/diff.js",
-        "./js/shadb/src/sha256.js"
-      ],
-      "./js/shadb/src/sha256.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/src/shaDB.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./js/shadb/src/getDbObj.js",
-        "./js/shadb/src/vendor/idb.js"
-      ],
-      "./js/shadb/src/vendor/diffChars.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/src/vendor/diffMin.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./js/shadb/src/vendor/idb.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "./modules/sha256.d.ts"
       ],
       "./js/share.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./js/ipfsClient.js",
-        "./js/shadb/src/sha256.js",
-        "./js/shadb/src/shaDB.js",
-        "./js/templates.js"
+        "./js/templates.js",
+        "./modules/sha256.d.ts",
+        "./modules/shaDB.d.ts"
       ],
       "./js/templates.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -562,7 +408,6 @@
       "../../node_modules/typescript/lib/lib.es5.d.ts",
       "./js/codeLoader.js",
       "./js/data.js",
-      "./js/db.js",
       "./js/examples/starterNoFramerMotion.js",
       "./js/examples/starter_framer.js",
       "./js/formatter.js",
@@ -572,33 +417,15 @@
       "./js/openWindows.js",
       "./js/renderPreviewWindow.js",
       "./js/sendSignalToQrCode.js",
-      "./js/shadb/dist/diff.d.ts",
-      "./js/shadb/dist/diff.js",
-      "./js/shadb/dist/diffChars.js",
-      "./js/shadb/dist/getDbObj.d.ts",
-      "./js/shadb/dist/getDbObj.js",
-      "./js/shadb/dist/sha256.d.ts",
-      "./js/shadb/dist/sha256.js",
-      "./js/shadb/dist/shaDB.js",
-      "./js/shadb/dist/vendor/diffChars.js",
-      "./js/shadb/dist/vendor/diffMin.d.ts",
-      "./js/shadb/dist/vendor/diffMin.js",
-      "./js/shadb/dist/vendor/idb.d.ts",
-      "./js/shadb/dist/vendor/idb.js",
-      "./js/shadb/src/diff.js",
-      "./js/shadb/src/diffChars.js",
-      "./js/shadb/src/getDbObj.js",
-      "./js/shadb/src/sha256.js",
-      "./js/shadb/src/shaDB.js",
-      "./js/shadb/src/vendor/diffChars.js",
-      "./js/shadb/src/vendor/diffMin.js",
-      "./js/shadb/src/vendor/idb.js",
       "./js/share.js",
       "./js/templates.js",
       "./js/transpile.js",
       "./js/workers/ipfsWorker.js",
       "./js/workers/transpile.worker.js",
+      "./modules/diff.d.ts",
       "./modules/ipfs.client.js",
+      "./modules/sha256.d.ts",
+      "./modules/shaDB.d.ts",
       "./modules/smart-monaco-editor/dist/editor.d.ts",
       "./sw.js"
     ],
@@ -608,7 +435,55 @@
         1
       ],
       [
+        "../../node_modules/typescript/lib/lib.dom.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.dom.iterable.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.collection.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.core.d.ts",
+        1
+      ],
+      [
         "../../node_modules/typescript/lib/lib.es2015.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.generator.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.promise.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2016.array.include.d.ts",
         1
       ],
       [
@@ -620,11 +495,71 @@
         1
       ],
       [
+        "../../node_modules/typescript/lib/lib.es2017.intl.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2017.object.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2017.string.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2018.asyncgenerator.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2018.asynciterable.d.ts",
+        1
+      ],
+      [
         "../../node_modules/typescript/lib/lib.es2018.d.ts",
         1
       ],
       [
+        "../../node_modules/typescript/lib/lib.es2018.intl.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2018.promise.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2018.regexp.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2019.array.d.ts",
+        1
+      ],
+      [
         "../../node_modules/typescript/lib/lib.es2019.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2019.object.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2019.string.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
+        1
+      ],
+      [
+        "../../node_modules/typescript/lib/lib.es5.d.ts",
         1
       ],
       [
@@ -780,7 +715,19 @@
         1
       ],
       [
+        "./modules/diff.d.ts",
+        1
+      ],
+      [
         "./modules/ipfs.client.js",
+        1
+      ],
+      [
+        "./modules/sha256.d.ts",
+        1
+      ],
+      [
+        "./modules/shaDB.d.ts",
         1
       ],
       [

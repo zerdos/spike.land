@@ -1,5 +1,5 @@
-import { shaDB } from "./shadb/src/shaDB.js";
-import { sha256 } from "./shadb/src/sha256.js";
+import { shaDB } from "../modules/shaDB.js";
+import { sha256 } from "../modules/sha256.js";
 import { ipfsClient } from "./ipfsClient.js";
 
 /**
