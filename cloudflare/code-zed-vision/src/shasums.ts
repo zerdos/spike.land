@@ -73,8 +73,6 @@ export const shasums = {
     "6012fdbfd41db27e9bc5abe1c764897a985ad09ef4e4645769fea741ff0c284b",
   "js/workers/tsconfig.json":
     "6bcc7b2ec4243f6bdacf8323746abd640f3d98e4e164b0a1617d6d760eca8ec8",
-  "js/workers/fileCids.json":
-    "7c0c4d74df42a0b203a158c6ea646531f4c42581af9277aa8cc92ea98d10bf2f",
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/importScript.js":
