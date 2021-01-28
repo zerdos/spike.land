@@ -181,31 +181,6 @@
         "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
         "affectsGlobalScope": false
       },
-      "./node_legacy/rng.js": {
-        "version": "5b409e33c343f7bef5d0d39689575dba7b22e3de13b1799388ee636d4e0adc5d",
-        "signature": "8a57a361e1c00ef0ee97a851599e81a868a5b7e6aafc85657b2e458f29a4e473",
-        "affectsGlobalScope": false
-      },
-      "./node_legacy/regex.js": {
-        "version": "588085eac134e133ca4e3186299ab663ee479c4ceb7e7c43abaadbb17056e2d4",
-        "signature": "6e3c84675fd73bd46789621567357e69a3c9aac6b1a92a52232c5b5d77044262",
-        "affectsGlobalScope": false
-      },
-      "./node_legacy/validate.js": {
-        "version": "5e1fd0815d1716f660416ab6152889f7bd8786db6bd35e6dc42e0be396aabce9",
-        "signature": "931c1c8b462c5cae0b58438e6ff2ba4534a3e82c7f504aaaf52a481fe024119a",
-        "affectsGlobalScope": false
-      },
-      "./node_legacy/stringify.js": {
-        "version": "62988dd8c0b632da4eada03ad7b41365903c96930e01417ac8aa0ec255293637",
-        "signature": "f6a4e105dfc9e9af071ecba39daa242f6d0d771bcbb89544628d77ced4a2998c",
-        "affectsGlobalScope": false
-      },
-      "./node_legacy/v4.js": {
-        "version": "20ec0b2fe1ac4fe061ae8804f15f2e110d782f29709f8d2d55dc966b81f4fd13",
-        "signature": "1775551aec3cad1f70e4f4e7ccb2c4b5078772fb5cab4292a09f61c6dcb28276",
-        "affectsGlobalScope": false
-      },
       "./js/shadb/src/vendor/idb.js": {
         "version": "d8a8aa5f7adfad283311ece35f83b8b25760356d41c15cd69b08682287ea14bd",
         "signature": "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
@@ -242,7 +217,7 @@
         "affectsGlobalScope": false
       },
       "./js/data.js": {
-        "version": "cc99aace7cc56dc4fd3ea591b9c8205b944b4d4fc6953ac4b2cd2b07c3d41436",
+        "version": "4ea8e9b4c622c166501b235d2fc4f12bf86bc665fc13a14fca0cf251081aa93c",
         "signature": "fb26d64786caba2a0d3e923bba5aba6d0c695511f17859d4be3094adaf89bada",
         "affectsGlobalScope": false
       },
@@ -261,18 +236,13 @@
         "signature": "b4f1bf90bff0c83fea60eb6f5c9f49457bdd94f9e8a0ac7c856d2103d4dfd8d7",
         "affectsGlobalScope": false
       },
-      "./node_legacy/simple-window-manager.es.js": {
-        "version": "47b3562229b947845e4d9b2724242a682d2d6b7cc935c3801e23f0de21678e00",
-        "signature": "532996bc0a50dfc6b68a03c5a5dae4ae947518c7d0b318257277e6fde3f1bb95",
-        "affectsGlobalScope": false
-      },
       "./js/openWindows.js": {
-        "version": "10f0f5a33709dded753a4993fb7f332d265636ae2238e1de534661543ce32581",
+        "version": "7373133d90fb9dd1c4ff38981ac1aa51992cf612208883d1f6199f8e3652adca",
         "signature": "a593a3e3bc43b890da9a5ee27fbd683359d233cb84c7faf9d612b2d24429ddad",
         "affectsGlobalScope": false
       },
       "./js/transpile.js": {
-        "version": "7cd43a701f4f7e4e7b5d89b5c1c371707c37410263c7282d6e3f2b8c016172f8",
+        "version": "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
         "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
@@ -443,8 +413,7 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./js/shadb/src/sha256.js",
         "./js/shadb/src/shaDB.js",
-        "./js/share.js",
-        "./node_legacy/v4.js"
+        "./js/share.js"
       ],
       "./js/examples/starterNoFramerMotion.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -467,8 +436,7 @@
         "./modules/ipfs.client.js"
       ],
       "./js/openWindows.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_legacy/simple-window-manager.es.js"
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./js/renderPreviewWindow.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -555,28 +523,6 @@
       ],
       "./modules/ipfs.client.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./node_legacy/regex.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./node_legacy/rng.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./node_legacy/simple-window-manager.es.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
-      ],
-      "./node_legacy/stringify.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_legacy/validate.js"
-      ],
-      "./node_legacy/v4.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_legacy/rng.js",
-        "./node_legacy/stringify.js"
-      ],
-      "./node_legacy/validate.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts",
-        "./node_legacy/regex.js"
       ]
     },
     "exportedModulesMap": {},
@@ -654,12 +600,6 @@
       "./js/workers/transpile.worker.js",
       "./modules/ipfs.client.js",
       "./modules/smart-monaco-editor/dist/editor.d.ts",
-      "./node_legacy/regex.js",
-      "./node_legacy/rng.js",
-      "./node_legacy/simple-window-manager.es.js",
-      "./node_legacy/stringify.js",
-      "./node_legacy/v4.js",
-      "./node_legacy/validate.js",
       "./sw.js"
     ],
     "affectedFilesPendingEmit": [
@@ -845,30 +785,6 @@
       ],
       [
         "./modules/smart-monaco-editor/dist/editor.d.ts",
-        1
-      ],
-      [
-        "./node_legacy/regex.js",
-        1
-      ],
-      [
-        "./node_legacy/rng.js",
-        1
-      ],
-      [
-        "./node_legacy/simple-window-manager.es.js",
-        1
-      ],
-      [
-        "./node_legacy/stringify.js",
-        1
-      ],
-      [
-        "./node_legacy/v4.js",
-        1
-      ],
-      [
-        "./node_legacy/validate.js",
         1
       ],
       [

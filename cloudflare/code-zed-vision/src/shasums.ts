@@ -37,16 +37,16 @@ export const shasums = {
     "cacbf0df6efde964c86ac8d7c021ef07d1a3e6b69c73dff3aa58d72a642f79fa",
   "sw.js": "ed04a79589099576f3413ce1524e3a2fdeb10898574c965fbf4954f4990e6d91",
   ".tsBuildInfo":
-    "b959dd225f64ff12384702455ccddc91e44ac0860b6984ab93026cf94313f923",
+    "52f108e5f493df128a781c52046985cb8a45c1b9369de7d97e54179646939df8",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/ipfsClient.js":
     "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
   "js/transpile.js":
-    "7cd43a701f4f7e4e7b5d89b5c1c371707c37410263c7282d6e3f2b8c016172f8",
+    "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/data.js":
-    "cc99aace7cc56dc4fd3ea591b9c8205b944b4d4fc6953ac4b2cd2b07c3d41436",
+    "4ea8e9b4c622c166501b235d2fc4f12bf86bc665fc13a14fca0cf251081aa93c",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/examples/starterNoFramerMotion.js":
@@ -64,7 +64,7 @@ export const shasums = {
   "js/db.js":
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "js/openWindows.js":
-    "10f0f5a33709dded753a4993fb7f332d265636ae2238e1de534661543ce32581",
+    "7373133d90fb9dd1c4ff38981ac1aa51992cf612208883d1f6199f8e3652adca",
   "js/sendSignalToQrCode.js":
     "eebd7ca5633a819dea428fdb6d01acd5e0c1cc69903902723c29f67f31b6909a",
   "js/workers/ipfsWorker.js":
@@ -87,12 +87,12 @@ export const shasums = {
     "4867914563a93849c3e414c4ba728ebfa48bbd71bfdbe05b6dbf42284fbd6369",
   "js/shadb/src/getDbObj.js":
     "f901cbc13ae33ec49796331f4561fe7a390da8e035a566bc16c44840527c45a9",
+  "js/shadb/src/vendor/idb.js":
+    "d8a8aa5f7adfad283311ece35f83b8b25760356d41c15cd69b08682287ea14bd",
   "js/shadb/src/vendor/diffChars.js":
     "b4162d007765561bb2c4d926566c3fbf27715f5deb70f7b987dd9a2f307e307d",
   "js/shadb/src/vendor/diffMin.js":
     "4083719d03e7ba3db6d959811c90e2d0f5d1c3bebc1de389b07bfd3803734e02",
-  "js/shadb/src/vendor/idb.js":
-    "d8a8aa5f7adfad283311ece35f83b8b25760356d41c15cd69b08682287ea14bd",
   "js/shadb/src/diff.js":
     "08194010155dbb534dbf64aaf51c3ad0af972ce04936a98003b47ea75d4b0b56",
   "js/shadb/src/diffChars.js":
@@ -103,38 +103,38 @@ export const shasums = {
     "2c8a794b37626e56ab43db3d7b6232a8a9dda9702142fb8a67d19caf2d6f7a89",
   "js/shadb/tsconfig.tsbuildinfo":
     "f1803618f101a29713e9dc9f6fc6ae7b91089b15eeaf7db2f8265db88e01fe5c",
-  "js/shadb/dist/getDbObj.js":
-    "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
-  "js/shadb/dist/diffChars.js":
-    "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
-  "js/shadb/dist/diffChars.d.ts":
-    "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
-  "js/shadb/dist/shaDB.d.ts":
-    "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
-  "js/shadb/dist/diff.d.ts":
-    "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-  "js/shadb/dist/diff.js":
-    "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
-  "js/shadb/dist/vendor/idb.js":
-    "2aa52ffdf9a5ec1ee952b41dc54bd13822b3ddc67f531f4743154c75fc33b6a6",
   "js/shadb/dist/vendor/diffMin.js":
     "43d1f239704c26af851b802d257b637dd7d9a8719ddb0f317ec3641e8801c88d",
-  "js/shadb/dist/vendor/idb.d.ts":
-    "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
   "js/shadb/dist/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
+  "js/shadb/dist/vendor/idb.d.ts":
+    "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
   "js/shadb/dist/vendor/diffMin.d.ts":
     "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
   "js/shadb/dist/vendor/diffChars.js":
     "7d8f62c0ddf5f2abc2ddeae42f8a460853065d7da33005bbae97c504de3437ee",
-  "js/shadb/dist/getDbObj.d.ts":
-    "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
+  "js/shadb/dist/vendor/idb.js":
+    "2aa52ffdf9a5ec1ee952b41dc54bd13822b3ddc67f531f4743154c75fc33b6a6",
   "js/shadb/dist/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "js/shadb/dist/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+  "js/shadb/dist/getDbObj.d.ts":
+    "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
+  "js/shadb/dist/shaDB.d.ts":
+    "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
+  "js/shadb/dist/diff.d.ts":
+    "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+  "js/shadb/dist/getDbObj.js":
+    "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "js/shadb/dist/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
+  "js/shadb/dist/diffChars.js":
+    "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
+  "js/shadb/dist/diff.js":
+    "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
+  "js/shadb/dist/diffChars.d.ts":
+    "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "js/shadb/package.json":
     "a501640100e497e99c3882493f6fd2c1888b877b8e45a0a1f7484e9ef9729ddc",
   "manifest.json":
@@ -149,22 +149,6 @@ export const shasums = {
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
     "2c2adca9ab483ac48b9ee8bb10de536e7e1e4f017499e05855e990f90d925e81",
-  "node_legacy/stringify.js":
-    "62988dd8c0b632da4eada03ad7b41365903c96930e01417ac8aa0ec255293637",
-  "node_legacy/validate.js":
-    "5e1fd0815d1716f660416ab6152889f7bd8786db6bd35e6dc42e0be396aabce9",
-  "node_legacy/regex.js":
-    "588085eac134e133ca4e3186299ab663ee479c4ceb7e7c43abaadbb17056e2d4",
-  "node_legacy/simple-window-manager.es.js":
-    "47b3562229b947845e4d9b2724242a682d2d6b7cc935c3801e23f0de21678e00",
-  "node_legacy/rng.js":
-    "5b409e33c343f7bef5d0d39689575dba7b22e3de13b1799388ee636d4e0adc5d",
-  "node_legacy/comlink/comlink.min.mjs":
-    "04d9d2cec4361d0669d57a63e239f55d0d733dd10dd389f2ff0303041809f129",
-  "node_legacy/comlink/comlink.min.js":
-    "ae961b11f46fcf22eb5bd9091040cc9dd93247ca44e0bcd157dc3bb4787f2730",
-  "node_legacy/v4.js":
-    "20ec0b2fe1ac4fe061ae8804f15f2e110d782f29709f8d2d55dc966b81f4fd13",
   "tsconfig.json":
     "e92790478f94364562031b41214b5909e49e4ed7171767f078369485ad7dc13f",
   "foo": "bar",

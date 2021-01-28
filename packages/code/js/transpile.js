@@ -1,4 +1,4 @@
-import { wrap } from "../node_legacy/comlink/comlink.min.mjs";
+import { wrap } from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.min.mjs";
 
 const { pathname } = window.location;
 

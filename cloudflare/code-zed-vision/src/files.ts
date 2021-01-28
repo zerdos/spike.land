@@ -19,7 +19,7 @@ export const files = {
   "index.html": "Qmf8fqinceJbD9ZtoiJFn7cGfur86rdpH1jQ1NPUB2CwFa",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
   "js/codeLoader.js": "QmZtHq1QsjNjZ4rFF7bfg9AAadJqpY36XhjAnAvynNAQhw",
-  "js/data.js": "QmdzoaDrVt9tCJEEUnMub9EnJr5xwcRd6rgz7xXafwUyCA",
+  "js/data.js": "QmULUYsEp9ozzRkXgo3G9KbqiDvHhmvKq6AnbRd6HGfmKa",
   "js/db.js": "QmbFMke1KXqnYyBBWxB74N4c5SBnJMVAiMNRcGu6x1AwQH",
   "js/examples/app.tsx": "QmZhGjVVHez2TSGnX8Ho81uyPQa8oT6rvGaF5hL14QfehY",
   "js/examples/starterNoFramerMotion.js":
@@ -31,7 +31,7 @@ export const files = {
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "js/ipfsClient.js": "QmXeKE5HoAVixTnjFvWSUjd9nu66ebBPyjMctkAdYMGZUJ",
-  "js/openWindows.js": "QmRFXB57XQqNfJafKifWBJaNiqauyrx2YzrQagmF49vfRB",
+  "js/openWindows.js": "QmSzxGPaKibPaMwWksC8mvkAJoMKqSKwonEvX4JAmvRGDx",
   "js/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "js/renderPreviewWindow.js": "QmbHRPQnA8nBznVubMWhcZ4xvTrB4uXRsjY18pTz95F8yi",
   "js/sendSignalToQrCode.js": "QmbPW349Hw2pWWbHnVuiyem8Dc6zSqD1kPzLCVPeLnGpgL",
@@ -78,9 +78,9 @@ export const files = {
   "js/share.js": "QmTqK8JZfiPdnnfdX77Zt3HP7Qwj8brv5GS25v59ETb3So",
   "js/starterTsx.tsx": "QmQ9AHQxPPsDqonKSH5q5zHeiHHSds2P7gcmUVEWkm4QW7",
   "js/templates.js": "QmNpYwDZDz8N8RMvdandhhdmNhcMz8N5rSPshyo7HUb6Xe",
-  "js/transpile.js": "QmSENDhisYxfU2CAarCoJmvqTV5X1g41AkcKDXxxPn87LD",
+  "js/transpile.js": "QmQRJPpTNznUXhu7QgpyZJC3KTHNwbL7qYU3XaJdyUBGiF",
   "js/workers/ipfsWorker.js": "QmP4dWhdmeTkb5RCntaTivVPCedE9KMC8nij4AwiMkfUE2",
-  "js/workers/shaSums.json": "QmU62jnM1KkLzaUGvdQ3E98AiLn7v3KPpmKJnBiPhpVP5C",
+  "js/workers/shaSums.json": "QmYLjo9xzUEe8YcuKkog4KeNfXK4uhWfD1wZb4y9MC2unY",
   "js/workers/transpile.worker.js":
     "QmRoCjYQHCYLzC94rrp6EM6rpLoyPsmVVhAQZtgzLSSbp7",
   "js/workers/tsconfig.json": "QmNt8xKcRnN8TVbPqU9kNwUPNy7tinifkhWe8ADPTSVCvJ",
@@ -97,17 +97,6 @@ export const files = {
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "modules/smart-monaco-editor/dist/monaco.js":
     "QmQK21bMD1MG4rqfjvPh4vCxjGF83tRSKUhRcieq6Rt8Kn",
-  "node_legacy/comlink/comlink.min.js":
-    "QmQzvUvopsHv6N1mhbQpVVT6PwZj9zLJUE4L4BA3CxCwrQ",
-  "node_legacy/comlink/comlink.min.mjs":
-    "QmUsHbNdKZvSFn4ApwxVeYTYV8DJTe3HdDkjvi9ZExUn9Y",
-  "node_legacy/regex.js": "QmW6Zb7r6mgzB4j2XMMFUToUfcHEbfHFwdZ9X31DSuJuZE",
-  "node_legacy/rng.js": "Qma7h4zLfzavfQ5XWHVmdPgXEMT5tZE9o9syWfHQfRjzdS",
-  "node_legacy/simple-window-manager.es.js":
-    "QmSkRETmFZ3t2dzUsPoeTS5o4MMkS5csX5hHJeEERsCrrv",
-  "node_legacy/stringify.js": "QmRBevsDvKdofdKgReQKM3gCwqVn9kUTRXkW97GrsHLCmr",
-  "node_legacy/v4.js": "QmQmbGmvapVDYZ4A7NFBcXMuckrBin9GG7eCzjq6JFX1Cb",
-  "node_legacy/validate.js": "QmPFsS1CAfre1T5H9pqhRuDX387xhZjdPghLpMY7uKx8vT",
   "package.json": "QmSEiphwNJtprTMk5YLNmWVkyPbP38rgoyzGKEdUn34GxF",
   "sw.js": "QmYAXnZZhunkMrvuBPYKfYfwCdsiZnXdroP25N4L6Boh3v",
   "tsconfig.json": "QmUHwsx3is1DU1BNYHJxvvhSrCoD3rxDdhn4cgc6jYXFqB",
@@ -121,15 +110,13 @@ export const files = {
   "js/shadb/src": "QmQqL9VeFmzKpNiihj8AuLZ7ngMn2w1Yi8AkzU78CUJvfJ",
   "js/shadb": "QmRvKWGtua7uUxEUScccAU21Rr5qtvFM2Ka24X2bFoEuR4",
   "js/workers/dist": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "js/workers": "Qmc5B73rA9GjpduNhayRxSB45ATgbZLuwjK2EEGrnpk5yp",
-  "js": "QmexrYi4fR64cgw67LrFfUywZi7Ff6GDrajMsHD7ssqqYP",
+  "js/workers": "QmZqy48JMycgdHi46kHJNdrnbQpapDh91NotQW2cPKRR4f",
+  "js": "QmQzVh2aK2SkgitsU8VqWWf9C1rFJU6xs92jBk4omnsnuJ",
   "modules/smart-monaco-editor/dist":
     "QmaqSupFSBdv6sWiEBaSAEcjG7xEjfQesdJiGHDZJqLk8E",
   "modules/smart-monaco-editor":
     "QmbbBKPKVM5t7Vmy7qukzozoYwfxbyh2jqYa6DwVJM8uBn",
   "modules": "QmS5tYneNd6fZ5bCU8KEB9Lo5XUeMBuvRN2S5XGZbeH8PU",
-  "node_legacy/comlink": "QmZHtMFozWJWWpF8ZZ3kgcTpidCfJN3cuqMYKEG1ox2h3R",
-  "node_legacy": "QmNoZtDYyXxNjTox7yyMGtNTxuyWCFTC779hsSbSK5rtQ1",
-  "": "QmdfkSUxiSEWpEQJaUcWAyuFoEH65E3cCn9ytQjezRFvSV",
+  "": "QmTuUVd1LneJA5hJJCWh2BnEkJ5tB1sddBjVFbVEDpCEaD",
   "foo": "bar",
 };
