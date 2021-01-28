@@ -3,10 +3,9 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
-    "packages/code",
+    "packages/*",
     "cloudflare/zed-vision",
     "cloudflare/code-zed-vision",
-    "packages/code/js/shadb",
-    "packages/zed-vision-site"
+    "packages/code/js/shadb"
   ]
 }
