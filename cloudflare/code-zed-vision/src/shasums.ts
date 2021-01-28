@@ -38,7 +38,7 @@ export const shasums = {
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/DraggableWindow.js":
-    "5c8ea99244276c2af46b996bd92293b3e0cff43ddc932161b68cefe28da36012",
+    "a544f2ddc4e06173f2c31e0bb96b101518c6bf5122f575482a7863ca9149365d",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/ipfs.client.js":
@@ -66,7 +66,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "cacbf0df6efde964c86ac8d7c021ef07d1a3e6b69c73dff3aa58d72a642f79fa",
+    "b4baea21ffb9ae7b730e7b8697982b72fc318e0528ac50cfbc6dc79f503e0581",
   "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
   ".tsBuildInfo":
     "4046754c85ba2184deed639361d9456800a784cadee8dd587e1b8d58f9149a60",
