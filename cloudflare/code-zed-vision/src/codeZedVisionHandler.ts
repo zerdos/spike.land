@@ -143,11 +143,24 @@ async function handleRequest(request: Request) {
     });
   }
   //@ts-ignore
-  if (files[pathname.slice(1)]) {
-    url.pathname = "/ipfs/" + cid + pathname;
+  if (files[pathname.slice(1)] || pathname === "/") {
+    url.pathname = "/ipfs/" + cid + pathname === "/" ? "/index.html" : pathname;
 
-    const req = new Request(url.toString());
-    const resp: Response = await handleRequest(req);
+    const req1 = new Request(url.toString());
+
+    //@ts-ignore
+    let fileCid = files[pathname.slice(1)];
+    if (pathname === "/") {
+      fileCid = files["index.html"];
+    }
+
+    url.pathname = "/ipfs/" + fileCid;
+    const req2 = new Request(url.toString());
+
+    const resp: Response = await raceToSuccess([
+      handleRequest(req2),
+      handleRequest(req2),
+    ]);
 
     resp.headers.delete("cache-control");
     return resp;
