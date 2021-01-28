@@ -44,7 +44,7 @@ export const shasums = {
   "modules/ipfs.client.js":
     "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
   "modules/smart-monaco-editor/dist/monaco.js":
-    "96e441039d322760d4c0f12c26f8d8376ce4ffd763d957452b0c0efa6911d59d",
+    "763fb40cad64089b4220a92580b2cc933b0b83373438ed6e89253c75a6750d8f",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
@@ -124,7 +124,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "ea81912fa822e8440cafd14b6b650e3c32d13883058a7a100791ff7efd3ff084",
+    "aa80c9da0f6e1c2225f5064e33a3a7751f364bccf57f0a35f0c9ca1447732099",
   "tsconfig.json":
     "1ca38cf88d9ae0ede84b6b903f629ee7532a1403bd1ff5045ea62c854aea9207",
   "foo": "bar",
