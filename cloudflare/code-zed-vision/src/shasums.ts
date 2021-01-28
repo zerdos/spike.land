@@ -124,7 +124,7 @@ export const shasums = {
   ".vscode/setttings.json":
     "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
   "package.json":
-    "c8fb3a71f568fa2d06d456cf86a2b9446bc862c9ca14911b662e0f7bcd58f7cc",
+    "ea81912fa822e8440cafd14b6b650e3c32d13883058a7a100791ff7efd3ff084",
   "tsconfig.json":
     "1ca38cf88d9ae0ede84b6b903f629ee7532a1403bd1ff5045ea62c854aea9207",
   "foo": "bar",
