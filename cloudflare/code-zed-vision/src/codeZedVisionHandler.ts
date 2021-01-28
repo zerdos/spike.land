@@ -203,13 +203,13 @@ function text(resp: string) {
   });
 }
 
-async function fetchCid(path: string) {
+async function fetchCid(path: string, retry = 3) {
   const random5GatewaysFetch = publicIpfsGateways.sort(() =>
     0.5 - Math.random()
   )
     .slice(0, 5).map((gw: string) => gw.replace("/ipfs/:hash", path))
     .map((x: string) =>
-      fetch(x).then((res) =>
+      fetchWithTimeout(x, { timeout: 5000 }).then((res) =>
         res.status === 200 ? res : (() => {
           res.arrayBuffer();
           throw new Error("Not found");
@@ -217,5 +217,29 @@ async function fetchCid(path: string) {
       )
     );
 
+  try {
+    const res = raceToSuccess(random5GatewaysFetch);
+  } catch {
+    if (retry > 0) return fetchCid(path, retry - 1);
+    return text("404- cant fetch cid  ");
+  }
   return raceToSuccess(random5GatewaysFetch);
+}
+
+async function fetchWithTimeout(
+  resource: string,
+  options: { timeout: number },
+) {
+  const { timeout = 8000 } = options;
+
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeout);
+
+  const response = await fetch(resource, {
+    ...options,
+    signal: controller.signal,
+  });
+  clearTimeout(id);
+
+  return response;
 }
