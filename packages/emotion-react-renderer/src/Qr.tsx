@@ -11,12 +11,12 @@ export const QR: React.FC<{ url: string }> = ({ url }) => {
       foregroundAlpha: 0.9,
       foreground: "white",
       backgroundAlpha: 1,
-      padding: 10,
+      padding: 16,
       background: "black",
       value: url,
     };
 
-    const qr = new QRious({ options });
+    const qr = new QRious(options);
   }, [url]);
 
   return <canvas ref={canvasRef} />;

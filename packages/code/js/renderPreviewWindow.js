@@ -49,6 +49,7 @@ export async function renderPreviewWindow(
   render(
     jsx(DraggableWindow, {
       onShare,
+      session,
       position: session.mode === "window" ? "fixed" : "absolute",
     }),
     preview,

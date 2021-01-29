@@ -65,7 +65,7 @@ export const shasums = {
   "js/formatter.js":
     "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
   "js/renderPreviewWindow.js":
-    "ce5f9eb07681822cfcbb4fab375bc50edc43dabc3ae1fb02febf37ecfe90a3bd",
+    "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "index.html":
     "0ff7acf96793e17a3149ddc4bb1a228d2273c8b81a6b09f1b4c93bb4a4491d9a",
   "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
@@ -86,7 +86,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "d715969e91f69d19abfd9f11abc18241a5e3a831d03ded2ce706b86e9029d244",
+    "930213543945f4bfe9b9b35dfe9cdc25d7d1ce3b6bdf4f4a9e5d3ed388d46a12",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/chunk.XO652423.js":
@@ -120,7 +120,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/DraggableWindow.js":
-    "1f7ea1cc792e1abc62b43c1277411674e3eec357df54870d888e9aa4fc2e89c5",
+    "b4a1dc8aa318f27fd62639615e31eea9f7ab333d5563a925946c31e9b3b3e033",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/chunk.Q5D4IXJD.js":
