@@ -92,7 +92,7 @@ export const shasums = {
   "js/examples/starterNoFramerMotion.js":
     "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "js/examples/app.tsx":
-    "bd5d004188179ec9c79cea27c2e8d6b6d257b152fe9b8f9b386bff94ae5fd836",
+    "8b94eabfe26d75eb6a0dae70cc799f40385a5f00229206295b1cd153c5b6abb4",
   "js/formatter.js":
     "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
   "js/refs.d.ts":
