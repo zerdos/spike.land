@@ -38,7 +38,7 @@
 "modules/diffChars.d.ts": "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
 "modules/renderer.js": "05fb8046e0a9dbd6053cdb8274294be77cc83e29ea1133316f53c9bd181ddf1a",
 "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
-".tsBuildInfo": "c17b5f3005bd47d4e7c67253d0cb4bc55d2b397be6e5bf2491b4087b3d20509b",
+".tsBuildInfo": "e49219d1bd7db6a118f4c081a70587bf0571ca1e350dfc070df10c7c335bda08",
 ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
 "js/ipfsClient.js": "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
 "js/transpile.js": "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
@@ -67,6 +67,6 @@
 "index.html": "0ff7acf96793e17a3149ddc4bb1a228d2273c8b81a6b09f1b4c93bb4a4491d9a",
 ".vscode/settings.json": "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
 ".vscode/setttings.json": "ae73e26abbf67ca548d5c02075e1b32f7ef7e355dac0786724e1e13849519ae7",
-"package.json": "aa80c9da0f6e1c2225f5064e33a3a7751f364bccf57f0a35f0c9ca1447732099",
+"package.json": "bd2f4c88ada34c09e5afb43d454bb1a42dc9845e0988f7c773e692cb5d7b93fe",
 "tsconfig.json": "1ca38cf88d9ae0ede84b6b903f629ee7532a1403bd1ff5045ea62c854aea9207",
  "foo":"bar" }
