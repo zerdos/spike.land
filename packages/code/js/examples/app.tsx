@@ -5,7 +5,9 @@ const Hello = () => {
   const [color, setColor] = useState("white");
 
   return (
-    <div css={`color: ${color}`}>
+    <div css={`
+          color: ${color}
+        `}>
       <h1>Hello World!</h1>
       <label>
         You can change the color:
@@ -23,12 +25,12 @@ export default () => (
   <>
     <Global
       styles={`
-      body{
-        background: deeppink;
-        color: white;
-        padding: 0 16px;
-        margin: 0;
-        overflow: overlay;
+        body{
+          background: deeppink;
+          color: white;
+          padding: 0 16px;
+          margin: 0;
+          overflow: overlay;
         }  
     `}
     />
