@@ -444,7 +444,7 @@ function re(e, r, a, c, n, t, s, u, i) {
             b = 0;
 
           case 59 + o:
-            if (h > 0) O(h > 32 ? ne(z + ";", c, a, l - 1) : ne(y(z, " ", "") + ";", c, a, l - 2), i);
+            if (h > 0 && A(z) - l) O(h > 32 ? ne(z + ";", c, a, l - 1) : ne(y(z, " ", "") + ";", c, a, l - 2), i);
             break;
 
           case 59:
@@ -2218,4 +2218,4 @@ module.exports = hoistNonReactStatics;
 /***/ })
 
 }]);
-//# sourceMappingURL=commons-2bad0b1faf72b21d3bd6.js.map
+//# sourceMappingURL=commons-d2a2481902bd9bd2048f.js.map
