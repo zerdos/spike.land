@@ -5172,9 +5172,9 @@ content-type@^1.0.4, content-type@~1.0.4:
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
 contentful-management@^7.5.1:
-  version "7.5.3"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.5.3.tgz#3adcea59944a8cdd6e5f53d3f91db0ff1114736a"
-  integrity sha512-CBOXgfRsm5GmVED38ny0rz4pLdPk0P5G1FZpaBNTxyjCLH7Vsarqak0ysGSezbG9LtuUa5W0jFKyqv74tSYSRA==
+  version "7.5.4"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.5.4.tgz#43ab22c5ebc1c733c549bea0a3146249c6d569f5"
+  integrity sha512-EYBX3HJTVa7DUcg69jc+CD03/d1xlB+0YELIUSQUbShNuf0Vf7FuvjC3t0wTBYIK9uinWE0UXCMgttmYQhMMaw==
   dependencies:
     axios "^0.21.0"
     contentful-sdk-core "^6.7.0"
@@ -6303,9 +6303,9 @@ emoji-regex@^8.0.0:
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
 emoji-regex@^9.0.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.0.tgz#a26da8e832b16a9753309f25e35e3c0efb9a066a"
-  integrity sha512-DNc3KFPK18bPdElMJnf/Pkv5TXhxFU3YFDEuGLDRtPmV4rkmCjBkCSEp22u6rBHdSN9Vlp/GK7k98prmE1Jgug==
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.1.tgz#c9b25604256bb3428964bead3ab63069d736f7ee"
+  integrity sha512-117l1H6U4X3Krn+MrzYrL57d5H7siRHWraBs7s+LjRuFK7Fe7hJqnJ0skWlinqsycVLU5YAo6L8CsEYQ0V5prg==
 
 emojis-list@^3.0.0:
   version "3.0.0"
