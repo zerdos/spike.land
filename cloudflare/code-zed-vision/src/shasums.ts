@@ -86,7 +86,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "f55c9db5fbe44c43cd06ba8cac64f90aeeaf4eaf9250b608911910536f6b59c6",
+    "b5b59a56f07f613bad2350d52db9c4e418cdf0a5fe1edaed016556c0bcec0ac0",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/chunk.XO652423.js":
@@ -120,7 +120,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/DraggableWindow.js":
-    "4e503594cc3e07ecccf3def3ea7428f02c2d4e68b55cb205e56f76626d816f6f",
+    "415f59fa9fa1bb88c2d84a00d37d45b17a1e3c7a2a9a50e86c74edd668aeaeb4",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/chunk.Q5D4IXJD.js":

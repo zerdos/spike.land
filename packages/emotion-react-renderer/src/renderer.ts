@@ -4,11 +4,11 @@ import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
 
-//@ts-ignore
 import { DraggableWindow } from "./DraggableWindow";
+import {QR} from "./Qr"
 
 export { DraggableWindow };
-
+export {QR}
 export { React };
 export { Fragment };
 export { Motion };
