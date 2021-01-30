@@ -27,7 +27,7 @@ export const getMonaco = async () => {
     }
   };
 
-  const vsPath = `https://unpkg.com/@zedvision/monaco-editor@11.10.28/min/vs`;
+  const vsPath = `https://unpkg.com/@zedvision/monaco-editor@11.10.29/min/vs`;
 
   const { require } = await importScript(
     `${vsPath}/loader.js`,

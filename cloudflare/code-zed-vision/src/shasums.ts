@@ -22,7 +22,7 @@ export const shasums = {
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "package.json":
-    "984dae37039766378d8157a6c73423d19a016d42a88d2f44d50e7fa67482ab3a",
+    "4acedc785a56a174eae777366380afea6e0b36261b7e57474fa0698cb57ecd6b",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
@@ -110,7 +110,7 @@ export const shasums = {
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/smart-monaco-editor/dist/monaco.js":
-    "763fb40cad64089b4220a92580b2cc933b0b83373438ed6e89253c75a6750d8f",
+    "4c9c5415021584ef6afab2b784cc5423750a68f82949c6871e9285f585e4bca7",
   "modules/smart-monaco-editor/dist/editor.js":
     "ccaaf26fa25b2424e7391281ce140d8fe20f8867583edbf33c653e6e46c15f1b",
   "modules/smart-monaco-editor/dist/editor.d.ts":
