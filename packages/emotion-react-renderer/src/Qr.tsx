@@ -1,6 +1,6 @@
 import { QRious } from "@zedvision/qrious/src/QRious";
 /** @jsx jsx */
-import { React, css, jsx } from "./renderer";
+import { css, jsx, React } from "./renderer";
 
 export const QR: React.FC<{ url: string }> = ({ url }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -20,8 +20,11 @@ export const QR: React.FC<{ url: string }> = ({ url }) => {
     const qr = new QRious(options);
   }, [url]);
 
-  return <canvas css={css`
+  return <canvas
+    css={css`
         border-radius: 16px;
         margin-bottom: 8px;
-  `} ref={canvasRef} />;
+  `}
+    ref={canvasRef}
+  />;
 };
