@@ -34,7 +34,7 @@
     "devDependencies": {
         "esbuild": "0.8.36",
         "tslib": "2.1.0",
-        "typescript": "4.2.0-dev.20210129"
+        "typescript": "4.2.0-dev.20210130"
     },
     "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
     "author": "Zoltan Erdos <zolika84@gmail.com>",
