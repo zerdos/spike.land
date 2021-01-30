@@ -50,7 +50,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       ref={ref}
       css={css`
             right: 20px;
+            background-color: rgba(255, 255, 255, .15);  
+            backdrop-filter: blur(5px);
             top: 20px;
+            padding: 16px;
+            border-radius: 16px;
             white-space: normal;
             position: ${position ? position : "fixed"};
           `}
@@ -131,6 +135,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               </div>
             </div>
           </div>
+          <div>
           <motion.div
             animate={{
               transformOrigin: "top right",
@@ -139,8 +144,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             }}
             css={css`  
             max-width: 100%;
-            z-index: 10;
-            position: relative;
             min-width: 300px;
             min-height: 250px;
             background: inherit;
@@ -151,8 +154,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           :after{
            content: '';
            z-index: -9;
-           background: inherit; 
-           position: absolute;
+           background: inherit;
            left: ${1 / (scale / 100) * 16}px;
            right: ${1 / (scale / 100) * 16}px;
            top: ${1 / (scale / 100) * 16}px;  
@@ -175,6 +177,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               {children}
             </div>
           </motion.div>
+          </div>
         </div>
         <div
           css={css`

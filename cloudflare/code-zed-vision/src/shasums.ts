@@ -45,7 +45,7 @@ export const shasums = {
   "js/transpile.js":
     "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
   "js/openWindows.js":
-    "c858538016cdcffb5ac89e7953858f0ead844edbfa1693bea0784c6cd9e5e525",
+    "d61df2a8eed771722e56443ebd6480a434851c1fcf6ff5f202cb02491ccbd089",
   "js/data.js":
     "b5ee12cb939f865d7c4dfcafb95c8198e37975d3b964fb7671b68eaaeda30e86",
   "js/ipfsClient.js":
@@ -84,7 +84,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "83298ee77054e489814f463526b6348e5a487c4feadd5a2d754cc20b974cc92c",
+    "2d31242a642e1b5f5ef007a2de190253cd0001836fd6c338454b058f51044f01",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/chunk.XO652423.js":
@@ -118,7 +118,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/DraggableWindow.js":
-    "7e162f5bb7bd2ae2dbd8e478eca1e74ba118193b589090aeb9149cc39d9ae19e",
+    "ec72144529a6c7dd8889783e9af82257d37b83a59ffbfa45029224adb29bc99b",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/chunk.Q5D4IXJD.js":
@@ -132,6 +132,6 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   ".tsBuildInfo":
-    "4da617ff74b3c0a576c441c536c8084d1fd956186367dc9de1400835dd2df0ce",
+    "a5e5c833aba4f513b74fb4c3f8cf808e4bd4fa98281ad2315ad5a231bcc5f8fc",
   "foo": "bar",
 };
