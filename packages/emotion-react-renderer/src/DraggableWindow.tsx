@@ -183,10 +183,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
         >
           <motion.div
             animate={{
-              width: showQR ? 210 : 64,
-              height: showQR ? 210 : 64,
+              width: showQR ? 220 : 64,
+              height: showQR ? 240 : 64,
             }}
             css={css`
+                overflow: hidden;
                 display: inline-block;
                 margin: 0px 8px 0px 8px;             
                `}
