@@ -1,3 +1,140 @@
+const diff = async (str1, str2) => {
+  const { diffChars } = await import("./vendor/diff.min.js");
+  const { sha256 } = await import("./sha256.js");
+  const sha1Str1 = sha256(str1);
+  const res = diffChars(str1, str2);
+  return {
+    b: await sha1Str1,
+    c: res.map((x) => x.added ? x.value : x.removed ? -x.count : x.count),
+  };
+};
+const isDiff = (str) => {
+  if (str.length < 10) {
+    return false;
+  }
+  const isKey = [
+    ...str.slice(0, 8),
+  ].filter((x) => x < "0" || x > "f").length === 0;
+  const maybeInst = str.slice(8);
+  if (
+    isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]"
+  ) {
+    try {
+      return JSON.parse(maybeInst).length > 1;
+    } catch {
+      return false;
+    }
+  }
+  return false;
+};
+const assemble = (oldValue, instructions) => {
+  const instArr = JSON.parse(instructions);
+  let old = oldValue.slice();
+  let ret = "";
+  instArr.forEach((element) => {
+    if (Number(element) === element) {
+      const absNum = Math.abs(element);
+      const currentString = old.slice(0, absNum);
+      old = old.slice(absNum);
+      if (element > 0) {
+        ret += String(currentString);
+      }
+    } else {
+      ret += String(element);
+    }
+  });
+  return ret;
+};
+const sha256 = async (x) =>
+  Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        typeof x === "string" ? new TextEncoder().encode(x) : x,
+      ),
+    ).slice(0, 4),
+  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
+const getDbObj = (db) => {
+  const dbObj = {
+    async get(key, format = "string") {
+      let data;
+      try {
+        data = await db.get(key);
+        if (!data) {
+          return null;
+        }
+      } catch (_) {
+        return null;
+      }
+      if (format === "json") {
+        try {
+          const json = JSON.parse(data);
+          return json;
+        } catch {
+          return data;
+        }
+      }
+      const allData = await data;
+      if (format === "string") {
+        if (typeof allData === "string" && format === "string") {
+          const text = allData;
+          if (isDiff(text)) {
+            const keyOfDiff = text.slice(0, 8);
+            const instructions = text.slice(8);
+            const oldValue = await dbObj.get(keyOfDiff);
+            return assemble(oldValue, instructions);
+          }
+          return allData;
+        }
+        return new TextDecoder().decode(allData);
+      }
+      return data;
+    },
+    async put(key, val) {
+      let prev;
+      try {
+        const oldKey = await dbObj.get(key);
+        if (
+          typeof oldKey === "string" && typeof val === "string" &&
+          oldKey.length === 8 && oldKey !== val
+        ) {
+          const actualValue = await dbObj.get(val);
+          const prevValue = await dbObj.get(oldKey);
+          if (typeof prevValue === "string") {
+            const prevSha = await sha256(prevValue);
+            if (prevSha === oldKey) {
+              const diffObj = await diff(actualValue, prevValue);
+              const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
+              await dbObj.put(prevSha, diffAsStr);
+            }
+          }
+        }
+      } catch {
+        prev = "";
+      }
+      if (prev !== "" && val === prev) {
+        return val;
+      }
+      let str;
+      if (typeof val !== "string") {
+        str = new TextDecoder().decode(val);
+      } else {
+        str = val;
+      }
+      return await db.put(key, str);
+    },
+    async delete(key) {
+      return await db.delete(key);
+    },
+    async clear() {
+      return await db.clear();
+    },
+    async keys() {
+      return await db.getAllKeys();
+    },
+  };
+  return dbObj;
+};
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
@@ -60,15 +197,6 @@ async function handleAdmin(request, searchParams, pathname, SHAKV) {
     error: "not implemented",
   });
 }
-const sha256 = async (x) =>
-  Array.from(
-    new Uint8Array(
-      await crypto.subtle.digest(
-        "SHA-256",
-        typeof x === "string" ? new TextEncoder().encode(x) : x,
-      ),
-    ).slice(0, 4),
-  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
 var getRandomValues;
 var rnds8 = new Uint8Array(16);
 function rng() {
@@ -174,134 +302,7 @@ function raceToSuccess(promises) {
     )
   );
 }
-const diff = async (str1, str2) => {
-  const { diffChars } = await import("./vendor/diff.min.js");
-  const { sha256: sha2561 } = await import("./sha256.js");
-  const sha1Str1 = sha2561(str1);
-  const res = diffChars(str1, str2);
-  return {
-    b: await sha1Str1,
-    c: res.map((x) => x.added ? x.value : x.removed ? -x.count : x.count),
-  };
-};
-const isDiff = (str) => {
-  if (str.length < 10) {
-    return false;
-  }
-  const isKey = [
-    ...str.slice(0, 8),
-  ].filter((x) => x < "0" || x > "f").length === 0;
-  const maybeInst = str.slice(8);
-  if (
-    isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]"
-  ) {
-    try {
-      return JSON.parse(maybeInst).length > 1;
-    } catch {
-      return false;
-    }
-  }
-  return false;
-};
-const assemble = (oldValue, instructions) => {
-  const instArr = JSON.parse(instructions);
-  let old = oldValue.slice();
-  let ret = "";
-  instArr.forEach((element) => {
-    if (Number(element) === element) {
-      const absNum = Math.abs(element);
-      const currentString = old.slice(0, absNum);
-      old = old.slice(absNum);
-      if (element > 0) {
-        ret += String(currentString);
-      }
-    } else {
-      ret += String(element);
-    }
-  });
-  return ret;
-};
-const getDbObj = (db) => {
-  const dbObj = {
-    async get(key, format = "string") {
-      let data;
-      try {
-        data = await db.get(key);
-        if (!data) {
-          return null;
-        }
-      } catch (_) {
-        return null;
-      }
-      if (format === "json") {
-        try {
-          const json1 = JSON.parse(data);
-          return json1;
-        } catch {
-          return data;
-        }
-      }
-      const allData = await data;
-      if (format === "string") {
-        if (typeof allData === "string" && format === "string") {
-          const text1 = allData;
-          if (isDiff(allData)) {
-            const keyOfDiff = allData.slice(0, 8);
-            const instructions = allData.slice(8);
-            const oldValue = await dbObj.get(keyOfDiff);
-            return assemble(oldValue, instructions);
-          }
-          return allData;
-        }
-        return new TextDecoder().decode(allData);
-      }
-      return data;
-    },
-    async put(key, val) {
-      let prev;
-      try {
-        const oldKey = await dbObj.get(key);
-        if (
-          typeof oldKey === "string" && typeof val === "string" &&
-          oldKey.length === 8 && oldKey !== val
-        ) {
-          const actualValue = await dbObj.get(val);
-          const prevValue = await dbObj.get(oldKey);
-          if (typeof prevValue === "string") {
-            const prevSha = await sha256(prevValue);
-            if (prevSha === oldKey) {
-              const diffObj = await diff(actualValue, prevValue);
-              const diffAsStr = diffObj.b + JSON.stringify(diffObj.c);
-              await dbObj.put(prevSha, diffAsStr);
-            }
-          }
-        }
-      } catch {
-        prev = "";
-      }
-      if (prev !== "" && val === prev) {
-        return val;
-      }
-      let str;
-      if (typeof val !== "string") {
-        str = new TextDecoder().decode(val);
-      } else {
-        str = val;
-      }
-      return await db.put(key, str);
-    },
-    async delete(key) {
-      return await db.delete(key);
-    },
-    async clear() {
-      return await db.clear();
-    },
-    async keys() {
-      return await db.getAllKeys();
-    },
-  };
-  return dbObj;
-};
+const raceToSuccess1 = raceToSuccess;
 var SHAKV;
 var USERS;
 var LOGS;
@@ -529,7 +530,7 @@ async function handleCloudRequest(request) {
           )
         );
         try {
-          response = await raceToSuccess(random5GatewaysFetch);
+          response = await raceToSuccess1(random5GatewaysFetch);
           if (typeof response === "undefined") return text("Please try again");
           await cache.put(request, response.clone());
         } catch {

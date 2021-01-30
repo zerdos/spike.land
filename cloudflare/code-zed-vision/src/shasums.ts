@@ -45,7 +45,7 @@ export const shasums = {
   "js/transpile.js":
     "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
   "js/openWindows.js":
-    "e5fc53efbbb0490246ff7076261c943c9c73553ae567dc5fdf20d198ef881ce7",
+    "c858538016cdcffb5ac89e7953858f0ead844edbfa1693bea0784c6cd9e5e525",
   "js/data.js":
     "b5ee12cb939f865d7c4dfcafb95c8198e37975d3b964fb7671b68eaaeda30e86",
   "js/ipfsClient.js":

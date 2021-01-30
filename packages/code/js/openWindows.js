@@ -1,6 +1,6 @@
 export async function openWindows() {
-  const { WindowManager } = await import(
-    "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js"
+  const {WindowManager} =await import(
+    "https://unpkg.com/@zedvision/swm@2.2.1/public/swm-esm.js"
   );
   const wm = new WindowManager({ backgroundWindow: "green" });
 
