@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import * as Json from '../../jsonc-parser/main.js';
-import { URI } from '../_deps/vscode-uri/index.js';
+import { URI } from '../../vscode-uri/index.js';
 import * as Strings from '../utils/strings.js';
 import * as Parser from '../parser/jsonParser.js';
 import * as nls from '../../../fillers/vscode-nls.js';
@@ -331,7 +331,6 @@ var JSONSchemaService = /** @class */ (function () {
                     var loc = refSegment ? uri + '#' + refSegment : uri;
                     resolveErrors.push(localize('json.schema.problemloadingref', 'Problems loading reference \'{0}\': {1}', loc, unresolvedSchema.errors[0]));
                 }
-                delete node.$ref;
                 merge(node, unresolvedSchema.schema, uri, refSegment);
                 return resolveRefs(node, unresolvedSchema.schema, uri, referencedHandle.dependencies);
             });
@@ -395,14 +394,14 @@ var JSONSchemaService = /** @class */ (function () {
                 while (next.$ref) {
                     var ref = next.$ref;
                     var segments = ref.split('#', 2);
+                    delete next.$ref;
                     if (segments[0].length > 0) {
                         openPromises.push(resolveExternalLink(next, segments[0], segments[1], parentSchemaURL, parentSchemaDependencies));
                         return;
                     }
                     else {
-                        delete next.$ref;
                         if (seenRefs.indexOf(ref) === -1) {
-                            merge(next, parentSchema, parentSchemaURL, segments[1]); // will remove $ref, can set next.$ref again, use seenRefs to avoid circle
+                            merge(next, parentSchema, parentSchemaURL, segments[1]); // can set next.$ref again, use seenRefs to avoid circle
                             seenRefs.push(ref);
                         }
                     }

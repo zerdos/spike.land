@@ -13,12 +13,13 @@ import { FindMatch, TextModelResolvedOptions } from '../../common/model.js';
 import * as modes from '../../common/modes.js';
 import { NULL_STATE, nullTokenize } from '../../common/modes/nullMode.js';
 import { IEditorWorkerService } from '../../common/services/editorWorkerService.js';
+import { IModeService } from '../../common/services/modeService.js';
 import { ITextModelService } from '../../common/services/resolverService.js';
 import { createWebWorker as actualCreateWebWorker } from '../../common/services/webWorker.js';
 import * as standaloneEnums from '../../common/standalone/standaloneEnums.js';
 import { Colorizer } from './colorizer.js';
 import { SimpleEditorModelResolverService } from './simpleServices.js';
-import { StandaloneDiffEditor, StandaloneEditor } from './standaloneCodeEditor.js';
+import { StandaloneDiffEditor, StandaloneEditor, createTextModel } from './standaloneCodeEditor.js';
 import { DynamicStandaloneServices, StaticServices } from './standaloneServices.js';
 import { IStandaloneThemeService } from '../common/standaloneThemeService.js';
 import { CommandsRegistry, ICommandService } from '../../../platform/commands/common/commands.js';
@@ -34,6 +35,7 @@ import { clearAllFontInfos } from '../../browser/config/configuration.js';
 import { IEditorProgressService } from '../../../platform/progress/common/progress.js';
 import { IClipboardService } from '../../../platform/clipboard/common/clipboardService.js';
 import { splitLines } from '../../../base/common/strings.js';
+import { IModelService } from '../../common/services/modelService.js';
 function withAllStandaloneServices(domElement, override, callback) {
     let services = new DynamicStandaloneServices(domElement, override);
     let simpleEditorModelResolverService = null;
@@ -57,7 +59,7 @@ function withAllStandaloneServices(domElement, override, callback) {
  */
 export function create(domElement, options, override) {
     return withAllStandaloneServices(domElement, override || {}, (services) => {
-        return new StandaloneEditor(domElement, options, services, services.get(IInstantiationService), services.get(ICodeEditorService), services.get(ICommandService), services.get(IContextKeyService), services.get(IKeybindingService), services.get(IContextViewService), services.get(IStandaloneThemeService), services.get(INotificationService), services.get(IConfigurationService), services.get(IAccessibilityService));
+        return new StandaloneEditor(domElement, options, services, services.get(IInstantiationService), services.get(ICodeEditorService), services.get(ICommandService), services.get(IContextKeyService), services.get(IKeybindingService), services.get(IContextViewService), services.get(IStandaloneThemeService), services.get(INotificationService), services.get(IConfigurationService), services.get(IAccessibilityService), services.get(IModelService), services.get(IModeService));
     });
 }
 /**
@@ -83,24 +85,12 @@ export function createDiffEditor(domElement, options, override) {
 export function createDiffNavigator(diffEditor, opts) {
     return new DiffNavigator(diffEditor, opts);
 }
-function doCreateModel(value, languageSelection, uri) {
-    return StaticServices.modelService.get().createModel(value, languageSelection, uri);
-}
 /**
  * Create a new editor model.
  * You can specify the language that should be set for this model or let the language be inferred from the `uri`.
  */
 export function createModel(value, language, uri) {
-    value = value || '';
-    if (!language) {
-        let firstLF = value.indexOf('\n');
-        let firstLine = value;
-        if (firstLF !== -1) {
-            firstLine = value.substring(0, firstLF);
-        }
-        return doCreateModel(value, StaticServices.modeService.get().createByFilepathOrFirstLine(uri || null, firstLine), uri);
-    }
-    return doCreateModel(value, StaticServices.modeService.get().create(language), uri);
+    return createTextModel(StaticServices.modelService.get(), StaticServices.modeService.get(), value, language, uri);
 }
 /**
  * Change the language for a model.
@@ -123,6 +113,13 @@ export function setModelMarkers(model, owner, markers) {
  */
 export function getModelMarkers(filter) {
     return StaticServices.markerService.get().read(filter);
+}
+/**
+ * Emitted when markers change for a model.
+ * @event
+ */
+export function onDidChangeMarkers(listener) {
+    return StaticServices.markerService.get().onMarkerChanged(listener);
 }
 /**
  * Get the model that has `uri` if it exists.
@@ -263,6 +260,7 @@ export function createMonacoEditorAPI() {
         setModelLanguage: setModelLanguage,
         setModelMarkers: setModelMarkers,
         getModelMarkers: getModelMarkers,
+        onDidChangeMarkers: onDidChangeMarkers,
         getModels: getModels,
         getModel: getModel,
         onDidCreateModel: onDidCreateModel,

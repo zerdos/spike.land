@@ -688,11 +688,15 @@ export class MouseTargetFactory {
                 };
             }
         }
-        // For inline decorations, Gecko returns the `<span>` of the line and the offset is the `<span>` with the inline decoration
+        // For inline decorations, Gecko sometimes returns the `<span>` of the line and the offset is the `<span>` with the inline decoration
+        // Some other times, it returns the `<span>` with the inline decoration
         if (hitResult.offsetNode.nodeType === hitResult.offsetNode.ELEMENT_NODE) {
-            const parent1 = hitResult.offsetNode.parentNode; // expected to be the view line div
+            const parent1 = hitResult.offsetNode.parentNode;
             const parent1ClassName = parent1 && parent1.nodeType === parent1.ELEMENT_NODE ? parent1.className : null;
+            const parent2 = parent1 ? parent1.parentNode : null;
+            const parent2ClassName = parent2 && parent2.nodeType === parent2.ELEMENT_NODE ? parent2.className : null;
             if (parent1ClassName === ViewLine.CLASS_NAME) {
+                // it returned the `<span>` of the line and the offset is the `<span>` with the inline decoration
                 const tokenSpan = hitResult.offsetNode.childNodes[Math.min(hitResult.offset, hitResult.offsetNode.childNodes.length - 1)];
                 if (tokenSpan) {
                     const p = ctx.getPositionFromDOMInfo(tokenSpan, 0);
@@ -701,6 +705,14 @@ export class MouseTargetFactory {
                         hitTarget: null
                     };
                 }
+            }
+            else if (parent2ClassName === ViewLine.CLASS_NAME) {
+                // it returned the `<span>` with the inline decoration
+                const p = ctx.getPositionFromDOMInfo(hitResult.offsetNode, 0);
+                return {
+                    position: p,
+                    hitTarget: null
+                };
             }
         }
         return {

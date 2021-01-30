@@ -75,6 +75,7 @@ export class TextAreaInput extends Disposable {
         this._host = host;
         this._textArea = this._register(new TextAreaWrapper(textArea));
         this._asyncTriggerCut = this._register(new RunOnceScheduler(() => this._onCut.fire(), 0));
+        this._asyncFocusGainWriteScreenReaderContent = this._register(new RunOnceScheduler(() => this.writeScreenReaderContent('asyncFocusGain'), 0));
         this._textAreaState = TextAreaState.EMPTY;
         this._selectionChangeListener = null;
         this.writeScreenReaderContent('ctor');
@@ -238,7 +239,13 @@ export class TextAreaInput extends Disposable {
             }
         }));
         this._register(dom.addDisposableListener(textArea.domNode, 'focus', () => {
+            const hadFocus = this._hasFocus;
             this._setHasFocus(true);
+            if (browser.isSafari && !hadFocus && this._hasFocus) {
+                // When "tabbing into" the textarea, immediately after dispatching the 'focus' event,
+                // Safari will always move the selection at offset 0 in the textarea
+                this._asyncFocusGainWriteScreenReaderContent.schedule();
+            }
         }));
         this._register(dom.addDisposableListener(textArea.domNode, 'blur', () => {
             if (this._isDoingComposition) {

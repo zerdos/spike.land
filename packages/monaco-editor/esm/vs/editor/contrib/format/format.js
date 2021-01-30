@@ -90,6 +90,10 @@ export function getRealAndSyntheticDocumentFormattersOrdered(model) {
     return result;
 }
 export class FormattingConflicts {
+    static setFormatterSelector(selector) {
+        const remove = FormattingConflicts._selectors.unshift(selector);
+        return { dispose: remove };
+    }
     static select(formatter, document, mode) {
         return __awaiter(this, void 0, void 0, function* () {
             if (formatter.length === 0) {

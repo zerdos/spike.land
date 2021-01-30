@@ -41,6 +41,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import * as ts from './lib/typescriptServices.js';
 import { libFileMap } from './lib/lib.js';
+/**
+ * Loading a default lib as a source file will mess up TS completely.
+ * So our strategy is to hide such a text model from TS.
+ * See https://github.com/microsoft/monaco-editor/issues/2182
+ */
+function fileNameIsLib(resource) {
+    if (typeof resource === 'string') {
+        if (/^file:\/\/\//.test(resource)) {
+            return !!libFileMap[resource.substr(8)];
+        }
+        return false;
+    }
+    if (resource.path.indexOf('/lib.') === 0) {
+        return !!libFileMap[resource.path.slice(1)];
+    }
+    return false;
+}
 var TypeScriptWorker = /** @class */ (function () {
     function TypeScriptWorker(ctx, createData) {
         this._extraLibs = Object.create(null);
@@ -54,7 +71,8 @@ var TypeScriptWorker = /** @class */ (function () {
         return this._compilerOptions;
     };
     TypeScriptWorker.prototype.getScriptFileNames = function () {
-        var models = this._ctx.getMirrorModels().map(function (model) { return model.uri.toString(); });
+        var allModels = this._ctx.getMirrorModels().map(function (model) { return model.uri; });
+        var models = allModels.filter(function (uri) { return !fileNameIsLib(uri); }).map(function (uri) { return uri.toString(); });
         return models.concat(Object.keys(this._extraLibs));
     };
     TypeScriptWorker.prototype._getModel = function (fileName) {
@@ -194,6 +212,9 @@ var TypeScriptWorker = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var diagnostics;
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 diagnostics = this._languageService.getSyntacticDiagnostics(fileName);
                 return [2 /*return*/, TypeScriptWorker.clearFiles(diagnostics)];
             });
@@ -203,6 +224,9 @@ var TypeScriptWorker = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var diagnostics;
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 diagnostics = this._languageService.getSemanticDiagnostics(fileName);
                 return [2 /*return*/, TypeScriptWorker.clearFiles(diagnostics)];
             });
@@ -212,6 +236,9 @@ var TypeScriptWorker = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var diagnostics;
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 diagnostics = this._languageService.getSuggestionDiagnostics(fileName);
                 return [2 /*return*/, TypeScriptWorker.clearFiles(diagnostics)];
             });
@@ -221,6 +248,9 @@ var TypeScriptWorker = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var diagnostics;
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 diagnostics = this._languageService.getCompilerOptionsDiagnostics();
                 return [2 /*return*/, TypeScriptWorker.clearFiles(diagnostics)];
             });
@@ -229,6 +259,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getCompletionsAtPosition = function (fileName, position) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, undefined];
+                }
                 return [2 /*return*/, this._languageService.getCompletionsAtPosition(fileName, position, undefined)];
             });
         });
@@ -240,16 +273,22 @@ var TypeScriptWorker = /** @class */ (function () {
             });
         });
     };
-    TypeScriptWorker.prototype.getSignatureHelpItems = function (fileName, position) {
+    TypeScriptWorker.prototype.getSignatureHelpItems = function (fileName, position, options) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, this._languageService.getSignatureHelpItems(fileName, position, undefined)];
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, undefined];
+                }
+                return [2 /*return*/, this._languageService.getSignatureHelpItems(fileName, position, options)];
             });
         });
     };
     TypeScriptWorker.prototype.getQuickInfoAtPosition = function (fileName, position) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, undefined];
+                }
                 return [2 /*return*/, this._languageService.getQuickInfoAtPosition(fileName, position)];
             });
         });
@@ -257,6 +296,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getOccurrencesAtPosition = function (fileName, position) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, undefined];
+                }
                 return [2 /*return*/, this._languageService.getOccurrencesAtPosition(fileName, position)];
             });
         });
@@ -264,6 +306,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getDefinitionAtPosition = function (fileName, position) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, undefined];
+                }
                 return [2 /*return*/, this._languageService.getDefinitionAtPosition(fileName, position)];
             });
         });
@@ -271,6 +316,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getReferencesAtPosition = function (fileName, position) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, undefined];
+                }
                 return [2 /*return*/, this._languageService.getReferencesAtPosition(fileName, position)];
             });
         });
@@ -278,6 +326,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getNavigationBarItems = function (fileName) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 return [2 /*return*/, this._languageService.getNavigationBarItems(fileName)];
             });
         });
@@ -285,6 +336,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getFormattingEditsForDocument = function (fileName, options) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 return [2 /*return*/, this._languageService.getFormattingEditsForDocument(fileName, options)];
             });
         });
@@ -292,6 +346,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getFormattingEditsForRange = function (fileName, start, end, options) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 return [2 /*return*/, this._languageService.getFormattingEditsForRange(fileName, start, end, options)];
             });
         });
@@ -299,6 +356,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getFormattingEditsAfterKeystroke = function (fileName, postion, ch, options) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 return [2 /*return*/, this._languageService.getFormattingEditsAfterKeystroke(fileName, postion, ch, options)];
             });
         });
@@ -306,6 +366,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.findRenameLocations = function (fileName, position, findInStrings, findInComments, providePrefixAndSuffixTextForRename) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, undefined];
+                }
                 return [2 /*return*/, this._languageService.findRenameLocations(fileName, position, findInStrings, findInComments, providePrefixAndSuffixTextForRename)];
             });
         });
@@ -313,6 +376,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getRenameInfo = function (fileName, position, options) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, { canRename: false, localizedErrorMessage: 'Cannot rename in lib file' }];
+                }
                 return [2 /*return*/, this._languageService.getRenameInfo(fileName, position, options)];
             });
         });
@@ -320,6 +386,9 @@ var TypeScriptWorker = /** @class */ (function () {
     TypeScriptWorker.prototype.getEmitOutput = function (fileName) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, { outputFiles: [], emitSkipped: true }];
+                }
                 return [2 /*return*/, this._languageService.getEmitOutput(fileName)];
             });
         });
@@ -328,6 +397,9 @@ var TypeScriptWorker = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var preferences;
             return __generator(this, function (_a) {
+                if (fileNameIsLib(fileName)) {
+                    return [2 /*return*/, []];
+                }
                 preferences = {};
                 try {
                     return [2 /*return*/, this._languageService.getCodeFixesAtPosition(fileName, start, end, errorCodes, formatOptions, preferences)];

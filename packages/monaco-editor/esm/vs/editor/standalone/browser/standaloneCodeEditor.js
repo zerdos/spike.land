@@ -33,6 +33,8 @@ import { IAccessibilityService } from '../../../platform/accessibility/common/ac
 import { StandaloneCodeEditorNLS } from '../../common/standaloneStrings.js';
 import { IClipboardService } from '../../../platform/clipboard/common/clipboardService.js';
 import { IEditorProgressService } from '../../../platform/progress/common/progress.js';
+import { IModelService } from '../../common/services/modelService.js';
+import { IModeService } from '../../common/services/modeService.js';
 let LAST_GENERATED_COMMAND_ID = 0;
 let ariaDomNodeCreated = false;
 function createAriaDomNode() {
@@ -138,7 +140,7 @@ StandaloneCodeEditor = __decorate([
 ], StandaloneCodeEditor);
 export { StandaloneCodeEditor };
 let StandaloneEditor = class StandaloneEditor extends StandaloneCodeEditor {
-    constructor(domElement, _options, toDispose, instantiationService, codeEditorService, commandService, contextKeyService, keybindingService, contextViewService, themeService, notificationService, configurationService, accessibilityService) {
+    constructor(domElement, _options, toDispose, instantiationService, codeEditorService, commandService, contextKeyService, keybindingService, contextViewService, themeService, notificationService, configurationService, accessibilityService, modelService, modeService) {
         const options = Object.assign({}, _options);
         updateConfigurationService(configurationService, options, false);
         const themeDomRegistration = themeService.registerEditorContainer(domElement);
@@ -155,7 +157,7 @@ let StandaloneEditor = class StandaloneEditor extends StandaloneCodeEditor {
         this._register(themeDomRegistration);
         let model;
         if (typeof _model === 'undefined') {
-            model = self.monaco.editor.createModel(options.value || '', options.language || 'text/plain');
+            model = createTextModel(modelService, modeService, options.value || '', options.language || 'text/plain', undefined);
             this._ownsModel = true;
         }
         else {
@@ -205,7 +207,9 @@ StandaloneEditor = __decorate([
     __param(9, IStandaloneThemeService),
     __param(10, INotificationService),
     __param(11, IConfigurationService),
-    __param(12, IAccessibilityService)
+    __param(12, IAccessibilityService),
+    __param(13, IModelService),
+    __param(14, IModeService)
 ], StandaloneEditor);
 export { StandaloneEditor };
 let StandaloneDiffEditor = class StandaloneDiffEditor extends DiffEditorWidget {
@@ -268,3 +272,24 @@ StandaloneDiffEditor = __decorate([
     __param(14, IClipboardService)
 ], StandaloneDiffEditor);
 export { StandaloneDiffEditor };
+/**
+ * @internal
+ */
+export function createTextModel(modelService, modeService, value, language, uri) {
+    value = value || '';
+    if (!language) {
+        const firstLF = value.indexOf('\n');
+        let firstLine = value;
+        if (firstLF !== -1) {
+            firstLine = value.substring(0, firstLF);
+        }
+        return doCreateModel(modelService, value, modeService.createByFilepathOrFirstLine(uri || null, firstLine), uri);
+    }
+    return doCreateModel(modelService, value, modeService.create(language), uri);
+}
+/**
+ * @internal
+ */
+function doCreateModel(modelService, value, languageSelection, uri) {
+    return modelService.createModel(value, languageSelection, uri);
+}

@@ -3494,13 +3494,7 @@ export var htmlData = {
             "description": {
                 "kind": "markdown",
                 "value": "An enumerated attribute indicating what types of content can be dropped on an element, using the [Drag and Drop API](/en-US/docs/DragDrop/Drag_and_Drop). It can have the following values:\n\n*   `copy`, which indicates that dropping will create a copy of the element that was dragged\n*   `move`, which indicates that the element that was dragged will be moved to this new location.\n*   `link`, will create a link to the dragged data."
-            },
-            "references": [
-                {
-                    "name": "MDN Reference",
-                    "url": "https://developer.mozilla.org/docs/Web/HTML/Global_attributes/dropzone"
-                }
-            ]
+            }
         },
         {
             "name": "exportparts",
@@ -4365,7 +4359,7 @@ export var htmlData = {
         },
         {
             "name": "aria-haspopup",
-            "valueSet": "b",
+            "valueSet": "haspopup",
             "references": [
                 {
                     "name": "WAI-ARIA Reference",
@@ -5907,6 +5901,60 @@ export var htmlData = {
                 },
                 {
                     "name": "viewport"
+                }
+            ]
+        },
+        {
+            "name": "haspopup",
+            "values": [
+                {
+                    "name": "false",
+                    "description": {
+                        "kind": "markdown",
+                        "value": "(default) Indicates the element does not have a popup."
+                    }
+                },
+                {
+                    "name": "true",
+                    "description": {
+                        "kind": "markdown",
+                        "value": "Indicates the popup is a menu."
+                    }
+                },
+                {
+                    "name": "menu",
+                    "description": {
+                        "kind": "markdown",
+                        "value": "Indicates the popup is a menu."
+                    }
+                },
+                {
+                    "name": "listbox",
+                    "description": {
+                        "kind": "markdown",
+                        "value": "Indicates the popup is a listbox."
+                    }
+                },
+                {
+                    "name": "tree",
+                    "description": {
+                        "kind": "markdown",
+                        "value": "Indicates the popup is a tree."
+                    }
+                },
+                {
+                    "name": "grid",
+                    "description": {
+                        "kind": "markdown",
+                        "value": "Indicates the popup is a grid."
+                    }
+                },
+                {
+                    "name": "dialog",
+                    "description": {
+                        "kind": "markdown",
+                        "value": "Indicates the popup is a dialog."
+                    }
                 }
             ]
         }

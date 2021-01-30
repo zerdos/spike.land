@@ -223,8 +223,6 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -357,7 +355,7 @@ define('vs/language/typescript/languageFeatures',["require", "exports", "./lib/l
                 return model;
             }
             if (this.isLibFile(uri) && this._hasFetchedLibFiles) {
-                return monaco_editor_core_1.editor.createModel(this._libFiles[uri.path.slice(1)], 'javascript', uri);
+                return monaco_editor_core_1.editor.createModel(this._libFiles[uri.path.slice(1)], 'typescript', uri);
             }
             return null;
         };
@@ -760,7 +758,28 @@ define('vs/language/typescript/languageFeatures',["require", "exports", "./lib/l
             _this.signatureHelpTriggerCharacters = ['(', ','];
             return _this;
         }
-        SignatureHelpAdapter.prototype.provideSignatureHelp = function (model, position, token) {
+        SignatureHelpAdapter._toSignatureHelpTriggerReason = function (context) {
+            switch (context.triggerKind) {
+                case monaco_editor_core_1.languages.SignatureHelpTriggerKind.TriggerCharacter:
+                    if (context.triggerCharacter) {
+                        if (context.isRetrigger) {
+                            return { kind: 'retrigger', triggerCharacter: context.triggerCharacter };
+                        }
+                        else {
+                            return { kind: 'characterTyped', triggerCharacter: context.triggerCharacter };
+                        }
+                    }
+                    else {
+                        return { kind: 'invoked' };
+                    }
+                case monaco_editor_core_1.languages.SignatureHelpTriggerKind.ContentChange:
+                    return context.isRetrigger ? { kind: 'retrigger' } : { kind: 'invoked' };
+                case monaco_editor_core_1.languages.SignatureHelpTriggerKind.Invoke:
+                default:
+                    return { kind: 'invoked' };
+            }
+        };
+        SignatureHelpAdapter.prototype.provideSignatureHelp = function (model, position, token, context) {
             return __awaiter(this, void 0, void 0, function () {
                 var resource, offset, worker, info, ret;
                 return __generator(this, function (_a) {
@@ -771,7 +790,9 @@ define('vs/language/typescript/languageFeatures',["require", "exports", "./lib/l
                             return [4 /*yield*/, this._worker(resource)];
                         case 1:
                             worker = _a.sent();
-                            return [4 /*yield*/, worker.getSignatureHelpItems(resource.toString(), offset)];
+                            return [4 /*yield*/, worker.getSignatureHelpItems(resource.toString(), offset, {
+                                    triggerReason: SignatureHelpAdapter._toSignatureHelpTriggerReason(context)
+                                })];
                         case 2:
                             info = _a.sent();
                             if (!info || model.isDisposed()) {
@@ -1166,6 +1187,9 @@ define('vs/language/typescript/languageFeatures',["require", "exports", "./lib/l
                             return [4 /*yield*/, this._worker(resource)];
                         case 1:
                             worker = _a.sent();
+                            if (model.isDisposed()) {
+                                return [2 /*return*/];
+                            }
                             return [4 /*yield*/, worker.getFormattingEditsForRange(resource.toString(), startOffset, endOffset, FormatHelper._convertOptions(options))];
                         case 2:
                             edits = _a.sent();
@@ -1304,7 +1328,7 @@ define('vs/language/typescript/languageFeatures',["require", "exports", "./lib/l
         }
         RenameAdapter.prototype.provideRenameEdits = function (model, position, newName, token) {
             return __awaiter(this, void 0, void 0, function () {
-                var resource, fileName, offset, worker, renameInfo, renameLocations, edits, _i, renameLocations_1, renameLocation;
+                var resource, fileName, offset, worker, renameInfo, renameLocations, edits, _i, renameLocations_1, renameLocation, resource_1, model_1;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -1341,13 +1365,20 @@ define('vs/language/typescript/languageFeatures',["require", "exports", "./lib/l
                             edits = [];
                             for (_i = 0, renameLocations_1 = renameLocations; _i < renameLocations_1.length; _i++) {
                                 renameLocation = renameLocations_1[_i];
-                                edits.push({
-                                    resource: monaco_editor_core_1.Uri.parse(renameLocation.fileName),
-                                    edit: {
-                                        range: this._textSpanToRange(model, renameLocation.textSpan),
-                                        text: newName
-                                    }
-                                });
+                                resource_1 = monaco_editor_core_1.Uri.parse(renameLocation.fileName);
+                                model_1 = monaco_editor_core_1.editor.getModel(resource_1);
+                                if (model_1) {
+                                    edits.push({
+                                        resource: resource_1,
+                                        edit: {
+                                            range: this._textSpanToRange(model_1, renameLocation.textSpan),
+                                            text: newName
+                                        }
+                                    });
+                                }
+                                else {
+                                    throw new Error("Unknown URI " + resource_1 + ".");
+                                }
                             }
                             return [2 /*return*/, { edits: edits }];
                     }
