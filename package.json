@@ -37,7 +37,7 @@
     "eslint": "7.18.0",
     "eslint-plugin-react": "^7.22.0",
     "lerna": "^3.22.1",
-    "typescript": "4.2.0-dev.20210129",
+    "typescript": "4.2.0-dev.20210130",
     "yarn": "1.22.10"
   }
 }
