@@ -22,7 +22,7 @@ export const shasums = {
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "package.json":
-    "4acedc785a56a174eae777366380afea6e0b36261b7e57474fa0698cb57ecd6b",
+    "0a555ba19f2456328cfc1518ed2071fdd6bc8bb541d728042c8cff1511b37cd7",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
@@ -45,7 +45,7 @@ export const shasums = {
   "js/transpile.js":
     "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
   "js/openWindows.js":
-    "d61df2a8eed771722e56443ebd6480a434851c1fcf6ff5f202cb02491ccbd089",
+    "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.js":
     "b5ee12cb939f865d7c4dfcafb95c8198e37975d3b964fb7671b68eaaeda30e86",
   "js/ipfsClient.js":
@@ -84,7 +84,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "2d31242a642e1b5f5ef007a2de190253cd0001836fd6c338454b058f51044f01",
+    "88d4037766070a9c93e2c9278231ae265c69f4d6edd1dfcb473fc5d1dc45d4f6",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/chunk.XO652423.js":
@@ -94,13 +94,13 @@ export const shasums = {
   "modules/vendor/idb.d.ts":
     "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
   "modules/vendor/diffMin.js":
-    "43d1f239704c26af851b802d257b637dd7d9a8719ddb0f317ec3641e8801c88d",
+    "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
   "modules/vendor/idb.js":
-    "2aa52ffdf9a5ec1ee952b41dc54bd13822b3ddc67f531f4743154c75fc33b6a6",
+    "07c4e9ce08f8323dac0eb0f3ee10933a1ff6692c04270a455b1525a1d6a6b44e",
   "modules/vendor/diffMin.d.ts":
-    "49467f7acb2d82b4308b34ea63b4c329af2586256c77a6b4042b0c886809bdcd",
+    "429e8f57123f5de31bd8ed3b5a6b2d067ade231c0f348848c35ced7b18755ed0",
   "modules/vendor/diffChars.js":
-    "7d8f62c0ddf5f2abc2ddeae42f8a460853065d7da33005bbae97c504de3437ee",
+    "70a109b675719c58bea2591f321afa0b19d30a29f71a957b519a27aa470f76bd",
   "modules/dist/renderer.js":
     "0d71a3214776b87412db66db287771848edf0ce6e13146c53c7d703438e2d66b",
   "modules/getDbObj.d.ts":
@@ -118,7 +118,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/DraggableWindow.js":
-    "ec72144529a6c7dd8889783e9af82257d37b83a59ffbfa45029224adb29bc99b",
+    "a8f35b2be1d69e87429661eac68bf578b63cc6ac56a4ed45371fa9fd10564a05",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/chunk.Q5D4IXJD.js":
@@ -132,6 +132,6 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   ".tsBuildInfo":
-    "7eb042e6e4b2ef9e0e7cab9d2a14bec1b5e89122a29b710c5bd0ab480e456281",
+    "b8090494f2d5cfbdb4247aa63aa02f3e2fd032cba5284f118e6602647ab94933",
   "foo": "bar",
 };

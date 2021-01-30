@@ -145,14 +145,14 @@ function wrap1(value) {
     return newValue;
 }
 const unwrap1 = (value) => reverseTransformCache.get(value);
-const u = unwrap1, w = wrap1;
+const r = replaceTraps, u = unwrap1, w = wrap1;
 export { u as unwrap, w as wrap };
 function openDB1(name, version, { blocked, upgrade, blocking, terminated } = {}) {
     const request = indexedDB.open(name, version);
-    const openPromise = wrap1(request);
+    const openPromise = w(request);
     if (upgrade) {
         request.addEventListener("upgradeneeded", (event) => {
-            upgrade(wrap1(request.result), event.oldVersion, event.newVersion, wrap1(request.transaction));
+            upgrade(w(request.result), event.oldVersion, event.newVersion, w(request.transaction));
         });
     }
     if (blocked)
@@ -170,7 +170,7 @@ function deleteDB1(name, { blocked } = {}) {
     const request = indexedDB.deleteDatabase(name);
     if (blocked)
         request.addEventListener("blocked", () => blocked());
-    return wrap1(request).then(() => undefined);
+    return w(request).then(() => undefined);
 }
 const readMethods = [
     "get",
@@ -213,13 +213,9 @@ function getMethod(target, prop) {
     cachedMethods.set(prop, method);
     return method;
 }
-replaceTraps((oldTraps) => ({
+r((oldTraps) => ({
     ...oldTraps,
     get: (target, prop, receiver) => getMethod(target, prop) || oldTraps.get(target, prop, receiver),
     has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop),
 }));
 export { deleteDB1 as deleteDB, openDB1 as openDB };
-const unwrap2 = unwrap1;
-const wrap2 = wrap1;
-const deleteDB2 = deleteDB1;
-const openDB2 = openDB1;

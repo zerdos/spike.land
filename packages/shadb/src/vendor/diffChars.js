@@ -237,7 +237,7 @@ function clonePath(path) {
   };
 }
 var characterDiff = new Diff();
-function diffChars(oldStr, newStr, options) {
+function diffChars1(oldStr, newStr, options) {
   return characterDiff.diff(oldStr, newStr, options);
 }
 function generateOptions(options, defaults) {
@@ -1210,6 +1210,4 @@ function escapeHTML(s) {
   n = n.replace(/"/g, "&quot;");
   return n;
 }
-const diffChars1 = diffChars;
-const diffChars2 = diffChars;
 export { diffChars1 as diffChars };
