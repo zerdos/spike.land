@@ -67,7 +67,7 @@ export const shasums = {
   "js/renderPreviewWindow.js":
     "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "index.html":
-    "0ff7acf96793e17a3149ddc4bb1a228d2273c8b81a6b09f1b4c93bb4a4491d9a",
+    "70dab84c778e38d9e24915b0f379fb9d1c7be850d67b94beef13b1dc9ae129ee",
   "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
   "tsconfig.json":
     "1ca38cf88d9ae0ede84b6b903f629ee7532a1403bd1ff5045ea62c854aea9207",

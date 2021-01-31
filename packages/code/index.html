@@ -10,14 +10,19 @@
 </head>
 <body>
   <script type="module">
-    import {run} from "./js/codeLoader.js"
     try{
-      run("window", window);
-      setTimeout(()=>workBox(), 3000);
+      start();
     }catch(error){
       console.error({error});
       fetch("https://zed.vision/error", {method: "POST",  body: JSON.stringify({error})})
     }
+
+  async function start() {
+    const {run} = await import("./js/codeLoader.js");
+      run("window", window);
+      setTimeout(()=>workBox(), 3000);
+
+  }
 
   async function workBox() {
   if ("serviceWorker" in window.navigator) {
