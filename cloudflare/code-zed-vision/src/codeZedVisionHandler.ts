@@ -121,7 +121,11 @@ async function handleRequest(request: Request) {
     );
   }
   if (pathname === "/check") {
-    return text("Yolo");
+    const res: String[] = [];
+    Object.keys(files).map((file) => {
+      res.push(file);
+    });
+    return text(res.join(", "));
   }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
