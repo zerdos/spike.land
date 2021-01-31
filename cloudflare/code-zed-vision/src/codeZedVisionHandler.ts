@@ -122,8 +122,12 @@ async function handleRequest(request: Request) {
   }
   if (pathname === "/check") {
     const res: String[] = [];
-    Object.keys(files).map((file) => {
-      res.push(file);
+    Object.keys(files).map(async (file) => {
+      //@ts-ignore
+      const kvRes = await IPFS.get(files[file]);
+      if (kvRes === null) {
+        res.push(file);
+      }
     });
     return text(res.join(", "));
   }
