@@ -120,6 +120,9 @@ async function handleRequest(request: Request) {
       Object.keys(globalThis.files).forEach(k=>globalThis.reverseMap[globalThis.files[k]]=k);`,
     );
   }
+  if (pathname === "/check") {
+    return text("Yolo");
+  }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
       headers: {
