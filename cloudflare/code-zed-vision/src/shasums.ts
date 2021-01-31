@@ -22,7 +22,7 @@ export const shasums = {
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "package.json":
-    "0a555ba19f2456328cfc1518ed2071fdd6bc8bb541d728042c8cff1511b37cd7",
+    "d5c3df72378e990b18cec0d5cdb78d7818906a381510024b8a79cd0b651de245",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
