@@ -54,8 +54,9 @@ async function handleRequest(request: Request) {
         const shaContent = sha256(content);
         if (sha !== shaContent) {
           response = undefined;
+          cache.delete(cacheKey);
         }
-        cache.delete(cacheKey);
+        await IPFS.put(customCID, content);
       }
       if (response) return await alterHeaders(response, reversePath);
     }
@@ -66,7 +67,7 @@ async function handleRequest(request: Request) {
       const contentSHA = await sha256(content);
       //@ts-ignore
       if (shasums[file] === contentSHA) {
-        // await IPFS.put(customCID, content);
+        await IPFS.put(customCID, content);
       } else {
         await IPFS.delete(customCID);
         content = null;
