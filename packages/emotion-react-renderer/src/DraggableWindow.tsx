@@ -135,38 +135,37 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               </div>
             </div>
           </div>
-          <div>
-            <motion.div
-              animate={{
-                transformOrigin: "top right",
-                width,
-                scale: scale / 100,
-              }}
-              css={css`  
-                  max-width: 100%;
-                  min-width: 300px;
-                  min-height: 250px;
+          <div   css={css`
+                  display: block;
+                  width: ${scale}%;
+                  height: ${scale}%;
+                  margin: 16px;
                   background: inherit;
-                  border-radius: 2px;
-                  padding: ${1 / (scale / 100) * 24}px;
                     :after{
                       content: '';
                       z-index: -9;
                       background: inherit;
-                      left: ${1 / (scale / 100) * 16}px;
-                      right: ${1 / (scale / 100) * 16}px;
-                      top: ${1 / (scale / 100) * 16}px;  
-                      bottom: ${1 / (scale / 100) * 16}px;
+                      left: 16px;
+                      right:16px;
+                      top: 16px;
+                      bottom: 16px;
                       box-shadow: inset 0 0 0 200px rgba(255,255,255,0.35);
                       filter: blur(10px);
                     }
                     >div{
                       background: white;
-                      padding:10px;
-                      border-radius:  ${1 / (scale / 100) * 12}px;
-                      opacity: 0.9;
+                      opacity: 0.8;
+                      overflow: hidden;
+                  border-radius: 16px;
                     }
-           `}
+           `}>
+            <motion.div
+              animate={{
+                transformOrigin: "top left",
+                width,
+                scale: scale / 100,
+              }}
+            
             >
               <div
                 id="zbody"

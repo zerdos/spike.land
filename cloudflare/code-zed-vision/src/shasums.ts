@@ -22,7 +22,7 @@ export const shasums = {
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "package.json":
-    "d5c3df72378e990b18cec0d5cdb78d7818906a381510024b8a79cd0b651de245",
+    "a564bdfd14f760c349748724a409e941768d930418bb500b712636ae7fbf9858",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
@@ -84,7 +84,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "3cb0bc943f6cbda3d7422d6495c26d7dec8548d141a123de63d17da5546623ee",
+    "c9868e9f21a4f313141ffc7ad62954246d186346b660c58b4bea72e6ee110804",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/chunk.XO652423.js":
@@ -110,7 +110,7 @@ export const shasums = {
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/smart-monaco-editor/dist/monaco.js":
-    "4c9c5415021584ef6afab2b784cc5423750a68f82949c6871e9285f585e4bca7",
+    "e4d777aa04de83dddfb4abb9f6bb2d1d40f72a6f8e9952a31aa6182e12806be7",
   "modules/smart-monaco-editor/dist/editor.js":
     "ccaaf26fa25b2424e7391281ce140d8fe20f8867583edbf33c653e6e46c15f1b",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -118,7 +118,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/DraggableWindow.js":
-    "dcfc76f008d167e8d1bec5fa4978d5f3bfe3389064373425df3d1ea06e95d512",
+    "88e298940af2cd5a8bc239c03b363a103d26c1c1329c466d323844f79528de49",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/chunk.Q5D4IXJD.js":

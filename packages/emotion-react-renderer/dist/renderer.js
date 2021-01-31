@@ -121,31 +121,30 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 vertical-align: middle;
                 display: inline-block;
                 width: 200px;
-          `},me(Kv,{value:a,onChange:(h,g)=>{typeof g!="object"&&(h.stopPropagation(),s(g))},step:10,marks:d,min:30,max:250},a,"%")))),me("div",null,me(Bs.div,{animate:{transformOrigin:"top right",width:l,scale:a/100},css:pt`  
-                  max-width: 100%;
-                  min-width: 300px;
-                  min-height: 250px;
+          `},me(Kv,{value:a,onChange:(h,g)=>{typeof g!="object"&&(h.stopPropagation(),s(g))},step:10,marks:d,min:30,max:250},a,"%")))),me("div",{css:pt`
+                  display: block;
+                  width: ${a}%;
+                  height: ${a}%;
+                  margin: 16px;
                   background: inherit;
-                  border-radius: 2px;
-                  padding: ${1/(a/100)*24}px;
                     :after{
                       content: '';
                       z-index: -9;
                       background: inherit;
-                      left: ${1/(a/100)*16}px;
-                      right: ${1/(a/100)*16}px;
-                      top: ${1/(a/100)*16}px;  
-                      bottom: ${1/(a/100)*16}px;
+                      left: 16px;
+                      right:16px;
+                      top: 16px;
+                      bottom: 16px;
                       box-shadow: inset 0 0 0 200px rgba(255,255,255,0.35);
                       filter: blur(10px);
                     }
                     >div{
                       background: white;
-                      padding:10px;
-                      border-radius:  ${1/(a/100)*12}px;
-                      opacity: 0.9;
+                      opacity: 0.8;
+                      overflow: hidden;
+                  border-radius: 16px;
                     }
-           `},me("div",{id:"zbody",ref:f},n)))),me("div",{css:pt`
+           `},me(Bs.div,{animate:{transformOrigin:"top left",width:l,scale:a/100}},me("div",{id:"zbody",ref:f},n)))),me("div",{css:pt`
       display: block;
       text-align: right;`},me(Bs.div,{animate:{width:o?220:64,height:o?240:64},css:pt`
                 overflow: hidden;
