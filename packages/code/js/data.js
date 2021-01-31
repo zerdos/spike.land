@@ -259,5 +259,5 @@ export const saveCode =
   };
 
 function getStarter() {
-  return fetch(`./js/examples/app.tsx`).then((res) => res.text());
+  return fetch(`./js/examples/rca.tsx`).then((res) => res.text());
 }
