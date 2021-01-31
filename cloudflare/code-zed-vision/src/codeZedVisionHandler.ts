@@ -202,6 +202,7 @@ export function json(obj: Object) {
 function text(resp: string) {
   return new Response(resp, {
     headers: {
+      "Cache-Control": "no-cache",
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
       "Access-Control-Max-Age": "86400",
