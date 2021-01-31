@@ -56,7 +56,7 @@ async function handleRequest(request: Request) {
           response = undefined;
           cache.delete(cacheKey);
         }
-        await IPFS.put(customCID, content);
+        // await IPFS.put(customCID, content);
       }
       if (response) return await alterHeaders(response, reversePath);
     }
