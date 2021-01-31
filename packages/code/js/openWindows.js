@@ -14,7 +14,7 @@ export async function openWindows() {
       borderRadius: "0px",
       backgroundWindow: "#1e1e1e",
       height: 800,
-      title: "app.tsx - ",
+      title: "app.tsx :-) ",
     },
   );
 
