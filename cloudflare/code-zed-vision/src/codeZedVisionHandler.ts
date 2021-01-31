@@ -214,7 +214,7 @@ async function fetchCid(path: string, retry = 3): Promise<Response> {
           throw new Error("Not found");
         }
         return res.clone();
-      })
+      }).catch((e) => console.log({ e }))
     );
 
   try {
