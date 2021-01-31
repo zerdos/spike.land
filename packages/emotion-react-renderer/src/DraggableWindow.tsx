@@ -85,7 +85,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               css={css`
           background: rgb(204,204,204, 06);
           border-radius: 20px;
-          height: 52px;
+          overflow: hidden;
           float: right;
           display: flex;
           right: 0;
