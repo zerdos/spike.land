@@ -26,7 +26,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 ) => {
   const [showQR, setQR] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(100);
-  const [width, setWidth] = React.useState(breakPoints[0]);
+  const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
 
