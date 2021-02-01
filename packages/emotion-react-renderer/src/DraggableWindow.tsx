@@ -18,6 +18,8 @@ import {
 
 const breakPoints = [640, 750, 1024, 1920];
 
+const sizes = [25, 50, 75, 100, 200];
+
 const dragHelper = {
   drag: false,
 };
@@ -34,7 +36,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, position, session, children },
 ) => {
   const [showQR, setQR] = React.useState(false);
-  const [scaleRange, changeScaleRange] = React.useState(80);
+  const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
 
   const [width, setWidth] = React.useState(breakPoints[1]);
@@ -99,7 +101,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               animate={{ width: width * scale, height: height * scale }}
               css={css`
                   display: block;
-                  margin: 16px;
+                  margin-right: 16px;
                   position: relative;
           
                   background: inherit;
@@ -122,6 +124,36 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                     }
            `}
             >
+              <div css="text-align: center">
+                <div
+                  css={`
+            background: rgba(200, 200, 200, 0.8);
+            display: inline-block;
+            border-radius: 4px;
+            overflow: hidden;
+        `}
+                >
+                  <div css="display:inline -block">
+                    <ToggleButtonGroup
+                      value={scaleRange}
+                      size="small"
+                      exclusive
+                      color="white"
+                      onChange={(_e, newScale) =>
+                        newScale && changeScaleRange(newScale)}
+                    >
+                      {sizes.map((size) =>
+                        <ToggleButton
+                          key={size}
+                          value={size}
+                        >
+                          {size}%
+                        </ToggleButton>
+                      )}
+                    </ToggleButtonGroup>
+                  </div>
+                </div>
+              </div>
               <motion.div
                 animate={{
                   transformOrigin: "top left",
@@ -130,7 +162,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   scale,
                 }}
                 css={`
-                  position: absolute;
+                 
                   overflow-y: overlay;
               `}
               >
@@ -145,7 +177,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             <div css="text-align: center">
               <div
                 css={`
-              background: rgba(200, 200, 200, 0.7);
+              background: rgba(200, 200, 200, 0.8);
               display: inline-block;
               border-radius: 4px;
               overflow: hidden;
@@ -208,33 +240,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               >
                 Publish
               </Fab>
-            </div>
-            <div
-              css={css`
-            display: block;
-            margin-top: 40px;
-            height: 150px;
-            width: 24px;
-            padding: 6px;
-          `}
-            >
-              <Slider
-                value={scaleRange}
-                orientation="vertical"
-                onChange={(_e, v) => {
-                  if (typeof v === "object") {
-                    return;
-                  }
-                  _e.stopPropagation();
-                  changeScaleRange(v);
-                }}
-                step={10}
-                marks={marks}
-                min={20}
-                max={150}
-              >
-                {scaleRange}%
-              </Slider>
             </div>
           </div>
         </div>

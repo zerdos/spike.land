@@ -6,7 +6,7 @@ export const shasums = {
   "modules/ipfs.client.js":
     "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
   "modules/renderer.js":
-    "9a2e66c4ff2e2944eb45987ede7f75683f12ca8ab4f08d52765160bd15d6cca6",
+    "a27676e38127a7a7a8e2538b645090740887b17d2a58c60850ddca3636e868b2",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -36,7 +36,7 @@ export const shasums = {
   "modules/vendor/diffChars.js":
     "70a109b675719c58bea2591f321afa0b19d30a29f71a957b519a27aa470f76bd",
   "modules/DraggableWindow.js":
-    "c7a1bd29401bd86748e52f429f119e0e5b5f16fc90d052f0f68233276693ca89",
+    "d11a5f0f8f6af0290b57dc9c0d940bf4650ff8e2e9d83062d617d7edefd955f9",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/diffChars.js":
@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "79e1f04b5c63cf16d2f6e3c6f1ffc5449bbefead658ad8b1371d254edb5580ed",
+    "784b2aa5ea11d88f1338f4b46a3233a013c796a83a728ebc2b6d0fdcf8dda566",
   "index.html":
     "439a4b0261dcbec0aed3161529334457cc0546d1dcb4dc9c167f6cfe71e4e85c",
   "ipfs.json":
@@ -102,7 +102,7 @@ export const shasums = {
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/app.css":
-    "8873bf3ac78f1362ef9285a5ac0ba63c12f6c30250c52ccc8324a8943f226ccf",
+    "50734d193e18f990679c2c0dbce440c71c1a081768b1a81b0d232389e657051e",
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
   "assets/synthwave.jpg":
@@ -120,7 +120,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
   ".tsBuildInfo":
-    "68c07dfe773013e5722cd29094d75cbca0ae7e77edd0c476f412bbee0d3a065d",
+    "b80795f5a7d2ce0448d7fbeeaaccd1c5c0b440b0bb3951a40b313c04406ba238",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":
