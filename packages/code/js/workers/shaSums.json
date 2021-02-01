@@ -44,7 +44,7 @@
 "js/examples/app.tsx": "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
 "js/examples/starter_framer.js": "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
 "js/examples/starterNoFramerMotion.js": "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
-"js/examples/rca.tsx": "311fd1036ce06843024ab103b2c1d376abd8edf2ac188cb610519b39e9bfdfa3",
+"js/examples/rca.tsx": "559c26df7a43ad5a40a9fb388a32f5ea07c5a5683c8f7f344cf8b2576a4934fb",
 "js/templates.js": "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
 "js/starterTsx.tsx": "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
 "js/ipfsClient.js": "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
@@ -61,7 +61,7 @@
 "assets/triangle-geometry.png": "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
 ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
 "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
-".tsBuildInfo": "b80795f5a7d2ce0448d7fbeeaaccd1c5c0b440b0bb3951a40b313c04406ba238",
+".tsBuildInfo": "96940498b6c44dac3cd574417de77916eecadc0597b33c3282231ea0581fc74d",
 ".vscode/settings.json": "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
 "favicon.ico": "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
  "foo":"bar" }
