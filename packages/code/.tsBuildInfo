@@ -272,7 +272,7 @@
         "affectsGlobalScope": true
       },
       "./sw.js": {
-        "version": "16b6c17948797c721c8a9205b4be0c0d3ee17e07a548e75873ea1144383c2298",
+        "version": "5cae889b19b5fc99f2d19d2a58ea075495761233a4c9cde614688969def41157",
         "signature": "f7b68558fe477c6a075b9bbe60ac2ecc15e89b9ba0641fb30bd029de1ab72c0d",
         "affectsGlobalScope": true
       }

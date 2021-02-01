@@ -30,7 +30,7 @@ self.workbox.loadModule("workbox-cacheable-response");
 
 const routes = Object.keys(files).filter((x) =>
   x.length && x.indexOf(".") !== -1
-).map((x) => ({ url: `/${x}`, revision: files[x], integrity: `sha256-${shaSums[x]}` }));
+).map((x) => ({ url: `/${x}`, revision: files[x], integrity: `sha2-256-${shaSums[x]}` }));
 
 if (cid === currentCid) {
   self.workbox.precaching.precacheAndRoute(

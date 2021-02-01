@@ -118,9 +118,9 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
-  "sw.js": "16b6c17948797c721c8a9205b4be0c0d3ee17e07a548e75873ea1144383c2298",
+  "sw.js": "5cae889b19b5fc99f2d19d2a58ea075495761233a4c9cde614688969def41157",
   ".tsBuildInfo":
-    "96940498b6c44dac3cd574417de77916eecadc0597b33c3282231ea0581fc74d",
+    "f7441b6e890686183759e762cb60f91c99f6ac257cfc0c2cd4b808f431d0bea5",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":
