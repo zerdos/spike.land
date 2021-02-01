@@ -137,6 +137,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           <div css={`
               background: rgba(200, 200, 200, 0.7);
               display: inline-block;
+              border-radius: 4px;
               overflow: hidden;
           `}>
           <ToggleButtonGroup
@@ -197,9 +198,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               Publish
             </Fab>
           </div>
-          <motion.div
-          drag={"y"}
-          dragConstraints={{top:0, bottom:0, left:0, right:0}}
+          <div
           css={css`
             display: block;
             margin-top: 40px;
@@ -224,7 +223,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 >
                   {scaleRange}%
                 </Slider>
-                </motion.div>
+                </div>
         </div>
       </div>
     </motion.div>
