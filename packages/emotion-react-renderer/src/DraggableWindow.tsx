@@ -4,7 +4,7 @@ import Fab from "@material-ui/core/Fab";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 import Slider from "@material-ui/core/Slider";
-import { css, jsx, motion, QR, React, render } from "./renderer";
+import { css, jsx, motion, QR, React, render, AnimateSharedLayout, Motion } from "./renderer";
 // import CssBaseline from "@material-ui/core/CssBaseline";
 
 const breakPoints = [640, 750, 1024, 1920];
@@ -25,7 +25,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, position, session, children },
 ) => {
   const [showQR, setQR] = React.useState(false);
-  const [scaleRange, changeScaleRange] = React.useState(100);
+  const [scaleRange, changeScaleRange] = React.useState(50);
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
@@ -40,23 +40,19 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       label: "100%",
     },
     {
-      value: 250,
-      label: "250%",
+      value: 150,
+      label: "150%",
     },
   ];
-  const heights = {
-    640: 1136,
-    750: 1334,
-    1024: 768,
-    1920: 1080
-  }
+
 
   //@ts-ignore
-  const height = heights[ width ] || 800;
+  const height = innerHeight;
 
   const scale = scaleRange/100;
 
   return (
+    <AnimateSharedLayout>
     <motion.div
       ref={ref}
       css={css`
@@ -76,6 +72,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       onDragEnd={(e) => {
         dragHelper.drag = false;
       }}
+     
       dragMomentum={false}
       drag={true}
     >
@@ -87,7 +84,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       >
         <div>
           <motion.div
-          animate={{        width: width*scale,
+          animate={{  width: width*scale,
           height: height*scale}}
             css={css`
                   display: block;
@@ -147,7 +144,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 size="small"
                 exclusive
                 color="white"
-                onChange={(_e, newSize) => setWidth(newSize)}
+                onChange={(_e, newSize) => newSize && setWidth(newSize)}
               >
                 {breakPoints.map((size) =>
                   <ToggleButton
@@ -200,7 +197,10 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               Publish
             </Fab>
           </div>
-          <div css={css`
+          <motion.div
+          drag={"y"}
+          dragConstraints={{top:0, bottom:0, left:0, right:0}}
+          css={css`
             display: block;
             margin-top: 40px;
             height: 150px;
@@ -220,14 +220,15 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   step={10}
                   marks={marks}
                   min={10}
-                  max={250}
+                  max={150}
                 >
                   {scaleRange}%
                 </Slider>
-                </div>
+                </motion.div>
         </div>
       </div>
     </motion.div>
+    </AnimateSharedLayout>
   );
 };
 interface IRenderProps extends DraggableWindowProps {
