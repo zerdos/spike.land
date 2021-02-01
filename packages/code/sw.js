@@ -30,7 +30,7 @@ self.workbox.loadModule("workbox-cacheable-response");
 
 const routes = Object.keys(files).filter((x) =>
   x.length && x.indexOf(".") !== -1
-).map((x) => ({ url: `/${x}`, revision: files[x], integrity: `sha2-256-${shaSums[x]}` }));
+).map((x) => ({ url: `/${x}`, revision: files[x], integrity: `sha256-${hexToBase64(shaSums[x])}` }));
 
 if (cid === currentCid) {
   self.workbox.precaching.precacheAndRoute(
@@ -77,3 +77,9 @@ self.workbox.routing.registerRoute(
     ],
   }),
 );
+
+function hexToBase64(hexstring) {
+  return btoa(hexstring.match(/\w{2}/g).map(function(a) {
+      return String.fromCharCode(parseInt(a, 16));
+  }).join(""));
+}
