@@ -135,7 +135,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               </div>
             </div>
           </div>
-          <div   css={css`
+          <div
+            css={css`
                   display: block;
                   width: ${scale}%;
                   height: ${scale}%;
@@ -158,14 +159,14 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                       overflow: hidden;
                   border-radius: 16px;
                     }
-           `}>
+           `}
+          >
             <motion.div
               animate={{
                 transformOrigin: "top left",
                 width,
                 scale: scale / 100,
               }}
-            
             >
               <div
                 id="zbody"
