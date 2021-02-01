@@ -13,7 +13,8 @@
         "start": "cd ../.. && yarn start",
         "push": "cd ../.. && yarn push",
         "build": "yarn tsc",
-        "minify": "esbuild dist/codeLoader.js --minify --outfile=dist/codeLoader.min.js"
+        "bundle": "deno bundle js/codeLoader.js > js/bundle.js && yarn minify && rm -rf js/bundle.js",
+        "minify": "esbuild js/bundle.js --minify --format=esm --platform=browser --target=es2018 --outfile=js/bundle.min.js"
     },
     "keywords": [
         "monaco",

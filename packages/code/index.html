@@ -18,8 +18,13 @@
     }
 
   async function start() {
+    try{
     const {run} = await import("./js/codeLoader.js");
       run("window", window);
+    } catch(e) {
+      const {run} = await import("https://unpkg.com/@zedvision/code/js/codeLoader.js");
+      run("window", window);
+    }
       setTimeout(()=>workBox(), 3000);
 
   }

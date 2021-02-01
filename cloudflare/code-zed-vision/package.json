@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "deno fmt src",
-    "build": "esbuild --bundle src/codeZedVisionHandler.ts --target=es2017 --platform=browser --outfile=dist/index.js",
+    "build": "esbuild --bundle src/codeZedVisionHandler.ts --target=es2018 --platform=browser --outfile=dist/index.js",
     "deploy": "yarn build && wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
