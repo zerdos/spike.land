@@ -78,7 +78,7 @@ export const shasums = {
   "js/hash.js":
     "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
   "js/workers/ipfsWorker.js":
-    "d4d43e2c181bc01e9c401c07f346c475a7b3ca110363cf2945f567341aa0e7ae",
+    "aab4101c5446ba7b87dd1fca2c8fbed7271be8378c362209db95a68785db3b21",
   "js/workers/transpile.worker.js":
     "6012fdbfd41db27e9bc5abe1c764897a985ad09ef4e4645769fea741ff0c284b",
   "js/examples/app.tsx":
@@ -120,7 +120,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "b6e99d1ca78e0be612f91584ac40a6d27c825936f58ea722037a7f29bda4301a",
   ".tsBuildInfo":
-    "45aef3f11f366647b04cb2315d525b54b551dcb72b71953f72468a14af8bf4bf",
+    "68c07dfe773013e5722cd29094d75cbca0ae7e77edd0c476f412bbee0d3a065d",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":

@@ -13,7 +13,7 @@ export { React };
 export { Fragment };
 export { Motion };
 
-export const {AnimateSharedLayout }= Motion;
+export const { AnimateSharedLayout } = Motion;
 export const { motion } = Motion;
 
 export { jsx };
