@@ -219,21 +219,21 @@ export class DevcontainerGenerator {
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["2.1.811"],
+            softwareVersions.sha.dotnet_sha512["2.1.812"],
           );
       } else if (this._dotnet === "3") {
         this._dockerfile += dockerTemplates["dotnet3"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["3.1.404"],
+            softwareVersions.sha.dotnet_sha512["3.1.405"],
           );
       } else {
         this._dockerfile += dockerTemplates["dotnet5"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet5)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["5.0.101"],
+            softwareVersions.sha.dotnet_sha512["5.0.102"],
           );
       }
     }
