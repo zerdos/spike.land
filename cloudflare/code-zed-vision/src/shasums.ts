@@ -80,15 +80,15 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "aab4101c5446ba7b87dd1fca2c8fbed7271be8378c362209db95a68785db3b21",
   "js/workers/transpile.worker.js":
-    "6012fdbfd41db27e9bc5abe1c764897a985ad09ef4e4645769fea741ff0c284b",
+    "b97bd13e4712786b0d842d28d5b4a8f5de2aa867ce6981847a89b30693d71a99",
   "js/examples/app.tsx":
-    "8b94eabfe26d75eb6a0dae70cc799f40385a5f00229206295b1cd153c5b6abb4",
+    "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/examples/starterNoFramerMotion.js":
     "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "js/examples/rca.tsx":
-    "16b71f3b25188434eac1809bbcfcf2bffa2fcf9f0e907268f342de92cb316bd7",
+    "311fd1036ce06843024ab103b2c1d376abd8edf2ac188cb610519b39e9bfdfa3",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
   "js/starterTsx.tsx":

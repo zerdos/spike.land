@@ -1,14 +1,16 @@
 import { useState } from "react";
 /** @jsx jsx */
-import { css, jsx, Global } from "@emotion/react";
+import { css, Global, jsx } from "@emotion/react";
 
 const Hello = () => {
   const [color, setColor] = useState("white");
 
   return (
-    <div css={css`
+    <div
+      css={css`
           color: ${color}
-        `}>
+        `}
+    >
       <h1>Hello World!</h1>
       <label>
         You can change the color:
