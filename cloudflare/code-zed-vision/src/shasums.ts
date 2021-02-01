@@ -40,13 +40,13 @@ export const shasums = {
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/DraggableWindow.js":
-    "88e298940af2cd5a8bc239c03b363a103d26c1c1329c466d323844f79528de49",
+    "e9aef0efb684e34113c6fc18182535e45096605a205e30d7a29edc86c7443ba0",
   "modules/chunk.Q5D4IXJD.js":
     "bdd8acf1456d6674adcae6c68b59668bd3b88e6cbe71fcdb6f6c02645360ffde",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.js":
-    "c9868e9f21a4f313141ffc7ad62954246d186346b660c58b4bea72e6ee110804",
+    "654615a017e495e211a5abfabfc5b41ecf25974c0e92dd2e1bc014f7c89b3820",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/getDbObj.d.ts":
