@@ -6,7 +6,7 @@ export const shasums = {
   "modules/ipfs.client.js":
     "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
   "modules/renderer.js":
-    "3374dc2bc69de614c1e614c2d1ee7fa12b1f20a6a8e5c7765e5caac16ce3b8a1",
+    "f1157e95bdef2554c68644c8517bf98b0c27de29dccbceed713706fe016f1cca",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -36,7 +36,7 @@ export const shasums = {
   "modules/vendor/diffChars.js":
     "70a109b675719c58bea2591f321afa0b19d30a29f71a957b519a27aa470f76bd",
   "modules/DraggableWindow.js":
-    "467ef1fcca66ef9a10df1b8fba10ac8bb0b38d06b5bdc0b2396302533a1afb56",
+    "ac1bbd7846585a364c41a2e4f787aaaeccbf775599f4725b41c7590c4e0b91ba",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/diffChars.js":

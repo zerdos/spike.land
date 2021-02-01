@@ -25,7 +25,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, position, session, children },
 ) => {
   const [showQR, setQR] = React.useState(false);
-  const [scaleRange, changeScaleRange] = React.useState(50);
+  const [scaleRange, changeScaleRange] = React.useState(80);
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
