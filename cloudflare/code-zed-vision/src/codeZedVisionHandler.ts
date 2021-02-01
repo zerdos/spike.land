@@ -116,6 +116,7 @@ async function handleRequest(request: Request) {
       `globalThis.cid = "${cid}";globalThis.files=JSON.parse('${
         JSON.stringify(files)
       }'); 
+      globalThis.shaSums = JSON.parse('${JSON.stringify(shasums)}');
       globalThis.reverseMap = {}; 
       Object.keys(globalThis.files).forEach(k=>globalThis.reverseMap[globalThis.files[k]]=k);`,
     );

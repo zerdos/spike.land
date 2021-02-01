@@ -3,7 +3,7 @@ self.importScripts(
 );
 self.importScripts("https://code.zed.vision/ipfs.js");
 
-const { cid, files } = globalThis;
+const { cid, files, shaSums } = globalThis;
 
 let currentCid = cid;
 
@@ -30,7 +30,7 @@ self.workbox.loadModule("workbox-cacheable-response");
 
 const routes = Object.keys(files).filter((x) =>
   x.length && x.indexOf(".") !== -1
-).map((x) => ({ url: `/${x}`, revision: files[x] }));
+).map((x) => ({ url: `/${x}`, revision: files[x], integrity: `sha256-${shaSums[x]}` }));
 
 if (cid === currentCid) {
   self.workbox.precaching.precacheAndRoute(
