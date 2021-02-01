@@ -26,9 +26,17 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 ) => {
   const [showQR, setQR] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(80);
+  const [height, changeHeight] = React.useState(innerHeight);
+  
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
+
+
+  React.useEffect(()=>{
+
+    changeHeight(innerHeight);
+  },[innerHeight])
 
   const marks = [
     {
@@ -47,7 +55,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
 
   //@ts-ignore
-  const height = innerHeight;
 
   const scale = scaleRange/100;
 
