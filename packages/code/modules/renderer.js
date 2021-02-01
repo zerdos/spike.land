@@ -142,7 +142,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                       background: white;
                       opacity: 0.8;
                       overflow: hidden;
-                  border-radius: 16px;
+                      border-radius: 16px;
                     }
            `},me(Bs.div,{animate:{transformOrigin:"top left",width:l,scale:a/100}},me("div",{id:"zbody",ref:f},n)))),me("div",{css:pt`
       display: block;

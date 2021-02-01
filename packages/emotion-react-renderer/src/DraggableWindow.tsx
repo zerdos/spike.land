@@ -157,7 +157,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                       background: white;
                       opacity: 0.8;
                       overflow: hidden;
-                  border-radius: 16px;
+                      border-radius: 16px;
                     }
            `}
           >
