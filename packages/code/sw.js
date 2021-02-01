@@ -29,7 +29,7 @@ self.workbox.loadModule("workbox-strategies");
 self.workbox.loadModule("workbox-cacheable-response");
 
 const routes = Object.keys(files).filter((x) =>
-  x.length && x.indexOf(".") !== -1
+  x.length && x.indexOf(".") !== -1 && shaSums[x]
 ).map((x) => ({ url: `/${x}`, revision: files[x], integrity: `sha256-${hexToBase64(shaSums[x])}` }));
 
 if (cid === currentCid) {
