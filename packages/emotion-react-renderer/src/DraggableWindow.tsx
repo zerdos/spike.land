@@ -32,8 +32,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   const marks = [
     {
-      value: 10,
-      label: "10%",
+      value: 20,
+      label: "20%",
     },
     {
       value: 100,
@@ -219,7 +219,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   }}
                   step={10}
                   marks={marks}
-                  min={10}
+                  min={20}
                   max={150}
                 >
                   {scaleRange}%
