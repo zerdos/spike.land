@@ -25,7 +25,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, position, session, children },
 ) => {
   const [showQR, setQR] = React.useState(false);
-  const [scale, changeScale] = React.useState(100);
+  const [scaleRange, changeScaleRange] = React.useState(100);
   const [width, setWidth] = React.useState(breakPoints[0]);
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
@@ -44,14 +44,25 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       label: "250%",
     },
   ];
+  const heights = {
+    640: 1136,
+    750: 1334,
+    1024: 768,
+    1920: 1080
+  }
+
+  //@ts-ignore
+  const height = heights[ width ] || 800;
+
+  const scale = scaleRange/100;
 
   return (
     <motion.div
       ref={ref}
       css={css`
             right: 20px;
-            background-color: rgba(255, 255, 255, .15);  
-            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, .25);  
+            backdrop-filter: blur(7px);
             top: 20px;
             padding: 16px;
             border-radius: 16px;
@@ -75,72 +86,14 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       `}
       >
         <div>
-          <div
-            css={css`
-        justify-content: flex-end;
-                display: flex;
-              `}
-          >
-            <div
-              css={css`
-          background: rgb(204,204,204, 06);
-          border-radius: 20px;
-          overflow: hidden;
-          float: right;
-          display: flex;
-          right: 0;
-          top: 0;
-      `}
-            >
-              {/* <CssBaseline /> */}
-              <ToggleButtonGroup
-                value={width}
-                exclusive
-                onChange={(_e, newSize) => setWidth(newSize)}
-              >
-                {breakPoints.map((size) =>
-                  <ToggleButton
-                    key={size}
-                    value={size}
-                  >
-                    {size}px
-                  </ToggleButton>
-                )}
-              </ToggleButtonGroup>
-              <div
-                css={css`
-                margin-left: 40px;
-                margin-right: 40px;
-                vertical-align: middle;
-                display: inline-block;
-                width: 200px;
-          `}
-              >
-                <Slider
-                  value={scale}
-                  onChange={(_e, v) => {
-                    if (typeof v === "object") {
-                      return;
-                    }
-                    _e.stopPropagation();
-                    changeScale(v);
-                  }}
-                  step={10}
-                  marks={marks}
-                  min={10}
-                  max={250}
-                >
-                  {scale}%
-                </Slider>
-              </div>
-            </div>
-          </div>
-          <div
+          <motion.div
+          animate={{        width: width*scale,
+          height: height*scale}}
             css={css`
                   display: block;
-                  width: ${scale}%;
-                  height: ${scale}%;
                   margin: 16px;
+                  position: relative;
+          
                   background: inherit;
                     :after{
                       content: '';
@@ -165,8 +118,13 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               animate={{
                 transformOrigin: "top left",
                 width,
-                scale: scale / 100,
+                height,
+                scale,
               }}
+              css={`
+                  position: absolute;
+                  overflow-y: overlay;
+              `}
             >
               <div
                 id="zbody"
@@ -174,8 +132,34 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               >
                 {children}
               </div>
+              
             </motion.div>
-          </div>
+         
+          </motion.div>
+          <div css="text-align: center"> 
+          <div css={`
+              background: rgba(200, 200, 200, 0.7);
+              display: inline-block;
+              overflow: hidden;
+          `}>
+          <ToggleButtonGroup
+                value={width}
+                size="small"
+                exclusive
+                color="white"
+                onChange={(_e, newSize) => setWidth(newSize)}
+              >
+                {breakPoints.map((size) =>
+                  <ToggleButton
+                    key={size}
+                    value={size}
+                  >
+                    {size}px
+                  </ToggleButton>
+                )}
+              </ToggleButtonGroup>
+        </div>
+        </div>
         </div>
         <div
           css={css`
@@ -216,6 +200,31 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               Publish
             </Fab>
           </div>
+          <div css={css`
+            display: block;
+            margin-top: 40px;
+            height: 150px;
+            width: 24px;
+            padding: 6px;
+          `}>
+          <Slider
+                  value={scaleRange}
+                  orientation="vertical"
+                  onChange={(_e, v) => {
+                    if (typeof v === "object") {
+                      return;
+                    }
+                    _e.stopPropagation();
+                    changeScaleRange(v);
+                  }}
+                  step={10}
+                  marks={marks}
+                  min={10}
+                  max={250}
+                >
+                  {scaleRange}%
+                </Slider>
+                </div>
         </div>
       </div>
     </motion.div>
