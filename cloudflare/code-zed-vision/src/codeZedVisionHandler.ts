@@ -125,15 +125,22 @@ async function handleRequest(request: Request) {
     );
   }
   if (pathname === "/check") {
-    const res: String[] = [];
+    const missing: String[] = [];
+    const having: String[] = [];
+
     Object.keys(files).map(async (file) => {
       //@ts-ignore
       const kvRes = await IPFS.get(files[file]);
       if (kvRes === null) {
-        res.push(file);
+        missing.push(file);
+      } else {
+        having.push(file);
       }
     });
-    return text(res.join(", "));
+    return text(` 
+      missing: ${missing.join(", ")}
+      having: ${having.join(", ")}
+    `);
   }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
