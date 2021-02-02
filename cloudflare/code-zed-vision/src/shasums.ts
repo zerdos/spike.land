@@ -52,7 +52,7 @@ export const shasums = {
   "package.json":
     "395ef03138cbb6e0de730852f67913783d6db423b225bd8938cf626313d366cc",
   "index.html":
-    "439a4b0261dcbec0aed3161529334457cc0546d1dcb4dc9c167f6cfe71e4e85c",
+    "fc98a445de835736fdb7ac59ff8c0566c4f53f389b93eae10c58296189c98c69",
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "js/importScript.js":
@@ -118,7 +118,7 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
-  "sw.js": "72a59c0c91c83f16cd4aeb16aa460062040b90e78946a16a949fb102db83e4cf",
+  "sw.js": "93b74debe187ee305612584c4ab0111e7a39dae405c357b30076a48abe51cfb0",
   ".tsBuildInfo":
     "734da727f0d8e39d3e40a0388a05f26c8478266492f962e76a0c1917de49279e",
   ".vscode/settings.json":

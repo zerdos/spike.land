@@ -30,12 +30,14 @@
   }
 
   async function workBox() {
-  if ("serviceWorker" in window.navigator) {
+  if ("serviceWorker" in window.navigator && window.location.origin==="https://code.zed.vision") {
+
+
  
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
     );
-    const wb = new Workbox(`./sw.js`);
+    const wb = new Workbox(`./generated-sw.js`);
 
     wb.addEventListener("activated", (event) => {
       if (!event.isUpdate && !window.monaco) {

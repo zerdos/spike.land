@@ -118,7 +118,10 @@ async function handleRequest(request: Request) {
   }
   if (pathname === "/generated-sw.js") {
     return js(
-      getGlobalThis(),
+      `self. importScripts("./sw.js");
+      ${getGlobalThis()}
+      globalThis.register();
+      `,
     );
   }
   if (pathname === "/check") {
