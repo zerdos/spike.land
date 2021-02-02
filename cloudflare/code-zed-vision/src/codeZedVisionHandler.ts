@@ -128,15 +128,18 @@ async function handleRequest(request: Request) {
     const missing: String[] = [];
     const having: String[] = [];
 
-    Object.keys(files).map(async (file) => {
-      //@ts-ignore
-      const kvRes = await IPFS.get(files[file]);
-      if (kvRes === null) {
-        missing.push(file);
-      } else {
-        having.push(file);
-      }
-    });
+    await Promise.all(
+      Object.keys(files).map(async (file) => {
+        //@ts-ignore
+        const kvRes = await IPFS.get(files[file]);
+        if (kvRes === null) {
+          missing.push(file);
+        } else {
+          having.push(file);
+        }
+      }),
+    );
+
     return text(` 
       missing: ${missing.join(", ")}
       having: ${having.join(", ")}
