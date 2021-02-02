@@ -88,7 +88,7 @@ export const shasums = {
   "js/examples/starterNoFramerMotion.js":
     "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "js/examples/rca.tsx":
-    "559c26df7a43ad5a40a9fb388a32f5ea07c5a5683c8f7f344cf8b2576a4934fb",
+    "76ee4376e2bb1742e94eb6981afc8a4731c442b14be68d34a80c7905a2eb2016",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
   "js/starterTsx.tsx":
@@ -120,7 +120,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   ".tsBuildInfo":
-    "2cd83dcdf3a536c1e8520207e7596dee65b5dbd364f3001c6fe4069b75a630c3",
+    "db404dcb72505b174e7e0c960236a3efbde36e410c5f1d14e798eb368c01ebf7",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":
