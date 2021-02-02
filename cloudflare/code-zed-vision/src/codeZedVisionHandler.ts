@@ -8,23 +8,21 @@ import {
 import { cid } from "./cid";
 import { alterHeaders, sha256 } from "./alterHeaders";
 
-const reverseMap: { [key: string]: string } = {};
+type KV = { [key: string]: string };
 
-const filteredFiles = {};
-//@ts-ignore
-Object.keys(files).forEach((k) => {
-  //@ts-ignore
-  if (shasums[k]) {
-    //@ts-ignore
+const reverseMap: KV = {};
+const filteredFiles: KV = {};
 
-    filteredFiles[k] = files[k];
-    //@ts-ignore
+const shasumsKV: KV = shasums;
+const fileKV: KV = files;
 
-    reverseMap[files[k]] = k;
+Object.keys(fileKV).forEach((k) => {
+  if (shasumsKV[k]) {
+    filteredFiles[k] = fileKV[k];
+
+    reverseMap[fileKV[k]] = k;
   } else {
-    //@ts-ignore
-
-    delete files[k];
+    delete fileKV[k];
   }
 });
 
@@ -45,15 +43,14 @@ async function handleRequest(request: Request) {
       (pathname.slice(0, 52) === `/ipfs/${cid}` && (pathname.slice(53) ||
         "index.html")) ||
       pathname;
-    //@ts-ignore
-    const sha = reversePath && shasums[reversePath];
+
+    const sha = reversePath && shasumsKV[reversePath];
 
     if (
       pathname.slice(0, 52) === `/ipfs/${cid}`
     ) {
       const path = pathname.slice(53);
-      //@ts-ignore
-      customCID = files[path];
+      customCID = fileKV[path];
     }
 
     if (reversePath) url.pathname = `/ipfs/${cid}/${reversePath}`;
@@ -66,7 +63,8 @@ async function handleRequest(request: Request) {
     if (response && response.status == 200) {
       if (sha) {
         const content = await response.arrayBuffer();
-        const shaContent = sha256(content);
+        const shaContent = await sha256(content);
+
         if (sha !== shaContent) {
           response = undefined;
           cache.delete(cacheKey);
@@ -80,8 +78,8 @@ async function handleRequest(request: Request) {
     if (content !== null && sha) {
       const file = reverseMap[customCID];
       const contentSHA = await sha256(content);
-      //@ts-ignore
-      if (shasums[file] === contentSHA) {
+
+      if (shasumsKV[file] === contentSHA) {
         await IPFS.put(customCID, content);
       } else {
         await IPFS.delete(customCID);
@@ -142,16 +140,15 @@ async function handleRequest(request: Request) {
   }
   if (pathname === "/check") {
     const missing: String[] = [];
-    const having: String[] = [];
+    const having: KV[] = [];
 
     await Promise.all(
       Object.keys(filteredFiles).map(async (file) => {
-        //@ts-ignore
-        const kvRes = await IPFS.get(files[file]);
+        const kvRes = await IPFS.get(fileKV[file]);
         if (kvRes === null) {
           missing.push(file);
         } else {
-          having.push(file);
+          having.push({ [file]: kvRes });
         }
       }),
     );
