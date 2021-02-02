@@ -95,32 +95,31 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             
       `}
         >
-          <div css={`
+          <div
+            css={`
             display: flex;
             flex-direction: column;
             align-items: center;
-          `
-          }>
-        
+          `}
+          >
+            <ToggleButtonGroup
+              value={scaleRange}
+              size="small"
+              exclusive
+              color="white"
+              onChange={(_e, newScale) =>
+                newScale && changeScaleRange(newScale)}
+            >
+              {sizes.map((size) =>
+                <ToggleButton
+                  key={size}
+                  value={size}
+                >
+                  {size}%
+                </ToggleButton>
+              )}
+            </ToggleButtonGroup>
 
-                    <ToggleButtonGroup
-                      value={scaleRange}
-                      size="small"
-                      exclusive
-                      color="white"
-                      onChange={(_e, newScale) =>
-                        newScale && changeScaleRange(newScale)}
-                    >
-                      {sizes.map((size) =>
-                        <ToggleButton
-                          key={size}
-                          value={size}
-                        >
-                          {size}%
-                        </ToggleButton>
-                      )}
-                    </ToggleButtonGroup>
-            
             <motion.div
               animate={{ width: width * scale, height: height * scale }}
               css={css`
@@ -133,7 +132,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     
            `}
             >
-         
               <motion.div
                 animate={{
                   transformOrigin: "top left",
@@ -153,22 +151,22 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 </div>
               </motion.div>
             </motion.div>
-                <ToggleButtonGroup
-                  value={width}
-                  size="small"
-                  exclusive
-                  color="white"
-                  onChange={(_e, newSize) => newSize && setWidth(newSize)}
+            <ToggleButtonGroup
+              value={width}
+              size="small"
+              exclusive
+              color="white"
+              onChange={(_e, newSize) => newSize && setWidth(newSize)}
+            >
+              {breakPoints.map((size) =>
+                <ToggleButton
+                  key={size}
+                  value={size}
                 >
-                  {breakPoints.map((size) =>
-                    <ToggleButton
-                      key={size}
-                      value={size}
-                    >
-                      {size}px
-                    </ToggleButton>
-                  )}
-                </ToggleButtonGroup>
+                  {size}px
+                </ToggleButton>
+              )}
+            </ToggleButtonGroup>
           </div>
           <div
             css={css`
