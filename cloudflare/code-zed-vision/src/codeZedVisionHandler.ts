@@ -180,20 +180,20 @@ async function handleRequest(request: Request) {
       },
     });
   }
-  //@ts-ignore
-  if (files[pathname.slice(1)] || pathname === "/") {
+
+  if (fileKV[pathname.slice(1)] || pathname === "/") {
     url.pathname = "/ipfs/" + cid + pathname === "/" ? "/index.html" : pathname;
 
-    //@ts-ignore
-    let fileCid = files[pathname.slice(1)];
+    let fileCid = fileKV[pathname.slice(1)];
     if (pathname === "/") {
       fileCid = files["index.html"];
     }
 
     url.pathname = "/ipfs/" + fileCid;
     const req2 = new Request(url.toString());
+    const resp = handleRequest(req2) as unknown as Response;
 
-    return handleRequest(req2) as unknown as Response;
+    return resp;
   }
   return text("Error: nop");
 }
