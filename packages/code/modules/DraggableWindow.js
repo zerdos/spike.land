@@ -120,7 +120,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     
            `},$(Ks.div,{animate:{transformOrigin:"top left",width:c,height:l,scale:h},css:`
                   overflow:hidden;
-              `},$("div",{id:"zbody",ref:v},n))),$(Gc,{value:c,size:"small",exclusive:!0,color:"white",onChange:(d,p)=>p&&f(p)},QP.map(d=>$($c,{key:d,value:d},d,"px")))),$("div",{css:`display: flex;
+              `},$("div",{id:"zbody",ref:v},n))),$(Gc,{value:c,size:"small",exclusive:!0,color:"white",onChange:(d,p)=>p&&f(p)},QP.map(d=>$($c,{key:d,value:d},d,"px"))),"x",l,"px"),$("div",{css:`display: flex;
           align-items: center;
                 
           flex-direction: column;

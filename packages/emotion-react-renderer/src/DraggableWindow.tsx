@@ -166,7 +166,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   {size}px
                 </ToggleButton>
               )}
-            </ToggleButtonGroup>
+            </ToggleButtonGroup>x{height}px
           </div>
           <div
             css={`display: flex;
