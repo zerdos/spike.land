@@ -42,7 +42,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const zbody = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
+    setWidth(x=>x/2)
     changeHeight(innerHeight);
+    setWidth(x=>x*2)
   }, [innerHeight]);
 
   const marks = [
