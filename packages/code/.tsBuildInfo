@@ -232,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "./js/formatter.js": {
-        "version": "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
+        "version": "ccd3f442420ae6da1493f2a16b18508ce31e5d6853df9a27561dd9f86bc1dc63",
         "signature": "9561ad5c1daa2243187c0187cc53256ced5dc0af90d36f7e3ff06734eb716c92",
         "affectsGlobalScope": false
       },

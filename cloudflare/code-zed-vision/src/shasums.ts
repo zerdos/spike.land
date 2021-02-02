@@ -58,7 +58,7 @@ export const shasums = {
   "js/importScript.js":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/formatter.js":
-    "cd37c247541e32cd51fa569f6d95ab5fdc6b71ba4de9d4e3eedd2a2dec32702b",
+    "ccd3f442420ae6da1493f2a16b18508ce31e5d6853df9a27561dd9f86bc1dc63",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/data.js":
