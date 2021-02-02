@@ -182,13 +182,13 @@
         "affectsGlobalScope": false
       },
       "./modules/ipfs.client.js": {
-        "version": "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
-        "signature": "8b4fa4b2f50c2e5aeb35b26f03099c54749a79284946e8ac5b9c079eaee42a38",
+        "version": "f70378fbde668f5be604c6cd6775d4d192957d2fb0a944c52120f1a5ddb5d03e",
+        "signature": "41c1e82d6bacc524606522ea5a4453c933dc7afffa058cd5f51c03a145493531",
         "affectsGlobalScope": false
       },
       "./js/ipfsClient.js": {
-        "version": "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
-        "signature": "83a9e4784a6daec1ba86a8828cfb0cee12bf5d2e7647b279c521ee6b10c68921",
+        "version": "b0728717d7fa4197e7a993c25ed900adadf98eba5a864c24a756005b150510bd",
+        "signature": "eda07caba307b88a0a531178df845f45588ebf1a7456832c4768de600da1a2b5",
         "affectsGlobalScope": false
       },
       "./js/templates.js": {
@@ -207,8 +207,8 @@
         "affectsGlobalScope": false
       },
       "./js/hash.js": {
-        "version": "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
-        "signature": "d68edd2b8a5fc887504c82ebdb34fd2be579631eba710d42d09b04f40720ff48",
+        "version": "369af698c08ca0868643feeb4d634a6262fcabad4e4905b0781ef6eb8109ef62",
+        "signature": "4cbcaa4959ef5185a0682f2610adf278c25ac5230a4881b44307787906914c38",
         "affectsGlobalScope": false
       },
       "./js/sendSignalToQrCode.js": {
@@ -242,7 +242,7 @@
         "affectsGlobalScope": false
       },
       "./js/codeLoader.js": {
-        "version": "4225e76da10c6c876dbc1d2e75deed6b83e2970d7604a7f4fa9d75f84430b5c1",
+        "version": "feb7654f32e9e44d1b5cc591617125bffbab5e7aa92d19eaf7ab28d5e8f13e07",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },

@@ -1,4 +1,6 @@
-import { ipfsCat, ipfsClient } from "./ipfsClient.js";
+import { CID, fromHexString, ipfsCat, ipfsClient } from "./ipfsClient.js";
+
+export { CID };
 
 const log = (msg) => {
   if (typeof mgs === "string") console.log(msg);
@@ -6,12 +8,16 @@ const log = (msg) => {
   else console.log(msg);
 };
 
+export function sha256ToCid(hash) {
+  return (new CID(0, 112, fromHexString("1220" + hash))).toString();
+}
 // const signalCache = {};
 
 /**
  * @param {string} signal 
  * @param {string} data
  */
+
 export async function sendSignal(signal, data) {
   log(`sending signal: ${signal}`);
 

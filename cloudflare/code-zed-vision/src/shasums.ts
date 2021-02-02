@@ -4,7 +4,7 @@ export const shasums = {
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/ipfs.client.js":
-    "6981ffd610fd63cbbe09630f5116b3d3cb7275acc4a4d1cbc3e668ef06bdea71",
+    "f70378fbde668f5be604c6cd6775d4d192957d2fb0a944c52120f1a5ddb5d03e",
   "modules/renderer.js":
     "38151c755ccb46ca70b3477f0bfcfec431646108bcdb0e7932c1fd6b1a23b694",
   "modules/shaDB.d.ts":
@@ -70,13 +70,13 @@ export const shasums = {
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
-    "4225e76da10c6c876dbc1d2e75deed6b83e2970d7604a7f4fa9d75f84430b5c1",
+    "feb7654f32e9e44d1b5cc591617125bffbab5e7aa92d19eaf7ab28d5e8f13e07",
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "js/hash.js":
-    "493e2c9d6e38efaffdaeef348154fc15d95d1eea77a56c72e244cca2ca32c444",
+    "369af698c08ca0868643feeb4d634a6262fcabad4e4905b0781ef6eb8109ef62",
   "js/workers/ipfsWorker.js":
     "00fb5f335b5725ccd45a3acf5278610a22e8efc3c96b1aeae58f7d5f6f39fb2d",
   "js/workers/transpile.worker.js":
@@ -94,7 +94,7 @@ export const shasums = {
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/ipfsClient.js":
-    "e79b6dbc7fa87f69b01c3729d471b0a4ed21fcc7ca0ad2c2063d35e8fc5afbd8",
+    "b0728717d7fa4197e7a993c25ed900adadf98eba5a864c24a756005b150510bd",
   "js/renderPreviewWindow.js":
     "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "assets/roboto.css":
@@ -120,7 +120,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "72a59c0c91c83f16cd4aeb16aa460062040b90e78946a16a949fb102db83e4cf",
   ".tsBuildInfo":
-    "feae2784774aab57baf2d4bec0b9a18c21174219909b452f5d0610ef7bc54e02",
+    "9e3286394cab5e0dac363b982a35f2d3133a20f63dbe64df5e00db7ca91506d6",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":

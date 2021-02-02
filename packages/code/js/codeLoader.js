@@ -2,7 +2,7 @@ import { sha256 } from "../modules/sha256.js";
 import { diff } from "../modules/diff.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
-import { fetchSignal, sendSignal } from "./hash.js";
+import { CID, fetchSignal, sendSignal, sha256ToCid } from "./hash.js";
 import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
 import { transpileCode } from "./transpile.js";
@@ -37,7 +37,9 @@ export async function run(mode = "window", _w, code = "") {
 
   const { pathname } = new URL(window.location.href);
 
-  setTimeout(async () => Object.assign(window, { sendSignal, fetchSignal }));
+  setTimeout(async () =>
+    Object.assign(window, { sendSignal, fetchSignal, sha256ToCid })
+  );
 
   if (mode === "window") {
     await openWindows();
