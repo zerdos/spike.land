@@ -191,7 +191,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               {showQR && <QR url={session.url + "/edit/"} />}
             </motion.div>
 
-            <div>
+            <div css="margin: 16px;">
               <Fab
                 variant="extended"
                 color="secondary"
