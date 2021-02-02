@@ -33,7 +33,7 @@ added QmQRJPpTNznUXhu7QgpyZJC3KTHNwbL7qYU3XaJdyUBGiF code/js/transpile.js
 added QmZ1Hr2CMgCU4HUTR1A2D8eCMngUJS3CLd9uXeTwb4mvaD code/js/workers/ipfsWorker.js
 added QmSNiaR6CZ8vnPoiFQbJNEB7t7sewuNDkJnuCMwidPST7j code/js/workers/transpile.worker.js
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
-added QmQtxx8cHkC48g9Q46AE3rabH8JjY636YvTeb3ejHu7LjU code/modules/DraggableWindow.js
+added QmRGFMw8puT9HsNPAtfZ7TUnFk5wzEyRq9iLU5T7PA7KB5 code/modules/DraggableWindow.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/modules/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/modules/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/modules/diffChars.d.ts
@@ -41,7 +41,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmeqdEmxEy4xnY2dwmqBVfv2L8kdWU9RGyTvbtfrnovtmN code/modules/ipfs.client.js
-added QmQXdSzsW7EMNzczbvY5XkKaagVj5kRJVMtsdp3hYthAYi code/modules/renderer.js
+added Qmam97sgvWSR7xsBWSV2QzJ1EsBoeBNZA73o88dfNFEXxo code/modules/renderer.js
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -68,5 +68,5 @@ added Qmd3NMJaqHuPbnoBrCpm1xknTiKxGoKLqzFntrrfNnQf2b code/js
 added QmYCgPQyvDZYypYhrsVaCYo2LuQUX2pfTEpfY4HPtU7XDN code/modules/smart-monaco-editor/dist
 added QmUm4UrYHKKR3B6AhA5BbLqQDaGBuZJL1UBihh66cPoWvb code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmPXjaMtDEPmQD8mujTUfLZX6ayD7vfYcCLoQE6BoVsX51 code/modules
-added QmeoQxJMjMQNoxsaDbvCbS3JRoW9jCDE1WqacG5m5XztDj code
+added QmSvUJCSbZsxGwHugbRUGzv1TqmNWT8xGQif9rZszKA3yj code/modules
+added QmZw6xfr6KUWLakpLRkKpjEjhAn4XwuthPjtbkZ7tG3yyv code

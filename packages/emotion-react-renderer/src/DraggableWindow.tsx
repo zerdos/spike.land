@@ -183,14 +183,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           >
             <motion.div
               animate={{
-                width: showQR ? 220 : 16,
-                height: showQR ? 240 : 16,
+                width: showQR ? 220 : 0,
+                height: showQR ? 240 : 0,
               }}
-              css={css`
-                overflow: hidden;
-                display: inline-block;
-                margin: 0px 8px 0px 8px;             
-               `}
               onClick={(e) => {
                 setQR(!showQR);
               }}
