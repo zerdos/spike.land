@@ -2,12 +2,15 @@ self.importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js",
 );
 
-const { cid, files, shaSums } = globalThis;
-
-let currentCid = cid;
 
 
 globalThis.register = () => {
+
+
+  const { cid, files, shaSums } = globalThis;
+
+  let currentCid = cid;
+
   const { pathname } = self.location;
 
   if (pathname.indexOf("/ipfs/") !== -1) {
