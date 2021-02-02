@@ -10,7 +10,14 @@ import { alterHeaders, sha256 } from "./alterHeaders";
 
 const reverseMap: { [key: string]: string } = {};
 //@ts-ignore
-Object.keys(files).forEach((k) => reverseMap[files[k]] = k);
+
+Object.keys(files).forEach((k) => {
+  if (shasums[k]) {
+    reverseMap[files[k]] = k;
+  } else {
+    delete files[k];
+  }
+});
 
 addEventListener("fetch", (event: FetchEvent) => {
   event.respondWith(handleRequest(event.request));
