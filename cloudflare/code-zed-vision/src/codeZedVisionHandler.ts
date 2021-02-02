@@ -155,7 +155,7 @@ async function handleRequest(request: Request) {
 
     return text(` 
       missing: ${missing.join(", ")}
-      having: ${having.join(", ")}
+      having: ${JSON.stringify(having)}
     `);
   }
   if (pathname === `/cid.js`) {
