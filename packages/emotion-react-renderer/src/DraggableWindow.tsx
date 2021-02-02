@@ -74,7 +74,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             background-color: rgba(255, 255, 255, .25);  
             backdrop-filter: blur(7px);
             top: 20px;
-            padding: 16px;
+            padding: 0px 16px 0px 16px;
             border-radius: 16px;
             white-space: normal;
             position: ${position ? position : "fixed"};

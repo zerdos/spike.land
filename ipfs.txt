@@ -33,7 +33,7 @@ added QmQRJPpTNznUXhu7QgpyZJC3KTHNwbL7qYU3XaJdyUBGiF code/js/transpile.js
 added QmZ1Hr2CMgCU4HUTR1A2D8eCMngUJS3CLd9uXeTwb4mvaD code/js/workers/ipfsWorker.js
 added QmSNiaR6CZ8vnPoiFQbJNEB7t7sewuNDkJnuCMwidPST7j code/js/workers/transpile.worker.js
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
-added QmeavmEQi4wTTm4LgZKNALMaht1wzBLRJwxfwANEkC6zLg code/modules/DraggableWindow.js
+added QmUuBdwjCJLrWd4qmY232UHthQQgszQTJZYgQB1HwDQdQM code/modules/DraggableWindow.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/modules/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/modules/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/modules/diffChars.d.ts
@@ -41,7 +41,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmeqdEmxEy4xnY2dwmqBVfv2L8kdWU9RGyTvbtfrnovtmN code/modules/ipfs.client.js
-added Qmazfjx13FS2KFqfNRpw9z5FANeXJSiGv8RtqNc1G7aDcb code/modules/renderer.js
+added Qmdx9r7ChiBFVqFk8Civu3pbba67sQtzr1KPbBAifpJeRq code/modules/renderer.js
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -68,5 +68,5 @@ added QmSsn9vW3nH2mGonhEPjRiPDVoKFeGYyqs4VUoLSKaS61w code/js
 added QmYCgPQyvDZYypYhrsVaCYo2LuQUX2pfTEpfY4HPtU7XDN code/modules/smart-monaco-editor/dist
 added QmUm4UrYHKKR3B6AhA5BbLqQDaGBuZJL1UBihh66cPoWvb code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmRsjWBcUufkM7BXut9463f2ibs1cjjyXKJ43tKMqRAqfr code/modules
-added QmXRRErdhYre32huMa1GQPdSqzcB4trTWfcYn8M7eWPMpH code
+added QmNs2m6smRkYH2PsEqd8XYrYtBNSZdyDpzCbmaikiGzuN5 code/modules
+added QmUUpbLWxVsjdrLhuJgVxehE3H1uoFarA7dd9LrgMDJr7i code
