@@ -144,11 +144,11 @@ async function handleRequest(request: Request) {
 
     await Promise.all(
       Object.keys(filteredFiles).map(async (file) => {
-        const kvRes = await IPFS.get(fileKV[file]);
+        const kvRes = await IPFS.get(fileKV[file], "arrayBuffer");
         if (kvRes === null) {
           missing.push(file);
         } else {
-          having.push({ [file]: kvRes });
+          having.push({ [file]: await sha256(kvRes) });
         }
       }),
     );
