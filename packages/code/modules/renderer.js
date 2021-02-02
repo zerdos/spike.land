@@ -117,7 +117,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     
            `},$(ki.div,{animate:{transformOrigin:"top left",width:c,height:l,scale:h},css:`
                   overflow:hidden;
-              `},$("div",{id:"zbody",ref:v},n))),$(Lf,{value:c,size:"small",exclusive:!0,color:"white",onChange:(m,p)=>p&&f(p)},uP.map(m=>$(Nf,{key:m,value:m},m,"px"))),"x",l,"px"),$("div",{css:`display: flex;
+              `},$("div",{id:"zbody",ref:v},n))),$(Lf,{value:c,size:"small",exclusive:!0,color:"white",onChange:(m,p)=>p&&f(p)},uP.map(m=>$(Nf,{key:m,value:m},m,"px")))),$("div",{css:`display: flex;
           align-items: center;
                 
           flex-direction: column;

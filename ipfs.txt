@@ -33,7 +33,7 @@ added QmQRJPpTNznUXhu7QgpyZJC3KTHNwbL7qYU3XaJdyUBGiF code/js/transpile.js
 added QmZ1Hr2CMgCU4HUTR1A2D8eCMngUJS3CLd9uXeTwb4mvaD code/js/workers/ipfsWorker.js
 added QmSNiaR6CZ8vnPoiFQbJNEB7t7sewuNDkJnuCMwidPST7j code/js/workers/transpile.worker.js
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
-added Qmd6NBDCDFouM6Ndx1XWKBysBz3GM7DMRi37m8Tmmny6Ya code/modules/DraggableWindow.js
+added QmRAURK2TWqtN3hQ82X8dA3s5AiHf28gezrWPKXSxkcQwg code/modules/DraggableWindow.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/modules/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/modules/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/modules/diffChars.d.ts
@@ -41,7 +41,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmeqdEmxEy4xnY2dwmqBVfv2L8kdWU9RGyTvbtfrnovtmN code/modules/ipfs.client.js
-added QmYBLFqTRWEuDRAXomQ9yJ1KNZN7XstNaUe6EeGAtfExRs code/modules/renderer.js
+added QmQBAmvMpjo3iRs4JRakzsufpUQ2jzUGNptNuh4ftnDYvv code/modules/renderer.js
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -68,5 +68,5 @@ added Qmd3NMJaqHuPbnoBrCpm1xknTiKxGoKLqzFntrrfNnQf2b code/js
 added QmYCgPQyvDZYypYhrsVaCYo2LuQUX2pfTEpfY4HPtU7XDN code/modules/smart-monaco-editor/dist
 added QmUm4UrYHKKR3B6AhA5BbLqQDaGBuZJL1UBihh66cPoWvb code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmY87WKriQgfpvbL3fGqkM9zSPAnhEV7rqPeUr4Bk1bAda code/modules
-added QmYYAkNesNQgSQfRQxWvSiz2gE2Fro4Fv8ihKVfrFLFxrA code
+added Qmc6LH5MrksimvsYDouRcpYbFmFatAAAgUtXGbqLuPUdN8 code/modules
+added QmYzdv6ejJ7FschVzWSubTV1rxpFkRkZEAWx3FGbbfRFcT code
