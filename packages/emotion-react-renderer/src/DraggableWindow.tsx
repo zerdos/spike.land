@@ -140,7 +140,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   scale,
                 }}
                 css={`
-                  overflow-y:overlay;
+                  overflow:hidden;
               `}
               >
                 <div
