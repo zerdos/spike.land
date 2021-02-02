@@ -177,7 +177,7 @@ async function handleRequest(request: Request) {
     url.pathname = "/ipfs/" + fileCid;
     const req2 = new Request(url.toString());
 
-    return handleRequest(req2);
+    return handleRequest(req2) as unknown as Response;
   }
   return text("Error: nop");
 }
