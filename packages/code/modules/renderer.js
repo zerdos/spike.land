@@ -124,7 +124,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           flex-direction: column;
 
           >div{
-            margin: 8px;
+            margin: 16px;
           }
                 
           `},$(ki.div,{animate:{width:o?220:16,height:o?240:16},css:Tr`

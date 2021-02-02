@@ -176,7 +176,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           flex-direction: column;
 
           >div{
-            margin: 8px;
+            margin: 16px;
           }
                 
           `}
