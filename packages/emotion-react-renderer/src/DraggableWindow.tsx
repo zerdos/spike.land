@@ -14,7 +14,6 @@ import {
   React,
   render,
 } from "./renderer";
-// import CssBaseline from "@material-ui/core/CssBaseline";
 
 const breakPoints = [640, 750, 1024, 1920];
 
@@ -96,44 +95,14 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             
       `}
         >
-          <div>
-            <motion.div
-              animate={{ width: width * scale, height: height * scale }}
-              css={css`
-                  display: block;
-                  margin-right: 16px;
-                  position: relative;
-          
-                  background: inherit;
-                    :after{
-                      content: '';
-                      z-index: -9;
-                      background: inherit;
-                      left: 16px;
-                      right:16px;
-                      top: 16px;
-                      bottom: 16px;
-                      box-shadow: inset 0 0 0 200px rgba(255,255,255,0.35);
-                      filter: blur(10px);
-                    }
-                    >div{
-                      background: white;
-                      opacity: 0.8;
-                      overflow: hidden;
-                      border-radius: 16px;
-                    }
-           `}
-            >
-              <div css="text-align: center">
-                <div
-                  css={`
-            background: rgba(200, 200, 200, 0.8);
-            display: inline-block;
-            border-radius: 4px;
-            overflow: hidden;
-        `}
-                >
-                  <div css="display:inline -block">
+          <div css={`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          `
+          }>
+        
+
                     <ToggleButtonGroup
                       value={scaleRange}
                       size="small"
@@ -151,9 +120,20 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                         </ToggleButton>
                       )}
                     </ToggleButtonGroup>
-                  </div>
-                </div>
-              </div>
+            
+            <motion.div
+              animate={{ width: width * scale, height: height * scale }}
+              css={css`
+                  display: block;
+                  overflow: hidden;
+                  margin-right: 16px;
+                  border-radius: 8px;
+                  opacity: 0.9;
+
+    
+           `}
+            >
+         
               <motion.div
                 animate={{
                   transformOrigin: "top left",
@@ -162,8 +142,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   scale,
                 }}
                 css={`
-                 
-                  overflow-y: overlay;
+                  overflow-y:overlay;
               `}
               >
                 <div
@@ -174,15 +153,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 </div>
               </motion.div>
             </motion.div>
-            <div css="text-align: center">
-              <div
-                css={`
-              background: rgba(200, 200, 200, 0.8);
-              display: inline-block;
-              border-radius: 4px;
-              overflow: hidden;
-          `}
-              >
                 <ToggleButtonGroup
                   value={width}
                   size="small"
@@ -199,8 +169,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                     </ToggleButton>
                   )}
                 </ToggleButtonGroup>
-              </div>
-            </div>
           </div>
           <div
             css={css`
