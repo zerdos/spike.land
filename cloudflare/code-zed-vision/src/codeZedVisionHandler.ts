@@ -9,12 +9,21 @@ import { cid } from "./cid";
 import { alterHeaders, sha256 } from "./alterHeaders";
 
 const reverseMap: { [key: string]: string } = {};
-//@ts-ignore
 
+const filteredFiles = {};
+//@ts-ignore
 Object.keys(files).forEach((k) => {
+  //@ts-ignore
   if (shasums[k]) {
+    //@ts-ignore
+
+    filteredFiles[k] = files[k];
+    //@ts-ignore
+
     reverseMap[files[k]] = k;
   } else {
+    //@ts-ignore
+
     delete files[k];
   }
 });
@@ -136,7 +145,7 @@ async function handleRequest(request: Request) {
     const having: String[] = [];
 
     await Promise.all(
-      Object.keys(files).map(async (file) => {
+      Object.keys(filteredFiles).map(async (file) => {
         //@ts-ignore
         const kvRes = await IPFS.get(files[file]);
         if (kvRes === null) {
@@ -268,7 +277,7 @@ async function fetchWithTimeout(
 
 function getGlobalThis() {
   return `globalThis.cid = "${cid}";
-  globalThis.files=JSON.parse('${JSON.stringify(files)}'); 
+  globalThis.files=JSON.parse('${JSON.stringify(filteredFiles)}'); 
   globalThis.shaSums = JSON.parse('${JSON.stringify(shasums)}');
   globalThis.reverseMap = {}; 
   Object.keys(globalThis.files).forEach(k=>globalThis.reverseMap[globalThis.files[k]]=k);`;

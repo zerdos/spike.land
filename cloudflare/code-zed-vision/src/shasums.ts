@@ -125,5 +125,5 @@ export const shasums = {
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
-  "foo": "bar",
+  "food": "marsbar",
 };
