@@ -126,7 +126,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               css={css`
                   display: block;
                   overflow: hidden;
-                  margin-right: 16px;
                   border-radius: 8px;
                   opacity: 0.9;
 
@@ -239,8 +238,8 @@ const QrIcon = () =>
     enable-background="new 0 0 24 24"
     viewBox="0 0 24 24"
     fill="black"
-    width="18px"
-    height="18px"
+    width="24px"
+    height="24px"
   >
     <g>
       <rect fill="none" height="24" width="24" />
