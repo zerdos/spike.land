@@ -174,6 +174,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           align-items: center;
                 
           flex-direction: column;
+          padding: 16px;
 
                 
           `}
