@@ -113,12 +113,12 @@ async function handleRequest(request: Request) {
   }
   if (pathname === `/ipfs.js`) {
     return js(
-      `globalThis.cid = "${cid}";globalThis.files=JSON.parse('${
-        JSON.stringify(files)
-      }'); 
-      globalThis.shaSums = JSON.parse('${JSON.stringify(shasums)}');
-      globalThis.reverseMap = {}; 
-      Object.keys(globalThis.files).forEach(k=>globalThis.reverseMap[globalThis.files[k]]=k);`,
+      getGlobalThis(),
+    );
+  }
+  if (pathname === "/generated-sw.js") {
+    return js(
+      getGlobalThis(),
     );
   }
   if (pathname === "/check") {
@@ -244,4 +244,12 @@ async function fetchWithTimeout(
       setTimeout(() => reject(0), timeout);
     }),
   ]) as unknown as Response;
+}
+
+function getGlobalThis() {
+  return `globalThis.cid = "${cid}";
+  globalThis.files=JSON.parse('${JSON.stringify(files)}'); 
+  globalThis.shaSums = JSON.parse('${JSON.stringify(shasums)}');
+  globalThis.reverseMap = {}; 
+  Object.keys(globalThis.files).forEach(k=>globalThis.reverseMap[globalThis.files[k]]=k);`;
 }
