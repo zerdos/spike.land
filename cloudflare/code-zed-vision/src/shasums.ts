@@ -6,7 +6,7 @@ export const shasums = {
   "modules/ipfs.client.js":
     "f70378fbde668f5be604c6cd6775d4d192957d2fb0a944c52120f1a5ddb5d03e",
   "modules/renderer.js":
-    "3d55ce33d010d4ac398db90aae5e3b8ab778533430fd07c0c7f92b5fe1cf87ee",
+    "67e69ebe6e795e1789ab2686b25bb586eb2dc59bf931536beafa5cb6b55c33dc",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -36,7 +36,7 @@ export const shasums = {
   "modules/vendor/diffChars.js":
     "70a109b675719c58bea2591f321afa0b19d30a29f71a957b519a27aa470f76bd",
   "modules/DraggableWindow.js":
-    "60e84d8a023f0f883705d35a28c7a648f26fdb6308d466fa322a27aa88c12548",
+    "0c5bf30373c599161e076a1c223d6c5db4d53e1e11276c3027bbfcd8df1faa81",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/diffChars.js":
@@ -88,7 +88,7 @@ export const shasums = {
   "js/examples/starterNoFramerMotion.js":
     "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "js/examples/rca.tsx":
-    "f0afc0523cd2c019037dc96244f0d15cbb6c372e983ee71af204bcbc32371108",
+    "dbaae051a02e0cd5b9552a20eb3d5dbd8f53232b4d344f097c893389b2ad3736",
   "js/templates.js":
     "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
   "js/starterTsx.tsx":

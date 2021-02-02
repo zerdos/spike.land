@@ -119,7 +119,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 
     
            `},$(Ks.div,{animate:{transformOrigin:"top left",width:c,height:l,scale:h},css:`
-                  overflow:hidden;
+                  overflow:overlay;
               `},$("div",{id:"zbody",ref:v},n))),$(Gc,{value:c,size:"small",exclusive:!0,color:"white",onChange:(m,p)=>p&&f(p)},QP.map(m=>$($c,{key:m,value:m},m,"px")))),$("div",{css:`display: flex;
           align-items: center;
                 

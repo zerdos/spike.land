@@ -58,7 +58,8 @@ const AppHeader: React.FC = ({ children }) => (
 const Logo = () => (
   <svg
     css={`
-        height: 75%;
+        max-height: 60%;
+        max-width: 60%;
         pointer-events: none;
         @media (prefers-reduced-motion: no-preference) {
               animation: App-logo-spin infinite 12s ease-in-out;
