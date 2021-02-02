@@ -148,7 +148,10 @@ async function handleRequest(request: Request) {
         if (kvRes === null) {
           missing.push(file);
         } else {
-          having.push({ [file]: await sha256(kvRes) });
+          const sha = await sha256(kvRes);
+          if (shasumsKV[file] !== sha) {
+            having.push({ [file]: await sha256(kvRes) });
+          }
         }
       }),
     );
