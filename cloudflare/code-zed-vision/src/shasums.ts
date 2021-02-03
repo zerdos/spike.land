@@ -52,7 +52,7 @@ export const shasums = {
   "package.json":
     "e6430fbab068134e0f2054e8be4296289662351080e25ff6623257e6abd65501",
   "index.html":
-    "77e6d68280f746d7971df8e80560f9df52ebccddc0abc6d0bc22672a5afc7489",
+    "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "js/importScript.js":
