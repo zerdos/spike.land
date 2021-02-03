@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "0c6cc3079b7794b3204901ba294e09a0e5fd054c8b851db2679b8ae73789030b",
+    "b6edb5b90986f4f7b948709d0381dd25808a75ef28dca032344f61b374e68081",
   "index.html":
     "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
