@@ -157,7 +157,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return new Function("return import(\"https://code.zed.vision/cid.js\").then(({cid})=>import(\"https://code.zed.vision/ipfs/\"+cid+\"/src/codeLoader.js\"))")();
+                return new Function("return import(\"https://unpkg.com/@zedvision/code/src/codeLoader.js\")")();
 
               case 2:
                 _yield$Function = _context.sent;
@@ -360,4 +360,4 @@ module.exports = _iterableToArray;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-b339629cc3587394563c.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-7796f833753f3ab19a6f.js.map
