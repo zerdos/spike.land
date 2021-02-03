@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/code",
-    "version": "11.10.32",
+    "version": "11.10.33",
     "description": "code.zed.vision",
     "main": "src/codeLoader.js",
     "files": [
