@@ -120,7 +120,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             </ToggleButtonGroup>
 
             <motion.div
-              animate={{ width: width * scale, height: height * scale }}
+              animate={{ width: width * scale/devicePixelRatio, height: height * scale/devicePixelRatio }}
               css={css`
                   display: block;
                   overflow: hidden;
@@ -133,8 +133,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               <motion.div
                 animate={{
                   transformOrigin: "top left",
-                  width,
-                  height,
+                  width: width/devicePixelRatio,
+                  height: height/devicePixelRatio,
                   scale,
                 }}
                 css={`

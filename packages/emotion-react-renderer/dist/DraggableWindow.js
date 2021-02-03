@@ -111,14 +111,14 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             display: flex;
             flex-direction: column;
             align-items: center;
-          `},I(Bc,{value:a,size:"small",exclusive:!0,color:"white",onChange:(p,d)=>d&&s(d)},eA.map(p=>I(Ic,{key:p,value:p},p,"%"))),I(js.div,{animate:{width:c*h,height:l*h},css:Hr`
+          `},I(Bc,{value:a,size:"small",exclusive:!0,color:"white",onChange:(p,d)=>d&&s(d)},eA.map(p=>I(Ic,{key:p,value:p},p,"%"))),I(js.div,{animate:{width:c*h/devicePixelRatio,height:l*h/devicePixelRatio},css:Hr`
                   display: block;
                   overflow: hidden;
                   border-radius: 8px;
                   opacity: 0.9;
 
     
-           `},I(js.div,{animate:{transformOrigin:"top left",width:c,height:l,scale:h},css:`
+           `},I(js.div,{animate:{transformOrigin:"top left",width:c/devicePixelRatio,height:l/devicePixelRatio,scale:h},css:`
                   overflow:overlay;
               `},I("div",{id:"zbody",ref:y},n))),I(Bc,{value:c,size:"small",exclusive:!0,color:"white",onChange:(p,d)=>d&&f(d)},KP.map(p=>I(Ic,{key:p,value:p},p,"px")))),I("div",{css:`display: flex;
           align-items: center;

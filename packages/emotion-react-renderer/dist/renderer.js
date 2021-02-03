@@ -108,14 +108,14 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             display: flex;
             flex-direction: column;
             align-items: center;
-          `},I(Sf,{value:a,size:"small",exclusive:!0,color:"white",onChange:(p,d)=>d&&s(d)},fV.map(p=>I(xf,{key:p,value:p},p,"%"))),I(xi.div,{animate:{width:c*h,height:l*h},css:kr`
+          `},I(Sf,{value:a,size:"small",exclusive:!0,color:"white",onChange:(p,d)=>d&&s(d)},fV.map(p=>I(xf,{key:p,value:p},p,"%"))),I(xi.div,{animate:{width:c*h/devicePixelRatio,height:l*h/devicePixelRatio},css:kr`
                   display: block;
                   overflow: hidden;
                   border-radius: 8px;
                   opacity: 0.9;
 
     
-           `},I(xi.div,{animate:{transformOrigin:"top left",width:c,height:l,scale:h},css:`
+           `},I(xi.div,{animate:{transformOrigin:"top left",width:c/devicePixelRatio,height:l/devicePixelRatio,scale:h},css:`
                   overflow:overlay;
               `},I("div",{id:"zbody",ref:y},n))),I(Sf,{value:c,size:"small",exclusive:!0,color:"white",onChange:(p,d)=>d&&f(d)},iP.map(p=>I(xf,{key:p,value:p},p,"px")))),I("div",{css:`display: flex;
           align-items: center;
