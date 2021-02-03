@@ -1,4 +1,4 @@
-import { css, jsx} from "@emotion/react";
+import { css, jsx } from "@emotion/react";
 
 /** @jsx jsx */
 import { FC, useEffect } from "react";

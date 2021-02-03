@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "ab5025c61e746f361ce442ca8f47cb3a9d48e4a39dece3185db090b98f2a3362",
+    "e4eac957ae4d21ad36c3889407454d8f0663d116f4769756ec17413bc26c6b28",
   "index.html":
     "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
@@ -66,7 +66,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
   "js/transpile.js":
-    "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
+    "eb3050de4d6464d67c49261f24b073bd7f6f41ed80b0a291174aa013d0f69493",
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
@@ -120,7 +120,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   ".tsBuildInfo":
-    "27c3de0ae319b1da268343c7e7cb4bbb5986a6e71f4fa64e53390badf3ef36b9",
+    "9cdaeeb4e21a463d8cbea864a315a0718517eb7787435ec9fdaf2f3b1d05e217",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":

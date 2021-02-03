@@ -3,10 +3,16 @@ import { wrap } from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.min.mjs";
 const { pathname } = window.location;
 
 let workerSrc = `/js/workers/transpile.worker.js`;
+let forceNormalWorker = false;
 
 if (pathname.indexOf("/ipfs/") !== -1) {
   const cid = pathname.slice(6, 52);
+  forceNormalWorker = true;
+
   workerSrc = `/ipfs/${cid}/js/workers/transpile.worker.js`;
+} else if (location.origin === "unpkg.com") {
+  forceNormalWorker = true;
+  workerSrc = `https://unpkg.com/@zedvision/code/workers/transpile.worker.js`;
 }
 
 let transform = null;
@@ -36,7 +42,7 @@ async function init() {
     console.log("INIT INIT");
   }
 
-  if (typeof SharedWorker === "undefined") {
+  if (forceNormalWorker || typeof SharedWorker === "undefined") {
     const worker = new Worker(workerSrc);
     const { port1, port2 } = new MessageChannel();
     const msg = {

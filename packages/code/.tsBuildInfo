@@ -227,7 +227,7 @@
         "affectsGlobalScope": false
       },
       "./js/transpile.js": {
-        "version": "d7821accec7e5ace1ed31772a78a556cd1bf1c0c05142cf928f7546532853c42",
+        "version": "eb3050de4d6464d67c49261f24b073bd7f6f41ed80b0a291174aa013d0f69493",
         "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
