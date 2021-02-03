@@ -122,7 +122,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             <motion.div
               animate={{
                 width: width * scale / devicePixelRatio,
-                height: height * scale ,
+                height: height * scale,
               }}
               css={css`
                   display: block;
@@ -137,7 +137,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 animate={{
                   transformOrigin: "top left",
                   width: width / devicePixelRatio,
-                  height: height ,
+                  height: height,
                   scale,
                 }}
                 css={`

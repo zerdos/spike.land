@@ -11,11 +11,7 @@ import {
 /** @type {MessagePort} */
 let port;
 
-
 let forceNormalWorker = false;
-
-
-
 
 if (typeof window !== "undefined") {
   let workerSrc = `./js/workers/ipfsWorker.js`;
@@ -29,9 +25,6 @@ if (typeof window !== "undefined") {
     forceNormalWorker = true;
     workerSrc = `https://unpkg.com/@zedvision/code/js/workers/ipfsWorker.js`;
   }
-  
-  
-  
 
   if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
     const ipfsWorker = new SharedWorker(

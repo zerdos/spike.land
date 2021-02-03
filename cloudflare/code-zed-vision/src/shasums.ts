@@ -66,7 +66,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
   "js/transpile.js":
-    "f0108aab20f8f559843a04178c05cd4897644d061b7e9dfd716e487a53f0a9bb",
+    "8c31e495e8c4850f6711c3816caa33398de64c1e04ed2624727fccd3716efec1",
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
@@ -94,7 +94,7 @@ export const shasums = {
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/ipfsClient.js":
-    "84e5faa52083238b08c0c580f13d6abc4e4726d79ce60733d0daab2214865230",
+    "f6493c02d5b57f2bcaa838bb4f15edaf4a07de848812f0a1d66947e9350f51d5",
   "js/renderPreviewWindow.js":
     "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "assets/roboto.css":
@@ -120,7 +120,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   ".tsBuildInfo":
-    "a7cfd9f42930be1395dd09982f2e6e8a87757c3965fa11ba4ff46b97cc1d6f01",
+    "b737c349c4cb75c43abc0e43210ca08a7c622375b4fdcada83ea0163eee7423a",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":
