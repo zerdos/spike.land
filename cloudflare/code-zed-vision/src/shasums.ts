@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "e6430fbab068134e0f2054e8be4296289662351080e25ff6623257e6abd65501",
+    "c7f2fc2acbf0bb26ae081194cb45e4f04255bbb0c44e7edc3d91556e55e800b2",
   "index.html":
     "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
@@ -80,7 +80,7 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "00fb5f335b5725ccd45a3acf5278610a22e8efc3c96b1aeae58f7d5f6f39fb2d",
   "js/workers/transpile.worker.js":
-    "89b9b2577f633a6fa29d6151223cf13090f434949e89ff68f92b9961e80eebb7",
+    "cc4907a29e24c156e499ca2b6ed08473e365b5065ae2304e503772ad47d84ff0",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
