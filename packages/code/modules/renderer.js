@@ -117,6 +117,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     
            `},I(xi.div,{animate:{transformOrigin:"top left",width:c/devicePixelRatio,height:l/devicePixelRatio,scale:h},css:`
                   overflow:overlay;
+                  >div{
+                    width:100%;
+                    height:100%;
+                    overflow: overlay;
+                    background: white;
+                  }
               `},I("div",{id:"zbody",ref:y},n))),I(Sf,{value:c,size:"small",exclusive:!0,color:"white",onChange:(p,d)=>d&&f(d)},iP.map(p=>I(xf,{key:p,value:p},p,"px")))),I("div",{css:`display: flex;
           align-items: center;
                 
