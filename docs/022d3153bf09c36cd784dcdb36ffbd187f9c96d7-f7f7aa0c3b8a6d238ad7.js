@@ -2409,25 +2409,7 @@ module.exports = __webpack_require__.p + "static/zed-profile-pic-cd941e033fafca9
 /* harmony import */ var _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3__);
 
 
-function _templateObject2() {
-  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n                  margin-right: ", ";\n                  margin-bottom: 0;\n                  overflow: hidden;\n                  width: 50px;\n                  height: 50px;\n                  border-radius: 25px;\n        "]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n                margin-top: ", ";\n                display: flex;\n                margin-bottom: ", ";\n    "]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
+var _templateObject, _templateObject2;
 
 
 /** @jsx jsx */
@@ -2440,9 +2422,9 @@ var Bio = function Bio() {
   if (typeof window === "undefined") random = 0.4; //have a consistent ssr
 
   return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("div", {
-    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject(), Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__[/* rhythm */ "a"])(2.5), Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__[/* rhythm */ "a"])(2.5))
+    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n                margin-top: ", ";\n                display: flex;\n                margin-bottom: ", ";\n    "])), Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__[/* rhythm */ "a"])(2.5), Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__[/* rhythm */ "a"])(2.5))
   }, Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("div", {
-    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject2(), Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__[/* rhythm */ "a"])(1 / 2))
+    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject2 || (_templateObject2 = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["\n                  margin-right: ", ";\n                  margin-bottom: 0;\n                  overflow: hidden;\n                  width: 50px;\n                  height: 50px;\n                  border-radius: 25px;\n        "])), Object(_utils_typography__WEBPACK_IMPORTED_MODULE_2__[/* rhythm */ "a"])(1 / 2))
   }, Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("img", {
     alt: "Zoltan Erdos",
     src: _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3___default.a
@@ -2756,4 +2738,4 @@ module.exports = function (lightness, hue, darkBackground) {
 /***/ })
 
 }]);
-//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-cdcdda065a0105fa88aa.js.map
+//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-f7f7aa0c3b8a6d238ad7.js.map

@@ -469,6 +469,22 @@ module.exports = isForced;
 
 /***/ }),
 
+/***/ "695J":
+/***/ (function(module, exports) {
+
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+module.exports = _setPrototypeOf;
+
+/***/ }),
+
 /***/ "6RQ8":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1033,10 +1049,12 @@ ScrollHandler.propTypes = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _inheritsLoose; });
+/* harmony import */ var _babel_runtime_helpers_esm_setPrototypeOf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("XcBm");
+
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
+  Object(_babel_runtime_helpers_esm_setPrototypeOf__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(subClass, superClass);
 }
 
 /***/ }),
@@ -2198,12 +2216,14 @@ module.exports = function (namespace, method) {
 /***/ }),
 
 /***/ "W/Kd":
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+var setPrototypeOf = __webpack_require__("695J");
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
+  setPrototypeOf(subClass, superClass);
 }
 
 module.exports = _inheritsLoose;
@@ -2268,6 +2288,22 @@ module.exports = DESCRIPTORS ? function (object, key, value) {
   return object;
 };
 
+
+/***/ }),
+
+/***/ "XcBm":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _setPrototypeOf; });
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
 
 /***/ }),
 
@@ -4454,4 +4490,4 @@ module.exports = function (METHOD_NAME, options) {
 /***/ })
 
 },[["UxWs",3,12,14]]]);
-//# sourceMappingURL=app-70b5285516590eaca13c.js.map
+//# sourceMappingURL=app-80472a6959cf5ed74f84.js.map

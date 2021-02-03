@@ -9,22 +9,14 @@
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("f7k3");
 
 
-function _templateObject() {
-  var data = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["  \n          max-width: 1140px;\n          margin: auto;\n       "]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
+var _templateObject;
 
 /** @jsx jsx */
 
 var Layout = function Layout(_ref) {
   var children = _ref.children;
   return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("main", {
-    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject())
+    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["  \n          max-width: 1140px;\n          margin: auto;\n       "])))
   }, children);
 };
 
@@ -1277,4 +1269,4 @@ module.exports = withSideEffect;
 /***/ })
 
 }]);
-//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-6f933ec987f5a6b2a3af.js.map
+//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-59e4450301d50d567e0a.js.map

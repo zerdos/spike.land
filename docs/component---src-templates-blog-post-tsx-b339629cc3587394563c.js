@@ -11,22 +11,6 @@
 
 /***/ }),
 
-/***/ "695J":
-/***/ (function(module, exports) {
-
-function _setPrototypeOf(o, p) {
-  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-module.exports = _setPrototypeOf;
-
-/***/ }),
-
 /***/ "KEM+":
 /***/ (function(module, exports) {
 
@@ -148,15 +132,7 @@ var react = __webpack_require__("ERkP");
 
 
 
-function _templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n            background: #3f51b5;\n            font-family: \"Roboto\";\n            margin: 0;\n            padding: 10px 20px 10px;\n            color: white;\n        "]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
+var _templateObject;
 
 
 /** @jsx jsx */
@@ -201,7 +177,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
     start();
   }, []);
   return Object(emotion_react_browser_esm["c" /* jsx */])("div", null, !!title && Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject())
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject || (_templateObject = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n            background: #3f51b5;\n            font-family: \"Roboto\";\n            margin: 0;\n            padding: 10px 20px 10px;\n            color: white;\n        "])))
   }, Object(emotion_react_browser_esm["c" /* jsx */])("span", null, title), Object(emotion_react_browser_esm["c" /* jsx */])("button", null, "Save")), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
     style: {
       position: "relative"
@@ -225,35 +201,7 @@ var esm = __webpack_require__("ZVZ0");
 // CONCATENATED MODULE: ./src/templates/blog-post.tsx
 
 
-function _templateObject3() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                  margin-bottom: ", ";\n                  "]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                    font-size: ", ";\n                    line-height: ", ";\n                    display: block;\n                    margin-bottom: ", ";"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function blog_post_templateObject() {
-  var data = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                  margin-top: ", ";\n                  margin-bottom: 0;\n                  "]);
-
-  blog_post_templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
+var blog_post_templateObject, _templateObject2, _templateObject3;
 
 
 /** @jsx jsx */
@@ -294,11 +242,11 @@ var blog_post_BlogPostTemplate = function BlogPostTemplate(_ref) {
     title: post.frontmatter.title,
     description: post.frontmatter.description || post.excerpt
   }), Object(emotion_react_browser_esm["c" /* jsx */])("header", null, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(blog_post_templateObject(), Object(typography["a" /* rhythm */])(1))
+    css: Object(emotion_react_browser_esm["b" /* css */])(blog_post_templateObject || (blog_post_templateObject = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                  margin-top: ", ";\n                  margin-bottom: 0;\n                  "])), Object(typography["a" /* rhythm */])(1))
   }, post.frontmatter.title), Object(emotion_react_browser_esm["c" /* jsx */])("p", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2(), fontSize, lineHeight, Object(typography["a" /* rhythm */])(1))
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2 || (_templateObject2 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                    font-size: ", ";\n                    line-height: ", ";\n                    display: block;\n                    margin-bottom: ", ";"])), fontSize, lineHeight, Object(typography["a" /* rhythm */])(1))
   }, post.frontmatter.date)), Object(emotion_react_browser_esm["c" /* jsx */])(BlogPost, null), Object(emotion_react_browser_esm["c" /* jsx */])("hr", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3(), Object(typography["a" /* rhythm */])(1))
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3 || (_templateObject3 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                  margin-bottom: ", ";\n                  "])), Object(typography["a" /* rhythm */])(1))
   }), Object(emotion_react_browser_esm["c" /* jsx */])("footer", null, Object(emotion_react_browser_esm["c" /* jsx */])(bio["a" /* Bio */], null)), Object(emotion_react_browser_esm["c" /* jsx */])("nav", null, Object(emotion_react_browser_esm["c" /* jsx */])("ul", null, previous && Object(emotion_react_browser_esm["c" /* jsx */])("li", null, Object(emotion_react_browser_esm["c" /* jsx */])(gatsby_browser_entry["Link"], {
     to: previous.fields.slug,
     rel: "prev"
@@ -412,4 +360,4 @@ module.exports = _iterableToArray;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-dce11eac67e3b491d165.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-b339629cc3587394563c.js.map
