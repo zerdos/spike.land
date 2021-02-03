@@ -44,7 +44,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@babel/standalone": "7.12.12",
+        "@babel/standalone": "7.12.13",
         "@zedvision/ipfs": "^11.10.30",
         "comlink": "4.3.0",
         "prettier": "2.2.1",

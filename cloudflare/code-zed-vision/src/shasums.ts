@@ -4,9 +4,9 @@ export const shasums = {
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/ipfs.client.js":
-    "f70378fbde668f5be604c6cd6775d4d192957d2fb0a944c52120f1a5ddb5d03e",
+    "aec72a48067d6b2df17d5fdbe7e09aa464179ffdcbdbe6f7d160cf7c40a8f766",
   "modules/renderer.js":
-    "67e69ebe6e795e1789ab2686b25bb586eb2dc59bf931536beafa5cb6b55c33dc",
+    "fab27ca5aeb251dcacf7a22696e3e57e6b3875aefbb2e61dd40a00cb03a61c0d",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -16,7 +16,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/editor.js":
-    "92bd9de38ffff7a91efce54927e79d055fb297ce3e614d6955ef0379f19cdba9",
+    "320269b0710f7ae32eb4ebf00c51bf6787c70a5834483cf1915b816d21dab279",
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/getDbObj.d.ts":
@@ -36,7 +36,7 @@ export const shasums = {
   "modules/vendor/diffChars.js":
     "70a109b675719c58bea2591f321afa0b19d30a29f71a957b519a27aa470f76bd",
   "modules/DraggableWindow.js":
-    "0c5bf30373c599161e076a1c223d6c5db4d53e1e11276c3027bbfcd8df1faa81",
+    "d660b7d2a6d3cbdd7bee964093230dc116cdce925dbad609037d6f669d659979",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/diffChars.js":
@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "395ef03138cbb6e0de730852f67913783d6db423b225bd8938cf626313d366cc",
+    "d8e25ae497f263c3a991140a37d50b85fffc5100c3e1c452f1a63656cd7d95fc",
   "index.html":
     "fc98a445de835736fdb7ac59ff8c0566c4f53f389b93eae10c58296189c98c69",
   "ipfs.json":
@@ -80,7 +80,7 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "00fb5f335b5725ccd45a3acf5278610a22e8efc3c96b1aeae58f7d5f6f39fb2d",
   "js/workers/transpile.worker.js":
-    "b97bd13e4712786b0d842d28d5b4a8f5de2aa867ce6981847a89b30693d71a99",
+    "89b9b2577f633a6fa29d6151223cf13090f434949e89ff68f92b9961e80eebb7",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
@@ -120,7 +120,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   ".tsBuildInfo":
-    "db404dcb72505b174e7e0c960236a3efbde36e410c5f1d14e798eb368c01ebf7",
+    "d14f88c53656ac73b9787d94f6d3067f27c57d8aed6ae5451af435845294657a",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":

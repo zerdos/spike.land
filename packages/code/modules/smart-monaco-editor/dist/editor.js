@@ -45,12 +45,12 @@ export default async ({ onChange, code, language, container, options }) => {
         const importHelper = [
             {
                 name: "react",
-                url: "https://unpkg.com/@types/react@17.0.0/index.d.ts",
+                url: "https://unpkg.com/@types/react@17.0.1/index.d.ts",
                 depend: ["global", "csstype", "react-dom", "prop-types"],
             },
             {
                 name: "global",
-                url: "https://unpkg.com/@types/react@17.0.0/global.d.ts",
+                url: "https://unpkg.com/@types/react@17.0.1/global.d.ts",
                 depend: [],
             },
             {
