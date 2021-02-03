@@ -15,7 +15,7 @@ export const CodeBox: FC<{
   useEffect(() => {
     async function start() {
       const { run } = await new Function(
-        `return import("https://code.zed.vision/cid.js").then(({cid})=>import("https://code.zed.vision/ipfs/"+cid+"/src/codeLoader.js"))`,
+        `return import("https://unpkg.com/@zedvision/code/src/codeLoader.js")`,
       )();
 
       run("embedded", window, starterCode);
