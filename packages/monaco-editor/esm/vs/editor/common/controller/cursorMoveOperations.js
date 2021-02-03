@@ -181,6 +181,38 @@ export class MoveOperations {
         let position = MoveOperations.up(config, model, selection.positionLineNumber, selection.positionColumn, cursor.leftoverVisibleColumns, 1, false);
         return new SingleCursorState(new Range(selectionStart.lineNumber, selectionStart.column, selectionStart.lineNumber, selectionStart.column), selectionStart.leftoverVisibleColumns, new Position(position.lineNumber, position.column), position.leftoverVisibleColumns);
     }
+    static _isBlankLine(model, lineNumber) {
+        if (model.getLineFirstNonWhitespaceColumn(lineNumber) === 0) {
+            // empty or contains only whitespace
+            return true;
+        }
+        return false;
+    }
+    static moveToPrevBlankLine(config, model, cursor, inSelectionMode) {
+        let lineNumber = cursor.position.lineNumber;
+        // If our current line is blank, move to the previous non-blank line
+        while (lineNumber > 1 && this._isBlankLine(model, lineNumber)) {
+            lineNumber--;
+        }
+        // Find the previous blank line
+        while (lineNumber > 1 && !this._isBlankLine(model, lineNumber)) {
+            lineNumber--;
+        }
+        return cursor.move(inSelectionMode, lineNumber, model.getLineMinColumn(lineNumber), 0);
+    }
+    static moveToNextBlankLine(config, model, cursor, inSelectionMode) {
+        const lineCount = model.getLineCount();
+        let lineNumber = cursor.position.lineNumber;
+        // If our current line is blank, move to the next non-blank line
+        while (lineNumber < lineCount && this._isBlankLine(model, lineNumber)) {
+            lineNumber++;
+        }
+        // Find the next blank line
+        while (lineNumber < lineCount && !this._isBlankLine(model, lineNumber)) {
+            lineNumber++;
+        }
+        return cursor.move(inSelectionMode, lineNumber, model.getLineMinColumn(lineNumber), 0);
+    }
     static moveToBeginningOfLine(config, model, cursor, inSelectionMode) {
         let lineNumber = cursor.position.lineNumber;
         let minColumn = model.getLineMinColumn(lineNumber);

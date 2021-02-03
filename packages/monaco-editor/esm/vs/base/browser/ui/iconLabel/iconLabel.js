@@ -132,8 +132,9 @@ export class IconLabel extends Disposable {
             if (mouseX !== undefined) {
                 hoverOptions.target.x = mouseX + 10;
             }
-            hoverDelegate.showHover(hoverOptions);
+            return hoverDelegate.showHover(hoverOptions);
         }
+        return undefined;
     }
     getTooltipForCustom(markdownTooltip) {
         if (isString(markdownTooltip)) {
@@ -178,6 +179,7 @@ export class IconLabel extends Disposable {
             }
             const mouseMoveDisposable = domEvent(htmlElement, dom.EventType.MOUSE_MOVE, true)(mouseMove.bind(htmlElement));
             setTimeout(() => __awaiter(this, void 0, void 0, function* () {
+                var _a;
                 if (isHovering && tooltip) {
                     // Re-use the already computed hover options if they exist.
                     if (!hoverOptions) {
@@ -190,18 +192,21 @@ export class IconLabel extends Disposable {
                             target,
                             anchorPosition: 0 /* BELOW */
                         };
-                        IconLabel.adjustXAndShowCustomHover(hoverOptions, mouseX, hoverDelegate, isHovering);
-                        const resolvedTooltip = yield tooltip(tokenSource.token);
+                        const hoverDisposable = IconLabel.adjustXAndShowCustomHover(hoverOptions, mouseX, hoverDelegate, isHovering);
+                        const resolvedTooltip = (_a = (yield tooltip(tokenSource.token))) !== null && _a !== void 0 ? _a : (!isString(markdownTooltip) ? markdownTooltip.markdownNotSupportedFallback : undefined);
                         if (resolvedTooltip) {
                             hoverOptions = {
                                 text: resolvedTooltip,
                                 target,
                                 anchorPosition: 0 /* BELOW */
                             };
+                            // awaiting the tooltip could take a while. Make sure we're still hovering.
+                            IconLabel.adjustXAndShowCustomHover(hoverOptions, mouseX, hoverDelegate, isHovering);
+                        }
+                        else if (hoverDisposable) {
+                            hoverDisposable.dispose();
                         }
                     }
-                    // awaiting the tooltip could take a while. Make sure we're still hovering.
-                    IconLabel.adjustXAndShowCustomHover(hoverOptions, mouseX, hoverDelegate, isHovering);
                 }
                 mouseMoveDisposable.dispose();
             }), hoverDelay);

@@ -206,7 +206,7 @@ class AnimationFrameQueueItem {
         }
     };
 })();
-const MINIMUM_TIME_MS = 16;
+const MINIMUM_TIME_MS = 8;
 const DEFAULT_EVENT_MERGER = function (lastEvent, currentEvent) {
     return currentEvent;
 };

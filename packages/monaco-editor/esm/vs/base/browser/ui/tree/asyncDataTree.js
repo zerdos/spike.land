@@ -16,7 +16,7 @@ import { ObjectTree, CompressibleObjectTree } from './objectTree.js';
 import { TreeError, WeakMapper } from './tree.js';
 import { dispose, DisposableStore } from '../../../common/lifecycle.js';
 import { Emitter, Event } from '../../../common/event.js';
-import { timeout, createCancelablePromise } from '../../../common/async.js';
+import { timeout, createCancelablePromise, Promises } from '../../../common/async.js';
 import { Iterable } from '../../../common/iterator.js';
 import { ElementsDragAndDropData } from '../list/listView.js';
 import { isPromiseCanceledError, onUnexpectedError } from '../../../common/errors.js';
@@ -386,7 +386,7 @@ export class AsyncDataTree {
             try {
                 const childrenToRefresh = yield this.doRefreshNode(node, recursive, viewStateContext);
                 node.stale = false;
-                yield Promise.all(childrenToRefresh.map(child => this.doRefreshSubTree(child, recursive, viewStateContext)));
+                yield Promises.settled(childrenToRefresh.map(child => this.doRefreshSubTree(child, recursive, viewStateContext)));
             }
             finally {
                 done();

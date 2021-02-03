@@ -61,4 +61,19 @@ export class USLayoutResolvedKeybinding extends BaseResolvedKeybinding {
         result += KeyCodeUtils.toString(keybinding.keyCode);
         return result;
     }
+    _getSingleModifierDispatchPart(keybinding) {
+        if (keybinding.keyCode === 5 /* Ctrl */ && !keybinding.shiftKey && !keybinding.altKey && !keybinding.metaKey) {
+            return 'ctrl';
+        }
+        if (keybinding.keyCode === 4 /* Shift */ && !keybinding.ctrlKey && !keybinding.altKey && !keybinding.metaKey) {
+            return 'shift';
+        }
+        if (keybinding.keyCode === 6 /* Alt */ && !keybinding.ctrlKey && !keybinding.shiftKey && !keybinding.metaKey) {
+            return 'alt';
+        }
+        if (keybinding.keyCode === 57 /* Meta */ && !keybinding.ctrlKey && !keybinding.shiftKey && !keybinding.altKey) {
+            return 'meta';
+        }
+        return null;
+    }
 }

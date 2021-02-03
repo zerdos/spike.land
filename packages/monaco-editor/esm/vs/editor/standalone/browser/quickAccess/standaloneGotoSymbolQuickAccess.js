@@ -11,6 +11,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+import '../../../../base/browser/ui/codicons/codiconStyles.js'; // The codicon symbol styles are defined here and must be loaded
+import '../../../contrib/symbolIcons/symbolIcons.js'; // The codicon symbol colors are defined here and must be loaded to get colors
 import { AbstractGotoSymbolQuickAccessProvider } from '../../../contrib/quickAccess/gotoSymbolQuickAccess.js';
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Extensions } from '../../../../platform/quickinput/common/quickAccess.js';

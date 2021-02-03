@@ -119,7 +119,6 @@ export var language = {
         'event',
         'method',
         'param',
-        'property',
         'public',
         'protected',
         'internal',

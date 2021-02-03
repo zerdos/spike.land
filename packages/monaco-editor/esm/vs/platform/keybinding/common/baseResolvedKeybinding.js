@@ -32,4 +32,7 @@ export class BaseResolvedKeybinding extends ResolvedKeybinding {
     getDispatchParts() {
         return this._parts.map((keybinding) => this._getDispatchPart(keybinding));
     }
+    getSingleModifierDispatchParts() {
+        return this._parts.map((keybinding) => this._getSingleModifierDispatchPart(keybinding));
+    }
 }

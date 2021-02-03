@@ -191,11 +191,12 @@ function renderLine(lineContent, initialVisibleColumn, tabSize, width, sb) {
                 if (strings.isFullWidthCharacter(charCode)) {
                     charWidth++;
                 }
-                // if (renderControlCharacters && charCode < 32) {
-                // 	sb.write1(9216 + charCode);
-                // } else {
-                sb.write1(charCode);
-            // }
+                if (charCode < 32) {
+                    sb.write1(9216 + charCode);
+                }
+                else {
+                    sb.write1(charCode);
+                }
         }
         charOffset += producedCharacters;
         visibleColumn += charWidth;

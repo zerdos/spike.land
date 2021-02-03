@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import * as nls from '../../../nls.js';
-import { IntervalTimer } from '../../../base/common/async.js';
+import { IntervalTimer, TimeoutTimer } from '../../../base/common/async.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 export class AbstractKeybindingService extends Disposable {
@@ -18,6 +18,8 @@ export class AbstractKeybindingService extends Disposable {
         this._currentChord = null;
         this._currentChordChecker = new IntervalTimer();
         this._currentChordStatusMessage = null;
+        this._currentSingleModifier = null;
+        this._currentSingleModifierClearTimeout = new TimeoutTimer();
         this._logging = false;
     }
     get onDidUpdateKeybindings() {
@@ -87,22 +89,55 @@ export class AbstractKeybindingService extends Disposable {
         this._currentChord = null;
     }
     _dispatch(e, target) {
-        return this._doDispatch(this.resolveKeyboardEvent(e), target);
+        return this._doDispatch(this.resolveKeyboardEvent(e), target, /*isSingleModiferChord*/ false);
     }
-    _doDispatch(keybinding, target) {
+    _singleModifierDispatch(e, target) {
+        const keybinding = this.resolveKeyboardEvent(e);
+        const [singleModifier,] = keybinding.getSingleModifierDispatchParts();
+        if (singleModifier !== null && this._currentSingleModifier === null) {
+            // we have a valid `singleModifier`, store it for the next keyup, but clear it in 300ms
+            this._log(`+ Storing single modifier for possible chord ${singleModifier}.`);
+            this._currentSingleModifier = singleModifier;
+            this._currentSingleModifierClearTimeout.cancelAndSet(() => {
+                this._log(`+ Clearing single modifier due to 300ms elapsed.`);
+                this._currentSingleModifier = null;
+            }, 300);
+            return false;
+        }
+        if (singleModifier !== null && singleModifier === this._currentSingleModifier) {
+            // bingo!
+            this._log(`/ Dispatching single modifier chord ${singleModifier} ${singleModifier}`);
+            this._currentSingleModifierClearTimeout.cancel();
+            this._currentSingleModifier = null;
+            return this._doDispatch(keybinding, target, /*isSingleModiferChord*/ true);
+        }
+        this._currentSingleModifierClearTimeout.cancel();
+        this._currentSingleModifier = null;
+        return false;
+    }
+    _doDispatch(keybinding, target, isSingleModiferChord = false) {
         let shouldPreventDefault = false;
         if (keybinding.isChord()) {
             console.warn('Unexpected keyboard event mapped to a chord');
             return false;
         }
-        const [firstPart,] = keybinding.getDispatchParts();
+        let firstPart = null; // the first keybinding i.e. Ctrl+K
+        let currentChord = null; // the "second" keybinding i.e. Ctrl+K "Ctrl+D"
+        if (isSingleModiferChord) {
+            const [dispatchKeyname,] = keybinding.getSingleModifierDispatchParts();
+            firstPart = dispatchKeyname;
+            currentChord = dispatchKeyname;
+        }
+        else {
+            [firstPart,] = keybinding.getDispatchParts();
+            currentChord = this._currentChord ? this._currentChord.keypress : null;
+        }
         if (firstPart === null) {
-            this._log(`\\ Keyboard event cannot be dispatched.`);
+            this._log(`\\ Keyboard event cannot be dispatched in keydown phase.`);
             // cannot be dispatched, probably only modifier keys
             return shouldPreventDefault;
         }
         const contextValue = this._contextKeyService.getContext(target);
-        const currentChord = this._currentChord ? this._currentChord.keypress : null;
         const keypressLabel = keybinding.getLabel();
         const resolveResult = this._getResolver().resolve(contextValue, currentChord, firstPart);
         this._logService.trace('KeybindingService#dispatch', keypressLabel, resolveResult === null || resolveResult === void 0 ? void 0 : resolveResult.commandId);

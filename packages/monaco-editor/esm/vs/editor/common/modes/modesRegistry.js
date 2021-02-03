@@ -65,4 +65,4 @@ LanguageConfigurationRegistry.register(PLAINTEXT_LANGUAGE_IDENTIFIER, {
     folding: {
         offSide: true
     }
-});
+}, 0);

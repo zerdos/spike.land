@@ -15,10 +15,11 @@ export const domEvent = (element, type, useCapture) => {
     });
     return emitter.event;
 };
+export function stopEvent(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return event;
+}
 export function stop(event) {
-    return BaseEvent.map(event, e => {
-        e.preventDefault();
-        e.stopPropagation();
-        return e;
-    });
+    return BaseEvent.map(event, stopEvent);
 }

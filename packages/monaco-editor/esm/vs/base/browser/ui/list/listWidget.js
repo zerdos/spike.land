@@ -17,7 +17,7 @@ import * as platform from '../../../common/platform.js';
 import { Gesture } from '../../touch.js';
 import { StandardKeyboardEvent } from '../../keyboardEvent.js';
 import { Event, Emitter, EventBufferer } from '../../../common/event.js';
-import { domEvent } from '../../event.js';
+import { domEvent, stopEvent } from '../../event.js';
 import { ListError } from './list.js';
 import { ListView } from './listView.js';
 import { Color } from '../../../common/color.js';
@@ -844,7 +844,6 @@ export class List {
         this.eventBufferer = new EventBufferer();
         this._ariaLabel = '';
         this.disposables = new DisposableStore();
-        this.didJustPressContextMenuKey = false;
         this._onDidDispose = new Emitter();
         this.onDidDispose = this._onDidDispose.event;
         const role = this._options.accessibilityProvider && this._options.accessibilityProvider.getWidgetRole ? (_a = this._options.accessibilityProvider) === null || _a === void 0 ? void 0 : _a.getWidgetRole() : 'list';
@@ -917,30 +916,23 @@ export class List {
     get onTouchStart() { return this.view.onTouchStart; }
     get onTap() { return this.view.onTap; }
     get onContextMenu() {
-        const fromKeydown = Event.chain(domEvent(this.view.domNode, 'keydown'))
+        const fromKeyboard = Event.chain(domEvent(this.view.domNode, 'keyup'))
             .map(e => new StandardKeyboardEvent(e))
-            .filter(e => this.didJustPressContextMenuKey = e.keyCode === 58 /* ContextMenu */ || (e.shiftKey && e.keyCode === 68 /* F10 */))
-            .filter(e => { e.preventDefault(); e.stopPropagation(); return false; })
-            .event;
-        const fromKeyup = Event.chain(domEvent(this.view.domNode, 'keyup'))
-            .filter(() => {
-            const didJustPressContextMenuKey = this.didJustPressContextMenuKey;
-            this.didJustPressContextMenuKey = false;
-            return didJustPressContextMenuKey;
-        })
-            .filter(() => this.getFocus().length > 0 && !!this.view.domElement(this.getFocus()[0]))
-            .map(browserEvent => {
-            const index = this.getFocus()[0];
-            const element = this.view.element(index);
-            const anchor = this.view.domElement(index);
+            .filter(e => e.keyCode === 58 /* ContextMenu */ || (e.shiftKey && e.keyCode === 68 /* F10 */))
+            .map(stopEvent)
+            .map(({ browserEvent }) => {
+            const focus = this.getFocus();
+            const index = focus.length ? focus[0] : undefined;
+            const element = typeof index !== 'undefined' ? this.view.element(index) : undefined;
+            const anchor = typeof index !== 'undefined' ? this.view.domElement(index) : this.view.domNode;
             return { index, element, anchor, browserEvent };
         })
             .event;
         const fromMouse = Event.chain(this.view.onContextMenu)
-            .filter(() => !this.didJustPressContextMenuKey)
+            .filter(e => !(e.browserEvent.button === 0 && e.browserEvent.buttons === 0 && !e.browserEvent.ctrlKey && !e.browserEvent.altKey && !e.browserEvent.metaKey))
             .map(({ element, index, browserEvent }) => ({ element, index, anchor: { x: browserEvent.clientX + 1, y: browserEvent.clientY }, browserEvent }))
             .event;
-        return Event.any(fromKeydown, fromKeyup, fromMouse);
+        return Event.any(fromKeyboard, fromMouse);
     }
     get onKeyDown() { return domEvent(this.view.domNode, 'keydown'); }
     createMouseController(options) {
@@ -994,7 +986,7 @@ export class List {
         this.view.domNode.setAttribute('aria-label', value);
     }
     domFocus() {
-        this.view.domNode.focus();
+        this.view.domNode.focus({ preventScroll: true });
     }
     layout(height, width) {
         this.view.layout(height, width);

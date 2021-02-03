@@ -1,6 +1,6 @@
 /*!-----------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.22.0(98b1251233829662654b8bad50c9fcbb90ab9eb8)
+ * Version: 0.22.0(7c90e1f5ba949d201d333306d60a980380760326)
  * Released under the MIT license
  * https://github.com/microsoft/vscode/blob/master/LICENSE.txt
  *-----------------------------------------------------------*/
@@ -997,6 +997,41 @@ define("vs/editor/editor.main.nls", {
 	],
 	"vs/editor/contrib/suggest/suggestWidgetStatus": [
 		"{0} ({1})"
+	],
+	"vs/editor/contrib/symbolIcons/symbolIcons": [
+		"The foreground color for array symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for boolean symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for class symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for color symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for constant symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for constructor symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for enumerator symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for enumerator member symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for event symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for field symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for file symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for folder symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for function symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for interface symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for key symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for keyword symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for method symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for module symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for namespace symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for null symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for number symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for object symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for operator symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for package symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for property symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for reference symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for snippet symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for string symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for struct symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for text symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for type parameter symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for unit symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+		"The foreground color for variable symbols. These symbols appear in the outline, breadcrumb, and suggest widget."
 	],
 	"vs/editor/contrib/toggleTabFocusMode/toggleTabFocusMode": [
 		"Toggle Tab Key Moves Focus",

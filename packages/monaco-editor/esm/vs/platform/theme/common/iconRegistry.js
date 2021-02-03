@@ -100,7 +100,7 @@ class IconRegistry {
             return `codicon codicon-${i ? i.id : ''}`;
         };
         let reference = [];
-        reference.push(`| preview     | identifier                        | default codicon id                | description`);
+        reference.push(`| preview     | identifier                        | default codicon ID                | description`);
         reference.push(`| ----------- | --------------------------------- | --------------------------------- | --------------------------------- |`);
         const contributions = Object.keys(this.iconsById).map(key => this.iconsById[key]);
         for (const i of contributions.filter(i => !!i.description).sort(sorter)) {

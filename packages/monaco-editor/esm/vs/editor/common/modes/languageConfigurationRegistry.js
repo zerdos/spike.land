@@ -14,15 +14,11 @@ import { IndentRulesSupport } from './supports/indentRules.js';
 import { OnEnterSupport } from './supports/onEnter.js';
 import { RichEditBrackets } from './supports/richEditBrackets.js';
 export class RichEditSupport {
-    constructor(languageIdentifier, previous, rawConf) {
+    constructor(languageIdentifier, rawConf) {
         this._languageIdentifier = languageIdentifier;
         this._brackets = null;
         this._electricCharacter = null;
-        let prev = null;
-        if (previous) {
-            prev = previous._conf;
-        }
-        this._conf = RichEditSupport._mergeConf(prev, rawConf);
+        this._conf = rawConf;
         this._onEnterSupport = (this._conf.brackets || this._conf.indentationRules || this._conf.onEnterRules ? new OnEnterSupport(this._conf) : null);
         this.comments = RichEditSupport._handleComments(this._conf);
         this.characterPair = new CharacterPairSupport(this._conf);
@@ -54,20 +50,6 @@ export class RichEditSupport {
         }
         return this._onEnterSupport.onEnter(autoIndent, previousLineText, beforeEnterText, afterEnterText);
     }
-    static _mergeConf(prev, current) {
-        return {
-            comments: (prev ? current.comments || prev.comments : current.comments),
-            brackets: (prev ? current.brackets || prev.brackets : current.brackets),
-            wordPattern: (prev ? current.wordPattern || prev.wordPattern : current.wordPattern),
-            indentationRules: (prev ? current.indentationRules || prev.indentationRules : current.indentationRules),
-            onEnterRules: (prev ? current.onEnterRules || prev.onEnterRules : current.onEnterRules),
-            autoClosingPairs: (prev ? current.autoClosingPairs || prev.autoClosingPairs : current.autoClosingPairs),
-            surroundingPairs: (prev ? current.surroundingPairs || prev.surroundingPairs : current.surroundingPairs),
-            autoCloseBefore: (prev ? current.autoCloseBefore || prev.autoCloseBefore : current.autoCloseBefore),
-            folding: (prev ? current.folding || prev.folding : current.folding),
-            __electricCharacterSupport: (prev ? current.__electricCharacterSupport || prev.__electricCharacterSupport : current.__electricCharacterSupport),
-        };
-    }
     static _handleComments(conf) {
         let commentRule = conf.comments;
         if (!commentRule) {
@@ -91,33 +73,103 @@ export class LanguageConfigurationChangeEvent {
         this.languageIdentifier = languageIdentifier;
     }
 }
-export class LanguageConfigurationRegistryImpl {
-    constructor() {
-        this._entries = new Map();
-        this._onDidChange = new Emitter();
-        this.onDidChange = this._onDidChange.event;
+class LanguageConfigurationEntry {
+    constructor(configuration, priority, order) {
+        this.configuration = configuration;
+        this.priority = priority;
+        this.order = order;
     }
-    register(languageIdentifier, configuration) {
-        let previous = this._getRichEditSupport(languageIdentifier.id);
-        let current = new RichEditSupport(languageIdentifier, previous, configuration);
-        this._entries.set(languageIdentifier.id, current);
-        this._onDidChange.fire(new LanguageConfigurationChangeEvent(languageIdentifier));
+    static cmp(a, b) {
+        if (a.priority === b.priority) {
+            // higher order last
+            return a.order - b.order;
+        }
+        // higher priority last
+        return a.priority - b.priority;
+    }
+}
+class LanguageConfigurationEntries {
+    constructor(languageIdentifier) {
+        this.languageIdentifier = languageIdentifier;
+        this._resolved = null;
+        this._entries = [];
+        this._order = 0;
+        this._resolved = null;
+    }
+    register(configuration, priority) {
+        const entry = new LanguageConfigurationEntry(configuration, priority, ++this._order);
+        this._entries.push(entry);
+        this._resolved = null;
         return toDisposable(() => {
-            if (this._entries.get(languageIdentifier.id) === current) {
-                this._entries.set(languageIdentifier.id, previous);
-                this._onDidChange.fire(new LanguageConfigurationChangeEvent(languageIdentifier));
+            for (let i = 0; i < this._entries.length; i++) {
+                if (this._entries[i] === entry) {
+                    this._entries.splice(i, 1);
+                    this._resolved = null;
+                    break;
+                }
             }
         });
     }
-    _getRichEditSupport(languageId) {
-        return this._entries.get(languageId);
+    getRichEditSupport() {
+        if (!this._resolved) {
+            const config = this._resolve();
+            if (config) {
+                this._resolved = new RichEditSupport(this.languageIdentifier, config);
+            }
+        }
+        return this._resolved;
     }
-    getIndentationRules(languageId) {
-        const value = this._entries.get(languageId);
-        if (!value) {
+    _resolve() {
+        if (this._entries.length === 0) {
             return null;
         }
-        return value.indentationRules || null;
+        this._entries.sort(LanguageConfigurationEntry.cmp);
+        const result = {};
+        for (const entry of this._entries) {
+            const conf = entry.configuration;
+            result.comments = conf.comments || result.comments;
+            result.brackets = conf.brackets || result.brackets;
+            result.wordPattern = conf.wordPattern || result.wordPattern;
+            result.indentationRules = conf.indentationRules || result.indentationRules;
+            result.onEnterRules = conf.onEnterRules || result.onEnterRules;
+            result.autoClosingPairs = conf.autoClosingPairs || result.autoClosingPairs;
+            result.surroundingPairs = conf.surroundingPairs || result.surroundingPairs;
+            result.autoCloseBefore = conf.autoCloseBefore || result.autoCloseBefore;
+            result.folding = conf.folding || result.folding;
+            result.__electricCharacterSupport = conf.__electricCharacterSupport || result.__electricCharacterSupport;
+        }
+        return result;
+    }
+}
+export class LanguageConfigurationRegistryImpl {
+    constructor() {
+        this._entries2 = new Map();
+        this._onDidChange = new Emitter();
+        this.onDidChange = this._onDidChange.event;
+    }
+    /**
+     * @param priority Use a higher number for higher priority
+     */
+    register(languageIdentifier, configuration, priority = 0) {
+        let entries = this._entries2.get(languageIdentifier.id);
+        if (!entries) {
+            entries = new LanguageConfigurationEntries(languageIdentifier);
+            this._entries2.set(languageIdentifier.id, entries);
+        }
+        const disposable = entries.register(configuration, priority);
+        this._onDidChange.fire(new LanguageConfigurationChangeEvent(languageIdentifier));
+        return toDisposable(() => {
+            disposable.dispose();
+            this._onDidChange.fire(new LanguageConfigurationChangeEvent(languageIdentifier));
+        });
+    }
+    _getRichEditSupport(languageId) {
+        const entries = this._entries2.get(languageId);
+        return entries ? entries.getRichEditSupport() : null;
+    }
+    getIndentationRules(languageId) {
+        const value = this._getRichEditSupport(languageId);
+        return value ? value.indentationRules || null : null;
     }
     // begin electricCharacter
     _getElectricCharacterSupport(languageId) {

@@ -46,7 +46,7 @@ export function trackDisposable(x) {
 }
 export class MultiDisposeError extends Error {
     constructor(errors) {
-        super(`Encounter errors while disposing of store. Errors: [${errors.join(', ')}]`);
+        super(`Encountered errors while disposing of store. Errors: [${errors.join(', ')}]`);
         this.errors = errors;
     }
 }
@@ -175,12 +175,11 @@ export class MutableDisposable {
         return this._isDisposed ? undefined : this._value;
     }
     set value(value) {
+        var _a;
         if (this._isDisposed || value === this._value) {
             return;
         }
-        if (this._value) {
-            this._value.dispose();
-        }
+        (_a = this._value) === null || _a === void 0 ? void 0 : _a.dispose();
         if (value) {
             markTracked(value);
         }
@@ -190,11 +189,10 @@ export class MutableDisposable {
         this.value = undefined;
     }
     dispose() {
+        var _a;
         this._isDisposed = true;
         markTracked(this);
-        if (this._value) {
-            this._value.dispose();
-        }
+        (_a = this._value) === null || _a === void 0 ? void 0 : _a.dispose();
         this._value = undefined;
     }
 }

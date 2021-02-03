@@ -428,16 +428,18 @@ export var CoreNavigationCommands;
                 case 1 /* Right */:
                 case 2 /* Up */:
                 case 3 /* Down */:
-                case 4 /* WrappedLineStart */:
-                case 5 /* WrappedLineFirstNonWhitespaceCharacter */:
-                case 6 /* WrappedLineColumnCenter */:
-                case 7 /* WrappedLineEnd */:
-                case 8 /* WrappedLineLastNonWhitespaceCharacter */:
+                case 4 /* PrevBlankLine */:
+                case 5 /* NextBlankLine */:
+                case 6 /* WrappedLineStart */:
+                case 7 /* WrappedLineFirstNonWhitespaceCharacter */:
+                case 8 /* WrappedLineColumnCenter */:
+                case 9 /* WrappedLineEnd */:
+                case 10 /* WrappedLineLastNonWhitespaceCharacter */:
                     return CursorMoveCommands.simpleMove(viewModel, cursors, args.direction, inSelectionMode, value, args.unit);
-                case 9 /* ViewPortTop */:
-                case 11 /* ViewPortBottom */:
-                case 10 /* ViewPortCenter */:
-                case 12 /* ViewPortIfOutside */:
+                case 11 /* ViewPortTop */:
+                case 13 /* ViewPortBottom */:
+                case 12 /* ViewPortCenter */:
+                case 14 /* ViewPortIfOutside */:
                     return CursorMoveCommands.viewportMove(viewModel, cursors, args.direction, inSelectionMode, value);
                 default:
                     return null;

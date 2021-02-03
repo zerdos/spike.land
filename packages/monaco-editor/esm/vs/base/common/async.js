@@ -2,8 +2,17 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { CancellationTokenSource } from './cancellation.js';
-import * as errors from './errors.js';
+import { canceled } from './errors.js';
 import { toDisposable } from './lifecycle.js';
 export function isThenable(obj) {
     return obj && typeof obj.then === 'function';
@@ -13,7 +22,7 @@ export function createCancelablePromise(callback) {
     const thenable = callback(source.token);
     const promise = new Promise((resolve, reject) => {
         source.token.onCancellationRequested(() => {
-            reject(errors.canceled());
+            reject(canceled());
         });
         Promise.resolve(thenable).then(value => {
             source.dispose();
@@ -106,7 +115,7 @@ export class Delayer {
         this.cancelTimeout();
         if (this.completionPromise) {
             if (this.doReject) {
-                this.doReject(errors.canceled());
+                this.doReject(canceled());
             }
             this.completionPromise = null;
         }
@@ -129,7 +138,7 @@ export function timeout(millis, token) {
         const handle = setTimeout(resolve, millis);
         token.onCancellationRequested(() => {
             clearTimeout(handle);
-            reject(errors.canceled());
+            reject(canceled());
         });
     });
 }
@@ -337,3 +346,63 @@ export class IdleValue {
         return this._value;
     }
 }
+//#endregion
+//#region Promises
+export var Promises;
+(function (Promises) {
+    /**
+     * A polyfill of `Promise.allSettled`: returns after all promises have
+     * resolved or rejected and provides access to each result or error
+     * in the order of the original passed in promises array.
+     * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
+     */
+    function allSettled(promises) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (typeof Promise.allSettled === 'function') {
+                return allSettledNative(promises); // in some environments we can benefit from native implementation
+            }
+            return allSettledShim(promises);
+        });
+    }
+    Promises.allSettled = allSettled;
+    function allSettledNative(promises) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Promise.allSettled(promises);
+        });
+    }
+    function allSettledShim(promises) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Promise.all(promises.map(promise => (promise.then(value => {
+                const fulfilled = { status: 'fulfilled', value };
+                return fulfilled;
+            }, error => {
+                const rejected = { status: 'rejected', reason: error };
+                return rejected;
+            }))));
+        });
+    }
+    /**
+     * A drop-in replacement for `Promise.all` with the only difference
+     * that the method awaits every promise to either fulfill or reject.
+     *
+     * Similar to `Promise.all`, only the first error will be returned
+     * if any.
+     */
+    function settled(promises) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let firstError = undefined;
+            const result = yield Promise.all(promises.map(promise => promise.then(value => value, error => {
+                if (!firstError) {
+                    firstError = error;
+                }
+                return undefined; // do not rethrow so that other promises can settle
+            })));
+            if (firstError) {
+                throw firstError;
+            }
+            return result; // cast is needed and protected by the `throw` above
+        });
+    }
+    Promises.settled = settled;
+})(Promises || (Promises = {}));
+//#endregion
