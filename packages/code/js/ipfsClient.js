@@ -11,14 +11,27 @@ import {
 /** @type {MessagePort} */
 let port;
 
+
+let forceNormalWorker = false;
+
+
+
+
 if (typeof window !== "undefined") {
   let workerSrc = `./js/workers/ipfsWorker.js`;
 
   const { pathname } = window.location;
   if (pathname.indexOf("/ipfs/") !== -1) {
     const cid = pathname.slice(6, 52);
+    forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/ipfsWorker.js`;
+  } else if (location.origin === "unpkg.com") {
+    forceNormalWorker = true;
+    workerSrc = `https://unpkg.com/@zedvision/code/js/workers/ipfsWorker.js`;
   }
+  
+  
+  
 
   if (typeof SharedWorker !== "undefined") {
     const ipfsWorker = new SharedWorker(

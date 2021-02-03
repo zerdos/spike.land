@@ -12,7 +12,7 @@ if (pathname.indexOf("/ipfs/") !== -1) {
   workerSrc = `/ipfs/${cid}/js/workers/transpile.worker.js`;
 } else if (location.origin === "unpkg.com") {
   forceNormalWorker = true;
-  workerSrc = `https://unpkg.com/@zedvision/code/workers/transpile.worker.js`;
+  workerSrc = `https://unpkg.com/@zedvision/code/js/workers/transpile.worker.js`;
 }
 
 let transform = null;
