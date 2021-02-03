@@ -57,7 +57,7 @@
 "modules/vendor/diffMin.js": "QmPto1Nei9k7Z56D1Jdzf2N6VHgFXVxWWwxk5Bq5d3kZ8m",
 "modules/vendor/idb.d.ts": "QmRDw3SijUK8mQZ2H5CzJtKk8zknGsCz4mz58EzsjEC738",
 "modules/vendor/idb.js": "QmTLkMPbkyM8jQu4WN49K9Ai8chhrbDZutNYJV73e54z2X",
-"package.json": "Qmb8zADMpnj87ARyKVYEgBgCwH6d7X6JEX9Z4qBH9kBMSP",
+"package.json": "QmeQktF42Rn4i29oNcHQqSNxeED86EUL4EVRtAamMEzwDC",
 "sw.js": "QmRLTJABELsHc6tnHzEijXZt3ATK4L4YXKaYmyYicbbjHJ",
 "tsconfig.json": "QmdTwUzCmgDciKzEEtUSiMo2ynw3T3yt2e6qqCpy7kWFs6",
 "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -70,5 +70,5 @@
 "modules/smart-monaco-editor": "QmSERHwoiSVTMajoZHaWPZbLrhG4zTGPwcRiAetSDPffNm",
 "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
 "modules": "QmfHeDLjXLHwBKRZiSQL3rdpF31FHLT7rqsfbSFxxWaCGZ",
-"": "QmSSkoaGup52E9pnEYnjuYAPbm8JdNaEVsGz2Z7xbgy5K4",
+"": "QmWEk1zgQY6McLDQj6jw2UqZ5qZ3J3cFFCWF5rn8Aam4od",
  "foo":"bar" }
