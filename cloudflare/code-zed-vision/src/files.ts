@@ -44,7 +44,7 @@ export const files = {
     "QmZ7nUnVjbQCs3fWGwnsjXck4FzASosFtWPyyWeatLLEjm",
   "manifest.json": "QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3",
   "modules/DraggableWindow.js":
-    "QmV1HJrts8HmMEnuvhUVwPqGeEyTv8yMvdFm6v2PjrJAwB",
+    "QmXFnDwd2ee1c1WmksQc6GEAAjxUToXayh7JxNjLJTxjLq",
   "modules/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
   "modules/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
   "modules/diffChars.d.ts": "QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4",
@@ -52,7 +52,7 @@ export const files = {
   "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
   "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
   "modules/ipfs.client.js": "QmfTp5QBmhbogjQftvwxkrPCgZcZugT9WT1bTN1tdtod4Y",
-  "modules/renderer.js": "QmR4E8DgiqEk6kePpvyoENav8Rt5Ye4KZ3DQ8nrbazYom4",
+  "modules/renderer.js": "QmPUm5xbYaouM43xQ7VeQiVwCn997ZxQVZN3aGjrVVZqxJ",
   "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
   "modules/shaDB.d.ts": "Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY",
@@ -74,7 +74,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmPto1Nei9k7Z56D1Jdzf2N6VHgFXVxWWwxk5Bq5d3kZ8m",
   "modules/vendor/idb.d.ts": "QmRDw3SijUK8mQZ2H5CzJtKk8zknGsCz4mz58EzsjEC738",
   "modules/vendor/idb.js": "QmTLkMPbkyM8jQu4WN49K9Ai8chhrbDZutNYJV73e54z2X",
-  "package.json": "QmcdCSZ3P51jTCopPQVXQMBXTnZeFeVVFhBW2nBS1L98LG",
+  "package.json": "Qmd5aGYuz7YDRZWGcmzahnzNYjmDPyUASXqUgwmdhq5cER",
   "sw.js": "QmRLTJABELsHc6tnHzEijXZt3ATK4L4YXKaYmyYicbbjHJ",
   "tsconfig.json": "QmdTwUzCmgDciKzEEtUSiMo2ynw3T3yt2e6qqCpy7kWFs6",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -88,7 +88,7 @@ export const files = {
   "modules/smart-monaco-editor":
     "QmXE7sWBFoGrtU3qJ5ciup4qnXWd9wuk6oq7cShZW9tvAM",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
-  "modules": "QmU2C5oWfdw22CQSdyKYBJZb6FZR2yzB8DTLbpFvqiAyYw",
-  "": "QmXAPXoc3x9FKQKN9Z4QrVu96UDG4VeGQVd6mk7RxVHRAX",
+  "modules": "QmPE1xTH4569wUmSSSn52ConGSaZ9K2y27pSke1a6TrEsk",
+  "": "QmcyuCe6zaMeRtFFUYoSGAy6NS3BSjtmKEJuAxn8hJLR1X",
   "foo": "bar",
 };
