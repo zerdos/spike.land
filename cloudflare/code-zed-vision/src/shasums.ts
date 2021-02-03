@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "95939507d4e0b01984f39b885ff32e12dad0d32451061551e6c9819431d2e59f",
+    "0c6cc3079b7794b3204901ba294e09a0e5fd054c8b851db2679b8ae73789030b",
   "index.html":
     "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
@@ -66,7 +66,7 @@ export const shasums = {
   "js/sendSignalToQrCode.js":
     "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
   "js/transpile.js":
-    "741389d142215f92360e7dcdb5c1ff4863682b54026d0abaef6d107b652d2d5d",
+    "f0108aab20f8f559843a04178c05cd4897644d061b7e9dfd716e487a53f0a9bb",
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
@@ -94,7 +94,7 @@ export const shasums = {
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/ipfsClient.js":
-    "12ac66f2a6badb150314a3eafcdafdb655e24d2f52f3d0bf46b206fc1c32ec46",
+    "84e5faa52083238b08c0c580f13d6abc4e4726d79ce60733d0daab2214865230",
   "js/renderPreviewWindow.js":
     "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "assets/roboto.css":

@@ -25,7 +25,7 @@ if (typeof window !== "undefined") {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/ipfsWorker.js`;
-  } else if (location.origin === "unpkg.com") {
+  } else if (location.origin !== "https://code.zed.vision") {
     forceNormalWorker = true;
     workerSrc = `https://unpkg.com/@zedvision/code/js/workers/ipfsWorker.js`;
   }
@@ -33,7 +33,7 @@ if (typeof window !== "undefined") {
   
   
 
-  if (typeof SharedWorker !== "undefined") {
+  if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
     const ipfsWorker = new SharedWorker(
       workerSrc,
     );
