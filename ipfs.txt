@@ -47,9 +47,9 @@ added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
 added QmX5mSevBrVHk6mpp1VNaCMqmCYC7azWBUFgrzpHnG4NDp code/modules/shaDB.js
 added QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK code/modules/smart-monaco-editor/dist/editor.d.ts
-added QmZEcZTz9tPMzYyLkUNnc3hjjazWvFsFtaSpyQYKpPPkVN code/modules/smart-monaco-editor/dist/editor.js
+added QmPz23SDAksqEzFaeATdnRmJ3sWNfyFtpMCH5uxaX2bmMD code/modules/smart-monaco-editor/dist/editor.js
 added QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF code/modules/smart-monaco-editor/dist/monaco.d.ts
-added QmWfupT4EsA7LnkAaXh4U9CrH3FJzNrU1drXA36ASyridw code/modules/smart-monaco-editor/dist/monaco.js
+added QmTMdTwYgq4uAvhmg3Ezvjb4c4qbqcY5D1GZg2UKRUJUsf code/modules/smart-monaco-editor/dist/monaco.js
 added Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt code/modules/vendor/diffChars.d.ts
 added QmSqtPePGEiEa5sfbg9RQjMzHz2awPGxhxdbXHjYFu77hK code/modules/vendor/diffChars.js
 added QmYiYJhHYLwzc8n5ZBChdaLpPLZ4TauN4aAWZt1cTD3QK2 code/modules/vendor/diffMin.d.ts
@@ -65,8 +65,8 @@ added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmcAbysWMGwKqRLPLTh9dwckxR8S5EECNokeXEuj5L42tk code/js/examples
 added QmRckTz5tKkriyffPsM2sjMMMGxH661tmBDwM83q9Rfteo code/js/workers
 added QmRc3tHGgJoe51tYZ2YMU8H75CuTVh1N61GnJftAqdhyLm code/js
-added QmXKvV9j1sNAaG8LqvYe2Kve3skD92b1vcdEFhaGUDLxQH code/modules/smart-monaco-editor/dist
-added QmSERHwoiSVTMajoZHaWPZbLrhG4zTGPwcRiAetSDPffNm code/modules/smart-monaco-editor
+added QmNtvmwUCH4iatCjj7sYT2UAbW3RcyVEGC3YTxeoiGTNzC code/modules/smart-monaco-editor/dist
+added QmXE7sWBFoGrtU3qJ5ciup4qnXWd9wuk6oq7cShZW9tvAM code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added Qmf1UAHCScPFAqXXHxD6rrdsaYhC58cuSJy3BueR2TXX8M code/modules
-added QmTRvpat3mus2D8LYbQmwgdVFE3z8eLmum6MLz9v5rsZuu code
+added QmdswH2hzMQLTCupQGxirNCcUkWwWL1FQzye1Szmfa5EYU code/modules
+added QmXXVK4LA3F4HHCvfsVnLjDtAm8muXNoRMepjKW3HxWrTQ code
