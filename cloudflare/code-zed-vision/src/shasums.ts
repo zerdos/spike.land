@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "cdb5279173910d1d6201524061f6bf13544a8a9bd324fe9d49b82d94c9ce15b8",
+    "261388936eda66be5febcea8e206e8c371584ab87dc1007d04d0f0336a5b1768",
   "index.html":
     "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
@@ -70,7 +70,7 @@ export const shasums = {
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
-    "4e40aa0703293bc46f6fa05f92971ae717bfd7c3e3fea0a369427bf5b920769a",
+    "58abcaebe5c863b2538e99f050ced65bcba183d0fd9f8e649d25b1f33bcb3b5b",
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/refs.d.ts":
@@ -122,7 +122,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   ".tsBuildInfo":
-    "7114dbfbca9ad6a44daf800e8fc5bb9d1506c59c0b324e807923bd1e5fadae8c",
+    "2b468d84934f24eb057b200732c6f59856748d5998408e05c6f55e9a8cdb0b53",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":

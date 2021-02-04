@@ -11,7 +11,7 @@ added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.pn
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
 added QmRQ9JTjcuvuvTW5KdC9fzBwekEWYMFsxkrhDWnfzBaVEc code/index.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
-added QmaNsHxhDhfVJjnxLwDqKoQHJGhHXnsB75BaGYQaroEmpP code/js/codeLoader.js
+added QmRhYJyFbxe5nA4NsB1Pz9QEf59ms2Ctzd2wCHizoNZk5F code/js/codeLoader.js
 added QmUv2c2dk8w37aNHaYPWLiDa1GqdT9yVfPH4dX81UJJvfd code/js/data.js
 added QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8 code/js/examples/app.tsx
 added QmaYAYLadkVwowVTSqFzFC8GC6EdcQQFaAcqZRFmkMQ51r code/js/examples/rca.tsx
@@ -57,7 +57,7 @@ added QmYiYJhHYLwzc8n5ZBChdaLpPLZ4TauN4aAWZt1cTD3QK2 code/modules/vendor/diffMin
 added QmPto1Nei9k7Z56D1Jdzf2N6VHgFXVxWWwxk5Bq5d3kZ8m code/modules/vendor/diffMin.js
 added QmRDw3SijUK8mQZ2H5CzJtKk8zknGsCz4mz58EzsjEC738 code/modules/vendor/idb.d.ts
 added QmTLkMPbkyM8jQu4WN49K9Ai8chhrbDZutNYJV73e54z2X code/modules/vendor/idb.js
-added QmZUi6DMuX5UWYvb4qny1w9QkzAJKYi39wqbSnDP4Wf2g5 code/package.json
+added QmNu8hWBqEqotCc3T1KY3fgqKQ2R9TDAQVLi88s9vbG6R8 code/package.json
 added QmRLTJABELsHc6tnHzEijXZt3ATK4L4YXKaYmyYicbbjHJ code/sw.js
 added QmdTwUzCmgDciKzEEtUSiMo2ynw3T3yt2e6qqCpy7kWFs6 code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -65,9 +65,9 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscod
 added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmcAbysWMGwKqRLPLTh9dwckxR8S5EECNokeXEuj5L42tk code/js/examples
 added QmUQ24LtA3Cg7xX1aTs9agjkSoSFbnn6W8NYKUSCBdHqrX code/js/workers
-added QmdnFLciqMuD3Fo2WWRDd73g3xvcDdfcFoiPvGu3uhgWAB code/js
+added QmZyCrjSeqWp8vWVCWKD2nfqNN7sv7G7L9Uy2dWEeAoCQ7 code/js
 added QmXprkk5aUH6opomC6xZb84uW3MameJ8ytJWbE6fYtMy4k code/modules/smart-monaco-editor/dist
 added QmNtbEPqsqn5CCn3zyfKuDPoVTzkf15FUPzTx8J3cfDNnw code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
 added QmTyrpkvytaXo4KPLk8UuKdqN4YfKpFZwPwmYfhbQPdcn9 code/modules
-added QmTd1Bont5PPt4W6DnrHPNvGzyra53tDNvXrdhzWw9E8Zp code
+added QmT9WQuMzz7nEQzRtsmLUV9H5Zn3tAV91rL9tuKFKdGJRG code
