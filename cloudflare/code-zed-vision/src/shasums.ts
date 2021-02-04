@@ -10,7 +10,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/smart-monaco-editor/dist/monaco.js":
-    "bb8f87f2f8dba1fb43aaf0afae43a5f82c15c59cff4185f2ff8a82f83f2bd121",
+    "ea7554d3fd55863b8713940b56bcdf84fe338b20846e014ed465fabc09215fc4",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
@@ -70,7 +70,7 @@ export const shasums = {
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
-    "33d67f4b12fc1e922d4c89a1ae8e4cb88ccfabbe571fee3fbc419281626e8ca7",
+    "3b1d6eff7c3367226752dd3bb12193a466e87e467a8b5a5e2efc7c777ad8501e",
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/refs.d.ts":
@@ -122,7 +122,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   ".tsBuildInfo":
-    "a5e5a3cc213d4ea641359ab0b214ce01dda9816cb7c4a3b1776c49886f6cc7cf",
+    "e7c6c65132b1ca0a712f5a385071214883ce3b7238f89babe3276368da5987ef",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":

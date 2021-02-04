@@ -47,7 +47,7 @@ export async function run(mode = "window", _w, code = "") {
 
   const session = getSession();
   session.mode = mode;
-  if (code){
+  if (code) {
     session.code = formatter(code);
   }
 
