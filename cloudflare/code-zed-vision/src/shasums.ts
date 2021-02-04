@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "71a6a7503df8c434e50b9e6232e70f7c1416c9adf1b7f38a0c4e8b23ba0d34b0",
+    "d07a5155c0dc41e6aa17bf815bda5bd33d00824a0c96537a35467223fea4de5d",
   "index.html":
     "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
@@ -122,7 +122,7 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   ".tsBuildInfo":
-    "b737c349c4cb75c43abc0e43210ca08a7c622375b4fdcada83ea0163eee7423a",
+    "3df2894f5bb7025d360948b91eb7774b12af399c4631145302622cb88478035f",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "favicon.ico":

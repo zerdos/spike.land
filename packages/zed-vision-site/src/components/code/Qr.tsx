@@ -1,11 +1,9 @@
 import React from "react";
 /** @jsx jsx */
-//@ts-ignore
 import { css, Global, jsx } from "@emotion/react";
-import { fetchSignal } from "@zedvision/code/js/hash";
 
 //@ts-ignore
-import { QRious } from "@zedvision/qrious/dist/qrious.esm";
+import { ya } from "@zedvision/qrious/dist/qrious.esm";
 import { sha256 } from "../utils/sha256/sha256";
 
 export const Qr = () => {
@@ -75,11 +73,11 @@ export const Qr = () => {
     const setSignal = async (url: string) => {
       if (cubeState !== 1) return;
 
-      // if (typeof window === "undefined") return;
+      if (typeof window === "undefined") return;
 
-      // const { fetchSignal } = await new Function(
-      //   `return import("https://blog.zed.vision/code/js/hash.js")`,
-      // )();
+      const { fetchSignal } = await new Function(
+        `return import("https://blog.zed.vision/code/js/hash.js")`,
+      )();
 
       const getData = await fetchSignal(url, 7);
       setCubeState(0);

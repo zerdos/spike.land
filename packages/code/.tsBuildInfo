@@ -2,8 +2,8 @@
   "program": {
     "fileInfos": {
       "../../node_modules/typescript/lib/lib.es5.d.ts": {
-        "version": "baecaaa1e6beead1b01927ab81de7897fa306d097a5fa888637a9d649bf0dbbe",
-        "signature": "baecaaa1e6beead1b01927ab81de7897fa306d097a5fa888637a9d649bf0dbbe",
+        "version": "b3584bc5798ed422ce2516df360ffa9cf2d80b5eae852867db9ba3743145f895",
+        "signature": "b3584bc5798ed422ce2516df360ffa9cf2d80b5eae852867db9ba3743145f895",
         "affectsGlobalScope": true
       },
       "../../node_modules/typescript/lib/lib.es2015.d.ts": {
@@ -559,5 +559,5 @@
       ]
     ]
   },
-  "version": "4.2.0-dev.20210203"
+  "version": "4.2.0-dev.20210204"
 }
