@@ -164,7 +164,9 @@ export async function run(mode = "window", _w, code = "") {
             return;
           }
         }
-        if(err && err[0] && err[0].messageText) console.error(err[0].messageText.toString());
+        if (err && err[0] && err[0].messageText) {
+          console.error(err[0].messageText.toString());
+        }
         // errorDiv.innerHTML = err[0].messageText.toString();
 
         return;
