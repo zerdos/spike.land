@@ -1,4 +1,4 @@
-import {getWorker} from "./workers/getWorker.js";
+import { getWorker } from "./workers/getWorker.js";
 import {
   all,
   CID,
@@ -9,12 +9,10 @@ import {
   uint8ArrayToString,
 } from "../modules/ipfs.client.js";
 
-
-const {workerSrc, forceNormalWorker } =  getWorker("ipfsWorker.js")
+const { workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js");
 
 /** @type {MessagePort} */
 let port;
-
 
 if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
   const ipfsWorker = new SharedWorker(

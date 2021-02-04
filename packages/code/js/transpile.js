@@ -1,7 +1,7 @@
 import { wrap } from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.min.mjs";
-import {getWorker} from "./workers/getWorker.js";
+import { getWorker } from "./workers/getWorker.js";
 
-const {workerSrc, forceNormalWorker } =  getWorker("transpile.worker.js")
+const { workerSrc, forceNormalWorker } = getWorker("transpile.worker.js");
 
 let transform = null;
 

@@ -29,10 +29,10 @@
   },
   "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
   "devDependencies": {
-    "esbuild": "0.8.39",
+    "esbuild": "0.8.40",
     "ipfs-message-port-client": "0.5.1",
     "it-all": "1.0.4",
     "typescript": "4.1.3",
-    "uint8arrays": "2.0.5"
+    "uint8arrays": "2.1.0"
   }
 }
