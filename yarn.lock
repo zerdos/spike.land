@@ -16111,7 +16111,15 @@ uint8arrays@1.1.0, uint8arrays@^1.0.0, uint8arrays@^1.1.0:
     multibase "^3.0.0"
     web-encoding "^1.0.2"
 
-uint8arrays@2.1.0, uint8arrays@^2.0.5:
+uint8arrays@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-2.1.2.tgz#7b4ff064e0d033bae3ecbf15860dd60458d6aebd"
+  integrity sha512-/VcLZbPMs/dk23u22IZlPWycfBxntpwrvISHQs93/OdRlUTnQw9Uzmzaoq7DgJAZl1SlP/kw+NhbjFAEED42rQ==
+  dependencies:
+    multibase "^3.0.0"
+    web-encoding "^1.0.5"
+
+uint8arrays@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-2.1.0.tgz#04744bbe21d9f68253b8610e8ac70dbef710eaf7"
   integrity sha512-5K/jTnObo4PEh+WuPNZC76dxqqaCfI4Z4g4VytvGjSg1EEXsfo9cK98xE6WhcsrqSVRsG5EHF5fQhgCZnvQY0A==
