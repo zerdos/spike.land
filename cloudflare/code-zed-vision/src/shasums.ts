@@ -50,7 +50,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "package.json":
-    "7d81060ae9143817a224325637c77ce7914bb64c3febca7548e585a906daeabd",
+    "dc6101915a2694de8a38bbac8bc63d0612205c883658083b273fac74a757529f",
   "index.html":
     "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
   "ipfs.json":
@@ -70,7 +70,7 @@ export const shasums = {
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
-    "422764ac183cc627116f06bef074847ab3d534b1e8f07e371e86ea75624b7740",
+    "33d67f4b12fc1e922d4c89a1ae8e4cb88ccfabbe571fee3fbc419281626e8ca7",
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/refs.d.ts":
