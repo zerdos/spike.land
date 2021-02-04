@@ -1,20 +1,7 @@
 import { wrap } from "https://unpkg.com/comlink@4.3.0/dist/esm/comlink.min.mjs";
+import {getWorker} from "./workers/getWorker.js";
 
-const { pathname } = window.location;
-
-let workerSrc = `/js/workers/transpile.worker.js`;
-let forceNormalWorker = false;
-
-if (pathname.indexOf("/ipfs/") !== -1) {
-  const cid = pathname.slice(6, 52);
-  forceNormalWorker = true;
-
-  workerSrc = `/ipfs/${cid}/js/workers/transpile.worker.js`;
-} else if (location.origin !== "https://code.zed.vision") {
-  forceNormalWorker = true;
-  workerSrc =
-    `https://unpkg.com/@zedvision/code/js/workers/transpile.worker.js`;
-}
+const {workerSrc, forceNormalWorker } =  getWorker("transpile.worker.js")
 
 let transform = null;
 

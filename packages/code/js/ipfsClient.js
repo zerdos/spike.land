@@ -1,3 +1,4 @@
+import {getWorker} from "./workers/getWorker.js";
 import {
   all,
   CID,
@@ -8,42 +9,30 @@ import {
   uint8ArrayToString,
 } from "../modules/ipfs.client.js";
 
+
+const {workerSrc, forceNormalWorker } =  getWorker("ipfsWorker.js")
+
 /** @type {MessagePort} */
 let port;
 
-let forceNormalWorker = false;
 
-if (typeof window !== "undefined") {
-  let workerSrc = `./js/workers/ipfsWorker.js`;
+if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
+  const ipfsWorker = new SharedWorker(
+    workerSrc,
+  );
+  port = ipfsWorker.port;
+} else {
+  const worker = new Worker(workerSrc);
 
-  const { pathname } = window.location;
-  if (pathname.indexOf("/ipfs/") !== -1) {
-    const cid = pathname.slice(6, 52);
-    forceNormalWorker = true;
-    workerSrc = `/ipfs/${cid}/js/workers/ipfsWorker.js`;
-  } else if (location.origin !== "https://code.zed.vision") {
-    forceNormalWorker = true;
-    workerSrc = `https://unpkg.com/@zedvision/code/js/workers/ipfsWorker.js`;
-  }
+  const { port1, port2 } = new MessageChannel();
+  const msg = {
+    clientInit: true,
+    port: port1,
+  };
 
-  if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
-    const ipfsWorker = new SharedWorker(
-      workerSrc,
-    );
-    port = ipfsWorker.port;
-  } else {
-    const worker = new Worker(workerSrc);
+  worker.postMessage(msg, [port1]);
 
-    const { port1, port2 } = new MessageChannel();
-    const msg = {
-      clientInit: true,
-      port: port1,
-    };
-
-    worker.postMessage(msg, [port1]);
-
-    port = port2;
-  }
+  port = port2;
 }
 
 export const ipfsClient = IpfsClient.from(port);

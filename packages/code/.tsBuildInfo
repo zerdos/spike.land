@@ -181,13 +181,18 @@
         "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
         "affectsGlobalScope": false
       },
+      "./js/workers/getWorker.js": {
+        "version": "248abbc9a0ff508cd032869282a717af489ceb84235be101d8df476c531829ac",
+        "signature": "d8b99a482d7a5a7d37e6af08ecfc0f47a885ab4b0cb96396d0a1f8e0ea8f9fd0",
+        "affectsGlobalScope": false
+      },
       "./modules/ipfs.client.js": {
         "version": "aec72a48067d6b2df17d5fdbe7e09aa464179ffdcbdbe6f7d160cf7c40a8f766",
         "signature": "e9c2d6b6462446548a0f1021f44ac720d9fa09340f3b84bf83e69415925452f3",
         "affectsGlobalScope": false
       },
       "./js/ipfsClient.js": {
-        "version": "f6493c02d5b57f2bcaa838bb4f15edaf4a07de848812f0a1d66947e9350f51d5",
+        "version": "e03dab46bcae412661204492e86907212e7e42b19356456ec8b70b5623985ad4",
         "signature": "eda07caba307b88a0a531178df845f45588ebf1a7456832c4768de600da1a2b5",
         "affectsGlobalScope": false
       },
@@ -227,7 +232,7 @@
         "affectsGlobalScope": false
       },
       "./js/transpile.js": {
-        "version": "8c31e495e8c4850f6711c3816caa33398de64c1e04ed2624727fccd3716efec1",
+        "version": "ae5ac103243a72e88edbf449ef7f8b861387d735fcc8669b5b66f70578544b4b",
         "signature": "8756c05f905c0402c6f2e85d6cf51eb59345fceeeaf5b1cc605f74c805e73d58",
         "affectsGlobalScope": false
       },
@@ -339,6 +344,7 @@
       ],
       "./js/ipfsClient.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./js/workers/getWorker.js",
         "./modules/ipfs.client.js"
       ],
       "./js/openWindows.js": [
@@ -365,6 +371,10 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./js/transpile.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./js/workers/getWorker.js"
+      ],
+      "./js/workers/getWorker.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./modules/ipfs.client.js": [
@@ -420,6 +430,7 @@
       "./js/share.js",
       "./js/templates.js",
       "./js/transpile.js",
+      "./js/workers/getWorker.js",
       "./js/workers/ipfsWorker.js",
       "./js/workers/transpile.worker.js",
       "./modules/diff.d.ts",
@@ -508,6 +519,10 @@
       ],
       [
         "./js/transpile.js",
+        1
+      ],
+      [
+        "./js/workers/getWorker.js",
         1
       ],
       [
