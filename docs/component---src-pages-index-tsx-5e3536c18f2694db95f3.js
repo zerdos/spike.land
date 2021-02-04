@@ -365,7 +365,7 @@ var Qr_Qr = function Qr() {
 
               case 4:
                 _context2.next = 6;
-                return new Function("return import(\"https://blog.zed.vision/code/js/hash.js\")")();
+                return new Function("return import(\"https://code.zed.vision/js/hash.js\")")();
 
               case 6:
                 _yield$Function = _context2.sent;
@@ -717,4 +717,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-2b2f7d4e1811febdf0d8.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-5e3536c18f2694db95f3.js.map
