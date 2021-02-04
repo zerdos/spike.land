@@ -6507,6 +6507,10 @@ export namespace languages {
          * Defaults to false
          */
         includeLF?: boolean;
+        /**
+         * Other keys that can be referred to by the tokenizer.
+         */
+        [key: string]: any;
     }
 
     /**

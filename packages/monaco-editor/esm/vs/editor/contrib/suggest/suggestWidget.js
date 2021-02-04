@@ -157,6 +157,7 @@ let SuggestWidget = class SuggestWidget {
             getHeight: (_element) => this.getLayoutInfo().itemHeight,
             getTemplateId: (_element) => 'suggestion'
         }, [renderer], {
+            alwaysConsumeMouseWheel: true,
             useShadows: false,
             mouseSupport: false,
             accessibilityProvider: {

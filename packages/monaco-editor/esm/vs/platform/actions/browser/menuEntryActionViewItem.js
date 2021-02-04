@@ -25,10 +25,10 @@ import { ThemeIcon } from '../../theme/common/themeService.js';
 import { ActionViewItem } from '../../../base/browser/ui/actionbar/actionViewItems.js';
 import { DropdownMenuActionViewItem } from '../../../base/browser/ui/dropdown/dropdownActionViewItem.js';
 import { isWindows, isLinux } from '../../../base/common/platform.js';
-export function createAndFillInActionBarActions(menu, options, target, isPrimaryGroup) {
+export function createAndFillInActionBarActions(menu, options, target, isPrimaryGroup, primaryMaxCount) {
     const groups = menu.getActions(options);
     // Action bars handle alternative actions on their own so the alternative actions should be ignored
-    fillInActions(groups, target, false, isPrimaryGroup);
+    fillInActions(groups, target, false, isPrimaryGroup, primaryMaxCount);
     return asDisposable(groups);
 }
 function asDisposable(groups) {
@@ -40,22 +40,35 @@ function asDisposable(groups) {
     }
     return disposables;
 }
-function fillInActions(groups, target, useAlternativeActions, isPrimaryGroup = group => group === 'navigation') {
+function fillInActions(groups, target, useAlternativeActions, isPrimaryGroup = group => group === 'navigation', primaryMaxCount = Number.MAX_SAFE_INTEGER) {
+    let primaryBucket;
+    let secondaryBucket;
+    if (Array.isArray(target)) {
+        primaryBucket = target;
+        secondaryBucket = target;
+    }
+    else {
+        primaryBucket = target.primary;
+        secondaryBucket = target.secondary;
+    }
     for (let [group, actions] of groups) {
         if (useAlternativeActions) {
             actions = actions.map(a => (a instanceof MenuItemAction) && !!a.alt ? a.alt : a);
         }
         if (isPrimaryGroup(group)) {
-            const to = Array.isArray(target) ? target : target.primary;
-            to.unshift(...actions);
+            primaryBucket.unshift(...actions);
         }
         else {
-            const to = Array.isArray(target) ? target : target.secondary;
-            if (to.length > 0) {
-                to.push(new Separator());
+            if (secondaryBucket.length > 0) {
+                secondaryBucket.push(new Separator());
             }
-            to.push(...actions);
+            secondaryBucket.push(...actions);
         }
+    }
+    // overflow items from the primary group into the secondary bucket
+    if (primaryBucket !== secondaryBucket && primaryBucket.length > primaryMaxCount) {
+        const overflow = primaryBucket.splice(primaryMaxCount, primaryBucket.length - primaryMaxCount);
+        secondaryBucket.unshift(...overflow, new Separator());
     }
 }
 let MenuEntryActionViewItem = class MenuEntryActionViewItem extends ActionViewItem {

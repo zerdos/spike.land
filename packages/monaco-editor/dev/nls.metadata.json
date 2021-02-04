@@ -284,13 +284,13 @@
 			"stickydesc",
 			"stickydesc"
 		],
-		"vs/editor/browser/widget/codeEditorWidget": [
-			"cursors.maximum"
-		],
 		"vs/editor/browser/widget/diffEditorWidget": [
 			"diffInsertIcon",
 			"diffRemoveIcon",
 			"diff.tooLarge"
+		],
+		"vs/editor/browser/widget/codeEditorWidget": [
+			"cursors.maximum"
 		],
 		"vs/editor/contrib/anchorSelect/anchorSelect": [
 			"selectionAnchor",
@@ -486,6 +486,9 @@
 			"generic.noResult",
 			"ref.title"
 		],
+		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
+			"multipleResults"
+		],
 		"vs/editor/contrib/gotoError/gotoError": [
 			"markerAction.next.label",
 			"nextMarkerIcon",
@@ -522,9 +525,6 @@
 				]
 			}
 		],
-		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
-			"multipleResults"
-		],
 		"vs/editor/contrib/indentation/indentation": [
 			"indentationToSpaces",
 			"indentationToTabs",
@@ -544,10 +544,6 @@
 		"vs/editor/contrib/inPlaceReplace/inPlaceReplace": [
 			"InPlaceReplaceAction.previous.label",
 			"InPlaceReplaceAction.next.label"
-		],
-		"vs/editor/contrib/linkedEditing/linkedEditing": [
-			"linkedEditing.label",
-			"editorLinkedEditingBackground"
 		],
 		"vs/editor/contrib/linesOperations/linesOperations": [
 			"lines.copyUp",
@@ -601,6 +597,10 @@
 			"editor.transformToLowercase",
 			"editor.transformToTitlecase",
 			"editor.transformToSnakecase"
+		],
+		"vs/editor/contrib/linkedEditing/linkedEditing": [
+			"linkedEditing.label",
+			"editorLinkedEditingBackground"
 		],
 		"vs/editor/contrib/links/links": [
 			"links.navigate.executeCmd",
@@ -693,6 +693,18 @@
 				]
 			}
 		],
+		"vs/editor/contrib/suggest/suggestController": [
+			"aria.alert.snippet",
+			"suggest.trigger.label",
+			"accept.insert",
+			"accept.insert",
+			"accept.replace",
+			"accept.replace",
+			"accept.insert",
+			"detail.more",
+			"detail.less",
+			"suggest.reset.label"
+		],
 		"vs/editor/contrib/tokenization/tokenization": [
 			"forceRetokenize"
 		],
@@ -712,18 +724,6 @@
 			"unusualLineTerminators.detail",
 			"unusualLineTerminators.fix",
 			"unusualLineTerminators.ignore"
-		],
-		"vs/editor/contrib/suggest/suggestController": [
-			"aria.alert.snippet",
-			"suggest.trigger.label",
-			"accept.insert",
-			"accept.insert",
-			"accept.replace",
-			"accept.replace",
-			"accept.insert",
-			"detail.more",
-			"detail.less",
-			"suggest.reset.label"
 		],
 		"vs/editor/common/standaloneStrings": [
 			"noSelection",
@@ -760,20 +760,6 @@
 			"accessibilityHelpMessage",
 			"toggleHighContrast",
 			"bulkEditServiceSummary"
-		],
-		"vs/editor/contrib/wordOperations/wordOperations": [
-			"deleteInsideWord"
-		],
-		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
-			"wordHighlight",
-			"wordHighlightStrong",
-			"wordHighlightBorder",
-			"wordHighlightStrongBorder",
-			"overviewRulerWordHighlightForeground",
-			"overviewRulerWordHighlightStrongForeground",
-			"wordHighlight.next.label",
-			"wordHighlight.previous.label",
-			"wordHighlight.trigger.label"
 		],
 		"vs/editor/browser/editorExtensions": [
 			{
@@ -924,6 +910,20 @@
 			"problemsWarningIconForeground",
 			"problemsInfoIconForeground"
 		],
+		"vs/editor/contrib/wordOperations/wordOperations": [
+			"deleteInsideWord"
+		],
+		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
+			"wordHighlight",
+			"wordHighlightStrong",
+			"wordHighlightBorder",
+			"wordHighlightStrongBorder",
+			"overviewRulerWordHighlightForeground",
+			"overviewRulerWordHighlightStrongForeground",
+			"wordHighlight.next.label",
+			"wordHighlight.previous.label",
+			"wordHighlight.trigger.label"
+		],
 		"vs/platform/quickinput/browser/helpQuickAccess": [
 			"globalCommands",
 			"editorCommands",
@@ -935,45 +935,6 @@
 			"gotoLineLabel",
 			"gotoLineLabelEmptyWithLimit",
 			"gotoLineLabelEmpty"
-		],
-		"vs/editor/contrib/gotoSymbol/peek/referencesController": [
-			"labelLoading",
-			"metaTitle.N"
-		],
-		"vs/editor/contrib/symbolIcons/symbolIcons": [
-			"symbolIcon.arrayForeground",
-			"symbolIcon.booleanForeground",
-			"symbolIcon.classForeground",
-			"symbolIcon.colorForeground",
-			"symbolIcon.constantForeground",
-			"symbolIcon.constructorForeground",
-			"symbolIcon.enumeratorForeground",
-			"symbolIcon.enumeratorMemberForeground",
-			"symbolIcon.eventForeground",
-			"symbolIcon.fieldForeground",
-			"symbolIcon.fileForeground",
-			"symbolIcon.folderForeground",
-			"symbolIcon.functionForeground",
-			"symbolIcon.interfaceForeground",
-			"symbolIcon.keyForeground",
-			"symbolIcon.keywordForeground",
-			"symbolIcon.methodForeground",
-			"symbolIcon.moduleForeground",
-			"symbolIcon.namespaceForeground",
-			"symbolIcon.nullForeground",
-			"symbolIcon.numberForeground",
-			"symbolIcon.objectForeground",
-			"symbolIcon.operatorForeground",
-			"symbolIcon.packageForeground",
-			"symbolIcon.propertyForeground",
-			"symbolIcon.referenceForeground",
-			"symbolIcon.snippetForeground",
-			"symbolIcon.stringForeground",
-			"symbolIcon.structForeground",
-			"symbolIcon.textForeground",
-			"symbolIcon.typeParameterForeground",
-			"symbolIcon.unitForeground",
-			"symbolIcon.variableForeground"
 		],
 		"vs/editor/contrib/quickAccess/gotoSymbolQuickAccess": [
 			"cannotRunGotoSymbolWithoutEditor",
@@ -1010,38 +971,47 @@
 			"field",
 			"constant"
 		],
+		"vs/editor/contrib/symbolIcons/symbolIcons": [
+			"symbolIcon.arrayForeground",
+			"symbolIcon.booleanForeground",
+			"symbolIcon.classForeground",
+			"symbolIcon.colorForeground",
+			"symbolIcon.constantForeground",
+			"symbolIcon.constructorForeground",
+			"symbolIcon.enumeratorForeground",
+			"symbolIcon.enumeratorMemberForeground",
+			"symbolIcon.eventForeground",
+			"symbolIcon.fieldForeground",
+			"symbolIcon.fileForeground",
+			"symbolIcon.folderForeground",
+			"symbolIcon.functionForeground",
+			"symbolIcon.interfaceForeground",
+			"symbolIcon.keyForeground",
+			"symbolIcon.keywordForeground",
+			"symbolIcon.methodForeground",
+			"symbolIcon.moduleForeground",
+			"symbolIcon.namespaceForeground",
+			"symbolIcon.nullForeground",
+			"symbolIcon.numberForeground",
+			"symbolIcon.objectForeground",
+			"symbolIcon.operatorForeground",
+			"symbolIcon.packageForeground",
+			"symbolIcon.propertyForeground",
+			"symbolIcon.referenceForeground",
+			"symbolIcon.snippetForeground",
+			"symbolIcon.stringForeground",
+			"symbolIcon.structForeground",
+			"symbolIcon.textForeground",
+			"symbolIcon.typeParameterForeground",
+			"symbolIcon.unitForeground",
+			"symbolIcon.variableForeground"
+		],
+		"vs/editor/contrib/gotoSymbol/peek/referencesController": [
+			"labelLoading",
+			"metaTitle.N"
+		],
 		"vs/editor/common/modes/modesRegistry": [
 			"plainText.alias"
-		],
-		"vs/editor/common/view/editorColorRegistry": [
-			"lineHighlight",
-			"lineHighlightBorderBox",
-			"rangeHighlight",
-			"rangeHighlightBorder",
-			"symbolHighlight",
-			"symbolHighlightBorder",
-			"caret",
-			"editorCursorBackground",
-			"editorWhitespaces",
-			"editorIndentGuides",
-			"editorActiveIndentGuide",
-			"editorLineNumbers",
-			"editorActiveLineNumber",
-			"deprecatedEditorActiveLineNumber",
-			"editorActiveLineNumber",
-			"editorRuler",
-			"editorCodeLensForeground",
-			"editorBracketMatchBackground",
-			"editorBracketMatchBorder",
-			"editorOverviewRulerBorder",
-			"editorOverviewRulerBackground",
-			"editorGutter",
-			"unnecessaryCodeBorder",
-			"unnecessaryCodeOpacity",
-			"overviewRulerRangeHighlight",
-			"overviewRuleError",
-			"overviewRuleWarning",
-			"overviewRuleInfo"
 		],
 		"vs/editor/browser/widget/diffReview": [
 			"diffReviewInsertIcon",
@@ -1087,6 +1057,36 @@
 			"iconDefintion.fontCharacter",
 			"widgetClose"
 		],
+		"vs/editor/common/view/editorColorRegistry": [
+			"lineHighlight",
+			"lineHighlightBorderBox",
+			"rangeHighlight",
+			"rangeHighlightBorder",
+			"symbolHighlight",
+			"symbolHighlightBorder",
+			"caret",
+			"editorCursorBackground",
+			"editorWhitespaces",
+			"editorIndentGuides",
+			"editorActiveIndentGuide",
+			"editorLineNumbers",
+			"editorActiveLineNumber",
+			"deprecatedEditorActiveLineNumber",
+			"editorActiveLineNumber",
+			"editorRuler",
+			"editorCodeLensForeground",
+			"editorBracketMatchBackground",
+			"editorBracketMatchBorder",
+			"editorOverviewRulerBorder",
+			"editorOverviewRulerBackground",
+			"editorGutter",
+			"unnecessaryCodeBorder",
+			"unnecessaryCodeOpacity",
+			"overviewRulerRangeHighlight",
+			"overviewRuleError",
+			"overviewRuleWarning",
+			"overviewRuleInfo"
+		],
 		"vs/editor/contrib/codeAction/codeActionCommands": [
 			"args.schema.kind",
 			"args.schema.apply",
@@ -1118,9 +1118,6 @@
 			"autoFix.label",
 			"editor.action.autoFix.noneMessage"
 		],
-		"vs/base/common/actions": [
-			"submenu.empty"
-		],
 		"vs/base/browser/ui/actionbar/actionViewItems": [
 			{
 				"key": "titleLabel",
@@ -1129,6 +1126,9 @@
 					"action keybinding"
 				]
 			}
+		],
+		"vs/base/common/actions": [
+			"submenu.empty"
 		],
 		"vs/editor/contrib/folding/foldingDecorations": [
 			"foldingExpandedIcon",
@@ -1162,24 +1162,6 @@
 			"ariaSearchNoResultWithLineNumNoCurrentMatch",
 			"ctrlEnter.keybindingChanged"
 		],
-		"vs/editor/contrib/message/messageController": [
-			"editor.readonly"
-		],
-		"vs/editor/contrib/gotoSymbol/referencesModel": [
-			"aria.oneReference",
-			{
-				"key": "aria.oneReference.preview",
-				"comment": [
-					"Placeholders are: 0: filename, 1:line number, 2: column number, 3: preview snippet of source code"
-				]
-			},
-			"aria.fileReferences.1",
-			"aria.fileReferences.N",
-			"aria.result.0",
-			"aria.result.1",
-			"aria.result.n1",
-			"aria.result.nm"
-		],
 		"vs/editor/contrib/peekView/peekView": [
 			"label.close",
 			"peekViewTitleBackground",
@@ -1196,6 +1178,24 @@
 			"peekViewResultsMatchHighlight",
 			"peekViewEditorMatchHighlight",
 			"peekViewEditorMatchHighlightBorder"
+		],
+		"vs/editor/contrib/gotoSymbol/referencesModel": [
+			"aria.oneReference",
+			{
+				"key": "aria.oneReference.preview",
+				"comment": [
+					"Placeholders are: 0: filename, 1:line number, 2: column number, 3: preview snippet of source code"
+				]
+			},
+			"aria.fileReferences.1",
+			"aria.fileReferences.N",
+			"aria.result.0",
+			"aria.result.1",
+			"aria.result.n1",
+			"aria.result.nm"
+		],
+		"vs/editor/contrib/message/messageController": [
+			"editor.readonly"
 		],
 		"vs/editor/contrib/gotoSymbol/symbolNavigation": [
 			"location.kb",
@@ -1236,6 +1236,17 @@
 			"config.property.languageDefault",
 			"config.property.duplicate"
 		],
+		"vs/editor/contrib/suggest/suggestWidget": [
+			"editorSuggestWidgetBackground",
+			"editorSuggestWidgetBorder",
+			"editorSuggestWidgetForeground",
+			"editorSuggestWidgetSelectedBackground",
+			"editorSuggestWidgetHighlightForeground",
+			"suggestWidget.loading",
+			"suggestWidget.noSuggestions",
+			"ariaCurrenttSuggestionReadDetails",
+			"suggest"
+		],
 		"vs/editor/common/config/commonEditorConfig": [
 			"editorConfigurationTitle",
 			"tabSize",
@@ -1263,21 +1274,11 @@
 			"wordWrap.on",
 			"wordWrap.inherit"
 		],
-		"vs/editor/contrib/suggest/suggestWidget": [
-			"editorSuggestWidgetBackground",
-			"editorSuggestWidgetBorder",
-			"editorSuggestWidgetForeground",
-			"editorSuggestWidgetSelectedBackground",
-			"editorSuggestWidgetHighlightForeground",
-			"suggestWidget.loading",
-			"suggestWidget.noSuggestions",
-			"ariaCurrenttSuggestionReadDetails",
-			"suggest"
-		],
-		"vs/editor/contrib/gotoSymbol/peek/referencesWidget": [
-			"missingPreviewMessage",
-			"noResults",
-			"peekView.alternateTitle"
+		"vs/platform/quickinput/browser/commandsQuickAccess": [
+			"commandPickAriaLabelWithKeybinding",
+			"recentlyUsed",
+			"morecCommands",
+			"canNotRun"
 		],
 		"vs/platform/list/browser/listService": [
 			"workbenchConfigurationTitle",
@@ -1307,11 +1308,14 @@
 			"automatic keyboard navigation setting",
 			"expand mode"
 		],
-		"vs/platform/quickinput/browser/commandsQuickAccess": [
-			"commandPickAriaLabelWithKeybinding",
-			"recentlyUsed",
-			"morecCommands",
-			"canNotRun"
+		"vs/editor/contrib/gotoSymbol/peek/referencesWidget": [
+			"missingPreviewMessage",
+			"noResults",
+			"peekView.alternateTitle"
+		],
+		"vs/platform/keybinding/common/abstractKeybindingService": [
+			"first.chord",
+			"missing.chord"
 		],
 		"vs/platform/markers/common/markers": [
 			"sev.error",
@@ -1416,16 +1420,12 @@
 				]
 			}
 		],
-		"vs/platform/keybinding/common/abstractKeybindingService": [
-			"first.chord",
-			"missing.chord"
+		"vs/editor/common/model/editStack": [
+			"edit"
 		],
 		"vs/editor/browser/controller/textAreaHandler": [
 			"editor",
 			"accessibilityOffAriaLabel"
-		],
-		"vs/editor/common/model/editStack": [
-			"edit"
 		],
 		"vs/base/browser/ui/findinput/findInputCheckboxes": [
 			"caseDescription",
@@ -1485,21 +1485,16 @@
 			"NovemberShort",
 			"DecemberShort"
 		],
-		"vs/editor/contrib/suggest/suggestWidgetStatus": [
-			"ddd"
-		],
 		"vs/editor/contrib/suggest/suggestWidgetDetails": [
 			"details.close",
 			"loading"
 		],
+		"vs/editor/contrib/suggest/suggestWidgetStatus": [
+			"ddd"
+		],
 		"vs/editor/contrib/suggest/suggestWidgetRenderer": [
 			"suggestMoreInfoIcon",
 			"readMore"
-		],
-		"vs/editor/contrib/gotoSymbol/peek/referencesTree": [
-			"referencesCount",
-			"referenceCount",
-			"treeAriaLabel"
 		],
 		"vs/base/common/errorMessage": [
 			"stackTrace.format",
@@ -1508,6 +1503,11 @@
 			"error.defaultMessage",
 			"error.moreErrors",
 			"error.defaultMessage"
+		],
+		"vs/editor/contrib/gotoSymbol/peek/referencesTree": [
+			"referencesCount",
+			"referenceCount",
+			"treeAriaLabel"
 		],
 		"vs/editor/contrib/codeAction/lightBulbWidget": [
 			"prefferedQuickFixWithKb",
@@ -1530,27 +1530,6 @@
 			"enable filter on type",
 			"empty",
 			"found"
-		],
-		"vs/base/parts/quickinput/browser/quickInput": [
-			"quickInput.back",
-			"quickInput.steps",
-			"quickInputBox.ariaLabel",
-			{
-				"key": "quickInput.visibleCount",
-				"comment": [
-					"This tells the user how many items are shown in a list of items to select from. The items can be anything. Currently not visible, but read by screen readers."
-				]
-			},
-			{
-				"key": "quickInput.countSelected",
-				"comment": [
-					"This tells the user how many items are selected in a list of items to select from. The items can be anything."
-				]
-			},
-			"ok",
-			"custom",
-			"quickInput.backWithKeybinding",
-			"quickInput.back"
 		],
 		"vs/base/common/keybindingLabels": [
 			{
@@ -1682,6 +1661,27 @@
 					"action keybinding"
 				]
 			}
+		],
+		"vs/base/parts/quickinput/browser/quickInput": [
+			"quickInput.back",
+			"quickInput.steps",
+			"quickInputBox.ariaLabel",
+			{
+				"key": "quickInput.visibleCount",
+				"comment": [
+					"This tells the user how many items are shown in a list of items to select from. The items can be anything. Currently not visible, but read by screen readers."
+				]
+			},
+			{
+				"key": "quickInput.countSelected",
+				"comment": [
+					"This tells the user how many items are selected in a list of items to select from. The items can be anything."
+				]
+			},
+			"ok",
+			"custom",
+			"quickInput.backWithKeybinding",
+			"quickInput.back"
 		],
 		"vs/base/browser/ui/inputbox/inputBox": [
 			"alertErrorMessage",
@@ -1951,13 +1951,13 @@
 			"Stick to the end even when going to longer lines",
 			"Stick to the end even when going to longer lines"
 		],
-		"vs/editor/browser/widget/codeEditorWidget": [
-			"The number of cursors has been limited to {0}."
-		],
 		"vs/editor/browser/widget/diffEditorWidget": [
 			"Line decoration for inserts in the diff editor.",
 			"Line decoration for removals in the diff editor.",
 			"Cannot compare files because one file is too large."
+		],
+		"vs/editor/browser/widget/codeEditorWidget": [
+			"The number of cursors has been limited to {0}."
 		],
 		"vs/editor/contrib/anchorSelect/anchorSelect": [
 			"Selection Anchor",
@@ -2088,6 +2088,9 @@
 			"No results for '{0}'",
 			"References"
 		],
+		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
+			"Click to show {0} definitions."
+		],
 		"vs/editor/contrib/gotoError/gotoError": [
 			"Go to Next Problem (Error, Warning, Info)",
 			"Icon for goto next marker.",
@@ -2101,9 +2104,6 @@
 		"vs/editor/contrib/hover/hover": [
 			"Show Hover",
 			"Show Definition Preview Hover"
-		],
-		"vs/editor/contrib/gotoSymbol/link/goToDefinitionAtPosition": [
-			"Click to show {0} definitions."
 		],
 		"vs/editor/contrib/indentation/indentation": [
 			"Convert Indentation to Spaces",
@@ -2119,10 +2119,6 @@
 		"vs/editor/contrib/inPlaceReplace/inPlaceReplace": [
 			"Replace with Previous Value",
 			"Replace with Next Value"
-		],
-		"vs/editor/contrib/linkedEditing/linkedEditing": [
-			"Start Linked Editing",
-			"Background color when the editor auto renames on type."
 		],
 		"vs/editor/contrib/linesOperations/linesOperations": [
 			"Copy Line Up",
@@ -2151,6 +2147,10 @@
 			"Transform to Lowercase",
 			"Transform to Title Case",
 			"Transform to Snake Case"
+		],
+		"vs/editor/contrib/linkedEditing/linkedEditing": [
+			"Start Linked Editing",
+			"Background color when the editor auto renames on type."
 		],
 		"vs/editor/contrib/links/links": [
 			"Execute command",
@@ -2203,6 +2203,18 @@
 			"Shrink Selection",
 			"&&Shrink Selection"
 		],
+		"vs/editor/contrib/suggest/suggestController": [
+			"Accepting '{0}' made {1} additional edits",
+			"Trigger Suggest",
+			"Insert",
+			"Insert",
+			"Replace",
+			"Replace",
+			"Insert",
+			"show less",
+			"show more",
+			"Reset Suggest Widget Size"
+		],
 		"vs/editor/contrib/tokenization/tokenization": [
 			"Developer: Force Retokenize"
 		],
@@ -2217,18 +2229,6 @@
 			"This file contains one or more unusual line terminator characters, like Line Separator (LS) or Paragraph Separator (PS).\n\nIt is recommended to remove them from the file. This can be configured via `editor.unusualLineTerminators`.",
 			"Fix this file",
 			"Ignore problem for this file"
-		],
-		"vs/editor/contrib/suggest/suggestController": [
-			"Accepting '{0}' made {1} additional edits",
-			"Trigger Suggest",
-			"Insert",
-			"Insert",
-			"Replace",
-			"Replace",
-			"Insert",
-			"show less",
-			"show more",
-			"Reset Suggest Widget Size"
 		],
 		"vs/editor/common/standaloneStrings": [
 			"No selection",
@@ -2265,20 +2265,6 @@
 			"Press Alt+F1 for Accessibility Options.",
 			"Toggle High Contrast Theme",
 			"Made {0} edits in {1} files"
-		],
-		"vs/editor/contrib/wordOperations/wordOperations": [
-			"Delete Word"
-		],
-		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
-			"Background color of a symbol during read-access, like reading a variable. The color must not be opaque so as not to hide underlying decorations.",
-			"Background color of a symbol during write-access, like writing to a variable. The color must not be opaque so as not to hide underlying decorations.",
-			"Border color of a symbol during read-access, like reading a variable.",
-			"Border color of a symbol during write-access, like writing to a variable.",
-			"Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
-			"Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
-			"Go to Next Symbol Highlight",
-			"Go to Previous Symbol Highlight",
-			"Trigger Symbol Highlight"
 		],
 		"vs/editor/browser/editorExtensions": [
 			"&&Undo",
@@ -2414,6 +2400,20 @@
 			"The color used for the problems warning icon.",
 			"The color used for the problems info icon."
 		],
+		"vs/editor/contrib/wordOperations/wordOperations": [
+			"Delete Word"
+		],
+		"vs/editor/contrib/wordHighlighter/wordHighlighter": [
+			"Background color of a symbol during read-access, like reading a variable. The color must not be opaque so as not to hide underlying decorations.",
+			"Background color of a symbol during write-access, like writing to a variable. The color must not be opaque so as not to hide underlying decorations.",
+			"Border color of a symbol during read-access, like reading a variable.",
+			"Border color of a symbol during write-access, like writing to a variable.",
+			"Overview ruler marker color for symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
+			"Overview ruler marker color for write-access symbol highlights. The color must not be opaque so as not to hide underlying decorations.",
+			"Go to Next Symbol Highlight",
+			"Go to Previous Symbol Highlight",
+			"Trigger Symbol Highlight"
+		],
 		"vs/platform/quickinput/browser/helpQuickAccess": [
 			"global commands",
 			"editor commands",
@@ -2425,45 +2425,6 @@
 			"Go to line {0}.",
 			"Current Line: {0}, Character: {1}. Type a line number between 1 and {2} to navigate to.",
 			"Current Line: {0}, Character: {1}. Type a line number to navigate to."
-		],
-		"vs/editor/contrib/gotoSymbol/peek/referencesController": [
-			"Loading...",
-			"{0} ({1})"
-		],
-		"vs/editor/contrib/symbolIcons/symbolIcons": [
-			"The foreground color for array symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for boolean symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for class symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for color symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for constant symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for constructor symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for enumerator symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for enumerator member symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for event symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for field symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for file symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for folder symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for function symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for interface symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for key symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for keyword symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for method symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for module symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for namespace symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for null symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for number symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for object symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for operator symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for package symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for property symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for reference symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for snippet symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for string symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for struct symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for text symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for type parameter symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for unit symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
-			"The foreground color for variable symbols. These symbols appear in the outline, breadcrumb, and suggest widget."
 		],
 		"vs/editor/contrib/quickAccess/gotoSymbolQuickAccess": [
 			"To go to a symbol, first open a text editor with symbol information.",
@@ -2500,8 +2461,76 @@
 			"fields ({0})",
 			"constants ({0})"
 		],
+		"vs/editor/contrib/symbolIcons/symbolIcons": [
+			"The foreground color for array symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for boolean symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for class symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for color symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for constant symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for constructor symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for enumerator symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for enumerator member symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for event symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for field symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for file symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for folder symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for function symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for interface symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for key symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for keyword symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for method symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for module symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for namespace symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for null symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for number symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for object symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for operator symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for package symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for property symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for reference symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for snippet symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for string symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for struct symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for text symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for type parameter symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for unit symbols. These symbols appear in the outline, breadcrumb, and suggest widget.",
+			"The foreground color for variable symbols. These symbols appear in the outline, breadcrumb, and suggest widget."
+		],
+		"vs/editor/contrib/gotoSymbol/peek/referencesController": [
+			"Loading...",
+			"{0} ({1})"
+		],
 		"vs/editor/common/modes/modesRegistry": [
 			"Plain Text"
+		],
+		"vs/editor/browser/widget/diffReview": [
+			"Icon for 'Insert' in diff review.",
+			"Icon for 'Remove' in diff review.",
+			"Icon for 'Close' in diff review.",
+			"Close",
+			"no lines changed",
+			"1 line changed",
+			"{0} lines changed",
+			"Difference {0} of {1}: original line {2}, {3}, modified line {4}, {5}",
+			"blank",
+			"{0} unchanged line {1}",
+			"{0} original line {1} modified line {2}",
+			"+ {0} modified line {1}",
+			"- {0} original line {1}",
+			"Go to Next Difference",
+			"Go to Previous Difference"
+		],
+		"vs/editor/browser/widget/inlineDiffMargin": [
+			"Copy deleted lines",
+			"Copy deleted line",
+			"Copy deleted line ({0})",
+			"Revert this change",
+			"Copy deleted line ({0})"
+		],
+		"vs/platform/theme/common/iconRegistry": [
+			"The id of the font to use. If not set, the font that is defined first is used.",
+			"The font character associated with the icon definition.",
+			"Icon for the close action in widgets."
 		],
 		"vs/editor/common/view/editorColorRegistry": [
 			"Background color for the highlight of line at the cursor position.",
@@ -2532,35 +2561,6 @@
 			"Overview ruler marker color for errors.",
 			"Overview ruler marker color for warnings.",
 			"Overview ruler marker color for infos."
-		],
-		"vs/editor/browser/widget/diffReview": [
-			"Icon for 'Insert' in diff review.",
-			"Icon for 'Remove' in diff review.",
-			"Icon for 'Close' in diff review.",
-			"Close",
-			"no lines changed",
-			"1 line changed",
-			"{0} lines changed",
-			"Difference {0} of {1}: original line {2}, {3}, modified line {4}, {5}",
-			"blank",
-			"{0} unchanged line {1}",
-			"{0} original line {1} modified line {2}",
-			"+ {0} modified line {1}",
-			"- {0} original line {1}",
-			"Go to Next Difference",
-			"Go to Previous Difference"
-		],
-		"vs/editor/browser/widget/inlineDiffMargin": [
-			"Copy deleted lines",
-			"Copy deleted line",
-			"Copy deleted line ({0})",
-			"Revert this change",
-			"Copy deleted line ({0})"
-		],
-		"vs/platform/theme/common/iconRegistry": [
-			"The id of the font to use. If not set, the font that is defined first is used.",
-			"The font character associated with the icon definition.",
-			"Icon for the close action in widgets."
 		],
 		"vs/editor/contrib/codeAction/codeActionCommands": [
 			"Kind of the code action to run.",
@@ -2593,11 +2593,11 @@
 			"Auto Fix...",
 			"No auto fixes available"
 		],
-		"vs/base/common/actions": [
-			"(empty)"
-		],
 		"vs/base/browser/ui/actionbar/actionViewItems": [
 			"{0} ({1})"
+		],
+		"vs/base/common/actions": [
+			"(empty)"
 		],
 		"vs/editor/contrib/folding/foldingDecorations": [
 			"Icon for expanded ranges in the editor glyph margin.",
@@ -2631,19 +2631,6 @@
 			"{0} found for '{1}'",
 			"Ctrl+Enter now inserts line break instead of replacing all. You can modify the keybinding for editor.action.replaceAll to override this behavior."
 		],
-		"vs/editor/contrib/message/messageController": [
-			"Cannot edit in read-only editor"
-		],
-		"vs/editor/contrib/gotoSymbol/referencesModel": [
-			"symbol in {0} on line {1} at column {2}",
-			"symbol in {0} on line {1} at column {2}, {3}",
-			"1 symbol in {0}, full path {1}",
-			"{0} symbols in {1}, full path {2}",
-			"No results found",
-			"Found 1 symbol in {0}",
-			"Found {0} symbols in {1}",
-			"Found {0} symbols in {1} files"
-		],
 		"vs/editor/contrib/peekView/peekView": [
 			"Close",
 			"Background color of the peek view title area.",
@@ -2660,6 +2647,19 @@
 			"Match highlight color in the peek view result list.",
 			"Match highlight color in the peek view editor.",
 			"Match highlight border in the peek view editor."
+		],
+		"vs/editor/contrib/gotoSymbol/referencesModel": [
+			"symbol in {0} on line {1} at column {2}",
+			"symbol in {0} on line {1} at column {2}, {3}",
+			"1 symbol in {0}, full path {1}",
+			"{0} symbols in {1}, full path {2}",
+			"No results found",
+			"Found 1 symbol in {0}",
+			"Found {0} symbols in {1}",
+			"Found {0} symbols in {1} files"
+		],
+		"vs/editor/contrib/message/messageController": [
+			"Cannot edit in read-only editor"
 		],
 		"vs/editor/contrib/gotoSymbol/symbolNavigation": [
 			"Symbol {0} of {1}, {2} for next",
@@ -2695,6 +2695,17 @@
 			"Cannot register '{0}'. This matches property pattern '\\\\[.*\\\\]$' for describing language specific editor settings. Use 'configurationDefaults' contribution.",
 			"Cannot register '{0}'. This property is already registered."
 		],
+		"vs/editor/contrib/suggest/suggestWidget": [
+			"Background color of the suggest widget.",
+			"Border color of the suggest widget.",
+			"Foreground color of the suggest widget.",
+			"Background color of the selected entry in the suggest widget.",
+			"Color of the match highlights in the suggest widget.",
+			"Loading...",
+			"No suggestions.",
+			"{0}, docs: {1}",
+			"Suggest"
+		],
 		"vs/editor/common/config/commonEditorConfig": [
 			"Editor",
 			"The number of spaces a tab is equal to. This setting is overridden based on the file contents when `#editor.detectIndentation#` is on.",
@@ -2722,21 +2733,11 @@
 			"Lines will wrap at the viewport width.",
 			"Lines will wrap according to the `#editor.wordWrap#` setting."
 		],
-		"vs/editor/contrib/suggest/suggestWidget": [
-			"Background color of the suggest widget.",
-			"Border color of the suggest widget.",
-			"Foreground color of the suggest widget.",
-			"Background color of the selected entry in the suggest widget.",
-			"Color of the match highlights in the suggest widget.",
-			"Loading...",
-			"No suggestions.",
-			"{0}, docs: {1}",
-			"Suggest"
-		],
-		"vs/editor/contrib/gotoSymbol/peek/referencesWidget": [
-			"no preview available",
-			"No results",
-			"References"
+		"vs/platform/quickinput/browser/commandsQuickAccess": [
+			"{0}, {1}",
+			"recently used",
+			"other commands",
+			"Command '{0}' resulted in an error ({1})"
 		],
 		"vs/platform/list/browser/listService": [
 			"Workbench",
@@ -2755,11 +2756,14 @@
 			"Controls whether keyboard navigation in lists and trees is automatically triggered simply by typing. If set to `false`, keyboard navigation is only triggered when executing the `list.toggleKeyboardNavigation` command, for which you can assign a keyboard shortcut.",
 			"Controls how tree folders are expanded when clicking the folder names."
 		],
-		"vs/platform/quickinput/browser/commandsQuickAccess": [
-			"{0}, {1}",
-			"recently used",
-			"other commands",
-			"Command '{0}' resulted in an error ({1})"
+		"vs/editor/contrib/gotoSymbol/peek/referencesWidget": [
+			"no preview available",
+			"No results",
+			"References"
+		],
+		"vs/platform/keybinding/common/abstractKeybindingService": [
+			"({0}) was pressed. Waiting for second key of chord...",
+			"The key combination ({0}, {1}) is not a command."
 		],
 		"vs/platform/markers/common/markers": [
 			"Error",
@@ -2789,16 +2793,12 @@
 			"Could not redo '{0}' across all files because an undo or redo operation occurred in the meantime",
 			"Could not redo '{0}' because there is already an undo or redo operation running."
 		],
-		"vs/platform/keybinding/common/abstractKeybindingService": [
-			"({0}) was pressed. Waiting for second key of chord...",
-			"The key combination ({0}, {1}) is not a command."
+		"vs/editor/common/model/editStack": [
+			"Typing"
 		],
 		"vs/editor/browser/controller/textAreaHandler": [
 			"editor",
 			"The editor is not accessible at this time. Press {0} for options."
-		],
-		"vs/editor/common/model/editStack": [
-			"Typing"
 		],
 		"vs/base/browser/ui/findinput/findInputCheckboxes": [
 			"Match Case",
@@ -2858,21 +2858,16 @@
 			"Nov",
 			"Dec"
 		],
-		"vs/editor/contrib/suggest/suggestWidgetStatus": [
-			"{0} ({1})"
-		],
 		"vs/editor/contrib/suggest/suggestWidgetDetails": [
 			"Close",
 			"Loading..."
 		],
+		"vs/editor/contrib/suggest/suggestWidgetStatus": [
+			"{0} ({1})"
+		],
 		"vs/editor/contrib/suggest/suggestWidgetRenderer": [
 			"Icon for more information in the suggest widget.",
 			"Read More"
-		],
-		"vs/editor/contrib/gotoSymbol/peek/referencesTree": [
-			"{0} references",
-			"{0} reference",
-			"References"
 		],
 		"vs/base/common/errorMessage": [
 			"{0}: {1}",
@@ -2881,6 +2876,11 @@
 			"An unknown error occurred. Please consult the log for more details.",
 			"{0} ({1} errors in total)",
 			"An unknown error occurred. Please consult the log for more details."
+		],
+		"vs/editor/contrib/gotoSymbol/peek/referencesTree": [
+			"{0} references",
+			"{0} reference",
+			"References"
 		],
 		"vs/editor/contrib/codeAction/lightBulbWidget": [
 			"Show Fixes. Preferred Fix Available ({0})",
@@ -2903,17 +2903,6 @@
 			"Enable Filter on Type",
 			"No elements found",
 			"Matched {0} out of {1} elements"
-		],
-		"vs/base/parts/quickinput/browser/quickInput": [
-			"Back",
-			"{0}/{1}",
-			"Type to narrow down results.",
-			"{0} Results",
-			"{0} Selected",
-			"OK",
-			"Custom",
-			"Back ({0})",
-			"Back"
 		],
 		"vs/base/common/keybindingLabels": [
 			"Ctrl",
@@ -2939,6 +2928,17 @@
 		],
 		"vs/base/browser/ui/menu/menu": [
 			"{0} ({1})"
+		],
+		"vs/base/parts/quickinput/browser/quickInput": [
+			"Back",
+			"{0}/{1}",
+			"Type to narrow down results.",
+			"{0} Results",
+			"{0} Selected",
+			"OK",
+			"Custom",
+			"Back ({0})",
+			"Back"
 		],
 		"vs/base/browser/ui/inputbox/inputBox": [
 			"Error: {0}",
