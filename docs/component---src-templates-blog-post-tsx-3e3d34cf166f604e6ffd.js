@@ -157,7 +157,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return new Function("return import(\"https://unpkg.com/@zedvision/code/js/codeLoader.js\")")();
+                return new Function("return import(\"https://code.zed.vision/js/codeLoader.js\")")();
 
               case 2:
                 _yield$Function = _context.sent;
@@ -360,4 +360,4 @@ module.exports = _iterableToArray;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-5e49396d76fcb3ae49ef.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-3e3d34cf166f604e6ffd.js.map
