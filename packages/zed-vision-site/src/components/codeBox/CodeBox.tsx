@@ -41,9 +41,9 @@ export const CodeBox: FC<{
     </div>}
 
     <div style={{ position: "relative" }}>
-      <div style={{ height: "0px" }} id="preview" />
-
+    
       <div style={{ width: "100%", height: "600px" }} id="editor" />
+      <div style={{ height: "0px" }} id="preview" />
     </div>
   </div>;
 };
