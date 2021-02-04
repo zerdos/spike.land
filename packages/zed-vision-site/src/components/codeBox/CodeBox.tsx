@@ -28,8 +28,13 @@ export const CodeBox: React.FC<{
         
     >
       <span>{title}</span>
-      <button>
-        Save
+      <button onClick={()=>{
+        //@ts-ignore
+        const {monaco} = window;
+
+        monaco.editor.getModel("file:///main.tsx").setValue(starterCode)
+      }}>
+        Reset
       </button>
     </div>}
 
