@@ -252,7 +252,7 @@ async function fetchCid(path: string, retry = 3): Promise<Response> {
     );
 
   try {
-    const res = raceToSuccess(random5GatewaysFetch) as Response;
+    const res = await raceToSuccess(random5GatewaysFetch) as Response;
     return res;
   } catch {
     if (retry > 0) return await fetchCid(path, retry - 1) as Response;
