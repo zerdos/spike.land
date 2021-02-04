@@ -78,7 +78,7 @@ export const shasums = {
   "js/hash.js":
     "369af698c08ca0868643feeb4d634a6262fcabad4e4905b0781ef6eb8109ef62",
   "js/workers/getWorker.js":
-    "248abbc9a0ff508cd032869282a717af489ceb84235be101d8df476c531829ac",
+    "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
   "js/workers/ipfsWorker.js":
     "00fb5f335b5725ccd45a3acf5278610a22e8efc3c96b1aeae58f7d5f6f39fb2d",
   "js/workers/transpile.worker.js":

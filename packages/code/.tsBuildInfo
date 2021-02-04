@@ -182,7 +182,7 @@
         "affectsGlobalScope": false
       },
       "./js/workers/getWorker.js": {
-        "version": "248abbc9a0ff508cd032869282a717af489ceb84235be101d8df476c531829ac",
+        "version": "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
         "signature": "d8b99a482d7a5a7d37e6af08ecfc0f47a885ab4b0cb96396d0a1f8e0ea8f9fd0",
         "affectsGlobalScope": false
       },

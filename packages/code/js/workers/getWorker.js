@@ -10,7 +10,7 @@ if (pathname.indexOf("/ipfs/") !== -1) {
   workerSrc = `/ipfs/${cid}/js/workers/${file}`;
 } else if (location.origin !== "https://code.zed.vision") {
   forceNormalWorker = true;
-  workerSrc = window.URL.createObjectURL(new Blob([`self.importScripts("https://code.zed.vision/js/${file}");`]));    
+  workerSrc = window.URL.createObjectURL(new Blob([`self.importScripts("https://code.zed.vision/js/workers/${file}");`]));    
 }else {
     workerSrc=`https://code.zed.vision/js/workers/${file}`;
 
