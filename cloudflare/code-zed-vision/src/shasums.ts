@@ -70,7 +70,7 @@ export const shasums = {
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/codeLoader.js":
-    "3b1d6eff7c3367226752dd3bb12193a466e87e467a8b5a5e2efc7c777ad8501e",
+    "4e40aa0703293bc46f6fa05f92971ae717bfd7c3e3fea0a369427bf5b920769a",
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/refs.d.ts":

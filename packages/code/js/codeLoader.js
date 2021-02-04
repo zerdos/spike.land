@@ -143,8 +143,6 @@ export async function run(mode = "window", _w, code = "") {
       // const errorDiv = document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         if (session.i > counter) return;
-        session.code = formatter(cd);
-        if (session.i > counter) return;
 
         saveCode(session, counter);
       } else {
@@ -166,7 +164,7 @@ export async function run(mode = "window", _w, code = "") {
             return;
           }
         }
-        console.error(err[0].messageText.toString());
+        if(err && err[0] && err[0].messageText) console.error(err[0].messageText.toString());
         // errorDiv.innerHTML = err[0].messageText.toString();
 
         return;
