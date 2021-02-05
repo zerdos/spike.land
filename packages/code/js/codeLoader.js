@@ -93,7 +93,7 @@ export async function run(mode = "window", _w, code = "") {
   );
 
 
-  await restartCode(sesssion.transpiled, session.i);
+  await restartCode(session.transpiled, session.i);
 
 
  

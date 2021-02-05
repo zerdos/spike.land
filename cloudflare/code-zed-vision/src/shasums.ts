@@ -25,7 +25,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   ".tsBuildInfo":
-    "c3cf5a499821bcac27e6c756dc81287e037ce936cbc90052b7ca505c93715675",
+    "be0b9b7920a5e49676bc15fff7ef6a45dde12002f3b04042f27d6afb15609413",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "js/importScript.js":
@@ -59,7 +59,7 @@ export const shasums = {
   "js/renderPreviewWindow.js":
     "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "js/codeLoader.js":
-    "bba8214e1b91f09fbbdec4115679ac5df88068e54e05e335fd43a863e7345fc8",
+    "71c67bcfdf2598aa198d8f62e6b02dbf88da5e4a7f73e21801f0b5283ff47205",
   "js/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "js/ipfsClient.js":
