@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "8fb796c3989e853025985e2faaa9da10bbc5c553d14284d2d2a5e7dea1012f34",
+    "56f931a606e250ddd7cd94aa5656a5a89f1a9dc044b9f1aa93de49438ff02940",
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "assets/synthwave.jpg":
@@ -25,7 +25,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   ".tsBuildInfo":
-    "bc1498e9a5bee3e8bb17ca894bfb8e0150cdacf21171329eed438203c50f671b",
+    "c3cf5a499821bcac27e6c756dc81287e037ce936cbc90052b7ca505c93715675",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "js/importScript.js":
