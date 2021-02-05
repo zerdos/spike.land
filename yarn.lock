@@ -959,7 +959,12 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@7.12.14", "@babel/standalone@^7.12.6":
+"@babel/standalone@7.12.15":
+  version "7.12.15"
+  resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.12.15.tgz#fade4ccb2af79c53300b8e71f4c1f0ecf59123e2"
+  integrity sha512-H4TLICPkno/jBZWW4SC3kVzK3ByrwtyANZ1gCgl4+01DuXDyUFTWqigYvd5vjuixzXfdkDodTvXhv5p249pQNw==
+
+"@babel/standalone@^7.12.6":
   version "7.12.14"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.12.14.tgz#6a0342e1d0a312673807cd83fda197c72fc65fc6"
   integrity sha512-P8HrOZ8e8BTQW+/mVLlgBu/DSJFAqeQZ8gxIRjgbNB4CytXiEnqkUfOkXQppuCdSrO/DiF/zChTRhTYqBInspQ==
@@ -6587,10 +6592,10 @@ es6-weak-map@^2.0.3:
     es6-iterator "^2.0.3"
     es6-symbol "^3.1.1"
 
-esbuild@0.8.41:
-  version "0.8.41"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.41.tgz#d177f35354cf2b5a3eeddd8c927066fff82771b3"
-  integrity sha512-xejVYquAHrYaHkn/7Itm0aTAALvY1ZJTWMQ14Ww8wEeeg6B/8BN3rjDJ4LMbLoEdVEAFS2b5OZ3jPRYm8Ikm0g==
+esbuild@0.8.42:
+  version "0.8.42"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.8.42.tgz#26101cf17fe4c4602c7c767e3177cf0c538073ac"
+  integrity sha512-zUtj5RMqROCCCH0vV/a7cd8YQg8I0GWBhV3A3PklWRT+oM/YwVbnrtFnITzE1otGdnXplWHWdZ4OcYiV0PN+JQ==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -16111,7 +16116,15 @@ uint8arrays@1.1.0, uint8arrays@^1.0.0, uint8arrays@^1.1.0:
     multibase "^3.0.0"
     web-encoding "^1.0.2"
 
-uint8arrays@2.1.0, uint8arrays@^2.0.5:
+uint8arrays@2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-2.1.2.tgz#7b4ff064e0d033bae3ecbf15860dd60458d6aebd"
+  integrity sha512-/VcLZbPMs/dk23u22IZlPWycfBxntpwrvISHQs93/OdRlUTnQw9Uzmzaoq7DgJAZl1SlP/kw+NhbjFAEED42rQ==
+  dependencies:
+    multibase "^3.0.0"
+    web-encoding "^1.0.5"
+
+uint8arrays@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-2.1.0.tgz#04744bbe21d9f68253b8610e8ac70dbef710eaf7"
   integrity sha512-5K/jTnObo4PEh+WuPNZC76dxqqaCfI4Z4g4VytvGjSg1EEXsfo9cK98xE6WhcsrqSVRsG5EHF5fQhgCZnvQY0A==

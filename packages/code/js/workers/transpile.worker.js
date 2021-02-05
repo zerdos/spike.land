@@ -3,7 +3,7 @@
 self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 // @ts-ignore
 self.importScripts(
-  "https://unpkg.com/@babel/standalone@7.12.14/babel.min.js",
+  "https://unpkg.com/@babel/standalone@7.12.15/babel.min.js",
 );
 
 const { Comlink, Babel } = self;
