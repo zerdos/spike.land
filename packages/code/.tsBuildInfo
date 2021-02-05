@@ -237,8 +237,8 @@
         "affectsGlobalScope": false
       },
       "./js/formatter.js": {
-        "version": "ccd3f442420ae6da1493f2a16b18508ce31e5d6853df9a27561dd9f86bc1dc63",
-        "signature": "9561ad5c1daa2243187c0187cc53256ced5dc0af90d36f7e3ff06734eb716c92",
+        "version": "c448aed3a402cd0bd4dd4859face648655560ffe2f020cbcd7df32c54963ebc8",
+        "signature": "b62c1896e0a727ab2c735afc33fbc1c776667d99c809c2725f306e4ddbf518e1",
         "affectsGlobalScope": false
       },
       "./modules/smart-monaco-editor/dist/editor.d.ts": {
@@ -247,7 +247,7 @@
         "affectsGlobalScope": false
       },
       "./js/codeLoader.js": {
-        "version": "58abcaebe5c863b2538e99f050ced65bcba183d0fd9f8e649d25b1f33bcb3b5b",
+        "version": "bba8214e1b91f09fbbdec4115679ac5df88068e54e05e335fd43a863e7345fc8",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -269,6 +269,11 @@
       "./js/workers/ipfsWorker.js": {
         "version": "00fb5f335b5725ccd45a3acf5278610a22e8efc3c96b1aeae58f7d5f6f39fb2d",
         "signature": "69538fefbd1361b7ebfcd8bd0964a2dd1978841a8af062f798ae0d2305edda54",
+        "affectsGlobalScope": true
+      },
+      "./js/workers/prettierWorker.js": {
+        "version": "50525aca9171888b0d6409989989093317b832be1f38f388e28510bb8bb3a0b5",
+        "signature": "9749d08247d26a40f1e061c6d59261776961e9fdb130be9601cc7cf6b8a30b90",
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
@@ -333,7 +338,8 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./js/formatter.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
+        "../../node_modules/@types/react/jsx-runtime.d.ts",
+        "./js/workers/getWorker.js"
       ],
       "./js/hash.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts",
@@ -432,6 +438,7 @@
       "./js/transpile.js",
       "./js/workers/getWorker.js",
       "./js/workers/ipfsWorker.js",
+      "./js/workers/prettierWorker.js",
       "./js/workers/transpile.worker.js",
       "./modules/diff.d.ts",
       "./modules/ipfs.client.js",
@@ -527,6 +534,10 @@
       ],
       [
         "./js/workers/ipfsWorker.js",
+        1
+      ],
+      [
+        "./js/workers/prettierWorker.js",
         1
       ],
       [

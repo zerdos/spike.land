@@ -59,7 +59,7 @@ export const shasums = {
   "js/renderPreviewWindow.js":
     "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "js/codeLoader.js":
-    "1a0b73c6138295c445e046e8c18ee72d5e1639adc073da9cd12a241864921a8b",
+    "bba8214e1b91f09fbbdec4115679ac5df88068e54e05e335fd43a863e7345fc8",
   "js/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "js/ipfsClient.js":
