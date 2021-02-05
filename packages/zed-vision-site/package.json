@@ -28,7 +28,7 @@
     "@zedvision/code": "^13.0.0",
     "@zedvision/qrious": "^13.0.0",
     "@zedvision/shadb": "^13.0.0",
-    "gatsby": "2.32.2",
+    "gatsby": "2.32.3",
     "gatsby-image": "2.11.0",
     "gatsby-plugin-emotion": "^5.4.0",
     "gatsby-plugin-manifest": "2.12.0",
