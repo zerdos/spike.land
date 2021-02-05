@@ -145,7 +145,7 @@ export async function run(mode = "window", _w, code = "") {
       // const errorDiv = document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         if (session.i > counter) return;
-
+        session.code=cd;
         saveCode(session, counter);
       } else {
         if (session.i > counter) return;
