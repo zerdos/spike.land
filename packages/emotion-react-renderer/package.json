@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/emotion-react-renderer",
-  "version": "12.0.0",
+  "version": "13.0.0",
   "main": "src/index.js",
   "license": "MIT",
   "publishConfig": {
