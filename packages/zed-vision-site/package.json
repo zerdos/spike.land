@@ -8,7 +8,7 @@
     "clean": "gatsby clean && deno fmt src"
   },
   "description": "Zed vision blog",
-  "version": "11.10.41",
+  "version": "12.0.0",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo/"
@@ -25,9 +25,9 @@
     "@types/react-dom": "17.0.0",
     "@types/react-helmet": "6.1.0",
     "@types/typography": "0.16.3",
-    "@zedvision/code": "^11.10.41",
-    "@zedvision/qrious": "^11.10.40",
-    "@zedvision/shadb": "^11.10.40",
+    "@zedvision/code": "^12.0.0",
+    "@zedvision/qrious": "^12.0.0",
+    "@zedvision/shadb": "^12.0.0",
     "gatsby": "2.32.2",
     "gatsby-image": "2.11.0",
     "gatsby-plugin-emotion": "^5.4.0",

@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/shadb",
-    "version": "11.10.40",
+    "version": "12.0.0",
     "description": "db layer top on idb",
     "sideEffects": false,
     "source": "./src/shaDB.js",

@@ -1,6 +1,6 @@
 {
     "name": "@zedvision/monaco-editor",
-    "version": "11.10.40",
+    "version": "12.0.0",
     "description": "Its like the monaco editor, but with bumped up packages.",
     "sideEffects": false,
     "files": [
