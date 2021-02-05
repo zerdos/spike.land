@@ -48,7 +48,7 @@ export async function run(mode = "window", _w, code = "") {
   const session = getSession();
   session.mode = mode;
   if (code) {
-    session.code = formatter(code);
+    session.code = await formatter(code);
   }
 
   if (!code) {
@@ -57,7 +57,7 @@ export async function run(mode = "window", _w, code = "") {
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad();
-      session.code = formatter(code);
+      session.code = await formatter(code);
       session.transpiled = await transpileCode(
         session.code,
       ) || transpiled;
@@ -115,7 +115,7 @@ export async function run(mode = "window", _w, code = "") {
   async function runner(c) {
     session.i++;
     const counter = session.i;
-    const cd = formatter(c);
+    const cd = await formatter(c);
     try {
       const transpiled = await transpileCode(cd);
 

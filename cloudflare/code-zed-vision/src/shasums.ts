@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "56f931a606e250ddd7cd94aa5656a5a89f1a9dc044b9f1aa93de49438ff02940",
+    "5ef46dfab3b4fcd7e36aa9054a4772aab8d320f75a293b44321ccc9801eda6b4",
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "assets/synthwave.jpg":
@@ -37,7 +37,7 @@ export const shasums = {
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/formatter.js":
-    "ccd3f442420ae6da1493f2a16b18508ce31e5d6853df9a27561dd9f86bc1dc63",
+    "c448aed3a402cd0bd4dd4859face648655560ffe2f020cbcd7df32c54963ebc8",
   "js/examples/starterNoFramerMotion.js":
     "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "js/examples/rca.tsx":
@@ -52,12 +52,14 @@ export const shasums = {
     "c2ad8f3a4074347e0de13447c878501cf2620d3b21e498ed7c4ad49c83965699",
   "js/workers/getWorker.js":
     "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
+  "js/workers/prettierWorker.js":
+    "50525aca9171888b0d6409989989093317b832be1f38f388e28510bb8bb3a0b5",
   "js/workers/ipfsWorker.js":
     "00fb5f335b5725ccd45a3acf5278610a22e8efc3c96b1aeae58f7d5f6f39fb2d",
   "js/renderPreviewWindow.js":
     "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
   "js/codeLoader.js":
-    "58abcaebe5c863b2538e99f050ced65bcba183d0fd9f8e649d25b1f33bcb3b5b",
+    "1a0b73c6138295c445e046e8c18ee72d5e1639adc073da9cd12a241864921a8b",
   "js/refs.d.ts":
     "b012039d5e023b31d5999c01ed91164137d92285087565387581f32708db5d2d",
   "js/ipfsClient.js":
