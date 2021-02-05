@@ -72,7 +72,7 @@ export async function run(mode = "window", _w, code = "") {
   const container = window.document.getElementById("editor");
   if (container === null) return "No editor window";
 
-  startMonaco(
+ const editorPromise=  startMonaco(
     /**
      * @param {any} code
      */
@@ -97,7 +97,7 @@ export async function run(mode = "window", _w, code = "") {
 
 
  
-
+  await editorPromise;
   const { monaco } = window;
 
   monaco.editor.createModel(
