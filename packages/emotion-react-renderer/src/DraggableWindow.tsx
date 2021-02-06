@@ -194,7 +194,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 setQR(!showQR);
               }}
             >
-              {showQR && <QR url={session.url + "/edit/"} />}
+              {showQR && <QR url={session.url + "edit/"} />}
             </motion.div>
 
             <div css="margin:0px 0px 16px">
