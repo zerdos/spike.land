@@ -25,7 +25,6 @@
     "@types/react-dom": "17.0.0",
     "@types/react-helmet": "6.1.0",
     "@types/typography": "0.16.3",
-    "@zedvision/code": "^13.0.1",
     "@zedvision/qrious": "^13.0.0",
     "@zedvision/shadb": "^13.0.0",
     "gatsby": "2.32.3",
