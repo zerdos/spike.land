@@ -49,7 +49,7 @@ export async function run(mode = "window", _w, code = "") {
   session.mode = mode;
   if (code) {
     session.code = await formatter(code);
-    session.transpiled = await transpileCode(session.code)
+    session.transpiled = await transpileCode(session.code);
   }
 
   if (!code) {
@@ -72,7 +72,7 @@ export async function run(mode = "window", _w, code = "") {
   const container = window.document.getElementById("editor");
   if (container === null) return "No editor window";
 
- const editorPromise=  startMonaco(
+  const editorPromise = startMonaco(
     /**
      * @param {any} code
      */
@@ -92,11 +92,8 @@ export async function run(mode = "window", _w, code = "") {
     session,
   );
 
-
   await restartCode(session.transpiled, session.i);
 
-
- 
   await editorPromise;
   const { monaco } = window;
 
@@ -145,7 +142,7 @@ export async function run(mode = "window", _w, code = "") {
       // const errorDiv = document.getElementById("error");
       if (err.length === 0 && transpiled.length) {
         if (session.i > counter) return;
-        session.code=cd;
+        session.code = cd;
         saveCode(session, counter);
       } else {
         if (session.i > counter) return;
