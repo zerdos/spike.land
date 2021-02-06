@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "5ef46dfab3b4fcd7e36aa9054a4772aab8d320f75a293b44321ccc9801eda6b4",
+    "74caf9ff343e5b57745159005196f2fa1e8fabe7795152ea792f9d6300d7738a",
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "assets/synthwave.jpg":
@@ -78,7 +78,7 @@ export const shasums = {
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "index.html":
-    "bf40d9983204c3a96576548e1b9dd140eef28991ca004c7027ca7374e1e7e899",
+    "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "modules/renderer.js":
