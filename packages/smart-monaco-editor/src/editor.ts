@@ -134,7 +134,7 @@ export default async (
       },
       {
         name: "@emotion/styled/base.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/base.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.1.5/types/base.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -143,7 +143,7 @@ export default async (
       },
       {
         name: "@emotion/styled/index.d.ts",
-        url: "https://unpkg.com/@emotion/styled@11.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/styled@11.1.5/types/index.d.ts",
         depend: [
           "@emotion/react",
           "@emotion/serialize",
@@ -152,32 +152,32 @@ export default async (
       },
       {
         name: "@emotion/cache/index.d.ts",
-        url: "https://unpkg.com/@emotion/cache@11.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/cache@11.1.3/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
         name: "@emotion/react/index.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.4/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.5/types/index.d.ts",
         depend: ["@emotion/cache"],
       },
       {
         name: "@emotion/react/jsx-namespace.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.4/types/jsx-namespace.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.5/types/jsx-namespace.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/css-prop.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.4/types/css-prop.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.5/types/css-prop.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/helper.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.4/types/helper.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.5/types/helper.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
         name: "@emotion/react/theming.d.ts",
-        url: "https://unpkg.com/@emotion/react@11.1.4/types/theming.d.ts",
+        url: "https://unpkg.com/@emotion/react@11.1.5/types/theming.d.ts",
         depend: ["@emotion/utils", "csstype"],
       },
       {
