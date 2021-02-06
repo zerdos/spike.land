@@ -1661,7 +1661,7 @@ var helpers_extends = __webpack_require__("97Jx");
 
 var pkg = {
   name: "@emotion/react",
-  version: "11.1.4",
+  version: "11.1.5",
   main: "dist/emotion-react.cjs.js",
   module: "dist/emotion-react.esm.js",
   browser: {
@@ -1702,7 +1702,7 @@ var pkg = {
     "@emotion/css": "11.1.3",
     "@emotion/css-prettifier": "1.0.0",
     "@emotion/server": "11.0.0",
-    "@emotion/styled": "11.0.0",
+    "@emotion/styled": "11.1.5",
     "@types/react": "^16.9.11",
     dtslint: "^0.3.0",
     "html-tag-names": "^1.1.2",
@@ -2218,4 +2218,4 @@ module.exports = hoistNonReactStatics;
 /***/ })
 
 }]);
-//# sourceMappingURL=commons-d2a2481902bd9bd2048f.js.map
+//# sourceMappingURL=commons-68af7e931941780b164d.js.map

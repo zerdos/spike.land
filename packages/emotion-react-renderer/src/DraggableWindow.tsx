@@ -5,7 +5,6 @@ import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 
 import {
-  AnimateSharedLayout,
   css,
   jsx,
   motion,
@@ -65,7 +64,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const scale = scaleRange / 100;
 
   return (
-    <AnimateSharedLayout>
+  
       <motion.div
         ref={ref}
         css={css`
@@ -223,7 +222,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           </div>
         </div>
       </motion.div>
-    </AnimateSharedLayout>
+    
   );
 };
 interface IRenderProps extends DraggableWindowProps {
