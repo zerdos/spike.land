@@ -28,7 +28,7 @@
     "homepage": "https://github.com/zed-vision/monorepo",
     "repository": "https://github.com/zed-vision/monorepo",
     "devDependencies": {
-        "typescript": "4.2.0-dev.20210205"
+        "typescript": "4.2.0-dev.20210207"
     },
     "publishConfig": {
         "access": "public"
