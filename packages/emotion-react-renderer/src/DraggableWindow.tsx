@@ -4,14 +4,7 @@ import Fab from "@material-ui/core/Fab";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 
-import {
-  css,
-  jsx,
-  motion,
-  QR,
-  React,
-  render,
-} from "./renderer";
+import { css, jsx, motion, QR, React, render } from "./renderer";
 
 const breakPoints = [640, 750, 1024, 1920];
 
@@ -64,10 +57,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const scale = scaleRange / 100;
 
   return (
-  
-      <motion.div
-        ref={ref}
-        css={css`
+    <motion.div
+      ref={ref}
+      css={css`
             right: 20px;
             background-color: rgba(255, 255, 255, .25);  
             backdrop-filter: blur(7px);
@@ -77,53 +69,52 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             white-space: normal;
             position: ${position ? position : "fixed"};
           `}
-        dragElastic={0.5}
-        onDrag={(e) => {
-          dragHelper.drag = true;
-        }}
-        onDragEnd={(e) => {
-          dragHelper.drag = false;
-        }}
-        dragMomentum={false}
-        drag={true}
-      >
-        <div
-          css={css`
+      dragElastic={0.5}
+      onDrag={(e) => {
+        dragHelper.drag = true;
+      }}
+      onDragEnd={(e) => {
+        dragHelper.drag = false;
+      }}
+      dragMomentum={false}
+      drag={true}
+    >
+      <div
+        css={css`
               display: flex;
             
       `}
-        >
-          <div
-            css={`
+      >
+        <div
+          css={`
             display: flex;
             flex-direction: column;
             align-items: center;
           `}
+        >
+          <ToggleButtonGroup
+            value={scaleRange}
+            size="small"
+            exclusive
+            color="white"
+            onChange={(_e, newScale) => newScale && changeScaleRange(newScale)}
           >
-            <ToggleButtonGroup
-              value={scaleRange}
-              size="small"
-              exclusive
-              color="white"
-              onChange={(_e, newScale) =>
-                newScale && changeScaleRange(newScale)}
-            >
-              {sizes.map((size) =>
-                <ToggleButton
-                  key={size}
-                  value={size}
-                >
-                  {size}%
-                </ToggleButton>
-              )}
-            </ToggleButtonGroup>
+            {sizes.map((size) =>
+              <ToggleButton
+                key={size}
+                value={size}
+              >
+                {size}%
+              </ToggleButton>
+            )}
+          </ToggleButtonGroup>
 
-            <motion.div
-              animate={{
-                width: width * scale / devicePixelRatio,
-                height: height * scale,
-              }}
-              css={css`
+          <motion.div
+            animate={{
+              width: width * scale / devicePixelRatio,
+              height: height * scale,
+            }}
+            css={css`
                   display: block;
                   overflow: hidden;
                   border-radius: 8px;
@@ -131,15 +122,15 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
     
            `}
-            >
-              <motion.div
-                animate={{
-                  transformOrigin: "top left",
-                  width: width / devicePixelRatio,
-                  height: height,
-                  scale,
-                }}
-                css={`
+          >
+            <motion.div
+              animate={{
+                transformOrigin: "top left",
+                width: width / devicePixelRatio,
+                height: height,
+                scale,
+              }}
+              css={`
                   overflow:overlay;
                   >div{
                     width:100%;
@@ -148,34 +139,34 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                     background: white;
                   }
               `}
-              >
-                <div
-                  id="zbody"
-                  ref={zbody}
-                >
-                  {children}
-                </div>
-              </motion.div>
-            </motion.div>
-            <ToggleButtonGroup
-              value={width}
-              size="small"
-              exclusive
-              color="white"
-              onChange={(_e, newSize) => newSize && setWidth(newSize)}
             >
-              {breakPoints.map((size) =>
-                <ToggleButton
-                  key={size}
-                  value={size}
-                >
-                  {size}px
-                </ToggleButton>
-              )}
-            </ToggleButtonGroup>
-          </div>
-          <div
-            css={`display: flex;
+              <div
+                id="zbody"
+                ref={zbody}
+              >
+                {children}
+              </div>
+            </motion.div>
+          </motion.div>
+          <ToggleButtonGroup
+            value={width}
+            size="small"
+            exclusive
+            color="white"
+            onChange={(_e, newSize) => newSize && setWidth(newSize)}
+          >
+            {breakPoints.map((size) =>
+              <ToggleButton
+                key={size}
+                value={size}
+              >
+                {size}px
+              </ToggleButton>
+            )}
+          </ToggleButtonGroup>
+        </div>
+        <div
+          css={`display: flex;
           align-items: center;
                 
           flex-direction: column;
@@ -183,46 +174,45 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
                 
           `}
+        >
+          <motion.div
+            animate={{
+              width: showQR ? 220 : 0,
+              height: showQR ? 240 : 0,
+            }}
+            onClick={(e) => {
+              setQR(!showQR);
+            }}
           >
-            <motion.div
-              animate={{
-                width: showQR ? 220 : 0,
-                height: showQR ? 240 : 0,
-              }}
-              onClick={(e) => {
+            {showQR && <QR url={session.url + "edit/"} />}
+          </motion.div>
+
+          <div css="margin:0px 0px 16px">
+            <Fab
+              variant="extended"
+              color="secondary"
+              onClick={() => {
                 setQR(!showQR);
               }}
             >
-              {showQR && <QR url={session.url + "edit/"} />}
-            </motion.div>
+              <QrIcon />
+            </Fab>
+          </div>
 
-            <div css="margin:0px 0px 16px">
-              <Fab
-                variant="extended"
-                color="secondary"
-                onClick={() => {
-                  setQR(!showQR);
-                }}
-              >
-                <QrIcon />
-              </Fab>
-            </div>
-
-            <div>
-              <Fab
-                variant="extended"
-                color="primary"
-                onClick={() => {
-                  onShare();
-                }}
-              >
-                <ShareIcon />
-              </Fab>
-            </div>
+          <div>
+            <Fab
+              variant="extended"
+              color="primary"
+              onClick={() => {
+                onShare();
+              }}
+            >
+              <ShareIcon />
+            </Fab>
           </div>
         </div>
-      </motion.div>
-    
+      </div>
+    </motion.div>
   );
 };
 interface IRenderProps extends DraggableWindowProps {
