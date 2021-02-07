@@ -6,9 +6,9 @@ import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 
 import { css, jsx, motion, QR, React, render } from "./renderer";
 
-const breakPoints = [640, 750, 1024, 1920];
+const breakPoints = [640, 750, 1024, 1920, 3840];
 
-const sizes = [25, 50, 75, 100, 200];
+const sizes = [10,25, 50, 75, 100];
 
 const dragHelper = {
   drag: false,

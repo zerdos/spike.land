@@ -35,7 +35,7 @@ added QmZ1Hr2CMgCU4HUTR1A2D8eCMngUJS3CLd9uXeTwb4mvaD code/js/workers/ipfsWorker.
 added QmecLuZATFNqSFLbxw6FQrvLpNbGgj3i2yHuGnHyYKxv6a code/js/workers/prettierWorker.js
 added QmY1nHXbhRE8Z7sWr9avQn3X6EQxpp898cRaoFzuzFe6xL code/js/workers/transpile.worker.js
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
-added QmfXkn5PS9UPYwF3VgUXCJW5znYmt6UQZgT88j15pKTgPV code/modules/DraggableWindow.js
+added QmPjRYBmvaUyKkLXXJSsrvnUQSZjTgqj2fQyeuwB7T2Gx2 code/modules/DraggableWindow.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/modules/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/modules/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/modules/diffChars.d.ts
@@ -43,7 +43,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmfTp5QBmhbogjQftvwxkrPCgZcZugT9WT1bTN1tdtod4Y code/modules/ipfs.client.js
-added QmXbd6FL6x8XepzgRiCR7tvFM7NHcBfG7LZhZXrupBa6F2 code/modules/renderer.js
+added QmQjR7ajyKJXoq6paSxTwHewAYonNrZdjQt9LQAEWucBRN code/modules/renderer.js
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -70,5 +70,5 @@ added QmfTvU4Pmd7o1t1GWBqZSLq7hM3xtpyLDZ2qREGvabZSf1 code/js
 added QmNyfasJaw4cMonkWoynX3AnRAPXMCUqyBbqzNGikmjNFy code/modules/smart-monaco-editor/dist
 added QmaqRmoJGTQm2GXzwVX2iamMDiMYDLFqrj2BpqZaaw2Wh7 code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmWbgw5zB8gdL2eXfExk1UpJwoKLtySVfNWMVZzPmZN9eJ code/modules
-added QmR4bznD67qbK1wpXikvaVvKvrNygU5Se248XYnq7aVvsC code
+added QmYyFbVYuXVmBPQJFhYyeYkf1sfzZ1PGrwb3hWyES9thSH code/modules
+added QmTCeujvoKRDzuhNgdm5KyczQ42KU2vcuxwuSjzmcTo4bU code

@@ -82,7 +82,7 @@ export const shasums = {
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "modules/renderer.js":
-    "e97357ec88420023ca326fcfb16e6e67ab840a5d021313bfb1f0c87a6ab95b06",
+    "70e0acc2fce617beb53a038c48a804b1ac80f3a810de51e702085285d7a2893a",
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "modules/diffChars.d.ts":
@@ -114,7 +114,7 @@ export const shasums = {
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/DraggableWindow.js":
-    "9f1e541aec11657061b6d6998c6120b9ef85343abb11d0d7a4b866d043e3ec0a",
+    "dc99d32c699d41a1d09342d25711e5c360de3ab57d72d84f8cbd1f8b92e3b89d",
   "modules/vendor/diffMin.js":
     "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
   "modules/vendor/diffChars.d.ts":
