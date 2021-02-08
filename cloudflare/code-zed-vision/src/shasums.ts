@@ -69,7 +69,7 @@ export const shasums = {
   "js/workers/getWorker.js":
     "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
   "js/workers/ipfsWorker.js":
-    "00fb5f335b5725ccd45a3acf5278610a22e8efc3c96b1aeae58f7d5f6f39fb2d",
+    "9d7fc639213bed146cfa7d11009592ac504f54b23cabe4a6c89563f18065008e",
   "js/workers/prettierWorker.js":
     "50525aca9171888b0d6409989989093317b832be1f38f388e28510bb8bb3a0b5",
   "js/workers/transpile.worker.js":
@@ -128,6 +128,6 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   ".tsBuildInfo":
-    "41bb8aff163c38af76b4a802c1e3e849b466a0e847a912a9aa4b675b9fda0fa2",
+    "a294e7ed390bbcf79e7e311dadfcbbf3ba1e92751b8a28f5c5da35119e852b63",
   "food": "marsbar",
 };
