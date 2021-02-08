@@ -14,23 +14,23 @@ module.exports = __webpack_require__.p + "static/forkMe-1a2bcb7dd2c870c3afe5d504
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
 var taggedTemplateLiteralLoose = __webpack_require__("fhSp");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
+// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__("VtSi");
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/regenerator-runtime/runtime.js
+// EXTERNAL MODULE: /home/zolika84/z/node_modules/regenerator-runtime/runtime.js
 var runtime = __webpack_require__("3yYM");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__("QsI/");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 12 modules
+// EXTERNAL MODULE: /home/zolika84/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 12 modules
 var emotion_react_browser_esm = __webpack_require__("f7k3");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
+// EXTERNAL MODULE: /home/zolika84/z/node_modules/react/index.js
 var react = __webpack_require__("ERkP");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
