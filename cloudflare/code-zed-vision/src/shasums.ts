@@ -1,7 +1,5 @@
 export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
-  ".tsBuildInfo":
-    "e38b7e8ae23a4f9f79fd26a287ebf94a91b64fe3ae0de36ed1f5e3d172d621fd",
   ".vscode/settings.json":
     "97543529d659da3a0b646d50f0a200b126ffd975418379251e24d2fbe48e3a02",
   "assets/app.css":
@@ -93,7 +91,7 @@ export const shasums = {
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/ipfs.client.js":
-    "aec72a48067d6b2df17d5fdbe7e09aa464179ffdcbdbe6f7d160cf7c40a8f766",
+    "0fc4efb28747aefdf7405f2bddb7b3f2a30da218edcd197eeb0d04560b4069eb",
   "modules/renderer.js":
     "b39df2de2e7fbc9ecabdf7647537accf45ca3ea8e702e4aa9d8eda7c93fe6e16",
   "modules/sha256.d.ts":
@@ -129,5 +127,7 @@ export const shasums = {
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
+  ".tsBuildInfo":
+    "41bb8aff163c38af76b4a802c1e3e849b466a0e847a912a9aa4b675b9fda0fa2",
   "food": "marsbar",
 };

@@ -8,7 +8,7 @@ import { css, jsx, motion, QR, React, render } from "./renderer";
 
 const breakPoints = [640, 750, 1024, 1920, 3840];
 
-const sizes = [10,25, 50, 75, 100];
+const sizes = [10, 25, 50, 75, 100];
 
 const dragHelper = {
   drag: false,
