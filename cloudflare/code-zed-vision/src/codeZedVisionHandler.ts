@@ -55,23 +55,28 @@ async function handleRequest(request: Request) {
 
     if (reversePath) url.pathname = `/ipfs/${cid}/${reversePath}`;
 
-    const cacheKey = new Request(url.toString(), request);
+    const cacheKey = new Request(url.toString());
     const cache = caches.default;
 
-    let response = await cache.match(cacheKey);
+    let response = null;
+    try {
+      response = await cache.match(cacheKey);
+    } catch {
+      return text("unreliable cache, should be reported to CF");
+    }
 
     if (response && response.status == 200) {
       if (sha) {
         const content = await response.arrayBuffer();
         const shaContent = await sha256(content);
 
-        if (sha !== shaContent) {
-          response = undefined;
-          cache.delete(cacheKey);
+        if (sha == shaContent) {
+          return await alterHeaders(new Response(content), reversePath);
         }
-        // await IPFS.put(customCID, content);
+
+        response = undefined;
+        cache.delete(cacheKey);
       }
-      if (response) return await alterHeaders(response, reversePath);
     }
 
     let content = await IPFS.get(customCID, "arrayBuffer");
@@ -87,8 +92,9 @@ async function handleRequest(request: Request) {
       }
     }
 
-    if (content) response = new Response(content);
-    else {
+    if (content) {
+      response = new Response(content);
+    } else {
       response = await fetchCid("/ipfs/" + customCID);
 
       if (!response) {
