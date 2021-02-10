@@ -16070,10 +16070,10 @@ typescript@4.1.4, typescript@^4.1.4:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.4.tgz#f058636e2f4f83f94ddaae07b20fd5e14598432f"
   integrity sha512-+Uru0t8qIRgjuCpiSPpfGuhHecMllk5Zsazj5LZvVsEStEjmIRRBZe+jHjGQvsgS7M1wONy2PQXd67EMyV6acg==
 
-typescript@4.2.0-dev.20210208:
-  version "4.2.0-dev.20210208"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.0-dev.20210208.tgz#81d44a872c48b2a25c774ceab60faef82ba90a47"
-  integrity sha512-zZD4z9MS8iy9dPxwBeEcQDemi13rfdAk7oCyAaiMQXsw1rcdmdsNGjpaQ8OZiY3I5Y/vaoDCu7yBB1ZaNSemLA==
+typescript@4.2.0-insiders.20210210:
+  version "4.2.0-insiders.20210210"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.0-insiders.20210210.tgz#f109217dec41af7ef0fece60a91e5c3cce572d25"
+  integrity sha512-PBBQ/WNJ/HG+cH2nu+sPFbUPqv8FMraVihOfwlBzoa+0iGHa1I8gueJTUyBIOPU24tClLwKoU8dfscpn0rnuWw==
 
 typography-breakpoint-constants@^0.16.19:
   version "0.16.19"
