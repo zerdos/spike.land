@@ -63,7 +63,7 @@ const transform = (code) => {
 
     if (self.location.hostname.indexOf("::1") !== -1) {
       const cid = self.location.pathname.slice(6, 52);
-      rendererSrc = `http://[::1]:8080/ipfs/${cid}/modules/renderer.js`;
+      rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.js`;
     }
 
     const transformed = Babel.transform(
