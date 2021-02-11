@@ -35,7 +35,7 @@ added QmR4RRG2ZH5bStT4Q5aBzy6aQNqs17EWYv9HJGrg6inmog code/js/workers/ipfsWorker.
 added QmecLuZATFNqSFLbxw6FQrvLpNbGgj3i2yHuGnHyYKxv6a code/js/workers/prettierWorker.js
 added QmWm2A1RHHU1UeQfSvfE8xw6Fg68VTKnfBWfc8pUphHSys code/js/workers/transpile.worker.js
 added QmTBHTEYaAy537jiSxtGsyDWNAAXQsvtCtmLgBvbGPFdK3 code/manifest.json
-added QmUmiUgGWbCK7ohKGr3Gtz8igpWVMsrdTCBCChV6Z6aDhy code/modules/DraggableWindow.js
+added Qmck3Ngymj28Zy3uDYYpCiF5b5XYcA8BMH32kTAzg3DoNo code/modules/DraggableWindow.js
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/modules/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/modules/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/modules/diffChars.d.ts
@@ -43,7 +43,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmdKUyBSrHPEtN12eywbPWNBwzEYmK4dphNoNiMUycmVTv code/modules/ipfs.client.js
-added QmQS8UYqmihujpmGGVu3aK19EKfLs4KcSpizbyyiSPTEC5 code/modules/renderer.js
+added QmPyeeHqiCQqXksqLq5Dw9YmYix3QZ72E1Ws37mVvc7JAY code/modules/renderer.js
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -70,5 +70,5 @@ added QmbCSonvBLn5F6DvLzp4VqiiATjnDYdq1cZAwU8SieiAYS code/js
 added QmNyfasJaw4cMonkWoynX3AnRAPXMCUqyBbqzNGikmjNFy code/modules/smart-monaco-editor/dist
 added QmaqRmoJGTQm2GXzwVX2iamMDiMYDLFqrj2BpqZaaw2Wh7 code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmWtUoRXSyTHZUb5TxzayeCZuQCzzddcssv5ePe4ruRQVr code/modules
-added QmZVkL2fzED56yH78cR95QdD1TTWaqSo5fccM8jKKjMePT code
+added QmZg64JgCPWofjvxhJrb9G6vmkzdZqEmqDgVXUW5avfb7e code/modules
+added QmYrEmq6w7ZAfZWjiHZsu9EF8GbML8tJrXVCahEFcYoEUb code

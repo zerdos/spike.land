@@ -17,7 +17,7 @@ export const shasums = {
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "modules/DraggableWindow.js":
-    "766e4289f4941dbf0f6d069e557671a141eb04e2bf24682dcf923715d62655ed",
+    "ae894eb8014f26a4f03c96bf55c3db3522df6e66ba35f891929f125bdf75b62a",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/diff.d.ts":
@@ -37,7 +37,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "fe995c4a1c9175719664d054c0013fc6b1678ea4aec71a06f82627bbf523c2bf",
+    "0515ba5de2dc66ddd7e00364ed08ce4bf4c41d8004fa56e54a98ea2d45038b04",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.d.ts":
