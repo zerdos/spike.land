@@ -122,12 +122,12 @@ export const shasums = {
     "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
   "modules/vendor/idb.js":
     "07c4e9ce08f8323dac0eb0f3ee10933a1ff6692c04270a455b1525a1d6a6b44e",
-  "package.json":
-    "b28fd8714935a82f69f4ce543368f2b0dd408b07751d0ff51b61ff5c5798a604",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   ".tsBuildInfo":
     "a294e7ed390bbcf79e7e311dadfcbbf3ba1e92751b8a28f5c5da35119e852b63",
+  "package.json":
+    "a6721994e8e125034f4da1a738c5cb445f143b9748727e95806e0950aca52d9f",
   "food": "marsbar",
 };
