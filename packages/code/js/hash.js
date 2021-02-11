@@ -81,48 +81,48 @@ export async function fetchSignal(
   const retry = (typeof _retry === "number") ? _retry : 999;
   // console.log("retrying hash fetch");
 
-  if (window.location.hostname !== "code.zed.vision") {
-    //   console.log("we are NOT on code.zed.vision");
+  // if (window.location.hostname !== "code.zed.vision") {
+  //   //   console.log("we are NOT on code.zed.vision");
 
-    try {
-      if (retry === 0) {
-        throw new Error("No more retry");
-      }
+  //   try {
+  //     if (retry === 0) {
+  //       throw new Error("No more retry");
+  //     }
 
-      const smallSignal = signal.slice(-8);
+  //     const smallSignal = signal.slice(-8);
 
-      ////    log(`signal to wait: ${smallSignal}`);
+  //     ////    log(`signal to wait: ${smallSignal}`);
 
-      // console.log(`https://zed.vision/signal?signal=${smallSignal}`);
+  //     // console.log(`https://zed.vision/signal?signal=${smallSignal}`);
 
-      const cid = await fetch(
-        `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math
-          .random() * 10000}`,
-      ).then(
-        (x) => x.text(),
-      );
+  //     const cid = await fetch(
+  //       `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math
+  //         .random() * 10000}`,
+  //     ).then(
+  //       (x) => x.text(),
+  //     );
 
-      console.log(cid);
-      if (String(cid) === "404") {
-        await wait(3000);
-        return fetchSignal(signal, retry - 1);
-      }
+  //     console.log(cid);
+  //     if (String(cid) === "404") {
+  //       await wait(3000);
+  //       return fetchSignal(signal, retry - 1);
+  //     }
 
-      //    log(`${cid} is available`);
+  //     //    log(`${cid} is available`);
 
-      const resData = await fetch(`https://code.zed.vision/ipfs/${cid}`).then((
-        x,
-      ) => x.text());
+  //     const resData = await fetch(`https://code.zed.vision/ipfs/${cid}`).then((
+  //       x,
+  //     ) => x.text());
 
-      //  log(`${cid} downloaded - ${resData}`);
-      return () => parse(resData);
-    } catch (e) {
-      await wait(3000);
+  //     //  log(`${cid} downloaded - ${resData}`);
+  //     return () => parse(resData);
+  //   } catch (e) {
+  //     await wait(3000);
 
-      if (retry > 1) return fetchSignal(signal, retry - 1);
-      throw new Error("no signal");
-    }
-  }
+  //     if (retry > 1) return fetchSignal(signal, retry - 1);
+  //     throw new Error("no signal");
+  //   }
+  // }
 
   // log(`retry: ${retry}`);
   try {
