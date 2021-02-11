@@ -79,7 +79,7 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 
 // UNUSED EXPORTS: cleanPath
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@reach/router/es/lib/utils.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@reach/router/es/lib/utils.js
 var utils = __webpack_require__("7kqo");
 
 // EXTERNAL MODULE: ./.cache/strip-prefix.js
@@ -370,7 +370,7 @@ var navigate = globalHistory.navigate;
 
 "use strict";
 
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/mitt/dist/mitt.es.js
+// CONCATENATED MODULE: /home/z/z/node_modules/mitt/dist/mitt.es.js
 //      
 // An event handler can take an optional event argument
 // and should not return a value
@@ -1052,7 +1052,7 @@ ScrollHandler.propTypes = {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _inheritsLoose; });
 
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
 function _setPrototypeOf(o, p) {
   _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
     o.__proto__ = p;
@@ -1061,7 +1061,7 @@ function _setPrototypeOf(o, p) {
 
   return _setPrototypeOf(o, p);
 }
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -1488,7 +1488,7 @@ module.exports = _objectWithoutPropertiesLoose;
 /***/ "LeKB":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports=[{plugin:__webpack_require__("l5JW"),options:{"plugins":[],"extensions":[".mdx"],"defaultLayouts":{},"gatsbyRemarkPlugins":[],"lessBabel":false,"remarkPlugins":[],"rehypePlugins":[],"mediaTypes":["text/markdown","text/x-markdown"],"root":"/home/zolika84/z/packages/zed-vision-site"}},{plugin:__webpack_require__("6RQ8"),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"/","background_color":"#f7f0eb","theme_color":"#a2466c","display":"minimal-ui","legacy":true,"theme_color_in_head":true,"cache_busting_mode":"query","crossOrigin":"anonymous","include_favicon":true,"cacheDigest":"d71147f38c8eba4b5184eeb97a7a58d4"}},{plugin:__webpack_require__("GddB"),options:{"plugins":[]}}];
+module.exports=[{plugin:__webpack_require__("l5JW"),options:{"plugins":[],"extensions":[".mdx"],"defaultLayouts":{},"gatsbyRemarkPlugins":[],"lessBabel":false,"remarkPlugins":[],"rehypePlugins":[],"mediaTypes":["text/markdown","text/x-markdown"],"root":"/home/z/z/packages/zed-vision-site"}},{plugin:__webpack_require__("6RQ8"),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"/","background_color":"#f7f0eb","theme_color":"#a2466c","display":"minimal-ui","legacy":true,"theme_color_in_head":true,"cache_busting_mode":"query","crossOrigin":"anonymous","include_favicon":true,"cacheDigest":"d71147f38c8eba4b5184eeb97a7a58d4"}},{plugin:__webpack_require__("GddB"),options:{"plugins":[]}}];
 
 /***/ }),
 
@@ -2071,34 +2071,34 @@ var store = __webpack_require__("xgf2");
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
+// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
 var inheritsLoose = __webpack_require__("BFfR");
 
 // EXTERNAL MODULE: ./.cache/api-runner-browser.js
 var api_runner_browser = __webpack_require__("xtsi");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/react/index.js
+// EXTERNAL MODULE: /home/z/z/node_modules/react/index.js
 var react = __webpack_require__("ERkP");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/react-dom/index.js
+// EXTERNAL MODULE: /home/z/z/node_modules/react-dom/index.js
 var react_dom = __webpack_require__("7nmT");
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@reach/router/es/index.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@reach/router/es/index.js
 var es = __webpack_require__("tYqs");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/gatsby-react-router-scroll/index.js
+// EXTERNAL MODULE: /home/z/z/node_modules/gatsby-react-router-scroll/index.js
 var gatsby_react_router_scroll = __webpack_require__("1T57");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@mikaelkristiansson/domready/ready.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@mikaelkristiansson/domready/ready.js
 var ready = __webpack_require__("CT8p");
 var ready_default = /*#__PURE__*/__webpack_require__.n(ready);
 
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__("Wbzz");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/core-js/modules/es.array.reduce.js
+// EXTERNAL MODULE: /home/z/z/node_modules/core-js/modules/es.array.reduce.js
 var es_array_reduce = __webpack_require__("KOtZ");
 
 // EXTERNAL MODULE: ./.cache/loader.js + 1 modules
@@ -2114,10 +2114,10 @@ var emitter = __webpack_require__("5yr3");
 // This is extracted to separate module because it's shared
 // between browser and SSR code
 var RouteAnnouncerProps={id:"gatsby-announcer",style:{position:"absolute",top:0,width:1,height:1,padding:0,overflow:"hidden",clip:"rect(0, 0, 0, 0)",whiteSpace:"nowrap",border:0},"aria-live":"assertive","aria-atomic":"true"};
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@reach/router/es/lib/history.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@reach/router/es/lib/history.js
 var lib_history = __webpack_require__("50Kn");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/gatsby-link/index.js
+// EXTERNAL MODULE: /home/z/z/node_modules/gatsby-link/index.js
 var gatsby_link = __webpack_require__("O+tk");
 
 // CONCATENATED MODULE: ./.cache/navigation.js
@@ -2157,10 +2157,10 @@ var page_renderer = __webpack_require__("IOVJ");
 var async_requires = __webpack_require__("NsGk");
 var async_requires_default = /*#__PURE__*/__webpack_require__.n(async_requires);
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__("zjfJ");
 
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/shallow-compare/es/index.js
+// CONCATENATED MODULE: /home/z/z/node_modules/shallow-compare/es/index.js
 // Pulled from react-compat
 // https://github.com/developit/preact-compat/blob/7c5de00e7c85e2ffd011bf3af02899b63f699d3a/src/index.js#L349
 function shallowDiffers(a, b) {
@@ -2676,7 +2676,7 @@ module.exports = typeof WeakMap === 'function' && /native code/.test(inspectSour
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/react/index.js
+// EXTERNAL MODULE: /home/z/z/node_modules/react/index.js
 var react = __webpack_require__("ERkP");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
@@ -2764,13 +2764,13 @@ __webpack_require__.d(__webpack_exports__, "setLoader", function() { return /* b
 __webpack_require__.d(__webpack_exports__, "publicLoader", function() { return /* binding */ publicLoader; });
 __webpack_require__.d(__webpack_exports__, "getStaticQueryResults", function() { return /* binding */ getStaticQueryResults; });
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
+// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
 var inheritsLoose = __webpack_require__("BFfR");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
+// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__("fGyu");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__("zjfJ");
 
 // CONCATENATED MODULE: ./.cache/prefetch.js
@@ -2889,7 +2889,7 @@ module.exports = !DESCRIPTORS && !fails(function () {
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _toConsumableArray; });
 
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
 
@@ -2899,16 +2899,16 @@ function _arrayLikeToArray(arr, len) {
 
   return arr2;
 }
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/iterableToArray.js
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -2918,11 +2918,11 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+// CONCATENATED MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
 
 
 
@@ -3109,28 +3109,28 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "wrapRootElement", function() { return /* binding */ wrapRootElement; });
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/core-js/modules/es.array.reduce.js
+// EXTERNAL MODULE: /home/z/z/node_modules/core-js/modules/es.array.reduce.js
 var es_array_reduce = __webpack_require__("KOtZ");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__("zjfJ");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/react/index.js
+// EXTERNAL MODULE: /home/z/z/node_modules/react/index.js
 var react = __webpack_require__("ERkP");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/@mdx-js/react/dist/esm.js
+// EXTERNAL MODULE: /home/z/z/node_modules/@mdx-js/react/dist/esm.js
 var esm = __webpack_require__("ZVZ0");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/gatsby-plugin-mdx/context.js
+// EXTERNAL MODULE: /home/z/z/node_modules/gatsby-plugin-mdx/context.js
 var context = __webpack_require__("Amv9");
 
-// EXTERNAL MODULE: /home/zolika84/z/node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
+// EXTERNAL MODULE: /home/z/z/node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
 var mdx_components = __webpack_require__("NUUX");
 
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
+// CONCATENATED MODULE: /home/z/z/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
 var scope_0=__webpack_require__("crLg").default;var scope_1=__webpack_require__("JTKy").default;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/gatsby-plugin-mdx/wrap-root-element.js
+// CONCATENATED MODULE: /home/z/z/node_modules/gatsby-plugin-mdx/wrap-root-element.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){Object(defineProperty["a" /* default */])(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * so, this import is weird right?
  *
@@ -3153,7 +3153,7 @@ function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.g
  * Submit a PR
  */var componentsAndGuards={};var wrap_root_element_componentFromGuards=function componentFromGuards(arr){return function GatsbyMDXComponentFinder(props){var _arr$find=arr.find(function(_ref){var guard=_ref.guard;return guard?guard(props):true;}),Component=_arr$find.Component;return/*#__PURE__*/react_default.a.createElement(Component,props);};};mdx_components["plugins"].forEach(function(_ref2){var _ref2$guards=_ref2.guards,guards=_ref2$guards===void 0?{}:_ref2$guards,components=_ref2.components;Object.entries(components).forEach(function(_ref3){var componentName=_ref3[0],Component=_ref3[1];if(componentsAndGuards[componentName]){componentsAndGuards.push({guard:guards[componentName],Component:Component});}else{componentsAndGuards[componentName]=[{guard:guards[componentName],Component:Component}];}});});var components=Object.entries(componentsAndGuards).map(function(_ref4){var _ref5;var name=_ref4[0],arr=_ref4[1];return _ref5={},_ref5[name]=wrap_root_element_componentFromGuards(arr.concat({guard:undefined,Component:name})),_ref5;}).reduce(function(acc,obj){return _objectSpread(_objectSpread({},acc),obj);},{});// merge any components in wrapRootElement above this wrapRoot
 var MDXConsumer=Object(esm["withMDXComponents"])(function(_ref6){var componentsFromContext=_ref6.components,children=_ref6.children;return/*#__PURE__*/react_default.a.createElement(context["MDXScopeProvider"],{__mdxScope:mdx_scopes},/*#__PURE__*/react_default.a.createElement(esm["MDXProvider"],{components:_objectSpread(_objectSpread({},componentsFromContext),components)},children));});var wrap_root_element_WrapRootElement=function WrapRootElement(_ref7){var element=_ref7.element;return/*#__PURE__*/react_default.a.createElement(MDXConsumer,null,element);};/* harmony default export */ var wrap_root_element = (wrap_root_element_WrapRootElement);
-// CONCATENATED MODULE: /home/zolika84/z/node_modules/gatsby-plugin-mdx/gatsby-browser.js
+// CONCATENATED MODULE: /home/z/z/node_modules/gatsby-plugin-mdx/gatsby-browser.js
 var wrapRootElement=wrap_root_element;
 
 /***/ }),
@@ -4486,4 +4486,4 @@ module.exports = function (METHOD_NAME, options) {
 /***/ })
 
 },[["UxWs",3,12,14]]]);
-//# sourceMappingURL=app-bcf9281584ad45b04f70.js.map
+//# sourceMappingURL=app-21ec2931e5e14383cf2c.js.map

@@ -36,7 +36,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/cypress@workspace:packages/devimages-cypress"
   dependencies:
-    "@devcontainer/generator": ^12.0.3
+    "@devcontainer/generator": ^12.0.4
   languageName: unknown
   linkType: soft
 
@@ -44,7 +44,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/eoan-xfce-novnc@workspace:packages/eoan-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^12.0.3
+    "@devcontainer/generator": ^12.0.4
   languageName: unknown
   linkType: soft
 
@@ -52,7 +52,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-devcontainer@workspace:packages/focal-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^12.0.3
+    "@devcontainer/generator": ^12.0.4
   languageName: unknown
   linkType: soft
 
@@ -60,11 +60,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-xfce-vnc@workspace:packages/focal-xfce-vnc"
   dependencies:
-    "@devcontainer/generator": ^12.0.3
+    "@devcontainer/generator": ^12.0.4
   languageName: unknown
   linkType: soft
 
-"@devcontainer/generator@^12.0.3, @devcontainer/generator@workspace:packages/generator":
+"@devcontainer/generator@^12.0.4, @devcontainer/generator@workspace:packages/generator":
   version: 0.0.0-use.local
   resolution: "@devcontainer/generator@workspace:packages/generator"
   dependencies:
@@ -76,7 +76,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-devcontainer@workspace:packages/groovy-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^12.0.3
+    "@devcontainer/generator": ^12.0.4
   languageName: unknown
   linkType: soft
 
@@ -84,7 +84,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-xfce-novnc@workspace:packages/groovy-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^12.0.3
+    "@devcontainer/generator": ^12.0.4
   languageName: unknown
   linkType: soft
 
@@ -92,7 +92,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/hirsute-devcontainer@workspace:packages/hirsute-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^12.0.3
+    "@devcontainer/generator": ^12.0.4
   languageName: unknown
   linkType: soft
 
