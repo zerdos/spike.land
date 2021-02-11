@@ -8,7 +8,7 @@ export async function renderPreviewWindow(
 ) {
   let rendererSrc = `https://code.zed.vision/modules/renderer.js`;
 
-  if (window.location.hostname.indexOf("::1") !== -1) {
+  if (window.location.hostname.indexOf("0.0") !== -1) {
     const cid = window.location.pathname.slice(6, 52);
     rendererSrc = `/ipfs/${cid}/modules/renderer.js`;
   }

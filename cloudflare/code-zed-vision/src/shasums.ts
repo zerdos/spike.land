@@ -17,7 +17,7 @@ export const shasums = {
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "modules/DraggableWindow.js":
-    "ae894eb8014f26a4f03c96bf55c3db3522df6e66ba35f891929f125bdf75b62a",
+    "ece5948560d66b4ad9a29f0134d3e87e51a3f25d10582e1e69a5d788b2bd04e5",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/diff.d.ts":
@@ -37,7 +37,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "0515ba5de2dc66ddd7e00364ed08ce4bf4c41d8004fa56e54a98ea2d45038b04",
+    "6561174d3eb2ec9d708b1dfd50fd1d098b3fe7dbaaaecb11267185fb4cc1cf77",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.d.ts":
@@ -81,7 +81,7 @@ export const shasums = {
   "js/workers/getWorker.js":
     "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
   "js/workers/transpile.worker.js":
-    "f5dd71a0af0133268544e7cdeb11691f61d1ec0e7f63a5133a7f670c0713e5e2",
+    "79f4846c022d9ca017877a8d7a9344bcaafb74e8b6e6312c330381942ad53cba",
   "js/workers/prettierWorker.js":
     "50525aca9171888b0d6409989989093317b832be1f38f388e28510bb8bb3a0b5",
   "js/workers/ipfsWorker.js":
@@ -95,7 +95,7 @@ export const shasums = {
   "js/starterTsx.tsx":
     "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/renderPreviewWindow.js":
-    "3f34157ca84d606bc30b35688a95a73a569dc4f81e60c7e4760284bbd308cefa",
+    "22eda5794d21943b27170af62c7a714e9d8b1f5492b35a3d500ca96cb10b1fba",
   "js/formatter.js":
     "c448aed3a402cd0bd4dd4859face648655560ffe2f020cbcd7df32c54963ebc8",
   "js/importScript.js":

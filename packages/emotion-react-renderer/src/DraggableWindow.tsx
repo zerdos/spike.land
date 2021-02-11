@@ -10,10 +10,6 @@ const breakPoints = [640, 750, 1024, 1920, 3840];
 
 const sizes = [10, 25, 50, 75, 100];
 
-const dragHelper = {
-  drag: false,
-};
-
 interface DraggableWindowProps {
   onShare: () => void;
   session: {
@@ -61,8 +57,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       ref={ref}
       css={css`
             right: 20px;
-            background-color: rgba(255, 255, 255, .25);  
-            backdrop-filter: blur(7px);
+            background-color: rgba(0, 255, 255, .25);  
+            backdrop-filter: blur(10px);
             top: 20px;
             padding: 0px 0px 0px 16px;
             border-radius: 16px;
@@ -70,27 +66,15 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             position: ${position ? position : "fixed"};
           `}
       dragElastic={0.5}
-      onDrag={(e) => {
-        dragHelper.drag = true;
-      }}
-      onDragEnd={(e) => {
-        dragHelper.drag = false;
-      }}
       dragMomentum={false}
       drag={true}
     >
-      <div
-        css={css`
-              display: flex;
-            
-      `}
-      >
-        <div
-          css={`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          `}
+      <div css={{display: "flex"}}>
+        <div css={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
         >
           <ToggleButtonGroup
             value={scaleRange}
@@ -215,6 +199,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     </motion.div>
   );
 };
+
+
 interface IRenderProps extends DraggableWindowProps {
   children: React.ReactNode;
 }
@@ -227,6 +213,8 @@ export const renderDraggableWindow = (
     <DraggableWindow {...props}>{props.children}</DraggableWindow>,
     element,
   );
+
+
 
 const QrIcon = () =>
   <svg
@@ -279,6 +267,8 @@ const QrIcon = () =>
       </g>
     </g>
   </svg>;
+
+
 const ShareIcon = () =>
   <svg
     xmlns="http://www.w3.org/2000/svg"
