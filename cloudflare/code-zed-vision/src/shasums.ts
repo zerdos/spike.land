@@ -77,7 +77,7 @@ export const shasums = {
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "modules/DraggableWindow.js":
-    "807768247f672432a91df8b4c3f1c742213ef8bf759ce0e3c5c55fc46385f2ab",
+    "766e4289f4941dbf0f6d069e557671a141eb04e2bf24682dcf923715d62655ed",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/diff.js":
@@ -93,7 +93,7 @@ export const shasums = {
   "modules/ipfs.client.js":
     "0fc4efb28747aefdf7405f2bddb7b3f2a30da218edcd197eeb0d04560b4069eb",
   "modules/renderer.js":
-    "b39df2de2e7fbc9ecabdf7647537accf45ca3ea8e702e4aa9d8eda7c93fe6e16",
+    "fe995c4a1c9175719664d054c0013fc6b1678ea4aec71a06f82627bbf523c2bf",
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "modules/sha256.js":
@@ -123,7 +123,7 @@ export const shasums = {
   "modules/vendor/idb.js":
     "07c4e9ce08f8323dac0eb0f3ee10933a1ff6692c04270a455b1525a1d6a6b44e",
   "package.json":
-    "df6177f2fbedda17e16f1db678c1fcaab78eada5138c795fe31582bf2774fe11",
+    "b28fd8714935a82f69f4ce543368f2b0dd408b07751d0ff51b61ff5c5798a604",
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
