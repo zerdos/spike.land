@@ -69,11 +69,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       dragMomentum={false}
       drag={true}
     >
-      <div css={{display: "flex"}}>
-        <div css={{
+      <div css={{ display: "flex" }}>
+        <div
+          css={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
           <ToggleButtonGroup
@@ -200,7 +201,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   );
 };
 
-
 interface IRenderProps extends DraggableWindowProps {
   children: React.ReactNode;
 }
@@ -213,8 +213,6 @@ export const renderDraggableWindow = (
     <DraggableWindow {...props}>{props.children}</DraggableWindow>,
     element,
   );
-
-
 
 const QrIcon = () =>
   <svg
@@ -267,7 +265,6 @@ const QrIcon = () =>
       </g>
     </g>
   </svg>;
-
 
 const ShareIcon = () =>
   <svg

@@ -166,14 +166,14 @@
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
       },
-      "./modules/sha256.d.ts": {
-        "version": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-        "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-        "affectsGlobalScope": false
-      },
       "./modules/diff.d.ts": {
         "version": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
         "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+        "affectsGlobalScope": false
+      },
+      "./modules/sha256.d.ts": {
+        "version": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+        "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
         "affectsGlobalScope": false
       },
       "./modules/shaDB.d.ts": {
@@ -247,7 +247,7 @@
         "affectsGlobalScope": false
       },
       "./js/codeLoader.js": {
-        "version": "4710630766cfb2812326b50a5fec589a6db496434cfeaa6b0319a3822e22b31a",
+        "version": "8cae8f8c1f529c54788577bfe3e575a4f72ff0ea45e35045f583f33b2e968db2",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -322,7 +322,6 @@
         "./js/sendSignalToQrCode.js",
         "./js/transpile.js",
         "./modules/diff.d.ts",
-        "./modules/sha256.d.ts",
         "./modules/smart-monaco-editor/dist/editor.d.ts"
       ],
       "./js/data.js": [

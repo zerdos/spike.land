@@ -1,4 +1,3 @@
-import { sha256 } from "../modules/sha256.js";
 import { diff } from "../modules/diff.js";
 import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
@@ -181,19 +180,14 @@ export async function run(mode = "window", _w, code = "") {
     }
   }
 
-  /**
-   * @param {string} code
-   */
-  async function getErrors(code) {
+  async function getErrors() {
     if (!monaco) {
       return [{ messageText: "Error with the error checking. Try to reload!" }];
     }
 
-    const shaCode = await sha256(code);
-    const filename = `file:///${shaCode}.tsx`;
+    const filename = `file:///main.tsx`;
     const uri = monaco.Uri.parse(filename);
-    const model = monaco.editor.getModel(uri) ||
-      await monaco.editor.createModel(code, "typescript", uri);
+    const model = monaco.editor.getModel(uri);
     const worker = await monaco.languages.typescript.getTypeScriptWorker();
     const client = await worker(model.uri);
 
@@ -202,7 +196,7 @@ export async function run(mode = "window", _w, code = "") {
     const syntax = client.getSyntacticDiagnostics(filename);
     const fastError = await Promise.race([diag, comp, syntax]);
 
-    model.dispose();
+    // model.dispose();
 
     return [
       ...fastError,

@@ -23,7 +23,7 @@ export const shasums = {
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/ipfs.client.js":
-    "0fc4efb28747aefdf7405f2bddb7b3f2a30da218edcd197eeb0d04560b4069eb",
+    "27661563cea367c3571ce6243e3f472d41e06f6e0ca2967425d5ff1f2373b92f",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/smart-monaco-editor/dist/editor.js":
@@ -87,7 +87,7 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "9d7fc639213bed146cfa7d11009592ac504f54b23cabe4a6c89563f18065008e",
   "js/codeLoader.js":
-    "4710630766cfb2812326b50a5fec589a6db496434cfeaa6b0319a3822e22b31a",
+    "8cae8f8c1f529c54788577bfe3e575a4f72ff0ea45e35045f583f33b2e968db2",
   "js/hash.js":
     "a6dc43c0795e2faf55239a097cbf63db2a8c2bb92045ca9c2764faee87af2372",
   "js/data.js":
@@ -119,7 +119,7 @@ export const shasums = {
   "index.html":
     "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
   ".tsBuildInfo":
-    "47e13154ee9ac29c97ef4a81428f902eb54f44b2501dcc56d0c8bf81b797b2f1",
+    "969afc9b23a118ec1b9727a0c75add5ca81d7a2cfe68165cf66e29510355dc92",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",

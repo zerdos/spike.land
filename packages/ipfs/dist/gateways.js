@@ -29,7 +29,6 @@ exports.publicIpfsGateways = [
     "https://ipfs.mttk.net/ipfs/:hash",
     "https://ipfs.fleek.co/ipfs/:hash",
     "https://ipfs.jbb.one/ipfs/:hash",
-    "https://jacl.tech/ipfs/:hash",
     "https://ipfs.k1ic.com/ipfs/:hash",
     "https://ipfs.drink.cafe/ipfs/:hash",
     "https://ipfs.azurewebsites.net/ipfs/:hash",
