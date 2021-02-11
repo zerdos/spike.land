@@ -92,8 +92,6 @@ export const shasums = {
     "a6dc43c0795e2faf55239a097cbf63db2a8c2bb92045ca9c2764faee87af2372",
   "js/data.js":
     "15683065fd9fa38a20c2fb1463ce62b8acee618ecdcaa1763afebbe4c707222f",
-  "js/starterTsx.tsx":
-    "db51a60be6594dbfe31723a8f35c2f7e39814fa8d4377d014bbe614208c14b06",
   "js/renderPreviewWindow.js":
     "22eda5794d21943b27170af62c7a714e9d8b1f5492b35a3d500ca96cb10b1fba",
   "js/formatter.js":
@@ -108,18 +106,16 @@ export const shasums = {
     "9541e9abc8ab4b68be1836117f531688c16405ed9646aba8ea84eae7dd1aa7cf",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
-  "js/examples/starterNoFramerMotion.js":
-    "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
-    "dbaae051a02e0cd5b9552a20eb3d5dbd8f53232b4d344f097c893389b2ad3736",
+    "2b02a8365a28151a34b7a935e0a91f01e894e929993c3d78ef1b4933720e6d98",
   "js/ipfsClient.js":
     "42038acc27fb3fb7ad7c518500a6222e21a3d890509fbff1d1e3971905d33a71",
   "index.html":
     "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
   ".tsBuildInfo":
-    "969afc9b23a118ec1b9727a0c75add5ca81d7a2cfe68165cf66e29510355dc92",
+    "44193e464d966403204f8cc243d941a33449dfde4ca1f6e3cc0fa24caebf7499",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
