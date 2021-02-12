@@ -31,8 +31,6 @@ function formatter(code) {
       });
       return formatted;
     } catch (e) {
-      console.log("PRETTIER ERROR YAY");
-  
       // console.log({ e });
       return code;
     }

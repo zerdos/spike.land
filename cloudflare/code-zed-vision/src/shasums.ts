@@ -85,7 +85,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "5fe956821232c8f78d43ea8cd87db0243a4a253abad42c6f25edfd0a0f20fe58",
   "js/workers/prettierWorker.js":
-    "031a9c9abda3a7188257b358d0c4defd21b901404ad100f5ae1632a46db77770",
+    "e6d9d78c37073ab0cb12963104d251488bb68e6552607d7a45d4f64065f1fcaf",
   "js/workers/ipfsWorker.js":
     "9d7fc639213bed146cfa7d11009592ac504f54b23cabe4a6c89563f18065008e",
   "js/codeLoader.js":
@@ -117,7 +117,7 @@ export const shasums = {
   "index.html":
     "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
   ".tsBuildInfo":
-    "7cf2c20c366eb9c3cb145b09a95f0bf3e04b3201be692f9347ba25b1bf97322d",
+    "a21ef29f930872131eb533a8ee960bd5d1ac669c5179fb940827e8a599ebf641",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
