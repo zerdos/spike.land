@@ -83,9 +83,9 @@ export const shasums = {
   "js/workers/getWorker.js":
     "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
   "js/workers/transpile.worker.js":
-    "a10a574d3feb4fc4ccbd2d71d0776aad18ff175e6ec250bd242bfff0d09043ba",
+    "5fe956821232c8f78d43ea8cd87db0243a4a253abad42c6f25edfd0a0f20fe58",
   "js/workers/prettierWorker.js":
-    "50525aca9171888b0d6409989989093317b832be1f38f388e28510bb8bb3a0b5",
+    "031a9c9abda3a7188257b358d0c4defd21b901404ad100f5ae1632a46db77770",
   "js/workers/ipfsWorker.js":
     "9d7fc639213bed146cfa7d11009592ac504f54b23cabe4a6c89563f18065008e",
   "js/codeLoader.js":

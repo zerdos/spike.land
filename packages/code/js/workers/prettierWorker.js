@@ -33,7 +33,7 @@ function formatter(code) {
     } catch (e) {
       console.log("PRETTIER ERROR YAY");
   
-      console.log({ e });
+      // console.log({ e });
       return code;
     }
   }

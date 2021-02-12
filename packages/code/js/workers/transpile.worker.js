@@ -47,7 +47,6 @@ const replaceWith = "";
  * @param {string} code
  */
 const transform = (code) => {
-  try {
     // @ts-ignore
     const safeCode = code.replaceAll(
       searchRegExp,
@@ -66,14 +65,16 @@ const transform = (code) => {
       rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.js`;
     }
 
-    const transformed = Babel.transform(
+    let transformed = null;
+
+    try{
+
+    transformed = Babel.transform(
       `/** @jsx jsx */
       import {jsx, React, css, Fragment, Global, Motion, motion, render} from "${rendererSrc}";
       
       ` + safeCode + `
-      
-
-      
+            
       const {useState, useRef, useEffect} = React
       
       export {render}
@@ -90,12 +91,18 @@ const transform = (code) => {
       },
     ).code;
 
-    // console.log(transformed);
-    return transformed;
   } catch (e) {
     console.error(e);
-    return "";
+
+    const error =  `import { motion } from 'framer-motion';
+
+    export default () => (
+  <header> Error
+      </header>`
+
+    transformed = transformed(error);
   }
+  return transformed;
 };
 
 self.addEventListener(
