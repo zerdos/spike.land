@@ -9971,10 +9971,10 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-it-all@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/it-all/-/it-all-1.0.4.tgz#5a1aac996e2516c0d030911a631190b330afdb6d"
-  integrity sha512-7K+gjHHzZ7t+bCkrtulYiow35k3UgqH7miC+iUa9RGiyDRXJ6hVDeFsDrnWrlscjrkLFOJRKHxNOke4FNoQnhw==
+it-all@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/it-all/-/it-all-1.0.5.tgz#e880510d7e73ebb79063a76296a2eb3cb77bbbdb"
+  integrity sha512-ygD4kA4vp8fi+Y+NBgEKt6W06xSbv6Ub/0V8d1r3uCyJ9Izwa1UspkIOlqY9fOee0Z1w3WRo1+VWyAU4DgtufA==
 
 iterall@^1.2.2, iterall@^1.3.0:
   version "1.3.0"
