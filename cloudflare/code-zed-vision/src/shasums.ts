@@ -111,13 +111,13 @@ export const shasums = {
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
-    "593aec9a89c4d4c630075ff945d5af02442ce16c613f8d465c5d1951985cfc9e",
+    "c3d2f74bf69199e9ef180518f1ef3e6d051592672758082fc58178ac42d02660",
   "js/ipfsClient.js":
     "42038acc27fb3fb7ad7c518500a6222e21a3d890509fbff1d1e3971905d33a71",
   "index.html":
     "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
   ".tsBuildInfo":
-    "a21ef29f930872131eb533a8ee960bd5d1ac669c5179fb940827e8a599ebf641",
+    "fed4948f13351eaed7788ee0e87254a0ea8a96198af05442bbde0ac799d3189f",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
