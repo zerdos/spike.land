@@ -1,7 +1,7 @@
 export const shasums = {
   "sw.js": "35e577ece4762f71171f8c595a230a0041869684b4b9192ea72bf804090f9451",
   "package.json":
-    "a6721994e8e125034f4da1a738c5cb445f143b9748727e95806e0950aca52d9f",
+    "0133c495e7a140dfc2933590d2a04666c6a73634fce62178ce1489ce4772272d",
   "modules/vendor/diffMin.js":
     "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
   "modules/vendor/idb.js":
@@ -81,7 +81,7 @@ export const shasums = {
   "js/workers/getWorker.js":
     "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
   "js/workers/transpile.worker.js":
-    "79f4846c022d9ca017877a8d7a9344bcaafb74e8b6e6312c330381942ad53cba",
+    "a10a574d3feb4fc4ccbd2d71d0776aad18ff175e6ec250bd242bfff0d09043ba",
   "js/workers/prettierWorker.js":
     "50525aca9171888b0d6409989989093317b832be1f38f388e28510bb8bb3a0b5",
   "js/workers/ipfsWorker.js":
@@ -109,13 +109,13 @@ export const shasums = {
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
-    "2b02a8365a28151a34b7a935e0a91f01e894e929993c3d78ef1b4933720e6d98",
+    "ec3e6b8556cb48c4a3eddf236c141e577dbed488f3f7b6bf2dd30cc13e37d01f",
   "js/ipfsClient.js":
     "42038acc27fb3fb7ad7c518500a6222e21a3d890509fbff1d1e3971905d33a71",
   "index.html":
     "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
   ".tsBuildInfo":
-    "44193e464d966403204f8cc243d941a33449dfde4ca1f6e3cc0fa24caebf7499",
+    "7cf2c20c366eb9c3cb145b09a95f0bf3e04b3201be692f9347ba25b1bf97322d",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",

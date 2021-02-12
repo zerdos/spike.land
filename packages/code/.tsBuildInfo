@@ -256,11 +256,6 @@
         "signature": "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
         "affectsGlobalScope": false
       },
-      "./js/examples/starterNoFramerMotion.js": {
-        "version": "f1045c6c13974cad852208108385d2e57e3ef8dae728cf51cf6948c452f49331",
-        "signature": "ca3e9a331b66b37839d1867093df10a1bb8e4cb10109cf927dfaf5255921cefc",
-        "affectsGlobalScope": false
-      },
       "./js/examples/starter_framer.js": {
         "version": "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
         "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
@@ -277,7 +272,7 @@
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "79f4846c022d9ca017877a8d7a9344bcaafb74e8b6e6312c330381942ad53cba",
+        "version": "a10a574d3feb4fc4ccbd2d71d0776aad18ff175e6ec250bd242bfff0d09043ba",
         "signature": "c3a13bfaf8d8a569c668296b226ed29b835da2b2c91e44e38d175adbf57aae73",
         "affectsGlobalScope": true
       },
@@ -329,9 +324,6 @@
         "./js/share.js",
         "./modules/sha256.d.ts",
         "./modules/shaDB.d.ts"
-      ],
-      "./js/examples/starterNoFramerMotion.js": [
-        "../../node_modules/@types/react/jsx-runtime.d.ts"
       ],
       "./js/examples/starter_framer.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
@@ -423,7 +415,6 @@
       "../../node_modules/typescript/lib/lib.es5.d.ts",
       "./js/codeLoader.js",
       "./js/data.js",
-      "./js/examples/starterNoFramerMotion.js",
       "./js/examples/starter_framer.js",
       "./js/formatter.js",
       "./js/hash.js",
@@ -477,10 +468,6 @@
       ],
       [
         "./js/data.js",
-        1
-      ],
-      [
-        "./js/examples/starterNoFramerMotion.js",
         1
       ],
       [
