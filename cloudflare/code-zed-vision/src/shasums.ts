@@ -121,6 +121,8 @@ export const shasums = {
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
+  "edit.html":
+    "ba45c99ccc4f98a8038c7ef8c4289040223c1434a1fc4721d13eb5d92172d000",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   ".vscode/settings.json":

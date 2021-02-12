@@ -15,6 +15,7 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
+  "edit.html": "QmXi31nnkypdob6oo5aozrdvJQHbZvysq7QZfbNopZBdty",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmeUihmChZQ5sE4iDtGs9mJb365UchYEEsUbaTg3hzqoJV",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
@@ -90,6 +91,6 @@ export const files = {
     "QmaqRmoJGTQm2GXzwVX2iamMDiMYDLFqrj2BpqZaaw2Wh7",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
   "modules": "Qmf2Xb1bgCaWtRapnQtmutfBgQFJvbJZqPJ9hhbhumTpdm",
-  "": "QmeRkHNDm9KWRx8Fx4thPi5ymf29zbvJMnjdeP9ZuudoBp",
+  "": "QmXoSJ8SHsbxR3XBHBb3GkDXzS2qXvj3c6KutAxZ1wthBv",
   "foo": "bar",
 };
