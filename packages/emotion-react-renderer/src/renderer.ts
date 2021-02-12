@@ -28,4 +28,10 @@ export const render = (
   return () => ReactDOM.unmountComponentAtNode(container);
 };
 
+
 export default React;
+
+Object.assign(globalThis, {
+  DraggableWindow, jsx, css, Global, render,
+  React
+});

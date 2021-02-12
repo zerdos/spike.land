@@ -37,7 +37,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "6561174d3eb2ec9d708b1dfd50fd1d098b3fe7dbaaaecb11267185fb4cc1cf77",
+    "a0fffd79dd99bd0919da804c1202f7257e58183ac758f72e81ae9d0e36082487",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.d.ts":
@@ -48,6 +48,8 @@ export const shasums = {
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
+  "modules/renderer.umd.js":
+    "f08c426aa693ec154f7f2f021c26aa8bbfc6e224c0ea81b8600080c97dd14a19",
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "assets/social-media-computer-icons-share-icon-png":
@@ -109,7 +111,7 @@ export const shasums = {
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
-    "ec3e6b8556cb48c4a3eddf236c141e577dbed488f3f7b6bf2dd30cc13e37d01f",
+    "593aec9a89c4d4c630075ff945d5af02442ce16c613f8d465c5d1951985cfc9e",
   "js/ipfsClient.js":
     "42038acc27fb3fb7ad7c518500a6222e21a3d890509fbff1d1e3971905d33a71",
   "index.html":
