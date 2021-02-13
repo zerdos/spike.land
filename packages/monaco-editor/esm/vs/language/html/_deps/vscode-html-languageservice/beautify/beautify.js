@@ -6,6 +6,6 @@
  * Mock for the JS formatter. Ignore formatting of JS content in HTML.
  */
 export function js_beautify(js_source_text, options) {
-    // no formatting
-    return js_source_text;
+  // no formatting
+  return js_source_text;
 }

@@ -3,29 +3,38 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 var _a;
-import { globals } from '../common/platform.js';
-import { logOnceWebWorkerWarning } from '../common/worker/simpleWorker.js';
-const ttPolicy = (_a = window.trustedTypes) === null || _a === void 0 ? void 0 : _a.createPolicy('defaultWorkerFactory', { createScriptURL: value => value });
+import { globals } from "../common/platform.js";
+import { logOnceWebWorkerWarning } from "../common/worker/simpleWorker.js";
+const ttPolicy = (_a = window.trustedTypes) === null || _a === void 0
+  ? void 0
+  : _a.createPolicy("defaultWorkerFactory", {
+    createScriptURL: (value) => value,
+  });
 function getWorker(workerId, label) {
-    // Option for hosts to overwrite the worker script (used in the standalone editor)
-    if (globals.MonacoEnvironment) {
-        if (typeof globals.MonacoEnvironment.getWorker === 'function') {
-            return globals.MonacoEnvironment.getWorker(workerId, label);
-        }
-        if (typeof globals.MonacoEnvironment.getWorkerUrl === 'function') {
-            const wokerUrl = globals.MonacoEnvironment.getWorkerUrl(workerId, label);
-            return new Worker(ttPolicy ? ttPolicy.createScriptURL(wokerUrl) : wokerUrl, { name: label });
-        }
+  // Option for hosts to overwrite the worker script (used in the standalone editor)
+  if (globals.MonacoEnvironment) {
+    if (typeof globals.MonacoEnvironment.getWorker === "function") {
+      return globals.MonacoEnvironment.getWorker(workerId, label);
     }
-    // ESM-comment-begin
-    // 	if (typeof require === 'function') {
-    // 		// check if the JS lives on a different origin
-    // 		const workerMain = require.toUrl('./' + workerId); // explicitly using require.toUrl(), see https://github.com/microsoft/vscode/issues/107440#issuecomment-698982321
-    // 		const workerUrl = getWorkerBootstrapUrl(workerMain, label);
-    // 		return new Worker(ttPolicy ? ttPolicy.createScriptURL(workerUrl) as unknown as string : workerUrl, { name: label });
-    // 	}
-    // ESM-comment-end
-    throw new Error(`You must define a function MonacoEnvironment.getWorkerUrl or MonacoEnvironment.getWorker`);
+    if (typeof globals.MonacoEnvironment.getWorkerUrl === "function") {
+      const wokerUrl = globals.MonacoEnvironment.getWorkerUrl(workerId, label);
+      return new Worker(
+        ttPolicy ? ttPolicy.createScriptURL(wokerUrl) : wokerUrl,
+        { name: label },
+      );
+    }
+  }
+  // ESM-comment-begin
+  // 	if (typeof require === 'function') {
+  // 		// check if the JS lives on a different origin
+  // 		const workerMain = require.toUrl('./' + workerId); // explicitly using require.toUrl(), see https://github.com/microsoft/vscode/issues/107440#issuecomment-698982321
+  // 		const workerUrl = getWorkerBootstrapUrl(workerMain, label);
+  // 		return new Worker(ttPolicy ? ttPolicy.createScriptURL(workerUrl) as unknown as string : workerUrl, { name: label });
+  // 	}
+  // ESM-comment-end
+  throw new Error(
+    `You must define a function MonacoEnvironment.getWorkerUrl or MonacoEnvironment.getWorker`,
+  );
 }
 // ESM-comment-begin
 // export function getWorkerBootstrapUrl(scriptPath: string, label: string, forceDataUri: boolean = false): string {
@@ -50,66 +59,71 @@ function getWorker(workerId, label) {
 // }
 // ESM-comment-end
 function isPromiseLike(obj) {
-    if (typeof obj.then === 'function') {
-        return true;
-    }
-    return false;
+  if (typeof obj.then === "function") {
+    return true;
+  }
+  return false;
 }
 /**
  * A worker that uses HTML5 web workers so that is has
  * its own global scope and its own thread.
  */
 class WebWorker {
-    constructor(moduleId, id, label, onMessageCallback, onErrorCallback) {
-        this.id = id;
-        const workerOrPromise = getWorker('workerMain.js', label);
-        if (isPromiseLike(workerOrPromise)) {
-            this.worker = workerOrPromise;
-        }
-        else {
-            this.worker = Promise.resolve(workerOrPromise);
-        }
-        this.postMessage(moduleId, []);
-        this.worker.then((w) => {
-            w.onmessage = function (ev) {
-                onMessageCallback(ev.data);
-            };
-            w.onmessageerror = onErrorCallback;
-            if (typeof w.addEventListener === 'function') {
-                w.addEventListener('error', onErrorCallback);
-            }
-        });
+  constructor(moduleId, id, label, onMessageCallback, onErrorCallback) {
+    this.id = id;
+    const workerOrPromise = getWorker("workerMain.js", label);
+    if (isPromiseLike(workerOrPromise)) {
+      this.worker = workerOrPromise;
+    } else {
+      this.worker = Promise.resolve(workerOrPromise);
     }
-    getId() {
-        return this.id;
+    this.postMessage(moduleId, []);
+    this.worker.then((w) => {
+      w.onmessage = function (ev) {
+        onMessageCallback(ev.data);
+      };
+      w.onmessageerror = onErrorCallback;
+      if (typeof w.addEventListener === "function") {
+        w.addEventListener("error", onErrorCallback);
+      }
+    });
+  }
+  getId() {
+    return this.id;
+  }
+  postMessage(message, transfer) {
+    if (this.worker) {
+      this.worker.then((w) => w.postMessage(message, transfer));
     }
-    postMessage(message, transfer) {
-        if (this.worker) {
-            this.worker.then(w => w.postMessage(message, transfer));
-        }
+  }
+  dispose() {
+    if (this.worker) {
+      this.worker.then((w) => w.terminate());
     }
-    dispose() {
-        if (this.worker) {
-            this.worker.then(w => w.terminate());
-        }
-        this.worker = null;
-    }
+    this.worker = null;
+  }
 }
 export class DefaultWorkerFactory {
-    constructor(label) {
-        this._label = label;
-        this._webWorkerFailedBeforeError = false;
+  constructor(label) {
+    this._label = label;
+    this._webWorkerFailedBeforeError = false;
+  }
+  create(moduleId, onMessageCallback, onErrorCallback) {
+    let workerId = (++DefaultWorkerFactory.LAST_WORKER_ID);
+    if (this._webWorkerFailedBeforeError) {
+      throw this._webWorkerFailedBeforeError;
     }
-    create(moduleId, onMessageCallback, onErrorCallback) {
-        let workerId = (++DefaultWorkerFactory.LAST_WORKER_ID);
-        if (this._webWorkerFailedBeforeError) {
-            throw this._webWorkerFailedBeforeError;
-        }
-        return new WebWorker(moduleId, workerId, this._label || 'anonymous' + workerId, onMessageCallback, (err) => {
-            logOnceWebWorkerWarning(err);
-            this._webWorkerFailedBeforeError = err;
-            onErrorCallback(err);
-        });
-    }
+    return new WebWorker(
+      moduleId,
+      workerId,
+      this._label || "anonymous" + workerId,
+      onMessageCallback,
+      (err) => {
+        logOnceWebWorkerWarning(err);
+        this._webWorkerFailedBeforeError = err;
+        onErrorCallback(err);
+      },
+    );
+  }
 }
 DefaultWorkerFactory.LAST_WORKER_ID = 0;

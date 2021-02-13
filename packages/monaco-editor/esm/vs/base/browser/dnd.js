@@ -1,33 +1,33 @@
 // Common data transfers
 export const DataTransfers = {
-    /**
+  /**
      * Application specific resource transfer type
      */
-    RESOURCES: 'ResourceURLs',
-    /**
+  RESOURCES: "ResourceURLs",
+  /**
      * Browser specific transfer type to download
      */
-    DOWNLOAD_URL: 'DownloadURL',
-    /**
+  DOWNLOAD_URL: "DownloadURL",
+  /**
      * Browser specific transfer type for files
      */
-    FILES: 'Files',
-    /**
+  FILES: "Files",
+  /**
      * Typically transfer type for copy/paste transfers.
      */
-    TEXT: 'text/plain'
+  TEXT: "text/plain",
 };
 export class DragAndDropData {
-    constructor(data) {
-        this.data = data;
-    }
-    update() {
-        // noop
-    }
-    getData() {
-        return this.data;
-    }
+  constructor(data) {
+    this.data = data;
+  }
+  update() {
+    // noop
+  }
+  getData() {
+    return this.data;
+  }
 }
 export const StaticDND = {
-    CurrentDragAndDropData: undefined
+  CurrentDragAndDropData: undefined,
 };

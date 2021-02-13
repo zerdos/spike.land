@@ -3,17 +3,17 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 export function normalizeMarkupContent(input) {
-    if (!input) {
-        return undefined;
-    }
-    if (typeof input === 'string') {
-        return {
-            kind: 'markdown',
-            value: input
-        };
-    }
+  if (!input) {
+    return undefined;
+  }
+  if (typeof input === "string") {
     return {
-        kind: 'markdown',
-        value: input.value
+      kind: "markdown",
+      value: input,
     };
+  }
+  return {
+    kind: "markdown",
+    value: input.value,
+  };
 }

@@ -3,58 +3,62 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 export class Node {
-    constructor(data) {
-        this.incoming = new Map();
-        this.outgoing = new Map();
-        this.data = data;
-    }
+  constructor(data) {
+    this.incoming = new Map();
+    this.outgoing = new Map();
+    this.data = data;
+  }
 }
 export class Graph {
-    constructor(_hashFn) {
-        this._hashFn = _hashFn;
-        this._nodes = new Map();
-        // empty
+  constructor(_hashFn) {
+    this._hashFn = _hashFn;
+    this._nodes = new Map();
+    // empty
+  }
+  roots() {
+    const ret = [];
+    for (let node of this._nodes.values()) {
+      if (node.outgoing.size === 0) {
+        ret.push(node);
+      }
     }
-    roots() {
-        const ret = [];
-        for (let node of this._nodes.values()) {
-            if (node.outgoing.size === 0) {
-                ret.push(node);
-            }
-        }
-        return ret;
+    return ret;
+  }
+  insertEdge(from, to) {
+    const fromNode = this.lookupOrInsertNode(from);
+    const toNode = this.lookupOrInsertNode(to);
+    fromNode.outgoing.set(this._hashFn(to), toNode);
+    toNode.incoming.set(this._hashFn(from), fromNode);
+  }
+  removeNode(data) {
+    const key = this._hashFn(data);
+    this._nodes.delete(key);
+    for (let node of this._nodes.values()) {
+      node.outgoing.delete(key);
+      node.incoming.delete(key);
     }
-    insertEdge(from, to) {
-        const fromNode = this.lookupOrInsertNode(from);
-        const toNode = this.lookupOrInsertNode(to);
-        fromNode.outgoing.set(this._hashFn(to), toNode);
-        toNode.incoming.set(this._hashFn(from), fromNode);
+  }
+  lookupOrInsertNode(data) {
+    const key = this._hashFn(data);
+    let node = this._nodes.get(key);
+    if (!node) {
+      node = new Node(data);
+      this._nodes.set(key, node);
     }
-    removeNode(data) {
-        const key = this._hashFn(data);
-        this._nodes.delete(key);
-        for (let node of this._nodes.values()) {
-            node.outgoing.delete(key);
-            node.incoming.delete(key);
-        }
+    return node;
+  }
+  isEmpty() {
+    return this._nodes.size === 0;
+  }
+  toString() {
+    let data = [];
+    for (let [key, value] of this._nodes) {
+      data.push(
+        `${key}, (incoming)[${
+          [...value.incoming.keys()].join(", ")
+        }], (outgoing)[${[...value.outgoing.keys()].join(",")}]`,
+      );
     }
-    lookupOrInsertNode(data) {
-        const key = this._hashFn(data);
-        let node = this._nodes.get(key);
-        if (!node) {
-            node = new Node(data);
-            this._nodes.set(key, node);
-        }
-        return node;
-    }
-    isEmpty() {
-        return this._nodes.size === 0;
-    }
-    toString() {
-        let data = [];
-        for (let [key, value] of this._nodes) {
-            data.push(`${key}, (incoming)[${[...value.incoming.keys()].join(', ')}], (outgoing)[${[...value.outgoing.keys()].join(',')}]`);
-        }
-        return data.join('\n');
-    }
+    return data.join("\n");
+  }
 }

@@ -3,5 +3,5 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 export function isDefined(obj) {
-    return typeof obj !== 'undefined';
+  return typeof obj !== "undefined";
 }
