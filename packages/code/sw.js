@@ -65,51 +65,45 @@ globalThis.register = () => {
       ],
     }),
   );
+
+  self.addEventListener("fetch", (event) => {
+    if (event.request.url.endsWith("/complexRequest")) {
+      event.respondWith((async () => {
+        // Configure the strategy in advance.
+        const strategy = new workbox.strategies.CacheFirst({
+          cacheName: "api-cache",
+        });
+  
+        // Make two requests using the strategy.
+        // Because we're passing in event, event.waitUntil() will be called automatically.
+        const firstPromise = strategy.handle({
+          event,
+          request: "https://example.com/api1",
+        });
+        const secondPromise = strategy.handle({
+          event,
+          request: "https://example.com/api2",
+        });
+  
+        const [firstResponse, secondResponse] = await Promise.all(
+          firstPromise,
+          secondPromise,
+        );
+        const [firstBody, secondBody] = await Promise.all(
+          firstResponse.text(),
+          secondResponse.text(),
+        );
+  
+        // Assume that we just want to concatenate the first API response with the second to create the
+        // final response HTML.
+        const compositeResponse = new Response(firstBody + secondBody, {
+          headers: { "content-type": "text/html" },
+        });
+  
+        return compositeResponse;
+      })());
+    }
+  });
+  
 };
 
-self.addEventListener("fetch", (event) => {
-  if (event.request.url.endsWith("/complexRequest")) {
-    event.respondWith((async () => {
-      // Configure the strategy in advance.
-      const strategy = new workbox.strategies.CacheFirst({
-        cacheName: "api-cache",
-      });
-
-      // Make two requests using the strategy.
-      // Because we're passing in event, event.waitUntil() will be called automatically.
-      const firstPromise = strategy.handle({
-        event,
-        request: "https://example.com/api1",
-      });
-      const secondPromise = strategy.handle({
-        event,
-        request: "https://example.com/api2",
-      });
-
-      const [firstResponse, secondResponse] = await Promise.all(
-        firstPromise,
-        secondPromise,
-      );
-      const [firstBody, secondBody] = await Promise.all(
-        firstResponse.text(),
-        secondResponse.text(),
-      );
-
-      // Assume that we just want to concatenate the first API response with the second to create the
-      // final response HTML.
-      const compositeResponse = new Response(firstBody + secondBody, {
-        headers: { "content-type": "text/html" },
-      });
-
-      return compositeResponse;
-    })());
-  }
-});
-
-function hexToBase64(hexstring) {
-  return btoa(
-    hexstring.match(/\w{2}/g).map(function (a) {
-      return String.fromCharCode(parseInt(a, 16));
-    }).join(""),
-  );
-}
