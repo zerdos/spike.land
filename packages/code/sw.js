@@ -3,7 +3,6 @@ self.importScripts(
 );
 
 
-
 globalThis.register = () => {
 
 
@@ -17,15 +16,10 @@ globalThis.register = () => {
     currentCid = pathname.slice(6, 52);
   }
 
-  // self.workbox.setConfig({
-  //     debug: true,
-  // });
-
-  self.addEventListener('activate', () => {
-
-    fetch("/cid.json").then((x) => x.json()).then(console.log)
-    console.log('V1 now ready to handle fetches!');
+  self.workbox.setConfig({
+      debug: true,
   });
+
 
   self.workbox.loadModule("workbox-routing");
   self.workbox.loadModule("workbox-precaching");

@@ -138,7 +138,7 @@ async function handleRequest(request: Request) {
   }
   if (pathname === "/generated-sw.js") {
     return js(
-      `self. importScripts("./sw.js");
+      `self.importScripts("./sw.js");
       ${getGlobalThis()}
       globalThis.register();
       `,
