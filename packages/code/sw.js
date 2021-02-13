@@ -105,3 +105,11 @@ globalThis.register = () => {
     }
   });
 };
+
+function hexToBase64(hexString) {
+  return btoa(
+    hexString.match(/\w{2}/g).map(function (a) {
+      return String.fromCharCode(parseInt(a, 16));
+    }).join(""),
+  );
+}
