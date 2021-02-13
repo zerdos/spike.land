@@ -16,8 +16,6 @@ export const shasums = {
     "429e8f57123f5de31bd8ed3b5a6b2d067ade231c0f348848c35ced7b18755ed0",
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-  "modules/DraggableWindow.js":
-    "ece5948560d66b4ad9a29f0134d3e87e51a3f25d10582e1e69a5d788b2bd04e5",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/diff.d.ts":
@@ -81,11 +79,11 @@ export const shasums = {
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/workers/getWorker.js":
-    "4f8d59f136c67e292bc46e851750de7dd9d0b74f66a63510fa7a11b43345b895",
+    "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
   "js/workers/transpile.worker.js":
-    "5fe956821232c8f78d43ea8cd87db0243a4a253abad42c6f25edfd0a0f20fe58",
+    "9a4a2671fca8220b0557cd6b9e9eea6bece749f5c0b33379b587f6552f6aef8c",
   "js/workers/prettierWorker.js":
-    "e6d9d78c37073ab0cb12963104d251488bb68e6552607d7a45d4f64065f1fcaf",
+    "99ad56bc9d6338d08b691967280571435b0b13a6ad21cf8bde844906faf97fba",
   "js/workers/ipfsWorker.js":
     "9d7fc639213bed146cfa7d11009592ac504f54b23cabe4a6c89563f18065008e",
   "js/codeLoader.js":
@@ -111,13 +109,13 @@ export const shasums = {
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
-    "c3d2f74bf69199e9ef180518f1ef3e6d051592672758082fc58178ac42d02660",
+    "b2633f9426f6b2e846c0038c495510bef36a2eceb047b02856692a000ecb6b59",
   "js/ipfsClient.js":
     "42038acc27fb3fb7ad7c518500a6222e21a3d890509fbff1d1e3971905d33a71",
   "index.html":
     "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
   ".tsBuildInfo":
-    "dc598aeb4f385a681db2dc3a3c0813bd9947e2664f42c77917d9b0541dc7dbcf",
+    "f9108f86fbbf6e462ac83615989577f47876be91ea0415183751bc0182ce8727",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",

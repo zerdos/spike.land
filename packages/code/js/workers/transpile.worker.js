@@ -47,28 +47,27 @@ const replaceWith = "";
  * @param {string} code
  */
 const transform = (code) => {
-    // @ts-ignore
-    const safeCode = code.replaceAll(
-      searchRegExp,
-      replaceWith,
-    ).replaceAll(
-      searchRegExpMotion,
-      replaceWith,
-    ).replaceAll(searchRegExp2, replace2);
+  // @ts-ignore
+  const safeCode = code.replaceAll(
+    searchRegExp,
+    replaceWith,
+  ).replaceAll(
+    searchRegExpMotion,
+    replaceWith,
+  ).replaceAll(searchRegExp2, replace2);
 
-    // console.log(safeCode);
+  // console.log(safeCode);
 
-    let rendererSrc = `https://code.zed.vision/modules/renderer.js`;
+  let rendererSrc = `https://code.zed.vision/modules/renderer.js`;
 
-    if (self.location.hostname.indexOf("0.0") !== -1) {
-      const cid = self.location.pathname.slice(6, 52);
-      rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.js`;
-    }
+  if (self.location.hostname.indexOf("0.0") !== -1) {
+    const cid = self.location.pathname.slice(6, 52);
+    rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.js`;
+  }
 
-    let transformed = null;
+  let transformed = null;
 
-    try{
-
+  try {
     transformed = Babel.transform(
       `/** @jsx jsx */
       import {jsx, React, css, Fragment, Global, Motion, motion, render} from "${rendererSrc}";
@@ -90,15 +89,14 @@ const transform = (code) => {
         ],
       },
     ).code;
-
   } catch (e) {
     console.error(e);
 
-    const error =  `import { motion } from 'framer-motion';
+    const error = `import { motion } from 'framer-motion';
 
     export default () => (
   <header> Error
-      </header>`
+      </header>`;
 
     transformed = transformed(error);
   }
