@@ -73,7 +73,7 @@ globalThis.register = () => {
         const strategy = new workbox.strategies.CacheFirst({
           cacheName: "api-cache",
         });
-  
+
         // Make two requests using the strategy.
         // Because we're passing in event, event.waitUntil() will be called automatically.
         const firstPromise = strategy.handle({
@@ -84,7 +84,7 @@ globalThis.register = () => {
           event,
           request: "https://example.com/api2",
         });
-  
+
         const [firstResponse, secondResponse] = await Promise.all(
           firstPromise,
           secondPromise,
@@ -93,17 +93,15 @@ globalThis.register = () => {
           firstResponse.text(),
           secondResponse.text(),
         );
-  
+
         // Assume that we just want to concatenate the first API response with the second to create the
         // final response HTML.
         const compositeResponse = new Response(firstBody + secondBody, {
           headers: { "content-type": "text/html" },
         });
-  
+
         return compositeResponse;
       })());
     }
   });
-  
 };
-
