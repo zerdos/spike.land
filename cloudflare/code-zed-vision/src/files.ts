@@ -76,7 +76,7 @@ export const files = {
   "modules/vendor/idb.d.ts": "QmRDw3SijUK8mQZ2H5CzJtKk8zknGsCz4mz58EzsjEC738",
   "modules/vendor/idb.js": "QmTLkMPbkyM8jQu4WN49K9Ai8chhrbDZutNYJV73e54z2X",
   "package.json": "QmcASJhqTX4SH1oUQ5bvZUo9o32a5JY4nxnTxzWsH2PtdS",
-  "sw.js": "QmTQXPNq9F64SVdAMarSo6uLcrRNuXbE78gD7oh5k51yt6",
+  "sw.js": "Qmbm2VgNLkQBoq9dLabB1dv9Zj2gGycdCrGCoEvQxkDeYP",
   "tsconfig.json": "QmdTwUzCmgDciKzEEtUSiMo2ynw3T3yt2e6qqCpy7kWFs6",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
@@ -90,6 +90,6 @@ export const files = {
     "Qma8go3aNXn62EYXqiQKHTqLg1q5sNVx1mpDaDJsc2GWkg",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
   "modules": "QmfSUx8zRjvcWtR7nEZG9SeybY5Vwqd769yhzrmQ3fKAVP",
-  "": "QmTX9CAbCZ7Bkye7Ns32TAUdzHQPgTBt4VfD6obRqHbesc",
+  "": "QmVY3cGrkJFyEN885uS8TiLRxmk1fT6hdgPmTskyLASEgy",
   "foo": "bar",
 };

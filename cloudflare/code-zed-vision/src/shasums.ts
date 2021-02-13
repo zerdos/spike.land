@@ -1,5 +1,5 @@
 export const shasums = {
-  "sw.js": "8a6f6887cdfb6805e333254613e17e79820d041694b7c4687beb618bb532163a",
+  "sw.js": "e80a3fcb9600a62a34f69eea75897ea47e564ca591229d0d91e7eb66bb2bb304",
   "package.json":
     "c9571a9b6974d5e0f669fdffc3fe64dbfcc28340b40aadd23debd260b4e4c348",
   "modules/vendor/diffMin.js":
