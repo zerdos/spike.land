@@ -10,9 +10,11 @@ const UsingTypescript: React.FC<PageProps> = ({ path }) => (
     <h1>Gatsby supports TypeScript by default!</h1>
     <p>
       This means that you can create and write <em>.ts/.tsx</em>
-      files for your pages, components etc. Please note that the <em>
+      files for your pages, components etc. Please note that the{" "}
+      <em>
         gatsby-*.js
-      </em> files (like gatsby-node.js) currently do not support TypeScript yet.
+      </em>{" "}
+      files (like gatsby-node.js) currently do not support TypeScript yet.
     </p>
     <p>
       For type checking you will want to install <em>typescript</em>

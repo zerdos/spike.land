@@ -40,7 +40,8 @@ export const Bio = () => {
         />
       </div>
       <p>
-        Written by <strong>
+        Written by{" "}
+        <strong>
           Zoltan Erdos
         </strong>, who is interested to make software development
         {` ` + (objectives[Math.floor(random * objectives.length)] || "crazy.")}

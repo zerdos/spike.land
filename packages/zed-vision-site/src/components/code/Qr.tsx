@@ -137,11 +137,13 @@ export const Qr = () => {
     
     `}
     >
-      {/* <button onClick={()=>{
+      {
+        /* <button onClick={()=>{
  
      setCubeState(0)
     }} >Kill QR</button>
-      <br />      <br />      <br />      <br />      <br />      <br />      <br /> */}
+      <br />      <br />      <br />      <br />      <br />      <br />      <br /> */
+      }
       <div
         css={css`
         position: absolute;
