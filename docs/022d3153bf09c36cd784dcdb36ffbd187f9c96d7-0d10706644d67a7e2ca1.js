@@ -2428,7 +2428,7 @@ var Bio = function Bio() {
   }, Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("img", {
     alt: "Zoltan Erdos",
     src: _zed_profile_pic_jpg__WEBPACK_IMPORTED_MODULE_3___default.a
-  })), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("p", null, "Written by ", Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("strong", null, "Zoltan Erdos"), ", who is interested to make software development", " " + (objectives[Math.floor(random * objectives.length)] || "crazy."), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("br", null), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("a", {
+  })), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("p", null, "Written by", " ", Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("strong", null, "Zoltan Erdos"), ", who is interested to make software development", " " + (objectives[Math.floor(random * objectives.length)] || "crazy."), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("br", null), Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("a", {
     href: "https://twitter.com/ZoltanErdos"
   }, "Follow me on Twitter")));
 };
@@ -2738,4 +2738,4 @@ module.exports = function (lightness, hue, darkBackground) {
 /***/ })
 
 }]);
-//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-f7f7aa0c3b8a6d238ad7.js.map
+//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-0d10706644d67a7e2ca1.js.map
