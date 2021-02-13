@@ -2,10 +2,7 @@ self.importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js",
 );
 
-
 globalThis.register = () => {
-
-
   const { cid, files, shaSums } = globalThis;
 
   let currentCid = cid;
@@ -17,9 +14,8 @@ globalThis.register = () => {
   }
 
   self.workbox.setConfig({
-      debug: true,
+    debug: true,
   });
-
 
   self.workbox.loadModule("workbox-routing");
   self.workbox.loadModule("workbox-precaching");
@@ -28,7 +24,11 @@ globalThis.register = () => {
 
   const routes = Object.keys(files).filter((x) =>
     x.length && x.indexOf(".") !== -1 && shaSums[x]
-  ).map((x) => ({ url: `/${x}`, revision: files[x], integrity: `sha256-${hexToBase64(shaSums[x])}` }));
+  ).map((x) => ({
+    url: `/${x}`,
+    revision: files[x],
+    integrity: `sha256-${hexToBase64(shaSums[x])}`,
+  }));
 
   self.workbox.precaching.precacheAndRoute(
     routes,
@@ -39,17 +39,20 @@ globalThis.register = () => {
         const fileName = pathname.slice(1);
         const fileCid = files[fileName];
 
-
-        const urlList = [new URL(`https://code.zed.vision/ipfs/${currentCid}/${fileName}`)];
+        const urlList = [
+          new URL(`https://code.zed.vision/ipfs/${currentCid}/${fileName}`),
+        ];
         if (fileCid) {
-          urlList.push(new URL(`https://code.zed.vision/ipfs/${fileCid}`), new URL(`https://cf-ipfs.com/ipfs/${fileCid}`))
+          urlList.push(
+            new URL(`https://code.zed.vision/ipfs/${fileCid}`),
+            new URL(`https://cf-ipfs.com/ipfs/${fileCid}`),
+          );
         }
 
         return urlList;
       },
     },
   );
-
 
   self.workbox.routing.registerRoute(
     ({ url }) => url.origin.indexOf("zed.vision") === -1,
@@ -62,26 +65,40 @@ globalThis.register = () => {
       ],
     }),
   );
-}
+};
 
-self.addEventListener('fetch', (event) => {
-  if (event.request.url.endsWith('/complexRequest')) {
+self.addEventListener("fetch", (event) => {
+  if (event.request.url.endsWith("/complexRequest")) {
     event.respondWith((async () => {
       // Configure the strategy in advance.
-      const strategy = new .workbox.strategies.CacheFirst({cacheName: 'api-cache'});
+      const strategy = new workbox.strategies.CacheFirst({
+        cacheName: "api-cache",
+      });
 
       // Make two requests using the strategy.
       // Because we're passing in event, event.waitUntil() will be called automatically.
-      const firstPromise = strategy.handle({event, request: 'https://example.com/api1'});
-      const secondPromise = strategy.handle({event, request: 'https://example.com/api2'});
+      const firstPromise = strategy.handle({
+        event,
+        request: "https://example.com/api1",
+      });
+      const secondPromise = strategy.handle({
+        event,
+        request: "https://example.com/api2",
+      });
 
-      const [firstResponse, secondResponse] = await Promise.all(firstPromise, secondPromise);
-      const [firstBody, secondBody] = await Promise.all(firstResponse.text(), secondResponse.text());
+      const [firstResponse, secondResponse] = await Promise.all(
+        firstPromise,
+        secondPromise,
+      );
+      const [firstBody, secondBody] = await Promise.all(
+        firstResponse.text(),
+        secondResponse.text(),
+      );
 
       // Assume that we just want to concatenate the first API response with the second to create the
       // final response HTML.
       const compositeResponse = new Response(firstBody + secondBody, {
-        headers: {'content-type': 'text/html'},
+        headers: { "content-type": "text/html" },
       });
 
       return compositeResponse;
@@ -90,7 +107,9 @@ self.addEventListener('fetch', (event) => {
 });
 
 function hexToBase64(hexstring) {
-  return btoa(hexstring.match(/\w{2}/g).map(function (a) {
-    return String.fromCharCode(parseInt(a, 16));
-  }).join(""));
+  return btoa(
+    hexstring.match(/\w{2}/g).map(function (a) {
+      return String.fromCharCode(parseInt(a, 16));
+    }).join(""),
+  );
 }
