@@ -1515,9 +1515,7 @@ registerThemingParticipant((theme, collector) => {
   if (findMatchHighlightBorder) {
     collector.addRule(
       `.monaco-editor .findMatch { border: 1px ${
-        theme.type === "hc"
-          ? "dotted"
-          : "solid"
+        theme.type === "hc" ? "dotted" : "solid"
       } ${findMatchHighlightBorder}; box-sizing: border-box; }`,
     );
   }
@@ -1533,9 +1531,7 @@ registerThemingParticipant((theme, collector) => {
   if (findRangeHighlightBorder) {
     collector.addRule(
       `.monaco-editor .findScope { border: 1px ${
-        theme.type === "hc"
-          ? "dashed"
-          : "solid"
+        theme.type === "hc" ? "dashed" : "solid"
       } ${findRangeHighlightBorder}; }`,
     );
   }

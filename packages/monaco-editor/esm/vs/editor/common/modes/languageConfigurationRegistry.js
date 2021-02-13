@@ -315,7 +315,9 @@ export class LanguageConfigurationRegistryImpl {
       let lastLineNumber;
       let resultLineNumber = -1;
       for (
-        lastLineNumber = lineNumber - 1; lastLineNumber >= 1; lastLineNumber--
+        lastLineNumber = lineNumber - 1;
+        lastLineNumber >= 1;
+        lastLineNumber--
       ) {
         if (model.getLanguageIdAtPosition(lastLineNumber, 0) !== languageID) {
           return resultLineNumber;

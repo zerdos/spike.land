@@ -203,25 +203,22 @@ export class LinkComputer {
               break;
             /* The following three rules make it that ' or " or ` are allowed inside links if the link began with a different one */
             case 39 /* SingleQuote */:
-              chClass =
-                (linkBeginChCode === 34 /* DoubleQuote */ ||
-                    linkBeginChCode === 96 /* BackTick */)
-                  ? 0 /* None */
-                  : 1 /* ForceTermination */;
+              chClass = (linkBeginChCode === 34 /* DoubleQuote */ ||
+                  linkBeginChCode === 96 /* BackTick */)
+                ? 0 /* None */
+                : 1 /* ForceTermination */;
               break;
             case 34 /* DoubleQuote */:
-              chClass =
-                (linkBeginChCode === 39 /* SingleQuote */ ||
-                    linkBeginChCode === 96 /* BackTick */)
-                  ? 0 /* None */
-                  : 1 /* ForceTermination */;
+              chClass = (linkBeginChCode === 39 /* SingleQuote */ ||
+                  linkBeginChCode === 96 /* BackTick */)
+                ? 0 /* None */
+                : 1 /* ForceTermination */;
               break;
             case 96 /* BackTick */:
-              chClass =
-                (linkBeginChCode === 39 /* SingleQuote */ ||
-                    linkBeginChCode === 34 /* DoubleQuote */)
-                  ? 0 /* None */
-                  : 1 /* ForceTermination */;
+              chClass = (linkBeginChCode === 39 /* SingleQuote */ ||
+                  linkBeginChCode === 34 /* DoubleQuote */)
+                ? 0 /* None */
+                : 1 /* ForceTermination */;
               break;
             case 42 /* Asterisk */:
               // `*` terminates a link if the link began with `*`

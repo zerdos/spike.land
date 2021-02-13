@@ -123,11 +123,10 @@
         this._detected = true;
         this._isWindows = Environment._isWindows();
         this._isNode = (typeof module !== "undefined" && !!module.exports);
-        this._isElectronRenderer =
-          (typeof process !== "undefined" &&
-            typeof process.versions !== "undefined" &&
-            typeof process.versions.electron !== "undefined" &&
-            process.type === "renderer");
+        this._isElectronRenderer = (typeof process !== "undefined" &&
+          typeof process.versions !== "undefined" &&
+          typeof process.versions.electron !== "undefined" &&
+          process.type === "renderer");
         this._isWebWorker =
           (typeof AMDLoader.global.importScripts === "function");
       };
@@ -296,9 +295,8 @@
       Utilities.getHighPerformanceTimestamp = function () {
         if (!this.PERFORMANCE_NOW_PROBED) {
           this.PERFORMANCE_NOW_PROBED = true;
-          this.HAS_PERFORMANCE_NOW =
-            (AMDLoader.global.performance &&
-              typeof AMDLoader.global.performance.now === "function");
+          this.HAS_PERFORMANCE_NOW = (AMDLoader.global.performance &&
+            typeof AMDLoader.global.performance.now === "function");
         }
         return (this.HAS_PERFORMANCE_NOW
           ? AMDLoader.global.performance.now()
@@ -1623,9 +1621,8 @@
                 col: parseInt(stackColumn, 10),
               };
               if (r.line === 1) {
-                r.col -=
-                  "(function (require, define, __filename, __dirname) { "
-                    .length;
+                r.col -= "(function (require, define, __filename, __dirname) { "
+                  .length;
               }
               return r;
             }
@@ -1917,7 +1914,9 @@
         // Find any 'local' error handlers, walk the entire chain of inverse dependencies if necessary.
         var seenModuleId = [];
         for (
-          var i = 0, len = this._moduleIdProvider.getMaxModuleId(); i < len; i++
+          var i = 0, len = this._moduleIdProvider.getMaxModuleId();
+          i < len;
+          i++
         ) {
           seenModuleId[i] = false;
         }
@@ -1959,7 +1958,9 @@
         }
         var inQueue = [];
         for (
-          var i = 0, len = this._moduleIdProvider.getMaxModuleId(); i < len; i++
+          var i = 0, len = this._moduleIdProvider.getMaxModuleId();
+          i < len;
+          i++
         ) {
           inQueue[i] = false;
         }
@@ -3674,7 +3675,9 @@
       let _translationsConfigFile = undefined;
       let _userAgent = undefined;
       const _globals =
-        (typeof self === "object" ? self : typeof global === "object"
+        (typeof self === "object"
+          ? self
+          : typeof global === "object"
           ? global
           : {});
       let nodeProcess = undefined;
@@ -3722,10 +3725,9 @@
         _userAgent = navigator.userAgent;
         _isWindows = _userAgent.indexOf("Windows") >= 0;
         _isMacintosh = _userAgent.indexOf("Macintosh") >= 0;
-        _isIOS =
-          (_userAgent.indexOf("Macintosh") >= 0 ||
-            _userAgent.indexOf("iPad") >= 0 ||
-            _userAgent.indexOf("iPhone") >= 0) &&
+        _isIOS = (_userAgent.indexOf("Macintosh") >= 0 ||
+          _userAgent.indexOf("iPad") >= 0 ||
+          _userAgent.indexOf("iPhone") >= 0) &&
           !!navigator.maxTouchPoints && navigator.maxTouchPoints > 0;
         _isLinux = _userAgent.indexOf("Linux") >= 0;
         _isWeb = true;
@@ -3810,9 +3812,10 @@
         const _promise = Promise.resolve();
         return (callback) => _promise.then(callback);
       })();
-      exports.OS = (_isMacintosh || _isIOS
-        ? 2 /* Macintosh */
-        : (_isWindows ? 1 /* Windows */ : 3 /* Linux */));
+      exports.OS =
+        (_isMacintosh || _isIOS
+          ? 2 /* Macintosh */
+          : (_isWindows ? 1 /* Windows */ : 3 /* Linux */));
       let _isLittleEndian = true;
       let _isLittleEndianComputed = false;
       function isLittleEndian() {
@@ -3877,7 +3880,9 @@
         safeProcess = {
           // Supported
           get platform() {
-            return platform_1.isWindows ? "win32" : platform_1.isMacintosh
+            return platform_1.isWindows
+              ? "win32"
+              : platform_1.isMacintosh
               ? "darwin"
               : "linux";
           },
@@ -4036,8 +4041,9 @@
         if (!dir) {
           return base;
         }
-        return dir === pathObject.root ? `${dir}${base}`
-        : `${dir}${sep}${base}`;
+        return dir === pathObject.root
+          ? `${dir}${base}`
+          : `${dir}${sep}${base}`;
       }
       exports.win32 = {
         // path.resolve([from ...], to)
@@ -4887,7 +4893,9 @@
           let resolvedPath = "";
           let resolvedAbsolute = false;
           for (
-            let i = pathSegments.length - 1; i >= -1 && !resolvedAbsolute; i--
+            let i = pathSegments.length - 1;
+            i >= -1 && !resolvedAbsolute;
+            i--
           ) {
             const path = i >= 0 ? pathSegments[i] : process.cwd();
             validateString(path, "path");
@@ -5270,27 +5278,32 @@
       };
       exports.posix.win32 = exports.win32.win32 = exports.win32;
       exports.posix.posix = exports.win32.posix = exports.posix;
-      exports.normalize = (process.platform === "win32"
-        ? exports.win32.normalize
-        : exports.posix.normalize);
-      exports.resolve = (process.platform === "win32"
-        ? exports.win32.resolve
-        : exports.posix.resolve);
-      exports.relative = (process.platform === "win32"
-        ? exports.win32.relative
-        : exports.posix.relative);
-      exports.dirname = (process.platform === "win32"
-        ? exports.win32.dirname
-        : exports.posix.dirname);
-      exports.basename = (process.platform === "win32"
-        ? exports.win32.basename
-        : exports.posix.basename);
-      exports.extname = (process.platform === "win32"
-        ? exports.win32.extname
-        : exports.posix.extname);
-      exports.sep = (process.platform === "win32"
-        ? exports.win32.sep
-        : exports.posix.sep);
+      exports.normalize =
+        (process.platform === "win32"
+          ? exports.win32.normalize
+          : exports.posix.normalize);
+      exports.resolve =
+        (process.platform === "win32"
+          ? exports.win32.resolve
+          : exports.posix.resolve);
+      exports.relative =
+        (process.platform === "win32"
+          ? exports.win32.relative
+          : exports.posix.relative);
+      exports.dirname =
+        (process.platform === "win32"
+          ? exports.win32.dirname
+          : exports.posix.dirname);
+      exports.basename =
+        (process.platform === "win32"
+          ? exports.win32.basename
+          : exports.posix.basename);
+      exports.extname =
+        (process.platform === "win32"
+          ? exports.win32.extname
+          : exports.posix.extname);
+      exports.sep =
+        (process.platform === "win32" ? exports.win32.sep : exports.posix.sep);
     },
   );
 
@@ -5306,9 +5319,8 @@
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.StopWatch = void 0;
-      const hasPerformanceNow =
-        (platform_1.globals.performance &&
-          typeof platform_1.globals.performance.now === "function");
+      const hasPerformanceNow = (platform_1.globals.performance &&
+        typeof platform_1.globals.performance.now === "function");
       class StopWatch {
         constructor(highResolution) {
           this._highResolution = hasPerformanceNow && highResolution;
@@ -5328,8 +5340,9 @@
           return this._now() - this._startTime;
         }
         _now() {
-          return this._highResolution ? platform_1.globals.performance.now()
-          : Date.now();
+          return this._highResolution
+            ? platform_1.globals.performance.now()
+            : Date.now();
         }
       }
       exports.StopWatch = StopWatch;
@@ -5441,9 +5454,11 @@
         Event.signal = signal;
         function any(...events) {
           return (listener, thisArgs = null, disposables) =>
-            lifecycle_1.combinedDisposable(...events.map((event) =>
-              event((e) => listener.call(thisArgs, e), null, disposables)
-            ));
+            lifecycle_1.combinedDisposable(
+              ...events.map((event) =>
+                event((e) => listener.call(thisArgs, e), null, disposables)
+              ),
+            );
         }
         Event.any = any;
         /**
@@ -5523,8 +5538,7 @@
          */
         function stopwatch(event) {
           const start = new Date().getTime();
-          return map(once(event), (_) =>
-            new Date().getTime() - start);
+          return map(once(event), (_) => new Date().getTime() - start);
         }
         Event.stopwatch = stopwatch;
         /**
@@ -5798,11 +5812,12 @@
               this._options && this._options.leakWarningThreshold,
             )
             : undefined;
-          this._perfMon = ((_a = this._options) === null || _a === void 0
-              ? void 0
-              : _a._profName)
-            ? new EventProfiling(this._options._profName)
-            : undefined;
+          this._perfMon =
+            ((_a = this._options) === null || _a === void 0
+                ? void 0
+                : _a._profName)
+              ? new EventProfiling(this._options._profName)
+              : undefined;
         }
         /**
          * For the public to allow to subscribe
@@ -5823,9 +5838,7 @@
                 this._options.onFirstListenerAdd(this);
               }
               const remove = this._listeners.push(
-                !thisArgs
-                  ? listener
-                  : [listener, thisArgs],
+                !thisArgs ? listener : [listener, thisArgs],
               );
               if (
                 firstListener && this._options &&
@@ -6668,8 +6681,9 @@
         const len = str.length;
         const initialCodePoint = getNextCodePoint(str, len, offset);
         offset +=
-          (initialCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */ ? 2
-          : 1);
+          (initialCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */
+            ? 2
+            : 1);
         let graphemeBreakType = graphemeBreakTree.getGraphemeBreakType(
           initialCodePoint,
         );
@@ -6687,8 +6701,9 @@
             break;
           }
           offset +=
-            (nextCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */ ? 2
-            : 1);
+            (nextCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */
+              ? 2
+              : 1);
           graphemeBreakType = nextGraphemeBreakType;
         }
         return (offset - initialOffset);
@@ -6699,8 +6714,9 @@
         const initialOffset = offset;
         const initialCodePoint = getPrevCodePoint(str, offset);
         offset -=
-          (initialCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */ ? 2
-          : 1);
+          (initialCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */
+            ? 2
+            : 1);
         let graphemeBreakType = graphemeBreakTree.getGraphemeBreakType(
           initialCodePoint,
         );
@@ -6718,8 +6734,9 @@
             break;
           }
           offset -=
-            (prevCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */ ? 2
-            : 1);
+            (prevCodePoint >= 65536 /* UNICODE_SUPPLEMENTARY_PLANE_BEGIN */
+              ? 2
+              : 1);
           graphemeBreakType = prevGraphemeBreakType;
         }
         return (initialOffset - offset);
@@ -7334,9 +7351,8 @@
               f = b ^ c ^ d;
               k = 0xCA62C1D6;
             }
-            temp =
-              (leftRotate(a, 5) + f + e + k +
-                bigBlock32.getUint32(j * 4, false)) & 0xffffffff;
+            temp = (leftRotate(a, 5) + f + e + k +
+              bigBlock32.getUint32(j * 4, false)) & 0xffffffff;
             e = d;
             d = c;
             c = leftRotate(b, 30);
@@ -7594,7 +7610,8 @@
           }
           return (this._hasStrings
             ? this._originalStringElements[originalIndex] ===
-              this._modifiedStringElements[newIndex] : true);
+              this._modifiedStringElements[newIndex]
+            : true);
         }
         OriginalElementsAreEqual(index1, index2) {
           if (
@@ -7605,7 +7622,8 @@
           }
           return (this._hasStrings
             ? this._originalStringElements[index1] ===
-              this._originalStringElements[index2] : true);
+              this._originalStringElements[index2]
+            : true);
         }
         ModifiedElementsAreEqual(index1, index2) {
           if (
@@ -7900,8 +7918,9 @@
             diagonalRelative = (midOriginalArr[0] - midModifiedArr[0]) -
               diagonalReverseOffset;
             lastOriginalIndex = 1073741824 /* MAX_SAFE_SMALL_INTEGER */;
-            historyIndex = (deltaIsEven) ? this.m_reverseHistory.length - 1
-            : this.m_reverseHistory.length - 2;
+            historyIndex = (deltaIsEven)
+              ? this.m_reverseHistory.length - 1
+              : this.m_reverseHistory.length - 2;
             do {
               // Get the diagonal index from the relative diagonal number
               const diagonal = diagonalRelative + diagonalReverseBase;
@@ -8599,11 +8618,13 @@
           modifiedLength,
         ) {
           const originalScore =
-            (this._OriginalRegionIsBoundary(originalStart, originalLength) ? 1
-            : 0);
+            (this._OriginalRegionIsBoundary(originalStart, originalLength)
+              ? 1
+              : 0);
           const modifiedScore =
-            (this._ModifiedRegionIsBoundary(modifiedStart, modifiedLength) ? 1
-            : 0);
+            (this._ModifiedRegionIsBoundary(modifiedStart, modifiedLength)
+              ? 1
+              : 0);
           return (originalScore + modifiedScore);
         }
         /**
@@ -9253,10 +9274,9 @@
           }
           let newPath;
           if (platform_1.isWindows && uri.scheme === "file") {
-            newPath =
-              URI.file(
-                paths.win32.join(uriToFsPath(uri, true), ...pathFragment),
-              ).path;
+            newPath = URI.file(
+              paths.win32.join(uriToFsPath(uri, true), ...pathFragment),
+            ).path;
           } else {
             newPath = paths.posix.join(uri.path, ...pathFragment);
           }
@@ -9480,8 +9500,9 @@
      * Create the external version of a uri
      */
       function _asFormatted(uri, skipEncoding) {
-        const encoder = !skipEncoding ? encodeURIComponentFast
-        : encodeURIComponentMinimal;
+        const encoder = !skipEncoding
+          ? encodeURIComponentFast
+          : encodeURIComponentMinimal;
         let res = "";
         let { scheme, authority, path, query, fragment } = uri;
         if (scheme) {
@@ -9546,8 +9567,9 @@
         }
         if (fragment) {
           res += "#";
-          res += !skipEncoding ? encodeURIComponentFast(fragment, false)
-          : fragment;
+          res += !skipEncoding
+            ? encodeURIComponentFast(fragment, false)
+            : fragment;
         }
         return res;
       }
@@ -10881,8 +10903,9 @@
           let len = 0;
           for (let index = startIndex; index <= endIndex; index++) {
             const lineContent = this.lines[index];
-            const startColumn =
-              (shouldIgnoreTrimWhitespace ? this._startColumns[index] : 1);
+            const startColumn = (shouldIgnoreTrimWhitespace
+              ? this._startColumns[index]
+              : 1);
             const endColumn = (shouldIgnoreTrimWhitespace
               ? this._endColumns[index]
               : lineContent.length + 1);
@@ -11063,10 +11086,9 @@
           let modifiedEndLineNumber;
           let charChanges = undefined;
           if (diffChange.originalLength === 0) {
-            originalStartLineNumber =
-              originalLineSequence.getStartLineNumber(
-                diffChange.originalStart,
-              ) - 1;
+            originalStartLineNumber = originalLineSequence.getStartLineNumber(
+              diffChange.originalStart,
+            ) - 1;
             originalEndLineNumber = 0;
           } else {
             originalStartLineNumber = originalLineSequence.getStartLineNumber(
@@ -11077,10 +11099,9 @@
             );
           }
           if (diffChange.modifiedLength === 0) {
-            modifiedStartLineNumber =
-              modifiedLineSequence.getStartLineNumber(
-                diffChange.modifiedStart,
-              ) - 1;
+            modifiedStartLineNumber = modifiedLineSequence.getStartLineNumber(
+              diffChange.modifiedStart,
+            ) - 1;
             modifiedEndLineNumber = 0;
           } else {
             modifiedStartLineNumber = modifiedLineSequence.getStartLineNumber(
@@ -11108,13 +11129,12 @@
                 diffChange.modifiedStart,
                 diffChange.modifiedStart + diffChange.modifiedLength - 1,
               );
-            let rawChanges =
-              computeDiff(
-                originalCharSequence,
-                modifiedCharSequence,
-                continueCharDiff,
-                true,
-              ).changes;
+            let rawChanges = computeDiff(
+              originalCharSequence,
+              modifiedCharSequence,
+              continueCharDiff,
+              true,
+            ).changes;
             if (shouldPostProcessCharChanges) {
               rawChanges = postProcessCharChanges(rawChanges);
             }
@@ -11254,11 +11274,11 @@
           let modifiedLineIndex = 0;
           for (let i = -1, /* !!!! */ len = rawChanges.length; i < len; i++) {
             const nextChange = (i + 1 < len ? rawChanges[i + 1] : null);
-            const originalStop =
-              (nextChange ? nextChange.originalStart
+            const originalStop = (nextChange
+              ? nextChange.originalStart
               : this.originalLines.length);
-            const modifiedStop =
-              (nextChange ? nextChange.modifiedStart
+            const modifiedStop = (nextChange
+              ? nextChange.modifiedStart
               : this.modifiedLines.length);
             while (
               originalLineIndex < originalStop &&
@@ -11816,7 +11836,9 @@
           const classifier = getClassifier();
           let result = [];
           for (
-            let i = 1, lineCount = model.getLineCount(); i <= lineCount; i++
+            let i = 1, lineCount = model.getLineCount();
+            i <= lineCount;
+            i++
           ) {
             const line = model.getLineContent(i);
             const len = line.length;
@@ -11839,8 +11861,9 @@
                     chClass = 0 /* None */;
                     break;
                   case 41 /* CloseParen */:
-                    chClass =
-                      (hasOpenParens ? 0 /* None */ : 1 /* ForceTermination */);
+                    chClass = (hasOpenParens
+                      ? 0 /* None */
+                      : 1 /* ForceTermination */);
                     break;
                   case 91 /* OpenSquareBracket */:
                     inSquareBrackets = true;
@@ -11849,8 +11872,8 @@
                     break;
                   case 93 /* CloseSquareBracket */:
                     inSquareBrackets = false;
-                    chClass =
-                      (hasOpenSquareBracket ? 0 /* None */
+                    chClass = (hasOpenSquareBracket
+                      ? 0 /* None */
                       : 1 /* ForceTermination */);
                     break;
                   case 123 /* OpenCurlyBrace */:
@@ -11858,35 +11881,34 @@
                     chClass = 0 /* None */;
                     break;
                   case 125 /* CloseCurlyBrace */:
-                    chClass =
-                      (hasOpenCurlyBracket ? 0 /* None */
+                    chClass = (hasOpenCurlyBracket
+                      ? 0 /* None */
                       : 1 /* ForceTermination */);
                     break;
                   /* The following three rules make it that ' or " or ` are allowed inside links if the link began with a different one */
                   case 39 /* SingleQuote */:
-                    chClass =
-                      (linkBeginChCode === 34 /* DoubleQuote */ ||
-                          linkBeginChCode === 96 /* BackTick */) ? 0 /* None */
+                    chClass = (linkBeginChCode === 34 /* DoubleQuote */ ||
+                        linkBeginChCode === 96 /* BackTick */)
+                      ? 0 /* None */
                       : 1 /* ForceTermination */;
                     break;
                   case 34 /* DoubleQuote */:
-                    chClass =
-                      (linkBeginChCode === 39 /* SingleQuote */ ||
-                          linkBeginChCode === 96 /* BackTick */)
-                        ? 0 /* None */
-                        : 1 /* ForceTermination */;
+                    chClass = (linkBeginChCode === 39 /* SingleQuote */ ||
+                        linkBeginChCode === 96 /* BackTick */)
+                      ? 0 /* None */
+                      : 1 /* ForceTermination */;
                     break;
                   case 96 /* BackTick */:
-                    chClass =
-                      (linkBeginChCode === 39 /* SingleQuote */ ||
-                          linkBeginChCode === 34 /* DoubleQuote */)
-                        ? 0 /* None */
-                        : 1 /* ForceTermination */;
+                    chClass = (linkBeginChCode === 39 /* SingleQuote */ ||
+                        linkBeginChCode === 34 /* DoubleQuote */)
+                      ? 0 /* None */
+                      : 1 /* ForceTermination */;
                     break;
                   case 42 /* Asterisk */:
                     // `*` terminates a link if the link began with `*`
                     chClass = (linkBeginChCode === 42 /* Asterisk */)
-                      ? 1 /* ForceTermination */ : 0 /* None */;
+                      ? 1 /* ForceTermination */
+                      : 0 /* None */;
                     break;
                   case 124 /* Pipe */:
                     // `|` terminates a link if the link began with `|`
@@ -12066,7 +12088,9 @@
         valueSetsReplace(valueSets, value, up) {
           let result = null;
           for (
-            let i = 0, len = valueSets.length; result === null && i < len; i++
+            let i = 0, len = valueSets.length;
+            result === null && i < len;
+            i++
           ) {
             result = this.valueSetReplace(valueSets[i], value, up);
           }

@@ -67,11 +67,7 @@ LIB = (() => {
                 0 !== a.length && (n = a + "/" + n, o = 47 === a.charCodeAt(0));
             }
             return n = r(n, !o),
-              o
-                ? n.length > 0 ? "/" + n : "/"
-                : n.length > 0
-                ? n
-                : ".";
+              o ? n.length > 0 ? "/" + n : "/" : n.length > 0 ? n : ".";
           },
           normalize: function (t) {
             if (e(t), 0 === t.length) return ".";
@@ -93,7 +89,7 @@ LIB = (() => {
             return void 0 === t ? "." : n.normalize(t);
           },
           relative: function (t, r) {
-            if (e(t), e(r), t === r)return "";
+            if (e(t), e(r), t === r) return "";
             if ((t = n.resolve(t)) === (r = n.resolve(r))) return "";
             for (var o = 1; o < t.length && 47 === t.charCodeAt(o); ++o);
             for (
@@ -125,14 +121,15 @@ LIB = (() => {
               c !== i && 47 !== t.charCodeAt(c) ||
                 (0 === p.length ? p += ".." : p += "/..");
             }
-            return p.length > 0 ? p + r.slice(h + u)
-            : (h += u, 47 === r.charCodeAt(h) && ++h, r.slice(h));
+            return p.length > 0
+              ? p + r.slice(h + u)
+              : (h += u, 47 === r.charCodeAt(h) && ++h, r.slice(h));
           },
           _makeLong: function (t) {
             return t;
           },
           dirname: function (t) {
-            if (e(t), 0 === t.length)return ".";
+            if (e(t), 0 === t.length) return ".";
             for (
               var r = t.charCodeAt(0),
                 n = 47 === r,
@@ -142,13 +139,18 @@ LIB = (() => {
               a >= 1;
               --a
             ) {
-              if (47 === (r = t.charCodeAt(a))) {if (!i) {
+              if (47 === (r = t.charCodeAt(a))) {
+                if (!i) {
                   o = a;
                   break;
-                }} else i = !1;
+                }
+              } else i = !1;
             }
-            return -1 === o ? n ? "/" : "."
-            : n && 1 === o ? "//" : t.slice(0, o);
+            return -1 === o
+              ? n ? "/" : "."
+              : n && 1 === o
+              ? "//"
+              : t.slice(0, o);
           },
           basename: function (t, r) {
             if (void 0 !== r && "string" != typeof r) {
@@ -157,7 +159,7 @@ LIB = (() => {
             e(t);
             var n, o = 0, i = -1, a = !0;
             if (void 0 !== r && r.length > 0 && r.length <= t.length) {
-              if (r.length === t.length && r === t)return "";
+              if (r.length === t.length && r === t) return "";
               var h = r.length - 1, s = -1;
               for (n = t.length - 1; n >= 0; --n) {
                 var f = t.charCodeAt(n);
@@ -178,10 +180,12 @@ LIB = (() => {
                 t.slice(o, i);
             }
             for (n = t.length - 1; n >= 0; --n) {
-              if (47 === t.charCodeAt(n)) {if (!a) {
+              if (47 === t.charCodeAt(n)) {
+                if (!a) {
                   o = n + 1;
                   break;
-                }} else -1 === i && (a = !1, i = n + 1);
+                }
+              } else -1 === i && (a = !1, i = n + 1);
             }
             return -1 === i ? "" : t.slice(o, i);
           },
@@ -204,7 +208,9 @@ LIB = (() => {
               }
             }
             return -1 === r || -1 === o || 0 === a ||
-                1 === a && r === o - 1 && r === n + 1 ? "" : t.slice(r, o);
+                1 === a && r === o - 1 && r === n + 1
+              ? ""
+              : t.slice(r, o);
           },
           format: function (t) {
             if (null === t || "object" != typeof t) {
@@ -222,7 +228,7 @@ LIB = (() => {
           parse: function (t) {
             e(t);
             var r = { root: "", dir: "", base: "", ext: "", name: "" };
-            if (0 === t.length)return r;
+            if (0 === t.length) return r;
             var n, o = t.charCodeAt(0), i = 47 === o;
             i ? (r.root = "/", n = 1) : n = 0;
             for (
@@ -377,12 +383,8 @@ LIB = (() => {
                 return void 0 === e ? e = this.scheme : null === e && (e = c),
                   void 0 === r ? r = this.authority : null === r && (r = c),
                   void 0 === n ? n = this.path : null === n && (n = c),
-                  void 0 === o
-                    ? o = this.query
-                    : null === o && (o = c),
-                  void 0 === i
-                    ? i = this.fragment
-                    : null === i && (i = c),
+                  void 0 === o ? o = this.query : null === o && (o = c),
+                  void 0 === i ? i = this.fragment : null === i && (i = c),
                   e === this.scheme && r === this.authority &&
                     n === this.path && o === this.query && i === this.fragment
                     ? this
@@ -509,7 +511,8 @@ LIB = (() => {
               void 0 !== a
                 ? (-1 !== n &&
                   (r += encodeURIComponent(t.substring(n, o)), n = -1),
-                  r += a) : -1 === n && (n = o);
+                  r += a)
+                : -1 === n && (n = o);
             }
           }
           return -1 !== n && (r += encodeURIComponent(t.substring(n))),
@@ -559,8 +562,9 @@ LIB = (() => {
                     n += r(u.substr(f + 1), !1)),
                 n += "@";
             }
-            -1 === (f = (i = i.toLowerCase()).indexOf(":")) ? n += r(i, !1)
-            : (n += r(i.substr(0, f), !1), n += i.substr(f));
+            -1 === (f = (i = i.toLowerCase()).indexOf(":"))
+              ? n += r(i, !1)
+              : (n += r(i.substr(0, f), !1), n += i.substr(f));
           }
           if (a) {
             if (
@@ -627,8 +631,9 @@ LIB = (() => {
             },
             t.dirname = function (t) {
               var e = U.dirname(t.path);
-              return 1 === e.length && 46 === e.charCodeAt(0) ? t
-              : t.with({ path: e });
+              return 1 === e.length && 46 === e.charCodeAt(0)
+                ? t
+                : t.with({ path: e });
             },
             t.basename = function (t) {
               return U.basename(t.path);

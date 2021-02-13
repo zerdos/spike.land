@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -242,14 +238,12 @@ class WordBasedCompletionItemProvider {
         model.getLanguageIdentifier().id,
       );
       const word = model.getWordAtPosition(position);
-      const replace = !word
-        ? Range.fromPositions(position)
-        : new Range(
-          position.lineNumber,
-          word.startColumn,
-          position.lineNumber,
-          word.endColumn,
-        );
+      const replace = !word ? Range.fromPositions(position) : new Range(
+        position.lineNumber,
+        word.startColumn,
+        position.lineNumber,
+        word.endColumn,
+      );
       const insert = replace.setEndPosition(
         position.lineNumber,
         position.column,

@@ -307,7 +307,7 @@ define("vs/basic-languages/html/html", [
       // -- END <style> tags handling
     },
   };
-});// TESTED WITH:
+}); // TESTED WITH:
 // <!DOCTYPE html>
 // <html>
 // <head>

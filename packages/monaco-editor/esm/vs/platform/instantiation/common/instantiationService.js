@@ -282,12 +282,10 @@ class Trace {
     this._dep = [];
   }
   static traceInvocation(ctor) {
-    return !_enableTracing
-      ? Trace._None
-      : new Trace(
-        1, /* Invocation */
-        ctor.name || ctor.toString().substring(0, 42).replace(/\n/g, ""),
-      );
+    return !_enableTracing ? Trace._None : new Trace(
+      1, /* Invocation */
+      ctor.name || ctor.toString().substring(0, 42).replace(/\n/g, ""),
+    );
   }
   static traceCreation(ctor) {
     return !_enableTracing

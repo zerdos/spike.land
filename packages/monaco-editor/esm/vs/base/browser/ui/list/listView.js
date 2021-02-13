@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -248,13 +244,22 @@ export class ListView {
     );
     this.scrollableElement = this.disposables.add(
       new SmoothScrollableElement(this.rowsContainer, {
-        alwaysConsumeMouseWheel: getOrDefault(options, (o) =>
-          o.alwaysConsumeMouseWheel, DefaultOptions.alwaysConsumeMouseWheel),
+        alwaysConsumeMouseWheel: getOrDefault(
+          options,
+          (o) => o.alwaysConsumeMouseWheel,
+          DefaultOptions.alwaysConsumeMouseWheel,
+        ),
         horizontal: 1, /* Auto */
-        vertical: getOrDefault(options, (o) =>
-          o.verticalScrollMode, DefaultOptions.verticalScrollMode),
-        useShadows: getOrDefault(options, (o) =>
-          o.useShadows, DefaultOptions.useShadows),
+        vertical: getOrDefault(
+          options,
+          (o) => o.verticalScrollMode,
+          DefaultOptions.verticalScrollMode,
+        ),
+        useShadows: getOrDefault(
+          options,
+          (o) => o.useShadows,
+          DefaultOptions.useShadows,
+        ),
       }, this.scrollable),
     );
     this.domNode.appendChild(this.scrollableElement.getDomNode());

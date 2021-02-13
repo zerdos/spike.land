@@ -136,16 +136,14 @@ export class MoveOperations {
     count,
     allowMoveOnLastLine,
   ) {
-    const currentVisibleColumn =
-      CursorColumns.visibleColumnFromColumn(
-        model.getLineContent(lineNumber),
-        column,
-        config.tabSize,
-      ) + leftoverVisibleColumns;
+    const currentVisibleColumn = CursorColumns.visibleColumnFromColumn(
+      model.getLineContent(lineNumber),
+      column,
+      config.tabSize,
+    ) + leftoverVisibleColumns;
     const lineCount = model.getLineCount();
-    const wasOnLastPosition =
-      (lineNumber === lineCount &&
-        column === model.getLineMaxColumn(lineNumber));
+    const wasOnLastPosition = (lineNumber === lineCount &&
+      column === model.getLineMaxColumn(lineNumber));
     lineNumber = lineNumber + count;
     if (lineNumber > lineCount) {
       lineNumber = lineCount;
@@ -241,12 +239,11 @@ export class MoveOperations {
     count,
     allowMoveOnFirstLine,
   ) {
-    const currentVisibleColumn =
-      CursorColumns.visibleColumnFromColumn(
-        model.getLineContent(lineNumber),
-        column,
-        config.tabSize,
-      ) + leftoverVisibleColumns;
+    const currentVisibleColumn = CursorColumns.visibleColumnFromColumn(
+      model.getLineContent(lineNumber),
+      column,
+      config.tabSize,
+    ) + leftoverVisibleColumns;
     const wasOnFirstPosition = (lineNumber === 1 && column === 1);
     lineNumber = lineNumber - count;
     if (lineNumber < 1) {

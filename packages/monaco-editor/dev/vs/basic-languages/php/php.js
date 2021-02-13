@@ -539,7 +539,7 @@ define(
         /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
     };
   },
-);// TESTED WITH
+); // TESTED WITH
 // <style type="text/css" >
 //   .boo { background: blue;
 //   <?=''?>

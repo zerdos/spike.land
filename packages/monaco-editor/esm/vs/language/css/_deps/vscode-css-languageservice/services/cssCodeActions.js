@@ -75,7 +75,9 @@ var CSSCodeActions = /** @class */ (function () {
     });
     var maxActions = 3;
     for (
-      var _i = 0, candidates_1 = candidates; _i < candidates_1.length; _i++
+      var _i = 0, candidates_1 = candidates;
+      _i < candidates_1.length;
+      _i++
     ) {
       var candidate = candidates_1[_i];
       var propertyName_1 = candidate.property;

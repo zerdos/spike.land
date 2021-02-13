@@ -77,11 +77,10 @@ var AMDLoader;
       this._detected = true;
       this._isWindows = Environment._isWindows();
       this._isNode = (typeof module !== "undefined" && !!module.exports);
-      this._isElectronRenderer =
-        (typeof process !== "undefined" &&
-          typeof process.versions !== "undefined" &&
-          typeof process.versions.electron !== "undefined" &&
-          process.type === "renderer");
+      this._isElectronRenderer = (typeof process !== "undefined" &&
+        typeof process.versions !== "undefined" &&
+        typeof process.versions.electron !== "undefined" &&
+        process.type === "renderer");
       this._isWebWorker =
         (typeof AMDLoader.global.importScripts === "function");
     };
@@ -246,9 +245,8 @@ var AMDLoader;
     Utilities.getHighPerformanceTimestamp = function () {
       if (!this.PERFORMANCE_NOW_PROBED) {
         this.PERFORMANCE_NOW_PROBED = true;
-        this.HAS_PERFORMANCE_NOW =
-          (AMDLoader.global.performance &&
-            typeof AMDLoader.global.performance.now === "function");
+        this.HAS_PERFORMANCE_NOW = (AMDLoader.global.performance &&
+          typeof AMDLoader.global.performance.now === "function");
       }
       return (this.HAS_PERFORMANCE_NOW
         ? AMDLoader.global.performance.now()
@@ -1852,7 +1850,9 @@ var AMDLoader;
       // Find any 'local' error handlers, walk the entire chain of inverse dependencies if necessary.
       var seenModuleId = [];
       for (
-        var i = 0, len = this._moduleIdProvider.getMaxModuleId(); i < len; i++
+        var i = 0, len = this._moduleIdProvider.getMaxModuleId();
+        i < len;
+        i++
       ) {
         seenModuleId[i] = false;
       }
@@ -1894,7 +1894,9 @@ var AMDLoader;
       }
       var inQueue = [];
       for (
-        var i = 0, len = this._moduleIdProvider.getMaxModuleId(); i < len; i++
+        var i = 0, len = this._moduleIdProvider.getMaxModuleId();
+        i < len;
+        i++
       ) {
         inQueue[i] = false;
       }

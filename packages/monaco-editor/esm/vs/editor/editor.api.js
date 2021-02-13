@@ -39,9 +39,8 @@ export const languages = api.languages;
 if (
   ((_a = globals.MonacoEnvironment) === null || _a === void 0
     ? void 0
-    : _a.globalAPI) || ((_b = globals.define) === null || _b === void 0
-      ? void 0
-      : _b.amd)
+    : _a.globalAPI) ||
+  ((_b = globals.define) === null || _b === void 0 ? void 0 : _b.amd)
 ) {
   self.monaco = api;
 }

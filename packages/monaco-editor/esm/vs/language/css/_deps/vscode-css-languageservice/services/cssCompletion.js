@@ -67,7 +67,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }
@@ -886,7 +887,9 @@ var CSSCompletion = /** @class */ (function () {
     result,
   ) {
     for (
-      var _i = 0, _a = languageFacts.lineWidthKeywords; _i < _a.length; _i++
+      var _i = 0, _a = languageFacts.lineWidthKeywords;
+      _i < _a.length;
+      _i++
     ) {
       var lineWidth = _a[_i];
       result.items.push({
@@ -1487,14 +1490,12 @@ var CSSCompletion = /** @class */ (function () {
         return this.supportsMarkdown;
       }
       var documentationFormat =
-        (_c =
-              (_b =
-                    (_a = this.lsOptions.clientCapabilities.textDocument) ===
+        (_c = (_b = (_a = this.lsOptions.clientCapabilities.textDocument) ===
                         null || _a === void 0
-                      ? void 0
-                      : _a.completion) === null || _b === void 0
-                ? void 0
-                : _b.completionItem) === null || _c === void 0
+                    ? void 0
+                    : _a.completion) === null || _b === void 0
+              ? void 0
+              : _b.completionItem) === null || _c === void 0
           ? void 0
           : _c.documentationFormat;
       this.supportsMarkdown = Array.isArray(documentationFormat) &&

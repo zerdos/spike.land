@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -258,12 +254,10 @@ export function applyCodeAction(accessor, item, editor) {
       } catch (err) {
         const message = asMessage(err);
         notificationService.error(
-          typeof message === "string"
-            ? message
-            : nls.localize(
-              "applyCodeActionFailed",
-              "An unknown error occurred while applying the code action",
-            ),
+          typeof message === "string" ? message : nls.localize(
+            "applyCodeActionFailed",
+            "An unknown error occurred while applying the code action",
+          ),
         );
       }
     }

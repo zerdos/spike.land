@@ -454,7 +454,9 @@ export class EditorSimpleWorker {
       const wordDefRegExp = new RegExp(wordDef, wordDefFlags);
       const result = Object.create(null);
       for (
-        let line = range.startLineNumber; line < range.endLineNumber; line++
+        let line = range.startLineNumber;
+        line < range.endLineNumber;
+        line++
       ) {
         let words = model.getLineWords(line, wordDefRegExp);
         for (const word of words) {

@@ -34,8 +34,11 @@ export class ColorPickerHeader extends Disposable {
         Color.white;
     }));
     this._register(
-      dom.addDisposableListener(this.pickedColorNode, dom.EventType.CLICK, () =>
-        this.model.selectNextColorPresentation()),
+      dom.addDisposableListener(
+        this.pickedColorNode,
+        dom.EventType.CLICK,
+        () => this.model.selectNextColorPresentation(),
+      ),
     );
     this._register(
       dom.addDisposableListener(colorBox, dom.EventType.CLICK, () => {
@@ -143,8 +146,10 @@ class SaturationBox extends Disposable {
     dom.append(this.domNode, this.selection);
     this.layout();
     this._register(
-      dom.addDisposableGenericMouseDownListner(this.domNode, (e) =>
-        this.onMouseDown(e)),
+      dom.addDisposableGenericMouseDownListner(
+        this.domNode,
+        (e) => this.onMouseDown(e),
+      ),
     );
     this._register(this.model.onDidChangeColor(this.onDidChangeColor, this));
     this.monitor = null;
@@ -237,8 +242,10 @@ class Strip extends Disposable {
     this.slider = dom.append(this.domNode, $(".slider"));
     this.slider.style.top = `0px`;
     this._register(
-      dom.addDisposableGenericMouseDownListner(this.domNode, (e) =>
-        this.onMouseDown(e)),
+      dom.addDisposableGenericMouseDownListner(
+        this.domNode,
+        (e) => this.onMouseDown(e),
+      ),
     );
     this.layout();
   }

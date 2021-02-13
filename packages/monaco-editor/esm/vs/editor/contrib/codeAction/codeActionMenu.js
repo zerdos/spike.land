@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -170,14 +166,17 @@ let CodeActionMenu = class CodeActionMenu extends Disposable {
       for (const provider of CodeActionProviderRegistry.all(model)) {
         if (provider._getAdditionalMenuItems) {
           allDocumentation.push(
-            ...provider._getAdditionalMenuItems({
-              trigger: trigger.type,
-              only: (_b = (_a = trigger.filter) === null || _a === void 0
-                      ? void 0
-                      : _a.include) === null || _b === void 0
-                ? void 0
-                : _b.value,
-            }, actionsToShow.map((item) => item.action)),
+            ...provider._getAdditionalMenuItems(
+              {
+                trigger: trigger.type,
+                only: (_b = (_a = trigger.filter) === null || _a === void 0
+                        ? void 0
+                        : _a.include) === null || _b === void 0
+                  ? void 0
+                  : _b.value,
+              },
+              actionsToShow.map((item) => item.action),
+            ),
           );
         }
       }

@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -202,13 +198,19 @@ class ListElementRenderer {
               ? `${cssClasses} always-visible`
               : "always-visible";
           }
-          const action = new Action(`id-${index}`, "", cssClasses, true, () =>
-            __awaiter(this, void 0, void 0, function* () {
-              element.fireButtonTriggered({
-                button,
-                item: element.item,
-              });
-            }));
+          const action = new Action(
+            `id-${index}`,
+            "",
+            cssClasses,
+            true,
+            () =>
+              __awaiter(this, void 0, void 0, function* () {
+                element.fireButtonTriggered({
+                  button,
+                  item: element.item,
+                });
+              }),
+          );
           action.tooltip = button.tooltip || "";
           return action;
         }),

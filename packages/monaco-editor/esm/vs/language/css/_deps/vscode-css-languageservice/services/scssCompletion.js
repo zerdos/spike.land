@@ -58,7 +58,9 @@ var SCSSCompletion = /** @class */ (function (_super) {
       parentType === nodes.NodeType.Forward || parentType === nodes.NodeType.Use
     ) {
       for (
-        var _i = 0, _a = SCSSCompletion.scssModuleBuiltIns; _i < _a.length; _i++
+        var _i = 0, _a = SCSSCompletion.scssModuleBuiltIns;
+        _i < _a.length;
+        _i++
       ) {
         var p = _a[_i];
         var item = {

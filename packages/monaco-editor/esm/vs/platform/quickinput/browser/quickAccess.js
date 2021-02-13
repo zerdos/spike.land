@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -71,7 +67,8 @@ let QuickAccessController = class QuickAccessController extends Disposable {
       // Apply value only if it is more specific than the prefix
       // from the provider and we are not instructed to preserve
       if (
-        value !== descriptor.prefix && !(options === null || options === void 0
+        value !== descriptor.prefix &&
+        !(options === null || options === void 0
           ? void 0
           : options.preserveValue)
       ) {
@@ -84,9 +81,7 @@ let QuickAccessController = class QuickAccessController extends Disposable {
     // Rewrite the filter value based on certain rules unless disabled
     if (
       descriptor &&
-      !(options === null || options === void 0
-        ? void 0
-        : options.preserveValue)
+      !(options === null || options === void 0 ? void 0 : options.preserveValue)
     ) {
       let newValue = undefined;
       // If we have a visible provider with a value, take it's filter value but

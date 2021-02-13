@@ -1258,7 +1258,9 @@ export class TextModel extends Disposable {
       }
       if (editsAreNearCursors) {
         for (
-          let i = 0, len = this._trimAutoWhitespaceLines.length; i < len; i++
+          let i = 0, len = this._trimAutoWhitespaceLines.length;
+          i < len;
+          i++
         ) {
           let trimLineNumber = this._trimAutoWhitespaceLines[i];
           let maxLineColumn = this.getLineMaxColumn(trimLineNumber);
@@ -2280,18 +2282,17 @@ export class TextModel extends Disposable {
     if (!data) {
       return null;
     }
-    const matched =
-      (isOpen
-        ? this._findMatchingBracketDown(
-          data,
-          foundBracket.getEndPosition(),
-          continueSearchPredicate,
-        )
-        : this._findMatchingBracketUp(
-          data,
-          foundBracket.getStartPosition(),
-          continueSearchPredicate,
-        ));
+    const matched = (isOpen
+      ? this._findMatchingBracketDown(
+        data,
+        foundBracket.getEndPosition(),
+        continueSearchPredicate,
+      )
+      : this._findMatchingBracketUp(
+        data,
+        foundBracket.getStartPosition(),
+        continueSearchPredicate,
+      ));
     if (!matched) {
       return null;
     }
@@ -2558,11 +2559,10 @@ export class TextModel extends Disposable {
             languageId,
           );
         }
-        const searchInToken =
-          (!!modeBrackets &&
-            !ignoreBracketsInToken(
-              lineTokens.getStandardTokenType(tokenIndex),
-            ));
+        const searchInToken = (!!modeBrackets &&
+          !ignoreBracketsInToken(
+            lineTokens.getStandardTokenType(tokenIndex),
+          ));
         if (searchInToken) {
           // this token should be searched
           if (prevSearchInToken) {
@@ -2665,11 +2665,10 @@ export class TextModel extends Disposable {
             languageId,
           );
         }
-        const searchInToken =
-          (!!modeBrackets &&
-            !ignoreBracketsInToken(
-              lineTokens.getStandardTokenType(tokenIndex),
-            ));
+        const searchInToken = (!!modeBrackets &&
+          !ignoreBracketsInToken(
+            lineTokens.getStandardTokenType(tokenIndex),
+          ));
         if (searchInToken) {
           // this token should be searched
           if (prevSearchInToken) {
@@ -2846,11 +2845,10 @@ export class TextModel extends Disposable {
           );
           resetCounts(languageId, modeBrackets);
         }
-        const searchInToken =
-          (!!modeBrackets &&
-            !ignoreBracketsInToken(
-              lineTokens.getStandardTokenType(tokenIndex),
-            ));
+        const searchInToken = (!!modeBrackets &&
+          !ignoreBracketsInToken(
+            lineTokens.getStandardTokenType(tokenIndex),
+          ));
         if (searchInToken) {
           // this token should be searched
           if (prevSearchInToken) {

@@ -100,9 +100,7 @@
         p._isWindows = function () {
           return typeof navigator != "undefined" && navigator.userAgent &&
               navigator.userAgent.indexOf("Windows") >= 0 ? !0
-          : typeof process != "undefined"
-            ? process.platform === "win32"
-            : !1;
+          : typeof process != "undefined" ? process.platform === "win32" : !1;
         },
         p;
     }();
@@ -392,7 +390,9 @@
           ) {
             u = this._applyPaths(s);
             for (
-              var d = 0, N = u.length; d < N; d++
+              var d = 0, N = u.length;
+              d < N;
+              d++
             ) {
               this.isBuild() && u[d] === "empty:" ||
                 (I.Utilities.isAbsolutePath(u[d]) ||
@@ -660,19 +660,17 @@
                 this._path.dirname(N.filename),
               ),
               _.record(32, N.filename),
-              m ? a()
-              : b(
+              m ? a() : b(
                 new Error("Didn't receive define call in " + N.filename + "!"),
               ),
               v;
           },
           s.prototype._getElectronRendererScriptPathOrUri = function (u) {
-            if (!this._env.isElectronRenderer)return u;
+            if (!this._env.isElectronRenderer) return u;
             var d = u.match(/^([a-z])\:(.*)/i);
-            return d
-              ? "file:///" +
-                (d[1].toUpperCase() + ":" + d[2]).replace(/\\/g, "/")
-              : "file://" + u;
+            return d ? "file:///" +
+              (d[1].toUpperCase() + ":" + d[2]).replace(/\\/g, "/")
+            : "file://" + u;
           },
           s.prototype._getCachedDataPath = function (u, d) {
             var N = this._crypto.createHash("md5").update(d, "utf8").update(
@@ -722,7 +720,7 @@
             m();
           },
           s.prototype._readSourceAndCachedData = function (u, d, N, a) {
-            if (!d)this._fs.readFile(u, { encoding: "utf8" }, a);
+            if (!d) this._fs.readFile(u, { encoding: "utf8" }, a);
             else {
               var b = void 0,
                 _ = void 0,
@@ -996,7 +994,9 @@
         s.prototype.getBuildInfo = function () {
           if (!this._config.isBuild()) return null;
           for (
-            var u = [], d = 0, N = 0, a = this._modules2.length; N < a; N++
+            var u = [], d = 0, N = 0, a = this._modules2.length;
+            N < a;
+            N++
           ) {
             var b = this._modules2[N];
             if (!!b) {
@@ -1575,7 +1575,9 @@
         let D = L, T = A + 1;
         for (let $ = L; $ <= M; $++) R[$] = c[$];
         for (let $ = L; $ <= M; $++) {
-          D > A ? c[$] = R[T++] : T > M
+          D > A
+            ? c[$] = R[T++]
+            : T > M
             ? c[$] = R[D++]
             : C(R[T], R[D]) < 0
             ? c[$] = R[T++]
@@ -1594,9 +1596,7 @@
         const L = [];
         let A;
         for (const M of u(c.slice(0), C)) {
-          !A || C(A[0], M) !== 0
-            ? (A = [M], L.push(A))
-            : A.push(M);
+          !A || C(A[0], M) !== 0 ? (A = [M], L.push(A)) : A.push(M);
         }
         return L;
       }
@@ -1814,9 +1814,7 @@
         function* r(f, l, n = f.length) {
           for (
             l < 0 && (l += f.length),
-              n < 0
-                ? n += f.length
-                : n > f.length && (n = f.length);
+              n < 0 ? n += f.length : n > f.length && (n = f.length);
             l < n;
             l++
           ) {
@@ -2366,9 +2364,8 @@
         v = navigator.userAgent,
           E = v.indexOf("Windows") >= 0,
           o = v.indexOf("Macintosh") >= 0,
-          N =
-            (v.indexOf("Macintosh") >= 0 || v.indexOf("iPad") >= 0 ||
-              v.indexOf("iPhone") >= 0) &&
+          N = (v.indexOf("Macintosh") >= 0 || v.indexOf("iPad") >= 0 ||
+            v.indexOf("iPhone") >= 0) &&
             !!navigator.maxTouchPoints && navigator.maxTouchPoints > 0,
           h = v.indexOf("Linux") >= 0,
           d = !0,
@@ -2570,11 +2567,13 @@
         return w;
       }
       function f(l, n) {
-        if (n === null || typeof n != "object") {throw new b(
+        if (n === null || typeof n != "object") {
+          throw new b(
             "pathObject",
             "Object",
             n,
-          );}
+          );
+        }
         const g = n.dir || n.root,
           S = n.base || `${n.name || ""}${n.ext || ""}`;
         return g ? g === n.root ? `${g}${S}` : `${g}${l}${S}` : S;
@@ -2584,14 +2583,16 @@
           let n = "", g = "", S = !1;
           for (let w = l.length - 1; w >= -1; w--) {
             let c;
-            if (w >= 0) if (c = l[w], _(c, "path"), c.length === 0) continue;
-            else {
-              n.length === 0
-                ? c = p.cwd()
-                : (c = p.env[`=${n}`] || p.cwd(),
-                  (c === void 0 ||
-                    c.slice(0, 2).toLowerCase() !== n.toLowerCase() &&
-                      c.charCodeAt(2) === d) && (c = `${n}\\`));
+            if (w >= 0) {
+              if (c = l[w], _(c, "path"), c.length === 0) continue;
+              else {
+                n.length === 0
+                  ? c = p.cwd()
+                  : (c = p.env[`=${n}`] || p.cwd(),
+                    (c === void 0 ||
+                      c.slice(0, 2).toLowerCase() !== n.toLowerCase() &&
+                        c.charCodeAt(2) === d) && (c = `${n}\\`));
+              }
             }
             const C = c.length;
             let L = 0, A = "", M = !1;
@@ -2618,12 +2619,18 @@
                   C > 2 && v(c.charCodeAt(2)) && (M = !0, L = 3));
             }
             if (A.length > 0) {
-              if (n.length > 0) {if (A.toLowerCase() !== n.toLowerCase()) {
+              if (n.length > 0) {
+                if (A.toLowerCase() !== n.toLowerCase()) {
                   continue;
-                }} else n = A;
+                }
+              } else n = A;
             }
-            if (S) if (n.length > 0) break;
-            else if (g = `${c.slice(L)}\\${g}`, S = M, M && n.length > 0) break;
+            if (S) {
+              if (n.length > 0) break;
+              else if (g = `${c.slice(L)}\\${g}`, S = M, M && n.length > 0) {
+                break;
+              }
+            }
           }
           return g = m(g, !S, "\\", v),
             S
@@ -2699,7 +2706,7 @@
             return "";
           }
           let w = 0;
-          for (; w < l.length && l.charCodeAt(w) === d;) { 
+          for (; w < l.length && l.charCodeAt(w) === d;) {
             w++;
           }
           let c = l.length;
@@ -2716,20 +2723,21 @@
             if (k !== n.charCodeAt(L + T)) break;
             k === d && (D = T);
           }
-          if (T !== R) if (D === -1) return S;
-          else {
-            if (M > R) {
-              if (n.charCodeAt(L + T) === d) return S.slice(L + T + 1);
-              if (T === 2) return S.slice(L + T);
+          if (T !== R) {
+            if (D === -1) return S;
+            else {
+              if (M > R) {
+                if (n.charCodeAt(L + T) === d) return S.slice(L + T + 1);
+                if (T === 2) return S.slice(L + T);
+              }
+              C > R && (l.charCodeAt(w + T) === d ? D = T : T === 2 && (D = 3)),
+                D === -1 && (D = 0);
             }
-            C > R && (l.charCodeAt(w + T) === d ? D = T : T === 2 && (D = 3)),
-              D === -1 && (D = 0);
           }
           let $ = "";
           for (T = w + D + 1; T <= c; ++T) {
-            (T === c || l.charCodeAt(T) === d) && ($ += $.length === 0
-              ? ".."
-              : "\\..");
+            (T === c || l.charCodeAt(T) === d) &&
+              ($ += $.length === 0 ? ".." : "\\..");
           }
           return L += D,
             $.length > 0
@@ -2847,7 +2855,9 @@
                 : g !== -1 && (C = -1);
           }
           return g === -1 || w === -1 || C === 0 ||
-              C === 1 && g === w - 1 && g === S + 1 ? "" : l.slice(g, w);
+              C === 1 && g === w - 1 && g === S + 1
+            ? ""
+            : l.slice(g, w);
         },
         format: f.bind(null, "\\"),
         parse(l) {
@@ -2856,8 +2866,9 @@
           if (l.length === 0) return n;
           const g = l.length;
           let S = 0, w = l.charCodeAt(0);
-          if (g === 1) {return v(w) ? (n.root = n.dir = l, n)
-            : (n.base = n.name = l, n);}
+          if (g === 1) {
+            return v(w) ? (n.root = n.dir = l, n) : (n.base = n.name = l, n);
+          }
           if (v(w)) {
             if (S = 1, v(l.charCodeAt(1))) {
               let D = 2, T = D;
@@ -2889,9 +2900,7 @@
             }
             L === -1 && (A = !1, L = M + 1),
               w === s
-                ? c === -1
-                  ? c = M
-                  : R !== 1 && (R = 1)
+                ? c === -1 ? c = M : R !== 1 && (R = 1)
                 : c !== -1 && (R = -1);
           }
           return L !== -1 &&
@@ -2919,7 +2928,7 @@
             return n = m(n, !g, "/", i), g ? `/${n}` : n.length > 0 ? n : ".";
           },
           normalize(l) {
-            if (_(l, "path"), l.length === 0)return ".";
+            if (_(l, "path"), l.length === 0) return ".";
             const n = l.charCodeAt(0) === u,
               g = l.charCodeAt(l.length - 1) === u;
             return l = m(l, !n, "/", i),
@@ -2935,7 +2944,7 @@
             return _(l, "path"), l.length > 0 && l.charCodeAt(0) === u;
           },
           join(...l) {
-            if (l.length === 0)return ".";
+            if (l.length === 0) return ".";
             let n;
             for (let g = 0; g < l.length; ++g) {
               const S = l[g];
@@ -2976,7 +2985,9 @@
             }
             let R = "";
             for (
-              M = g + A + 1; M <= S; ++M
+              M = g + A + 1;
+              M <= S;
+              ++M
             ) {
               (M === S || l.charCodeAt(M) === u) &&
                 (R += R.length === 0 ? ".." : "/..");
@@ -2987,17 +2998,19 @@
             return l;
           },
           dirname(l) {
-            if (_(l, "path"), l.length === 0)return ".";
+            if (_(l, "path"), l.length === 0) return ".";
             const n = l.charCodeAt(0) === u;
             let g = -1, S = !0;
-            for (let w = l.length - 1; w >= 1; --w) {if (
+            for (let w = l.length - 1; w >= 1; --w) {
+              if (
                 l.charCodeAt(w) === u
               ) {
                 if (!S) {
                   g = w;
                   break;
                 }
-              } else S = !1;}
+              } else S = !1;
+            }
             return g === -1 ? n ? "/" : "."
             : n && g === 1 ? "//" : l.slice(0, g);
           },
@@ -3005,7 +3018,7 @@
             n !== void 0 && _(n, "ext"), _(l, "path");
             let g = 0, S = -1, w = !0, c;
             if (n !== void 0 && n.length > 0 && n.length <= l.length) {
-              if (n === l)return "";
+              if (n === l) return "";
               let C = n.length - 1, L = -1;
               for (c = l.length - 1; c >= 0; --c) {
                 const A = l.charCodeAt(c);
@@ -3017,19 +3030,20 @@
                 } else {
                   L === -1 && (w = !1, L = c + 1),
                     C >= 0 &&
-                    (A === n.charCodeAt(C)
-                      ? --C == -1 && (S = c)
-                      : (C = -1, S = L));
+                    (A === n.charCodeAt(C) ? --C == -1 && (S = c)
+                    : (C = -1, S = L));
                 }
               }
               return g === S ? S = L : S === -1 && (S = l.length),
                 l.slice(g, S);
             }
             for (c = l.length - 1; c >= 0; --c) {
-              if (l.charCodeAt(c) === u) {if (!w) {
+              if (l.charCodeAt(c) === u) {
+                if (!w) {
                   g = c + 1;
                   break;
-                }} else S === -1 && (w = !1, S = c + 1);
+                }
+              } else S === -1 && (w = !1, S = c + 1);
             }
             return S === -1 ? "" : l.slice(g, S);
           },
@@ -3057,7 +3071,7 @@
           parse(l) {
             _(l, "path");
             const n = { root: "", dir: "", base: "", ext: "", name: "" };
-            if (l.length === 0)return n;
+            if (l.length === 0) return n;
             const g = l.charCodeAt(0) === u;
             let S;
             g ? (n.root = "/", S = 1) : S = 0;
@@ -3182,10 +3196,9 @@
         }
         v.signal = l;
         function n(...k) {
-          return (F, e = null, O) =>
-            P.combinedDisposable(
-              ...k.map((H) => H((B) => F.call(e, B), null, O)),
-            );
+          return (F, e = null, O) => P.combinedDisposable(
+            ...k.map((H) => H((B) => F.call(e, B), null, O)),
+          );
         }
         v.any = n;
         function g(k, F, e) {
@@ -3749,9 +3762,8 @@
       }
       t.regExpLeadsToEndlessLoop = _;
       function v(y) {
-        return (y.global ? "g" : "") + (y.ignoreCase ? "i" : "") + (y.multiline
-          ? "m"
-          : "") +
+        return (y.global ? "g" : "") + (y.ignoreCase ? "i" : "") +
+          (y.multiline ? "m" : "") +
           (y.unicode ? "u" : "");
       }
       t.regExpFlags = v;
@@ -3807,9 +3819,8 @@
           if (K !== te) {
             const oe = K - te;
             if (!(oe === 32 && c(te)) && !(oe === -32 && c(K))) {
-              return w(K) && w(te)
-                ? oe
-                : n(y.toLowerCase(), U.toLowerCase(), W, q, j, Y);
+              return w(K) && w(te) ? oe
+              : n(y.toLowerCase(), U.toLowerCase(), W, q, j, Y);
             }
           }
         }
@@ -4004,9 +4015,8 @@
       }
       t.startsWithUTF8BOM = ge;
       function _e(y, U = !1) {
-        return y
-          ? (U && (y = y.replace(/\\./g, "")), y.toLowerCase() !== y)
-          : !1;
+        return y ? (U && (y = y.replace(/\\./g, "")), y.toLowerCase() !== y)
+        : !1;
       }
       t.containsUppercaseCharacter = _e;
       function ve(y) {
@@ -4227,7 +4237,9 @@
             c,
             C;
           for (
-            let L = 0; L < 80; L++
+            let L = 0;
+            L < 80;
+            L++
           ) {
             L < 20
               ? (w = l & n | ~l & g, c = 1518500249)
@@ -4371,17 +4383,15 @@
         }
         OriginalElementsAreEqual(a, b) {
           return this._originalElementsOrHash[a] !==
-              this._originalElementsOrHash[b] ? !1 : this._hasStrings
-            ? this._originalStringElements[a] ===
-              this._originalStringElements[b]
-            : !0;
+              this._originalElementsOrHash[b] ? !1
+          : this._hasStrings ? this._originalStringElements[a] ===
+            this._originalStringElements[b] : !0;
         }
         ModifiedElementsAreEqual(a, b) {
           return this._modifiedElementsOrHash[a] !==
-              this._modifiedElementsOrHash[b] ? !1 : this._hasStrings
-            ? this._modifiedStringElements[a] ===
-              this._modifiedStringElements[b]
-            : !0;
+              this._modifiedElementsOrHash[b] ? !1
+          : this._hasStrings ? this._modifiedStringElements[a] ===
+            this._modifiedStringElements[b] : !0;
         }
         ComputeDiff(a) {
           return this._ComputeDiff(
@@ -4681,12 +4691,10 @@
         PrettifyChanges(a) {
           for (let b = 0; b < a.length; b++) {
             const _ = a[b],
-              v = b < a.length - 1
-                ? a[b + 1].originalStart
-                : this._originalElementsOrHash.length,
-              i = b < a.length - 1
-                ? a[b + 1].modifiedStart
-                : this._modifiedElementsOrHash.length,
+              v = b < a.length - 1 ? a[b + 1].originalStart
+              : this._originalElementsOrHash.length,
+              i = b < a.length - 1 ? a[b + 1].modifiedStart
+              : this._modifiedElementsOrHash.length,
               r = _.originalLength > 0,
               m = _.modifiedLength > 0;
             for (
@@ -4798,9 +4806,8 @@
           return v;
         }
         _OriginalIsBoundary(a) {
-          return a <= 0 || a >= this._originalElementsOrHash.length - 1
-            ? !0
-            : this._hasStrings && /^\s*$/.test(this._originalStringElements[a]);
+          return a <= 0 || a >= this._originalElementsOrHash.length - 1 ? !0
+          : this._hasStrings && /^\s*$/.test(this._originalStringElements[a]);
         }
         _OriginalRegionIsBoundary(a, b) {
           if (this._OriginalIsBoundary(a) || this._OriginalIsBoundary(a - 1)) {
@@ -4817,9 +4824,8 @@
           return !1;
         }
         _ModifiedIsBoundary(a) {
-          return a <= 0 || a >= this._modifiedElementsOrHash.length - 1
-            ? !0
-            : this._hasStrings && /^\s*$/.test(this._modifiedStringElements[a]);
+          return a <= 0 || a >= this._modifiedElementsOrHash.length - 1 ? !0
+          : this._hasStrings && /^\s*$/.test(this._modifiedStringElements[a]);
         }
         _ModifiedRegionIsBoundary(a, b) {
           if (
@@ -4982,7 +4988,8 @@
       function v(f) {
         let l = [], n = Object.getPrototypeOf(f);
         for (
-          ; Object.prototype !== n;
+          ;
+          Object.prototype !== n;
         ) {
           l = l.concat(Object.getOwnPropertyNames(n)),
             n = Object.getPrototypeOf(n);
@@ -5256,9 +5263,8 @@
               (c.path.charCodeAt(1) >= 65 && c.path.charCodeAt(1) <= 90 ||
                 c.path.charCodeAt(1) >= 97 && c.path.charCodeAt(1) <= 122) &&
               c.path.charCodeAt(2) === 58
-          ? C
-            ? L = c.path.substr(1)
-            : L = c.path[1].toLowerCase() + c.path.substr(2)
+          ? C ? L = c.path.substr(1)
+          : L = c.path[1].toLowerCase() + c.path.substr(2)
           : L = c.path,
           p.isWindows && (L = L.replace(/\//g, "\\")),
           L;
@@ -5405,7 +5411,9 @@
           if (v.req) {
             const r = v;
             for (
-              let m = 0; m < r.args.length; m++
+              let m = 0;
+              m < r.args.length;
+              m++
             ) {
               r.args[m] instanceof ArrayBuffer && i.push(r.args[m]);
             }
@@ -5609,8 +5617,7 @@
           return p.equals(this, E);
         }
         static equals(E, o) {
-          return !E && !o ? !0
-          : !!E && !!o && E.lineNumber === o.lineNumber &&
+          return !E && !o ? !0 : !!E && !!o && E.lineNumber === o.lineNumber &&
             E.column === o.column;
         }
         isBefore(E) {
@@ -5911,7 +5918,7 @@
           if (!h && !s) return !0;
           if (h.length !== s.length) return !1;
           for (let u = 0, d = h.length; u < d; u++) {
-            if (!this.selectionsEqual(h[u], s[u]))return !1;
+            if (!this.selectionsEqual(h[u], s[u])) return !1;
           }
           return !0;
         }
@@ -6100,9 +6107,11 @@
               );
             let D = o(M, R, n, !0).changes;
             S && (D = d(D)), A = [];
-            for (let T = 0, $ = D.length; T < $; T++) {A.push(
+            for (let T = 0, $ = D.length; T < $; T++) {
+              A.push(
                 u.createFromDiffChange(D[T], M, R),
-              );}
+              );
+            }
           }
           return new N(w, c, C, L, A);
         }
@@ -6119,9 +6128,8 @@
             this.modified = new h(m),
             this.continueLineDiff = v(f.maxComputationTime),
             this.continueCharDiff = v(
-              f.maxComputationTime === 0
-                ? 0
-                : Math.min(f.maxComputationTime, 5e3),
+              f.maxComputationTime === 0 ? 0
+              : Math.min(f.maxComputationTime, 5e3),
             );
         }
         computeDiff() {
@@ -6279,8 +6287,7 @@
           if (w === 0) return !1;
           const c = r[w - 1];
           return c.originalEndLineNumber === 0 || c.modifiedEndLineNumber === 0
-            ? !1
-            : c.originalEndLineNumber + 1 === m &&
+            ? !1 : c.originalEndLineNumber + 1 === m &&
                 c.modifiedEndLineNumber + 1 === n
             ? (c.originalEndLineNumber = m,
               c.modifiedEndLineNumber = n,
@@ -7380,7 +7387,9 @@
               );
             let N = new Uint32Array(d.length - 1);
             for (
-              let a = 1; a < d.length; a++
+              let a = 1;
+              a < d.length;
+              a++
             ) {
               this._lines.splice(s.lineNumber + a - 1, 0, d[a]),
                 N[a - 1] = d[a].length + this._eol.length;

@@ -129,7 +129,9 @@ export function getReindentEditOperations(
   startLineNumber++;
   // Calculate indentation adjustment for all following lines
   for (
-    let lineNumber = startLineNumber; lineNumber <= endLineNumber; lineNumber++
+    let lineNumber = startLineNumber;
+    lineNumber <= endLineNumber;
+    lineNumber++
   ) {
     let text = model.getLineContent(lineNumber);
     let oldIndentation = strings.getLeadingWhitespace(text);

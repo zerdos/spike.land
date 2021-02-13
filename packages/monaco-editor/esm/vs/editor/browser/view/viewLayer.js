@@ -409,7 +409,9 @@ class ViewLayerRenderer {
     const newLines = [];
     let newLinesLen = 0;
     for (
-      let lineNumber = fromLineNumber; lineNumber <= toLineNumber; lineNumber++
+      let lineNumber = fromLineNumber;
+      lineNumber <= toLineNumber;
+      lineNumber++
     ) {
       newLines[newLinesLen++] = this.host.createVisibleLine();
     }
@@ -428,7 +430,9 @@ class ViewLayerRenderer {
     const newLines = [];
     let newLinesLen = 0;
     for (
-      let lineNumber = fromLineNumber; lineNumber <= toLineNumber; lineNumber++
+      let lineNumber = fromLineNumber;
+      lineNumber <= toLineNumber;
+      lineNumber++
     ) {
       newLines[newLinesLen++] = this.host.createVisibleLine();
     }

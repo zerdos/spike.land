@@ -1056,7 +1056,9 @@
       var children = node.children;
       if (Array.isArray(children)) {
         for (
-          var i = 0; i < children.length && children[i].offset <= offset; i++
+          var i = 0;
+          i < children.length && children[i].offset <= offset;
+          i++
         ) {
           var item = findNodeAtOffset(children[i], offset, includeRightBound);
           if (item) {
@@ -1614,7 +1616,9 @@
         throw new Error(
           "Can not " + (value === void 0
             ? "remove"
-            : (options.isArrayInsertion ? "insert" : "modify")) +
+            : (options.isArrayInsertion
+              ? "insert"
+              : "modify")) +
             " Array index " + insertIndex + " as length is not sufficient",
         );
       }
@@ -1622,7 +1626,8 @@
       throw new Error(
         "Can not add " + (typeof lastSegment !== "number"
           ? "index"
-          : "property") + " to parent of type " + parent.type,
+          : "property") +
+          " to parent of type " + parent.type,
       );
     }
   }
@@ -4377,7 +4382,9 @@ define(
       var lastModifiedOffset = 0;
       var spans = [];
       for (
-        var _i = 0, sortedEdits_1 = sortedEdits; _i < sortedEdits_1.length; _i++
+        var _i = 0, sortedEdits_1 = sortedEdits;
+        _i < sortedEdits_1.length;
+        _i++
       ) {
         var e = sortedEdits_1[_i];
         var startOffset = document.offsetAt(e.range.start);
@@ -5283,7 +5290,9 @@ var __extends = (this && this.__extends) || (function () {
           });
         }
         for (
-          var _b = 0, _c = subMatchingSchemas.schemas; _b < _c.length; _b++
+          var _b = 0, _c = subMatchingSchemas.schemas;
+          _b < _c.length;
+          _b++
         ) {
           var ms = _c[_b];
           ms.inverted = !ms.inverted;
@@ -5833,7 +5842,9 @@ var __extends = (this && this.__extends) || (function () {
       };
       if (schema.properties) {
         for (
-          var _d = 0, _e = Object.keys(schema.properties); _d < _e.length; _d++
+          var _d = 0, _e = Object.keys(schema.properties);
+          _d < _e.length;
+          _d++
         ) {
           var propertyName = _e[_d];
           propertyProcessed(propertyName);
@@ -6749,11 +6760,10 @@ var __extends = (this && this.__extends) || (function () {
               );
             }
             if (supportsCommitCharacters) {
-              suggestion.commitCharacters =
-                suggestion.kind ===
-                    jsonLanguageTypes_1.CompletionItemKind.Property
-                  ? propertyCommitCharacters
-                  : valueCommitCharacters;
+              suggestion.commitCharacters = suggestion.kind ===
+                  jsonLanguageTypes_1.CompletionItemKind.Property
+                ? propertyCommitCharacters
+                : valueCommitCharacters;
             }
             suggestion.label = label;
             proposed[label] = suggestion;
@@ -8145,7 +8155,9 @@ var __extends = (this && this.__extends) || (function () {
             }
             function r(t, e) {
               for (
-                var r, n = "", i = 0, o = -1, a = 0, h = 0; h <= t.length; ++h
+                var r, n = "", i = 0, o = -1, a = 0, h = 0;
+                h <= t.length;
+                ++h
               ) {
                 if (h < t.length) r = t.charCodeAt(h);
                 else {
@@ -8203,13 +8215,7 @@ var __extends = (this && this.__extends) || (function () {
                     (n = a + "/" + n, i = 47 === a.charCodeAt(0));
                 }
                 return n = r(n, !i),
-                  i
-                    ? n.length > 0
-                      ? "/" + n
-                      : "/"
-                    : n.length > 0
-                    ? n
-                    : ".";
+                  i ? n.length > 0 ? "/" + n : "/" : n.length > 0 ? n : ".";
               },
               normalize: function (t) {
                 if (e(t), 0 === t.length) return ".";
@@ -8217,9 +8223,7 @@ var __extends = (this && this.__extends) || (function () {
                   i = 47 === t.charCodeAt(t.length - 1);
                 return 0 !== (t = r(t, !n)).length || n || (t = "."),
                   t.length > 0 && i && (t += "/"),
-                  n
-                    ? "/" + t
-                    : t;
+                  n ? "/" + t : t;
               },
               isAbsolute: function (t) {
                 return e(t), t.length > 0 && 47 === t.charCodeAt(0);
@@ -8251,9 +8255,10 @@ var __extends = (this && this.__extends) || (function () {
                       if (47 === r.charCodeAt(h + c)) return r.slice(h + c + 1);
                       if (0 === c) return r.slice(h + c);
                     } else {
-                      a > f && (47 === t.charCodeAt(i + c)
-                        ? u = c
-                        : 0 === c && (u = 0));
+                      a > f &&
+                        (47 === t.charCodeAt(i + c)
+                          ? u = c
+                          : 0 === c && (u = 0));
                     }
                     break;
                   }
@@ -8325,10 +8330,12 @@ var __extends = (this && this.__extends) || (function () {
                     t.slice(i, o);
                 }
                 for (n = t.length - 1; n >= 0; --n) {
-                  if (47 === t.charCodeAt(n)) {if (!a) {
+                  if (47 === t.charCodeAt(n)) {
+                    if (!a) {
                       i = n + 1;
                       break;
-                    }} else -1 === o && (a = !1, o = n + 1);
+                    }
+                  } else -1 === o && (a = !1, o = n + 1);
                 }
                 return -1 === o ? "" : t.slice(i, o);
               },
@@ -8343,9 +8350,7 @@ var __extends = (this && this.__extends) || (function () {
                   if (47 !== s) {
                     -1 === i && (o = !1, i = h + 1),
                       46 === s
-                        ? -1 === r
-                          ? r = h
-                          : 1 !== a && (a = 1)
+                        ? -1 === r ? r = h : 1 !== a && (a = 1)
                         : -1 !== r && (a = -1);
                   } else if (!o) {
                     n = h + 1;
@@ -8353,7 +8358,9 @@ var __extends = (this && this.__extends) || (function () {
                   }
                 }
                 return -1 === r || -1 === i || 0 === a ||
-                    1 === a && r === i - 1 && r === n + 1 ? "" : t.slice(r, i);
+                    1 === a && r === i - 1 && r === n + 1
+                  ? ""
+                  : t.slice(r, i);
               },
               format: function (t) {
                 if (null === t || "object" != typeof t) {
@@ -8382,9 +8389,7 @@ var __extends = (this && this.__extends) || (function () {
                   if (47 !== (i = t.charCodeAt(u))) {
                     -1 === s && (f = !1, s = u + 1),
                       46 === i
-                        ? -1 === a
-                          ? a = u
-                          : 1 !== c && (c = 1)
+                        ? -1 === a ? a = u : 1 !== c && (c = 1)
                         : -1 !== a && (c = -1);
                   } else if (!f) {
                     h = u + 1;
@@ -8393,9 +8398,10 @@ var __extends = (this && this.__extends) || (function () {
                 }
                 return -1 === a || -1 === s || 0 === c ||
                     1 === c && a === s - 1 && a === h + 1
-                  ? -1 !== s && (r.base = r.name = 0 === h && o
-                    ? t.slice(1, s)
-                    : t.slice(h, s))
+                  ? -1 !== s &&
+                    (r.base = r.name = 0 === h && o
+                      ? t.slice(1, s)
+                      : t.slice(h, s))
                   : (0 === h && o
                     ? (r.name = t.slice(1, a), r.base = t.slice(1, s))
                     : (r.name = t.slice(h, a), r.base = t.slice(h, s)),
@@ -8494,9 +8500,7 @@ var __extends = (this && this.__extends) || (function () {
                             case "https":
                             case "http":
                             case "file":
-                              e
-                                ? e[0] !== c && (e = c + e)
-                                : e = c;
+                              e ? e[0] !== c && (e = c + e) : e = c;
                           }
                           return e;
                         }(this.scheme, r || u),
@@ -8511,9 +8515,11 @@ var __extends = (this && this.__extends) || (function () {
                                 t.fragment + '"}',
                             );
                           }
-                          if (t.scheme && !h.test(t.scheme)) {throw new Error(
+                          if (t.scheme && !h.test(t.scheme)) {
+                            throw new Error(
                               "[UriError]: Scheme contains illegal characters.",
-                            );}
+                            );
+                          }
                           if (t.path) {
                             if (t.authority) {
                               if (!s.test(t.path)) {
@@ -8609,7 +8615,7 @@ var __extends = (this && this.__extends) || (function () {
                   },
                   t.revive = function (e) {
                     if (e) {
-                      if (e instanceof t)return e;
+                      if (e instanceof t) return e;
                       var r = new g(e);
                       return r._formatted = e.external,
                         r._fsPath = e._sep === d ? e.fsPath : null,
@@ -8750,8 +8756,9 @@ var __extends = (this && this.__extends) || (function () {
                         n += r(u.substr(f + 1), !1)),
                     n += "@";
                 }
-                -1 === (f = (o = o.toLowerCase()).indexOf(":")) ? n += r(o, !1)
-                : (n += r(o.substr(0, f), !1), n += o.substr(f));
+                -1 === (f = (o = o.toLowerCase()).indexOf(":"))
+                  ? n += r(o, !1)
+                  : (n += r(o.substr(0, f), !1), n += o.substr(f));
               }
               if (a) {
                 if (
@@ -8799,7 +8806,9 @@ var __extends = (this && this.__extends) || (function () {
               var n = Array(t), i = 0;
               for (e = 0; e < r; e++) {
                 for (
-                  var o = arguments[e], a = 0, h = o.length; a < h; a++, i++
+                  var o = arguments[e], a = 0, h = o.length;
+                  a < h;
+                  a++, i++
                 ) {
                   n[i] = o[a];
                 }
@@ -8823,8 +8832,9 @@ var __extends = (this && this.__extends) || (function () {
               },
               i.dirname = function (t) {
                 var e = a.dirname(t.path);
-                return 1 === e.length && 46 === e.charCodeAt(0) ? t
-                : t.with({ path: e });
+                return 1 === e.length && 46 === e.charCodeAt(0)
+                  ? t
+                  : t.with({ path: e });
               },
               i.basename = function (t) {
                 return a.basename(t.path);
@@ -9153,7 +9163,9 @@ define("vscode-uri", ["vscode-uri/index"], function (main) {
         this.registeredSchemasIds[id] = true;
       }
       for (
-        var _i = 0, _a = this.contributionAssociations; _i < _a.length; _i++
+        var _i = 0, _a = this.contributionAssociations;
+        _i < _a.length;
+        _i++
       ) {
         var contributionAssociation = _a[_i];
         this.filePatternAssociations.push(contributionAssociation);
@@ -9476,7 +9488,9 @@ define("vscode-uri", ["vscode-uri/index"], function (main) {
       var schemas = [];
       var normalizedResource = normalizeResourceForMatching(resource);
       for (
-        var _i = 0, _a = this.filePatternAssociations; _i < _a.length; _i++
+        var _i = 0, _a = this.filePatternAssociations;
+        _i < _a.length;
+        _i++
       ) {
         var entry = _a[_i];
         if (entry.matchesPattern(normalizedResource)) {
@@ -9873,31 +9887,24 @@ define("vscode-uri", ["vscode-uri/index"], function (main) {
         };
       case 7:
         return {
-          red:
-            (hexDigit(text.charCodeAt(1)) * 0x10 +
-              hexDigit(text.charCodeAt(2))) / 255.0,
-          green:
-            (hexDigit(text.charCodeAt(3)) * 0x10 +
-              hexDigit(text.charCodeAt(4))) / 255.0,
-          blue:
-            (hexDigit(text.charCodeAt(5)) * 0x10 +
-              hexDigit(text.charCodeAt(6))) / 255.0,
+          red: (hexDigit(text.charCodeAt(1)) * 0x10 +
+            hexDigit(text.charCodeAt(2))) / 255.0,
+          green: (hexDigit(text.charCodeAt(3)) * 0x10 +
+            hexDigit(text.charCodeAt(4))) / 255.0,
+          blue: (hexDigit(text.charCodeAt(5)) * 0x10 +
+            hexDigit(text.charCodeAt(6))) / 255.0,
           alpha: 1,
         };
       case 9:
         return {
-          red:
-            (hexDigit(text.charCodeAt(1)) * 0x10 +
-              hexDigit(text.charCodeAt(2))) / 255.0,
-          green:
-            (hexDigit(text.charCodeAt(3)) * 0x10 +
-              hexDigit(text.charCodeAt(4))) / 255.0,
-          blue:
-            (hexDigit(text.charCodeAt(5)) * 0x10 +
-              hexDigit(text.charCodeAt(6))) / 255.0,
-          alpha:
-            (hexDigit(text.charCodeAt(7)) * 0x10 +
-              hexDigit(text.charCodeAt(8))) / 255.0,
+          red: (hexDigit(text.charCodeAt(1)) * 0x10 +
+            hexDigit(text.charCodeAt(2))) / 255.0,
+          green: (hexDigit(text.charCodeAt(3)) * 0x10 +
+            hexDigit(text.charCodeAt(4))) / 255.0,
+          blue: (hexDigit(text.charCodeAt(5)) * 0x10 +
+            hexDigit(text.charCodeAt(6))) / 255.0,
+          alpha: (hexDigit(text.charCodeAt(7)) * 0x10 +
+            hexDigit(text.charCodeAt(8))) / 255.0,
         };
     }
     return undefined;
@@ -11044,10 +11051,9 @@ define("vscode-uri", ["vscode-uri/index"], function (main) {
         }
         case 13 /* BlockCommentTrivia */: {
           var startLine = document.positionAt(scanner.getTokenOffset()).line;
-          var endLine =
-            document.positionAt(
-              scanner.getTokenOffset() + scanner.getTokenLength(),
-            ).line;
+          var endLine = document.positionAt(
+            scanner.getTokenOffset() + scanner.getTokenLength(),
+          ).line;
           if (
             scanner.getTokenError() === 1 /* UnexpectedEndOfComment */ &&
             startLine + 1 < document.lineCount
@@ -11274,9 +11280,8 @@ define("vscode-uri", ["vscode-uri/index"], function (main) {
       var _a;
       if (
         node.type === "property" && node.keyNode.value === "$ref" &&
-        ((_a = node.valueNode) === null || _a === void 0
-            ? void 0
-            : _a.type) === "string"
+        ((_a = node.valueNode) === null || _a === void 0 ? void 0 : _a.type) ===
+          "string"
       ) {
         var path = node.valueNode.value;
         var targetNode = findTargetNode(doc, path);
@@ -11599,7 +11604,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }

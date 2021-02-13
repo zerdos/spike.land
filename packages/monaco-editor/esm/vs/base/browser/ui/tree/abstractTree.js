@@ -192,39 +192,34 @@ function asListOptions(modelProvider, options) {
           getPosInSet(node) {
             return node.visibleChildIndex + 1;
           },
-          isChecked:
-            options.accessibilityProvider &&
+          isChecked: options.accessibilityProvider &&
               options.accessibilityProvider.isChecked
-              ? (node) => {
-                return options.accessibilityProvider.isChecked(node.element);
-              }
-              : undefined,
-          getRole:
-            options.accessibilityProvider &&
+            ? (node) => {
+              return options.accessibilityProvider.isChecked(node.element);
+            }
+            : undefined,
+          getRole: options.accessibilityProvider &&
               options.accessibilityProvider.getRole
-              ? (node) => {
-                return options.accessibilityProvider.getRole(node.element);
-              }
-              : () => "treeitem",
+            ? (node) => {
+              return options.accessibilityProvider.getRole(node.element);
+            }
+            : () => "treeitem",
           getAriaLabel(e) {
             return options.accessibilityProvider.getAriaLabel(e.element);
           },
           getWidgetAriaLabel() {
             return options.accessibilityProvider.getWidgetAriaLabel();
           },
-          getWidgetRole:
-            options.accessibilityProvider &&
+          getWidgetRole: options.accessibilityProvider &&
               options.accessibilityProvider.getWidgetRole
-              ? () => options.accessibilityProvider.getWidgetRole()
-              : () => "tree",
-          getAriaLevel:
-            options.accessibilityProvider &&
+            ? () => options.accessibilityProvider.getWidgetRole()
+            : () => "tree",
+          getAriaLevel: options.accessibilityProvider &&
               options.accessibilityProvider.getAriaLevel
-              ? (node) =>
-                options.accessibilityProvider.getAriaLevel(node.element)
-              : (node) => {
-                return node.depth;
-              },
+            ? (node) => options.accessibilityProvider.getAriaLevel(node.element)
+            : (node) => {
+              return node.depth;
+            },
           getActiveDescendantId:
             options.accessibilityProvider.getActiveDescendantId && ((node) => {
               return options.accessibilityProvider.getActiveDescendantId(
@@ -710,7 +705,8 @@ class TypeFilterController {
                 !e.altKey && !e.ctrlKey && !e.metaKey) ||
             (e.keyCode === 1 /* Backspace */ && (isMacintosh
               ? (e.altKey && !e.metaKey)
-              : e.ctrlKey) && !e.shiftKey))
+              : e.ctrlKey) &&
+              !e.shiftKey))
         )
         .forEach((e) => {
           e.stopPropagation();
@@ -742,9 +738,7 @@ class TypeFilterController {
       this.onInput(e);
     } else if (
       e instanceof MouseEvent || e.keyCode === 9 /* Escape */ ||
-      (e.keyCode === 1 /* Backspace */ && (isMacintosh
-        ? e.altKey
-        : e.ctrlKey))
+      (e.keyCode === 1 /* Backspace */ && (isMacintosh ? e.altKey : e.ctrlKey))
     ) {
       this.onInput("");
     } else if (e.keyCode === 1 /* Backspace */) {
@@ -1239,25 +1233,24 @@ export class AbstractTree {
     // We debounce it with 0 delay since these events may fire in the same stack and we only
     // want to run this once. It also doesn't matter if it runs on the next tick since it's only
     // a nice to have UI feature.
-    onDidChangeActiveNodes.input =
-      Event.chain(
-        Event.any(
-          onDidModelSplice,
-          this.focus.onDidChange,
-          this.selection.onDidChange,
-        ),
-      )
-        .debounce(() => null, 0)
-        .map(() => {
-          const set = new Set();
-          for (const node of this.focus.getNodes()) {
-            set.add(node);
-          }
-          for (const node of this.selection.getNodes()) {
-            set.add(node);
-          }
-          return [...set.values()];
-        }).event;
+    onDidChangeActiveNodes.input = Event.chain(
+      Event.any(
+        onDidModelSplice,
+        this.focus.onDidChange,
+        this.selection.onDidChange,
+      ),
+    )
+      .debounce(() => null, 0)
+      .map(() => {
+        const set = new Set();
+        for (const node of this.focus.getNodes()) {
+          set.add(node);
+        }
+        for (const node of this.selection.getNodes()) {
+          set.add(node);
+        }
+        return [...set.values()];
+      }).event;
     if (_options.keyboardSupport !== false) {
       const onKeyDown = Event.chain(this.view.onKeyDown)
         .filter((e) => !isInputElement(e.target))
@@ -1412,7 +1405,7 @@ export class AbstractTree {
     const nodes = elements.map((e) => this.model.getNode(e));
     this.selection.set(nodes, browserEvent);
     const indexes = elements.map((e) => this.model.getListIndex(e)).filter(
-      (i) => i > -1
+      (i) => i > -1,
     );
     this.view.setSelection(indexes, browserEvent, true);
   }
@@ -1423,7 +1416,7 @@ export class AbstractTree {
     const nodes = elements.map((e) => this.model.getNode(e));
     this.focus.set(nodes, browserEvent);
     const indexes = elements.map((e) => this.model.getListIndex(e)).filter(
-      (i) => i > -1
+      (i) => i > -1,
     );
     this.view.setFocus(indexes, browserEvent, true);
   }

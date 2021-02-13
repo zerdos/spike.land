@@ -322,14 +322,12 @@ var HTMLHover = /** @class */ (function () {
         return this.supportsMarkdown;
       }
       var contentFormat =
-        (_c =
-              (_b =
-                    (_a = this.lsOptions.clientCapabilities) === null ||
+        (_c = (_b = (_a = this.lsOptions.clientCapabilities) === null ||
                       _a === void 0
-                      ? void 0
-                      : _a.textDocument) === null || _b === void 0
-                ? void 0
-                : _b.hover) === null || _c === void 0
+                    ? void 0
+                    : _a.textDocument) === null || _b === void 0
+              ? void 0
+              : _b.hover) === null || _c === void 0
           ? void 0
           : _c.contentFormat;
       this.supportsMarkdown = Array.isArray(contentFormat) &&

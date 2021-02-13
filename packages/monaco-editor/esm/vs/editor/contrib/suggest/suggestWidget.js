@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -177,11 +173,10 @@ class PersistedWidgetSize {
   }
   restore() {
     var _a;
-    const raw =
-      (_a = this._service.get(this._key, 0 /* GLOBAL */)) !== null &&
+    const raw = (_a = this._service.get(this._key, 0 /* GLOBAL */)) !== null &&
         _a !== void 0
-        ? _a
-        : "";
+      ? _a
+      : "";
     try {
       const obj = JSON.parse(raw);
       if (dom.Dimension.is(obj)) {
@@ -332,15 +327,17 @@ let SuggestWidget = class SuggestWidget {
           getRole: () => "option",
           getAriaLabel: (item) => {
             const textLabel = typeof item.completion.label === "string"
-              ? item.completion.label : item.completion.label.name;
+              ? item.completion.label
+              : item.completion.label.name;
             if (item.isResolved && this._isDetailsVisible()) {
               const { documentation, detail } = item.completion;
               const docs = strings.format(
                 "{0}{1}",
                 detail || "",
                 documentation
-                  ? (typeof documentation === "string" ? documentation
-                  : documentation.value)
+                  ? (typeof documentation === "string"
+                    ? documentation
+                    : documentation.value)
                   : "",
               );
               return nls.localize(
@@ -916,9 +913,10 @@ let SuggestWidget = class SuggestWidget {
         fullHeight,
       );
       if (
-        height === ((_a = this._cappedHeight) === null || _a === void 0
-          ? void 0
-          : _a.capped)
+        height ===
+          ((_a = this._cappedHeight) === null || _a === void 0
+            ? void 0
+            : _a.capped)
       ) {
         // Restore the old (wanted) height when the current
         // height is capped to fit

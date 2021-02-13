@@ -61,11 +61,10 @@ export class CursorUndoRedoController extends Disposable {
         return;
       }
       const prevState = new CursorState(e.oldSelections);
-      const isEqualToLastUndoStack =
-        (this._undoStack.length > 0 &&
-          this._undoStack[this._undoStack.length - 1].cursorState.equals(
-            prevState,
-          ));
+      const isEqualToLastUndoStack = (this._undoStack.length > 0 &&
+        this._undoStack[this._undoStack.length - 1].cursorState.equals(
+          prevState,
+        ));
       if (!isEqualToLastUndoStack) {
         this._undoStack.push(
           new StackElement(

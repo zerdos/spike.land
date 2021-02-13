@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -250,17 +246,19 @@ let MarkerHoverParticipant = class MarkerHoverParticipant {
           this.recentMarkerCodeActionsInfo = undefined;
         }
       }
-      const updatePlaceholderDisposable =
-        this.recentMarkerCodeActionsInfo &&
+      const updatePlaceholderDisposable = this.recentMarkerCodeActionsInfo &&
           !this.recentMarkerCodeActionsInfo.hasCodeActions
-          ? Disposable.None
-          : disposables.add(
-            disposableTimeout(() =>
+        ? Disposable.None
+        : disposables.add(
+          disposableTimeout(
+            () =>
               quickfixPlaceholderElement.textContent = nls.localize(
                 "checkingForQuickFixes",
                 "Checking for quick fixes...",
-              ), 200),
-          );
+              ),
+            200,
+          ),
+        );
       if (!quickfixPlaceholderElement.textContent) {
         // Have some content in here to avoid flickering
         quickfixPlaceholderElement.textContent = String.fromCharCode(0xA0); // &nbsp;

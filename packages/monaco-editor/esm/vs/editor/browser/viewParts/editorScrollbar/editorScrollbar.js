@@ -85,20 +85,34 @@ export class EditorScrollbar extends ViewPart {
     };
     // I've seen this happen both on the view dom node & on the lines content dom node.
     this._register(
-      dom.addDisposableListener(viewDomNode.domNode, "scroll", (e) =>
-        onBrowserDesperateReveal(viewDomNode.domNode, true, true)),
+      dom.addDisposableListener(
+        viewDomNode.domNode,
+        "scroll",
+        (e) => onBrowserDesperateReveal(viewDomNode.domNode, true, true),
+      ),
     );
     this._register(
-      dom.addDisposableListener(linesContent.domNode, "scroll", (e) =>
-        onBrowserDesperateReveal(linesContent.domNode, true, false)),
+      dom.addDisposableListener(
+        linesContent.domNode,
+        "scroll",
+        (e) => onBrowserDesperateReveal(linesContent.domNode, true, false),
+      ),
     );
     this._register(
-      dom.addDisposableListener(overflowGuardDomNode.domNode, "scroll", (e) =>
-        onBrowserDesperateReveal(overflowGuardDomNode.domNode, true, false)),
+      dom.addDisposableListener(
+        overflowGuardDomNode.domNode,
+        "scroll",
+        (e) =>
+          onBrowserDesperateReveal(overflowGuardDomNode.domNode, true, false),
+      ),
     );
     this._register(
-      dom.addDisposableListener(this.scrollbarDomNode.domNode, "scroll", (e) =>
-        onBrowserDesperateReveal(this.scrollbarDomNode.domNode, true, false)),
+      dom.addDisposableListener(
+        this.scrollbarDomNode.domNode,
+        "scroll",
+        (e) =>
+          onBrowserDesperateReveal(this.scrollbarDomNode.domNode, true, false),
+      ),
     );
   }
   dispose() {

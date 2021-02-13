@@ -69,19 +69,27 @@ export class GlobalMouseMoveMonitor {
     }
     for (const element of listenTo) {
       this._hooks.add(
-        dom.addDisposableThrottledListener(element, mouseMove, (data) => {
-          if (data.buttons !== initialButtons) {
-            // Buttons state has changed in the meantime
-            this.stopMonitoring(true);
-            return;
-          }
-          this._mouseMoveCallback(data);
-        }, (lastEvent, currentEvent) =>
-          this._mouseMoveEventMerger(lastEvent, currentEvent)),
+        dom.addDisposableThrottledListener(
+          element,
+          mouseMove,
+          (data) => {
+            if (data.buttons !== initialButtons) {
+              // Buttons state has changed in the meantime
+              this.stopMonitoring(true);
+              return;
+            }
+            this._mouseMoveCallback(data);
+          },
+          (lastEvent, currentEvent) =>
+            this._mouseMoveEventMerger(lastEvent, currentEvent),
+        ),
       );
       this._hooks.add(
-        dom.addDisposableListener(element, mouseUp, (e) =>
-          this.stopMonitoring(true)),
+        dom.addDisposableListener(
+          element,
+          mouseUp,
+          (e) => this.stopMonitoring(true),
+        ),
       );
     }
     if (IframeUtils.hasDifferentOriginAncestor()) {

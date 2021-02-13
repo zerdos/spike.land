@@ -1296,16 +1296,14 @@ export class QuickInputController extends Disposable {
   setVisibilities(visibilities) {
     const ui = this.getUI();
     ui.title.style.display = visibilities.title ? "" : "none";
-    ui.description1.style.display =
-      visibilities.description &&
+    ui.description1.style.display = visibilities.description &&
         (visibilities.inputBox || visibilities.checkAll)
-        ? ""
-        : "none";
-    ui.description2.style.display =
-      visibilities.description &&
+      ? ""
+      : "none";
+    ui.description2.style.display = visibilities.description &&
         !(visibilities.inputBox || visibilities.checkAll)
-        ? ""
-        : "none";
+      ? ""
+      : "none";
     ui.checkAll.style.display = visibilities.checkAll ? "" : "none";
     ui.filterContainer.style.display = visibilities.inputBox ? "" : "none";
     ui.visibleCountContainer.style.display = visibilities.visibleCount

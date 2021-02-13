@@ -330,7 +330,9 @@ export class PieceTreeTextBuffer extends Disposable {
       );
       trimAutoWhitespaceLineNumbers = [];
       for (
-        let i = 0, len = newTrimAutoWhitespaceCandidates.length; i < len; i++
+        let i = 0, len = newTrimAutoWhitespaceCandidates.length;
+        i < len;
+        i++
       ) {
         let lineNumber = newTrimAutoWhitespaceCandidates[i].lineNumber;
         if (

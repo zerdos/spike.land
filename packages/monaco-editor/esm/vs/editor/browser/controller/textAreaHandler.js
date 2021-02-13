@@ -105,10 +105,9 @@ export class TextAreaHandler extends ViewPart {
           platform.isWindows,
         );
         const newLineCharacter = this._context.model.getEOL();
-        const isFromEmptySelection =
-          (this._emptySelectionClipboard &&
-            this._modelSelections.length === 1 &&
-            this._modelSelections[0].isEmpty());
+        const isFromEmptySelection = (this._emptySelectionClipboard &&
+          this._modelSelections.length === 1 &&
+          this._modelSelections[0].isEmpty());
         const multicursorText =
           (Array.isArray(rawTextToCopy) ? rawTextToCopy : null);
         const text =
@@ -460,10 +459,9 @@ export class TextAreaHandler extends ViewPart {
       this._renderAtTopLeft();
       return;
     }
-    const top =
-      this._context.viewLayout.getVerticalOffsetForLineNumber(
-        this._selections[0].positionLineNumber,
-      ) - this._scrollTop;
+    const top = this._context.viewLayout.getVerticalOffsetForLineNumber(
+      this._selections[0].positionLineNumber,
+    ) - this._scrollTop;
     if (top < 0 || top > this._contentHeight) {
       // cursor is outside the viewport
       this._renderAtTopLeft();

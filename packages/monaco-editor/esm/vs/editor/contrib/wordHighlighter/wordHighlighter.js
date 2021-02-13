@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -176,7 +172,9 @@ class OccurenceAtPositionRequest {
     // Even if we are on a different word, if that word is in the decorations ranges, the request is still valid
     // (Same symbol)
     for (
-      let i = 0, len = decorationIds.length; !requestIsValid && i < len; i++
+      let i = 0, len = decorationIds.length;
+      !requestIsValid && i < len;
+      i++
     ) {
       let range = model.getDecorationRange(decorationIds[i]);
       if (range && range.startLineNumber === lineNumber) {
@@ -194,7 +192,7 @@ class OccurenceAtPositionRequest {
 class SemanticOccurenceAtPositionRequest extends OccurenceAtPositionRequest {
   _compute(model, selection, wordSeparators, token) {
     return getOccurrencesAtPosition(model, selection.getPosition(), token).then(
-      (value) => value || []
+      (value) => value || [],
     );
   }
 }
@@ -435,13 +433,12 @@ class WordHighlighter {
     // - when cursor is moved to a word, trigger immediately a findOccurrences request
     // - 250ms later after the last cursor move event, render the occurrences
     // - no flickering!
-    const workerRequestIsValid =
-      (this.workerRequest &&
-        this.workerRequest.isValid(
-          this.model,
-          editorSelection,
-          this._decorationIds,
-        ));
+    const workerRequestIsValid = (this.workerRequest &&
+      this.workerRequest.isValid(
+        this.model,
+        editorSelection,
+        this._decorationIds,
+      ));
     // There are 4 cases:
     // a) old workerRequest is valid & completed, renderDecorationsTimer fired
     // b) old workerRequest is valid & completed, renderDecorationsTimer not fired
@@ -717,9 +714,7 @@ registerThemingParticipant((theme, collector) => {
   if (selectionHighlightBorder) {
     collector.addRule(
       `.monaco-editor .selectionHighlight { border: 1px ${
-        theme.type === "hc"
-          ? "dotted"
-          : "solid"
+        theme.type === "hc" ? "dotted" : "solid"
       } ${selectionHighlightBorder}; box-sizing: border-box; }`,
     );
   }
@@ -727,9 +722,7 @@ registerThemingParticipant((theme, collector) => {
   if (wordHighlightBorder) {
     collector.addRule(
       `.monaco-editor .wordHighlight { border: 1px ${
-        theme.type === "hc"
-          ? "dashed"
-          : "solid"
+        theme.type === "hc" ? "dashed" : "solid"
       } ${wordHighlightBorder}; box-sizing: border-box; }`,
     );
   }
@@ -739,9 +732,7 @@ registerThemingParticipant((theme, collector) => {
   if (wordHighlightStrongBorder) {
     collector.addRule(
       `.monaco-editor .wordHighlightStrong { border: 1px ${
-        theme.type === "hc"
-          ? "dashed"
-          : "solid"
+        theme.type === "hc" ? "dashed" : "solid"
       } ${wordHighlightStrongBorder}; box-sizing: border-box; }`,
     );
   }

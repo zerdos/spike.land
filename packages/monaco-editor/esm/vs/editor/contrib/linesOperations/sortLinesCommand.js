@@ -56,7 +56,9 @@ function getSortData(model, selection, descending) {
   let linesToSort = [];
   // Get the contents of the selection to be sorted.
   for (
-    let lineNumber = startLineNumber; lineNumber <= endLineNumber; lineNumber++
+    let lineNumber = startLineNumber;
+    lineNumber <= endLineNumber;
+    lineNumber++
   ) {
     linesToSort.push(model.getLineContent(lineNumber));
   }

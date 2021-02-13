@@ -325,9 +325,8 @@ export class BracketMatchingController extends Disposable {
             position,
             20, /* give at most 20ms to compute */
           );
-          options =
-            BracketMatchingController
-              ._DECORATION_OPTIONS_WITHOUT_OVERVIEW_RULER;
+          options = BracketMatchingController
+            ._DECORATION_OPTIONS_WITHOUT_OVERVIEW_RULER;
         }
         newData[newDataLen++] = new BracketsData(position, brackets, options);
       }

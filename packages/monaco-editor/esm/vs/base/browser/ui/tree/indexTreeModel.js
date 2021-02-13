@@ -536,13 +536,12 @@ export class IndexTreeModel {
     if (!node.collapsed || visibility !== 0 /* Hidden */) {
       let visibleChildIndex = 0;
       for (const child of node.children) {
-        hasVisibleDescendants =
-          this._updateNodeAfterFilterChange(
-            child,
-            visibility,
-            result,
-            revealed && !node.collapsed,
-          ) || hasVisibleDescendants;
+        hasVisibleDescendants = this._updateNodeAfterFilterChange(
+          child,
+          visibility,
+          result,
+          revealed && !node.collapsed,
+        ) || hasVisibleDescendants;
         if (child.visible) {
           child.visibleChildIndex = visibleChildIndex++;
         }

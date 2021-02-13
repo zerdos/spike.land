@@ -190,7 +190,9 @@ export function setProperty(text, originalPath, value, options) {
       throw new Error(
         "Can not " + (value === void 0
           ? "remove"
-          : (options.isArrayInsertion ? "insert" : "modify")) +
+          : (options.isArrayInsertion
+            ? "insert"
+            : "modify")) +
           " Array index " + insertIndex + " as length is not sufficient",
       );
     }

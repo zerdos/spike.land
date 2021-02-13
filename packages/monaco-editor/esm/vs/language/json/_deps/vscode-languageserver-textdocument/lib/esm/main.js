@@ -206,7 +206,9 @@ export var TextDocument;
     var lastModifiedOffset = 0;
     var spans = [];
     for (
-      var _i = 0, sortedEdits_1 = sortedEdits; _i < sortedEdits_1.length; _i++
+      var _i = 0, sortedEdits_1 = sortedEdits;
+      _i < sortedEdits_1.length;
+      _i++
     ) {
       var e = sortedEdits_1[_i];
       var startOffset = document.offsetAt(e.range.start);

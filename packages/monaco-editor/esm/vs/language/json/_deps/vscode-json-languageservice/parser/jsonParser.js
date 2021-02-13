@@ -1034,7 +1034,9 @@ function validate(n, schema, validationResult, matchingSchemas) {
     };
     if (schema.properties) {
       for (
-        var _d = 0, _e = Object.keys(schema.properties); _d < _e.length; _d++
+        var _d = 0, _e = Object.keys(schema.properties);
+        _d < _e.length;
+        _d++
       ) {
         var propertyName = _e[_d];
         propertyProcessed(propertyName);
@@ -1082,7 +1084,9 @@ function validate(n, schema, validationResult, matchingSchemas) {
         var propertyPattern = _g[_f];
         var regex = new RegExp(propertyPattern);
         for (
-          var _h = 0, _j = unprocessedProperties.slice(0); _h < _j.length; _h++
+          var _h = 0, _j = unprocessedProperties.slice(0);
+          _h < _j.length;
+          _h++
         ) {
           var propertyName = _j[_h];
           if (regex.test(propertyName)) {
@@ -1196,7 +1200,9 @@ function validate(n, schema, validationResult, matchingSchemas) {
     }
     if (schema.dependencies) {
       for (
-        var _m = 0, _o = Object.keys(schema.dependencies); _m < _o.length; _m++
+        var _m = 0, _o = Object.keys(schema.dependencies);
+        _m < _o.length;
+        _m++
       ) {
         var key = _o[_m];
         var prop = seenKeys[key];

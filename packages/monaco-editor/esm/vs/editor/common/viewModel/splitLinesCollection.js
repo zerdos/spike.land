@@ -70,7 +70,9 @@ class LineNumberMapper {
       return;
     }
     for (
-      let i = this._validEndIndex + 1, len = this._counts.length; i < len; i++
+      let i = this._validEndIndex + 1, len = this._counts.length;
+      i < len;
+      i++
     ) {
       const viewLineCount = this._counts[i];
       const viewLinesAbove = (i > 0 ? this._modelToView[i - 1] : 0);

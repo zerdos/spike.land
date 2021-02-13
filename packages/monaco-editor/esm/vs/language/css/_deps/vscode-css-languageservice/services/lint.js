@@ -210,7 +210,9 @@ var LintVisitor = /** @class */ (function () {
       var missingVendorSpecific = this.getMissingNames(expected, actual);
       if (missingVendorSpecific || needsStandard) {
         for (
-          var _i = 0, _a = this.keyframes.data[name].nodes; _i < _a.length; _i++
+          var _i = 0, _a = this.keyframes.data[name].nodes;
+          _i < _a.length;
+          _i++
         ) {
           var node = _a[_i];
           if (needsStandard) {
@@ -298,7 +300,9 @@ var LintVisitor = /** @class */ (function () {
       }
       if (properties.length !== 0) {
         for (
-          var _b = 0, properties_1 = properties; _b < properties_1.length; _b++
+          var _b = 0, properties_1 = properties;
+          _b < properties_1.length;
+          _b++
         ) {
           var item = properties_1[_b];
           this.addEntry(item.node, Rules.BewareOfBoxModelSize);
@@ -316,7 +320,9 @@ var LintVisitor = /** @class */ (function () {
       }
       if (properties.length !== 0) {
         for (
-          var _c = 0, properties_2 = properties; _c < properties_2.length; _c++
+          var _c = 0, properties_2 = properties;
+          _c < properties_2.length;
+          _c++
         ) {
           var item = properties_2[_c];
           this.addEntry(item.node, Rules.BewareOfBoxModelSize);

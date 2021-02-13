@@ -79,8 +79,10 @@ export class TextAreaInput extends Disposable {
       new RunOnceScheduler(() => this._onCut.fire(), 0),
     );
     this._asyncFocusGainWriteScreenReaderContent = this._register(
-      new RunOnceScheduler(() =>
-        this.writeScreenReaderContent("asyncFocusGain"), 0),
+      new RunOnceScheduler(
+        () => this.writeScreenReaderContent("asyncFocusGain"),
+        0,
+      ),
     );
     this._textAreaState = TextAreaState.EMPTY;
     this._selectionChangeListener = null;

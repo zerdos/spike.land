@@ -166,16 +166,22 @@ export class PointerEventHandler extends MouseHandler {
       ),
     );
     this._register(
-      pointerEvents.onPointerUp(this.viewHelper.viewDomNode, (e) =>
-        this._onMouseUp(e)),
+      pointerEvents.onPointerUp(
+        this.viewHelper.viewDomNode,
+        (e) => this._onMouseUp(e),
+      ),
     );
     this._register(
-      pointerEvents.onPointerLeave(this.viewHelper.viewDomNode, (e) =>
-        this._onMouseLeave(e)),
+      pointerEvents.onPointerLeave(
+        this.viewHelper.viewDomNode,
+        (e) => this._onMouseLeave(e),
+      ),
     );
     this._register(
-      pointerEvents.onPointerDown(this.viewHelper.viewDomNode, (e) =>
-        this._onMouseDown(e)),
+      pointerEvents.onPointerDown(
+        this.viewHelper.viewDomNode,
+        (e) => this._onMouseDown(e),
+      ),
     );
   }
   onTap(event) {

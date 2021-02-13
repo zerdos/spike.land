@@ -147,10 +147,9 @@ export function getFoldingRanges(document, context) {
             }
           }
         } else {
-          var endLine =
-            document.positionAt(
-              scanner.getTokenOffset() + scanner.getTokenLength(),
-            ).line;
+          var endLine = document.positionAt(
+            scanner.getTokenOffset() + scanner.getTokenLength(),
+          ).line;
           if (startLine < endLine) {
             addRange({
               startLine: startLine,

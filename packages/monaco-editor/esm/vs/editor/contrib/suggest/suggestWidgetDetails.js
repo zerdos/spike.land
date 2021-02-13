@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -146,9 +142,8 @@ let SuggestDetailsWidget = class SuggestDetailsWidget {
           : " (no prefix)"
       }\n`;
       md += `distance: ${item.distance}, see localityBonus-setting\n`;
-      md +=
-        `index: ${item.idx}, based on ${item.completion.sortText &&
-            `sortText: "${item.completion.sortText}"` || "label"}\n`;
+      md += `index: ${item.idx}, based on ${item.completion.sortText &&
+          `sortText: "${item.completion.sortText}"` || "label"}\n`;
       md += `commit characters: ${item.completion.commitCharacters}\n`;
       documentation = new MarkdownString().appendCodeblock("empty", md);
       detail = `Provider: ${item.provider._debugDisplayName}`;

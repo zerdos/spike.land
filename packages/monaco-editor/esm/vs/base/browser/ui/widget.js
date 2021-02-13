@@ -10,38 +10,55 @@ import { Gesture } from "../touch.js";
 export class Widget extends Disposable {
   onclick(domNode, listener) {
     this._register(
-      dom.addDisposableListener(domNode, dom.EventType.CLICK, (e) =>
-        listener(new StandardMouseEvent(e))),
+      dom.addDisposableListener(
+        domNode,
+        dom.EventType.CLICK,
+        (e) => listener(new StandardMouseEvent(e)),
+      ),
     );
   }
   onmousedown(domNode, listener) {
     this._register(
-      dom.addDisposableListener(domNode, dom.EventType.MOUSE_DOWN, (e) =>
-        listener(new StandardMouseEvent(e))),
+      dom.addDisposableListener(
+        domNode,
+        dom.EventType.MOUSE_DOWN,
+        (e) => listener(new StandardMouseEvent(e)),
+      ),
     );
   }
   onmouseover(domNode, listener) {
     this._register(
-      dom.addDisposableListener(domNode, dom.EventType.MOUSE_OVER, (e) =>
-        listener(new StandardMouseEvent(e))),
+      dom.addDisposableListener(
+        domNode,
+        dom.EventType.MOUSE_OVER,
+        (e) => listener(new StandardMouseEvent(e)),
+      ),
     );
   }
   onnonbubblingmouseout(domNode, listener) {
     this._register(
-      dom.addDisposableNonBubblingMouseOutListener(domNode, (e) =>
-        listener(new StandardMouseEvent(e))),
+      dom.addDisposableNonBubblingMouseOutListener(
+        domNode,
+        (e) => listener(new StandardMouseEvent(e)),
+      ),
     );
   }
   onkeydown(domNode, listener) {
     this._register(
-      dom.addDisposableListener(domNode, dom.EventType.KEY_DOWN, (e) =>
-        listener(new StandardKeyboardEvent(e))),
+      dom.addDisposableListener(
+        domNode,
+        dom.EventType.KEY_DOWN,
+        (e) => listener(new StandardKeyboardEvent(e)),
+      ),
     );
   }
   onkeyup(domNode, listener) {
     this._register(
-      dom.addDisposableListener(domNode, dom.EventType.KEY_UP, (e) =>
-        listener(new StandardKeyboardEvent(e))),
+      dom.addDisposableListener(
+        domNode,
+        dom.EventType.KEY_UP,
+        (e) => listener(new StandardKeyboardEvent(e)),
+      ),
     );
   }
   oninput(domNode, listener) {

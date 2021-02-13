@@ -274,9 +274,8 @@ class BareHitTestRequest {
     );
     this.mouseContentHorizontalOffset = ctx.getCurrentScrollLeft() + pos.x -
       editorPos.x - ctx.layoutInfo.contentLeft;
-    this.isInMarginArea =
-      (pos.x - editorPos.x < ctx.layoutInfo.contentLeft &&
-        pos.x - editorPos.x >= ctx.layoutInfo.glyphMarginLeft);
+    this.isInMarginArea = (pos.x - editorPos.x < ctx.layoutInfo.contentLeft &&
+      pos.x - editorPos.x >= ctx.layoutInfo.glyphMarginLeft);
     this.isInContentArea = !this.isInMarginArea;
     this.mouseColumn = Math.max(
       0,
@@ -311,12 +310,11 @@ class HitTestRequest extends BareHitTestRequest {
       position.column < this._ctx.model.getLineMaxColumn(position.lineNumber)
     ) {
       // Most likely, the line contains foreign decorations...
-      mouseColumn =
-        CursorColumns.visibleColumnFromColumn(
-          this._ctx.model.getLineContent(position.lineNumber),
-          position.column,
-          this._ctx.model.getTextModelOptions().tabSize,
-        ) + 1;
+      mouseColumn = CursorColumns.visibleColumnFromColumn(
+        this._ctx.model.getLineContent(position.lineNumber),
+        position.column,
+        this._ctx.model.getTextModelOptions().tabSize,
+      ) + 1;
     }
     return new MouseTarget(
       this.target,
@@ -932,14 +930,13 @@ export class MouseTargetFactory {
           : null;
       if (parent1ClassName === ViewLine.CLASS_NAME) {
         // it returned the `<span>` of the line and the offset is the `<span>` with the inline decoration
-        const tokenSpan =
-          hitResult.offsetNode
-            .childNodes[
-            Math.min(
-              hitResult.offset,
-              hitResult.offsetNode.childNodes.length - 1,
-            )
-          ];
+        const tokenSpan = hitResult.offsetNode
+          .childNodes[
+          Math.min(
+            hitResult.offset,
+            hitResult.offsetNode.childNodes.length - 1,
+          )
+        ];
         if (tokenSpan) {
           const p = ctx.getPositionFromDOMInfo(tokenSpan, 0);
           return {

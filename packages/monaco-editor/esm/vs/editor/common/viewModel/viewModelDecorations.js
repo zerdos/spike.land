@@ -128,7 +128,9 @@ export class ViewModelDecorations {
           viewRange.endLineNumber,
         );
         for (
-          let j = intersectedStartLineNumber; j <= intersectedEndLineNumber; j++
+          let j = intersectedStartLineNumber;
+          j <= intersectedEndLineNumber;
+          j++
         ) {
           inlineDecorations[j - startLineNumber].push(inlineDecoration);
         }

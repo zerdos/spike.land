@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -165,13 +161,12 @@ let CodeLensContribution = class CodeLensContribution {
       fontSize = (this._editor.getOption(40 /* fontSize */) * .9) | 0;
       codeLensHeight = this._editor.getOption(53 /* lineHeight */);
     } else {
-      codeLensHeight =
-        (fontSize *
-          Math.max(
-            1.3,
-            this._editor.getOption(53 /* lineHeight */) /
-              this._editor.getOption(40 /* fontSize */),
-          )) | 0;
+      codeLensHeight = (fontSize *
+        Math.max(
+          1.3,
+          this._editor.getOption(53 /* lineHeight */) /
+            this._editor.getOption(40 /* fontSize */),
+        )) | 0;
     }
     return { codeLensHeight, fontSize };
   }

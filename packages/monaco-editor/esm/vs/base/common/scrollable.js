@@ -57,9 +57,8 @@ export class ScrollState {
         : this.scrollWidth),
       useRawScrollPositions ? this.rawScrollLeft : this.scrollLeft,
       (typeof update.height !== "undefined" ? update.height : this.height),
-      (typeof update.scrollHeight !== "undefined"
-        ? update.scrollHeight
-        : this.scrollHeight),
+      (typeof update.scrollHeight !== "undefined" ? update.scrollHeight
+      : this.scrollHeight),
       useRawScrollPositions ? this.rawScrollTop : this.scrollTop,
     );
   }

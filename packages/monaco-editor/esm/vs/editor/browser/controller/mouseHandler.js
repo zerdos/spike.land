@@ -58,8 +58,10 @@ export class MouseHandler extends ViewEventHandler {
       this.viewHelper.viewDomNode,
     );
     this._register(
-      mouseEvents.onContextMenu(this.viewHelper.viewDomNode, (e) =>
-        this._onContextMenu(e, true)),
+      mouseEvents.onContextMenu(
+        this.viewHelper.viewDomNode,
+        (e) => this._onContextMenu(e, true),
+      ),
     );
     this._register(
       mouseEvents.onMouseMoveThrottled(
@@ -70,16 +72,22 @@ export class MouseHandler extends ViewEventHandler {
       ),
     );
     this._register(
-      mouseEvents.onMouseUp(this.viewHelper.viewDomNode, (e) =>
-        this._onMouseUp(e)),
+      mouseEvents.onMouseUp(
+        this.viewHelper.viewDomNode,
+        (e) => this._onMouseUp(e),
+      ),
     );
     this._register(
-      mouseEvents.onMouseLeave(this.viewHelper.viewDomNode, (e) =>
-        this._onMouseLeave(e)),
+      mouseEvents.onMouseLeave(
+        this.viewHelper.viewDomNode,
+        (e) => this._onMouseLeave(e),
+      ),
     );
     this._register(
-      mouseEvents.onMouseDown(this.viewHelper.viewDomNode, (e) =>
-        this._onMouseDown(e)),
+      mouseEvents.onMouseDown(
+        this.viewHelper.viewDomNode,
+        (e) => this._onMouseDown(e),
+      ),
     );
     const onMouseWheel = (browserEvent) => {
       this.viewController.emitMouseWheel(browserEvent);
@@ -194,17 +202,15 @@ export class MouseHandler extends ViewEventHandler {
     const t = this._createMouseTarget(e, true);
     const targetIsContent =
       (t.type === 6 /* CONTENT_TEXT */ || t.type === 7 /* CONTENT_EMPTY */);
-    const targetIsGutter =
-      (t.type === 2 /* GUTTER_GLYPH_MARGIN */ ||
-        t.type === 3 /* GUTTER_LINE_NUMBERS */ ||
-        t.type === 4 /* GUTTER_LINE_DECORATIONS */);
+    const targetIsGutter = (t.type === 2 /* GUTTER_GLYPH_MARGIN */ ||
+      t.type === 3 /* GUTTER_LINE_NUMBERS */ ||
+      t.type === 4 /* GUTTER_LINE_DECORATIONS */);
     const targetIsLineNumbers = (t.type === 3 /* GUTTER_LINE_NUMBERS */);
     const selectOnLineNumbers = this._context.configuration.options.get(
       93, /* selectOnLineNumbers */
     );
-    const targetIsViewZone =
-      (t.type === 8 /* CONTENT_VIEW_ZONE */ ||
-        t.type === 5 /* GUTTER_VIEW_ZONE */);
+    const targetIsViewZone = (t.type === 8 /* CONTENT_VIEW_ZONE */ ||
+      t.type === 5 /* GUTTER_VIEW_ZONE */);
     const targetIsWidget = (t.type === 9 /* CONTENT_WIDGET */);
     let shouldHandle = e.leftButton || e.middleButton;
     if (platform.isMacintosh && e.leftButton && e.ctrlKey) {

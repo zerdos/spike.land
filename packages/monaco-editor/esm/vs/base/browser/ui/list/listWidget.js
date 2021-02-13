@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -1000,13 +996,12 @@ export class List {
     this.disposables = new DisposableStore();
     this._onDidDispose = new Emitter();
     this.onDidDispose = this._onDidDispose.event;
-    const role =
-      this._options.accessibilityProvider &&
+    const role = this._options.accessibilityProvider &&
         this._options.accessibilityProvider.getWidgetRole
-        ? (_a = this._options.accessibilityProvider) === null || _a === void 0
-          ? void 0
-          : _a.getWidgetRole()
-        : "list";
+      ? (_a = this._options.accessibilityProvider) === null || _a === void 0
+        ? void 0
+        : _a.getWidgetRole()
+      : "list";
     this.selection = new SelectionTrait(role !== "listbox");
     this.focus = new Trait("focused");
     mixin(_options, defaultStyles, false);

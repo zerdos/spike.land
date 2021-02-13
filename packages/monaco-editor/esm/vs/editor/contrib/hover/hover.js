@@ -18,11 +18,7 @@ var __decorate = (this && this.__decorate) ||
     } else {
       for (var i = decorators.length - 1; i >= 0; i--) {
         if (d = decorators[i]) {
-          r = (c < 3
-            ? d(r)
-            : c > 3
-            ? d(target, key, r)
-            : d(target, key)) || r;
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
         }
       }
     }
@@ -192,11 +188,10 @@ let ModesHoverController = class ModesHoverController {
     }
     if (
       this._isHoverSticky &&
-      !((_b =
-              (_a = mouseEvent.event.browserEvent.view) === null ||
+      !((_b = (_a = mouseEvent.event.browserEvent.view) === null ||
                 _a === void 0
-                ? void 0
-                : _a.getSelection()) === null || _b === void 0
+              ? void 0
+              : _a.getSelection()) === null || _b === void 0
         ? void 0
         : _b.isCollapsed)
     ) {
@@ -221,9 +216,8 @@ let ModesHoverController = class ModesHoverController {
       return;
     }
     if (targetType === 7 /* CONTENT_EMPTY */) {
-      const epsilon =
-        this._editor.getOption(38 /* fontInfo */)
-          .typicalHalfwidthCharacterWidth / 2;
+      const epsilon = this._editor.getOption(38 /* fontInfo */)
+        .typicalHalfwidthCharacterWidth / 2;
       const data = mouseEvent.target.detail;
       if (
         data && !data.isAfterLines &&
@@ -239,12 +233,11 @@ let ModesHoverController = class ModesHoverController {
       if (this._isHoverEnabled && mouseEvent.target.range) {
         // TODO@rebornix. This should be removed if we move Color Picker out of Hover component.
         // Check if mouse is hovering on color decorator
-        const hoverOnColorDecorator =
-          [
-            ...((_e = mouseEvent.target.element) === null || _e === void 0
-              ? void 0
-              : _e.classList.values()) || [],
-          ].find((className) => className.startsWith("ced-colorBox")) &&
+        const hoverOnColorDecorator = [
+          ...((_e = mouseEvent.target.element) === null || _e === void 0
+            ? void 0
+            : _e.classList.values()) || [],
+        ].find((className) => className.startsWith("ced-colorBox")) &&
           mouseEvent.target.range.endColumn -
                 mouseEvent.target.range.startColumn === 1;
         const showAtRange = (hoverOnColorDecorator // shift the mouse focus by one as color decorator is a `before` decoration of next character.

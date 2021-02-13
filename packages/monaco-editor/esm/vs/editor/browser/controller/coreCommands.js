@@ -359,7 +359,8 @@ export var CoreNavigationCommands;
           ? prevColumnSelectData.fromViewLineNumber
           : validatedViewPosition.lineNumber;
         let fromViewVisualColumn = args.doColumnSelect
-          ? prevColumnSelectData.fromViewVisualColumn : args.mouseColumn - 1;
+          ? prevColumnSelectData.fromViewVisualColumn
+          : args.mouseColumn - 1;
         return ColumnSelection.columnSelect(
           viewModel.cursorConfig,
           viewModel,

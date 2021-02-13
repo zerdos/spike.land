@@ -62,7 +62,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }
@@ -410,7 +411,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }
@@ -1491,9 +1493,8 @@ define("vs/language/typescript/languageFeatures", [
                 var result = {
                   name: item.text,
                   detail: "",
-                  kind:
-                    (outlineTypeTable[item.kind] ||
-                      monaco_editor_core_1.languages.SymbolKind.Variable),
+                  kind: (outlineTypeTable[item.kind] ||
+                    monaco_editor_core_1.languages.SymbolKind.Variable),
                   range: _this._textSpanToRange(model, item.spans[0]),
                   selectionRange: _this._textSpanToRange(model, item.spans[0]),
                   tags: [],

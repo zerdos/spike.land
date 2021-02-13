@@ -374,7 +374,9 @@ export function findNodeAtOffset(node, offset, includeRightBound) {
     var children = node.children;
     if (Array.isArray(children)) {
       for (
-        var i = 0; i < children.length && children[i].offset <= offset; i++
+        var i = 0;
+        i < children.length && children[i].offset <= offset;
+        i++
       ) {
         var item = findNodeAtOffset(children[i], offset, includeRightBound);
         if (item) {

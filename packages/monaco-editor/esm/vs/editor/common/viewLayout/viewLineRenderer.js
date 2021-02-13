@@ -636,9 +636,8 @@ function _applyRenderWhitespace(input, lineContent, len, tokens) {
       let prevCharCode = (len > 1
         ? lineContent.charCodeAt(len - 2)
         : 0 /* Null */);
-      let isSingleTrailingSpace =
-        (lastCharCode === 32 /* Space */ &&
-          (prevCharCode !== 32 /* Space */ && prevCharCode !== 9 /* Tab */));
+      let isSingleTrailingSpace = (lastCharCode === 32 /* Space */ &&
+        (prevCharCode !== 32 /* Space */ && prevCharCode !== 9 /* Tab */));
       if (!isSingleTrailingSpace) {
         generateWhitespace = true;
       }
@@ -676,7 +675,9 @@ function _applyInlineDecorations(lineContent, len, tokens, _lineDecorations) {
   let lineDecorationIndex = 0;
   let result = [], resultLen = 0, lastResultEndIndex = 0;
   for (
-    let tokenIndex = 0, len = tokens.length; tokenIndex < len; tokenIndex++
+    let tokenIndex = 0, len = tokens.length;
+    tokenIndex < len;
+    tokenIndex++
   ) {
     const token = tokens[tokenIndex];
     const tokenEndIndex = token.endIndex;

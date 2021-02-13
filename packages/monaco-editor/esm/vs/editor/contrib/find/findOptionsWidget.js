@@ -111,12 +111,17 @@ export class FindOptionsWidget extends Widget {
       }
     }));
     this._register(
-      dom.addDisposableNonBubblingMouseOutListener(this._domNode, (e) =>
-        this._onMouseOut()),
+      dom.addDisposableNonBubblingMouseOutListener(
+        this._domNode,
+        (e) => this._onMouseOut(),
+      ),
     );
     this._register(
-      dom.addDisposableListener(this._domNode, "mouseover", (e) =>
-        this._onMouseOver()),
+      dom.addDisposableListener(
+        this._domNode,
+        "mouseover",
+        (e) => this._onMouseOver(),
+      ),
     );
     this._applyTheme(themeService.getColorTheme());
     this._register(

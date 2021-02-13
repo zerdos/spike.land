@@ -17,14 +17,12 @@ var __awaiter = this && this.__awaiter || function (e, t, r, n) {
         }
         function l(e) {
           var t;
-          e.done
-            ? i(e.value)
-            : (t = e.value,
-              t instanceof r ? t : new r(
-                (function (e) {
-                  e(t);
-                }),
-              )).then(s, a);
+          e.done ? i(e.value) : (t = e.value,
+            t instanceof r ? t : new r(
+              (function (e) {
+                e(t);
+              }),
+            )).then(s, a);
         }
         l((n = n.apply(e, t || [])).next());
       }),
@@ -61,7 +59,8 @@ var __awaiter = this && this.__awaiter || function (e, t, r, n) {
                     ? n.return
                     : o[0]
                     ? n.throw || ((i = n.return) && i.call(n), 0)
-                    : n.next) && !(i = i.call(n, o[1])).done
+                    : n.next) &&
+                  !(i = i.call(n, o[1])).done
               ) {
                 return i;
               }
@@ -342,14 +341,12 @@ __awaiter = this && this.__awaiter || function (e, t, r, n) {
       }
       function l(e) {
         var t;
-        e.done
-          ? i(e.value)
-          : (t = e.value,
-            t instanceof r ? t : new r(
-              (function (e) {
-                e(t);
-              }),
-            )).then(s, a);
+        e.done ? i(e.value) : (t = e.value,
+          t instanceof r ? t : new r(
+            (function (e) {
+              e(t);
+            }),
+          )).then(s, a);
       }
       l((n = n.apply(e, t || [])).next());
     }),
@@ -386,7 +383,8 @@ __awaiter = this && this.__awaiter || function (e, t, r, n) {
                     ? n.return
                     : o[0]
                     ? n.throw || ((i = n.return) && i.call(n), 0)
-                    : n.next) && !(i = i.call(n, o[1])).done
+                    : n.next) &&
+                  !(i = i.call(n, o[1])).done
               ) {
                 return i;
               }
@@ -841,8 +839,7 @@ define(
                         u.sent().getCompletionsAtPosition(s.toString(), a),
                       ];
                     case 2:
-                      return !(l = u.sent()) || e.isDisposed() ? [2]
-                      : [2, {
+                      return !(l = u.sent()) || e.isDisposed() ? [2] : [2, {
                         suggestions: l.entries.map(
                           (function (i) {
                             var l, u = o;
@@ -1028,8 +1025,7 @@ define(
                         }),
                       ];
                     case 2:
-                      return !(a = u.sent()) || e.isDisposed() ? [2]
-                      : (l = {
+                      return !(a = u.sent()) || e.isDisposed() ? [2] : (l = {
                         activeSignature: a.selectedItemIndex,
                         activeParameter: a.argumentIndex,
                         signatures: [],
@@ -1109,9 +1105,7 @@ define(
                           contents: [{
                             value: "```typescript\n" + l + "\n```\n",
                           }, {
-                            value: o + (a
-                              ? "\n\n" + a
-                              : ""),
+                            value: o + (a ? "\n\n" + a : ""),
                           }],
                         }]);
                   }
@@ -1149,21 +1143,19 @@ define(
                         a.sent().getOccurrencesAtPosition(r.toString(), i),
                       ];
                     case 2:
-                      return !(o = a.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          2,
-                          o.map(
-                            (function (t) {
-                              return {
-                                range: s._textSpanToRange(e, t.textSpan),
-                                kind: t.isWriteAccess
-                                  ? n.languages.DocumentHighlightKind.Write
-                                  : n.languages.DocumentHighlightKind.Text,
-                              };
-                            }),
-                          ),
-                        ];
+                      return !(o = a.sent()) || e.isDisposed() ? [2] : [
+                        2,
+                        o.map(
+                          (function (t) {
+                            return {
+                              range: s._textSpanToRange(e, t.textSpan),
+                              kind: t.isWriteAccess
+                                ? n.languages.DocumentHighlightKind.Write
+                                : n.languages.DocumentHighlightKind.Text,
+                            };
+                          }),
+                        ),
+                      ];
                   }
                 }),
               );
@@ -1200,18 +1192,16 @@ define(
                         p.sent().getDefinitionAtPosition(r.toString(), i),
                       ];
                     case 2:
-                      return !(o = p.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          4,
-                          this._libFiles.fetchLibFilesIfNecessary(
-                            o.map(
-                              (function (e) {
-                                return n.Uri.parse(e.fileName);
-                              }),
-                            ),
+                      return !(o = p.sent()) || e.isDisposed() ? [2] : [
+                        4,
+                        this._libFiles.fetchLibFilesIfNecessary(
+                          o.map(
+                            (function (e) {
+                              return n.Uri.parse(e.fileName);
+                            }),
                           ),
-                        ];
+                        ),
+                      ];
                     case 3:
                       if (p.sent(), e.isDisposed()) return [2];
                       for (s = [], a = 0, l = o; a < l.length; a++) {
@@ -1260,18 +1250,16 @@ define(
                         p.sent().getReferencesAtPosition(r.toString(), i),
                       ];
                     case 2:
-                      return !(o = p.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          4,
-                          this._libFiles.fetchLibFilesIfNecessary(
-                            o.map(
-                              (function (e) {
-                                return n.Uri.parse(e.fileName);
-                              }),
-                            ),
+                      return !(o = p.sent()) || e.isDisposed() ? [2] : [
+                        4,
+                        this._libFiles.fetchLibFilesIfNecessary(
+                          o.map(
+                            (function (e) {
+                              return n.Uri.parse(e.fileName);
+                            }),
                           ),
-                        ];
+                        ),
+                      ];
                     case 3:
                       if (p.sent(), e.isDisposed()) return [2];
                       for (s = [], a = 0, l = o; a < l.length; a++) {
@@ -1328,7 +1316,9 @@ define(
                           };
                           if (r.childItems && r.childItems.length > 0) {
                             for (
-                              var l = 0, u = r.childItems; l < u.length; l++
+                              var l = 0, u = r.childItems;
+                              l < u.length;
+                              l++
                             ) {
                               var c = u[l];
                               i(t, c, a.name);
@@ -1464,28 +1454,24 @@ define(
                         [4, this._worker(n)];
                     case 1:
                       return s = u.sent(),
-                        e.isDisposed()
-                          ? [2]
-                          : [
-                            4,
-                            s.getFormattingEditsForRange(
-                              n.toString(),
-                              i,
-                              o,
-                              y._convertOptions(r),
-                            ),
-                          ];
-                    case 2:
-                      return !(a = u.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          2,
-                          a.map(
-                            (function (t) {
-                              return l._convertTextChanges(e, t);
-                            }),
+                        e.isDisposed() ? [2] : [
+                          4,
+                          s.getFormattingEditsForRange(
+                            n.toString(),
+                            i,
+                            o,
+                            y._convertOptions(r),
                           ),
                         ];
+                    case 2:
+                      return !(a = u.sent()) || e.isDisposed() ? [2] : [
+                        2,
+                        a.map(
+                          (function (t) {
+                            return l._convertTextChanges(e, t);
+                          }),
+                        ),
+                      ];
                   }
                 }),
               );
@@ -1533,16 +1519,14 @@ define(
                         ),
                       ];
                     case 2:
-                      return !(s = l.sent()) || e.isDisposed()
-                        ? [2]
-                        : [
-                          2,
-                          s.map(
-                            (function (t) {
-                              return a._convertTextChanges(e, t);
-                            }),
-                          ),
-                        ];
+                      return !(s = l.sent()) || e.isDisposed() ? [2] : [
+                        2,
+                        s.map(
+                          (function (t) {
+                            return a._convertTextChanges(e, t);
+                          }),
+                        ),
+                      ];
                   }
                 }),
               );
@@ -1800,7 +1784,7 @@ define(
         t.getTypeScriptWorker = function () {
           return new Promise(
             (function (e, t) {
-              if (!s) return t("TypeScript not registered!");
+              if (!s)return t("TypeScript not registered!");
               e(s);
             }),
           );

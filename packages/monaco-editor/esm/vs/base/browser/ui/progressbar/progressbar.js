@@ -26,8 +26,10 @@ export class ProgressBar extends Disposable {
     this.workedVal = 0;
     this.progressBarBackground = this.options.progressBarBackground;
     this._register(
-      this.showDelayedScheduler = new RunOnceScheduler(() =>
-        show(this.element), 0),
+      this.showDelayedScheduler = new RunOnceScheduler(
+        () => show(this.element),
+        0,
+      ),
     );
     this.create(container);
   }

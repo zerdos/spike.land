@@ -81,8 +81,10 @@ function splice(treeElement, element, children) {
     return Object.assign(Object.assign({}, treeElement), { children });
   }
   return Object.assign(Object.assign({}, treeElement), {
-    children: Iterable.map(Iterable.from(treeElement.children), (e) =>
-      splice(e, element, children)),
+    children: Iterable.map(
+      Iterable.from(treeElement.children),
+      (e) => splice(e, element, children),
+    ),
   });
 }
 const wrapIdentityProvider = (base) => ({

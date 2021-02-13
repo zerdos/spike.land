@@ -410,9 +410,8 @@ export class AbstractScrollableElement extends Widget {
       );
       this._topShadowDomNode.setClassName("shadow" + (enableTop ? " top" : ""));
       this._topLeftShadowDomNode.setClassName(
-        "shadow top-left-corner" + (enableTop ? " top" : "") + (enableLeft
-          ? " left"
-          : ""),
+        "shadow top-left-corner" + (enableTop ? " top" : "") +
+          (enableLeft ? " left" : ""),
       );
     }
   }

@@ -400,7 +400,9 @@ export class Cursor extends Disposable {
           this.setStates(
             eventsCollector,
             "modelChange",
-            e.isUndoing ? 5 /* Undo */ : e.isRedoing
+            e.isUndoing
+              ? 5 /* Undo */
+              : e.isRedoing
               ? 6 /* Redo */
               : 2, /* RecoverFromMarkers */
             cursorState,

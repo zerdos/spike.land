@@ -46,10 +46,9 @@ export function getFoldingRanges(document, context) {
       }
       case 13 /* BlockCommentTrivia */: {
         var startLine = document.positionAt(scanner.getTokenOffset()).line;
-        var endLine =
-          document.positionAt(
-            scanner.getTokenOffset() + scanner.getTokenLength(),
-          ).line;
+        var endLine = document.positionAt(
+          scanner.getTokenOffset() + scanner.getTokenLength(),
+        ).line;
         if (
           scanner.getTokenError() === 1 /* UnexpectedEndOfComment */ &&
           startLine + 1 < document.lineCount

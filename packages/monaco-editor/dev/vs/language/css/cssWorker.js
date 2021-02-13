@@ -3468,31 +3468,24 @@ define("vscode-nls", ["vscode-nls/vscode-nls"], function (main) {
         };
       case 7:
         return {
-          red:
-            (hexDigit(text.charCodeAt(1)) * 0x10 +
-              hexDigit(text.charCodeAt(2))) / 255.0,
-          green:
-            (hexDigit(text.charCodeAt(3)) * 0x10 +
-              hexDigit(text.charCodeAt(4))) / 255.0,
-          blue:
-            (hexDigit(text.charCodeAt(5)) * 0x10 +
-              hexDigit(text.charCodeAt(6))) / 255.0,
+          red: (hexDigit(text.charCodeAt(1)) * 0x10 +
+            hexDigit(text.charCodeAt(2))) / 255.0,
+          green: (hexDigit(text.charCodeAt(3)) * 0x10 +
+            hexDigit(text.charCodeAt(4))) / 255.0,
+          blue: (hexDigit(text.charCodeAt(5)) * 0x10 +
+            hexDigit(text.charCodeAt(6))) / 255.0,
           alpha: 1,
         };
       case 9:
         return {
-          red:
-            (hexDigit(text.charCodeAt(1)) * 0x10 +
-              hexDigit(text.charCodeAt(2))) / 255.0,
-          green:
-            (hexDigit(text.charCodeAt(3)) * 0x10 +
-              hexDigit(text.charCodeAt(4))) / 255.0,
-          blue:
-            (hexDigit(text.charCodeAt(5)) * 0x10 +
-              hexDigit(text.charCodeAt(6))) / 255.0,
-          alpha:
-            (hexDigit(text.charCodeAt(7)) * 0x10 +
-              hexDigit(text.charCodeAt(8))) / 255.0,
+          red: (hexDigit(text.charCodeAt(1)) * 0x10 +
+            hexDigit(text.charCodeAt(2))) / 255.0,
+          green: (hexDigit(text.charCodeAt(3)) * 0x10 +
+            hexDigit(text.charCodeAt(4))) / 255.0,
+          blue: (hexDigit(text.charCodeAt(5)) * 0x10 +
+            hexDigit(text.charCodeAt(6))) / 255.0,
+          alpha: (hexDigit(text.charCodeAt(7)) * 0x10 +
+            hexDigit(text.charCodeAt(8))) / 255.0,
         };
     }
     return null;
@@ -6158,7 +6151,9 @@ var __extends = (this && this.__extends) || (function () {
           if (scopeNode_1) {
             var variables = eachNode.getVariables().getChildren();
             for (
-              var _i = 0, variables_1 = variables; _i < variables_1.length; _i++
+              var _i = 0, variables_1 = variables;
+              _i < variables_1.length;
+              _i++
             ) {
               var variable = variables_1[_i];
               this.addSymbolToChildScope(
@@ -8831,7 +8826,9 @@ define(
       var lastModifiedOffset = 0;
       var spans = [];
       for (
-        var _i = 0, sortedEdits_1 = sortedEdits; _i < sortedEdits_1.length; _i++
+        var _i = 0, sortedEdits_1 = sortedEdits;
+        _i < sortedEdits_1.length;
+        _i++
       ) {
         var e = sortedEdits_1[_i];
         var startOffset = document.offsetAt(e.range.start);
@@ -9048,7 +9045,9 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
             }
             function r(t, e) {
               for (
-                var r, n = "", i = 0, o = -1, a = 0, h = 0; h <= t.length; ++h
+                var r, n = "", i = 0, o = -1, a = 0, h = 0;
+                h <= t.length;
+                ++h
               ) {
                 if (h < t.length) r = t.charCodeAt(h);
                 else {
@@ -9106,13 +9105,7 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                     (n = a + "/" + n, i = 47 === a.charCodeAt(0));
                 }
                 return n = r(n, !i),
-                  i
-                    ? n.length > 0
-                      ? "/" + n
-                      : "/"
-                    : n.length > 0
-                    ? n
-                    : ".";
+                  i ? n.length > 0 ? "/" + n : "/" : n.length > 0 ? n : ".";
               },
               normalize: function (t) {
                 if (e(t), 0 === t.length) return ".";
@@ -9120,9 +9113,7 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                   i = 47 === t.charCodeAt(t.length - 1);
                 return 0 !== (t = r(t, !n)).length || n || (t = "."),
                   t.length > 0 && i && (t += "/"),
-                  n
-                    ? "/" + t
-                    : t;
+                  n ? "/" + t : t;
               },
               isAbsolute: function (t) {
                 return e(t), t.length > 0 && 47 === t.charCodeAt(0);
@@ -9154,9 +9145,10 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                       if (47 === r.charCodeAt(h + c)) return r.slice(h + c + 1);
                       if (0 === c) return r.slice(h + c);
                     } else {
-                      a > f && (47 === t.charCodeAt(i + c)
-                        ? u = c
-                        : 0 === c && (u = 0));
+                      a > f &&
+                        (47 === t.charCodeAt(i + c)
+                          ? u = c
+                          : 0 === c && (u = 0));
                     }
                     break;
                   }
@@ -9228,10 +9220,12 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                     t.slice(i, o);
                 }
                 for (n = t.length - 1; n >= 0; --n) {
-                  if (47 === t.charCodeAt(n)) {if (!a) {
+                  if (47 === t.charCodeAt(n)) {
+                    if (!a) {
                       i = n + 1;
                       break;
-                    }} else -1 === o && (a = !1, o = n + 1);
+                    }
+                  } else -1 === o && (a = !1, o = n + 1);
                 }
                 return -1 === o ? "" : t.slice(i, o);
               },
@@ -9246,9 +9240,7 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                   if (47 !== s) {
                     -1 === i && (o = !1, i = h + 1),
                       46 === s
-                        ? -1 === r
-                          ? r = h
-                          : 1 !== a && (a = 1)
+                        ? -1 === r ? r = h : 1 !== a && (a = 1)
                         : -1 !== r && (a = -1);
                   } else if (!o) {
                     n = h + 1;
@@ -9256,7 +9248,9 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                   }
                 }
                 return -1 === r || -1 === i || 0 === a ||
-                    1 === a && r === i - 1 && r === n + 1 ? "" : t.slice(r, i);
+                    1 === a && r === i - 1 && r === n + 1
+                  ? ""
+                  : t.slice(r, i);
               },
               format: function (t) {
                 if (null === t || "object" != typeof t) {
@@ -9285,9 +9279,7 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                   if (47 !== (i = t.charCodeAt(u))) {
                     -1 === s && (f = !1, s = u + 1),
                       46 === i
-                        ? -1 === a
-                          ? a = u
-                          : 1 !== c && (c = 1)
+                        ? -1 === a ? a = u : 1 !== c && (c = 1)
                         : -1 !== a && (c = -1);
                   } else if (!f) {
                     h = u + 1;
@@ -9296,9 +9288,10 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                 }
                 return -1 === a || -1 === s || 0 === c ||
                     1 === c && a === s - 1 && a === h + 1
-                  ? -1 !== s && (r.base = r.name = 0 === h && o
-                    ? t.slice(1, s)
-                    : t.slice(h, s))
+                  ? -1 !== s &&
+                    (r.base = r.name = 0 === h && o
+                      ? t.slice(1, s)
+                      : t.slice(h, s))
                   : (0 === h && o
                     ? (r.name = t.slice(1, a), r.base = t.slice(1, s))
                     : (r.name = t.slice(h, a), r.base = t.slice(h, s)),
@@ -9397,9 +9390,7 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                             case "https":
                             case "http":
                             case "file":
-                              e
-                                ? e[0] !== c && (e = c + e)
-                                : e = c;
+                              e ? e[0] !== c && (e = c + e) : e = c;
                           }
                           return e;
                         }(this.scheme, r || u),
@@ -9414,9 +9405,11 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                                 t.fragment + '"}',
                             );
                           }
-                          if (t.scheme && !h.test(t.scheme)) {throw new Error(
+                          if (t.scheme && !h.test(t.scheme)) {
+                            throw new Error(
                               "[UriError]: Scheme contains illegal characters.",
-                            );}
+                            );
+                          }
                           if (t.path) {
                             if (t.authority) {
                               if (!s.test(t.path)) {
@@ -9512,7 +9505,7 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                   },
                   t.revive = function (e) {
                     if (e) {
-                      if (e instanceof t)return e;
+                      if (e instanceof t) return e;
                       var r = new g(e);
                       return r._formatted = e.external,
                         r._fsPath = e._sep === d ? e.fsPath : null,
@@ -9653,8 +9646,9 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
                         n += r(u.substr(f + 1), !1)),
                     n += "@";
                 }
-                -1 === (f = (o = o.toLowerCase()).indexOf(":")) ? n += r(o, !1)
-                : (n += r(o.substr(0, f), !1), n += o.substr(f));
+                -1 === (f = (o = o.toLowerCase()).indexOf(":"))
+                  ? n += r(o, !1)
+                  : (n += r(o.substr(0, f), !1), n += o.substr(f));
               }
               if (a) {
                 if (
@@ -9702,7 +9696,9 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
               var n = Array(t), i = 0;
               for (e = 0; e < r; e++) {
                 for (
-                  var o = arguments[e], a = 0, h = o.length; a < h; a++, i++
+                  var o = arguments[e], a = 0, h = o.length;
+                  a < h;
+                  a++, i++
                 ) {
                   n[i] = o[a];
                 }
@@ -9726,8 +9722,9 @@ var __exportStar = (this && this.__exportStar) || function (m, exports) {
               },
               i.dirname = function (t) {
                 var e = a.dirname(t.path);
-                return 1 === e.length && 46 === e.charCodeAt(0) ? t
-                : t.with({ path: e });
+                return 1 === e.length && 46 === e.charCodeAt(0)
+                  ? t
+                  : t.with({ path: e });
               },
               i.basename = function (t) {
                 return a.basename(t.path);
@@ -9868,7 +9865,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }
@@ -10313,7 +10311,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }
@@ -10810,7 +10809,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
       } else {
         var existingValues = collectValues(this.styleSheet, node);
         for (
-          var _b = 0, _c = existingValues.getEntries(); _b < _c.length; _b++
+          var _b = 0, _c = existingValues.getEntries();
+          _b < _c.length;
+          _b++
         ) {
           var existingValue = _c[_b];
           result.items.push({
@@ -11095,7 +11096,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
       };
       var this_1 = this;
       for (
-        var _b = 0, _c = languageFacts.colorFunctions; _b < _c.length; _b++
+        var _b = 0, _c = languageFacts.colorFunctions;
+        _b < _c.length;
+        _b++
       ) {
         var p = _c[_b];
         _loop_1(p);
@@ -11162,7 +11165,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
       result,
     ) {
       for (
-        var _i = 0, _a = languageFacts.lineWidthKeywords; _i < _a.length; _i++
+        var _i = 0, _a = languageFacts.lineWidthKeywords;
+        _i < _a.length;
+        _i++
       ) {
         var lineWidth = _a[_i];
         result.items.push({
@@ -11785,14 +11790,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
           return this.supportsMarkdown;
         }
         var documentationFormat =
-          (_c =
-                (_b =
-                      (_a = this.lsOptions.clientCapabilities.textDocument) ===
+          (_c = (_b = (_a = this.lsOptions.clientCapabilities.textDocument) ===
                           null || _a === void 0
-                        ? void 0
-                        : _a.completion) === null || _b === void 0
-                  ? void 0
-                  : _b.completionItem) === null || _c === void 0
+                      ? void 0
+                      : _a.completion) === null || _b === void 0
+                ? void 0
+                : _b.completionItem) === null || _c === void 0
             ? void 0
             : _c.documentationFormat;
         this.supportsMarkdown = Array.isArray(documentationFormat) &&
@@ -12711,7 +12714,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }
@@ -13650,7 +13654,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
       });
       var maxActions = 3;
       for (
-        var _i = 0, candidates_1 = candidates; _i < candidates_1.length; _i++
+        var _i = 0, candidates_1 = candidates;
+        _i < candidates_1.length;
+        _i++
       ) {
         var candidate = candidates_1[_i];
         var propertyName_1 = candidate.property;
@@ -13795,7 +13801,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
   }
   function matches(value, candidates) {
     for (
-      var _i = 0, candidates_1 = candidates; _i < candidates_1.length; _i++
+      var _i = 0, candidates_1 = candidates;
+      _i < candidates_1.length;
+      _i++
     ) {
       var candidate = candidates_1[_i];
       if (value.matches(candidate)) {
@@ -43102,7 +43110,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }
@@ -43572,7 +43581,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
               ? y["return"]
               : op[0]
               ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
-              : y.next) && !(t = t.call(y, op[1])).done
+              : y.next) &&
+            !(t = t.call(y, op[1])).done
         ) {
           return t;
         }

@@ -229,7 +229,8 @@ export class Transform extends Marker {
     // when the regex didn't match and when the transform has
     // else branches, then run those
     if (
-      !didMatch && this._children.some((child) =>
+      !didMatch &&
+      this._children.some((child) =>
         child instanceof FormatString && Boolean(child.elseValue)
       )
     ) {

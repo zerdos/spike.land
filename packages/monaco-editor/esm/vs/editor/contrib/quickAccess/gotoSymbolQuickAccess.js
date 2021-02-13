@@ -255,10 +255,9 @@ export class AbstractGotoSymbolQuickAccessProvider
       if (token.isCancellationRequested) {
         return [];
       }
-      const filterBySymbolKind =
-        query.original.indexOf(
-          AbstractGotoSymbolQuickAccessProvider.SCOPE_PREFIX,
-        ) === 0;
+      const filterBySymbolKind = query.original.indexOf(
+        AbstractGotoSymbolQuickAccessProvider.SCOPE_PREFIX,
+      ) === 0;
       const filterPos = filterBySymbolKind ? 1 : 0;
       // Split between symbol and container query
       let symbolQuery;

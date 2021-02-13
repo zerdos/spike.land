@@ -199,7 +199,9 @@ var ScopeBuilder = /** @class */ (function () {
         if (scopeNode_1) {
           var variables = eachNode.getVariables().getChildren();
           for (
-            var _i = 0, variables_1 = variables; _i < variables_1.length; _i++
+            var _i = 0, variables_1 = variables;
+            _i < variables_1.length;
+            _i++
           ) {
             var variable = variables_1[_i];
             this.addSymbolToChildScope(
@@ -220,7 +222,9 @@ var ScopeBuilder = /** @class */ (function () {
     var current = this.scope.findScope(node.offset, node.length);
     if (current) {
       for (
-        var _i = 0, _a = node.getSelectors().getChildren(); _i < _a.length; _i++
+        var _i = 0, _a = node.getSelectors().getChildren();
+        _i < _a.length;
+        _i++
       ) {
         var child = _a[_i];
         if (child instanceof nodes.Selector) {

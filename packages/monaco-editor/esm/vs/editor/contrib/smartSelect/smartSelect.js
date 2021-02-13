@@ -110,8 +110,11 @@ class SmartSelectController {
           }
           if (
             !this._editor.hasModel() ||
-            !arrays.equals(this._editor.getSelections(), selections, (a, b) =>
-              a.equalsSelection(b))
+            !arrays.equals(
+              this._editor.getSelections(),
+              selections,
+              (a, b) => a.equalsSelection(b),
+            )
           ) {
             // invalid editor state
             return;

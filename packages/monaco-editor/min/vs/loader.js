@@ -59,9 +59,7 @@ var _amdLoaderGlobal = this,
       h._isWindows = function () {
         return typeof navigator != "undefined" && navigator.userAgent &&
             navigator.userAgent.indexOf("Windows") >= 0 ? !0
-        : typeof process != "undefined"
-          ? process.platform === "win32"
-          : !1;
+        : typeof process != "undefined" ? process.platform === "win32" : !1;
       },
       h;
   }();
@@ -327,8 +325,10 @@ var AMDLoader;
       },
       a.prototype._addUrlArgsIfNecessaryToUrls = function (n) {
         if (this.options.urlArgs) {
-          for (var p = 0, r = n.length; p < r; p++) {n[p] = this
-              ._addUrlArgsToUrl(n[p]);}
+          for (var p = 0, r = n.length; p < r; p++) {
+            n[p] = this
+              ._addUrlArgsToUrl(n[p]);
+          }
         }
         return n;
       },
@@ -341,8 +341,10 @@ var AMDLoader;
         if (!l.Utilities.endsWith(r, ".js") && !l.Utilities.isAbsolutePath(r)) {
           e = this._applyPaths(r);
           for (
-            var t = 0, i = e.length; t < i; t++
-          ) { 
+            var t = 0, i = e.length;
+            t < i;
+            t++
+          ) {
             this.isBuild() && e[t] === "empty:" ||
               (l.Utilities.isAbsolutePath(e[t]) ||
                 (e[t] = this.options.baseUrl + e[t]),
@@ -618,7 +620,7 @@ var AMDLoader;
             f;
         },
         r.prototype._getElectronRendererScriptPathOrUri = function (e) {
-          if (!this._env.isElectronRenderer)return e;
+          if (!this._env.isElectronRenderer) return e;
           var t = e.match(/^([a-z])\:(.*)/i);
           return t
             ? "file:///" + (t[1].toUpperCase() + ":" + t[2]).replace(/\\/g, "/")
@@ -673,7 +675,7 @@ var AMDLoader;
           v();
         },
         r.prototype._readSourceAndCachedData = function (e, t, i, o) {
-          if (!t)this._fs.readFile(e, { encoding: "utf8" }, o);
+          if (!t) this._fs.readFile(e, { encoding: "utf8" }, o);
           else {
             var u = void 0,
               s = void 0,
@@ -1313,7 +1315,8 @@ var AMDLoader;
         var t = this, i = this.getRecorder();
         if (!e.isComplete()) {
           var o = e.dependencies, u = [];
-          if (o) {for (var s = 0, f = o.length; s < f; s++) {
+          if (o) {
+            for (var s = 0, f = o.length; s < f; s++) {
               var c = o[s];
               if (c === a.EXPORTS) {
                 u[s] = e.exports;
@@ -1338,7 +1341,8 @@ var AMDLoader;
                 continue;
               }
               u[s] = null;
-            }}
+            }
+          }
           e.complete(i, this._config, u);
           var v = this._inverseDependencies2[e.id];
           if (this._inverseDependencies2[e.id] = null, v) {
@@ -1384,9 +1388,11 @@ var define, AMDLoader;
           a(arguments[0]);
           return;
         }
-        if (typeof arguments[0] == "string") {return h.synchronousRequire(
+        if (typeof arguments[0] == "string") {
+          return h.synchronousRequire(
             arguments[0],
-          );}
+          );
+        }
       }
       if (
         (arguments.length === 2 || arguments.length === 3) &&
