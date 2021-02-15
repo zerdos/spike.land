@@ -345,7 +345,7 @@ const Loader = (c: HTMLCanvasElement, size: number) => {
       color: "hsl(hue,100%,light%)",
       baseLight: 50,
       addedLight: 10, // [50-10,50+10]
-      shadowToTimePropMult: 6,
+      shadowToTimePropMultiplier: 6,
       baseLightInputMultiplier: .01,
       addedLightInputMultiplier: .02,
 
@@ -443,7 +443,7 @@ const Loader = (c: HTMLCanvasElement, size: number) => {
         x = this.addedX * wave,
         y = this.addedY * wave;
 
-      ctx.shadowBlur = prop * opts.shadowToTimePropMult;
+      ctx.shadowBlur = prop * opts.shadowToTimePropMultiplier;
       ctx.fillStyle = ctx.shadowColor = this.color.replace(
         "light",
         String(
