@@ -109,7 +109,7 @@ export const shasums = {
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
-    "b2633f9426f6b2e846c0038c495510bef36a2eceb047b02856692a000ecb6b59",
+    "62fce5b0fc7a3b0f50cbdd154375cbe0a554e4762c0bc2eab4393a03f1270ac5",
   "js/ipfsClient.js":
     "42038acc27fb3fb7ad7c518500a6222e21a3d890509fbff1d1e3971905d33a71",
   "index.html":

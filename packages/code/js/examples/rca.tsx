@@ -25,8 +25,7 @@ export default () => (
       -------------------
     </motion.div>
     <p>
-      Hey! Try to modify
-      <code>this</code> page.
+      Hey! Try to modify <code>this</code> page.
     </p>
 
     <a css="color: #61dafb;" href="./edit/">
