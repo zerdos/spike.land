@@ -1,7 +1,7 @@
 export const shasums = {
   "sw.js": "c9f20a59be9221089f012a4715b26789504606cb7598d486c4365645db21f1df",
   "package.json":
-    "c9571a9b6974d5e0f669fdffc3fe64dbfcc28340b40aadd23debd260b4e4c348",
+    "b5934396174dcdb84d332995e31e7f04129ec5a675a903e68c0013f1afbf7364",
   "modules/vendor/diffMin.js":
     "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
   "modules/vendor/idb.js":
