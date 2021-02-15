@@ -250,7 +250,7 @@ const Cube = ({ sides, size: _size, animate }) => {
   );
 };
 
-if (typeof window === "undefined") Math.random = () => 0.4; //elegant solution to ever changing builds.
+if (typeof window === "undefined") Math.random = () => 0.4; //elegant solution against the always changing build artifact
 
 const randoms = new Array(3).fill(0).map((x, i) =>
   (Math.random() * 360 - 180) * (i === 2 ? 2 : 1)
@@ -263,7 +263,7 @@ const spinCubeCss = (size: number, animate: boolean) =>
   width: ${size}px; 
   height: ${size}px;
   animation-name: ${animate && "spincube"};
-  animation-timing-function: ease; //cubic-bezier(.57,-0.6,0,1.03);
+  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
   animation-iteration-count: infinite;
   animation-duration: 10s;
   transform-style: preserve-3d;
