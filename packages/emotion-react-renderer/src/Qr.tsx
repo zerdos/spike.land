@@ -1,6 +1,5 @@
-import { QRious } from "@zedvision/qrious/dist/qrious.esm.js";
+import { QRious } from "@zedvision/qrious/src/QRious";
 /** @jsx jsx */
-
 import { css, jsx, React } from "./renderer";
 
 export const QR: React.FC<{ url: string }> = ({ url }) => {

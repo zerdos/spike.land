@@ -35,7 +35,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "dc2f3ebee2252560a6b80c66d36b5ba6f789769aaf2b6bc037361f3491f56c40",
+    "a0fffd79dd99bd0919da804c1202f7257e58183ac758f72e81ae9d0e36082487",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.d.ts":
@@ -47,7 +47,7 @@ export const shasums = {
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/renderer.umd.js":
-    "bdadec3e578f5e4e6f63baf507968c8812c2f86e2eee02f5f3d7e852b6ccb50c",
+    "f08c426aa693ec154f7f2f021c26aa8bbfc6e224c0ea81b8600080c97dd14a19",
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "assets/social-media-computer-icons-share-icon-png":
