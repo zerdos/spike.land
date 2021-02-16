@@ -14,7 +14,7 @@
     "build:renderer": "esbuild src/renderer.ts --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.js",
     "build:renderer:umd": "esbuild src/renderer.ts --minify --bundle --format=iife --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.umd.js",
     "build:draggableWindow": "esbuild src/DraggableWindow.tsx --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/DraggableWindow.js",
-    "prebuild": "yarn build:renderer && yarn build:renderer:umd && cp -rf dist/* ../code/modules/",
+    "prebuild": "yarn build:renderer && cp -rf dist/* ../code/modules/",
     "build": "echo done in prebuld"
   },
   "devDependencies": {
