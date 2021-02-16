@@ -60,7 +60,7 @@ render(App(), document.body.children[0]);
  * @param {string}} cid 
  * @returns {string}
  */
-export const getEditorHTML = (cid) =>
+export const getEditorHTML = () =>
   `<!DOCTYPE html>
 <html lang="en">
 <head>

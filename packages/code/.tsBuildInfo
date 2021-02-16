@@ -197,12 +197,12 @@
         "affectsGlobalScope": false
       },
       "./js/templates.js": {
-        "version": "1c8040361ddb4b535f6d1d26a1ef74fba5f36a580ac6747cf98928f2d6ddf9bb",
-        "signature": "71c0951394cf298f36c975f466f2878406a4c9038e98dfc6acf6fce51a08f1e4",
+        "version": "8cb08053f566598dc685b6209e249df1d8663213ab68aa10881c36c0c19dc23f",
+        "signature": "c1f841b5e61b588b9156054318788b4fa8418aca50b6121431b40045ceb19e8f",
         "affectsGlobalScope": false
       },
       "./js/share.js": {
-        "version": "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
+        "version": "130255a1be29252f6fe233feeda6d9045a3edcf5c46053cfc7e7edb012cb44bb",
         "signature": "8cfc095f8a3a103d8fdfc6ed1a3bb0f34f6aff7e830b00792983fd490a2b538b",
         "affectsGlobalScope": false
       },

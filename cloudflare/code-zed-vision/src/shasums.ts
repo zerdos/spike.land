@@ -75,9 +75,9 @@ export const shasums = {
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/templates.js":
-    "1c8040361ddb4b535f6d1d26a1ef74fba5f36a580ac6747cf98928f2d6ddf9bb",
+    "8cb08053f566598dc685b6209e249df1d8663213ab68aa10881c36c0c19dc23f",
   "js/share.js":
-    "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
+    "130255a1be29252f6fe233feeda6d9045a3edcf5c46053cfc7e7edb012cb44bb",
   "js/workers/getWorker.js":
     "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
   "js/workers/transpile.worker.js":
@@ -115,7 +115,7 @@ export const shasums = {
   "index.html":
     "a67dcbf38ebeaccc9cf4ff3e49a0c93f0ce74e0af4f4ddc091acbc9b09c6e8b7",
   ".tsBuildInfo":
-    "f9108f86fbbf6e462ac83615989577f47876be91ea0415183751bc0182ce8727",
+    "cf934ebeffea8d0de9da3d029229733b615c48afd30e52306539f03b1d51d5d9",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",

@@ -11,15 +11,6 @@ import { ipfsClient } from "./ipfsClient.js";
 * }} props 
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
-  let cid;
-
-  const { pathname } = window.location;
-
-  if (pathname.indexOf("/ipfs/") !== -1) {
-    cid = pathname.slice(6, 52);
-  } else {
-    cid = (await import("https://code.zed.vision/cid.js")).cid;
-  }
 
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
@@ -74,7 +65,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     { path: "/app/index.html", content: getHtml({ html, css }) },
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
-    { path: "/app/edit/index.html", content: getEditorHTML(cid) },
+    { path: "/app/edit/index.html", content: getEditorHTML() },
   ];
 
   const sha = await sha256(JSON.stringify(allContent));

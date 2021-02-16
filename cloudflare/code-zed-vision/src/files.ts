@@ -33,8 +33,8 @@ export const files = {
   "js/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
   "js/renderPreviewWindow.js": "QmRwUPK3pLoqC55NmK6vxn54U4uyJTUqTQkUaJ4XMWzXNr",
   "js/sendSignalToQrCode.js": "Qmd71pFw2wtrCZu8mp9diJdWYYYHLGVxuWa7QE49kcTQWC",
-  "js/share.js": "QmPsBbii2JPuzkpwwB6AMHy2uZmDCvv9Vv7GYrHzdv7p33",
-  "js/templates.js": "QmWn8D7zYLnsEQT86w9NdFnGAhACb2a519cm424ETk4zRT",
+  "js/share.js": "QmUUQ34Rn1W1Who4Tnq3syKvz6f1WDhab4ZokAtEHdCMhD",
+  "js/templates.js": "QmZoKBg7bijX9NcBbuqzdD1WJVGFY8Fe6LmwLN5Y1sTUA7",
   "js/transpile.js": "QmYYgWR7spaRoqTRLeuQsK9WMH6uer4VXsnj9VuKDGfvPa",
   "js/workers/getWorker.js": "QmXuEo1FJf7eUHmHRUPndsE6g7aTyQCnZzEM1Yop2LnjVj",
   "js/workers/ipfsWorker.js": "QmR4RRG2ZH5bStT4Q5aBzy6aQNqs17EWYv9HJGrg6inmog",
@@ -81,13 +81,13 @@ export const files = {
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmYVFm1hUoCUKGZLirtvmoGdZChxiuNAG7Ca1o76VyqDfQ",
-  "js": "QmcPn8HgD6dx2Fyupy7fkp98PSoegVApGpmdgDDw1Vw8V7",
+  "js": "Qmf8hvAtW2mbx79qRDHLhi3kSzsymNCM1uspEVPWmyVQF5",
   "modules/smart-monaco-editor/dist":
     "QmNpgT7Va8LBzwaPq5VjK8NaN7dKCunRnA8kew3AdVFYuZ",
   "modules/smart-monaco-editor":
     "Qma8go3aNXn62EYXqiQKHTqLg1q5sNVx1mpDaDJsc2GWkg",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
   "modules": "QmV2Ydw1tNhhSRSVYC2dJqEAtxLKfmQEHLMvCafsxtC89d",
-  "": "QmYR8srxuXys7dXotXxGaokmos74bKSHxiPNaBYoVAfHi2",
+  "": "QmULGRZEnpqf46qbXxbhJEqEmQRajPQR4csu9Z9CKpWBLr",
   "foo": "bar",
 };
