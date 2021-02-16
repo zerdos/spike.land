@@ -77,7 +77,7 @@ export const shasums = {
   "js/templates.js":
     "8cb08053f566598dc685b6209e249df1d8663213ab68aa10881c36c0c19dc23f",
   "js/share.js":
-    "7ee0b89737de252a3cf82deb68561015d96a40ca6ac8c1da390b2cb48433a8a9",
+    "5d5c815cecae5c90b02bf5b1dd65113521e50e2d68238293cfa87bd0102428a0",
   "js/workers/getWorker.js":
     "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
   "js/workers/transpile.worker.js":

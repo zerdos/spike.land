@@ -100,6 +100,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     try {
       await Promise.all([
         fetch(`${rootUrl}/app.js`).then((x) => x.text()),
+        fetch(`${rootUrl}/edit/index.html`).then((x) => x.text()),
         fetch(rootUrl).then((x) => x.text()),
       ]);
     } catch {
