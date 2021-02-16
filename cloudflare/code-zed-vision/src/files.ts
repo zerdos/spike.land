@@ -50,8 +50,8 @@ export const files = {
   "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
   "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
   "modules/ipfs.client.js": "QmThEvSJdNrYH3VujTa9ZRnPhEwSKUbgVhgGErXYL8koeS",
-  "modules/renderer.js": "QmaSqbbnEDsgo8Q4FNjmSXhn2t6Tf8kbQohgsrcXPSdzfY",
-  "modules/renderer.umd.js": "QmPknBiN6e41wVD8oN14YXX8GNhb96Bh9ue4nQauYbJ3tK",
+  "modules/renderer.js": "QmcasSyd8FGyYQmUmj4khjNiyBkGG4uP8rrM5t7JWqqEAR",
+  "modules/renderer.umd.js": "QmeefsvRoJ1QVktu1VH7TeR8zQCLSKeCMjeLBiTV8fGdjz",
   "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
   "modules/shaDB.d.ts": "Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY",
@@ -87,7 +87,7 @@ export const files = {
   "modules/smart-monaco-editor":
     "Qma8go3aNXn62EYXqiQKHTqLg1q5sNVx1mpDaDJsc2GWkg",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
-  "modules": "QmV2Ydw1tNhhSRSVYC2dJqEAtxLKfmQEHLMvCafsxtC89d",
-  "": "Qmbn1Tim4uPc7CABQsVuNbdjDuYu8mGkCr9ttkDA7K7FR3",
+  "modules": "QmTDbGF7z39jaAGTkpi6hcgokb84GQNGDE7wUXXUGT7B7Y",
+  "": "QmYd1s9eHCng35etFws4QDhQf1KzcWL7jw2iqv9MUT8RCb",
   "foo": "bar",
 };

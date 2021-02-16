@@ -2143,6 +2143,13 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
+"@material-ui/icons@next":
+  version "5.0.0-alpha.24"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-5.0.0-alpha.24.tgz#2f04c7c7dfb8f6991e0af6e2bae2fc066ec780d0"
+  integrity sha512-b9WnCARLzy3tRmSShn5iV6EYpWNLmrv9P+1ebAGxkHYvOi7ZHsk6NeL61FNx+sJ9nSrLnk+N7rTYI0h03XViPA==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
+
 "@material-ui/styled-engine@5.0.0-alpha.25":
   version "5.0.0-alpha.25"
   resolved "https://registry.yarnpkg.com/@material-ui/styled-engine/-/styled-engine-5.0.0-alpha.25.tgz#3008d08baec33c69fa1381c4c375a8863c11722a"
