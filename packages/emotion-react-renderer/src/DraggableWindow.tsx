@@ -78,7 +78,16 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 key={size}
                 value={size}
               >
-<span css={`color:${size===scaleRange? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"}`}>  {size}%</span>
+                <span
+                  css={css`
+                    color: ${
+                    size === scaleRange
+                      ? "rgba(255,255,255,.8)"
+                      : "rgba(0,0,0,.3)"
+                  }`}
+                >
+                  {size}%
+                </span>
               </ToggleButton>
             )}
           </ToggleButtonGroup>
@@ -153,15 +162,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           </ToggleButtonGroup>
         </div>
         <div
-          css={`
+          css={css`
               display: flex;
-          align-items: center;
-                
-          flex-direction: column;
-          padding: 16px;
-
-                
-          `}
+              align-items: center;          
+              flex-direction: column;
+              padding: 16px;
+              `}
         >
           <motion.div
             animate={{

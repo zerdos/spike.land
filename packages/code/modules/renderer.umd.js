@@ -101,7 +101,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             border-radius: 16px;
             white-space: normal;
             position: ${t||"fixed"};
-          `,dragElastic:.5,dragMomentum:!1,drag:!0},ee.jsx("div",{css:{display:"flex"}},ee.jsx("div",{css:{display:"flex",flexDirection:"column",alignItems:"center"}},ee.jsx(Tm,{value:a,size:"small",exclusive:!0,color:"white",onChange:(h,d)=>d&&s(d)},CX.map(h=>ee.jsx(wm,{key:h,value:h},ee.jsx("span",{css:`color:${h===a?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`},"  ",h,"%")))),ee.jsx(sl.div,{animate:{width:c*y/devicePixelRatio,height:u*y},css:ee.css`
+          `,dragElastic:.5,dragMomentum:!1,drag:!0},ee.jsx("div",{css:{display:"flex"}},ee.jsx("div",{css:{display:"flex",flexDirection:"column",alignItems:"center"}},ee.jsx(Tm,{value:a,size:"small",exclusive:!0,color:"white",onChange:(h,d)=>d&&s(d)},CX.map(h=>ee.jsx(wm,{key:h,value:h},ee.jsx("span",{css:ee.css`
+                    color: ${h===a?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`},h,"%")))),ee.jsx(sl.div,{animate:{width:c*y/devicePixelRatio,height:u*y},css:ee.css`
               display: block;
               overflow: hidden;
               border-radius: 8px;
@@ -114,15 +115,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                     overflow: overlay;
                     background: white;
                   }
-              `},ee.jsx("div",{id:"zbody",ref:v},n))),ee.jsx(Tm,{value:c,size:"small",exclusive:!0,onChange:(h,d)=>d&&f(d)},sq.map(h=>ee.jsx(wm,{key:h,value:h},h===640?ee.jsx(oq.default,{css:`color: ${c===640?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`}):h===1024?ee.jsx(nq.default,{css:`color: ${c===1024?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`}):ee.jsx(iq.default,{css:`color: ${c===1920?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`}))))),ee.jsx("div",{css:`
+              `},ee.jsx("div",{id:"zbody",ref:v},n))),ee.jsx(Tm,{value:c,size:"small",exclusive:!0,onChange:(h,d)=>d&&f(d)},sq.map(h=>ee.jsx(wm,{key:h,value:h},h===640?ee.jsx(oq.default,{css:`color: ${c===640?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`}):h===1024?ee.jsx(nq.default,{css:`color: ${c===1024?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`}):ee.jsx(iq.default,{css:`color: ${c===1920?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"}`}))))),ee.jsx("div",{css:ee.css`
               display: flex;
-          align-items: center;
-                
-          flex-direction: column;
-          padding: 16px;
-
-                
-          `},ee.jsx(sl.div,{animate:{width:i?220:0,height:i?240:0},onClick:h=>{o(!i)}},i&&ee.jsx(l1,{url:r.url+"edit/"})),ee.jsx("div",{css:"margin:0px 0px 16px"},ee.jsx(Lp,{variant:"extended",color:"secondary",onClick:()=>{o(!i)}},ee.jsx(tq.default,null))),ee.jsx("div",null,ee.jsx(Lp,{variant:"extended",color:"primary",onClick:()=>{e()}},ee.jsx(rq.default,null))))))};"use strict";var p1=Bq(),vQ=Kq();p1.use(new vQ);var l1=({url:e})=>{let t=Tt.default.useRef(null);return Tt.default.useEffect(()=>{let r={size:220,element:t.current,foregroundAlpha:.9,foreground:"white",backgroundAlpha:1,padding:16,background:"#1e1e1e",value:e},n=new p1(r)},[e]),ee.jsx("canvas",{css:ee.css`
+              align-items: center;          
+              flex-direction: column;
+              padding: 16px;
+              `},ee.jsx(sl.div,{animate:{width:i?220:0,height:i?240:0},onClick:h=>{o(!i)}},i&&ee.jsx(l1,{url:r.url+"edit/"})),ee.jsx("div",{css:"margin:0px 0px 16px"},ee.jsx(Lp,{variant:"extended",color:"secondary",onClick:()=>{o(!i)}},ee.jsx(tq.default,null))),ee.jsx("div",null,ee.jsx(Lp,{variant:"extended",color:"primary",onClick:()=>{e()}},ee.jsx(rq.default,null))))))};"use strict";var p1=Bq(),vQ=Kq();p1.use(new vQ);var l1=({url:e})=>{let t=Tt.default.useRef(null);return Tt.default.useEffect(()=>{let r={size:220,element:t.current,foregroundAlpha:.9,foreground:"white",backgroundAlpha:1,padding:16,background:"#1e1e1e",value:e},n=new p1(r)},[e]),ee.jsx("canvas",{css:ee.css`
         border-radius: 16px;
         margin-bottom: 8px;
   `,ref:t})};var{AnimateSharedLayout:sue}=Rl,{motion:sl}=Rl;var aq=(e,t)=>(m1.default.render(ee.jsx(Tt.Fragment,{children:e}),t),()=>m1.default.unmountComponentAtNode(t)),uue=Tt.default;Object.assign(globalThis,{DraggableWindow:uq,jsx:ee.jsx,css:ee.css,Global:ee.Global,render:aq,React:Tt.default});})();
