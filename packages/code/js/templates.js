@@ -26,7 +26,9 @@ export function getHtml({ html, css }) {
 <html lang="en"> 
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>
-<link rel="preload" href="./app.js" type="application/javascript" as="script" crossorigin>
+<link rel="modulepreload" href="./app.js">  
+<link rel="modulepreload" href="https://code.zed.vision/modules/renderer.js">
+<link rel="modulepreload" href="https://code.zed.vision/js/codeLoader.js">
 <link rel="icon" type="image/png" href="https://code.zed.vision/zed-icon-big.png" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,7 +70,7 @@ export const getEditorHTML = (cid) =>
 </head>
 <body>
   <script type="module">
-    import {edit} from "/ipfs/${cid}/js/data.js"
+    import {edit} from "https://code.zed.vision/js/data.js"
     try{
       edit("${location.pathname.slice(42, 52)}");
     }catch(error){

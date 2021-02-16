@@ -75,7 +75,7 @@ export const shasums = {
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/templates.js":
-    "7c08d76524166befcb3d0479c4810b3d1c59a722f9acae7e0a832ce4f9ffb84f",
+    "1c8040361ddb4b535f6d1d26a1ef74fba5f36a580ac6747cf98928f2d6ddf9bb",
   "js/share.js":
     "df01ec43f2e677a3624a90a5d1ba1c6e3e765423a5ed9fca1128c1722430f4eb",
   "js/workers/getWorker.js":
@@ -113,7 +113,7 @@ export const shasums = {
   "js/ipfsClient.js":
     "42038acc27fb3fb7ad7c518500a6222e21a3d890509fbff1d1e3971905d33a71",
   "index.html":
-    "05626f11be078c926ea7109c2acc94c562b7ae8740bf5cea475a911fb795799d",
+    "a67dcbf38ebeaccc9cf4ff3e49a0c93f0ce74e0af4f4ddc091acbc9b09c6e8b7",
   ".tsBuildInfo":
     "f9108f86fbbf6e462ac83615989577f47876be91ea0415183751bc0182ce8727",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
