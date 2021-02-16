@@ -511,7 +511,7 @@ var Loader = function Loader(c, size) {
     baseLight: 50,
     addedLight: 10,
     // [50-10,50+10]
-    shadowToTimePropMult: 6,
+    shadowToTimePropMultiplier: 6,
     baseLightInputMultiplier: .01,
     addedLightInputMultiplier: .02,
     cx: w / 2,
@@ -600,7 +600,7 @@ var Loader = function Loader(c, size) {
           wave = Math.sin(prop * Math.PI / 2),
           x = this.addedX * wave,
           y = this.addedY * wave;
-      ctx.shadowBlur = prop * opts.shadowToTimePropMult;
+      ctx.shadowBlur = prop * opts.shadowToTimePropMultiplier;
       ctx.fillStyle = ctx.shadowColor = this.color.replace("light", String(opts.baseLight + opts.addedLight * Math.sin(this.cumulativeTime * this.lightInputMultiplier)));
       ctx.fillRect(opts.cx + (this.x + x) * opts.len, opts.cy + (this.y + y) * opts.len, 2, 2);
 
@@ -717,4 +717,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-3ff33d71398c3acb5a94.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-f5020f223b69d1072472.js.map
