@@ -11,7 +11,6 @@ import { ipfsClient } from "./ipfsClient.js";
 * }} props 
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
-
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
   );
@@ -96,8 +95,18 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     shaDB.put(sha, rootUrl);
   }
   console.log(rootUrl);
-  await fetch(rootUrl).then((x) => x.text());
 
+  const preLoad = async (retry = 3) => {
+    try {
+      await Promise.all([
+        fetch(`${rootUrl}/app.js`).then((x) => x.text()),
+        fetch(rootUrl).then((x) => x.text()),
+      ]);
+    } catch {
+      if (retry > 0) return preLoad(retry - 1);
+    }
+  };
+  preLoad(3);
   // await saveHtml(
   //   getHtml({ HTML, css, link: linkToCode }),
   // );
