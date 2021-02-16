@@ -1,7 +1,7 @@
 export const shasums = {
   "sw.js": "c9f20a59be9221089f012a4715b26789504606cb7598d486c4365645db21f1df",
   "package.json":
-    "b5934396174dcdb84d332995e31e7f04129ec5a675a903e68c0013f1afbf7364",
+    "dda5f7f4053b4cc5d31cc16d012e17c0860972156c098ae2a528d11243326369",
   "modules/vendor/diffMin.js":
     "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
   "modules/vendor/idb.js":
@@ -115,7 +115,7 @@ export const shasums = {
   "index.html":
     "a67dcbf38ebeaccc9cf4ff3e49a0c93f0ce74e0af4f4ddc091acbc9b09c6e8b7",
   ".tsBuildInfo":
-    "3c8514be3972b2a0b313da264e8d68504c480bf6a3850c35d5c4eb7d5b167403",
+    "53405b422c2a7af46e43c56e844ed33dbddd93e0aea02477ce6add49ca5ce35d",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
