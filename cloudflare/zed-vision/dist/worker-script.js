@@ -545,7 +545,10 @@ async function handleCloudRequest(request) {
       return response;
     }
     if (pathname === "/") {
-      return Response.redirect("https://blog.zed.vision", 302);
+      return Response.redirect(
+        "https://code.zed.vision/ipfs/QmauvHh4CRhZDR9zULhSnvguoZP4uashu8AfuMoGUsXKsM/",
+        302,
+      );
     }
     if (pathname === "/code" || pathname === "/code/") {
       return Response.redirect(`https://code.zed.vision`, 302);
