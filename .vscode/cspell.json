@@ -50,6 +50,7 @@
         "nocheck",
         "outfile",
         "overtype",
+        "Parens",
         "popmotion",
         "prebuilds",
         "precache",

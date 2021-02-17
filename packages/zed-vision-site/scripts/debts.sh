@@ -1,10 +1,10 @@
 #!/usr/bin/bash
 
 if ! [ -x "$(command -v deno)" ]; then
-    curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.6.3
+    curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.7.4
 fi
 
 if ! [ -x "$(command -v file_server)" ]; then
-    deno install --allow-net --allow-read -f https://deno.land/std@0.83.0/http/file_server.ts 
+    deno install --allow-net --allow-read -f https://deno.land/std@0.87.0/http/file_server.ts 
 fi
 
