@@ -42,11 +42,11 @@ export const Qr = () => {
     const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      const qr = await new Function(
+      const LazyQR= await new Function(
         `return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)`,
       )();
 
-      cubeSides[qr] = new qr(options);
+      cubeSides[qr] = new LazyQR(options);
     }
 
     if (cubeSides[qr].get().value !== urls.current) {
