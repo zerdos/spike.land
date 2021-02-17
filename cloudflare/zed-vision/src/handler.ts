@@ -1,8 +1,8 @@
-import { getDbObj } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/getDbObj.js";
+import { getDbObj } from "https://code.zed.vision/modules/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
-import { sha256 } from "https://unpkg.com/@zedvision/shadb@11.10.0/src/sha256.js";
+import { sha256 } from "https://code.zed.vision/modules/sha256.js";
 
 import {
   publicIpfsGateways,
@@ -268,7 +268,10 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
     // return text("ello")
 
     if (pathname === "/") {
-      return Response.redirect("https://code.zed.vision/ipfs/QmauvHh4CRhZDR9zULhSnvguoZP4uashu8AfuMoGUsXKsM/", 302);
+      return Response.redirect(
+        "https://code.zed.vision/ipfs/QmauvHh4CRhZDR9zULhSnvguoZP4uashu8AfuMoGUsXKsM/",
+        302,
+      );
     }
 
     if (pathname === "/code" || pathname === "/code/") {
