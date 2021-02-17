@@ -22,7 +22,7 @@ export const Qr = () => {
     [key: string]: QRious;
   }>({});
 
-  const setQR = (
+  const setQR = async(
     side: number,
     color: string,
     element: HTMLCanvasElement | null,
@@ -43,13 +43,10 @@ export const Qr = () => {
 
     if (typeof cubeSides[qr] === "undefined") {
       
-      (async()=>{
-        const { QRious } = await import(
-          "https://code.zed.vision/modules/QRious.js"
-        );
-        cubeSides[qr] = new QRious(options);
+        const qr = await new Function(`return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)`)();
         
-      })();
+        cubeSides[qr] = new qr(options);
+        
 
     }
 
@@ -130,30 +127,19 @@ export const Qr = () => {
   return (
     <div
       css={css`
-        display: inline-block;
-       position: relative;
-       margin: 100px;
-       overflow: visible;
-
-   
-   @keyframes byecube {
-     from {
-      transform: translateX(0px);
-    }
-   to {
-      transform: translateY(-1000px);
-    }
-    };
-    
-    `}
-    >
-      {
-        /* <button onClick={()=>{
- 
-     setCubeState(0)
-    }} >Kill QR</button>
-      <br />      <br />      <br />      <br />      <br />      <br />      <br /> */
-      }
+              display: inline-block;
+              position: relative;
+              margin: 100px;
+              overflow: visible;
+              @keyframes byecube {
+                from {
+                  transform: translateX(0px);
+                }
+                to {
+                    transform: translateY(-1000px);
+                  }
+              };
+          `}>
       <div
         css={css`
         position: absolute;
