@@ -35,12 +35,12 @@
     "qrious-core": "4.0.0"
   },
   "typings": "dist/QRious.d.ts",
-  "source": "src/QRious.js",
+  "source": "src/QRious.tsx",
   "exports": "./dist/QRious.js",
   "scripts": {
     "build:esm": "esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/QRious.js --target=es2017 --format=esm",
     "clean": "rm -rf dist && yarn tsc",
-    "build": "yarn build:esm && cp -af ./dist/. ../code/modules"
+    "build": "yarn build:esm && cp -af ./dist/QRious.js ../code/modules"
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
 }
