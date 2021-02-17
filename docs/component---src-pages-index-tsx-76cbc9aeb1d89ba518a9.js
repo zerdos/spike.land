@@ -241,7 +241,6 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4, _temp
 
 /** @jsx jsx */
 
- //@ts-ignore
 
 
 var Qr_Qr = function Qr() {
@@ -280,7 +279,7 @@ var Qr_Qr = function Qr() {
                 break;
               }
 
-              return _context.abrupt("return");
+              return _context.abrupt("return", "painAndSufferingBecauseOfLegacyWebpackRendering");
 
             case 2:
               options = {
@@ -807,4 +806,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-89d5f35bc90c7a58838c.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-76cbc9aeb1d89ba518a9.js.map
