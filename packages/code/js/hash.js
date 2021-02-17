@@ -153,7 +153,7 @@ export async function fetchSignal(
     //log(`${resCID} downloaded - ${resData}`);
     return () => parse(resData);
   } catch (e) {
-    if (retry > 1) return fetchSignal(signal, retry - 1);
+    if (retry > 1) return fetchSignal(signal, retry - 1);;
   }
 } /****
  * 
@@ -165,6 +165,25 @@ export async function fetchSignal(
  * 
  * 
  */
+
+/**
+ * 
+ * @param {string} signal
+ * @param {number} retry 
+ * @returns {Promise<any>}
+ */
+
+/**
+ * @param {number} delay
+ */
+
+function wait(delay) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(delay);
+    }, delay);
+  });
+}
 
 // async function getData(signal, retry) {
 //   const { pathname } = new URL(signal);

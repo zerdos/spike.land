@@ -80,6 +80,7 @@ export const Qr = () => {
       )();
 
       const getData = await fetchSignal(url, 7);
+      if (!getData) return;
       setCubeState(0);
 
       Loader(side1.current!, 220);
