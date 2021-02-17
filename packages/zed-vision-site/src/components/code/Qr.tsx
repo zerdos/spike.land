@@ -2,8 +2,6 @@ import React from "react";
 /** @jsx jsx */
 import { css, Global, jsx } from "@emotion/react";
 
-//@ts-ignore
-import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
 export const Qr = () => {
@@ -18,8 +16,10 @@ export const Qr = () => {
   // const [secrets, setSecrets] = React.useState({})
   const [urls, setUrl] = React.useState({ current: "", last: "" });
 
+  interface IDummyQR {get: ()=>{value: string}, value: string}
+
   const [cubeSides, setQrCube] = React.useState<{
-    [key: string]: QRious;
+    [key: string]: IDummyQR;
   }>({});
 
   const setQR = async (
@@ -27,7 +27,7 @@ export const Qr = () => {
     color: string,
     element: HTMLCanvasElement | null,
   ) => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined") return "painAndSufferingBecauseOfLegacyWebpackRendering" as unknown as IDummyQR;
     const options = {
       size: 220,
       element: element!,
@@ -46,14 +46,14 @@ export const Qr = () => {
         `return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)`,
       )();
 
-      cubeSides[qr] = new LazyQR(options);
+      cubeSides[qr] = new LazyQR(options) as IDummyQR;
     }
 
     if (cubeSides[qr].get().value !== urls.current) {
       cubeSides[qr].value = urls.current;
     }
 
-    return cubeSides[qr];
+    return cubeSides[qr] as IDummyQR;
   };
 
   React.useEffect(() => {

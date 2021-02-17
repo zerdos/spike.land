@@ -31,6 +31,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
 
+  const [qrUrl, setQRUrl] = React.useState(session.url);
+
+
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
@@ -39,6 +42,15 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     window.addEventListener("resize", () => changeHeight(innerHeight));
   });
 
+
+  React.useEffect(() => {
+   const handler = setInterval(()=>{
+      if (qrUrl!==session.url) setQRUrl(session.url);
+   }, 500);
+
+   return ()=>clearInterval(handler);
+  }, []);
+
   const scale = scaleRange / 100;
 
   return (
@@ -46,7 +58,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       ref={ref}
       css={css`
             right: 20px;
-            background-color:rgba(54, 93, 152, 0.8);
+            background-color:rgba(92 ,92, 152, 0.8);
             backdrop-filter: blur(10px);
             top: 20px;
             padding: 0px 0px 0px 16px;
@@ -178,7 +190,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               setQR(!showQR);
             }}
           >
-            {showQR && <QR url={session.url + "edit/"} />}
+            {showQR && <QR key={qrUrl} url={qrUrl + "edit/"} /> } 
           </motion.div>
 
           <div css="margin:0px 0px 16px">
