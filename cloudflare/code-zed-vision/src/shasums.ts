@@ -89,7 +89,7 @@ export const shasums = {
   "js/codeLoader.js":
     "8cae8f8c1f529c54788577bfe3e575a4f72ff0ea45e35045f583f33b2e968db2",
   "js/hash.js":
-    "6c8b03a247f05450defd7f7291ddde40ff58f77fe3c2aba4092786efb7d9fdc0",
+    "481ee00f0432430cb435de75fe407993b872c7368a06c8b49868bc945d0745f4",
   "js/data.js":
     "15683065fd9fa38a20c2fb1463ce62b8acee618ecdcaa1763afebbe4c707222f",
   "js/renderPreviewWindow.js":

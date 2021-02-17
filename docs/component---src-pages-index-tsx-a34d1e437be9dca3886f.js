@@ -375,6 +375,15 @@ var Qr_Qr = function Qr() {
 
               case 10:
                 getData = _context2.sent;
+
+                if (getData) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 13:
                 setCubeState(0);
                 Loader(side1.current, 220);
                 Loader(side2.current, 220);
@@ -382,17 +391,17 @@ var Qr_Qr = function Qr() {
                 Loader(side4.current, 220);
                 Loader(side5.current, 220);
                 Loader(side6.current, 220);
-                _context2.next = 20;
+                _context2.next = 22;
                 return getData();
 
-              case 20:
+              case 22:
                 signalData = _context2.sent;
                 setCubeState(-1);
                 setTimeout(function () {
                   return window.location.href = signalData.rootUrl;
                 }, 2000);
 
-              case 23:
+              case 25:
               case "end":
                 return _context2.stop();
             }
@@ -717,4 +726,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-f5020f223b69d1072472.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-a34d1e437be9dca3886f.js.map

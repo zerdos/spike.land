@@ -17,7 +17,7 @@ added QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8 code/js/examples/app.tsx
 added Qmc4X2Ww8UZZSFkvmJopLBa4Poa1TX69sWw1ESebo8UnYg code/js/examples/rca.tsx
 added QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF code/js/examples/starter_framer.js
 added Qmb5Afz66zt5nTJb23sGjpqQrYTetnXxdwCXGrnG9H7XyA code/js/formatter.js
-added QmYDtkwKfpZFyrm4GMcrnH5rPwTUNRVf6XjSGrWGcho2Va code/js/hash.js
+added Qmb7Yj9A1DWGWdwxZjxkJ2UYHMF4SHPjHWWD4nu9whKG2D code/js/hash.js
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/js/importScript.d.ts
 added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/js/importScript.js
 added QmcRFQiJgpzhqmHu3hnkTdVQgDZ9dMwzTh9svFGZWYQh5c code/js/ipfsClient.js
@@ -64,9 +64,9 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscod
 added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
 added QmYVFm1hUoCUKGZLirtvmoGdZChxiuNAG7Ca1o76VyqDfQ code/js/workers
-added QmNzjBejYcs9BEc3aXoWxveLoXCrvsicxvqukLE3TM5rmm code/js
+added QmT1JKKCkGJ1yZW5am2x7HPz1AnG5i523eeapwRU8RLu4Q code/js
 added QmNpgT7Va8LBzwaPq5VjK8NaN7dKCunRnA8kew3AdVFYuZ code/modules/smart-monaco-editor/dist
 added Qma8go3aNXn62EYXqiQKHTqLg1q5sNVx1mpDaDJsc2GWkg code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
 added QmVwEHGxmPjSEPaSVzY34G1CRiL8k8sQtLd7VbhofnCzoj code/modules
-added QmQe5fP23X11s2u82R2BLp7EvFiyo1KcE3HkfRBkpv8nfn code
+added Qmf9cbPgXuh5Kf6p5pbrsfpWzoJeweuwQ8kfiT9k6WSyxj code
