@@ -22,12 +22,12 @@ export const Qr = () => {
     [key: string]: QRious;
   }>({});
 
-  const setQR = async(
+  const setQR = async (
     side: number,
     color: string,
     element: HTMLCanvasElement | null,
   ) => {
-    if (typeof window==="undefined") return;
+    if (typeof window === "undefined") return;
     const options = {
       size: 220,
       element: element!,
@@ -42,12 +42,11 @@ export const Qr = () => {
     const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      
-        const qr = await new Function(`return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)`)();
-        
-        cubeSides[qr] = new qr(options);
-        
+      const qr = await new Function(
+        `return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)`,
+      )();
 
+      cubeSides[qr] = new qr(options);
     }
 
     if (cubeSides[qr].get().value !== urls.current) {
@@ -106,17 +105,17 @@ export const Qr = () => {
       );
     };
 
-    const setSignals = () => {
+    const setSignals = async () => {
       urls.last && setSignal(urls.last);
       urls.current && setSignal(urls.current);
 
       setQrCube({
-        qr1: setQR(1, "red", side1.current),
-        qr2: setQR(2, "#FFA52C", side2.current),
-        qr3: setQR(3, "yellow", side3.current),
-        qr4: setQR(4, "#35CB4A", side4.current),
-        qr5: setQR(5, "#3C99DC", side5.current),
-        qr6: setQR(6, "#DF3BCF", side6.current),
+        qr1: await setQR(1, "red", side1.current),
+        qr2: await setQR(2, "#FFA52C", side2.current),
+        qr3: await setQR(3, "yellow", side3.current),
+        qr4: await setQR(4, "#35CB4A", side4.current),
+        qr5: await setQR(5, "#3C99DC", side5.current),
+        qr6: await setQR(6, "#DF3BCF", side6.current),
       });
     };
     if (typeof window !== "undefined" && retry > 0) setSignals();
@@ -139,7 +138,8 @@ export const Qr = () => {
                     transform: translateY(-1000px);
                   }
               };
-          `}>
+          `}
+    >
       <div
         css={css`
         position: absolute;

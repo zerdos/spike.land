@@ -25,7 +25,7 @@ export const files = {
   "js/examples/starter_framer.js":
     "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
   "js/formatter.js": "Qmb5Afz66zt5nTJb23sGjpqQrYTetnXxdwCXGrnG9H7XyA",
-  "js/hash.js": "QmaEfw2F37zDqz1C26UA6K9zGLWQX3rz3nGuGn9d6TDukG",
+  "js/hash.js": "QmQytE4MJFCwWMafZhodFXjYkRBiuvnumvSghKMWoMQZcx",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.js": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "js/ipfsClient.js": "QmcRFQiJgpzhqmHu3hnkTdVQgDZ9dMwzTh9svFGZWYQh5c",
@@ -81,13 +81,13 @@ export const files = {
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmYVFm1hUoCUKGZLirtvmoGdZChxiuNAG7Ca1o76VyqDfQ",
-  "js": "QmWQXweypcyAednD9LnF1BtEUR589Qi87QrqEWYmYxPDXd",
+  "js": "QmTAu3aVaJnshVv3ijvb9mcvUXvVnxSQ929VwhpDCAxKrM",
   "modules/smart-monaco-editor/dist":
     "QmNpgT7Va8LBzwaPq5VjK8NaN7dKCunRnA8kew3AdVFYuZ",
   "modules/smart-monaco-editor":
     "Qma8go3aNXn62EYXqiQKHTqLg1q5sNVx1mpDaDJsc2GWkg",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
   "modules": "QmQbNK8CuBJPSr1FvwxsQkVGZk3QuieD8WN6HYFa9ucooS",
-  "": "QmYUZV8XNTzQraJLWLVgCGgknPPJ4iU7mygWi9vkFWQH3u",
+  "": "QmaUi54Cn9nbb4Bgw5Cq7wYmHoZkMzs6t8imXL69fti1h2",
   "foo": "bar",
 };

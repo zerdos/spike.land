@@ -167,9 +167,9 @@ export async function fetchSignal(
  */
 
 // /**
-//  * 
+//  *
 //  * @param {string} signal
-//  * @param {number} retry 
+//  * @param {number} retry
 //  * @returns {Promise<any>}
 //  */
 

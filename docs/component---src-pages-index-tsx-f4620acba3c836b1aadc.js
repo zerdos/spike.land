@@ -268,49 +268,65 @@ var Qr_Qr = function Qr() {
       cubeSides = _React$useState3[0],
       setQrCube = _React$useState3[1];
 
-  var setQR = function setQR(side, color, element) {
-    if (typeof window === "undefined") return;
-    var options = {
-      size: 220,
-      element: element,
-      foregroundAlpha: 0.9,
-      foreground: color,
-      backgroundAlpha: 1,
-      padding: 10,
-      background: "black",
-      value: urls.current
-    };
-    var qr = "qr" + side;
+  var setQR = /*#__PURE__*/function () {
+    var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(side, color, element) {
+      var options, qr, _qr;
 
-    if (typeof cubeSides[qr] === "undefined") {
-      Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-        var qr;
-        return regenerator_default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
+      return regenerator_default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              if (!(typeof window === "undefined")) {
                 _context.next = 2;
-                return new Function("return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)")();
+                break;
+              }
 
-              case 2:
-                qr = _context.sent;
-                cubeSides[qr] = new qr(options);
+              return _context.abrupt("return");
 
-              case 4:
-              case "end":
-                return _context.stop();
-            }
+            case 2:
+              options = {
+                size: 220,
+                element: element,
+                foregroundAlpha: 0.9,
+                foreground: color,
+                backgroundAlpha: 1,
+                padding: 10,
+                background: "black",
+                value: urls.current
+              };
+              qr = "qr" + side;
+
+              if (!(typeof cubeSides[qr] === "undefined")) {
+                _context.next = 9;
+                break;
+              }
+
+              _context.next = 7;
+              return new Function("return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)")();
+
+            case 7:
+              _qr = _context.sent;
+              cubeSides[_qr] = new _qr(options);
+
+            case 9:
+              if (cubeSides[qr].get().value !== urls.current) {
+                cubeSides[qr].value = urls.current;
+              }
+
+              return _context.abrupt("return", cubeSides[qr]);
+
+            case 11:
+            case "end":
+              return _context.stop();
           }
-        }, _callee);
-      }))();
-    }
+        }
+      }, _callee);
+    }));
 
-    if (cubeSides[qr].get().value !== urls.current) {
-      cubeSides[qr].value = urls.current;
-    }
-
-    return cubeSides[qr];
-  };
+    return function setQR(_x, _x2, _x3) {
+      return _ref.apply(this, arguments);
+    };
+  }();
 
   react_default.a.useEffect(function () {
     var connect = /*#__PURE__*/function () {
@@ -426,23 +442,72 @@ var Qr_Qr = function Qr() {
         }, _callee3);
       }));
 
-      return function setSignal(_x) {
+      return function setSignal(_x4) {
         return _ref3.apply(this, arguments);
       };
     }();
 
-    var setSignals = function setSignals() {
-      urls.last && setSignal(urls.last);
-      urls.current && setSignal(urls.current);
-      setQrCube({
-        qr1: setQR(1, "red", side1.current),
-        qr2: setQR(2, "#FFA52C", side2.current),
-        qr3: setQR(3, "yellow", side3.current),
-        qr4: setQR(4, "#35CB4A", side4.current),
-        qr5: setQR(5, "#3C99DC", side5.current),
-        qr6: setQR(6, "#DF3BCF", side6.current)
-      });
-    };
+    var setSignals = /*#__PURE__*/function () {
+      var _ref4 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee4() {
+        return regenerator_default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                urls.last && setSignal(urls.last);
+                urls.current && setSignal(urls.current);
+                _context4.t0 = setQrCube;
+                _context4.next = 5;
+                return setQR(1, "red", side1.current);
+
+              case 5:
+                _context4.t1 = _context4.sent;
+                _context4.next = 8;
+                return setQR(2, "#FFA52C", side2.current);
+
+              case 8:
+                _context4.t2 = _context4.sent;
+                _context4.next = 11;
+                return setQR(3, "yellow", side3.current);
+
+              case 11:
+                _context4.t3 = _context4.sent;
+                _context4.next = 14;
+                return setQR(4, "#35CB4A", side4.current);
+
+              case 14:
+                _context4.t4 = _context4.sent;
+                _context4.next = 17;
+                return setQR(5, "#3C99DC", side5.current);
+
+              case 17:
+                _context4.t5 = _context4.sent;
+                _context4.next = 20;
+                return setQR(6, "#DF3BCF", side6.current);
+
+              case 20:
+                _context4.t6 = _context4.sent;
+                _context4.t7 = {
+                  qr1: _context4.t1,
+                  qr2: _context4.t2,
+                  qr3: _context4.t3,
+                  qr4: _context4.t4,
+                  qr5: _context4.t5,
+                  qr6: _context4.t6
+                };
+                (0, _context4.t0)(_context4.t7);
+
+              case 23:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      return function setSignals() {
+        return _ref4.apply(this, arguments);
+      };
+    }();
 
     if (typeof window !== "undefined" && retry > 0) setSignals();
   }, [urls]);
@@ -452,7 +517,7 @@ var Qr_Qr = function Qr() {
       setCubeState = _React$useState4[1];
 
   return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject || (_templateObject = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        display: inline-block;\n       position: relative;\n       margin: 100px;\n       overflow: visible;\n\n   \n   @keyframes byecube {\n     from {\n      transform: translateX(0px);\n    }\n   to {\n      transform: translateY(-1000px);\n    }\n    };\n    \n    "])))
+    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject || (_templateObject = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n              display: inline-block;\n              position: relative;\n              margin: 100px;\n              overflow: visible;\n              @keyframes byecube {\n                from {\n                  transform: translateX(0px);\n                }\n                to {\n                    transform: translateY(-1000px);\n                  }\n              };\n          "])))
   }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
     css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2 || (_templateObject2 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        position: absolute;\n         animation-name:", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: 1;\n  animation-duration: 4s;\n   transform-style: preserve-3d;\n  transform-origin:  center center; \n"])), cubeState === 1 || cubeState === 0 ? "none" : "byecube")
   }, Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Cube, {
@@ -474,10 +539,10 @@ var Qr_Qr = function Qr() {
   })));
 }; //@ts-ignore
 
-var Qr_Cube = function Cube(_ref4) {
-  var sides = _ref4.sides,
-      _size = _ref4.size,
-      animate = _ref4.animate;
+var Qr_Cube = function Cube(_ref5) {
+  var sides = _ref5.sides,
+      _size = _ref5.size,
+      animate = _ref5.animate;
   var border = 0;
   var size = _size + 2 * border; //@ts-ignore
 
@@ -743,4 +808,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-d53d0a884c25aa3d66d2.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-f4620acba3c836b1aadc.js.map
