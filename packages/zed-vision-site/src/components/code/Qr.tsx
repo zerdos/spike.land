@@ -16,7 +16,10 @@ export const Qr = () => {
   // const [secrets, setSecrets] = React.useState({})
   const [urls, setUrl] = React.useState({ current: "", last: "" });
 
-  interface IDummyQR {get: ()=>{value: string}, value: string}
+  interface IDummyQR {
+    get: () => { value: string };
+    value: string;
+  }
 
   const [cubeSides, setQrCube] = React.useState<{
     [key: string]: IDummyQR;
@@ -27,7 +30,11 @@ export const Qr = () => {
     color: string,
     element: HTMLCanvasElement | null,
   ) => {
-    if (typeof window === "undefined") return "painAndSufferingBecauseOfLegacyWebpackRendering" as unknown as IDummyQR;
+    if (
+      typeof window === "undefined"
+    ) {
+      return "painAndSufferingBecauseOfLegacyWebpackRendering" as unknown as IDummyQR;
+    }
     const options = {
       size: 220,
       element: element!,
@@ -42,7 +49,7 @@ export const Qr = () => {
     const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      const LazyQR= await new Function(
+      const LazyQR = await new Function(
         `return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)`,
       )();
 
