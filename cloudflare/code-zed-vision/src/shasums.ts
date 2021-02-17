@@ -16,10 +16,16 @@ export const shasums = {
     "429e8f57123f5de31bd8ed3b5a6b2d067ade231c0f348848c35ced7b18755ed0",
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+  "modules/QRious.d.ts":
+    "6959a24be167730b2b73c641ccb9f2d2791581bad3fb657f52a25f394cfffb1e",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
+  "modules/.tsbuildinfo":
+    "a0c6bed345d6c9a01c583dc2a61d917b48129cfb9b5aa68cf283ecc80f7cb662",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+  "modules/QRious.js":
+    "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "modules/ipfs.client.js":
     "27661563cea367c3571ce6243e3f472d41e06f6e0ca2967425d5ff1f2373b92f",
   "modules/diffChars.js":
@@ -35,13 +41,17 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.js":
-    "1e915fe2316699b5b033c6854df607fdeca37b188e299ae2660cf53ce5a1091a",
+    "1ab4439678dd1af55df539aaf8e5e60ce02106ba395b9ba09611b053a9df0e7e",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
+  "modules/service/element/BrowserElementService.js":
+    "4e1031dee91e6e9b856ca81f784ba3d31baf57e11373305f82ccaebc0e1408a0",
+  "modules/service/element/BrowserElementService.d.ts":
+    "e2d2aac4afe4afa2bab207283a7c4764fea14170fca102e557f866bf8f9b09c1",
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/getDbObj.js":
@@ -89,7 +99,7 @@ export const shasums = {
   "js/codeLoader.js":
     "8cae8f8c1f529c54788577bfe3e575a4f72ff0ea45e35045f583f33b2e968db2",
   "js/hash.js":
-    "481ee00f0432430cb435de75fe407993b872c7368a06c8b49868bc945d0745f4",
+    "d4bf82812e92e658aafaa7d6b1f11484797c05f9efcda1ba5570bb7cedce1acc",
   "js/data.js":
     "15683065fd9fa38a20c2fb1463ce62b8acee618ecdcaa1763afebbe4c707222f",
   "js/renderPreviewWindow.js":
@@ -115,7 +125,7 @@ export const shasums = {
   "index.html":
     "a67dcbf38ebeaccc9cf4ff3e49a0c93f0ce74e0af4f4ddc091acbc9b09c6e8b7",
   ".tsBuildInfo":
-    "48ba42efd80e1dd96a3a3a9adbc38ab90a2a988dc1421ba44ac19b2a1d3f12cc",
+    "ba6ee0697a1c21b2e32b129b679b1834828f210341e8b2eef7865f71249dd1db",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",

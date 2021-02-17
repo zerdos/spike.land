@@ -153,7 +153,7 @@ export async function fetchSignal(
     //log(`${resCID} downloaded - ${resData}`);
     return () => parse(resData);
   } catch (e) {
-    if (retry > 1) return fetchSignal(signal, retry - 1);;
+    if (retry > 1) return fetchSignal(signal, retry - 1);
   }
 } /****
  * 

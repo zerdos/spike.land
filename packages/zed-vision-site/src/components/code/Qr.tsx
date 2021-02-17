@@ -3,7 +3,7 @@ import React from "react";
 import { css, Global, jsx } from "@emotion/react";
 
 //@ts-ignore
-import { QRious } from "@zedvision/qrious/dist/qrious.esm";
+import { QRious } from "@zedvision/qrious";
 import { sha256 } from "../utils/sha256/sha256";
 
 export const Qr = () => {

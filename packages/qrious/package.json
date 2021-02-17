@@ -29,20 +29,18 @@
   },
   "devDependencies": {
     "esbuild": "0.8.46",
+    "typescript": "^4.1.5"
+  },  
+  "dependencies": {
     "qrious-core": "4.0.0"
   },
   "typings": "dist/QRious.d.ts",
-  "main": "dist/qrious.umd.js",
   "source": "src/QRious.js",
-  "exports": "./dist/qrious.esm.js",
+  "exports": "./dist/QRious.js",
   "scripts": {
-    "build:esm": "esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/qrious.esm.js --target=es2018 --format=esm",
-    "build:umd": "esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/qrious.min.js --target=es2018 --format=iife",
-    "clean": "rm -rf dist",
-    "build": "yarn tsc && yarn build:esm && yarn build:umd"
+    "build:esm": "esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/QRious.js --target=es2017 --format=esm",
+    "clean": "rm -rf dist && yarn tsc",
+    "build": "yarn build:esm && cp -af ./dist/. ../code/modules"
   },
-  "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
-  "dependencies": {
-    "typescript": "^4.1.5"
-  }
+  "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa"
 }
