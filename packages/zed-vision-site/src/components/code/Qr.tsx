@@ -27,6 +27,7 @@ export const Qr = () => {
     color: string,
     element: HTMLCanvasElement | null,
   ) => {
+    if (typeof window==="undefined") return;
     const options = {
       size: 220,
       element: element!,
@@ -41,7 +42,15 @@ export const Qr = () => {
     const qr = `qr${side}`;
 
     if (typeof cubeSides[qr] === "undefined") {
-      cubeSides[qr] = new QRious(options);
+      
+      (async()=>{
+        const { QRious } = await import(
+          "https://code.zed.vision/modules/QRious.js"
+        );
+        cubeSides[qr] = new QRious(options);
+        
+      })();
+
     }
 
     if (cubeSides[qr].get().value !== urls.current) {

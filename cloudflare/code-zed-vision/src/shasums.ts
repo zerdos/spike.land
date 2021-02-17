@@ -1,7 +1,7 @@
 export const shasums = {
   "sw.js": "c9f20a59be9221089f012a4715b26789504606cb7598d486c4365645db21f1df",
   "package.json":
-    "dda5f7f4053b4cc5d31cc16d012e17c0860972156c098ae2a528d11243326369",
+    "43684e81fea3114514de1fd988a31b5218cf8a677079e0267c542d1e4d1a2895",
   "modules/renderer.js":
     "1ab4439678dd1af55df539aaf8e5e60ce02106ba395b9ba09611b053a9df0e7e",
   "modules/diffChars.js":
@@ -89,7 +89,7 @@ export const shasums = {
   "js/codeLoader.js":
     "8cae8f8c1f529c54788577bfe3e575a4f72ff0ea45e35045f583f33b2e968db2",
   "js/hash.js":
-    "d4bf82812e92e658aafaa7d6b1f11484797c05f9efcda1ba5570bb7cedce1acc",
+    "076c616e10d08beb4b8117a3252c4dc2c0af49916ff1151c7f4d32b2d38406de",
   "js/data.js":
     "15683065fd9fa38a20c2fb1463ce62b8acee618ecdcaa1763afebbe4c707222f",
   "js/renderPreviewWindow.js":
