@@ -50,10 +50,10 @@ RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.7.1
+  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.7.4
 
   
-ENV NODE_VERSION 14.15.4
+ENV NODE_VERSION 14.15.5
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
@@ -165,7 +165,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
         docker-ce \
         docker-ce-cli \
     && curl -L  \
-        https://github.com/docker/compose/releases/download/1.28.0.rc1/docker-compose-`uname -s`-`uname -m` \
+        https://github.com/docker/compose/releases/download/1.28.2/docker-compose-`uname -s`-`uname -m` \
         -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose \
     && usermod -G docker -a ${USER} \
