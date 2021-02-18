@@ -12,6 +12,7 @@
     "packages/code/js/shadb"
   ],
   "scripts": {
+    "screenshot": "pageres https://code.zed.vision 1920x1080 --delay=3 --scale=1",
     "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
     "build:renderer": "cd packages/emotion-react-renderer && yarn build",
     "start": "yarn build:renderer && sh start.sh",

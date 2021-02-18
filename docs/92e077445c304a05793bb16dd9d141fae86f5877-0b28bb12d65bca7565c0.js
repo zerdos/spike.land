@@ -16,7 +16,7 @@ var _templateObject;
 var Layout = function Layout(_ref) {
   var children = _ref.children;
   return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("main", {
-    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["  \n          max-width: 1140px;\n          margin: auto;\n       "])))
+    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["  \n          max-width: 1140px;\n          margin: auto;\n          img{\n            max-width: 100%;\n          }\n       "])))
   }, children);
 };
 
@@ -1269,4 +1269,4 @@ module.exports = withSideEffect;
 /***/ })
 
 }]);
-//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-59e4450301d50d567e0a.js.map
+//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-0b28bb12d65bca7565c0.js.map

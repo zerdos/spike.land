@@ -6,6 +6,9 @@ export const Layout = ({ children }) =>
     css={css`  
           max-width: 1140px;
           margin: auto;
+          img{
+            max-width: 100%;
+          }
        `}
   >
     {children}

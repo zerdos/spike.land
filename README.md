@@ -1,5 +1,5 @@
 
-[Real time React page editor, in typescript! ![Screenshot](./screenshot3.png)](https://code.zed.vision)
+[Real time React page editor, in typescript! ![Screenshot](./code.zed.vision-1920x1080.png)](https://code.zed.vision)
 
 
 # This is a monorepo. [![LastUpdated](https://img.shields.io/github/last-commit/zed-vision/monorepo.svg)](https://github.com/zed-vision/monorepo/)
@@ -7,10 +7,11 @@
 if (code) return "it is in the monorepo"
 
 // blog:          packages/zed-vision-site
-// docker-images: packages/groovy* 
-//                        /focal*
+// docker-images: docker-images/packages/groovy* 
+//                                      /focal*
+//                                         etc.
 //
-// code-editor:   packages/smart-monaco-editor
+// code-editor:   packages/code
 ```
 ### If you came here for a specific thing - then look in the packages folder. 
 
