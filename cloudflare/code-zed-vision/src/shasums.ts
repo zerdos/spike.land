@@ -3,7 +3,7 @@ export const shasums = {
   "package.json":
     "3bf401c8d4ff6164512d77b05384ab9f1b85e744c24ecbae5c5d811d6600e842",
   "modules/renderer.js":
-    "6c50c14e17f1c024fdb426d34d40cdad359ee4790482c01e19e22fd10256e3c0",
+    "81f477420790df679a343e9fed129cbd02b30f1ac3d5c699c4a117b3c8c94582",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/smart-monaco-editor/dist/editor.d.ts":
