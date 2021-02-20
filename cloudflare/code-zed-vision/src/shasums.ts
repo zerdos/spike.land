@@ -101,7 +101,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/editor.js":
-    "d95fb8936f73217f722142d416b30556da6019289bcc8ea10822f74f2c6ecb44",
+    "610120315f7155e09b5c345ae467d16642c5fe32531ca939e16ce0074888d744",
   "modules/smart-monaco-editor/dist/monaco.js":
     "ea7554d3fd55863b8713940b56bcdf84fe338b20846e014ed465fabc09215fc4",
   "modules/shaDB.js":
@@ -115,7 +115,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
-    "6fad8ad943bb863707a742afddb9fa55e04583a51cdb384badcb603814e93122",
+    "36161016cd76d6659dda0ed3e2f5ef2086f6681647ee6e98ae5068a459c520f9",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/diff.js":
