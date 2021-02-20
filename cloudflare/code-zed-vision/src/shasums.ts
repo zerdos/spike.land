@@ -1,9 +1,9 @@
 export const shasums = {
   "sw.js": "c9f20a59be9221089f012a4715b26789504606cb7598d486c4365645db21f1df",
   "package.json":
-    "3bf401c8d4ff6164512d77b05384ab9f1b85e744c24ecbae5c5d811d6600e842",
+    "3fa3c2aa7c409884f10bc6b97ec66ccc2c8cb390dbacf9f93a16ef55058c54ec",
   "modules/renderer.js":
-    "81f477420790df679a343e9fed129cbd02b30f1ac3d5c699c4a117b3c8c94582",
+    "6fad8ad943bb863707a742afddb9fa55e04583a51cdb384badcb603814e93122",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -11,7 +11,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/editor.js":
-    "6c587a2bb453bc0a6d7967381c0011ecb4bdfda5f05c860fc1bb10232674638b",
+    "d95fb8936f73217f722142d416b30556da6019289bcc8ea10822f74f2c6ecb44",
   "modules/smart-monaco-editor/dist/monaco.js":
     "ea7554d3fd55863b8713940b56bcdf84fe338b20846e014ed465fabc09215fc4",
   "modules/vendor/diffMin.d.ts":
@@ -81,7 +81,7 @@ export const shasums = {
   "js/workers/getWorker.js":
     "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
   "js/workers/transpile.worker.js":
-    "9a4a2671fca8220b0557cd6b9e9eea6bece749f5c0b33379b587f6552f6aef8c",
+    "1eb13c2b09f908100e7f3ed35687065b2296c719bc5cbcac9da5053a20239c37",
   "js/workers/prettierWorker.js":
     "99ad56bc9d6338d08b691967280571435b0b13a6ad21cf8bde844906faf97fba",
   "js/workers/ipfsWorker.js":
@@ -115,7 +115,7 @@ export const shasums = {
   "index.html":
     "a67dcbf38ebeaccc9cf4ff3e49a0c93f0ce74e0af4f4ddc091acbc9b09c6e8b7",
   ".tsBuildInfo":
-    "763948cb13e234483e0710ed1a39facdffd79015c842a0b4bb93c52f58dbb921",
+    "69d42e79944ddcc7a0c196104c1980167e69ad87bcc5462ef12d69d53468089b",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
