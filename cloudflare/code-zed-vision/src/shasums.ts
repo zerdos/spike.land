@@ -1,6 +1,6 @@
 export const shasums = {
   ".tsBuildInfo":
-    "763948cb13e234483e0710ed1a39facdffd79015c842a0b4bb93c52f58dbb921",
+    "69d42e79944ddcc7a0c196104c1980167e69ad87bcc5462ef12d69d53468089b",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/app.css":
@@ -30,7 +30,7 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "9d7fc639213bed146cfa7d11009592ac504f54b23cabe4a6c89563f18065008e",
   "js/workers/transpile.worker.js":
-    "9a4a2671fca8220b0557cd6b9e9eea6bece749f5c0b33379b587f6552f6aef8c",
+    "1eb13c2b09f908100e7f3ed35687065b2296c719bc5cbcac9da5053a20239c37",
   "js/workers/prettierWorker.js":
     "99ad56bc9d6338d08b691967280571435b0b13a6ad21cf8bde844906faf97fba",
   "js/workers/getWorker.js":
@@ -75,7 +75,7 @@ export const shasums = {
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "package.json":
-    "3bf401c8d4ff6164512d77b05384ab9f1b85e744c24ecbae5c5d811d6600e842",
+    "3fa3c2aa7c409884f10bc6b97ec66ccc2c8cb390dbacf9f93a16ef55058c54ec",
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "modules/diffChars.js":
@@ -101,7 +101,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/editor.js":
-    "a30e5552d818daf79f4c0fe9538dd6b0ff9124b49b7384d7be8ed002185f53dd",
+    "d95fb8936f73217f722142d416b30556da6019289bcc8ea10822f74f2c6ecb44",
   "modules/smart-monaco-editor/dist/monaco.js":
     "ea7554d3fd55863b8713940b56bcdf84fe338b20846e014ed465fabc09215fc4",
   "modules/shaDB.js":
@@ -115,7 +115,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
-    "81f477420790df679a343e9fed129cbd02b30f1ac3d5c699c4a117b3c8c94582",
+    "6fad8ad943bb863707a742afddb9fa55e04583a51cdb384badcb603814e93122",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/diff.js":
