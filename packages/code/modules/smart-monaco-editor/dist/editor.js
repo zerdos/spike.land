@@ -15,6 +15,8 @@ export default async ({ onChange, code, language, container, options }) => {
         }
     };
     const model = getModel();
+    if (!container)
+        return;
     const modules = {
         monaco: monaco,
         editor: monaco.editor.create(container, Object.assign({ formatOnType: false, scrollbar: {

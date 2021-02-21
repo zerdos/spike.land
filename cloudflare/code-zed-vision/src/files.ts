@@ -18,7 +18,7 @@ export const files = {
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmaWCm5nVNTsEHhV2TPQhuVKJLT4rH1KT59vP8r31C8zJB",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
-  "js/codeLoader.js": "QmbnhkadzQVZBPd8F8NgFU6woXArvVQGXkVwg4bGSKqTmq",
+  "js/codeLoader.js": "QmaAPEnBNXf6DGRhJghHXhAvMNb2yEynGCssNRBzrUW4gh",
   "js/data.js": "QmUv2c2dk8w37aNHaYPWLiDa1GqdT9yVfPH4dX81UJJvfd",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
   "js/examples/rca.tsx": "Qmc4X2Ww8UZZSFkvmJopLBa4Poa1TX69sWw1ESebo8UnYg",
@@ -59,11 +59,11 @@ export const files = {
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK",
   "modules/smart-monaco-editor/dist/editor.js":
-    "QmTRGkNRCwtmivzGrmXVz4Z1LXfsG6ZEvU5TwWebZCKtrm",
+    "QmPjCGVUioDAJFHVNgsy4jKBGfs7n3VvPSDuAutAvea1YX",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "modules/smart-monaco-editor/dist/monaco.js":
-    "QmcWxCxyLCqPeEkM1EWx9sE5YGpUs5o7gaF6ksMQKERjwy",
+    "QmTesvojmLkLGrHMiMM8DEGUp4dTWjQhkh39Y4FS7BmqKi",
   "modules/vendor/diffChars.d.ts":
     "Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt",
   "modules/vendor/diffChars.js":
@@ -81,13 +81,13 @@ export const files = {
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmXtxF7a5WDvgzKzgG4Mje367LYwBDa6taT1K2iodqRkTa",
-  "js": "QmPXZCwWNXQHEXxdpEHa1qFGu53aiRR8kiHEJsBFse6ywr",
+  "js": "QmYC6SqDUxdtQQVhKXvZGVXEVNiZwGH7r6xAVQEMY7Rsuw",
   "modules/smart-monaco-editor/dist":
-    "QmXcsqD2n5zpRD3Uep5PjvxrG3LVZcqDVkp9hD6G9y6qjn",
+    "QmcpJ81mVUqPwdYsW9sUsWrQ27fFmfpbZiiYQxHQbF22jQ",
   "modules/smart-monaco-editor":
-    "Qmcm18T1FHJW4jW3EdnwDVrRSiBD1aj44mwuXZyPeUTwbX",
+    "QmZRJcMC7fmKfZ7upY7fum79SZj6h7KfmViG7Jcn5FphTv",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
-  "modules": "QmWVd8GAPMX8ZsdfRcC3u6rGf8Dh4QBjPzTfufACk4xpwB",
-  "": "QmUnhSex6oA9ky59Us1DDE9mJhDvXx3PuFQQnAnaZNZoLA",
+  "modules": "QmYY6jptuLttYxrzs5VJRYz3XxgmKzdvNFPJz4WkiFoqp3",
+  "": "QmZJws2h5Zrm5Xnk6WaTtkjaAizBjUkRKqWLXkmqGVJRRC",
   "foo": "bar",
 };

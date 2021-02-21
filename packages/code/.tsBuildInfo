@@ -166,19 +166,14 @@
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "affectsGlobalScope": false
       },
-      "./modules/diff.d.ts": {
-        "version": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-        "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+      "./modules/shaDB.d.ts": {
+        "version": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
+        "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
         "affectsGlobalScope": false
       },
       "./modules/sha256.d.ts": {
         "version": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
         "signature": "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-        "affectsGlobalScope": false
-      },
-      "./modules/shaDB.d.ts": {
-        "version": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
-        "signature": "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
         "affectsGlobalScope": false
       },
       "./js/workers/getWorker.js": {
@@ -206,21 +201,6 @@
         "signature": "8cfc095f8a3a103d8fdfc6ed1a3bb0f34f6aff7e830b00792983fd490a2b538b",
         "affectsGlobalScope": false
       },
-      "./js/data.js": {
-        "version": "15683065fd9fa38a20c2fb1463ce62b8acee618ecdcaa1763afebbe4c707222f",
-        "signature": "fb26d64786caba2a0d3e923bba5aba6d0c695511f17859d4be3094adaf89bada",
-        "affectsGlobalScope": false
-      },
-      "./js/hash.js": {
-        "version": "acc5f2e2a0d04d4ce996af8a9be3b00ae7b2e6766a3275353dc48b45813ee474",
-        "signature": "4cbcaa4959ef5185a0682f2610adf278c25ac5230a4881b44307787906914c38",
-        "affectsGlobalScope": false
-      },
-      "./js/sendSignalToQrCode.js": {
-        "version": "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
-        "signature": "baacf004b19e26fd386f5427f34f1faab3c22df69f9086e202d24832ba8b5531",
-        "affectsGlobalScope": false
-      },
       "./js/renderPreviewWindow.js": {
         "version": "22eda5794d21943b27170af62c7a714e9d8b1f5492b35a3d500ca96cb10b1fba",
         "signature": "b4f1bf90bff0c83fea60eb6f5c9f49457bdd94f9e8a0ac7c856d2103d4dfd8d7",
@@ -229,6 +209,11 @@
       "./js/openWindows.js": {
         "version": "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
         "signature": "a593a3e3bc43b890da9a5ee27fbd683359d233cb84c7faf9d612b2d24429ddad",
+        "affectsGlobalScope": false
+      },
+      "./js/data.js": {
+        "version": "15683065fd9fa38a20c2fb1463ce62b8acee618ecdcaa1763afebbe4c707222f",
+        "signature": "fb26d64786caba2a0d3e923bba5aba6d0c695511f17859d4be3094adaf89bada",
         "affectsGlobalScope": false
       },
       "./js/transpile.js": {
@@ -246,8 +231,23 @@
         "signature": "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
         "affectsGlobalScope": false
       },
+      "./js/hash.js": {
+        "version": "acc5f2e2a0d04d4ce996af8a9be3b00ae7b2e6766a3275353dc48b45813ee474",
+        "signature": "4cbcaa4959ef5185a0682f2610adf278c25ac5230a4881b44307787906914c38",
+        "affectsGlobalScope": false
+      },
+      "./js/sendSignalToQrCode.js": {
+        "version": "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
+        "signature": "baacf004b19e26fd386f5427f34f1faab3c22df69f9086e202d24832ba8b5531",
+        "affectsGlobalScope": false
+      },
+      "./modules/diff.d.ts": {
+        "version": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+        "signature": "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+        "affectsGlobalScope": false
+      },
       "./js/codeLoader.js": {
-        "version": "8cae8f8c1f529c54788577bfe3e575a4f72ff0ea45e35045f583f33b2e968db2",
+        "version": "7c9178444020ab969df5ec0161de43289fe2262391a3f652f1b3c43c01001084",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },
@@ -311,7 +311,6 @@
         "../../node_modules/@types/react/jsx-runtime.d.ts",
         "./js/data.js",
         "./js/formatter.js",
-        "./js/hash.js",
         "./js/openWindows.js",
         "./js/renderPreviewWindow.js",
         "./js/sendSignalToQrCode.js",

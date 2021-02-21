@@ -1,7 +1,8 @@
 export const getMonaco = async () => {
   const importScript = (src, res = []) => {
     if (typeof window === "undefined") return {};
-    return window.document.head.querySelector(`script[src="${src}"]`) ||
+    return (window.document.head.querySelector(`script[src="${src}"]`) &&
+      window) ||
       new Promise(function (resolve, reject) {
         const s = window.document.createElement("script");
         s.src = src;

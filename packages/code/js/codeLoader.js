@@ -1,7 +1,5 @@
-import { diff } from "../modules/diff.js";
-import { sendSignalToQrCode } from "./sendSignalToQrCode.js";
 import { renderPreviewWindow } from "./renderPreviewWindow.js";
-import { fetchSignal, sendSignal, sha256ToCid } from "./hash.js";
+
 import { openWindows } from "./openWindows.js";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
 import { transpileCode } from "./transpile.js";
@@ -32,13 +30,15 @@ function getSession() {
   * @param {{ document: Document; open: (url: string)=>void; }} _w
  */
 export async function run(mode = "window", _w, code = "") {
+  startMonaco({});
   console.log("Runner!");
 
   const { pathname } = new URL(window.location.href);
 
-  setTimeout(async () =>
-    Object.assign(window, { sendSignal, fetchSignal, sha256ToCid })
-  );
+  // setTimeout(async () =>
+  //  import { fetchSignal, sendSignal, sha256ToCid } from "./hash.js";
+  //   Object.assign(window, { sendSignal, fetchSignal, sha256ToCid })
+  // );
 
   if (mode === "window") {
     await openWindows();
@@ -105,6 +105,8 @@ export async function run(mode = "window", _w, code = "") {
   if (!session.url) {
     await saveCode(session, session.i);
   }
+
+  const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
   await sendSignalToQrCode(session);
 
   /**
@@ -147,6 +149,7 @@ export async function run(mode = "window", _w, code = "") {
         if (session.i > counter) return;
 
         if (cd.length < 1000 && session.code.length < 1000) {
+          const { diff } = await import("../modules/diff.js");
           const slices = await diff(session.code, cd);
 
           if (slices.c.length <= 3) {

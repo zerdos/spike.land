@@ -13,6 +13,7 @@ export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
   const monaco = await getMonaco();
+
   const modelUri = monaco.Uri.parse(
     language === "typescript" ? "file:///main.tsx" : "file:///main.html",
   );
@@ -35,6 +36,8 @@ export default async (
   };
 
   const model = getModel();
+
+  if (!container) return;
 
   const modules = {
     monaco: monaco,
