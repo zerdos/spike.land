@@ -11,7 +11,7 @@ added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.pn
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
 added QmaWCm5nVNTsEHhV2TPQhuVKJLT4rH1KT59vP8r31C8zJB code/index.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
-added QmaAPEnBNXf6DGRhJghHXhAvMNb2yEynGCssNRBzrUW4gh code/js/codeLoader.js
+added QmQAyP3x5v9jARGJfN3p2mD8opbXkF3UPRjcszyVE2YKh7 code/js/codeLoader.js
 added QmUv2c2dk8w37aNHaYPWLiDa1GqdT9yVfPH4dX81UJJvfd code/js/data.js
 added QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8 code/js/examples/app.tsx
 added Qmc4X2Ww8UZZSFkvmJopLBa4Poa1TX69sWw1ESebo8UnYg code/js/examples/rca.tsx
@@ -41,7 +41,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmThEvSJdNrYH3VujTa9ZRnPhEwSKUbgVhgGErXYL8koeS code/modules/ipfs.client.js
-added QmcNDs6WhZAn3UhL7a2H5uaUSpJirjUA2D4QR1c6MKNM8J code/modules/renderer.js
+added QmUBGvjSsr4eJqYLkGmAD9s1TjMSfnkuTYs3e3y2S5rUy1 code/modules/renderer.js
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -64,9 +64,9 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscod
 added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
 added QmXtxF7a5WDvgzKzgG4Mje367LYwBDa6taT1K2iodqRkTa code/js/workers
-added QmYC6SqDUxdtQQVhKXvZGVXEVNiZwGH7r6xAVQEMY7Rsuw code/js
+added QmTCwjnzBEYAgAo1rUVdWqEHG8HzPDLa1EWjoAQFXNPpqw code/js
 added QmcpJ81mVUqPwdYsW9sUsWrQ27fFmfpbZiiYQxHQbF22jQ code/modules/smart-monaco-editor/dist
 added QmZRJcMC7fmKfZ7upY7fum79SZj6h7KfmViG7Jcn5FphTv code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmYY6jptuLttYxrzs5VJRYz3XxgmKzdvNFPJz4WkiFoqp3 code/modules
-added QmZJws2h5Zrm5Xnk6WaTtkjaAizBjUkRKqWLXkmqGVJRRC code
+added QmU7FvRzQbEbARYNKy4D3WVn9x3HTNFbc6eDsHPEgPiWg2 code/modules
+added QmYRgqrPgz1vVJFeVdjr7ZDZaqjhDx5FWQXJC77hS5d6fV code

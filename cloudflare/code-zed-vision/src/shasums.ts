@@ -52,7 +52,7 @@ export const shasums = {
   "js/openWindows.js":
     "7530bf577243f891af4b3397952744cc121aa2b73743fed432a0891153aca397",
   "js/codeLoader.js":
-    "7c9178444020ab969df5ec0161de43289fe2262391a3f652f1b3c43c01001084",
+    "0dbc6178d666e479db2a49328748f7d5306dc8d3145e14ef418e13f46a0404ad",
   "js/templates.js":
     "8cb08053f566598dc685b6209e249df1d8663213ab68aa10881c36c0c19dc23f",
   "js/examples/starter_framer.js":
@@ -119,7 +119,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
-    "36161016cd76d6659dda0ed3e2f5ef2086f6681647ee6e98ae5068a459c520f9",
+    "5465411fccc537752b984d368ea61e3853a48bc8a79fabd44225b091b70f4ce6",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/getDbObj.d.ts":

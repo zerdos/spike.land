@@ -20,6 +20,7 @@ interface DraggableWindowProps {
   onShare: () => void;
   session: {
     url: string;
+    errorText: string;
   };
   position?: string;
 }
@@ -68,6 +69,19 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       dragMomentum={false}
       drag={true}
     >
+      <pre css={`{
+    order: 2;
+    background-color: rgb(255, 240, 240);
+    border-top: 1px solid rgb(255, 214, 214);
+    color: rgb(255, 0, 0);
+    flex: 0 0 auto;
+    max-height: 33%;
+    overflow: auto;
+    margin: 0px;
+    padding: 0.5rem 0.75rem;
+    font-family: monospace;
+    white-space: pre-wrap;
+      }`}>{session.errorText}</pre>
       <div css={{ display: "flex" }}>
         <div
           css={{

@@ -46,6 +46,7 @@ export async function run(mode = "window", _w, code = "") {
 
   const session = getSession();
   session.mode = mode;
+  session.errorText= "Blaaalas";
   if (code) {
     session.code = await formatter(code);
     session.transpiled = await transpileCode(session.code);
@@ -57,10 +58,12 @@ export async function run(mode = "window", _w, code = "") {
         (pathname.endsWith("/edit/") || pathname.endsWith("/edit"))
           ? await getIPFSCodeToLoad(undefined)
           : await getCodeToLoad();
+
       session.code = await formatter(code);
       session.transpiled = await transpileCode(
         session.code,
       ) || transpiled;
+     
       session.div.innerHTML = html;
     } catch (e) {
       console.error({ e, message: "couldn't start" });
