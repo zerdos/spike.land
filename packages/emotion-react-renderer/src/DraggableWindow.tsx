@@ -82,7 +82,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     font-family: monospace;
     white-space: pre-wrap;
       }`}>{session.errorText}</pre>
-      <div css={{ display: "flex" }}>
+      {session.errorText==="" &&  <div css={{ display: "flex" }}>
+      
         <div
           css={{
             display: "flex",
@@ -230,6 +231,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
           </div>
         </div>
       </div>
+      }
     </motion.div>
   );
 };

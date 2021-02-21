@@ -1,6 +1,6 @@
 export const shasums = {
   ".tsBuildInfo":
-    "3ec65b5ce1c9102dd236c0057a4c031b526a4571cd7fcbf80446008e08471b26",
+    "2e3515de10caaebe12fc88ed073f7519276c6897e7847020b1183db1cbaf02a8",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/app.css":
@@ -119,7 +119,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
-    "5465411fccc537752b984d368ea61e3853a48bc8a79fabd44225b091b70f4ce6",
+    "e2dd2e984dce98eb292bdce9a239e7dc8eebdb46b62e53f9ed49c436ef7a3222",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/getDbObj.d.ts":
