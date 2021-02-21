@@ -15,14 +15,10 @@ export async function formatter(code) {
     await init();
     return formatter(code);
   }
-  try {
-    const formatted = await format(
-      code,
-    );
-    return formatted;
-  } catch {
-    return "";
-  }
+  const formatted = await format(
+    code,
+  );
+  return formatted;
 }
 
 async function init() {

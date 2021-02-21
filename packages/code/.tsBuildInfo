@@ -222,7 +222,7 @@
         "affectsGlobalScope": false
       },
       "./js/formatter.js": {
-        "version": "c448aed3a402cd0bd4dd4859face648655560ffe2f020cbcd7df32c54963ebc8",
+        "version": "9b554eacfa153a7a06fe943bb73d3837c9e8f2a90de49ad0081993517ddff678",
         "signature": "b62c1896e0a727ab2c735afc33fbc1c776667d99c809c2725f306e4ddbf518e1",
         "affectsGlobalScope": false
       },
@@ -247,7 +247,7 @@
         "affectsGlobalScope": false
       },
       "./js/codeLoader.js": {
-        "version": "0dbc6178d666e479db2a49328748f7d5306dc8d3145e14ef418e13f46a0404ad",
+        "version": "d21a9506e622ae9a7e4f612c0b9147fc6bd3fc23f13c956ccea4ee0c9c4c4078",
         "signature": "c73de06df5cf9cdb1292e79cf56812304808bc1fe5445efa2c0e95c07222c852",
         "affectsGlobalScope": false
       },

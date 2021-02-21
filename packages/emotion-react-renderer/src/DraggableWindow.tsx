@@ -33,6 +33,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const [height, changeHeight] = React.useState(innerHeight);
 
   const [qrUrl, setQRUrl] = React.useState(session.url);
+  const [errorText, setErrorText] = React.useState(session.errorText);
 
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -45,6 +46,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   React.useEffect(() => {
     const handler = setInterval(() => {
       if (qrUrl !== session.url) setQRUrl(session.url);
+      if (errorText !== session.errorText) setErrorText(session.errorText);
     }, 500);
 
     return () => clearInterval(handler);
@@ -69,21 +71,24 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       dragMomentum={false}
       drag={true}
     >
-      <pre css={`{
-    order: 2;
-    background-color: rgb(255, 240, 240);
-    border-top: 1px solid rgb(255, 214, 214);
-    color: rgb(255, 0, 0);
-    flex: 0 0 auto;
-    max-height: 33%;
-    overflow: auto;
-    margin: 0px;
-    padding: 0.5rem 0.75rem;
-    font-family: monospace;
-    white-space: pre-wrap;
-      }`}>{session.errorText}</pre>
-      {session.errorText==="" &&  <div css={{ display: "flex" }}>
-      
+      {errorText && <pre
+        css={`{
+          order: 2;
+          background-color: rgb(255, 240, 240);
+          border-top: 1px solid rgb(255, 214, 214);
+          color: rgb(255, 0, 0);
+          flex: 0 0 auto;
+          max-height: 33%;
+          overflow: auto;
+          margin: 0px;
+          padding: 0.5rem 0.75rem;
+          font-family: monospace;
+          white-space: pre-wrap;
+      }`}
+      >
+        {errorText}
+      </pre>}
+      {errorText === "" && <div css={{ display: "flex" }}>
         <div
           css={{
             display: "flex",
@@ -230,8 +235,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             </Fab>
           </div>
         </div>
-      </div>
-      }
+      </div>}
     </motion.div>
   );
 };
