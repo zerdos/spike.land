@@ -59,7 +59,7 @@ export const files = {
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK",
   "modules/smart-monaco-editor/dist/editor.js":
-    "Qmerw2TjPmc3BiXA9WNvY2nouw15RKnxB9CKSRha2z3yLo",
+    "QmS6Ci1T6P7RPYheK8hhhZH12U6u4N3AUYvBEyB8ooCnsz",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -83,11 +83,11 @@ export const files = {
   "js/workers": "QmXtxF7a5WDvgzKzgG4Mje367LYwBDa6taT1K2iodqRkTa",
   "js": "QmV2rZCm9xfVv72Hd56kLozMNN7PbMZFooLsyrKtjMejDm",
   "modules/smart-monaco-editor/dist":
-    "QmVHC32WPL8sMXo2z5rgamkxmyDRDxzbo8P6J8SRDeM7ax",
+    "QmYuVjy6Q6UQz3YG48i6JiFv6ZE7bEybhAorxwBWVXwShy",
   "modules/smart-monaco-editor":
-    "QmRte3eCMxKHMrNace38pzobDBUtZqZXj5RHQyAqUuFoiG",
+    "QmUUCkdzcxhVTbLgiosxUSA7zUi8WNTvhGZrTt7Gi8SB38",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
-  "modules": "QmbQNGSKRRXjwxt1fKRzmk94f5F8nAE8Ra6tkkRd9MT4Ji",
-  "": "Qme21zannGgXF2hoqA1bUwGoHjxkh2gj1wX325fZP2YYJv",
+  "modules": "QmYQqnczLYg48VU1pqMHkewJH1MPv7by5BYiCQZyM5e9gg",
+  "": "QmQUvKrM4QUnBALpBvW2DZoW6yPmgRHv19HCNGPq3uJT9j",
   "foo": "bar",
 };
