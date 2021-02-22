@@ -41,7 +41,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmThEvSJdNrYH3VujTa9ZRnPhEwSKUbgVhgGErXYL8koeS code/modules/ipfs.client.js
-added QmSD3SMtPd7k88Y764cohqfwrbib4961uGs3D1LGwv2gv5 code/modules/renderer.js
+added QmbKYcEi4SaZUSHX4eZJcYMMtpMRHCyubowZknASXSGbjp code/modules/renderer.js
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -68,5 +68,5 @@ added QmV2rZCm9xfVv72Hd56kLozMNN7PbMZFooLsyrKtjMejDm code/js
 added QmdJLjjBaX8RR8wh5Ca7FtXUn5rwYzdEMKGAtW6BgS4uP2 code/modules/smart-monaco-editor/dist
 added QmembDGerH1Vm9PzytDHukMj4kLYtDtPoQkt2WN7XihFXg code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmeScxUCJykpjQwH2hWov1uxc1AQ2PdcWiFxc1xH3A28jw code/modules
-added QmWZ2BsJscGuR8RQCJk5yPfjyUFYn3RSrRWs74SJhgfMDg code
+added QmSpW4383Hm21EDBL8J6FKzJSZLPUXENzjXmXw9NMCvS4X code/modules
+added QmX9P3DfMWLiLyR3hdu73X6rcYdNUdVw7UHJBtp7i3S8K2 code
