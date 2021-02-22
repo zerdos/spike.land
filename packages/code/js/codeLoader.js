@@ -15,7 +15,6 @@ function getSession() {
     div: document.createElement("div"),
     html: "",
     url: "",
-    ipfs: 0,
     transpiled: "",
     code: "",
   };
