@@ -155,7 +155,6 @@ export async function getCodeToLoad() {
       code: projectDesc,
       transpiled: null,
       html: null,
-      versions: null,
     };
     return data;
   }
@@ -164,7 +163,6 @@ export async function getCodeToLoad() {
       code: await shaDB.get(projectDesc.code, "string"),
       transpiled: await shaDB.get(projectDesc.transpiled, "string") || "",
       html: await shaDB.get(projectDesc.html, "string") || "",
-      versions: await shaDB.get(projectDesc.versions, "string") || "",
     };
 
     return data;
@@ -175,7 +173,6 @@ export async function getCodeToLoad() {
       await getStarter(),
     transpiled: null,
     html: null,
-    versions: null,
   };
   return data;
 }
@@ -196,11 +193,11 @@ const toSave = {
 export const saveCode =
 
   /**
- * @param {{ code: any; url?: any; html?: any; transpiled?: any; versions?: any; i?: number; }} opts
+ * @param {{ code: any; url?: any; html?: any; transpiled?: any; i?: number; }} opts
  * @param {number} counter
  */
   async (opts, counter) => {
-    const { code, html, transpiled, versions } = opts;
+    const { code, html, transpiled } = opts;
     toSave.code = code || await getStarter();
 
     // deno-lint-ignore ban-ts-comment
@@ -219,7 +216,7 @@ export const saveCode =
 
     const { shareItAsHtml } = await import("./share.js");
     const sharePromise = shareItAsHtml(
-      { code, html, transpiled, versions },
+      { code, html, transpiled },
     );
 
     if (opts.i > counter) return;
@@ -233,7 +230,6 @@ export const saveCode =
       code: await sha256(code),
       html: await sha256(html),
       transpiled: await sha256(transpiled),
-      versions: await sha256(JSON.stringify(versions)),
     };
 
     const hash = await sha256(JSON.stringify(desc));
@@ -248,9 +244,6 @@ export const saveCode =
     }
     if (transpiled) {
       await shaDB.put(desc.transpiled, transpiled);
-    }
-    if (versions) {
-      await shaDB.put(desc.versions, JSON.stringify(versions));
     }
 
     await shaDB.put(projectName, hash);

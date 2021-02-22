@@ -11,8 +11,8 @@ added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.pn
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
 added QmaWCm5nVNTsEHhV2TPQhuVKJLT4rH1KT59vP8r31C8zJB code/index.html
 added QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf code/ipfs.json
-added QmPn7FrKGwrHBb84pixU1zMuXkz8gWPZvQ64jUCHpUuuke code/js/codeLoader.js
-added QmUv2c2dk8w37aNHaYPWLiDa1GqdT9yVfPH4dX81UJJvfd code/js/data.js
+added QmYeT7XcWr9gKyNiyaoagU82epP83xZ6EJt2j6gewHnHAA code/js/codeLoader.js
+added QmURozGD6htpQxttv4vC9fShFcdCttppBFCfmRVvU93NiS code/js/data.js
 added QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8 code/js/examples/app.tsx
 added Qmc4X2Ww8UZZSFkvmJopLBa4Poa1TX69sWw1ESebo8UnYg code/js/examples/rca.tsx
 added QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF code/js/examples/starter_framer.js
@@ -23,7 +23,7 @@ added QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X code/js/importScript.js
 added QmcRFQiJgpzhqmHu3hnkTdVQgDZ9dMwzTh9svFGZWYQh5c code/js/ipfsClient.js
 added Qmf9u1DCbqdQLt5XCnFiMonFFDzUUY7UJxhAF6xf7gL4VL code/js/openWindows.js
 added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/js/refs.d.ts
-added QmRwUPK3pLoqC55NmK6vxn54U4uyJTUqTQkUaJ4XMWzXNr code/js/renderPreviewWindow.js
+added QmPUp87pxtijBYqyevQ7jXCwBBpcFodknCeMqneEtFDLnF code/js/renderPreviewWindow.js
 added Qmd71pFw2wtrCZu8mp9diJdWYYYHLGVxuWa7QE49kcTQWC code/js/sendSignalToQrCode.js
 added QmWpXJNPAB1zN7RgrA5ZT6jt7igwthkgXnpeT7fXpnpwfM code/js/share.js
 added QmZoKBg7bijX9NcBbuqzdD1WJVGFY8Fe6LmwLN5Y1sTUA7 code/js/templates.js
@@ -64,9 +64,9 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscod
 added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
 added QmXtxF7a5WDvgzKzgG4Mje367LYwBDa6taT1K2iodqRkTa code/js/workers
-added QmfQazZP9BphjW3bfrwGJfMpN63TMUexJyK1exqqxiH4ks code/js
+added QmRk4V3CcEhcDtAHuucA2fc3NVT3a98dRtPoH4sBKjT1Az code/js
 added QmcpJ81mVUqPwdYsW9sUsWrQ27fFmfpbZiiYQxHQbF22jQ code/modules/smart-monaco-editor/dist
 added QmZRJcMC7fmKfZ7upY7fum79SZj6h7KfmViG7Jcn5FphTv code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
 added QmaWzphqqVJignWwU7vt597cnTTUKi3WH9qTmGTFMjUNBR code/modules
-added QmTWVHXEcornqj6dH5fJemkofprAVeyybwCfZGGdMC3aXM code
+added QmQtxjuS95qqZPGUmGU5xVS8vSxbp7ZHr8y8yBFhACFfe2 code
