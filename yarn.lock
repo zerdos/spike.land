@@ -6147,12 +6147,12 @@ dns-equal@^1.0.0:
   integrity sha1-s55/HabrCnW6nBcySzR1PEfgZU0=
 
 dns-over-http-resolver@^1.0.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/dns-over-http-resolver/-/dns-over-http-resolver-1.2.1.tgz#52367113aa6d62dffa9dc45f7bde798aa860e703"
-  integrity sha512-bYGLGLraOc1tllkC0Xaw+zBiQBnPyooNDpaXNYZprLn0bI6zLmX73QfR+jODz6rZ9oAUn1pw5OWxlEsSoho5TQ==
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/dns-over-http-resolver/-/dns-over-http-resolver-1.2.2.tgz#148740c1b14d81b78078a1af1d606f2d0c6cc255"
+  integrity sha512-4J7LoLl26mczU6LdWlhvNM51aWXHJmTz6iDUrGz1sqiAgNb6HzBc/huvkgqS6bYfbCzvlOKW/bGkugReliac0A==
   dependencies:
     debug "^4.2.0"
-    native-fetch "^2.0.1"
+    native-fetch "^3.0.0"
     receptacle "^1.3.2"
 
 dns-packet@^1.3.1:
@@ -8328,13 +8328,6 @@ globals@^12.1.0:
   integrity sha512-BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==
   dependencies:
     type-fest "^0.8.1"
-
-globalthis@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/globalthis/-/globalthis-1.0.1.tgz#40116f5d9c071f9e8fb0037654df1ab3a83b7ef9"
-  integrity sha512-mJPRTc/P39NH/iNG4mXa9aIhNymaQikTrnspeCa2ZuJ+mH2QN/rXwtX3XwKrHqWgUQFbNZKtHM105aHzJalElw==
-  dependencies:
-    define-properties "^1.1.3"
 
 globby@11.0.2, globby@^11.0.1, globby@^11.0.2:
   version "11.0.2"
@@ -11469,12 +11462,10 @@ napi-build-utils@^1.0.1:
   resolved "https://registry.yarnpkg.com/napi-build-utils/-/napi-build-utils-1.0.2.tgz#b1fddc0b2c46e380a0b7a76f984dd47c41a13806"
   integrity sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==
 
-native-fetch@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/native-fetch/-/native-fetch-2.0.1.tgz#319d53741a7040def92d5dc8ea5fe9416b1fad89"
-  integrity sha512-gv4Bea+ga9QdXINurpkEqun3ap3vnB+WYoe4c8ddqUYEH7B2h6iD39RF8uVN7OwmSfMY3RDxkvBnoI4e2/vLXQ==
-  dependencies:
-    globalthis "^1.0.1"
+native-fetch@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/native-fetch/-/native-fetch-3.0.0.tgz#06ccdd70e79e171c365c75117959cf4fe14a09bb"
+  integrity sha512-G3Z7vx0IFb/FQ4JxvtqGABsOTIqRWvgQz6e+erkB+JJD6LrszQtMozEHI4EkmgZQvnGHrpLVzUWk7t4sJCIkVw==
 
 native-url@^0.2.6:
   version "0.2.6"
