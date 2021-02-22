@@ -18,7 +18,7 @@ export const files = {
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmaWCm5nVNTsEHhV2TPQhuVKJLT4rH1KT59vP8r31C8zJB",
   "ipfs.json": "QmbBV3Li2S1VDtjj2EMW9AFtuMDppanNMYgJr3nzEpwKTf",
-  "js/codeLoader.js": "QmWzsUP9sAqZLczjeeztubwzw4oW8a72kmyC36rHprx9by",
+  "js/codeLoader.js": "QmPn7FrKGwrHBb84pixU1zMuXkz8gWPZvQ64jUCHpUuuke",
   "js/data.js": "QmUv2c2dk8w37aNHaYPWLiDa1GqdT9yVfPH4dX81UJJvfd",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
   "js/examples/rca.tsx": "Qmc4X2Ww8UZZSFkvmJopLBa4Poa1TX69sWw1ESebo8UnYg",
@@ -81,13 +81,13 @@ export const files = {
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmXtxF7a5WDvgzKzgG4Mje367LYwBDa6taT1K2iodqRkTa",
-  "js": "QmT5aG6VWYiES1Z1BF6K2Q5yKS2WokN8uHJruF3eJFg5YG",
+  "js": "QmfQazZP9BphjW3bfrwGJfMpN63TMUexJyK1exqqxiH4ks",
   "modules/smart-monaco-editor/dist":
     "QmcpJ81mVUqPwdYsW9sUsWrQ27fFmfpbZiiYQxHQbF22jQ",
   "modules/smart-monaco-editor":
     "QmZRJcMC7fmKfZ7upY7fum79SZj6h7KfmViG7Jcn5FphTv",
   "modules/vendor": "QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY",
   "modules": "QmaWzphqqVJignWwU7vt597cnTTUKi3WH9qTmGTFMjUNBR",
-  "": "QmPnSvG8FGfcwcJkoyG8JRDdUuncWSrEYD7HMV5DSoTsy3",
+  "": "QmTWVHXEcornqj6dH5fJemkofprAVeyybwCfZGGdMC3aXM",
   "foo": "bar",
 };

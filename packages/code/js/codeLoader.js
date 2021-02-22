@@ -35,7 +35,6 @@ export async function run(mode = "window", _w, code = "") {
   const session = getSession();
   let monaco;
   try {
-   
     console.log("Runner!");
 
     const { pathname } = new URL(window.location.href);
@@ -117,7 +116,7 @@ export async function run(mode = "window", _w, code = "") {
     await sendSignalToQrCode(session);
   } catch (e) {
     session.errorText = "YAY!! There is an error";
- }
+  }
 
   /**
    * @param {string} c
@@ -246,7 +245,6 @@ export async function run(mode = "window", _w, code = "") {
     const Element = mod.default;
     const { render } = mod;
 
-    
     URL.revokeObjectURL(objUrl);
     session.unmount();
     session.unmount = render(Element(), root);
