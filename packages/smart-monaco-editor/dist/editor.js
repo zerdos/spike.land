@@ -135,12 +135,12 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@3.6.6/dist/framer-motion.d.ts",
+                url: "https://unpkg.com/framer-motion@3.6.7/dist/framer-motion.d.ts",
                 depend: [],
             },
             {
                 name: "popmotion",
-                url: "https://unpkg.com/popmotion@9.2.0/lib/index.d.ts",
+                url: "https://unpkg.com/popmotion@9.2.1/lib/index.d.ts",
             },
             {
                 name: "@zedvision/qrious/index.d.ts",
