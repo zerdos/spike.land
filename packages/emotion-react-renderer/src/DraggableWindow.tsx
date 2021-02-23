@@ -48,7 +48,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   React.useEffect(() => {
     const handler = setInterval(() => {
-      console.log({ errorText, session });
       if (errorText !== session.errorText) {
         const newErr = session.errorText;
         setErrorText(newErr);

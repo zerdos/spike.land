@@ -79,7 +79,7 @@ export const shasums = {
   "ipfs.json":
     "47a1731664c4f574cabc25cd4da6dd5dbd1d5e215c30720d3bd398367ae3d364",
   "modules/renderer.js":
-    "8dd05c0bd7b90d9f93dcea535ccafe0e58676256544086ad9beacc666b81dc47",
+    "463c580f50f6c5d86193e0584ebb1538d06bb9c53604eb47af65e62728532701",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/QRious.js":
