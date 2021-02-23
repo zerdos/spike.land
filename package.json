@@ -13,7 +13,6 @@
   ],
   "scripts": {
     "screenshot": "pageres https://code.zed.vision 1920x1080 --delay=3 --scale=1",
-    "xpostinstall": "husky install && yarn lerna link && yarn npm:install && yarn rebuild",
     "build:renderer": "cd packages/emotion-react-renderer && yarn build",
     "start": "yarn build:renderer && sh start.sh",
     "deploy:cf-code-zed-vision": "cd cloudflare/code-zed-vision && yarn deploy",
@@ -23,18 +22,15 @@
     "clean": "yarn lerna run clean --parallel --since b",
     "pre:build": "yarn lerna run prebuild --parallel --since b",
     "build": "yarn pre:build && yarn lerna run build --parallel --since b",
-    "rebuild": "yarn lerna run clean --parallel && yarn build",
-    "npm:install": "yarn lerna run npm:install --parallel",
-    "docker:build": "yarn lerna run docker:build --parallel",
-    "docker:push": "yarn docker:build && yarn lerna run docker:push --parallel"
+    "rebuild": "yarn lerna run clean --parallel && yarn build"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "2.1.0",
     "@types/prop-types": "15.7.3",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.1",
-    "@typescript-eslint/eslint-plugin": "4.15.1",
-    "@typescript-eslint/parser": "4.15.1",
+    "@typescript-eslint/eslint-plugin": "4.15.2",
+    "@typescript-eslint/parser": "4.15.2",
     "@yarnpkg/plugin-node-modules": "2.3.0",
     "csstype": "3.0.6",
     "eslint": "7.20.0",
