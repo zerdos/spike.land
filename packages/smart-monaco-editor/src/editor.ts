@@ -204,14 +204,10 @@ export default async (
         url: "https://unpkg.com/framer-motion@3.6.7/dist/framer-motion.d.ts",
         depend: [],
       },
-      {
-        name: "popmotion",
-        url: "https://unpkg.com/popmotion@9.2.1/lib/index.d.ts",
-      },
-      {
-        name: "@zedvision/qrious/index.d.ts",
-        url: "https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.d.ts",
-      },
+      // {
+      //   name: "popmotion",
+      //   url: "https://unpkg.com/popmotion@9.2.1/lib/index.d.ts",
+      // },
     ];
     const dts = importHelper.map(({ name, url }) =>
       (async () =>

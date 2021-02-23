@@ -13,6 +13,7 @@ export { Motion };
 
 export const { AnimateSharedLayout } = Motion;
 export const { motion } = Motion;
+export const { useSpring } = Motion;
 
 export { jsx };
 export { css };

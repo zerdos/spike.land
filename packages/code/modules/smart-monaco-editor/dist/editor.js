@@ -138,14 +138,6 @@ export default async ({ onChange, code, language, container, options }) => {
                 url: "https://unpkg.com/framer-motion@3.6.7/dist/framer-motion.d.ts",
                 depend: [],
             },
-            {
-                name: "popmotion",
-                url: "https://unpkg.com/popmotion@9.2.1/lib/index.d.ts",
-            },
-            {
-                name: "@zedvision/qrious/index.d.ts",
-                url: "https://unpkg.com/@zedvision/qrious@10.12.14/dist/qrious.d.ts",
-            },
         ];
         const dts = importHelper.map(({ name, url }) => (async () => modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@")
             ? `file:///node_modules/${name}`
