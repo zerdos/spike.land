@@ -272,7 +272,7 @@
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "f37c2715ca971d64e7930dab0a4bdec6ff184dea5466ad5ce8bf7a534b0f4a3f",
+        "version": "9539234469b737f5b74e0b5eccb432e770c18d89070f23d78597d6e23c8ac3bb",
         "signature": "824735bc7e7f18d686de360ca704aaae77ee33a9934b141aac7d45f5d9dc40b8",
         "affectsGlobalScope": true
       },

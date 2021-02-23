@@ -10,7 +10,7 @@ import Share from "@material-ui/icons/Share";
 import Tablet from "@material-ui/icons/TabletAndroid";
 import Tv from "@material-ui/icons/Tv";
 import Phone from "@material-ui/icons/PhoneAndroid";
-import {QR} from "./Qr"
+import { QR } from "./Qr";
 
 import { css, jsx, motion, React, render } from "./renderer";
 
