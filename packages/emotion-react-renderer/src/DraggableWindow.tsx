@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
 import Fab from "@material-ui/core/Fab";
+import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 import QrCode from "@material-ui/icons/QrCode";
@@ -18,6 +19,7 @@ const sizes = [10, 25, 50, 75, 100];
 
 interface DraggableWindowProps {
   onShare: () => void;
+  onRestore: () => void;
   session: {
     url: string;
     errorText: string;
@@ -26,14 +28,15 @@ interface DraggableWindowProps {
 }
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
-  { onShare, position, session, children },
+  { onShare, onRestore, position, session, children },
 ) => {
   const [showQR, setQR] = React.useState(false);
+  const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
 
   const [qrUrl, setQRUrl] = React.useState(session.url);
-  const [errorText, setErrorText] = React.useState(session.errorText);
+  const [errorText, setErrorText] = React.useState(" ");
 
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -45,12 +48,22 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
   React.useEffect(() => {
     const handler = setInterval(() => {
+      console.log({ errorText, session });
+      if (errorText !== session.errorText) {
+        const newErr = session.errorText;
+        setErrorText(newErr);
+        setIsStable(false);
+        setTimeout(() => {
+          if (session.errorText === newErr) {
+            setIsStable(true);
+          }
+        }, 2000);
+      }
       if (qrUrl !== session.url) setQRUrl(session.url);
-      if (errorText !== session.errorText) setErrorText(session.errorText);
-    }, 500);
+    }, 200);
 
     return () => clearInterval(handler);
-  }, []);
+  }, [setErrorText, setQRUrl, errorText, qrUrl]);
 
   const scale = scaleRange / 100;
 
@@ -68,27 +81,16 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             position: ${position ? position : "fixed"};
           `}
       dragElastic={0.5}
+      dragConstraints={{
+        left: 0,
+        right: 300,
+        top: -height / 4,
+        bottom: height / 2,
+      }}
       dragMomentum={false}
       drag={true}
     >
-      {errorText && <pre
-        css={`{
-          order: 2;
-          background-color: rgb(255, 240, 240);
-          border-top: 1px solid rgb(255, 214, 214);
-          color: rgb(255, 0, 0);
-          flex: 0 0 auto;
-          max-height: 33%;
-          overflow: auto;
-          margin: 0px;
-          padding: 0.5rem 0.75rem;
-          font-family: monospace;
-          white-space: pre-wrap;
-      }`}
-      >
-        {errorText}
-      </pre>}
-      {errorText === "" && <div css={{ display: "flex" }}>
+      <div css={{ display: "flex" }}>
         <div
           css={{
             display: "flex",
@@ -134,6 +136,37 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               opacity: 0.9;
            `}
           >
+            {errorText.trim() !== "" && <pre
+              css={`
+          position: absolute;
+          z-index:3;
+          color: rgb(255, 240, 240);
+          padding: 24px;
+          font-size: 14pt;
+          background-color: rgb(255, 0, 0);
+          flex: 0 0 auto;
+          overflow: auto;
+          margin: 0;
+          font-family: monospace;
+          white-space: pre-wrap;
+      `}
+            >
+              {isStable && errorText.trim()}
+              {isStable && errorText.trim() !== "" &&
+                <div css="text-align: right;">
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      onRestore();
+                      setErrorText("");
+                    }}
+                    color="primary"
+                  >
+                    Restore
+                  </Button>
+                </div>}
+            </pre>}
+
             <motion.div
               animate={{
                 transformOrigin: "top left",
@@ -235,7 +268,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             </Fab>
           </div>
         </div>
-      </div>}
+      </div>
     </motion.div>
   );
 };

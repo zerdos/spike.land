@@ -117,12 +117,15 @@ export async function run(mode = "window", _w, code = "") {
    * @param {string} c
    */
   async function runner(c) {
+    session.errorText = "";
     session.i++;
     const counter = session.i;
-    const cd = await formatter(c);
+
     try {
+      const cd = await formatter(c);
       const transpiled = await transpileCode(cd);
 
+      console.log(session);
       let restartError = false;
       ///yellow
       if (transpiled.length && session.lastErrors < 2) {
@@ -179,6 +182,11 @@ export async function run(mode = "window", _w, code = "") {
 
       monaco.editor.setTheme("vs-dark");
     } catch (err) {
+      if (err.message) {
+        session.errorText = err.message;
+        return;
+      }
+
       monaco.editor.setTheme("vs-light");
       setTimeout(() => {
         monaco.editor.setTheme("hc-black");

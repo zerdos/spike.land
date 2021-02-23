@@ -39,6 +39,12 @@ export async function renderPreviewWindow(
     jsx(DraggableWindow, {
       onShare,
       session,
+      onRestore: () => {
+        const { monaco } = window;
+        const modelUri = monaco.Uri.parse(`file:///main.tsx`);
+        const model = monaco.editor.getModel(modelUri);
+        model.setValue(session.code);
+      },
       position: session.mode === "window" ? "fixed" : "absolute",
     }),
     preview,
