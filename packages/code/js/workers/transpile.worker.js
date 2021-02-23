@@ -66,7 +66,7 @@ const transform = (code) => {
   }
 
   const transformed = Babel.transform(
-      `/** @jsx jsx */
+    `/** @jsx jsx */
       import {jsx, React, css, Fragment, Global, Motion, motion, render} from "${rendererSrc}";
       
       ` + safeCode + `
@@ -75,18 +75,18 @@ const transform = (code) => {
       
       export {render}
       `,
-      {
-        compact: false,
-        comments: false,
-        // plugins: [Babel.availablePlugins["proposal-async-generator-functions"]],
-        presets: [
-          "react",
-          "es2017",
-          ["typescript", { isTSX: true, allExtensions: true }],
-        ],
-      },
-    ).code;
-  
+    {
+      compact: false,
+      comments: false,
+      // plugins: [Babel.availablePlugins["proposal-async-generator-functions"]],
+      presets: [
+        "react",
+        "es2017",
+        ["typescript", { isTSX: true, allExtensions: true }],
+      ],
+    },
+  ).code;
+
   return transformed;
 };
 

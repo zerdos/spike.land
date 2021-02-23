@@ -16,11 +16,10 @@ export async function transpileCode(code) {
     return transpileCode(code);
   }
 
-    const transformed = await transform(
-      code,
-    );
-    return transformed;
-
+  const transformed = await transform(
+    code,
+  );
+  return transformed;
 }
 
 async function init() {
