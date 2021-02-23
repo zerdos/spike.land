@@ -65,10 +65,7 @@ const transform = (code) => {
     rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.js`;
   }
 
-  let transformed = null;
-
-  try {
-    transformed = Babel.transform(
+  const transformed = Babel.transform(
       `/** @jsx jsx */
       import {jsx, React, css, Fragment, Global, Motion, motion, render} from "${rendererSrc}";
       
@@ -89,17 +86,7 @@ const transform = (code) => {
         ],
       },
     ).code;
-  } catch (e) {
-    console.error(e);
-
-    const error = `import { motion } from 'framer-motion';
-
-    export default () => (
-  <header> Error
-      </header>`;
-
-    transformed = transformed(error);
-  }
+  
   return transformed;
 };
 

@@ -15,14 +15,12 @@ export async function transpileCode(code) {
     await init();
     return transpileCode(code);
   }
-  try {
+
     const transformed = await transform(
       code,
     );
     return transformed;
-  } catch {
-    return "";
-  }
+
 }
 
 async function init() {

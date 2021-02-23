@@ -30,7 +30,7 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "9d7fc639213bed146cfa7d11009592ac504f54b23cabe4a6c89563f18065008e",
   "js/workers/transpile.worker.js":
-    "c62b2fd68ec074c2f365ab661148ff45e42d23c84fe505937eeaa845bf9e2029",
+    "023f11f83b3aeabb867dab909182e3502259c436ccca785ce37b8a3f0a707aa1",
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/getWorker.js":
@@ -44,7 +44,7 @@ export const shasums = {
   "js/importScript.js":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/transpile.js":
-    "9541e9abc8ab4b68be1836117f531688c16405ed9646aba8ea84eae7dd1aa7cf",
+    "a8c5c40658757282c7019f4dab552103f4d010970467f1697f770c39557c8cfe",
   "js/sendSignalToQrCode.js":
     "fa4e42b5deeec2c3e9c377c078003d11ce1c4304d05738b85b491d3560432b9a",
   "js/importScript.d.ts":
