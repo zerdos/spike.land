@@ -23,10 +23,6 @@ export async function transpileCode(code) {
 }
 
 async function init() {
-  if (transform) {
-    console.log("INIT INIT");
-  }
-
   if (forceNormalWorker || typeof SharedWorker === "undefined") {
     const worker = new Worker(workerSrc);
     const { port1, port2 } = new MessageChannel();
