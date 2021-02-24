@@ -9,7 +9,8 @@
     "packages/*",
     "cloudflare/zed-vision",
     "cloudflare/code-zed-vision",
-    "packages/code/js/shadb"
+    "packages/code/js/shadb",
+    "docker-images/packages/*"
   ],
   "scripts": {
     "screenshot": "pageres https://code.zed.vision 1920x1080 --delay=3 --scale=1",
