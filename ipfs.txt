@@ -47,7 +47,7 @@ added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
 added QmX5mSevBrVHk6mpp1VNaCMqmCYC7azWBUFgrzpHnG4NDp code/modules/shaDB.js
 added QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK code/modules/smart-monaco-editor/dist/editor.d.ts
-added QmZCVLz3K3BFfSwv4ZNfXU5rcCFn1NTP6AxMoL5tYPPauq code/modules/smart-monaco-editor/dist/editor.js
+added QmZpVnGtrbTZNku65G6d4a82WpE7vzvcPsUfVGYuyYHAf1 code/modules/smart-monaco-editor/dist/editor.js
 added QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF code/modules/smart-monaco-editor/dist/monaco.d.ts
 added QmWnqfeWbxji9Cx7tpwDVJnhYrMxYWpYEewqiWm7NjSCfv code/modules/smart-monaco-editor/dist/monaco.js
 added Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt code/modules/vendor/diffChars.d.ts
@@ -56,7 +56,7 @@ added QmYiYJhHYLwzc8n5ZBChdaLpPLZ4TauN4aAWZt1cTD3QK2 code/modules/vendor/diffMin
 added QmPto1Nei9k7Z56D1Jdzf2N6VHgFXVxWWwxk5Bq5d3kZ8m code/modules/vendor/diffMin.js
 added QmRDw3SijUK8mQZ2H5CzJtKk8zknGsCz4mz58EzsjEC738 code/modules/vendor/idb.d.ts
 added QmTLkMPbkyM8jQu4WN49K9Ai8chhrbDZutNYJV73e54z2X code/modules/vendor/idb.js
-added QmcVeFfRPLmhiUa6DkdJ7TRHMKYa7Vhqh2EjBSVA7rwV7y code/package.json
+added QmY9jMmVRwbqamwKLz98cTRyYdNmv2tD24MdHrbEEn7seU code/package.json
 added QmWAkp43EU8F4VfGYormb1PATJBKPMW2RYRV11bXaZ51ga code/sw.js
 added QmdTwUzCmgDciKzEEtUSiMo2ynw3T3yt2e6qqCpy7kWFs6 code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -65,8 +65,8 @@ added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
 added QmSqqA16eyFxXcJUAk89BE3VW1eWasxmkVG5Udzvihbv8Z code/js/workers
 added QmbczXmfQf4dchPeywGyurTGpy7crYJFshq3U1LETuCKNU code/js
-added QmXdShpWSD9o2KmnHc3WUGkd648LHg7vovNqBKmPBSNFKp code/modules/smart-monaco-editor/dist
-added QmY3R2hFo7Y619f86ykxgfcqtysMb6dg345mKFPdZyBFwh code/modules/smart-monaco-editor
+added QmWHHHwXGGBGhysSuCbYHAgYpNU5RFyzh31YCridNYnZz6 code/modules/smart-monaco-editor/dist
+added QmUeGngiBd3DTERsPdw51EiVqanVPrFe7yUEQtei4t6X1t code/modules/smart-monaco-editor
 added QmP5kVo1ga12ke2eyYvHPCTAQFgPnDKhQ3HWDa9b6eFTiY code/modules/vendor
-added QmSWFEYyRrfowgFcJaBC1Fdp6wyTdmqp7iwJBre94PLphC code/modules
-added QmWVCQs4fFyfSe54rrZiwzvPe9RR5Y52PFREmhgpmtnoMP code
+added QmWRE2xjtV8D8ogobESbUrVisPVcx4gLv2vniu6mUBYE5F code/modules
+added QmZwz6rXE9KW5Af7bDfYupQRQqkFGBPr48SMrmvgBUuJab code

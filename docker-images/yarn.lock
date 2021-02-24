@@ -68,7 +68,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/generator@workspace:packages/generator"
   dependencies:
-    typescript: 4.1.5
+    typescript: 4.2.2
   languageName: unknown
   linkType: soft
 
@@ -6314,9 +6314,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@4.1.5:
-  version: 4.1.5
-  resolution: "typescript@npm:4.1.5"
+typescript@4.2.2:
+  version: 4.2.2
+  resolution: "typescript@npm:4.2.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -6324,9 +6324,9 @@ typescript@4.1.5:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.1.5#builtin<compat/typescript>":
-  version: 4.1.5
-  resolution: "typescript@patch:typescript@npm%3A4.1.5#builtin<compat/typescript>::version=4.1.5&hash=cc6730"
+"typescript@patch:typescript@4.2.2#builtin<compat/typescript>":
+  version: 4.2.2
+  resolution: "typescript@patch:typescript@npm%3A4.2.2#builtin<compat/typescript>::version=4.2.2&hash=cc6730"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
