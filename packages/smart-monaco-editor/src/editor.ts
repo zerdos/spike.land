@@ -137,7 +137,7 @@ export default async (
       },
       {
         name: "csstype",
-        url: "https://unpkg.com/csstype@3.0.6/index.d.ts",
+        url: "https://unpkg.com/csstype@3.0.7/index.d.ts",
         depend: [],
       },
       {
@@ -202,12 +202,12 @@ export default async (
       {
         name: "framer-motion",
         url: "https://unpkg.com/framer-motion@3.6.7/dist/framer-motion.d.ts",
-        depend: [],
+        depend: ["popmotion"],
       },
-      // {
-      //   name: "popmotion",
-      //   url: "https://unpkg.com/popmotion@9.2.1/lib/index.d.ts",
-      // },
+      {
+        name: "popmotion",
+        url: "https://unpkg.com/popmotion@9.2.1/lib/index.d.ts",
+      },
     ];
     const dts = importHelper.map(({ name, url }) =>
       (async () =>
