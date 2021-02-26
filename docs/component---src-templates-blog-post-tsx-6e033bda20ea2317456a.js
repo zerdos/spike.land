@@ -92,10 +92,10 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js + 1 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js + 1 modules
 var taggedTemplateLiteralLoose = __webpack_require__("fhSp");
 
-// EXTERNAL MODULE: /home/z/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 13 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 13 modules
 var emotion_react_browser_esm = __webpack_require__("f7k3");
 
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
@@ -113,17 +113,17 @@ var seo = __webpack_require__("H8eV");
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__("cINY");
 
-// EXTERNAL MODULE: /home/z/z/node_modules/gatsby-plugin-mdx/index.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/gatsby-plugin-mdx/index.js
 var gatsby_plugin_mdx = __webpack_require__("0yTM");
 
-// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js + 1 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js + 1 modules
 var asyncToGenerator = __webpack_require__("QsI/");
 
-// EXTERNAL MODULE: /home/z/z/node_modules/@babel/runtime/regenerator/index.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
 var regenerator = __webpack_require__("VtSi");
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 
-// EXTERNAL MODULE: /home/z/z/node_modules/react/index.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
 var react = __webpack_require__("ERkP");
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
@@ -201,7 +201,7 @@ var CodeBox_CodeBox = function CodeBox(_ref) {
     id: "preview"
   })));
 };
-// EXTERNAL MODULE: /home/z/z/node_modules/@mdx-js/react/dist/esm.js
+// EXTERNAL MODULE: /home/zed/z/node_modules/@mdx-js/react/dist/esm.js
 var esm = __webpack_require__("ZVZ0");
 
 // CONCATENATED MODULE: ./src/templates/blog-post.tsx
