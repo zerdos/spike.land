@@ -16,7 +16,7 @@
     "@cloudflare/wrangler": "1.13.0",
     "@cloudflare/workers-types": "2.1.0",
     "@zedvision/ipfs": "^13.0.2",
-    "esbuild": "0.8.52"
+    "esbuild": "0.8.53"
   },
   "dependencies": {
     "@zedvision/code": "^13.0.3"
