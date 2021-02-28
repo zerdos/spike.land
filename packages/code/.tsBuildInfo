@@ -182,7 +182,7 @@
         "affectsGlobalScope": false
       },
       "./modules/ipfs.client.js": {
-        "version": "27661563cea367c3571ce6243e3f472d41e06f6e0ca2967425d5ff1f2373b92f",
+        "version": "48da96036b3ff1bf91ecca6ffa189a119500536195580bc6361f364e2e41f125",
         "signature": "e9c2d6b6462446548a0f1021f44ac720d9fa09340f3b84bf83e69415925452f3",
         "affectsGlobalScope": false
       },
@@ -272,7 +272,7 @@
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "a9463906b58d6c76721707fb9ac16fdf6986f20a7409c4e37f8313e954b02984",
+        "version": "dd554964d8090c498cdac3632da9059ca4132d626665005778b598bf1a9e4048",
         "signature": "824735bc7e7f18d686de360ca704aaae77ee33a9934b141aac7d45f5d9dc40b8",
         "affectsGlobalScope": true
       },
