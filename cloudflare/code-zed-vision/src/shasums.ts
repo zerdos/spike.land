@@ -78,7 +78,7 @@ export const shasums = {
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "modules/smart-monaco-editor/dist/editor.js":
-    "cfcbfbcd865234490d31d5ae6018ab93c8a9cd70f2b50804be8844b425a8c515",
+    "0b4e4596c11cd5855e9a2ea9cb2e254d0666f92bc6ac6112a979b3f5f6d10c2e",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -120,7 +120,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
-    "f2a58621cf84c161857528982f68f75c5da0de75133c4afb2bbb0a973b1d98eb",
+    "14a1ad7e21eb0f7a8bd0c7f450c4b8a0b745e43e6bcf5c9d420d57c7bba1b604",
   "modules/QRious.js":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":
