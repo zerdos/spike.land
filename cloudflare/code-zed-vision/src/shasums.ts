@@ -73,7 +73,7 @@ export const shasums = {
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "package.json":
-    "4ac25351a6f4800845080360d18b873c51182e2c6dc71482a8d7e2f4e5f98f21",
+    "587a3877e37e7537b39ad5f5735ed20097c8e328e4a31cb3f612147a4aec514a",
   "sw.js": "c9f20a59be9221089f012a4715b26789504606cb7598d486c4365645db21f1df",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
@@ -121,5 +121,9 @@ export const shasums = {
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
     "a3c663ee93c16e76436233959c94769f5ef64eef7ee5b65c68b9487e2a1b7bbd",
+  "modules/QRious.js":
+    "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
+  ".tsBuildInfo":
+    "885aaf4a74de59494c904c5f0e0bee63dff1faadc75de97a583270a9359c8cac",
   "food": "marsbar",
 };
