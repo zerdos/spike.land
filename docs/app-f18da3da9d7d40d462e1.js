@@ -20,6 +20,22 @@ module.exports = !fails(function () {
 
 /***/ }),
 
+/***/ "1Pcy":
+/***/ (function(module, exports) {
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "1T57":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -454,16 +470,7 @@ module.exports = isForced;
 
 /***/ }),
 
-/***/ "6RQ8":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var _interopRequireDefault=__webpack_require__("vvQ7");var _gatsby=__webpack_require__("Wbzz");var _getManifestPathname=_interopRequireDefault(__webpack_require__("FSMn"));/* global __MANIFEST_PLUGIN_HAS_LOCALISATION__ */ // when we don't have localisation in our manifest, we tree shake everything away
-if(undefined){exports.onRouteUpdate=function(_ref,pluginOptions){var location=_ref.location;var localize=pluginOptions.localize;var manifestFilename=(0,_getManifestPathname.default)(location.pathname,localize);var manifestEl=document.head.querySelector("link[rel=\"manifest\"]");if(manifestEl){manifestEl.setAttribute("href",(0,_gatsby.withPrefix)(manifestFilename));}};}
-
-/***/ }),
-
-/***/ "75un":
+/***/ "695J":
 /***/ (function(module, exports) {
 
 function _setPrototypeOf(o, p) {
@@ -478,6 +485,15 @@ function _setPrototypeOf(o, p) {
 
 module.exports = _setPrototypeOf;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "6RQ8":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var _interopRequireDefault=__webpack_require__("IGGJ");var _gatsby=__webpack_require__("Wbzz");var _getManifestPathname=_interopRequireDefault(__webpack_require__("FSMn"));/* global __MANIFEST_PLUGIN_HAS_LOCALISATION__ */ // when we don't have localisation in our manifest, we tree shake everything away
+if(undefined){exports.onRouteUpdate=function(_ref,pluginOptions){var location=_ref.location;var localize=pluginOptions.localize;var manifestFilename=(0,_getManifestPathname.default)(location.pathname,localize);var manifestEl=document.head.querySelector("link[rel=\"manifest\"]");if(manifestEl){manifestEl.setAttribute("href",(0,_gatsby.withPrefix)(manifestFilename));}};}
 
 /***/ }),
 
@@ -828,6 +844,33 @@ exports.polyfill=function(Component){return Component;};
 
 /***/ }),
 
+/***/ "97Jx":
+/***/ (function(module, exports) {
+
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "9JhN":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -868,16 +911,16 @@ var GatsbyMDXScopeContext=/*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__("xeQy");
+var _interopRequireWildcard = __webpack_require__("yWCo");
 
-var _interopRequireDefault = __webpack_require__("vvQ7");
+var _interopRequireDefault = __webpack_require__("IGGJ");
 
 exports.__esModule = true;
 exports.ScrollHandler = exports.ScrollContext = void 0;
 
-var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__("Dans"));
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__("1Pcy"));
 
-var _inheritsLoose2 = _interopRequireDefault(__webpack_require__("Qf4j"));
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__("W/Kd"));
 
 var React = _interopRequireWildcard(__webpack_require__("ERkP"));
 
@@ -1012,9 +1055,9 @@ ScrollHandler.propTypes = {
 "use strict";
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* reexport */ _inheritsLoose; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _inheritsLoose; });
 
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/setPrototypeOf/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
 function _setPrototypeOf(o, p) {
   _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
     o.__proto__ = p;
@@ -1023,15 +1066,13 @@ function _setPrototypeOf(o, p) {
 
   return _setPrototypeOf(o, p);
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/inheritsLoose/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
   _setPrototypeOf(subClass, superClass);
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-
 
 /***/ }),
 
@@ -1097,22 +1138,6 @@ module.exports = function (input, PREFERRED_STRING) {
   };
 });
 
-
-/***/ }),
-
-/***/ "Dans":
-/***/ (function(module, exports) {
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-module.exports = _assertThisInitialized;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -1358,6 +1383,20 @@ module.exports = invariant;
 
 /***/ }),
 
+/***/ "IGGJ":
+/***/ (function(module, exports) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "IOVJ":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1425,6 +1464,29 @@ $({ target: 'Array', proto: true, forced: !STRICT_METHOD || CHROME_BUG }, {
   }
 });
 
+
+/***/ }),
+
+/***/ "LdEA":
+/***/ (function(module, exports) {
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutPropertiesLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -1522,20 +1584,20 @@ var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.com
 "use strict";
 
 
-var _interopRequireDefault = __webpack_require__("vvQ7");
+var _interopRequireDefault = __webpack_require__("IGGJ");
 
 exports.__esModule = true;
 exports.withPrefix = withPrefix;
 exports.withAssetPrefix = withAssetPrefix;
 exports.navigateTo = exports.replace = exports.push = exports.navigate = exports.default = void 0;
 
-var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__("k245"));
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(__webpack_require__("LdEA"));
 
-var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__("Dans"));
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__("1Pcy"));
 
-var _inheritsLoose2 = _interopRequireDefault(__webpack_require__("Qf4j"));
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__("W/Kd"));
 
-var _extends2 = _interopRequireDefault(__webpack_require__("qWom"));
+var _extends2 = _interopRequireDefault(__webpack_require__("97Jx"));
 
 var _propTypes = _interopRequireDefault(__webpack_require__("aWzz"));
 
@@ -1904,22 +1966,6 @@ module.exports = global;
 
 /***/ }),
 
-/***/ "Qf4j":
-/***/ (function(module, exports, __webpack_require__) {
-
-var setPrototypeOf = __webpack_require__("75un");
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  setPrototypeOf(subClass, superClass);
-}
-
-module.exports = _inheritsLoose;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
 /***/ "RYsc":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1983,6 +2029,34 @@ module.exports = version && +version;
 
 /***/ }),
 
+/***/ "T0aG":
+/***/ (function(module, exports) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
 /***/ "TN3B":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1992,7 +2066,7 @@ var store = __webpack_require__("xgf2");
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.9.0',
+  version: '3.9.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 });
@@ -2007,7 +2081,7 @@ var store = __webpack_require__("xgf2");
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 2 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
 var inheritsLoose = __webpack_require__("BFfR");
 
 // EXTERNAL MODULE: ./.cache/api-runner-browser.js
@@ -2090,7 +2164,7 @@ var page_renderer = __webpack_require__("IOVJ");
 var async_requires = __webpack_require__("NsGk");
 var async_requires_default = /*#__PURE__*/__webpack_require__.n(async_requires);
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js + 1 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__("zjfJ");
 
 // CONCATENATED MODULE: /home/zed/z/node_modules/shallow-compare/es/index.js
@@ -2157,6 +2231,22 @@ module.exports = function (namespace, method) {
     : path[namespace] && path[namespace][method] || global[namespace] && global[namespace][method];
 };
 
+
+/***/ }),
+
+/***/ "W/Kd":
+/***/ (function(module, exports, __webpack_require__) {
+
+var setPrototypeOf = __webpack_require__("695J");
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inheritsLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -2682,13 +2772,13 @@ __webpack_require__.d(__webpack_exports__, "setLoader", function() { return /* b
 __webpack_require__.d(__webpack_exports__, "publicLoader", function() { return /* binding */ publicLoader; });
 __webpack_require__.d(__webpack_exports__, "getStaticQueryResults", function() { return /* binding */ getStaticQueryResults; });
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 2 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
 var inheritsLoose = __webpack_require__("BFfR");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 6 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js + 5 modules
 var toConsumableArray = __webpack_require__("fGyu");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js + 1 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__("zjfJ");
 
 // CONCATENATED MODULE: ./.cache/prefetch.js
@@ -2805,9 +2895,9 @@ module.exports = !DESCRIPTORS && !fails(function () {
 "use strict";
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* reexport */ _toConsumableArray; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ _toConsumableArray; });
 
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/arrayLikeToArray/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
 
@@ -2817,16 +2907,16 @@ function _arrayLikeToArray(arr, len) {
 
   return arr2;
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/arrayWithoutHoles/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/iterableToArray/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/iterableToArray.js
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/unsupportedIterableToArray/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -2836,11 +2926,11 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/nonIterableSpread/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/toConsumableArray/_index.mjs
+// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
 
 
 
@@ -2848,8 +2938,6 @@ function _nonIterableSpread() {
 function _toConsumableArray(arr) {
   return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
-
 
 /***/ }),
 
@@ -2877,34 +2965,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-
-/***/ "fdRb":
-/***/ (function(module, exports) {
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    module.exports = _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  } else {
-    module.exports = _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-
-    module.exports["default"] = module.exports, module.exports.__esModule = true;
-  }
-
-  return _typeof(obj);
-}
-
-module.exports = _typeof;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -2961,16 +3021,16 @@ module.exports = function (argument) {
 "use strict";
 
 
-var _interopRequireWildcard = __webpack_require__("xeQy");
+var _interopRequireWildcard = __webpack_require__("yWCo");
 
-var _interopRequireDefault = __webpack_require__("vvQ7");
+var _interopRequireDefault = __webpack_require__("IGGJ");
 
 exports.__esModule = true;
 exports.ScrollContainer = void 0;
 
-var _extends2 = _interopRequireDefault(__webpack_require__("qWom"));
+var _extends2 = _interopRequireDefault(__webpack_require__("97Jx"));
 
-var _inheritsLoose2 = _interopRequireDefault(__webpack_require__("Qf4j"));
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__("W/Kd"));
 
 var React = _interopRequireWildcard(__webpack_require__("ERkP"));
 
@@ -3047,29 +3107,6 @@ ScrollContainer.propTypes = propTypes;
 
 /***/ }),
 
-/***/ "k245":
-/***/ (function(module, exports) {
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-module.exports = _objectWithoutPropertiesLoose;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
 /***/ "l5JW":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3083,7 +3120,7 @@ __webpack_require__.d(__webpack_exports__, "wrapRootElement", function() { retur
 // EXTERNAL MODULE: /home/zed/z/node_modules/core-js/modules/es.array.reduce.js
 var es_array_reduce = __webpack_require__("KOtZ");
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js + 1 modules
+// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__("zjfJ");
 
 // EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
@@ -3286,33 +3323,6 @@ exports.f = DESCRIPTORS ? nativeDefineProperty : function defineProperty(O, P, A
   return O;
 };
 
-
-/***/ }),
-
-/***/ "qWom":
-/***/ (function(module, exports) {
-
-function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-  return _extends.apply(this, arguments);
-}
-
-module.exports = _extends;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
@@ -4183,24 +4193,59 @@ var TEMPLATE = String(String).split('String');
 
 /***/ }),
 
-/***/ "vvQ7":
-/***/ (function(module, exports) {
+/***/ "xgf2":
+/***/ (function(module, exports, __webpack_require__) {
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
+var global = __webpack_require__("9JhN");
+var setGlobal = __webpack_require__("PjRa");
 
-module.exports = _interopRequireDefault;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || setGlobal(SHARED, {});
+
+module.exports = store;
+
 
 /***/ }),
 
-/***/ "xeQy":
+/***/ "xtsi":
 /***/ (function(module, exports, __webpack_require__) {
 
-var _typeof = __webpack_require__("fdRb")["default"];
+__webpack_require__("KOtZ");var plugins=__webpack_require__("LeKB");var _require$publicLoader=__webpack_require__("emEt").publicLoader,getResourcesForPathname=_require$publicLoader.getResourcesForPathname,getResourcesForPathnameSync=_require$publicLoader.getResourcesForPathnameSync,getResourceURLsForPathname=_require$publicLoader.getResourceURLsForPathname,loadPage=_require$publicLoader.loadPage,loadPageSync=_require$publicLoader.loadPageSync;exports.apiRunner=function(api,args,defaultReturn,argTransform){if(args===void 0){args={};}// Hooks for gatsby-cypress's API handler
+if(undefined){if(window.___apiHandler){window.___apiHandler(api);}else if(window.___resolvedAPIs){window.___resolvedAPIs.push(api);}else{window.___resolvedAPIs=[api];}}var results=plugins.map(function(plugin){if(!plugin.plugin[api]){return undefined;}// Deprecated April 2019. Use `loadPageSync` instead
+args.getResourcesForPathnameSync=getResourcesForPathnameSync;// Deprecated April 2019. Use `loadPage` instead
+args.getResourcesForPathname=getResourcesForPathname;args.getResourceURLsForPathname=getResourceURLsForPathname;args.loadPage=loadPage;args.loadPageSync=loadPageSync;var result=plugin.plugin[api](args,plugin.options);if(result&&argTransform){args=argTransform({args:args,result:result,plugin:plugin});}return result;});// Filter out undefined results.
+results=results.filter(function(result){return typeof result!=="undefined";});if(results.length>0){return results;}else if(defaultReturn){return[defaultReturn];}else{return[];}};exports.apiRunnerAsync=function(api,args,defaultReturn){return plugins.reduce(function(previous,next){return next.plugin[api]?previous.then(function(){return next.plugin[api](args,next.options);}):previous;},Promise.resolve());};
+
+/***/ }),
+
+/***/ "yRya":
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__("8aeu");
+var toIndexedObject = __webpack_require__("N4z3");
+var indexOf = __webpack_require__("H17f").indexOf;
+var hiddenKeys = __webpack_require__("1odi");
+
+module.exports = function (object, names) {
+  var O = toIndexedObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) !has(hiddenKeys, key) && has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~indexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+
+/***/ }),
+
+/***/ "yWCo":
+/***/ (function(module, exports, __webpack_require__) {
+
+var _typeof = __webpack_require__("T0aG")["default"];
 
 function _getRequireWildcardCache() {
   if (typeof WeakMap !== "function") return null;
@@ -4256,55 +4301,6 @@ function _interopRequireWildcard(obj) {
 
 module.exports = _interopRequireWildcard;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ "xgf2":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("9JhN");
-var setGlobal = __webpack_require__("PjRa");
-
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || setGlobal(SHARED, {});
-
-module.exports = store;
-
-
-/***/ }),
-
-/***/ "xtsi":
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__("KOtZ");var plugins=__webpack_require__("LeKB");var _require$publicLoader=__webpack_require__("emEt").publicLoader,getResourcesForPathname=_require$publicLoader.getResourcesForPathname,getResourcesForPathnameSync=_require$publicLoader.getResourcesForPathnameSync,getResourceURLsForPathname=_require$publicLoader.getResourceURLsForPathname,loadPage=_require$publicLoader.loadPage,loadPageSync=_require$publicLoader.loadPageSync;exports.apiRunner=function(api,args,defaultReturn,argTransform){if(args===void 0){args={};}// Hooks for gatsby-cypress's API handler
-if(undefined){if(window.___apiHandler){window.___apiHandler(api);}else if(window.___resolvedAPIs){window.___resolvedAPIs.push(api);}else{window.___resolvedAPIs=[api];}}var results=plugins.map(function(plugin){if(!plugin.plugin[api]){return undefined;}// Deprecated April 2019. Use `loadPageSync` instead
-args.getResourcesForPathnameSync=getResourcesForPathnameSync;// Deprecated April 2019. Use `loadPage` instead
-args.getResourcesForPathname=getResourcesForPathname;args.getResourceURLsForPathname=getResourceURLsForPathname;args.loadPage=loadPage;args.loadPageSync=loadPageSync;var result=plugin.plugin[api](args,plugin.options);if(result&&argTransform){args=argTransform({args:args,result:result,plugin:plugin});}return result;});// Filter out undefined results.
-results=results.filter(function(result){return typeof result!=="undefined";});if(results.length>0){return results;}else if(defaultReturn){return[defaultReturn];}else{return[];}};exports.apiRunnerAsync=function(api,args,defaultReturn){return plugins.reduce(function(previous,next){return next.plugin[api]?previous.then(function(){return next.plugin[api](args,next.options);}):previous;},Promise.resolve());};
-
-/***/ }),
-
-/***/ "yRya":
-/***/ (function(module, exports, __webpack_require__) {
-
-var has = __webpack_require__("8aeu");
-var toIndexedObject = __webpack_require__("N4z3");
-var indexOf = __webpack_require__("H17f").indexOf;
-var hiddenKeys = __webpack_require__("1odi");
-
-module.exports = function (object, names) {
-  var O = toIndexedObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) !has(hiddenKeys, key) && has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~indexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
 
 /***/ }),
 
@@ -4446,11 +4442,7 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* reexport */ _defineProperty; });
-
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/defineProperty/_index.mjs
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _defineProperty; });
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -4465,10 +4457,8 @@ function _defineProperty(obj, key, value) {
 
   return obj;
 }
-// CONCATENATED MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/defineProperty.js
-
 
 /***/ })
 
 },[["UxWs",3,12,14]]]);
-//# sourceMappingURL=app-c138621ba37b900a3683.js.map
+//# sourceMappingURL=app-f18da3da9d7d40d462e1.js.map
