@@ -86,19 +86,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.js":
-    "01f7f69d629b7b84b2ce7a70823e0fe8fefbebe57cdf014d0fc78b3f4aafe0bc",
-  "modules/vendor/diffMin.js":
-    "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
-  "modules/vendor/diffMin.d.ts":
-    "429e8f57123f5de31bd8ed3b5a6b2d067ade231c0f348848c35ced7b18755ed0",
-  "modules/vendor/idb.js":
-    "07c4e9ce08f8323dac0eb0f3ee10933a1ff6692c04270a455b1525a1d6a6b44e",
-  "modules/vendor/idb.d.ts":
-    "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
-  "modules/vendor/diffChars.js":
-    "70a109b675719c58bea2591f321afa0b19d30a29f71a957b519a27aa470f76bd",
-  "modules/vendor/diffChars.d.ts":
-    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
+    "e5a513f3a2429de10ecb70e06791e9ee28377f27f86d2e5637799d1b474819c4",
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/sha256.d.ts":
@@ -119,11 +107,23 @@ export const shasums = {
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
+  "modules/vendor/diffMin.js":
+    "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
+  "modules/vendor/diffMin.d.ts":
+    "429e8f57123f5de31bd8ed3b5a6b2d067ade231c0f348848c35ced7b18755ed0",
+  "modules/vendor/idb.js":
+    "07c4e9ce08f8323dac0eb0f3ee10933a1ff6692c04270a455b1525a1d6a6b44e",
+  "modules/vendor/idb.d.ts":
+    "bb8fefeb16e745a0d62bf8eb29c6dc16d44f9c6d5c4c1ae6062e03dff605f125",
+  "modules/vendor/diffChars.js":
+    "70a109b675719c58bea2591f321afa0b19d30a29f71a957b519a27aa470f76bd",
+  "modules/vendor/diffChars.d.ts":
+    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/renderer.js":
     "729c1a4a17053b52944fdb5f53ead3fd580db77efffd88751a2a1fdba4c6fcab",
   "modules/QRious.js":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":
-    "885aaf4a74de59494c904c5f0e0bee63dff1faadc75de97a583270a9359c8cac",
+    "e25c1b6813f2f37a703acc3a560bfb02b3439b97a9b25f81a055d42f31b11562",
   "food": "marsbar",
 };
