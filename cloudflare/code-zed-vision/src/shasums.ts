@@ -120,7 +120,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
-    "a3c663ee93c16e76436233959c94769f5ef64eef7ee5b65c68b9487e2a1b7bbd",
+    "729c1a4a17053b52944fdb5f53ead3fd580db77efffd88751a2a1fdba4c6fcab",
   "modules/QRious.js":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":

@@ -1,29 +1,7 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[1],{
+(self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[944],{
 
-/***/ "9Dj+":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Layout; });
-/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("fhSp");
-/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("f7k3");
-
-
-var _templateObject;
-
-/** @jsx jsx */
-
-var Layout = function Layout(_ref) {
-  var children = _ref.children;
-  return Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* jsx */ "c"])("main", {
-    css: Object(_emotion_react__WEBPACK_IMPORTED_MODULE_1__[/* css */ "b"])(_templateObject || (_templateObject = Object(_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])(["  \n          max-width: 1140px;\n          margin: auto;\n          img{\n            max-width: 100%;\n          }\n       "])))
-  }, children);
-};
-
-/***/ }),
-
-/***/ "F0GY":
-/***/ (function(module, exports) {
+/***/ 2161:
+/***/ (function(module) {
 
 /* global Map:readonly, Set:readonly, ArrayBuffer:readonly */
 var hasElementType = typeof Element !== 'undefined';
@@ -174,91 +152,193 @@ module.exports = function isEqual(a, b) {
 
 /***/ }),
 
-/***/ "H8eV":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 2773:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SEO; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("ERkP");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Wbzz");
-/* harmony import */ var react_helmet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Vgyk");
 
 
+function _interopDefault(ex) {
+  return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex;
+}
 
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
+var React = __webpack_require__(2784);
 
-var SEO = function SEO(_ref) {
-  var _ref$description = _ref.description,
-      description = _ref$description === void 0 ? "" : _ref$description,
-      _ref$lang = _ref.lang,
-      lang = _ref$lang === void 0 ? "en" : _ref$lang,
-      _ref$meta = _ref.meta,
-      meta = _ref$meta === void 0 ? [] : _ref$meta,
-      title = _ref.title;
+var React__default = _interopDefault(React);
 
-  var _useStaticQuery = Object(gatsby__WEBPACK_IMPORTED_MODULE_1__["useStaticQuery"])("2841359383"),
-      site = _useStaticQuery.site;
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
 
-  var metaDescription = description || site.siteMetadata.description;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["createElement"](react_helmet__WEBPACK_IMPORTED_MODULE_2__[/* Helmet */ "a"], {
-    htmlAttributes: {
-      lang: lang
-    },
-    title: title,
-    titleTemplate: "%s | " + site.siteMetadata.title,
-    meta: [{
-      name: "description",
-      content: metaDescription
-    }, {
-      property: "og:title",
-      content: title
-    }, {
-      property: "og:description",
-      content: metaDescription
-    }, {
-      property: "og:type",
-      content: "website"
-    }, {
-      name: "twitter:card",
-      content: "summary"
-    }, {
-      name: "twitter:creator",
-      content: site.siteMetadata.social.twitter
-    }, {
-      name: "twitter:title",
-      content: title
-    }, {
-      name: "twitter:description",
-      content: metaDescription
-    }].concat(meta)
-  });
+  return obj;
+}
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+function withSideEffect(reducePropsToState, handleStateChangeOnClient, mapStateOnServer) {
+  if (typeof reducePropsToState !== 'function') {
+    throw new Error('Expected reducePropsToState to be a function.');
+  }
+
+  if (typeof handleStateChangeOnClient !== 'function') {
+    throw new Error('Expected handleStateChangeOnClient to be a function.');
+  }
+
+  if (typeof mapStateOnServer !== 'undefined' && typeof mapStateOnServer !== 'function') {
+    throw new Error('Expected mapStateOnServer to either be undefined or a function.');
+  }
+
+  function getDisplayName(WrappedComponent) {
+    return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  }
+
+  return function wrap(WrappedComponent) {
+    if (typeof WrappedComponent !== 'function') {
+      throw new Error('Expected WrappedComponent to be a React component.');
+    }
+
+    var mountedInstances = [];
+    var state;
+
+    function emitChange() {
+      state = reducePropsToState(mountedInstances.map(function (instance) {
+        return instance.props;
+      }));
+
+      if (SideEffect.canUseDOM) {
+        handleStateChangeOnClient(state);
+      } else if (mapStateOnServer) {
+        state = mapStateOnServer(state);
+      }
+    }
+
+    var SideEffect = /*#__PURE__*/function (_PureComponent) {
+      _inheritsLoose(SideEffect, _PureComponent);
+
+      function SideEffect() {
+        return _PureComponent.apply(this, arguments) || this;
+      } // Try to use displayName of wrapped component
+      // Expose canUseDOM so tests can monkeypatch it
+
+
+      SideEffect.peek = function peek() {
+        return state;
+      };
+
+      SideEffect.rewind = function rewind() {
+        if (SideEffect.canUseDOM) {
+          throw new Error('You may only call rewind() on the server. Call peek() to read the current state.');
+        }
+
+        var recordedState = state;
+        state = undefined;
+        mountedInstances = [];
+        return recordedState;
+      };
+
+      var _proto = SideEffect.prototype;
+
+      _proto.UNSAFE_componentWillMount = function UNSAFE_componentWillMount() {
+        mountedInstances.push(this);
+        emitChange();
+      };
+
+      _proto.componentDidUpdate = function componentDidUpdate() {
+        emitChange();
+      };
+
+      _proto.componentWillUnmount = function componentWillUnmount() {
+        var index = mountedInstances.indexOf(this);
+        mountedInstances.splice(index, 1);
+        emitChange();
+      };
+
+      _proto.render = function render() {
+        return /*#__PURE__*/React__default.createElement(WrappedComponent, this.props);
+      };
+
+      return SideEffect;
+    }(React.PureComponent);
+
+    _defineProperty(SideEffect, "displayName", "SideEffect(" + getDisplayName(WrappedComponent) + ")");
+
+    _defineProperty(SideEffect, "canUseDOM", canUseDOM);
+
+    return SideEffect;
+  };
+}
+
+module.exports = withSideEffect;
+
+/***/ }),
+
+/***/ 4822:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "A": function() { return /* binding */ Layout; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3182);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8197);
+
+
+var _templateObject;
+
+/** @jsx jsx */
+
+var Layout = function Layout(_ref) {
+  var children = _ref.children;
+  return (0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .jsx */ .tZ)("main", {
+    css: (0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .css */ .iv)(_templateObject || (_templateObject = (0,_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(["  \n          max-width: 1140px;\n          margin: auto;\n          img{\n            max-width: 100%;\n          }\n       "])))
+  }, children);
 };
 
 /***/ }),
 
-/***/ "Vgyk":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 8912:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HelmetExport; });
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("KOtZ");
-/* harmony import */ var core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_reduce_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("aWzz");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_side_effect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("rqe8");
-/* harmony import */ var react_side_effect__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_side_effect__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_fast_compare__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("F0GY");
-/* harmony import */ var react_fast_compare__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_fast_compare__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ERkP");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var object_assign__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ch84");
-/* harmony import */ var object_assign__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(object_assign__WEBPACK_IMPORTED_MODULE_5__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "H": function() { return /* binding */ SEO; }
+});
+
+// EXTERNAL MODULE: ../../node_modules/react/index.js
+var react = __webpack_require__(2784);
+// EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
+var gatsby_browser_entry = __webpack_require__(8447);
+// EXTERNAL MODULE: ../../node_modules/core-js/modules/es.array.reduce.js
+var es_array_reduce = __webpack_require__(3108);
+// EXTERNAL MODULE: ../../node_modules/prop-types/index.js
+var prop_types = __webpack_require__(3980);
+var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
+// EXTERNAL MODULE: ../../node_modules/react-side-effect/lib/index.js
+var lib = __webpack_require__(2773);
+var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
+// EXTERNAL MODULE: ../../node_modules/react-fast-compare/index.js
+var react_fast_compare = __webpack_require__(2161);
+var react_fast_compare_default = /*#__PURE__*/__webpack_require__.n(react_fast_compare);
+// EXTERNAL MODULE: ../../node_modules/gatsby/dist/internal-plugins/bundle-optimisations/polyfills/object-assign.js
+var object_assign = __webpack_require__(308);
+var object_assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
+;// CONCATENATED MODULE: ../../node_modules/react-helmet/es/Helmet.js
 
 
 
@@ -527,7 +607,7 @@ var getTagsFromPropsList = function getTagsFromPropsList(tagName, primaryAttribu
 
     for (var i = 0; i < keys.length; i++) {
       var attributeKey = keys[i];
-      var tagUnion = object_assign__WEBPACK_IMPORTED_MODULE_5___default()({}, approvedSeenTags[attributeKey], instanceSeenTags[attributeKey]);
+      var tagUnion = object_assign_default()({}, approvedSeenTags[attributeKey], instanceSeenTags[attributeKey]);
       approvedSeenTags[attributeKey] = tagUnion;
     }
 
@@ -585,8 +665,8 @@ var cafPolyfill = function cafPolyfill(id) {
   return clearTimeout(id);
 };
 
-var requestAnimationFrame = typeof window !== "undefined" ? window.requestAnimationFrame && window.requestAnimationFrame.bind(window) || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || rafPolyfill : global.requestAnimationFrame || rafPolyfill;
-var cancelAnimationFrame = typeof window !== "undefined" ? window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || cafPolyfill : global.cancelAnimationFrame || cafPolyfill;
+var requestAnimationFrame = typeof window !== "undefined" ? window.requestAnimationFrame && window.requestAnimationFrame.bind(window) || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || rafPolyfill : __webpack_require__.g.requestAnimationFrame || rafPolyfill;
+var cancelAnimationFrame = typeof window !== "undefined" ? window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || cafPolyfill : __webpack_require__.g.cancelAnimationFrame || cafPolyfill;
 
 var warn = function warn(msg) {
   return console && typeof console.warn === "function" && console.warn(msg);
@@ -811,7 +891,7 @@ var generateTitleAsReactComponent = function generateTitleAsReactComponent(type,
     key: title
   }, _initProps[HELMET_ATTRIBUTE] = true, _initProps);
   var props = convertElementAttributestoReactProps(attributes, initProps);
-  return [react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(TAG_NAMES.TITLE, props, title)];
+  return [react.createElement(TAG_NAMES.TITLE, props, title)];
 };
 
 var generateTagsAsReactComponent = function generateTagsAsReactComponent(type, tags) {
@@ -833,7 +913,7 @@ var generateTagsAsReactComponent = function generateTagsAsReactComponent(type, t
         mappedTag[mappedAttribute] = tag[attribute];
       }
     });
-    return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(type, mappedTag);
+    return react.createElement(type, mappedTag);
   });
 };
 
@@ -913,7 +993,7 @@ var Helmet = function Helmet(Component) {
     }
 
     HelmetWrapper.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
-      return !react_fast_compare__WEBPACK_IMPORTED_MODULE_3___default()(this.props, nextProps);
+      return !react_fast_compare_default()(this.props, nextProps);
     };
 
     HelmetWrapper.prototype.mapNestedChildrenToProps = function mapNestedChildrenToProps(child, nestedChildren) {
@@ -994,7 +1074,7 @@ var Helmet = function Helmet(Component) {
       var _this2 = this;
 
       var arrayTypeChildren = {};
-      react__WEBPACK_IMPORTED_MODULE_4___default.a.Children.forEach(children, function (child) {
+      react.Children.forEach(children, function (child) {
         if (!child || !child.props) {
           return;
         }
@@ -1045,7 +1125,7 @@ var Helmet = function Helmet(Component) {
         newProps = this.mapChildrenToProps(children, newProps);
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Component, newProps);
+      return react.createElement(Component, newProps);
     };
 
     createClass(HelmetWrapper, null, [{
@@ -1077,23 +1157,23 @@ var Helmet = function Helmet(Component) {
       }
     }]);
     return HelmetWrapper;
-  }(react__WEBPACK_IMPORTED_MODULE_4___default.a.Component), _class.propTypes = {
-    base: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
-    bodyAttributes: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
-    children: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.node), prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.node]),
-    defaultTitle: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-    defer: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-    encodeSpecialCharacters: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
-    htmlAttributes: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
-    link: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object),
-    meta: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object),
-    noscript: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object),
-    onChangeClientState: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
-    script: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object),
-    style: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object),
-    title: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string,
-    titleAttributes: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
-    titleTemplate: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string
+  }(react.Component), _class.propTypes = {
+    base: (prop_types_default()).object,
+    bodyAttributes: (prop_types_default()).object,
+    children: prop_types_default().oneOfType([prop_types_default().arrayOf((prop_types_default()).node), (prop_types_default()).node]),
+    defaultTitle: (prop_types_default()).string,
+    defer: (prop_types_default()).bool,
+    encodeSpecialCharacters: (prop_types_default()).bool,
+    htmlAttributes: (prop_types_default()).object,
+    link: prop_types_default().arrayOf((prop_types_default()).object),
+    meta: prop_types_default().arrayOf((prop_types_default()).object),
+    noscript: prop_types_default().arrayOf((prop_types_default()).object),
+    onChangeClientState: (prop_types_default()).func,
+    script: prop_types_default().arrayOf((prop_types_default()).object),
+    style: prop_types_default().arrayOf((prop_types_default()).object),
+    title: (prop_types_default()).string,
+    titleAttributes: (prop_types_default()).object,
+    titleTemplate: (prop_types_default()).string
   }, _class.defaultProps = {
     defer: true,
     encodeSpecialCharacters: true
@@ -1125,148 +1205,70 @@ var NullComponent = function NullComponent() {
   return null;
 };
 
-var HelmetSideEffects = react_side_effect__WEBPACK_IMPORTED_MODULE_2___default()(reducePropsToState, handleClientStateChange, mapStateOnServer)(NullComponent);
+var HelmetSideEffects = lib_default()(reducePropsToState, handleClientStateChange, mapStateOnServer)(NullComponent);
 var HelmetExport = Helmet(HelmetSideEffects);
 HelmetExport.renderStatic = HelmetExport.rewind;
-/* unused harmony default export */ var _unused_webpack_default_export = (HelmetExport);
+/* harmony default export */ var es_Helmet = ((/* unused pure expression or super */ null && (HelmetExport)));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("fRV1")))
-
-/***/ }),
-
-/***/ "rqe8":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
+;// CONCATENATED MODULE: ./src/components/seo.tsx
 
 
-function _interopDefault(ex) {
-  return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex;
-}
 
-var React = __webpack_require__("ERkP");
+/**
+ * SEO component that queries for data with
+ *  Gatsby's useStaticQuery React hook
+ *
+ * See: https://www.gatsbyjs.org/docs/use-static-query/
+ */
 
-var React__default = _interopDefault(React);
+var SEO = function SEO(_ref) {
+  var _ref$description = _ref.description,
+      description = _ref$description === void 0 ? "" : _ref$description,
+      _ref$lang = _ref.lang,
+      lang = _ref$lang === void 0 ? "en" : _ref$lang,
+      _ref$meta = _ref.meta,
+      meta = _ref$meta === void 0 ? [] : _ref$meta,
+      title = _ref.title;
 
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
+  var _useStaticQuery = (0,gatsby_browser_entry.useStaticQuery)("2841359383"),
+      site = _useStaticQuery.site;
 
-  return obj;
-}
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
-}
-
-var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-function withSideEffect(reducePropsToState, handleStateChangeOnClient, mapStateOnServer) {
-  if (typeof reducePropsToState !== 'function') {
-    throw new Error('Expected reducePropsToState to be a function.');
-  }
-
-  if (typeof handleStateChangeOnClient !== 'function') {
-    throw new Error('Expected handleStateChangeOnClient to be a function.');
-  }
-
-  if (typeof mapStateOnServer !== 'undefined' && typeof mapStateOnServer !== 'function') {
-    throw new Error('Expected mapStateOnServer to either be undefined or a function.');
-  }
-
-  function getDisplayName(WrappedComponent) {
-    return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-  }
-
-  return function wrap(WrappedComponent) {
-    if (typeof WrappedComponent !== 'function') {
-      throw new Error('Expected WrappedComponent to be a React component.');
-    }
-
-    var mountedInstances = [];
-    var state;
-
-    function emitChange() {
-      state = reducePropsToState(mountedInstances.map(function (instance) {
-        return instance.props;
-      }));
-
-      if (SideEffect.canUseDOM) {
-        handleStateChangeOnClient(state);
-      } else if (mapStateOnServer) {
-        state = mapStateOnServer(state);
-      }
-    }
-
-    var SideEffect = /*#__PURE__*/function (_PureComponent) {
-      _inheritsLoose(SideEffect, _PureComponent);
-
-      function SideEffect() {
-        return _PureComponent.apply(this, arguments) || this;
-      } // Try to use displayName of wrapped component
-      // Expose canUseDOM so tests can monkeypatch it
-
-
-      SideEffect.peek = function peek() {
-        return state;
-      };
-
-      SideEffect.rewind = function rewind() {
-        if (SideEffect.canUseDOM) {
-          throw new Error('You may only call rewind() on the server. Call peek() to read the current state.');
-        }
-
-        var recordedState = state;
-        state = undefined;
-        mountedInstances = [];
-        return recordedState;
-      };
-
-      var _proto = SideEffect.prototype;
-
-      _proto.UNSAFE_componentWillMount = function UNSAFE_componentWillMount() {
-        mountedInstances.push(this);
-        emitChange();
-      };
-
-      _proto.componentDidUpdate = function componentDidUpdate() {
-        emitChange();
-      };
-
-      _proto.componentWillUnmount = function componentWillUnmount() {
-        var index = mountedInstances.indexOf(this);
-        mountedInstances.splice(index, 1);
-        emitChange();
-      };
-
-      _proto.render = function render() {
-        return /*#__PURE__*/React__default.createElement(WrappedComponent, this.props);
-      };
-
-      return SideEffect;
-    }(React.PureComponent);
-
-    _defineProperty(SideEffect, "displayName", "SideEffect(" + getDisplayName(WrappedComponent) + ")");
-
-    _defineProperty(SideEffect, "canUseDOM", canUseDOM);
-
-    return SideEffect;
-  };
-}
-
-module.exports = withSideEffect;
+  var metaDescription = description || site.siteMetadata.description;
+  return /*#__PURE__*/react.createElement(HelmetExport, {
+    htmlAttributes: {
+      lang: lang
+    },
+    title: title,
+    titleTemplate: "%s | " + site.siteMetadata.title,
+    meta: [{
+      name: "description",
+      content: metaDescription
+    }, {
+      property: "og:title",
+      content: title
+    }, {
+      property: "og:description",
+      content: metaDescription
+    }, {
+      property: "og:type",
+      content: "website"
+    }, {
+      name: "twitter:card",
+      content: "summary"
+    }, {
+      name: "twitter:creator",
+      content: site.siteMetadata.social.twitter
+    }, {
+      name: "twitter:title",
+      content: title
+    }, {
+      name: "twitter:description",
+      content: metaDescription
+    }].concat(meta)
+  });
+};
 
 /***/ })
 
 }]);
-//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-0b28bb12d65bca7565c0.js.map
+//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-73c63aabe0be301ed67c.js.map

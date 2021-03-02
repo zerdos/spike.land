@@ -1,66 +1,54 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
+(self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[691],{
 
-/***/ "7jdZ":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "static/forkMe-1a2bcb7dd2c870c3afe5d50466500c18.png";
-
-/***/ }),
-
-/***/ "QeBL":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 6674:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__("fhSp");
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": function() { return /* binding */ pages; }
+});
 
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__("QsI/");
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__("VtSi");
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(3182);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(6470);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(7162);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 12 modules
-var emotion_react_browser_esm = __webpack_require__("f7k3");
-
-// EXTERNAL MODULE: /home/zed/z/node_modules/react/index.js
-var react = __webpack_require__("ERkP");
-var react_default = /*#__PURE__*/__webpack_require__.n(react);
-
+// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
+var emotion_react_browser_esm = __webpack_require__(8197);
+// EXTERNAL MODULE: ../../node_modules/react/index.js
+var react = __webpack_require__(2784);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__("Wbzz");
-
-// EXTERNAL MODULE: ./src/components/bio.tsx
-var bio = __webpack_require__("IgZc");
-
+var gatsby_browser_entry = __webpack_require__(8447);
+// EXTERNAL MODULE: ./src/components/bio.tsx + 1 modules
+var bio = __webpack_require__(7263);
 // EXTERNAL MODULE: ./src/components/layout.tsx
-var layout = __webpack_require__("9Dj+");
-
-// EXTERNAL MODULE: ./src/components/seo.tsx
-var seo = __webpack_require__("H8eV");
-
-// CONCATENATED MODULE: ./src/components/code/getUser.ts
+var layout = __webpack_require__(4822);
+// EXTERNAL MODULE: ./src/components/seo.tsx + 1 modules
+var seo = __webpack_require__(8912);
+;// CONCATENATED MODULE: ./src/components/code/getUser.ts
 
 
 var shaDB = {
   get: function () {
-    var _get = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(key, type) {
-      var _yield$import, getDB, db;
+    var _get = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(key, type) {
+      var _yield$Function, getDB, db;
 
-      return regenerator_default.a.wrap(function _callee$(_context) {
+      return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return __webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, "UUf3"));
+              return new Function("return import(`https://code.zed.vision/modules/shaDB.js`)")();
 
             case 2:
-              _yield$import = _context.sent;
-              getDB = _yield$import.getDB;
+              _yield$Function = _context.sent;
+              getDB = _yield$Function.getDB;
               _context.next = 6;
               return getDB("shaDB");
 
@@ -88,19 +76,19 @@ var shaDB = {
     return get;
   }(),
   put: function () {
-    var _put = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2(key, value) {
-      var _yield$import2, getDB, db;
+    var _put = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2(key, value) {
+      var _yield$Function2, getDB, db;
 
-      return regenerator_default.a.wrap(function _callee2$(_context2) {
+      return regenerator_default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return __webpack_require__.e(/* import() */ 4).then(__webpack_require__.bind(null, "UUf3"));
+              return new Function("return import(`https://code.zed.vision/modules/shaDB.js`)")();
 
             case 2:
-              _yield$import2 = _context2.sent;
-              getDB = _yield$import2.getDB;
+              _yield$Function2 = _context2.sent;
+              getDB = _yield$Function2.getDB;
               _context2.next = 6;
               return getDB("shaDB");
 
@@ -133,9 +121,9 @@ function getUserId() {
 }
 
 function _getUserId() {
-  _getUserId = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3() {
+  _getUserId = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3() {
     var uuid, resp, data;
-    return regenerator_default.a.wrap(function _callee3$(_context3) {
+    return regenerator_default().wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
@@ -187,9 +175,8 @@ function _getUserId() {
   return _getUserId.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__("cINY");
-
-// CONCATENATED MODULE: ./src/components/utils/sha256/sha256.ts
+var typography = __webpack_require__(3862);
+;// CONCATENATED MODULE: ./src/components/utils/sha256/sha256.ts
 
 
 function sha256(_x) {
@@ -197,9 +184,9 @@ function sha256(_x) {
 }
 
 function _sha() {
-  _sha = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(message) {
+  _sha = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(message) {
     var msgBuffer, hashBuffer, hashArray, hashHex;
-    return regenerator_default.a.wrap(function _callee$(_context) {
+    return regenerator_default().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -225,7 +212,7 @@ function _sha() {
   }));
   return _sha.apply(this, arguments);
 }
-// CONCATENATED MODULE: ./src/components/code/Qr.tsx
+;// CONCATENATED MODULE: ./src/components/code/Qr.tsx
 
 
 
@@ -237,34 +224,34 @@ var _templateObject, _templateObject2, _templateObject3, _templateObject4, _temp
 
 
 
-var Qr_Qr = function Qr() {
-  var side1 = react_default.a.useRef(null);
-  var side2 = react_default.a.useRef(null);
-  var side3 = react_default.a.useRef(null);
-  var side4 = react_default.a.useRef(null);
-  var side5 = react_default.a.useRef(null);
-  var side6 = react_default.a.useRef(null);
+var Qr = function Qr() {
+  var side1 = react.useRef(null);
+  var side2 = react.useRef(null);
+  var side3 = react.useRef(null);
+  var side4 = react.useRef(null);
+  var side5 = react.useRef(null);
+  var side6 = react.useRef(null);
 
-  var _React$useState = react_default.a.useState(100),
+  var _React$useState = react.useState(100),
       retry = _React$useState[0],
       setRetry = _React$useState[1]; // const [secrets, setSecrets] = React.useState({})
 
 
-  var _React$useState2 = react_default.a.useState({
+  var _React$useState2 = react.useState({
     current: "",
     last: ""
   }),
       urls = _React$useState2[0],
       setUrl = _React$useState2[1];
 
-  var _React$useState3 = react_default.a.useState({}),
+  var _React$useState3 = react.useState({}),
       cubeSides = _React$useState3[0],
       setQrCube = _React$useState3[1];
 
   var setQR = /*#__PURE__*/function () {
-    var _ref = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee(side, color, element) {
+    var _ref = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee(side, color, element) {
       var options, qr, LazyQR;
-      return regenerator_default.a.wrap(function _callee$(_context) {
+      return regenerator_default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
@@ -320,11 +307,11 @@ var Qr_Qr = function Qr() {
     };
   }();
 
-  react_default.a.useEffect(function () {
+  react.useEffect(function () {
     var connect = /*#__PURE__*/function () {
-      var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee2() {
+      var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee2() {
         var secret, key, url;
-        return regenerator_default.a.wrap(function _callee2$(_context2) {
+        return regenerator_default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
@@ -364,12 +351,12 @@ var Qr_Qr = function Qr() {
       connect();
     }
   }, [retry]);
-  react_default.a.useEffect(function () {
+  react.useEffect(function () {
     var setSignal = /*#__PURE__*/function () {
-      var _ref3 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee3(url) {
+      var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee3(url) {
         var _yield$Function, fetchSignal, getData, signalData;
 
-        return regenerator_default.a.wrap(function _callee3$(_context3) {
+        return regenerator_default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
@@ -440,8 +427,8 @@ var Qr_Qr = function Qr() {
     }();
 
     var setSignals = /*#__PURE__*/function () {
-      var _ref4 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee4() {
-        return regenerator_default.a.wrap(function _callee4$(_context4) {
+      var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee4() {
+        return regenerator_default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
@@ -504,56 +491,56 @@ var Qr_Qr = function Qr() {
     if (typeof window !== "undefined" && retry > 0) setSignals();
   }, [urls]);
 
-  var _React$useState4 = react_default.a.useState(1),
+  var _React$useState4 = react.useState(1),
       cubeState = _React$useState4[0],
       setCubeState = _React$useState4[1];
 
-  return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject || (_templateObject = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n              display: inline-block;\n              position: relative;\n              margin: 100px;\n              overflow: visible;\n              @keyframes byecube {\n                from {\n                  transform: translateX(0px);\n                }\n                to {\n                    transform: translateY(-1000px);\n                  }\n              };\n          "])))
-  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject2 || (_templateObject2 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n        position: absolute;\n         animation-name:", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: 1;\n  animation-duration: 4s;\n   transform-style: preserve-3d;\n  transform-origin:  center center; \n"])), cubeState === 1 || cubeState === 0 ? "none" : "byecube")
-  }, Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Cube, {
+  return (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject || (_templateObject = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n              display: inline-block;\n              position: relative;\n              margin: 100px;\n              overflow: visible;\n              @keyframes byecube {\n                from {\n                  transform: translateX(0px);\n                }\n                to {\n                    transform: translateY(-1000px);\n                  }\n              };\n          "])))
+  }, (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject2 || (_templateObject2 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n        position: absolute;\n         animation-name:", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: 1;\n  animation-duration: 4s;\n   transform-style: preserve-3d;\n  transform-origin:  center center; \n"])), cubeState === 1 || cubeState === 0 ? "none" : "byecube")
+  }, (0,emotion_react_browser_esm/* jsx */.tZ)(Cube, {
     size: 220,
     animate: true,
-    sides: [Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+    sides: [(0,emotion_react_browser_esm/* jsx */.tZ)("canvas", {
       ref: side1
-    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+    }), (0,emotion_react_browser_esm/* jsx */.tZ)("canvas", {
       ref: side2
-    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+    }), (0,emotion_react_browser_esm/* jsx */.tZ)("canvas", {
       ref: side3
-    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+    }), (0,emotion_react_browser_esm/* jsx */.tZ)("canvas", {
       ref: side4
-    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+    }), (0,emotion_react_browser_esm/* jsx */.tZ)("canvas", {
       ref: side5
-    }), Object(emotion_react_browser_esm["c" /* jsx */])("canvas", {
+    }), (0,emotion_react_browser_esm/* jsx */.tZ)("canvas", {
       ref: side6
     })]
   })));
 }; //@ts-ignore
 
-var Qr_Cube = function Cube(_ref5) {
+var Cube = function Cube(_ref5) {
   var sides = _ref5.sides,
       _size = _ref5.size,
       animate = _ref5.animate;
   var border = 0;
   var size = _size + 2 * border; //@ts-ignore
 
-  return Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject3 || (_templateObject3 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n      position: relative;\n        display: inline-block; \n        perspective: 900px;\n\n         perspective-origin: 50% 50% ; \n\n\n  \n        "])))
-  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Qr_spinCubeCss(size, animate)
-  }, Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject4 || (_templateObject4 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n              transform: translateZ(", "px);\n              "])), size / 2)
-  }, sides[0]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject5 || (_templateObject5 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n            transform: rotateY(90deg) \n                       translateZ(", "px);\n            "])), size / 2)
-  }, sides[1]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject6 || (_templateObject6 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n                transform: rotateY(90deg) \n                           rotateX(90deg) \n                           translateZ(", "px);\n                "])), size / 2)
-  }, sides[2]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject7 || (_templateObject7 = Object(taggedTemplateLiteralLoose["a" /* default */])([" \n                transform: translateZ( -", "px) \n                           rotateY(180deg) \n                           rotateZ(90deg);\n            "])), size / 2)
-  }, sides[3]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject8 || (_templateObject8 = Object(taggedTemplateLiteralLoose["a" /* default */])([" \n                transform: rotateY(-90deg) \n                           rotateZ(90deg) \n                           translateZ(", "px);\n                "])), size / 2)
-  }, sides[4]), Object(emotion_react_browser_esm["c" /* jsx */])("div", {
-    css: Object(emotion_react_browser_esm["b" /* css */])(_templateObject9 || (_templateObject9 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n            transform: rotateX(-90deg) \n                       translateZ(", "px);\n            "])), size / 2)
+  return (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject3 || (_templateObject3 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n      position: relative;\n        display: inline-block; \n        perspective: 900px;\n\n         perspective-origin: 50% 50% ; \n\n\n  \n        "])))
+  }, (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: spinCubeCss(size, animate)
+  }, (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject4 || (_templateObject4 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n              transform: translateZ(", "px);\n              "])), size / 2)
+  }, sides[0]), (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject5 || (_templateObject5 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n            transform: rotateY(90deg) \n                       translateZ(", "px);\n            "])), size / 2)
+  }, sides[1]), (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject6 || (_templateObject6 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n                transform: rotateY(90deg) \n                           rotateX(90deg) \n                           translateZ(", "px);\n                "])), size / 2)
+  }, sides[2]), (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject7 || (_templateObject7 = (0,taggedTemplateLiteralLoose/* default */.Z)([" \n                transform: translateZ( -", "px) \n                           rotateY(180deg) \n                           rotateZ(90deg);\n            "])), size / 2)
+  }, sides[3]), (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject8 || (_templateObject8 = (0,taggedTemplateLiteralLoose/* default */.Z)([" \n                transform: rotateY(-90deg) \n                           rotateZ(90deg) \n                           translateZ(", "px);\n                "])), size / 2)
+  }, sides[4]), (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject9 || (_templateObject9 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n            transform: rotateX(-90deg) \n                       translateZ(", "px);\n            "])), size / 2)
   }, sides[5])));
 };
 
@@ -566,14 +553,14 @@ var randoms = new Array(3).fill(0).map(function (x, i) {
 });
 var r = randoms;
 
-var Qr_spinCubeCss = function spinCubeCss(size, animate) {
-  return Object(emotion_react_browser_esm["b" /* css */])(_templateObject10 || (_templateObject10 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n\n  width: ", "px; \n  height: ", "px;\n  animation-name: ", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: infinite;\n  animation-duration: 10s;\n  transform-style: preserve-3d;\n  transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n  \n \n      \n      \n  @keyframes spincube {\n    from,to {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    16% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    33% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n       }\n    50% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    66% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n    83% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n     }\n  }\n\n  \n\n\n\n   div{\n    position: absolute;\n    width: ", "px;\n    height: ", "px;\n    /* margin: 10px;\n    padding: 10px; */\n    /* border: 10px solid transparent; */\n    background: rgba(255,255,255, .5);\n\n    box-shadow: inset 0 0 50px rgba(255,0,0);\n  }\n"])), size, size, animate && "spincube", r[1], r[2], r[0], r[1], r[2], r[0], r[1], r[0], r[0], r[2], r[0], r[1], r[2], r[1], r[0], r[0], r[1], r[2], r[0], r[2], r[1], size, size);
+var spinCubeCss = function spinCubeCss(size, animate) {
+  return (0,emotion_react_browser_esm/* css */.iv)(_templateObject10 || (_templateObject10 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n\n  width: ", "px; \n  height: ", "px;\n  animation-name: ", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: infinite;\n  animation-duration: 10s;\n  transform-style: preserve-3d;\n  transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n  \n \n      \n      \n  @keyframes spincube {\n    from,to {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    16% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    33% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n       }\n    50% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    66% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n    83% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n     }\n  }\n\n  \n\n\n\n   div{\n    position: absolute;\n    width: ", "px;\n    height: ", "px;\n    /* margin: 10px;\n    padding: 10px; */\n    /* border: 10px solid transparent; */\n    background: rgba(255,255,255, .5);\n\n    box-shadow: inset 0 0 50px rgba(255,0,0);\n  }\n"])), size, size, animate && "spincube", r[1], r[2], r[0], r[1], r[2], r[0], r[1], r[0], r[0], r[2], r[0], r[1], r[2], r[1], r[0], r[0], r[1], r[2], r[0], r[2], r[1], size, size);
 };
 
 /* harmony default export */ var code_Qr = (function () {
-  return Object(emotion_react_browser_esm["c" /* jsx */])(react_default.a.Fragment, null, Object(emotion_react_browser_esm["c" /* jsx */])(emotion_react_browser_esm["a" /* Global */], {
-    styles: Object(emotion_react_browser_esm["b" /* css */])(_templateObject11 || (_templateObject11 = Object(taggedTemplateLiteralLoose["a" /* default */])(["\n      body{\n          background: #333;\n           overflow: visible;\n          margin: 300px;\n          width: 0px;\n          text-align: center;\n         }  \n    "])))
-  }), Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Qr, null));
+  return jsx(React.Fragment, null, jsx(Global, {
+    styles: css(_templateObject11 || (_templateObject11 = _taggedTemplateLiteralLoose(["\n      body{\n          background: #333;\n           overflow: visible;\n          margin: 300px;\n          width: 0px;\n          text-align: center;\n         }  \n    "])))
+  }), jsx(Qr, null));
 });
 
 var Loader = function Loader(c, size) {
@@ -697,11 +684,9 @@ var Loader = function Loader(c, size) {
 
   loop();
 };
-// EXTERNAL MODULE: ./assets/forkMe.png
-var forkMe = __webpack_require__("7jdZ");
-var forkMe_default = /*#__PURE__*/__webpack_require__.n(forkMe);
-
-// CONCATENATED MODULE: ./src/pages/index.tsx
+;// CONCATENATED MODULE: ./assets/forkMe.png
+/* harmony default export */ var forkMe = (__webpack_require__.p + "static/forkMe-0c72e9017438eab84000fa680db48ede.png");
+;// CONCATENATED MODULE: ./src/pages/index.tsx
 
 
 
@@ -726,14 +711,14 @@ var isMobile = function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(window.navigator.userAgent);
 };
 
-var pages_BlogIndex = function BlogIndex(_ref) {
+var BlogIndex = function BlogIndex(_ref) {
   var data = _ref.data;
   var edges = data.allMdx.edges;
-  react["useEffect"](function () {
+  react.useEffect(function () {
     if (typeof window !== "undefined") {
       var install = /*#__PURE__*/function () {
-        var _ref2 = Object(asyncToGenerator["a" /* default */])( /*#__PURE__*/regenerator_default.a.mark(function _callee() {
-          return regenerator_default.a.wrap(function _callee$(_context) {
+        var _ref2 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/regenerator_default().mark(function _callee() {
+          return regenerator_default().wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
@@ -762,15 +747,15 @@ var pages_BlogIndex = function BlogIndex(_ref) {
       install(); // registerSW();
     }
   }, []);
-  return Object(emotion_react_browser_esm["c" /* jsx */])(layout["a" /* Layout */], null, Object(emotion_react_browser_esm["c" /* jsx */])(seo["a" /* SEO */], {
+  return (0,emotion_react_browser_esm/* jsx */.tZ)(layout/* Layout */.A, null, (0,emotion_react_browser_esm/* jsx */.tZ)(seo/* SEO */.H, {
     title: "This is Zed."
-  }), isMobile() === false ? Object(emotion_react_browser_esm["c" /* jsx */])("h1", null, "Link your mobile with this code: ", Object(emotion_react_browser_esm["c" /* jsx */])(Qr_Qr, null)) : Object(emotion_react_browser_esm["c" /* jsx */])("h1", null, "This is my blog."), Object(emotion_react_browser_esm["c" /* jsx */])("a", {
+  }), isMobile() === false ? (0,emotion_react_browser_esm/* jsx */.tZ)("h1", null, "Link your mobile with this code: ", (0,emotion_react_browser_esm/* jsx */.tZ)(Qr, null)) : (0,emotion_react_browser_esm/* jsx */.tZ)("h1", null, "This is my blog."), (0,emotion_react_browser_esm/* jsx */.tZ)("a", {
     href: "https://github.com/zed-vision/monorepo"
-  }, Object(emotion_react_browser_esm["c" /* jsx */])("img", {
+  }, (0,emotion_react_browser_esm/* jsx */.tZ)("img", {
     loading: "lazy",
     width: "149",
     height: "149",
-    src: forkMe_default.a,
+    src: forkMe,
     style: {
       position: "absolute",
       top: 0,
@@ -780,24 +765,24 @@ var pages_BlogIndex = function BlogIndex(_ref) {
   })), edges.map(function (_ref3) {
     var node = _ref3.node;
     var title = node.frontmatter.title || node.fields.slug;
-    return Object(emotion_react_browser_esm["c" /* jsx */])("article", {
+    return (0,emotion_react_browser_esm/* jsx */.tZ)("article", {
       key: node.fields.slug
-    }, Object(emotion_react_browser_esm["c" /* jsx */])("header", null, Object(emotion_react_browser_esm["c" /* jsx */])("h3", {
-      css: Object(emotion_react_browser_esm["b" /* css */])(pages_templateObject || (pages_templateObject = Object(taggedTemplateLiteralLoose["a" /* default */])(["  \n                      margin-bottom: ", ";\n                      "])), Object(typography["a" /* rhythm */])(1 / 4))
-    }, Object(emotion_react_browser_esm["c" /* jsx */])(gatsby_browser_entry["Link"], {
+    }, (0,emotion_react_browser_esm/* jsx */.tZ)("header", null, (0,emotion_react_browser_esm/* jsx */.tZ)("h3", {
+      css: (0,emotion_react_browser_esm/* css */.iv)(pages_templateObject || (pages_templateObject = (0,taggedTemplateLiteralLoose/* default */.Z)(["  \n                      margin-bottom: ", ";\n                      "])), (0,typography/* rhythm */.qZ)(1 / 4))
+    }, (0,emotion_react_browser_esm/* jsx */.tZ)(gatsby_browser_entry.Link, {
       to: node.fields.slug
-    }, title)), Object(emotion_react_browser_esm["c" /* jsx */])("small", null, node.frontmatter.date)), Object(emotion_react_browser_esm["c" /* jsx */])("section", null, Object(emotion_react_browser_esm["c" /* jsx */])("p", {
+    }, title)), (0,emotion_react_browser_esm/* jsx */.tZ)("small", null, node.frontmatter.date)), (0,emotion_react_browser_esm/* jsx */.tZ)("section", null, (0,emotion_react_browser_esm/* jsx */.tZ)("p", {
       dangerouslySetInnerHTML: {
         __html: node.frontmatter.description || node.excerpt
       }
     })));
-  }), Object(emotion_react_browser_esm["c" /* jsx */])(bio["a" /* Bio */], null));
+  }), (0,emotion_react_browser_esm/* jsx */.tZ)(bio/* Bio */.w, null));
 };
 
-/* harmony default export */ var pages = __webpack_exports__["default"] = (pages_BlogIndex);
+/* harmony default export */ var pages = (BlogIndex);
 var pageQuery = "497448492";
 
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-7252bfe83a73040fb278.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-888f87ecfc57a0730775.js.map
