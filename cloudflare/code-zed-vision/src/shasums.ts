@@ -69,16 +69,16 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "dd554964d8090c498cdac3632da9059ca4132d626665005778b598bf1a9e4048",
+    "a3fbe3169f6bb90773cd069fec5cf513a21740671bda342d89180de060b867eb",
   "manifest.json":
     "474c4e928619e360478a2f959a69c26d5028933dd5e3d2b2814182548a769591",
   "package.json":
-    "ef432de3bf641aab9b272cfa2d38a1f916c050c168169523c393daeaf40bfa79",
+    "4ac25351a6f4800845080360d18b873c51182e2c6dc71482a8d7e2f4e5f98f21",
   "sw.js": "c9f20a59be9221089f012a4715b26789504606cb7598d486c4365645db21f1df",
   "tsconfig.json":
     "2e106bda33861beefea18bdbc967b5df8fc74a57cd8de9bf8902c78125da78f2",
   "modules/smart-monaco-editor/dist/editor.js":
-    "0b4e4596c11cd5855e9a2ea9cb2e254d0666f92bc6ac6112a979b3f5f6d10c2e",
+    "174bfd6ac2cee9c4cb76afe53e93f47f5aada844c42a6df6b32212b86dae8496",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -86,7 +86,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.js":
-    "48da96036b3ff1bf91ecca6ffa189a119500536195580bc6361f364e2e41f125",
+    "01f7f69d629b7b84b2ce7a70823e0fe8fefbebe57cdf014d0fc78b3f4aafe0bc",
   "modules/vendor/diffMin.js":
     "ffecbd4ca77223ce9972b4335e9d7b467cff27fa525d89fd86d4b78d1c96c71e",
   "modules/vendor/diffMin.d.ts":
@@ -120,10 +120,6 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/renderer.js":
-    "14a1ad7e21eb0f7a8bd0c7f450c4b8a0b745e43e6bcf5c9d420d57c7bba1b604",
-  "modules/QRious.js":
-    "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
-  ".tsBuildInfo":
-    "11e8a5a21ef485bdfacec626661cfc7fb2ece8b8d24a18c570b09da0d3bb8d7a",
+    "a3c663ee93c16e76436233959c94769f5ef64eef7ee5b65c68b9487e2a1b7bbd",
   "food": "marsbar",
 };
