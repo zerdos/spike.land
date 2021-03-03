@@ -15,7 +15,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@devcontainer/generator": "^13.0.4"
+    "@devcontainer/generator": "12.0.6"
   },
   "version": "13.0.4",
   "description": "devcontainer vscode docker xfce remoteDesktop",
