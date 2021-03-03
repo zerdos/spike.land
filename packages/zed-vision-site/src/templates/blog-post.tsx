@@ -1,5 +1,5 @@
-import { css, jsx } from "@emotion/react";
 /** @jsx jsx */
+import { css, jsx } from "@emotion/react";
 import { graphql, Link } from "gatsby";
 
 import { Bio } from "../components/bio";
@@ -83,14 +83,14 @@ const BlogPostTemplate = ({ data, pageContext }: Props) => {
         description={post.frontmatter.description || post.excerpt}
       />
       <header>
-        <div
+        <h1
           css={css`
                   margin-top: ${rhythm(1)};
                   margin-bottom: 0;
                   `}
         >
           {post.frontmatter.title}
-        </div>
+        </h1>
         <p
           css={css`
                     font-size: ${fontSize};

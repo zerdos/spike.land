@@ -342,11 +342,8 @@ var getLocation = function getLocation(source) {
     pathname = url.pathname;
   }
 
-  var encodedPathname = pathname.split("/").map(function (pathPart) {
-    return encodeURIComponent(decodeURIComponent(pathPart));
-  }).join("/");
   return {
-    pathname: encodedPathname,
+    pathname: encodeURI(decodeURI(pathname)),
     search: search,
     hash: hash,
     href: href,
@@ -4516,4 +4513,4 @@ module.exports = invariant;
 
 },
 0,[[8012,658,774]]]);
-//# sourceMappingURL=app-3f7f2e3efe5884ecfe53.js.map
+//# sourceMappingURL=app-97a7e9e7f9eabd46da80.js.map

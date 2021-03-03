@@ -4,7 +4,7 @@
     "develop": "gatsby develop",
     "gbuild": "cp -afr blog/. static && gatsby build --no-uglify && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
     "start": "yarn gbuild && yarn serve",
-    "serve": "(chromium \"http://ipfs.zed.vision:8080/ipfs/$(ipfs add -r -H public -Q)\")",
+    "serve": "(google-chrome \"http://ipfs.zed.vision:8080/ipfs/$(ipfs add -r -H public -Q)\")",
     "clean": "gatsby clean && deno fmt src"
   },
   "description": "Zed vision blog",
@@ -20,7 +20,7 @@
     "@emotion/react": "^11.1.5",
     "@mdx-js/mdx": "1.6.22",
     "@mdx-js/react": "1.6.22",
-    "gatsby": "3.0.0",
+    "gatsby": "3.0.1",
     "gatsby-image": "3.0.0",
     "gatsby-plugin-emotion": "^6.0.0",
     "gatsby-plugin-manifest": "3.0.0",

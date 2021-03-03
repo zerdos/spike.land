@@ -287,7 +287,6 @@ var esm = __webpack_require__(4099);
 
 var _templateObject, _templateObject2, _templateObject3;
 
-
 /** @jsx jsx */
 
 
@@ -325,7 +324,7 @@ var BlogPostTemplate = function BlogPostTemplate(_ref) {
   return (0,emotion_react_browser_esm/* jsx */.tZ)(layout/* Layout */.A, null, (0,emotion_react_browser_esm/* jsx */.tZ)(seo/* SEO */.H, {
     title: post.frontmatter.title,
     description: post.frontmatter.description || post.excerpt
-  }), (0,emotion_react_browser_esm/* jsx */.tZ)("header", null, (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+  }), (0,emotion_react_browser_esm/* jsx */.tZ)("header", null, (0,emotion_react_browser_esm/* jsx */.tZ)("h1", {
     css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject || (_templateObject = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n                  margin-top: ", ";\n                  margin-bottom: 0;\n                  "])), (0,typography/* rhythm */.qZ)(1))
   }, post.frontmatter.title), (0,emotion_react_browser_esm/* jsx */.tZ)("p", {
     css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject2 || (_templateObject2 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n                    font-size: ", ";\n                    line-height: ", ";\n                    display: block;\n                    margin-bottom: ", ";"])), fontSize, lineHeight, (0,typography/* rhythm */.qZ)(1))
@@ -367,4 +366,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-718e6533b384295bc912.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-b94683583ea03583223e.js.map

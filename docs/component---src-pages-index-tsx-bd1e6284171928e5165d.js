@@ -749,7 +749,7 @@ var BlogIndex = function BlogIndex(_ref) {
   }, []);
   return (0,emotion_react_browser_esm/* jsx */.tZ)(layout/* Layout */.A, null, (0,emotion_react_browser_esm/* jsx */.tZ)(seo/* SEO */.H, {
     title: "This is Zed."
-  }), isMobile() === false ? (0,emotion_react_browser_esm/* jsx */.tZ)("h1", null, "Link your mobile with this code: ", (0,emotion_react_browser_esm/* jsx */.tZ)(Qr, null)) : (0,emotion_react_browser_esm/* jsx */.tZ)("h1", null, "This is my blog."), (0,emotion_react_browser_esm/* jsx */.tZ)("a", {
+  }), isMobile() === false ? (0,emotion_react_browser_esm/* jsx */.tZ)("h1", null, "Open the code editor here: ", (0,emotion_react_browser_esm/* jsx */.tZ)(Qr, null)) : (0,emotion_react_browser_esm/* jsx */.tZ)("h1", null, "This is my blog."), (0,emotion_react_browser_esm/* jsx */.tZ)("a", {
     href: "https://github.com/zed-vision/monorepo"
   }, (0,emotion_react_browser_esm/* jsx */.tZ)("img", {
     loading: "lazy",
@@ -785,4 +785,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-888f87ecfc57a0730775.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-bd1e6284171928e5165d.js.map
