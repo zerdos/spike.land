@@ -1,39 +1,39 @@
 {
-    "name": "@zedvision/shadb",
-    "version": "13.0.4",
-    "description": "db layer top on idb",
-    "sideEffects": false,
-    "source": "./src/shaDB.js",
-    "exports": "./dist/shaDB.js",
-    "scripts": {
-        "build": "echo ok",
-        "bundle:diff": "deno bundle --unstable src/diffChars.js > src/vendor/diffChars.js",
-        "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@6.0.0/build/esm/index.js > src/vendor/idb.js",
-        "minify": " yarn esbuild --tree-shaking=ignore-annotations --minify --target=es2020 src/vendor/diffChars.js  --outfile=src/vendor/diffMin.js",
-        "clean": "rm -rf dist src/vendor && rm -rf tsconfig.tsbuildinfo && mkdir dist && mkdir src/vendor && yarn bundle:IDB  && yarn bundle:diff && deno fmt src && yarn minify && yarn tsc && yarn prebuild",
-        "prebuild": "cp -ar dist/. ../code/modules/"
-    },
-    "keywords": [
-        "diff"
-    ],
-    "authors": [
-        "Zoltan Erdos <zolika84@gmail.com>"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/zed-vision/monorepo"
-    },
-    "homepage": "https://github.com/zed-vision/monorepo",
-    "repository": "https://github.com/zed-vision/monorepo",
-    "publishConfig": {
-        "access": "public"
-    },
-    "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
-    "dependencies": {
-        "esbuild": "0.8.54",
-        "idb": "6.0.0"
-    },
-    "devDependencies": {
-        "typescript": "4.2.2"
-    }
+  "name": "@zedvision/shadb",
+  "version": "13.0.4",
+  "description": "db layer top on idb",
+  "sideEffects": false,
+  "source": "./src/shaDB.js",
+  "exports": "./dist/shaDB.js",
+  "scripts": {
+    "build": "echo ok",
+    "bundle:diff": "deno bundle --unstable src/diffChars.js > src/vendor/diffChars.js",
+    "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@6.0.0/build/esm/index.js > src/vendor/idb.js",
+    "minify": " yarn esbuild --tree-shaking=ignore-annotations --minify --target=es2020 src/vendor/diffChars.js  --outfile=src/vendor/diffMin.js",
+    "clean": "rm -rf dist src/vendor && rm -rf tsconfig.tsbuildinfo && mkdir dist && mkdir src/vendor && yarn bundle:IDB  && yarn bundle:diff && deno fmt src && yarn minify && yarn tsc && yarn prebuild",
+    "prebuild": "cp -ar dist/. ../code/modules/"
+  },
+  "keywords": [
+    "diff"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "homepage": "https://github.com/zed-vision/monorepo",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
+  "dependencies": {
+    "esbuild": "0.8.54",
+    "idb": "6.0.0"
+  },
+  "devDependencies": {
+    "typescript": "4.2.2"
+  }
 }

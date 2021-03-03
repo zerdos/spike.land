@@ -1,37 +1,37 @@
 {
-    "name": "@zedvision/smart-monaco-editor",
-    "version": "13.0.5",
-    "description": "Monaco Editor with auto type downloads mostly for React",
-    "sideEffects": false,
-    "source": "./src/editor.ts",
-    "exports": "./dist/editor.js",
-    "scripts": {
-        "prebuild": "yarn clean && tsc && cp -ar dist ../code/modules/smart-monaco-editor/ && deno fmt src",
-        "build": "echo done",
-        "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format &&  rm -rf ../code/js/smart-monaco-editor && mkdir -p ../code/modules/smart-monaco-editor",
-        "format": "deno fmt src"
-    },
-    "keywords": [
-        "monaco",
-        "editor",
-        "react",
-        "html",
-        "vscode"
-    ],
-    "authors": [
-        "Zoltan Erdos <zolika84@gmail.com>"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/zed-vision/monorepo"
-    },
-    "homepage": "https://github.com/zed-vision/monorepo",
-    "repository": "https://github.com/zed-vision/monorepo",
-    "devDependencies": {
-        "typescript": "4.2.2"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "gitHead": "12815f92581c029760fde4f16e6a1e724795545a"
+  "name": "@zedvision/smart-monaco-editor",
+  "version": "13.0.5",
+  "description": "Monaco Editor with auto type downloads mostly for React",
+  "sideEffects": false,
+  "source": "./src/editor.ts",
+  "exports": "./dist/editor.js",
+  "scripts": {
+    "prebuild": "yarn clean && tsc && cp -ar dist ../code/modules/smart-monaco-editor/ && deno fmt src",
+    "build": "echo done",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format &&  rm -rf ../code/js/smart-monaco-editor && mkdir -p ../code/modules/smart-monaco-editor",
+    "format": "deno fmt src"
+  },
+  "keywords": [
+    "monaco",
+    "editor",
+    "react",
+    "html",
+    "vscode"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "homepage": "https://github.com/zed-vision/monorepo",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "devDependencies": {
+    "typescript": "4.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "12815f92581c029760fde4f16e6a1e724795545a"
 }

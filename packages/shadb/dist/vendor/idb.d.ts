@@ -1,5 +1,5 @@
-declare function u(value: any): any;
-declare function w(value: any): any;
+declare function unwrap1(value: any): any;
+declare function wrap1(value: any): any;
 declare function deleteDB1(name: any, { blocked }?: {
     blocked: any;
 }): any;
@@ -9,4 +9,4 @@ declare function openDB1(name: any, version: any, { blocked, upgrade, blocking, 
     blocking: any;
     terminated: any;
 }): any;
-export { u as unwrap, w as wrap, deleteDB1 as deleteDB, openDB1 as openDB };
+export { unwrap1 as unwrap, wrap1 as wrap, deleteDB1 as deleteDB, openDB1 as openDB };

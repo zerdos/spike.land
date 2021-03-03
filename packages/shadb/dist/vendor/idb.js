@@ -145,14 +145,13 @@ function wrap1(value) {
     return newValue;
 }
 const unwrap1 = (value) => reverseTransformCache.get(value);
-const r = replaceTraps, u = unwrap1, w = wrap1;
-export { u as unwrap, w as wrap };
+export { unwrap1 as unwrap, wrap1 as wrap };
 function openDB1(name, version, { blocked, upgrade, blocking, terminated } = {}) {
     const request = indexedDB.open(name, version);
-    const openPromise = w(request);
+    const openPromise = wrap1(request);
     if (upgrade) {
         request.addEventListener("upgradeneeded", (event) => {
-            upgrade(w(request.result), event.oldVersion, event.newVersion, w(request.transaction));
+            upgrade(wrap1(request.result), event.oldVersion, event.newVersion, wrap1(request.transaction));
         });
     }
     if (blocked)
@@ -170,7 +169,7 @@ function deleteDB1(name, { blocked } = {}) {
     const request = indexedDB.deleteDatabase(name);
     if (blocked)
         request.addEventListener("blocked", () => blocked());
-    return w(request).then(() => undefined);
+    return wrap1(request).then(() => undefined);
 }
 const readMethods = [
     "get",
@@ -213,7 +212,7 @@ function getMethod(target, prop) {
     cachedMethods.set(prop, method);
     return method;
 }
-r((oldTraps) => ({
+replaceTraps((oldTraps) => ({
     ...oldTraps,
     get: (target, prop, receiver) => getMethod(target, prop) || oldTraps.get(target, prop, receiver),
     has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop),

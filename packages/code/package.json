@@ -1,53 +1,53 @@
 {
-    "name": "@zedvision/code",
-    "version": "13.0.5",
-    "description": "code.zed.vision",
-    "main": "src/codeLoader.js",
-    "files": [
-        "**/*"
-    ],
-    "source": "./src/codeLoader.js",
-    "exports": "./dist/codeLoader.js",
-    "scripts": {
-        "clean": "rm -rf dist .tsBuildInfo modules && deno fmt js && mkdir -p modules",
-        "start": "cd ../.. && yarn start",
-        "push": "cd ../.. && yarn push",
-        "build": "yarn tsc",
-        "bundle": "deno bundle js/codeLoader.js > js/bundle.js && yarn minify && rm -rf js/bundle.js",
-        "minify": "esbuild js/bundle.js --minify --format=esm --platform=browser --target=es2018 --outfile=js/bundle.min.js"
-    },
-    "keywords": [
-        "monaco",
-        "editor",
-        "react",
-        "typescript",
-        "html",
-        "vscode"
-    ],
-    "authors": [
-        "Zoltan Erdos <zolika84@gmail.com>"
-    ],
-    "bugs": {
-        "url": "https://github.com/zed-vision/monorepo"
-    },
-    "homepage": "https://zed.vision",
-    "repository": "https://github.com/zed-vision/monorepo",
-    "devDependencies": {
-        "esbuild": "0.8.54",
-        "tslib": "2.1.0",
-        "typescript": "4.2.2"
-    },
-    "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
-    "author": "Zoltan Erdos <zolika84@gmail.com>",
-    "license": "BSD-3-Clause",
-    "publishConfig": {
-        "access": "public"
-    },
-    "dependencies": {
-        "@babel/standalone": "7.13.9",
-        "@zedvision/ipfs": "^13.0.5",
-        "comlink": "4.3.0",
-        "prettier": "2.2.1",
-        "simple-window-manager": "2.1.2"
-    }
+  "name": "@zedvision/code",
+  "version": "13.0.5",
+  "description": "code.zed.vision",
+  "main": "src/codeLoader.js",
+  "files": [
+    "**/*"
+  ],
+  "source": "./src/codeLoader.js",
+  "exports": "./dist/codeLoader.js",
+  "scripts": {
+    "clean": "rm -rf dist .tsBuildInfo modules && deno fmt js && mkdir -p modules",
+    "start": "cd ../.. && yarn start",
+    "push": "cd ../.. && yarn push",
+    "build": "yarn tsc",
+    "bundle": "deno bundle js/codeLoader.js > js/bundle.js && yarn minify && rm -rf js/bundle.js",
+    "minify": "esbuild js/bundle.js --minify --format=esm --platform=browser --target=es2018 --outfile=js/bundle.min.js"
+  },
+  "keywords": [
+    "monaco",
+    "editor",
+    "react",
+    "typescript",
+    "html",
+    "vscode"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "homepage": "https://zed.vision",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "devDependencies": {
+    "esbuild": "0.8.54",
+    "tslib": "2.1.0",
+    "typescript": "4.2.2"
+  },
+  "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@babel/standalone": "7.13.9",
+    "@zedvision/ipfs": "^13.0.5",
+    "comlink": "4.3.0",
+    "prettier": "2.2.1",
+    "simple-window-manager": "2.1.2"
+  }
 }

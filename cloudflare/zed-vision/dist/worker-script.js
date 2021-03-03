@@ -1,12 +1,3 @@
-const sha256 = async (x) =>
-  Array.from(
-    new Uint8Array(
-      await crypto.subtle.digest(
-        "SHA-256",
-        typeof x === "string" ? new TextEncoder().encode(x) : x,
-      ),
-    ).slice(0, 4),
-  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
 function b() {
 }
 b.prototype = {
@@ -197,9 +188,6 @@ U.tokenize = function (e) {
   }
   return n;
 };
-function ue(e, n, r) {
-  return U.diff(e, n, r);
-}
 var ae = new b();
 ae.tokenize = function (e) {
   return e.split(/(\S.+?[.!?])(?=\s+|$)/);
@@ -220,44 +208,6 @@ function W(e) {
         : typeof n;
     },
     W(e);
-}
-function C(e) {
-  return ce(e) || pe(e) || ve(e) || he();
-}
-function ce(e) {
-  if (Array.isArray(e)) return V(e);
-}
-function pe(e) {
-  if (typeof Symbol != "undefined" && Symbol.iterator in Object(e)) {
-    return Array.from(e);
-  }
-}
-function ve(e, n) {
-  if (!!e) {
-    if (typeof e == "string") return V(e, n);
-    var r = Object.prototype.toString.call(e).slice(8, -1);
-    if (
-      r === "Object" && e.constructor && (r = e.constructor.name),
-        r === "Map" || r === "Set"
-    ) {
-      return Array.from(e);
-    }
-    if (
-      r === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)
-    ) {
-      return V(e, n);
-    }
-  }
-}
-function V(e, n) {
-  (n == null || n > e.length) && (n = e.length);
-  for (var r = 0, t = new Array(n); r < n; r++) t[r] = e[r];
-  return t;
-}
-function he() {
-  throw new TypeError(
-    `Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.`,
-  );
 }
 var ge = Object.prototype.toString, q = new b();
 q.useLongestToken = !0,
@@ -312,334 +262,15 @@ B.tokenize = function (e) {
   B.join = B.removeEmpty = function (e) {
     return e;
   };
-function P(e) {
-  var n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {},
-    r = e.split(/\r\n|[\n\v\f\r\x85]/),
-    t = e.match(/\r\n|[\n\v\f\r\x85]/g) || [],
-    s = [],
-    i = 0;
-  function l() {
-    var o = {};
-    for (s.push(o); i < r.length;) {
-      var p = r[i];
-      if (/^(\-\-\-|\+\+\+|@@)\s/.test(p)) break;
-      var c = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(p);
-      c && (o.index = c[1]), i++;
-    }
-    for (f(o), f(o), o.hunks = []; i < r.length;) {
-      var u = r[i];
-      if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(u)) break;
-      if (/^@@/.test(u)) o.hunks.push(a());
-      else {
-        if (u && n.strict) {
-          throw new Error("Unknown line " + (i + 1) + " " + JSON.stringify(u));
-        }
-        i++;
-      }
-    }
-  }
-  function f(o) {
-    var p = /^(---|\+\+\+)\s+(.*)$/.exec(r[i]);
-    if (p) {
-      var c = p[1] === "---" ? "old" : "new",
-        u = p[2].split("	", 2),
-        v = u[0].replace(/\\\\/g, "\\");
-      /^".*"$/.test(v) && (v = v.substr(1, v.length - 2)),
-        o[c + "FileName"] = v,
-        o[c + "Header"] = (u[1] || "").trim(),
-        i++;
-    }
-  }
-  function a() {
-    var o = i,
-      p = r[i++],
-      c = p.split(/@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@/),
-      u = {
-        oldStart: +c[1],
-        oldLines: typeof c[2] == "undefined" ? 1 : +c[2],
-        newStart: +c[3],
-        newLines: typeof c[4] == "undefined" ? 1 : +c[4],
-        lines: [],
-        linedelimiters: [],
-      };
-    u.oldLines === 0 && (u.oldStart += 1),
-      u.newLines === 0 && (u.newStart += 1);
-    for (
-      var v = 0, h = 0;
-      i < r.length &&
-      !(r[i].indexOf("--- ") === 0 && i + 2 < r.length &&
-        r[i + 1].indexOf("+++ ") === 0 && r[i + 2].indexOf("@@") === 0);
-      i++
-    ) {
-      var d = r[i].length == 0 && i != r.length - 1 ? " " : r[i][0];
-      if (d === "+" || d === "-" || d === " " || d === "\\") {
-        u.lines.push(r[i]),
-          u.linedelimiters.push(t[i] || `\n`),
-          d === "+" ? v++ : d === "-"
-            ? h++
-            : d === " " && (v++, h++);
-      } else break;
-    }
-    if (
-      !v && u.newLines === 1 && (u.newLines = 0),
-        !h && u.oldLines === 1 && (u.oldLines = 0),
-        n.strict
-    ) {
-      if (v !== u.newLines) {
-        throw new Error(
-          "Added line count did not match for hunk at line " + (o + 1),
-        );
-      }
-      if (h !== u.oldLines) {
-        throw new Error(
-          "Removed line count did not match for hunk at line " + (o + 1),
-        );
-      }
-    }
-    return u;
-  }
-  for (; i < r.length;) l();
-  return s;
-}
-function we(e, n, r) {
-  var t = !0, s = !1, i = !1, l = 1;
-  return function f() {
-    if (t && !i) {
-      if (s ? l++ : t = !1, e + l <= r) return l;
-      i = !0;
-    }
-    if (!s) return i || (t = !0), n <= e - l ? -l++ : (s = !0, f());
-  };
-}
-function _(e, n, r, t, s, i, l) {
-  l || (l = {}), typeof l.context == "undefined" && (l.context = 4);
-  var f = ue(r, t, l);
-  f.push({
-    value: "",
-    lines: [],
-  });
-  function a(y) {
-    return y.map(function (L) {
-      return " " + L;
-    });
-  }
-  for (
-    var o = [],
-      p = 0,
-      c = 0,
-      u = [],
-      v = 1,
-      h = 1,
-      d = function (L) {
-        var x = f[L], g = x.lines || x.value.replace(/\n$/, "").split(`\n`);
-        if ((x.lines = g, x.added || x.removed)) {
-          var F;
-          if (!p) {
-            var m = f[L - 1];
-            p = v,
-              c = h,
-              m &&
-              (u = l.context > 0 ? a(m.lines.slice(-l.context)) : [],
-                p -= u.length,
-                c -= u.length);
-          }
-          (F = u).push.apply(
-            F,
-            C(g.map(function (A) {
-              return (x.added ? "+" : "-") + A;
-            })),
-          ), x.added ? h += g.length : v += g.length;
-        } else {
-          if (p) {
-            if (g.length <= l.context * 2 && L < f.length - 2) {
-              var E;
-              (E = u).push.apply(E, C(a(g)));
-            } else {
-              var I, N = Math.min(g.length, l.context);
-              (I = u).push.apply(I, C(a(g.slice(0, N))));
-              var z = {
-                oldStart: p,
-                oldLines: v - p + N,
-                newStart: c,
-                newLines: h - c + N,
-                lines: u,
-              };
-              if (L >= f.length - 2 && g.length <= l.context) {
-                var $ = /\n$/.test(r),
-                  J = /\n$/.test(t),
-                  T = g.length == 0 && u.length > z.oldLines;
-                !$ && T && r.length > 0 &&
-                u.splice(z.oldLines, 0, "\\ No newline at end of file"),
-                  (!$ && !T || !J) && u.push("\\ No newline at end of file");
-              }
-              o.push(z), p = 0, c = 0, u = [];
-            }
-          }
-          v += g.length, h += g.length;
-        }
-      },
-      w = 0;
-    w < f.length;
-    w++
-  ) {
-    d(w);
-  }
-  return {
-    oldFileName: e,
-    newFileName: n,
-    oldHeader: s,
-    newHeader: i,
-    hunks: o,
-  };
-}
-function Le(e) {
-  var n = [];
-  e.oldFileName == e.newFileName && n.push("Index: " + e.oldFileName),
-    n.push(
-      "===================================================================",
-    ),
-    n.push(
-      "--- " + e.oldFileName + (typeof e.oldHeader == "undefined"
-        ? ""
-        : "	" + e.oldHeader),
-    ),
-    n.push(
-      "+++ " + e.newFileName + (typeof e.newHeader == "undefined"
-        ? ""
-        : "	" + e.newHeader),
-    );
-  for (var r = 0; r < e.hunks.length; r++) {
-    var t = e.hunks[r];
-    t.oldLines === 0 && (t.oldStart -= 1),
-      t.newLines === 0 && (t.newStart -= 1),
-      n.push(
-        "@@ -" + t.oldStart + "," + t.oldLines + " +" + t.newStart + "," +
-          t.newLines + " @@",
+const sha256 = async (x) =>
+  Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest(
+        "SHA-256",
+        typeof x === "string" ? new TextEncoder().encode(x) : x,
       ),
-      n.push.apply(n, t.lines);
-  }
-  return n.join(`\n`) + `\n`;
-}
-function ye(e, n) {
-  return e.length !== n.length ? !1 : G(e, n);
-}
-function G(e, n) {
-  if (n.length > e.length) return !1;
-  for (var r = 0; r < n.length; r++) if (n[r] !== e[r]) return !1;
-  return !0;
-}
-function xe(e) {
-  var n = X(e.lines), r = n.oldLines, t = n.newLines;
-  r !== void 0 ? e.oldLines = r : delete e.oldLines,
-    t !== void 0 ? e.newLines = t : delete e.newLines;
-}
-function me(e, n, r) {
-  var t = O(n), s = O(r);
-  if (re(t) && re(s)) {
-    if (G(t, s) && te(r, t, t.length - s.length)) {
-      var i;
-      (i = e.lines).push.apply(i, C(t));
-      return;
-    } else if (G(s, t) && te(n, s, s.length - t.length)) {
-      var l;
-      (l = e.lines).push.apply(l, C(s));
-      return;
-    }
-  } else if (ye(t, s)) {
-    var f;
-    (f = e.lines).push.apply(f, C(t));
-    return;
-  }
-  Q(e, t, s);
-}
-function k(e, n, r, t) {
-  var s = O(n), i = Fe(r, s);
-  if (i.merged) {
-    var l;
-    (l = e.lines).push.apply(l, C(i.merged));
-  } else Q(e, t ? i : s, t ? s : i);
-}
-function Q(e, n, r) {
-  e.conflict = !0,
-    e.lines.push({
-      conflict: !0,
-      mine: n,
-      theirs: r,
-    });
-}
-function ee(e, n, r) {
-  for (; n.offset < r.offset && n.index < n.lines.length;) {
-    var t = n.lines[n.index++];
-    e.lines.push(t), n.offset++;
-  }
-}
-function ne(e, n) {
-  for (; n.index < n.lines.length;) {
-    var r = n.lines[n.index++];
-    e.lines.push(r);
-  }
-}
-function O(e) {
-  for (var n = [], r = e.lines[e.index][0]; e.index < e.lines.length;) {
-    var t = e.lines[e.index];
-    if (r === "-" && t[0] === "+" && (r = "+"), r === t[0]) {
-      n.push(t), e.index++;
-    } else break;
-  }
-  return n;
-}
-function Fe(e, n) {
-  for (
-    var r = [], t = [], s = 0, i = !1, l = !1;
-    s < n.length && e.index < e.lines.length;
-  ) {
-    var f = e.lines[e.index], a = n[s];
-    if (a[0] === "+") break;
-    if (i = i || f[0] !== " ", t.push(a), s++, f[0] === "+") {
-      for (l = !0; f[0] === "+";) {
-        r.push(f), f = e.lines[++e.index];
-      }
-    }
-    a.substr(1) === f.substr(1) ? (r.push(f), e.index++) : l = !0;
-  }
-  if ((n[s] || "")[0] === "+" && i && (l = !0), l) return r;
-  for (; s < n.length;) t.push(n[s++]);
-  return {
-    merged: t,
-    changes: r,
-  };
-}
-function re(e) {
-  return e.reduce(function (n, r) {
-    return n && r[0] === "-";
-  }, !0);
-}
-function te(e, n, r) {
-  for (var t = 0; t < r; t++) {
-    var s = n[n.length - r + t].substr(1);
-    if (e.lines[e.index + t] !== " " + s) return !1;
-  }
-  return e.index += r, !0;
-}
-function X(e) {
-  var n = 0, r = 0;
-  return e.forEach(function (t) {
-    if (typeof t != "string") {
-      var s = X(t.mine), i = X(t.theirs);
-      n !== void 0 &&
-      (s.oldLines === i.oldLines ? n += s.oldLines : n = void 0),
-        r !== void 0 &&
-        (s.newLines === i.newLines ? r += s.newLines : r = void 0);
-    } else {
-      r !== void 0 && (t[0] === "+" || t[0] === " ") && r++,
-        n !== void 0 && (t[0] === "-" || t[0] === " ") && n++;
-    }
-  }),
-    {
-      oldLines: n,
-      newLines: r,
-    };
-}
+    ).slice(0, 4),
+  ).map((b1) => ("00" + b1.toString(16)).slice(-2)).join("");
 const diff = async (str1, str2) => {
   const sha1Str1 = sha256(str1);
   const res = oe(str1, str2);
@@ -933,7 +564,6 @@ function raceToSuccess(promises) {
     )
   );
 }
-const raceToSuccess1 = raceToSuccess;
 var SHAKV;
 var USERS;
 var LOGS;
@@ -1161,7 +791,7 @@ async function handleCloudRequest(request) {
           )
         );
         try {
-          response = await raceToSuccess1(random5GatewaysFetch);
+          response = await raceToSuccess(random5GatewaysFetch);
           if (typeof response === "undefined") return text("Please try again");
           await cache.put(request, response.clone());
         } catch {
