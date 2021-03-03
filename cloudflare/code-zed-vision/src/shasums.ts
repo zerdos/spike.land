@@ -25,7 +25,7 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "index.html":
-    "ae63cf7e0cb52bc8c34dda5f137df0337a2a151802af8177bc1a1b852c1be77c",
+    "60e4997dc8f806c6b60c4ac7e9d26f3989817417f79628fb96ecd78abf52f7b0",
   "ipfs.json":
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
   "js/data.js":

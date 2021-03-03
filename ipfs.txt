@@ -9,7 +9,7 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmRHpPeM64tsnJzhy6DM8w8G8Nj4uiU9SpKMESM6eLi3hk code/index.html
+added QmZMYn2a47thLUG3jWVDPYsvnVYuf2bJVA7tnYdgPaN9iF code/index.html
 added Qma6Lpxwx6GvCRKwAKHqWzVLc5pe2wpKCXEKuyeRQUTeVV code/ipfs.json
 added QmcFKrhZ8x4zKDFjpbWv2i6CpSug9bUWzTdkbgbQkNJuAS code/js/codeLoader.mjs
 added QmURozGD6htpQxttv4vC9fShFcdCttppBFCfmRVvU93NiS code/js/data.js
@@ -69,4 +69,4 @@ added QmYnE81GVFfhLMtJF1e41d53ii8tcmXthrJLDxZymwbtj9 code/modules/smart-monaco-e
 added QmRdWZ2iwE26s2Cbt5TYzTZVTUjc37Q5KG4EngVGPKqgyv code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
 added QmPgvZwZ4FBoSqKiSL5vzQiJZuwwRT5k1mosqwVPrpYbwT code/modules
-added Qmbo1uEeCQqtxbMtUHroo9sAiEFWpgSnQgLvV2e65XDFNY code
+added QmcQTtVbZcUMVBPsda5iMYdtGEe3xru7p2KfP9ZvaZxuaz code
