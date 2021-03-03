@@ -12,7 +12,7 @@ export const CodeBox: React.FC<{
   React.useEffect(() => {
     async function start() {
       const { run } = await new Function(
-        `return import("https://code.zed.vision/js/codeLoader.js")`,
+        `return import("https://code.zed.vision/js/codeLoader.mjs")`,
       )();
 
       run("embedded", window, starterCode);

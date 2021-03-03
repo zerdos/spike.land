@@ -25,7 +25,7 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "index.html":
-    "60e4997dc8f806c6b60c4ac7e9d26f3989817417f79628fb96ecd78abf52f7b0",
+    "c48f4fc639c754e28819c419f22704dccbc8204d28ee30e0e95eee6bab897e81",
   "ipfs.json":
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
   "js/data.js":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/share.js":
     "5d5c815cecae5c90b02bf5b1dd65113521e50e2d68238293cfa87bd0102428a0",
   "js/templates.js":
-    "8cb08053f566598dc685b6209e249df1d8663213ab68aa10881c36c0c19dc23f",
+    "9cb7a1628a40d3ca0762046b6b73fda1f6d959c2061384901c9e691c4cf89dd1",
   "js/transpile.js":
     "891ee6e24b9d5add43578a9ad576b581e1cdf07bd817fbb9ff41588bcac01220",
   "js/workers/getWorker.js":
@@ -122,7 +122,7 @@ export const shasums = {
   "modules/QRious.js":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "package.json":
-    "ec138f3b90acdec4c9c06de24dff9ce665e52514e12616e5021c348aa1f0e5d0",
+    "27ef9d757c7fe1cc16d944104ad0e08c1025d48342210d73381660d76fb56253",
   ".tsBuildInfo":
     "876b5ef1a2b8f9a742b665de1a61428b391d23bbe1f0c4616bde393fe79cc517",
   "food": "marsbar",

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
   <link rel="modulepreload" href="https://code.zed.vision/modules/renderer.js">
-  <link rel="modulepreload" href="https://code.zed.vision/js/codeLoader.js">
+  <link rel="modulepreload" href="https://code.zed.vision/js/codeLoader.mjs">
   <link rel="stylesheet" href="./assets/app.css" />
   <link rel="stylesheet" href="./assets/roboto.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
@@ -25,7 +25,7 @@
     const {run} = await import("./js/codeLoader.mjs");
       run("window", window);
     } catch(e) {
-      const {run} = await import("https://unpkg.com/@zedvision/code@13.0.6/js/codeLoader.js");
+      const {run} = await import("https://unpkg.com/@zedvision/code@13.0.6/js/codeLoader.mjs");
       run("window", window);
     }
       setTimeout(()=>workBox(), 3000);

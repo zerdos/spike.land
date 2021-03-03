@@ -9,7 +9,7 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmZMYn2a47thLUG3jWVDPYsvnVYuf2bJVA7tnYdgPaN9iF code/index.html
+added QmdHdneTiomHJzFgTwFBRepGaKtoxmhhbRpPBx2ZwqB65j code/index.html
 added Qma6Lpxwx6GvCRKwAKHqWzVLc5pe2wpKCXEKuyeRQUTeVV code/ipfs.json
 added QmcFKrhZ8x4zKDFjpbWv2i6CpSug9bUWzTdkbgbQkNJuAS code/js/codeLoader.mjs
 added QmURozGD6htpQxttv4vC9fShFcdCttppBFCfmRVvU93NiS code/js/data.js
@@ -26,7 +26,7 @@ added QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p code/js/refs.d.ts
 added Qmcqrk3px1AtVC6zmcKRy3nzi5PrhzYgw9yLaznR43eKZi code/js/renderPreviewWindow.js
 added Qmd71pFw2wtrCZu8mp9diJdWYYYHLGVxuWa7QE49kcTQWC code/js/sendSignalToQrCode.js
 added QmWpXJNPAB1zN7RgrA5ZT6jt7igwthkgXnpeT7fXpnpwfM code/js/share.js
-added QmZoKBg7bijX9NcBbuqzdD1WJVGFY8Fe6LmwLN5Y1sTUA7 code/js/templates.js
+added QmV2o27B1NsnS1B2fKTcGycxyKadYqUg7Sqt9KaoEdXzp5 code/js/templates.js
 added QmV7cJBYZuNfA5cDRBG4MznPRhw9FvYdz2pSHQU1UWjdRW code/js/transpile.js
 added QmXuEo1FJf7eUHmHRUPndsE6g7aTyQCnZzEM1Yop2LnjVj code/js/workers/getWorker.js
 added QmR4RRG2ZH5bStT4Q5aBzy6aQNqs17EWYv9HJGrg6inmog code/js/workers/ipfsWorker.js
@@ -56,7 +56,7 @@ added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
 added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
-added QmVu44uvkUjrruXqqQVr2tidbFEworUSyNXvazaeWnNdxE code/package.json
+added QmWQBmsTq6wriAoeMf8jezE4dyZ5NpNTSJfkVsW2HeVPoq code/package.json
 added QmWAkp43EU8F4VfGYormb1PATJBKPMW2RYRV11bXaZ51ga code/sw.js
 added QmVhLcnuqPkBzJ1nBRFX7me5H55w2ue37pxv6U8trXyVWX code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -64,9 +64,9 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscod
 added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
 added QmTZUxobRWjV8FEgNkWfEP52kekLjwvTCm9HY14pdSzWCw code/js/workers
-added QmSJWijQ5XB3LNGtAetsydv76V5VPrUcUa414tVADF5iHL code/js
+added QmZWpNRiAWfwdLFrT6vvHyhx6ACcoAKZj6aAiw3EHfoHpc code/js
 added QmYnE81GVFfhLMtJF1e41d53ii8tcmXthrJLDxZymwbtj9 code/modules/smart-monaco-editor/dist
 added QmRdWZ2iwE26s2Cbt5TYzTZVTUjc37Q5KG4EngVGPKqgyv code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
 added QmPgvZwZ4FBoSqKiSL5vzQiJZuwwRT5k1mosqwVPrpYbwT code/modules
-added QmcQTtVbZcUMVBPsda5iMYdtGEe3xru7p2KfP9ZvaZxuaz code
+added QmVtGATdz89RN3KgeR75whi3vXz82B4rP3xYkMEBQWPxUe code

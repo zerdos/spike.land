@@ -2,18 +2,18 @@
   "name": "@zedvision/code",
   "version": "13.0.6",
   "description": "code.zed.vision",
-  "main": "src/codeLoader.js",
+  "main": "js/codeLoader.mjs",
   "files": [
     "**/*"
   ],
-  "source": "./src/codeLoader.js",
-  "exports": "./dist/codeLoader.js",
+  "source": "./js/codeLoader.mjs",
+  "exports": "./js/codeLoader.mjs",
   "scripts": {
     "clean": "rm -rf dist .tsBuildInfo modules && deno fmt js && mkdir -p modules",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
     "build": "yarn tsc",
-    "bundle": "deno bundle js/codeLoader.js > js/bundle.js && yarn minify && rm -rf js/bundle.js",
+    "bundle": "deno bundle js/codeLoader.mjs > js/bundle.js && yarn minify && rm -rf js/bundle.js",
     "minify": "esbuild js/bundle.js --minify --format=esm --platform=browser --target=es2018 --outfile=js/bundle.min.js"
   },
   "keywords": [
