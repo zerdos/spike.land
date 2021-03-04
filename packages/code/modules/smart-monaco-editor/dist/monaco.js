@@ -21,7 +21,7 @@ export const getMonaco = async () => {
                 window.document.head.appendChild(s);
             });
     };
-    const vsPath = `https://unpkg.com/monaco-editor@0.22.3/min/vs`;
+    const vsPath = `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.22.3/min/vs`;
     const { require } = await importScript(`${vsPath}/loader.js`);
     require.config({ paths: { "vs": vsPath } });
     const monaco = await new Promise((resolve) => require(["vs/editor/editor.main"], (_m) => resolve(_m)));
