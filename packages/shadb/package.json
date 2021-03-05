@@ -30,10 +30,10 @@
   },
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
   "dependencies": {
-    "esbuild": "0.8.55",
+    "esbuild": "0.8.56",
     "idb": "6.0.0"
   },
   "devDependencies": {
-    "typescript": "4.2.2"
+    "typescript": "4.2.3"
   }
 }

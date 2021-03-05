@@ -68,7 +68,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/generator@workspace:packages/generator"
   dependencies:
-    typescript: 4.2.2
+    typescript: 4.2.3
   languageName: unknown
   linkType: soft
 
@@ -284,7 +284,7 @@ __metadata:
     "@lerna/global-options": 3.13.0
     dedent: ^0.7.0
     npmlog: ^4.1.2
-    yargs: ^14.2.2
+    yargs: ^14.2.3
   checksum: 0df93cc208289abfd2fa2c0ae8e96febe8f25964232221d8cccfd0242b5ef2fdad0de73baf8293ec9393589df6ee89f9f8df25cd82c4c8c255590a3fc07d3cb7
   languageName: node
   linkType: hard
@@ -1243,7 +1243,7 @@ __metadata:
     fast-deep-equal: ^3.1.1
     fast-json-stable-stringify: ^2.0.0
     json-schema-traverse: ^0.4.1
-    uri-js: ^4.2.2
+    uri-js: ^4.2.3
   checksum: 19a8f3b0a06001eb68e6268f4f9f04424b32baadd5df6ba8292cd473e22e5f4019ed9ab17c3e3510394178ed8bef9b42ad0bdb5c675d65f042421a774780ce1a
   languageName: node
   linkType: hard
@@ -2967,7 +2967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.2":
+"graceful-fs@npm:^4.1.11, graceful-fs@npm:^4.1.15, graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.3":
   version: 4.2.4
   resolution: "graceful-fs@npm:4.2.4"
   checksum: d095ee4dc6eacc76814cd52d5d185b860119378a6fd4888e7d4e94983095c54d4f6369942a5e3d759cdbdd4e3ee7eaeb27a39ff938c6ee4610894fd9de46b6cb
@@ -4412,7 +4412,7 @@ __metadata:
   dependencies:
     env-paths: ^2.2.0
     glob: ^7.1.4
-    graceful-fs: ^4.2.2
+    graceful-fs: ^4.2.3
     mkdirp: ^0.5.1
     nopt: ^4.0.1
     npmlog: ^4.1.2
@@ -6314,9 +6314,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@4.2.2:
-  version: 4.2.2
-  resolution: "typescript@npm:4.2.2"
+typescript@4.2.3:
+  version: 4.2.3
+  resolution: "typescript@npm:4.2.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -6324,9 +6324,9 @@ typescript@4.2.2:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.2.2#builtin<compat/typescript>":
-  version: 4.2.2
-  resolution: "typescript@patch:typescript@npm%3A4.2.2#builtin<compat/typescript>::version=4.2.2&hash=cc6730"
+"typescript@patch:typescript@4.2.3#builtin<compat/typescript>":
+  version: 4.2.3
+  resolution: "typescript@patch:typescript@npm%3A4.2.3#builtin<compat/typescript>::version=4.2.3&hash=cc6730"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -6427,7 +6427,7 @@ typescript@4.2.2:
   languageName: node
   linkType: hard
 
-"uri-js@npm:^4.2.2":
+"uri-js@npm:^4.2.3":
   version: 4.4.1
   resolution: "uri-js@npm:4.4.1"
   dependencies:
@@ -6687,7 +6687,7 @@ typescript@4.2.2:
   languageName: node
   linkType: hard
 
-"yargs@npm:^14.2.2":
+"yargs@npm:^14.2.3":
   version: 14.2.3
   resolution: "yargs@npm:14.2.3"
   dependencies:

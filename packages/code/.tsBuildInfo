@@ -182,7 +182,7 @@
         "affectsGlobalScope": false
       },
       "./modules/ipfs.client.js": {
-        "version": "2785ebb58f2a33608f00fa3de5a5165bd24da84499bd5f8030d6d7d3ed2b9fbb",
+        "version": "140fce681803b590465b42452fcc8cba2562ae422069811aa28d1c6dc35f9235",
         "signature": "b6113e07f2400d61c263cf98d3429b5b99d8ba710b1fcc4e4ce10c76eb8176e4",
         "affectsGlobalScope": false
       },
@@ -514,5 +514,5 @@
       ]
     ]
   },
-  "version": "4.2.2"
+  "version": "4.2.3"
 }
