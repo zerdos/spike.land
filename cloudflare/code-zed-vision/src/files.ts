@@ -56,6 +56,14 @@ export const files = {
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
   "modules/shaDB.d.ts": "Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY",
   "modules/shaDB.js": "QmX5mSevBrVHk6mpp1VNaCMqmCYC7azWBUFgrzpHnG4NDp",
+  "modules/smart-monaco-editor/dist/editor.d.ts":
+    "QmZZZ3UjjGrNVCuyDx67fvvmf1rPmq8wnh9DUcdAoLMtsK",
+  "modules/smart-monaco-editor/dist/editor.js":
+    "QmSbKDh8hD1UPUWKwty9jNdRYNtTp7LdQXPaQVc2tUWaHB",
+  "modules/smart-monaco-editor/dist/monaco.d.ts":
+    "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
+  "modules/smart-monaco-editor/dist/monaco.js":
+    "QmZQXXK7HozSmp6yiGfcb3KBhfkf76bFwVF48DMhKjFRFu",
   "modules/vendor/diffChars.d.ts":
     "Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt",
   "modules/vendor/diffChars.js":
@@ -74,10 +82,12 @@ export const files = {
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmTZUxobRWjV8FEgNkWfEP52kekLjwvTCm9HY14pdSzWCw",
   "js": "QmZWpNRiAWfwdLFrT6vvHyhx6ACcoAKZj6aAiw3EHfoHpc",
+  "modules/smart-monaco-editor/dist":
+    "QmdG5RY3NfGdq8Fw1yDq9VTk4UVbwDpL6dmBpBJHLmAyfv",
   "modules/smart-monaco-editor":
-    "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
+    "QmRxo1Sqk3xQuUoK9UtrWwjotcmLeUVNTpr5fw86eqioCa",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmVhyJLgDEGCnBccVa5dQxgAYsAqFgsAABmX8p9ycnd9op",
-  "": "QmaxRq4QpbxsFBq4f7ogmKxcX3idsF1X7WAg8bwh217Ru4",
+  "modules": "QmW3ygH8WWJ53Sq6kdkKA4cvC2DNs7MWMT6d7CDVJaoqA1",
+  "": "QmZcKW7NJWCNgo5fKud6BpQm2fq6dHzuTxP79woCQo2nox",
   "foo": "bar",
 };
