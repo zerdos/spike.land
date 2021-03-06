@@ -301,16 +301,15 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 7534:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ 5385:
+/***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "V5": function() { return /* binding */ globalHistory; },
-/* harmony export */   "c4": function() { return /* binding */ navigate; },
-/* harmony export */   "fi": function() { return /* binding */ createHistory; },
-/* harmony export */   "Xv": function() { return /* binding */ createMemorySource; }
-/* harmony export */ });
+var __webpack_unused_export__;
+
+
+__webpack_unused_export__ = true;
+
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -518,7 +517,10 @@ var getSource = function getSource() {
 var globalHistory = createHistory(getSource());
 var navigate = globalHistory.navigate; ////////////////////////////////////////////////////////////////////////////////
 
-
+exports.V5 = globalHistory;
+__webpack_unused_export__ = navigate;
+__webpack_unused_export__ = createHistory;
+__webpack_unused_export__ = createMemorySource;
 
 /***/ }),
 
@@ -1090,7 +1092,7 @@ var _propTypes = _interopRequireDefault(__webpack_require__(3980));
 
 var _react = _interopRequireDefault(__webpack_require__(2784));
 
-var _router = __webpack_require__(2879);
+var _reachRouter = __webpack_require__(4541);
 
 var _utils = __webpack_require__(5442);
 
@@ -1189,7 +1191,7 @@ var createIntersectionObserver = function createIntersectionObserver(el, cb) {
 };
 
 function GatsbyLinkLocationWrapper(props) {
-  return /*#__PURE__*/_react.default.createElement(_router.Location, null, function (_ref2) {
+  return /*#__PURE__*/_react.default.createElement(_reachRouter.Location, null, function (_ref2) {
     var location = _ref2.location;
     return /*#__PURE__*/_react.default.createElement(GatsbyLink, (0, _extends2.default)({}, props, {
       _location: location
@@ -1321,7 +1323,7 @@ var GatsbyLink = /*#__PURE__*/function (_React$Component) {
       }, rest));
     }
 
-    return /*#__PURE__*/_react.default.createElement(_router.Link, (0, _extends2.default)({
+    return /*#__PURE__*/_react.default.createElement(_reachRouter.Link, (0, _extends2.default)({
       to: prefixedTo,
       state: state,
       getProps: getProps,
@@ -1667,10 +1669,10 @@ var _scrollHandler = __webpack_require__(1415);
 
 var _react = __webpack_require__(2784);
 
-var _router = __webpack_require__(2879);
+var _reachRouter = __webpack_require__(4541);
 
 function useScrollRestoration(identifier) {
-  var location = (0, _router.useLocation)();
+  var location = (0, _reachRouter.useLocation)();
   var state = (0, _react.useContext)(_scrollHandler.ScrollContext);
   var ref = (0, _react.useRef)();
   (0, _react.useLayoutEffect)(function () {
@@ -2194,8 +2196,8 @@ var api_runner_browser = __webpack_require__(1625);
 var react = __webpack_require__(2784);
 // EXTERNAL MODULE: ../../node_modules/react-dom/index.js
 var react_dom = __webpack_require__(8316);
-// EXTERNAL MODULE: ../../node_modules/@gatsbyjs/reach-router/es/index.js + 1 modules
-var es = __webpack_require__(2879);
+// EXTERNAL MODULE: ../../node_modules/@gatsbyjs/reach-router/es/index.js + 2 modules
+var es = __webpack_require__(4541);
 // EXTERNAL MODULE: ../../node_modules/gatsby-react-router-scroll/index.js
 var gatsby_react_router_scroll = __webpack_require__(2802);
 // EXTERNAL MODULE: ../../node_modules/@mikaelkristiansson/domready/ready.js
@@ -2213,8 +2215,8 @@ var emitter = __webpack_require__(9831);
 // This is extracted to separate module because it's shared
 // between browser and SSR code
 var RouteAnnouncerProps={id:"gatsby-announcer",style:{position:"absolute",top:0,width:1,height:1,padding:0,overflow:"hidden",clip:"rect(0, 0, 0, 0)",whiteSpace:"nowrap",border:0},"aria-live":"assertive","aria-atomic":"true"};
-// EXTERNAL MODULE: ../../node_modules/@gatsbyjs/reach-router/es/lib/history.js
-var lib_history = __webpack_require__(7534);
+// EXTERNAL MODULE: ../../node_modules/@gatsbyjs/reach-router/lib/history.js
+var lib_history = __webpack_require__(5385);
 // EXTERNAL MODULE: ../../node_modules/gatsby-link/index.js
 var gatsby_link = __webpack_require__(6739);
 ;// CONCATENATED MODULE: ./.cache/navigation.js
@@ -2392,7 +2394,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 2879:
+/***/ 4541:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2409,12 +2411,12 @@ __webpack_require__.d(__webpack_exports__, {
   "Redirect": function() { return /* binding */ Redirect; },
   "Router": function() { return /* binding */ Router; },
   "ServerLocation": function() { return /* binding */ ServerLocation; },
-  "createHistory": function() { return /* reexport */ lib_history/* createHistory */.fi; },
-  "createMemorySource": function() { return /* reexport */ lib_history/* createMemorySource */.Xv; },
-  "globalHistory": function() { return /* reexport */ lib_history/* globalHistory */.V5; },
+  "createHistory": function() { return /* reexport */ createHistory; },
+  "createMemorySource": function() { return /* reexport */ createMemorySource; },
+  "globalHistory": function() { return /* reexport */ globalHistory; },
   "isRedirect": function() { return /* binding */ isRedirect; },
   "matchPath": function() { return /* reexport */ match; },
-  "navigate": function() { return /* reexport */ lib_history/* navigate */.c4; },
+  "navigate": function() { return /* reexport */ history_navigate; },
   "redirectTo": function() { return /* binding */ redirectTo; },
   "useLocation": function() { return /* binding */ useLocation; },
   "useMatch": function() { return /* binding */ useMatch; },
@@ -2717,10 +2719,217 @@ var shallowCompare = function shallowCompare(obj1, obj2) {
 
 
 
-// EXTERNAL MODULE: ../../node_modules/@gatsbyjs/reach-router/es/lib/history.js
-var lib_history = __webpack_require__(7534);
-;// CONCATENATED MODULE: ../../node_modules/@gatsbyjs/reach-router/es/index.js
+;// CONCATENATED MODULE: ../../node_modules/@gatsbyjs/reach-router/es/lib/history.js
 var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var getLocation = function getLocation(source) {
+  var _source$location = source.location,
+      search = _source$location.search,
+      hash = _source$location.hash,
+      href = _source$location.href,
+      origin = _source$location.origin,
+      protocol = _source$location.protocol,
+      host = _source$location.host,
+      hostname = _source$location.hostname,
+      port = _source$location.port;
+  var pathname = source.location.pathname;
+
+  if (!pathname && href && canUseDOM) {
+    var url = new URL(href);
+    pathname = url.pathname;
+  }
+
+  return {
+    pathname: encodeURI(decodeURI(pathname)),
+    search: search,
+    hash: hash,
+    href: href,
+    origin: origin,
+    protocol: protocol,
+    host: host,
+    hostname: hostname,
+    port: port,
+    state: source.history.state,
+    key: source.history.state && source.history.state.key || "initial"
+  };
+};
+
+var createHistory = function createHistory(source, options) {
+  var listeners = [];
+  var location = getLocation(source);
+  var transitioning = false;
+
+  var resolveTransition = function resolveTransition() {};
+
+  return {
+    get location() {
+      return location;
+    },
+
+    get transitioning() {
+      return transitioning;
+    },
+
+    _onTransitionComplete: function _onTransitionComplete() {
+      transitioning = false;
+      resolveTransition();
+    },
+    listen: function listen(listener) {
+      listeners.push(listener);
+
+      var popstateListener = function popstateListener() {
+        location = getLocation(source);
+        listener({
+          location: location,
+          action: "POP"
+        });
+      };
+
+      source.addEventListener("popstate", popstateListener);
+      return function () {
+        source.removeEventListener("popstate", popstateListener);
+        listeners = listeners.filter(function (fn) {
+          return fn !== listener;
+        });
+      };
+    },
+    navigate: function navigate(to) {
+      var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+          state = _ref.state,
+          _ref$replace = _ref.replace,
+          replace = _ref$replace === undefined ? false : _ref$replace;
+
+      if (typeof to === "number") {
+        source.history.go(to);
+      } else {
+        state = _extends({}, state, {
+          key: Date.now() + ""
+        }); // try...catch iOS Safari limits to 100 pushState calls
+
+        try {
+          if (transitioning || replace) {
+            source.history.replaceState(state, null, to);
+          } else {
+            source.history.pushState(state, null, to);
+          }
+        } catch (e) {
+          source.location[replace ? "replace" : "assign"](to);
+        }
+      }
+
+      location = getLocation(source);
+      transitioning = true;
+      var transition = new Promise(function (res) {
+        return resolveTransition = res;
+      });
+      listeners.forEach(function (listener) {
+        return listener({
+          location: location,
+          action: "PUSH"
+        });
+      });
+      return transition;
+    }
+  };
+}; ////////////////////////////////////////////////////////////////////////////////
+// Stores history entries in memory for testing or other platforms like Native
+
+
+var createMemorySource = function createMemorySource() {
+  var initialPath = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "/";
+  var searchIndex = initialPath.indexOf("?");
+  var initialLocation = {
+    pathname: searchIndex > -1 ? initialPath.substr(0, searchIndex) : initialPath,
+    search: searchIndex > -1 ? initialPath.substr(searchIndex) : ""
+  };
+  var index = 0;
+  var stack = [initialLocation];
+  var states = [null];
+  return {
+    get location() {
+      return stack[index];
+    },
+
+    addEventListener: function addEventListener(name, fn) {},
+    removeEventListener: function removeEventListener(name, fn) {},
+    history: {
+      get entries() {
+        return stack;
+      },
+
+      get index() {
+        return index;
+      },
+
+      get state() {
+        return states[index];
+      },
+
+      pushState: function pushState(state, _, uri) {
+        var _uri$split = uri.split("?"),
+            pathname = _uri$split[0],
+            _uri$split$ = _uri$split[1],
+            search = _uri$split$ === undefined ? "" : _uri$split$;
+
+        index++;
+        stack.push({
+          pathname: pathname,
+          search: search.length ? "?" + search : search
+        });
+        states.push(state);
+      },
+      replaceState: function replaceState(state, _, uri) {
+        var _uri$split2 = uri.split("?"),
+            pathname = _uri$split2[0],
+            _uri$split2$ = _uri$split2[1],
+            search = _uri$split2$ === undefined ? "" : _uri$split2$;
+
+        stack[index] = {
+          pathname: pathname,
+          search: search
+        };
+        states[index] = state;
+      },
+      go: function go(to) {
+        var newIndex = index + to;
+
+        if (newIndex < 0 || newIndex > states.length - 1) {
+          return;
+        }
+
+        index = newIndex;
+      }
+    }
+  };
+}; ////////////////////////////////////////////////////////////////////////////////
+// global history - uses window.history as the source if available, otherwise a
+// memory history
+
+
+var canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
+
+var getSource = function getSource() {
+  return canUseDOM ? window : createMemorySource();
+};
+
+var globalHistory = createHistory(getSource());
+var history_navigate = globalHistory.navigate; ////////////////////////////////////////////////////////////////////////////////
+
+
+;// CONCATENATED MODULE: ../../node_modules/@gatsbyjs/reach-router/es/index.js
+var es_extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
 
@@ -2893,7 +3102,7 @@ var LocationProvider = function (_React$Component) {
 
 
 LocationProvider.defaultProps = {
-  history: lib_history/* globalHistory */.V5
+  history: globalHistory
 };
  false ? 0 : void 0;
 
@@ -2932,14 +3141,14 @@ var ServerLocation = function ServerLocation(_ref2) {
 var BaseContext = createNamedContext("Base", {
   baseuri: "/",
   basepath: "/",
-  navigate: lib_history/* globalHistory.navigate */.V5.navigate
+  navigate: globalHistory.navigate
 }); ////////////////////////////////////////////////////////////////////////////////
 // The main event, welcome to the show everybody.
 
 var Router = function Router(props) {
   return react.createElement(BaseContext.Consumer, null, function (baseContext) {
     return react.createElement(Location, null, function (locationContext) {
-      return react.createElement(RouterImpl, _extends({}, baseContext, locationContext, props));
+      return react.createElement(RouterImpl, es_extends({}, baseContext, locationContext, props));
     });
   });
 };
@@ -2980,7 +3189,7 @@ var RouterImpl = function (_React$PureComponent) {
 
       basepath = route.default ? basepath : route.path.replace(/\*$/, "");
 
-      var props = _extends({}, params, {
+      var props = es_extends({}, params, {
         uri: uri,
         location: location,
         navigate: function navigate(to, options) {
@@ -2995,7 +3204,7 @@ var RouterImpl = function (_React$PureComponent) {
 
       var FocusWrapper = primary ? FocusHandler : component; // don't pass any props to 'div'
 
-      var wrapperProps = primary ? _extends({
+      var wrapperProps = primary ? es_extends({
         uri: uri,
         location: location,
         component: component
@@ -3040,7 +3249,7 @@ var FocusHandler = function FocusHandler(_ref3) {
       domProps = _objectWithoutProperties(_ref3, ["uri", "location", "component"]);
 
   return react.createElement(FocusContext.Consumer, null, function (requestFocus) {
-    return react.createElement(FocusHandlerImpl, _extends({}, domProps, {
+    return react.createElement(FocusHandlerImpl, es_extends({}, domProps, {
       component: component,
       requestFocus: requestFocus,
       uri: uri,
@@ -3076,13 +3285,13 @@ var FocusHandlerImpl = function (_React$Component2) {
     var initial = prevState.uri == null;
 
     if (initial) {
-      return _extends({
+      return es_extends({
         shouldFocus: true
       }, nextProps);
     } else {
       var myURIChanged = nextProps.uri !== prevState.uri;
       var navigatedUpToMe = prevState.location.pathname !== nextProps.location.pathname && nextProps.location.pathname === nextProps.uri;
-      return _extends({
+      return es_extends({
         shouldFocus: myURIChanged || navigatedUpToMe
       }, nextProps);
     }
@@ -3140,8 +3349,8 @@ var FocusHandlerImpl = function (_React$Component2) {
         location = _props2.location,
         domProps = _objectWithoutProperties(_props2, ["children", "style", "requestFocus", "component", "uri", "location"]);
 
-    return react.createElement(Comp, _extends({
-      style: _extends({
+    return react.createElement(Comp, es_extends({
+      style: es_extends({
         outline: "none"
       }, style),
       tabIndex: "-1",
@@ -3191,7 +3400,7 @@ var Link = forwardRef(function (_ref4, ref) {
       var encodedHref = encodeURI(href);
       var isCurrent = location.pathname === encodedHref;
       var isPartiallyCurrent = startsWith(location.pathname, encodedHref);
-      return react.createElement("a", _extends({
+      return react.createElement("a", es_extends({
         ref: ref || innerRef,
         "aria-current": isCurrent ? "page" : undefined
       }, anchorProps, getProps({
@@ -3209,11 +3418,11 @@ var Link = forwardRef(function (_ref4, ref) {
             var shouldReplace = replace;
 
             if (typeof replace !== "boolean" && isCurrent) {
-              var _location$state = _extends({}, location.state),
+              var _location$state = es_extends({}, location.state),
                   key = _location$state.key,
                   restState = _objectWithoutProperties(_location$state, ["key"]);
 
-              shouldReplace = shallowCompare(_extends({}, state), restState);
+              shouldReplace = shallowCompare(es_extends({}, state), restState);
             }
 
             navigate(href, {
@@ -3295,7 +3504,7 @@ var Redirect = function Redirect(props) {
   return react.createElement(BaseContext.Consumer, null, function (_ref7) {
     var baseuri = _ref7.baseuri;
     return react.createElement(Location, null, function (locationContext) {
-      return react.createElement(RedirectImpl, _extends({}, locationContext, {
+      return react.createElement(RedirectImpl, es_extends({}, locationContext, {
         baseuri: baseuri
       }, props));
     });
@@ -3317,7 +3526,7 @@ var Match = function Match(_ref8) {
       return children({
         navigate: navigate,
         location: location,
-        match: result ? _extends({}, result.params, {
+        match: result ? es_extends({}, result.params, {
           uri: result.uri,
           path: path
         }) : null
@@ -3374,7 +3583,7 @@ var useMatch = function useMatch(path) {
   var location = useLocation();
   var resolvedPath = resolve(path, context.baseuri);
   var result = match(resolvedPath, location.pathname);
-  return result ? _extends({}, result.params, {
+  return result ? es_extends({}, result.params, {
     uri: result.uri,
     path: path
   }) : null;
@@ -3481,4 +3690,4 @@ module.exports = invariant;
 
 },
 0,[[8012,658,774]]]);
-//# sourceMappingURL=app-e1866541e9468f3bbc17.js.map
+//# sourceMappingURL=app-e8ff6caacb04afecf06a.js.map
