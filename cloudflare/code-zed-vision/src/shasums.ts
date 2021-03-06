@@ -89,8 +89,6 @@ export const shasums = {
     "140fce681803b590465b42452fcc8cba2562ae422069811aa28d1c6dc35f9235",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
-  "modules/vendor/diffMin.d.ts":
-    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
   "modules/vendor/idb.js":
     "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
   "modules/vendor/idb.d.ts":
@@ -99,14 +97,8 @@ export const shasums = {
     "5bda726a6e9fbaf79497fc3966c6c8ff86ea1b1b1baedb3c021862fccfb2b4a3",
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
-  "modules/sha256.js":
-    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
-  "modules/sha256.d.ts":
-    "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-  "modules/diff.js":
-    "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
-  "modules/diff.d.ts":
-    "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+  "modules/vendor/diffMin.d.ts":
+    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/diffChars.d.ts":
@@ -115,6 +107,14 @@ export const shasums = {
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
+  "modules/diff.d.ts":
+    "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+  "modules/sha256.d.ts":
+    "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+  "modules/diff.js":
+    "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
+  "modules/sha256.js":
+    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/shaDB.js":
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/shaDB.d.ts":
