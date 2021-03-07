@@ -190,7 +190,7 @@ export default async (
       },
       {
         name: "@emotion/serialize/index.d.ts",
-        url: "https://unpkg.com/@emotion/serialize@1.0.0/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/serialize@1.0.1/types/index.d.ts",
 
         depend: ["@emotion/utils", "csstype"],
       },
