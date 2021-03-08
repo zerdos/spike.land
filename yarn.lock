@@ -1459,41 +1459,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devcontainer/cypress@workspace:docker-images/packages/devimages-cypress":
+"@devcontainer/cypress@workspace:docker-images/devimages-cypress":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/cypress@workspace:docker-images/packages/devimages-cypress"
+  resolution: "@devcontainer/cypress@workspace:docker-images/devimages-cypress"
   dependencies:
     "@devcontainer/generator": 12.0.6
   languageName: unknown
   linkType: soft
 
-"@devcontainer/eoan-xfce-novnc@workspace:docker-images/packages/eoan-xfce-novnc":
+"@devcontainer/eoan-xfce-novnc@workspace:docker-images/eoan-xfce-novnc":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/eoan-xfce-novnc@workspace:docker-images/packages/eoan-xfce-novnc"
+  resolution: "@devcontainer/eoan-xfce-novnc@workspace:docker-images/eoan-xfce-novnc"
   dependencies:
     "@devcontainer/generator": ^13.0.4
   languageName: unknown
   linkType: soft
 
-"@devcontainer/focal-devcontainer@workspace:docker-images/packages/focal-devcontainer":
+"@devcontainer/focal-devcontainer@workspace:docker-images/focal-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/focal-devcontainer@workspace:docker-images/packages/focal-devcontainer"
+  resolution: "@devcontainer/focal-devcontainer@workspace:docker-images/focal-devcontainer"
   dependencies:
     "@devcontainer/generator": ^13.0.4
   languageName: unknown
   linkType: soft
 
-"@devcontainer/focal-xfce-vnc@workspace:docker-images/packages/focal-xfce-vnc":
+"@devcontainer/focal-xfce-vnc@workspace:docker-images/focal-xfce-vnc":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/focal-xfce-vnc@workspace:docker-images/packages/focal-xfce-vnc"
+  resolution: "@devcontainer/focal-xfce-vnc@workspace:docker-images/focal-xfce-vnc"
   dependencies:
     "@devcontainer/generator": ^13.0.4
   languageName: unknown
   linkType: soft
 
-"@devcontainer/generator@^13.0.4, @devcontainer/generator@workspace:docker-images/packages/generator":
+"@devcontainer/generator@^13.0.4, @devcontainer/generator@workspace:docker-images/generator":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/generator@workspace:docker-images/packages/generator"
+  resolution: "@devcontainer/generator@workspace:docker-images/generator"
   dependencies:
     typescript: 4.2.3
   languageName: unknown
@@ -1506,25 +1506,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@devcontainer/groovy-devcontainer@workspace:docker-images/packages/groovy-devcontainer":
+"@devcontainer/groovy-devcontainer@workspace:docker-images/groovy-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/groovy-devcontainer@workspace:docker-images/packages/groovy-devcontainer"
+  resolution: "@devcontainer/groovy-devcontainer@workspace:docker-images/groovy-devcontainer"
   dependencies:
     "@devcontainer/generator": ^13.0.4
   languageName: unknown
   linkType: soft
 
-"@devcontainer/groovy-xfce-novnc@workspace:docker-images/packages/groovy-xfce-novnc":
+"@devcontainer/groovy-xfce-novnc@workspace:docker-images/groovy-xfce-novnc":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/groovy-xfce-novnc@workspace:docker-images/packages/groovy-xfce-novnc"
+  resolution: "@devcontainer/groovy-xfce-novnc@workspace:docker-images/groovy-xfce-novnc"
   dependencies:
     "@devcontainer/generator": ^13.0.4
   languageName: unknown
   linkType: soft
 
-"@devcontainer/hirsute-devcontainer@workspace:docker-images/packages/hirsute-devcontainer":
+"@devcontainer/hirsute-devcontainer@workspace:docker-images/hirsute-devcontainer":
   version: 0.0.0-use.local
-  resolution: "@devcontainer/hirsute-devcontainer@workspace:docker-images/packages/hirsute-devcontainer"
+  resolution: "@devcontainer/hirsute-devcontainer@workspace:docker-images/hirsute-devcontainer"
   dependencies:
     "@devcontainer/generator": ^13.0.4
   languageName: unknown
@@ -4156,19 +4156,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/esbuild-plugin-pnp@npm:^0.0.1":
-  version: 0.0.1
-  resolution: "@yarnpkg/esbuild-plugin-pnp@npm:0.0.1"
-  dependencies:
-    tslib: ^1.13.0
-  peerDependencies:
-    esbuild: ^0.8.36
-  bin:
-    esbuild-plugin-pnp: ./lib/cli.js
-  checksum: ae0bdbfb5061cdbf92e005cbc6cd1e606445498c27db6032412f5121dcfdb9f9534b1e03d2a6494516ea6b3a0d1554fc5802ec4e1af0601cf4a78eca4d263d08
-  languageName: node
-  linkType: hard
-
 "@zedvision/cf-code-zed-vision@workspace:cloudflare/code-zed-vision":
   version: 0.0.0-use.local
   resolution: "@zedvision/cf-code-zed-vision@workspace:cloudflare/code-zed-vision"
@@ -4242,7 +4229,6 @@ __metadata:
     "@material-ui/icons": next
     "@types/react": 17.0.3
     "@types/react-dom": 17.0.1
-    "@yarnpkg/esbuild-plugin-pnp": ^0.0.1
     esbuild: 0.8.57
     framer-motion: 3.10.0
     react: 17.0.1
@@ -19077,7 +19063,7 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.10.0, tslib@npm:^1.13.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
+"tslib@npm:^1.10.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: f44fe7f216946b17d3e3074df3746372703cf24e9127b4c045511456e8e4bf25515fb0a1bb3937676cc305651c5d4fcb6377b0588a4c6a957e748c4c28905d17
@@ -20802,7 +20788,6 @@ typescript@4.2.3:
   version: 0.0.0-use.local
   resolution: "zedvision@workspace:."
   dependencies:
-    "@yarnpkg/esbuild-plugin-pnp": ^0.0.1
     csstype: 3.0.7
     lerna: ^4.0.0
     typescript: 4.2.3

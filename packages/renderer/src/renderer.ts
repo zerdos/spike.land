@@ -29,7 +29,6 @@ export const render = (
 
 export default React;
 
-
 Object.assign(globalThis, {
   DraggableWindow,
   jsx,
