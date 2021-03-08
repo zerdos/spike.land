@@ -1,11 +1,20 @@
 //import { version } from "@zedvision/code/package.json";
+//@ts-ignore
+
 import { files } from "./files.ts";
+
+//@ts-ignore
+
 import { shasums } from "./shasums.ts";
 import {
   publicIpfsGateways,
   raceToSuccess,
 } from "https://unpkg.com/@zedvision/ipfs@11.10.0/src/gateways.js";
+//@ts-ignore
+
 import { cid } from "./cid.ts";
+//@ts-ignore
+
 import { alterHeaders, sha256 } from "./alterHeaders.ts";
 
 type KV = { [key: string]: string };

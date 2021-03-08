@@ -1,3 +1,5 @@
+//@ts-ignore
+
 import { shasums } from "./shasums.ts";
 
 export async function alterHeaders(response: Response, pathname: string) {

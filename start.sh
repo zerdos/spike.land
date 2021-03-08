@@ -1,5 +1,5 @@
 rm -rf packages/code/js/workers/shaSums.json  packages/code/js/workers/fileCids.json
-find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"marsbar\" }"}' > cloudflare/code-zed-vision/src/shasums.ts;
+find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > cloudflare/code-zed-vision/src/shasums.ts;
 deno fmt packages/code/js/workers/shaSums.json cloudflare/code-zed-vision/src/shasums.ts;
 
 #docker-compose exec -T ipfs 
