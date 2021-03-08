@@ -9,7 +9,7 @@
       "strict": true,
       "noEmit": false,
       "preserveConstEnums": true,
-      "moduleResolution": "node",
+      "moduleResolution": "classic",
       "sourceMap": true,
       "esModuleInterop": true,
       "types": ["@cloudflare/workers-types"]

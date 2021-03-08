@@ -1,12 +1,12 @@
 //import { version } from "@zedvision/code/package.json";
-import { files } from "./files";
-import { shasums } from "./shasums";
+import { files } from "./files.ts";
+import { shasums } from "./shasums.ts";
 import {
   publicIpfsGateways,
   raceToSuccess,
-} from "@zedvision/ipfs/src/gateways.js";
-import { cid } from "./cid";
-import { alterHeaders, sha256 } from "./alterHeaders";
+} from "https://unpkg.com/@zedvision/ipfs@11.10.0/src/gateways.js";
+import { cid } from "./cid.ts";
+import { alterHeaders, sha256 } from "./alterHeaders.ts";
 
 type KV = { [key: string]: string };
 
@@ -207,7 +207,7 @@ async function handleRequest(request: Request) {
   return text("Error: nop");
 }
 
-export function js(resp: string) {
+function js(resp: string) {
   return new Response(resp, {
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -219,7 +219,7 @@ export function js(resp: string) {
   });
 }
 
-export function json(obj: Object) {
+function json(obj: Object) {
   return new Response(JSON.stringify(obj), {
     headers: {
       "Access-Control-Allow-Origin": "*",

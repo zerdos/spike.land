@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: buildpack-deps:focal
-- Node: 14.15.5
+- Node: 14.16.0
 - Yarn: 1.22.10
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - with Google-chrome

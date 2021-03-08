@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: buildpack-deps:hirsute
-- Deno: 1.7.4- Node: 14.15.5
+- Deno: 1.8.0- Node: 14.16.0
 - Yarn: 1.22.10
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - with Google-chrome- With Vscode- docker preinstalled

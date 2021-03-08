@@ -58,10 +58,10 @@ RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.7.4
+  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.8.0
 
   
-ENV NODE_VERSION 15.9.0
+ENV NODE_VERSION 15.11.0
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \

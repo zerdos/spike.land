@@ -1,4 +1,4 @@
-import { shasums } from "./shasums";
+import { shasums } from "./shasums.ts";
 
 export async function alterHeaders(response: Response, pathname: string) {
   const arrBuff = await response!.clone().arrayBuffer();
