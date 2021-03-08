@@ -119,6 +119,8 @@ export const shasums = {
     "1c2b3b581130bf6417a62a0071c148da24aafbbf419d24072f7123663b6e93ec",
   "modules/renderer.js":
     "e5edad364e1f438948886e0a7ee7c6855d28569020c71bff1dd98f5eacd89d61",
+  "modules/QRious.js":
+    "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":
     "30cb2c904408ba17d928116362cd1144386060ac04eb394bd2c9642deec9ea88",
   "package.json":

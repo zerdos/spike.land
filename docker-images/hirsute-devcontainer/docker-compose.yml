@@ -1,13 +1,13 @@
 version: "3.7"
 services:
   ipfs: 
-    image: ipfs/go-ipfs:v0.8.0-rc1
-    ports: 
-      - 4000:4000
-      - 4001:4001
-      - 5001:5001
-      - 8080:8080
-      - 8081:8081
+    image: ipfs/go-ipfs:latest
+    # ports: 
+    #   - 4000:4000
+    #   - 4001:4001
+    #   - 5001:5001
+    #   - 8080:8080
+    #   - 8081:8081
     volumes:
       - ipfs:/ipfs
       - ipns:/ipns
