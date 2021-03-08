@@ -1,0 +1,35 @@
+{
+  "name": "@zedvision/renderer",
+  "version": "13.0.6",
+  "main": "src/index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "source": "./src/renderer.ts",
+  "exports": "./renderer",
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rm -rf dist .tsbuildinfo && deno fmt src",
+    "build:renderer": "$(yarn bin esbuild) src/renderer.ts --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.js",
+    "build:renderer:umd": "$(yarn bin esbuild)  esbuild src/renderer.ts --minify --bundle --format=iife --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.umd.js",
+    "build:draggableWindow": "$(yarn bin esbuild)  src/DraggableWindow.tsx --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/DraggableWindow.js",
+    "pre:build": "yarn build:renderer && cp -rf dist/* ../code/modules/",
+    "build": "echo done in prebuld"
+  },
+  "dependencies": {
+    "@emotion/react": "11.1.5",
+    "@emotion/styled": "11.1.5",
+    "@material-ui/core": "next",
+    "@material-ui/icons": "next",
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.1",
+    "@yarnpkg/esbuild-plugin-pnp": "^0.0.1",
+    "esbuild": "0.8.57",
+    "framer-motion": "3.10.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "typescript": "4.2.3"
+  },
+  "gitHead": "12815f92581c029760fde4f16e6a1e724795545a"
+}

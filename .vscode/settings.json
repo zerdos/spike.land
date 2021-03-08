@@ -32,5 +32,6 @@
   },
   "git.autofetch": true,
   "npm.packageManager": "yarn",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": ".yarn/sdks/typescript/lib"
 }

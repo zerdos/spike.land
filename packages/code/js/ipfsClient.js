@@ -2,11 +2,11 @@ import { getWorker } from "./workers/getWorker.js";
 import {
   all,
   CID,
+  concat,
   fromHexString,
   IpfsClient,
   raceToSuccess,
-  uint8ArrayConcat,
-  uint8ArrayToString,
+  toString,
 } from "../modules/ipfs.client.js";
 
 const { workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js");
@@ -39,15 +39,15 @@ export const ipfsCat = async (cid, opts) => {
   const options = opts || {};
   const res = ipfsClient.cat(cid, options);
 
-  const result = uint8ArrayConcat(
+  const result = concat(
     await all(res),
   );
-  const resultStr = uint8ArrayToString(result);
+  const resultStr = toString(result);
   return resultStr;
 };
 export { CID };
 export { all };
-export { uint8ArrayConcat };
-export { uint8ArrayToString };
+export { concat };
+export { toString };
 export { raceToSuccess };
 export { fromHexString };

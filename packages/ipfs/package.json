@@ -28,7 +28,7 @@
     "access": "public"
   },
   "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
-  "devDependencies": {
+  "dependencies": {
     "cids": "1.1.6",
     "esbuild": "0.8.57",
     "ipfs-message-port-client": "0.5.2",
