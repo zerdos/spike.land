@@ -72,7 +72,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmX4Ast9tP7E5iRDNW5Sdk8E33VyjC5hXoVd9RnR86xTv9",
+  "package.json": "QmZEDH7W5c5Br7qL3NSsekLizpPkiHtDYZicVQyu7UMai2",
   "sw.js": "QmWAkp43EU8F4VfGYormb1PATJBKPMW2RYRV11bXaZ51ga",
   "tsconfig.json": "QmVhLcnuqPkBzJ1nBRFX7me5H55w2ue37pxv6U8trXyVWX",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -87,6 +87,6 @@ export const files = {
     "QmVCXuHzhYozqmAW3bv2E2UZaxsTdFzdJTgnsujTVLPUqw",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmfLyoVKHGN6kEGhYiPa9ViMbcptRgZxDe3wQjt7GzZt75",
-  "": "QmZGvH9o4Les9SnYGhHYfSDodTGLj8hDKHU65DLLpkbETB",
+  "": "QmQMCkQzvvitwtdCnEL2fVbWPcXiYwQ44SBnMaaw9JZm8f",
   "foo": "bar",
 };

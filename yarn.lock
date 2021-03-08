@@ -1463,7 +1463,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/cypress@workspace:docker-images/devimages-cypress"
   dependencies:
-    "@devcontainer/generator": 12.0.6
+    "@devcontainer/generator": 13.0.8
   languageName: unknown
   linkType: soft
 
@@ -1471,7 +1471,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/eoan-xfce-novnc@workspace:docker-images/eoan-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^13.0.7
+    "@devcontainer/generator": ^13.0.8
   languageName: unknown
   linkType: soft
 
@@ -1479,7 +1479,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-devcontainer@workspace:docker-images/focal-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^13.0.7
+    "@devcontainer/generator": ^13.0.8
   languageName: unknown
   linkType: soft
 
@@ -1487,11 +1487,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-xfce-vnc@workspace:docker-images/focal-xfce-vnc"
   dependencies:
-    "@devcontainer/generator": ^13.0.7
+    "@devcontainer/generator": ^13.0.8
   languageName: unknown
   linkType: soft
 
-"@devcontainer/generator@^13.0.7, @devcontainer/generator@workspace:docker-images/generator":
+"@devcontainer/generator@13.0.8, @devcontainer/generator@^13.0.8, @devcontainer/generator@workspace:docker-images/generator":
   version: 0.0.0-use.local
   resolution: "@devcontainer/generator@workspace:docker-images/generator"
   dependencies:
@@ -1500,18 +1500,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@devcontainer/generator@npm:12.0.6":
-  version: 12.0.6
-  resolution: "@devcontainer/generator@npm:12.0.6"
-  checksum: d4f130d9ec2e79effb9bed0f7da4e9551f85c1f3bc5232cb49c17dc046e930531529a8dab8aac1a8b71231a190ee9a16b86bf99c1e8c51e9179070e04ef0857a
-  languageName: node
-  linkType: hard
-
 "@devcontainer/groovy-devcontainer@workspace:docker-images/groovy-devcontainer":
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-devcontainer@workspace:docker-images/groovy-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^13.0.7
+    "@devcontainer/generator": ^13.0.8
   languageName: unknown
   linkType: soft
 
@@ -1519,7 +1512,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-xfce-novnc@workspace:docker-images/groovy-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^13.0.7
+    "@devcontainer/generator": ^13.0.8
   languageName: unknown
   linkType: soft
 
@@ -1527,7 +1520,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/hirsute-devcontainer@workspace:docker-images/hirsute-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^13.0.7
+    "@devcontainer/generator": ^13.0.8
   languageName: unknown
   linkType: soft
 
@@ -4163,8 +4156,8 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": 2.1.0
     "@cloudflare/wrangler": 1.14.1
-    "@zedvision/code": ^13.0.7
-    "@zedvision/ipfs": ^13.0.7
+    "@zedvision/code": ^13.0.8
+    "@zedvision/ipfs": ^13.0.8
     esbuild: 0.8.57
   languageName: unknown
   linkType: soft
@@ -4176,18 +4169,18 @@ __metadata:
     "@cloudflare/workers-types": 2.1.0
     "@cloudflare/wrangler": 1.14.1
     "@types/uuid": 8.3.0
-    "@zedvision/ipfs": ^13.0.7
+    "@zedvision/ipfs": ^13.0.8
     esbuild: 0.8.57
     uuid: 8.3.2
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@^13.0.7, @zedvision/code@workspace:packages/code":
+"@zedvision/code@^13.0.8, @zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
     "@babel/standalone": 7.13.9
-    "@zedvision/ipfs": ^13.0.7
+    "@zedvision/ipfs": ^13.0.8
     comlink: 4.3.0
     esbuild: 0.8.57
     prettier: 2.2.1
@@ -4197,7 +4190,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/ipfs@^13.0.7, @zedvision/ipfs@workspace:packages/ipfs":
+"@zedvision/ipfs@^13.0.8, @zedvision/ipfs@workspace:packages/ipfs":
   version: 0.0.0-use.local
   resolution: "@zedvision/ipfs@workspace:packages/ipfs"
   dependencies:
