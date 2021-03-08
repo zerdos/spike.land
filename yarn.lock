@@ -1448,14 +1448,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/wrangler@npm:1.14.1":
-  version: 1.14.1
-  resolution: "@cloudflare/wrangler@npm:1.14.1"
+"@cloudflare/wrangler@npm:1.15.0":
+  version: 1.15.0
+  resolution: "@cloudflare/wrangler@npm:1.15.0"
   dependencies:
     "@cloudflare/binary-install": 0.2.0
   bin:
     wrangler: run-wrangler.js
-  checksum: e4770af1deb05b479b1dd8d57bd01f83a69a17c001d5d4f3fe9b29ff858834eac6698ac9eddb7e59cfb91064334f88759fa31fbc03180b092b9ce6c6c043f4fd
+  checksum: 6807c3d8806868caad9725e21f39e2dea5e13169984abf604d44cee6682f2d558049917c72f40c05ba6212b8d8193cfc98403929cc12b4dde5e955ef2b0363fe
   languageName: node
   linkType: hard
 
@@ -4155,7 +4155,7 @@ __metadata:
   resolution: "@zedvision/cf-code-zed-vision@workspace:cloudflare/code-zed-vision"
   dependencies:
     "@cloudflare/workers-types": 2.1.0
-    "@cloudflare/wrangler": 1.14.1
+    "@cloudflare/wrangler": 1.15.0
     "@zedvision/code": ^13.0.8
     "@zedvision/ipfs": ^13.0.8
     esbuild: 0.8.57
@@ -4167,7 +4167,7 @@ __metadata:
   resolution: "@zedvision/cf-worker@workspace:cloudflare/zed-vision"
   dependencies:
     "@cloudflare/workers-types": 2.1.0
-    "@cloudflare/wrangler": 1.14.1
+    "@cloudflare/wrangler": 1.15.0
     "@types/uuid": 8.3.0
     "@zedvision/ipfs": ^13.0.8
     esbuild: 0.8.57
