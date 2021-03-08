@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/renderer",
-  "version": "13.0.7",
+  "version": "13.0.8",
   "main": "src/index.js",
   "license": "MIT",
   "publishConfig": {
