@@ -1,48 +1,48 @@
 {
-    "name": "@zedvision/cf-worker",
-    "version": "13.0.8",
-    "description": "Worker script for zed.vision",
-    "main": "dist/worker-script.js",
-    "files": [
-        "**/*"
-    ],
-    "scripts": {
-        "dev": "yarn xbuild && wrangler preview",
-        "clean": "rm -rf dist && mkdir dist && deno fmt src",
-        "xebuild": "esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",
-        "build": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min",
-        "min": "deno fmt dist && esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
-        "deploy": "yarn build && wrangler publish"
-    },
-    "keywords": [
-        "monaco",
-        "editor",
-        "react",
-        "html",
-        "vscode"
-    ],
-    "authors": [
-        "Zoltan Erdos <zolika84@gmail.com>"
-    ],
-    "bugs": {
-        "url": "https://github.com/zed-vision/monorepo"
-    },
-    "homepage": "https://zed.vision",
-    "repository": "https://github.com/zed-vision/monorepo",
-    "devDependencies": {
-        "@cloudflare/workers-types": "2.1.0",
-        "@cloudflare/wrangler": "1.15.0",
-        "@types/uuid": "8.3.0",
-        "@zedvision/ipfs": "^13.0.8",
-        "esbuild": "0.8.57"
-    },
-    "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
-    "author": "Zoltan Erdos <zolika84@gmail.com>",
-    "license": "BSD-3-Clause",
-    "publishConfig": {
-        "access": "public"
-    },
-    "dependencies": {
-        "uuid": "8.3.2"
-    }
+  "name": "@zedvision/cf-worker",
+  "version": "13.0.8",
+  "description": "Worker script for zed.vision",
+  "main": "dist/worker-script.js",
+  "files": [
+    "**/*"
+  ],
+  "scripts": {
+    "dev": "yarn xbuild && wrangler preview",
+    "clean": "rm -rf dist && mkdir dist && deno fmt src",
+    "xebuild": "esbuild src/worker-script.js  --minify --outfile=dist/worker-script.min.js",
+    "build": "deno bundle --unstable ./src/index.ts dist/worker-script.js --no-check && yarn min",
+    "min": "deno fmt dist && esbuild dist/worker-script.js  --minify --outfile=dist/worker-script.min.js",
+    "deploy": "yarn build && wrangler publish"
+  },
+  "keywords": [
+    "monaco",
+    "editor",
+    "react",
+    "html",
+    "vscode"
+  ],
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "homepage": "https://zed.vision",
+  "repository": "https://github.com/zed-vision/monorepo",
+  "devDependencies": {
+    "@cloudflare/workers-types": "2.1.0",
+    "@cloudflare/wrangler": "1.15.0",
+    "@types/uuid": "8.3.0",
+    "@zedvision/ipfs": "^13.0.8",
+    "esbuild": "0.8.57"
+  },
+  "gitHead": "12815f92581c029760fde4f16e6a1e724795545a",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "license": "BSD-3-Clause",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "uuid": "8.3.2"
+  }
 }

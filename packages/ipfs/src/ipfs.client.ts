@@ -3,8 +3,7 @@ import IpfsClient from "ipfs-message-port-client";
 import CID from "cids";
 import { publicIpfsGateways, raceToSuccess } from "./gateways.js";
 
-
-import  { concat, fromString, toString } from "uint8arrays";
+import { concat, fromString, toString } from "uint8arrays";
 
 export { IpfsClient };
 export const fromHexString = (hexString: string) =>

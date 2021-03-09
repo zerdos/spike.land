@@ -11,5 +11,12 @@
     "moduleResolution": "node",
     "strict": true
   },
-  "exclude": ["cloudflare/code-zed-vision/dist","cloudflare/zed-vision/dist", "packages/zed-vision-site", "node_modules", "packages/monaco-editor", "docs"]
+  "exclude": [
+    "cloudflare/code-zed-vision/dist",
+    "cloudflare/zed-vision/dist",
+    "packages/zed-vision-site",
+    "node_modules",
+    "packages/monaco-editor",
+    "docs"
+  ]
 }

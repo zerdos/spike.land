@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[7],{
 
-/***/ 4518:
+/***/ 3692:
 /***/ (function(module) {
 
 function _arrayLikeToArray(arr, len) {
@@ -18,10 +18,10 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 8815:
+/***/ 6662:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(4518);
+var arrayLikeToArray = __webpack_require__(3692);
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -32,12 +32,12 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 888:
+/***/ 389:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var setPrototypeOf = __webpack_require__(3153);
+var setPrototypeOf = __webpack_require__(2124);
 
-var isNativeReflectConstruct = __webpack_require__(312);
+var isNativeReflectConstruct = __webpack_require__(7969);
 
 function _construct(Parent, args, Class) {
   if (isNativeReflectConstruct()) {
@@ -64,7 +64,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 3465:
+/***/ 6122:
 /***/ (function(module) {
 
 function _defineProperty(obj, key, value) {
@@ -87,7 +87,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 312:
+/***/ 7969:
 /***/ (function(module) {
 
 function _isNativeReflectConstruct() {
@@ -108,7 +108,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 4482:
+/***/ 65:
 /***/ (function(module) {
 
 function _iterableToArray(iter) {
@@ -120,7 +120,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 7162:
+/***/ 4449:
 /***/ (function(module) {
 
 function _nonIterableSpread() {
@@ -132,16 +132,16 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 9782:
+/***/ 3689:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(8815);
+var arrayWithoutHoles = __webpack_require__(6662);
 
-var iterableToArray = __webpack_require__(4482);
+var iterableToArray = __webpack_require__(65);
 
-var unsupportedIterableToArray = __webpack_require__(4802);
+var unsupportedIterableToArray = __webpack_require__(9352);
 
-var nonIterableSpread = __webpack_require__(7162);
+var nonIterableSpread = __webpack_require__(4449);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -152,10 +152,10 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 4802:
+/***/ 9352:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(4518);
+var arrayLikeToArray = __webpack_require__(3692);
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -183,10 +183,10 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ blog_post; }
 });
 
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.9-f5cea06d51-e6f79d20e1.zip/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(5645);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/@emotion-react-virtual-2555ccb617/0/cache/@emotion-react-npm-11.1.5-bb508e1993-4e78f694df.zip/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(3963);
+// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(9411);
+// EXTERNAL MODULE: ../../.yarn/$$virtual/@emotion-react-virtual-06ba5ec380/0/cache/@emotion-react-npm-11.1.5-bb508e1993-4e78f694df.zip/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
+var emotion_react_browser_esm = __webpack_require__(9280);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__(2444);
 // EXTERNAL MODULE: ./src/components/bio.tsx + 1 modules
@@ -199,10 +199,10 @@ var seo = __webpack_require__(957);
 var typography = __webpack_require__(9605);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/index.js
 var gatsby_plugin_mdx = __webpack_require__(1057);
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.9-f5cea06d51-e6f79d20e1.zip/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(3521);
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.9-f5cea06d51-e6f79d20e1.zip/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(6649);
+// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(7577);
+// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(3718);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ../../.yarn/cache/react-npm-17.0.1-98658812fc-a76d86ec97.zip/node_modules/react/index.js
 var react = __webpack_require__(7693);
@@ -358,7 +358,7 @@ var pageQuery = "2168380918";
 /***/ 491:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var _construct=__webpack_require__(888);var _toConsumableArray=__webpack_require__(9782);var _defineProperty=__webpack_require__(3465);var _objectWithoutPropertiesLoose=__webpack_require__(4062);function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var React=__webpack_require__(7693);var _require=__webpack_require__(3424),mdx=_require.mdx;var _require2=__webpack_require__(889),useMDXScope=_require2.useMDXScope;module.exports=function MDXRenderer(_ref){var scope=_ref.scope,children=_ref.children,props=_objectWithoutPropertiesLoose(_ref,["scope","children"]);var mdxScope=useMDXScope(scope);// Memoize the compiled component
+var _construct=__webpack_require__(389);var _toConsumableArray=__webpack_require__(3689);var _defineProperty=__webpack_require__(6122);var _objectWithoutPropertiesLoose=__webpack_require__(1774);function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var React=__webpack_require__(7693);var _require=__webpack_require__(3424),mdx=_require.mdx;var _require2=__webpack_require__(889),useMDXScope=_require2.useMDXScope;module.exports=function MDXRenderer(_ref){var scope=_ref.scope,children=_ref.children,props=_objectWithoutPropertiesLoose(_ref,["scope","children"]);var mdxScope=useMDXScope(scope);// Memoize the compiled component
 var End=React.useMemo(function(){if(!children){return null;}var fullScope=_objectSpread({// React is here just in case the user doesn't pass them in
 // in a manual usage of the renderer
 React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.map(function(key){return fullScope[key];});var fn=_construct(Function,["_fn"].concat(_toConsumableArray(keys),[""+children]));return fn.apply(void 0,[{}].concat(_toConsumableArray(values)));},[children,scope]);return React.createElement(End,_objectSpread({},props));};
@@ -366,4 +366,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-2a67752da6ad8d1a1ca8.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-f344332d21d0460e3394.js.map

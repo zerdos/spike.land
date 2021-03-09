@@ -1,26 +1,25 @@
-
 {
-    "compilerOptions": {
-      "allowJs": true,
-      "target": "esnext",
-      "module": "amd",
-      "lib": ["esnext", "webworker"],
-      "alwaysStrict": true,
-      "strict": true,
-      "noEmit": false,
-      "preserveConstEnums": true,
-      "moduleResolution": "classic",
-      "sourceMap": true,
-      "esModuleInterop": true,
-      "types": ["@cloudflare/workers-types"]
-    },
-    
-    "include": [
-      "./src/*.ts",
-      "./test/*.ts",
-      "./src/**/*.ts",
-      "./test/**/*.ts",
-      "./node_modules/@cloudflare/workers-types/index.d.ts"
-    ],
-    "exclude": ["node_modules/", "dist/"]
-  }
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "esnext",
+    "module": "amd",
+    "lib": ["esnext", "webworker"],
+    "alwaysStrict": true,
+    "strict": true,
+    "noEmit": false,
+    "preserveConstEnums": true,
+    "moduleResolution": "classic",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "types": ["@cloudflare/workers-types"]
+  },
+
+  "include": [
+    "./src/*.ts",
+    "./test/*.ts",
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+    "./node_modules/@cloudflare/workers-types/index.d.ts"
+  ],
+  "exclude": ["node_modules/", "dist/"]
+}
