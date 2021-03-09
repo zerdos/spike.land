@@ -111,22 +111,20 @@ USER root
 
 RUN  apt-get update \
   && apt-get install --install-recommends -y \
-    autocutsel \
-    dbus \
-    dbus-x11 \
-    xfwm4 \
-    fonts-noto-color-emoji \
-    # xvfb \
-    novnc \
-    # websockify \
-    tigervnc-standalone-server \
-    tigervnc-xorg-extension \
-
+  autocutsel \
+  dbus \
+  dbus-x11 \
+  xfwm4 \
+  fonts-noto-color-emoji \
+  # xvfb \
+  novnc \
+  # websockify \
+  tigervnc-standalone-server \
+  tigervnc-xorg-extension \
   && git clone https://github.com/novnc/noVNC.git  --depth=1 \
   && cp -af ./noVNC/.  /usr/share/novnc/ \
   && rm -rf ./noVNC \
   && cp /usr/share/novnc/vnc.html /usr/share/novnc/index.html \
-
   && (sed -i -e '1 aautocutsel -fork' /etc/X11/Xvnc-session \
   && sed -i -e 's/iconic/nowin/g' /etc/X11/Xvnc-session \
   && sed -i -e '1 aterminator &' /etc/X11/Xvnc-session) \
