@@ -1463,7 +1463,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/cypress@workspace:docker-images/devimages-cypress"
   dependencies:
-    "@devcontainer/generator": 13.0.8
+    "@devcontainer/generator": ^13.0.9
   languageName: unknown
   linkType: soft
 
@@ -1471,7 +1471,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/eoan-xfce-novnc@workspace:docker-images/eoan-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^13.0.8
+    "@devcontainer/generator": ^13.0.9
   languageName: unknown
   linkType: soft
 
@@ -1479,7 +1479,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-devcontainer@workspace:docker-images/focal-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^13.0.8
+    "@devcontainer/generator": ^13.0.9
   languageName: unknown
   linkType: soft
 
@@ -1487,15 +1487,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/focal-xfce-vnc@workspace:docker-images/focal-xfce-vnc"
   dependencies:
-    "@devcontainer/generator": ^13.0.8
+    "@devcontainer/generator": ^13.0.9
   languageName: unknown
   linkType: soft
 
-"@devcontainer/generator@13.0.8, @devcontainer/generator@^13.0.8, @devcontainer/generator@workspace:docker-images/generator":
+"@devcontainer/generator@^13.0.9, @devcontainer/generator@workspace:docker-images/generator":
   version: 0.0.0-use.local
   resolution: "@devcontainer/generator@workspace:docker-images/generator"
   dependencies:
-    "@types/node": 14.14.32
+    "@types/node": 14.14.33
     typescript: 4.2.3
   languageName: unknown
   linkType: soft
@@ -1504,7 +1504,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-devcontainer@workspace:docker-images/groovy-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^13.0.8
+    "@devcontainer/generator": ^13.0.9
   languageName: unknown
   linkType: soft
 
@@ -1512,7 +1512,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/groovy-xfce-novnc@workspace:docker-images/groovy-xfce-novnc"
   dependencies:
-    "@devcontainer/generator": ^13.0.8
+    "@devcontainer/generator": ^13.0.9
   languageName: unknown
   linkType: soft
 
@@ -1520,7 +1520,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@devcontainer/hirsute-devcontainer@workspace:docker-images/hirsute-devcontainer"
   dependencies:
-    "@devcontainer/generator": ^13.0.8
+    "@devcontainer/generator": ^13.0.9
   languageName: unknown
   linkType: soft
 
@@ -3663,10 +3663,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:14.14.32, @types/node@npm:^14.14.10":
+"@types/node@npm:*, @types/node@npm:^14.14.10":
   version: 14.14.32
   resolution: "@types/node@npm:14.14.32"
   checksum: ae73f3b668242da660b4f4f2047114fc047f5a6a92b8f9f4ab2f8ca1325c914c08cf13b6f90e6e88016fafb7a662d1963b075a6220d2208651a98a1cb3407221
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:14.14.33":
+  version: 14.14.33
+  resolution: "@types/node@npm:14.14.33"
+  checksum: f269fc728f6547345e000a0d86e1be802b475bb6759493208d7bc1cf8d49e838d3952ae54b8c7cd2ce168f9ef50c30e0d7084064a5f98db87efc833a38d955af
   languageName: node
   linkType: hard
 
@@ -4156,8 +4163,8 @@ __metadata:
   dependencies:
     "@cloudflare/workers-types": 2.1.0
     "@cloudflare/wrangler": 1.15.0
-    "@zedvision/code": ^13.0.8
-    "@zedvision/ipfs": ^13.0.8
+    "@zedvision/code": ^13.0.9
+    "@zedvision/ipfs": ^13.0.9
     esbuild: 0.8.57
   languageName: unknown
   linkType: soft
@@ -4169,18 +4176,18 @@ __metadata:
     "@cloudflare/workers-types": 2.1.0
     "@cloudflare/wrangler": 1.15.0
     "@types/uuid": 8.3.0
-    "@zedvision/ipfs": ^13.0.8
+    "@zedvision/ipfs": ^13.0.9
     esbuild: 0.8.57
     uuid: 8.3.2
   languageName: unknown
   linkType: soft
 
-"@zedvision/code@^13.0.8, @zedvision/code@workspace:packages/code":
+"@zedvision/code@^13.0.9, @zedvision/code@workspace:packages/code":
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
     "@babel/standalone": 7.13.10
-    "@zedvision/ipfs": ^13.0.8
+    "@zedvision/ipfs": ^13.0.9
     comlink: 4.3.0
     esbuild: 0.8.57
     prettier: 2.2.1
@@ -4190,7 +4197,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@zedvision/ipfs@^13.0.8, @zedvision/ipfs@workspace:packages/ipfs":
+"@zedvision/ipfs@^13.0.9, @zedvision/ipfs@workspace:packages/ipfs":
   version: 0.0.0-use.local
   resolution: "@zedvision/ipfs@workspace:packages/ipfs"
   dependencies:
@@ -4264,7 +4271,7 @@ __metadata:
     "@types/react-dom": 17.0.2
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
-    gatsby: 3.0.3
+    gatsby: 3.0.4
     gatsby-image: 3.0.0
     gatsby-legacy-polyfills: 1.0.0
     gatsby-link: 3.0.1
@@ -9564,9 +9571,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby@npm:3.0.3":
-  version: 3.0.3
-  resolution: "gatsby@npm:3.0.3"
+"gatsby@npm:3.0.4":
+  version: 3.0.4
+  resolution: "gatsby@npm:3.0.4"
   dependencies:
     "@babel/code-frame": ^7.10.4
     "@babel/core": ^7.12.3
@@ -9725,7 +9732,7 @@ fsevents@~2.3.1:
     react-dom: ^16.9.0 || ^17.0.0
   bin:
     gatsby: ./cli.js
-  checksum: 94395eafc080b8f93c9fc14935019589bb346d3d847f2019f52a7ee8a753c5a7bb916f40e9ec00c8dfb875c88fb6ab4c65e95dda7e8deaa053f2e4cd396ae5ff
+  checksum: bd542f2ccea9382d15e37dccc01008d5316a52901f2accbef7d0552060263be12900f47e194d59909143ea2b50e3acea5a61cb8e37686a6e89631997c3053a91
   languageName: node
   linkType: hard
 
