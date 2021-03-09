@@ -100,11 +100,12 @@ RUN  apt-get update \
     dbus \
     dbus-x11 \
     xfwm4 \
+    fonts-noto-color-emoji \
     # xvfb \
     novnc \
     # websockify \
     tigervnc-standalone-server \
-      tigervnc-xorg-extension \
+    tigervnc-xorg-extension \
 
   && git clone https://github.com/novnc/noVNC.git  --depth=1 \
   && cp -af ./noVNC/.  /usr/share/novnc/ \
