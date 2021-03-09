@@ -1384,14 +1384,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/standalone@npm:7.13.9":
-  version: 7.13.9
-  resolution: "@babel/standalone@npm:7.13.9"
-  checksum: f73b1dd6acd967f2a7627dd4b29930977a74f080b59df312d79283802d81b5a8e52db8de08587e993637861b3a646c071621381136ff535ed9619fb9b86da31f
-  languageName: node
-  linkType: hard
-
-"@babel/standalone@npm:^7.12.6":
+"@babel/standalone@npm:7.13.10, @babel/standalone@npm:^7.12.6":
   version: 7.13.10
   resolution: "@babel/standalone@npm:7.13.10"
   checksum: f2d3e3733c3bb7ff3c6aa8c435198052145d9b01150c6b52a90594f9c4178d4c74df7861b30f4e70e3330918bf4e8ac71376adbd603aca34ab05b78587519271
@@ -3728,15 +3721,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.1":
-  version: 17.0.1
-  resolution: "@types/react-dom@npm:17.0.1"
-  dependencies:
-    "@types/react": "*"
-  checksum: 695dd4bbef4fabdc726359e4031b2887b913d65fb2ff59e5a9e81f9ae20ca4dd8f2b6fe1f39fa5c1197babdb86f6b81b385f5d4438536f2ceeb5ff136102f45b
-  languageName: node
-  linkType: hard
-
 "@types/react-dom@npm:17.0.2":
   version: 17.0.2
   resolution: "@types/react-dom@npm:17.0.2"
@@ -4195,7 +4179,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
-    "@babel/standalone": 7.13.9
+    "@babel/standalone": 7.13.10
     "@zedvision/ipfs": ^13.0.8
     comlink: 4.3.0
     esbuild: 0.8.57
@@ -4277,7 +4261,7 @@ __metadata:
     "@mikaelkristiansson/domready": 1.0.11
     "@types/mdx-js__react": 1.5.3
     "@types/react": 17.0.3
-    "@types/react-dom": 17.0.1
+    "@types/react-dom": 17.0.2
     "@types/react-helmet": 6.1.0
     "@types/typography": 0.16.3
     gatsby: 3.0.3

@@ -15,7 +15,6 @@ let ipfs;
 
 self.addEventListener("message", async (event) => {
   if (event.data.clientInit) {
-
     ipfs = ipfs || await Ipfs.create();
 
     // @ts-ignore
