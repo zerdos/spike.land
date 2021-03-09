@@ -177,8 +177,8 @@
         "affectsGlobalScope": false
       },
       "./modules/ipfs.client.js": {
-        "version": "b046fa2b0fd77ea38eb13424e54959ca3097f5d073bd878a4e46b5cdf8298b9b",
-        "signature": "fd07162bfe2534b6798ce61d2f96a6144741ffabb975a39c46744b71bd258d72",
+        "version": "1c2b3b581130bf6417a62a0071c148da24aafbbf419d24072f7123663b6e93ec",
+        "signature": "543746c656c9b80420b8a27fd42a337c1a473e0b10c39ffc195956ed27a8d0b7",
         "affectsGlobalScope": false
       },
       "./js/ipfsClient.js": {

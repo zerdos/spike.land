@@ -118,12 +118,12 @@ export const shasums = {
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/ipfs.client.js":
-    "b046fa2b0fd77ea38eb13424e54959ca3097f5d073bd878a4e46b5cdf8298b9b",
+    "1c2b3b581130bf6417a62a0071c148da24aafbbf419d24072f7123663b6e93ec",
   "modules/QRious.js":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "modules/renderer.js":
     "aa489cf5833debc68e4d092cf09b795b884b43ba43cde9c17c0815daccc17653",
   ".tsBuildInfo":
-    "f446b77a97954947dc2255a0917633ca133518602f81e375a30da2baef885dc8",
+    "be275c9efa6e6f9bfb38cbe4803dedcc575507691e22e3b9687a151ad49c34a5",
   "food": "bar",
 };
