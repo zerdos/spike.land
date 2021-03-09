@@ -1384,14 +1384,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/standalone@npm:7.13.9":
-  version: 7.13.9
-  resolution: "@babel/standalone@npm:7.13.9"
-  checksum: f73b1dd6acd967f2a7627dd4b29930977a74f080b59df312d79283802d81b5a8e52db8de08587e993637861b3a646c071621381136ff535ed9619fb9b86da31f
-  languageName: node
-  linkType: hard
-
-"@babel/standalone@npm:^7.12.6":
+"@babel/standalone@npm:7.13.10, @babel/standalone@npm:^7.12.6":
   version: 7.13.10
   resolution: "@babel/standalone@npm:7.13.10"
   checksum: f2d3e3733c3bb7ff3c6aa8c435198052145d9b01150c6b52a90594f9c4178d4c74df7861b30f4e70e3330918bf4e8ac71376adbd603aca34ab05b78587519271
@@ -4195,7 +4188,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
-    "@babel/standalone": 7.13.9
+    "@babel/standalone": 7.13.10
     "@zedvision/ipfs": ^13.0.8
     comlink: 4.3.0
     esbuild: 0.8.57
