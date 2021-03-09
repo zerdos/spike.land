@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/code",
-  "version": "13.0.8",
+  "version": "13.0.9",
   "description": "code.zed.vision",
   "main": "js/codeLoader.mjs",
   "files": [
@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@babel/standalone": "7.13.10",
-    "@zedvision/ipfs": "^13.0.8",
+    "@zedvision/ipfs": "^13.0.9",
     "comlink": "4.3.0",
     "prettier": "2.2.1",
     "simple-window-manager": "2.1.2"
