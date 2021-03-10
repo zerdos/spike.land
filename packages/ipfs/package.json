@@ -30,7 +30,7 @@
   "dependencies": {
     "cids": "1.1.6",
     "esbuild": "0.8.57",
-    "ipfs-message-port-client": "0.5.3",
+    "ipfs-message-port-client": "0.5.4",
     "it-all": "1.0.5",
     "typescript": "4.2.3",
     "uint8arrays": "2.1.3",

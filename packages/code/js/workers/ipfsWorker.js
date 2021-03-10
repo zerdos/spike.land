@@ -1,9 +1,9 @@
 self.importScripts(
-  "https://unpkg.com/ipfs@0.54.2/dist/index.min.js",
+  "https://unpkg.com/ipfs@0.54.4/dist/index.min.js",
 );
 
 self.importScripts(
-  "https://unpkg.com/ipfs-message-port-server@0.6.1/dist/index.min.js",
+  "https://unpkg.com/ipfs-message-port-server@0.6.3/dist/index.min.js",
 );
 
 // @ts-ignore

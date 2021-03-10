@@ -4203,7 +4203,7 @@ __metadata:
   dependencies:
     cids: 1.1.6
     esbuild: 0.8.57
-    ipfs-message-port-client: 0.5.3
+    ipfs-message-port-client: 0.5.4
     it-all: 1.0.5
     typescript: 4.2.3
     uint8arrays: 2.1.3
@@ -11187,14 +11187,14 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"ipfs-message-port-client@npm:0.5.3":
-  version: 0.5.3
-  resolution: "ipfs-message-port-client@npm:0.5.3"
+"ipfs-message-port-client@npm:0.5.4":
+  version: 0.5.4
+  resolution: "ipfs-message-port-client@npm:0.5.4"
   dependencies:
     browser-readablestream-to-it: ^1.0.1
     ipfs-core-types: ^0.3.1
     ipfs-message-port-protocol: ^0.6.1
-  checksum: a8c995c05f25895af1100eded6491fdfcf51f73e4e11722bcfd376a5ed145b8ec4cc290bd557d8870058c72ba116d7eb40abc19c3c1c6569aa9af97df3784d22
+  checksum: 067e48b2778a72d10c42792d5d9a134d2320db2a3e339a24d21bae1cfe7f3518f024ae07ff898384081798c195fc1660e3a4eacc06f2a647cfd25bb4745131b5
   languageName: node
   linkType: hard
 

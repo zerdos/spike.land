@@ -65,7 +65,7 @@ export const shasums = {
   "js/workers/getWorker.js":
     "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
   "js/workers/ipfsWorker.js":
-    "c711514e179ccdd78661cd28e45cbe668f9a2e862426de7f519d39eb67910c4b",
+    "660cb035cde68de8b9fefa97385d2ca99fa6d53ee4030ed8542ea9ea64f10ed4",
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
@@ -85,8 +85,6 @@ export const shasums = {
     "be554ee77cd43d04792f5572d5f6f446744cc0d32dbfd664b3f51be3e7f6f71b",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-  "modules/sha256.js":
-    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/vendor/diffMin.d.ts":
@@ -99,6 +97,8 @@ export const shasums = {
     "5bda726a6e9fbaf79497fc3966c6c8ff86ea1b1b1baedb3c021862fccfb2b4a3",
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
+  "modules/sha256.js":
+    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "modules/diff.js":
@@ -124,6 +124,6 @@ export const shasums = {
   "modules/renderer.js":
     "aa489cf5833debc68e4d092cf09b795b884b43ba43cde9c17c0815daccc17653",
   ".tsBuildInfo":
-    "ede8419953abfedd503b876517f2689d34332014090428b727c0189561ede6bc",
+    "4e3e80b6613e1a2e4378f954f1ca5bbdf6662958b69e206d51b6266493d2d47f",
   "food": "bar",
 };
