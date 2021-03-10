@@ -4277,7 +4277,7 @@ __metadata:
     gatsby-link: 3.0.1
     gatsby-plugin-emotion: ^6.0.0
     gatsby-plugin-manifest: 3.0.0
-    gatsby-plugin-mdx: 2.0.0
+    gatsby-plugin-mdx: 2.0.1
     gatsby-plugin-react-helmet: 4.0.0
     gatsby-react-router-scroll: 4.0.1
     gatsby-source-filesystem: 3.0.0
@@ -9340,9 +9340,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-mdx@npm:2.0.0":
-  version: 2.0.0
-  resolution: "gatsby-plugin-mdx@npm:2.0.0"
+"gatsby-plugin-mdx@npm:2.0.1":
+  version: 2.0.1
+  resolution: "gatsby-plugin-mdx@npm:2.0.1"
   dependencies:
     "@babel/core": ^7.12.3
     "@babel/generator": ^7.12.5
@@ -9385,7 +9385,7 @@ fsevents@~2.3.1:
     "@mdx-js/react": ^1.0.0
     react: ^16.9.0 || ^17.0.0
     react-dom: ^16.9.0 || ^17.0.0
-  checksum: e8d14c948861a0f07f5235705f7dbe65277108067e5ca17857640c99110bcde1c22baddea290c33d46c49e9118ecd8f7161a5342238aa036df177559e6143b6c
+  checksum: 8edea49ebee64ec03884586813a4e153c281de20a1a137207499e98ed402c2ef23a16f0a333f0cb1b0476b66a12429416ccb175423ea6acd184376201c4b3807
   languageName: node
   linkType: hard
 
