@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[790],{
 
-/***/ 8560:
+/***/ 1491:
 /***/ (function(module) {
 
 function isNumeric(n) {
@@ -65,7 +65,7 @@ module.exports = function (lightness, hue, darkBackground) {
 
 /***/ }),
 
-/***/ 4329:
+/***/ 8369:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -92,7 +92,7 @@ var MIN_MOBILE_MEDIA_QUERY = exports.MIN_MOBILE_MEDIA_QUERY = "@media (min-width
 
 /***/ }),
 
-/***/ 3176:
+/***/ 2088:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var t = Object.getOwnPropertySymbols,
@@ -1726,7 +1726,7 @@ module.exports = function (t) {
 
 /***/ }),
 
-/***/ 6380:
+/***/ 2737:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -1751,11 +1751,11 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
-var _grayPercentage = __webpack_require__(8560);
+var _grayPercentage = __webpack_require__(1491);
 
 var _grayPercentage2 = _interopRequireDefault(_grayPercentage);
 
-var _typographyBreakpointConstants = __webpack_require__(4329);
+var _typographyBreakpointConstants = __webpack_require__(8369);
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -2671,7 +2671,7 @@ try {
 
 /***/ }),
 
-/***/ 7486:
+/***/ 8982:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2684,9 +2684,9 @@ __webpack_require__.d(__webpack_exports__, {
 // EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
 var taggedTemplateLiteralLoose = __webpack_require__(9411);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/@emotion-react-virtual-06ba5ec380/0/cache/@emotion-react-npm-11.1.5-bb508e1993-4e78f694df.zip/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(9280);
+var emotion_react_browser_esm = __webpack_require__(8751);
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(9605);
+var typography = __webpack_require__(2253);
 ;// CONCATENATED MODULE: ./src/components/zed-profile-pic.jpg
 /* harmony default export */ var zed_profile_pic = (__webpack_require__.p + "static/zed-profile-pic-597d90073077506ad53d8adc79f6a84c.jpg");
 ;// CONCATENATED MODULE: ./src/components/bio.tsx
@@ -2718,7 +2718,7 @@ var Bio = function Bio() {
 
 /***/ }),
 
-/***/ 9605:
+/***/ 2253:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2726,9 +2726,9 @@ var Bio = function Bio() {
 /* harmony export */   "qZ": function() { return /* binding */ rhythm; },
 /* harmony export */   "bA": function() { return /* binding */ scale; }
 /* harmony export */ });
-/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3176);
+/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2088);
 /* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typography__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6380);
+/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2737);
 
 
 var typography = new (typography__WEBPACK_IMPORTED_MODULE_0___default())(typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z); // // Hot reload typography in development.
@@ -2743,4 +2743,4 @@ var scale = typography.scale;
 /***/ })
 
 }]);
-//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-1b3becdc10b5f792bdb9.js.map
+//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-127e8233db7cc9c2eea5.js.map

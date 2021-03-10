@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[691],{
 
-/***/ 2219:
+/***/ 7819:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20,17 +20,17 @@ var asyncToGenerator = __webpack_require__(7577);
 var regenerator = __webpack_require__(3718);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/@emotion-react-virtual-06ba5ec380/0/cache/@emotion-react-npm-11.1.5-bb508e1993-4e78f694df.zip/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(9280);
+var emotion_react_browser_esm = __webpack_require__(8751);
 // EXTERNAL MODULE: ../../.yarn/cache/react-npm-17.0.1-98658812fc-a76d86ec97.zip/node_modules/react/index.js
 var react = __webpack_require__(7693);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(2444);
+var gatsby_browser_entry = __webpack_require__(8665);
 // EXTERNAL MODULE: ./src/components/bio.tsx + 1 modules
-var bio = __webpack_require__(7486);
+var bio = __webpack_require__(8982);
 // EXTERNAL MODULE: ./src/components/layout.tsx
-var layout = __webpack_require__(3954);
+var layout = __webpack_require__(5925);
 // EXTERNAL MODULE: ./src/components/seo.tsx + 1 modules
-var seo = __webpack_require__(957);
+var seo = __webpack_require__(6792);
 ;// CONCATENATED MODULE: ./src/components/code/getUser.ts
 
 
@@ -175,7 +175,7 @@ function _getUserId() {
   return _getUserId.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(9605);
+var typography = __webpack_require__(2253);
 ;// CONCATENATED MODULE: ./src/components/utils/sha256/sha256.ts
 
 
@@ -785,4 +785,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-2c788d6ed7059da05327.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-ee015b7910a79fca35d6.js.map

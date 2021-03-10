@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[970],{
 
-/***/ 8025:
+/***/ 8548:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,9 +9,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "query": function() { return /* binding */ query; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7693);
-/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3954);
-/* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(957);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2444);
+/* harmony import */ var _components_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5925);
+/* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6792);
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8665);
 
 
 
@@ -32,4 +32,4 @@ var query = null;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-using-typescript-tsx-e7ded91c25d337e1f577.js.map
+//# sourceMappingURL=component---src-pages-using-typescript-tsx-ff5718e61163bbfbc076.js.map

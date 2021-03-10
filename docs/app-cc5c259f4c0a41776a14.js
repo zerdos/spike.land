@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[143],{
 
-/***/ 3424:
+/***/ 8990:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -218,7 +218,7 @@ function createElement(type, props) {
 
 /***/ }),
 
-/***/ 9432:
+/***/ 5607:
 /***/ (function(module) {
 
 "use strict";
@@ -582,7 +582,7 @@ module.exports = invariant;
 
 /***/ }),
 
-/***/ 1184:
+/***/ 9208:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -598,7 +598,7 @@ exports.V5=globalHistory;__webpack_unused_export__=navigate;__webpack_unused_exp
 
 /***/ }),
 
-/***/ 6027:
+/***/ 329:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -684,12 +684,12 @@ exports.startsWith=startsWith;exports.pick=pick;exports.match=match;exports.reso
 
 /***/ }),
 
-/***/ 2704:
+/***/ 4274:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 var __webpack_unused_export__;
-var _interopRequireDefault=__webpack_require__(891);__webpack_unused_export__=true;exports.dq=withPrefix;exports.mc=withAssetPrefix;exports.c4=exports.ZP=void 0;var _objectWithoutPropertiesLoose2=_interopRequireDefault(__webpack_require__(1774));var _assertThisInitialized2=_interopRequireDefault(__webpack_require__(6654));var _inheritsLoose2=_interopRequireDefault(__webpack_require__(1434));var _extends2=_interopRequireDefault(__webpack_require__(1410));var _propTypes=_interopRequireDefault(__webpack_require__(6271));var _react=_interopRequireDefault(__webpack_require__(7693));var _reachRouter=__webpack_require__(278);var _utils=__webpack_require__(6027);var _parsePath=__webpack_require__(7153);exports.cP=_parsePath.parsePath;var isAbsolutePath=function isAbsolutePath(path){return path===null||path===void 0?void 0:path.startsWith("/");};function withPrefix(path,prefix){var _ref,_prefix;if(prefix===void 0){prefix=getGlobalBasePrefix();}if(!isLocalLink(path)){return path;}if(path.startsWith("./")||path.startsWith("../")){return path;}var base=(_ref=(_prefix=prefix)!==null&&_prefix!==void 0?_prefix:getGlobalPathPrefix())!==null&&_ref!==void 0?_ref:"/";return""+((base===null||base===void 0?void 0:base.endsWith("/"))?base.slice(0,-1):base)+(path.startsWith("/")?path:"/"+path);}// These global values are wrapped in typeof clauses to ensure the values exist.
+var _interopRequireDefault=__webpack_require__(891);__webpack_unused_export__=true;exports.dq=withPrefix;exports.mc=withAssetPrefix;exports.c4=exports.ZP=void 0;var _objectWithoutPropertiesLoose2=_interopRequireDefault(__webpack_require__(1774));var _assertThisInitialized2=_interopRequireDefault(__webpack_require__(6654));var _inheritsLoose2=_interopRequireDefault(__webpack_require__(1434));var _extends2=_interopRequireDefault(__webpack_require__(1410));var _propTypes=_interopRequireDefault(__webpack_require__(6271));var _react=_interopRequireDefault(__webpack_require__(7693));var _reachRouter=__webpack_require__(2110);var _utils=__webpack_require__(329);var _parsePath=__webpack_require__(6624);exports.cP=_parsePath.parsePath;var isAbsolutePath=function isAbsolutePath(path){return path===null||path===void 0?void 0:path.startsWith("/");};function withPrefix(path,prefix){var _ref,_prefix;if(prefix===void 0){prefix=getGlobalBasePrefix();}if(!isLocalLink(path)){return path;}if(path.startsWith("./")||path.startsWith("../")){return path;}var base=(_ref=(_prefix=prefix)!==null&&_prefix!==void 0?_prefix:getGlobalPathPrefix())!==null&&_ref!==void 0?_ref:"/";return""+((base===null||base===void 0?void 0:base.endsWith("/"))?base.slice(0,-1):base)+(path.startsWith("/")?path:"/"+path);}// These global values are wrapped in typeof clauses to ensure the values exist.
 // This is especially problematic in unit testing of this component.
 var getGlobalPathPrefix=function getGlobalPathPrefix(){return  false?0:"";};var getGlobalBasePrefix=function getGlobalBasePrefix(){return  false?0:"";};var isLocalLink=function isLocalLink(path){return path&&!path.startsWith("http://")&&!path.startsWith("https://")&&!path.startsWith("//");};function withAssetPrefix(path){return withPrefix(path,getGlobalPathPrefix());}function absolutify(path,current){// If it's already absolute, return as-is
 if(isAbsolutePath(path)){return path;}return(0,_utils.resolve)(path,current);}var rewriteLinkPath=function rewriteLinkPath(path,relativeTo){if(typeof path==="number"){return path;}if(!isLocalLink(path)){return path;}return isAbsolutePath(path)?withPrefix(path):absolutify(path,relativeTo);};var NavLinkPropTypes={activeClassName:_propTypes.default.string,activeStyle:_propTypes.default.object,partiallyActive:_propTypes.default.bool};// Set up IntersectionObserver
@@ -713,7 +713,7 @@ window.___navigate(prefixedTo,{state:state,replace:shouldReplace});}return true;
 
 /***/ }),
 
-/***/ 7153:
+/***/ 6624:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -721,16 +721,16 @@ exports.__esModule=true;exports.parsePath=parsePath;function parsePath(path){var
 
 /***/ }),
 
-/***/ 9456:
+/***/ 1990:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-var _interopRequireDefault=__webpack_require__(891);var _gatsby=__webpack_require__(2444);var _getManifestPathname=_interopRequireDefault(__webpack_require__(343));/* global __MANIFEST_PLUGIN_HAS_LOCALISATION__ */ // when we don't have localisation in our manifest, we tree shake everything away
+var _interopRequireDefault=__webpack_require__(891);var _gatsby=__webpack_require__(8665);var _getManifestPathname=_interopRequireDefault(__webpack_require__(9726));/* global __MANIFEST_PLUGIN_HAS_LOCALISATION__ */ // when we don't have localisation in our manifest, we tree shake everything away
 if(undefined){exports.onRouteUpdate=function(_ref,pluginOptions){var location=_ref.location;var localize=pluginOptions.localize;var manifestFilename=(0,_getManifestPathname.default)(location.pathname,localize);var manifestEl=document.head.querySelector("link[rel=\"manifest\"]");if(manifestEl){manifestEl.setAttribute("href",(0,_gatsby.withPrefix)(manifestFilename));}};}
 
 /***/ }),
 
-/***/ 343:
+/***/ 9726:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -744,20 +744,20 @@ exports.__esModule=true;exports.default=void 0;/**
 
 /***/ }),
 
-/***/ 9577:
+/***/ 1747:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 var __webpack_unused_export__;
-__webpack_unused_export__=true;exports.p2=exports.$C=void 0;var _scrollHandler=__webpack_require__(2039);exports.$C=_scrollHandler.ScrollHandler;var _useScrollRestoration=__webpack_require__(8173);exports.p2=_useScrollRestoration.useScrollRestoration;
+__webpack_unused_export__=true;exports.p2=exports.$C=void 0;var _scrollHandler=__webpack_require__(8673);exports.$C=_scrollHandler.ScrollHandler;var _useScrollRestoration=__webpack_require__(3562);exports.p2=_useScrollRestoration.useScrollRestoration;
 
 /***/ }),
 
-/***/ 2039:
+/***/ 8673:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-var _interopRequireWildcard=__webpack_require__(6835);var _interopRequireDefault=__webpack_require__(891);exports.__esModule=true;exports.ScrollHandler=exports.ScrollContext=void 0;var _assertThisInitialized2=_interopRequireDefault(__webpack_require__(6654));var _inheritsLoose2=_interopRequireDefault(__webpack_require__(1434));var React=_interopRequireWildcard(__webpack_require__(7693));var _sessionStorage=__webpack_require__(3640);var ScrollContext=/*#__PURE__*/React.createContext(new _sessionStorage.SessionStorage());exports.ScrollContext=ScrollContext;ScrollContext.displayName="GatsbyScrollContext";var ScrollHandler=/*#__PURE__*/function(_React$Component){(0,_inheritsLoose2.default)(ScrollHandler,_React$Component);function ScrollHandler(){var _this;for(var _len=arguments.length,args=new Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}_this=_React$Component.call.apply(_React$Component,[this].concat(args))||this;_this._stateStorage=new _sessionStorage.SessionStorage();_this.scrollListener=function(){var key=_this.props.location.key;if(key){_this._stateStorage.save(_this.props.location,key,window.scrollY);}};_this.windowScroll=function(position,prevProps){if(_this.shouldUpdateScroll(prevProps,_this.props)){window.scrollTo(0,position);}};_this.scrollToHash=function(hash,prevProps){var node=document.getElementById(hash.substring(1));if(node&&_this.shouldUpdateScroll(prevProps,_this.props)){node.scrollIntoView();}};_this.shouldUpdateScroll=function(prevRouterProps,routerProps){var shouldUpdateScroll=_this.props.shouldUpdateScroll;if(!shouldUpdateScroll){return true;}// Hack to allow accessing this._stateStorage.
+var _interopRequireWildcard=__webpack_require__(6835);var _interopRequireDefault=__webpack_require__(891);exports.__esModule=true;exports.ScrollHandler=exports.ScrollContext=void 0;var _assertThisInitialized2=_interopRequireDefault(__webpack_require__(6654));var _inheritsLoose2=_interopRequireDefault(__webpack_require__(1434));var React=_interopRequireWildcard(__webpack_require__(7693));var _sessionStorage=__webpack_require__(5388);var ScrollContext=/*#__PURE__*/React.createContext(new _sessionStorage.SessionStorage());exports.ScrollContext=ScrollContext;ScrollContext.displayName="GatsbyScrollContext";var ScrollHandler=/*#__PURE__*/function(_React$Component){(0,_inheritsLoose2.default)(ScrollHandler,_React$Component);function ScrollHandler(){var _this;for(var _len=arguments.length,args=new Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}_this=_React$Component.call.apply(_React$Component,[this].concat(args))||this;_this._stateStorage=new _sessionStorage.SessionStorage();_this.scrollListener=function(){var key=_this.props.location.key;if(key){_this._stateStorage.save(_this.props.location,key,window.scrollY);}};_this.windowScroll=function(position,prevProps){if(_this.shouldUpdateScroll(prevProps,_this.props)){window.scrollTo(0,position);}};_this.scrollToHash=function(hash,prevProps){var node=document.getElementById(hash.substring(1));if(node&&_this.shouldUpdateScroll(prevProps,_this.props)){node.scrollIntoView();}};_this.shouldUpdateScroll=function(prevRouterProps,routerProps){var shouldUpdateScroll=_this.props.shouldUpdateScroll;if(!shouldUpdateScroll){return true;}// Hack to allow accessing this._stateStorage.
 return shouldUpdateScroll.call((0,_assertThisInitialized2.default)(_this),prevRouterProps,routerProps);};return _this;}var _proto=ScrollHandler.prototype;_proto.componentDidMount=function componentDidMount(){window.addEventListener("scroll",this.scrollListener);var scrollPosition;var _this$props$location=this.props.location,key=_this$props$location.key,hash=_this$props$location.hash;if(key){scrollPosition=this._stateStorage.read(this.props.location,key);}if(scrollPosition){this.windowScroll(scrollPosition,undefined);}else if(hash){this.scrollToHash(decodeURI(hash),undefined);}};_proto.componentWillUnmount=function componentWillUnmount(){window.removeEventListener("scroll",this.scrollListener);};_proto.componentDidUpdate=function componentDidUpdate(prevProps){var _this$props$location2=this.props.location,hash=_this$props$location2.hash,key=_this$props$location2.key;var scrollPosition;if(key){scrollPosition=this._stateStorage.read(this.props.location,key);}/**  There are two pieces of state: the browser url and
      * history state which keeps track of scroll position
      * Native behaviour prescribes that we ought to restore scroll position
@@ -769,7 +769,7 @@ return shouldUpdateScroll.call((0,_assertThisInitialized2.default)(_this),prevRo
 
 /***/ }),
 
-/***/ 3640:
+/***/ 5388:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -777,15 +777,15 @@ exports.__esModule=true;exports.SessionStorage=void 0;var STATE_KEY_PREFIX="@@sc
 
 /***/ }),
 
-/***/ 8173:
+/***/ 3562:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-exports.__esModule=true;exports.useScrollRestoration=useScrollRestoration;var _scrollHandler=__webpack_require__(2039);var _react=__webpack_require__(7693);var _reachRouter=__webpack_require__(278);function useScrollRestoration(identifier){var location=(0,_reachRouter.useLocation)();var state=(0,_react.useContext)(_scrollHandler.ScrollContext);var ref=(0,_react.useRef)();(0,_react.useLayoutEffect)(function(){if(ref.current){var position=state.read(location,identifier);ref.current.scrollTo(0,position||0);}},[]);return{ref:ref,onScroll:function onScroll(){if(ref.current){state.save(location,identifier,ref.current.scrollTop);}}};}
+exports.__esModule=true;exports.useScrollRestoration=useScrollRestoration;var _scrollHandler=__webpack_require__(8673);var _react=__webpack_require__(7693);var _reachRouter=__webpack_require__(2110);function useScrollRestoration(identifier){var location=(0,_reachRouter.useLocation)();var state=(0,_react.useContext)(_scrollHandler.ScrollContext);var ref=(0,_react.useRef)();(0,_react.useLayoutEffect)(function(){if(ref.current){var position=state.read(location,identifier);ref.current.scrollTo(0,position||0);}},[]);return{ref:ref,onScroll:function onScroll(){if(ref.current){state.save(location,identifier,ref.current.scrollTop);}}};}
 
 /***/ }),
 
-/***/ 7809:
+/***/ 7479:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -823,7 +823,7 @@ var Counter = function Counter(_ref) {
 
 /***/ }),
 
-/***/ 570:
+/***/ 3703:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -833,7 +833,7 @@ var react__WEBPACK_IMPORTED_MODULE_0___namespace_cache;
 
 /***/ }),
 
-/***/ 889:
+/***/ 1779:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -847,7 +847,7 @@ var GatsbyMDXScopeContext=/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cre
 
 /***/ }),
 
-/***/ 6745:
+/***/ 2237:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -864,13 +864,13 @@ var defineProperty = __webpack_require__(1424);
 // EXTERNAL MODULE: ../../.yarn/cache/react-npm-17.0.1-98658812fc-a76d86ec97.zip/node_modules/react/index.js
 var react = __webpack_require__(7693);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/@mdx-js-react-virtual-97892cdf0d/0/cache/@mdx-js-react-npm-1.6.22-57e4c05c2b-3a0a189aa0.zip/node_modules/@mdx-js/react/dist/esm.js
-var esm = __webpack_require__(3424);
+var esm = __webpack_require__(8990);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/context.js
-var context = __webpack_require__(889);
+var context = __webpack_require__(1779);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
-var mdx_components = __webpack_require__(8891);
+var mdx_components = __webpack_require__(7782);
 ;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
-var scope_0=__webpack_require__(7809)/* .default */ .Z;var scope_1=__webpack_require__(570)/* .default */ .Z;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
+var scope_0=__webpack_require__(7479)/* .default */ .Z;var scope_1=__webpack_require__(3703)/* .default */ .Z;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
 ;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/wrap-root-element.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,defineProperty/* default */.Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * so, this import is weird right?
@@ -899,14 +899,14 @@ var wrapRootElement=wrap_root_element;
 
 /***/ }),
 
-/***/ 8891:
+/***/ 7782:
 /***/ (function(module) {
 
 module.exports={plugins:[]};
 
 /***/ }),
 
-/***/ 278:
+/***/ 2110:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -942,7 +942,7 @@ var react = __webpack_require__(7693);
 var browser = __webpack_require__(4573);
 var browser_default = /*#__PURE__*/__webpack_require__.n(browser);
 // EXTERNAL MODULE: ./.cache/react-lifecycles-compat.js
-var react_lifecycles_compat = __webpack_require__(3220);
+var react_lifecycles_compat = __webpack_require__(5833);
 ;// CONCATENATED MODULE: ../../.yarn/$$virtual/@gatsbyjs-reach-router-virtual-56d47aea2a/0/cache/@gatsbyjs-reach-router-npm-1.3.6-85044649ca-be2d5b3eba.zip/node_modules/@gatsbyjs/reach-router/es/lib/utils.js
 ////////////////////////////////////////////////////////////////////////////////
 // startsWith(string, search) - Check if `string` starts with `search`
@@ -1076,31 +1076,31 @@ var stripSlashes=function stripSlashes(str){return str.replace(/(^\/+|\/+$)/g,""
 
 /***/ }),
 
-/***/ 5942:
+/***/ 9724:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 // prefer default export if available
-var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---src-pages-404-tsx":function componentSrcPages404Tsx(){return Promise.all(/* import() | component---src-pages-404-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(218)]).then(__webpack_require__.bind(__webpack_require__, 3860));},"component---src-pages-example-tsx":function componentSrcPagesExampleTsx(){return Promise.all(/* import() | component---src-pages-example-tsx */[__webpack_require__.e(351), __webpack_require__.e(168)]).then(__webpack_require__.bind(__webpack_require__, 4415));},"component---src-pages-index-tsx":function componentSrcPagesIndexTsx(){return Promise.all(/* import() | component---src-pages-index-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(790), __webpack_require__.e(691)]).then(__webpack_require__.bind(__webpack_require__, 2219));},"component---src-pages-offline-plugin-app-shell-fallback-tsx":function componentSrcPagesOfflinePluginAppShellFallbackTsx(){return Promise.all(/* import() | component---src-pages-offline-plugin-app-shell-fallback-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(242)]).then(__webpack_require__.bind(__webpack_require__, 4460));},"component---src-pages-using-typescript-tsx":function componentSrcPagesUsingTypescriptTsx(){return Promise.all(/* import() | component---src-pages-using-typescript-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(970)]).then(__webpack_require__.bind(__webpack_require__, 8025));},"component---src-templates-blog-post-tsx":function componentSrcTemplatesBlogPostTsx(){return Promise.all(/* import() | component---src-templates-blog-post-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(790), __webpack_require__.e(7)]).then(__webpack_require__.bind(__webpack_require__, 7048));}};
+var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.components={"component---src-pages-404-tsx":function componentSrcPages404Tsx(){return Promise.all(/* import() | component---src-pages-404-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(218)]).then(__webpack_require__.bind(__webpack_require__, 2658));},"component---src-pages-example-tsx":function componentSrcPagesExampleTsx(){return Promise.all(/* import() | component---src-pages-example-tsx */[__webpack_require__.e(351), __webpack_require__.e(168)]).then(__webpack_require__.bind(__webpack_require__, 3186));},"component---src-pages-index-tsx":function componentSrcPagesIndexTsx(){return Promise.all(/* import() | component---src-pages-index-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(790), __webpack_require__.e(691)]).then(__webpack_require__.bind(__webpack_require__, 7819));},"component---src-pages-offline-plugin-app-shell-fallback-tsx":function componentSrcPagesOfflinePluginAppShellFallbackTsx(){return Promise.all(/* import() | component---src-pages-offline-plugin-app-shell-fallback-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(242)]).then(__webpack_require__.bind(__webpack_require__, 2035));},"component---src-pages-using-typescript-tsx":function componentSrcPagesUsingTypescriptTsx(){return Promise.all(/* import() | component---src-pages-using-typescript-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(970)]).then(__webpack_require__.bind(__webpack_require__, 8548));},"component---src-templates-blog-post-tsx":function componentSrcTemplatesBlogPostTsx(){return Promise.all(/* import() | component---src-templates-blog-post-tsx */[__webpack_require__.e(351), __webpack_require__.e(944), __webpack_require__.e(790), __webpack_require__.e(7)]).then(__webpack_require__.bind(__webpack_require__, 2922));}};
 
 /***/ }),
 
-/***/ 363:
+/***/ 4107:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-module.exports=[{plugin:__webpack_require__(6745),options:{"plugins":[]}},{plugin:__webpack_require__(9456),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"/","background_color":"#f7f0eb","theme_color":"#a2466c","display":"minimal-ui","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"d71147f38c8eba4b5184eeb97a7a58d4"}},{plugin:__webpack_require__(302),options:{"plugins":[]}}];
+module.exports=[{plugin:__webpack_require__(2237),options:{"plugins":[]}},{plugin:__webpack_require__(1990),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"/","background_color":"#f7f0eb","theme_color":"#a2466c","display":"minimal-ui","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"d71147f38c8eba4b5184eeb97a7a58d4"}},{plugin:__webpack_require__(8764),options:{"plugins":[]}}];
 
 /***/ }),
 
-/***/ 9584:
+/***/ 9417:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-var plugins=__webpack_require__(363);var _require$publicLoader=__webpack_require__(4906)/* .publicLoader */ .jN,getResourceURLsForPathname=_require$publicLoader.getResourceURLsForPathname,loadPage=_require$publicLoader.loadPage,loadPageSync=_require$publicLoader.loadPageSync;exports.h=function(api,args,defaultReturn,argTransform){if(args===void 0){args={};}// Hooks for gatsby-cypress's API handler
+var plugins=__webpack_require__(4107);var _require$publicLoader=__webpack_require__(8116)/* .publicLoader */ .jN,getResourceURLsForPathname=_require$publicLoader.getResourceURLsForPathname,loadPage=_require$publicLoader.loadPage,loadPageSync=_require$publicLoader.loadPageSync;exports.h=function(api,args,defaultReturn,argTransform){if(args===void 0){args={};}// Hooks for gatsby-cypress's API handler
 if(undefined){if(window.___apiHandler){window.___apiHandler(api);}else if(window.___resolvedAPIs){window.___resolvedAPIs.push(api);}else{window.___resolvedAPIs=[api];}}var results=plugins.map(function(plugin){if(!plugin.plugin[api]){return undefined;}args.getResourceURLsForPathname=getResourceURLsForPathname;args.loadPage=loadPage;args.loadPageSync=loadPageSync;var result=plugin.plugin[api](args,plugin.options);if(result&&argTransform){args=argTransform({args:args,result:result,plugin:plugin});}return result;});// Filter out undefined results.
 results=results.filter(function(result){return typeof result!=="undefined";});if(results.length>0){return results;}else if(defaultReturn){return[defaultReturn];}else{return[];}};exports.I=function(api,args,defaultReturn){return plugins.reduce(function(previous,next){return next.plugin[api]?previous.then(function(){return next.plugin[api](args,next.options);}):previous;},Promise.resolve());};
 
 /***/ }),
 
-/***/ 1898:
+/***/ 6374:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1119,7 +1119,7 @@ var emitter=mitt_es();/* harmony default export */ var _cache_emitter = (emitter
 
 /***/ }),
 
-/***/ 5970:
+/***/ 857:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1135,9 +1135,9 @@ __webpack_require__.d(__webpack_exports__, {
 // UNUSED EXPORTS: cleanPath
 
 // EXTERNAL MODULE: ../../.yarn/$$virtual/@gatsbyjs-reach-router-virtual-56d47aea2a/0/cache/@gatsbyjs-reach-router-npm-1.3.6-85044649ca-be2d5b3eba.zip/node_modules/@gatsbyjs/reach-router/lib/utils.js
-var utils = __webpack_require__(6027);
+var utils = __webpack_require__(329);
 // EXTERNAL MODULE: ./.cache/strip-prefix.js
-var strip_prefix = __webpack_require__(4586);
+var strip_prefix = __webpack_require__(5271);
 ;// CONCATENATED MODULE: ./.cache/normalize-page-path.js
 /* harmony default export */ var normalize_page_path = (function(path){if(path===undefined){return path;}if(path==="/"){return"/";}if(path.charAt(path.length-1)==="/"){return path.slice(0,-1);}return path;});
 ;// CONCATENATED MODULE: ./.cache/find-path.js
@@ -1184,7 +1184,7 @@ var findPath=function findPath(rawPathname){var trimmedPathname=trimPathname(abs
 
 /***/ }),
 
-/***/ 2444:
+/***/ 8665:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1204,11 +1204,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "withPrefix": function() { return /* reexport safe */ gatsby_link__WEBPACK_IMPORTED_MODULE_1__.dq; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7693);
-/* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2704);
-/* harmony import */ var gatsby_react_router_scroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9577);
-/* harmony import */ var _public_page_renderer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6032);
+/* harmony import */ var gatsby_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4274);
+/* harmony import */ var gatsby_react_router_scroll__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1747);
+/* harmony import */ var _public_page_renderer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1986);
 /* harmony import */ var _public_page_renderer__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_public_page_renderer__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4906);
+/* harmony import */ var _loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8116);
 var prefetchPathname=_loader__WEBPACK_IMPORTED_MODULE_4__/* .default.enqueue */ .ZP.enqueue;var StaticQueryContext=/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext({});function StaticQueryDataRenderer(_ref){var staticQueryData=_ref.staticQueryData,data=_ref.data,query=_ref.query,render=_ref.render;var finalData=data?data.data:staticQueryData[query]&&staticQueryData[query].data;return/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment,null,finalData&&render(finalData),!finalData&&/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div",null,"Loading (StaticQuery)"));}var StaticQuery=function StaticQuery(props){var data=props.data,query=props.query,render=props.render,children=props.children;return/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(StaticQueryContext.Consumer,null,function(staticQueryData){return/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(StaticQueryDataRenderer,{data:data,query:query,render:render||children,staticQueryData:staticQueryData});});};var useStaticQuery=function useStaticQuery(query){var _context$query;if(typeof react__WEBPACK_IMPORTED_MODULE_0__.useContext!=="function"&&"production"==="development"){throw new Error("You're likely using a version of React that doesn't support Hooks\n"+"Please update React and ReactDOM to 16.8.0 or later to use the useStaticQuery hook.");}var context=react__WEBPACK_IMPORTED_MODULE_0__.useContext(StaticQueryContext);// query is a stringified number like `3303882` when wrapped with graphql, If a user forgets
 // to wrap the query in a grqphql, then casting it to a Number results in `NaN` allowing us to
 // catch the misuse of the API and give proper direction
@@ -1216,7 +1216,7 @@ if(isNaN(Number(query))){throw new Error("useStaticQuery was called with a strin
 
 /***/ }),
 
-/***/ 4906:
+/***/ 8116:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1282,9 +1282,9 @@ var defineProperty = __webpack_require__(1424);
 var support=function support(feature){if(typeof document==="undefined"){return false;}var fakeLink=document.createElement("link");try{if(fakeLink.relList&&typeof fakeLink.relList.supports==="function"){return fakeLink.relList.supports(feature);}}catch(err){return false;}return false;};var linkPrefetchStrategy=function linkPrefetchStrategy(url,options){return new Promise(function(resolve,reject){if(typeof document==="undefined"){reject();return;}var link=document.createElement("link");link.setAttribute("rel","prefetch");link.setAttribute("href",url);Object.keys(options).forEach(function(key){link.setAttribute(key,options[key]);});link.onload=resolve;link.onerror=reject;var parentElement=document.getElementsByTagName("head")[0]||document.getElementsByName("script")[0].parentNode;parentElement.appendChild(link);});};var xhrPrefetchStrategy=function xhrPrefetchStrategy(url){return new Promise(function(resolve,reject){var req=new XMLHttpRequest();req.open("GET",url,true);req.onload=function(){if(req.status===200){resolve();}else{reject();}};req.send(null);});};var supportedPrefetchStrategy=support("prefetch")?linkPrefetchStrategy:xhrPrefetchStrategy;var preFetched={};var prefetch=function prefetch(url,options){return new Promise(function(resolve){if(preFetched[url]){resolve();return;}supportedPrefetchStrategy(url,options).then(function(){resolve();preFetched[url]=true;}).catch(function(){})// 404s are logged to the console anyway
 ;});};/* harmony default export */ var _cache_prefetch = (prefetch);
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
-var emitter = __webpack_require__(1898);
+var emitter = __webpack_require__(6374);
 // EXTERNAL MODULE: ./.cache/find-path.js + 1 modules
-var find_path = __webpack_require__(5970);
+var find_path = __webpack_require__(857);
 ;// CONCATENATED MODULE: ./.cache/loader.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,defineProperty/* default */.Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * Available resource loading statuses
@@ -1346,21 +1346,21 @@ getResourceURLsForPathname:function getResourceURLsForPathname(rawPath){return i
 
 /***/ }),
 
-/***/ 2988:
+/***/ 265:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1424);
 /* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(997);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7693);
-/* harmony import */ var _api_runner_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9584);
-/* harmony import */ var _find_path__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5970);
+/* harmony import */ var _api_runner_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9417);
+/* harmony import */ var _find_path__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(857);
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}// Renders page
 var PageRenderer=/*#__PURE__*/function(_React$Component){(0,_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_4__/* .default */ .Z)(PageRenderer,_React$Component);function PageRenderer(){return _React$Component.apply(this,arguments)||this;}var _proto=PageRenderer.prototype;_proto.render=function render(){var props=_objectSpread(_objectSpread({},this.props),{},{params:_objectSpread(_objectSpread({},(0,_find_path__WEBPACK_IMPORTED_MODULE_3__/* .grabMatchParams */ .GA)(this.props.location.pathname)),this.props.pageResources.json.pageContext.__params)});var pageElement=/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.createElement)(this.props.pageResources.component,_objectSpread(_objectSpread({},props),{},{key:this.props.path||this.props.pageResources.page.path}));var wrappedPage=(0,_api_runner_browser__WEBPACK_IMPORTED_MODULE_2__/* .apiRunner */ .h)("wrapPageElement",{element:pageElement,props:props},pageElement,function(_ref){var result=_ref.result;return{element:result,props:props};}).pop();return wrappedPage;};return PageRenderer;}(react__WEBPACK_IMPORTED_MODULE_1__.Component);/* harmony default export */ __webpack_exports__["Z"] = (PageRenderer);
 
 /***/ }),
 
-/***/ 1942:
+/***/ 4469:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1368,34 +1368,34 @@ var PageRenderer=/*#__PURE__*/function(_React$Component){(0,_babel_runtime_helpe
 // EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
 var inheritsLoose = __webpack_require__(997);
 // EXTERNAL MODULE: ./.cache/api-runner-browser.js
-var api_runner_browser = __webpack_require__(9584);
+var api_runner_browser = __webpack_require__(9417);
 // EXTERNAL MODULE: ../../.yarn/cache/react-npm-17.0.1-98658812fc-a76d86ec97.zip/node_modules/react/index.js
 var react = __webpack_require__(7693);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/react-dom-virtual-1728eba722/0/cache/react-dom-npm-17.0.1-588d0088ca-6a70028fbe.zip/node_modules/react-dom/index.js
 var react_dom = __webpack_require__(6364);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/@gatsbyjs-reach-router-virtual-56d47aea2a/0/cache/@gatsbyjs-reach-router-npm-1.3.6-85044649ca-be2d5b3eba.zip/node_modules/@gatsbyjs/reach-router/es/index.js + 2 modules
-var es = __webpack_require__(278);
+var es = __webpack_require__(2110);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-react-router-scroll-virtual-b7a30e53d7/0/cache/gatsby-react-router-scroll-npm-4.0.1-3f1f89ef06-27c06ceaef.zip/node_modules/gatsby-react-router-scroll/index.js
-var gatsby_react_router_scroll = __webpack_require__(9577);
+var gatsby_react_router_scroll = __webpack_require__(1747);
 // EXTERNAL MODULE: ../../.yarn/cache/@mikaelkristiansson-domready-npm-1.0.11-56778f292c-acabb0b8c4.zip/node_modules/@mikaelkristiansson/domready/ready.js
 var ready = __webpack_require__(1222);
 var ready_default = /*#__PURE__*/__webpack_require__.n(ready);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(2444);
+var gatsby_browser_entry = __webpack_require__(8665);
 // EXTERNAL MODULE: ./.cache/loader.js + 7 modules
-var loader = __webpack_require__(4906);
+var loader = __webpack_require__(8116);
 ;// CONCATENATED MODULE: ./.cache/redirects.json
 var redirects_namespaceObject = [];
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
-var emitter = __webpack_require__(1898);
+var emitter = __webpack_require__(6374);
 ;// CONCATENATED MODULE: ./.cache/route-announcer-props.js
 // This is extracted to separate module because it's shared
 // between browser and SSR code
 var RouteAnnouncerProps={id:"gatsby-announcer",style:{position:"absolute",top:0,width:1,height:1,padding:0,overflow:"hidden",clip:"rect(0, 0, 0, 0)",whiteSpace:"nowrap",border:0},"aria-live":"assertive","aria-atomic":"true"};
 // EXTERNAL MODULE: ../../.yarn/$$virtual/@gatsbyjs-reach-router-virtual-56d47aea2a/0/cache/@gatsbyjs-reach-router-npm-1.3.6-85044649ca-be2d5b3eba.zip/node_modules/@gatsbyjs/reach-router/lib/history.js
-var lib_history = __webpack_require__(1184);
+var lib_history = __webpack_require__(9208);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-link-virtual-3d873ba4a9/0/cache/gatsby-link-npm-3.0.1-7f75afecff-539d83f42a.zip/node_modules/gatsby-link/index.js
-var gatsby_link = __webpack_require__(2704);
+var gatsby_link = __webpack_require__(4274);
 ;// CONCATENATED MODULE: ./.cache/navigation.js
 // Convert to a map for faster lookup in maybeRedirect()
 var redirectMap=new Map();var redirectIgnoreCaseMap=new Map();redirects_namespaceObject.forEach(function(redirect){if(redirect.ignoreCase){redirectIgnoreCaseMap.set(redirect.fromPath,redirect);}else{redirectMap.set(redirect.fromPath,redirect);}});function maybeRedirect(pathname){var redirect=redirectMap.get(pathname);if(!redirect){redirect=redirectIgnoreCaseMap.get(pathname.toLowerCase());}if(redirect!=null){if(false){}window.___replace(redirect.toPath);return true;}else{return false;}}var onPreRouteUpdate=function onPreRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onPreRouteUpdate",{location:location,prevLocation:prevLocation});}};var onRouteUpdate=function onRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onRouteUpdate",{location:location,prevLocation:prevLocation});if(false){}}};var navigation_navigate=function navigate(to,options){if(options===void 0){options={};}// Support forward/backward navigation with numbers
@@ -1427,9 +1427,9 @@ lib_history/* globalHistory.listen */.V5.listen(function(args){args.location.act
 maybeRedirect(window.location.pathname);}var RouteAnnouncer=/*#__PURE__*/function(_React$Component){(0,inheritsLoose/* default */.Z)(RouteAnnouncer,_React$Component);function RouteAnnouncer(props){var _this2;_this2=_React$Component.call(this,props)||this;_this2.announcementRef=/*#__PURE__*/react.createRef();return _this2;}var _proto=RouteAnnouncer.prototype;_proto.componentDidUpdate=function componentDidUpdate(prevProps,nextProps){var _this3=this;requestAnimationFrame(function(){var pageName="new page at "+_this3.props.location.pathname;if(document.title){pageName=document.title;}var pageHeadings=document.querySelectorAll("#gatsby-focus-wrapper h1");if(pageHeadings&&pageHeadings.length){pageName=pageHeadings[0].textContent;}var newAnnouncement="Navigated to "+pageName;if(_this3.announcementRef.current){var oldAnnouncement=_this3.announcementRef.current.innerText;if(oldAnnouncement!==newAnnouncement){_this3.announcementRef.current.innerText=newAnnouncement;}}});};_proto.render=function render(){return/*#__PURE__*/react.createElement("div",Object.assign({},RouteAnnouncerProps,{ref:this.announcementRef}));};return RouteAnnouncer;}(react.Component);var compareLocationProps=function compareLocationProps(prevLocation,nextLocation){var _prevLocation$state,_nextLocation$state;if(prevLocation.href!==nextLocation.href){return true;}if((prevLocation===null||prevLocation===void 0?void 0:(_prevLocation$state=prevLocation.state)===null||_prevLocation$state===void 0?void 0:_prevLocation$state.key)!==(nextLocation===null||nextLocation===void 0?void 0:(_nextLocation$state=nextLocation.state)===null||_nextLocation$state===void 0?void 0:_nextLocation$state.key)){return true;}return false;};// Fire on(Pre)RouteUpdate APIs
 var RouteUpdates=/*#__PURE__*/function(_React$Component2){(0,inheritsLoose/* default */.Z)(RouteUpdates,_React$Component2);function RouteUpdates(props){var _this4;_this4=_React$Component2.call(this,props)||this;onPreRouteUpdate(props.location,null);return _this4;}var _proto2=RouteUpdates.prototype;_proto2.componentDidMount=function componentDidMount(){onRouteUpdate(this.props.location,null);};_proto2.shouldComponentUpdate=function shouldComponentUpdate(prevProps){if(compareLocationProps(prevProps.location,this.props.location)){onPreRouteUpdate(this.props.location,prevProps.location);return true;}return false;};_proto2.componentDidUpdate=function componentDidUpdate(prevProps){if(compareLocationProps(prevProps.location,this.props.location)){onRouteUpdate(this.props.location,prevProps.location);}};_proto2.render=function render(){return/*#__PURE__*/react.createElement(react.Fragment,null,this.props.children,/*#__PURE__*/react.createElement(RouteAnnouncer,{location:location}));};return RouteUpdates;}(react.Component);
 // EXTERNAL MODULE: ./.cache/page-renderer.js
-var page_renderer = __webpack_require__(2988);
+var page_renderer = __webpack_require__(265);
 // EXTERNAL MODULE: ./.cache/_this_is_virtual_fs_path_/$virtual/async-requires.js
-var async_requires = __webpack_require__(5942);
+var async_requires = __webpack_require__(9724);
 // EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(1424);
 ;// CONCATENATED MODULE: ../../.yarn/cache/shallow-compare-npm-1.2.2-b37b3d06d5-40709b5851.zip/node_modules/shallow-compare/es/index.js
@@ -1453,14 +1453,14 @@ if(this.state.pageResources!==nextState.pageResources){return true;}if(this.stat
 // via matchPath configuration.
 if(this.state.location.key!==nextState.location.key&&nextState.pageResources.page&&(nextState.pageResources.page.matchPath||nextState.pageResources.page.path)){return true;}return shallow_compare_es(this,nextProps,nextState);};_proto.render=function render(){if(false){}return this.props.children(this.state);};return EnsureResources;}(react.Component);/* harmony default export */ var ensure_resources = (EnsureResources);
 // EXTERNAL MODULE: ./.cache/strip-prefix.js
-var strip_prefix = __webpack_require__(4586);
+var strip_prefix = __webpack_require__(5271);
 ;// CONCATENATED MODULE: ./.cache/_this_is_virtual_fs_path_/$virtual/match-paths.json
 var match_paths_namespaceObject = [];
 ;// CONCATENATED MODULE: ./.cache/production-app.js
 // Generated during bootstrap
 var production_app_loader=new loader/* ProdLoader */.kL(async_requires,match_paths_namespaceObject);(0,loader/* setLoader */.N1)(production_app_loader);production_app_loader.setApiRunner(api_runner_browser/* apiRunner */.h);window.asyncRequires=async_requires;window.___emitter=emitter/* default */.Z;window.___loader=loader/* publicLoader */.jN;init();(0,api_runner_browser/* apiRunnerAsync */.I)("onClientEntry").then(function(){// Let plugins register a service worker. The plugin just needs
 // to return true.
-if((0,api_runner_browser/* apiRunner */.h)("registerServiceWorker").length>0){__webpack_require__(8596);}// In gatsby v2 if Router is used in page using matchPaths
+if((0,api_runner_browser/* apiRunner */.h)("registerServiceWorker").length>0){__webpack_require__(8042);}// In gatsby v2 if Router is used in page using matchPaths
 // paths need to contain full path.
 // For example:
 //   - page have `/app/*` matchPath
@@ -1479,39 +1479,39 @@ if(pagePath&&""+pagePath!==browserLoc.pathname&&!(production_app_loader.findMatc
 
 /***/ }),
 
-/***/ 9267:
+/***/ 4575:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1424);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7693);
-/* harmony import */ var _loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4906);
-/* harmony import */ var _page_renderer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2988);
+/* harmony import */ var _loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8116);
+/* harmony import */ var _page_renderer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(265);
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,_babel_runtime_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var ProdPageRenderer=function ProdPageRenderer(_ref){var location=_ref.location;var pageResources=_loader__WEBPACK_IMPORTED_MODULE_2__/* .default.loadPageSync */ .ZP.loadPageSync(location.pathname);if(!pageResources){return null;}return/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_page_renderer__WEBPACK_IMPORTED_MODULE_3__/* .default */ .Z,_objectSpread({location:location,pageResources:pageResources},pageResources.json));};/* harmony default export */ __webpack_exports__["default"] = (ProdPageRenderer);
 
 /***/ }),
 
-/***/ 6032:
+/***/ 1986:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var preferDefault=function preferDefault(m){return m&&m.default||m;};if(false){}else if(true){module.exports=preferDefault(__webpack_require__(9267));}else{}
+var preferDefault=function preferDefault(m){return m&&m.default||m;};if(false){}else if(true){module.exports=preferDefault(__webpack_require__(4575));}else{}
 
 /***/ }),
 
-/***/ 3220:
+/***/ 5833:
 /***/ (function(__unused_webpack_module, exports) {
 
 exports.O=function(Component){return Component;};
 
 /***/ }),
 
-/***/ 8596:
+/***/ 8042:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _api_runner_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9584);
+/* harmony import */ var _api_runner_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9417);
 if(window.location.protocol!=="https:"&&window.location.hostname!=="localhost"){console.error("Service workers can only be used over HTTPS, or on localhost for development");}else if("serviceWorker"in navigator){navigator.serviceWorker.register(""+"/sw.js").then(function(reg){reg.addEventListener("updatefound",function(){(0,_api_runner_browser__WEBPACK_IMPORTED_MODULE_0__/* .apiRunner */ .h)("onServiceWorkerUpdateFound",{serviceWorker:reg});// The updatefound event implies that reg.installing is set; see
 // https://w3c.github.io/ServiceWorker/#service-worker-registration-updatefound-event
 var installingWorker=reg.installing;console.log("installingWorker",installingWorker);installingWorker.addEventListener("statechange",function(){switch(installingWorker.state){case"installed":if(navigator.serviceWorker.controller){// At this point, the old content will have been purged and the fresh content will
@@ -1528,7 +1528,7 @@ console.log("Content is now available offline!");// Post to service worker that 
 
 /***/ }),
 
-/***/ 4586:
+/***/ 5271:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1542,7 +1542,7 @@ console.log("Content is now available offline!");// Post to service worker that 
 
 /***/ }),
 
-/***/ 302:
+/***/ 8764:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1572,5 +1572,5 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 },
-0,[[1942,658,774]]]);
-//# sourceMappingURL=app-28301aa0b8cb610a6149.js.map
+0,[[4469,658,774]]]);
+//# sourceMappingURL=app-cc5c259f4c0a41776a14.js.map
