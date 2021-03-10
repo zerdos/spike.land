@@ -269,7 +269,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     if (pathname === "/") {
       return Response.redirect(
-        "https://code.zed.vision/ipfs/QmauvHh4CRhZDR9zULhSnvguoZP4uashu8AfuMoGUsXKsM/",
+        "https://code.zed.vision/ipfs/QmZdmHygMZhq5p3TGaEJuorE4bYCecLPNHno2YVKQMK4iv/",
         302,
       );
     }
