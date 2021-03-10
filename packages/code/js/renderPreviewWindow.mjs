@@ -1,11 +1,11 @@
 export async function renderPreviewWindow(
   session,
 ) {
-  let rendererSrc = `https://code.zed.vision/modules/renderer.js`;
+  let rendererSrc = `https://code.zed.vision/modules/renderer.mjs`;
 
   if (window.location.hostname.indexOf("0.0") !== -1) {
     const cid = window.location.pathname.slice(6, 52);
-    rendererSrc = `/ipfs/${cid}/modules/renderer.js`;
+    rendererSrc = `/ipfs/${cid}/modules/renderer.mjs`;
   }
 
   const {
@@ -17,7 +17,7 @@ export async function renderPreviewWindow(
   );
 
   const onShare = async () => {
-    const { shareItAsHtml } = await import("./share.js");
+    const { shareItAsHtml } = await import("./share.mjs");
     const link = await shareItAsHtml({
       code: session.code,
       transpiled: session.transpiled,

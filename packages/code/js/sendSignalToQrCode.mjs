@@ -1,6 +1,5 @@
-import { getUserId } from "./data.js";
+import { getUserId, saveCode } from "./data.mjs";
 import { sha256 } from "../modules/sha256.js";
-import { saveCode } from "./data.js";
 
 /**
  * @param {string} rootUrl
@@ -16,7 +15,7 @@ export async function sendSignalToQrCode(session) {
 
   await saveCode(session);
 
-  const { sendSignal } = await import("./hash.js");
+  const { sendSignal } = await import("./hash.mjs");
   const signal = `https://zed.vision/${maybeRoute}`;
 
   await sendSignal(

@@ -1,9 +1,9 @@
-import { renderPreviewWindow } from "./renderPreviewWindow.js";
+import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
 
-import { openWindows } from "./openWindows.js";
-import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.js";
-import { transpileCode } from "./transpile.js";
-import { formatter } from "./formatter.js";
+import { openWindows } from "./openWindows.mjs";
+import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
+import { transpileCode } from "./transpile.mjs";
+import { formatter } from "./formatter.mjs";
 import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 
 function getSession() {
@@ -107,7 +107,7 @@ export async function run(mode = "window", _w, code = "") {
       await saveCode(session, session.i);
     }
 
-    const { sendSignalToQrCode } = await import("./sendSignalToQrCode.js");
+    const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
     await sendSignalToQrCode(session);
   } catch (e) {
     session.errorText = "YAY!! There is an error";

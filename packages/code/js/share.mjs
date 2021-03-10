@@ -1,6 +1,6 @@
 import { shaDB } from "../modules/shaDB.js";
 import { sha256 } from "../modules/sha256.js";
-import { ipfsClient } from "./ipfsClient.js";
+import { ipfsClient } from "./ipfsClient.mjs";
 
 /**
  * 
@@ -59,7 +59,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     }
   }
 
-  const { getHtml, getEditorHTML } = await import("./templates.js");
+  const { getHtml, getEditorHTML } = await import("./templates.mjs");
   const allContent = [
     { path: "/app/index.html", content: getHtml({ html, css }) },
     { path: "/app/app.js", content: transpiled },

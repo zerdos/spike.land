@@ -214,7 +214,7 @@ export const saveCode =
 
     toSave.code = opts.code;
 
-    const { shareItAsHtml } = await import("./share.js");
+    const { shareItAsHtml } = await import("./share.mjs");
     const sharePromise = shareItAsHtml(
       { code, html, transpiled },
     );
