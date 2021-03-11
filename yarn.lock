@@ -4193,6 +4193,7 @@ __metadata:
     simple-window-manager: 2.1.2
     tslib: 2.1.0
     typescript: 4.2.3
+    workbox-sw: 6.1.1
   languageName: unknown
   linkType: soft
 
@@ -20466,6 +20467,13 @@ typescript@4.2.3:
   version: 1.0.0
   resolution: "wordwrap@npm:1.0.0"
   checksum: b4f3f8104a727d1b08e77f43f3692977146f13074392747a3d9cfd631d0fc3ff1c0c034d44fcd7a22183c6505d2fc305421e3512671f8a56f903055671ace4ce
+  languageName: node
+  linkType: hard
+
+"workbox-sw@npm:6.1.1":
+  version: 6.1.1
+  resolution: "workbox-sw@npm:6.1.1"
+  checksum: 5a27f77ff4cb395337b4ac5ac4285e58d6eab83908f99bbf7500f370c6ec182e43a3626a093024a0e5843c8f12c84a5c1ecbb1ec12dd4d996848551f70b8b416
   languageName: node
   linkType: hard
 
