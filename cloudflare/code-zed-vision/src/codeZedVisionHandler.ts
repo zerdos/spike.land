@@ -188,6 +188,35 @@ async function handleRequest(request: Request) {
 
     return text(result);
   }
+  if (pathname.startsWith("/add")) {
+    const deploySHA = await sha256(JSON.stringify(filteredFiles));
+
+    const res = await SHAKV.get(deploySHA);
+
+    if (res) {
+      const resJson = JSON.parse(res);
+      if (resJson.missing.length === 0) {
+        //
+        // save it to a special place
+        //
+
+        return (text(res));
+      }
+
+      const maybeCID = pathname.slice(4);
+      if (resJson.missing.indexOf(maybeCID)) {
+        const content = await request.text();
+        const contentSHA = await sha256(content);
+        const fileName = shasumsKV[contentSHA];
+        if (fileName) {
+          const cid = files[fileName];
+          if (cid === maybeCID) {
+            await IPFS.put(cid, content);
+          }
+        }
+      }
+    }
+  }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
       headers: {
