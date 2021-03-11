@@ -204,7 +204,7 @@ async function handleRequest(request: Request) {
       }
 
       const maybeCID = pathname.slice(4);
-      if (resJson.missing.indexOf(maybeCID)) {
+      if (resJson.missing.indexOf(maybeCID) !== -1) {
         const content = await request.text();
         const contentSHA = await sha256(content);
         const fileName = shasumsKV[contentSHA];
