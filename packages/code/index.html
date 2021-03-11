@@ -35,8 +35,16 @@
   async function workBox() {
   if ("serviceWorker" in window.navigator && window.location.origin==="https://code.zed.vision") {
 
-    fetch("https://code.zed.vision/check").then(x=>x.json()).then(console.log)
- 
+    fetch("https://code.zed.vision/check").then((x) => x.json()).then((x) =>
+      x.missing
+    ).then((x) => {
+      if (x.length) {
+        import("./js/ipfsClient.mjs").then(({ ipfsCat }) => {
+          x.map((cid) => ipfsCat(cid)).map(console.log);
+        });
+      }
+    }); 
+    
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"
     );

@@ -63,6 +63,15 @@
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["js/**/*.js", "sw.js", "js/codeLoader.mjs", "js/openWindows.mjs", "js/importScript.mjs", "js/share.mjs", "js/transpile.mjs", "js/sendSignalToQrCode.mjs"],
+  "include": [
+    "js/**/*.js",
+    "sw.js",
+    "js/codeLoader.mjs",
+    "js/openWindows.mjs",
+    "js/importScript.mjs",
+    "js/share.mjs",
+    "js/transpile.mjs",
+    "js/sendSignalToQrCode.mjs"
+  ],
   "exclude": ["js/bundle.min.js"]
 }
