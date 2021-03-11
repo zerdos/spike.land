@@ -833,7 +833,7 @@ var react__WEBPACK_IMPORTED_MODULE_0___namespace_cache;
 
 /***/ }),
 
-/***/ 1779:
+/***/ 838:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -847,7 +847,7 @@ var GatsbyMDXScopeContext=/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cre
 
 /***/ }),
 
-/***/ 2237:
+/***/ 7303:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -865,13 +865,13 @@ var defineProperty = __webpack_require__(1424);
 var react = __webpack_require__(7693);
 // EXTERNAL MODULE: ../../.yarn/$$virtual/@mdx-js-react-virtual-97892cdf0d/0/cache/@mdx-js-react-npm-1.6.22-57e4c05c2b-3a0a189aa0.zip/node_modules/@mdx-js/react/dist/esm.js
 var esm = __webpack_require__(8990);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/context.js
-var context = __webpack_require__(1779);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
-var mdx_components = __webpack_require__(7782);
-;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
+// EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-74ba60b97b/0/cache/gatsby-plugin-mdx-npm-2.0.1-c75580d2e8-8edea49ebe.zip/node_modules/gatsby-plugin-mdx/context.js
+var context = __webpack_require__(838);
+// EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-74ba60b97b/0/cache/gatsby-plugin-mdx-npm-2.0.1-c75580d2e8-8edea49ebe.zip/node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
+var mdx_components = __webpack_require__(3282);
+;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-74ba60b97b/0/cache/gatsby-plugin-mdx-npm-2.0.1-c75580d2e8-8edea49ebe.zip/node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
 var scope_0=__webpack_require__(7479)/* .default */ .Z;var scope_1=__webpack_require__(3703)/* .default */ .Z;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
-;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/wrap-root-element.js
+;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-74ba60b97b/0/cache/gatsby-plugin-mdx-npm-2.0.1-c75580d2e8-8edea49ebe.zip/node_modules/gatsby-plugin-mdx/wrap-root-element.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,defineProperty/* default */.Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * so, this import is weird right?
  *
@@ -894,12 +894,12 @@ function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.g
  * Submit a PR
  */var componentsAndGuards={};var componentFromGuards=function componentFromGuards(arr){return function GatsbyMDXComponentFinder(props){var _arr$find=arr.find(function(_ref){var guard=_ref.guard;return guard?guard(props):true;}),Component=_arr$find.Component;return/*#__PURE__*/react.createElement(Component,props);};};mdx_components.plugins.forEach(function(_ref2){var _ref2$guards=_ref2.guards,guards=_ref2$guards===void 0?{}:_ref2$guards,components=_ref2.components;Object.entries(components).forEach(function(_ref3){var componentName=_ref3[0],Component=_ref3[1];if(componentsAndGuards[componentName]){componentsAndGuards.push({guard:guards[componentName],Component:Component});}else{componentsAndGuards[componentName]=[{guard:guards[componentName],Component:Component}];}});});var components=Object.entries(componentsAndGuards).map(function(_ref4){var _ref5;var name=_ref4[0],arr=_ref4[1];return _ref5={},_ref5[name]=componentFromGuards(arr.concat({guard:undefined,Component:name})),_ref5;}).reduce(function(acc,obj){return _objectSpread(_objectSpread({},acc),obj);},{});// merge any components in wrapRootElement above this wrapRoot
 var MDXConsumer=(0,esm.withMDXComponents)(function(_ref6){var componentsFromContext=_ref6.components,children=_ref6.children;return/*#__PURE__*/react.createElement(context.MDXScopeProvider,{__mdxScope:mdx_scopes},/*#__PURE__*/react.createElement(esm.MDXProvider,{components:_objectSpread(_objectSpread({},componentsFromContext),components)},children));});var WrapRootElement=function WrapRootElement(_ref7){var element=_ref7.element;return/*#__PURE__*/react.createElement(MDXConsumer,null,element);};/* harmony default export */ var wrap_root_element = (WrapRootElement);
-;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/gatsby-browser.js
+;// CONCATENATED MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-74ba60b97b/0/cache/gatsby-plugin-mdx-npm-2.0.1-c75580d2e8-8edea49ebe.zip/node_modules/gatsby-plugin-mdx/gatsby-browser.js
 var wrapRootElement=wrap_root_element;
 
 /***/ }),
 
-/***/ 7782:
+/***/ 3282:
 /***/ (function(module) {
 
 module.exports={plugins:[]};
@@ -1087,7 +1087,7 @@ var preferDefault=function preferDefault(m){return m&&m.default||m;};exports.com
 /***/ 4107:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-module.exports=[{plugin:__webpack_require__(2237),options:{"plugins":[]}},{plugin:__webpack_require__(1990),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"/","background_color":"#f7f0eb","theme_color":"#a2466c","display":"minimal-ui","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"d71147f38c8eba4b5184eeb97a7a58d4"}},{plugin:__webpack_require__(8764),options:{"plugins":[]}}];
+module.exports=[{plugin:__webpack_require__(7303),options:{"plugins":[]}},{plugin:__webpack_require__(1990),options:{"plugins":[],"icon":"assets/android-chrome-512x512.png","name":"Zed Vision - Development experience, Testing, and everything between","short_name":"ZedVision","description":"Blog and tech experiments","start_url":"/","background_color":"#f7f0eb","theme_color":"#a2466c","display":"minimal-ui","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"d71147f38c8eba4b5184eeb97a7a58d4"}},{plugin:__webpack_require__(8764),options:{"plugins":[]}}];
 
 /***/ }),
 
@@ -1573,4 +1573,4 @@ __webpack_require__.r(__webpack_exports__);
 
 },
 0,[[4469,658,774]]]);
-//# sourceMappingURL=app-cc5c259f4c0a41776a14.js.map
+//# sourceMappingURL=app-9a90049e92fb81719617.js.map

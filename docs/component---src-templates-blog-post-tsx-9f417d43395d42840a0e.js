@@ -197,8 +197,8 @@ var layout = __webpack_require__(5925);
 var seo = __webpack_require__(6792);
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__(2253);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-5ca5aea69d/0/cache/gatsby-plugin-mdx-npm-2.0.0-bf9e39de7d-e8d14c9488.zip/node_modules/gatsby-plugin-mdx/index.js
-var gatsby_plugin_mdx = __webpack_require__(1783);
+// EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-74ba60b97b/0/cache/gatsby-plugin-mdx-npm-2.0.1-c75580d2e8-8edea49ebe.zip/node_modules/gatsby-plugin-mdx/index.js
+var gatsby_plugin_mdx = __webpack_require__(9897);
 // EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(7577);
 // EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/regenerator/index.js
@@ -344,21 +344,21 @@ var pageQuery = "2168380918";
 
 /***/ }),
 
-/***/ 1783:
+/***/ 9897:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /**
  * Welcome to gatsby-plugin-mdx!
  *
  * Start reading in gatsby-node.js
- */var MDXRenderer=__webpack_require__(2871);module.exports={MDXRenderer:MDXRenderer};
+ */var MDXRenderer=__webpack_require__(5348);module.exports={MDXRenderer:MDXRenderer};
 
 /***/ }),
 
-/***/ 2871:
+/***/ 5348:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var _construct=__webpack_require__(389);var _toConsumableArray=__webpack_require__(3689);var _defineProperty=__webpack_require__(6122);var _objectWithoutPropertiesLoose=__webpack_require__(1774);function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var React=__webpack_require__(7693);var _require=__webpack_require__(8990),mdx=_require.mdx;var _require2=__webpack_require__(1779),useMDXScope=_require2.useMDXScope;module.exports=function MDXRenderer(_ref){var scope=_ref.scope,children=_ref.children,props=_objectWithoutPropertiesLoose(_ref,["scope","children"]);var mdxScope=useMDXScope(scope);// Memoize the compiled component
+var _construct=__webpack_require__(389);var _toConsumableArray=__webpack_require__(3689);var _defineProperty=__webpack_require__(6122);var _objectWithoutPropertiesLoose=__webpack_require__(1774);function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var React=__webpack_require__(7693);var _require=__webpack_require__(8990),mdx=_require.mdx;var _require2=__webpack_require__(838),useMDXScope=_require2.useMDXScope;module.exports=function MDXRenderer(_ref){var scope=_ref.scope,children=_ref.children,props=_objectWithoutPropertiesLoose(_ref,["scope","children"]);var mdxScope=useMDXScope(scope);// Memoize the compiled component
 var End=React.useMemo(function(){if(!children){return null;}var fullScope=_objectSpread({// React is here just in case the user doesn't pass them in
 // in a manual usage of the renderer
 React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.map(function(key){return fullScope[key];});var fn=_construct(Function,["_fn"].concat(_toConsumableArray(keys),[""+children]));return fn.apply(void 0,[{}].concat(_toConsumableArray(values)));},[children,scope]);return React.createElement(End,_objectSpread({},props));};
@@ -366,4 +366,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-8282d6b4552e166e882d.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-9f417d43395d42840a0e.js.map

@@ -28,7 +28,7 @@
     "gatsby-link": "3.0.1",
     "gatsby-plugin-emotion": "^6.0.0",
     "gatsby-plugin-manifest": "3.0.0",
-    "gatsby-plugin-mdx": "2.0.0",
+    "gatsby-plugin-mdx": "2.0.1",
     "gatsby-plugin-react-helmet": "4.0.0",
     "gatsby-react-router-scroll": "4.0.1",
     "gatsby-source-filesystem": "3.0.0",
