@@ -172,9 +172,9 @@ async function handleRequest(request: Request) {
     );
 
     return text(` 
-      missing: ${missing.join(", ")}
+      {missing: ${missing.join(", ")},
       wrong sha: ${JSON.stringify(having)}
-    `);
+    }`);
   }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
