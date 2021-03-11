@@ -4165,7 +4165,7 @@ __metadata:
     "@cloudflare/wrangler": 1.15.0
     "@zedvision/code": ^13.0.10
     "@zedvision/ipfs": ^13.0.10
-    esbuild: 0.8.57
+    esbuild: 0.9.0
   languageName: unknown
   linkType: soft
 
@@ -4177,7 +4177,7 @@ __metadata:
     "@cloudflare/wrangler": 1.15.0
     "@types/uuid": 8.3.0
     "@zedvision/ipfs": ^13.0.10
-    esbuild: 0.8.57
+    esbuild: 0.9.0
     uuid: 8.3.2
   languageName: unknown
   linkType: soft
@@ -4188,7 +4188,7 @@ __metadata:
   dependencies:
     "@babel/standalone": 7.13.10
     comlink: 4.3.0
-    esbuild: 0.8.57
+    esbuild: 0.9.0
     prettier: 2.2.1
     simple-window-manager: 2.1.2
     tslib: 2.1.0
@@ -4202,7 +4202,7 @@ __metadata:
   resolution: "@zedvision/ipfs@workspace:packages/ipfs"
   dependencies:
     cids: 1.1.6
-    esbuild: 0.8.57
+    esbuild: 0.9.0
     ipfs-message-port-client: 0.5.4
     it-all: 1.0.5
     typescript: 4.2.3
@@ -4215,7 +4215,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/qrious@workspace:packages/qrious"
   dependencies:
-    esbuild: 0.8.57
+    esbuild: 0.9.0
     qrious-core: 4.0.0
     typescript: 4.2.3
   languageName: unknown
@@ -4231,7 +4231,7 @@ __metadata:
     "@material-ui/icons": ^5.0.0-alpha.27
     "@types/react": 17.0.3
     "@types/react-dom": 17.0.2
-    esbuild: 0.8.57
+    esbuild: 0.9.0
     framer-motion: 3.10.2
     react: 17.0.1
     react-dom: 17.0.1
@@ -4243,7 +4243,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@zedvision/shadb@workspace:packages/shadb"
   dependencies:
-    esbuild: 0.8.57
+    esbuild: 0.9.0
     idb: 6.0.0
     typescript: 4.2.3
   languageName: unknown
@@ -8008,12 +8008,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:0.8.57":
-  version: 0.8.57
-  resolution: "esbuild@npm:0.8.57"
+"esbuild@npm:0.9.0":
+  version: 0.9.0
+  resolution: "esbuild@npm:0.9.0"
   bin:
     esbuild: bin/esbuild
-  checksum: 0942950a21a30b57a324380cfedcb425cc1245412e720593415afa0d4f1b7c5f931aa6330937dc1353c754d45c1e5ff7dbc52eb514f54d85517114971300b454
+  checksum: 28f63aa3ced9a6ae97ae27f6e57662fbfd23625b9290b9ffa1db97c39001d8991e1744024348ae50d4de2a17dcd2c6810a31ce9150dc1c19e11abb9a0cda3de2
   languageName: node
   linkType: hard
 
