@@ -4187,7 +4187,6 @@ __metadata:
   resolution: "@zedvision/code@workspace:packages/code"
   dependencies:
     "@babel/standalone": 7.13.10
-    "@zedvision/ipfs": ^13.0.10
     comlink: 4.3.0
     esbuild: 0.8.57
     prettier: 2.2.1
