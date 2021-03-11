@@ -9,7 +9,7 @@ added QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT code/assets/synthwave.jpg
 added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geometry.png
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmRQaWJLgthqoRwVZh61vBv4idWaBFLVe4hMtvvhJF23KJ code/index.html
+added QmNRSUKN6VwHyyKtN6v5EoUaqCSuxrK8wsr6ZxmiBtRQHd code/index.html
 added Qma6Lpxwx6GvCRKwAKHqWzVLc5pe2wpKCXEKuyeRQUTeVV code/ipfs.json
 added QmPxQZaXQB8nfQfWVyH1UCYJBJLmhdQKcHkEYaLp7tcB41 code/js/codeLoader.mjs
 added QmWM21mv2TRi8Hub5Pv1No1fN6UmaDm1PCVM7ihFk3Mi8q code/js/data.mjs
@@ -28,6 +28,7 @@ added QmRLNssiiwZNP2d6wYxfrZ5h7F3TqRXFyzCTmfsf9SMCsd code/js/sendSignalToQrCode.
 added Qma2RyoL6yGMR3dVi6cLiNJvDK27NMQW7SGxQ5TGvoE2FW code/js/share.mjs
 added QmaBrQPNs2gkHiEHef8G6XLMqFSwV5EUJsaKhfFVe8wRZv code/js/templates.mjs
 added QmV7cJBYZuNfA5cDRBG4MznPRhw9FvYdz2pSHQU1UWjdRW code/js/transpile.mjs
+added QmSjP28MH9ZGPAwSvUCkpBhmvausoaNYz2mZ7YDEVUz2xu code/js/workboxLoader.mjs
 added QmXuEo1FJf7eUHmHRUPndsE6g7aTyQCnZzEM1Yop2LnjVj code/js/workers/getWorker.js
 added QmU1FtHLeBHmuBYDN9SE8o8aa2n8vXZ5x7GRUW7oRADD8x code/js/workers/ipfsWorker.js
 added Qmaf3zeRe8DZJVefoC7n99Bfmo2BnrXJ4r5LkRPuCDz3Xn code/js/workers/prettierWorker.js
@@ -64,9 +65,9 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscod
 added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
 added QmWjD6F8d1c5CPUTufgtByLhjkX5RJJy9Ln75Sym6BJhPL code/js/workers
-added QmVaUXQsPBgYgVb6HFK7CqZJTZPE7WcRACB71fc9oyZV3K code/js
+added QmSqPntxtTF5p5RKAURtfSZnw4mEzsi8X1cRbk7TvBKE5F code/js
 added QmQ8r9pcw1Etdawzc9dGeVPJWGKyTTj6Nk4B74rDcLvogj code/modules/smart-monaco-editor/dist
 added QmToh8hfTLTjHxDeacFcZd1NrwQWHc7hwiRo63TRTzF1Wa code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
 added Qmet62Cp33Duam71nUdbT6beB2f3VrbKnLDotBieJ5swVy code/modules
-added QmXYNLajsAEb3xVjsRGNFbWFw3nQhJD6V25FN5Uj3F9VxD code
+added QmbwSzsJjtfZtcP79PXHm5J9eAma2UwbDhUCj8nhoxTo7i code

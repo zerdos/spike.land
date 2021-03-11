@@ -25,7 +25,7 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "index.html":
-    "620e6a4505e7992fbd9d0bf9a4e8e128b973448dffa48d9cb28f83c0484603c7",
+    "a8d880c55b75a141280667977fc16b77aeccbcc22cf267ccbe53cdd9d16b2adb",
   "ipfs.json":
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
   "js/codeLoader.mjs":
@@ -70,6 +70,8 @@ export const shasums = {
     "acc5f2e2a0d04d4ce996af8a9be3b00ae7b2e6766a3275353dc48b45813ee474",
   "js/sendSignalToQrCode.mjs":
     "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
+  "js/workboxLoader.mjs":
+    "795b1e52c2a4e65d23fbc6706262780a570474f5db3d7a351463679b47c144d0",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
   "sw.js": "5d2709de4dd5f20e6e0cc6ece1e4325db0abb1bb1bc8744b396100036f80e043",
