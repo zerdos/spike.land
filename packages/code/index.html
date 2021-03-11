@@ -35,7 +35,7 @@
   async function workBox() {
   if ("serviceWorker" in window.navigator && window.location.origin==="https://code.zed.vision") {
 
-
+    fetch("https://code.zed.vision/check").then(x=>x.json()).then(console.log)
  
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-window.prod.mjs"

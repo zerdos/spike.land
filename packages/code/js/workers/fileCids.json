@@ -10,7 +10,7 @@
   "assets/triangle-geometry.png": "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "QmQox2PGKkYrzwFcyRXotfKdghQoH9tskhutKefEJt8rUg",
+  "index.html": "QmZdnjxqVvEM57MHrSSA7EaGCMTe2XQcuYiqRk4g1qXKXC",
   "ipfs.json": "Qma6Lpxwx6GvCRKwAKHqWzVLc5pe2wpKCXEKuyeRQUTeVV",
   "js/codeLoader.mjs": "QmPxQZaXQB8nfQfWVyH1UCYJBJLmhdQKcHkEYaLp7tcB41",
   "js/data.mjs": "QmWM21mv2TRi8Hub5Pv1No1fN6UmaDm1PCVM7ihFk3Mi8q",
@@ -70,6 +70,6 @@
   "modules/smart-monaco-editor": "QmToh8hfTLTjHxDeacFcZd1NrwQWHc7hwiRo63TRTzF1Wa",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "Qmet62Cp33Duam71nUdbT6beB2f3VrbKnLDotBieJ5swVy",
-  "": "QmanC5GTshPU6fCKAoWK7FZuTW6xG6611VPe9rzHwtfE4r",
+  "": "QmeEgmHVghS7DL5F23FZ53atg5pikuXxiYMJkDusuBRMyw",
   "foo": "bar"
 }

@@ -157,11 +157,22 @@ async function handleRequest(request: Request) {
     const missing: String[] = [];
     const wrongSha: KV[] = [];
 
+    const deploySHA = await sha256(JSON.stringify(filteredFiles));
+
+    const res = await SHAKV.get(deploySHA);
+
+    if (res) {
+      const resJson = JSON.parse(res);
+      if (resJson.missing.length === 0) {
+        return (text(res));
+      }
+    }
+
     await Promise.all(
       Object.keys(filteredFiles).map(async (file) => {
         const kvRes = await IPFS.get(fileKV[file], "arrayBuffer");
         if (kvRes === null) {
-          missing.push(file);
+          missing.push(fileKV[file]);
         } else {
           const sha = await sha256(kvRes);
           if (shasumsKV[file] !== sha) {
@@ -171,7 +182,11 @@ async function handleRequest(request: Request) {
       }),
     );
 
-    return text(JSON.stringify({ missing, wrongSha }));
+    const result = JSON.stringify({ missing, wrongSha });
+
+    await SHAKV.put(deploySHA, result);
+
+    return text(result);
   }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
