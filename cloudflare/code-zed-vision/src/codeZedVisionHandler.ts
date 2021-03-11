@@ -216,7 +216,9 @@ async function handleRequest(request: Request) {
           }
         }
       }
+      return text(res);
     }
+    return text("Nah:(");
   }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
