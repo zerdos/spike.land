@@ -25,7 +25,7 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "index.html":
-    "964a4b84eab4497cf9ca4ca504841f921258bd66dfde921878f082723beb6823",
+    "620e6a4505e7992fbd9d0bf9a4e8e128b973448dffa48d9cb28f83c0484603c7",
   "ipfs.json":
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
   "js/codeLoader.mjs":
@@ -75,8 +75,6 @@ export const shasums = {
   "sw.js": "5d2709de4dd5f20e6e0cc6ece1e4325db0abb1bb1bc8744b396100036f80e043",
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
-  "package.json":
-    "aab3abffa81577e9238433e49e4ef3327d0899b70ee32be119252ac4422b6f86",
   "modules/smart-monaco-editor/dist/editor.js":
     "b5c657ea782aa015f13acce41ce91fad97128f6cb409b74b120d48407c195af1",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -125,5 +123,7 @@ export const shasums = {
     "aa489cf5833debc68e4d092cf09b795b884b43ba43cde9c17c0815daccc17653",
   ".tsBuildInfo":
     "d0ed42859257379ea3388a2ba0315481a57b1939b841a3dbc7fdbb99c55b6dfd",
+  "package.json":
+    "aaa49ed7df66ff249b43c956df5fd30d20a10f695cda1228a3d042e666ea829a",
   "food": "bar",
 };
