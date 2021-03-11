@@ -76,9 +76,6 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     );
 
     const appDir = res.find(
-      /**
-     * @param {{ path: string; }} x
-     */
       (x) => x.path === "app",
     );
     if (typeof appDir === "undefined") return null;
@@ -88,7 +85,6 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     const { pathname } = new URL(window.location.href);
 
     if (pathname.endsWith("/edit/") || pathname.endsWith("/edit")) {
-      // deno-lint-ignore no-undef
       history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
     }
 
