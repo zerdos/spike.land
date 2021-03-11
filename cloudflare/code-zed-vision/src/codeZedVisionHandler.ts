@@ -155,7 +155,7 @@ async function handleRequest(request: Request) {
   }
   if (pathname === "/check") {
     const missing: String[] = [];
-    const having: KV[] = [];
+    const wrongSha: KV[] = [];
 
     await Promise.all(
       Object.keys(filteredFiles).map(async (file) => {
@@ -165,16 +165,13 @@ async function handleRequest(request: Request) {
         } else {
           const sha = await sha256(kvRes);
           if (shasumsKV[file] !== sha) {
-            having.push({ [file]: await sha256(kvRes) });
+            wrongSha.push({ [file]: await sha256(kvRes) });
           }
         }
       }),
     );
 
-    return text(` 
-      {missing: ${JSON.stringify(missing)},
-      wrong sha: ${JSON.stringify(having)}
-    }`);
+    return text(JSON.stringify({ missing, wrongSha }));
   }
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
