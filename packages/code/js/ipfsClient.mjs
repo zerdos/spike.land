@@ -33,8 +33,6 @@ if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
   port = port2;
 }
 
-
-
 export const ipfsClient = IpfsClient.from(port);
 
 export const ipfsCat = async (cid, opts) => {

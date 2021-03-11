@@ -6,7 +6,6 @@
     "packages/*",
     "cloudflare/zed-vision",
     "cloudflare/code-zed-vision",
-    "packages/code/js/shadb",
     "docker-images/*"
   ]
 }
