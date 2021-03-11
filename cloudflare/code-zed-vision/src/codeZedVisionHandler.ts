@@ -172,7 +172,7 @@ async function handleRequest(request: Request) {
     );
 
     return text(` 
-      {missing: ${missing.join(", ")},
+      {missing: ${JSON.stringify(missing)},
       wrong sha: ${JSON.stringify(having)}
     }`);
   }
