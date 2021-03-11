@@ -212,6 +212,7 @@ async function handleRequest(request: Request) {
           const cid = files[fileName];
           if (cid === maybeCID) {
             await IPFS.put(cid, content);
+            return text("Thanks :)");
           }
         }
       }
