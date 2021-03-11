@@ -92,9 +92,9 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
       history.pushState({}, "", `/ipfs/${appDir.CID}/edit/`);
     }
 
-    shaDB.put(sha, rootUrl);
+    await shaDB.put(sha, rootUrl);
   }
-  console.log(rootUrl);
+ 
 
   const preLoad = async (retry = 3) => {
     try {
