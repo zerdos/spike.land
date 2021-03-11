@@ -214,6 +214,8 @@ async function handleRequest(request: Request) {
             await IPFS.put(cid, content);
             return text("Thanks :)");
           }
+
+          return text(fileName);
         }
       }
       return text(res);
