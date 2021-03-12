@@ -30,7 +30,7 @@ export const files = {
   "js/importScript.mjs": "QmWNzoXJSf9aHxMEbDGsdMfyfJKwtpfL1Q9ni1xuSF5c9X",
   "js/ipfsClient.mjs": "QmXwkaaNQWizm6BFJHhRty2hSCsyVfgKo5sVE7EAts7sCt",
   "js/openWindows.mjs": "QmdSrNkNM4pHCBJsiWn8ugR7SHsxEhPzqauoHq8iAxHJmN",
-  "js/refs.d.ts": "QmV4VN2uGcNzHPQi51JkVC4p9RzDpe5sEk4sX4u9ub3J4p",
+  "js/refs.d.ts": "QmcHL9eQMz3PzHDdo4YemAhZC9ZMx3JgEsMDkQZpE8yuVK",
   "js/renderPreviewWindow.mjs":
     "QmQfASwe9o4yH4etr7NASMkV84G3kz9CJvjgpqDCqG4yoB",
   "js/sendSignalToQrCode.mjs": "QmRLNssiiwZNP2d6wYxfrZ5h7F3TqRXFyzCTmfsf9SMCsd",
@@ -52,7 +52,7 @@ export const files = {
   "modules/diffChars.js": "QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ",
   "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
   "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
-  "modules/ipFfs.client.mjs": "QmRLW9pGeZh8mezChh54YzqA2UnmZQbcKv9iqjqQ1A2iJZ",
+  "modules/ipfs.client.mjs": "QmRLW9pGeZh8mezChh54YzqA2UnmZQbcKv9iqjqQ1A2iJZ",
   "modules/renderer.mjs": "QmfZwQsijq59PVwv5vPazRQbpvqX6vAWaWFKQHT4pyx6Yz",
   "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
@@ -83,13 +83,13 @@ export const files = {
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmWjD6F8d1c5CPUTufgtByLhjkX5RJJy9Ln75Sym6BJhPL",
-  "js": "QmZQotH62CBHiSNSt8roP8cyMCpVr2XqpCxpnwkqfEV3yr",
+  "js": "Qmbebb3KT3fAa5jaxm1S15pJYM7JfsmCSNv23CvEDqbxP6",
   "modules/smart-monaco-editor/dist":
     "QmQ8r9pcw1Etdawzc9dGeVPJWGKyTTj6Nk4B74rDcLvogj",
   "modules/smart-monaco-editor":
     "QmToh8hfTLTjHxDeacFcZd1NrwQWHc7hwiRo63TRTzF1Wa",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmcMwh8Q83kcZR9p1tVbCtS3oC22uBt79qS9RuL4cfXK5L",
-  "": "QmYTkr87TkTraqKpgtEcDwc8chVjNQtjh4JmXvquBRAUcA",
+  "modules": "QmWTmrLQAcLDoM67SgprnEKqNPfeKfpSWoyyiLQUAKJAgz",
+  "": "QmehBdfFiUnZMhAJco47qQRoiaJE4Qb1EDMxBqgV5m9xWj",
   "foo": "bar",
 };
