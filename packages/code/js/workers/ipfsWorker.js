@@ -6,7 +6,6 @@ self.importScripts(
   "https://unpkg.com/ipfs-message-port-server@0.6.3/dist/index.min.js",
 );
 
-// @ts-ignore
 const { Ipfs, IpfsMessagePortServer } = self;
 const { IPFSService, Server } = IpfsMessagePortServer;
 
@@ -17,7 +16,6 @@ self.addEventListener("message", async (event) => {
   if (event.data.clientInit) {
     ipfs = ipfs || await Ipfs.create();
 
-    // @ts-ignore
     const service = new IPFSService(ipfs);
     const server = new Server(service);
 
@@ -26,15 +24,9 @@ self.addEventListener("message", async (event) => {
 });
 
 self.addEventListener(
-  "connect", /**
- * 
- * @param {*} event 
- */
-  async ({ ports }) => {
-    // @ts-ignore
+  "connect",  async ({ ports }) => {
     ipfs = ipfs || await Ipfs.create();
 
-    // @ts-ignore
     const service = new IPFSService(ipfs);
     const server = new Server(service);
 

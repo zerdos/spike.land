@@ -172,7 +172,7 @@
         "affectsGlobalScope": false
       },
       "./js/workers/ipfsWorker.js": {
-        "version": "660cb035cde68de8b9fefa97385d2ca99fa6d53ee4030ed8542ea9ea64f10ed4",
+        "version": "61a972ba0455935115ad25039702ae354c902db30da75bb38ab65c0f2e4e5476",
         "signature": "69538fefbd1361b7ebfcd8bd0964a2dd1978841a8af062f798ae0d2305edda54",
         "affectsGlobalScope": true
       },

@@ -188,6 +188,7 @@ async function handleRequest(request: Request) {
 
     return text(result);
   }
+
   if (pathname.startsWith("/add")) {
     const deploySHA = await sha256(JSON.stringify(filteredFiles));
 
@@ -200,7 +201,7 @@ async function handleRequest(request: Request) {
         // save it to a special place
         //
 
-        return (text(res));
+        return text("nothing missing!");
       }
 
       const maybeCID = pathname.slice(4);
@@ -217,11 +218,14 @@ async function handleRequest(request: Request) {
 
           return text(fileName);
         }
+        return text(`content sha not found: ${contentSHA}`);
       }
-      return text(res);
+
+      return text("this content is not missing");
     }
     return text("Nah:(");
   }
+
   if (pathname === `/cid.js`) {
     return new Response(`export const cid = "${cid}"`, {
       headers: {
