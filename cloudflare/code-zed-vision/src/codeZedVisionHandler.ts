@@ -221,7 +221,7 @@ async function handleRequest(request: Request) {
         return text(`content sha not found: ${contentSHA}`);
       }
 
-      return text("this content is not missing");
+      return text(`this content is not missing: ${maybeCID}`);
     }
     return text("Nah:(");
   }
