@@ -38,8 +38,6 @@ export const shasums = {
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
-  "js/refs.d.ts":
-    "cc928b6c19f5ce887f89200f9690974b637576189c47ab9a9e0544ec87ae3ad3",
   "js/workers/ipfsWorker.js":
     "61a972ba0455935115ad25039702ae354c902db30da75bb38ab65c0f2e4e5476",
   "js/workers/prettierWorker.js":
@@ -124,7 +122,7 @@ export const shasums = {
   "modules/QRious.js":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "modules/renderer.mjs":
-    "90e64113c36936e5832fecf7a700b8105ade7edb0ed798f2ee3546b8d0def348",
+    "014138f543b059676b730b89b658d6ae435cb487b9628c817fe861bd780ea904",
   ".tsBuildInfo":
     "9916a6f08cea87814bd9b747a62dd463ee2d4ef7a21877102dff082d7f5c8ddf",
   "food": "bar",

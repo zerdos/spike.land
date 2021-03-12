@@ -1,1 +1,1 @@
-declare module "https://code.zed.vision/modules/QRious.js";
+declare module "https://code.zed.vision/modules/QRious.mjs";

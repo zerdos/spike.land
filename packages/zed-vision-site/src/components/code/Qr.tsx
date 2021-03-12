@@ -50,7 +50,7 @@ export const Qr = () => {
 
     if (typeof cubeSides[qr] === "undefined") {
       const LazyQR = await new Function(
-        `return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)`,
+        `return import('https://code.zed.vision/modules/QRious.mjs').then(x=>x.QRious)`,
       )();
 
       cubeSides[qr] = new LazyQR(options) as IDummyQR;
