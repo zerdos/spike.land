@@ -88,7 +88,7 @@ export const Qr = () => {
       if (typeof window === "undefined") return;
 
       const { fetchSignal } = await new Function(
-        `return import("https://code.zed.vision/js/hash.js")`,
+        `return import("https://code.zed.vision/js/hash.mjs")`,
       )();
 
       const getData = await fetchSignal(url, 7);

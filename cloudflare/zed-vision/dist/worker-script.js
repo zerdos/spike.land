@@ -807,7 +807,7 @@ async function handleCloudRequest(request) {
     }
     if (pathname === "/") {
       return Response.redirect(
-        "https://code.zed.vision/ipfs/QmZdmHygMZhq5p3TGaEJuorE4bYCecLPNHno2YVKQMK4iv/",
+        "https://code.zed.vision/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
         302,
       );
     }
