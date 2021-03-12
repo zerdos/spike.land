@@ -189,7 +189,7 @@ async function handleRequest(request: Request) {
     return text(result);
   }
 
-  if (pathname.startsWith("/add")) {
+  if (pathname.startsWith("/add/")) {
     const deploySHA = await sha256(JSON.stringify(filteredFiles));
 
     const res = await SHAKV.get(deploySHA);
@@ -204,7 +204,7 @@ async function handleRequest(request: Request) {
         return text("nothing missing!");
       }
 
-      const maybeCID = pathname.slice(4);
+      const maybeCID = pathname.slice(5);
       if (resJson.missing.indexOf(maybeCID) !== -1) {
         const content = await request.text();
         const contentSHA = await sha256(content);
