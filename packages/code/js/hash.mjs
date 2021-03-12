@@ -1,4 +1,4 @@
-import { CID, fromHexString, ipfsCat, ipfsClient } from "./ipfsClient.js";
+import { CID, fromHexString, ipfsCat, ipfsClient } from "./ipfsClient.mjs";
 
 export { CID };
 

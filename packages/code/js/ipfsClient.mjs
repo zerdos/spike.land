@@ -7,7 +7,7 @@ import {
   IpfsClient,
   raceToSuccess,
   toString,
-} from "../modules/ipfs.client.js";
+} from "../modules/ipfs.client.mjs";
 
 const { workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js");
 
