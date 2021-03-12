@@ -166,7 +166,7 @@
         "signature": "e805a2023363320d1874a7c83d7432a8477215a62d4dc03645e4ddff4602c4e2",
         "affectsGlobalScope": false
       },
-      "./js/workers/getWorker.js": {
+      "./js/workers/getWorker.mjs": {
         "version": "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
         "signature": "d8b99a482d7a5a7d37e6af08ecfc0f47a885ab4b0cb96396d0a1f8e0ea8f9fd0",
         "affectsGlobalScope": false
@@ -252,7 +252,7 @@
       "../../.yarn/cache/typescript-patch-99fe32b02b-a8956044aa.zip/node_modules/typescript/lib/lib.es2019.symbol.d.ts",
       "../../.yarn/cache/typescript-patch-99fe32b02b-a8956044aa.zip/node_modules/typescript/lib/lib.es5.d.ts",
       "./js/examples/starter_framer.js",
-      "./js/workers/getWorker.js",
+      "./js/workers/getWorker.mjs",
       "./js/workers/ipfsWorker.js",
       "./js/workers/prettierWorker.js",
       "./js/workers/transpile.worker.js",
@@ -284,7 +284,7 @@
         1
       ],
       [
-        "./js/workers/getWorker.js",
+        "./js/workers/getWorker.mjs",
         1
       ],
       [

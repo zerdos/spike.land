@@ -1,4 +1,4 @@
-import { getWorker } from "./workers/getWorker.js";
+import { getWorker } from "./workers/getWorker.mjs";
 import {
   all,
   CID,

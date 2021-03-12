@@ -40,14 +40,14 @@ export const shasums = {
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/refs.d.ts":
     "cc928b6c19f5ce887f89200f9690974b637576189c47ab9a9e0544ec87ae3ad3",
-  "js/workers/getWorker.js":
-    "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
   "js/workers/ipfsWorker.js":
     "61a972ba0455935115ad25039702ae354c902db30da75bb38ab65c0f2e4e5476",
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
     "121bff8aef68be8ffc4b6871806cc347103f41f166e0855af99364c2c57ef409",
+  "js/workers/getWorker.mjs":
+    "1c522a5b94fba60bdf2eeb4d852cedf23162badd42e23f89eae3ab7814489d5d",
   "js/renderPreviewWindow.mjs":
     "6ba2962525882cf712a74f81dd9745cac63cf8f413ccb048b5ee1e16a80176a8",
   "js/data.mjs":
@@ -55,15 +55,15 @@ export const shasums = {
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/formatter.mjs":
-    "9b554eacfa153a7a06fe943bb73d3837c9e8f2a90de49ad0081993517ddff678",
+    "9f9f485f3bec7a534402de3532e063480956a3c5e408807f90b15cf8132a9792",
   "js/transpile.mjs":
-    "891ee6e24b9d5add43578a9ad576b581e1cdf07bd817fbb9ff41588bcac01220",
+    "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/templates.mjs":
     "bb197766c6702eca2c60783520eec7c748800f83dea244bd1403d1b29c880927",
   "js/share.mjs":
     "4f236d7b192782ecb90605a84e377dd445a14ba3f11af09962c8a0d30a12ce0f",
   "js/ipfsClient.mjs":
-    "5562028e91ac9f3f887242b69fdef6471b6ee41a03c4186f74904224f107edb6",
+    "a3ba172c448bdea19a3a9ceca159a9417afa5425cf016e146f196fad16a0e4e4",
   "js/importScript.mjs":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/hash.mjs":
@@ -126,6 +126,6 @@ export const shasums = {
   "modules/renderer.mjs":
     "90e64113c36936e5832fecf7a700b8105ade7edb0ed798f2ee3546b8d0def348",
   ".tsBuildInfo":
-    "c04279a11a127d5689eaa161a29e556a6dfabb7ad3a7931276f5b2ba2058077a",
+    "9916a6f08cea87814bd9b747a62dd463ee2d4ef7a21877102dff082d7f5c8ddf",
   "food": "bar",
 };
