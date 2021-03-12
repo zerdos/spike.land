@@ -7,7 +7,7 @@ export const workboxLoader = async () => {
       x.missing
     ).then((x) => {
       if (x.length) {
-        import("./js/ipfsClient.mjs").then(({ ipfsCat }) => {
+        import("./ipfsClient.mjs").then(({ ipfsCat }) => {
           x.map((cid) =>
             ipfsCat(cid).then((content) =>
               fetch(`https://code.zed.vision/add/${cid}`, {

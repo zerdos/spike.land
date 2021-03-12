@@ -29,7 +29,7 @@
   "js/share.mjs": "Qmcv2xkifsByP8D9pkEjiZPGe3GAuy54Up4HZrqZRU7Rxz",
   "js/templates.mjs": "QmaBrQPNs2gkHiEHef8G6XLMqFSwV5EUJsaKhfFVe8wRZv",
   "js/transpile.mjs": "QmV7cJBYZuNfA5cDRBG4MznPRhw9FvYdz2pSHQU1UWjdRW",
-  "js/workboxLoader.mjs": "QmSjP28MH9ZGPAwSvUCkpBhmvausoaNYz2mZ7YDEVUz2xu",
+  "js/workboxLoader.mjs": "QmbW7H7qn4EMjmKtqsbBT1gJvKysrBEd33NtcBuEioumA5",
   "js/workers/getWorker.js": "QmXuEo1FJf7eUHmHRUPndsE6g7aTyQCnZzEM1Yop2LnjVj",
   "js/workers/ipfsWorker.js": "QmU1FtHLeBHmuBYDN9SE8o8aa2n8vXZ5x7GRUW7oRADD8x",
   "js/workers/prettierWorker.js": "Qmaf3zeRe8DZJVefoC7n99Bfmo2BnrXJ4r5LkRPuCDz3Xn",
@@ -66,11 +66,11 @@
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmWjD6F8d1c5CPUTufgtByLhjkX5RJJy9Ln75Sym6BJhPL",
-  "js": "QmYq5SR9aArBdYSSYvsgs2vaiLtRRsPWU9wt2RiUsAKcfb",
+  "js": "Qmc9RdnHEYkPX4AW2pzFtVF11UF3gbaq1oqWULPfF3Whka",
   "modules/smart-monaco-editor/dist": "QmQ8r9pcw1Etdawzc9dGeVPJWGKyTTj6Nk4B74rDcLvogj",
   "modules/smart-monaco-editor": "QmToh8hfTLTjHxDeacFcZd1NrwQWHc7hwiRo63TRTzF1Wa",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmPzi6hFApAnvF7sBHiWDjNQd8A3nBqWyyHrSkTbjenT1h",
-  "": "QmbCpAGNhQsUcGHEffnKcSHeaZvrD3rCaEi5njrqBUtGcD",
+  "": "QmZGWpithmjyPME38bYUjnimoWigXqjspjjZKzZUaTZsT1",
   "foo": "bar"
 }
