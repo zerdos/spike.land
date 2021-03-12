@@ -20,6 +20,7 @@ import { alterHeaders, sha256 } from "./alterHeaders.ts";
 type KV = { [key: string]: string };
 
 const reverseMap: KV = {};
+const reverseSHAKV: KV = {};
 const filteredFiles: KV = {};
 
 const shasumsKV: KV = shasums;
@@ -30,6 +31,7 @@ Object.keys(fileKV).forEach((k) => {
     filteredFiles[k] = fileKV[k];
 
     reverseMap[fileKV[k]] = k;
+    reverseSHAKV[shasumsKV[k]] = k;
   } else {
     delete fileKV[k];
   }
@@ -208,7 +210,7 @@ async function handleRequest(request: Request) {
       if (resJson.missing.indexOf(maybeCID) !== -1) {
         const content = await request.arrayBuffer();
         const contentSHA = await sha256(content);
-        const fileName = shasumsKV[contentSHA];
+        const fileName = reverseSHAKV[contentSHA];
         if (fileName) {
           const cid = files[fileName];
           if (cid === maybeCID) {
