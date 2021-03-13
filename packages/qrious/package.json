@@ -38,7 +38,7 @@
   "source": "src/QRious.tsx",
   "exports": "./dist/QRious.mjs",
   "scripts": {
-    "build:esm": "npm install && yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/QRious.mjs --target=es2017 --format=esm",
+    "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/QRious.mjs --target=es2017 --format=esm",
     "clean": "rm -rf dist && yarn tsc",
     "build": "yarn build:esm && cp -af ./dist/QRious.mjs ../code/modules"
   },

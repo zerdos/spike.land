@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[691],{
 
-/***/ 7819:
+/***/ 6674:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12,25 +12,25 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ pages; }
 });
 
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(9411);
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(7577);
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(3718);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(3182);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(6470);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(7162);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/@emotion-react-virtual-06ba5ec380/0/cache/@emotion-react-npm-11.1.5-bb508e1993-4e78f694df.zip/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(8751);
-// EXTERNAL MODULE: ../../.yarn/cache/react-npm-17.0.1-98658812fc-a76d86ec97.zip/node_modules/react/index.js
-var react = __webpack_require__(7693);
+// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
+var emotion_react_browser_esm = __webpack_require__(8197);
+// EXTERNAL MODULE: ../../node_modules/react/index.js
+var react = __webpack_require__(2784);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(8665);
+var gatsby_browser_entry = __webpack_require__(8447);
 // EXTERNAL MODULE: ./src/components/bio.tsx + 1 modules
-var bio = __webpack_require__(8982);
+var bio = __webpack_require__(7263);
 // EXTERNAL MODULE: ./src/components/layout.tsx
-var layout = __webpack_require__(5925);
+var layout = __webpack_require__(4822);
 // EXTERNAL MODULE: ./src/components/seo.tsx + 1 modules
-var seo = __webpack_require__(6792);
+var seo = __webpack_require__(8912);
 ;// CONCATENATED MODULE: ./src/components/code/getUser.ts
 
 
@@ -175,7 +175,7 @@ function _getUserId() {
   return _getUserId.apply(this, arguments);
 }
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(2253);
+var typography = __webpack_require__(3862);
 ;// CONCATENATED MODULE: ./src/components/utils/sha256/sha256.ts
 
 
@@ -281,7 +281,7 @@ var Qr = function Qr() {
               }
 
               _context.next = 7;
-              return new Function("return import('https://code.zed.vision/modules/QRious.js').then(x=>x.QRious)")();
+              return new Function("return import('https://code.zed.vision/modules/QRious.mjs').then(x=>x.QRious)")();
 
             case 7:
               LazyQR = _context.sent;
@@ -785,4 +785,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-c675fb804d31433c11ca.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-e57ce545299e5876197a.js.map

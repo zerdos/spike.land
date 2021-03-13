@@ -1,6 +1,59 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[790],{
 
-/***/ 1491:
+/***/ 6470:
+/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": function() { return /* binding */ _asyncToGenerator; }
+/* harmony export */ });
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
+
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
+}
+
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
+
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
+  };
+}
+
+/***/ }),
+
+/***/ 7162:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+module.exports = __webpack_require__(5047);
+
+
+/***/ }),
+
+/***/ 1342:
 /***/ (function(module) {
 
 function isNumeric(n) {
@@ -65,7 +118,7 @@ module.exports = function (lightness, hue, darkBackground) {
 
 /***/ }),
 
-/***/ 8369:
+/***/ 7651:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -92,7 +145,144 @@ var MIN_MOBILE_MEDIA_QUERY = exports.MIN_MOBILE_MEDIA_QUERY = "@media (min-width
 
 /***/ }),
 
-/***/ 2088:
+/***/ 5798:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+__webpack_unused_export__ = ({
+  value: true
+});
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var _grayPercentage = __webpack_require__(1342);
+
+var _grayPercentage2 = _interopRequireDefault(_grayPercentage);
+
+var _typographyBreakpointConstants = __webpack_require__(7651);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+var theme = {
+  title: "Wordpress Theme 2016",
+  baseFontSize: "16px",
+  baseLineHeight: 1.75,
+  scaleRatio: 5 / 2,
+  googleFonts: [{
+    name: "Montserrat",
+    styles: ["700"]
+  }, {
+    name: "Merriweather",
+    styles: ["400", "400i", "700", "700i", "900", "900i"]
+  }],
+  headerFontFamily: ["Merriweather", "Georgia", "serif"],
+  bodyFontFamily: ["Merriweather", "Georgia", "serif"],
+  bodyColor: "hsla(0,0%,0%,0.9)",
+  headerWeight: 900,
+  bodyWeight: 400,
+  boldWeight: 700,
+  overrideStyles: function overrideStyles(_ref, options) {
+    var _ref2;
+
+    var adjustFontSizeTo = _ref.adjustFontSizeTo,
+        scale = _ref.scale,
+        rhythm = _ref.rhythm;
+    return _ref2 = {
+      h1: {
+        fontFamily: ["Montserrat", "sans-serif"].join(",")
+      },
+      blockquote: _extends({}, scale(1 / 5), {
+        color: (0, _grayPercentage2.default)(41),
+        fontStyle: "italic",
+        paddingLeft: rhythm(13 / 16),
+        marginLeft: rhythm(-1),
+        borderLeft: rhythm(3 / 16) + " solid " + (0, _grayPercentage2.default)(10)
+      }),
+      "blockquote > :last-child": {
+        marginBottom: 0
+      },
+      "blockquote cite": _extends({}, adjustFontSizeTo(options.baseFontSize), {
+        color: options.bodyColor,
+        fontWeight: options.bodyWeight
+      }),
+      "blockquote cite:before": {
+        content: '"— "'
+      },
+      ul: {
+        listStyle: "disc"
+      },
+      "ul,ol": {
+        marginLeft: 0
+      }
+    }, _defineProperty(_ref2, _typographyBreakpointConstants.MOBILE_MEDIA_QUERY, {
+      "ul,ol": {
+        marginLeft: rhythm(1)
+      },
+      blockquote: {
+        marginLeft: rhythm(-3 / 4),
+        marginRight: 0,
+        paddingLeft: rhythm(9 / 16)
+      }
+    }), _defineProperty(_ref2, "h1,h2,h3,h4,h5,h6", {
+      marginTop: rhythm(2)
+    }), _defineProperty(_ref2, "h4", {
+      letterSpacing: "0.140625em",
+      textTransform: "uppercase"
+    }), _defineProperty(_ref2, "h6", {
+      fontStyle: "italic"
+    }), _defineProperty(_ref2, "a", {
+      boxShadow: "0 1px 0 0 currentColor",
+      color: "#007acc",
+      textDecoration: "none"
+    }), _defineProperty(_ref2, "a:hover,a:active", {
+      boxShadow: "none"
+    }), _defineProperty(_ref2, "mark,ins", {
+      background: "#007acc",
+      color: "white",
+      padding: rhythm(1 / 16) + " " + rhythm(1 / 8),
+      textDecoration: "none"
+    }), _ref2;
+  }
+};
+exports.Z = theme;
+
+/***/ }),
+
+/***/ 2182:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var t = Object.getOwnPropertySymbols,
@@ -1726,197 +1916,78 @@ module.exports = function (t) {
 
 /***/ }),
 
-/***/ 2737:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+/***/ 7263:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var __webpack_unused_export__;
 
-
-__webpack_unused_export__ = ({
-  value: true
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "w": function() { return /* binding */ Bio; }
 });
 
-var _extends = Object.assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(3182);
+// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
+var emotion_react_browser_esm = __webpack_require__(8197);
+// EXTERNAL MODULE: ./src/components/utils/typography.ts
+var typography = __webpack_require__(3862);
+;// CONCATENATED MODULE: ./src/components/zed-profile-pic.jpg
+/* harmony default export */ var zed_profile_pic = (__webpack_require__.p + "static/zed-profile-pic-597d90073077506ad53d8adc79f6a84c.jpg");
+;// CONCATENATED MODULE: ./src/components/bio.tsx
 
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
 
-  return target;
+var _templateObject, _templateObject2;
+
+
+/** @jsx jsx */
+
+
+
+var objectives = ["a bit less\n  frustrating.", "more fun", "great again"];
+var Bio = function Bio() {
+  var random = Math.random();
+  if (typeof window === "undefined") random = 0.4; //have a consistent ssr
+
+  return (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject || (_templateObject = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n                margin-top: ", ";\n                display: flex;\n                margin-bottom: ", ";\n    "])), (0,typography/* rhythm */.qZ)(2.5), (0,typography/* rhythm */.qZ)(2.5))
+  }, (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject2 || (_templateObject2 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n                  margin-right: ", ";\n                  margin-bottom: 0;\n                  overflow: hidden;\n                  width: 50px;\n                  height: 50px;\n                  border-radius: 25px;\n        "])), (0,typography/* rhythm */.qZ)(1 / 2))
+  }, (0,emotion_react_browser_esm/* jsx */.tZ)("img", {
+    alt: "Zoltan Erdos",
+    src: zed_profile_pic
+  })), (0,emotion_react_browser_esm/* jsx */.tZ)("p", null, "Written by", " ", (0,emotion_react_browser_esm/* jsx */.tZ)("strong", null, "Zoltan Erdos"), ", who is interested to make software development", " " + (objectives[Math.floor(random * objectives.length)] || "crazy."), (0,emotion_react_browser_esm/* jsx */.tZ)("br", null), (0,emotion_react_browser_esm/* jsx */.tZ)("a", {
+    href: "https://twitter.com/ZoltanErdos"
+  }, "Follow me on Twitter")));
 };
-
-var _grayPercentage = __webpack_require__(1491);
-
-var _grayPercentage2 = _interopRequireDefault(_grayPercentage);
-
-var _typographyBreakpointConstants = __webpack_require__(8369);
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    default: obj
-  };
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-var theme = {
-  title: "Wordpress Theme 2016",
-  baseFontSize: "16px",
-  baseLineHeight: 1.75,
-  scaleRatio: 5 / 2,
-  googleFonts: [{
-    name: "Montserrat",
-    styles: ["700"]
-  }, {
-    name: "Merriweather",
-    styles: ["400", "400i", "700", "700i", "900", "900i"]
-  }],
-  headerFontFamily: ["Merriweather", "Georgia", "serif"],
-  bodyFontFamily: ["Merriweather", "Georgia", "serif"],
-  bodyColor: "hsla(0,0%,0%,0.9)",
-  headerWeight: 900,
-  bodyWeight: 400,
-  boldWeight: 700,
-  overrideStyles: function overrideStyles(_ref, options) {
-    var _ref2;
-
-    var adjustFontSizeTo = _ref.adjustFontSizeTo,
-        scale = _ref.scale,
-        rhythm = _ref.rhythm;
-    return _ref2 = {
-      h1: {
-        fontFamily: ["Montserrat", "sans-serif"].join(",")
-      },
-      blockquote: _extends({}, scale(1 / 5), {
-        color: (0, _grayPercentage2.default)(41),
-        fontStyle: "italic",
-        paddingLeft: rhythm(13 / 16),
-        marginLeft: rhythm(-1),
-        borderLeft: rhythm(3 / 16) + " solid " + (0, _grayPercentage2.default)(10)
-      }),
-      "blockquote > :last-child": {
-        marginBottom: 0
-      },
-      "blockquote cite": _extends({}, adjustFontSizeTo(options.baseFontSize), {
-        color: options.bodyColor,
-        fontWeight: options.bodyWeight
-      }),
-      "blockquote cite:before": {
-        content: '"— "'
-      },
-      ul: {
-        listStyle: "disc"
-      },
-      "ul,ol": {
-        marginLeft: 0
-      }
-    }, _defineProperty(_ref2, _typographyBreakpointConstants.MOBILE_MEDIA_QUERY, {
-      "ul,ol": {
-        marginLeft: rhythm(1)
-      },
-      blockquote: {
-        marginLeft: rhythm(-3 / 4),
-        marginRight: 0,
-        paddingLeft: rhythm(9 / 16)
-      }
-    }), _defineProperty(_ref2, "h1,h2,h3,h4,h5,h6", {
-      marginTop: rhythm(2)
-    }), _defineProperty(_ref2, "h4", {
-      letterSpacing: "0.140625em",
-      textTransform: "uppercase"
-    }), _defineProperty(_ref2, "h6", {
-      fontStyle: "italic"
-    }), _defineProperty(_ref2, "a", {
-      boxShadow: "0 1px 0 0 currentColor",
-      color: "#007acc",
-      textDecoration: "none"
-    }), _defineProperty(_ref2, "a:hover,a:active", {
-      boxShadow: "none"
-    }), _defineProperty(_ref2, "mark,ins", {
-      background: "#007acc",
-      color: "white",
-      padding: rhythm(1 / 16) + " " + rhythm(1 / 8),
-      textDecoration: "none"
-    }), _ref2;
-  }
-};
-exports.Z = theme;
 
 /***/ }),
 
-/***/ 7577:
-/***/ (function(__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) {
+/***/ 3862:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": function() { return /* binding */ _asyncToGenerator; }
+/* harmony export */   "qZ": function() { return /* binding */ rhythm; },
+/* harmony export */   "bA": function() { return /* binding */ scale; }
 /* harmony export */ });
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
+/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2182);
+/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typography__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5798);
 
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
 
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
+var typography = new (typography__WEBPACK_IMPORTED_MODULE_0___default())(typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z); // // Hot reload typography in development.
+// if (process.env.NODE_ENV !== `production`) {
+//   typography.injectStyles();
+// }
 
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
+var rhythm = typography.rhythm;
+var scale = typography.scale;
+/* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = ((/* unused pure expression or super */ null && (typography)));
 
 /***/ }),
 
-/***/ 3718:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-module.exports = __webpack_require__(2065);
-
-
-/***/ }),
-
-/***/ 2065:
+/***/ 5047:
 /***/ (function(module) {
 
 /**
@@ -2669,78 +2740,7 @@ try {
 }
 
 
-/***/ }),
-
-/***/ 8982:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "w": function() { return /* binding */ Bio; }
-});
-
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(9411);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/@emotion-react-virtual-06ba5ec380/0/cache/@emotion-react-npm-11.1.5-bb508e1993-4e78f694df.zip/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(8751);
-// EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(2253);
-;// CONCATENATED MODULE: ./src/components/zed-profile-pic.jpg
-/* harmony default export */ var zed_profile_pic = (__webpack_require__.p + "static/zed-profile-pic-597d90073077506ad53d8adc79f6a84c.jpg");
-;// CONCATENATED MODULE: ./src/components/bio.tsx
-
-
-var _templateObject, _templateObject2;
-
-
-/** @jsx jsx */
-
-
-
-var objectives = ["a bit less\n  frustrating.", "more fun", "great again"];
-var Bio = function Bio() {
-  var random = Math.random();
-  if (typeof window === "undefined") random = 0.4; //have a consistent ssr
-
-  return (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
-    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject || (_templateObject = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n                margin-top: ", ";\n                display: flex;\n                margin-bottom: ", ";\n    "])), (0,typography/* rhythm */.qZ)(2.5), (0,typography/* rhythm */.qZ)(2.5))
-  }, (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
-    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject2 || (_templateObject2 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n                  margin-right: ", ";\n                  margin-bottom: 0;\n                  overflow: hidden;\n                  width: 50px;\n                  height: 50px;\n                  border-radius: 25px;\n        "])), (0,typography/* rhythm */.qZ)(1 / 2))
-  }, (0,emotion_react_browser_esm/* jsx */.tZ)("img", {
-    alt: "Zoltan Erdos",
-    src: zed_profile_pic
-  })), (0,emotion_react_browser_esm/* jsx */.tZ)("p", null, "Written by", " ", (0,emotion_react_browser_esm/* jsx */.tZ)("strong", null, "Zoltan Erdos"), ", who is interested to make software development", " " + (objectives[Math.floor(random * objectives.length)] || "crazy."), (0,emotion_react_browser_esm/* jsx */.tZ)("br", null), (0,emotion_react_browser_esm/* jsx */.tZ)("a", {
-    href: "https://twitter.com/ZoltanErdos"
-  }, "Follow me on Twitter")));
-};
-
-/***/ }),
-
-/***/ 2253:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "qZ": function() { return /* binding */ rhythm; },
-/* harmony export */   "bA": function() { return /* binding */ scale; }
-/* harmony export */ });
-/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2088);
-/* harmony import */ var typography__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(typography__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2737);
-
-
-var typography = new (typography__WEBPACK_IMPORTED_MODULE_0___default())(typography_theme_wordpress_2016__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z); // // Hot reload typography in development.
-// if (process.env.NODE_ENV !== `production`) {
-//   typography.injectStyles();
-// }
-
-var rhythm = typography.rhythm;
-var scale = typography.scale;
-/* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = ((/* unused pure expression or super */ null && (typography)));
-
 /***/ })
 
 }]);
-//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-127e8233db7cc9c2eea5.js.map
+//# sourceMappingURL=022d3153bf09c36cd784dcdb36ffbd187f9c96d7-7e1a6b2d760010279e15.js.map

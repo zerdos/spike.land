@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_zedvision_site"] = self["webpackChunk_zedvision_zedvision_site"] || []).push([[7],{
 
-/***/ 3692:
+/***/ 5270:
 /***/ (function(module) {
 
 function _arrayLikeToArray(arr, len) {
@@ -18,10 +18,10 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 6662:
+/***/ 1232:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(3692);
+var arrayLikeToArray = __webpack_require__(5270);
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -32,12 +32,12 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 389:
+/***/ 3061:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var setPrototypeOf = __webpack_require__(2124);
+var setPrototypeOf = __webpack_require__(742);
 
-var isNativeReflectConstruct = __webpack_require__(7969);
+var isNativeReflectConstruct = __webpack_require__(1549);
 
 function _construct(Parent, args, Class) {
   if (isNativeReflectConstruct()) {
@@ -64,7 +64,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 6122:
+/***/ 1260:
 /***/ (function(module) {
 
 function _defineProperty(obj, key, value) {
@@ -87,7 +87,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 7969:
+/***/ 1549:
 /***/ (function(module) {
 
 function _isNativeReflectConstruct() {
@@ -108,7 +108,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 65:
+/***/ 1557:
 /***/ (function(module) {
 
 function _iterableToArray(iter) {
@@ -120,7 +120,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 4449:
+/***/ 1359:
 /***/ (function(module) {
 
 function _nonIterableSpread() {
@@ -132,16 +132,16 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 3689:
+/***/ 5182:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(6662);
+var arrayWithoutHoles = __webpack_require__(1232);
 
-var iterableToArray = __webpack_require__(65);
+var iterableToArray = __webpack_require__(1557);
 
-var unsupportedIterableToArray = __webpack_require__(9352);
+var unsupportedIterableToArray = __webpack_require__(6487);
 
-var nonIterableSpread = __webpack_require__(4449);
+var nonIterableSpread = __webpack_require__(1359);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -152,10 +152,10 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 9352:
+/***/ 6487:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(3692);
+var arrayLikeToArray = __webpack_require__(5270);
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -171,7 +171,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 2922:
+/***/ 1327:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -183,29 +183,29 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ blog_post; }
 });
 
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(9411);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/@emotion-react-virtual-06ba5ec380/0/cache/@emotion-react-npm-11.1.5-bb508e1993-4e78f694df.zip/node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(8751);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(3182);
+// EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
+var emotion_react_browser_esm = __webpack_require__(8197);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(8665);
+var gatsby_browser_entry = __webpack_require__(8447);
 // EXTERNAL MODULE: ./src/components/bio.tsx + 1 modules
-var bio = __webpack_require__(8982);
+var bio = __webpack_require__(7263);
 // EXTERNAL MODULE: ./src/components/layout.tsx
-var layout = __webpack_require__(5925);
+var layout = __webpack_require__(4822);
 // EXTERNAL MODULE: ./src/components/seo.tsx + 1 modules
-var seo = __webpack_require__(6792);
+var seo = __webpack_require__(8912);
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(2253);
-// EXTERNAL MODULE: ../../.yarn/$$virtual/gatsby-plugin-mdx-virtual-74ba60b97b/0/cache/gatsby-plugin-mdx-npm-2.0.1-c75580d2e8-8edea49ebe.zip/node_modules/gatsby-plugin-mdx/index.js
-var gatsby_plugin_mdx = __webpack_require__(9897);
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(7577);
-// EXTERNAL MODULE: ../../.yarn/cache/@babel-runtime-npm-7.13.10-d9a6e8f765-22014226b9.zip/node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(3718);
+var typography = __webpack_require__(3862);
+// EXTERNAL MODULE: ../../node_modules/gatsby-plugin-mdx/index.js
+var gatsby_plugin_mdx = __webpack_require__(3730);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(6470);
+// EXTERNAL MODULE: ../../node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(7162);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ../../.yarn/cache/react-npm-17.0.1-98658812fc-a76d86ec97.zip/node_modules/react/index.js
-var react = __webpack_require__(7693);
+// EXTERNAL MODULE: ../../node_modules/react/index.js
+var react = __webpack_require__(2784);
 ;// CONCATENATED MODULE: ./src/components/codeBox/CodeBox.tsx
 
 
@@ -280,8 +280,8 @@ var CodeBox = function CodeBox(_ref) {
     id: "preview"
   })));
 };
-// EXTERNAL MODULE: ../../.yarn/$$virtual/@mdx-js-react-virtual-97892cdf0d/0/cache/@mdx-js-react-npm-1.6.22-57e4c05c2b-3a0a189aa0.zip/node_modules/@mdx-js/react/dist/esm.js
-var esm = __webpack_require__(8990);
+// EXTERNAL MODULE: ../../node_modules/@mdx-js/react/dist/esm.js
+var esm = __webpack_require__(4099);
 ;// CONCATENATED MODULE: ./src/templates/blog-post.tsx
 
 
@@ -344,21 +344,21 @@ var pageQuery = "2168380918";
 
 /***/ }),
 
-/***/ 9897:
+/***/ 3730:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /**
  * Welcome to gatsby-plugin-mdx!
  *
  * Start reading in gatsby-node.js
- */var MDXRenderer=__webpack_require__(5348);module.exports={MDXRenderer:MDXRenderer};
+ */var MDXRenderer=__webpack_require__(3121);module.exports={MDXRenderer:MDXRenderer};
 
 /***/ }),
 
-/***/ 5348:
+/***/ 3121:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var _construct=__webpack_require__(389);var _toConsumableArray=__webpack_require__(3689);var _defineProperty=__webpack_require__(6122);var _objectWithoutPropertiesLoose=__webpack_require__(1774);function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var React=__webpack_require__(7693);var _require=__webpack_require__(8990),mdx=_require.mdx;var _require2=__webpack_require__(838),useMDXScope=_require2.useMDXScope;module.exports=function MDXRenderer(_ref){var scope=_ref.scope,children=_ref.children,props=_objectWithoutPropertiesLoose(_ref,["scope","children"]);var mdxScope=useMDXScope(scope);// Memoize the compiled component
+var _construct=__webpack_require__(3061);var _toConsumableArray=__webpack_require__(5182);var _defineProperty=__webpack_require__(1260);var _objectWithoutPropertiesLoose=__webpack_require__(8834);function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly)symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){_defineProperty(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var React=__webpack_require__(2784);var _require=__webpack_require__(4099),mdx=_require.mdx;var _require2=__webpack_require__(1364),useMDXScope=_require2.useMDXScope;module.exports=function MDXRenderer(_ref){var scope=_ref.scope,children=_ref.children,props=_objectWithoutPropertiesLoose(_ref,["scope","children"]);var mdxScope=useMDXScope(scope);// Memoize the compiled component
 var End=React.useMemo(function(){if(!children){return null;}var fullScope=_objectSpread({// React is here just in case the user doesn't pass them in
 // in a manual usage of the renderer
 React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.map(function(key){return fullScope[key];});var fn=_construct(Function,["_fn"].concat(_toConsumableArray(keys),[""+children]));return fn.apply(void 0,[{}].concat(_toConsumableArray(values)));},[children,scope]);return React.createElement(End,_objectSpread({},props));};
@@ -366,4 +366,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-9f417d43395d42840a0e.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-5c5053dc2be7aec3e6c9.js.map
