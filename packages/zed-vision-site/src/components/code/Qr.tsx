@@ -30,11 +30,13 @@ export const Qr = () => {
     color: string,
     element: HTMLCanvasElement | null,
   ) => {
+
     if (
       typeof window === "undefined"
     ) {
       return "painAndSufferingBecauseOfLegacyWebpackRendering" as unknown as IDummyQR;
     }
+
     const options = {
       size: 220,
       element: element!,
@@ -151,14 +153,14 @@ export const Qr = () => {
         css={css`
         position: absolute;
          animation-name:${
-          (cubeState === 1 || cubeState === 0) ? "none" : "byecube"
-        };
-  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
-  animation-iteration-count: 1;
-  animation-duration: 4s;
-   transform-style: preserve-3d;
-  transform-origin:  center center; 
-`}
+                (cubeState === 1 || cubeState === 0) ? "none" : "byecube"
+              };
+        animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
+        animation-iteration-count: 1;
+        animation-duration: 4s;
+        transform-style: preserve-3d;
+        transform-origin:  center center; 
+      `}
       >
         <Cube
           size={220}
@@ -262,72 +264,54 @@ const r = randoms;
 
 const spinCubeCss = (size: number, animate: boolean) =>
   css`
-
-  width: ${size}px; 
-  height: ${size}px;
-  animation-name: ${animate && "spincube"};
-  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
-  animation-iteration-count: infinite;
-  animation-duration: 10s;
-  transform-style: preserve-3d;
-  transform: rotateX(${r[1]}deg) rotateY(${r[2]}deg) rotateZ(${r[0]}deg);
-  
- 
-      
-      
-  @keyframes spincube {
-    from,to {
-      transform: rotateX(${r[1]}deg) rotateY(${r[2]}deg) rotateZ(${r[0]}deg);
-    }
-    16% {
-      transform: rotateX(${r[1]}deg) rotateY(${r[0]}deg) rotateZ(${r[0]}deg);
-    }
-    33% {
-      transform: rotateX(${r[2]}deg) rotateY(${r[0]}deg) rotateZ(${r[1]}deg);
-       }
-    50% {
-     transform: rotateX(${r[2]}deg) rotateY(${r[1]}deg) rotateZ(${r[0]}deg);
-    }
-    66% {
-     transform: rotateX(${r[0]}deg) rotateY(${r[1]}deg) rotateZ(${r[2]}deg);
-      }
-    83% {
-     transform: rotateX(${r[0]}deg) rotateY(${r[2]}deg) rotateZ(${r[1]}deg);
-     }
-  }
-
-  
-
-
-
-   div{
-    position: absolute;
-    width: ${size}px;
+    width: ${size}px; 
     height: ${size}px;
-    /* margin: 10px;
-    padding: 10px; */
-    /* border: 10px solid transparent; */
-    background: rgba(255,255,255, .5);
+    animation-name: ${animate && "spincube"};
+    animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
+    animation-iteration-count: infinite;
+    animation-duration: 10s;
+    transform-style: preserve-3d;
+    transform: rotateX(${r[1]}deg) rotateY(${r[2]}deg) rotateZ(${r[0]}deg);
+    
+  
+        
+        
+    @keyframes spincube {
+      from,to {
+        transform: rotateX(${r[1]}deg) rotateY(${r[2]}deg) rotateZ(${r[0]}deg);
+      }
+      16% {
+        transform: rotateX(${r[1]}deg) rotateY(${r[0]}deg) rotateZ(${r[0]}deg);
+      }
+      33% {
+        transform: rotateX(${r[2]}deg) rotateY(${r[0]}deg) rotateZ(${r[1]}deg);
+        }
+      50% {
+        transform: rotateX(${r[2]}deg) rotateY(${r[1]}deg) rotateZ(${r[0]}deg);
+      }
+      66% {
+        transform: rotateX(${r[0]}deg) rotateY(${r[1]}deg) rotateZ(${r[2]}deg);
+      }
+      83% {
+        transform: rotateX(${r[0]}deg) rotateY(${r[2]}deg) rotateZ(${r[1]}deg);
+      }
+    }
 
-    box-shadow: inset 0 0 50px rgba(255,0,0);
-  }
+    div{
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      /* margin: 10px;
+      padding: 10px; */
+      /* border: 10px solid transparent; */
+      background: rgba(255,255,255, .5);
+
+      box-shadow: inset 0 0 50px rgba(255,0,0);
+    }
 `;
 
 export default () => (
-  <>
-    <Global
-      styles={css`
-      body{
-          background: #333;
-           overflow: visible;
-          margin: 300px;
-          width: 0px;
-          text-align: center;
-         }  
-    `}
-    />
-    <Qr />
-  </>
+  <Qr />
 );
 
 const Loader = (c: HTMLCanvasElement, size: number) => {
