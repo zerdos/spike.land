@@ -24,7 +24,8 @@ self.addEventListener("message", async (event) => {
 });
 
 self.addEventListener(
-  "connect",  async ({ ports }) => {
+  "connect",
+  async ({ ports }) => {
     ipfs = ipfs || await Ipfs.create();
 
     const service = new IPFSService(ipfs);

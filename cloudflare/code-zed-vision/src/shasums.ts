@@ -39,7 +39,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/workers/ipfsWorker.js":
-    "61a972ba0455935115ad25039702ae354c902db30da75bb38ab65c0f2e4e5476",
+    "98606ce847990e96fe72264b04af61db2b23b5cf1ea9d5d637af3b7ba264228a",
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
@@ -59,7 +59,7 @@ export const shasums = {
   "js/templates.mjs":
     "bb197766c6702eca2c60783520eec7c748800f83dea244bd1403d1b29c880927",
   "js/share.mjs":
-    "4f236d7b192782ecb90605a84e377dd445a14ba3f11af09962c8a0d30a12ce0f",
+    "4f472496782a5dfa2d12a00d10810cf12e74f85715f7f7993d6a1584a8c1ca38",
   "js/ipfsClient.mjs":
     "a3ba172c448bdea19a3a9ceca159a9417afa5425cf016e146f196fad16a0e4e4",
   "js/importScript.mjs":
@@ -87,18 +87,6 @@ export const shasums = {
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.mjs":
     "1f275e79aa90f8f9a0ed3e8e7565b716fcd76edac0886e0dd81acffeb759c043",
-  "modules/vendor/diffMin.js":
-    "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
-  "modules/vendor/diffMin.d.ts":
-    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
-  "modules/vendor/idb.js":
-    "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
-  "modules/vendor/idb.d.ts":
-    "962a0c7ca6d64b3b34d33d6baa194f0785ed0b43856f092e45a6bf10151e3a4c",
-  "modules/vendor/diffChars.js":
-    "5bda726a6e9fbaf79497fc3966c6c8ff86ea1b1b1baedb3c021862fccfb2b4a3",
-  "modules/vendor/diffChars.d.ts":
-    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/sha256.d.ts":
@@ -119,11 +107,23 @@ export const shasums = {
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
+  "modules/vendor/diffMin.js":
+    "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
+  "modules/vendor/diffMin.d.ts":
+    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
+  "modules/vendor/idb.js":
+    "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
+  "modules/vendor/idb.d.ts":
+    "962a0c7ca6d64b3b34d33d6baa194f0785ed0b43856f092e45a6bf10151e3a4c",
+  "modules/vendor/diffChars.js":
+    "5bda726a6e9fbaf79497fc3966c6c8ff86ea1b1b1baedb3c021862fccfb2b4a3",
+  "modules/vendor/diffChars.d.ts":
+    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "modules/renderer.mjs":
-    "6f76d54f54301b8f31dfe65d7600365dd5d9b8b5c5039d88e8ac7d63ccb6c695",
+    "2b6cd98ecb38c2e30292cef4d0a005b36924a122dfbd01dfdad5f7ce49ba5144",
   ".tsBuildInfo":
-    "70db6bb4291744bba7d6e93ff112cb3106e7e21c8a29ae210447dc311b82a087",
+    "4b0d1aeb7be508dc4dc5101287159b769e0ac984a26daf0f6cd02b04817ad07a",
   "food": "bar",
 };

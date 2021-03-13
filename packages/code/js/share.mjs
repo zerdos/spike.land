@@ -90,7 +90,6 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
 
     await shaDB.put(sha, rootUrl);
   }
- 
 
   const preLoad = async (retry = 3) => {
     try {

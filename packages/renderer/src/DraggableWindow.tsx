@@ -90,13 +90,17 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       dragMomentum={false}
       drag={true}
     >
-      <div css={{ display: "flex" }}>
+      <div
+        css={css`
+                display: flex;
+                `}
+      >
         <div
-          css={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+          css={css`
+            display: flex;
+            flex-direction: column;
+            align-items: "center";
+          `}
         >
           <ToggleButtonGroup
             value={scaleRange}
@@ -112,11 +116,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               >
                 <span
                   css={css`
-                    color: ${
+                       color: ${
                     size === scaleRange
                       ? "rgba(255,255,255,.8)"
                       : "rgba(0,0,0,.3)"
-                  }`}
+                  };
+                       `}
                 >
                   {size}%
                 </span>
@@ -137,23 +142,27 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
            `}
           >
             {errorText.trim() !== "" && <pre
-              css={`
-          position: absolute;
-          z-index:3;
-          color: rgb(255, 240, 240);
-          padding: 24px;
-          font-size: 14pt;
-          background-color: rgb(255, 0, 0);
-          flex: 0 0 auto;
-          overflow: auto;
-          margin: 0;
-          font-family: monospace;
-          white-space: pre-wrap;
-      `}
+              css={css`
+                    position: absolute;
+                    z-index:3;
+                    color: rgb(255, 240, 240);
+                    padding: 24px;
+                    font-size: 14pt;
+                    background-color: rgb(255, 0, 0);
+                    flex: 0 0 auto;
+                    overflow: auto;
+                    margin: 0;
+                    font-family: monospace;
+                    white-space: pre-wrap;
+                `}
             >
               {isStable && errorText.trim()}
               {isStable && errorText.trim() !== "" &&
-                <div css="text-align: right;">
+                <div
+                  css={css`
+                          text-align: right;
+                        `}
+                >
                   <Button
                     variant="contained"
                     onClick={() => {
@@ -174,7 +183,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 height: height,
                 scale,
               }}
-              css={`
+              css={css`
                   overflow:overlay;
                   >div{
                     width:100%;
@@ -205,20 +214,26 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               >
                 {size === 640
                   ? <Phone
-                    css={`color: ${
+                    css={css`
+                        color: ${
                       width === 640 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    }`}
+                    };
+                        `}
                   />
                   : size === 1024
                   ? <Tablet
-                    css={`color: ${
+                    css={css`
+                        color: ${
                       width === 1024 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    }`}
+                    };
+                        `}
                   />
                   : <Tv
-                    css={`color: ${
+                    css={css`
+                        color: ${
                       width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    }`}
+                    };
+                      `}
                   />}
               </ToggleButton>
             )}
@@ -244,7 +259,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             {showQR && <QR key={qrUrl} url={qrUrl + "edit/"} />}
           </motion.div>
 
-          <div css="margin:0px 0px 16px">
+          <div
+            css={css`
+                    margin:0px 0px 16px;
+                  `}
+          >
             <Fab
               variant="extended"
               color="secondary"
