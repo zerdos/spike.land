@@ -1058,27 +1058,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/mitt/dist/mitt.es.js
-/* harmony default export */ function mitt_es(n) {
-  return {
-    all: n = n || new Map(),
-    on: function (t, e) {
-      var i = n.get(t);
-      i && i.push(e) || n.set(t, [e]);
-    },
-    off: function (t, e) {
-      var i = n.get(t);
-      i && i.splice(i.indexOf(e) >>> 0, 1);
-    },
-    emit: function (t, e) {
-      (n.get(t) || []).slice().map(function (n) {
-        n(e);
-      }),
-        (n.get("*") || []).slice().map(function (n) {
-          n(t, e);
-        });
-    },
-  };
-}
+/* harmony default export */ function mitt_es(n){return{all:n=n||new Map,on:function(t,e){var i=n.get(t);i&&i.push(e)||n.set(t,[e])},off:function(t,e){var i=n.get(t);i&&i.splice(i.indexOf(e)>>>0,1)},emit:function(t,e){(n.get(t)||[]).slice().map(function(n){n(e)}),(n.get("*")||[]).slice().map(function(n){n(t,e)})}}}
 //# sourceMappingURL=mitt.es.js.map
 
 ;// CONCATENATED MODULE: ./.cache/emitter.js
@@ -1599,4 +1579,4 @@ module.exports = invariant;
 /******/ var __webpack_exports__ = __webpack_require__.O(undefined, [774,532], function() { return __webpack_exec__(8012); });
 /******/ }
 ]);
-//# sourceMappingURL=app-94efe19d75b9c0bd3f20.js.map
+//# sourceMappingURL=app-2aa51ea3c99c910ccdd0.js.map

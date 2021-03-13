@@ -30,7 +30,6 @@ export const Qr = () => {
     color: string,
     element: HTMLCanvasElement | null,
   ) => {
-
     if (
       typeof window === "undefined"
     ) {
@@ -153,8 +152,8 @@ export const Qr = () => {
         css={css`
         position: absolute;
          animation-name:${
-                (cubeState === 1 || cubeState === 0) ? "none" : "byecube"
-              };
+          (cubeState === 1 || cubeState === 0) ? "none" : "byecube"
+        };
         animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);
         animation-iteration-count: 1;
         animation-duration: 4s;

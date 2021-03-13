@@ -216,7 +216,7 @@ function _sha() {
 
 
 
-var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10, _templateObject11;
+var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7, _templateObject8, _templateObject9, _templateObject10;
 
 
 
@@ -498,7 +498,7 @@ var Qr = function Qr() {
   return (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
     css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject || (_templateObject = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n              display: inline-block;\n              position: relative;\n              margin: 100px;\n              overflow: visible;\n              @keyframes byecube {\n                from {\n                  transform: translateX(0px);\n                }\n                to {\n                    transform: translateY(-1000px);\n                  }\n              };\n          "])))
   }, (0,emotion_react_browser_esm/* jsx */.tZ)("div", {
-    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject2 || (_templateObject2 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n        position: absolute;\n         animation-name:", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: 1;\n  animation-duration: 4s;\n   transform-style: preserve-3d;\n  transform-origin:  center center; \n"])), cubeState === 1 || cubeState === 0 ? "none" : "byecube")
+    css: (0,emotion_react_browser_esm/* css */.iv)(_templateObject2 || (_templateObject2 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n        position: absolute;\n         animation-name:", ";\n        animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n        animation-iteration-count: 1;\n        animation-duration: 4s;\n        transform-style: preserve-3d;\n        transform-origin:  center center; \n      "])), cubeState === 1 || cubeState === 0 ? "none" : "byecube")
   }, (0,emotion_react_browser_esm/* jsx */.tZ)(Cube, {
     size: 220,
     animate: true,
@@ -554,13 +554,11 @@ var randoms = new Array(3).fill(0).map(function (x, i) {
 var r = randoms;
 
 var spinCubeCss = function spinCubeCss(size, animate) {
-  return (0,emotion_react_browser_esm/* css */.iv)(_templateObject10 || (_templateObject10 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n\n  width: ", "px; \n  height: ", "px;\n  animation-name: ", ";\n  animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n  animation-iteration-count: infinite;\n  animation-duration: 10s;\n  transform-style: preserve-3d;\n  transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n  \n \n      \n      \n  @keyframes spincube {\n    from,to {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    16% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    33% {\n      transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n       }\n    50% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    }\n    66% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n    83% {\n     transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n     }\n  }\n\n  \n\n\n\n   div{\n    position: absolute;\n    width: ", "px;\n    height: ", "px;\n    /* margin: 10px;\n    padding: 10px; */\n    /* border: 10px solid transparent; */\n    background: rgba(255,255,255, .5);\n\n    box-shadow: inset 0 0 50px rgba(255,0,0);\n  }\n"])), size, size, animate && "spincube", r[1], r[2], r[0], r[1], r[2], r[0], r[1], r[0], r[0], r[2], r[0], r[1], r[2], r[1], r[0], r[0], r[1], r[2], r[0], r[2], r[1], size, size);
+  return (0,emotion_react_browser_esm/* css */.iv)(_templateObject10 || (_templateObject10 = (0,taggedTemplateLiteralLoose/* default */.Z)(["\n    width: ", "px; \n    height: ", "px;\n    animation-name: ", ";\n    animation-timing-function: cubic-bezier(.57,-0.6,0,1.03);\n    animation-iteration-count: infinite;\n    animation-duration: 10s;\n    transform-style: preserve-3d;\n    transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n    \n  \n        \n        \n    @keyframes spincube {\n      from,to {\n        transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n      16% {\n        transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n      33% {\n        transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n        }\n      50% {\n        transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n      66% {\n        transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n      83% {\n        transform: rotateX(", "deg) rotateY(", "deg) rotateZ(", "deg);\n      }\n    }\n\n    div{\n      position: absolute;\n      width: ", "px;\n      height: ", "px;\n      /* margin: 10px;\n      padding: 10px; */\n      /* border: 10px solid transparent; */\n      background: rgba(255,255,255, .5);\n\n      box-shadow: inset 0 0 50px rgba(255,0,0);\n    }\n"])), size, size, animate && "spincube", r[1], r[2], r[0], r[1], r[2], r[0], r[1], r[0], r[0], r[2], r[0], r[1], r[2], r[1], r[0], r[0], r[1], r[2], r[0], r[2], r[1], size, size);
 };
 
 /* harmony default export */ var code_Qr = (function () {
-  return jsx(React.Fragment, null, jsx(Global, {
-    styles: css(_templateObject11 || (_templateObject11 = _taggedTemplateLiteralLoose(["\n      body{\n          background: #333;\n           overflow: visible;\n          margin: 300px;\n          width: 0px;\n          text-align: center;\n         }  \n    "])))
-  }), jsx(Qr, null));
+  return jsx(Qr, null);
 });
 
 var Loader = function Loader(c, size) {
@@ -785,4 +783,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-e57ce545299e5876197a.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-f0fe3de222bcf4f2419d.js.map
