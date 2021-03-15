@@ -69,7 +69,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
   "js/workboxLoader.mjs":
-    "555fd1a1df8ff8be8c208d3d9d984ff467cb5bd2ff13654692b3816d19a23337",
+    "8ed1ce9b0555f944e3cfb4c90f0cb6b0974dcdaa32dc69ad56ad6fd7b6e21ef7",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
   "sw.js": "5d2709de4dd5f20e6e0cc6ece1e4325db0abb1bb1bc8744b396100036f80e043",

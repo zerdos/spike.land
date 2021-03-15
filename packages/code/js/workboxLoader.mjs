@@ -5,17 +5,20 @@ export const workboxLoader = async () => {
   ) {
     fetch("https://code.zed.vision/check").then((x) => x.json()).then((x) =>
       x.missing
-    ).then((x) => {
-      if (x.length) {
-        import("./ipfsClient.mjs").then(({ ipfsCat }) => Promise.all(x.map((cid) =>
+    ).then((missingArray) =>
+      import("./ipfsClient.mjs").then(({ ipfsCat }) =>
+        Promise.all(
+          missingArray.map((cid) =>
             ipfsCat(cid).then((content) =>
               fetch(`https://code.zed.vision/add/${cid}`, {
                 method: "POST",
                 body: content,
               })
-            ))));
-      }
-    });
+            )
+          ),
+        )
+      )
+    );
 
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-window.prod.mjs"
