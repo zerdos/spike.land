@@ -10,9 +10,8 @@
       "dom.iterable",
       "esnext"
     ],
-    "jsxImportSource": "@emotion/react",
     "allowJs": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

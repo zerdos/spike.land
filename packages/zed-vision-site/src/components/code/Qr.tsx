@@ -1,6 +1,7 @@
-import React from "react";
 /** @jsx jsx */
-import { css, Global, jsx } from "@emotion/react";
+
+import React from "react";
+import { css, jsx } from "@emotion/react";
 
 import { sha256 } from "../utils/sha256/sha256";
 
