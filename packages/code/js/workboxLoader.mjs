@@ -7,16 +7,13 @@ export const workboxLoader = async () => {
       x.missing
     ).then((x) => {
       if (x.length) {
-        import("./ipfsClient.mjs").then(({ ipfsCat }) => {
-          x.map((cid) =>
+        import("./ipfsClient.mjs").then(({ ipfsCat }) => Promise.all(x.map((cid) =>
             ipfsCat(cid).then((content) =>
               fetch(`https://code.zed.vision/add/${cid}`, {
                 method: "POST",
                 body: content,
               })
-            )
-          );
-        });
+            ))));
       }
     });
 
