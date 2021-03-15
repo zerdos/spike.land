@@ -1,7 +1,12 @@
 /** @jsx jsx */
-import { css, jsx, React } from "./renderer";
 
-export const QR: React.FC<{ url: string }> = ({ url }) => {
+import { css, jsx, React, motion } from "./renderer";
+
+import Fab from "@material-ui/core/Fab";
+import QrCode from "@material-ui/icons/QrCode";
+
+
+const QR: React.FC<{ url: string }> = ({ url }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
@@ -33,3 +38,35 @@ export const QR: React.FC<{ url: string }> = ({ url }) => {
     ref={canvasRef}
   />;
 };
+
+
+
+
+export const QRButton: React.FC<{url: string}>  = ({url})=> {
+  const [showQR, setQR] = React.useState(false);
+  return  <motion.div
+              animate={{
+                width: showQR ? 220 : 56,
+                height: showQR ? 240 : 48,
+              }}
+              onClick={(e) => {
+                setQR(!showQR);
+              }}
+              css={css`
+                margin-bottom: 12px;
+              `}
+              >
+              {showQR ? <QR key={url} url={url + "edit/"} />:<Fab
+  variant="extended"
+  color="secondary"
+  onClick={() => {
+    setQR(!showQR);
+  }}
+>
+  <QrCode />
+</Fab>}
+              </motion.div>
+
+          
+        
+}

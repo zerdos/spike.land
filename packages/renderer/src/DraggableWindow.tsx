@@ -4,13 +4,12 @@ import Fab from "@material-ui/core/Fab";
 import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
-import QrCode from "@material-ui/icons/QrCode";
 import Share from "@material-ui/icons/Share";
 
 import Tablet from "@material-ui/icons/TabletAndroid";
 import Tv from "@material-ui/icons/Tv";
 import Phone from "@material-ui/icons/PhoneAndroid";
-import { QR } from "./Qr";
+import { QRButton } from "./Qr";
 
 import { css, jsx, motion, React, render } from "./renderer";
 
@@ -31,7 +30,7 @@ interface DraggableWindowProps {
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
   { onShare, onRestore, position, session, children },
 ) => {
-  const [showQR, setQR] = React.useState(false);
+
   const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
@@ -66,6 +65,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
 
   const scale = scaleRange / 100;
+
 
   return (
     <motion.div
@@ -239,6 +239,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             )}
           </ToggleButtonGroup>
         </div>
+
         <div
           css={css`
               display: flex;
@@ -247,35 +248,11 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               padding: 16px;
               `}
         >
-          <motion.div
-            animate={{
-              width: showQR ? 220 : 0,
-              height: showQR ? 240 : 0,
-            }}
-            onClick={(e) => {
-              setQR(!showQR);
-            }}
-          >
-            {showQR && <QR key={qrUrl} url={qrUrl + "edit/"} />}
-          </motion.div>
+  
+        <QRButton url={qrUrl} />
 
-          <div
-            css={css`
-                    margin:0px 0px 16px;
-                  `}
-          >
-            <Fab
-              variant="extended"
-              color="secondary"
-              onClick={() => {
-                setQR(!showQR);
-              }}
-            >
-              <QrCode />
-            </Fab>
-          </div>
 
-          <div>
+        
             <Fab
               variant="extended"
               color="primary"
@@ -285,22 +262,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             >
               <Share />
             </Fab>
-          </div>
-        </div>
+            </div>
+    
       </div>
     </motion.div>
   );
 };
-
-interface IRenderProps extends DraggableWindowProps {
-  children: React.ReactNode;
-}
-
-export const renderDraggableWindow = (
-  props: IRenderProps,
-  element: HTMLElement,
-) =>
-  render(
-    <DraggableWindow {...props}>{props.children}</DraggableWindow>,
-    element,
-  );
