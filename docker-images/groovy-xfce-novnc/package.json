@@ -4,8 +4,8 @@
   "scripts": {
     "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
     "tag:latest": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:latest`)'",
-    "docker:push": "docker push $(yarn tag:version) && docker push $(yarn tag:latest)",
-    "docker:build": "docker build . -t $(yarn tag:version) -t $(yarn tag:latest)",
+    "docker:push": "node docker.js",
+    "docker:build": "docker build .",
     "build": "node index.js"
   },
   "files": [

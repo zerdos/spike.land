@@ -2,10 +2,10 @@
   "name": "@devcontainer/focal-devcontainer",
   "tagname": "focal-devcontainer",
   "scripts": {
-    "tag:version": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
+    "tag:version": "node --no-warnings -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:${p.version}`)'",
     "tag:latest": "node -e 'const p = require(__dirname + `/package.json`); console.log(`devimages/${p.tagname}:latest`)'",
-    "docker:push": "docker push $(yarn tag:version) && docker push $(yarn tag:latest)",
-    "docker:build": "docker build . -t $(yarn tag:version) -t $(yarn tag:latest)",
+    "docker:push": "node docker.js",
+    "docker:build": "docker build .",
     "build": "node index.js"
   },
   "files": [
@@ -26,5 +26,8 @@
   "gitHead": "af54e6ff16c9c20b6fba6365c211999fedeae2aa",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "execa": "^5.0.0"
   }
 }
