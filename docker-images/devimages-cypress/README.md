@@ -3,7 +3,7 @@
 - Base image: buildpack-deps:focal
 - Node: 14.16.0
 - Yarn: 1.22.10
-- Cypress 6.6.0
+- Cypress 6.7.1
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - with Google-chrome- With Vscode- Zsh + Oh my zsh!
 
