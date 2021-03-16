@@ -250,9 +250,7 @@
 /******/ 					} else {
 /******/ 						if(!/^(532|658)$/.test(chunkId)) {
 /******/ 							// setup Promise in chunk cache
-/******/ 							var promise = new Promise(function(resolve, reject) {
-/******/ 								installedChunkData = installedChunks[chunkId] = [resolve, reject];
-/******/ 							});
+/******/ 							var promise = new Promise(function(resolve, reject) { installedChunkData = installedChunks[chunkId] = [resolve, reject]; });
 /******/ 							promises.push(installedChunkData[2] = promise);
 /******/ 		
 /******/ 							// start chunk loading
@@ -325,4 +323,4 @@ var __webpack_exports__ = {};
 __webpack_require__.O();
 /******/ })()
 ;
-//# sourceMappingURL=webpack-runtime-11e33d3752f5fbeb63f5.js.map
+//# sourceMappingURL=webpack-runtime-4dd4efbc485119d4d78d.js.map
