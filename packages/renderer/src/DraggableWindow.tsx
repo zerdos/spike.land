@@ -213,7 +213,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 {size === 640
                   ? <Phone
                     css={css`
-                        color: ${width === 640 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
+                        color: ${
+                      width === 640 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
                     };
                         `}
                   />
@@ -227,7 +228,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   />
                   : <Tv
                     css={css`
-                        color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
+                        color: ${
+                      width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
+                    };
                       `}
                   />}
               </ToggleButton>
