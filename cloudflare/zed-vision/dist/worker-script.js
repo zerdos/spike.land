@@ -771,7 +771,7 @@ async function handleCloudRequest(request) {
       maybeRoute.length === 8;
     if (maybeRoute && isKey) {
       return Response.redirect(
-        `https://code-zed-vision.zed-vision.workers.dev/?signalToQr=${maybeRoute}`,
+        `https://code.zed-vision.workers.dev/?signalToQr=${maybeRoute}`,
         307,
       );
     }
@@ -807,15 +807,12 @@ async function handleCloudRequest(request) {
     }
     if (pathname === "/") {
       return Response.redirect(
-        "https://code-zed-vision.zed-vision.workers.dev/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
+        "https://code.zed-vision.workers.dev/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
         302,
       );
     }
     if (pathname === "/code" || pathname === "/code/") {
-      return Response.redirect(
-        `https://code-zed-vision.zed-vision.workers.dev`,
-        302,
-      );
+      return Response.redirect(`https://code.zed-vision.workers.dev`, 302);
     }
     return text(pathname);
   } else if (request.method === "POST") {

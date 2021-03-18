@@ -52,7 +52,7 @@ export const Qr = () => {
 
     if (typeof cubeSides[qr] === "undefined") {
       const LazyQR = await new Function(
-        `return import('https://code-zed-vision.zed-vision.workers.dev/modules/QRious.mjs').then(x=>x.QRious)`,
+        `return import('https://code.zed-vision.workers.dev/modules/QRious.mjs').then(x=>x.QRious)`,
       )();
 
       cubeSides[qr] = new LazyQR(options) as IDummyQR;
@@ -90,7 +90,7 @@ export const Qr = () => {
       if (typeof window === "undefined") return;
 
       const { fetchSignal } = await new Function(
-        `return import("https://code-zed-vision.zed-vision.workers.dev/js/hash.mjs")`,
+        `return import("https://code.zed-vision.workers.dev/js/hash.mjs")`,
       )();
 
       const getData = await fetchSignal(url, 7);

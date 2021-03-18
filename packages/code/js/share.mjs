@@ -80,7 +80,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     );
     if (typeof appDir === "undefined") return null;
 
-    rootUrl = `https://code-zed-vision.zed-vision.workers.dev/ipfs/${appDir.CID}/`;
+    rootUrl = `https://code.zed-vision.workers.dev/ipfs/${appDir.CID}/`;
 
     const { pathname } = new URL(window.location.href);
 

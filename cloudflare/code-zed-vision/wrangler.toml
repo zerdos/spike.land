@@ -1,4 +1,4 @@
-name = "code-zed-vision"
+name = "code"
 type = "javascript"
 account_id = "1f98921051196545ebe79a450d3c71ed"
 workers_dev = true

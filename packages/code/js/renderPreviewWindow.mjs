@@ -1,7 +1,7 @@
 export async function renderPreviewWindow(
   session,
 ) {
-  let rendererSrc = `https://code-zed-vision.zed-vision.workers.dev/modules/renderer.mjs`;
+  let rendererSrc = `https://code.zed-vision.workers.dev/modules/renderer.mjs`;
 
   if (window.location.hostname.indexOf("0.0") !== -1) {
     const cid = window.location.pathname.slice(6, 52);

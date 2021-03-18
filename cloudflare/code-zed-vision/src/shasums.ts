@@ -43,13 +43,13 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "d32470d2883611ec35c4caf92b5a234e27ded280113a98bd94c50462d9004965",
+    "ecf25116ff68a974dff22bb3a17e68313a5cd356df620625b824cb201578b997",
   "js/workers/getWorker.mjs":
-    "a87e226834e8323543820743160842f86f71666346e16e6386dc0b9ca9a291b4",
+    "0e4cbd6d373e41aa0617e886954e396862c0f077ebc9e4aedbed66cd6edf1e93",
   "js/renderPreviewWindow.mjs":
-    "5a6592a279d48a73b7e74ff5b6b47c9690fcea82c9258e8f8f4fde4ac26d7d13",
+    "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
   "js/data.mjs":
-    "91c84e7ab0e061f2313ddf2da9e0190f9c8f18fc11ce66231fd6bfb9e67bfe3d",
+    "98b10cd59b7e77cff5507e731cef7815748cfc7ce4e7284be0ec6720837a4331",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/formatter.mjs":
@@ -57,26 +57,26 @@ export const shasums = {
   "js/transpile.mjs":
     "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/templates.mjs":
-    "4b56b07fdfd3198023d5029fbfc8e723916d75e7cb48483bcb5d2c7be73ccb00",
+    "b28d6ee24d2b6cb26115a7a76d815a672505a0c9daba7985bb25d47fedc0635e",
   "js/share.mjs":
-    "26d2338b4bf03b865bc02be01a99cef79df85f886288122256bc1abeb578a712",
+    "5fbe381f457a01b1c0ab5709102da4e322c564268b0930cc56f400aca2e1d494",
   "js/ipfsClient.mjs":
     "a3ba172c448bdea19a3a9ceca159a9417afa5425cf016e146f196fad16a0e4e4",
   "js/importScript.mjs":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/hash.mjs":
-    "eedc0c9bf539e7da7d3e1c145f80e74b572cfb267c3444e1a3660db2b25ec8f2",
+    "2e1b418263db3b46e7f898592de2f16b4914d6a1e3eb99d2d95b8077aac06140",
   "js/sendSignalToQrCode.mjs":
     "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
   "js/workboxLoader.mjs":
-    "f409ee5b73a4179e1f900bf2a3f9d53f1193a7619fd5f02ee03eb95ae4668063",
+    "3c1df0edd5d510a552b3649249604bf424e09e856ec9b61b2c0d862019cd9483",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
-  "sw.js": "cfcd4a4e875b265d7a4d75ec0d3dbb7b040882303aa65462c3216d29bff16d82",
+  "sw.js": "11a49cb9d3dff86c09a663f55113f7898958e37bbf33e7b084f225da42cf5a4e",
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
   "package.json":
-    "ab1ce55515102c4dcb1bfb4fd0cf5de800810ad7ad173e4ddf4197e9f0c96b0a",
+    "b9279f34b563ee3c693f927598c510ad100be3e52319c2912c1f4d7460290493",
   "modules/smart-monaco-editor/dist/editor.js":
     "5e111b1097510f871f6ca347a676bed6ab063f800ce519a1fb834bee127aea19",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -122,7 +122,7 @@ export const shasums = {
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "modules/renderer.mjs":
-    "13305bfbc52b7e59e7cc3d740c9b04feea2518d88223005ade5396a1223fb0b6",
+    "08d6e9f05fe70171507f98c7815661a7f4797d8c8a727dc4202780500fbf92b6",
   ".tsBuildInfo":
     "f936a37922a1dcfa617ec2bee10b2e01ff61a38cc6eeb0196b1564632326be26",
   "food": "bar",

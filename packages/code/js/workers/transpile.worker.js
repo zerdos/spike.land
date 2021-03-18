@@ -34,7 +34,7 @@ const transform = (code) => {
     replaceWith,
   ).replaceAll(searchRegExp2, replace2);
 
-  let rendererSrc = `https://code-zed-vision.zed-vision.workers.dev/modules/renderer.mjs`;
+  let rendererSrc = `https://code.zed-vision.workers.dev/modules/renderer.mjs`;
 
   if (self.location.hostname.indexOf("0.0") !== -1) {
     const cid = self.location.pathname.slice(6, 52);

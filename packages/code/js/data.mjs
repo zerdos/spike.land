@@ -114,7 +114,7 @@ export async function edit(name) {
 
   console.log("done");
 
-  location.href = "https://code-zed-vision.zed-vision.workers.dev";
+  location.href = "https://code.zed-vision.workers.dev";
 }
 
 /**
