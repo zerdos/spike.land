@@ -1,4 +1,5 @@
 module.exports = {
+  path: "/monorepo/",
   siteMetadata: {
     title: `Zed vision`,
     author: {
@@ -6,7 +7,7 @@ module.exports = {
       summary: ` - developer experience and software quality expert`,
     },
     description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://www.zed.vision`,
+    siteUrl: `https://zed-vision.github.io/monorepo`,
     social: {
       twitter: `ZoltanErdos`,
     },

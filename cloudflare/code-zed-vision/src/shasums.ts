@@ -120,7 +120,7 @@ export const shasums = {
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/renderer.mjs":
-    "af45f38cd98145c9eb02829b168f6e45372e9a247a222c2c022cedc93ee5ad4a",
+    "c54333eab9482f09bc08a6eca202d070fbd6e086c41471537e815544555856ad",
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":
