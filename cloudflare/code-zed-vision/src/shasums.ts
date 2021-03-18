@@ -49,7 +49,7 @@ export const shasums = {
   "js/renderPreviewWindow.mjs":
     "5a6592a279d48a73b7e74ff5b6b47c9690fcea82c9258e8f8f4fde4ac26d7d13",
   "js/data.mjs":
-    "841a32fa036f5bb51cc336df33f601ab2bbcdca4cb3fb947024653933d9195c8",
+    "91c84e7ab0e061f2313ddf2da9e0190f9c8f18fc11ce66231fd6bfb9e67bfe3d",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/formatter.mjs":
