@@ -2,7 +2,7 @@ name = "code-zed-vision"
 type = "javascript"
 account_id = "1f98921051196545ebe79a450d3c71ed"
 workers_dev = true
-route = "https://code.zed.vision/*"
+route = "https://code-zed-vision.zed-vision.workers.dev/*"
 zone_id = "ec8e903035c7b0fcd3e95f1e483ab68c"
 kv_namespaces = [
   { binding = "SHAKV",    id = "6fdd12d3f73d48b1a5c1f3b355ab8a4d", preview_id="6fdd12d3f73d48b1a5c1f3b355ab8a4d" },

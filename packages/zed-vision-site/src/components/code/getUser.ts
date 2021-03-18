@@ -1,14 +1,14 @@
 export const shaDB = {
   get: async (key: string, type: "string" | "json") => {
     const { getDB } = await new Function(
-      "return import(`https://code.zed.vision/modules/shaDB.js`)",
+      "return import(`https://code-zed-vision.zed-vision.workers.dev/modules/shaDB.js`)",
     )();
     const db = await (await getDB("shaDB"))();
     return db.get(key, type);
   },
   put: async (key: string, value: string) => {
     const { getDB } = await new Function(
-      "return import(`https://code.zed.vision/modules/shaDB.js`)",
+      "return import(`https://code-zed-vision.zed-vision.workers.dev/modules/shaDB.js`)",
     )();
 
     const db = await (await getDB("shaDB"))();

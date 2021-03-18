@@ -1,282 +1,282 @@
-function b() {
+function h() {
 }
-b.prototype = {
-  diff: function (n, r) {
-    var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {},
-      s = t.callback;
-    typeof t == "function" && (s = t, t = {}), this.options = t;
-    var i = this;
-    function l(d) {
-      return s
+h.prototype = {
+  diff: function (e, t) {
+    var o = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {},
+      u = o.callback;
+    typeof o == "function" && (u = o, o = {}), this.options = o;
+    var r = this;
+    function s(l) {
+      return u
         ? (setTimeout(function () {
-          s(void 0, d);
+          u(void 0, l);
         }, 0),
           !0)
-        : d;
+        : l;
     }
-    n = this.castInput(n),
-      r = this.castInput(r),
-      n = this.removeEmpty(this.tokenize(n)),
-      r = this.removeEmpty(this.tokenize(r));
-    var f = r.length,
-      a = n.length,
-      o = 1,
-      p = f + a,
+    e = this.castInput(e),
+      t = this.castInput(t),
+      e = this.removeEmpty(this.tokenize(e)),
+      t = this.removeEmpty(this.tokenize(t));
+    var p = t.length,
+      i = e.length,
+      f = 1,
+      d = p + i,
       c = [
         {
           newPos: -1,
           components: [],
         },
       ],
-      u = this.extractCommon(c[0], r, n, 0);
-    if (c[0].newPos + 1 >= f && u + 1 >= a) {
-      return l([
+      a = this.extractCommon(c[0], t, e, 0);
+    if (c[0].newPos + 1 >= p && a + 1 >= i) {
+      return s([
         {
-          value: this.join(r),
-          count: r.length,
+          value: this.join(t),
+          count: t.length,
         },
       ]);
     }
-    function v() {
-      for (var d = -1 * o; d <= o; d += 2) {
-        var w = void 0, y = c[d - 1], L = c[d + 1], x = (L ? L.newPos : 0) - d;
-        y && (c[d - 1] = void 0);
-        var g = y && y.newPos + 1 < f, F = L && 0 <= x && x < a;
-        if (!g && !F) {
-          c[d] = void 0;
+    function w() {
+      for (var l = -1 * f; l <= f; l += 2) {
+        var v = void 0, y = c[l - 1], C = c[l + 1], z = (C ? C.newPos : 0) - l;
+        y && (c[l - 1] = void 0);
+        var g = y && y.newPos + 1 < p, q = C && 0 <= z && z < i;
+        if (!g && !q) {
+          c[l] = void 0;
           continue;
         }
         if (
-          !g || F && y.newPos < L.newPos
-            ? (w = le(L), i.pushComponent(w.components, void 0, !0))
-            : (w = y, w.newPos++, i.pushComponent(w.components, !0, void 0)),
-            x = i.extractCommon(w, r, n, d),
-            w.newPos + 1 >= f && x + 1 >= a
+          !g || q && y.newPos < C.newPos
+            ? (v = N(C), r.pushComponent(v.components, void 0, !0))
+            : (v = y, v.newPos++, r.pushComponent(v.components, !0, void 0)),
+            z = r.extractCommon(v, t, e, l),
+            v.newPos + 1 >= p && z + 1 >= i
         ) {
-          return l(se(i, w.components, r, n, i.useLongestToken));
+          return s(F(r, v.components, t, e, r.useLongestToken));
         }
-        c[d] = w;
+        c[l] = v;
       }
-      o++;
+      f++;
     }
-    if (s) {
-      (function d() {
+    if (u) {
+      (function l() {
         setTimeout(function () {
-          if (o > p) return s();
-          v() || d();
+          if (f > d) return u();
+          w() || l();
         }, 0);
       })();
     } else {
-      for (; o <= p;) {
-        var h = v();
-        if (h) return h;
+      for (; f <= d;) {
+        var L = w();
+        if (L) return L;
       }
     }
   },
-  pushComponent: function (n, r, t) {
-    var s = n[n.length - 1];
-    s && s.added === r && s.removed === t
-      ? n[n.length - 1] = {
-        count: s.count + 1,
-        added: r,
-        removed: t,
+  pushComponent: function (e, t, o) {
+    var u = e[e.length - 1];
+    u && u.added === t && u.removed === o
+      ? e[e.length - 1] = {
+        count: u.count + 1,
+        added: t,
+        removed: o,
       }
-      : n.push({
+      : e.push({
         count: 1,
-        added: r,
-        removed: t,
+        added: t,
+        removed: o,
       });
   },
-  extractCommon: function (n, r, t, s) {
+  extractCommon: function (e, t, o, u) {
     for (
-      var i = r.length, l = t.length, f = n.newPos, a = f - s, o = 0;
-      f + 1 < i && a + 1 < l && this.equals(r[f + 1], t[a + 1]);
+      var r = t.length, s = o.length, p = e.newPos, i = p - u, f = 0;
+      p + 1 < r && i + 1 < s && this.equals(t[p + 1], o[i + 1]);
     ) {
-      f++, a++, o++;
+      p++, i++, f++;
     }
-    return o && n.components.push({
-      count: o,
+    return f && e.components.push({
+      count: f,
     }),
-      n.newPos = f,
-      a;
+      e.newPos = p,
+      i;
   },
-  equals: function (n, r) {
+  equals: function (e, t) {
     return this.options.comparator
-      ? this.options.comparator(n, r)
-      : n === r ||
-        this.options.ignoreCase && n.toLowerCase() === r.toLowerCase();
+      ? this.options.comparator(e, t)
+      : e === t ||
+        this.options.ignoreCase && e.toLowerCase() === t.toLowerCase();
   },
-  removeEmpty: function (n) {
-    for (var r = [], t = 0; t < n.length; t++) n[t] && r.push(n[t]);
-    return r;
+  removeEmpty: function (e) {
+    for (var t = [], o = 0; o < e.length; o++) e[o] && t.push(e[o]);
+    return t;
   },
-  castInput: function (n) {
-    return n;
+  castInput: function (e) {
+    return e;
   },
-  tokenize: function (n) {
-    return n.split("");
+  tokenize: function (e) {
+    return e.split("");
   },
-  join: function (n) {
-    return n.join("");
+  join: function (e) {
+    return e.join("");
   },
 };
-function se(e, n, r, t, s) {
-  for (var i = 0, l = n.length, f = 0, a = 0; i < l; i++) {
-    var o = n[i];
-    if (o.removed) {
+function F(n, e, t, o, u) {
+  for (var r = 0, s = e.length, p = 0, i = 0; r < s; r++) {
+    var f = e[r];
+    if (f.removed) {
       if (
-        o.value = e.join(t.slice(a, a + o.count)),
-          a += o.count,
-          i && n[i - 1].added
+        f.value = n.join(o.slice(i, i + f.count)),
+          i += f.count,
+          r && e[r - 1].added
       ) {
-        var c = n[i - 1];
-        n[i - 1] = n[i], n[i] = c;
+        var c = e[r - 1];
+        e[r - 1] = e[r], e[r] = c;
       }
     } else {
-      if (!o.added && s) {
-        var p = r.slice(f, f + o.count);
-        p = p.map(function (v, h) {
-          var d = t[a + h];
-          return d.length > v.length ? d : v;
-        }), o.value = e.join(p);
-      } else o.value = e.join(r.slice(f, f + o.count));
-      f += o.count, o.added || (a += o.count);
+      if (!f.added && u) {
+        var d = t.slice(p, p + f.count);
+        d = d.map(function (w, L) {
+          var l = o[i + L];
+          return l.length > w.length ? l : w;
+        }), f.value = n.join(d);
+      } else f.value = n.join(t.slice(p, p + f.count));
+      p += f.count, f.added || (i += f.count);
     }
   }
-  var u = n[l - 1];
-  return l > 1 && typeof u.value == "string" && (u.added || u.removed) &&
-    e.equals("", u.value) && (n[l - 2].value += u.value, n.pop()),
-    n;
+  var a = e[s - 1];
+  return s > 1 && typeof a.value == "string" && (a.added || a.removed) &&
+    n.equals("", a.value) && (e[s - 2].value += a.value, e.pop()),
+    e;
 }
-function le(e) {
+function N(n) {
   return {
-    newPos: e.newPos,
-    components: e.components.slice(0),
+    newPos: n.newPos,
+    components: n.components.slice(0),
   };
 }
-var fe = new b();
-function oe(e, n, r) {
-  return fe.diff(e, n, r);
+var W = new h();
+function A(n, e, t) {
+  return W.diff(n, e, t);
 }
-var Y = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,
-  K = /\S/,
-  j = new b();
-j.equals = function (e, n) {
-  return this.options.ignoreCase && (e = e.toLowerCase(), n = n.toLowerCase()),
-    e === n || this.options.ignoreWhitespace && !K.test(e) && !K.test(n);
+var $ = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/,
+  I = /\S/,
+  O = new h();
+O.equals = function (n, e) {
+  return this.options.ignoreCase && (n = n.toLowerCase(), e = e.toLowerCase()),
+    n === e || this.options.ignoreWhitespace && !I.test(n) && !I.test(e);
 },
-  j.tokenize = function (e) {
+  O.tokenize = function (n) {
     for (
-      var n = e.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), r = 0;
-      r < n.length - 1;
-      r++
+      var e = n.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0;
+      t < e.length - 1;
+      t++
     ) {
-      !n[r + 1] && n[r + 2] && Y.test(n[r]) && Y.test(n[r + 2]) &&
-        (n[r] += n[r + 2], n.splice(r + 1, 2), r--);
+      !e[t + 1] && e[t + 2] && $.test(e[t]) && $.test(e[t + 2]) &&
+        (e[t] += e[t + 2], e.splice(t + 1, 2), t--);
     }
-    return n;
-  };
-var U = new b();
-U.tokenize = function (e) {
-  var n = [], r = e.split(/(\n|\r\n)/);
-  r[r.length - 1] || r.pop();
-  for (var t = 0; t < r.length; t++) {
-    var s = r[t];
-    t % 2 && !this.options.newlineIsToken
-      ? n[n.length - 1] += s
-      : (this.options.ignoreWhitespace && (s = s.trim()), n.push(s));
-  }
-  return n;
-};
-var ae = new b();
-ae.tokenize = function (e) {
-  return e.split(/(\S.+?[.!?])(?=\s+|$)/);
-};
-var de = new b();
-de.tokenize = function (e) {
-  return e.split(/([{}:;,]|\s+)/);
-};
-function W(e) {
-  return typeof Symbol == "function" && typeof Symbol.iterator == "symbol"
-    ? W = function (n) {
-      return typeof n;
-    }
-    : W = function (n) {
-      return n && typeof Symbol == "function" && n.constructor === Symbol &&
-          n !== Symbol.prototype
-        ? "symbol"
-        : typeof n;
-    },
-    W(e);
-}
-var ge = Object.prototype.toString, q = new b();
-q.useLongestToken = !0,
-  q.tokenize = U.tokenize,
-  q.castInput = function (e) {
-    var n = this.options,
-      r = n.undefinedReplacement,
-      t = n.stringifyReplacer,
-      s = t === void 0
-        ? function (i, l) {
-          return typeof l == "undefined" ? r : l;
-        }
-        : t;
-    return typeof e == "string" ? e
-    : JSON.stringify(Z(e, null, null, s), s, "  ");
-  },
-  q.equals = function (e, n) {
-    return b.prototype.equals.call(
-      q,
-      e.replace(/,([\r\n])/g, "$1"),
-      n.replace(/,([\r\n])/g, "$1"),
-    );
-  };
-function Z(e, n, r, t, s) {
-  n = n || [], r = r || [], t && (e = t(s, e));
-  var i;
-  for (i = 0; i < n.length; i += 1) if (n[i] === e) return r[i];
-  var l;
-  if (ge.call(e) === "[object Array]") {
-    for (
-      n.push(e), l = new Array(e.length), r.push(l), i = 0; i < e.length; i += 1
-    ) {
-      l[i] = Z(e[i], n, r, t, s);
-    }
-    return n.pop(), r.pop(), l;
-  }
-  if (e && e.toJSON && (e = e.toJSON()), W(e) === "object" && e !== null) {
-    n.push(e), l = {}, r.push(l);
-    var f = [], a;
-    for (a in e) e.hasOwnProperty(a) && f.push(a);
-    for (f.sort(), i = 0; i < f.length; i += 1) {
-      a = f[i], l[a] = Z(e[a], n, r, t, a);
-    }
-    n.pop(), r.pop();
-  } else l = e;
-  return l;
-}
-var B = new b();
-B.tokenize = function (e) {
-  return e.slice();
-},
-  B.join = B.removeEmpty = function (e) {
     return e;
   };
-const sha256 = async (x) =>
+var T = new h();
+T.tokenize = function (n) {
+  var e = [], t = n.split(/(\n|\r\n)/);
+  t[t.length - 1] || t.pop();
+  for (var o = 0; o < t.length; o++) {
+    var u = t[o];
+    o % 2 && !this.options.newlineIsToken
+      ? e[e.length - 1] += u
+      : (this.options.ignoreWhitespace && (u = u.trim()), e.push(u));
+  }
+  return e;
+};
+var J = new h();
+J.tokenize = function (n) {
+  return n.split(/(\S.+?[.!?])(?=\s+|$)/);
+};
+var R = new h();
+R.tokenize = function (n) {
+  return n.split(/([{}:;,]|\s+)/);
+};
+function x(n) {
+  return typeof Symbol == "function" && typeof Symbol.iterator == "symbol"
+    ? x = function (e) {
+      return typeof e;
+    }
+    : x = function (e) {
+      return e && typeof Symbol == "function" && e.constructor === Symbol &&
+          e !== Symbol.prototype
+        ? "symbol"
+        : typeof e;
+    },
+    x(n);
+}
+var V = Object.prototype.toString, m = new h();
+m.useLongestToken = !0,
+  m.tokenize = T.tokenize,
+  m.castInput = function (n) {
+    var e = this.options,
+      t = e.undefinedReplacement,
+      o = e.stringifyReplacer,
+      u = o === void 0
+        ? function (r, s) {
+          return typeof s == "undefined" ? t : s;
+        }
+        : o;
+    return typeof n == "string" ? n
+    : JSON.stringify(D(n, null, null, u), u, "  ");
+  },
+  m.equals = function (n, e) {
+    return h.prototype.equals.call(
+      m,
+      n.replace(/,([\r\n])/g, "$1"),
+      e.replace(/,([\r\n])/g, "$1"),
+    );
+  };
+function D(n, e, t, o, u) {
+  e = e || [], t = t || [], o && (n = o(u, n));
+  var r;
+  for (r = 0; r < e.length; r += 1) if (e[r] === n) return t[r];
+  var s;
+  if (V.call(n) === "[object Array]") {
+    for (
+      e.push(n), s = new Array(n.length), t.push(s), r = 0; r < n.length; r += 1
+    ) {
+      s[r] = D(n[r], e, t, o, u);
+    }
+    return e.pop(), t.pop(), s;
+  }
+  if (n && n.toJSON && (n = n.toJSON()), x(n) === "object" && n !== null) {
+    e.push(n), s = {}, t.push(s);
+    var p = [], i;
+    for (i in n) n.hasOwnProperty(i) && p.push(i);
+    for (p.sort(), r = 0; r < p.length; r += 1) {
+      i = p[r], s[i] = D(n[i], e, t, o, i);
+    }
+    e.pop(), t.pop();
+  } else s = n;
+  return s;
+}
+var E = new h();
+E.tokenize = function (n) {
+  return n.slice();
+},
+  E.join = E.removeEmpty = function (n) {
+    return n;
+  };
+const sha256 = async (x1) =>
   Array.from(
     new Uint8Array(
       await crypto.subtle.digest(
         "SHA-256",
-        typeof x === "string" ? new TextEncoder().encode(x) : x,
+        typeof x1 === "string" ? new TextEncoder().encode(x1) : x1,
       ),
     ).slice(0, 4),
-  ).map((b1) => ("00" + b1.toString(16)).slice(-2)).join("");
+  ).map((b) => ("00" + b.toString(16)).slice(-2)).join("");
 const diff = async (str1, str2) => {
   const sha1Str1 = sha256(str1);
-  const res = oe(str1, str2);
+  const res = A(str1, str2);
   return {
     b: await sha1Str1,
-    c: res.map((x) => x.added ? x.value : x.removed ? -x.count : x.count),
+    c: res.map((x1) => x1.added ? x1.value : x1.removed ? -x1.count : x1.count),
   };
 };
 const isDiff = (str) => {
@@ -285,7 +285,7 @@ const isDiff = (str) => {
   }
   const isKey = [
     ...str.slice(0, 8),
-  ].filter((x) => x < "0" || x > "f").length === 0;
+  ].filter((x1) => x1 < "0" || x1 > "f").length === 0;
   const maybeInst = str.slice(8);
   if (
     isKey && maybeInst[0] === "[" && maybeInst[maybeInst.length - 1] === "]"
@@ -767,11 +767,11 @@ async function handleCloudRequest(request) {
     const maybeRoute = pathname.substr(1);
     const isKey = [
           ...maybeRoute,
-        ].filter((x) => x < "0" || x > "f").length === 0 &&
+        ].filter((x1) => x1 < "0" || x1 > "f").length === 0 &&
       maybeRoute.length === 8;
     if (maybeRoute && isKey) {
       return Response.redirect(
-        `https://code.zed.vision/?signalToQr=${maybeRoute}`,
+        `https://code-zed-vision.zed-vision.workers.dev/?signalToQr=${maybeRoute}`,
         307,
       );
     }
@@ -782,9 +782,9 @@ async function handleCloudRequest(request) {
         const random5GatewaysFetch = publicIpfsGateways.sort(() =>
           0.5 - Math.random()
         ).slice(0, 8).map((gw) => gw.replace("/ipfs/:hash", pathname)).map((
-          x,
+          x1,
         ) =>
-          fetch(x).then((res) =>
+          fetch(x1).then((res) =>
             res.status === 200 ? res : (() => {
               throw new Error("Not found");
             })()
@@ -807,12 +807,15 @@ async function handleCloudRequest(request) {
     }
     if (pathname === "/") {
       return Response.redirect(
-        "https://code.zed.vision/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
+        "https://code-zed-vision.zed-vision.workers.dev/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
         302,
       );
     }
     if (pathname === "/code" || pathname === "/code/") {
-      return Response.redirect(`https://code.zed.vision`, 302);
+      return Response.redirect(
+        `https://code-zed-vision.zed-vision.workers.dev`,
+        302,
+      );
     }
     return text(pathname);
   } else if (request.method === "POST") {

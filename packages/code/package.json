@@ -1,7 +1,7 @@
 {
   "name": "@zedvision/code",
   "version": "13.0.11",
-  "description": "code.zed.vision",
+  "description": "code-zed-vision.zed-vision.workers.dev",
   "main": "js/codeLoader.mjs",
   "files": [
     "**/*"
@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo"
   },
-  "homepage": "https://code.zed.vision",
+  "homepage": "https://code-zed-vision.zed-vision.workers.dev",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
     "esbuild": "0.9.3",

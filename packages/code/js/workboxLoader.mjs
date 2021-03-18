@@ -1,16 +1,16 @@
 export const workboxLoader = async () => {
   if (
     "serviceWorker" in window.navigator &&
-    window.location.origin === "https://code.zed.vision"
+    window.location.origin === "https://code-zed-vision.zed-vision.workers.dev"
   ) {
-    fetch("https://code.zed.vision/check").then((x) => x.json()).then((x) =>
+    fetch("https://code-zed-vision.zed-vision.workers.dev/check").then((x) => x.json()).then((x) =>
       x.missing
     ).then((missingArray) =>
       import("./ipfsClient.mjs").then(({ ipfsCat }) =>
         Promise.all(
           missingArray.map((cid) =>
             ipfsCat(cid).then((content) =>
-              fetch(`https://code.zed.vision/add/${cid}`, {
+              fetch(`https://code-zed-vision.zed-vision.workers.dev/add/${cid}`, {
                 method: "POST",
                 body: content,
               })

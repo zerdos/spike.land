@@ -11,7 +11,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
   React.useEffect(() => {
     const load = async () => {
       const { QRious } = await import(
-        "https://code.zed.vision/modules/QRious.mjs"
+        "https://code-zed-vision.zed-vision.workers.dev/modules/QRious.mjs"
       );
       const options = {
         size: 220,
