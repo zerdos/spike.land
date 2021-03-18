@@ -12,7 +12,7 @@
     "docker-images/*"
   ],
   "scripts": {
-    "screenshot": "pageres https://code-zed-vision.zed-vision.workers.dev 1920x1080 --delay=3 --scale=1",
+    "screenshot": "yarn pageres https://code-zed-vision.zed-vision.workers.dev 1920x1080 --delay=5 --scale=1",
     "build:renderer": "cd packages/renderer && yarn build",
     "start": "yarn build:renderer && sh start.sh",
     "deploy:cf-code-zed-vision": "cd cloudflare/code-zed-vision && yarn deploy",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "csstype": "3.0.7",
+    "pageres-cli": "6.0.0",
     "lerna": "4.0.0",
     "typescript": "4.2.3",
     "yarn": "1.22.10"
