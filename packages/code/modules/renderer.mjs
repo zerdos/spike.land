@@ -110,12 +110,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             border-radius: 16px;
             white-space: normal;
             position: ${r||"fixed"};
-          `,dragElastic:.5,dragConstraints:{left:0,right:300,top:-l/4,bottom:l/2},dragMomentum:!1,drag:!0},(0,X.jsx)("div",{css:X.css`
-                display: flex;
+          `,dragElastic:.5,dragConstraints:{left:0,right:300,top:-l/4,bottom:l/2},dragMomentum:!1,drag:!0},(0,X.jsx)("div",{css:X.css` 
+              display: flex;
                 `},(0,X.jsx)("div",{css:X.css`
             display: flex;
             flex-direction: column;
-            align-items: "center";
+            align-items: center;
           `},(0,X.jsx)(Uh,{value:s,size:"small",exclusive:!0,color:"white",onChange:(_,S)=>S&&u(S)},ste.map(_=>(0,X.jsx)(Lh,{key:_,value:_},(0,X.jsx)("span",{css:X.css`
                        color: ${_===s?"rgba(255,255,255,.8)":"rgba(0,0,0,.3)"};
                        `},_,"%")))),(0,X.jsx)(ua.div,{animate:{width:v*b/devicePixelRatio,height:l*b},css:X.css`

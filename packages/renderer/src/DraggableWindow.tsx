@@ -89,15 +89,15 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
       drag={true}
     >
       <div
-        css={css`
-                display: flex;
+        css={css` 
+              display: flex;
                 `}
       >
         <div
           css={css`
             display: flex;
             flex-direction: column;
-            align-items: "center";
+            align-items: center;
           `}
         >
           <ToggleButtonGroup
@@ -213,8 +213,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 {size === 640
                   ? <Phone
                     css={css`
-                        color: ${
-                      width === 640 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
+                        color: ${width === 640 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
                     };
                         `}
                   />
@@ -228,9 +227,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   />
                   : <Tv
                     css={css`
-                        color: ${
-                      width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    };
+                        color: ${width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"};
                       `}
                   />}
               </ToggleButton>
