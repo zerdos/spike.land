@@ -229,7 +229,7 @@ var CodeBox = function CodeBox(_ref) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return new Function("return import(\"https://code.zed.vision/js/codeLoader.mjs\")")();
+                return new Function("return import(\"https://code-zed-vision.zed-vision.workers.dev/js/codeLoader.mjs\")")();
 
               case 2:
                 _yield$Function = _context.sent;
@@ -366,4 +366,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-5c5053dc2be7aec3e6c9.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-e5e3f7ee1d9fa58698d5.js.map

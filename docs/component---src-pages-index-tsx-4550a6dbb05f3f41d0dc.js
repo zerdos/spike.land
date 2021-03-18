@@ -44,7 +44,7 @@ var shaDB = {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return new Function("return import(`https://code.zed.vision/modules/shaDB.js`)")();
+              return new Function("return import(`https://code-zed-vision.zed-vision.workers.dev/modules/shaDB.js`)")();
 
             case 2:
               _yield$Function = _context.sent;
@@ -84,7 +84,7 @@ var shaDB = {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return new Function("return import(`https://code.zed.vision/modules/shaDB.js`)")();
+              return new Function("return import(`https://code-zed-vision.zed-vision.workers.dev/modules/shaDB.js`)")();
 
             case 2:
               _yield$Function2 = _context2.sent;
@@ -147,7 +147,7 @@ function _getUserId() {
             }
 
             _context3.next = 8;
-            return fetch("https://zed.vision/register");
+            return fetch("https://zed-vision.zed-vision.workers.dev/register");
 
           case 8:
             resp = _context3.sent;
@@ -281,7 +281,7 @@ var Qr = function Qr() {
               }
 
               _context.next = 7;
-              return new Function("return import('https://code.zed.vision/modules/QRious.mjs').then(x=>x.QRious)")();
+              return new Function("return import('https://code-zed-vision.zed-vision.workers.dev/modules/QRious.mjs').then(x=>x.QRious)")();
 
             case 7:
               LazyQR = _context.sent;
@@ -377,7 +377,7 @@ var Qr = function Qr() {
 
               case 4:
                 _context3.next = 6;
-                return new Function("return import(\"https://code.zed.vision/js/hash.mjs\")")();
+                return new Function("return import(\"https://code-zed-vision.zed-vision.workers.dev/js/hash.mjs\")")();
 
               case 6:
                 _yield$Function = _context3.sent;
@@ -783,4 +783,4 @@ var pageQuery = "497448492";
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-f0fe3de222bcf4f2419d.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-4550a6dbb05f3f41d0dc.js.map
