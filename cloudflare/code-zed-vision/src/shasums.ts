@@ -76,7 +76,7 @@ export const shasums = {
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
   "package.json":
-    "e778e96adb7fcb6c238f25341fc2539a322f57c7c492259329500f633201253b",
+    "16af50999ec907e73ce082ea9129e357086260dde43b8e1e4608108453c2b0de",
   "modules/smart-monaco-editor/dist/editor.js":
     "5e111b1097510f871f6ca347a676bed6ab063f800ce519a1fb834bee127aea19",
   "modules/smart-monaco-editor/dist/editor.d.ts":
