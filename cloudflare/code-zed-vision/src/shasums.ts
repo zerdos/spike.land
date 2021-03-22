@@ -122,7 +122,7 @@ export const shasums = {
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   "modules/renderer.mjs":
-    "08d6e9f05fe70171507f98c7815661a7f4797d8c8a727dc4202780500fbf92b6",
+    "a1ae2e45edd1cce7e73f597bd3ddb0294b485d8d98f48f817f9bb4fc0c4f8d45",
   ".tsBuildInfo":
     "eac223c6e1edcfc067f967efca60f49b3d36e0236f1ac2512d7b52b6021b21e0",
   "food": "bar",
