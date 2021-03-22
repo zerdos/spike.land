@@ -1,7 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Deno",
-
   "compilerOptions": {
     "target": "es2018",
     "lib": [
@@ -18,7 +15,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "isolatedModules": true,
     "noEmit": true,
@@ -33,10 +29,7 @@
     "noUnusedLocals": true,
     "declaration": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src"
