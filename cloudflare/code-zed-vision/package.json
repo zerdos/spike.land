@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@zedvision/cf-code-zed-vision",
-  "version": "13.0.13",
+  "version": "13.0.14",
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "dist/index.js",
   "scripts": {
@@ -15,8 +15,8 @@
   "dependencies": {
     "@cloudflare/workers-types": "2.2.1",
     "@cloudflare/wrangler": "1.15.0",
-    "@zedvision/code": "^13.0.13",
-    "@zedvision/ipfs": "^13.0.13",
+    "@zedvision/code": "^13.0.14",
+    "@zedvision/ipfs": "^13.0.14",
     "esbuild": "0.9.6"
   }
 }

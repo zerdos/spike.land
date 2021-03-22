@@ -1,12 +1,12 @@
 {
   "name": "@zedvision/code-logic",
-  "version": "13.0.13",
+  "version": "13.0.14",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
     "test": "echo \"This template does not include a test runner by default.\" && exit 1"
   },
-  "private":false,
+  "private": false,
   "publishConfig": {
     "access": "public"
   },
