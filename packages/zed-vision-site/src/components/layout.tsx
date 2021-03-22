@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/react";
 
-export const Layout = ({ children }) =>
+export const Layout: React.FC = ({ children }) =>
   <main
     css={css`  
           max-width: 1140px;
