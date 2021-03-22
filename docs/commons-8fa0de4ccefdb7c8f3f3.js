@@ -329,6 +329,15 @@ function Tokenizer_char() {
  * @return {number}
  */
 
+function prev() {
+  character = position > 0 ? Utility_charat(characters, --position) : 0;
+  if (column--, character === 10) column = 1, line--;
+  return character;
+}
+/**
+ * @return {number}
+ */
+
 function next() {
   character = position < Tokenizer_length ? Utility_charat(characters, position++) : 0;
   if (column++, character === 10) column = 1, line++;
@@ -602,7 +611,11 @@ function stringify(element, index, children, callback) {
 
 function prefix(value, length) {
   switch (hash(value, length)) {
+    // color-adjust
+    case 5103:
+      return WEBKIT + 'print-' + value + value;
     // animation, animation-(delay|direction|duration|fill-mode|iteration-count|name|play-state|timing-function)
+
     case 5737:
     case 4201:
     case 3177:
@@ -731,14 +744,13 @@ function prefix(value, length) {
     case 4949:
       // (s)ticky?
       if (Utility_charat(value, length + 1) !== 115) break;
-    // display: (flex|inline-flex|inline-box)
+    // display: (flex|inline-flex)
 
     case 6444:
       switch (Utility_charat(value, Utility_strlen(value) - 3 - (~indexof(value, '!important') && 10))) {
-        // stic(k)y, inline-b(o)x
+        // stic(k)y
         case 107:
-        case 111:
-          return replace(value, value, WEBKIT + value) + value;
+          return replace(value, ':', ':' + WEBKIT) + value;
         // (inline-)?fl(e)x
 
         case 101:
@@ -860,7 +872,7 @@ function namespace(element) {
             // :
 
             case 58:
-              if (children[index + 1] === 'global') children[index + 1] = '', children[index + 2] = '\f' + substr(children[index + 2], index = 1, -1);
+              if (children[++index] === 'global') children[index] = '', children[++index] = '\f' + substr(children[index], index = 1, -1);
             // \s
 
             case 32:
@@ -1006,6 +1018,14 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
         length = 1 + Utility_strlen(characters), property = previous;
 
       default:
+        if (variable < 1) {
+          if (character == 123) {
+            --variable;
+          } else if (character == 125 && variable++ == 0 && prev() == 125) {
+            continue;
+          }
+        }
+
         switch (characters += Utility_from(character), character * variable) {
           // &
           case 38:
@@ -2469,4 +2489,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=commons-3f79acaf95933d1faab7.js.map
+//# sourceMappingURL=commons-8fa0de4ccefdb7c8f3f3.js.map
