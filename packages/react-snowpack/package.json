@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/code-logic",
-  "version": "13.0.12",
+  "version": "13.0.13",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
@@ -11,8 +11,8 @@
     "react-dom": "17.0.1"
   },
   "devDependencies": {
-    "snowpack": "3.1.2",
     "@types/react": "17.0.3",
-    "@types/react-dom": "17.0.2"
+    "@types/react-dom": "17.0.2",
+    "snowpack": "3.1.2"
   }
 }
