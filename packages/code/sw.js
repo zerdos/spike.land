@@ -40,7 +40,9 @@ globalThis.register = () => {
         const fileCid = files[fileName];
 
         const urlList = [
-          new URL(`https://code.zed-vision.workers.dev/ipfs/${currentCid}/${fileName}`),
+          new URL(
+            `https://code.zed-vision.workers.dev/ipfs/${currentCid}/${fileName}`,
+          ),
         ];
         if (fileCid) {
           urlList.push(

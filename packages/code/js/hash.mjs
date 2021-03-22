@@ -146,7 +146,9 @@ export async function fetchSignal(
       (x) => x.text(),
     );
 
-    const resData = await fetch(`https://code.zed-vision.workers.dev/ipfs/${cid}`).then((
+    const resData = await fetch(
+      `https://code.zed-vision.workers.dev/ipfs/${cid}`,
+    ).then((
       x,
     ) => x.text());
 
