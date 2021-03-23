@@ -43,7 +43,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "ecf25116ff68a974dff22bb3a17e68313a5cd356df620625b824cb201578b997",
+    "44e4fa94152e3931f89532f075f43203d3000d1f6d9ef67fb65348ba06da3a6d",
   "js/workers/getWorker.mjs":
     "0e4cbd6d373e41aa0617e886954e396862c0f077ebc9e4aedbed66cd6edf1e93",
   "js/renderPreviewWindow.mjs":
@@ -118,12 +118,12 @@ export const shasums = {
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/renderer.mjs":
-    "a1ae2e45edd1cce7e73f597bd3ddb0294b485d8d98f48f817f9bb4fc0c4f8d45",
+    "245bb56cff77cff24c1831fa041a7a7cfc69f450a98180e9ca935cd141cc232c",
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":
     "75ba5f80207d4b62b1657862948cf982279137e2f4bbcd26d16bffe00aa3ac6e",
   "package.json":
-    "ca3053d96408328449cf00b59492a10954d1aece3586f1d14756b4f78c285ebb",
+    "fda312f5ea5ec55bc58ed79d5916cfeb3daf4507850b71fb98b3c3f64ce18dff",
   "food": "bar",
 };
