@@ -118,11 +118,11 @@ export const shasums = {
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/renderer.mjs":
-    "245bb56cff77cff24c1831fa041a7a7cfc69f450a98180e9ca935cd141cc232c",
+    "ad2998da256792eb6eb9b57370a2316d944a66624908851cda46639e95f140aa",
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":
-    "75ba5f80207d4b62b1657862948cf982279137e2f4bbcd26d16bffe00aa3ac6e",
+    "1dbc95140e6c2921f155fa4e7f45a806974ac575e9b85c993ed173fb570d368a",
   "package.json":
     "fda312f5ea5ec55bc58ed79d5916cfeb3daf4507850b71fb98b3c3f64ce18dff",
   "food": "bar",
