@@ -118,7 +118,7 @@ export const shasums = {
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/renderer.mjs":
-    "ad2998da256792eb6eb9b57370a2316d944a66624908851cda46639e95f140aa",
+    "91377b051e5677905e180723046f8feadfce43fd2037043f89138411489fcbc5",
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
   ".tsBuildInfo":
