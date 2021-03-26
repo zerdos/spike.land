@@ -30,53 +30,55 @@ export const shasums = {
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
   "js/codeLoader.mjs":
     "d3b8229fc1081522632157aab95c86e6e8be3cc3355865fd44822e89933cde2b",
+  "js/data.mjs":
+    "591f571bd2b6b30b6e62248bedea9bba8ff01d411767802239019b402293400f",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
     "62fce5b0fc7a3b0f50cbdd154375cbe0a554e4762c0bc2eab4393a03f1270ac5",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
+  "js/formatter.mjs":
+    "9f9f485f3bec7a534402de3532e063480956a3c5e408807f90b15cf8132a9792",
+  "js/hash.mjs":
+    "26957392fe00c6466e221062d203b14172ab95790a3ad08198ecb52efe8f0515",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+  "js/importScript.mjs":
+    "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
+  "js/ipfsClient.mjs":
+    "a3ba172c448bdea19a3a9ceca159a9417afa5425cf016e146f196fad16a0e4e4",
+  "js/openWindows.mjs":
+    "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
+  "js/renderPreviewWindow.mjs":
+    "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
+  "js/sendSignalToQrCode.mjs":
+    "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
+  "js/share.mjs":
+    "5fbe381f457a01b1c0ab5709102da4e322c564268b0930cc56f400aca2e1d494",
+  "js/templates.mjs":
+    "b28d6ee24d2b6cb26115a7a76d815a672505a0c9daba7985bb25d47fedc0635e",
+  "js/transpile.mjs":
+    "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
+  "js/workboxLoader.mjs":
+    "3ee6f4b99130e9a167b876a60a60fc2f5ae4d1dd844efe20e2a0d928058dbc73",
+  "js/workers/getWorker.mjs":
+    "0e4cbd6d373e41aa0617e886954e396862c0f077ebc9e4aedbed66cd6edf1e93",
   "js/workers/ipfsWorker.js":
     "98606ce847990e96fe72264b04af61db2b23b5cf1ea9d5d637af3b7ba264228a",
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "44e4fa94152e3931f89532f075f43203d3000d1f6d9ef67fb65348ba06da3a6d",
-  "js/workers/getWorker.mjs":
-    "0e4cbd6d373e41aa0617e886954e396862c0f077ebc9e4aedbed66cd6edf1e93",
-  "js/renderPreviewWindow.mjs":
-    "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
-  "js/data.mjs":
-    "591f571bd2b6b30b6e62248bedea9bba8ff01d411767802239019b402293400f",
-  "js/openWindows.mjs":
-    "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
-  "js/formatter.mjs":
-    "9f9f485f3bec7a534402de3532e063480956a3c5e408807f90b15cf8132a9792",
-  "js/transpile.mjs":
-    "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
-  "js/templates.mjs":
-    "b28d6ee24d2b6cb26115a7a76d815a672505a0c9daba7985bb25d47fedc0635e",
-  "js/share.mjs":
-    "5fbe381f457a01b1c0ab5709102da4e322c564268b0930cc56f400aca2e1d494",
-  "js/ipfsClient.mjs":
-    "a3ba172c448bdea19a3a9ceca159a9417afa5425cf016e146f196fad16a0e4e4",
-  "js/importScript.mjs":
-    "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
-  "js/hash.mjs":
-    "26957392fe00c6466e221062d203b14172ab95790a3ad08198ecb52efe8f0515",
-  "js/sendSignalToQrCode.mjs":
-    "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
-  "js/workboxLoader.mjs":
-    "3ee6f4b99130e9a167b876a60a60fc2f5ae4d1dd844efe20e2a0d928058dbc73",
+    "96cf72537b5abb3471276a8c6adfb2beb259697f5b21859ba24c81985f235a36",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
+  "package.json":
+    "34e10896d7df77b178c06db736d4134686dc65620fef35e42d824fad9d667fce",
   "sw.js": "13e26f5ac80b8bb35759093128f480bc2bfd05dd0cdbbb31a69249b5c9b123ee",
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
   "modules/smart-monaco-editor/dist/editor.js":
-    "e73e81f411fb535d6c8d02bdeafa774cb833f295bb388b0f0894f52d86120bdb",
+    "3aab54e58edc790af0d999084a226c34a355927f2136e98c8a86d18ff0266b35",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "ccde8810403d283347f8039e8e3804c6229cb9c3c9725c6b87d6602b4cd62e9f",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -84,7 +86,19 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.mjs":
-    "1f275e79aa90f8f9a0ed3e8e7565b716fcd76edac0886e0dd81acffeb759c043",
+    "252ccb8a22ecfbb729642e2bc5eb4cdbfdaea3a564d8ccdb8d5f7843df912cc2",
+  "modules/vendor/diffMin.js":
+    "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
+  "modules/vendor/diffMin.d.ts":
+    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
+  "modules/vendor/idb.js":
+    "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
+  "modules/vendor/idb.d.ts":
+    "962a0c7ca6d64b3b34d33d6baa194f0785ed0b43856f092e45a6bf10151e3a4c",
+  "modules/vendor/diffChars.js":
+    "5bda726a6e9fbaf79497fc3966c6c8ff86ea1b1b1baedb3c021862fccfb2b4a3",
+  "modules/vendor/diffChars.d.ts":
+    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/sha256.d.ts":
@@ -105,25 +119,11 @@ export const shasums = {
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
-  "modules/vendor/diffMin.js":
-    "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
-  "modules/vendor/diffMin.d.ts":
-    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
-  "modules/vendor/idb.js":
-    "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
-  "modules/vendor/idb.d.ts":
-    "962a0c7ca6d64b3b34d33d6baa194f0785ed0b43856f092e45a6bf10151e3a4c",
-  "modules/vendor/diffChars.js":
-    "5bda726a6e9fbaf79497fc3966c6c8ff86ea1b1b1baedb3c021862fccfb2b4a3",
-  "modules/vendor/diffChars.d.ts":
-    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
-  "modules/renderer.mjs":
-    "91377b051e5677905e180723046f8feadfce43fd2037043f89138411489fcbc5",
   "modules/QRious.mjs":
-    "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
+    "8d7e1aa8059f359535eac27f15880a15790edb7996a11cfe252a13bf14f6d058",
+  "modules/renderer.mjs":
+    "c4e47d294d3edc4d51288d709e2391d27eec070f5e308f63a0d82ba50964cc0b",
   ".tsBuildInfo":
     "1dbc95140e6c2921f155fa4e7f45a806974ac575e9b85c993ed173fb570d368a",
-  "package.json":
-    "fda312f5ea5ec55bc58ed79d5916cfeb3daf4507850b71fb98b3c3f64ce18dff",
   "food": "bar",
 };
