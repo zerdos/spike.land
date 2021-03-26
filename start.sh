@@ -5,7 +5,7 @@ find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk 
 deno fmt packages/code/js/workers/shaSums.json cloudflare/code-zed-vision/src/shasums.ts;
 
 #docker-compose exec -T ipfs 
-ipfs add -r --ignore=node_modules packages/code > ipfs.txt
+ipfs add -r packages/code > ipfs.txt
 cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "{"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/js/workers/fileCids.json
 deno fmt packages/code/js/workers/fileCids.json;
 
