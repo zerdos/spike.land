@@ -33,7 +33,7 @@
   "homepage": "https://code.zed-vision.workers.dev",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
-    "esbuild": "0.10.1",
+    "esbuild": "0.10.2",
     "tslib": "2.1.0",
     "typescript": "4.2.3"
   },
