@@ -726,13 +726,14 @@ function prefix(value, length) {
     case 4765:
       // stretch, max-content, min-content, fill-available
       if (Utility_strlen(value) - 1 - length > 6) switch (Utility_charat(value, length + 1)) {
-        // (f)ill-available, (f)it-content
-        case 102:
-          length = Utility_charat(value, length + 3);
         // (m)ax-content, (m)in-content
-
         case 109:
-          return replace(value, /(.+:)(.+)-([^]+)/, '$1' + WEBKIT + '$2-$3' + '$1' + MOZ + (length == 108 ? '$3' : '$2-$3')) + value;
+          // -
+          if (Utility_charat(value, length + 4) !== 45) break;
+        // (f)ill-available, (f)it-content
+
+        case 102:
+          return replace(value, /(.+:)(.+)-([^]+)/, '$1' + WEBKIT + '$2-$3' + '$1' + MOZ + (Utility_charat(value, length + 3) == 108 ? '$3' : '$2-$3')) + value;
         // (s)tretch
 
         case 115:
@@ -2489,4 +2490,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=commons-8fa0de4ccefdb7c8f3f3.js.map
+//# sourceMappingURL=commons-4b358923f0ae501c9b70.js.map
