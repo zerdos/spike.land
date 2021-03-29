@@ -14673,9 +14673,9 @@ peek-readable@^3.1.3:
   integrity sha512-mpAcysyRJxmICBcBa5IXH7SZPvWkcghm6Fk8RekoS3v+BpbSzlZzuWbMx+GXrlUwESi9qHar4nVEZNMKylIHvg==
 
 peer-id@^0.14.0, peer-id@^0.14.1, peer-id@^0.14.2, peer-id@^0.14.3:
-  version "0.14.3"
-  resolved "https://registry.yarnpkg.com/peer-id/-/peer-id-0.14.3.tgz#e8fe27fa345e59e9afb41be6bf4aee25146adf0a"
-  integrity sha512-3ug6gDFWPuzihjjhMC0G/EEyaJaM9JCKPZqvPhwnsbhIUbutbS/MMF8Mb+TdDE1IksOXgCKNmohSZBJ/gFijOg==
+  version "0.14.4"
+  resolved "https://registry.yarnpkg.com/peer-id/-/peer-id-0.14.4.tgz#04428522c3034bab0af4dd499c95f2f901c6fb37"
+  integrity sha512-fpbwaq6e4IYPt9nI6l65f/nWr4673cAHRFh+qVuw7r+DXIz6eLH+61bEy6UER4NBaK0SGrFTD7uSj44UUSIXHQ==
   dependencies:
     cids "^1.1.5"
     class-is "^1.1.0"

@@ -1,4 +1,4 @@
-alias ipfs=/usr/local/bin/jsipfs
+alias ipfs=jsipfs
 
 rm -rf packages/code/js/workers/shaSums.json  packages/code/js/workers/fileCids.json
 find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > cloudflare/code-zed-vision/src/shasums.ts;
@@ -25,6 +25,7 @@ URL="http://127.0.0.1:9090/ipfs/$CID"
 echo "export const cid = '$CID';" > cloudflare/code-zed-vision/src/cid.ts
 # echo  $(CID=$CID nocide -pe 'JSON.stringify({"cid": process.env["CID"]})') > cloudflare/code-zed-vision/src/ipfs.json
 
+yarn jsipfs daemon &
 
 
 echo $CID > code.CID
