@@ -187,8 +187,9 @@ ENV DOCKER_BUILDKIT=1
 RUN apt-get update && apt-get install -y --no-install-recommends zsh \
      && apt-get autoremove -y \
   && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && chsh -s /usr/bin/zsh ${USER}
+  && rm -rf /var/lib/apt/lists/* 
+# \
+#  && chsh -s /usr/bin/zsh ${USER}
 
 
 USER ${USER}

@@ -7,7 +7,6 @@ services:
         USER: $USER
     tmpfs:
       - /home/$USER/tmpfs:exec
-    network_mode: host
     user: $USER
     shm_size: 4gb
     volumes:
