@@ -73,7 +73,7 @@ export const shasums = {
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
   "package.json":
-    "6f589975eb46d7c51e8d361684ed5f2d9d5ba2fc4684920fec2b67f38cd11139",
+    "35e9554d8c4200a816501923d7eeca5d0e2fdb7cc60e837a09a61bf879ed9251",
   "sw.js": "13e26f5ac80b8bb35759093128f480bc2bfd05dd0cdbbb31a69249b5c9b123ee",
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
@@ -119,10 +119,10 @@ export const shasums = {
     "4f91f4553d0d322a41ed224fdc0ee2307cf7468d3ab04481f1985a7d8fde9a0c",
   "modules/shaDB.d.ts":
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
-  "modules/QRious.mjs":
-    "8d7e1aa8059f359535eac27f15880a15790edb7996a11cfe252a13bf14f6d058",
   "modules/renderer.mjs":
     "38c2db465be53123461cbe200b469d6ad4a7af6b0d638f8efdf15e4851970b5b",
+  "modules/QRious.mjs":
+    "8d7e1aa8059f359535eac27f15880a15790edb7996a11cfe252a13bf14f6d058",
   ".tsBuildInfo":
     "920ba4a23ffc9edaf55762a1823b75ed58f7e97766217a9516ee48108e892e69",
   "food": "bar",

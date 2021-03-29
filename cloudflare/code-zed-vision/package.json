@@ -17,6 +17,6 @@
     "@cloudflare/wrangler": "1.15.0",
     "@zedvision/code": "^13.0.14",
     "@zedvision/ipfs": "^13.0.14",
-    "esbuild": "0.10.2"
+    "esbuild": "0.11.0"
   }
 }
