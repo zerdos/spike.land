@@ -69,12 +69,14 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "a98cc6d175e4544f91181d015c2eb235245c76ecc21eafec64e6e2f96dc92faf",
+    "fe75d81e2e8f07e494152107ee957fd60707d2bb73b26b6e1e49605bb36282d1",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
   "sw.js": "13e26f5ac80b8bb35759093128f480bc2bfd05dd0cdbbb31a69249b5c9b123ee",
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
+  "package.json":
+    "e61a97c6abb6a81d9ed05dc7505dd9f1973363b97ea8e14d3714a50c60cee13e",
   "modules/smart-monaco-editor/dist/editor.js":
     "3aab54e58edc790af0d999084a226c34a355927f2136e98c8a86d18ff0266b35",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -122,8 +124,6 @@ export const shasums = {
   "modules/renderer.mjs":
     "38c2db465be53123461cbe200b469d6ad4a7af6b0d638f8efdf15e4851970b5b",
   ".tsBuildInfo":
-    "920ba4a23ffc9edaf55762a1823b75ed58f7e97766217a9516ee48108e892e69",
-  "package.json":
-    "26d05eb23320619b4e6af918d234eb69b8dc41a9a587ac943140ce76bb63934d",
+    "d04f276101bf18615f48e286db1a631e84ab5e822fd29936b803cb92805beb2a",
   "food": "bar",
 };

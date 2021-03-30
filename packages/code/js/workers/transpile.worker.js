@@ -1,6 +1,6 @@
 self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
 self.importScripts(
-  "https://unpkg.com/@babel/standalone@7.13.13/babel.min.js",
+  "https://unpkg.com/@babel/standalone@7.13.14/babel.min.js",
 );
 
 const { Comlink, Babel } = self;
