@@ -162,8 +162,8 @@
         "affectsGlobalScope": true
       },
       "../../node_modules/@types/react/jsx-runtime.d.ts": {
-        "version": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
-        "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
+        "version": "f64d2799e8e386051b37eb7957adca5cb1f5f625143cf92bed3bff9524923af8",
+        "signature": "f64d2799e8e386051b37eb7957adca5cb1f5f625143cf92bed3bff9524923af8",
         "affectsGlobalScope": false
       },
       "./js/examples/starter_framer.js": {

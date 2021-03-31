@@ -22,7 +22,6 @@ function getSession() {
   return session;
 }
 
-
 export async function run(mode = "window", code = "") {
   const session = getSession();
   let monaco;
