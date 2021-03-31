@@ -15,7 +15,7 @@ export const CodeBox: React.FC<{
         `return import("https://code.zed-vision.workers.dev/js/codeLoader.mjs")`,
       )();
 
-      run("embedded", window, starterCode);
+      run("embedded", starterCode);
     }
 
     start();

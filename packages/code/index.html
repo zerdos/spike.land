@@ -23,10 +23,10 @@
     async function start() {
       try {
         const { run } = await import("./js/codeLoader.mjs");
-        run("window", window);
+        run("window");
       } catch (e) {
-        const { run } = await import("https://unpkg.com/@zedvision/code@13.0.9/js/codeLoader.mjs");
-        run("window", window);
+        const { run } = await import("https://unpkg.com/@zedvision/code@13.0.16/js/codeLoader.mjs");
+        run("window");
       }
       setTimeout(async () => {
         const { workboxLoader } = await import("./js/workboxLoader.mjs")

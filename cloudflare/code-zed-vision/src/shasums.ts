@@ -25,11 +25,11 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "index.html":
-    "a8d880c55b75a141280667977fc16b77aeccbcc22cf267ccbe53cdd9d16b2adb",
+    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "ipfs.json":
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
   "js/codeLoader.mjs":
-    "d3b8229fc1081522632157aab95c86e6e8be3cc3355865fd44822e89933cde2b",
+    "645bfa8fc416095963fb48ca6cdb028330e92c1542c0c8ce29a1edf5f5bcecad",
   "js/data.mjs":
     "591f571bd2b6b30b6e62248bedea9bba8ff01d411767802239019b402293400f",
   "js/examples/app.tsx":

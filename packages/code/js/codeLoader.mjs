@@ -22,11 +22,8 @@ function getSession() {
   return session;
 }
 
-/**
-  * @param {{ document: Document; open: (url: string)=>void; }} _w
- */
 
-export async function run(mode = "window", _w, code = "") {
+export async function run(mode = "window", code = "") {
   const session = getSession();
   let monaco;
   try {
