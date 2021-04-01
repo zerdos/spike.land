@@ -24,12 +24,8 @@ export const shasums = {
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
-  "index.html":
-    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "ipfs.json":
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
-  "js/codeLoader.mjs":
-    "23de7c1b9dadb688ad58b1f5f9e3c7bf398f83836e9a6f7e1ad3759706db3773",
   "js/data.mjs":
     "591f571bd2b6b30b6e62248bedea9bba8ff01d411767802239019b402293400f",
   "js/examples/app.tsx":
@@ -70,11 +66,17 @@ export const shasums = {
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
     "fe75d81e2e8f07e494152107ee957fd60707d2bb73b26b6e1e49605bb36282d1",
+  "js/codeLoader.mjs":
+    "23de7c1b9dadb688ad58b1f5f9e3c7bf398f83836e9a6f7e1ad3759706db3773",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
   "sw.js": "041833ed6ffea6be7bc599942978ef5732aa8b6e6b1bfbdceaee1d9c1744fd7d",
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
+  "package.json":
+    "112aeb5c85a270131deae27ffc0b92eddce2164974550d5906b43eed2839711d",
+  "index.html":
+    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "modules/smart-monaco-editor/dist/editor.js":
     "7520f59811036a21f6a61db78ca087dc6904d94034004e77c9236c5322419d11",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -120,10 +122,8 @@ export const shasums = {
   "modules/QRious.mjs":
     "8d7e1aa8059f359535eac27f15880a15790edb7996a11cfe252a13bf14f6d058",
   "modules/renderer.mjs":
-    "d3c0f7c925dfa5afcb5a6aeec56b32852e25bfe3259632834f8043ae5d12124d",
+    "86cb1d5827a0b16da2ef4ce550beabc221ac3ec206a331447c4c95e9476e0f21",
   ".tsBuildInfo":
     "8ee935258f1a53e59ae1a2db6d52b524a046d96788168c279ed82410435a77c4",
-  "package.json":
-    "112aeb5c85a270131deae27ffc0b92eddce2164974550d5906b43eed2839711d",
   "food": "bar",
 };
