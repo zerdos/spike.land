@@ -1,7 +1,6 @@
 export const workboxLoader = async () => {
   if (
-    "serviceWorker" in window.navigator &&
-    window.location.origin === "https://code.zed-vision.workers.dev"
+    "serviceWorker" in window.navigator
   ) {
     fetch("https://code.zed-vision.workers.dev/check").then((x) => x.json())
       .then((x) => x.missing).then((missingArray) =>

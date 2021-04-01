@@ -61,7 +61,7 @@ export const shasums = {
   "js/transpile.mjs":
     "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/workboxLoader.mjs":
-    "3ee6f4b99130e9a167b876a60a60fc2f5ae4d1dd844efe20e2a0d928058dbc73",
+    "b216925335b873cab8db8b6f174d270e3a6ab5dd7f1f16c387a0da1e22edfd66",
   "js/workers/getWorker.mjs":
     "0e4cbd6d373e41aa0617e886954e396862c0f077ebc9e4aedbed66cd6edf1e93",
   "js/workers/ipfsWorker.js":
