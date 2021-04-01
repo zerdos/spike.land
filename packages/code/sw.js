@@ -72,7 +72,7 @@ globalThis.register = () => {
     if (event.request.url.endsWith("/complexRequest")) {
       event.respondWith((async () => {
         // Configure the strategy in advance.
-        const strategy = new workbox.strategies.CacheFirst({
+        const strategy = new self.workbox.strategies.CacheFirst({
           cacheName: "api-cache",
         });
 

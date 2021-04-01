@@ -61,7 +61,7 @@ export const shasums = {
   "js/transpile.mjs":
     "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/workboxLoader.mjs":
-    "b216925335b873cab8db8b6f174d270e3a6ab5dd7f1f16c387a0da1e22edfd66",
+    "3e36ec543d6ad2f7cb29a8fb2a97c20ec5e23c630aeba1a2e03639d0cdc3e8d9",
   "js/workers/getWorker.mjs":
     "0e4cbd6d373e41aa0617e886954e396862c0f077ebc9e4aedbed66cd6edf1e93",
   "js/workers/ipfsWorker.js":
@@ -72,7 +72,7 @@ export const shasums = {
     "fe75d81e2e8f07e494152107ee957fd60707d2bb73b26b6e1e49605bb36282d1",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
-  "sw.js": "13e26f5ac80b8bb35759093128f480bc2bfd05dd0cdbbb31a69249b5c9b123ee",
+  "sw.js": "041833ed6ffea6be7bc599942978ef5732aa8b6e6b1bfbdceaee1d9c1744fd7d",
   "tsconfig.json":
     "159c5f821d1d35603cab695aca183b757dd94ea3fc513f82d27c622accff79a6",
   "modules/smart-monaco-editor/dist/editor.js":

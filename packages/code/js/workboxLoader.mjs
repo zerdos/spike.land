@@ -18,6 +18,7 @@ export const workboxLoader = async () => {
         )
       );
 
+      try{
     const { Workbox } = await import(
       "https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-window.prod.mjs"
     );
@@ -30,5 +31,8 @@ export const workboxLoader = async () => {
     });
 
     return wb.register();
+  }catch(e){
+console.error(e)
+  }
   }
 };
