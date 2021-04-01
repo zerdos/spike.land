@@ -3674,9 +3674,9 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.12.5:
     uri-js "^4.2.2"
 
 ajv@^8.0.1:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.0.2.tgz#1396e27f208ed56dd5638ab5a251edeb1c91d402"
-  integrity sha512-V0HGxJd0PiDF0ecHYIesTOqfd1gJguwQUOYfMfAWnRsWQEXfc5ifbUFhD3Wjc+O+y7VAqL+g07prq9gHQ/JOZQ==
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-8.0.3.tgz#81f1b07003b329f000b7912e59a24f52392867b6"
+  integrity sha512-Df6NAivu9KpZw+q8ySijAgLvr1mUA5ihkRvCLCxpdYR21ann5yIuN+PpFxmweSj7i3yjJ0x5LN5KVs0RRzskAQ==
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -4592,7 +4592,7 @@ buffer@^5.2.1, buffer@^5.4.3, buffer@^5.5.0, buffer@^5.6.0, buffer@^5.7.0:
     base64-js "^1.3.1"
     ieee754 "^1.1.13"
 
-buffer@^6.0.1:
+buffer@^6.0.1, buffer@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
   integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
@@ -6811,9 +6811,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.649:
-  version "1.3.703"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.703.tgz#6d9b9a75c42a40775f5930329e642b22b227317f"
-  integrity sha512-SVBVhNB+4zPL+rvtWLw7PZQkw/Eqj1HQZs22xtcqW36+xoifzEOEEDEpkxSMfB6RFeSIOcG00w6z5mSqLr1Y6w==
+  version "1.3.704"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.704.tgz#894205a237cbe0097d63da8f6d19e605dd13ab51"
+  integrity sha512-6cz0jvawlUe4h5AbfQWxPzb+8LzVyswGAWiGc32EJEmfj39HTQyNPkLXirc7+L4x5I6RgRkzua8Ryu5QZqc8cA==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -6905,9 +6905,9 @@ engine.io-client@~3.5.0:
     yeast "0.1.2"
 
 engine.io-client@~4.1.0:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-4.1.2.tgz#823b4f005360321c41445fc23ce8ee028ef2e36b"
-  integrity sha512-1mwvwKYMa0AaCy+sPgvJ/SnKyO5MJZ1HEeXfA3Rm/KHkHGiYD5bQVq8QzvIrkI01FuVtOdZC5lWdRw1BGXB2NQ==
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/engine.io-client/-/engine.io-client-4.1.3.tgz#e0ea88aefe76a14cf4375513b194438be3c5e238"
+  integrity sha512-C3JYYyvna0FvSKOWGWpo0/EQ6MayO8uEKam1oedLZRpxLego9Fk6K3UH/Phieu1xPHauM7YqAygJ+6SraVc0Qg==
   dependencies:
     base64-arraybuffer "0.1.4"
     component-emitter "~1.3.0"
@@ -11255,7 +11255,7 @@ iso-random-stream@^1.1.0, iso-random-stream@^1.1.1:
     buffer "^5.4.3"
     readable-stream "^3.4.0"
 
-iso-url@^1.0.0:
+iso-url@^1.0.0, iso-url@^1.1.2:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/iso-url/-/iso-url-1.1.5.tgz#875a0f2bf33fa1fc200f8d89e3f49eee57a8f0d9"
   integrity sha512-+3JqoKdBTGmyv9vOkS6b9iHhvK34UajfTibrH/1HOK8TI7K2VsM0qOCd+aJdWKtSOA8g3PqZfcwDmnR0p3klqQ==
@@ -11497,14 +11497,14 @@ it-to-stream@^0.1.1, it-to-stream@^0.1.2:
     p-fifo "^1.0.0"
     readable-stream "^3.6.0"
 
-it-ws@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/it-ws/-/it-ws-3.0.2.tgz#65223b7bfbe8f8239b75edef4d4a3cd7e330b693"
-  integrity sha512-INZhCXNjd5Xr7mYWtNZQb9y5i6XIsf4CKD4XUXeCD3tbaoIya1bPVtJNP1lN5UVGo6Ql9rAn3WVre/8IKtKShw==
+it-ws@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/it-ws/-/it-ws-4.0.0.tgz#2e5ef0bcd857c1a898cc32c176ab6cac8f8306ea"
+  integrity sha512-XmTzpMkevc6rUboy73r0CCNhciMmL/Yxir9O6FujRwdrjysztqLBQ1Xkr4CpY2m7BVSCObKotaCWJeZ29lOXRA==
   dependencies:
-    buffer "^5.6.0"
+    buffer "^6.0.3"
     event-iterator "^2.0.0"
-    relative-url "^1.0.2"
+    iso-url "^1.1.2"
     ws "^7.3.1"
 
 iterable-ndjson@^1.1.0:
@@ -12339,16 +12339,16 @@ libp2p-webrtc-star@^0.21.0:
     streaming-iterables "^5.0.3"
 
 libp2p-websockets@^0.15.1:
-  version "0.15.3"
-  resolved "https://registry.yarnpkg.com/libp2p-websockets/-/libp2p-websockets-0.15.3.tgz#c6c72d3a81e0db32bbf83b2f7cb844ad3a739d98"
-  integrity sha512-GbrdacmtqE4rdb8+UnarRlMvnUwfO4T4ABCMAGkVkwb7faAIA5S3bfCYnTAxRV1nvESAk6KwR+4JSkGM+A7j5w==
+  version "0.15.4"
+  resolved "https://registry.yarnpkg.com/libp2p-websockets/-/libp2p-websockets-0.15.4.tgz#d28f7a8aa948afeb11a693d83d2bcbab1121991b"
+  integrity sha512-CoZ9zeCEUDFDdUGzKz6YXx+BTnQzl9D1rxWS7+6wzO9uasDrxn8etigbXP7DbToGAGTQnrhEry6xNX4NI3CPdQ==
   dependencies:
     abortable-iterator "^3.0.0"
     class-is "^1.1.0"
     debug "^4.2.0"
     err-code "^3.0.1"
     ipfs-utils "^6.0.1"
-    it-ws "^3.0.2"
+    it-ws "^4.0.0"
     libp2p-utils "^0.2.1"
     mafmt "^8.0.1"
     multiaddr "^8.1.1"
@@ -13132,9 +13132,9 @@ mem@^8.0.0:
     mimic-fn "^3.1.0"
 
 memfs@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/memfs/-/memfs-3.2.0.tgz#f9438e622b5acd1daa8a4ae160c496fdd1325b26"
-  integrity sha512-f/xxz2TpdKv6uDn6GtHee8ivFyxwxmPuXatBb1FBwxYNuVpbM3k/Y1Z+vC0mH/dIXXrukYfe3qe5J32Dfjg93A==
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/memfs/-/memfs-3.2.1.tgz#12301801a14eb3daa9f7491aa0ff09ffec519dd0"
+  integrity sha512-Y5vcpQzWTime4fBTr/fEnxXUxEYUgKbDlty1WX0gaa4ae14I6KmvK1S8HtXOX0elKAE6ENZJctkGtbTFYcRIUw==
   dependencies:
     fs-monkey "1.0.1"
 
@@ -15725,10 +15725,18 @@ promise-to-callback@^1.0.0:
     is-fn "^1.0.0"
     set-immediate-shim "^1.0.1"
 
-prompts@2.4.0, prompts@^2.3.2:
+prompts@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.4.0.tgz#4aa5de0723a231d1ee9121c40fdf663df73f61d7"
   integrity sha512-awZAKrk3vN6CroQukBL+R9051a4R3zCZBlJm/HBfrSZ8iTpYix3VX1vU4mveiLpiwmOJT4wokTF9m6HUk4KqWQ==
+  dependencies:
+    kleur "^3.0.3"
+    sisteransi "^1.0.5"
+
+prompts@^2.3.2:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.4.1.tgz#befd3b1195ba052f9fd2fde8a486c4e82ee77f61"
+  integrity sha512-EQyfIuO2hPDsX1L/blblV+H7I0knhgAd82cVneCwcdND9B8AuCDuRcBH6yIcG4dFzlOUqbazQqwGjx5xmsNLuQ==
   dependencies:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
@@ -16459,11 +16467,6 @@ regjsparser@^0.6.4:
   integrity sha512-ZqbNRz1SNjLAiYuwY0zoXW8Ne675IX5q+YHioAGbCw4X96Mjl2+dcX9B2ciaeyYjViDAfvIjFpQjJgLttTEERQ==
   dependencies:
     jsesc "~0.5.0"
-
-relative-url@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/relative-url/-/relative-url-1.0.2.tgz#d21c52a72d6061018bcee9f9c9fc106bf7d65287"
-  integrity sha1-0hxSpy1gYQGLzun5yfwQa/fWUoc=
 
 remark-footnotes@2.0.0:
   version "2.0.0"
@@ -19418,9 +19421,9 @@ wcwidth@^1.0.0:
     defaults "^1.0.3"
 
 web-encoding@^1.0.2, web-encoding@^1.0.6, web-encoding@^1.1.0:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/web-encoding/-/web-encoding-1.1.2.tgz#f7bed72ed86842f7f723ca8b4c907d20bdc45579"
-  integrity sha512-rvY9D1nWrirMA3sq1TRepqwTg9yp5hKFWNLIaV/VLzK70Z4RoYZVnvF7KVQ20cWlpso5+2V47vl5uaoRdcNvtA==
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/web-encoding/-/web-encoding-1.1.3.tgz#5c68256e67adbd78076fe29671f5b8d65b7aacf1"
+  integrity sha512-7yliVJ2PZZKbwOSypc3EHZvZTby0Cp7N3oz9hwKtuKy175u5x84gLHYb7D608lufMjPTQm/p5fJ5Pu0oztMBPw==
   optionalDependencies:
     "@zxing/text-encoding" "0.9.0"
 
