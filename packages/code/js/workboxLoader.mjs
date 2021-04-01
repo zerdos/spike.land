@@ -7,7 +7,8 @@ export const workboxLoader = async () => {
         import("./ipfsClient.mjs").then(({ ipfsCat }) =>
           Promise.all(
             missingArray.map((cid) =>
-              ipfsCat(cid).then((content) =>
+
+              Promise.race([ipfsCat(cid),fetch(`http://127.0.0.1:9090/ipfs/${cid}/`).then(x=>x.text())]).then((content) =>
                 fetch(`https://code.zed-vision.workers.dev/add/${cid}`, {
                   method: "POST",
                   body: content,

@@ -61,7 +61,7 @@ export const shasums = {
   "js/transpile.mjs":
     "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/workboxLoader.mjs":
-    "3e36ec543d6ad2f7cb29a8fb2a97c20ec5e23c630aeba1a2e03639d0cdc3e8d9",
+    "d87a04da82ec82fe7a5256baa1e1ef970f081d295410ef02c289f0c1f1fbe579",
   "js/workers/getWorker.mjs":
     "0e4cbd6d373e41aa0617e886954e396862c0f077ebc9e4aedbed66cd6edf1e93",
   "js/workers/ipfsWorker.js":
@@ -122,7 +122,7 @@ export const shasums = {
   "modules/renderer.mjs":
     "d3c0f7c925dfa5afcb5a6aeec56b32852e25bfe3259632834f8043ae5d12124d",
   ".tsBuildInfo":
-    "d04f276101bf18615f48e286db1a631e84ab5e822fd29936b803cb92805beb2a",
+    "8ee935258f1a53e59ae1a2db6d52b524a046d96788168c279ed82410435a77c4",
   "package.json":
     "112aeb5c85a270131deae27ffc0b92eddce2164974550d5906b43eed2839711d",
   "food": "bar",
