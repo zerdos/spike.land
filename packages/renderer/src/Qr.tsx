@@ -10,9 +10,9 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
 
   React.useEffect(() => {
     const load = async () => {
-      const { QRious } = await import(
+      const { QRious } = await new Function(`return import(
         "https://code.zed-vision.workers.dev/modules/QRious.mjs"
-      );
+      );`)();
       const options = {
         size: 220,
         element: canvasRef.current,
