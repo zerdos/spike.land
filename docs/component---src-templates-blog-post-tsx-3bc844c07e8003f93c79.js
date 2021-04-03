@@ -234,7 +234,7 @@ var CodeBox = function CodeBox(_ref) {
               case 2:
                 _yield$Function = _context.sent;
                 run = _yield$Function.run;
-                run("embedded", window, starterCode);
+                run("embedded", starterCode);
 
               case 5:
               case "end":
@@ -366,4 +366,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-7f5ec079547658db681e.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-3bc844c07e8003f93c79.js.map

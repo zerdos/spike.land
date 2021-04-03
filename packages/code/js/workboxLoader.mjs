@@ -7,8 +7,12 @@ export const workboxLoader = async () => {
         import("./ipfsClient.mjs").then(({ ipfsCat }) =>
           Promise.all(
             missingArray.map((cid) =>
-
-              Promise.race([ipfsCat(cid),fetch(`http://127.0.0.1:9090/ipfs/${cid}/`).then(x=>x.text())]).then((content) =>
+              Promise.race([
+                ipfsCat(cid),
+                fetch(`http://127.0.0.1:9090/ipfs/${cid}/`).then((x) =>
+                  x.text()
+                ),
+              ]).then((content) =>
                 fetch(`https://code.zed-vision.workers.dev/add/${cid}`, {
                   method: "POST",
                   body: content,
@@ -19,21 +23,21 @@ export const workboxLoader = async () => {
         )
       );
 
-      try{
-    const { Workbox } = await import(
-      "https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-window.prod.mjs"
-    );
-    const wb = new Workbox(`./generated-sw.js`);
+    try {
+      const { Workbox } = await import(
+        "https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-window.prod.mjs"
+      );
+      const wb = new Workbox(`./generated-sw.js`);
 
-    wb.addEventListener("activated", (event) => {
-      if (!event.isUpdate && !window.monaco) {
-        console.log("Service worker activated for the first time!");
-      }
-    });
+      wb.addEventListener("activated", (event) => {
+        if (!event.isUpdate && !window.monaco) {
+          console.log("Service worker activated for the first time!");
+        }
+      });
 
-    return wb.register();
-  }catch(e){
-console.error(e)
-  }
+      return wb.register();
+    } catch (e) {
+      console.error(e);
+    }
   }
 };
