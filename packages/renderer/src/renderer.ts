@@ -18,7 +18,7 @@ export { css };
 export { Global };
 
 export const render = (
-  el: EmotionJSX.Element,
+  el: EmotionJSX.JSX.Element,
   container: HTMLElement,
 ) => {
   ReactDOM.render(jsx(Fragment, { children: el }), container);
