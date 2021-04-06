@@ -52,7 +52,7 @@ export const files = {
   "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
   "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
   "modules/ipfs.client.mjs": "QmeVEbK6AkbkYs24aqn3CnoBxKT7vsWu56SyyG354ydbR3",
-  "modules/renderer.mjs": "QmfBgFmvuLT5yPBhstCVZD93A7dqaASUgA39Rbjy2egrrM",
+  "modules/renderer.mjs": "QmTcG5W5Czsa4otxuWEbkNmBWaPEcYwhJuUhVQbEdcMkrB",
   "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
   "modules/shaDB.d.ts": "Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY",
@@ -74,7 +74,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmdnC7qve8rGSTVAcNPkCtCZDKFvD6wb6BESNZmMLmub2r",
+  "package.json": "QmZihCHW4z6oaVN77fUqJ1mDRDbef8wWnhvgxrvLMtYc8L",
   "sw.js": "QmenxJcxj8AgCXAqFrhidnSdf3gwF7F2qC8WDLG4xR9768",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -87,7 +87,7 @@ export const files = {
   "modules/smart-monaco-editor":
     "QmRHgSVckcCgNNERo8JoP8xqSBJdnF2hUi2eUF6agS7RVo",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmTATP9szQPuLHHvobj9MxTckGttRV7bh2NMZ42MBm6rEV",
-  "": "QmdZDeX6tRJGsbvkopD95QNYGNWpDr56GzNZaDiUdxUVa5",
+  "modules": "QmRQtzYX8JVRHg74utJXHQnZSDH458cCrohuPeE8YUCfxK",
+  "": "QmcKrvSRT9zE9jGNrjs1SBXYvvhEuvaKLvfhcG5hVis7Ks",
   "foo": "bar",
 };

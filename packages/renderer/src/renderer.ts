@@ -1,5 +1,5 @@
-import { EmotionJSX } from "@emotion/react/types/jsx-namespace";
-import * as Motion from "framer-motion";
+import { jsx  as EmotionJSX} from "@emotion/react";
+import Motion, {motion} from "framer-motion";
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
@@ -11,9 +11,7 @@ export { React };
 export { Fragment };
 export { Motion };
 
-export const { AnimateSharedLayout } = Motion;
-export const { motion } = Motion;
-export const { useSpring } = Motion;
+export { motion } 
 
 export { jsx };
 export { css };
