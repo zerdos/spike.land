@@ -4,6 +4,7 @@ var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __pow = Math.pow;
 var __markAsModule = (target) => __defProp(target, "__esModule", {value: true});
 var __commonJS = (callback, module) => () => {
   if (!module) {
@@ -22,6 +23,28 @@ var __exportStar = (target, module, desc) => {
 };
 var __toModule = (module) => {
   return __exportStar(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? {get: () => module.default, enumerable: true} : {value: module, enumerable: true})), module);
+};
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (result) => {
+      return result.done ? resolve(result.value) : Promise.resolve(result.value).then(fulfilled, rejected);
+    };
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
 };
 
 // ../../node_modules/object-assign/index.js
@@ -19483,7 +19506,7 @@ The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rg
       if (color2.type !== "color") {
         val /= 255;
       }
-      return val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4;
+      return val <= 0.03928 ? val / 12.92 : __pow((val + 0.055) / 1.055, 2.4);
     });
     return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
   }
@@ -19971,7 +19994,7 @@ var require_transitions = __commonJS((exports) => {
       return 0;
     }
     const constant = height / 36;
-    return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10);
+    return Math.round((4 + 15 * __pow(constant, 0.25) + constant / 5) * 10);
   }
 });
 
@@ -26847,7 +26870,7 @@ function getLuminance(color2) {
     if (color2.type !== "color") {
       val /= 255;
     }
-    return val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4;
+    return val <= 0.03928 ? val / 12.92 : __pow((val + 0.055) / 1.055, 2.4);
   });
   return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
 }
@@ -27253,7 +27276,7 @@ function getAutoHeightDuration(height) {
     return 0;
   }
   const constant = height / 36;
-  return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10);
+  return Math.round((4 + 15 * __pow(constant, 0.25) + constant / 5) * 10);
 }
 
 // ../../node_modules/@material-ui/core/styles/zIndex.js
@@ -28000,14 +28023,14 @@ var TouchRipple = /* @__PURE__ */ React8.forwardRef(function TouchRipple2(inProp
       rippleY = Math.round(clientY - rect.top);
     }
     if (center) {
-      rippleSize = Math.sqrt((2 * rect.width ** 2 + rect.height ** 2) / 3);
+      rippleSize = Math.sqrt((2 * __pow(rect.width, 2) + __pow(rect.height, 2)) / 3);
       if (rippleSize % 2 === 0) {
         rippleSize += 1;
       }
     } else {
       const sizeX = Math.max(Math.abs((element ? element.clientWidth : 0) - rippleX), rippleX) * 2 + 2;
       const sizeY = Math.max(Math.abs((element ? element.clientHeight : 0) - rippleY), rippleY) * 2 + 2;
-      rippleSize = Math.sqrt(sizeX ** 2 + sizeY ** 2);
+      rippleSize = Math.sqrt(__pow(sizeX, 2) + __pow(sizeY, 2));
     }
     if (event.touches) {
       if (startTimerCommit.current === null) {
@@ -29186,8 +29209,8 @@ var import_QrCode = __toModule(require_QrCode());
 var QR = ({url}) => {
   const canvasRef = import_react29.default.useRef(null);
   import_react29.default.useEffect(() => {
-    const load = async () => {
-      const {QRious} = await new Function(`return import(
+    const load = () => __async(void 0, null, function* () {
+      const {QRious} = yield new Function(`return import(
         "https://code.zed-vision.workers.dev/modules/QRious.mjs"
       );`)();
       const options = {
@@ -29201,7 +29224,7 @@ var QR = ({url}) => {
         value: url
       };
       const qr = new QRious(options);
-    };
+    });
     load();
   }, [url]);
   return /* @__PURE__ */ (0, import_react30.jsx)("canvas", {
