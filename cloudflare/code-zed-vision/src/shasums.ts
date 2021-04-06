@@ -86,7 +86,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.mjs":
-    "bb53e2031d584cb1a20334dfadcddbaeb13877561d859e6eb8cfe938d1699a0b",
+    "1f275e79aa90f8f9a0ed3e8e7565b716fcd76edac0886e0dd81acffeb759c043",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/vendor/diffMin.d.ts":
