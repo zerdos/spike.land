@@ -74,6 +74,28 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
+  "node_modules/tslib/CopyrightNotice.txt":
+    "QmdMafTTDXFcG52enrPV5xhHUeC7YGJ9kHJDcgMpGSJtST",
+  "node_modules/tslib/LICENSE.txt":
+    "Qma5gyeLmATcJUKC2AaQUHfH7GsF5sbz1R6dnHTM9kUAG9",
+  "node_modules/tslib/README.md":
+    "QmfPMUjRXTorJRKY9v6Erm2SA6ExpAEkWG4BnMxaMstjKu",
+  "node_modules/tslib/modules/index.js":
+    "Qmcm4xPv8XjPnmhHzXFBWVPfAGVZ87KTsVLh9bNDAoR7qk",
+  "node_modules/tslib/modules/package.json":
+    "QmdCKRGjgb7yvBFTz12EejYKGmjV6NZ1fEXA6SkdrMtbyr",
+  "node_modules/tslib/package.json":
+    "QmccED3Ks6qu4g67MpQLdf61WvWmGBX9PdNoPkEzKQZ9DS",
+  "node_modules/tslib/tslib.d.ts":
+    "QmaX4YU93SqTSXcy8eZMdFHVvRJKtrxUDEvkDF1FZMPSwa",
+  "node_modules/tslib/tslib.es6.html":
+    "QmaDJNHhASHs5QxzDnq7uUTkzYR5swHYfcjmzSPT3LQy43",
+  "node_modules/tslib/tslib.es6.js":
+    "QmYSi2L3XFXsuB7wZxiQsU4ot5WogH6eafuqXjbte2mr4n",
+  "node_modules/tslib/tslib.html":
+    "QmT2Hee8KjRhJgaFoMQq2AA1aSW95dqJyU2T8NCiWwBGAZ",
+  "node_modules/tslib/tslib.js":
+    "QmbeuujgGKMmRtmNFMKTmbzyfVnjxNQPXNeTvfijy39pFV",
   "package.json": "QmRtVZ3jYxXoz6g74aRaHuMp4kJp521BdH25SRzuhvBybt",
   "sw.js": "QmenxJcxj8AgCXAqFrhidnSdf3gwF7F2qC8WDLG4xR9768",
   "tsconfig.json": "QmYZ1umecnPQWYNS3ssf9uBVdWF66NZtvpuRD3SQGx7Ve2",
@@ -88,6 +110,10 @@ export const files = {
     "QmRHgSVckcCgNNERo8JoP8xqSBJdnF2hUi2eUF6agS7RVo",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmTDyfANfuGHDcTTrTiS7UAVPfFfaw2nrYHV1gTc8s14oy",
-  "": "QmSahhx5hZG8GiiUWAyd77vsCpUwqrjcBVydgXN5F5CW1L",
+  "node_modules/tslib/modules":
+    "QmcUyD4JTeAMZbgkFTtR1XR2E8AL1w1ZFQH1QrQuCdnnC4",
+  "node_modules/tslib": "QmRbdXBLtudHUJGDgm1ibWyBogQS92zsn7y5jwutakdSL3",
+  "node_modules": "QmYt1VTU4KTCtTUhCTFxTNwiNGJ7R826aroSecJbCyqVch",
+  "": "QmWnai1U3wjTkwgHNu25rhipRZE5R5RMDep8FUVFCqKoYe",
   "foo": "bar",
 };
