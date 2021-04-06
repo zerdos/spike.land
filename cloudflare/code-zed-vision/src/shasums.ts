@@ -46,14 +46,10 @@ export const shasums = {
     "a3ba172c448bdea19a3a9ceca159a9417afa5425cf016e146f196fad16a0e4e4",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
-  "js/renderPreviewWindow.mjs":
-    "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
   "js/sendSignalToQrCode.mjs":
     "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
   "js/share.mjs":
     "5fbe381f457a01b1c0ab5709102da4e322c564268b0930cc56f400aca2e1d494",
-  "js/templates.mjs":
-    "b28d6ee24d2b6cb26115a7a76d815a672505a0c9daba7985bb25d47fedc0635e",
   "js/transpile.mjs":
     "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/workboxLoader.mjs":
@@ -68,13 +64,15 @@ export const shasums = {
     "fe75d81e2e8f07e494152107ee957fd60707d2bb73b26b6e1e49605bb36282d1",
   "js/codeLoader.mjs":
     "23de7c1b9dadb688ad58b1f5f9e3c7bf398f83836e9a6f7e1ad3759706db3773",
+  "js/renderPreviewWindow.mjs":
+    "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
+  "js/templates.mjs":
+    "b28d6ee24d2b6cb26115a7a76d815a672505a0c9daba7985bb25d47fedc0635e",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
   "sw.js": "041833ed6ffea6be7bc599942978ef5732aa8b6e6b1bfbdceaee1d9c1744fd7d",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
-  "index.html":
-    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "package.json":
     "35464e2bb51585948990b2bacbb16783f9c2ce9bc61a2c30f8d29f857ab8cc59",
   "modules/smart-monaco-editor/dist/editor.js":
@@ -121,9 +119,13 @@ export const shasums = {
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
+  "modules/renderer.umd.js":
+    "7a1b30a74f11d546540fa3a812d6fb058a9b9249b28e2b8ebf6baab1efe0ad77",
   "modules/renderer.mjs":
     "9bd05973a96155eb81238f67bd297640164b76f50e20acd70cb5bfbc8fafcf0b",
   ".tsBuildInfo":
     "8ee935258f1a53e59ae1a2db6d52b524a046d96788168c279ed82410435a77c4",
+  "index.html":
+    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "food": "bar",
 };
