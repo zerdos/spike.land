@@ -34,7 +34,7 @@
     "ipfs-message-port-client": "0.5.4",
     "it-all": "1.0.5",
     "typescript": "4.2.3",
-    "uint8arrays": "2.1.3",
+    "uint8arrays": "2.1.4",
     "util": "0.12.3"
   }
 }
