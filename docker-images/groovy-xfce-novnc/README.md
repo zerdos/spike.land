@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:groovy
-- Node: 14.16.0
+- Node: 14.16.1
 - Yarn: 1.22.10
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - with Google-chrome- With Vscode- Zsh + Oh my zsh!

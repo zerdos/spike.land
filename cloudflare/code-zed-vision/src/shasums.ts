@@ -75,6 +75,8 @@ export const shasums = {
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "package.json":
     "35464e2bb51585948990b2bacbb16783f9c2ce9bc61a2c30f8d29f857ab8cc59",
+  "index.html":
+    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "modules/smart-monaco-editor/dist/editor.js":
     "7520f59811036a21f6a61db78ca087dc6904d94034004e77c9236c5322419d11",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -84,7 +86,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.mjs":
-    "1f275e79aa90f8f9a0ed3e8e7565b716fcd76edac0886e0dd81acffeb759c043",
+    "df1741df1939e4620483adc99ddd1ab0405cfd40f6f907be925edbb6649fb0ca",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/vendor/diffMin.d.ts":
@@ -119,13 +121,9 @@ export const shasums = {
     "59fc351c34125b205dbd5f2763c961901a7fc719f274500b6a8557986be5fbf7",
   "modules/QRious.mjs":
     "c0b38ce787fc41edda1ce2350c65ecc9485c9e9cce05e0a5574bfb0e79f67f2b",
-  "modules/renderer.umd.js":
-    "7a1b30a74f11d546540fa3a812d6fb058a9b9249b28e2b8ebf6baab1efe0ad77",
   "modules/renderer.mjs":
     "9bd05973a96155eb81238f67bd297640164b76f50e20acd70cb5bfbc8fafcf0b",
   ".tsBuildInfo":
     "8ee935258f1a53e59ae1a2db6d52b524a046d96788168c279ed82410435a77c4",
-  "index.html":
-    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "food": "bar",
 };

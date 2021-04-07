@@ -1058,7 +1058,27 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/mitt/dist/mitt.es.js
-/* harmony default export */ function mitt_es(n){return{all:n=n||new Map,on:function(t,e){var i=n.get(t);i&&i.push(e)||n.set(t,[e])},off:function(t,e){var i=n.get(t);i&&i.splice(i.indexOf(e)>>>0,1)},emit:function(t,e){(n.get(t)||[]).slice().map(function(n){n(e)}),(n.get("*")||[]).slice().map(function(n){n(t,e)})}}}
+/* harmony default export */ function mitt_es(n) {
+  return {
+    all: n = n || new Map(),
+    on: function (t, e) {
+      var i = n.get(t);
+      i && i.push(e) || n.set(t, [e]);
+    },
+    off: function (t, e) {
+      var i = n.get(t);
+      i && i.splice(i.indexOf(e) >>> 0, 1);
+    },
+    emit: function (t, e) {
+      (n.get(t) || []).slice().map(function (n) {
+        n(e);
+      }),
+        (n.get("*") || []).slice().map(function (n) {
+          n(t, e);
+        });
+    },
+  };
+}
 //# sourceMappingURL=mitt.es.js.map
 
 ;// CONCATENATED MODULE: ./.cache/emitter.js
@@ -1586,4 +1606,4 @@ module.exports = invariant;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-12415361afb16684130c.js.map
+//# sourceMappingURL=app-a55e5af14b2c54728f23.js.map
