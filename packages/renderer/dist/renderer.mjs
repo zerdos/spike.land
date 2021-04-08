@@ -8438,8 +8438,8 @@ var require_emotion_serialize_browser_cjs = __commonJS((exports) => {
     return value;
   };
   if (false) {
-    contentValuePattern = /(attr|calc|counters?|url|(((repeating-)?(linear|radial))|conic)-gradient)\(/;
-    contentValues = ["normal", "none", "counter", "open-quote", "close-quote", "no-open-quote", "no-close-quote", "initial", "inherit", "unset"];
+    contentValuePattern = /(attr|counters?|url|(((repeating-)?(linear|radial))|conic)-gradient)\(|(no-)?(open|close)-quote/;
+    contentValues = ["normal", "none", "initial", "inherit", "unset"];
     oldProcessStyleValue = processStyleValue;
     msPattern = /^-ms-/;
     hyphenPattern = /-(.)/g;
@@ -8586,7 +8586,7 @@ var require_emotion_serialize_browser_cjs = __commonJS((exports) => {
     }
     return string;
   }
-  var labelPattern = /label:\s*([^\s;\n{]+)\s*;/g;
+  var labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g;
   var sourceMapPattern;
   if (false) {
     sourceMapPattern = /\/\*#\ssourceMappingURL=data:application\/json;\S+\s+\*\//g;
@@ -12796,7 +12796,7 @@ var require_emotion_styled_base_browser_cjs = __commonJS((exports) => {
         }
       });
       Styled.withComponent = function(nextTag, nextOptions) {
-        return createStyled2(nextTag, _extends__default["default"]({}, options, {}, nextOptions, {
+        return createStyled2(nextTag, _extends__default["default"]({}, options, nextOptions, {
           shouldForwardProp: composeShouldForwardProps(Styled, nextOptions, true)
         })).apply(void 0, styles);
       };

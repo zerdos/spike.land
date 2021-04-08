@@ -77,7 +77,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "@emotion/styled/base.d.ts",
-                url: "https://unpkg.com/@emotion/styled@11.1.5/types/base.d.ts",
+                url: "https://unpkg.com/@emotion/styled@11.3.0/types/base.d.ts",
                 depend: [
                     "@emotion/react",
                     "@emotion/serialize",
@@ -86,7 +86,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "@emotion/styled/index.d.ts",
-                url: "https://unpkg.com/@emotion/styled@11.1.5/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/styled@11.3.0/types/index.d.ts",
                 depend: [
                     "@emotion/react",
                     "@emotion/serialize",

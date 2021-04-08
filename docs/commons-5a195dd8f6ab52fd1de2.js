@@ -388,7 +388,7 @@ function token(type) {
     case 47:
     case 62:
     case 64:
-    case 126: // ; { } / breakpoint token
+    case 126: // ; { } breakpoint token
 
     case 59:
     case 123:
@@ -480,6 +480,20 @@ function tokenizer(children) {
   }
 
   return children;
+}
+/**
+ * @param {number} index
+ * @param {number} count
+ * @return {string}
+ */
+
+function escaping(index, count) {
+  while (--count && next()) {
+    // not 0-9 A-F a-f
+    if (character < 48 || character > 102 || character > 57 && character < 65 || character > 70 && character < 97) break;
+  }
+
+  return slice(index, caret() + (count < 6 && peek() == 32 && next() == 32));
 }
 /**
  * @param {number} type
@@ -957,6 +971,11 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
       case 32:
         characters += whitespace(previous);
         break;
+      // \
+
+      case 92:
+        characters += escaping(caret() - 1, 7);
+        continue;
       // /
 
       case 47:
@@ -1019,13 +1038,7 @@ function parse(value, root, parent, rule, rules, rulesets, pseudo, points, decla
         length = 1 + Utility_strlen(characters), property = previous;
 
       default:
-        if (variable < 1) {
-          if (character == 123) {
-            --variable;
-          } else if (character == 125 && variable++ == 0 && prev() == 125) {
-            continue;
-          }
-        }
+        if (variable < 1) if (character == 123) --variable;else if (character == 125 && variable++ == 0 && prev() == 125) continue;
 
         switch (characters += Utility_from(character), character * variable) {
           // &
@@ -1714,7 +1727,7 @@ function createStringFromObject(mergedProps, registered, obj) {
   return string;
 }
 
-var labelPattern = /label:\s*([^\s;\n{]+)\s*;/g;
+var labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g;
 var sourceMapPattern;
 
 if (false) {} // this is the cursor for keyframes
@@ -2490,4 +2503,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=commons-4b358923f0ae501c9b70.js.map
+//# sourceMappingURL=commons-5a195dd8f6ab52fd1de2.js.map
