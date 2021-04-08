@@ -23632,29 +23632,6 @@ function getAnimatableNone2(key, value) {
   return (_a = defaultValueType.getAnimatableNone) === null || _a === void 0 ? void 0 : _a.call(defaultValueType, value);
 }
 
-// ../../node_modules/framer-motion/dist/es/render/dom/value-types/test.js
-var testValueType = function(v) {
-  return function(type) {
-    return type.test(v);
-  };
-};
-
-// ../../node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.js
-var auto = {
-  test: function(v) {
-    return v === "auto";
-  },
-  parse: function(v) {
-    return v;
-  }
-};
-
-// ../../node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js
-var dimensionValueTypes = [number, px, percent, degrees, vw, vh, auto];
-var findDimensionValueType = function(v) {
-  return dimensionValueTypes.find(testValueType(v));
-};
-
 // ../../node_modules/framer-motion/dist/es/animation/utils/transitions.js
 function isTransitionDefined(_a) {
   _a.when;
@@ -23771,7 +23748,7 @@ function isZero(value) {
   return value === 0 || typeof value === "string" && parseFloat(value) === 0 && value.indexOf(" ") === -1;
 }
 function getZeroUnit(potentialUnitType) {
-  return getValueAsType(0, findDimensionValueType(potentialUnitType));
+  return typeof potentialUnitType === "number" ? 0 : getAnimatableNone2("", potentialUnitType);
 }
 function getValueTransition(transition, key) {
   return transition[key] || transition["default"] || transition;
@@ -23960,6 +23937,29 @@ var MotionValue = function() {
 function motionValue(init) {
   return new MotionValue(init);
 }
+
+// ../../node_modules/framer-motion/dist/es/render/dom/value-types/test.js
+var testValueType = function(v) {
+  return function(type) {
+    return type.test(v);
+  };
+};
+
+// ../../node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.js
+var auto = {
+  test: function(v) {
+    return v === "auto";
+  },
+  parse: function(v) {
+    return v;
+  }
+};
+
+// ../../node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js
+var dimensionValueTypes = [number, px, percent, degrees, vw, vh, auto];
+var findDimensionValueType = function(v) {
+  return dimensionValueTypes.find(testValueType(v));
+};
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/find.js
 var valueTypes = __spreadArray(__spreadArray([], __read(dimensionValueTypes)), [color, complex]);
