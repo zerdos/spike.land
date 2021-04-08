@@ -70,7 +70,7 @@ export const shasums = {
     "b28d6ee24d2b6cb26115a7a76d815a672505a0c9daba7985bb25d47fedc0635e",
   "manifest.json":
     "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
-  "sw.js": "041833ed6ffea6be7bc599942978ef5732aa8b6e6b1bfbdceaee1d9c1744fd7d",
+  "sw.js": "ce72f19e0ac1d806e00031c338a6974be525952c07a6fb5bbe66eeeeee0d6c4b",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "index.html":

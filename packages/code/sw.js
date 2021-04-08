@@ -57,7 +57,7 @@ globalThis.register = () => {
   );
 
   self.workbox.routing.registerRoute(
-    ({ url }) => url.origin.indexOf("zed.vision") === -1,
+    ({ url }) => url.origin.indexOf("workers.dev") === -1,
     new self.workbox.strategies.CacheFirst({
       cacheName: "cdn-cache",
       plugins: [
