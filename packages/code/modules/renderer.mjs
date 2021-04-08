@@ -7250,14 +7250,14 @@ var require_stylis = __commonJS((exports, module) => {
     var v = "@namespace";
     var b2 = "@keyframes";
     var m = "@font-face";
-    var d = "@counter-style";
-    var w = "@font-feature-values";
+    var w = "@counter-style";
+    var d = "@font-feature-values";
     var $ = Math.abs;
     var k = String.fromCharCode;
-    function x(e2, r2) {
+    function g(e2, r2) {
       return (((r2 << 2 ^ A(e2, 0)) << 2 ^ A(e2, 1)) << 2 ^ A(e2, 2)) << 2 ^ A(e2, 3);
     }
-    function g(e2) {
+    function x(e2) {
       return e2.trim();
     }
     function E(e2, r2) {
@@ -7362,7 +7362,7 @@ var require_stylis = __commonJS((exports, module) => {
       return e.characters = "", r2;
     }
     function V(r2) {
-      return g(I(e.position - 1, G(r2 === 91 ? r2 + 2 : r2 === 40 ? r2 + 1 : r2)));
+      return x(I(e.position - 1, H(r2 === 91 ? r2 + 2 : r2 === 40 ? r2 + 1 : r2)));
     }
     function W(e2) {
       return K(B(D(e2)));
@@ -7379,7 +7379,7 @@ var require_stylis = __commonJS((exports, module) => {
       while (_2())
         switch (L(e.character)) {
           case 0:
-            S(Z(e.position - 1), r2);
+            S(q(e.position - 1), r2);
             break;
           case 2:
             S(V(e.character), r2);
@@ -7389,17 +7389,23 @@ var require_stylis = __commonJS((exports, module) => {
         }
       return r2;
     }
-    function G(r2) {
+    function G(r2, a3) {
+      while (--a3 && _2())
+        if (e.character < 48 || e.character > 102 || e.character > 57 && e.character < 65 || e.character > 70 && e.character < 97)
+          break;
+      return I(r2, F() + (a3 < 6 && j() == 32 && _2() == 32));
+    }
+    function H(r2) {
       while (_2())
         switch (e.character) {
           case r2:
             return e.position;
           case 34:
           case 39:
-            return G(r2 === 34 || r2 === 39 ? r2 : e.character);
+            return H(r2 === 34 || r2 === 39 ? r2 : e.character);
           case 40:
             if (r2 === 41)
-              G(r2);
+              H(r2);
             break;
           case 92:
             _2();
@@ -7407,7 +7413,7 @@ var require_stylis = __commonJS((exports, module) => {
         }
       return e.position;
     }
-    function H(r2, a3) {
+    function Z(r2, a3) {
       while (_2())
         if (r2 + e.character === 47 + 10)
           break;
@@ -7415,15 +7421,15 @@ var require_stylis = __commonJS((exports, module) => {
           break;
       return "/*" + I(a3, e.position - 1) + "*" + k(r2 === 47 ? r2 : _2());
     }
-    function Z(r2) {
+    function q(r2) {
       while (!L(j()))
         _2();
       return I(r2, e.position);
     }
-    function q(e2) {
-      return K(J("", null, null, null, [""], e2 = D(e2), 0, [0], e2));
+    function J(e2) {
+      return K(Q("", null, null, null, [""], e2 = D(e2), 0, [0], e2));
     }
-    function J(e2, r2, a3, c3, t2, n2, s2, i2, u2) {
+    function Q(e2, r2, a3, c3, t2, n2, s2, i2, u2) {
       var o2 = 0;
       var f2 = 0;
       var l2 = s2;
@@ -7432,20 +7438,20 @@ var require_stylis = __commonJS((exports, module) => {
       var v2 = 0;
       var b3 = 1;
       var m2 = 1;
-      var d2 = 1;
-      var w2 = 0;
+      var w2 = 1;
+      var d2 = 0;
       var $2 = "";
-      var x2 = t2;
-      var g2 = n2;
+      var g2 = t2;
+      var x2 = n2;
       var E2 = c3;
       var T2 = $2;
       while (m2)
-        switch (v2 = w2, w2 = _2()) {
+        switch (v2 = d2, d2 = _2()) {
           case 34:
           case 39:
           case 91:
           case 40:
-            T2 += V(w2);
+            T2 += V(d2);
             break;
           case 9:
           case 10:
@@ -7453,70 +7459,72 @@ var require_stylis = __commonJS((exports, module) => {
           case 32:
             T2 += Y(v2);
             break;
+          case 92:
+            T2 += G(F() - 1, 7);
+            continue;
           case 47:
             switch (j()) {
               case 42:
               case 47:
-                S(X(H(_2(), F()), r2, a3), u2);
+                S(ee(Z(_2(), F()), r2, a3), u2);
                 break;
               default:
                 T2 += "/";
             }
             break;
           case 123 * b3:
-            i2[o2++] = M(T2) * d2;
+            i2[o2++] = M(T2) * w2;
           case 125 * b3:
           case 59:
           case 0:
-            switch (w2) {
+            switch (d2) {
               case 0:
               case 125:
                 m2 = 0;
               case 59 + f2:
                 if (p2 > 0 && M(T2) - l2)
-                  S(p2 > 32 ? ee(T2 + ";", c3, a3, l2 - 1) : ee(y(T2, " ", "") + ";", c3, a3, l2 - 2), u2);
+                  S(p2 > 32 ? re(T2 + ";", c3, a3, l2 - 1) : re(y(T2, " ", "") + ";", c3, a3, l2 - 2), u2);
                 break;
               case 59:
                 T2 += ";";
               default:
-                S(E2 = Q(T2, r2, a3, o2, f2, t2, i2, $2, x2 = [], g2 = [], l2), n2);
-                if (w2 === 123)
+                S(E2 = X(T2, r2, a3, o2, f2, t2, i2, $2, g2 = [], x2 = [], l2), n2);
+                if (d2 === 123)
                   if (f2 === 0)
-                    J(T2, r2, E2, E2, x2, n2, l2, i2, g2);
+                    Q(T2, r2, E2, E2, g2, n2, l2, i2, x2);
                   else
                     switch (h2) {
                       case 100:
                       case 109:
                       case 115:
-                        J(e2, E2, E2, c3 && S(Q(e2, E2, E2, 0, 0, t2, i2, $2, t2, x2 = [], l2), g2), t2, g2, l2, i2, c3 ? x2 : g2);
+                        Q(e2, E2, E2, c3 && S(X(e2, E2, E2, 0, 0, t2, i2, $2, t2, g2 = [], l2), x2), t2, x2, l2, i2, c3 ? g2 : x2);
                         break;
                       default:
-                        J(T2, E2, E2, E2, [""], g2, l2, i2, g2);
+                        Q(T2, E2, E2, E2, [""], x2, l2, i2, x2);
                     }
             }
-            o2 = f2 = p2 = 0, b3 = d2 = 1, $2 = T2 = "", l2 = s2;
+            o2 = f2 = p2 = 0, b3 = w2 = 1, $2 = T2 = "", l2 = s2;
             break;
           case 58:
             l2 = 1 + M(T2), p2 = v2;
           default:
             if (b3 < 1) {
-              if (w2 == 123) {
+              if (d2 == 123)
                 --b3;
-              } else if (w2 == 125 && b3++ == 0 && U() == 125) {
+              else if (d2 == 125 && b3++ == 0 && U() == 125)
                 continue;
-              }
             }
-            switch (T2 += k(w2), w2 * b3) {
+            switch (T2 += k(d2), d2 * b3) {
               case 38:
-                d2 = f2 > 0 ? 1 : (T2 += "\f", -1);
+                w2 = f2 > 0 ? 1 : (T2 += "\f", -1);
                 break;
               case 44:
-                i2[o2++] = (M(T2) - 1) * d2, d2 = 1;
+                i2[o2++] = (M(T2) - 1) * w2, w2 = 1;
                 break;
               case 64:
                 if (j() === 45)
                   T2 += V(_2());
-                h2 = j(), f2 = M($2 = T2 += Z(F())), w2++;
+                h2 = j(), f2 = M($2 = T2 += q(F())), d2++;
                 break;
               case 45:
                 if (v2 === 45 && M(T2) == 2)
@@ -7525,24 +7533,24 @@ var require_stylis = __commonJS((exports, module) => {
         }
       return n2;
     }
-    function Q(e2, r2, a3, c3, t2, s2, i2, u2, o2, f2, l2) {
+    function X(e2, r2, a3, c3, t2, s2, i2, u2, o2, f2, l2) {
       var h2 = t2 - 1;
       var p2 = t2 === 0 ? s2 : [""];
       var v2 = C(p2);
-      for (var b3 = 0, m2 = 0, d2 = 0; b3 < c3; ++b3)
-        for (var w2 = 0, k2 = O(e2, h2 + 1, h2 = $(m2 = i2[b3])), x2 = e2; w2 < v2; ++w2)
-          if (x2 = g(m2 > 0 ? p2[w2] + " " + k2 : y(k2, /&\f/g, p2[w2])))
-            o2[d2++] = x2;
+      for (var b3 = 0, m2 = 0, w2 = 0; b3 < c3; ++b3)
+        for (var d2 = 0, k2 = O(e2, h2 + 1, h2 = $(m2 = i2[b3])), g2 = e2; d2 < v2; ++d2)
+          if (g2 = x(m2 > 0 ? p2[d2] + " " + k2 : y(k2, /&\f/g, p2[d2])))
+            o2[w2++] = g2;
       return z(e2, r2, a3, t2 === 0 ? n : u2, o2, f2, l2);
     }
-    function X(e2, r2, a3) {
+    function ee(e2, r2, a3) {
       return z(e2, r2, a3, t, k(P()), O(e2, 2, -2), 0);
     }
-    function ee(e2, r2, a3, c3) {
+    function re(e2, r2, a3, c3) {
       return z(e2, r2, a3, s, O(e2, 0, c3), O(e2, c3 + 1, -1), c3);
     }
-    function re(e2, t2) {
-      switch (x(e2, t2)) {
+    function ae(e2, t2) {
+      switch (g(e2, t2)) {
         case 5103:
           return c2 + "print-" + e2 + e2;
         case 5737:
@@ -7628,7 +7636,7 @@ var require_stylis = __commonJS((exports, module) => {
               case 102:
                 return y(e2, /(.+:)(.+)-([^]+)/, "$1" + c2 + "$2-$3$1" + a2 + (A(e2, t2 + 3) == 108 ? "$3" : "$2-$3")) + e2;
               case 115:
-                return ~T(e2, "stretch") ? re(y(e2, "stretch", "fill-available"), t2) + e2 : e2;
+                return ~T(e2, "stretch") ? ae(y(e2, "stretch", "fill-available"), t2) + e2 : e2;
             }
           break;
         case 4949:
@@ -7655,14 +7663,14 @@ var require_stylis = __commonJS((exports, module) => {
       }
       return e2;
     }
-    function ae(e2, r2) {
+    function ce(e2, r2) {
       var a3 = "";
       var c3 = C(e2);
       for (var t2 = 0; t2 < c3; t2++)
         a3 += r2(e2[t2], t2, e2, r2) || "";
       return a3;
     }
-    function ce(e2, r2, a3, c3) {
+    function te(e2, r2, a3, c3) {
       switch (e2.type) {
         case o:
         case s:
@@ -7672,9 +7680,9 @@ var require_stylis = __commonJS((exports, module) => {
         case n:
           e2.value = e2.props.join(",");
       }
-      return M(a3 = ae(e2.children, c3)) ? e2.return = e2.value + "{" + a3 + "}" : "";
+      return M(a3 = ce(e2.children, c3)) ? e2.return = e2.value + "{" + a3 + "}" : "";
     }
-    function te(e2) {
+    function ne(e2) {
       var r2 = C(e2);
       return function(a3, c3, t2, n2) {
         var s2 = "";
@@ -7683,7 +7691,7 @@ var require_stylis = __commonJS((exports, module) => {
         return s2;
       };
     }
-    function ne(e2) {
+    function se(e2) {
       return function(r2) {
         if (!r2.root) {
           if (r2 = r2.return)
@@ -7691,29 +7699,29 @@ var require_stylis = __commonJS((exports, module) => {
         }
       };
     }
-    function se(e2, t2, i2, u2) {
+    function ie(e2, t2, i2, u2) {
       if (!e2.return)
         switch (e2.type) {
           case s:
-            e2.return = re(e2.value, e2.length);
+            e2.return = ae(e2.value, e2.length);
             break;
           case b2:
-            return ae([N(y(e2.value, "@", "@" + c2), e2, "")], u2);
+            return ce([N(y(e2.value, "@", "@" + c2), e2, "")], u2);
           case n:
             if (e2.length)
               return R(e2.props, function(t3) {
                 switch (E(t3, /(::plac\w+|:read-\w+)/)) {
                   case ":read-only":
                   case ":read-write":
-                    return ae([N(y(t3, /:(read-\w+)/, ":" + a2 + "$1"), e2, "")], u2);
+                    return ce([N(y(t3, /:(read-\w+)/, ":" + a2 + "$1"), e2, "")], u2);
                   case "::placeholder":
-                    return ae([N(y(t3, /:(plac\w+)/, ":" + c2 + "input-$1"), e2, ""), N(y(t3, /:(plac\w+)/, ":" + a2 + "$1"), e2, ""), N(y(t3, /:(plac\w+)/, r + "input-$1"), e2, "")], u2);
+                    return ce([N(y(t3, /:(plac\w+)/, ":" + c2 + "input-$1"), e2, ""), N(y(t3, /:(plac\w+)/, ":" + a2 + "$1"), e2, ""), N(y(t3, /:(plac\w+)/, r + "input-$1"), e2, "")], u2);
                 }
                 return "";
               });
         }
     }
-    function ie(e2) {
+    function ue(e2) {
       switch (e2.type) {
         case n:
           e2.props = e2.props.map(function(r2) {
@@ -7750,11 +7758,11 @@ var require_stylis = __commonJS((exports, module) => {
     }
     e.CHARSET = f;
     e.COMMENT = t;
-    e.COUNTER_STYLE = d;
+    e.COUNTER_STYLE = w;
     e.DECLARATION = s;
     e.DOCUMENT = p;
     e.FONT_FACE = m;
-    e.FONT_FEATURE_VALUES = w;
+    e.FONT_FEATURE_VALUES = d;
     e.IMPORT = o;
     e.KEYFRAMES = b2;
     e.MEDIA = u;
@@ -7773,41 +7781,42 @@ var require_stylis = __commonJS((exports, module) => {
     e.char = P;
     e.charat = A;
     e.combine = R;
-    e.comment = X;
-    e.commenter = H;
-    e.compile = q;
+    e.comment = ee;
+    e.commenter = Z;
+    e.compile = J;
     e.copy = N;
     e.dealloc = K;
-    e.declaration = ee;
+    e.declaration = re;
     e.delimit = V;
-    e.delimiter = G;
+    e.delimiter = H;
+    e.escaping = G;
     e.from = k;
-    e.hash = x;
-    e.identifier = Z;
+    e.hash = g;
+    e.identifier = q;
     e.indexof = T;
     e.match = E;
-    e.middleware = te;
-    e.namespace = ie;
+    e.middleware = ne;
+    e.namespace = ue;
     e.next = _2;
     e.node = z;
-    e.parse = J;
+    e.parse = Q;
     e.peek = j;
-    e.prefix = re;
-    e.prefixer = se;
+    e.prefix = ae;
+    e.prefixer = ie;
     e.prev = U;
     e.replace = y;
-    e.ruleset = Q;
-    e.rulesheet = ne;
-    e.serialize = ae;
+    e.ruleset = X;
+    e.rulesheet = se;
+    e.serialize = ce;
     e.sizeof = C;
     e.slice = I;
-    e.stringify = ce;
+    e.stringify = te;
     e.strlen = M;
     e.substr = O;
     e.token = L;
     e.tokenize = W;
     e.tokenizer = B;
-    e.trim = g;
+    e.trim = x;
     e.whitespace = Y;
     Object.defineProperty(e, "__esModule", {value: true});
   });
