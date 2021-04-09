@@ -43,7 +43,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@babel/standalone": "7.13.15", 
+    "@babel/standalone": "7.13.15",
     "comlink": "4.3.0",
     "prettier": "2.2.1",
     "simple-window-manager": "2.1.2",
