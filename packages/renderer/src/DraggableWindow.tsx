@@ -104,7 +104,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             value={scaleRange}
             size="small"
             exclusive
-            color="white"
             onChange={(_e, newScale) => newScale && changeScaleRange(newScale)}
           >
             {sizes.map((size) =>

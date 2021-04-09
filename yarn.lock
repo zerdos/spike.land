@@ -1497,9 +1497,9 @@
     "@hapi/hoek" "9.x.x"
 
 "@hapi/catbox-memory@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@hapi/catbox-memory/-/catbox-memory-5.0.0.tgz#6c18dad1a80737480d1c33bfbefd5d028deec86d"
-  integrity sha512-ByuxVJPHNaXwLzbBv4GdTr6ccpe1nG+AfYt+8ftDWEJY7EWBWzD+Klhy5oPTDGzU26pNUh1e7fcYI1ILZRxAXQ==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@hapi/catbox-memory/-/catbox-memory-5.0.1.tgz#cb63fca0ded01d445a2573b38eb2688df67f70ac"
+  integrity sha512-QWw9nOYJq5PlvChLWV8i6hQHJYfvdqiXdvTupJFh0eqLZ64Xir7mKNi96d5/ZMUAqXPursfNDIDxjFgoEDUqeQ==
   dependencies:
     "@hapi/boom" "9.x.x"
     "@hapi/hoek" "9.x.x"
@@ -5849,9 +5849,9 @@ css-declaration-sorter@^4.0.1:
     timsort "^0.3.0"
 
 css-loader@^5.0.1:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-5.2.0.tgz#a9ecda190500863673ce4434033710404efbff00"
-  integrity sha512-MfRo2MjEeLXMlUkeUwN71Vx5oc6EJnx5UQ4Yi9iUtYQvrPtwLUucYptz0hc6n++kdNcyF5olYBS4vPjJDAcLkw==
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-5.2.1.tgz#15fbd5b6ac4c1b170a098f804c5abd0722f2aa73"
+  integrity sha512-YCyRzlt/jgG1xanXZDG/DHqAueOtXFHeusP9TS478oP1J++JSKOyEgGW1GHVoCj/rkS+GWOlBwqQJBr9yajQ9w==
   dependencies:
     camelcase "^6.2.0"
     cssesc "^3.0.0"
@@ -6189,9 +6189,9 @@ date-fns@^1.27.2:
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
 
 date-fns@^2.14.0, date-fns@^2.16.1:
-  version "2.20.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.20.0.tgz#df00ba9177fbea22d88010b5844ecc91e9e03ceb"
-  integrity sha512-nmA7y6aDH5+fknfJ0G77HQzUSfTPpq4ifq+c9blP9d+X9zs3kNjxC+t3pcbBMGTp262a6PJB3RVjLlxIgoMI+Q==
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.20.1.tgz#7e60b7035284a5f83e37500376e738d9f49ecfd3"
+  integrity sha512-8P5M8Kxbnovd0zfvOs7ipkiVJ3/zZQ0F/nrBW4x5E+I0uAZVZ80h6CKd24fSXQ5TLK5hXMtI4yb2O5rEZdUt2A==
 
 dateformat@^3.0.0:
   version "3.0.3"
@@ -19538,9 +19538,9 @@ webpack-virtual-modules@^0.3.2:
     debug "^3.0.0"
 
 webpack@^5.28.0:
-  version "5.31.0"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.31.0.tgz#fab61d0be896feca4af87bdad5c18815c0d63455"
-  integrity sha512-3fUfZT/FUuThWSSyL32Fsh7weUUfYP/Fjc/cGSbla5KiSo0GtI1JMssCRUopJTvmLjrw05R2q7rlLtiKdSzkzQ==
+  version "5.31.1"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.31.1.tgz#95fd1c713514200b582fd60b5fa1ff5d62e647b8"
+  integrity sha512-5qwWBZ50ntjXtPbNpCNvvufX3+zuYBcXMmLYnFiLJMJdSP/YMh7Yamx0um7GZqQoDVs6pMOiQKU/zbKglqdoag==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"
