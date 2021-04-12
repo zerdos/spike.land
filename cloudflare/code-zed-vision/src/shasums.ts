@@ -76,7 +76,7 @@ export const shasums = {
   "index.html":
     "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
   "package.json":
-    "3e390a0d55a808460053c5c38579f30dd3521b806a6d9c1f2ee1f4cde0d2cb62",
+    "65d2228580044f5e9a091aafda3a0507bc8b7cd67fa1be70ce6413bc7c9cdbff",
   "modules/smart-monaco-editor/dist/editor.js":
     "7862eea9f8e831b39e2297d46f2258d34d48332ffc8a07b4d77082880ad62011",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -86,7 +86,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.mjs":
-    "87a4f439cb73dc7d6570a7598cdee359f17cd9fb4a95e77ed0e013a3a8eb61f7",
+    "455c9afcc04419cb88c5ee019b588f4ab950b34b0690a10756e54d2853e20b94",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/vendor/diffMin.d.ts":
