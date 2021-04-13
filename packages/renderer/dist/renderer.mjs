@@ -12653,7 +12653,7 @@ var require_utils2 = __commonJS((exports) => {
 
 // ../../node_modules/@material-ui/unstyled/node/index.js
 var require_node = __commonJS((exports) => {
-  /** @license Material-UI v5.0.0-alpha.29
+  /** @license Material-UI v5.0.0-alpha.30
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
@@ -16554,7 +16554,7 @@ var require_getStylesCreator = __commonJS((exports) => {
         Object.keys(overrides).forEach((key) => {
           if (false) {
             if (!stylesWithOverrides[key]) {
-              console.warn(["Material-UI: You are trying to override a style that does not exist.", `Fix the \`${key}\` key of \`theme.overrides.${name}\`.`, "", `If you intentionally wanted to add a new key, please use the theme.components[${name}].variants option.`].join("\n"));
+              console.warn(["Material-UI: You are trying to override a style that does not exist.", `Fix the \`${key}\` key of \`theme.components.${name}.styleOverrides\`.`, "", `If you intentionally wanted to add a new key, please use the theme.components[${name}].variants option.`].join("\n"));
             }
           }
           stylesWithOverrides[key] = (0, _utils.deepmerge)(stylesWithOverrides[key] || {}, overrides[key]);
@@ -17359,7 +17359,7 @@ var require_withTheme2 = __commonJS((exports) => {
 
 // ../../node_modules/@material-ui/styles/node/index.js
 var require_node3 = __commonJS((exports) => {
-  /** @license Material-UI v5.0.0-alpha.29
+  /** @license Material-UI v5.0.0-alpha.30
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
@@ -19775,7 +19775,7 @@ var require_createPalette = __commonJS((exports) => {
     divider: "rgba(0, 0, 0, 0.12)",
     background: {
       paper: _common.default.white,
-      default: _grey.default[50]
+      default: _common.default.white
     },
     action: {
       active: "rgba(0, 0, 0, 0.54)",
@@ -27118,7 +27118,7 @@ var light = {
   divider: "rgba(0, 0, 0, 0.12)",
   background: {
     paper: common_default.white,
-    default: grey_default[50]
+    default: common_default.white
   },
   action: {
     active: "rgba(0, 0, 0, 0.54)",
@@ -29129,13 +29129,14 @@ var overridesResolver4 = (props, styles) => {
 var useUtilityClasses4 = (styleProps) => {
   const {
     classes,
+    fullWidth,
     selected,
     disabled,
     size,
     color: color2
   } = styleProps;
   const slots = {
-    root: ["root", selected && "selected", disabled && "disabled", `size${capitalize_default(size)}`, color2],
+    root: ["root", selected && "selected", disabled && "disabled", fullWidth && "fullWidth", `size${capitalize_default(size)}`, color2],
     label: ["label"]
   };
   return (0, import_unstyled9.unstable_composeClasses)(slots, getToggleButtonUtilityClass, classes);
@@ -29151,7 +29152,10 @@ var ToggleButtonRoot = experimentalStyled_default(ButtonBase_default, {}, {
   borderRadius: theme.shape.borderRadius,
   padding: 11,
   border: `1px solid ${theme.palette.divider}`,
-  color: theme.palette.action.active,
+  color: theme.palette.action.active
+}, styleProps.fullWidth && {
+  width: "100%"
+}, {
   "&.Mui-disabled": {
     color: theme.palette.action.disabled,
     border: `1px solid ${theme.palette.action.disabledBackground}`
@@ -29212,16 +29216,18 @@ var ToggleButton = /* @__PURE__ */ React12.forwardRef(function ToggleButton2(inP
     color: color2 = "standard",
     disabled = false,
     disableFocusRipple = false,
+    fullWidth = false,
     onChange,
     onClick,
     selected,
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, ["children", "className", "color", "disabled", "disableFocusRipple", "onChange", "onClick", "selected", "size", "value"]);
+  } = props, other = _objectWithoutPropertiesLoose(props, ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"]);
   const styleProps = _extends({}, props, {
     color: color2,
     disabled,
     disableFocusRipple,
+    fullWidth,
     size
   });
   const classes = useUtilityClasses4(styleProps);
@@ -29263,6 +29269,7 @@ false ? ToggleButton.propTypes = {
   disabled: import_prop_types7.default.bool,
   disableFocusRipple: import_prop_types7.default.bool,
   disableRipple: import_prop_types7.default.bool,
+  fullWidth: import_prop_types7.default.bool,
   onChange: import_prop_types7.default.func,
   onClick: import_prop_types7.default.func,
   selected: import_prop_types7.default.bool,
@@ -29305,17 +29312,18 @@ var overridesResolver5 = (props, styles) => {
   const {
     styleProps
   } = props;
-  return (0, import_utils29.deepmerge)(_extends({}, styleProps.orientation === "vertical" && styles.vertical, {
+  return (0, import_utils29.deepmerge)(_extends({}, styleProps.orientation === "vertical" && styles.vertical, styleProps.fullWidth && styles.fullWidth, {
     [`& .${toggleButtonGroupClasses_default.grouped}`]: _extends({}, styles.grouped, styles[`grouped${capitalize_default(styleProps.orientation)}`])
   }), styles.root || {});
 };
 var useUtilityClasses5 = (styleProps) => {
   const {
     classes,
-    orientation
+    orientation,
+    fullWidth
   } = styleProps;
   const slots = {
-    root: ["root", orientation === "vertical" && "vertical"],
+    root: ["root", orientation === "vertical" && "vertical", fullWidth && "fullWidth"],
     grouped: ["grouped", `grouped${capitalize_default(orientation)}`]
   };
   return (0, import_unstyled11.unstable_composeClasses)(slots, getToggleButtonGroupUtilityClass, classes);
@@ -29332,6 +29340,8 @@ var ToggleButtonGroupRoot = experimentalStyled_default("div", {}, {
   borderRadius: theme.shape.borderRadius
 }, styleProps.orientation === "vertical" && {
   flexDirection: "column"
+}, styleProps.fullWidth && {
+  width: "100%"
 }, {
   [`& .${toggleButtonGroupClasses_default.grouped}`]: _extends({}, styleProps.orientation === "horizontal" ? {
     "&:not(:first-of-type)": {
@@ -29375,12 +29385,14 @@ var ToggleButtonGroup = /* @__PURE__ */ React13.forwardRef(function ToggleButton
     className,
     color: color2 = "standard",
     exclusive = false,
+    fullWidth = false,
     onChange,
     orientation = "horizontal",
     size = "medium",
     value
-  } = props, other = _objectWithoutPropertiesLoose(props, ["children", "className", "color", "exclusive", "onChange", "orientation", "size", "value"]);
+  } = props, other = _objectWithoutPropertiesLoose(props, ["children", "className", "color", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"]);
   const styleProps = _extends({}, props, {
+    fullWidth,
     orientation,
     size
   });
@@ -29425,6 +29437,7 @@ var ToggleButtonGroup = /* @__PURE__ */ React13.forwardRef(function ToggleButton
         onChange: exclusive ? handleExclusiveChange : handleChange,
         selected: child.props.selected === void 0 ? isValueSelected(child.props.value, value) : child.props.selected,
         size: child.props.size || size,
+        fullWidth,
         color: child.props.color || color2
       });
     })
@@ -29436,6 +29449,7 @@ false ? ToggleButtonGroup.propTypes = {
   className: import_prop_types8.default.string,
   color: import_prop_types8.default.oneOf(["primary", "secondary", "standard"]),
   exclusive: import_prop_types8.default.bool,
+  fullWidth: import_prop_types8.default.bool,
   onChange: import_prop_types8.default.func,
   orientation: import_prop_types8.default.oneOf(["horizontal", "vertical"]),
   size: import_prop_types8.default.oneOf(["large", "medium", "small"]),
