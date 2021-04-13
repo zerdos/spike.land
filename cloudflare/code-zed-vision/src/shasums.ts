@@ -49,7 +49,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
   "js/share.mjs":
-    "5fbe381f457a01b1c0ab5709102da4e322c564268b0930cc56f400aca2e1d494",
+    "af0bd1d76ba0e359fed457c7229d73d7697613b1edb235a3a99ec1a603691fd7",
   "js/transpile.mjs":
     "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/workboxLoader.mjs":
