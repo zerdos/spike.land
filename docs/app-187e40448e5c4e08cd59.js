@@ -1181,25 +1181,7 @@ __webpack_require__.d(__webpack_exports__, {
 var react = __webpack_require__(2784);
 var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
 ;// CONCATENATED MODULE: ./src/components/Counter.tsx
-
-var Counter = function Counter(_ref) {
-  var _ref$initial = _ref.initial,
-      initial = _ref$initial === void 0 ? 0 : _ref$initial;
-
-  var _useState = (0,react.useState)(initial),
-      clicks = _useState[0],
-      setClicks = _useState[1];
-
-  return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("p", null, "Clicks: ", clicks), /*#__PURE__*/react.createElement("button", {
-    onClick: function onClick() {
-      return setClicks(clicks + 1);
-    }
-  }, "+"), /*#__PURE__*/react.createElement("button", {
-    onClick: function onClick() {
-      return setClicks(clicks - 1);
-    }
-  }, "-"));
-};
+var Counter=function Counter(_ref){var _ref$initial=_ref.initial,initial=_ref$initial===void 0?0:_ref$initial;var _useState=(0,react.useState)(initial),clicks=_useState[0],setClicks=_useState[1];return/*#__PURE__*/react.createElement("div",null,/*#__PURE__*/react.createElement("p",null,"Clicks: ",clicks),/*#__PURE__*/react.createElement("button",{onClick:function onClick(){return setClicks(clicks+1);}},"+"),/*#__PURE__*/react.createElement("button",{onClick:function onClick(){return setClicks(clicks-1);}},"-"));};
 ;// CONCATENATED MODULE: ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/619e4c1544d023b87009049ac4fcd614.js
 /* harmony default export */ var _619e4c1544d023b87009049ac4fcd614 = ({Counter:Counter,React:react_namespaceObject});
 
@@ -1312,7 +1294,7 @@ results=results.filter(function(result){return typeof result!=="undefined";});if
 
 /***/ }),
 
-/***/ 6730:
+/***/ 9831:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1322,8 +1304,70 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ _cache_emitter; }
 });
 
-;// CONCATENATED MODULE: ./node_modules/mitt/dist/mitt.es.js
-/* harmony default export */ function mitt_es(n){return{all:n=n||new Map,on:function(t,e){var i=n.get(t);i&&i.push(e)||n.set(t,[e])},off:function(t,e){var i=n.get(t);i&&i.splice(i.indexOf(e)>>>0,1)},emit:function(t,e){(n.get(t)||[]).slice().map(function(n){n(e)}),(n.get("*")||[]).slice().map(function(n){n(t,e)})}}}
+;// CONCATENATED MODULE: ../../node_modules/mitt/dist/mitt.es.js
+//      
+// An event handler can take an optional event argument
+// and should not return a value
+                                          
+                                                               
+
+// An array of all currently registered event handlers for a type
+                                            
+                                                            
+// A map of event types and their corresponding event handlers.
+                        
+                                 
+                                   
+  
+
+/** Mitt: Tiny (~200b) functional event emitter / pubsub.
+ *  @name mitt
+ *  @returns {Mitt}
+ */
+function mitt(all                 ) {
+	all = all || Object.create(null);
+
+	return {
+		/**
+		 * Register an event handler for the given type.
+		 *
+		 * @param  {String} type	Type of event to listen for, or `"*"` for all events
+		 * @param  {Function} handler Function to call in response to given event
+		 * @memberOf mitt
+		 */
+		on: function on(type        , handler              ) {
+			(all[type] || (all[type] = [])).push(handler);
+		},
+
+		/**
+		 * Remove an event handler for the given type.
+		 *
+		 * @param  {String} type	Type of event to unregister `handler` from, or `"*"`
+		 * @param  {Function} handler Handler function to remove
+		 * @memberOf mitt
+		 */
+		off: function off(type        , handler              ) {
+			if (all[type]) {
+				all[type].splice(all[type].indexOf(handler) >>> 0, 1);
+			}
+		},
+
+		/**
+		 * Invoke all handlers for the given type.
+		 * If present, `"*"` handlers are invoked after type-matched handlers.
+		 *
+		 * @param {String} type  The event type to invoke
+		 * @param {Any} [evt]  Any value (object is recommended and powerful), passed to each handler
+		 * @memberOf mitt
+		 */
+		emit: function emit(type        , evt     ) {
+			(all[type] || []).slice().map(function (handler) { handler(evt); });
+			(all['*'] || []).slice().map(function (handler) { handler(type, evt); });
+		}
+	};
+}
+
+/* harmony default export */ var mitt_es = (mitt);
 //# sourceMappingURL=mitt.es.js.map
 
 ;// CONCATENATED MODULE: ./.cache/emitter.js
@@ -1494,7 +1538,7 @@ var defineProperty = __webpack_require__(1119);
 var support=function support(feature){if(typeof document==="undefined"){return false;}var fakeLink=document.createElement("link");try{if(fakeLink.relList&&typeof fakeLink.relList.supports==="function"){return fakeLink.relList.supports(feature);}}catch(err){return false;}return false;};var linkPrefetchStrategy=function linkPrefetchStrategy(url,options){return new Promise(function(resolve,reject){if(typeof document==="undefined"){reject();return;}var link=document.createElement("link");link.setAttribute("rel","prefetch");link.setAttribute("href",url);Object.keys(options).forEach(function(key){link.setAttribute(key,options[key]);});link.onload=resolve;link.onerror=reject;var parentElement=document.getElementsByTagName("head")[0]||document.getElementsByName("script")[0].parentNode;parentElement.appendChild(link);});};var xhrPrefetchStrategy=function xhrPrefetchStrategy(url){return new Promise(function(resolve,reject){var req=new XMLHttpRequest();req.open("GET",url,true);req.onload=function(){if(req.status===200){resolve();}else{reject();}};req.send(null);});};var supportedPrefetchStrategy=support("prefetch")?linkPrefetchStrategy:xhrPrefetchStrategy;var preFetched={};var prefetch=function prefetch(url,options){return new Promise(function(resolve){if(preFetched[url]){resolve();return;}supportedPrefetchStrategy(url,options).then(function(){resolve();preFetched[url]=true;}).catch(function(){});// 404s are logged to the console anyway
 });};/* harmony default export */ var _cache_prefetch = (prefetch);
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
-var emitter = __webpack_require__(6730);
+var emitter = __webpack_require__(9831);
 // EXTERNAL MODULE: ./.cache/find-path.js + 1 modules
 var find_path = __webpack_require__(9843);
 ;// CONCATENATED MODULE: ./.cache/loader.js
@@ -1601,7 +1645,7 @@ var loader = __webpack_require__(9930);
 ;// CONCATENATED MODULE: ./.cache/redirects.json
 var redirects_namespaceObject = [];
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
-var emitter = __webpack_require__(6730);
+var emitter = __webpack_require__(9831);
 ;// CONCATENATED MODULE: ./.cache/route-announcer-props.js
 // This is extracted to separate module because it's shared
 // between browser and SSR code
@@ -3092,4 +3136,4 @@ module.exports = invariant;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-72fedb51ecc7bfe586a8.js.map
+//# sourceMappingURL=app-187e40448e5c4e08cd59.js.map

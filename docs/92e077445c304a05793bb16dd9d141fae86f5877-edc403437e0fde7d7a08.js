@@ -295,18 +295,7 @@ module.exports = withSideEffect;
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3182);
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8197);
-
-
-var _templateObject;
-
-/** @jsx jsx */
-
-var Layout = function Layout(_ref) {
-  var children = _ref.children;
-  return (0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .jsx */ .tZ)("main", {
-    css: (0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .css */ .iv)(_templateObject || (_templateObject = (0,_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(["  \n          max-width: 1140px;\n          margin: auto;\n          img{\n            max-width: 100%;\n          }\n       "])))
-  }, children);
-};
+var _templateObject;/** @jsx jsx */var Layout=function Layout(_ref){var children=_ref.children;return (0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .jsx */ .tZ)("main",{css:(0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .css */ .iv)(_templateObject||(_templateObject=(0,_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(["  \n          max-width: 1140px;\n          margin: auto;\n          img{\n            max-width: 100%;\n          }\n       "])))},children);};
 
 /***/ }),
 
@@ -1208,64 +1197,14 @@ HelmetExport.renderStatic = HelmetExport.rewind;
 /* harmony default export */ var es_Helmet = ((/* unused pure expression or super */ null && (HelmetExport)));
 
 ;// CONCATENATED MODULE: ./src/components/seo.tsx
-
-
-
 /**
  * SEO component that queries for data with
  *  Gatsby's useStaticQuery React hook
  *
  * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
-var SEO = function SEO(_ref) {
-  var _ref$description = _ref.description,
-      description = _ref$description === void 0 ? "" : _ref$description,
-      _ref$lang = _ref.lang,
-      lang = _ref$lang === void 0 ? "en" : _ref$lang,
-      _ref$meta = _ref.meta,
-      meta = _ref$meta === void 0 ? [] : _ref$meta,
-      title = _ref.title;
-
-  var _useStaticQuery = (0,gatsby_browser_entry.useStaticQuery)("2841359383"),
-      site = _useStaticQuery.site;
-
-  var metaDescription = description || site.siteMetadata.description;
-  return /*#__PURE__*/react.createElement(HelmetExport, {
-    htmlAttributes: {
-      lang: lang
-    },
-    title: title,
-    titleTemplate: "%s | " + site.siteMetadata.title,
-    meta: [{
-      name: "description",
-      content: metaDescription
-    }, {
-      property: "og:title",
-      content: title
-    }, {
-      property: "og:description",
-      content: metaDescription
-    }, {
-      property: "og:type",
-      content: "website"
-    }, {
-      name: "twitter:card",
-      content: "summary"
-    }, {
-      name: "twitter:creator",
-      content: site.siteMetadata.social.twitter
-    }, {
-      name: "twitter:title",
-      content: title
-    }, {
-      name: "twitter:description",
-      content: metaDescription
-    }].concat(meta)
-  });
-};
+ */var SEO=function SEO(_ref){var _ref$description=_ref.description,description=_ref$description===void 0?"":_ref$description,_ref$lang=_ref.lang,lang=_ref$lang===void 0?"en":_ref$lang,_ref$meta=_ref.meta,meta=_ref$meta===void 0?[]:_ref$meta,title=_ref.title;var _useStaticQuery=(0,gatsby_browser_entry.useStaticQuery)("2841359383"),site=_useStaticQuery.site;var metaDescription=description||site.siteMetadata.description;return/*#__PURE__*/react.createElement(HelmetExport,{htmlAttributes:{lang:lang},title:title,titleTemplate:"%s | "+site.siteMetadata.title,meta:[{name:"description",content:metaDescription},{property:"og:title",content:title},{property:"og:description",content:metaDescription},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary"},{name:"twitter:creator",content:site.siteMetadata.social.twitter},{name:"twitter:title",content:title},{name:"twitter:description",content:metaDescription}].concat(meta)});};
 
 /***/ })
 
 }]);
-//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-cd3ed125c4d918591feb.js.map
+//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-edc403437e0fde7d7a08.js.map
