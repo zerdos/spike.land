@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: "/monorepo",
+  pathPrefix: "monorepo",
   siteMetadata: {
     title: `Zed vision`,
     author: {

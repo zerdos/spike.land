@@ -1,14 +1,12 @@
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 
-## wrangler generate my-app https://github.com/EverlastingBugstopper/worker-typescript-template
-
 <p align="center">
   <a href="https://www.gatsbyjs.com">
     <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
   </a>
 </p>
 <h1 align="center">
-  Gatsby's blog starter
+  My blog
 </h1>
 
 Kick off your project with this blog boilerplate. This starter ships with the

@@ -2,7 +2,7 @@
   "name": "@zedvision/zedvision-site",
   "scripts": {
     "develop": "gatsby develop",
-    "gbuild": "cp -afr blog/. static && gatsby build --no-uglify && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
+    "gbuild": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
     "start": "yarn gbuild && yarn serve",
     "serve": "(google-chrome \"http://ipfs.zed.vision:9090/ipfs/$(ipfs add -r -H public -Q)\")",
     "clean": "gatsby clean && deno fmt src"
