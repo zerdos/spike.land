@@ -4,7 +4,7 @@
     "develop": "gatsby develop",
     "gbuild": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths && cp -afr blog/. static && rm -rf ../../docs* && cp -afr public/. ../../docs",
     "start": "yarn gbuild && yarn serve",
-    "serve": "(google-chrome \"http://ipfs.zed.vision:9090/ipfs/$(ipfs add -r -H public -Q)\")",
+    "serve": "(google-chrome \"http://ipfs.zed-vision.zed-vision.workers.dev:9090/ipfs/$(ipfs add -r -H public -Q)\")",
     "clean": "gatsby clean && deno fmt src"
   },
   "description": "Zed vision blog",
@@ -41,7 +41,7 @@
     "typography": "0.16.19",
     "typography-theme-wordpress-2016": "0.16.19"
   },
-  "homepage": "https://zed.vision",
+  "homepage": "https://zed-vision.zed-vision.workers.dev",
   "keywords": [
     "gatsby"
   ],

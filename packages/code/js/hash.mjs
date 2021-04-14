@@ -33,10 +33,10 @@ export async function sendSignal(signal, data) {
     const { pathname } = new URL(signal);
 
     await fetch(
-      `https://zed.vision/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`,
+      `https://zed-vision.zed-vision.workers.dev/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`,
     );
 
-    fetch(`https://zed.vision/ipfs/${dataCid}`);
+    fetch(`https://zed-vision.zed-vision.workers.dev/ipfs/${dataCid}`);
 
     // const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
     //   ("00" + b.toString(16)).slice(-2)
@@ -93,10 +93,10 @@ export async function fetchSignal(
 
   //     ////    log(`signal to wait: ${smallSignal}`);
 
-  //     // console.log(`https://zed.vision/signal?signal=${smallSignal}`);
+  //     // console.log(`https://zed-vision.zed-vision.workers.dev/signal?signal=${smallSignal}`);
 
   //     const cid = await fetch(
-  //       `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math
+  //       `https://zed-vision.zed-vision.workers.dev/signal?signal=${smallSignal}&securityrandomparam=${Math
   //         .random() * 10000}`,
   //     ).then(
   //       (x) => x.text(),
@@ -140,7 +140,7 @@ export async function fetchSignal(
     const smallSignal = signal.slice(-8);
 
     const cid = await fetch(
-      `https://zed.vision/signal?signal=${smallSignal}&securityrandomparam=${Math
+      `https://zed-vision.zed-vision.workers.dev/signal?signal=${smallSignal}&securityrandomparam=${Math
         .random() * 10000}`,
     ).then(
       (x) => x.text(),
@@ -192,7 +192,7 @@ export async function fetchSignal(
 
 //   const signalPath = pathname.slice(1);
 
-//   const res = await fetch(`https://zed.vision/signal?signal=${signalPath}`);
+//   const res = await fetch(`https://zed-vision.zed-vision.workers.dev/signal?signal=${signalPath}`);
 
 //   const cid = await res.text();
 
@@ -200,7 +200,7 @@ export async function fetchSignal(
 //   const content = await data.text();
 //   return content;
 
-//   // return fetch(`https://zed.vision/signal?signal=${signalPath}`).then((x) =>
+//   // return fetch(`https://zed-vision.zed-vision.workers.dev/signal?signal=${signalPath}`).then((x) =>
 //   //   x.text()
 //   // ).then((cid) => ipfsCat(cid));
 // }

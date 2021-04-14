@@ -37,7 +37,7 @@ export const shasums = {
   "js/formatter.mjs":
     "9f9f485f3bec7a534402de3532e063480956a3c5e408807f90b15cf8132a9792",
   "js/hash.mjs":
-    "26957392fe00c6466e221062d203b14172ab95790a3ad08198ecb52efe8f0515",
+    "9ebf7a57b8382fb4ad2e768cbbc07439c6f1c9d6a3830df7b6b42d8349eb31cf",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/importScript.mjs":
@@ -47,7 +47,7 @@ export const shasums = {
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/sendSignalToQrCode.mjs":
-    "9f8609632605223d8e4fe2b001b0b6f645c75c8ee0a38984c0915dc27b7e25e9",
+    "cd77291b1e81d63e0540974ac865f04892c435678372188e33b1e1a151e2d108",
   "js/share.mjs":
     "af0bd1d76ba0e359fed457c7229d73d7697613b1edb235a3a99ec1a603691fd7",
   "js/transpile.mjs":
@@ -67,14 +67,14 @@ export const shasums = {
   "js/renderPreviewWindow.mjs":
     "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
   "js/templates.mjs":
-    "b28d6ee24d2b6cb26115a7a76d815a672505a0c9daba7985bb25d47fedc0635e",
+    "de60ae84253384dbffe4833a35ffa75aa9b1507aad37ede8d9fa2f51cca65b43",
   "manifest.json":
-    "43689cb710ec2b5b84b421a4d223459de33efc4bde15c551fd60c77862de3292",
+    "6e730e8a714ab4671abc415e92dc2b87de43fdf5654fd5d3c5ceece2b7428c82",
   "sw.js": "9d629191ecfa9c400198ed31e77e39592e74ba87be8531861aa5a686b548bc15",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "index.html":
-    "cba8cd789bc082e64e42b07504cb522ae62b8528fb27e004d551c1364a5fa50b",
+    "aa7a240be0001adcd7c7eb947b7ffa21c4c36a92315c5a97f451fafcbcc76b0d",
   "package.json":
     "1d9549a45e15b2219f39c1e7258e20da2ac72aaeb0c58db80da977a7c50d831d",
   "modules/smart-monaco-editor/dist/editor.js":

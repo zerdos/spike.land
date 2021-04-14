@@ -1,7 +1,7 @@
 {
   "name": "@zedvision/cf-worker",
   "version": "13.1.1",
-  "description": "Worker script for zed.vision",
+  "description": "Worker script for zed-vision.zed-vision.workers.dev",
   "main": "dist/worker-script.js",
   "files": [
     "**/*"
@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo"
   },
-  "homepage": "https://zed.vision",
+  "homepage": "https://zed-vision.zed-vision.workers.dev",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
     "@cloudflare/workers-types": "2.2.1",

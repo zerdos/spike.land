@@ -52,7 +52,7 @@ deno fmt cloudflare/code-zed-vision/src/files.ts  cloudflare/code-zed-vision/src
 #      -H "Content-Type: application/json" \
 #      --data  $(CID=$CID node -pe 'JSON.stringify({"type":"TXT","name":"_dnslink.ipfs","content": "dnslink=/ipfs/"+process.env["CID"],"ttl":1,"proxied":false})')
 
-# echo "----  https://zed.vision -------" 
+# echo "----  https://zed-vision.zed-vision.workers.dev -------" 
 # echo "-------------------------------------------------------------" 
 # echo "-------------------------------------------------------------" 
 

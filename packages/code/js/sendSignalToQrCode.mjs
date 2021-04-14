@@ -16,7 +16,7 @@ export async function sendSignalToQrCode(session) {
   await saveCode(session);
 
   const { sendSignal } = await import("./hash.mjs");
-  const signal = `https://zed.vision/${maybeRoute}`;
+  const signal = `https://zed-vision.zed-vision.workers.dev/${maybeRoute}`;
 
   await sendSignal(
     signal,
@@ -47,7 +47,7 @@ export async function sendSignalToQrCode(session) {
 //   const hash = await sha256(dataAsString);
 //   const ZKEY = await getZkey(hash);
 
-//   return fetch("https://zed.vision", {
+//   return fetch("https://zed-vision.zed-vision.workers.dev", {
 //     body: dataAsString,
 //     method: "POST",
 //     headers: {
