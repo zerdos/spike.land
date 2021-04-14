@@ -70,7 +70,7 @@ export const Qr = () => {
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
-      const url = `https://zed-vision.zed-vision.workers.dev/${key}`;
+      const url = `https://zed.vision/${key}`;
       // setSecrets(s=> {...s, [url]: secret});
 
       console.log(`waiting for url: ${url}`);
