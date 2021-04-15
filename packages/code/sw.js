@@ -10,6 +10,8 @@ let port;
 
 const workerSrc = "./js/workers/ipfsWorker.js";
 
+
+
 if (typeof SharedWorker !== "undefined" ) {
   const ipfsWorker = new SharedWorker(
     workerSrc,
@@ -30,7 +32,46 @@ if (typeof SharedWorker !== "undefined" ) {
   port = port2;
 }
 
-export const ipfsClient = self.IpfsMessagePortClient.from(port);
+const ipfsClient = self.IpfsMessagePortClient.from(port);
+
+function concat (arrays, length) {
+  if (!length) {
+    length = arrays.reduce((acc, curr) => acc + curr.length, 0)
+  }
+
+  const output = new Uint8Array(length)
+  let offset = 0
+
+  for (const arr of arrays) {
+    output.set(arr, offset)
+    offset += arr.length
+  }
+
+  return output
+}
+
+
+const all = async (source) => {
+  const arr = []
+
+  for await (const entry of source) {
+    arr.push(entry)
+  }
+
+  return arr
+}
+
+
+const ipfsCat = async (cid, opts) => {
+  const options = opts || {};
+  const res = ipfsClient.cat(cid, options);
+
+  const result = concat(
+    await all(res),
+  );
+  const resultStr = toString(result);
+  return resultStr;
+};
 
 
 
@@ -105,7 +146,7 @@ globalThis.register = () => {
       event.respondWith((async () => {
         // Configure the strategy in advance.
 
-        const {ipfsCat} = await import("./js/ipfsClient.mjs");
+     
 
 
         // const strategy = new self.workbox.strategies.CacheFirst({
