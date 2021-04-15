@@ -3,36 +3,41 @@ self.importScripts(
 );
 
 self.importScripts(
-  "https://unpkg.com/ipfs-message-port-client@0.5.4/dist/index.min.js"
-)
+  "https://unpkg.com/ipfs@0.54.4/dist/index.min.js",
+);
 
-let port;
+// self.importScripts(
+//   ""
+//   // "https://unpkg.com/ipfs-message-port-client@0.5.4/dist/index.min.js"
+// )
 
-const workerSrc = "./js/workers/ipfsWorker.js";
+// let port;
+
+// const workerSrc = "./js/workers/ipfsWorker.js";
 
 
 
-if (typeof SharedWorker !== "undefined" ) {
-  const ipfsWorker = new SharedWorker(
-    workerSrc,
-  );
-  port = ipfsWorker.port;
-} else {
-  const worker = new Worker(workerSrc);
+// if (typeof SharedWorker !== "undefined" ) {
+//   const ipfsWorker = new SharedWorker(
+//     workerSrc,
+//   );
+//   port = ipfsWorker.port;
+// } else {
+//   const worker = new Worker(workerSrc);
 
-  const { port1, port2 } = new MessageChannel();
-  const msg = {
-    clientInit: true,
-    port: port1,
-  };
+//   const { port1, port2 } = new MessageChannel();
+//   const msg = {
+//     clientInit: true,
+//     port: port1,
+//   };
 
-  worker.postMessage(msg, [port1]);
+//   worker.postMessage(msg, [port1]);
 
-  // eslint-disable-next-line no-unused-vars
-  port = port2;
-}
+//   // eslint-disable-next-line no-unused-vars
+//   port = port2;
+// }
 
-const ipfsClient = self.IpfsMessagePortClient.from(port);
+// const ipfsClient = self.IpfsMessagePortClient.from(port);
 
 function concat (arrays, length) {
   if (!length) {
@@ -64,7 +69,7 @@ const all = async (source) => {
 
 const ipfsCat = async (cid, opts) => {
   const options = opts || {};
-  const res = ipfsClient.cat(cid, options);
+  const res = self.Ipfs.cat(cid, options);
 
   const result = concat(
     await all(res),
