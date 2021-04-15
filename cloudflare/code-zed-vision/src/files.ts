@@ -32,9 +32,9 @@ export const files = {
   "js/ipfsClient.mjs": "QmUte9c26JtT8n5U2z1yUhFrk1xFQx8iBJdpFkWYPDjMmF",
   "js/openWindows.mjs": "QmdSrNkNM4pHCBJsiWn8ugR7SHsxEhPzqauoHq8iAxHJmN",
   "js/renderPreviewWindow.mjs":
-    "QmRVxJR18jAYHL6UHZ67SoeBsn9sUmAMVDiwhYxVMp89uj",
+    "QmQtkYQwqyghPBZ6nJBXm6ZvemKkzcrpuUiJt4koBo5D9n",
   "js/sendSignalToQrCode.mjs": "QmV3j6NuXrYdBRgGjUYLW7F3c9unXXSJWG8wjMqd119oWM",
-  "js/share.mjs": "QmP22XiaKf9ZamruyFQTxirS8pKwuYuoqFFTY7wiY2Z8iD",
+  "js/share.mjs": "QmS6RPSxAvhPf7xWLhMawFJZR9hr25B2G1YLcYyYFGi5dD",
   "js/templates.mjs": "QmfXhjawGcfYPHSkBJ2r3qQqByFpKRnYbKGHcfheFSUKcD",
   "js/transpile.mjs": "QmUoAEsBfAunVGQG6CK1uGfpjErsWXjAa38PUwvQEfW6nV",
   "js/workboxLoader.mjs": "QmYm77PesivuW5smXEC3rToQnP28zcXDvPgKnjzdWPrv41",
@@ -83,13 +83,13 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
   "js/workers": "QmV5gKnGPnikbRhbZHfBsunyfRHeoNhTdxctfkpG9oMrHm",
-  "js": "QmfTUoSD7vkgt4gxpZA9pF7wZmtMz3VR72kjDi3XJzTDHS",
+  "js": "QmWCthf9M8edKH4atx3ZQyXgzYJuZhyrmZXcF3mdR6hQxp",
   "modules/smart-monaco-editor/dist":
     "Qmeg1GChoVk2nCotwAyoGuU2vhysbrxdpcuaJTCDFfby71",
   "modules/smart-monaco-editor":
     "QmVHLucWfRLqkDa4bxoVXhDZQAZcv83TiyCB89NVqbEtYV",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmefWkgaTJetFxjLiq48jUuKhkYPbx15Gxm2kURikzo7aX",
-  "": "QmTNyhn1w2wfZXTNDXk5an1Hv7aNWRDMineVVxTR9vxykq",
+  "": "QmPBTjwgAYrHQw5W53jzZsmcPE5n2eiZDk4RxckyDTd1Zj",
   "foo": "bar",
 };
