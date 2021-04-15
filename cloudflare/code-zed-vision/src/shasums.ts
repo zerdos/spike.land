@@ -126,6 +126,6 @@ export const shasums = {
   "modules/renderer.mjs":
     "db9d495795071161d1dd3ad8faee75acb219653e903a5582fc2181572815344b",
   ".tsBuildInfo":
-    "2da7860d16f79ac241e8483e6eb17c2400551cdf8d94f9f77d4269fdbedcda59",
+    "62c865243fab879c4a7a276d291e30880c48a01c4278eebff3ba872838d34dfe",
   "food": "bar",
 };
