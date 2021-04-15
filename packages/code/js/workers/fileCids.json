@@ -9,7 +9,7 @@
   "assets/synthwave.jpg": "QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT",
   "assets/triangle-geometry.png": "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-  "edit.html": "QmQSuge74Ez1fJhZ8bpoARsDgZf5ZNNkfgDBpYyQAwbBn4",
+  "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmdEbftdqpSDRrBfJmhse3JyPRWffZopEhHyWgjCknzqZT",
   "ipfs.json": "Qma6Lpxwx6GvCRKwAKHqWzVLc5pe2wpKCXEKuyeRQUTeVV",
@@ -63,6 +63,7 @@
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
+  "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmaGrftQT1chdif3qBreENRRgFQBnPF8KLPKcbZpsSLv17",
   "js/workers": "QmV5gKnGPnikbRhbZHfBsunyfRHeoNhTdxctfkpG9oMrHm",
   "js": "QmT7pTaphpkoVibTcwe4EUu9d2RurKkHfmXLew1dH85SaR",
@@ -70,6 +71,6 @@
   "modules/smart-monaco-editor": "QmVHLucWfRLqkDa4bxoVXhDZQAZcv83TiyCB89NVqbEtYV",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmefWkgaTJetFxjLiq48jUuKhkYPbx15Gxm2kURikzo7aX",
-  "": "QmU7QtiKeqVGj4Tn3s4mNv5n2jD91gwv7AkovJ1FWG5vBG",
+  "": "QmXJxngY9n8BddHrbGDS2zAayihrAUyMKkBzi6nvYb4n9E",
   "foo": "bar"
 }
