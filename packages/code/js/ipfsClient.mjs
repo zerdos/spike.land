@@ -46,6 +46,7 @@ export const ipfsCat = async (cid, opts) => {
   return resultStr;
 };
 
+globalThis.ipfsCat = ipfsCat;
 export { CID };
 export { all };
 export { concat };

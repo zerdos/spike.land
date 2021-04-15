@@ -49,7 +49,7 @@ export const shasums = {
   "js/importScript.mjs":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/ipfsClient.mjs":
-    "2b9358120677c99a852337bd625b28b8d1d2f3e4148da8e923f3b910111b3951",
+    "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/renderPreviewWindow.mjs":
@@ -76,7 +76,7 @@ export const shasums = {
     "6e730e8a714ab4671abc415e92dc2b87de43fdf5654fd5d3c5ceece2b7428c82",
   "package.json":
     "cfd4fbaa5afe6ca29513ba2de1c0a609552f331d33b95bcd742e60a8b514e692",
-  "sw.js": "6f04462f9a50f9021073a5469d84a5e0a77faab8edd4778c57dbcf0be957bec7",
+  "sw.js": "6aa0ffd1551ee7e47d27c04af588e9563ef29311e49682009b8b28e2f03873fb",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "modules/smart-monaco-editor/dist/editor.js":
@@ -126,6 +126,6 @@ export const shasums = {
   "modules/renderer.mjs":
     "db9d495795071161d1dd3ad8faee75acb219653e903a5582fc2181572815344b",
   ".tsBuildInfo":
-    "62c865243fab879c4a7a276d291e30880c48a01c4278eebff3ba872838d34dfe",
+    "14ccbd9c96e578ef056709c0f6a9a23af6b1da2c63d254ad07f3a13ad2213312",
   "food": "bar",
 };
