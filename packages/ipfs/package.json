@@ -29,12 +29,12 @@
   "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c",
   "dependencies": {
     "cids": "1.1.6",
-    "esbuild": "0.11.10",
+    "esbuild": "0.11.11",
     "ipfs": "0.54.4",
     "ipfs-message-port-client": "0.5.4",
     "it-all": "1.0.5",
     "typescript": "4.2.4",
-    "uint8arrays": "2.1.4",
+    "uint8arrays": "2.1.5",
     "util": "0.12.3"
   }
 }
