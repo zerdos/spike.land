@@ -15,13 +15,14 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
+  "edit.html": "QmQSuge74Ez1fJhZ8bpoARsDgZf5ZNNkfgDBpYyQAwbBn4",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmdEbftdqpSDRrBfJmhse3JyPRWffZopEhHyWgjCknzqZT",
   "ipfs.json": "Qma6Lpxwx6GvCRKwAKHqWzVLc5pe2wpKCXEKuyeRQUTeVV",
   "js/codeLoader.mjs": "QmNdT4tZpbzYtKrgg4sW3or8ZogRMbJ354voCv3ZAue3Mb",
   "js/data.mjs": "QmVoZWQVb5bKWY3SkRN4hZ951kEs4StTsZv3yEvBmAEYCF",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
-  "js/examples/rca.tsx": "Qmc4X2Ww8UZZSFkvmJopLBa4Poa1TX69sWw1ESebo8UnYg",
+  "js/examples/rca.tsx": "QmNW5q2Wv7PS5YLjJ9qBksZx9Z8VRbP2vDuxvH9bTe4PDa",
   "js/examples/starter_framer.js":
     "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
   "js/formatter.mjs": "QmWT8gGVjLDguCboEM4uxJJphrmXxKtLoYNhwr857eCDrs",
@@ -79,15 +80,15 @@ export const files = {
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
-  "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
+  "js/examples": "QmaGrftQT1chdif3qBreENRRgFQBnPF8KLPKcbZpsSLv17",
   "js/workers": "QmV5gKnGPnikbRhbZHfBsunyfRHeoNhTdxctfkpG9oMrHm",
-  "js": "QmdvrkZMVJQ3Ff1VUXfGUozPXAz1yP2SjAy3QnGrsnSKUA",
+  "js": "QmT7pTaphpkoVibTcwe4EUu9d2RurKkHfmXLew1dH85SaR",
   "modules/smart-monaco-editor/dist":
     "Qmeg1GChoVk2nCotwAyoGuU2vhysbrxdpcuaJTCDFfby71",
   "modules/smart-monaco-editor":
     "QmVHLucWfRLqkDa4bxoVXhDZQAZcv83TiyCB89NVqbEtYV",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmefWkgaTJetFxjLiq48jUuKhkYPbx15Gxm2kURikzo7aX",
-  "": "QmSewFSbQQdn1hb7NzjpQDfrqPb7LAL1pshmHnqCMMqaXw",
+  "": "QmTQXHQgb3fnsSFu6KmpcTJZ3KvLKpsiDsWwSbLW3YL7Bh",
   "foo": "bar",
 };

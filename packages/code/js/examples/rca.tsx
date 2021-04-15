@@ -28,7 +28,7 @@ export default () => (
       Hey! Try to modify <code>this</code> page.
     </p>
 
-    <a css="color: #61dafb;" href="./edit/">
+    <a css="color: #61dafb;" href="./edit">
       Open the editor.
     </a>
   </header>

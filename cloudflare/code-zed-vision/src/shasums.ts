@@ -31,7 +31,7 @@ export const shasums = {
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
-    "62fce5b0fc7a3b0f50cbdd154375cbe0a554e4762c0bc2eab4393a03f1270ac5",
+    "9cfeb16e2798248ef23921355929b8e931bd6fd97857cb6ba3e794fcfa53207e",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/formatter.mjs":
@@ -125,5 +125,7 @@ export const shasums = {
     "db9d495795071161d1dd3ad8faee75acb219653e903a5582fc2181572815344b",
   ".tsBuildInfo":
     "30d23c77c3bc77bd4aedbc65fc07d4369ec23a506e9caa326e131d44a0fbac3f",
+  "edit.html":
+    "797a3980bda634a887f834f23759e20d4a702e93ef66a3fc0fc76bdf60cd8f3e",
   "food": "bar",
 };
