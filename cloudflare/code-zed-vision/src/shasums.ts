@@ -22,10 +22,16 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
+  "edit/index.html":
+    "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
+  "index.html":
+    "aa7a240be0001adcd7c7eb947b7ffa21c4c36a92315c5a97f451fafcbcc76b0d",
   "ipfs.json":
     "78596b14467644a5a1f53132fe0ce45504b1bb0e914a2a4309b8149d536441eb",
+  "js/codeLoader.mjs":
+    "23de7c1b9dadb688ad58b1f5f9e3c7bf398f83836e9a6f7e1ad3759706db3773",
   "js/data.mjs":
     "591f571bd2b6b30b6e62248bedea9bba8ff01d411767802239019b402293400f",
   "js/examples/app.tsx":
@@ -46,10 +52,14 @@ export const shasums = {
     "a3ba172c448bdea19a3a9ceca159a9417afa5425cf016e146f196fad16a0e4e4",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
+  "js/renderPreviewWindow.mjs":
+    "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
   "js/sendSignalToQrCode.mjs":
     "cd77291b1e81d63e0540974ac865f04892c435678372188e33b1e1a151e2d108",
   "js/share.mjs":
     "af0bd1d76ba0e359fed457c7229d73d7697613b1edb235a3a99ec1a603691fd7",
+  "js/templates.mjs":
+    "de60ae84253384dbffe4833a35ffa75aa9b1507aad37ede8d9fa2f51cca65b43",
   "js/transpile.mjs":
     "511eb3ef5ea49172d0563af73be51fd6ffbfe1f94c3f783d5503ffa829fe8629",
   "js/workboxLoader.mjs":
@@ -62,21 +72,13 @@ export const shasums = {
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
     "c7f99fd0962cc0a4b49f0ee26f5df15819c9b04198e8d179fb806137d5f270d0",
-  "js/codeLoader.mjs":
-    "23de7c1b9dadb688ad58b1f5f9e3c7bf398f83836e9a6f7e1ad3759706db3773",
-  "js/renderPreviewWindow.mjs":
-    "f664922dc97510aedaa9375a84058ac9c72e558c3341acd2d7b9eb265a85e663",
-  "js/templates.mjs":
-    "de60ae84253384dbffe4833a35ffa75aa9b1507aad37ede8d9fa2f51cca65b43",
   "manifest.json":
     "6e730e8a714ab4671abc415e92dc2b87de43fdf5654fd5d3c5ceece2b7428c82",
+  "package.json":
+    "cfd4fbaa5afe6ca29513ba2de1c0a609552f331d33b95bcd742e60a8b514e692",
   "sw.js": "9d629191ecfa9c400198ed31e77e39592e74ba87be8531861aa5a686b548bc15",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
-  "index.html":
-    "aa7a240be0001adcd7c7eb947b7ffa21c4c36a92315c5a97f451fafcbcc76b0d",
-  "package.json":
-    "cfd4fbaa5afe6ca29513ba2de1c0a609552f331d33b95bcd742e60a8b514e692",
   "modules/smart-monaco-editor/dist/editor.js":
     "7862eea9f8e831b39e2297d46f2258d34d48332ffc8a07b4d77082880ad62011",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -125,7 +127,5 @@ export const shasums = {
     "db9d495795071161d1dd3ad8faee75acb219653e903a5582fc2181572815344b",
   ".tsBuildInfo":
     "30d23c77c3bc77bd4aedbc65fc07d4369ec23a506e9caa326e131d44a0fbac3f",
-  "edit/index.html":
-    "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "food": "bar",
 };
