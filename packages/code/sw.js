@@ -2,6 +2,7 @@ self.importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js",
 );
 
+
 globalThis.register = () => {
   const { cid, files, shaSums } = globalThis;
 
@@ -69,36 +70,40 @@ globalThis.register = () => {
   );
 
   self.addEventListener("fetch", (event) => {
-    if (event.request.url.endsWith("/complexRequest")) {
+    if (event.request.url.endsWith("/ipfs")) {
       event.respondWith((async () => {
         // Configure the strategy in advance.
-        const strategy = new self.workbox.strategies.CacheFirst({
-          cacheName: "api-cache",
-        });
 
-        // Make two requests using the strategy.
-        // Because we're passing in event, event.waitUntil() will be called automatically.
-        const firstPromise = strategy.handle({
-          event,
-          request: "https://example.com/api1",
-        });
-        const secondPromise = strategy.handle({
-          event,
-          request: "https://example.com/api2",
-        });
+        const {ipfsCat} = await import("./js/ipfsClient.mjs");
 
-        const [firstResponse, secondResponse] = await Promise.all(
-          firstPromise,
-          secondPromise,
-        );
-        const [firstBody, secondBody] = await Promise.all(
-          firstResponse.text(),
-          secondResponse.text(),
-        );
+
+        // const strategy = new self.workbox.strategies.CacheFirst({
+        //   cacheName: "ipfs-cache",
+        // });
+
+        // // Make two requests using the strategy.
+        // // Because we're passing in event, event.waitUntil() will be called automatically.
+        // const firstPromise = strategy.handle({
+        //   event,
+        //   request: "https://example.com/api1",
+        // });
+        // const secondPromise = strategy.handle({
+        //   event,
+        //   request: "https://example.com/api2",
+        // });
+
+        // const [firstResponse, secondResponse] = await Promise.all(
+        //   firstPromise,
+        //   secondPromise,
+        // );
+        // const [firstBody, secondBody] = await Promise.all(
+        //   firstResponse.text(),
+        //   secondResponse.text(),
+        // );
 
         // Assume that we just want to concatenate the first API response with the second to create the
         // final response HTML.
-        const compositeResponse = new Response(firstBody + secondBody, {
+        const compositeResponse = new Response(await ipfsCat("QmS7udzEsQxu8netTzmuRHCniiSUqGuMtCUeJLRepouoG3"), {
           headers: { "content-type": "text/html" },
         });
 
@@ -106,6 +111,8 @@ globalThis.register = () => {
       })());
     }
   });
+
+
 };
 
 function hexToBase64(hexString) {

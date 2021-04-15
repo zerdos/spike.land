@@ -45,6 +45,7 @@ export const ipfsCat = async (cid, opts) => {
   const resultStr = toString(result);
   return resultStr;
 };
+
 export { CID };
 export { all };
 export { concat };
