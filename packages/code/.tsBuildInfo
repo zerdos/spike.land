@@ -187,9 +187,9 @@
         "affectsGlobalScope": true
       },
       "./sw.js": {
-        "version": "250f7ea7c346bc34b88449df67bd73ab1a9ecdbaada4da49cca3b91ab8ad60c5",
-        "signature": "4f3c4c96327bf1e2c254c775519c307d45f03702d1b54b556eef38fa62f7e9fb",
-        "affectsGlobalScope": true
+        "version": "dbee8fb53b70102aab471a151b3b2892490dc5d05d75af1fd5205e6e08602587",
+        "signature": "6762b63ba95f4839cda1df8cf8bc4e7fba229c2855a99ad0b0699ff8cf08e89e",
+        "affectsGlobalScope": false
       }
     },
     "options": {
@@ -218,6 +218,9 @@
     },
     "referencedMap": {
       "./js/examples/starter_framer.js": [
+        "../../node_modules/@types/react/jsx-runtime.d.ts"
+      ],
+      "./sw.js": [
         "../../node_modules/@types/react/jsx-runtime.d.ts"
       ]
     },

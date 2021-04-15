@@ -2,6 +2,37 @@ self.importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js",
 );
 
+self.importScripts(
+  "https://unpkg.com/ipfs-message-port-client@0.5.4/dist/index.min.js"
+)
+
+let port;
+
+const workerSrc = "./js/workers/ipfsWorker.js";
+
+if (typeof SharedWorker !== "undefined" ) {
+  const ipfsWorker = new SharedWorker(
+    workerSrc,
+  );
+  port = ipfsWorker.port;
+} else {
+  const worker = new Worker(workerSrc);
+
+  const { port1, port2 } = new MessageChannel();
+  const msg = {
+    clientInit: true,
+    port: port1,
+  };
+
+  worker.postMessage(msg, [port1]);
+
+  // eslint-disable-next-line no-unused-vars
+  port = port2;
+}
+
+export const ipfsClient = self.IpfsMessagePortClient.from(port);
+
+
 
 globalThis.register = () => {
   const { cid, files, shaSums } = globalThis;
