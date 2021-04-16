@@ -1058,10 +1058,10 @@
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-2.2.1.tgz#a4fd7eda69e54769a5e4fa31b44947e1fe50d323"
   integrity sha512-gxI3CytBWzdtvQ7tu3I1biYN6QU18OInYKfOL5Twlbs4dRTx4ib5/2FrzwYaPFFfCg5ocy38aG1A/69satjXBQ==
 
-"@cloudflare/wrangler@1.15.1":
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.15.1.tgz#dba8a40a36a6d1e83604610d48eeffc672735a87"
-  integrity sha512-QwRfpgN//3vo27bk4oBe+Aj2a6ZgHgQCfFxf0PJm7j9boSWtttKwZPLOyJPHBJEF+sLwg/eqwcwAbUwPviABbA==
+"@cloudflare/wrangler@1.16.0":
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.16.0.tgz#053bb922fad89490fa05762af91630034306435a"
+  integrity sha512-zxGWIIW0Kk8Alc4PgE5EvCu5pHdnFjFZ/4mHfGR7FIDBVdsFk4xZ0+CiL3Je8DrbriJyn+QYKNQub78EA0kA6g==
   dependencies:
     "@cloudflare/binary-install" "0.2.0"
 
@@ -14424,10 +14424,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snowpack@3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/snowpack/-/snowpack-3.3.1.tgz#f8a700e604719be0982dcf6cc2a10fa642ebcb10"
-  integrity sha512-93utJcqKkvQ9StnliIKqDp02laf+7MnPVULacuvNEVg8nHdmON0jKVuG5ezGAMtFRUGBfeQ+kO417tifG1lQUw==
+snowpack@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/snowpack/-/snowpack-3.3.2.tgz#4d83242a40a0789f08f68dec229f297d536aadcf"
+  integrity sha512-ZMTnEFuxRgOzIsbMKHVv5ssP1Bi1fTsLrjpDBkyXj0LH9+q6igynhAJqrvoOhyoH8IW4k3yN/WqE8qzXbMFTEQ==
   dependencies:
     cli-spinners "^2.5.0"
     default-browser-id "^2.0.0"
