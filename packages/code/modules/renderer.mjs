@@ -22595,12 +22595,60 @@ function usePointerEvent(ref, eventName, handler, options) {
   return useDomEvent(ref, getPointerEventName(eventName), handler && wrapHandler(handler, eventName === "pointerdown"), options);
 }
 
+// ../../node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js
+function createLock(name) {
+  var lock = null;
+  return function() {
+    var openLock = function() {
+      lock = null;
+    };
+    if (lock === null) {
+      lock = name;
+      return openLock;
+    }
+    return false;
+  };
+}
+var globalHorizontalLock = createLock("dragHorizontal");
+var globalVerticalLock = createLock("dragVertical");
+function getGlobalLock(drag2) {
+  var lock = false;
+  if (drag2 === "y") {
+    lock = globalVerticalLock();
+  } else if (drag2 === "x") {
+    lock = globalHorizontalLock();
+  } else {
+    var openHorizontal_1 = globalHorizontalLock();
+    var openVertical_1 = globalVerticalLock();
+    if (openHorizontal_1 && openVertical_1) {
+      lock = function() {
+        openHorizontal_1();
+        openVertical_1();
+      };
+    } else {
+      if (openHorizontal_1)
+        openHorizontal_1();
+      if (openVertical_1)
+        openVertical_1();
+    }
+  }
+  return lock;
+}
+function isDragActive() {
+  var openGestureLock = getGlobalLock(true);
+  if (!openGestureLock)
+    return true;
+  openGestureLock();
+  return false;
+}
+
 // ../../node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js
 function createHoverEvent(visualElement2, isActive, callback) {
   return function(event, info) {
     var _a;
-    if (!isMouseEvent(event) || !visualElement2.isHoverEventsEnabled)
+    if (!isMouseEvent(event) || !visualElement2.isHoverEventsEnabled || isDragActive()) {
       return;
+    }
     callback === null || callback === void 0 ? void 0 : callback(event, info);
     (_a = visualElement2.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Hover, isActive);
   };
@@ -23565,53 +23613,6 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
   return function(t) {
     return t === 0 || t === 1 ? t : calcBezier(getTForX(t), mY1, mY2);
   };
-}
-
-// ../../node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js
-function createLock(name) {
-  var lock = null;
-  return function() {
-    var openLock = function() {
-      lock = null;
-    };
-    if (lock === null) {
-      lock = name;
-      return openLock;
-    }
-    return false;
-  };
-}
-var globalHorizontalLock = createLock("dragHorizontal");
-var globalVerticalLock = createLock("dragVertical");
-function getGlobalLock(drag2) {
-  var lock = false;
-  if (drag2 === "y") {
-    lock = globalVerticalLock();
-  } else if (drag2 === "x") {
-    lock = globalHorizontalLock();
-  } else {
-    var openHorizontal_1 = globalHorizontalLock();
-    var openVertical_1 = globalVerticalLock();
-    if (openHorizontal_1 && openVertical_1) {
-      lock = function() {
-        openHorizontal_1();
-        openVertical_1();
-      };
-    } else {
-      if (openHorizontal_1)
-        openHorizontal_1();
-      if (openVertical_1)
-        openVertical_1();
-    }
-  }
-  return lock;
-}
-function isDragActive() {
-  var openGestureLock = getGlobalLock(true);
-  if (!openGestureLock)
-    return true;
-  openGestureLock();
-  return false;
 }
 
 // ../../node_modules/framer-motion/dist/es/gestures/use-tap-gesture.js

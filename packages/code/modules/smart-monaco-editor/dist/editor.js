@@ -125,7 +125,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "@emotion/serialize/index.d.ts",
-                url: "https://unpkg.com/@emotion/serialize@1.0.1/types/index.d.ts",
+                url: "https://unpkg.com/@emotion/serialize@1.0.2/types/index.d.ts",
                 depend: ["@emotion/utils", "csstype"],
             },
             {
@@ -135,7 +135,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@4.1.3/dist/framer-motion.d.ts",
+                url: "https://unpkg.com/framer-motion@4.1.4/dist/framer-motion.d.ts",
                 depend: ["popmotion"],
             },
             {
