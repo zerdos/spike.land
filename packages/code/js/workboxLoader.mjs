@@ -9,7 +9,7 @@ export const workboxLoader = async () => {
             missingArray.map((cid) =>
               Promise.race([
                 ipfsCat(cid),
-                fetch(`http://127.0.0.1:9090/ipfs/${cid}/`).then((x) =>
+                fetch(`http://127.0.0.1:8080/ipfs/${cid}/`).then((x) =>
                   x.text()
                 ),
               ]).then((content) =>
