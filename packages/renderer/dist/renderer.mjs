@@ -25473,7 +25473,7 @@ var Animate = function(_super) {
             prevParentViewportBox = prevParent.prevViewportBox;
           }
         }
-        if (prevParentViewportBox) {
+        if (prevParentViewportBox && isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox)) {
           isRelative = true;
           origin = calcRelativeOffset(prevParentViewportBox, origin);
           target = calcRelativeOffset(parentLayout, target);
@@ -25582,6 +25582,9 @@ var defaultLayoutTransition = {
   duration: 0.45,
   ease: [0.4, 0, 0.1, 1]
 };
+function isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox) {
+  return prevParent || !prevParent && !(originBox || targetBox);
+}
 
 // ../../node_modules/framer-motion/dist/es/motion/features/layout/Measure.js
 var import_react25 = __toModule(require_react());
@@ -25626,9 +25629,15 @@ function createBatcher() {
       });
       flushSync.preRender();
       flushSync.render();
+      es_default.postRender(function() {
+        return order2.forEach(assignProjectionToSnapshot);
+      });
       queue.clear();
     }
   };
+}
+function assignProjectionToSnapshot(child) {
+  child.prevViewportBox = child.projection.target;
 }
 
 // ../../node_modules/framer-motion/dist/es/context/SharedLayoutContext.js
