@@ -11,7 +11,7 @@ declare const _default: ({ onChange, code, language, container, options }: Start
     monaco: {
         editor: any;
         Uri: {
-            parse: (str: string) => any;
+            parse: (str: string) => import("monaco-editor").Uri;
         };
         languages: {
             typescript: {
