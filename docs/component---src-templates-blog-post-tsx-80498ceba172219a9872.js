@@ -112,7 +112,7 @@ module.exports.default = module.exports, module.exports.__esModule = true;
 /***/ (function(module) {
 
 function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 
 module.exports = _iterableToArray;
@@ -238,4 +238,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-8b5e7588deb5f1cceda0.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-80498ceba172219a9872.js.map

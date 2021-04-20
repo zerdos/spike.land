@@ -1508,7 +1508,7 @@ function _arrayWithoutHoles(arr) {
 }
 ;// CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/iterableToArray.js
 function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
 ;// CONCATENATED MODULE: ../../node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
 
@@ -3136,4 +3136,4 @@ module.exports = invariant;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-c778e59ad47b6b5f82a3.js.map
+//# sourceMappingURL=app-188aa1b7bf6821da8b00.js.map
