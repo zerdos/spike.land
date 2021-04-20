@@ -15609,7 +15609,7 @@ var require_arrayWithoutHoles = __commonJS((exports, module) => {
 // ../../node_modules/@babel/runtime/helpers/iterableToArray.js
 var require_iterableToArray = __commonJS((exports, module) => {
   function _iterableToArray(iter) {
-    if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter))
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null)
       return Array.from(iter);
   }
   module.exports = _iterableToArray;
