@@ -83,7 +83,7 @@ export const shasums = {
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/renderer.mjs":
-    "b03f0f2af1913986af407c5274f89c3fa2d056aa0b7a5e1989e5d9714225fc40",
+    "c7073bca07e4e638c467715c1aff00d6dead47c52f0a0697a1a349e940af9d54",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/ipfs.client.mjs":
