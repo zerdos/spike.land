@@ -24,7 +24,7 @@ export async function renderPreviewWindow(
       html: session.html,
     });
 
-    open(link+"/");
+    open(link + "/");
   };
 
   let preview = window.document.getElementById("preview");

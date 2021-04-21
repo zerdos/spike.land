@@ -33,7 +33,9 @@ export async function sendSignal(signal, data) {
     const { pathname } = new URL(signal);
 
     await fetch(
-      `https://zed-vision.zed-vision.workers.dev/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`,
+      `https://zed-vision.zed-vision.workers.dev/signal/?cid=${dataCid}&signal=${
+        pathname.slice(1)
+      }`,
     );
 
     fetch(`https://zed-vision.zed-vision.workers.dev/ipfs/${dataCid}`);

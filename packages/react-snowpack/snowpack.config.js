@@ -1,7 +1,6 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-  
     /* ... */
   },
   plugins: [
@@ -12,7 +11,6 @@ module.exports = {
     // {"match": "routes", "src": ".*", "dest": "/index.html"},
   ],
   optimize: {
-    
     /* Example: Bundle your final build: */
     // "bundle": true,
   },
@@ -20,11 +18,10 @@ module.exports = {
     /* ... */
   },
   devOptions: {
-    port:8081
+    port: 8081,
     /* ... */
   },
   buildOptions: {
-    
     /* ... */
   },
 };

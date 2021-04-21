@@ -15,8 +15,6 @@ self.importScripts(
 
 // // const workerSrc = "./js/workers/ipfsWorker.js";
 
-
-
 // // if (typeof SharedWorker !== "undefined" ) {
 // //   const ipfsWorker = new SharedWorker(
 // //     workerSrc,
@@ -55,7 +53,6 @@ self.importScripts(
 //   return output
 // }
 
-
 // const all = async (source) => {
 //   const arr = []
 
@@ -65,7 +62,6 @@ self.importScripts(
 
 //   return arr
 // }
-
 
 // const ipfsCat = async (cid, opts) => {
 //   const options = opts || {};
@@ -77,8 +73,6 @@ self.importScripts(
 //   const resultStr = toString(result);
 //   return resultStr;
 // };
-
-
 
 globalThis.register = () => {
   const { cid, files, shaSums } = globalThis;
@@ -151,9 +145,6 @@ globalThis.register = () => {
   //     event.respondWith((async () => {
   //       // Configure the strategy in advance.
 
-     
-
-
   //       // const strategy = new self.workbox.strategies.CacheFirst({
   //       //   cacheName: "ipfs-cache",
   //       // });
@@ -188,8 +179,6 @@ globalThis.register = () => {
   //     })());
   //   }
   // });
-
-
 };
 
 function hexToBase64(hexString) {
