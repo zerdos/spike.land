@@ -4,7 +4,7 @@ const { writeFile } = require("fs").promises;
 const run = async () => {
   const devGenerator = new DevcontainerGenerator("hirsute");
 
-  devGenerator.setNodeVersion("lts");
+  devGenerator.setNodeVersion("current");
   devGenerator.setXfce();
   devGenerator.setDeno();
   devGenerator.setZsh();
