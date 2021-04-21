@@ -24876,6 +24876,203 @@ function calcRelativeBox(projection, parentProjection) {
   calcRelativeAxis(projection.target.y, projection.relativeTarget.y, parentProjection.target.y);
 }
 
+// ../../node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js
+var compareByDepth = function(a2, b2) {
+  return a2.depth - b2.depth;
+};
+
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/utils.js
+function updateTreeLayoutMeasurements(visualElement2) {
+  withoutTreeTransform(visualElement2, function() {
+    var allChildren = collectProjectingChildren(visualElement2);
+    batchResetAndMeasure(allChildren);
+    updateLayoutMeasurement(visualElement2);
+  });
+  visualElement2.rebaseProjectionTarget(true, visualElement2.measureViewportBox(false));
+}
+function collectProjectingChildren(visualElement2) {
+  var children = [];
+  var addChild = function(child) {
+    child.isProjecting() && children.push(child);
+    child.children.forEach(addChild);
+  };
+  visualElement2.children.forEach(addChild);
+  return children.sort(compareByDepth);
+}
+function withoutTreeTransform(visualElement2, callback) {
+  var parent = visualElement2.parent;
+  var isEnabled = visualElement2.projection.isEnabled;
+  isEnabled && visualElement2.resetTransform();
+  parent ? withoutTreeTransform(parent, callback) : callback();
+  isEnabled && visualElement2.restoreTransform();
+}
+function updateLayoutMeasurement(visualElement2) {
+  var layoutState = visualElement2.getLayoutState();
+  visualElement2.notifyBeforeLayoutMeasure(layoutState.layout);
+  layoutState.isHydrated = true;
+  layoutState.layout = visualElement2.measureViewportBox();
+  layoutState.layoutCorrected = copyAxisBox(layoutState.layout);
+  visualElement2.notifyLayoutMeasure(layoutState.layout, visualElement2.prevViewportBox || layoutState.layout);
+  es_default.update(function() {
+    return visualElement2.rebaseProjectionTarget();
+  });
+}
+function snapshotViewportBox(visualElement2) {
+  visualElement2.prevViewportBox = visualElement2.measureViewportBox(false);
+  visualElement2.rebaseProjectionTarget(false, visualElement2.prevViewportBox);
+}
+function batchResetAndMeasure(order2) {
+  order2.forEach(function(child) {
+    return child.resetTransform();
+  });
+  order2.forEach(updateLayoutMeasurement);
+}
+
+// ../../node_modules/framer-motion/dist/es/motion/features/layout/utils.js
+function tweenAxis(target, prev, next, p) {
+  target.min = mix(prev.min, next.min, p);
+  target.max = mix(prev.max, next.max, p);
+}
+function calcRelativeOffsetAxis(parent, child) {
+  return {
+    min: child.min - parent.min,
+    max: child.max - parent.min
+  };
+}
+function calcRelativeOffset(parent, child) {
+  return {
+    x: calcRelativeOffsetAxis(parent.x, child.x),
+    y: calcRelativeOffsetAxis(parent.y, child.y)
+  };
+}
+function checkIfParentHasChanged(prev, next) {
+  var prevId = prev.getLayoutId();
+  var nextId = next.getLayoutId();
+  return prevId !== nextId || nextId === void 0 && prev !== next;
+}
+
+// ../../node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js
+function resetAxis(axis, originAxis) {
+  axis.min = originAxis.min;
+  axis.max = originAxis.max;
+}
+function resetBox(box, originBox) {
+  resetAxis(box.x, originBox.x);
+  resetAxis(box.y, originBox.y);
+}
+function scalePoint(point, scale2, originPoint) {
+  var distanceFromOrigin = point - originPoint;
+  var scaled = scale2 * distanceFromOrigin;
+  return originPoint + scaled;
+}
+function applyPointDelta(point, translate, scale2, originPoint, boxScale) {
+  if (boxScale !== void 0) {
+    point = scalePoint(point, boxScale, originPoint);
+  }
+  return scalePoint(point, scale2, originPoint) + translate;
+}
+function applyAxisDelta(axis, translate, scale2, originPoint, boxScale) {
+  if (translate === void 0) {
+    translate = 0;
+  }
+  if (scale2 === void 0) {
+    scale2 = 1;
+  }
+  axis.min = applyPointDelta(axis.min, translate, scale2, originPoint, boxScale);
+  axis.max = applyPointDelta(axis.max, translate, scale2, originPoint, boxScale);
+}
+function applyBoxDelta(box, _a) {
+  var x = _a.x, y = _a.y;
+  applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
+  applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
+}
+function applyAxisTransforms(final, axis, transforms, _a) {
+  var _b = __read(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  final.min = axis.min;
+  final.max = axis.max;
+  var axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
+  var originPoint = mix(axis.min, axis.max, axisOrigin);
+  applyAxisDelta(final, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
+}
+var xKeys = ["x", "scaleX", "originX"];
+var yKeys = ["y", "scaleY", "originY"];
+function applyBoxTransforms(finalBox, box, transforms) {
+  applyAxisTransforms(finalBox.x, box.x, transforms, xKeys);
+  applyAxisTransforms(finalBox.y, box.y, transforms, yKeys);
+}
+function removePointDelta(point, translate, scale2, originPoint, boxScale) {
+  point -= translate;
+  point = scalePoint(point, 1 / scale2, originPoint);
+  if (boxScale !== void 0) {
+    point = scalePoint(point, 1 / boxScale, originPoint);
+  }
+  return point;
+}
+function removeAxisDelta(axis, translate, scale2, origin, boxScale) {
+  if (translate === void 0) {
+    translate = 0;
+  }
+  if (scale2 === void 0) {
+    scale2 = 1;
+  }
+  if (origin === void 0) {
+    origin = 0.5;
+  }
+  var originPoint = mix(axis.min, axis.max, origin) - translate;
+  axis.min = removePointDelta(axis.min, translate, scale2, originPoint, boxScale);
+  axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
+}
+function removeAxisTransforms(axis, transforms, _a) {
+  var _b = __read(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale);
+}
+function removeBoxTransforms(box, transforms) {
+  removeAxisTransforms(box.x, transforms, xKeys);
+  removeAxisTransforms(box.y, transforms, yKeys);
+}
+function applyTreeDeltas(box, treeScale, treePath, isRelative) {
+  if (isRelative === void 0) {
+    isRelative = false;
+  }
+  var treeLength = treePath.length;
+  if (!treeLength)
+    return;
+  treeScale.x = treeScale.y = 1;
+  var node;
+  var delta2;
+  for (var i = 0; i < treeLength; i++) {
+    node = treePath[i];
+    delta2 = node.getLayoutState().delta;
+    treeScale.x *= delta2.x.scale;
+    treeScale.y *= delta2.y.scale;
+    applyBoxDelta(box, delta2);
+    if (!isRelative && node.getProps().drag) {
+      applyBoxTransforms(box, box, node.getLatestValues());
+    }
+  }
+}
+
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/convert-to-relative.js
+function convertToRelativeProjection(visualElement2, isLayoutDrag) {
+  if (isLayoutDrag === void 0) {
+    isLayoutDrag = true;
+  }
+  var projectionParent = visualElement2.getProjectionParent();
+  if (!projectionParent)
+    return false;
+  var offset;
+  if (isLayoutDrag) {
+    offset = calcRelativeOffset(projectionParent.projection.target, visualElement2.projection.target);
+    removeBoxTransforms(offset, projectionParent.getLatestValues());
+  } else {
+    offset = calcRelativeOffset(projectionParent.getLayoutState().layout, visualElement2.getLayoutState().layout);
+  }
+  eachAxis(function(axis) {
+    return visualElement2.setProjectionTargetAxis(axis, offset[axis].min, offset[axis].max, true);
+  });
+  return true;
+}
+
 // ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
 var elementDragControls = new WeakMap();
 var lastPointerEvent;
@@ -24902,9 +25099,20 @@ var VisualElementDragControls = function() {
   VisualElementDragControls2.prototype.start = function(originEvent, _a) {
     var _this = this;
     var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c, cursorProgress = _b.cursorProgress;
-    snapToCursor && this.snapToCursor(originEvent);
-    var onSessionStart = function() {
+    var onSessionStart = function(event) {
       _this.stopMotion();
+      _this.updateLayoutMeasurements();
+      snapToCursor && _this.snapToCursor(originEvent);
+      _this.visualElement.lockProjectionTarget();
+      var point = getViewportPointFromEvent(event).point;
+      eachAxis(function(axis) {
+        var _a2 = _this.visualElement.projection.target[axis], min = _a2.min, max = _a2.max;
+        _this.cursorProgress[axis] = cursorProgress ? cursorProgress[axis] : progress(min, max, point[axis]);
+        var axisValue = _this.getAxisMotionValue(axis);
+        if (axisValue) {
+          _this.originPoint[axis] = axisValue.get();
+        }
+      });
     };
     var onStart = function(event, info) {
       var _a2, _b2, _c2;
@@ -24916,18 +25124,7 @@ var VisualElementDragControls = function() {
         if (!_this.openGlobalLock)
           return;
       }
-      _this.prepareBoundingBox();
-      _this.visualElement.lockProjectionTarget();
       _this.resolveDragConstraints();
-      var point = getViewportPointFromEvent(event).point;
-      eachAxis(function(axis) {
-        var _a3 = _this.visualElement.projection.target[axis], min = _a3.min, max = _a3.max;
-        _this.cursorProgress[axis] = cursorProgress ? cursorProgress[axis] : progress(min, max, point[axis]);
-        var axisValue = _this.getAxisMotionValue(axis);
-        if (axisValue) {
-          _this.originPoint[axis] = axisValue.get();
-        }
-      });
       _this.isDragging = true;
       _this.currentDirection = null;
       (_b2 = (_a2 = _this.props).onDragStart) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, event, info);
@@ -24962,18 +25159,16 @@ var VisualElementDragControls = function() {
       onEnd
     }, {transformPagePoint});
   };
-  VisualElementDragControls2.prototype.prepareBoundingBox = function() {
-    var visualElement2 = this.visualElement;
-    visualElement2.withoutTransform(function() {
-      visualElement2.updateLayoutMeasurement();
-    });
-    visualElement2.rebaseProjectionTarget(true, visualElement2.measureViewportBox(false));
+  VisualElementDragControls2.prototype.updateLayoutMeasurements = function() {
+    updateTreeLayoutMeasurements(this.visualElement);
   };
   VisualElementDragControls2.prototype.resolveDragConstraints = function() {
     var _this = this;
     var _a = this.props, dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
+    this.visualElement.updateLayoutProjection();
+    var layout = this.visualElement.getLayoutState().layoutCorrected;
     if (dragConstraints) {
-      this.constraints = isRefObject(dragConstraints) ? this.resolveRefConstraints(this.visualElement.getLayoutState().layout, dragConstraints) : calcRelativeConstraints(this.visualElement.getLayoutState().layout, dragConstraints);
+      this.constraints = isRefObject(dragConstraints) ? this.resolveRefConstraints(layout, dragConstraints) : calcRelativeConstraints(layout, dragConstraints);
     } else {
       this.constraints = false;
     }
@@ -24981,7 +25176,7 @@ var VisualElementDragControls = function() {
     if (this.constraints && !this.hasMutatedConstraints) {
       eachAxis(function(axis) {
         if (_this.getAxisMotionValue(axis)) {
-          _this.constraints[axis] = rebaseAxisConstraints(_this.visualElement.getLayoutState().layout[axis], _this.constraints[axis]);
+          _this.constraints[axis] = rebaseAxisConstraints(layout[axis], _this.constraints[axis]);
         }
       });
     }
@@ -25013,7 +25208,7 @@ var VisualElementDragControls = function() {
     (_a = this.visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Drag, false);
   };
   VisualElementDragControls2.prototype.stop = function(event, info) {
-    var _a;
+    var _a, _b, _c;
     this.visualElement.unlockProjectionTarget();
     (_a = this.panSession) === null || _a === void 0 ? void 0 : _a.end();
     this.panSession = null;
@@ -25021,16 +25216,12 @@ var VisualElementDragControls = function() {
     this.cancelDrag();
     if (!isDragging)
       return;
-    var _b = this.props, dragMomentum = _b.dragMomentum, onDragEnd = _b.onDragEnd;
-    if (dragMomentum || this.elastic) {
-      var velocity = info.velocity;
-      this.animateDragEnd(velocity);
-    }
-    onDragEnd === null || onDragEnd === void 0 ? void 0 : onDragEnd(event, info);
+    var velocity = info.velocity;
+    this.animateDragEnd(velocity);
+    (_c = (_b = this.props).onDragEnd) === null || _c === void 0 ? void 0 : _c.call(_b, event, info);
   };
   VisualElementDragControls2.prototype.snapToCursor = function(event) {
     var _this = this;
-    this.prepareBoundingBox();
     eachAxis(function(axis) {
       var drag2 = _this.props.drag;
       if (!shouldDrag(axis, drag2, _this.currentDirection))
@@ -25093,14 +25284,33 @@ var VisualElementDragControls = function() {
       return this.visualElement.getValue(axis, 0);
     }
   };
+  VisualElementDragControls2.prototype.isLayoutDrag = function() {
+    return !this.getAxisMotionValue("x");
+  };
   VisualElementDragControls2.prototype.animateDragEnd = function(velocity) {
     var _this = this;
     var _a = this.props, drag2 = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition;
+    var isRelative = convertToRelativeProjection(this.visualElement, this.isLayoutDrag());
+    var constraints = this.constraints || {};
+    if (isRelative && Object.keys(constraints).length && this.isLayoutDrag()) {
+      var projectionParent = this.visualElement.getProjectionParent();
+      if (projectionParent) {
+        var relativeConstraints_1 = calcRelativeOffset(projectionParent.projection.targetFinal, constraints);
+        eachAxis(function(axis) {
+          var _a2 = relativeConstraints_1[axis], min = _a2.min, max = _a2.max;
+          constraints[axis] = {
+            min: isNaN(min) ? void 0 : min,
+            max: isNaN(max) ? void 0 : max
+          };
+        });
+      }
+    }
     var momentumAnimations = eachAxis(function(axis) {
+      var _a2;
       if (!shouldDrag(axis, drag2, _this.currentDirection)) {
         return;
       }
-      var transition = _this.constraints ? _this.constraints[axis] : {};
+      var transition = (_a2 = constraints === null || constraints === void 0 ? void 0 : constraints[axis]) !== null && _a2 !== void 0 ? _a2 : {};
       var bounceStiffness = dragElastic ? 200 : 1e6;
       var bounceDamping = dragElastic ? 40 : 1e7;
       var inertia2 = __assign(__assign({
@@ -25112,7 +25322,7 @@ var VisualElementDragControls = function() {
         restDelta: 1,
         restSpeed: 10
       }, dragTransition), transition);
-      return _this.getAxisMotionValue(axis) ? _this.startAxisValueAnimation(axis, inertia2) : _this.visualElement.startLayoutAnimation(axis, inertia2);
+      return _this.getAxisMotionValue(axis) ? _this.startAxisValueAnimation(axis, inertia2) : _this.visualElement.startLayoutAnimation(axis, inertia2, isRelative);
     });
     return Promise.all(momentumAnimations).then(function() {
       var _a2, _b;
@@ -25145,7 +25355,7 @@ var VisualElementDragControls = function() {
     eachAxis(function(axis) {
       boxProgress[axis] = calcOrigin2(_this.visualElement.projection.target[axis], _this.constraintsBox[axis]);
     });
-    this.prepareBoundingBox();
+    this.updateLayoutMeasurements();
     this.resolveDragConstraints();
     eachAxis(function(axis) {
       if (!shouldDrag(axis, drag2, null))
@@ -25255,29 +25465,6 @@ var drag = {
 
 // ../../node_modules/framer-motion/dist/es/motion/features/layout/Animate.js
 var React3 = __toModule(require_react());
-
-// ../../node_modules/framer-motion/dist/es/motion/features/layout/utils.js
-function tweenAxis(target, prev, next, p) {
-  target.min = mix(prev.min, next.min, p);
-  target.max = mix(prev.max, next.max, p);
-}
-function calcRelativeOffsetAxis(parent, child) {
-  return {
-    min: child.min - parent.min,
-    max: child.max - parent.min
-  };
-}
-function calcRelativeOffset(parent, child) {
-  return {
-    x: calcRelativeOffsetAxis(parent.x, child.x),
-    y: calcRelativeOffsetAxis(parent.y, child.y)
-  };
-}
-function checkIfParentHasChanged(prev, next) {
-  var prevId = prev.getLayoutId();
-  var nextId = next.getLayoutId();
-  return prevId !== nextId || nextId === void 0 && prev !== next;
-}
 
 // ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js
 var Presence;
@@ -25481,6 +25668,7 @@ var Animate = function(_super) {
       }
       var boxHasMoved = hasMoved(origin, target);
       var animations2 = eachAxis(function(axis) {
+        var _a2, _b2;
         if (layout === "position") {
           var targetLength = target[axis].max - target[axis].min;
           origin[axis].max = origin[axis].min + targetLength;
@@ -25492,6 +25680,7 @@ var Animate = function(_super) {
         } else if (boxHasMoved) {
           return _this.animateAxis(axis, target[axis], origin[axis], __assign(__assign({}, config), {isRelative}));
         } else {
+          (_b2 = (_a2 = _this.stopAxisAnimation)[axis]) === null || _b2 === void 0 ? void 0 : _b2.call(_a2);
           return visualElement2.setProjectionTargetAxis(axis, target[axis].min, target[axis].max, isRelative);
         }
       });
@@ -25592,16 +25781,8 @@ var import_react25 = __toModule(require_react());
 // ../../node_modules/framer-motion/dist/es/context/SharedLayoutContext.js
 var import_react24 = __toModule(require_react());
 
-// ../../node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js
-var compareByDepth = function(a2, b2) {
-  return a2.depth - b2.depth;
-};
-
 // ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/batcher.js
 var defaultHandler = {
-  measureLayout: function(child) {
-    return child.updateLayoutMeasurement();
-  },
   layoutReady: function(child) {
     return child.notifyLayoutReady();
   }
@@ -25613,15 +25794,15 @@ function createBatcher() {
       return queue.add(child);
     },
     flush: function(_a) {
-      var _b = _a === void 0 ? defaultHandler : _a, measureLayout = _b.measureLayout, layoutReady = _b.layoutReady, parent = _b.parent;
+      var _b = _a === void 0 ? defaultHandler : _a, layoutReady = _b.layoutReady, parent = _b.parent;
       var order2 = Array.from(queue).sort(compareByDepth);
-      var resetAndMeasure = function() {
-        order2.forEach(function(child) {
-          return child.resetTransform();
+      if (parent) {
+        withoutTreeTransform(parent, function() {
+          batchResetAndMeasure(order2);
         });
-        order2.forEach(measureLayout);
-      };
-      parent ? parent.withoutTransform(resetAndMeasure) : resetAndMeasure();
+      } else {
+        batchResetAndMeasure(order2);
+      }
       order2.forEach(layoutReady);
       order2.forEach(function(child) {
         if (child.isPresent)
@@ -25671,16 +25852,15 @@ var Measure = function(_super) {
     if (isSharedLayout(syncLayout)) {
       syncLayout.syncUpdate();
     } else {
-      visualElement2.snapshotViewportBox();
+      snapshotViewportBox(visualElement2);
       syncLayout.add(visualElement2);
     }
     return null;
   };
   Measure2.prototype.componentDidUpdate = function() {
-    var _a = this.props, syncLayout = _a.syncLayout, visualElement2 = _a.visualElement;
+    var syncLayout = this.props.syncLayout;
     if (!isSharedLayout(syncLayout))
       syncLayout.flush();
-    visualElement2.rebaseProjectionTarget();
   };
   Measure2.prototype.render = function() {
     return null;
@@ -25698,98 +25878,6 @@ var layoutAnimations = {
   measureLayout: MeasureContextProvider,
   layoutAnimation: AnimateLayoutContextProvider
 };
-
-// ../../node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js
-function resetAxis(axis, originAxis) {
-  axis.min = originAxis.min;
-  axis.max = originAxis.max;
-}
-function resetBox(box, originBox) {
-  resetAxis(box.x, originBox.x);
-  resetAxis(box.y, originBox.y);
-}
-function scalePoint(point, scale2, originPoint) {
-  var distanceFromOrigin = point - originPoint;
-  var scaled = scale2 * distanceFromOrigin;
-  return originPoint + scaled;
-}
-function applyPointDelta(point, translate, scale2, originPoint, boxScale) {
-  if (boxScale !== void 0) {
-    point = scalePoint(point, boxScale, originPoint);
-  }
-  return scalePoint(point, scale2, originPoint) + translate;
-}
-function applyAxisDelta(axis, translate, scale2, originPoint, boxScale) {
-  if (translate === void 0) {
-    translate = 0;
-  }
-  if (scale2 === void 0) {
-    scale2 = 1;
-  }
-  axis.min = applyPointDelta(axis.min, translate, scale2, originPoint, boxScale);
-  axis.max = applyPointDelta(axis.max, translate, scale2, originPoint, boxScale);
-}
-function applyBoxDelta(box, _a) {
-  var x = _a.x, y = _a.y;
-  applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
-  applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
-}
-function applyAxisTransforms(final, axis, transforms, _a) {
-  var _b = __read(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
-  final.min = axis.min;
-  final.max = axis.max;
-  var axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
-  var originPoint = mix(axis.min, axis.max, axisOrigin);
-  applyAxisDelta(final, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
-}
-var xKeys = ["x", "scaleX", "originX"];
-var yKeys = ["y", "scaleY", "originY"];
-function applyBoxTransforms(finalBox, box, transforms) {
-  applyAxisTransforms(finalBox.x, box.x, transforms, xKeys);
-  applyAxisTransforms(finalBox.y, box.y, transforms, yKeys);
-}
-function removePointDelta(point, translate, scale2, originPoint, boxScale) {
-  point -= translate;
-  point = scalePoint(point, 1 / scale2, originPoint);
-  if (boxScale !== void 0) {
-    point = scalePoint(point, 1 / boxScale, originPoint);
-  }
-  return point;
-}
-function removeAxisDelta(axis, translate, scale2, origin, boxScale) {
-  if (translate === void 0) {
-    translate = 0;
-  }
-  if (scale2 === void 0) {
-    scale2 = 1;
-  }
-  if (origin === void 0) {
-    origin = 0.5;
-  }
-  var originPoint = mix(axis.min, axis.max, origin) - translate;
-  axis.min = removePointDelta(axis.min, translate, scale2, originPoint, boxScale);
-  axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
-}
-function removeAxisTransforms(axis, transforms, _a) {
-  var _b = __read(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
-  removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale);
-}
-function removeBoxTransforms(box, transforms) {
-  removeAxisTransforms(box.x, transforms, xKeys);
-  removeAxisTransforms(box.y, transforms, yKeys);
-}
-function applyTreeDeltas(box, treeScale, treePath) {
-  var treeLength = treePath.length;
-  if (!treeLength)
-    return;
-  treeScale.x = treeScale.y = 1;
-  for (var i = 0; i < treeLength; i++) {
-    var delta2 = treePath[i].getLayoutState().delta;
-    treeScale.x *= delta2.x.scale;
-    treeScale.y *= delta2.y.scale;
-    applyBoxDelta(box, delta2);
-  }
-}
 
 // ../../node_modules/framer-motion/dist/es/render/utils/state.js
 var createProjectionState = function() {
@@ -25918,9 +26006,9 @@ function updateMotionValuesFromProps(element, next, prev) {
 // ../../node_modules/framer-motion/dist/es/render/utils/projection.js
 function updateLayoutDeltas(_a, _b, treePath, transformOrigin) {
   var delta2 = _a.delta, layout = _a.layout, layoutCorrected = _a.layoutCorrected, treeScale = _a.treeScale;
-  var target = _b.target;
+  var target = _b.target, relativeTarget = _b.relativeTarget;
   resetBox(layoutCorrected, layout);
-  applyTreeDeltas(layoutCorrected, treeScale, treePath);
+  applyTreeDeltas(layoutCorrected, treeScale, treePath, Boolean(relativeTarget));
   updateBoxDelta(delta2, layoutCorrected, target, transformOrigin);
 }
 
@@ -25940,13 +26028,24 @@ var FlatTree = function() {
   };
   FlatTree2.prototype.forEach = function(callback) {
     this.isDirty && this.children.sort(compareByDepth);
-    var numChildren = this.children.length;
-    for (var i = 0; i < numChildren; i++) {
-      callback(this.children[i]);
-    }
+    this.isDirty = false;
+    this.children.forEach(callback);
   };
   return FlatTree2;
 }();
+
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/relative-set.js
+function setCurrentViewportBox(visualElement2) {
+  var projectionParent = visualElement2.getProjectionParent();
+  if (!projectionParent) {
+    visualElement2.rebaseProjectionTarget();
+    return;
+  }
+  var relativeOffset = calcRelativeOffset(projectionParent.getLayoutState().layout, visualElement2.getLayoutState().layout);
+  eachAxis(function(axis) {
+    visualElement2.setProjectionTargetAxis(axis, relativeOffset[axis].min, relativeOffset[axis].max, true);
+  });
+}
 
 // ../../node_modules/framer-motion/dist/es/render/index.js
 var visualElement = function(_a) {
@@ -25973,13 +26072,10 @@ var visualElement = function(_a) {
     var projectionTargetProgress;
     var baseTarget = __assign({}, latestValues);
     var removeFromVariantTree;
-    function isProjecting() {
-      return projection.isEnabled && layoutState.isHydrated;
-    }
     function render3() {
       if (!instance)
         return;
-      if (isProjecting()) {
+      if (element.isProjecting()) {
         applyBoxTransforms(leadProjection.targetFinal, leadProjection.target, leadLatestValues);
         updateBoxDelta(layoutState.deltaFinal, layoutState.layoutCorrected, leadProjection.targetFinal, latestValues);
       }
@@ -26039,6 +26135,8 @@ var visualElement = function(_a) {
       treeType,
       current: null,
       depth: parent ? parent.depth + 1 : 0,
+      parent,
+      children: new Set(),
       path: parent ? __spreadArray(__spreadArray([], __read(parent.path)), [parent]) : [],
       layoutTree: parent ? parent.layoutTree : new FlatTree(),
       presenceId,
@@ -26057,6 +26155,7 @@ var visualElement = function(_a) {
         if (isVariantNode && parent && !isControllingVariants) {
           removeFromVariantTree = parent === null || parent === void 0 ? void 0 : parent.addVariantChild(element);
         }
+        parent === null || parent === void 0 ? void 0 : parent.children.add(element);
       },
       unmount: function() {
         cancelSync.update(update);
@@ -26068,6 +26167,7 @@ var visualElement = function(_a) {
         element.stopLayoutAnimation();
         element.layoutTree.remove(element);
         removeFromVariantTree === null || removeFromVariantTree === void 0 ? void 0 : removeFromVariantTree();
+        parent === null || parent === void 0 ? void 0 : parent.children.delete(element);
         unsubscribeFromLeadVisualElement === null || unsubscribeFromLeadVisualElement === void 0 ? void 0 : unsubscribeFromLeadVisualElement();
         lifecycles.clearAllListeners();
       },
@@ -26229,25 +26329,27 @@ var visualElement = function(_a) {
         element.stopLayoutAnimation();
         projection.isTargetLocked = false;
       },
-      snapshotViewportBox: function() {
-        element.prevViewportBox = element.measureViewportBox(false);
-        element.rebaseProjectionTarget(false, element.prevViewportBox);
-      },
       getLayoutState: function() {
         return layoutState;
       },
       setCrossfader: function(newCrossfader) {
         crossfader = newCrossfader;
       },
-      startLayoutAnimation: function(axis, transition) {
+      isProjecting: function() {
+        return projection.isEnabled && layoutState.isHydrated;
+      },
+      startLayoutAnimation: function(axis, transition, isRelative) {
+        if (isRelative === void 0) {
+          isRelative = false;
+        }
         var progress2 = element.getProjectionAnimationProgress()[axis];
-        var _a3 = projection.target[axis], min = _a3.min, max = _a3.max;
+        var _a3 = isRelative ? projection.relativeTarget[axis] : projection.target[axis], min = _a3.min, max = _a3.max;
         var length = max - min;
         progress2.clearListeners();
         progress2.set(min);
         progress2.set(min);
         progress2.onChange(function(v) {
-          return element.setProjectionTargetAxis(axis, v, v + length);
+          element.setProjectionTargetAxis(axis, v, v + length, isRelative);
         });
         return element.animateMotionValue(axis, progress2, 0, transition);
       },
@@ -26264,16 +26366,6 @@ var visualElement = function(_a) {
         if (!withTransform)
           removeBoxTransforms(viewportBox, latestValues);
         return viewportBox;
-      },
-      updateLayoutMeasurement: function() {
-        element.notifyBeforeLayoutMeasure(layoutState.layout);
-        layoutState.isHydrated = true;
-        layoutState.layout = element.measureViewportBox();
-        layoutState.layoutCorrected = copyAxisBox(layoutState.layout);
-        element.notifyLayoutMeasure(layoutState.layout, element.prevViewportBox || layoutState.layout);
-        es_default.update(function() {
-          return element.rebaseProjectionTarget();
-        });
       },
       getProjectionAnimationProgress: function() {
         projectionTargetProgress || (projectionTargetProgress = {
@@ -26315,16 +26407,14 @@ var visualElement = function(_a) {
         }
       },
       notifyLayoutReady: function(config) {
+        setCurrentViewportBox(element);
         element.notifyLayoutUpdate(layoutState.layout, element.prevViewportBox || layoutState.layout, config);
       },
       resetTransform: function() {
         return resetTransform(element, instance, props);
       },
-      withoutTransform: function(callback) {
-        var isEnabled = projection.isEnabled;
-        isEnabled && element.resetTransform();
-        parent ? parent.withoutTransform(callback) : callback();
-        isEnabled && restoreTransform(instance, renderState);
+      restoreTransform: function() {
+        return restoreTransform(instance, renderState);
       },
       updateLayoutProjection,
       updateTreeLayoutProjection: function() {
@@ -26739,7 +26829,7 @@ function _extends() {
 var React10 = __toModule(require_react());
 var import_prop_types5 = __toModule(require_prop_types());
 var import_clsx4 = __toModule(require_clsx());
-var import_utils26 = __toModule(require_utils());
+var import_utils32 = __toModule(require_utils());
 var import_unstyled5 = __toModule(require_node());
 
 // ../../node_modules/@material-ui/core/ButtonBase/ButtonBase.js
@@ -26754,7 +26844,7 @@ var import_styles = __toModule(require_node3());
 var import_system2 = __toModule(require_system());
 
 // ../../node_modules/@material-ui/core/styles/createMuiTheme.js
-var import_utils20 = __toModule(require_utils());
+var import_utils26 = __toModule(require_utils());
 
 // ../../node_modules/@material-ui/core/styles/createBreakpoints.js
 function createBreakpoints(breakpoints) {
@@ -26819,8 +26909,8 @@ function createMixins(breakpoints, spacing, mixins) {
 }
 
 // ../../node_modules/@material-ui/core/styles/createPalette.js
-var import_utils17 = __toModule(require_utils());
-var import_utils18 = __toModule(require_utils());
+var import_utils23 = __toModule(require_utils());
+var import_utils24 = __toModule(require_utils());
 
 // ../../node_modules/@material-ui/core/colors/common.js
 var common = {
@@ -26963,7 +27053,7 @@ var green = {
 var green_default = green;
 
 // ../../node_modules/@material-ui/core/styles/colorManipulator.js
-var import_utils16 = __toModule(require_utils());
+var import_utils22 = __toModule(require_utils());
 function clamp3(value, min = 0, max = 1) {
   if (false) {
     if (value < min || value > max) {
@@ -27015,7 +27105,7 @@ function decomposeColor(color2) {
   const type = color2.substring(0, marker);
   if (["rgb", "rgba", "hsl", "hsla", "color"].indexOf(type) === -1) {
     throw new Error(false ? `Material-UI: Unsupported \`${color2}\` color.
-The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color().` : (0, import_utils16.formatMuiErrorMessage)(9, color2));
+The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla(), color().` : (0, import_utils22.formatMuiErrorMessage)(9, color2));
   }
   let values2 = color2.substring(marker + 1, color2.length - 1);
   let colorSpace;
@@ -27027,7 +27117,7 @@ The following formats are supported: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla()
     }
     if (["srgb", "display-p3", "a98-rgb", "prophoto-rgb", "rec-2020"].indexOf(colorSpace) === -1) {
       throw new Error(false ? `Material-UI: unsupported \`${colorSpace}\` color space.
-The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rgb, rec-2020.` : (0, import_utils16.formatMuiErrorMessage)(10, colorSpace));
+The following color spaces are supported: srgb, display-p3, a98-rgb, prophoto-rgb, rec-2020.` : (0, import_utils22.formatMuiErrorMessage)(10, colorSpace));
     }
   } else {
     values2 = values2.split(",");
@@ -27242,7 +27332,7 @@ function createPalette(palette) {
     }
     if (!color2.hasOwnProperty("main")) {
       throw new Error(false ? `Material-UI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
-The color object needs to have a \`main\` property or a \`${mainShade}\` property.` : (0, import_utils17.formatMuiErrorMessage)(11, name ? ` (${name})` : "", mainShade));
+The color object needs to have a \`main\` property or a \`${mainShade}\` property.` : (0, import_utils23.formatMuiErrorMessage)(11, name ? ` (${name})` : "", mainShade));
     }
     if (typeof color2.main !== "string") {
       throw new Error(false ? `Material-UI: The color${name ? ` (${name})` : ""} provided to augmentColor(color) is invalid.
@@ -27258,7 +27348,7 @@ const theme1 = createMuiTheme({ palette: {
 
 const theme2 = createMuiTheme({ palette: {
   primary: { main: green[500] },
-} });` : (0, import_utils17.formatMuiErrorMessage)(12, name ? ` (${name})` : "", JSON.stringify(color2.main)));
+} });` : (0, import_utils23.formatMuiErrorMessage)(12, name ? ` (${name})` : "", JSON.stringify(color2.main)));
     }
     addLightOrDark(color2, "light", lightShade, tonalOffset);
     addLightOrDark(color2, "dark", darkShade, tonalOffset);
@@ -27276,7 +27366,7 @@ const theme2 = createMuiTheme({ palette: {
       console.error(`Material-UI: The palette mode \`${mode}\` is not supported.`);
     }
   }
-  const paletteOutput = (0, import_utils18.deepmerge)(_extends({
+  const paletteOutput = (0, import_utils24.deepmerge)(_extends({
     common: common_default,
     mode,
     primary: augmentColor({
@@ -27316,7 +27406,7 @@ const theme2 = createMuiTheme({ palette: {
 }
 
 // ../../node_modules/@material-ui/core/styles/createTypography.js
-var import_utils19 = __toModule(require_utils());
+var import_utils25 = __toModule(require_utils());
 function round(value) {
   return Math.round(value * 1e5) / 1e5;
 }
@@ -27369,7 +27459,7 @@ function createTypography(palette, typography) {
     caption: buildVariant(fontWeightRegular, 12, 1.66, 0.4),
     overline: buildVariant(fontWeightRegular, 12, 2.66, 1, caseAllCaps)
   };
-  return (0, import_utils19.deepmerge)(_extends({
+  return (0, import_utils25.deepmerge)(_extends({
     htmlFontSize,
     pxToRem,
     round,
@@ -27505,7 +27595,7 @@ function createMuiTheme(options = {}, ...args) {
   const palette = createPalette(paletteInput);
   const breakpoints = createBreakpoints(breakpointsInput);
   const spacing = createSpacing(spacingInput);
-  let muiTheme = (0, import_utils20.deepmerge)({
+  let muiTheme = (0, import_utils26.deepmerge)({
     breakpoints,
     direction: "ltr",
     mixins: createMixins(breakpoints, spacing, mixinsInput),
@@ -27523,7 +27613,7 @@ function createMuiTheme(options = {}, ...args) {
     },
     zIndex: _extends({}, zIndex_default)
   }, other);
-  muiTheme = args.reduce((acc, argument) => (0, import_utils20.deepmerge)(acc, argument), muiTheme);
+  muiTheme = args.reduce((acc, argument) => (0, import_utils26.deepmerge)(acc, argument), muiTheme);
   if (false) {
     const pseudoClasses = ["active", "checked", "disabled", "error", "focused", "focusVisible", "required", "expanded", "selected"];
     const traverse = (node, component) => {
@@ -27716,16 +27806,16 @@ function useThemeProps({
 }
 
 // ../../node_modules/@material-ui/core/utils/useForkRef.js
-var import_utils21 = __toModule(require_utils());
-var useForkRef_default = import_utils21.unstable_useForkRef;
+var import_utils27 = __toModule(require_utils());
+var useForkRef_default = import_utils27.unstable_useForkRef;
 
 // ../../node_modules/@material-ui/core/utils/useEventCallback.js
-var import_utils22 = __toModule(require_utils());
-var useEventCallback_default = import_utils22.unstable_useEventCallback;
+var import_utils28 = __toModule(require_utils());
+var useEventCallback_default = import_utils28.unstable_useEventCallback;
 
 // ../../node_modules/@material-ui/core/utils/useIsFocusVisible.js
-var import_utils23 = __toModule(require_utils());
-var useIsFocusVisible_default = import_utils23.unstable_useIsFocusVisible;
+var import_utils29 = __toModule(require_utils());
+var useIsFocusVisible_default = import_utils29.unstable_useIsFocusVisible;
 
 // ../../node_modules/@material-ui/core/ButtonBase/TouchRipple.js
 var React8 = __toModule(require_react());
@@ -27962,8 +28052,8 @@ var import_prop_types2 = __toModule(require_prop_types());
 var import_clsx = __toModule(require_clsx());
 
 // ../../node_modules/@material-ui/core/utils/useEnhancedEffect.js
-var import_utils24 = __toModule(require_utils());
-var useEnhancedEffect_default = import_utils24.unstable_useEnhancedEffect;
+var import_utils30 = __toModule(require_utils());
+var useEnhancedEffect_default = import_utils30.unstable_useEnhancedEffect;
 
 // ../../node_modules/@material-ui/core/ButtonBase/Ripple.js
 var import_jsx_runtime = __toModule(require_jsx_runtime());
@@ -28631,8 +28721,8 @@ false ? ButtonBase.propTypes = {
 var ButtonBase_default = ButtonBase;
 
 // ../../node_modules/@material-ui/core/utils/capitalize.js
-var import_utils25 = __toModule(require_utils());
-var capitalize_default = import_utils25.unstable_capitalize;
+var import_utils31 = __toModule(require_utils());
+var capitalize_default = import_utils31.unstable_capitalize;
 
 // ../../node_modules/@material-ui/core/Fab/fabClasses.js
 var import_unstyled4 = __toModule(require_node());
@@ -28648,7 +28738,7 @@ var overridesResolver2 = (props, styles) => {
   const {
     styleProps
   } = props;
-  return (0, import_utils26.deepmerge)(_extends({}, styles[styleProps.variant], styles[`size${capitalize_default(styleProps.size)}`], styleProps.color === "inherit" && styles.colorInherit, styleProps.color === "primary" && styles.primary, styleProps.color === "secondary" && styles.secondary, {
+  return (0, import_utils32.deepmerge)(_extends({}, styles[styleProps.variant], styles[`size${capitalize_default(styleProps.size)}`], styleProps.color === "inherit" && styles.colorInherit, styleProps.color === "primary" && styles.primary, styleProps.color === "secondary" && styles.secondary, {
     [`& .${fabClasses_default.label}`]: styles.label
   }), styles.root || {});
 };
@@ -28823,7 +28913,7 @@ var Fab_default = Fab;
 var React11 = __toModule(require_react());
 var import_prop_types6 = __toModule(require_prop_types());
 var import_clsx5 = __toModule(require_clsx());
-var import_utils27 = __toModule(require_utils());
+var import_utils33 = __toModule(require_utils());
 var import_unstyled7 = __toModule(require_node());
 
 // ../../node_modules/@material-ui/core/Button/buttonClasses.js
@@ -28841,7 +28931,7 @@ var overridesResolver3 = (props, styles) => {
   const {
     styleProps
   } = props;
-  return (0, import_utils27.deepmerge)(_extends({}, styles[styleProps.variant], styles[`${styleProps.variant}${capitalize_default(styleProps.color)}`], styles[`size${capitalize_default(styleProps.size)}`], styles[`${styleProps.variant}Size${capitalize_default(styleProps.size)}`], styleProps.color === "inherit" && styles.colorInherit, styleProps.disableElevation && styles.disableElevation, styleProps.fullWidth && styles.fullWidth, {
+  return (0, import_utils33.deepmerge)(_extends({}, styles[styleProps.variant], styles[`${styleProps.variant}${capitalize_default(styleProps.color)}`], styles[`size${capitalize_default(styleProps.size)}`], styles[`${styleProps.variant}Size${capitalize_default(styleProps.size)}`], styleProps.color === "inherit" && styles.colorInherit, styleProps.disableElevation && styles.disableElevation, styleProps.fullWidth && styles.fullWidth, {
     [`& .${buttonClasses_default.label}`]: styles.label,
     [`& .${buttonClasses_default.startIcon}`]: _extends({}, styles.startIcon, styles[`iconSize${capitalize_default(styleProps.size)}`]),
     [`& .${buttonClasses_default.endIcon}`]: _extends({}, styles.endIcon, styles[`iconSize${capitalize_default(styleProps.size)}`])
@@ -29115,7 +29205,7 @@ var Button_default = Button;
 var React12 = __toModule(require_react());
 var import_prop_types7 = __toModule(require_prop_types());
 var import_clsx6 = __toModule(require_clsx());
-var import_utils28 = __toModule(require_utils());
+var import_utils34 = __toModule(require_utils());
 var import_unstyled9 = __toModule(require_node());
 
 // ../../node_modules/@material-ui/core/ToggleButton/toggleButtonClasses.js
@@ -29132,7 +29222,7 @@ var overridesResolver4 = (props, styles) => {
   const {
     styleProps
   } = props;
-  return (0, import_utils28.deepmerge)(_extends({}, styles[`size${capitalize_default(styleProps.size)}`], {
+  return (0, import_utils34.deepmerge)(_extends({}, styles[`size${capitalize_default(styleProps.size)}`], {
     [`& .${toggleButtonClasses_default.label}`]: styles.label
   }), styles.root || {});
 };
@@ -29294,7 +29384,7 @@ var React13 = __toModule(require_react());
 var import_react_is = __toModule(require_react_is3());
 var import_prop_types8 = __toModule(require_prop_types());
 var import_clsx7 = __toModule(require_clsx());
-var import_utils29 = __toModule(require_utils());
+var import_utils35 = __toModule(require_utils());
 var import_unstyled11 = __toModule(require_node());
 
 // ../../node_modules/@material-ui/core/ToggleButtonGroup/isValueSelected.js
@@ -29322,7 +29412,7 @@ var overridesResolver5 = (props, styles) => {
   const {
     styleProps
   } = props;
-  return (0, import_utils29.deepmerge)(_extends({}, styleProps.orientation === "vertical" && styles.vertical, styleProps.fullWidth && styles.fullWidth, {
+  return (0, import_utils35.deepmerge)(_extends({}, styleProps.orientation === "vertical" && styles.vertical, styleProps.fullWidth && styles.fullWidth, {
     [`& .${toggleButtonGroupClasses_default.grouped}`]: _extends({}, styles.grouped, styles[`grouped${capitalize_default(styleProps.orientation)}`])
   }), styles.root || {});
 };
