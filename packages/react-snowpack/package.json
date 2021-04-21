@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/react": "17.0.3",
     "@types/react-dom": "17.0.3",
-    "snowpack": "3.3.4"
+    "snowpack": "3.3.5"
   },
   "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c"
 }
