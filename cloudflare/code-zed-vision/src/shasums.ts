@@ -57,7 +57,7 @@ export const shasums = {
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/renderer.mjs":
-    "80fc6da25db5de4e8b5c83a1cd0b269a6269b941871eb5bf8060ad03e13a3a3d",
+    "bb8f64ce3587e2597dab7492982188f9fad30076422b77c0625549ac72fc2b76",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/getDbObj.d.ts":

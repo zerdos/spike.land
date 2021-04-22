@@ -25169,7 +25169,7 @@ var VisualElementDragControls = function() {
     }, {transformPagePoint});
   };
   VisualElementDragControls2.prototype.updateLayoutMeasurements = function() {
-    updateTreeLayoutMeasurements(this.visualElement, Boolean(this.getAxisMotionValue("x")));
+    updateTreeLayoutMeasurements(this.visualElement, Boolean(this.getAxisMotionValue("x") && !this.isExternalDrag()));
   };
   VisualElementDragControls2.prototype.resolveDragConstraints = function() {
     var _this = this;
