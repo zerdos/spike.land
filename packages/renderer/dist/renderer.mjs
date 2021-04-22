@@ -24894,13 +24894,13 @@ var compareByDepth = function(a2, b2) {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/projection/utils.js
-function updateTreeLayoutMeasurements(visualElement2) {
+function updateTreeLayoutMeasurements(visualElement2, isRelativeDrag) {
   withoutTreeTransform(visualElement2, function() {
     var allChildren = collectProjectingChildren(visualElement2);
     batchResetAndMeasure(allChildren);
     updateLayoutMeasurement(visualElement2);
   });
-  visualElement2.rebaseProjectionTarget(true, visualElement2.measureViewportBox(false));
+  !isRelativeDrag && visualElement2.rebaseProjectionTarget(true, visualElement2.measureViewportBox(false));
 }
 function collectProjectingChildren(visualElement2) {
   var children = [];
@@ -25042,10 +25042,7 @@ function removeBoxTransforms(box, transforms) {
   removeAxisTransforms(box.x, transforms, xKeys);
   removeAxisTransforms(box.y, transforms, yKeys);
 }
-function applyTreeDeltas(box, treeScale, treePath, isRelative) {
-  if (isRelative === void 0) {
-    isRelative = false;
-  }
+function applyTreeDeltas(box, treeScale, treePath) {
   var treeLength = treePath.length;
   if (!treeLength)
     return;
@@ -25058,7 +25055,7 @@ function applyTreeDeltas(box, treeScale, treePath, isRelative) {
     treeScale.x *= delta2.x.scale;
     treeScale.y *= delta2.y.scale;
     applyBoxDelta(box, delta2);
-    if (!isRelative && node.getProps().drag) {
+    if (node.getProps().drag) {
       applyBoxTransforms(box, box, node.getLatestValues());
     }
   }
@@ -25115,7 +25112,7 @@ var VisualElementDragControls = function() {
       _this.stopMotion();
       _this.updateLayoutMeasurements();
       snapToCursor && _this.snapToCursor(originEvent);
-      _this.visualElement.lockProjectionTarget();
+      _this.isLayoutDrag() && _this.visualElement.lockProjectionTarget();
       var point = getViewportPointFromEvent(event).point;
       eachAxis(function(axis) {
         var _a2 = _this.visualElement.projection.target[axis], min = _a2.min, max = _a2.max;
@@ -25172,7 +25169,7 @@ var VisualElementDragControls = function() {
     }, {transformPagePoint});
   };
   VisualElementDragControls2.prototype.updateLayoutMeasurements = function() {
-    updateTreeLayoutMeasurements(this.visualElement);
+    updateTreeLayoutMeasurements(this.visualElement, Boolean(this.getAxisMotionValue("x")));
   };
   VisualElementDragControls2.prototype.resolveDragConstraints = function() {
     var _this = this;
@@ -25299,10 +25296,14 @@ var VisualElementDragControls = function() {
   VisualElementDragControls2.prototype.isLayoutDrag = function() {
     return !this.getAxisMotionValue("x");
   };
+  VisualElementDragControls2.prototype.isExternalDrag = function() {
+    var _a = this.props, _dragX = _a._dragX, _dragY = _a._dragY;
+    return _dragX || _dragY;
+  };
   VisualElementDragControls2.prototype.animateDragEnd = function(velocity) {
     var _this = this;
     var _a = this.props, drag2 = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition;
-    var isRelative = convertToRelativeProjection(this.visualElement, this.isLayoutDrag());
+    var isRelative = convertToRelativeProjection(this.visualElement, this.isLayoutDrag() && !this.isExternalDrag());
     var constraints = this.constraints || {};
     if (isRelative && Object.keys(constraints).length && this.isLayoutDrag()) {
       var projectionParent = this.visualElement.getProjectionParent();
@@ -26018,9 +26019,9 @@ function updateMotionValuesFromProps(element, next, prev) {
 // ../../node_modules/framer-motion/dist/es/render/utils/projection.js
 function updateLayoutDeltas(_a, _b, treePath, transformOrigin) {
   var delta2 = _a.delta, layout = _a.layout, layoutCorrected = _a.layoutCorrected, treeScale = _a.treeScale;
-  var target = _b.target, relativeTarget = _b.relativeTarget;
+  var target = _b.target;
   resetBox(layoutCorrected, layout);
-  applyTreeDeltas(layoutCorrected, treeScale, treePath, Boolean(relativeTarget));
+  applyTreeDeltas(layoutCorrected, treeScale, treePath);
   updateBoxDelta(delta2, layoutCorrected, target, transformOrigin);
 }
 
@@ -26448,11 +26449,13 @@ var visualElement = function(_a) {
         return projectionParent;
       },
       resolveRelativeTargetBox: function() {
-        if (!projection.relativeTarget)
-          return;
         var relativeParent = element.getProjectionParent();
-        if (relativeParent) {
-          calcRelativeBox(projection, relativeParent.projection);
+        if (!projection.relativeTarget || !relativeParent)
+          return;
+        calcRelativeBox(projection, relativeParent.projection);
+        if (relativeParent.getProps().drag) {
+          var target = projection.target;
+          applyBoxTransforms(target, target, relativeParent.getLatestValues());
         }
       },
       pointTo: function(newLead) {
