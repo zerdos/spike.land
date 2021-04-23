@@ -34,7 +34,7 @@
     "@cloudflare/wrangler": "1.16.0",
     "@types/uuid": "8.3.0",
     "@zedvision/ipfs": "^13.1.3",
-    "esbuild": "0.11.12"
+    "esbuild": "0.11.13"
   },
   "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
