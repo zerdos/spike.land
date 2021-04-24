@@ -24905,7 +24905,7 @@ function updateTreeLayoutMeasurements(visualElement2, isRelativeDrag) {
 function collectProjectingChildren(visualElement2) {
   var children = [];
   var addChild = function(child) {
-    child.isProjecting() && children.push(child);
+    child.projection.isEnabled && children.push(child);
     child.children.forEach(addChild);
   };
   visualElement2.children.forEach(addChild);
@@ -24961,6 +24961,12 @@ function checkIfParentHasChanged(prev, next) {
   var prevId = prev.getLayoutId();
   var nextId = next.getLayoutId();
   return prevId !== nextId || nextId === void 0 && prev !== next;
+}
+
+// ../../node_modules/framer-motion/dist/es/render/utils/is-draggable.js
+function isDraggable(visualElement2) {
+  var _a = visualElement2.getProps(), drag2 = _a.drag, _dragX = _a._dragX;
+  return drag2 && !_dragX;
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js
@@ -25055,7 +25061,7 @@ function applyTreeDeltas(box, treeScale, treePath) {
     treeScale.x *= delta2.x.scale;
     treeScale.y *= delta2.y.scale;
     applyBoxDelta(box, delta2);
-    if (node.getProps().drag) {
+    if (isDraggable(node)) {
       applyBoxTransforms(box, box, node.getLatestValues());
     }
   }
@@ -26088,7 +26094,7 @@ var visualElement = function(_a) {
     function render3() {
       if (!instance)
         return;
-      if (element.isProjecting()) {
+      if (element.isProjectionReady()) {
         applyBoxTransforms(leadProjection.targetFinal, leadProjection.target, leadLatestValues);
         updateBoxDelta(layoutState.deltaFinal, layoutState.layoutCorrected, leadProjection.targetFinal, latestValues);
       }
@@ -26348,7 +26354,7 @@ var visualElement = function(_a) {
       setCrossfader: function(newCrossfader) {
         crossfader = newCrossfader;
       },
-      isProjecting: function() {
+      isProjectionReady: function() {
         return projection.isEnabled && layoutState.isHydrated;
       },
       startLayoutAnimation: function(axis, transition, isRelative) {
@@ -26453,7 +26459,7 @@ var visualElement = function(_a) {
         if (!projection.relativeTarget || !relativeParent)
           return;
         calcRelativeBox(projection, relativeParent.projection);
-        if (relativeParent.getProps().drag) {
+        if (isDraggable(relativeParent)) {
           var target = projection.target;
           applyBoxTransforms(target, target, relativeParent.getLatestValues());
         }
