@@ -1,4 +1,6 @@
-fetch("https://zed-vision.zed-vision.workers.dev/ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony")
+fetch(
+  "https://zed-vision.zed-vision.workers.dev/ipfs/QmRX68ncYxZcPT9kzKUZotU6NDr92toosBcMCKHyywPony",
+)
   .then((data) => data.text())
   .then(async (text) => {
     const App = (await import(URL.createObjectURL(
