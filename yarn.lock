@@ -1043,26 +1043,19 @@
     "@babel/helper-validator-identifier" "^7.12.11"
     to-fast-properties "^2.0.0"
 
-"@cloudflare/binary-install@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@cloudflare/binary-install/-/binary-install-0.2.0.tgz#0fec1bc5817c00a8a2b5ea7c291e837d76aa16a3"
-  integrity sha512-54n9ILgln+qUJc0BtbetEIEi1GrIL88p7ZDJy+BV8EsUqA7pMCMHAUOHjDq+YrIoqJHGJktlQJxBYB+4Umf3ww==
-  dependencies:
-    axios "^0.21.1"
-    rimraf "^3.0.2"
-    tar "^6.0.2"
-
 "@cloudflare/workers-types@2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-2.2.1.tgz#a4fd7eda69e54769a5e4fa31b44947e1fe50d323"
   integrity sha512-gxI3CytBWzdtvQ7tu3I1biYN6QU18OInYKfOL5Twlbs4dRTx4ib5/2FrzwYaPFFfCg5ocy38aG1A/69satjXBQ==
 
-"@cloudflare/wrangler@1.16.0":
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.16.0.tgz#053bb922fad89490fa05762af91630034306435a"
-  integrity sha512-zxGWIIW0Kk8Alc4PgE5EvCu5pHdnFjFZ/4mHfGR7FIDBVdsFk4xZ0+CiL3Je8DrbriJyn+QYKNQub78EA0kA6g==
+"@cloudflare/wrangler@1.16.1":
+  version "1.16.1"
+  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.16.1.tgz#c7a4d827c703ba9ecc0c43d447a7666dbec4dd88"
+  integrity sha512-jDxtri9v6IRszObICQU+eB/eFGySOnBJJvVcp5tp+Q1niH2l51wbWoXOThLfgv0DeSu7o7rSpjn13oULeSj2vg==
   dependencies:
-    "@cloudflare/binary-install" "0.2.0"
+    axios "^0.21.1"
+    rimraf "^3.0.2"
+    tar "^6.0.2"
 
 "@cypress/listr-verbose-renderer@^0.4.1":
   version "0.4.1"
