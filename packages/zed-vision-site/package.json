@@ -20,7 +20,7 @@
     "@emotion/react": "^11.1.5",
     "@mdx-js/mdx": "1.6.22",
     "@mdx-js/react": "1.6.22",
-    "cypress": "7.1.0",
+    "cypress": "7.2.0",
     "gatsby": "3.3.1",
     "gatsby-image": "3.3.0",
     "gatsby-link": "3.3.0",
