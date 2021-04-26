@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/code-logic",
-  "version": "13.1.3",
+  "version": "13.1.4",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
