@@ -2,14 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as monaco from "monaco-editor";
 import {Test} from "./src/app"
+import {openWindows} from "./src/openWindows"
 
-const root = document.createElement("div");
 
+openWindows();
 ReactDOM.render(
   <Test />,
-  root
+  document.getElementById("editor")
 );
 
-document.body.appendChild(root);
 
 monaco.editor.create(document.getElementById("container")!);
