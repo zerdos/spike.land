@@ -23,7 +23,7 @@
     "framer-motion": "4.1.9"
   },
   "devDependencies": {
-    "@types/react": "17.0.3",
+    "@types/react": "17.0.4",
     "@types/react-dom": "17.0.3",
     "snowpack": "3.3.5"
   },
