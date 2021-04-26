@@ -1007,7 +1007,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/standalone@7.13.17", "@babel/standalone@^7.12.6":
+"@babel/standalone@^7.12.6":
   version "7.13.17"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.13.17.tgz#921b82a11a80ce824589516736d629efc53297aa"
   integrity sha512-Y9P198T45MIIu+AvGOCcjsdKl79+BCL2nA+6ODA5p/DhGzymvzaTgtzvNcjZDcJmbPszcmohjLLgvma3tmvVtg==
@@ -4627,11 +4627,6 @@ cli-width@^3.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-3.0.0.tgz#a2f48437a2caa9a22436e794bf071ec9e61cedf6"
   integrity sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==
 
-clicked@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/clicked/-/clicked-3.2.3.tgz#bd32f775ca9e4a9acbc918439ead29276117f70b"
-  integrity sha512-5HmonYPwMciRc5sNEfbUSCJA690MMC9bkMdLPxASBz0H3S8uCxoMHP7o6y95TNCWUSl7DZyejQPzeg0uvmq7Ng==
-
 clipboardy@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/clipboardy/-/clipboardy-2.3.0.tgz#3c2903650c68e46a91b388985bc2774287dba290"
@@ -4792,11 +4787,6 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
-
-comlink@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.3.0.tgz#80b3366baccd87897dab3638ebfcfae28b2f87c7"
-  integrity sha512-mu4KKKNuW8TvkfpW/H88HBPeILubBS6T94BdD1VWBXNXfiyqVtwUCVNO1GeNOBTsIswzsMjWlycYr+77F5b84g==
 
 comma-separated-tokens@^1.0.0:
   version "1.0.8"
@@ -6615,11 +6605,6 @@ eventemitter2@^6.4.3:
   version "6.4.4"
   resolved "https://registry.yarnpkg.com/eventemitter2/-/eventemitter2-6.4.4.tgz#aa96e8275c4dbeb017a5d0e03780c65612a1202b"
   integrity sha512-HLU3NDY6wARrLCEwyGKRBvuWYyvW6mHYv72SJJAH3iJN3a6eVUvkjFkcxah1bcTgGVBBrFdIopBJPhCQFMLyXw==
-
-eventemitter3@^3.0.0:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
-  integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
 eventemitter3@^4.0.0, eventemitter3@^4.0.4:
   version "4.0.7"
@@ -12875,7 +12860,7 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
-prettier@2.2.1, prettier@^2.0.5:
+prettier@^2.0.5:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
   integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
@@ -14341,14 +14326,6 @@ simple-swizzle@^0.2.2:
   integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
   dependencies:
     is-arrayish "^0.3.1"
-
-simple-window-manager@2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/simple-window-manager/-/simple-window-manager-2.1.2.tgz#23d2800b79ad01053bae55ee75607eab95f58378"
-  integrity sha512-+pzutR1UQb/76Xc/huYgHbm42d/md/RzZl4Hl0eESRKHmBdI+qmOoDAFG7fbIPQOeS8+r63pO8rnxJPVS5JGTg==
-  dependencies:
-    clicked "^3.2.3"
-    eventemitter3 "^3.0.0"
 
 single-trailing-newline@^1.0.0:
   version "1.0.0"
@@ -16570,11 +16547,6 @@ wordwrap@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
-
-workbox-sw@6.1.5:
-  version "6.1.5"
-  resolved "https://registry.yarnpkg.com/workbox-sw/-/workbox-sw-6.1.5.tgz#06eb0c91f22e207422175b3f815cd2181c7074a0"
-  integrity sha512-IMDiqxYbKzPorZLGMUMacLB6r76iVQbdTzYthIZoPfy+uFURJFUtqiWQJKg1L+RMyuYXwKXTahCIGkgFs4jBeg==
 
 worker-rpc@^0.1.0:
   version "0.1.1"
