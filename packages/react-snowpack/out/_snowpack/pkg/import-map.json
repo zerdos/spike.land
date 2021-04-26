@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "@emotion/react": "./@emotion/react.js",
+    "monaco-editor": "./monaco-editor.js",
+    "react": "./react.js",
+    "react-dom": "./react-dom.js"
+  }
+}

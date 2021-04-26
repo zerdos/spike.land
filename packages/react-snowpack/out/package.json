@@ -1,0 +1,31 @@
+{
+  "name": "@zedvision/code-logic",
+  "version": "13.1.4",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "test": "echo \"This template does not include a test runner by default.\" && exit 1"
+  },
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "monaco-editor": "^0.23.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "@emotion/react": "11.1.5",
+    "@zedvision/smart-monaco-editor": "13.1.4",
+    "@emotion/styled": "11.3.0",
+    "@material-ui/core": "5.0.0-alpha.31",
+    "@material-ui/icons": "5.0.0-alpha.29",
+    "framer-motion": "4.1.9"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.3",
+    "snowpack": "3.3.5"
+  },
+  "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c"
+}

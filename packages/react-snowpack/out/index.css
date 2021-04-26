@@ -1,0 +1,9 @@
+/* Add CSS styles here! */
+body {
+  font-family: sans-serif;
+}
+#root{
+  width: auto;
+  height: 300px;
+  display: block;
+}

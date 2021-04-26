@@ -51,7 +51,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "package.json":
-    "4c63b6bbbee45d681c839a0ae563534702105f79a43999e07dc219e7d3e61932",
+    "387e602f9cda86f006352db8aa0859843f91363ac7fbd8ae5fcdeb76dfb59896",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "modules/renderer.mjs":

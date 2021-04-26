@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as monaco from "monaco-editor";
+import {Test} from "./src/app"
+
+const root = document.createElement("div");
 
 ReactDOM.render(
-  <div style={{ width: "100%", height: "100%" }} id="container"></div>,
-  document.getElementById("root"),
+  <Test />,
+  root
 );
+
+document.body.appendChild(root);
 
 monaco.editor.create(document.getElementById("container")!);
