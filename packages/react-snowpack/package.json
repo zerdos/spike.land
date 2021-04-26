@@ -24,7 +24,7 @@
     "simple-window-manager": "^2.1.2"
   },
   "devDependencies": {
-    "@types/react": "17.0.3",
+    "@types/react": "17.0.4",
     "@types/react-dom": "17.0.3",
     "snowpack": "3.3.5"
   },

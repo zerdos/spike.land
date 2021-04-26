@@ -1395,9 +1395,9 @@
     tslib "~2.0.1"
 
 "@graphql-tools/utils@^7.0.0", "@graphql-tools/utils@^7.0.2", "@graphql-tools/utils@^7.1.2", "@graphql-tools/utils@^7.1.5", "@graphql-tools/utils@^7.2.1", "@graphql-tools/utils@^7.5.0", "@graphql-tools/utils@^7.7.0", "@graphql-tools/utils@^7.7.1":
-  version "7.7.3"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-7.7.3.tgz#1e34abc6b9fe1e6f8189bc23d1285b73bb07018d"
-  integrity sha512-zF8Ll1v7DOFfCsZVYGkJqvi3Zpwfga8NutOZkToXrumMlTPaMhEDFkiuwoIK4lV2PMVUke5ZCmpn9pc5pqy4Tw==
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-7.8.0.tgz#74290863b5c84c1bf1d8749e7a05b1b029a0c55e"
+  integrity sha512-nORIltDwBdsc3Ew+vuXISTZw6gpRd3UkK+6HNY3knNca6apTDj7ygcJmgsFKjSyUf7xtukddTcF6Js9kPuJr6g==
   dependencies:
     "@ardatan/aggregate-error" "0.0.6"
     camel-case "4.1.2"
@@ -2887,10 +2887,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@17.0.3":
-  version "17.0.3"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.3.tgz#ba6e215368501ac3826951eef2904574c262cc79"
-  integrity sha512-wYOUxIgs2HZZ0ACNiIayItyluADNbONl7kt8lkLjVK8IitMH5QMyAh75Fwhmo37r1m7L2JaFj03sIfxBVDvRAg==
+"@types/react@*", "@types/react@17.0.4":
+  version "17.0.4"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.4.tgz#a67c6f7a460d2660e950d9ccc1c2f18525c28220"
+  integrity sha512-onz2BqScSFMoTRdJUZUDD/7xrusM8hBA2Fktk2qgaTYPCgPvWnDEgkrOs8hhPUf2jfcIXkJ5yK6VfYormJS3Jw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -12827,9 +12827,9 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.27:
     supports-color "^6.1.0"
 
 postcss@^8.2.10:
-  version "8.2.12"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.12.tgz#81248a1a87e0f575cc594a99a08207fd1c4addc4"
-  integrity sha512-BJnGT5+0q2tzvs6oQfnY2NpEJ7rIXNfBnZtQOKCIsweeWXBXeDd5k31UgTdS3d/c02ouspufn37mTaHWkJyzMQ==
+  version "8.2.13"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.13.tgz#dbe043e26e3c068e45113b1ed6375d2d37e2129f"
+  integrity sha512-FCE5xLH+hjbzRdpbRb1IMCvPv9yZx2QnDarBEYSN0N0HYk+TcXsEhwdFcFb+SRWOKzKGErhIEbBK2ogyLdTtfQ==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.22"
@@ -15243,9 +15243,9 @@ terser-webpack-plugin@^5.1.1:
     terser "^5.5.1"
 
 terser@^5.5.1:
-  version "5.6.1"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-5.6.1.tgz#a48eeac5300c0a09b36854bf90d9c26fb201973c"
-  integrity sha512-yv9YLFQQ+3ZqgWCUk+pvNJwgUTdlIxUk1WTN+RnaFJe2L7ipG2csPT0ra2XRm7Cs8cxN7QXmK1rFzEwYEQkzXw==
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.7.0.tgz#a761eeec206bc87b605ab13029876ead938ae693"
+  integrity sha512-HP5/9hp2UaZt5fYkuhNBR8YyRcT8juw8+uFbAme53iN9hblvKnLUTKkmwJG6ocWpIKf8UK4DoeWG4ty0J6S6/g==
   dependencies:
     commander "^2.20.0"
     source-map "~0.7.2"
