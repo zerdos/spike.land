@@ -31,10 +31,10 @@
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
     "@cloudflare/workers-types": "2.2.1",
-    "@cloudflare/wrangler": "1.16.0",
+    "@cloudflare/wrangler": "1.16.1",
     "@types/uuid": "8.3.0",
     "@zedvision/ipfs": "^13.1.4",
-    "esbuild": "0.11.14"
+    "esbuild": "0.11.15"
   },
   "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c",
   "author": "Zoltan Erdos <zolika84@gmail.com>",

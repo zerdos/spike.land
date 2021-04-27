@@ -21215,7 +21215,12 @@ var createDefinition = function(propNames) {
   };
 };
 var featureDefinitions = {
-  measureLayout: createDefinition(["layout", "layoutId", "drag"]),
+  measureLayout: createDefinition([
+    "layout",
+    "layoutId",
+    "drag",
+    "_layoutResetTransform"
+  ]),
   animation: createDefinition([
     "animate",
     "exit",
@@ -22083,6 +22088,7 @@ var validMotionProps = new Set([
   "inherit",
   "layout",
   "layoutId",
+  "_layoutResetTransform",
   "onLayoutAnimationComplete",
   "onViewportBoxUpdate",
   "onLayoutMeasure",
@@ -24905,7 +24911,9 @@ function updateTreeLayoutMeasurements(visualElement2, isRelativeDrag) {
 function collectProjectingChildren(visualElement2) {
   var children = [];
   var addChild = function(child) {
-    child.projection.isEnabled && children.push(child);
+    if (child.projection.isEnabled || visualElement2.shouldResetTransform()) {
+      children.push(child);
+    }
     child.children.forEach(addChild);
   };
   visualElement2.children.forEach(addChild);
@@ -24914,11 +24922,14 @@ function collectProjectingChildren(visualElement2) {
 function withoutTreeTransform(visualElement2, callback) {
   var parent = visualElement2.parent;
   var isEnabled = visualElement2.projection.isEnabled;
-  isEnabled && visualElement2.resetTransform();
+  var shouldReset = isEnabled || visualElement2.shouldResetTransform();
+  shouldReset && visualElement2.resetTransform();
   parent ? withoutTreeTransform(parent, callback) : callback();
-  isEnabled && visualElement2.restoreTransform();
+  shouldReset && visualElement2.restoreTransform();
 }
 function updateLayoutMeasurement(visualElement2) {
+  if (visualElement2.shouldResetTransform())
+    return;
   var layoutState = visualElement2.getLayoutState();
   visualElement2.notifyBeforeLayoutMeasure(layoutState.layout);
   layoutState.isHydrated = true;
@@ -24930,6 +24941,8 @@ function updateLayoutMeasurement(visualElement2) {
   });
 }
 function snapshotViewportBox(visualElement2) {
+  if (visualElement2.shouldResetTransform())
+    return;
   visualElement2.prevViewportBox = visualElement2.measureViewportBox(false);
   visualElement2.rebaseProjectionTarget(false, visualElement2.prevViewportBox);
 }
@@ -26463,6 +26476,9 @@ var visualElement = function(_a) {
           var target = projection.target;
           applyBoxTransforms(target, target, relativeParent.getLatestValues());
         }
+      },
+      shouldResetTransform: function() {
+        return Boolean(props._layoutResetTransform);
       },
       pointTo: function(newLead) {
         leadProjection = newLead.projection;
