@@ -51,13 +51,13 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "package.json":
-    "a7af08e5e357c82fdbe2cd6399bf1296dc4d4384c95a1d12aaff686d9e89dc65",
+    "57b4bceac449266e02179446c0fb30744cfe994b31f711fba7a54fa77c264238",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "d506909a5912aad2f15ed351b7e69a749b87d87afa375479d0c340fe573c9f0d",
+    "c21f1ae6ed731a630957ea7a6736dbe7dec19461ddc619ac5e9f3728a97bc5b1",
   "modules/ipfs.client.mjs":
     "455c9afcc04419cb88c5ee019b588f4ab950b34b0690a10756e54d2853e20b94",
   "modules/getDbObj.js":

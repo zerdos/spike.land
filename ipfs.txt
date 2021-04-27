@@ -42,7 +42,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmQFLCF2gFofSxjygS8TjJFnzZ44kBAQmaHuoEXPjHJYJN code/modules/ipfs.client.mjs
-added QmU6QSJBnRVhK2JecPeV649QFRxmEvN1bJBt5hLJEzMTK8 code/modules/renderer.mjs
+added QmPQhNagu9osZdNQ1UowF7cjuzAsQgeLeMtP5A3rdWFNF9 code/modules/renderer.mjs
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
@@ -57,7 +57,7 @@ added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
 added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
-added QmXt7WGXdoC4fqM9WpETWd7fZiNZ5We5c4mHXGsJzCqNZ4 code/package.json
+added QmZfb7Un2gemcR5soMZzwNyjK13cu3acMtke4wMuLMao8T code/package.json
 added QmeE2k4xzMnEmnzKZ5qkVKMN4g7Zmi8iKHWKAoVkxvE8b4 code/sw.js
 added QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -70,6 +70,6 @@ added QmWD3DD9CREUu3Yz2tqZMQFUjknuqevw881kQ9j6tjdM1t code/js
 added QmbcLLDpVtJ3FuMYAb1gMgAHFwumbhVb15EVGsKyzTAzbL code/modules/smart-monaco-editor/dist
 added QmPUMYiefzcgysjMn9kLYSu8eJe2CduxqNzaKBw1JycBsy code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
-added QmWJcEumgfyqoc9jraWBAmeTbU8TAoXbxKgKLsy5mcbW2A code/modules
+added QmXBucMJcK5CcLrUBnrShKng6MaCo11zQYC5FgwPNKoXVv code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmQ6UatDQWBPQx4hVHooc1U3P1ewiKDMPeH1V4dciWEZP8 code
+added QmVQS91Ad2erc2UxL1VeFy3nPRYEqhecrX6ngCXuDDDJrE code

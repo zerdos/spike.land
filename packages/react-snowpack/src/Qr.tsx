@@ -6,8 +6,7 @@ import {css, jsx} from "@emotion/react"
 import {motion} from "framer-motion"
 
 
-// import {Fab} from "@material-ui/core";
-// import {QrCode} from "@material-ui/icons";
+import {QrCode} from "@material-ui/icons"
 
 // const QR: React.FC<{ url: string }> = ({ url }) => {
 //   const canvasRef = React.useRef<HTMLCanvasElement>(null);

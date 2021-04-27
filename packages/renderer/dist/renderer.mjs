@@ -8046,7 +8046,7 @@ var require_extends = __commonJS((exports, module) => {
   module.exports["default"] = module.exports, module.exports.__esModule = true;
 });
 
-// ../../node_modules/react-is/cjs/react-is.production.min.js
+// ../../node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.production.min.js
 var require_react_is_production_min = __commonJS((exports) => {
   /** @license React v16.13.1
    * react-is.production.min.js
@@ -8165,7 +8165,7 @@ var require_react_is_production_min = __commonJS((exports) => {
   exports.typeOf = z;
 });
 
-// ../../node_modules/react-is/index.js
+// ../../node_modules/hoist-non-react-statics/node_modules/react-is/index.js
 var require_react_is = __commonJS((exports, module) => {
   "use strict";
   if (true) {
@@ -9290,7 +9290,7 @@ var require_formatMuiErrorMessage = __commonJS((exports) => {
   }
 });
 
-// ../../node_modules/@material-ui/utils/node_modules/react-is/cjs/react-is.production.min.js
+// ../../node_modules/react-is/cjs/react-is.production.min.js
 var require_react_is_production_min2 = __commonJS((exports) => {
   /** @license React v17.0.2
    * react-is.production.min.js
@@ -9434,7 +9434,7 @@ var require_react_is_production_min2 = __commonJS((exports) => {
   exports.typeOf = y;
 });
 
-// ../../node_modules/@material-ui/utils/node_modules/react-is/index.js
+// ../../node_modules/react-is/index.js
 var require_react_is2 = __commonJS((exports, module) => {
   "use strict";
   if (true) {
@@ -19086,160 +19086,6 @@ var require_system = __commonJS((exports) => {
   });
   var _styleFunctionSx = _interopRequireWildcard(require_styleFunctionSx2());
   var _getThemeValue = _interopRequireDefault(require_getThemeValue());
-});
-
-// ../../node_modules/@material-ui/core/node_modules/react-is/cjs/react-is.production.min.js
-var require_react_is_production_min3 = __commonJS((exports) => {
-  /** @license React v17.0.2
-   * react-is.production.min.js
-   *
-   * Copyright (c) Facebook, Inc. and its affiliates.
-   *
-   * This source code is licensed under the MIT license found in the
-   * LICENSE file in the root directory of this source tree.
-   */
-  "use strict";
-  var b2 = 60103;
-  var c2 = 60106;
-  var d = 60107;
-  var e = 60108;
-  var f = 60114;
-  var g = 60109;
-  var h = 60110;
-  var k = 60112;
-  var l = 60113;
-  var m = 60120;
-  var n = 60115;
-  var p = 60116;
-  var q = 60121;
-  var r = 60122;
-  var u = 60117;
-  var v = 60129;
-  var w = 60131;
-  if (typeof Symbol === "function" && Symbol.for) {
-    x = Symbol.for;
-    b2 = x("react.element");
-    c2 = x("react.portal");
-    d = x("react.fragment");
-    e = x("react.strict_mode");
-    f = x("react.profiler");
-    g = x("react.provider");
-    h = x("react.context");
-    k = x("react.forward_ref");
-    l = x("react.suspense");
-    m = x("react.suspense_list");
-    n = x("react.memo");
-    p = x("react.lazy");
-    q = x("react.block");
-    r = x("react.server.block");
-    u = x("react.fundamental");
-    v = x("react.debug_trace_mode");
-    w = x("react.legacy_hidden");
-  }
-  var x;
-  function y(a2) {
-    if (typeof a2 === "object" && a2 !== null) {
-      var t = a2.$$typeof;
-      switch (t) {
-        case b2:
-          switch (a2 = a2.type, a2) {
-            case d:
-            case f:
-            case e:
-            case l:
-            case m:
-              return a2;
-            default:
-              switch (a2 = a2 && a2.$$typeof, a2) {
-                case h:
-                case k:
-                case p:
-                case n:
-                case g:
-                  return a2;
-                default:
-                  return t;
-              }
-          }
-        case c2:
-          return t;
-      }
-    }
-  }
-  var z = g;
-  var A = b2;
-  var B = k;
-  var C = d;
-  var D = p;
-  var E = n;
-  var F = c2;
-  var G = f;
-  var H = e;
-  var I = l;
-  exports.ContextConsumer = h;
-  exports.ContextProvider = z;
-  exports.Element = A;
-  exports.ForwardRef = B;
-  exports.Fragment = C;
-  exports.Lazy = D;
-  exports.Memo = E;
-  exports.Portal = F;
-  exports.Profiler = G;
-  exports.StrictMode = H;
-  exports.Suspense = I;
-  exports.isAsyncMode = function() {
-    return false;
-  };
-  exports.isConcurrentMode = function() {
-    return false;
-  };
-  exports.isContextConsumer = function(a2) {
-    return y(a2) === h;
-  };
-  exports.isContextProvider = function(a2) {
-    return y(a2) === g;
-  };
-  exports.isElement = function(a2) {
-    return typeof a2 === "object" && a2 !== null && a2.$$typeof === b2;
-  };
-  exports.isForwardRef = function(a2) {
-    return y(a2) === k;
-  };
-  exports.isFragment = function(a2) {
-    return y(a2) === d;
-  };
-  exports.isLazy = function(a2) {
-    return y(a2) === p;
-  };
-  exports.isMemo = function(a2) {
-    return y(a2) === n;
-  };
-  exports.isPortal = function(a2) {
-    return y(a2) === c2;
-  };
-  exports.isProfiler = function(a2) {
-    return y(a2) === f;
-  };
-  exports.isStrictMode = function(a2) {
-    return y(a2) === e;
-  };
-  exports.isSuspense = function(a2) {
-    return y(a2) === l;
-  };
-  exports.isValidElementType = function(a2) {
-    return typeof a2 === "string" || typeof a2 === "function" || a2 === d || a2 === f || a2 === v || a2 === e || a2 === l || a2 === m || a2 === w || typeof a2 === "object" && a2 !== null && (a2.$$typeof === p || a2.$$typeof === n || a2.$$typeof === g || a2.$$typeof === h || a2.$$typeof === k || a2.$$typeof === u || a2.$$typeof === q || a2[0] === r) ? true : false;
-  };
-  exports.typeOf = y;
-});
-
-// ../../node_modules/@material-ui/core/node_modules/react-is/index.js
-var require_react_is3 = __commonJS((exports, module) => {
-  "use strict";
-  if (true) {
-    module.exports = require_react_is_production_min3();
-  } else {
-    module.exports = null;
-  }
 });
 
 // ../../node_modules/@material-ui/core/node/utils/capitalize.js
@@ -29416,7 +29262,7 @@ var ToggleButton_default = ToggleButton;
 
 // ../../node_modules/@material-ui/core/ToggleButtonGroup/ToggleButtonGroup.js
 var React13 = __toModule(require_react());
-var import_react_is = __toModule(require_react_is3());
+var import_react_is = __toModule(require_react_is2());
 var import_prop_types8 = __toModule(require_prop_types());
 var import_clsx7 = __toModule(require_clsx());
 var import_utils35 = __toModule(require_utils());
