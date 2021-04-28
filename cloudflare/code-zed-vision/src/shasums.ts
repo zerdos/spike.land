@@ -99,7 +99,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "72210e2b2a4b2eb679d075e4c928bcad7e053ad3516a9e38299386dba90743a3",
+    "9c34d7bab559c78c103d0cba42c5c19ecab7df5e663d97c4596c66a69ae1373b",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "assets/roboto.css":
