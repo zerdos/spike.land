@@ -162,7 +162,7 @@ export async function getCodeToLoad() {
   }
   if (projectDesc !== null && projectDesc !== undefined) {
     const data = {
-      code: await shaDB.get(projectDesc.code, "string"),
+      code: await shaDB.get(projectDesc.code, "string") ||  await getStarter(),
       transpiled: await shaDB.get(projectDesc.transpiled, "string") || "",
       html: await shaDB.get(projectDesc.html, "string") || "",
     };

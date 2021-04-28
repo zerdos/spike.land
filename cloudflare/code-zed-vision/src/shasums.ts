@@ -6,7 +6,7 @@ export const shasums = {
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/data.mjs":
-    "15477ac8d3a3cb7abf351eeb34d827d00fafc7c1eb134a20ffe13fb66e3d347b",
+    "1028de2f5bab6d1887ba714c0ac9cef125133c5e41cb53d6ac1a71bd74033a7f",
   "js/templates.mjs":
     "d56e4b2138c317dbd3c9bef780777f41e2c036b77b8b3c6a6e6a73a98a74b248",
   "js/formatter.mjs":
