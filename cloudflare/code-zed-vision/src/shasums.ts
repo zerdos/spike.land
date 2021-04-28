@@ -42,7 +42,7 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   ".tsBuildInfo":
-    "a3af414919e334e42609df6423a1fcef47c96dbd4f16b6b821000bbb4bc370d9",
+    "5eafd948c4d0f42699def07f3bb598a2cab95c593351ae60bd6b168059d84615",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
