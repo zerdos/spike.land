@@ -83,8 +83,8 @@ export async function fetchSignal(
   const retry = (typeof _retry === "number") ? _retry : 999;
   // console.log("retrying hash fetch");
 
-  // if (window.location.hostname !== "code.spike.land") {
-  //   //   console.log("we are NOT on code.spike.land");
+  // if (window.location.hostname !== "spike.land") {
+  //   //   console.log("we are NOT on spike.land");
 
   //   try {
   //     if (retry === 0) {
@@ -112,7 +112,7 @@ export async function fetchSignal(
 
   //     //    log(`${cid} is available`);
 
-  //     const resData = await fetch(`https://code.spike.land/ipfs/${cid}`).then((
+  //     const resData = await fetch(`https://spike.land/ipfs/${cid}`).then((
   //       x,
   //     ) => x.text());
 
@@ -149,7 +149,7 @@ export async function fetchSignal(
     );
 
     const resData = await fetch(
-      `https://code.spike.land/ipfs/${cid}`,
+      `https://spike.land/ipfs/${cid}`,
     ).then((
       x,
     ) => x.text());
@@ -198,7 +198,7 @@ export async function fetchSignal(
 
 //   const cid = await res.text();
 
-//   const data = await fetch(`https://code.spike.land/ipfs/${cid}`);
+//   const data = await fetch(`https://spike.land/ipfs/${cid}`);
 //   const content = await data.text();
 //   return content;
 

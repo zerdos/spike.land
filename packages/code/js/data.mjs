@@ -116,7 +116,7 @@ export async function edit(name) {
 
   console.log("done");
 
-  location.href = "https://code.spike.land";
+  location.href = "https://spike.land";
 }
 
 /**

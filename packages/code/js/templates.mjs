@@ -29,7 +29,7 @@ export function getHtml({ html, css }) {
 <link rel="modulepreload" href="./app.js">  
 <link rel="modulepreload" href="https://spike.land/modules/renderer.mjs">
 <link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
-<link rel="icon" type="image/png" href="https://code.spike.land/zed-icon-big.png" />
+<link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
