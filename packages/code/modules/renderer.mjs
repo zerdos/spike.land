@@ -24757,7 +24757,7 @@ function updateTreeLayoutMeasurements(visualElement2, isRelativeDrag) {
 function collectProjectingChildren(visualElement2) {
   var children = [];
   var addChild = function(child) {
-    if (child.projection.isEnabled || visualElement2.shouldResetTransform()) {
+    if (child.projection.isEnabled || child.shouldResetTransform()) {
       children.push(child);
     }
     child.children.forEach(addChild);

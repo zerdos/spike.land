@@ -1163,7 +1163,7 @@ exports.__esModule=true;exports.SessionStorage=void 0;var STATE_KEY_PREFIX="@@sc
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-exports.__esModule=true;exports.useScrollRestoration=useScrollRestoration;var _scrollHandler=__webpack_require__(6405);var _react=__webpack_require__(2784);var _reachRouter=__webpack_require__(4541);function useScrollRestoration(identifier){var location=(0,_reachRouter.useLocation)();var state=(0,_react.useContext)(_scrollHandler.ScrollContext);var ref=(0,_react.useRef)();(0,_react.useLayoutEffect)(function(){if(ref.current){var position=state.read(location,identifier);ref.current.scrollTo(0,position||0);}},[]);return{ref:ref,onScroll:function onScroll(){if(ref.current){state.save(location,identifier,ref.current.scrollTop);}}};}
+exports.__esModule=true;exports.useScrollRestoration=useScrollRestoration;var _scrollHandler=__webpack_require__(6405);var _react=__webpack_require__(2784);var _reachRouter=__webpack_require__(4541);function useScrollRestoration(identifier){var location=(0,_reachRouter.useLocation)();var state=(0,_react.useContext)(_scrollHandler.ScrollContext);var ref=(0,_react.useRef)(null);(0,_react.useLayoutEffect)(function(){if(ref.current){var position=state.read(location,identifier);ref.current.scrollTo(0,position||0);}},[location.key]);return{ref:ref,onScroll:function onScroll(){if(ref.current){state.save(location,identifier,ref.current.scrollTop);}}};}
 
 /***/ }),
 
@@ -1398,7 +1398,7 @@ var strip_prefix = __webpack_require__(7272);
 /* harmony default export */ var normalize_page_path = (function(path){if(path===undefined){return path;}if(path==="/"){return"/";}if(path.charAt(path.length-1)==="/"){return path.slice(0,-1);}return path;});
 ;// CONCATENATED MODULE: ./.cache/find-path.js
 var pathCache=new Map();var matchPaths=[];var trimPathname=function trimPathname(rawPathname){var pathname=decodeURIComponent(rawPathname);// Remove the pathPrefix from the pathname.
-var trimmedPathname=(0,strip_prefix/* default */.Z)(pathname,"/monorepo")// Remove any hashfragment
+var trimmedPathname=(0,strip_prefix/* default */.Z)(pathname,decodeURIComponent("/monorepo"))// Remove any hashfragment
 .split("#")[0]// Remove search query
 .split("?")[0];return trimmedPathname;};function absolutify(path){// If it's already absolute, return as-is
 if(path.startsWith("/")||path.startsWith("https://")||path.startsWith("http://")){return path;}// Calculate path relative to current location, adding a trailing slash to
@@ -1720,7 +1720,7 @@ var match_paths_namespaceObject = [];
 // Generated during bootstrap
 var production_app_loader=new loader/* ProdLoader */.kL(async_requires,match_paths_namespaceObject);(0,loader/* setLoader */.N1)(production_app_loader);production_app_loader.setApiRunner(api_runner_browser/* apiRunner */.h);window.asyncRequires=async_requires;window.___emitter=emitter/* default */.Z;window.___loader=loader/* publicLoader */.jN;init();(0,api_runner_browser/* apiRunnerAsync */.I)("onClientEntry").then(function(){// Let plugins register a service worker. The plugin just needs
 // to return true.
-if((0,api_runner_browser/* apiRunner */.h)("registerServiceWorker").length>0){__webpack_require__(1412);}// In gatsby v2 if Router is used in page using matchPaths
+if((0,api_runner_browser/* apiRunner */.h)("registerServiceWorker").filter(Boolean).length>0){__webpack_require__(1412);}// In gatsby v2 if Router is used in page using matchPaths
 // paths need to contain full path.
 // For example:
 //   - page have `/app/*` matchPath
@@ -3136,4 +3136,4 @@ module.exports = invariant;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-188aa1b7bf6821da8b00.js.map
+//# sourceMappingURL=app-80e5b981a9442f71a5e0.js.map
