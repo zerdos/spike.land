@@ -10,8 +10,10 @@ import Tablet from "@material-ui/icons/TabletAndroid";
 import Tv from "@material-ui/icons/Tv";
 import Phone from "@material-ui/icons/PhoneAndroid";
 import { QRButton } from "./Qr";
+import { css, jsx } from "@emotion/react";
+import React from "react"
 
-import { css, jsx, motion, React } from "./renderer";
+import {motion} from "framer-motion"
 
 const breakPoints = [640, 1024, 1920];
 

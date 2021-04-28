@@ -8712,14 +8712,14 @@ var require_emotion_element_9c6b0354_browser_cjs = __commonJS((exports) => {
   };
   function withTheme(Component2) {
     var componentName = Component2.displayName || Component2.name || "Component";
-    var render3 = function render4(props, ref) {
+    var render2 = function render3(props, ref) {
       var theme = React15.useContext(ThemeContext);
       return /* @__PURE__ */ React15.createElement(Component2, _extends__default["default"]({
         theme,
         ref
       }, props));
     };
-    var WithTheme = /* @__PURE__ */ React15.forwardRef(render3);
+    var WithTheme = /* @__PURE__ */ React15.forwardRef(render2);
     WithTheme.displayName = "WithTheme(" + componentName + ")";
     return isolatedHoistNonReactStaticsDoNotUseThisInYourCode_dist_emotionReactIsolatedHoistNonReactStaticsDoNotUseThisInYourCode["default"](WithTheme, Component2);
   }
@@ -23877,9 +23877,9 @@ var MotionValue = function() {
     this.velocityUpdateSubscribers = new SubscriptionManager();
     this.renderSubscribers = new SubscriptionManager();
     this.canTrackVelocity = false;
-    this.updateAndNotify = function(v, render3) {
-      if (render3 === void 0) {
-        render3 = true;
+    this.updateAndNotify = function(v, render2) {
+      if (render2 === void 0) {
+        render2 = true;
       }
       _this.prev = _this.current;
       _this.current = v;
@@ -23895,7 +23895,7 @@ var MotionValue = function() {
       if (_this.velocityUpdateSubscribers.getSize()) {
         _this.velocityUpdateSubscribers.notify(_this.getVelocity());
       }
-      if (render3) {
+      if (render2) {
         _this.renderSubscribers.notify(_this.current);
       }
     };
@@ -23926,12 +23926,12 @@ var MotionValue = function() {
   MotionValue2.prototype.attach = function(passiveEffect) {
     this.passiveEffect = passiveEffect;
   };
-  MotionValue2.prototype.set = function(v, render3) {
-    if (render3 === void 0) {
-      render3 = true;
+  MotionValue2.prototype.set = function(v, render2) {
+    if (render2 === void 0) {
+      render2 = true;
     }
-    if (!render3 || !this.passiveEffect) {
-      this.updateAndNotify(v, render3);
+    if (!render2 || !this.passiveEffect) {
+      this.updateAndNotify(v, render2);
     } else {
       this.passiveEffect(v, this.updateAndNotify);
     }
@@ -25932,7 +25932,7 @@ var visualElement = function(_a) {
     var projectionTargetProgress;
     var baseTarget = __assign({}, latestValues);
     var removeFromVariantTree;
-    function render3() {
+    function render2() {
       if (!instance)
         return;
       if (element.isProjectionReady()) {
@@ -26019,7 +26019,7 @@ var visualElement = function(_a) {
       },
       unmount: function() {
         cancelSync.update(update);
-        cancelSync.render(render3);
+        cancelSync.render(render2);
         cancelSync.preRender(element.updateLayoutProjection);
         valueSubscriptions.forEach(function(remove) {
           return remove();
@@ -26137,9 +26137,9 @@ var visualElement = function(_a) {
         return renderState;
       },
       scheduleRender: function() {
-        es_default.render(render3, false, true);
+        es_default.render(render2, false, true);
       },
-      syncRender: render3,
+      syncRender: render2,
       setProps: function(newProps) {
         props = newProps;
         lifecycles.updatePropListeners(newProps);
@@ -27874,7 +27874,7 @@ var TransitionGroup = /* @__PURE__ */ function(_React$Component) {
       });
     }
   };
-  _proto.render = function render3() {
+  _proto.render = function render2() {
     var _this$props = this.props, Component2 = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
     var contextValue = this.state.contextValue;
     var children = values(this.state.children).map(childFactory2);
@@ -29643,7 +29643,7 @@ var DraggableWindow = ({onShare, onRestore, position, session, children}) => {
 };
 
 // src/renderer.ts
-var render2 = (el, container) => {
+var render = (el, container) => {
   import_react_dom.default.render((0, import_react30.jsx)(import_react29.Fragment, {children: el}), container);
   return () => import_react_dom.default.unmountComponentAtNode(container);
 };
@@ -29653,7 +29653,7 @@ Object.assign(globalThis, {
   jsx: import_react30.jsx,
   css: import_react30.css,
   Global: import_react30.Global,
-  render: render2,
+  render,
   React: import_react29.default
 });
 var export_Fragment = import_react29.Fragment;
@@ -29670,5 +29670,5 @@ export {
   renderer_default as default,
   export_jsx as jsx,
   motion,
-  render2 as render
+  render
 };
