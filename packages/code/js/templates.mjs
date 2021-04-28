@@ -20,20 +20,20 @@ export function getHtml({ html, css }) {
   const hasTitle = titleStart < titleEnd && titleStart >= -1;
   const title = hasTitle
     ? html.slice(titleStart, titleEnd)
-    : "(code).zed-vision.zed-vision.workers.dev :)";
+    : "(code).spike.land :)";
 
   return `<!DOCTYPE html>
 <html lang="en"> 
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
-<link rel="modulepreload" href="https://code.zed-vision.workers.dev/modules/renderer.mjs">
-<link rel="modulepreload" href="https://code.zed-vision.workers.dev/js/codeLoader.mjs">
-<link rel="icon" type="image/png" href="https://code.zed-vision.workers.dev/zed-icon-big.png" />
+<link rel="modulepreload" href="https://spike.land/modules/renderer.mjs">
+<link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
+<link rel="icon" type="image/png" href="https://code.spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="Description" content="Generated with zed-vision.zed-vision.workers.dev">
+<meta name="Description" content="Generated with spike.land">
 <style>
     ${css}
 </style>
@@ -65,16 +65,16 @@ export const getEditorHTML = () =>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <link rel="icon" type="image/png" href="https://zed-vision.zed-vision.workers.dev/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
 <title>Instant React Editor</title>
 </head>
 <body>
   <script type="module">
-    import {edit} from "https://code.zed-vision.workers.dev/js/data.mjs"
+    import {edit} from "https://spike.land/js/data.mjs"
     try{
       edit("${location.pathname.slice(42, 52)}");
     }catch(error){
-      fetch("https://zed-vision.zed-vision.workers.dev/error", {method: "POST",  body: JSON.stringify({error})})
+      fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
     }
   </script>
 </body>

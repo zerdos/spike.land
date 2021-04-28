@@ -1,14 +1,14 @@
 export const shaDB = {
   get: async (key: string, type: "string" | "json") => {
     const { getDB } = await new Function(
-      "return import(`https://code.zed-vision.workers.dev/modules/shaDB.js`)",
+      "return import(`https://spike.land/modules/shaDB.js`)",
     )();
     const db = await (await getDB("shaDB"))();
     return db.get(key, type);
   },
   put: async (key: string, value: string) => {
     const { getDB } = await new Function(
-      "return import(`https://code.zed-vision.workers.dev/modules/shaDB.js`)",
+      "return import(`https://spike.land/modules/shaDB.js`)",
     )();
 
     const db = await (await getDB("shaDB"))();
@@ -22,7 +22,7 @@ export async function getUserId() {
   const uuid = await shaDB.get("uuid", "string");
   if (!uuid) {
     const resp = await fetch(
-      "https://zed-vision.zed-vision.workers.dev/register",
+      "https://spike.land/register",
     );
     const data = await resp.json();
     await shaDB.put("uuid", data.uuid);

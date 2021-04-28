@@ -52,7 +52,7 @@ export const Qr = () => {
 
     if (typeof cubeSides[qr] === "undefined") {
       const LazyQR = await new Function(
-        `return import('https://code.zed-vision.workers.dev/modules/QRious.mjs').then(x=>x.QRious)`,
+        `return import('https://spike.land/modules/QRious.mjs').then(x=>x.QRious)`,
       )();
 
       cubeSides[qr] = new LazyQR(options) as IDummyQR;
@@ -70,7 +70,7 @@ export const Qr = () => {
       const secret = Math.random() + "-" + Math.random() + "-" + Math.random();
       const key = (await sha256(secret)).slice(0, 8);
 
-      const url = `https://zed-vision.zed-vision.workers.dev/${key}`;
+      const url = `https://spike.land/${key}`;
       // setSecrets(s=> {...s, [url]: secret});
 
       console.log(`waiting for url: ${url}`);
@@ -90,7 +90,7 @@ export const Qr = () => {
       if (typeof window === "undefined") return;
 
       const { fetchSignal } = await new Function(
-        `return import("https://code.zed-vision.workers.dev/js/hash.mjs")`,
+        `return import("https://spike.land/js/hash.mjs")`,
       )();
 
       const getData = await fetchSignal(url, 7);

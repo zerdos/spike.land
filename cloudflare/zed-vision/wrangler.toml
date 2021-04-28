@@ -2,8 +2,8 @@ name = "zed-vision"
 type = "javascript"
 account_id = "1f98921051196545ebe79a450d3c71ed"
 workers_dev = true
-route = "https://zed.vision/*"
-zone_id = "ec8e903035c7b0fcd3e95f1e483ab68c"
+route = "https://spike.land/*"
+zone_id = "07e8952f4aa2d9e95f04a2b32a9cf084"
 kv_namespaces = [
   { binding = "SHAKV",    id = "6fdd12d3f73d48b1a5c1f3b355ab8a4d", preview_id="6fdd12d3f73d48b1a5c1f3b355ab8a4d" },
   { binding = "USERS",    id = "0f2452fdee904dd5a0d401a896bc5e34", preview_id="0f2452fdee904dd5a0d401a896bc5e34" },

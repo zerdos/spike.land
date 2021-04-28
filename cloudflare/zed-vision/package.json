@@ -1,7 +1,7 @@
 {
   "name": "@zedvision/cf-worker",
   "version": "13.1.5",
-  "description": "Worker script for zed-vision.zed-vision.workers.dev",
+  "description": "Worker script for spike.land",
   "main": "dist/worker-script.js",
   "files": [
     "**/*"
@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo"
   },
-  "homepage": "https://zed-vision.zed-vision.workers.dev",
+  "homepage": "https://spike.land",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
     "@cloudflare/workers-types": "2.2.1",

@@ -12,7 +12,7 @@
     "docker-images/*"
   ],
   "scripts": {
-    "screenshot": "yarn pageres https://code.zed-vision.workers.dev 1920x1080 --delay=5 --scale=1",
+    "screenshot": "yarn pageres https://code.spike.land 1920x1080 --delay=5 --scale=1",
     "build:renderer": "cd packages/renderer && yarn build",
     "start": "yarn build:renderer && sh start.sh",
     "deploy:cf-code-zed-vision": "cd cloudflare/code-zed-vision && yarn deploy",

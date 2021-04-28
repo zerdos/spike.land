@@ -1,8 +1,8 @@
-import { getDbObj } from "https://code.zed-vision.workers.dev/modules/getDbObj.js";
+import { getDbObj } from "https://spike.land/modules/getDbObj.js";
 import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
 import { v4 } from "./dec.ts";
-import { sha256 } from "https://code.zed-vision.workers.dev/modules/sha256.js";
+import { sha256 } from "https://spike.land/modules/sha256.js";
 
 import {
   publicIpfsGateways,
@@ -222,7 +222,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
       //   return text(result);
       // }
       return Response.redirect(
-        `https://code.zed-vision.workers.dev/?signalToQr=${maybeRoute}`,
+        `https://code.spike.land/?signalToQr=${maybeRoute}`,
         307,
       );
     }
@@ -265,14 +265,14 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
     if (pathname === "/") {
       return Response.redirect(
-        "https://code.zed-vision.workers.dev/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
+        "https://code.spike.land/ipfs/QmZHkLVcsmBrrEuYjNUNDSmcNjZcjZPnkyLwLjk5oa9wF5/",
         302,
       );
     }
 
     if (pathname === "/code" || pathname === "/code/") {
       return Response.redirect(
-        `https://code.zed-vision.workers.dev`,
+        `https://code.spike.land`,
         302,
       );
     }

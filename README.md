@@ -1,5 +1,5 @@
 [Real time React page editor, in typescript!
-![Screenshot](./code.zed-vision.workers.dev-1920x1080.png)](https://code.zed-vision.workers.dev)
+![Screenshot](./code.spike.land-1920x1080.png)](https://code.spike.land)
 
 # This is a monorepo. [![LastUpdated](https://img.shields.io/github/last-commit/zed-vision/monorepo.svg)](https://github.com/zed-vision/monorepo/)
 

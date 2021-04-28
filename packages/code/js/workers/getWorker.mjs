@@ -6,15 +6,15 @@ export const getWorker = (file) => {
     const cid = pathname.slice(6, 52);
     forceNormalWorker = true;
     workerSrc = `/ipfs/${cid}/js/workers/${file}`;
-  } else if (location.origin !== "https://code.zed-vision.workers.dev") {
+  } else if (location.origin !== "https://code.spike.land") {
     forceNormalWorker = true;
     workerSrc = window.URL.createObjectURL(
       new Blob([
-        `self.importScripts("https://code.zed-vision.workers.dev/js/workers/${file}");`,
+        `self.importScripts("https://spike.land/js/workers/${file}");`,
       ]),
     );
   } else {
-    workerSrc = `https://code.zed-vision.workers.dev/js/workers/${file}`;
+    workerSrc = `https://spike.land/js/workers/${file}`;
   }
 
   return {

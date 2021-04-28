@@ -33,12 +33,12 @@ export async function sendSignal(signal, data) {
     const { pathname } = new URL(signal);
 
     await fetch(
-      `https://zed-vision.zed-vision.workers.dev/signal/?cid=${dataCid}&signal=${
+      `https://spike.land/signal/?cid=${dataCid}&signal=${
         pathname.slice(1)
       }`,
     );
 
-    fetch(`https://zed-vision.zed-vision.workers.dev/ipfs/${dataCid}`);
+    fetch(`https://spike.land/ipfs/${dataCid}`);
 
     // const hexHash = Array.from((new CID(dataCid)).multihash).map((b) =>
     //   ("00" + b.toString(16)).slice(-2)
@@ -83,8 +83,8 @@ export async function fetchSignal(
   const retry = (typeof _retry === "number") ? _retry : 999;
   // console.log("retrying hash fetch");
 
-  // if (window.location.hostname !== "code.zed-vision.workers.dev") {
-  //   //   console.log("we are NOT on code.zed-vision.workers.dev");
+  // if (window.location.hostname !== "code.spike.land") {
+  //   //   console.log("we are NOT on code.spike.land");
 
   //   try {
   //     if (retry === 0) {
@@ -95,10 +95,10 @@ export async function fetchSignal(
 
   //     ////    log(`signal to wait: ${smallSignal}`);
 
-  //     // console.log(`https://zed-vision.zed-vision.workers.dev/signal?signal=${smallSignal}`);
+  //     // console.log(`https://spike.land/signal?signal=${smallSignal}`);
 
   //     const cid = await fetch(
-  //       `https://zed-vision.zed-vision.workers.dev/signal?signal=${smallSignal}&securityrandomparam=${Math
+  //       `https://spike.land/signal?signal=${smallSignal}&securityrandomparam=${Math
   //         .random() * 10000}`,
   //     ).then(
   //       (x) => x.text(),
@@ -112,7 +112,7 @@ export async function fetchSignal(
 
   //     //    log(`${cid} is available`);
 
-  //     const resData = await fetch(`https://code.zed-vision.workers.dev/ipfs/${cid}`).then((
+  //     const resData = await fetch(`https://code.spike.land/ipfs/${cid}`).then((
   //       x,
   //     ) => x.text());
 
@@ -142,14 +142,14 @@ export async function fetchSignal(
     const smallSignal = signal.slice(-8);
 
     const cid = await fetch(
-      `https://zed-vision.zed-vision.workers.dev/signal?signal=${smallSignal}&securityrandomparam=${Math
+      `https://spike.land/signal?signal=${smallSignal}&securityrandomparam=${Math
         .random() * 10000}`,
     ).then(
       (x) => x.text(),
     );
 
     const resData = await fetch(
-      `https://code.zed-vision.workers.dev/ipfs/${cid}`,
+      `https://code.spike.land/ipfs/${cid}`,
     ).then((
       x,
     ) => x.text());
@@ -194,15 +194,15 @@ export async function fetchSignal(
 
 //   const signalPath = pathname.slice(1);
 
-//   const res = await fetch(`https://zed-vision.zed-vision.workers.dev/signal?signal=${signalPath}`);
+//   const res = await fetch(`https://spike.land/signal?signal=${signalPath}`);
 
 //   const cid = await res.text();
 
-//   const data = await fetch(`https://code.zed-vision.workers.dev/ipfs/${cid}`);
+//   const data = await fetch(`https://code.spike.land/ipfs/${cid}`);
 //   const content = await data.text();
 //   return content;
 
-//   // return fetch(`https://zed-vision.zed-vision.workers.dev/signal?signal=${signalPath}`).then((x) =>
+//   // return fetch(`https://spike.land/signal?signal=${signalPath}`).then((x) =>
 //   //   x.text()
 //   // ).then((cid) => ipfsCat(cid));
 // }

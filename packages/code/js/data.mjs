@@ -72,7 +72,7 @@ export async function getUserId() {
   uuid = await shaDB.get("uuid", "string");
   if (!uuid) {
     const resp = await fetch(
-      "https://zed-vision.zed-vision.workers.dev/register",
+      "https://spike.land/register",
     );
     const data = await resp.json();
     await shaDB.put("uuid", data.uuid);
@@ -116,7 +116,7 @@ export async function edit(name) {
 
   console.log("done");
 
-  location.href = "https://code.zed-vision.workers.dev";
+  location.href = "https://code.spike.land";
 }
 
 /**

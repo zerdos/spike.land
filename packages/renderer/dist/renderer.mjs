@@ -29424,7 +29424,7 @@ var QR = ({url}) => {
   import_react29.default.useEffect(() => {
     const load = () => __async(void 0, null, function* () {
       const {QRious} = yield new Function(`return import(
-        "https://code.zed-vision.workers.dev/modules/QRious.mjs"
+        "https://spike.land/modules/QRious.mjs"
       );`)();
       const options = {
         size: 220,
