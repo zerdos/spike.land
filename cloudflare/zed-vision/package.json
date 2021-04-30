@@ -30,7 +30,7 @@
   "homepage": "https://spike.land",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
-    "@cloudflare/workers-types": "2.2.1",
+    "@cloudflare/workers-types": "2.2.2",
     "@cloudflare/wrangler": "1.16.1",
     "@types/uuid": "8.3.0",
     "@zedvision/ipfs": "^13.1.5",
