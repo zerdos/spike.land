@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/cf-worker",
-  "version": "13.1.5",
+  "version": "13.1.6",
   "description": "Worker script for spike.land",
   "main": "dist/worker-script.js",
   "files": [
@@ -33,7 +33,7 @@
     "@cloudflare/workers-types": "2.2.2",
     "@cloudflare/wrangler": "1.16.1",
     "@types/uuid": "8.3.0",
-    "@zedvision/ipfs": "^13.1.5",
+    "@zedvision/ipfs": "^13.1.6",
     "esbuild": "0.11.16"
   },
   "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c",
