@@ -1,7 +1,7 @@
 {
   "name": "@zedvision/react-vite",
-  "version": "13.1.8",
-  "private":false,
+  "version": "13.1.9",
+  "private": false,
   "publishConfig": {
     "access": "public"
   },
