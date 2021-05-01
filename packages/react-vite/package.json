@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/react-vite",
-  "version": "13.1.6",
+  "version": "13.1.7",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
