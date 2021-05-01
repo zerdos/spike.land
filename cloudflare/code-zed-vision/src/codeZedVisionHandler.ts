@@ -325,7 +325,7 @@ async function fetchCid(path: string, retry = 3): Promise<Response> {
     if (res) return res;
   } catch {
     if (retry > 0) return await fetchCid(path, retry - 1) as Response;
-    return text("404- cant fetch cid  ") as Response;
+    return text("500 - some error") as Response;
   }
   if (retry > 0) return await fetchCid(path, retry - 1);
   return text("404- cant fetch cid  ") as Response;
