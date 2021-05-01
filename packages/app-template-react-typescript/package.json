@@ -6,6 +6,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "private": false,
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
@@ -39,5 +40,5 @@
     "snowpack": "3.3.7",
     "typescript": "4.2.4"
   },
-  "gitHead": "9408dcdc1ca7fb06981ebcedd6222597ffcdb507"
+  "gitHead": "71bd570efb1d129b0972c0efaf19fd358335bb9e"
 }
