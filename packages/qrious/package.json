@@ -42,5 +42,5 @@
     "clean": "rm -rf dist && yarn tsc",
     "build": "yarn build:esm && cp -af ./dist/QRious.mjs ../code/modules"
   },
-  "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c"
+  "gitHead": "9408dcdc1ca7fb06981ebcedd6222597ffcdb507"
 }

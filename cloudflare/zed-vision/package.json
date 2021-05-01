@@ -36,7 +36,7 @@
     "@zedvision/ipfs": "^13.1.6",
     "esbuild": "0.11.16"
   },
-  "gitHead": "04cef70e6760d483d467ed49fd49677025310c5c",
+  "gitHead": "9408dcdc1ca7fb06981ebcedd6222597ffcdb507",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "publishConfig": {
