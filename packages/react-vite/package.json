@@ -1,6 +1,10 @@
 {
   "name": "@zedvision/react-vite",
   "version": "13.1.8",
+  "private":false,
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -23,5 +27,5 @@
     "typescript": "4.2.4",
     "vite": "2.2.3"
   },
-  "gitHead": "71bd570efb1d129b0972c0efaf19fd358335bb9e"
+  "gitHead": "dc1a9acb1118f09e917d340019a35bd11abcc06f"
 }
