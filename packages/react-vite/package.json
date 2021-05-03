@@ -25,7 +25,7 @@
     "@types/react-dom": "17.0.3",
     "@vitejs/plugin-react-refresh": "1.3.3",
     "typescript": "4.2.4",
-    "vite": "2.2.3"
+    "vite": "2.2.4"
   },
   "gitHead": "dc1a9acb1118f09e917d340019a35bd11abcc06f"
 }

@@ -4589,7 +4589,7 @@ browserslist@4.14.2:
     escalade "^3.0.2"
     node-releases "^1.1.61"
 
-browserslist@^4.0.0, browserslist@^4.12.2, browserslist@^4.14.5, browserslist@^4.16.3, browserslist@^4.16.5:
+browserslist@^4.0.0, browserslist@^4.12.2, browserslist@^4.14.5, browserslist@^4.16.3, browserslist@^4.16.6:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.16.6.tgz#d7901277a5a88e554ed305b183ec9b0c08f66fa2"
   integrity sha512-Wspk/PqO+4W9qp5iUTJsa1B/QrYn1keNCcEP5OvP7WBwT4KaDly0uONYmC6Xa3Z5IqnUgS0KcgLYu1l74x0ZXQ==
@@ -5551,9 +5551,9 @@ content-type@^1.0.4, content-type@~1.0.4:
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
 contentful-management@^7.5.1:
-  version "7.17.4"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.17.4.tgz#f917a5963133c3b696bdac460529cdb919828d1c"
-  integrity sha512-kmxUr1n0ql93MSgcO2OaD2Wj189ZpjFjiog/QW3sQhglwCE1rIKHcu2tVFr6H2W9RinlAqqQCrPsnp68R9h3hQ==
+  version "7.17.6"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.17.6.tgz#afec0f0c3bd0d2041b5c757adc3ae4323345212b"
+  integrity sha512-tUxsczMAvXYQ710G6KMudyC5mTrxh+kx6wZrkJRyWbDnUNAh8yXxr8NmtIE5jBt1y+Gz2znBLs5t84JdCZWq0g==
   dependencies:
     "@types/json-patch" "0.0.30"
     axios "^0.21.0"
@@ -5725,22 +5725,22 @@ core-js-compat@3.9.0:
     semver "7.0.0"
 
 core-js-compat@^3.9.0, core-js-compat@^3.9.1:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.11.1.tgz#57a91e9b02d3bb8cf37f82eceaf44a3d646fa614"
-  integrity sha512-aZ0e4tmlG/aOBHj92/TuOuZwp6jFvn1WNabU5VOVixzhu5t5Ao+JZkQOPlgNXu6ynwLrwJxklT4Gw1G1VGEh+g==
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.11.2.tgz#5048e367851cfd2c6c0cb81310757b4da296e385"
+  integrity sha512-gYhNwu7AJjecNtRrIfyoBabQ3ZG+llfPmg9BifIX8yxIpDyfNLRM73zIjINSm6z3dMdI1nwNC9C7uiy4pIC6cw==
   dependencies:
-    browserslist "^4.16.5"
+    browserslist "^4.16.6"
     semver "7.0.0"
 
 core-js-pure@^3.0.0:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.11.1.tgz#fd52fa8c8b7b797b3606524b3d97278a8d8e7f09"
-  integrity sha512-2JukQi8HgAOCD5CSimxWWXVrUBoA9Br796uIA5Z06bIjt7PBBI19ircFaAxplgE1mJf3x2BY6MkT/HWA/UryPg==
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.11.2.tgz#10e3b35788c00f431bc0d601d7551475ec3e792c"
+  integrity sha512-DQxdEKm+zFsnON7ZGOgUAQXBt1UJJ01tOzN/HgQ7cNf0oEHW1tcBLfCQQd1q6otdLu5gAdvKYxKHAoXGwE/kiQ==
 
 core-js@^3.6.5, core-js@^3.9.0:
-  version "3.11.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.11.1.tgz#f920392bf8ed63a0ec8e4e729857bfa3d121c525"
-  integrity sha512-k93Isqg7e4txZWMGNYwevZL9MiogLk8pd1PtwrmFmi8IBq4GXqUaVW/a33Llt6amSI36uSjd0GWwc9pTT9ALlQ==
+  version "3.11.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.11.2.tgz#af087a43373fc6e72942917c4a4c3de43ed574d6"
+  integrity sha512-3tfrrO1JpJSYGKnd9LKTBPqgUES/UYiCzMKeqwR1+jF16q4kD1BY2NvqkfuzXwQ6+CIWm55V9cjD7PQd+hijdw==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -6988,10 +6988,10 @@ es6-weak-map@^2.0.3:
     es6-iterator "^2.0.3"
     es6-symbol "^3.1.1"
 
-esbuild@0.11.17:
-  version "0.11.17"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.11.17.tgz#d2a929a918864ab3642178f4c0dc84784f863b53"
-  integrity sha512-Yj+rQATpLLU36ymg0/laLXn9FUoiGUl7mDPUJ0toQ5nXKFrj/rmIEkQ34T1GeiV2cP2SrT0G0s7xiNuDcsIyBg==
+esbuild@0.11.18:
+  version "0.11.18"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.11.18.tgz#b587ec9e84d2e291b545e3c6342b5b703fd009cb"
+  integrity sha512-KD7v4N9b5B8bxPUNn/3GA9r0HWo4nJk3iwjZ+2zG1ffg+r8ig+wqj7sW6zgI6Sn4/B2FnbzqWxcAokAGGM5zwQ==
 
 esbuild@0.8.57:
   version "0.8.57"
@@ -15323,9 +15323,9 @@ slide@^1.1.6:
   integrity sha1-VusCfWW00tzmyy4tMsTUr8nh1wc=
 
 slugify@^1.4.4:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.5.0.tgz#5f3c8e2a84105b54eb51486db1b468a599b3c9b8"
-  integrity sha512-Q2UPZ2udzquy1ElHfOLILMBMqBEXkiD3wE75qtBvV+FsDdZZjUqPZ44vqLTejAVq+wLLHacOMcENnP8+ZbzmIA==
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.5.1.tgz#ef268872982a3a3b18f213ddee8cd1a28ac7a130"
+  integrity sha512-54gP60qIkxaUCFXORn/u+tNPqdTsqvqonB2nxjQV52wWTCuJJ4kbfU7URkpn8646Lr2T3CSh8ecDzzBK/dD9jA==
 
 smart-buffer@^4.1.0:
   version "4.1.0"
@@ -17274,10 +17274,10 @@ viewport-list@^5.1.1:
   resolved "https://registry.yarnpkg.com/viewport-list/-/viewport-list-5.1.1.tgz#5340ecb28e6844715155ea1037a053122eea9d95"
   integrity sha1-U0Dsso5oRHFRVeoQN6BTEi7qnZU=
 
-vite@2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-2.2.3.tgz#1acbdfa56ac00e00e7ccb6988f63f130c2f99dbb"
-  integrity sha512-PtjyBL4GtACM+uT5q5hi2+AlMBbb6YI2b2bam6QI8ZdZt4FezseF0yZHQx0G+b3po9jIJ/GS5N9gc5Yq9Rue7g==
+vite@2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.2.4.tgz#8f9cc85aacab04c850085894b086c8717f12ed16"
+  integrity sha512-vnIwSNci+phFMp6krhy+FbYzKL0R67Sdt9mVZ96S27AewrApSJjTqncJcalk8sf60BgcbW4+1C6DFIWkxquO9g==
   dependencies:
     esbuild "^0.9.3"
     postcss "^8.2.1"
