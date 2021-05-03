@@ -1,12 +1,14 @@
 /** @jsx jsx */
 
-import {css, jsx} from "@emotion/react"
+import {jsx } from '@emotion/react'
 
-export const Test = ()=><div id="container" css={css`
-color: gray;
-display: block;
-height: 400px;
-width: 300px;
-`}>
-    Ello world :)
-</div>
+import {DraggableWindow} from "./DraggableWindow"
+
+function App() {
+
+  return (
+        <DraggableWindow onShare={()=>{}} onRestore={()=>{}} session={{url:"", errorText:""}} />
+  )
+}
+
+export default App

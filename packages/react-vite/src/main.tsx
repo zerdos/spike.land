@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
 import App from './App'
-import * as monaco from "monaco-editor"
+import startMonaco from "@zedvision/smart-monaco-editor"
 
 
 ReactDOM.render(
@@ -13,5 +12,12 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 )
-monaco.editor.create(document.getElementById("container")!);
-
+startMonaco({
+  onChange: (_srt)=>{},
+  code: ";a",
+  language: 'typescript',
+  container: document.getElementById("container")!,
+  options: {
+    gylph: false
+  }
+})

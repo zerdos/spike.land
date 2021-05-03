@@ -1,15 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import * as monaco from "monaco-editor";
-import {Test} from "./src/app"
-import {openWindows} from "./src/openWindows"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './src/app'
 
 
-openWindows();
 ReactDOM.render(
-  <Test />,
-  document.getElementById("editor")
-);
+  <React.StrictMode>
+    <div id="container" style={{width: 300, height: 300, display: "block"}}></div>
+    <App />
 
-
-monaco.editor.create(document.getElementById("container")!);
+  </React.StrictMode>,
+  document.getElementById('root')
+)
