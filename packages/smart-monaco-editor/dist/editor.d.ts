@@ -9,13 +9,14 @@ interface StartMonacoProps {
 }
 declare const _default: ({ onChange, code, language, container, options }: StartMonacoProps) => Promise<{
     monaco: {
-        editor: any;
+        editor: import("monaco-editor").editor.IStandaloneCodeEditor;
         Uri: {
             parse: (str: string) => import("monaco-editor").Uri;
         };
         languages: {
             typescript: {
-                typescriptDefaults: any;
+                typescriptDefaults: import("monaco-editor").languages.typescript.LanguageServiceDefaults;
+                JsxEmit: import("monaco-editor").languages.typescript.JsxEmit;
             };
         };
     };

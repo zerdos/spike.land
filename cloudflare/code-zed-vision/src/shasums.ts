@@ -97,9 +97,9 @@ export const shasums = {
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/smart-monaco-editor/dist/editor.js":
-    "6560eea5259cb2afe92bfdf5fc4dc4bb4ddd77105f72e545179d40f220454b9f",
+    "c9a0754115abc8c7512fa83f4cac0b8952d530cebadc6bf9606384b6c6f00f82",
   "modules/smart-monaco-editor/dist/editor.d.ts":
-    "ca5c6c326b71f320ab40048104f8c919e7c2b20e3827fe85f782c13d58e18dec",
+    "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/monaco.js":

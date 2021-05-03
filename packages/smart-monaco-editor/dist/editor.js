@@ -2,15 +2,17 @@ import { getMonaco } from "./monaco.js";
 export default async ({ onChange, code, language, container, options }) => {
     const monaco = await getMonaco();
     const modelUri = monaco.Uri.parse(language === "typescript" ? "file:///main.tsx" : "file:///main.html");
-    const createModel = () => monaco.editor.createModel(code, language, modelUri);
+    const createModel = () => 
+    //@ts-ignore
+    monaco.editor.createModel(code, language, modelUri);
     const getModel = () => {
         try {
-            let model = monaco.editor.getModel(modelUri);
+            let model = monaco.editor.getModel();
             if (model)
                 return model;
             return createModel();
         }
-        catch (_a) {
+        catch {
             return createModel();
         }
     };
@@ -19,22 +21,54 @@ export default async ({ onChange, code, language, container, options }) => {
         return;
     const modules = {
         monaco: monaco,
-        editor: monaco.editor.create(container, Object.assign({ formatOnType: false, scrollbar: {
+        //@ts-ignore
+        editor: monaco.editor.create(container, {
+            formatOnType: false,
+            scrollbar: {
                 horizontal: "hidden",
                 verticalHasArrows: true,
                 verticalScrollbarSize: 20,
-            }, minimap: {
+            },
+            minimap: {
                 enabled: true,
                 side: "right",
                 size: "fit",
                 showSlider: "always",
-            }, folding: true, glyphMargin: false, wordWrap: "off", mouseWheelZoom: false, wordWrapColumn: 80, useTabStops: false, dragAndDrop: true, disableLayerHinting: true, formatOnPaste: false, showUnused: true, 
+            },
+            folding: true,
+            glyphMargin: false,
+            wordWrap: "off",
+            mouseWheelZoom: false,
+            wordWrapColumn: 80,
+            useTabStops: false,
+            dragAndDrop: true,
+            disableLayerHinting: true,
+            formatOnPaste: false,
+            showUnused: true,
             //       glyphMargin: true,
-            automaticLayout: true, scrollBeyondLastLine: false, autoIndent: "full", accessibilitySupport: "off", autoClosingQuotes: "beforeWhitespace", padding: {
+            automaticLayout: true,
+            scrollBeyondLastLine: false,
+            autoIndent: "full",
+            accessibilitySupport: "off",
+            autoClosingQuotes: "beforeWhitespace",
+            padding: {
                 bottom: 300,
-            }, lineNumbers: "on", autoClosingBrackets: "beforeWhitespace", autoClosingOvertype: "auto", suggest: {}, codeLens: true, autoSurround: "languageDefined", 
+            },
+            lineNumbers: "on",
+            autoClosingBrackets: "beforeWhitespace",
+            autoClosingOvertype: "auto",
+            suggest: {},
+            codeLens: true,
+            autoSurround: "languageDefined",
             // acceptSuggestionOnCommitCharacter: true,
-            trimAutoWhitespace: false, codeActionsOnSaveTimeout: 100, model, value: code, language: language, theme: "vs-dark" }, options)),
+            trimAutoWhitespace: false,
+            codeActionsOnSaveTimeout: 100,
+            model,
+            value: code,
+            language: language,
+            theme: "vs-dark",
+            ...options,
+        }),
     };
     modules.editor.onDidChangeModelContent(() => onChange(modules.editor.getValue()));
     modules.monaco.languages.typescript.typescriptDefaults
@@ -158,7 +192,7 @@ export default async ({ onChange, code, language, container, options }) => {
             module: 99,
             noEmit: true,
             typeRoots: ["node_modules/@types"],
-            jsx: "react-jsx",
+            jsx: monaco.languages.typescript.JsxEmit,
             esModuleInterop: true,
         });
         await Promise.all(dts);

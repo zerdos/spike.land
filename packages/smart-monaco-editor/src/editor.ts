@@ -19,6 +19,7 @@ export default async (
   );
 
   const createModel = () =>
+    //@ts-ignore
     monaco.editor.createModel(
       code,
       language,
@@ -27,7 +28,7 @@ export default async (
 
   const getModel = () => {
     try {
-      let model = monaco.editor.getModel(modelUri);
+      let model = monaco.editor.getModel();
       if (model) return model;
       return createModel();
     } catch {
@@ -41,6 +42,7 @@ export default async (
 
   const modules = {
     monaco: monaco,
+    //@ts-ignore
     editor: monaco.editor.create(
       container,
       {
@@ -235,7 +237,7 @@ export default async (
         noEmit: true,
 
         typeRoots: ["node_modules/@types"],
-        jsx: "react-jsx",
+        jsx: monaco.languages.typescript.JsxEmit,
         esModuleInterop: true,
       },
     );

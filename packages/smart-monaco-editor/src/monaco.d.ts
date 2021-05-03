@@ -1,17 +1,13 @@
-import {
-  IStandaloneCodeEditor,
-  LanguageServiceDefaults,
-  Uri,
-  UriComponents,
-} from "monaco-editor";
+import * as monaco from "monaco-editor";
 
 declare module "./monaco.js" {
   const getMonaco: () => {
-    editor: IStandaloneCodeEditor;
-    Uri: { parse: (str: string) => Uri };
+    editor: monaco.editor.IStandaloneCodeEditor;
+    Uri: { parse: (str: string) => monaco.Uri };
     languages: {
       typescript: {
-        typescriptDefaults: LanguageServiceDefaults;
+        typescriptDefaults: monaco.languages.typescript.LanguageServiceDefaults;
+        JsxEmit: monaco.languages.typescript.JsxEmit;
       };
     };
   };

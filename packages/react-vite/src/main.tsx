@@ -7,7 +7,7 @@ import * as monaco from "monaco-editor"
 
 ReactDOM.render(
   <React.StrictMode>
-    <div id="container"></div>
+    <div id="container" style={{width: 300, height: 300, display: "block"}}></div>
     <App />
 
   </React.StrictMode>,

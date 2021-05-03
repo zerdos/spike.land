@@ -47,8 +47,8 @@ added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb1jkMJhCGHnrFigsUkCNo1uwebGfrxXQH4EHSpnh6zFY code/modules/shaDB.d.ts
 added QmX5mSevBrVHk6mpp1VNaCMqmCYC7azWBUFgrzpHnG4NDp code/modules/shaDB.js
-added QmeVc8aouxusGphHiWKeYSmNnfVSw5NhwZCJjpjBLRoYzK code/modules/smart-monaco-editor/dist/editor.d.ts
-added QmYzEzUpRCs8NY6xDt86UwV5ERzBfFfkoqUtsbbnAcGb3m code/modules/smart-monaco-editor/dist/editor.js
+added QmbDXsz2Fmv691fT21JToDdJpDN2jAPMP1jg8tgY5DrWdZ code/modules/smart-monaco-editor/dist/editor.d.ts
+added QmUfF5b3RtdsvFnpRzWsgqDzG47JEdaUtrAs44jqLFaZx7 code/modules/smart-monaco-editor/dist/editor.js
 added QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF code/modules/smart-monaco-editor/dist/monaco.d.ts
 added QmZQXXK7HozSmp6yiGfcb3KBhfkf76bFwVF48DMhKjFRFu code/modules/smart-monaco-editor/dist/monaco.js
 added Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt code/modules/vendor/diffChars.d.ts
@@ -67,9 +67,9 @@ added QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS code/edit
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
 added QmXEnUydegcRA6grUTtsaaL32YS27Jx3Z5QGNmE9vQ5oGJ code/js/workers
 added QmVyygjcezJQSCxWaY3YJTiCZ4uetaFTbkh6aENBsuBgeR code/js
-added QmVdHXNVUr2eX9BPtzBtdphuGJdxaAwS9V71N7AcuhFenE code/modules/smart-monaco-editor/dist
-added QmWg1Q7X5aCoozTgt9KdJSNFWnT4LdKSdZgWt437ePC7AJ code/modules/smart-monaco-editor
+added QmeqsviShycVBYgLLuyL4L3BLXpDj8QSPT6mz8igbwMMoF code/modules/smart-monaco-editor/dist
+added QmUFDMGA4cMCQ7kY8Ab2s9eCTGeJVnkUApegn3A3bsnu5N code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
-added QmUcu2yWRaeETHF3PtXWJJdNzjAg4k9QZrox9tkPasKxUo code/modules
+added QmetuwAHSDjgcLrX725DbqT5WZkXkmjgcLFULkkcXqCsA4 code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmbssRWY2Y4tEW87a1f3dHPgEFRubYCgkUy3GipHHBzEFq code
+added QmYz2rQsusWZ6C1VG6of2LatsVGFvFR6xnGcEro4dbkT8U code
