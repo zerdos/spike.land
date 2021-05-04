@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/code-logic",
-  "version": "14.0.0",
+  "version": "14.0.1",
   "scripts": {
     "start": "snowpack dev",
     "build": "snowpack build",
@@ -16,7 +16,7 @@
     "@emotion/styled": "11.3.0",
     "@material-ui/core": "5.0.0-alpha.32",
     "@material-ui/icons": "5.0.0-alpha.29",
-    "@zedvision/smart-monaco-editor": "^14.0.0",
+    "@zedvision/smart-monaco-editor": "^14.0.1",
     "framer-motion": "4.1.11",
     "monaco-editor": "0.23.0",
     "react": "17.0.2",

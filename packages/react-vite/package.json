@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/react-vite",
-  "version": "14.0.0",
+  "version": "14.0.1",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -16,10 +16,10 @@
     "@emotion/styled": "11.3.0",
     "@material-ui/core": "5.0.0-alpha.32",
     "@material-ui/icons": "5.0.0-alpha.29",
-    "@zedvision/ipfs": "^14.0.0",
-    "@zedvision/renderer": "^14.0.0",
-    "@zedvision/shadb": "^14.0.0",
-    "@zedvision/smart-monaco-editor": "^14.0.0",
+    "@zedvision/ipfs": "^14.0.1",
+    "@zedvision/renderer": "^14.0.1",
+    "@zedvision/shadb": "^14.0.1",
+    "@zedvision/smart-monaco-editor": "^14.0.1",
     "comlink": "^4.3.0",
     "ipfs-message-port-client": "0.5.5-rc.21",
     "ipfs-message-port-server": "0.6.4-rc.21",
