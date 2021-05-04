@@ -103,7 +103,7 @@ export const shasums = {
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/renderer.mjs":
-    "914b98fc6c9c00b11d67d4caec3c553a838cc6ac36932885048c26328c792265",
+    "2697f3930653abdeb85363da32d66bb04d5fa46d961d5b19513325db96c19c0f",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/getDbObj.js":
