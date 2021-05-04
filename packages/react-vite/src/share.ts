@@ -1,5 +1,5 @@
 import { shaDB, sha256 } from "@zedvision/shadb";
-import { ipfsClient } from "./ipfsClient";
+import { ipfsClient, all } from "./ipfsClient";
 
 
 export const shareItAsHtml = async function ({ transpiled, code, html }: {transpiled: string, code: string, html: string}){
@@ -106,13 +106,14 @@ export const shareItAsHtml = async function ({ transpiled, code, html }: {transp
 };
 
 async function addAll(files: { path: string; content: any; }[]) {
-  const res = [];
 
-  for await (const result of ipfsClient.addAll(files)) {
-    const { path, cid } = result;
-    const CID = cid.toString();
-    res.push({ path, CID });
-  }
+ const res = await all(ipfsClient.addAll(files))
 
-  return res;
+  // for await (const result of ) {
+  //   const { path, cid } = result;
+  //   const CID = cid.toString();
+  //   res.push({ path, CID });
+  // }
+
+  return res.map(r=>{const CID = r.cid.toString(); return {path:r.path, CID}});
 }

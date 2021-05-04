@@ -1,6 +1,6 @@
 import { shaDB } from "../modules/shaDB.js";
 import { sha256 } from "../modules/sha256.js";
-import { ipfsClient } from "./ipfsClient.mjs";
+import { ipfsClient, all } from "./ipfsClient.mjs";
 
 /**
  * 
@@ -114,13 +114,21 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
  * @param {{ path: string; content: any; }[]} files
  */
 async function addAll(files) {
-  const res = [];
+  // const res = [];
 
-  for await (const result of ipfsClient.addAll(files)) {
-    const { path, cid } = result;
-    const CID = cid.toString();
-    res.push({ path, CID });
-  }
+  // for await (const result of ipfsClient.addAll(files)) {
+  //   const { path, cid } = result;
+  //   const CID = cid.toString();
+  //   res.push({ path, CID });
+  // }
+  const res = await all(ipfsClient.addAll(files))
 
-  return res;
+  // for await (const result of ) {
+  //   const { path, cid } = result;
+  //   const CID = cid.toString();
+  //   res.push({ path, CID });
+  // }
+  return res.map(r=>{const CID = r.cid.toString(); return {path:r.path, CID}});
+
+  // return res;
 }
