@@ -1,6 +1,5 @@
-
 /** @jsx jsx */
-import {jsx} from "@emotion/react"
+import { jsx } from "@emotion/react";
 import { motion } from "framer-motion";
 
 export default () => (

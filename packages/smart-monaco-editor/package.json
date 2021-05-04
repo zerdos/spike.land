@@ -3,7 +3,6 @@
   "version": "14.0.0",
   "description": "Monaco Editor with auto type downloads mostly for React",
   "sideEffects": false,
-  "exports": "./dist/editor.js",
   "main": "./dist/editor.js",
   "scripts": {
     "prebuild": "yarn clean && tsc && cp -ar dist ../code/modules/smart-monaco-editor/ && deno fmt src",

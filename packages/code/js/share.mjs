@@ -1,6 +1,6 @@
 import { shaDB } from "../modules/shaDB.js";
 import { sha256 } from "../modules/sha256.js";
-import { ipfsClient, all } from "./ipfsClient.mjs";
+import { all, ipfsClient } from "./ipfsClient.mjs";
 
 /**
  * 
@@ -121,14 +121,17 @@ async function addAll(files) {
   //   const CID = cid.toString();
   //   res.push({ path, CID });
   // }
-  const res = await all(ipfsClient.addAll(files))
+  const res = await all(ipfsClient.addAll(files));
 
   // for await (const result of ) {
   //   const { path, cid } = result;
   //   const CID = cid.toString();
   //   res.push({ path, CID });
   // }
-  return res.map(r=>{const CID = r.cid.toString(); return {path:r.path, CID}});
+  return res.map((r) => {
+    const CID = r.cid.toString();
+    return { path: r.path, CID };
+  });
 
   // return res;
 }

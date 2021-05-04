@@ -3,7 +3,7 @@ import { getWorker } from "./workers/getWorker";
 
 const { workerSrc, forceNormalWorker } = getWorker("prettierWorker.js");
 
-let format: ((code:string)=>string)|null = null;
+let format: ((code: string) => string) | null = null;
 
 /**
  *

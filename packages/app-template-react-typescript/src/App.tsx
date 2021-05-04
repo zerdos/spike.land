@@ -1,16 +1,12 @@
 /** @jsx jsx */
 
-
-import React, { useState, useEffect } from 'react';
-import {css, jsx} from "@emotion/react"
+import React, { useEffect, useState } from "react";
+import { css, jsx } from "@emotion/react";
 
 import { motion } from "framer-motion";
 
-
-
-
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 import Fab from "@material-ui/core/Fab";
 // import QrCode from "@material-ui/icons/QrCode";
@@ -30,12 +26,14 @@ function App({}: AppProps) {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p css={css`
+        <p
+          css={css`
         color: #000;
-        `}>
+        `}
+        >
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-      
+
         <p>
           Page has been open for <code>{count}</code> seconds.
         </p>
@@ -55,8 +53,6 @@ function App({}: AppProps) {
 }
 
 export default App;
-
-
 
 const QR: React.FC<{ url: string }> = ({ url }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
@@ -105,14 +101,16 @@ export const QRButton: React.FC<{ url: string }> = ({ url }) => {
                 margin-bottom: 12px;
               `}
   >
-    {/* {showQR ? <QR key={url} url={url + "edit/"} /> : <Fab
+    {
+      /* {showQR ? <QR key={url} url={url + "edit/"} /> : <Fab
       variant="extended"
       color="secondary"
       onClick={() => {
         setQR(!showQR);
       }}
-    > */}
-      {/* <QrCode /> */}
+    > */
+    }
+    {/* <QrCode /> */}
     {/* </Fab>} */}
   </motion.div>;
 };

@@ -24,5 +24,5 @@ module.exports = {
   buildOptions: {
     /* ... */
   },
-  workspaceRoot: "."
+  workspaceRoot: ".",
 };

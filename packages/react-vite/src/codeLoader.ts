@@ -26,8 +26,7 @@ function getSession() {
 let monaco;
 export async function run(mode = "window", code = "") {
   const session = getSession();
-  try {  
-
+  try {
     console.log("Runner!");
 
     const { pathname } = new URL(window.location.href);
@@ -71,19 +70,18 @@ export async function run(mode = "window", code = "") {
     if (container === null) return "No editor window";
 
     const editorPromise = startMonaco({
-        language: "typescript",
-        container: container,
-        code: session.code,
+      language: "typescript",
+      container: container,
+      code: session.code,
 
-        onChange: (code: string) => runner(code),
-        options: {
-          gylph: false
-        }
+      onChange: (code: string) => runner(code),
+      options: {
+        gylph: false,
       },
-    );
+    });
 
     await renderPreviewWindow(
-      session
+      session,
     );
 
     await restartCode(session.transpiled, session.i);
@@ -95,7 +93,7 @@ export async function run(mode = "window", code = "") {
     monaco.editor.createModel(
       "define module './hash.js';",
       "typescript",
-     // @ts-ignore
+      // @ts-ignore
       monaco.Uri.parse("file:///refs.d.ts"),
     );
 
@@ -105,8 +103,6 @@ export async function run(mode = "window", code = "") {
 
     // const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
     // await sendSignalToQrCode(session);
-
-
   } catch (e) {
     session.errorText = "YAY!! There is an error";
   }
@@ -214,7 +210,7 @@ export async function run(mode = "window", code = "") {
     ];
   }
 
-  async function restartCode(transpiled: string, counter:number) {
+  async function restartCode(transpiled: string, counter: number) {
     session.html = "";
     session.transpiled = "";
     let hadError = false;
@@ -236,7 +232,7 @@ export async function run(mode = "window", code = "") {
       codeToHydrate,
     );
 
-    const mod = (await import( /* @vite-ignore */ objUrl));
+    const mod = (await import(/* @vite-ignore */ objUrl));
     const Element = mod.default;
     const { render } = mod;
 
@@ -250,7 +246,6 @@ export async function run(mode = "window", code = "") {
     session.transpiled = transpiled;
 
     return !session.html;
-
 
     function createJsBlob(code: string) {
       const blob = new Blob([code], { type: "application/javascript" });

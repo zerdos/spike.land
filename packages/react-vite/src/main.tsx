@@ -1,10 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './App'
-import startMonaco from "@zedvision/smart-monaco-editor"
-import {run} from "./codeLoader"
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { run } from "./codeLoader";
 
-run("window")
+run("window");
 
 // ReactDOM.render(
 //   <React.StrictMode>

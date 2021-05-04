@@ -1,25 +1,24 @@
+export function getHtml({ html, css }: { html: string; css: string }) {
+  //
+  // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
+  //
+  // let bodyStylesFix = "";
 
- export function getHtml({ html, css }: {html: string, css: string}) {
-    //
-    // For some reason, pre-rendering doesn't care about global styles, the site flickers without this patch
-    //
-    // let bodyStylesFix = "";
-  
-    // const start = js.indexOf("body{");
-    // if (start !== -1) {
-    //   const firstBit = js.slice(start);
-    //   const last = firstBit.indexOf("}");
-    //   bodyStylesFix = firstBit.slice(0, last + 1);
-    // }
-  
-    const titleStart = html.indexOf("<title>");
-    const titleEnd = html.indexOf("</title>");
-    const hasTitle = titleStart < titleEnd && titleStart >= -1;
-    const title = hasTitle
-      ? html.slice(titleStart, titleEnd)
-      : "(code).spike.land :)";
-  
-    return `<!DOCTYPE html>
+  // const start = js.indexOf("body{");
+  // if (start !== -1) {
+  //   const firstBit = js.slice(start);
+  //   const last = firstBit.indexOf("}");
+  //   bodyStylesFix = firstBit.slice(0, last + 1);
+  // }
+
+  const titleStart = html.indexOf("<title>");
+  const titleEnd = html.indexOf("</title>");
+  const hasTitle = titleStart < titleEnd && titleStart >= -1;
+  const title = hasTitle
+    ? html.slice(titleStart, titleEnd)
+    : "(code).spike.land :)";
+
+  return `<!DOCTYPE html>
   <html lang="en"> 
   <head profile="http://www.w3.org/2005/10/profile">
   <title>${title}</title>
@@ -50,15 +49,15 @@
   </body>
   </html>
   `;
-  }
-  
-  /**
+}
+
+/**
    * 
    * @param {string}} cid 
    * @returns {string}
    */
-  export const getEditorHTML = () =>
-    `<!DOCTYPE html>
+export const getEditorHTML = () =>
+  `<!DOCTYPE html>
   <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -76,4 +75,3 @@
     </script>
   </body>
   </html>`;
-  

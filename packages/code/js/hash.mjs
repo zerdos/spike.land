@@ -33,9 +33,7 @@ export async function sendSignal(signal, data) {
     const { pathname } = new URL(signal);
 
     await fetch(
-      `https://spike.land/signal/?cid=${dataCid}&signal=${
-        pathname.slice(1)
-      }`,
+      `https://spike.land/signal/?cid=${dataCid}&signal=${pathname.slice(1)}`,
     );
 
     fetch(`https://spike.land/ipfs/${dataCid}`);

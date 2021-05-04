@@ -1,10 +1,10 @@
 /** @jsx jsx */
 
 import { css, jsx } from "@emotion/react";
-import React from "react"
+import React from "react";
 
 import Fab from "@material-ui/core/Fab";
-import {motion} from "framer-motion"
+import { motion } from "framer-motion";
 import QrCode from "@material-ui/icons/QrCode";
 
 const QR: React.FC<{ url: string }> = ({ url }) => {

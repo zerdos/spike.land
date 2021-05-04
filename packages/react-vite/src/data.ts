@@ -1,6 +1,6 @@
 import { sha256, shaDB } from "@zedvision/shadb";
 //z
-import {v4} from "uuid";
+import { v4 } from "uuid";
 
 let uuid: string;
 
@@ -116,7 +116,6 @@ export async function edit(name: string) {
   location.href = "https://spike.land";
 }
 
-
 export async function getIPFSCodeToLoad(_rootUrl: string | undefined) {
   const rootUrl = _rootUrl ||
     (window.location.href.endsWith("/edit/")
@@ -157,7 +156,7 @@ export async function getCodeToLoad() {
   }
   if (projectDesc !== null && projectDesc !== undefined) {
     const data = {
-      code: await shaDB.get(projectDesc.code, "string") ||  await getStarter(),
+      code: await shaDB.get(projectDesc.code, "string") || await getStarter(),
       transpiled: await shaDB.get(projectDesc.transpiled, "string") || "",
       html: await shaDB.get(projectDesc.html, "string") || "",
     };
@@ -187,61 +186,72 @@ const toSave = {
   transpiled: null,
 };
 
-export const saveCode =   async (opts: {code: string, url: string, html: string, transpiled: string, i: number}, counter: number) => {
-    const { code, html, transpiled } = opts;
-    toSave.code = code || await getStarter();
+export const saveCode = async (
+  opts: {
+    code: string;
+    url: string;
+    html: string;
+    transpiled: string;
+    i: number;
+  },
+  counter: number,
+) => {
+  const { code, html, transpiled } = opts;
+  toSave.code = code || await getStarter();
 
-    // deno-lint-ignore ban-ts-comment
-    //@ts-ignore
+  // deno-lint-ignore ban-ts-comment
+  //@ts-ignore
 
-    if (opts.i > counter) return;
+  if (opts.i > counter) return;
 
-    if (opts.code !== toSave.code) {
-      return null;
-    }
-    if (toSave.code === saved.code && saved.url !== null) {
-      return saved.url;
-    }
+  if (opts.code !== toSave.code) {
+    return null;
+  }
+  if (toSave.code === saved.code && saved.url !== null) {
+    return saved.url;
+  }
 
-    toSave.code = opts.code;
+  toSave.code = opts.code;
 
-    const { shareItAsHtml } = await import("./share");
-    const sharePromise = shareItAsHtml(
-      { code, html, transpiled },
-    );
+  const { shareItAsHtml } = await import("./share");
+  const sharePromise = shareItAsHtml(
+    { code, html, transpiled },
+  );
 
-    if (opts.i > counter) return;
-    const url = await sharePromise;
-    const projectName = await getActiveProject();
-    if (opts.i > counter) return;
-    opts.url = url;
-    // const prevHash = await shaDB.get(projectName, "string");
-    const desc = {
-      url: await sha256(url),
-      code: await sha256(code),
-      html: await sha256(html),
-      transpiled: await sha256(transpiled),
-    };
-
-    const hash = await sha256(JSON.stringify(desc));
-    await shaDB.put(hash, JSON.stringify(desc));
-
-    // const prevData = await shaDB.get(prevHash, s);
-    if (code) {
-      await shaDB.put(desc.code, code);
-    }
-    if (html) {
-      await shaDB.put(desc.html, html);
-    }
-    if (transpiled) {
-      await shaDB.put(desc.transpiled, transpiled);
-    }
-
-    await shaDB.put(projectName, hash);
-    Object.assign(saved, { html, code, transpiled, url });
-    return saved;
+  if (opts.i > counter) return;
+  const url = await sharePromise;
+  const projectName = await getActiveProject();
+  if (opts.i > counter) return;
+  opts.url = url;
+  // const prevHash = await shaDB.get(projectName, "string");
+  const desc = {
+    url: await sha256(url),
+    code: await sha256(code),
+    html: await sha256(html),
+    transpiled: await sha256(transpiled),
   };
 
+  const hash = await sha256(JSON.stringify(desc));
+  await shaDB.put(hash, JSON.stringify(desc));
+
+  // const prevData = await shaDB.get(prevHash, s);
+  if (code) {
+    await shaDB.put(desc.code, code);
+  }
+  if (html) {
+    await shaDB.put(desc.html, html);
+  }
+  if (transpiled) {
+    await shaDB.put(desc.transpiled, transpiled);
+  }
+
+  await shaDB.put(projectName, hash);
+  Object.assign(saved, { html, code, transpiled, url });
+  return saved;
+};
+
 function getStarter() {
-  return fetch(`https://spike.land/js/examples/rca.tsx`).then((res) => res.text());
+  return fetch(`https://spike.land/js/examples/rca.tsx`).then((res) =>
+    res.text()
+  );
 }

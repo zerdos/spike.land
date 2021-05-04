@@ -1,12 +1,11 @@
 import * as comlink from "comlink";
 import { getWorker } from "./workers/getWorker";
 
-const {wrap} = comlink;
+const { wrap } = comlink;
 
 const { workerSrc, forceNormalWorker } = getWorker("transpile.worker.js");
 
-let transform: ((code: string)=>string) | null = null;
-
+let transform: ((code: string) => string) | null = null;
 
 export async function transpileCode(code: string) {
   if (transform === null) {

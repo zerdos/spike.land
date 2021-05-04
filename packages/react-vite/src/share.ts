@@ -1,8 +1,13 @@
-import { shaDB, sha256 } from "@zedvision/shadb";
-import { ipfsClient, all } from "./ipfsClient";
+import { sha256, shaDB } from "@zedvision/shadb";
+import { all, ipfsClient } from "./ipfsClient";
 
-
-export const shareItAsHtml = async function ({ transpiled, code, html }: {transpiled: string, code: string, html: string}){
+export const shareItAsHtml = async function (
+  { transpiled, code, html }: {
+    transpiled: string;
+    code: string;
+    html: string;
+  },
+) {
   const bodyClass = String(
     window.document.getElementById("zbody")?.getAttribute("class"),
   );
@@ -18,7 +23,7 @@ export const shareItAsHtml = async function ({ transpiled, code, html }: {transp
         // @ts-ignore
         window.document.querySelector("head > style[data-emotion=css]").sheet
           .cssRules,
-                  // @ts-ignore
+        // @ts-ignore
       ).map((x) => x.cssText).filter((cssRule) => {
         const selector = cssRule.substring(5, 10);
         const isSelectorBody = bodyClass.indexOf(selector) !== -1;
@@ -41,12 +46,12 @@ export const shareItAsHtml = async function ({ transpiled, code, html }: {transp
     try {
       css += Array.from(
         // deno-lint-ignore ban-ts-comment
-                // @ts-ignore
-        window.document.querySelector("head > style[data-emotion=css-global]")
         // @ts-ignore
-        .sheet
+        window.document.querySelector("head > style[data-emotion=css-global]")
+          // @ts-ignore
+          .sheet
           .cssRules,
-                  // @ts-ignore
+        // @ts-ignore
       ).map((x) => x.cssText)
         .join("\n  ").replace(`#zbody`, "body");
     } catch (e) {
@@ -86,7 +91,7 @@ export const shareItAsHtml = async function ({ transpiled, code, html }: {transp
     await shaDB.put(sha, rootUrl);
   }
 
-  const preLoad: (retry: number)=>void = async (retry = 3) => {
+  const preLoad: (retry: number) => void = async (retry = 3) => {
     try {
       await Promise.all([
         fetch(`${rootUrl}/app.js`).then((x) => x.text()),
@@ -105,9 +110,8 @@ export const shareItAsHtml = async function ({ transpiled, code, html }: {transp
   return rootUrl;
 };
 
-async function addAll(files: { path: string; content: any; }[]) {
-
- const res = await all(ipfsClient.addAll(files))
+async function addAll(files: { path: string; content: any }[]) {
+  const res = await all(ipfsClient.addAll(files));
 
   // for await (const result of ) {
   //   const { path, cid } = result;
@@ -115,5 +119,8 @@ async function addAll(files: { path: string; content: any; }[]) {
   //   res.push({ path, CID });
   // }
 
-  return res.map(r=>{const CID = r.cid.toString(); return {path:r.path, CID}});
+  return res.map((r) => {
+    const CID = r.cid.toString();
+    return { path: r.path, CID };
+  });
 }

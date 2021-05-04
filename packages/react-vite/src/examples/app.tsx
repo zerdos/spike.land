@@ -1,4 +1,3 @@
-
 /** @jsx jsx */
 
 import React, { useState } from "react";
@@ -29,7 +28,8 @@ const Hello = () => {
 };
 
 export default () => (
-<React.Fragment>    <Global
+  <React.Fragment>
+    <Global
       styles={css`
         body{
           background: deeppink;
@@ -41,6 +41,5 @@ export default () => (
     `}
     />
     <Hello></Hello>
-    </React.Fragment>
-
+  </React.Fragment>
 );

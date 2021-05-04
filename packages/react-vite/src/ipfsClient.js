@@ -46,7 +46,7 @@ export const ipfsCat = async (cid, opts) => {
   return resultStr;
 };
 
-Object.assign(globalThis, {ipfsCat})
+Object.assign(globalThis, { ipfsCat });
 
 export { CID };
 export { all };
