@@ -243,5 +243,5 @@ export const saveCode =   async (opts: {code: string, url: string, html: string,
   };
 
 function getStarter() {
-  return fetch(`./js/examples/rca.tsx`).then((res) => res.text());
+  return fetch(`https://spike.land/js/examples/rca.tsx`).then((res) => res.text());
 }
