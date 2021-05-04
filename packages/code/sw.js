@@ -171,10 +171,10 @@ globalThis.register = () => {
 
         // Assume that we just want to concatenate the first API response with the second to create the
         // final response HTML.
-        const compositeResponse = new Response(await globalThis.ipfsCat("QmS7udzEsQxu8netTzmuRHCniiSUqGuMtCUeJLRepouoG3"), {
-          headers: { "content-type": "text/html" },
-        });
-
+        // const compositeResponse = new Response(await globalThis.ipfsCat("QmS7udzEsQxu8netTzmuRHCniiSUqGuMtCUeJLRepouoG3"), {
+        //   headers: { "content-type": "text/html" },
+        // });
+        const compositeResponse = new Response("yeah. Haha.");
         return compositeResponse;
       })());
     }
