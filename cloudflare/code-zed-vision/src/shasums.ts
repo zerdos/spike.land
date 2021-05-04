@@ -119,8 +119,8 @@ export const shasums = {
   "modules/ipfs.client.mjs":
     "4f800d05b649b2663e59cb02e2895677bb28049e6890b4b7a0e1921d14566129",
   ".tsBuildInfo":
-    "6569f533710cc27ee5b4a24424c1d45fcc46194601f05ae834de7bc8e2dcc4b9",
-  "sw.js": "43f978468ff26ba929128eee7b2d9c4c926496e038b47176298a62dba04f44f7",
+    "1c8a85036523c164b642d6d5e901e03d7f2c7f566216750410eaa7b2951491e6",
+  "sw.js": "147db1812afbbd4ea981781a8819968c6489ac324eb3b5b060cc37a173dce96b",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "edit/index.html":
