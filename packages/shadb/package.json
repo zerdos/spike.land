@@ -3,10 +3,9 @@
   "version": "14.0.0",
   "description": "db layer top on idb",
   "sideEffects": false,
-  "source": "./src/shaDB.js",
-  "exports": "./dist/shaDB.js",
+  "main": "./dist/shaDB.js",
   "scripts": {
-    "build": "echo ok",
+    "build": "yarn tsc",
     "bundle:diff": "deno bundle --unstable src/diffChars.js > src/vendor/diffChars.js",
     "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@6.0.0/build/esm/index.js > src/vendor/idb.js",
     "minify": " yarn esbuild --tree-shaking=ignore-annotations --minify --target=es2020 src/vendor/diffChars.js  --outfile=src/vendor/diffMin.js",

@@ -1,6 +1,11 @@
 //@ts-nocheck
 import { openDB } from "./vendor/idb.js";
 import { getDbObj } from "./getDbObj.js";
+import { sha256 } from "./sha256.js";
+import { diff } from "./diff.js";
+
+export { sha256 };
+export { diff };
 
 export function getDB(storeName = "defaultStore") {
   return async () => {

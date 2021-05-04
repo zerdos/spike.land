@@ -11,6 +11,8 @@
   "authors": [
     "Zoltan Erdos <zolika84@gmail.com>"
   ],
+  "main": "./dist/ipfs.client.js",
+  "exports": "./dist/ipfs.client.mjs",
   "scripts": {
     "clean": "rm -rf dist && yarn types && yarn types && yarn build",
     "types": "yarn tsc -d",

@@ -9,3 +9,6 @@ export namespace shaDB {
     function get(key: string, type: "string" | "json"): Promise<any>;
     function put(key: string, value: string): Promise<any>;
 }
+import { sha256 } from "./sha256.js";
+import { diff } from "./diff.js";
+export { sha256, diff };
