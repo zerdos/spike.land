@@ -35,7 +35,7 @@ if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
 
 export const ipfsClient = IpfsClient.from(port);
 
-export const ipfsCat = async (cid: string, opts: {}) => {
+export const ipfsCat = async (cid, opts) => {
   const options = opts || {};
   const res = ipfsClient.cat(cid, options);
 
