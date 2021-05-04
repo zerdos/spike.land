@@ -2,6 +2,7 @@
 //@ts-ignore
 
 import { files } from "./files.ts";
+import { handleCloudRequest } from "./handler.ts";
 
 //@ts-ignore
 
@@ -265,7 +266,7 @@ async function handleRequest(request: Request) {
 
     return resp;
   }
-  return text("Error: nop");
+  return handleCloudRequest(request);
 }
 
 function js(resp: string) {

@@ -120,7 +120,7 @@ export const shasums = {
     "4f800d05b649b2663e59cb02e2895677bb28049e6890b4b7a0e1921d14566129",
   ".tsBuildInfo":
     "4cf06198ed2428594e46fb4a32254f5b5c9196a273f1f9ceb101644065050ed7",
-  "sw.js": "eef8f639df605c5adcebddf19c99fd51b40e5f6d575ff322682c43be404aabcc",
+  "sw.js": "15c2fe8ea8074c90b71e88dfd9d553d54d508602eefc766893c5fa316d763ef6",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "edit/index.html":

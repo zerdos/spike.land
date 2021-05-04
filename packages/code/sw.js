@@ -129,7 +129,7 @@ globalThis.register = () => {
   );
 
   self.workbox.routing.registerRoute(
-    ({ url }) => url.origin.indexOf("workers.dev") === -1,
+    ({ url }) => url.origin.indexOf("spike.land") === -1,
     new self.workbox.strategies.CacheFirst({
       cacheName: "cdn-cache",
       plugins: [

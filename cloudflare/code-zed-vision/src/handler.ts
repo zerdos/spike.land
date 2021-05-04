@@ -1,7 +1,6 @@
 import { getDbObj } from "https://spike.land/modules/getDbObj.js";
-import { handleAdmin } from "./admin.ts";
 import { js, json, text } from "./utils/handleOptions.ts";
-import { v4 } from "./dec.ts";
+import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
 import { sha256 } from "https://spike.land/modules/sha256.js";
 
 import {
@@ -39,7 +38,7 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
   const psk = String(request.headers.get("API_KEY") || "");
   await log("request", { searchParams, pathname, country, colo });
   if (request.method === "GET" && psk && psk == API_KEY) {
-    return handleAdmin(request, searchParams, pathname, SHAKV);
+    //    return handleAdmin(request, searchParams, pathname, SHAKV);
   } else if (request.method === "GET") {
     if (pathname === "/robots.txt") {
       return text("User-agent: * Disallow: /");
