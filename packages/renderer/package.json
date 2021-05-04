@@ -7,6 +7,7 @@
   },
   "source": "./src/renderer.ts",
   "exports": "./dist/renderer.mjs",
+  "main": "./dist/renderer.mjs",
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist .tsbuildinfo && deno fmt src",

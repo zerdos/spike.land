@@ -35,7 +35,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "9846618e4a8870599b636e41d44875fb85df2da6449ae4bdcefff24880bacfc6",
+    "09b103123abfd51fbc81a9c8b2e5dd1fe9bd07531ce281544e13d6b697ee9bb8",
   "js/workers/ipfsWorker.js":
     "98606ce847990e96fe72264b04af61db2b23b5cf1ea9d5d637af3b7ba264228a",
   "js/workers/getWorker.mjs":

@@ -28,7 +28,7 @@ async function init() {
   }
 
   if (forceNormalWorker || typeof SharedWorker === "undefined") {
-    const worker = new Worker(workerSrc);
+    const worker = new Worker("./src/workers/prettierWorker");
     const { port1, port2 } = new MessageChannel();
     const msg = {
       comlinkInit: true,
@@ -41,7 +41,7 @@ async function init() {
     return format;
   }
 
-  const worker = new SharedWorker(workerSrc);
+  const worker = new SharedWorker("./src/workers/prettierWorker");
   worker.port.start();
 
   format = await wrap(worker.port);

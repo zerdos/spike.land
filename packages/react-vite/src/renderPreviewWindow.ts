@@ -1,7 +1,10 @@
+
+/** @jsx jsx */
+
 import {jsx} from "@emotion/react"
 
 import {render} from "react-dom"
-import * as monaco from "monaco-editor"
+
 
 export async function renderPreviewWindow(
     session: {
@@ -47,6 +50,8 @@ export async function renderPreviewWindow(
         onShare,
         session,
         onRestore: () => {
+          //@ts-ignore
+          const {monaco} = window;
           const modelUri = monaco.Uri.parse(`file:///main.tsx`);
           const model = monaco.editor.getModel(modelUri);
           model!.setValue(session.code);

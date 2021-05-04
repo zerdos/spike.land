@@ -5,7 +5,6 @@ import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data";
 import { transpileCode } from "./transpile";
 import { formatter } from "./formatter";
 import startMonaco from "@zedvision/smart-monaco-editor";
-import * as monaco from "monaco-editor"
 
 function getSession() {
   const session = {
@@ -24,6 +23,7 @@ function getSession() {
   return session;
 }
 
+let monaco;
 export async function run(mode = "window", code = "") {
   const session = getSession();
   try {  
@@ -89,10 +89,13 @@ export async function run(mode = "window", code = "") {
     await restartCode(session.transpiled, session.i);
 
     await editorPromise;
+    //@ts-ignore
+    monaco = window.monaco;
 
     monaco.editor.createModel(
       "define module './hash.js';",
       "typescript",
+     // @ts-ignore
       monaco.Uri.parse("file:///refs.d.ts"),
     );
 
@@ -233,7 +236,7 @@ export async function run(mode = "window", code = "") {
       codeToHydrate,
     );
 
-    const mod = (await import(objUrl));
+    const mod = (await import( /* @vite-ignore */ objUrl));
     const Element = mod.default;
     const { render } = mod;
 
