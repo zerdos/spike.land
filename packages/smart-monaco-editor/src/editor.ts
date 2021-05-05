@@ -114,17 +114,17 @@ export default async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.4/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.5/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react-exp  ",
-        url: "https://unpkg.com/@types/react@17.0.4/experimental.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.5/experimental.d.ts",
         depend: [],
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.4/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.5/global.d.ts",
         depend: [],
       },
       {
