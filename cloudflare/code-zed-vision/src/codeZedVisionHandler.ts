@@ -107,7 +107,7 @@ async function handleRequest(request: Request) {
     if (content) {
       response = new Response(content);
     } else {
-      response = await fetchCid("/ipfs/" + customCID);
+      response = await fetchCid(customCID);
 
       if (!response) {
         return text("Error, 404");
