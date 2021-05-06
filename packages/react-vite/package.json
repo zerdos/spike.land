@@ -11,7 +11,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@emotion/core": "^11.0.0",
+    "@emotion/core": "11.0.0",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.3.0",
     "@material-ui/core": "5.0.0-alpha.32",
@@ -20,13 +20,13 @@
     "@zedvision/renderer": "^14.0.1",
     "@zedvision/shadb": "^14.0.1",
     "@zedvision/smart-monaco-editor": "^14.0.1",
-    "comlink": "^4.3.0",
+    "comlink": "4.3.0",
     "ipfs-message-port-client": "0.5.5-rc.21",
     "ipfs-message-port-server": "0.6.4-rc.21",
     "monaco-editor": "0.23.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "simple-window-manager": "^2.1.2",
+    "simple-window-manager": "2.1.2",
     "yarn": "1.22.10"
   },
   "devDependencies": {
