@@ -1198,7 +1198,7 @@
     "@emotion/weak-memoize" "^0.2.5"
     stylis "^4.0.3"
 
-"@emotion/core@^11.0.0":
+"@emotion/core@11.0.0":
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-11.0.0.tgz#d075867e07864119de7cfd5268c15012bd2d6290"
   integrity sha512-w4sE3AmHmyG6RDKf6mIbtHpgJUSJ2uGvPQb8VXFL7hFjMPibE8IiehG8cMX3Ztm4svfCQV6KqusQbeIOkurBcA==
@@ -5360,7 +5360,7 @@ combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-comlink@^4.3.0:
+comlink@4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.3.0.tgz#80b3366baccd87897dab3638ebfcfae28b2f87c7"
   integrity sha512-mu4KKKNuW8TvkfpW/H88HBPeILubBS6T94BdD1VWBXNXfiyqVtwUCVNO1GeNOBTsIswzsMjWlycYr+77F5b84g==
@@ -15262,7 +15262,7 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-simple-window-manager@2.1.2, simple-window-manager@^2.1.2:
+simple-window-manager@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/simple-window-manager/-/simple-window-manager-2.1.2.tgz#23d2800b79ad01053bae55ee75607eab95f58378"
   integrity sha512-+pzutR1UQb/76Xc/huYgHbm42d/md/RzZl4Hl0eESRKHmBdI+qmOoDAFG7fbIPQOeS8+r63pO8rnxJPVS5JGTg==
