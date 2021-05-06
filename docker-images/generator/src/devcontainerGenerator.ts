@@ -11,6 +11,8 @@ type Base =
   | "groovy"
   | "focal"
   | "hirsute"
+  | "implish"
+  | "rolling"
   | "gitpod/workspace-full";
 type nodeVersion = "lts" | "current";
 
