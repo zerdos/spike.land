@@ -28,7 +28,7 @@
     "url": "https://github.com/zerdos/qrious.git"
   },
   "devDependencies": {
-    "esbuild": "0.11.18",
+    "esbuild": "0.11.19",
     "typescript": "4.2.4"
   },
   "dependencies": {
