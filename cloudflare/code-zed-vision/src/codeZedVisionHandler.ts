@@ -107,10 +107,10 @@ async function handleRequest(request: Request) {
     if (content) {
       response = new Response(content);
     } else {
-      response = await fetchCid(customCID);
-
-      if (!response) {
-        return text("Error, 404");
+      try {
+        response = await fetchCid("/ipfs/" + customCID, 5);
+      } catch (e) {
+        return text("Error: " + e.toString());
       }
 
       const contentToSave = await response.clone().arrayBuffer();
@@ -323,13 +323,13 @@ async function fetchCid(path: string, retry = 3): Promise<Response> {
 
   try {
     res = await raceToSuccess(random5GatewaysFetch) as Response;
-    if (res) return res;
+    if (res) return res.clone();
   } catch {
     if (retry > 0) return await fetchCid(path, retry - 1) as Response;
-    return text("500 - some error") as Response;
+    throw new Error("500 - some error - :(");
   }
-  if (retry > 0) return await fetchCid(path, retry - 1);
-  return text("404- cant fetch cid  ") as Response;
+  if (retry > 0) return await fetchCid(path, retry - 1) as Response;
+  throw new Error("500 - some error");
 }
 
 function getGlobalThis() {

@@ -113,7 +113,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "fc1577220b98200371d1d60749a00f0cae4effe449939ced687dc29af016486d",
   "modules/ipfs.client.mjs":
-    "4f800d05b649b2663e59cb02e2895677bb28049e6890b4b7a0e1921d14566129",
+    "e553cb6e65fd3b1890f21aa4e718163b06df57c425432008b756a3cbf14263db",
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "modules/diff.js":
