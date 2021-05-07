@@ -8,7 +8,12 @@
     "esbuild": "^0.11.19",
     "react": "^17.0.2"
   },
+  "publishConfig": {
+    "access": "public"
+  },
+  "private": "false",
   "scripts": {
     "react": "yarn esbuild --bundle src/react.js --format=esm --target=es2017 --outfile=dist/react.mjs"
-  }
+  },
+  "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
 }
