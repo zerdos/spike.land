@@ -23,7 +23,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "package.json":
-    "54aa1c6e9872430a63e7111a129075df7cd5a11eb16aa7291532e434716c4008",
+    "cf15432e2d4d33d4ce1d17403ccff53684694f63d25f7a4d6d638d796a415df2",
   "js/workboxLoader.mjs":
     "3d2c125a2325cceb7bcfa9ccfc7d3f4bbcbb7a2d463f2721c153f7cb69f8c20e",
   "js/importScript.mjs":
