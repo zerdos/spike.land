@@ -4,11 +4,11 @@ import Fab from "@material-ui/core/Fab";
 import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
-import Share from "@material-ui/icons/Share";
+import Share from "./icons/Share";
 
-import Tablet from "@material-ui/icons/TabletAndroid";
-import Tv from "@material-ui/icons/Tv";
-import Phone from "@material-ui/icons/PhoneAndroid";
+import Tablet from "./icons/TabletAndroid";
+import Tv from "./icons/Tv";
+import Phone from "./icons/PhoneAndroid";
 import { QRButton } from "./Qr";
 import { css, jsx } from "@emotion/react";
 import React from "react";
