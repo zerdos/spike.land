@@ -2,7 +2,7 @@
   "name": "@zedvision/esm",
   "version": "14.0.3",
   "description": "esm modules for packages with maintainers from the 2015",
-  "main": "index.js",
+  "main": "dist/react.mjs",
   "files": [
     "**/*"
   ],
