@@ -1413,9 +1413,9 @@
     value-or-promise "1.0.6"
 
 "@graphql-tools/url-loader@^6.0.0":
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/url-loader/-/url-loader-6.10.0.tgz#769726338df8b09576b2ab43c444f0f54b5590c1"
-  integrity sha512-xHkcRNMsMvdXCS0oN0lTqAZOyeiBOz14+kLUu3sVHuCacgH2mn8avd49uLETbnwPok7UOTP0sll77o9p7clw8g==
+  version "6.10.1"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/url-loader/-/url-loader-6.10.1.tgz#dc741e4299e0e7ddf435eba50a1f713b3e763b33"
+  integrity sha512-DSDrbhQIv7fheQ60pfDpGD256ixUQIR6Hhf9Z5bRjVkXOCvO5XrkwoWLiU7iHL81GB1r0Ba31bf+sl+D4nyyfw==
   dependencies:
     "@graphql-tools/delegate" "^7.0.1"
     "@graphql-tools/utils" "^7.9.0"
@@ -1447,9 +1447,9 @@
     tslib "~2.0.1"
 
 "@graphql-tools/utils@^7.0.0", "@graphql-tools/utils@^7.0.2", "@graphql-tools/utils@^7.1.2", "@graphql-tools/utils@^7.5.0", "@graphql-tools/utils@^7.7.0", "@graphql-tools/utils@^7.7.1", "@graphql-tools/utils@^7.8.1", "@graphql-tools/utils@^7.9.0":
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-7.9.0.tgz#e0419657c76f249a6fea9c4c1ea3091fe08be6b1"
-  integrity sha512-WaYfdKmYFw7Rw5BmFehwo5zqoHNlO1soKVSdrh4qN0X1U34g4aqESAMYogtlp2yWDb2b3qKShiByCvRWNypbVA==
+  version "7.9.1"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-7.9.1.tgz#265e12a0b8a396be97f459599f2f1150fceee4b1"
+  integrity sha512-k4bQWsOnSJSW7suBnVUJf3Sc8uXuvIYLHXujbEoSrwOEHjC+707GvXbQ7rg+8l7v8NMgpyARyuKFlqz3cfoxBQ==
   dependencies:
     "@ardatan/aggregate-error" "0.0.6"
     camel-case "4.1.2"
@@ -5560,9 +5560,9 @@ content-type@^1.0.4, content-type@~1.0.4:
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
 contentful-management@^7.5.1:
-  version "7.18.0"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.18.0.tgz#f20e27e2fe7b713f3d73c84423a3ab0246bb3b56"
-  integrity sha512-z0opIEb92YX62iply/Bx2L3peMeO0yvwpIKBhEXJU53DwyYsgSYA0puw/TqoMck1EHXRfElKi0LQ8bAObLrfyg==
+  version "7.18.2"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.18.2.tgz#20b528213ee370972e297ed78fa4b0e40e3be19d"
+  integrity sha512-d8P6BsOvjhgXavWTksfPB/C7etHQ5EP+R59d1wQ3xr8qHv4bVYOYF+eRnrgRHJQ9Cae8lk7N5JmZLwG/gEQuag==
   dependencies:
     "@types/json-patch" "0.0.30"
     axios "^0.21.0"

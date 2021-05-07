@@ -18,12 +18,12 @@ if (!String.prototype.replaceAll) {
 }
 
 const searchRegExp2 = /import.*from '/gi;
-const replace2 = "https://cdn.skypack.dev/";
+const replace2 = "import Fab from 'https://cdn.skypack.dev/";
 
 const searchRegExp = /import.*react';/gi;
-
 const searchRegExpMotion = /import.*framer-motion';/gi;
-const replaceWith = "";
+
+const replaceWith = "\n\n";
 
 const transform = (code) => {
   const safeCode = code.replaceAll(

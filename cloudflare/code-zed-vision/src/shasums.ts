@@ -33,7 +33,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "09b103123abfd51fbc81a9c8b2e5dd1fe9bd07531ce281544e13d6b697ee9bb8",
+    "f3b10f5b0c9f90d4d72cfa42250876e46b503c0a2e8953f82ca89edadbe6e983",
   "js/workers/ipfsWorker.js":
     "98606ce847990e96fe72264b04af61db2b23b5cf1ea9d5d637af3b7ba264228a",
   "js/workers/getWorker.mjs":
@@ -77,7 +77,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "20003b5ee9068107762f779578384192470b572c2c1bd231ca977146bff4b443",
+    "19f1d702421790f1247aebeb3a8ff1629615cf52b568fd8640e2e7c9d0ff3bbb",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.js":
@@ -100,8 +100,6 @@ export const shasums = {
     "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-  "modules/renderer.js":
-    "2dd848d3e639d0851e31e80cc713c2b4f60fea65129857e1c605ff38c6acac11",
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "modules/shaDB.js":
