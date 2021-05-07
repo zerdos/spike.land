@@ -294,7 +294,7 @@ module.exports = withSideEffect;
 /* harmony export */   "A": function() { return /* binding */ Layout; }
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3182);
-/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8197);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3514);
 var _templateObject;/** @jsx jsx */var Layout=function Layout(_ref){var children=_ref.children;return (0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .jsx */ .tZ)("main",{css:(0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .css */ .iv)(_templateObject||(_templateObject=(0,_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__/* .default */ .Z)(["  \n          max-width: 1140px;\n          margin: auto;\n          img{\n            max-width: 100%;\n          }\n       "])))},children);};
 
 /***/ }),
@@ -1207,4 +1207,4 @@ HelmetExport.renderStatic = HelmetExport.rewind;
 /***/ })
 
 }]);
-//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-b13e4d1c0ec199f3d3fa.js.map
+//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-8896bcda1b6158eec3f1.js.map

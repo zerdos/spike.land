@@ -186,7 +186,7 @@ __webpack_require__.d(__webpack_exports__, {
 // EXTERNAL MODULE: ../../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
 var taggedTemplateLiteralLoose = __webpack_require__(3182);
 // EXTERNAL MODULE: ../../node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(8197);
+var emotion_react_browser_esm = __webpack_require__(3514);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
 var gatsby_browser_entry = __webpack_require__(8447);
 // EXTERNAL MODULE: ./src/components/bio.tsx + 1 modules
@@ -238,4 +238,4 @@ React:React,mdx:mdx},mdxScope);var keys=Object.keys(fullScope);var values=keys.m
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-templates-blog-post-tsx-8ed65cb22b5948ec8ac3.js.map
+//# sourceMappingURL=component---src-templates-blog-post-tsx-355615b5d6d6237d5d2b.js.map

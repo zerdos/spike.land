@@ -18,7 +18,7 @@ function _taggedTemplateLiteralLoose(strings, raw) {
 
 /***/ }),
 
-/***/ 8197:
+/***/ 3514:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1304,9 +1304,23 @@ var createCache = function createCache(options) {
 
   if (key === 'css') {
     var ssrStyles = document.querySelectorAll("style[data-emotion]:not([data-s])"); // get SSRed styles out of the way of React's hydration
-    // document.head is a safe place to move them to
+    // document.head is a safe place to move them to(though note document.head is not necessarily the last place they will be)
+    // note this very very intentionally targets all style elements regardless of the key to ensure
+    // that creating a cache works inside of render of a React component
 
     Array.prototype.forEach.call(ssrStyles, function (node) {
+      // we want to only move elements which have a space in the data-emotion attribute value
+      // because that indicates that it is an Emotion 11 server-side rendered style elements
+      // while we will already ignore Emotion 11 client-side inserted styles because of the :not([data-s]) part in the selector
+      // Emotion 10 client-side inserted styles did not have data-s (but importantly did not have a space in their data-emotion attributes)
+      // so checking for the space ensures that loading Emotion 11 after Emotion 10 has inserted some styles
+      // will not result in the Emotion 10 styles being destroyed
+      var dataEmotionAttribute = node.getAttribute('data-emotion');
+
+      if (dataEmotionAttribute.indexOf(' ') === -1) {
+        return;
+      }
+
       document.head.appendChild(node);
       node.setAttribute('data-s', '');
     });
@@ -1322,13 +1336,10 @@ var createCache = function createCache(options) {
   var nodesToHydrate = [];
   {
     container = options.container || document.head;
-    Array.prototype.forEach.call(document.querySelectorAll("style[data-emotion]"), function (node) {
-      var attrib = node.getAttribute("data-emotion").split(' ');
-
-      if (attrib[0] !== key) {
-        return;
-      } // $FlowFixMe
-
+    Array.prototype.forEach.call( // this means we will ignore elements which don't have a space in them which
+    // means that the style elements we're looking at are only Emotion 11 server-rendered style elements
+    document.querySelectorAll("style[data-emotion^=\"" + key + " \"]"), function (node) {
+      var attrib = node.getAttribute("data-emotion").split(' '); // $FlowFixMe
 
       for (var i = 1; i < attrib.length; i++) {
         inserted[attrib[i]] = true;
@@ -1792,7 +1803,7 @@ var emotion_serialize_browser_esm_serializeStyles = function serializeStyles(arg
 };
 
 
-;// CONCATENATED MODULE: ../../node_modules/@emotion/react/dist/emotion-element-4fbd89c5.browser.esm.js
+;// CONCATENATED MODULE: ../../node_modules/@emotion/react/dist/emotion-element-a8309070.browser.esm.js
 
 
 
@@ -1800,7 +1811,7 @@ var emotion_serialize_browser_esm_serializeStyles = function serializeStyles(arg
 
 
 
-var emotion_element_4fbd89c5_browser_esm_hasOwnProperty = Object.prototype.hasOwnProperty;
+var emotion_element_a8309070_browser_esm_hasOwnProperty = Object.prototype.hasOwnProperty;
 var EmotionCacheContext = /* #__PURE__ */(0,react.createContext)( // we're doing this to avoid preconstruct's dead code elimination in this one case
 // because this module is primarily intended for the browser and node
 // but it's also required in react native and similar environments sometimes
@@ -1812,7 +1823,7 @@ typeof HTMLElement !== 'undefined' ? /* #__PURE__ */emotion_cache_browser_esm({
 }) : null);
 var CacheProvider = EmotionCacheContext.Provider;
 
-var emotion_element_4fbd89c5_browser_esm_withEmotionCache = function withEmotionCache(func) {
+var emotion_element_a8309070_browser_esm_withEmotionCache = function withEmotionCache(func) {
   // $FlowFixMe
   return /*#__PURE__*/(0,react.forwardRef)(function (props, ref) {
     // the cache will never be null in the browser
@@ -1821,10 +1832,10 @@ var emotion_element_4fbd89c5_browser_esm_withEmotionCache = function withEmotion
   });
 };
 
-var emotion_element_4fbd89c5_browser_esm_ThemeContext = /* #__PURE__ */(0,react.createContext)({});
+var emotion_element_a8309070_browser_esm_ThemeContext = /* #__PURE__ */(0,react.createContext)({});
 
 var useTheme = function useTheme() {
-  return useContext(emotion_element_4fbd89c5_browser_esm_ThemeContext);
+  return useContext(emotion_element_a8309070_browser_esm_ThemeContext);
 };
 
 var getTheme = function getTheme(outerTheme, theme) {
@@ -1838,7 +1849,7 @@ var getTheme = function getTheme(outerTheme, theme) {
 
   if (false) {}
 
-  return _extends({}, outerTheme, {}, theme);
+  return _extends({}, outerTheme, theme);
 };
 
 var createCacheWithTheme = /* #__PURE__ */(/* unused pure expression or super */ null && (weakMemoize(function (outerTheme) {
@@ -1848,13 +1859,13 @@ var createCacheWithTheme = /* #__PURE__ */(/* unused pure expression or super */
 })));
 
 var ThemeProvider = function ThemeProvider(props) {
-  var theme = useContext(emotion_element_4fbd89c5_browser_esm_ThemeContext);
+  var theme = useContext(emotion_element_a8309070_browser_esm_ThemeContext);
 
   if (props.theme !== theme) {
     theme = createCacheWithTheme(theme)(props.theme);
   }
 
-  return /*#__PURE__*/createElement(emotion_element_4fbd89c5_browser_esm_ThemeContext.Provider, {
+  return /*#__PURE__*/createElement(emotion_element_a8309070_browser_esm_ThemeContext.Provider, {
     value: theme
   }, props.children);
 };
@@ -1863,7 +1874,7 @@ function withTheme(Component) {
   var componentName = Component.displayName || Component.name || 'Component';
 
   var render = function render(props, ref) {
-    var theme = useContext(emotion_element_4fbd89c5_browser_esm_ThemeContext);
+    var theme = useContext(emotion_element_a8309070_browser_esm_ThemeContext);
     return /*#__PURE__*/createElement(Component, _extends({
       theme: theme,
       ref: ref
@@ -1890,7 +1901,7 @@ var createEmotionProps = function createEmotionProps(type, props) {
   var newProps = {};
 
   for (var key in props) {
-    if (emotion_element_4fbd89c5_browser_esm_hasOwnProperty.call(props, key)) {
+    if (emotion_element_a8309070_browser_esm_hasOwnProperty.call(props, key)) {
       newProps[key] = props[key];
     }
   }
@@ -1902,7 +1913,7 @@ var createEmotionProps = function createEmotionProps(type, props) {
   return newProps;
 };
 
-var Emotion = /* #__PURE__ */emotion_element_4fbd89c5_browser_esm_withEmotionCache(function (props, cache, ref) {
+var Emotion = /* #__PURE__ */emotion_element_a8309070_browser_esm_withEmotionCache(function (props, cache, ref) {
   var cssProp = props.css; // so that using `css` from `emotion` and passing the result to the css prop works
   // not passing the registered cache to serializeStyles because it would
   // make certain babel optimisations not possible
@@ -1921,7 +1932,7 @@ var Emotion = /* #__PURE__ */emotion_element_4fbd89c5_browser_esm_withEmotionCac
     className = props.className + " ";
   }
 
-  var serialized = emotion_serialize_browser_esm_serializeStyles(registeredStyles, undefined, typeof cssProp === 'function' || Array.isArray(cssProp) ? (0,react.useContext)(emotion_element_4fbd89c5_browser_esm_ThemeContext) : undefined);
+  var serialized = emotion_serialize_browser_esm_serializeStyles(registeredStyles, undefined, typeof cssProp === 'function' || Array.isArray(cssProp) ? (0,react.useContext)(emotion_element_a8309070_browser_esm_ThemeContext) : undefined);
 
   if (false) { var labelFromStack; }
 
@@ -1930,7 +1941,7 @@ var Emotion = /* #__PURE__ */emotion_element_4fbd89c5_browser_esm_withEmotionCac
   var newProps = {};
 
   for (var key in props) {
-    if (emotion_element_4fbd89c5_browser_esm_hasOwnProperty.call(props, key) && key !== 'css' && key !== typePropName && ( true || 0)) {
+    if (emotion_element_a8309070_browser_esm_hasOwnProperty.call(props, key) && key !== 'css' && key !== typePropName && ( true || 0)) {
       newProps[key] = props[key];
     }
   }
@@ -1962,7 +1973,7 @@ var hoist_non_react_statics_cjs = __webpack_require__(6254);
 
 var pkg = {
   name: "@emotion/react",
-  version: "11.1.5",
+  version: "11.4.0",
   main: "dist/emotion-react.cjs.js",
   module: "dist/emotion-react.esm.js",
   browser: {
@@ -1978,9 +1989,9 @@ var pkg = {
     "test:typescript": "dtslint types"
   },
   dependencies: {
-    "@babel/runtime": "^7.7.2",
-    "@emotion/cache": "^11.1.3",
-    "@emotion/serialize": "^1.0.0",
+    "@babel/runtime": "^7.13.10",
+    "@emotion/cache": "^11.4.0",
+    "@emotion/serialize": "^1.0.2",
     "@emotion/sheet": "^1.0.1",
     "@emotion/utils": "^1.0.0",
     "@emotion/weak-memoize": "^0.2.5",
@@ -1999,18 +2010,18 @@ var pkg = {
     }
   },
   devDependencies: {
-    "@babel/core": "^7.7.2",
+    "@babel/core": "^7.13.10",
     "@emotion/css": "11.1.3",
     "@emotion/css-prettifier": "1.0.0",
-    "@emotion/server": "11.0.0",
-    "@emotion/styled": "11.1.5",
+    "@emotion/server": "11.4.0",
+    "@emotion/styled": "11.3.0",
     "@types/react": "^16.9.11",
     dtslint: "^0.3.0",
     "html-tag-names": "^1.1.2",
     react: "16.14.0",
     "svg-tag-names": "^1.1.1"
   },
-  repository: "https://github.com/emotion-js/emotion/tree/master/packages/react",
+  repository: "https://github.com/emotion-js/emotion/tree/main/packages/react",
   publishConfig: {
     access: "public"
   },
@@ -2024,7 +2035,7 @@ var pkg = {
 var jsx = function jsx(type, props) {
   var args = arguments;
 
-  if (props == null || !emotion_element_4fbd89c5_browser_esm_hasOwnProperty.call(props, 'css')) {
+  if (props == null || !emotion_element_a8309070_browser_esm_hasOwnProperty.call(props, 'css')) {
     // $FlowFixMe
     return react.createElement.apply(undefined, args);
   }
@@ -2046,11 +2057,11 @@ var warnedAboutCssPropForGlobal = false; // maintain place over rerenders.
 // initial render from browser, insertBefore context.sheet.tags[0] or if a style hasn't been inserted there yet, appendChild
 // initial client-side render from SSR, use place of hydrating tag
 
-var Global = /* #__PURE__ */emotion_element_4fbd89c5_browser_esm_withEmotionCache(function (props, cache) {
+var Global = /* #__PURE__ */emotion_element_a8309070_browser_esm_withEmotionCache(function (props, cache) {
   if (false) {}
 
   var styles = props.styles;
-  var serialized = emotion_serialize_browser_esm_serializeStyles([styles], undefined, typeof styles === 'function' || Array.isArray(styles) ? (0,react.useContext)(emotion_element_4fbd89c5_browser_esm_ThemeContext) : undefined); // but it is based on a constant that will never change at runtime
+  var serialized = emotion_serialize_browser_esm_serializeStyles([styles], undefined, typeof styles === 'function' || Array.isArray(styles) ? (0,react.useContext)(emotion_element_a8309070_browser_esm_ThemeContext) : undefined); // but it is based on a constant that will never change at runtime
   // it's effectively like having two implementations and switching them out
   // so it's not actually breaking anything
 
@@ -2062,7 +2073,8 @@ var Global = /* #__PURE__ */emotion_element_4fbd89c5_browser_esm_withEmotionCach
       nonce: cache.sheet.nonce,
       container: cache.sheet.container,
       speedy: cache.sheet.isSpeedy
-    }); // $FlowFixMe
+    });
+    var rehydrating = false; // $FlowFixMe
 
     var node = document.querySelector("style[data-emotion=\"" + key + " " + serialized.name + "\"]");
 
@@ -2071,21 +2083,31 @@ var Global = /* #__PURE__ */emotion_element_4fbd89c5_browser_esm_withEmotionCach
     }
 
     if (node !== null) {
+      rehydrating = true; // clear the hash so this node won't be recognizable as rehydratable by other <Global/>s
+
+      node.setAttribute('data-emotion', key);
       sheet.hydrate([node]);
     }
 
-    sheetRef.current = sheet;
+    sheetRef.current = [sheet, rehydrating];
     return function () {
       sheet.flush();
     };
   }, [cache]);
   (0,react.useLayoutEffect)(function () {
+    var sheetRefCurrent = sheetRef.current;
+    var sheet = sheetRefCurrent[0],
+        rehydrating = sheetRefCurrent[1];
+
+    if (rehydrating) {
+      sheetRefCurrent[1] = false;
+      return;
+    }
+
     if (serialized.next !== undefined) {
       // insert keyframes
       emotion_utils_browser_esm_insertStyles(cache, serialized.next, true);
     }
-
-    var sheet = sheetRef.current;
 
     if (sheet.tags.length) {
       // if this doesn't exist then it will be null so the style element will be appended
@@ -2503,4 +2525,4 @@ if (true) {
 /***/ })
 
 }]);
-//# sourceMappingURL=commons-876a4de72b4763ac679c.js.map
+//# sourceMappingURL=commons-f5e259fa31f7ff1baa38.js.map
