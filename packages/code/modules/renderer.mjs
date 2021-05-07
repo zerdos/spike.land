@@ -8280,7 +8280,7 @@ function useMotionRef(visualState, visualElement2, externalRef) {
         externalRef.current = instance;
       }
     }
-  }, [visualElement2]);
+  }, [visualElement2, externalRef]);
 }
 
 // ../../node_modules/framer-motion/dist/es/context/MotionContext/create.js
@@ -8806,7 +8806,7 @@ var numberValueTypes = {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/html/utils/build-styles.js
-function buildHTMLStyles(state, latestValues, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
+function buildHTMLStyles(state, latestValues, projection, layoutState2, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
   var _a;
   var style3 = state.style, vars = state.vars, transform2 = state.transform, transformKeys2 = state.transformKeys, transformOrigin = state.transformOrigin;
   transformKeys2.length = 0;
@@ -8833,8 +8833,8 @@ function buildHTMLStyles(state, latestValues, projection, layoutState, options, 
       transformOrigin[key] = valueAsType;
       hasTransformOrigin = true;
     } else {
-      if (layoutState && projection && layoutState.isHydrated && valueScaleCorrection[key]) {
-        var correctedValue = valueScaleCorrection[key].process(value, layoutState, projection);
+      if ((projection === null || projection === void 0 ? void 0 : projection.isHydrated) && (layoutState2 === null || layoutState2 === void 0 ? void 0 : layoutState2.isHydrated) && valueScaleCorrection[key]) {
+        var correctedValue = valueScaleCorrection[key].process(value, layoutState2, projection);
         var applyTo = valueScaleCorrection[key].applyTo;
         if (applyTo) {
           var num = applyTo.length;
@@ -8849,12 +8849,12 @@ function buildHTMLStyles(state, latestValues, projection, layoutState, options, 
       }
     }
   }
-  if (layoutState && projection && buildProjectionTransform && buildProjectionTransformOrigin) {
-    style3.transform = buildProjectionTransform(layoutState.deltaFinal, layoutState.treeScale, hasTransform ? transform2 : void 0);
+  if (layoutState2 && projection && buildProjectionTransform && buildProjectionTransformOrigin) {
+    style3.transform = buildProjectionTransform(layoutState2.deltaFinal, layoutState2.treeScale, hasTransform ? transform2 : void 0);
     if (transformTemplate) {
       style3.transform = transformTemplate(transform2, style3.transform);
     }
-    style3.transformOrigin = buildProjectionTransformOrigin(layoutState);
+    style3.transformOrigin = buildProjectionTransformOrigin(layoutState2);
   } else {
     if (hasTransform) {
       style3.transform = buildTransform(state, options, transformIsNone, transformTemplate);
@@ -9041,9 +9041,9 @@ function buildSVGPath(attrs, totalLength, length2, spacing2, offset, useDashCase
 }
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js
-function buildSVGAttrs(state, _a, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
+function buildSVGAttrs(state, _a, projection, layoutState2, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
   var attrX = _a.attrX, attrY = _a.attrY, originX = _a.originX, originY = _a.originY, pathLength = _a.pathLength, _b = _a.pathSpacing, pathSpacing = _b === void 0 ? 1 : _b, _c = _a.pathOffset, pathOffset = _c === void 0 ? 0 : _c, latest = __rest(_a, ["attrX", "attrY", "originX", "originY", "pathLength", "pathSpacing", "pathOffset"]);
-  buildHTMLStyles(state, latest, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin);
+  buildHTMLStyles(state, latest, projection, layoutState2, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin);
   state.attrs = state.style;
   state.style = {};
   var attrs = state.attrs, style3 = state.style, dimensions = state.dimensions, totalPathLength = state.totalPathLength;
@@ -9501,11 +9501,197 @@ function isDragActive() {
   return false;
 }
 
+// ../../node_modules/framesync/dist/es/on-next-frame.js
+var defaultTimestep = 1 / 60 * 1e3;
+var getCurrentTime = typeof performance !== "undefined" ? function() {
+  return performance.now();
+} : function() {
+  return Date.now();
+};
+var onNextFrame = typeof window !== "undefined" ? function(callback) {
+  return window.requestAnimationFrame(callback);
+} : function(callback) {
+  return setTimeout(function() {
+    return callback(getCurrentTime());
+  }, defaultTimestep);
+};
+
+// ../../node_modules/framesync/dist/es/create-render-step.js
+function createRenderStep(runNextFrame2) {
+  var toRun = [];
+  var toRunNextFrame = [];
+  var numToRun = 0;
+  var isProcessing2 = false;
+  var toKeepAlive = new WeakSet();
+  var step = {
+    schedule: function(callback, keepAlive, immediate) {
+      if (keepAlive === void 0) {
+        keepAlive = false;
+      }
+      if (immediate === void 0) {
+        immediate = false;
+      }
+      var addToCurrentFrame = immediate && isProcessing2;
+      var buffer = addToCurrentFrame ? toRun : toRunNextFrame;
+      if (keepAlive)
+        toKeepAlive.add(callback);
+      if (buffer.indexOf(callback) === -1) {
+        buffer.push(callback);
+        if (addToCurrentFrame && isProcessing2)
+          numToRun = toRun.length;
+      }
+      return callback;
+    },
+    cancel: function(callback) {
+      var index = toRunNextFrame.indexOf(callback);
+      if (index !== -1)
+        toRunNextFrame.splice(index, 1);
+      toKeepAlive.delete(callback);
+    },
+    process: function(frameData) {
+      var _a;
+      isProcessing2 = true;
+      _a = [toRunNextFrame, toRun], toRun = _a[0], toRunNextFrame = _a[1];
+      toRunNextFrame.length = 0;
+      numToRun = toRun.length;
+      if (numToRun) {
+        for (var i = 0; i < numToRun; i++) {
+          var callback = toRun[i];
+          callback(frameData);
+          if (toKeepAlive.has(callback)) {
+            step.schedule(callback);
+            runNextFrame2();
+          }
+        }
+      }
+      isProcessing2 = false;
+    }
+  };
+  return step;
+}
+
+// ../../node_modules/framesync/dist/es/index.js
+var maxElapsed = 40;
+var useDefaultElapsed = true;
+var runNextFrame = false;
+var isProcessing = false;
+var frame = {
+  delta: 0,
+  timestamp: 0
+};
+var stepsOrder = ["read", "update", "preRender", "render", "postRender"];
+var steps = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
+  acc[key] = createRenderStep(function() {
+    return runNextFrame = true;
+  });
+  return acc;
+}, {});
+var sync = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
+  var step = steps[key];
+  acc[key] = function(process2, keepAlive, immediate) {
+    if (keepAlive === void 0) {
+      keepAlive = false;
+    }
+    if (immediate === void 0) {
+      immediate = false;
+    }
+    if (!runNextFrame)
+      startLoop();
+    return step.schedule(process2, keepAlive, immediate);
+  };
+  return acc;
+}, {});
+var cancelSync = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
+  acc[key] = steps[key].cancel;
+  return acc;
+}, {});
+var flushSync = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
+  acc[key] = function() {
+    return steps[key].process(frame);
+  };
+  return acc;
+}, {});
+var processStep = function(stepId) {
+  return steps[stepId].process(frame);
+};
+var processFrame = function(timestamp) {
+  runNextFrame = false;
+  frame.delta = useDefaultElapsed ? defaultTimestep : Math.max(Math.min(timestamp - frame.timestamp, maxElapsed), 1);
+  frame.timestamp = timestamp;
+  isProcessing = true;
+  stepsOrder.forEach(processStep);
+  isProcessing = false;
+  if (runNextFrame) {
+    useDefaultElapsed = false;
+    onNextFrame(processFrame);
+  }
+};
+var startLoop = function() {
+  runNextFrame = true;
+  useDefaultElapsed = true;
+  if (!isProcessing)
+    onNextFrame(processFrame);
+};
+var getFrameData = function() {
+  return frame;
+};
+var es_default = sync;
+
+// ../../node_modules/framer-motion/dist/es/render/dom/utils/batch-layout.js
+var unresolvedJobs = new Set();
+var layoutState = {
+  isMeasuringLayout: false
+};
+function pushJob(stack, job, pointer) {
+  if (!stack[pointer])
+    stack[pointer] = [];
+  stack[pointer].push(job);
+}
+function batchLayout(callback) {
+  unresolvedJobs.add(callback);
+  return function() {
+    return unresolvedJobs.delete(callback);
+  };
+}
+function flushLayout() {
+  if (!unresolvedJobs.size)
+    return;
+  var pointer = 0;
+  var reads = [[]];
+  var writes = [];
+  var setRead = function(job) {
+    return pushJob(reads, job, pointer);
+  };
+  var setWrite = function(job) {
+    pushJob(writes, job, pointer);
+    pointer++;
+  };
+  unresolvedJobs.forEach(function(callback) {
+    callback(setRead, setWrite);
+    pointer = 0;
+  });
+  unresolvedJobs.clear();
+  layoutState.isMeasuringLayout = true;
+  es_default.postRender(function() {
+    setTimeout(function() {
+      return layoutState.isMeasuringLayout = false;
+    }, 10);
+  });
+  var numStacks = writes.length;
+  for (var i = 0; i <= numStacks; i++) {
+    reads[i] && reads[i].forEach(executeJob);
+    writes[i] && writes[i].forEach(executeJob);
+  }
+}
+var executeJob = function(job) {
+  return job();
+};
+
 // ../../node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js
 function createHoverEvent(visualElement2, isActive, callback) {
   return function(event, info) {
     var _a;
-    if (!isMouseEvent(event) || !visualElement2.isHoverEventsEnabled || isDragActive()) {
+    if (!isMouseEvent(event) || layoutState.isMeasuringLayout || isDragActive()) {
       return;
     }
     callback === null || callback === void 0 ? void 0 : callback(event, info);
@@ -10059,142 +10245,6 @@ function detectAnimationFromOptions(config) {
   }
   return keyframes;
 }
-
-// ../../node_modules/framesync/dist/es/on-next-frame.js
-var defaultTimestep = 1 / 60 * 1e3;
-var getCurrentTime = typeof performance !== "undefined" ? function() {
-  return performance.now();
-} : function() {
-  return Date.now();
-};
-var onNextFrame = typeof window !== "undefined" ? function(callback) {
-  return window.requestAnimationFrame(callback);
-} : function(callback) {
-  return setTimeout(function() {
-    return callback(getCurrentTime());
-  }, defaultTimestep);
-};
-
-// ../../node_modules/framesync/dist/es/create-render-step.js
-function createRenderStep(runNextFrame2) {
-  var toRun = [];
-  var toRunNextFrame = [];
-  var numToRun = 0;
-  var isProcessing2 = false;
-  var toKeepAlive = new WeakSet();
-  var step = {
-    schedule: function(callback, keepAlive, immediate) {
-      if (keepAlive === void 0) {
-        keepAlive = false;
-      }
-      if (immediate === void 0) {
-        immediate = false;
-      }
-      var addToCurrentFrame = immediate && isProcessing2;
-      var buffer = addToCurrentFrame ? toRun : toRunNextFrame;
-      if (keepAlive)
-        toKeepAlive.add(callback);
-      if (buffer.indexOf(callback) === -1) {
-        buffer.push(callback);
-        if (addToCurrentFrame && isProcessing2)
-          numToRun = toRun.length;
-      }
-      return callback;
-    },
-    cancel: function(callback) {
-      var index = toRunNextFrame.indexOf(callback);
-      if (index !== -1)
-        toRunNextFrame.splice(index, 1);
-      toKeepAlive.delete(callback);
-    },
-    process: function(frameData) {
-      var _a;
-      isProcessing2 = true;
-      _a = [toRunNextFrame, toRun], toRun = _a[0], toRunNextFrame = _a[1];
-      toRunNextFrame.length = 0;
-      numToRun = toRun.length;
-      if (numToRun) {
-        for (var i = 0; i < numToRun; i++) {
-          var callback = toRun[i];
-          callback(frameData);
-          if (toKeepAlive.has(callback)) {
-            step.schedule(callback);
-            runNextFrame2();
-          }
-        }
-      }
-      isProcessing2 = false;
-    }
-  };
-  return step;
-}
-
-// ../../node_modules/framesync/dist/es/index.js
-var maxElapsed = 40;
-var useDefaultElapsed = true;
-var runNextFrame = false;
-var isProcessing = false;
-var frame = {
-  delta: 0,
-  timestamp: 0
-};
-var stepsOrder = ["read", "update", "preRender", "render", "postRender"];
-var steps = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
-  acc[key] = createRenderStep(function() {
-    return runNextFrame = true;
-  });
-  return acc;
-}, {});
-var sync = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
-  var step = steps[key];
-  acc[key] = function(process2, keepAlive, immediate) {
-    if (keepAlive === void 0) {
-      keepAlive = false;
-    }
-    if (immediate === void 0) {
-      immediate = false;
-    }
-    if (!runNextFrame)
-      startLoop();
-    return step.schedule(process2, keepAlive, immediate);
-  };
-  return acc;
-}, {});
-var cancelSync = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
-  acc[key] = steps[key].cancel;
-  return acc;
-}, {});
-var flushSync = /* @__PURE__ */ stepsOrder.reduce(function(acc, key) {
-  acc[key] = function() {
-    return steps[key].process(frame);
-  };
-  return acc;
-}, {});
-var processStep = function(stepId) {
-  return steps[stepId].process(frame);
-};
-var processFrame = function(timestamp) {
-  runNextFrame = false;
-  frame.delta = useDefaultElapsed ? defaultTimestep : Math.max(Math.min(timestamp - frame.timestamp, maxElapsed), 1);
-  frame.timestamp = timestamp;
-  isProcessing = true;
-  stepsOrder.forEach(processStep);
-  isProcessing = false;
-  if (runNextFrame) {
-    useDefaultElapsed = false;
-    onNextFrame(processFrame);
-  }
-};
-var startLoop = function() {
-  runNextFrame = true;
-  useDefaultElapsed = true;
-  if (!isProcessing)
-    onNextFrame(processFrame);
-};
-var getFrameData = function() {
-  return frame;
-};
-var es_default = sync;
 
 // ../../node_modules/popmotion/dist/es/animations/utils/elapsed.js
 function loopElapsed(elapsed, duration2, delay) {
@@ -11741,42 +11791,40 @@ var compareByDepth = function(a2, b2) {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/projection/utils.js
-function updateTreeLayoutMeasurements(visualElement2, isRelativeDrag) {
-  withoutTreeTransform(visualElement2, function() {
-    var allChildren = collectProjectingChildren(visualElement2);
-    batchResetAndMeasure(allChildren);
-    updateLayoutMeasurement(visualElement2);
-  });
-  !isRelativeDrag && visualElement2.rebaseProjectionTarget(true, visualElement2.measureViewportBox(false));
+function isProjecting(visualElement2) {
+  var isEnabled = visualElement2.projection.isEnabled;
+  return isEnabled || visualElement2.shouldResetTransform();
+}
+function collectProjectingAncestors(visualElement2, ancestors) {
+  if (ancestors === void 0) {
+    ancestors = [];
+  }
+  var parent = visualElement2.parent;
+  if (parent)
+    collectProjectingAncestors(parent, ancestors);
+  if (isProjecting(visualElement2))
+    ancestors.push(visualElement2);
+  return ancestors;
 }
 function collectProjectingChildren(visualElement2) {
   var children = [];
   var addChild = function(child) {
-    if (child.projection.isEnabled || child.shouldResetTransform()) {
+    if (isProjecting(child))
       children.push(child);
-    }
     child.children.forEach(addChild);
   };
   visualElement2.children.forEach(addChild);
   return children.sort(compareByDepth);
 }
-function withoutTreeTransform(visualElement2, callback) {
-  var parent = visualElement2.parent;
-  var isEnabled = visualElement2.projection.isEnabled;
-  var shouldReset = isEnabled || visualElement2.shouldResetTransform();
-  shouldReset && visualElement2.resetTransform();
-  parent ? withoutTreeTransform(parent, callback) : callback();
-  shouldReset && visualElement2.restoreTransform();
-}
 function updateLayoutMeasurement(visualElement2) {
   if (visualElement2.shouldResetTransform())
     return;
-  var layoutState = visualElement2.getLayoutState();
-  visualElement2.notifyBeforeLayoutMeasure(layoutState.layout);
-  layoutState.isHydrated = true;
-  layoutState.layout = visualElement2.measureViewportBox();
-  layoutState.layoutCorrected = copyAxisBox(layoutState.layout);
-  visualElement2.notifyLayoutMeasure(layoutState.layout, visualElement2.prevViewportBox || layoutState.layout);
+  var layoutState2 = visualElement2.getLayoutState();
+  visualElement2.notifyBeforeLayoutMeasure(layoutState2.layout);
+  layoutState2.isHydrated = true;
+  layoutState2.layout = visualElement2.measureViewportBox();
+  layoutState2.layoutCorrected = copyAxisBox(layoutState2.layout);
+  visualElement2.notifyLayoutMeasure(layoutState2.layout, visualElement2.prevViewportBox || layoutState2.layout);
   es_default.update(function() {
     return visualElement2.rebaseProjectionTarget();
   });
@@ -11786,12 +11834,6 @@ function snapshotViewportBox(visualElement2) {
     return;
   visualElement2.prevViewportBox = visualElement2.measureViewportBox(false);
   visualElement2.rebaseProjectionTarget(false, visualElement2.prevViewportBox);
-}
-function batchResetAndMeasure(order3) {
-  order3.forEach(function(child) {
-    return child.resetTransform();
-  });
-  order3.forEach(updateLayoutMeasurement);
 }
 
 // ../../node_modules/framer-motion/dist/es/motion/features/layout/utils.js
@@ -11969,18 +12011,60 @@ var VisualElementDragControls = function() {
     var _this = this;
     var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c, cursorProgress = _b.cursorProgress;
     var onSessionStart = function(event) {
+      var _a2;
       _this.stopMotion();
-      _this.updateLayoutMeasurements();
-      snapToCursor && _this.snapToCursor(originEvent);
-      _this.isLayoutDrag() && _this.visualElement.lockProjectionTarget();
-      var point = getViewportPointFromEvent(event).point;
-      eachAxis(function(axis) {
-        var _a2 = _this.visualElement.projection.target[axis], min = _a2.min, max = _a2.max;
-        _this.cursorProgress[axis] = cursorProgress ? cursorProgress[axis] : progress(min, max, point[axis]);
-        var axisValue = _this.getAxisMotionValue(axis);
-        if (axisValue) {
-          _this.originPoint[axis] = axisValue.get();
-        }
+      var initialPoint = getViewportPointFromEvent(event).point;
+      (_a2 = _this.cancelLayout) === null || _a2 === void 0 ? void 0 : _a2.call(_this);
+      _this.cancelLayout = batchLayout(function(read, write) {
+        var ancestors = collectProjectingAncestors(_this.visualElement);
+        var children = collectProjectingChildren(_this.visualElement);
+        var tree = __spreadArray(__spreadArray([], __read(ancestors)), __read(children));
+        var hasManuallySetCursorOrigin = false;
+        _this.isLayoutDrag() && _this.visualElement.lockProjectionTarget();
+        write(function() {
+          tree.forEach(function(element) {
+            return element.resetTransform();
+          });
+        });
+        read(function() {
+          updateLayoutMeasurement(_this.visualElement);
+          children.forEach(updateLayoutMeasurement);
+        });
+        write(function() {
+          tree.forEach(function(element) {
+            return element.restoreTransform();
+          });
+          if (snapToCursor) {
+            hasManuallySetCursorOrigin = _this.snapToCursor(initialPoint);
+          }
+        });
+        read(function() {
+          var isRelativeDrag = Boolean(_this.getAxisMotionValue("x") && !_this.isExternalDrag());
+          if (!isRelativeDrag) {
+            _this.visualElement.rebaseProjectionTarget(true, _this.visualElement.measureViewportBox(false));
+          }
+          _this.visualElement.scheduleUpdateLayoutProjection();
+          var projection = _this.visualElement.projection;
+          eachAxis(function(axis) {
+            if (!hasManuallySetCursorOrigin) {
+              var _a3 = projection.target[axis], min = _a3.min, max = _a3.max;
+              _this.cursorProgress[axis] = cursorProgress ? cursorProgress[axis] : progress(min, max, initialPoint[axis]);
+            }
+            var axisValue = _this.getAxisMotionValue(axis);
+            if (axisValue) {
+              _this.originPoint[axis] = axisValue.get();
+            }
+          });
+        });
+        write(function() {
+          flushSync.update();
+          flushSync.preRender();
+          flushSync.render();
+          flushSync.postRender();
+        });
+        read(function() {
+          return _this.resolveDragConstraints();
+        });
       });
     };
     var onStart = function(event, info) {
@@ -11993,7 +12077,7 @@ var VisualElementDragControls = function() {
         if (!_this.openGlobalLock)
           return;
       }
-      _this.resolveDragConstraints();
+      flushLayout();
       _this.isDragging = true;
       _this.currentDirection = null;
       (_b2 = (_a2 = _this.props).onDragStart) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, event, info);
@@ -12012,8 +12096,8 @@ var VisualElementDragControls = function() {
         }
         return;
       }
-      _this.updateAxis("x", event, offset);
-      _this.updateAxis("y", event, offset);
+      _this.updateAxis("x", info.point, offset);
+      _this.updateAxis("y", info.point, offset);
       (_d = (_c2 = _this.props).onDrag) === null || _d === void 0 ? void 0 : _d.call(_c2, event, info);
       lastPointerEvent = event;
     };
@@ -12028,13 +12112,9 @@ var VisualElementDragControls = function() {
       onEnd
     }, {transformPagePoint});
   };
-  VisualElementDragControls2.prototype.updateLayoutMeasurements = function() {
-    updateTreeLayoutMeasurements(this.visualElement, Boolean(this.getAxisMotionValue("x") && !this.isExternalDrag()));
-  };
   VisualElementDragControls2.prototype.resolveDragConstraints = function() {
     var _this = this;
     var _a = this.props, dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
-    this.visualElement.updateLayoutProjection();
     var layout = this.visualElement.getLayoutState().layoutCorrected;
     if (dragConstraints) {
       this.constraints = isRefObject(dragConstraints) ? this.resolveRefConstraints(layout, dragConstraints) : calcRelativeConstraints(layout, dragConstraints);
@@ -12066,7 +12146,8 @@ var VisualElementDragControls = function() {
     return measuredConstraints;
   };
   VisualElementDragControls2.prototype.cancelDrag = function() {
-    var _a;
+    var _a, _b;
+    (_a = this.cancelLayout) === null || _a === void 0 ? void 0 : _a.call(this);
     this.isDragging = false;
     this.panSession && this.panSession.end();
     this.panSession = null;
@@ -12074,7 +12155,7 @@ var VisualElementDragControls = function() {
       this.openGlobalLock();
       this.openGlobalLock = null;
     }
-    (_a = this.visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Drag, false);
+    (_b = this.visualElement.animationState) === null || _b === void 0 ? void 0 : _b.setActive(AnimationType.Drag, false);
   };
   VisualElementDragControls2.prototype.stop = function(event, info) {
     var _a, _b, _c;
@@ -12089,15 +12170,14 @@ var VisualElementDragControls = function() {
     this.animateDragEnd(velocity);
     (_c = (_b = this.props).onDragEnd) === null || _c === void 0 ? void 0 : _c.call(_b, event, info);
   };
-  VisualElementDragControls2.prototype.snapToCursor = function(event) {
+  VisualElementDragControls2.prototype.snapToCursor = function(point) {
     var _this = this;
-    eachAxis(function(axis) {
+    return eachAxis(function(axis) {
       var drag2 = _this.props.drag;
       if (!shouldDrag(axis, drag2, _this.currentDirection))
         return;
       var axisValue = _this.getAxisMotionValue(axis);
       if (axisValue) {
-        var point = getViewportPointFromEvent(event).point;
         var box = _this.visualElement.getLayoutState().layout;
         var length_1 = box[axis].max - box[axis].min;
         var center = box[axis].min + length_1 / 2;
@@ -12106,15 +12186,15 @@ var VisualElementDragControls = function() {
         axisValue.set(offset);
       } else {
         _this.cursorProgress[axis] = 0.5;
-        _this.updateVisualElementAxis(axis, event);
+        return true;
       }
-    });
+    }).includes(true);
   };
-  VisualElementDragControls2.prototype.updateAxis = function(axis, event, offset) {
+  VisualElementDragControls2.prototype.updateAxis = function(axis, point, offset) {
     var drag2 = this.props.drag;
     if (!shouldDrag(axis, drag2, this.currentDirection))
       return;
-    return this.getAxisMotionValue(axis) ? this.updateAxisMotionValue(axis, offset) : this.updateVisualElementAxis(axis, event);
+    return this.getAxisMotionValue(axis) ? this.updateAxisMotionValue(axis, offset) : this.updateVisualElementAxis(axis, point);
   };
   VisualElementDragControls2.prototype.updateAxisMotionValue = function(axis, offset) {
     var axisValue = this.getAxisMotionValue(axis);
@@ -12124,12 +12204,11 @@ var VisualElementDragControls = function() {
     var update = this.constraints ? applyConstraints(nextValue, this.constraints[axis], this.elastic[axis]) : nextValue;
     axisValue.set(update);
   };
-  VisualElementDragControls2.prototype.updateVisualElementAxis = function(axis, event) {
+  VisualElementDragControls2.prototype.updateVisualElementAxis = function(axis, point) {
     var _a;
     var axisLayout = this.visualElement.getLayoutState().layout[axis];
     var axisLength = axisLayout.max - axisLayout.min;
     var axisProgress = this.cursorProgress[axis];
-    var point = getViewportPointFromEvent(event).point;
     var min = calcConstrainedMinPoint(point[axis], axisLength, axisProgress, (_a = this.constraints) === null || _a === void 0 ? void 0 : _a[axis], this.elastic[axis]);
     this.visualElement.setProjectionTargetAxis(axis, min, min + axisLength);
   };
@@ -12228,13 +12307,38 @@ var VisualElementDragControls = function() {
     eachAxis(function(axis) {
       boxProgress[axis] = calcOrigin2(_this.visualElement.projection.target[axis], _this.constraintsBox[axis]);
     });
-    this.updateLayoutMeasurements();
-    this.resolveDragConstraints();
-    eachAxis(function(axis) {
-      if (!shouldDrag(axis, drag2, null))
-        return;
-      var _a2 = calcPositionFromProgress(_this.visualElement.projection.target[axis], _this.constraintsBox[axis], boxProgress[axis]), min = _a2.min, max = _a2.max;
-      _this.visualElement.setProjectionTargetAxis(axis, min, max);
+    this.updateConstraints(function() {
+      eachAxis(function(axis) {
+        if (!shouldDrag(axis, drag2, null))
+          return;
+        var _a2 = calcPositionFromProgress(_this.visualElement.projection.target[axis], _this.constraintsBox[axis], boxProgress[axis]), min = _a2.min, max = _a2.max;
+        _this.visualElement.setProjectionTargetAxis(axis, min, max);
+      });
+    });
+    setTimeout(flushLayout, 1);
+  };
+  VisualElementDragControls2.prototype.updateConstraints = function(onReady) {
+    var _this = this;
+    this.cancelLayout = batchLayout(function(read, write) {
+      var ancestors = collectProjectingAncestors(_this.visualElement);
+      write(function() {
+        return ancestors.forEach(function(element) {
+          return element.resetTransform();
+        });
+      });
+      read(function() {
+        return updateLayoutMeasurement(_this.visualElement);
+      });
+      write(function() {
+        return ancestors.forEach(function(element) {
+          return element.restoreTransform();
+        });
+      });
+      read(function() {
+        _this.resolveDragConstraints();
+      });
+      if (onReady)
+        write(onReady);
     });
   };
   VisualElementDragControls2.prototype.mount = function(visualElement2) {
@@ -12248,8 +12352,9 @@ var VisualElementDragControls = function() {
       _this.scalePoint();
     });
     var stopLayoutUpdateListener = visualElement2.onLayoutUpdate(function() {
-      if (_this.isDragging)
+      if (_this.isDragging) {
         _this.resolveDragConstraints();
+      }
     });
     var prevDragCursor = visualElement2.prevDragCursor;
     if (prevDragCursor) {
@@ -12668,25 +12773,42 @@ function createBatcher() {
     },
     flush: function(_a) {
       var _b = _a === void 0 ? defaultHandler : _a, layoutReady = _b.layoutReady, parent = _b.parent;
-      var order3 = Array.from(queue).sort(compareByDepth);
-      if (parent) {
-        withoutTreeTransform(parent, function() {
-          batchResetAndMeasure(order3);
+      batchLayout(function(read, write) {
+        var order3 = Array.from(queue).sort(compareByDepth);
+        var ancestors = parent ? collectProjectingAncestors(parent) : [];
+        write(function() {
+          var allElements = __spreadArray(__spreadArray([], __read(ancestors)), __read(order3));
+          allElements.forEach(function(element) {
+            return element.resetTransform();
+          });
         });
-      } else {
-        batchResetAndMeasure(order3);
-      }
-      order3.forEach(layoutReady);
-      order3.forEach(function(child) {
-        if (child.isPresent)
-          child.presence = Presence.Present;
+        read(function() {
+          order3.forEach(updateLayoutMeasurement);
+        });
+        write(function() {
+          ancestors.forEach(function(element) {
+            return element.restoreTransform();
+          });
+          order3.forEach(layoutReady);
+        });
+        read(function() {
+          order3.forEach(function(child) {
+            if (child.isPresent)
+              child.presence = Presence.Present;
+          });
+        });
+        write(function() {
+          flushSync.preRender();
+          flushSync.render();
+        });
+        read(function() {
+          es_default.postRender(function() {
+            return order3.forEach(assignProjectionToSnapshot);
+          });
+          queue.clear();
+        });
       });
-      flushSync.preRender();
-      flushSync.render();
-      es_default.postRender(function() {
-        return order3.forEach(assignProjectionToSnapshot);
-      });
-      queue.clear();
+      flushLayout();
     }
   };
 }
@@ -12756,6 +12878,7 @@ var layoutAnimations = {
 var createProjectionState = function() {
   return {
     isEnabled: false,
+    isHydrated: false,
     isTargetLocked: false,
     target: axisBox(),
     targetFinal: axisBox()
@@ -12936,7 +13059,7 @@ var visualElement = function(_a) {
     var leadProjection = projection;
     var leadLatestValues = latestValues;
     var unsubscribeFromLeadVisualElement;
-    var layoutState = createLayoutState();
+    var layoutState2 = createLayoutState();
     var crossfader;
     var hasViewportBoxUpdated = false;
     var values3 = new Map();
@@ -12950,7 +13073,7 @@ var visualElement = function(_a) {
         return;
       if (element.isProjectionReady()) {
         applyBoxTransforms(leadProjection.targetFinal, leadProjection.target, leadLatestValues);
-        updateBoxDelta(layoutState.deltaFinal, layoutState.layoutCorrected, leadProjection.targetFinal, latestValues);
+        updateBoxDelta(layoutState2.deltaFinal, layoutState2.layoutCorrected, leadProjection.targetFinal, latestValues);
       }
       triggerBuild();
       renderInstance(instance, renderState);
@@ -12962,24 +13085,26 @@ var visualElement = function(_a) {
         if (crossfadedValues)
           valuesToRender = crossfadedValues;
       }
-      build(element, renderState, valuesToRender, leadProjection, layoutState, options, props);
+      build(element, renderState, valuesToRender, leadProjection, layoutState2, options, props);
     }
     function update() {
       lifecycles.notifyUpdate(latestValues);
     }
     function updateLayoutProjection() {
-      var delta2 = layoutState.delta, treeScale = layoutState.treeScale;
+      if (!element.isProjectionReady())
+        return;
+      var delta2 = layoutState2.delta, treeScale = layoutState2.treeScale;
       var prevTreeScaleX = treeScale.x;
       var prevTreeScaleY = treeScale.x;
-      var prevDeltaTransform = layoutState.deltaTransform;
-      updateLayoutDeltas(layoutState, leadProjection, element.path, latestValues);
+      var prevDeltaTransform = layoutState2.deltaTransform;
+      updateLayoutDeltas(layoutState2, leadProjection, element.path, latestValues);
       hasViewportBoxUpdated && element.notifyViewportBoxUpdate(leadProjection.target, delta2);
       hasViewportBoxUpdated = false;
       var deltaTransform = buildLayoutProjectionTransform(delta2, treeScale);
       if (deltaTransform !== prevDeltaTransform || prevTreeScaleX !== treeScale.x || prevTreeScaleY !== treeScale.y) {
         element.scheduleRender();
       }
-      layoutState.deltaTransform = deltaTransform;
+      layoutState2.deltaTransform = deltaTransform;
     }
     function updateTreeLayoutProjection() {
       element.layoutTree.forEach(fireUpdateLayoutProjection);
@@ -13018,7 +13143,6 @@ var visualElement = function(_a) {
       isVisible: void 0,
       manuallyAnimateOnMount: Boolean(parent === null || parent === void 0 ? void 0 : parent.isMounted()),
       blockInitialAnimation,
-      isHoverEventsEnabled: true,
       isMounted: function() {
         return Boolean(instance);
       },
@@ -13091,14 +13215,6 @@ var visualElement = function(_a) {
           canMutate = true;
         }
         return makeTargetAnimatable(element, target, props, canMutate);
-      },
-      suspendHoverEvents: function() {
-        element.isHoverEventsEnabled = false;
-        es_default.postRender(function() {
-          return setTimeout(function() {
-            return element.isHoverEventsEnabled = true;
-          }, 10);
-        });
       },
       addValue: function(key2, value2) {
         if (element.hasValue(key2))
@@ -13203,13 +13319,13 @@ var visualElement = function(_a) {
         projection.isTargetLocked = false;
       },
       getLayoutState: function() {
-        return layoutState;
+        return layoutState2;
       },
       setCrossfader: function(newCrossfader) {
         crossfader = newCrossfader;
       },
       isProjectionReady: function() {
-        return projection.isEnabled && layoutState.isHydrated;
+        return projection.isEnabled && projection.isHydrated && layoutState2.isHydrated;
       },
       startLayoutAnimation: function(axis, transition, isRelative) {
         if (isRelative === void 0) {
@@ -13261,6 +13377,7 @@ var visualElement = function(_a) {
           projection.relativeTarget = void 0;
           target = projection.target[axis];
         }
+        projection.isHydrated = true;
         target.min = min;
         target.max = max;
         hasViewportBoxUpdated = true;
@@ -13268,7 +13385,7 @@ var visualElement = function(_a) {
       },
       rebaseProjectionTarget: function(force, box) {
         if (box === void 0) {
-          box = layoutState.layout;
+          box = layoutState2.layout;
         }
         var _a3 = element.getProjectionAnimationProgress(), x = _a3.x, y = _a3.y;
         var shouldRebase = !projection.relativeTarget && !projection.isTargetLocked && !x.isAnimating() && !y.isAnimating();
@@ -13281,7 +13398,7 @@ var visualElement = function(_a) {
       },
       notifyLayoutReady: function(config) {
         setCurrentViewportBox(element);
-        element.notifyLayoutUpdate(layoutState.layout, element.prevViewportBox || layoutState.layout, config);
+        element.notifyLayoutUpdate(layoutState2.layout, element.prevViewportBox || layoutState2.layout, config);
       },
       resetTransform: function() {
         return resetTransform(element, instance, props);
@@ -13583,7 +13700,6 @@ var htmlConfig = {
     return getBoundingBox(element, transformPagePoint);
   },
   resetTransform: function(element, domElement, props) {
-    element.suspendHoverEvents();
     var transformTemplate = props.transformTemplate;
     domElement.style.transform = transformTemplate ? transformTemplate({}, "") : "none";
     element.scheduleRender();
@@ -13623,12 +13739,12 @@ var htmlConfig = {
     }, target);
   },
   scrapeMotionValuesFromProps,
-  build: function(element, renderState, latestValues, projection, layoutState, options, props) {
+  build: function(element, renderState, latestValues, projection, layoutState2, options, props) {
     if (element.isVisible !== void 0) {
       renderState.style.visibility = element.isVisible ? "visible" : "hidden";
     }
-    var isProjectionTranform = projection.isEnabled && layoutState.isHydrated;
-    buildHTMLStyles(renderState, latestValues, projection, layoutState, options, props.transformTemplate, isProjectionTranform ? buildLayoutProjectionTransform : void 0, isProjectionTranform ? buildLayoutProjectionTransformOrigin : void 0);
+    var isProjectionTranform = projection.isEnabled && layoutState2.isHydrated;
+    buildHTMLStyles(renderState, latestValues, projection, layoutState2, options, props.transformTemplate, isProjectionTranform ? buildLayoutProjectionTransform : void 0, isProjectionTranform ? buildLayoutProjectionTransformOrigin : void 0);
   },
   render: renderHTML
 };
@@ -13648,9 +13764,9 @@ var svgVisualElement = visualElement(__assign(__assign({}, htmlConfig), {
     return domElement.getAttribute(key);
   },
   scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2,
-  build: function(_element, renderState, latestValues, projection, layoutState, options, props) {
-    var isProjectionTranform = projection.isEnabled && layoutState.isHydrated;
-    buildSVGAttrs(renderState, latestValues, projection, layoutState, options, props.transformTemplate, isProjectionTranform ? buildLayoutProjectionTransform : void 0, isProjectionTranform ? buildLayoutProjectionTransformOrigin : void 0);
+  build: function(_element, renderState, latestValues, projection, layoutState2, options, props) {
+    var isProjectionTranform = projection.isEnabled && layoutState2.isHydrated;
+    buildSVGAttrs(renderState, latestValues, projection, layoutState2, options, props.transformTemplate, isProjectionTranform ? buildLayoutProjectionTransform : void 0, isProjectionTranform ? buildLayoutProjectionTransformOrigin : void 0);
   },
   render: renderSVG
 }));
