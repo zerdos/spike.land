@@ -3178,7 +3178,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@17.0.5":
+"@types/react@*", "@types/react@17.0.5", "@types/react@^17.0.5":
   version "17.0.5"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.5.tgz#3d887570c4489011f75a3fc8f965bf87d09a1bea"
   integrity sha512-bj4biDB9ZJmGAYTWSKJly6bMr4BLUiBrx9ujiJEoP9XIDY9CTaPGxE5QWN/1WjpPLzYF7/jRNnV2nNxNe970sw==
@@ -6997,7 +6997,7 @@ es6-weak-map@^2.0.3:
     es6-iterator "^2.0.3"
     es6-symbol "^3.1.1"
 
-esbuild@0.11.19:
+esbuild@0.11.19, esbuild@^0.11.19:
   version "0.11.19"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.11.19.tgz#59289d9c6ee3f45d0db289a662c31473da25c199"
   integrity sha512-X2h8UThAwKLxmc1OChHVegIScphS/qU9cUB5vCEV2T0A024E8Ptpg9xssXXcs+j1uEgXrDJZuVRzx2JsmGzq7A==
@@ -14208,7 +14208,7 @@ react-typography@0.16.19:
   resolved "https://registry.yarnpkg.com/react-typography/-/react-typography-0.16.19.tgz#5736b47961dcf6b9605b6fa38d41980db2588e28"
   integrity sha512-kV2qLEsdm0x9P4YXQEDVc88tDb4Vg0h/vdVZGgbqaRn8ERvNzV76JHUeOby3vvcUYU5MPd5Kz5DPH9Bhp4I/iw==
 
-react@17.0.2:
+react@17.0.2, react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
