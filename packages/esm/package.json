@@ -1,0 +1,14 @@
+{
+  "name": "@zedvision/esm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react": "^17.0.5",
+    "esbuild": "^0.11.19",
+    "react": "^17.0.2"
+  },
+  "scripts": {
+    "react": "yarn esbuild --bundle src/react.js --format=esm --target=es2017 --outfile=dist/react.mjs"
+  }
+}
