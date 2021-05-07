@@ -1,5 +1,5 @@
 import { jsx as EmotionJSX } from "@emotion/react";
-import * as Motion from "framer-motion"
+import * as Motion from "framer-motion";
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
@@ -11,7 +11,7 @@ export { React };
 export { Fragment };
 export { Motion };
 
-export const {motion} = Motion;
+export const { motion } = Motion;
 
 export { jsx };
 export { css };
@@ -26,4 +26,3 @@ export const render = (
 };
 
 export default React;
-

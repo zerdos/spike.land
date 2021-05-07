@@ -10,7 +10,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
 
   React.useEffect(() => {
     const load = async () => {
-      const QRious  = await new Function(`return import(
+      const QRious = await new Function(`return import(
         "https://esm.sh/qrious"
       ).then(x=>x.default);`)();
       const options = {
