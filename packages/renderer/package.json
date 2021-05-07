@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/renderer",
-  "version": "14.0.2",
+  "version": "14.0.3",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
