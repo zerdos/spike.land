@@ -1,0 +1,18 @@
+{
+    "imports": {
+      "react": "https://esm.sh/react",
+      "react/": "https://esm.sh/react/", 
+      "@emotion/react": "https://unpkg.com/@emotion/react@11.4.0/dist/emotion-react.browser.esm.js",
+      "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+      "@emotion/cache": "https://unpkg.com/@emotion/cache@11.4.0/dist/emotion-cache.browser.esm.js",
+      "@emotion/styled": "https://unpkg.com/@emotion/styled@11.3.0/dist/emotion-styled.browser.esm.js",
+      "@emotion/serialize": "https://unpkg.com/browse/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
+      "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+      "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
+      "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
+      "@babel/runtime/helpers/": "https://unpkg.com/@babel/runtime@7.14.0/helpers/esm/",
+      "react-dom": "https://esm.sh/react-dom",
+      "hoist-non-react-statics": "http://esm.sh/hoist-non-react-statics",
+      "tslib": "./js/tslib.mjs"
+    }
+  }

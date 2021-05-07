@@ -79,7 +79,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "4928c5943852ab51f59922dee184c0407fa4a98c6a3f584a99de94df845c9a25",
+    "02a370553eff944dcc7ff69634f4e0ff9618520c46612b6c501940fe69fde377",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.js":
@@ -118,6 +118,8 @@ export const shasums = {
     "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
+  "importmap.json":
+    "cd0fc907101b1f594b0b952c4d6a38082616f1c36086cf62ace8926162342d04",
   ".tsBuildInfo":
     "3398bee7e1d310e79d798313de53e2659de52a807cd4cd40b376e4810efe1a00",
   "sw.js": "147db1812afbbd4ea981781a8819968c6489ac324eb3b5b060cc37a173dce96b",
@@ -126,6 +128,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "9f340bd005bb36eb657fb85365a01694c0c279d57ba7f1c70fbb3fc341ca858d",
+    "30b5853416ca14355f6a40e2103769cebd06c084230cc29a967a5a6aaebfb3ad",
   "food": "bar",
 };
