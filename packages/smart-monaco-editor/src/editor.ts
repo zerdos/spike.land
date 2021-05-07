@@ -162,7 +162,7 @@ export default async (
       },
       {
         name: "@emotion/cache/index.d.ts",
-        url: "https://unpkg.com/@emotion/cache@11.1.3/types/index.d.ts",
+        url: "https://unpkg.com/@emotion/cache@11.4.0/types/index.d.ts",
         depend: ["@emotion/utils"],
       },
       {
