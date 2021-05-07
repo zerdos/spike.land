@@ -27,11 +27,3 @@ export const render = (
 
 export default React;
 
-Object.assign(globalThis, {
-  DraggableWindow,
-  jsx,
-  css,
-  Global,
-  render,
-  React,
-});

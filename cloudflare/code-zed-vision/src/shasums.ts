@@ -77,7 +77,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "ce0171dc77107897352ff00cece6841a6a5344c37dfccb5bf19a553d936ec446",
+    "d820c04e2181af20d4444fa69053e96104cd476580c968cb2507791fc62476f9",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.js":

@@ -10,11 +10,11 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
 
   React.useEffect(() => {
     const load = async () => {
-      const { QRious } = await new Function(`return import(
-        "https://spike.land/modules/QRious.mjs"
-      );`)();
+      const QRious  = await new Function(`return import(
+        "https://esm.sh/qrious"
+      ).then(x=>x.default);`)();
       const options = {
-        size: 220,
+        size: 200,
         element: canvasRef.current,
         foregroundAlpha: 0.9,
         foreground: "white",
@@ -42,8 +42,8 @@ export const QRButton: React.FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = React.useState(false);
   return <motion.div
     animate={{
-      width: showQR ? 220 : 56,
-      height: showQR ? 240 : 48,
+      width: showQR ? 200 : 56,
+      height: showQR ? 220 : 48,
     }}
     onClick={(e) => {
       setQR(!showQR);
