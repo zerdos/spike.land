@@ -52,7 +52,7 @@ export const QRButton: React.FC<{ url: string }> = ({ url }) => {
                 margin-bottom: 12px;
               `}
   >
-    {showQR ? <QR key={url} url={url + "edit/"} /> : <Fab
+    {showQR ? <QR key={url} url={url + "/edit/"} /> : <Fab
       variant="extended"
       color="secondary"
       onClick={() => {

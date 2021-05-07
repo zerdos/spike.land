@@ -11,7 +11,6 @@ added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.pn
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
 added QmVLbpufU1TtCAxWtQt7fSAPehdJiPumVcg5yyVz3ei6PE code/index.html
-added Qma6Lpxwx6GvCRKwAKHqWzVLc5pe2wpKCXEKuyeRQUTeVV code/ipfs.json
 added QmNdT4tZpbzYtKrgg4sW3or8ZogRMbJ354voCv3ZAue3Mb code/js/codeLoader.mjs
 added QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF code/js/data.mjs
 added QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8 code/js/examples/app.tsx
@@ -42,7 +41,8 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmeH3ZsTkCHmbUmw3spFyywxKnviA4Z6Q2nP78ZdLq95Hn code/modules/ipfs.client.mjs
-added QmQ1aEtbjYZig19NHQtFfFLTowEktiabuk4TeMNMoDW29V code/modules/renderer.mjs
+added QmVaHj75nmNHniaJKsgFD5rVBvFBshqAgzPKiDTA6g5P4g code/modules/renderer.js
+added QmVsE5SFWrfg2Rua4vYhYVLvHxcNnFT937wgCuP5FJtYfU code/modules/renderer.mjs
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb73uQ62EUgeNcfKrekvdwV13YMJc9318Lb4xvuDtowuC code/modules/shaDB.d.ts
@@ -70,7 +70,7 @@ added QmdYdF8Y9eZVdqPUVNhM2ofZZGL13Tt3U7dojqdYtykLYK code/js
 added QmQ8DR7tGvoXEgGQusosxsgCexDXAEhJTUeuBBB276kiTG code/modules/smart-monaco-editor/dist
 added QmbyxwZ4r2b9TW14wonHcCrd3VB7zZBNZv9Roiv6khFrtD code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
-added QmbnAtTixs1dYHuGUJKU2d828uQP4d8DcgPsQKKziicWpW code/modules
+added QmQ7HTcxFR7i4JvcPSSagRqzHD1apZXFccxukQwk9C6RLE code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/out
-added QmbicY59bFa97SNwCEmeWXznQG7f5PcHa9qwAbdvvESXnt code
+added QmW6d5k3kwBcFGGreNBiQxBro3CuLHNX9tr6paCsf8GuTJ code
