@@ -1,8 +1,16 @@
 {
   "name": "@zedvision/esm",
   "version": "14.0.3",
+  "description": "esm modules for packages with maintainers from the 2015",
   "main": "index.js",
   "license": "MIT",
+  "authors": [
+    "Zoltan Erdos <zolika84@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo"
+  },
+  "homepage": "https://spike.land",
   "dependencies": {
     "@types/react": "^17.0.5",
     "esbuild": "^0.11.19",
