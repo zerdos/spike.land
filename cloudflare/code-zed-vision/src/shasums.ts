@@ -23,7 +23,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "package.json":
-    "cf15432e2d4d33d4ce1d17403ccff53684694f63d25f7a4d6d638d796a415df2",
+    "411ad58f61a53fe8f87aa74bdc3895dab8ce51921d9797fe4ed20a15c9878c0a",
   "js/workboxLoader.mjs":
     "3d2c125a2325cceb7bcfa9ccfc7d3f4bbcbb7a2d463f2721c153f7cb69f8c20e",
   "js/importScript.mjs":
@@ -77,7 +77,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "d820c04e2181af20d4444fa69053e96104cd476580c968cb2507791fc62476f9",
+    "cd5e2561a4fc35ef4a25c114e37f85d0b368f0d2c5466981d3ee51333bf761d7",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.js":
