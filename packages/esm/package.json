@@ -22,7 +22,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "private": "false",
   "sideEffects": false,
   "scripts": {
     "react": "yarn esbuild --bundle src/react.js --format=esm --target=es2017 --outfile=dist/react.mjs"
