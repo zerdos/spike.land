@@ -75,7 +75,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/ipfs.client.mjs":
-    "e553cb6e65fd3b1890f21aa4e718163b06df57c425432008b756a3cbf14263db",
+    "16ba6969b539b6a7bbd4a119274cdd69c27db6021c66ffc4eb0f0bf25a375fcb",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
