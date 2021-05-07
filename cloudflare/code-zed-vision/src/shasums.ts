@@ -29,7 +29,7 @@ export const shasums = {
   "js/importScript.mjs":
     "29027a7ed1e7ab3322800cc7bc78e7d73a8d4da6017c140a3d8fe23480c80c77",
   "js/codeLoader.mjs":
-    "23de7c1b9dadb688ad58b1f5f9e3c7bf398f83836e9a6f7e1ad3759706db3773",
+    "f8dc7fb2d24dc9c2af8e03cc08358558284a66bad0c3f74905e4afd91b2fe9cf",
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
@@ -58,6 +58,8 @@ export const shasums = {
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
     "5fe227c44855df7672ff9da2c0393e68e6bcf4140e2615480a70a6c5c5c79a31",
+  "js/tslib.mjs":
+    "b0baba21b4be079b2dc2daab76d5b61b0102c4a10d9c425b19bce084bb76dca6",
   "js/examples/rca.tsx":
     "62fce5b0fc7a3b0f50cbdd154375cbe0a554e4762c0bc2eab4393a03f1270ac5",
   "js/examples/app.tsx":
@@ -77,7 +79,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "19f1d702421790f1247aebeb3a8ff1629615cf52b568fd8640e2e7c9d0ff3bbb",
+    "4928c5943852ab51f59922dee184c0407fa4a98c6a3f584a99de94df845c9a25",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/getDbObj.js":
@@ -117,13 +119,13 @@ export const shasums = {
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   ".tsBuildInfo":
-    "9d3780a828378226175f1f342eaebb254c3e2bc13075426f5894e3fe7145ed5a",
+    "3398bee7e1d310e79d798313de53e2659de52a807cd4cd40b376e4810efe1a00",
   "sw.js": "147db1812afbbd4ea981781a8819968c6489ac324eb3b5b060cc37a173dce96b",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "afa1008c79da0c52c1f5987b414527f5318f74e3d7622e839250613764ffb67e",
+    "9f340bd005bb36eb657fb85365a01694c0c279d57ba7f1c70fbb3fc341ca858d",
   "food": "bar",
 };

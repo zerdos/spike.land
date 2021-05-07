@@ -83,11 +83,14 @@ export async function run(mode = "window", code = "") {
         onChange: (code) => runner(code),
       },
     );
-
+try{
     await renderPreviewWindow(
       session,
     );
-
+    }
+    catch(e){
+      console.error("Error", {e})
+    }
     await restartCode(session.transpiled, session.i);
 
     await editorPromise;
