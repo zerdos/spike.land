@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/renderer",
-  "version": "14.0.1",
+  "version": "14.0.2",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -20,7 +20,6 @@
     "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",
     "@material-ui/core": "5.0.0-alpha.32",
-    "tslib": "2.2.0",
     "@material-ui/icons": "5.0.0-alpha.29",
     "@types/react": "17.0.5",
     "@types/react-dom": "17.0.3",
@@ -28,6 +27,7 @@
     "framer-motion": "4.1.11",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "tslib": "2.2.0",
     "typescript": "4.2.4"
   },
   "gitHead": "dc1a9acb1118f09e917d340019a35bd11abcc06f"
