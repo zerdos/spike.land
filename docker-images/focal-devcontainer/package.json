@@ -15,7 +15,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@devcontainer/generator": "^14.0.3"
+    "@devcontainer/generator": "14.0.3"
   },
   "version": "14.0.3",
   "description": "devcontainer vscode docker xfce remoteDesktop",
@@ -26,8 +26,5 @@
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "execa": "^5.0.0"
   }
 }

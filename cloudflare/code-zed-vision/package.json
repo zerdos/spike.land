@@ -15,9 +15,9 @@
   "dependencies": {
     "@cloudflare/workers-types": "2.2.2",
     "@cloudflare/wrangler": "1.16.1",
-    "@zedvision/code": "^14.0.5",
-    "@zedvision/ipfs": "^14.0.3",
-    "esbuild": "0.11.19"
+    "@zedvision/code": "14.0.5",
+    "@zedvision/ipfs": "14.0.3",
+    "esbuild": "0.11.20"
   },
   "publishConfig": {
     "access": "public"
