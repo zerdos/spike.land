@@ -17,39 +17,39 @@ if (!String.prototype.replaceAll) {
   };
 }
 
-const searchRegExp2 = /import.*from '/gi;
-const replace2 = "import Fab from 'https://cdn.skypack.dev/";
+// const searchRegExp2 = /import.*from '/gi;
+// const replace2 = "import Fab from 'https://cdn.skypack.dev/";
 
-const searchRegExp = /import.*react';/gi;
-const searchRegExpMotion = /import.*framer-motion';/gi;
+// const searchRegExp = /import.*react';/gi;
+// const searchRegExpMotion = /import.*framer-motion';/gi;
 
-const replaceWith = "\n\n";
+// const replaceWith = "\n\n";
 
 const transform = (code) => {
-  const safeCode = code.replaceAll(
-    searchRegExp,
-    replaceWith,
-  ).replaceAll(
-    searchRegExpMotion,
-    replaceWith,
-  ).replaceAll(searchRegExp2, replace2);
+  const safeCode = code
+  // .replaceAll(
+  //   searchRegExp,
+  //   replaceWith,
+  // ).replaceAll(
+  //   searchRegExpMotion,
+  //   replaceWith,
+  // ).replaceAll(searchRegExp2, replace2);
 
-  let rendererSrc = `https://spike.land/modules/renderer.mjs`;
+  // let rendererSrc = `https://spike.land/modules/renderer.mjs`;
 
-  if (self.location.hostname.indexOf("0.0") !== -1) {
-    const cid = self.location.pathname.slice(6, 52);
-    rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.mjs`;
-  }
+  // if (self.location.hostname.indexOf("0.0") !== -1) {
+  //   const cid = self.location.pathname.slice(6, 52);
+  //   rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.mjs`;
+  // }
 
   const transformed = Babel.transform(
     `/** @jsx jsx */
-      import {jsx, React, css, Fragment, Global, Motion, motion, render} from "${rendererSrc}";
+      import {render, jsx} from 'renderer';
+
+      export {render}
       
       ` + safeCode + `
             
-      const {useState, useRef, useEffect} = React
-      
-      export {render}
       `,
     {
       compact: false,

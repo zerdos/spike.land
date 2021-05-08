@@ -182,8 +182,8 @@
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "f3b10f5b0c9f90d4d72cfa42250876e46b503c0a2e8953f82ca89edadbe6e983",
-        "signature": "1827bd79db267717b0ebe9d2043697db3d1dfa58d81ce43c9c6c16277fa8e605",
+        "version": "c246dc5d9da5ccf55bc840792798837f272871e25f8a02a4ab73f06b586501c0",
+        "signature": "851e229c7bc382ed0a03c6d164dba7c5521b61cc9d10df2a212b1a37a5d4da06",
         "affectsGlobalScope": true
       },
       "./sw.js": {
