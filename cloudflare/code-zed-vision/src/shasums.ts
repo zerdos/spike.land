@@ -33,7 +33,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
   "js/workers/transpile.worker.js":
-    "c246dc5d9da5ccf55bc840792798837f272871e25f8a02a4ab73f06b586501c0",
+    "429fec0de5cf07517e7184e0391b84a21b878cd9405a7b5628a9d6c6c4d4dbb6",
   "js/workers/ipfsWorker.js":
     "98606ce847990e96fe72264b04af61db2b23b5cf1ea9d5d637af3b7ba264228a",
   "js/workers/getWorker.mjs":
@@ -49,7 +49,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "8f3fd058f2d9479dd5ec3a760cb378ad225a935bf8f05a942ce989a2ef14e3ce",
   "js/templates.mjs":
-    "d56e4b2138c317dbd3c9bef780777f41e2c036b77b8b3c6a6e6a73a98a74b248",
+    "ee3d79fc51c746138f4d97343383efe06482ef91840f8bb7b47bd58a0357ade9",
   "js/hash.mjs":
     "18caa0c35ab742aadbe27d22f6a066db8aa302835aac4d207301e1fb6b9911dc",
   "js/importScript.d.ts":
@@ -111,7 +111,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
   "modules/smart-monaco-editor/dist/editor.js":
-    "b48941c798659345a791627d76c86550da87f548ad83b92fc52deb576d66d1ef",
+    "d94ee26144dc5812fc3c0e7a7e03f5e69a5164a8061a8d54314fa973605a082a",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/diffChars.js":
@@ -121,13 +121,13 @@ export const shasums = {
   "importmap.json":
     "b97cecde6a0c47c147b7c7f783d18dfa510d6745c8a0339c3aa7d9d0140ef76c",
   ".tsBuildInfo":
-    "3398bee7e1d310e79d798313de53e2659de52a807cd4cd40b376e4810efe1a00",
+    "cdde86032c7b7e03912d4649e5c5f48b7786c215bc936432198d4365d238909b",
   "sw.js": "147db1812afbbd4ea981781a8819968c6489ac324eb3b5b060cc37a173dce96b",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "69da81dd60c3affd8e2177af0dfa8f889d8431b2c44896375bbb225ccd663aa9",
+    "20120451892ce5f0d5081af4d05f6bd095cecab51824fc0b2ef17382f3a2bfef",
   "food": "bar",
 };

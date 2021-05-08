@@ -1,4 +1,5 @@
 import { getMonaco } from "./monaco.js";
+
 interface StartMonacoProps {
   onChange: (code: string) => void;
   code: string;
@@ -13,7 +14,6 @@ export default async (
   { onChange, code, language, container, options }: StartMonacoProps,
 ) => {
   const monaco = await getMonaco();
-
   const modelUri = monaco.Uri.parse(
     language === "typescript" ? "file:///main.tsx" : "file:///main.html",
   );
@@ -115,6 +115,11 @@ export default async (
       {
         name: "react",
         url: "https://unpkg.com/@types/react@17.0.5/index.d.ts",
+        depend: ["global", "csstype", "react-dom", "prop-types"],
+      },
+      {
+        name: "react/jsx-dev-runtime",
+        url: "https://unpkg.com/@types/react@17.0.5/jsx-dev-runtime.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
@@ -237,7 +242,7 @@ export default async (
         noEmit: true,
 
         typeRoots: ["node_modules/@types"],
-        jsx: monaco.languages.typescript.JsxEmit,
+        jsx: 5,
         esModuleInterop: true,
       },
     );

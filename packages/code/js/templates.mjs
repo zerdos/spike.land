@@ -42,6 +42,41 @@ export function getHtml({ html, css }) {
 <div id="zbody">
   ${html}
 </div>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react",
+    "react/": "https://esm.sh/react/", 
+    "renderer": "https://blog.spike.land/packages/code/modules/renderer.mjs",
+    "monaco-editor": "https://unpkg.com/monaco-editor@0.23.0/esm/vs/editor/editor.main.js",
+    "@emotion/react": "https://unpkg.com/@emotion/react@11.4.0/dist/emotion-react.browser.esm.js",
+    "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+    "@emotion/cache": "https://unpkg.com/@emotion/cache@11.4.0/dist/emotion-cache.browser.esm.js",
+    "@emotion/styled": "https://unpkg.com/@emotion/styled@11.3.0/dist/emotion-styled.browser.esm.js",
+    "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
+    "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+    "@emotion/memoize": "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
+    "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
+    "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
+    "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.0/dist/emotion-is-prop-valid.browser.esm.js",
+    "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.0.1/dist/emotion-sheet.browser.esm.js",
+    "@babel/runtime/helpers/": "https://unpkg.com/@babel/runtime@7.14.0/helpers/",
+    "@babel/runtime/helpers/extends": "https://unpkg.com/@babel/runtime@7.14.0/helpers/esm/extends.js",
+    "framer-motion": "https://unpkg.com/framer-motion@4.1.13/dist/es/index.js",
+    "hey-listen": "https://unpkg.com/@zedvision/hey-listen@1.1.2/dist/hey-listen.es.js",
+    "framesync": "https://unpkg.com/framesync@5.3.0/dist/es/index.js",
+    "popmotion": "https://unpkg.com/popmotion@9.3.5/dist/es/index.js",
+    "style-value-types": "https://unpkg.com/style-value-types@4.1.4/dist/es/index.js",
+    "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
+    "react-dom": "https://esm.sh/react-dom",
+    "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
+    "tslib": "https://blog.spike.land/packages/code/js/tslib.mjs"
+  }
+}
+</script>
+<script>
+window.process = {env: {NODE_ENV:"production" }}
+</script>
 <script type="module">
 import App from "./app.js"
 import {render} from "./app.js"
@@ -69,7 +104,42 @@ export const getEditorHTML = () =>
 <title>Instant React Editor</title>
 </head>
 <body>
-  <script type="module">
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react",
+    "react/": "https://esm.sh/react/", 
+    "renderer": "https://blog.spike.land/packages/code/modules/renderer.mjs",
+    "monaco-editor": "https://unpkg.com/monaco-editor@0.23.0/esm/vs/editor/editor.main.js",
+    "@emotion/react": "https://unpkg.com/@emotion/react@11.4.0/dist/emotion-react.browser.esm.js",
+    "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+    "@emotion/cache": "https://unpkg.com/@emotion/cache@11.4.0/dist/emotion-cache.browser.esm.js",
+    "@emotion/styled": "https://unpkg.com/@emotion/styled@11.3.0/dist/emotion-styled.browser.esm.js",
+    "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
+    "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+    "@emotion/memoize": "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
+    "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
+    "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
+    "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.0/dist/emotion-is-prop-valid.browser.esm.js",
+    "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.0.1/dist/emotion-sheet.browser.esm.js",
+    "@babel/runtime/helpers/": "https://unpkg.com/@babel/runtime@7.14.0/helpers/",
+    "@babel/runtime/helpers/extends": "https://unpkg.com/@babel/runtime@7.14.0/helpers/esm/extends.js",
+    "framer-motion": "https://unpkg.com/framer-motion@4.1.13/dist/es/index.js",
+    "hey-listen": "https://unpkg.com/@zedvision/hey-listen@1.1.2/dist/hey-listen.es.js",
+    "framesync": "https://unpkg.com/framesync@5.3.0/dist/es/index.js",
+    "popmotion": "https://unpkg.com/popmotion@9.3.5/dist/es/index.js",
+    "style-value-types": "https://unpkg.com/style-value-types@4.1.4/dist/es/index.js",
+    "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
+    "react-dom": "https://esm.sh/react-dom",
+    "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
+    "tslib": "https://blog.spike.land/packages/code/js/tslib.mjs"
+  }
+}
+</script>
+<script>
+window.process = {env: {NODE_ENV:"production" }}
+</script>
+<script type="module">
     import {edit} from "https://spike.land/js/data.mjs"
     try{
       edit("${location.pathname.slice(42, 52)}");

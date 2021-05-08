@@ -16,7 +16,8 @@
       "imports": {
         "react": "https://esm.sh/react",
         "react/": "https://esm.sh/react/", 
-        "renderer": "./modules/renderer.mjs",
+        "renderer": "https://blog.spike.land/packages/code/modules/renderer.mjs",
+        "monaco-editor": "https://unpkg.com/monaco-editor@0.23.0/esm/vs/editor/editor.main.js",
         "@emotion/react": "https://unpkg.com/@emotion/react@11.4.0/dist/emotion-react.browser.esm.js",
         "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
         "@emotion/cache": "https://unpkg.com/@emotion/cache@11.4.0/dist/emotion-cache.browser.esm.js",
@@ -31,21 +32,21 @@
         "@babel/runtime/helpers/": "https://unpkg.com/@babel/runtime@7.14.0/helpers/",
         "@babel/runtime/helpers/extends": "https://unpkg.com/@babel/runtime@7.14.0/helpers/esm/extends.js",
         "framer-motion": "https://unpkg.com/framer-motion@4.1.13/dist/es/index.js",
-        "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
+        "hey-listen": "https://unpkg.com/@zedvision/hey-listen@1.1.2/dist/hey-listen.es.js",
         "framesync": "https://unpkg.com/framesync@5.3.0/dist/es/index.js",
         "popmotion": "https://unpkg.com/popmotion@9.3.5/dist/es/index.js",
         "style-value-types": "https://unpkg.com/style-value-types@4.1.4/dist/es/index.js",
         "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
         "react-dom": "https://esm.sh/react-dom",
         "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
-        "tslib": "./js/tslib.mjs"
+        "tslib": "https://blog.spike.land/packages/code/js/tslib.mjs"
       }
     }
   </script>
+  <script>
+        window.process = {env: {NODE_ENV:"production" }}
+  </script>
   <script type="module">
-
-    window.process = {env: {NODE_ENV:"production" }}
-
     try{
       start();
     }catch(error){
@@ -57,9 +58,11 @@
       try {
         const { run } = await import("./js/codeLoader.mjs");
         run("window");
-      } catch (e) {
-        const { run } = await import("https://unpkg.com/@zedvision/code@13.0.16/js/codeLoader.mjs");
-        run("window");
+      } catch (e) 
+      {
+        console.error("error", {e})
+//        const { run } = await import("https://unpkg.com/@zedvision/code@13.0.16/js/codeLoader.mjs");
+  //      run("window");
       }
       setTimeout(async () => {
         const { workboxLoader } = await import("./js/workboxLoader.mjs")

@@ -85,6 +85,11 @@ export default async ({ onChange, code, language, container, options }) => {
                 depend: ["global", "csstype", "react-dom", "prop-types"],
             },
             {
+                name: "react/jsx-dev-runtime",
+                url: "https://unpkg.com/@types/react@17.0.5/jsx-dev-runtime.d.ts",
+                depend: ["global", "csstype", "react-dom", "prop-types"],
+            },
+            {
                 name: "react-exp  ",
                 url: "https://unpkg.com/@types/react@17.0.5/experimental.d.ts",
                 depend: [],
@@ -192,7 +197,7 @@ export default async ({ onChange, code, language, container, options }) => {
             module: 99,
             noEmit: true,
             typeRoots: ["node_modules/@types"],
-            jsx: monaco.languages.typescript.JsxEmit,
+            jsx: 5,
             esModuleInterop: true,
         });
         await Promise.all(dts);

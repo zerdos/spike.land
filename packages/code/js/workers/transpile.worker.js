@@ -39,7 +39,7 @@ const transform = (code) => {
 
   // if (self.location.hostname.indexOf("0.0") !== -1) {
   //   const cid = self.location.pathname.slice(6, 52);
-  //   rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.mjs`;
+  //   rendererSrc = `http://127.0.0.1:8080/ipfs/${cid}/modules/renderer.mjs`;xxxxx`
   // }
 
   const transformed = Babel.transform(
