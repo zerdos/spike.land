@@ -177,7 +177,7 @@
         "affectsGlobalScope": true
       },
       "./js/workers/prettierWorker.js": {
-        "version": "9497c497908667bc6bdfba705e8c432a9984a339f54fe2f293e046a6aa83e5f9",
+        "version": "69eab3172fc8b81ab482b35799432da7bfff72e9df45202c5e18b911c5eba80a",
         "signature": "1c6e9e788546361257b98f0c1d25880428a69a823a178189f7aaf02bb767cebd",
         "affectsGlobalScope": true
       },
