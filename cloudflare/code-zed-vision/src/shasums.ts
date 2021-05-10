@@ -42,6 +42,8 @@ export const shasums = {
     "221a15d866488c6de8a44e38531684a58311bcf8ecbb3d596021af9475d298a8",
   "js/renderPreviewWindow.mjs":
     "81db5186e0ae57f0c4a1db5e24bb3e8a3f40f8f44946930c8ca2e1e8f77e63ab",
+  "js/starter.js":
+    "c77e3d9e5dfd8fa95c691b1185833f7b0f5f7c42e63b5bdc09881adb005ec191",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/formatter.mjs":
@@ -128,6 +130,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "20120451892ce5f0d5081af4d05f6bd095cecab51824fc0b2ef17382f3a2bfef",
+    "18da0894cbbba9ff7e31288b238daa686334c5012384db33d09dd845dad34831",
   "food": "bar",
 };

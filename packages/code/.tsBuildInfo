@@ -161,6 +161,11 @@
         "signature": "2ad234885a4240522efccd77de6c7d99eecf9b4de0914adb9a35c0c22433f993",
         "affectsGlobalScope": true
       },
+      "./js/starter.js": {
+        "version": "c77e3d9e5dfd8fa95c691b1185833f7b0f5f7c42e63b5bdc09881adb005ec191",
+        "signature": "406011f3f588c2df98165360b05be6b5f95d7742ab7e89a10a044ddf4bb0d7b5",
+        "affectsGlobalScope": true
+      },
       "../../node_modules/@types/react/jsx-runtime.d.ts": {
         "version": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
         "signature": "af7fd2870746deed40e130fc0a3966de74e8f52a97ec114d0fbb35876ab05ca9",
@@ -257,6 +262,7 @@
       "../../node_modules/typescript/lib/lib.es2019.symbol.d.ts",
       "../../node_modules/typescript/lib/lib.es5.d.ts",
       "./js/examples/starter_framer.js",
+      "./js/starter.js",
       "./js/workers/ipfsWorker.js",
       "./js/workers/prettierWorker.js",
       "./js/workers/transpile.worker.js",
@@ -289,6 +295,10 @@
       ],
       [
         "./js/examples/starter_framer.js",
+        1
+      ],
+      [
+        "./js/starter.js",
         1
       ],
       [
