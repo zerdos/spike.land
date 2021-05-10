@@ -579,104 +579,6 @@ import {
 import {default as default2} from "@emotion/styled";
 import {ThemeContext, keyframes, css} from "@emotion/react";
 
-// ../../node_modules/@material-ui/styles/getThemeProps/getThemeProps.js
-function getThemeProps(params) {
-  const {
-    theme,
-    name,
-    props
-  } = params;
-  if (!theme || !theme.components || !theme.components[name] || !theme.components[name].defaultProps) {
-    return props;
-  }
-  const output = _extends({}, props);
-  const defaultProps2 = theme.components[name].defaultProps;
-  let propName;
-  for (propName in defaultProps2) {
-    if (output[propName] === void 0) {
-      output[propName] = defaultProps2[propName];
-    }
-  }
-  return output;
-}
-
-// ../../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
-    o2.__proto__ = p2;
-    return o2;
-  };
-  return _setPrototypeOf(o, p);
-}
-
-// ../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  _setPrototypeOf(subClass, superClass);
-}
-
-// ../../node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-  return self;
-}
-
-// ../../node_modules/@material-ui/styles/useTheme/useTheme.js
-import {
-  useContext,
-  useDebugValue
-} from "react";
-
-// ../../node_modules/@material-ui/styles/useTheme/ThemeContext.js
-import {
-  createContext
-} from "react";
-var ThemeContext2 = /* @__PURE__ */ createContext(null);
-if (false) {
-  ThemeContext2.displayName = "ThemeContext";
-}
-var ThemeContext_default = ThemeContext2;
-
-// ../../node_modules/@material-ui/styles/useTheme/useTheme.js
-function useTheme() {
-  const theme = useContext(ThemeContext_default);
-  if (false) {
-    useDebugValue(theme);
-  }
-  return theme;
-}
-
-// ../../node_modules/@material-ui/styles/propsToClassKey/propsToClassKey.js
-function isEmpty(string) {
-  return string.length === 0;
-}
-function propsToClassKey(props) {
-  const {
-    variant
-  } = props, other = _objectWithoutPropertiesLoose(props, ["variant"]);
-  let classKey = variant || "";
-  Object.keys(other).sort().forEach((key) => {
-    if (key === "color") {
-      classKey += isEmpty(classKey) ? props[key] : capitalize(props[key]);
-    } else {
-      classKey += `${isEmpty(classKey) ? key : capitalize(key)}${capitalize(props[key].toString())}`;
-    }
-  });
-  return classKey;
-}
-
-// ../../node_modules/@material-ui/styles/index.js
-if (false) {
-  ponyfillGlobal_default["__@material-ui/styles-init__"] = ponyfillGlobal_default["__@material-ui/styles-init__"] || 0;
-  if (ponyfillGlobal_default["__@material-ui/styles-init__"] === 1) {
-    console.warn(["It looks like there are several instances of `@material-ui/styles` initialized in this application.", "This may cause theme propagation issues, broken class names, specificity issues, and makes your application bigger without a good reason.", "", "See https://material-ui.com/r/styles-instance-warning for more info."].join("\n"));
-  }
-  ponyfillGlobal_default["__@material-ui/styles-init__"] += 1;
-}
-
 // ../../node_modules/@material-ui/system/esm/breakpoints.js
 var import_prop_types = __toModule(require_prop_types());
 
@@ -1394,6 +1296,25 @@ function styleFunctionSx(props) {
 styleFunctionSx.filterProps = ["sx"];
 var styleFunctionSx_default = styleFunctionSx;
 
+// ../../node_modules/@material-ui/core/styles/propsToClassKey.js
+function isEmpty(string) {
+  return string.length === 0;
+}
+function propsToClassKey(props) {
+  const {
+    variant
+  } = props, other = _objectWithoutPropertiesLoose(props, ["variant"]);
+  let classKey = variant || "";
+  Object.keys(other).sort().forEach((key) => {
+    if (key === "color") {
+      classKey += isEmpty(classKey) ? props[key] : capitalize(props[key]);
+    } else {
+      classKey += `${isEmpty(classKey) ? key : capitalize(key)}${capitalize(props[key].toString())}`;
+    }
+  });
+  return classKey;
+}
+
 // ../../node_modules/@material-ui/core/styles/createBreakpoints.js
 function createBreakpoints(breakpoints) {
   const {
@@ -1473,8 +1394,8 @@ var grey = {
   900: "#212121",
   A100: "#d5d5d5",
   A200: "#aaaaaa",
-  A400: "#303030",
-  A700: "#616161"
+  A400: "#616161",
+  A700: "#303030"
 };
 var grey_default = grey;
 
@@ -1881,11 +1802,11 @@ Did you intend to use one of the following approaches?
 
 import { green } from "@material-ui/core/colors";
 
-const theme1 = createMuiTheme({ palette: {
+const theme1 = createTheme({ palette: {
   primary: green,
 } });
 
-const theme2 = createMuiTheme({ palette: {
+const theme2 = createTheme({ palette: {
   primary: { main: green[500] },
 } });` : formatMuiErrorMessage(12, name ? ` (${name})` : "", JSON.stringify(color2.main)));
     }
@@ -2051,7 +1972,7 @@ function createSpacing(spacingInput = 8) {
   return spacing2;
 }
 
-// ../../node_modules/@material-ui/core/styles/transitions.js
+// ../../node_modules/@material-ui/core/styles/createTransitions.js
 var easing = {
   easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
   easeOut: "cubic-bezier(0.0, 0, 0.2, 1)",
@@ -2070,39 +1991,50 @@ var duration = {
 function formatMs(milliseconds) {
   return `${Math.round(milliseconds)}ms`;
 }
-function create(props = ["all"], options = {}) {
-  const {
-    duration: durationOption = duration.standard,
-    easing: easingOption = easing.easeInOut,
-    delay = 0
-  } = options, other = _objectWithoutPropertiesLoose(options, ["duration", "easing", "delay"]);
-  if (false) {
-    const isString = (value) => typeof value === "string";
-    const isNumber = (value) => !isNaN(parseFloat(value));
-    if (!isString(props) && !Array.isArray(props)) {
-      console.error('Material-UI: Argument "props" must be a string or Array.');
-    }
-    if (!isNumber(durationOption) && !isString(durationOption)) {
-      console.error(`Material-UI: Argument "duration" must be a number or a string but found ${durationOption}.`);
-    }
-    if (!isString(easingOption)) {
-      console.error('Material-UI: Argument "easing" must be a string.');
-    }
-    if (!isNumber(delay) && !isString(delay)) {
-      console.error('Material-UI: Argument "delay" must be a number or a string.');
-    }
-    if (Object.keys(other).length !== 0) {
-      console.error(`Material-UI: Unrecognized argument(s) [${Object.keys(other).join(",")}].`);
-    }
-  }
-  return (Array.isArray(props) ? props : [props]).map((animatedProp) => `${animatedProp} ${typeof durationOption === "string" ? durationOption : formatMs(durationOption)} ${easingOption} ${typeof delay === "string" ? delay : formatMs(delay)}`).join(",");
-}
 function getAutoHeightDuration(height2) {
   if (!height2) {
     return 0;
   }
   const constant = height2 / 36;
   return Math.round((4 + 15 * constant ** 0.25 + constant / 5) * 10);
+}
+function createTransitions(inputTransitions) {
+  const mergedEasing = _extends({}, easing, inputTransitions.easing);
+  const mergedDuration = _extends({}, duration, inputTransitions.duration);
+  const create = (props = ["all"], options = {}) => {
+    const {
+      duration: durationOption = mergedDuration.standard,
+      easing: easingOption = mergedEasing.easeInOut,
+      delay = 0
+    } = options, other = _objectWithoutPropertiesLoose(options, ["duration", "easing", "delay"]);
+    if (false) {
+      const isString = (value) => typeof value === "string";
+      const isNumber = (value) => !isNaN(parseFloat(value));
+      if (!isString(props) && !Array.isArray(props)) {
+        console.error('Material-UI: Argument "props" must be a string or Array.');
+      }
+      if (!isNumber(durationOption) && !isString(durationOption)) {
+        console.error(`Material-UI: Argument "duration" must be a number or a string but found ${durationOption}.`);
+      }
+      if (!isString(easingOption)) {
+        console.error('Material-UI: Argument "easing" must be a string.');
+      }
+      if (!isNumber(delay) && !isString(delay)) {
+        console.error('Material-UI: Argument "delay" must be a number or a string.');
+      }
+      if (Object.keys(other).length !== 0) {
+        console.error(`Material-UI: Unrecognized argument(s) [${Object.keys(other).join(",")}].`);
+      }
+    }
+    return (Array.isArray(props) ? props : [props]).map((animatedProp) => `${animatedProp} ${typeof durationOption === "string" ? durationOption : formatMs(durationOption)} ${easingOption} ${typeof delay === "string" ? delay : formatMs(delay)}`).join(",");
+  };
+  return _extends({
+    getAutoHeightDuration,
+    create
+  }, inputTransitions, {
+    easing: mergedEasing,
+    duration: mergedDuration
+  });
 }
 
 // ../../node_modules/@material-ui/core/styles/zIndex.js
@@ -2117,15 +2049,16 @@ var zIndex2 = {
 };
 var zIndex_default = zIndex2;
 
-// ../../node_modules/@material-ui/core/styles/createMuiTheme.js
-function createMuiTheme(options = {}, ...args) {
+// ../../node_modules/@material-ui/core/styles/createTheme.js
+function createTheme(options = {}, ...args) {
   const {
     breakpoints: breakpointsInput = {},
     mixins: mixinsInput = {},
     palette: paletteInput = {},
     spacing: spacingInput,
+    transitions: transitionsInput = {},
     typography: typographyInput = {}
-  } = options, other = _objectWithoutPropertiesLoose(options, ["breakpoints", "mixins", "palette", "spacing", "typography"]);
+  } = options, other = _objectWithoutPropertiesLoose(options, ["breakpoints", "mixins", "palette", "spacing", "transitions", "typography"]);
   const palette2 = createPalette(paletteInput);
   const breakpoints = createBreakpoints(breakpointsInput);
   const spacing2 = createSpacing(spacingInput);
@@ -2139,12 +2072,7 @@ function createMuiTheme(options = {}, ...args) {
     typography: createTypography(palette2, typographyInput),
     spacing: spacing2,
     shape: _extends({}, shape_default),
-    transitions: {
-      duration,
-      easing,
-      create,
-      getAutoHeightDuration
-    },
+    transitions: createTransitions(transitionsInput),
     zIndex: _extends({}, zIndex_default)
   }, other);
   muiTheme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme);
@@ -2176,10 +2104,10 @@ function createMuiTheme(options = {}, ...args) {
   }
   return muiTheme;
 }
-var createMuiTheme_default = createMuiTheme;
+var createTheme_default = createTheme;
 
 // ../../node_modules/@material-ui/core/styles/defaultTheme.js
-var defaultTheme = createMuiTheme_default();
+var defaultTheme = createTheme_default();
 var defaultTheme_default = defaultTheme;
 
 // ../../node_modules/@material-ui/core/styles/experimentalStyled.js
@@ -2311,6 +2239,50 @@ var experimentalStyled = (tag, options, muiOptions = {}) => {
 };
 var experimentalStyled_default = experimentalStyled;
 
+// ../../node_modules/@material-ui/core/styles/getThemeProps.js
+function getThemeProps(params) {
+  const {
+    theme,
+    name,
+    props
+  } = params;
+  if (!theme || !theme.components || !theme.components[name] || !theme.components[name].defaultProps) {
+    return props;
+  }
+  const output = _extends({}, props);
+  const defaultProps2 = theme.components[name].defaultProps;
+  let propName;
+  for (propName in defaultProps2) {
+    if (output[propName] === void 0) {
+      output[propName] = defaultProps2[propName];
+    }
+  }
+  return output;
+}
+
+// ../../node_modules/@material-ui/private-theming/useTheme/ThemeContext.js
+import {
+  createContext
+} from "react";
+var ThemeContext2 = /* @__PURE__ */ createContext(null);
+if (false) {
+  ThemeContext2.displayName = "ThemeContext";
+}
+var ThemeContext_default = ThemeContext2;
+
+// ../../node_modules/@material-ui/private-theming/useTheme/useTheme.js
+import {
+  useContext,
+  useDebugValue
+} from "react";
+function useTheme() {
+  const theme = useContext(ThemeContext_default);
+  if (false) {
+    useDebugValue(theme);
+  }
+  return theme;
+}
+
 // ../../node_modules/@material-ui/core/styles/useTheme.js
 import {
   useDebugValue as useDebugValue2
@@ -2361,9 +2333,33 @@ import {
   useState as useState2
 } from "react";
 
+// ../../node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf2(o2, p2) {
+    o2.__proto__ = p2;
+    return o2;
+  };
+  return _setPrototypeOf(o, p);
+}
+
+// ../../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  _setPrototypeOf(subClass, superClass);
+}
+
 // ../../node_modules/react-transition-group/esm/TransitionGroupContext.js
 import React8 from "react";
 var TransitionGroupContext_default = React8.createContext(null);
+
+// ../../node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
 
 // ../../node_modules/react-transition-group/esm/TransitionGroup.js
 var import_prop_types2 = __toModule(require_prop_types());
@@ -4470,7 +4466,7 @@ export {
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/** @license Material-UI v5.0.0-alpha.32
+/** @license Material-UI v5.0.0-alpha.33
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
