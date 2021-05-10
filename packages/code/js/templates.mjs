@@ -42,7 +42,8 @@ export function getHtml({ html, css }) {
 <div id="zbody">
   ${html}
 </div>
-<script type="importmap">
+<script async src="https://unpkg.com/es-module-shims@0.10.4/dist/es-module-shims.js"></script>
+<script type="importmap-shim">
 {
   "imports": {
     "react": "https://esm.sh/react",
@@ -77,13 +78,7 @@ export function getHtml({ html, css }) {
 <script>
 window.process = {env: {NODE_ENV:"production" }}
 </script>
-<script type="module">
-import App from "./app.js"
-import {render} from "./app.js"
-
-
-
-render(App(), document.body.children[0]);
+<script type="module-shim" src="./loader.js">
 </script>
 </body>
 </html>

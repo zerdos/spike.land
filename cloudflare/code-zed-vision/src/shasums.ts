@@ -39,7 +39,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/share.mjs":
-    "221a15d866488c6de8a44e38531684a58311bcf8ecbb3d596021af9475d298a8",
+    "24c6167c89edf8b4e19b91c80a49f6ea86d5ed88590a824786a9741ae80fd7b3",
   "js/renderPreviewWindow.mjs":
     "81db5186e0ae57f0c4a1db5e24bb3e8a3f40f8f44946930c8ca2e1e8f77e63ab",
   "js/starter.js":
@@ -51,7 +51,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "8f3fd058f2d9479dd5ec3a760cb378ad225a935bf8f05a942ce989a2ef14e3ce",
   "js/templates.mjs":
-    "ee3d79fc51c746138f4d97343383efe06482ef91840f8bb7b47bd58a0357ade9",
+    "6631c60de420171a69d4b52d56879d637d6102a10ba96690f90fd8035d74ea05",
   "js/hash.mjs":
     "18caa0c35ab742aadbe27d22f6a066db8aa302835aac4d207301e1fb6b9911dc",
   "js/importScript.d.ts":
@@ -123,7 +123,7 @@ export const shasums = {
   "importmap.json":
     "b97cecde6a0c47c147b7c7f783d18dfa510d6745c8a0339c3aa7d9d0140ef76c",
   ".tsBuildInfo":
-    "84050a06113ac5d07b050ba2b75510618fd9fc5079b83babb005a732a4529c67",
+    "0d4ee8d0f38f45748ed464c72b7d04b1e55cd3ecf2208da5c6a21d9f84e96a5e",
   "sw.js": "147db1812afbbd4ea981781a8819968c6489ac324eb3b5b060cc37a173dce96b",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
