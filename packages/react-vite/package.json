@@ -20,7 +20,7 @@
     "@zedvision/shadb": "14.0.3",
     "@zedvision/smart-monaco-editor": "14.0.3",
     "comlink": "4.3.0",
-    "ipfs-message-port-client": "0.6.0",
+    "ipfs-message-port-client": "0.6.1",
     "ipfs-message-port-server": "0.7.0",
     "monaco-editor": "0.23.0",
     "react": "17.0.2",
