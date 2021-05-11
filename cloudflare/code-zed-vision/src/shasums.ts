@@ -121,7 +121,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "fc1577220b98200371d1d60749a00f0cae4effe449939ced687dc29af016486d",
   "importmap.json":
-    "b97cecde6a0c47c147b7c7f783d18dfa510d6745c8a0339c3aa7d9d0140ef76c",
+    "1e777c4ed8f38c419422e221ec87394cb53e24d71f054c300b6d8e5afa63abee",
   ".tsBuildInfo":
     "3cf3b789cc8c8ecccd36978f88f4f3b33893e96349ae1546e4e12b413153d542",
   "sw.js": "aaf87050d47550746d14666c6347e87aca956dcd257bcad8042f630fe1ed59ba",
@@ -130,6 +130,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "2137880bb47842eead164874b655734027ca7724e4846a988cb0e5ce891194b1",
+    "6f2957a9afe37a57087068562ddc40637c42fd4043a8595bf1b9d9bdb3522f9c",
   "food": "bar",
 };

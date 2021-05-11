@@ -10,8 +10,8 @@ added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geomet
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmbAAZRuqu3tqMYtXRTtSNNXT1N3NV8kZC1Y3EfZAse8ch code/importmap.json
-added QmPY75Nmq2HcWKSSCB3FZxmCi3sgWdfyfwA64xn9x7yaAG code/index.html
+added QmawCLp8edcnhJb4uLS1EZsxWp5zvQ2iAm23WMdBx3cvrk code/importmap.json
+added QmYxdnzNtd1rZ44qeLpMkYbmgRvQUkNBVvQrqzX2DhSrjz code/index.html
 added QmWhpczxzi9bAV6Trx6b3SthPkrL3iAncagdqKUNKVU1uP code/js/codeLoader.mjs
 added QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF code/js/data.mjs
 added QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8 code/js/examples/app.tsx
@@ -75,4 +75,4 @@ added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
 added QmTU8oLooeL8cFtEuqoE6FBqUcYrnJbLiKEnHJgFRU8vce code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/out
-added QmSK9dPXisDQajLCGfbF1d8uyWKRQk6K51XkQR3f4kvA7o code
+added QmZKSHeaRNLDqTD9xqF1Qs8rRS74GJTyRzghJbmPSAwD4i code
