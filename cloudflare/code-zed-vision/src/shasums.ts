@@ -95,7 +95,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.js":
     "be554ee77cd43d04792f5572d5f6f446744cc0d32dbfd664b3f51be3e7f6f71b",
   "modules/smart-monaco-editor/dist/editor.js":
-    "c919bda8117873aa6d260f73c26a93cedbec43c938764333db6d0898c92c7d35",
+    "cf463ae9d4d1b3ee9b3b160e5e8b68e31e2aafe6ae267af3fb10147c0a4e4f44",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -115,7 +115,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "5621f3243baf9768ddae6aa1c75716f5ff6b6c9f9785184b4cec9c84e47e52ad",
+    "eef23a60d4b760bd1452795390521de508840bcb306ce467d2084a6fb00a3ebd",
   "modules/QRious.mjs":
     "8d7e1aa8059f359535eac27f15880a15790edb7996a11cfe252a13bf14f6d058",
   "modules/shaDB.d.ts":
@@ -130,6 +130,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "5246f8f6cddc9215a4899af7680717a2773f5ef228ede0e448b937701cbd1ecb",
+    "deae5ebdaa9b07c7ff515194f1f56fad696f59eebd4781d5ce9ca947ea610d48",
   "food": "bar",
 };
