@@ -47,8 +47,7 @@ export function getHtml({ html, css }) {
 <script>
 window.process = {env: {NODE_ENV:"production" }}
 </script>
-<script type="module-shim" src="./loader.js">
-</script>
+<script type="module-shim" src="./loader.js"></script>
 </body>
 </html>
 `;

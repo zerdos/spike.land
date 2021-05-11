@@ -100,7 +100,7 @@ export const shasums = {
   "js/share.mjs":
     "97bb48476eab13ddbf7b933a32e1b9fb4036e03196fca2b5d8f8f56f05a13369",
   "js/templates.mjs":
-    "e6368301b3c8daf97d50829eb34c06c81649d83fe150a44ab2d35dcceee3e2f4",
+    "a980dd6ffa5044f8708daa2e61d3677863f1772e9144ed37b649d8153633d2f7",
   "js/workers/ipfsWorker.js":
     "8dba37a66d6541c9d4b2ca6f1bcbb8b387e9a4e29087343a7abec59f3c48b25d",
   "js/workers/getWorker.mjs":
