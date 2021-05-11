@@ -213,7 +213,7 @@ export default async (
       },
       {
         name: "popmotion",
-        url: "https://unpkg.com/popmotion@9.3.5/lib/index.d.ts",
+        url: "https://unpkg.com/popmotion@9.3.6/lib/index.d.ts",
       },
     ];
     const dts = importHelper.map(({ name, url }) =>

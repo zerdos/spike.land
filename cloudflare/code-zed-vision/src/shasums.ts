@@ -51,7 +51,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "8f3fd058f2d9479dd5ec3a760cb378ad225a935bf8f05a942ce989a2ef14e3ce",
   "js/templates.mjs":
-    "09cf3aadc8508f6b48e9f419e6e1e6596d20a37e76508434810b5e7acad7b7f0",
+    "4d35e4638a8c960c1b765d478d96c385d10bcf71df0f8f1a11dce527f512a7b2",
   "js/hash.mjs":
     "18caa0c35ab742aadbe27d22f6a066db8aa302835aac4d207301e1fb6b9911dc",
   "js/importScript.d.ts":
@@ -130,6 +130,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "099520cf445edb0361a050d4fa986c2c7f84f3d103651f350f7cc2019a73a520",
+    "5246f8f6cddc9215a4899af7680717a2773f5ef228ede0e448b937701cbd1ecb",
   "food": "bar",
 };
