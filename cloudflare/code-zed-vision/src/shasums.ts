@@ -130,6 +130,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "index.html":
-    "deae5ebdaa9b07c7ff515194f1f56fad696f59eebd4781d5ce9ca947ea610d48",
+    "2137880bb47842eead164874b655734027ca7724e4846a988cb0e5ce891194b1",
   "food": "bar",
 };

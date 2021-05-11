@@ -18,7 +18,7 @@ export const files = {
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "importmap.json": "QmbAAZRuqu3tqMYtXRTtSNNXT1N3NV8kZC1Y3EfZAse8ch",
-  "index.html": "QmeSw4iXCzwTkMjqCBEMeJk68c8SeV8QdbPLVXBb5SKc6G",
+  "index.html": "QmPY75Nmq2HcWKSSCB3FZxmCi3sgWdfyfwA64xn9x7yaAG",
   "js/codeLoader.mjs": "QmWhpczxzi9bAV6Trx6b3SthPkrL3iAncagdqKUNKVU1uP",
   "js/data.mjs": "QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
@@ -95,6 +95,6 @@ export const files = {
   "modules": "QmTU8oLooeL8cFtEuqoE6FBqUcYrnJbLiKEnHJgFRU8vce",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "out": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmUS67xLJGaRS44TcWbMJggKtTi6wY788FLbMviMNXcxC5",
+  "": "QmSK9dPXisDQajLCGfbF1d8uyWKRQk6K51XkQR3f4kvA7o",
   "foo": "bar",
 };
