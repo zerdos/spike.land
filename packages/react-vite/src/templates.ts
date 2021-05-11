@@ -59,7 +59,7 @@ export function getHtml({ html, css }: { html: string; css: string }) {
       "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.0.1/dist/emotion-sheet.browser.esm.js",
       "@babel/runtime/helpers/": "https://unpkg.com/@babel/runtime@7.14.0/helpers/",
       "@babel/runtime/helpers/extends": "https://unpkg.com/@babel/runtime@7.14.0/helpers/esm/extends.js",
-      "framer-motion": "https://unpkg.com/framer-motion@4.1.13/dist/es/index.js",
+      "framer-motion": "https://unpkg.com/framer-motion@4.1.14/dist/es/index.js",
       "hey-listen": "https://unpkg.com/@zedvision/hey-listen@1.1.2/dist/hey-listen.es.js",
       "framesync": "https://unpkg.com/framesync@5.3.0/dist/es/index.js",
       "popmotion": "https://unpkg.com/popmotion@9.3.5/dist/es/index.js",
