@@ -162,7 +162,7 @@
         "affectsGlobalScope": true
       },
       "./js/starter.js": {
-        "version": "c77e3d9e5dfd8fa95c691b1185833f7b0f5f7c42e63b5bdc09881adb005ec191",
+        "version": "ca234bd9c40572f00602dfef8ca12f3c1d2f696a8a6ba4f27c1fe39627cc04c0",
         "signature": "406011f3f588c2df98165360b05be6b5f95d7742ab7e89a10a044ddf4bb0d7b5",
         "affectsGlobalScope": true
       },
@@ -187,12 +187,12 @@
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "429fec0de5cf07517e7184e0391b84a21b878cd9405a7b5628a9d6c6c4d4dbb6",
+        "version": "6125241ca1d7fe905dcfc413e2f40db2bfb05ae38cea483b5c46e557ffe111e3",
         "signature": "851e229c7bc382ed0a03c6d164dba7c5521b61cc9d10df2a212b1a37a5d4da06",
         "affectsGlobalScope": true
       },
       "./sw.js": {
-        "version": "aaf87050d47550746d14666c6347e87aca956dcd257bcad8042f630fe1ed59ba",
+        "version": "1dd7e38d5107d2d803a9eb08a572e0e757dc9d5b0ad864d819d88af1be5eee88",
         "signature": "4f3c4c96327bf1e2c254c775519c307d45f03702d1b54b556eef38fa62f7e9fb",
         "affectsGlobalScope": true
       }

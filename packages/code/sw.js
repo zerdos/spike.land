@@ -174,7 +174,9 @@ globalThis.register = () => {
         // const compositeResponse = new Response(await globalThis.ipfsCat("QmS7udzEsQxu8netTzmuRHCniiSUqGuMtCUeJLRepouoG3"), {
         //   headers: { "content-type": "text/html" },
         // });
-        const compositeResponse = new Response("yeah. Haha.", {headers: { "content-type": "text/html" }});
+        const compositeResponse = new Response("yeah. Haha.", {
+          headers: { "content-type": "text/html" },
+        });
         return compositeResponse;
       })());
     }

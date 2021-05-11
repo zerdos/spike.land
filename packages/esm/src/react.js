@@ -1,5 +1,5 @@
 import * as React from "react";
 
-export const mods = {...React}
+export const mods = { ...React };
 
-export default React
+export default React;

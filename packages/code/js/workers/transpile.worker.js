@@ -26,7 +26,7 @@ if (!String.prototype.replaceAll) {
 // const replaceWith = "\n\n";
 
 const transform = (code) => {
-  const safeCode = code
+  const safeCode = code;
   // .replaceAll(
   //   searchRegExp,
   //   replaceWith,
