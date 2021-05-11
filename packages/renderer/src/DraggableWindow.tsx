@@ -4,13 +4,13 @@ import Fab from "@material-ui/core/Fab";
 import Button from "@material-ui/core/Button";
 import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
-import Share from "./icons/Share";
-import Tablet from "./icons/TabletAndroid";
-import Tv from "./icons/Tv";
-import Phone from "./icons/PhoneAndroid";
-import { QRButton } from "./Qr";
+import Share from "./icons/Share.tsx";
+import Tablet from "./icons/TabletAndroid.tsx";
+import Tv from "./icons/Tv.tsx";
+import Phone from "./icons/PhoneAndroid.tsx";
+import { QRButton } from "./Qr.tsx";
 
-import { css, jsx, motion, React } from "./renderer";
+import { css, jsx, motion, React } from "./renderer.ts";
 
 const breakPoints = [640, 1024, 1920];
 

@@ -1,5 +1,5 @@
-import { React } from "../renderer";
-import createSvgIcon from "./utils/createSvgIcon";
+import { React } from "../renderer.ts";
+import createSvgIcon from "./utils/createSvgIcon.js";
 
 export default createSvgIcon(
   <path
