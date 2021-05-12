@@ -2,7 +2,7 @@ export const shasums = {
   "package.json":
     "e2fcd88ea53685500e331e8f8c24e7e2109583f16b33a8a07dc84339b5058428",
   "importmap.json":
-    "8a6c959217babb29cdeb6bf43f5d0b7fe8b59d88da1297c6d7be674eb9401924",
+    "075bb0d0c2b38b9dee10c5a4f42f747b5057d6a0377a459d4d37d3781f0be1a9",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
@@ -102,7 +102,7 @@ export const shasums = {
   "js/templates.mjs":
     "a980dd6ffa5044f8708daa2e61d3677863f1772e9144ed37b649d8153633d2f7",
   "js/workers/ipfsWorker.js":
-    "8dba37a66d6541c9d4b2ca6f1bcbb8b387e9a4e29087343a7abec59f3c48b25d",
+    "4022f28a12815d8e867b80f48c26750d8de7703f97c00792f289ad2e65ad21ab",
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/prettierWorker.js":

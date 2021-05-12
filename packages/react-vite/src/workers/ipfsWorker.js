@@ -1,9 +1,9 @@
 self.importScripts(
-  "https://unpkg.com/ipfs@0.55.0/dist/index.min.js",
+  "https://unpkg.com/ipfs@0.55.1/dist/index.min.js",
 );
 
 self.importScripts(
-  "https://unpkg.com/ipfs-message-port-server@0.6.3/dist/index.min.js",
+  "https://unpkg.com/ipfs-message-port-server@0.7.0/dist/index.min.js",
 );
 
 const { Ipfs, IpfsMessagePortServer } = self;
