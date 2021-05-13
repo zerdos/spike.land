@@ -182,12 +182,12 @@
         "affectsGlobalScope": true
       },
       "./js/workers/prettierWorker.js": {
-        "version": "69eab3172fc8b81ab482b35799432da7bfff72e9df45202c5e18b911c5eba80a",
+        "version": "2d8b43620bebec0e518f5933ae1923f0310cbf9aab96ee821a83754a835dd782",
         "signature": "1c6e9e788546361257b98f0c1d25880428a69a823a178189f7aaf02bb767cebd",
         "affectsGlobalScope": true
       },
       "./js/workers/transpile.worker.js": {
-        "version": "6125241ca1d7fe905dcfc413e2f40db2bfb05ae38cea483b5c46e557ffe111e3",
+        "version": "51c2743e64abcd3ad5542bb3451e7836ce304bcad0701df32e2fabd3a6cd1d34",
         "signature": "851e229c7bc382ed0a03c6d164dba7c5521b61cc9d10df2a212b1a37a5d4da06",
         "affectsGlobalScope": true
       },

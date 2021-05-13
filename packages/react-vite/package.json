@@ -19,10 +19,10 @@
     "@zedvision/renderer": "14.0.3",
     "@zedvision/shadb": "14.0.3",
     "@zedvision/smart-monaco-editor": "14.0.3",
-    "comlink": "4.3.0",
+    "comlink": "4.3.1",
     "ipfs-message-port-client": "0.6.1",
     "ipfs-message-port-server": "0.7.0",
-    "monaco-editor": "0.23.0",
+    "monaco-editor": "0.24.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "simple-window-manager": "2.1.2",
@@ -30,10 +30,10 @@
   },
   "devDependencies": {
     "@types/react": "17.0.5",
-    "@types/react-dom": "17.0.4",
+    "@types/react-dom": "17.0.5",
     "@vitejs/plugin-react-refresh": "1.3.3",
     "typescript": "4.2.4",
-    "vite": "2.3.1"
+    "vite": "2.3.2"
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
 }

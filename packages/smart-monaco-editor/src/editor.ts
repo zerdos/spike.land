@@ -139,7 +139,7 @@ export default async (
       },
       {
         name: "react-dom",
-        url: "https://unpkg.com/@types/react-dom@17.0.4/index.d.ts",
+        url: "https://unpkg.com/@types/react-dom@17.0.5/index.d.ts",
         depend: [],
       },
       {

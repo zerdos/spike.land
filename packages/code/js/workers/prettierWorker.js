@@ -1,4 +1,4 @@
-self.importScripts("https://unpkg.com/comlink@4.3.0/dist/umd/comlink.min.js");
+self.importScripts("https://unpkg.com/comlink@4.3.1/dist/umd/comlink.min.js");
 
 self.importScripts("https://unpkg.com/prettier@2.3.0/standalone.js");
 self.importScripts("https://unpkg.com/prettier@2.3.0/parser-babel.js");

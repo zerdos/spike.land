@@ -22,11 +22,10 @@ export const getMonaco = async () => {
       });
   };
 
-  const vsPath =
-    `https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.23.0/min/vs`;
+  const vsPath = `https://unpkg.com/monaco-editor@0.24.0/min/vs/`;
 
   const { require } = await importScript(
-    `${vsPath}/loader.min.js`,
+    `${vsPath}/loader.js`,
   );
 
   require.config({ paths: { "vs": vsPath } });

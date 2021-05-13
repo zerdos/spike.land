@@ -46,7 +46,7 @@ export function getDB(storeName = "defaultStore") {
 export const shaDB = {
   /**
  * @param {string} key
- * @param {"string" | "json"} type 
+ * @param {"string" | "json"} type
  */
   get: async (key, type) => {
     const db = await (await getDB("shaDB"))();
