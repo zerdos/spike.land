@@ -16,7 +16,7 @@ export const shasums = {
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
     "d953768bd2b9aedca02912c9ab308d39c90c616c450eafa11760f9a157a1ccb7",
-  "sw.js": "1dd7e38d5107d2d803a9eb08a572e0e757dc9d5b0ad864d819d88af1be5eee88",
+  "sw.js": "d602fd8146627c04fec0b2f4cb633e2e6c6dfc0757fa901f9b122979e56d28b4",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/sha256.js":
