@@ -1,7 +1,7 @@
 {
   "name": "@zedvision/snowpack-react-ts",
   "description": "A preconfigured template for Snowpack with React and TypeScript",
-  "version": "14.0.3",
+  "version": "14.0.6",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
