@@ -45,7 +45,7 @@ export const files = {
   "js/workers/prettierWorker.js":
     "QmQsZZsWNZJ6BZ5GuvfndfAdqH82LLZfA3VDUFhipbWLG7",
   "js/workers/transpile.worker.js":
-    "QmWReEXbmV8mhN4BabKKLDwjwAw7N28ZUJ3iVYdnu7gunK",
+    "QmNSKu2FxcUWdJVrrmyVY3Q2UBdnWxUJ6bxjB6UHRJTVGP",
   "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
   "modules/QRious.mjs": "QmVwNnSaXX3prcYUHHAy6NVjtEq5z9YYy7cK63USy1k58M",
   "modules/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
@@ -85,8 +85,8 @@ export const files = {
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3",
-  "js/workers": "QmefFMqSTGfqjb8XhDJ9m3b3pdqv46ZP8NSqcvFbrbaeUH",
-  "js": "QmZoB6MFNSyQzsHYv8Vqt7kndNsJJaWWCeFdHKa9rcyvr3",
+  "js/workers": "QmUymyz2Ue2PKsW3WvptVd6Byrb1dVb9q7a89NPZZWWDHE",
+  "js": "QmUL8MSDX43ruWp6PW95c53FHKaMTPucUDiNQ3AxSTAHNb",
   "modules/smart-monaco-editor/dist":
     "QmTVdsfxWYTXZ5brLmf5hqSWa3UNcDcSpk4dLPre5rzL4Z",
   "modules/smart-monaco-editor":
@@ -94,6 +94,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmSdoPS7CVcpSWicWBvjEVUoLMuCBMxGC9MDFE47347BDK",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmQnDBbEm8pU9tdPCoDZNPTEtWoZHvRPjmHDaLytcGPB81",
+  "": "QmVTGXZ3jF1mff8LTyQUDeDUkXbsWowXFZDMxG7CvoydP1",
   "foo": "bar",
 };
