@@ -15,7 +15,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "e09a68f191ef5749c703b9985ffd6991035d98cf4e8db6816fc2f1d1c14d93e7",
+    "44587dd9855880e6bd1f4a79c3010868539b63bc8a7ba9440375cfabc851fc21",
   "sw.js": "1dd7e38d5107d2d803a9eb08a572e0e757dc9d5b0ad864d819d88af1be5eee88",
   "modules/ipfs.client.mjs":
     "7c626a50bc75fc742e66abfcab6325a4f21dce70bb3f5cafe4fc7c8e851f82d0",
