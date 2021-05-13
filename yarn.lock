@@ -7834,9 +7834,9 @@ forwarded@~0.1.2:
   integrity sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
 
 fraction.js@^4.0.13:
-  version "4.0.13"
-  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.0.13.tgz#3c1c315fa16b35c85fffa95725a36fa729c69dfe"
-  integrity sha512-E1fz2Xs9ltlUp+qbiyx9wmt2n9dRzPsS11Jtdb8D2o+cC7wr9xkkKsVKJuBX0ST+LVS+LhLO+SbLJNtfWcJvXA==
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.0.14.tgz#ddcd55d0d5ae2bf554a493ffcc60d3e6e709fbae"
+  integrity sha512-x77+/j5Xd+mFLPzXT1UivKBzr8RIbmYhBOCT9gBFYdTkJMd56lv0ppY3v7F+kvHoQ5VALp109J367NiKpu7lWQ==
 
 fragment-cache@^0.2.1:
   version "0.2.1"
