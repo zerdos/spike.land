@@ -5,6 +5,6 @@ if ! [ -x "$(command -v deno)" ]; then
 fi
 
 if ! [ -x "$(command -v file_server)" ]; then
-    deno install --allow-net --allow-read -f https://deno.land/std@0.96ya.0/http/file_server.ts 
+    deno install --allow-net --allow-read -f https://deno.land/std@0.96.0/http/file_server.ts 
 fi
 
