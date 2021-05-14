@@ -29,7 +29,7 @@
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
   "dependencies": {
-    "esbuild": "0.11.20",
+    "esbuild": "0.11.21",
     "idb": "6.0.0"
   },
   "devDependencies": {
