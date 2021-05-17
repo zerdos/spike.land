@@ -42,7 +42,7 @@ export function getHtml({ html, css }) {
 <div id="zbody">
   ${html}
 </div>
-<script async src="https://unpkg.com/es-module-shims@0.10.4/dist/es-module-shims.js"></script>
+<script async src="https://unpkg.com/es-module-shims@0.10.5/dist/es-module-shims.js"></script>
 <script type="importmap-shim" src="https://spike.land/importmap.json"></script>
 <script>
 window.process = {env: {NODE_ENV:"production" }}

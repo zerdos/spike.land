@@ -7,7 +7,7 @@ export const shasums = {
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "index.html":
-    "6f2957a9afe37a57087068562ddc40637c42fd4043a8595bf1b9d9bdb3522f9c",
+    "cb7c01bad47db80c344654bd57397e27653bbcf0482f731023d80b81ba259ddc",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "manifest.json":
@@ -100,7 +100,7 @@ export const shasums = {
   "js/share.mjs":
     "97bb48476eab13ddbf7b933a32e1b9fb4036e03196fca2b5d8f8f56f05a13369",
   "js/templates.mjs":
-    "a980dd6ffa5044f8708daa2e61d3677863f1772e9144ed37b649d8153633d2f7",
+    "91f7881cc2bd1d7a65a6a47abd8a0f6b65b0a08c06f3219453229da773980614",
   "js/workers/ipfsWorker.js":
     "4022f28a12815d8e867b80f48c26750d8de7703f97c00792f289ad2e65ad21ab",
   "js/workers/getWorker.mjs":

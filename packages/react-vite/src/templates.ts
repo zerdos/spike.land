@@ -30,7 +30,7 @@ export function getHtml({ html, css }: { html: string; css: string }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="Description" content="Generated with spike.land">
-  <script async src="https://unpkg.com/es-module-shims@0.10.4/dist/es-module-shims.js"></script>
+  <script async src="https://unpkg.com/es-module-shims@0.10.5/dist/es-module-shims.js"></script>
   <style>
       ${css}
   </style>
