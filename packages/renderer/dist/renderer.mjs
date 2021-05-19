@@ -1,8 +1,8 @@
 // src/renderer.ts
 import * as Motion from "framer-motion";
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
-import {css, Global, jsx} from "@emotion/react";
+import { css, Global, jsx } from "@emotion/react";
 
 // src/DraggableWindow.tsx
 import Fab2 from "@material-ui/core/Fab";
@@ -11,7 +11,7 @@ import ToggleButton from "@material-ui/core/ToggleButton";
 import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
 
 // src/icons/utils/createSvgIcon.js
-import {createSvgIcon} from "@material-ui/core/utils";
+import { createSvgIcon } from "@material-ui/core/utils";
 
 // src/icons/Share.tsx
 var Share_default = createSvgIcon(/* @__PURE__ */ React.createElement("path", {
@@ -42,7 +42,7 @@ var QrCode_default = createSvgIcon(/* @__PURE__ */ React.createElement("path", {
 }), "QrCode");
 
 // src/Qr.tsx
-var QR = ({url}) => {
+var QR = ({ url }) => {
   const canvasRef = React.useRef(null);
   React.useEffect(() => {
     const load = async () => {
@@ -71,7 +71,7 @@ var QR = ({url}) => {
     ref: canvasRef
   });
 };
-var QRButton = ({url}) => {
+var QRButton = ({ url }) => {
   const [showQR, setQR] = React.useState(false);
   return /* @__PURE__ */ jsx(motion.div, {
     animate: {
@@ -99,7 +99,7 @@ var QRButton = ({url}) => {
 // src/DraggableWindow.tsx
 var breakPoints = [640, 1024, 1920];
 var sizes = [10, 25, 50, 75, 100];
-var DraggableWindow = ({onShare, onRestore, position, session, children}) => {
+var DraggableWindow = ({ onShare, onRestore, position, session, children }) => {
   const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
@@ -266,9 +266,9 @@ var DraggableWindow = ({onShare, onRestore, position, session, children}) => {
 };
 
 // src/renderer.ts
-var {motion} = Motion;
+var { motion } = Motion;
 var render = (el, container) => {
-  ReactDOM.render(jsx(Fragment, {children: el}), container);
+  ReactDOM.render(jsx(Fragment, { children: el }), container);
   return () => ReactDOM.unmountComponentAtNode(container);
 };
 var renderer_default = React;

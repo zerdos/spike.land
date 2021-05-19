@@ -11,18 +11,18 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist .tsbuildinfo && deno fmt src",
-    "build:renderer": "$(yarn bin esbuild) src/renderer.ts --bundle --format=esm --external:react --external:tslib  --external:@material-ui/core --external:framer-motion --external:@emotion/react --external:@emotion/styled --external:react-dom --platform=browser --define:process.env.NODE_ENV=\\\"production\\\" --outfile=dist/renderer.mjs",
-    "build:renderer:umd": "$(yarn bin esbuild) src/renderer.ts --minify --bundle --format=iife --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.umd.js",
-    "build:draggableWindow": "$(yarn bin esbuild) src/DraggableWindow.tsx --minify --bundle --format=esm --platform=browser  --define:process.env.NODE_ENV=\\\"production\\\"  --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/DraggableWindow.js",
+    "build:renderer": "$(yarn bin esbuild) src/renderer.ts --bundle --format=esm --external:react --external:tslib --external:@material-ui/core --external:framer-motion --external:@emotion/react --external:@emotion/styled --external:react-dom --platform=browser --outfile=dist/renderer.mjs",
+    "build:renderer:umd": "$(yarn bin esbuild) src/renderer.ts --minify --bundle --format=iife --platform=browser --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.umd.js",
+    "build:draggableWindow": "$(yarn bin esbuild) src/DraggableWindow.tsx --minify --bundle --format=esm --platform=browser --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/DraggableWindow.js",
     "build": "yarn build:renderer && cp -rf dist/* ../code/modules/"
   },
   "dependencies": {
     "@emotion/react": "11.4.0",
     "@emotion/styled": "11.3.0",
     "@material-ui/core": "5.0.0-alpha.33",
-    "@types/react": "17.0.5",
+    "@types/react": "17.0.6",
     "@types/react-dom": "17.0.5",
-    "esbuild": "0.12.0",
+    "esbuild": "0.12.1",
     "framer-motion": "4.1.17",
     "react": "17.0.2",
     "react-dom": "17.0.2",
