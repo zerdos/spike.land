@@ -1870,6 +1870,8 @@ var utils = __webpack_require__(5442);
 var strip_prefix = __webpack_require__(7272);
 ;// CONCATENATED MODULE: ./.cache/normalize-page-path.js
 /* harmony default export */ var normalize_page_path = (function(path){if(path===undefined){return path;}if(path==="/"){return"/";}if(path.charAt(path.length-1)==="/"){return path.slice(0,-1);}return path;});
+// EXTERNAL MODULE: ./.cache/redirect-utils.js + 1 modules
+var redirect_utils = __webpack_require__(2407);
 ;// CONCATENATED MODULE: ./.cache/find-path.js
 var pathCache=new Map();var matchPaths=[];var trimPathname=function trimPathname(rawPathname){var pathname=decodeURIComponent(rawPathname);// Remove the pathPrefix from the pathname.
 var trimmedPathname=(0,strip_prefix/* default */.Z)(pathname,decodeURIComponent("/blog"))// Remove any hashfragment
@@ -1904,7 +1906,7 @@ return new URL(path,window.location.href+(window.location.href.endsWith("/")?"":
 //
 // Or if `match-paths.json` contains `{ "/foo*": "/page1", ...}`, then
 // `/foo?bar=far` => `/page1`
-var findPath=function findPath(rawPathname){var trimmedPathname=trimPathname(absolutify(rawPathname));if(pathCache.has(trimmedPathname)){return pathCache.get(trimmedPathname);}var foundPath=findMatchPath(trimmedPathname);if(!foundPath){foundPath=cleanPath(rawPathname);}pathCache.set(trimmedPathname,foundPath);return foundPath;};/**
+var findPath=function findPath(rawPathname){var trimmedPathname=trimPathname(absolutify(rawPathname));if(pathCache.has(trimmedPathname)){return pathCache.get(trimmedPathname);}var redirect=(0,redirect_utils/* maybeGetBrowserRedirect */.J)(rawPathname);if(redirect){return findPath(redirect.toPath);}var foundPath=findMatchPath(trimmedPathname);if(!foundPath){foundPath=cleanPath(rawPathname);}pathCache.set(trimmedPathname,foundPath);return foundPath;};/**
  * Clean a url and converts /index.html => /
  * E.g. `/foo?bar=far` => `/foo`
  *
@@ -2092,7 +2094,7 @@ var PageRenderer=/*#__PURE__*/function(_React$Component){(0,_babel_runtime_helpe
 
 /***/ }),
 
-/***/ 8012:
+/***/ 7084:
 /***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2116,8 +2118,8 @@ var ready_default = /*#__PURE__*/__webpack_require__.n(ready);
 var gatsby_browser_entry = __webpack_require__(8447);
 // EXTERNAL MODULE: ./.cache/loader.js + 7 modules
 var loader = __webpack_require__(9930);
-;// CONCATENATED MODULE: ./.cache/redirects.json
-var redirects_namespaceObject = [];
+// EXTERNAL MODULE: ./.cache/redirect-utils.js + 1 modules
+var redirect_utils = __webpack_require__(2407);
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
 var emitter = __webpack_require__(9831);
 ;// CONCATENATED MODULE: ./.cache/route-announcer-props.js
@@ -2129,11 +2131,10 @@ var lib_history = __webpack_require__(5385);
 // EXTERNAL MODULE: ../../node_modules/gatsby-link/index.js
 var gatsby_link = __webpack_require__(6739);
 ;// CONCATENATED MODULE: ./.cache/navigation.js
-// Convert to a map for faster lookup in maybeRedirect()
-var redirectMap=new Map();var redirectIgnoreCaseMap=new Map();redirects_namespaceObject.forEach(function(redirect){if(redirect.ignoreCase){redirectIgnoreCaseMap.set(redirect.fromPath,redirect);}else{redirectMap.set(redirect.fromPath,redirect);}});function maybeRedirect(pathname){var redirect=redirectMap.get(pathname);if(!redirect){redirect=redirectIgnoreCaseMap.get(pathname.toLowerCase());}if(redirect!=null){if(false){}window.___replace(redirect.toPath);return true;}else{return false;}}var onPreRouteUpdate=function onPreRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onPreRouteUpdate",{location:location,prevLocation:prevLocation});}};var onRouteUpdate=function onRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onRouteUpdate",{location:location,prevLocation:prevLocation});if(false){}}};var navigation_navigate=function navigate(to,options){if(options===void 0){options={};}// Support forward/backward navigation with numbers
+function maybeRedirect(pathname){var redirect=(0,redirect_utils/* maybeGetBrowserRedirect */.J)(pathname);if(redirect!=null){window.___replace(redirect.toPath);return true;}else{return false;}}var onPreRouteUpdate=function onPreRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onPreRouteUpdate",{location:location,prevLocation:prevLocation});}};var onRouteUpdate=function onRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onRouteUpdate",{location:location,prevLocation:prevLocation});if(false){}}};var navigation_navigate=function navigate(to,options){if(options===void 0){options={};}// Support forward/backward navigation with numbers
 // navigate(-2) (jumps back 2 history steps)
 // navigate(2)  (jumps forward 2 history steps)
-if(typeof to==="number"){lib_history/* globalHistory.navigate */.V5.navigate(to);return;}var _parsePath=(0,gatsby_link/* parsePath */.cP)(to),pathname=_parsePath.pathname;var redirect=redirectMap.get(pathname);if(!redirect){redirect=redirectIgnoreCaseMap.get(pathname.toLowerCase());}// If we're redirecting, just replace the passed in pathname
+if(typeof to==="number"){lib_history/* globalHistory.navigate */.V5.navigate(to);return;}var _parsePath=(0,gatsby_link/* parsePath */.cP)(to),pathname=_parsePath.pathname;var redirect=(0,redirect_utils/* maybeGetBrowserRedirect */.J)(pathname);// If we're redirecting, just replace the passed in pathname
 // to the one we want to redirect to.
 if(redirect){to=redirect.toPath;pathname=(0,gatsby_link/* parsePath */.cP)(to).pathname;}// If we had a service worker update, no matter the path, reload window and
 // reset the pathname whitelist
@@ -2239,6 +2240,24 @@ var preferDefault=function preferDefault(m){return m&&m.default||m;};if(false){}
 /***/ (function(__unused_webpack_module, exports) {
 
 exports.O=function(Component){return Component;};
+
+/***/ }),
+
+/***/ 2407:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "J": function() { return /* binding */ maybeGetBrowserRedirect; }
+});
+
+;// CONCATENATED MODULE: ./.cache/redirects.json
+var redirects_namespaceObject = [];
+;// CONCATENATED MODULE: ./.cache/redirect-utils.js
+// Convert to a map for faster lookup in maybeRedirect()
+var redirectMap=new Map();var redirectIgnoreCaseMap=new Map();redirects_namespaceObject.forEach(function(redirect){if(redirect.ignoreCase){redirectIgnoreCaseMap.set(redirect.fromPath,redirect);}else{redirectMap.set(redirect.fromPath,redirect);}});function maybeGetBrowserRedirect(pathname){var redirect=redirectMap.get(pathname);if(!redirect){redirect=redirectIgnoreCaseMap.get(pathname.toLowerCase());}return redirect;}
 
 /***/ }),
 
@@ -3606,8 +3625,8 @@ module.exports = invariant;
 /******/ "use strict";
 /******/ 
 /******/ var __webpack_exec__ = function(moduleId) { return __webpack_require__(__webpack_require__.s = moduleId); }
-/******/ __webpack_require__.O(0, [774,532], function() { return __webpack_exec__(8012); });
+/******/ __webpack_require__.O(0, [774,532], function() { return __webpack_exec__(7084); });
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-b9b599a1c56d883e1214.js.map
+//# sourceMappingURL=app-b07028127e3e232ee5d9.js.map
