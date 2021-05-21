@@ -1,4 +1,4 @@
-alias ipfs="docker-compose exec -T ipfs ipfs"
+# alias ipfs="ipfs || (docker-compose exec -T ipfs ipfs)"
 
 rm -rf packages/code/js/workers/shaSums.json  packages/code/js/workers/fileCids.json
 find ./packages/code -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > cloudflare/code-zed-vision/src/shasums.ts;
@@ -10,7 +10,7 @@ cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{pr
 
 CID=$(
     #docker-compose exec -T ipfs
-    ipfs add -r /export/packages/code -Q) 
+    ipfs add -r packages/code -Q) 
 URL="http://127.0.0.1:8080/ipfs/$CID"
 
 #  curl -X GET "https://api.cloudflare.com/client/v4/zones/ec8e903035c7b0fcd3e95f1e483ab68c/dns_records/?type=TXT" \

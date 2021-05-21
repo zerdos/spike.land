@@ -5527,9 +5527,9 @@ content-type@^1.0.4, content-type@~1.0.4:
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
 contentful-management@^7.5.1:
-  version "7.22.1"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.22.1.tgz#5421d74f2124f2182da280f2bcda2126d1513ae4"
-  integrity sha512-W9n6YW0xNxAm9CaOrJb8L31+qGI6uoEgagN2Kl+kUp+oL2Fw18B3SJdY8brIYgwVSZON6dmeIA2mPrsSyhsaXg==
+  version "7.22.2"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.22.2.tgz#58931c1cae8aad2b11e4e5ee29f76f6bb263ecd7"
+  integrity sha512-NIdscTgo4EezPvs4zYi7aTm2IISX2G/DV0hZ1AlbtH8YTGqvMDX/gZJ0NcbDJ9aqwzv8c95AToGm5wwae5/cTA==
   dependencies:
     "@types/json-patch" "0.0.30"
     axios "^0.21.0"
@@ -7576,9 +7576,9 @@ fd@~0.0.2:
   integrity sha512-iAHrIslQb3U68OcMSP0kkNWabp7sSN6d2TBSb2JO3gcLJVDd4owr/hKM4SFJovFOUeeXeItjYgouEDTMWiVAnA==
 
 fdir@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/fdir/-/fdir-5.0.0.tgz#a40b5d9adfb530daeca55558e8ad87ec14a44769"
-  integrity sha512-cteqwWMA43lEmgwOg5HSdvhVFD39vHjQDhZkRMlKmeoNPtSSgUw1nUypydiY2upMdGiBFBZvNBDbnoBh0yCzaQ==
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/fdir/-/fdir-5.1.0.tgz#973e4934e6a3666b59ebdfc56f60bb8e9b16acb8"
+  integrity sha512-IgTtZwL52tx2wqWeuGDzXYTnNsEjNLahZpJw30hCQDyVnoHXwY5acNDnjGImTTL1R0z1PCyLw20VAbE5qLic3Q==
 
 figures@^1.7.0:
   version "1.7.0"
