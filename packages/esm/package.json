@@ -15,8 +15,8 @@
   "homepage": "https://spike.land",
   "license": "BSD-3-Clause",
   "dependencies": {
-    "@types/react": "17.0.6",
-    "esbuild": "0.12.1",
+    "@types/react": "17.0.8",
+    "esbuild": "0.12.3",
     "react": "17.0.2"
   },
   "publishConfig": {

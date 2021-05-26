@@ -10,7 +10,7 @@ added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geomet
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added Qme35CXhyift7QMQm2GNKzj54MCDH111yF1RgWz9D1kBx5 code/importmap.json
+added Qme3PRiuvicgyQ4VhHTBBj2CnzGmabF9da98zisx6YFAnu code/importmap.json
 added QmQtoYmGxGchaKRMAygUDZU5EHVrbyRsRrxZgQY1khQ4iv code/index.html
 added QmP1rGoVjAxVAoLo5HbB4sNCUXWMYy6gkt8swebxZ8BQCi code/js/codeLoader.mjs
 added QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF code/js/data.mjs
@@ -32,7 +32,7 @@ added QmY6iFqdYXurVnp9Dc73zekCKypgLBC8ncJfrgcFkP9W3x code/js/transpile.mjs
 added Qme8Xz69JLqrUpxi3HWxM2xnD84fsSNy1zPBntbsRENyV3 code/js/tslib.mjs
 added QmPVw1sfZK23DiQmJ36JPdvgNrFLXzTmy6k3gVFqhDqPWq code/js/workboxLoader.mjs
 added QmSkBAGo1hbEPYDnHEpBvGihaVij432VMrmRWm1ZoDL3cP code/js/workers/getWorker.mjs
-added QmNYUogyFgb9R2FRw4CbXGfFkKwZ1fmccV1RFTuimm1Uax code/js/workers/ipfsWorker.js
+added QmYeDPyZfViQZgyAnT84WatukMw5oR13s81vMN5sma5GBp code/js/workers/ipfsWorker.js
 added QmQsZZsWNZJ6BZ5GuvfndfAdqH82LLZfA3VDUFhipbWLG7 code/js/workers/prettierWorker.js
 added QmV34A9yJ7RWc6oR4etT9iaMLZC7sd7uakaT92xn24m61i code/js/workers/transpile.worker.js
 added Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ code/manifest.json
@@ -50,7 +50,7 @@ added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb73uQ62EUgeNcfKrekvdwV13YMJc9318Lb4xvuDtowuC code/modules/shaDB.d.ts
 added QmRufXeXusydDtwn6TKhmV2yU2zM17b3uAS21LgWFuEn86 code/modules/shaDB.js
 added QmbDXsz2Fmv691fT21JToDdJpDN2jAPMP1jg8tgY5DrWdZ code/modules/smart-monaco-editor/dist/editor.d.ts
-added QmSKWLVxHSsJ4GfBusuUMyFnJzWd9RdEvfLWTEqzubEc9z code/modules/smart-monaco-editor/dist/editor.js
+added QmQ9GMBe7kSDnwska2fU5822s2oezqc5HkD2LwSd9DFcgi code/modules/smart-monaco-editor/dist/editor.js
 added QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF code/modules/smart-monaco-editor/dist/monaco.d.ts
 added QmQwzh3Z121igWmQsypm8fziB7pGG3pT3D62eXLsJLv5rJ code/modules/smart-monaco-editor/dist/monaco.js
 added Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt code/modules/vendor/diffChars.d.ts
@@ -59,7 +59,7 @@ added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
 added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
-added QmWd3xeDkst9qo1ChLGgWR11Vz1zA47dCrjtw95Yd9kk4r code/package.json
+added QmTvUdrSCvppkBGKY2XGWPSB6QpcCuhD46ZURdhCmNinyN code/package.json
 added QmRW4oUioaCspsyM1G57JPn9TyKusf2bqJtpkSwfHy83bc code/sw.js
 added QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -67,11 +67,11 @@ added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/assets/synthwave-vscod
 added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS code/edit
 added QmbThU24A1j2Dz2GYGwApkRTo6M8F5Y9rHjp2bLKQpdYs3 code/js/examples
-added QmUXQSHg2KJPvu4KJk6F6DZ7yw7BxaT4an3xEYsWRDan1X code/js/workers
-added QmTbG37AnkNAUqzRDuAAw4KqkhMkiZE8yF4puBJRWnq7gF code/js
-added QmRzGKJJzkKrRHPjf93Nyk8xmHDnh5dbpg6hjRW9txZFPW code/modules/smart-monaco-editor/dist
-added QmXFqYihPwvyLCMX27SNMwRjVa6AAUBssRrTvBoFgV7Cj5 code/modules/smart-monaco-editor
+added QmSmZX52J6V5pGWsjiodiCGqJdd2AcKHiiczqLA4PEgXe2 code/js/workers
+added QmbgwTR4QhXedDjiCixXG5RNKrgNkGFXqrymZ9fGc9ABTB code/js
+added QmR1snRVYp2EQjzoToxAupQtNLVVLh1XYVCLJbXN1rSEzE code/modules/smart-monaco-editor/dist
+added QmP7BLaywoT4ZNTqMVZbo3Dr2a3GjzV3SBFHCUx1YcPrpa code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
-added QmQmKPMvzABJrGxLQ8pRSdavvV949Npbi8DfRAqdSskcgP code/modules
+added QmWZNgSpsfyS9BjFyLz7m2F5VmFvAjGnGRm3YNEATKh9oU code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmbVaseuy51KqYSQnhbQRiXXsDqMfphozAs7fmKxSs2kXj code
+added QmbA2HJwJyBY23rNvTZVHaAXENT83TDAc14tx1NwUGVHSt code
