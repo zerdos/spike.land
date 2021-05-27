@@ -88,7 +88,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
     );
     if (typeof appDir === "undefined") return null;
 
-    rootUrl = `https://ipfs.io/ipfs/${appDir.CID}`;
+    rootUrl = `https://spike.land/ipfs/${appDir.CID}`;
 
     const { pathname } = new URL(window.location.href);
 

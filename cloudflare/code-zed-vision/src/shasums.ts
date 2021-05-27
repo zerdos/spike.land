@@ -98,7 +98,7 @@ export const shasums = {
   "js/formatter.mjs":
     "7f42318e51bce5f8eec15e5ae225e7f2fe1195525e7566eb8ee280a76ac2f719",
   "js/share.mjs":
-    "97bb48476eab13ddbf7b933a32e1b9fb4036e03196fca2b5d8f8f56f05a13369",
+    "f187442e7c0f58e5f368249b66a90170571242507e6bc277f148ecfe0d6c8da0",
   "js/templates.mjs":
     "91f7881cc2bd1d7a65a6a47abd8a0f6b65b0a08c06f3219453229da773980614",
   "js/workers/ipfsWorker.js":
