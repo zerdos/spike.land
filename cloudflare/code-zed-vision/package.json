@@ -17,7 +17,7 @@
     "@cloudflare/wrangler": "1.16.1",
     "@zedvision/code": "^14.0.7",
     "@zedvision/ipfs": "^14.0.7",
-    "esbuild": "0.12.4"
+    "esbuild": "0.12.5"
   },
   "publishConfig": {
     "access": "public"
