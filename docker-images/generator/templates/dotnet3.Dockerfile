@@ -13,6 +13,7 @@ RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -
         libicu-dev \
         liblttng-ust0 \
         libssl-dev \
+        wget \
         libstdc++6 \
         apt-transport-https \
         zlib1g;

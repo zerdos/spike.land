@@ -22,7 +22,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/vendor/idb.js":
-    "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
+    "d6b7cd72e35fee7e854ff71a37c8b6ad629bd675c71992d73140e2b7d3eb71a5",
   "modules/vendor/diffChars.d.ts":
     "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
   "modules/vendor/diffMin.js":
