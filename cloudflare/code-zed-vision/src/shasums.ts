@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "f001fd0413735bd7cbaeaf00b88fe441c4a2636b573f40d4b64b417215cd9983",
+    "61a9b89da6e4239a50c53c8314f80cf3f15e0f57015b6dea1c4edd5d9fdbda2f",
   "importmap.json":
     "ea9e4c4da7f1ae0395e35646dc7acdb494a536f7c8acb449bb20ede011da4276",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
