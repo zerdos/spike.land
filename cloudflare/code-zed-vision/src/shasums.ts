@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "ae55192605bb808310a028432155f95bae59e8c3992b17a72dcc99e43a0ef55e",
+    "f001fd0413735bd7cbaeaf00b88fe441c4a2636b573f40d4b64b417215cd9983",
   "importmap.json":
     "ea9e4c4da7f1ae0395e35646dc7acdb494a536f7c8acb449bb20ede011da4276",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -62,7 +62,7 @@ export const shasums = {
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "modules/ipfs.client.mjs":
-    "618aaf6210f4ee79254d79acc9547e6164b660ad86c4f0a293fba7f009c7f864",
+    "97dcc827bb0a271cf8f525ed65af2c315691a9049aa07b0a837a2d0c04096a7c",
   "js/examples/rca.tsx":
     "62fce5b0fc7a3b0f50cbdd154375cbe0a554e4762c0bc2eab4393a03f1270ac5",
   "js/examples/starter_framer.js":
