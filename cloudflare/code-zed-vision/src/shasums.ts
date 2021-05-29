@@ -108,7 +108,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "2d8b43620bebec0e518f5933ae1923f0310cbf9aab96ee821a83754a835dd782",
   "js/workers/transpile.worker.js":
-    "fc4b7d73e290b1268c7bbba3655dcd4f4ef77cfa7dcf2cf2b609759166a816bb",
+    "b98a6e7a7f13087266998e0f48793df81bdaf381508b301f72aa4cb2c8a9fa0e",
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
   "assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf":
