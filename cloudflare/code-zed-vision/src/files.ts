@@ -17,7 +17,7 @@ export const files = {
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "importmap.json": "Qme3PRiuvicgyQ4VhHTBBj2CnzGmabF9da98zisx6YFAnu",
+  "importmap.json": "QmWFon9qsnaeohQybe1C56VkDW6aAr8UcVVxUZSDhxtY5J",
   "index.html": "QmQtoYmGxGchaKRMAygUDZU5EHVrbyRsRrxZgQY1khQ4iv",
   "js/codeLoader.mjs": "QmP1rGoVjAxVAoLo5HbB4sNCUXWMYy6gkt8swebxZ8BQCi",
   "js/data.mjs": "QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF",
@@ -55,7 +55,7 @@ export const files = {
   "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
   "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
   "modules/ipfs.client.mjs": "QmQvjvxZHee3zhgRWNrXUtZ4Usxy8vCuAj4DC5J7vSzTgr",
-  "modules/renderer.mjs": "QmWvLfWYyrn63KpWwWQ9nWA1RvmCyow9tYHKDA31bx81xg",
+  "modules/renderer.mjs": "QmQ84qFKCPbgUMDZGYooFRkGcEeaSMrSKTKgJ7auab2CxD",
   "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
   "modules/shaDB.d.ts": "Qmb73uQ62EUgeNcfKrekvdwV13YMJc9318Lb4xvuDtowuC",
@@ -92,8 +92,8 @@ export const files = {
   "modules/smart-monaco-editor":
     "QmP7BLaywoT4ZNTqMVZbo3Dr2a3GjzV3SBFHCUx1YcPrpa",
   "modules/vendor": "QmarZrMECk6xj1q2XCR7Dq9BjZPBDCEZR7bXoJcTxrjcKk",
-  "modules": "QmfNXjHPYyJXGd5BgyyFt8FAsqa6VrAnCw61FQCnKZf5Sq",
+  "modules": "QmZxXtzYG2trWF5T3pQhvNPao6MVWXiEsdfEgFgKAJDie7",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmQ4Atzm9LZAswzjkfxw3ekKWmqX2qwtW2nyTgATWk4mxJ",
+  "": "QmSoR9ezTLQezXKfRv7hvonFR3qV2jUsx6sJQgFikzhdtv",
   "foo": "bar",
 };

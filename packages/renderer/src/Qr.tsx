@@ -1,18 +1,16 @@
 /** @jsx jsx */
 
-import { css, jsx, motion, React } from "./renderer.ts";
+import { css, jsx, motion, React } from "./renderer";
 
 import Fab from "@material-ui/core/Fab";
-import QrCode from "./icons/QrCode.tsx";
+import QrCode from "./icons/QrCode";
 
 const QR: React.FC<{ url: string }> = ({ url }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   React.useEffect(() => {
     const load = async () => {
-      const QRious = await new Function(`return import(
-        "https://esm.sh/qrious"
-      ).then(x=>x.default);`)();
+      const {QRious} = await import("@zedvision/qrious");
       const options = {
         size: 200,
         element: canvasRef.current,

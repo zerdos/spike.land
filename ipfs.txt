@@ -10,7 +10,7 @@ added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geomet
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added Qme3PRiuvicgyQ4VhHTBBj2CnzGmabF9da98zisx6YFAnu code/importmap.json
+added QmWFon9qsnaeohQybe1C56VkDW6aAr8UcVVxUZSDhxtY5J code/importmap.json
 added QmQtoYmGxGchaKRMAygUDZU5EHVrbyRsRrxZgQY1khQ4iv code/index.html
 added QmP1rGoVjAxVAoLo5HbB4sNCUXWMYy6gkt8swebxZ8BQCi code/js/codeLoader.mjs
 added QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF code/js/data.mjs
@@ -44,7 +44,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmQvjvxZHee3zhgRWNrXUtZ4Usxy8vCuAj4DC5J7vSzTgr code/modules/ipfs.client.mjs
-added QmWvLfWYyrn63KpWwWQ9nWA1RvmCyow9tYHKDA31bx81xg code/modules/renderer.mjs
+added QmQ84qFKCPbgUMDZGYooFRkGcEeaSMrSKTKgJ7auab2CxD code/modules/renderer.mjs
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb73uQ62EUgeNcfKrekvdwV13YMJc9318Lb4xvuDtowuC code/modules/shaDB.d.ts
@@ -72,6 +72,6 @@ added QmQgw2F2vmeWGZpZ7Pdfcxnso51BmpU8cQSjrVJVtPnX7Y code/js
 added QmR1snRVYp2EQjzoToxAupQtNLVVLh1XYVCLJbXN1rSEzE code/modules/smart-monaco-editor/dist
 added QmP7BLaywoT4ZNTqMVZbo3Dr2a3GjzV3SBFHCUx1YcPrpa code/modules/smart-monaco-editor
 added QmarZrMECk6xj1q2XCR7Dq9BjZPBDCEZR7bXoJcTxrjcKk code/modules/vendor
-added QmfNXjHPYyJXGd5BgyyFt8FAsqa6VrAnCw61FQCnKZf5Sq code/modules
+added QmZxXtzYG2trWF5T3pQhvNPao6MVWXiEsdfEgFgKAJDie7 code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmQ4Atzm9LZAswzjkfxw3ekKWmqX2qwtW2nyTgATWk4mxJ code
+added QmSoR9ezTLQezXKfRv7hvonFR3qV2jUsx6sJQgFikzhdtv code
