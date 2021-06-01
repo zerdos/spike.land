@@ -3,7 +3,7 @@ self.importScripts(
 );
 
 // self.importScripts(
-//   "https://unpkg.com/ipfs@0.55.1/dist/index.min.js",
+//   "https://unpkg.com/ipfs@0.55.2/dist/index.min.js",
 // );
 
 // // self.importScripts(
