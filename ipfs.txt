@@ -44,7 +44,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmQvjvxZHee3zhgRWNrXUtZ4Usxy8vCuAj4DC5J7vSzTgr code/modules/ipfs.client.mjs
-added QmQ84qFKCPbgUMDZGYooFRkGcEeaSMrSKTKgJ7auab2CxD code/modules/renderer.mjs
+added QmaeJdX5hvWtCLQpajHwgWeRSjMfB565kCubXbADZdQQDt code/modules/renderer.mjs
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb73uQ62EUgeNcfKrekvdwV13YMJc9318Lb4xvuDtowuC code/modules/shaDB.d.ts
@@ -58,7 +58,7 @@ added QmfCcCnGGB4VAF5nPDRZEAwMsTUFM5txJBuyaisp7RW1vd code/modules/vendor/diffCha
 added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin.d.ts
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
-added QmNQjUS8mdEeAB8NPkHsodJsv6NtWGZAR5MQs6L7zfUL2H code/modules/vendor/idb.js
+added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
 added QmZkTdBVDd5p1hhoXBg1wt787W2pXCjDKadfced5mwhbrE code/package.json
 added QmRW4oUioaCspsyM1G57JPn9TyKusf2bqJtpkSwfHy83bc code/sw.js
 added QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU code/tsconfig.json
@@ -71,7 +71,7 @@ added QmTBcV3GEgEw1S5A51WdhbwhCwC8WYNXWDTnYhqjSKATqk code/js/workers
 added QmQgw2F2vmeWGZpZ7Pdfcxnso51BmpU8cQSjrVJVtPnX7Y code/js
 added QmR1snRVYp2EQjzoToxAupQtNLVVLh1XYVCLJbXN1rSEzE code/modules/smart-monaco-editor/dist
 added QmP7BLaywoT4ZNTqMVZbo3Dr2a3GjzV3SBFHCUx1YcPrpa code/modules/smart-monaco-editor
-added QmarZrMECk6xj1q2XCR7Dq9BjZPBDCEZR7bXoJcTxrjcKk code/modules/vendor
-added QmZxXtzYG2trWF5T3pQhvNPao6MVWXiEsdfEgFgKAJDie7 code/modules
+added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
+added QmakAy5mFDKC3hcMDKswDWKu5zaCaVp6mVvZhGUSQ6NexB code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmSoR9ezTLQezXKfRv7hvonFR3qV2jUsx6sJQgFikzhdtv code
+added QmQM2qtewtELMfrKX2PmTrSLgELoNSLjHCdxpWQMfhcoyJ code

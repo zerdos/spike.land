@@ -7,14 +7,14 @@ var __export = (target, all) => {
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 
-// ../qrious/dist/QRious.mjs
+// node_modules/@zedvision/qrious/dist/QRious.mjs
 var QRious_exports = {};
 __export(QRious_exports, {
   QRious: () => $e
 });
 var c, E, S, u, B, L, j, I, V, G, K, X, H, M, Y, $, re, se, ne, ce, ue, $e, e0;
 var init_QRious = __esm({
-  "../qrious/dist/QRious.mjs"() {
+  "node_modules/@zedvision/qrious/dist/QRious.mjs"() {
     c = (i, e) => () => (e || i((e = { exports: {} }).exports, e), e.exports);
     E = c((t0, N) => {
       "use strict";
