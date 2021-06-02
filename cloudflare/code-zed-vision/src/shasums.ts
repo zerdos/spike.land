@@ -2,7 +2,7 @@ export const shasums = {
   "package.json":
     "61a9b89da6e4239a50c53c8314f80cf3f15e0f57015b6dea1c4edd5d9fdbda2f",
   "importmap.json":
-    "834a5e8b8f3d1bed068ae3d72919a701fbccd0b987bf1616ca9b614313b65dfc",
+    "d774a0f10b12b0d21c7e4ce40a3426bfe0fac4a4ddbf50f9207309ecdfe9b209",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
