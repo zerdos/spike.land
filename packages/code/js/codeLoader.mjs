@@ -77,8 +77,8 @@ export async function run(mode = "window", code = "") {
         container: container,
         code: session.code,
         /**
-     * 
-     * @param {string} code 
+     *
+     * @param {string} code
      */
         onChange: (code) => runner(code),
       },

@@ -7,7 +7,7 @@ let transform = null;
 
 /**
  *
- * @param {string} code 
+ * @param {string} code
  * @returns {Promise<string>}
  */
 export async function transpileCode(code) {

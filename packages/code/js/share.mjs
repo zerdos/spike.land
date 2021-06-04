@@ -3,12 +3,12 @@ import { sha256 } from "../modules/sha256.js";
 import { all, ipfsClient } from "./ipfsClient.mjs";
 
 /**
- * 
+ *
  * @param {{
  * code: string
  * html: string
  * transpiled: string
-* }} props 
+* }} props
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
   const bodyClass = String(

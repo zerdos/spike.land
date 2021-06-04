@@ -1,7 +1,7 @@
 /**
- * 
- * @param {string} src 
- * @param {*} res 
+ *
+ * @param {string} src
+ * @param {*} res
  */
 export const importScript = (src, res = []) => {
   const prefix = src.slice(0, 8);

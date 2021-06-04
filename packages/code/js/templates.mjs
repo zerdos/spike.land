@@ -54,8 +54,8 @@ window.process = {env: {NODE_ENV:"production" }}
 }
 
 /**
- * 
- * @param {string}} cid 
+ *
+ * @param {string}} cid
  * @returns {string}
  */
 export const getEditorHTML = () =>

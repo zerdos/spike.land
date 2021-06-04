@@ -14,7 +14,7 @@ export function sha256ToCid(hash) {
 // const signalCache = {};
 
 /**
- * @param {string} signal 
+ * @param {string} signal
  * @param {string} data
  */
 
@@ -158,14 +158,14 @@ export async function fetchSignal(
     if (retry > 1) return fetchSignal(signal, retry - 1);
   }
 } /****
- * 
- * 
- * 
+ *
+ *
+ *
  * UTILS
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  */
 
 // /**

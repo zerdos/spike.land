@@ -7,7 +7,7 @@ let format = null;
 
 /**
  *
- * @param {string} code 
+ * @param {string} code
  * @returns {Promise<string>}
  */
 export async function formatter(code) {

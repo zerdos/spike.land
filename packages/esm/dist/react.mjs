@@ -20,8 +20,7 @@ var y = (r, e, t) => {
     if (e && typeof e == "object" || typeof e == "function") {
       for (let n of j(e)) {
         !O.call(r, n) && n !== "default" && s(r, n, {
-          get: () =>
-            e[n],
+          get: () => e[n],
           enumerable: !(t = g(e, n)) || t.enumerable,
         });
       }
@@ -31,9 +30,7 @@ var y = (r, e, t) => {
   h = (r) =>
     y(
       m(s(
-        r != null
-          ? b(p(r))
-          : {},
+        r != null ? b(p(r)) : {},
         "default",
         r && r.__esModule && "default" in r
           ? {
@@ -119,8 +116,7 @@ var X = (e, t, r) => {
     if (t && typeof t == "object" || typeof t == "function") {
       for (let o of J(t)) {
         !G.call(e, o) && o !== "default" && h1(e, o, {
-          get: () =>
-            t[o],
+          get: () => t[o],
           enumerable: !(r = K(t, o)) || r.enumerable,
         });
       }
@@ -130,9 +126,7 @@ var X = (e, t, r) => {
   O1 = (e) =>
     X(
       Q(h1(
-        e != null
-          ? W(Y(e))
-          : {},
+        e != null ? W(Y(e)) : {},
         "default",
         e && e.__esModule && "default" in e
           ? {
