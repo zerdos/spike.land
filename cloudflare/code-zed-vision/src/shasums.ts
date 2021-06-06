@@ -94,7 +94,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/prettierWorker.js":
-    "2d8b43620bebec0e518f5933ae1923f0310cbf9aab96ee821a83754a835dd782",
+    "c0b7f6811a6719306d6050452f9a5246138ef2e5946e9ae08a68ac5afd267c7d",
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importScript.mjs":
