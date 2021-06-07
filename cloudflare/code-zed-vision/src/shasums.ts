@@ -94,7 +94,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/prettierWorker.js":
-    "c0b7f6811a6719306d6050452f9a5246138ef2e5946e9ae08a68ac5afd267c7d",
+    "0d057f77ffe8535483f030b7f82427b4f8e8819c9d1e5ff6669e06693382d913",
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importScript.mjs":
@@ -106,7 +106,7 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   ".tsBuildInfo":
-    "17fdc866aca5bed772c63cc574fd39daaee1b6e9284e9b5d13d2297629571406",
+    "a61ad4fd6d3e1da16bc216b506fe2227ef257056069bb57c7aa7d3476070b900",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
   "assets/social-media-computer-icons-share-icon-png":

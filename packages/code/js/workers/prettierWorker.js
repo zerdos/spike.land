@@ -18,7 +18,7 @@ function formatter(code) {
     "insertPragma": false,
     "jsxBracketSameLine": true,
     "jsxSingleQuote": false,
-    "printWidth": 64,
+    "printWidth": 48,
     "proseWrap": "preserve",
     "quoteProps": "as-needed",
     "requirePragma": false,
