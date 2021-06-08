@@ -2,7 +2,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "package.json":
-    "42742f96812d7b1f28a63877d4e417c830f9cd30361f4a1f0752892dca85a12b",
+    "9f9ddb325bf7f8c4c1a36480c783363952e7047f13e9d0b9396ac2350f6af71e",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "tsconfig.json":
@@ -12,7 +12,7 @@ export const shasums = {
   "modules/ipfs.client.mjs":
     "97dcc827bb0a271cf8f525ed65af2c315691a9049aa07b0a837a2d0c04096a7c",
   "modules/renderer.mjs":
-    "2df2c8cb5a67a56db56c0a91db42c8af97becc0002802d8c85feebc9d7827ace",
+    "3d20a657fc8de50ba3c6677c4a6121d6e50c149903f14346db4aae3c41c4577e",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/sha256.d.ts":

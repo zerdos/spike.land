@@ -44,7 +44,7 @@ added QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ code/modules/diffChars.js
 added QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2 code/modules/getDbObj.d.ts
 added QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3 code/modules/getDbObj.js
 added QmQvjvxZHee3zhgRWNrXUtZ4Usxy8vCuAj4DC5J7vSzTgr code/modules/ipfs.client.mjs
-added QmQ84qFKCPbgUMDZGYooFRkGcEeaSMrSKTKgJ7auab2CxD code/modules/renderer.mjs
+added QmcWXabwXjJ6r8YfjRBFguY1HkrXsYN7XryarmMiGnuauQ code/modules/renderer.mjs
 added QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k code/modules/sha256.d.ts
 added QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi code/modules/sha256.js
 added Qmb73uQ62EUgeNcfKrekvdwV13YMJc9318Lb4xvuDtowuC code/modules/shaDB.d.ts
@@ -59,7 +59,7 @@ added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
 added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
-added QmWgo6KYpUWN42Wv6p285eR9H5Rsy7fGZTUdzNwrhw5LbA code/package.json
+added QmUtd5B2dStRGujydEF7awrM4DKwNnvvuZZg2eNfF129CJ code/package.json
 added QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj code/sw.js
 added QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU code/tsconfig.json
 added QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK code/assets/fonts
@@ -72,6 +72,6 @@ added QmTuN3RT9cUzuohaTdQJs1HnruCX887yDfj8Z7ue2JqQhe code/js
 added QmYpBnXFe2xAXKf9gjjAs6y9gZFNToizyFBEUkKtVHAhhq code/modules/smart-monaco-editor/dist
 added QmWqPY6A3fUYhkBUz3k1NhqsuutZrKQ3DGXrQABiURTyB9 code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
-added QmXzswY4FeuDRqpwU9xKDKYTQhP3Wff3Y2S1R2NwJbAuKo code/modules
+added QmacXMwcSQkj5k285eUFwpfGfWpFWonFE7oaCjnq4xn6tb code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmXuSvtZGGXGHL5pYgpTNSQXob58T3xvqXVbiLRQrJb4HW code
+added QmY6orPY2Q2z2tSiBsmAQiH6LyLZsDabvfJkDCcqTfGdb5 code
