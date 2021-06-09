@@ -87,6 +87,8 @@ export const shasums = {
     "96a271fcadba5c34ea97f9345f7dbb47625a1196acfd8d6c9a5cedc573fe7545",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
+  "js/react-dom.mjs":
+    "7ceab698296ed843cd3a4579b9762de4d89b54f6faff76f901f8813160d316d0",
   "js/workers/transpile.worker.js":
     "b98a6e7a7f13087266998e0f48793df81bdaf381508b301f72aa4cb2c8a9fa0e",
   "js/workers/ipfsWorker.js":
@@ -101,8 +103,10 @@ export const shasums = {
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
+  "js/react.mjs":
+    "1b88fc12169bfe7d2dc7c9a0fb1c05d14463424aa8f596a04838d9947bc849ea",
   "index.html":
-    "cb7c01bad47db80c344654bd57397e27653bbcf0482f731023d80b81ba259ddc",
+    "218429db61cc21659ca4ed95f33689e698bab7c1f8018cbf1c92db7939d2b129",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   ".tsBuildInfo":
@@ -130,6 +134,6 @@ export const shasums = {
   "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
     "0b1d7f87f3ca4c8b4bd749b02b6ad71c930b7e306c752a2e2293d7b250b02e27",
   "importmap.json":
-    "fca2ecf20d57cd72849391447c7974f528d5d308fb3a607969c7f41c96b3c95d",
+    "406d5f82ba8d928ebdab4955d1ac03ceee9b2472b8e4c03b5db80d0288839392",
   "food": "bar",
 };
