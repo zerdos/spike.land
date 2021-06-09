@@ -2,7 +2,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "package.json":
-    "9f9ddb325bf7f8c4c1a36480c783363952e7047f13e9d0b9396ac2350f6af71e",
+    "fb1a1b88944f38f9337fae617f9da0713184d67475a6e92deef5a2d29a966dc6",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "tsconfig.json":
@@ -28,7 +28,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.js":
     "7d0b04f9c9cc762f515e595cde9ca71fa909f8d3a4509ee324e2f0e6ae06bdbe",
   "modules/smart-monaco-editor/dist/editor.js":
-    "39cb7e2ecc13af43618eb4ba0226de0157911d6dea1ce6038b75acf121d888a4",
+    "759b96794038623d6b1100f0d6484e4082d4496c285435bc7715913efd36a1c8",
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/shaDB.js":
@@ -134,6 +134,6 @@ export const shasums = {
   "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
     "0b1d7f87f3ca4c8b4bd749b02b6ad71c930b7e306c752a2e2293d7b250b02e27",
   "importmap.json":
-    "440e608207dc9953d2fc62d5c67e1b3938669e0bd0864528419a96048de09d96",
+    "9a896548911cb089f36e3699798fb2b28cc08ff0750984e2b4349e747f07a5b3",
   "food": "bar",
 };

@@ -17,7 +17,7 @@ export const files = {
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "importmap.json": "QmZYGHr5WscgymNLyxcV81DhdK9WQpFR45rM8j1sce3T2X",
+  "importmap.json": "QmZctKkkKLKatoKheRWxQBS1vD9ySRkgjnapqA8VMP1y18",
   "index.html": "QmbrDLF8aK12twLPcSx4U9QbbBJ4RyzSrX7nSq3CWhg42q",
   "js/codeLoader.mjs": "QmbQFXEVUkWjgqtHF88Pg4tSxDH65tWMJjwCEC1nAeUhrS",
   "js/data.mjs": "QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF",
@@ -65,7 +65,7 @@ export const files = {
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "QmbDXsz2Fmv691fT21JToDdJpDN2jAPMP1jg8tgY5DrWdZ",
   "modules/smart-monaco-editor/dist/editor.js":
-    "QmbVhbiWUz7HFxvWszVvCH1znV4a4svT38nVqi6ofUBtzp",
+    "QmcQdUJymHF85kkern4oRtG2f43qGHYxHnQe39zs4rLjxC",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -79,7 +79,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmUtd5B2dStRGujydEF7awrM4DKwNnvvuZZg2eNfF129CJ",
+  "package.json": "QmZ3WS8iBBNQw6rrVSBLSDFqhNeCPoxhnWrJRLx835exCP",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -90,12 +90,12 @@ export const files = {
   "js/workers": "QmNTPG1h6tJTmbevXaPQoEjrMohx5uwyRvqNWASejqHVVh",
   "js": "QmYDim3zLScFc2Gn4K5r8tT2R8YZ3YRwH21Gk9kt1peuab",
   "modules/smart-monaco-editor/dist":
-    "QmNqvmbuKF21SnbboG39vS4DvqNW4tDoBi89HwZ7rw8aCz",
+    "QmbdxtbVSBfXieABXP4meFd2jNuZgRVRpn4jwbQhN3LgsS",
   "modules/smart-monaco-editor":
-    "QmYYjhKco4YzhYGRhYiHPXdt5T2K1nYnB2VvfwZ3Fu6noZ",
+    "QmPY15zgTrnkcrsTeDuwHxmu9p79rStmdzXYMUGkLiNfku",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmX6sskfs35LLMZqYxWqgwktyF91UuwzBKHRaKCSzEF3Uv",
+  "modules": "QmRLFAQHbqAtsFdfrFWixqcBFhE7aC39gjzcCYPen7dgus",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmZKz2nV8HGGczLvJTNkzTfX6zzXiYg99w3uSUBf5k17zo",
+  "": "QmWanHosFVQHzP6fmyGzMvUBPPmqmLL1ZcWsweaJA7upCk",
   "foo": "bar",
 };
