@@ -58,7 +58,7 @@ export const shasums = {
   "js/formatter.mjs":
     "64b37cbdb3893e159cde2d4549ca18933d91e1d0fa0f811d0dcb7a5cff1335dc",
   "js/templates.mjs":
-    "05dbac61c859202f626bc1f21fef274747524f46614ce6251186e0f066640a44",
+    "3236fe0f6d00d98e550633335d86f058024bac475cfb97c2d35629c8773844f2",
   "js/starter.js":
     "ca234bd9c40572f00602dfef8ca12f3c1d2f696a8a6ba4f27c1fe39627cc04c0",
   "js/hash.mjs":
