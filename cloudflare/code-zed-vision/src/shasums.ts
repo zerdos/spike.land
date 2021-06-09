@@ -134,6 +134,6 @@ export const shasums = {
   "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
     "0b1d7f87f3ca4c8b4bd749b02b6ad71c930b7e306c752a2e2293d7b250b02e27",
   "importmap.json":
-    "406d5f82ba8d928ebdab4955d1ac03ceee9b2472b8e4c03b5db80d0288839392",
+    "440e608207dc9953d2fc62d5c67e1b3938669e0bd0864528419a96048de09d96",
   "food": "bar",
 };
