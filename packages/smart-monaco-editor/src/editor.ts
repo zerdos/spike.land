@@ -114,22 +114,22 @@ export default async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.9/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.10/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react/jsx-dev-runtime",
-        url: "https://unpkg.com/@types/react@17.0.9/jsx-dev-runtime.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.10/jsx-dev-runtime.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react-exp  ",
-        url: "https://unpkg.com/@types/react@17.0.9/experimental.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.10/experimental.d.ts",
         depend: [],
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.9/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.10/global.d.ts",
         depend: [],
       },
       {
@@ -139,7 +139,7 @@ export default async (
       },
       {
         name: "react-dom",
-        url: "https://unpkg.com/@types/react-dom@17.0.6/index.d.ts",
+        url: "https://unpkg.com/@types/react-dom@17.0.7/index.d.ts",
         depend: [],
       },
       {
@@ -208,7 +208,7 @@ export default async (
       },
       {
         name: "framer-motion",
-        url: "https://unpkg.com/framer-motion@4.1.11/dist/framer-motion.d.ts",
+        url: "https://unpkg.com/framer-motion@4.1.17/dist/framer-motion.d.ts",
         depend: ["popmotion"],
       },
       {

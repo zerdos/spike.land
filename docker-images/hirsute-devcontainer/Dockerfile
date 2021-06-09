@@ -50,7 +50,7 @@ RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.10.2
+  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.11.0
 
   
 ENV NODE_VERSION 16.3.0

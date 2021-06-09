@@ -28,7 +28,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.js":
     "7d0b04f9c9cc762f515e595cde9ca71fa909f8d3a4509ee324e2f0e6ae06bdbe",
   "modules/smart-monaco-editor/dist/editor.js":
-    "f2b48ede7e809a0aa1ea14e35680c61157be5dba0ddd11dceefee788d1113344",
+    "39cb7e2ecc13af43618eb4ba0226de0157911d6dea1ce6038b75acf121d888a4",
   "modules/getDbObj.js":
     "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
   "modules/shaDB.js":
@@ -130,6 +130,6 @@ export const shasums = {
   "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
     "0b1d7f87f3ca4c8b4bd749b02b6ad71c930b7e306c752a2e2293d7b250b02e27",
   "importmap.json":
-    "4dc4dc223a66798c731218b8fa712666fe106eb8bec044d5972d6dd91c0f9e4d",
+    "fca2ecf20d57cd72849391447c7974f528d5d308fb3a607969c7f41c96b3c95d",
   "food": "bar",
 };
