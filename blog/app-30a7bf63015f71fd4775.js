@@ -1009,6 +1009,7 @@ var _utils = __webpack_require__(5442);
 var _parsePath = __webpack_require__(3762);
 
 exports.cP = _parsePath.parsePath;
+var _excluded = ["to", "getProps", "onClick", "onMouseEnter", "activeClassName", "activeStyle", "innerRef", "partiallyActive", "state", "replace", "_location"];
 
 var isAbsolutePath = function isAbsolutePath(path) {
   return path === null || path === void 0 ? void 0 : path.startsWith("/");
@@ -1221,7 +1222,7 @@ var GatsbyLink = /*#__PURE__*/function (_React$Component) {
         state = _this$props.state,
         replace = _this$props.replace,
         _location = _this$props._location,
-        rest = (0, _objectWithoutPropertiesLoose2.default)(_this$props, ["to", "getProps", "onClick", "onMouseEnter", "activeClassName", "activeStyle", "innerRef", "partiallyActive", "state", "replace", "_location"]);
+        rest = (0, _objectWithoutPropertiesLoose2.default)(_this$props, _excluded);
 
     if (false) {}
 
@@ -2212,7 +2213,7 @@ var RouteHandler=function RouteHandler(props){return/*#__PURE__*/react.createEle
 // - it's the offline plugin shell (/offline-plugin-app-shell-fallback/)
 if(pagePath&&"/blog"+pagePath!==browserLoc.pathname&&!(production_app_loader.findMatchPath((0,strip_prefix/* default */.Z)(browserLoc.pathname,"/blog"))||pagePath==="/404.html"||pagePath.match(/^\/404\/?$/)||pagePath.match(/^\/offline-plugin-app-shell-fallback\/?$/))){(0,es.navigate)("/blog"+pagePath+browserLoc.search+browserLoc.hash,{replace:true});}loader/* publicLoader.loadPage */.jN.loadPage(browserLoc.pathname).then(function(page){if(!page||page.status===loader/* PageResourceStatus.Error */.uQ.Error){var message="page resources for "+browserLoc.pathname+" not found. Not rendering React";// if the chunk throws an error we want to capture the real error
 // This should help with https://github.com/gatsbyjs/gatsby/issues/19618
-if(page&&page.error){console.error(message);throw page.error;}throw new Error(message);}window.___webpackCompilationHash=page.page.webpackCompilationHash;var SiteRoot=(0,api_runner_browser/* apiRunner */.h)("wrapRootElement",{element:/*#__PURE__*/react.createElement(LocationHandler,null)},/*#__PURE__*/react.createElement(LocationHandler,null),function(_ref4){var result=_ref4.result;return{element:result};}).pop();var App=function App(){var onClientEntryRanRef=react.useRef(false);react.useEffect(function(){if(!onClientEntryRanRef.current){onClientEntryRanRef.current=true;performance.mark("onInitialClientRender");(0,api_runner_browser/* apiRunner */.h)("onInitialClientRender");}},[]);return/*#__PURE__*/react.createElement(GatsbyRoot,null,SiteRoot);};var renderer=(0,api_runner_browser/* apiRunner */.h)("replaceHydrateFunction",undefined,({}).GATSBY_EXPERIMENTAL_CONCURRENT_FEATURES?react_dom.unstable_createRoot:react_dom.hydrate)[0];ready_default()(function(){var container=typeof window!=="undefined"?document.getElementById("___gatsby"):null;if(renderer===react_dom.unstable_createRoot){renderer(container,{hydrate:true}).render(/*#__PURE__*/react.createElement(App,null));}else{renderer(/*#__PURE__*/react.createElement(App,null),container);}});});});
+if(page&&page.error){console.error(message);throw page.error;}throw new Error(message);}window.___webpackCompilationHash=page.page.webpackCompilationHash;var SiteRoot=(0,api_runner_browser/* apiRunner */.h)("wrapRootElement",{element:/*#__PURE__*/react.createElement(LocationHandler,null)},/*#__PURE__*/react.createElement(LocationHandler,null),function(_ref4){var result=_ref4.result;return{element:result};}).pop();var App=function App(){var onClientEntryRanRef=react.useRef(false);react.useEffect(function(){if(!onClientEntryRanRef.current){onClientEntryRanRef.current=true;performance.mark("onInitialClientRender");(0,api_runner_browser/* apiRunner */.h)("onInitialClientRender");}},[]);return/*#__PURE__*/react.createElement(GatsbyRoot,null,SiteRoot);};var renderer=(0,api_runner_browser/* apiRunner */.h)("replaceHydrateFunction",undefined,react_dom.createRoot?react_dom.createRoot:react_dom.hydrate)[0];ready_default()(function(){var container=typeof window!=="undefined"?document.getElementById("___gatsby"):null;if(renderer===react_dom.createRoot){renderer(container,{hydrate:true}).render(/*#__PURE__*/react.createElement(App,null));}else{renderer(/*#__PURE__*/react.createElement(App,null),container);}});});});
 
 /***/ }),
 
@@ -3629,4 +3630,4 @@ module.exports = invariant;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-34c9f3a7e6d55deddcdc.js.map
+//# sourceMappingURL=app-30a7bf63015f71fd4775.js.map
