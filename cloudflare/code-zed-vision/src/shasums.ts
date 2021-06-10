@@ -90,7 +90,7 @@ export const shasums = {
   "js/react-dom.mjs":
     "7ceab698296ed843cd3a4579b9762de4d89b54f6faff76f901f8813160d316d0",
   "js/workers/transpile.worker.js":
-    "b98a6e7a7f13087266998e0f48793df81bdaf381508b301f72aa4cb2c8a9fa0e",
+    "6a2562f4906df71c3f300939b85a324bb48dcc6e57faffa7f9428a8a457a8111",
   "js/workers/ipfsWorker.js":
     "c7f34dcf9084d6fd5e62a15cf3d33dbd6688a3f21215282049e1f3c11d9d4072",
   "js/workers/getWorker.mjs":
