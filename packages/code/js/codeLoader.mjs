@@ -12,6 +12,7 @@ function getSession() {
     unmount: () => {},
     errorText: "",
     lastErrors: 0,
+    children: React.Fragment,
     div: document.createElement("div"),
     html: "",
     url: "",
