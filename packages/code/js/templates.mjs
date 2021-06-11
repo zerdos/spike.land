@@ -49,7 +49,14 @@ export function getHtml({ html, css }) {
 <script>
 window.process = {env: {NODE_ENV:"production" }}
 </script>
-<script type="module-shim" src="./loader.js"></script>
+<script type="module-shim">
+
+  import App from "./app.js"
+  import ReactDOM from "react-dom"
+
+  ReactDOM.render(App(), document.body.children[0]);
+
+</script>
 </body>
 </html>
 `;

@@ -10,6 +10,7 @@ import Tv from "./icons/Tv.tsx";
 import Phone from "./icons/PhoneAndroid.tsx";
 import { QRButton } from "./Qr.tsx";
 
+
 import { css, jsx, motion, React } from "./renderer.ts";
 
 const breakPoints = [640, 1024, 1920];
@@ -27,11 +28,13 @@ interface DraggableWindowProps {
 }
 
 export const DraggableWindow: React.FC<DraggableWindowProps> = (
-  { onShare, onRestore, position, session, children },
+  { onShare, onRestore, position, session },
 ) => {
   const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
+  const [childArray, setChild] = React.useState([session.children]);
+  session.setChild = setChild;
 
   const [qrUrl, setQRUrl] = React.useState(session.url);
   const [errorText, setErrorText] = React.useState(" ");
@@ -39,6 +42,8 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
+
+  const Child = childArray[childArray.length-1]
 
   React.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
@@ -57,10 +62,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
         }, 2000);
       }
       if (qrUrl !== session.url) setQRUrl(session.url);
+      // setChild(session.children);
     }, 200);
 
     return () => clearInterval(handler);
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
+
 
   const scale = scaleRange / 100;
 
@@ -191,10 +198,12 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             >
               <div
                 id="zbody"
+                key={session.i}
                 ref={zbody}
-              >
-                {children}
-              </div>
+              ><React.Suspense fallback={<div>Error</div>}> 
+                <Child key={session.i} ></Child>
+                </React.Suspense>
+                </div>
             </motion.div>
           </motion.div>
           <ToggleButtonGroup

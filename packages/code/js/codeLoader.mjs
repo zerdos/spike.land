@@ -4,6 +4,7 @@ import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
+import React from "react";
 import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 
 function getSession() {
@@ -13,6 +14,7 @@ function getSession() {
     errorText: "",
     lastErrors: 0,
     children: React.Fragment,
+    setChild: ()=>{},
     div: document.createElement("div"),
     html: "",
     url: "",
@@ -245,15 +247,17 @@ export async function run(mode = "window", code = "") {
 
     const mod = (await import(objUrl));
     const Element = mod.default;
-    const { render } = mod;
+    // const { render } = mod;
 
     URL.revokeObjectURL(objUrl);
-    session.unmount();
-    session.unmount = render(Element(), root);
+    session.children = Element;
+
+    session.setChild(c => [...c, session.children]);
+    // session.unmount = render(Element(), root);
     const zbody = window.document.getElementById("zbody");
-    zbody && zbody.children[0].replaceWith(root);
-    session.div = root;
-    session.html = root.innerHTML;
+    // zbody && zbody.children[0].replaceWith(root);
+    session.div = zbody;
+    session.html = zbody.innerHTML;
     session.transpiled = transpiled;
 
     return !session.html;

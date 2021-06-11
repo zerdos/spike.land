@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 /** @jsx jsx */
 
+import React, { useState } from "react";
 import { css, Global, jsx } from "@emotion/react";
 
 const Slider = () => {

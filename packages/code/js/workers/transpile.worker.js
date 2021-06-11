@@ -43,14 +43,7 @@ const transform = (code) => {
   // }
 
   const transformed = Babel.transform(
-    `/** @jsx jsx */
-      import {render, jsx} from 'renderer';
-
-      export {render}
-      
-      ` + safeCode + `
-            
-      `,
+    safeCode,
     {
       compact: false,
       comments: false,

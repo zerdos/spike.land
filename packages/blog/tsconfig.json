@@ -8,7 +8,7 @@
       "esnext"
     ],
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

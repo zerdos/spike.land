@@ -50,7 +50,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/renderer.mjs":
-    "3d20a657fc8de50ba3c6677c4a6121d6e50c149903f14346db4aae3c41c4577e",
+    "e05b3d918958ada9a30ada7712f867bb2be0001ca3b7ae4ae19b782bfcbfaaf1",
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   ".vscode/settings.json":
@@ -58,7 +58,7 @@ export const shasums = {
   "js/formatter.mjs":
     "64b37cbdb3893e159cde2d4549ca18933d91e1d0fa0f811d0dcb7a5cff1335dc",
   "js/templates.mjs":
-    "3236fe0f6d00d98e550633335d86f058024bac475cfb97c2d35629c8773844f2",
+    "fa5cf8c78e698ba51226fedf5e11250b57f0db6297e411b539f8a35798061e05",
   "js/starter.js":
     "ca234bd9c40572f00602dfef8ca12f3c1d2f696a8a6ba4f27c1fe39627cc04c0",
   "js/hash.mjs":
@@ -74,15 +74,15 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "3d2c125a2325cceb7bcfa9ccfc7d3f4bbcbb7a2d463f2721c153f7cb69f8c20e",
   "js/share.mjs":
-    "56bf37799906360b2602e0abae59cdcbffc6103d9d08e8a110999bc4566a9def",
+    "1ba0448a35fd4d87b4272be2cac582ce43da59a6db180969a466a65a180353c7",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/examples/rca.tsx":
-    "62fce5b0fc7a3b0f50cbdd154375cbe0a554e4762c0bc2eab4393a03f1270ac5",
+    "0ceead4d6b9ece6acb1b13dcac97a6aefe9e865997b942bf4f37f4164f44d237",
   "js/codeLoader.mjs":
-    "9ab8f6615df5b06d79e95e1f8db62dc7bd01b243fc70d85e18ab2d069eb86ea9",
+    "1f406e6a4f4daf2b9b37b7b3aabba7913b27708da7bde0128062432559470162",
   "js/transpile.mjs":
     "96a271fcadba5c34ea97f9345f7dbb47625a1196acfd8d6c9a5cedc573fe7545",
   "js/importScript.d.ts":
@@ -90,7 +90,7 @@ export const shasums = {
   "js/react-dom.mjs":
     "7ceab698296ed843cd3a4579b9762de4d89b54f6faff76f901f8813160d316d0",
   "js/workers/transpile.worker.js":
-    "6a2562f4906df71c3f300939b85a324bb48dcc6e57faffa7f9428a8a457a8111",
+    "f334c5903b7ae29ee9cd175bc6ea0e9e679a3bef71b2cc325372082698636144",
   "js/workers/ipfsWorker.js":
     "c7f34dcf9084d6fd5e62a15cf3d33dbd6688a3f21215282049e1f3c11d9d4072",
   "js/workers/getWorker.mjs":
@@ -106,11 +106,11 @@ export const shasums = {
   "js/react.mjs":
     "1b88fc12169bfe7d2dc7c9a0fb1c05d14463424aa8f596a04838d9947bc849ea",
   "index.html":
-    "218429db61cc21659ca4ed95f33689e698bab7c1f8018cbf1c92db7939d2b129",
+    "0ab3d5ff7f3aac6a813ac865fe30d1867ce39e32b973aca46fc295727cb8d6d3",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   ".tsBuildInfo":
-    "7a55f16686bf96e94588175a7926a76cf7281eede30c82f797497f2f8de7c31b",
+    "df17ea5d7f366f74d31abc9d286a766ab12e363c211ab2c9d848df2c2d45d61e",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
   "assets/social-media-computer-icons-share-icon-png":

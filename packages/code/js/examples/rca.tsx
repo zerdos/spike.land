@@ -1,8 +1,11 @@
+/** @jsx jsx */
+import { jsx, css } from '@emotion/react';
+
 import { motion } from "framer-motion";
 
 export default () => (
   <header
-    css={`
+    css={css`
       background-color: #282c34;
       min-height: 100vh;
       display: flex;

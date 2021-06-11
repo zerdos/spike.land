@@ -540,21 +540,25 @@ import { createSvgIcon } from "@material-ui/core/utils";
 
 // src/icons/Share.tsx
 var Share_default = createSvgIcon(/* @__PURE__ */ React.createElement("path", {
+  key: "12",
   d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
 }), "Share");
 
 // src/icons/TabletAndroid.tsx
 var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React.createElement("path", {
+  key: "12",
   d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
 }), "TabletAndroid");
 
 // src/icons/Tv.tsx
 var Tv_default = createSvgIcon(/* @__PURE__ */ React.createElement("path", {
+  key: "12",
   d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
 }), "Tv");
 
 // src/icons/PhoneAndroid.tsx
 var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React.createElement("path", {
+  key: "12",
   d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
 }), "PhoneAndroid");
 
@@ -563,6 +567,7 @@ import Fab from "@material-ui/core/Fab";
 
 // src/icons/QrCode.tsx
 var QrCode_default = createSvgIcon(/* @__PURE__ */ React.createElement("path", {
+  key: "12",
   d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
 }), "QrCode");
 
@@ -622,15 +627,18 @@ var QRButton = ({ url }) => {
 // src/DraggableWindow.tsx
 var breakPoints = [640, 1024, 1920];
 var sizes = [10, 25, 50, 75, 100];
-var DraggableWindow = ({ onShare, onRestore, position, session, children }) => {
+var DraggableWindow = ({ onShare, onRestore, position, session }) => {
   const [isStable, setIsStable] = React.useState(false);
   const [scaleRange, changeScaleRange] = React.useState(75);
   const [height, changeHeight] = React.useState(innerHeight);
+  const [childArray, setChild] = React.useState([session.children]);
+  session.setChild = setChild;
   const [qrUrl, setQRUrl] = React.useState(session.url);
   const [errorText, setErrorText] = React.useState(" ");
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef(null);
   const zbody = React.useRef(null);
+  const Child = childArray[childArray.length - 1];
   React.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
   });
@@ -749,8 +757,13 @@ var DraggableWindow = ({ onShare, onRestore, position, session, children }) => {
               `
   }, /* @__PURE__ */ jsx("div", {
     id: "zbody",
+    key: session.i,
     ref: zbody
-  }, children))), /* @__PURE__ */ jsx(ToggleButtonGroup, {
+  }, /* @__PURE__ */ jsx(React.Suspense, {
+    fallback: /* @__PURE__ */ jsx("div", null, "Error")
+  }, /* @__PURE__ */ jsx(Child, {
+    key: session.i
+  }))))), /* @__PURE__ */ jsx(ToggleButtonGroup, {
     value: width,
     size: "small",
     exclusive: true,
