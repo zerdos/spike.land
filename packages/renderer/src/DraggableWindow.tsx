@@ -10,7 +10,6 @@ import Tv from "./icons/Tv.tsx";
 import Phone from "./icons/PhoneAndroid.tsx";
 import { QRButton } from "./Qr.tsx";
 
-
 import { css, jsx, motion, React } from "./renderer.ts";
 
 const breakPoints = [640, 1024, 1920];
@@ -43,7 +42,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
 
-  const Child = childArray[childArray.length-1]
+  const Child = childArray[childArray.length - 1];
 
   React.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
@@ -67,7 +66,6 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
 
     return () => clearInterval(handler);
   }, [setErrorText, setQRUrl, errorText, qrUrl]);
-
 
   const scale = scaleRange / 100;
 
@@ -196,14 +194,17 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   }
               `}
             >
-              <div
+             
+                <React.Suspense fallback={<div>Error fallback</div>}>
+                <div
                 id="zbody"
                 key={session.i}
                 ref={zbody}
-              ><React.Suspense fallback={<div>Error</div>}> 
-                <Child key={session.i} ></Child>
+              >
+                  <Child key={session.i}></Child>
+                  </div>
                 </React.Suspense>
-                </div>
+              
             </motion.div>
           </motion.div>
           <ToggleButtonGroup

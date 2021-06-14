@@ -755,12 +755,12 @@ var DraggableWindow = ({ onShare, onRestore, position, session }) => {
                     background: white;
                   }
               `
+  }, /* @__PURE__ */ jsx(React.Suspense, {
+    fallback: /* @__PURE__ */ jsx("div", null, "Error fallback")
   }, /* @__PURE__ */ jsx("div", {
     id: "zbody",
     key: session.i,
     ref: zbody
-  }, /* @__PURE__ */ jsx(React.Suspense, {
-    fallback: /* @__PURE__ */ jsx("div", null, "Error")
   }, /* @__PURE__ */ jsx(Child, {
     key: session.i
   }))))), /* @__PURE__ */ jsx(ToggleButtonGroup, {

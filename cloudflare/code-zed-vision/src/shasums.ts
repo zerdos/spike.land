@@ -35,7 +35,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "df17ea5d7f366f74d31abc9d286a766ab12e363c211ab2c9d848df2c2d45d61e",
+    "c1a2c327ba0c686bb32856a429b8907cbe2123d1040db2324e5f6fe3152d50be",
   "js/workers/transpile.worker.js":
     "f334c5903b7ae29ee9cd175bc6ea0e9e679a3bef71b2cc325372082698636144",
   "js/workers/getWorker.mjs":
@@ -59,7 +59,7 @@ export const shasums = {
   "js/react-dom.mjs":
     "7ceab698296ed843cd3a4579b9762de4d89b54f6faff76f901f8813160d316d0",
   "js/codeLoader.mjs":
-    "1f406e6a4f4daf2b9b37b7b3aabba7913b27708da7bde0128062432559470162",
+    "94038e177a3a92a15fdaf15d62157d76fe061717a612118d96196839bbd0c464",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
@@ -96,7 +96,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "fc1577220b98200371d1d60749a00f0cae4effe449939ced687dc29af016486d",
   "modules/renderer.mjs":
-    "e05b3d918958ada9a30ada7712f867bb2be0001ca3b7ae4ae19b782bfcbfaaf1",
+    "edeece09b63d3203fa447bf15f592910a958280dc5bd653486c542c92b791bb4",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":

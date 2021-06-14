@@ -10,11 +10,11 @@ import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 function getSession() {
   const session = {
     i: 0,
-    unmount: () => {},
+    unmount: () => { },
     errorText: "",
     lastErrors: 0,
     children: React.Fragment,
-    setChild: ()=>{},
+    setChild: () => { },
     div: document.createElement("div"),
     html: "",
     url: "",
@@ -87,6 +87,7 @@ export async function run(mode = "window", code = "") {
       },
     );
     try {
+      // session.children = await getReactChild(session.transpiled);
       await renderPreviewWindow(
         session,
       );
@@ -219,11 +220,28 @@ export async function run(mode = "window", code = "") {
     ];
   }
 
+  async function getReactChild(transpiled) {
+    const codeToHydrate = mode === "window"
+      ? transpiled.replace("body{", "#zbody{")
+      : transpiled;
+
+
+    const objUrl = createJsBlob(
+      codeToHydrate,
+    );
+
+    const mod = (await import(objUrl));
+    URL.revokeObjectURL(objUrl);
+    return mod.default;
+  }
+
   /**
    * @param {string} transpiled
    * @param {number} counter
    */
   async function restartCode(transpiled, counter) {
+    if (session.i > counter) return false;
+
     session.html = "";
     session.transpiled = "";
     let hadError = false;
@@ -233,24 +251,8 @@ export async function run(mode = "window", code = "") {
       return hadError;
     }
 
-    const codeToHydrate = mode === "window"
-      ? transpiled.replace("body{", "#zbody{")
-      : transpiled;
 
-    const root = window.document.createElement("div");
-
-    if (session.i > counter) return false;
-
-    const objUrl = createJsBlob(
-      codeToHydrate,
-    );
-
-    const mod = (await import(objUrl));
-    const Element = mod.default;
-    // const { render } = mod;
-
-    URL.revokeObjectURL(objUrl);
-    session.children = Element;
+    session.children = await getReactChild(transpiled);
 
     session.setChild(c => [...c, session.children]);
     // session.unmount = render(Element(), root);
@@ -260,15 +262,14 @@ export async function run(mode = "window", code = "") {
     session.html = zbody.innerHTML;
     session.transpiled = transpiled;
 
-    return !session.html;
-
-    /**
-     * @param {BlobPart} code
-     */
-    function createJsBlob(code) {
-      const blob = new Blob([code], { type: "application/javascript" });
-
-      return URL.createObjectURL(blob);
-    }
+    return !zbody.innerHTML;
   }
+}
+/**
+  * @param {BlobPart} code
+  */
+function createJsBlob(code) {
+  const blob = new Blob([code], { type: "application/javascript" });
+
+  return URL.createObjectURL(blob);
 }
