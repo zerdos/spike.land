@@ -5,6 +5,7 @@ import { sha256 } from "./sha256.js";
 import { diff } from "./diff.js";
 export { sha256 };
 export { diff };
+export { getDbObj };
 export function getDB(storeName = "defaultStore") {
     return async () => {
         const dbPromise = openDB("zed-vision-alpha", 1, {

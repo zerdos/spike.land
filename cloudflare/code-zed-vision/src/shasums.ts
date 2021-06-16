@@ -55,9 +55,9 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/ipfsClient.mjs":
-    "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
+    "c3c7217ee5ca883e4870618fa9c0ff4aa3ba114a8d6e1bd2ad89d3d81968b048",
   "js/react-dom.mjs":
-    "7ceab698296ed843cd3a4579b9762de4d89b54f6faff76f901f8813160d316d0",
+    "91c2747152feea46ba6e7864bd1d649de202c1c87c2dbaf88730a581d74ee1f5",
   "js/codeLoader.mjs":
     "94038e177a3a92a15fdaf15d62157d76fe061717a612118d96196839bbd0c464",
   "js/openWindows.mjs":
@@ -90,11 +90,11 @@ export const shasums = {
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
   "modules/shaDB.js":
-    "bc834e47a190a474606adb30772ab91d40178f0e54e534a9d666755be6ba9cee",
+    "e7611a270ef2b0453d5ca1c7af0ee9c0f74b182aac64bc5bd96d30f46a8db0d5",
   "modules/diff.js":
     "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
   "modules/shaDB.d.ts":
-    "fc1577220b98200371d1d60749a00f0cae4effe449939ced687dc29af016486d",
+    "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
     "edeece09b63d3203fa447bf15f592910a958280dc5bd653486c542c92b791bb4",
   "modules/diffChars.d.ts":

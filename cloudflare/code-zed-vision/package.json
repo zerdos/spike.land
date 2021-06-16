@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "deno fmt src",
-    "build": "rm -rf dist && mkdir dist && deno bundle src/codeZedVisionHandler.ts --no-check > dist/index.js",
+    "build": "rm -rf dist && mkdir dist && esbuild --bundle --minify src/codeZedVisionHandler.ts > dist/index.js",
     "deploy": "yarn build && wrangler publish"
   },
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
@@ -17,7 +17,8 @@
     "@cloudflare/wrangler": "1.17.0",
     "@zedvision/code": "^14.1.2",
     "@zedvision/ipfs": "^14.1.1",
-    "esbuild": "0.12.9"
+    "esbuild": "0.12.9",
+    "multihashing-async": "^2.1.2"
   },
   "publishConfig": {
     "access": "public"

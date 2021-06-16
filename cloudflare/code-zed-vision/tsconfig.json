@@ -2,13 +2,13 @@
   "compilerOptions": {
     "allowJs": true,
     "target": "esnext",
-    "module": "amd",
+    "module": "esnext",
     "lib": ["esnext", "webworker"],
     "alwaysStrict": true,
     "strict": true,
     "noEmit": false,
     "preserveConstEnums": true,
-    "moduleResolution": "classic",
+    "moduleResolution": "node",
     "sourceMap": true,
     "esModuleInterop": true,
     "types": ["@cloudflare/workers-types"]

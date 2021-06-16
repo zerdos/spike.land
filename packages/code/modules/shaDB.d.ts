@@ -11,4 +11,5 @@ export namespace shaDB {
 }
 import { sha256 } from "./sha256.js";
 import { diff } from "./diff.js";
-export { sha256, diff };
+import { getDbObj } from "./getDbObj.js";
+export { sha256, diff, getDbObj };

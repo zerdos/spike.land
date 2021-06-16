@@ -6,6 +6,7 @@ import { diff } from "./diff.js";
 
 export { sha256 };
 export { diff };
+export { getDbObj };
 
 export function getDB(storeName = "defaultStore") {
   return async () => {

@@ -1,12 +1,9 @@
-import { getDbObj } from "https://spike.land/modules/getDbObj.js";
+import { getDbObj } from "@zedvision/shadb";
 import { js, json, text } from "./utils/handleOptions.ts";
-import v4 from "https://unpkg.com/uuid@8.3.2/dist/esm-browser/v4.js";
-import { sha256 } from "https://spike.land/modules/sha256.js";
+import v4 from "uuid";
+import { sha256 } from "@zedvision/shadb";
 
-import {
-  publicIpfsGateways,
-  raceToSuccess,
-} from "https://unpkg.com/@zedvision/ipfs@11.10.0/src/gateways.js";
+import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
 
 var SHAKV: KVNamespace;
 var USERS: KVNamespace;

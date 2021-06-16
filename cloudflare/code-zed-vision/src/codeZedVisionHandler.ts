@@ -3,20 +3,19 @@
 
 import { files } from "./files.ts";
 import { handleCloudRequest } from "./handler.ts";
+import CID from "cids";
+import multihashing from "multihashing-async";
 
 //@ts-ignore
 
 import { shasums } from "./shasums.ts";
-import {
-  publicIpfsGateways,
-  raceToSuccess,
-} from "https://unpkg.com/@zedvision/ipfs@11.10.0/src/gateways.js";
+import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
 //@ts-ignore
 
 import { cid } from "./cid.ts";
 //@ts-ignore
 
-import { alterHeaders, sha256 } from "./alterHeaders.ts";
+import { alterHeaders, sha256, sha256UArray } from "./alterHeaders.ts";
 
 type KV = { [key: string]: string };
 
@@ -137,6 +136,20 @@ async function handleRequest(request: Request) {
     return await alterHeaders(response, reversePath);
   }
 
+  if (pathname === "/hash") {
+    try {
+      const bytes = new TextEncoder("utf8").encode(`const {ReactDOM} = window;
+
+      export default ReactDOM;`);
+
+      const hash = await multihashing(bytes, "sha2-256");
+      const cid = new CID(1, "dag-pb", hash);
+    } catch (e) {
+      return text(e.toString());
+    }
+    return text(cid.toString());
+  }
+
   if (pathname === `/cid.json`) {
     return json({ cid });
   }
@@ -167,7 +180,7 @@ async function handleRequest(request: Request) {
     if (res) {
       const resJson = JSON.parse(res);
       if (resJson.missing.length === 0) {
-        return (text(res));
+        return (text(JSON.stringify({ ...resJson, cached: true })));
       }
     }
 
