@@ -202,6 +202,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 ref={zbody}
               >
                   <Child key={session.i}></Child>
+                  
                   </div>
                 </React.Suspense>
               

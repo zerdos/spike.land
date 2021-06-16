@@ -50,12 +50,12 @@ export async function renderPreviewWindow(
     preview,
   );
 
-  const zbody = window.document.getElementById("zbody");
-  if (zbody !== null) {
-    zbody.appendChild(session.div);
-  }
+  // const zbody = window.document.getElementById("zbody");
+  // if (zbody !== null) {
+    // zbody.appendChild(session.div);
+  // }
 
-  if (session.html) {
-    session.div.innerHTML = session.html;
-  }
+  // if (session.html) {
+    // session.div.innerHTML = session.html;
+  // }
 }
