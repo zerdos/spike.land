@@ -47,7 +47,7 @@ export const files = {
   "js/workers/prettierWorker.js":
     "QmPfmdpD9jC3UpmNXio5LrCYbciCrZ7xV3Vu8TXdpi6Pqm",
   "js/workers/transpile.worker.js":
-    "QmafajnVnGnfPtVxeyGiYwmh5Ux7uhnZbrwSCBRsyKNKzz",
+    "QmZ8NneU6XBiAWTyQcZZVEFRwSynsFt3DDXS9jKujBWmnG",
   "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
   "modules/QRious.mjs": "QmXdXetjxDt4PLF3UhKiJf5B1CTjPPTB8Reh7kRUEDbouK",
   "modules/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
@@ -56,7 +56,7 @@ export const files = {
   "modules/diffChars.js": "QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ",
   "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
   "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
-  "modules/ipfs.client.mjs": "QmQvjvxZHee3zhgRWNrXUtZ4Usxy8vCuAj4DC5J7vSzTgr",
+  "modules/ipfs.client.mjs": "QmRQb6Vu4hVa6tVboNRxQ39oMiaNMCyCLHtziatwowue1Q",
   "modules/renderer.mjs": "QmYiYXa3ppZvkvQCnSxQ6ULHVaS23gRRWG4XKpacaxYRSd",
   "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
@@ -79,7 +79,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmZ3WS8iBBNQw6rrVSBLSDFqhNeCPoxhnWrJRLx835exCP",
+  "package.json": "QmfY6yRv4KZFBceEkZwfVBzavpXXYyyx6sZMmP99JKEorT",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -87,15 +87,15 @@ export const files = {
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbYfmxExsYVJDSDMSZg9sTM7kiDiUtxy4AUciQhYxWH4a",
-  "js/workers": "Qmf7SSMsfYjH9bfbB5tdRxJzZAe3Ep6hdRq3WxUqDB4aSh",
-  "js": "QmYLCCr1Khxk4hHFytfAyvU4hBUayNrM8riQvjwfGdPDQt",
+  "js/workers": "QmWasA5sEeKjQKL4u6ikQx2WuT4NKuKcbfjHiTSy2ekhVe",
+  "js": "QmPAdngLjBniLCjeRk54jkuPeWLrycqGXiAdVpYrVGxxvU",
   "modules/smart-monaco-editor/dist":
     "QmbhUBKXMTsUBvw6CmVcYeLogDDQnRCnwyrMx3k3GmJJMg",
   "modules/smart-monaco-editor":
     "QmbvEesKLZ8oCqUZZhVMqPezaBNPHDMsUK1LfmGwBsmXFc",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmNdSLDbHHVMVZq4w8boD7sNh3NGe8jGBrFTVkNfKrCyBs",
+  "modules": "Qmcz2kNPdzhPBpRZwnYL6PZv4Y1zKqSgF36QwFAi45Kbta",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "Qmf5SK317x9ohsmeTDEdAjTJTYDMbezTRcvJ3NBbBiSzak",
+  "": "Qma2tnGUcXcgmFbp4byH9VmNaUgqZsYMN8EXsoCMJzu8S3",
   "foo": "bar",
 };

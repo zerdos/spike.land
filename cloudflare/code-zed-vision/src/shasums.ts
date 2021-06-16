@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "fb1a1b88944f38f9337fae617f9da0713184d67475a6e92deef5a2d29a966dc6",
+    "60ed1f6b810d5eaeadba260c9cf298bae4d326b6884e30d72ef88b089597f451",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "assets/synthwave.jpg":
@@ -35,9 +35,9 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "c1a2c327ba0c686bb32856a429b8907cbe2123d1040db2324e5f6fe3152d50be",
+    "dedb6c037eeb90f2e7994185cb9b26e2863f71388c9c696aad2fecc6d2f4ee20",
   "js/workers/transpile.worker.js":
-    "f334c5903b7ae29ee9cd175bc6ea0e9e679a3bef71b2cc325372082698636144",
+    "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/prettierWorker.js":
@@ -134,6 +134,6 @@ export const shasums = {
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/ipfs.client.mjs":
-    "97dcc827bb0a271cf8f525ed65af2c315691a9049aa07b0a837a2d0c04096a7c",
+    "aa8f0538f7392f453c2e54abd614a812fc3cd7f770c8fa25fe26d13e45ddd33e",
   "food": "bar",
 };
