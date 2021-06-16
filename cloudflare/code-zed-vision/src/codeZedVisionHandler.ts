@@ -218,7 +218,7 @@ async function handleRequest(request: Request) {
 
       const maybeCID = pathname.slice(5);
       if (resJson.missing.indexOf(maybeCID) !== -1) {
-        const content = await request.arrayBuffer();
+        const content = await request.text();
         const calculatedCID = await Hash.of(content);
         const contentSHA = await sha256(content);
         const fileName = reverseSHAKV[contentSHA];
