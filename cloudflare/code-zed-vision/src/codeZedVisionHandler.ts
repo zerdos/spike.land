@@ -138,9 +138,7 @@ async function handleRequest(request: Request) {
 
   if (pathname === "/hash") {
     try {
-      const bytes = new TextEncoder("utf8").encode(`const {ReactDOM} = window;
-
-      export default ReactDOM;`);
+      const bytes = new TextEncoder("utf8").encode("OMG!");
 
       const hash = await multihashing(bytes, "sha2-256");
       const cid = new CID(1, "dag-pb", hash);
