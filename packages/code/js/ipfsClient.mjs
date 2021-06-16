@@ -52,5 +52,4 @@ export { all };
 export { concat };
 export { toString };
 export { raceToSuccess };
-export { ipfsCat }
 export { fromHexString };
