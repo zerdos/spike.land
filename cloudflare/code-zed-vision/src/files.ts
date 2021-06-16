@@ -17,7 +17,7 @@ export const files = {
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "foo.txt": "QmVFd67ghm4FuUR9VTka6B9yXZDuzjpd34b28Sdh7dmS7h",
+  "foo.txt": "QmYocHWR3BzDaygD3y7WpgBEDYAwRJRANgY4Xb8ngDCfqU",
   "importmap.json": "QmYXTkRx2pEoqnpC527vNcB8HktPxHqU6kbxQ74Th27dAL",
   "index.html": "QmeXzRFVuwjSWAHbMKth6aCLndjoJVFR6HX5eEop8X2GSU",
   "js/codeLoader.mjs": "Qmb8NfMXMH6h5QJriVTBMxu5ujCAXtaLpPtiUmWih7s6N9",
@@ -97,6 +97,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmeAR2RFUyzJA5fthULhWBxtUu2EqAFVypkpdNBvDpL9vR",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmdTBmnjg3aVH7BvSQTpirMN9i7qKt43364uKx7rEimmaf",
+  "": "QmUkXGBSeGmMw3ZvAC8bttbBZWNg2hGFqP2YXzgDV6AhDf",
   "foo": "bar",
 };

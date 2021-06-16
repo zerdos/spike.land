@@ -10,7 +10,7 @@ added QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1 code/assets/triangle-geomet
 added QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8 code/assets/zed-icon-big.png
 added QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX code/edit/index.html
 added QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe code/favicon.ico
-added QmVFd67ghm4FuUR9VTka6B9yXZDuzjpd34b28Sdh7dmS7h code/foo.txt
+added QmYocHWR3BzDaygD3y7WpgBEDYAwRJRANgY4Xb8ngDCfqU code/foo.txt
 added QmYXTkRx2pEoqnpC527vNcB8HktPxHqU6kbxQ74Th27dAL code/importmap.json
 added QmeXzRFVuwjSWAHbMKth6aCLndjoJVFR6HX5eEop8X2GSU code/index.html
 added Qmb8NfMXMH6h5QJriVTBMxu5ujCAXtaLpPtiUmWih7s6N9 code/js/codeLoader.mjs
@@ -77,4 +77,4 @@ added QmbvEesKLZ8oCqUZZhVMqPezaBNPHDMsUK1LfmGwBsmXFc code/modules/smart-monaco-e
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
 added QmeAR2RFUyzJA5fthULhWBxtUu2EqAFVypkpdNBvDpL9vR code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmdTBmnjg3aVH7BvSQTpirMN9i7qKt43364uKx7rEimmaf code
+added QmUkXGBSeGmMw3ZvAC8bttbBZWNg2hGFqP2YXzgDV6AhDf code
