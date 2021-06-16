@@ -53,7 +53,7 @@ RUN add-apt-repository ppa:git-core/ppa && apt-get update \
 && apt-get clean -y \
 && rm -rf /var/lib/apt/lists/* 
 
-ENV NODE_VERSION 14.17.0
+ENV NODE_VERSION 14.17.1
 
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \

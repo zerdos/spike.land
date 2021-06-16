@@ -3,8 +3,7 @@
 
 import { files } from "./files.ts";
 import { handleCloudRequest } from "./handler.ts";
-import CID from "cids";
-import multihashing from "multihashing-async";
+import Hash from "ipfs-only-hash";
 
 //@ts-ignore
 
@@ -138,14 +137,13 @@ async function handleRequest(request: Request) {
 
   if (pathname === "/hash") {
     try {
-      const bytes = new TextEncoder("utf8").encode("OMG!");
-
-      const hash = await multihashing(bytes, "sha2-256");
-      const cid = new CID(1, "dag-pb", hash);
+      const Hash = await import("ipfs-only-hash");
+      const data = "hello world!";
+      const hash = await Hash.of(data);
+      return text(hash);
     } catch (e) {
       return text(e.toString());
     }
-    return text(cid.toString());
   }
 
   if (pathname === `/cid.json`) {
@@ -221,13 +219,14 @@ async function handleRequest(request: Request) {
       const maybeCID = pathname.slice(5);
       if (resJson.missing.indexOf(maybeCID) !== -1) {
         const content = await request.arrayBuffer();
+        const calculatedCID = await Hash.of(content);
         const contentSHA = await sha256(content);
         const fileName = reverseSHAKV[contentSHA];
         if (fileName) {
           const cid = files[fileName];
           if (cid === maybeCID) {
             await IPFS.put(cid, content);
-            return text("Thanks :)");
+            return text("Thanks :)" + calculatedCID);
           }
 
           return text(fileName);
