@@ -31,7 +31,7 @@ export const shasums = {
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "importmap.json":
-    "8688527647eb1f18c3c0c999d04cca83386dc58f9a76bfc124224477a0263bf9",
+    "bb1d41f00bd0a40e23083e7dfee3a3b65852a862b039b367d94fcb7323ae79bf",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
@@ -124,7 +124,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/monaco.js":
-    "1cc6dca894136a3408aa513cdb2926e54860abba061a9cbf35e910da6c8b33c8",
+    "81c6d4b17ece01efaabf10a6a7fae434394eed15055bea1a74136661b98008cb",
   "modules/sha256.js":
     "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
   "modules/getDbObj.js":
