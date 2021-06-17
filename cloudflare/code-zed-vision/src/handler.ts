@@ -1,15 +1,15 @@
 import { getDbObj } from "@zedvision/shadb";
 import { js, json, text } from "./utils/handleOptions.ts";
-import v4 from "uuid";
+import { v4 } from "uuid";
 import { sha256 } from "@zedvision/shadb";
 
 import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
 
-var SHAKV: KVNamespace;
-var USERS: KVNamespace;
-var LOGS: KVNamespace;
-var SIGNALS: KVNamespace;
-var USERKEYS: KVNamespace;
+// var SHAKV: KVNamespace;
+// var USERS: KVNamespace;
+// var LOGS: KVNamespace;
+// var SIGNALS: KVNamespace;
+// var USERKEYS: KVNamespace;
 
 var API_KEY: string;
 
