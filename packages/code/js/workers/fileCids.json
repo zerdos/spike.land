@@ -11,7 +11,6 @@
 "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
 "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
 "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-"foo.txt": "QmYocHWR3BzDaygD3y7WpgBEDYAwRJRANgY4Xb8ngDCfqU",
 "importmap.json": "QmYXTkRx2pEoqnpC527vNcB8HktPxHqU6kbxQ74Th27dAL",
 "index.html": "QmeXzRFVuwjSWAHbMKth6aCLndjoJVFR6HX5eEop8X2GSU",
 "js/codeLoader.mjs": "Qmb8NfMXMH6h5QJriVTBMxu5ujCAXtaLpPtiUmWih7s6N9",
@@ -63,7 +62,7 @@
 "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
 "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
 "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-"package.json": "QmfY6yRv4KZFBceEkZwfVBzavpXXYyyx6sZMmP99JKEorT",
+"package.json": "QmYjqVQ4p6vAVrHkRKz8ei3kjHy75NYoDyjbGQWrFmM9qF",
 "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
 "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
 "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
@@ -78,5 +77,5 @@
 "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
 "modules": "QmeAR2RFUyzJA5fthULhWBxtUu2EqAFVypkpdNBvDpL9vR",
 "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-"": "QmUkXGBSeGmMw3ZvAC8bttbBZWNg2hGFqP2YXzgDV6AhDf",
+"": "QmbCtbqf4BzC2FFHTBr5YwK9wwf7SyRAzEpn4ymumYQRwX",
  "foo":"bar" }

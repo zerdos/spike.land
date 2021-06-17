@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "60ed1f6b810d5eaeadba260c9cf298bae4d326b6884e30d72ef88b089597f451",
+    "bd815b36e2e78d26a1d1189a469ccf4802692de95b12fb05f1922769b8f1bec4",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "assets/synthwave.jpg":
@@ -35,8 +35,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "dedb6c037eeb90f2e7994185cb9b26e2863f71388c9c696aad2fecc6d2f4ee20",
-  "foo.txt": "c86fa57ee43bb589c29ee7387705b23af279a2a364fabc4e4c5ddb6ed738369d",
+    "2b57daa14853e15890be14d97478e451244bb7aee1fe72beb82f4d581be7916e",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
