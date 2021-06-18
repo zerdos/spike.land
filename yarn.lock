@@ -2820,10 +2820,10 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@15.12.2", "@types/node@>=13.7.0":
-  version "15.12.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.2.tgz#1f2b42c4be7156ff4a6f914b2fb03d05fa84e38d"
-  integrity sha512-zjQ69G564OCIWIOHSXyQEEDpdpGl+G348RAKY0XXy9Z5kU9Vzv1GMNnkar/ZJ8dzXB3COzD9Mo9NtRZ4xfgUww==
+"@types/node@*", "@types/node@15.12.3", "@types/node@>=13.7.0":
+  version "15.12.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.3.tgz#2817bf5f25bc82f56579018c53f7d41b1830b1af"
+  integrity sha512-SNt65CPCXvGNDZ3bvk1TQ0Qxoe3y1RKH88+wZ2Uf05dduBCqqFQ76ADP9pbT+Cpvj60SkRppMCh2Zo8tDixqjQ==
 
 "@types/node@^14.14.10", "@types/node@^14.14.31":
   version "14.17.3"
@@ -4289,9 +4289,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001125, caniuse-lite@^1.0.30001219, caniuse-lite@^1.0.30001230:
-  version "1.0.30001237"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001237.tgz#4b7783661515b8e7151fc6376cfd97f0e427b9e5"
-  integrity sha512-pDHgRndit6p1NR2GhzMbQ6CkRrp4VKuSsqbcLeOQppYPKOYkKT/6ZvZDvKJUqcmtyWIAHuZq3SVS2vc1egCZzw==
+  version "1.0.30001238"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001238.tgz#e6a8b45455c5de601718736d0242feef0ecdda15"
+  integrity sha512-bZGam2MxEt7YNsa2VwshqWQMwrYs5tR5WZQRYSuFxsBQunWjBuXhN4cS9nV5FFb1Z9y+DoQcQ0COyQbv6A+CKw==
 
 capture-stack-trace@^1.0.0:
   version "1.0.1"
@@ -4887,9 +4887,9 @@ content-type@^1.0.4, content-type@~1.0.4:
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
 contentful-management@^7.5.1:
-  version "7.25.0"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.25.0.tgz#f9a515068e3b19d36aebaab51cfd6d326c328f2a"
-  integrity sha512-TX5X2g16uyDSRDCD9PotgaFoQoL7ABM6Zq4b4YZ6FZ10U17itWYKl6wJzLs2gWXnJbbwC+othWXrIaDQ00BsXQ==
+  version "7.25.1"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.25.1.tgz#03a9d6c418faaf939448c143f7624cdb77702ca9"
+  integrity sha512-V8tcSHw3MwWKWHWMW+AZB6lP31hreos+v2gtayZczWXYRcfd+owt+qVjbkLZk1pL80ewSmc8Pl1A7rM/oB2ldw==
   dependencies:
     "@types/json-patch" "0.0.30"
     axios "^0.21.0"
@@ -8826,10 +8826,10 @@ ipaddr.js@1.9.1, ipaddr.js@^1.9.0:
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
 
-ipfs-core-types@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.5.1.tgz#e6fa489aed9cd2aa989de672f04179f2496ff92f"
-  integrity sha512-HE5iE4j9Qa6c/4mfaD1cYYx8mbRRkrrcWekDG1JAP7mEK2wPnMvMemmFTgFF4KN6bW9gIusJjqPpCweesORPuA==
+ipfs-core-types@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.5.2.tgz#e1e026f32c9799e9fa5d6a2556d49558bd5b16d6"
+  integrity sha512-DOQeL+GFGYMTlnbdtMeBzvfVnyAalSgCfPr8XUCI+FVBZZWwzkt5jZZzGDmF87HVRrMR3FuVyBKZj772mcXKyQ==
   dependencies:
     cids "^1.1.6"
     interface-datastore "^4.0.0"
@@ -8837,27 +8837,27 @@ ipfs-core-types@^0.5.1:
     multiaddr "^9.0.1"
     multibase "^4.0.2"
 
-ipfs-message-port-client@0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.6.3.tgz#813affc70a46c6e952e49949f080a6ed8e063764"
-  integrity sha512-3WCsYIp9opN7PwJjoFYEPMwnKn5gw9b5uNEOUEiZj2W/HrWUxu2xag9hGm4pnIkRKTYar6OLm/bVnEuRQ+T+wA==
+ipfs-message-port-client@0.6.4:
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.6.4.tgz#b42b1213ce9080962bc7131ced1d9fd8c3457e05"
+  integrity sha512-TFuylwbQPsILhENdRxzsDOQz0L0W0q9kgTVyJtH6KjjiAwMUo7Z3sn7jkNxtfSAvxzBgEvzCnaIFz3xvB1ipqA==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
     cids "^1.1.6"
-    ipfs-core-types "^0.5.1"
-    ipfs-message-port-protocol "^0.7.2"
+    ipfs-core-types "^0.5.2"
+    ipfs-message-port-protocol "^0.7.3"
     ipfs-unixfs "^4.0.3"
 
-ipfs-message-port-protocol@^0.7.2:
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.7.2.tgz#53e99fe466df8803a54b52e3bbffc328c8e22838"
-  integrity sha512-odmwvX8ZE2AWVG+5FU+euncNuPXKc/Y1WVxl0lo3A3tMWGhtK9hoy2z1mfdGyvAPa1NiHZMCyqLyN6k+tBpWjA==
+ipfs-message-port-protocol@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.7.3.tgz#fabb69fc4946e43094a80b48e008f3f6a59c9c91"
+  integrity sha512-HH6LKnuQcRKR6riRwl8xwiHPGl3mLOXrZ/4ZF3lpyhgyx1aU+k0GtIbwG6h9vENkN8EsaGtSEzzPwWMqpsN3+A==
   dependencies:
     cids "^1.1.6"
-    ipfs-core-types "^0.5.1"
+    ipfs-core-types "^0.5.2"
     ipld-block "^0.11.0"
 
-ipfs-only-hash@^4.0.0:
+ipfs-only-hash@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ipfs-only-hash/-/ipfs-only-hash-4.0.0.tgz#b3bd60a244d9eb7394961aa9d812a2e5ac7c04d6"
   integrity sha512-TE1DZCvfw8i3gcsTq3P4TFx3cKFJ3sluu/J3XINkJhIN9OwJgNMqKA+WnKx6ByCb1IoPXsTp1KM7tupElb6SyA==
@@ -8894,9 +8894,9 @@ ipfs-unixfs@^4.0.3:
     protobufjs "^6.10.2"
 
 ipfs-utils@^8.1.2:
-  version "8.1.2"
-  resolved "https://registry.yarnpkg.com/ipfs-utils/-/ipfs-utils-8.1.2.tgz#3a526c2615fd99faf65e18641a8a68ac0e398e63"
-  integrity sha512-ataZ23Q+awQ6s01ehpITzEgDZ8YgU17nWkwiQmmZeQAJsS6wZuKfGXJKzdOX00+wn5SWJ8KRpGOG/u9+a4Z8Jw==
+  version "8.1.3"
+  resolved "https://registry.yarnpkg.com/ipfs-utils/-/ipfs-utils-8.1.3.tgz#a090e9a34bd2a51299134441b4cc3da111ad956e"
+  integrity sha512-QS7P9cL7rXah8uB7Wv2fx4E/7/Yr72WxYNv5eIh9dUyxS6/JacgCaVYQgNn4uZ4ps/teYE1yESTUXMWmGa/DoQ==
   dependencies:
     abort-controller "^3.0.0"
     any-signal "^2.1.0"
