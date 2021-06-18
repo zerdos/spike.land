@@ -106,7 +106,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "react-dom",
-                url: "https://unpkg.com/@types/react-dom@17.0.7/index.d.ts",
+                url: "https://unpkg.com/@types/react-dom@17.0.8/index.d.ts",
                 depend: [],
             },
             {
