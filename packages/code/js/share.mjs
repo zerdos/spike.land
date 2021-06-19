@@ -62,8 +62,15 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
   const { getHtml, getEditorHTML } = await import("./templates.mjs");
   const allContent = [
     { path: "/app/index.html", content: getHtml({ html, css }) },
+    { path: "/app/starter.js", content: `import App from "./app.js"; ReactDOM.render(App(), document.body.children[0]);` },
     { path: "/app/app.js", content: transpiled },
     { path: "/app/app.tsx", content: code },
+    { path: "/app/edit/edit.js", content: `import {edit} from "https://spike.land/js/data.mjs"
+    try{
+      edit(location.pathname.slice(42, 52));
+    }catch(error){
+      fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
+    }`}, 
     { path: "/app/edit/index.html", content: getEditorHTML() },
   ];
 

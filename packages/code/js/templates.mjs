@@ -44,19 +44,8 @@ export function getHtml({ html, css }) {
 <div id="zbody">
   ${html}
 </div>
-<script async src="https://unpkg.com/es-module-shims@0.10.5/dist/es-module-shims.js"></script>
-<script type="importmap-shim" src="https://spike.land/importmap.json"></script>
-<script>
-window.process = {env: {NODE_ENV:"production" }}
-</script>
-<script type="module-shim">
-
-  import App from "./app.js"
-  import ReactDOM from "react-dom"
-
-  ReactDOM.render(App(), document.body.children[0]);
-
-</script>
+<script src="https://spike.land/js/importmap.js"></script>
+<script type="module" src="./starter.js"></script>
 </body>
 </html>
 `;
@@ -76,17 +65,7 @@ export const getEditorHTML = () =>
 <title>Instant React Editor</title>
 </head>
 <body>
-<script type="importmap" src="https://spike.land/importmap.json"></script>
-<script>
-window.process = {env: {NODE_ENV:"production" }}
-</script>
-<script type="module">
-    import {edit} from "https://spike.land/js/data.mjs"
-    try{
-      edit("${location.pathname.slice(42, 52)}");
-    }catch(error){
-      fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
-    }
-  </script>
+<script src="https://spike.land/js/importmap.js"></script>
+<script type="module" src="./edit.js"></script>
 </body>
 </html>`;

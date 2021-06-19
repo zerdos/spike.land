@@ -59,7 +59,7 @@ const imports = {
     "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
     "qrious": "https://unpkg.com/@zedvision/qrious@14.1.0/dist/QRious.mjs",
     "tiny-warning": "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
-    "tslib": "https://blog.spike.land/packages/code/js/tslib.mjs"
+    "tslib": "https://unpkg.com/tslib@2.3.0/tslib.es6.js"
 }
 
 document.body.appendChild(Object.assign(document.createElement('script'), {
