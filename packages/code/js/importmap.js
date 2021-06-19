@@ -1,5 +1,6 @@
-{
-  "imports": {
+
+
+const imports = {
     "@babel/runtime/helpers/": "https://unpkg.com/@babel/runtime@7.14.0/helpers/",
     "@babel/runtime/helpers/extends": "https://unpkg.com/@babel/runtime@7.14.0/helpers/esm/extends.js",
     "@emotion/cache": "https://unpkg.com/@emotion/cache@11.4.0/dist/emotion-cache.browser.esm.js",
@@ -59,5 +60,16 @@
     "qrious": "https://unpkg.com/@zedvision/qrious@14.1.0/dist/QRious.mjs",
     "tiny-warning": "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
     "tslib": "https://blog.spike.land/packages/code/js/tslib.mjs"
-  }
 }
+
+document.body.appendChild(Object.assign(document.createElement('script'), {
+  src: 'https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js',
+  async: true
+}));
+
+document.body.appendChild(Object.assign(document.createElement('script'), {
+  type: 'importmap',
+  innerHTML: JSON.stringify({ imports })
+}));
+
+window.process = {env: {NODE_ENV:"production" }}

@@ -13,12 +13,7 @@
   <title>Instant React Editor</title>
 </head>
 <body>
-  <script async src="https://unpkg.com/es-module-shims@0.10.5/dist/es-module-shims.js"></script>
-  <script type="importmap-shim" src="./importmap.json"></script>
-  <script>
-        window.process = {env: {NODE_ENV:"production" }}
-  </script>
-  <script type="module-shim" src="./js/starter.js"></script>
-  
+  <script src="./js/importmap.js"></script>
+  <script type="module" src="./js/starter.js"></script>
 </body>
 </html>
