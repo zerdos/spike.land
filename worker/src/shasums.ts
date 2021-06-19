@@ -26,14 +26,14 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "f21edd7ab30f9db14e8234e296b2c1cda492ebf9bbf820ad42daa69e4257962f",
+    "85ea3699245e60039e22276d21b34692c1baa212959a3d39bcec22af503a8bf8",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "4f4f1bd0a5a1de54eb5f9afadb1867990cc8a45605c4dc6396dd4163943e8dac",
+    "f07d46a094fade15859b031932600560a33ddbb934977b29073e78d864cb37a8",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
-    "91c2747152feea46ba6e7864bd1d649de202c1c87c2dbaf88730a581d74ee1f5",
+    "8a344c9fdf30526b9870057d2de69f83ec9e89c8192a6b8565317b42847803cf",
   "js/codeLoader.mjs":
     "94038e177a3a92a15fdaf15d62157d76fe061717a612118d96196839bbd0c464",
   "js/openWindows.mjs":
@@ -96,7 +96,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "edeece09b63d3203fa447bf15f592910a958280dc5bd653486c542c92b791bb4",
+    "9bd62481d0f412434668218c23b663876c29ff71c297204560c95c94e8ee0c20",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":

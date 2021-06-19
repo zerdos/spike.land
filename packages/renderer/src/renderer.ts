@@ -1,7 +1,7 @@
 import { jsx as EmotionJSX } from "@emotion/react";
 import * as Motion from "framer-motion";
 import React, { Fragment } from "react";
-import ReactDOM from "react-dom";
+import * as ReactDOM from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
 
 import { DraggableWindow } from "./DraggableWindow";
@@ -21,7 +21,8 @@ export const render = (
   el: EmotionJSX.JSX.Element,
   container: HTMLElement,
 ) => {
-  ReactDOM.render(jsx(Fragment, { children: el }), container);
+  const root =  ReactDOM.createRoot(container);
+  root.render();
   return () => ReactDOM.unmountComponentAtNode(container);
 };
 
