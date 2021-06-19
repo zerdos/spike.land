@@ -7,7 +7,6 @@ yarn-debug.log*
 yarn-error.log*
 tsconfig.tsbuildinfo
 client_id
-public/
 
 # Runtime data
 pids

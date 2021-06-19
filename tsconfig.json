@@ -12,7 +12,7 @@
     "strict": true
   },
   "exclude": [
-    "cloudflare/code-zed-vision/dist",
+    "worker/dist",
     "cloudflare/zed-vision/dist",
     "packages/zed-vision-site",
     "node_modules",

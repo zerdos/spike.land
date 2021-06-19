@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@zedvision/cf-code-zed-vision",
+  "name": "@zedvision/spike-land-worker",
   "version": "14.1.2",
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "dist/index.js",

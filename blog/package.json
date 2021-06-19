@@ -2,7 +2,7 @@
   "name": "@zedvision/blog",
   "scripts": {
     "develop": "gatsby develop",
-    "gbuild": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths && cp -afr blog/. static && rm -rf ../../blog* && cp -afr public/. ../../blog",
+    "gbuild": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths && cp -afr blog/. static",
     "start": "yarn gbuild && yarn serve",
     "clean": "gatsby clean && deno fmt src"
   },
