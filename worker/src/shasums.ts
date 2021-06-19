@@ -33,7 +33,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "59fbf60a332ad54b6558c257b7728cd3532010790bc23a68c394c2ee0c01db74",
+    "4f4f1bd0a5a1de54eb5f9afadb1867990cc8a45605c4dc6396dd4163943e8dac",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -53,7 +53,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "871209eca98ebd8dfb461e8cdc9f97a913bc835403f392e9597c4bbe2c200252",
+    "043575f653a500e1f7498d794b64f9e19a3462991f1e964279e3b37e1de451af",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
@@ -75,7 +75,7 @@ export const shasums = {
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "def38bf26e137bbeaa15ae33b99919cfe4e2583fffdae2bdff0a9c00269377f8",
+    "e3d9e9a106952d36a16352c867a09cc460a39b4ecddb2700be91e034827a4853",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
@@ -85,7 +85,7 @@ export const shasums = {
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/share.mjs":
-    "a1f27153d3de016b18ff725edd9306e0b01eba1ce4b894eede013b5ce2d1007d",
+    "1ba0448a35fd4d87b4272be2cac582ce43da59a6db180969a466a65a180353c7",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",

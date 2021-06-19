@@ -15,6 +15,7 @@ export function getHtml({ html, css }) {
   //   bodyStylesFix = firstBit.slice(0, last + 1);
   // }
 
+  const imports = globalThis.importMap;
   const titleStart = html.indexOf("<title>");
   const titleEnd = html.indexOf("</title>");
   const hasTitle = titleStart < titleEnd && titleStart >= -1;
@@ -36,17 +37,21 @@ export function getHtml({ html, css }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="Generated with spike.land">
-<style>
-    ${css}
-</style>
-<script src="https://spike.land/js/importmap.js"></script>
+<style>${css}</style>
 </head>
 <body>
-
 <div id="zbody">
   ${html}
 </div>
-<script type="module" src="./starter.js"></script>
+<script>window.process = {env: {NODE_ENV:"production" }}</script>
+<script async src="https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js"></script>
+<script type="importmap">
+${ JSON.stringify({ imports })}
+</script>
+<script type="module">
+  import App from './app.js';        
+  ReactDOM.render(App(),document.body.children[0]);
+</script>
 </body>
 </html>
 `;
@@ -66,7 +71,18 @@ export const getEditorHTML = () =>
 <title>Instant React Editor</title>
 </head>
 <body>
-<script src="https://spike.land/js/importmap.js"></script>
-<script type="module" src="./edit.js"></script>
+<script>window.process = {env: {NODE_ENV:"production" }}</script>
+<script async src="https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js"></script>
+<script type="importmap">
+${ JSON.stringify({ imports })}
+</script>
+<script type="module">
+import {edit} from "https://spike.land/js/data.mjs"
+try{
+  edit(location.pathname.slice(42, 52));
+}catch(error){
+  fetch("https://spike.land/error", {method: "POST",  body: JSON.stringify({error})})
+}
+</script>
 </body>
 </html>`;

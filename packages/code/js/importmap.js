@@ -62,6 +62,8 @@ const imports = {
     "tslib": "https://unpkg.com/tslib@2.3.0/tslib.es6.js"
 }
 
+globalThis.importMap = imports;
+
 document.head.appendChild(Object.assign(document.createElement('script'), {
   src: 'https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js',
   async: true
