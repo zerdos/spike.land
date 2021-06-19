@@ -39,12 +39,13 @@ export function getHtml({ html, css }) {
 <style>
     ${css}
 </style>
+<script src="https://spike.land/js/importmap.js"></script>
 </head>
 <body>
+
 <div id="zbody">
   ${html}
 </div>
-<script src="https://spike.land/js/importmap.js"></script>
 <script type="module" src="./starter.js"></script>
 </body>
 </html>

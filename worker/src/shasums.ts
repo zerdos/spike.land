@@ -33,7 +33,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "63ffd866e11390773e78d2c76a4e1ea63fff9cfa05abd6a8de7e4f203947e856",
+    "59fbf60a332ad54b6558c257b7728cd3532010790bc23a68c394c2ee0c01db74",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -53,7 +53,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "3af15c165cb09ad629ee2cde356f43f62bd452404778cdf62a24f1851fc57b33",
+    "871209eca98ebd8dfb461e8cdc9f97a913bc835403f392e9597c4bbe2c200252",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
@@ -75,17 +75,17 @@ export const shasums = {
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "04c57478104cdf955854849046d0572160330bc8788749a8d760feb8f5e781e3",
+    "def38bf26e137bbeaa15ae33b99919cfe4e2583fffdae2bdff0a9c00269377f8",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
-    "4265f71406c3cac9b613d74d5b8e69608d045168b172694cc26a0386f556bff6",
+    "90b6a94208944aaf31e6b7bec4bfc547f7a1552c449c5f134e6ec2ab79bf9b2c",
   "js/formatter.mjs":
     "64b37cbdb3893e159cde2d4549ca18933d91e1d0fa0f811d0dcb7a5cff1335dc",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
   "js/share.mjs":
-    "1d0853b407587088e23dcc05335098301c296aff37ee34881d65e754475d03bd",
+    "a1f27153d3de016b18ff725edd9306e0b01eba1ce4b894eede013b5ce2d1007d",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
