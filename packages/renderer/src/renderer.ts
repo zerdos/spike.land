@@ -22,8 +22,7 @@ export const render = (
   container: HTMLElement,
 ) => {
   const root =  ReactDOM.createRoot(container);
-  root.render();
-  return () => ReactDOM.unmountComponentAtNode(container);
+  root.render(jsx(Fragment, { children: el }));
 };
 
 export default React;

@@ -96,7 +96,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "9bd62481d0f412434668218c23b663876c29ff71c297204560c95c94e8ee0c20",
+    "636cd553ef0ac8d1da12d688236666d2dbb269243c299c2a0818e4a77cb2db10",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":

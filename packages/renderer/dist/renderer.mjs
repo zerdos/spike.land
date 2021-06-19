@@ -527,8 +527,7 @@ var init_QRious = __esm({
 import * as Motion from "framer-motion";
 import React, { Fragment } from "react";
 import {
-  createRoot,
-  unmountComponentAtNode
+  createRoot
 } from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
 
@@ -808,8 +807,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session }) => {
 var { motion } = Motion;
 var render = (el, container) => {
   const root = createRoot(container);
-  root.render();
-  return () => unmountComponentAtNode(container);
+  root.render(jsx(Fragment, { children: el }));
 };
 var renderer_default = React;
 export {
