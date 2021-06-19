@@ -1,4 +1,5 @@
 const {ReactDOM} = window;
-export const createRoot = ReactDOM.createRoot;
+
+export const {createRoot} = ReactDOM;
 
 export default ReactDOM;

@@ -26,7 +26,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "85ea3699245e60039e22276d21b34692c1baa212959a3d39bcec22af503a8bf8",
+    "87d590b46abc94af90899a23f6653efe5b8c89ab87f38968b8c9f687c3ec6c88",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
@@ -57,7 +57,7 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
-    "8a344c9fdf30526b9870057d2de69f83ec9e89c8192a6b8565317b42847803cf",
+    "7ce791b27dba1a13b46f697db77a9beb423676ae5a69399621ca8758cd7fbdbd",
   "js/codeLoader.mjs":
     "94038e177a3a92a15fdaf15d62157d76fe061717a612118d96196839bbd0c464",
   "js/openWindows.mjs":
