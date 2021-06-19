@@ -1,0 +1,31 @@
+---
+title: New ways of web development
+date: "2020-09-07T07:13:32.169Z"
+description: Component based distributed system development - focusing on development experience and QA.
+---
+
+It feels a bit bad to be a web developer this days. Every framework, library, a bit suxx, if you go to see the details.
+- Node.js
+- npm/yarn
+- versioning
+- TDD general
+- Selenium
+- Test environments
+- Backend API
+- JSX
+
+## We can solve the problems instead of doing workaround.
+
+My plan to build:
+
+1. To be able to develop, a chrome browser with the default settings should be enough.
+2. No build time / startup time
+3. Each keystroke should modify the page - and the result should be visible for the developer right away.
+4. No versioning. There is one version - the live version, which deployed trough the development center
+5. No environments. There is just one environment, the prod environment. Different user groups can access different keys for the APIs, 
+6. SHA256 based components, that communicate with eachouthers trough messages (gRPC proto3). A component react for each message - potentieally with messages for other components.
+7. If 2 components with all the possible messages reacts with the same message, we can say that the two component is equlalent
+8. Cluster of components is a collection of compoenents - they are equlalent, if the messages which crossed their boundaries the same (ls 7)
+9. There should be a client library loaded to the browser which communicates with the DOM.
+10. DOM - events, and any data validated with hash trees after every sent message,]
+
