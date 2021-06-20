@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "ab3bcde1625b90044c84efe6a1c76a0b2579a8b0968eaabbe867d992e375c847",
+    "c17008511f8a86752c015bdf73267b971ba2e77a0774a1791720ef928e90de53",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
@@ -53,11 +53,11 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "3d2c125a2325cceb7bcfa9ccfc7d3f4bbcbb7a2d463f2721c153f7cb69f8c20e",
   "js/react.mjs":
-    "1b88fc12169bfe7d2dc7c9a0fb1c05d14463424aa8f596a04838d9947bc849ea",
+    "d4f09e67c5772a24cb347cb80ac8da2f022b666434a00cf9af2751687ef63a19",
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "9a2d3335287ea0353bab5d0cb71180b460571e9310a4b5a1c5bef04cde67a46e",
+    "09cf6303ab3a547d395b743dca2cdb69d695b6542b3bb7d7c38bb84b4d615ba6",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
