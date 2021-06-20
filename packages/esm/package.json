@@ -29,7 +29,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "react": "deno bundle https://esm.sh/react > dist/react.mjs",
+    "build:react": "yarn esbuild --bundle src/react.mjs --format=esm --outfile=dist/react.mjs",
     "build:react-is": "yarn esbuild --bundle src/react-is.mjs --format=esm --outfile=dist/react-is.mjs"
   },
   "private": false,
