@@ -1,4 +1,4 @@
 import ReactDOM from "react-dom"
 
 export const {createRoot} = ReactDOM;
-export default {}
+export default {createRoot}
