@@ -1,47 +1,14 @@
-// src/react.mjs
-var React = window.React;
-var { createContext } = React;
-var { useState } = React;
-var { useRef } = React;
-var { useContext } = React;
-var { useEffect } = React;
-var { useLayoutEffect } = React;
-var { useReducer } = React;
-var { useCallback } = React;
-var { forwardRef } = React;
-var { createElement } = React;
-var { createFactory } = React;
-var { createRef } = React;
-var { Fragment } = React;
-var { Component } = React;
-var { isValidElement } = React;
-var { memo } = React;
-var { useImperativeHandle } = React;
-var { Children } = React;
-var { cloneElement } = React;
-var { useMemo } = React;
-var react_default = React;
-export {
-  Children,
-  Component,
-  Fragment,
-  React,
-  cloneElement,
-  createContext,
-  createElement,
-  createFactory,
-  createRef,
-  react_default as default,
-  forwardRef,
-  isValidElement,
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useLayoutEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState
-};
+var Q=Object.create;var j=Object.defineProperty;var W=Object.getOwnPropertyDescriptor;var Y=Object.getOwnPropertyNames;var X=Object.getPrototypeOf,Z=Object.prototype.hasOwnProperty;var ee=e=>j(e,"__esModule",{value:!0});var x=(e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports);var te=(e,t,r)=>{if(t&&typeof t=="object"||typeof t=="function")for(let o of Y(t))!Z.call(e,o)&&o!=="default"&&j(e,o,{get:()=>t[o],enumerable:!(r=W(t,o))||r.enumerable});return e},re=e=>te(ee(j(e!=null?Q(X(e)):{},"default",e&&e.__esModule&&"default"in e?{get:()=>e.default,enumerable:!0}:{value:e,enumerable:!0})),e);var $=x((ye,P)=>{"use strict";var R=Object.getOwnPropertySymbols,ne=Object.prototype.hasOwnProperty,oe=Object.prototype.propertyIsEnumerable;function ue(e){if(e==null)throw new TypeError("Object.assign cannot be called with null or undefined");return Object(e)}function se(){try{if(!Object.assign)return!1;var e=new String("abc");if(e[5]="de",Object.getOwnPropertyNames(e)[0]==="5")return!1;for(var t={},r=0;r<10;r++)t["_"+String.fromCharCode(r)]=r;var o=Object.getOwnPropertyNames(t).map(function(s){return t[s]});if(o.join("")!=="0123456789")return!1;var u={};return"abcdefghijklmnopqrst".split("").forEach(function(s){u[s]=s}),Object.keys(Object.assign({},u)).join("")==="abcdefghijklmnopqrst"}catch(s){return!1}}P.exports=se()?Object.assign:function(e,t){for(var r,o=ue(e),u,s=1;s<arguments.length;s++){r=Object(arguments[s]);for(var i in r)ne.call(r,i)&&(o[i]=r[i]);if(R){u=R(r);for(var c=0;c<u.length;c++)oe.call(r,u[c])&&(o[u[c]]=r[u[c]])}}return o}});var G=x(n=>{"use strict";var S=$(),d=60103,w=60106;n.Fragment=60107;n.StrictMode=60108;n.Profiler=60114;var I=60109,q=60110,M=60112;n.Suspense=60113;n.SuspenseList=60120;var V=60115,F=60116;typeof Symbol=="function"&&Symbol.for&&(p=Symbol.for,d=p("react.element"),w=p("react.portal"),n.Fragment=p("react.fragment"),n.StrictMode=p("react.strict_mode"),n.Profiler=p("react.profiler"),I=p("react.provider"),q=p("react.context"),M=p("react.forward_ref"),n.Suspense=p("react.suspense"),n.SuspenseList=p("react.suspense_list"),V=p("react.memo"),F=p("react.lazy"));var p,L=typeof Symbol=="function"&&Symbol.iterator;function ce(e){return e===null||typeof e!="object"?null:(e=L&&e[L]||e["@@iterator"],typeof e=="function"?e:null)}function v(e){for(var t="https://reactjs.org/docs/error-decoder.html?invariant="+e,r=1;r<arguments.length;r++)t+="&args[]="+encodeURIComponent(arguments[r]);return"Minified React error #"+e+"; visit "+t+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings."}var N={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}},U={};function m(e,t,r){this.props=e,this.context=t,this.refs=U,this.updater=r||N}m.prototype.isReactComponent={};m.prototype.setState=function(e,t){if(typeof e!="object"&&typeof e!="function"&&e!=null)throw Error(v(85));this.updater.enqueueSetState(this,e,t,"setState")};m.prototype.forceUpdate=function(e){this.updater.enqueueForceUpdate(this,e,"forceUpdate")};function A(){}A.prototype=m.prototype;function O(e,t,r){this.props=e,this.context=t,this.refs=U,this.updater=r||N}var b=O.prototype=new A;b.constructor=O;S(b,m.prototype);b.isPureReactComponent=!0;var D=Array.isArray,T=Object.prototype.hasOwnProperty,E={current:null},H={key:!0,ref:!0,__self:!0,__source:!0};function z(e,t,r){var o,u={},s=null,i=null;if(t!=null)for(o in t.ref!==void 0&&(i=t.ref),t.key!==void 0&&(s=""+t.key),t)T.call(t,o)&&!H.hasOwnProperty(o)&&(u[o]=t[o]);var c=arguments.length-2;if(c===1)u.children=r;else if(1<c){for(var l=Array(c),y=0;y<c;y++)l[y]=arguments[y+2];u.children=l}if(e&&e.defaultProps)for(o in c=e.defaultProps,c)u[o]===void 0&&(u[o]=c[o]);return{$$typeof:d,type:e,key:s,ref:i,props:u,_owner:E.current}}function ie(e,t){return{$$typeof:d,type:e.type,key:t,ref:e.ref,props:e.props,_owner:e._owner}}function k(e){return typeof e=="object"&&e!==null&&e.$$typeof===d}function fe(e){var t={"=":"=0",":":"=2"};return"$"+e.replace(/[=:]/g,function(r){return t[r]})}var B=/\/+/g;function C(e,t){return typeof e=="object"&&e!==null&&e.key!=null?fe(""+e.key):t.toString(36)}function h(e,t,r,o,u){var s=typeof e;(s==="undefined"||s==="boolean")&&(e=null);var i=!1;if(e===null)i=!0;else switch(s){case"string":case"number":i=!0;break;case"object":switch(e.$$typeof){case d:case w:i=!0}}if(i)return i=e,u=u(i),e=o===""?"."+C(i,0):o,D(u)?(r="",e!=null&&(r=e.replace(B,"$&/")+"/"),h(u,t,r,"",function(y){return y})):u!=null&&(k(u)&&(u=ie(u,r+(!u.key||i&&i.key===u.key?"":(""+u.key).replace(B,"$&/")+"/")+e)),t.push(u)),1;if(i=0,o=o===""?".":o+":",D(e))for(var c=0;c<e.length;c++){s=e[c];var l=o+C(s,c);i+=h(s,t,r,l,u)}else if(l=ce(e),typeof l=="function")for(e=l.call(e),c=0;!(s=e.next()).done;)s=s.value,l=o+C(s,c++),i+=h(s,t,r,l,u);else if(s==="object")throw t=""+e,Error(v(31,t==="[object Object]"?"object with keys {"+Object.keys(e).join(", ")+"}":t));return i}function _(e,t,r){if(e==null)return e;var o=[],u=0;return h(e,o,"","",function(s){return t.call(r,s,u++)}),o}function le(e){if(e._status===-1){var t=e._result;t=t(),t.then(function(r){(e._status===0||e._status===-1)&&(e._status=1,e._result=r)},function(r){(e._status===0||e._status===-1)&&(e._status=2,e._result=r)}),e._status===-1&&(e._status=0,e._result=t)}if(e._status===1)return e._result.default;throw e._result}var a={current:null},g={transition:0},ae={ReactCurrentDispatcher:a,ReactCurrentBatchConfig:g,ReactCurrentOwner:E,IsSomeRendererActing:{current:!1},assign:S};n.Children={map:_,forEach:function(e,t,r){_(e,function(){t.apply(this,arguments)},r)},count:function(e){var t=0;return _(e,function(){t++}),t},toArray:function(e){return _(e,function(t){return t})||[]},only:function(e){if(!k(e))throw Error(v(143));return e}};n.Component=m;n.PureComponent=O;n.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED=ae;n.cloneElement=function(e,t,r){if(e==null)throw Error(v(267,e));var o=S({},e.props),u=e.key,s=e.ref,i=e._owner;if(t!=null){if(t.ref!==void 0&&(s=t.ref,i=E.current),t.key!==void 0&&(u=""+t.key),e.type&&e.type.defaultProps)var c=e.type.defaultProps;for(l in t)T.call(t,l)&&!H.hasOwnProperty(l)&&(o[l]=t[l]===void 0&&c!==void 0?c[l]:t[l])}var l=arguments.length-2;if(l===1)o.children=r;else if(1<l){c=Array(l);for(var y=0;y<l;y++)c[y]=arguments[y+2];o.children=c}return{$$typeof:d,type:e.type,key:u,ref:s,props:o,_owner:i}};n.createContext=function(e){return e={$$typeof:q,_currentValue:e,_currentValue2:e,_threadCount:0,Provider:null,Consumer:null},e.Provider={$$typeof:I,_context:e},e.Consumer=e};n.createElement=z;n.createFactory=function(e){var t=z.bind(null,e);return t.type=e,t};n.createRef=function(){return{current:null}};n.forwardRef=function(e){return{$$typeof:M,render:e}};n.isValidElement=k;n.lazy=function(e){return{$$typeof:F,_payload:{_status:-1,_result:e},_init:le}};n.memo=function(e,t){return{$$typeof:V,type:e,compare:t===void 0?null:t}};n.startTransition=function(e){var t=g.transition;g.transition=1;try{e()}finally{g.transition=t}};n.unstable_createMutableSource=function(e,t){return{_getVersion:t,_source:e,_workInProgressVersionPrimary:null,_workInProgressVersionSecondary:null}};n.unstable_useMutableSource=function(e,t,r){return a.current.useMutableSource(e,t,r)};n.unstable_useOpaqueIdentifier=function(){return a.current.useOpaqueIdentifier()};n.useCallback=function(e,t){return a.current.useCallback(e,t)};n.useContext=function(e){return a.current.useContext(e)};n.useDebugValue=function(){};n.useDeferredValue=function(e){return a.current.useDeferredValue(e)};n.useEffect=function(e,t){return a.current.useEffect(e,t)};n.useImperativeHandle=function(e,t,r){return a.current.useImperativeHandle(e,t,r)};n.useLayoutEffect=function(e,t){return a.current.useLayoutEffect(e,t)};n.useMemo=function(e,t){return a.current.useMemo(e,t)};n.useReducer=function(e,t,r){return a.current.useReducer(e,t,r)};n.useRef=function(e){return a.current.useRef(e)};n.useState=function(e){return a.current.useState(e)};n.useTransition=function(){return a.current.useTransition()};n.version="18.0.0-e6be2d531"});var K=x((me,J)=>{"use strict";J.exports=G()});var f=re(K()),{createContext:ve}=f.default,{useState:he}=f.default,{useRef:_e}=f.default,{useContext:ge}=f.default,{useEffect:je}=f.default,{useLayoutEffect:xe}=f.default,{useReducer:Se}=f.default,{useCallback:Oe}=f.default,{forwardRef:be}=f.default,{createElement:Ee}=f.default,{createFactory:ke}=f.default,{createRef:Ce}=f.default,{Fragment:Re}=f.default,{Component:Pe}=f.default,{isValidElement:$e}=f.default,{memo:we}=f.default,{useImperativeHandle:Ie}=f.default,{Children:qe}=f.default,{cloneElement:Me}=f.default,{useMemo:Ve}=f.default,Fe=f.default;export{qe as Children,Pe as Component,Re as Fragment,Me as cloneElement,ve as createContext,Ee as createElement,ke as createFactory,Ce as createRef,Fe as default,be as forwardRef,$e as isValidElement,we as memo,Oe as useCallback,ge as useContext,je as useEffect,Ie as useImperativeHandle,xe as useLayoutEffect,Ve as useMemo,Se as useReducer,_e as useRef,he as useState};
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+/** @license React vundefined
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
