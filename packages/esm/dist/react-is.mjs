@@ -264,7 +264,7 @@ var {
   isSuspenseList,
   isValidElementType,
   typeOf
-} = ReactIS;
+} = reactIS;
 export {
   ContextConsumer,
   ContextProvider,

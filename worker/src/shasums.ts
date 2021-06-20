@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "240420c53d0231afec7fd89a8fc751940659a625859bf513e55cc6ac5e749fc9",
+    "8c59987d2434ad622dd1cd0544d285bef2eddec806a20fb9818b771155e9d422",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "8c8a74c90ab961e2ee4bf63e6f3f39d3dd856ebee6fb86dcc135c7d7ab8e5833",
+    "6d2273609ef178b4751c21cfe9452737bcf81c05a388d6bd94c525692ae6d085",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":

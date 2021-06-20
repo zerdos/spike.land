@@ -20,7 +20,7 @@ added Qme8Dck9xuwCqhs9cqooR96v2q6maKvkAzRPdpcvPegA9K code/js/formatter.mjs
 added QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD code/js/hash.mjs
 added QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL code/js/importScript.d.ts
 added QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe code/js/importScript.mjs
-added QmWBPYaR7Wg2c5sBi9TWAWV6wzonfhYvURvRGLcRy5Qcxi code/js/importmap.js
+added QmRe2HZq9xL23b9DeNqciKBVZddUt3Ur6eEJEosZrUxmFX code/js/importmap.js
 added QmfM9QNTfCavLUZ6rzoGC2gmUNc4GGS53bMzm3RYZ7g9gQ code/js/ipfsClient.mjs
 added QmdSrNkNM4pHCBJsiWn8ugR7SHsxEhPzqauoHq8iAxHJmN code/js/openWindows.mjs
 added QmNNsuRvrVewHeHT9aPfDk2Fbi6gLa6vHEhtFWfxs3SVnc code/js/react-dom.mjs
@@ -62,7 +62,7 @@ added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
 added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
-added Qmd8SdPoTnuZUigTpjZgYKEngHN1NdWX2b1xd4mXmKkErL code/package.json
+added QmWmaJgTxL7Koqn9fgBMc3zGbpXADXmcnqy8yUyYjE2AVZ code/package.json
 added QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj code/sw.js
 added QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw code/test.html
 added QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU code/tsconfig.json
@@ -72,10 +72,10 @@ added QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva code/assets
 added QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS code/edit
 added QmbYfmxExsYVJDSDMSZg9sTM7kiDiUtxy4AUciQhYxWH4a code/js/examples
 added QmQmqp9zorgBCMaih335qkAdqzsMxdBHzf2yDYj1pFcvXq code/js/workers
-added QmUkGC2rzpD9Y9R5MBrvvWsUGwswbuFnRiQRAQ9nYae7Jc code/js
+added QmeAKLNbws3bcmVpMdYWVD8Amgc2SUf8xAwRCkLYL8cbNf code/js
 added QmTKojbJsHPtAGaQ1AWEu78NnHeRV91oS2bdNFwBT8qTZ8 code/modules/smart-monaco-editor/dist
 added QmeohDaHDYD6bcsC4F52VjMzucbibMwpqn6MH78ftiBbTA code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
 added QmUCFzZAY8a72mn8uaCHdbqKcVEkW4DP8nswdMToEFYUpc code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmctW6Y3xua82nwiCpgzQnpwakbVbA785QzjhWZ2epxXV5 code
+added QmSYijq3EMFD1fwAhHTUYxkoGNTRGA1Kw331ZxeV3yW9Hj code

@@ -25,5 +25,5 @@ export const {ContextConsumer, ContextProvider, Element, ForwardRef, Fragment, L
     typeOf
 
 
-} = ReactIS;;
+} = reactIS;
 
