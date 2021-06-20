@@ -50,7 +50,7 @@ const imports = {
     "popmotion": "https://unpkg.com/popmotion@9.3.6/dist/es/index.js",
     "prop-types": "https://esm.sh/prop-types",
     "react": "https://unpkg.com/@zedvision/esm@14.1.11/dist/react.mjs",
-    "react-dom": "https://unpkg.com/@zedvision/esm@14.2.0/dist/react-dom.mjs",
+    "react-dom": "https://unpkg.com/@zedvision/esm@14.2.1/dist/react-dom.mjs",
     "react-is": "https://unpkg.com/@zedvision/esm@14.1.10/dist/react-is.mjs",
     "react-transition-group": "https://unpkg.com/react-transition-group@4.4.1/esm/index.js",
     "react/": "https://esm.sh/react/",
