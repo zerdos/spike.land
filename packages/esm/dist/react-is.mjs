@@ -8,6 +8,11 @@ var __markAsModule = (target) => __defProp(target, "__esModule", { value: true }
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
+var __export = (target, all) => {
+  __markAsModule(target);
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __reExport = (target, module, desc) => {
   if (module && typeof module === "object" || typeof module === "function") {
     for (let key of __getOwnPropNames(module))
@@ -233,8 +238,15 @@ var require_react_is = __commonJS({
 
 // src/react-is.mjs
 var react_is_exports = {};
-__markAsModule(react_is_exports);
+__export(react_is_exports, {
+  default: () => react_is_default
+});
+var import_react_is = __toModule(require_react_is());
 __reExport(react_is_exports, __toModule(require_react_is()));
+var react_is_default = import_react_is.default;
+export {
+  react_is_default as default
+};
 /** @license React vundefined
  * react-is.development.js
  *

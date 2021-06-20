@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "1e2ddf79015bfc315fdd0b4b946f5ee01764f64f692fb92017024e6867cebdf8",
+    "4a1d1897f2f9025bf0f875fe7345c3f36fb53d47e1c8c8809adad5896038c544",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
@@ -35,7 +35,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "397fe7cc7d3bd2939c5f896a4bbda3c68ea5b1d34544610ba271d1f7d79e34e5",
+    "18b06b03aca858ddcf62601fdf6b502cb15a87989170b8ff7974b7014fde0dc2",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "5df47c86e04cc3d73dc5fe7c4bb333a199e813074b7438f0e93b5d66d9a3c56e",
+    "44d865bad1dce449853a95633316f36bcf34a00d0f6b33f7e123634c0b27a608",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
