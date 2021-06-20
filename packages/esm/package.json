@@ -13,9 +13,9 @@
     "url": "https://github.com/zed-vision/monorepo"
   },
   "exports": {
-    "./src/react.mjs": "./src/react.mjs"
+    "./react.mjs": "./src/react.mjs",
+    "./react-dom.mjs": "./src/react-dom.mjs"
   },
-  "homepage": "https://spike.land",
   "license": "BSD-3-Clause",
   "dependencies": {
     "@types/react": "17.0.11",
