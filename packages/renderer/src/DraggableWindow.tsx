@@ -45,7 +45,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
   const ref = React.useRef<HTMLDivElement>(null);
   const zbody = React.useRef<HTMLDivElement>(null);
 
-  const Child = childArray[childArray.length - 1];
+  const child = childArray[childArray.length - 1];
 
   React.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
@@ -204,7 +204,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                 key={session.i}
                 ref={zbody}
               >
-                  <Child key={session.i}></Child>
+                  {child}
                   
                   </div>
                 </React.Suspense>

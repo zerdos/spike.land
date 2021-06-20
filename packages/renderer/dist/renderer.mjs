@@ -640,7 +640,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session }) => {
   const [width, setWidth] = React.useState(breakPoints[1]);
   const ref = React.useRef(null);
   const zbody = React.useRef(null);
-  const Child = childArray[childArray.length - 1];
+  const child = childArray[childArray.length - 1];
   React.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
   });
@@ -763,9 +763,7 @@ var DraggableWindow = ({ onShare, onRestore, position, session }) => {
     id: "zbody",
     key: session.i,
     ref: zbody
-  }, /* @__PURE__ */ jsx(Child, {
-    key: session.i
-  }))))), /* @__PURE__ */ jsx(ToggleButtonGroup, {
+  }, child)))), /* @__PURE__ */ jsx(ToggleButtonGroup, {
     value: width,
     size: "small",
     exclusive: true,

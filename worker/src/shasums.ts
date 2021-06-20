@@ -59,7 +59,7 @@ export const shasums = {
   "js/react-dom.mjs":
     "7ce791b27dba1a13b46f697db77a9beb423676ae5a69399621ca8758cd7fbdbd",
   "js/codeLoader.mjs":
-    "94038e177a3a92a15fdaf15d62157d76fe061717a612118d96196839bbd0c464",
+    "26cc427dc91b554c5a68c4b35409d97dea12bfbc3e2d73c41f26a9f88d778423",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
@@ -96,7 +96,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "636cd553ef0ac8d1da12d688236666d2dbb269243c299c2a0818e4a77cb2db10",
+    "d111802b34bc99832afa73637384c93a6d8873b3ecdd4899ec6eb7a4145dc26f",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":

@@ -232,7 +232,7 @@ export async function run(mode = "window", code = "") {
 
     const mod = (await import(objUrl));
     URL.revokeObjectURL(objUrl);
-    return mod.default;
+    return mod.default();
   }
 
   /**
@@ -251,9 +251,12 @@ export async function run(mode = "window", code = "") {
       return hadError;
     }
 
-
+    try{
     session.children = await getReactChild(transpiled);
-
+    } catch(error) {
+      console.error({error, message: "error in rendering"});
+      return false;
+    }
     session.setChild(c => [...c, session.children]);
     // session.unmount = render(Element(), root);
     const zbody = window.document.getElementById("zbody");
