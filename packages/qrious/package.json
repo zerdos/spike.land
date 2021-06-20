@@ -37,6 +37,7 @@
   },
   "typings": "dist/QRious.d.ts",
   "source": "src/QRious.tsx",
+  "main": "dist/QRious.mjs",
   "exports": {
     ".": "./dist/QRious.mjs",
     "./package.json": "./package.json"
