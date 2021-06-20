@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "ab07460a4d8d61408f84eb2849b193b842a8c830293d084771740a80f9188c7e",
+    "ca1275582146cc3c9c4aaa93ddcfa00361248f4a650bb758931952ecf42fb2ea",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
@@ -104,7 +104,7 @@ export const shasums = {
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":
-    "1089fa1ab077d92cad9856a3520938b15b3c532df96f05165c2430d2455b6c61",
+    "1ffaed41680d368802a80a2f914091c8680fc4fafc96ce6c5da12af722e65b61",
   "modules/vendor/idb.js":
     "5764b034e5da3ef17d0fe2938a768baef5fb4cebd09ae018a50d9013f81d4669",
   "modules/vendor/diffChars.d.ts":

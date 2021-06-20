@@ -39,7 +39,7 @@ added QmR5rAVpLoWk8gx2BEZVNCDgnF7ZUoLqrkSRZmHGHf7qaZ code/js/workers/ipfsWorker.
 added QmPfmdpD9jC3UpmNXio5LrCYbciCrZ7xV3Vu8TXdpi6Pqm code/js/workers/prettierWorker.js
 added QmZ8NneU6XBiAWTyQcZZVEFRwSynsFt3DDXS9jKujBWmnG code/js/workers/transpile.worker.js
 added Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ code/manifest.json
-added QmXdXetjxDt4PLF3UhKiJf5B1CTjPPTB8Reh7kRUEDbouK code/modules/QRious.mjs
+added QmQV9xiWzKPdVaMd4XHUunsQ28zzA5LgCSFBcW9PMdnidq code/modules/QRious.mjs
 added QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx code/modules/diff.d.ts
 added QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy code/modules/diff.js
 added QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4 code/modules/diffChars.d.ts
@@ -62,7 +62,7 @@ added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
 added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
-added QmZ4kE1fk2AkcaPF4Up7PQeaKsgH1LxV6ug7KTm8XbLy1P code/package.json
+added QmQDS3vE48jtzeorn24A3t32bmMew5RBtXUBgQJZG6FQx8 code/package.json
 added QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj code/sw.js
 added QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw code/test.html
 added QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU code/tsconfig.json
@@ -76,6 +76,6 @@ added QmfZcCt9KThTEm1tYwgh1yC1rKSNzPVSh9rYWRoDuCcXLj code/js
 added QmTKojbJsHPtAGaQ1AWEu78NnHeRV91oS2bdNFwBT8qTZ8 code/modules/smart-monaco-editor/dist
 added QmeohDaHDYD6bcsC4F52VjMzucbibMwpqn6MH78ftiBbTA code/modules/smart-monaco-editor
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
-added QmScA2AMMAaswfqEAUPDtMnowwVfFhXtvhnHFvV1L67X3p code/modules
+added QmUCFzZAY8a72mn8uaCHdbqKcVEkW4DP8nswdMToEFYUpc code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmaSoT2U4FgjcrKUF1QLaYBC4FrHE1CuZV5n7PZWj5as6q code
+added QmPL7S4Jb9rvNAysmeQgN67a4c5Er2dM7i4Rjwg74mN7fL code
