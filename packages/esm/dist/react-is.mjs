@@ -8,11 +8,6 @@ var __markAsModule = (target) => __defProp(target, "__esModule", { value: true }
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __export = (target, all) => {
-  __markAsModule(target);
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
 var __reExport = (target, module, desc) => {
   if (module && typeof module === "object" || typeof module === "function") {
     for (let key of __getOwnPropNames(module))
@@ -77,7 +72,7 @@ var require_react_is_development = __commonJS({
         if (typeof Symbol === "function") {
           REACT_MODULE_REFERENCE = Symbol.for("react.module.reference");
         }
-        function isValidElementType(type) {
+        function isValidElementType2(type) {
           if (typeof type === "string" || typeof type === "function") {
             return true;
           }
@@ -91,7 +86,7 @@ var require_react_is_development = __commonJS({
           }
           return false;
         }
-        function typeOf(object) {
+        function typeOf2(object) {
           if (typeof object === "object" && object !== null) {
             var $$typeof = object.$$typeof;
             switch ($$typeof) {
@@ -123,21 +118,21 @@ var require_react_is_development = __commonJS({
           }
           return void 0;
         }
-        var ContextConsumer = REACT_CONTEXT_TYPE;
-        var ContextProvider = REACT_PROVIDER_TYPE;
-        var Element = REACT_ELEMENT_TYPE;
-        var ForwardRef = REACT_FORWARD_REF_TYPE;
-        var Fragment = REACT_FRAGMENT_TYPE;
-        var Lazy = REACT_LAZY_TYPE;
-        var Memo = REACT_MEMO_TYPE;
-        var Portal = REACT_PORTAL_TYPE;
-        var Profiler = REACT_PROFILER_TYPE;
-        var StrictMode = REACT_STRICT_MODE_TYPE;
-        var Suspense = REACT_SUSPENSE_TYPE;
-        var SuspenseList = REACT_SUSPENSE_LIST_TYPE;
+        var ContextConsumer2 = REACT_CONTEXT_TYPE;
+        var ContextProvider2 = REACT_PROVIDER_TYPE;
+        var Element2 = REACT_ELEMENT_TYPE;
+        var ForwardRef2 = REACT_FORWARD_REF_TYPE;
+        var Fragment2 = REACT_FRAGMENT_TYPE;
+        var Lazy2 = REACT_LAZY_TYPE;
+        var Memo2 = REACT_MEMO_TYPE;
+        var Portal2 = REACT_PORTAL_TYPE;
+        var Profiler2 = REACT_PROFILER_TYPE;
+        var StrictMode2 = REACT_STRICT_MODE_TYPE;
+        var Suspense2 = REACT_SUSPENSE_TYPE;
+        var SuspenseList2 = REACT_SUSPENSE_LIST_TYPE;
         var hasWarnedAboutDeprecatedIsAsyncMode = false;
         var hasWarnedAboutDeprecatedIsConcurrentMode = false;
-        function isAsyncMode(object) {
+        function isAsyncMode2(object) {
           {
             if (!hasWarnedAboutDeprecatedIsAsyncMode) {
               hasWarnedAboutDeprecatedIsAsyncMode = true;
@@ -146,7 +141,7 @@ var require_react_is_development = __commonJS({
           }
           return false;
         }
-        function isConcurrentMode(object) {
+        function isConcurrentMode2(object) {
           {
             if (!hasWarnedAboutDeprecatedIsConcurrentMode) {
               hasWarnedAboutDeprecatedIsConcurrentMode = true;
@@ -155,70 +150,70 @@ var require_react_is_development = __commonJS({
           }
           return false;
         }
-        function isContextConsumer(object) {
-          return typeOf(object) === REACT_CONTEXT_TYPE;
+        function isContextConsumer2(object) {
+          return typeOf2(object) === REACT_CONTEXT_TYPE;
         }
-        function isContextProvider(object) {
-          return typeOf(object) === REACT_PROVIDER_TYPE;
+        function isContextProvider2(object) {
+          return typeOf2(object) === REACT_PROVIDER_TYPE;
         }
-        function isElement(object) {
+        function isElement2(object) {
           return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
         }
-        function isForwardRef(object) {
-          return typeOf(object) === REACT_FORWARD_REF_TYPE;
+        function isForwardRef2(object) {
+          return typeOf2(object) === REACT_FORWARD_REF_TYPE;
         }
-        function isFragment(object) {
-          return typeOf(object) === REACT_FRAGMENT_TYPE;
+        function isFragment2(object) {
+          return typeOf2(object) === REACT_FRAGMENT_TYPE;
         }
-        function isLazy(object) {
-          return typeOf(object) === REACT_LAZY_TYPE;
+        function isLazy2(object) {
+          return typeOf2(object) === REACT_LAZY_TYPE;
         }
-        function isMemo(object) {
-          return typeOf(object) === REACT_MEMO_TYPE;
+        function isMemo2(object) {
+          return typeOf2(object) === REACT_MEMO_TYPE;
         }
-        function isPortal(object) {
-          return typeOf(object) === REACT_PORTAL_TYPE;
+        function isPortal2(object) {
+          return typeOf2(object) === REACT_PORTAL_TYPE;
         }
-        function isProfiler(object) {
-          return typeOf(object) === REACT_PROFILER_TYPE;
+        function isProfiler2(object) {
+          return typeOf2(object) === REACT_PROFILER_TYPE;
         }
-        function isStrictMode(object) {
-          return typeOf(object) === REACT_STRICT_MODE_TYPE;
+        function isStrictMode2(object) {
+          return typeOf2(object) === REACT_STRICT_MODE_TYPE;
         }
-        function isSuspense(object) {
-          return typeOf(object) === REACT_SUSPENSE_TYPE;
+        function isSuspense2(object) {
+          return typeOf2(object) === REACT_SUSPENSE_TYPE;
         }
-        function isSuspenseList(object) {
-          return typeOf(object) === REACT_SUSPENSE_LIST_TYPE;
+        function isSuspenseList2(object) {
+          return typeOf2(object) === REACT_SUSPENSE_LIST_TYPE;
         }
-        exports.ContextConsumer = ContextConsumer;
-        exports.ContextProvider = ContextProvider;
-        exports.Element = Element;
-        exports.ForwardRef = ForwardRef;
-        exports.Fragment = Fragment;
-        exports.Lazy = Lazy;
-        exports.Memo = Memo;
-        exports.Portal = Portal;
-        exports.Profiler = Profiler;
-        exports.StrictMode = StrictMode;
-        exports.Suspense = Suspense;
-        exports.SuspenseList = SuspenseList;
-        exports.isAsyncMode = isAsyncMode;
-        exports.isConcurrentMode = isConcurrentMode;
-        exports.isContextConsumer = isContextConsumer;
-        exports.isContextProvider = isContextProvider;
-        exports.isElement = isElement;
-        exports.isForwardRef = isForwardRef;
-        exports.isFragment = isFragment;
-        exports.isLazy = isLazy;
-        exports.isMemo = isMemo;
-        exports.isPortal = isPortal;
-        exports.isProfiler = isProfiler;
-        exports.isStrictMode = isStrictMode;
-        exports.isSuspense = isSuspense;
-        exports.isSuspenseList = isSuspenseList;
-        exports.isValidElementType = isValidElementType;
-        exports.typeOf = typeOf;
+        exports.ContextConsumer = ContextConsumer2;
+        exports.ContextProvider = ContextProvider2;
+        exports.Element = Element2;
+        exports.ForwardRef = ForwardRef2;
+        exports.Fragment = Fragment2;
+        exports.Lazy = Lazy2;
+        exports.Memo = Memo2;
+        exports.Portal = Portal2;
+        exports.Profiler = Profiler2;
+        exports.StrictMode = StrictMode2;
+        exports.Suspense = Suspense2;
+        exports.SuspenseList = SuspenseList2;
+        exports.isAsyncMode = isAsyncMode2;
+        exports.isConcurrentMode = isConcurrentMode2;
+        exports.isContextConsumer = isContextConsumer2;
+        exports.isContextProvider = isContextProvider2;
+        exports.isElement = isElement2;
+        exports.isForwardRef = isForwardRef2;
+        exports.isFragment = isFragment2;
+        exports.isLazy = isLazy2;
+        exports.isMemo = isMemo2;
+        exports.isPortal = isPortal2;
+        exports.isProfiler = isProfiler2;
+        exports.isStrictMode = isStrictMode2;
+        exports.isSuspense = isSuspense2;
+        exports.isSuspenseList = isSuspenseList2;
+        exports.isValidElementType = isValidElementType2;
+        exports.typeOf = typeOf2;
       })();
     }
   }
@@ -237,15 +232,69 @@ var require_react_is = __commonJS({
 });
 
 // src/react-is.mjs
-var react_is_exports = {};
-__export(react_is_exports, {
-  default: () => react_is_default
-});
 var import_react_is = __toModule(require_react_is());
-__reExport(react_is_exports, __toModule(require_react_is()));
+var reactIS = __toModule(require_react_is());
 var react_is_default = import_react_is.default;
+var {
+  ContextConsumer,
+  ContextProvider,
+  Element,
+  ForwardRef,
+  Fragment,
+  Lazy,
+  Memo,
+  Portal,
+  Profiler,
+  StrictMode,
+  Suspense,
+  SuspenseList,
+  isAsyncMode,
+  isConcurrentMode,
+  isContextConsumer,
+  isContextProvider,
+  isElement,
+  isForwardRef,
+  isFragment,
+  isLazy,
+  isMemo,
+  isPortal,
+  isProfiler,
+  isStrictMode,
+  isSuspense,
+  isSuspenseList,
+  isValidElementType,
+  typeOf
+} = ReactIS;
 export {
-  react_is_default as default
+  ContextConsumer,
+  ContextProvider,
+  Element,
+  ForwardRef,
+  Fragment,
+  Lazy,
+  Memo,
+  Portal,
+  Profiler,
+  StrictMode,
+  Suspense,
+  SuspenseList,
+  react_is_default as default,
+  isAsyncMode,
+  isConcurrentMode,
+  isContextConsumer,
+  isContextProvider,
+  isElement,
+  isForwardRef,
+  isFragment,
+  isLazy,
+  isMemo,
+  isPortal,
+  isProfiler,
+  isStrictMode,
+  isSuspense,
+  isSuspenseList,
+  isValidElementType,
+  typeOf
 };
 /** @license React vundefined
  * react-is.development.js

@@ -28,7 +28,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmfYANUZWB77jLTLVZRjMeEFaaRRbMBH69Uxb5iwhnjdid",
+  "js/importmap.js": "QmWBPYaR7Wg2c5sBi9TWAWV6wzonfhYvURvRGLcRy5Qcxi",
   "js/ipfsClient.mjs": "QmfM9QNTfCavLUZ6rzoGC2gmUNc4GGS53bMzm3RYZ7g9gQ",
   "js/openWindows.mjs": "QmdSrNkNM4pHCBJsiWn8ugR7SHsxEhPzqauoHq8iAxHJmN",
   "js/react-dom.mjs": "QmNNsuRvrVewHeHT9aPfDk2Fbi6gLa6vHEhtFWfxs3SVnc",
@@ -80,7 +80,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmU5HCFR6aDRQFg5ARcMWtbVjmk6T7Ud5sD4Qcbkpvr8VU",
+  "package.json": "Qmd8SdPoTnuZUigTpjZgYKEngHN1NdWX2b1xd4mXmKkErL",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
@@ -90,7 +90,7 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbYfmxExsYVJDSDMSZg9sTM7kiDiUtxy4AUciQhYxWH4a",
   "js/workers": "QmQmqp9zorgBCMaih335qkAdqzsMxdBHzf2yDYj1pFcvXq",
-  "js": "QmRjtExUShR4sSEUCBNJ5NpHuic3pcnyrjP1BqmbnoXGSE",
+  "js": "QmUkGC2rzpD9Y9R5MBrvvWsUGwswbuFnRiQRAQ9nYae7Jc",
   "modules/smart-monaco-editor/dist":
     "QmTKojbJsHPtAGaQ1AWEu78NnHeRV91oS2bdNFwBT8qTZ8",
   "modules/smart-monaco-editor":
@@ -98,6 +98,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmUCFzZAY8a72mn8uaCHdbqKcVEkW4DP8nswdMToEFYUpc",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmXhcFQKNc7cLaaDn3qtd91ryLtmasngahssuVjRyvaCWh",
+  "": "QmctW6Y3xua82nwiCpgzQnpwakbVbA785QzjhWZ2epxXV5",
   "foo": "bar",
 };
