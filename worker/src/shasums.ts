@@ -53,7 +53,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "043575f653a500e1f7498d794b64f9e19a3462991f1e964279e3b37e1de451af",
+    "e90eb01457032550e5c13fd1315f8584bc610705b7d3071c6dc265f9abff1539",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
@@ -96,7 +96,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "d111802b34bc99832afa73637384c93a6d8873b3ecdd4899ec6eb7a4145dc26f",
+    "6ee371f08b5f971f71306b32978d2030a171f5bd85bf9e19b6f0adcdc957f02c",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":

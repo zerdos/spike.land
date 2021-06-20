@@ -11,7 +11,7 @@
   "sideEffects": false,
   "scripts": {
     "clean": "rm -rf dist .tsbuildinfo && deno fmt src",
-    "build:renderer": "$(yarn bin esbuild) src/renderer.ts --bundle --format=esm --external:react --external:tslib --external:@material-ui/core --external:framer-motion --external:@emotion/react --external:@emotion/styled --external:react-dom --platform=browser --outfile=dist/renderer.mjs",
+    "build:renderer": "$(yarn bin esbuild) src/renderer.ts --bundle --format=esm --external:@zedvision/qrious --external:react --external:tslib --external:@material-ui/core --external:framer-motion --external:@emotion/react --external:@emotion/styled --external:react-dom --platform=browser --outfile=dist/renderer.mjs",
     "build:renderer:umd": "$(yarn bin esbuild) src/renderer.ts --minify --bundle --format=iife --platform=browser --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/renderer.umd.js",
     "build:draggableWindow": "$(yarn bin esbuild) src/DraggableWindow.tsx --minify --bundle --format=esm --platform=browser --tree-shaking=ignore-annotations --target=es2017 --outfile=dist/DraggableWindow.js",
     "build": "yarn build:renderer && cp -rf dist/* ../code/modules/"
