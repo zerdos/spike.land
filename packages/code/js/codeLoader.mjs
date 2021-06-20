@@ -7,6 +7,16 @@ import { formatter } from "./formatter.mjs";
 import React from "react";
 import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 
+// const { importMap } = globalThis;
+// console.log(importMap);
+
+// Object.keys(importMap)
+//     .map(x => { 
+//       return fetch(`https://unpkg.com/${x}`)
+//               .then(y => console.log(y.url.slice(18 + x.length, 18 + x.length + 23))); });
+
+
+
 function getSession() {
   const session = {
     i: 0,
@@ -251,10 +261,10 @@ export async function run(mode = "window", code = "") {
       return hadError;
     }
 
-    try{
-    session.children = await getReactChild(transpiled);
-    } catch(error) {
-      console.error({error, message: "error in rendering"});
+    try {
+      session.children = await getReactChild(transpiled);
+    } catch (error) {
+      console.error({ error, message: "error in rendering" });
       return false;
     }
     session.setChild(c => [...c, session.children]);

@@ -15,6 +15,7 @@
     "email": "mercer.alasdair@gmail.com",
     "url": "https://neocotic.com"
   },
+  "type": "module",
   "license": "GPL-3.0",
   "keywords": [
     "qr",
@@ -36,7 +37,10 @@
   },
   "typings": "dist/QRious.d.ts",
   "source": "src/QRious.tsx",
-  "exports": "./dist/QRious.mjs",
+  "exports": {
+    ".": "./distQ/Rious.mjs",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/QRious.mjs --target=es2017 --format=esm",
     "clean": "rm -rf dist && yarn tsc",

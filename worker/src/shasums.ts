@@ -1,6 +1,8 @@
 export const shasums = {
   "package.json":
     "ab07460a4d8d61408f84eb2849b193b842a8c830293d084771740a80f9188c7e",
+  "test.html":
+    "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "assets/synthwave.jpg":
@@ -33,7 +35,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "f07d46a094fade15859b031932600560a33ddbb934977b29073e78d864cb37a8",
+    "397fe7cc7d3bd2939c5f896a4bbda3c68ea5b1d34544610ba271d1f7d79e34e5",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -46,6 +48,8 @@ export const shasums = {
     "28dc999d1799725458a286392d3ed3350ac460986e79cf3577e9fc4ab892ce1a",
   "js/transpile.mjs":
     "96a271fcadba5c34ea97f9345f7dbb47625a1196acfd8d6c9a5cedc573fe7545",
+  "js/test.mjs":
+    "53166ce28382f6d99fffd83c991f2f55312214a092715bab3b43f9feeaf0899b",
   "js/workboxLoader.mjs":
     "3d2c125a2325cceb7bcfa9ccfc7d3f4bbcbb7a2d463f2721c153f7cb69f8c20e",
   "js/react.mjs":
@@ -59,7 +63,7 @@ export const shasums = {
   "js/react-dom.mjs":
     "7ce791b27dba1a13b46f697db77a9beb423676ae5a69399621ca8758cd7fbdbd",
   "js/codeLoader.mjs":
-    "26cc427dc91b554c5a68c4b35409d97dea12bfbc3e2d73c41f26a9f88d778423",
+    "b39ece16826463204b9037d281a9bb7593fd29bcdb586071fa182b9db19c7605",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
