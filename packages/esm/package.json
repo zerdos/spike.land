@@ -14,20 +14,23 @@
   },
   "exports": {
     "./react.mjs": "./src/react.mjs",
-    "./react-dom.mjs": "./src/react-dom.mjs"
+    "./react-dom.mjs": "./src/react-dom.mjs",
+    "./react-is.mjd": "./dist/react-is.mjs"
   },
   "license": "BSD-3-Clause",
   "dependencies": {
     "@types/react": "17.0.11",
     "esbuild": "0.12.9",
-    "react": "17.0.2"
+    "react": "18.0.0-alpha-e6be2d531",
+    "react-is": "18.0.0-alpha-e6be2d531"
   },
   "publishConfig": {
     "access": "public"
   },
   "sideEffects": false,
   "scripts": {
-    "react": "deno bundle https://esm.sh/react > dist/react.mjs"
+    "react": "deno bundle https://esm.sh/react > dist/react.mjs",
+    "build:react-is": "yarn esbuild --bundle src/react-is.mjs --format=esm --outfile=dist/react-is.mjs"
   },
   "private": false,
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
