@@ -7,13 +7,13 @@ import { formatter } from "./formatter.mjs";
 import React from "react";
 import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 
-// const { importMap } = globalThis;
-// console.log(importMap);
+const { importMap } = globalThis;
+console.log(importMap);
 
-// Object.keys(importMap)
-//     .map(x => { 
-//       return fetch(`https://unpkg.com/${x}`)
-//               .then(y => console.log(y.url.slice(18 + x.length, 18 + x.length + 23))); });
+Object.keys(importMap)
+    .map(x => { 
+      return fetch(`https://unpkg.com/${x}`)
+              .then(y => console.log(y.url.slice(18 + x.length, 18 + x.length + 23))); });
 
 
 

@@ -12,6 +12,9 @@
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo"
   },
+  "exports": {
+    "./src/react.mjs": "./src/react.mjs"
+  },
   "homepage": "https://spike.land",
   "license": "BSD-3-Clause",
   "dependencies": {
@@ -26,5 +29,6 @@
   "scripts": {
     "react": "deno bundle https://esm.sh/react > dist/react.mjs"
   },
+  "private": false,
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
 }

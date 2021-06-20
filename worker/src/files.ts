@@ -18,7 +18,7 @@ export const files = {
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmaehHta9Sj1fuGs59HMQoCXXm76CHoN4wA42ZUjqN4mcf",
-  "js/codeLoader.mjs": "QmRH4x5B5Lhv8sX66aNcEvSUfJdEBLimWSEWTB7dKXQLrb",
+  "js/codeLoader.mjs": "QmWcz4AfQ3rAE6GvgCpXkMvR2SVi2KZfrksJnkSXHkKsqk",
   "js/data.mjs": "QmauBwo3U9Qiz7FbfdAyoXZwRe26yDvYbZE54pYrd2mhYF",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
   "js/examples/rca.tsx": "QmXupSRdyqtxQaCJwfV5jYWnDX3Db55D78vKspsPVuHryF",
@@ -80,7 +80,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmQjDELUMG2J3V5DnyKqTd6yV4G2vDhu7mxhgsB4nuoS7W",
+  "package.json": "QmSLfXaNU2vGoEF9kEwnXhz8GRqiQTS2LJNdfpd7xyyUVL",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
@@ -90,7 +90,7 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbYfmxExsYVJDSDMSZg9sTM7kiDiUtxy4AUciQhYxWH4a",
   "js/workers": "QmQmqp9zorgBCMaih335qkAdqzsMxdBHzf2yDYj1pFcvXq",
-  "js": "QmfZcCt9KThTEm1tYwgh1yC1rKSNzPVSh9rYWRoDuCcXLj",
+  "js": "QmTa5ZZPFd8h4g1o25ceUhKu3tFCPtfz7aHTd4PB24zhJ4",
   "modules/smart-monaco-editor/dist":
     "QmTKojbJsHPtAGaQ1AWEu78NnHeRV91oS2bdNFwBT8qTZ8",
   "modules/smart-monaco-editor":
@@ -98,6 +98,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmUCFzZAY8a72mn8uaCHdbqKcVEkW4DP8nswdMToEFYUpc",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmSz9JNKVQxKsC4QnJ5HKEJhDR8xEDo3u9dcDWbDTPKvaZ",
+  "": "QmYpzCLZnfdCUqmYnPSBM7vMBB4wHRth9V11YdcfybKSSU",
   "foo": "bar",
 };
