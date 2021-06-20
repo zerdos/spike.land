@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/esm",
-  "version": "14.1.7",
+  "version": "14.1.8",
   "description": "esm modules for packages with maintainers from the 2015",
   "main": "dist/react.mjs",
   "files": [
