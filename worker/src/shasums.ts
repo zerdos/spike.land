@@ -63,7 +63,7 @@ export const shasums = {
   "js/react-dom.mjs":
     "7ce791b27dba1a13b46f697db77a9beb423676ae5a69399621ca8758cd7fbdbd",
   "js/codeLoader.mjs":
-    "51c0aaf4807164b288298b927093ef7b78592601f4d8f88f4721ae06f1eac07b",
+    "052d6ff4abf5645519eec24773a25810b220fef1cbdd02f5cca3b19f751a3ae9",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
