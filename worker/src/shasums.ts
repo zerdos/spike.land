@@ -28,7 +28,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "87d590b46abc94af90899a23f6653efe5b8c89ab87f38968b8c9f687c3ec6c88",
+    "c3f1b38dc4d6df257f41ddc9b38a8c76601f6c7dc47c6d73727e77ea013d0333",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
