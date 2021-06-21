@@ -35,7 +35,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "f72fe727478e9b9d09c1acc0a90884099264ecab6e2ac979eecf91c2a529aa15",
+    "3826bd33302125c2ac641491511cb5f9169e2629677fad1fc2e2fa100384b392",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -79,7 +79,7 @@ export const shasums = {
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "e3d9e9a106952d36a16352c867a09cc460a39b4ecddb2700be91e034827a4853",
+    "dfb1965514e09d1341ac5d45fad008a8d0dcce3011b76057f9b4f744caae64ca",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
