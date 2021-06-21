@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/code",
-  "version": "14.2.2",
+  "version": "14.3.0",
   "description": "spike.land",
   "main": "js/codeLoader.mjs",
   "files": [
