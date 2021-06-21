@@ -35,7 +35,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "f126733964d1962126b4783a31ea8a4834625330987a5db90f413741dc795ea9",
+    "2c12cfa420f7f60866d1611502ac32b77cbcb01f9cff14f81b222e400bbb8147",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -57,7 +57,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "d1f9aa062707b5469eb6eaddd3dd8c4624f36e828e4991e5133712509f1d5ca4",
+    "800888a3ebe1ef7db85634b1d1f615765d3fbaa6c488e617ed5fd048840b0153",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
