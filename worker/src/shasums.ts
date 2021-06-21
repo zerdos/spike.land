@@ -35,7 +35,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "3826bd33302125c2ac641491511cb5f9169e2629677fad1fc2e2fa100384b392",
+    "f126733964d1962126b4783a31ea8a4834625330987a5db90f413741dc795ea9",
   "js/workers/transpile.worker.js":
     "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
   "js/workers/getWorker.mjs":
@@ -57,13 +57,13 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "0ccb781989589bbfe10079c0d4119222711e4e2284efe60050c1f6041e0fd1bc",
+    "032bede4bb44c8756f94d8bbfb6fa7e039ef5c1b593229b72368f61a5aa997a3",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
     "7ce791b27dba1a13b46f697db77a9beb423676ae5a69399621ca8758cd7fbdbd",
   "js/codeLoader.mjs":
-    "3c2fe3504d37b5e7c2f1e936bccb2779acc8db6a27a349a2d9a96541e1264cc6",
+    "51c0aaf4807164b288298b927093ef7b78592601f4d8f88f4721ae06f1eac07b",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
@@ -122,7 +122,7 @@ export const shasums = {
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "modules/smart-monaco-editor/dist/editor.js":
-    "8d70e4cfcacbc3f2603a7d102ed9e2226a2dce8bd8856a6146e0716f39f87d98",
+    "2d359a6837d41986f1cb0a38d4f3e2c980ee3261e226c99dfe058a9caae5734f",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
   "modules/smart-monaco-editor/dist/monaco.d.ts":

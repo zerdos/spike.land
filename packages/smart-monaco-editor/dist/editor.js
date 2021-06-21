@@ -179,7 +179,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "popmotion",
-                url: "https://unpkg.com/popmotion@9.3.6/lib/index.d.ts",
+                url: "https://unpkg.com/popmotion@9.4.0/lib/index.d.ts",
             },
         ];
         const dts = importHelper.map(({ name, url }) => (async () => modules.monaco.languages.typescript.typescriptDefaults.addExtraLib(await (await fetch(url)).text(), name.includes("@")
