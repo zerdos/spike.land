@@ -22,22 +22,27 @@ export const workboxLoader = async () => {
           )
         )
       );
+      
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+         registration.unregister()
+       } })
 
-    try {
-      const { Workbox } = await import(
-        "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-window.prod.mjs"
-      );
-      const wb = new Workbox(`./generated-sw.js`);
+    // try {
+    //   const { Workbox } = await import(
+    //     "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-window.prod.mjs"
+    //   );
+    //   const wb = new Workbox(`./generated-sw.js`);
 
-      wb.addEventListener("activated", (event) => {
-        if (!event.isUpdate && !window.monaco) {
-          console.log("Service worker activated for the first time!");
-        }
-      });
+    //   wb.addEventListener("activated", (event) => {
+    //     if (!event.isUpdate && !window.monaco) {
+    //       console.log("Service worker activated for the first time!");
+    //     }
+    //   });
 
-      return wb.register();
-    } catch (e) {
-      console.error(e);
-    }
+    //   return wb.register();
+    // } catch (e) {
+    //   console.error(e);
+    // }
   }
 };
