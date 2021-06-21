@@ -16,6 +16,7 @@ const imports = {
     "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
     "@material-ui/core": "https://unpkg.com/@material-ui/core@5.0.0-alpha.37/modern/index.js",
     "@material-ui/core/": "https://unpkg.com/@material-ui/core@5.0.0-alpha.37/modern/",
+    "@material-ui/core/utils/": "https://unpkg.com/@material-ui/core@5.0.0-alpha.37/modern/utils/",
     "@material-ui/private-theming": "https://unpkg.com/@material-ui/private-theming@5.0.0-alpha.35/modern/index.js",
     "@material-ui/private-theming/": "https://unpkg.com/@material-ui/private-theming@5.0.0-alpha.35/modern/",
     "@material-ui/styled-engine": "https://unpkg.com/@material-ui/styled-engine@5.0.0-alpha.34/modern/index.js",
