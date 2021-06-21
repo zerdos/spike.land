@@ -1,4 +1,4 @@
-import React from "react"
+const React = window.React;
 
 export const {createContext} = React;
 export const {useState} = React;
