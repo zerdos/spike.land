@@ -25,7 +25,7 @@ export const workboxLoader = async () => {
 
     try {
       const { Workbox } = await import(
-        "https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-window.prod.mjs"
+        "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-window.prod.mjs"
       );
       const wb = new Workbox(`./generated-sw.js`);
 

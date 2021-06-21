@@ -51,7 +51,7 @@ export const shasums = {
   "js/test.mjs":
     "53166ce28382f6d99fffd83c991f2f55312214a092715bab3b43f9feeaf0899b",
   "js/workboxLoader.mjs":
-    "3d2c125a2325cceb7bcfa9ccfc7d3f4bbcbb7a2d463f2721c153f7cb69f8c20e",
+    "67d767314073398edc274b33bb2709fff42248c766897a55dc5eda811e7ef2e9",
   "js/react.mjs":
     "d4f09e67c5772a24cb347cb80ac8da2f022b666434a00cf9af2751687ef63a19",
   "js/tslib.mjs":
