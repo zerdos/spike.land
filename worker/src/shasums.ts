@@ -37,7 +37,7 @@ export const shasums = {
   ".tsBuildInfo":
     "1b204439b982ec21a987174aab95d9f8cfd13489485e8d34be5f416ecbe364c1",
   "js/workers/transpile.worker.js":
-    "559515532d607df098ca4904a61331765aff7a538fd9c11a3b40815d1662d88a",
+    "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/prettierWorker.js":
