@@ -2,7 +2,7 @@
 //@ts-ignore
 
 import { files } from "./files.ts";
-import { handleCloudRequest } from "./handler.ts";
+import { handleCloudRequest } from "./handler";
 import Hash from "ipfs-only-hash";
 
 //@ts-ignore
