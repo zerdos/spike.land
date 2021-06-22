@@ -8861,6 +8861,15 @@ ipfs-message-port-protocol@^0.7.3:
     ipfs-core-types "^0.5.2"
     ipld-block "^0.11.0"
 
+ipfs-message-port-server@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.7.3.tgz#943de338a6b5ba887e0477fdace60526731e8eb1"
+  integrity sha512-ucZ5beadsrm8EhR1sSa+sly1XphEm8BJPqbsB4sVdhOFAAJDHqxTlPhkG340bki7izfKC1646HaUb3d3hYqrMg==
+  dependencies:
+    ipfs-core-types "^0.5.2"
+    ipfs-message-port-protocol "^0.7.3"
+    it-all "^1.0.4"
+
 ipfs-only-hash@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ipfs-only-hash/-/ipfs-only-hash-4.0.0.tgz#b3bd60a244d9eb7394961aa9d812a2e5ac7c04d6"
@@ -9530,7 +9539,7 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-it-all@1.0.5, it-all@^1.0.2, it-all@^1.0.5:
+it-all@1.0.5, it-all@^1.0.2, it-all@^1.0.4, it-all@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/it-all/-/it-all-1.0.5.tgz#e880510d7e73ebb79063a76296a2eb3cb77bbbdb"
   integrity sha512-ygD4kA4vp8fi+Y+NBgEKt6W06xSbv6Ub/0V8d1r3uCyJ9Izwa1UspkIOlqY9fOee0Z1w3WRo1+VWyAU4DgtufA==
