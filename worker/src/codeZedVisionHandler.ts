@@ -16,14 +16,14 @@ import { cid } from "./cid.ts";
 
 import { alterHeaders, sha256, sha256UArray } from "./alterHeaders.ts";
 
-type KV = { [key: string]: string };
+export type KV = { [key: string]: string };
 
 const reverseMap: KV = {};
 const reverseSHAKV: KV = {};
 const filteredFiles: KV = {};
 
-const shasumsKV: KV = shasums;
-const fileKV: KV = files;
+export const shasumsKV: KV = shasums;
+export const fileKV: KV = files;
 
 Object.keys(fileKV).forEach((k) => {
   if (shasumsKV[k]) {
@@ -166,39 +166,8 @@ async function handleRequest(request: Request) {
     );
   }
   if (pathname === "/check") {
-    const missing: String[] = [];
-    const wrongSha: KV[] = [];
-
-    const deploySHA = await sha256(JSON.stringify(filteredFiles));
-
-    const res = await SHAKV.get(deploySHA);
-
-    if (res) {
-      const resJson = JSON.parse(res);
-      if (resJson.missing.length === 0) {
-        return (text(JSON.stringify({ ...resJson, cached: true })));
-      }
-    }
-
-    await Promise.all(
-      Object.keys(filteredFiles).map(async (file) => {
-        const kvRes = await IPFS.get(fileKV[file], "arrayBuffer");
-        if (kvRes === null) {
-          missing.push(fileKV[file]);
-        } else {
-          const sha = await sha256(kvRes);
-          if (shasumsKV[file] !== sha) {
-            wrongSha.push({ [file]: await sha256(kvRes) });
-          }
-        }
-      }),
-    );
-
-    const result = JSON.stringify({ missing, wrongSha });
-
-    await SHAKV.put(deploySHA, result);
-
-    return text(result);
+    const { check } = await import("./spike.land/check");
+    return await check(filteredFiles);
   }
 
   if (pathname.startsWith("/add/")) {
@@ -303,7 +272,7 @@ function json(obj: Object) {
   });
 }
 
-function text(resp: string) {
+export function text(resp: string) {
   return new Response(resp, {
     headers: {
       "Cache-Control": "no-cache",
