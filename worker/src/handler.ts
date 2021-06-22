@@ -1,5 +1,5 @@
 import { getDbObj } from "@zedvision/shadb";
-import { js, json, text } from "./utils/handleOptions.ts";
+import { js, json, text } from "./utils/handleOptions";
 import { v4 } from "uuid";
 import { sha256 } from "@zedvision/shadb";
 
