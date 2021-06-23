@@ -12,7 +12,10 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types"]
+    "types": ["@cloudflare/workers-types"],
+    "paths": {
+      "@responds": ["./src/utils/responds.ts"]
+    }
   },
 
   "include": [

@@ -1,5 +1,6 @@
 import type { KV } from "../codeZedVisionHandler";
-import { fileKV, shasumsKV, text } from "../codeZedVisionHandler";
+import { fileKV, shasumsKV } from "../codeZedVisionHandler";
+import { text } from "@responds";
 import { sha256 } from "../alterHeaders";
 
 export async function check(filteredFiles: KV) {

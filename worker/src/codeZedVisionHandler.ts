@@ -4,6 +4,7 @@
 import { files } from "./files.ts";
 import { handleCloudRequest } from "./handler";
 import Hash from "ipfs-only-hash";
+import { js, json, text } from "@responds";
 
 //@ts-ignore
 
@@ -157,6 +158,7 @@ async function handleRequest(request: Request) {
       getGlobalThis(),
     );
   }
+  fileKV;
   if (pathname === "/generated-sw.js") {
     return js(
       `self.importScripts("./sw.js");
@@ -168,6 +170,10 @@ async function handleRequest(request: Request) {
   if (pathname === "/check") {
     const { check } = await import("./spike.land/check");
     return await check(filteredFiles);
+  }
+  if (pathname === "/logs") {
+    const { logs } = await import("./spike.land/logs");
+    return await logs();
   }
 
   if (pathname.startsWith("/add/")) {
@@ -246,42 +252,6 @@ async function handleRequest(request: Request) {
     return resp;
   }
   return handleCloudRequest(request);
-}
-
-function js(resp: string) {
-  return new Response(resp, {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Cache-Control": "no-cache",
-      "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-      "Access-Control-Max-Age": "86400",
-      "Content-Type": "application/javascript;charset=UTF-8",
-    },
-  });
-}
-
-function json(obj: Object) {
-  return new Response(JSON.stringify(obj), {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Cache-Control": "no-cache",
-      "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-      "Access-Control-Max-Age": "86400",
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-  });
-}
-
-export function text(resp: string) {
-  return new Response(resp, {
-    headers: {
-      "Cache-Control": "no-cache",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
-      "Access-Control-Max-Age": "86400",
-      "Content-Type": "text/html;charset=UTF-8",
-    },
-  });
 }
 
 async function fetchCid(path: string, retry = 3): Promise<Response> {
