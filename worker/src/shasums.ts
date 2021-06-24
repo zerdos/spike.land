@@ -57,7 +57,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "800888a3ebe1ef7db85634b1d1f615765d3fbaa6c488e617ed5fd048840b0153",
+    "ab36f6cd668c665cda1386e7c7b2d10ca097d4464ca3a8c280f9a9711fb18774",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
