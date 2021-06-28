@@ -15,6 +15,55 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
+  "cypress/fixtures/example.json":
+    "QmeYGefkBruk6NkCqw5SzFC1TDix5ZvtLWVy6V2VvwWXEw",
+  "cypress/integration/0-ode/todo.spec.js":
+    "QmTv79WFXt9kk2bXQLaetiQ1bzJL5Epi91hooLb6u6YHKW",
+  "cypress/integration/1-getting-started/todo.spec.js":
+    "QmRc2ZyKkvj3WbPE6sNJcJPpPmDVcdxpydChqX3SQ1H6or",
+  "cypress/integration/2-advanced-examples/actions.spec.js":
+    "QmPnSt7NEjni4nGt2enPZyQsPNVzq3omigJ6b9316K7eUW",
+  "cypress/integration/2-advanced-examples/aliasing.spec.js":
+    "QmVYUsVWAh7bipPDAsaxNKtZk2AcQ2Fgiku4Mmv1cXxs9V",
+  "cypress/integration/2-advanced-examples/assertions.spec.js":
+    "QmQXJugF38SMWLMqdahHmJh3RmMjkuEZTQ6MUHGuzrxfWV",
+  "cypress/integration/2-advanced-examples/connectors.spec.js":
+    "QmVUnyTpHaDcnr6Ek7Vsr8Kh7RFpP7ioKFEgZ8j4fhmQDk",
+  "cypress/integration/2-advanced-examples/cookies.spec.js":
+    "QmQyuDBKizSEFNwr2zF46oBPwWq1SGzLnf7GdZY8SP6K1W",
+  "cypress/integration/2-advanced-examples/cypress_api.spec.js":
+    "QmQSWGZNYghhF98Vg3jAFRfuZdNvFUESuWcmmNNTC8eJVT",
+  "cypress/integration/2-advanced-examples/files.spec.js":
+    "QmVtYLAUuoThio8Ung5Y3CGwZ8Cuv2j7VgwPHpTaUFMxKK",
+  "cypress/integration/2-advanced-examples/local_storage.spec.js":
+    "QmQTFD8Wti2BDkBQuHvFhvJLpxBCE7k9KUN7eUQzZuhL1V",
+  "cypress/integration/2-advanced-examples/location.spec.js":
+    "QmfVFtqgpTquYRcanwB9T67JUrQ41tyhUgsTkDFqyHAvtN",
+  "cypress/integration/2-advanced-examples/misc.spec.js":
+    "QmXZDEgUXwRJF1R583fK668mxcYrEjvriTMJonLDMWMQjT",
+  "cypress/integration/2-advanced-examples/navigation.spec.js":
+    "Qmds8hAWFYuUFQeit9P4VzEQQ7uzHonJD7ckFYMeiK8ium",
+  "cypress/integration/2-advanced-examples/network_requests.spec.js":
+    "QmYGMjgDEKz3Q9FB1rszjknD2afJxiaicbxWCu7kUWPGbD",
+  "cypress/integration/2-advanced-examples/querying.spec.js":
+    "Qmf8dbXgJEvAQDj5ntpn8BAc7kbJqhFiyBXhXGocN4s5u7",
+  "cypress/integration/2-advanced-examples/spies_stubs_clocks.spec.js":
+    "QmSK9YMFfRbSNeV8vd5qi9CGDf4e2gv6Nfcz7f17HFQgaf",
+  "cypress/integration/2-advanced-examples/traversal.spec.js":
+    "Qmb3E2TjYEqRtXGKwbFkE1q1UoFbx1U9odsLJ8znzafLrZ",
+  "cypress/integration/2-advanced-examples/utilities.spec.js":
+    "QmZ8xuhrKPbi5rudTR85ckxyUyAiCsZtKdT7qDnaaCN2Ng",
+  "cypress/integration/2-advanced-examples/viewport.spec.js":
+    "QmeeWKrbPWEMtm6EveFYzZG6A6khTVSBHFTJSo2sti9Dvd",
+  "cypress/integration/2-advanced-examples/waiting.spec.js":
+    "Qmf54vF7VurgxKoK3iCAMPGa7CarpNkDWWCcPHe3A9tKEx",
+  "cypress/integration/2-advanced-examples/window.spec.js":
+    "QmQbZtZ7vzF3SmtKm1tHsL9qEG1LJKbg3x1AJdBDbhG6GM",
+  "cypress/plugins/index.js": "QmechN9rPhXjLuzTNgDdbHZgCG5TvtomW7xjhPBwMMoofi",
+  "cypress/support/commands.js":
+    "QmXiYqwd5o7sFmpuuoBZEpoULfqN1SCymAUEWaEGbE53mf",
+  "cypress/support/index.js": "QmdNw2gdZUCs8cPd2rGoeN9VQyq9jYYZfyTn9g9Vw96VBn",
+  "cypress.json": "QmTc6VBtmFFX374ueMecJDsUkcwjmcE5aR5pxiLgejcdMz",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmQe4yhYBDX71pMqEbBQBVFYyrTdsy6mDZbz1h1tbHMqkr",
@@ -46,7 +95,7 @@ export const files = {
   "js/workers/getWorker.mjs": "QmSkBAGo1hbEPYDnHEpBvGihaVij432VMrmRWm1ZoDL3cP",
   "js/workers/ipfsWorker.js": "QmR5rAVpLoWk8gx2BEZVNCDgnF7ZUoLqrkSRZmHGHf7qaZ",
   "js/workers/prettierWorker.js":
-    "QmPfmdpD9jC3UpmNXio5LrCYbciCrZ7xV3Vu8TXdpi6Pqm",
+    "QmbTMr4XTaZ85PnCvdHcodKGAyzzv1k9qAUrK7Nvd4cXGT",
   "js/workers/transpile.worker.js":
     "QmeVW6hJFr5iEpPbLCFHqeL7UCJhiogXeUwCjdz4rBsAAj",
   "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
@@ -80,17 +129,27 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "Qma5ZqCwfUurAeWXZ9stfSYB9TwvbBBLdhy6k455ebcoKM",
+  "package.json": "Qmcv6q3yqmXYvHp736pDcGbAKVVQ1dKqy32BVYWbQpXnTs",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
   "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
   "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "assets": "QmSGjCwrCQEqv8xAJsTpzmWVAZePA4qB737Er8Uu7rRUva",
+  "cypress/fixtures": "QmYugQStvZqQcpWdB1BcaovnNSvoChbthdHxc6RtHn2fU8",
+  "cypress/integration/0-ode": "QmWAvEg5Taw1jToX6Ci49Nj5kT2RPeb4sKn8bsg1ipsjLJ",
+  "cypress/integration/1-getting-started":
+    "QmVSKnQcFaz8sDnnozkn9rX1BYMJz7TLgrMGGuzvcpa81i",
+  "cypress/integration/2-advanced-examples":
+    "QmXiqoKW9swLHTYU27jymWLGCUWcuBzioLY4ssviWoiBjX",
+  "cypress/integration": "QmP6UNe851TE1iPkqUpsF5ftrVfrE6pRD2iSj37vUjrUxn",
+  "cypress/plugins": "Qmc5F5E5n31NtACMQRDYxBfazbDUo2nN6QeYGKkAYR6Q5N",
+  "cypress/support": "QmeF1A67aEbbggQyL9rrFAziiPWrxNEsHovuLSPPPqe5C5",
+  "cypress": "QmXLy3jFFu2uHgvtjwGNzov1oA7Zysv7M8RkuoNsig1R3E",
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmbYfmxExsYVJDSDMSZg9sTM7kiDiUtxy4AUciQhYxWH4a",
-  "js/workers": "QmcE6S8qVTqnJMU4Gmz1NPqB7x5pKdrek2Pt4Ue9BeN6BH",
-  "js": "QmdswfxF5EpSMFTQsMoyHFb4EYZWigRN1EFGeWV4ntNr6E",
+  "js/workers": "QmeDt5qKtSbbvdmz6Wshjv2oFcyeNinc1NSZVhY3YDg7Si",
+  "js": "QmVtqXGrYdv1LBksVz5pNPf5zf6JCyn6eA797EYaRANtqe",
   "modules/smart-monaco-editor/dist":
     "QmRFvuYthtwd6cauWuyUErX3PZ9q7HRjQ8xd47mWf2CBTU",
   "modules/smart-monaco-editor":
@@ -98,6 +157,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmcshVqN6BryeBmsKiMR1FEZNCgJUm94B5LKRauQUDUuCw",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmfYqXYnHymwv6AbCxJDcGst9bT4PgY4RpkN9xqHfMdMzW",
+  "": "Qma47zrFGXRZqvnusYk44SLiTQ5zV3YDJvnA3BTTEtN74T",
   "foo": "bar",
 };
