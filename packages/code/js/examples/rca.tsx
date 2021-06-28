@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/react';
+import { css, jsx } from "@emotion/react";
 
 import { motion } from "framer-motion";
 

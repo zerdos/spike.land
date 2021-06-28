@@ -11,7 +11,7 @@ const latestTagname = `devimages/${p.tagname}:latest`;
     "-t",
     tagname,
     "-t",
-    latestTagname
+    latestTagname,
   ]);
 
   dockerBuild && dockerBuild.stdout &&

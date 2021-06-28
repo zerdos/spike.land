@@ -4,20 +4,39 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
-};
+var __markAsModule = (target) =>
+  __defProp(target, "__esModule", { value: true });
+var __commonJS = (cb, mod) =>
+  function __require() {
+    return mod ||
+      (0, cb[Object.keys(cb)[0]])((mod = { exports: {} }).exports, mod),
+      mod.exports;
+  };
 var __reExport = (target, module, desc) => {
   if (module && typeof module === "object" || typeof module === "function") {
-    for (let key of __getOwnPropNames(module))
-      if (!__hasOwnProp.call(target, key) && key !== "default")
-        __defProp(target, key, { get: () => module[key], enumerable: !(desc = __getOwnPropDesc(module, key)) || desc.enumerable });
+    for (let key of __getOwnPropNames(module)) {
+      if (!__hasOwnProp.call(target, key) && key !== "default") {
+        __defProp(target, key, {
+          get: () => module[key],
+          enumerable: !(desc = __getOwnPropDesc(module, key)) ||
+            desc.enumerable,
+        });
+      }
+    }
   }
   return target;
 };
 var __toModule = (module) => {
-  return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
+  return __reExport(
+    __markAsModule(__defProp(
+      module != null ? __create(__getProtoOf(module)) : {},
+      "default",
+      module && module.__esModule && "default" in module
+        ? { get: () => module.default, enumerable: true }
+        : { value: module, enumerable: true },
+    )),
+    module,
+  );
 };
 
 // node_modules/react-is/cjs/react-is.development.js
@@ -25,7 +44,7 @@ var require_react_is_development = __commonJS({
   "node_modules/react-is/cjs/react-is.development.js"(exports) {
     "use strict";
     if (true) {
-      (function() {
+      (function () {
         "use strict";
         var REACT_ELEMENT_TYPE = 60103;
         var REACT_PORTAL_TYPE = 60106;
@@ -76,11 +95,26 @@ var require_react_is_development = __commonJS({
           if (typeof type === "string" || typeof type === "function") {
             return true;
           }
-          if (type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE || type === REACT_DEBUG_TRACING_MODE_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || type === REACT_LEGACY_HIDDEN_TYPE || type === REACT_OFFSCREEN_TYPE || enableScopeAPI || enableCache) {
+          if (
+            type === REACT_FRAGMENT_TYPE || type === REACT_PROFILER_TYPE ||
+            type === REACT_DEBUG_TRACING_MODE_TYPE ||
+            type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE ||
+            type === REACT_SUSPENSE_LIST_TYPE ||
+            type === REACT_LEGACY_HIDDEN_TYPE ||
+            type === REACT_OFFSCREEN_TYPE || enableScopeAPI || enableCache
+          ) {
             return true;
           }
           if (typeof type === "object" && type !== null) {
-            if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0) {
+            if (
+              type.$$typeof === REACT_LAZY_TYPE ||
+              type.$$typeof === REACT_MEMO_TYPE ||
+              type.$$typeof === REACT_PROVIDER_TYPE ||
+              type.$$typeof === REACT_CONTEXT_TYPE ||
+              type.$$typeof === REACT_FORWARD_REF_TYPE ||
+              type.$$typeof === REACT_MODULE_REFERENCE ||
+              type.getModuleId !== void 0
+            ) {
               return true;
             }
           }
@@ -136,7 +170,9 @@ var require_react_is_development = __commonJS({
           {
             if (!hasWarnedAboutDeprecatedIsAsyncMode) {
               hasWarnedAboutDeprecatedIsAsyncMode = true;
-              console["warn"]("The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 18+.");
+              console["warn"](
+                "The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 18+.",
+              );
             }
           }
           return false;
@@ -145,7 +181,9 @@ var require_react_is_development = __commonJS({
           {
             if (!hasWarnedAboutDeprecatedIsConcurrentMode) {
               hasWarnedAboutDeprecatedIsConcurrentMode = true;
-              console["warn"]("The ReactIs.isConcurrentMode() alias has been deprecated, and will be removed in React 18+.");
+              console["warn"](
+                "The ReactIs.isConcurrentMode() alias has been deprecated, and will be removed in React 18+.",
+              );
             }
           }
           return false;
@@ -157,7 +195,8 @@ var require_react_is_development = __commonJS({
           return typeOf2(object) === REACT_PROVIDER_TYPE;
         }
         function isElement2(object) {
-          return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+          return typeof object === "object" && object !== null &&
+            object.$$typeof === REACT_ELEMENT_TYPE;
         }
         function isForwardRef2(object) {
           return typeOf2(object) === REACT_FORWARD_REF_TYPE;
@@ -216,7 +255,7 @@ var require_react_is_development = __commonJS({
         exports.typeOf = typeOf2;
       })();
     }
-  }
+  },
 });
 
 // node_modules/react-is/index.js
@@ -228,7 +267,7 @@ var require_react_is = __commonJS({
     } else {
       module.exports = require_react_is_development();
     }
-  }
+  },
 });
 
 // src/react-is.mjs
@@ -263,7 +302,7 @@ var {
   isSuspense,
   isSuspenseList,
   isValidElementType,
-  typeOf
+  typeOf,
 } = reactIS;
 export {
   ContextConsumer,
@@ -271,14 +310,6 @@ export {
   Element,
   ForwardRef,
   Fragment,
-  Lazy,
-  Memo,
-  Portal,
-  Profiler,
-  StrictMode,
-  Suspense,
-  SuspenseList,
-  react_is_default as default,
   isAsyncMode,
   isConcurrentMode,
   isContextConsumer,
@@ -294,7 +325,15 @@ export {
   isSuspense,
   isSuspenseList,
   isValidElementType,
-  typeOf
+  Lazy,
+  Memo,
+  Portal,
+  Profiler,
+  react_is_default as default,
+  StrictMode,
+  Suspense,
+  SuspenseList,
+  typeOf,
 };
 /** @license React vundefined
  * react-is.development.js

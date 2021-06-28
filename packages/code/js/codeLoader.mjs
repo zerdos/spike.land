@@ -23,17 +23,14 @@ import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 //               } );
 //             })
 
-
-
-
 function getSession() {
   const session = {
     i: 0,
-    unmount: () => { },
+    unmount: () => {},
     errorText: "",
     lastErrors: 0,
     children: React.Fragment,
-    setChild: () => { },
+    setChild: () => {},
     div: document.createElement("div"),
     html: "",
     url: "",
@@ -244,7 +241,6 @@ export async function run(mode = "window", code = "") {
       ? transpiled.replace("body{", "#zbody{")
       : transpiled;
 
-
     const objUrl = createJsBlob(
       codeToHydrate,
     );
@@ -276,7 +272,7 @@ export async function run(mode = "window", code = "") {
       console.error({ error, message: "error in rendering" });
       return false;
     }
-    session.setChild(c => [...c, session.children]);
+    session.setChild((c) => [...c, session.children]);
     // session.unmount = render(Element(), root);
     const zbody = window.document.getElementById("zbody");
     // zbody && zbody.children[0].replaceWith(root);

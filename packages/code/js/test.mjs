@@ -1,3 +1,2 @@
-const {importMap} = globalThis;
+const { importMap } = globalThis;
 console.log(importMap);
-

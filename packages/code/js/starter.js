@@ -1,13 +1,12 @@
 try {
-    start();
-  } catch (error) {
-    console.error({ error });
-    fetch("https://spike.land/error", {
-      method: "POST",
-      body: JSON.stringify({ error }),
-    });
-  }
-  
+  start();
+} catch (error) {
+  console.error({ error });
+  fetch("https://spike.land/error", {
+    method: "POST",
+    body: JSON.stringify({ error }),
+  });
+}
 
 async function start() {
   try {

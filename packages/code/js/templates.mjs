@@ -46,7 +46,7 @@ export function getHtml({ html, css }) {
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script async src="https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js"></script>
 <script type="importmap">
-${ JSON.stringify({ imports })}
+${JSON.stringify({ imports })}
 </script>
 <script type="module">
   import App from './app.js';        
@@ -77,7 +77,7 @@ export const getEditorHTML = () =>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script async src="https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js"></script>
 <script type="importmap">
-${ JSON.stringify({ imports })}
+${JSON.stringify({ imports })}
 </script>
 <script type="module">
 import {edit} from "https://spike.land/js/data.mjs"

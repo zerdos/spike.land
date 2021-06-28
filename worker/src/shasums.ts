@@ -31,13 +31,13 @@ export const shasums = {
     "c3f1b38dc4d6df257f41ddc9b38a8c76601f6c7dc47c6d73727e77ea013d0333",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "cypress.json":
-    "0db3d3cd80d0ba03389b0e13b5711ca67ab32359355918cbba54915ce5d6adda",
+    "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "5e18ec199182cd707a60cb3012018ac9b626caade2402d473f54c488e3478421",
+    "df45777d074f61cc150508199e3222c8aa336df686beee07a6942c36c9c7f410",
   "js/workers/transpile.worker.js":
     "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":
@@ -47,25 +47,25 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "2fccb89414cd92cbb7e7a7dfd175e133a2b5bd7082377ed8adabbb82a59378ca",
   "js/renderPreviewWindow.mjs":
-    "28dc999d1799725458a286392d3ed3350ac460986e79cf3577e9fc4ab892ce1a",
+    "d3747173cec3ecd6dbaca2a1f8a34b878bd763d64ea4611bd905d5417afebbae",
   "js/transpile.mjs":
     "96a271fcadba5c34ea97f9345f7dbb47625a1196acfd8d6c9a5cedc573fe7545",
   "js/test.mjs":
-    "53166ce28382f6d99fffd83c991f2f55312214a092715bab3b43f9feeaf0899b",
+    "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/workboxLoader.mjs":
-    "e5f5fde774f464b2b2dd6efeafdcc11ab5e754158a5db53bc9f179967101d05a",
+    "edd27231450ced70a28d8689e81b1294fe1e3994fe52708ec9a6618c3b7ab880",
   "js/react.mjs":
-    "d4f09e67c5772a24cb347cb80ac8da2f022b666434a00cf9af2751687ef63a19",
+    "bcf4616ae7030da9c474bb8f9ea6dd451b9c85c50cc1c500604827b935c605f8",
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "ab36f6cd668c665cda1386e7c7b2d10ca097d4464ca3a8c280f9a9711fb18774",
+    "2624ed99a9d1c1ca331f2d623e6749ba777527b53e2d01289f57dddf89266aa0",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/react-dom.mjs":
-    "7ce791b27dba1a13b46f697db77a9beb423676ae5a69399621ca8758cd7fbdbd",
+    "acfb1d6648fc78616ffeac09ec429cfaab999ce79fdaedb9edddb4cb570646c8",
   "js/codeLoader.mjs":
-    "052d6ff4abf5645519eec24773a25810b220fef1cbdd02f5cca3b19f751a3ae9",
+    "4632fee0130b626726ff6f2cca3571283bd2e1b7f0191b68573f0f8dcd4b7a57",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
@@ -75,17 +75,17 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "8f3fd058f2d9479dd5ec3a760cb378ad225a935bf8f05a942ce989a2ef14e3ce",
   "js/examples/rca.tsx":
-    "0ceead4d6b9ece6acb1b13dcac97a6aefe9e865997b942bf4f37f4164f44d237",
+    "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "dfb1965514e09d1341ac5d45fad008a8d0dcce3011b76057f9b4f744caae64ca",
+    "e7ea260ed68bfaa8ad70c517975c522f5554d15fb3b14bf7603604a258755595",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
-    "90b6a94208944aaf31e6b7bec4bfc547f7a1552c449c5f134e6ec2ab79bf9b2c",
+    "ca234bd9c40572f00602dfef8ca12f3c1d2f696a8a6ba4f27c1fe39627cc04c0",
   "js/formatter.mjs":
     "64b37cbdb3893e159cde2d4549ca18933d91e1d0fa0f811d0dcb7a5cff1335dc",
   "js/importScript.d.ts":
@@ -144,52 +144,52 @@ export const shasums = {
   "cypress/fixtures/example.json":
     "1800ff4b34f25a4a02d9e697a1724e84b2483faa85b7cf7812036916d6f6982b",
   "cypress/integration/1-getting-started/todo.spec.js":
-    "b64d0a716f2a3e6b730a7a89f845319d9427a0c1bcd54630525bc94ea056de46",
+    "42985b42857a45ef205743552ac1d89b159b188555cc89b177d753e80abc4cfc",
   "cypress/integration/2-advanced-examples/location.spec.js":
-    "9aa4f067903033d21a762549dfe9e688d7ff23ee12fac78eb33f80a314abdecd",
+    "1132e529bb6a69a33a2a693d9b1ea2f28da9a28edb6a31b348d5dff9582f2b59",
   "cypress/integration/2-advanced-examples/files.spec.js":
-    "9b85fdcc9fb2909026f791097a78223b7553509e17e9d4a58208f75545928f46",
+    "1dc1f22a76b10fe5d0a3d1c3d94b8dc10727b91b762a83ddfe10199eff24a86a",
   "cypress/integration/2-advanced-examples/connectors.spec.js":
-    "de7cb2721ec5b6efa1b3124bab6a223f7e760cc215f89c1a9f866383a96d82fd",
+    "1273d62668eed109488655bec6d913d96ba8352e86442ffae99f8dfb2b5a11dc",
   "cypress/integration/2-advanced-examples/misc.spec.js":
-    "543bbdefca7ec6ad650962d721e32114c0ff69a4760d7c3cf17df9dac331992f",
+    "474362745f026968fec51598d932f5cb3b51e15d693bc8d1ca2cd5e101814452",
   "cypress/integration/2-advanced-examples/local_storage.spec.js":
-    "6dc681aef1160b201350cabf399e339d2d6ae1c4f8931df09afe4ada0fe2b09c",
+    "9281c9769757a8625f421c236e33deec93d69712a66ddf34d9b060980d6fccc9",
   "cypress/integration/2-advanced-examples/utilities.spec.js":
-    "4f59d73e6d1697f0400cd403ec78bf43f4a2bb96e9233d34c701dcfde045fad8",
+    "1a879050013ea46efd970de7ecb5eaf911ff469b3cc87af33c4c68fb8469a0db",
   "cypress/integration/2-advanced-examples/cookies.spec.js":
-    "c5780ff966473db5707f25f0c282a00812cbd0907595a4262ec0c3d337248124",
+    "2c03defa4b8d1c93b5e02763f4bae6b58e4aebcdc3f3c65bacebbd969175c256",
   "cypress/integration/2-advanced-examples/navigation.spec.js":
-    "30e53792ef7ae2a7b35f4ce84877a1afde9a7016485e34b60563672e5e1268cb",
+    "7860b6565878e82420ff73090f3a30e96bd8d11ea22d7324904311b6138e2b7c",
   "cypress/integration/2-advanced-examples/traversal.spec.js":
-    "b27c23d662045e290f452b4c50a73a6cbf194e7d35cdb791092f8a0c3684393c",
+    "ef3d9baca2950ecec3108520d867e91b23af5bc66275e29d0ad81a6a70d1e739",
   "cypress/integration/2-advanced-examples/viewport.spec.js":
-    "c82f963381939ffdd10fc94e10e868b840fe72029eaa70325bab9e21d61b461d",
+    "3a9014b130688418ca0a2b89f5bf35a4cc25b1cda8d1be07018eab80308c6fe9",
   "cypress/integration/2-advanced-examples/aliasing.spec.js":
-    "6971793433d5c471c2e89e853fa815a928a63a98eb7617b37d3d834e5d84a189",
+    "e0c77fe09f12c68589ee459492b9218a17ea3577462b2c1e223ebe1c44b18c32",
   "cypress/integration/2-advanced-examples/network_requests.spec.js":
-    "21697749155e4cf7cf60ba7798c7d500147686e63fc0a6fc02c21dfd24b58780",
+    "003af79c94b85705ec6fc4d2e546de8bbeb27f907ac452f70ecc66afc8bd16e2",
   "cypress/integration/2-advanced-examples/spies_stubs_clocks.spec.js":
-    "5801b000ce3b32669c62ec0f3c358a55692cc3249524484690bd1079092161fc",
+    "f0bc9c58d855c3b326a9c254428607941243566cc347578fbf88f836fc601e7a",
   "cypress/integration/2-advanced-examples/waiting.spec.js":
-    "9b8b9882ee54dee8bbb2ed9b72abf8cb51f29c10484cbec12e18ba9f28c419f3",
+    "1a8c36ca7f65a357dcc4d5583b486ce6a69f465c1b4bb9aba042d32e6d4ea18a",
   "cypress/integration/2-advanced-examples/actions.spec.js":
-    "e9598396c427c84d7174c4a9a311dc0e07508e49f7806076d4dfe01c6626b756",
+    "0a4ab40603eb82526fb3e91fe158903418a07adc7189f44f99126a6cc9889721",
   "cypress/integration/2-advanced-examples/querying.spec.js":
-    "c0d332fdf2cd27416b168e5bf0efe1d317813800fd91254471e2d79c3c9191af",
+    "8d5d5d62306475f18cddb187fe5ca6aea9a0b74a9981e8f0a7673b758d2dfb3a",
   "cypress/integration/2-advanced-examples/window.spec.js":
-    "57be161caa31f11fe2645af4739e8908ee0189f4214a847e0f86e5ae206293e4",
+    "3c1d0ab2f77b1eb3687b817506e7387a77bb8b45c14f208cbed0f37e35b4f9ed",
   "cypress/integration/2-advanced-examples/cypress_api.spec.js":
-    "adec0935337997cd863bb36153d2d2ce4105bca89f927a0a3a82e8b784bc4a4a",
+    "99a7b9a0c042ad7328dcad4a8a7cf5fc15c284384239f0571f85aba94df821f7",
   "cypress/integration/2-advanced-examples/assertions.spec.js":
-    "2d52f5bdfb13fdf4ffface1f7ec1ccd09e40eb3a97b2ab72b12e4df724112d51",
+    "ce67e7e9513c9389ae5207fe1dc599f67a3c95e7d313a64da7a46e06c8ee5cfc",
   "cypress/integration/0-ode/todo.spec.js":
-    "88dbfaccb8f30caf027f989f537989fe64f0ff55d116889743904d02f65dbcc1",
+    "aa60d6759a6863fe90f49b052f72b84159110a375c5cb4d8db9c8723476b2e12",
   "cypress/plugins/index.js":
-    "d993e2ad57c47675d99d66a79a8070aae7edbed8cb79e1e2d71d432e6e40d1c5",
+    "ad25fc3b2eac20e76af2c579d0fced9103f91b260182f5664883f3c68bbbf802",
   "cypress/support/commands.js":
     "8d9eb8e1a5fb51def6358908d3a9c5b783bb49f86174d646eb4e44ef82d63083",
   "cypress/support/index.js":
-    "daacc7584c905b8ba7623ce00d31f720bda21b3ed1f4f1c0c3d23669521dfe15",
+    "d1d77c153d844b75e34b359f0fef365c844265f31abe1f93c04804f103fa3d49",
   "food": "bar",
 };

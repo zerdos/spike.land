@@ -23,17 +23,17 @@ var { useMemo } = React;
 var react_default = React;
 export {
   Children,
-  Component,
-  Fragment,
   cloneElement,
+  Component,
   createContext,
   createElement,
   createFactory,
   createRef,
-  react_default as default,
   forwardRef,
+  Fragment,
   isValidElement,
   memo,
+  react_default as default,
   useCallback,
   useContext,
   useEffect,
@@ -42,5 +42,5 @@ export {
   useMemo,
   useReducer,
   useRef,
-  useState
+  useState,
 };
