@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "a60dbf3fdc46e5198717623b2fa28c53550e6b68b61947d2c38d8a38dd915a99",
+    "b96dc34754b0c7f1f2193734591cfd062fd048165da4f647c070c138b8c0e3b5",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
@@ -140,7 +140,7 @@ export const shasums = {
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/ipfs.client.mjs":
-    "e4343f9479bbc2fd208788e28b2f431d74b08a5d509922cf9822593d992bbfee",
+    "21fdda54510212aca3e6af6ddd03c3eeb189d0e99eada9715bdd2bba514d2ff2",
   "cypress/fixtures/example.json":
     "1800ff4b34f25a4a02d9e697a1724e84b2483faa85b7cf7812036916d6f6982b",
   "cypress/integration/1-getting-started/todo.spec.js":

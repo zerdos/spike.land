@@ -30,7 +30,7 @@
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
   "dependencies": {
-    "esbuild": "0.12.9",
+    "esbuild": "0.12.11",
     "ipfs-message-port-client": "0.6.4",
     "it-all": "1.0.5",
     "typescript": "4.3.4",
