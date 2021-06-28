@@ -23,8 +23,8 @@ interface DraggableWindowProps {
     i: number;
     url: string;
     errorText: string;
-    children: React.FC
-    setChild: React.Dispatch<React.SetStateAction<React.FC[]>>
+    children: React.FC;
+    setChild: React.Dispatch<React.SetStateAction<React.FC[]>>;
   };
   position?: string;
 }
@@ -197,18 +197,15 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   }
               `}
             >
-             
-                <React.Suspense fallback={<div>Error fallback</div>}>
+              <React.Suspense fallback={<div>Error fallback</div>}>
                 <div
-                id="zbody"
-                key={session.i}
-                ref={zbody}
-              >
+                  id="zbody"
+                  key={session.i}
+                  ref={zbody}
+                >
                   {child}
-                  
-                  </div>
-                </React.Suspense>
-              
+                </div>
+              </React.Suspense>
             </motion.div>
           </motion.div>
           <ToggleButtonGroup

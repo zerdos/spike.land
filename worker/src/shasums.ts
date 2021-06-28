@@ -37,7 +37,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "e13b205baa6704e6404460104ea31f9c5da2f56b36cfea31e20bba08fcb46b39",
+    "5e18ec199182cd707a60cb3012018ac9b626caade2402d473f54c488e3478421",
   "js/workers/transpile.worker.js":
     "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":
@@ -140,7 +140,7 @@ export const shasums = {
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/ipfs.client.mjs":
-    "aa8f0538f7392f453c2e54abd614a812fc3cd7f770c8fa25fe26d13e45ddd33e",
+    "e4343f9479bbc2fd208788e28b2f431d74b08a5d509922cf9822593d992bbfee",
   "cypress/fixtures/example.json":
     "1800ff4b34f25a4a02d9e697a1724e84b2483faa85b7cf7812036916d6f6982b",
   "cypress/integration/1-getting-started/todo.spec.js":
