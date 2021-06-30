@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "55160b956e56ed8adc66adce79e4a9e06eabee786cdefcef74761d0fc78b48ad",
+    "f4335c78f54db5ebac61db7cd952a51b850c7b918ce581a8be1bde6abb6563b9",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
@@ -28,7 +28,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "692c2ea7e46083bea65dd8e2728af3bd13cf0d56bad658df809a47a6324b9cca",
+    "e2e8d8f9735c8ed3a78677882c912a27cae581729028b2bc76b42a91dcd8f033",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "cypress.json":
     "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
@@ -54,16 +54,12 @@ export const shasums = {
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/workboxLoader.mjs":
     "edd27231450ced70a28d8689e81b1294fe1e3994fe52708ec9a6618c3b7ab880",
-  "js/react.mjs":
-    "bcf4616ae7030da9c474bb8f9ea6dd451b9c85c50cc1c500604827b935c605f8",
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "1236bc2d6ba71252f000784dba5297f514d78cbe8c53482869fea4ab2681470f",
+    "97677f5274532046f57e8db0b1838a13bbf71feb16262c97ceedd28fa43e9c63",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
-  "js/react-dom.mjs":
-    "acfb1d6648fc78616ffeac09ec429cfaab999ce79fdaedb9edddb4cb570646c8",
   "js/codeLoader.mjs":
     "4632fee0130b626726ff6f2cca3571283bd2e1b7f0191b68573f0f8dcd4b7a57",
   "js/openWindows.mjs":
