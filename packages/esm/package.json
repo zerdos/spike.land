@@ -21,8 +21,8 @@
   "dependencies": {
     "@types/react": "17.0.11",
     "esbuild": "0.12.12",
-    "react": "18.0.0-alpha-e6be2d531",
-    "react-is": "18.0.0-alpha-e6be2d531"
+    "react": "alpha",
+    "react-is": "alpha"
   },
   "publishConfig": {
     "access": "public"
