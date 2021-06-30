@@ -15,7 +15,7 @@
   "exports": {
     "./react.mjs": "./dist/react.mjs",
     "./react-dom.mjs": "./dist/react-dom.mjs",
-    "./react-is.mjd": "./dist/react-is.mjs"
+    "./react-is.mjs": "./dist/react-is.mjs"
   },
   "license": "BSD-3-Clause",
   "dependencies": {
