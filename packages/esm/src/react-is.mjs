@@ -1,7 +1,5 @@
-import reactIsDefault from "react-is";
-import * as reactIS from "react-is";
-
-export default reactIsDefault;
+const {ReactIs} = window;
+export default ReactIs;
 
 export const {
   ContextConsumer,
@@ -32,4 +30,4 @@ export const {
   isSuspenseList,
   isValidElementType,
   typeOf,
-} = reactIS;
+} = ReactIs;
