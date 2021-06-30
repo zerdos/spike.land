@@ -28,7 +28,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "6c0a13666dac90a73cc9a8a82bc9cae9426985364781d6b973a91d0e1478d254",
+    "692c2ea7e46083bea65dd8e2728af3bd13cf0d56bad658df809a47a6324b9cca",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "cypress.json":
     "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
@@ -37,7 +37,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "df45777d074f61cc150508199e3222c8aa336df686beee07a6942c36c9c7f410",
+    "61afba94def5d788c45512fc552fe37376b1f61d060b408f4e5e98783deeee0a",
   "js/workers/transpile.worker.js":
     "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":
