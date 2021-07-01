@@ -2,7 +2,7 @@
 import * as Motion from "framer-motion";
 import React, { Fragment } from "react";
 import {
-  createRoot
+  render
 } from "react-dom";
 import { css, Global, jsx } from "@emotion/react";
 
@@ -278,9 +278,8 @@ var DraggableWindow = ({ onShare, onRestore, position, session }) => {
 
 // src/renderer.ts
 var { motion } = Motion;
-var render = (el, container) => {
-  const root = createRoot(container);
-  root.render(jsx(Fragment, { children: el }));
+var render2 = (el, container) => {
+  const root = render(jsx(Fragment, { children: el }), container);
 };
 var renderer_default = React;
 export {
@@ -293,5 +292,5 @@ export {
   renderer_default as default,
   jsx,
   motion,
-  render
+  render2 as render
 };

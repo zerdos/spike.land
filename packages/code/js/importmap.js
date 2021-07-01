@@ -25,32 +25,32 @@ const imports = {
   "@emotion/weak-memoize":
     "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
   "@material-ui/core":
-    "https://unpkg.com/@material-ui/core@5.0.0-alpha.38/modern/index.js",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.0/modern/index.js",
   "@material-ui/core/":
-    "https://unpkg.com/@material-ui/core@5.0.0-alpha.38/modern/",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.0/modern/",
   "@material-ui/core/utils":
-    "https://unpkg.com/@material-ui/core@5.0.0-alpha.38/modern/utils/index.js",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.0/modern/utils/index.js",
   "@material-ui/core/utils/":
-    "https://unpkg.com/@material-ui/core@5.0.0-alpha.38/modern/utils/",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.0/modern/utils/",
   "@material-ui/private-theming":
-    "https://unpkg.com/@material-ui/private-theming@5.0.0-alpha.36/modern/index.js",
+    "https://unpkg.com/@material-ui/private-theming@5.0.0-beta.0/modern/index.js",
   "@material-ui/private-theming/":
-    "https://unpkg.com/@material-ui/private-theming@5.0.0-alpha.36/modern/",
+    "https://unpkg.com/@material-ui/private-theming@5.0.0-beta.0/modern/",
   "@material-ui/styled-engine":
-    "https://unpkg.com/@material-ui/styled-engine@5.0.0-alpha.34/modern/index.js",
+    "https://unpkg.com/@material-ui/styled-engine@5.0.0-beta.0/modern/index.js",
   "@material-ui/styled-engine/":
-    "https://unpkg.com/@material-ui/styled-engine@5.0.0-alpha.34/modern/",
+    "https://unpkg.com/@material-ui/styled-engine@5.0.0-beta.0/modern/",
   "@material-ui/system":
-    "https://unpkg.com/@material-ui/system@5.0.0-alpha.38/modern/index.js",
+    "https://unpkg.com/@material-ui/system@5.0.0-beta.0/modern/index.js",
   "@material-ui/unstyled":
-    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.38/modern/index.js",
+    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.39/modern/index.js",
   "@material-ui/unstyled/":
-    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.38/modern/",
+    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.39/modern/",
   "@material-ui/utils":
-    "https://unpkg.com/@material-ui/utils@5.0.0-alpha.36/modern/index.js",
+    "https://unpkg.com/@material-ui/utils@5.0.0-beta.0/modern/index.js",
   "@popperjs/core": "https://unpkg.com/@popperjs/core@2.9.2/dist/esm/index.js",
-  "@types/react": "https://unpkg.com/@types/react@17.0.11/index.d.ts",
-  "global.d.ts": "https://unpkg.com/@types/react@17.0.11/global.d.ts",
+  "@types/react": "https://unpkg.com/@types/react@17.0.13/index.d.ts",
+  "global.d.ts": "https://unpkg.com/@types/react@17.0.13/global.d.ts",
   "scheduler/": "https://esm.sh/scheduler/",
   "csstype": "https://unpkg.com/csstype@3.0.8/index.d.ts",
   "clsx": "https://unpkg.com/clsx@1.1.1/dist/clsx.m.js",

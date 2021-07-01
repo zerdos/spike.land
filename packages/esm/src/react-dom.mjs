@@ -1,4 +1,4 @@
-const { createRoot } = window.ReactDOM;
+const { render } = window.ReactDOM;
 
-export { createRoot };
-export default { createRoot };
+export { render };
+export default { render };

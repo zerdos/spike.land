@@ -21,8 +21,7 @@ export const render = (
   el: EmotionJSX.JSX.Element,
   container: HTMLElement,
 ) => {
-  const root = ReactDOM.createRoot(container);
-  root.render(jsx(Fragment, { children: el }));
+  const root = ReactDOM.render(jsx(Fragment, { children: el }), container);
 };
 
 export default React;

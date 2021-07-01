@@ -1,6 +1,7 @@
 try {
   start();
 } catch (error) {
+
   console.error({ error });
   fetch("https://spike.land/error", {
     method: "POST",
@@ -13,6 +14,7 @@ async function start() {
     const { run } = await import("./codeLoader.mjs");
     run("window");
   } catch (e) {
+    throw e;
     console.error("error", { e });
     //        const { run } = await import("https://unpkg.com/@zedvision/code@13.0.16/js/codeLoader.mjs");
     //      run("window");

@@ -108,7 +108,7 @@ export async function run(mode = "window", code = "") {
         session,
       );
     } catch (e) {
-      console.error("Error", { e });
+      throw e;
     }
     await restartCode(session.transpiled, session.i);
 
@@ -128,7 +128,8 @@ export async function run(mode = "window", code = "") {
     const { sendSignalToQrCode } = await import("./sendSignalToQrCode.mjs");
     await sendSignalToQrCode(session);
   } catch (e) {
-    session.errorText = "YAY!! There is an error";
+    throw e;
+///    session.errorText = "YAY!! There is an error";
   }
 
   /**

@@ -28,7 +28,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "e2e8d8f9735c8ed3a78677882c912a27cae581729028b2bc76b42a91dcd8f033",
+    "8240fb323addc9d4e25f20f793dc171da0ec569f0d891a9afd1a1a5db5b3465f",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "cypress.json":
     "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
@@ -57,11 +57,11 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "b76d174c361684a5284a34cc14ca8ba0eaff03599dc1ce4d674815807cbd9b27",
+    "9b808eb55054ba341e1d89c3e7620a11b2ecac0dbd277fb12bf2a910d192f521",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/codeLoader.mjs":
-    "4632fee0130b626726ff6f2cca3571283bd2e1b7f0191b68573f0f8dcd4b7a57",
+    "ad20305b1da6dece20e34a7536aacc08f5e03d20881c0da695a198dbde795e24",
   "js/openWindows.mjs":
     "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
   "js/data.mjs":
@@ -81,7 +81,7 @@ export const shasums = {
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
-    "ca234bd9c40572f00602dfef8ca12f3c1d2f696a8a6ba4f27c1fe39627cc04c0",
+    "ebdceb9d1fb94cef0da09baf0cdb02da3788b997e15f4e688ebb06df0d6126a0",
   "js/formatter.mjs":
     "64b37cbdb3893e159cde2d4549ca18933d91e1d0fa0f811d0dcb7a5cff1335dc",
   "js/importScript.d.ts":
@@ -98,7 +98,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "6ee371f08b5f971f71306b32978d2030a171f5bd85bf9e19b6f0adcdc957f02c",
+    "813844535df934f86a46ee97f66512c91e29679c22fa3d91453351008080e5d4",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":
