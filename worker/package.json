@@ -17,7 +17,7 @@
     "@cloudflare/wrangler": "1.17.0",
     "@zedvision/code": "^14.3.3",
     "@zedvision/ipfs": "^14.3.1",
-    "esbuild": "0.12.12",
+    "esbuild": "0.12.13",
     "ipfs-message-port-protocol": "^0.7.3",
     "ipfs-message-port-server": "^0.7.3",
     "ipfs-only-hash": "4.0.0",

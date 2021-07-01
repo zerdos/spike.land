@@ -77,7 +77,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmZp7ozrJ4mzgKw932KPB97Bz9RKWjV3ACrB7sFrLz1tyH",
+  "js/importmap.js": "QmXshdSEotd9uWpTV3mGbvCoKc9uBcuXhCJWQEKrx8Dd7E",
   "js/ipfsClient.mjs": "QmfM9QNTfCavLUZ6rzoGC2gmUNc4GGS53bMzm3RYZ7g9gQ",
   "js/openWindows.mjs": "QmdSrNkNM4pHCBJsiWn8ugR7SHsxEhPzqauoHq8iAxHJmN",
   "js/renderPreviewWindow.mjs":
@@ -127,7 +127,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmX28FZ74UZ9eUQ8E4HfxFprH7dkeHLkH3MJn93pkPTW6m",
+  "package.json": "QmaVVG7F4tebMq2YrzoiKdkPSbb3CFPwcqQz5JG6xgJsgM",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
@@ -147,7 +147,7 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmUnA9wpBHEYVK2i94kDNR5HrUBL3jPK3okbqVmRqS62wz",
   "js/workers": "QmeDt5qKtSbbvdmz6Wshjv2oFcyeNinc1NSZVhY3YDg7Si",
-  "js": "QmQE7dAcv92mYXQbpvbBcAktYgqQ1Kk1dcWePUQnWE15Uf",
+  "js": "QmPQxdNzce1V8fzCmotEY3FvVucnsiYd1B7dixB61Yt317",
   "modules/smart-monaco-editor/dist":
     "QmRFvuYthtwd6cauWuyUErX3PZ9q7HRjQ8xd47mWf2CBTU",
   "modules/smart-monaco-editor":
@@ -155,6 +155,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmfWFVzxbGMNmekkUwamZCXu7zbNBRt3HGZZStVWWbgshp",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmSQTQjaQSB7wUzS1Q2cpcLputVbf9uuJUwXbFgEBcdmtk",
+  "": "QmbLvBNJBEB4FPUtn3hXfm9pSgwKHi975uc7Mx9U1QrKSd",
   "foo": "bar",
 };
