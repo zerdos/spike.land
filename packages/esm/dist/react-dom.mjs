@@ -1,7 +1,7 @@
 // src/react-dom.mjs
-var { createRoot } = window.ReactDOM;
-var react_dom_default = { createRoot };
+var { render } = window.ReactDOM;
+var react_dom_default = { render };
 export {
-  createRoot,
-  react_dom_default as default
+  react_dom_default as default,
+  render
 };

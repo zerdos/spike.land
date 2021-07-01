@@ -81,22 +81,22 @@ export default async ({ onChange, code, language, container, options }) => {
         const importHelper = [
             {
                 name: "react",
-                url: "https://unpkg.com/@types/react@17.0.11/index.d.ts",
+                url: "https://unpkg.com/@types/react@17.0.13/index.d.ts",
                 depend: ["global", "csstype", "react-dom", "prop-types"],
             },
             {
                 name: "react/jsx-dev-runtime",
-                url: "https://unpkg.com/@types/react@17.0.11/jsx-dev-runtime.d.ts",
+                url: "https://unpkg.com/@types/react@17.0.13/jsx-dev-runtime.d.ts",
                 depend: ["global", "csstype", "react-dom", "prop-types"],
             },
             {
                 name: "react-exp  ",
-                url: "https://unpkg.com/@types/react@17.0.11/experimental.d.ts",
+                url: "https://unpkg.com/@types/react@17.0.13/experimental.d.ts",
                 depend: [],
             },
             {
                 name: "global",
-                url: "https://unpkg.com/@types/react@17.0.11/global.d.ts",
+                url: "https://unpkg.com/@types/react@17.0.13/global.d.ts",
                 depend: [],
             },
             {
