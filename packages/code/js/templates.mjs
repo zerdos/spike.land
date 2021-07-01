@@ -51,8 +51,7 @@ ${JSON.stringify({ imports })}
 </script>
 <script type="module">
   import App from './app.js';        
-  const root = ReactDOM.createRoot(document.body.children[0]);
-  root.render(App());
+  ReactDOM.render(App(),document.body.children[0]);
 </script>
 </body>
 </html>

@@ -77,7 +77,7 @@ export const shasums = {
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "1edbb262d3372a0ae2502ffbb229d140265668a4b230f09286e5520fecc5b4e3",
+    "e052e5f9d48962ceaa7e8c3a483dc3ceab4ea885b3121ba10aebf56980e10361",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
