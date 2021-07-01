@@ -33,7 +33,7 @@
     "esbuild": "0.12.12",
     "ipfs-message-port-client": "0.6.4",
     "it-all": "1.0.5",
-    "typescript": "4.3.4",
+    "typescript": "4.3.5",
     "uint8arrays": "2.1.5"
   }
 }
