@@ -103,7 +103,7 @@ const imports = {
 globalThis.importMap = imports;
 
 document.head.appendChild(Object.assign(document.createElement("script"), {
-  src: "https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js",
+  src: "https://unpkg.com/es-module-shims@0.12.1/dist/es-module-shims.js",
   async: true,
 }));
 

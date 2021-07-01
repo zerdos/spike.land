@@ -32,8 +32,9 @@ export function getHtml({ html, css }) {
 <link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
 <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossorigin="anonymous" />
-<script crossorigin src="https://unpkg.com/react@18.0.0-alpha-e6be2d531/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18.0.0-alpha-e6be2d531/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="Generated with spike.land">
@@ -44,7 +45,7 @@ export function getHtml({ html, css }) {
   ${html}
 </div>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
-<script async src="https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js"></script>
+<script async src="https://unpkg.com/es-module-shims@0.12.1/dist/es-module-shims.js"></script>
 <script type="importmap">
 ${JSON.stringify({ imports })}
 </script>
@@ -69,13 +70,14 @@ export const getEditorHTML = () =>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-  <script crossorigin src="https://unpkg.com/react@18.0.0-alpha-e6be2d531/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18.0.0-alpha-e6be2d531/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
 <title>Instant React Editor</title>
 </head>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
-<script async src="https://unpkg.com/es-module-shims@0.11.1/dist/es-module-shims.js"></script>
+<script async src="https://unpkg.com/es-module-shims@0.12.1/dist/es-module-shims.js"></script>
 <script type="importmap">
 ${JSON.stringify({ imports })}
 </script>
