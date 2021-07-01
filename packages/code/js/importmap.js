@@ -83,9 +83,9 @@ const imports = {
     "https://unpkg.com/monaco-editor@0.25.2/esm/vs/editor/editor.main.js",
   "popmotion": "https://unpkg.com/popmotion@9.4.0/dist/es/index.js",
   "prop-types": "https://esm.sh/prop-types",
-  "react": "https://unpkg.com/@zedvision/esm@14.3.3/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@zedvision/esm@14.3.4/dist/react-dom.mjs",
-  "react-is": "https://unpkg.com/@zedvision/esm@14.3.3/dist/react-is.mjs",
+  "react": "https://unpkg.com/@zedvision/esm@14.3.5/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@zedvision/esm@14.3.5/dist/react-dom.mjs",
+  "react-is": "https://unpkg.com/@zedvision/esm@14.3.5/dist/react-is.mjs",
   "react-transition-group":
     "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
   "react/": "https://esm.sh/react/",

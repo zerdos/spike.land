@@ -77,7 +77,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmaFbzBijSnbvBtR5v1Zsd1VgzEW97Q1nXU1G3U2frpHY6",
+  "js/importmap.js": "QmRZrzUAGWoX9FS4iHqXmdwBfL2Y5kXySZXCmbMxoWF2N4",
   "js/ipfsClient.mjs": "QmfM9QNTfCavLUZ6rzoGC2gmUNc4GGS53bMzm3RYZ7g9gQ",
   "js/openWindows.mjs": "QmdSrNkNM4pHCBJsiWn8ugR7SHsxEhPzqauoHq8iAxHJmN",
   "js/renderPreviewWindow.mjs":
@@ -127,7 +127,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmQc9Egv3kdhqNE8YqoAnn5icE6yDNM2VaHAQ9upuzQ2Ta",
+  "package.json": "QmbtSdC7VdpvvbnJn9h7WysBu9zKZm2Hc7Cp6dqx3jGCAK",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
@@ -147,7 +147,7 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "QmUnA9wpBHEYVK2i94kDNR5HrUBL3jPK3okbqVmRqS62wz",
   "js/workers": "QmeDt5qKtSbbvdmz6Wshjv2oFcyeNinc1NSZVhY3YDg7Si",
-  "js": "QmerskpKpBm8Hhj63hqdqpV1YmPFRHbUwRFyUAbhbEh5CG",
+  "js": "QmdKBdZrGrr64p37VwpdnxSC2T577Z79PChbEWUpcNVJe9",
   "modules/smart-monaco-editor/dist":
     "QmU2eSRkfiJkfRHwwrGH5SWKMhZJrFQZFzSUeQXTq2dG1k",
   "modules/smart-monaco-editor":
@@ -155,6 +155,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmcQCRiVSqkR3id1UALHLTTwca26FKonCHSPPuDoa6Tdxk",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmQzys1AWyjrhjdVzBYa3SwLv2cgSScqwqVc6MUK6Ueqzh",
+  "": "QmXpER239dPtfqK3d6aDGn6be2ZbxhDFyqaF2TwmBpMb29",
   "foo": "bar",
 };
