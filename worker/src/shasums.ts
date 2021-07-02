@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "c365fd851ef16895182a45bf4692accd53f8f83506c81b0b17fbb4f12f326311",
+    "9e072752db226d3badc32012b6821dd6cc4ab2dab596edf9ba7df8c7e6697569",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
@@ -37,7 +37,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "d735f1a3bc757b9c4f817bcdc3378938d7156db6bbaa12140c2f2b9e5785e135",
+    "334ceb1d2fa0891a77bab128e44161b3297ae8d858377c469cbc2fe8dc2368db",
   "js/workers/transpile.worker.js":
     "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":

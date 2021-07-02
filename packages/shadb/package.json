@@ -33,6 +33,6 @@
     "idb": "6.1.2"
   },
   "devDependencies": {
-    "typescript": "4.3.5"
+    "typescript": "beta"
   }
 }

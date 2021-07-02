@@ -51,7 +51,7 @@
     "@types/react-helmet": "6.1.1",
     "gatsby": "3.8.1",
     "gatsby-source-filesystem": "3.8.0",
-    "typescript": "4.3.5"
+    "typescript": "beta"
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
 }
