@@ -1,6 +1,7 @@
 // src/react.mjs
 var React = window.React;
 var { createContext } = React;
+var { useDebugValue } = React;
 var { useState } = React;
 var { useRef } = React;
 var { useContext } = React;
@@ -36,6 +37,7 @@ export {
   memo,
   useCallback,
   useContext,
+  useDebugValue,
   useEffect,
   useImperativeHandle,
   useLayoutEffect,
