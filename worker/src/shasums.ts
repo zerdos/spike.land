@@ -1,6 +1,6 @@
 export const shasums = {
   "package.json":
-    "41c96aaba8140e39560c4199175191d3c03838be71519ae127a38ecb7bbe9832",
+    "c365fd851ef16895182a45bf4692accd53f8f83506c81b0b17fbb4f12f326311",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "favicon.ico":
