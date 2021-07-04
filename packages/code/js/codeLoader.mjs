@@ -8,6 +8,29 @@ import React from "react";
 import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 import { jsx } from "@emotion/react";
 
+
+// const charWidthSpan = document.createElement('span');
+
+// charWidthSpan.innerHTML = "a";
+
+
+// charWidthSpan.style.fontFamily = `"Droid Sans Mono", monospace, monospace, "Droid Sans Fallback"`;
+// charWidthSpan.style.fontSize = '14px';
+// charWidthSpan.style.visibility = 'hidden';
+// charWidthSpan.style.top = '-100px';
+
+// charWidthSpan.style.position = 'absolute';
+
+
+// document.body.appendChild(charWidthSpan);
+
+
+// const rect = charWidthSpan.getBoundingClientRect();
+
+
+// const monacoCharWidth = rect.width;
+// console.log({monacoCharWidth});
+// charWidthSpan.remove();
 // const { importMap } = globalThis;
 // console.log(importMap);
 

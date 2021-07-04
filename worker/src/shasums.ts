@@ -22,7 +22,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/app.css":
-    "5592121afd4e1704fbb6b82716c0072a0bd75507f788979ce728440f3159b63d",
+    "0e874cf0be7ea2325aef36c31f76b93f8119f96caebea53a2e6be838657da82a",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "manifest.json":
@@ -37,13 +37,13 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "c08e10399b484adcac064b73d41487ef0013563856090f01ed1f80b6b3018f91",
+    "6beadaa3c9fea9e6aab12d50edf564be32d370cec04c88dfa06e73b2f33fa974",
   "js/workers/transpile.worker.js":
     "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/prettierWorker.js":
-    "089152af94d6301cd0a65efc7305c4a9db15cb23d11aaecb7f263b52d12bd0a4",
+    "19a7e688a1c13711107008ceb297e60b24360929d3fc74ad7165fb2384b19846",
   "js/workers/ipfsWorker.js":
     "2fccb89414cd92cbb7e7a7dfd175e133a2b5bd7082377ed8adabbb82a59378ca",
   "js/renderPreviewWindow.mjs":
@@ -61,7 +61,7 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/codeLoader.mjs":
-    "8556a23f630596003a364348b19af17bc85d187c5fdfe59f6bc5bfd2629fba95",
+    "f3f7cbbf02a118e6183f15512cf47d19b59ddb73d05210da51e70ef9705ab931",
   "js/openWindows.mjs":
     "8e1f765c7cd7b72107b188d7b0141b473e2a9eca7d91d71cab0e13dca457aa10",
   "js/data.mjs":
@@ -98,7 +98,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "05d80f37f0e0d314e25f69347ef1256782c56eb62d10e00381044610ae9c3c41",
+    "3141b29fbc7152994b245bcbdcfffdb1351f94c7e8ff07041cb1cb6b54116d48",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":
@@ -120,7 +120,7 @@ export const shasums = {
   "modules/sha256.d.ts":
     "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
   "modules/smart-monaco-editor/dist/editor.js":
-    "a4e4b81bdf30d8cb388a46c6923a9ec6dcbd0c29c319577be40a7125b8293a39",
+    "dd1d6847a3dbae3a113546fdee06f0f4d176b2ea09151c278b173aecb5c04cf8",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
   "modules/smart-monaco-editor/dist/monaco.d.ts":

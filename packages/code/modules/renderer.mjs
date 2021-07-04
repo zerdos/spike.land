@@ -1000,27 +1000,36 @@ var require_react_is2 = __commonJS({
 var es_exports = {};
 __export(es_exports, {
   AnimatePresence: () => AnimatePresence,
+  AnimateSharedLayout: () => AnimateSharedLayout,
   DragControls: () => DragControls,
   FlatTree: () => FlatTree,
+  FramerTreeLayoutContext: () => FramerTreeLayoutContext,
   LayoutGroupContext: () => LayoutGroupContext,
   LazyMotion: () => LazyMotion,
   MotionConfig: () => MotionConfig,
   MotionConfigContext: () => MotionConfigContext,
   MotionValue: () => MotionValue,
   PresenceContext: () => PresenceContext,
-  addScaleCorrector: () => addScaleCorrector,
+  SharedLayoutContext: () => SharedLayoutContext,
+  VisibilityAction: () => VisibilityAction,
+  addScaleCorrection: () => addScaleCorrection,
   animate: () => animate2,
   animateVisualElement: () => animateVisualElement,
   animationControls: () => animationControls,
+  batchLayout: () => batchLayout,
+  createBatcher: () => createBatcher,
+  createCrossfader: () => createCrossfader,
   createDomMotionComponent: () => createDomMotionComponent,
   createMotionComponent: () => createMotionComponent,
   domAnimation: () => domAnimation,
   domMax: () => domMax,
+  flushLayout: () => flushLayout,
   isValidMotionProp: () => isValidMotionProp,
   m: () => m,
   motion: () => motion,
   motionValue: () => motionValue,
   resolveMotionValue: () => resolveMotionValue,
+  snapshotViewportBox: () => snapshotViewportBox,
   transform: () => transform,
   useAnimation: () => useAnimation,
   useCycle: () => useCycle,
@@ -1042,14 +1051,14 @@ __export(es_exports, {
 });
 
 // ../../node_modules/framer-motion/dist/es/render/dom/motion.js
-import { __assign as __assign35 } from "tslib";
+import { __assign as __assign36 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/motion/index.js
 import {
   Fragment,
   createElement as createElement2
 } from "react";
-import { forwardRef, useContext as useContext5 } from "react";
+import { forwardRef, useContext as useContext6 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/motion/features/use-features.js
 import { __assign } from "tslib";
@@ -1099,9 +1108,9 @@ var featureDefinitions = {
 };
 function loadFeatures(features) {
   for (var key in features) {
-    var Component = features[key];
-    if (Component !== null)
-      featureDefinitions[key].Component = Component;
+    var Component3 = features[key];
+    if (Component3 !== null)
+      featureDefinitions[key].Component = Component3;
   }
 }
 
@@ -1140,9 +1149,9 @@ function useFeatures(props, visualElement2, preloadedFeatures) {
   }
   for (var i = 0; i < numFeatures; i++) {
     var name_1 = featureNames[i];
-    var _a = featureDefinitions[name_1], isEnabled = _a.isEnabled, Component = _a.Component;
-    if (isEnabled(props) && Component) {
-      features.push(createElement(Component, __assign({ key: name_1 }, props, { visualElement: visualElement2 })));
+    var _a = featureDefinitions[name_1], isEnabled = _a.isEnabled, Component3 = _a.Component;
+    if (isEnabled(props) && Component3) {
+      features.push(createElement(Component3, __assign({ key: name_1 }, props, { visualElement: visualElement2 })));
     }
   }
   return features;
@@ -1166,42 +1175,84 @@ function useVisualElementContext() {
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/use-visual-element.js
 import { __assign as __assign2 } from "tslib";
-import { useContext as useContext3, useRef, useEffect as useEffect2 } from "react";
+import { useContext as useContext4, useRef as useRef2, useEffect as useEffect3 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/context/PresenceContext.js
 import { createContext as createContext4 } from "react";
 var PresenceContext = createContext4(null);
 
+// ../../node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js
+import { useContext as useContext3, useEffect } from "react";
+
+// ../../node_modules/framer-motion/dist/es/utils/use-constant.js
+import { useRef } from "react";
+function useConstant(init) {
+  var ref = useRef(null);
+  if (ref.current === null) {
+    ref.current = init();
+  }
+  return ref.current;
+}
+
+// ../../node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js
+function usePresence() {
+  var context = useContext3(PresenceContext);
+  if (context === null)
+    return [true, null];
+  var isPresent2 = context.isPresent, onExitComplete = context.onExitComplete, register = context.register;
+  var id = useUniqueId();
+  useEffect(function() {
+    return register(id);
+  }, []);
+  var safeToRemove = function() {
+    return onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete(id);
+  };
+  return !isPresent2 && onExitComplete ? [false, safeToRemove] : [true];
+}
+function useIsPresent() {
+  return isPresent(useContext3(PresenceContext));
+}
+function isPresent(context) {
+  return context === null ? true : context.isPresent;
+}
+var counter = 0;
+var incrementId = function() {
+  return counter++;
+};
+var useUniqueId = function() {
+  return useConstant(incrementId);
+};
+
 // ../../node_modules/framer-motion/dist/es/context/LayoutGroupContext.js
 import { createContext as createContext5 } from "react";
-var LayoutGroupContext = createContext5({});
+var LayoutGroupContext = createContext5(null);
 
 // ../../node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.js
-import { useLayoutEffect, useEffect } from "react";
+import { useLayoutEffect, useEffect as useEffect2 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/utils/is-browser.js
 var isBrowser = typeof window !== "undefined";
 
 // ../../node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.js
-var useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect;
+var useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect2;
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/use-visual-element.js
 function useLayoutId(_a) {
   var layoutId = _a.layoutId;
-  var layoutGroupId = useContext3(LayoutGroupContext).prefix;
+  var layoutGroupId = useContext4(LayoutGroupContext);
   return layoutGroupId && layoutId !== void 0 ? layoutGroupId + "-" + layoutId : layoutId;
 }
-function useVisualElement(Component, visualState, props, createVisualElement) {
-  var config = useContext3(MotionConfigContext);
-  var lazyContext = useContext3(LazyContext);
+function useVisualElement(Component3, visualState, props, createVisualElement) {
+  var config = useContext4(MotionConfigContext);
+  var lazyContext = useContext4(LazyContext);
   var parent = useVisualElementContext();
-  var presenceContext = useContext3(PresenceContext);
+  var presenceContext = useContext4(PresenceContext);
   var layoutId = useLayoutId(props);
-  var visualElementRef = useRef(void 0);
+  var visualElementRef = useRef2(void 0);
   if (!createVisualElement)
     createVisualElement = lazyContext.renderer;
   if (!visualElementRef.current && createVisualElement) {
-    visualElementRef.current = createVisualElement(Component, {
+    visualElementRef.current = createVisualElement(Component3, {
       visualState,
       parent,
       props: __assign2(__assign2({}, props), { layoutId }),
@@ -1214,10 +1265,11 @@ function useVisualElement(Component, visualState, props, createVisualElement) {
     if (!visualElement2)
       return;
     visualElement2.setProps(__assign2(__assign2(__assign2({}, config), props), { layoutId }));
+    visualElement2.isPresent = isPresent(presenceContext);
     visualElement2.isPresenceRoot = !parent || parent.presenceId !== (presenceContext === null || presenceContext === void 0 ? void 0 : presenceContext.id);
     visualElement2.syncRender();
   });
-  useEffect2(function() {
+  useEffect3(function() {
     var _a;
     if (!visualElement2)
       return;
@@ -1258,7 +1310,7 @@ function useMotionRef(visualState, visualElement2, externalRef) {
 }
 
 // ../../node_modules/framer-motion/dist/es/context/MotionContext/create.js
-import { useMemo, useContext as useContext4 } from "react";
+import { useMemo, useContext as useContext5 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/render/utils/variants.js
 function isVariantLabels(v) {
@@ -1320,7 +1372,7 @@ function getCurrentTreeVariants(props, context) {
 
 // ../../node_modules/framer-motion/dist/es/context/MotionContext/create.js
 function useCreateMotionContext(props, isStatic) {
-  var _a = getCurrentTreeVariants(props, useContext4(MotionContext)), initial = _a.initial, animate3 = _a.animate;
+  var _a = getCurrentTreeVariants(props, useContext5(MotionContext)), initial = _a.initial, animate3 = _a.animate;
   return useMemo(function() {
     return { initial, animate: animate3 };
   }, isStatic ? [
@@ -1334,29 +1386,29 @@ function variantLabelsAsDependency(prop) {
 
 // ../../node_modules/framer-motion/dist/es/motion/index.js
 function createMotionComponent(_a) {
-  var preloadedFeatures = _a.preloadedFeatures, createVisualElement = _a.createVisualElement, useRender = _a.useRender, useVisualState2 = _a.useVisualState, Component = _a.Component;
+  var preloadedFeatures = _a.preloadedFeatures, createVisualElement = _a.createVisualElement, useRender = _a.useRender, useVisualState2 = _a.useVisualState, Component3 = _a.Component;
   preloadedFeatures && loadFeatures(preloadedFeatures);
   function MotionComponent(props, externalRef) {
-    var isStatic = useContext5(MotionConfigContext).isStatic;
+    var isStatic = useContext6(MotionConfigContext).isStatic;
     var features = null;
     var context = useCreateMotionContext(props, isStatic);
     var visualState = useVisualState2(props, isStatic);
     if (!isStatic && isBrowser) {
-      context.visualElement = useVisualElement(Component, visualState, props, createVisualElement);
+      context.visualElement = useVisualElement(Component3, visualState, props, createVisualElement);
       features = useFeatures(props, context.visualElement, preloadedFeatures);
     }
-    return createElement2(Fragment, null, features, createElement2(MotionContext.Provider, { value: context }, useRender(Component, props, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic)));
+    return createElement2(Fragment, null, createElement2(MotionContext.Provider, { value: context }, useRender(Component3, props, useMotionRef(visualState, context.visualElement, externalRef), visualState, isStatic)), features);
   }
   return forwardRef(MotionComponent);
 }
 
 // ../../node_modules/framer-motion/dist/es/render/dom/motion-proxy.js
 function createMotionProxy(createConfig) {
-  function custom(Component, customMotionComponentConfig) {
+  function custom(Component3, customMotionComponentConfig) {
     if (customMotionComponentConfig === void 0) {
       customMotionComponentConfig = {};
     }
-    return createMotionComponent(createConfig(Component, customMotionComponentConfig));
+    return createMotionComponent(createConfig(Component3, customMotionComponentConfig));
   }
   var componentCache = new Map();
   return new Proxy(custom, {
@@ -1402,10 +1454,10 @@ var lowercaseSVGElements = [
 ];
 
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js
-function isSVGComponent(Component) {
-  if (typeof Component !== "string" || Component.includes("-")) {
+function isSVGComponent(Component3) {
+  if (typeof Component3 !== "string" || Component3.includes("-")) {
     return false;
-  } else if (lowercaseSVGElements.indexOf(Component) > -1 || /[A-Z]/.test(Component)) {
+  } else if (lowercaseSVGElements.indexOf(Component3) > -1 || /[A-Z]/.test(Component3)) {
     return true;
   }
   return false;
@@ -1418,6 +1470,14 @@ import { createElement as createElement3 } from "react";
 // ../../node_modules/framer-motion/dist/es/render/html/use-props.js
 import { __assign as __assign8 } from "tslib";
 import { useMemo as useMemo2 } from "react";
+
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js
+var valueScaleCorrection = {};
+function addScaleCorrection(correctors) {
+  for (var key in correctors) {
+    valueScaleCorrection[key] = correctors[key];
+  }
+}
 
 // ../../node_modules/framer-motion/dist/es/render/html/utils/transform.js
 var transformAxes = ["", "X", "Y", "Z"];
@@ -1441,8 +1501,9 @@ function isTransformOriginProp(key) {
 }
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js
-function isForcedMotionValue(key, _props) {
-  return isTransformProp(key) || isTransformOriginProp(key);
+function isForcedMotionValue(key, _a) {
+  var layout = _a.layout, layoutId = _a.layoutId;
+  return isTransformProp(key) || isTransformOriginProp(key) || (layout || layoutId !== void 0) && (!!valueScaleCorrection[key] || key === "opacity");
 }
 
 // ../../node_modules/framer-motion/dist/es/value/utils/is-motion-value.js
@@ -1783,7 +1844,7 @@ var numberValueTypes = {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/html/utils/build-styles.js
-function buildHTMLStyles(state, latestValues, options, transformTemplate) {
+function buildHTMLStyles(state, latestValues, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
   var _a;
   var style3 = state.style, vars = state.vars, transform3 = state.transform, transformKeys2 = state.transformKeys, transformOrigin = state.transformOrigin;
   transformKeys2.length = 0;
@@ -1810,14 +1871,35 @@ function buildHTMLStyles(state, latestValues, options, transformTemplate) {
       transformOrigin[key] = valueAsType;
       hasTransformOrigin = true;
     } else {
-      style3[key] = valueAsType;
+      if ((projection === null || projection === void 0 ? void 0 : projection.isHydrated) && (layoutState === null || layoutState === void 0 ? void 0 : layoutState.isHydrated) && valueScaleCorrection[key]) {
+        var correctedValue = valueScaleCorrection[key].process(value, layoutState, projection);
+        var applyTo = valueScaleCorrection[key].applyTo;
+        if (applyTo) {
+          var num = applyTo.length;
+          for (var i = 0; i < num; i++) {
+            style3[applyTo[i]] = correctedValue;
+          }
+        } else {
+          style3[key] = correctedValue;
+        }
+      } else {
+        style3[key] = valueAsType;
+      }
     }
   }
-  if (hasTransform) {
-    style3.transform = buildTransform(state, options, transformIsNone, transformTemplate);
-  }
-  if (hasTransformOrigin) {
-    style3.transformOrigin = buildTransformOrigin(transformOrigin);
+  if (layoutState && projection && buildProjectionTransform && buildProjectionTransformOrigin) {
+    style3.transform = buildProjectionTransform(layoutState.deltaFinal, layoutState.treeScale, hasTransform ? transform3 : void 0);
+    if (transformTemplate) {
+      style3.transform = transformTemplate(transform3, style3.transform);
+    }
+    style3.transformOrigin = buildProjectionTransformOrigin(layoutState);
+  } else {
+    if (hasTransform) {
+      style3.transform = buildTransform(state, options, transformIsNone, transformTemplate);
+    }
+    if (hasTransformOrigin) {
+      style3.transformOrigin = buildTransformOrigin(transformOrigin);
+    }
   }
 }
 
@@ -1835,7 +1917,7 @@ var createHtmlRenderState = function() {
 // ../../node_modules/framer-motion/dist/es/render/html/use-props.js
 function copyRawValuesOnly(target, source, props) {
   for (var key in source) {
-    if (!isMotionValue(source[key]) && !isForcedMotionValue(key)) {
+    if (!isMotionValue(source[key]) && !isForcedMotionValue(key, props)) {
       target[key] = source[key];
     }
   }
@@ -1844,7 +1926,7 @@ function useInitialMotionValues(_a, visualState, isStatic) {
   var transformTemplate = _a.transformTemplate;
   return useMemo2(function() {
     var state = createHtmlRenderState();
-    buildHTMLStyles(state, visualState, { enableHardwareAcceleration: !isStatic }, transformTemplate);
+    buildHTMLStyles(state, visualState, void 0, void 0, { enableHardwareAcceleration: !isStatic }, transformTemplate);
     var vars = state.vars, style3 = state.style;
     return __assign8(__assign8({}, vars), style3);
   }, [visualState]);
@@ -1852,7 +1934,7 @@ function useInitialMotionValues(_a, visualState, isStatic) {
 function useStyle(props, visualState, isStatic) {
   var styleProp = props.style || {};
   var style3 = {};
-  copyRawValuesOnly(style3, styleProp);
+  copyRawValuesOnly(style3, styleProp, props);
   Object.assign(style3, useInitialMotionValues(props, visualState, isStatic));
   if (props.transformValues) {
     style3 = props.transformValues(style3);
@@ -1885,6 +1967,7 @@ var validMotionProps = new Set([
   "inherit",
   "layout",
   "layoutId",
+  "_layoutResetTransform",
   "onLayoutAnimationComplete",
   "onViewportBoxUpdate",
   "onLayoutMeasure",
@@ -2000,9 +2083,9 @@ function buildSVGPath(attrs, totalLength, length, spacing2, offset, useDashCase)
 }
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js
-function buildSVGAttrs(state, _a, options, transformTemplate) {
+function buildSVGAttrs(state, _a, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
   var attrX = _a.attrX, attrY = _a.attrY, originX = _a.originX, originY = _a.originY, pathLength = _a.pathLength, _b = _a.pathSpacing, pathSpacing = _b === void 0 ? 1 : _b, _c = _a.pathOffset, pathOffset = _c === void 0 ? 0 : _c, latest = __rest(_a, ["attrX", "attrY", "originX", "originY", "pathLength", "pathSpacing", "pathOffset"]);
-  buildHTMLStyles(state, latest, options, transformTemplate);
+  buildHTMLStyles(state, latest, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin);
   state.attrs = state.style;
   state.style = {};
   var attrs = state.attrs, style3 = state.style, dimensions = state.dimensions, totalPathLength = state.totalPathLength;
@@ -2033,12 +2116,12 @@ var createSvgRenderState = function() {
 function useSVGProps(props, visualState) {
   var visualProps = useMemo3(function() {
     var state = createSvgRenderState();
-    buildSVGAttrs(state, visualState, { enableHardwareAcceleration: false }, props.transformTemplate);
+    buildSVGAttrs(state, visualState, void 0, void 0, { enableHardwareAcceleration: false }, props.transformTemplate);
     return __assign10(__assign10({}, state.attrs), { style: __assign10({}, state.style) });
   }, [visualState]);
   if (props.style) {
     var rawStyles = {};
-    copyRawValuesOnly(rawStyles, props.style);
+    copyRawValuesOnly(rawStyles, props.style, props);
     visualProps.style = __assign10(__assign10({}, rawStyles), visualProps.style);
   }
   return visualProps;
@@ -2049,13 +2132,13 @@ function createUseRender(forwardMotionProps) {
   if (forwardMotionProps === void 0) {
     forwardMotionProps = false;
   }
-  var useRender = function(Component, props, ref, _a, isStatic) {
+  var useRender = function(Component3, props, ref, _a, isStatic) {
     var latestValues = _a.latestValues;
-    var useVisualProps = isSVGComponent(Component) ? useSVGProps : useHTMLProps;
+    var useVisualProps = isSVGComponent(Component3) ? useSVGProps : useHTMLProps;
     var visualProps = useVisualProps(props, latestValues, isStatic);
-    var filteredProps = filterProps(props, typeof Component === "string", forwardMotionProps);
+    var filteredProps = filterProps(props, typeof Component3 === "string", forwardMotionProps);
     var elementProps = __assign11(__assign11(__assign11({}, filteredProps), visualProps), { ref });
-    return createElement3(Component, elementProps);
+    return createElement3(Component3, elementProps);
   };
   return useRender;
 }
@@ -2068,13 +2151,9 @@ var camelToDash = function(str) {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/html/utils/render.js
-function renderHTML(element, _a, latest, projection) {
+function renderHTML(element, _a) {
   var style3 = _a.style, vars = _a.vars;
-  if (latest && projection) {
-    Object.assign(element.style, style3, projection.getProjectionStyles(latest));
-  } else {
-    Object.assign(element.style, style3);
-  }
+  Object.assign(element.style, style3);
   for (var key in vars) {
     element.style.setProperty(key, vars[key]);
   }
@@ -2116,7 +2195,7 @@ function scrapeMotionValuesFromProps(props) {
   var style3 = props.style;
   var newValues = {};
   for (var key in style3) {
-    if (isMotionValue(style3[key]) || isForcedMotionValue(key)) {
+    if (isMotionValue(style3[key]) || isForcedMotionValue(key, props)) {
       newValues[key] = style3[key];
     }
   }
@@ -2137,21 +2216,11 @@ function scrapeMotionValuesFromProps2(props) {
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/use-visual-state.js
 import { __rest as __rest2 } from "tslib";
-import { useContext as useContext6 } from "react";
+import { useContext as useContext7 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js
 function isAnimationControls(v) {
   return typeof v === "object" && typeof v.start === "function";
-}
-
-// ../../node_modules/framer-motion/dist/es/utils/use-constant.js
-import { useRef as useRef2 } from "react";
-function useConstant(init) {
-  var ref = useRef2(null);
-  if (ref.current === null) {
-    ref.current = init();
-  }
-  return ref.current;
 }
 
 // ../../node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js
@@ -2189,8 +2258,8 @@ function makeState(_a, props, context, presenceContext) {
 }
 var makeUseVisualState = function(config) {
   return function(props, isStatic) {
-    var context = useContext6(MotionContext);
-    var presenceContext = useContext6(PresenceContext);
+    var context = useContext7(MotionContext);
+    var presenceContext = useContext7(PresenceContext);
     return isStatic ? makeState(config, props, context, presenceContext) : useConstant(function() {
       return makeState(config, props, context, presenceContext);
     });
@@ -2249,7 +2318,7 @@ var svgMotionConfig = {
       if (isPath(instance)) {
         renderState.totalPathLength = instance.getTotalLength();
       }
-      buildSVGAttrs(renderState, latestValues, { enableHardwareAcceleration: false }, props.transformTemplate);
+      buildSVGAttrs(renderState, latestValues, void 0, void 0, { enableHardwareAcceleration: false }, props.transformTemplate);
       renderSVG(instance, renderState);
     }
   })
@@ -2267,14 +2336,14 @@ var htmlMotionConfig = {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/create-config.js
-function createDomMotionConfig(Component, _a, preloadedFeatures, createVisualElement) {
+function createDomMotionConfig(Component3, _a, preloadedFeatures, createVisualElement) {
   var _b = _a.forwardMotionProps, forwardMotionProps = _b === void 0 ? false : _b;
-  var baseConfig = isSVGComponent(Component) ? svgMotionConfig : htmlMotionConfig;
+  var baseConfig = isSVGComponent(Component3) ? svgMotionConfig : htmlMotionConfig;
   return __assign12(__assign12({}, baseConfig), {
     preloadedFeatures,
     useRender: createUseRender(forwardMotionProps),
     createVisualElement,
-    Component
+    Component: Component3
   });
 }
 
@@ -2290,7 +2359,7 @@ var AnimationType;
 })(AnimationType || (AnimationType = {}));
 
 // ../../node_modules/framer-motion/dist/es/events/use-dom-event.js
-import { useEffect as useEffect3 } from "react";
+import { useEffect as useEffect4 } from "react";
 function addDomEvent(target, eventName, handler, options) {
   target.addEventListener(eventName, handler, options);
   return function() {
@@ -2298,7 +2367,7 @@ function addDomEvent(target, eventName, handler, options) {
   };
 }
 function useDomEvent(ref, eventName, handler, options) {
-  useEffect3(function() {
+  useEffect4(function() {
     var element = ref.current;
     if (handler && element) {
       return addDomEvent(element, eventName, handler, options);
@@ -2371,6 +2440,9 @@ function extractEventInfo(event, pointType) {
   return {
     point: isTouchEvent(event) ? pointFromTouch(event, pointType) : pointFromMouse(event, pointType)
   };
+}
+function getViewportPointFromEvent(event) {
+  return extractEventInfo(event, "client");
 }
 var wrapHandler = function(handler, shouldFilterPrimaryPointer) {
   if (shouldFilterPrimaryPointer === void 0) {
@@ -2505,9 +2577,9 @@ var isNodeOrChild = function(parent, child) {
 };
 
 // ../../node_modules/framer-motion/dist/es/utils/use-unmount-effect.js
-import { useEffect as useEffect4 } from "react";
+import { useEffect as useEffect5 } from "react";
 function useUnmountEffect(callback) {
-  return useEffect4(function() {
+  return useEffect5(function() {
     return function() {
       return callback();
     };
@@ -2542,18 +2614,18 @@ function findSpring(_a) {
   if (dampingRatio < 1) {
     envelope = function(undampedFreq2) {
       var exponentialDecay = undampedFreq2 * dampingRatio;
-      var delta = exponentialDecay * duration2;
+      var delta2 = exponentialDecay * duration2;
       var a2 = exponentialDecay - velocity;
       var b2 = calcAngularFreq(undampedFreq2, dampingRatio);
-      var c2 = Math.exp(-delta);
+      var c2 = Math.exp(-delta2);
       return safeMin - a2 / b2 * c2;
     };
     derivative = function(undampedFreq2) {
       var exponentialDecay = undampedFreq2 * dampingRatio;
-      var delta = exponentialDecay * duration2;
-      var d = delta * velocity + velocity;
+      var delta2 = exponentialDecay * duration2;
+      var d = delta2 * velocity + velocity;
       var e = Math.pow(dampingRatio, 2) * Math.pow(undampedFreq2, 2) * duration2;
-      var f = Math.exp(-delta);
+      var f = Math.exp(-delta2);
       var g = calcAngularFreq(Math.pow(undampedFreq2, 2), dampingRatio);
       var factor = -envelope(undampedFreq2) + safeMin > 0 ? -1 : 1;
       return factor * ((d - e) * f) / g;
@@ -3018,9 +3090,9 @@ function decay(_a) {
     amplitude = target - from;
   return {
     next: function(t) {
-      var delta = -amplitude * Math.exp(-t / timeConstant);
-      state.done = !(delta > restDelta || delta < -restDelta);
-      state.value = state.done ? target : target + delta;
+      var delta2 = -amplitude * Math.exp(-t / timeConstant);
+      state.done = !(delta2 > restDelta || delta2 < -restDelta);
+      state.value = state.done ? target : target + delta2;
       return state;
     },
     flipTarget: function() {
@@ -3204,8 +3276,8 @@ function hasRepeatDelayElapsed(elapsed, duration2, delay, isForwardPlayback) {
 // ../../node_modules/popmotion/dist/es/animations/index.js
 var framesync = function(update) {
   var passTimestamp = function(_a) {
-    var delta = _a.delta;
-    return update(delta);
+    var delta2 = _a.delta;
+    return update(delta2);
   };
   return {
     start: function() {
@@ -3253,10 +3325,10 @@ function animate(_a) {
     driverControls.stop();
     onComplete && onComplete();
   }
-  function update(delta) {
+  function update(delta2) {
     if (!isForwardPlayback)
-      delta = -delta;
-    elapsed += delta;
+      delta2 = -delta2;
+    elapsed += delta2;
     if (!isComplete) {
       var state = animation.next(Math.max(0, elapsed));
       latest = state.value;
@@ -3299,7 +3371,7 @@ function velocityPerSecond(velocity, frameDuration) {
 
 // ../../node_modules/popmotion/dist/es/animations/inertia.js
 function inertia(_a) {
-  var _b = _a.from, from = _b === void 0 ? 0 : _b, _c = _a.velocity, velocity = _c === void 0 ? 0 : _c, min = _a.min, max = _a.max, _d = _a.power, power = _d === void 0 ? 0.8 : _d, _e = _a.timeConstant, timeConstant = _e === void 0 ? 750 : _e, _f = _a.bounceStiffness, bounceStiffness = _f === void 0 ? 500 : _f, _g = _a.bounceDamping, bounceDamping = _g === void 0 ? 10 : _g, _h = _a.restDelta, restDelta = _h === void 0 ? 1 : _h, modifyTarget = _a.modifyTarget, driver = _a.driver, onUpdate = _a.onUpdate, onComplete = _a.onComplete, onStop = _a.onStop;
+  var _b = _a.from, from = _b === void 0 ? 0 : _b, _c = _a.velocity, velocity = _c === void 0 ? 0 : _c, min = _a.min, max = _a.max, _d = _a.power, power = _d === void 0 ? 0.8 : _d, _e = _a.timeConstant, timeConstant = _e === void 0 ? 750 : _e, _f = _a.bounceStiffness, bounceStiffness = _f === void 0 ? 500 : _f, _g = _a.bounceDamping, bounceDamping = _g === void 0 ? 10 : _g, _h = _a.restDelta, restDelta = _h === void 0 ? 1 : _h, modifyTarget = _a.modifyTarget, driver = _a.driver, onUpdate = _a.onUpdate, onComplete = _a.onComplete;
   var currentAnimation;
   function isOutOfBounds(v) {
     return min !== void 0 && v < min || max !== void 0 && v > max;
@@ -3313,16 +3385,11 @@ function inertia(_a) {
   }
   function startAnimation2(options) {
     currentAnimation === null || currentAnimation === void 0 ? void 0 : currentAnimation.stop();
-    currentAnimation = animate(__assign17(__assign17({}, options), {
-      driver,
-      onUpdate: function(v) {
-        var _a2;
-        onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate(v);
-        (_a2 = options.onUpdate) === null || _a2 === void 0 ? void 0 : _a2.call(options, v);
-      },
-      onComplete,
-      onStop
-    }));
+    currentAnimation = animate(__assign17(__assign17({}, options), { driver, onUpdate: function(v) {
+      var _a2;
+      onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate(v);
+      (_a2 = options.onUpdate) === null || _a2 === void 0 ? void 0 : _a2.call(options, v);
+    }, onComplete }));
   }
   function startSpring(options) {
     startAnimation2(__assign17({ type: "spring", stiffness: bounceStiffness, damping: bounceDamping, restDelta }, options));
@@ -3533,36 +3600,6 @@ var gestureAnimations = {
 // ../../node_modules/framer-motion/dist/es/motion/features/animations.js
 import { __read as __read7 } from "tslib";
 import { useEffect as useEffect6, useContext as useContext8 } from "react";
-
-// ../../node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js
-import { useContext as useContext7, useEffect as useEffect5 } from "react";
-function usePresence() {
-  var context = useContext7(PresenceContext);
-  if (context === null)
-    return [true, null];
-  var isPresent2 = context.isPresent, onExitComplete = context.onExitComplete, register = context.register;
-  var id = useUniqueId();
-  useEffect5(function() {
-    return register(id);
-  }, []);
-  var safeToRemove = function() {
-    return onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete(id);
-  };
-  return !isPresent2 && onExitComplete ? [false, safeToRemove] : [true];
-}
-function useIsPresent() {
-  return isPresent(useContext7(PresenceContext));
-}
-function isPresent(context) {
-  return context === null ? true : context.isPresent;
-}
-var counter = 0;
-var incrementId = function() {
-  return counter++;
-};
-var useUniqueId = function() {
-  return useConstant(incrementId);
-};
 
 // ../../node_modules/framer-motion/dist/es/render/utils/animation-state.js
 import { __spreadArray as __spreadArray5, __read as __read6, __assign as __assign23, __rest as __rest8 } from "tslib";
@@ -3941,9 +3978,9 @@ var MotionValue = function() {
       }
       _this.prev = _this.current;
       _this.current = v;
-      var _a = getFrameData(), delta = _a.delta, timestamp = _a.timestamp;
+      var _a = getFrameData(), delta2 = _a.delta, timestamp = _a.timestamp;
       if (_this.lastUpdated !== timestamp) {
-        _this.timeDelta = delta;
+        _this.timeDelta = delta2;
         _this.lastUpdated = timestamp;
         es_default.postRender(_this.scheduleVelocityCheck);
       }
@@ -4477,11 +4514,11 @@ var animations = {
 };
 
 // ../../node_modules/framer-motion/dist/es/gestures/drag/use-drag.js
-import { __assign as __assign26 } from "tslib";
+import { __assign as __assign27 } from "tslib";
 import { useContext as useContext9, useEffect as useEffect7 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
-import { __rest as __rest9, __assign as __assign25 } from "tslib";
+import { __rest as __rest9, __assign as __assign26, __spreadArray as __spreadArray6, __read as __read10 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/gestures/PanSession.js
 import { __assign as __assign24 } from "tslib";
@@ -4606,6 +4643,72 @@ function getVelocity2(history, timeDelta) {
   return currentVelocity;
 }
 
+// ../../node_modules/framer-motion/dist/es/utils/geometry/index.js
+import { __assign as __assign25 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/utils/noop.js
+function noop(any) {
+  return any;
+}
+
+// ../../node_modules/framer-motion/dist/es/utils/geometry/index.js
+function convertBoundingBoxToAxisBox(_a) {
+  var top2 = _a.top, left2 = _a.left, right2 = _a.right, bottom2 = _a.bottom;
+  return {
+    x: { min: left2, max: right2 },
+    y: { min: top2, max: bottom2 }
+  };
+}
+function convertAxisBoxToBoundingBox(_a) {
+  var x = _a.x, y = _a.y;
+  return {
+    top: y.min,
+    bottom: y.max,
+    left: x.min,
+    right: x.max
+  };
+}
+function transformBoundingBox(_a, transformPoint2) {
+  var top2 = _a.top, left2 = _a.left, bottom2 = _a.bottom, right2 = _a.right;
+  if (transformPoint2 === void 0) {
+    transformPoint2 = noop;
+  }
+  var topLeft = transformPoint2({ x: left2, y: top2 });
+  var bottomRight = transformPoint2({ x: right2, y: bottom2 });
+  return {
+    top: topLeft.y,
+    left: topLeft.x,
+    bottom: bottomRight.y,
+    right: bottomRight.x
+  };
+}
+function axisBox() {
+  return { x: { min: 0, max: 1 }, y: { min: 0, max: 1 } };
+}
+function copyAxisBox(box) {
+  return {
+    x: __assign25({}, box.x),
+    y: __assign25({}, box.y)
+  };
+}
+var zeroDelta = {
+  translate: 0,
+  scale: 1,
+  origin: 0,
+  originPoint: 0
+};
+function delta() {
+  return {
+    x: __assign25({}, zeroDelta),
+    y: __assign25({}, zeroDelta)
+  };
+}
+
+// ../../node_modules/framer-motion/dist/es/utils/each-axis.js
+function eachAxis(handler) {
+  return [handler("x"), handler("y")];
+}
+
 // ../../node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js
 import { __read as __read8 } from "tslib";
 function applyConstraints(point, _a, elastic) {
@@ -4616,6 +4719,10 @@ function applyConstraints(point, _a, elastic) {
     point = elastic ? mix(max, point, elastic.max) : Math.min(point, max);
   }
   return point;
+}
+function calcConstrainedMinPoint(point, length, progress2, constraints, elastic) {
+  var min = point - length * progress2;
+  return constraints ? applyConstraints(min, constraints, elastic) : min;
 }
 function calcRelativeAxisConstraints(axis, min, max) {
   return {
@@ -4647,6 +4754,11 @@ function calcViewportConstraints(layoutBox, constraintsBox) {
     x: calcViewportAxisConstraints(layoutBox.x, constraintsBox.x),
     y: calcViewportAxisConstraints(layoutBox.y, constraintsBox.y)
   };
+}
+function calcPositionFromProgress(axis, constraints, progress2) {
+  var axisLength = axis.max - axis.min;
+  var min = mix(constraints.min, constraints.max - axisLength, progress2);
+  return { min, max: min + axisLength };
 }
 function rebaseAxisConstraints(layout, constraints) {
   var relativeConstraints = {};
@@ -4681,76 +4793,160 @@ function resolvePointElastic(dragElastic, label) {
   return typeof dragElastic === "number" ? dragElastic : (_a = dragElastic[label]) !== null && _a !== void 0 ? _a : 0;
 }
 
-// ../../node_modules/framer-motion/dist/es/projection/geometry/models.js
-var createAxisDelta = function() {
-  return {
-    translate: 0,
-    scale: 1,
-    origin: 0,
-    originPoint: 0
-  };
-};
-var createDelta = function() {
-  return {
-    x: createAxisDelta(),
-    y: createAxisDelta()
-  };
-};
-var createAxis = function() {
-  return { min: 0, max: 0 };
-};
-var createBox = function() {
-  return {
-    x: createAxis(),
-    y: createAxis()
-  };
-};
-
-// ../../node_modules/framer-motion/dist/es/projection/utils/each-axis.js
-function eachAxis(callback) {
-  callback("x");
-  callback("y");
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/measure.js
+function getBoundingBox(element, transformPagePoint) {
+  var box = element.getBoundingClientRect();
+  return convertBoundingBoxToAxisBox(transformBoundingBox(box, transformPagePoint));
 }
 
-// ../../node_modules/framer-motion/dist/es/projection/geometry/conversion.js
-function convertBoundingBoxToBox(_a) {
-  var top2 = _a.top, left2 = _a.left, right2 = _a.right, bottom2 = _a.bottom;
-  return {
-    x: { min: left2, max: right2 },
-    y: { min: top2, max: bottom2 }
-  };
+// ../../node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js
+var clampProgress = function(v) {
+  return clamp2(0, 1, v);
+};
+function isNear(value, target, maxDistance) {
+  if (target === void 0) {
+    target = 0;
+  }
+  if (maxDistance === void 0) {
+    maxDistance = 0.01;
+  }
+  return distance(value, target) < maxDistance;
 }
-function convertBoxToBoundingBox(_a) {
-  var x = _a.x, y = _a.y;
-  return { top: y.min, right: x.max, bottom: y.max, left: x.min };
+function calcLength(axis) {
+  return axis.max - axis.min;
 }
-function transformBoxPoints(point, transformPoint2) {
-  if (!transformPoint2)
-    return point;
-  var topLeft = transformPoint2({ x: point.left, y: point.top });
-  var bottomRight = transformPoint2({ x: point.right, y: point.bottom });
-  return {
-    top: topLeft.y,
-    left: topLeft.x,
-    bottom: bottomRight.y,
-    right: bottomRight.x
-  };
+function calcOrigin2(source, target) {
+  var origin = 0.5;
+  var sourceLength = calcLength(source);
+  var targetLength = calcLength(target);
+  if (targetLength > sourceLength) {
+    origin = progress(target.min, target.max - sourceLength, source.min);
+  } else if (sourceLength > targetLength) {
+    origin = progress(source.min, source.max - targetLength, target.min);
+  }
+  return clampProgress(origin);
+}
+function updateAxisDelta(delta2, source, target, origin) {
+  if (origin === void 0) {
+    origin = 0.5;
+  }
+  delta2.origin = origin;
+  delta2.originPoint = mix(source.min, source.max, delta2.origin);
+  delta2.scale = calcLength(target) / calcLength(source);
+  if (isNear(delta2.scale, 1, 1e-4))
+    delta2.scale = 1;
+  delta2.translate = mix(target.min, target.max, delta2.origin) - delta2.originPoint;
+  if (isNear(delta2.translate))
+    delta2.translate = 0;
+}
+function updateBoxDelta(delta2, source, target, origin) {
+  updateAxisDelta(delta2.x, source.x, target.x, defaultOrigin(origin.originX));
+  updateAxisDelta(delta2.y, source.y, target.y, defaultOrigin(origin.originY));
+}
+function defaultOrigin(origin) {
+  return typeof origin === "number" ? origin : 0.5;
+}
+function calcRelativeAxis(target, relative, parent) {
+  target.min = parent.min + relative.min;
+  target.max = target.min + calcLength(relative);
+}
+function calcRelativeBox(projection, parentProjection) {
+  calcRelativeAxis(projection.target.x, projection.relativeTarget.x, parentProjection.target.x);
+  calcRelativeAxis(projection.target.y, projection.relativeTarget.y, parentProjection.target.y);
 }
 
-// ../../node_modules/framer-motion/dist/es/projection/node/create-projection-node.js
-import { __spreadArray as __spreadArray6, __read as __read9 } from "tslib";
+// ../../node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js
+var compareByDepth = function(a2, b2) {
+  return a2.depth - b2.depth;
+};
 
-// ../../node_modules/framer-motion/dist/es/projection/geometry/copy.js
-function copyAxisInto(axis, originAxis) {
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/utils.js
+function isProjecting(visualElement2) {
+  var isEnabled = visualElement2.projection.isEnabled;
+  return isEnabled || visualElement2.shouldResetTransform();
+}
+function collectProjectingAncestors(visualElement2, ancestors) {
+  if (ancestors === void 0) {
+    ancestors = [];
+  }
+  var parent = visualElement2.parent;
+  if (parent)
+    collectProjectingAncestors(parent, ancestors);
+  if (isProjecting(visualElement2))
+    ancestors.push(visualElement2);
+  return ancestors;
+}
+function collectProjectingChildren(visualElement2) {
+  var children = [];
+  var addChild = function(child) {
+    if (isProjecting(child))
+      children.push(child);
+    child.children.forEach(addChild);
+  };
+  visualElement2.children.forEach(addChild);
+  return children.sort(compareByDepth);
+}
+function updateLayoutMeasurement(visualElement2) {
+  if (visualElement2.shouldResetTransform())
+    return;
+  var layoutState = visualElement2.getLayoutState();
+  visualElement2.notifyBeforeLayoutMeasure(layoutState.layout);
+  layoutState.isHydrated = true;
+  layoutState.layout = visualElement2.measureViewportBox();
+  layoutState.layoutCorrected = copyAxisBox(layoutState.layout);
+  visualElement2.notifyLayoutMeasure(layoutState.layout, visualElement2.prevViewportBox || layoutState.layout);
+  es_default.update(function() {
+    return visualElement2.rebaseProjectionTarget();
+  });
+}
+function snapshotViewportBox(visualElement2) {
+  if (visualElement2.shouldResetTransform())
+    return;
+  visualElement2.prevViewportBox = visualElement2.measureViewportBox(false);
+  visualElement2.rebaseProjectionTarget(false, visualElement2.prevViewportBox);
+}
+
+// ../../node_modules/framer-motion/dist/es/motion/features/layout/utils.js
+function tweenAxis(target, prev, next, p) {
+  target.min = mix(prev.min, next.min, p);
+  target.max = mix(prev.max, next.max, p);
+}
+function calcRelativeOffsetAxis(parent, child) {
+  return {
+    min: child.min - parent.min,
+    max: child.max - parent.min
+  };
+}
+function calcRelativeOffset(parent, child) {
+  return {
+    x: calcRelativeOffsetAxis(parent.x, child.x),
+    y: calcRelativeOffsetAxis(parent.y, child.y)
+  };
+}
+function checkIfParentHasChanged(prev, next) {
+  var prevId = prev.getLayoutId();
+  var nextId = next.getLayoutId();
+  return prevId !== nextId || nextId === void 0 && prev !== next;
+}
+
+// ../../node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js
+import { __read as __read9 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/render/utils/is-draggable.js
+function isDraggable(visualElement2) {
+  var _a = visualElement2.getProps(), drag2 = _a.drag, _dragX = _a._dragX;
+  return drag2 && !_dragX;
+}
+
+// ../../node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js
+function resetAxis(axis, originAxis) {
   axis.min = originAxis.min;
   axis.max = originAxis.max;
 }
-function copyBoxInto(box, originBox) {
-  copyAxisInto(box.x, originBox.x);
-  copyAxisInto(box.y, originBox.y);
+function resetBox(box, originBox) {
+  resetAxis(box.x, originBox.x);
+  resetAxis(box.y, originBox.y);
 }
-
-// ../../node_modules/framer-motion/dist/es/projection/geometry/delta-apply.js
 function scalePoint(point, scale2, originPoint) {
   var distanceFromOrigin = point - originPoint;
   var scaled = scale2 * distanceFromOrigin;
@@ -4777,343 +4973,130 @@ function applyBoxDelta(box, _a) {
   applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
   applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
 }
+function applyAxisTransforms(final, axis, transforms, _a) {
+  var _b = __read9(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  final.min = axis.min;
+  final.max = axis.max;
+  var axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
+  var originPoint = mix(axis.min, axis.max, axisOrigin);
+  applyAxisDelta(final, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
+}
+var xKeys = ["x", "scaleX", "originX"];
+var yKeys = ["y", "scaleY", "originY"];
+function applyBoxTransforms(finalBox, box, transforms) {
+  applyAxisTransforms(finalBox.x, box.x, transforms, xKeys);
+  applyAxisTransforms(finalBox.y, box.y, transforms, yKeys);
+}
+function removePointDelta(point, translate, scale2, originPoint, boxScale) {
+  point -= translate;
+  point = scalePoint(point, 1 / scale2, originPoint);
+  if (boxScale !== void 0) {
+    point = scalePoint(point, 1 / boxScale, originPoint);
+  }
+  return point;
+}
+function removeAxisDelta(axis, translate, scale2, origin, boxScale) {
+  if (translate === void 0) {
+    translate = 0;
+  }
+  if (scale2 === void 0) {
+    scale2 = 1;
+  }
+  if (origin === void 0) {
+    origin = 0.5;
+  }
+  var originPoint = mix(axis.min, axis.max, origin) - translate;
+  axis.min = removePointDelta(axis.min, translate, scale2, originPoint, boxScale);
+  axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
+}
+function removeAxisTransforms(axis, transforms, _a) {
+  var _b = __read9(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale);
+}
+function removeBoxTransforms(box, transforms) {
+  removeAxisTransforms(box.x, transforms, xKeys);
+  removeAxisTransforms(box.y, transforms, yKeys);
+}
 function applyTreeDeltas(box, treeScale, treePath) {
   var treeLength = treePath.length;
   if (!treeLength)
     return;
   treeScale.x = treeScale.y = 1;
   var node;
-  var delta;
+  var delta2;
   for (var i = 0; i < treeLength; i++) {
     node = treePath[i];
-    delta = node.projectionDelta;
-    if (!delta)
-      continue;
-    treeScale.x *= delta.x.scale;
-    treeScale.y *= delta.y.scale;
-    applyBoxDelta(box, delta);
+    delta2 = node.getLayoutState().delta;
+    treeScale.x *= delta2.x.scale;
+    treeScale.y *= delta2.y.scale;
+    applyBoxDelta(box, delta2);
+    if (isDraggable(node)) {
+      applyBoxTransforms(box, box, node.getLatestValues());
+    }
   }
 }
 
-// ../../node_modules/framer-motion/dist/es/projection/geometry/delta-calc.js
-function calcLength(axis) {
-  return axis.max - axis.min;
-}
-function isNear(value, target, maxDistance) {
-  if (target === void 0) {
-    target = 0;
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/convert-to-relative.js
+function convertToRelativeProjection(visualElement2, isLayoutDrag) {
+  if (isLayoutDrag === void 0) {
+    isLayoutDrag = true;
   }
-  if (maxDistance === void 0) {
-    maxDistance = 0.01;
+  var projectionParent = visualElement2.getProjectionParent();
+  if (!projectionParent)
+    return false;
+  var offset;
+  if (isLayoutDrag) {
+    offset = calcRelativeOffset(projectionParent.projection.target, visualElement2.projection.target);
+    removeBoxTransforms(offset, projectionParent.getLatestValues());
+  } else {
+    offset = calcRelativeOffset(projectionParent.getLayoutState().layout, visualElement2.getLayoutState().layout);
   }
-  return distance(value, target) < maxDistance;
-}
-function calcAxisDelta(delta, source, target, origin) {
-  if (origin === void 0) {
-    origin = 0.5;
-  }
-  delta.origin = origin;
-  delta.originPoint = mix(source.min, source.max, delta.origin);
-  delta.scale = calcLength(target) / calcLength(source);
-  if (isNear(delta.scale, 1, 1e-4) || isNaN(delta.scale))
-    delta.scale = 1;
-  delta.translate = mix(target.min, target.max, delta.origin) - delta.originPoint;
-  if (isNear(delta.translate) || isNaN(delta.translate))
-    delta.translate = 0;
-}
-function calcBoxDelta(delta, source, target) {
-  calcAxisDelta(delta.x, source.x, target.x);
-  calcAxisDelta(delta.y, source.y, target.y);
+  eachAxis(function(axis) {
+    return visualElement2.setProjectionTargetAxis(axis, offset[axis].min, offset[axis].max, true);
+  });
+  return true;
 }
 
-// ../../node_modules/framer-motion/dist/es/projection/geometry/operations.js
-function translateAxis(axis, distance2) {
-  axis.min = axis.min + distance2;
-  axis.max = axis.max + distance2;
+// ../../node_modules/framer-motion/dist/es/render/dom/utils/batch-layout.js
+var unresolvedJobs = new Set();
+function pushJob(stack, job, pointer) {
+  if (!stack[pointer])
+    stack[pointer] = [];
+  stack[pointer].push(job);
 }
-
-// ../../node_modules/framer-motion/dist/es/projection/geometry/utils.js
-function isAxisDeltaZero(delta) {
-  return delta.translate === 0 && delta.scale === 1;
-}
-function isDeltaZero(delta) {
-  return isAxisDeltaZero(delta.x) && isAxisDeltaZero(delta.y);
-}
-function boxEquals(a2, b2) {
-  return a2.x.min === b2.x.min && a2.x.max === b2.x.max && a2.y.min === b2.y.min && a2.y.max === b2.y.max;
-}
-
-// ../../node_modules/framer-motion/dist/es/projection/styles/scale-correction.js
-var scaleCorrectors = {};
-function addScaleCorrector(correctors) {
-  Object.assign(scaleCorrectors, correctors);
-}
-
-// ../../node_modules/framer-motion/dist/es/projection/styles/transform.js
-var identityProjection = "translate3d(0px, 0px, 0) scale(1, 1)";
-function buildProjectionTransform(delta, treeScale) {
-  var xTranslate = delta.x.translate / treeScale.x;
-  var yTranslate = delta.y.translate / treeScale.y;
-  var transform3 = "translate3d(" + xTranslate + "px, " + yTranslate + "px, 0) ";
-  transform3 += "scale(" + delta.x.scale + ", " + delta.y.scale + ")";
-  return transform3 === identityProjection ? "" : transform3;
-}
-
-// ../../node_modules/framer-motion/dist/es/projection/node/create-projection-node.js
-function createProjectionNode(_a) {
-  _a.attachResizeListener;
-  var defaultParent = _a.defaultParent, measureScroll = _a.measureScroll, measureViewportBox2 = _a.measureViewportBox, resetTransform = _a.resetTransform;
+function batchLayout(callback) {
+  unresolvedJobs.add(callback);
   return function() {
-    function ProjectionNode(parent) {
-      var _this = this;
-      this.children = new Set();
-      this.options = {};
-      this.treeScale = { x: 1, y: 1 };
-      this.updateProjection = function() {
-        updateProjectionTree(_this);
-      };
-      this.parent = parent ? parent : defaultParent === null || defaultParent === void 0 ? void 0 : defaultParent();
-      if (this.parent)
-        this.parent.children.add(this);
-      this.root = this.parent ? this.parent.root || this.parent : this;
-      this.path = this.parent ? __spreadArray6(__spreadArray6([], __read9(this.parent.path)), [this.parent]) : [];
-    }
-    ProjectionNode.prototype.destructor = function() {
-      var _a2;
-      (_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.children.delete(this);
-      cancelSync.preRender(this.updateProjection);
-    };
-    ProjectionNode.prototype.mount = function(instance) {
-      this.instance = instance;
-    };
-    ProjectionNode.prototype.willUpdate = function(shouldNotifyListeners) {
-      var _a2;
-      if (shouldNotifyListeners === void 0) {
-        shouldNotifyListeners = true;
-      }
-      if (this.isLayoutDirty)
-        return;
-      this.isLayoutDirty = true;
-      this.path.forEach(function(node) {
-        node.shouldResetTransform = true;
-        node.updateScroll();
-      });
-      this.updateSnapshot();
-      console.log(this.snapshot);
-      shouldNotifyListeners && ((_a2 = this.layoutWillUpdateListeners) === null || _a2 === void 0 ? void 0 : _a2.notify());
-    };
-    ProjectionNode.prototype.didUpdate = function() {
-      resetTreeTransform(this);
-      updateTreeLayout(this);
-      notifyLayoutUpdate(this);
-      flushSync.update();
-      flushSync.preRender();
-      flushSync.render();
-    };
-    ProjectionNode.prototype.scheduleUpdateProjection = function() {
-      es_default.preRender(this.updateProjection, false, true);
-    };
-    ProjectionNode.prototype.updateSnapshot = function() {
-      var visible = this.measure();
-      this.snapshot = {
-        visible,
-        layout: this.removeElementScroll(visible)
-      };
-    };
-    ProjectionNode.prototype.updateLayout = function() {
-      if (this.options.shouldMeasureScroll) {
-        this.updateScroll();
-      }
-      if (!this.isLayoutDirty)
-        return;
-      this.layout = this.removeElementScroll(this.measure());
-      this.layoutCorrected = createBox();
-      this.isLayoutDirty = false;
-    };
-    ProjectionNode.prototype.updateScroll = function() {
-      if (!measureScroll)
-        return;
-      this.scroll = measureScroll(this.instance);
-    };
-    ProjectionNode.prototype.resetTransform = function() {
-      if (resetTransform && this.projectionDelta && (this.isLayoutDirty || this.shouldResetTransform) && !isDeltaZero(this.projectionDelta)) {
-        resetTransform(this.instance);
-        this.shouldResetTransform = false;
-      }
-    };
-    ProjectionNode.prototype.measure = function() {
-      if (!measureViewportBox2)
-        return createBox();
-      var box = measureViewportBox2(this.instance);
-      var scroll = this.root.scroll;
-      scroll && eachAxis(function(axis) {
-        return translateAxis(box[axis], scroll[axis]);
-      });
-      return box;
-    };
-    ProjectionNode.prototype.removeElementScroll = function(box) {
-      var _this = this;
-      var boxWithoutScroll = createBox();
-      copyBoxInto(boxWithoutScroll, box);
-      this.path.forEach(function(node) {
-        if (node !== _this.root && node.scroll && node.options.shouldMeasureScroll) {
-          var scroll_1 = node.scroll;
-          eachAxis(function(axis) {
-            translateAxis(boxWithoutScroll[axis], scroll_1[axis]);
-          });
-        }
-      });
-      return boxWithoutScroll;
-    };
-    ProjectionNode.prototype.setTargetDelta = function(delta) {
-      this.targetDelta = delta;
-      if (!this.projectionDelta)
-        this.projectionDelta = createDelta();
-      this.root.scheduleUpdateProjection();
-    };
-    ProjectionNode.prototype.setOptions = function(options) {
-      this.options = options;
-    };
-    ProjectionNode.prototype.resolveTargetDelta = function() {
-      if (!this.targetDelta || !this.layout)
-        return;
-      if (!this.target)
-        this.target = createBox();
-      copyBoxInto(this.target, this.layout);
-      applyBoxDelta(this.target, this.targetDelta);
-    };
-    ProjectionNode.prototype.calcProjection = function() {
-      if (!this.layout || !this.target || !this.projectionDelta)
-        return;
-      copyBoxInto(this.layoutCorrected, this.layout);
-      applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path);
-      calcBoxDelta(this.projectionDelta, this.layoutCorrected, this.target);
-      var onProjectionUpdate = this.options.onProjectionUpdate;
-      onProjectionUpdate && onProjectionUpdate();
-    };
-    ProjectionNode.prototype.getProjectionStyles = function(latest) {
-      var styles = {};
-      if (!this.projectionDelta)
-        return styles;
-      styles.transform = buildProjectionTransform(this.projectionDelta, this.treeScale);
-      var _a2 = this.projectionDelta, x = _a2.x, y = _a2.y;
-      styles.transformOrigin = x.origin * 100 + "% " + y.origin * 100 + "% 0";
-      for (var key in scaleCorrectors) {
-        if (latest[key] === void 0) {
-          delete styles[key];
-          continue;
-        }
-        var _b = scaleCorrectors[key], correct = _b.correct, applyTo = _b.applyTo;
-        var corrected = correct(latest[key], this);
-        if (applyTo) {
-          var num = applyTo.length;
-          for (var i = 0; i < num; i++) {
-            styles[applyTo[i]] = corrected;
-          }
-        } else {
-          styles[key] = corrected;
-        }
-      }
-      return styles;
-    };
-    ProjectionNode.prototype.onLayoutWillUpdate = function(handler) {
-      if (!this.layoutWillUpdateListeners) {
-        this.layoutWillUpdateListeners = new SubscriptionManager();
-      }
-      return this.layoutWillUpdateListeners.add(handler);
-    };
-    ProjectionNode.prototype.onLayoutDidUpdate = function(handler) {
-      if (!this.layoutDidUpdateListeners) {
-        this.layoutDidUpdateListeners = new SubscriptionManager();
-      }
-      return this.layoutDidUpdateListeners.add(handler);
-    };
-    return ProjectionNode;
-  }();
+    return unresolvedJobs.delete(callback);
+  };
 }
-function updateTreeLayout(node) {
-  node.updateLayout();
-  node.children.forEach(updateTreeLayout);
-}
-function notifyLayoutUpdate(node) {
-  var layout = node.layout, snapshot = node.snapshot;
-  if (layout && snapshot && node.layoutDidUpdateListeners) {
-    var layoutDelta = createDelta();
-    calcBoxDelta(layoutDelta, layout, snapshot.layout);
-    var visualDelta = createDelta();
-    calcBoxDelta(visualDelta, layout, snapshot.visible);
-    node.layoutDidUpdateListeners.notify({
-      layout,
-      snapshot,
-      delta: visualDelta,
-      hasLayoutChanged: !isDeltaZero(layoutDelta)
-    });
+function flushLayout() {
+  if (!unresolvedJobs.size)
+    return;
+  var pointer = 0;
+  var reads = [[]];
+  var writes = [];
+  var setRead = function(job) {
+    return pushJob(reads, job, pointer);
+  };
+  var setWrite = function(job) {
+    pushJob(writes, job, pointer);
+    pointer++;
+  };
+  unresolvedJobs.forEach(function(callback) {
+    callback(setRead, setWrite);
+    pointer = 0;
+  });
+  unresolvedJobs.clear();
+  var numStacks = writes.length;
+  for (var i = 0; i <= numStacks; i++) {
+    reads[i] && reads[i].forEach(executeJob);
+    writes[i] && writes[i].forEach(executeJob);
   }
-  node.children.forEach(notifyLayoutUpdate);
 }
-function resetTreeTransform(node) {
-  node.resetTransform();
-  node.children.forEach(resetTreeTransform);
-}
-function updateProjectionTree(node) {
-  resolveTreeTargetDeltas(node);
-  calcTreeProjection(node);
-}
-function resolveTreeTargetDeltas(node) {
-  node.resolveTargetDelta();
-  node.children.forEach(resolveTreeTargetDeltas);
-}
-function calcTreeProjection(node) {
-  node.calcProjection();
-  node.children.forEach(calcTreeProjection);
-}
-
-// ../../node_modules/framer-motion/dist/es/projection/node/DocumentProjectionNode.js
-var DocumentProjectionNode = createProjectionNode({
-  attachResizeListener: function(ref, notify) {
-    ref.addEventListener("resize", notify, { passive: true });
-    return function() {
-      return ref.removeEventListener("resize", notify);
-    };
-  },
-  measureScroll: function() {
-    return {
-      x: document.documentElement.scrollLeft || document.body.scrollLeft,
-      y: document.documentElement.scrollTop || document.body.scrollTop
-    };
-  },
-  measureViewportBox: function() {
-    return createBox();
-  }
-});
-
-// ../../node_modules/framer-motion/dist/es/projection/node/HTMLProjectionNode.js
-var documentNode;
-function measureViewportBox(instance, transformPoint2) {
-  return convertBoundingBoxToBox(transformBoxPoints(instance.getBoundingClientRect(), transformPoint2));
-}
-var HTMLProjectionNode = createProjectionNode({
-  measureScroll: function(instance) {
-    return {
-      x: instance.scrollLeft,
-      y: instance.scrollTop
-    };
-  },
-  measureViewportBox,
-  defaultParent: function() {
-    if (!documentNode) {
-      documentNode = new DocumentProjectionNode();
-      documentNode.mount(window);
-      documentNode.setOptions({
-        shouldMeasureScroll: true
-      });
-    }
-    return documentNode;
-  },
-  resetTransform: function(instance) {
-    return instance.style.transform = "none";
-  }
-});
+var executeJob = function(job) {
+  return job();
+};
 
 // ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
 var elementDragControls = new WeakMap();
@@ -5124,7 +5107,7 @@ var VisualElementDragControls = function() {
     this.isDragging = false;
     this.currentDirection = null;
     this.constraints = false;
-    this.elastic = createBox();
+    this.elastic = axisBox();
     this.props = {};
     this.hasMutatedConstraints = false;
     this.cursorProgress = {
@@ -5135,15 +5118,71 @@ var VisualElementDragControls = function() {
     this.openGlobalLock = null;
     this.panSession = null;
     this.visualElement = visualElement2;
+    this.visualElement.enableLayoutProjection();
     elementDragControls.set(visualElement2, this);
   }
-  VisualElementDragControls2.prototype.start = function(originEvent, _options) {
+  VisualElementDragControls2.prototype.start = function(originEvent, _a) {
     var _this = this;
-    var onSessionStart = function(_event) {
+    var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c, cursorProgress = _b.cursorProgress;
+    var onSessionStart = function(event) {
+      var _a2;
       _this.stopMotion();
+      var initialPoint = getViewportPointFromEvent(event).point;
+      (_a2 = _this.cancelLayout) === null || _a2 === void 0 ? void 0 : _a2.call(_this);
+      _this.cancelLayout = batchLayout(function(read, write) {
+        var ancestors = collectProjectingAncestors(_this.visualElement);
+        var children = collectProjectingChildren(_this.visualElement);
+        var tree = __spreadArray6(__spreadArray6([], __read10(ancestors)), __read10(children));
+        var hasManuallySetCursorOrigin = false;
+        _this.isLayoutDrag() && _this.visualElement.lockProjectionTarget();
+        write(function() {
+          tree.forEach(function(element) {
+            return element.resetTransform();
+          });
+        });
+        read(function() {
+          updateLayoutMeasurement(_this.visualElement);
+          children.forEach(updateLayoutMeasurement);
+        });
+        write(function() {
+          tree.forEach(function(element) {
+            return element.restoreTransform();
+          });
+          if (snapToCursor) {
+            hasManuallySetCursorOrigin = _this.snapToCursor(initialPoint);
+          }
+        });
+        read(function() {
+          var isRelativeDrag = Boolean(_this.getAxisMotionValue("x") && !_this.isExternalDrag());
+          if (!isRelativeDrag) {
+            _this.visualElement.rebaseProjectionTarget(true, _this.visualElement.measureViewportBox(false));
+          }
+          _this.visualElement.scheduleUpdateLayoutProjection();
+          var projection = _this.visualElement.projection;
+          eachAxis(function(axis) {
+            if (!hasManuallySetCursorOrigin) {
+              var _a3 = projection.target[axis], min = _a3.min, max = _a3.max;
+              _this.cursorProgress[axis] = cursorProgress ? cursorProgress[axis] : progress(min, max, initialPoint[axis]);
+            }
+            var axisValue = _this.getAxisMotionValue(axis);
+            if (axisValue) {
+              _this.originPoint[axis] = axisValue.get();
+            }
+          });
+        });
+        write(function() {
+          flushSync.update();
+          flushSync.preRender();
+          flushSync.render();
+          flushSync.postRender();
+        });
+        read(function() {
+          return _this.resolveDragConstraints();
+        });
+      });
     };
     var onStart = function(event, info) {
-      var _a, _b, _c;
+      var _a2, _b2, _c2;
       var _d = _this.props, drag2 = _d.drag, dragPropagation = _d.dragPropagation;
       if (drag2 && !dragPropagation) {
         if (_this.openGlobalLock)
@@ -5152,13 +5191,14 @@ var VisualElementDragControls = function() {
         if (!_this.openGlobalLock)
           return;
       }
+      flushLayout();
       _this.isDragging = true;
       _this.currentDirection = null;
-      (_b = (_a = _this.props).onDragStart) === null || _b === void 0 ? void 0 : _b.call(_a, event, info);
-      (_c = _this.visualElement.animationState) === null || _c === void 0 ? void 0 : _c.setActive(AnimationType.Drag, true);
+      (_b2 = (_a2 = _this.props).onDragStart) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, event, info);
+      (_c2 = _this.visualElement.animationState) === null || _c2 === void 0 ? void 0 : _c2.setActive(AnimationType.Drag, true);
     };
     var onMove = function(event, info) {
-      var _a, _b, _c, _d;
+      var _a2, _b2, _c2, _d;
       var _e = _this.props, dragPropagation = _e.dragPropagation, dragDirectionLock = _e.dragDirectionLock;
       if (!dragPropagation && !_this.openGlobalLock)
         return;
@@ -5166,13 +5206,13 @@ var VisualElementDragControls = function() {
       if (dragDirectionLock && _this.currentDirection === null) {
         _this.currentDirection = getCurrentDirection(offset);
         if (_this.currentDirection !== null) {
-          (_b = (_a = _this.props).onDirectionLock) === null || _b === void 0 ? void 0 : _b.call(_a, _this.currentDirection);
+          (_b2 = (_a2 = _this.props).onDirectionLock) === null || _b2 === void 0 ? void 0 : _b2.call(_a2, _this.currentDirection);
         }
         return;
       }
       _this.updateAxis("x", info.point, offset);
       _this.updateAxis("y", info.point, offset);
-      (_d = (_c = _this.props).onDrag) === null || _d === void 0 ? void 0 : _d.call(_c, event, info);
+      (_d = (_c2 = _this.props).onDrag) === null || _d === void 0 ? void 0 : _d.call(_c2, event, info);
       lastPointerEvent = event;
     };
     var onSessionEnd = function(event, info) {
@@ -5189,7 +5229,7 @@ var VisualElementDragControls = function() {
   VisualElementDragControls2.prototype.resolveDragConstraints = function() {
     var _this = this;
     var _a = this.props, dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
-    var layout = createBox();
+    var layout = this.visualElement.getLayoutState().layoutCorrected;
     if (dragConstraints) {
       this.constraints = isRefObject(dragConstraints) ? this.resolveRefConstraints(layout, dragConstraints) : calcRelativeConstraints(layout, dragConstraints);
     } else {
@@ -5208,19 +5248,20 @@ var VisualElementDragControls = function() {
     var _a = this.props, onMeasureDragConstraints = _a.onMeasureDragConstraints, transformPagePoint = _a.transformPagePoint;
     var constraintsElement = constraints.current;
     invariant(constraintsElement !== null, "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.");
-    this.constraintsBox = measureViewportBox(constraintsElement, transformPagePoint);
+    this.constraintsBox = getBoundingBox(constraintsElement, transformPagePoint);
     var measuredConstraints = calcViewportConstraints(layoutBox, this.constraintsBox);
     if (onMeasureDragConstraints) {
-      var userConstraints = onMeasureDragConstraints(convertBoxToBoundingBox(measuredConstraints));
+      var userConstraints = onMeasureDragConstraints(convertAxisBoxToBoundingBox(measuredConstraints));
       this.hasMutatedConstraints = !!userConstraints;
       if (userConstraints) {
-        measuredConstraints = convertBoundingBoxToBox(userConstraints);
+        measuredConstraints = convertBoundingBoxToAxisBox(userConstraints);
       }
     }
     return measuredConstraints;
   };
   VisualElementDragControls2.prototype.cancelDrag = function() {
     var _a, _b;
+    this.visualElement.unlockProjectionTarget();
     (_a = this.cancelLayout) === null || _a === void 0 ? void 0 : _a.call(this);
     this.isDragging = false;
     this.panSession && this.panSession.end();
@@ -5251,7 +5292,7 @@ var VisualElementDragControls = function() {
         return;
       var axisValue = _this.getAxisMotionValue(axis);
       if (axisValue) {
-        var box = createBox();
+        var box = _this.visualElement.getLayoutState().layout;
         var length_1 = box[axis].max - box[axis].min;
         var center = box[axis].min + length_1 / 2;
         var offset = point[axis] - center;
@@ -5261,7 +5302,7 @@ var VisualElementDragControls = function() {
         _this.cursorProgress[axis] = 0.5;
         return true;
       }
-    });
+    }).includes(true);
   };
   VisualElementDragControls2.prototype.updateAxis = function(axis, point, offset) {
     var drag2 = this.props.drag;
@@ -5277,11 +5318,17 @@ var VisualElementDragControls = function() {
     var update = this.constraints ? applyConstraints(nextValue, this.constraints[axis], this.elastic[axis]) : nextValue;
     axisValue.set(update);
   };
-  VisualElementDragControls2.prototype.updateVisualElementAxis = function(_axis, _point) {
+  VisualElementDragControls2.prototype.updateVisualElementAxis = function(axis, point) {
+    var _a;
+    var axisLayout = this.visualElement.getLayoutState().layout[axis];
+    var axisLength = axisLayout.max - axisLayout.min;
+    var axisProgress = this.cursorProgress[axis];
+    var min = calcConstrainedMinPoint(point[axis], axisLength, axisProgress, (_a = this.constraints) === null || _a === void 0 ? void 0 : _a[axis], this.elastic[axis]);
+    this.visualElement.setProjectionTargetAxis(axis, min, min + axisLength);
   };
   VisualElementDragControls2.prototype.setProps = function(_a) {
     var _b = _a.drag, drag2 = _b === void 0 ? false : _b, _c = _a.dragDirectionLock, dragDirectionLock = _c === void 0 ? false : _c, _d = _a.dragPropagation, dragPropagation = _d === void 0 ? false : _d, _e = _a.dragConstraints, dragConstraints = _e === void 0 ? false : _e, _f = _a.dragElastic, dragElastic = _f === void 0 ? defaultElastic : _f, _g = _a.dragMomentum, dragMomentum = _g === void 0 ? true : _g, remainingProps = __rest9(_a, ["drag", "dragDirectionLock", "dragPropagation", "dragConstraints", "dragElastic", "dragMomentum"]);
-    this.props = __assign25({
+    this.props = __assign26({
       drag: drag2,
       dragDirectionLock,
       dragPropagation,
@@ -5299,14 +5346,114 @@ var VisualElementDragControls = function() {
       return this.visualElement.getValue(axis, 0);
     }
   };
-  VisualElementDragControls2.prototype.animateDragEnd = function(_velocity) {
-    return Promise.resolve();
+  VisualElementDragControls2.prototype.isLayoutDrag = function() {
+    return !this.getAxisMotionValue("x");
+  };
+  VisualElementDragControls2.prototype.isExternalDrag = function() {
+    var _a = this.props, _dragX = _a._dragX, _dragY = _a._dragY;
+    return _dragX || _dragY;
+  };
+  VisualElementDragControls2.prototype.animateDragEnd = function(velocity) {
+    var _this = this;
+    var _a = this.props, drag2 = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition;
+    var isRelative = convertToRelativeProjection(this.visualElement, this.isLayoutDrag() && !this.isExternalDrag());
+    var constraints = this.constraints || {};
+    if (isRelative && Object.keys(constraints).length && this.isLayoutDrag()) {
+      var projectionParent = this.visualElement.getProjectionParent();
+      if (projectionParent) {
+        var relativeConstraints_1 = calcRelativeOffset(projectionParent.projection.targetFinal, constraints);
+        eachAxis(function(axis) {
+          var _a2 = relativeConstraints_1[axis], min = _a2.min, max = _a2.max;
+          constraints[axis] = {
+            min: isNaN(min) ? void 0 : min,
+            max: isNaN(max) ? void 0 : max
+          };
+        });
+      }
+    }
+    var momentumAnimations = eachAxis(function(axis) {
+      var _a2;
+      if (!shouldDrag(axis, drag2, _this.currentDirection)) {
+        return;
+      }
+      var transition = (_a2 = constraints === null || constraints === void 0 ? void 0 : constraints[axis]) !== null && _a2 !== void 0 ? _a2 : {};
+      var bounceStiffness = dragElastic ? 200 : 1e6;
+      var bounceDamping = dragElastic ? 40 : 1e7;
+      var inertia2 = __assign26(__assign26({
+        type: "inertia",
+        velocity: dragMomentum ? velocity[axis] : 0,
+        bounceStiffness,
+        bounceDamping,
+        timeConstant: 750,
+        restDelta: 1,
+        restSpeed: 10
+      }, dragTransition), transition);
+      return _this.getAxisMotionValue(axis) ? _this.startAxisValueAnimation(axis, inertia2) : _this.visualElement.startLayoutAnimation(axis, inertia2, isRelative);
+    });
+    return Promise.all(momentumAnimations).then(function() {
+      var _a2, _b;
+      (_b = (_a2 = _this.props).onDragTransitionEnd) === null || _b === void 0 ? void 0 : _b.call(_a2);
+    });
   };
   VisualElementDragControls2.prototype.stopMotion = function() {
+    var _this = this;
+    eachAxis(function(axis) {
+      var axisValue = _this.getAxisMotionValue(axis);
+      axisValue ? axisValue.stop() : _this.visualElement.stopLayoutAnimation();
+    });
+  };
+  VisualElementDragControls2.prototype.startAxisValueAnimation = function(axis, transition) {
+    var axisValue = this.getAxisMotionValue(axis);
+    if (!axisValue)
+      return;
+    var currentValue = axisValue.get();
+    axisValue.set(currentValue);
+    axisValue.set(currentValue);
+    return startAnimation(axis, axisValue, 0, transition);
   };
   VisualElementDragControls2.prototype.scalePoint = function() {
+    var _this = this;
+    var _a = this.props, drag2 = _a.drag, dragConstraints = _a.dragConstraints;
+    if (!isRefObject(dragConstraints) || !this.constraintsBox)
+      return;
+    this.stopMotion();
+    var boxProgress = { x: 0, y: 0 };
+    eachAxis(function(axis) {
+      boxProgress[axis] = calcOrigin2(_this.visualElement.projection.target[axis], _this.constraintsBox[axis]);
+    });
+    this.updateConstraints(function() {
+      eachAxis(function(axis) {
+        if (!shouldDrag(axis, drag2, null))
+          return;
+        var _a2 = calcPositionFromProgress(_this.visualElement.projection.target[axis], _this.constraintsBox[axis], boxProgress[axis]), min = _a2.min, max = _a2.max;
+        _this.visualElement.setProjectionTargetAxis(axis, min, max);
+      });
+    });
+    setTimeout(flushLayout, 1);
   };
-  VisualElementDragControls2.prototype.updateConstraints = function(_onReady) {
+  VisualElementDragControls2.prototype.updateConstraints = function(onReady) {
+    var _this = this;
+    this.cancelLayout = batchLayout(function(read, write) {
+      var ancestors = collectProjectingAncestors(_this.visualElement);
+      write(function() {
+        return ancestors.forEach(function(element) {
+          return element.resetTransform();
+        });
+      });
+      read(function() {
+        return updateLayoutMeasurement(_this.visualElement);
+      });
+      write(function() {
+        return ancestors.forEach(function(element) {
+          return element.restoreTransform();
+        });
+      });
+      read(function() {
+        _this.resolveDragConstraints();
+      });
+      if (onReady)
+        write(onReady);
+    });
   };
   VisualElementDragControls2.prototype.mount = function(visualElement2) {
     var _this = this;
@@ -5361,7 +5508,7 @@ function useDrag(props) {
       visualElement: visualElement2
     });
   });
-  dragControls.setProps(__assign26(__assign26({}, props), { transformPagePoint }));
+  dragControls.setProps(__assign27(__assign27({}, props), { transformPagePoint }));
   useEffect7(function() {
     return groupDragControls && groupDragControls.subscribe(dragControls);
   }, [dragControls]);
@@ -5408,14 +5555,504 @@ var drag = {
   drag: makeRenderlessComponent(useDrag)
 };
 
+// ../../node_modules/framer-motion/dist/es/motion/features/layout/Animate.js
+import { __extends, __rest as __rest11, __assign as __assign30, __read as __read12 } from "tslib";
+import {
+  Component,
+  createElement as createElement4
+} from "react";
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js
+var Presence;
+(function(Presence2) {
+  Presence2[Presence2["Entering"] = 0] = "Entering";
+  Presence2[Presence2["Present"] = 1] = "Present";
+  Presence2[Presence2["Exiting"] = 2] = "Exiting";
+})(Presence || (Presence = {}));
+var VisibilityAction;
+(function(VisibilityAction2) {
+  VisibilityAction2[VisibilityAction2["Hide"] = 0] = "Hide";
+  VisibilityAction2[VisibilityAction2["Show"] = 1] = "Show";
+})(VisibilityAction || (VisibilityAction = {}));
+
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/default-scale-correctors.js
+import { __assign as __assign29 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js
+import { __rest as __rest10, __assign as __assign28, __read as __read11 } from "tslib";
+function isCSSVariable2(value) {
+  return typeof value === "string" && value.startsWith("var(--");
+}
+var cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
+function parseCSSVariable(current) {
+  var match = cssVariableRegex.exec(current);
+  if (!match)
+    return [,];
+  var _a = __read11(match, 3), token = _a[1], fallback = _a[2];
+  return [token, fallback];
+}
+var maxDepth = 4;
+function getVariableValue(current, element, depth) {
+  if (depth === void 0) {
+    depth = 1;
+  }
+  invariant(depth <= maxDepth, 'Max CSS variable fallback depth detected in property "' + current + '". This may indicate a circular fallback dependency.');
+  var _a = __read11(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
+  if (!token)
+    return;
+  var resolved = window.getComputedStyle(element).getPropertyValue(token);
+  if (resolved) {
+    return resolved.trim();
+  } else if (isCSSVariable2(fallback)) {
+    return getVariableValue(fallback, element, depth + 1);
+  } else {
+    return fallback;
+  }
+}
+function resolveCSSVariables(visualElement2, _a, transitionEnd) {
+  var _b;
+  var target = __rest10(_a, []);
+  var element = visualElement2.getInstance();
+  if (!(element instanceof HTMLElement))
+    return { target, transitionEnd };
+  if (transitionEnd) {
+    transitionEnd = __assign28({}, transitionEnd);
+  }
+  visualElement2.forEachValue(function(value) {
+    var current2 = value.get();
+    if (!isCSSVariable2(current2))
+      return;
+    var resolved2 = getVariableValue(current2, element);
+    if (resolved2)
+      value.set(resolved2);
+  });
+  for (var key in target) {
+    var current = target[key];
+    if (!isCSSVariable2(current))
+      continue;
+    var resolved = getVariableValue(current, element);
+    if (!resolved)
+      continue;
+    target[key] = resolved;
+    if (transitionEnd)
+      (_b = transitionEnd[key]) !== null && _b !== void 0 ? _b : transitionEnd[key] = current;
+  }
+  return { target, transitionEnd };
+}
+
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/default-scale-correctors.js
+function pixelsToPercent(pixels, axis) {
+  return pixels / (axis.max - axis.min) * 100;
+}
+function correctBorderRadius(latest, _layoutState, _a) {
+  var target = _a.target;
+  if (typeof latest === "string") {
+    if (px.test(latest)) {
+      latest = parseFloat(latest);
+    } else {
+      return latest;
+    }
+  }
+  var x = pixelsToPercent(latest, target.x);
+  var y = pixelsToPercent(latest, target.y);
+  return x + "% " + y + "%";
+}
+var varToken = "_$css";
+function correctBoxShadow(latest, _a) {
+  var delta2 = _a.delta, treeScale = _a.treeScale;
+  var original = latest;
+  var containsCSSVariables = latest.includes("var(");
+  var cssVariables = [];
+  if (containsCSSVariables) {
+    latest = latest.replace(cssVariableRegex, function(match) {
+      cssVariables.push(match);
+      return varToken;
+    });
+  }
+  var shadow = complex.parse(latest);
+  if (shadow.length > 5)
+    return original;
+  var template = complex.createTransformer(latest);
+  var offset = typeof shadow[0] !== "number" ? 1 : 0;
+  var xScale = delta2.x.scale * treeScale.x;
+  var yScale = delta2.y.scale * treeScale.y;
+  shadow[0 + offset] /= xScale;
+  shadow[1 + offset] /= yScale;
+  var averageScale = mix(xScale, yScale, 0.5);
+  if (typeof shadow[2 + offset] === "number")
+    shadow[2 + offset] /= averageScale;
+  if (typeof shadow[3 + offset] === "number")
+    shadow[3 + offset] /= averageScale;
+  var output = template(shadow);
+  if (containsCSSVariables) {
+    var i_1 = 0;
+    output = output.replace(varToken, function() {
+      var cssVariable = cssVariables[i_1];
+      i_1++;
+      return cssVariable;
+    });
+  }
+  return output;
+}
+var borderCorrectionDefinition = {
+  process: correctBorderRadius
+};
+var defaultScaleCorrectors = {
+  borderRadius: __assign29(__assign29({}, borderCorrectionDefinition), { applyTo: [
+    "borderTopLeftRadius",
+    "borderTopRightRadius",
+    "borderBottomLeftRadius",
+    "borderBottomRightRadius"
+  ] }),
+  borderTopLeftRadius: borderCorrectionDefinition,
+  borderTopRightRadius: borderCorrectionDefinition,
+  borderBottomLeftRadius: borderCorrectionDefinition,
+  borderBottomRightRadius: borderCorrectionDefinition,
+  boxShadow: {
+    process: correctBoxShadow
+  }
+};
+
+// ../../node_modules/framer-motion/dist/es/motion/features/layout/Animate.js
+var progressTarget = 1e3;
+var Animate = function(_super) {
+  __extends(Animate2, _super);
+  function Animate2() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+    _this.frameTarget = axisBox();
+    _this.currentAnimationTarget = axisBox();
+    _this.isAnimating = {
+      x: false,
+      y: false
+    };
+    _this.stopAxisAnimation = {
+      x: void 0,
+      y: void 0
+    };
+    _this.isAnimatingTree = false;
+    _this.animate = function(target, origin, _a) {
+      if (_a === void 0) {
+        _a = {};
+      }
+      var originBox = _a.originBox, targetBox = _a.targetBox, visibilityAction = _a.visibilityAction, shouldStackAnimate = _a.shouldStackAnimate, onComplete = _a.onComplete, prevParent = _a.prevParent, config = __rest11(_a, ["originBox", "targetBox", "visibilityAction", "shouldStackAnimate", "onComplete", "prevParent"]);
+      var _b = _this.props, visualElement2 = _b.visualElement, layout = _b.layout;
+      if (shouldStackAnimate === false) {
+        _this.isAnimatingTree = false;
+        return _this.safeToRemove();
+      }
+      if (_this.isAnimatingTree && shouldStackAnimate !== true) {
+        return;
+      } else if (shouldStackAnimate) {
+        _this.isAnimatingTree = true;
+      }
+      origin = originBox || origin;
+      target = targetBox || target;
+      var isRelative = false;
+      var projectionParent = visualElement2.getProjectionParent();
+      if (projectionParent) {
+        var prevParentViewportBox = projectionParent.prevViewportBox;
+        var parentLayout = projectionParent.getLayoutState().layout;
+        if (prevParent) {
+          if (targetBox) {
+            parentLayout = prevParent.getLayoutState().layout;
+          }
+          if (originBox && !checkIfParentHasChanged(prevParent, projectionParent) && prevParent.prevViewportBox) {
+            prevParentViewportBox = prevParent.prevViewportBox;
+          }
+        }
+        if (prevParentViewportBox && isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox)) {
+          isRelative = true;
+          origin = calcRelativeOffset(prevParentViewportBox, origin);
+          target = calcRelativeOffset(parentLayout, target);
+        }
+      }
+      var boxHasMoved = hasMoved(origin, target);
+      var animations2 = eachAxis(function(axis) {
+        var _a2, _b2;
+        if (layout === "position") {
+          var targetLength = target[axis].max - target[axis].min;
+          origin[axis].max = origin[axis].min + targetLength;
+        }
+        if (visualElement2.projection.isTargetLocked) {
+          return;
+        } else if (visibilityAction !== void 0) {
+          visualElement2.setVisibility(visibilityAction === VisibilityAction.Show);
+        } else if (boxHasMoved) {
+          return _this.animateAxis(axis, target[axis], origin[axis], __assign30(__assign30({}, config), { isRelative }));
+        } else {
+          (_b2 = (_a2 = _this.stopAxisAnimation)[axis]) === null || _b2 === void 0 ? void 0 : _b2.call(_a2);
+          return visualElement2.setProjectionTargetAxis(axis, target[axis].min, target[axis].max, isRelative);
+        }
+      });
+      visualElement2.syncRender();
+      return Promise.all(animations2).then(function() {
+        _this.isAnimatingTree = false;
+        onComplete && onComplete();
+        visualElement2.notifyLayoutAnimationComplete();
+      });
+    };
+    return _this;
+  }
+  Animate2.prototype.componentDidMount = function() {
+    var _this = this;
+    var visualElement2 = this.props.visualElement;
+    visualElement2.animateMotionValue = startAnimation;
+    visualElement2.enableLayoutProjection();
+    this.unsubLayoutReady = visualElement2.onLayoutUpdate(this.animate);
+    visualElement2.layoutSafeToRemove = function() {
+      return _this.safeToRemove();
+    };
+    addScaleCorrection(defaultScaleCorrectors);
+  };
+  Animate2.prototype.componentWillUnmount = function() {
+    var _this = this;
+    this.unsubLayoutReady();
+    eachAxis(function(axis) {
+      var _a, _b;
+      return (_b = (_a = _this.stopAxisAnimation)[axis]) === null || _b === void 0 ? void 0 : _b.call(_a);
+    });
+  };
+  Animate2.prototype.animateAxis = function(axis, target, origin, _a) {
+    var _this = this;
+    var _b, _c;
+    var _d = _a === void 0 ? {} : _a, transition = _d.transition, isRelative = _d.isRelative;
+    if (this.isAnimating[axis] && axisIsEqual(target, this.currentAnimationTarget[axis])) {
+      return;
+    }
+    (_c = (_b = this.stopAxisAnimation)[axis]) === null || _c === void 0 ? void 0 : _c.call(_b);
+    this.isAnimating[axis] = true;
+    var visualElement2 = this.props.visualElement;
+    var frameTarget = this.frameTarget[axis];
+    var layoutProgress = visualElement2.getProjectionAnimationProgress()[axis];
+    layoutProgress.clearListeners();
+    layoutProgress.set(0);
+    layoutProgress.set(0);
+    var frame2 = function() {
+      var p = layoutProgress.get() / progressTarget;
+      tweenAxis(frameTarget, origin, target, p);
+      visualElement2.setProjectionTargetAxis(axis, frameTarget.min, frameTarget.max, isRelative);
+    };
+    frame2();
+    var unsubscribeProgress = layoutProgress.onChange(frame2);
+    this.stopAxisAnimation[axis] = function() {
+      _this.isAnimating[axis] = false;
+      layoutProgress.stop();
+      unsubscribeProgress();
+    };
+    this.currentAnimationTarget[axis] = target;
+    var layoutTransition = transition || visualElement2.getDefaultTransition() || defaultLayoutTransition;
+    var animation = startAnimation(axis === "x" ? "layoutX" : "layoutY", layoutProgress, progressTarget, layoutTransition && getValueTransition(layoutTransition, "layout")).then(this.stopAxisAnimation[axis]);
+    return animation;
+  };
+  Animate2.prototype.safeToRemove = function() {
+    var _a, _b;
+    (_b = (_a = this.props).safeToRemove) === null || _b === void 0 ? void 0 : _b.call(_a);
+  };
+  Animate2.prototype.render = function() {
+    return null;
+  };
+  return Animate2;
+}(Component);
+function AnimateLayoutContextProvider(props) {
+  var _a = __read12(usePresence(), 2), safeToRemove = _a[1];
+  return createElement4(Animate, __assign30({}, props, { safeToRemove }));
+}
+function hasMoved(a2, b2) {
+  return !isZeroBox(a2) && !isZeroBox(b2) && (!axisIsEqual(a2.x, b2.x) || !axisIsEqual(a2.y, b2.y));
+}
+var zeroAxis = { min: 0, max: 0 };
+function isZeroBox(a2) {
+  return axisIsEqual(a2.x, zeroAxis) && axisIsEqual(a2.y, zeroAxis);
+}
+function axisIsEqual(a2, b2) {
+  return a2.min === b2.min && a2.max === b2.max;
+}
+var defaultLayoutTransition = {
+  duration: 0.45,
+  ease: [0.4, 0, 0.1, 1]
+};
+function isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox) {
+  return prevParent || !prevParent && !(originBox || targetBox);
+}
+
+// ../../node_modules/framer-motion/dist/es/motion/features/layout/Measure.js
+import { __extends as __extends2, __assign as __assign31 } from "tslib";
+import React__default, { useContext as useContext11 } from "react";
+
+// ../../node_modules/framer-motion/dist/es/context/SharedLayoutContext.js
+import { createContext as createContext6 } from "react";
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/batcher.js
+import { __spreadArray as __spreadArray7, __read as __read13 } from "tslib";
+var defaultHandler = {
+  layoutReady: function(child) {
+    return child.notifyLayoutReady();
+  }
+};
+function createBatcher() {
+  var queue = new Set();
+  return {
+    add: function(child) {
+      return queue.add(child);
+    },
+    flush: function(_a) {
+      var _b = _a === void 0 ? defaultHandler : _a, layoutReady = _b.layoutReady, parent = _b.parent;
+      batchLayout(function(read, write) {
+        var order3 = Array.from(queue).sort(compareByDepth);
+        var ancestors = parent ? collectProjectingAncestors(parent) : [];
+        write(function() {
+          var allElements = __spreadArray7(__spreadArray7([], __read13(ancestors)), __read13(order3));
+          allElements.forEach(function(element) {
+            return element.resetTransform();
+          });
+        });
+        read(function() {
+          order3.forEach(updateLayoutMeasurement);
+        });
+        write(function() {
+          ancestors.forEach(function(element) {
+            return element.restoreTransform();
+          });
+          order3.forEach(layoutReady);
+        });
+        read(function() {
+          order3.forEach(function(child) {
+            if (child.isPresent)
+              child.presence = Presence.Present;
+          });
+        });
+        write(function() {
+          flushSync.preRender();
+          flushSync.render();
+        });
+        read(function() {
+          es_default.postRender(function() {
+            return order3.forEach(assignProjectionToSnapshot);
+          });
+          queue.clear();
+        });
+      });
+      flushLayout();
+    }
+  };
+}
+function assignProjectionToSnapshot(child) {
+  child.prevViewportBox = child.projection.target;
+}
+
+// ../../node_modules/framer-motion/dist/es/context/SharedLayoutContext.js
+var SharedLayoutContext = createContext6(createBatcher());
+var FramerTreeLayoutContext = createContext6(createBatcher());
+function isSharedLayout(context) {
+  return !!context.forceUpdate;
+}
+
+// ../../node_modules/framer-motion/dist/es/motion/features/layout/Measure.js
+var Measure = function(_super) {
+  __extends2(Measure2, _super);
+  function Measure2() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+  Measure2.prototype.componentDidMount = function() {
+    var _a = this.props, syncLayout = _a.syncLayout, framerSyncLayout = _a.framerSyncLayout, visualElement2 = _a.visualElement;
+    isSharedLayout(syncLayout) && syncLayout.register(visualElement2);
+    isSharedLayout(framerSyncLayout) && framerSyncLayout.register(visualElement2);
+    visualElement2.onUnmount(function() {
+      if (isSharedLayout(syncLayout)) {
+        syncLayout.remove(visualElement2);
+      }
+      if (isSharedLayout(framerSyncLayout)) {
+        framerSyncLayout.remove(visualElement2);
+      }
+    });
+  };
+  Measure2.prototype.getSnapshotBeforeUpdate = function() {
+    var _a = this.props, syncLayout = _a.syncLayout, visualElement2 = _a.visualElement;
+    if (isSharedLayout(syncLayout)) {
+      syncLayout.syncUpdate();
+    } else {
+      snapshotViewportBox(visualElement2);
+      syncLayout.add(visualElement2);
+    }
+    return null;
+  };
+  Measure2.prototype.componentDidUpdate = function() {
+    var syncLayout = this.props.syncLayout;
+    if (!isSharedLayout(syncLayout))
+      syncLayout.flush();
+  };
+  Measure2.prototype.render = function() {
+    return null;
+  };
+  return Measure2;
+}(React__default.Component);
+function MeasureContextProvider(props) {
+  var syncLayout = useContext11(SharedLayoutContext);
+  var framerSyncLayout = useContext11(FramerTreeLayoutContext);
+  return React__default.createElement(Measure, __assign31({}, props, { syncLayout, framerSyncLayout }));
+}
+
+// ../../node_modules/framer-motion/dist/es/motion/features/layout/index.js
+var layoutAnimations = {
+  measureLayout: MeasureContextProvider,
+  layoutAnimation: AnimateLayoutContextProvider
+};
+
 // ../../node_modules/framer-motion/dist/es/render/html/visual-element.js
-import { __rest as __rest11, __assign as __assign30 } from "tslib";
+import { __rest as __rest12, __assign as __assign34 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/index.js
-import { __assign as __assign27, __spreadArray as __spreadArray8, __read as __read11 } from "tslib";
+import { __assign as __assign32, __spreadArray as __spreadArray9, __read as __read15 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/render/utils/state.js
+var createProjectionState = function() {
+  return {
+    isEnabled: false,
+    isHydrated: false,
+    isTargetLocked: false,
+    target: axisBox(),
+    targetFinal: axisBox()
+  };
+};
+function createLayoutState() {
+  return {
+    isHydrated: false,
+    layout: axisBox(),
+    layoutCorrected: axisBox(),
+    treeScale: { x: 1, y: 1 },
+    delta: delta(),
+    deltaFinal: delta(),
+    deltaTransform: ""
+  };
+}
+var zeroLayout = createLayoutState();
+
+// ../../node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js
+function buildLayoutProjectionTransform(_a, treeScale, latestTransform) {
+  var x = _a.x, y = _a.y;
+  var xTranslate = x.translate / treeScale.x;
+  var yTranslate = y.translate / treeScale.y;
+  var transform3 = "translate3d(" + xTranslate + "px, " + yTranslate + "px, 0) ";
+  if (latestTransform) {
+    var rotate = latestTransform.rotate, rotateX = latestTransform.rotateX, rotateY = latestTransform.rotateY;
+    if (rotate)
+      transform3 += "rotate(" + rotate + ") ";
+    if (rotateX)
+      transform3 += "rotateX(" + rotateX + ") ";
+    if (rotateY)
+      transform3 += "rotateY(" + rotateY + ") ";
+  }
+  transform3 += "scale(" + x.scale + ", " + y.scale + ")";
+  return !latestTransform && transform3 === identityProjection ? "" : transform3;
+}
+function buildLayoutProjectionTransformOrigin(_a) {
+  var deltaFinal = _a.deltaFinal;
+  return deltaFinal.x.origin * 100 + "% " + deltaFinal.y.origin * 100 + "% 0";
+}
+var identityProjection = buildLayoutProjectionTransform(zeroLayout.delta, zeroLayout.treeScale, { x: 1, y: 1 });
 
 // ../../node_modules/framer-motion/dist/es/render/utils/lifecycles.js
-import { __spreadArray as __spreadArray7, __read as __read10 } from "tslib";
+import { __spreadArray as __spreadArray8, __read as __read14 } from "tslib";
 var names = [
   "LayoutMeasure",
   "BeforeLayoutMeasure",
@@ -5461,7 +6098,7 @@ function createLifecycles() {
       for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
       }
-      return manager.notify.apply(manager, __spreadArray7([], __read10(args)));
+      return manager.notify.apply(manager, __spreadArray8([], __read14(args)));
     };
   });
   return lifecycles;
@@ -5493,9 +6130,53 @@ function updateMotionValuesFromProps(element, next, prev) {
   return next;
 }
 
+// ../../node_modules/framer-motion/dist/es/render/utils/projection.js
+function updateLayoutDeltas(_a, _b, treePath, transformOrigin) {
+  var delta2 = _a.delta, layout = _a.layout, layoutCorrected = _a.layoutCorrected, treeScale = _a.treeScale;
+  var target = _b.target;
+  resetBox(layoutCorrected, layout);
+  applyTreeDeltas(layoutCorrected, treeScale, treePath);
+  updateBoxDelta(delta2, layoutCorrected, target, transformOrigin);
+}
+
+// ../../node_modules/framer-motion/dist/es/render/utils/flat-tree.js
+var FlatTree = function() {
+  function FlatTree2() {
+    this.children = [];
+    this.isDirty = false;
+  }
+  FlatTree2.prototype.add = function(child) {
+    addUniqueItem(this.children, child);
+    this.isDirty = true;
+  };
+  FlatTree2.prototype.remove = function(child) {
+    removeItem(this.children, child);
+    this.isDirty = true;
+  };
+  FlatTree2.prototype.forEach = function(callback) {
+    this.isDirty && this.children.sort(compareByDepth);
+    this.isDirty = false;
+    this.children.forEach(callback);
+  };
+  return FlatTree2;
+}();
+
+// ../../node_modules/framer-motion/dist/es/render/dom/projection/relative-set.js
+function setCurrentViewportBox(visualElement2) {
+  var projectionParent = visualElement2.getProjectionParent();
+  if (!projectionParent) {
+    visualElement2.rebaseProjectionTarget();
+    return;
+  }
+  var relativeOffset = calcRelativeOffset(projectionParent.getLayoutState().layout, visualElement2.getLayoutState().layout);
+  eachAxis(function(axis) {
+    visualElement2.setProjectionTargetAxis(axis, relativeOffset[axis].min, relativeOffset[axis].max, true);
+  });
+}
+
 // ../../node_modules/framer-motion/dist/es/render/index.js
 var visualElement = function(_a) {
-  var _b = _a.treeType, treeType = _b === void 0 ? "" : _b, build = _a.build, getBaseTarget = _a.getBaseTarget, makeTargetAnimatable = _a.makeTargetAnimatable, measureViewportBox2 = _a.measureViewportBox, renderInstance = _a.render, readValueFromInstance = _a.readValueFromInstance, removeValueFromRenderState = _a.removeValueFromRenderState, sortNodePosition = _a.sortNodePosition, scrapeMotionValuesFromProps3 = _a.scrapeMotionValuesFromProps;
+  var _b = _a.treeType, treeType = _b === void 0 ? "" : _b, build = _a.build, getBaseTarget = _a.getBaseTarget, makeTargetAnimatable = _a.makeTargetAnimatable, measureViewportBox = _a.measureViewportBox, renderInstance = _a.render, readValueFromInstance = _a.readValueFromInstance, resetTransform = _a.resetTransform, restoreTransform = _a.restoreTransform, removeValueFromRenderState = _a.removeValueFromRenderState, sortNodePosition = _a.sortNodePosition, scrapeMotionValuesFromProps3 = _a.scrapeMotionValuesFromProps;
   return function(_a2, options) {
     var parent = _a2.parent, props = _a2.props, presenceId2 = _a2.presenceId, blockInitialAnimation = _a2.blockInitialAnimation, visualState = _a2.visualState;
     if (options === void 0) {
@@ -5504,22 +6185,60 @@ var visualElement = function(_a) {
     var latestValues = visualState.latestValues, renderState = visualState.renderState;
     var instance;
     var lifecycles = createLifecycles();
+    var projection = createProjectionState();
+    var projectionParent;
+    var leadProjection = projection;
+    var leadLatestValues = latestValues;
+    var unsubscribeFromLeadVisualElement;
+    var layoutState = createLayoutState();
+    var crossfader;
+    var hasViewportBoxUpdated = false;
     var values3 = new Map();
     var valueSubscriptions = new Map();
     var prevMotionValues = {};
-    var baseTarget = __assign27({}, latestValues);
+    var projectionTargetProgress;
+    var baseTarget = __assign32({}, latestValues);
     var removeFromVariantTree;
     function render3() {
       if (!instance)
         return;
+      if (element.isProjectionReady()) {
+        applyBoxTransforms(leadProjection.targetFinal, leadProjection.target, leadLatestValues);
+        updateBoxDelta(layoutState.deltaFinal, layoutState.layoutCorrected, leadProjection.targetFinal, latestValues);
+      }
       triggerBuild();
-      renderInstance(instance, renderState, latestValues, element.projection);
+      renderInstance(instance, renderState);
     }
     function triggerBuild() {
-      build(element, renderState, latestValues, options, props);
+      var valuesToRender = latestValues;
+      if (crossfader && crossfader.isActive()) {
+        var crossfadedValues = crossfader.getCrossfadeState(element);
+        if (crossfadedValues)
+          valuesToRender = crossfadedValues;
+      }
+      build(element, renderState, valuesToRender, leadProjection, layoutState, options, props);
     }
     function update() {
       lifecycles.notifyUpdate(latestValues);
+    }
+    function updateLayoutProjection() {
+      if (!element.isProjectionReady())
+        return;
+      var delta2 = layoutState.delta, treeScale = layoutState.treeScale;
+      var prevTreeScaleX = treeScale.x;
+      var prevTreeScaleY = treeScale.y;
+      var prevDeltaTransform = layoutState.deltaTransform;
+      updateLayoutDeltas(layoutState, leadProjection, element.path, latestValues);
+      hasViewportBoxUpdated && element.notifyViewportBoxUpdate(leadProjection.target, delta2);
+      hasViewportBoxUpdated = false;
+      var deltaTransform = buildLayoutProjectionTransform(delta2, treeScale);
+      if (deltaTransform !== prevDeltaTransform || prevTreeScaleX !== treeScale.x || prevTreeScaleY !== treeScale.y) {
+        element.scheduleRender();
+      }
+      layoutState.deltaTransform = deltaTransform;
+    }
+    function updateTreeLayoutProjection() {
+      element.layoutTree.forEach(fireUpdateLayoutProjection);
     }
     function bindToMotionValue(key2, value2) {
       var removeOnChange = value2.onChange(function(latestValue) {
@@ -5541,13 +6260,16 @@ var visualElement = function(_a) {
     }
     var isControllingVariants = checkIfControllingVariants(props);
     var isVariantNode = checkIfVariantNode(props);
-    var element = __assign27(__assign27({
+    var element = __assign32(__assign32({
       treeType,
       current: null,
       depth: parent ? parent.depth + 1 : 0,
       parent,
       children: new Set(),
+      path: parent ? __spreadArray9(__spreadArray9([], __read15(parent.path)), [parent]) : [],
+      layoutTree: parent ? parent.layoutTree : new FlatTree(),
       presenceId: presenceId2,
+      projection,
       variantChildren: isVariantNode ? new Set() : void 0,
       isVisible: void 0,
       manuallyAnimateOnMount: Boolean(parent === null || parent === void 0 ? void 0 : parent.isMounted()),
@@ -5557,9 +6279,7 @@ var visualElement = function(_a) {
       },
       mount: function(newInstance) {
         instance = element.current = newInstance;
-        if (element.projection) {
-          element.projection.mount(newInstance);
-        }
+        element.pointTo(element);
         if (isVariantNode && parent && !isControllingVariants) {
           removeFromVariantTree = parent === null || parent === void 0 ? void 0 : parent.addVariantChild(element);
         }
@@ -5568,11 +6288,15 @@ var visualElement = function(_a) {
       unmount: function() {
         cancelSync.update(update);
         cancelSync.render(render3);
+        cancelSync.preRender(element.updateLayoutProjection);
         valueSubscriptions.forEach(function(remove) {
           return remove();
         });
+        element.stopLayoutAnimation();
+        element.layoutTree.remove(element);
         removeFromVariantTree === null || removeFromVariantTree === void 0 ? void 0 : removeFromVariantTree();
         parent === null || parent === void 0 ? void 0 : parent.children.delete(element);
+        unsubscribeFromLeadVisualElement === null || unsubscribeFromLeadVisualElement === void 0 ? void 0 : unsubscribeFromLeadVisualElement();
         lifecycles.clearAllListeners();
       },
       addVariantChild: function(child) {
@@ -5592,6 +6316,9 @@ var visualElement = function(_a) {
       },
       getClosestVariantNode: function() {
         return isVariantNode ? element : parent === null || parent === void 0 ? void 0 : parent.getClosestVariantNode();
+      },
+      scheduleUpdateLayoutProjection: parent ? parent.scheduleUpdateLayoutProjection : function() {
+        return es_default.preRender(element.updateTreeLayoutProjection, false, true);
       },
       getLayoutId: function() {
         return props.layoutId;
@@ -5619,10 +6346,6 @@ var visualElement = function(_a) {
           canMutate = true;
         }
         return makeTargetAnimatable(element, target, props, canMutate);
-      },
-      measureViewportBox: function() {
-        var viewportBox = measureViewportBox2(instance, options);
-        return viewportBox;
       },
       addValue: function(key2, value2) {
         if (element.hasValue(key2))
@@ -5714,78 +6437,168 @@ var visualElement = function(_a) {
           }
         }
         return context;
-      }
+      },
+      enableLayoutProjection: function() {
+        projection.isEnabled = true;
+        element.layoutTree.add(element);
+      },
+      lockProjectionTarget: function() {
+        projection.isTargetLocked = true;
+      },
+      unlockProjectionTarget: function() {
+        element.stopLayoutAnimation();
+        projection.isTargetLocked = false;
+      },
+      getLayoutState: function() {
+        return layoutState;
+      },
+      setCrossfader: function(newCrossfader) {
+        crossfader = newCrossfader;
+      },
+      isProjectionReady: function() {
+        return projection.isEnabled && projection.isHydrated && layoutState.isHydrated;
+      },
+      startLayoutAnimation: function(axis, transition, isRelative) {
+        if (isRelative === void 0) {
+          isRelative = false;
+        }
+        var progress2 = element.getProjectionAnimationProgress()[axis];
+        var _a3 = isRelative ? projection.relativeTarget[axis] : projection.target[axis], min = _a3.min, max = _a3.max;
+        var length = max - min;
+        progress2.clearListeners();
+        progress2.set(min);
+        progress2.set(min);
+        progress2.onChange(function(v) {
+          element.setProjectionTargetAxis(axis, v, v + length, isRelative);
+        });
+        return element.animateMotionValue(axis, progress2, 0, transition);
+      },
+      stopLayoutAnimation: function() {
+        eachAxis(function(axis) {
+          return element.getProjectionAnimationProgress()[axis].stop();
+        });
+      },
+      measureViewportBox: function(withTransform) {
+        if (withTransform === void 0) {
+          withTransform = true;
+        }
+        var viewportBox = measureViewportBox(instance, options);
+        if (!withTransform)
+          removeBoxTransforms(viewportBox, latestValues);
+        return viewportBox;
+      },
+      getProjectionAnimationProgress: function() {
+        projectionTargetProgress || (projectionTargetProgress = {
+          x: motionValue(0),
+          y: motionValue(0)
+        });
+        return projectionTargetProgress;
+      },
+      setProjectionTargetAxis: function(axis, min, max, isRelative) {
+        if (isRelative === void 0) {
+          isRelative = false;
+        }
+        var target;
+        if (isRelative) {
+          if (!projection.relativeTarget) {
+            projection.relativeTarget = axisBox();
+          }
+          target = projection.relativeTarget[axis];
+        } else {
+          projection.relativeTarget = void 0;
+          target = projection.target[axis];
+        }
+        projection.isHydrated = true;
+        target.min = min;
+        target.max = max;
+        hasViewportBoxUpdated = true;
+        lifecycles.notifySetAxisTarget();
+      },
+      rebaseProjectionTarget: function(force, box) {
+        if (box === void 0) {
+          box = layoutState.layout;
+        }
+        var _a3 = element.getProjectionAnimationProgress(), x = _a3.x, y = _a3.y;
+        var shouldRebase = !projection.relativeTarget && !projection.isTargetLocked && !x.isAnimating() && !y.isAnimating();
+        if (force || shouldRebase) {
+          eachAxis(function(axis) {
+            var _a4 = box[axis], min = _a4.min, max = _a4.max;
+            element.setProjectionTargetAxis(axis, min, max);
+          });
+        }
+      },
+      notifyLayoutReady: function(config) {
+        setCurrentViewportBox(element);
+        element.notifyLayoutUpdate(layoutState.layout, element.prevViewportBox || layoutState.layout, config);
+      },
+      resetTransform: function() {
+        return resetTransform(element, instance, props);
+      },
+      restoreTransform: function() {
+        return restoreTransform(instance, renderState);
+      },
+      updateLayoutProjection,
+      updateTreeLayoutProjection: function() {
+        element.layoutTree.forEach(fireResolveRelativeTargetBox);
+        es_default.preRender(updateTreeLayoutProjection, false, true);
+      },
+      getProjectionParent: function() {
+        if (projectionParent === void 0) {
+          var foundParent = false;
+          for (var i = element.path.length - 1; i >= 0; i--) {
+            var ancestor = element.path[i];
+            if (ancestor.projection.isEnabled) {
+              foundParent = ancestor;
+              break;
+            }
+          }
+          projectionParent = foundParent;
+        }
+        return projectionParent;
+      },
+      resolveRelativeTargetBox: function() {
+        var relativeParent = element.getProjectionParent();
+        if (!projection.relativeTarget || !relativeParent)
+          return;
+        calcRelativeBox(projection, relativeParent.projection);
+        if (isDraggable(relativeParent)) {
+          var target = projection.target;
+          applyBoxTransforms(target, target, relativeParent.getLatestValues());
+        }
+      },
+      shouldResetTransform: function() {
+        return Boolean(props._layoutResetTransform);
+      },
+      pointTo: function(newLead) {
+        leadProjection = newLead.projection;
+        leadLatestValues = newLead.getLatestValues();
+        unsubscribeFromLeadVisualElement === null || unsubscribeFromLeadVisualElement === void 0 ? void 0 : unsubscribeFromLeadVisualElement();
+        unsubscribeFromLeadVisualElement = pipe(newLead.onSetAxisTarget(element.scheduleUpdateLayoutProjection), newLead.onLayoutAnimationComplete(function() {
+          var _a3;
+          if (element.isPresent) {
+            element.presence = Presence.Present;
+          } else {
+            (_a3 = element.layoutSafeToRemove) === null || _a3 === void 0 ? void 0 : _a3.call(element);
+          }
+        }));
+      },
+      isPresent: true,
+      presence: Presence.Entering
     });
     return element;
   };
 };
-var variantProps = __spreadArray8(["initial"], __read11(variantPriorityOrder));
+function fireResolveRelativeTargetBox(child) {
+  child.resolveRelativeTargetBox();
+}
+function fireUpdateLayoutProjection(child) {
+  child.updateLayoutProjection();
+}
+var variantProps = __spreadArray9(["initial"], __read15(variantPriorityOrder));
 var numVariantProps = variantProps.length;
 
-// ../../node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js
-import { __rest as __rest10, __assign as __assign28, __read as __read12 } from "tslib";
-function isCSSVariable2(value) {
-  return typeof value === "string" && value.startsWith("var(--");
-}
-var cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
-function parseCSSVariable(current) {
-  var match = cssVariableRegex.exec(current);
-  if (!match)
-    return [,];
-  var _a = __read12(match, 3), token = _a[1], fallback = _a[2];
-  return [token, fallback];
-}
-var maxDepth = 4;
-function getVariableValue(current, element, depth) {
-  if (depth === void 0) {
-    depth = 1;
-  }
-  invariant(depth <= maxDepth, 'Max CSS variable fallback depth detected in property "' + current + '". This may indicate a circular fallback dependency.');
-  var _a = __read12(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
-  if (!token)
-    return;
-  var resolved = window.getComputedStyle(element).getPropertyValue(token);
-  if (resolved) {
-    return resolved.trim();
-  } else if (isCSSVariable2(fallback)) {
-    return getVariableValue(fallback, element, depth + 1);
-  } else {
-    return fallback;
-  }
-}
-function resolveCSSVariables(visualElement2, _a, transitionEnd) {
-  var _b;
-  var target = __rest10(_a, []);
-  var element = visualElement2.getInstance();
-  if (!(element instanceof HTMLElement))
-    return { target, transitionEnd };
-  if (transitionEnd) {
-    transitionEnd = __assign28({}, transitionEnd);
-  }
-  visualElement2.forEachValue(function(value) {
-    var current2 = value.get();
-    if (!isCSSVariable2(current2))
-      return;
-    var resolved2 = getVariableValue(current2, element);
-    if (resolved2)
-      value.set(resolved2);
-  });
-  for (var key in target) {
-    var current = target[key];
-    if (!isCSSVariable2(current))
-      continue;
-    var resolved = getVariableValue(current, element);
-    if (!resolved)
-      continue;
-    target[key] = resolved;
-    if (transitionEnd)
-      (_b = transitionEnd[key]) !== null && _b !== void 0 ? _b : transitionEnd[key] = current;
-  }
-  return { target, transitionEnd };
-}
-
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.js
-import { __assign as __assign29, __read as __read13 } from "tslib";
+import { __assign as __assign33, __read as __read16 } from "tslib";
 var positionalKeys = new Set([
   "width",
   "height",
@@ -5911,8 +6724,8 @@ var checkAndConvertChangedValueTypes = function(visualElement2, target, origin, 
   if (transitionEnd === void 0) {
     transitionEnd = {};
   }
-  target = __assign29({}, target);
-  transitionEnd = __assign29({}, transitionEnd);
+  target = __assign33({}, target);
+  transitionEnd = __assign33({}, transitionEnd);
   var targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
   var removedTransformValues = [];
   var hasAttemptedToRemoveTransformValues = false;
@@ -5970,7 +6783,7 @@ var checkAndConvertChangedValueTypes = function(visualElement2, target, origin, 
     var convertedTarget = convertChangedValueTypes(target, visualElement2, changedValueTypeKeys);
     if (removedTransformValues.length) {
       removedTransformValues.forEach(function(_a) {
-        var _b = __read13(_a, 2), key = _b[0], value = _b[1];
+        var _b = __read16(_a, 2), key = _b[0], value = _b[1];
         visualElement2.getValue(key).set(value);
       });
     }
@@ -6016,7 +6829,7 @@ var htmlConfig = {
   },
   measureViewportBox: function(element, _a) {
     var transformPagePoint = _a.transformPagePoint;
-    return measureViewportBox(element, transformPagePoint);
+    return getBoundingBox(element, transformPagePoint);
   },
   resetTransform: function(element, domElement, props) {
     var transformTemplate = props.transformTemplate;
@@ -6036,7 +6849,7 @@ var htmlConfig = {
     if (isMounted === void 0) {
       isMounted = true;
     }
-    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest11(_a, ["transition", "transitionEnd"]);
+    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest12(_a, ["transition", "transitionEnd"]);
     var origin = getOrigin(target, transition || {}, element);
     if (transformValues) {
       if (transitionEnd)
@@ -6052,25 +6865,26 @@ var htmlConfig = {
       transitionEnd = parsed.transitionEnd;
       target = parsed.target;
     }
-    return __assign30({
+    return __assign34({
       transition,
       transitionEnd
     }, target);
   },
   scrapeMotionValuesFromProps,
-  build: function(element, renderState, latestValues, options, props) {
+  build: function(element, renderState, latestValues, projection, layoutState, options, props) {
     if (element.isVisible !== void 0) {
       renderState.style.visibility = element.isVisible ? "visible" : "hidden";
     }
-    buildHTMLStyles(renderState, latestValues, options, props.transformTemplate);
+    var isProjectionTranform = projection.isEnabled && layoutState.isHydrated;
+    buildHTMLStyles(renderState, latestValues, projection, layoutState, options, props.transformTemplate, isProjectionTranform ? buildLayoutProjectionTransform : void 0, isProjectionTranform ? buildLayoutProjectionTransformOrigin : void 0);
   },
   render: renderHTML
 };
 var htmlVisualElement = visualElement(htmlConfig);
 
 // ../../node_modules/framer-motion/dist/es/render/svg/visual-element.js
-import { __assign as __assign31 } from "tslib";
-var svgVisualElement = visualElement(__assign31(__assign31({}, htmlConfig), {
+import { __assign as __assign35 } from "tslib";
+var svgVisualElement = visualElement(__assign35(__assign35({}, htmlConfig), {
   getBaseTarget: function(props, key) {
     return props[key];
   },
@@ -6083,220 +6897,22 @@ var svgVisualElement = visualElement(__assign31(__assign31({}, htmlConfig), {
     return domElement.getAttribute(key);
   },
   scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2,
-  build: function(_element, renderState, latestValues, options, props) {
-    buildSVGAttrs(renderState, latestValues, options, props.transformTemplate);
+  build: function(_element, renderState, latestValues, projection, layoutState, options, props) {
+    var isProjectionTranform = projection.isEnabled && layoutState.isHydrated;
+    buildSVGAttrs(renderState, latestValues, projection, layoutState, options, props.transformTemplate, isProjectionTranform ? buildLayoutProjectionTransform : void 0, isProjectionTranform ? buildLayoutProjectionTransformOrigin : void 0);
   },
   render: renderSVG
 }));
 
 // ../../node_modules/framer-motion/dist/es/render/dom/create-visual-element.js
-var createDomVisualElement = function(Component, options) {
-  return isSVGComponent(Component) ? svgVisualElement(options, { enableHardwareAcceleration: false }) : htmlVisualElement(options, { enableHardwareAcceleration: true });
-};
-
-// ../../node_modules/framer-motion/dist/es/motion/features/layout/AnimateLayout.js
-import { __assign as __assign33 } from "tslib";
-import { useRef as useRef5, useEffect as useEffect9 } from "react";
-
-// ../../node_modules/framer-motion/dist/es/projection/animation/index.js
-import { __assign as __assign32 } from "tslib";
-
-// ../../node_modules/framer-motion/dist/es/animation/animate.js
-function animate2(from, to, transition) {
-  if (transition === void 0) {
-    transition = {};
-  }
-  var value = isMotionValue(from) ? from : motionValue(from);
-  startAnimation("", value, to, transition);
-  return {
-    stop: function() {
-      return value.stop();
-    }
-  };
-}
-
-// ../../node_modules/framer-motion/dist/es/projection/animation/index.js
-function mixAxisDelta(output, delta, p) {
-  output.translate = mix(delta.translate, 0, p);
-  output.scale = mix(delta.scale, 1, p);
-  output.origin = delta.origin;
-  output.originPoint = delta.originPoint;
-}
-function animateDelta(node, delta, transition) {
-  var targetDelta = createDelta();
-  var onUpdate = function(progress2) {
-    var p = progress2 / 1e3;
-    mixAxisDelta(targetDelta.x, delta.x, p);
-    mixAxisDelta(targetDelta.y, delta.y, p);
-    node.setTargetDelta(targetDelta);
-  };
-  var animation = animate2(0, 1e3, __assign32(__assign32({}, transition), { onUpdate }));
-  return animation;
-}
-
-// ../../node_modules/framer-motion/dist/es/motion/features/layout/AnimateLayout.js
-function AnimateLayout(_a) {
-  var visualElement2 = _a.visualElement, layout = _a.layout, layoutId = _a.layoutId;
-  var projection = visualElement2.projection;
-  var layoutTarget = useRef5(createBox());
-  useEffect9(function() {
-    if (!(layout || layoutId) || !projection)
-      return;
-    return projection.onLayoutDidUpdate(function(_a2) {
-      var newLayout = _a2.layout, delta = _a2.delta, hasLayoutChanged = _a2.hasLayoutChanged;
-      var layoutTransition = visualElement2.getDefaultTransition() || defaultLayoutTransition;
-      var onLayoutAnimationComplete = visualElement2.getProps().onLayoutAnimationComplete;
-      if (hasLayoutChanged && !boxEquals(layoutTarget.current, newLayout)) {
-        animateDelta(projection, delta, __assign33(__assign33({}, getValueTransition(layoutTransition, "layout")), { onComplete: onLayoutAnimationComplete }));
-      }
-      layoutTarget.current = newLayout;
-    });
-  }, [layout, layoutId]);
-  return null;
-}
-var defaultLayoutTransition = {
-  duration: 0.45,
-  ease: [0.4, 0, 0.1, 1]
-};
-
-// ../../node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.js
-import { __extends, __assign as __assign34 } from "tslib";
-import React__default from "react";
-
-// ../../node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.js
-function pixelsToPercent(pixels, axis) {
-  if (axis.max === axis.min)
-    return 0;
-  return pixels / (axis.max - axis.min) * 100;
-}
-var correctBorderRadius = {
-  correct: function(latest, node) {
-    if (typeof latest === "string") {
-      if (px.test(latest)) {
-        latest = parseFloat(latest);
-      } else {
-        return latest;
-      }
-    }
-    var x = pixelsToPercent(latest, node.target.x);
-    var y = pixelsToPercent(latest, node.target.y);
-    return x + "% " + y + "%";
-  }
-};
-
-// ../../node_modules/framer-motion/dist/es/projection/styles/scale-box-shadow.js
-var varToken = "_$css";
-var correctBoxShadow = {
-  correct: function(latest, _a) {
-    var treeScale = _a.treeScale, projectionDelta = _a.projectionDelta;
-    var original = latest;
-    var containsCSSVariables = latest.includes("var(");
-    var cssVariables = [];
-    if (containsCSSVariables) {
-      latest = latest.replace(cssVariableRegex, function(match) {
-        cssVariables.push(match);
-        return varToken;
-      });
-    }
-    var shadow = complex.parse(latest);
-    if (shadow.length > 5)
-      return original;
-    var template = complex.createTransformer(latest);
-    var offset = typeof shadow[0] !== "number" ? 1 : 0;
-    var xScale = projectionDelta.x.scale * treeScale.x;
-    var yScale = projectionDelta.y.scale * treeScale.y;
-    shadow[0 + offset] /= xScale;
-    shadow[1 + offset] /= yScale;
-    var averageScale = mix(xScale, yScale, 0.5);
-    if (typeof shadow[2 + offset] === "number")
-      shadow[2 + offset] /= averageScale;
-    if (typeof shadow[3 + offset] === "number")
-      shadow[3 + offset] /= averageScale;
-    var output = template(shadow);
-    if (containsCSSVariables) {
-      var i_1 = 0;
-      output = output.replace(varToken, function() {
-        var cssVariable = cssVariables[i_1];
-        i_1++;
-        return cssVariable;
-      });
-    }
-    return output;
-  }
-};
-
-// ../../node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.js
-var MeasureLayout = function(_super) {
-  __extends(MeasureLayout2, _super);
-  function MeasureLayout2() {
-    return _super !== null && _super.apply(this, arguments) || this;
-  }
-  MeasureLayout2.prototype.componentDidMount = function() {
-    var visualElement2 = this.props.visualElement;
-    var projection = visualElement2.projection;
-    addScaleCorrector(defaultScaleCorrectors);
-    projection.setOptions({
-      onProjectionUpdate: function() {
-        return visualElement2.scheduleRender();
-      }
-    });
-    var group = this.context.group;
-    if (group)
-      group.add(projection);
-  };
-  MeasureLayout2.prototype.getSnapshotBeforeUpdate = function(prevProps) {
-    var _a;
-    var _b = this.props, layoutDependency = _b.layoutDependency, visualElement2 = _b.visualElement;
-    if (prevProps.layoutDependency !== layoutDependency || layoutDependency === void 0) {
-      (_a = visualElement2.projection) === null || _a === void 0 ? void 0 : _a.willUpdate();
-    }
-    return null;
-  };
-  MeasureLayout2.prototype.componentDidUpdate = function() {
-    var _a;
-    (_a = this.props.visualElement.projection) === null || _a === void 0 ? void 0 : _a.root.didUpdate();
-  };
-  MeasureLayout2.prototype.componentWillUnmount = function() {
-    var group = this.context.group;
-    if (group)
-      group.remove(this.props.visualElement.projection);
-  };
-  MeasureLayout2.prototype.render = function() {
-    var _a;
-    var visualElement2 = this.props.visualElement;
-    if (!visualElement2.projection) {
-      var parent_1 = (_a = visualElement2.parent) === null || _a === void 0 ? void 0 : _a.projection;
-      visualElement2.projection = new HTMLProjectionNode(parent_1);
-    }
-    return null;
-  };
-  MeasureLayout2.contextType = LayoutGroupContext;
-  return MeasureLayout2;
-}(React__default.Component);
-var defaultScaleCorrectors = {
-  borderRadius: __assign34(__assign34({}, correctBorderRadius), { applyTo: [
-    "borderTopLeftRadius",
-    "borderTopRightRadius",
-    "borderBottomLeftRadius",
-    "borderBottomRightRadius"
-  ] }),
-  borderTopLeftRadius: correctBorderRadius,
-  borderTopRightRadius: correctBorderRadius,
-  borderBottomLeftRadius: correctBorderRadius,
-  borderBottomRightRadius: correctBorderRadius,
-  boxShadow: correctBoxShadow
-};
-
-// ../../node_modules/framer-motion/dist/es/motion/features/layout/index.js
-var layoutFeatures = {
-  measureLayout: MeasureLayout,
-  layoutAnimation: AnimateLayout
+var createDomVisualElement = function(Component3, options) {
+  return isSVGComponent(Component3) ? svgVisualElement(options, { enableHardwareAcceleration: false }) : htmlVisualElement(options, { enableHardwareAcceleration: true });
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/motion.js
-var featureBundle = __assign35(__assign35(__assign35(__assign35({}, animations), gestureAnimations), drag), layoutFeatures);
-var motion = /* @__PURE__ */ createMotionProxy(function(Component, config) {
-  return createDomMotionConfig(Component, config, featureBundle, createDomVisualElement);
+var featureBundle = __assign36(__assign36(__assign36(__assign36({}, animations), gestureAnimations), drag), layoutAnimations);
+var motion = /* @__PURE__ */ createMotionProxy(function(Component3, config) {
+  return createDomMotionConfig(Component3, config, featureBundle, createDomVisualElement);
 });
 function createDomMotionComponent(key) {
   return createMotionComponent(createDomMotionConfig(key, { forwardMotionProps: false }, featureBundle, createDomVisualElement));
@@ -6306,19 +6922,19 @@ function createDomMotionComponent(key) {
 var m = createMotionProxy(createDomMotionConfig);
 
 // ../../node_modules/framer-motion/dist/es/components/AnimatePresence/index.js
-import { __spreadArray as __spreadArray9, __read as __read15 } from "tslib";
+import { __spreadArray as __spreadArray10, __read as __read18 } from "tslib";
 import {
   Fragment as Fragment2,
-  createElement as createElement5
+  createElement as createElement6
 } from "react";
-import { useRef as useRef7, cloneElement, Children, isValidElement } from "react";
+import { useContext as useContext12, useRef as useRef6, cloneElement, Children, isValidElement } from "react";
 
 // ../../node_modules/framer-motion/dist/es/utils/use-force-update.js
-import { __read as __read14 } from "tslib";
-import { useCallback as useCallback2, useRef as useRef6, useState } from "react";
+import { __read as __read17 } from "tslib";
+import { useCallback as useCallback2, useRef as useRef5, useState } from "react";
 function useForceUpdate() {
-  var unloadingRef = useRef6(false);
-  var _a = __read14(useState(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
+  var unloadingRef = useRef5(false);
+  var _a = __read17(useState(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
   useUnmountEffect(function() {
     return unloadingRef.current = true;
   });
@@ -6329,8 +6945,8 @@ function useForceUpdate() {
 
 // ../../node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.js
 import {
-  createElement as createElement4,
-  useEffect as useEffect10
+  createElement as createElement5,
+  useEffect as useEffect9
 } from "react";
 import { useMemo as useMemo4 } from "react";
 var presenceId = 0;
@@ -6371,10 +6987,10 @@ var PresenceChild = function(_a) {
       return presenceChildren.set(key, false);
     });
   }, [isPresent2]);
-  useEffect10(function() {
+  useEffect9(function() {
     !isPresent2 && !presenceChildren.size && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
   }, [isPresent2]);
-  return createElement4(PresenceContext.Provider, { value: context }, children);
+  return createElement5(PresenceContext.Provider, { value: context }, children);
 };
 function newChildrenMap() {
   return new Map();
@@ -6408,19 +7024,23 @@ function onlyElements(children) {
 var AnimatePresence = function(_a) {
   var children = _a.children, custom = _a.custom, _b = _a.initial, initial = _b === void 0 ? true : _b, onExitComplete = _a.onExitComplete, exitBeforeEnter = _a.exitBeforeEnter, _c = _a.presenceAffectsLayout, presenceAffectsLayout = _c === void 0 ? true : _c;
   var forceRender = useForceUpdate();
-  var isInitialRender = useRef7(true);
+  var layoutContext = useContext12(SharedLayoutContext);
+  if (isSharedLayout(layoutContext)) {
+    forceRender = layoutContext.forceUpdate;
+  }
+  var isInitialRender = useRef6(true);
   var filteredChildren = onlyElements(children);
-  var presentChildren = useRef7(filteredChildren);
-  var allChildren = useRef7(new Map()).current;
-  var exiting = useRef7(new Set()).current;
+  var presentChildren = useRef6(filteredChildren);
+  var allChildren = useRef6(new Map()).current;
+  var exiting = useRef6(new Set()).current;
   updateChildLookup(filteredChildren, allChildren);
   if (isInitialRender.current) {
     isInitialRender.current = false;
-    return createElement5(Fragment2, null, filteredChildren.map(function(child) {
-      return createElement5(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout }, child);
+    return createElement6(Fragment2, null, filteredChildren.map(function(child) {
+      return createElement6(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout }, child);
     }));
   }
-  var childrenToRender = __spreadArray9([], __read15(filteredChildren));
+  var childrenToRender = __spreadArray10([], __read18(filteredChildren));
   var presentKeys = presentChildren.current.map(getChildKey);
   var targetKeys = filteredChildren.map(getChildKey);
   var numPresent = presentKeys.length;
@@ -6455,30 +7075,454 @@ var AnimatePresence = function(_a) {
         onExitComplete && onExitComplete();
       }
     };
-    childrenToRender.splice(insertionIndex, 0, createElement5(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout }, child));
+    childrenToRender.splice(insertionIndex, 0, createElement6(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom, presenceAffectsLayout }, child));
   });
   childrenToRender = childrenToRender.map(function(child) {
     var key2 = child.key;
-    return exiting.has(key2) ? child : createElement5(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout }, child);
+    return exiting.has(key2) ? child : createElement6(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout }, child);
   });
   presentChildren.current = childrenToRender;
   if (exitBeforeEnter && childrenToRender.length > 1) {
     console.warn("You're attempting to animate multiple children within AnimatePresence, but its exitBeforeEnter prop is set to true. This will lead to odd visual behaviour.");
   }
-  return createElement5(Fragment2, null, exiting.size ? childrenToRender : childrenToRender.map(function(child) {
+  return createElement6(Fragment2, null, exiting.size ? childrenToRender : childrenToRender.map(function(child) {
     return cloneElement(child);
   }));
 };
 
-// ../../node_modules/framer-motion/dist/es/components/MotionConfig/index.js
-import { __rest as __rest12, __assign as __assign36 } from "tslib";
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/index.js
+import { __extends as __extends3, __assign as __assign39 } from "tslib";
 import {
-  createElement as createElement6
+  Component as Component2,
+  createElement as createElement7
 } from "react";
-import { useContext as useContext11, useMemo as useMemo5 } from "react";
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/stack.js
+import { __assign as __assign38 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/crossfader.js
+import { __assign as __assign37 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/animation/animate.js
+function animate2(from, to, transition) {
+  if (transition === void 0) {
+    transition = {};
+  }
+  var value = isMotionValue(from) ? from : motionValue(from);
+  startAnimation("", value, to, transition);
+  return {
+    stop: function() {
+      return value.stop();
+    }
+  };
+}
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/crossfader.js
+function createCrossfader() {
+  var progress2 = motionValue(1);
+  var options = {
+    lead: void 0,
+    follow: void 0,
+    crossfadeOpacity: false,
+    preserveFollowOpacity: false
+  };
+  var prevOptions = __assign37({}, options);
+  var leadState = {};
+  var followState = {};
+  var isActive = false;
+  var finalCrossfadeFrame = null;
+  var prevUpdate = 0;
+  function startCrossfadeAnimation(target, transition) {
+    var lead = options.lead, follow = options.follow;
+    isActive = true;
+    finalCrossfadeFrame = null;
+    var hasUpdated = false;
+    var onUpdate = function() {
+      hasUpdated = true;
+      lead && lead.scheduleRender();
+      follow && follow.scheduleRender();
+    };
+    var onComplete = function() {
+      isActive = false;
+      finalCrossfadeFrame = getFrameData().timestamp;
+    };
+    transition = transition && getValueTransition(transition, "crossfade");
+    return animate2(progress2, target, __assign37(__assign37({}, transition), { onUpdate, onComplete: function() {
+      if (!hasUpdated) {
+        progress2.set(target);
+        es_default.read(onComplete);
+      } else {
+        onComplete();
+      }
+      onUpdate();
+    } }));
+  }
+  function updateCrossfade() {
+    var _a, _b;
+    var timestamp = getFrameData().timestamp;
+    var lead = options.lead, follow = options.follow;
+    if (timestamp === prevUpdate || !lead)
+      return;
+    prevUpdate = timestamp;
+    var latestLeadValues = lead.getLatestValues();
+    Object.assign(leadState, latestLeadValues);
+    var latestFollowValues = follow ? follow.getLatestValues() : options.prevValues;
+    Object.assign(followState, latestFollowValues);
+    var p = progress2.get();
+    var leadTargetOpacity = (_a = latestLeadValues.opacity) !== null && _a !== void 0 ? _a : 1;
+    var followTargetOpacity = (_b = latestFollowValues === null || latestFollowValues === void 0 ? void 0 : latestFollowValues.opacity) !== null && _b !== void 0 ? _b : 1;
+    if (options.crossfadeOpacity && follow) {
+      leadState.opacity = mix(follow.isVisible !== false ? 0 : followTargetOpacity, leadTargetOpacity, easeCrossfadeIn(p));
+      followState.opacity = options.preserveFollowOpacity ? followTargetOpacity : mix(followTargetOpacity, 0, easeCrossfadeOut(p));
+    } else if (!follow) {
+      leadState.opacity = mix(followTargetOpacity, leadTargetOpacity, p);
+    }
+    mixValues(leadState, followState, latestLeadValues, latestFollowValues || {}, Boolean(follow), p);
+  }
+  return {
+    isActive: function() {
+      return leadState && (isActive || getFrameData().timestamp === finalCrossfadeFrame);
+    },
+    fromLead: function(transition) {
+      return startCrossfadeAnimation(0, transition);
+    },
+    toLead: function(transition) {
+      var initialProgress = 0;
+      if (!options.prevValues && !options.follow) {
+        initialProgress = 1;
+      } else if (prevOptions.lead === options.follow && prevOptions.follow === options.lead) {
+        initialProgress = 1 - progress2.get();
+      }
+      progress2.set(initialProgress);
+      return startCrossfadeAnimation(1, transition);
+    },
+    reset: function() {
+      return progress2.set(1);
+    },
+    stop: function() {
+      return progress2.stop();
+    },
+    getCrossfadeState: function(element) {
+      updateCrossfade();
+      if (element === options.lead) {
+        return leadState;
+      } else if (element === options.follow) {
+        return followState;
+      }
+    },
+    setOptions: function(newOptions) {
+      prevOptions = options;
+      options = newOptions;
+      leadState = {};
+      followState = {};
+    },
+    getLatestValues: function() {
+      return leadState;
+    }
+  };
+}
+var easeCrossfadeIn = compress(0, 0.5, circOut);
+var easeCrossfadeOut = compress(0.5, 0.95, linear);
+function compress(min, max, easing2) {
+  return function(p) {
+    if (p < min)
+      return 0;
+    if (p > max)
+      return 1;
+    return easing2(progress(min, max, p));
+  };
+}
+var borders = ["TopLeft", "TopRight", "BottomLeft", "BottomRight"];
+var numBorders = borders.length;
+function mixValues(leadState, followState, latestLeadValues, latestFollowValues, hasFollowElement, p) {
+  for (var i = 0; i < numBorders; i++) {
+    var borderLabel = "border" + borders[i] + "Radius";
+    var followRadius = getRadius(latestFollowValues, borderLabel);
+    var leadRadius = getRadius(latestLeadValues, borderLabel);
+    if (followRadius === void 0 && leadRadius === void 0)
+      continue;
+    followRadius || (followRadius = 0);
+    leadRadius || (leadRadius = 0);
+    if (typeof followRadius === "number" && typeof leadRadius === "number") {
+      var radius = Math.max(mix(followRadius, leadRadius, p), 0);
+      leadState[borderLabel] = followState[borderLabel] = radius;
+    }
+  }
+  if (latestFollowValues.rotate || latestLeadValues.rotate) {
+    var rotate = mix(latestFollowValues.rotate || 0, latestLeadValues.rotate || 0, p);
+    leadState.rotate = followState.rotate = rotate;
+  }
+  if (!hasFollowElement && latestLeadValues.backgroundColor && latestFollowValues.backgroundColor) {
+    leadState.backgroundColor = followState.backgroundColor = mixColor(latestFollowValues.backgroundColor, latestLeadValues.backgroundColor)(p);
+  }
+}
+function getRadius(values3, radiusName) {
+  var _a;
+  return (_a = values3[radiusName]) !== null && _a !== void 0 ? _a : values3.borderRadius;
+}
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/stack.js
+function layoutStack() {
+  var stack = new Set();
+  var state = { leadIsExiting: false };
+  var prevState = __assign38({}, state);
+  var prevValues;
+  var prevViewportBox;
+  var prevDragCursor;
+  var crossfader = createCrossfader();
+  var needsCrossfadeAnimation = false;
+  function getFollowViewportBox() {
+    return state.follow ? state.follow.prevViewportBox : prevViewportBox;
+  }
+  function getFollowLayout() {
+    var _a;
+    return (_a = state.follow) === null || _a === void 0 ? void 0 : _a.getLayoutState().layout;
+  }
+  return {
+    add: function(element) {
+      element.setCrossfader(crossfader);
+      stack.add(element);
+      if (prevDragCursor)
+        element.prevDragCursor = prevDragCursor;
+      if (!state.lead)
+        state.lead = element;
+    },
+    remove: function(element) {
+      stack.delete(element);
+    },
+    getLead: function() {
+      return state.lead;
+    },
+    updateSnapshot: function() {
+      if (!state.lead)
+        return;
+      prevValues = crossfader.isActive() ? crossfader.getLatestValues() : state.lead.getLatestValues();
+      prevViewportBox = state.lead.prevViewportBox;
+      var dragControls = elementDragControls.get(state.lead);
+      if (dragControls && dragControls.isDragging) {
+        prevDragCursor = dragControls.cursorProgress;
+      }
+    },
+    clearSnapshot: function() {
+      prevDragCursor = prevViewportBox = void 0;
+    },
+    updateLeadAndFollow: function() {
+      var _a;
+      prevState = __assign38({}, state);
+      var lead;
+      var follow;
+      var order3 = Array.from(stack);
+      for (var i = order3.length; i--; i >= 0) {
+        var element = order3[i];
+        if (lead)
+          follow !== null && follow !== void 0 ? follow : follow = element;
+        lead !== null && lead !== void 0 ? lead : lead = element;
+        if (lead && follow)
+          break;
+      }
+      state.lead = lead;
+      state.follow = follow;
+      state.leadIsExiting = ((_a = state.lead) === null || _a === void 0 ? void 0 : _a.presence) === Presence.Exiting;
+      crossfader.setOptions({
+        lead,
+        follow,
+        prevValues,
+        crossfadeOpacity: (follow === null || follow === void 0 ? void 0 : follow.isPresenceRoot) || (lead === null || lead === void 0 ? void 0 : lead.isPresenceRoot)
+      });
+      if (state.lead !== prevState.follow && (prevState.lead !== state.lead || prevState.leadIsExiting !== state.leadIsExiting)) {
+        needsCrossfadeAnimation = true;
+      }
+    },
+    animate: function(child, shouldCrossfade) {
+      var _a;
+      if (shouldCrossfade === void 0) {
+        shouldCrossfade = false;
+      }
+      if (child === state.lead) {
+        if (shouldCrossfade) {
+          child.pointTo(state.lead);
+        } else {
+          child.setVisibility(true);
+        }
+        var config = {};
+        var prevParent = (_a = state.follow) === null || _a === void 0 ? void 0 : _a.getProjectionParent();
+        if (prevParent) {
+          config.prevParent = prevParent;
+        }
+        if (child.presence === Presence.Entering) {
+          config.originBox = getFollowViewportBox();
+        } else if (child.presence === Presence.Exiting) {
+          config.targetBox = getFollowLayout();
+        }
+        if (needsCrossfadeAnimation) {
+          needsCrossfadeAnimation = false;
+          var transition = child.getDefaultTransition();
+          child.presence === Presence.Entering ? crossfader.toLead(transition) : crossfader.fromLead(transition);
+        }
+        child.notifyLayoutReady(config);
+      } else {
+        if (shouldCrossfade) {
+          state.lead && child.pointTo(state.lead);
+        } else {
+          child.setVisibility(false);
+        }
+      }
+    }
+  };
+}
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/rotate.js
+function resetRotate(child) {
+  var hasRotate = false;
+  var resetValues = {};
+  for (var i = 0; i < transformAxes.length; i++) {
+    var axis = transformAxes[i];
+    var key = "rotate" + axis;
+    if (!child.hasValue(key) || child.getStaticValue(key) === 0)
+      continue;
+    hasRotate = true;
+    resetValues[key] = child.getStaticValue(key);
+    child.setStaticValue(key, 0);
+  }
+  if (!hasRotate)
+    return;
+  child.syncRender();
+  for (var key in resetValues) {
+    child.setStaticValue(key, resetValues[key]);
+  }
+  child.scheduleRender();
+}
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout/index.js
+var AnimateSharedLayout = function(_super) {
+  __extends3(AnimateSharedLayout2, _super);
+  function AnimateSharedLayout2() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+    _this.children = new Set();
+    _this.stacks = new Map();
+    _this.hasMounted = false;
+    _this.updateScheduled = false;
+    _this.renderScheduled = false;
+    _this.syncContext = __assign39(__assign39({}, createBatcher()), { syncUpdate: function(force) {
+      return _this.scheduleUpdate(force);
+    }, forceUpdate: function() {
+      _this.syncContext = __assign39({}, _this.syncContext);
+      _this.scheduleUpdate(true);
+    }, register: function(child) {
+      return _this.addChild(child);
+    }, remove: function(child) {
+      return _this.removeChild(child);
+    } });
+    return _this;
+  }
+  AnimateSharedLayout2.prototype.componentDidMount = function() {
+    this.hasMounted = true;
+  };
+  AnimateSharedLayout2.prototype.componentDidUpdate = function() {
+    this.startLayoutAnimation();
+  };
+  AnimateSharedLayout2.prototype.shouldComponentUpdate = function() {
+    this.renderScheduled = true;
+    return true;
+  };
+  AnimateSharedLayout2.prototype.startLayoutAnimation = function() {
+    var _this = this;
+    this.renderScheduled = this.updateScheduled = false;
+    var type = this.props.type;
+    this.children.forEach(function(child) {
+      if (!child.isPresent) {
+        child.presence = Presence.Exiting;
+      } else if (child.presence !== Presence.Entering) {
+        child.presence = child.presence === Presence.Exiting ? Presence.Entering : Presence.Present;
+      }
+    });
+    this.updateStacks();
+    var handler = {
+      layoutReady: function(child) {
+        if (child.getLayoutId() !== void 0) {
+          var stack = _this.getStack(child);
+          stack.animate(child, type === "crossfade");
+        } else {
+          child.notifyLayoutReady();
+        }
+      },
+      parent: this.context.visualElement
+    };
+    this.children.forEach(function(child) {
+      return _this.syncContext.add(child);
+    });
+    this.syncContext.flush(handler);
+    this.stacks.forEach(function(stack) {
+      return stack.clearSnapshot();
+    });
+  };
+  AnimateSharedLayout2.prototype.updateStacks = function() {
+    this.stacks.forEach(function(stack) {
+      return stack.updateLeadAndFollow();
+    });
+  };
+  AnimateSharedLayout2.prototype.scheduleUpdate = function(force) {
+    if (force === void 0) {
+      force = false;
+    }
+    if (!(force || !this.updateScheduled))
+      return;
+    this.updateScheduled = true;
+    this.children.forEach(function(child) {
+      resetRotate(child);
+      if (child.shouldResetTransform())
+        child.resetTransform();
+    });
+    this.children.forEach(snapshotViewportBox);
+    this.stacks.forEach(function(stack) {
+      return stack.updateSnapshot();
+    });
+    if (force || !this.renderScheduled) {
+      this.renderScheduled = true;
+      this.forceUpdate();
+    }
+  };
+  AnimateSharedLayout2.prototype.addChild = function(child) {
+    this.children.add(child);
+    this.addToStack(child);
+    child.presence = this.hasMounted ? Presence.Entering : Presence.Present;
+  };
+  AnimateSharedLayout2.prototype.removeChild = function(child) {
+    this.scheduleUpdate();
+    this.children.delete(child);
+    this.removeFromStack(child);
+  };
+  AnimateSharedLayout2.prototype.addToStack = function(child) {
+    var stack = this.getStack(child);
+    stack === null || stack === void 0 ? void 0 : stack.add(child);
+  };
+  AnimateSharedLayout2.prototype.removeFromStack = function(child) {
+    var stack = this.getStack(child);
+    stack === null || stack === void 0 ? void 0 : stack.remove(child);
+  };
+  AnimateSharedLayout2.prototype.getStack = function(child) {
+    var id = child.getLayoutId();
+    if (id === void 0)
+      return;
+    !this.stacks.has(id) && this.stacks.set(id, layoutStack());
+    return this.stacks.get(id);
+  };
+  AnimateSharedLayout2.prototype.render = function() {
+    return createElement7(SharedLayoutContext.Provider, { value: this.syncContext }, this.props.children);
+  };
+  AnimateSharedLayout2.contextType = MotionContext;
+  return AnimateSharedLayout2;
+}(Component2);
+
+// ../../node_modules/framer-motion/dist/es/components/MotionConfig/index.js
+import { __rest as __rest13, __assign as __assign40 } from "tslib";
+import {
+  createElement as createElement8
+} from "react";
+import { useContext as useContext13, useMemo as useMemo5 } from "react";
 function MotionConfig(_a) {
-  var children = _a.children, config = __rest12(_a, ["children"]);
-  config = __assign36(__assign36({}, useContext11(MotionConfigContext)), config);
+  var children = _a.children, config = __rest13(_a, ["children"]);
+  config = __assign40(__assign40({}, useContext13(MotionConfigContext)), config);
   config.isStatic = useConstant(function() {
     return config.isStatic;
   });
@@ -6489,59 +7533,59 @@ function MotionConfig(_a) {
     transitionDependency,
     config.transformPagePoint
   ]);
-  return createElement6(MotionConfigContext.Provider, { value: context }, children);
+  return createElement8(MotionConfigContext.Provider, { value: context }, children);
 }
 
 // ../../node_modules/framer-motion/dist/es/components/LazyMotion/index.js
-import { __read as __read16, __rest as __rest13 } from "tslib";
+import { __read as __read19, __rest as __rest14 } from "tslib";
 import {
-  createElement as createElement7
+  createElement as createElement9
 } from "react";
-import { useState as useState2, useRef as useRef8, useEffect as useEffect11 } from "react";
+import { useState as useState2, useRef as useRef7, useEffect as useEffect10 } from "react";
 function LazyMotion(_a) {
   var children = _a.children, features = _a.features, _b = _a.strict, strict = _b === void 0 ? false : _b;
-  var _c = __read16(useState2(!isLazyBundle(features)), 2), setIsLoaded = _c[1];
-  var loadedRenderer = useRef8(void 0);
+  var _c = __read19(useState2(!isLazyBundle(features)), 2), setIsLoaded = _c[1];
+  var loadedRenderer = useRef7(void 0);
   if (!isLazyBundle(features)) {
-    var renderer = features.renderer, loadedFeatures = __rest13(features, ["renderer"]);
+    var renderer = features.renderer, loadedFeatures = __rest14(features, ["renderer"]);
     loadedRenderer.current = renderer;
     loadFeatures(loadedFeatures);
   }
-  useEffect11(function() {
+  useEffect10(function() {
     if (isLazyBundle(features)) {
       features().then(function(_a2) {
-        var renderer2 = _a2.renderer, loadedFeatures2 = __rest13(_a2, ["renderer"]);
+        var renderer2 = _a2.renderer, loadedFeatures2 = __rest14(_a2, ["renderer"]);
         loadFeatures(loadedFeatures2);
         loadedRenderer.current = renderer2;
         setIsLoaded(true);
       });
     }
   }, []);
-  return createElement7(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
+  return createElement9(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
 }
 function isLazyBundle(features) {
   return typeof features === "function";
 }
 
 // ../../node_modules/framer-motion/dist/es/render/dom/features-animation.js
-import { __assign as __assign37 } from "tslib";
-var domAnimation = __assign37(__assign37({ renderer: createDomVisualElement }, animations), gestureAnimations);
+import { __assign as __assign41 } from "tslib";
+var domAnimation = __assign41(__assign41({ renderer: createDomVisualElement }, animations), gestureAnimations);
 
 // ../../node_modules/framer-motion/dist/es/render/dom/features-max.js
-import { __assign as __assign38 } from "tslib";
-var domMax = __assign38(__assign38(__assign38({}, domAnimation), drag), layoutFeatures);
+import { __assign as __assign42 } from "tslib";
+var domMax = __assign42(__assign42(__assign42({}, domAnimation), drag), layoutAnimations);
 
 // ../../node_modules/framer-motion/dist/es/value/use-motion-value.js
-import { __read as __read17 } from "tslib";
-import { useContext as useContext12, useState as useState3, useEffect as useEffect12 } from "react";
+import { __read as __read20 } from "tslib";
+import { useContext as useContext14, useState as useState3, useEffect as useEffect11 } from "react";
 function useMotionValue(initial) {
   var value = useConstant(function() {
     return motionValue(initial);
   });
-  var isStatic = useContext12(MotionConfigContext).isStatic;
+  var isStatic = useContext14(MotionConfigContext).isStatic;
   if (isStatic) {
-    var _a = __read17(useState3(initial), 2), setLatest_1 = _a[1];
-    useEffect12(function() {
+    var _a = __read20(useState3(initial), 2), setLatest_1 = _a[1];
+    useEffect11(function() {
       return value.onChange(setLatest_1);
     }, []);
   }
@@ -6549,15 +7593,15 @@ function useMotionValue(initial) {
 }
 
 // ../../node_modules/framer-motion/dist/es/value/use-on-change.js
-import { useEffect as useEffect13 } from "react";
+import { useEffect as useEffect12 } from "react";
 function useOnChange(value, callback) {
-  useEffect13(function() {
+  useEffect12(function() {
     if (isMotionValue(value))
       return value.onChange(callback);
   }, [callback]);
 }
 function useMultiOnChange(values3, handler) {
-  useEffect13(function() {
+  useEffect12(function() {
     var subscriptions = values3.map(function(value) {
       return value.onChange(handler);
     });
@@ -6603,10 +7647,10 @@ function useMotionTemplate(fragments) {
 }
 
 // ../../node_modules/framer-motion/dist/es/value/use-transform.js
-import { __read as __read18 } from "tslib";
+import { __read as __read21 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/utils/transform.js
-import { __assign as __assign39 } from "tslib";
+import { __assign as __assign43 } from "tslib";
 var isCustomValueType = function(v) {
   return typeof v === "object" && v.mix;
 };
@@ -6624,7 +7668,7 @@ function transform() {
   var inputRange = args[1 + argOffset];
   var outputRange = args[2 + argOffset];
   var options = args[3 + argOffset];
-  var interpolator = interpolate(inputRange, outputRange, __assign39({ mixer: getMixer2(outputRange[0]) }, options));
+  var interpolator = interpolate(inputRange, outputRange, __assign43({ mixer: getMixer2(outputRange[0]) }, options));
   return useImmediate ? interpolator(inputValue) : interpolator;
 }
 
@@ -6632,7 +7676,7 @@ function transform() {
 function useTransform(input, inputRangeOrTransformer, outputRange, options) {
   var transformer = typeof inputRangeOrTransformer === "function" ? inputRangeOrTransformer : transform(inputRangeOrTransformer, outputRange, options);
   return Array.isArray(input) ? useListTransform(input, transformer) : useListTransform([input], function(_a) {
-    var _b = __read18(_a, 1), latest = _b[0];
+    var _b = __read21(_a, 1), latest = _b[0];
     return transformer(latest);
   });
 }
@@ -6651,14 +7695,14 @@ function useListTransform(values3, transformer) {
 }
 
 // ../../node_modules/framer-motion/dist/es/value/use-spring.js
-import { __assign as __assign40 } from "tslib";
-import { useContext as useContext13, useRef as useRef9, useMemo as useMemo6 } from "react";
+import { __assign as __assign44 } from "tslib";
+import { useContext as useContext15, useRef as useRef8, useMemo as useMemo6 } from "react";
 function useSpring(source, config) {
   if (config === void 0) {
     config = {};
   }
-  var isStatic = useContext13(MotionConfigContext).isStatic;
-  var activeSpringAnimation = useRef9(null);
+  var isStatic = useContext15(MotionConfigContext).isStatic;
+  var activeSpringAnimation = useRef8(null);
   var value = useMotionValue(isMotionValue(source) ? source.get() : source);
   useMemo6(function() {
     return value.attach(function(v, set) {
@@ -6667,7 +7711,7 @@ function useSpring(source, config) {
       if (activeSpringAnimation.current) {
         activeSpringAnimation.current.stop();
       }
-      activeSpringAnimation.current = animate(__assign40(__assign40({ from: value.get(), to: v, velocity: value.getVelocity() }, config), { onUpdate: set }));
+      activeSpringAnimation.current = animate(__assign44(__assign44({ from: value.get(), to: v, velocity: value.getVelocity() }, config), { onUpdate: set }));
       return value.get();
     });
   }, Object.values(config));
@@ -6678,10 +7722,10 @@ function useSpring(source, config) {
 }
 
 // ../../node_modules/framer-motion/dist/es/value/use-velocity.js
-import { useEffect as useEffect14 } from "react";
+import { useEffect as useEffect13 } from "react";
 function useVelocity(value) {
   var velocity = useMotionValue(value.getVelocity());
-  useEffect14(function() {
+  useEffect13(function() {
     return value.velocityUpdateSubscribers.add(function(newVelocity) {
       velocity.set(newVelocity);
     });
@@ -6772,7 +7816,7 @@ function useViewportScroll() {
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/use-reduced-motion.js
-import { __read as __read19 } from "tslib";
+import { __read as __read22 } from "tslib";
 import { useState as useState4 } from "react";
 var prefersReducedMotion;
 function initPrefersReducedMotion() {
@@ -6792,13 +7836,13 @@ function initPrefersReducedMotion() {
 }
 function useReducedMotion() {
   !prefersReducedMotion && initPrefersReducedMotion();
-  var _a = __read19(useState4(prefersReducedMotion.get()), 2), shouldReduceMotion = _a[0], setShouldReduceMotion = _a[1];
+  var _a = __read22(useState4(prefersReducedMotion.get()), 2), shouldReduceMotion = _a[0], setShouldReduceMotion = _a[1];
   useOnChange(prefersReducedMotion, setShouldReduceMotion);
   return shouldReduceMotion;
 }
 
 // ../../node_modules/framer-motion/dist/es/animation/animation-controls.js
-import { __spreadArray as __spreadArray10, __read as __read20 } from "tslib";
+import { __spreadArray as __spreadArray11, __read as __read23 } from "tslib";
 function animationControls() {
   var hasMounted = false;
   var pendingAnimations = [];
@@ -6843,7 +7887,7 @@ function animationControls() {
       hasMounted = true;
       pendingAnimations.forEach(function(_a) {
         var animation = _a.animation, resolve = _a.resolve;
-        controls.start.apply(controls, __spreadArray10([], __read20(animation))).then(resolve);
+        controls.start.apply(controls, __spreadArray11([], __read23(animation))).then(resolve);
       });
       return function() {
         hasMounted = false;
@@ -6855,23 +7899,23 @@ function animationControls() {
 }
 
 // ../../node_modules/framer-motion/dist/es/animation/use-animation.js
-import { useEffect as useEffect15 } from "react";
+import { useEffect as useEffect14 } from "react";
 function useAnimation() {
   var controls = useConstant(animationControls);
-  useEffect15(controls.mount, []);
+  useEffect14(controls.mount, []);
   return controls;
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/use-cycle.js
-import { __read as __read21 } from "tslib";
-import { useRef as useRef10, useState as useState5 } from "react";
+import { __read as __read24 } from "tslib";
+import { useRef as useRef9, useState as useState5 } from "react";
 function useCycle() {
   var items = [];
   for (var _i = 0; _i < arguments.length; _i++) {
     items[_i] = arguments[_i];
   }
-  var index = useRef10(0);
-  var _a = __read21(useState5(items[index.current]), 2), item = _a[0], setItem = _a[1];
+  var index = useRef9(0);
+  var _a = __read24(useState5(items[index.current]), 2), item = _a[0], setItem = _a[1];
   return [
     item,
     function(next) {
@@ -6898,10 +7942,14 @@ var DragControls = function() {
       controls.start(event.nativeEvent || event, options);
     });
   };
-  DragControls2.prototype.updateConstraints = function(_flush) {
+  DragControls2.prototype.updateConstraints = function(flush) {
+    if (flush === void 0) {
+      flush = true;
+    }
     this.componentControls.forEach(function(controls) {
       controls.updateConstraints();
     });
+    flush && flushLayout();
   };
   return DragControls2;
 }();
@@ -6912,43 +7960,16 @@ function useDragControls() {
   return useConstant(createDragControls);
 }
 
-// ../../node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js
-var compareByDepth = function(a2, b2) {
-  return a2.depth - b2.depth;
-};
-
-// ../../node_modules/framer-motion/dist/es/render/utils/flat-tree.js
-var FlatTree = function() {
-  function FlatTree2() {
-    this.children = [];
-    this.isDirty = false;
-  }
-  FlatTree2.prototype.add = function(child) {
-    addUniqueItem(this.children, child);
-    this.isDirty = true;
-  };
-  FlatTree2.prototype.remove = function(child) {
-    removeItem(this.children, child);
-    this.isDirty = true;
-  };
-  FlatTree2.prototype.forEach = function(callback) {
-    this.isDirty && this.children.sort(compareByDepth);
-    this.isDirty = false;
-    this.children.forEach(callback);
-  };
-  return FlatTree2;
-}();
-
 // ../../node_modules/framer-motion/dist/es/animation/use-animated-state.js
-import { __rest as __rest14, __assign as __assign41, __read as __read22 } from "tslib";
-import { useState as useState6, useEffect as useEffect16 } from "react";
+import { __rest as __rest15, __assign as __assign45, __read as __read25 } from "tslib";
+import { useState as useState6, useEffect as useEffect15 } from "react";
 var createObject = function() {
   return {};
 };
 var stateVisualElement = visualElement({
   build: function() {
   },
-  measureViewportBox: createBox,
+  measureViewportBox: axisBox,
   resetTransform: function() {
   },
   restoreTransform: function() {
@@ -6962,10 +7983,10 @@ var stateVisualElement = visualElement({
     return options.initialState[key] || 0;
   },
   makeTargetAnimatable: function(element, _a) {
-    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest14(_a, ["transition", "transitionEnd"]);
+    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest15(_a, ["transition", "transitionEnd"]);
     var origin = getOrigin(target, transition || {}, element);
     checkTargetForNewValues(element, target, origin);
-    return __assign41({ transition, transitionEnd }, target);
+    return __assign45({ transition, transitionEnd }, target);
   }
 });
 var useVisualState = makeUseVisualState({
@@ -6973,19 +7994,19 @@ var useVisualState = makeUseVisualState({
   createRenderState: createObject
 });
 function useAnimatedState(initialState) {
-  var _a = __read22(useState6(initialState), 2), animationState = _a[0], setAnimationState = _a[1];
+  var _a = __read25(useState6(initialState), 2), animationState = _a[0], setAnimationState = _a[1];
   var visualState = useVisualState({}, false);
   var element = useConstant(function() {
     return stateVisualElement({ props: {}, visualState }, { initialState });
   });
-  useEffect16(function() {
+  useEffect15(function() {
     element.mount({});
     return element.unmount();
   }, []);
-  useEffect16(function() {
+  useEffect15(function() {
     element.setProps({
       onUpdate: function(v) {
-        return setAnimationState(__assign41({}, v));
+        return setAnimationState(__assign45({}, v));
       }
     });
   });
@@ -7023,7 +8044,7 @@ function useInvertedScale(scale2) {
 }
 
 // src/renderer.ts
-import React24, { Fragment as Fragment3 } from "react";
+import React26, { Fragment as Fragment3 } from "react";
 import {
   render
 } from "react-dom";
@@ -7232,19 +8253,19 @@ function setRef(ref, value) {
 
 // ../../node_modules/@material-ui/utils/esm/useEnhancedEffect.js
 import {
-  useEffect as useEffect17,
+  useEffect as useEffect16,
   useLayoutEffect as useLayoutEffect2
 } from "react";
-var useEnhancedEffect = typeof window !== "undefined" ? useLayoutEffect2 : useEffect17;
+var useEnhancedEffect = typeof window !== "undefined" ? useLayoutEffect2 : useEffect16;
 var useEnhancedEffect_default = useEnhancedEffect;
 
 // ../../node_modules/@material-ui/utils/esm/useEventCallback.js
 import {
   useCallback as useCallback3,
-  useRef as useRef11
+  useRef as useRef10
 } from "react";
 function useEventCallback(fn) {
-  const ref = useRef11(fn);
+  const ref = useRef10(fn);
   useEnhancedEffect_default(() => {
     ref.current = fn;
   });
@@ -7270,7 +8291,7 @@ function useForkRef(refA, refB) {
 // ../../node_modules/@material-ui/utils/esm/useIsFocusVisible.js
 import {
   useCallback as useCallback4,
-  useRef as useRef12
+  useRef as useRef11
 } from "react";
 var hadKeyboardEvent = true;
 var hadFocusVisibleRecently = false;
@@ -7345,7 +8366,7 @@ function useIsFocusVisible() {
       prepare(node.ownerDocument);
     }
   }, []);
-  const isFocusVisibleRef = useRef12(false);
+  const isFocusVisibleRef = useRef11(false);
   function handleBlurVisible() {
     if (isFocusVisibleRef.current) {
       hadFocusVisibleRecently = true;
@@ -7377,9 +8398,9 @@ function useIsFocusVisible() {
 var import_prop_types8 = __toModule(require_prop_types());
 import {
   forwardRef as forwardRef3,
-  useEffect as useEffect20,
+  useEffect as useEffect19,
   useImperativeHandle as useImperativeHandle2,
-  useRef as useRef14,
+  useRef as useRef13,
   useState as useState9
 } from "react";
 
@@ -7753,8 +8774,8 @@ borderRadius.propTypes = true ? {
   borderRadius: responsivePropType_default
 } : {};
 borderRadius.filterProps = ["borderRadius"];
-var borders = compose_default(border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius);
-var borders_default = borders;
+var borders2 = compose_default(border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius);
+var borders_default = borders2;
 
 // ../../node_modules/@material-ui/system/esm/display.js
 var displayPrint = style_default({
@@ -8222,9 +9243,9 @@ var createTheme_default = createTheme;
 
 // ../../node_modules/@material-ui/private-theming/useTheme/ThemeContext.js
 import {
-  createContext as createContext6
+  createContext as createContext7
 } from "react";
-var ThemeContext2 = /* @__PURE__ */ createContext6(null);
+var ThemeContext2 = /* @__PURE__ */ createContext7(null);
 if (true) {
   ThemeContext2.displayName = "ThemeContext";
 }
@@ -8232,11 +9253,11 @@ var ThemeContext_default = ThemeContext2;
 
 // ../../node_modules/@material-ui/private-theming/useTheme/useTheme.js
 import {
-  useContext as useContext14,
+  useContext as useContext16,
   useDebugValue
 } from "react";
 function useTheme() {
-  const theme = useContext14(ThemeContext_default);
+  const theme = useContext16(ThemeContext_default);
   if (true) {
     useDebugValue(theme);
   }
@@ -8412,11 +9433,11 @@ function createStyled(input = {}) {
           }, other));
         };
       }
-      const Component = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
+      const Component3 = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
       if (displayName) {
-        Component.displayName = displayName;
+        Component3.displayName = displayName;
       }
-      return Component;
+      return Component3;
     };
     return muiStyledResolver;
   };
@@ -9241,9 +10262,9 @@ var import_prop_types7 = __toModule(require_prop_types());
 import {
   forwardRef as forwardRef2,
   useCallback as useCallback5,
-  useEffect as useEffect19,
+  useEffect as useEffect18,
   useImperativeHandle,
-  useRef as useRef13,
+  useRef as useRef12,
   useState as useState8
 } from "react";
 
@@ -9264,8 +10285,8 @@ function _inheritsLoose(subClass, superClass) {
 }
 
 // ../../node_modules/react-transition-group/esm/TransitionGroupContext.js
-import React13 from "react";
-var TransitionGroupContext_default = React13.createContext(null);
+import React15 from "react";
+var TransitionGroupContext_default = React15.createContext(null);
 
 // ../../node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 function _assertThisInitialized(self) {
@@ -9277,7 +10298,7 @@ function _assertThisInitialized(self) {
 
 // ../../node_modules/react-transition-group/esm/TransitionGroup.js
 var import_prop_types5 = __toModule(require_prop_types());
-import React14 from "react";
+import React16 from "react";
 
 // ../../node_modules/react-transition-group/esm/utils/ChildMapping.js
 import { Children as Children2, cloneElement as cloneElement2, isValidElement as isValidElement2 } from "react";
@@ -9440,23 +10461,23 @@ var TransitionGroup = /* @__PURE__ */ function(_React$Component) {
     }
   };
   _proto.render = function render3() {
-    var _this$props = this.props, Component = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
+    var _this$props = this.props, Component3 = _this$props.component, childFactory2 = _this$props.childFactory, props = _objectWithoutPropertiesLoose(_this$props, ["component", "childFactory"]);
     var contextValue = this.state.contextValue;
     var children = values2(this.state.children).map(childFactory2);
     delete props.appear;
     delete props.enter;
     delete props.exit;
-    if (Component === null) {
-      return /* @__PURE__ */ React14.createElement(TransitionGroupContext_default.Provider, {
+    if (Component3 === null) {
+      return /* @__PURE__ */ React16.createElement(TransitionGroupContext_default.Provider, {
         value: contextValue
       }, children);
     }
-    return /* @__PURE__ */ React14.createElement(TransitionGroupContext_default.Provider, {
+    return /* @__PURE__ */ React16.createElement(TransitionGroupContext_default.Provider, {
       value: contextValue
-    }, /* @__PURE__ */ React14.createElement(Component, props, children));
+    }, /* @__PURE__ */ React16.createElement(Component3, props, children));
   };
   return TransitionGroup2;
-}(React14.Component);
+}(React16.Component);
 TransitionGroup.propTypes = true ? {
   component: import_prop_types5.default.any,
   children: import_prop_types5.default.node,
@@ -9471,7 +10492,7 @@ var TransitionGroup_default = TransitionGroup;
 // ../../node_modules/@material-ui/core/ButtonBase/Ripple.js
 var import_prop_types6 = __toModule(require_prop_types());
 import {
-  useEffect as useEffect18,
+  useEffect as useEffect17,
   useState as useState7
 } from "react";
 import { jsx as _jsx } from "react/jsx-runtime";
@@ -9499,7 +10520,7 @@ function Ripple(props) {
   if (!inProp && !leaving) {
     setLeaving(true);
   }
-  useEffect18(() => {
+  useEffect17(() => {
     if (!inProp && onExited != null) {
       const timeoutId = setTimeout(onExited, timeout);
       return () => {
@@ -9656,19 +10677,19 @@ var TouchRipple = /* @__PURE__ */ forwardRef2(function TouchRipple2(inProps, ref
     className
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded9);
   const [ripples, setRipples] = useState8([]);
-  const nextKey = useRef13(0);
-  const rippleCallback = useRef13(null);
-  useEffect19(() => {
+  const nextKey = useRef12(0);
+  const rippleCallback = useRef12(null);
+  useEffect18(() => {
     if (rippleCallback.current) {
       rippleCallback.current();
       rippleCallback.current = null;
     }
   }, [ripples]);
-  const ignoringMouseDown = useRef13(false);
-  const startTimer = useRef13(null);
-  const startTimerCommit = useRef13(null);
-  const container = useRef13(null);
-  useEffect19(() => {
+  const ignoringMouseDown = useRef12(false);
+  const startTimer = useRef12(null);
+  const startTimerCommit = useRef12(null);
+  const container = useRef12(null);
+  useEffect18(() => {
     return () => {
       clearTimeout(startTimer.current);
     };
@@ -9914,8 +10935,8 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
     TouchRippleProps,
     type
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded10);
-  const buttonRef = useRef14(null);
-  const rippleRef = useRef14(null);
+  const buttonRef = useRef13(null);
+  const rippleRef = useRef13(null);
   const {
     isFocusVisibleRef,
     onFocus: handleFocusVisible,
@@ -9926,7 +10947,7 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
   if (disabled && focusVisible) {
     setFocusVisible(false);
   }
-  useEffect20(() => {
+  useEffect19(() => {
     isFocusVisibleRef.current = focusVisible;
   }, [focusVisible, isFocusVisibleRef]);
   useImperativeHandle2(action, () => ({
@@ -9935,7 +10956,7 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
       buttonRef.current.focus();
     }
   }), []);
-  useEffect20(() => {
+  useEffect19(() => {
     if (focusVisible && focusRipple && !disableRipple) {
       rippleRef.current.pulsate();
     }
@@ -9995,7 +11016,7 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
     const button = buttonRef.current;
     return component && component !== "button" && !(button.tagName === "A" && button.href);
   };
-  const keydownRef = useRef14(false);
+  const keydownRef = useRef13(false);
   const handleKeyDown2 = useEventCallback_default((event) => {
     if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === " ") {
       keydownRef.current = true;
@@ -10049,12 +11070,12 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
   const handleOwnRef = useForkRef_default(focusVisibleRef, buttonRef);
   const handleRef = useForkRef_default(ref, handleOwnRef);
   const [mountedState, setMountedState] = useState9(false);
-  useEffect20(() => {
+  useEffect19(() => {
     setMountedState(true);
   }, []);
   const enableTouchRipple = mountedState && !disableRipple && !disabled;
   if (true) {
-    useEffect20(() => {
+    useEffect19(() => {
       if (enableTouchRipple && !rippleRef.current) {
         console.error(["Material-UI: The `component` prop provided to ButtonBase is invalid.", "Please make sure the children prop is rendered in this custom component."].join("\n"));
       }
@@ -11090,53 +12111,53 @@ var SvgIcon_default = SvgIcon;
 // ../../node_modules/@material-ui/core/utils/createSvgIcon.js
 import { jsx as _jsx9 } from "react/jsx-runtime";
 function createSvgIcon(path, displayName) {
-  const Component = (props, ref) => /* @__PURE__ */ _jsx9(SvgIcon_default, _extends({
+  const Component3 = (props, ref) => /* @__PURE__ */ _jsx9(SvgIcon_default, _extends({
     "data-testid": `${displayName}Icon`,
     ref
   }, props, {
     children: path
   }));
   if (true) {
-    Component.displayName = `${displayName}Icon`;
+    Component3.displayName = `${displayName}Icon`;
   }
-  Component.muiName = SvgIcon_default.muiName;
-  return /* @__PURE__ */ memo(/* @__PURE__ */ forwardRef9(Component));
+  Component3.muiName = SvgIcon_default.muiName;
+  return /* @__PURE__ */ memo(/* @__PURE__ */ forwardRef9(Component3));
 }
 
 // src/icons/Share.tsx
-var Share_default = createSvgIcon(/* @__PURE__ */ React24.createElement("path", {
+var Share_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
 }), "Share");
 
 // src/icons/TabletAndroid.tsx
-var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React24.createElement("path", {
+var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
 }), "TabletAndroid");
 
 // src/icons/Tv.tsx
-var Tv_default = createSvgIcon(/* @__PURE__ */ React24.createElement("path", {
+var Tv_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
 }), "Tv");
 
 // src/icons/PhoneAndroid.tsx
-var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React24.createElement("path", {
+var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
 }), "PhoneAndroid");
 
 // src/icons/QrCode.tsx
-var QrCode_default = createSvgIcon(/* @__PURE__ */ React24.createElement("path", {
+var QrCode_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
 }), "QrCode");
 
 // src/Qr.tsx
 var QR = ({ url }) => {
-  const canvasRef = React24.useRef(null);
-  React24.useEffect(() => {
+  const canvasRef = React26.useRef(null);
+  React26.useEffect(() => {
     const load = async () => {
       const { QRious } = await import("@zedvision/qrious");
       const options = {
@@ -11162,7 +12183,7 @@ var QR = ({ url }) => {
   });
 };
 var QRButton = ({ url }) => {
-  const [showQR, setQR] = React24.useState(false);
+  const [showQR, setQR] = React26.useState(false);
   return /* @__PURE__ */ jsx(motion2.div, {
     animate: {
       width: showQR ? 200 : 56,
@@ -11190,21 +12211,21 @@ var QRButton = ({ url }) => {
 var breakPoints = [640, 1024, 1920];
 var sizes = [10, 25, 50, 75, 100];
 var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => {
-  const [isStable, setIsStable] = React24.useState(false);
-  const [scaleRange, changeScaleRange] = React24.useState(75);
-  const [height2, changeHeight] = React24.useState(innerHeight);
-  const [childArray, setChild] = React24.useState([session.children]);
+  const [isStable, setIsStable] = React26.useState(false);
+  const [scaleRange, changeScaleRange] = React26.useState(75);
+  const [height2, changeHeight] = React26.useState(innerHeight);
+  const [childArray, setChild] = React26.useState([session.children]);
   session.setChild = setChild;
-  const [qrUrl, setQRUrl] = React24.useState(session.url);
-  const [errorText, setErrorText] = React24.useState(" ");
-  const [width2, setWidth] = React24.useState(breakPoints[1]);
-  const ref = React24.useRef(null);
-  const zbody = React24.useRef(null);
+  const [qrUrl, setQRUrl] = React26.useState(session.url);
+  const [errorText, setErrorText] = React26.useState(" ");
+  const [width2, setWidth] = React26.useState(breakPoints[1]);
+  const ref = React26.useRef(null);
+  const zbody = React26.useRef(null);
   const child = childArray[childArray.length - 1];
-  React24.useEffect(() => {
+  React26.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
   });
-  React24.useEffect(() => {
+  React26.useEffect(() => {
     const handler = setInterval(() => {
       if (errorText !== session.errorText) {
         const newErr = session.errorText;
@@ -11319,7 +12340,7 @@ var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => 
               `
   }, errorText ? /* @__PURE__ */ jsx("div", {
     dangerouslySetInnerHTML: createMarkup(session.html)
-  }) : /* @__PURE__ */ jsx(React24.Suspense, {
+  }) : /* @__PURE__ */ jsx(React26.Suspense, {
     fallback: /* @__PURE__ */ jsx("div", null, "Error fallback")
   }, /* @__PURE__ */ jsx("div", {
     id: "zbody",
@@ -11371,13 +12392,13 @@ var { motion: motion2 } = es_exports;
 var render2 = (el, container) => {
   const root = render(jsx(Fragment3, { children: el }), container);
 };
-var renderer_default = React24;
+var renderer_default = React26;
 export {
   DraggableWindow,
   Fragment3 as Fragment,
   Global,
   es_exports as Motion,
-  React24 as React,
+  React26 as React,
   css2 as css,
   renderer_default as default,
   jsx,
