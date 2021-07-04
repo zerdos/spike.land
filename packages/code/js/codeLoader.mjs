@@ -276,7 +276,7 @@ export async function run(mode = "window", code = "") {
       console.error({ error, message: "error in rendering" });
       return false;
     }
-    // session.setChild((c) => [...c, session.children]);
+    session.setChild((c) => [...c, session.children]);
     // session.unmount = render(Element(), root);
     let zbody = window.document.getElementById("zbody");
     // if (!zbody) {

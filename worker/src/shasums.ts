@@ -61,7 +61,7 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/codeLoader.mjs":
-    "2c5c12ec9ab96a06b82d3286f6fcc425ed7e70f464f114830518b39148e0698f",
+    "2bca9c55316821c6a4037c9794295aebe946e7e0cd800e2c544d03c3600617ae",
   "js/openWindows.mjs":
     "fde4af11d86228e6c182bd1e58ce6bedb7a2744366018cdbe9e17f8df398aef1",
   "js/data.mjs":
