@@ -291,9 +291,7 @@ export async function run(mode = "window", code = "") {
     session.div = zbody;
     if (!!zbody.innerHTML) {
       session.transpiled = transpiled;
-      console.log(session.transpiled);
       session.html = zbody.innerHTML;
-      console.log(zbody.innerHTML);
       session.children = children;
       session.setChild((c) => [...c, session.children]);
     }
