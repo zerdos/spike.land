@@ -1,4 +1,4 @@
-const {ReactIs} = window;
+const { ReactIs } = window;
 export default ReactIs;
 
 export const {

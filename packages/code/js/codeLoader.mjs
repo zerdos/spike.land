@@ -129,7 +129,7 @@ export async function run(mode = "window", code = "") {
     await sendSignalToQrCode(session);
   } catch (e) {
     throw e;
-///    session.errorText = "YAY!! There is an error";
+    ///    session.errorText = "YAY!! There is an error";
   }
 
   /**

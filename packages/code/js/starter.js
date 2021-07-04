@@ -1,7 +1,6 @@
 try {
   start();
 } catch (error) {
-
   console.error({ error });
   fetch("https://spike.land/error", {
     method: "POST",
