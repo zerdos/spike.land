@@ -57,7 +57,7 @@ export const shasums = {
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
-    "c3d250acf0cc360d9236752faf6748015a84be3d71dee8edbfd2c0732f913587",
+    "a72538ba8e0a708ef670eeafafaf67f9f4480c001618be893a1bdea178d33cc0",
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/codeLoader.mjs":
@@ -98,7 +98,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "3141b29fbc7152994b245bcbdcfffdb1351f94c7e8ff07041cb1cb6b54116d48",
+    "05d80f37f0e0d314e25f69347ef1256782c56eb62d10e00381044610ae9c3c41",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":

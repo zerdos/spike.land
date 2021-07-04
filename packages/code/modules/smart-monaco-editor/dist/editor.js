@@ -174,7 +174,7 @@ export default async ({ onChange, code, language, container, options }) => {
             },
             {
                 name: "framer-motion",
-                url: "https://unpkg.com/framer-motion@4.1.17/dist/framer-motion.d.ts",
+                url: "https://unpkg.com/framer-motion@5.0.0-alpha.2/dist/framer-motion.d.ts",
                 depend: ["popmotion"],
             },
             {
