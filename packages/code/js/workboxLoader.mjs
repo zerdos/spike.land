@@ -29,21 +29,21 @@ export const workboxLoader = async () => {
       }
     });
 
-    // try {
-    //   const { Workbox } = await import(
-    //     "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-window.prod.mjs"
-    //   );
-    //   const wb = new Workbox(`./generated-sw.js`);
+    try {
+      const { Workbox } = await import(
+        "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-window.prod.mjs"
+      );
+      const wb = new Workbox(`./generated-sw.js`);
 
-    //   wb.addEventListener("activated", (event) => {
-    //     if (!event.isUpdate && !window.monaco) {
-    //       console.log("Service worker activated for the first time!");
-    //     }
-    //   });
+      wb.addEventListener("activated", (event) => {
+        if (!event.isUpdate && !window.monaco) {
+          console.log("Service worker activated for the first time!");
+        }
+      });
 
-    //   return wb.register();
-    // } catch (e) {
-    //   console.error(e);
-    // }
+      return wb.register();
+    } catch (e) {
+      console.error(e);
+    }
   }
 };

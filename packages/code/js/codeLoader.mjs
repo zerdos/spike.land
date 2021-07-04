@@ -290,6 +290,8 @@ export async function run(mode = "window", code = "") {
     // zbody && zbody.children[0].replaceWith(root);
     session.div = zbody;
     if (!!zbody.innerHTML) {
+      session.transpiled = transpiled;
+      console.log(session.transpiled);
       session.html = zbody.innerHTML;
       console.log(zbody.innerHTML);
       session.children = children;

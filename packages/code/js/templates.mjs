@@ -50,8 +50,9 @@ export function getHtml({ html, css }) {
 ${JSON.stringify({ imports })}
 </script>
 <script type="module">
-  import App from './app.js';        
-  ReactDOM.render(App(),document.body.children[0]);
+  import App from './app.js';
+  import {jsx} from "@emotion/react"        
+  ReactDOM.render(jsx(App),document.body.children[0]);
 </script>
 </body>
 </html>

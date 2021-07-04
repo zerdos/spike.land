@@ -53,7 +53,7 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/workboxLoader.mjs":
-    "edd27231450ced70a28d8689e81b1294fe1e3994fe52708ec9a6618c3b7ab880",
+    "85a16dcc5b550b0d328e23073ab2e083f4a03df4f15d3e245311a7e564bfd085",
   "js/tslib.mjs":
     "bf22fd4bbdd0ca0c38520cb84980f6a4672b2332b9ff01c094ae3638619a163d",
   "js/importmap.js":
@@ -61,7 +61,7 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/codeLoader.mjs":
-    "b12319bf35cb32fee5d6082bc9e40ba01bcf959ba4e9e9c712f50e815e52a653",
+    "3f4781a6f06eb193a956112d9a90b59af7ef3ef800315d193b1b02bedce6ccf4",
   "js/openWindows.mjs":
     "8e1f765c7cd7b72107b188d7b0141b473e2a9eca7d91d71cab0e13dca457aa10",
   "js/data.mjs":
@@ -77,7 +77,7 @@ export const shasums = {
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "e052e5f9d48962ceaa7e8c3a483dc3ceab4ea885b3121ba10aebf56980e10361",
+    "9ae0ce6d529d42284efff8a533cb31f243ba83308751ed0657e2d12769afca81",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
