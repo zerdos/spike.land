@@ -5,7 +5,6 @@
   "packages": [
     "packages/*",
     "worker",
-    "blog",
     "docker-images/*"
   ]
 }

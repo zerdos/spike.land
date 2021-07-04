@@ -8,7 +8,6 @@
   "workspaces": [
     "packages/*",
     "worker",
-    "blog",
     "docker-images/*"
   ],
   "scripts": {
