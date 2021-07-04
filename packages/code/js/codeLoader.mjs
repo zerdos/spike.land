@@ -1,11 +1,13 @@
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
-
+import { Fragment } from "react";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
 import React from "react";
 import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
+import { jsx } from "@emotion/react";
+
 
 // const { importMap } = globalThis;
 // console.log(importMap);
@@ -248,7 +250,8 @@ export async function run(mode = "window", code = "") {
 
     const mod = (await import(objUrl));
     URL.revokeObjectURL(objUrl);
-    return mod.default();
+    
+    return jsx(mod.default);
   }
 
   /**
@@ -275,7 +278,14 @@ export async function run(mode = "window", code = "") {
     }
     session.setChild((c) => [...c, session.children]);
     // session.unmount = render(Element(), root);
-    const zbody = window.document.getElementById("zbody");
+    let zbody = window.document.getElementById("zbody");
+    // if (!zbody) {
+    //   zbody = document.createElement('div');
+    //   document.body.appendChild(zbody);
+
+    // }
+    
+    // ReactDOM.render(session.children, zbody);
     // zbody && zbody.children[0].replaceWith(root);
     session.div = zbody;
     session.html = zbody.innerHTML;

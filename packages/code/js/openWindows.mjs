@@ -12,16 +12,37 @@ export async function openWindows() {
       width: 720,
       closable: false,
       borderRadius: "0px",
+      overflow: 'hidden',
       backgroundWindow: "#1e1e1e",
-      height: 800,
+      height: '100vh',
       title: "app.tsx",
     },
   );
 
   win.content.innerHTML =
     `<div style="min-height: 20px;  min-width: 600px; height: ${
-      isMobile() ? "2000px" : "calc(100% - 25px);"
-    }; width:100%; display: block;" id="editor"></div>`;
+      isMobile() ? "2000px" : "calc(100%)"
+    }; width:100%; display: block; overflow: hidden;" id="editor"></div>`;
+
+
+  // const zbody = wm.createWindow(
+  //   {
+  //     titlebarHeight: "42px",
+  //     width: 720,
+  //     left: 400,
+  //     closable: false,
+  //     borderRadius: "0px",
+  //     backgroundWindow: "#1e1e1e",
+  //     height: 800,
+  //     title: "React app",
+  //   },
+  // );
+
+  // zbody.content.innerHTML =
+  //   `<div style="min-height: 20px;  min-width: 600px; height: ${
+  //     isMobile() ? "2000px" : "calc(100% - 25px);"
+  //   }; width:100%; display: block;" id="zbody"></div>`;
+
 
   if (!isMobile()) {
     try {

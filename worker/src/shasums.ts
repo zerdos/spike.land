@@ -22,13 +22,13 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/app.css":
-    "50734d193e18f990679c2c0dbce440c71c1a081768b1a81b0d232389e657051e",
+    "5592121afd4e1704fbb6b82716c0072a0bd75507f788979ce728440f3159b63d",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "8240fb323addc9d4e25f20f793dc171da0ec569f0d891a9afd1a1a5db5b3465f",
+    "3ca6d400260c1fd4787cdfd1efbf28b2cb50fe73eb7eacc80114aa5442673f87",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "cypress.json":
     "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
@@ -37,7 +37,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "b47e6bb7596936c769862cae4d28b0e178240521162d2649179967432dd5a225",
+    "c08e10399b484adcac064b73d41487ef0013563856090f01ed1f80b6b3018f91",
   "js/workers/transpile.worker.js":
     "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":
@@ -61,9 +61,9 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/codeLoader.mjs":
-    "ad20305b1da6dece20e34a7536aacc08f5e03d20881c0da695a198dbde795e24",
+    "2bca9c55316821c6a4037c9794295aebe946e7e0cd800e2c544d03c3600617ae",
   "js/openWindows.mjs":
-    "bfb1fa4f1cd506e300660fe3fa5d96337ae7c1c74323ed71568b791dd5ade764",
+    "fde4af11d86228e6c182bd1e58ce6bedb7a2744366018cdbe9e17f8df398aef1",
   "js/data.mjs":
     "5fe227c44855df7672ff9da2c0393e68e6bcf4140e2615480a70a6c5c5c79a31",
   "js/hash.mjs":
@@ -81,7 +81,7 @@ export const shasums = {
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
-    "ebdceb9d1fb94cef0da09baf0cdb02da3788b997e15f4e688ebb06df0d6126a0",
+    "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
   "js/formatter.mjs":
     "64b37cbdb3893e159cde2d4549ca18933d91e1d0fa0f811d0dcb7a5cff1335dc",
   "js/importScript.d.ts":

@@ -15,3 +15,7 @@ body {
     background-position: top;
     background-image: url(./synthwave.jpg);
 }
+
+:root {
+    color-scheme: light dark;
+  }
