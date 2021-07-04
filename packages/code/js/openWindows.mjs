@@ -12,9 +12,9 @@ export async function openWindows() {
       width: 720,
       closable: false,
       borderRadius: "0px",
-      overflow: 'hidden',
+      overflow: "hidden",
       backgroundWindow: "#1e1e1e",
-      height: '100vh',
+      height: "100vh",
       title: "app.tsx",
     },
   );
@@ -23,7 +23,6 @@ export async function openWindows() {
     `<div style="min-height: 20px;  min-width: 600px; height: ${
       isMobile() ? "2000px" : "calc(100%)"
     }; width:100%; display: block; overflow: hidden;" id="editor"></div>`;
-
 
   // const zbody = wm.createWindow(
   //   {
@@ -42,7 +41,6 @@ export async function openWindows() {
   //   `<div style="min-height: 20px;  min-width: 600px; height: ${
   //     isMobile() ? "2000px" : "calc(100% - 25px);"
   //   }; width:100%; display: block;" id="zbody"></div>`;
-
 
   if (!isMobile()) {
     try {

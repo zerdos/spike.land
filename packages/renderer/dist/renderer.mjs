@@ -12338,7 +12338,9 @@ var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => 
                     background: white;
                   }
               `
-  }, /* @__PURE__ */ jsx(React26.Suspense, {
+  }, errorText ? /* @__PURE__ */ jsx("div", {
+    dangerouslySetInnerHTML: createMarkup(session.html)
+  }) : /* @__PURE__ */ jsx(React26.Suspense, {
     fallback: /* @__PURE__ */ jsx("div", null, "Error fallback")
   }, /* @__PURE__ */ jsx("div", {
     id: "zbody",
@@ -12381,6 +12383,9 @@ var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => 
     }
   }, /* @__PURE__ */ jsx(Share_default, null)))));
 };
+function createMarkup(__html) {
+  return { __html };
+}
 
 // src/renderer.ts
 var { motion: motion2 } = es_exports;

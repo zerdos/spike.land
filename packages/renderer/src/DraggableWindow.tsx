@@ -22,6 +22,7 @@ interface DraggableWindowProps {
   session: {
     i: number;
     url: string;
+    html: string;
     errorText: string;
     children: React.FC;
     setChild: React.Dispatch<React.SetStateAction<React.FC[]>>;
@@ -197,15 +198,17 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                   }
               `}
             >
-              <React.Suspense fallback={<div>Error fallback</div>}>
-                <div
-                  id="zbody"
-                  key={session.i}
-                  ref={zbody}
-                >
-                  {child}
-                </div>
-              </React.Suspense>
+              {errorText
+                ? <div dangerouslySetInnerHTML={createMarkup(session.html)} />
+                : <React.Suspense fallback={<div>Error fallback</div>}>
+                  <div
+                    id="zbody"
+                    key={session.i}
+                    ref={zbody}
+                  >
+                    {child}
+                  </div>
+                </React.Suspense>}
             </motion.div>
           </motion.div>
           <ToggleButtonGroup
@@ -271,3 +274,7 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
     </motion.div>
   );
 };
+
+function createMarkup(__html: string) {
+  return { __html };
+}

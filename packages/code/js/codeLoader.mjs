@@ -8,7 +8,6 @@ import React from "react";
 import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
 import { jsx } from "@emotion/react";
 
-
 // const { importMap } = globalThis;
 // console.log(importMap);
 
@@ -250,7 +249,7 @@ export async function run(mode = "window", code = "") {
 
     const mod = (await import(objUrl));
     URL.revokeObjectURL(objUrl);
-    
+
     return jsx(mod.default);
   }
 
@@ -270,27 +269,32 @@ export async function run(mode = "window", code = "") {
       return hadError;
     }
 
+    let children;
     try {
-      session.children = await getReactChild(transpiled);
+      children = await getReactChild(transpiled);
     } catch (error) {
       console.error({ error, message: "error in rendering" });
       return false;
     }
-    session.setChild((c) => [...c, session.children]);
+
     // session.unmount = render(Element(), root);
-    let zbody = window.document.getElementById("zbody");
+    const zbody = document.createElement("div");
     // if (!zbody) {
     //   zbody = document.createElement('div');
     //   document.body.appendChild(zbody);
 
     // }
-    
-    // ReactDOM.render(session.children, zbody);
+
+    ReactDOM.render(children, zbody);
+
     // zbody && zbody.children[0].replaceWith(root);
     session.div = zbody;
-    session.html = zbody.innerHTML;
-    session.transpiled = transpiled;
-
+    if (!!zbody.innerHTML) {
+      session.html = zbody.innerHTML;
+      console.log(zbody.innerHTML);
+      session.children = children;
+      session.setChild((c) => [...c, session.children]);
+    }
     return !zbody.innerHTML;
   }
 }

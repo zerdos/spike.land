@@ -61,9 +61,9 @@ export const shasums = {
   "js/ipfsClient.mjs":
     "616e686bae21718d73a972f9b87dcb813df0a46e84c98cddc625470d55be0dd8",
   "js/codeLoader.mjs":
-    "2bca9c55316821c6a4037c9794295aebe946e7e0cd800e2c544d03c3600617ae",
+    "b12319bf35cb32fee5d6082bc9e40ba01bcf959ba4e9e9c712f50e815e52a653",
   "js/openWindows.mjs":
-    "fde4af11d86228e6c182bd1e58ce6bedb7a2744366018cdbe9e17f8df398aef1",
+    "8e1f765c7cd7b72107b188d7b0141b473e2a9eca7d91d71cab0e13dca457aa10",
   "js/data.mjs":
     "5fe227c44855df7672ff9da2c0393e68e6bcf4140e2615480a70a6c5c5c79a31",
   "js/hash.mjs":
@@ -98,7 +98,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "1bb9e6b0f0d43fed7fc8ccc15bd3530cc61f3217b0551756f37cf6c6c9fec84e",
+    "3141b29fbc7152994b245bcbdcfffdb1351f94c7e8ff07041cb1cb6b54116d48",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":
