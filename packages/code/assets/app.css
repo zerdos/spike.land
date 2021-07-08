@@ -16,10 +16,22 @@ body {
     background-image: url(./synthwave.jpg);
 }
 
-.test{
-    
-}
 
 :root {
     color-scheme: light dark;
+  }
+
+/* style.css */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000000;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+  }
+  
+  .skip-link:focus {
+    top: 0;
   }

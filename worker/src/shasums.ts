@@ -22,7 +22,7 @@ export const shasums = {
   "assets/roboto.css":
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/app.css":
-    "0e874cf0be7ea2325aef36c31f76b93f8119f96caebea53a2e6be838657da82a",
+    "e1b7ce0c8beb3c44a43a8ef8149353f12c3d7c8f4f51ef4453f221a760c22863",
   "assets/social-media-computer-icons-share-icon-png":
     "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
   "manifest.json":
@@ -77,7 +77,7 @@ export const shasums = {
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "9b6e3ec4ca85d16fd1245c9dc0435c90a7aea5373c4c6bb177a522def29f88a0",
+    "ed58a236fef90d540cda861598977df427d01760d3151ad805f2d600d8844051",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":

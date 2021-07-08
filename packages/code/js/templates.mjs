@@ -38,12 +38,26 @@ export function getHtml({ html, css }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="Description" content="Generated with spike.land">
-<style>${css}</style>
+<style>
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+.skip-link:focus {
+  top: 0;
+}
+${css}</style>
 </head>
 <body>
-<div id="zbody">
+<a class="skip-link" href="#zbody">Jump to the page</a>
+<main id="zbody">
   ${html}
-</div>
+</main>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script async src="https://unpkg.com/es-module-shims@0.12.1/dist/es-module-shims.js"></script>
 <script type="importmap">
@@ -52,7 +66,7 @@ ${JSON.stringify({ imports })}
 <script type="module">
   import App from './app.js';
   import {jsx} from "@emotion/react"        
-  ReactDOM.render(jsx(App),document.body.children[0]);
+  ReactDOM.render(jsx(App),document.getElementById('zbody'));
 </script>
 </body>
 </html>
