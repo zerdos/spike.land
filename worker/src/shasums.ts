@@ -28,7 +28,7 @@ export const shasums = {
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "index.html":
-    "3ca6d400260c1fd4787cdfd1efbf28b2cb50fe73eb7eacc80114aa5442673f87",
+    "19a84caaa2580645b81fd11e6c029d267d30a8fa3699d4c12a490d9c20040b73",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "cypress.json":
     "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
@@ -77,7 +77,7 @@ export const shasums = {
   "js/examples/starter_framer.js":
     "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
   "js/templates.mjs":
-    "9ae0ce6d529d42284efff8a533cb31f243ba83308751ed0657e2d12769afca81",
+    "9b6e3ec4ca85d16fd1245c9dc0435c90a7aea5373c4c6bb177a522def29f88a0",
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/starter.js":
