@@ -33,7 +33,7 @@
   "homepage": "https://spike.land",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
-    "cypress": "7.6.0",
+    "cypress": "7.7.0",
     "esbuild": "0.12.15",
     "typescript": "beta"
   },
