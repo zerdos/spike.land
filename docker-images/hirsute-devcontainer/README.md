@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:hirsute
-- Deno: 1.11.3- Node: 16.4.1
+- Deno: 1.11.5- Node: 16.4.3
 - Yarn: 1.22.10
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome

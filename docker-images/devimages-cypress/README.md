@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:focal
-- Node: 14.17.2
+- Node: 14.17.3
 - Yarn: 1.22.10
 - Cypress 7.7.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
