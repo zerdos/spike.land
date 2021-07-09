@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@zedvision/spike-land-worker",
-  "version": "14.3.6",
+  "version": "14.3.7",
   "description": "A template for kick starting a Cloudflare Workers project",
   "main": "dist/index.js",
   "scripts": {
@@ -15,8 +15,8 @@
   "dependencies": {
     "@cloudflare/workers-types": "2.2.2",
     "@cloudflare/wrangler": "1.17.0",
-    "@zedvision/code": "^14.3.6",
-    "@zedvision/ipfs": "^14.3.6",
+    "@zedvision/code": "^14.3.7",
+    "@zedvision/ipfs": "^14.3.7",
     "esbuild": "0.12.15",
     "ipfs-message-port-protocol": "^0.7.3",
     "ipfs-message-port-server": "^0.7.3",
