@@ -2,19 +2,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <%- injectScript %>
   <meta http-equiv="Content-Type" content="text/html,charset=utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <link rel="icon" type="image/png" href="./assets/zed-icon-big.png" />
+  <link rel="icon" type="image/png" href="./src/assets/zed-icon-big.png" />
   <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-  <link rel="stylesheet" href="./assets/app.css" />
-  <link rel="stylesheet" href="./assets/roboto.css" />
-  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.development.js"></script>
+  <link rel="stylesheet" href="./src/assets/app.css" />
+  <link rel="stylesheet" href="./src/assets/roboto.css" />
   <title>Instant React Editor</title>
 </head>
 <body>
-  <script src="./js/importmap.js"></script>
-  <script type="module" src="./js/starter.js"></script>
+
+  <script type="module" src="./src/starter.js"></script>
 </body>
 </html>

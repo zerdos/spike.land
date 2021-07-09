@@ -5,9 +5,9 @@
   "sideEffects": false,
   "main": "./dist/editor.js",
   "scripts": {
-    "prebuild": "yarn clean && tsc && cp -ar dist ../code/modules/smart-monaco-editor/ && deno fmt src",
+    "prebuild": "yarn clean && tsc  && deno fmt src",
     "build": "echo done",
-    "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format &&  rm -rf ../code/js/smart-monaco-editor && mkdir -p ../code/modules/smart-monaco-editor",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format",
     "format": "deno fmt src"
   },
   "keywords": [

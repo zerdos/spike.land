@@ -45,7 +45,7 @@
   "scripts": {
     "build:esm": "yarn esbuild src/QRious.js --loader:.css=text --bundle --minify --platform=browser --outfile=dist/QRious.mjs --target=es2017 --format=esm",
     "clean": "rm -rf dist && yarn tsc",
-    "build": "yarn build:esm && cp -af ./dist/QRious.mjs ../code/modules"
+    "build": "yarn build:esm"
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
 }

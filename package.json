@@ -12,8 +12,8 @@
   ],
   "scripts": {
     "screenshot": "yarn pageres https://spike.land 1920x1080 --delay=5 --scale=1",
-    "build:renderer": "cd packages/renderer && yarn build",
-    "start": "yarn build:renderer && sh start.sh",
+    "build:code": "cd packages/code && yarn build",
+    "start": "yarn build:code && sh start.sh",
     "deploy:worker": "cd worker && yarn deploy",
     "deploy": "yarn lerna run deploy",
     "push": "yarn start && yarn deploy:worker && yarn build && git add . && git commit -m pre-release && git push && git pull",

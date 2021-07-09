@@ -1,0 +1,1 @@
+const e=e=>{let s,r=!1;const{pathname:o}=window.location;if(-1!==o.indexOf("/ipfs/")){r=!0,s=`/ipfs/${o.slice(6,52)}/js/workers/${e}`}else"https://spike.land"!==location.origin?(r=!0,s=window.URL.createObjectURL(new Blob([`self.importScripts("https://spike.land/js/workers/${e}");`]))):s=`https://spike.land/js/workers/${e}`;return{workerSrc:s,forceNormalWorker:r}};export{e as g};

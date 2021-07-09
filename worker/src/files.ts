@@ -1,159 +1,38 @@
 export const files = {
-  "assets/app.css": "QmVC4G4v549yEk5FYngFyx8Szv74yAQrAY7F5adAKcjybE",
-  "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
+  "assets/KFOlCnqEu92Fr1MmEU9fBBc9.719df795.ttf":
     "QmVB1APqxwoFrkjZ9B2kYmukzGPdVrdct1JdxhkPbeY28Q",
-  "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf":
+  "assets/KFOlCnqEu92Fr1MmSU5fBBc9.b4c96f55.ttf":
     "QmSuFCECZFdYirnXLK6xfaZWPmqP77LsRCnrdsmU9KVoMT",
-  "assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf":
+  "assets/KFOlCnqEu92Fr1MmWUlfBBc9.a637d3ff.ttf":
     "Qmd8qKxYJaKoiR9EsxgQqwkD5XBzayCHKwNJuhQuUF5ApJ",
-  "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
+  "assets/KFOmCnqEu92Fr1Mu4mxP.0b1d7f87.ttf":
     "QmRbTrHtUz6mKUsu7FFzfUBcr4VuoCt9TtpMnJG1P135bS",
-  "assets/roboto.css": "QmafZGaL6TznhmwtJ78ggkm7phbCiuEVXcTxfLwbZG6PoT",
-  "assets/social-media-computer-icons-share-icon-png":
-    "QmcsMurTbnEVPqP42x15FiisSjQdXJ7vGGHhf279UtwPxE",
-  "assets/synthwave.jpg": "QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT",
-  "assets/triangle-geometry.png":
-    "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
-  "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-  "cypress/fixtures/example.json":
-    "QmeYGefkBruk6NkCqw5SzFC1TDix5ZvtLWVy6V2VvwWXEw",
-  "cypress/integration/0-ode/todo.spec.js":
-    "QmYUedpsephbh5fBayoAuv5qwAEBAkyj2fGzoWd2GzLErv",
-  "cypress/integration/1-getting-started/todo.spec.js":
-    "QmWW9kxhZn34V71osGbDuRyT54Gdnn5ruE7HL9NkYRETeN",
-  "cypress/integration/2-advanced-examples/actions.spec.js":
-    "QmU3EjuCE4mkQzZMrZb3xswTC6r2rGTFyunz5bQQx7TD4A",
-  "cypress/integration/2-advanced-examples/aliasing.spec.js":
-    "QmTpMio57J3Si1em9ZLTsjsZz6yAMVbvhbQyPdHbeJeaKF",
-  "cypress/integration/2-advanced-examples/assertions.spec.js":
-    "QmPjG9m5eDx8QKYjVhoX5LHMg65Fks4Pa2bH2vnD4k9jza",
-  "cypress/integration/2-advanced-examples/connectors.spec.js":
-    "QmacWFbk1wb2BZ9qYXz9kFUsaC7Uru1RctRmXXhEcnEpY8",
-  "cypress/integration/2-advanced-examples/cookies.spec.js":
-    "QmVr47J1Gi9WD2f1vYzD6WHWywWF2hLkvWDXMk1bfJtqeT",
-  "cypress/integration/2-advanced-examples/cypress_api.spec.js":
-    "QmRvQNRTcHJgMxUMrbT6a4MWiVH7nFSYJGYoogQKW2QJgZ",
-  "cypress/integration/2-advanced-examples/files.spec.js":
-    "QmX2Xky6SNkmzDDk9UQWEdW9B14fiZYGbKnAZBJLSTHDBq",
-  "cypress/integration/2-advanced-examples/local_storage.spec.js":
-    "QmSy5FEU4yQWFeAaoadLftx6qc5EY7irEbdsQAwiNRPZrf",
-  "cypress/integration/2-advanced-examples/location.spec.js":
-    "QmPaNYA26GQhNHKoDaKEAbRrJgWVFBqDUetqjbgwvEn9tC",
-  "cypress/integration/2-advanced-examples/misc.spec.js":
-    "QmbBaM9MYcTmXeqjS1APVcUx15s6qsq9LfC7tGfrYmDQLd",
-  "cypress/integration/2-advanced-examples/navigation.spec.js":
-    "Qmf3NLQ3CHoNRcPyrUfMQQYgGzbHcugbgbxwBBnMLwnG6q",
-  "cypress/integration/2-advanced-examples/network_requests.spec.js":
-    "QmNnSRQqmnbYt3kAg2VUVSGuAVgjy668focM8U6beasM4C",
-  "cypress/integration/2-advanced-examples/querying.spec.js":
-    "QmSZ3aqTenvaKpPXSbrtAtv8Mm5uAW2z88uaBRf9ciEQeD",
-  "cypress/integration/2-advanced-examples/spies_stubs_clocks.spec.js":
-    "QmTUSxVY8amQTbxJz4xMoBPuMynhQfb3AWPoUjiiaPxVVw",
-  "cypress/integration/2-advanced-examples/traversal.spec.js":
-    "QmVtKGgjiFZnrJ9rBuLY3kEeVFUGGJ6fku22f6kBR2gFPx",
-  "cypress/integration/2-advanced-examples/utilities.spec.js":
-    "QmRUKRLwihk3MkEz7EpJERiD67W5pkUv5bUiBNAjbctsqq",
-  "cypress/integration/2-advanced-examples/viewport.spec.js":
-    "QmcPTa7py5jy2P2X4CphWoWj8QLfahnaiCjehJV832ZWEH",
-  "cypress/integration/2-advanced-examples/waiting.spec.js":
-    "QmPxCKwW7dA3mZQUfKUaYHzzgFfoZJD3KCrxNPmZGxikjC",
-  "cypress/integration/2-advanced-examples/window.spec.js":
-    "QmWQsbgkzirqQgEdzz7uUXDTZYqXHRFxUwEgLHjDjtyiLc",
-  "cypress/plugins/index.js": "QmT2XUeGg89y7c91eDkDgWxyCEMwY4J5PdipBfqiKMhUNY",
-  "cypress/support/commands.js":
-    "QmXiYqwd5o7sFmpuuoBZEpoULfqN1SCymAUEWaEGbE53mf",
-  "cypress/support/index.js": "QmY7kLoL8YDX9PT35oG3ADV9zS5ntC1YP7FUbfnQetzW2K",
-  "cypress.json": "QmNU5JpnyZvwL562qyx5uoWctTH8AjKYQawtKHbcBYXryp",
-  "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
-  "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "Qmeb5nBkz6afNSND8nRVTpvsgWqoRVboYTSKiq7vz9kA9r",
-  "js/codeLoader.mjs": "QmU61vKDiWtjg4WtqGXpBnZPiqwqN6xRsx2WP1XwXhkeoS",
-  "js/data.mjs": "QmRmor7ZEvYZfcn8HiuJbmVuftfH4qGvtXRwm6aQqUrmeL",
-  "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
-  "js/examples/rca.tsx": "QmeAor3DcH3cyk81ETDS4QtkiPdRw1LgacbuszFUChRH4b",
-  "js/examples/starter_framer.js":
-    "QmaVBy5PCmFhEKZ7gMtLZUyAy8FBfgDnPeLm6HgCnrC6KF",
-  "js/formatter.mjs": "QmeASfH9ebSoh93pyyaWk9oEzdDqXRuqcUZX8ndez3KAiM",
-  "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
-  "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
-  "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmeLS3GXtNcJUoNFETX7QBGUBSxY2omKKVuPaDSaBh4L8w",
-  "js/ipfsClient.mjs": "QmcWneUUsMgkA6qzuF7PJcSPCvR3GxxuQYE6n3GKWS1HFs",
-  "js/openWindows.mjs": "QmTrebQC2WUaJE27yRmM1NNz99v7GUAUeTgMLNXTzKtJ4e",
-  "js/renderPreviewWindow.mjs":
-    "QmdwXASNRxKWWDjvZDMMyBbdcssmePHDRMB55nWs6umTfS",
-  "js/sendSignalToQrCode.mjs": "QmXbBg2iZDJ74f6qpgt8ADNVnUXaEZUKcATg8uSssWQga6",
-  "js/share.mjs": "QmdLTRdxS3NDhrt2q42ef2JrjCTB4yTxQXYeUZiQ9Z2wZy",
-  "js/starter.js": "QmWSkzKpGiGY5BzokLYHcup4CPXjohzSPskvuAxXjjUwL2",
-  "js/templates.mjs": "QmZebHCHC73uxNK59MZt5Xg6E1We7jGgjCGw3MNW3q6kbD",
-  "js/test.mjs": "QmVnzwNd3k5NioNUeMagb77Q4LRW5DmGxaeBJp7hdoapLK",
-  "js/transpile.mjs": "QmcU3MTThNAPVBcB4RimdALwfaPyBuP6QAjTEA7nGwJHG2",
-  "js/workboxLoader.mjs": "QmeLWcVUx3CxpydK12BJBXE2Xhp46YuE2xftuMCta9u3TF",
-  "js/workers/getWorker.mjs": "QmSkBAGo1hbEPYDnHEpBvGihaVij432VMrmRWm1ZoDL3cP",
-  "js/workers/ipfsWorker.js": "QmR5rAVpLoWk8gx2BEZVNCDgnF7ZUoLqrkSRZmHGHf7qaZ",
-  "js/workers/prettierWorker.js":
-    "QmbWDApRh1NxbuRLsyjMsh1tKsPXmPAtcYt8ffvPgwRNeh",
-  "js/workers/transpile.worker.js":
-    "QmeVW6hJFr5iEpPbLCFHqeL7UCJhiogXeUwCjdz4rBsAAj",
-  "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
-  "modules/QRious.mjs": "QmQV9xiWzKPdVaMd4XHUunsQ28zzA5LgCSFBcW9PMdnidq",
-  "modules/diff.d.ts": "QmXv6B78NKbJLMyErUn6XRUkXxvkata8i6CR5JCC721QJx",
-  "modules/diff.js": "QmbfZsnJhysseRS92eSEc2SX7hBaaLPTojb7oqc6XaBqzy",
-  "modules/diffChars.d.ts": "QmR9hNHu2ZNp9CopGNmME4KgNuyAzMZcZ1hUaZwnjXfkE4",
-  "modules/diffChars.js": "QmNRK5ZC2ZEdMfrTozGkgGJdHiMWYbfk84Gi3kBD4rgMBQ",
-  "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
-  "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
-  "modules/ipfs.client.mjs": "QmTogsAq3zSfQCGyY4GsfQ8yfypUqHkuA3mb1QNaYmCHM1",
-  "modules/renderer.mjs": "QmaFiAk2xCQ34HuhTasyK5TrSF2XT9bzhHSCFJPnk8qKcN",
-  "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
-  "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
-  "modules/shaDB.d.ts": "QmWjtMhACs3iNdvXFAQJGUAzwuYYba9FBd5PmGVkKdA2UX",
-  "modules/shaDB.js": "QmNnrgKetpnx9BZv463Wet9nt4B3By6rojDSi4RaiTjb6p",
-  "modules/smart-monaco-editor/dist/editor.d.ts":
-    "QmbDXsz2Fmv691fT21JToDdJpDN2jAPMP1jg8tgY5DrWdZ",
-  "modules/smart-monaco-editor/dist/editor.js":
-    "QmW77o7CyGVwqQqH6MD9y3xkK3M5KaFhwHuDxwnmrUxkPc",
-  "modules/smart-monaco-editor/dist/monaco.d.ts":
-    "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
-  "modules/smart-monaco-editor/dist/monaco.js":
-    "QmeoRg1hmC4oLukxWqYRbLtRgiTQSFP1izP4By2Nr8AX2F",
-  "modules/vendor/diffChars.d.ts":
-    "Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt",
-  "modules/vendor/diffChars.js":
-    "QmfCcCnGGB4VAF5nPDRZEAwMsTUFM5txJBuyaisp7RW1vd",
-  "modules/vendor/diffMin.d.ts":
-    "QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t",
-  "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
-  "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
-  "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-  "package.json": "QmUrbzCfUtzddRbeg8ohELvwYiC2xoHdwQHnmn5qkjVxZU",
-  "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
-  "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
-  "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
-  "assets/fonts": "QmYAJJ726yRoCVerLBgUHdLax1JKS85SYLrnrG54WxSDtK",
-  "assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "assets": "QmZSmTroUQNVRJ6nhNGpi3u9Rg3pp3NskVqhLd1NtsrEaV",
-  "cypress/fixtures": "QmYugQStvZqQcpWdB1BcaovnNSvoChbthdHxc6RtHn2fU8",
-  "cypress/integration/0-ode": "QmTrbLR6QhVZAD4cg9DzybqfqnmojhvpnMk7qwDKKRyKcV",
-  "cypress/integration/1-getting-started":
-    "QmamniaHah7JuaEjqncwg47tAUa3ZmfUmgEfQm2WDS71ht",
-  "cypress/integration/2-advanced-examples":
-    "QmNMfDjPtrQLLTVx5kvrX9SUgRipDBZp4nmbmAbmwLVNcs",
-  "cypress/integration": "QmXjouqJRRwRosnLb3Q36iBojrP4grJYaecQZTxrwGYxfm",
-  "cypress/plugins": "QmdrGFAsq3iZu8QnACk4RsWhhaV1KSwP6oBAuWjHDa2VJG",
-  "cypress/support": "QmccDAJ3dve2sL42fmysonNkEfiTanwPJ1yfBj8ChumW7E",
-  "cypress": "QmUFRSkTY6szsiNK4bo9cgufABdH6VM1n1xsRBXk3nJNeg",
-  "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
-  "js/examples": "QmUnA9wpBHEYVK2i94kDNR5HrUBL3jPK3okbqVmRqS62wz",
-  "js/workers": "Qmbw9v5Ae1hq4Rp1Mmp5CsGw3gnNbYjTzbVPckV8TfXtFC",
-  "js": "QmVqTZi6Pz2axU1MRWftb1CTZbEStRYKpK7CgaDSYWpQ5o",
-  "modules/smart-monaco-editor/dist":
-    "Qmbf9LvPZfynpCFoiKS11eLtBWxcTTxns2UurEa9he4qdX",
-  "modules/smart-monaco-editor":
-    "QmXoVA5fKR3zJrgMhzDi4LGRn5rFvBQ2sLfP2ckP1yHHdr",
-  "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmTTMLWBoj1vuSVs9TmCRsR2du5bDXodQxWqz8dyk79oQ4",
-  "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmSv6LSXqZMKYYCbYLBP76z3HiVxK9HGAAZkndo3jCscxP",
+  "assets/QRious.dc85f773.js": "QmbvZHenfnMAiPMtjKQiSHSAisAeM1GCLUj9gWzfA7t6JX",
+  "assets/codeLoader.b2eaa921.js":
+    "QmTB1byATRwRUz2vE9PfBxPFv3tu8eR28fe9hm7M8x6j5R",
+  "assets/getWorker.a337a27a.js":
+    "QmQLeaBU4HLtUaX8vBZv1eZyuRe7fJ5diXDV7A8U1tAwpT",
+  "assets/hash.e4a4c99f.js": "QmSHWFeMhvxwFh2t9v7XtDPUnffG19NJRgM8tbvyaE1L2c",
+  "assets/index.52f7a327.js": "QmVz361qCWMAnRCEmWcnxUU7F7hQu2x6F6NKpPaBJ8xHEs",
+  "assets/index.738ccf43.css": "QmZHEu5oesmt9NgNCUTH1Ft6U3uij24CDbndEPiLXa5K5q",
+  "assets/index.955489d4.js": "QmWD9BiwP2XSf5v881xPs52e9DWfJfET7V4HZUYMhAwwQb",
+  "assets/ipfsClient.95a66388.js":
+    "Qmb4fA9iXmuBaXavKDVrkkq55VfRkdqnX4QDsXZQsP7aof",
+  "assets/sendSignalToQrCode.e82bc3cb.js":
+    "Qmd7XgBE686HmCiLP2sva7RWKM4ukAp1R9UUipwCpbhWDF",
+  "assets/share.411c333d.js": "QmehPSDujeyXqGHudz4mGapqboX48ABkVM6zvVRrod26gn",
+  "assets/synthwave.ddb7a169.jpg":
+    "QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT",
+  "assets/templates.bb729142.js":
+    "Qme6n2qMuFHzv64jBu4ti7sop1WVpebDAyqJf7ywasKfrh",
+  "assets/workbox-window.prod.es5.0b63c790.js":
+    "QmcSa3XWQUFhEJKEoseVwDv2hGRXqhAX8seQTx2VhQcSr9",
+  "assets/workboxLoader.5d34567d.js":
+    "QmaRVw76LpoU2Pe3qsZ89ah37pPkChitqqJgo5ZHMHGpds",
+  "assets/zed-icon-big.1a8004c8.png":
+    "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
+  "index.html": "QmQ1Rc98uLHSrhbsmkdNhpZ2zoYiE9NfLAXVfq8hNwhmmx",
+  "assets": "QmSWHhApD2KXXYYMC9hSe5w1EPcpofMtUXYeotwAkK8fNG",
+  "": "QmP55DZ4ukPUFkdzk7wBKpE8ADiPD8Kn5DYnhpZeC5t8FJ",
   "foo": "bar",
 };

@@ -103,7 +103,6 @@ typings/
 extension/
 .awcache
 
-packages/code/dist/worker.js
 packages/code/worker/script.js
 
 
