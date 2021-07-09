@@ -42,5 +42,8 @@
   "license": "BSD-3-Clause",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "simple-window-manager": "^2.1.2"
   }
 }

@@ -1,4 +1,4 @@
-import { wrap } from "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.min.mjs";
+import { wrap } from "comlink";
 import { getWorker } from "./workers/getWorker.mjs";
 
 const { workerSrc, forceNormalWorker } = getWorker("prettierWorker.js");

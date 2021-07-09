@@ -7,7 +7,7 @@ import {
   IpfsClient,
   raceToSuccess,
   toString,
-} from "../modules/ipfs.client.mjs";
+} from "@zedvision/ipfs";
 
 const { workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js");
 

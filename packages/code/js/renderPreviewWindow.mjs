@@ -1,7 +1,7 @@
 export async function renderPreviewWindow(
   session,
 ) {
-  let rendererSrc = `https://spike.land/modules/renderer.mjs`;
+  let rendererSrc = `@zedvision/renderer`;
 
   if (window.location.hostname.indexOf("0.0") !== -1) {
     const cid = window.location.pathname.slice(6, 52);

@@ -1,5 +1,5 @@
 import { getUserId, saveCode } from "./data.mjs";
-import { sha256 } from "../modules/sha256.js";
+import { sha256 } from "@zedvision/shadb";
 
 /**
  * @param {string} rootUrl

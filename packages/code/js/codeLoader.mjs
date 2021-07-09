@@ -1,11 +1,10 @@
 import { renderPreviewWindow } from "./renderPreviewWindow.mjs";
-import { Fragment } from "react";
 import { openWindows } from "./openWindows.mjs";
 import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
 import React from "react";
-import startMonaco from "../modules/smart-monaco-editor/dist/editor.js";
+import startMonaco from "@zedvision/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 
 

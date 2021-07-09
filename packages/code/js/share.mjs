@@ -1,5 +1,4 @@
-import { shaDB } from "../modules/shaDB.js";
-import { sha256 } from "../modules/sha256.js";
+import { shaDB, sha256 } from "@zedvision/shadb"
 import { all, ipfsClient } from "./ipfsClient.mjs";
 
 /**
