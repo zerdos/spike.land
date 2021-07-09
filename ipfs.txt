@@ -86,7 +86,7 @@ added QmXae9sfkPtX9zFzCLVJnQhCCVqMqkZdLaMGQ2e8GCak3t code/modules/vendor/diffMin
 added QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X code/modules/vendor/diffMin.js
 added QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD code/modules/vendor/idb.d.ts
 added QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9 code/modules/vendor/idb.js
-added QmYjF61hLo1iC7krrA5LRrXKSmhUExSJaTb9mHbnCrMKTj code/package.json
+added QmSa7xMonFyBLJFuBxN6Rae5Sd6yXb6XJVMo22qhfHifLX code/package.json
 added QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj code/sw.js
 added QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw code/test.html
 added QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU code/tsconfig.json
@@ -110,4 +110,4 @@ added QmXoVA5fKR3zJrgMhzDi4LGRn5rFvBQ2sLfP2ckP1yHHdr code/modules/smart-monaco-e
 added QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb code/modules/vendor
 added QmTTMLWBoj1vuSVs9TmCRsR2du5bDXodQxWqz8dyk79oQ4 code/modules
 added QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn code/node_modules
-added QmNWg9AGuF2rwUPA2B8gGb5yPMP1U7C4YubgGJjaDEqXfK code
+added QmbEBH5CNabkwnMfeAAPd7thmQD8wQkRYjR4cnJYLYbGyv code
