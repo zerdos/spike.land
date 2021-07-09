@@ -1,43 +1,43 @@
 export const shasums = {
-  "dist/assets/synthwave.ddb7a169.jpg":
+  "assets/synthwave.ddb7a169.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
-  "dist/assets/KFOmCnqEu92Fr1Mu4mxP.0b1d7f87.ttf":
+  "assets/KFOmCnqEu92Fr1Mu4mxP.0b1d7f87.ttf":
     "0b1d7f87f3ca4c8b4bd749b02b6ad71c930b7e306c752a2e2293d7b250b02e27",
-  "dist/assets/templates.bb729142.js":
+  "assets/templates.bb729142.js":
     "3233526140372ca176f19f26a227d751df220d3c174dc982bf0f2bbb3cee1379",
-  "dist/assets/index.52f7a327.js":
+  "assets/index.52f7a327.js":
     "100cbe433a5594bdb1e57b9e4978652865d4ddf1eb365abd4a223f5ca85c646f",
-  "dist/assets/index.738ccf43.css":
+  "assets/index.738ccf43.css":
     "0be93edb58ea90c68c0140f04c7556c49430f189168135f9d63fe53a6a794705",
-  "dist/assets/ipfsClient.95a66388.js":
+  "assets/ipfsClient.95a66388.js":
     "026d75f40618de57633f2b0a3a92047c7dd838dc540507a09b8b940f03bc89e5",
-  "dist/assets/KFOlCnqEu92Fr1MmWUlfBBc9.a637d3ff.ttf":
+  "assets/KFOlCnqEu92Fr1MmWUlfBBc9.a637d3ff.ttf":
     "a637d3ff767789f9b113bbfa208bdb6a76efed7c4c111da2a130f6a38a51d353",
-  "dist/assets/sendSignalToQrCode.e82bc3cb.js":
+  "assets/sendSignalToQrCode.e82bc3cb.js":
     "4a7a22d62e6ffb74ca9e6b508dd92258ef4d8b3aee8b462bed356773143e0610",
-  "dist/assets/codeLoader.b2eaa921.js":
+  "assets/codeLoader.b2eaa921.js":
     "d8a53aeffd7b2e64e611c905dd125fd4e71485aab9b20bf09aebe10050a1dd96",
-  "dist/assets/QRious.dc85f773.js":
+  "assets/QRious.dc85f773.js":
     "7816ebec5a16e8b99f9e0122f029d0ca4e5ee73c0599e56de5511ea1967e2377",
-  "dist/assets/getWorker.a337a27a.js":
+  "assets/getWorker.a337a27a.js":
     "feaae943a9b87b915a47980a517fcd4db9b06f086fbe348319b26417d040a77a",
-  "dist/assets/zed-icon-big.1a8004c8.png":
+  "assets/zed-icon-big.1a8004c8.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
-  "dist/assets/workboxLoader.5d34567d.js":
+  "assets/workboxLoader.5d34567d.js":
     "79dbddcd0ed43cdaa2b5ac62754d7fe4910639e778373225479af42a217d62a1",
-  "dist/assets/KFOlCnqEu92Fr1MmSU5fBBc9.b4c96f55.ttf":
+  "assets/KFOlCnqEu92Fr1MmSU5fBBc9.b4c96f55.ttf":
     "b4c96f55c265e0a80be4243a16f7e88b9a67c85b71b4e2aa8cea4e1aa989b0d1",
-  "dist/assets/hash.e4a4c99f.js":
+  "assets/hash.e4a4c99f.js":
     "bef7ff796c123e568a533e93039b77ab79cc33da60b730729ab7f2201b159f35",
-  "dist/assets/KFOlCnqEu92Fr1MmEU9fBBc9.719df795.ttf":
+  "assets/KFOlCnqEu92Fr1MmEU9fBBc9.719df795.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
-  "dist/assets/index.955489d4.js":
+  "assets/index.955489d4.js":
     "5974a830dae1a82fff7a1cc3e3b9264872acbaab91dd12253efcff8f01969ae6",
-  "dist/assets/workbox-window.prod.es5.0b63c790.js":
+  "assets/workbox-window.prod.es5.0b63c790.js":
     "1e12655cabcb7b20149ed68c5db9c73b0018a9dde351b8a25bca7a07c7704198",
-  "dist/assets/share.411c333d.js":
+  "assets/share.411c333d.js":
     "c94aac460e97a34ab66c81496fc2bff8af9af97921615f053e1f5624827d5fca",
-  "dist/index.html":
+  "index.html":
     "c07e550471a5268f2c064446c395f35ab3e2c737f48b8767801972227b8719e9",
   "food": "bar",
 };

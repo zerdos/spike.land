@@ -1,12 +1,9 @@
 # alias ipfs="ipfs || (docker-compose exec -T ipfs ipfs)"
 
-rm -rf packages/code/src/workers/shaSums.json  packages/code/src/workers/fileCids.json
-find ./packages/code/dist -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,17) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > worker/src/shasums.ts;
-deno fmt packages/code/js/workers/shaSums.json worker/src/shasums.ts;
+find ./packages/code/dist -type f -exec sha256sum {} \; | grep -v node_modules | awk '{print "\"" substr($2,22) "\": \"" $1 "\","}' |  awk 'BEGIN{print "export const shasums = {"}{print $0}END{print " \"food\":\"bar\" }"}' > worker/src/shasums.ts;
 
 #docker-compose exec -T ipfs 
 ipfs add -r packages/code/dist > ipfs.txt
-cat ipfs.txt | awk '{print "\"" substr($3,6) "\": \"" $2 "\","}' | awk 'BEGIN{print "{"}{print $0}END{print " \"foo\":\"bar\" }"}' >  packages/code/src/workers/fileCids.json
 
 CID=$(
     #docker-compose exec -T ipfs
