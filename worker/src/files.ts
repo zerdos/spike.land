@@ -154,6 +154,12 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmTTMLWBoj1vuSVs9TmCRsR2du5bDXodQxWqz8dyk79oQ4",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmSv6LSXqZMKYYCbYLBP76z3HiVxK9HGAAZkndo3jCscxP",
+  "src/assets/synthwave-vscode":
+    "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
+  "src/assets": "QmXpXLHdfZFeU1SFpGX6Ljcja1qAFra66DobSULz8qzq3p",
+  "src/renderer/node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
+  "src/renderer": "QmTcLf5LjtNtnnXUt3K7byz4hmxTXwAfGLXbyZqjvwcTih",
+  "src": "QmWrAsULDRHDm9Cdax95KqETf2ScgLKZnt9Q5nZn9zmTxa",
+  "": "QmeptzmGn1fZjjxLc98EBEY17zKexLULAWFyJpaxQeDqko",
   "foo": "bar",
 };
