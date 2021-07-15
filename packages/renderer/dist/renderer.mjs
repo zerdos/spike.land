@@ -25,9 +25,9 @@ var __toModule = (module) => {
   return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
 };
 
-// ../../node_modules/@emotion/is-prop-valid/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js
+// ../../node_modules/framer-motion/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js
 var require_memoize_browser_cjs = __commonJS({
-  "../../node_modules/@emotion/is-prop-valid/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js"(exports) {
+  "../../node_modules/framer-motion/node_modules/@emotion/memoize/dist/memoize.browser.cjs.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function memoize2(fn) {
@@ -42,9 +42,9 @@ var require_memoize_browser_cjs = __commonJS({
   }
 });
 
-// ../../node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.cjs.js
+// ../../node_modules/framer-motion/node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.cjs.js
 var require_is_prop_valid_browser_cjs = __commonJS({
-  "../../node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.cjs.js"(exports) {
+  "../../node_modules/framer-motion/node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.cjs.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     function _interopDefault(ex) {
@@ -8974,10 +8974,19 @@ var width = style_default({
   prop: "width",
   transform: transform2
 });
-var maxWidth = style_default({
-  prop: "maxWidth",
-  transform: transform2
-});
+var maxWidth = (props) => {
+  if (props.maxWidth) {
+    const styleFromPropValue = (propValue) => {
+      const breakpoint = props.theme.breakpoints.values[propValue];
+      return {
+        maxWidth: breakpoint || transform2(propValue)
+      };
+    };
+    return handleBreakpoints(props, props.maxWidth, styleFromPropValue);
+  }
+  return null;
+};
+maxWidth.filterProps = ["maxWidth"];
 var minWidth = style_default({
   prop: "minWidth",
   transform: transform2
@@ -9348,7 +9357,9 @@ var variantsResolver = (props, styles, theme, name) => {
   }
   return variantsStyles;
 };
-var shouldForwardProp = (prop) => prop !== "styleProps" && prop !== "theme" && prop !== "sx" && prop !== "as";
+var shouldForwardProp = (prop) => {
+  return prop !== "styleProps" && prop !== "theme" && prop !== "sx" && prop !== "as";
+};
 var systemDefaultTheme2 = createTheme_default();
 var lowercaseFirstLetter = (string) => {
   return string.charAt(0).toLowerCase() + string.slice(1);
@@ -9694,25 +9705,6 @@ var purple = {
 };
 var purple_default = purple;
 
-// ../../node_modules/@material-ui/core/colors/cyan.js
-var cyan = {
-  50: "#e0f7fa",
-  100: "#b2ebf2",
-  200: "#80deea",
-  300: "#4dd0e1",
-  400: "#26c6da",
-  500: "#00bcd4",
-  600: "#00acc1",
-  700: "#0097a7",
-  800: "#00838f",
-  900: "#006064",
-  A100: "#84ffff",
-  A200: "#18ffff",
-  A400: "#00e5ff",
-  A700: "#00b8d4"
-};
-var cyan_default = cyan;
-
 // ../../node_modules/@material-ui/core/colors/red.js
 var red = {
   50: "#ffebee",
@@ -9770,6 +9762,25 @@ var blue = {
 };
 var blue_default = blue;
 
+// ../../node_modules/@material-ui/core/colors/lightBlue.js
+var lightBlue = {
+  50: "#e1f5fe",
+  100: "#b3e5fc",
+  200: "#81d4fa",
+  300: "#4fc3f7",
+  400: "#29b6f6",
+  500: "#03a9f4",
+  600: "#039be5",
+  700: "#0288d1",
+  800: "#0277bd",
+  900: "#01579b",
+  A100: "#80d8ff",
+  A200: "#40c4ff",
+  A400: "#00b0ff",
+  A700: "#0091ea"
+};
+var lightBlue_default = lightBlue;
+
 // ../../node_modules/@material-ui/core/colors/green.js
 var green = {
   50: "#e8f5e9",
@@ -9790,7 +9801,7 @@ var green = {
 var green_default = green;
 
 // ../../node_modules/@material-ui/core/styles/createPalette.js
-var _excluded5 = ["warning", "info", "success", "mode", "contrastThreshold", "tonalOffset"];
+var _excluded5 = ["mode", "contrastThreshold", "tonalOffset"];
 var light = {
   text: {
     primary: "rgba(0, 0, 0, 0.87)",
@@ -9897,23 +9908,50 @@ function getDefaultError(mode = "light") {
     dark: red_default[800]
   };
 }
+function getDefaultInfo(mode = "light") {
+  if (mode === "dark") {
+    return {
+      main: lightBlue_default[400],
+      light: lightBlue_default[300],
+      dark: lightBlue_default[700]
+    };
+  }
+  return {
+    main: lightBlue_default[700],
+    light: lightBlue_default[500],
+    dark: lightBlue_default[900]
+  };
+}
+function getDefaultSuccess(mode = "light") {
+  if (mode === "dark") {
+    return {
+      main: green_default[400],
+      light: green_default[300],
+      dark: green_default[700]
+    };
+  }
+  return {
+    main: green_default[800],
+    light: green_default[500],
+    dark: green_default[900]
+  };
+}
+function getDefaultWarning(mode = "light") {
+  if (mode === "dark") {
+    return {
+      main: orange_default[400],
+      light: orange_default[300],
+      dark: orange_default[700]
+    };
+  }
+  return {
+    main: "#ED6C02",
+    light: orange_default[500],
+    dark: orange_default[900]
+  };
+}
 function createPalette(palette2) {
   const {
-    warning: warning2 = {
-      light: orange_default[300],
-      main: orange_default[500],
-      dark: orange_default[700]
-    },
-    info = {
-      light: cyan_default[300],
-      main: cyan_default[500],
-      dark: cyan_default[700]
-    },
-    success = {
-      light: green_default[300],
-      main: green_default[500],
-      dark: green_default[700]
-    },
     mode = "light",
     contrastThreshold = 3,
     tonalOffset = 0.2
@@ -9921,6 +9959,9 @@ function createPalette(palette2) {
   const primary = palette2.primary || getDefaultPrimary(mode);
   const secondary = palette2.secondary || getDefaultSecondary(mode);
   const error = palette2.error || getDefaultError(mode);
+  const info = palette2.info || getDefaultInfo(mode);
+  const success = palette2.success || getDefaultSuccess(mode);
+  const warning2 = palette2.warning || getDefaultWarning(mode);
   function getContrastText(background) {
     const contrastText = getContrastRatio(background, dark.text.primary) >= contrastThreshold ? dark.text.primary : light.text.primary;
     if (true) {
@@ -11161,7 +11202,7 @@ var capitalize_default = capitalize;
 function getFabUtilityClass(slot) {
   return generateUtilityClass("MuiFab", slot);
 }
-var fabClasses = generateUtilityClasses("MuiFab", ["root", "label", "primary", "secondary", "extended", "circular", "focusVisible", "disabled", "colorInherit", "sizeSmall", "sizeMedium", "sizeLarge"]);
+var fabClasses = generateUtilityClasses("MuiFab", ["root", "primary", "secondary", "extended", "circular", "focusVisible", "disabled", "colorInherit", "sizeSmall", "sizeMedium", "sizeLarge"]);
 var fabClasses_default = fabClasses;
 
 // ../../node_modules/@material-ui/core/Fab/Fab.js
@@ -11175,8 +11216,7 @@ var useUtilityClasses2 = (styleProps) => {
     size
   } = styleProps;
   const slots = {
-    root: ["root", variant, `size${capitalize_default(size)}`, color3 === "inherit" && "colorInherit", color3 === "primary" && "primary", color3 === "secondary" && "secondary"],
-    label: ["label"]
+    root: ["root", variant, `size${capitalize_default(size)}`, color3 === "inherit" && "colorInherit", color3 === "primary" && "primary", color3 === "secondary" && "secondary"]
   };
   return composeClasses(slots, getFabUtilityClass, classes);
 };
@@ -11272,16 +11312,6 @@ var FabRoot = styled_default(ButtonBase_default, {
     }
   }
 }));
-var FabLabel = styled_default("span", {
-  name: "MuiFab",
-  slot: "Label",
-  overridesResolver: (props, styles) => styles.label
-})({
-  width: "100%",
-  display: "inherit",
-  alignItems: "inherit",
-  justifyContent: "inherit"
-});
 var Fab = /* @__PURE__ */ forwardRef4(function Fab2(inProps, ref) {
   const props = useThemeProps2({
     props: inProps,
@@ -11316,11 +11346,7 @@ var Fab = /* @__PURE__ */ forwardRef4(function Fab2(inProps, ref) {
     styleProps,
     ref
   }, other, {
-    children: /* @__PURE__ */ _jsx4(FabLabel, {
-      className: classes.label,
-      styleProps,
-      children
-    })
+    children
   }));
 });
 true ? Fab.propTypes = {
@@ -11334,7 +11360,7 @@ true ? Fab.propTypes = {
   disableRipple: import_prop_types9.default.bool,
   focusVisibleClassName: import_prop_types9.default.string,
   href: import_prop_types9.default.string,
-  size: import_prop_types9.default.oneOfType([import_prop_types9.default.oneOf(["large", "medium", "small"]), import_prop_types9.default.string]),
+  size: import_prop_types9.default.oneOfType([import_prop_types9.default.oneOf(["small", "medium", "large"]), import_prop_types9.default.string]),
   sx: import_prop_types9.default.object,
   variant: import_prop_types9.default.oneOfType([import_prop_types9.default.oneOf(["circular", "extended"]), import_prop_types9.default.string])
 } : void 0;
@@ -11634,7 +11660,7 @@ import {
 function getToggleButtonUtilityClass(slot) {
   return generateUtilityClass("MuiToggleButton", slot);
 }
-var toggleButtonClasses = generateUtilityClasses("MuiToggleButton", ["root", "disabled", "selected", "standard", "primary", "secondary", "label", "sizeSmall", "sizeMedium", "sizeLarge"]);
+var toggleButtonClasses = generateUtilityClasses("MuiToggleButton", ["root", "disabled", "selected", "standard", "primary", "secondary", "sizeSmall", "sizeMedium", "sizeLarge"]);
 var toggleButtonClasses_default = toggleButtonClasses;
 
 // ../../node_modules/@material-ui/core/ToggleButton/ToggleButton.js
@@ -11650,8 +11676,7 @@ var useUtilityClasses4 = (styleProps) => {
     color: color3
   } = styleProps;
   const slots = {
-    root: ["root", selected && "selected", disabled && "disabled", fullWidth && "fullWidth", `size${capitalize_default(size)}`, color3],
-    label: ["label"]
+    root: ["root", selected && "selected", disabled && "disabled", fullWidth && "fullWidth", `size${capitalize_default(size)}`, color3]
   };
   return composeClasses(slots, getToggleButtonUtilityClass, classes);
 };
@@ -11667,63 +11692,44 @@ var ToggleButtonRoot = styled_default(ButtonBase_default, {
 })(({
   theme,
   styleProps
-}) => _extends({}, theme.typography.button, {
-  borderRadius: theme.shape.borderRadius,
-  padding: 11,
-  border: `1px solid ${theme.palette.divider}`,
-  color: theme.palette.action.active
-}, styleProps.fullWidth && {
-  width: "100%"
-}, {
-  [`&.${toggleButtonClasses_default.disabled}`]: {
-    color: theme.palette.action.disabled,
-    border: `1px solid ${theme.palette.action.disabledBackground}`
-  },
-  "&:hover": {
-    textDecoration: "none",
-    backgroundColor: alpha2(theme.palette.text.primary, theme.palette.action.hoverOpacity),
-    "@media (hover: none)": {
-      backgroundColor: "transparent"
-    }
-  }
-}, styleProps.color === "standard" && {
-  [`&.${toggleButtonClasses_default.selected}`]: {
-    color: theme.palette.text.primary,
-    backgroundColor: alpha2(theme.palette.text.primary, theme.palette.action.selectedOpacity),
+}) => {
+  const selectedColor = styleProps.color === "standard" ? theme.palette.text.primary : theme.palette[styleProps.color].main;
+  return _extends({}, theme.typography.button, {
+    borderRadius: theme.shape.borderRadius,
+    padding: 11,
+    border: `1px solid ${theme.palette.divider}`,
+    color: theme.palette.action.active
+  }, styleProps.fullWidth && {
+    width: "100%"
+  }, {
+    [`&.${toggleButtonClasses_default.disabled}`]: {
+      color: theme.palette.action.disabled,
+      border: `1px solid ${theme.palette.action.disabledBackground}`
+    },
     "&:hover": {
-      backgroundColor: alpha2(theme.palette.text.primary, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+      textDecoration: "none",
+      backgroundColor: alpha2(theme.palette.text.primary, theme.palette.action.hoverOpacity),
       "@media (hover: none)": {
-        backgroundColor: alpha2(theme.palette.text.primary, theme.palette.action.selectedOpacity)
+        backgroundColor: "transparent"
+      }
+    },
+    [`&.${toggleButtonClasses_default.selected}`]: {
+      color: selectedColor,
+      backgroundColor: alpha2(selectedColor, theme.palette.action.selectedOpacity),
+      "&:hover": {
+        backgroundColor: alpha2(selectedColor, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
+        "@media (hover: none)": {
+          backgroundColor: alpha2(selectedColor, theme.palette.action.selectedOpacity)
+        }
       }
     }
-  }
-}, styleProps.color !== "standard" && {
-  [`&.${toggleButtonClasses_default.selected}`]: {
-    color: theme.palette[styleProps.color].main,
-    backgroundColor: alpha2(theme.palette[styleProps.color].main, theme.palette.action.selectedOpacity),
-    "&:hover": {
-      backgroundColor: alpha2(theme.palette[styleProps.color].main, theme.palette.action.selectedOpacity + theme.palette.action.hoverOpacity),
-      "@media (hover: none)": {
-        backgroundColor: alpha2(theme.palette[styleProps.color].main, theme.palette.action.selectedOpacity)
-      }
-    }
-  }
-}, styleProps.size === "small" && {
-  padding: 7,
-  fontSize: theme.typography.pxToRem(13)
-}, styleProps.size === "large" && {
-  padding: 15,
-  fontSize: theme.typography.pxToRem(15)
-}));
-var ToggleButtonLabel = styled_default("span", {
-  name: "MuiToggleButton",
-  slot: "Label",
-  overridesResolver: (props, styles) => styles.label
-})({
-  width: "100%",
-  display: "inherit",
-  alignItems: "inherit",
-  justifyContent: "inherit"
+  }, styleProps.size === "small" && {
+    padding: 7,
+    fontSize: theme.typography.pxToRem(13)
+  }, styleProps.size === "large" && {
+    padding: 15,
+    fontSize: theme.typography.pxToRem(15)
+  });
 });
 var ToggleButton = /* @__PURE__ */ forwardRef6(function ToggleButton2(inProps, ref) {
   const props = useThemeProps2({
@@ -11774,18 +11780,14 @@ var ToggleButton = /* @__PURE__ */ forwardRef6(function ToggleButton2(inProps, r
     styleProps,
     "aria-pressed": selected
   }, other, {
-    children: /* @__PURE__ */ _jsx6(ToggleButtonLabel, {
-      className: classes.label,
-      styleProps,
-      children
-    })
+    children
   }));
 });
 true ? ToggleButton.propTypes = {
   children: import_prop_types11.default.node,
   classes: import_prop_types11.default.object,
   className: import_prop_types11.default.string,
-  color: import_prop_types11.default.oneOfType([import_prop_types11.default.oneOf(["standard", "primary", "secondary"]), import_prop_types11.default.string]),
+  color: import_prop_types11.default.oneOfType([import_prop_types11.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types11.default.string]),
   disabled: import_prop_types11.default.bool,
   disableFocusRipple: import_prop_types11.default.bool,
   disableRipple: import_prop_types11.default.bool,
@@ -11793,7 +11795,7 @@ true ? ToggleButton.propTypes = {
   onChange: import_prop_types11.default.func,
   onClick: import_prop_types11.default.func,
   selected: import_prop_types11.default.bool,
-  size: import_prop_types11.default.oneOfType([import_prop_types11.default.oneOf(["large", "medium", "small"]), import_prop_types11.default.string]),
+  size: import_prop_types11.default.oneOfType([import_prop_types11.default.oneOf(["small", "medium", "large"]), import_prop_types11.default.string]),
   sx: import_prop_types11.default.object,
   value: import_prop_types11.default.any.isRequired
 } : void 0;
@@ -11970,12 +11972,12 @@ true ? ToggleButtonGroup.propTypes = {
   children: import_prop_types12.default.node,
   classes: import_prop_types12.default.object,
   className: import_prop_types12.default.string,
-  color: import_prop_types12.default.oneOf(["primary", "secondary", "standard"]),
+  color: import_prop_types12.default.oneOf(["error", "info", "primary", "secondary", "standard", "success", "warning"]),
   exclusive: import_prop_types12.default.bool,
   fullWidth: import_prop_types12.default.bool,
   onChange: import_prop_types12.default.func,
   orientation: import_prop_types12.default.oneOf(["horizontal", "vertical"]),
-  size: import_prop_types12.default.oneOfType([import_prop_types12.default.oneOf(["large", "medium", "small"]), import_prop_types12.default.string]),
+  size: import_prop_types12.default.oneOfType([import_prop_types12.default.oneOf(["small", "medium", "large"]), import_prop_types12.default.string]),
   sx: import_prop_types12.default.object,
   value: import_prop_types12.default.any
 } : void 0;
@@ -12410,12 +12412,12 @@ object-assign
 (c) Sindre Sorhus
 @license MIT
 */
-/** @license Material-UI v5.0.0-alpha.39
+/** @license Material-UI v5.0.0-alpha.40
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/** @license Material-UI v5.0.0-beta.0
+/** @license Material-UI v5.0.0-beta.1
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.

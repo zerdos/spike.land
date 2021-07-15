@@ -37,7 +37,7 @@ export const shasums = {
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   ".tsBuildInfo":
-    "52e52e406f675e8d82e41b69a90f8065a990d18d13d453bff0b81d806805a9a2",
+    "b62c6a4c3fabc908010bf7ad60e31fb9d99b93efd1de62228112b7d729c2da9b",
   "js/workers/transpile.worker.js":
     "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
   "js/workers/getWorker.mjs":
@@ -55,7 +55,7 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
   "js/importmap.js":
-    "a4187a0add2e34ab7ed5fad940df6af04643b7bb1b37f5f32733c91ee042d43b",
+    "91b33182ce4c7e40a5e847aa1b340ae0229f449e35726d3f5dd244196de3d7f4",
   "js/ipfsClient.mjs":
     "69d67deb4971883bb4dfc0e41e34778c4da847c7853a7fb63d82536421e8cfdc",
   "js/codeLoader.mjs":
@@ -96,7 +96,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/renderer.mjs":
-    "3141b29fbc7152994b245bcbdcfffdb1351f94c7e8ff07041cb1cb6b54116d48",
+    "bf846c55c0e94e5a274317a72cfadfca5c3554925b1404cf18033450c8754dec",
   "modules/diffChars.d.ts":
     "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
   "modules/QRious.mjs":
@@ -134,7 +134,7 @@ export const shasums = {
   "modules/diff.d.ts":
     "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
   "modules/ipfs.client.mjs":
-    "21fdda54510212aca3e6af6ddd03c3eeb189d0e99eada9715bdd2bba514d2ff2",
+    "afd6e42a88ff5e586fb598cec69cb418ddef27bb55b97d2799d71dc60e9f8930",
   "cypress/fixtures/example.json":
     "1800ff4b34f25a4a02d9e697a1724e84b2483faa85b7cf7812036916d6f6982b",
   "cypress/integration/1-getting-started/todo.spec.js":
