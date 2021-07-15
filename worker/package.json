@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "@cloudflare/workers-types": "2.2.2",
-    "@cloudflare/wrangler": "1.17.0",
+    "@cloudflare/wrangler": "1.18.0",
     "@zedvision/code": "^14.3.8",
     "@zedvision/ipfs": "^14.3.7",
     "esbuild": "0.12.15",
