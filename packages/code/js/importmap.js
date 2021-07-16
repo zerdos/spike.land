@@ -89,7 +89,7 @@ const imports = {
   "react-transition-group":
     "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
   "react/": "https://esm.sh/react/",
-  "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.4.0/dist/renderer.mjs",
+  "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.3.7/dist/renderer.mjs",
   "style-value-types":
     "https://unpkg.com/style-value-types@4.1.4/dist/es/index.js",
   "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
@@ -101,9 +101,9 @@ const imports = {
     "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.0/dist/editor.js",
     "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js",
     "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-    "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.4.0/dist/shaDB.js",
+    "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.3.7/dist/shaDB.js",
     "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.min.mjs",
-    "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.4.0/dist/ipfs.client.mjs",
+    "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.3.7/dist/ipfs.client.mjs",
     "workbox-window": "https://unpkg.com/workbox-window@6.1.5/build/workbox-window.prod.mjs"
   
 };
