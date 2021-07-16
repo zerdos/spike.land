@@ -80,7 +80,7 @@ const imports = {
   "jss-plugin-vendor-prefixer":
     "https://unpkg.com/jss-plugin-vendor-prefixer@10.6.0/dist/jss-plugin-vendor-prefixer.esm.js",
   "monaco-editor":
-    "https://unpkg.com/monaco-editor@0.25.2/esm/vs/editor/editor.main.js",
+    "https://unpkg.com/monaco-editor@0.26.0/esm/vs/editor/editor.main.js",
   "popmotion": "https://unpkg.com/popmotion@9.4.0/dist/es/index.js",
   "prop-types": "https://esm.sh/prop-types",
   "react": "https://unpkg.com/@zedvision/esm@14.3.6/dist/react.mjs",
@@ -98,7 +98,7 @@ const imports = {
   "tiny-warning":
     "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
     "tslib": "https://unpkg.com/tslib@2.3.0/tslib.es6.js",
-    "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.3.7/dist/editor.js",
+    "@zedvision/smart-monaco-editor": "./modules/dist/editor.js",
     "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js",
     "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
     "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.3.7/dist/shaDB.js",
