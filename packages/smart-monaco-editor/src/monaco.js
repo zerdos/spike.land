@@ -22,7 +22,7 @@ export const getMonaco = async () => {
       });
   };
 
-  const vsPath = `https://unpkg.com/monaco-editor@0.26.0/min/vs`;
+  const vsPath = `https://unpkg.com/monaco-editor@0.26.1/min/vs`;
 
   const { require } = await importScript(
     `${vsPath}/loader.js`,
