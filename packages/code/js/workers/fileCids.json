@@ -110,10 +110,5 @@
 "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
 "modules": "QmVPzB94xRYzHftYrMqoiQUnuhVmdcR1qsTwrXEzWTtkUD",
 "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-"src/assets/synthwave-vscode": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-"src/assets": "QmXpXLHdfZFeU1SFpGX6Ljcja1qAFra66DobSULz8qzq3p",
-"src/renderer/node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-"src/renderer": "QmTcLf5LjtNtnnXUt3K7byz4hmxTXwAfGLXbyZqjvwcTih",
-"src": "QmWrAsULDRHDm9Cdax95KqETf2ScgLKZnt9Q5nZn9zmTxa",
-"": "QmU4Q8PLC1QCPN85Qypt1adunxMt3MB1KavEtbDnoHs8yJ",
+"": "Qmc3uJfqt9Qw7mhYqF3VF1gb3MpCodJZ3Dhh7eXjRA5oFY",
  "foo":"bar" }
