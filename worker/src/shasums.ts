@@ -83,7 +83,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "e7b3768ed11d86d2418161ab1bf3e13e88c90d12dcde4fd661fa186e7faed195",
   "js/data.mjs":
-    "97b7bca7e23bdd3e79b537059f6246e0bbab14ea8955497c7f8145c584e2f80f",
+    "f1ba151a2d57ef76d141a01700755da75b858b0045830ee41d3211ab522d8169",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
@@ -109,7 +109,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/share.mjs":
-    "b3cd2e975351245fb982fbccd5004ff37e43f47f0c9fbb18761f73a0121a1ef1",
+    "a6f45c2c8d9c67a531e385ae4342b16ae3920ba45b590f0f5bb0b45cb5292416",
   "js/starter.js":
     "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
   "js/templates.mjs":

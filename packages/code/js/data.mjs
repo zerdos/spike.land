@@ -1,6 +1,6 @@
 import { sha256, shaDB } from "@zedvision/shadb";
 import v4 from "uuid/v4";
-
+import { ipfsClient } from "./ipfsClient.mjs";
 
 /** @type {string} */
 let uuid;
@@ -67,12 +67,14 @@ async function addNewProject(projectName, hash) {
 export async function getUserId() {
   if (uuid) return uuid;
 
-  uuid = await shaDB.get("uuid", "string");
+  const newId = await shaDB.get("uuid", "string");
   if (!uuid) {
     const resp = await fetch(
       "https://spike.land/register",
     );
     const data = await resp.json();
+    if (uuid) return uuid;
+    uuid = data.uuid
     await shaDB.put("uuid", data.uuid);
     return data.uuid;
   }
@@ -213,7 +215,20 @@ export const saveCode =
     }
 
     toSave.code = opts.code;
+    const saveCode = async ()=>{
+      const res =  await ipfsClient.add(code, {onlyHash: true})
+      const CID = res.cid.toString();
+      const UID = await getUserId()
 
+      const url = `/save/${CID}`;
+    fetch(`https://spike.land${url}`, {
+      headers: {
+        UID: UID
+      },
+      body: code
+    })
+  }
+  saveCode();
     const { shareItAsHtml } = await import("./share.mjs");
     const sharePromise = shareItAsHtml(
       { code, html, transpiled },

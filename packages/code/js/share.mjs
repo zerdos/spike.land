@@ -112,7 +112,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
 /**
  * @param {{ path: string; content: any; }[]} files
  */
-async function addAll(files) {
+async function  addAll(files) {
   // const res = [];
 
   // for await (const result of ipfsClient.addAll(files)) {
@@ -131,7 +131,7 @@ async function addAll(files) {
     const CID = r.cid.toString();
   
     return { path: r.path, CID };
-  }).map(console.log);
+  });
 
   // return res;
 }
