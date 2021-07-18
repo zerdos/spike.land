@@ -18,9 +18,9 @@
     "deploy": "yarn lerna run deploy",
     "push": "yarn start && yarn deploy:worker && yarn build && git add . && git commit -m pre-release && git push && git pull",
     "release": "lerna publish patch --yes && yarn push",
-    "clean": "yarn lerna run clean --parallel --since b",
-    "pre:build": "yarn lerna run prebuild --parallel --since b",
-    "build": "yarn pre:build && yarn lerna run build --parallel --since b",
+    "clean": "yarn lerna run clean --parallel --since main",
+    "pre:build": "yarn lerna run prebuild --parallel --since main",
+    "build": "yarn pre:build && yarn lerna run build --parallel --since main",
     "re:build": "yarn lerna run clean --parallel && yarn build"
   },
   "devDependencies": {
