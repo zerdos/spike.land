@@ -1,4 +1,3 @@
-//import { version } from "@zedvision/code/package.json";
 //@ts-ignore
 
 import { files } from "./files.ts";
@@ -7,14 +6,11 @@ import Hash from "ipfs-only-hash";
 import { js, json, text } from "@responds";
 
 //@ts-ignore
-
 import { shasums } from "./shasums.ts";
 import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
 //@ts-ignore
-
 import { cid } from "./cid.ts";
 //@ts-ignore
-
 import { alterHeaders, sha256, sha256UArray } from "./alterHeaders.ts";
 
 export type KV = { [key: string]: string };
@@ -44,7 +40,7 @@ addEventListener("fetch", (event: FetchEvent) => {
  * Respond with hello worker text
  * @param {Request} request}
  */
-async function handleRequest(request: Request) {
+async function handleRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const { pathname } = url;
 
@@ -73,7 +69,7 @@ async function handleRequest(request: Request) {
     try {
       response = await cache.match(cacheKey);
     } catch {
-      return text("unreliable cache, should be reported to CF");
+      return await text("unreliable cache, should be reported to CF");
     }
 
     if (response && response.status == 200) {
@@ -109,7 +105,7 @@ async function handleRequest(request: Request) {
       try {
         response = await fetchCid("/ipfs/" + customCID, 5);
       } catch (e) {
-        return text("Error: " + e.toString());
+        return await text("Error: " + Object.toString.call(e));
       }
 
       const contentToSave = await response.clone().arrayBuffer();
@@ -118,7 +114,7 @@ async function handleRequest(request: Request) {
         if (check !== sha) {
           const textContent = new TextDecoder().decode(contentToSave);
 
-          return text(`
+          return await text(`
         path: ${reversePath} 
         sha: ${sha}  
         sha-check: ${check}
@@ -141,24 +137,24 @@ async function handleRequest(request: Request) {
       const Hash = await import("ipfs-only-hash");
       const data = "hello world!";
       const hash = await Hash.of(data);
-      return text(hash);
+      return await text(hash);
     } catch (e) {
-      return text(e.toString());
+      return await text(Object.toString.call(e));
     }
   }
 
   if (pathname === `/cid.json`) {
-    return json({ cid });
+    return await json({ cid });
   }
   if (pathname === `/${cid}.js`) {
-    return js(`export const files = ${JSON.stringify(files)}`);
+    return await js(`export const files = ${JSON.stringify(files)}`);
   }
   if (pathname === `/ipfs.js`) {
-    return js(
+    return await js(
       getGlobalThis(),
     );
   }
-  fileKV;
+
   if (pathname === "/generated-sw.js") {
     return js(
       `self.importScripts("./sw.js");
@@ -188,7 +184,7 @@ async function handleRequest(request: Request) {
         // save it to a special place
         //
 
-        return text("nothing missing!");
+        return await text("nothing missing!");
       }
 
       const maybeCID = pathname.slice(5);
@@ -201,17 +197,17 @@ async function handleRequest(request: Request) {
           const cid = files[fileName];
           if (cid === maybeCID) {
             await IPFS.put(cid, content);
-            return text("Thanks :)" + calculatedCID);
+            return await text("Thanks :)" + calculatedCID);
           }
 
-          return text(fileName);
+          return await text(fileName);
         }
-        return text(`content sha not found: ${contentSHA}`);
+        return await text(`content sha not found: ${contentSHA}`);
       }
 
-      return text(`this content is not missing: ${maybeCID}`);
+      return await text(`this content is not missing: ${maybeCID}`);
     }
-    return text("Nah:(");
+    return await text("Nah:(");
   }
 
   if (pathname === `/cid.js`) {
@@ -247,9 +243,7 @@ async function handleRequest(request: Request) {
 
     url.pathname = "/ipfs/" + fileCid;
     const req2 = new Request(url.toString());
-    const resp = handleRequest(req2) as unknown as Response;
-
-    return resp;
+    return await handleRequest(req2) as unknown as Response;
   }
   return handleCloudRequest(request);
 }

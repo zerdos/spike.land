@@ -89,7 +89,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/examples/starter_framer.js":
-    "669190810795fa1c93e48ecd6814ae3d10a02bd0d3565a9c86f1dc60c75989b6",
+    "55a3dc12dc9b07ded8783f07254322372958eb27d24ebbfb3d6480b13a0cd873",
   "js/formatter.mjs":
     "ac960dadc348ed202db1f3a00bfd2c5abce14de03cee8b5e7ebf41cf7fd91d30",
   "js/hash.mjs":
@@ -125,9 +125,9 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "2fccb89414cd92cbb7e7a7dfd175e133a2b5bd7082377ed8adabbb82a59378ca",
   "js/workers/prettierWorker.js":
-    "19a7e688a1c13711107008ceb297e60b24360929d3fc74ad7165fb2384b19846",
+    "f64689038463a881a6e69db486c5e69308aecc5a270d672c71c78c0d63a185b1",
   "js/workers/transpile.worker.js":
-    "154fb9e5c030863aeddcc8100aa46500d948f964543bf624e37a54a116517832",
+    "61e510ae4a1ffe1f11864cbaff50e9d56520236d0dcb311c0da8fafd00841a75",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "package.json":
@@ -146,7 +146,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.mjs":
-    "afd6e42a88ff5e586fb598cec69cb418ddef27bb55b97d2799d71dc60e9f8930",
+    "6a8f412d772c21aaf32825ef4fcc938689faed87520f9528fc3a1e2661e4bca5",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/vendor/diffMin.d.ts":

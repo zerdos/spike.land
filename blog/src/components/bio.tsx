@@ -1,5 +1,5 @@
+/* @jsx jsx */
 import { css, jsx } from "@emotion/react";
-/** @jsx jsx */
 
 import { rhythm } from "./utils/typography";
 import img from "./zed-profile-pic.jpg";

@@ -325,7 +325,7 @@ var react_fast_compare_default = /*#__PURE__*/__webpack_require__.n(react_fast_c
 // EXTERNAL MODULE: ./node_modules/gatsby/dist/internal-plugins/bundle-optimisations/polyfills/object-assign.js
 var object_assign = __webpack_require__(6494);
 var object_assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
-;// CONCATENATED MODULE: ./node_modules/react-helmet/es/Helmet.js
+// CONCATENATED MODULE: ./node_modules/react-helmet/es/Helmet.js
 
 
 

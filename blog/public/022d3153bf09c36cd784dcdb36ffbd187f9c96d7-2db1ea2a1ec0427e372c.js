@@ -829,9 +829,9 @@ var taggedTemplateLiteralLoose = __webpack_require__(5761);
 var emotion_react_browser_esm = __webpack_require__(3964);
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
 var typography = __webpack_require__(3261);
-;// CONCATENATED MODULE: ./src/components/zed-profile-pic.jpg
+// CONCATENATED MODULE: ./src/components/zed-profile-pic.jpg
 /* harmony default export */ var zed_profile_pic = (__webpack_require__.p + "static/zed-profile-pic-597d90073077506ad53d8adc79f6a84c.jpg");
-;// CONCATENATED MODULE: ./src/components/bio.tsx
+// CONCATENATED MODULE: ./src/components/bio.tsx
 var _templateObject,_templateObject2;/** @jsx jsx */var objectives=["a bit less\n  frustrating.","more fun","great again"];var Bio=function Bio(){var random=Math.random();if(typeof window==="undefined")random=0.4;//have a consistent ssr
 return (0,emotion_react_browser_esm/* jsx */.tZ)("div",{css:(0,emotion_react_browser_esm/* css */.iv)(_templateObject||(_templateObject=(0,taggedTemplateLiteralLoose/* default */.Z)(["\n                margin-top: ",";\n                display: flex;\n                margin-bottom: ",";\n    "])),(0,typography/* rhythm */.qZ)(2.5),(0,typography/* rhythm */.qZ)(2.5))},(0,emotion_react_browser_esm/* jsx */.tZ)("div",{css:(0,emotion_react_browser_esm/* css */.iv)(_templateObject2||(_templateObject2=(0,taggedTemplateLiteralLoose/* default */.Z)(["\n                  margin-right: ",";\n                  margin-bottom: 0;\n                  overflow: hidden;\n                  width: 50px;\n                  height: 50px;\n                  border-radius: 25px;\n        "])),(0,typography/* rhythm */.qZ)(1/2))},(0,emotion_react_browser_esm/* jsx */.tZ)("img",{alt:"Zoltan Erdos",src:zed_profile_pic})),(0,emotion_react_browser_esm/* jsx */.tZ)("p",null,"Written by"," ",(0,emotion_react_browser_esm/* jsx */.tZ)("strong",null,"Zoltan Erdos"),", who is interested to make software development"," "+(objectives[Math.floor(random*objectives.length)]||"crazy."),(0,emotion_react_browser_esm/* jsx */.tZ)("br",null),(0,emotion_react_browser_esm/* jsx */.tZ)("a",{href:"https://twitter.com/ZoltanErdos"},"Follow me on Twitter")));};
 

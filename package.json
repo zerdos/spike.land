@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "csstype": "3.0.8",
+    "eslint-plugin-react": "^7.24.0",
     "lerna": "4.0.0",
     "pageres-cli": "6.0.0",
     "typescript": "beta",

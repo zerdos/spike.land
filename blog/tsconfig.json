@@ -9,6 +9,7 @@
     ],
     "allowJs": true,
     "jsx": "react-jsx",
+    "jsxFragmentFactory": "jsx",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,

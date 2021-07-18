@@ -1,6 +1,6 @@
 export const starter = `import { useState } from "react";
 /** @jsx jsx */
-import { css, jsx, Global } from "@emotion/react";;
+import { css, jsx, Global } from "@emotion/react";
 
 const Hello = () => {
   const [name, setName] = useState(0);

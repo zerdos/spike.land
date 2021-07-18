@@ -66,6 +66,6 @@ self.addEventListener(
 self.addEventListener("message", (event) => {
   if (event.data.comlinkInit) {
     Comlink.expose(transform, event.data.port);
-    return;
+
   }
 });
