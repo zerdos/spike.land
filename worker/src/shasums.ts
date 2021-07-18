@@ -109,7 +109,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/share.mjs":
-    "60e426dd7da4226699e35acd8b3d7a52d55dde4ecefd1410c98094f3eeef973a",
+    "b3cd2e975351245fb982fbccd5004ff37e43f47f0c9fbb18761f73a0121a1ef1",
   "js/starter.js":
     "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
   "js/templates.mjs":
