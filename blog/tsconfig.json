@@ -8,8 +8,7 @@
       "esnext"
     ],
     "allowJs": true,
-    "jsx": "react-jsx",
-    "jsxFragmentFactory": "jsx",
+    "jsx": "react",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -28,9 +27,7 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "declaration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "declaration": true
   },
   "include": [
     "src"
