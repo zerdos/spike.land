@@ -50,7 +50,7 @@ __webpack_require__.d(__webpack_exports__, {
   "Z": function() { return /* binding */ _inheritsLoose; }
 });
 
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
 function _setPrototypeOf(o, p) {
   _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
     o.__proto__ = p;
@@ -59,7 +59,7 @@ function _setPrototypeOf(o, p) {
 
   return _setPrototypeOf(o, p);
 }
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -1675,7 +1675,7 @@ function mitt(all                 ) {
 /* harmony default export */ var mitt_es = (mitt);
 //# sourceMappingURL=mitt.es.js.map
 
-// CONCATENATED MODULE: ./.cache/emitter.js
+;// CONCATENATED MODULE: ./.cache/emitter.js
 var emitter=mitt_es();/* harmony default export */ var _cache_emitter = (emitter);
 
 /***/ }),
@@ -1699,11 +1699,11 @@ __webpack_require__.d(__webpack_exports__, {
 var utils = __webpack_require__(2098);
 // EXTERNAL MODULE: ./.cache/strip-prefix.js
 var strip_prefix = __webpack_require__(1578);
-// CONCATENATED MODULE: ./.cache/normalize-page-path.js
+;// CONCATENATED MODULE: ./.cache/normalize-page-path.js
 /* harmony default export */ var normalize_page_path = (function(path){if(path===undefined){return path;}if(path==="/"){return"/";}if(path.charAt(path.length-1)==="/"){return path.slice(0,-1);}return path;});
 // EXTERNAL MODULE: ./.cache/redirect-utils.js + 1 modules
 var redirect_utils = __webpack_require__(5166);
-// CONCATENATED MODULE: ./.cache/find-path.js
+;// CONCATENATED MODULE: ./.cache/find-path.js
 var pathCache=new Map();var matchPaths=[];var trimPathname=function trimPathname(rawPathname){var pathname=decodeURIComponent(rawPathname);// Remove the pathPrefix from the pathname.
 var trimmedPathname=(0,strip_prefix/* default */.Z)(pathname,decodeURIComponent("/blog"))// Remove any hashfragment
 .split("#")[0]// Remove search query
@@ -1798,7 +1798,7 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js + 1 modules
 var inheritsLoose = __webpack_require__(3552);
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
 function _arrayLikeToArray(arr, len) {
   if (len == null || len > arr.length) len = arr.length;
 
@@ -1808,16 +1808,16 @@ function _arrayLikeToArray(arr, len) {
 
   return arr2;
 }
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return _arrayLikeToArray(arr);
 }
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
 function _iterableToArray(iter) {
   if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -1827,11 +1827,11 @@ function _unsupportedIterableToArray(o, minLen) {
   if (n === "Map" || n === "Set") return Array.from(o);
   if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
 }
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
 function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
 
 
 
@@ -1841,14 +1841,14 @@ function _toConsumableArray(arr) {
 }
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(6156);
-// CONCATENATED MODULE: ./.cache/prefetch.js
+;// CONCATENATED MODULE: ./.cache/prefetch.js
 var support=function support(feature){if(typeof document==="undefined"){return false;}var fakeLink=document.createElement("link");try{if(fakeLink.relList&&typeof fakeLink.relList.supports==="function"){return fakeLink.relList.supports(feature);}}catch(err){return false;}return false;};var linkPrefetchStrategy=function linkPrefetchStrategy(url,options){return new Promise(function(resolve,reject){if(typeof document==="undefined"){reject();return;}var link=document.createElement("link");link.setAttribute("rel","prefetch");link.setAttribute("href",url);Object.keys(options).forEach(function(key){link.setAttribute(key,options[key]);});link.onload=resolve;link.onerror=reject;var parentElement=document.getElementsByTagName("head")[0]||document.getElementsByName("script")[0].parentNode;parentElement.appendChild(link);});};var xhrPrefetchStrategy=function xhrPrefetchStrategy(url){return new Promise(function(resolve,reject){var req=new XMLHttpRequest();req.open("GET",url,true);req.onload=function(){if(req.status===200){resolve();}else{reject();}};req.send(null);});};var supportedPrefetchStrategy=support("prefetch")?linkPrefetchStrategy:xhrPrefetchStrategy;var preFetched={};var prefetch=function prefetch(url,options){return new Promise(function(resolve){if(preFetched[url]){resolve();return;}supportedPrefetchStrategy(url,options).then(function(){resolve();preFetched[url]=true;}).catch(function(){});// 404s are logged to the console anyway
 });};/* harmony default export */ var _cache_prefetch = (prefetch);
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
 var emitter = __webpack_require__(8110);
 // EXTERNAL MODULE: ./.cache/find-path.js + 1 modules
 var find_path = __webpack_require__(2257);
-// CONCATENATED MODULE: ./.cache/loader.js
+;// CONCATENATED MODULE: ./.cache/loader.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly){symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});}keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,defineProperty/* default */.Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * Available resource loading statuses
  */var PageResourceStatus={/**
@@ -1950,7 +1950,7 @@ var loader = __webpack_require__(3281);
 var redirect_utils = __webpack_require__(5166);
 // EXTERNAL MODULE: ./.cache/emitter.js + 1 modules
 var emitter = __webpack_require__(8110);
-// CONCATENATED MODULE: ./.cache/route-announcer-props.js
+;// CONCATENATED MODULE: ./.cache/route-announcer-props.js
 // This is extracted to separate module because it's shared
 // between browser and SSR code
 var RouteAnnouncerProps={id:"gatsby-announcer",style:{position:"absolute",top:0,width:1,height:1,padding:0,overflow:"hidden",clip:"rect(0, 0, 0, 0)",whiteSpace:"nowrap",border:0},"aria-live":"assertive","aria-atomic":"true"};
@@ -1958,7 +1958,7 @@ var RouteAnnouncerProps={id:"gatsby-announcer",style:{position:"absolute",top:0,
 var lib_history = __webpack_require__(2393);
 // EXTERNAL MODULE: ./node_modules/gatsby-link/index.js
 var gatsby_link = __webpack_require__(8037);
-// CONCATENATED MODULE: ./.cache/navigation.js
+;// CONCATENATED MODULE: ./.cache/navigation.js
 function maybeRedirect(pathname){var redirect=(0,redirect_utils/* maybeGetBrowserRedirect */.J)(pathname);if(redirect!=null){window.___replace(redirect.toPath);return true;}else{return false;}}var onPreRouteUpdate=function onPreRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onPreRouteUpdate",{location:location,prevLocation:prevLocation});}};var onRouteUpdate=function onRouteUpdate(location,prevLocation){if(!maybeRedirect(location.pathname)){(0,api_runner_browser/* apiRunner */.h)("onRouteUpdate",{location:location,prevLocation:prevLocation});if(false){}}};var navigation_navigate=function navigate(to,options){if(options===void 0){options={};}// Support forward/backward navigation with numbers
 // navigate(-2) (jumps back 2 history steps)
 // navigate(2)  (jumps forward 2 history steps)
@@ -1995,7 +1995,7 @@ var page_renderer = __webpack_require__(804);
 var async_requires = __webpack_require__(4999);
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 var defineProperty = __webpack_require__(6156);
-// CONCATENATED MODULE: ./node_modules/shallow-compare/es/index.js
+;// CONCATENATED MODULE: ./node_modules/shallow-compare/es/index.js
 // Pulled from react-compat
 // https://github.com/developit/preact-compat/blob/7c5de00e7c85e2ffd011bf3af02899b63f699d3a/src/index.js#L349
 function shallowDiffers(a, b) {
@@ -2009,7 +2009,7 @@ function shallowDiffers(a, b) {
 /* harmony default export */ var shallow_compare_es = (function (instance, nextProps, nextState) {
   return shallowDiffers(instance.props, nextProps) || shallowDiffers(instance.state, nextState);
 });
-// CONCATENATED MODULE: ./.cache/ensure-resources.js
+;// CONCATENATED MODULE: ./.cache/ensure-resources.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly){symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});}keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,defineProperty/* default */.Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}var EnsureResources=/*#__PURE__*/function(_React$Component){(0,inheritsLoose/* default */.Z)(EnsureResources,_React$Component);function EnsureResources(props){var _this;_this=_React$Component.call(this)||this;var location=props.location,pageResources=props.pageResources;_this.state={location:_objectSpread({},location),pageResources:pageResources||loader/* default.loadPageSync */.ZP.loadPageSync(location.pathname,{withErrorDetails:true})};return _this;}EnsureResources.getDerivedStateFromProps=function getDerivedStateFromProps(_ref,prevState){var location=_ref.location;if(prevState.location.href!==location.href){var pageResources=loader/* default.loadPageSync */.ZP.loadPageSync(location.pathname,{withErrorDetails:true});return{pageResources:pageResources,location:_objectSpread({},location)};}return{location:_objectSpread({},location)};};var _proto=EnsureResources.prototype;_proto.loadResources=function loadResources(rawPath){var _this2=this;loader/* default.loadPage */.ZP.loadPage(rawPath).then(function(pageResources){if(pageResources&&pageResources.status!==loader/* PageResourceStatus.Error */.uQ.Error){_this2.setState({location:_objectSpread({},window.location),pageResources:pageResources});}else{window.history.replaceState({},"",location.href);window.location=rawPath;}});};_proto.shouldComponentUpdate=function shouldComponentUpdate(nextProps,nextState){// Always return false if we're missing resources.
 if(!nextState.pageResources){this.loadResources(nextProps.location.pathname);return false;}if(false){}// Check if the component or json have changed.
 if(this.state.pageResources!==nextState.pageResources){return true;}if(this.state.pageResources.component!==nextState.pageResources.component){return true;}if(this.state.pageResources.json!==nextState.pageResources.json){return true;}// Check if location has changed on a page using internal routing
@@ -2017,9 +2017,9 @@ if(this.state.pageResources!==nextState.pageResources){return true;}if(this.stat
 if(this.state.location.key!==nextState.location.key&&nextState.pageResources.page&&(nextState.pageResources.page.matchPath||nextState.pageResources.page.path)){return true;}return shallow_compare_es(this,nextProps,nextState);};_proto.render=function render(){if(false){ var message, _this$state$pageResou; }return this.props.children(this.state);};return EnsureResources;}(react.Component);/* harmony default export */ var ensure_resources = (EnsureResources);
 // EXTERNAL MODULE: ./.cache/strip-prefix.js
 var strip_prefix = __webpack_require__(1578);
-// CONCATENATED MODULE: ./.cache/_this_is_virtual_fs_path_/$virtual/match-paths.json
+;// CONCATENATED MODULE: ./.cache/_this_is_virtual_fs_path_/$virtual/match-paths.json
 var match_paths_namespaceObject = [];
-// CONCATENATED MODULE: ./.cache/production-app.js
+;// CONCATENATED MODULE: ./.cache/production-app.js
 // Generated during bootstrap
 var production_app_loader=new loader/* ProdLoader */.kL(async_requires,match_paths_namespaceObject);(0,loader/* setLoader */.N1)(production_app_loader);production_app_loader.setApiRunner(api_runner_browser/* apiRunner */.h);window.asyncRequires=async_requires;window.___emitter=emitter/* default */.Z;window.___loader=loader/* publicLoader */.jN;init();(0,api_runner_browser/* apiRunnerAsync */.I)("onClientEntry").then(function(){// Let plugins register a service worker. The plugin just needs
 // to return true.
@@ -2083,9 +2083,9 @@ __webpack_require__.d(__webpack_exports__, {
   "J": function() { return /* binding */ maybeGetBrowserRedirect; }
 });
 
-// CONCATENATED MODULE: ./.cache/redirects.json
+;// CONCATENATED MODULE: ./.cache/redirects.json
 var redirects_namespaceObject = [];
-// CONCATENATED MODULE: ./.cache/redirect-utils.js
+;// CONCATENATED MODULE: ./.cache/redirect-utils.js
 // Convert to a map for faster lookup in maybeRedirect()
 var redirectMap=new Map();var redirectIgnoreCaseMap=new Map();redirects_namespaceObject.forEach(function(redirect){if(redirect.ignoreCase){redirectIgnoreCaseMap.set(redirect.fromPath,redirect);}else{redirectMap.set(redirect.fromPath,redirect);}});function maybeGetBrowserRedirect(pathname){var redirect=redirectMap.get(pathname);if(!redirect){redirect=redirectIgnoreCaseMap.get(pathname.toLowerCase());}return redirect;}
 
@@ -2192,9 +2192,9 @@ __webpack_require__.d(__webpack_exports__, {
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(7294);
 var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
-// CONCATENATED MODULE: ./src/components/Counter.tsx
-var Counter=function Counter(_ref){var _ref$initial=_ref.initial,initial=_ref$initial===void 0?0:_ref$initial;var _useState=(0,react.useState)(initial),clicks=_useState[0],setClicks=_useState[1];return/*#__PURE__*/react.createElement("div",null,/*#__PURE__*/react.createElement("p",null,"Clicks: ",clicks),/*#__PURE__*/react.createElement("button",{onClick:function onClick(){return setClicks(clicks+1);}},"+"),/*#__PURE__*/react.createElement("button",{onClick:function onClick(){return setClicks(clicks-1);}},"-"));};
-// CONCATENATED MODULE: ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/619e4c1544d023b87009049ac4fcd614.js
+;// CONCATENATED MODULE: ./src/components/Counter.tsx
+var Counter=function Counter(_ref){var _ref$initial=_ref.initial,initial=_ref$initial===void 0?0:_ref$initial;var _React$useState=react.useState(initial),clicks=_React$useState[0],setClicks=_React$useState[1];return/*#__PURE__*/react.createElement("div",null,/*#__PURE__*/react.createElement("p",null,"Clicks: ",clicks),/*#__PURE__*/react.createElement("button",{onClick:function onClick(){return setClicks(clicks+1);}},"+"),/*#__PURE__*/react.createElement("button",{onClick:function onClick(){return setClicks(clicks-1);}},"-"));};
+;// CONCATENATED MODULE: ./.cache/caches/gatsby-plugin-mdx/mdx-scopes-dir/619e4c1544d023b87009049ac4fcd614.js
 /* harmony default export */ var _619e4c1544d023b87009049ac4fcd614 = ({Counter:Counter,React:react_namespaceObject});
 
 /***/ }),
@@ -2245,9 +2245,9 @@ var esm = __webpack_require__(4983);
 var context = __webpack_require__(9480);
 // EXTERNAL MODULE: ./node_modules/gatsby-plugin-mdx/loaders/mdx-components.js
 var mdx_components = __webpack_require__(9628);
-// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
+;// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/loaders/mdx-scopes.js
 var scope_0=__webpack_require__(2080)/* .default */ .Z;var scope_1=__webpack_require__(7013)/* .default */ .Z;/* harmony default export */ var mdx_scopes = (Object.assign({},scope_0,scope_1));
-// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/wrap-root-element.js
+;// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/wrap-root-element.js
 function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.getOwnPropertySymbols){var symbols=Object.getOwnPropertySymbols(object);if(enumerableOnly){symbols=symbols.filter(function(sym){return Object.getOwnPropertyDescriptor(object,sym).enumerable;});}keys.push.apply(keys,symbols);}return keys;}function _objectSpread(target){for(var i=1;i<arguments.length;i++){var source=arguments[i]!=null?arguments[i]:{};if(i%2){ownKeys(Object(source),true).forEach(function(key){(0,defineProperty/* default */.Z)(target,key,source[key]);});}else if(Object.getOwnPropertyDescriptors){Object.defineProperties(target,Object.getOwnPropertyDescriptors(source));}else{ownKeys(Object(source)).forEach(function(key){Object.defineProperty(target,key,Object.getOwnPropertyDescriptor(source,key));});}}return target;}/**
  * so, this import is weird right?
  *
@@ -2270,7 +2270,7 @@ function ownKeys(object,enumerableOnly){var keys=Object.keys(object);if(Object.g
  * Submit a PR
  */var componentsAndGuards={};var componentFromGuards=function componentFromGuards(arr){return function GatsbyMDXComponentFinder(props){var _arr$find=arr.find(function(_ref){var guard=_ref.guard;return guard?guard(props):true;}),Component=_arr$find.Component;return/*#__PURE__*/react.createElement(Component,props);};};mdx_components.plugins.forEach(function(_ref2){var _ref2$guards=_ref2.guards,guards=_ref2$guards===void 0?{}:_ref2$guards,components=_ref2.components;Object.entries(components).forEach(function(_ref3){var componentName=_ref3[0],Component=_ref3[1];if(componentsAndGuards[componentName]){componentsAndGuards.push({guard:guards[componentName],Component:Component});}else{componentsAndGuards[componentName]=[{guard:guards[componentName],Component:Component}];}});});var components=Object.entries(componentsAndGuards).map(function(_ref4){var _ref5;var name=_ref4[0],arr=_ref4[1];return _ref5={},_ref5[name]=componentFromGuards(arr.concat({guard:undefined,Component:name})),_ref5;}).reduce(function(acc,obj){return _objectSpread(_objectSpread({},acc),obj);},{});// merge any components in wrapRootElement above this wrapRoot
 var MDXConsumer=(0,esm.withMDXComponents)(function(_ref6){var componentsFromContext=_ref6.components,children=_ref6.children;return/*#__PURE__*/react.createElement(context.MDXScopeProvider,{__mdxScope:mdx_scopes},/*#__PURE__*/react.createElement(esm.MDXProvider,{components:_objectSpread(_objectSpread({},componentsFromContext),components)},children));});var WrapRootElement=function WrapRootElement(_ref7){var element=_ref7.element;return/*#__PURE__*/react.createElement(MDXConsumer,null,element);};/* harmony default export */ var wrap_root_element = (WrapRootElement);
-// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/gatsby-browser.js
+;// CONCATENATED MODULE: ./node_modules/gatsby-plugin-mdx/gatsby-browser.js
 var wrapRootElement=wrap_root_element;
 
 /***/ }),
@@ -2319,7 +2319,7 @@ var browser = __webpack_require__(1143);
 var browser_default = /*#__PURE__*/__webpack_require__.n(browser);
 // EXTERNAL MODULE: ./.cache/react-lifecycles-compat.js
 var react_lifecycles_compat = __webpack_require__(3639);
-// CONCATENATED MODULE: ./node_modules/@gatsbyjs/reach-router/es/lib/utils.js
+;// CONCATENATED MODULE: ./node_modules/@gatsbyjs/reach-router/es/lib/utils.js
  ////////////////////////////////////////////////////////////////////////////////
 // startsWith(string, search) - Check if `string` starts with `search`
 
@@ -2607,7 +2607,7 @@ var shallowCompare = function shallowCompare(obj1, obj2) {
 
 
 
-// CONCATENATED MODULE: ./node_modules/@gatsbyjs/reach-router/es/lib/history.js
+;// CONCATENATED MODULE: ./node_modules/@gatsbyjs/reach-router/es/lib/history.js
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -2816,7 +2816,7 @@ var globalHistory = createHistory(getSource());
 var history_navigate = globalHistory.navigate; ////////////////////////////////////////////////////////////////////////////////
 
 
-// CONCATENATED MODULE: ./node_modules/@gatsbyjs/reach-router/es/index.js
+;// CONCATENATED MODULE: ./node_modules/@gatsbyjs/reach-router/es/index.js
 var es_extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -3585,4 +3585,4 @@ module.exports = invariant;
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-7237f090e1b2e93f9f3c.js.map
+//# sourceMappingURL=app-0f14705de607b05c34a8.js.map

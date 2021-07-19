@@ -1,11 +1,11 @@
-import { FC, useState } from "react";
+import React from "react";
 
-export const Counter: FC<{ initial?: number }> = (
+export const Counter: React.FC<{ initial?: number }> = (
   { initial = 0 },
 ) => {
-  const [clicks, setClicks] = useState(initial);
+  const [clicks, setClicks] = React.useState(initial);
 
-  return <div>e
+  return <div>
     <p>Clicks: {clicks}</p>
     <button onClick={() => setClicks(clicks + 1)}>+</button>
     <button onClick={() => setClicks(clicks - 1)}>-</button>

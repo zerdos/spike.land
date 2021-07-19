@@ -59,7 +59,8 @@
 /******/ 				}
 /******/ 				if(fulfilled) {
 /******/ 					deferred.splice(i--, 1)
-/******/ 					result = fn();
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
@@ -138,7 +139,7 @@
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = function(chunkId) {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + {"7":"component---src-templates-blog-post-tsx","168":"component---src-pages-example-tsx","218":"component---src-pages-404-tsx","242":"component---src-pages-offline-plugin-app-shell-fallback-tsx","351":"commons","691":"component---src-pages-index-tsx","790":"022d3153bf09c36cd784dcdb36ffbd187f9c96d7","944":"92e077445c304a05793bb16dd9d141fae86f5877","970":"component---src-pages-using-typescript-tsx"}[chunkId] + "-" + {"7":"a404e596dc43c1e17c8c","168":"b29033ebddff00fac759","218":"7e6cd7da7fdf332fba78","242":"200a8407db0e0851cd7d","351":"172f4aa4ba801e93cd1a","691":"2cc1d03a0c037a312e61","790":"2db1ea2a1ec0427e372c","944":"065ecd18a80225f2423c","970":"b178635fe53e30c4e7bf"}[chunkId] + ".js";
+/******/ 			return "" + {"7":"component---src-templates-blog-post-tsx","168":"component---src-pages-example-tsx","218":"component---src-pages-404-tsx","242":"component---src-pages-offline-plugin-app-shell-fallback-tsx","351":"commons","691":"component---src-pages-index-tsx","790":"022d3153bf09c36cd784dcdb36ffbd187f9c96d7","944":"92e077445c304a05793bb16dd9d141fae86f5877","970":"component---src-pages-using-typescript-tsx"}[chunkId] + "-" + {"7":"a404e596dc43c1e17c8c","168":"b29033ebddff00fac759","218":"09b1831144ae55efb880","242":"200a8407db0e0851cd7d","351":"172f4aa4ba801e93cd1a","691":"2cc1d03a0c037a312e61","790":"b7bc1daccad872b5d22e","944":"065ecd18a80225f2423c","970":"b178635fe53e30c4e7bf"}[chunkId] + ".js";
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -335,4 +336,4 @@
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=webpack-runtime-2725cb4d85a9e2e76d56.js.map
+//# sourceMappingURL=webpack-runtime-1374ce95797ed64f5cab.js.map
