@@ -83,7 +83,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "e7b3768ed11d86d2418161ab1bf3e13e88c90d12dcde4fd661fa186e7faed195",
   "js/data.mjs":
-    "e748c42a57fe0c70b228a4da1f175dc940386761e7d58a21812db99fb7680377",
+    "743ba5f525d3462b61e0f70e3d6bcdf7eb9743b5f4cd6653b85cd3c9546f7fd5",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":

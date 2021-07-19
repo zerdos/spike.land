@@ -175,7 +175,14 @@ async function handleRequest(request: Request): Promise<Response> {
     const maybeCID = pathname.slice(6);
     const content = await request.text();
     const calculatedCID = await Hash.of(content);
+
     if (maybeCID === calculatedCID) {
+      const uuid = request.headers.get("UID");
+      if (!uuid) return await text("UID is empty");
+
+      const user = await USERS.get(uuid);
+      if (!user) return await text("USER not found");
+
       return await text("CID ok");
     }
 
