@@ -171,6 +171,16 @@ async function handleRequest(request: Request): Promise<Response> {
     const { logs } = await import("./spike.land/logs");
     return await logs();
   }
+  if (pathname.startsWith("/save/")) {
+    const maybeCID = pathname.slice(6);
+    const content = await request.text();
+    const calculatedCID = await Hash.of(content);
+    if (maybeCID === calculatedCID) {
+      return await text("CID ok");
+    }
+
+    return await text("test");
+  }
 
   if (pathname.startsWith("/add/")) {
     const deploySHA = await sha256(JSON.stringify(filteredFiles));
