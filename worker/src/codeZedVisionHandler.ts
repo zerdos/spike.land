@@ -185,7 +185,11 @@ async function handleRequest(request: Request): Promise<Response> {
       if (!user) return await text("USER not found");
       await IPFS.put(calculatedCID, content);
       await USERS.put(uuid, JSON.stringify({ ...user, latest: calculatedCID }));
-      await log("SAVE");
+      await log("SAVE", {
+        data: {
+          CID: calculatedCID,
+        },
+      });
       return await text("CID saved");
     }
 
