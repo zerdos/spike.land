@@ -4,6 +4,7 @@ import { files } from "./files.ts";
 import { handleCloudRequest } from "./handler";
 import Hash from "ipfs-only-hash";
 import { js, json, text } from "@responds";
+import { log } from "./handler";
 
 //@ts-ignore
 import { shasums } from "./shasums.ts";
@@ -184,7 +185,7 @@ async function handleRequest(request: Request): Promise<Response> {
       if (!user) return await text("USER not found");
       await IPFS.put(calculatedCID, content);
       await USERS.put(uuid, JSON.stringify({ ...user, latest: calculatedCID }));
-
+      await log("SAVE");
       return await text("CID saved");
     }
 
