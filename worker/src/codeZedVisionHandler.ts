@@ -180,10 +180,12 @@ async function handleRequest(request: Request): Promise<Response> {
       const uuid = request.headers.get("UID");
       if (!uuid) return await text("UID is empty");
 
-      const user = await USERS.get(uuid);
+      const user: Object | null = await USERS.get(uuid, "json");
       if (!user) return await text("USER not found");
+      await IPFS.put(calculatedCID, content);
+      await USERS.put(uuid, JSON.stringify({ ...user, latest: calculatedCID }));
 
-      return await text("CID ok");
+      return await text("CID saved");
     }
 
     return await text("test");
