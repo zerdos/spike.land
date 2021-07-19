@@ -222,6 +222,7 @@ export const saveCode =
 
       const url = `/save/${CID}`;
     fetch(`https://spike.land${url}`, {
+      method: 'POST',
       headers: {
         UID: UID
       },
