@@ -1,4 +1,4 @@
-import { shaDB, sha256 } from "@zedvision/shadb"
+import { sha256, shaDB } from "@zedvision/shadb";
 import { all, ipfsClient } from "./ipfsClient.mjs";
 
 /**
@@ -112,7 +112,7 @@ export const shareItAsHtml = async ({ transpiled, code, html }) => {
 /**
  * @param {{ path: string; content: any; }[]} files
  */
-async function  addAll(files) {
+async function addAll(files) {
   // const res = [];
 
   // for await (const result of ipfsClient.addAll(files)) {
@@ -129,7 +129,7 @@ async function  addAll(files) {
   // }
   return res.map((r) => {
     const CID = r.cid.toString();
-  
+
     return { path: r.path, CID };
   });
 

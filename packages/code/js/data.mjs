@@ -74,7 +74,7 @@ export async function getUserId() {
     );
     const data = await resp.json();
     if (uuid) return uuid;
-    uuid = data.uuid
+    uuid = data.uuid;
     await shaDB.put("uuid", data.uuid);
     return data.uuid;
   }
@@ -215,22 +215,21 @@ export const saveCode =
     }
 
     toSave.code = opts.code;
-    const saveCode = async ()=>{
-      const res =  await ipfsClient.add(code, {onlyHash: true})
+    const saveCode = async () => {
+      const res = await ipfsClient.add(code, { onlyHash: true });
       const CID = res.cid.toString();
       const UID = await getUserId();
-      
 
       const url = `/save/${CID}`;
-    fetch(`https://spike.land${url}`, {
-      method: 'POST',
-      headers: {
-        UID: UID
-      },
-      body: code
-    })
-  }
-  saveCode();
+      fetch(`https://spike.land${url}`, {
+        method: "POST",
+        headers: {
+          UID: UID,
+        },
+        body: code,
+      });
+    };
+    saveCode();
     const { shareItAsHtml } = await import("./share.mjs");
     const sharePromise = shareItAsHtml(
       { code, html, transpiled },

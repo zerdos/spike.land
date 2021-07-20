@@ -81,9 +81,9 @@ export const shasums = {
   "index.html":
     "19a84caaa2580645b81fd11e6c029d267d30a8fa3699d4c12a490d9c20040b73",
   "js/codeLoader.mjs":
-    "e7b3768ed11d86d2418161ab1bf3e13e88c90d12dcde4fd661fa186e7faed195",
+    "3011d5ab60b1a88413b683ab45c12691ff2f9107597acb10f259cecf8fafdc32",
   "js/data.mjs":
-    "743ba5f525d3462b61e0f70e3d6bcdf7eb9743b5f4cd6653b85cd3c9546f7fd5",
+    "c0fb8d18198e5ba16972805f8b7b0035938d36b051f9887adbeda02f16f545da",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
@@ -99,7 +99,7 @@ export const shasums = {
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/importmap.js":
-    "a9c01dc59ead8a1185a6a31e42491d4661501f519c3e8fb33d3179be2ffca429",
+    "8421c2b5030af3cf22139374eb38878756945082517a89cc1b85f03b3ef888db",
   "js/ipfsClient.mjs":
     "69d67deb4971883bb4dfc0e41e34778c4da847c7853a7fb63d82536421e8cfdc",
   "js/openWindows.mjs":
@@ -109,7 +109,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/share.mjs":
-    "a6f45c2c8d9c67a531e385ae4342b16ae3920ba45b590f0f5bb0b45cb5292416",
+    "8af453accce92d396545d0aab5ecdc6d41321cc4e1fe7da5206fa8f4edfb829e",
   "js/starter.js":
     "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
   "js/templates.mjs":
@@ -125,9 +125,9 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "2fccb89414cd92cbb7e7a7dfd175e133a2b5bd7082377ed8adabbb82a59378ca",
   "js/workers/prettierWorker.js":
-    "f64689038463a881a6e69db486c5e69308aecc5a270d672c71c78c0d63a185b1",
+    "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
-    "61e510ae4a1ffe1f11864cbaff50e9d56520236d0dcb311c0da8fafd00841a75",
+    "1d28509231534035cdcbbefb40baf8d91f5e4d161f122142ab0f8d5e2e50a132",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "package.json":
@@ -184,6 +184,6 @@ export const shasums = {
   "modules/QRious.mjs":
     "1ffaed41680d368802a80a2f914091c8680fc4fafc96ce6c5da12af722e65b61",
   ".tsBuildInfo":
-    "6ec0d2106e6724add61bded99c5e606e442a411deff47fecda13fa35b35d3260",
+    "0349ba21f7d35e72e16fc0106786a10d0a9f0369af422f86a77d356e1348d0ec",
   "food": "bar",
 };

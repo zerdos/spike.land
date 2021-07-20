@@ -7,11 +7,9 @@ import React from "react";
 import startMonaco from "@zedvision/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 
-
 // const charWidthSpan = document.createElement('span');
 
 // charWidthSpan.innerHTML = "a";
-
 
 // charWidthSpan.style.fontFamily = `"Droid Sans Mono", monospace, monospace, "Droid Sans Fallback"`;
 // charWidthSpan.style.fontSize = '14px';
@@ -20,12 +18,9 @@ import { jsx } from "@emotion/react";
 
 // charWidthSpan.style.position = 'absolute';
 
-
 // document.body.appendChild(charWidthSpan);
 
-
 // const rect = charWidthSpan.getBoundingClientRect();
-
 
 // const monacoCharWidth = rect.width;
 // console.log({monacoCharWidth});

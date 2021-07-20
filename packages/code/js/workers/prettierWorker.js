@@ -41,6 +41,5 @@ self.addEventListener(
 self.addEventListener("message", (event) => {
   if (event.data.comlinkInit) {
     Comlink.expose(formatter, event.data.port);
-
   }
 });
