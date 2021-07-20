@@ -67,8 +67,9 @@ async function addNewProject(projectName, hash) {
 export async function getUserId() {
   if (uuid) return uuid;
 
-  const newId = await shaDB.get("uuid", "string");
-  if (!uuid) {
+  const newID = await shaDB.get("uuid", "string");
+
+  if (!newID) {
     const resp = await fetch(
       "https://spike.land/register",
     );
@@ -78,7 +79,7 @@ export async function getUserId() {
     await shaDB.put("uuid", data.uuid);
     return data.uuid;
   }
-  return uuid;
+  return newID;
 }
 
 /** @type {string} */
@@ -158,6 +159,7 @@ export async function getCodeToLoad() {
       transpiled: null,
       html: null,
     };
+    console.log('CODE TO LOAD', data);
     return data;
   }
   if (projectDesc !== null && projectDesc !== undefined) {
