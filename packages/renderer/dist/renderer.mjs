@@ -12326,7 +12326,7 @@ var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => 
     color: "primary"
   }, "Restore"))), /* @__PURE__ */ jsx(motion2.div, {
     animate: {
-      transformOrigin: "top left",
+      transformOrigin: "0px 0px",
       width: width2 / devicePixelRatio,
       height: height2,
       scale: scale2
