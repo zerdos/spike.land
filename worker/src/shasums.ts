@@ -127,7 +127,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
-    "1d28509231534035cdcbbefb40baf8d91f5e4d161f122142ab0f8d5e2e50a132",
+    "6cd5c4a55b93133095e4bd624cd523c93f73e1f041297707663b8d1c5a5bd547",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "package.json":
@@ -184,6 +184,6 @@ export const shasums = {
   "modules/QRious.mjs":
     "1ffaed41680d368802a80a2f914091c8680fc4fafc96ce6c5da12af722e65b61",
   ".tsBuildInfo":
-    "0349ba21f7d35e72e16fc0106786a10d0a9f0369af422f86a77d356e1348d0ec",
+    "d0f45e7774e208687f28b194a7e71e024fef6b909174bbd792e0f3a730c98b6b",
   "food": "bar",
 };
