@@ -82,8 +82,6 @@ export const shasums = {
     "19a84caaa2580645b81fd11e6c029d267d30a8fa3699d4c12a490d9c20040b73",
   "js/codeLoader.mjs":
     "3011d5ab60b1a88413b683ab45c12691ff2f9107597acb10f259cecf8fafdc32",
-  "js/data.mjs":
-    "233d75e41478729cf2fcbe4086a5a5e8c8ec9a4a0356d50e1b1df958a7cf3e94",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
@@ -128,6 +126,8 @@ export const shasums = {
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
     "6cd5c4a55b93133095e4bd624cd523c93f73e1f041297707663b8d1c5a5bd547",
+  "js/data.mjs":
+    "233d75e41478729cf2fcbe4086a5a5e8c8ec9a4a0356d50e1b1df958a7cf3e94",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "package.json":

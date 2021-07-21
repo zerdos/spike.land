@@ -133,6 +133,8 @@ async function handleRequest(request: Request): Promise<Response> {
     return await alterHeaders(response, reversePath);
   }
 
+  log(pathname);
+
   if (pathname === "/hash") {
     try {
       const Hash = await import("ipfs-only-hash");
