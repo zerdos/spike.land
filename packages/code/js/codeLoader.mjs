@@ -190,6 +190,7 @@ export async function run(mode = "window", code = "") {
         session.code = cd;
         saveCode(session, counter);
       } else {
+        console.log({code: c, transpiled})
         if (session.i > counter) return;
 
         if (cd.length < 1000 && session.code.length < 1000) {
