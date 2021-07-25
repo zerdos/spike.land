@@ -199,7 +199,7 @@ async function handleRequest(request: Request): Promise<Response> {
   }
 
   if (pathname.startsWith("/error/")) {
-    const maybeCID = pathname.slice();
+    const maybeCID = pathname.slice(7);
     const content = await request.text();
     const calculatedCID = await Hash.of(content);
 
@@ -210,7 +210,10 @@ async function handleRequest(request: Request): Promise<Response> {
       const user: Object | null = await USERS.get(uuid, "json");
       if (!user) return await text("USER not found");
       await IPFS.put(calculatedCID, content);
-      await USERS.put(uuid, JSON.stringify({ ...user, error: calculatedCID }));
+      await USERS.put(
+        uuid,
+        JSON.stringify({ ...user, errorCode: calculatedCID }),
+      );
       await log("SAVE", {
         data: {
           CID: calculatedCID,
