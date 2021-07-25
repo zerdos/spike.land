@@ -198,6 +198,30 @@ async function handleRequest(request: Request): Promise<Response> {
     return await text("test");
   }
 
+  if (pathname.startsWith("/error/")) {
+    const maybeCID = pathname.slice(7);
+    const content = await request.text();
+    const calculatedCID = await Hash.of(content);
+
+    if (maybeCID === calculatedCID) {
+      const uuid = request.headers.get("UID");
+      if (!uuid) return await text("UID is empty");
+
+      const user: Object | null = await USERS.get(uuid, "json");
+      if (!user) return await text("USER not found");
+      await IPFS.put(calculatedCID, content);
+      await USERS.put(uuid, JSON.stringify({ ...user, error: calculatedCID }));
+      await log("SAVE", {
+        data: {
+          CID: calculatedCID,
+        },
+      });
+      return await text("CID saved");
+    }
+
+    return await text("test");
+  }
+
   if (pathname.startsWith("/add/")) {
     const deploySHA = await sha256(JSON.stringify(filteredFiles));
 
