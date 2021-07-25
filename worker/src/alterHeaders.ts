@@ -3,7 +3,7 @@
 import { shasums } from "./shasums.ts";
 
 export async function alterHeaders(response: Response, pathname: string) {
-  const arrBuff = await response!.clone().arrayBuffer();
+  const arrBuff = await response!.arrayBuffer();
   ///@ts-ignore
   const sha = shasums[pathname];
   const shaCalculated = await sha256(arrBuff);

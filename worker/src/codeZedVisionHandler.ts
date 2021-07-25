@@ -109,7 +109,7 @@ async function handleRequest(request: Request): Promise<Response> {
         return await text("Error: " + Object.toString.call(e));
       }
 
-      const contentToSave = await response.clone().arrayBuffer();
+      const contentToSave = await response.arrayBuffer();
       if (sha) {
         const check = await sha256(contentToSave);
         if (check !== sha) {
@@ -199,7 +199,7 @@ async function handleRequest(request: Request): Promise<Response> {
   }
 
   if (pathname.startsWith("/error/")) {
-    const maybeCID = pathname.slice(7);
+    const maybeCID = pathname.slice();
     const content = await request.text();
     const calculatedCID = await Hash.of(content);
 

@@ -224,8 +224,8 @@ export async function run(mode = "window", code = "") {
       if (err.message) {
         session.errorText = err.message;
 
-        const saveCode = async () => {
-          const res = await ipfsClient.add(code, { onlyHash: true });
+        const saveErrorCode = async () => {
+          const res = await ipfsClient.add(c, { onlyHash: true });
           const CID = res.cid.toString();
           const UID = await getUserId();
 
@@ -235,10 +235,10 @@ export async function run(mode = "window", code = "") {
             headers: {
               UID: UID,
             },
-            body: code,
+            body: c,
           });
         };
-        saveCode();
+        saveErrorCode();
         return;
       }
 
