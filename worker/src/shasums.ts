@@ -81,7 +81,7 @@ export const shasums = {
   "index.html":
     "19a84caaa2580645b81fd11e6c029d267d30a8fa3699d4c12a490d9c20040b73",
   "js/codeLoader.mjs":
-    "af4e3c10ad2d67a38d14a86cc72b451fbe1daf6b6ff3d1ab55f828b8bf38f616",
+    "343fe11ac0d8891fe46bcb5c6db408bbd887a0a30b73ee3962370f533be85578",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/rca.tsx":
@@ -127,7 +127,7 @@ export const shasums = {
   "js/workers/transpile.worker.js":
     "6cd5c4a55b93133095e4bd624cd523c93f73e1f041297707663b8d1c5a5bd547",
   "js/data.mjs":
-    "233d75e41478729cf2fcbe4086a5a5e8c8ec9a4a0356d50e1b1df958a7cf3e94",
+    "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
@@ -179,10 +179,10 @@ export const shasums = {
     "e7611a270ef2b0453d5ca1c7af0ee9c0f74b182aac64bc5bd96d30f46a8db0d5",
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
-  "modules/renderer.mjs":
-    "4de80a88489c8e7a040aa36ef2a7a103433f73d81bf517027c971f7b149b1d4d",
   "modules/QRious.mjs":
     "1ffaed41680d368802a80a2f914091c8680fc4fafc96ce6c5da12af722e65b61",
+  "modules/renderer.mjs":
+    "4de80a88489c8e7a040aa36ef2a7a103433f73d81bf517027c971f7b149b1d4d",
   ".tsBuildInfo":
     "0eae8bb97540bd971ab0da9fc895a2829d018ecc1736ac4a32673002083a4b99",
   "food": "bar",

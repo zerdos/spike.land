@@ -159,7 +159,6 @@ export async function getCodeToLoad() {
       transpiled: null,
       html: null,
     };
-    console.log('CODE TO LOAD', data);
     return data;
   }
   if (projectDesc !== null && projectDesc !== undefined) {

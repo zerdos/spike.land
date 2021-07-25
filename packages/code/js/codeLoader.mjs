@@ -6,6 +6,8 @@ import { formatter } from "./formatter.mjs";
 import React from "react";
 import startMonaco from "@zedvision/smart-monaco-editor";
 import { jsx } from "@emotion/react";
+import { ipfsClient } from "./ipfsClient.mjs";
+import { getUserId } from "./data.mjs";
 
 // const charWidthSpan = document.createElement('span');
 
@@ -162,7 +164,6 @@ export async function run(mode = "window", code = "") {
       const cd = await formatter(c);
       const transpiled = await transpileCode(cd);
 
-      console.log(session);
       let restartError = false;
       ///yellow
       if (transpiled.length && session.lastErrors < 2) {
@@ -190,7 +191,7 @@ export async function run(mode = "window", code = "") {
         session.code = cd;
         saveCode(session, counter);
       } else {
-        console.log({code: c, transpiled})
+        console.log({ code: c, transpiled });
         if (session.i > counter) return;
 
         if (cd.length < 1000 && session.code.length < 1000) {
@@ -222,6 +223,22 @@ export async function run(mode = "window", code = "") {
     } catch (err) {
       if (err.message) {
         session.errorText = err.message;
+
+        const saveCode = async () => {
+          const res = await ipfsClient.add(code, { onlyHash: true });
+          const CID = res.cid.toString();
+          const UID = await getUserId();
+
+          const url = `/error/${CID}`;
+          fetch(`https://spike.land${url}`, {
+            method: "POST",
+            headers: {
+              UID: UID,
+            },
+            body: code,
+          });
+        };
+        saveCode();
         return;
       }
 
