@@ -34,7 +34,7 @@
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
     "cypress": "8.0.0",
-    "esbuild": "0.12.15",
+    "esbuild": "0.12.16",
     "typescript": "beta"
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
