@@ -45,6 +45,7 @@ async function handleRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const { pathname } = url;
 
+  // do not do anything if bots looking for wordpress
   if (pathname.includes("wp-includes")) return await text("404");
 
   if (pathname.slice(0, 6) === `/ipfs/`) {
