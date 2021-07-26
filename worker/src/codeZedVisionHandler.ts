@@ -45,6 +45,8 @@ async function handleRequest(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const { pathname } = url;
 
+  if (pathname.includes("wp-includes")) return await text("404");
+
   if (pathname.slice(0, 6) === `/ipfs/`) {
     let customCID = pathname.slice(6);
     const reversePath = reverseMap[customCID] ||
