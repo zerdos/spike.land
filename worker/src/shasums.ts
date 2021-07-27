@@ -24,56 +24,6 @@ export const shasums = {
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
   "cypress.json":
     "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
-  "cypress/fixtures/example.json":
-    "1800ff4b34f25a4a02d9e697a1724e84b2483faa85b7cf7812036916d6f6982b",
-  "cypress/integration/0-ode/todo.spec.js":
-    "aa60d6759a6863fe90f49b052f72b84159110a375c5cb4d8db9c8723476b2e12",
-  "cypress/integration/1-getting-started/todo.spec.js":
-    "42985b42857a45ef205743552ac1d89b159b188555cc89b177d753e80abc4cfc",
-  "cypress/integration/2-advanced-examples/actions.spec.js":
-    "0a4ab40603eb82526fb3e91fe158903418a07adc7189f44f99126a6cc9889721",
-  "cypress/integration/2-advanced-examples/aliasing.spec.js":
-    "e0c77fe09f12c68589ee459492b9218a17ea3577462b2c1e223ebe1c44b18c32",
-  "cypress/integration/2-advanced-examples/assertions.spec.js":
-    "ce67e7e9513c9389ae5207fe1dc599f67a3c95e7d313a64da7a46e06c8ee5cfc",
-  "cypress/integration/2-advanced-examples/connectors.spec.js":
-    "1273d62668eed109488655bec6d913d96ba8352e86442ffae99f8dfb2b5a11dc",
-  "cypress/integration/2-advanced-examples/cookies.spec.js":
-    "2c03defa4b8d1c93b5e02763f4bae6b58e4aebcdc3f3c65bacebbd969175c256",
-  "cypress/integration/2-advanced-examples/cypress_api.spec.js":
-    "99a7b9a0c042ad7328dcad4a8a7cf5fc15c284384239f0571f85aba94df821f7",
-  "cypress/integration/2-advanced-examples/files.spec.js":
-    "1dc1f22a76b10fe5d0a3d1c3d94b8dc10727b91b762a83ddfe10199eff24a86a",
-  "cypress/integration/2-advanced-examples/local_storage.spec.js":
-    "9281c9769757a8625f421c236e33deec93d69712a66ddf34d9b060980d6fccc9",
-  "cypress/integration/2-advanced-examples/location.spec.js":
-    "1132e529bb6a69a33a2a693d9b1ea2f28da9a28edb6a31b348d5dff9582f2b59",
-  "cypress/integration/2-advanced-examples/misc.spec.js":
-    "474362745f026968fec51598d932f5cb3b51e15d693bc8d1ca2cd5e101814452",
-  "cypress/integration/2-advanced-examples/navigation.spec.js":
-    "7860b6565878e82420ff73090f3a30e96bd8d11ea22d7324904311b6138e2b7c",
-  "cypress/integration/2-advanced-examples/network_requests.spec.js":
-    "003af79c94b85705ec6fc4d2e546de8bbeb27f907ac452f70ecc66afc8bd16e2",
-  "cypress/integration/2-advanced-examples/querying.spec.js":
-    "8d5d5d62306475f18cddb187fe5ca6aea9a0b74a9981e8f0a7673b758d2dfb3a",
-  "cypress/integration/2-advanced-examples/spies_stubs_clocks.spec.js":
-    "f0bc9c58d855c3b326a9c254428607941243566cc347578fbf88f836fc601e7a",
-  "cypress/integration/2-advanced-examples/traversal.spec.js":
-    "ef3d9baca2950ecec3108520d867e91b23af5bc66275e29d0ad81a6a70d1e739",
-  "cypress/integration/2-advanced-examples/utilities.spec.js":
-    "1a879050013ea46efd970de7ecb5eaf911ff469b3cc87af33c4c68fb8469a0db",
-  "cypress/integration/2-advanced-examples/viewport.spec.js":
-    "3a9014b130688418ca0a2b89f5bf35a4cc25b1cda8d1be07018eab80308c6fe9",
-  "cypress/integration/2-advanced-examples/waiting.spec.js":
-    "1a8c36ca7f65a357dcc4d5583b486ce6a69f465c1b4bb9aba042d32e6d4ea18a",
-  "cypress/integration/2-advanced-examples/window.spec.js":
-    "3c1d0ab2f77b1eb3687b817506e7387a77bb8b45c14f208cbed0f37e35b4f9ed",
-  "cypress/plugins/index.js":
-    "ad25fc3b2eac20e76af2c579d0fced9103f91b260182f5664883f3c68bbbf802",
-  "cypress/support/commands.js":
-    "8d9eb8e1a5fb51def6358908d3a9c5b783bb49f86174d646eb4e44ef82d63083",
-  "cypress/support/index.js":
-    "d1d77c153d844b75e34b359f0fef365c844265f31abe1f93c04804f103fa3d49",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "favicon.ico":
@@ -136,7 +86,7 @@ export const shasums = {
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   "package.json":
-    "0a668dd01ae06d1e04238cae5fbab2cc6f32a8097d84dfdb24c8ffe489b3e4f5",
+    "305ca5d45b3c02773dfad7629afdfb17347637edb66ae28da35df8b73c442aa8",
   "modules/smart-monaco-editor/dist/editor.js":
     "502050e86a99c96e54ce574439b8da32751404b744846b20f4cb51fbccf1cd12",
   "modules/smart-monaco-editor/dist/editor.d.ts":
