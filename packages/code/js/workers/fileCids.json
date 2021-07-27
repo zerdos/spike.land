@@ -9,7 +9,6 @@
 "assets/synthwave.jpg": "QmVP5gg9nYuPg1au5pBmdn75xmUvuGevRPLhEngyEyQfkT",
 "assets/triangle-geometry.png": "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
 "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
-"cypress.json": "QmNU5JpnyZvwL562qyx5uoWctTH8AjKYQawtKHbcBYXryp",
 "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
 "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
 "index.html": "Qmeb5nBkz6afNSND8nRVTpvsgWqoRVboYTSKiq7vz9kA9r",
@@ -77,5 +76,5 @@
 "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
 "modules": "QmXYncNqYexqU4d6ZwHZ4YmBe8WjQ1vRyDxn2QPPZZPuCy",
 "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-"": "QmbGoasWKfA8KYqMjgEqoWmSMCpcR2gkeTuryd8GLFrB4U",
+"": "QmaWdQa9X5YQnoSkRP7A6rvRPYAep3DyzppkPXwMykCTLg",
  "foo":"bar" }

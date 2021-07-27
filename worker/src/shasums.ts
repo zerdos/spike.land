@@ -22,8 +22,6 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "assets/zed-icon-big.png":
     "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
-  "cypress.json":
-    "34c81342aaca9484caa62739af9c20ab76b51d71ea7b117317dfb54b9452d80e",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "favicon.ico":
