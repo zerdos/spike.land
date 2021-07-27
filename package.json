@@ -29,6 +29,6 @@
     "lerna": "4.0.0",
     "pageres-cli": "6.0.0",
     "typescript": "beta",
-    "yarn": "1.22.10"
+    "yarn": "1.22.11"
   }
 }

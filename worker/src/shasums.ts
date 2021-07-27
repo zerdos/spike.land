@@ -97,7 +97,7 @@ export const shasums = {
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/importmap.js":
-    "64e3dc9ae4fcf3225cc6757bc3f1977be5c59d058c7ac2d73be95f23499bde77",
+    "3521bad7c8a606eda11d744d4d3c6d3a3eab85a1410e1d86d6496df6f7646aef",
   "js/ipfsClient.mjs":
     "69d67deb4971883bb4dfc0e41e34778c4da847c7853a7fb63d82536421e8cfdc",
   "js/openWindows.mjs":
@@ -179,11 +179,11 @@ export const shasums = {
     "e7611a270ef2b0453d5ca1c7af0ee9c0f74b182aac64bc5bd96d30f46a8db0d5",
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
-  "modules/renderer.mjs":
-    "4de80a88489c8e7a040aa36ef2a7a103433f73d81bf517027c971f7b149b1d4d",
   "modules/QRious.mjs":
     "1ffaed41680d368802a80a2f914091c8680fc4fafc96ce6c5da12af722e65b61",
+  "modules/renderer.mjs":
+    "e1f73e5e3de35732195da8e5c4a4861bd29c7842ca36e1fb0d4d596a2ad659c2",
   ".tsBuildInfo":
-    "0eae8bb97540bd971ab0da9fc895a2829d018ecc1736ac4a32673002083a4b99",
+    "7cc72270daad89cc59258952ad231183db96446d5119ee74db6bd44e8c3433a7",
   "food": "bar",
 };

@@ -126,10 +126,10 @@ var require_react_is_development = __commonJS({
         var ContextConsumer = REACT_CONTEXT_TYPE;
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element = REACT_ELEMENT_TYPE;
-        var ForwardRef = REACT_FORWARD_REF_TYPE;
+        var ForwardRef2 = REACT_FORWARD_REF_TYPE;
         var Fragment4 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
-        var Memo = REACT_MEMO_TYPE;
+        var Memo2 = REACT_MEMO_TYPE;
         var Portal = REACT_PORTAL_TYPE;
         var Profiler = REACT_PROFILER_TYPE;
         var StrictMode = REACT_STRICT_MODE_TYPE;
@@ -185,10 +185,10 @@ var require_react_is_development = __commonJS({
         exports.ContextConsumer = ContextConsumer;
         exports.ContextProvider = ContextProvider;
         exports.Element = Element;
-        exports.ForwardRef = ForwardRef;
+        exports.ForwardRef = ForwardRef2;
         exports.Fragment = Fragment4;
         exports.Lazy = Lazy;
-        exports.Memo = Memo;
+        exports.Memo = Memo2;
         exports.Portal = Portal;
         exports.Profiler = Profiler;
         exports.StrictMode = StrictMode;
@@ -892,10 +892,10 @@ var require_react_is_development2 = __commonJS({
         var ContextConsumer = REACT_CONTEXT_TYPE;
         var ContextProvider = REACT_PROVIDER_TYPE;
         var Element = REACT_ELEMENT_TYPE;
-        var ForwardRef = REACT_FORWARD_REF_TYPE;
+        var ForwardRef2 = REACT_FORWARD_REF_TYPE;
         var Fragment4 = REACT_FRAGMENT_TYPE;
         var Lazy = REACT_LAZY_TYPE;
-        var Memo = REACT_MEMO_TYPE;
+        var Memo2 = REACT_MEMO_TYPE;
         var Portal = REACT_PORTAL_TYPE;
         var Profiler = REACT_PROFILER_TYPE;
         var StrictMode = REACT_STRICT_MODE_TYPE;
@@ -956,10 +956,10 @@ var require_react_is_development2 = __commonJS({
         exports.ContextConsumer = ContextConsumer;
         exports.ContextProvider = ContextProvider;
         exports.Element = Element;
-        exports.ForwardRef = ForwardRef;
+        exports.ForwardRef = ForwardRef2;
         exports.Fragment = Fragment4;
         exports.Lazy = Lazy;
-        exports.Memo = Memo;
+        exports.Memo = Memo2;
         exports.Portal = Portal;
         exports.Profiler = Profiler;
         exports.StrictMode = StrictMode;
@@ -8229,6 +8229,44 @@ function elementTypeAcceptingRef(props, propName, componentName, location, propF
 }
 var elementTypeAcceptingRef_default = chainPropTypes(import_prop_types.default.elementType, elementTypeAcceptingRef);
 
+// ../../node_modules/@material-ui/utils/esm/getDisplayName.js
+var import_react_is = __toModule(require_react_is2());
+var fnNameMatchRegex = /^\s*function(?:\s|\s*\/\*.*\*\/\s*)+([^(\s/]*)\s*/;
+function getFunctionName(fn) {
+  const match = `${fn}`.match(fnNameMatchRegex);
+  const name = match && match[1];
+  return name || "";
+}
+function getFunctionComponentName(Component3, fallback = "") {
+  return Component3.displayName || Component3.name || getFunctionName(Component3) || fallback;
+}
+function getWrappedName(outerType, innerType, wrapperName) {
+  const functionName = getFunctionComponentName(innerType);
+  return outerType.displayName || (functionName !== "" ? `${wrapperName}(${functionName})` : wrapperName);
+}
+function getDisplayName(Component3) {
+  if (Component3 == null) {
+    return void 0;
+  }
+  if (typeof Component3 === "string") {
+    return Component3;
+  }
+  if (typeof Component3 === "function") {
+    return getFunctionComponentName(Component3, "Component");
+  }
+  if (typeof Component3 === "object") {
+    switch (Component3.$$typeof) {
+      case import_react_is.ForwardRef:
+        return getWrappedName(Component3, Component3.render, "ForwardRef");
+      case import_react_is.Memo:
+        return getWrappedName(Component3, Component3.type, "memo");
+      default:
+        return void 0;
+    }
+  }
+  return void 0;
+}
+
 // ../../node_modules/@material-ui/utils/esm/refType.js
 var import_prop_types2 = __toModule(require_prop_types());
 var refType = import_prop_types2.default.oneOfType([import_prop_types2.default.func, import_prop_types2.default.object]);
@@ -9357,9 +9395,9 @@ var variantsResolver = (props, styles, theme, name) => {
   }
   return variantsStyles;
 };
-var shouldForwardProp = (prop) => {
+function shouldForwardProp(prop) {
   return prop !== "styleProps" && prop !== "theme" && prop !== "sx" && prop !== "as";
-};
+}
 var systemDefaultTheme2 = createTheme_default();
 var lowercaseFirstLetter = (string) => {
   return string.charAt(0).toLowerCase() + string.slice(1);
@@ -9445,7 +9483,10 @@ function createStyled(input = {}) {
         };
       }
       const Component3 = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
-      if (displayName) {
+      if (true) {
+        if (displayName === void 0) {
+          displayName = `Styled(${getDisplayName(tag)})`;
+        }
         Component3.displayName = displayName;
       }
       return Component3;
@@ -11802,7 +11843,7 @@ true ? ToggleButton.propTypes = {
 var ToggleButton_default = ToggleButton;
 
 // ../../node_modules/@material-ui/core/ToggleButtonGroup/ToggleButtonGroup.js
-var import_react_is = __toModule(require_react_is2());
+var import_react_is2 = __toModule(require_react_is2());
 var import_prop_types12 = __toModule(require_prop_types());
 import {
   Children as Children3,
@@ -11953,7 +11994,7 @@ var ToggleButtonGroup = /* @__PURE__ */ forwardRef7(function ToggleButtonGroup2(
         return null;
       }
       if (true) {
-        if ((0, import_react_is.isFragment)(child)) {
+        if ((0, import_react_is2.isFragment)(child)) {
           console.error(["Material-UI: The ToggleButtonGroup component doesn't accept a Fragment as a child.", "Consider providing an array instead."].join("\n"));
         }
       }
@@ -12412,12 +12453,17 @@ object-assign
 (c) Sindre Sorhus
 @license MIT
 */
-/** @license Material-UI v5.0.0-alpha.40
+/** @license Material-UI v5.0.0-alpha.41
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 /** @license Material-UI v5.0.0-beta.1
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+/** @license Material-UI v5.0.0-beta.2
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
