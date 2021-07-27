@@ -218,7 +218,7 @@ export const saveCode =
     toSave.code = opts.code;
     const saveCode = async () => {
       const res = await ipfsClient.add(code, { onlyHash: true });
-      const CID = res.cid.toV1().toString();
+      const CID = res.cid.toString();
       const UID = await getUserId();
 
       const url = `/save/${CID}`;
