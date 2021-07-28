@@ -17,9 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-"use strict";
-
-var ElementService = require("qrious-core/src/service/element/ElementService");
+import ElementService  from "qrious-core/src/service/element/ElementService";
 
 /**
  * An implementation of {@link ElementService} intended for use within a browser environment.
@@ -58,4 +56,4 @@ var BrowserElementService = ElementService.extend({
   },
 });
 
-module.exports = BrowserElementService;
+export default BrowserElementService;
