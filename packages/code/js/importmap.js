@@ -96,7 +96,7 @@ const imports = {
     "https://unpkg.com/style-value-types@4.1.4/dist/es/index.js",
   "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
   "@zedvision/qrious":
-    "https://unpkg.com/@zedvision/qrious@14.4.3/dist/QRious.mjs",
+    "https://unpkg.com/@zedvision/qrious@14.4.4/dist/QRious.mjs",
   "tiny-warning":
     "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
   "tslib": "https://unpkg.com/tslib@2.3.0/tslib.es6.js",
