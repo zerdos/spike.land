@@ -1,4 +1,4 @@
-export = BrowserElementService;
+export default BrowserElementService;
 /**
  * An implementation of {@link ElementService} intended for use within a browser environment.
  *

@@ -3,7 +3,7 @@
 - Base image: ubuntu:focal
 - Node: 14.17.3
 - Yarn: 1.22.11
-- Cypress 8.0.0
+- Cypress 8.1.0
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - With Vscode- Zsh + Oh my zsh!
