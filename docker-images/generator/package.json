@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "16.4.7",
+    "@types/node": "16.4.9",
     "typescript": "beta"
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"

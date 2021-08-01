@@ -69,11 +69,11 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
-    "6363c38172a5d6fd1b2a5920e46d17c8b16735ba6247489daf7a0861de6464a5",
+    "a7cd087a2643d05a5d12cc24ee03e6e1970ef00850e0919e8b6d962d5b4badd4",
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
-    "6cd5c4a55b93133095e4bd624cd523c93f73e1f041297707663b8d1c5a5bd547",
+    "cd53c1b9ec5c67328b48b59c9c33b45934b4b4fbf7c08be820e05334731f0348",
   "js/data.mjs":
     "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "manifest.json":
@@ -132,6 +132,6 @@ export const shasums = {
   "modules/renderer.mjs":
     "e1f73e5e3de35732195da8e5c4a4861bd29c7842ca36e1fb0d4d596a2ad659c2",
   ".tsBuildInfo":
-    "58303309d01813ee6b530d0a79b743b403a1bfddb8eee0a2bc71b8116c5ac7e1",
+    "bef5c9fae7a1bc9fec97c85b779a8bba5cbdfe471658066855f719f7d715c1e9",
   "food": "bar",
 };

@@ -26,10 +26,10 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.14.5.tgz#5ac822ce97eec46741ab70a517971e443a70c5a9"
   integrity sha512-/37qQCE3K0vvZKwoK4XU/irIJQdIfCJuhU5eKnNxpFDsOkgFaUAwbv+RYw6eYgsC0E4hS7r5KqGULUogqui0fQ==
 
-"@babel/helper-validator-identifier@^7.14.5", "@babel/helper-validator-identifier@^7.14.8":
-  version "7.14.8"
-  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.8.tgz#32be33a756f29e278a0d644fa08a2c9e0f88a34c"
-  integrity sha512-ZGy6/XQjllhYQrNw/3zfWRwZCTVSiBLZ9DHVZxn9n2gip/7ab8mv2TWlKPIBk26RwedCBoWdjLmn+t9na2Gcow==
+"@babel/helper-validator-identifier@^7.14.5", "@babel/helper-validator-identifier@^7.14.9":
+  version "7.14.9"
+  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.14.9.tgz#6654d171b2024f6d8ee151bf2509699919131d48"
+  integrity sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==
 
 "@babel/highlight@^7.14.5":
   version "7.14.5"
@@ -55,11 +55,11 @@
     regenerator-runtime "^0.13.4"
 
 "@babel/types@^7.14.5":
-  version "7.14.8"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.14.8.tgz#38109de8fcadc06415fbd9b74df0065d4d41c728"
-  integrity sha512-iob4soQa7dZw8nodR/KlOQkPh9S4I8RwCxwRIFuiMRYjOzH/KJzdUfDgz6cGi5dDaclXF4P2PAhCdrBJNIg68Q==
+  version "7.14.9"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.14.9.tgz#f2b19c3f2f77c5708d67fe8f6046e9cea2b5036d"
+  integrity sha512-u0bLTnv3DFHeaQLYzb7oRJ1JHr1sv/SYDM7JSqHFFLwXG1wTZRughxFI5NCP8qBEo1rVVsn7Yg2Lvw49nne/Ow==
   dependencies:
-    "@babel/helper-validator-identifier" "^7.14.8"
+    "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
 "@cloudflare/workers-types@2.2.2":
@@ -67,10 +67,10 @@
   resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-2.2.2.tgz#1bced16bba801d7af987da835467545bb5cc7ac6"
   integrity sha512-kaMn2rueJ0PL1TYVGknTCh0X0x0d9G+FNXAFep7/4uqecEZoQb/63o6rOmMuiqI09zLuHV6xhKRXinokV/MY9A==
 
-"@cloudflare/wrangler@1.18.0":
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.18.0.tgz#3107e7fe3d5522d9c277a48ae1b99125f3ddea67"
-  integrity sha512-Hsl3dnmu9c8cX28LT4DskAeRqRgDEb5mWdD/R4o7oTFGOGNk4/hBEAH40xRVrGIcTAyCQh+WPEQ8uzFkIBZbYQ==
+"@cloudflare/wrangler@1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/wrangler/-/wrangler-1.19.0.tgz#1cf2d7332b74e60a12730f9aa69b7e562022d57b"
+  integrity sha512-fbvJEzb8P/IulJus72pG/G3THDyNk+YGwl1PzuMGlJGF+yvCaNWj+NmyZERmQxfq2bDs8UTUSQTrIdYVGH1tXQ==
   dependencies:
     axios "^0.21.1"
     rimraf "^3.0.2"
@@ -1224,10 +1224,10 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node@*", "@types/node@16.4.7", "@types/node@>=13.7.0":
-  version "16.4.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.7.tgz#f7afa78769d4b477f5092d7c3468e2e8653d779c"
-  integrity sha512-aDDY54sst8sx47CWT6QQqIZp45yURq4dic0+HCYfYNcY5Ejlb/CLmFnRLfy3wQuYafOeh3lB/DAKaqRKBtcZmA==
+"@types/node@*", "@types/node@16.4.9", "@types/node@>=13.7.0":
+  version "16.4.9"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.9.tgz#04eb3da65d08ea377f5e682bf0d22dc1f5e7f19e"
+  integrity sha512-HXhRf581nCItzn8yevv4LYt+bJ5cBbDBAJExbDPMeU/2n5/j0ZemGpayahFBP4xL7RseaCLASLD9i9AYyDe7Nw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -1781,9 +1781,9 @@ chalk@^2.0.0, chalk@^2.4.2:
     supports-color "^5.3.0"
 
 chalk@^4.1.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
-  integrity sha512-diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
+  integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -3376,41 +3376,41 @@ ip@^1.1.5:
   resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
   integrity sha1-vd7XARQpCCjAoDnnLvJfWq7ENUo=
 
-ipfs-core-types@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.6.0.tgz#1152dc65f7eef2357bd19b69d56313ec189a1c67"
-  integrity sha512-as6iUSSRlQtSbe3bO+Epmd8XC62lxfuNl8dVznClKhEAYZLIKsQBSpC2rtL9aSyRMocAUbiuX7W0MI6x5Xyczw==
+ipfs-core-types@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.6.1.tgz#d28318e38578d1f95ef1d97e0e456c235bf2c283"
+  integrity sha512-2SHaEIb52JGzLikiIq0Y665Qaop0q8ITOI41Z1VfPG9GJNiAl1uyasaKffNIFlq+RQFXVup3V0g1R04engHzEA==
   dependencies:
     interface-datastore "^5.0.0"
     multiaddr "^10.0.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-client@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.7.0.tgz#a0f3f527796af462db2470fd29ddebee9fc3e892"
-  integrity sha512-bZdPoyzaLxbP8ePRly/GZaQTVpQQE56DvGjd9WlfQQGAmOaDOROO8d4nV1eVzwbC77mQys3ZvA7Rx6zgO+Kl3g==
+ipfs-message-port-client@0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.7.1.tgz#f79730e13d10d20c4ef0379e6d756100439aae35"
+  integrity sha512-jyoVAE6bXDuf+Pgp0k1/8YynKhC+SYSd/dGf7i45RF3NLijpV5g9vO/PwMHhT5edjdnrMbdwBXJk16zs7kt+Ow==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
-    ipfs-core-types "^0.6.0"
-    ipfs-message-port-protocol "^0.8.0"
+    ipfs-core-types "^0.6.1"
+    ipfs-message-port-protocol "^0.8.1"
     ipfs-unixfs "^5.0.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-protocol@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.8.0.tgz#771eda515f9ccc1b263a0d7949251c0beb900ce4"
-  integrity sha512-UoVZxoefsSWmrFqAwhvi33OYW6IPaL2NwUX+2NeOckfRT3ZjbfCdC1mI5xvOOofLe8iU7+o4s+N6tVT/2XF4uA==
+ipfs-message-port-protocol@^0.8.0, ipfs-message-port-protocol@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.8.1.tgz#c35b95e8f743086f94bbdee2b016aba2f169e0f2"
+  integrity sha512-TnCMDIBijFpK1FCNygfs3/k5ryuCbKLHHiF7V6a3aGp86UYioR3hcfFGA5BoAZG2DE8RzolTzW7BDDAgGrC4Iw==
   dependencies:
-    ipfs-core-types "^0.6.0"
+    ipfs-core-types "^0.6.1"
     multiformats "^9.4.1"
 
 ipfs-message-port-server@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.8.0.tgz#e0918baf9500b2ce8f32fe076b80aac98af41334"
-  integrity sha512-uQw3P1wn+prbOF/mPGbwFBauNLLOR4iBSJIOKgcJ6ONN8rvB9qutz/WskqsIdYt0dsIEYUGM2JFt6+gWO9NH7Q==
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.8.1.tgz#c919c2c49f0788138dd46ac45b1182a1a9ab8ddd"
+  integrity sha512-d7vjgtydyv0s8U/Mzu219dlAlqjbYW/0iExzsxEiS5FVGu7jIrSKDdTCB19GY8N0mY+WRM44WMiPXpHuy7X8UA==
   dependencies:
-    ipfs-core-types "^0.6.0"
-    ipfs-message-port-protocol "^0.8.0"
+    ipfs-core-types "^0.6.1"
+    ipfs-message-port-protocol "^0.8.1"
     it-all "^1.0.4"
     multiformats "^9.4.1"
 
@@ -6484,10 +6484,10 @@ uid-number@0.0.6:
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
   integrity sha1-DqEOgDXo61uOREnwbaHHMGY7qoE=
 
-uint8arrays@2.1.8, uint8arrays@^2.0.5, uint8arrays@^2.1.2, uint8arrays@^2.1.3, uint8arrays@^2.1.5:
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-2.1.8.tgz#79394390ba93c7d858ce5703705dcf9012f0c9d4"
-  integrity sha512-qpZ/B88mSea11W3LvoimtnGWIC2i3gGuXby5wBkn8jY+OFulbaQwyjpOYSyrASqgcNEvKdAkLiOwiUt5cPSdcQ==
+uint8arrays@2.1.10, uint8arrays@^2.0.5, uint8arrays@^2.1.2, uint8arrays@^2.1.3, uint8arrays@^2.1.5:
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/uint8arrays/-/uint8arrays-2.1.10.tgz#34d023c843a327c676e48576295ca373c56e286a"
+  integrity sha512-Q9/hhJa2836nQfEJSZTmr+pg9+cDJS9XEAp7N2Vg5MzL3bK/mkMVfjscRGYruP9jNda6MAdf4QD/y78gSzkp6A==
   dependencies:
     multiformats "^9.4.2"
 
