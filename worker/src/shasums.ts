@@ -73,7 +73,7 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
-    "cd53c1b9ec5c67328b48b59c9c33b45934b4b4fbf7c08be820e05334731f0348",
+    "7274dd0d66e2bc85e04561f2878a36dc78c3da8739c63e9acbd8b92438a8d2d4",
   "js/data.mjs":
     "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "manifest.json":
