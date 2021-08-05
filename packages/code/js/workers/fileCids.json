@@ -60,7 +60,7 @@
 "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
 "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
 "modules/vendor/idb.js": "QmTRY8hnzzvYxPaPQ7Zvoef3rFnddRDhGKLRn3jwbQsye9",
-"package.json": "QmZShpVV9hMqjNQDZWfiRTARnprHGiZsipkY54Fbmpqgye",
+"package.json": "QmVjQPCBcmofpAT2VSTEMCvLHMBHVAvqworKxEWonWEvXL",
 "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
 "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
 "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
@@ -76,5 +76,5 @@
 "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
 "modules": "QmYMmtncztU9jEJ5pMQ6J3p3qYMMGPZMttzbPqk8gqSg6B",
 "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-"": "QmSEdH6LfzCRGRcHHyUK8ZL75gkaNEFXFYVP2rBaakwbbd",
+"": "QmW1vAdcDhpQBQW29dMPzbnQWFgmnzxdD3Anp3NLJXTcEJ",
  "foo":"bar" }
