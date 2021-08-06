@@ -45,7 +45,7 @@ export const shasums = {
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/importmap.js":
-    "54618bf80720a61cc19ec327dcd737d3cfd0e296530c4e6c79632043d1f6c09a",
+    "dc76a2ee71d7c40039ea8240c7334fa30fb16cecad8ab841410e06159f5921a3",
   "js/ipfsClient.mjs":
     "69d67deb4971883bb4dfc0e41e34778c4da847c7853a7fb63d82536421e8cfdc",
   "js/openWindows.mjs":
@@ -86,7 +86,7 @@ export const shasums = {
   "package.json":
     "8efd5f101d323a89e7d3b5d625d4dfe7d12a4a413960f77ff71078b3b5fa30f2",
   "modules/smart-monaco-editor/dist/editor.js":
-    "502050e86a99c96e54ce574439b8da32751404b744846b20f4cb51fbccf1cd12",
+    "9d60e756bfafc077bfe6cb6de0f2c367546ff330501fdd4fd938b08e3e956882",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -127,11 +127,11 @@ export const shasums = {
     "e7611a270ef2b0453d5ca1c7af0ee9c0f74b182aac64bc5bd96d30f46a8db0d5",
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
-  "modules/renderer.mjs":
-    "e1f73e5e3de35732195da8e5c4a4861bd29c7842ca36e1fb0d4d596a2ad659c2",
   "modules/QRious.mjs":
     "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
+  "modules/renderer.mjs":
+    "e1f73e5e3de35732195da8e5c4a4861bd29c7842ca36e1fb0d4d596a2ad659c2",
   ".tsBuildInfo":
-    "bef5c9fae7a1bc9fec97c85b779a8bba5cbdfe471658066855f719f7d715c1e9",
+    "eca8c6edc34ba0d7983d5951ac0efc124a640f28b9f7838e5a3c320bd2647611",
   "food": "bar",
 };
