@@ -17,7 +17,7 @@
     "build": "yarn build:renderer && cp -rf dist/* ../code/modules/"
   },
   "dependencies": {
-    "@emotion/react": "11.4.0",
+    "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@material-ui/core": "next",
     "@types/react": "17.0.16",

@@ -11,11 +11,11 @@ const imports = {
   "@emotion/memoize":
     "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
   "@emotion/react":
-    "https://unpkg.com/@emotion/react@11.4.0/dist/emotion-react.browser.esm.js",
+    "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js",
   "@emotion/serialize":
     "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
   "@emotion/sheet":
-    "https://unpkg.com/@emotion/sheet@1.0.1/dist/emotion-sheet.browser.esm.js",
+    "https://unpkg.com/@emotion/sheet@1.0.2/dist/emotion-sheet.browser.esm.js",
   "@emotion/styled":
     "https://unpkg.com/@emotion/styled@11.3.0/dist/emotion-styled.browser.esm.js",
   "@emotion/unitless":

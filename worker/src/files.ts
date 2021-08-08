@@ -28,7 +28,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmbovTVJM1jqUL6TFPrNKdNmQ8jh6KHULcg1ACvgTqriQw",
+  "js/importmap.js": "QmfUxbzWy4mH7NCn94r42j3e2ztSm3D79NUfZywmQ6XF5Z",
   "js/ipfsClient.mjs": "QmcWneUUsMgkA6qzuF7PJcSPCvR3GxxuQYE6n3GKWS1HFs",
   "js/openWindows.mjs": "QmTrebQC2WUaJE27yRmM1NNz99v7GUAUeTgMLNXTzKtJ4e",
   "js/renderPreviewWindow.mjs":
@@ -63,7 +63,7 @@ export const files = {
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "QmbDXsz2Fmv691fT21JToDdJpDN2jAPMP1jg8tgY5DrWdZ",
   "modules/smart-monaco-editor/dist/editor.js":
-    "QmTLwh33TK6AanUYd3mWrXcvtP5nypCuesuf1mbymJvAEq",
+    "QmVwHVthhEHPoBbaRAjtupsBYvJZQK1GXAyvwXpvUYmcXh",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -87,14 +87,14 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmUd6zyyfTohKXFwCHVxdwErce6oepGRGsv7tw9LESBrxo",
-  "js": "QmeFqTvCSzfehv8f6dE9heFVRrFpB4azLZVLjcHF4E9vrC",
+  "js": "Qmb4n5Y9qmYQyVqwzGbCrnsMvGiNCMuUm6E8HBhPnBcMTa",
   "modules/smart-monaco-editor/dist":
-    "QmPmUUujofE38ujBHnuPWvWJiwMYz1QHQxQkZuMAwEt2PP",
+    "QmZF4tKw1xHQHSrZ5poUrmT7k44kfBA91FowC8SJrHvnNq",
   "modules/smart-monaco-editor":
-    "QmXL9bN2VTHwG1PF586Af1Lvp3sw4W4acWfnFtLSz7j4dY",
+    "QmVYsk3UfbFWzr1bxg6Lpy24mNMhMrK6bCub41t4qoNKqi",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmZ34ZJq762dxZMYtHCwo1xVuReRXLaQ11Agr96XL5iMMQ",
+  "modules": "QmTQymZ1zoPcCGfffxQiEDjYaDBZhadCGSVPfpEHKC5xNf",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "Qma1Rqpx99cZomYsFdqt9RUH66HZKzJVyv3m34SUxdDVj3",
+  "": "QmRR5m2KPumNWFVB2XAXhf8p1W5fQBeCJaXz3AKT1ajA8G",
   "foo": "bar",
 };
