@@ -46,7 +46,7 @@
     "@types/react-helmet": "6.1.2",
     "eslint": "7.32.0",
     "eslint-plugin-react": "7.24.0",
-    "gatsby": "3.11.0",
+    "gatsby": "3.11.1",
     "gatsby-plugin-emotion": "6.11.0",
     "gatsby-plugin-manifest": "3.11.0",
     "gatsby-plugin-mdx": "2.11.0",
