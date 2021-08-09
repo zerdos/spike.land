@@ -7853,50 +7853,6 @@ function clsx_m_default() {
   return str;
 }
 
-// ../../node_modules/@material-ui/unstyled/composeClasses/composeClasses.js
-function composeClasses(slots, getUtilityClass, classes) {
-  const output = {};
-  Object.keys(slots).forEach((slot) => {
-    output[slot] = slots[slot].reduce((acc, key) => {
-      if (key) {
-        if (classes && classes[key]) {
-          acc.push(classes[key]);
-        }
-        acc.push(getUtilityClass(key));
-      }
-      return acc;
-    }, []).join(" ");
-  });
-  return output;
-}
-
-// ../../node_modules/@material-ui/unstyled/generateUtilityClass/generateUtilityClass.js
-var globalPseudoClassesMapping = {
-  active: "Mui-active",
-  checked: "Mui-checked",
-  completed: "Mui-completed",
-  disabled: "Mui-disabled",
-  error: "Mui-error",
-  expanded: "Mui-expanded",
-  focused: "Mui-focused",
-  focusVisible: "Mui-focusVisible",
-  required: "Mui-required",
-  selected: "Mui-selected"
-};
-function generateUtilityClass(componentName, slot) {
-  const globalPseudoClass = globalPseudoClassesMapping[slot];
-  return globalPseudoClass || `${componentName}-${slot}`;
-}
-
-// ../../node_modules/@material-ui/unstyled/generateUtilityClasses/generateUtilityClasses.js
-function generateUtilityClasses(componentName, slots) {
-  const result = {};
-  slots.forEach((slot) => {
-    result[slot] = generateUtilityClass(componentName, slot);
-  });
-  return result;
-}
-
 // ../../node_modules/@material-ui/utils/esm/chainPropTypes.js
 function chainPropTypes(propType1, propType2) {
   if (false) {
@@ -8156,6 +8112,50 @@ function useIsFocusVisible() {
     onBlur: handleBlurVisible,
     ref
   };
+}
+
+// ../../node_modules/@material-ui/unstyled/composeClasses/composeClasses.js
+function composeClasses(slots, getUtilityClass, classes) {
+  const output = {};
+  Object.keys(slots).forEach((slot) => {
+    output[slot] = slots[slot].reduce((acc, key) => {
+      if (key) {
+        if (classes && classes[key]) {
+          acc.push(classes[key]);
+        }
+        acc.push(getUtilityClass(key));
+      }
+      return acc;
+    }, []).join(" ");
+  });
+  return output;
+}
+
+// ../../node_modules/@material-ui/unstyled/generateUtilityClass/generateUtilityClass.js
+var globalStateClassesMapping = {
+  active: "Mui-active",
+  checked: "Mui-checked",
+  completed: "Mui-completed",
+  disabled: "Mui-disabled",
+  error: "Mui-error",
+  expanded: "Mui-expanded",
+  focused: "Mui-focused",
+  focusVisible: "Mui-focusVisible",
+  required: "Mui-required",
+  selected: "Mui-selected"
+};
+function generateUtilityClass(componentName, slot) {
+  const globalStateClass = globalStateClassesMapping[slot];
+  return globalStateClass || `${componentName}-${slot}`;
+}
+
+// ../../node_modules/@material-ui/unstyled/generateUtilityClasses/generateUtilityClasses.js
+function generateUtilityClasses(componentName, slots) {
+  const result = {};
+  slots.forEach((slot) => {
+    result[slot] = generateUtilityClass(componentName, slot);
+  });
+  return result;
 }
 
 // ../../node_modules/@material-ui/core/ButtonBase/ButtonBase.js
@@ -8524,6 +8524,22 @@ var borderColor = style_default({
   prop: "borderColor",
   themeKey: "palette"
 });
+var borderTopColor = style_default({
+  prop: "borderTopColor",
+  themeKey: "palette"
+});
+var borderRightColor = style_default({
+  prop: "borderRightColor",
+  themeKey: "palette"
+});
+var borderBottomColor = style_default({
+  prop: "borderBottomColor",
+  themeKey: "palette"
+});
+var borderLeftColor = style_default({
+  prop: "borderLeftColor",
+  themeKey: "palette"
+});
 var borderRadius = (props) => {
   if (props.borderRadius) {
     const transformer = createUnaryUnit(props.theme, "shape.borderRadius", 4, "borderRadius");
@@ -8538,7 +8554,7 @@ borderRadius.propTypes = true ? {
   borderRadius: responsivePropType_default
 } : {};
 borderRadius.filterProps = ["borderRadius"];
-var borders2 = compose_default(border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderRadius);
+var borders2 = compose_default(border, borderTop, borderRight, borderBottom, borderLeft, borderColor, borderTopColor, borderRightColor, borderBottomColor, borderLeftColor, borderRadius);
 var borders_default = borders2;
 
 // ../../node_modules/@material-ui/system/esm/display.js
@@ -9144,10 +9160,8 @@ function createStyled(input = {}) {
     } = inputOptions, options = _objectWithoutPropertiesLoose(inputOptions, _excluded4);
     const skipVariantsResolver = inputSkipVariantsResolver !== void 0 ? inputSkipVariantsResolver : componentSlot && componentSlot !== "Root" || false;
     const skipSx = inputSkipSx || false;
-    let displayName;
     let className;
     if (componentName) {
-      displayName = `${componentName}${componentSlot || ""}`;
       className = `${componentName}-${lowercaseFirstLetter(componentSlot || "Root")}`;
     }
     const defaultStyledResolver = styled(tag, _extends({}, !componentSlot || componentSlot === "Root" ? {
@@ -9210,6 +9224,10 @@ function createStyled(input = {}) {
       }
       const Component = defaultStyledResolver(transformedStyleArg, ...expressionsWithDefaultTheme);
       if (true) {
+        let displayName;
+        if (componentName) {
+          displayName = `${componentName}${componentSlot || ""}`;
+        }
         if (displayName === void 0) {
           displayName = `Styled(${getDisplayName(tag)})`;
         }
@@ -10003,19 +10021,19 @@ function createTheme2(options = {}, ...args) {
   muiTheme = deepmerge(muiTheme, other);
   muiTheme = args.reduce((acc, argument) => deepmerge(acc, argument), muiTheme);
   if (true) {
-    const pseudoClasses = ["active", "checked", "completed", "disabled", "error", "expanded", "focused", "focusVisible", "required", "selected"];
+    const stateClasses = ["active", "checked", "completed", "disabled", "error", "expanded", "focused", "focusVisible", "required", "selected"];
     const traverse = (node, component) => {
       let key;
       for (key in node) {
         const child = node[key];
-        if (pseudoClasses.indexOf(key) !== -1 && Object.keys(child).length > 0) {
+        if (stateClasses.indexOf(key) !== -1 && Object.keys(child).length > 0) {
           if (true) {
-            const pseudoClass = generateUtilityClass("", key);
-            console.error([`Material-UI: The \`${component}\` component increases the CSS specificity of the \`${key}\` internal state.`, "You can not override it like this: ", JSON.stringify(node, null, 2), "", `Instead, you need to use the '&.${pseudoClass}' syntax:`, JSON.stringify({
+            const stateClass = generateUtilityClass("", key);
+            console.error([`Material-UI: The \`${component}\` component increases the CSS specificity of the \`${key}\` internal state.`, "You can not override it like this: ", JSON.stringify(node, null, 2), "", `Instead, you need to use the '&.${stateClass}' syntax:`, JSON.stringify({
               root: {
-                [`&.${pseudoClass}`]: child
+                [`&.${stateClass}`]: child
               }
-            }, null, 2), "", "https://material-ui.com/r/pseudo-classes-guide"].join("\n"));
+            }, null, 2), "", "https://material-ui.com/r/state-classes-guide"].join("\n"));
           }
           node[key] = {};
         }
@@ -12179,7 +12197,7 @@ object-assign
 (c) Sindre Sorhus
 @license MIT
 */
-/** @license Material-UI v5.0.0-alpha.41
+/** @license Material-UI v5.0.0-alpha.42
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
