@@ -20,7 +20,7 @@
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@material-ui/core": "next",
-    "@types/react": "17.0.16",
+    "@types/react": "17.0.17",
     "@types/react-dom": "17.0.9",
     "@zedvision/qrious": "^14.4.4",
     "esbuild": "0.12.19",
