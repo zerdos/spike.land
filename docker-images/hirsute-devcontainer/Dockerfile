@@ -134,7 +134,7 @@ RUN  apt-get update && apt-get install -y --no-install-recommends wget && wget -
 ENV DOTNET_SDK_VERSION 5.0.400
 
 RUN curl -SL --output dotnet.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
-    && dotnet_sha512='432802c0a37fcc005bac98f7a363ff1484f3c0721c5202c9ed7761e1ae0d8b8496fe7be09a640da55c34bceb9eb63dfe509c5397cbc7afd44cc84ad4bf9f5e16' \
+    && dotnet_sha512='4d1a92e0885ade03de0fdb41c27cfd948ab749a2f3e686c4a9dee314888c19d76efa6f8663a7aa7eb56cf36f508638c1a1f01c845d1acb19d8662d6ae365d572' \
     && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
     && tar -zxf dotnet.tar.gz -C /usr/share/dotnet \
