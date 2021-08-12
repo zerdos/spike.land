@@ -310,9 +310,7 @@ const spinCubeCss = (size: number, animate: boolean) =>
     }
 `;
 
-export default () => (
-  <Qr />
-);
+export default () => <Qr />;
 
 const Loader = (c: HTMLCanvasElement, size: number) => {
   var w = c.width = size,

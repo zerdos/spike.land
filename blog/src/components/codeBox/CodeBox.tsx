@@ -21,33 +21,39 @@ export const CodeBox: React.FC<{
     start();
   }, []);
 
-  return <div>
-    {!!title &&
-      <div
-        style={{
-          background: "#3f51b5",
-          fontFamily: "Roboto",
-          margin: 0,
-          padding: "10px 20px 10px",
-          color: "white",
-        }}
-      >
-        <span>{title}</span>
-        <button
-          onClick={() => {
-            //@ts-ignore
-            const { monaco } = window;
+  return (
+    <div>
+      {!!title &&
+        (
+          <div
+            style={{
+              background: "#3f51b5",
+              fontFamily: "Roboto",
+              margin: 0,
+              padding: "10px 20px 10px",
+              color: "white",
+            }}
+          >
+            <span>{title}</span>
+            <button
+              onClick={() => {
+                //@ts-ignore
+                const { monaco } = window;
 
-            monaco.editor.getModel("file:///main.tsx").setValue(starterCode);
-          }}
-        >
-          Reset
-        </button>
-      </div>}
+                monaco.editor.getModel("file:///main.tsx").setValue(
+                  starterCode,
+                );
+              }}
+            >
+              Reset
+            </button>
+          </div>
+        )}
 
-    <div style={{ position: "relative" }}>
-      <div style={{ width: "100%", height: "70vh" }} id="editor" />
-      <div style={{ height: "0px" }} id="preview" />
+      <div style={{ position: "relative" }}>
+        <div style={{ width: "100%", height: "70vh" }} id="editor" />
+        <div style={{ height: "0px" }} id="preview" />
+      </div>
     </div>
-  </div>;
+  );
 };

@@ -72,9 +72,11 @@ const BlogPostTemplate = ({ data, pageContext }: Props) => {
 
   const { previous, next } = pageContext;
   const BlogPost = () =>
-    <MDXProvider components={components}>
-      <MDXRenderer>{post.body}</MDXRenderer>
-    </MDXProvider>;
+    (
+      <MDXProvider components={components}>
+        <MDXRenderer>{post.body}</MDXRenderer>
+      </MDXProvider>
+    );
 
   return (
     <Layout>

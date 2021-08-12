@@ -65,9 +65,11 @@ const BlogIndex: React.FC<Props> = ({ data }) => {
     <Layout>
       <SEO title="This is Zed." />
       {isMobile() === false
-        ? <h1>
-          Open the code editor here: <Qr />
-        </h1>
+        ? (
+          <h1>
+            Open the code editor here: <Qr />
+          </h1>
+        )
         : <h1>This is my blog.</h1>}
       <a href="https://github.com/zed-vision/monorepo">
         <img
