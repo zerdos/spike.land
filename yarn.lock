@@ -1224,7 +1224,7 @@
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
-"@types/node@*", "@types/node@16.4.13", "@types/node@>=13.7.0":
+"@types/node@*", "@types/node@>=13.7.0":
   version "16.4.13"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.13.tgz#7dfd9c14661edc65cccd43a29eb454174642370d"
   integrity sha512-bLL69sKtd25w7p1nvg9pigE4gtKVpGTPojBFLMkGHXuUgap2sLqQt2qUnqmVCDfzGUL0DRNZP+1prIZJbMeAXg==
@@ -3383,41 +3383,41 @@ ip@^1.1.5:
   resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
   integrity sha1-vd7XARQpCCjAoDnnLvJfWq7ENUo=
 
-ipfs-core-types@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.6.1.tgz#d28318e38578d1f95ef1d97e0e456c235bf2c283"
-  integrity sha512-2SHaEIb52JGzLikiIq0Y665Qaop0q8ITOI41Z1VfPG9GJNiAl1uyasaKffNIFlq+RQFXVup3V0g1R04engHzEA==
+ipfs-core-types@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.7.0.tgz#d9cf2b60b4c2c3b5c54c01c84c55a06c3aa49e4c"
+  integrity sha512-tWJ5aJPPKeMHccPIx9EEXRZl1vsgu4rJpSPMFjjLz2JkGr6tSyCkxCOvsdSTsscfITx+NQcvcyPQb39O12fGOw==
   dependencies:
     interface-datastore "^5.0.0"
     multiaddr "^10.0.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-client@0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.7.1.tgz#f79730e13d10d20c4ef0379e6d756100439aae35"
-  integrity sha512-jyoVAE6bXDuf+Pgp0k1/8YynKhC+SYSd/dGf7i45RF3NLijpV5g9vO/PwMHhT5edjdnrMbdwBXJk16zs7kt+Ow==
+ipfs-message-port-client@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.8.0.tgz#898aa6b67e05c25f254986b05f297c6ed0219cdc"
+  integrity sha512-ThoZQrVALMmshwtjIVUsVPOOpC0tuVAY9JewEmGsO42SrpLuTD642wEvBfKGMTgzpmS+hXpmPSmo2jvSX0ZgiQ==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
-    ipfs-core-types "^0.6.1"
-    ipfs-message-port-protocol "^0.8.1"
+    ipfs-core-types "^0.7.0"
+    ipfs-message-port-protocol "^0.9.0"
     ipfs-unixfs "^5.0.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-protocol@^0.8.0, ipfs-message-port-protocol@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.8.1.tgz#c35b95e8f743086f94bbdee2b016aba2f169e0f2"
-  integrity sha512-TnCMDIBijFpK1FCNygfs3/k5ryuCbKLHHiF7V6a3aGp86UYioR3hcfFGA5BoAZG2DE8RzolTzW7BDDAgGrC4Iw==
+ipfs-message-port-protocol@0.9.0, ipfs-message-port-protocol@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.9.0.tgz#4c5dd0d18dd57c37b8530856bc9d1879df2e171f"
+  integrity sha512-MqjyBrlCJvjvFQjNmSeUB5TQLkCkVPzctwdO42ltMmWySjHirv5FNidlBYV+2gciKLhIYPHdavZ+LIXJ19CLNw==
   dependencies:
-    ipfs-core-types "^0.6.1"
+    ipfs-core-types "^0.7.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-server@^0.8.0:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.8.1.tgz#c919c2c49f0788138dd46ac45b1182a1a9ab8ddd"
-  integrity sha512-d7vjgtydyv0s8U/Mzu219dlAlqjbYW/0iExzsxEiS5FVGu7jIrSKDdTCB19GY8N0mY+WRM44WMiPXpHuy7X8UA==
+ipfs-message-port-server@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.9.0.tgz#191cd31fcc60714e711d02caabc5635a44a0801f"
+  integrity sha512-CbkpI4KBZ7QLQVT/D7tKKiTIuZrSK4UbsBL9g8aMuVJALctzP7hogbwj9f4EsnApvF3WNtUzigPEc3SLRPUpOA==
   dependencies:
-    ipfs-core-types "^0.6.1"
-    ipfs-message-port-protocol "^0.8.1"
+    ipfs-core-types "^0.7.0"
+    ipfs-message-port-protocol "^0.9.0"
     it-all "^1.0.4"
     multiformats "^9.4.1"
 
@@ -6414,15 +6414,20 @@ trim-repeated@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-tslib@2.3.0, tslib@^2.1.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
-  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+tslib@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
+  integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
 
 tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.1.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"

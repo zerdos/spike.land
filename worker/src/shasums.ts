@@ -45,7 +45,7 @@ export const shasums = {
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/importmap.js":
-    "5070f93d0e35ca4d2a110bb2807d82ac64a7c3fe22574ad1cd9562d1bfd31af0",
+    "9ef34e5a702617ffe933c6d582ae10457beabf99dfc2a19f26b98312d79291c3",
   "js/ipfsClient.mjs":
     "69d67deb4971883bb4dfc0e41e34778c4da847c7853a7fb63d82536421e8cfdc",
   "js/openWindows.mjs":
@@ -69,7 +69,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
-    "a7cd087a2643d05a5d12cc24ee03e6e1970ef00850e0919e8b6d962d5b4badd4",
+    "addc63122e32195e3e727c0e2340baec889095b0ff0aad5f6a144488e71f98ab",
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
@@ -94,7 +94,7 @@ export const shasums = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/ipfs.client.mjs":
-    "b6449cac35234468ee6f1c28e2d02d61ccd8d36a0f48ef4e3706265e2df6a712",
+    "1dc4feb34a94b99a316dd3e4993e0e1e344e2e55d87915a36fb5e37b5924a576",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/vendor/diffMin.d.ts":
@@ -127,11 +127,11 @@ export const shasums = {
     "e7611a270ef2b0453d5ca1c7af0ee9c0f74b182aac64bc5bd96d30f46a8db0d5",
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
-  "modules/QRious.mjs":
-    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   "modules/renderer.mjs":
     "520afedabd926197c4126ea5af6ce86cf78d89c038e07edd51e2c8ddeebab056",
+  "modules/QRious.mjs":
+    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   ".tsBuildInfo":
-    "11451bd1c5003958d4269ff9e655a3c525f0e1507d4c6baf8accae7536d32ddd",
+    "05f45b4b5f3f72666d45918c952bd184457a70a2bef5da64e407b8ce2d817fd4",
   "food": "bar",
 };

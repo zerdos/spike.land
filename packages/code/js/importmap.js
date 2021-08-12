@@ -99,7 +99,7 @@ const imports = {
     "https://unpkg.com/@zedvision/qrious@14.4.4/dist/QRious.mjs",
   "tiny-warning":
     "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
-  "tslib": "https://unpkg.com/tslib@2.3.0/tslib.es6.js",
+  "tslib": "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
   "@zedvision/smart-monaco-editor":
     "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.3/dist/editor.js",
   "simple-window-manager":
