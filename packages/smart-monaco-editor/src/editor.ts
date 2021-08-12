@@ -209,7 +209,7 @@ export default async (
       {
         name: "framer-motion",
         url:
-          "https://unpkg.com/framer-motion@5.0.0-beta.4/dist/framer-motion.d.ts",
+          "https://unpkg.com/framer-motion@5.0.0-beta.8/dist/framer-motion.d.ts",
         depend: ["popmotion"],
       },
       {

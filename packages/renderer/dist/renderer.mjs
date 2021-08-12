@@ -1009,7 +1009,7 @@ __export(es_exports, {
   MotionConfigContext: () => MotionConfigContext,
   MotionValue: () => MotionValue,
   PresenceContext: () => PresenceContext,
-  PromoteGroupContext: () => PromoteGroupContext,
+  SwitchLayoutGroupContext: () => SwitchLayoutGroupContext,
   addScaleCorrector: () => addScaleCorrector,
   animate: () => animate2,
   animateVisualElement: () => animateVisualElement,
@@ -3106,6 +3106,24 @@ function copyBoxInto(box, originBox) {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-apply.js
+import { __read as __read3 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/projection/utils/has-transform.js
+function isIdentityScale(scale2) {
+  return scale2 === void 0 || scale2 === 1;
+}
+function hasScale(_a) {
+  var scale2 = _a.scale, scaleX = _a.scaleX, scaleY = _a.scaleY;
+  return !isIdentityScale(scale2) || !isIdentityScale(scaleX) || !isIdentityScale(scaleY);
+}
+function hasTransform(values3) {
+  return hasScale(values3) || hasTranslate(values3.x) || hasTranslate(values3.y) || values3.z || values3.rotate || values3.rotateX || values3.rotateY;
+}
+function hasTranslate(value) {
+  return value && value !== "0%";
+}
+
+// ../../node_modules/framer-motion/dist/es/projection/geometry/delta-apply.js
 function scalePoint(point, scale2, originPoint) {
   var distanceFromOrigin = point - originPoint;
   var scaled = scale2 * distanceFromOrigin;
@@ -3132,8 +3150,11 @@ function applyBoxDelta(box, _a) {
   applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
   applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
 }
-function applyTreeDeltas(box, treeScale, treePath) {
+function applyTreeDeltas(box, treeScale, treePath, isSharedTransition) {
   var _a, _b;
+  if (isSharedTransition === void 0) {
+    isSharedTransition = false;
+  }
   var treeLength = treePath.length;
   if (!treeLength)
     return;
@@ -3145,12 +3166,31 @@ function applyTreeDeltas(box, treeScale, treePath) {
     delta = node.projectionDelta;
     if (((_b = (_a = node.instance) === null || _a === void 0 ? void 0 : _a.style) === null || _b === void 0 ? void 0 : _b.display) === "contents")
       continue;
-    if (!delta)
-      continue;
-    treeScale.x *= delta.x.scale;
-    treeScale.y *= delta.y.scale;
-    applyBoxDelta(box, delta);
+    if (delta) {
+      treeScale.x *= delta.x.scale;
+      treeScale.y *= delta.y.scale;
+      applyBoxDelta(box, delta);
+    }
+    if (isSharedTransition && hasTransform(node.latestValues)) {
+      transformBox(box, node.latestValues);
+    }
   }
+}
+function translateAxis(axis, distance2) {
+  axis.min = axis.min + distance2;
+  axis.max = axis.max + distance2;
+}
+function transformAxis(axis, transforms, _a) {
+  var _b = __read3(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  var axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
+  var originPoint = mix(axis.min, axis.max, axisOrigin);
+  applyAxisDelta(axis, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
+}
+var xKeys = ["x", "scaleX", "originX"];
+var yKeys = ["y", "scaleY", "originY"];
+function transformBox(box, transform3) {
+  transformAxis(box.x, transform3, xKeys);
+  transformAxis(box.y, transform3, yKeys);
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-calc.js
@@ -3185,7 +3225,7 @@ function calcBoxDelta(delta, source, target, origin) {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-remove.js
-import { __read as __read3 } from "tslib";
+import { __read as __read4 } from "tslib";
 function removePointDelta(point, translate, scale2, originPoint, boxScale) {
   point -= translate;
   point = scalePoint(point, 1 / scale2, originPoint);
@@ -3221,14 +3261,14 @@ function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis) 
   axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
 }
 function removeAxisTransforms(axis, transforms, _a, origin) {
-  var _b = __read3(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  var _b = __read4(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
   removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin);
 }
-var xKeys = ["x", "scaleX", "originX"];
-var yKeys = ["y", "scaleY", "originY"];
+var xKeys2 = ["x", "scaleX", "originX"];
+var yKeys2 = ["y", "scaleY", "originY"];
 function removeBoxTransforms(box, transforms, originBox) {
-  removeAxisTransforms(box.x, transforms, xKeys, originBox === null || originBox === void 0 ? void 0 : originBox.x);
-  removeAxisTransforms(box.y, transforms, yKeys, originBox === null || originBox === void 0 ? void 0 : originBox.y);
+  removeAxisTransforms(box.x, transforms, xKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.x);
+  removeAxisTransforms(box.y, transforms, yKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.y);
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/models.js
@@ -3255,25 +3295,6 @@ var createBox = function() {
     y: createAxis()
   };
 };
-
-// ../../node_modules/framer-motion/dist/es/projection/geometry/operations.js
-import { __read as __read4 } from "tslib";
-function translateAxis(axis, distance2) {
-  axis.min = axis.min + distance2;
-  axis.max = axis.max + distance2;
-}
-function transformAxis(axis, transforms, _a) {
-  var _b = __read4(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
-  var axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
-  var originPoint = mix(axis.min, axis.max, axisOrigin);
-  applyAxisDelta(axis, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
-}
-var xKeys2 = ["x", "scaleX", "originX"];
-var yKeys2 = ["y", "scaleY", "originY"];
-function transformBox(box, transform3) {
-  transformAxis(box.x, transform3, xKeys2);
-  transformAxis(box.y, transform3, yKeys2);
-}
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/utils.js
 function isAxisDeltaZero(delta) {
@@ -3382,21 +3403,6 @@ function eachAxis(callback) {
   return [callback("x"), callback("y")];
 }
 
-// ../../node_modules/framer-motion/dist/es/projection/utils/has-transform.js
-function isIdentityScale(scale2) {
-  return scale2 === void 0 || scale2 === 1;
-}
-function hasScale(_a) {
-  var scale2 = _a.scale, scaleX = _a.scaleX, scaleY = _a.scaleY;
-  return !isIdentityScale(scale2) || !isIdentityScale(scaleX) || !isIdentityScale(scaleY);
-}
-function hasTransform(values3) {
-  return hasScale(values3) || hasTranslate(values3.x) || hasTranslate(values3.y) || values3.z || values3.rotate || values3.rotateX || values3.rotateY;
-}
-function hasTranslate(value) {
-  return value && value !== "0%";
-}
-
 // ../../node_modules/framer-motion/dist/es/render/html/utils/transform.js
 var transformAxes = ["", "X", "Y", "Z"];
 var order = ["translate", "scale", "rotate", "skew"];
@@ -3486,6 +3492,9 @@ function createProjectionNode(_a) {
       this.parent = parent;
       this.depth = parent ? parent.depth + 1 : 0;
       id2 && this.root.registerPotentialNode(id2, this);
+      for (var i = 0; i < this.path.length; i++) {
+        this.path[i].shouldResetTransform = true;
+      }
       if (this.root === this)
         this.nodes = new FlatTree();
     }
@@ -3525,7 +3534,7 @@ function createProjectionNode(_a) {
       this.root.nodes.add(this);
       (_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.children.add(this);
       this.id && this.root.potentialNodes.delete(this.id);
-      if (isLayoutDirty) {
+      if (isLayoutDirty && (layout || layoutId)) {
         this.isLayoutDirty = true;
         this.setTargetDelta(createDelta());
       }
@@ -3632,6 +3641,7 @@ function createProjectionNode(_a) {
       var visible = this.removeTransform(measured);
       var layout = this.removeElementScroll(visible);
       this.snapshot = {
+        measured,
         visible,
         layout,
         latestValues: {}
@@ -3641,7 +3651,8 @@ function createProjectionNode(_a) {
       this.updateScroll();
       if (!this.options.alwaysMeasureLayout && !this.isLayoutDirty)
         return;
-      this.layout = this.removeElementScroll(this.measure());
+      var measured = this.measure();
+      this.layout = this.removeElementScroll(measured);
       this.layoutCorrected = createBox();
       this.isLayoutDirty = false;
       this.projectionDelta = void 0;
@@ -3653,12 +3664,15 @@ function createProjectionNode(_a) {
       }
     };
     ProjectionNode.prototype.resetTransform = function() {
+      var _a2;
       if (!resetTransform)
         return;
       var isResetRequested = this.isLayoutDirty || this.shouldResetTransform;
       var hasProjection = this.projectionDelta && !isDeltaZero(this.projectionDelta);
       if (isResetRequested && (hasProjection || hasTransform(this.latestValues))) {
-        resetTransform(this.instance);
+        var transformTemplate = (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.getProps().transformTemplate;
+        var value = transformTemplate ? transformTemplate(this.latestValues, "") : void 0;
+        resetTransform(this.instance, value);
         this.shouldResetTransform = false;
         this.scheduleRender();
       }
@@ -3687,6 +3701,20 @@ function createProjectionNode(_a) {
         }
       }
       return boxWithoutScroll;
+    };
+    ProjectionNode.prototype.applyTransform = function(box) {
+      var withTransforms = createBox();
+      copyBoxInto(withTransforms, box);
+      for (var i = 0; i < this.path.length; i++) {
+        var node = this.path[i];
+        if (!hasTransform(node.latestValues))
+          continue;
+        transformBox(withTransforms, node.latestValues);
+      }
+      if (hasTransform(this.latestValues)) {
+        transformBox(withTransforms, this.latestValues);
+      }
+      return withTransforms;
     };
     ProjectionNode.prototype.removeTransform = function(box) {
       var _a2;
@@ -3726,12 +3754,17 @@ function createProjectionNode(_a) {
         this.target = createBox();
         this.targetWithTransforms = createBox();
       }
-      copyBoxInto(this.target, this.layout);
+      if (Boolean(this.resumingFrom)) {
+        this.target = this.applyTransform(this.layout);
+      } else {
+        copyBoxInto(this.target, this.layout);
+      }
       applyBoxDelta(this.target, this.targetDelta);
     };
     ProjectionNode.prototype.calcProjection = function() {
       var _a2, _b;
-      var target = this.getLead().target;
+      var lead = this.getLead();
+      var target = lead.target;
       if (!this.layout || !target)
         return;
       if (!this.projectionDelta) {
@@ -3742,7 +3775,7 @@ function createProjectionNode(_a) {
       var prevTreeScaleY = this.treeScale.y;
       var prevProjectionTransform = this.projectionTransform;
       copyBoxInto(this.layoutCorrected, this.layout);
-      applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path);
+      applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path, Boolean(this.resumingFrom) || this !== lead);
       calcBoxDelta(this.projectionDelta, this.layoutCorrected, target, this.latestValues);
       this.projectionTransform = buildProjectionTransform(this.projectionDelta, this.treeScale);
       if (this.projectionTransform !== prevProjectionTransform || this.treeScale.x !== prevTreeScaleX || this.treeScale.y !== prevTreeScaleY) {
@@ -3796,7 +3829,7 @@ function createProjectionNode(_a) {
     };
     ProjectionNode.prototype.startAnimation = function(options) {
       var _this = this;
-      var _a2;
+      var _a2, _b;
       globalProjectionState.hasAnimatedSinceResize = true;
       (_a2 = this.currentAnimation) === null || _a2 === void 0 ? void 0 : _a2.stop();
       this.currentAnimation = animate2(0, 1e3, __assign15(__assign15({}, options), { onUpdate: function(latest) {
@@ -3804,14 +3837,16 @@ function createProjectionNode(_a) {
         _this.mixTargetDelta(latest);
         (_a3 = options.onUpdate) === null || _a3 === void 0 ? void 0 : _a3.call(options, latest);
       }, onComplete: function() {
-        var _a3, _b;
-        if (_this.resumingFrom)
+        var _a3, _b2;
+        if (_this.resumingFrom) {
           _this.resumingFrom.currentAnimation = void 0;
+        }
         _this.resumingFrom = _this.currentAnimation = _this.animationValues = void 0;
         (_a3 = options.onComplete) === null || _a3 === void 0 ? void 0 : _a3.call(options);
-        (_b = _this.getStack()) === null || _b === void 0 ? void 0 : _b.exitAnimationComplete();
+        (_b2 = _this.getStack()) === null || _b2 === void 0 ? void 0 : _b2.exitAnimationComplete();
       } }));
       if (this.resumingFrom) {
+        (_b = this.resumingFrom.currentAnimation) === null || _b === void 0 ? void 0 : _b.stop();
         this.resumingFrom.currentAnimation = this.currentAnimation;
       }
     };
@@ -3970,14 +4005,14 @@ function notifyLayoutUpdate(node) {
   if (node.isLead() && layout && snapshot && node.hasListeners("didUpdate")) {
     if (node.options.animationType === "size") {
       eachAxis(function(axis) {
-        var axisSnapshot = snapshot.visible[axis];
+        var axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.visible[axis];
         var length = calcLength(axisSnapshot);
         axisSnapshot.min = layout[axis].min;
         axisSnapshot.max = axisSnapshot.min + length;
       });
     } else if (node.options.animationType === "position") {
       eachAxis(function(axis) {
-        var axisSnapshot = snapshot.visible[axis];
+        var axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.visible[axis];
         var length = calcLength(layout[axis]);
         axisSnapshot.max = axisSnapshot.min + length;
       });
@@ -3985,7 +4020,11 @@ function notifyLayoutUpdate(node) {
     var layoutDelta = createDelta();
     calcBoxDelta(layoutDelta, layout, snapshot.layout);
     var visualDelta = createDelta();
-    calcBoxDelta(visualDelta, layout, snapshot.visible);
+    if (snapshot.isShared) {
+      calcBoxDelta(visualDelta, node.applyTransform(layout), snapshot.measured);
+    } else {
+      calcBoxDelta(visualDelta, layout, snapshot.visible);
+    }
     node.notifyListeners("didUpdate", {
       layout,
       snapshot,
@@ -4123,8 +4162,8 @@ var HTMLProjectionNode = createProjectionNode({
     }
     return rootProjectionNode.current;
   },
-  resetTransform: function(instance) {
-    return instance.style.transform = "none";
+  resetTransform: function(instance, value) {
+    instance.style.transform = value !== null && value !== void 0 ? value : "none";
   }
 });
 
@@ -4157,9 +4196,9 @@ function useProjection(projectionId, _a, visualElement2, initialTransition) {
   });
 }
 
-// ../../node_modules/framer-motion/dist/es/context/PromoteContext.js
+// ../../node_modules/framer-motion/dist/es/context/SwitchLayoutGroupContext.js
 import { createContext as createContext6 } from "react";
-var PromoteGroupContext = createContext6({});
+var SwitchLayoutGroupContext = createContext6({});
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/VisualElementHandler.js
 import { __extends } from "tslib";
@@ -4206,7 +4245,7 @@ function createMotionComponent(_a) {
     }
     if (!config.isStatic && isBrowser) {
       features = useFeatures(props, projectionId, context.visualElement, preloadedFeatures);
-      var initialTransition = useContext5(PromoteGroupContext).initialTransition;
+      var initialTransition = useContext5(SwitchLayoutGroupContext).initialTransition;
       useProjection(projectionId, props, context.visualElement, initialTransition);
     }
     return createElement2(VisualElementHandler, { visualElement: context.visualElement, props: __assign17(__assign17({}, config), props) }, features, createElement2(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, config.isStatic)));
@@ -6832,7 +6871,7 @@ var createDomVisualElement = function(Component, options) {
 };
 
 // ../../node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.js
-import { __extends as __extends2, __read as __read16, __assign as __assign33 } from "tslib";
+import { __extends as __extends2, __assign as __assign33, __read as __read16 } from "tslib";
 import React__default2, { useContext as useContext10 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.js
@@ -6905,20 +6944,23 @@ var MeasureLayoutWithContext = function(_super) {
   }
   MeasureLayoutWithContext2.prototype.componentDidMount = function() {
     var _this = this;
-    var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, promoteContext = _a.promoteContext;
+    var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, switchLayoutGroup = _a.switchLayoutGroup;
     var projection = visualElement2.projection;
     addScaleCorrector(defaultScaleCorrectors);
     if (projection) {
       if (layoutGroup.group)
         layoutGroup.group.add(projection);
-      if (promoteContext.group && projection.options.layoutId) {
-        promoteContext.group.add(projection);
+      if (switchLayoutGroup.register && projection.options.layoutId) {
+        switchLayoutGroup.register(projection);
       }
+      projection.root.didUpdate();
+      projection.addEventListener("animationComplete", function() {
+        _this.safeToRemove();
+      });
+      projection.setOptions(__assign33(__assign33({}, projection.options), { onExitComplete: function() {
+        return _this.safeToRemove();
+      } }));
     }
-    projection === null || projection === void 0 ? void 0 : projection.root.didUpdate();
-    projection === null || projection === void 0 ? void 0 : projection.addEventListener("animationComplete", function() {
-      _this.safeToRemove();
-    });
     globalProjectionState.hasEverUpdated = true;
   };
   MeasureLayoutWithContext2.prototype.getSnapshotBeforeUpdate = function(prevProps) {
@@ -6946,13 +6988,13 @@ var MeasureLayoutWithContext = function(_super) {
     }
   };
   MeasureLayoutWithContext2.prototype.componentWillUnmount = function() {
-    var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, promoteContext = _a.promoteContext;
+    var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, promoteContext = _a.switchLayoutGroup;
     var projection = visualElement2.projection;
     if (projection) {
       if (layoutGroup.group)
         layoutGroup.group.remove(projection);
-      if (promoteContext.group)
-        promoteContext.group.delete(projection);
+      if (promoteContext.deregister)
+        promoteContext.deregister(projection);
     }
   };
   MeasureLayoutWithContext2.prototype.safeToRemove = function() {
@@ -6966,7 +7008,7 @@ var MeasureLayoutWithContext = function(_super) {
 }(React__default2.Component);
 function MeasureLayout(props) {
   var _a = __read16(usePresence(), 2), isPresent2 = _a[0], safeToRemove = _a[1];
-  return React__default2.createElement(MeasureLayoutWithContext, __assign33({}, props, { layoutGroup: useContext10(LayoutGroupContext), promoteContext: useContext10(PromoteGroupContext), isPresent: isPresent2, safeToRemove }));
+  return React__default2.createElement(MeasureLayoutWithContext, __assign33({}, props, { layoutGroup: useContext10(LayoutGroupContext), switchLayoutGroup: useContext10(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove }));
 }
 var defaultScaleCorrectors = {
   borderRadius: __assign33(__assign33({}, correctBorderRadius), { applyTo: [
