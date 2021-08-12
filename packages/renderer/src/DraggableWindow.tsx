@@ -115,22 +115,24 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             onChange={(_e, newScale) => newScale && changeScaleRange(newScale)}
           >
             {sizes.map((size) =>
-              <ToggleButton
-                key={size}
-                value={size}
-              >
-                <span
-                  css={css`
-                       color: ${
-                    size === scaleRange
-                      ? "rgba(255,255,255,.8)"
-                      : "rgba(0,0,0,.3)"
-                  };
-                       `}
+              (
+                <ToggleButton
+                  key={size}
+                  value={size}
                 >
-                  {size}%
-                </span>
-              </ToggleButton>
+                  <span
+                    css={css`
+                       color: ${
+                      size === scaleRange
+                        ? "rgba(255,255,255,.8)"
+                        : "rgba(0,0,0,.3)"
+                    };
+                       `}
+                  >
+                    {size}%
+                  </span>
+                </ToggleButton>
+              )
             )}
           </ToggleButtonGroup>
 
@@ -146,8 +148,9 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
               opacity: 0.9;
            `}
           >
-            {errorText.trim() !== "" && <pre
-              css={css`
+            {errorText.trim() !== "" && (
+              <pre
+                css={css`
                     position: absolute;
                     z-index:3;
                     color: rgb(255, 240, 240);
@@ -160,26 +163,29 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
                     font-family: monospace;
                     white-space: pre-wrap;
                 `}
-            >
-              {isStable && errorText.trim()}
-              {isStable && errorText.trim() !== "" &&
-                <div
-                  css={css`
+              >
+                {isStable && errorText.trim()}
+                {isStable && errorText.trim() !== "" &&
+                  (
+                    <div
+                      css={css`
                           text-align: right;
                         `}
-                >
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      onRestore();
-                      setErrorText("");
-                    }}
-                    color="primary"
-                  >
-                    Restore
-                  </Button>
-                </div>}
-            </pre>}
+                    >
+                      <Button
+                        variant="contained"
+                        onClick={() => {
+                          onRestore();
+                          setErrorText("");
+                        }}
+                        color="primary"
+                      >
+                        Restore
+                      </Button>
+                    </div>
+                  )}
+              </pre>
+            )}
 
             <motion.div
               animate={{
@@ -200,15 +206,17 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             >
               {errorText
                 ? <div dangerouslySetInnerHTML={createMarkup(session.html)} />
-                : <React.Suspense fallback={<div>Error fallback</div>}>
-                  <div
-                    id="zbody"
-                    key={session.i}
-                    ref={zbody}
-                  >
-                    {child}
-                  </div>
-                </React.Suspense>}
+                : (
+                  <React.Suspense fallback={<div>Error fallback</div>}>
+                    <div
+                      id="zbody"
+                      key={session.i}
+                      ref={zbody}
+                    >
+                      {child}
+                    </div>
+                  </React.Suspense>
+                )}
             </motion.div>
           </motion.div>
           <ToggleButtonGroup
@@ -218,34 +226,48 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             onChange={(_e, newSize) => newSize && setWidth(newSize)}
           >
             {breakPoints.map((size) =>
-              <ToggleButton
-                key={size}
-                value={size}
-              >
-                {size === 640
-                  ? <Phone
-                    css={css`
+              (
+                <ToggleButton
+                  key={size}
+                  value={size}
+                >
+                  {size === 640
+                    ? (
+                      <Phone
+                        css={css`
                         color: ${
-                      width === 640 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    };
+                          width === 640
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
                         `}
-                  />
-                  : size === 1024
-                  ? <Tablet
-                    css={css`
+                      />
+                    )
+                    : size === 1024
+                    ? (
+                      <Tablet
+                        css={css`
                         color: ${
-                      width === 1024 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    };
+                          width === 1024
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
                         `}
-                  />
-                  : <Tv
-                    css={css`
+                      />
+                    )
+                    : (
+                      <Tv
+                        css={css`
                         color: ${
-                      width === 1920 ? "rgba(255,255,255,.8)" : "rgba(0,0,0,.3)"
-                    };
+                          width === 1920
+                            ? "rgba(255,255,255,.8)"
+                            : "rgba(0,0,0,.3)"
+                        };
                       `}
-                  />}
-              </ToggleButton>
+                      />
+                    )}
+                </ToggleButton>
+              )
             )}
           </ToggleButtonGroup>
         </div>

@@ -27,37 +27,43 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
     load();
   }, [url]);
 
-  return <canvas
-    css={css`
+  return (
+    <canvas
+      css={css`
         border-radius: 16px;
         margin-bottom: 8px;
   `}
-    ref={canvasRef}
-  />;
+      ref={canvasRef}
+    />
+  );
 };
 
 export const QRButton: React.FC<{ url: string }> = ({ url }) => {
   const [showQR, setQR] = React.useState(false);
-  return <motion.div
-    animate={{
-      width: showQR ? 200 : 56,
-      height: showQR ? 220 : 48,
-    }}
-    onClick={(e) => {
-      setQR(!showQR);
-    }}
-    css={css`
-                margin-bottom: 12px;
-              `}
-  >
-    {showQR ? <QR key={url} url={url + "/edit/"} /> : <Fab
-      variant="extended"
-      color="secondary"
-      onClick={() => {
+  return (
+    <motion.div
+      animate={{
+        width: showQR ? 200 : 56,
+        height: showQR ? 220 : 48,
+      }}
+      onClick={(e) => {
         setQR(!showQR);
       }}
+      css={css`
+                margin-bottom: 12px;
+              `}
     >
-      <QrCode />
-    </Fab>}
-  </motion.div>;
+      {showQR ? <QR key={url} url={url + "/edit/"} /> : (
+        <Fab
+          variant="extended"
+          color="secondary"
+          onClick={() => {
+            setQR(!showQR);
+          }}
+        >
+          <QrCode />
+        </Fab>
+      )}
+    </motion.div>
+  );
 };
