@@ -55,7 +55,7 @@ export const shasums = {
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/share.mjs":
-    "8af453accce92d396545d0aab5ecdc6d41321cc4e1fe7da5206fa8f4edfb829e",
+    "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/starter.js":
     "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
   "js/templates.mjs":
@@ -69,7 +69,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
-    "addc63122e32195e3e727c0e2340baec889095b0ff0aad5f6a144488e71f98ab",
+    "ece80788077d17c685280416b96f64149506fe8a7923da5f5a6c8bc7954161f9",
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":

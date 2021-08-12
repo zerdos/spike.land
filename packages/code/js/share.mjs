@@ -120,6 +120,7 @@ async function addAll(files) {
   //   const CID = cid.toString();
   //   res.push({ path, CID });
   // }
+  try{
   const res = await all(ipfsClient.addAll(files));
 
   // for await (const result of ) {
@@ -132,6 +133,9 @@ async function addAll(files) {
 
     return { path: r.path, CID };
   });
+} catch(e) {
+  console.error({error: e});
+}
 
   // return res;
 }

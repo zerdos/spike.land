@@ -34,14 +34,14 @@ export const files = {
   "js/renderPreviewWindow.mjs":
     "QmdwXASNRxKWWDjvZDMMyBbdcssmePHDRMB55nWs6umTfS",
   "js/sendSignalToQrCode.mjs": "QmXbBg2iZDJ74f6qpgt8ADNVnUXaEZUKcATg8uSssWQga6",
-  "js/share.mjs": "QmTt2HFiqMSpjaUBvganwcFowGJw73mxJfEmVo31N64FW6",
+  "js/share.mjs": "QmcGSBimAZfVEA35MxEw4qeNi1okuJjeGPMFU5f95Wfz98",
   "js/starter.js": "QmWSkzKpGiGY5BzokLYHcup4CPXjohzSPskvuAxXjjUwL2",
   "js/templates.mjs": "QmZebHCHC73uxNK59MZt5Xg6E1We7jGgjCGw3MNW3q6kbD",
   "js/test.mjs": "QmVnzwNd3k5NioNUeMagb77Q4LRW5DmGxaeBJp7hdoapLK",
   "js/transpile.mjs": "QmcU3MTThNAPVBcB4RimdALwfaPyBuP6QAjTEA7nGwJHG2",
   "js/workboxLoader.mjs": "QmeLWcVUx3CxpydK12BJBXE2Xhp46YuE2xftuMCta9u3TF",
   "js/workers/getWorker.mjs": "QmSkBAGo1hbEPYDnHEpBvGihaVij432VMrmRWm1ZoDL3cP",
-  "js/workers/ipfsWorker.js": "QmWeaoddvbJkYdZRJXteEpRJNJJHGKPd2EUHPmLqG83mMd",
+  "js/workers/ipfsWorker.js": "QmdFgqvLXHCwGHgBoWe61HPDaEwWmBPTc652aFrHtiZ4bJ",
   "js/workers/prettierWorker.js":
     "QmQ6C2euCFvNsZ882AWhrYvWqoEUkbWUJJ1yLX23LLhoez",
   "js/workers/transpile.worker.js":
@@ -86,8 +86,8 @@ export const files = {
   "assets": "QmZSmTroUQNVRJ6nhNGpi3u9Rg3pp3NskVqhLd1NtsrEaV",
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
-  "js/workers": "QmZuVqA26QQPgXoJ556PFT4w23VcjaivnJFueFXFrDuqnZ",
-  "js": "Qmbkm7Mz7Pyj9pMPacfpfJUT9BU1jmuhzy1gzgpdDCWTF9",
+  "js/workers": "QmUBxMuaxNXJ8kA5iSrp6SjybExN5DEbAB87T9KDgHS6N1",
+  "js": "QmQh4SvekZKNfFFfGZ9ppQgtfMJfKV9713hRHbvJhBKSRA",
   "modules/smart-monaco-editor/dist":
     "QmNviZYXMk4cb9PojJbXMdnmiqKJrHSTXoT4c5Dgwqu6SY",
   "modules/smart-monaco-editor":
@@ -95,6 +95,6 @@ export const files = {
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
   "modules": "QmPY94j8oEQDsLDnEPXLvnXy65VKQTgtXjXipFxKLLPMsC",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmZrWdywDuDYLDSLxQmf2VitzEjorNnZbpfQFfkSS7Sd6G",
+  "": "QmYANoBjuajjEgtXmCEnreLRtQspwnnkLsr1AFYSZd7qmX",
   "foo": "bar",
 };
