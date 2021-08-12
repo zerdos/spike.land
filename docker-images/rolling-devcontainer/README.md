@@ -1,7 +1,7 @@
 ## Devcontainer
 
 - Base image: ubuntu:rolling
-- Deno: 1.12.2- Node: 16.6.0
+- Deno: 1.13.0- Node: 16.6.2
 - Yarn: 1.22.11
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome

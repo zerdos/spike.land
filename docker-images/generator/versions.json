@@ -1,21 +1,21 @@
 {
-  "upgraded": "2021-07-30",
+  "upgraded": "2021-08-12",
   "node": {
-    "lts": "14.17.4",
-    "current": "16.6.0"
+    "lts": "14.17.5",
+    "current": "16.6.2"
   },
-  "deno": "1.12.2",
+  "deno": "1.13.0",
   "git": "2.32.0",
   "cypress": "8.2.0",
   "yarn": "1.22.11",
-  "dotnet": "2.1.816",
-  "dotnet3": "3.1.409",
-  "dotnet5": "5.0.300",
+  "dotnet": "2.1.817",
+  "dotnet3": "3.1.412",
+  "dotnet5": "5.0.400",
   "sha": {
     "dotnet_sha512": {
-      "2.1.816": "58f0bc1f67de034ffd0dafb9c0fdb082786fc5057e89396ff574428d57331cd8d5b3e944e103918e05f7b66e354d56cdb242350a6ef932906c9c3d4b08d177e9",
-      "3.1.409": "63d24f1039f68abc46bf40a521f19720ca74a4d89a2b99d91dfd6216b43a81d74f672f74708efa6f6320058aa49bf13995638e3b8057efcfc84a2877527d56b6",
-      "5.0.300": "724a8e6ed77d2d3b957b8e5eda82ca8c99152d8691d1779b4a637d9ff781775f983468ee46b0bc8ad0ddbfd9d537dd8decb6784f43edae72c9529a90767310d2"
+      "2.1.817": "484b46e998ab9a998b190809569fe039efc2cc31717bf4819e90c6e77a8742833c535ef7555628bb0a0052be6f366c5d0147fbc0488a30ee97fa1bc3b54816e1",
+      "3.1.412": "1ed0c1ab48723cef834906a55fb1889b29dd810cd2bc66cbd345a0baf8a2796045b5b7f4beef3c48bd56bef3ffed690b6fae4a5f017ad8687817b25a76fbd9be",
+      "5.0.400": "432802c0a37fcc005bac98f7a363ff1484f3c0721c5202c9ed7761e1ae0d8b8496fe7be09a640da55c34bceb9eb63dfe509c5397cbc7afd44cc84ad4bf9f5e16"
     }
   }
 }

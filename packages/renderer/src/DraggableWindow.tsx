@@ -114,26 +114,24 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             exclusive
             onChange={(_e, newScale) => newScale && changeScaleRange(newScale)}
           >
-            {sizes.map((size) =>
-              (
-                <ToggleButton
-                  key={size}
-                  value={size}
-                >
-                  <span
-                    css={css`
+            {sizes.map((size) => (
+              <ToggleButton
+                key={size}
+                value={size}
+              >
+                <span
+                  css={css`
                        color: ${
-                      size === scaleRange
-                        ? "rgba(255,255,255,.8)"
-                        : "rgba(0,0,0,.3)"
-                    };
+                    size === scaleRange
+                      ? "rgba(255,255,255,.8)"
+                      : "rgba(0,0,0,.3)"
+                  };
                        `}
-                  >
-                    {size}%
-                  </span>
-                </ToggleButton>
-              )
-            )}
+                >
+                  {size}%
+                </span>
+              </ToggleButton>
+            ))}
           </ToggleButtonGroup>
 
           <motion.div
@@ -225,50 +223,48 @@ export const DraggableWindow: React.FC<DraggableWindowProps> = (
             exclusive
             onChange={(_e, newSize) => newSize && setWidth(newSize)}
           >
-            {breakPoints.map((size) =>
-              (
-                <ToggleButton
-                  key={size}
-                  value={size}
-                >
-                  {size === 640
-                    ? (
-                      <Phone
-                        css={css`
+            {breakPoints.map((size) => (
+              <ToggleButton
+                key={size}
+                value={size}
+              >
+                {size === 640
+                  ? (
+                    <Phone
+                      css={css`
                         color: ${
-                          width === 640
-                            ? "rgba(255,255,255,.8)"
-                            : "rgba(0,0,0,.3)"
-                        };
+                        width === 640
+                          ? "rgba(255,255,255,.8)"
+                          : "rgba(0,0,0,.3)"
+                      };
                         `}
-                      />
-                    )
-                    : size === 1024
-                    ? (
-                      <Tablet
-                        css={css`
+                    />
+                  )
+                  : size === 1024
+                  ? (
+                    <Tablet
+                      css={css`
                         color: ${
-                          width === 1024
-                            ? "rgba(255,255,255,.8)"
-                            : "rgba(0,0,0,.3)"
-                        };
+                        width === 1024
+                          ? "rgba(255,255,255,.8)"
+                          : "rgba(0,0,0,.3)"
+                      };
                         `}
-                      />
-                    )
-                    : (
-                      <Tv
-                        css={css`
+                    />
+                  )
+                  : (
+                    <Tv
+                      css={css`
                         color: ${
-                          width === 1920
-                            ? "rgba(255,255,255,.8)"
-                            : "rgba(0,0,0,.3)"
-                        };
+                        width === 1920
+                          ? "rgba(255,255,255,.8)"
+                          : "rgba(0,0,0,.3)"
+                      };
                       `}
-                      />
-                    )}
-                </ToggleButton>
-              )
-            )}
+                    />
+                  )}
+              </ToggleButton>
+            ))}
           </ToggleButtonGroup>
         </div>
 
