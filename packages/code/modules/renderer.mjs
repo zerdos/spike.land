@@ -11016,7 +11016,7 @@ true ? ButtonBase.propTypes = {
   onTouchMove: import_prop_types8.default.func,
   onTouchStart: import_prop_types8.default.func,
   sx: import_prop_types8.default.object,
-  tabIndex: import_prop_types8.default.oneOfType([import_prop_types8.default.number, import_prop_types8.default.string]),
+  tabIndex: import_prop_types8.default.number,
   TouchRippleProps: import_prop_types8.default.object,
   type: import_prop_types8.default.oneOfType([import_prop_types8.default.oneOf(["button", "reset", "submit"]), import_prop_types8.default.string])
 } : void 0;
@@ -11597,7 +11597,6 @@ var ToggleButton = /* @__PURE__ */ forwardRef6(function ToggleButton2(inProps, r
   };
   return /* @__PURE__ */ _jsx6(ToggleButtonRoot, _extends({
     className: clsx_m_default(classes.root, className),
-    color: color3,
     disabled,
     focusRipple: !disableFocusRipple,
     ref,
@@ -11799,7 +11798,7 @@ true ? ToggleButtonGroup.propTypes = {
   children: import_prop_types12.default.node,
   classes: import_prop_types12.default.object,
   className: import_prop_types12.default.string,
-  color: import_prop_types12.default.oneOf(["error", "info", "primary", "secondary", "standard", "success", "warning"]),
+  color: import_prop_types12.default.oneOfType([import_prop_types12.default.oneOf(["standard", "primary", "secondary", "error", "info", "success", "warning"]), import_prop_types12.default.string]),
   exclusive: import_prop_types12.default.bool,
   fullWidth: import_prop_types12.default.bool,
   onChange: import_prop_types12.default.func,
@@ -12239,17 +12238,12 @@ object-assign
 (c) Sindre Sorhus
 @license MIT
 */
-/** @license Material-UI v5.0.0-alpha.42
+/** @license Material-UI v5.0.0-alpha.43
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/** @license Material-UI v5.0.0-beta.1
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-/** @license Material-UI v5.0.0-beta.2
+/** @license Material-UI v5.0.0-beta.4
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
