@@ -43,17 +43,16 @@ const Slider = () => {
   );
 };
 
-export default () =>
-  (
-    <>
-      <Global
-        styles={css`
+export default () => (
+  <>
+    <Global
+      styles={css`
       body{
           margin: 0;
           overflow: overlay;
         }  
     `}
-      />
-      <Slider />
-    </>
-  );
+    />
+    <Slider />
+  </>
+);
