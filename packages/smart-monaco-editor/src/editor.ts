@@ -114,22 +114,22 @@ export default async (
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.17/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.18/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react/jsx-dev-runtime",
-        url: "https://unpkg.com/@types/react@17.0.17/jsx-dev-runtime.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.18/jsx-dev-runtime.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"],
       },
       {
         name: "react-exp  ",
-        url: "https://unpkg.com/@types/react@17.0.17/experimental.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.18/experimental.d.ts",
         depend: [],
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.17/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.18/global.d.ts",
         depend: [],
       },
       {
@@ -209,7 +209,7 @@ export default async (
       {
         name: "framer-motion",
         url:
-          "https://unpkg.com/framer-motion@5.0.0-beta.8/dist/framer-motion.d.ts",
+          "https://unpkg.com/framer-motion@5.0.0-beta.13/dist/framer-motion.d.ts",
         depend: ["popmotion"],
       },
       {

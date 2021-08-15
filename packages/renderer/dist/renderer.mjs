@@ -3234,7 +3234,7 @@ function removePointDelta(point, translate, scale2, originPoint, boxScale) {
   }
   return point;
 }
-function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis) {
+function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis, sourceAxis) {
   if (translate === void 0) {
     translate = 0;
   }
@@ -3247,10 +3247,13 @@ function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis) 
   if (originAxis === void 0) {
     originAxis = axis;
   }
+  if (sourceAxis === void 0) {
+    sourceAxis = axis;
+  }
   if (percent.test(translate)) {
     translate = parseFloat(translate);
-    var relativeProgress = mix(axis.min, axis.min, translate / 100);
-    translate = relativeProgress - axis.min;
+    var relativeProgress = mix(sourceAxis.min, sourceAxis.max, translate / 100);
+    translate = relativeProgress - sourceAxis.min;
   }
   if (typeof translate !== "number")
     return;
@@ -3260,15 +3263,15 @@ function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis) 
   axis.min = removePointDelta(axis.min, translate, scale2, originPoint, boxScale);
   axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
 }
-function removeAxisTransforms(axis, transforms, _a, origin) {
+function removeAxisTransforms(axis, transforms, _a, origin, sourceAxis) {
   var _b = __read4(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
-  removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin);
+  removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin, sourceAxis);
 }
 var xKeys2 = ["x", "scaleX", "originX"];
 var yKeys2 = ["y", "scaleY", "originY"];
-function removeBoxTransforms(box, transforms, originBox) {
-  removeAxisTransforms(box.x, transforms, xKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.x);
-  removeAxisTransforms(box.y, transforms, yKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.y);
+function removeBoxTransforms(box, transforms, originBox, sourceBox) {
+  removeAxisTransforms(box.x, transforms, xKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.x, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.x);
+  removeAxisTransforms(box.y, transforms, yKeys2, originBox === null || originBox === void 0 ? void 0 : originBox.y, sourceBox === null || sourceBox === void 0 ? void 0 : sourceBox.y);
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/models.js
@@ -3319,6 +3322,9 @@ var NodeStack = function() {
   };
   NodeStack2.prototype.remove = function(node) {
     removeItem(this.members, node);
+    if (node === this.prevLead) {
+      this.prevLead = void 0;
+    }
     if (node === this.lead) {
       var prevLead = this.members[this.members.length - 1];
       if (prevLead) {
@@ -3327,16 +3333,25 @@ var NodeStack = function() {
     }
   };
   NodeStack2.prototype.relegate = function(node) {
-    var indexOfNode = this.members.findIndex(function(member) {
-      return node === member;
+    var indexOfNode = this.members.findIndex(function(member2) {
+      return node === member2;
     });
     if (indexOfNode === 0)
       return false;
-    var prevLead = this.members[indexOfNode - 1];
-    if (!prevLead)
+    var prevLead;
+    for (var i = indexOfNode; i >= 0; i--) {
+      var member = this.members[i];
+      if (member.isPresent !== false) {
+        prevLead = member;
+        break;
+      }
+    }
+    if (prevLead) {
+      this.promote(prevLead);
+      return true;
+    } else {
       return false;
-    this.promote(prevLead);
-    return true;
+    }
   };
   NodeStack2.prototype.promote = function(node) {
     var _a;
@@ -3347,7 +3362,7 @@ var NodeStack = function() {
     this.lead = node;
     node.show();
     if (prevLead) {
-      prevLead.scheduleRender();
+      prevLead.instance && prevLead.scheduleRender();
       node.scheduleRender();
       node.resumeFrom = prevLead;
       if (prevLead.snapshot) {
@@ -3368,6 +3383,11 @@ var NodeStack = function() {
     this.members.forEach(function(node) {
       var _a, _b;
       return (_b = (_a = node.options).onExitComplete) === null || _b === void 0 ? void 0 : _b.call(_a);
+    });
+  };
+  NodeStack2.prototype.scheduleRender = function() {
+    this.members.forEach(function(node) {
+      node.instance && node.scheduleRender(false);
     });
   };
   return NodeStack2;
@@ -3722,10 +3742,15 @@ function createProjectionNode(_a) {
       copyBoxInto(boxWithoutTransform, box);
       for (var i = 0; i < this.path.length; i++) {
         var node = this.path[i];
+        if (!node.instance)
+          continue;
         if (!hasTransform(node.latestValues))
           continue;
         hasScale(node.latestValues) && node.updateSnapshot();
-        removeBoxTransforms(boxWithoutTransform, node.latestValues, (_a2 = node.snapshot) === null || _a2 === void 0 ? void 0 : _a2.layout);
+        var sourceBox = createBox();
+        var nodeBox = node.measure();
+        copyBoxInto(sourceBox, nodeBox);
+        removeBoxTransforms(boxWithoutTransform, node.latestValues, (_a2 = node.snapshot) === null || _a2 === void 0 ? void 0 : _a2.layout, sourceBox);
       }
       if (hasTransform(this.latestValues)) {
         removeBoxTransforms(boxWithoutTransform, this.latestValues);
@@ -3763,9 +3788,21 @@ function createProjectionNode(_a) {
     };
     ProjectionNode.prototype.calcProjection = function() {
       var _a2, _b;
+      if (!this.layout)
+        return;
       var lead = this.getLead();
+      copyBoxInto(this.layoutCorrected, this.layout);
+      applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path, Boolean(this.resumingFrom) || this !== lead);
+      if (!lead.target) {
+        var isScaleOnly = !boxEquals(this.layoutCorrected, this.layout);
+        if (isScaleOnly) {
+          lead.target = createBox();
+          lead.targetWithTransforms = createBox();
+          copyBoxInto(lead.target, this.layout);
+        }
+      }
       var target = lead.target;
-      if (!this.layout || !target)
+      if (!target)
         return;
       if (!this.projectionDelta) {
         this.projectionDelta = createDelta();
@@ -3774,8 +3811,6 @@ function createProjectionNode(_a) {
       var prevTreeScaleX = this.treeScale.x;
       var prevTreeScaleY = this.treeScale.y;
       var prevProjectionTransform = this.projectionTransform;
-      copyBoxInto(this.layoutCorrected, this.layout);
-      applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path, Boolean(this.resumingFrom) || this !== lead);
       calcBoxDelta(this.projectionDelta, this.layoutCorrected, target, this.latestValues);
       this.projectionTransform = buildProjectionTransform(this.projectionDelta, this.treeScale);
       if (this.projectionTransform !== prevProjectionTransform || this.treeScale.x !== prevTreeScaleX || this.treeScale.y !== prevTreeScaleY) {
@@ -3792,15 +3827,15 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.show = function() {
       this.isVisible = true;
     };
-    ProjectionNode.prototype.scheduleRender = function() {
-      var _a2, _b;
+    ProjectionNode.prototype.scheduleRender = function(notifyAll) {
+      var _a2, _b, _c;
+      if (notifyAll === void 0) {
+        notifyAll = true;
+      }
       (_b = (_a2 = this.options).scheduleRender) === null || _b === void 0 ? void 0 : _b.call(_a2);
-      if (this.resumingFrom) {
-        if (!this.resumingFrom.instance) {
-          this.resumingFrom = void 0;
-        } else {
-          this.resumingFrom.scheduleRender();
-        }
+      notifyAll && ((_c = this.getStack()) === null || _c === void 0 ? void 0 : _c.scheduleRender());
+      if (this.resumingFrom && !this.resumingFrom.instance) {
+        this.resumingFrom = void 0;
       }
     };
     ProjectionNode.prototype.setAnimationOrigin = function(delta) {
@@ -3933,16 +3968,16 @@ function createProjectionNode(_a) {
       visualElement2.scheduleRender();
     };
     ProjectionNode.prototype.getProjectionStyles = function() {
-      var _a2, _b, _c, _d, _e, _f, _g;
+      var _a2, _b, _c, _d, _e, _f;
       var styles = {};
       if (!this.instance)
         return styles;
+      var lead = this.getLead();
       if (!this.isVisible) {
         return { visibility: "hidden" };
       } else {
         styles.visibility = "";
       }
-      var lead = this.getLead();
       var transformTemplate = (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.getProps().transformTemplate;
       if (this.needsReset) {
         this.needsReset = false;
@@ -3950,13 +3985,10 @@ function createProjectionNode(_a) {
         styles.transform = transformTemplate ? transformTemplate(this.latestValues, "none") : "none";
         return styles;
       }
-      var prevLead = this.getPrevLead();
-      var transform3 = (_b = this.instance.style) === null || _b === void 0 ? void 0 : _b.transform;
-      var transformed = transform3 && transform3 !== "none";
-      if (!this.projectionDelta || !this.layout || !(this === lead || this === prevLead) && !transformed || this === lead && !this.target || this !== lead && !lead.target) {
+      if (!this.projectionDelta || !this.layout) {
         var emptyStyles = {};
         if (this.options.layoutId) {
-          emptyStyles.opacity = (_c = this.latestValues.opacity) !== null && _c !== void 0 ? _c : 1;
+          emptyStyles.opacity = (_b = this.latestValues.opacity) !== null && _b !== void 0 ? _b : 1;
         }
         return emptyStyles;
       }
@@ -3966,17 +3998,17 @@ function createProjectionNode(_a) {
       if (transformTemplate) {
         styles.transform = transformTemplate(valuesToRender, styles.transform);
       }
-      var _h = this.projectionDelta, x = _h.x, y = _h.y;
+      var _g = this.projectionDelta, x = _g.x, y = _g.y;
       styles.transformOrigin = x.origin * 100 + "% " + y.origin * 100 + "% 0";
-      if (!lead.animationValues) {
-        styles.opacity = lead === this ? (_d = valuesToRender.opacity) !== null && _d !== void 0 ? _d : "" : (_e = valuesToRender.opacityExit) !== null && _e !== void 0 ? _e : 0;
+      if (lead.animationValues) {
+        styles.opacity = lead === this ? (_d = (_c = valuesToRender.opacity) !== null && _c !== void 0 ? _c : this.latestValues.opacity) !== null && _d !== void 0 ? _d : 1 : valuesToRender.opacityExit;
       } else {
-        styles.opacity = lead === this ? (_g = (_f = valuesToRender.opacity) !== null && _f !== void 0 ? _f : this.latestValues.opacity) !== null && _g !== void 0 ? _g : 1 : valuesToRender.opacityExit;
+        styles.opacity = lead === this ? (_e = valuesToRender.opacity) !== null && _e !== void 0 ? _e : "" : (_f = valuesToRender.opacityExit) !== null && _f !== void 0 ? _f : 0;
       }
       for (var key in scaleCorrectors) {
         if (valuesToRender[key] === void 0)
           continue;
-        var _j = scaleCorrectors[key], correct = _j.correct, applyTo = _j.applyTo;
+        var _h = scaleCorrectors[key], correct = _h.correct, applyTo = _h.applyTo;
         var corrected = correct(valuesToRender[key], lead);
         if (applyTo) {
           var num = applyTo.length;
@@ -4255,7 +4287,7 @@ function createMotionComponent(_a) {
 function useLayoutId(_a) {
   var _b;
   var layoutId = _a.layoutId;
-  var layoutGroupId = (_b = useContext5(LayoutGroupContext)) === null || _b === void 0 ? void 0 : _b.prefix;
+  var layoutGroupId = (_b = useContext5(LayoutGroupContext)) === null || _b === void 0 ? void 0 : _b.id;
   return layoutGroupId && layoutId !== void 0 ? layoutGroupId + "-" + layoutId : layoutId;
 }
 
@@ -6944,13 +6976,13 @@ var MeasureLayoutWithContext = function(_super) {
   }
   MeasureLayoutWithContext2.prototype.componentDidMount = function() {
     var _this = this;
-    var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, switchLayoutGroup = _a.switchLayoutGroup;
+    var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, switchLayoutGroup = _a.switchLayoutGroup, layoutId = _a.layoutId;
     var projection = visualElement2.projection;
     addScaleCorrector(defaultScaleCorrectors);
     if (projection) {
       if (layoutGroup.group)
         layoutGroup.group.add(projection);
-      if (switchLayoutGroup.register && projection.options.layoutId) {
+      if (switchLayoutGroup.register && layoutId) {
         switchLayoutGroup.register(projection);
       }
       projection.root.didUpdate();
@@ -6966,6 +6998,9 @@ var MeasureLayoutWithContext = function(_super) {
   MeasureLayoutWithContext2.prototype.getSnapshotBeforeUpdate = function(prevProps) {
     var _a = this.props, layoutDependency = _a.layoutDependency, visualElement2 = _a.visualElement, drag2 = _a.drag, isPresent2 = _a.isPresent;
     var projection = visualElement2.projection;
+    if (!projection)
+      return null;
+    projection.isPresent = isPresent2;
     if (drag2 || prevProps.layoutDependency !== layoutDependency || layoutDependency === void 0) {
       projection.willUpdate();
     }
@@ -7270,7 +7305,7 @@ import { __read as __read20, __assign as __assign36 } from "tslib";
 import {
   createElement as createElement8
 } from "react";
-import { useRef as useRef8, useMemo as useMemo6 } from "react";
+import { useContext as useContext13, useRef as useRef8, useMemo as useMemo6 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/projection/node/group.js
 var notify = function(node) {
@@ -7299,20 +7334,25 @@ function nodeGroup() {
 }
 
 // ../../node_modules/framer-motion/dist/es/components/LayoutGroup/index.js
-function LayoutGroup(_a) {
-  var children = _a.children, prefix = _a.prefix;
-  var _b = __read20(useForceUpdate(), 2), forceRender = _b[0], key = _b[1];
+var LayoutGroup = function(_a) {
+  var children = _a.children, id2 = _a.id, _b = _a.inheritId, inheritId = _b === void 0 ? true : _b;
+  var layoutGroupContext = useContext13(LayoutGroupContext);
+  var _c = __read20(useForceUpdate(), 2), forceRender = _c[0], key = _c[1];
   var context = useRef8(null);
   if (context.current === null) {
+    if (inheritId && layoutGroupContext.id) {
+      id2 = layoutGroupContext.id + "-" + id2;
+    }
     context.current = {
-      prefix,
+      id: id2,
       group: nodeGroup()
     };
   }
-  return createElement8(LayoutGroupContext.Provider, { value: useMemo6(function() {
+  var memoizedContext = useMemo6(function() {
     return __assign36(__assign36({}, context.current), { forceRender });
-  }, [key]) }, children);
-}
+  }, [key]);
+  return createElement8(LayoutGroupContext.Provider, { value: memoizedContext }, children);
+};
 
 // ../../node_modules/framer-motion/dist/es/render/dom/features-animation.js
 import { __assign as __assign37 } from "tslib";
@@ -7324,12 +7364,12 @@ var domMax = __assign38(__assign38(__assign38({}, domAnimation), drag), layoutFe
 
 // ../../node_modules/framer-motion/dist/es/value/use-motion-value.js
 import { __read as __read21 } from "tslib";
-import { useContext as useContext13, useState as useState3, useEffect as useEffect12 } from "react";
+import { useContext as useContext14, useState as useState3, useEffect as useEffect12 } from "react";
 function useMotionValue(initial) {
   var value = useConstant(function() {
     return motionValue(initial);
   });
-  var isStatic = useContext13(MotionConfigContext).isStatic;
+  var isStatic = useContext14(MotionConfigContext).isStatic;
   if (isStatic) {
     var _a = __read21(useState3(initial), 2), setLatest_1 = _a[1];
     useEffect12(function() {
@@ -7443,12 +7483,12 @@ function useListTransform(values3, transformer) {
 
 // ../../node_modules/framer-motion/dist/es/value/use-spring.js
 import { __assign as __assign40 } from "tslib";
-import { useContext as useContext14, useRef as useRef9, useMemo as useMemo7 } from "react";
+import { useContext as useContext15, useRef as useRef9, useMemo as useMemo7 } from "react";
 function useSpring(source, config) {
   if (config === void 0) {
     config = {};
   }
-  var isStatic = useContext14(MotionConfigContext).isStatic;
+  var isStatic = useContext15(MotionConfigContext).isStatic;
   var activeSpringAnimation = useRef9(null);
   var value = useMotionValue(isMotionValue(source) ? source.get() : source);
   useMemo7(function() {
@@ -9084,11 +9124,11 @@ var ThemeContext_default = ThemeContext2;
 
 // ../../node_modules/@material-ui/private-theming/useTheme/useTheme.js
 import {
-  useContext as useContext15,
+  useContext as useContext16,
   useDebugValue
 } from "react";
 function useTheme() {
-  const theme = useContext15(ThemeContext_default);
+  const theme = useContext16(ThemeContext_default);
   if (true) {
     useDebugValue(theme);
   }
