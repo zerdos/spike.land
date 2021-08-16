@@ -80,8 +80,6 @@ const imports = {
     "https://unpkg.com/jss-plugin-rule-value-function@10.6.0/dist/jss-plugin-rule-value-function.esm.js",
   "jss-plugin-vendor-prefixer":
     "https://unpkg.com/jss-plugin-vendor-prefixer@10.6.0/dist/jss-plugin-vendor-prefixer.esm.js",
-  "monaco-editor":
-    "https://unpkg.com/monaco-editor@0.26.1/esm/vs/editor/editor.main.js",
   "popmotion": "https://unpkg.com/popmotion@9.4.0/dist/es/index.js",
   "prop-types": "https://esm.sh/prop-types",
   "react": "https://unpkg.com/@zedvision/esm@14.4.3/dist/react.mjs",

@@ -28,7 +28,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmdxzDyv2bLCY15T96BjUhxt8mPv2aZ4oA1oNkdvz1WnMS",
+  "js/importmap.js": "QmTHFS1NARwwMFxZmhHHqG6AKQox9oFs2i58ojCtx3ECQq",
   "js/ipfsClient.mjs": "QmcWneUUsMgkA6qzuF7PJcSPCvR3GxxuQYE6n3GKWS1HFs",
   "js/openWindows.mjs": "QmTrebQC2WUaJE27yRmM1NNz99v7GUAUeTgMLNXTzKtJ4e",
   "js/renderPreviewWindow.mjs":
@@ -67,7 +67,7 @@ export const files = {
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "modules/smart-monaco-editor/dist/monaco.js":
-    "QmXgMu8oKMnsBNQ2AsSMPNLLqiShiHPVwaaoHbqGUZgQnd",
+    "QmSxsjbFpcTd57rMmjKUjJbtw1j135g8AYexk2v2EtKHbX",
   "modules/vendor/diffChars.d.ts":
     "Qmf31P3dFhCyz9X8GkuUytpn3cmJwsggF4kPTbmwaiekRt",
   "modules/vendor/diffChars.js":
@@ -87,14 +87,14 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmUBxMuaxNXJ8kA5iSrp6SjybExN5DEbAB87T9KDgHS6N1",
-  "js": "Qmc2jahGjb995SHXv3dx4QXg689XTpPi1zYE7N39ANnkSc",
+  "js": "QmUnBGZdasnYAjs3n3HHZZPDpwBusHbbXXctkfAvx4aW2C",
   "modules/smart-monaco-editor/dist":
-    "QmSD21sH3Psb4xwWu61XGMngSHSYysmvgBJGZ5mrXvHG51",
+    "QmUUMovABNkBNAcJaQ5UHqEnVPBJx9nQbqrEcrALrbYo57",
   "modules/smart-monaco-editor":
-    "QmVgcdesVNSX1JwzNvE5xxyqd1ACnUWFwLZsYL8HvHdgnq",
+    "QmPWpKcngJ5NvbAj2iFsfdyDLU42jmu2kY6sS9rJaAiRNr",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmPEZrWTUd8fvM6jXvq8h9sjsj1T1X2s51qkbVnxqVAeuZ",
+  "modules": "QmR2Kv9RbbgB8xHJmkrxdW9D8MahiVssj6XBJK91yhsktr",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmdhBJCSM4bdiFfBBZL4UzzxrVZaVeRqRib3NkJf37cy6q",
+  "": "QmNN4nEGohZuF4j2cUVrSmRFVC1xukZBJMnLEi4kUf4CFQ",
   "foo": "bar",
 };
