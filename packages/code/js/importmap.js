@@ -99,7 +99,7 @@ const imports = {
     "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
   "tslib": "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
   "@zedvision/smart-monaco-editor":
-    "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.3/dist/editor.js",
+    "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.6/dist/editor.js",
   "simple-window-manager":
     "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
