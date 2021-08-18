@@ -1,1 +1,1 @@
-export const cid = "QmPQgNzCvAZo3ZDm9dneJ96NMA1obXvWR7JZEKjpZc4sQy";
+export const cid = "QmSy3rHfUo5DWfC7Wnbg63pt8EAiGjLd3Q5WxNm45qZKK7";
