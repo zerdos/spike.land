@@ -50,10 +50,10 @@ RUN  apt-get update && apt-get install -y --no-install-recommends unzip \
      && apt-get autoremove -y \
   && apt-get clean -y \
   && rm -rf /var/lib/apt/lists/* \
-  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.13.0
+  && curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.13.1
 
   
-ENV NODE_VERSION 16.6.2
+ENV NODE_VERSION 16.7.0
 RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && case "${dpkgArch##*-}" in \
     amd64) ARCH='x64';; \
