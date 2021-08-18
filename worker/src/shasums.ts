@@ -132,6 +132,6 @@ export const shasums = {
   ".tsBuildInfo":
     "b0b29df6a94b3924ee524c63a2e6b8a62ce6ede96bb25f579261e2fad2efecf3",
   "package.json":
-    "160e5e819828ec4033a70c139b4cecb3113b12643ddf7b7c6e2b67a155ead4ca",
+    "a40486eece7a7db147313c99564e80cca790f6bdd9cc8c8b1bebfef48d4743cf",
   "food": "bar",
 };
