@@ -49,8 +49,8 @@ const imports = {
   "@material-ui/utils":
     "https://unpkg.com/@material-ui/utils@5.0.0-beta.4/modern/index.js",
   "@popperjs/core": "https://unpkg.com/@popperjs/core@2.9.2/dist/esm/index.js",
-  "@types/react": "https://unpkg.com/@types/react@17.0.18/index.d.ts",
-  "global.d.ts": "https://unpkg.com/@types/react@17.0.18/global.d.ts",
+  "@types/react": "https://unpkg.com/@types/react@17.0.19/index.d.ts",
+  "global.d.ts": "https://unpkg.com/@types/react@17.0.19/global.d.ts",
   "scheduler/": "https://esm.sh/scheduler/",
   "csstype": "https://unpkg.com/csstype@3.0.8/index.d.ts",
   "clsx": "https://unpkg.com/clsx@1.1.1/dist/clsx.m.js",

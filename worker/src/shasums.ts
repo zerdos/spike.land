@@ -45,7 +45,7 @@ export const shasums = {
   "js/importScript.mjs":
     "6cedab9df10441cc8ee0deb316af49ed51e3780b1e1375af6315a7be111394c8",
   "js/importmap.js":
-    "9cd5ff31a8f1d8c4aa9c6856df32cee0909e3bee4b4503d3c40ab5945a6de21c",
+    "f7d135cc556764cd89a6bfe4ce5b9fe642ab909e1e94f617fc4bf47458ec0820",
   "js/ipfsClient.mjs":
     "69d67deb4971883bb4dfc0e41e34778c4da847c7853a7fb63d82536421e8cfdc",
   "js/openWindows.mjs":
@@ -83,16 +83,16 @@ export const shasums = {
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
+  "package.json":
+    "5f3f7adb6935cf78c9f547eaf3b4fc6175714e823e2cc2b09e1f469ddfa0835a",
   "modules/smart-monaco-editor/dist/editor.js":
-    "92c0e942cd20f38aca1e11a61f74e82a87912b1766b63d36b886f472715d5596",
+    "01d0bb1b643d67e0441a0531e93e299ab6061b777bff6f77e88cfa0c1427555a",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
   "modules/smart-monaco-editor/dist/monaco.js":
     "c1ae84839f85a53bbedc75116c08f06b8d33d74dcff57bce29e5acee30a9fcd6",
   "modules/smart-monaco-editor/dist/monaco.d.ts":
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-  "modules/ipfs.client.mjs":
-    "332f9c7193942e27dd519c3256e05346a095e8f10f4cb8713fff57b9a7114eaa",
   "modules/vendor/diffMin.js":
     "b4ea3cd1237efccd4b178655bf411c706dce725afa5cbfb7193aca458b8602f2",
   "modules/vendor/diffMin.d.ts":
@@ -125,13 +125,13 @@ export const shasums = {
     "e7611a270ef2b0453d5ca1c7af0ee9c0f74b182aac64bc5bd96d30f46a8db0d5",
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
-  "modules/renderer.mjs":
-    "1c7b702ba8f0f3af012b61512b5dce17a26955237272bef835d9facfefe81c9b",
+  "modules/ipfs.client.mjs":
+    "332f9c7193942e27dd519c3256e05346a095e8f10f4cb8713fff57b9a7114eaa",
   "modules/QRious.mjs":
     "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
+  "modules/renderer.mjs":
+    "1c7b702ba8f0f3af012b61512b5dce17a26955237272bef835d9facfefe81c9b",
   ".tsBuildInfo":
-    "b0b29df6a94b3924ee524c63a2e6b8a62ce6ede96bb25f579261e2fad2efecf3",
-  "package.json":
-    "a40486eece7a7db147313c99564e80cca790f6bdd9cc8c8b1bebfef48d4743cf",
+    "9898897be58cd6e81bb5a288d7b2483ca47b27c3eb197cb5f1d3b057ee6240b5",
   "food": "bar",
 };
