@@ -3317,7 +3317,6 @@ var NodeStack = function() {
   }
   NodeStack2.prototype.add = function(node) {
     addUniqueItem(this.members, node);
-    this.promote(node);
     node.scheduleRender();
   };
   NodeStack2.prototype.remove = function(node) {
@@ -3353,7 +3352,7 @@ var NodeStack = function() {
       return false;
     }
   };
-  NodeStack2.prototype.promote = function(node) {
+  NodeStack2.prototype.promote = function(node, preserveFollowOpacity) {
     var _a;
     var prevLead = this.lead;
     if (node === prevLead)
@@ -3365,6 +3364,9 @@ var NodeStack = function() {
       prevLead.instance && prevLead.scheduleRender();
       node.scheduleRender();
       node.resumeFrom = prevLead;
+      if (preserveFollowOpacity) {
+        node.resumeFrom.preserveOpacity = true;
+      }
       if (prevLead.snapshot) {
         node.snapshot = prevLead.snapshot;
         node.snapshot.latestValues = prevLead.animationValues || prevLead.latestValues;
@@ -3610,6 +3612,7 @@ function createProjectionNode(_a) {
       (_a2 = this.nodes) === null || _a2 === void 0 ? void 0 : _a2.forEach(resetRotation);
     };
     ProjectionNode.prototype.willUpdate = function(shouldNotifyListeners) {
+      var _a2;
       if (shouldNotifyListeners === void 0) {
         shouldNotifyListeners = true;
       }
@@ -3624,6 +3627,8 @@ function createProjectionNode(_a) {
         node.shouldResetTransform = true;
         node.updateScroll();
       }
+      var transformTemplate = (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.getProps().transformTemplate;
+      this.prevTransformTemplateValue = transformTemplate === null || transformTemplate === void 0 ? void 0 : transformTemplate(this.latestValues, "");
       this.updateSnapshot();
       shouldNotifyListeners && this.notifyListeners("willUpdate");
     };
@@ -3689,10 +3694,11 @@ function createProjectionNode(_a) {
         return;
       var isResetRequested = this.isLayoutDirty || this.shouldResetTransform;
       var hasProjection = this.projectionDelta && !isDeltaZero(this.projectionDelta);
-      if (isResetRequested && (hasProjection || hasTransform(this.latestValues))) {
-        var transformTemplate = (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.getProps().transformTemplate;
-        var value = transformTemplate ? transformTemplate(this.latestValues, "") : void 0;
-        resetTransform(this.instance, value);
+      var transformTemplate = (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.getProps().transformTemplate;
+      var transformTemplateValue = transformTemplate === null || transformTemplate === void 0 ? void 0 : transformTemplate(this.latestValues, "");
+      var transformTemplateHasChanged = transformTemplateValue !== this.prevTransformTemplateValue;
+      if (isResetRequested && (hasProjection || hasTransform(this.latestValues) || transformTemplateHasChanged)) {
+        resetTransform(this.instance, transformTemplateValue);
         this.shouldResetTransform = false;
         this.scheduleRender();
       }
@@ -3770,6 +3776,7 @@ function createProjectionNode(_a) {
       this.scroll = void 0;
       this.layout = void 0;
       this.snapshot = void 0;
+      this.prevTransformTemplateValue = void 0;
       this.isLayoutDirty = false;
     };
     ProjectionNode.prototype.resolveTargetDelta = function() {
@@ -3875,6 +3882,7 @@ function createProjectionNode(_a) {
         var _a3, _b2;
         if (_this.resumingFrom) {
           _this.resumingFrom.currentAnimation = void 0;
+          _this.resumingFrom.preserveOpacity = void 0;
         }
         _this.resumingFrom = _this.currentAnimation = _this.animationValues = void 0;
         (_a3 = options.onComplete) === null || _a3 === void 0 ? void 0 : _a3.call(options);
@@ -3900,11 +3908,16 @@ function createProjectionNode(_a) {
       calcBoxDelta(this.projectionDeltaWithTransform, this.layoutCorrected, targetWithTransforms, latestValues);
     };
     ProjectionNode.prototype.registerSharedNode = function(layoutId, node) {
+      var _a2, _b, _c;
       if (!this.sharedNodes.has(layoutId)) {
         this.sharedNodes.set(layoutId, new NodeStack());
       }
       var stack = this.sharedNodes.get(layoutId);
       stack.add(node);
+      node.promote({
+        transition: (_a2 = node.options.initialPromotionConfig) === null || _a2 === void 0 ? void 0 : _a2.transition,
+        preserveFollowOpacity: (_c = (_b = node.options.initialPromotionConfig) === null || _b === void 0 ? void 0 : _b.shouldPreserveFollowOpacity) === null || _c === void 0 ? void 0 : _c.call(_b, node)
+      });
     };
     ProjectionNode.prototype.isLead = function() {
       var stack = this.getStack();
@@ -3926,10 +3939,10 @@ function createProjectionNode(_a) {
         return this.root.sharedNodes.get(layoutId);
     };
     ProjectionNode.prototype.promote = function(_a2) {
-      var _b = _a2 === void 0 ? {} : _a2, needsReset = _b.needsReset, transition = _b.transition;
+      var _b = _a2 === void 0 ? {} : _a2, needsReset = _b.needsReset, transition = _b.transition, preserveFollowOpacity = _b.preserveFollowOpacity;
       var stack = this.getStack();
       if (stack)
-        stack.promote(this);
+        stack.promote(this, preserveFollowOpacity);
       if (needsReset)
         this.needsReset = true;
       if (transition)
@@ -3982,7 +3995,7 @@ function createProjectionNode(_a) {
       if (this.needsReset) {
         this.needsReset = false;
         styles.opacity = "";
-        styles.transform = transformTemplate ? transformTemplate(this.latestValues, "none") : "none";
+        styles.transform = transformTemplate ? transformTemplate(this.latestValues, "") : "none";
         return styles;
       }
       if (!this.projectionDelta || !this.layout) {
@@ -4001,7 +4014,7 @@ function createProjectionNode(_a) {
       var _g = this.projectionDelta, x = _g.x, y = _g.y;
       styles.transformOrigin = x.origin * 100 + "% " + y.origin * 100 + "% 0";
       if (lead.animationValues) {
-        styles.opacity = lead === this ? (_d = (_c = valuesToRender.opacity) !== null && _c !== void 0 ? _c : this.latestValues.opacity) !== null && _d !== void 0 ? _d : 1 : valuesToRender.opacityExit;
+        styles.opacity = lead === this ? (_d = (_c = valuesToRender.opacity) !== null && _c !== void 0 ? _c : this.latestValues.opacity) !== null && _d !== void 0 ? _d : 1 : this.preserveOpacity ? this.latestValues.opacity : valuesToRender.opacityExit;
       } else {
         styles.opacity = lead === this ? (_e = valuesToRender.opacity) !== null && _e !== void 0 ? _e : "" : (_f = valuesToRender.opacityExit) !== null && _f !== void 0 ? _f : 0;
       }
@@ -4201,9 +4214,9 @@ var HTMLProjectionNode = createProjectionNode({
 
 // ../../node_modules/framer-motion/dist/es/motion/features/use-projection.js
 import { useEffect as useEffect3 } from "react";
-function useProjection(projectionId, _a, visualElement2, initialTransition) {
+function useProjection(projectionId, _a, visualElement2, initialPromotionConfig) {
   var _b;
-  var layoutId = _a.layoutId, layout = _a.layout, drag2 = _a.drag, onProjectionUpdate = _a.onProjectionUpdate;
+  var layoutId = _a.layoutId, layout = _a.layout, drag2 = _a.drag, dragConstraints = _a.dragConstraints, onProjectionUpdate = _a.onProjectionUpdate;
   useEffect3(function() {
     if (!visualElement2)
       return;
@@ -4218,13 +4231,13 @@ function useProjection(projectionId, _a, visualElement2, initialTransition) {
   visualElement2.projection.setOptions({
     layoutId,
     layout,
-    alwaysMeasureLayout: !!drag2,
+    alwaysMeasureLayout: !!drag2 || dragConstraints && isRefObject(dragConstraints),
     visualElement: visualElement2,
     scheduleRender: function() {
       return visualElement2.scheduleRender();
     },
     animationType: typeof layout === "string" ? layout : "both",
-    transition: initialTransition
+    initialPromotionConfig
   });
 }
 
@@ -4277,8 +4290,11 @@ function createMotionComponent(_a) {
     }
     if (!config.isStatic && isBrowser) {
       features = useFeatures(props, projectionId, context.visualElement, preloadedFeatures);
-      var initialTransition = useContext5(SwitchLayoutGroupContext).initialTransition;
-      useProjection(projectionId, props, context.visualElement, initialTransition);
+      var _a2 = useContext5(SwitchLayoutGroupContext), transition = _a2.transition, shouldPreserveFollowOpacity = _a2.shouldPreserveFollowOpacity;
+      useProjection(projectionId, props, context.visualElement, {
+        transition,
+        shouldPreserveFollowOpacity
+      });
     }
     return createElement2(VisualElementHandler, { visualElement: context.visualElement, props: __assign17(__assign17({}, config), props) }, features, createElement2(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, config.isStatic)));
   }
@@ -7340,12 +7356,12 @@ var LayoutGroup = function(_a) {
   var _c = __read20(useForceUpdate(), 2), forceRender = _c[0], key = _c[1];
   var context = useRef8(null);
   if (context.current === null) {
-    if (inheritId && layoutGroupContext.id) {
-      id2 = layoutGroupContext.id + "-" + id2;
+    if (inheritId && layoutGroupContext.id && layoutGroupContext.id !== id2) {
+      id2 = id2 ? layoutGroupContext.id + "-" + id2 : layoutGroupContext.id;
     }
     context.current = {
       id: id2,
-      group: nodeGroup()
+      group: inheritId ? layoutGroupContext.group : nodeGroup()
     };
   }
   var memoizedContext = useMemo6(function() {
