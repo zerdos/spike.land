@@ -87,7 +87,7 @@ const imports = {
   "react-is": "https://unpkg.com/@zedvision/esm@14.4.3/dist/react-is.mjs",
   "react-transition-group":
     "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
-  "react/": "https://esm.sh/react/",
+  "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
   "@zedvision/renderer":
     "https://unpkg.com/@zedvision/renderer@14.4.3/dist/renderer.mjs",
   "style-value-types":
