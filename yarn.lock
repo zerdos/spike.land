@@ -3410,13 +3410,21 @@ ipfs-message-port-protocol@0.9.0, ipfs-message-port-protocol@^0.9.0:
     ipfs-core-types "^0.7.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-server@0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.9.0.tgz#191cd31fcc60714e711d02caabc5635a44a0801f"
-  integrity sha512-CbkpI4KBZ7QLQVT/D7tKKiTIuZrSK4UbsBL9g8aMuVJALctzP7hogbwj9f4EsnApvF3WNtUzigPEc3SLRPUpOA==
+ipfs-message-port-protocol@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.9.1.tgz#8441fbcb978e9f8e40ff9661bced98d7894257ba"
+  integrity sha512-/s7Uez5PXi8z/K9XauvgD7Z1/bhpNhoHzcZaZvO3HS+0gDmCebYOpz1zUU0cCIixLIvlwEvZRtccsPsZyZ+e7g==
   dependencies:
     ipfs-core-types "^0.7.0"
-    ipfs-message-port-protocol "^0.9.0"
+    multiformats "^9.4.1"
+
+ipfs-message-port-server@0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.9.1.tgz#46f1fa3368c716bceeb40bc04319401cb9eed9f5"
+  integrity sha512-blLoLChbibaFFiq5s9Of9xd102CrKlzicEpaXVfDaFCHBDHAiF3G7XYexwn2rT25h1AJbDwz1GhzbQqqz/FPRw==
+  dependencies:
+    ipfs-core-types "^0.7.0"
+    ipfs-message-port-protocol "^0.9.1"
     it-all "^1.0.4"
     multiformats "^9.4.1"
 
