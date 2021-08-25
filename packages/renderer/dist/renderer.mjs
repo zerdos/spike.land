@@ -9216,27 +9216,27 @@ var getVariantStyles = (name, theme) => {
 var variantsResolver = (props, styles, theme, name) => {
   var _theme$components, _theme$components$nam;
   const {
-    styleProps = {}
+    ownerState = {}
   } = props;
-  let variantsStyles = {};
+  const variantsStyles = [];
   const themeVariants = theme == null ? void 0 : (_theme$components = theme.components) == null ? void 0 : (_theme$components$nam = _theme$components[name]) == null ? void 0 : _theme$components$nam.variants;
   if (themeVariants) {
     themeVariants.forEach((themeVariant) => {
       let isMatch = true;
       Object.keys(themeVariant.props).forEach((key) => {
-        if (styleProps[key] !== themeVariant.props[key] && props[key] !== themeVariant.props[key]) {
+        if (ownerState[key] !== themeVariant.props[key] && props[key] !== themeVariant.props[key]) {
           isMatch = false;
         }
       });
       if (isMatch) {
-        variantsStyles = _extends({}, variantsStyles, styles[propsToClassKey(themeVariant.props)]);
+        variantsStyles.push(styles[propsToClassKey(themeVariant.props)]);
       }
     });
   }
   return variantsStyles;
 };
 function shouldForwardProp(prop) {
-  return prop !== "styleProps" && prop !== "theme" && prop !== "sx" && prop !== "as";
+  return prop !== "ownerState" && prop !== "theme" && prop !== "sx" && prop !== "as";
 }
 var systemDefaultTheme2 = createTheme_default();
 var lowercaseFirstLetter = (string) => {
@@ -9262,11 +9262,14 @@ function createStyled(input = {}) {
     if (componentName) {
       className = `${componentName}-${lowercaseFirstLetter(componentSlot || "Root")}`;
     }
-    const defaultStyledResolver = styled(tag, _extends({}, !componentSlot || componentSlot === "Root" ? {
-      shouldForwardProp: rootShouldForwardProp2
-    } : {
-      shouldForwardProp: slotShouldForwardProp
-    }, {
+    let shouldForwardPropOption = shouldForwardProp;
+    if (componentSlot === "Root") {
+      shouldForwardPropOption = rootShouldForwardProp2;
+    } else if (componentSlot) {
+      shouldForwardPropOption = slotShouldForwardProp;
+    }
+    const defaultStyledResolver = styled(tag, _extends({
+      shouldForwardProp: shouldForwardPropOption,
       label: className || componentName || ""
     }, options));
     const muiStyledResolver = (styleArg, ...expressions) => {
@@ -9291,7 +9294,7 @@ function createStyled(input = {}) {
           return null;
         });
       }
-      if (componentName && overridesResolver && !skipVariantsResolver) {
+      if (componentName && !skipVariantsResolver) {
         expressionsWithDefaultTheme.push((props) => {
           const theme = isEmpty2(props.theme) ? defaultTheme2 : props.theme;
           return variantsResolver(props, getVariantStyles(componentName, theme), theme, componentName);
@@ -10573,7 +10576,8 @@ var TouchRippleRipple = styled_default(Ripple_default, {
 
   & .${0} {
     position: absolute;
-    left: 0;
+    /* @noflip */
+    left: 0px;
     top: 0;
     animation-name: ${0};
     animation-duration: 2500ms;
@@ -10774,13 +10778,13 @@ var buttonBaseClasses_default = buttonBaseClasses;
 import { jsx as _jsx3 } from "react/jsx-runtime";
 import { jsxs as _jsxs } from "react/jsx-runtime";
 var _excluded10 = ["action", "centerRipple", "children", "className", "component", "disabled", "disableRipple", "disableTouchRipple", "focusRipple", "focusVisibleClassName", "LinkComponent", "onBlur", "onClick", "onContextMenu", "onDragLeave", "onFocus", "onFocusVisible", "onKeyDown", "onKeyUp", "onMouseDown", "onMouseLeave", "onMouseUp", "onTouchEnd", "onTouchMove", "onTouchStart", "tabIndex", "TouchRippleProps", "type"];
-var useUtilityClasses = (styleProps) => {
+var useUtilityClasses = (ownerState) => {
   const {
     disabled,
     focusVisible,
     focusVisibleClassName,
     classes
-  } = styleProps;
+  } = ownerState;
   const slots = {
     root: ["root", disabled && "disabled", focusVisible && "focusVisible"]
   };
@@ -11005,7 +11009,7 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
       }
     }, [enableTouchRipple]);
   }
-  const styleProps = _extends({}, props, {
+  const ownerState = _extends({}, props, {
     centerRipple,
     component,
     disabled,
@@ -11015,11 +11019,11 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
     tabIndex,
     focusVisible
   });
-  const classes = useUtilityClasses(styleProps);
+  const classes = useUtilityClasses(ownerState);
   return /* @__PURE__ */ _jsxs(ButtonBaseRoot, _extends({
     as: ComponentProp,
     className: clsx_m_default(classes.root, className),
-    styleProps,
+    ownerState,
     onBlur: handleBlur,
     onClick,
     onContextMenu: handleContextMenu,
@@ -11091,13 +11095,13 @@ var fabClasses_default = fabClasses;
 // ../../node_modules/@material-ui/core/Fab/Fab.js
 import { jsx as _jsx4 } from "react/jsx-runtime";
 var _excluded11 = ["children", "className", "color", "component", "disabled", "disableFocusRipple", "focusVisibleClassName", "size", "variant"];
-var useUtilityClasses2 = (styleProps) => {
+var useUtilityClasses2 = (ownerState) => {
   const {
     color: color3,
     variant,
     classes,
     size
-  } = styleProps;
+  } = ownerState;
   const slots = {
     root: ["root", variant, `size${capitalize_default(size)}`, color3 === "inherit" && "colorInherit", color3 === "primary" && "primary", color3 === "secondary" && "secondary"]
   };
@@ -11108,13 +11112,13 @@ var FabRoot = styled_default(ButtonBase_default, {
   slot: "Root",
   overridesResolver: (props, styles) => {
     const {
-      styleProps
+      ownerState
     } = props;
-    return [styles.root, styles[styleProps.variant], styles[`size${capitalize_default(styleProps.size)}`], styleProps.color === "inherit" && styles.colorInherit, styleProps.color === "primary" && styles.primary, styleProps.color === "secondary" && styles.secondary];
+    return [styles.root, styles[ownerState.variant], styles[`size${capitalize_default(ownerState.size)}`], ownerState.color === "inherit" && styles.colorInherit, ownerState.color === "primary" && styles.primary, ownerState.color === "secondary" && styles.secondary];
   }
 })(({
   theme,
-  styleProps
+  ownerState
 }) => _extends({}, theme.typography.button, {
   minHeight: 36,
   transition: theme.transitions.create(["background-color", "box-shadow", "border-color"], {
@@ -11146,37 +11150,37 @@ var FabRoot = styled_default(ButtonBase_default, {
     boxShadow: theme.shadows[0],
     backgroundColor: theme.palette.action.disabledBackground
   }
-}, styleProps.size === "small" && {
+}, ownerState.size === "small" && {
   width: 40,
   height: 40
-}, styleProps.size === "medium" && {
+}, ownerState.size === "medium" && {
   width: 48,
   height: 48
-}, styleProps.variant === "extended" && {
+}, ownerState.variant === "extended" && {
   borderRadius: 48 / 2,
   padding: "0 16px",
   width: "auto",
   minHeight: "auto",
   minWidth: 48,
   height: 48
-}, styleProps.variant === "extended" && styleProps.size === "small" && {
+}, ownerState.variant === "extended" && ownerState.size === "small" && {
   width: "auto",
   padding: "0 8px",
   borderRadius: 34 / 2,
   minWidth: 34,
   height: 34
-}, styleProps.variant === "extended" && styleProps.size === "medium" && {
+}, ownerState.variant === "extended" && ownerState.size === "medium" && {
   width: "auto",
   padding: "0 16px",
   borderRadius: 40 / 2,
   minWidth: 40,
   height: 40
-}, styleProps.color === "inherit" && {
+}, ownerState.color === "inherit" && {
   color: "inherit"
 }), ({
   theme,
-  styleProps
-}) => _extends({}, styleProps.color === "primary" && {
+  ownerState
+}) => _extends({}, ownerState.color === "primary" && {
   color: theme.palette.primary.contrastText,
   backgroundColor: theme.palette.primary.main,
   "&:hover": {
@@ -11185,7 +11189,7 @@ var FabRoot = styled_default(ButtonBase_default, {
       backgroundColor: theme.palette.primary.main
     }
   }
-}, styleProps.color === "secondary" && {
+}, ownerState.color === "secondary" && {
   color: theme.palette.secondary.contrastText,
   backgroundColor: theme.palette.secondary.main,
   "&:hover": {
@@ -11211,7 +11215,7 @@ var Fab = /* @__PURE__ */ forwardRef4(function Fab2(inProps, ref) {
     size = "large",
     variant = "circular"
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded11);
-  const styleProps = _extends({}, props, {
+  const ownerState = _extends({}, props, {
     color: color3,
     component,
     disabled,
@@ -11219,14 +11223,14 @@ var Fab = /* @__PURE__ */ forwardRef4(function Fab2(inProps, ref) {
     size,
     variant
   });
-  const classes = useUtilityClasses2(styleProps);
+  const classes = useUtilityClasses2(ownerState);
   return /* @__PURE__ */ _jsx4(FabRoot, _extends({
     className: clsx_m_default(classes.root, className),
     component,
     disabled,
     focusRipple: !disableFocusRipple,
     focusVisibleClassName: clsx_m_default(classes.focusVisible, focusVisibleClassName),
-    styleProps,
+    ownerState,
     ref
   }, other, {
     children
@@ -11266,7 +11270,7 @@ var buttonClasses_default = buttonClasses;
 import { jsx as _jsx5 } from "react/jsx-runtime";
 import { jsxs as _jsxs2 } from "react/jsx-runtime";
 var _excluded12 = ["children", "color", "component", "disabled", "disableElevation", "disableFocusRipple", "endIcon", "focusVisibleClassName", "fullWidth", "size", "startIcon", "type", "variant"];
-var useUtilityClasses3 = (styleProps) => {
+var useUtilityClasses3 = (ownerState) => {
   const {
     color: color3,
     disableElevation,
@@ -11274,7 +11278,7 @@ var useUtilityClasses3 = (styleProps) => {
     size,
     variant,
     classes
-  } = styleProps;
+  } = ownerState;
   const slots = {
     root: ["root", variant, `${variant}${capitalize_default(color3)}`, `size${capitalize_default(size)}`, `${variant}Size${capitalize_default(size)}`, color3 === "inherit" && "colorInherit", disableElevation && "disableElevation", fullWidth && "fullWidth"],
     label: ["label"],
@@ -11284,15 +11288,15 @@ var useUtilityClasses3 = (styleProps) => {
   const composedClasses = composeClasses(slots, getButtonUtilityClass, classes);
   return _extends({}, classes, composedClasses);
 };
-var commonIconStyles = (styleProps) => _extends({}, styleProps.size === "small" && {
+var commonIconStyles = (ownerState) => _extends({}, ownerState.size === "small" && {
   "& > *:nth-of-type(1)": {
     fontSize: 18
   }
-}, styleProps.size === "medium" && {
+}, ownerState.size === "medium" && {
   "& > *:nth-of-type(1)": {
     fontSize: 20
   }
-}, styleProps.size === "large" && {
+}, ownerState.size === "large" && {
   "& > *:nth-of-type(1)": {
     fontSize: 22
   }
@@ -11303,13 +11307,13 @@ var ButtonRoot = styled_default(ButtonBase_default, {
   slot: "Root",
   overridesResolver: (props, styles) => {
     const {
-      styleProps
+      ownerState
     } = props;
-    return [styles.root, styles[styleProps.variant], styles[`${styleProps.variant}${capitalize_default(styleProps.color)}`], styles[`size${capitalize_default(styleProps.size)}`], styles[`${styleProps.variant}Size${capitalize_default(styleProps.size)}`], styleProps.color === "inherit" && styles.colorInherit, styleProps.disableElevation && styles.disableElevation, styleProps.fullWidth && styles.fullWidth];
+    return [styles.root, styles[ownerState.variant], styles[`${ownerState.variant}${capitalize_default(ownerState.color)}`], styles[`size${capitalize_default(ownerState.size)}`], styles[`${ownerState.variant}Size${capitalize_default(ownerState.size)}`], ownerState.color === "inherit" && styles.colorInherit, ownerState.disableElevation && styles.disableElevation, ownerState.fullWidth && styles.fullWidth];
   }
 })(({
   theme,
-  styleProps
+  ownerState
 }) => _extends({}, theme.typography.button, {
   minWidth: 64,
   padding: "6px 16px",
@@ -11323,90 +11327,90 @@ var ButtonRoot = styled_default(ButtonBase_default, {
     "@media (hover: none)": {
       backgroundColor: "transparent"
     }
-  }, styleProps.variant === "text" && styleProps.color !== "inherit" && {
-    backgroundColor: alpha2(theme.palette[styleProps.color].main, theme.palette.action.hoverOpacity),
+  }, ownerState.variant === "text" && ownerState.color !== "inherit" && {
+    backgroundColor: alpha2(theme.palette[ownerState.color].main, theme.palette.action.hoverOpacity),
     "@media (hover: none)": {
       backgroundColor: "transparent"
     }
-  }, styleProps.variant === "outlined" && styleProps.color !== "inherit" && {
-    border: `1px solid ${theme.palette[styleProps.color].main}`,
-    backgroundColor: alpha2(theme.palette[styleProps.color].main, theme.palette.action.hoverOpacity),
+  }, ownerState.variant === "outlined" && ownerState.color !== "inherit" && {
+    border: `1px solid ${theme.palette[ownerState.color].main}`,
+    backgroundColor: alpha2(theme.palette[ownerState.color].main, theme.palette.action.hoverOpacity),
     "@media (hover: none)": {
       backgroundColor: "transparent"
     }
-  }, styleProps.variant === "contained" && {
+  }, ownerState.variant === "contained" && {
     backgroundColor: theme.palette.grey.A100,
     boxShadow: theme.shadows[4],
     "@media (hover: none)": {
       boxShadow: theme.shadows[2],
       backgroundColor: theme.palette.grey[300]
     }
-  }, styleProps.variant === "contained" && styleProps.color !== "inherit" && {
-    backgroundColor: theme.palette[styleProps.color].dark,
+  }, ownerState.variant === "contained" && ownerState.color !== "inherit" && {
+    backgroundColor: theme.palette[ownerState.color].dark,
     "@media (hover: none)": {
-      backgroundColor: theme.palette[styleProps.color].main
+      backgroundColor: theme.palette[ownerState.color].main
     }
   }),
-  "&:active": _extends({}, styleProps.variant === "contained" && {
+  "&:active": _extends({}, ownerState.variant === "contained" && {
     boxShadow: theme.shadows[8]
   }),
-  [`&.${buttonClasses_default.focusVisible}`]: _extends({}, styleProps.variant === "contained" && {
+  [`&.${buttonClasses_default.focusVisible}`]: _extends({}, ownerState.variant === "contained" && {
     boxShadow: theme.shadows[6]
   }),
   [`&.${buttonClasses_default.disabled}`]: _extends({
     color: theme.palette.action.disabled
-  }, styleProps.variant === "outlined" && {
+  }, ownerState.variant === "outlined" && {
     border: `1px solid ${theme.palette.action.disabledBackground}`
-  }, styleProps.variant === "outlined" && styleProps.color === "secondary" && {
+  }, ownerState.variant === "outlined" && ownerState.color === "secondary" && {
     border: `1px solid ${theme.palette.action.disabled}`
-  }, styleProps.variant === "contained" && {
+  }, ownerState.variant === "contained" && {
     color: theme.palette.action.disabled,
     boxShadow: theme.shadows[0],
     backgroundColor: theme.palette.action.disabledBackground
   })
-}, styleProps.variant === "text" && {
+}, ownerState.variant === "text" && {
   padding: "6px 8px"
-}, styleProps.variant === "text" && styleProps.color !== "inherit" && {
-  color: theme.palette[styleProps.color].main
-}, styleProps.variant === "outlined" && {
+}, ownerState.variant === "text" && ownerState.color !== "inherit" && {
+  color: theme.palette[ownerState.color].main
+}, ownerState.variant === "outlined" && {
   padding: "5px 15px",
   border: `1px solid ${theme.palette.mode === "light" ? "rgba(0, 0, 0, 0.23)" : "rgba(255, 255, 255, 0.23)"}`
-}, styleProps.variant === "outlined" && styleProps.color !== "inherit" && {
-  color: theme.palette[styleProps.color].main,
-  border: `1px solid ${alpha2(theme.palette[styleProps.color].main, 0.5)}`
-}, styleProps.variant === "contained" && {
+}, ownerState.variant === "outlined" && ownerState.color !== "inherit" && {
+  color: theme.palette[ownerState.color].main,
+  border: `1px solid ${alpha2(theme.palette[ownerState.color].main, 0.5)}`
+}, ownerState.variant === "contained" && {
   color: theme.palette.getContrastText(theme.palette.grey[300]),
   backgroundColor: theme.palette.grey[300],
   boxShadow: theme.shadows[2]
-}, styleProps.variant === "contained" && styleProps.color !== "inherit" && {
-  color: theme.palette[styleProps.color].contrastText,
-  backgroundColor: theme.palette[styleProps.color].main
-}, styleProps.color === "inherit" && {
+}, ownerState.variant === "contained" && ownerState.color !== "inherit" && {
+  color: theme.palette[ownerState.color].contrastText,
+  backgroundColor: theme.palette[ownerState.color].main
+}, ownerState.color === "inherit" && {
   color: "inherit",
   borderColor: "currentColor"
-}, styleProps.size === "small" && styleProps.variant === "text" && {
+}, ownerState.size === "small" && ownerState.variant === "text" && {
   padding: "4px 5px",
   fontSize: theme.typography.pxToRem(13)
-}, styleProps.size === "large" && styleProps.variant === "text" && {
+}, ownerState.size === "large" && ownerState.variant === "text" && {
   padding: "8px 11px",
   fontSize: theme.typography.pxToRem(15)
-}, styleProps.size === "small" && styleProps.variant === "outlined" && {
+}, ownerState.size === "small" && ownerState.variant === "outlined" && {
   padding: "3px 9px",
   fontSize: theme.typography.pxToRem(13)
-}, styleProps.size === "large" && styleProps.variant === "outlined" && {
+}, ownerState.size === "large" && ownerState.variant === "outlined" && {
   padding: "7px 21px",
   fontSize: theme.typography.pxToRem(15)
-}, styleProps.size === "small" && styleProps.variant === "contained" && {
+}, ownerState.size === "small" && ownerState.variant === "contained" && {
   padding: "4px 10px",
   fontSize: theme.typography.pxToRem(13)
-}, styleProps.size === "large" && styleProps.variant === "contained" && {
+}, ownerState.size === "large" && ownerState.variant === "contained" && {
   padding: "8px 22px",
   fontSize: theme.typography.pxToRem(15)
-}, styleProps.fullWidth && {
+}, ownerState.fullWidth && {
   width: "100%"
 }), ({
-  styleProps
-}) => styleProps.disableElevation && {
+  ownerState
+}) => ownerState.disableElevation && {
   boxShadow: "none",
   "&:hover": {
     boxShadow: "none"
@@ -11426,37 +11430,37 @@ var ButtonStartIcon = styled_default("span", {
   slot: "StartIcon",
   overridesResolver: (props, styles) => {
     const {
-      styleProps
+      ownerState
     } = props;
-    return [styles.startIcon, styles[`iconSize${capitalize_default(styleProps.size)}`]];
+    return [styles.startIcon, styles[`iconSize${capitalize_default(ownerState.size)}`]];
   }
 })(({
-  styleProps
+  ownerState
 }) => _extends({
   display: "inherit",
   marginRight: 8,
   marginLeft: -4
-}, styleProps.size === "small" && {
+}, ownerState.size === "small" && {
   marginLeft: -2
-}, commonIconStyles(styleProps)));
+}, commonIconStyles(ownerState)));
 var ButtonEndIcon = styled_default("span", {
   name: "MuiButton",
   slot: "EndIcon",
   overridesResolver: (props, styles) => {
     const {
-      styleProps
+      ownerState
     } = props;
-    return [styles.endIcon, styles[`iconSize${capitalize_default(styleProps.size)}`]];
+    return [styles.endIcon, styles[`iconSize${capitalize_default(ownerState.size)}`]];
   }
 })(({
-  styleProps
+  ownerState
 }) => _extends({
   display: "inherit",
   marginRight: -4,
   marginLeft: 8
-}, styleProps.size === "small" && {
+}, ownerState.size === "small" && {
   marginRight: -2
-}, commonIconStyles(styleProps)));
+}, commonIconStyles(ownerState)));
 var Button = /* @__PURE__ */ forwardRef5(function Button2(inProps, ref) {
   const props = useThemeProps2({
     props: inProps,
@@ -11477,7 +11481,7 @@ var Button = /* @__PURE__ */ forwardRef5(function Button2(inProps, ref) {
     type,
     variant = "text"
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded12);
-  const styleProps = _extends({}, props, {
+  const ownerState = _extends({}, props, {
     color: color3,
     component,
     disabled,
@@ -11488,19 +11492,19 @@ var Button = /* @__PURE__ */ forwardRef5(function Button2(inProps, ref) {
     type,
     variant
   });
-  const classes = useUtilityClasses3(styleProps);
+  const classes = useUtilityClasses3(ownerState);
   const startIcon = startIconProp && /* @__PURE__ */ _jsx5(ButtonStartIcon, {
     className: classes.startIcon,
-    styleProps,
+    ownerState,
     children: startIconProp
   });
   const endIcon = endIconProp && /* @__PURE__ */ _jsx5(ButtonEndIcon, {
     className: classes.endIcon,
-    styleProps,
+    ownerState,
     children: endIconProp
   });
   return /* @__PURE__ */ _jsxs2(ButtonRoot, _extends({
-    styleProps,
+    ownerState,
     component,
     disabled,
     focusRipple: !disableFocusRipple,
@@ -11549,7 +11553,7 @@ var toggleButtonClasses_default = toggleButtonClasses;
 // ../../node_modules/@material-ui/core/ToggleButton/ToggleButton.js
 import { jsx as _jsx6 } from "react/jsx-runtime";
 var _excluded13 = ["children", "className", "color", "disabled", "disableFocusRipple", "fullWidth", "onChange", "onClick", "selected", "size", "value"];
-var useUtilityClasses4 = (styleProps) => {
+var useUtilityClasses4 = (ownerState) => {
   const {
     classes,
     fullWidth,
@@ -11557,7 +11561,7 @@ var useUtilityClasses4 = (styleProps) => {
     disabled,
     size,
     color: color3
-  } = styleProps;
+  } = ownerState;
   const slots = {
     root: ["root", selected && "selected", disabled && "disabled", fullWidth && "fullWidth", `size${capitalize_default(size)}`, color3]
   };
@@ -11568,21 +11572,21 @@ var ToggleButtonRoot = styled_default(ButtonBase_default, {
   slot: "Root",
   overridesResolver: (props, styles) => {
     const {
-      styleProps
+      ownerState
     } = props;
-    return [styles.root, styles[`size${capitalize_default(styleProps.size)}`]];
+    return [styles.root, styles[`size${capitalize_default(ownerState.size)}`]];
   }
 })(({
   theme,
-  styleProps
+  ownerState
 }) => {
-  const selectedColor = styleProps.color === "standard" ? theme.palette.text.primary : theme.palette[styleProps.color].main;
+  const selectedColor = ownerState.color === "standard" ? theme.palette.text.primary : theme.palette[ownerState.color].main;
   return _extends({}, theme.typography.button, {
     borderRadius: theme.shape.borderRadius,
     padding: 11,
     border: `1px solid ${theme.palette.divider}`,
     color: theme.palette.action.active
-  }, styleProps.fullWidth && {
+  }, ownerState.fullWidth && {
     width: "100%"
   }, {
     [`&.${toggleButtonClasses_default.disabled}`]: {
@@ -11606,10 +11610,10 @@ var ToggleButtonRoot = styled_default(ButtonBase_default, {
         }
       }
     }
-  }, styleProps.size === "small" && {
+  }, ownerState.size === "small" && {
     padding: 7,
     fontSize: theme.typography.pxToRem(13)
-  }, styleProps.size === "large" && {
+  }, ownerState.size === "large" && {
     padding: 15,
     fontSize: theme.typography.pxToRem(15)
   });
@@ -11632,14 +11636,14 @@ var ToggleButton = /* @__PURE__ */ forwardRef6(function ToggleButton2(inProps, r
     size = "medium",
     value
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded13);
-  const styleProps = _extends({}, props, {
+  const ownerState = _extends({}, props, {
     color: color3,
     disabled,
     disableFocusRipple,
     fullWidth,
     size
   });
-  const classes = useUtilityClasses4(styleProps);
+  const classes = useUtilityClasses4(ownerState);
   const handleChange = (event) => {
     if (onClick) {
       onClick(event, value);
@@ -11659,7 +11663,7 @@ var ToggleButton = /* @__PURE__ */ forwardRef6(function ToggleButton2(inProps, r
     onClick: handleChange,
     onChange,
     value,
-    styleProps,
+    ownerState,
     "aria-pressed": selected
   }, other, {
     children
@@ -11714,12 +11718,12 @@ var toggleButtonGroupClasses_default = toggleButtonGroupClasses;
 // ../../node_modules/@material-ui/core/ToggleButtonGroup/ToggleButtonGroup.js
 import { jsx as _jsx7 } from "react/jsx-runtime";
 var _excluded14 = ["children", "className", "color", "exclusive", "fullWidth", "onChange", "orientation", "size", "value"];
-var useUtilityClasses5 = (styleProps) => {
+var useUtilityClasses5 = (ownerState) => {
   const {
     classes,
     orientation,
     fullWidth
-  } = styleProps;
+  } = ownerState;
   const slots = {
     root: ["root", orientation === "vertical" && "vertical", fullWidth && "fullWidth"],
     grouped: ["grouped", `grouped${capitalize_default(orientation)}`]
@@ -11731,26 +11735,26 @@ var ToggleButtonGroupRoot = styled_default("div", {
   slot: "Root",
   overridesResolver: (props, styles) => {
     const {
-      styleProps
+      ownerState
     } = props;
     return [{
       [`& .${toggleButtonGroupClasses_default.grouped}`]: styles.grouped
     }, {
-      [`& .${toggleButtonGroupClasses_default.grouped}`]: styles[`grouped${capitalize_default(styleProps.orientation)}`]
-    }, styles.root, styleProps.orientation === "vertical" && styles.vertical, styleProps.fullWidth && styles.fullWidth];
+      [`& .${toggleButtonGroupClasses_default.grouped}`]: styles[`grouped${capitalize_default(ownerState.orientation)}`]
+    }, styles.root, ownerState.orientation === "vertical" && styles.vertical, ownerState.fullWidth && styles.fullWidth];
   }
 })(({
-  styleProps,
+  ownerState,
   theme
 }) => _extends({
   display: "inline-flex",
   borderRadius: theme.shape.borderRadius
-}, styleProps.orientation === "vertical" && {
+}, ownerState.orientation === "vertical" && {
   flexDirection: "column"
-}, styleProps.fullWidth && {
+}, ownerState.fullWidth && {
   width: "100%"
 }, {
-  [`& .${toggleButtonGroupClasses_default.grouped}`]: _extends({}, styleProps.orientation === "horizontal" ? {
+  [`& .${toggleButtonGroupClasses_default.grouped}`]: _extends({}, ownerState.orientation === "horizontal" ? {
     "&:not(:first-of-type)": {
       marginLeft: -1,
       borderLeft: "1px solid transparent",
@@ -11798,12 +11802,12 @@ var ToggleButtonGroup = /* @__PURE__ */ forwardRef7(function ToggleButtonGroup2(
     size = "medium",
     value
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded14);
-  const styleProps = _extends({}, props, {
+  const ownerState = _extends({}, props, {
     fullWidth,
     orientation,
     size
   });
-  const classes = useUtilityClasses5(styleProps);
+  const classes = useUtilityClasses5(ownerState);
   const handleChange = (event, buttonValue) => {
     if (!onChange) {
       return;
@@ -11828,7 +11832,7 @@ var ToggleButtonGroup = /* @__PURE__ */ forwardRef7(function ToggleButtonGroup2(
     role: "group",
     className: clsx_m_default(classes.root, className),
     ref,
-    styleProps
+    ownerState
   }, other, {
     children: Children3.map(children, (child) => {
       if (!/* @__PURE__ */ isValidElement3(child)) {
@@ -11887,12 +11891,12 @@ var svgIconClasses = generateUtilityClasses("MuiSvgIcon", ["root", "colorPrimary
 import { jsx as _jsx8 } from "react/jsx-runtime";
 import { jsxs as _jsxs3 } from "react/jsx-runtime";
 var _excluded15 = ["children", "className", "color", "component", "fontSize", "htmlColor", "titleAccess", "viewBox"];
-var useUtilityClasses6 = (styleProps) => {
+var useUtilityClasses6 = (ownerState) => {
   const {
     color: color3,
     fontSize: fontSize2,
     classes
-  } = styleProps;
+  } = ownerState;
   const slots = {
     root: ["root", color3 !== "inherit" && `color${capitalize_default(color3)}`, `fontSize${capitalize_default(fontSize2)}`]
   };
@@ -11903,41 +11907,38 @@ var SvgIconRoot = styled_default("svg", {
   slot: "Root",
   overridesResolver: (props, styles) => {
     const {
-      styleProps
+      ownerState
     } = props;
-    return [styles.root, styleProps.color !== "inherit" && styles[`color${capitalize_default(styleProps.color)}`], styles[`fontSize${capitalize_default(styleProps.fontSize)}`]];
+    return [styles.root, ownerState.color !== "inherit" && styles[`color${capitalize_default(ownerState.color)}`], styles[`fontSize${capitalize_default(ownerState.fontSize)}`]];
   }
 })(({
   theme,
-  styleProps
-}) => ({
-  userSelect: "none",
-  width: "1em",
-  height: "1em",
-  display: "inline-block",
-  fill: "currentColor",
-  flexShrink: 0,
-  transition: theme.transitions.create("fill", {
-    duration: theme.transitions.duration.shorter
-  }),
-  fontSize: {
-    inherit: "inherit",
-    small: theme.typography.pxToRem(20),
-    medium: theme.typography.pxToRem(24),
-    large: theme.typography.pxToRem(35)
-  }[styleProps.fontSize],
-  color: {
-    primary: theme.palette.primary.main,
-    secondary: theme.palette.secondary.main,
-    info: theme.palette.info.main,
-    success: theme.palette.success.main,
-    warning: theme.palette.warning.main,
-    action: theme.palette.action.active,
-    error: theme.palette.error.main,
-    disabled: theme.palette.action.disabled,
-    inherit: void 0
-  }[styleProps.color]
-}));
+  ownerState
+}) => {
+  var _theme$palette$ownerS, _theme$palette$ownerS2;
+  return {
+    userSelect: "none",
+    width: "1em",
+    height: "1em",
+    display: "inline-block",
+    fill: "currentColor",
+    flexShrink: 0,
+    transition: theme.transitions.create("fill", {
+      duration: theme.transitions.duration.shorter
+    }),
+    fontSize: {
+      inherit: "inherit",
+      small: theme.typography.pxToRem(20),
+      medium: theme.typography.pxToRem(24),
+      large: theme.typography.pxToRem(35)
+    }[ownerState.fontSize],
+    color: (_theme$palette$ownerS = (_theme$palette$ownerS2 = theme.palette[ownerState.color]) == null ? void 0 : _theme$palette$ownerS2.main) != null ? _theme$palette$ownerS : {
+      action: theme.palette.action.active,
+      disabled: theme.palette.action.disabled,
+      inherit: void 0
+    }[ownerState.color]
+  };
+});
 var SvgIcon = /* @__PURE__ */ forwardRef8(function SvgIcon2(inProps, ref) {
   const props = useThemeProps2({
     props: inProps,
@@ -11953,17 +11954,17 @@ var SvgIcon = /* @__PURE__ */ forwardRef8(function SvgIcon2(inProps, ref) {
     titleAccess,
     viewBox = "0 0 24 24"
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded15);
-  const styleProps = _extends({}, props, {
+  const ownerState = _extends({}, props, {
     color: color3,
     component,
     fontSize: fontSize2,
     viewBox
   });
-  const classes = useUtilityClasses6(styleProps);
+  const classes = useUtilityClasses6(ownerState);
   return /* @__PURE__ */ _jsxs3(SvgIconRoot, _extends({
     as: component,
     className: clsx_m_default(classes.root, className),
-    styleProps,
+    ownerState,
     focusable: "false",
     viewBox,
     color: htmlColor,
@@ -12294,12 +12295,12 @@ object-assign
 (c) Sindre Sorhus
 @license MIT
 */
-/** @license Material-UI v5.0.0-alpha.43
+/** @license Material-UI v5.0.0-alpha.44
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/** @license Material-UI v5.0.0-beta.4
+/** @license Material-UI v5.0.0-beta.5
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
