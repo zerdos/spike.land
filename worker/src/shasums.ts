@@ -126,11 +126,11 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/ipfs.client.mjs":
-    "332f9c7193942e27dd519c3256e05346a095e8f10f4cb8713fff57b9a7114eaa",
-  "modules/QRious.mjs":
-    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
+    "cab0bb6ca05baaa40134781f669d0a60c1b9d9dc3c550f4442248b923f19bc70",
   "modules/renderer.mjs":
     "cf3530f92ce6d50678a4108cd1a8b4204926c722212250a5b8896b3c90982c0b",
+  "modules/QRious.mjs":
+    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   ".tsBuildInfo":
     "3fb2c5472646ed98ec687ee5cfb8a9fc6c1687038f5fd331240c23d16576e61f",
   "food": "bar",
