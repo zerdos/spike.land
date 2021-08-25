@@ -25,29 +25,29 @@ const imports = {
   "@emotion/weak-memoize":
     "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
   "@material-ui/core":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.4/modern/index.js",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/index.js",
   "@material-ui/core/":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.4/modern/",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/",
   "@material-ui/core/utils":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.4/modern/utils/index.js",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/utils/index.js",
   "@material-ui/core/utils/":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.4/modern/utils/",
+    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/utils/",
   "@material-ui/private-theming":
-    "https://unpkg.com/@material-ui/private-theming@5.0.0-beta.2/modern/index.js",
+    "https://unpkg.com/@material-ui/private-theming@5.0.0-beta.5/modern/index.js",
   "@material-ui/private-theming/":
-    "https://unpkg.com/@material-ui/private-theming@5.0.0-beta.2/modern/",
+    "https://unpkg.com/@material-ui/private-theming@5.0.0-beta.5/modern/",
   "@material-ui/styled-engine":
-    "https://unpkg.com/@material-ui/styled-engine@5.0.0-beta.1/modern/index.js",
+    "https://unpkg.com/@material-ui/styled-engine@5.0.0-beta.5/modern/index.js",
   "@material-ui/styled-engine/":
-    "https://unpkg.com/@material-ui/styled-engine@5.0.0-beta.1/modern/",
+    "https://unpkg.com/@material-ui/styled-engine@5.0.0-beta.5/modern/",
   "@material-ui/system":
-    "https://unpkg.com/@material-ui/system@5.0.0-beta.4/modern/index.js",
+    "https://unpkg.com/@material-ui/system@5.0.0-beta.5/modern/index.js",
   "@material-ui/unstyled":
-    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.43/modern/index.js",
+    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.44/modern/index.js",
   "@material-ui/unstyled/":
-    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.43/modern/",
+    "https://unpkg.com/@material-ui/unstyled@5.0.0-alpha.44/modern/",
   "@material-ui/utils":
-    "https://unpkg.com/@material-ui/utils@5.0.0-beta.4/modern/index.js",
+    "https://unpkg.com/@material-ui/utils@5.0.0-beta.5/modern/index.js",
   "@popperjs/core": "https://unpkg.com/@popperjs/core@2.9.2/dist/esm/index.js",
   "@types/react": "https://unpkg.com/@types/react@17.0.19/index.d.ts",
   "global.d.ts": "https://unpkg.com/@types/react@17.0.19/global.d.ts",
