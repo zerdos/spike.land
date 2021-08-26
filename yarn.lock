@@ -1224,9 +1224,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*", "@types/node@>=13.7.0":
-  version "16.7.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.1.tgz#c6b9198178da504dfca1fd0be9b2e1002f1586f0"
-  integrity sha512-ncRdc45SoYJ2H4eWU9ReDfp3vtFqDYhjOsKlFFUDEn8V1Bgr2RjYal8YT5byfadWIRluhPFU6JiDOl0H6Sl87A==
+  version "16.7.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.7.2.tgz#0465a39b5456b61a04d98bd5545f8b34be340cb7"
+  integrity sha512-TbG4TOx9hng8FKxaVrCisdaxKxqEwJ3zwHoCWXZ0Jw6mnvTInpaB99/2Cy4+XxpXtjNv9/TgfGSvZFyfV/t8Fw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -2501,10 +2501,10 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild@0.12.22:
-  version "0.12.22"
-  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.22.tgz#6031a1257b8d0307d306bed673b79c3668607f51"
-  integrity sha512-yWCr9RoFehpqoe/+MwZXJpYOEIt7KOEvNnjIeMZpMSyQt+KCBASM3y7yViiN5dJRphf1wGdUz1+M4rTtWd/ulA==
+esbuild@0.12.23:
+  version "0.12.23"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.23.tgz#fd40d70d3ec5e7893d8c5be655e3e38d096dd882"
+  integrity sha512-qvS4aKnmKikoWGscd5lVAzgobMovlH/JhaWitRiQ8xJx0x1Fym0pqVjMFs43Nvff8WpibeWm+fWoLK88T1U0Xw==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -3391,32 +3391,32 @@ ipfs-core-types@^0.7.0:
     multiaddr "^10.0.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-client@0.8.3:
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.8.3.tgz#bbf22ff99add6659a3f681369d77165070eca809"
-  integrity sha512-zUBedLuQo5/JrNO091CHq5TBKZlvgDa120j6Z9Ql1s0oErn9xc5f65/q3bBng3e0Yh5n3rrFjkTyGBNX5xpvgw==
+ipfs-message-port-client@0.8.4:
+  version "0.8.4"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.8.4.tgz#418d0b8f7b0c031d92924af2a215776e9668f36f"
+  integrity sha512-dswxUc2s2FGdg6RVoUKecitn1jElA+bZUiV5qF/EcBReoxXQdOcORUx5GWbY8z+2dcU8PuCw6IG81bRggL1RMw==
   dependencies:
     browser-readablestream-to-it "^1.0.1"
     ipfs-core-types "^0.7.0"
-    ipfs-message-port-protocol "^0.9.0"
-    ipfs-unixfs "^5.0.0"
+    ipfs-message-port-protocol "^0.9.1"
+    ipfs-unixfs "^6.0.3"
     multiformats "^9.4.1"
 
-ipfs-message-port-protocol@0.9.0, ipfs-message-port-protocol@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.9.0.tgz#4c5dd0d18dd57c37b8530856bc9d1879df2e171f"
-  integrity sha512-MqjyBrlCJvjvFQjNmSeUB5TQLkCkVPzctwdO42ltMmWySjHirv5FNidlBYV+2gciKLhIYPHdavZ+LIXJ19CLNw==
+ipfs-message-port-protocol@0.9.1, ipfs-message-port-protocol@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.9.1.tgz#8441fbcb978e9f8e40ff9661bced98d7894257ba"
+  integrity sha512-/s7Uez5PXi8z/K9XauvgD7Z1/bhpNhoHzcZaZvO3HS+0gDmCebYOpz1zUU0cCIixLIvlwEvZRtccsPsZyZ+e7g==
   dependencies:
     ipfs-core-types "^0.7.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-server@0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.9.0.tgz#191cd31fcc60714e711d02caabc5635a44a0801f"
-  integrity sha512-CbkpI4KBZ7QLQVT/D7tKKiTIuZrSK4UbsBL9g8aMuVJALctzP7hogbwj9f4EsnApvF3WNtUzigPEc3SLRPUpOA==
+ipfs-message-port-server@0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.9.1.tgz#46f1fa3368c716bceeb40bc04319401cb9eed9f5"
+  integrity sha512-blLoLChbibaFFiq5s9Of9xd102CrKlzicEpaXVfDaFCHBDHAiF3G7XYexwn2rT25h1AJbDwz1GhzbQqqz/FPRw==
   dependencies:
     ipfs-core-types "^0.7.0"
-    ipfs-message-port-protocol "^0.9.0"
+    ipfs-message-port-protocol "^0.9.1"
     it-all "^1.0.4"
     multiformats "^9.4.1"
 
@@ -3456,10 +3456,10 @@ ipfs-unixfs@^4.0.3:
     err-code "^3.0.1"
     protobufjs "^6.10.2"
 
-ipfs-unixfs@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/ipfs-unixfs/-/ipfs-unixfs-5.0.0.tgz#f4019050a9c1722615edae9e9ef91a5383f0123b"
-  integrity sha512-6FpBtsxB/9R7o7LGmSMaIoYkWO/cK+JYcj22QYIZaiA5dlk28Dvqme18bA43A7UKEc0M8I7mwD92ZXrlhJ/C7Q==
+ipfs-unixfs@^6.0.3:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/ipfs-unixfs/-/ipfs-unixfs-6.0.4.tgz#9630ba6c3171dc03d4dce6f5b15636901065b259"
+  integrity sha512-5ARPcTtDGgFK6jPYWAitgDTxIjEcrqz3+ReIPuFZCcekglt2jS8osoZYSLNtpGDtjGevQtaJAgce+BQDY3ymBA==
   dependencies:
     err-code "^3.0.1"
     protobufjs "^6.10.2"

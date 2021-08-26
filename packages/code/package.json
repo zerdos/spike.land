@@ -33,7 +33,7 @@
   "homepage": "https://spike.land",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
-    "esbuild": "0.12.22",
+    "esbuild": "0.12.23",
     "typescript": "beta"
   },
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
