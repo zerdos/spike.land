@@ -57,7 +57,7 @@ const imports = {
   "css-vendor": "https://unpkg.com/css-vendor@2.0.8/dist/css-vendor.esm.js",
   "dom-helpers/": "https://unpkg.com/dom-helpers@5.2.1/esm/",
   "framer-motion":
-    "https://unpkg.com/framer-motion@5.0.0-beta.17/dist/es/index.js",
+    "https://unpkg.com/framer-motion@5.0.0-beta.18/dist/es/index.js",
   "framesync": "https://unpkg.com/framesync@5.3.0/dist/es/index.js",
   "hey-listen":
     "https://unpkg.com/@zedvision/hey-listen@1.1.2/dist/hey-listen.es.js",

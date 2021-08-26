@@ -3223,6 +3223,22 @@ function calcBoxDelta(delta, source, target, origin) {
   calcAxisDelta(delta.x, source.x, target.x, origin === null || origin === void 0 ? void 0 : origin.originX);
   calcAxisDelta(delta.y, source.y, target.y, origin === null || origin === void 0 ? void 0 : origin.originY);
 }
+function calcRelativeAxis(target, relative, parent) {
+  target.min = parent.min + relative.min;
+  target.max = target.min + calcLength(relative);
+}
+function calcRelativeBox(target, relative, parent) {
+  calcRelativeAxis(target.x, relative.x, parent.x);
+  calcRelativeAxis(target.y, relative.y, parent.y);
+}
+function calcRelativeAxisPosition(target, layout, parent) {
+  target.min = layout.min - parent.min;
+  target.max = target.min + calcLength(layout);
+}
+function calcRelativePosition(target, layout, parent) {
+  calcRelativeAxisPosition(target.x, layout.x, parent.x);
+  calcRelativeAxisPosition(target.y, layout.y, parent.y);
+}
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-remove.js
 import { __read as __read4 } from "tslib";
@@ -3627,6 +3643,9 @@ function createProjectionNode(_a) {
         node.shouldResetTransform = true;
         node.updateScroll();
       }
+      var _b = this.options, layoutId = _b.layoutId, layout = _b.layout;
+      if (!layoutId && !layout)
+        return;
       var transformTemplate = (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.getProps().transformTemplate;
       this.prevTransformTemplateValue = transformTemplate === null || transformTemplate === void 0 ? void 0 : transformTemplate(this.latestValues, "");
       this.updateSnapshot();
@@ -3777,25 +3796,42 @@ function createProjectionNode(_a) {
       this.layout = void 0;
       this.snapshot = void 0;
       this.prevTransformTemplateValue = void 0;
+      this.targetDelta = void 0;
+      this.target = void 0;
       this.isLayoutDirty = false;
     };
     ProjectionNode.prototype.resolveTargetDelta = function() {
+      var _a2, _b;
       if (!this.targetDelta || !this.layout)
         return;
       if (!this.target) {
         this.target = createBox();
         this.targetWithTransforms = createBox();
       }
-      if (Boolean(this.resumingFrom)) {
-        this.target = this.applyTransform(this.layout);
+      if (this.relativeTarget && this.relativeTargetOrigin && ((_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.target)) {
+        calcRelativeBox(this.target, this.relativeTarget, this.parent.target);
       } else {
-        copyBoxInto(this.target, this.layout);
+        if (Boolean(this.resumingFrom)) {
+          this.target = this.applyTransform(this.layout);
+        } else {
+          copyBoxInto(this.target, this.layout);
+        }
+        applyBoxDelta(this.target, this.targetDelta);
       }
-      applyBoxDelta(this.target, this.targetDelta);
+      if (this.attemptToResolveRelativeTarget) {
+        this.attemptToResolveRelativeTarget = false;
+        if ((_b = this.parent) === null || _b === void 0 ? void 0 : _b.target) {
+          this.relativeTarget = createBox();
+          this.relativeTargetOrigin = createBox();
+          calcRelativePosition(this.relativeTargetOrigin, this.target, this.parent.target);
+          copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
+        }
+      }
     };
     ProjectionNode.prototype.calcProjection = function() {
       var _a2, _b;
-      if (!this.layout)
+      var _c = this.options, layout = _c.layout, layoutId = _c.layoutId;
+      if (!this.layout || !(layout || layoutId))
         return;
       var lead = this.getLead();
       copyBoxInto(this.layoutCorrected, this.layout);
@@ -3852,18 +3888,26 @@ function createProjectionNode(_a) {
       var snapshotLatestValues = (snapshot === null || snapshot === void 0 ? void 0 : snapshot.latestValues) || {};
       var mixedValues = __assign15({}, this.latestValues);
       var targetDelta = createDelta();
+      this.relativeTarget = this.relativeTargetOrigin = void 0;
+      this.attemptToResolveRelativeTarget = true;
+      var relativeLayout = createBox();
       var isSharedLayoutAnimation = snapshot === null || snapshot === void 0 ? void 0 : snapshot.isShared;
       var isOnlyMember = (((_a2 = this.getStack()) === null || _a2 === void 0 ? void 0 : _a2.members.length) || 0) <= 1;
       var shouldCrossfadeOpacity = Boolean(isSharedLayoutAnimation && !isOnlyMember && this.options.crossfade === true && !this.path.some(hasOpacityCrossfade));
       this.mixTargetDelta = function(latest) {
+        var _a3;
         var progress2 = latest / 1e3;
         mixAxisDelta(targetDelta.x, delta.x, progress2);
         mixAxisDelta(targetDelta.y, delta.y, progress2);
+        _this.setTargetDelta(targetDelta);
+        if (_this.relativeTarget && _this.relativeTargetOrigin && _this.layout && ((_a3 = _this.parent) === null || _a3 === void 0 ? void 0 : _a3.layout)) {
+          calcRelativePosition(relativeLayout, _this.layout, _this.parent.layout);
+          mixBox(_this.relativeTarget, _this.relativeTargetOrigin, relativeLayout, progress2);
+        }
         if (isSharedLayoutAnimation) {
           _this.animationValues = mixedValues;
           mixValues(mixedValues, snapshotLatestValues, _this.latestValues, progress2, shouldCrossfadeOpacity, isOnlyMember);
         }
-        _this.setTargetDelta(targetDelta);
         _this.root.scheduleUpdateProjection();
         _this.scheduleRender();
       };
@@ -3879,25 +3923,31 @@ function createProjectionNode(_a) {
         _this.mixTargetDelta(latest);
         (_a3 = options.onUpdate) === null || _a3 === void 0 ? void 0 : _a3.call(options, latest);
       }, onComplete: function() {
-        var _a3, _b2;
-        if (_this.resumingFrom) {
-          _this.resumingFrom.currentAnimation = void 0;
-          _this.resumingFrom.preserveOpacity = void 0;
-        }
-        _this.resumingFrom = _this.currentAnimation = _this.animationValues = void 0;
+        var _a3;
         (_a3 = options.onComplete) === null || _a3 === void 0 ? void 0 : _a3.call(options);
-        (_b2 = _this.getStack()) === null || _b2 === void 0 ? void 0 : _b2.exitAnimationComplete();
+        _this.completeAnimation();
       } }));
       if (this.resumingFrom) {
         (_b = this.resumingFrom.currentAnimation) === null || _b === void 0 ? void 0 : _b.stop();
         this.resumingFrom.currentAnimation = this.currentAnimation;
       }
     };
+    ProjectionNode.prototype.completeAnimation = function() {
+      var _a2;
+      if (this.resumingFrom) {
+        this.resumingFrom.currentAnimation = void 0;
+        this.resumingFrom.preserveOpacity = void 0;
+      }
+      this.resumingFrom = this.currentAnimation = this.animationValues = void 0;
+      (_a2 = this.getStack()) === null || _a2 === void 0 ? void 0 : _a2.exitAnimationComplete();
+    };
     ProjectionNode.prototype.finishAnimation = function() {
+      var _a2;
       if (!this.currentAnimation)
         return;
+      (_a2 = this.mixTargetDelta) === null || _a2 === void 0 ? void 0 : _a2.call(this, 1);
       this.currentAnimation.stop();
-      this.mixTargetDelta(1);
+      this.completeAnimation();
     };
     ProjectionNode.prototype.applyTransformsToTarget = function() {
       var _a2 = this.getLead(), targetWithTransforms = _a2.targetWithTransforms, target = _a2.target, latestValues = _a2.latestValues;
@@ -4037,6 +4087,14 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.clearSnapshot = function() {
       this.resumeFrom = this.snapshot = void 0;
     };
+    ProjectionNode.prototype.resetTree = function() {
+      this.root.nodes.forEach(function(node) {
+        var _a2;
+        return (_a2 = node.currentAnimation) === null || _a2 === void 0 ? void 0 : _a2.stop();
+      });
+      this.root.nodes.forEach(clearMeasurements);
+      this.root.sharedNodes.clear();
+    };
     return ProjectionNode;
   }();
 }
@@ -4104,6 +4162,14 @@ function mixAxisDelta(output, delta, p) {
   output.scale = mix(delta.scale, 1, p);
   output.origin = delta.origin;
   output.originPoint = delta.originPoint;
+}
+function mixAxis(output, from, to, p) {
+  output.min = mix(from.min, to.min, p);
+  output.max = mix(from.max, to.max, p);
+}
+function mixBox(output, from, to, p) {
+  mixAxis(output.x, from.x, to.x, p);
+  mixAxis(output.y, from.y, to.y, p);
 }
 function hasOpacityCrossfade(node) {
   return node.animationValues && node.animationValues.opacityExit !== void 0;
@@ -4231,7 +4297,7 @@ function useProjection(projectionId, _a, visualElement2, initialPromotionConfig)
   visualElement2.projection.setOptions({
     layoutId,
     layout,
-    alwaysMeasureLayout: !!drag2 || dragConstraints && isRefObject(dragConstraints),
+    alwaysMeasureLayout: Boolean(drag2) || dragConstraints && isRefObject(dragConstraints),
     visualElement: visualElement2,
     scheduleRender: function() {
       return visualElement2.scheduleRender();
@@ -4723,6 +4789,7 @@ var camelToDash = function(str) {
 function renderHTML(element, _a, projection) {
   var style3 = _a.style, vars = _a.vars;
   Object.assign(element.style, style3, projection ? projection.getProjectionStyles() : {});
+  element.id === "item-child" && console.log(style3.opacity, projection && projection.getProjectionStyles().opacity);
   for (var key in vars) {
     element.style.setProperty(key, vars[key]);
   }
@@ -7755,31 +7822,27 @@ function useDragControls() {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/use-instant-layout-transition.js
-import {
-  useCallback as useCallback3
-} from "react";
 function useInstantLayoutTransition() {
-  var startTransition = useCallback3(function(cb2) {
-    if (!rootProjectionNode.current)
-      return;
-    rootProjectionNode.current.isUpdating = false;
-    rootProjectionNode.current.blockUpdate();
-    cb2 === null || cb2 === void 0 ? void 0 : cb2();
-  }, []);
   return startTransition;
+}
+function startTransition(cb2) {
+  if (!rootProjectionNode.current)
+    return;
+  rootProjectionNode.current.isUpdating = false;
+  rootProjectionNode.current.blockUpdate();
+  cb2 === null || cb2 === void 0 ? void 0 : cb2();
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/use-reset-projection.js
 import {
-  useCallback as useCallback4
+  useCallback as useCallback3
 } from "react";
 function useResetProjection() {
-  var reset = useCallback4(function() {
+  var reset = useCallback3(function() {
     var root = rootProjectionNode.current;
     if (!root)
       return;
-    root.clearMeasurements();
-    root.sharedNodes.clear();
+    root.resetTree();
   }, []);
   return reset;
 }
@@ -7868,7 +7931,7 @@ function useInvertedScale(scale2) {
 }
 
 // src/renderer.ts
-import React27, { Fragment as Fragment2 } from "react";
+import React26, { Fragment as Fragment2 } from "react";
 import {
   render
 } from "react-dom";
@@ -8079,7 +8142,7 @@ var useEnhancedEffect_default = useEnhancedEffect;
 
 // ../../node_modules/@material-ui/utils/esm/useEventCallback.js
 import {
-  useCallback as useCallback5,
+  useCallback as useCallback4,
   useRef as useRef11
 } from "react";
 function useEventCallback(fn) {
@@ -8087,7 +8150,7 @@ function useEventCallback(fn) {
   useEnhancedEffect_default(() => {
     ref.current = fn;
   });
-  return useCallback5((...args) => (0, ref.current)(...args), []);
+  return useCallback4((...args) => (0, ref.current)(...args), []);
 }
 
 // ../../node_modules/@material-ui/utils/esm/useForkRef.js
@@ -8108,7 +8171,7 @@ function useForkRef(refA, refB) {
 
 // ../../node_modules/@material-ui/utils/esm/useIsFocusVisible.js
 import {
-  useCallback as useCallback6,
+  useCallback as useCallback5,
   useRef as useRef12
 } from "react";
 var hadKeyboardEvent = true;
@@ -8179,7 +8242,7 @@ function isFocusVisible(event) {
   return hadKeyboardEvent || focusTriggersKeyboardModality(target);
 }
 function useIsFocusVisible() {
-  const ref = useCallback6((node) => {
+  const ref = useCallback5((node) => {
     if (node != null) {
       prepare(node.ownerDocument);
     }
@@ -10188,7 +10251,7 @@ var useIsFocusVisible_default = useIsFocusVisible;
 var import_prop_types7 = __toModule(require_prop_types());
 import {
   forwardRef as forwardRef2,
-  useCallback as useCallback7,
+  useCallback as useCallback6,
   useEffect as useEffect19,
   useImperativeHandle,
   useRef as useRef13,
@@ -10212,8 +10275,8 @@ function _inheritsLoose(subClass, superClass) {
 }
 
 // ../../node_modules/react-transition-group/esm/TransitionGroupContext.js
-import React16 from "react";
-var TransitionGroupContext_default = React16.createContext(null);
+import React15 from "react";
+var TransitionGroupContext_default = React15.createContext(null);
 
 // ../../node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 function _assertThisInitialized(self) {
@@ -10225,7 +10288,7 @@ function _assertThisInitialized(self) {
 
 // ../../node_modules/react-transition-group/esm/TransitionGroup.js
 var import_prop_types5 = __toModule(require_prop_types());
-import React17 from "react";
+import React16 from "react";
 
 // ../../node_modules/react-transition-group/esm/utils/ChildMapping.js
 import { Children as Children2, cloneElement as cloneElement2, isValidElement as isValidElement2 } from "react";
@@ -10395,16 +10458,16 @@ var TransitionGroup = /* @__PURE__ */ function(_React$Component) {
     delete props.enter;
     delete props.exit;
     if (Component === null) {
-      return /* @__PURE__ */ React17.createElement(TransitionGroupContext_default.Provider, {
+      return /* @__PURE__ */ React16.createElement(TransitionGroupContext_default.Provider, {
         value: contextValue
       }, children);
     }
-    return /* @__PURE__ */ React17.createElement(TransitionGroupContext_default.Provider, {
+    return /* @__PURE__ */ React16.createElement(TransitionGroupContext_default.Provider, {
       value: contextValue
-    }, /* @__PURE__ */ React17.createElement(Component, props, children));
+    }, /* @__PURE__ */ React16.createElement(Component, props, children));
   };
   return TransitionGroup2;
-}(React17.Component);
+}(React16.Component);
 TransitionGroup.propTypes = true ? {
   component: import_prop_types5.default.any,
   children: import_prop_types5.default.node,
@@ -10622,7 +10685,7 @@ var TouchRipple = /* @__PURE__ */ forwardRef2(function TouchRipple2(inProps, ref
       clearTimeout(startTimer.current);
     };
   }, []);
-  const startCommit = useCallback7((params) => {
+  const startCommit = useCallback6((params) => {
     const {
       pulsate: pulsate2,
       rippleX,
@@ -10648,7 +10711,7 @@ var TouchRipple = /* @__PURE__ */ forwardRef2(function TouchRipple2(inProps, ref
     nextKey.current += 1;
     rippleCallback.current = cb2;
   }, [classes]);
-  const start = useCallback7((event = {}, options = {}, cb2) => {
+  const start = useCallback6((event = {}, options = {}, cb2) => {
     const {
       pulsate: pulsate2 = false,
       center = centerProp || options.pulsate,
@@ -10720,12 +10783,12 @@ var TouchRipple = /* @__PURE__ */ forwardRef2(function TouchRipple2(inProps, ref
       });
     }
   }, [centerProp, startCommit]);
-  const pulsate = useCallback7(() => {
+  const pulsate = useCallback6(() => {
     start({}, {
       pulsate: true
     });
   }, [start]);
-  const stop = useCallback7((event, cb2) => {
+  const stop = useCallback6((event, cb2) => {
     clearTimeout(startTimer.current);
     if (event.type === "touchend" && startTimerCommit.current) {
       startTimerCommit.current();
@@ -12010,39 +12073,39 @@ function createSvgIcon(path, displayName) {
 }
 
 // src/icons/Share.tsx
-var Share_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var Share_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
 }), "Share");
 
 // src/icons/TabletAndroid.tsx
-var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
 }), "TabletAndroid");
 
 // src/icons/Tv.tsx
-var Tv_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var Tv_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
 }), "Tv");
 
 // src/icons/PhoneAndroid.tsx
-var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
 }), "PhoneAndroid");
 
 // src/icons/QrCode.tsx
-var QrCode_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var QrCode_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
   key: "12",
   d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
 }), "QrCode");
 
 // src/Qr.tsx
 var QR = ({ url }) => {
-  const canvasRef = React27.useRef(null);
-  React27.useEffect(() => {
+  const canvasRef = React26.useRef(null);
+  React26.useEffect(() => {
     const load = async () => {
       const { QRious } = await import("@zedvision/qrious");
       const options = {
@@ -12068,7 +12131,7 @@ var QR = ({ url }) => {
   });
 };
 var QRButton = ({ url }) => {
-  const [showQR, setQR] = React27.useState(false);
+  const [showQR, setQR] = React26.useState(false);
   return /* @__PURE__ */ jsx(motion2.div, {
     animate: {
       width: showQR ? 200 : 56,
@@ -12096,21 +12159,21 @@ var QRButton = ({ url }) => {
 var breakPoints = [640, 1024, 1920];
 var sizes = [10, 25, 50, 75, 100];
 var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => {
-  const [isStable, setIsStable] = React27.useState(false);
-  const [scaleRange, changeScaleRange] = React27.useState(75);
-  const [height2, changeHeight] = React27.useState(innerHeight);
-  const [childArray, setChild] = React27.useState([session.children]);
+  const [isStable, setIsStable] = React26.useState(false);
+  const [scaleRange, changeScaleRange] = React26.useState(75);
+  const [height2, changeHeight] = React26.useState(innerHeight);
+  const [childArray, setChild] = React26.useState([session.children]);
   session.setChild = setChild;
-  const [qrUrl, setQRUrl] = React27.useState(session.url);
-  const [errorText, setErrorText] = React27.useState(" ");
-  const [width2, setWidth] = React27.useState(breakPoints[1]);
-  const ref = React27.useRef(null);
-  const zbody = React27.useRef(null);
+  const [qrUrl, setQRUrl] = React26.useState(session.url);
+  const [errorText, setErrorText] = React26.useState(" ");
+  const [width2, setWidth] = React26.useState(breakPoints[1]);
+  const ref = React26.useRef(null);
+  const zbody = React26.useRef(null);
   const child = childArray[childArray.length - 1];
-  React27.useEffect(() => {
+  React26.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
   });
-  React27.useEffect(() => {
+  React26.useEffect(() => {
     const handler = setInterval(() => {
       if (errorText !== session.errorText) {
         const newErr = session.errorText;
@@ -12225,7 +12288,7 @@ var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => 
               `
   }, errorText ? /* @__PURE__ */ jsx("div", {
     dangerouslySetInnerHTML: createMarkup(session.html)
-  }) : /* @__PURE__ */ jsx(React27.Suspense, {
+  }) : /* @__PURE__ */ jsx(React26.Suspense, {
     fallback: /* @__PURE__ */ jsx("div", null, "Error fallback")
   }, /* @__PURE__ */ jsx("div", {
     id: "zbody",
@@ -12277,13 +12340,13 @@ var { motion: motion2 } = es_exports;
 var render2 = (el, container) => {
   const root = render(jsx(Fragment2, { children: el }), container);
 };
-var renderer_default = React27;
+var renderer_default = React26;
 export {
   DraggableWindow,
   Fragment2 as Fragment,
   Global,
   es_exports as Motion,
-  React27 as React,
+  React26 as React,
   css2 as css,
   renderer_default as default,
   jsx,
