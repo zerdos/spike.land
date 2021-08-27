@@ -28,7 +28,7 @@
     "eslint-plugin-react": "7.24.0",
     "lerna": "4.0.0",
     "pageres-cli": "6.0.0",
-    "typescript": "beta",
+    "typescript": "4.4.2",
     "yarn": "1.22.11"
   }
 }

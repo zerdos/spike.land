@@ -34,7 +34,7 @@
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
     "esbuild": "0.12.23",
-    "typescript": "beta"
+    "typescript": "4.4.2"
   },
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
   "author": "Zoltan Erdos <zolika84@gmail.com>",

@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "esbuild": "0.12.23",
-    "typescript": "beta"
+    "typescript": "4.4.2"
   },
   "dependencies": {
     "qrious-core": "4.0.0"
