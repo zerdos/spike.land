@@ -5768,10 +5768,10 @@ gatsby-worker@^0.3.0:
   dependencies:
     "@babel/core" "^7.14.8"
 
-gatsby@3.12.0:
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-3.12.0.tgz#f6e39716b8d9412353be9d2fa880f19dd5f03216"
-  integrity sha512-H0F2ZNLuYZAg2TyHSjvsKlYfLo9bNUoMha3W4csLeAsI8okP3HV9m0J8FXVMrK4CdGc1RXqQzNu+2HdUpdMZZQ==
+gatsby@3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/gatsby/-/gatsby-3.12.1.tgz#89899c2966df6a51228f39a099f68aab2baabc1a"
+  integrity sha512-Z2lh2EB8Oh68JHImnlHpqgivAKQ81CYNA9faMgQM/okvF0n5Zrb8/1cKb1VuEwwbjhwZjLAlCQAIZ79vs7IHDg==
   dependencies:
     "@babel/code-frame" "^7.14.0"
     "@babel/core" "^7.14.8"
@@ -11811,10 +11811,10 @@ typeface-montserrat@1.1.13:
   resolved "https://registry.yarnpkg.com/typeface-montserrat/-/typeface-montserrat-1.1.13.tgz#2a16729c174dd1a8c3fec05a851b7725412606cc"
   integrity sha512-Pklkyj0e+K+6I/t0M6JBDBphpfJkF1k+3qd8qDnp9aVtCC7oGBQWTAcL6+5eArfGe7h73uPwyal73hEkf9YCUA==
 
-typescript@4.3.5:
-  version "4.3.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.5.tgz#4d1c37cc16e893973c45a06886b7113234f119f4"
-  integrity sha512-DqQgihaQ9cUrskJo9kIyW/+g0Vxsk8cDtZ52a3NGh0YNTfpUSArXSohyUGnvbPazEPLu398C0UxmKSOrPumUzA==
+typescript@4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.2.tgz#6d618640d430e3569a1dfb44f7d7e600ced3ee86"
+  integrity sha512-gzP+t5W4hdy4c+68bfcv0t400HVJMMd2+H9B7gae1nQlBzCqvrXX+6GL/b3GAgyTH966pzrZ70/fRjwAtZksSQ==
 
 typography-breakpoint-constants@^0.16.19:
   version "0.16.19"

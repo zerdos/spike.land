@@ -1923,8 +1923,12 @@ var timeoutId=setTimeout(function(){emitter/* default.emit */.Z.emit("onDelayedL
 // page.
 if(!pageResources||pageResources.status===loader/* PageResourceStatus.Error */.uQ.Error){window.history.replaceState({},"",location.href);window.location=pathname;clearTimeout(timeoutId);return;}// If the loaded page has a different compilation hash to the
 // window, then a rebuild has occurred on the server. Reload.
-if( true&&pageResources){if(pageResources.page.webpackCompilationHash!==window.___webpackCompilationHash){// Purge plugin-offline cache
-if("serviceWorker"in navigator&&navigator.serviceWorker.controller!==null&&navigator.serviceWorker.controller.state==="activated"){navigator.serviceWorker.controller.postMessage({gatsbyApi:"clearPathResources"});}window.location=pathname;}}(0,es.navigate)(to,options);clearTimeout(timeoutId);});};function shouldUpdateScroll(prevRouterProps,_ref){var _this=this;var location=_ref.location;var pathname=location.pathname,hash=location.hash;var results=(0,api_runner_browser/* apiRunner */.h)("shouldUpdateScroll",{prevRouterProps:prevRouterProps,// `pathname` for backwards compatibility
+if( true&&pageResources){// window.___webpackCompilationHash gets set in production-app.js after navigationInit() is called
+// So on a direct visit of a page with a browser redirect this check is truthy and thus the codepath is hit
+// While the resource actually exists, but only too late
+// TODO: This should probably be fixed by setting ___webpackCompilationHash before navigationInit() is called
+if(pageResources.page.webpackCompilationHash!==window.___webpackCompilationHash){// Purge plugin-offline cache
+if("serviceWorker"in navigator&&navigator.serviceWorker.controller!==null&&navigator.serviceWorker.controller.state==="activated"){navigator.serviceWorker.controller.postMessage({gatsbyApi:"clearPathResources"});}window.location=pathname+search+hash;}}(0,es.navigate)(to,options);clearTimeout(timeoutId);});};function shouldUpdateScroll(prevRouterProps,_ref){var _this=this;var location=_ref.location;var pathname=location.pathname,hash=location.hash;var results=(0,api_runner_browser/* apiRunner */.h)("shouldUpdateScroll",{prevRouterProps:prevRouterProps,// `pathname` for backwards compatibility
 pathname:pathname,routerProps:{location:location},getSavedScrollPosition:function getSavedScrollPosition(args){return[0,// FIXME this is actually a big code smell, we should fix this
 // eslint-disable-next-line @babel/no-invalid-this
 _this._stateStorage.read(args,args.key)];}});if(results.length>0){// Use the latest registered shouldUpdateScroll result, this allows users to override plugin's configuration
@@ -3583,4 +3587,4 @@ function _inheritsLoose(subClass, superClass) {
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=app-4f45ebc9ddf213648595.js.map
+//# sourceMappingURL=app-9fc3952082d281604b0c.js.map

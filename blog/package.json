@@ -46,14 +46,14 @@
     "@types/react-helmet": "6.1.2",
     "eslint": "7.32.0",
     "eslint-plugin-react": "7.24.0",
-    "gatsby": "3.12.0",
+    "gatsby": "3.12.1",
     "gatsby-plugin-emotion": "6.12.0",
     "gatsby-plugin-manifest": "3.12.0",
     "gatsby-plugin-mdx": "2.12.0",
     "gatsby-plugin-react-helmet": "4.12.0",
     "gatsby-source-filesystem": "3.12.0",
     "prop-types": "15.7.2",
-    "typescript": "4.3.5"
+    "typescript": "4.4.2"
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
 }
