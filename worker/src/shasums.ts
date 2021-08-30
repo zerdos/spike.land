@@ -75,7 +75,7 @@ export const shasums = {
   "js/data.mjs":
     "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "js/importmap.js":
-    "5a4c9e14fad0e26ae26833afa7ebdd6d631d65ae4ca41cb356bca845d7f91c7f",
+    "d3a5cd2015242425aafd62dfaeeeb4f2c978bef937d55bf320cc78bd3dd762f3",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
@@ -128,7 +128,7 @@ export const shasums = {
   "modules/ipfs.client.mjs":
     "ec79f67528c450d71e908a7a4c5324672730115cb229200882e9fe7184aa9021",
   "modules/renderer.mjs":
-    "26e5260b686b604238181c153127c2e0298e4e4565e902add432167d44ad60a3",
+    "445ebf29b90d83d9db4d21eed424afa1315d549c05830b78a705f7e2014e5752",
   "modules/QRious.mjs":
     "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   ".tsBuildInfo":

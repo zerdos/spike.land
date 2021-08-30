@@ -1000,6 +1000,7 @@ var require_react_is2 = __commonJS({
 var es_exports = {};
 __export(es_exports, {
   AnimatePresence: () => AnimatePresence,
+  DeprecatedLayoutGroupContext: () => DeprecatedLayoutGroupContext,
   DragControls: () => DragControls,
   FlatTree: () => FlatTree,
   LayoutGroup: () => LayoutGroup,
@@ -3693,7 +3694,7 @@ function createProjectionNode(_a) {
     };
     ProjectionNode.prototype.updateLayout = function() {
       this.updateScroll();
-      if (!this.options.alwaysMeasureLayout && !this.isLayoutDirty)
+      if (!(this.options.alwaysMeasureLayout && this.isLead()) && !this.isLayoutDirty)
         return;
       var measured = this.measure();
       this.layout = this.removeElementScroll(measured);
@@ -3801,15 +3802,15 @@ function createProjectionNode(_a) {
       this.isLayoutDirty = false;
     };
     ProjectionNode.prototype.resolveTargetDelta = function() {
-      var _a2, _b;
+      var _a2;
       if (!this.targetDelta || !this.layout)
         return;
       if (!this.target) {
         this.target = createBox();
         this.targetWithTransforms = createBox();
       }
-      if (this.relativeTarget && this.relativeTargetOrigin && ((_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.target)) {
-        calcRelativeBox(this.target, this.relativeTarget, this.parent.target);
+      if (this.relativeTarget && this.relativeTargetOrigin && ((_a2 = this.relativeParent) === null || _a2 === void 0 ? void 0 : _a2.target)) {
+        calcRelativeBox(this.target, this.relativeTarget, this.relativeParent.target);
       } else {
         if (Boolean(this.resumingFrom)) {
           this.target = this.applyTransform(this.layout);
@@ -3820,12 +3821,22 @@ function createProjectionNode(_a) {
       }
       if (this.attemptToResolveRelativeTarget) {
         this.attemptToResolveRelativeTarget = false;
-        if ((_b = this.parent) === null || _b === void 0 ? void 0 : _b.target) {
+        this.relativeParent = this.getClosestProjectingParent();
+        if (this.relativeParent && this.relativeParent.target) {
           this.relativeTarget = createBox();
           this.relativeTargetOrigin = createBox();
-          calcRelativePosition(this.relativeTargetOrigin, this.target, this.parent.target);
+          calcRelativePosition(this.relativeTargetOrigin, this.target, this.relativeParent.target);
           copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
         }
+      }
+    };
+    ProjectionNode.prototype.getClosestProjectingParent = function() {
+      if (!this.parent || hasTransform(this.parent.latestValues))
+        return void 0;
+      if (this.parent.target && this.parent.layout) {
+        return this.parent;
+      } else {
+        return this.parent.getClosestProjectingParent();
       }
     };
     ProjectionNode.prototype.calcProjection = function() {
@@ -3900,8 +3911,8 @@ function createProjectionNode(_a) {
         mixAxisDelta(targetDelta.x, delta.x, progress2);
         mixAxisDelta(targetDelta.y, delta.y, progress2);
         _this.setTargetDelta(targetDelta);
-        if (_this.relativeTarget && _this.relativeTargetOrigin && _this.layout && ((_a3 = _this.parent) === null || _a3 === void 0 ? void 0 : _a3.layout)) {
-          calcRelativePosition(relativeLayout, _this.layout, _this.parent.layout);
+        if (_this.relativeTarget && _this.relativeTargetOrigin && _this.layout && ((_a3 = _this.relativeParent) === null || _a3 === void 0 ? void 0 : _a3.layout)) {
+          calcRelativePosition(relativeLayout, _this.layout, _this.relativeParent.layout);
           mixBox(_this.relativeTarget, _this.relativeTargetOrigin, relativeLayout, progress2);
         }
         if (isSharedLayoutAnimation) {
@@ -7063,9 +7074,9 @@ var MeasureLayoutWithContext = function(_super) {
     var projection = visualElement2.projection;
     addScaleCorrector(defaultScaleCorrectors);
     if (projection) {
-      if (layoutGroup.group)
+      if (layoutGroup === null || layoutGroup === void 0 ? void 0 : layoutGroup.group)
         layoutGroup.group.add(projection);
-      if (switchLayoutGroup.register && layoutId) {
+      if ((switchLayoutGroup === null || switchLayoutGroup === void 0 ? void 0 : switchLayoutGroup.register) && layoutId) {
         switchLayoutGroup.register(projection);
       }
       projection.root.didUpdate();
@@ -7109,9 +7120,9 @@ var MeasureLayoutWithContext = function(_super) {
     var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, promoteContext = _a.switchLayoutGroup;
     var projection = visualElement2.projection;
     if (projection) {
-      if (layoutGroup.group)
+      if (layoutGroup === null || layoutGroup === void 0 ? void 0 : layoutGroup.group)
         layoutGroup.group.remove(projection);
-      if (promoteContext.deregister)
+      if (promoteContext === null || promoteContext === void 0 ? void 0 : promoteContext.deregister)
         promoteContext.deregister(projection);
     }
   };
@@ -7390,6 +7401,10 @@ import {
 } from "react";
 import { useContext as useContext13, useRef as useRef8, useMemo as useMemo6 } from "react";
 
+// ../../node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.js
+import { createContext as createContext7 } from "react";
+var DeprecatedLayoutGroupContext = createContext7(null);
+
 // ../../node_modules/framer-motion/dist/es/projection/node/group.js
 var notify = function(node) {
   return !node.isLayoutDirty && node.willUpdate(false);
@@ -7418,17 +7433,20 @@ function nodeGroup() {
 
 // ../../node_modules/framer-motion/dist/es/components/LayoutGroup/index.js
 var LayoutGroup = function(_a) {
-  var children = _a.children, id2 = _a.id, _b = _a.inheritId, inheritId = _b === void 0 ? true : _b;
+  var _b, _c;
+  var children = _a.children, id2 = _a.id, _d = _a.inheritId, inheritId = _d === void 0 ? true : _d;
   var layoutGroupContext = useContext13(LayoutGroupContext);
-  var _c = __read20(useForceUpdate(), 2), forceRender = _c[0], key = _c[1];
+  var deprecatedLayoutGroupContext = useContext13(DeprecatedLayoutGroupContext);
+  var _e = __read20(useForceUpdate(), 2), forceRender = _e[0], key = _e[1];
   var context = useRef8(null);
+  var upstreamId = (_b = layoutGroupContext.id) !== null && _b !== void 0 ? _b : deprecatedLayoutGroupContext;
   if (context.current === null) {
-    if (inheritId && layoutGroupContext.id && layoutGroupContext.id !== id2) {
-      id2 = id2 ? layoutGroupContext.id + "-" + id2 : layoutGroupContext.id;
+    if (inheritId && upstreamId) {
+      id2 = id2 ? upstreamId + "-" + id2 : upstreamId;
     }
     context.current = {
       id: id2,
-      group: inheritId ? layoutGroupContext.group : nodeGroup()
+      group: inheritId ? (_c = layoutGroupContext === null || layoutGroupContext === void 0 ? void 0 : layoutGroupContext.group) !== null && _c !== void 0 ? _c : nodeGroup() : nodeGroup()
     };
   }
   var memoizedContext = useMemo6(function() {
@@ -9193,9 +9211,9 @@ var createTheme_default = createTheme;
 
 // ../../node_modules/@material-ui/private-theming/useTheme/ThemeContext.js
 import {
-  createContext as createContext7
+  createContext as createContext8
 } from "react";
-var ThemeContext2 = /* @__PURE__ */ createContext7(null);
+var ThemeContext2 = /* @__PURE__ */ createContext8(null);
 if (true) {
   ThemeContext2.displayName = "ThemeContext";
 }
