@@ -1000,6 +1000,7 @@ var require_react_is2 = __commonJS({
 var es_exports = {};
 __export(es_exports, {
   AnimatePresence: () => AnimatePresence,
+  AnimateSharedLayout: () => AnimateSharedLayout,
   DeprecatedLayoutGroupContext: () => DeprecatedLayoutGroupContext,
   DragControls: () => DragControls,
   FlatTree: () => FlatTree,
@@ -3498,7 +3499,7 @@ var globalProjectionState = {
 function createProjectionNode(_a) {
   var attachResizeListener = _a.attachResizeListener, defaultParent = _a.defaultParent, measureScroll = _a.measureScroll, resetTransform = _a.resetTransform;
   return function() {
-    function ProjectionNode(id2, latestValues, parent) {
+    function ProjectionNode(id3, latestValues, parent) {
       var _this = this;
       if (latestValues === void 0) {
         latestValues = {};
@@ -3524,13 +3525,13 @@ function createProjectionNode(_a) {
       this.isVisible = true;
       this.animationProgress = 0;
       this.sharedNodes = new Map();
-      this.id = id2;
+      this.id = id3;
       this.latestValues = latestValues;
       this.root = parent ? parent.root || parent : this;
       this.path = parent ? __spreadArray3(__spreadArray3([], __read5(parent.path)), [parent]) : [];
       this.parent = parent;
       this.depth = parent ? parent.depth + 1 : 0;
-      id2 && this.root.registerPotentialNode(id2, this);
+      id3 && this.root.registerPotentialNode(id3, this);
       for (var i = 0; i < this.path.length; i++) {
         this.path[i].shouldResetTransform = true;
       }
@@ -3554,8 +3555,8 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.hasListeners = function(name) {
       return this.eventHandlers.has(name);
     };
-    ProjectionNode.prototype.registerPotentialNode = function(id2, node) {
-      this.potentialNodes.set(id2, node);
+    ProjectionNode.prototype.registerPotentialNode = function(id3, node) {
+      this.potentialNodes.set(id3, node);
     };
     ProjectionNode.prototype.mount = function(instance, isLayoutDirty) {
       var _this = this;
@@ -3803,7 +3804,19 @@ function createProjectionNode(_a) {
     };
     ProjectionNode.prototype.resolveTargetDelta = function() {
       var _a2;
-      if (!this.targetDelta || !this.layout)
+      var _b = this.options, layout = _b.layout, layoutId = _b.layoutId;
+      if (!this.layout || !(layout || layoutId))
+        return;
+      if (!this.targetDelta) {
+        this.relativeParent = this.getClosestProjectingParent();
+        if (this.relativeParent && this.relativeParent.layout) {
+          this.relativeTarget = createBox();
+          this.relativeTargetOrigin = createBox();
+          calcRelativePosition(this.relativeTargetOrigin, this.layout, this.relativeParent.layout);
+          copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
+        }
+      }
+      if (!this.relativeTarget && !this.targetDelta)
         return;
       if (!this.target) {
         this.target = createBox();
@@ -3811,7 +3824,7 @@ function createProjectionNode(_a) {
       }
       if (this.relativeTarget && this.relativeTargetOrigin && ((_a2 = this.relativeParent) === null || _a2 === void 0 ? void 0 : _a2.target)) {
         calcRelativeBox(this.target, this.relativeTarget, this.relativeParent.target);
-      } else {
+      } else if (this.targetDelta) {
         if (Boolean(this.resumingFrom)) {
           this.target = this.applyTransform(this.layout);
         } else {
@@ -4004,8 +4017,10 @@ function createProjectionNode(_a) {
       var stack = this.getStack();
       if (stack)
         stack.promote(this, preserveFollowOpacity);
-      if (needsReset)
+      if (needsReset) {
+        this.projectionDelta = void 0;
         this.needsReset = true;
+      }
       if (transition)
         this.setOptions({ transition });
     };
@@ -4189,7 +4204,7 @@ var defaultLayoutTransition = {
   duration: 0.45,
   ease: [0.4, 0, 0.1, 1]
 };
-function mountNodeEarly(node, id2) {
+function mountNodeEarly(node, id3) {
   var searchNode = node.root;
   for (var i = node.path.length - 1; i >= 0; i--) {
     if (Boolean(node.path[i].instance)) {
@@ -4198,7 +4213,7 @@ function mountNodeEarly(node, id2) {
     }
   }
   var searchElement = searchNode && searchNode !== node.root ? searchNode.instance : document;
-  var element = searchElement.querySelector('[data-projection-id="' + id2 + '"]');
+  var element = searchElement.querySelector('[data-projection-id="' + id3 + '"]');
   if (element)
     node.mount(element, true);
 }
@@ -5296,12 +5311,12 @@ function usePresence() {
   if (context === null)
     return [true, null];
   var isPresent2 = context.isPresent, onExitComplete = context.onExitComplete, register = context.register;
-  var id2 = useUniqueId();
+  var id3 = useUniqueId();
   useEffect6(function() {
-    return register(id2);
+    return register(id3);
   }, []);
   var safeToRemove = function() {
-    return onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete(id2);
+    return onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete(id3);
   };
   return !isPresent2 && onExitComplete ? [false, safeToRemove] : [true];
 }
@@ -7203,17 +7218,17 @@ import {
 import { useMemo as useMemo4 } from "react";
 var presenceId = 0;
 function getPresenceId() {
-  var id2 = presenceId;
+  var id3 = presenceId;
   presenceId++;
-  return id2;
+  return id3;
 }
 var PresenceChild = function(_a) {
   var children = _a.children, initial = _a.initial, isPresent2 = _a.isPresent, onExitComplete = _a.onExitComplete, custom = _a.custom, presenceAffectsLayout = _a.presenceAffectsLayout;
   var presenceChildren = useConstant(newChildrenMap);
-  var id2 = useConstant(getPresenceId);
+  var id3 = useConstant(getPresenceId);
   var context = useMemo4(function() {
     return {
-      id: id2,
+      id: id3,
       initial,
       isPresent: isPresent2,
       custom,
@@ -7341,65 +7356,17 @@ var AnimatePresence = function(_a) {
   }));
 };
 
-// ../../node_modules/framer-motion/dist/es/components/MotionConfig/index.js
-import { __rest as __rest11, __assign as __assign35 } from "tslib";
-import {
-  createElement as createElement6
-} from "react";
-import { useContext as useContext12, useMemo as useMemo5 } from "react";
-function MotionConfig(_a) {
-  var children = _a.children, config = __rest11(_a, ["children"]);
-  config = __assign35(__assign35({}, useContext12(MotionConfigContext)), config);
-  config.isStatic = useConstant(function() {
-    return config.isStatic;
-  });
-  var transitionDependency = typeof config.transition === "object" ? config.transition.toString() : "";
-  var context = useMemo5(function() {
-    return config;
-  }, [
-    transitionDependency,
-    config.transformPagePoint
-  ]);
-  return createElement6(MotionConfigContext.Provider, { value: context }, children);
-}
-
-// ../../node_modules/framer-motion/dist/es/components/LazyMotion/index.js
-import { __read as __read19, __rest as __rest12 } from "tslib";
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout.js
 import {
   createElement as createElement7
 } from "react";
-import { useState as useState2, useRef as useRef7, useEffect as useEffect11 } from "react";
-function LazyMotion(_a) {
-  var children = _a.children, features = _a.features, _b = _a.strict, strict = _b === void 0 ? false : _b;
-  var _c = __read19(useState2(!isLazyBundle(features)), 2), setIsLoaded = _c[1];
-  var loadedRenderer = useRef7(void 0);
-  if (!isLazyBundle(features)) {
-    var renderer = features.renderer, loadedFeatures = __rest12(features, ["renderer"]);
-    loadedRenderer.current = renderer;
-    loadFeatures(loadedFeatures);
-  }
-  useEffect11(function() {
-    if (isLazyBundle(features)) {
-      features().then(function(_a2) {
-        var renderer2 = _a2.renderer, loadedFeatures2 = __rest12(_a2, ["renderer"]);
-        loadFeatures(loadedFeatures2);
-        loadedRenderer.current = renderer2;
-        setIsLoaded(true);
-      });
-    }
-  }, []);
-  return createElement7(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
-}
-function isLazyBundle(features) {
-  return typeof features === "function";
-}
 
 // ../../node_modules/framer-motion/dist/es/components/LayoutGroup/index.js
-import { __read as __read20, __assign as __assign36 } from "tslib";
+import { __read as __read19, __assign as __assign35 } from "tslib";
 import {
-  createElement as createElement8
+  createElement as createElement6
 } from "react";
-import { useContext as useContext13, useRef as useRef8, useMemo as useMemo6 } from "react";
+import { useContext as useContext12, useRef as useRef7, useMemo as useMemo5 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/context/DeprecatedLayoutGroupContext.js
 import { createContext as createContext7 } from "react";
@@ -7434,26 +7401,88 @@ function nodeGroup() {
 // ../../node_modules/framer-motion/dist/es/components/LayoutGroup/index.js
 var LayoutGroup = function(_a) {
   var _b, _c;
-  var children = _a.children, id2 = _a.id, _d = _a.inheritId, inheritId = _d === void 0 ? true : _d;
-  var layoutGroupContext = useContext13(LayoutGroupContext);
-  var deprecatedLayoutGroupContext = useContext13(DeprecatedLayoutGroupContext);
-  var _e = __read20(useForceUpdate(), 2), forceRender = _e[0], key = _e[1];
-  var context = useRef8(null);
+  var children = _a.children, id3 = _a.id, _d = _a.inheritId, inheritId = _d === void 0 ? true : _d;
+  var layoutGroupContext = useContext12(LayoutGroupContext);
+  var deprecatedLayoutGroupContext = useContext12(DeprecatedLayoutGroupContext);
+  var _e = __read19(useForceUpdate(), 2), forceRender = _e[0], key = _e[1];
+  var context = useRef7(null);
   var upstreamId = (_b = layoutGroupContext.id) !== null && _b !== void 0 ? _b : deprecatedLayoutGroupContext;
   if (context.current === null) {
     if (inheritId && upstreamId) {
-      id2 = id2 ? upstreamId + "-" + id2 : upstreamId;
+      id3 = id3 ? upstreamId + "-" + id3 : upstreamId;
     }
     context.current = {
-      id: id2,
+      id: id3,
       group: inheritId ? (_c = layoutGroupContext === null || layoutGroupContext === void 0 ? void 0 : layoutGroupContext.group) !== null && _c !== void 0 ? _c : nodeGroup() : nodeGroup()
     };
   }
-  var memoizedContext = useMemo6(function() {
-    return __assign36(__assign36({}, context.current), { forceRender });
+  var memoizedContext = useMemo5(function() {
+    return __assign35(__assign35({}, context.current), { forceRender });
   }, [key]);
-  return createElement8(LayoutGroupContext.Provider, { value: memoizedContext }, children);
+  return createElement6(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 };
+
+// ../../node_modules/framer-motion/dist/es/components/AnimateSharedLayout.js
+var id2 = 0;
+var AnimateSharedLayout = function(_a) {
+  var children = _a.children;
+  return createElement7(LayoutGroup, { id: useConstant(function() {
+    return "asl-" + id2++;
+  }) }, children);
+};
+
+// ../../node_modules/framer-motion/dist/es/components/MotionConfig/index.js
+import { __rest as __rest11, __assign as __assign36 } from "tslib";
+import {
+  createElement as createElement8
+} from "react";
+import { useContext as useContext13, useMemo as useMemo6 } from "react";
+function MotionConfig(_a) {
+  var children = _a.children, config = __rest11(_a, ["children"]);
+  config = __assign36(__assign36({}, useContext13(MotionConfigContext)), config);
+  config.isStatic = useConstant(function() {
+    return config.isStatic;
+  });
+  var transitionDependency = typeof config.transition === "object" ? config.transition.toString() : "";
+  var context = useMemo6(function() {
+    return config;
+  }, [
+    transitionDependency,
+    config.transformPagePoint
+  ]);
+  return createElement8(MotionConfigContext.Provider, { value: context }, children);
+}
+
+// ../../node_modules/framer-motion/dist/es/components/LazyMotion/index.js
+import { __read as __read20, __rest as __rest12 } from "tslib";
+import {
+  createElement as createElement9
+} from "react";
+import { useState as useState2, useRef as useRef8, useEffect as useEffect11 } from "react";
+function LazyMotion(_a) {
+  var children = _a.children, features = _a.features, _b = _a.strict, strict = _b === void 0 ? false : _b;
+  var _c = __read20(useState2(!isLazyBundle(features)), 2), setIsLoaded = _c[1];
+  var loadedRenderer = useRef8(void 0);
+  if (!isLazyBundle(features)) {
+    var renderer = features.renderer, loadedFeatures = __rest12(features, ["renderer"]);
+    loadedRenderer.current = renderer;
+    loadFeatures(loadedFeatures);
+  }
+  useEffect11(function() {
+    if (isLazyBundle(features)) {
+      features().then(function(_a2) {
+        var renderer2 = _a2.renderer, loadedFeatures2 = __rest12(_a2, ["renderer"]);
+        loadFeatures(loadedFeatures2);
+        loadedRenderer.current = renderer2;
+        setIsLoaded(true);
+      });
+    }
+  }, []);
+  return createElement9(LazyContext.Provider, { value: { renderer: loadedRenderer.current, strict } }, children);
+}
+function isLazyBundle(features) {
+  return typeof features === "function";
+}
 
 // ../../node_modules/framer-motion/dist/es/render/dom/features-animation.js
 import { __assign as __assign37 } from "tslib";
@@ -7949,7 +7978,7 @@ function useInvertedScale(scale2) {
 }
 
 // src/renderer.ts
-import React26, { Fragment as Fragment2 } from "react";
+import React27, { Fragment as Fragment2 } from "react";
 import {
   render
 } from "react-dom";
@@ -10293,8 +10322,8 @@ function _inheritsLoose(subClass, superClass) {
 }
 
 // ../../node_modules/react-transition-group/esm/TransitionGroupContext.js
-import React15 from "react";
-var TransitionGroupContext_default = React15.createContext(null);
+import React16 from "react";
+var TransitionGroupContext_default = React16.createContext(null);
 
 // ../../node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 function _assertThisInitialized(self) {
@@ -10306,7 +10335,7 @@ function _assertThisInitialized(self) {
 
 // ../../node_modules/react-transition-group/esm/TransitionGroup.js
 var import_prop_types5 = __toModule(require_prop_types());
-import React16 from "react";
+import React17 from "react";
 
 // ../../node_modules/react-transition-group/esm/utils/ChildMapping.js
 import { Children as Children2, cloneElement as cloneElement2, isValidElement as isValidElement2 } from "react";
@@ -10476,16 +10505,16 @@ var TransitionGroup = /* @__PURE__ */ function(_React$Component) {
     delete props.enter;
     delete props.exit;
     if (Component === null) {
-      return /* @__PURE__ */ React16.createElement(TransitionGroupContext_default.Provider, {
+      return /* @__PURE__ */ React17.createElement(TransitionGroupContext_default.Provider, {
         value: contextValue
       }, children);
     }
-    return /* @__PURE__ */ React16.createElement(TransitionGroupContext_default.Provider, {
+    return /* @__PURE__ */ React17.createElement(TransitionGroupContext_default.Provider, {
       value: contextValue
-    }, /* @__PURE__ */ React16.createElement(Component, props, children));
+    }, /* @__PURE__ */ React17.createElement(Component, props, children));
   };
   return TransitionGroup2;
-}(React16.Component);
+}(React17.Component);
 TransitionGroup.propTypes = true ? {
   component: import_prop_types5.default.any,
   children: import_prop_types5.default.node,
@@ -12091,39 +12120,39 @@ function createSvgIcon(path, displayName) {
 }
 
 // src/icons/Share.tsx
-var Share_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
+var Share_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
   key: "12",
   d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
 }), "Share");
 
 // src/icons/TabletAndroid.tsx
-var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
+var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
   key: "12",
   d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
 }), "TabletAndroid");
 
 // src/icons/Tv.tsx
-var Tv_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
+var Tv_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
   key: "12",
   d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
 }), "Tv");
 
 // src/icons/PhoneAndroid.tsx
-var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
+var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
   key: "12",
   d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
 }), "PhoneAndroid");
 
 // src/icons/QrCode.tsx
-var QrCode_default = createSvgIcon(/* @__PURE__ */ React26.createElement("path", {
+var QrCode_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
   key: "12",
   d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
 }), "QrCode");
 
 // src/Qr.tsx
 var QR = ({ url }) => {
-  const canvasRef = React26.useRef(null);
-  React26.useEffect(() => {
+  const canvasRef = React27.useRef(null);
+  React27.useEffect(() => {
     const load = async () => {
       const { QRious } = await import("@zedvision/qrious");
       const options = {
@@ -12149,7 +12178,7 @@ var QR = ({ url }) => {
   });
 };
 var QRButton = ({ url }) => {
-  const [showQR, setQR] = React26.useState(false);
+  const [showQR, setQR] = React27.useState(false);
   return /* @__PURE__ */ jsx(motion2.div, {
     animate: {
       width: showQR ? 200 : 56,
@@ -12177,21 +12206,21 @@ var QRButton = ({ url }) => {
 var breakPoints = [640, 1024, 1920];
 var sizes = [10, 25, 50, 75, 100];
 var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => {
-  const [isStable, setIsStable] = React26.useState(false);
-  const [scaleRange, changeScaleRange] = React26.useState(75);
-  const [height2, changeHeight] = React26.useState(innerHeight);
-  const [childArray, setChild] = React26.useState([session.children]);
+  const [isStable, setIsStable] = React27.useState(false);
+  const [scaleRange, changeScaleRange] = React27.useState(75);
+  const [height2, changeHeight] = React27.useState(innerHeight);
+  const [childArray, setChild] = React27.useState([session.children]);
   session.setChild = setChild;
-  const [qrUrl, setQRUrl] = React26.useState(session.url);
-  const [errorText, setErrorText] = React26.useState(" ");
-  const [width2, setWidth] = React26.useState(breakPoints[1]);
-  const ref = React26.useRef(null);
-  const zbody = React26.useRef(null);
+  const [qrUrl, setQRUrl] = React27.useState(session.url);
+  const [errorText, setErrorText] = React27.useState(" ");
+  const [width2, setWidth] = React27.useState(breakPoints[1]);
+  const ref = React27.useRef(null);
+  const zbody = React27.useRef(null);
   const child = childArray[childArray.length - 1];
-  React26.useEffect(() => {
+  React27.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
   });
-  React26.useEffect(() => {
+  React27.useEffect(() => {
     const handler = setInterval(() => {
       if (errorText !== session.errorText) {
         const newErr = session.errorText;
@@ -12306,7 +12335,7 @@ var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => 
               `
   }, errorText ? /* @__PURE__ */ jsx("div", {
     dangerouslySetInnerHTML: createMarkup(session.html)
-  }) : /* @__PURE__ */ jsx(React26.Suspense, {
+  }) : /* @__PURE__ */ jsx(React27.Suspense, {
     fallback: /* @__PURE__ */ jsx("div", null, "Error fallback")
   }, /* @__PURE__ */ jsx("div", {
     id: "zbody",
@@ -12358,13 +12387,13 @@ var { motion: motion2 } = es_exports;
 var render2 = (el, container) => {
   const root = render(jsx(Fragment2, { children: el }), container);
 };
-var renderer_default = React26;
+var renderer_default = React27;
 export {
   DraggableWindow,
   Fragment2 as Fragment,
   Global,
   es_exports as Motion,
-  React26 as React,
+  React27 as React,
   css2 as css,
   renderer_default as default,
   jsx,
