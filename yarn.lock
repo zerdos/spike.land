@@ -3416,6 +3416,15 @@ ipfs-core-types@^0.7.0:
     multiaddr "^10.0.0"
     multiformats "^9.4.1"
 
+ipfs-core-types@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/ipfs-core-types/-/ipfs-core-types-0.7.1.tgz#08504d3b2b65fb910516f310049a0b022759ad21"
+  integrity sha512-vG3cX+mLjULYAKlGF/3P3uqr6GxhWZRrg+LQrUUZmf9kjBI5ikIuNnhtPqX6sbTNHLQFqTZb7NhCxFFNOud75g==
+  dependencies:
+    interface-datastore "^5.0.0"
+    multiaddr "^10.0.0"
+    multiformats "^9.4.1"
+
 ipfs-message-port-client@0.8.4:
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/ipfs-message-port-client/-/ipfs-message-port-client-0.8.4.tgz#418d0b8f7b0c031d92924af2a215776e9668f36f"
@@ -3435,13 +3444,21 @@ ipfs-message-port-protocol@0.9.1, ipfs-message-port-protocol@^0.9.1:
     ipfs-core-types "^0.7.0"
     multiformats "^9.4.1"
 
-ipfs-message-port-server@0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.9.1.tgz#46f1fa3368c716bceeb40bc04319401cb9eed9f5"
-  integrity sha512-blLoLChbibaFFiq5s9Of9xd102CrKlzicEpaXVfDaFCHBDHAiF3G7XYexwn2rT25h1AJbDwz1GhzbQqqz/FPRw==
+ipfs-message-port-protocol@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-protocol/-/ipfs-message-port-protocol-0.9.2.tgz#21e0e18c635329f53ec62509b03d7d9c2c7fdd8e"
+  integrity sha512-AaHpPTMjYCJmWJqWqMdKTePBLqM3oDeii8Fa1gzihr5cp3idjnZeu2ZxFJOR5nbEKhwETZu+lvKBws7zimBeFA==
   dependencies:
-    ipfs-core-types "^0.7.0"
-    ipfs-message-port-protocol "^0.9.1"
+    ipfs-core-types "^0.7.1"
+    multiformats "^9.4.1"
+
+ipfs-message-port-server@0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/ipfs-message-port-server/-/ipfs-message-port-server-0.9.2.tgz#f8c5a3b32b94dc09a99dac07ee6d2d6275c600aa"
+  integrity sha512-Y7kLmfETfSo8vFq6VzQwTN/c6YJcUVfBqTlTRrAKWOw0eZCKW6zHmTGGGazLtS4aZSLE8mSdC5FTl8PQIDnsoQ==
+  dependencies:
+    ipfs-core-types "^0.7.1"
+    ipfs-message-port-protocol "^0.9.2"
     it-all "^1.0.4"
     multiformats "^9.4.1"
 
