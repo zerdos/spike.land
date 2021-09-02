@@ -28,7 +28,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmTwwt9EcsWVBVthyqcifXtsCDou5dvEa6i8zstqeUmLqJ",
+  "js/importmap.js": "QmdkZEvry6hKvhgvPBC2M6qzDCWWxN1rJE1AGqZDdEoRKn",
   "js/ipfsClient.mjs": "QmcWneUUsMgkA6qzuF7PJcSPCvR3GxxuQYE6n3GKWS1HFs",
   "js/openWindows.mjs": "QmTrebQC2WUaJE27yRmM1NNz99v7GUAUeTgMLNXTzKtJ4e",
   "js/renderPreviewWindow.mjs":
@@ -55,7 +55,7 @@ export const files = {
   "modules/getDbObj.d.ts": "QmSN6JKpmgGd8mwb8gEKViV5juyt4jpw4e5wQqFpzGUiF2",
   "modules/getDbObj.js": "QmW2LmUqcg8fzLtjroo3JHbUUXDq16X9n3dBUE4WUVQzG3",
   "modules/ipfs.client.mjs": "QmeHXw7vBA7hCZ9XhziNBG3wj8HFpquvn6uqGAsxBdirf2",
-  "modules/renderer.mjs": "QmY8rzmhgVjKoX76fDBTo4QpXfTggsLXFH3DB1HuYDiJi8",
+  "modules/renderer.mjs": "QmNhM3Hbjys3TgGqu82mkzCCsDERr3d6njL1nDVWohPXFe",
   "modules/sha256.d.ts": "QmQCcqJvRmWrgHXvwifwqPziL9UUNckyDZbPbLGb4SbS9k",
   "modules/sha256.js": "QmWZyJbdb4B22fLgpbDqNo6wU2sWccyecceKz6bor64hFi",
   "modules/shaDB.d.ts": "QmWjtMhACs3iNdvXFAQJGUAzwuYYba9FBd5PmGVkKdA2UX",
@@ -87,14 +87,14 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmZoDHMm7E2aFrAt2FYHU5xBYfuDnfw3YfHLxypfkpw3N7",
-  "js": "Qmf4nPrNrh2Bj3cq2HeH9bbUiMBkw1qnqmjPhjJ5bquQhm",
+  "js": "QmWvbdywTQvU2VEZYz7saLPgxtyRsa7hu2GX95TzYmvVy7",
   "modules/smart-monaco-editor/dist":
     "QmfFodon6GmRU7QzfLxYC88LQXwMCxnoRNohjck5RVyjSg",
   "modules/smart-monaco-editor":
     "QmaXoLR2EXDL6ZYfN3CjeMFwnNzGWLLMkmUqJYpQPkf9QD",
   "modules/vendor": "QmNnqV3QZKxuXzuSc4YoeH6rWr8zgbSHBKDduSoWZk9DFb",
-  "modules": "QmahpiWU4UqDt9zGTgSRj5AfHtEwjAC23zviGtdYHhmqek",
+  "modules": "QmRqCqcr2GWpM8nuKy11jmqCNYocaPuCQ2dyLUQ6gDX4uS",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmRLvtvAPXpm9sJUfpzWGjf8RVCR3B8KAfen7w5vsjahuR",
+  "": "QmNZfSBz5CqvMKugfaabws5YszDvPisZ3dYnyXuaAsU58y",
   "foo": "bar",
 };

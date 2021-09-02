@@ -3492,6 +3492,7 @@ var FlatTree = function() {
 }();
 
 // ../../node_modules/framer-motion/dist/es/projection/node/create-projection-node.js
+var animationTarget = 1e3;
 var globalProjectionState = {
   hasAnimatedSinceResize: true,
   hasEverUpdated: false
@@ -3576,7 +3577,6 @@ function createProjectionNode(_a) {
       this.id && this.root.potentialNodes.delete(this.id);
       if (isLayoutDirty && (layout || layoutId)) {
         this.isLayoutDirty = true;
-        this.setTargetDelta(createDelta());
       }
       attachResizeListener === null || attachResizeListener === void 0 ? void 0 : attachResizeListener(instance, function() {
         if (globalProjectionState.hasAnimatedSinceResize) {
@@ -3942,7 +3942,7 @@ function createProjectionNode(_a) {
       var _a2, _b;
       globalProjectionState.hasAnimatedSinceResize = true;
       (_a2 = this.currentAnimation) === null || _a2 === void 0 ? void 0 : _a2.stop();
-      this.currentAnimation = animate2(0, 1e3, __assign15(__assign15({}, options), { onUpdate: function(latest) {
+      this.currentAnimation = animate2(0, animationTarget, __assign15(__assign15({}, options), { onUpdate: function(latest) {
         var _a3;
         _this.mixTargetDelta(latest);
         (_a3 = options.onUpdate) === null || _a3 === void 0 ? void 0 : _a3.call(options, latest);
@@ -3969,7 +3969,7 @@ function createProjectionNode(_a) {
       var _a2;
       if (!this.currentAnimation)
         return;
-      (_a2 = this.mixTargetDelta) === null || _a2 === void 0 ? void 0 : _a2.call(this, 1);
+      (_a2 = this.mixTargetDelta) === null || _a2 === void 0 ? void 0 : _a2.call(this, animationTarget);
       this.currentAnimation.stop();
       this.completeAnimation();
     };

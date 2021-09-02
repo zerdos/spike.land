@@ -75,7 +75,7 @@ export const shasums = {
   "js/data.mjs":
     "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "js/importmap.js":
-    "d191ad87def026558d00170c699e9cecb38e729e2a22da6d3bd9c077ba286a99",
+    "a1c8998c17da53cbb97294c6f12b53e2f7275461e2cc2e3523c9da3a28823870",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
@@ -130,7 +130,7 @@ export const shasums = {
   "modules/QRious.mjs":
     "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   "modules/renderer.mjs":
-    "9dbff6129e59fb37061c7db7781336503ef2b503ea69852dd9043e891458290f",
+    "98bd93a6b32d21c4fb98c4c7bcb6d99be2f85b3bc298cbb905c9f003e34a4680",
   ".tsBuildInfo":
     "6b5c33c6f8771e59c543ac1672d0b44efe0ef6d58653a00181a0f5b3eebf9f72",
   "food": "bar",
