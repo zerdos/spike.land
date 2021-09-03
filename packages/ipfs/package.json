@@ -30,8 +30,8 @@
   },
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
   "dependencies": {
-    "esbuild": "0.12.24",
-    "ipfs-message-port-client": "0.8.4",
+    "esbuild": "0.12.25",
+    "ipfs-message-port-client": "0.8.5",
     "it-all": "1.0.5",
     "typescript": "4.4.2",
     "uint8arrays": "3.0.0"
