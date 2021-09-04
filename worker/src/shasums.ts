@@ -126,7 +126,7 @@ export const shasums = {
   "modules/shaDB.d.ts":
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/ipfs.client.mjs":
-    "7037f077cd37d6a3b1f190906d8cf7d50b432072b218cec6fce25c91e71d036d",
+    "d4fd84fe41910b5880adbd1ef701ccf84e993828ef7ff227373d6c3400333a21",
   "modules/renderer.mjs":
     "98bd93a6b32d21c4fb98c4c7bcb6d99be2f85b3bc298cbb905c9f003e34a4680",
   "modules/QRious.mjs":
