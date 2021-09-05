@@ -83,8 +83,6 @@ export const shasums = {
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
-  "package.json":
-    "2e4fe46f311666aa3e7b4245a95084dc5ceba169fe570e9e849884fd30ff5c7b",
   "modules/smart-monaco-editor/dist/editor.js":
     "d8d32871b14e96b824aa8b15ce79449e82161db7fa3e95a4edd5126cad32b9d9",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -133,5 +131,7 @@ export const shasums = {
     "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   ".tsBuildInfo":
     "6766ce0a37d2277e860a32143c6f6effaef72cb2a9a667cea57e9ffc4e6b7274",
+  "package.json":
+    "a271564796b093975b0864f1793d736010a3c8f4c8e054d72ab78b61d62f78e2",
   "food": "bar",
 };
