@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/renderer",
-  "version": "14.4.6",
+  "version": "14.4.9",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -22,7 +22,7 @@
     "@material-ui/core": "next",
     "@types/react": "17.0.20",
     "@types/react-dom": "17.0.9",
-    "@zedvision/qrious": "^14.4.6",
+    "@zedvision/qrious": "^14.4.9",
     "esbuild": "0.12.25",
     "framer-motion": "5.0.0-beta.26",
     "react": "17.0.2",
