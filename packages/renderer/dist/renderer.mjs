@@ -3695,8 +3695,9 @@ function createProjectionNode(_a) {
     };
     ProjectionNode.prototype.updateLayout = function() {
       this.updateScroll();
-      if (!(this.options.alwaysMeasureLayout && this.isLead()) && !this.isLayoutDirty)
+      if (!(this.options.alwaysMeasureLayout && this.isLead()) && !this.isLayoutDirty) {
         return;
+      }
       var measured = this.measure();
       this.layout = this.removeElementScroll(measured);
       this.layoutCorrected = createBox();
@@ -3831,6 +3832,8 @@ function createProjectionNode(_a) {
           copyBoxInto(this.target, this.layout);
         }
         applyBoxDelta(this.target, this.targetDelta);
+      } else {
+        copyBoxInto(this.target, this.layout);
       }
       if (this.attemptToResolveRelativeTarget) {
         this.attemptToResolveRelativeTarget = false;
