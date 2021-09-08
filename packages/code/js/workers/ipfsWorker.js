@@ -1,5 +1,5 @@
 self.importScripts(
-  "https://unpkg.com/ipfs@0.58.3/dist/index.min.js",
+  "https://unpkg.com/ipfs@0.58.4/dist/index.min.js",
 );
 
 self.importScripts(

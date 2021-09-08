@@ -67,7 +67,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
-    "fa1c3c8f9e1aa2aab4fb778854a4b09f7a596c7a72113219b6573663309b4bc2",
+    "3955cda16ede66991fed96cd5fdebd23f9f96916f00ce84e00b846227020c24f",
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
@@ -132,6 +132,6 @@ export const shasums = {
   "modules/renderer.mjs":
     "fdfaff04fa793e57c27771a61b5279a661022f18729e12aed91555108970be99",
   ".tsBuildInfo":
-    "d5a4dc0f7c9b07d62ef8ba048177f15482b3807eddffbf646d1e358405c07f6d",
+    "9f3a7a7838b486e67af7ef3de2ca88f2d0184c346eb2304228edf6445469e544",
   "food": "bar",
 };
