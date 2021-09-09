@@ -127,10 +127,10 @@ export const shasums = {
     "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
   "modules/ipfs.client.mjs":
     "d4fd84fe41910b5880adbd1ef701ccf84e993828ef7ff227373d6c3400333a21",
-  "modules/QRious.mjs":
-    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   "modules/renderer.mjs":
     "fdfaff04fa793e57c27771a61b5279a661022f18729e12aed91555108970be99",
+  "modules/QRious.mjs":
+    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   ".tsBuildInfo":
     "9f3a7a7838b486e67af7ef3de2ca88f2d0184c346eb2304228edf6445469e544",
   "food": "bar",
