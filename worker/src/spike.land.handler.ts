@@ -4,7 +4,7 @@ import { files } from "./files.ts";
 import { handleCloudRequest } from "./handler";
 import Hash from "ipfs-only-hash";
 import { js, json, text } from "@responds";
-import { log } from "./handler";
+import { log } from "./log";
 
 //@ts-ignore
 import { shasums } from "./shasums.ts";

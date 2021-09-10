@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import { sha256 } from "@zedvision/shadb";
 
 import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
+import { log } from "./log";
 
 // var SHAKV: KVNamespace;
 // var USERS: KVNamespace;
@@ -12,19 +13,6 @@ import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
 // var USERKEYS: KVNamespace;
 
 var API_KEY: string;
-let inc = 0;
-
-export function log(message: string, data: unknown = {}) {
-  const now = Date.now();
-
-  const [hour, minute] = new Date().toLocaleTimeString("en-GB").split(/:| /);
-
-  return LOGS.put(
-    String(2000000000000 - now - inc++),
-    JSON.stringify({ message, time: `${hour}:${minute}`, data }),
-    { expirationTtl: 86400 * 7 },
-  );
-}
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
   const { country, colo } = request.cf || { country: "", colo: "" };

@@ -1,5 +1,5 @@
-import type { KV } from "../codeZedVisionHandler";
-import { fileKV, shasumsKV } from "../codeZedVisionHandler";
+import type { KV } from "../spike.land.handler";
+import { fileKV, shasumsKV } from "../spike.land.handler";
 import { text } from "@responds";
 import { sha256 } from "../alterHeaders";
 
