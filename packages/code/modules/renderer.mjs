@@ -3513,6 +3513,7 @@ function createProjectionNode(_a) {
       }
       this.children = new Set();
       this.options = {};
+      this.isTreeAnimating = false;
       this.isLayoutDirty = false;
       this.updateBlocked = false;
       this.isUpdating = false;
@@ -3859,8 +3860,12 @@ function createProjectionNode(_a) {
       }
     };
     ProjectionNode.prototype.calcProjection = function() {
-      var _a2, _b;
-      var _c = this.options, layout = _c.layout, layoutId = _c.layoutId;
+      var _a2, _b, _c;
+      var _d = this.options, layout = _d.layout, layoutId = _d.layoutId;
+      this.isTreeAnimating = Boolean(((_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.isTreeAnimating) || this.currentAnimation);
+      if (!this.isTreeAnimating) {
+        this.targetDelta = this.relativeTarget = void 0;
+      }
       if (!this.layout || !(layout || layoutId))
         return;
       var lead = this.getLead();
@@ -3890,7 +3895,7 @@ function createProjectionNode(_a) {
         this.scheduleRender();
       }
       if (this.hasTargetBoxUpdated) {
-        (_b = (_a2 = this.options).onProjectionUpdate) === null || _b === void 0 ? void 0 : _b.call(_a2, this.target, this.targetDelta);
+        (_c = (_b = this.options).onProjectionUpdate) === null || _c === void 0 ? void 0 : _c.call(_b, this.target, this.targetDelta);
       }
       this.hasTargetBoxUpdated = false;
     };

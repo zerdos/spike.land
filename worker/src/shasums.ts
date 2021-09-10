@@ -71,11 +71,11 @@ export const shasums = {
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workers/transpile.worker.js":
-    "4e667696e6a8d0df61b3eb65dbe8f652643524a91235f7a7ccc10df5096fb811",
+    "e9b9f639379caf17f4e3df6dd9735509758b93a517e9e1669e5ad390dc8419d7",
   "js/data.mjs":
     "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "js/importmap.js":
-    "b620b9ad06e0cf7168930f2ad5173be274f95e26389e86c95684db6a0b1a521b",
+    "8385947c50c617072ff8b44642bea7be155c6259e120fee8ce0bdffa19f5ad9c",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
@@ -130,7 +130,7 @@ export const shasums = {
   "modules/QRious.mjs":
     "9514a6c0c4aebf029a6f4f5b9be4dcfaaa549159a769ec13a3dc2446bb51e1ac",
   "modules/renderer.mjs":
-    "f2f095aa0a646b3b7c0083c345ec4af71f4975e994df939df67aa87710a8e8da",
+    "cd9af3cc4585dec94f82b72c498db2fddfd8709e2ba412e71ec7caa70c5a2581",
   ".tsBuildInfo":
     "9f3a7a7838b486e67af7ef3de2ca88f2d0184c346eb2304228edf6445469e544",
   "food": "bar",
