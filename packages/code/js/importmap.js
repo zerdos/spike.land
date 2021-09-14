@@ -52,7 +52,7 @@ const imports = {
   "@types/react": "https://unpkg.com/@types/react@17.0.20/index.d.ts",
   "global.d.ts": "https://unpkg.com/@types/react@17.0.20/global.d.ts",
   "scheduler/": "https://esm.sh/scheduler/",
-  "csstype": "https://unpkg.com/csstype@3.0.8/index.d.ts",
+  "csstype": "https://unpkg.com/csstype@3.0.9/index.d.ts",
   "clsx": "https://unpkg.com/clsx@1.1.1/dist/clsx.m.js",
   "css-vendor": "https://unpkg.com/css-vendor@2.0.8/dist/css-vendor.esm.js",
   "dom-helpers/": "https://unpkg.com/dom-helpers@5.2.1/esm/",

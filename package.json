@@ -24,7 +24,7 @@
     "re:build": "yarn lerna run clean --parallel && yarn build"
   },
   "devDependencies": {
-    "csstype": "3.0.8",
+    "csstype": "3.0.9",
     "eslint-plugin-react": "7.25.1",
     "lerna": "4.0.0",
     "pageres-cli": "6.0.0",
