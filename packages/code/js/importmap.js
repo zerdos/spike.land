@@ -57,7 +57,7 @@ const imports = {
   "css-vendor": "https://unpkg.com/css-vendor@2.0.8/dist/css-vendor.esm.js",
   "dom-helpers/": "https://unpkg.com/dom-helpers@5.2.1/esm/",
   "framer-motion":
-    "https://unpkg.com/framer-motion@5.0.0-beta.28/dist/es/index.js",
+    "https://unpkg.com/framer-motion@5.0.0-beta.35/dist/es/index.js",
   "framesync": "https://unpkg.com/framesync@5.3.0/dist/es/index.js",
   "hey-listen":
     "https://unpkg.com/@zedvision/hey-listen@1.1.2/dist/hey-listen.es.js",
@@ -80,33 +80,33 @@ const imports = {
     "https://unpkg.com/jss-plugin-rule-value-function@10.6.0/dist/jss-plugin-rule-value-function.esm.js",
   "jss-plugin-vendor-prefixer":
     "https://unpkg.com/jss-plugin-vendor-prefixer@10.6.0/dist/jss-plugin-vendor-prefixer.esm.js",
-  "popmotion": "https://unpkg.com/popmotion@9.4.0/dist/es/index.js",
+  "popmotion": "https://unpkg.com/popmotion@9.4.1/dist/es/index.js",
   "prop-types": "https://esm.sh/prop-types",
-  "react": "https://unpkg.com/@zedvision/esm@14.4.3/dist/react.mjs",
-  "react-dom": "https://unpkg.com/@zedvision/esm@14.4.3/dist/react-dom.mjs",
-  "react-is": "https://unpkg.com/@zedvision/esm@14.4.3/dist/react-is.mjs",
+  "react": "https://unpkg.com/@zedvision/esm@14.4.0/dist/react.mjs",
+  "react-dom": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-dom.mjs",
+  "react-is": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-is.mjs",
   "react-transition-group":
     "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
   "@zedvision/renderer":
-    "https://unpkg.com/@zedvision/renderer@14.4.3/dist/renderer.mjs",
+    "https://unpkg.com/@zedvision/renderer@14.4.10/dist/renderer.mjs",
   "style-value-types":
     "https://unpkg.com/style-value-types@4.1.4/dist/es/index.js",
   "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
   "@zedvision/qrious":
-    "https://unpkg.com/@zedvision/qrious@14.4.4/dist/QRious.mjs",
+    "https://unpkg.com/@zedvision/qrious@14.4.10/dist/QRious.mjs",
   "tiny-warning":
     "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
   "tslib": "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
   "@zedvision/smart-monaco-editor":
-    "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.6/dist/editor.js",
+    "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.10/dist/editor.js",
   "simple-window-manager":
     "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js",
   "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-  "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.4.3/dist/shaDB.js",
+  "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.4.10/dist/shaDB.js",
   "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.min.mjs",
   "@zedvision/ipfs":
-    "https://unpkg.com/@zedvision/ipfs@14.4.3/dist/ipfs.client.mjs",
+    "https://unpkg.com/@zedvision/ipfs@14.4.10/dist/ipfs.client.mjs",
   "workbox-window":
     "https://unpkg.com/workbox-window@6.1.5/build/workbox-window.prod.mjs",
 };

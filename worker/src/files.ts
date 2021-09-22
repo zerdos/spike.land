@@ -28,7 +28,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmX2tCAScU2Knd3oZ4aQ6XLso9Uh4QzBVoUzSNfwCin8rL",
+  "js/importmap.js": "QmUY8JMVmH9imfGcAhz2GWyVDF52982iFdEcviz8xe3CMG",
   "js/ipfsClient.mjs": "QmcWneUUsMgkA6qzuF7PJcSPCvR3GxxuQYE6n3GKWS1HFs",
   "js/openWindows.mjs": "QmTrebQC2WUaJE27yRmM1NNz99v7GUAUeTgMLNXTzKtJ4e",
   "js/renderPreviewWindow.mjs":
@@ -77,7 +77,7 @@ export const files = {
   "modules/vendor/diffMin.js": "QmfGXARDicj5RhxxwS36fYqfyp7qrqu8esL7mDTQaxvz6X",
   "modules/vendor/idb.d.ts": "QmPHwidB2tkWdq4q9D5SqQaJwESaPidns7jKwmPjmgKVDD",
   "modules/vendor/idb.js": "QmTmoa5mT7RLVAJmm4byC9KBVwuiiUQXwnoVaSLcVTo3ja",
-  "package.json": "Qmbuutk6ifmTQu9wCL8pvjGQsfHbqCaKoEKZeRpZZHPvQH",
+  "package.json": "QmfV4WH9ftgTgSsEsqcmc8p95YwJg3nXPffwWXoUfWxJpA",
   "sw.js": "QmbA8aCAqq2FVBiJNRqj25JxLuAF7odu3KK5htJWpP7wBj",
   "test.html": "QmYdgiywqRpeG3wmfVu3Z3T7C8DmAgMaPa9aRS1Nc78eHw",
   "tsconfig.json": "QmU5Ari48QH2FYZNx9iafH1hJa62JhirJhDUMLUnkUD2kU",
@@ -87,7 +87,7 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmRQwQvevS36ofeezHXXVgPLpBc5UAkxFYrKNMVRJQDcTN",
-  "js": "QmR4AwQoL3vuPh2askzpBSReJ8CgMSzCh4v8Q4rJWsyp6W",
+  "js": "QmWh4rcaLu1bnACTPJ97ZFksQBPnJo1YbiMqqMTc96YjgF",
   "modules/smart-monaco-editor/dist":
     "QmRQNQGDAGyjSVMfd8tJmNCqrBaLuSpUW551qYYkknEqsh",
   "modules/smart-monaco-editor":
@@ -95,6 +95,6 @@ export const files = {
   "modules/vendor": "Qmc1mqDSt9zoviVkyzgxnuwVA3eNmVr9iganWJ472Cqz7A",
   "modules": "QmWLYDcMjDVKtVwtDH9pW8XTxaW8TZcJUUoTYmQyd9MgXj",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmYgjJgHmqgztT4nXdycKzRxJ3gcise6JtqkxjLf7Z6bUe",
+  "": "QmUqtmVFeSBaVkS5Yhf33UkviMmH4moL4CXoYfofZ3KhkV",
   "foo": "bar",
 };
