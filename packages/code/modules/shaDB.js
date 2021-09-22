@@ -41,17 +41,17 @@ export function getDB(storeName = "defaultStore") {
 }
 export const shaDB = {
     /**
-   * @param {string} key
-   * @param {"string" | "json"} type
-   */
+     * @param {string} key
+     * @param {"string" | "json"} type
+     */
     get: async (key, type) => {
         const db = await (await getDB("shaDB"))();
         return db.get(key, type);
     },
     /**
-   * @param {string} key
-   * @param {string} value
-   */
+     * @param {string} key
+     * @param {string} value
+     */
     put: async (key, value) => {
         const db = await (await getDB("shaDB"))();
         return db.put(key, value);

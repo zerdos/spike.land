@@ -193,9 +193,9 @@ function buildValues(diff, components, newString, oldString, useLongestToken) {
     if (!component.removed) {
       if (!component.added && useLongestToken) {
         var value = newString.slice(newPos, newPos + component.count);
-        value = value.map(function (value1, i) {
+        value = value.map(function (value, i) {
           var oldValue = oldString[oldPos + i];
-          return oldValue.length > value1.length ? oldValue : value1;
+          return oldValue.length > value.length ? oldValue : value;
         });
         component.value = diff.join(value);
       } else {
@@ -297,15 +297,15 @@ cssDiff.tokenize = function (value) {
 function _typeof(obj) {
   "@babel/helpers - typeof";
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function (obj1) {
-      return typeof obj1;
+    _typeof = function (obj) {
+      return typeof obj;
     };
   } else {
-    _typeof = function (obj1) {
-      return obj1 && typeof Symbol === "function" &&
-          obj1.constructor === Symbol && obj1 !== Symbol.prototype
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" &&
+          obj.constructor === Symbol && obj !== Symbol.prototype
         ? "symbol"
-        : typeof obj1;
+        : typeof obj;
     };
   }
   return _typeof(obj);

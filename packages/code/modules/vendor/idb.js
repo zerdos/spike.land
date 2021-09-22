@@ -201,11 +201,11 @@ function getMethod(target, prop) {
     }
     const method = async function (storeName, ...args) {
         const tx = this.transaction(storeName, isWrite ? "readwrite" : "readonly");
-        let target1 = tx.store;
+        let target = tx.store;
         if (useIndex)
-            target1 = target1.index(args.shift());
+            target = target.index(args.shift());
         return (await Promise.all([
-            target1[targetFuncName](...args),
+            target[targetFuncName](...args),
             isWrite && tx.done,
         ]))[0];
     };

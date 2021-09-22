@@ -5,10 +5,7 @@ var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
-var __require = typeof require !== "undefined" ? require : (x) => {
-  throw new Error('Dynamic require of "' + x + '" is not supported');
-};
-var __commonJS = (cb2, mod) => function __require2() {
+var __commonJS = (cb2, mod) => function __require() {
   return mod || (0, cb2[Object.keys(cb2)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __export = (target, all) => {
@@ -1014,6 +1011,7 @@ __export(es_exports, {
   MotionConfigContext: () => MotionConfigContext,
   MotionValue: () => MotionValue,
   PresenceContext: () => PresenceContext,
+  Reorder: () => Reorder,
   SwitchLayoutGroupContext: () => SwitchLayoutGroupContext,
   addScaleCorrector: () => addScaleCorrector,
   animate: () => animate2,
@@ -1051,10 +1049,10 @@ __export(es_exports, {
 });
 
 // ../../node_modules/framer-motion/dist/es/render/dom/motion.js
-import { __assign as __assign34 } from "tslib";
+import { __assign as __assign33 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/motion/index.js
-import { __assign as __assign17 } from "tslib";
+import { __assign as __assign18 } from "tslib";
 import {
   createElement as createElement2
 } from "react";
@@ -1333,7 +1331,7 @@ function useConstant(init) {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/node/create-projection-node.js
-import { __spreadArray as __spreadArray3, __read as __read5, __assign as __assign15 } from "tslib";
+import { __spreadArray as __spreadArray3, __read as __read7, __assign as __assign17 } from "tslib";
 
 // ../../node_modules/framesync/dist/es/on-next-frame.js
 var defaultTimestep = 1 / 60 * 1e3;
@@ -1811,6 +1809,8 @@ function test(v) {
   return isNaN(v) && isString(v) && ((_b = (_a = v.match(floatRegex)) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0) + ((_d = (_c = v.match(colorRegex)) === null || _c === void 0 ? void 0 : _c.length) !== null && _d !== void 0 ? _d : 0) > 0;
 }
 function analyse(v) {
+  if (typeof v === "number")
+    v = "" + v;
   var values3 = [];
   var numColors = 0;
   var colors = v.match(colorRegex);
@@ -1893,6 +1893,11 @@ var mixColor = function(from, to) {
   invariant(!!fromColorType, notAnimatable(from));
   invariant(!!toColorType, notAnimatable(to));
   invariant(fromColorType.transform === toColorType.transform, "Both colors must be hex/RGBA, OR both must be HSLA.");
+  if (!fromColorType || !toColorType || fromColorType.transform !== toColorType.transform) {
+    return function(p) {
+      return "" + (p > 0 ? to : from);
+    };
+  }
   var fromColor = fromColorType.parse(from);
   var toColor = toColorType.parse(to);
   var blended = __assign7({}, fromColor);
@@ -1993,8 +1998,15 @@ var mixComplex = function(origin, target) {
   var template = complex.createTransformer(target);
   var originStats = analyse2(origin);
   var targetStats = analyse2(target);
-  invariant(originStats.numHSL === targetStats.numHSL && originStats.numRGB === targetStats.numRGB && originStats.numNumbers >= targetStats.numNumbers, "Complex values '" + origin + "' and '" + target + "' too different to mix. Ensure all colors are of the same type.");
-  return pipe(mixArray(originStats.parsed, targetStats.parsed), template);
+  var canInterpolate = originStats.numHSL === targetStats.numHSL && originStats.numRGB === targetStats.numRGB && originStats.numNumbers >= targetStats.numNumbers;
+  if (canInterpolate) {
+    return pipe(mixArray(originStats.parsed, targetStats.parsed), template);
+  } else {
+    warning(true, "Complex values '" + origin + "' and '" + target + "' too different to mix. Ensure all colors are of the same type, and that each contains the same quantity of number and color values. Falling back to instant transition.");
+    return function(p) {
+      return "" + (p > 0 ? target : origin);
+    };
+  }
 };
 
 // ../../node_modules/popmotion/dist/es/utils/interpolate.js
@@ -2516,12 +2528,23 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/array.js
+import { __read } from "tslib";
 function addUniqueItem(arr, item) {
   arr.indexOf(item) === -1 && arr.push(item);
 }
 function removeItem(arr, item) {
   var index = arr.indexOf(item);
   index > -1 && arr.splice(index, 1);
+}
+function moveItem(_a, fromIndex, toIndex) {
+  var _b = __read(_a), arr = _b.slice(0);
+  var startIndex = fromIndex < 0 ? arr.length + fromIndex : fromIndex;
+  if (startIndex >= 0 && startIndex < arr.length) {
+    var endIndex = toIndex < 0 ? arr.length + toIndex : toIndex;
+    var _c = __read(arr.splice(fromIndex, 1), 1), item = _c[0];
+    arr.splice(endIndex, 0, item);
+  }
+  return arr;
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/subscription-manager.js
@@ -2677,7 +2700,7 @@ var isMotionValue = function(value) {
 };
 
 // ../../node_modules/framer-motion/dist/es/animation/utils/transitions.js
-import { __assign as __assign14, __rest as __rest3, __spreadArray as __spreadArray2, __read as __read2 } from "tslib";
+import { __assign as __assign14, __rest as __rest3, __spreadArray as __spreadArray2, __read as __read3 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/utils/time-conversion.js
 var secondsToMilliseconds = function(seconds) {
@@ -2685,7 +2708,7 @@ var secondsToMilliseconds = function(seconds) {
 };
 
 // ../../node_modules/framer-motion/dist/es/animation/utils/easing.js
-import { __read } from "tslib";
+import { __read as __read2 } from "tslib";
 var easingLookup = {
   linear,
   easeIn,
@@ -2705,7 +2728,7 @@ var easingLookup = {
 var easingDefinitionToFunction = function(definition) {
   if (Array.isArray(definition)) {
     invariant(definition.length === 4, "Cubic bezier arrays must contain four numerical values.");
-    var _a = __read(definition, 4), x1 = _a[0], y1 = _a[1], x2 = _a[2], y2 = _a[3];
+    var _a = __read2(definition, 4), x1 = _a[0], y1 = _a[1], x2 = _a[2], y2 = _a[3];
     return cubicBezier(x1, y1, x2, y2);
   } else if (typeof definition === "string") {
     invariant(easingLookup[definition] !== void 0, "Invalid easing type '" + definition + "'");
@@ -2945,7 +2968,7 @@ function getDelayFromTransition(transition, key) {
 }
 function hydrateKeyframes(options) {
   if (Array.isArray(options.to) && options.to[0] === null) {
-    options.to = __spreadArray2([], __read2(options.to));
+    options.to = __spreadArray2([], __read3(options.to), false);
     options.to[0] = options.from;
   }
   return options;
@@ -3111,7 +3134,7 @@ function copyBoxInto(box, originBox) {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-apply.js
-import { __read as __read3 } from "tslib";
+import { __read as __read4 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/projection/utils/has-transform.js
 function isIdentityScale(scale2) {
@@ -3186,7 +3209,7 @@ function translateAxis(axis, distance2) {
   axis.max = axis.max + distance2;
 }
 function transformAxis(axis, transforms, _a) {
-  var _b = __read3(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  var _b = __read4(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
   var axisOrigin = transforms[originKey] !== void 0 ? transforms[originKey] : 0.5;
   var originPoint = mix(axis.min, axis.max, axisOrigin);
   applyAxisDelta(axis, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
@@ -3246,7 +3269,7 @@ function calcRelativePosition(target, layout, parent) {
 }
 
 // ../../node_modules/framer-motion/dist/es/projection/geometry/delta-remove.js
-import { __read as __read4 } from "tslib";
+import { __read as __read5 } from "tslib";
 function removePointDelta(point, translate, scale2, originPoint, boxScale) {
   point -= translate;
   point = scalePoint(point, 1 / scale2, originPoint);
@@ -3285,7 +3308,7 @@ function removeAxisDelta(axis, translate, scale2, origin, boxScale, originAxis, 
   axis.max = removePointDelta(axis.max, translate, scale2, originPoint, boxScale);
 }
 function removeAxisTransforms(axis, transforms, _a, origin, sourceAxis) {
-  var _b = __read4(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+  var _b = __read5(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
   removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale, origin, sourceAxis);
 }
 var xKeys2 = ["x", "scaleX", "originX"];
@@ -3413,6 +3436,11 @@ var NodeStack = function() {
       node.instance && node.scheduleRender(false);
     });
   };
+  NodeStack2.prototype.removeLeadSnapshot = function() {
+    if (this.lead && this.lead.snapshot) {
+      this.lead.snapshot = void 0;
+    }
+  };
   return NodeStack2;
 }();
 
@@ -3494,6 +3522,675 @@ var FlatTree = function() {
   return FlatTree2;
 }();
 
+// ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
+import { __assign as __assign16 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/gestures/PanSession.js
+import { __assign as __assign15 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/gestures/utils/event-type.js
+function isMouseEvent(event) {
+  if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
+    return !!(event.pointerType === "mouse");
+  }
+  return event instanceof MouseEvent;
+}
+function isTouchEvent(event) {
+  var hasTouches = !!event.touches;
+  return hasTouches;
+}
+
+// ../../node_modules/framer-motion/dist/es/events/event-info.js
+function filterPrimaryPointer(eventHandler) {
+  return function(event) {
+    var isMouseEvent2 = event instanceof MouseEvent;
+    var isPrimaryPointer = !isMouseEvent2 || isMouseEvent2 && event.button === 0;
+    if (isPrimaryPointer) {
+      eventHandler(event);
+    }
+  };
+}
+var defaultPagePoint = { pageX: 0, pageY: 0 };
+function pointFromTouch(e, pointType) {
+  if (pointType === void 0) {
+    pointType = "page";
+  }
+  var primaryTouch = e.touches[0] || e.changedTouches[0];
+  var point = primaryTouch || defaultPagePoint;
+  return {
+    x: point[pointType + "X"],
+    y: point[pointType + "Y"]
+  };
+}
+function pointFromMouse(point, pointType) {
+  if (pointType === void 0) {
+    pointType = "page";
+  }
+  return {
+    x: point[pointType + "X"],
+    y: point[pointType + "Y"]
+  };
+}
+function extractEventInfo(event, pointType) {
+  if (pointType === void 0) {
+    pointType = "page";
+  }
+  return {
+    point: isTouchEvent(event) ? pointFromTouch(event, pointType) : pointFromMouse(event, pointType)
+  };
+}
+function getViewportPointFromEvent(event) {
+  return extractEventInfo(event, "client");
+}
+var wrapHandler = function(handler, shouldFilterPrimaryPointer) {
+  if (shouldFilterPrimaryPointer === void 0) {
+    shouldFilterPrimaryPointer = false;
+  }
+  var listener = function(event) {
+    return handler(event, extractEventInfo(event));
+  };
+  return shouldFilterPrimaryPointer ? filterPrimaryPointer(listener) : listener;
+};
+
+// ../../node_modules/framer-motion/dist/es/events/use-dom-event.js
+import { useEffect as useEffect3 } from "react";
+function addDomEvent(target, eventName, handler, options) {
+  target.addEventListener(eventName, handler, options);
+  return function() {
+    return target.removeEventListener(eventName, handler, options);
+  };
+}
+function useDomEvent(ref, eventName, handler, options) {
+  useEffect3(function() {
+    var element = ref.current;
+    if (handler && element) {
+      return addDomEvent(element, eventName, handler, options);
+    }
+  }, [ref, eventName, handler, options]);
+}
+
+// ../../node_modules/framer-motion/dist/es/events/utils.js
+var supportsPointerEvents = function() {
+  return isBrowser && window.onpointerdown === null;
+};
+var supportsTouchEvents = function() {
+  return isBrowser && window.ontouchstart === null;
+};
+var supportsMouseEvents = function() {
+  return isBrowser && window.onmousedown === null;
+};
+
+// ../../node_modules/framer-motion/dist/es/events/use-pointer-event.js
+var mouseEventNames = {
+  pointerdown: "mousedown",
+  pointermove: "mousemove",
+  pointerup: "mouseup",
+  pointercancel: "mousecancel",
+  pointerover: "mouseover",
+  pointerout: "mouseout",
+  pointerenter: "mouseenter",
+  pointerleave: "mouseleave"
+};
+var touchEventNames = {
+  pointerdown: "touchstart",
+  pointermove: "touchmove",
+  pointerup: "touchend",
+  pointercancel: "touchcancel"
+};
+function getPointerEventName(name) {
+  if (supportsPointerEvents()) {
+    return name;
+  } else if (supportsTouchEvents()) {
+    return touchEventNames[name];
+  } else if (supportsMouseEvents()) {
+    return mouseEventNames[name];
+  }
+  return name;
+}
+function addPointerEvent(target, eventName, handler, options) {
+  return addDomEvent(target, getPointerEventName(eventName), wrapHandler(handler, eventName === "pointerdown"), options);
+}
+function usePointerEvent(ref, eventName, handler, options) {
+  return useDomEvent(ref, getPointerEventName(eventName), handler && wrapHandler(handler, eventName === "pointerdown"), options);
+}
+
+// ../../node_modules/framer-motion/dist/es/gestures/PanSession.js
+var PanSession = function() {
+  function PanSession2(event, handlers, _a) {
+    var _this = this;
+    var _b = _a === void 0 ? {} : _a, transformPagePoint = _b.transformPagePoint;
+    this.startEvent = null;
+    this.lastMoveEvent = null;
+    this.lastMoveEventInfo = null;
+    this.handlers = {};
+    this.updatePoint = function() {
+      if (!(_this.lastMoveEvent && _this.lastMoveEventInfo))
+        return;
+      var info2 = getPanInfo(_this.lastMoveEventInfo, _this.history);
+      var isPanStarted = _this.startEvent !== null;
+      var isDistancePastThreshold = distance(info2.offset, { x: 0, y: 0 }) >= 3;
+      if (!isPanStarted && !isDistancePastThreshold)
+        return;
+      var point2 = info2.point;
+      var timestamp2 = getFrameData().timestamp;
+      _this.history.push(__assign15(__assign15({}, point2), { timestamp: timestamp2 }));
+      var _a2 = _this.handlers, onStart = _a2.onStart, onMove = _a2.onMove;
+      if (!isPanStarted) {
+        onStart && onStart(_this.lastMoveEvent, info2);
+        _this.startEvent = _this.lastMoveEvent;
+      }
+      onMove && onMove(_this.lastMoveEvent, info2);
+    };
+    this.handlePointerMove = function(event2, info2) {
+      _this.lastMoveEvent = event2;
+      _this.lastMoveEventInfo = transformPoint(info2, _this.transformPagePoint);
+      if (isMouseEvent(event2) && event2.buttons === 0) {
+        _this.handlePointerUp(event2, info2);
+        return;
+      }
+      es_default.update(_this.updatePoint, true);
+    };
+    this.handlePointerUp = function(event2, info2) {
+      _this.end();
+      var _a2 = _this.handlers, onEnd = _a2.onEnd, onSessionEnd = _a2.onSessionEnd;
+      var panInfo = getPanInfo(transformPoint(info2, _this.transformPagePoint), _this.history);
+      if (_this.startEvent && onEnd) {
+        onEnd(event2, panInfo);
+      }
+      onSessionEnd && onSessionEnd(event2, panInfo);
+    };
+    if (isTouchEvent(event) && event.touches.length > 1)
+      return;
+    this.handlers = handlers;
+    this.transformPagePoint = transformPagePoint;
+    var info = extractEventInfo(event);
+    var initialInfo = transformPoint(info, this.transformPagePoint);
+    var point = initialInfo.point;
+    var timestamp = getFrameData().timestamp;
+    this.history = [__assign15(__assign15({}, point), { timestamp })];
+    var onSessionStart = handlers.onSessionStart;
+    onSessionStart && onSessionStart(event, getPanInfo(initialInfo, this.history));
+    this.removeListeners = pipe(addPointerEvent(window, "pointermove", this.handlePointerMove), addPointerEvent(window, "pointerup", this.handlePointerUp), addPointerEvent(window, "pointercancel", this.handlePointerUp));
+  }
+  PanSession2.prototype.updateHandlers = function(handlers) {
+    this.handlers = handlers;
+  };
+  PanSession2.prototype.end = function() {
+    this.removeListeners && this.removeListeners();
+    cancelSync.update(this.updatePoint);
+  };
+  return PanSession2;
+}();
+function transformPoint(info, transformPagePoint) {
+  return transformPagePoint ? { point: transformPagePoint(info.point) } : info;
+}
+function subtractPoint(a2, b2) {
+  return { x: a2.x - b2.x, y: a2.y - b2.y };
+}
+function getPanInfo(_a, history) {
+  var point = _a.point;
+  return {
+    point,
+    delta: subtractPoint(point, lastDevicePoint(history)),
+    offset: subtractPoint(point, startDevicePoint(history)),
+    velocity: getVelocity2(history, 0.1)
+  };
+}
+function startDevicePoint(history) {
+  return history[0];
+}
+function lastDevicePoint(history) {
+  return history[history.length - 1];
+}
+function getVelocity2(history, timeDelta) {
+  if (history.length < 2) {
+    return { x: 0, y: 0 };
+  }
+  var i = history.length - 1;
+  var timestampedPoint = null;
+  var lastPoint = lastDevicePoint(history);
+  while (i >= 0) {
+    timestampedPoint = history[i];
+    if (lastPoint.timestamp - timestampedPoint.timestamp > secondsToMilliseconds(timeDelta)) {
+      break;
+    }
+    i--;
+  }
+  if (!timestampedPoint) {
+    return { x: 0, y: 0 };
+  }
+  var time = (lastPoint.timestamp - timestampedPoint.timestamp) / 1e3;
+  if (time === 0) {
+    return { x: 0, y: 0 };
+  }
+  var currentVelocity = {
+    x: (lastPoint.x - timestampedPoint.x) / time,
+    y: (lastPoint.y - timestampedPoint.y) / time
+  };
+  if (currentVelocity.x === Infinity) {
+    currentVelocity.x = 0;
+  }
+  if (currentVelocity.y === Infinity) {
+    currentVelocity.y = 0;
+  }
+  return currentVelocity;
+}
+
+// ../../node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js
+function createLock(name) {
+  var lock = null;
+  return function() {
+    var openLock = function() {
+      lock = null;
+    };
+    if (lock === null) {
+      lock = name;
+      return openLock;
+    }
+    return false;
+  };
+}
+var globalHorizontalLock = createLock("dragHorizontal");
+var globalVerticalLock = createLock("dragVertical");
+function getGlobalLock(drag2) {
+  var lock = false;
+  if (drag2 === "y") {
+    lock = globalVerticalLock();
+  } else if (drag2 === "x") {
+    lock = globalHorizontalLock();
+  } else {
+    var openHorizontal_1 = globalHorizontalLock();
+    var openVertical_1 = globalVerticalLock();
+    if (openHorizontal_1 && openVertical_1) {
+      lock = function() {
+        openHorizontal_1();
+        openVertical_1();
+      };
+    } else {
+      if (openHorizontal_1)
+        openHorizontal_1();
+      if (openVertical_1)
+        openVertical_1();
+    }
+  }
+  return lock;
+}
+function isDragActive() {
+  var openGestureLock = getGlobalLock(true);
+  if (!openGestureLock)
+    return true;
+  openGestureLock();
+  return false;
+}
+
+// ../../node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js
+import { __read as __read6 } from "tslib";
+function applyConstraints(point, _a, elastic) {
+  var min = _a.min, max = _a.max;
+  if (min !== void 0 && point < min) {
+    point = elastic ? mix(min, point, elastic.min) : Math.max(point, min);
+  } else if (max !== void 0 && point > max) {
+    point = elastic ? mix(max, point, elastic.max) : Math.min(point, max);
+  }
+  return point;
+}
+function calcRelativeAxisConstraints(axis, min, max) {
+  return {
+    min: min !== void 0 ? axis.min + min : void 0,
+    max: max !== void 0 ? axis.max + max - (axis.max - axis.min) : void 0
+  };
+}
+function calcRelativeConstraints(layoutBox, _a) {
+  var top2 = _a.top, left2 = _a.left, bottom2 = _a.bottom, right2 = _a.right;
+  return {
+    x: calcRelativeAxisConstraints(layoutBox.x, left2, right2),
+    y: calcRelativeAxisConstraints(layoutBox.y, top2, bottom2)
+  };
+}
+function calcViewportAxisConstraints(layoutAxis, constraintsAxis) {
+  var _a;
+  var min = constraintsAxis.min - layoutAxis.min;
+  var max = constraintsAxis.max - layoutAxis.max;
+  if (constraintsAxis.max - constraintsAxis.min < layoutAxis.max - layoutAxis.min) {
+    _a = __read6([max, min], 2), min = _a[0], max = _a[1];
+  }
+  return {
+    min: layoutAxis.min + min,
+    max: layoutAxis.min + max
+  };
+}
+function calcViewportConstraints(layoutBox, constraintsBox) {
+  return {
+    x: calcViewportAxisConstraints(layoutBox.x, constraintsBox.x),
+    y: calcViewportAxisConstraints(layoutBox.y, constraintsBox.y)
+  };
+}
+function rebaseAxisConstraints(layout, constraints) {
+  var relativeConstraints = {};
+  if (constraints.min !== void 0) {
+    relativeConstraints.min = constraints.min - layout.min;
+  }
+  if (constraints.max !== void 0) {
+    relativeConstraints.max = constraints.max - layout.min;
+  }
+  return relativeConstraints;
+}
+var defaultElastic = 0.35;
+function resolveDragElastic(dragElastic) {
+  if (dragElastic === void 0) {
+    dragElastic = defaultElastic;
+  }
+  if (dragElastic === false) {
+    dragElastic = 0;
+  } else if (dragElastic === true) {
+    dragElastic = defaultElastic;
+  }
+  return {
+    x: resolveAxisElastic(dragElastic, "left", "right"),
+    y: resolveAxisElastic(dragElastic, "top", "bottom")
+  };
+}
+function resolveAxisElastic(dragElastic, minLabel, maxLabel) {
+  return {
+    min: resolvePointElastic(dragElastic, minLabel),
+    max: resolvePointElastic(dragElastic, maxLabel)
+  };
+}
+function resolvePointElastic(dragElastic, label) {
+  var _a;
+  return typeof dragElastic === "number" ? dragElastic : (_a = dragElastic[label]) !== null && _a !== void 0 ? _a : 0;
+}
+
+// ../../node_modules/framer-motion/dist/es/render/utils/types.js
+var AnimationType;
+(function(AnimationType2) {
+  AnimationType2["Animate"] = "animate";
+  AnimationType2["Hover"] = "whileHover";
+  AnimationType2["Tap"] = "whileTap";
+  AnimationType2["Drag"] = "whileDrag";
+  AnimationType2["Focus"] = "whileFocus";
+  AnimationType2["Exit"] = "exit";
+})(AnimationType || (AnimationType = {}));
+
+// ../../node_modules/framer-motion/dist/es/projection/geometry/conversion.js
+function convertBoundingBoxToBox(_a) {
+  var top2 = _a.top, left2 = _a.left, right2 = _a.right, bottom2 = _a.bottom;
+  return {
+    x: { min: left2, max: right2 },
+    y: { min: top2, max: bottom2 }
+  };
+}
+function convertBoxToBoundingBox(_a) {
+  var x = _a.x, y = _a.y;
+  return { top: y.min, right: x.max, bottom: y.max, left: x.min };
+}
+function transformBoxPoints(point, transformPoint2) {
+  if (!transformPoint2)
+    return point;
+  var topLeft = transformPoint2({ x: point.left, y: point.top });
+  var bottomRight = transformPoint2({ x: point.right, y: point.bottom });
+  return {
+    top: topLeft.y,
+    left: topLeft.x,
+    bottom: bottomRight.y,
+    right: bottomRight.x
+  };
+}
+
+// ../../node_modules/framer-motion/dist/es/projection/utils/measure.js
+function measureViewportBox(instance, transformPoint2) {
+  return convertBoundingBoxToBox(transformBoxPoints(instance.getBoundingClientRect(), transformPoint2));
+}
+function measurePageBox(element, rootProjectionNode2, transformPagePoint) {
+  var viewportBox = measureViewportBox(element, transformPagePoint);
+  var scroll = rootProjectionNode2.scroll;
+  if (scroll) {
+    translateAxis(viewportBox.x, scroll.x);
+    translateAxis(viewportBox.y, scroll.y);
+  }
+  return viewportBox;
+}
+
+// ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
+var elementDragControls = new WeakMap();
+var VisualElementDragControls = function() {
+  function VisualElementDragControls2(visualElement2) {
+    this.openGlobalLock = null;
+    this.isDragging = false;
+    this.currentDirection = null;
+    this.originPoint = { x: 0, y: 0 };
+    this.constraints = false;
+    this.hasMutatedConstraints = false;
+    this.elastic = createBox();
+    this.visualElement = visualElement2;
+  }
+  VisualElementDragControls2.prototype.start = function(originEvent, _a) {
+    var _this = this;
+    var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c;
+    var initialPoint;
+    var onSessionStart = function(event) {
+      _this.stopAnimation();
+      initialPoint = getViewportPointFromEvent(event).point;
+    };
+    var onStart = function(event, info) {
+      var _a2;
+      var _b2 = _this.getProps(), drag2 = _b2.drag, dragPropagation = _b2.dragPropagation, onDragStart = _b2.onDragStart;
+      if (drag2 && !dragPropagation) {
+        if (_this.openGlobalLock)
+          _this.openGlobalLock();
+        _this.openGlobalLock = getGlobalLock(drag2);
+        if (!_this.openGlobalLock)
+          return;
+      }
+      _this.isDragging = true;
+      _this.currentDirection = null;
+      _this.resolveConstraints();
+      if (snapToCursor)
+        _this.snapToCursor(initialPoint);
+      eachAxis(function(axis) {
+        _this.originPoint[axis] = _this.getAxisMotionValue(axis).get();
+      });
+      onDragStart === null || onDragStart === void 0 ? void 0 : onDragStart(event, info);
+      (_a2 = _this.visualElement.animationState) === null || _a2 === void 0 ? void 0 : _a2.setActive(AnimationType.Drag, true);
+    };
+    var onMove = function(event, info) {
+      var _a2 = _this.getProps(), dragPropagation = _a2.dragPropagation, dragDirectionLock = _a2.dragDirectionLock, onDirectionLock = _a2.onDirectionLock, onDrag = _a2.onDrag;
+      if (!dragPropagation && !_this.openGlobalLock)
+        return;
+      var offset = info.offset;
+      if (dragDirectionLock && _this.currentDirection === null) {
+        _this.currentDirection = getCurrentDirection(offset);
+        if (_this.currentDirection !== null) {
+          onDirectionLock === null || onDirectionLock === void 0 ? void 0 : onDirectionLock(_this.currentDirection);
+        }
+        return;
+      }
+      _this.updateAxis("x", info.point, offset);
+      _this.updateAxis("y", info.point, offset);
+      onDrag === null || onDrag === void 0 ? void 0 : onDrag(event, info);
+    };
+    var onSessionEnd = function(event, info) {
+      return _this.stop(event, info);
+    };
+    this.panSession = new PanSession(originEvent, {
+      onSessionStart,
+      onStart,
+      onMove,
+      onSessionEnd
+    }, { transformPagePoint: this.visualElement.getTransformPagePoint() });
+  };
+  VisualElementDragControls2.prototype.stop = function(event, info) {
+    var isDragging = this.isDragging;
+    this.cancel();
+    if (!isDragging)
+      return;
+    var velocity = info.velocity;
+    this.startAnimation(velocity);
+    var onDragEnd = this.getProps().onDragEnd;
+    onDragEnd === null || onDragEnd === void 0 ? void 0 : onDragEnd(event, info);
+  };
+  VisualElementDragControls2.prototype.cancel = function() {
+    var _a, _b;
+    this.isDragging = false;
+    (_a = this.panSession) === null || _a === void 0 ? void 0 : _a.end();
+    this.panSession = void 0;
+    var dragPropagation = this.getProps().dragPropagation;
+    if (!dragPropagation && this.openGlobalLock) {
+      this.openGlobalLock();
+      this.openGlobalLock = null;
+    }
+    (_b = this.visualElement.animationState) === null || _b === void 0 ? void 0 : _b.setActive(AnimationType.Drag, false);
+  };
+  VisualElementDragControls2.prototype.updateAxis = function(axis, _point, offset) {
+    var drag2 = this.getProps().drag;
+    if (!offset || !shouldDrag(axis, drag2, this.currentDirection))
+      return;
+    var axisValue = this.getAxisMotionValue(axis);
+    var next = this.originPoint[axis] + offset[axis];
+    if (this.constraints && this.constraints[axis]) {
+      next = applyConstraints(next, this.constraints[axis], this.elastic[axis]);
+    }
+    axisValue.set(next);
+  };
+  VisualElementDragControls2.prototype.resolveConstraints = function() {
+    var _this = this;
+    var _a = this.getProps(), dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
+    var layout = (this.visualElement.projection || {}).layout;
+    var prevConstraints = this.constraints;
+    if (dragConstraints && isRefObject(dragConstraints)) {
+      if (!this.constraints) {
+        this.constraints = this.resolveRefConstraints();
+      }
+    } else {
+      if (dragConstraints && layout) {
+        this.constraints = calcRelativeConstraints(layout.actual, dragConstraints);
+      } else {
+        this.constraints = false;
+      }
+    }
+    this.elastic = resolveDragElastic(dragElastic);
+    if (prevConstraints !== this.constraints && layout && this.constraints && !this.hasMutatedConstraints) {
+      eachAxis(function(axis) {
+        if (_this.getAxisMotionValue(axis)) {
+          _this.constraints[axis] = rebaseAxisConstraints(layout.actual[axis], _this.constraints[axis]);
+        }
+      });
+    }
+  };
+  VisualElementDragControls2.prototype.resolveRefConstraints = function() {
+    var _a = this.getProps(), constraints = _a.dragConstraints, onMeasureDragConstraints = _a.onMeasureDragConstraints;
+    if (!constraints || !isRefObject(constraints))
+      return false;
+    var constraintsElement = constraints.current;
+    invariant(constraintsElement !== null, "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.");
+    var projection = this.visualElement.projection;
+    if (!projection || !projection.layout)
+      return false;
+    var constraintsBox = measurePageBox(constraintsElement, projection.root, this.visualElement.getTransformPagePoint());
+    var measuredConstraints = calcViewportConstraints(projection.layout.actual, constraintsBox);
+    if (onMeasureDragConstraints) {
+      var userConstraints = onMeasureDragConstraints(convertBoxToBoundingBox(measuredConstraints));
+      this.hasMutatedConstraints = !!userConstraints;
+      if (userConstraints) {
+        measuredConstraints = convertBoundingBoxToBox(userConstraints);
+      }
+    }
+    return measuredConstraints;
+  };
+  VisualElementDragControls2.prototype.startAnimation = function(velocity) {
+    var _this = this;
+    var _a = this.getProps(), drag2 = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition, onDragTransitionEnd = _a.onDragTransitionEnd;
+    var constraints = this.constraints || {};
+    var momentumAnimations = eachAxis(function(axis) {
+      var _a2;
+      if (!shouldDrag(axis, drag2, _this.currentDirection)) {
+        return;
+      }
+      var transition = (_a2 = constraints === null || constraints === void 0 ? void 0 : constraints[axis]) !== null && _a2 !== void 0 ? _a2 : {};
+      var bounceStiffness = dragElastic ? 200 : 1e6;
+      var bounceDamping = dragElastic ? 40 : 1e7;
+      var inertia2 = __assign16(__assign16({ type: "inertia", velocity: dragMomentum ? velocity[axis] : 0, bounceStiffness, bounceDamping, timeConstant: 750, restDelta: 1, restSpeed: 10 }, dragTransition), transition);
+      return _this.startAxisValueAnimation(axis, inertia2);
+    });
+    return Promise.all(momentumAnimations).then(onDragTransitionEnd);
+  };
+  VisualElementDragControls2.prototype.startAxisValueAnimation = function(axis, transition) {
+    var axisValue = this.getAxisMotionValue(axis);
+    return startAnimation(axis, axisValue, 0, transition);
+  };
+  VisualElementDragControls2.prototype.stopAnimation = function() {
+    var _this = this;
+    eachAxis(function(axis) {
+      return _this.getAxisMotionValue(axis).stop();
+    });
+  };
+  VisualElementDragControls2.prototype.getAxisMotionValue = function(axis) {
+    var dragKey = "_drag" + axis.toUpperCase();
+    var externalMotionValue = this.visualElement.getProps()[dragKey];
+    return externalMotionValue ? externalMotionValue : this.visualElement.getValue(axis, 0);
+  };
+  VisualElementDragControls2.prototype.snapToCursor = function(_point) {
+  };
+  VisualElementDragControls2.prototype.addListeners = function() {
+    var _this = this;
+    elementDragControls.set(this.visualElement, this);
+    var element = this.visualElement.getInstance();
+    var stopPointerListener = addPointerEvent(element, "pointerdown", function(event) {
+      var _a = _this.getProps(), drag2 = _a.drag, _b = _a.dragListener, dragListener = _b === void 0 ? true : _b;
+      drag2 && dragListener && _this.start(event);
+    });
+    var measureDragConstraints = function() {
+      var dragConstraints = _this.getProps().dragConstraints;
+      if (isRefObject(dragConstraints)) {
+        _this.constraints = _this.resolveRefConstraints();
+      }
+    };
+    var projection = this.visualElement.projection;
+    var stopMeasureLayoutListener = projection.addEventListener("measure", measureDragConstraints);
+    if (!projection.layout)
+      projection.updateLayout();
+    measureDragConstraints();
+    projection.addEventListener("didUpdate", function(_a) {
+      var layoutDelta = _a.layoutDelta, hasLayoutChanged = _a.hasLayoutChanged;
+      if (_this.isDragging && hasLayoutChanged) {
+        eachAxis(function(axis) {
+          var motionValue2 = _this.getAxisMotionValue(axis);
+          if (!motionValue2)
+            return;
+          _this.originPoint[axis] += layoutDelta[axis].translate;
+          motionValue2.set(motionValue2.get() + layoutDelta[axis].translate);
+        });
+        _this.visualElement.syncRender();
+      }
+    });
+    return function() {
+      stopPointerListener();
+      stopMeasureLayoutListener();
+    };
+  };
+  VisualElementDragControls2.prototype.getProps = function() {
+    var props = this.visualElement.getProps();
+    var _a = props.drag, drag2 = _a === void 0 ? false : _a, _b = props.dragDirectionLock, dragDirectionLock = _b === void 0 ? false : _b, _c = props.dragPropagation, dragPropagation = _c === void 0 ? false : _c, _d = props.dragConstraints, dragConstraints = _d === void 0 ? false : _d, _e = props.dragElastic, dragElastic = _e === void 0 ? defaultElastic : _e, _f = props.dragMomentum, dragMomentum = _f === void 0 ? true : _f;
+    return __assign16(__assign16({}, props), { drag: drag2, dragDirectionLock, dragPropagation, dragConstraints, dragElastic, dragMomentum });
+  };
+  return VisualElementDragControls2;
+}();
+function shouldDrag(direction, drag2, currentDirection) {
+  return (drag2 === true || drag2 === direction) && (currentDirection === null || currentDirection === direction);
+}
+function getCurrentDirection(offset, lockThreshold) {
+  if (lockThreshold === void 0) {
+    lockThreshold = 10;
+  }
+  var direction = null;
+  if (Math.abs(offset.y) > lockThreshold) {
+    direction = "y";
+  } else if (Math.abs(offset.x) > lockThreshold) {
+    direction = "x";
+  }
+  return direction;
+}
+
 // ../../node_modules/framer-motion/dist/es/projection/node/create-projection-node.js
 var animationTarget = 1e3;
 var globalProjectionState = {
@@ -3515,14 +4212,21 @@ function createProjectionNode(_a) {
       this.options = {};
       this.isTreeAnimating = false;
       this.isLayoutDirty = false;
-      this.updateBlocked = false;
+      this.updateManuallyBlocked = false;
+      this.updateBlockedByResize = false;
       this.isUpdating = false;
+      this.isSVG = false;
       this.needsReset = false;
       this.shouldResetTransform = false;
       this.treeScale = { x: 1, y: 1 };
-      this.hasTargetBoxUpdated = false;
       this.eventHandlers = new Map();
       this.potentialNodes = new Map();
+      this.checkUpdateFailed = function() {
+        if (_this.isUpdating) {
+          _this.isUpdating = false;
+          _this.clearAllSnapshots();
+        }
+      };
       this.updateProjection = function() {
         _this.nodes.forEach(resolveTargetDelta);
         _this.nodes.forEach(calcProjection);
@@ -3533,7 +4237,7 @@ function createProjectionNode(_a) {
       this.id = id3;
       this.latestValues = latestValues;
       this.root = parent ? parent.root || parent : this;
-      this.path = parent ? __spreadArray3(__spreadArray3([], __read5(parent.path)), [parent]) : [];
+      this.path = parent ? __spreadArray3(__spreadArray3([], __read7(parent.path), false), [parent], false) : [];
       this.parent = parent;
       this.depth = parent ? parent.depth + 1 : 0;
       id3 && this.root.registerPotentialNode(id3, this);
@@ -3555,7 +4259,7 @@ function createProjectionNode(_a) {
         args[_i - 1] = arguments[_i];
       }
       var subscriptionManager = this.eventHandlers.get(name);
-      subscriptionManager === null || subscriptionManager === void 0 ? void 0 : subscriptionManager.notify.apply(subscriptionManager, __spreadArray3([], __read5(args)));
+      subscriptionManager === null || subscriptionManager === void 0 ? void 0 : subscriptionManager.notify.apply(subscriptionManager, __spreadArray3([], __read7(args), false));
     };
     ProjectionNode.prototype.hasListeners = function(name) {
       return this.eventHandlers.has(name);
@@ -3571,6 +4275,7 @@ function createProjectionNode(_a) {
       }
       if (this.instance)
         return;
+      this.isSVG = instance instanceof SVGElement && instance.tagName !== "svg";
       this.instance = instance;
       var _b = this.options, layoutId = _b.layoutId, layout = _b.layout, visualElement2 = _b.visualElement;
       if (visualElement2 && !visualElement2.getInstance()) {
@@ -3582,30 +4287,41 @@ function createProjectionNode(_a) {
       if (isLayoutDirty && (layout || layoutId)) {
         this.isLayoutDirty = true;
       }
-      attachResizeListener === null || attachResizeListener === void 0 ? void 0 : attachResizeListener(instance, function() {
-        if (globalProjectionState.hasAnimatedSinceResize) {
-          globalProjectionState.hasAnimatedSinceResize = false;
-          _this.nodes.forEach(finishAnimation);
-        }
-      });
+      if (attachResizeListener) {
+        var unblockTimeout_1;
+        var resizeUnblockUpdate_1 = function() {
+          return _this.root.updateBlockedByResize = false;
+        };
+        attachResizeListener(instance, function() {
+          _this.root.updateBlockedByResize = true;
+          clearTimeout(unblockTimeout_1);
+          unblockTimeout_1 = setTimeout(resizeUnblockUpdate_1, 250);
+          if (globalProjectionState.hasAnimatedSinceResize) {
+            globalProjectionState.hasAnimatedSinceResize = false;
+            _this.nodes.forEach(finishAnimation);
+          }
+        });
+      }
       if (layoutId) {
         this.root.registerSharedNode(layoutId, this);
       }
       if (this.options.animate !== false && visualElement2 && (layoutId || layout)) {
         this.addEventListener("didUpdate", function(_a3) {
-          var _b2, _c;
+          var _b2, _c, _d;
           var delta = _a3.delta, hasLayoutChanged = _a3.hasLayoutChanged, newLayout = _a3.layout;
+          var dragControls = elementDragControls.get(visualElement2);
+          if (dragControls === null || dragControls === void 0 ? void 0 : dragControls.isDragging)
+            return;
           var layoutTransition = (_c = (_b2 = _this.options.transition) !== null && _b2 !== void 0 ? _b2 : visualElement2.getDefaultTransition()) !== null && _c !== void 0 ? _c : defaultLayoutTransition;
-          _this.setOptions({ transition: void 0 });
           var onLayoutAnimationComplete = visualElement2.getProps().onLayoutAnimationComplete;
           var targetChanged = !_this.targetLayout || !boxEquals(_this.targetLayout, newLayout);
-          if (_this.resumeFrom || hasLayoutChanged && (targetChanged || !_this.currentAnimation)) {
+          if (((_d = _this.resumeFrom) === null || _d === void 0 ? void 0 : _d.instance) || hasLayoutChanged && (targetChanged || !_this.currentAnimation)) {
             if (_this.resumeFrom) {
               _this.resumingFrom = _this.resumeFrom;
               _this.resumingFrom.resumingFrom = void 0;
             }
             _this.setAnimationOrigin(delta);
-            _this.startAnimation(__assign15(__assign15({}, getValueTransition(layoutTransition, "layout")), { onComplete: onLayoutAnimationComplete }));
+            _this.startAnimation(__assign17(__assign17({}, getValueTransition(layoutTransition, "layout")), { onComplete: onLayoutAnimationComplete }));
           }
           _this.targetLayout = newLayout;
         });
@@ -3621,14 +4337,17 @@ function createProjectionNode(_a) {
       cancelSync.preRender(this.updateProjection);
     };
     ProjectionNode.prototype.blockUpdate = function() {
-      this.updateBlocked = true;
+      this.updateManuallyBlocked = true;
     };
     ProjectionNode.prototype.unblockUpdate = function() {
-      this.updateBlocked = false;
+      this.updateManuallyBlocked = false;
+    };
+    ProjectionNode.prototype.isUpdateBlocked = function() {
+      return this.updateManuallyBlocked || this.updateBlockedByResize;
     };
     ProjectionNode.prototype.startUpdate = function() {
       var _a2;
-      if (this.updateBlocked)
+      if (this.isUpdateBlocked())
         return;
       this.isUpdating = true;
       (_a2 = this.nodes) === null || _a2 === void 0 ? void 0 : _a2.forEach(resetRotation);
@@ -3638,7 +4357,7 @@ function createProjectionNode(_a) {
       if (shouldNotifyListeners === void 0) {
         shouldNotifyListeners = true;
       }
-      if (this.root.updateBlocked)
+      if (this.root.isUpdateBlocked())
         return;
       !this.root.isUpdating && this.root.startUpdate();
       if (this.isLayoutDirty)
@@ -3658,16 +4377,15 @@ function createProjectionNode(_a) {
       shouldNotifyListeners && this.notifyListeners("willUpdate");
     };
     ProjectionNode.prototype.didUpdate = function() {
-      var updateWasBlocked = this.updateBlocked;
-      if (this.updateBlocked)
+      var updateWasBlocked = this.isUpdateBlocked();
+      if (updateWasBlocked) {
         this.unblockUpdate();
-      if (!this.isUpdating) {
-        if (updateWasBlocked) {
-          this.nodes.forEach(clearSnapshot);
-          this.nodes.forEach(clearMeasurements);
-        }
+        this.clearAllSnapshots();
+        this.nodes.forEach(clearMeasurements);
         return;
       }
+      if (!this.isUpdating)
+        return;
       this.isUpdating = false;
       if (this.potentialNodes.size) {
         this.potentialNodes.forEach(mountNodeEarly);
@@ -3676,20 +4394,28 @@ function createProjectionNode(_a) {
       this.nodes.forEach(resetTransformStyle);
       this.nodes.forEach(updateLayout);
       this.nodes.forEach(notifyLayoutUpdate);
-      this.nodes.forEach(clearSnapshot);
+      this.clearAllSnapshots();
       flushSync.update();
       flushSync.preRender();
       flushSync.render();
     };
+    ProjectionNode.prototype.clearAllSnapshots = function() {
+      this.nodes.forEach(clearSnapshot);
+      this.sharedNodes.forEach(removeLeadSnapshots);
+    };
     ProjectionNode.prototype.scheduleUpdateProjection = function() {
       es_default.preRender(this.updateProjection, false, true);
     };
+    ProjectionNode.prototype.scheduleUpdateFailedCheck = function() {
+      es_default.postRender(this.checkUpdateFailed);
+    };
     ProjectionNode.prototype.updateSnapshot = function() {
-      if (this.snapshot)
+      if (this.snapshot || !this.instance)
         return;
       var measured = this.measure();
       var visible = this.removeTransform(measured);
       var layout = this.removeElementScroll(visible);
+      roundBox(layout);
       this.snapshot = {
         measured,
         visible,
@@ -3698,16 +4424,31 @@ function createProjectionNode(_a) {
       };
     };
     ProjectionNode.prototype.updateLayout = function() {
+      var _a2;
+      if (!this.instance)
+        return;
       this.updateScroll();
       if (!(this.options.alwaysMeasureLayout && this.isLead()) && !this.isLayoutDirty) {
         return;
       }
+      if (this.resumeFrom && !this.resumeFrom.instance) {
+        for (var i = 0; i < this.path.length; i++) {
+          var node = this.path[i];
+          node.updateScroll();
+        }
+      }
       var measured = this.measure();
-      this.layout = this.removeElementScroll(measured);
+      roundBox(measured);
+      var prevLayout = this.layout;
+      this.layout = {
+        measured,
+        actual: this.removeElementScroll(measured)
+      };
       this.layoutCorrected = createBox();
       this.isLayoutDirty = false;
       this.projectionDelta = void 0;
       this.notifyListeners("measure");
+      (_a2 = this.options.visualElement) === null || _a2 === void 0 ? void 0 : _a2.notifyLayoutMeasure(this.layout.actual, prevLayout === null || prevLayout === void 0 ? void 0 : prevLayout.actual);
     };
     ProjectionNode.prototype.updateScroll = function() {
       if (this.options.shouldMeasureScroll && this.instance) {
@@ -3792,11 +4533,10 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.setTargetDelta = function(delta) {
       this.targetDelta = delta;
       this.root.scheduleUpdateProjection();
-      this.hasTargetBoxUpdated = true;
     };
     ProjectionNode.prototype.setOptions = function(options) {
       var _a2;
-      this.options = __assign15(__assign15(__assign15({}, this.options), options), { crossfade: (_a2 = options.crossfade) !== null && _a2 !== void 0 ? _a2 : true });
+      this.options = __assign17(__assign17(__assign17({}, this.options), options), { crossfade: (_a2 = options.crossfade) !== null && _a2 !== void 0 ? _a2 : true });
     };
     ProjectionNode.prototype.clearMeasurements = function() {
       this.scroll = void 0;
@@ -3812,12 +4552,12 @@ function createProjectionNode(_a) {
       var _b = this.options, layout = _b.layout, layoutId = _b.layoutId;
       if (!this.layout || !(layout || layoutId))
         return;
-      if (!this.targetDelta) {
+      if (!this.targetDelta && !this.relativeTarget) {
         this.relativeParent = this.getClosestProjectingParent();
         if (this.relativeParent && this.relativeParent.layout) {
           this.relativeTarget = createBox();
           this.relativeTargetOrigin = createBox();
-          calcRelativePosition(this.relativeTargetOrigin, this.layout, this.relativeParent.layout);
+          calcRelativePosition(this.relativeTargetOrigin, this.layout.actual, this.relativeParent.layout.actual);
           copyBoxInto(this.relativeTarget, this.relativeTargetOrigin);
         }
       }
@@ -3831,13 +4571,13 @@ function createProjectionNode(_a) {
         calcRelativeBox(this.target, this.relativeTarget, this.relativeParent.target);
       } else if (this.targetDelta) {
         if (Boolean(this.resumingFrom)) {
-          this.target = this.applyTransform(this.layout);
+          this.target = this.applyTransform(this.layout.actual);
         } else {
-          copyBoxInto(this.target, this.layout);
+          copyBoxInto(this.target, this.layout.actual);
         }
         applyBoxDelta(this.target, this.targetDelta);
       } else {
-        copyBoxInto(this.target, this.layout);
+        copyBoxInto(this.target, this.layout.actual);
       }
       if (this.attemptToResolveRelativeTarget) {
         this.attemptToResolveRelativeTarget = false;
@@ -3860,23 +4600,23 @@ function createProjectionNode(_a) {
       }
     };
     ProjectionNode.prototype.calcProjection = function() {
-      var _a2, _b, _c;
-      var _d = this.options, layout = _d.layout, layoutId = _d.layoutId;
-      this.isTreeAnimating = Boolean(((_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.isTreeAnimating) || this.currentAnimation);
+      var _a2;
+      var _b = this.options, layout = _b.layout, layoutId = _b.layoutId;
+      this.isTreeAnimating = Boolean(((_a2 = this.parent) === null || _a2 === void 0 ? void 0 : _a2.isTreeAnimating) || this.currentAnimation || this.pendingAnimation);
       if (!this.isTreeAnimating) {
         this.targetDelta = this.relativeTarget = void 0;
       }
       if (!this.layout || !(layout || layoutId))
         return;
       var lead = this.getLead();
-      copyBoxInto(this.layoutCorrected, this.layout);
+      copyBoxInto(this.layoutCorrected, this.layout.actual);
       applyTreeDeltas(this.layoutCorrected, this.treeScale, this.path, Boolean(this.resumingFrom) || this !== lead);
       if (!lead.target) {
-        var isScaleOnly = !boxEquals(this.layoutCorrected, this.layout);
+        var isScaleOnly = !boxEquals(this.layoutCorrected, this.layout.actual);
         if (isScaleOnly) {
           lead.target = createBox();
           lead.targetWithTransforms = createBox();
-          copyBoxInto(lead.target, this.layout);
+          copyBoxInto(lead.target, this.layout.actual);
         }
       }
       var target = lead.target;
@@ -3894,10 +4634,6 @@ function createProjectionNode(_a) {
       if (this.projectionTransform !== prevProjectionTransform || this.treeScale.x !== prevTreeScaleX || this.treeScale.y !== prevTreeScaleY) {
         this.scheduleRender();
       }
-      if (this.hasTargetBoxUpdated) {
-        (_c = (_b = this.options).onProjectionUpdate) === null || _c === void 0 ? void 0 : _c.call(_b, this.target, this.targetDelta);
-      }
-      this.hasTargetBoxUpdated = false;
     };
     ProjectionNode.prototype.hide = function() {
       this.isVisible = false;
@@ -3921,7 +4657,7 @@ function createProjectionNode(_a) {
       var _a2;
       var snapshot = this.snapshot;
       var snapshotLatestValues = (snapshot === null || snapshot === void 0 ? void 0 : snapshot.latestValues) || {};
-      var mixedValues = __assign15({}, this.latestValues);
+      var mixedValues = __assign17({}, this.latestValues);
       var targetDelta = createDelta();
       this.relativeTarget = this.relativeTargetOrigin = void 0;
       this.attemptToResolveRelativeTarget = true;
@@ -3936,7 +4672,7 @@ function createProjectionNode(_a) {
         mixAxisDelta(targetDelta.y, delta.y, progress2);
         _this.setTargetDelta(targetDelta);
         if (_this.relativeTarget && _this.relativeTargetOrigin && _this.layout && ((_a3 = _this.relativeParent) === null || _a3 === void 0 ? void 0 : _a3.layout)) {
-          calcRelativePosition(relativeLayout, _this.layout, _this.relativeParent.layout);
+          calcRelativePosition(relativeLayout, _this.layout.actual, _this.relativeParent.layout.actual);
           mixBox(_this.relativeTarget, _this.relativeTargetOrigin, relativeLayout, progress2);
         }
         if (isSharedLayoutAnimation) {
@@ -3951,21 +4687,30 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.startAnimation = function(options) {
       var _this = this;
       var _a2, _b;
-      globalProjectionState.hasAnimatedSinceResize = true;
       (_a2 = this.currentAnimation) === null || _a2 === void 0 ? void 0 : _a2.stop();
-      this.currentAnimation = animate2(0, animationTarget, __assign15(__assign15({}, options), { onUpdate: function(latest) {
-        var _a3;
-        _this.mixTargetDelta(latest);
-        (_a3 = options.onUpdate) === null || _a3 === void 0 ? void 0 : _a3.call(options, latest);
-      }, onComplete: function() {
-        var _a3;
-        (_a3 = options.onComplete) === null || _a3 === void 0 ? void 0 : _a3.call(options);
-        _this.completeAnimation();
-      } }));
       if (this.resumingFrom) {
         (_b = this.resumingFrom.currentAnimation) === null || _b === void 0 ? void 0 : _b.stop();
-        this.resumingFrom.currentAnimation = this.currentAnimation;
       }
+      if (this.pendingAnimation) {
+        cancelSync.update(this.pendingAnimation);
+        this.pendingAnimation = void 0;
+      }
+      this.pendingAnimation = es_default.update(function() {
+        globalProjectionState.hasAnimatedSinceResize = true;
+        _this.currentAnimation = animate2(0, animationTarget, __assign17(__assign17({}, options), { onUpdate: function(latest) {
+          var _a3;
+          _this.mixTargetDelta(latest);
+          (_a3 = options.onUpdate) === null || _a3 === void 0 ? void 0 : _a3.call(options, latest);
+        }, onComplete: function() {
+          var _a3;
+          (_a3 = options.onComplete) === null || _a3 === void 0 ? void 0 : _a3.call(options);
+          _this.completeAnimation();
+        } }));
+        if (_this.resumingFrom) {
+          _this.resumingFrom.currentAnimation = _this.currentAnimation;
+        }
+        _this.pendingAnimation = void 0;
+      });
     };
     ProjectionNode.prototype.completeAnimation = function() {
       var _a2;
@@ -4070,7 +4815,7 @@ function createProjectionNode(_a) {
     ProjectionNode.prototype.getProjectionStyles = function() {
       var _a2, _b, _c, _d, _e, _f;
       var styles = {};
-      if (!this.instance)
+      if (!this.instance || this.isSVG)
         return styles;
       var lead = this.getLead();
       if (!this.isVisible) {
@@ -4140,38 +4885,40 @@ function updateLayout(node) {
 }
 function notifyLayoutUpdate(node) {
   var _a, _b;
-  var layout = node.layout;
   var snapshot = (_b = (_a = node.resumeFrom) === null || _a === void 0 ? void 0 : _a.snapshot) !== null && _b !== void 0 ? _b : node.snapshot;
-  if (node.isLead() && layout && snapshot && node.hasListeners("didUpdate")) {
+  if (node.isLead() && node.layout && snapshot && node.hasListeners("didUpdate")) {
+    var _c = node.layout, layout_1 = _c.actual, measuredLayout = _c.measured;
     if (node.options.animationType === "size") {
       eachAxis(function(axis) {
         var axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.visible[axis];
         var length = calcLength(axisSnapshot);
-        axisSnapshot.min = layout[axis].min;
+        axisSnapshot.min = layout_1[axis].min;
         axisSnapshot.max = axisSnapshot.min + length;
       });
     } else if (node.options.animationType === "position") {
       eachAxis(function(axis) {
         var axisSnapshot = snapshot.isShared ? snapshot.measured[axis] : snapshot.visible[axis];
-        var length = calcLength(layout[axis]);
+        var length = calcLength(layout_1[axis]);
         axisSnapshot.max = axisSnapshot.min + length;
       });
     }
     var layoutDelta = createDelta();
-    calcBoxDelta(layoutDelta, layout, snapshot.layout);
+    calcBoxDelta(layoutDelta, layout_1, snapshot.layout);
     var visualDelta = createDelta();
     if (snapshot.isShared) {
-      calcBoxDelta(visualDelta, node.applyTransform(layout), snapshot.measured);
+      calcBoxDelta(visualDelta, node.applyTransform(measuredLayout), snapshot.measured);
     } else {
-      calcBoxDelta(visualDelta, layout, snapshot.visible);
+      calcBoxDelta(visualDelta, measuredLayout, snapshot.visible);
     }
     node.notifyListeners("didUpdate", {
-      layout,
+      layout: layout_1,
       snapshot,
       delta: visualDelta,
+      layoutDelta,
       hasLayoutChanged: !isDeltaZero(layoutDelta)
     });
   }
+  node.options.transition = void 0;
 }
 function clearSnapshot(node) {
   node.clearSnapshot();
@@ -4193,6 +4940,9 @@ function calcProjection(node) {
 }
 function resetRotation(node) {
   node.resetRotation();
+}
+function removeLeadSnapshots(stack) {
+  stack.removeLeadSnapshot();
 }
 function mixAxisDelta(output, delta, p) {
   output.translate = mix(delta.translate, 0, p);
@@ -4228,6 +4978,14 @@ function mountNodeEarly(node, id3) {
   if (element)
     node.mount(element, true);
 }
+function roundAxis(axis) {
+  axis.min = Math.round(axis.min);
+  axis.max = Math.round(axis.max);
+}
+function roundBox(box) {
+  roundAxis(box.x);
+  roundAxis(box.y);
+}
 
 // ../../node_modules/framer-motion/dist/es/projection/node/id.js
 var id = 1;
@@ -4242,34 +5000,6 @@ function useProjectionId() {
 // ../../node_modules/framer-motion/dist/es/context/LayoutGroupContext.js
 import { createContext as createContext5 } from "react";
 var LayoutGroupContext = createContext5({});
-
-// ../../node_modules/framer-motion/dist/es/motion/features/use-projection.js
-import { __assign as __assign16 } from "tslib";
-
-// ../../node_modules/framer-motion/dist/es/projection/geometry/conversion.js
-function convertBoundingBoxToBox(_a) {
-  var top2 = _a.top, left2 = _a.left, right2 = _a.right, bottom2 = _a.bottom;
-  return {
-    x: { min: left2, max: right2 },
-    y: { min: top2, max: bottom2 }
-  };
-}
-function convertBoxToBoundingBox(_a) {
-  var x = _a.x, y = _a.y;
-  return { top: y.min, right: x.max, bottom: y.max, left: x.min };
-}
-function transformBoxPoints(point, transformPoint2) {
-  if (!transformPoint2)
-    return point;
-  var topLeft = transformPoint2({ x: point.left, y: point.top });
-  var bottomRight = transformPoint2({ x: point.right, y: point.bottom });
-  return {
-    top: topLeft.y,
-    left: topLeft.x,
-    bottom: bottomRight.y,
-    right: bottomRight.x
-  };
-}
 
 // ../../node_modules/framer-motion/dist/es/projection/node/DocumentProjectionNode.js
 var DocumentProjectionNode = createProjectionNode({
@@ -4291,9 +5021,6 @@ var DocumentProjectionNode = createProjectionNode({
 var rootProjectionNode = {
   current: void 0
 };
-function measureViewportBox(instance, transformPoint2) {
-  return convertBoundingBoxToBox(transformBoxPoints(instance.getBoundingClientRect(), transformPoint2));
-}
 var HTMLProjectionNode = createProjectionNode({
   measureScroll: function(instance) {
     return {
@@ -4316,18 +5043,9 @@ var HTMLProjectionNode = createProjectionNode({
 });
 
 // ../../node_modules/framer-motion/dist/es/motion/features/use-projection.js
-import { useEffect as useEffect3 } from "react";
 function useProjection(projectionId, _a, visualElement2, initialPromotionConfig) {
   var _b;
-  var layoutId = _a.layoutId, layout = _a.layout, drag2 = _a.drag, dragConstraints = _a.dragConstraints, onProjectionUpdate = _a.onProjectionUpdate;
-  useEffect3(function() {
-    if (!visualElement2)
-      return;
-    var projection = visualElement2.projection;
-    if (!projection)
-      return;
-    projection.setOptions(__assign16(__assign16({}, projection.options), { onProjectionUpdate }));
-  }, [visualElement2, onProjectionUpdate]);
+  var layoutId = _a.layoutId, layout = _a.layout, drag2 = _a.drag, dragConstraints = _a.dragConstraints, shouldMeasureScroll = _a.shouldMeasureScroll;
   if (!visualElement2 || (visualElement2 === null || visualElement2 === void 0 ? void 0 : visualElement2.projection))
     return;
   visualElement2.projection = new HTMLProjectionNode(projectionId, visualElement2.getLatestValues(), (_b = visualElement2.parent) === null || _b === void 0 ? void 0 : _b.projection);
@@ -4340,7 +5058,8 @@ function useProjection(projectionId, _a, visualElement2, initialPromotionConfig)
       return visualElement2.scheduleRender();
     },
     animationType: typeof layout === "string" ? layout : "both",
-    initialPromotionConfig
+    initialPromotionConfig,
+    shouldMeasureScroll
   });
 }
 
@@ -4382,14 +5101,14 @@ function createMotionComponent(_a) {
   preloadedFeatures && loadFeatures(preloadedFeatures);
   function MotionComponent(props, externalRef) {
     var layoutId = useLayoutId(props);
-    props = __assign17(__assign17({}, props), { layoutId });
+    props = __assign18(__assign18({}, props), { layoutId });
     var config = useContext5(MotionConfigContext);
     var features = null;
     var context = useCreateMotionContext(props, config.isStatic);
     var projectionId = useProjectionId();
     var visualState = useVisualState2(props, config.isStatic);
     if (!config.isStatic && isBrowser) {
-      context.visualElement = useVisualElement(Component, visualState, __assign17(__assign17({}, config), props), createVisualElement);
+      context.visualElement = useVisualElement(Component, visualState, __assign18(__assign18({}, config), props), createVisualElement);
     }
     if (!config.isStatic && isBrowser) {
       features = useFeatures(props, projectionId, context.visualElement, preloadedFeatures);
@@ -4399,7 +5118,7 @@ function createMotionComponent(_a) {
         shouldPreserveFollowOpacity
       });
     }
-    return createElement2(VisualElementHandler, { visualElement: context.visualElement, props: __assign17(__assign17({}, config), props) }, features, createElement2(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, config.isStatic)));
+    return createElement2(VisualElementHandler, { visualElement: context.visualElement, props: __assign18(__assign18({}, config), props) }, features, createElement2(MotionContext.Provider, { value: context }, useRender(Component, props, projectionId, useMotionRef(visualState, context.visualElement, externalRef), visualState, config.isStatic)));
   }
   return forwardRef(MotionComponent);
 }
@@ -4430,7 +5149,7 @@ function createMotionProxy(createConfig) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/create-config.js
-import { __assign as __assign22 } from "tslib";
+import { __assign as __assign23 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/svg/lowercase-elements.js
 var lowercaseSVGElements = [
@@ -4472,11 +5191,11 @@ function isSVGComponent(Component) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/dom/use-render.js
-import { __assign as __assign21 } from "tslib";
+import { __assign as __assign22 } from "tslib";
 import { createElement as createElement3 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/render/html/use-props.js
-import { __assign as __assign18 } from "tslib";
+import { __assign as __assign19 } from "tslib";
 import { useMemo as useMemo2 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js
@@ -4598,7 +5317,7 @@ function useInitialMotionValues(_a, visualState, isStatic) {
     var state = createHtmlRenderState();
     buildHTMLStyles(state, visualState, { enableHardwareAcceleration: !isStatic }, transformTemplate);
     var vars = state.vars, style3 = state.style;
-    return __assign18(__assign18({}, vars), style3);
+    return __assign19(__assign19({}, vars), style3);
   }, [visualState]);
 }
 function useStyle(props, visualState, isStatic) {
@@ -4638,7 +5357,6 @@ var validMotionProps = new Set([
   "layout",
   "layoutId",
   "onLayoutAnimationComplete",
-  "onProjectionUpdate",
   "onLayoutMeasure",
   "onBeforeLayoutMeasure",
   "onAnimationStart",
@@ -4673,7 +5391,8 @@ var validMotionProps = new Set([
   "onHoverEnd",
   "whileFocus",
   "whileTap",
-  "whileHover"
+  "whileHover",
+  "shouldMeasureScroll"
 ]);
 function isValidMotionProp(key) {
   return validMotionProps.has(key);
@@ -4706,7 +5425,7 @@ function filterProps(props, isDom, forwardMotionProps) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/svg/use-props.js
-import { __assign as __assign20 } from "tslib";
+import { __assign as __assign21 } from "tslib";
 import { useMemo as useMemo3 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js
@@ -4776,9 +5495,9 @@ function buildSVGAttrs(state, _a, options, transformTemplate) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.js
-import { __assign as __assign19 } from "tslib";
+import { __assign as __assign20 } from "tslib";
 var createSvgRenderState = function() {
-  return __assign19(__assign19({}, createHtmlRenderState()), { attrs: {} });
+  return __assign20(__assign20({}, createHtmlRenderState()), { attrs: {} });
 };
 
 // ../../node_modules/framer-motion/dist/es/render/svg/use-props.js
@@ -4786,12 +5505,12 @@ function useSVGProps(props, visualState) {
   var visualProps = useMemo3(function() {
     var state = createSvgRenderState();
     buildSVGAttrs(state, visualState, { enableHardwareAcceleration: false }, props.transformTemplate);
-    return __assign20(__assign20({}, state.attrs), { style: __assign20({}, state.style) });
+    return __assign21(__assign21({}, state.attrs), { style: __assign21({}, state.style) });
   }, [visualState]);
   if (props.style) {
     var rawStyles = {};
     copyRawValuesOnly(rawStyles, props.style, props);
-    visualProps.style = __assign20(__assign20({}, rawStyles), visualProps.style);
+    visualProps.style = __assign21(__assign21({}, rawStyles), visualProps.style);
   }
   return visualProps;
 }
@@ -4806,7 +5525,7 @@ function createUseRender(forwardMotionProps) {
     var useVisualProps = isSVGComponent(Component) ? useSVGProps : useHTMLProps;
     var visualProps = useVisualProps(props, latestValues, isStatic);
     var filteredProps = filterProps(props, typeof Component === "string", forwardMotionProps);
-    var elementProps = __assign21(__assign21(__assign21({}, filteredProps), visualProps), { ref });
+    var elementProps = __assign22(__assign22(__assign22({}, filteredProps), visualProps), { ref });
     if (projectionId) {
       elementProps["data-projection-id"] = projectionId;
     }
@@ -4825,8 +5544,7 @@ var camelToDash = function(str) {
 // ../../node_modules/framer-motion/dist/es/render/html/utils/render.js
 function renderHTML(element, _a, projection) {
   var style3 = _a.style, vars = _a.vars;
-  Object.assign(element.style, style3, projection ? projection.getProjectionStyles() : {});
-  element.id === "item-child" && console.log(style3.opacity, projection && projection.getProjectionStyles().opacity);
+  Object.assign(element.style, style3, projection && projection.getProjectionStyles());
   for (var key in vars) {
     element.style.setProperty(key, vars[key]);
   }
@@ -5007,40 +5725,7 @@ var htmlMotionConfig = {
 function createDomMotionConfig(Component, _a, preloadedFeatures, createVisualElement) {
   var _b = _a.forwardMotionProps, forwardMotionProps = _b === void 0 ? false : _b;
   var baseConfig = isSVGComponent(Component) ? svgMotionConfig : htmlMotionConfig;
-  return __assign22(__assign22({}, baseConfig), {
-    preloadedFeatures,
-    useRender: createUseRender(forwardMotionProps),
-    createVisualElement,
-    Component
-  });
-}
-
-// ../../node_modules/framer-motion/dist/es/render/utils/types.js
-var AnimationType;
-(function(AnimationType2) {
-  AnimationType2["Animate"] = "animate";
-  AnimationType2["Hover"] = "whileHover";
-  AnimationType2["Tap"] = "whileTap";
-  AnimationType2["Drag"] = "whileDrag";
-  AnimationType2["Focus"] = "whileFocus";
-  AnimationType2["Exit"] = "exit";
-})(AnimationType || (AnimationType = {}));
-
-// ../../node_modules/framer-motion/dist/es/events/use-dom-event.js
-import { useEffect as useEffect4 } from "react";
-function addDomEvent(target, eventName, handler, options) {
-  target.addEventListener(eventName, handler, options);
-  return function() {
-    return target.removeEventListener(eventName, handler, options);
-  };
-}
-function useDomEvent(ref, eventName, handler, options) {
-  useEffect4(function() {
-    var element = ref.current;
-    if (handler && element) {
-      return addDomEvent(element, eventName, handler, options);
-    }
-  }, [ref, eventName, handler, options]);
+  return __assign23(__assign23({}, baseConfig), { preloadedFeatures, useRender: createUseRender(forwardMotionProps), createVisualElement, Component });
 }
 
 // ../../node_modules/framer-motion/dist/es/gestures/use-focus-gesture.js
@@ -5056,162 +5741,6 @@ function useFocusGesture(_a) {
   };
   useDomEvent(visualElement2, "focus", whileFocus ? onFocus : void 0);
   useDomEvent(visualElement2, "blur", whileFocus ? onBlur : void 0);
-}
-
-// ../../node_modules/framer-motion/dist/es/gestures/utils/event-type.js
-function isMouseEvent(event) {
-  if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
-    return !!(event.pointerType === "mouse");
-  }
-  return event instanceof MouseEvent;
-}
-function isTouchEvent(event) {
-  var hasTouches = !!event.touches;
-  return hasTouches;
-}
-
-// ../../node_modules/framer-motion/dist/es/events/event-info.js
-function filterPrimaryPointer(eventHandler) {
-  return function(event) {
-    var isMouseEvent2 = event instanceof MouseEvent;
-    var isPrimaryPointer = !isMouseEvent2 || isMouseEvent2 && event.button === 0;
-    if (isPrimaryPointer) {
-      eventHandler(event);
-    }
-  };
-}
-var defaultPagePoint = { pageX: 0, pageY: 0 };
-function pointFromTouch(e, pointType) {
-  if (pointType === void 0) {
-    pointType = "page";
-  }
-  var primaryTouch = e.touches[0] || e.changedTouches[0];
-  var point = primaryTouch || defaultPagePoint;
-  return {
-    x: point[pointType + "X"],
-    y: point[pointType + "Y"]
-  };
-}
-function pointFromMouse(point, pointType) {
-  if (pointType === void 0) {
-    pointType = "page";
-  }
-  return {
-    x: point[pointType + "X"],
-    y: point[pointType + "Y"]
-  };
-}
-function extractEventInfo(event, pointType) {
-  if (pointType === void 0) {
-    pointType = "page";
-  }
-  return {
-    point: isTouchEvent(event) ? pointFromTouch(event, pointType) : pointFromMouse(event, pointType)
-  };
-}
-function getViewportPointFromEvent(event) {
-  return extractEventInfo(event, "client");
-}
-var wrapHandler = function(handler, shouldFilterPrimaryPointer) {
-  if (shouldFilterPrimaryPointer === void 0) {
-    shouldFilterPrimaryPointer = false;
-  }
-  var listener = function(event) {
-    return handler(event, extractEventInfo(event));
-  };
-  return shouldFilterPrimaryPointer ? filterPrimaryPointer(listener) : listener;
-};
-
-// ../../node_modules/framer-motion/dist/es/events/utils.js
-var supportsPointerEvents = function() {
-  return isBrowser && window.onpointerdown === null;
-};
-var supportsTouchEvents = function() {
-  return isBrowser && window.ontouchstart === null;
-};
-var supportsMouseEvents = function() {
-  return isBrowser && window.onmousedown === null;
-};
-
-// ../../node_modules/framer-motion/dist/es/events/use-pointer-event.js
-var mouseEventNames = {
-  pointerdown: "mousedown",
-  pointermove: "mousemove",
-  pointerup: "mouseup",
-  pointercancel: "mousecancel",
-  pointerover: "mouseover",
-  pointerout: "mouseout",
-  pointerenter: "mouseenter",
-  pointerleave: "mouseleave"
-};
-var touchEventNames = {
-  pointerdown: "touchstart",
-  pointermove: "touchmove",
-  pointerup: "touchend",
-  pointercancel: "touchcancel"
-};
-function getPointerEventName(name) {
-  if (supportsPointerEvents()) {
-    return name;
-  } else if (supportsTouchEvents()) {
-    return touchEventNames[name];
-  } else if (supportsMouseEvents()) {
-    return mouseEventNames[name];
-  }
-  return name;
-}
-function addPointerEvent(target, eventName, handler, options) {
-  return addDomEvent(target, getPointerEventName(eventName), wrapHandler(handler, eventName === "pointerdown"), options);
-}
-function usePointerEvent(ref, eventName, handler, options) {
-  return useDomEvent(ref, getPointerEventName(eventName), handler && wrapHandler(handler, eventName === "pointerdown"), options);
-}
-
-// ../../node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js
-function createLock(name) {
-  var lock = null;
-  return function() {
-    var openLock = function() {
-      lock = null;
-    };
-    if (lock === null) {
-      lock = name;
-      return openLock;
-    }
-    return false;
-  };
-}
-var globalHorizontalLock = createLock("dragHorizontal");
-var globalVerticalLock = createLock("dragVertical");
-function getGlobalLock(drag2) {
-  var lock = false;
-  if (drag2 === "y") {
-    lock = globalVerticalLock();
-  } else if (drag2 === "x") {
-    lock = globalHorizontalLock();
-  } else {
-    var openHorizontal_1 = globalHorizontalLock();
-    var openVertical_1 = globalVerticalLock();
-    if (openHorizontal_1 && openVertical_1) {
-      lock = function() {
-        openHorizontal_1();
-        openVertical_1();
-      };
-    } else {
-      if (openHorizontal_1)
-        openHorizontal_1();
-      if (openVertical_1)
-        openVertical_1();
-    }
-  }
-  return lock;
-}
-function isDragActive() {
-  var openGestureLock = getGlobalLock(true);
-  if (!openGestureLock)
-    return true;
-  openGestureLock();
-  return false;
 }
 
 // ../../node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js
@@ -5245,9 +5774,9 @@ var isNodeOrChild = function(parent, child) {
 };
 
 // ../../node_modules/framer-motion/dist/es/utils/use-unmount-effect.js
-import { useEffect as useEffect5 } from "react";
+import { useEffect as useEffect4 } from "react";
 function useUnmountEffect(callback) {
-  return useEffect5(function() {
+  return useEffect4(function() {
     return function() {
       return callback();
     };
@@ -5312,18 +5841,18 @@ var gestureAnimations = {
 };
 
 // ../../node_modules/framer-motion/dist/es/motion/features/animations.js
-import { __read as __read10 } from "tslib";
-import { useEffect as useEffect7, useContext as useContext8 } from "react";
+import { __read as __read12 } from "tslib";
+import { useEffect as useEffect6, useContext as useContext8 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js
-import { useContext as useContext7, useEffect as useEffect6 } from "react";
+import { useContext as useContext7, useEffect as useEffect5 } from "react";
 function usePresence() {
   var context = useContext7(PresenceContext);
   if (context === null)
     return [true, null];
   var isPresent2 = context.isPresent, onExitComplete = context.onExitComplete, register = context.register;
   var id3 = useUniqueId();
-  useEffect6(function() {
+  useEffect5(function() {
     return register(id3);
   }, []);
   var safeToRemove = function() {
@@ -5346,7 +5875,7 @@ var useUniqueId = function() {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/utils/animation-state.js
-import { __spreadArray as __spreadArray6, __read as __read9, __assign as __assign25, __rest as __rest8 } from "tslib";
+import { __spreadArray as __spreadArray6, __read as __read11, __assign as __assign26, __rest as __rest8 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/utils/shallow-compare.js
 function shallowCompare(next, prev) {
@@ -5363,10 +5892,10 @@ function shallowCompare(next, prev) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/utils/animation.js
-import { __read as __read8, __rest as __rest7, __assign as __assign24 } from "tslib";
+import { __read as __read10, __rest as __rest7, __assign as __assign25 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/utils/setters.js
-import { __rest as __rest6, __assign as __assign23, __spreadArray as __spreadArray5, __read as __read7 } from "tslib";
+import { __rest as __rest6, __assign as __assign24, __spreadArray as __spreadArray5, __read as __read9 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/utils/is-numerical-string.js
 var isNumericalString = function(v) {
@@ -5379,7 +5908,7 @@ var isZeroValueString = function(v) {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/find.js
-import { __spreadArray as __spreadArray4, __read as __read6 } from "tslib";
+import { __spreadArray as __spreadArray4, __read as __read8 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/test.js
 var testValueType = function(v) {
@@ -5405,7 +5934,7 @@ var findDimensionValueType = function(v) {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/value-types/find.js
-var valueTypes = __spreadArray4(__spreadArray4([], __read6(dimensionValueTypes)), [color, complex]);
+var valueTypes = __spreadArray4(__spreadArray4([], __read8(dimensionValueTypes), false), [color, complex], false);
 var findValueType = function(v) {
   return valueTypes.find(testValueType(v));
 };
@@ -5423,14 +5952,14 @@ function setTarget(visualElement2, definition) {
   var _a = resolved ? visualElement2.makeTargetAnimatable(resolved, false) : {}, _b = _a.transitionEnd, transitionEnd = _b === void 0 ? {} : _b;
   _a.transition;
   var target = __rest6(_a, ["transitionEnd", "transition"]);
-  target = __assign23(__assign23({}, target), transitionEnd);
+  target = __assign24(__assign24({}, target), transitionEnd);
   for (var key in target) {
     var value = resolveFinalValueInKeyframes(target[key]);
     setMotionValue(visualElement2, key, value);
   }
 }
 function setVariants(visualElement2, variantLabels) {
-  var reversedLabels = __spreadArray5([], __read7(variantLabels)).reverse();
+  var reversedLabels = __spreadArray5([], __read9(variantLabels), false).reverse();
   reversedLabels.forEach(function(key) {
     var _a;
     var variant = visualElement2.getVariant(key);
@@ -5543,7 +6072,7 @@ function animateVariant(visualElement2, variant, options) {
   };
   var when = transition.when;
   if (when) {
-    var _c = __read8(when === "beforeChildren" ? [getAnimation2, getChildAnimations] : [getChildAnimations, getAnimation2], 2), first = _c[0], last = _c[1];
+    var _c = __read10(when === "beforeChildren" ? [getAnimation2, getChildAnimations] : [getChildAnimations, getAnimation2], 2), first = _c[0], last = _c[1];
     return first().then(last);
   } else {
     return Promise.all([getAnimation2(), getChildAnimations(options.delay)]);
@@ -5563,7 +6092,7 @@ function animateTarget(visualElement2, definition, _a) {
     if (!value || valueTarget === void 0 || animationTypeState && shouldBlockAnimation(animationTypeState, key)) {
       continue;
     }
-    var animation = startAnimation(key, value, valueTarget, __assign24({ delay }, transition));
+    var animation = startAnimation(key, value, valueTarget, __assign25({ delay }, transition));
     animations2.push(animation);
   }
   return Promise.all(animations2).then(function() {
@@ -5594,7 +6123,7 @@ function animateChildren(visualElement2, variant, delayChildren, staggerChildren
     return maxStaggerDuration - i * staggerChildren;
   };
   Array.from(visualElement2.variantChildren).sort(sortByTreeOrder).forEach(function(child, i) {
-    animations2.push(animateVariant(child, variant, __assign24(__assign24({}, options), { delay: delayChildren + generateStaggerDuration(i) })).then(function() {
+    animations2.push(animateVariant(child, variant, __assign25(__assign25({}, options), { delay: delayChildren + generateStaggerDuration(i) })).then(function() {
       return child.notifyAnimationComplete(variant);
     }));
   });
@@ -5624,7 +6153,7 @@ var variantPriorityOrder = [
   AnimationType.Focus,
   AnimationType.Exit
 ];
-var reversePriorityOrder = __spreadArray6([], __read9(variantPriorityOrder)).reverse();
+var reversePriorityOrder = __spreadArray6([], __read11(variantPriorityOrder), false).reverse();
 var numAnimationTypes = variantPriorityOrder.length;
 function animateList(visualElement2) {
   return function(animations2) {
@@ -5644,7 +6173,7 @@ function createAnimationState(visualElement2) {
     if (resolved) {
       resolved.transition;
       var transitionEnd = resolved.transitionEnd, target = __rest8(resolved, ["transition", "transitionEnd"]);
-      acc = __assign25(__assign25(__assign25({}, acc), target), transitionEnd);
+      acc = __assign26(__assign26(__assign26({}, acc), target), transitionEnd);
     }
     return acc;
   };
@@ -5674,7 +6203,7 @@ function createAnimationState(visualElement2) {
       if (isInherited && isInitialRender && visualElement2.manuallyAnimateOnMount) {
         isInherited = false;
       }
-      typeState.protectedKeys = __assign25({}, encounteredKeys);
+      typeState.protectedKeys = __assign26({}, encounteredKeys);
       if (!typeState.isActive && activeDelta === null || !prop && !typeState.prevProp || isAnimationControls(prop) || typeof prop === "boolean") {
         return "continue";
       }
@@ -5684,7 +6213,7 @@ function createAnimationState(visualElement2) {
       if (activeDelta === false)
         resolvedValues = {};
       var _b = typeState.prevResolvedValues, prevResolvedValues = _b === void 0 ? {} : _b;
-      var allKeys = __assign25(__assign25({}, prevResolvedValues), resolvedValues);
+      var allKeys = __assign26(__assign26({}, prevResolvedValues), resolvedValues);
       var markToAnimate = function(key2) {
         shouldAnimateType = true;
         removedKeys.delete(key2);
@@ -5716,24 +6245,24 @@ function createAnimationState(visualElement2) {
       typeState.prevProp = prop;
       typeState.prevResolvedValues = resolvedValues;
       if (typeState.isActive) {
-        encounteredKeys = __assign25(__assign25({}, encounteredKeys), resolvedValues);
+        encounteredKeys = __assign26(__assign26({}, encounteredKeys), resolvedValues);
       }
       if (isInitialRender && visualElement2.blockInitialAnimation) {
         shouldAnimateType = false;
       }
       if (shouldAnimateType && !isInherited) {
-        animations2.push.apply(animations2, __spreadArray6([], __read9(definitionList.map(function(animation) {
+        animations2.push.apply(animations2, __spreadArray6([], __read11(definitionList.map(function(animation) {
           return {
             animation,
-            options: __assign25({ type }, options)
+            options: __assign26({ type }, options)
           };
-        }))));
+        })), false));
       }
     };
     for (var i = 0; i < numAnimationTypes; i++) {
       _loop_1(i);
     }
-    allAnimatedKeys = __assign25({}, encounteredKeys);
+    allAnimatedKeys = __assign26({}, encounteredKeys);
     if (removedKeys.size) {
       var fallbackAnimation_1 = {};
       removedKeys.forEach(function(key) {
@@ -5802,16 +6331,16 @@ var animations = {
     var visualElement2 = _a.visualElement, animate3 = _a.animate;
     visualElement2.animationState || (visualElement2.animationState = createAnimationState(visualElement2));
     if (isAnimationControls(animate3)) {
-      useEffect7(function() {
+      useEffect6(function() {
         return animate3.subscribe(visualElement2);
       }, [animate3]);
     }
   }),
   exit: makeRenderlessComponent(function(props) {
     var custom = props.custom, visualElement2 = props.visualElement;
-    var _a = __read10(usePresence(), 2), isPresent2 = _a[0], onExitComplete = _a[1];
+    var _a = __read12(usePresence(), 2), isPresent2 = _a[0], onExitComplete = _a[1];
     var presenceContext = useContext8(PresenceContext);
-    useEffect7(function() {
+    useEffect6(function() {
       var _a2, _b;
       var animation = (_a2 = visualElement2.animationState) === null || _a2 === void 0 ? void 0 : _a2.setActive(AnimationType.Exit, !isPresent2, { custom: (_b = presenceContext === null || presenceContext === void 0 ? void 0 : presenceContext.custom) !== null && _b !== void 0 ? _b : custom });
       !isPresent2 && (animation === null || animation === void 0 ? void 0 : animation.then(onExitComplete));
@@ -5820,481 +6349,22 @@ var animations = {
 };
 
 // ../../node_modules/framer-motion/dist/es/gestures/drag/use-drag.js
-import { useEffect as useEffect8 } from "react";
-
-// ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
-import { __assign as __assign27 } from "tslib";
-
-// ../../node_modules/framer-motion/dist/es/gestures/PanSession.js
-import { __assign as __assign26 } from "tslib";
-var PanSession = function() {
-  function PanSession2(event, handlers, _a) {
-    var _this = this;
-    var _b = _a === void 0 ? {} : _a, transformPagePoint = _b.transformPagePoint;
-    this.startEvent = null;
-    this.lastMoveEvent = null;
-    this.lastMoveEventInfo = null;
-    this.handlers = {};
-    this.updatePoint = function() {
-      if (!(_this.lastMoveEvent && _this.lastMoveEventInfo))
-        return;
-      var info2 = getPanInfo(_this.lastMoveEventInfo, _this.history);
-      var isPanStarted = _this.startEvent !== null;
-      var isDistancePastThreshold = distance(info2.offset, { x: 0, y: 0 }) >= 3;
-      if (!isPanStarted && !isDistancePastThreshold)
-        return;
-      var point2 = info2.point;
-      var timestamp2 = getFrameData().timestamp;
-      _this.history.push(__assign26(__assign26({}, point2), { timestamp: timestamp2 }));
-      var _a2 = _this.handlers, onStart = _a2.onStart, onMove = _a2.onMove;
-      if (!isPanStarted) {
-        onStart && onStart(_this.lastMoveEvent, info2);
-        _this.startEvent = _this.lastMoveEvent;
-      }
-      onMove && onMove(_this.lastMoveEvent, info2);
-    };
-    this.handlePointerMove = function(event2, info2) {
-      _this.lastMoveEvent = event2;
-      _this.lastMoveEventInfo = transformPoint(info2, _this.transformPagePoint);
-      if (isMouseEvent(event2) && event2.buttons === 0) {
-        _this.handlePointerUp(event2, info2);
-        return;
-      }
-      es_default.update(_this.updatePoint, true);
-    };
-    this.handlePointerUp = function(event2, info2) {
-      _this.end();
-      var _a2 = _this.handlers, onEnd = _a2.onEnd, onSessionEnd = _a2.onSessionEnd;
-      var panInfo = getPanInfo(transformPoint(info2, _this.transformPagePoint), _this.history);
-      if (_this.startEvent && onEnd) {
-        onEnd(event2, panInfo);
-      }
-      onSessionEnd && onSessionEnd(event2, panInfo);
-    };
-    if (isTouchEvent(event) && event.touches.length > 1)
-      return;
-    this.handlers = handlers;
-    this.transformPagePoint = transformPagePoint;
-    var info = extractEventInfo(event);
-    var initialInfo = transformPoint(info, this.transformPagePoint);
-    var point = initialInfo.point;
-    var timestamp = getFrameData().timestamp;
-    this.history = [__assign26(__assign26({}, point), { timestamp })];
-    var onSessionStart = handlers.onSessionStart;
-    onSessionStart && onSessionStart(event, getPanInfo(initialInfo, this.history));
-    this.removeListeners = pipe(addPointerEvent(window, "pointermove", this.handlePointerMove), addPointerEvent(window, "pointerup", this.handlePointerUp), addPointerEvent(window, "pointercancel", this.handlePointerUp));
-  }
-  PanSession2.prototype.updateHandlers = function(handlers) {
-    this.handlers = handlers;
-  };
-  PanSession2.prototype.end = function() {
-    this.removeListeners && this.removeListeners();
-    cancelSync.update(this.updatePoint);
-  };
-  return PanSession2;
-}();
-function transformPoint(info, transformPagePoint) {
-  return transformPagePoint ? { point: transformPagePoint(info.point) } : info;
-}
-function subtractPoint(a2, b2) {
-  return { x: a2.x - b2.x, y: a2.y - b2.y };
-}
-function getPanInfo(_a, history) {
-  var point = _a.point;
-  return {
-    point,
-    delta: subtractPoint(point, lastDevicePoint(history)),
-    offset: subtractPoint(point, startDevicePoint(history)),
-    velocity: getVelocity2(history, 0.1)
-  };
-}
-function startDevicePoint(history) {
-  return history[0];
-}
-function lastDevicePoint(history) {
-  return history[history.length - 1];
-}
-function getVelocity2(history, timeDelta) {
-  if (history.length < 2) {
-    return { x: 0, y: 0 };
-  }
-  var i = history.length - 1;
-  var timestampedPoint = null;
-  var lastPoint = lastDevicePoint(history);
-  while (i >= 0) {
-    timestampedPoint = history[i];
-    if (lastPoint.timestamp - timestampedPoint.timestamp > secondsToMilliseconds(timeDelta)) {
-      break;
-    }
-    i--;
-  }
-  if (!timestampedPoint) {
-    return { x: 0, y: 0 };
-  }
-  var time = (lastPoint.timestamp - timestampedPoint.timestamp) / 1e3;
-  if (time === 0) {
-    return { x: 0, y: 0 };
-  }
-  var currentVelocity = {
-    x: (lastPoint.x - timestampedPoint.x) / time,
-    y: (lastPoint.y - timestampedPoint.y) / time
-  };
-  if (currentVelocity.x === Infinity) {
-    currentVelocity.x = 0;
-  }
-  if (currentVelocity.y === Infinity) {
-    currentVelocity.y = 0;
-  }
-  return currentVelocity;
-}
-
-// ../../node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js
-import { __read as __read11 } from "tslib";
-function applyConstraints(point, _a, elastic) {
-  var min = _a.min, max = _a.max;
-  if (min !== void 0 && point < min) {
-    point = elastic ? mix(min, point, elastic.min) : Math.max(point, min);
-  } else if (max !== void 0 && point > max) {
-    point = elastic ? mix(max, point, elastic.max) : Math.min(point, max);
-  }
-  return point;
-}
-function calcRelativeAxisConstraints(axis, min, max) {
-  return {
-    min: min !== void 0 ? axis.min + min : void 0,
-    max: max !== void 0 ? axis.max + max - (axis.max - axis.min) : void 0
-  };
-}
-function calcRelativeConstraints(layoutBox, _a) {
-  var top2 = _a.top, left2 = _a.left, bottom2 = _a.bottom, right2 = _a.right;
-  return {
-    x: calcRelativeAxisConstraints(layoutBox.x, left2, right2),
-    y: calcRelativeAxisConstraints(layoutBox.y, top2, bottom2)
-  };
-}
-function calcViewportAxisConstraints(layoutAxis, constraintsAxis) {
-  var _a;
-  var min = constraintsAxis.min - layoutAxis.min;
-  var max = constraintsAxis.max - layoutAxis.max;
-  if (constraintsAxis.max - constraintsAxis.min < layoutAxis.max - layoutAxis.min) {
-    _a = __read11([max, min], 2), min = _a[0], max = _a[1];
-  }
-  return {
-    min: layoutAxis.min + min,
-    max: layoutAxis.min + max
-  };
-}
-function calcViewportConstraints(layoutBox, constraintsBox) {
-  return {
-    x: calcViewportAxisConstraints(layoutBox.x, constraintsBox.x),
-    y: calcViewportAxisConstraints(layoutBox.y, constraintsBox.y)
-  };
-}
-function rebaseAxisConstraints(layout, constraints) {
-  var relativeConstraints = {};
-  if (constraints.min !== void 0) {
-    relativeConstraints.min = constraints.min - layout.min;
-  }
-  if (constraints.max !== void 0) {
-    relativeConstraints.max = constraints.max - layout.min;
-  }
-  return relativeConstraints;
-}
-var defaultElastic = 0.35;
-function resolveDragElastic(dragElastic) {
-  if (dragElastic === void 0) {
-    dragElastic = defaultElastic;
-  }
-  if (dragElastic === false) {
-    dragElastic = 0;
-  } else if (dragElastic === true) {
-    dragElastic = defaultElastic;
-  }
-  return {
-    x: resolveAxisElastic(dragElastic, "left", "right"),
-    y: resolveAxisElastic(dragElastic, "top", "bottom")
-  };
-}
-function resolveAxisElastic(dragElastic, minLabel, maxLabel) {
-  return {
-    min: resolvePointElastic(dragElastic, minLabel),
-    max: resolvePointElastic(dragElastic, maxLabel)
-  };
-}
-function resolvePointElastic(dragElastic, label) {
-  var _a;
-  return typeof dragElastic === "number" ? dragElastic : (_a = dragElastic[label]) !== null && _a !== void 0 ? _a : 0;
-}
-
-// ../../node_modules/framer-motion/dist/es/projection/utils/measure-page-box.js
-function measurePageBox(element, rootProjectionNode2, transformPagePoint) {
-  var viewportBox = measureViewportBox(element, transformPagePoint);
-  var scroll = rootProjectionNode2.scroll;
-  if (scroll) {
-    translateAxis(viewportBox.x, scroll.x);
-    translateAxis(viewportBox.y, scroll.y);
-  }
-  return viewportBox;
-}
-
-// ../../node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
-var elementDragControls = new WeakMap();
-var VisualElementDragControls = function() {
-  function VisualElementDragControls2(visualElement2) {
-    this.openGlobalLock = null;
-    this.isDragging = false;
-    this.currentDirection = null;
-    this.originPoint = { x: 0, y: 0 };
-    this.constraints = false;
-    this.hasMutatedConstraints = false;
-    this.elastic = createBox();
-    this.visualElement = visualElement2;
-  }
-  VisualElementDragControls2.prototype.start = function(originEvent, _a) {
-    var _this = this;
-    var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c;
-    var initialPoint;
-    var onSessionStart = function(event) {
-      _this.stopAnimation();
-      initialPoint = getViewportPointFromEvent(event).point;
-    };
-    var onStart = function(event, info) {
-      var _a2;
-      var _b2 = _this.getProps(), drag2 = _b2.drag, dragPropagation = _b2.dragPropagation, onDragStart = _b2.onDragStart;
-      if (drag2 && !dragPropagation) {
-        if (_this.openGlobalLock)
-          _this.openGlobalLock();
-        _this.openGlobalLock = getGlobalLock(drag2);
-        if (!_this.openGlobalLock)
-          return;
-      }
-      _this.isDragging = true;
-      _this.currentDirection = null;
-      _this.resolveConstraints();
-      if (snapToCursor)
-        _this.snapToCursor(initialPoint);
-      eachAxis(function(axis) {
-        _this.originPoint[axis] = _this.getAxisMotionValue(axis).get();
-      });
-      onDragStart === null || onDragStart === void 0 ? void 0 : onDragStart(event, info);
-      (_a2 = _this.visualElement.animationState) === null || _a2 === void 0 ? void 0 : _a2.setActive(AnimationType.Drag, true);
-    };
-    var onMove = function(event, info) {
-      var _a2 = _this.getProps(), dragPropagation = _a2.dragPropagation, dragDirectionLock = _a2.dragDirectionLock, onDirectionLock = _a2.onDirectionLock, onDrag = _a2.onDrag;
-      if (!dragPropagation && !_this.openGlobalLock)
-        return;
-      var offset = info.offset;
-      if (dragDirectionLock && _this.currentDirection === null) {
-        _this.currentDirection = getCurrentDirection(offset);
-        if (_this.currentDirection !== null) {
-          onDirectionLock === null || onDirectionLock === void 0 ? void 0 : onDirectionLock(_this.currentDirection);
-        }
-        return;
-      }
-      _this.updateAxis("x", info.point, offset);
-      _this.updateAxis("y", info.point, offset);
-      onDrag === null || onDrag === void 0 ? void 0 : onDrag(event, info);
-    };
-    var onSessionEnd = function(event, info) {
-      return _this.stop(event, info);
-    };
-    this.panSession = new PanSession(originEvent, {
-      onSessionStart,
-      onStart,
-      onMove,
-      onSessionEnd
-    }, { transformPagePoint: this.visualElement.getTransformPagePoint() });
-  };
-  VisualElementDragControls2.prototype.stop = function(event, info) {
-    var isDragging = this.isDragging;
-    this.cancel();
-    if (!isDragging)
-      return;
-    var velocity = info.velocity;
-    this.startAnimation(velocity);
-    var onDragEnd = this.getProps().onDragEnd;
-    onDragEnd === null || onDragEnd === void 0 ? void 0 : onDragEnd(event, info);
-  };
-  VisualElementDragControls2.prototype.cancel = function() {
-    var _a, _b;
-    this.isDragging = false;
-    (_a = this.panSession) === null || _a === void 0 ? void 0 : _a.end();
-    this.panSession = void 0;
-    var dragPropagation = this.getProps().dragPropagation;
-    if (!dragPropagation && this.openGlobalLock) {
-      this.openGlobalLock();
-      this.openGlobalLock = null;
-    }
-    (_b = this.visualElement.animationState) === null || _b === void 0 ? void 0 : _b.setActive(AnimationType.Drag, false);
-  };
-  VisualElementDragControls2.prototype.updateAxis = function(axis, _point, offset) {
-    var drag2 = this.getProps().drag;
-    if (!offset || !shouldDrag(axis, drag2, this.currentDirection))
-      return;
-    var axisValue = this.getAxisMotionValue(axis);
-    var next = this.originPoint[axis] + offset[axis];
-    if (this.constraints && this.constraints[axis]) {
-      next = applyConstraints(next, this.constraints[axis], this.elastic[axis]);
-    }
-    axisValue.set(next);
-  };
-  VisualElementDragControls2.prototype.resolveConstraints = function() {
-    var _this = this;
-    var _a = this.getProps(), dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
-    var layout = (this.visualElement.projection || {}).layout;
-    var prevConstraints = this.constraints;
-    if (dragConstraints && isRefObject(dragConstraints)) {
-      if (!this.constraints) {
-        this.constraints = this.resolveRefConstraints();
-      }
-    } else {
-      if (dragConstraints && layout) {
-        this.constraints = calcRelativeConstraints(layout, dragConstraints);
-      } else {
-        this.constraints = false;
-      }
-    }
-    this.elastic = resolveDragElastic(dragElastic);
-    if (prevConstraints !== this.constraints && layout && this.constraints && !this.hasMutatedConstraints) {
-      eachAxis(function(axis) {
-        if (_this.getAxisMotionValue(axis)) {
-          _this.constraints[axis] = rebaseAxisConstraints(layout[axis], _this.constraints[axis]);
-        }
-      });
-    }
-  };
-  VisualElementDragControls2.prototype.resolveRefConstraints = function() {
-    var _a = this.getProps(), constraints = _a.dragConstraints, onMeasureDragConstraints = _a.onMeasureDragConstraints;
-    if (!constraints || !isRefObject(constraints))
-      return false;
-    var constraintsElement = constraints.current;
-    invariant(constraintsElement !== null, "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.");
-    var projection = this.visualElement.projection;
-    if (!projection || !projection.layout)
-      return false;
-    var constraintsBox = measurePageBox(constraintsElement, projection.root, this.visualElement.getTransformPagePoint());
-    var measuredConstraints = calcViewportConstraints(projection.layout, constraintsBox);
-    if (onMeasureDragConstraints) {
-      var userConstraints = onMeasureDragConstraints(convertBoxToBoundingBox(measuredConstraints));
-      this.hasMutatedConstraints = !!userConstraints;
-      if (userConstraints) {
-        measuredConstraints = convertBoundingBoxToBox(userConstraints);
-      }
-    }
-    return measuredConstraints;
-  };
-  VisualElementDragControls2.prototype.startAnimation = function(velocity) {
-    var _this = this;
-    var _a = this.getProps(), drag2 = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition, onDragTransitionEnd = _a.onDragTransitionEnd;
-    var constraints = this.constraints || {};
-    var momentumAnimations = eachAxis(function(axis) {
-      var _a2;
-      if (!shouldDrag(axis, drag2, _this.currentDirection)) {
-        return;
-      }
-      var transition = (_a2 = constraints === null || constraints === void 0 ? void 0 : constraints[axis]) !== null && _a2 !== void 0 ? _a2 : {};
-      var bounceStiffness = dragElastic ? 200 : 1e6;
-      var bounceDamping = dragElastic ? 40 : 1e7;
-      var inertia2 = __assign27(__assign27({
-        type: "inertia",
-        velocity: dragMomentum ? velocity[axis] : 0,
-        bounceStiffness,
-        bounceDamping,
-        timeConstant: 750,
-        restDelta: 1,
-        restSpeed: 10
-      }, dragTransition), transition);
-      return _this.startAxisValueAnimation(axis, inertia2);
-    });
-    return Promise.all(momentumAnimations).then(onDragTransitionEnd);
-  };
-  VisualElementDragControls2.prototype.startAxisValueAnimation = function(axis, transition) {
-    var axisValue = this.getAxisMotionValue(axis);
-    return startAnimation(axis, axisValue, 0, transition);
-  };
-  VisualElementDragControls2.prototype.stopAnimation = function() {
-    var _this = this;
-    eachAxis(function(axis) {
-      return _this.getAxisMotionValue(axis).stop();
-    });
-  };
-  VisualElementDragControls2.prototype.getAxisMotionValue = function(axis) {
-    var dragKey = "_drag" + axis.toUpperCase();
-    var externalMotionValue = this.visualElement.getProps()[dragKey];
-    return externalMotionValue ? externalMotionValue : this.visualElement.getValue(axis, 0);
-  };
-  VisualElementDragControls2.prototype.snapToCursor = function(_point) {
-  };
-  VisualElementDragControls2.prototype.addListeners = function() {
-    var _this = this;
-    elementDragControls.set(this.visualElement, this);
-    var element = this.visualElement.getInstance();
-    var stopPointerListener = addPointerEvent(element, "pointerdown", function(event) {
-      var _a = _this.getProps(), drag2 = _a.drag, _b = _a.dragListener, dragListener = _b === void 0 ? true : _b;
-      drag2 && dragListener && _this.start(event);
-    });
-    var measureDragConstraints = function() {
-      var dragConstraints = _this.getProps().dragConstraints;
-      if (isRefObject(dragConstraints)) {
-        _this.constraints = _this.resolveRefConstraints();
-      }
-    };
-    var projection = this.visualElement.projection;
-    var stopMeasureLayoutListener = projection.addEventListener("measure", measureDragConstraints);
-    if (!projection.layout)
-      projection.updateLayout();
-    measureDragConstraints();
-    return function() {
-      stopPointerListener();
-      stopMeasureLayoutListener();
-    };
-  };
-  VisualElementDragControls2.prototype.getProps = function() {
-    var props = this.visualElement.getProps();
-    var _a = props.drag, drag2 = _a === void 0 ? false : _a, _b = props.dragDirectionLock, dragDirectionLock = _b === void 0 ? false : _b, _c = props.dragPropagation, dragPropagation = _c === void 0 ? false : _c, _d = props.dragConstraints, dragConstraints = _d === void 0 ? false : _d, _e = props.dragElastic, dragElastic = _e === void 0 ? defaultElastic : _e, _f = props.dragMomentum, dragMomentum = _f === void 0 ? true : _f;
-    return __assign27(__assign27({}, props), {
-      drag: drag2,
-      dragDirectionLock,
-      dragPropagation,
-      dragConstraints,
-      dragElastic,
-      dragMomentum
-    });
-  };
-  return VisualElementDragControls2;
-}();
-function shouldDrag(direction, drag2, currentDirection) {
-  return (drag2 === true || drag2 === direction) && (currentDirection === null || currentDirection === direction);
-}
-function getCurrentDirection(offset, lockThreshold) {
-  if (lockThreshold === void 0) {
-    lockThreshold = 10;
-  }
-  var direction = null;
-  if (Math.abs(offset.y) > lockThreshold) {
-    direction = "y";
-  } else if (Math.abs(offset.x) > lockThreshold) {
-    direction = "x";
-  }
-  return direction;
-}
-
-// ../../node_modules/framer-motion/dist/es/gestures/drag/use-drag.js
+import { useEffect as useEffect7 } from "react";
 function useDrag(props) {
   var groupDragControls = props.dragControls, visualElement2 = props.visualElement;
   var dragControls = useConstant(function() {
     return new VisualElementDragControls(visualElement2);
   });
-  useEffect8(function() {
+  useEffect7(function() {
     return groupDragControls && groupDragControls.subscribe(dragControls);
-  }, [dragControls]);
-  useEffect8(function() {
+  }, [dragControls, groupDragControls]);
+  useEffect7(function() {
     return dragControls.addListeners();
-  }, []);
+  }, [dragControls]);
 }
 
 // ../../node_modules/framer-motion/dist/es/gestures/use-pan-gesture.js
-import { useRef as useRef4, useContext as useContext9, useEffect as useEffect9 } from "react";
+import { useRef as useRef4, useContext as useContext9, useEffect as useEffect8 } from "react";
 function usePanGesture(_a) {
   var onPan = _a.onPan, onPanStart = _a.onPanStart, onPanEnd = _a.onPanEnd, onPanSessionStart = _a.onPanSessionStart, visualElement2 = _a.visualElement;
   var hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
@@ -6309,7 +6379,7 @@ function usePanGesture(_a) {
       onPanEnd && onPanEnd(event, info);
     }
   };
-  useEffect9(function() {
+  useEffect8(function() {
     if (panSession.current !== null) {
       panSession.current.updateHandlers(handlers);
     }
@@ -6332,13 +6402,13 @@ var drag = {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/html/visual-element.js
-import { __rest as __rest10, __assign as __assign31 } from "tslib";
+import { __rest as __rest10, __assign as __assign30 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/index.js
-import { __assign as __assign28, __spreadArray as __spreadArray8, __read as __read13 } from "tslib";
+import { __assign as __assign27, __spreadArray as __spreadArray8, __read as __read14 } from "tslib";
 
 // ../../node_modules/framer-motion/dist/es/render/utils/lifecycles.js
-import { __spreadArray as __spreadArray7, __read as __read12 } from "tslib";
+import { __spreadArray as __spreadArray7, __read as __read13 } from "tslib";
 var names = [
   "LayoutMeasure",
   "BeforeLayoutMeasure",
@@ -6356,6 +6426,7 @@ function createLifecycles() {
   var managers = names.map(function() {
     return new SubscriptionManager();
   });
+  var propSubscriptions = {};
   var lifecycles = {
     clearAllListeners: function() {
       return managers.forEach(function(manager) {
@@ -6367,7 +6438,7 @@ function createLifecycles() {
         var on = "on" + name;
         var propListener = props[on];
         if (propListener) {
-          lifecycles[on](propListener);
+          propSubscriptions[name] = lifecycles[on](propListener);
         }
       });
     }
@@ -6381,7 +6452,7 @@ function createLifecycles() {
       for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
       }
-      return manager.notify.apply(manager, __spreadArray7([], __read12(args)));
+      return manager.notify.apply(manager, __spreadArray7([], __read13(args), false));
     };
   });
   return lifecycles;
@@ -6428,7 +6499,7 @@ var visualElement = function(_a) {
     var values3 = new Map();
     var valueSubscriptions = new Map();
     var prevMotionValues = {};
-    var baseTarget = __assign28({}, latestValues);
+    var baseTarget = __assign27({}, latestValues);
     var removeFromVariantTree;
     function render3() {
       if (!instance || !isMounted)
@@ -6462,7 +6533,7 @@ var visualElement = function(_a) {
     }
     var isControllingVariants = checkIfControllingVariants(props);
     var isVariantNode = checkIfVariantNode(props);
-    var element = __assign28(__assign28({
+    var element = __assign27(__assign27({
       treeType,
       current: null,
       depth: parent ? parent.depth + 1 : 0,
@@ -6647,11 +6718,11 @@ var visualElement = function(_a) {
     return element;
   };
 };
-var variantProps = __spreadArray8(["initial"], __read13(variantPriorityOrder));
+var variantProps = __spreadArray8(["initial"], __read14(variantPriorityOrder), false);
 var numVariantProps = variantProps.length;
 
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js
-import { __rest as __rest9, __assign as __assign29, __read as __read14 } from "tslib";
+import { __rest as __rest9, __assign as __assign28, __read as __read15 } from "tslib";
 function isCSSVariable2(value) {
   return typeof value === "string" && value.startsWith("var(--");
 }
@@ -6660,7 +6731,7 @@ function parseCSSVariable(current) {
   var match = cssVariableRegex.exec(current);
   if (!match)
     return [,];
-  var _a = __read14(match, 3), token = _a[1], fallback = _a[2];
+  var _a = __read15(match, 3), token = _a[1], fallback = _a[2];
   return [token, fallback];
 }
 var maxDepth = 4;
@@ -6669,7 +6740,7 @@ function getVariableValue(current, element, depth) {
     depth = 1;
   }
   invariant(depth <= maxDepth, 'Max CSS variable fallback depth detected in property "' + current + '". This may indicate a circular fallback dependency.');
-  var _a = __read14(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
+  var _a = __read15(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
   if (!token)
     return;
   var resolved = window.getComputedStyle(element).getPropertyValue(token);
@@ -6688,7 +6759,7 @@ function resolveCSSVariables(visualElement2, _a, transitionEnd) {
   if (!(element instanceof HTMLElement))
     return { target, transitionEnd };
   if (transitionEnd) {
-    transitionEnd = __assign29({}, transitionEnd);
+    transitionEnd = __assign28({}, transitionEnd);
   }
   visualElement2.forEachValue(function(value) {
     var current2 = value.get();
@@ -6713,7 +6784,7 @@ function resolveCSSVariables(visualElement2, _a, transitionEnd) {
 }
 
 // ../../node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.js
-import { __assign as __assign30, __read as __read15 } from "tslib";
+import { __assign as __assign29, __read as __read16 } from "tslib";
 var positionalKeys = new Set([
   "width",
   "height",
@@ -6839,8 +6910,8 @@ var checkAndConvertChangedValueTypes = function(visualElement2, target, origin, 
   if (transitionEnd === void 0) {
     transitionEnd = {};
   }
-  target = __assign30({}, target);
-  transitionEnd = __assign30({}, transitionEnd);
+  target = __assign29({}, target);
+  transitionEnd = __assign29({}, transitionEnd);
   var targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
   var removedTransformValues = [];
   var hasAttemptedToRemoveTransformValues = false;
@@ -6898,7 +6969,7 @@ var checkAndConvertChangedValueTypes = function(visualElement2, target, origin, 
     var convertedTarget = convertChangedValueTypes(target, visualElement2, changedValueTypeKeys);
     if (removedTransformValues.length) {
       removedTransformValues.forEach(function(_a) {
-        var _b = __read15(_a, 2), key = _b[0], value = _b[1];
+        var _b = __read16(_a, 2), key = _b[0], value = _b[1];
         visualElement2.getValue(key).set(value);
       });
     }
@@ -6980,10 +7051,7 @@ var htmlConfig = {
       transitionEnd = parsed.transitionEnd;
       target = parsed.target;
     }
-    return __assign31({
-      transition,
-      transitionEnd
-    }, target);
+    return __assign30({ transition, transitionEnd }, target);
   },
   scrapeMotionValuesFromProps,
   build: function(element, renderState, latestValues, options, props) {
@@ -6997,25 +7065,19 @@ var htmlConfig = {
 var htmlVisualElement = visualElement(htmlConfig);
 
 // ../../node_modules/framer-motion/dist/es/render/svg/visual-element.js
-import { __assign as __assign32 } from "tslib";
-var svgVisualElement = visualElement(__assign32(__assign32({}, htmlConfig), {
-  getBaseTarget: function(props, key) {
-    return props[key];
-  },
-  readValueFromInstance: function(domElement, key) {
-    var _a;
-    if (isTransformProp(key)) {
-      return ((_a = getDefaultValueType(key)) === null || _a === void 0 ? void 0 : _a.default) || 0;
-    }
-    key = !camelCaseAttributes.has(key) ? camelToDash(key) : key;
-    return domElement.getAttribute(key);
-  },
-  scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2,
-  build: function(_element, renderState, latestValues, options, props) {
-    buildSVGAttrs(renderState, latestValues, options, props.transformTemplate);
-  },
-  render: renderSVG
-}));
+import { __assign as __assign31 } from "tslib";
+var svgVisualElement = visualElement(__assign31(__assign31({}, htmlConfig), { getBaseTarget: function(props, key) {
+  return props[key];
+}, readValueFromInstance: function(domElement, key) {
+  var _a;
+  if (isTransformProp(key)) {
+    return ((_a = getDefaultValueType(key)) === null || _a === void 0 ? void 0 : _a.default) || 0;
+  }
+  key = !camelCaseAttributes.has(key) ? camelToDash(key) : key;
+  return domElement.getAttribute(key);
+}, scrapeMotionValuesFromProps: scrapeMotionValuesFromProps2, build: function(_element, renderState, latestValues, options, props) {
+  buildSVGAttrs(renderState, latestValues, options, props.transformTemplate);
+}, render: renderSVG }));
 
 // ../../node_modules/framer-motion/dist/es/render/dom/create-visual-element.js
 var createDomVisualElement = function(Component, options) {
@@ -7023,7 +7085,7 @@ var createDomVisualElement = function(Component, options) {
 };
 
 // ../../node_modules/framer-motion/dist/es/motion/features/layout/MeasureLayout.js
-import { __extends as __extends2, __assign as __assign33, __read as __read16 } from "tslib";
+import { __extends as __extends2, __assign as __assign32, __read as __read17 } from "tslib";
 import React__default2, { useContext as useContext10 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/projection/styles/scale-border-radius.js
@@ -7109,7 +7171,7 @@ var MeasureLayoutWithContext = function(_super) {
       projection.addEventListener("animationComplete", function() {
         _this.safeToRemove();
       });
-      projection.setOptions(__assign33(__assign33({}, projection.options), { onExitComplete: function() {
+      projection.setOptions(__assign32(__assign32({}, projection.options), { onExitComplete: function() {
         return _this.safeToRemove();
       } }));
     }
@@ -7146,6 +7208,7 @@ var MeasureLayoutWithContext = function(_super) {
     var _a = this.props, visualElement2 = _a.visualElement, layoutGroup = _a.layoutGroup, promoteContext = _a.switchLayoutGroup;
     var projection = visualElement2.projection;
     if (projection) {
+      projection.root.scheduleUpdateFailedCheck();
       if (layoutGroup === null || layoutGroup === void 0 ? void 0 : layoutGroup.group)
         layoutGroup.group.remove(projection);
       if (promoteContext === null || promoteContext === void 0 ? void 0 : promoteContext.deregister)
@@ -7162,11 +7225,22 @@ var MeasureLayoutWithContext = function(_super) {
   return MeasureLayoutWithContext2;
 }(React__default2.Component);
 function MeasureLayout(props) {
-  var _a = __read16(usePresence(), 2), isPresent2 = _a[0], safeToRemove = _a[1];
-  return React__default2.createElement(MeasureLayoutWithContext, __assign33({}, props, { layoutGroup: useContext10(LayoutGroupContext), switchLayoutGroup: useContext10(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove }));
+  var _a = __read17(usePresence(), 2), isPresent2 = _a[0], safeToRemove = _a[1];
+  var layoutGroup = useContext10(LayoutGroupContext);
+  React__default2.useEffect(function() {
+    return function() {
+      var _a2;
+      var visualElement2 = props.visualElement;
+      var projection = visualElement2.projection;
+      if (layoutGroup.group && (projection === null || projection === void 0 ? void 0 : projection.isLayoutDirty)) {
+        (_a2 = projection.root) === null || _a2 === void 0 ? void 0 : _a2.didUpdate();
+      }
+    };
+  }, []);
+  return React__default2.createElement(MeasureLayoutWithContext, __assign32({}, props, { layoutGroup, switchLayoutGroup: useContext10(SwitchLayoutGroupContext), isPresent: isPresent2, safeToRemove }));
 }
 var defaultScaleCorrectors = {
-  borderRadius: __assign33(__assign33({}, correctBorderRadius), { applyTo: [
+  borderRadius: __assign32(__assign32({}, correctBorderRadius), { applyTo: [
     "borderTopLeftRadius",
     "borderTopRightRadius",
     "borderBottomLeftRadius",
@@ -7185,7 +7259,7 @@ var layoutFeatures = {
 };
 
 // ../../node_modules/framer-motion/dist/es/render/dom/motion.js
-var featureBundle = __assign34(__assign34(__assign34(__assign34({}, animations), gestureAnimations), drag), layoutFeatures);
+var featureBundle = __assign33(__assign33(__assign33(__assign33({}, animations), gestureAnimations), drag), layoutFeatures);
 var motion = /* @__PURE__ */ createMotionProxy(function(Component, config) {
   return createDomMotionConfig(Component, config, featureBundle, createDomVisualElement);
 });
@@ -7197,7 +7271,7 @@ function createDomMotionComponent(key) {
 var m = createMotionProxy(createDomMotionConfig);
 
 // ../../node_modules/framer-motion/dist/es/components/AnimatePresence/index.js
-import { __read as __read18, __spreadArray as __spreadArray9 } from "tslib";
+import { __read as __read19, __spreadArray as __spreadArray9 } from "tslib";
 import {
   Fragment,
   createElement as createElement5
@@ -7205,11 +7279,11 @@ import {
 import { useContext as useContext11, useRef as useRef6, cloneElement, Children, isValidElement } from "react";
 
 // ../../node_modules/framer-motion/dist/es/utils/use-force-update.js
-import { __read as __read17 } from "tslib";
+import { __read as __read18 } from "tslib";
 import { useCallback as useCallback2, useRef as useRef5, useState } from "react";
 function useForceUpdate() {
   var unloadingRef = useRef5(false);
-  var _a = __read17(useState(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
+  var _a = __read18(useState(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
   useUnmountEffect(function() {
     return unloadingRef.current = true;
   });
@@ -7224,7 +7298,7 @@ function useForceUpdate() {
 // ../../node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.js
 import {
   createElement as createElement4,
-  useEffect as useEffect10
+  useEffect as useEffect9
 } from "react";
 import { useMemo as useMemo4 } from "react";
 var presenceId = 0;
@@ -7265,7 +7339,7 @@ var PresenceChild = function(_a) {
       return presenceChildren.set(key, false);
     });
   }, [isPresent2]);
-  useEffect10(function() {
+  useEffect9(function() {
     !isPresent2 && !presenceChildren.size && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
   }, [isPresent2]);
   return createElement4(PresenceContext.Provider, { value: context }, children);
@@ -7301,7 +7375,7 @@ function onlyElements(children) {
 }
 var AnimatePresence = function(_a) {
   var children = _a.children, custom = _a.custom, _b = _a.initial, initial = _b === void 0 ? true : _b, onExitComplete = _a.onExitComplete, exitBeforeEnter = _a.exitBeforeEnter, _c = _a.presenceAffectsLayout, presenceAffectsLayout = _c === void 0 ? true : _c;
-  var _d = __read18(useForceUpdate(), 1), forceRender = _d[0];
+  var _d = __read19(useForceUpdate(), 1), forceRender = _d[0];
   var forceRenderLayoutGroup = useContext11(LayoutGroupContext).forceRender;
   if (forceRenderLayoutGroup)
     forceRender = forceRenderLayoutGroup;
@@ -7317,7 +7391,7 @@ var AnimatePresence = function(_a) {
       return createElement5(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? void 0 : false, presenceAffectsLayout }, child);
     }));
   }
-  var childrenToRender = __spreadArray9([], __read18(filteredChildren));
+  var childrenToRender = __spreadArray9([], __read19(filteredChildren), false);
   var presentKeys = presentChildren.current.map(getChildKey);
   var targetKeys = filteredChildren.map(getChildKey);
   var numPresent = presentKeys.length;
@@ -7373,7 +7447,7 @@ import {
 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/components/LayoutGroup/index.js
-import { __read as __read19, __assign as __assign35 } from "tslib";
+import { __read as __read20, __assign as __assign34 } from "tslib";
 import {
   createElement as createElement6
 } from "react";
@@ -7415,7 +7489,7 @@ var LayoutGroup = function(_a) {
   var children = _a.children, id3 = _a.id, _d = _a.inheritId, inheritId = _d === void 0 ? true : _d;
   var layoutGroupContext = useContext12(LayoutGroupContext);
   var deprecatedLayoutGroupContext = useContext12(DeprecatedLayoutGroupContext);
-  var _e = __read19(useForceUpdate(), 2), forceRender = _e[0], key = _e[1];
+  var _e = __read20(useForceUpdate(), 2), forceRender = _e[0], key = _e[1];
   var context = useRef7(null);
   var upstreamId = (_b = layoutGroupContext.id) !== null && _b !== void 0 ? _b : deprecatedLayoutGroupContext;
   if (context.current === null) {
@@ -7428,7 +7502,7 @@ var LayoutGroup = function(_a) {
     };
   }
   var memoizedContext = useMemo5(function() {
-    return __assign35(__assign35({}, context.current), { forceRender });
+    return __assign34(__assign34({}, context.current), { forceRender });
   }, [key]);
   return createElement6(LayoutGroupContext.Provider, { value: memoizedContext }, children);
 };
@@ -7443,14 +7517,14 @@ var AnimateSharedLayout = function(_a) {
 };
 
 // ../../node_modules/framer-motion/dist/es/components/MotionConfig/index.js
-import { __rest as __rest11, __assign as __assign36 } from "tslib";
+import { __rest as __rest11, __assign as __assign35 } from "tslib";
 import {
   createElement as createElement8
 } from "react";
 import { useContext as useContext13, useMemo as useMemo6 } from "react";
 function MotionConfig(_a) {
   var children = _a.children, config = __rest11(_a, ["children"]);
-  config = __assign36(__assign36({}, useContext13(MotionConfigContext)), config);
+  config = __assign35(__assign35({}, useContext13(MotionConfigContext)), config);
   config.isStatic = useConstant(function() {
     return config.isStatic;
   });
@@ -7465,21 +7539,21 @@ function MotionConfig(_a) {
 }
 
 // ../../node_modules/framer-motion/dist/es/components/LazyMotion/index.js
-import { __read as __read20, __rest as __rest12 } from "tslib";
+import { __read as __read21, __rest as __rest12 } from "tslib";
 import {
   createElement as createElement9
 } from "react";
-import { useState as useState2, useRef as useRef8, useEffect as useEffect11 } from "react";
+import { useState as useState2, useRef as useRef8, useEffect as useEffect10 } from "react";
 function LazyMotion(_a) {
   var children = _a.children, features = _a.features, _b = _a.strict, strict = _b === void 0 ? false : _b;
-  var _c = __read20(useState2(!isLazyBundle(features)), 2), setIsLoaded = _c[1];
+  var _c = __read21(useState2(!isLazyBundle(features)), 2), setIsLoaded = _c[1];
   var loadedRenderer = useRef8(void 0);
   if (!isLazyBundle(features)) {
     var renderer = features.renderer, loadedFeatures = __rest12(features, ["renderer"]);
     loadedRenderer.current = renderer;
     loadFeatures(loadedFeatures);
   }
-  useEffect11(function() {
+  useEffect10(function() {
     if (isLazyBundle(features)) {
       features().then(function(_a2) {
         var renderer2 = _a2.renderer, loadedFeatures2 = __rest12(_a2, ["renderer"]);
@@ -7495,16 +7569,80 @@ function isLazyBundle(features) {
   return typeof features === "function";
 }
 
-// ../../node_modules/framer-motion/dist/es/render/dom/features-animation.js
-import { __assign as __assign37 } from "tslib";
-var domAnimation = __assign37(__assign37({ renderer: createDomVisualElement }, animations), gestureAnimations);
+// ../../node_modules/framer-motion/dist/es/components/Reorder/Group.js
+import { __rest as __rest13, __assign as __assign36 } from "tslib";
+import {
+  createElement as createElement10
+} from "react";
+import { useRef as useRef9, useEffect as useEffect11 } from "react";
 
-// ../../node_modules/framer-motion/dist/es/render/dom/features-max.js
-import { __assign as __assign38 } from "tslib";
-var domMax = __assign38(__assign38(__assign38({}, domAnimation), drag), layoutFeatures);
+// ../../node_modules/framer-motion/dist/es/context/ReorderContext.js
+import { createContext as createContext8 } from "react";
+var ReorderContext = createContext8(null);
+
+// ../../node_modules/framer-motion/dist/es/components/Reorder/utils/check-reorder.js
+function checkReorder(order3, value, offset, velocity) {
+  if (!velocity)
+    return order3;
+  var index = order3.findIndex(function(item2) {
+    return item2.value === value;
+  });
+  if (index === -1)
+    return order3;
+  var nextOffset = velocity > 0 ? 1 : -1;
+  var nextItem = order3[index + nextOffset];
+  if (!nextItem)
+    return order3;
+  var item = order3[index];
+  var nextLayout = nextItem.layout;
+  var nextItemCenter = mix(nextLayout.min, nextLayout.max, 0.5);
+  if (nextOffset === 1 && item.layout.max + offset > nextItemCenter || nextOffset === -1 && item.layout.min + offset < nextItemCenter) {
+    return moveItem(order3, index, index + nextOffset);
+  }
+  return order3;
+}
+
+// ../../node_modules/framer-motion/dist/es/components/Reorder/Group.js
+function Group(_a) {
+  var children = _a.children, _b = _a.as, as = _b === void 0 ? "ul" : _b, _c = _a.axis, axis = _c === void 0 ? "y" : _c, onReorder = _a.onReorder, props = __rest13(_a, ["children", "as", "axis", "onReorder"]);
+  var Component = useConstant(function() {
+    return motion(as);
+  });
+  var order3 = [];
+  var isReordering = useRef9(false);
+  var context = {
+    axis,
+    registerItem: function(value, layout) {
+      order3.push({ value, layout: layout[axis] });
+    },
+    updateOrder: function(id3, offset, velocity) {
+      if (isReordering.current)
+        return;
+      var newOrder = checkReorder(order3, id3, offset, velocity);
+      if (order3 !== newOrder) {
+        isReordering.current = true;
+        onReorder(newOrder.map(getValue));
+      }
+    }
+  };
+  useEffect11(function() {
+    isReordering.current = false;
+  });
+  return createElement10(Component, __assign36({}, props), createElement10(ReorderContext.Provider, { value: context }, children));
+}
+function getValue(item) {
+  return item.value;
+}
+
+// ../../node_modules/framer-motion/dist/es/components/Reorder/Item.js
+import { __rest as __rest14, __read as __read24, __assign as __assign38 } from "tslib";
+import {
+  createElement as createElement11
+} from "react";
+import { useContext as useContext15, useRef as useRef10, useEffect as useEffect14 } from "react";
 
 // ../../node_modules/framer-motion/dist/es/value/use-motion-value.js
-import { __read as __read21 } from "tslib";
+import { __read as __read22 } from "tslib";
 import { useContext as useContext14, useState as useState3, useEffect as useEffect12 } from "react";
 function useMotionValue(initial) {
   var value = useConstant(function() {
@@ -7512,12 +7650,38 @@ function useMotionValue(initial) {
   });
   var isStatic = useContext14(MotionConfigContext).isStatic;
   if (isStatic) {
-    var _a = __read21(useState3(initial), 2), setLatest_1 = _a[1];
+    var _a = __read22(useState3(initial), 2), setLatest_1 = _a[1];
     useEffect12(function() {
       return value.onChange(setLatest_1);
     }, []);
   }
   return value;
+}
+
+// ../../node_modules/framer-motion/dist/es/value/use-transform.js
+import { __read as __read23 } from "tslib";
+
+// ../../node_modules/framer-motion/dist/es/utils/transform.js
+import { __assign as __assign37 } from "tslib";
+var isCustomValueType = function(v) {
+  return typeof v === "object" && v.mix;
+};
+var getMixer2 = function(v) {
+  return isCustomValueType(v) ? v.mix : void 0;
+};
+function transform() {
+  var args = [];
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+  var useImmediate = !Array.isArray(args[0]);
+  var argOffset = useImmediate ? 0 : -1;
+  var inputValue = args[0 + argOffset];
+  var inputRange = args[1 + argOffset];
+  var outputRange = args[2 + argOffset];
+  var options = args[3 + argOffset];
+  var interpolator = interpolate(inputRange, outputRange, __assign37({ mixer: getMixer2(outputRange[0]) }, options));
+  return useImmediate ? interpolator(inputValue) : interpolator;
 }
 
 // ../../node_modules/framer-motion/dist/es/value/use-on-change.js
@@ -7554,6 +7718,78 @@ function useCombineMotionValues(values3, combineValues) {
   return value;
 }
 
+// ../../node_modules/framer-motion/dist/es/value/use-transform.js
+function useTransform(input, inputRangeOrTransformer, outputRange, options) {
+  var transformer = typeof inputRangeOrTransformer === "function" ? inputRangeOrTransformer : transform(inputRangeOrTransformer, outputRange, options);
+  return Array.isArray(input) ? useListTransform(input, transformer) : useListTransform([input], function(_a) {
+    var _b = __read23(_a, 1), latest = _b[0];
+    return transformer(latest);
+  });
+}
+function useListTransform(values3, transformer) {
+  var latest = useConstant(function() {
+    return [];
+  });
+  return useCombineMotionValues(values3, function() {
+    latest.length = 0;
+    var numValues = values3.length;
+    for (var i = 0; i < numValues; i++) {
+      latest[i] = values3[i].get();
+    }
+    return transformer(latest);
+  });
+}
+
+// ../../node_modules/framer-motion/dist/es/components/Reorder/Item.js
+function useDefaultMotionValue(value, defaultValue) {
+  if (defaultValue === void 0) {
+    defaultValue = 0;
+  }
+  return isMotionValue(value) ? value : useMotionValue(defaultValue);
+}
+function Item(_a) {
+  var children = _a.children, style3 = _a.style, value = _a.value, _b = _a.as, as = _b === void 0 ? "li" : _b, props = __rest14(_a, ["children", "style", "value", "as"]);
+  var Component = useConstant(function() {
+    return motion(as);
+  });
+  var context = useContext15(ReorderContext);
+  var point = {
+    x: useDefaultMotionValue(style3 === null || style3 === void 0 ? void 0 : style3.x),
+    y: useDefaultMotionValue(style3 === null || style3 === void 0 ? void 0 : style3.y)
+  };
+  var zIndex3 = useTransform([point.x, point.y], function(_a2) {
+    var _b2 = __read24(_a2, 2), latestX = _b2[0], latestY = _b2[1];
+    return latestX || latestY ? 1 : 0;
+  });
+  var layout = useRef10(null);
+  invariant(Boolean(context), "Reorder.Item must be a child of Reorder.Group");
+  var _c = context, axis = _c.axis, registerItem = _c.registerItem, updateOrder = _c.updateOrder;
+  useEffect14(function() {
+    registerItem(value, layout.current);
+  });
+  return createElement11(Component, __assign38({ drag: axis }, props, { style: __assign38(__assign38({}, style3), { x: point.x, y: point.y, zIndex: zIndex3 }), layout: true, dragConstraints: originConstraints, dragElastic: 1, onDrag: function(_event, _a2) {
+    var velocity = _a2.velocity;
+    velocity[axis] && updateOrder(value, point[axis].get(), velocity[axis]);
+  }, onLayoutMeasure: function(measured) {
+    return layout.current = measured;
+  } }), children);
+}
+var originConstraints = { top: 0, left: 0, right: 0, bottom: 0 };
+
+// ../../node_modules/framer-motion/dist/es/components/Reorder/index.js
+var Reorder = {
+  Group,
+  Item
+};
+
+// ../../node_modules/framer-motion/dist/es/render/dom/features-animation.js
+import { __assign as __assign39 } from "tslib";
+var domAnimation = __assign39(__assign39({ renderer: createDomVisualElement }, animations), gestureAnimations);
+
+// ../../node_modules/framer-motion/dist/es/render/dom/features-max.js
+import { __assign as __assign40 } from "tslib";
+var domMax = __assign40(__assign40(__assign40({}, domAnimation), drag), layoutFeatures);
+
 // ../../node_modules/framer-motion/dist/es/value/use-motion-template.js
 function useMotionTemplate(fragments) {
   var values3 = [];
@@ -7574,63 +7810,15 @@ function useMotionTemplate(fragments) {
   return useCombineMotionValues(values3, buildValue);
 }
 
-// ../../node_modules/framer-motion/dist/es/value/use-transform.js
-import { __read as __read22 } from "tslib";
-
-// ../../node_modules/framer-motion/dist/es/utils/transform.js
-import { __assign as __assign39 } from "tslib";
-var isCustomValueType = function(v) {
-  return typeof v === "object" && v.mix;
-};
-var getMixer2 = function(v) {
-  return isCustomValueType(v) ? v.mix : void 0;
-};
-function transform() {
-  var args = [];
-  for (var _i = 0; _i < arguments.length; _i++) {
-    args[_i] = arguments[_i];
-  }
-  var useImmediate = !Array.isArray(args[0]);
-  var argOffset = useImmediate ? 0 : -1;
-  var inputValue = args[0 + argOffset];
-  var inputRange = args[1 + argOffset];
-  var outputRange = args[2 + argOffset];
-  var options = args[3 + argOffset];
-  var interpolator = interpolate(inputRange, outputRange, __assign39({ mixer: getMixer2(outputRange[0]) }, options));
-  return useImmediate ? interpolator(inputValue) : interpolator;
-}
-
-// ../../node_modules/framer-motion/dist/es/value/use-transform.js
-function useTransform(input, inputRangeOrTransformer, outputRange, options) {
-  var transformer = typeof inputRangeOrTransformer === "function" ? inputRangeOrTransformer : transform(inputRangeOrTransformer, outputRange, options);
-  return Array.isArray(input) ? useListTransform(input, transformer) : useListTransform([input], function(_a) {
-    var _b = __read22(_a, 1), latest = _b[0];
-    return transformer(latest);
-  });
-}
-function useListTransform(values3, transformer) {
-  var latest = useConstant(function() {
-    return [];
-  });
-  return useCombineMotionValues(values3, function() {
-    latest.length = 0;
-    var numValues = values3.length;
-    for (var i = 0; i < numValues; i++) {
-      latest[i] = values3[i].get();
-    }
-    return transformer(latest);
-  });
-}
-
 // ../../node_modules/framer-motion/dist/es/value/use-spring.js
-import { __assign as __assign40 } from "tslib";
-import { useContext as useContext15, useRef as useRef9, useMemo as useMemo7 } from "react";
+import { __assign as __assign41 } from "tslib";
+import { useContext as useContext16, useRef as useRef11, useMemo as useMemo7 } from "react";
 function useSpring(source, config) {
   if (config === void 0) {
     config = {};
   }
-  var isStatic = useContext15(MotionConfigContext).isStatic;
-  var activeSpringAnimation = useRef9(null);
+  var isStatic = useContext16(MotionConfigContext).isStatic;
+  var activeSpringAnimation = useRef11(null);
   var value = useMotionValue(isMotionValue(source) ? source.get() : source);
   useMemo7(function() {
     return value.attach(function(v, set) {
@@ -7639,7 +7827,7 @@ function useSpring(source, config) {
       if (activeSpringAnimation.current) {
         activeSpringAnimation.current.stop();
       }
-      activeSpringAnimation.current = animate(__assign40(__assign40({ from: value.get(), to: v, velocity: value.getVelocity() }, config), { onUpdate: set }));
+      activeSpringAnimation.current = animate(__assign41(__assign41({ from: value.get(), to: v, velocity: value.getVelocity() }, config), { onUpdate: set }));
       return value.get();
     });
   }, Object.values(config));
@@ -7650,10 +7838,10 @@ function useSpring(source, config) {
 }
 
 // ../../node_modules/framer-motion/dist/es/value/use-velocity.js
-import { useEffect as useEffect14 } from "react";
+import { useEffect as useEffect15 } from "react";
 function useVelocity(value) {
   var velocity = useMotionValue(value.getVelocity());
-  useEffect14(function() {
+  useEffect15(function() {
     return value.velocityUpdateSubscribers.add(function(newVelocity) {
       velocity.set(newVelocity);
     });
@@ -7744,7 +7932,7 @@ function useViewportScroll() {
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/use-reduced-motion.js
-import { __read as __read23 } from "tslib";
+import { __read as __read25 } from "tslib";
 import { useState as useState4 } from "react";
 var prefersReducedMotion;
 function initPrefersReducedMotion() {
@@ -7764,13 +7952,13 @@ function initPrefersReducedMotion() {
 }
 function useReducedMotion() {
   !prefersReducedMotion && initPrefersReducedMotion();
-  var _a = __read23(useState4(prefersReducedMotion.get()), 2), shouldReduceMotion = _a[0], setShouldReduceMotion = _a[1];
+  var _a = __read25(useState4(prefersReducedMotion.get()), 2), shouldReduceMotion = _a[0], setShouldReduceMotion = _a[1];
   useOnChange(prefersReducedMotion, setShouldReduceMotion);
   return shouldReduceMotion;
 }
 
 // ../../node_modules/framer-motion/dist/es/animation/animation-controls.js
-import { __spreadArray as __spreadArray10, __read as __read24 } from "tslib";
+import { __spreadArray as __spreadArray10, __read as __read26 } from "tslib";
 function animationControls() {
   var hasMounted = false;
   var pendingAnimations = [];
@@ -7815,7 +8003,7 @@ function animationControls() {
       hasMounted = true;
       pendingAnimations.forEach(function(_a) {
         var animation = _a.animation, resolve = _a.resolve;
-        controls.start.apply(controls, __spreadArray10([], __read24(animation))).then(resolve);
+        controls.start.apply(controls, __spreadArray10([], __read26(animation), false)).then(resolve);
       });
       return function() {
         hasMounted = false;
@@ -7827,23 +8015,23 @@ function animationControls() {
 }
 
 // ../../node_modules/framer-motion/dist/es/animation/use-animation.js
-import { useEffect as useEffect15 } from "react";
+import { useEffect as useEffect16 } from "react";
 function useAnimation() {
   var controls = useConstant(animationControls);
-  useEffect15(controls.mount, []);
+  useEffect16(controls.mount, []);
   return controls;
 }
 
 // ../../node_modules/framer-motion/dist/es/utils/use-cycle.js
-import { __read as __read25 } from "tslib";
-import { useRef as useRef10, useState as useState5 } from "react";
+import { __read as __read27 } from "tslib";
+import { useRef as useRef12, useState as useState5 } from "react";
 function useCycle() {
   var items = [];
   for (var _i = 0; _i < arguments.length; _i++) {
     items[_i] = arguments[_i];
   }
-  var index = useRef10(0);
-  var _a = __read25(useState5(items[index.current]), 2), item = _a[0], setItem = _a[1];
+  var index = useRef12(0);
+  var _a = __read27(useState5(items[index.current]), 2), item = _a[0], setItem = _a[1];
   return [
     item,
     function(next) {
@@ -7906,8 +8094,8 @@ function useResetProjection() {
 }
 
 // ../../node_modules/framer-motion/dist/es/animation/use-animated-state.js
-import { __rest as __rest13, __assign as __assign41, __read as __read26 } from "tslib";
-import { useState as useState6, useEffect as useEffect16 } from "react";
+import { __rest as __rest15, __assign as __assign42, __read as __read28 } from "tslib";
+import { useState as useState6, useEffect as useEffect17 } from "react";
 var createObject = function() {
   return {};
 };
@@ -7928,10 +8116,10 @@ var stateVisualElement = visualElement({
     return options.initialState[key] || 0;
   },
   makeTargetAnimatable: function(element, _a) {
-    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest13(_a, ["transition", "transitionEnd"]);
+    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = __rest15(_a, ["transition", "transitionEnd"]);
     var origin = getOrigin(target, transition || {}, element);
     checkTargetForNewValues(element, target, origin);
-    return __assign41({ transition, transitionEnd }, target);
+    return __assign42({ transition, transitionEnd }, target);
   }
 });
 var useVisualState = makeUseVisualState({
@@ -7939,19 +8127,19 @@ var useVisualState = makeUseVisualState({
   createRenderState: createObject
 });
 function useAnimatedState(initialState) {
-  var _a = __read26(useState6(initialState), 2), animationState = _a[0], setAnimationState = _a[1];
+  var _a = __read28(useState6(initialState), 2), animationState = _a[0], setAnimationState = _a[1];
   var visualState = useVisualState({}, false);
   var element = useConstant(function() {
     return stateVisualElement({ props: {}, visualState }, { initialState });
   });
-  useEffect16(function() {
+  useEffect17(function() {
     element.mount({});
     return element.unmount();
   }, []);
-  useEffect16(function() {
+  useEffect17(function() {
     element.setProps({
       onUpdate: function(v) {
-        return setAnimationState(__assign41({}, v));
+        return setAnimationState(__assign42({}, v));
       }
     });
   });
@@ -7989,7 +8177,7 @@ function useInvertedScale(scale2) {
 }
 
 // src/renderer.ts
-import React27, { Fragment as Fragment2 } from "react";
+import React29, { Fragment as Fragment2 } from "react";
 import {
   render
 } from "react-dom";
@@ -8192,19 +8380,19 @@ function setRef(ref, value) {
 
 // ../../node_modules/@material-ui/utils/esm/useEnhancedEffect.js
 import {
-  useEffect as useEffect17,
+  useEffect as useEffect18,
   useLayoutEffect as useLayoutEffect2
 } from "react";
-var useEnhancedEffect = typeof window !== "undefined" ? useLayoutEffect2 : useEffect17;
+var useEnhancedEffect = typeof window !== "undefined" ? useLayoutEffect2 : useEffect18;
 var useEnhancedEffect_default = useEnhancedEffect;
 
 // ../../node_modules/@material-ui/utils/esm/useEventCallback.js
 import {
   useCallback as useCallback4,
-  useRef as useRef11
+  useRef as useRef13
 } from "react";
 function useEventCallback(fn) {
-  const ref = useRef11(fn);
+  const ref = useRef13(fn);
   useEnhancedEffect_default(() => {
     ref.current = fn;
   });
@@ -8230,7 +8418,7 @@ function useForkRef(refA, refB) {
 // ../../node_modules/@material-ui/utils/esm/useIsFocusVisible.js
 import {
   useCallback as useCallback5,
-  useRef as useRef12
+  useRef as useRef14
 } from "react";
 var hadKeyboardEvent = true;
 var hadFocusVisibleRecently = false;
@@ -8305,7 +8493,7 @@ function useIsFocusVisible() {
       prepare(node.ownerDocument);
     }
   }, []);
-  const isFocusVisibleRef = useRef12(false);
+  const isFocusVisibleRef = useRef14(false);
   function handleBlurVisible() {
     if (isFocusVisibleRef.current) {
       hadFocusVisibleRecently = true;
@@ -8381,9 +8569,9 @@ function generateUtilityClasses(componentName, slots) {
 var import_prop_types8 = __toModule(require_prop_types());
 import {
   forwardRef as forwardRef3,
-  useEffect as useEffect20,
+  useEffect as useEffect21,
   useImperativeHandle as useImperativeHandle2,
-  useRef as useRef14,
+  useRef as useRef16,
   useState as useState9
 } from "react";
 
@@ -8489,7 +8677,7 @@ function getPath(obj, path) {
   }
   return path.split(".").reduce((acc, item) => acc && acc[item] ? acc[item] : null, obj);
 }
-function getValue(themeMapping, transform3, propValueFinal, userValue = propValueFinal) {
+function getValue2(themeMapping, transform3, propValueFinal, userValue = propValueFinal) {
   let value;
   if (typeof themeMapping === "function") {
     value = themeMapping(propValueFinal);
@@ -8518,9 +8706,9 @@ function style(options) {
     const theme = props.theme;
     const themeMapping = getPath(theme, themeKey) || {};
     const styleFromPropValue = (propValueFinal) => {
-      let value = getValue(themeMapping, transform3, propValueFinal);
+      let value = getValue2(themeMapping, transform3, propValueFinal);
       if (propValueFinal === value && typeof propValueFinal === "string") {
-        value = getValue(themeMapping, transform3, `${prop}${propValueFinal === "default" ? "" : capitalize(propValueFinal)}`, propValueFinal);
+        value = getValue2(themeMapping, transform3, `${prop}${propValueFinal === "default" ? "" : capitalize(propValueFinal)}`, propValueFinal);
       }
       if (cssProperty === false) {
         return value;
@@ -8648,7 +8836,7 @@ function createUnaryUnit(theme, themeKey, defaultValue, propName) {
 function createUnarySpacing(theme) {
   return createUnaryUnit(theme, "spacing", 8, "spacing");
 }
-function getValue2(transformer, propValue) {
+function getValue3(transformer, propValue) {
   if (typeof propValue === "string" || propValue == null) {
     return propValue;
   }
@@ -8664,7 +8852,7 @@ function getValue2(transformer, propValue) {
 }
 function getStyleFromPropValue(cssProperties, transformer) {
   return (propValue) => cssProperties.reduce((acc, cssProperty) => {
-    acc[cssProperty] = getValue2(transformer, propValue);
+    acc[cssProperty] = getValue3(transformer, propValue);
     return acc;
   }, {});
 }
@@ -8763,7 +8951,7 @@ var borderRadius = (props) => {
   if (props.borderRadius) {
     const transformer = createUnaryUnit(props.theme, "shape.borderRadius", 4, "borderRadius");
     const styleFromPropValue = (propValue) => ({
-      borderRadius: getValue2(transformer, propValue)
+      borderRadius: getValue3(transformer, propValue)
     });
     return handleBreakpoints(props, props.borderRadius, styleFromPropValue);
   }
@@ -8851,7 +9039,7 @@ var gap = (props) => {
   if (props.gap) {
     const transformer = createUnaryUnit(props.theme, "spacing", 8, "gap");
     const styleFromPropValue = (propValue) => ({
-      gap: getValue2(transformer, propValue)
+      gap: getValue3(transformer, propValue)
     });
     return handleBreakpoints(props, props.gap, styleFromPropValue);
   }
@@ -8865,7 +9053,7 @@ var columnGap = (props) => {
   if (props.columnGap) {
     const transformer = createUnaryUnit(props.theme, "spacing", 8, "columnGap");
     const styleFromPropValue = (propValue) => ({
-      columnGap: getValue2(transformer, propValue)
+      columnGap: getValue3(transformer, propValue)
     });
     return handleBreakpoints(props, props.columnGap, styleFromPropValue);
   }
@@ -8879,7 +9067,7 @@ var rowGap = (props) => {
   if (props.rowGap) {
     const transformer = createUnaryUnit(props.theme, "spacing", 8, "rowGap");
     const styleFromPropValue = (propValue) => ({
-      rowGap: getValue2(transformer, propValue)
+      rowGap: getValue3(transformer, propValue)
     });
     return handleBreakpoints(props, props.rowGap, styleFromPropValue);
   }
@@ -9251,9 +9439,9 @@ var createTheme_default = createTheme;
 
 // ../../node_modules/@material-ui/private-theming/useTheme/ThemeContext.js
 import {
-  createContext as createContext8
+  createContext as createContext9
 } from "react";
-var ThemeContext2 = /* @__PURE__ */ createContext8(null);
+var ThemeContext2 = /* @__PURE__ */ createContext9(null);
 if (true) {
   ThemeContext2.displayName = "ThemeContext";
 }
@@ -9261,11 +9449,11 @@ var ThemeContext_default = ThemeContext2;
 
 // ../../node_modules/@material-ui/private-theming/useTheme/useTheme.js
 import {
-  useContext as useContext16,
+  useContext as useContext17,
   useDebugValue
 } from "react";
 function useTheme() {
-  const theme = useContext16(ThemeContext_default);
+  const theme = useContext17(ThemeContext_default);
   if (true) {
     useDebugValue(theme);
   }
@@ -10310,9 +10498,9 @@ var import_prop_types7 = __toModule(require_prop_types());
 import {
   forwardRef as forwardRef2,
   useCallback as useCallback6,
-  useEffect as useEffect19,
+  useEffect as useEffect20,
   useImperativeHandle,
-  useRef as useRef13,
+  useRef as useRef15,
   useState as useState8
 } from "react";
 
@@ -10333,8 +10521,8 @@ function _inheritsLoose(subClass, superClass) {
 }
 
 // ../../node_modules/react-transition-group/esm/TransitionGroupContext.js
-import React16 from "react";
-var TransitionGroupContext_default = React16.createContext(null);
+import React18 from "react";
+var TransitionGroupContext_default = React18.createContext(null);
 
 // ../../node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js
 function _assertThisInitialized(self) {
@@ -10346,7 +10534,7 @@ function _assertThisInitialized(self) {
 
 // ../../node_modules/react-transition-group/esm/TransitionGroup.js
 var import_prop_types5 = __toModule(require_prop_types());
-import React17 from "react";
+import React19 from "react";
 
 // ../../node_modules/react-transition-group/esm/utils/ChildMapping.js
 import { Children as Children2, cloneElement as cloneElement2, isValidElement as isValidElement2 } from "react";
@@ -10516,16 +10704,16 @@ var TransitionGroup = /* @__PURE__ */ function(_React$Component) {
     delete props.enter;
     delete props.exit;
     if (Component === null) {
-      return /* @__PURE__ */ React17.createElement(TransitionGroupContext_default.Provider, {
+      return /* @__PURE__ */ React19.createElement(TransitionGroupContext_default.Provider, {
         value: contextValue
       }, children);
     }
-    return /* @__PURE__ */ React17.createElement(TransitionGroupContext_default.Provider, {
+    return /* @__PURE__ */ React19.createElement(TransitionGroupContext_default.Provider, {
       value: contextValue
-    }, /* @__PURE__ */ React17.createElement(Component, props, children));
+    }, /* @__PURE__ */ React19.createElement(Component, props, children));
   };
   return TransitionGroup2;
-}(React17.Component);
+}(React19.Component);
 TransitionGroup.propTypes = true ? {
   component: import_prop_types5.default.any,
   children: import_prop_types5.default.node,
@@ -10540,7 +10728,7 @@ var TransitionGroup_default = TransitionGroup;
 // ../../node_modules/@material-ui/core/ButtonBase/Ripple.js
 var import_prop_types6 = __toModule(require_prop_types());
 import {
-  useEffect as useEffect18,
+  useEffect as useEffect19,
   useState as useState7
 } from "react";
 import { jsx as _jsx } from "react/jsx-runtime";
@@ -10568,7 +10756,7 @@ function Ripple(props) {
   if (!inProp && !leaving) {
     setLeaving(true);
   }
-  useEffect18(() => {
+  useEffect19(() => {
     if (!inProp && onExited != null) {
       const timeoutId = setTimeout(onExited, timeout);
       return () => {
@@ -10726,19 +10914,19 @@ var TouchRipple = /* @__PURE__ */ forwardRef2(function TouchRipple2(inProps, ref
     className
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded9);
   const [ripples, setRipples] = useState8([]);
-  const nextKey = useRef13(0);
-  const rippleCallback = useRef13(null);
-  useEffect19(() => {
+  const nextKey = useRef15(0);
+  const rippleCallback = useRef15(null);
+  useEffect20(() => {
     if (rippleCallback.current) {
       rippleCallback.current();
       rippleCallback.current = null;
     }
   }, [ripples]);
-  const ignoringMouseDown = useRef13(false);
-  const startTimer = useRef13(null);
-  const startTimerCommit = useRef13(null);
-  const container = useRef13(null);
-  useEffect19(() => {
+  const ignoringMouseDown = useRef15(false);
+  const startTimer = useRef15(null);
+  const startTimerCommit = useRef15(null);
+  const container = useRef15(null);
+  useEffect20(() => {
     return () => {
       clearTimeout(startTimer.current);
     };
@@ -10984,8 +11172,8 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
     TouchRippleProps,
     type
   } = props, other = _objectWithoutPropertiesLoose(props, _excluded10);
-  const buttonRef = useRef14(null);
-  const rippleRef = useRef14(null);
+  const buttonRef = useRef16(null);
+  const rippleRef = useRef16(null);
   const {
     isFocusVisibleRef,
     onFocus: handleFocusVisible,
@@ -10996,7 +11184,7 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
   if (disabled && focusVisible) {
     setFocusVisible(false);
   }
-  useEffect20(() => {
+  useEffect21(() => {
     isFocusVisibleRef.current = focusVisible;
   }, [focusVisible, isFocusVisibleRef]);
   useImperativeHandle2(action, () => ({
@@ -11005,7 +11193,7 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
       buttonRef.current.focus();
     }
   }), []);
-  useEffect20(() => {
+  useEffect21(() => {
     if (focusVisible && focusRipple && !disableRipple) {
       rippleRef.current.pulsate();
     }
@@ -11065,7 +11253,7 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
     const button = buttonRef.current;
     return component && component !== "button" && !(button.tagName === "A" && button.href);
   };
-  const keydownRef = useRef14(false);
+  const keydownRef = useRef16(false);
   const handleKeyDown2 = useEventCallback_default((event) => {
     if (focusRipple && !keydownRef.current && focusVisible && rippleRef.current && event.key === " ") {
       keydownRef.current = true;
@@ -11119,12 +11307,12 @@ var ButtonBase = /* @__PURE__ */ forwardRef3(function ButtonBase2(inProps, ref) 
   const handleOwnRef = useForkRef_default(focusVisibleRef, buttonRef);
   const handleRef = useForkRef_default(ref, handleOwnRef);
   const [mountedState, setMountedState] = useState9(false);
-  useEffect20(() => {
+  useEffect21(() => {
     setMountedState(true);
   }, []);
   const enableTouchRipple = mountedState && !disableRipple && !disabled;
   if (true) {
-    useEffect20(() => {
+    useEffect21(() => {
       if (enableTouchRipple && !rippleRef.current) {
         console.error(["Material-UI: The `component` prop provided to ButtonBase is invalid.", "Please make sure the children prop is rendered in this custom component."].join("\n"));
       }
@@ -12131,39 +12319,39 @@ function createSvgIcon(path, displayName) {
 }
 
 // src/icons/Share.tsx
-var Share_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var Share_default = createSvgIcon(/* @__PURE__ */ React29.createElement("path", {
   key: "12",
   d: "M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
 }), "Share");
 
 // src/icons/TabletAndroid.tsx
-var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var TabletAndroid_default = createSvgIcon(/* @__PURE__ */ React29.createElement("path", {
   key: "12",
   d: "M18 0H6C4.34 0 3 1.34 3 3v18c0 1.66 1.34 3 3 3h12c1.66 0 3-1.34 3-3V3c0-1.66-1.34-3-3-3zm-4 22h-4v-1h4v1zm5.25-3H4.75V3h14.5v16z"
 }), "TabletAndroid");
 
 // src/icons/Tv.tsx
-var Tv_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var Tv_default = createSvgIcon(/* @__PURE__ */ React29.createElement("path", {
   key: "12",
   d: "M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 1.99-.9 1.99-2L23 5c0-1.1-.9-2-2-2zm0 14H3V5h18v12z"
 }), "Tv");
 
 // src/icons/PhoneAndroid.tsx
-var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var PhoneAndroid_default = createSvgIcon(/* @__PURE__ */ React29.createElement("path", {
   key: "12",
   d: "M16 1H8C6.34 1 5 2.34 5 4v16c0 1.66 1.34 3 3 3h8c1.66 0 3-1.34 3-3V4c0-1.66-1.34-3-3-3zm-2 20h-4v-1h4v1zm3.25-3H6.75V4h10.5v14z"
 }), "PhoneAndroid");
 
 // src/icons/QrCode.tsx
-var QrCode_default = createSvgIcon(/* @__PURE__ */ React27.createElement("path", {
+var QrCode_default = createSvgIcon(/* @__PURE__ */ React29.createElement("path", {
   key: "12",
   d: "M3 11h8V3H3v8zm2-6h4v4H5V5zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-12v8h8V3h-8zm6 6h-4V5h4v4zm0 10h2v2h-2zm-6-6h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm2 2h2v2h-2zm2-2h2v2h-2zm0-4h2v2h-2zm2 2h2v2h-2z"
 }), "QrCode");
 
 // src/Qr.tsx
 var QR = ({ url }) => {
-  const canvasRef = React27.useRef(null);
-  React27.useEffect(() => {
+  const canvasRef = React29.useRef(null);
+  React29.useEffect(() => {
     const load = async () => {
       const { QRious } = await import("@zedvision/qrious");
       const options = {
@@ -12189,7 +12377,7 @@ var QR = ({ url }) => {
   });
 };
 var QRButton = ({ url }) => {
-  const [showQR, setQR] = React27.useState(false);
+  const [showQR, setQR] = React29.useState(false);
   return /* @__PURE__ */ jsx(motion2.div, {
     animate: {
       width: showQR ? 200 : 56,
@@ -12217,21 +12405,21 @@ var QRButton = ({ url }) => {
 var breakPoints = [640, 1024, 1920];
 var sizes = [10, 25, 50, 75, 100];
 var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => {
-  const [isStable, setIsStable] = React27.useState(false);
-  const [scaleRange, changeScaleRange] = React27.useState(75);
-  const [height2, changeHeight] = React27.useState(innerHeight);
-  const [childArray, setChild] = React27.useState([session.children]);
+  const [isStable, setIsStable] = React29.useState(false);
+  const [scaleRange, changeScaleRange] = React29.useState(75);
+  const [height2, changeHeight] = React29.useState(innerHeight);
+  const [childArray, setChild] = React29.useState([session.children]);
   session.setChild = setChild;
-  const [qrUrl, setQRUrl] = React27.useState(session.url);
-  const [errorText, setErrorText] = React27.useState(" ");
-  const [width2, setWidth] = React27.useState(breakPoints[1]);
-  const ref = React27.useRef(null);
-  const zbody = React27.useRef(null);
+  const [qrUrl, setQRUrl] = React29.useState(session.url);
+  const [errorText, setErrorText] = React29.useState(" ");
+  const [width2, setWidth] = React29.useState(breakPoints[1]);
+  const ref = React29.useRef(null);
+  const zbody = React29.useRef(null);
   const child = childArray[childArray.length - 1];
-  React27.useEffect(() => {
+  React29.useEffect(() => {
     window.addEventListener("resize", () => changeHeight(innerHeight));
   });
-  React27.useEffect(() => {
+  React29.useEffect(() => {
     const handler = setInterval(() => {
       if (errorText !== session.errorText) {
         const newErr = session.errorText;
@@ -12346,7 +12534,7 @@ var DraggableWindow = ({ onShare, onRestore, position: position2, session }) => 
               `
   }, errorText ? /* @__PURE__ */ jsx("div", {
     dangerouslySetInnerHTML: createMarkup(session.html)
-  }) : /* @__PURE__ */ jsx(React27.Suspense, {
+  }) : /* @__PURE__ */ jsx(React29.Suspense, {
     fallback: /* @__PURE__ */ jsx("div", null, "Error fallback")
   }, /* @__PURE__ */ jsx("div", {
     id: "zbody",
@@ -12398,13 +12586,13 @@ var { motion: motion2 } = es_exports;
 var render2 = (el, container) => {
   const root = render(jsx(Fragment2, { children: el }), container);
 };
-var renderer_default = React27;
+var renderer_default = React29;
 export {
   DraggableWindow,
   Fragment2 as Fragment,
   Global,
   es_exports as Motion,
-  React27 as React,
+  React29 as React,
   css2 as css,
   renderer_default as default,
   jsx,
