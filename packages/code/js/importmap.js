@@ -82,7 +82,7 @@ const imports = {
     "https://unpkg.com/jss-plugin-vendor-prefixer@10.6.0/dist/jss-plugin-vendor-prefixer.esm.js",
   "popmotion": "https://unpkg.com/popmotion@9.4.1/dist/es/index.js",
   "prop-types": "https://esm.sh/prop-types",
-  "react": "https://unpkg.com/@zedvision/esm@14.4.0/dist/react.mjs",
+  "react": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react.mjs",
   "react-dom": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-dom.mjs",
   "react-is": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-is.mjs",
   "react-transition-group":
