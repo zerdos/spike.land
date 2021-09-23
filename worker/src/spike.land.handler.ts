@@ -310,8 +310,9 @@ async function handleRequest(request: Request): Promise<Response> {
     return handleCloudRequest(request);
   } catch (e) {
     return text(
-      "ERROR on spike.lan, please refresh <br /><pre>" + JSON.stringify({ e }) +
-        "</pre>",
+      '<html><head> <meta http-equiv="refresh" content="2" /></head><body>Error on spike.land, please refresh <br /><pre>' +
+        JSON.stringify({ e }) +
+        "</pre></body></html>",
     );
   }
 }
