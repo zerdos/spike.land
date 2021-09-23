@@ -1827,6 +1827,11 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.2.tgz#1a62f89525723dde24ba1b01b092bf5df8ad4d39"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
+"@types/trusted-types@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.2.tgz#fc25ad9943bcac11cceb8168db4f275e0e72e756"
+  integrity sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==
+
 "@types/uuid@8.3.1":
   version "8.3.1"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.1.tgz#1a32969cf8f0364b3d8c8af9cc3555b7805df14f"
@@ -3544,6 +3549,11 @@ es-abstract@^1.18.0-next.1, es-abstract@^1.18.0-next.2, es-abstract@^1.18.1, es-
     string.prototype.trimend "^1.0.4"
     string.prototype.trimstart "^1.0.4"
     unbox-primitive "^1.0.1"
+
+es-module-shims@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.0.4.tgz#04c0734249d6d14e616a9d996775dc5170863e92"
+  integrity sha512-/yhPUSGo5hTFn9aXnKi7DpkvXYCzc9OW59utlkgOSe53d3BjvIWmtzCPpjNDPdIYJwF1HZRRKwJopiOz4EK+qg==
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
@@ -6868,10 +6878,10 @@ modify-values@^1.0.0:
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
-monaco-editor@0.28.0:
-  version "0.28.0"
-  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.28.0.tgz#eda159cf64d9ad96b60e78525d6f822aa943170c"
-  integrity sha512-Mo0Mn2rZubXqjiy8AUs/0hGnY2y3oc4UPAP2hgVqrMX0E5Np9aCCz+BeHKzkl4D3n6xeR7mB4JuvOumD5kwC/A==
+monaco-editor@0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/monaco-editor/-/monaco-editor-0.28.1.tgz#732788ff2172d59e6d436b206da8cac715413940"
+  integrity sha512-P1vPqxB4B1ZFzTeR1ScggSp9/5NoQrLCq88fnlNUsuRAP1usEBN4TIpI2lw0AYIZNVIanHk0qwjze2uJwGOHUw==
 
 mortice@^2.0.0, mortice@^2.0.1:
   version "2.0.1"
@@ -9962,6 +9972,19 @@ wordwrap@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
   integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
+
+workbox-core@6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-6.3.0.tgz#a7d82bae6f623f342e04028a0a2cef39af71af55"
+  integrity sha512-SufToEV3SOLwwz3j+P4pgkfpzLRUlR17sX3p/LrMHP/brYKvJQqjTwtSvaCkkAX0RPHX2TFHmN8xhPP1bpmomg==
+
+workbox-window@6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/workbox-window/-/workbox-window-6.3.0.tgz#f669a0715363c35e519d1b6d919e04da7ce369ea"
+  integrity sha512-CFP84assX9srH/TOx4OD8z4EBPO/Cq4WKdV2YLcJIFJmVTS/cB63XKeidKl2KJk8qOOLVIKnaO7BLmb0MxGFtA==
+  dependencies:
+    "@types/trusted-types" "^2.0.2"
+    workbox-core "6.3.0"
 
 wrap-ansi@^7.0.0:
   version "7.0.0"
