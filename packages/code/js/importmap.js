@@ -113,10 +113,10 @@ const imports = {
 
 globalThis.importMap = imports;
 
-document.head.appendChild(Object.assign(document.createElement("script"), {
-  src: "https://unpkg.com/es-module-shims@1.0.4/dist/es-module-shims.js",
-  async: true,
-}));
+// document.head.appendChild(Object.assign(document.createElement("script"), {
+//   src: "https://unpkg.com/es-module-shims@1.0.4/dist/es-module-shims.js",
+//   async: true,
+// }));
 
 document.head.appendChild(Object.assign(document.createElement("script"), {
   type: "importmap",
