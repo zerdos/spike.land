@@ -50,76 +50,77 @@ async function handleRequest(request: Request): Promise<Response> {
     if (pathname.includes("wp-includes")) return await text("404");
 
     if (pathname.slice(0, 6) === `/ipfs/`) {
-      let customCID = pathname.slice(6);
-      const reversePath = reverseMap[customCID] ||
-        (pathname.slice(0, 52) === `/ipfs/${cid}` && (pathname.slice(53) ||
-          "index.html")) ||
-        pathname;
-
-      const sha = reversePath && shasumsKV[reversePath];
-
-      if (
-        pathname.slice(0, 52) === `/ipfs/${cid}`
-      ) {
-        const path = pathname.slice(53);
-        customCID = fileKV[path];
-      }
-
-      if (reversePath) url.pathname = `/ipfs/${cid}/${reversePath}`;
-
-      const cacheKey = new Request(url.toString());
-      const cache = caches.default;
-
-      let response = null;
       try {
-        response = await cache.match(cacheKey);
-      } catch {
-        return await text("unreliable cache, should be reported to CF");
-      }
+        let customCID = pathname.slice(6);
+        const reversePath = reverseMap[customCID] ||
+          (pathname.slice(0, 52) === `/ipfs/${cid}` && (pathname.slice(53) ||
+            "index.html")) ||
+          pathname;
 
-      if (response && response.status == 200) {
-        if (sha) {
-          const content = await response.arrayBuffer();
-          const shaContent = await sha256(content);
+        const sha = reversePath && shasumsKV[reversePath];
 
-          if (sha == shaContent) {
-            return await alterHeaders(new Response(content), reversePath);
+        if (
+          pathname.slice(0, 52) === `/ipfs/${cid}`
+        ) {
+          const path = pathname.slice(53);
+          customCID = fileKV[path];
+        }
+
+        if (reversePath) url.pathname = `/ipfs/${cid}/${reversePath}`;
+
+        const cacheKey = new Request(url.toString());
+        const cache = caches.default;
+
+        let response = null;
+        try {
+          response = await cache.match(cacheKey);
+        } catch {
+          return await text("unreliable cache, should be reported to CF");
+        }
+
+        if (response && response.status == 200) {
+          if (sha) {
+            const content = await response.arrayBuffer();
+            const shaContent = await sha256(content);
+
+            if (sha == shaContent) {
+              return await alterHeaders(new Response(content), reversePath);
+            }
+
+            response = undefined;
+            cache.delete(cacheKey);
+          }
+        }
+
+        let content = await IPFS.get(customCID, "arrayBuffer");
+        if (content !== null && sha) {
+          const file = reverseMap[customCID];
+          const contentSHA = await sha256(content);
+
+          if (shasumsKV[file] === contentSHA) {
+            await IPFS.put(customCID, content);
+          } else {
+            await IPFS.delete(customCID);
+            content = null;
+          }
+        }
+
+        if (content) {
+          response = new Response(content);
+        } else {
+          try {
+            response = await fetchCid("/ipfs/" + customCID, 5);
+          } catch (e) {
+            return await text("Error: " + Object.toString.call(e));
           }
 
-          response = undefined;
-          cache.delete(cacheKey);
-        }
-      }
+          const contentToSave = await response.arrayBuffer();
+          if (sha) {
+            const check = await sha256(contentToSave);
+            if (check !== sha) {
+              const textContent = new TextDecoder().decode(contentToSave);
 
-      let content = await IPFS.get(customCID, "arrayBuffer");
-      if (content !== null && sha) {
-        const file = reverseMap[customCID];
-        const contentSHA = await sha256(content);
-
-        if (shasumsKV[file] === contentSHA) {
-          await IPFS.put(customCID, content);
-        } else {
-          await IPFS.delete(customCID);
-          content = null;
-        }
-      }
-
-      if (content) {
-        response = new Response(content);
-      } else {
-        try {
-          response = await fetchCid("/ipfs/" + customCID, 5);
-        } catch (e) {
-          return await text("Error: " + Object.toString.call(e));
-        }
-
-        const contentToSave = await response.arrayBuffer();
-        if (sha) {
-          const check = await sha256(contentToSave);
-          if (check !== sha) {
-            const textContent = new TextDecoder().decode(contentToSave);
-
-            return await text(`
+              return await text(`
         path: ${reversePath} 
         sha: ${sha}  
         sha-check: ${check}
@@ -127,14 +128,21 @@ async function handleRequest(request: Request): Promise<Response> {
         
         content: ${textContent}
         `);
+            }
           }
+          await IPFS.put(customCID, contentToSave);
         }
-        await IPFS.put(customCID, contentToSave);
+
+        await cache.put(request, response.clone());
+
+        return await alterHeaders(response, reversePath);
+      } catch (e) {
+        return text(
+          '<html><head> <meta http-equiv="refresh" content="2" /></head><body>Loading!<br /><pre>' +
+            JSON.stringify({ e }) +
+            "</pre></body></html>",
+        );
       }
-
-      await cache.put(request, response.clone());
-
-      return await alterHeaders(response, reversePath);
     }
 
     log(pathname);
