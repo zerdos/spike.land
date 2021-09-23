@@ -119,7 +119,7 @@ globalThis.importMap = imports;
 // }));
 
 document.head.appendChild(Object.assign(document.createElement("script"), {
-  type: "importmap",
+  type: "importmap-shim",
   innerHTML: JSON.stringify({ imports }),
 }));
 

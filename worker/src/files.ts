@@ -17,7 +17,7 @@ export const files = {
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
-  "index.html": "QmUUTTFqShmRDUqVYeVQsMB4UuR9hSvjp7dgGDgGfHKANW",
+  "index.html": "QmTVvTfFuccmfk6pYPgQE5QksRtvZa1x5q66CBtSxr9qa3",
   "js/codeLoader.mjs": "QmQo3WNGti8iBzYqKpgzzwiKnTgQPNoXEcBNCeccBPEbKZ",
   "js/data.mjs": "QmbGLoStgDVK4Cbs69D7UUo6ELdcLrgS7kEaQ7fxSj6ZAq",
   "js/examples/app.tsx": "QmNbioNuTEMZYjG8fuoKMK1Kph4dakn2k8GA5Vspfjr9A8",
@@ -28,7 +28,7 @@ export const files = {
   "js/hash.mjs": "QmTM6fq1xZ2FHbUCdHSb1wHxUzjdefTAgNshdFEa9UFvPD",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmbdiShzYc33LDsqywk7TyBsa7VWx3TBXtVJHAY6SHYsLe",
-  "js/importmap.js": "QmXnUS46sPy53gVCNXvJDS9aSQgp9kqxGgnuACinZp4rvx",
+  "js/importmap.js": "Qmcw46xgHUxPjNFqDvwzC9RVYZinMb6CCcaDx4KzqyNWia",
   "js/ipfsClient.mjs": "QmcWneUUsMgkA6qzuF7PJcSPCvR3GxxuQYE6n3GKWS1HFs",
   "js/openWindows.mjs": "QmTrebQC2WUaJE27yRmM1NNz99v7GUAUeTgMLNXTzKtJ4e",
   "js/renderPreviewWindow.mjs":
@@ -87,7 +87,7 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmRQwQvevS36ofeezHXXVgPLpBc5UAkxFYrKNMVRJQDcTN",
-  "js": "Qmd2xpCKSo6JCLjtQXcadzvvN18zwPyn1Hr763XcmembF9",
+  "js": "QmV2Wb2CQbcWC9kQodnPhTQP4M53JHjjxyLSwPrfHWN7Qq",
   "modules/smart-monaco-editor/dist":
     "QmNbHyxhP6b6qrbNT172fng3k8ZokvD4sMRdgzWhxcw8AC",
   "modules/smart-monaco-editor":
@@ -95,6 +95,6 @@ export const files = {
   "modules/vendor": "Qmc1mqDSt9zoviVkyzgxnuwVA3eNmVr9iganWJ472Cqz7A",
   "modules": "QmXmTTQs8MAwz7Fv2qokH3WePQonVuguX3YnjyTMeiAh1C",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
-  "": "QmaHcbiJs3Py9Dg33hFkZvZhxwDyJPtPpA8bD5xKVLjwJW",
+  "": "Qme2NSwZM7C5aks8t3bdkh6PMLmR2we6zQy61XzujeSPDm",
   "foo": "bar",
 };

@@ -27,7 +27,7 @@ export const shasums = {
   "favicon.ico":
     "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
   "index.html":
-    "abaf7cacb74a15e044d5f1ddccf6d26294dec0fc4736e2a52cf70f5e1f1477df",
+    "9e97c2eabd65e6019fc734259d4ab9a47af8dd930500a50465b36135d410da47",
   "js/codeLoader.mjs":
     "fc89713010022c4e3d80f87431a684d4dd48b0fe956aa267ca7ad9a02b025924",
   "js/examples/app.tsx":
@@ -75,7 +75,7 @@ export const shasums = {
   "js/data.mjs":
     "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "js/importmap.js":
-    "8016572835ace6e6d7e762864224210618b78776131e450b5941f50ecd597e2d",
+    "4bda80f16663dcbaa4351124c1d949afc7d9966620a7ebac24e8a855b35581f5",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
@@ -132,6 +132,6 @@ export const shasums = {
   "modules/renderer.mjs":
     "b4e72362cacbb20851890efdeee5f5db95b0291a779c916c7077af15cd54cde6",
   ".tsBuildInfo":
-    "ac0a478110412af943023e780c087f6dadb211d75ee412781147817f6b4b9e2a",
+    "a659336d80a0dac17e66872f19053dd01eed29aad866d1c66fc9e19da8cc6336",
   "food": "bar",
 };
