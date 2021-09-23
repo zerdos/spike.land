@@ -23,6 +23,10 @@
     "build": "yarn pre:build && yarn lerna run build --parallel --since main",
     "re:build": "yarn lerna run clean --parallel && yarn build"
   },
+  "dependencies":{
+    "workbox-window": "6.3.0",
+    "es-module-shims": "1.0.4"
+  },
   "devDependencies": {
     "csstype": "3.0.9",
     "eslint-plugin-react": "7.26.0",

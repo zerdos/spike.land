@@ -108,13 +108,13 @@ const imports = {
   "@zedvision/ipfs":
     "https://unpkg.com/@zedvision/ipfs@14.4.10/dist/ipfs.client.mjs",
   "workbox-window":
-    "https://unpkg.com/workbox-window@6.1.5/build/workbox-window.prod.mjs",
+    "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.mjs",
 };
 
 globalThis.importMap = imports;
 
 document.head.appendChild(Object.assign(document.createElement("script"), {
-  src: "https://unpkg.com/es-module-shims@0.12.1/dist/es-module-shims.js",
+  src: "https://unpkg.com/es-module-shims@1.0.4/dist/es-module-shims.js",
   async: true,
 }));
 
