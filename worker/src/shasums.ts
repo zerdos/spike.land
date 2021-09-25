@@ -1,44 +1,6 @@
 export const shasums = {
   ".tsBuildInfo":
-    "c4d48977867c9229a3d792ddcc9e7ccc528d048bf2720ccbd645f567dc586ceb",
-  "modules/QRious.mjs":
-    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
-  "modules/diffChars.js":
-    "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
-  "modules/renderer.mjs":
-    "b4e72362cacbb20851890efdeee5f5db95b0291a779c916c7077af15cd54cde6",
-  "modules/shaDB.d.ts":
-    "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
-  "modules/getDbObj.d.ts":
-    "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
-  "modules/diff.js":
-    "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
-  "modules/sha256.js":
-    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
-  "modules/vendor/diffMin.js":
-    "c3997cc902111e71a82d778ae1aef6864948594c7215d31178ddb417c34c9a14",
-  "modules/vendor/diffChars.d.ts":
-    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
-  "modules/vendor/diffChars.js":
-    "bf7870232df8f80bcdcf8612a25b16bd1aae8f18aa8934caa4538fa20adbda1b",
-  "modules/vendor/diffMin.d.ts":
-    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
-  "modules/vendor/idb.js":
-    "df3fe7499c45e03e01a408f9baf6f3f47f6e7485ab903d05d4ec1f1f7d22ac03",
-  "modules/vendor/idb.d.ts":
-    "962a0c7ca6d64b3b34d33d6baa194f0785ed0b43856f092e45a6bf10151e3a4c",
-  "modules/ipfs.client.mjs":
-    "d4fd84fe41910b5880adbd1ef701ccf84e993828ef7ff227373d6c3400333a21",
-  "modules/shaDB.js":
-    "957ebeb4fa97cf17ca37fa2458548eb4bc204f39a0f4561fb7b957c4692b1430",
-  "modules/getDbObj.js":
-    "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
-  "modules/diffChars.d.ts":
-    "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
-  "modules/sha256.d.ts":
-    "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-  "modules/diff.d.ts":
-    "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+    "ea9e899d6d89ee8e286eef0cc3f591141fc34f405a03715d4369f644e8296342",
   "modules/smart-monaco-editor/dist/editor.js":
     "5a32991870c7c2726f1d6025a11c904b8ab164ae8cd1887b9d338e2c221f3123",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -47,6 +9,44 @@ export const shasums = {
     "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
   "modules/smart-monaco-editor/dist/editor.d.ts":
     "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
+  "modules/shaDB.js":
+    "957ebeb4fa97cf17ca37fa2458548eb4bc204f39a0f4561fb7b957c4692b1430",
+  "modules/diffChars.d.ts":
+    "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
+  "modules/diff.d.ts":
+    "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
+  "modules/getDbObj.js":
+    "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
+  "modules/sha256.d.ts":
+    "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
+  "modules/ipfs.client.mjs":
+    "adf7679391d00eeb3e4d5bb9dfe2191f4124d229055d3fb2d7e5d9e9caca38ec",
+  "modules/QRious.mjs":
+    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
+  "modules/shaDB.d.ts":
+    "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
+  "modules/diff.js":
+    "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
+  "modules/sha256.js":
+    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
+  "modules/vendor/diffChars.js":
+    "bf7870232df8f80bcdcf8612a25b16bd1aae8f18aa8934caa4538fa20adbda1b",
+  "modules/vendor/diffMin.d.ts":
+    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
+  "modules/vendor/idb.js":
+    "df3fe7499c45e03e01a408f9baf6f3f47f6e7485ab903d05d4ec1f1f7d22ac03",
+  "modules/vendor/idb.d.ts":
+    "962a0c7ca6d64b3b34d33d6baa194f0785ed0b43856f092e45a6bf10151e3a4c",
+  "modules/vendor/diffMin.js":
+    "c3997cc902111e71a82d778ae1aef6864948594c7215d31178ddb417c34c9a14",
+  "modules/vendor/diffChars.d.ts":
+    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
+  "modules/diffChars.js":
+    "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
+  "modules/renderer.mjs":
+    "b4e72362cacbb20851890efdeee5f5db95b0291a779c916c7077af15cd54cde6",
+  "modules/getDbObj.d.ts":
+    "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
