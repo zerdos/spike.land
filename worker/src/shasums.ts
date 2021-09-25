@@ -1,6 +1,6 @@
 export const shasums = {
   ".tsBuildInfo":
-    "d7c8f8874802ff72a62a828102c2a62c7238e97d63ee0735337c6769429d2b75",
+    "a233f77c05676df23a4183c986d3757cd543446df4349ca5fe805d9a3bda4de8",
   "modules/QRious.mjs":
     "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
   "modules/diffChars.js":
@@ -104,7 +104,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
-    "8adbadb398da446c8f2bfaf6f495974310c63b14b7259a7df861f84bfc7005dc",
+    "e2f0e24172c9d71299174089d15283705504e8d2857593a20f2f82a649070618",
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workboxLoader.mjs":
