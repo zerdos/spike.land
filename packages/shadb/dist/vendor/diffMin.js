@@ -44,7 +44,8 @@ function N(n) { return { newPos: n.newPos, components: n.components.slice(0) }; 
 var W = new h;
 function A(n, e, t) { return W.diff(n, e, t); }
 var $ = /^[A-Za-z\xC0-\u02C6\u02C8-\u02D7\u02DE-\u02FF\u1E00-\u1EFF]+$/, I = /\S/, O = new h;
-O.equals = function (n, e) { return this.options.ignoreCase && (n = n.toLowerCase(), e = e.toLowerCase()), n === e || this.options.ignoreWhitespace && !I.test(n) && !I.test(e); }, O.tokenize = function (n) { for (var e = n.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < e.length - 1; t++)
+O.equals = function (n, e) { return this.options.ignoreCase && (n = n.toLowerCase(), e = e.toLowerCase()), n === e || this.options.ignoreWhitespace && !I.test(n) && !I.test(e); };
+O.tokenize = function (n) { for (var e = n.split(/([^\S\r\n]+|[()[\]{}'"\r\n]|\b)/), t = 0; t < e.length - 1; t++)
     !e[t + 1] && e[t + 2] && $.test(e[t]) && $.test(e[t + 2]) && (e[t] += e[t + 2], e.splice(t + 1, 2), t--); return e; };
 var T = new h;
 T.tokenize = function (n) { var e = [], t = n.split(/(\n|\r\n)/); t[t.length - 1] || t.pop(); for (var o = 0; o < t.length; o++) {
@@ -57,7 +58,10 @@ var R = new h;
 R.tokenize = function (n) { return n.split(/([{}:;,]|\s+)/); };
 function x(n) { return typeof Symbol == "function" && typeof Symbol.iterator == "symbol" ? x = function (e) { return typeof e; } : x = function (e) { return e && typeof Symbol == "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e; }, x(n); }
 var V = Object.prototype.toString, m = new h;
-m.useLongestToken = !0, m.tokenize = T.tokenize, m.castInput = function (n) { var e = this.options, t = e.undefinedReplacement, o = e.stringifyReplacer, u = o === void 0 ? function (r, s) { return typeof s == "undefined" ? t : s; } : o; return typeof n == "string" ? n : JSON.stringify(D(n, null, null, u), u, "  "); }, m.equals = function (n, e) { return h.prototype.equals.call(m, n.replace(/,([\r\n])/g, "$1"), e.replace(/,([\r\n])/g, "$1")); };
+m.useLongestToken = !0;
+m.tokenize = T.tokenize;
+m.castInput = function (n) { var e = this.options, t = e.undefinedReplacement, o = e.stringifyReplacer, u = o === void 0 ? function (r, s) { return typeof s == "undefined" ? t : s; } : o; return typeof n == "string" ? n : JSON.stringify(D(n, null, null, u), u, "  "); };
+m.equals = function (n, e) { return h.prototype.equals.call(m, n.replace(/,([\r\n])/g, "$1"), e.replace(/,([\r\n])/g, "$1")); };
 function D(n, e, t, o, u) { e = e || [], t = t || [], o && (n = o(u, n)); var r; for (r = 0; r < e.length; r += 1)
     if (e[r] === n)
         return t[r]; var s; if (V.call(n) === "[object Array]") {
@@ -76,5 +80,6 @@ function D(n, e, t, o, u) { e = e || [], t = t || [], o && (n = o(u, n)); var r;
 else
     s = n; return s; }
 var E = new h;
-E.tokenize = function (n) { return n.slice(); }, E.join = E.removeEmpty = function (n) { return n; };
+E.tokenize = function (n) { return n.slice(); };
+E.join = E.removeEmpty = function (n) { return n; };
 export { A as diffChars };
