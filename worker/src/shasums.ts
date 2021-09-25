@@ -104,7 +104,7 @@ export const shasums = {
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
-    "10acd6ed9db859bb9a7a2ac0ad4273b4ad3d4b0b4f289c402a4fa42105f7d732",
+    "8adbadb398da446c8f2bfaf6f495974310c63b14b7259a7df861f84bfc7005dc",
   "js/workers/prettierWorker.js":
     "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
   "js/workboxLoader.mjs":
