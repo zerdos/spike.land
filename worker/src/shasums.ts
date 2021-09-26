@@ -71,7 +71,7 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "index.html":
-    "9e97c2eabd65e6019fc734259d4ab9a47af8dd930500a50465b36135d410da47",
+    "a7dfd8f27ec941757ca447678be14912b22e2ca9ee010965d0d9a6d1068ec4a6",
   "package.json":
     "3828e32763e853b638b75bb70e41e0c705731baaee6b33354e02080ad807cef8",
   "tsconfig.json":
