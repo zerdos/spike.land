@@ -84,7 +84,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "fc89713010022c4e3d80f87431a684d4dd48b0fe956aa267ca7ad9a02b025924",
   "js/importmap2.json":
-    "9da4b76b92ec59c46dbce4f115dc4920d8fd20f3b3117022bcc3f0be4183cc60",
+    "0cec1d183ccd2586905d7da93858619eb70f9fa6d421ee0e6c0e58f020792b5b",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
@@ -92,11 +92,11 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "b80e84326209dc3daa456d183f01b02046af247f0183bd270cb016a36fcee5b6",
+    "40dff0e43d246495838c82ee3a6c291446e7b9ffa19ef864bc0513e9fa8f8272",
   "js/share.mjs":
     "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/data.mjs":
-    "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
+    "668c5a792b20f7aeb8e1862a57785a1070b68d92b6babe316ac1410a2f12a8a9",
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/importScript.d.ts":
@@ -128,7 +128,7 @@ export const shasums = {
   "js/templates.mjs":
     "7494836645fe7018630809527dd9d54565e794cfaf1b5e3b2c20415f3d22330a",
   "js/importmap.js":
-    "4bda80f16663dcbaa4351124c1d949afc7d9966620a7ebac24e8a855b35581f5",
+    "f3fd516c5ef282a7e40edb193a2aa9453ba6d59eb959cb705af6d7ba162c5c72",
   "js/openWindows.mjs":
     "cff48eedb89420a48929de9171935e5ec36fac2f22ab64688375ccba3cd3b1c5",
   "js/transpile.mjs":
@@ -140,6 +140,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "scripts/importmapGenerator.mjs":
-    "312b0efeaa124a26bf6755be43020cf24933a39359d1f8a4a4c157dc38201634",
+    "f824b4a410468ffa0772b9f64a1a3c70d2354694b6ed604c37cd797f6215a1e8",
   "food": "bar",
 };

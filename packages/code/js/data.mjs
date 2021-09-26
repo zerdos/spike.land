@@ -1,5 +1,5 @@
 import { sha256, shaDB } from "@zedvision/shadb";
-import v4 from "uuid/v4";
+import { v4 } from "uuid";
 import { ipfsClient } from "./ipfsClient.mjs";
 
 /** @type {string} */

@@ -102,7 +102,7 @@ const imports = {
     "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.10/dist/editor.js",
   "simple-window-manager":
     "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js",
-  "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
+  "uuid": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/index.js",
   "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.4.10/dist/shaDB.js",
   "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.min.mjs",
   "@zedvision/ipfs":

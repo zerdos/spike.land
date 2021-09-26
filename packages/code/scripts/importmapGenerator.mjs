@@ -1,6 +1,8 @@
 import latestVersion from "latest-version";
 import axios from "axios";
 import path from "path";
+// import { LoggerAdaptToConsole } from "console-log-json";
+// LoggerAdaptToConsole();
 
 const exceptions = {
     "scheduler/": "https://esm.sh/scheduler/",
@@ -79,7 +81,7 @@ const getUnpkgLink = async (packageName) => {
             ),
             `https://unpkg.com/`,
           ).href,
-        });
+        });      
       }
     }
   });
@@ -95,62 +97,62 @@ const getUnpkgLink = async (packageName) => {
 
 const list = [
     "@babel/runtime",
-    "@emotion/cache",
-    "@emotion/hash",
-    "@emotion/is-prop-valid",
-    "@emotion/memoize",
-    "@emotion/react",
-    "@emotion/serialize",
-    "@emotion/sheet",
-    "@emotion/styled",
-    "@emotion/utils",
-    "@emotion/weak-memoize",
-    "@material-ui/core",
-    "@material-ui/private-theming",
-    "@material-ui/styled-engine",
-    "@material-ui/system",
-    "@material-ui/unstyled",
-    "@material-ui/utils",
-    "@popperjs/core",
-    "scheduler",
-    "clsx",
-    "framer-motion",
-    "css-vendor",
-     "dom-helpers",
-        "framer-motion",
-        "framesync",
-        "hey-listen",
-        "hoist-non-react-statics",
-        "hyphenate-style-name",
-        "is-in-browser",
-        "jss",
-        "jss-plugin-camel-case",
-        "jss-plugin-default-unit",
-        "jss-plugin-global",
-        "jss-plugin-nested",
-        "jss-plugin-props-sort",
-        "jss-plugin-rule-value-function",
-        "jss-plugin-vendor-prefixer",
-        "popmotion",
-        "prop-types",
-        "react",
-        "react-dom",
-        "react-is",
-        "react-transition-group",
-        "react/jsx-runtime",
-        "@zedvision/renderer",
-        "style-value-types",
-        "stylis",
-        "@zedvision/qrious",
-        "tiny-warning",
-        "tslib",
-        "@zedvision/smart-monaco-editor",
-        "simple-window-manager",
-        "uuid",
-        "@zedvision/shadb",
-        "comlink",
-        "@zedvision/ipfs",
-        "workbox-window"
+    // "@emotion/cache",
+    // "@emotion/hash",
+    // "@emotion/is-prop-valid",
+    // "@emotion/memoize",
+    // "@emotion/react",
+    // "@emotion/serialize",
+    // "@emotion/sheet",
+    // "@emotion/styled",
+    // "@emotion/utils",
+    // "@emotion/weak-memoize",
+    // "@material-ui/core",
+    // "@material-ui/private-theming",
+    // "@material-ui/styled-engine",
+    // "@material-ui/system",
+    // "@material-ui/unstyled",
+    // "@material-ui/utils",
+    // "@popperjs/core",
+    // "scheduler",
+    // "clsx",
+    // "framer-motion",
+    // "css-vendor",
+    //  "dom-helpers",
+    //     "framer-motion",
+    //     "framesync",
+    //     "hey-listen",
+    //     "hoist-non-react-statics",
+    //     "hyphenate-style-name",
+    //     "is-in-browser",
+    //     "jss",
+    //     "jss-plugin-camel-case",
+    //     "jss-plugin-default-unit",
+    //     "jss-plugin-global",
+    //     "jss-plugin-nested",
+    //     "jss-plugin-props-sort",
+    //     "jss-plugin-rule-value-function",
+    //     "jss-plugin-vendor-prefixer",
+    //     "popmotion",
+    //     "prop-types",
+    //     "react",
+    //     "react-dom",
+    //     "react-is",
+    //     "react-transition-group",
+    //     "react/jsx-runtime",
+    //     "@zedvision/renderer",
+    //     "style-value-types",
+    //     "stylis",
+    //     "@zedvision/qrious",
+    //     "tiny-warning",
+    //     "tslib",
+    //     "@zedvision/smart-monaco-editor",
+    //     "simple-window-manager",
+    //     "uuid",
+    //     "@zedvision/shadb",
+    //     "comlink",
+    //     "@zedvision/ipfs",
+    //     "workbox-window"
     
   ];
   
@@ -163,7 +165,7 @@ const bigMap = await Promise.all(
 const importMap = { "imports": {} };
 const flat = bigMap.flatMap((v) => v);
 flat.map((i) => Object.assign(importMap.imports, i));
-console.log(JSON.stringify(importMap));
+console.log(JSON.stringify(importMap, undefined, 2));
 
 // console.log(Object.keys(list))
 // await Promise.all(Object.keys(list).map(async (packageName) => {
