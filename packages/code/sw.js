@@ -1,5 +1,5 @@
 self.importScripts(
-  "https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js",
+  "https://unpkg.com/workbox-sw@6.3.0/build/workbox-sw.js",
 );
 
 // self.importScripts(

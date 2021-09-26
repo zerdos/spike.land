@@ -49,7 +49,7 @@ export const shasums = {
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
-  "sw.js": "64a43f335398e36fbb87325b99c577fc56e4993f7dedbd08b305bb225a627be6",
+  "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
   "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
@@ -73,7 +73,7 @@ export const shasums = {
   "index.html":
     "9e97c2eabd65e6019fc734259d4ab9a47af8dd930500a50465b36135d410da47",
   "package.json":
-    "62f635f59c15268a08fbd8505613f7cae333d9eb519c37f160a10f4f64c56ac4",
+    "3828e32763e853b638b75bb70e41e0c705731baaee6b33354e02080ad807cef8",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -120,7 +120,7 @@ export const shasums = {
   "js/starter.js":
     "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
   "js/templates.mjs":
-    "ed58a236fef90d540cda861598977df427d01760d3151ad805f2d600d8844051",
+    "7494836645fe7018630809527dd9d54565e794cfaf1b5e3b2c20415f3d22330a",
   "js/importmap.js":
     "4bda80f16663dcbaa4351124c1d949afc7d9966620a7ebac24e8a855b35581f5",
   "js/openWindows.mjs":
