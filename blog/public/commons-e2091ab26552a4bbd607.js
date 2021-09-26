@@ -1684,9 +1684,7 @@ function createStringFromObject(mergedProps, registered, obj) {
           string += processStyleName(_key) + ":" + processStyleValue(_key, value) + ";";
         }
       } else {
-        if (_key === 'NO_COMPONENT_SELECTOR' && "production" !== 'production') {
-          throw new Error('Component selectors can only be used in conjunction with @emotion/babel-plugin.');
-        }
+        if (_key === 'NO_COMPONENT_SELECTOR' && "production" !== 'production') {}
 
         if (Array.isArray(value) && typeof value[0] === 'string' && (registered == null || registered[value[0]] === undefined)) {
           for (var _i = 0; _i < value.length; _i++) {
@@ -2200,9 +2198,7 @@ var ClassNames = /* #__PURE__ */(/* unused pure expression or super */ null && (
   var hasRendered = false;
 
   var css = function css() {
-    if (hasRendered && "production" !== 'production') {
-      throw new Error('css can only be used during render');
-    }
+    if (hasRendered && "production" !== 'production') {}
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -2216,9 +2212,7 @@ var ClassNames = /* #__PURE__ */(/* unused pure expression or super */ null && (
   };
 
   var cx = function cx() {
-    if (hasRendered && "production" !== 'production') {
-      throw new Error('cx can only be used during render');
-    }
+    if (hasRendered && "production" !== 'production') {}
 
     for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
@@ -2530,4 +2524,4 @@ function _taggedTemplateLiteralLoose(strings, raw) {
 /***/ })
 
 }]);
-//# sourceMappingURL=commons-7eb77b0e50d79c545363.js.map
+//# sourceMappingURL=commons-e2091ab26552a4bbd607.js.map
