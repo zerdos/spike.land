@@ -82,6 +82,16 @@ const getUnpkgLink = async (packageName) => {
             `https://unpkg.com/`,
           ).href,
         });      
+
+        ret.push({
+          [path.join(packageName, path.parse(exp[p][0].import).dir, path.parse(exp[p][0].import).name)]: new URL(
+            path.join(
+              `${packageName}@${latestPackageVersion}`,
+              exp[p][0].import,
+            ),
+            `https://unpkg.com/`,
+          ).href,
+        });   
       }
     }
   });
