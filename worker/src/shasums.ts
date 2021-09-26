@@ -71,22 +71,28 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "index.html":
-    "a7dfd8f27ec941757ca447678be14912b22e2ca9ee010965d0d9a6d1068ec4a6",
+    "773e5b02070eb6e6122bbf74026d3d721f0e8700c4ca955e02ec0a4a618c1666",
   "package.json":
-    "3828e32763e853b638b75bb70e41e0c705731baaee6b33354e02080ad807cef8",
+    "46c7c20a5f4d28bd5152aaf6c56dbb6817ebf8e370ca4e39ad886a61cb887b65",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
+  "yarn-error.log":
+    "7e3070fe62c0d70ef5698627ffefc4bb5c7420e430b216c09eddc4871ba4e433",
   "manifest.json":
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "js/codeLoader.mjs":
     "fc89713010022c4e3d80f87431a684d4dd48b0fe956aa267ca7ad9a02b025924",
+  "js/importmap2.json":
+    "9da4b76b92ec59c46dbce4f115dc4920d8fd20f3b3117022bcc3f0be4183cc60",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
     "55a3dc12dc9b07ded8783f07254322372958eb27d24ebbfb3d6480b13a0cd873",
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
+  "js/importmap.json":
+    "b80e84326209dc3daa456d183f01b02046af247f0183bd270cb016a36fcee5b6",
   "js/share.mjs":
     "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/data.mjs":
@@ -124,7 +130,7 @@ export const shasums = {
   "js/importmap.js":
     "4bda80f16663dcbaa4351124c1d949afc7d9966620a7ebac24e8a855b35581f5",
   "js/openWindows.mjs":
-    "f2658ad9b41f2c4b8c44c3afda2b732398a88825107f74e7d908c2880d119aaa",
+    "cff48eedb89420a48929de9171935e5ec36fac2f22ab64688375ccba3cd3b1c5",
   "js/transpile.mjs":
     "cad7a9b06a234af42c6a2e3cf41fa49a5a24f8c7caf3f51dc60877eae1608c7b",
   "favicon.ico":
@@ -133,5 +139,7 @@ export const shasums = {
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
+  "scripts/importmapGenerator.mjs":
+    "312b0efeaa124a26bf6755be43020cf24933a39359d1f8a4a4c157dc38201634",
   "food": "bar",
 };

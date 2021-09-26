@@ -111,3 +111,4 @@ packages/code/worker/script.js
 !.yarn/releases
 !.yarn/plugins
 .pnp.*
+importmap.json5
