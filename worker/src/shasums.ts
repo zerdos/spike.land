@@ -1,6 +1,6 @@
 export const shasums = {
   ".tsBuildInfo":
-    "992b2fd7fdb3e14c8310bbe2b07eea8f00f8b0e72969713bc08e4e945ca84208",
+    "bdfbab59fc696bae800845846c1e0b021cb667a31f950e2eee9edfbebc7effc8",
   "modules/smart-monaco-editor/dist/editor.js":
     "5a32991870c7c2726f1d6025a11c904b8ab164ae8cd1887b9d338e2c221f3123",
   "modules/smart-monaco-editor/dist/monaco.js":
@@ -44,7 +44,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "0cc79b8787a63be33624f3c86bab0153fd130e8ebb174da55d8a6021562a619f",
+    "2803b3fcf2f1bb0643cf49293258e144ab45f400e1d23663cc07f87f2f059894",
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "test.html":
@@ -92,7 +92,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "7beb7c2a239cc032a6dfa5d3dc7fc7ce0cd620f344f7d53720a0546285c72129",
+    "f3f2124b4f536425d621b8425efe33adc4c8a78d356015b4fd953ecf86a1b4cf",
   "js/share.mjs":
     "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/data.mjs":
@@ -140,6 +140,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "scripts/importmapGenerator.mjs":
-    "d1e765566cfc8229600f52b284d0ed08e4b7397bccba7a2509f77b31c9f84424",
+    "fb6ec673cf9ebe9adf08127ee6f364f8ac41b9726ca5f8d11716467b416cbd9a",
   "food": "bar",
 };
