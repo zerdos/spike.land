@@ -39,8 +39,8 @@ function raceToSuccess(promises) {
     let numRejected = 0;
     return new Promise(
     /**
-       * @param {Promise<any>} promise
-       */
+     * @param {Promise<any>} promise
+     */
     (resolve, reject) => promises.forEach((promise) => promise
         .then(resolve)
         .catch(() => {
