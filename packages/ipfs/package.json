@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/ipfs",
-  "version": "14.5.1",
+  "version": "14.5.2",
   "sideEffects": false,
   "files": [
     "*/*"
@@ -30,9 +30,9 @@
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
   "dependencies": {
     "esbuild": "0.13.2",
+    "ipfs-message-port-client": "0.9.0",
     "it-all": "1.0.5",
     "typescript": "4.4.3",
-    "uint8arrays": "3.0.0",
-    "ipfs-message-port-client": "0.9.0"
+    "uint8arrays": "3.0.0"
   }
 }
