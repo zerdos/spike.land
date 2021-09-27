@@ -4,14 +4,19 @@ import path from "path";
 // import { LoggerAdaptToConsole } from "console-log-json";
 // LoggerAdaptToConsole();
 
+const zedEsmLatestVersion = await latestVersion("@zedvision/esm");
+const uidVersion = await latestVersion("uuid");
+
 const exceptions = {
     "scheduler/": "https://esm.sh/scheduler/",
     "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
     "prop-types": "https://esm.sh/prop-types",
     "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-    "react": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react.mjs",
-    "react-dom": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-dom.mjs",
-    "react-is": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-is.mjs",
+    "react": `https://unpkg.com/@zedvision/esm@${zedEsmLatestVersion}/dist/react.mjs`,
+    "react-dom": `https://unpkg.com/@zedvision/esm@${zedEsmLatestVersion}/dist/react-dom.mjs`,
+    "react-is": `https://unpkg.com/@zedvision/esm@${zedEsmLatestVersion}/dist/react-is.mjs`,
+    "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
+    "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
 };
 
 
@@ -109,45 +114,42 @@ const getUnpkgLink = async (packageName) => {
 
 
 const list = [
-    // "@babel/runtime",
-    // "@emotion/cache",
-    // "@emotion/hash",
-    // "@emotion/is-prop-valid",
-    // "@emotion/memoize",
-    // "@emotion/react",
-    // "@emotion/serialize",
-    // "@emotion/sheet",
-    // "@emotion/styled",
-    // "@emotion/utils",
-    //  "@emotion/unitless",
-    // "@emotion/weak-memoize",
-//    "@mui/material",
-
-        //  "framer-motion",
-        // "framesync",
-        // "hey-listen",
-   //     "hoist-non-react-statics",
-    //     "hyphenate-style-name",
+    "@babel/runtime",
+    "@emotion/cache",
+    "@emotion/hash",
+    "@emotion/is-prop-valid",
+    "@emotion/memoize",
+    "@emotion/react",
+    "@emotion/serialize",
+    "@emotion/sheet",
+    "@emotion/styled",
+    "@emotion/utils",
+     "@emotion/unitless",
+    "@emotion/weak-memoize",
+   "@mui/material",
+         "framer-motion",
+        "framesync",
+        "hey-listen",
+       "hoist-non-react-statics",
     
-        // "popmotion",
+        "popmotion",
         "react",
-    //     "react-dom",
-    //     "react-is",
-    //     "react-transition-group",
-    //     "react/jsx-runtime",
-    //     "@zedvision/renderer",
-    //     "style-value-types",
-    //     "stylis",
-    //     "@zedvision/qrious",
-    //     "tiny-warning",
-    //     "tslib",
-    //     "@zedvision/smart-monaco-editor",
-    //     "simple-window-manager",
-    //     "uuid",
-    //     "@zedvision/shadb",
-    //     "comlink",
-    //     "@zedvision/ipfs",
-    //     "workbox-window"
+        "react-dom",
+        "react-is",
+        "react-transition-group",
+        "react/jsx-runtime",
+        "@zedvision/renderer",
+        "style-value-types",
+        "stylis",
+        "@zedvision/qrious",
+        "tslib",
+        "@zedvision/smart-monaco-editor",
+        "simple-window-manager",
+        "uuid/",
+        "@zedvision/shadb",
+        "comlink",
+        "@zedvision/ipfs",
+        "workbox-window"
     
   ];
   

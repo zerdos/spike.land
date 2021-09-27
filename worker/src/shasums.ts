@@ -92,11 +92,11 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "271ac347341a674619e5171b6ba9a0d8715767928a903e00309d6f1a60e172c6",
+    "666ec7e5210929cc2283adb1b41b228eb1ffb28510d8a6e29f98a361a739885f",
   "js/share.mjs":
     "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/data.mjs":
-    "668c5a792b20f7aeb8e1862a57785a1070b68d92b6babe316ac1410a2f12a8a9",
+    "f6bc5db2250c25728083b5424ac223b028229114bf16d09a1798c71c87158403",
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/importScript.d.ts":
@@ -140,6 +140,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "scripts/importmapGenerator.mjs":
-    "0e6aea1c516d59272fcef5f61cd663a0ea8acff364e10b6e569fc4b32be493ae",
+    "4fb3685eef3788aca94fb5e449982309c1b925fc8772e7569b158a5dc9633107",
   "food": "bar",
 };

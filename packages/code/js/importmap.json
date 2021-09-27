@@ -198,34 +198,24 @@
     "framesync": "https://unpkg.com/framesync@6.0.0/dist/es/index.mjs",
     "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
     "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
-   "popmotion": "https://unpkg.com/popmotion@10.0.1/dist/es/index.mjs",
-
+      "popmotion": "https://unpkg.com/popmotion@10.0.1/dist/es/index.mjs",
     "react": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react.mjs",
     "react-dom": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-dom.mjs",
     "react-is": "https://unpkg.com/@zedvision/esm@14.4.10/dist/react-is.mjs",
-    "react-transition-group":
-      "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
+    "react-transition-group": "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
     "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-    "@zedvision/renderer":
-      "https://unpkg.com/@zedvision/renderer@14.4.10/dist/renderer.mjs",
-    "style-value-types":
-      "https://unpkg.com/style-value-types@4.1.4/dist/es/index.js",
+    "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.4.10/dist/renderer.mjs",
+    "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
     "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
-    "@zedvision/qrious":
-      "https://unpkg.com/@zedvision/qrious@14.4.10/dist/QRious.mjs",
-    "tiny-warning":
-      "https://unpkg.com/tiny-warning@1.0.3/dist/tiny-warning.esm.js",
+    "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.4.10/dist/QRious.mjs",
     "tslib": "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-    "@zedvision/smart-monaco-editor":
-      "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.10/dist/editor.js",
-    "simple-window-manager":
+    "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.4.10/dist/editor.js",
+    "simple-window-manager": 
       "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
-    "uuid": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/index.js",
+    "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
     "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.4.10/dist/shaDB.js",
-    "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.min.mjs",
-    "@zedvision/ipfs":
-      "https://unpkg.com/@zedvision/ipfs@14.4.10/dist/ipfs.client.mjs",
-    "workbox-window":
-      "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.mjs"
+    "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
+    "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.4.10/dist/ipfs.client.mjs",
+    "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
   }
 }
