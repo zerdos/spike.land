@@ -44,7 +44,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "b4e72362cacbb20851890efdeee5f5db95b0291a779c916c7077af15cd54cde6",
+    "0cc79b8787a63be33624f3c86bab0153fd130e8ebb174da55d8a6021562a619f",
   "modules/getDbObj.d.ts":
     "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
   "test.html":
@@ -84,7 +84,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "fc89713010022c4e3d80f87431a684d4dd48b0fe956aa267ca7ad9a02b025924",
   "js/importmap2.json":
-    "2fdadc8189252e805535e9adf3514e9b55a3469d1a2fe953f79bb4d22dea0910",
+    "4628360b594092af7e71930607342269600e8e0a61df172e1ccec7e6f9883765",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
@@ -92,7 +92,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "aa887532e00f4cf8f94296fcc288f0087dcb19313e9646a32e020e770c25540a",
+    "7beb7c2a239cc032a6dfa5d3dc7fc7ce0cd620f344f7d53720a0546285c72129",
   "js/share.mjs":
     "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/data.mjs":
@@ -128,7 +128,7 @@ export const shasums = {
   "js/templates.mjs":
     "7494836645fe7018630809527dd9d54565e794cfaf1b5e3b2c20415f3d22330a",
   "js/importmap.js":
-    "f3fd516c5ef282a7e40edb193a2aa9453ba6d59eb959cb705af6d7ba162c5c72",
+    "3511af7fb1b954834d05c39ddce663fe4cdfc5ed91632962a5ad964369643dd3",
   "js/openWindows.mjs":
     "cff48eedb89420a48929de9171935e5ec36fac2f22ab64688375ccba3cd3b1c5",
   "js/transpile.mjs":
@@ -140,6 +140,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "scripts/importmapGenerator.mjs":
-    "3f048bac6f9efa6026151560832264f322a9b1fc6fe8da089d9b950121c9ec35",
+    "d1e765566cfc8229600f52b284d0ed08e4b7397bccba7a2509f77b31c9f84424",
   "food": "bar",
 };

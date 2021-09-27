@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
-import Fab from "@material-ui/core/Fab";
-import Button from "@material-ui/core/Button";
-import ToggleButton from "@material-ui/core/ToggleButton";
-import ToggleButtonGroup from "@material-ui/core/ToggleButtonGroup";
+import Fab from "@mui/material/Fab";
+import Button from "@mui/material/Button";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Share from "./icons/Share";
 import Tablet from "./icons/TabletAndroid";
 import Tv from "./icons/Tv";

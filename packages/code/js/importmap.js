@@ -24,14 +24,14 @@ const imports = {
     "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
   "@emotion/weak-memoize":
     "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
-  "@material-ui/core":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/index.js",
-  "@material-ui/core/":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/",
-  "@material-ui/core/utils":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/utils/index.js",
-  "@material-ui/core/utils/":
-    "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/utils/",
+  "@mui/material":
+    "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/index.js",
+  "@mui/material/":
+    "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/",
+  "@mui/material/utils":
+    "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/utils/index.js",
+  "@mui/material/utils/":
+    "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/utils/",
   "@material-ui/private-theming":
     "https://unpkg.com/@material-ui/private-theming@5.0.0-beta.5/modern/index.js",
   "@material-ui/private-theming/":

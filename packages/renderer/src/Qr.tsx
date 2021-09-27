@@ -2,7 +2,7 @@
 
 import { css, jsx, motion, React } from "./renderer";
 
-import Fab from "@material-ui/core/Fab";
+import Fab from "@mui/material/Fab";
 import QrCode from "./icons/QrCode";
 
 const QR: React.FC<{ url: string }> = ({ url }) => {

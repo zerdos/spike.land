@@ -19,7 +19,7 @@
   "dependencies": {
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
-    "@material-ui/core": "next",
+    "@mui/material": "5.0.1",
     "@types/react": "17.0.24",
     "@types/react-dom": "17.0.9",
     "@zedvision/qrious": "^14.4.10",
