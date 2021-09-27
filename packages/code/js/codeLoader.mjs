@@ -109,16 +109,15 @@ export async function run(mode = "window", code = "") {
 
     const editorPromise = startMonaco(
       /**
-     * @param {any} code
-     */
+       * @param {any} code
+       */
       {
         language: "typescript",
         container: container,
         code: session.code,
         /**
-     *
-     * @param {string} code
-     */
+         * @param {string} code
+         */
         onChange: (code) => runner(code),
       },
     );
@@ -334,8 +333,8 @@ export async function run(mode = "window", code = "") {
   }
 }
 /**
-  * @param {BlobPart} code
-  */
+ * @param {BlobPart} code
+ */
 function createJsBlob(code) {
   const blob = new Blob([code], { type: "application/javascript" });
 

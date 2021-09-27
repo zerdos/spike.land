@@ -25,7 +25,7 @@ context("Spies, Stubs, and Clock", () => {
       /**
        * Prints the argument passed
        * @param x {any}
-      */
+       */
       foo(x) {
         console.log("obj.foo called with", x);
       },
@@ -53,7 +53,7 @@ context("Spies, Stubs, and Clock", () => {
        * prints both arguments to the console
        * @param a {string}
        * @param b {string}
-      */
+       */
       foo(a, b) {
         console.log("a", a, "b", b);
       },
@@ -104,7 +104,7 @@ context("Spies, Stubs, and Clock", () => {
       /**
        * Greets a person
        * @param {string} name
-      */
+       */
       greet(name) {
         return `Hello, ${name}!`;
       },
@@ -133,7 +133,7 @@ context("Spies, Stubs, and Clock", () => {
        * returns the sum of two arguments
        * @param a {number}
        * @param b {number}
-      */
+       */
       add(a, b) {
         return a + b;
       },

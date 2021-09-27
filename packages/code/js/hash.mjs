@@ -157,15 +157,9 @@ export async function fetchSignal(
   } catch (e) {
     if (retry > 1) return fetchSignal(signal, retry - 1);
   }
-} /****
- *
- *
+} /** **
  *
  * UTILS
- *
- *
- *
- *
  */
 
 // /**
@@ -226,9 +220,9 @@ export async function fetchSignal(
 // }
 
 /**
-       * @param {string} signal
-       * @param {number} i
-       */
+ * @param {string} signal
+ * @param {number} i
+ */
 //   async function getCharAt(signal, i) {
 //     if (!signalCache[signal]) {
 //       signalCache[signal] = {

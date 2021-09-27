@@ -74,7 +74,6 @@ ${JSON.stringify({ imports })}
 }
 
 /**
- *
  * @param {string}} cid
  * @returns {string}
  */

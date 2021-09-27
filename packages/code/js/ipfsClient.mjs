@@ -51,5 +51,5 @@ export { CID };
 export { all };
 export { concat };
 export { toString };
-export { raceToSuccess}; 
+export { raceToSuccess };
 export { fromHexString };

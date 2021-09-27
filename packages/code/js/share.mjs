@@ -2,12 +2,11 @@ import { sha256, shaDB } from "@zedvision/shadb";
 import { all, ipfsClient } from "./ipfsClient.mjs";
 
 /**
- *
  * @param {{
  * code: string
  * html: string
  * transpiled: string
-* }} props
+ * }} props
  */
 export const shareItAsHtml = async ({ transpiled, code, html }) => {
   const bodyClass = String(
@@ -120,22 +119,22 @@ async function addAll(files) {
   //   const CID = cid.toString();
   //   res.push({ path, CID });
   // }
-  try{
-  const res = await all(ipfsClient.addAll(files));
+  try {
+    const res = await all(ipfsClient.addAll(files));
 
-  // for await (const result of ) {
-  //   const { path, cid } = result;
-  //   const CID = cid.toString();
-  //   res.push({ path, CID });
-  // }
-  return res.map((r) => {
-    const CID = r.cid.toString();
+    // for await (const result of ) {
+    //   const { path, cid } = result;
+    //   const CID = cid.toString();
+    //   res.push({ path, CID });
+    // }
+    return res.map((r) => {
+      const CID = r.cid.toString();
 
-    return { path: r.path, CID };
-  });
-} catch(e) {
-  console.error({error: e});
-}
+      return { path: r.path, CID };
+    });
+  } catch (e) {
+    console.error({ error: e });
+  }
 
   // return res;
 }

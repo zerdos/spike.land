@@ -1,5 +1,5 @@
 import all from "it-all";
-import  {IPFSClient}  from "ipfs-message-port-client";
+import { IPFSClient } from "ipfs-message-port-client";
 import CID from "cids";
 import { publicIpfsGateways, raceToSuccess } from "./gateways.js";
 

@@ -6,7 +6,6 @@ const { workerSrc, forceNormalWorker } = getWorker("prettierWorker.js");
 let format = null;
 
 /**
- *
  * @param {string} code
  * @returns {Promise<string>}
  */

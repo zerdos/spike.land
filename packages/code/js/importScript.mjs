@@ -1,5 +1,4 @@
 /**
- *
  * @param {string} src
  * @param {*} res
  */
@@ -33,7 +32,6 @@ export const importScript = (src, res = []) => {
 };
 
 /**
- *
  * @param {string} src
  * @param {string} cssId
  */

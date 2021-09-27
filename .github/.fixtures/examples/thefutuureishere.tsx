@@ -14,19 +14,21 @@ const FutureIsHere = () => {
     // setVisibleChars(3);
   }, [setVisibleChars, visibleChars]);
 
-  return <>
-    <code
-      css={`
+  return (
+    <>
+      <code
+        css={`
       color:navy;
     `}
-    >
-      {pageText.substr(0, visibleChars)}
-    </code>
+      >
+        {pageText.substr(0, visibleChars)}
+      </code>
 
-    <button css={buttonStyles("green")} onClick={() => setVisibleChars(0)}>
-      Restart
-    </button>
-  </>;
+      <button css={buttonStyles("green")} onClick={() => setVisibleChars(0)}>
+        Restart
+      </button>
+    </>
+  );
 };
 
 const buttonStyles = (color: string) =>
@@ -45,14 +47,16 @@ const buttonStyles = (color: string) =>
   `;
 
 export default () =>
-  <>
-    <Global
-      styles={css`
+  (
+    <>
+      <Global
+        styles={css`
       body{
           background:white;
           margin: 100px;
         }  
     `}
-    />
-    <FutureIsHere />
-  </>;
+      />
+      <FutureIsHere />
+    </>
+  );

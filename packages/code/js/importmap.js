@@ -26,8 +26,7 @@ const imports = {
     "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
   "@mui/material":
     "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/index.js",
-  "@mui/material/":
-    "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/",
+  "@mui/material/": "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/",
   "@mui/material/utils":
     "https://unpkg.com/@mui/material@5.0.0-beta.5/modern/utils/index.js",
   "@mui/material/utils/":
@@ -103,7 +102,8 @@ const imports = {
   "simple-window-manager":
     "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.es.js",
   "uuid": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/index.js",
-  "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.4.10/dist/shaDB.js",
+  "@zedvision/shadb":
+    "https://unpkg.com/@zedvision/shadb@14.4.10/dist/shaDB.js",
   "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.min.mjs",
   "@zedvision/ipfs":
     "https://unpkg.com/@zedvision/ipfs@14.4.10/dist/ipfs.client.mjs",

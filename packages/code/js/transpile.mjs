@@ -6,7 +6,6 @@ const { workerSrc, forceNormalWorker } = getWorker("transpile.worker.js");
 let transform = null;
 
 /**
- *
  * @param {string} code
  * @returns {Promise<string>}
  */
