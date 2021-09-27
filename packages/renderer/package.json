@@ -24,7 +24,7 @@
     "@types/react-dom": "17.0.9",
     "@zedvision/qrious": "^14.4.10",
     "esbuild": "0.13.2",
-    "framer-motion": "5.0.0-beta.35",
+    "framer-motion": "5.0.0-beta.36",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "tslib": "2.3.1",
