@@ -130,8 +130,7 @@ const list = [
     //     "hyphenate-style-name",
     
         // "popmotion",
-        "prop-types",
-    //     "react",
+        "react",
     //     "react-dom",
     //     "react-is",
     //     "react-transition-group",
