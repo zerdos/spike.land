@@ -181,28 +181,17 @@
   "@babel/runtime/helpers/esm/classPrivateMethodInitSpec": "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/classPrivateMethodInitSpec.js",
   "@babel/runtime/helpers/classPrivateMethodSet": "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/classPrivateMethodSet.js",
   "@babel/runtime/helpers/esm/classPrivateMethodSet": "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/classPrivateMethodSet.js",
-    "@emotion/cache":
-      "https://unpkg.com/@emotion/cache@11.4.0/dist/emotion-cache.browser.esm.js",
-    "@emotion/hash":
-      "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
-    "@emotion/is-prop-valid":
-      "https://unpkg.com/@emotion/is-prop-valid@1.1.0/dist/emotion-is-prop-valid.browser.esm.js",
-    "@emotion/memoize":
-      "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
-    "@emotion/react":
-      "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js",
-    "@emotion/serialize":
-      "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
-    "@emotion/sheet":
-      "https://unpkg.com/@emotion/sheet@1.0.2/dist/emotion-sheet.browser.esm.js",
-    "@emotion/styled":
-      "https://unpkg.com/@emotion/styled@11.3.0/dist/emotion-styled.browser.esm.js",
-    "@emotion/unitless":
-      "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
-    "@emotion/utils":
-      "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
-    "@emotion/weak-memoize":
-      "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
+  "@emotion/cache": "https://unpkg.com/@emotion/cache@11.4.0/dist/emotion-cache.browser.esm.js",
+  "@emotion/hash": "https://unpkg.com/@emotion/hash@0.8.0/dist/hash.browser.esm.js",
+  "@emotion/is-prop-valid": "https://unpkg.com/@emotion/is-prop-valid@1.1.0/dist/emotion-is-prop-valid.browser.esm.js",
+  "@emotion/memoize": "https://unpkg.com/@emotion/memoize@0.7.5/dist/emotion-memoize.browser.esm.js",
+  "@emotion/react": "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js",
+  "@emotion/serialize": "https://unpkg.com/@emotion/serialize@1.0.2/dist/emotion-serialize.browser.esm.js",
+  "@emotion/sheet": "https://unpkg.com/@emotion/sheet@1.0.2/dist/emotion-sheet.browser.esm.js",
+  "@emotion/styled": "https://unpkg.com/@emotion/styled@11.3.0/dist/emotion-styled.browser.esm.js",
+  "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
+  "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
+  "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
     "@material-ui/core":
       "https://unpkg.com/@material-ui/core@5.0.0-beta.5/modern/index.js",
     "@material-ui/core/":

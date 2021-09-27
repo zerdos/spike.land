@@ -92,7 +92,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "087befedf37cfdccae7ee6fd2837fb3e6e15ce9654640f7ca6be4e12859b3217",
+    "aa887532e00f4cf8f94296fcc288f0087dcb19313e9646a32e020e770c25540a",
   "js/share.mjs":
     "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/data.mjs":
@@ -140,6 +140,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "scripts/importmapGenerator.mjs":
-    "1f9dab9438d15c6a77cef2d6f574ee0e21174be23183df26290ef6153f63e3b7",
+    "3f048bac6f9efa6026151560832264f322a9b1fc6fe8da089d9b950121c9ec35",
   "food": "bar",
 };
