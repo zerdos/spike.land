@@ -3,11 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.concat = exports.toString = exports.fromString = exports.raceToSuccess = exports.publicIpfsGateways = exports.all = exports.CID = exports.fromHexString = exports.IpfsClient = void 0;
+exports.concat = exports.toString = exports.fromString = exports.raceToSuccess = exports.publicIpfsGateways = exports.all = exports.CID = exports.fromHexString = exports.IPFSClient = void 0;
 const it_all_1 = __importDefault(require("it-all"));
 exports.all = it_all_1.default;
-const ipfs_message_port_client_1 = __importDefault(require("ipfs-message-port-client"));
-exports.IpfsClient = ipfs_message_port_client_1.default;
+const ipfs_message_port_client_1 = require("ipfs-message-port-client");
+Object.defineProperty(exports, "IPFSClient", { enumerable: true, get: function () { return ipfs_message_port_client_1.IPFSClient; } });
 const cids_1 = __importDefault(require("cids"));
 exports.CID = cids_1.default;
 const gateways_js_1 = require("./gateways.js");

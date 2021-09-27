@@ -1,52 +1,10 @@
 export const shasums = {
   ".tsBuildInfo":
     "db2bcaf79c53bceb9bb5b60e7e6e5f28a1be0af61f10319ffa140594aa59dc3c",
-  "modules/sha256.js":
-    "9282f9b890811885468f6551e5f8477efa93d6c92948c65bf6fd789427049802",
-  "modules/getDbObj.d.ts":
-    "ef26ee980b42b1068059a8da73b1df08cb679839566d9d99f09bd4c90d1712f8",
-  "modules/getDbObj.js":
-    "83ec716216cc06cc082b065b23cba6509fb26ae1f5fa18ca36a773abad861b8b",
-  "modules/diffChars.d.ts":
-    "6d21fa304e45c032ddf353f27ab96535975792fd58886c1b5c64dcbf41b989f5",
-  "modules/sha256.d.ts":
-    "ff7ef3c93a6e9ee5043735b245c64d7926fe934a803a2b3f38258f2725958ebf",
-  "modules/diff.d.ts":
-    "24433731e7c49c8dc3fda87f228fb35117d7d9ec2f63356bb79c4d5d1c8673d6",
-  "modules/ipfs.client.mjs":
-    "adf7679391d00eeb3e4d5bb9dfe2191f4124d229055d3fb2d7e5d9e9caca38ec",
-  "modules/diffChars.js":
-    "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
-  "modules/smart-monaco-editor/dist/editor.js":
-    "5a32991870c7c2726f1d6025a11c904b8ab164ae8cd1887b9d338e2c221f3123",
-  "modules/smart-monaco-editor/dist/editor.d.ts":
-    "e23edecf8ddcf56572eaf922e8322958b2fc8c9c150615f4b671ff9998b50fa4",
-  "modules/smart-monaco-editor/dist/monaco.d.ts":
-    "d3513cac4bd5a2e18e2effa2da4e87cca4bdd071b5432993bf67a3391fd9c85f",
-  "modules/smart-monaco-editor/dist/monaco.js":
-    "9a7a6cc4bff5d7156a45b483edb146180043261c3bc2f78db0998d2ba8682f54",
   "modules/renderer.mjs":
     "2803b3fcf2f1bb0643cf49293258e144ab45f400e1d23663cc07f87f2f059894",
-  "modules/diff.js":
-    "6294b2f64cf78c4c6f2bad84192f639807ed27b1a5b0e51aff8d791df4c7a04a",
-  "modules/QRious.mjs":
-    "61dc3691ae2bfd481400d1d7f05a97e9dd8191871952d63974958b985bfb194a",
-  "modules/vendor/diffChars.d.ts":
-    "a63f34437d24b296a89baefc9ee6b00e507ffa2c3064bb45a9057055505f2f2a",
-  "modules/vendor/idb.js":
-    "df3fe7499c45e03e01a408f9baf6f3f47f6e7485ab903d05d4ec1f1f7d22ac03",
-  "modules/vendor/diffMin.d.ts":
-    "515714f59a28eeb3196b90e5c71c90b4dfc7bcab9e8c08e05a772c26d91ebb8b",
-  "modules/vendor/diffChars.js":
-    "bf7870232df8f80bcdcf8612a25b16bd1aae8f18aa8934caa4538fa20adbda1b",
-  "modules/vendor/diffMin.js":
-    "c3997cc902111e71a82d778ae1aef6864948594c7215d31178ddb417c34c9a14",
-  "modules/vendor/idb.d.ts":
-    "962a0c7ca6d64b3b34d33d6baa194f0785ed0b43856f092e45a6bf10151e3a4c",
-  "modules/shaDB.d.ts":
-    "5aaaa927ebce777eda9acfd632c088870b87ad64ea2567db2ae8bab1532af58e",
-  "modules/shaDB.js":
-    "957ebeb4fa97cf17ca37fa2458548eb4bc204f39a0f4561fb7b957c4692b1430",
+  "modules/ipfs.client.mjs":
+    "0cef46d19e3c8c4e86da57d1913fc6b85df37a8b29c5f3568c54db0fd8103a43",
   "test.html":
     "e8b1ade7cce0382fafefbaf861df5994b055af9f1f44f43acf56e5b9579466bd",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
@@ -73,7 +31,7 @@ export const shasums = {
   "index.html":
     "773e5b02070eb6e6122bbf74026d3d721f0e8700c4ca955e02ec0a4a618c1666",
   "package.json":
-    "4e939032eb7515f397ce2ddf9a9fe9c66e65afe15113cf714fbefc55cd1500ca",
+    "4f66bdf1c87f3f91b6a530f8d64ebe3e26fdee69648f293d47ad50652a77d3d5",
   "tsconfig.json":
     "74ed70f863df4a7ef5d724f68b385e0ca2c741e28d04d19344f75d17381a06ab",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -92,7 +50,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "d83cb45c12e985d6adead382dbf077cf42a5b72e6d190cdbd7eebaa249c4b03f",
+    "a4c2b869d09ba5ae7989029badfe51be048a9e0d7a19f8fcacb8a25a8448725b",
   "js/share.mjs":
     "cc819039c088a6440baf829eaf27c0a3695de33fbc3c78674916fbeedf3d4a6a",
   "js/data.mjs":
@@ -116,7 +74,7 @@ export const shasums = {
   "js/workboxLoader.mjs":
     "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
   "js/ipfsClient.mjs":
-    "69d67deb4971883bb4dfc0e41e34778c4da847c7853a7fb63d82536421e8cfdc",
+    "b918a72394f5675261f7326580f050ef08d8c44149ebf6cb35b08f6fe425a0ce",
   "js/formatter.mjs":
     "ac960dadc348ed202db1f3a00bfd2c5abce14de03cee8b5e7ebf41cf7fd91d30",
   "js/importScript.mjs":
@@ -140,6 +98,6 @@ export const shasums = {
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "scripts/importmapGenerator.mjs":
-    "a22fde8a947c2626a8958850f490cd790abbca78331c291da5bd24d1a9e805af",
+    "efa509265c960e3aa9810f5eaebee003d90cb5a5b0c4745a98d31c94b94139cf",
   "food": "bar",
 };

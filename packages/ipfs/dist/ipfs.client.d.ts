@@ -1,9 +1,9 @@
 import all from "it-all";
-import IpfsClient from "ipfs-message-port-client";
+import { IPFSClient } from "ipfs-message-port-client";
 import CID from "cids";
 import { publicIpfsGateways, raceToSuccess } from "./gateways.js";
 import { concat, fromString, toString } from "uint8arrays";
-export { IpfsClient };
+export { IPFSClient };
 export declare const fromHexString: (hexString: string) => Uint8Array;
 export { CID };
 export { all };

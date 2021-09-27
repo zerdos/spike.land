@@ -14,7 +14,7 @@
   "main": "./dist/ipfs.client.mjs",
   "exports": "./dist/ipfs.client.mjs",
   "scripts": {
-    "clean": "rm -rf dist && deno fmt .",
+    "clean": "rm -rf dist && deno fmt . && yarn build",
     "build:client": "yarn esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm --outfile=dist/ipfs.client.mjs",
     "build": "yarn tsc && yarn build:client && cp -f dist/ipfs.client.mjs ../code/modules/ipfs.client.mjs"
   },
@@ -30,9 +30,9 @@
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
   "dependencies": {
     "esbuild": "0.13.2",
-    "ipfs-message-port-client": "0.9.0",
     "it-all": "1.0.5",
     "typescript": "4.4.3",
-    "uint8arrays": "3.0.0"
+    "uint8arrays": "3.0.0",
+    "ipfs-message-port-client": "0.9.0"
   }
 }

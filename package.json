@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "screenshot": "yarn pageres https://spike.land 1920x1080 --delay=5 --scale=1",
+    "importmap": "node packages/code/scripts/importmapGenerator.mjs > packages/code/js/importmap.json",
     "build:renderer": "cd packages/renderer && yarn build",
     "start": "yarn build:renderer && sh start.sh",
     "deploy:worker": "cd worker && yarn deploy",

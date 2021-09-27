@@ -4,7 +4,7 @@ import {
   CID,
   concat,
   fromHexString,
-  IpfsClient,
+  IPFSClient,
   raceToSuccess,
   toString,
 } from "@zedvision/ipfs";
@@ -33,7 +33,7 @@ if (typeof SharedWorker !== "undefined" && !forceNormalWorker) {
   port = port2;
 }
 
-export const ipfsClient = IpfsClient.from(port);
+export const ipfsClient = IPFSClient.from(port);
 
 export const ipfsCat = async (cid, opts) => {
   const options = opts || {};
@@ -51,5 +51,5 @@ export { CID };
 export { all };
 export { concat };
 export { toString };
-export { raceToSuccess };
+export { raceToSuccess}; 
 export { fromHexString };
