@@ -214,7 +214,7 @@
     "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
     "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.0/dist/shaDB.js",
     "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-    "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.1/dist/ipfs.client.mjs",
+    "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.2/dist/ipfs.client.mjs",
     "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
   }
 }
