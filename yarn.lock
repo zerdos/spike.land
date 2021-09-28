@@ -3696,10 +3696,12 @@ es-abstract@^1.18.0-next.1, es-abstract@^1.18.0-next.2, es-abstract@^1.18.1, es-
     string.prototype.trimstart "^1.0.4"
     unbox-primitive "^1.0.1"
 
-es-module-shims@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.0.4.tgz#04c0734249d6d14e616a9d996775dc5170863e92"
-  integrity sha512-/yhPUSGo5hTFn9aXnKi7DpkvXYCzc9OW59utlkgOSe53d3BjvIWmtzCPpjNDPdIYJwF1HZRRKwJopiOz4EK+qg==
+es-module-shims@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.1.0.tgz#64bb6e91f95a76034c3d6e4e21ebfaecf842a22d"
+  integrity sha512-KOGgJQeKDVWGltwvbCzPf1lkF7N++VKxXfzYbQ88KkyhfncivvJC5Hxmyuy9YGlNRiXz6f29rjRSo36PIj3Pfg==
+  dependencies:
+    rimraf "^3.0.2"
 
 es-to-primitive@^1.2.1:
   version "1.2.1"
