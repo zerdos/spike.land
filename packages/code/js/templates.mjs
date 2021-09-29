@@ -62,7 +62,7 @@ ${css}</style>
 </main>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script type="importmap-shim">
-${JSON.stringify({ importmapJson })}
+${JSON.stringify(importmapJson)}
 </script>
 <script type="module-shim">
   import App from './app.js';
@@ -94,7 +94,7 @@ export const getEditorHTML = () =>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script async src="https://unpkg.com/es-module-shims@1.1.0/dist/es-module-shims.js"></script>
 <script type="importmap-shim">
-${JSON.stringify({ importmapJson })}
+${JSON.stringify(importmapJson)}
 </script>
 <script type="module-shim">
 import {edit} from "https://spike.land/js/data.mjs"

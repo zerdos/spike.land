@@ -126,7 +126,7 @@ export const shasums = {
   "js/starter.js":
     "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
   "js/templates.mjs":
-    "e095544e878ebc6544e139ebc4d573d9eccf39ac4feea50ce21a003bf5ab0f9f",
+    "119a5431247827ca333b4ed72b288a977d8d510c0104be7ec6942c5844b587ec",
   "js/importmap.js":
     "de8ebf349f087bba08aada2e0227af921e4acb3d8278e0a85a2c9b980cc1a0ce",
   "js/openWindows.mjs":
