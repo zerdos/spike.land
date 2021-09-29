@@ -317,7 +317,7 @@ async function handleRequest(request: Request): Promise<Response> {
 
       if (pathname.slice(1).includes(".json")) {
         const jsonData = await resp.json();
-        return json({ dd: 1 });
+        return json(jsonData);
       }
 
       return resp;
