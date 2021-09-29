@@ -313,7 +313,13 @@ async function handleRequest(request: Request): Promise<Response> {
 
       url.pathname = "/ipfs/" + fileCid;
       const req2 = new Request(url.toString());
-      return await handleRequest(req2) as unknown as Response;
+      const resp = await handleRequest(req2) as unknown as Response;
+
+      if (pathname.slice(1).includes(".json")) {
+        resp.headers.append("Content-Type", "application/json");
+      }
+
+      return resp;
     }
     return handleCloudRequest(request);
   } catch (e) {
