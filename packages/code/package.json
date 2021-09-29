@@ -33,8 +33,8 @@
   "homepage": "https://spike.land",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
-    "esbuild": "0.13.2",
-    "ipfs": "0.59.0",
+    "esbuild": "0.13.3",
+    "ipfs": "0.59.1",
     "typescript": "4.4.3"
   },
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
@@ -44,7 +44,7 @@
     "access": "public"
   },
   "dependencies": {
-    "es-module-shims": "1.0.4",
+    "es-module-shims": "1.1.0",
     "simple-window-manager": "^2.1.2"
   }
 }
