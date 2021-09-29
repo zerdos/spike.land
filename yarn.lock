@@ -2288,9 +2288,9 @@ blockstore-core@^1.0.0, blockstore-core@^1.0.2:
     multiformats "^9.4.7"
 
 blockstore-datastore-adapter@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/blockstore-datastore-adapter/-/blockstore-datastore-adapter-2.0.2.tgz#8c7fa9bcebc7bada49c7aaff5aef843fdf45ac26"
-  integrity sha512-H1KQVx4AKCt+2R33rqor+n1DxonZo/q+T9EWGkLOWupjby6aHEXvhC3dJWQtCE1Z2bee0H5BM7Oz4EFcxnPvAQ==
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/blockstore-datastore-adapter/-/blockstore-datastore-adapter-2.0.3.tgz#77f8d4c06126f7b154947e6130a4ec499b4a1929"
+  integrity sha512-s6j6ay+qLu7sOx5DanHJlg2dBX61B9Yrbg6qo8oP3oiWnj6ZFCad4CKVb8do1f4u/Q4r2XPuSM4JYCe684USrQ==
   dependencies:
     blockstore-core "^1.0.0"
     err-code "^3.0.1"
@@ -5299,9 +5299,9 @@ ipfs-repo-migrations@^11.0.1:
     varint "^6.0.0"
 
 ipfs-repo@^13.0.4:
-  version "13.0.4"
-  resolved "https://registry.yarnpkg.com/ipfs-repo/-/ipfs-repo-13.0.4.tgz#69a4651e60263eb0a884b2691c9c708cda0561a7"
-  integrity sha512-2wvBBQ8UCNpIFcUsJflqYl3mt3BGd6cDiAV/dzmbp/AnAqKZkETMVjAsu448upYrQh3rb7hEATDBjTgTo1cDuA==
+  version "13.0.5"
+  resolved "https://registry.yarnpkg.com/ipfs-repo/-/ipfs-repo-13.0.5.tgz#9722f26ebb726a8a75a0cdcb48f904a19998d39d"
+  integrity sha512-lmS/BKBg04/jqfyhOXZSIoeqArFqI8g/3jdqOjD1MQ90bXkDzIuE8aTFqSUss+LN0qMnltTlXd0kdOKwMomQRA==
   dependencies:
     "@ipld/dag-pb" "^2.1.0"
     bytes "^3.1.0"
