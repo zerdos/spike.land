@@ -23,5 +23,8 @@
   "git.autorefresh": true,
   "git.autofetch": true,
   "npm.packageManager": "yarn",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "cSpell.words": [
+    "esms"
+  ]
 }

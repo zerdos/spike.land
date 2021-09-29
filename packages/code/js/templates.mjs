@@ -1,3 +1,4 @@
+import importmapJson from './importmap.json' assert { type: 'json' };
 /**
  * @param {{html: string, css: string}} opts
  * @returns  {string}
@@ -15,7 +16,7 @@ export function getHtml({ html, css }) {
   //   bodyStylesFix = firstBit.slice(0, last + 1);
   // }
 
-  const imports = globalThis.importMap;
+  // const imports = globalThis.importMap;
   const titleStart = html.indexOf("<title>");
   const titleEnd = html.indexOf("</title>");
   const hasTitle = titleStart < titleEnd && titleStart >= -1;
@@ -61,7 +62,7 @@ ${css}</style>
 </main>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script type="importmap-shim">
-${JSON.stringify({ imports })}
+${JSON.stringify({ importmapJson })}
 </script>
 <script type="module-shim">
   import App from './app.js';
@@ -93,7 +94,7 @@ export const getEditorHTML = () =>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
 <script async src="https://unpkg.com/es-module-shims@1.1.0/dist/es-module-shims.js"></script>
 <script type="importmap-shim">
-${JSON.stringify({ imports })}
+${JSON.stringify({ importmapJson })}
 </script>
 <script type="module-shim">
 import {edit} from "https://spike.land/js/data.mjs"

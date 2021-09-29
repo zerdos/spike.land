@@ -13,6 +13,7 @@
   ],
   "main": "./dist/ipfs.client.mjs",
   "exports": "./dist/ipfs.client.mjs",
+  "types": "./dist/ipfs.client.d.ts",
   "scripts": {
     "clean": "rm -rf dist && deno fmt . && yarn build",
     "build:client": "yarn esbuild  src/ipfs.client.ts --bundle --platform=browser --minify --format=esm --outfile=dist/ipfs.client.mjs",
