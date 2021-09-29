@@ -16,7 +16,7 @@ export const shasums = {
   "modules/diffChars.js":
     "ae92a69d0b35ff74fc7760f1afeb88bd16ae7a251b7dc80d071aa894c9a66a78",
   "modules/renderer.mjs":
-    "2803b3fcf2f1bb0643cf49293258e144ab45f400e1d23663cc07f87f2f059894",
+    "86ca07f23e514de9bb5098abe4d942c278917d0ee58ec383f925966bbf4d7aae",
   "modules/vendor/idb.js":
     "df3fe7499c45e03e01a408f9baf6f3f47f6e7485ab903d05d4ec1f1f7d22ac03",
   "modules/vendor/diffMin.js":

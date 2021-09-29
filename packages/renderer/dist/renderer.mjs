@@ -12477,7 +12477,7 @@ object-assign
 (c) Sindre Sorhus
 @license MIT
 */
-/** @license MUI v5.0.0-alpha.48
+/** @license MUI v5.0.0-alpha.49
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
