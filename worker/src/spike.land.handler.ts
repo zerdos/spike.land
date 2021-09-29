@@ -316,7 +316,8 @@ async function handleRequest(request: Request): Promise<Response> {
       const resp = await handleRequest(req2) as unknown as Response;
 
       if (pathname.slice(1).includes(".json")) {
-        resp.headers.append("Content-Type", "application/json");
+        const jsonData = await resp.json();
+        return json(jsonData);
       }
 
       return resp;
