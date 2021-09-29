@@ -92,7 +92,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "89560e379ca4d2a5e7b9a760c755510ca5c92a2894e32ecb4d9948fac0027490",
+    "cf6bfa27ac50e89583b4ba70af7c207023170aaa9044ec63b3399d78cdbb0596",
   "js/share.mjs":
     "794332dc3aa089e814935cc5fb71fd52729fd3e5e7d56a8db4deb760461adaba",
   "js/data.mjs":
