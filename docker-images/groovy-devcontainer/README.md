@@ -2,7 +2,7 @@
 
 - Base image: ubuntu:groovy
 - Deno: 1.14.2- Node: 16.10.0
-- Yarn: 1.22.11
+- Yarn: 1.22.15
 - With noVNC - XFCE trough noVNC (http://localhost:6080)
 - With google-chrome
 - With Vscode- Zsh + Oh my zsh!

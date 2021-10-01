@@ -85,7 +85,7 @@ RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
   && node --version \
   && npm --version
 
-ENV YARN_VERSION 1.22.5
+ENV YARN_VERSION 1.22.15
 
 RUN set -ex \
   && for key in \
@@ -124,7 +124,7 @@ RUN apt-get update \
 
 USER ${USER}
  
-RUN yarn global add cypress@8.4.1
+RUN yarn global add cypress@8.5.0
 
 USER root
 ### noVNC.Dockerfile
