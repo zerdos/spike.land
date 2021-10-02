@@ -1,6 +1,6 @@
 {
   "name": "@zedvision/shadb",
-  "version": "14.5.3",
+  "version": "14.5.4",
   "description": "db layer top on idb",
   "sideEffects": false,
   "main": "./dist/shaDB.js",
@@ -29,8 +29,8 @@
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
   "dependencies": {
-    "esbuild": "0.13.3",
     "diff": "5.0.0",
+    "esbuild": "0.13.3",
     "idb": "6.1.4"
   },
   "devDependencies": {

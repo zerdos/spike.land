@@ -1,6 +1,6 @@
 {
   "name": "@devcontainer/generator",
-  "version": "14.5.3",
+  "version": "14.5.4",
   "description": "generates custom devcontainer Dockerfiles",
   "files": [
     "lib/**/*",
