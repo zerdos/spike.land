@@ -71,7 +71,7 @@ export const shasums = {
   "index.html":
     "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
   "package.json":
-    "6b7e6207d72b5605c6b1c7fd7265e2d7f6117120aafbb225b35bd284773e58a2",
+    "3344e427542dfdc7756584fea0ad0d9889799400e331691ed57b5c70b6e01f57",
   "tsconfig.json":
     "a81ab89a89622be71a650db4655a182c1bd0a3ec2ddbf9fa873785657ab15ab4",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -88,7 +88,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "a8b777bfdc70c3167b4086df95f7cd4e0cdd3735da2cfd5df1daacdf358578e5",
+    "432ba133f03674140af90e226be9a1409d88836b0506865914b8e385af5b0d19",
   "js/share.mjs":
     "794332dc3aa089e814935cc5fb71fd52729fd3e5e7d56a8db4deb760461adaba",
   "js/data.mjs":
