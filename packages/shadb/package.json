@@ -7,7 +7,7 @@
   "scripts": {
     "build": "yarn tsc",
     "bundle:diff": "deno bundle --unstable src/diffChars.js > src/vendor/diffChars.js",
-    "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@6.1.3/build/esm/index.js > src/vendor/idb.js",
+    "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@6.1.4/build/esm/index.js > src/vendor/idb.js",
     "minify": " yarn esbuild --tree-shaking=true --minify --target=es2020 src/vendor/diffChars.js  --outfile=src/vendor/diffMin.js",
     "clean": "rm -rf dist src/vendor && rm -rf tsconfig.tsbuildinfo && mkdir dist && mkdir src/vendor && yarn bundle:IDB  && yarn bundle:diff && deno fmt src && yarn minify && yarn tsc && yarn prebuild",
     "prebuild": "cp -ar dist/. ../code/modules/"
@@ -30,6 +30,7 @@
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
   "dependencies": {
     "esbuild": "0.13.3",
+    "diff": "5.0.0",
     "idb": "6.1.4"
   },
   "devDependencies": {
