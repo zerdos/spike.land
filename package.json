@@ -12,7 +12,7 @@
     "docker-images/*"
   ],
   "scripts": {
-    "screenshot": "yarn pageres https://spike.land 1920x1080 --delay=5 --scale=1",
+    "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://spike.land 1920x1080 --delay=5 --scale=1",
     "importmap": "node packages/code/scripts/importmapGenerator.mjs > packages/code/js/importmap.json",
     "build:renderer": "cd packages/renderer && yarn build",
     "start": "yarn build:renderer && sh start.sh",
@@ -38,7 +38,6 @@
     "csstype": "3.0.9",
     "eslint-plugin-react": "7.26.1",
     "lerna": "4.0.0",
-    "pageres-cli": "6.0.0",
     "typescript": "4.4.3",
     "yarn": "1.22.15"
   }
