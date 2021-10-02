@@ -1,7 +1,10 @@
 {
-  "private": true,
+  "private": false,
   "name": "my-zed-project",
   "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A template for kick starting a Cloudflare Workers project",
   "module": "./dist/index.mjs",
   "scripts": {
