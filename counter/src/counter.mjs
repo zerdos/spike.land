@@ -14,11 +14,11 @@ export class Counter {
     // Apply requested action.
     let url = new URL(request.url);
     let currentValue = this.value;
-    if (url.pathname.includes("increment")){
+    if (url.pathname.includes("inc")){
       currentValue = ++this.value;
       await this.state.storage.put("value", this.value);
     }
-    else if (url.pathname.includes("decrement")) {
+    else if (url.pathname.includes("dec")) {
      
       currentValue = --this.value;
       await this.state.storage.put("value", this.value);

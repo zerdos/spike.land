@@ -7,7 +7,7 @@ zone_id = "07e8952f4aa2d9e95f04a2b32a9cf084"
 compatibility_flags = []
 compatibility_date = "2021-10-01"
 [build]
-command = "npm install && npm run build"
+command = "yarn build"
 [build.upload]
 # The "modules" upload format is required for all projects that export a Durable Objects class
 format = "modules"

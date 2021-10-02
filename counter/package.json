@@ -5,22 +5,17 @@
   "description": "A template for kick starting a Cloudflare Workers project",
   "module": "./dist/index.mjs",
   "scripts": {
-    "build": "rollup -c",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write '**/*.{js,css,json,md}'"
+    "build": "esbuild --bundle --format=esm --target=esnext src/index.mjs --outfile=dist/index.mjs",
+    "deploy": "wrangler publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
   "devDependencies": {
     "@cloudflare/workers-types": "2.2.2",
-    "@cloudflare/wrangler": "1.19.3",
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.5",
-    "prettier": "^2.4.1",
-    "rollup": "^2.58.0",
-    "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-terser": "^7.0.2"
+    "@cloudflare/wrangler": "1.19.3"
   },
   "dependencies": {
+    "esbuild": "^0.13.3",
     "is-even": "^1.0.0"
   }
 }
