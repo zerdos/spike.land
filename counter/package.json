@@ -1,6 +1,6 @@
 {
   "private": false,
-  "name": "my-zed-project",
+  "name": "@zedvision/spike-land-counter",
   "version": "1.0.0",
   "publishConfig": {
     "access": "public"
