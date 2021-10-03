@@ -63,8 +63,9 @@ export const files = {
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmW5PFf5n3Gu6KB87doWXKWG6qjo8P5MBeX3JY3NEhQwsX",
   "js": "QmaMRchR125wxRAQXvt2miW4NqSBZ47UuJX5yiqMrKu4zk",
+  "modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmPDNRUoFBTGTmEDJBxKtMt8kPa99yKNByGthZqWiqGA1J",
-  "": "QmRwf3J1poS7GfPB7zcCA1nWowEk3MDJ5d9zZQnuat7bom",
+  "": "QmVkKWQ8BhAWVqrGX8w6yNRwjtiJeNrSjeCEwTjeh9MKfd",
   "foo": "bar",
 };
