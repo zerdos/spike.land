@@ -3,13 +3,10 @@
   "version": "14.5.4",
   "description": "db layer top on idb",
   "sideEffects": false,
-  "main": "./dist/shaDB.js",
+  "module": "./dist/shaDB.mjs",
   "scripts": {
-    "build": "yarn tsc",
-    "bundle:diff": "deno bundle --unstable src/diffChars.js > src/vendor/diffChars.js",
-    "bundle:IDB": "deno bundle --unstable https://unpkg.com/idb@6.1.4/build/esm/index.js > src/vendor/idb.js",
-    "minify": " yarn esbuild --tree-shaking=true --minify --target=es2020 src/vendor/diffChars.js  --outfile=src/vendor/diffMin.js",
-    "clean": "rm -rf dist src/vendor && rm -rf tsconfig.tsbuildinfo && mkdir dist && mkdir src/vendor && yarn bundle:IDB  && yarn bundle:diff && deno fmt src && yarn minify && yarn tsc && yarn prebuild",
+    "build": " esbuild --bundle --tree-shaking=true --minify --target=es2020 src/shaDB.js --format=esm  --outfile=./dist/shaDB.mjs",
+    "clean": "rm -rf dist && mkdir dist",
     "prebuild": "cp -ar dist/. ../code/modules/"
   },
   "keywords": [

@@ -1,8 +1,8 @@
 //@ts-nocheck
-import { openDB } from "./vendor/idb.js";
+import { openDB } from "idb";
 import { getDbObj } from "./getDbObj.js";
 import { sha256 } from "./sha256.js";
-import { diff } from "./diff.js";
+import { diff } from "./diff";
 
 export { sha256 };
 export { diff };

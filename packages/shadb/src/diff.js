@@ -1,5 +1,5 @@
-import { diffChars } from "./vendor/diffMin.js";
-import { sha256 } from "./sha256.js";
+import { diffChars } from "diff";
+import { sha256 } from "./sha256";
 
 export const diff = async (str1, str2) => {
   const sha1Str1 = sha256(str1);

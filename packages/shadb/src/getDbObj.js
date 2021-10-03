@@ -1,6 +1,6 @@
-import { assemble, diff, isDiff } from "./diff.js";
+import { assemble, diff, isDiff } from "./diff";
 
-import { sha256 } from "./sha256.js";
+import { sha256 } from "./sha256";
 
 export const getDbObj = (db) => {
   const dbObj = {
