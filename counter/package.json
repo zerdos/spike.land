@@ -8,16 +8,17 @@
   "description": "A template for kick starting a Cloudflare Workers project",
   "module": "./dist/index.mjs",
   "scripts": {
-    "build": "esbuild --bundle --format=esm --target=esnext src/index.mjs --outfile=dist/index.mjs",
+    "build": "esbuild --bundle --format=esm --target=esnext src/index.ts --outfile=dist/index.mjs",
     "deploy": "wrangler publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
   "devDependencies": {
-    "@cloudflare/workers-types": "2.2.2",
+    "@cloudflare/workers-types": "https://github.com/cloudflare/workers-types#master",
     "@cloudflare/wrangler": "1.19.3"
   },
   "dependencies": {
+    "axax": "^0.2.2",
     "esbuild": "^0.13.3",
     "is-even": "^1.0.0"
   }
