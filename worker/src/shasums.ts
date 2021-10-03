@@ -1,6 +1,8 @@
 export const shasums = {
   ".tsBuildInfo":
     "69888094121e941758419b378981e608a467e54d297f9c870a83d2218f1cb8dd",
+  "modules/shaDB.mjs":
+    "158b1f37e655555aa60fa25c1ceadaaaaea82e3ec37eb0cb2144b30d65ba19be",
   "modules/renderer.mjs":
     "86ca07f23e514de9bb5098abe4d942c278917d0ee58ec383f925966bbf4d7aae",
   "modules/smart-monaco-editor/dist/editor.d.ts":
@@ -39,7 +41,7 @@ export const shasums = {
   "index.html":
     "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
   "package.json":
-    "3344e427542dfdc7756584fea0ad0d9889799400e331691ed57b5c70b6e01f57",
+    "bc1569c817ebab475f9f33155f151ad9b49a79daa46ecb8b13ef1bd7c361eedd",
   "tsconfig.json":
     "a81ab89a89622be71a650db4655a182c1bd0a3ec2ddbf9fa873785657ab15ab4",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -56,7 +58,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "432ba133f03674140af90e226be9a1409d88836b0506865914b8e385af5b0d19",
+    "dfde98399feb6c389696f565cb59d14f43244f6c4771a6ff946d536ebe913805",
   "js/share.mjs":
     "794332dc3aa089e814935cc5fb71fd52729fd3e5e7d56a8db4deb760461adaba",
   "js/data.mjs":

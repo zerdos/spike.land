@@ -212,7 +212,7 @@
     "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.5.4/dist/editor.js",
     "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
     "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-    "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.4/dist/shaDB.js",
+    "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.5/dist/shaDB.mjs",
     "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
     "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.4/dist/ipfs.client.mjs",
     "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
