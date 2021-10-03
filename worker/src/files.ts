@@ -17,7 +17,7 @@ export const files = {
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
   "build.mjs": "QmRzBi6CSD2X8HTcLPwz5QoL484XKe24BJvseftsgo6m5w",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
-  "esbuild.mjs": "QmeTrwjzm3FCUuEqv1YSd9bWTPa77Cs4diMJeTXvcG2ESJ",
+  "esbuild.mjs": "Qmbq4AsGwBntmQS5fZQ5ZeeoGKDx7KyEbaBeyUbNGzTHf3",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmYg6rFp5L17T3xRqk8YnnEQkhhyhrGpXMSfypgsK1VrCx",
   "js/codeLoader.mjs": "QmcwsgkexmqP6mB5niz6YtnTJZGD8vDLVQCbdNvUqFsyvt",
@@ -49,18 +49,6 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmPeYa6A8Nr6V9T89hFnU22UDmSuwFrWo9iPdmUVaEmA7c",
   "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
-  "modules/QRious.mjs": "QmaoHxXYusDSMvJgF7WonSQEDGMR6TvAzoDixVtipW4jdt",
-  "modules/ipfs.client.mjs": "QmWHxz5374JDjnw2KSSQ1zXN2BWMF3RSJjRk3NhcVTAJih",
-  "modules/renderer.mjs": "QmX3LrERod8kKSwLhYX6egQAXKNLn7zgFCb3FeoZREFBVE",
-  "modules/shaDB.mjs": "QmaENSWJL81NGULYcAKhrm3s5Gs98Sz8gJY7eAD9Wx5UaN",
-  "modules/smart-monaco-editor/dist/editor.d.ts":
-    "QmbDXsz2Fmv691fT21JToDdJpDN2jAPMP1jg8tgY5DrWdZ",
-  "modules/smart-monaco-editor/dist/editor.js":
-    "QmZw8Yf9avrhdrXTtJxuHfdYWCS7HtsmMPqJ82ZfpEmSKC",
-  "modules/smart-monaco-editor/dist/monaco.d.ts":
-    "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
-  "modules/smart-monaco-editor/dist/monaco.js":
-    "QmfTDGxU1YFZehqGrmNVN8XXndko6WTcTqW9iTjhcXNnZE",
   "package.json": "QmPtYg5kuMphdWQBAh3CnbfUgV2SV5wZcA2vqgDVa8yagQ",
   "scripts/importmapGenerator.mjs":
     "QmSLjCkwqmwLX7Uq4Y3rJBy8qnqqLzq3kLB4ftYvBX1z1E",
@@ -74,13 +62,8 @@ export const files = {
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmW5PFf5n3Gu6KB87doWXKWG6qjo8P5MBeX3JY3NEhQwsX",
   "js": "QmV4KPhvoRjnTmQwmizop4hm66f4eLyVageT6459nfPXKx",
-  "modules/smart-monaco-editor/dist":
-    "QmP6zfP83v9fd1UPwLRNB6tgLXoXmFHeKNq6JZixFRjcyV",
-  "modules/smart-monaco-editor":
-    "QmWMVSof8coLmz86c1bu2DAeModARnTmbJuHugTJNxT4ct",
-  "modules": "QmULvLpFYShgDzE13RwmG4KmpaxiFUzArYgqZRKgMgi3xx",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmTEQ6DKQab8ZBXyg4WjQHGM4TczaMrV11ZEkQRFAPnHS7",
-  "": "QmfJ1qB16tX6TG38W8W4PsGBHoAzuaPNbCWyMmeR3z9TpF",
+  "": "QmRyGJ2VbuYz3uJirB5ERp5DikeoPQtdHSy5W6YZaGF8hs",
   "foo": "bar",
 };
