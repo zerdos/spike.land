@@ -9,6 +9,7 @@ const uidVersion = await latestVersion("uuid");
 
 const exceptions = {
   "scheduler/": "https://esm.sh/scheduler/",
+  "react-transition-group": "https://esm.sh/react-transition-group",
   "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
   "prop-types": "https://esm.sh/prop-types",
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
@@ -136,12 +137,12 @@ const list = [
   "@emotion/utils",
   "@emotion/unitless",
   "@emotion/weak-memoize",
-  "@mui/material",
+  // "@mui/material",
+  "prop-types",
   "framer-motion",
   "framesync",
   "hey-listen",
   "hoist-non-react-statics",
-
   "popmotion",
   "react",
   "react-dom",

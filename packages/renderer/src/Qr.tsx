@@ -1,9 +1,9 @@
 /** @jsx jsx */
 
-import { css, jsx, motion, React } from "./renderer";
+import { css, jsx, motion, React } from "./renderer.js";
 
-import Fab from "@mui/material/Fab";
-import QrCode from "./icons/QrCode";
+import { Fab } from "@mui/material";
+import QrCode from "./icons/QrCode.js";
 
 const QR: React.FC<{ url: string }> = ({ url }) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);

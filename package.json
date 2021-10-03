@@ -15,7 +15,7 @@
     "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://spike.land 1920x1080 --delay=5 --scale=1",
     "importmap": "node packages/code/scripts/importmapGenerator.mjs > packages/code/js/importmap.json",
     "build:renderer": "cd packages/renderer && yarn build",
-    "build:code": "cd packages/code && yarn build",
+    "build:code": "cd packages/code && yarn build && yarn build:dev",
     "start": "yarn build:renderer && yarn build:code && sh start.sh",
     "deploy:worker": "cd worker && yarn deploy",
     "deploy": "yarn lerna run deploy",

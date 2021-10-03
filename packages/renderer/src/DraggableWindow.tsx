@@ -1,16 +1,16 @@
 /** @jsx jsx */
 
-import Fab from "@mui/material/Fab";
-import Button from "@mui/material/Button";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Share from "./icons/Share";
-import Tablet from "./icons/TabletAndroid";
-import Tv from "./icons/Tv";
-import Phone from "./icons/PhoneAndroid";
-import { QRButton } from "./Qr";
+import { Fab } from "@mui/material";
+import { Button } from "@mui/material";
+import { ToggleButton } from "@mui/material";
+import { ToggleButtonGroup } from "@mui/material";
+import Share from "./icons/Share.js";
+import Tablet from "./icons/TabletAndroid.js";
+import Tv from "./icons/Tv.js";
+import Phone from "./icons/PhoneAndroid.js";
+import { QRButton } from "./Qr.js";
 
-import { css, jsx, motion, React } from "./renderer";
+import { css, jsx, motion, React } from "./renderer.js";
 
 const breakPoints = [640, 1024, 1920];
 

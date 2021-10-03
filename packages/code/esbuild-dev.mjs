@@ -15,6 +15,8 @@ importMap.load({
     imports
 });
 
+console.log(imports)
+
 esbuild.build({
     entryPoints: ['js/codeLoader.mjs'],
     bundle: true,
@@ -24,6 +26,6 @@ esbuild.build({
     sourcemap: false,
     resolveExtensions: [".tsx",".ts",".jsx",".js",".css",".json",".mjs"],
     target: ['es2018'],
-    // plugins: [importMap.plugin()],
+    plugins: [importMap.plugin()],
     outfile: 'dev.mjs',
 }).catch(() => process.exit(1))

@@ -294,7 +294,7 @@ var init_importmap = __esm({
       "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
       "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
       "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
-      "@mui/material": "https://unpkg.com/@mui/material@5.0.2/index.js",
+      "prop-types": "https://esm.sh/prop-types",
       "framer-motion": "https://unpkg.com/framer-motion@4.1.17/dist/es/index.js",
       framesync: "https://unpkg.com/framesync@6.0.0/dist/es/index.mjs",
       "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
@@ -303,9 +303,9 @@ var init_importmap = __esm({
       react: "https://unpkg.com/@zedvision/esm@14.5.4/dist/react.mjs",
       "react-dom": "https://unpkg.com/@zedvision/esm@14.5.4/dist/react-dom.mjs",
       "react-is": "https://unpkg.com/@zedvision/esm@14.5.4/dist/react-is.mjs",
-      "react-transition-group": "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
+      "react-transition-group": "https://esm.sh/react-transition-group",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.7/dist/renderer.mjs",
+      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.8/dist/renderer.js",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
       "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.5.6/dist/QRious.mjs",
@@ -880,10 +880,10 @@ var init_sendSignalToQrCode = __esm({
 // js/renderPreviewWindow.mjs
 async function renderPreviewWindow(session) {
   const {
-    DraggableWindow,
-    jsx: jsx2,
-    render
-  } = await import("https://unpkg.com/@zedvision/renderer@14.5.7/dist/renderer.mjs");
+    DraggableWindow: DraggableWindow2,
+    jsx: jsx3,
+    render: render2
+  } = await import("https://unpkg.com/@zedvision/renderer@14.5.8/dist/renderer.js");
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
@@ -899,7 +899,7 @@ async function renderPreviewWindow(session) {
     window.document.body.appendChild(element);
     preview = element;
   }
-  render(jsx2(DraggableWindow, {
+  render2(jsx3(DraggableWindow2, {
     onShare,
     session,
     onRestore: () => {
@@ -1048,6 +1048,11 @@ init_data();
 import React from "https://unpkg.com/@zedvision/esm@14.5.4/dist/react.mjs";
 import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.5.6/dist/editor.mjs";
 import { jsx } from "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js";
+import {
+  DraggableWindow,
+  jsx as jsx2,
+  render
+} from "https://unpkg.com/@zedvision/renderer@14.5.8/dist/renderer.js";
 function getSession() {
   const session = {
     i: 0,
@@ -1256,5 +1261,8 @@ function createJsBlob(code) {
   return URL.createObjectURL(blob);
 }
 export {
+  DraggableWindow,
+  jsx2 as jsx,
+  render,
   run
 };

@@ -1,6 +1,6 @@
-import { css, jsx, motion, React } from "./renderer";
-import Fab from "@mui/material/Fab";
-import QrCode from "./icons/QrCode";
+import { css, jsx, motion, React } from "./renderer.js";
+import { Fab } from "@mui/material";
+import QrCode from "./icons/QrCode.js";
 const QR = ({ url }) => {
   const canvasRef = React.useRef(null);
   React.useEffect(() => {
