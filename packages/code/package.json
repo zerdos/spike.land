@@ -12,6 +12,7 @@
     "clean": "rm -rf .tsBuildInfo modules && mkdir -p modules",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
+    "build:dev": "node --experimental-json-modules esbuild-dev.mjs",
     "build": "node --experimental-json-modules esbuild.mjs"
   },
   "keywords": [

@@ -1,7 +1,7 @@
 export async function openWindows() {
-  await import("simple-window-manager");
+  const WM = await import("simple-window-manager");
 
-  const { WindowManager } = window.WindowManager;
+  const WindowManager  = WM.WindowManager? WM.WindowManager :  window.WindowManager;
 
   const wm = new WindowManager({ backgroundWindow: "green" });
 

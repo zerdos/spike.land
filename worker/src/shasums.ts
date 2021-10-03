@@ -20,14 +20,17 @@ export const shasums = {
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
+  "esbuild-dev.mjs":
+    "c41c597f4c5fb9b8c4aeb86c7336d196ef4497b7b8c817f80bc66c393ef7c58d",
+  "dev.mjs": "c61dc84567138554bc90764dfbb3a8c120a52fb8cb321a8b757b383a5ca75ad1",
   "build.mjs":
-    "4aac001544e602bd8b19383dde80a20970ebf4bceb250a4879a08a0aa078864b",
+    "55dec827f726bd5ab1d69b4d2d9b87d6c9cca75ef5f993603cc5a27cfdbc1565",
   "index.html":
     "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
   "esbuild.mjs":
-    "eb4f7c9f23c89e8df2ecce55ae41318c3358150cfdb3241d2731c1466ed71fcb",
+    "787b3485ba2bf5f4c8b5201020463892f4b0ee46fbc5e82006a2a1d11a2757e9",
   "package.json":
-    "9f3aaf4b917bb3d61fbc697609cb62890dfde8c4c972f43f7b7bfe0fc07f761d",
+    "53a12b92f05150b47915c52b58b422559ea534140eb0973f8885ce09d21613f6",
   "tsconfig.json":
     "a81ab89a89622be71a650db4655a182c1bd0a3ec2ddbf9fa873785657ab15ab4",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -76,11 +79,11 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/starter.js":
-    "5f6fab6700ee37fbc6d08d2ff3126bf20a6ba4171e23a2de727d44a7384b8fb3",
+    "6d923ed396b18cad2bd7186ca3fdf5c417db33a900753818a03f1da522b132e9",
   "js/templates.mjs":
     "0901da0193d95aba2233123124013285c78e7386b63fbaac1b82aec624afaa85",
   "js/openWindows.mjs":
-    "6d465cb538d9b4eb18ba0b64ac82fa513a9c4e23fe72cbd998de24cd16a19994",
+    "0405f7133745ccebf75b318c20211b680345b24db40ee5f023bd69e48613369b",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
   "favicon.ico":

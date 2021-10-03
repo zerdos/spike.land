@@ -914,8 +914,8 @@ async function renderPreviewWindow(session) {
 
 // js/openWindows.mjs
 async function openWindows() {
-  await import("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js");
-  const { WindowManager } = window.WindowManager;
+  const WM = await import("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js");
+  const WindowManager = WM.WindowManager ? WM.WindowManager : window.WindowManager;
   const wm = new WindowManager({ backgroundWindow: "green" });
   wm.snap(false);
   const win = wm.createWindow({
