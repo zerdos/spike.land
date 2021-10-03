@@ -22,6 +22,7 @@ esbuild.build({
     bundle: true,
     format: 'esm',
     minify: false,
+    treeShaking: true,
     target: "browser",
     sourcemap: false,
     resolveExtensions: [".tsx",".ts",".jsx",".js",".css",".json",".mjs"],

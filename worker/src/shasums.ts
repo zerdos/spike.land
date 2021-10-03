@@ -66,7 +66,7 @@ export const shasums = {
   "js/share.mjs":
     "794332dc3aa089e814935cc5fb71fd52729fd3e5e7d56a8db4deb760461adaba",
   "js/starter.js":
-    "6d923ed396b18cad2bd7186ca3fdf5c417db33a900753818a03f1da522b132e9",
+    "c531aa20ba188ef225b2006b3076701a7d3656f77313a8387795b1578aae35d2",
   "js/templates.mjs":
     "0901da0193d95aba2233123124013285c78e7386b63fbaac1b82aec624afaa85",
   "js/test.mjs":
