@@ -3,12 +3,12 @@
   "version": "14.5.4",
   "description": "Monaco Editor with auto type downloads mostly for React",
   "sideEffects": false,
-  "main": "./dist/editor.js",
+  "main": "./dist/editor.mjs",
+  "typings": "src/editor.d.ts",
   "scripts": {
-    "prebuild": "yarn clean && tsc && cp -ar dist ../code/modules/smart-monaco-editor/ && deno fmt src",
-    "build": "echo done",
-    "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format &&  rm -rf ../code/js/smart-monaco-editor && mkdir -p ../code/modules/smart-monaco-editor",
-    "format": "deno fmt src"
+    "build": "esbuild --bundle src/editor.ts --format=esm --target=es2018 --outfile=dist/editor.mjs",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo && yarn format && mkdir dist",
+    "format": "deno fmt ."
   },
   "keywords": [
     "monaco",
@@ -27,7 +27,8 @@
   "homepage": "https://github.com/zed-vision/monorepo",
   "repository": "https://github.com/zed-vision/monorepo",
   "devDependencies": {
-    "typescript": "4.4.3"
+    "typescript": "4.4.3",
+    "esbuild": "0.13.3"
   },
   "publishConfig": {
     "access": "public"

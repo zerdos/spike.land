@@ -1,8 +1,4 @@
 export const shasums = {
-  ".tsBuildInfo":
-    "69888094121e941758419b378981e608a467e54d297f9c870a83d2218f1cb8dd",
-  "modules/shaDB.mjs":
-    "158b1f37e655555aa60fa25c1ceadaaaaea82e3ec37eb0cb2144b30d65ba19be",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -25,7 +21,7 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "build.mjs":
-    "04fef61642896f1869b4f1e0f2b8cf5f68605478c80813863302bade742b9697",
+    "c61d9b95555a936342506ec18ef0713e7c6c077fed73b552a0835064c8a6cef9",
   "index.html":
     "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
   "esbuild.mjs":

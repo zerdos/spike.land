@@ -25,7 +25,9 @@
   "npm.packageManager": "yarn",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "cSpell.words": [
+    "Erdos",
     "esbuild",
-    "esms"
+    "esms",
+    "ipfs"
   ]
 }
