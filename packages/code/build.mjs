@@ -65,7 +65,7 @@ import {
   IPFSClient,
   raceToSuccess,
   toString
-} from "https://unpkg.com/@zedvision/ipfs@14.5.4/dist/ipfs.client.mjs";
+} from "https://unpkg.com/@zedvision/ipfs@14.5.6/dist/ipfs.client.mjs";
 var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;
 var init_ipfsClient = __esm({
   "js/ipfsClient.mjs"() {
@@ -305,17 +305,17 @@ var init_importmap = __esm({
       "react-is": "https://unpkg.com/@zedvision/esm@14.5.4/dist/react-is.mjs",
       "react-transition-group": "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.4/dist/renderer.mjs",
+      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.6/dist/renderer.mjs",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
-      "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.5.4/dist/QRious.mjs",
+      "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.5.6/dist/QRious.mjs",
       tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.5.4/dist/editor.js",
+      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.5.6/dist/editor.mjs",
       "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.5/dist/shaDB.mjs",
+      "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.6/dist/shaDB.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-      "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.4/dist/ipfs.client.mjs",
+      "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.6/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
     };
     importmap_default = {
@@ -422,7 +422,7 @@ var share_exports = {};
 __export(share_exports, {
   shareItAsHtml: () => shareItAsHtml
 });
-import { sha256, shaDB } from "https://unpkg.com/@zedvision/shadb@14.5.5/dist/shaDB.mjs";
+import { sha256, shaDB } from "https://unpkg.com/@zedvision/shadb@14.5.6/dist/shaDB.mjs";
 async function addAll(files) {
   try {
     const res = await all(ipfsClient.addAll(files));
@@ -594,7 +594,7 @@ var require_v4 = __commonJS({
 });
 
 // js/data.mjs
-import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@zedvision/shadb@14.5.5/dist/shaDB.mjs";
+import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@zedvision/shadb@14.5.6/dist/shaDB.mjs";
 async function getUserId() {
   if (uuid)
     return uuid;
@@ -846,7 +846,7 @@ __export(sendSignalToQrCode_exports, {
   getZkey: () => getZkey,
   sendSignalToQrCode: () => sendSignalToQrCode
 });
-import { sha256 as sha2563 } from "https://unpkg.com/@zedvision/shadb@14.5.5/dist/shaDB.mjs";
+import { sha256 as sha2563 } from "https://unpkg.com/@zedvision/shadb@14.5.6/dist/shaDB.mjs";
 async function sendSignalToQrCode(session) {
   const { searchParams } = new URL(window.location.href);
   const maybeRoute = searchParams.get("signalToQr") || "";
@@ -883,7 +883,7 @@ async function renderPreviewWindow(session) {
     DraggableWindow,
     jsx: jsx2,
     render
-  } = await import("https://unpkg.com/@zedvision/renderer@14.5.4/dist/renderer.mjs");
+  } = await import("https://unpkg.com/@zedvision/renderer@14.5.6/dist/renderer.mjs");
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
@@ -1046,7 +1046,7 @@ async function init2() {
 init_ipfsClient();
 init_data();
 import React from "https://unpkg.com/@zedvision/esm@14.5.4/dist/react.mjs";
-import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.5.4/dist/editor.js";
+import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.5.6/dist/editor.mjs";
 import { jsx } from "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js";
 function getSession() {
   const session = {

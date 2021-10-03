@@ -21,13 +21,13 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "build.mjs":
-    "c61d9b95555a936342506ec18ef0713e7c6c077fed73b552a0835064c8a6cef9",
+    "4aac001544e602bd8b19383dde80a20970ebf4bceb250a4879a08a0aa078864b",
   "index.html":
     "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
   "esbuild.mjs":
     "eb4f7c9f23c89e8df2ecce55ae41318c3358150cfdb3241d2731c1466ed71fcb",
   "package.json":
-    "226f0789b086252e87f76901ca9d88fe91e76bbe99042b4978f267107b3c8228",
+    "9f3aaf4b917bb3d61fbc697609cb62890dfde8c4c972f43f7b7bfe0fc07f761d",
   "tsconfig.json":
     "a81ab89a89622be71a650db4655a182c1bd0a3ec2ddbf9fa873785657ab15ab4",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -44,7 +44,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "dfde98399feb6c389696f565cb59d14f43244f6c4771a6ff946d536ebe913805",
+    "c5edf67536e94b1dce998032f3ae3efadefd52717bd8a854d90018fe82bfe3fa",
   "js/share.mjs":
     "794332dc3aa089e814935cc5fb71fd52729fd3e5e7d56a8db4deb760461adaba",
   "js/data.mjs":
