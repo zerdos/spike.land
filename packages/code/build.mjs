@@ -65,7 +65,7 @@ import {
   IPFSClient,
   raceToSuccess,
   toString
-} from "https://unpkg.com/@zedvision/ipfs@14.5.6/dist/ipfs.client.mjs";
+} from "https://unpkg.com/@zedvision/ipfs@14.5.7/dist/ipfs.client.mjs";
 var workerSrc, forceNormalWorker, port, ipfsClient, ipfsCat;
 var init_ipfsClient = __esm({
   "js/ipfsClient.mjs"() {
@@ -305,7 +305,7 @@ var init_importmap = __esm({
       "react-is": "https://unpkg.com/@zedvision/esm@14.5.4/dist/react-is.mjs",
       "react-transition-group": "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.6/dist/renderer.mjs",
+      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.7/dist/renderer.mjs",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
       "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.5.6/dist/QRious.mjs",
@@ -315,7 +315,7 @@ var init_importmap = __esm({
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
       "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.6/dist/shaDB.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-      "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.6/dist/ipfs.client.mjs",
+      "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.7/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
     };
     importmap_default = {
@@ -883,7 +883,7 @@ async function renderPreviewWindow(session) {
     DraggableWindow,
     jsx: jsx2,
     render
-  } = await import("https://unpkg.com/@zedvision/renderer@14.5.6/dist/renderer.mjs");
+  } = await import("https://unpkg.com/@zedvision/renderer@14.5.7/dist/renderer.mjs");
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
@@ -915,7 +915,7 @@ async function renderPreviewWindow(session) {
 // js/openWindows.mjs
 async function openWindows() {
   const WM = await import("https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js");
-  const WindowManager = WM.WindowManager ? WM.WindowManager : window.WindowManager;
+  const WindowManager = WM.WindowManager ? WM.WindowManager : window.WindowManager.WindowManager;
   const wm = new WindowManager({ backgroundWindow: "green" });
   wm.snap(false);
   const win = wm.createWindow({

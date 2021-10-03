@@ -204,7 +204,7 @@
     "react-is": "https://unpkg.com/@zedvision/esm@14.5.4/dist/react-is.mjs",
     "react-transition-group": "https://unpkg.com/react-transition-group@4.4.2/esm/index.js",
     "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-    "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.6/dist/renderer.mjs",
+    "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.7/dist/renderer.mjs",
     "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
     "stylis": "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
     "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.5.6/dist/QRious.mjs",
@@ -214,7 +214,7 @@
     "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
     "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.6/dist/shaDB.mjs",
     "comlink": "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-    "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.6/dist/ipfs.client.mjs",
+    "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.7/dist/ipfs.client.mjs",
     "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
   }
 }
