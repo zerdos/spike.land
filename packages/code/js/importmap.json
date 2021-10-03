@@ -193,7 +193,6 @@
     "@emotion/utils": "https://unpkg.com/@emotion/utils@1.0.0/dist/emotion-utils.browser.esm.js",
     "@emotion/unitless": "https://unpkg.com/@emotion/unitless@0.7.5/dist/unitless.browser.esm.js",
     "@emotion/weak-memoize": "https://unpkg.com/@emotion/weak-memoize@0.2.5/dist/weak-memoize.browser.esm.js",
-    "@mui/material": "https://unpkg.com/@mui/material@5.0.2/index.js",
     "prop-types": "https://esm.sh/prop-types",
     "framer-motion": "https://unpkg.com/framer-motion@4.1.17/dist/es/index.js",
     "framesync": "https://unpkg.com/framesync@6.0.0/dist/es/index.mjs",

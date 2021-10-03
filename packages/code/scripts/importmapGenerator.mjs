@@ -137,7 +137,7 @@ const list = [
   "@emotion/utils",
   "@emotion/unitless",
   "@emotion/weak-memoize",
-  "@mui/material",
+  // "@mui/material",
   "prop-types",
   "framer-motion",
   "framesync",
