@@ -1,6 +1,8 @@
 export const shasums = {
   ".tsBuildInfo":
     "69888094121e941758419b378981e608a467e54d297f9c870a83d2218f1cb8dd",
+  "modules/shaDB.mjs":
+    "158b1f37e655555aa60fa25c1ceadaaaaea82e3ec37eb0cb2144b30d65ba19be",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -23,7 +25,7 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "build.mjs":
-    "64f819f256e3fd6b00e9c744521ae8ff9938550d058cb140bd874be4f7f26d96",
+    "04fef61642896f1869b4f1e0f2b8cf5f68605478c80813863302bade742b9697",
   "index.html":
     "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
   "esbuild.mjs":
@@ -58,7 +60,7 @@ export const shasums = {
   "js/hash.mjs":
     "0203a38611bca51a7fd806c722776f79e29b8f4c910d684639ba1e35bf9dad69",
   "js/renderPreviewWindow.mjs":
-    "f317b80c23840e2cb8e01a6fbfd1c0ba20fb2c90a494c97472fc3b18f2bba518",
+    "cae34032f44438f8cf6873ac1ba408080c2a7ba02241b3d3659fc103a8922c8e",
   "js/workers/transpile.worker.js":
     "ac9754a26f0bc4c2c936f1df7586afec6249bf6593977a3bdd74c73109acbd44",
   "js/workers/getWorker.mjs":
@@ -80,7 +82,7 @@ export const shasums = {
   "js/starter.js":
     "5f6fab6700ee37fbc6d08d2ff3126bf20a6ba4171e23a2de727d44a7384b8fb3",
   "js/templates.mjs":
-    "119a5431247827ca333b4ed72b288a977d8d510c0104be7ec6942c5844b587ec",
+    "0901da0193d95aba2233123124013285c78e7386b63fbaac1b82aec624afaa85",
   "js/openWindows.mjs":
     "6d465cb538d9b4eb18ba0b64ac82fa513a9c4e23fe72cbd998de24cd16a19994",
   "js/transpile.mjs":

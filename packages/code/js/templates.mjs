@@ -29,7 +29,6 @@ export function getHtml({ html, css }) {
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
-<link rel="modulepreload" href="https://spike.land/modules/renderer.mjs">
 <link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
 <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />

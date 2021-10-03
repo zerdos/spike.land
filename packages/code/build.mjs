@@ -340,7 +340,6 @@ function getHtml({ html, css }) {
 <head profile="http://www.w3.org/2005/10/profile">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
-<link rel="modulepreload" href="https://spike.land/modules/renderer.mjs">
 <link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
 <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
@@ -880,16 +879,11 @@ var init_sendSignalToQrCode = __esm({
 
 // js/renderPreviewWindow.mjs
 async function renderPreviewWindow(session) {
-  let rendererSrc = `@zedvision/renderer`;
-  if (window.location.hostname.indexOf("0.0") !== -1) {
-    const cid = window.location.pathname.slice(6, 52);
-    rendererSrc = `/ipfs/${cid}/modules/renderer.mjs`;
-  }
   const {
     DraggableWindow,
     jsx: jsx2,
     render
-  } = await import(rendererSrc);
+  } = await import("https://unpkg.com/@zedvision/renderer@14.5.4/dist/renderer.mjs");
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
