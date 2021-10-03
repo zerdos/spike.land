@@ -38,10 +38,14 @@ export const shasums = {
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
+  "build.mjs":
+    "64f819f256e3fd6b00e9c744521ae8ff9938550d058cb140bd874be4f7f26d96",
   "index.html":
     "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
+  "esbuild.mjs":
+    "b6cae86a988b47f7735171d350690c4d7ce0a75a05025372f73ed0c998ffead7",
   "package.json":
-    "bc1569c817ebab475f9f33155f151ad9b49a79daa46ecb8b13ef1bd7c361eedd",
+    "226f0789b086252e87f76901ca9d88fe91e76bbe99042b4978f267107b3c8228",
   "tsconfig.json":
     "a81ab89a89622be71a650db4655a182c1bd0a3ec2ddbf9fa873785657ab15ab4",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -90,11 +94,9 @@ export const shasums = {
   "js/test.mjs":
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/starter.js":
-    "afb35805ddacc7194371accd166ecaca59520433920349af38fc20ee11378b5e",
+    "5f6fab6700ee37fbc6d08d2ff3126bf20a6ba4171e23a2de727d44a7384b8fb3",
   "js/templates.mjs":
     "119a5431247827ca333b4ed72b288a977d8d510c0104be7ec6942c5844b587ec",
-  "js/importmap.js":
-    "9ff5a40047ba261c51b867312edf873f1e943ad30bf0064a4e52518e10e505b2",
   "js/openWindows.mjs":
     "6d465cb538d9b4eb18ba0b64ac82fa513a9c4e23fe72cbd998de24cd16a19994",
   "js/transpile.mjs":

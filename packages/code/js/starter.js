@@ -10,7 +10,7 @@ try {
 
 async function start() {
   try {
-    const { run } = await import("./codeLoader.mjs");
+    const { run } = await import("../build.mjs");
     run("window");
   } catch (e) {
     throw e;

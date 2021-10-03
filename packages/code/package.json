@@ -12,9 +12,7 @@
     "clean": "rm -rf .tsBuildInfo modules && mkdir -p modules",
     "start": "cd ../.. && yarn start",
     "push": "cd ../.. && yarn push",
-    "build": "yarn tsc",
-    "bundle": "deno bundle js/codeLoader.mjs > js/bundle.js && yarn minify && rm -rf js/bundle.js",
-    "minify": "esbuild js/bundle.js --minify --format=esm --platform=browser --target=es2018 --outfile=js/bundle.min.js"
+    "build": "node --experimental-json-modules esbuild.mjs"
   },
   "keywords": [
     "monaco",
@@ -44,7 +42,9 @@
     "access": "public"
   },
   "dependencies": {
+    "comlink": "4.3.1",
     "es-module-shims": "1.1.0",
+    "esbuild-plugin-import-map": "^2.1.0",
     "simple-window-manager": "^2.1.2"
   }
 }

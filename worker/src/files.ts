@@ -15,7 +15,9 @@ export const files = {
   "assets/triangle-geometry.png":
     "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
   "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
+  "build.mjs": "QmRzBi6CSD2X8HTcLPwz5QoL484XKe24BJvseftsgo6m5w",
   "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
+  "esbuild.mjs": "QmeTrwjzm3FCUuEqv1YSd9bWTPa77Cs4diMJeTXvcG2ESJ",
   "favicon.ico": "QmWF8oNe7SDdaY6t4WrJ8ZzM46dHEFmHDXzd8MBeNrELxe",
   "index.html": "QmYg6rFp5L17T3xRqk8YnnEQkhhyhrGpXMSfypgsK1VrCx",
   "js/codeLoader.mjs": "QmcwsgkexmqP6mB5niz6YtnTJZGD8vDLVQCbdNvUqFsyvt",
@@ -28,7 +30,6 @@ export const files = {
   "js/hash.mjs": "QmcCE35Pbe286x6xHVDLVsxo2ViRTzAsgdWL3HYDQHxy34",
   "js/importScript.d.ts": "QmV1V5Fb2ZxP5Kn31nSU7FS2TtrDMg6wR7sMTsKeeR1txL",
   "js/importScript.mjs": "QmaN34Vrmzujpc8W8jsAnmrLpkXZmgRLHAwogyxJQKMJ9u",
-  "js/importmap.js": "QmV8JXvrDfUKN3kPpnX9Bfy49xAkhEpm6tU2QE7tFfTJii",
   "js/importmap.json": "QmeLPbxs6zNbuMnapPt9G7ECkiHdpre5zZHgbZCt27f4Cw",
   "js/ipfsClient.mjs": "QmSz5ruqLbkpvASSVV6wt1sLwYrZjg5dtZjPuZrwn7yfWT",
   "js/openWindows.mjs": "QmPDcm9PQvPSDEJWHrFx2i7PJLasH9pCCpbpZ3TtBwVvPf",
@@ -36,7 +37,7 @@ export const files = {
     "QmdwXASNRxKWWDjvZDMMyBbdcssmePHDRMB55nWs6umTfS",
   "js/sendSignalToQrCode.mjs": "QmXbBg2iZDJ74f6qpgt8ADNVnUXaEZUKcATg8uSssWQga6",
   "js/share.mjs": "QmPjpxeXVA8ApSa7pMRFGqxskaJuM8TaAJXMwM933Z2K4j",
-  "js/starter.js": "QmWSkzKpGiGY5BzokLYHcup4CPXjohzSPskvuAxXjjUwL2",
+  "js/starter.js": "QmYgVFU3nufmWRMbPXGEoqWifphfiLjzoVCbnx4YW3HtvT",
   "js/templates.mjs": "QmYCci2S47gGyb8yGrV4yHpXzxiJQ6mj8drfVQGbpxA7Mx",
   "js/test.mjs": "QmVnzwNd3k5NioNUeMagb77Q4LRW5DmGxaeBJp7hdoapLK",
   "js/transpile.mjs": "QmcpPZZrhCgSykw5Xh194W86wwpDycgS1SQHfKNVXiT3tE",
@@ -60,7 +61,7 @@ export const files = {
     "QmPNrqP54db6P45nw6d3BFmerEAxLzbz2ynbByCrLderPF",
   "modules/smart-monaco-editor/dist/monaco.js":
     "QmfTDGxU1YFZehqGrmNVN8XXndko6WTcTqW9iTjhcXNnZE",
-  "package.json": "QmRJaGksqqRAhNKycMLHdpiKRyXBng4t5iAuA5STDTs3mS",
+  "package.json": "QmPtYg5kuMphdWQBAh3CnbfUgV2SV5wZcA2vqgDVa8yagQ",
   "scripts/importmapGenerator.mjs":
     "QmSLjCkwqmwLX7Uq4Y3rJBy8qnqqLzq3kLB4ftYvBX1z1E",
   "sw.js": "QmZs73xvygu9Zx4mvDdwWWv6zL81UGY1geTsVZGrXdnTEf",
@@ -72,7 +73,7 @@ export const files = {
   "edit": "QmRBtzxNHPENXEfZwv1aZk9XmznUM6mesSe3GKVB8UwwXS",
   "js/examples": "Qmbcmjf53NLhuNdY6uDDpPeqNbNGAi76Qo4jdZCageGrFJ",
   "js/workers": "QmW5PFf5n3Gu6KB87doWXKWG6qjo8P5MBeX3JY3NEhQwsX",
-  "js": "QmeBuJvMwHx1L3byw6JAHxauMNbwvULw1VJpUNwDrfECfn",
+  "js": "QmV4KPhvoRjnTmQwmizop4hm66f4eLyVageT6459nfPXKx",
   "modules/smart-monaco-editor/dist":
     "QmP6zfP83v9fd1UPwLRNB6tgLXoXmFHeKNq6JZixFRjcyV",
   "modules/smart-monaco-editor":
@@ -80,6 +81,6 @@ export const files = {
   "modules": "QmULvLpFYShgDzE13RwmG4KmpaxiFUzArYgqZRKgMgi3xx",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmTEQ6DKQab8ZBXyg4WjQHGM4TczaMrV11ZEkQRFAPnHS7",
-  "": "QmaLEH3eW85EnhtLTZ2ehRYZrNovcFbgAx3vmc9QU3n1vH",
+  "": "QmfJ1qB16tX6TG38W8W4PsGBHoAzuaPNbCWyMmeR3z9TpF",
   "foo": "bar",
 };
