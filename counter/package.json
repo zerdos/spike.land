@@ -18,8 +18,8 @@
     "@cloudflare/wrangler": "1.19.3"
   },
   "dependencies": {
-    "axax": "^0.2.2",
-    "esbuild": "^0.13.3",
-    "is-even": "^1.0.0"
+    "axax": "0.2.2",
+    "esbuild": "0.13.3",
+    "is-even": "1.0.0"
   }
 }
