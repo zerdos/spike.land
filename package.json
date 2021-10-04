@@ -9,6 +9,7 @@
     "packages/*",
     "worker",
     "counter",
+    "blog",
     "docker-images/*"
   ],
   "scripts": {

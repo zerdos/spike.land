@@ -1,7 +1,7 @@
 "use strict";
 (self["webpackChunk_zedvision_blog"] = self["webpackChunk_zedvision_blog"] || []).push([[691],{
 
-/***/ 2175:
+/***/ 7844:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 // ESM COMPAT FLAG
@@ -12,29 +12,29 @@ __webpack_require__.d(__webpack_exports__, {
   "default": function() { return /* binding */ pages; }
 });
 
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
-var taggedTemplateLiteralLoose = __webpack_require__(1880);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(5861);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/regenerator/index.js
-var regenerator = __webpack_require__(7757);
+// EXTERNAL MODULE: ../node_modules/@babel/runtime/helpers/esm/taggedTemplateLiteralLoose.js
+var taggedTemplateLiteralLoose = __webpack_require__(6732);
+// EXTERNAL MODULE: ../node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
+var asyncToGenerator = __webpack_require__(7791);
+// EXTERNAL MODULE: ../node_modules/@babel/runtime/regenerator/index.js
+var regenerator = __webpack_require__(7135);
 var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator);
-// EXTERNAL MODULE: ./node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
-var emotion_react_browser_esm = __webpack_require__(7918);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ../node_modules/@emotion/react/dist/emotion-react.browser.esm.js + 15 modules
+var emotion_react_browser_esm = __webpack_require__(1750);
+// EXTERNAL MODULE: ../node_modules/react/index.js
+var react = __webpack_require__(7378);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(5444);
+var gatsby_browser_entry = __webpack_require__(5414);
 // EXTERNAL MODULE: ./src/components/bio.tsx + 1 modules
-var bio = __webpack_require__(1435);
+var bio = __webpack_require__(2954);
 // EXTERNAL MODULE: ./src/components/layout.tsx
-var layout = __webpack_require__(3471);
+var layout = __webpack_require__(7084);
 // EXTERNAL MODULE: ./src/components/seo.tsx + 1 modules
-var seo = __webpack_require__(1069);
+var seo = __webpack_require__(3753);
 ;// CONCATENATED MODULE: ./src/components/code/getUser.ts
 var shaDB={get:function(){var _get=(0,asyncToGenerator/* default */.Z)(/*#__PURE__*/regenerator_default().mark(function _callee(key,type){var _yield$Function,getDB,db;return regenerator_default().wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.next=2;return new Function("return import(`https://spike.land/modules/shaDB.js`)")();case 2:_yield$Function=_context.sent;getDB=_yield$Function.getDB;_context.next=6;return getDB("shaDB");case 6:_context.t0=_context.sent;_context.next=9;return(0,_context.t0)();case 9:db=_context.sent;return _context.abrupt("return",db.get(key,type));case 11:case"end":return _context.stop();}}},_callee);}));function get(_x,_x2){return _get.apply(this,arguments);}return get;}(),put:function(){var _put=(0,asyncToGenerator/* default */.Z)(/*#__PURE__*/regenerator_default().mark(function _callee2(key,value){var _yield$Function2,getDB,db;return regenerator_default().wrap(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.next=2;return new Function("return import(`https://spike.land/modules/shaDB.js`)")();case 2:_yield$Function2=_context2.sent;getDB=_yield$Function2.getDB;_context2.next=6;return getDB("shaDB");case 6:_context2.t0=_context2.sent;_context2.next=9;return(0,_context2.t0)();case 9:db=_context2.sent;return _context2.abrupt("return",db.put(key,value));case 11:case"end":return _context2.stop();}}},_callee2);}));function put(_x3,_x4){return _put.apply(this,arguments);}return put;}()};function getUserId(){return _getUserId.apply(this,arguments);}function _getUserId(){_getUserId=(0,asyncToGenerator/* default */.Z)(/*#__PURE__*/regenerator_default().mark(function _callee3(){var uuid,resp,data;return regenerator_default().wrap(function _callee3$(_context3){while(1){switch(_context3.prev=_context3.next){case 0:if(!(typeof window==="undefined")){_context3.next=2;break;}return _context3.abrupt("return","");case 2:_context3.next=4;return shaDB.get("uuid","string");case 4:uuid=_context3.sent;if(uuid){_context3.next=15;break;}_context3.next=8;return fetch("https://spike.land/register");case 8:resp=_context3.sent;_context3.next=11;return resp.json();case 11:data=_context3.sent;_context3.next=14;return shaDB.put("uuid",data.uuid);case 14:return _context3.abrupt("return",data.uuid);case 15:return _context3.abrupt("return",uuid);case 16:case"end":return _context3.stop();}}},_callee3);}));return _getUserId.apply(this,arguments);}
 // EXTERNAL MODULE: ./src/components/utils/typography.ts
-var typography = __webpack_require__(3261);
+var typography = __webpack_require__(280);
 ;// CONCATENATED MODULE: ./src/components/utils/sha256/sha256.ts
 function sha256(_x){return _sha.apply(this,arguments);}function _sha(){_sha=(0,asyncToGenerator/* default */.Z)(/*#__PURE__*/regenerator_default().mark(function _callee(message){var msgBuffer,hashBuffer,hashArray,hashHex;return regenerator_default().wrap(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:msgBuffer=new TextEncoder().encode(message);_context.next=3;return crypto.subtle.digest("SHA-256",msgBuffer);case 3:hashBuffer=_context.sent;hashArray=Array.from(new Uint8Array(hashBuffer));// convert bytes to hex string
 hashHex=hashArray.map(function(b){return("00"+b.toString(16)).slice(-2);}).join("");return _context.abrupt("return",hashHex);case 7:case"end":return _context.stop();}}},_callee);}));return _sha.apply(this,arguments);}
@@ -55,4 +55,4 @@ var pages_templateObject;/** @jsx jsx */var isMobile=function isMobile(){if(type
 /***/ })
 
 }]);
-//# sourceMappingURL=component---src-pages-index-tsx-78cc03a80903876f9834.js.map
+//# sourceMappingURL=component---src-pages-index-tsx-f0147f6bbd5d838b7ce9.js.map

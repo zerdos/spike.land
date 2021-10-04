@@ -1,6 +1,6 @@
 (self["webpackChunk_zedvision_blog"] = self["webpackChunk_zedvision_blog"] || []).push([[944],{
 
-/***/ 2993:
+/***/ 8277:
 /***/ (function(module) {
 
 /* global Map:readonly, Set:readonly, ArrayBuffer:readonly */
@@ -152,7 +152,7 @@ module.exports = function isEqual(a, b) {
 
 /***/ }),
 
-/***/ 4839:
+/***/ 8473:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -162,7 +162,7 @@ function _interopDefault(ex) {
   return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex;
 }
 
-var React = __webpack_require__(7294);
+var React = __webpack_require__(7378);
 
 var React__default = _interopDefault(React);
 
@@ -286,20 +286,20 @@ module.exports = withSideEffect;
 
 /***/ }),
 
-/***/ 3471:
+/***/ 7084:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "A": function() { return /* binding */ Layout; }
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1880);
-/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7918);
+/* harmony import */ var _babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6732);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1750);
 var _templateObject;/** @jsx jsx */var Layout=function Layout(_ref){var children=_ref.children;return (0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .jsx */ .tZ)("main",{css:(0,_emotion_react__WEBPACK_IMPORTED_MODULE_0__/* .css */ .iv)(_templateObject||(_templateObject=(0,_babel_runtime_helpers_esm_taggedTemplateLiteralLoose__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(["  \n          max-width: 1140px;\n          margin: auto;\n          img{\n            max-width: 100%;\n          }\n       "])))},children);};
 
 /***/ }),
 
-/***/ 1069:
+/***/ 3753:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -309,23 +309,23 @@ __webpack_require__.d(__webpack_exports__, {
   "H": function() { return /* binding */ SEO; }
 });
 
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(7294);
+// EXTERNAL MODULE: ../node_modules/react/index.js
+var react = __webpack_require__(7378);
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(5444);
-// EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(5697);
+var gatsby_browser_entry = __webpack_require__(5414);
+// EXTERNAL MODULE: ../node_modules/prop-types/index.js
+var prop_types = __webpack_require__(3615);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
-// EXTERNAL MODULE: ./node_modules/react-side-effect/lib/index.js
-var lib = __webpack_require__(4839);
+// EXTERNAL MODULE: ../node_modules/react-side-effect/lib/index.js
+var lib = __webpack_require__(8473);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
-// EXTERNAL MODULE: ./node_modules/react-fast-compare/index.js
-var react_fast_compare = __webpack_require__(2993);
+// EXTERNAL MODULE: ../node_modules/react-fast-compare/index.js
+var react_fast_compare = __webpack_require__(8277);
 var react_fast_compare_default = /*#__PURE__*/__webpack_require__.n(react_fast_compare);
-// EXTERNAL MODULE: ./node_modules/gatsby/dist/internal-plugins/bundle-optimisations/polyfills/object-assign.js
-var object_assign = __webpack_require__(6494);
+// EXTERNAL MODULE: ../node_modules/gatsby/dist/internal-plugins/bundle-optimisations/polyfills/object-assign.js
+var object_assign = __webpack_require__(1468);
 var object_assign_default = /*#__PURE__*/__webpack_require__.n(object_assign);
-;// CONCATENATED MODULE: ./node_modules/react-helmet/es/Helmet.js
+;// CONCATENATED MODULE: ../node_modules/react-helmet/es/Helmet.js
 
 
 
@@ -1207,4 +1207,4 @@ HelmetExport.renderStatic = HelmetExport.rewind;
 /***/ })
 
 }]);
-//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-7475bfeed096a97d3571.js.map
+//# sourceMappingURL=92e077445c304a05793bb16dd9d141fae86f5877-ebd0c7b3fa094b5e966d.js.map
