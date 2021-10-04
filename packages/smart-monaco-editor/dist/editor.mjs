@@ -103,22 +103,22 @@ var editor_default = async ({ onChange, code, language, container, options }) =>
     const importHelper = [
       {
         name: "react",
-        url: "https://unpkg.com/@types/react@17.0.26/index.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.27/index.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"]
       },
       {
         name: "react/jsx-dev-runtime",
-        url: "https://unpkg.com/@types/react@17.0.26/jsx-dev-runtime.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.27/jsx-dev-runtime.d.ts",
         depend: ["global", "csstype", "react-dom", "prop-types"]
       },
       {
         name: "react-exp  ",
-        url: "https://unpkg.com/@types/react@17.0.26/experimental.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.27/experimental.d.ts",
         depend: []
       },
       {
         name: "global",
-        url: "https://unpkg.com/@types/react@17.0.26/global.d.ts",
+        url: "https://unpkg.com/@types/react@17.0.27/global.d.ts",
         depend: []
       },
       {
