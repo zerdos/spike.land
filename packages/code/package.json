@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "comlink": "4.3.1",
-    "es-module-shims": "1.1.0",
+    "es-module-shims": "1.2.0",
     "esbuild-plugin-import-map": "^2.1.0",
     "simple-window-manager": "^2.1.2"
   }

@@ -22,15 +22,15 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
     "881eb8c56e28f9912b1db4f8c156cdf9ea54f421ff59a51ef49dcdbaee49390b",
-  "dev.mjs": "17e0b9fe6bf23678281465ced5f869a39244cb2a3b74d52ac0c8e1bd176e50fb",
+  "dev.mjs": "90c8289e23f15686cb9ec318031717da741a65a05f0f981ce96bde9f58918ddb",
   "build.mjs":
-    "93991632330f74b832ce6924d0ac38cd30eab0d30f6676bac4dfc4c685b84e48",
+    "a5753945514f383e6a507685bb7f44fb4f65e3e52920d1166893501d989e29ba",
   "index.html":
-    "53f464185197d44671c97c4ad2a6df77b029d9fe8cb030d5dd6a939f72008905",
+    "3bd85de1949b843ec345f63fb2dc49c6c1d1dddaf4e0ea7d593d461f0e983e92",
   "esbuild.mjs":
     "787b3485ba2bf5f4c8b5201020463892f4b0ee46fbc5e82006a2a1d11a2757e9",
   "package.json":
-    "5efb2acff02ac8d382139bbbc792e7d12482bc39275a005fd0d4f8e67428c86b",
+    "b32c878f2ac96034e3d7499651c9142153ef32997cbdc2acdbca4618c9d64e77",
   "tsconfig.json":
     "a81ab89a89622be71a650db4655a182c1bd0a3ec2ddbf9fa873785657ab15ab4",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -81,7 +81,7 @@ export const shasums = {
   "js/starter.js":
     "c531aa20ba188ef225b2006b3076701a7d3656f77313a8387795b1578aae35d2",
   "js/templates.mjs":
-    "0901da0193d95aba2233123124013285c78e7386b63fbaac1b82aec624afaa85",
+    "f1ce0dbf4b4e376d78fe67b256d46ce3b8eb35391070b1ab7f1b2e8e8cfa7b2e",
   "js/openWindows.mjs":
     "308332123d3e6aa68d0bc691e70925b3c646e0a1b2a9a39b7b5c5acde3a61cec",
   "js/transpile.mjs":

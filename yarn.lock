@@ -6901,10 +6901,10 @@ es-module-lexer@^0.9.0:
   resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.9.2.tgz#d0a8c72c5d904014111fac7fab4c92b9ac545564"
   integrity sha512-YkAGWqxZq2B4FxQ5y687UwywDwvLQhIMCZ+SDU7ZW729SDHOEI6wVFXwTRecz+yiwJzCsVwC6V7bxyNbZSB1rg==
 
-es-module-shims@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.1.0.tgz#64bb6e91f95a76034c3d6e4e21ebfaecf842a22d"
-  integrity sha512-KOGgJQeKDVWGltwvbCzPf1lkF7N++VKxXfzYbQ88KkyhfncivvJC5Hxmyuy9YGlNRiXz6f29rjRSo36PIj3Pfg==
+es-module-shims@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/es-module-shims/-/es-module-shims-1.2.0.tgz#f3b447826c4f4b9d9597b24a7aaa0c639893de2f"
+  integrity sha512-Kupc9HFwmScot1v8vO/3CX9MjNprarG4wdlBk2bv5R76SD63UBhXG53MUTjg8USgHaCMLBOQyGSl7lAEqGUb1g==
   dependencies:
     rimraf "^3.0.2"
 
@@ -12914,9 +12914,9 @@ multibase@^4.0.1:
     "@multiformats/base-x" "^4.0.1"
 
 multicast-dns@^7.2.0:
-  version "7.2.3"
-  resolved "https://registry.yarnpkg.com/multicast-dns/-/multicast-dns-7.2.3.tgz#cbd07571dda41807b36f71067681f19e85ccc2cd"
-  integrity sha512-TzxgGSLRLB7tqAlzjgd2x2ZE0cDsGFq4rs9W4yE5xp+7hlRXeUQGtXZsTGfGw2FwWB45rfe8DtXMYBpZGMLUng==
+  version "7.2.4"
+  resolved "https://registry.yarnpkg.com/multicast-dns/-/multicast-dns-7.2.4.tgz#cf0b115c31e922aeb20b64e6556cbeb34cf0dd19"
+  integrity sha512-XkCYOU+rr2Ft3LI6w4ye51M3VK31qJXFIxu0XLw169PtKG0Zx47OrXeVW/GCYOfpC9s1yyyf1S+L8/4LY0J9Zw==
   dependencies:
     dns-packet "^5.2.2"
     thunky "^1.0.2"

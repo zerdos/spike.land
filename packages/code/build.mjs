@@ -343,7 +343,7 @@ function getHtml({ html, css }) {
 <link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
 <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
 <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-<script async src="https://unpkg.com/es-module-shims@1.1.0/dist/es-module-shims.js"><\/script>
+<script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"><\/script>
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
@@ -392,7 +392,7 @@ var init_templates = __esm({
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-  <script async src="https://unpkg.com/es-module-shims@1.1.0/dist/es-module-shims.js"><\/script>
+  <script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"><\/script>
   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
   <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
@@ -400,7 +400,7 @@ var init_templates = __esm({
 </head>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}<\/script>
-<script async src="https://unpkg.com/es-module-shims@1.1.0/dist/es-module-shims.js"><\/script>
+<script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"><\/script>
 <script type="importmap-shim">
 ${JSON.stringify(importmap_default)}
 <\/script>
