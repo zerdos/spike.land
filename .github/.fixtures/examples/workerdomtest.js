@@ -22,7 +22,7 @@ fetch(
     };
 
     const { renderEmotion } = await import(
-      "https://unpkg.com/@zedvision/emotion-react-renderer@10.13.3/dist/bundle.js"
+      "https://unpkg.com/@zedvision/emotion-react-renderer/dist/bundle.js"
     );
 
     renderEmotion(App(), document.getElementById("zbody"));
