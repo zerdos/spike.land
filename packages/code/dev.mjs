@@ -372,7 +372,7 @@ var init_exactProp = __esm({
 });
 
 // ../../node_modules/@mui/utils/esm/getDisplayName.js
-import { ForwardRef, Memo } from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react-is.mjs";
+import { ForwardRef, Memo } from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-is.mjs";
 function getFunctionName(fn) {
   const match = `${fn}`.match(fnNameMatchRegex);
   const name = match && match[1];
@@ -511,7 +511,7 @@ var init_setRef = __esm({
 import {
   useEffect,
   useLayoutEffect
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 var useEnhancedEffect, useEnhancedEffect_default;
 var init_useEnhancedEffect = __esm({
   "../../node_modules/@mui/utils/esm/useEnhancedEffect.js"() {
@@ -526,7 +526,7 @@ import {
   useEffect as useEffect2,
   useRef,
   useState
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function useControlled({
   controlled,
   default: defaultProp,
@@ -569,7 +569,7 @@ var init_useControlled = __esm({
 import {
   useCallback as useCallback2,
   useRef as useRef2
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function useEventCallback(fn) {
   const ref = useRef2(fn);
   useEnhancedEffect_default(() => {
@@ -586,7 +586,7 @@ var init_useEventCallback = __esm({
 // ../../node_modules/@mui/utils/esm/useForkRef.js
 import {
   useMemo
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function useForkRef(refA, refB) {
   return useMemo(() => {
     if (refA == null && refB == null) {
@@ -608,7 +608,7 @@ var init_useForkRef = __esm({
 import {
   useCallback as useCallback3,
   useRef as useRef3
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function focusTriggersKeyboardModality(node) {
   const {
     type,
@@ -729,7 +729,7 @@ var init_getScrollbarSize = __esm({
 import {
   useEffect as useEffect3,
   useRef as useRef4
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 var usePreviousProps, usePreviousProps_default;
 var init_usePreviousProps = __esm({
   "../../node_modules/@mui/utils/esm/usePreviousProps.js"() {
@@ -1848,7 +1848,7 @@ var init_createTheme2 = __esm({
 // ../../node_modules/@mui/private-theming/useTheme/ThemeContext.js
 import {
   createContext
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 var ThemeContext2, ThemeContext_default;
 var init_ThemeContext = __esm({
   "../../node_modules/@mui/private-theming/useTheme/ThemeContext.js"() {
@@ -1864,7 +1864,7 @@ var init_ThemeContext = __esm({
 import {
   useContext,
   useDebugValue
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function useTheme() {
   const theme = useContext(ThemeContext_default);
   if (true) {
@@ -2470,7 +2470,7 @@ import _extends8 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/exten
 import _objectWithoutPropertiesLoose5 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/objectWithoutPropertiesLoose.js";
 import {
   forwardRef
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes6 from "https://esm.sh/prop-types";
 import { jsx as _jsx } from "https://esm.sh/react/jsx-runtime";
 var _excluded5, useUtilityClasses, BackdropUnstyled, BackdropUnstyled_default;
@@ -2561,7 +2561,7 @@ import _extends9 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/exten
 import _objectWithoutPropertiesLoose6 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/objectWithoutPropertiesLoose.js";
 import {
   forwardRef as forwardRef2
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes7 from "https://esm.sh/prop-types";
 import { jsx as _jsx2 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs } from "https://esm.sh/react/jsx-runtime";
@@ -2745,10 +2745,10 @@ import {
   forwardRef as forwardRef3,
   isValidElement,
   useState as useState2
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import {
   createPortal
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react-dom.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-dom.mjs";
 import PropTypes8 from "https://esm.sh/prop-types";
 function getContainer(container) {
   return typeof container === "function" ? container() : container;
@@ -2992,7 +2992,7 @@ import {
   cloneElement as cloneElement2,
   useEffect as useEffect4,
   useRef as useRef5
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes9 from "https://esm.sh/prop-types";
 import { jsx as _jsx3 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs2 } from "https://esm.sh/react/jsx-runtime";
@@ -3252,7 +3252,7 @@ import {
   useEffect as useEffect5,
   useRef as useRef6,
   useState as useState3
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes10 from "https://esm.sh/prop-types";
 import { jsx as _jsx4 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs3 } from "https://esm.sh/react/jsx-runtime";
@@ -3517,7 +3517,7 @@ var init_sliderUnstyledClasses = __esm({
 import {
   Fragment as Fragment2,
   cloneElement as cloneElement4
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes11 from "https://esm.sh/prop-types";
 import { jsx as _jsx5 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs4 } from "https://esm.sh/react/jsx-runtime";
@@ -3582,7 +3582,7 @@ import {
   useEffect as useEffect6,
   useRef as useRef7,
   useState as useState4
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes12 from "https://esm.sh/prop-types";
 import { jsx as _jsx6 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs5 } from "https://esm.sh/react/jsx-runtime";
@@ -4310,7 +4310,7 @@ import {
   useEffect as useEffect7,
   useRef as useRef8,
   useState as useState5
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function useSwitch(props) {
   const {
     checked: checkedProp,
@@ -4414,7 +4414,7 @@ import _extends14 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/exte
 import _objectWithoutPropertiesLoose9 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/objectWithoutPropertiesLoose.js";
 import {
   forwardRef as forwardRef6
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes13 from "https://esm.sh/prop-types";
 import { jsx as _jsx7 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs6 } from "https://esm.sh/react/jsx-runtime";
@@ -5100,7 +5100,7 @@ var init_defaultTheme = __esm({
 // ../../node_modules/@mui/material/styles/useTheme.js
 import {
   useDebugValue as useDebugValue2
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function useTheme4() {
   const theme = useTheme_default(defaultTheme_default);
   if (true) {
@@ -5182,7 +5182,7 @@ import _extends20 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/exte
 import _objectWithoutPropertiesLoose14 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/objectWithoutPropertiesLoose.js";
 import {
   forwardRef as forwardRef7
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes14 from "https://esm.sh/prop-types";
 import { jsx as _jsx8 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs7 } from "https://esm.sh/react/jsx-runtime";
@@ -5313,7 +5313,7 @@ import _extends21 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/exte
 import {
   forwardRef as forwardRef8,
   memo
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import { jsx as _jsx9 } from "https://esm.sh/react/jsx-runtime";
 function createSvgIcon(path, displayName) {
   const Component = (props, ref) => /* @__PURE__ */ _jsx9(SvgIcon_default, _extends21({
@@ -5482,7 +5482,7 @@ var init_AccordionDetails = __esm({
 import {
   useEffect as useEffect8,
   useState as useState6
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes15 from "https://esm.sh/prop-types";
 import { jsx as _jsx10 } from "https://esm.sh/react/jsx-runtime";
 function Ripple(props) {
@@ -5565,7 +5565,7 @@ import {
   useImperativeHandle,
   useRef as useRef9,
   useState as useState7
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes16 from "https://esm.sh/prop-types";
 import { TransitionGroup } from "https://esm.sh/react-transition-group";
 import { jsx as _jsx11 } from "https://esm.sh/react/jsx-runtime";
@@ -5882,7 +5882,7 @@ import {
   useImperativeHandle as useImperativeHandle2,
   useRef as useRef10,
   useState as useState8
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes17 from "https://esm.sh/prop-types";
 import { jsx as _jsx12 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs8 } from "https://esm.sh/react/jsx-runtime";
@@ -6401,7 +6401,7 @@ import {
   cloneElement as cloneElement5,
   forwardRef as forwardRef11,
   useRef as useRef11
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes18 from "https://esm.sh/prop-types";
 import { Transition } from "https://esm.sh/react-transition-group";
 import { jsx as _jsx13 } from "https://esm.sh/react/jsx-runtime";
@@ -6550,7 +6550,7 @@ import _objectWithoutPropertiesLoose18 from "https://unpkg.com/@babel/runtime@7.
 import _extends25 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/extends.js";
 import {
   forwardRef as forwardRef12
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes19 from "https://esm.sh/prop-types";
 import { jsx as _jsx14 } from "https://esm.sh/react/jsx-runtime";
 var _excluded18, extendUtilityClasses, BackdropRoot, Backdrop, Backdrop_default;
@@ -6668,7 +6668,7 @@ import _objectWithoutPropertiesLoose19 from "https://unpkg.com/@babel/runtime@7.
 import _extends26 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/extends.js";
 import {
   forwardRef as forwardRef13
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes20 from "https://esm.sh/prop-types";
 import { jsx as _jsx15 } from "https://esm.sh/react/jsx-runtime";
 var _excluded19, badgeClasses, RADIUS_STANDARD, RADIUS_DOT, extendUtilityClasses2, BadgeRoot, BadgeBadge, Badge;
@@ -6975,7 +6975,7 @@ import _objectWithoutPropertiesLoose20 from "https://unpkg.com/@babel/runtime@7.
 import _extends27 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/extends.js";
 import {
   forwardRef as forwardRef14
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes21 from "https://esm.sh/prop-types";
 import { jsx as _jsx16 } from "https://esm.sh/react/jsx-runtime";
 import { jsxs as _jsxs9 } from "https://esm.sh/react/jsx-runtime";
@@ -7383,7 +7383,7 @@ var init_CardMedia = __esm({
 // ../../node_modules/@mui/material/FormControl/FormControlContext.js
 import {
   createContext as createContext2
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 var FormControlContext, FormControlContext_default;
 var init_FormControlContext = __esm({
   "../../node_modules/@mui/material/FormControl/FormControlContext.js"() {
@@ -7398,7 +7398,7 @@ var init_FormControlContext = __esm({
 // ../../node_modules/@mui/material/FormControl/useFormControl.js
 import {
   useContext as useContext2
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 function useFormControl() {
   return useContext2(FormControlContext_default);
 }
@@ -7446,7 +7446,7 @@ import {
   cloneElement as cloneElement6,
   useEffect as useEffect11,
   useRef as useRef12
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes22 from "https://esm.sh/prop-types";
 import { jsx as _jsx17 } from "https://esm.sh/react/jsx-runtime";
 function mapEventPropToEvent(eventProp) {
@@ -7610,7 +7610,7 @@ import _extends28 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/exte
 import {
   forwardRef as forwardRef15,
   useState as useState9
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes23 from "https://esm.sh/prop-types";
 import { jsx as _jsx18 } from "https://esm.sh/react/jsx-runtime";
 var _excluded21, extendUtilityClasses3, ModalRoot, ModalBackdrop, Modal;
@@ -7884,7 +7884,7 @@ import _objectWithoutPropertiesLoose22 from "https://unpkg.com/@babel/runtime@7.
 import _extends29 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/extends.js";
 import {
   forwardRef as forwardRef16
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes24 from "https://esm.sh/prop-types";
 import { jsx as _jsx19 } from "https://esm.sh/react/jsx-runtime";
 var _excluded23, useUtilityClasses8, FabRoot, Fab, Fab_default;
@@ -8207,7 +8207,7 @@ import _objectWithoutPropertiesLoose23 from "https://unpkg.com/@babel/runtime@7.
 import _extends30 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/extends.js";
 import {
   forwardRef as forwardRef17
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes25 from "https://esm.sh/prop-types";
 import { jsxs as _jsxs10 } from "https://esm.sh/react/jsx-runtime";
 var _excluded24, useUtilityClasses9, FormLabelRoot, AsteriskComponent, FormLabel;
@@ -8884,7 +8884,7 @@ import _objectWithoutPropertiesLoose24 from "https://unpkg.com/@babel/runtime@7.
 import _extends31 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/extends.js";
 import {
   forwardRef as forwardRef18
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes26 from "https://esm.sh/prop-types";
 import { jsx as _jsx20 } from "https://esm.sh/react/jsx-runtime";
 var _excluded25, sliderClasses, SliderRoot, SliderRail, SliderTrack, SliderThumb, SliderValueLabel, SliderMark, SliderMarkLabel, extendUtilityClasses4, shouldSpreadOwnerState, Slider;
@@ -9845,7 +9845,7 @@ import _objectWithoutPropertiesLoose25 from "https://unpkg.com/@babel/runtime@7.
 import _extends32 from "https://unpkg.com/@babel/runtime@7.15.4/helpers/esm/extends.js";
 import {
   forwardRef as forwardRef19
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import PropTypes27 from "https://esm.sh/prop-types";
 import { jsx as _jsx21 } from "https://esm.sh/react/jsx-runtime";
 var _excluded26, useUtilityClasses10, ToggleButtonRoot, ToggleButton, ToggleButton_default;
@@ -10040,8 +10040,8 @@ import {
   cloneElement as cloneElement7,
   forwardRef as forwardRef20,
   isValidElement as isValidElement2
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
-import { isFragment } from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react-is.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
+import { isFragment } from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-is.mjs";
 import PropTypes28 from "https://esm.sh/prop-types";
 import { jsx as _jsx22 } from "https://esm.sh/react/jsx-runtime";
 var _excluded27, useUtilityClasses11, ToggleButtonGroupRoot, ToggleButtonGroup, ToggleButtonGroup_default;
@@ -11233,10 +11233,10 @@ __export(renderer_exports, {
   render: () => render2
 });
 import * as Motion from "https://unpkg.com/framer-motion@4.1.17/dist/es/index.js";
-import React37, { Fragment as Fragment5 } from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+import React37, { Fragment as Fragment5 } from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import {
   render
-} from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react-dom.mjs";
+} from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-dom.mjs";
 import { css as css2, Global, jsx } from "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js";
 var motion, render2, renderer_default;
 var init_renderer = __esm({
@@ -14688,22 +14688,22 @@ var init_importmap = __esm({
       "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
       "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
       popmotion: "https://unpkg.com/popmotion@10.0.1/dist/es/index.mjs",
-      react: "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs",
-      "react-dom": "https://unpkg.com/@zedvision/esm@14.5.10/dist/react-dom.mjs",
-      "react-is": "https://unpkg.com/@zedvision/esm@14.5.10/dist/react-is.mjs",
+      react: "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs",
+      "react-dom": "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-dom.mjs",
+      "react-is": "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-is.mjs",
       "react-transition-group": "https://esm.sh/react-transition-group",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.5.10/dist/renderer.js",
+      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.6.0/dist/renderer.js",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
-      "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.5.6/dist/QRious.mjs",
+      "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.6.0/dist/QRious.mjs",
       tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.5.10/dist/editor.mjs",
+      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.0/dist/editor.mjs",
       "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.5.6/dist/shaDB.mjs",
+      "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.6.0/dist/shaDB.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
-      "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.5.7/dist/ipfs.client.mjs",
+      "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.6.0/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
     };
     importmap_default = {
@@ -15431,7 +15431,7 @@ async function init2() {
 }
 
 // js/codeLoader.mjs
-import React38 from "https://unpkg.com/@zedvision/esm@14.5.10/dist/react.mjs";
+import React38 from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 
 // ../smart-monaco-editor/dist/editor.mjs
 var getMonaco = async () => {
