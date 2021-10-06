@@ -47,6 +47,12 @@ export async function alterHeaders(response: Response, pathname: string) {
       "content-type",
       "text/css;charset=UTF-8",
     );
+  } else if (pathname.endsWith(".json")) {
+    resp.headers.delete("content-type");
+    resp.headers.set(
+      "content-type",
+      "application/json;charset=UTF-8",
+    );
   } else if (pathname.endsWith(".jpg")) {
     resp.headers.delete("content-type");
     resp.headers.set("content-type", "image/jpeg");

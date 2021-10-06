@@ -315,10 +315,10 @@ async function handleRequest(request: Request): Promise<Response> {
       const req2 = new Request(url.toString());
       const resp = await handleRequest(req2) as unknown as Response;
 
-      if (pathname.slice(1).includes(".json")) {
-        const jsonData = await resp.json();
-        return json(jsonData);
-      }
+      // if (pathname.slice(1).includes(".json")) {
+      //   const jsonData = await resp.json();
+      //   return json(jsonData);
+      // }
 
       return resp;
     }
