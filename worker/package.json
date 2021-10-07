@@ -13,7 +13,7 @@
   "author": "Zoltan Erdos <zoltan.erdos@me.com>",
   "license": "MIT",
   "dependencies": {
-    "@cloudflare/workers-types": "2.2.2",
+    "@cloudflare/workers-types": "https://github.com/cloudflare/workers-types#master",
     "@cloudflare/wrangler": "1.19.3",
     "@zedvision/code": "^14.6.0",
     "@zedvision/ipfs": "^14.6.0",

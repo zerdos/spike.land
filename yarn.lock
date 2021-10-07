@@ -1106,11 +1106,6 @@
     protobufjs "^6.11.2"
     uint8arrays "^3.0.0"
 
-"@cloudflare/workers-types@2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-2.2.2.tgz#1bced16bba801d7af987da835467545bb5cc7ac6"
-  integrity sha512-kaMn2rueJ0PL1TYVGknTCh0X0x0d9G+FNXAFep7/4uqecEZoQb/63o6rOmMuiqI09zLuHV6xhKRXinokV/MY9A==
-
 "@cloudflare/workers-types@https://github.com/cloudflare/workers-types#master":
   version "2021.9.24"
   resolved "https://github.com/cloudflare/workers-types#61c5989211d31f5fc61170327317cdd249b67eea"

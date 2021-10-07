@@ -1,9 +1,7 @@
 import { getDbObj } from "@zedvision/shadb";
-import { js, json, text } from "./utils/handleOptions";
+import { json, text } from "./utils/handleOptions";
 import { v4 } from "uuid";
 import { sha256 } from "@zedvision/shadb";
-
-import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
 import { log } from "./log";
 
 // var SHAKV: KVNamespace;
@@ -210,44 +208,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
           307,
         );
       }
-
-      // if (pathname.slice(0, 6) === "/ipfs/") {
-      //   const cache = caches.default;
-      //   let response = await cache.match(request);
-
-      //   if (!response) {
-      //     //https://ipfs.github.io/public-gateway-checker/gateways.json
-      //     const random5GatewaysFetch = publicIpfsGateways.sort(() =>
-      //       0.5 - Math.random()
-      //     ).slice(0, 8).map((gw: string) => gw.replace("/ipfs/:hash", pathname))
-      //       .map((
-      //         x: string,
-      //       ) =>
-      //         fetch(x).then((res) =>
-      //           res.status === 200 ? res : (() => {
-      //             throw new Error("Not found");
-      //           })()
-      //         )
-      //       );
-      //     try {
-      //       response = await raceToSuccess(random5GatewaysFetch);
-      //       if (typeof response === "undefined") {
-      //         return text("Please try again");
-      //       }
-
-      //       await cache.put(request, response.clone());
-      //     } catch {
-      //       return text("please try again");
-      //     }
-      //   }
-      //   if (response.status > 399) {
-      //     response = new Response(
-      //       response.statusText,
-      //       { status: response.status },
-      //     );
-      //   }
-      //   return response;
-      // }
 
       if (pathname === "/") {
         return Response.redirect(

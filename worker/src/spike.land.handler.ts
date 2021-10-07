@@ -1,18 +1,13 @@
-//@ts-ignore
-
-import { files } from "./files.ts";
+import { files } from "./files";
 import { handleCloudRequest } from "./handler";
 import Hash from "ipfs-only-hash";
 import { js, json, text } from "./utils/responds";
 import { log } from "./log";
 
-//@ts-ignore
-import { shasums } from "./shasums.ts";
+import { shasums } from "./shasums";
 import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
-//@ts-ignore
-import { cid } from "./cid.ts";
-//@ts-ignore
-import { alterHeaders, sha256, sha256UArray } from "./alterHeaders.ts";
+import { cid } from "./cid";
+import { alterHeaders, sha256, sha256UArray } from "./alterHeaders";
 
 export type KV = { [key: string]: string };
 
@@ -34,9 +29,10 @@ Object.keys(fileKV).forEach((k) => {
   }
 });
 
-addEventListener("fetch", (event: FetchEvent) => {
+addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event.request));
 });
+
 /**
  * Respond with hello worker text
  * @param {Request} request}
@@ -69,7 +65,7 @@ async function handleRequest(request: Request): Promise<Response> {
         if (reversePath) url.pathname = `/ipfs/${cid}/${reversePath}`;
 
         const cacheKey = new Request(url.toString());
-        const cache = caches.default;
+        const cache = await caches.open("default");
 
         let response = null;
         try {
@@ -260,7 +256,7 @@ async function handleRequest(request: Request): Promise<Response> {
           const content = await request.text();
           const calculatedCID = await Hash.of(content);
           const contentSHA = await sha256(content);
-          const fileName = reverseSHAKV[contentSHA];
+          const fileName = reverseSHAKV[contentSHA] as keyof typeof files;
           if (fileName) {
             const cid = files[fileName];
             if (cid === maybeCID) {
