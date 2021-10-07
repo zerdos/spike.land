@@ -4,12 +4,6 @@ import { v4 } from "uuid";
 import { sha256 } from "@zedvision/shadb";
 import { log } from "./log";
 
-// var SHAKV: KVNamespace;
-// var USERS: KVNamespace;
-// var LOGS: KVNamespace;
-// var SIGNALS: KVNamespace;
-// var USERKEYS: KVNamespace;
-
 var API_KEY: string;
 
 export async function handleCloudRequest(request: Request): Promise<Response> {
