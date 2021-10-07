@@ -10544,10 +10544,10 @@ var init_QRious = __esm({
       } });
       T2.exports = Se2;
     });
-    I = o((v0, z) => {
+    I = o((v0, z2) => {
       "use strict";
       var ye2 = u(), Ce = ye2.extend(null, { BLOCK: [0, 11, 15, 19, 23, 27, 31, 16, 18, 20, 22, 24, 26, 28, 20, 22, 24, 24, 26, 28, 28, 22, 24, 24, 26, 26, 28, 28, 24, 24, 26, 26, 26, 28, 28, 24, 26, 26, 26, 28, 28] });
-      z.exports = Ce;
+      z2.exports = Ce;
     });
     V = o((d0, P2) => {
       "use strict";
@@ -11260,10 +11260,10 @@ var init_renderer = __esm({
 
 // ../shadb/dist/shaDB.mjs
 function _2() {
-  return W || (W = [IDBDatabase, IDBObjectStore, IDBIndex, IDBCursor, IDBTransaction]);
+  return z || (z = [IDBDatabase, IDBObjectStore, IDBIndex, IDBCursor, IDBTransaction]);
 }
 function ee() {
-  return j2 || (j2 = [IDBCursor.prototype.advance, IDBCursor.prototype.continue, IDBCursor.prototype.continuePrimaryKey]);
+  return W || (W = [IDBCursor.prototype.advance, IDBCursor.prototype.continue, IDBCursor.prototype.continuePrimaryKey]);
 }
 function ne2(n) {
   let e = new Promise((t, r) => {
@@ -11426,7 +11426,7 @@ function Y(n = "defaultStore") {
     } });
   };
 }
-var k, W, j2, C2, D, V2, E, N2, H2, S2, se2, oe2, O2, le2, P, K2, U, X2, ue2, de2, ce, L, T, x, B, Z, G2, Q, He;
+var k, z, W, C2, D, V2, E, N2, H2, S2, se2, oe2, O2, le2, P, K2, U, X2, ue2, de2, ce, L, T, x, B, Z, G2, Q, He;
 var init_shaDB = __esm({
   "../shadb/dist/shaDB.mjs"() {
     k = (n, e) => e.some((t) => n instanceof t);
@@ -11472,12 +11472,12 @@ var init_shaDB = __esm({
         for (var u3 = -1 * l; u3 <= l; u3 += 2) {
           var h2 = void 0, y = d[u3 - 1], m2 = d[u3 + 1], I2 = (m2 ? m2.newPos : 0) - u3;
           y && (d[u3 - 1] = void 0);
-          var M3 = y && y.newPos + 1 < f, z = m2 && 0 <= I2 && I2 < a;
-          if (!M3 && !z) {
+          var M3 = y && y.newPos + 1 < f, j2 = m2 && 0 <= I2 && I2 < a;
+          if (!M3 && !j2) {
             d[u3] = void 0;
             continue;
           }
-          if (!M3 || z && y.newPos < m2.newPos ? (h2 = fe(m2), s.pushComponent(h2.components, void 0, true)) : (h2 = y, h2.newPos++, s.pushComponent(h2.components, true, void 0)), I2 = s.extractCommon(h2, t, e, u3), h2.newPos + 1 >= f && I2 + 1 >= a)
+          if (!M3 || j2 && y.newPos < m2.newPos ? (h2 = fe(m2), s.pushComponent(h2.components, void 0, true)) : (h2 = y, h2.newPos++, s.pushComponent(h2.components, true, void 0)), I2 = s.extractCommon(h2, t, e, u3), h2.newPos + 1 >= f && I2 + 1 >= a)
             return o2(ae(s, h2.components, t, e, s.useLongestToken));
           d[u3] = h2;
         }
@@ -11722,9 +11722,9 @@ function ro(r, e) {
     for (var v = 0, C3 = 0, S3 = 0, A2 = d.length; S3 !== A2 && d[S3] === 0; )
       S3++, v++;
     for (var y = (A2 - S3) * l + 1 >>> 0, g = new Uint8Array(y); S3 !== A2; ) {
-      for (var z = d[S3], T2 = 0, D2 = y - 1; (z !== 0 || T2 < C3) && D2 !== -1; D2--, T2++)
-        z += 256 * g[D2] >>> 0, g[D2] = z % b >>> 0, z = z / b >>> 0;
-      if (z !== 0)
+      for (var z2 = d[S3], T2 = 0, D2 = y - 1; (z2 !== 0 || T2 < C3) && D2 !== -1; D2--, T2++)
+        z2 += 256 * g[D2] >>> 0, g[D2] = z2 % b >>> 0, z2 = z2 / b >>> 0;
+      if (z2 !== 0)
         throw new Error("Non-zero carry");
       C3 = T2, S3++;
     }
@@ -11747,11 +11747,11 @@ function ro(r, e) {
         var g = t[d.charCodeAt(v)];
         if (g === 255)
           return;
-        for (var z = 0, T2 = A2 - 1; (g !== 0 || z < S3) && T2 !== -1; T2--, z++)
+        for (var z2 = 0, T2 = A2 - 1; (g !== 0 || z2 < S3) && T2 !== -1; T2--, z2++)
           g += b * y[T2] >>> 0, y[T2] = g % 256 >>> 0, g = g / 256 >>> 0;
         if (g !== 0)
           throw new Error("Non-zero carry");
-        S3 = z, v++;
+        S3 = z2, v++;
       }
       if (d[v] !== " ") {
         for (var D2 = A2 - S3; D2 !== A2 && y[D2] === 0; )
@@ -12855,32 +12855,32 @@ if (cid) {
     });
     It = h((W0, Bn) => {
       "use strict";
-      Bn.exports = j3;
+      Bn.exports = j2;
       var G3 = ne3(), Bt, Cn = G3.LongBits, Lo = G3.utf8;
       function P2(r, e) {
         return RangeError("index out of range: " + r.pos + " + " + (e || 1) + " > " + r.len);
       }
-      function j3(r) {
+      function j2(r) {
         this.buf = r, this.pos = 0, this.len = r.length;
       }
       var zn = typeof Uint8Array != "undefined" ? function(e) {
         if (e instanceof Uint8Array || Array.isArray(e))
-          return new j3(e);
+          return new j2(e);
         throw Error("illegal buffer");
       } : function(e) {
         if (Array.isArray(e))
-          return new j3(e);
+          return new j2(e);
         throw Error("illegal buffer");
       }, Nn = function() {
         return G3.Buffer ? function(t) {
-          return (j3.create = function(i) {
+          return (j2.create = function(i) {
             return G3.Buffer.isBuffer(i) ? new Bt(i) : zn(i);
           })(t);
         } : zn;
       };
-      j3.create = Nn();
-      j3.prototype._slice = G3.Array.prototype.subarray || G3.Array.prototype.slice;
-      j3.prototype.uint32 = function() {
+      j2.create = Nn();
+      j2.prototype._slice = G3.Array.prototype.subarray || G3.Array.prototype.slice;
+      j2.prototype.uint32 = function() {
         var e = 4294967295;
         return function() {
           if (e = (this.buf[this.pos] & 127) >>> 0, this.buf[this.pos++] < 128 || (e = (e | (this.buf[this.pos] & 127) << 7) >>> 0, this.buf[this.pos++] < 128) || (e = (e | (this.buf[this.pos] & 127) << 14) >>> 0, this.buf[this.pos++] < 128) || (e = (e | (this.buf[this.pos] & 127) << 21) >>> 0, this.buf[this.pos++] < 128) || (e = (e | (this.buf[this.pos] & 15) << 28) >>> 0, this.buf[this.pos++] < 128))
@@ -12890,10 +12890,10 @@ if (cid) {
           return e;
         };
       }();
-      j3.prototype.int32 = function() {
+      j2.prototype.int32 = function() {
         return this.uint32() | 0;
       };
-      j3.prototype.sint32 = function() {
+      j2.prototype.sint32 = function() {
         var e = this.uint32();
         return e >>> 1 ^ -(e & 1) | 0;
       };
@@ -12928,18 +12928,18 @@ if (cid) {
           }
         throw Error("invalid varint encoding");
       }
-      j3.prototype.bool = function() {
+      j2.prototype.bool = function() {
         return this.uint32() !== 0;
       };
       function Xe(r, e) {
         return (r[e - 4] | r[e - 3] << 8 | r[e - 2] << 16 | r[e - 1] << 24) >>> 0;
       }
-      j3.prototype.fixed32 = function() {
+      j2.prototype.fixed32 = function() {
         if (this.pos + 4 > this.len)
           throw P2(this, 4);
         return Xe(this.buf, this.pos += 4);
       };
-      j3.prototype.sfixed32 = function() {
+      j2.prototype.sfixed32 = function() {
         if (this.pos + 4 > this.len)
           throw P2(this, 4);
         return Xe(this.buf, this.pos += 4) | 0;
@@ -12949,29 +12949,29 @@ if (cid) {
           throw P2(this, 8);
         return new Cn(Xe(this.buf, this.pos += 4), Xe(this.buf, this.pos += 4));
       }
-      j3.prototype.float = function() {
+      j2.prototype.float = function() {
         if (this.pos + 4 > this.len)
           throw P2(this, 4);
         var e = G3.float.readFloatLE(this.buf, this.pos);
         return this.pos += 4, e;
       };
-      j3.prototype.double = function() {
+      j2.prototype.double = function() {
         if (this.pos + 8 > this.len)
           throw P2(this, 4);
         var e = G3.float.readDoubleLE(this.buf, this.pos);
         return this.pos += 8, e;
       };
-      j3.prototype.bytes = function() {
+      j2.prototype.bytes = function() {
         var e = this.uint32(), t = this.pos, n = this.pos + e;
         if (n > this.len)
           throw P2(this, e);
         return this.pos += e, Array.isArray(this.buf) ? this.buf.slice(t, n) : t === n ? new this.buf.constructor(0) : this._slice.call(this.buf, t, n);
       };
-      j3.prototype.string = function() {
+      j2.prototype.string = function() {
         var e = this.bytes();
         return Lo.read(e, 0, e.length);
       };
-      j3.prototype.skip = function(e) {
+      j2.prototype.skip = function(e) {
         if (typeof e == "number") {
           if (this.pos + e > this.len)
             throw P2(this, e);
@@ -12983,7 +12983,7 @@ if (cid) {
           while (this.buf[this.pos++] & 128);
         return this;
       };
-      j3.prototype.skipType = function(r) {
+      j2.prototype.skipType = function(r) {
         switch (r) {
           case 0:
             this.skip();
@@ -13006,10 +13006,10 @@ if (cid) {
         }
         return this;
       };
-      j3._configure = function(r) {
-        Bt = r, j3.create = Nn(), Bt._configure();
+      j2._configure = function(r) {
+        Bt = r, j2.create = Nn(), Bt._configure();
         var e = G3.Long ? "toLong" : "toNumber";
-        G3.merge(j3.prototype, { int64: function() {
+        G3.merge(j2.prototype, { int64: function() {
           return _t5.call(this)[e](false);
         }, uint64: function() {
           return _t5.call(this)[e](true);
@@ -13141,11 +13141,11 @@ if (cid) {
           for (var d = 0, v = 0, C3 = 0, S3 = k2.length; C3 !== S3 && k2[C3] === 0; )
             C3++, d++;
           for (var A2 = (S3 - C3) * c2 + 1 >>> 0, y = new Uint8Array(A2); C3 !== S3; ) {
-            for (var g = k2[C3], z = 0, T2 = A2 - 1; (g !== 0 || z < v) && T2 !== -1; T2--, z++)
+            for (var g = k2[C3], z2 = 0, T2 = A2 - 1; (g !== 0 || z2 < v) && T2 !== -1; T2--, z2++)
               g += 256 * y[T2] >>> 0, y[T2] = g % o2 >>> 0, g = g / o2 >>> 0;
             if (g !== 0)
               throw new Error("Non-zero carry");
-            v = z, C3++;
+            v = z2, C3++;
           }
           for (var D2 = A2 - v; D2 !== A2 && y[D2] === 0; )
             D2++;
@@ -13166,8 +13166,8 @@ if (cid) {
               var y = e[k2.charCodeAt(d)];
               if (y === 255)
                 return;
-              for (var g = 0, z = S3 - 1; (y !== 0 || g < C3) && z !== -1; z--, g++)
-                y += o2 * A2[z] >>> 0, A2[z] = y % 256 >>> 0, y = y / 256 >>> 0;
+              for (var g = 0, z2 = S3 - 1; (y !== 0 || g < C3) && z2 !== -1; z2--, g++)
+                y += o2 * A2[z2] >>> 0, A2[z2] = y % 256 >>> 0, y = y / 256 >>> 0;
               if (y !== 0)
                 throw new Error("Non-zero carry");
               C3 = g, d++;
@@ -13255,7 +13255,7 @@ if (cid) {
       } });
       si.exports = { rfc4648: ta };
     });
-    li = h((j22, bi) => {
+    li = h((j2, bi) => {
       "use strict";
       var Oe = ei(), ra = ii(), { rfc4648: B2 } = oi(), { decodeText: na, encodeText: ia } = Ye(), sa = () => ({ encode: na, decode: ia }), ai = [["identity", "\0", sa, ""], ["base2", "0", B2(1), "01"], ["base8", "7", B2(3), "01234567"], ["base10", "9", Oe, "0123456789"], ["base16", "f", B2(4), "0123456789abcdef"], ["base16upper", "F", B2(4), "0123456789ABCDEF"], ["base32hex", "v", B2(5), "0123456789abcdefghijklmnopqrstuv"], ["base32hexupper", "V", B2(5), "0123456789ABCDEFGHIJKLMNOPQRSTUV"], ["base32hexpad", "t", B2(5), "0123456789abcdefghijklmnopqrstuv="], ["base32hexpadupper", "T", B2(5), "0123456789ABCDEFGHIJKLMNOPQRSTUV="], ["base32", "b", B2(5), "abcdefghijklmnopqrstuvwxyz234567"], ["base32upper", "B", B2(5), "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"], ["base32pad", "c", B2(5), "abcdefghijklmnopqrstuvwxyz234567="], ["base32padupper", "C", B2(5), "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567="], ["base32z", "h", B2(5), "ybndrfg8ejkmcpqxot1uwisza345h769"], ["base36", "k", Oe, "0123456789abcdefghijklmnopqrstuvwxyz"], ["base36upper", "K", Oe, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"], ["base58btc", "z", Oe, "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"], ["base58flickr", "Z", Oe, "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"], ["base64", "m", B2(6), "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"], ["base64pad", "M", B2(6), "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="], ["base64url", "u", B2(6), "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"], ["base64urlpad", "U", B2(6), "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_="]], ci = ai.reduce((r, e) => (r[e[0]] = new ra(e[0], e[1], e[2], e[3]), r), {}), oa = ai.reduce((r, e) => (r[e[1]] = ci[e[0]], r), {});
       bi.exports = { names: ci, codes: oa };

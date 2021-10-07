@@ -1,4 +1,4 @@
-import { json } from "@responds";
+import { json } from "../utils/responds";
 export async function logs() {
   const list = await LOGS.list({ limit: 100 });
   const dates = await Promise.all(

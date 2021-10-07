@@ -4,12 +4,13 @@
   "description": "db layer top on idb",
   "sideEffects": false,
   "main": "./dist/shaDB.mjs",
+  "typings": "./dist/shaDB.d.ts",
   "exports": {
     "import": "./dist/shaDB.mjs"
   },
   "scripts": {
-    "build": " esbuild --bundle --tree-shaking=true --minify --target=es2020 src/shaDB.js --format=esm  --outfile=./dist/shaDB.mjs",
-    "clean": "rm -rf dist && mkdir dist && yarn build"
+    "build": "yarn tsc -d && esbuild --bundle --tree-shaking=true --minify --target=es2020 src/shaDB.js --format=esm  --outfile=./dist/shaDB.mjs",
+    "clean": "rm -rf dist && mkdir dist && yarn tsc -d && yarn build"
   },
   "keywords": [
     "diff"

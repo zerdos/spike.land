@@ -2,7 +2,7 @@
 import { openDB } from "idb";
 import { getDbObj } from "./getDbObj.js";
 import { sha256 } from "./sha256.js";
-import { diff } from "./diff";
+import { diff } from "./diff.js";
 
 export { sha256 };
 export { diff };
