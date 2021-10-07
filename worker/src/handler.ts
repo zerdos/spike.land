@@ -163,25 +163,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
         return json({ uuid, key: uuidHash });
       }
 
-      // if (pathname === "/uuids"){
-      //   const list = await LOGS.list();
-
-      //   const work = list.keys.map( x=>x.name).map(async(uuid)=>{
-      //     // if (uuid.length === 8) {
-      //     //     await USERS.delete(uuid)
-      //     // }
-
-      //     // const hash=await sha256(uuid);
-      //     // const hashHash = await sha256(hash)
-      //     await LOGS.delete(uuid);
-      //   });
-
-      // await Promise.all(work);
-
-      // return json({uuids: list.keys});
-
-      // }
-
       if (pathname === "/create-project") {
         const uuidHash = request.headers.get("TOKEN");
         const uuid = v4();
@@ -197,12 +178,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
             x < "0" || x > "f"
           ).length === 0 && maybeRoute.length === 8;
       if (maybeRoute && isKey) {
-        // const shaDB = getDbObj(SHAKV);
-        // const result = (await shaDB.get(maybeRoute)) as string | null;
-        // if (result !== null) {
-        //   if (result.indexOf("export") === 0) return js(result);
-        //   return text(result);
-        // }
         return Response.redirect(
           `https://spike.land/?signalToQr=${maybeRoute}`,
           307,
@@ -225,14 +200,6 @@ export async function handleCloudRequest(request: Request): Promise<Response> {
 
       return text(pathname);
     } else if (request.method === "POST") {
-      // if (pathname==="/add"){
-
-      //     const ipfNode = await ipfs.create({})
-      //     // const {cid} =  await ipfs.add("Jtraraaallleeds")
-      //     return text("helllo")
-
-      // }
-
       const zkey = String(request.headers.get("ZKEY") || "");
 
       const sha = zkey.slice(0, 8);
