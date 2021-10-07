@@ -1,4 +1,5 @@
-import importmapJson from './importmap.json' assert { type: 'json' };
+
+import importmapJson from './importmap.json';
 /**
  * @param {{html: string, css: string}} opts
  * @returns  {string}

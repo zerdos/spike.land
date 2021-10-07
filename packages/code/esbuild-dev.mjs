@@ -1,6 +1,5 @@
 import esbuild from "esbuild"
 
-
 import * as importMap from "esbuild-plugin-import-map";
 
 import jsonData from './js/importmap.json'
@@ -21,12 +20,11 @@ esbuild.build({
     entryPoints: ['js/codeLoader.mjs'],
     bundle: true,
     format: 'esm',
-    minify: false,
+    minify: true,
     treeShaking: true,
-    target: "browser",
-    sourcemap: false,
+    sourcemap: true,
     resolveExtensions: [".tsx",".ts",".jsx",".js",".css",".json",".mjs"],
     target: ['es2018'],
     plugins: [importMap.plugin()],
     outfile: 'dev.mjs',
-}).catch(() => process.exit(1))
+}).catch(() => self.process.exit(1))

@@ -1,4 +1,6 @@
 export const shasums = {
+  "dev.mjs.map":
+    "850d82ee962ee561ee5bae4c2c25869ab08b37d1b0dc5f60eb01a1b485335ad4",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -21,10 +23,10 @@ export const shasums = {
   "assets/triangle-geometry.png":
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
-    "881eb8c56e28f9912b1db4f8c156cdf9ea54f421ff59a51ef49dcdbaee49390b",
-  "dev.mjs": "10bd1117dcc70f11d0f03780be44cf1384ec5809e7c0781aa229a2ee884eb1a9",
+    "c95199f8ab5ad49fc80c31081667cf25199c6d51a7e5cee68e123a1bb53c5003",
+  "dev.mjs": "56d54b82ae354c4beab9113001f1f5ac8c3983f5493d965574694054ca008efd",
   "build.mjs":
-    "887d0865987939f290333b59d8068bdf012808316d92e361e05c2890b9e2f6e6",
+    "6240d4697f790615b1a0f5e18f9e6d5f3b8f6abbcc205e76d8ec35328c506197",
   "index.html":
     "3bd85de1949b843ec345f63fb2dc49c6c1d1dddaf4e0ea7d593d461f0e983e92",
   "esbuild.mjs":
@@ -40,6 +42,8 @@ export const shasums = {
     "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "js/codeLoader.mjs":
     "1af9ee1c0f4abf78d9014e9cbe37307333b11e475fbadeddcacac04ad34be209",
+  "js/templates.ts":
+    "f14d1fd6cc753eac533de939f37bb9d49331895e9794ed012d67286e53c087a1",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
@@ -49,7 +53,7 @@ export const shasums = {
   "js/importmap.json":
     "d77943438be3b7fb27e35c88ef9ca37cc13c7a2fe3d0c30a1d3bf37d5f6df9fd",
   "js/share.mjs":
-    "794332dc3aa089e814935cc5fb71fd52729fd3e5e7d56a8db4deb760461adaba",
+    "a5a44738685d0c505d6348dbe9b80f5fe58a2b5197a068c56664d4cafa688e90",
   "js/data.mjs":
     "8fa7883ec75878efb0834716ddf4e7f0c3793d7eef52c2d6711293b74954ffa7",
   "js/sendSignalToQrCode.mjs":
@@ -80,8 +84,6 @@ export const shasums = {
     "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/starter.js":
     "c531aa20ba188ef225b2006b3076701a7d3656f77313a8387795b1578aae35d2",
-  "js/templates.mjs":
-    "f1ce0dbf4b4e376d78fe67b256d46ce3b8eb35391070b1ab7f1b2e8e8cfa7b2e",
   "js/openWindows.mjs":
     "308332123d3e6aa68d0bc691e70925b3c646e0a1b2a9a39b7b5c5acde3a61cec",
   "js/transpile.mjs":

@@ -324,7 +324,7 @@ var init_importmap = __esm({
   }
 });
 
-// js/templates.mjs
+// js/templates.ts
 var templates_exports = {};
 __export(templates_exports, {
   getEditorHTML: () => getEditorHTML,
@@ -385,7 +385,7 @@ ${JSON.stringify(importmap_default)}
 }
 var getEditorHTML;
 var init_templates = __esm({
-  "js/templates.mjs"() {
+  "js/templates.ts"() {
     init_importmap();
     getEditorHTML = () => `<!DOCTYPE html>
 <html lang="en">
