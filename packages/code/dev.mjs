@@ -1102,8 +1102,8 @@ var init_spacing = __esm({
       const direction = directions[b] || "";
       return Array.isArray(direction) ? direction.map((dir) => property + dir) : [property + direction];
     });
-    marginKeys = ["m", "mt", "mr", "mb", "ml", "mx", "my", "margin", "marginTop", "marginRight", "marginBottom", "marginLeft", "marginX", "marginY"];
-    paddingKeys = ["p", "pt", "pr", "pb", "pl", "px", "py", "padding", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "paddingX", "paddingY"];
+    marginKeys = ["m", "mt", "mr", "mb", "ml", "mx", "my", "margin", "marginTop", "marginRight", "marginBottom", "marginLeft", "marginX", "marginY", "marginInline", "marginInlineStart", "marginInlineEnd", "marginBlock", "marginBlockStart", "marginBlockEnd"];
+    paddingKeys = ["p", "pt", "pr", "pb", "pl", "px", "py", "padding", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "paddingX", "paddingY", "paddingInline", "paddingInlineStart", "paddingInlineEnd", "paddingBlock", "paddingBlockStart", "paddingBlockEnd"];
     spacingKeys = [...marginKeys, ...paddingKeys];
     margin.propTypes = true ? marginKeys.reduce((obj, key) => {
       obj[key] = responsivePropType_default;
@@ -4157,9 +4157,9 @@ var init_SliderUnstyled = __esm({
             children: [/* @__PURE__ */ _jsx6(Mark, _extends12({
               "data-index": index
             }, markProps, !isHostComponent_default(Mark) && {
-              ownerState: _extends12({}, ownerState, markProps.ownerState)
+              ownerState: _extends12({}, ownerState, markProps.ownerState),
+              markActive
             }, {
-              markActive,
               style: _extends12({}, style3, markProps.style),
               className: clsx_m_default(classes.mark, markProps.className, markActive && classes.markActive)
             })), mark.label != null ? /* @__PURE__ */ _jsx6(MarkLabel, _extends12({
@@ -6413,7 +6413,7 @@ var init_Fade = __esm({
     init_useTheme4();
     init_utils3();
     init_useForkRef2();
-    _excluded17 = ["appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
+    _excluded17 = ["addEndListener", "appear", "children", "easing", "in", "onEnter", "onEntered", "onEntering", "onExit", "onExited", "onExiting", "style", "timeout", "TransitionComponent"];
     styles = {
       entering: {
         opacity: 1
@@ -6428,6 +6428,7 @@ var init_Fade = __esm({
     };
     Fade = /* @__PURE__ */ forwardRef11(function Fade2(props, ref) {
       const {
+        addEndListener,
         appear = true,
         children,
         easing: easing2,
@@ -6490,6 +6491,11 @@ var init_Fade = __esm({
         }
       });
       const handleExited = normalizedTransitionCallback(onExited);
+      const handleAddEndListener = (next) => {
+        if (addEndListener) {
+          addEndListener(nodeRef.current, next);
+        }
+      };
       return /* @__PURE__ */ _jsx13(TransitionComponent, _extends24({
         appear,
         in: inProp,
@@ -6500,6 +6506,7 @@ var init_Fade = __esm({
         onExit: handleExit,
         onExited: handleExited,
         onExiting: handleExiting,
+        addEndListener: handleAddEndListener,
         timeout
       }, other, {
         children: (state, childProps) => {
@@ -6514,6 +6521,7 @@ var init_Fade = __esm({
       }));
     });
     true ? Fade.propTypes = {
+      addEndListener: PropTypes18.func,
       appear: PropTypes18.bool,
       children: elementAcceptingRef_default,
       easing: PropTypes18.oneOfType([PropTypes18.shape({
@@ -15881,7 +15889,7 @@ export {
   render2 as render,
   run
 };
-/** @license MUI v5.0.0-alpha.49
+/** @license MUI v5.0.0-alpha.50
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -15891,7 +15899,7 @@ export {
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/** @license MUI v5.0.2
+/** @license MUI v5.0.3
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.

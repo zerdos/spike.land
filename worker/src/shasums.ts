@@ -22,7 +22,7 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
     "881eb8c56e28f9912b1db4f8c156cdf9ea54f421ff59a51ef49dcdbaee49390b",
-  "dev.mjs": "a1ec2d30a8cf4e7f46d5a0faee6f55ada0e6aec25b7e2b41e0b6cf5b327003b0",
+  "dev.mjs": "76239509f88ab1d9b9bafc1ae0f4b08ce24190fdd74f52dd2fddefa2afba1363",
   "build.mjs":
     "cc4ca7ce76c56a4a2bcf7040d29c693b0d7439f1df710b25995397122f2bee65",
   "index.html":
