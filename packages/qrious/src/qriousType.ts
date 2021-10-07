@@ -1,5 +1,4 @@
-declare module "qrious-core" {
-  interface IQROptions {
+interface IQROptions {
     element: HTMLCanvasElement;
     size: number;
     foregroundAlpha: number;
@@ -8,10 +7,11 @@ declare module "qrious-core" {
     backgroundAlpha: number;
     background: string;
     value: string;
-  }
-  export class QRious {
-    constructor(opts: IQROptions);
+}
+
+export interface IQRious {
+    constructor: (opts: IQROptions)=>{}
+    use: (BrowserElementService:any)=>{}
     value: string;
     get: () => IQROptions;
   }
-}

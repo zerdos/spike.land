@@ -16,7 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import QRious from "qrious-core";
+//@ts-ignore
+import qr from "qrious-core";
 import BrowserElementService from "./service/element/BrowserElementService";
+const QRious = qr;
 QRious.use(new BrowserElementService());
 export { QRious };

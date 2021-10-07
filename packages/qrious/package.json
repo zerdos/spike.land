@@ -30,16 +30,14 @@
   },
   "devDependencies": {
     "esbuild": "0.13.4",
-    "typescript": "4.4.3"
+    "qrious-core": "4.0.0",
+    "typescript": "4.5.0-beta"
   },
-  "dependencies": {
-    "qrious-core": "4.0.0"
-  },
-  "typings": "dist/QRious.d.ts",
-  "source": "src/QRious.tsx",
-  "main": "dist/QRious.mjs",
+  "typings": "./dist/QRious.d.ts",
+  "source": "./src/QRious.tsx",
+  "main": "./dist/QRious.mjs",
   "scripts": {
-    "build": "yarn esbuild --loader:.css=text --bundle --minify  --target=es2017 --format=esm --platform=browser --outfile=dist/QRious.mjs  src/QRious.js",
+    "build": "esbuild --loader:.css=text --bundle --minify  --target=es2018 --format=esm --platform=browser --outfile=dist/QRious.mjs  src/QRious.ts",
     "clean": "rm -rf dist && yarn tsc"
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"

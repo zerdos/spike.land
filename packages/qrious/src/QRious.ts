@@ -17,9 +17,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QRious from "qrious-core";
+import type { IQRious } from "./qriousType"
+//@ts-ignore
+import qr from "qrious-core";
 import BrowserElementService from "./service/element/BrowserElementService";
 
+const QRious: IQRious = qr;
 QRious.use(new BrowserElementService());
 
 export { QRious };
