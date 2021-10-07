@@ -305,7 +305,7 @@ var init_importmap = __esm({
       "react-is": "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-is.mjs",
       "react-transition-group": "https://esm.sh/react-transition-group",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.6.0/dist/renderer.js",
+      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.6.1/dist/renderer.js",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
       "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.6.0/dist/QRious.mjs",
@@ -313,7 +313,7 @@ var init_importmap = __esm({
       "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.0/dist/editor.mjs",
       "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
-      "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.6.0/dist/shaDB.mjs",
+      "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.6.1/dist/shaDB.mjs",
       comlink: "https://unpkg.com/comlink@4.3.1/dist/esm/comlink.mjs",
       "@zedvision/ipfs": "https://unpkg.com/@zedvision/ipfs@14.6.0/dist/ipfs.client.mjs",
       "workbox-window": "https://unpkg.com/workbox-window@6.3.0/build/workbox-window.prod.es5.mjs"
@@ -422,7 +422,7 @@ var share_exports = {};
 __export(share_exports, {
   shareItAsHtml: () => shareItAsHtml
 });
-import { sha256, shaDB } from "https://unpkg.com/@zedvision/shadb@14.6.0/dist/shaDB.mjs";
+import { sha256, shaDB } from "https://unpkg.com/@zedvision/shadb@14.6.1/dist/shaDB.mjs";
 async function addAll(files) {
   try {
     const res = await all(ipfsClient.addAll(files));
@@ -594,7 +594,7 @@ var require_v4 = __commonJS({
 });
 
 // js/data.mjs
-import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@zedvision/shadb@14.6.0/dist/shaDB.mjs";
+import { sha256 as sha2562, shaDB as shaDB2 } from "https://unpkg.com/@zedvision/shadb@14.6.1/dist/shaDB.mjs";
 async function getUserId() {
   if (uuid)
     return uuid;
@@ -846,7 +846,7 @@ __export(sendSignalToQrCode_exports, {
   getZkey: () => getZkey,
   sendSignalToQrCode: () => sendSignalToQrCode
 });
-import { sha256 as sha2563 } from "https://unpkg.com/@zedvision/shadb@14.6.0/dist/shaDB.mjs";
+import { sha256 as sha2563 } from "https://unpkg.com/@zedvision/shadb@14.6.1/dist/shaDB.mjs";
 async function sendSignalToQrCode(session) {
   const { searchParams } = new URL(window.location.href);
   const maybeRoute = searchParams.get("signalToQr") || "";
@@ -883,7 +883,7 @@ async function renderPreviewWindow(session) {
     DraggableWindow: DraggableWindow2,
     jsx: jsx3,
     render: render2
-  } = await import("https://unpkg.com/@zedvision/renderer@14.6.0/dist/renderer.js");
+  } = await import("https://unpkg.com/@zedvision/renderer@14.6.1/dist/renderer.js");
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
@@ -1052,7 +1052,7 @@ import {
   DraggableWindow,
   jsx as jsx2,
   render
-} from "https://unpkg.com/@zedvision/renderer@14.6.0/dist/renderer.js";
+} from "https://unpkg.com/@zedvision/renderer@14.6.1/dist/renderer.js";
 function getSession() {
   const session = {
     i: 0,
