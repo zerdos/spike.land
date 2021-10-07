@@ -61,13 +61,13 @@ export const shasums = {
   "js/renderPreviewWindow.mjs":
     "cae34032f44438f8cf6873ac1ba408080c2a7ba02241b3d3659fc103a8922c8e",
   "js/workers/transpile.worker.js":
-    "ac9754a26f0bc4c2c936f1df7586afec6249bf6593977a3bdd74c73109acbd44",
+    "fd83999a3b16c8fb07b509301facea7d0cf8d8fa31ed6c0d922f6330b017460a",
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
     "c3037f8925aa7e4473fa053539be93fa2874cc1bfeadd7d62d712b765ab81d16",
   "js/workers/prettierWorker.js":
-    "99c533cdc17634766e5c94a4839aa8be9272b7acb2ea69cd08e3a822d957924c",
+    "ab1b1322fcd8db3b39496b25b59a6078f15b5ad7c14b1eb4202f21404260d356",
   "js/workboxLoader.mjs":
     "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
   "js/ipfsClient.mjs":
