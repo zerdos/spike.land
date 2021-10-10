@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "yarn tsc -d && esbuild --bundle --tree-shaking=true --minify --target=es2020 src/shaDB.js --format=esm  --outfile=./dist/shaDB.mjs",
-    "clean": "rm -rf dist && mkdir dist && yarn tsc -d && yarn build"
+    "clean": "rm -rf dist tsconfig.tsbuildinfo && mkdir dist && yarn tsc -d && yarn build"
   },
   "keywords": [
     "diff"

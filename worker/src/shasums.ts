@@ -1,6 +1,6 @@
 export const shasums = {
   "dev.mjs.map":
-    "23c7fe22b6bd2c160df8eb61ff9251626a9857383971d8ec8101b5a4afb278d3",
+    "f684bb6b27230ae97b409af92e4635fc13b7a48d16683bc3adfb108171586c13",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -24,7 +24,7 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
     "c95199f8ab5ad49fc80c31081667cf25199c6d51a7e5cee68e123a1bb53c5003",
-  "dev.mjs": "27e7c1f844a66065210ff57c2b2e8a5f03771028d47028b6b880acae89b0b0ac",
+  "dev.mjs": "b6870f0c597c82d6e21b2c9141aa7324e2e5ffe9db1061b24c2b09b15a8943f5",
   "build.mjs":
     "6240d4697f790615b1a0f5e18f9e6d5f3b8f6abbcc205e76d8ec35328c506197",
   "index.html":

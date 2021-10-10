@@ -10,8 +10,8 @@
 "assets/triangle-geometry.png": "QmZ5Nic3MRHT8m9SY5ZrSp38UHGEYmJqgk4RAmDV3xXqa1",
 "assets/zed-icon-big.png": "QmeHY7RZzR5wm9ELZr5xgq6XMQKjRAHgmxoQaCzHjgpRm8",
 "build.mjs": "QmVtjjGwUgbCyDSvRzZymghKu46XfGr3ScQHsvgHCX5hJi",
-"dev.mjs": "QmazKivxBtXycNntwfZYQXu1wBYDLCP6BujBJn4wxXYHj1",
-"dev.mjs.map": "QmaYG8HHEYGGEKuNgPncKAwca6BWmns4jPzQSWKd2Kn3Jc",
+"dev.mjs": "QmenwP3GiiPyvi581jhS5Kpjx1v2tbfyw7XVQULA3rUow7",
+"dev.mjs.map": "QmeS8gmb1VPUPU7uVAMnvWCGT919RXWvu8EeVt2RCS2HLD",
 "edit/index.html": "QmfXTNa9t9Yi9mcrrK9Y8fi6yfSzJ89XxCmGShH1CyZjFX",
 "esbuild-dev.mjs": "QmbfgiqxCgRUf74iCDsSiACipM24LmaVxdTP8s7dGifZcL",
 "esbuild.mjs": "QmURcQLkSmycrsKAaMNcWP1sMWgfwzxuTD9S95nbj2fLJB",
@@ -57,5 +57,5 @@
 "modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
 "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
 "scripts": "QmPDNRUoFBTGTmEDJBxKtMt8kPa99yKNByGthZqWiqGA1J",
-"": "QmX9VARJguZyKWEa66E8hefqxEoit59w5cFXaeKBtUw1cM",
+"": "QmXnyvrmsKFZLwrUhu4fm8u95bj4Fux92KsxddypF9MyzW",
  "foo":"bar" }

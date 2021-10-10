@@ -35,6 +35,6 @@
   },
   "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3",
   "dependencies": {
-    "monaco-editor": "0.28.1"
+    "monaco-editor": "0.29.0"
   }
 }
