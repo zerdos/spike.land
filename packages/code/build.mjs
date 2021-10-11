@@ -310,7 +310,7 @@ var init_importmap = __esm({
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
       "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.6.3/dist/QRious.mjs",
       tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.2/dist/editor.mjs",
+      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.3/dist/editor.mjs",
       "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
       "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.6.3/dist/shaDB.mjs",
@@ -1046,7 +1046,7 @@ async function init2() {
 init_ipfsClient();
 init_data();
 import React from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
-import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.2/dist/editor.mjs";
+import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.3/dist/editor.mjs";
 import { jsx } from "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js";
 import {
   DraggableWindow,
