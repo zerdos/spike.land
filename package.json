@@ -34,7 +34,7 @@
     "workbox-window": "6.3.0"
   },
   "devDependencies": {
-    "axios": "0.22.0",
+    "axios": "0.23.0",
     "console-log-json": "2.8.0",
     "csstype": "3.0.9",
     "eslint-plugin-react": "7.26.1",
