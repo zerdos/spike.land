@@ -678,7 +678,6 @@ var init_data = __esm({
       let appHash = null;
       if (userData && userData.signal) {
         return userData.signal;
-        shaDB2;
       }
       if (typeof userData === "string" || userData === null || !userData.list) {
         const projectId = (0, import_v4.default)();

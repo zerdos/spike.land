@@ -1,6 +1,6 @@
 export const shasums = {
   "dev.mjs.map":
-    "1e4745ba632b8e5cf745bd154f774a1ec9953d99c61d4650f83e2781f8546f67",
+    "b69885f4c6e08007170c8afdf09ab6a71d5f0cc76a787d20d319a43684434fe6",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -26,7 +26,7 @@ export const shasums = {
     "c95199f8ab5ad49fc80c31081667cf25199c6d51a7e5cee68e123a1bb53c5003",
   "dev.mjs": "19f8b441cb3daa34b7de2acb7904b23dfb42d65dee04d39ebe18c11ed787c3c9",
   "build.mjs":
-    "7914ffbfcd785eb3e72c613f647702ec7be31b00db046178278fb8d503c29990",
+    "7f31ad7bc499c60844280bcd6e61848d3140d18ab46d9db16120119be87509f0",
   "index.html":
     "3bd85de1949b843ec345f63fb2dc49c6c1d1dddaf4e0ea7d593d461f0e983e92",
   "esbuild.mjs":
@@ -55,7 +55,7 @@ export const shasums = {
   "js/share.mjs":
     "a5a44738685d0c505d6348dbe9b80f5fe58a2b5197a068c56664d4cafa688e90",
   "js/data.mjs":
-    "09fa90be0af888bfa83d8e15ee16361f94724dbc717dc54e98f6e98fd223aa26",
+    "fc8755ce398902ceca48aa915b11238b512109e152b99b3221785ede4072a846",
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/importScript.d.ts":

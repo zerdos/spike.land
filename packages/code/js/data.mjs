@@ -12,7 +12,7 @@ export const getProjects = async () => {
   if (userData && userData.signal) {
     //  setTimeout(()
 
-    return userData.signal;shaDB
+    return userData.signal;
   }
 
   if (typeof userData === "string" || userData === null || !userData.list) {
