@@ -16,7 +16,7 @@ function formatter(code) {
     "embeddedLanguageFormatting": "auto",
     "htmlWhitespaceSensitivity": "css",
     "insertPragma": false,
-    "jsxBracketSameLine": true,
+    "bracketSameLine": true,
     "jsxSingleQuote": false,
     "printWidth": 90,
     "proseWrap": "preserve",

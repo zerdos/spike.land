@@ -71,7 +71,7 @@ export const shasums = {
   "js/workers/ipfsWorker.js":
     "c3037f8925aa7e4473fa053539be93fa2874cc1bfeadd7d62d712b765ab81d16",
   "js/workers/prettierWorker.js":
-    "ab1b1322fcd8db3b39496b25b59a6078f15b5ad7c14b1eb4202f21404260d356",
+    "6b4049d46f2346319919b286e488da5728cb688b31d118c65553abbcb56a9f80",
   "js/workboxLoader.mjs":
     "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
   "js/ipfsClient.mjs":
