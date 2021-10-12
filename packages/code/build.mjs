@@ -724,7 +724,7 @@ var init_data = __esm({
         const res = await ipfsClient.add(code, { onlyHash: true });
         const CID2 = res.cid.toString();
         const UID = await getUserId();
-        const url2 = `/save/${CID2}`;
+        const url2 = `/add/${CID2}`;
         fetch(`https://spike.land${url2}`, {
           method: "POST",
           headers: {

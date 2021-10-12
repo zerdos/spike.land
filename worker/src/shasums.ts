@@ -1,6 +1,6 @@
 export const shasums = {
   "dev.mjs.map":
-    "af8865a57742573cf1b361c2660c5e0bb2f42fe2855280b2c4e83414bb227f55",
+    "1e4745ba632b8e5cf745bd154f774a1ec9953d99c61d4650f83e2781f8546f67",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -24,9 +24,9 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
     "c95199f8ab5ad49fc80c31081667cf25199c6d51a7e5cee68e123a1bb53c5003",
-  "dev.mjs": "382bd6c4d8d1d9cad4bada0b5a961728e1f8f133487656b6cf415692ad9f4ad8",
+  "dev.mjs": "19f8b441cb3daa34b7de2acb7904b23dfb42d65dee04d39ebe18c11ed787c3c9",
   "build.mjs":
-    "0d2b95124b7a68859051629f8c63a4c259b0c1f11d9d9c5d59783f7af7827c29",
+    "7914ffbfcd785eb3e72c613f647702ec7be31b00db046178278fb8d503c29990",
   "index.html":
     "3bd85de1949b843ec345f63fb2dc49c6c1d1dddaf4e0ea7d593d461f0e983e92",
   "esbuild.mjs":
@@ -55,7 +55,7 @@ export const shasums = {
   "js/share.mjs":
     "a5a44738685d0c505d6348dbe9b80f5fe58a2b5197a068c56664d4cafa688e90",
   "js/data.mjs":
-    "8fa7883ec75878efb0834716ddf4e7f0c3793d7eef52c2d6711293b74954ffa7",
+    "09fa90be0af888bfa83d8e15ee16361f94724dbc717dc54e98f6e98fd223aa26",
   "js/sendSignalToQrCode.mjs":
     "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
   "js/importScript.d.ts":

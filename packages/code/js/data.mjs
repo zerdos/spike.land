@@ -221,7 +221,7 @@ export const saveCode =
       const CID = res.cid.toString();
       const UID = await getUserId();
 
-      const url = `/save/${CID}`;
+      const url = `/add/${CID}`;
       fetch(`https://spike.land${url}`, {
         method: "POST",
         headers: {
