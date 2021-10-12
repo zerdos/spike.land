@@ -1,6 +1,6 @@
 export const shasums = {
   "dev.mjs.map":
-    "7d4e338228bf6ad3f60578a4317e7ef061a0c5484f62644db5d4f58d8cc73154",
+    "af8865a57742573cf1b361c2660c5e0bb2f42fe2855280b2c4e83414bb227f55",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -24,7 +24,7 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
     "c95199f8ab5ad49fc80c31081667cf25199c6d51a7e5cee68e123a1bb53c5003",
-  "dev.mjs": "7ede791d64b4ca552cb672de3607e7437d93ccd624f1d7462424ac9607f3d22f",
+  "dev.mjs": "382bd6c4d8d1d9cad4bada0b5a961728e1f8f133487656b6cf415692ad9f4ad8",
   "build.mjs":
     "0d2b95124b7a68859051629f8c63a4c259b0c1f11d9d9c5d59783f7af7827c29",
   "index.html":
@@ -32,7 +32,7 @@ export const shasums = {
   "esbuild.mjs":
     "787b3485ba2bf5f4c8b5201020463892f4b0ee46fbc5e82006a2a1d11a2757e9",
   "package.json":
-    "9cef12870f73a26234e8c64be3795f169b12caf0eb9dfb2c5578a153d45167f6",
+    "c368c2533d2a4be0203e16fefb09507c93903c93cd405f0f50962d13dd252efe",
   "tsconfig.json":
     "a81ab89a89622be71a650db4655a182c1bd0a3ec2ddbf9fa873785657ab15ab4",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
