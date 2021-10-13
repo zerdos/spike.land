@@ -34,6 +34,6 @@
     "idb": "6.1.4"
   },
   "devDependencies": {
-    "typescript": "4.5.0-dev.20211012"
+    "typescript": "4.5.0-dev.20211013"
   }
 }
