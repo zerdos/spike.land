@@ -42,7 +42,7 @@
 "js/workers/prettierWorker.js": "QmTzHQedmz11rTh1HHJuyEas3DgSW5ct8BzzSSWMLpQgB7",
 "js/workers/transpile.worker.js": "QmUo7nNGTPDUbTkv33Vsge4Ke6BpMAUCQ84uZ6X3dCfNDV",
 "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
-"package.json": "QmfSwqL9Rgodww8fHS6vGc7KuFNqtmCaAiMdjj9KkNmjEU",
+"package.json": "QmTreX14L8wjoxkrJqqFXFv7ivjyZ7ezdzc2bRoUvAjNji",
 "scripts/importmapGenerator.mjs": "QmXms6rg1U8TbDB4HbKKvWtZGHZvQ2CHe3qnsmD8DfhSa1",
 "sw.js": "QmZs73xvygu9Zx4mvDdwWWv6zL81UGY1geTsVZGrXdnTEf",
 "tsconfig.json": "QmRWz23wpfBrozV1qkw9JztmRnBjHh6sSX4dpbEbWBcyfW",
@@ -57,5 +57,5 @@
 "modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
 "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
 "scripts": "QmPDNRUoFBTGTmEDJBxKtMt8kPa99yKNByGthZqWiqGA1J",
-"": "QmYv9k7cPhgnzy84LGXYz2CEYSFuf7cwqSc2jFxrM5Ncou",
+"": "QmdzcSAeUG6m4A7RtAmumNQDRnTogjUhtM2RN6YRbAwySu",
  "foo":"bar" }
