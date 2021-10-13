@@ -52,7 +52,7 @@ export const files = {
   "js/workers/transpile.worker.js":
     "QmUo7nNGTPDUbTkv33Vsge4Ke6BpMAUCQ84uZ6X3dCfNDV",
   "manifest.json": "Qmb8h3PjM5RvHpNZSQztqVdrCHANNT7k8Dsj8Jmv24XmRQ",
-  "package.json": "QmYnXZZLGQ7bDW8Qq2QfunPnQTCxbfo3Ui2AqyMArfnG7F",
+  "package.json": "QmfSwqL9Rgodww8fHS6vGc7KuFNqtmCaAiMdjj9KkNmjEU",
   "scripts/importmapGenerator.mjs":
     "QmXms6rg1U8TbDB4HbKKvWtZGHZvQ2CHe3qnsmD8DfhSa1",
   "sw.js": "QmZs73xvygu9Zx4mvDdwWWv6zL81UGY1geTsVZGrXdnTEf",
@@ -68,6 +68,6 @@ export const files = {
   "modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "node_modules": "QmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn",
   "scripts": "QmPDNRUoFBTGTmEDJBxKtMt8kPa99yKNByGthZqWiqGA1J",
-  "": "Qmb3tWdkwMhtNTxRxXdqn5nxSpPLFKyJvnyrd3BLB1swmw",
+  "": "QmYv9k7cPhgnzy84LGXYz2CEYSFuf7cwqSc2jFxrM5Ncou",
   "foo": "bar",
 };
