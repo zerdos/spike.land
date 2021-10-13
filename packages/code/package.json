@@ -34,7 +34,7 @@
   "devDependencies": {
     "esbuild": "0.13.5",
     "ipfs": "0.59.1",
-    "typescript": "4.5.0-dev.20211012"
+    "typescript": "4.5.0-dev.20211013"
   },
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
