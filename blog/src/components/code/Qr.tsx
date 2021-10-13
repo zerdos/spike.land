@@ -218,8 +218,10 @@ const Cube = ({ sides, size: _size, animate }) => {
           css={css`
                 transform: rotateY(90deg) 
                            rotateX(90deg) 
-                           translateZ(${size /
-            2}px);
+                           translateZ(${
+            size /
+            2
+          }px);
                 `}
         >
           {sides[2]}

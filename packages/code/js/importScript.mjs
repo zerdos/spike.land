@@ -11,7 +11,7 @@ export const importScript = (src, res = []) => {
       s.src = src;
       // s.async = "async";
       // s.type = "application/javascript";
-      s.onload = (() => {
+      s.onload = () => {
         if (res.length === 0) {
           resolve(window);
         }
@@ -23,7 +23,7 @@ export const importScript = (src, res = []) => {
           (x) => Object.assign(ret, window[x]),
         );
         resolve(ret);
-      });
+      };
 
       s.onerror = reject;
       window.document.head.appendChild(s);

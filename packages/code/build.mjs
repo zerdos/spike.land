@@ -1047,11 +1047,7 @@ init_data();
 import React from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
 import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.3/dist/editor.mjs";
 import { jsx } from "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js";
-import {
-  DraggableWindow,
-  jsx as jsx2,
-  render
-} from "https://unpkg.com/@zedvision/renderer@14.6.3/dist/renderer.js";
+import { DraggableWindow, jsx as jsx2, render } from "https://unpkg.com/@zedvision/renderer@14.6.3/dist/renderer.js";
 function getSession() {
   const session = {
     i: 0,

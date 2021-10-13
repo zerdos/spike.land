@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import type { IQRious } from "./qriousType"
+import type { IQRious } from "./qriousType";
 //@ts-ignore
 import qr from "qrious-core";
 import BrowserElementService from "./service/element/BrowserElementService";

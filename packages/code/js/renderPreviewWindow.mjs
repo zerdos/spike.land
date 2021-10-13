@@ -1,7 +1,6 @@
 export async function renderPreviewWindow(
   session,
 ) {
-
   const {
     DraggableWindow,
     jsx,

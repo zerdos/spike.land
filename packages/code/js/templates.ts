@@ -1,5 +1,4 @@
-
-import importmapJson from './importmap.json';
+import importmapJson from "./importmap.json";
 /**
  * @param {{html: string, css: string}} opts
  * @returns  {string}

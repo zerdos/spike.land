@@ -46,17 +46,16 @@ const buttonStyles = (color: string) =>
   }
   `;
 
-export default () =>
-  (
-    <>
-      <Global
-        styles={css`
+export default () => (
+  <>
+    <Global
+      styles={css`
       body{
           background:white;
           margin: 100px;
         }  
     `}
-      />
-      <FutureIsHere />
-    </>
-  );
+    />
+    <FutureIsHere />
+  </>
+);

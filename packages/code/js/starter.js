@@ -10,7 +10,9 @@ try {
 
 async function start() {
   try {
-    const { run } = await import(location.host.includes("spike.land")? "../dev.mjs": "../dev.mjs");
+    const { run } = await import(
+      location.host.includes("spike.land") ? "../dev.mjs" : "../dev.mjs"
+    );
     run("window");
   } catch (e) {
     throw e;

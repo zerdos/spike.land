@@ -14,8 +14,10 @@ const Slider = () => {
         appearance: none;
         width: 100%;
         height: 40px; 
-        background: rgb(${255 / steps * sliderValue} ${255 / steps *
-          (steps - sliderValue)} 0); 
+        background: rgb(${255 / steps * sliderValue} ${
+          255 / steps *
+          (steps - sliderValue)
+        } 0); 
         outline: none; 
     `}
         type="range"

@@ -9,9 +9,7 @@ import { jsx } from "@emotion/react";
 import { ipfsClient } from "./ipfsClient.mjs";
 import { getUserId } from "./data.mjs";
 
-export {DraggableWindow,
-    jsx,
-    render} from "@zedvision/renderer"
+export { DraggableWindow, jsx, render } from "@zedvision/renderer";
 
 // const charWidthSpan = document.createElement('span');
 

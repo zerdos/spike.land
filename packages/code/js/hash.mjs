@@ -140,8 +140,10 @@ export async function fetchSignal(
     const smallSignal = signal.slice(-8);
 
     const cid = await fetch(
-      `https://spike.land/signal?signal=${smallSignal}&securityrandomparam=${Math
-        .random() * 10000}`,
+      `https://spike.land/signal?signal=${smallSignal}&securityrandomparam=${
+        Math
+          .random() * 10000
+      }`,
     ).then(
       (x) => x.text(),
     );
