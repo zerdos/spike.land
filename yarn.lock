@@ -17486,10 +17486,10 @@ typeface-montserrat@1.1.13:
   resolved "https://registry.yarnpkg.com/typeface-montserrat/-/typeface-montserrat-1.1.13.tgz#2a16729c174dd1a8c3fec05a851b7725412606cc"
   integrity sha512-Pklkyj0e+K+6I/t0M6JBDBphpfJkF1k+3qd8qDnp9aVtCC7oGBQWTAcL6+5eArfGe7h73uPwyal73hEkf9YCUA==
 
-typescript@4.5.0-dev.20211011:
-  version "4.5.0-dev.20211011"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.0-dev.20211011.tgz#d163f55ba4e94b5442eca04b53846e840ccf6d09"
-  integrity sha512-1jTV0bjpdhzBTsZCWSc2NE7IHhFEsLtcHW5/SJz34UkZIa5AMd2Y7W9g2WqXDVjYxVPE15ZjKOPjSuXGv43+lw==
+typescript@4.5.0-dev.20211012:
+  version "4.5.0-dev.20211012"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.0-dev.20211012.tgz#2a5f866fd7b5f13bef37a3127bef949619212405"
+  integrity sha512-Kez4/9YMGMDEL8uDs+Gt0f82/5mBxMHCv4VqwL8lXB87+N94W1c02ocy9C0t0UYS8vaZgEJfR4HbQnS0IUdTdQ==
 
 typography-breakpoint-constants@^0.16.19:
   version "0.16.19"
