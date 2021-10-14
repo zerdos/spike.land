@@ -3,10 +3,6 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
-    "packages/*",
-    "worker",
-    "counter",
-    "blog",
-    "docker-images/*"
+    "packages/*"
   ]
 }

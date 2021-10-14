@@ -1,0 +1,58 @@
+{
+  "name": "@zedvision/blog",
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths",
+    "clean": "gatsby clean"
+  },
+  "description": "Zed vision blog",
+  "version": "14.6.6",
+  "author": "Zoltan Erdos <zolika84@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/zed-vision/monorepo/"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@emotion/react": "11.4.1",
+    "@mdx-js/mdx": "1.6.22",
+    "@mdx-js/react": "1.6.22",
+    "cypress": "8.6.0",
+    "normalize.css": "8.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-helmet": "6.1.0",
+    "react-typography": "0.16.20",
+    "typeface-merriweather": "1.1.13",
+    "typeface-montserrat": "1.1.13",
+    "typography": "0.16.21",
+    "typography-theme-wordpress-2016": "0.16.19"
+  },
+  "homepage": "https://spike.land",
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "main": "n/a",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zed-vision/monorepo"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.30",
+    "@types/react-dom": "17.0.9",
+    "@types/react-helmet": "6.1.4",
+    "eslint": "8.0.1",
+    "eslint-plugin-react": "7.26.1",
+    "gatsby": "3.14.2",
+    "gatsby-plugin-emotion": "6.14.0",
+    "gatsby-plugin-manifest": "3.14.0",
+    "gatsby-plugin-mdx": "2.14.0",
+    "gatsby-plugin-react-helmet": "4.14.0",
+    "gatsby-source-filesystem": "3.14.0",
+    "prop-types": "15.7.2",
+    "typescript": "4.5.0-dev.20211014"
+  },
+  "gitHead": "ca6fb1f76c1cc444bf6239deca1d6a6f1dd752d3"
+}

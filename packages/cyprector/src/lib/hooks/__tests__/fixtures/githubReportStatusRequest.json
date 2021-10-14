@@ -1,0 +1,17 @@
+{
+  "method": "post",
+  "url": "https://api.github.com/repos/test-company/test-project/statuses/testCommitSha",
+  "auth": {
+    "password": "testGithubToken",
+    "username": "sorry-cypress"
+  },
+  "headers": {
+    "Accept": "application/vnd.github.v3+json"
+  },
+  "data": {
+    "context": "testGithubContext: ciBuildId",
+    "description": "failed:0 passed:1 skipped:0",
+    "state": "pending",
+    "target_url": "http://localhost:8080/run/testRunId"
+  }
+}
