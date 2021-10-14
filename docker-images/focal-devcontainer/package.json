@@ -15,9 +15,9 @@
     "README.md"
   ],
   "devDependencies": {
-    "@devcontainer/generator": "^14.6.6"
+    "@devcontainer/generator": "^14.6.8"
   },
-  "version": "14.6.6",
+  "version": "14.6.8",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
   "repository": "git@github.com:zed-vision/monorepo.git",
