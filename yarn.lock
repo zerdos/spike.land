@@ -3927,9 +3927,9 @@ alphanum-sort@^1.0.2:
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
 anser@^2.0.1:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/anser/-/anser-2.0.2.tgz#12bd6fd23a9ff08605b83972a10f97fd1970a32b"
-  integrity sha512-4T2MOoBvX1Gjroo1esGpMmNNIsH+vEw0zQEcskj1bt6Ydhp59qRL9GAThdMPYgEwnIyTNqT9LkCTPSEM/J/blQ==
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/anser/-/anser-2.1.0.tgz#a7309c9f29886f19af56cb30c79fc60ea483944e"
+  integrity sha512-zqC6MjuKg2ASofHsYE4orC7uGZQVbfJT1NiDDAzPtwc8XkWsAOSPAfqGFB/SG/PLybgeZ+LjVXvwfAWAEPXzuQ==
 
 ansi-align@^3.0.0:
   version "3.0.1"
@@ -5564,9 +5564,9 @@ content-type@^1.0.4, content-type@~1.0.4:
   integrity sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
 
 contentful-management@^7.5.1:
-  version "7.43.0"
-  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.43.0.tgz#5ecf07a0232aeee20e7b387ac10d9b2adb08868a"
-  integrity sha512-jbYXjZXzfKo2otcsZx0dvhMNQfkcaBcdaBffKDurrAZj3CBDdzHSHSwas0Ol6VlfRuagCH9RB8cUmLoiZhvEOA==
+  version "7.44.0"
+  resolved "https://registry.yarnpkg.com/contentful-management/-/contentful-management-7.44.0.tgz#25be9fac767fec64affd783a04c581185b79218f"
+  integrity sha512-r8zopi0yFTbc3c2QDj5sU+G+uTanHcB+h0vUd2THIZ9n62IKQdEd5sBNm1wYwmnZCPerX4kxHK8DEmeWT5zmsw==
   dependencies:
     "@types/json-patch" "0.0.30"
     axios "^0.21.4"
@@ -6707,9 +6707,9 @@ electron-fetch@^1.7.2:
     encoding "^0.1.13"
 
 electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.867:
-  version "1.3.867"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.867.tgz#7cb484db4b57c28da0b65c51e434c3a1f3f9aa0d"
-  integrity sha512-WbTXOv7hsLhjJyl7jBfDkioaY++iVVZomZ4dU6TMe/SzucV6mUAs2VZn/AehBwuZMiNEQDaPuTGn22YK5o+aDw==
+  version "1.3.868"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.868.tgz#ed835023b57ecf0ba63dfe7d50e16b53758ab1da"
+  integrity sha512-kZYCHqwJ1ctGrYDlOcWQH+/AftAm/KD4lEnLDNwS0kKwx1x6dU4zv+GuDjsPPOGn/2TjnKBaZjDyjXaoix0q/A==
 
 electron-webrtc@^0.3.0:
   version "0.3.0"
