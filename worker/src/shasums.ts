@@ -32,7 +32,7 @@ export const shasums = {
   "esbuild.mjs":
     "853c4c29c72667b00d9b7a2e9afe218af006a9e83058c74ef73a84ddebc97f99",
   "package.json":
-    "2757a2cdd36db080295289199adac37ae7db78b68ce251697e6e30d02eab7c5f",
+    "c70251953ed7bb9e906f5ed157f42bb7d279f2400b956d00eee848a7b1859bf9",
   "tsconfig.json":
     "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
