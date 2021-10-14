@@ -42,7 +42,7 @@ export class DevcontainerGenerator {
     "gitUbuntu",
     "node",
     "cypress",
-    "dotnet",
+    "dotnet6",
     "docker",
     "kubernetes",
     "dotnet3",
@@ -57,7 +57,7 @@ export class DevcontainerGenerator {
   private _nodeVersion: nodeVersion | null = null;
   private _gitVersion = "";
   private _cypressVersion = "";
-  private _dotnet: null | "2" | "3" | "5" = null;
+  private _dotnet: null | "3" | "5" | "6" = null;
   private _xfce = false;
   private _debianBackports = false;
   private _docker = false;
@@ -164,7 +164,7 @@ export class DevcontainerGenerator {
     this._docker = true;
   }
 
-  public setDotnet(version: "2" | "3" | "5" = "2") {
+  public setDotnet(version: "3" | "5" | "6" = "6") {
     this._dotnet = version;
   }
 
@@ -216,26 +216,38 @@ export class DevcontainerGenerator {
     }
 
     if (this._dotnet) {
-      if (this._dotnet === "2") {
-        this._dockerfile += dockerTemplates["dotnet"]
-          .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet)
+      if (this._dotnet === "6") {
+        this._dockerfile += dockerTemplates["dotnet6"]
+          .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet6)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["2.1.817"],
+            softwareVersions.sha
+              .dotnet_sha512[
+                softwareVersions
+                  .dotnet6 as keyof typeof softwareVersions.sha.dotnet_sha512
+              ],
           );
       } else if (this._dotnet === "3") {
         this._dockerfile += dockerTemplates["dotnet3"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet3)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["3.1.413"],
+            softwareVersions.sha
+              .dotnet_sha512[
+                softwareVersions
+                  .dotnet3 as keyof typeof softwareVersions.sha.dotnet_sha512
+              ],
           );
       } else {
-        this._dockerfile += dockerTemplates["dotnet3"]
+        this._dockerfile += dockerTemplates["dotnet5"]
           .replace("{DOTNET_SDK_VERSION}", softwareVersions.dotnet5)
           .replace(
             "{dotnet_sha512}",
-            softwareVersions.sha.dotnet_sha512["5.0.401"],
+            softwareVersions.sha
+              .dotnet_sha512[
+                softwareVersions
+                  .dotnet5 as keyof typeof softwareVersions.sha.dotnet_sha512
+              ],
           );
       }
     }

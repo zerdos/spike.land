@@ -10,6 +10,7 @@ const run = async () => {
   devGenerator.updateGit();
   devGenerator.setZsh();
   devGenerator.setVscode();
+  devGenerator.setDotnet("6");  
   devGenerator.setRemoteDesktop("noVNC");
   devGenerator.setChrome();
 
