@@ -7,7 +7,7 @@
     "clean": "gatsby clean && deno fmt src"
   },
   "description": "Zed vision blog",
-  "version": "14.6.5",
+  "version": "14.6.6",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
     "url": "https://github.com/zed-vision/monorepo/"
