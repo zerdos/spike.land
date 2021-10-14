@@ -2,7 +2,7 @@
   "name": "@zedvision/blog",
   "scripts": {
     "develop": "gatsby develop",
-    "gbuild": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths && cp -afr blog/. static",
+    "build": "cp -afr blog/. static && gatsby build --no-uglify --prefix-paths && cp -afr blog/. static",
     "start": "yarn gbuild && yarn serve",
     "clean": "gatsby clean && deno fmt src"
   },
@@ -41,7 +41,7 @@
     "url": "git+https://github.com/zed-vision/monorepo"
   },
   "devDependencies": {
-    "@types/react": "17.0.29",
+    "@types/react": "17.0.30",
     "@types/react-dom": "17.0.9",
     "@types/react-helmet": "6.1.4",
     "eslint": "8.0.1",

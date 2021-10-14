@@ -1,6 +1,6 @@
 export const shasums = {
   "dev.mjs.map":
-    "0092bcd93d54437abca78473b80701c743b38e972465d0599be2f2f2f9f3d9ad",
+    "87e793db897e5f8313e3166d183ccdc04102764de1d5e75e05ed4aae6009ea15",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -24,15 +24,15 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
     "e0cfdbff62d035b968d7408b7a1c5d24e38d2cf6728c3faed4ca5bebf8310537",
-  "dev.mjs": "19f8b441cb3daa34b7de2acb7904b23dfb42d65dee04d39ebe18c11ed787c3c9",
+  "dev.mjs": "05c6a357ee14dac38b442852a31943c16b499e40b5a653ac71fa70168286bfa8",
   "build.mjs":
-    "b68f4fef60cfb17c89d22478e1ab76a69809b9b7bdf0c2bce2bc2ed56c6a038c",
+    "5725fb037ef15e9af69dbf7171616427670d99513606fbaba7b19cd0a54ea892",
   "index.html":
-    "3bd85de1949b843ec345f63fb2dc49c6c1d1dddaf4e0ea7d593d461f0e983e92",
+    "d8a43b02c00158488ee86a965cedec825c36ad7d15edc0c012e0dccf7c8c87d5",
   "esbuild.mjs":
     "853c4c29c72667b00d9b7a2e9afe218af006a9e83058c74ef73a84ddebc97f99",
   "package.json":
-    "79ecd0681a8c87dcf20e0a56834329e9341a295d8891512d5ba328511811b916",
+    "e5987e17a3ab79876a859e43624197143d705f0be9027cb38a500377295d8da1",
   "tsconfig.json":
     "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -43,7 +43,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "f65a33dd6b9345f410728249b96c8c54a5be9efa85706014de8858743ba0ff5c",
   "js/templates.ts":
-    "7ee90ec9dbcf5246f9f92d6c458d1affdb71da70f0711275a489d09a773779f5",
+    "70af837de1676b22b447a4e83ab0e5845041b1c1cdc5bdb4d9f30e9229796e69",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":
@@ -51,7 +51,7 @@ export const shasums = {
   "js/examples/rca.tsx":
     "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
   "js/importmap.json":
-    "cfb161d8a22ddb24b288af6a7d96ea1bbc823951d461ed112185d6e3f6efea90",
+    "7da7b6e3e5e9bc07f02b94df248538e8b12977f9035a672570f2432a431e15cb",
   "js/share.mjs":
     "a5a44738685d0c505d6348dbe9b80f5fe58a2b5197a068c56664d4cafa688e90",
   "js/data.mjs":

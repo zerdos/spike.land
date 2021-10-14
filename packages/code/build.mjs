@@ -300,17 +300,17 @@ var init_importmap = __esm({
       "hey-listen": "https://unpkg.com/hey-listen@1.0.8/dist/hey-listen.es.js",
       "hoist-non-react-statics": "https://esm.sh/hoist-non-react-statics",
       popmotion: "https://unpkg.com/popmotion@10.0.1/dist/es/index.mjs",
-      react: "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs",
-      "react-dom": "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-dom.mjs",
-      "react-is": "https://unpkg.com/@zedvision/esm@14.6.0/dist/react-is.mjs",
+      react: "https://unpkg.com/@zedvision/esm@14.6.5/dist/react.mjs",
+      "react-dom": "https://unpkg.com/@zedvision/esm@14.6.5/dist/react-dom.mjs",
+      "react-is": "https://unpkg.com/@zedvision/esm@14.6.5/dist/react-is.mjs",
       "react-transition-group": "https://esm.sh/react-transition-group",
       "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
-      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.6.3/dist/renderer.js",
+      "@zedvision/renderer": "https://unpkg.com/@zedvision/renderer@14.6.5/dist/renderer.js",
       "style-value-types": "https://unpkg.com/style-value-types@5.0.0/dist/es/index.mjs",
       stylis: "https://unpkg.com/stylis@4.0.10/dist/stylis.mjs",
       "@zedvision/qrious": "https://unpkg.com/@zedvision/qrious@14.6.3/dist/QRious.mjs",
       tslib: "https://unpkg.com/tslib@2.3.1/tslib.es6.js",
-      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.3/dist/editor.mjs",
+      "@zedvision/smart-monaco-editor": "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.5/dist/editor.mjs",
       "simple-window-manager": "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
       "uuid/": "https://unpkg.com/uuid@8.3.2/dist/esm-browser/",
       "@zedvision/shadb": "https://unpkg.com/@zedvision/shadb@14.6.3/dist/shaDB.mjs",
@@ -338,18 +338,17 @@ function getHtml({ html, css }) {
   return `<!DOCTYPE html>
 <html lang="en"> 
 <head profile="http://www.w3.org/2005/10/profile">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
 <link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
 <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-<link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-<script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"><\/script>
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="Description" content="Generated with spike.land">
+<script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"><\/script>
 <style>
 .skip-link {
   position: absolute;
@@ -392,7 +391,7 @@ var init_templates = __esm({
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-  <script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"><\/script>
+  <script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"><\/script>
   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
   <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
@@ -400,7 +399,6 @@ var init_templates = __esm({
 </head>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}<\/script>
-<script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"><\/script>
 <script type="importmap-shim">
 ${JSON.stringify(importmap_default)}
 <\/script>
@@ -882,7 +880,7 @@ async function renderPreviewWindow(session) {
     DraggableWindow: DraggableWindow2,
     jsx: jsx3,
     render: render2
-  } = await import("https://unpkg.com/@zedvision/renderer@14.6.3/dist/renderer.js");
+  } = await import("https://unpkg.com/@zedvision/renderer@14.6.5/dist/renderer.js");
   const onShare = async () => {
     const { shareItAsHtml: shareItAsHtml2 } = await Promise.resolve().then(() => (init_share(), share_exports));
     const link = await shareItAsHtml2({
@@ -1044,10 +1042,10 @@ async function init2() {
 // js/codeLoader.mjs
 init_ipfsClient();
 init_data();
-import React from "https://unpkg.com/@zedvision/esm@14.6.0/dist/react.mjs";
-import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.3/dist/editor.mjs";
+import React from "https://unpkg.com/@zedvision/esm@14.6.5/dist/react.mjs";
+import startMonaco from "https://unpkg.com/@zedvision/smart-monaco-editor@14.6.5/dist/editor.mjs";
 import { jsx } from "https://unpkg.com/@emotion/react@11.4.1/dist/emotion-react.browser.esm.js";
-import { DraggableWindow, jsx as jsx2, render } from "https://unpkg.com/@zedvision/renderer@14.6.3/dist/renderer.js";
+import { DraggableWindow, jsx as jsx2, render } from "https://unpkg.com/@zedvision/renderer@14.6.5/dist/renderer.js";
 function getSession() {
   const session = {
     i: 0,

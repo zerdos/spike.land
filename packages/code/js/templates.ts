@@ -27,18 +27,17 @@ export function getHtml({ html, css }) {
   return `<!DOCTYPE html>
 <html lang="en"> 
 <head profile="http://www.w3.org/2005/10/profile">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
 <link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
 <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-<link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
-<script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"></script>
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="Description" content="Generated with spike.land">
+<script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"></script>
 <style>
 .skip-link {
   position: absolute;
@@ -83,7 +82,7 @@ export const getEditorHTML = () =>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
-  <script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"></script>
+  <script async src="https://unpkg.com/es-module-shims@1.3.0/dist/es-module-shims.js"></script>
   <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"></script>
@@ -91,7 +90,6 @@ export const getEditorHTML = () =>
 </head>
 <body>
 <script>window.process = {env: {NODE_ENV:"production" }}</script>
-<script async src="https://unpkg.com/es-module-shims@1.2.0/dist/es-module-shims.js"></script>
 <script type="importmap-shim">
 ${JSON.stringify(importmapJson)}
 </script>
