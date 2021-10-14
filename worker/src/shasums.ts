@@ -1,6 +1,6 @@
 export const shasums = {
   "dev.mjs.map":
-    "87e793db897e5f8313e3166d183ccdc04102764de1d5e75e05ed4aae6009ea15",
+    "a6d42ffbf0c2c6c129002ddfc07b8e8c770710043bfd60322a5dc2f64b357ed5",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
     "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
@@ -24,15 +24,15 @@ export const shasums = {
     "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
   "esbuild-dev.mjs":
     "e0cfdbff62d035b968d7408b7a1c5d24e38d2cf6728c3faed4ca5bebf8310537",
-  "dev.mjs": "05c6a357ee14dac38b442852a31943c16b499e40b5a653ac71fa70168286bfa8",
+  "dev.mjs": "75d3e18d9e77414bfcf8aea6a2f5a3c264db5a1d997e2729357f3d6bb1083f2b",
   "build.mjs":
-    "5725fb037ef15e9af69dbf7171616427670d99513606fbaba7b19cd0a54ea892",
+    "e4710aa621ab32afbf75607245eaadbb4fe2a0e65c63c7728fa74994b2d3bf8a",
   "index.html":
     "d8a43b02c00158488ee86a965cedec825c36ad7d15edc0c012e0dccf7c8c87d5",
   "esbuild.mjs":
     "853c4c29c72667b00d9b7a2e9afe218af006a9e83058c74ef73a84ddebc97f99",
   "package.json":
-    "e5987e17a3ab79876a859e43624197143d705f0be9027cb38a500377295d8da1",
+    "a09955b1483964eae871dfc64c7852152375e2d8e2e15e0ee47612920f1cb77b",
   "tsconfig.json":
     "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
@@ -43,7 +43,7 @@ export const shasums = {
   "js/codeLoader.mjs":
     "f65a33dd6b9345f410728249b96c8c54a5be9efa85706014de8858743ba0ff5c",
   "js/templates.ts":
-    "70af837de1676b22b447a4e83ab0e5845041b1c1cdc5bdb4d9f30e9229796e69",
+    "f59c9e362a7ea610204f8db8879ba64b9cef0442b259a3bcf52ce7d47d5bad16",
   "js/examples/app.tsx":
     "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
   "js/examples/starter_framer.js":

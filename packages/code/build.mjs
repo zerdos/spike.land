@@ -343,8 +343,8 @@ function getHtml({ html, css }) {
 <meta name="Description" content="Generated with spike.land">
 <title>${title}</title>
 <link rel="modulepreload" href="./app.js">  
-<link rel="modulepreload" href="https://spike.land/js/codeLoader.mjs">
 <link rel="icon" type="image/png" href="https://spike.land/zed-icon-big.png" />
+<link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css" />
 <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"><\/script>
 <script crossorigin src="https://unpkg.com/react-is@17.0.2/umd/react-is.production.min.js"><\/script>
