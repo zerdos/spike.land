@@ -30,9 +30,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./Dockerfile
+          file: ./packages/groovy-devcontainer/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
+          tags: devimages/groovy-devcontainer:latest
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
