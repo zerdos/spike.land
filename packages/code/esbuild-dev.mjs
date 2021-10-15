@@ -5,7 +5,7 @@ import * as importMap from "esbuild-plugin-import-map";
 import jsonData from "./js/importmap.json";
 
 const importData = Object.keys(jsonData.imports).filter((name) =>
-  !name.includes("@zedvision")
+  !name.includes("@spike.land")
 );
 
 let imports = {};

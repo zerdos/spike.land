@@ -1,100 +1,98 @@
 export const shasums = {
-  "dev.mjs.map":
-    "a6d42ffbf0c2c6c129002ddfc07b8e8c770710043bfd60322a5dc2f64b357ed5",
-  "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
-  "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
-    "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
-  "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
-    "0b1d7f87f3ca4c8b4bd749b02b6ad71c930b7e306c752a2e2293d7b250b02e27",
-  "assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf":
-    "a637d3ff767789f9b113bbfa208bdb6a76efed7c4c111da2a130f6a38a51d353",
-  "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf":
-    "b4c96f55c265e0a80be4243a16f7e88b9a67c85b71b4e2aa8cea4e1aa989b0d1",
-  "assets/social-media-computer-icons-share-icon-png":
-    "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
-  "assets/synthwave.jpg":
-    "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
-  "assets/zed-icon-big.png":
-    "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
-  "assets/app.css":
-    "e1b7ce0c8beb3c44a43a8ef8149353f12c3d7c8f4f51ef4453f221a760c22863",
-  "assets/roboto.css":
-    "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
-  "assets/triangle-geometry.png":
-    "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
-  "esbuild-dev.mjs":
-    "e0cfdbff62d035b968d7408b7a1c5d24e38d2cf6728c3faed4ca5bebf8310537",
-  "dev.mjs": "a6d0327d481b5c1eed2f09552519b6a201575aa0ac88119d4cf93c5e592f9410",
-  "build.mjs":
-    "90c6821728214e508da9b84519682232a595eed7fac30831cbcbcd7c3e4ad0cc",
-  "index.html":
-    "d8a43b02c00158488ee86a965cedec825c36ad7d15edc0c012e0dccf7c8c87d5",
-  "esbuild.mjs":
-    "853c4c29c72667b00d9b7a2e9afe218af006a9e83058c74ef73a84ddebc97f99",
-  "package.json":
-    "8946f340bcebb10653aebe33b3989a436e27852117482cd4fa2bacc1b3833c4f",
-  "tsconfig.json":
-    "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
-  ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
-  "yarn-error.log":
-    "7e3070fe62c0d70ef5698627ffefc4bb5c7420e430b216c09eddc4871ba4e433",
-  "manifest.json":
-    "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
-  "js/codeLoader.mjs":
-    "f65a33dd6b9345f410728249b96c8c54a5be9efa85706014de8858743ba0ff5c",
-  "js/templates.ts":
-    "f59c9e362a7ea610204f8db8879ba64b9cef0442b259a3bcf52ce7d47d5bad16",
-  "js/examples/app.tsx":
-    "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
-  "js/examples/starter_framer.js":
-    "55a3dc12dc9b07ded8783f07254322372958eb27d24ebbfb3d6480b13a0cd873",
-  "js/examples/rca.tsx":
-    "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
-  "js/importmap.json":
-    "3a8f7f8d00dce27752e49c85622e30d6a90f049ffdfd53604061425a7f046cba",
+  "js/ipfsClient.mjs":
+    "0fcd8a973d95fcef61f36c74182a008af95f4e2da190e5d648ca3b6da37eccce",
+  "js/renderPreviewWindow.mjs":
+    "c487d9b5a2f568c2ecf220d1e10ec81afc66cbe5ca7d055ad519d71ddd86b61b",
+  "js/formatter.mjs":
+    "af3a15b6edab0bc477a95fa4daaa0ef619272b7036f9be91dead1c47d95a4358",
+  "js/test.mjs":
+    "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
   "js/share.mjs":
-    "a5a44738685d0c505d6348dbe9b80f5fe58a2b5197a068c56664d4cafa688e90",
-  "js/data.mjs":
-    "fc8755ce398902ceca48aa915b11238b512109e152b99b3221785ede4072a846",
-  "js/sendSignalToQrCode.mjs":
-    "095d48c81f02e4ccb632e6adedb2981c168e1736a1291104176c1b395a8e0184",
+    "63f0285149423ec15d729e9ed2b746bef46ace77e85f2d5029b5770b24d07d7e",
   "js/importScript.d.ts":
     "863a8f91f1d5750d68903b9493472d186067185cf0f9cf09f40c6c273ddef229",
-  "js/hash.mjs":
-    "d04059521fa202754ebf074e1cf57a8616efc9a1a57d014d08d569eb7e3a39e5",
-  "js/renderPreviewWindow.mjs":
-    "7efa7cfda3660cc73f4f875d9736265e1fd34e8f1ab93d70aafd44edffa0458e",
   "js/workers/transpile.worker.js":
     "fd83999a3b16c8fb07b509301facea7d0cf8d8fa31ed6c0d922f6330b017460a",
+  "js/workers/prettierWorker.js":
+    "6b4049d46f2346319919b286e488da5728cb688b31d118c65553abbcb56a9f80",
   "js/workers/getWorker.mjs":
     "037bf6a9fb39245f82d995b0cac018f5ae86c2621f1fe6e73d68c9dab5f9e170",
   "js/workers/ipfsWorker.js":
     "c3037f8925aa7e4473fa053539be93fa2874cc1bfeadd7d62d712b765ab81d16",
-  "js/workers/prettierWorker.js":
-    "6b4049d46f2346319919b286e488da5728cb688b31d118c65553abbcb56a9f80",
-  "js/workboxLoader.mjs":
-    "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
-  "js/ipfsClient.mjs":
-    "7a88a30f8ed09b8ea05272d5fa65ebf3fd3b98594a65124d11bff5ec1447f31b",
-  "js/formatter.mjs":
-    "af3a15b6edab0bc477a95fa4daaa0ef619272b7036f9be91dead1c47d95a4358",
-  "js/importScript.mjs":
-    "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
-  "js/test.mjs":
-    "5312ca9eeb6631de50bcc6be45e0bde961294e3e817203e124480681a17fd141",
-  "js/starter.js":
-    "0273704ea7437cbac22f281e8035ab851b31c27c14400a9ad47216cde5b39b22",
-  "js/openWindows.mjs":
-    "a46cfc03dfcc236d114aa1ec60ce6167859b29fc38faa07de80e43aba19d796b",
   "js/transpile.mjs":
     "3e9b4471a36bf0170b58cd0d69f7ad21b34eb29885eac3ffacbc83b0d332fd02",
-  "favicon.ico":
-    "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
+  "js/templates.ts":
+    "f59c9e362a7ea610204f8db8879ba64b9cef0442b259a3bcf52ce7d47d5bad16",
+  "js/importmap.json":
+    "d5a97d695e803f2ac841294985409e1d88b3191f4b0d470ec33d273d0ca80773",
+  "js/sendSignalToQrCode.mjs":
+    "0014493c53b38e35397e2394fc256aa3165f3561199c8b1aec72f136e8599981",
+  "js/examples/starter_framer.js":
+    "55a3dc12dc9b07ded8783f07254322372958eb27d24ebbfb3d6480b13a0cd873",
+  "js/examples/app.tsx":
+    "4f65fc9d7fe3003ee0895f95a12873e08d99182c867d787fbb8ab34490b2a26a",
+  "js/examples/rca.tsx":
+    "c27cd6dbdc3c131ef24590f07a1c6c2d0f444b85ca482dc5f4204ce313c5325e",
+  "js/codeLoader.mjs":
+    "89ef31c629709ecf56a8d41297eb09aa4f584ab0c0035e1455493c9cd74b9c0a",
+  "js/data.mjs":
+    "1a63f5609866e8330baa5fa336ead2e0fd967eb13a38bace87d8666cf0a48adf",
+  "js/hash.mjs":
+    "d04059521fa202754ebf074e1cf57a8616efc9a1a57d014d08d569eb7e3a39e5",
+  "js/importScript.mjs":
+    "f1170901faaf51af6553d9a5d5c67a1c807653d55d57f1bbfe266a2be76c00e1",
+  "js/starter.js":
+    "a70301d9b1cc160334d13bf7ec7d15912eb69d95d5d3f76f18344d4e13cf2a2e",
+  "js/openWindows.mjs":
+    "a46cfc03dfcc236d114aa1ec60ce6167859b29fc38faa07de80e43aba19d796b",
+  "js/workboxLoader.mjs":
+    "5a3698567870068de84d888cd9ea5ee98124d37468afbb7f4bee4f6594de9031",
+  "dev.mjs.map":
+    "d93f6811eefdef34f889d89d40682973ae5c1f68f6806da61ec776e4b25998ac",
+  "scripts/importmapGenerator.mjs":
+    "a0776261df7645708ce74e603f81a7d44abeef5bea39e89e622e7ccca53aed33",
   ".vscode/settings.json":
     "59518a7d473e186d1edb3b105cac5644bb6f04a20f5d21a17b69b89b3f7837c9",
+  "index.html":
+    "d8a43b02c00158488ee86a965cedec825c36ad7d15edc0c012e0dccf7c8c87d5",
+  ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
+  "build.mjs":
+    "0a7338585e4fa751d74690a64071a64b095223fc4573c18b5547cf556bc83094",
+  "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
+  "tsconfig.json":
+    "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
+  "esbuild.mjs":
+    "853c4c29c72667b00d9b7a2e9afe218af006a9e83058c74ef73a84ddebc97f99",
+  "assets/social-media-computer-icons-share-icon-png":
+    "30b4c131034e159063469faa6ac82912e4993285210ae6dafe999c9bd0d26cf3",
+  "assets/triangle-geometry.png":
+    "104f08c4fac5ed711bcefd1e87004f7b24d0b77c85972138f03e0fc5c71c0e0d",
+  "assets/app.css":
+    "e1b7ce0c8beb3c44a43a8ef8149353f12c3d7c8f4f51ef4453f221a760c22863",
+  "assets/fonts/KFOmCnqEu92Fr1Mu4mxP.ttf":
+    "0b1d7f87f3ca4c8b4bd749b02b6ad71c930b7e306c752a2e2293d7b250b02e27",
+  "assets/fonts/KFOlCnqEu92Fr1MmEU9fBBc9.ttf":
+    "719df7954428f52779f3fa18641c19fc854b39394193d87eea5a61795dec8dbe",
+  "assets/fonts/KFOlCnqEu92Fr1MmWUlfBBc9.ttf":
+    "a637d3ff767789f9b113bbfa208bdb6a76efed7c4c111da2a130f6a38a51d353",
+  "assets/fonts/KFOlCnqEu92Fr1MmSU5fBBc9.ttf":
+    "b4c96f55c265e0a80be4243a16f7e88b9a67c85b71b4e2aa8cea4e1aa989b0d1",
+  "assets/zed-icon-big.png":
+    "1a8004c802bbcbdf49d4dacff5df98eb769d161df0d17d7a4ffd8093e957b18d",
+  "assets/roboto.css":
+    "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
+  "assets/synthwave.jpg":
+    "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
+  "dev.mjs": "6bfec5d96953635c037094c0dc8f8b41919157785d65f74ea5c90c646c01e6f1",
+  "package.json":
+    "76baf2241ec1b66ffda343eb105681cd9274984d73172930ec3a793def29004d",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
-  "scripts/importmapGenerator.mjs":
-    "02958980cfd464264c71a1fa2aa897304ee443735386a080f92f46d424a7b0d9",
+  "esbuild-dev.mjs":
+    "5ea3a504550a1a2473a512bdb4f52ecd7573d28f18c86c8b211c58b44760bae3",
+  "favicon.ico":
+    "eda0a26de2fce5c67ff530025ef9b7889a91f6893465069d6c6de6796cb8acef",
+  "manifest.json":
+    "6b7f17d4eaea1e194e0270b8144b496347488b726bf894601e59c40873ffe429",
   "food": "bar",
 };

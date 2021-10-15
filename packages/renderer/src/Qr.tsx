@@ -10,7 +10,7 @@ const QR: React.FC<{ url: string }> = ({ url }) => {
 
   React.useEffect(() => {
     const load = async () => {
-      const { QRious } = await import("@zedvision/qrious");
+      const { QRious } = await import("@spike.land/qrious");
       const options = {
         size: 200,
         element: canvasRef.current,

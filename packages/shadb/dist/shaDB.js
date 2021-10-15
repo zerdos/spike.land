@@ -11,7 +11,7 @@ const diff_js_1 = require("./diff.js");
 Object.defineProperty(exports, "diff", { enumerable: true, get: function () { return diff_js_1.diff; } });
 function getDB(storeName = "defaultStore") {
     return async () => {
-        const dbPromise = (0, idb_1.openDB)("zed-vision-alpha", 1, {
+        const dbPromise = (0, idb_1.openDB)("spike-land-alpha", 1, {
             upgrade(db) {
                 db.createObjectStore(storeName);
             },

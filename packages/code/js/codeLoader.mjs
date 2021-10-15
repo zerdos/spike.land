@@ -4,12 +4,12 @@ import { getCodeToLoad, getIPFSCodeToLoad, saveCode } from "./data.mjs";
 import { transpileCode } from "./transpile.mjs";
 import { formatter } from "./formatter.mjs";
 import React from "react";
-import startMonaco from "@zedvision/smart-monaco-editor";
+import startMonaco from "@spike.land/smart-monaco-editor";
 import { jsx } from "@emotion/react";
 import { ipfsClient } from "./ipfsClient.mjs";
 import { getUserId } from "./data.mjs";
 
-export { DraggableWindow, jsx, render } from "@zedvision/renderer";
+export { DraggableWindow, jsx, render } from "@spike.land/renderer";
 
 // const charWidthSpan = document.createElement('span');
 

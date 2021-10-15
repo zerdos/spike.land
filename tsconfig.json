@@ -13,8 +13,8 @@
   },
   "exclude": [
     "worker/dist",
-    "cloudflare/zed-vision/dist",
-    "packages/zed-vision-site",
+    "cloudflare/spike-land/dist",
+    "packages/spike-land-site",
     "node_modules",
     "packages/monaco-editor",
     "docs"

@@ -6,7 +6,7 @@ export async function renderPreviewWindow(
     jsx,
     render,
   } = await import(
-    "@zedvision/renderer"
+    "@spike.land/renderer"
   );
 
   const onShare = async () => {

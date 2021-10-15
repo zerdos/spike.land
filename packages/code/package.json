@@ -1,6 +1,6 @@
 {
-  "name": "@zedvision/code",
-  "version": "14.6.8",
+  "name": "@spike.land/code",
+  "version": "0.0.1",
   "description": "spike.land",
   "main": "js/codeLoader.mjs",
   "files": [
@@ -27,10 +27,10 @@
     "Zoltan Erdos <zolika84@gmail.com>"
   ],
   "bugs": {
-    "url": "https://github.com/zed-vision/monorepo"
+    "url": "https://github.com/spike-land/monorepo"
   },
   "homepage": "https://spike.land",
-  "repository": "https://github.com/zed-vision/monorepo",
+  "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "esbuild": "0.13.6",
     "ipfs": "0.59.1",

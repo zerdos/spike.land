@@ -4,7 +4,7 @@ import path from "path";
 // import { LoggerAdaptToConsole } from "console-log-json";
 // LoggerAdaptToConsole();
 
-const zedEsmLatestVersion = await latestVersion("@zedvision/esm");
+const zedEsmLatestVersion = await latestVersion("@spike.land/esm");
 const uidVersion = await latestVersion("uuid");
 
 const exceptions = {
@@ -14,11 +14,11 @@ const exceptions = {
   "prop-types": "https://esm.sh/prop-types",
   "react/jsx-runtime": "https://esm.sh/react/jsx-runtime",
   "react":
-    `https://unpkg.com/@zedvision/esm@${zedEsmLatestVersion}/dist/react.mjs`,
+    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react.mjs`,
   "react-dom":
-    `https://unpkg.com/@zedvision/esm@${zedEsmLatestVersion}/dist/react-dom.mjs`,
+    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-dom.mjs`,
   "react-is":
-    `https://unpkg.com/@zedvision/esm@${zedEsmLatestVersion}/dist/react-is.mjs`,
+    `https://unpkg.com/@spike.land/esm@${zedEsmLatestVersion}/dist/react-is.mjs`,
   "simple-window-manager":
     "https://unpkg.com/simple-window-manager@2.1.2/public/simple-window-manager.min.js",
   "uuid/": `https://unpkg.com/uuid@${uidVersion}/dist/esm-browser/`,
@@ -149,17 +149,17 @@ const list = [
   "react-is",
   "react-transition-group",
   "react/jsx-runtime",
-  "@zedvision/renderer",
+  "@spike.land/renderer",
   "style-value-types",
   "stylis",
-  "@zedvision/qrious",
+  "@spike.land/qrious",
   "tslib",
-  "@zedvision/smart-monaco-editor",
+  "@spike.land/smart-monaco-editor",
   "simple-window-manager",
   "uuid/",
-  "@zedvision/shadb",
+  "@spike.land/shadb",
   "comlink",
-  "@zedvision/ipfs",
+  "@spike.land/ipfs",
   "workbox-window",
 ];
 

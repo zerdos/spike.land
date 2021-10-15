@@ -7,10 +7,10 @@
     "clean": "gatsby clean"
   },
   "description": "Zed vision blog",
-  "version": "14.6.6",
+  "version": "0.0.1",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "bugs": {
-    "url": "https://github.com/zed-vision/monorepo/"
+    "url": "https://github.com/spike-land/monorepo/"
   },
   "publishConfig": {
     "access": "public"
@@ -38,7 +38,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zed-vision/monorepo"
+    "url": "git+https://github.com/spike-land/monorepo"
   },
   "devDependencies": {
     "@types/react": "17.0.30",

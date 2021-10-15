@@ -1,5 +1,5 @@
 {
-  "name": "@zedvision/cyprector",
+  "name": "@spike.land/cyprector",
   "version": "2.0.0-beta.16",
   "author": {
     "name": "Andrew Goldis",
@@ -15,8 +15,8 @@
   "scripts": {
     "dev": "run-p dev:nodemon types:watch",
     "dev:nodemon": "nodemon",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc",
+    "xbuild": "npm run build:types && npm run build:js",
+    "xbuild:types": "tsc",
     "types:watch": "yarn build:types --watch --preserveWatchOutput",
     "build:js": "babel src --out-dir dist --extensions \".ts\" --source-maps inline",
     "test": "jest",

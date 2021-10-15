@@ -10,7 +10,7 @@ export { getDbObj };
 
 export function getDB(storeName = "defaultStore") {
   return async () => {
-    const dbPromise = openDB("zed-vision-alpha", 1, {
+    const dbPromise = openDB("spike-land-alpha", 1, {
       upgrade(db) {
         db.createObjectStore(storeName);
       },

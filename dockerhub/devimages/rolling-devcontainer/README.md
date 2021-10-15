@@ -8,4 +8,4 @@
 - With Vscode- docker preinstalled
 - Zsh + Oh my zsh!
 
-- github: https://github.com/zed-vision/monorepo
+- github: https://github.com/spike-land/monorepo

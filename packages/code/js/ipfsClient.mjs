@@ -7,7 +7,7 @@ import {
   IPFSClient,
   raceToSuccess,
   toString,
-} from "@zedvision/ipfs";
+} from "@spike.land/ipfs";
 
 const { workerSrc, forceNormalWorker } = getWorker("ipfsWorker.js");
 

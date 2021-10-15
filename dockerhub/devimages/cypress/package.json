@@ -15,12 +15,12 @@
     "README.md"
   ],
   "devDependencies": {
-    "@devcontainer/generator": "^14.6.8"
+    "@devcontainer/generator": "^0.0.1"
   },
-  "version": "14.6.8",
+  "version": "0.0.1",
   "description": "devcontainer vscode docker xfce remoteDesktop",
   "main": "index.js",
-  "repository": "git@github.com:zed-vision/monorepo.git",
+  "repository": "git@github.com:spike-land/monorepo.git",
   "author": "Zoltan Erdos <zolika84@gmail.com>",
   "license": "BSD-3-Clause",
   "gitHead": "b5dbe1db58bdc7cd90eff2995a3ec9a18767c232",

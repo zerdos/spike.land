@@ -1,14 +1,13 @@
 {
-  "name": "zedvision",
+  "name": "github.com-spike.land",
   "description": "our monorepo",
-  "repository": "git@github.com:zed-vision/monorepo.git",
+  "repository": "git@github.com:spike-land/monorepo.git",
   "author": "Zoltan Erdos <zoliika84@gmail.com>",
   "license": "MIT",
   "private": true,
   "workspaces": [
     "packages/*",
-    "sites/*",
-    "dockerhub/devimages/*"
+    "sites/*"
   ],
   "scripts": {
     "screenshot": "rm -rf spike.land-1920x1080.png && npx pageres-cli https://spike.land 1920x1080 --delay=5 --scale=1",
@@ -36,7 +35,7 @@
     "console-log-json": "2.8.0",
     "csstype": "3.0.9",
     "eslint-plugin-react": "7.26.1",
-    "lerna": "4.0.0",
+    "lerna": "^4.0.0",
     "typescript": "4.4.4",
     "yarn": "1.22.15"
   }

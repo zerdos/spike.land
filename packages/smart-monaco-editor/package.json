@@ -1,6 +1,6 @@
 {
-  "name": "@zedvision/smart-monaco-editor",
-  "version": "14.6.6",
+  "name": "@spike.land/smart-monaco-editor",
+  "version": "0.0.1",
   "description": "Monaco Editor with auto type downloads mostly for React",
   "sideEffects": false,
   "main": "./dist/editor.mjs",
@@ -22,10 +22,10 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zed-vision/monorepo"
+    "url": "https://github.com/spike-land/monorepo"
   },
-  "homepage": "https://github.com/zed-vision/monorepo",
-  "repository": "https://github.com/zed-vision/monorepo",
+  "homepage": "https://github.com/spike-land/monorepo",
+  "repository": "https://github.com/spike-land/monorepo",
   "devDependencies": {
     "esbuild": "0.13.6",
     "typescript": "4.4.4"

@@ -17,7 +17,7 @@ async function start() {
   } catch (e) {
     throw e;
     console.error("error", { e });
-    //        const { run } = await import("https://unpkg.com/@zedvision/code@13.0.16/js/codeLoader.mjs");
+    //        const { run } = await import("https://unpkg.com/@spike.land/code@13.0.16/js/codeLoader.mjs");
     //      run("window");
   }
   setTimeout(async () => {

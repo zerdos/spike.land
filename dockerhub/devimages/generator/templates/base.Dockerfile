@@ -1,7 +1,7 @@
 FROM {DISTRO}
 
 ### base.Dockerfile
-### Generator: https://github.com/zed-vision/monorepo/
+### Generator: https://github.com/spike-land/monorepo/
 LABEL maintainer=zoltan.erdos@me.com
 
 ENV DEBIAN_FRONTEND=noninteractive

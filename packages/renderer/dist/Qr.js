@@ -5,7 +5,7 @@ const QR = ({ url }) => {
   const canvasRef = React.useRef(null);
   React.useEffect(() => {
     const load = async () => {
-      const { QRious } = await import("@zedvision/qrious");
+      const { QRious } = await import("@spike.land/qrious");
       const options = {
         size: 200,
         element: canvasRef.current,

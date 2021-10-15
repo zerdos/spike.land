@@ -1,7 +1,7 @@
-import { getDbObj } from "@zedvision/shadb";
+import { getDbObj } from "@spike.land/shadb";
 import { json, text } from "./utils/handleOptions";
 import { v4 } from "uuid";
-import { sha256 } from "@zedvision/shadb";
+import { sha256 } from "@spike.land/shadb";
 import { log } from "./log";
 
 var API_KEY: string;

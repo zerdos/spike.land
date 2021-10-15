@@ -1,5 +1,5 @@
 import { getUserId, saveCode } from "./data.mjs";
-import { sha256 } from "@zedvision/shadb";
+import { sha256 } from "@spike.land/shadb";
 
 /**
  * @param {string} rootUrl

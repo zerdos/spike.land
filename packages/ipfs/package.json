@@ -1,6 +1,6 @@
 {
-  "name": "@zedvision/ipfs",
-  "version": "14.6.6",
+  "name": "@spike.land/ipfs",
+  "version": "0.0.1",
   "sideEffects": false,
   "files": [
     "*/*"
@@ -20,10 +20,10 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zed-vision/monorepo"
+    "url": "https://github.com/spike-land/monorepo"
   },
-  "homepage": "https://github.com/zed-vision/monorepo",
-  "repository": "https://github.com/zed-vision/monorepo",
+  "homepage": "https://github.com/spike-land/monorepo",
+  "repository": "https://github.com/spike-land/monorepo",
   "publishConfig": {
     "access": "public"
   },

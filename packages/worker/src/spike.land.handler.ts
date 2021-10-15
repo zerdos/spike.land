@@ -5,7 +5,7 @@ import { js, json, text } from "./utils/responds";
 import { log } from "./log";
 
 import { shasums } from "./shasums";
-import { publicIpfsGateways, raceToSuccess } from "@zedvision/ipfs";
+import { publicIpfsGateways, raceToSuccess } from "@spike.land/ipfs";
 import { cid } from "./cid";
 import { alterHeaders, sha256, sha256UArray } from "./alterHeaders";
 

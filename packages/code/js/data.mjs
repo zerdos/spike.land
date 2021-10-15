@@ -1,4 +1,4 @@
-import { sha256, shaDB } from "@zedvision/shadb";
+import { sha256, shaDB } from "@spike.land/shadb";
 import v4 from "uuid/v4";
 import { ipfsClient } from "./ipfsClient.mjs";
 

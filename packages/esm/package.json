@@ -1,6 +1,6 @@
 {
-  "name": "@zedvision/esm",
-  "version": "14.6.6",
+  "name": "@spike.land/esm",
+  "version": "0.0.1",
   "description": "esm modules for packages with maintainers from the 2015",
   "main": "dist/react.mjs",
   "files": [
@@ -10,7 +10,7 @@
     "Zoltan Erdos <zolika84@gmail.com>"
   ],
   "bugs": {
-    "url": "https://github.com/zed-vision/monorepo"
+    "url": "https://github.com/spike-land/monorepo"
   },
   "exports": {
     "./react.mjs": "./dist/react.mjs",
