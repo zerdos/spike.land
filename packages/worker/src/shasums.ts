@@ -24,7 +24,7 @@ export const shasums = {
   "js/templates.ts":
     "f59c9e362a7ea610204f8db8879ba64b9cef0442b259a3bcf52ce7d47d5bad16",
   "js/importmap.json":
-    "d5a97d695e803f2ac841294985409e1d88b3191f4b0d470ec33d273d0ca80773",
+    "b43dd2acea525b4ed0efcf8e14ae220afd742b33086b5264be3b539e1f6f61bf",
   "js/sendSignalToQrCode.mjs":
     "0014493c53b38e35397e2394fc256aa3165f3561199c8b1aec72f136e8599981",
   "js/examples/starter_framer.js":
@@ -57,7 +57,7 @@ export const shasums = {
     "d8a43b02c00158488ee86a965cedec825c36ad7d15edc0c012e0dccf7c8c87d5",
   ".ignore": "bcae0416621b3db43d8cba1e4454a792c7af9e4b7287e51056efc5a215d95839",
   "build.mjs":
-    "0a7338585e4fa751d74690a64071a64b095223fc4573c18b5547cf556bc83094",
+    "1d5fc522d9984199f1d240f26efe0e52562d4dc5db0f595b3a651cb1a9afac18",
   "sw.js": "c70f657b29fd5179b512af1938932be107640be340582a932ae602dffa4784de",
   "tsconfig.json":
     "fba771ff062cafcfec28f165716fa5609f8a13346e49f59bce06da7beeb2b5aa",
@@ -83,9 +83,9 @@ export const shasums = {
     "d4cfbb0537146f1f477d5050b2b19a8ccad2cbe8d22d4d18bfefb510b53571be",
   "assets/synthwave.jpg":
     "ddb7a1699251a0daecf2c4ff494760608cd9d5f39e8ce09426a31b2d505ceb4e",
-  "dev.mjs": "6bfec5d96953635c037094c0dc8f8b41919157785d65f74ea5c90c646c01e6f1",
+  "dev.mjs": "58cc50e12be388a2a366870b17a7cc22c230ff9a339a122ccc16119be5cd48c6",
   "package.json":
-    "76baf2241ec1b66ffda343eb105681cd9274984d73172930ec3a793def29004d",
+    "c9f9c15f15c5c7a11063c4200738d35f3c1fa0a202a3a0ab64f81d9040a11dd5",
   "edit/index.html":
     "6bedf2adaf3b015d95ef000fe886b446ff1cc39184be9c8f060e63a325ed50af",
   "esbuild-dev.mjs":
