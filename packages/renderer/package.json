@@ -1,6 +1,6 @@
 {
   "name": "@spike.land/renderer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -17,7 +17,7 @@
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@mui/material": "5.0.4",
-    "@spike.land/qrious": "^0.0.2",
+    "@spike.land/qrious": "^0.0.3",
     "@types/react": "17.0.30",
     "@types/react-dom": "17.0.9",
     "esbuild": "0.13.6",
