@@ -30,7 +30,7 @@
     "axios": "^0.21.1",
     "clone-deep": "^4.0.1",
     "date-fns": "^2.21.3",
-    "dotenv": "^8.1.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-pino-logger": "^6.0.0",
     "graphql": "^15.3.0",
